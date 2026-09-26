@@ -22,6 +22,7 @@ import { seamStruck } from "./seam-shot.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
+import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { undertowBurned } from "./undertow-press.js";
 import { valveStruck } from "./valve-shot.js";
@@ -182,6 +183,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   viseStruck(world, b);
   // And THE RIME's bared core (`rime-shot.ts`).
   rimeStruck(world, b);
+  // And THE TRIVET's lit hub (`trivet-shot.ts`).
+  trivetStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

@@ -147,4 +147,17 @@ export const SILENT_BOSS_C = [
   "rimeMiss",
   "rimeShatter",
   "rimeOut",
+  // THE TRIVET's twelve, the same (`packages/audio/src/bind-trivet.ts`).
+  "trivetEnter",
+  "trivetLight",
+  "trivetSlip",
+  "trivetPlant",
+  "trivetSpring",
+  "trivetHub",
+  "trivetHit",
+  "trivetBrace",
+  "trivetRock",
+  "trivetMiss",
+  "trivetCollapse",
+  "trivetOut",
 ] as const satisfies readonly SimEvent["type"][];

@@ -21,6 +21,7 @@ import { installSpool } from "./spool-step.js";
 import { installSurge } from "./surge-step.js";
 import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
+import { installTrivet } from "./trivet-step.js";
 import { installUndertow } from "./undertow-step.js";
 import { installValve } from "./valve-step.js";
 import { installVise } from "./vise-step.js";
@@ -77,6 +78,7 @@ const CLOCK_KINDS = [
   "oculus",
   "vise",
   "rime",
+  "trivet",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -218,6 +220,10 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // No creature and no row: a frosted lens over the middle and the script
     // its wave authored (`rime-step.ts`).
     world.boss = installRime(world, boss.steps);
+  } else if (boss.kind === "trivet") {
+    // No creature and no row: a stand over the middle and the script its
+    // wave authored (`trivet-step.ts`).
+    world.boss = installTrivet(world, boss.steps);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

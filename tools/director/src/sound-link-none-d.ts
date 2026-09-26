@@ -58,4 +58,17 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.rimeMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.rimeShatter": "the lens shattering. Same argument.",
   "boss.rimeOut": "the lens gone and the wave ending. Same argument, and an absence.",
+  // THE TRIVET's twelve: a stand over the field, the same argument.
+  "boss.trivetEnter": "the stand dropping over the field. A fixture, not a body on a grid.",
+  "boss.trivetLight": "a step lighting on the stand. Same argument.",
+  "boss.trivetSlip": "a pad lifted in a chord, which is a gesture and no body. Same argument.",
+  "boss.trivetPlant": "a foot driven home. Same argument.",
+  "boss.trivetSpring": "a foot springing back up. Same argument.",
+  "boss.trivetHub": "both feet home and the hub lit. Same argument.",
+  "boss.trivetHit": "a shot into the hub. Same argument.",
+  "boss.trivetBrace": "both feet held under the hub. Same argument.",
+  "boss.trivetRock": "the stand rocking back up, the hub dark. Same argument.",
+  "boss.trivetMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.trivetCollapse": "the stand's three feet buckling. Same argument.",
+  "boss.trivetOut": "the stand gone and the wave ending. Same argument, and an absence.",
 };

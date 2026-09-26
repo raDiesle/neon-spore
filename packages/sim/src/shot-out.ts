@@ -16,6 +16,7 @@ import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
 import { tasterStruck } from "./taster-shot.js";
+import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
 import { vaneStruck } from "./vane.js";
@@ -87,6 +88,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   viseStruck(world, b);
   // THE RIME's bared core, in its colour (`rime-shot.ts`).
   rimeStruck(world, b);
+  // THE TRIVET's lit hub, in its colour (`trivet-shot.ts`).
+  trivetStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -138,6 +141,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "oculus",
   "vise",
   "rime",
+  "trivet",
   "hasp",
   "ratchet",
   "hive",

@@ -25,6 +25,7 @@ import { stepStare } from "./stare-step.js";
 import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
+import { stepTrivet } from "./trivet-step.js";
 import { stepUndertow } from "./undertow-step.js";
 import { stepValve } from "./valve-step.js";
 import { stepVise } from "./vise-step.js";
@@ -39,9 +40,8 @@ import type { World } from "./world.js";
  * 250-line limit, and the seam is the one `step-round.ts` already cut one
  * clock along: next door is the **queen's own beat** — her phases, her walk,
  * her blooms, and the private helpers that only she uses — and this is the
- * dispatch that has to say *not her* thirteen times before it gets there.
- * Nine more rounds are designed and each is a branch here, so this is the half
- * that grows, and it took a dozen imports with it.
+ * dispatch that has to say *not her* before it gets there — the half that
+ * grows, a branch a round.
  *
  * **A boss that does nothing on the beat still says so**, by name and with the
  * reason, rather than falling off the end. Three of them are stepped on the
@@ -91,15 +91,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     return;
   }
   // THE GORGE on the beat is the sack's clock: the vent, the spit, the mouth
-  // feeding itself. The one moment a shot meets it is on the tick, from
-  // `bullets.ts` and `lance-burn.ts` (`gorge-step.ts`).
+  // feeding itself; a shot meets it on the tick (`gorge-step.ts`).
   if (boss.kind === "gorge") {
     stepGorge(world, boss);
     return;
   }
   // THE CURTAIN on the beat is the fabric's clock: the soft lobes redrawn,
-  // the roll-back, the core's fire. The shove is the carry's, before this
-  // (`grip-push.ts`), and the shots are on the tick (`curtain-shot.ts`).
+  // the roll-back, the core's fire; the shove and the shots are not (`curtain-shot.ts`).
   if (boss.kind === "curtain") {
     stepCurtain(world, boss);
     return;
@@ -215,6 +213,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE RIME: steps lit, the frost regrowing, and the shatter (`rime-step.ts`).
   if (boss.kind === "rime") {
     stepRime(world, boss);
+    return;
+  }
+  // THE TRIVET: steps lit, chords counted, and the collapse (`trivet-step.ts`).
+  if (boss.kind === "trivet") {
+    stepTrivet(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

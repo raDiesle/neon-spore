@@ -27,6 +27,7 @@ import type {
   SurgeEntry,
   TasterEntry,
   ThroatEntry,
+  TrivetEntry,
   UndertowEntry,
   ValveEntry,
   ViseEntry,
@@ -41,13 +42,11 @@ import type {
  * of `if (boss.kind === …) return;` was four bosses long and each one was a
  * paragraph saying *why there is no form*, which is a different question from
  * *what the form is*. Next door is every boss that asks the author for
- * something; this is the list of the ones that ask for nothing, and it is the
- * half that grows — nine more rounds are designed and most of them tune rather
- * than place.
+ * something; this is the list of the ones that ask for nothing, the half
+ * that grows, since most designed rounds tune rather than place.
  *
- * **The reasons are not interchangeable**, which is why they are written out
- * one at a time rather than collapsed into a comment about "the bodyless
- * ones":
+ * **The reasons are not interchangeable**, so they are written out one at a
+ * time rather than collapsed into a comment about "the bodyless ones":
  *
  * - **THE GAUGE** has no column, no health and no rounds. Its whole difficulty
  *   is `config-gauge.ts`, which is the SHIP card's, not this panel's.
@@ -166,12 +165,11 @@ import type {
  *   (`sim/valve.ts`).
  *
  * - **THE SEAM**'s script is one list of steps, THE KEEL's kind of field.
- *   No column, the ridge is `midCol`; no number, the points are the health
- *   (`sim/seam.ts`).
+ *   No column, the ridge is `midCol`; no number, the points are the health.
  *
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
- *   THE VISE's and THE RIME's too: the kernel and the core are `midCol`.
+ *   THE VISE's, THE RIME's and THE TRIVET's too: all three are `midCol`.
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
@@ -210,7 +208,8 @@ export function bossAuthorsNothing(
   | SeamEntry
   | OculusEntry
   | ViseEntry
-  | RimeEntry {
+  | RimeEntry
+  | TrivetEntry {
   // A guard rather than a boolean, so the caller's chain still narrows: the
   // four leave the union before the queen's form reads a column off the rest.
   const { kind } = boss;
@@ -245,6 +244,7 @@ export function bossAuthorsNothing(
     kind === "seam" ||
     kind === "oculus" ||
     kind === "vise" ||
-    kind === "rime"
+    kind === "rime" ||
+    kind === "trivet"
   );
 }

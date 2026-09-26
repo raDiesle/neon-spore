@@ -162,4 +162,17 @@ export const CHOREO_NOTES_C = {
     "is a hull hit, which is the wave. Only the simulation lane has landed — " +
     "see sim/rime.ts, sim/rime-step.ts, sim/rime-hand.ts, sim/rime-guard.ts, " +
     "sim/rime-shot.ts, sim/config-rime.ts.",
+  "THE TRIVET — the boss two chords plant, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §30: a chord, each seat " +
+    "holding its own foot's lit pads of a stand over the middle column, and a " +
+    "script the wave authors, pads and all. A front or rear step plants that " +
+    "foot once its step's pads have all been down together for its beats; a " +
+    "pad lifted starts the count again, and a step run out springs the foot " +
+    "and relights it. Two plants a foot light the hub; a fire step wants a " +
+    "shot in its colour; a both step is both chords held at once, and one run " +
+    "out rocks the hub dark until it is held again. A fire step run out is a " +
+    "hull hit, which is the wave. The grace (trivetGraceBeats) is how long a " +
+    "chord step stays lit past its count. Only the simulation lane has " +
+    "landed — see sim/trivet.ts, sim/trivet-step.ts, sim/trivet-hand.ts, " +
+    "sim/trivet-shot.ts, sim/config-trivet.ts.",
 } satisfies Partial<Record<GroupName, string>>;

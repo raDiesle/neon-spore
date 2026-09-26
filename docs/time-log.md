@@ -22609,3 +22609,18 @@ Bottleneck: looking — the default frame is too small to judge a surface detail
 Bottleneck: landing — a one-entry change still runs the full check.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET, the simulation lane
+
+- reading: 20 min. §30, THE VISE's and THE RIME's lanes for the shape, and
+  how a drag's `id` could carry one pad of a chord.
+- writing: 90 min. Seven sim files, the registrations across audio,
+  content, render, net and the director, the tests, §11.47.
+- looking: 0 min. Nothing drawn.
+- friction: 40 min. THE RIME landed underneath the lane: forty-two files in
+  conflict, every count and number moved on by one, and a wave's opening
+  brace lost in the resolving.
+- landing: 15 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a boss registered in forty-odd files collides in all
+of them with the boss that landed first.

@@ -130,6 +130,27 @@ export {
   seamWantsShield,
   seamWantsShot,
 } from "./seam.js";
+// THE TRIVET's stand: the phase, the lit step, the feet and both seats' pads,
+// for the picture, the cue and the director's hand. Straight off `trivet.ts`
+// (`docs/spec/bosses-choreographed.md` §30).
+export {
+  chording,
+  freshTrivet,
+  TRIVET_ASKS,
+  TRIVET_PADS,
+  TRIVET_PHASES,
+  TRIVET_PLANTS_PER_FOOT,
+  type TrivetAsk,
+  type TrivetEntry,
+  type TrivetPhase,
+  type TrivetState,
+  type TrivetStep,
+  trivetBoss,
+  trivetChordHeld,
+  trivetClosed,
+  trivetDone,
+  trivetLitStep,
+} from "./trivet.js";
 // THE VALVE's drum: the phase, the movement, the pins, the wheel and its mark,
 // and the spark, for the picture, the cue and the director's hand. Straight
 // off `valve.ts` (`docs/spec/bosses-choreographed.md` §25).

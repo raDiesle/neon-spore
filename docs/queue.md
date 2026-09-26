@@ -590,24 +590,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## §30 THE TRIVET — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-30-the-trivet-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-The first choreographed body on this page read off a seat's own panel
-rather than a body on the field: `ChordHold` (new — two or three of one
-seat's own controls held together, none lifting, for a beat count) plants
-`trivetFrontHeld` then `trivetRearHeld`, and the lit hub takes three fire
-hits with two defensive re-chord beats (both seats at once) against it
-rocking loose. Eleven steps, three movements. The full beat list and
-primitive table entry are §30 of `docs/spec/bosses-choreographed.md`.
-`CHORD` moves from `consider` to `specd` in
-`tools/director/src/gesture-unbuilt.ts` as part of this lane — already
-done, land it with the rest. THE SLOW on every chord and fire window. `bun
-run check` proves it.
-
 ## §31 THE PLUMB — the simulation lane
 
 - **Found:** 2026-09-26, this session

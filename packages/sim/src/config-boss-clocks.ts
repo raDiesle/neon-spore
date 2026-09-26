@@ -26,6 +26,7 @@ import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
+import { TRIVET_DEFAULTS, type TrivetConfig } from "./config-trivet.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 import { VALVE_DEFAULTS, type ValveConfig } from "./config-valve.js";
 import { VANE_HAND_DEFAULTS, type VaneHandConfig } from "./config-vane.js";
@@ -87,6 +88,7 @@ export interface BossClockConfig
     OculusConfig,
     ViseConfig,
     RimeConfig,
+    TrivetConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -123,6 +125,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...OCULUS_DEFAULTS,
   ...VISE_DEFAULTS,
   ...RIME_DEFAULTS,
+  ...TRIVET_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

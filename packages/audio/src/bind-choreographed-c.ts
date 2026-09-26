@@ -62,6 +62,7 @@ type LateEvent = Extract<
       | `oculus${string}`
       | `vise${string}`
       | `rime${string}`
+      | `trivet${string}`
       | `undertow${string}`;
   }
 >;

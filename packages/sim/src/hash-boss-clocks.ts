@@ -23,6 +23,7 @@ import { stareHashParts } from "./stare-hash.js";
 import { surgeHashParts } from "./surge-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
+import { trivetHashParts } from "./trivet-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
 import { valveHashParts } from "./valve-hash.js";
 import { viseHashParts } from "./vise-hash.js";
@@ -150,6 +151,11 @@ export function clockHashParts(boss: BossState): number[] {
   // the reversal counts and the script (`rime-hash.ts`).
   if (boss.kind === "rime") {
     for (const n of rimeHashParts(boss)) out.push(n);
+  }
+  // THE TRIVET: the phase, the cursor, the feet, the hits, both seats' pads
+  // and the script (`trivet-hash.ts`).
+  if (boss.kind === "trivet") {
+    for (const n of trivetHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

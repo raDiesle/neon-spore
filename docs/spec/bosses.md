@@ -8207,6 +8207,116 @@ shielded again; and a script answered whole shatters the lens and ends the
 fight. Whether any of it *reads* — whether a wipe of eight reversals is long
 or short with a voice in the way — is the owner's eye, after lane two.
 
+## 11.47 THE TRIVET — the boss two chords plant, then shoot into
+
+> A stand of three legs over the middle of the field, both outer feet lifted.
+> Your foot's pads light: hold them down together, every one, until it
+> plants. Two plants a foot and the hub lights. Shoot it in its colour, and
+> when the feet creep loose, both of you hold them down again.
+
+Designed as §30 of [bosses-choreographed](bosses-choreographed.md), the
+third of the concepts written to spend a gesture nobody had claimed — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. Where THE
+RIME asks each thumb to **keep turning back**, this asks one seat for
+**several thumbs at once**: progress is the beats a chord of two or three
+pads has been held down together, and any one of them lifting starts it
+again.
+
+**It is four plants and three hits, and they are its health.** The state
+(`sim/trivet.ts`, hashed in `sim/trivet-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the **plants** on each foot,
+the **hits** landed, whether the **hub** is lit, each seat's **pads down**
+as a mask, and the beats the lit chord has been held. The script is the
+wave's (`TrivetEntry.steps`), copied at install: each step asks `front`,
+`rear`, `fire` or `both`, on two or three pads, in a colour or `either`,
+for its own beats.
+
+**The rule, in one sentence.** Hold your foot's lit pads down together for
+the count, and shoot the lit hub in its colour.
+
+**The split.** Geometry, THE MANTLE's rule: `trivetPadFront` is Player 1's
+and `trivetPadRear` Player 2's, and the wrong seat's press is not heard
+(`sim/trivet-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
+under the middle column, Player 2's trigger in its colour. A `both` step is
+both chords at once, each seat on its own foot.
+
+**The clock** (`sim/trivet-step.ts`). The stand settles for
+`trivetStillBeats`, then the first step lights under THE SLOW
+(`openSlow(…, "ask")`). Each beat the lit chord is held counts one; at the
+step's own beats the foot plants, or under the hub the feet are braced. A
+chord step stays lit `trivetGraceBeats` past its count. The fourth plant
+lights the hub. An answered step closes THE SLOW and the stand rests
+`trivetRestBeats` before the next lights. With the script done the stand
+collapses, and falls `trivetCollapseBeats` before the wave may end.
+
+**The answers.** A pad is heard on the tick (`sim/trivet-hand.ts`), and a
+lit pad lifting while the chord was held starts its count from nought. A
+chord is counted on the beat, because what it asks is a number of beats. A
+shot is judged where a bolt leaves the top of the field
+(`sim/trivet-shot.ts`): only with the hub lit, only while a fire step is
+lit, only in the middle column, and only in its colour unless it is
+`either`. The wrong colour is a colour missed on the balance sheet and
+nothing else, THE SEAM's rule.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §30's
+  rows 6 and 8 say "ordinary hull hit" and row 10 says the hub "stays lit".
+  This game has no ordinary hit (`wave-fail.ts`), so every fire step run out
+  breaches the hull under the stand — THE SEAM's, THE OCULUS's, THE VISE's
+  and THE RIME's precedent.
+- **A chord is given grace.** §30's windows are "5 beats, held" and
+  "4 beats, held"; a window exactly its count long could only be met by a
+  chord already down on its first beat. The step stays lit
+  `trivetGraceBeats` longer, THE VISE's pinch's reason, for thumbs to find
+  the pads.
+- **The pads are recorded whenever the stand is present.** A chord put down
+  in the rest before its step lights is counted from that step's first beat;
+  only a lift *during* the lit chord slips.
+- **`ChordHold` rides the drag, one pad per `id`, and the two held flags are
+  two masks.** §30 names `trivetFrontHeld` and `trivetRearHeld`; on the wire
+  a pad is a drag on `trivetPadFront` or `trivetPadRear` whose `id` names
+  the socket, nought up to three, and `on` whether it is down. The state
+  keeps each seat's pads as `padsDown`, and the flag is read off it: every
+  pad the step lights, from the first, down at once.
+- **"Retry from row 2" is the same step relit.** Rows 3 and 5 have a second
+  chord run out go back to the first. A plant already made stays made — the
+  foot springs back up out of the second, tighter light, not out of the
+  first — so the cursor stays where it was and the same step lights again
+  after the rest.
+- **There is no break step.** Row 5 lights the hub with the rear foot driven
+  home; the script lights it with the fourth plant, whichever foot that is,
+  and the next step is the first shot.
+- **The plants and the hits are the health together.** §30 names the two
+  outer feet plus a hub of three hits; the script is nine steps, and the
+  stand collapses when the last is answered, which is the third hit.
+- **Row 7's lost fire beats are the `both` step asked again.** "Fire beats
+  lost until both feet replant" is written as the rule a `both` step run out
+  already has: the hub rocks up and goes dark, the same `both` lights again,
+  and no fire step lights until it is held.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+carry all twelve of its events until lane two. The twelve sounds *are* bound
+(`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up
+per level and the hit per hit. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/trivet.test.ts`): the stand comes in still with both feet lifted
+and the hub dark, and lights its first chord under THE SLOW; no shot is
+taken while the hub is dark; a chord counts only with every lit pad down —
+not one of two, not two when three are lit, not the other foot's; any lit
+pad lifting starts the count again, a pad the step does not light does not;
+the wrong seat and a pad off the foot are not heard; a chord already down
+counts from the step's first beat; a chord run out springs the foot and
+lights the same step again; the fourth plant lights the hub; a fire step
+wants its colour and the middle column, and run out is the wave; a `both`
+wants both chords, and run out rocks the hub up until it is held; and a
+script answered whole collapses the stand and ends the fight. Whether any
+of it *reads* — whether three thumbs on one phone is a stance or a
+cramp — is the owner's eye, after lane two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

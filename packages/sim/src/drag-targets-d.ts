@@ -36,7 +36,9 @@ export type DragTargetD =
   | "viseLobeLeft"
   | "viseLobeRight"
   | "rimeHalfLeft"
-  | "rimeHalfRight";
+  | "rimeHalfRight"
+  | "trivetPadFront"
+  | "trivetPadRear";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -221,4 +223,18 @@ export type DragTargetD =
  * reversed. Geometry says whose is whose, `oculusLeafLeft`'s reason, and the
  * wrong seat's message does nothing (`rime-hand.ts`). `fromMilli` is carried
  * and not read.
+ */
+
+/**
+ * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
+ * eightieth: the row of sockets on THE TRIVET's front foot under the
+ * pilot's thumbs, and on its rear foot under the navigator's.
+ *
+ * Read as a **level**, `oculusLeafLeft`'s shape, but **one drag a pad**: the
+ * `id` names the socket, nought up to `TRIVET_PADS`, because a chord is two or
+ * three of them down together and each lifts on its own — `ChordHold`, the
+ * first target a seat holds more than one of at once. Geometry says whose is
+ * whose, `viseLobeLeft`'s reason: the pilot's is always the front foot and the
+ * navigator's the rear, so the wrong seat's message does nothing
+ * (`trivet-hand.ts`). `fromMilli` is unused and sent as nought.
  */

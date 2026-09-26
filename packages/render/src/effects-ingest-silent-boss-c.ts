@@ -203,6 +203,19 @@ export const INGEST_SILENT_BOSS_C = [
   "rimeMiss",
   "rimeShatter",
   "rimeOut",
+  // THE TRIVET's twelve, for the same reason (`packages/audio/src/bind-trivet.ts`).
+  "trivetEnter",
+  "trivetLight",
+  "trivetSlip",
+  "trivetPlant",
+  "trivetSpring",
+  "trivetHub",
+  "trivetHit",
+  "trivetBrace",
+  "trivetRock",
+  "trivetMiss",
+  "trivetCollapse",
+  "trivetOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

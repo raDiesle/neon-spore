@@ -368,6 +368,11 @@ by hand never moves.
 | `packages/sim/src/taster-shot.ts` | **What a shot does to THE TASTER**, which is the whole of the inverted rule |
 | `packages/sim/src/taster-step.ts` | THE TASTER's clock — the crest arriving, a blade coming out of it, its colour setting on the ledger |
 | `packages/sim/src/taster.ts` | THE TASTER: what you have already spent |
+| `packages/sim/src/trivet-hand.ts` | Two chords on THE TRIVET, one foot each |
+| `packages/sim/src/trivet-hash.ts` | What THE TRIVET puts into `hashWorld`, and nothing else |
+| `packages/sim/src/trivet-shot.ts` | **THE TRIVET's shot**: the lit hub, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/trivet-step.ts` | THE TRIVET's clock: the stand settling, each step lighting, the beats a chord is held being counted |
+| `packages/sim/src/trivet.ts` | THE TRIVET: a three-legged stand splayed over the middle column |
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
@@ -593,6 +598,7 @@ by hand never moves.
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
 | `packages/sim/src/events-throat.ts` | **What THE THROAT's two hands do that neither screen already says**, as three events (`throat-hand.ts`) |
+| `packages/sim/src/events-trivet.ts` | What THE TRIVET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
@@ -628,6 +634,7 @@ by hand never moves.
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
 | `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
+| `packages/sim/src/config-trivet.ts` | THE TRIVET's tuning: the rests around its steps, the grace a chord is given |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
@@ -1974,6 +1981,7 @@ by hand never moves.
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
+| `packages/audio/src/bind-trivet.ts` | THE TRIVET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |

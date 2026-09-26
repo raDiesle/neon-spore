@@ -3,6 +3,7 @@ import type { Cue } from "./bind-cue.js";
 import { oculusCue } from "./bind-oculus.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
+import { trivetCue } from "./bind-trivet.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
 import { viseCue } from "./bind-vise.js";
@@ -26,6 +27,7 @@ type LaterEvent = Extract<
       | `oculus${string}`
       | `vise${string}`
       | `rime${string}`
+      | `trivet${string}`
       | `undertow${string}`;
   }
 >;
@@ -95,6 +97,19 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "rimeShatter":
     case "rimeOut":
       return rimeCue(e, cols);
+    case "trivetEnter":
+    case "trivetLight":
+    case "trivetSlip":
+    case "trivetPlant":
+    case "trivetSpring":
+    case "trivetHub":
+    case "trivetHit":
+    case "trivetBrace":
+    case "trivetRock":
+    case "trivetMiss":
+    case "trivetCollapse":
+    case "trivetOut":
+      return trivetCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

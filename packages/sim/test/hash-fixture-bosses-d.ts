@@ -91,6 +91,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "shield", color: "red", beats: 3 },
     ],
   },
+  // THE TRIVET authors its script; two steps rather than the shipped nine
+  // (`trivet-hash.ts`).
+  trivet: {
+    kind: "trivet",
+    steps: [
+      { ask: "front", pads: 3, color: "cyan", beats: 4 },
+      { ask: "fire", pads: 2, color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -233,5 +242,17 @@ export function patchBossD(boss: BossState): void {
     boss.rimeMilli = [250, 625];
     boss.rubs = [4, 7];
     boss.rubbed = [false, true];
+  }
+  if (boss.kind === "trivet") {
+    // The front foot planted once and the rear home, the hub lit, pads down
+    // on both seats — every field given a value (`trivet-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.feet = [1, 2];
+    boss.hits = 1;
+    boss.hubLit = true;
+    boss.padsDown = [3, 5];
+    boss.heldBeats = 2;
   }
 }

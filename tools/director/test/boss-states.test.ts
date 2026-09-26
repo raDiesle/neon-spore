@@ -41,6 +41,7 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   vise: ["still", "lit", "rest", "split"],
   // THE RIME the same, §29: its four.
   rime: ["still", "lit", "rest", "shattered"],
+  trivet: ["still", "lit", "rest", "collapse"],
 };
 
 describe("the BOSSES category", () => {

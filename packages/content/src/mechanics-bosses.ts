@@ -44,6 +44,7 @@ type BossId = Extract<
   | "oculus"
   | "vise"
   | "rime"
+  | "trivet"
 >;
 
 /**
@@ -217,6 +218,10 @@ export const BOSS_MECHANICS = {
   },
   rime: {
     what: "Each rubs a half of the lens clear, back and forth. Two wipes each, the core bares. Shoot it in its colour, and shield the surge under it.",
+    reach: "spawn",
+  },
+  trivet: {
+    what: "Hold your foot's lit pads down together until it plants. Both feet home light the hub. Shoot it in its colour. When both light, hold together.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

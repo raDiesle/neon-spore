@@ -22,6 +22,13 @@ import type { Wave } from "../wave-types.js";
  * shield under the middle turns it. Its script runs as THE VISE's does, with
  * the shield where the hold was. A half's first wipe is from solid frost and
  * gets the longer window; the second is from the film the first left.
+ *
+ * **THE TRIVET is the first boss answered by a chord**, the same shape a
+ * third time: a stand of three legs over the middle column, each seat's foot
+ * planted by holding two — then three — of its own pads down together for
+ * the count (`docs/spec/bosses-choreographed.md` §30, `sim/trivet.ts`). Both
+ * feet home light the hub, which is shot in its colour; between the shots
+ * both seats chord at once to keep the feet planted under it.
  */
 export const WAVES_ACT_12: Wave[] = [
   {
@@ -70,6 +77,31 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "fire", color: "cyan", beats: 3 },
         { ask: "shield", color: "either", beats: 3 },
         { ask: "fire", color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theTrivet",
+    name: "THE TRIVET",
+    guide: {
+      both: "Hold your foot's lit pads down together until it plants. Two plants each light the hub. Shoot it in its colour. When both light, hold together.",
+      p1: "1. Hold the front foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. When the hub shows a colour, fire it.",
+      p2: "1. Hold the rear foot's lit pads down together and say so.\n2. Keep every one down until the foot plants.\n3. White takes either colour. Hold with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "trivet",
+      steps: [
+        { ask: "front", pads: 2, color: "either", beats: 5 },
+        { ask: "front", pads: 3, color: "either", beats: 4 },
+        { ask: "rear", pads: 2, color: "either", beats: 5 },
+        { ask: "rear", pads: 3, color: "either", beats: 4 },
+        { ask: "fire", pads: 2, color: "red", beats: 3 },
+        { ask: "both", pads: 2, color: "either", beats: 3 },
+        { ask: "fire", pads: 2, color: "cyan", beats: 3 },
+        { ask: "both", pads: 2, color: "either", beats: 3 },
+        { ask: "fire", pads: 2, color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

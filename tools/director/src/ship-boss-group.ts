@@ -58,6 +58,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   oculus: "THE OCULUS — the boss both hands hold shut, then shoot into",
   vise: "THE VISE — the boss two pinches crack, then shoot into",
   rime: "THE RIME — the boss two rubs wipe clear, then shoot into",
+  trivet: "THE TRIVET — the boss two chords plant, then shoot into",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

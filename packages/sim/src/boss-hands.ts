@@ -26,6 +26,7 @@ import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
 import { tasterHandsHeard } from "./taster-hand.js";
 import { throatHeard } from "./throat-hand.js";
+import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
 import { valveHeard } from "./valve-hand.js";
@@ -111,6 +112,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // and its shield, THE SEAM's once a tick after the commands (`rime-guard.ts`).
   for (const c of commands) rimeHeard(world, c.player, c.command);
   rimeGuarded(world);
+  // THE TRIVET's pads, on the tick for the same reason: a slip is the instant
+  // a pad of the lit chord lifts (`trivet-hand.ts`).
+  for (const c of commands) trivetHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).
