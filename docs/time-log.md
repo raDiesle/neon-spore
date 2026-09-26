@@ -23090,3 +23090,25 @@ Bottleneck: writing the painters — the detail is hand-placed strand by
 strand, and every value had to be read off the sheet before it looked right.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §43 THE GOVERNOR: a chord that changes how hard the tap is, not whether it counts
+
+- reading: 15 min. §41 THE WINCH and §42 THE SLUICE as templates for the
+  section and for how a held-state coupling is framed; §38 THE GALL's
+  shorter beat-list shape as an alternative; the `where` arrays across
+  every spec'd boss to confirm `TAPS ON A MOVING TARGET` + `CHORD` was
+  still unused, and a name check against every existing "THE X" in
+  `docs/spec/*.md` and `legacy/`.
+- writing: 25 min. The spec entry, the three-movement beat list, and the
+  two `where` registrations.
+- looking: 0 min. Nothing drawn yet — spec and registrations only.
+- friction: 5 min. Checked `packages/content/src/silhouettes*.ts` and
+  `tools/shape-sheet/src/drafts/` for a governor-, flywheel- or
+  needle-shaped silhouette before writing the look entry; the only
+  "needle" hits are CALTROP's and the mine's unrelated spikes, no
+  collision.
+- landing: 10 min. `check:fast`, the queue entries, this entry, the commit.
+
+Bottleneck: designing a coupling shape genuinely different from THE
+WINCH's and THE SLUICE's own gate — a chord that changes difficulty rather
+than validity — took longer to settle on than writing it up once decided.

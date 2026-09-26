@@ -1671,6 +1671,49 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
+## §43 THE GOVERNOR — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+
+No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
+with `TAPS ON A MOVING TARGET` (THE GALL's, THE FLUE's and the cinematic
+RATCHET's own reading of a moving mark) for the first time — and for the
+first time on this page, the coupling is not a gate. THE WINCH's chord and
+THE SLUICE's pinch each decide whether a different seat's gesture counts
+at all; here the chord only ever changes how hard the other seat's tap is
+to land. One seat holds `CHORD` whole to keep `governorSpeedMul` at 1×, so
+a needle sweeping the rim stays at its scripted base pace; the instant any
+control of that chord lifts, the multiplier climbs toward 2× until the
+chord is replanted. A tap landed on a needle running hot still counts
+exactly as one landed slow — nothing already banked is undone by a broken
+chord, unlike every other coupling on this page. The full beat list and
+primitive table entry are §43 of `docs/spec/bosses-choreographed.md`.
+`TAPS ON A MOVING TARGET` and `CHORD` each already carry a §43 THE
+GOVERNOR entry in their `where` arrays in
+`tools/director/src/gesture-unbuilt.ts` — land it with the rest. THE SLOW
+on every chord-governed tap. `bun run check` proves it.
+
+## §43 THE GOVERNOR — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §43 THE GOVERNOR's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (checked
+this session against `packages/content/src/silhouettes*.ts` and every
+file under `tools/shape-sheet/src/drafts/` — nothing governor-, flywheel-,
+needle- or gauge-track-shaped exists to reuse or collide with; the
+"needle" hits in `silhouettes-cling.ts` and `silhouettes-mine.ts` are
+CALTROP's and the mine's unrelated spikes, not a gauge needle) for a
+flywheel governor with two orbiting flyweights, a brake yoke a seat chords
+shut, and a needle sweeping a graduated rim track whose speed itself must
+read as changing — drawn as the flyweights themselves climbing or
+dropping on the spindle rather than as a number or a trail, the same
+drawn-as-mechanism choice THE VISE's pinch and THE WINCH's brake both
+make. Nothing here is drawn yet and stays unverified at tempo until the
+owner has looked.
+
 ## DEFERRED — §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session

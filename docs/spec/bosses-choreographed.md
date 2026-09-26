@@ -4712,6 +4712,114 @@ role before assuming `CHORD` is the only gate that fits.
 
 ---
 
+### §43 THE GOVERNOR — a chord that does not gate the tap, only how hard it lands
+
+**Question.** Every pairing so far that couples a held state with a
+different seat's gesture — THE WINCH's brake, THE SLUICE's seal — asks the
+same shape: hold the gate whole or the other seat's gesture springs back
+to nothing. `CHORD` has never done anything else. `TAPS ON A MOVING
+TARGET` has so far only ever been judged against a target moving on the
+simulation's own fixed script — the cinematic RATCHET, THE GALL, THE FLUE —
+its pace never touched by anything either seat does. This asks whether a
+chord can modulate a target's *pace* instead of gating a tap's validity: a
+tap landed on a needle running hot still counts, nothing already banked is
+undone, but the chord seat is making the next tap easier or harder rather
+than deciding whether it happens at all — a governor, not a brake.
+
+**Silhouette.** A flywheel governor mid-hull, two flyweights orbiting a
+spindle, a needle sweeping a graduated track around the rim. A brake yoke
+astride the spindle that a seat chords shut to hold the flyweights slow.
+Health is the two tap-runs, one per seat, three taps landed on the needle
+apiece, plus a lit hub once both runs are spent; the hub takes three
+ordinary hits.
+
+**Mechanic.** `governorChordLeft` / `governorChordRight`, one per seat,
+read by `CHORD` exactly as THE TRIVET's planted feet — held whole only
+while none of that seat's own two controls has lifted. The other seat
+reads the needle exactly as THE GALL and THE FLUE already read a moving
+mark, `TAPS ON A MOVING TARGET`, but for the first time the needle's own
+pace is not scripted flat: `governorSpeedMul` holds at 1× only while the
+*other* seat's chord stays whole, and climbs toward 2× the instant any
+control of that chord lifts, easing back down once it is replanted. A tap
+landed while the needle is running hot still counts exactly as a tap
+landed slow — nothing about validity changes — but a needle sprinting past
+a mark at double pace is the one substantially harder to catch, so the
+chording seat protects the tapping seat's aim rather than deciding whether
+a tap counts at all.
+
+**Player 1 and Player 2.** Identical screens, the whole governor and the
+needle's true pace visible on both — but **the seat chording the brake is
+never the seat tapping the needle**: Player 1 governs for Player 2 to tap,
+then the two trade so Player 2 governs for Player 1, the same cross THE
+WINCH's brake-and-hook already makes literal, now spent on a pace rather
+than a pass or fail.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left taps, right hand governs** ||||||
+| 1 | The needle idles at the track's start, flyweights slow, hub dark | — | — | — | — | — |
+| 2 | The right seat's chord glows | P2 | hold two controls together (`CHORD`) | held, steadying | governor slow, needle at base pace | either control lifts, needle speeds up until replanted |
+| 3 | The needle sweeps past the first mark | P1 | tap it as it crosses (`TAPS ON A MOVING TARGET`), chord held or broken by P2 throughout | timed to the mark, needle's pace riding P2's chord | tap 1 of 3 landed | missed pass, needle loops for another |
+| 4 | The needle sweeps past a second mark | P1 | tap it as it crosses | timed, pace still riding the chord | tap 2 of 3 | missed pass, retry |
+| 5 | The needle sweeps past a third mark | P1 | tap it as it crosses | timed | tap 3 of 3, left run spent | missed pass, retry |
+| **Movement 2 — the right taps, roles swapped** ||||||
+| 6 | The left seat's chord glows | P1 | hold two controls together | held, steadying | governor slow | lifts, needle speeds up |
+| 7 | The needle sweeps past a mark, roles swapped | P2 | tap it as it crosses, chord held or broken by P1 throughout | timed | tap 1 of 3 | missed pass, retry |
+| 8 | Needle sweeps past a second mark | P2 | tap it | timed | tap 2 of 3 | missed pass, retry |
+| 9 | Needle sweeps past a third mark, right run spent | P2 | tap it | timed | third landed, hub lights | missed pass, retry |
+| **Movement 3 — the hub, held down** ||||||
+| 10 | The hub flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 11 | The needle sprints as the flyweights loosen | P1+P2 | one chords while the other taps the passing marks | timed, pace riding the chord | hub stays down | a mark passed untapped, movement's fire beats lost until three fresh taps land |
+| 12 | Hub flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 13 | Needle sprints a second time, faster, roles free to trade | P1+P2 | chord and tap again | timed | stays down | a mark missed, retry |
+| 14 | Hub flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, governor spent | stays lit |
+| 15 | The flyweights fly wide for good, the needle stalls, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every tap the chord is currently governing (rows
+3–5, 7–9, 11, 13) — the pace and the tap are one thing to watch rather than
+two, the same seconds-not-beats argument THE RATCHET's own moving mark
+already makes, sharpened here because the mark's speed itself is a second
+number nobody's screen states outright.
+
+**Presentation.** No camera. A tap landed slow a clean tick, the same THE
+GALL's closures already give; a tap landed on a sprinting needle the
+identical tick, on purpose — the difficulty is felt in the miss rate, not
+signalled by a different sound. Each replanted chord a low steady creak,
+THE WINCH's own.
+
+**Animation.** Five poses: flyweights slow, needle idle; flyweights loose,
+needle sprinting; a chord replanted, needle easing; a landed tap's flash on
+the rim; flyweights flown wide, needle stalled for good. The needle's speed
+change is drawn as the flyweights themselves visibly climbing or dropping
+on the spindle, never a number or a trail.
+
+**Colour.** Governor and yoke a scoured brass, the needle a hot amber
+where it crosses a lit mark, same family as THE SLING's cup; the hub is
+the only lit colour on the body, in whichever cannon colour a given beat
+wants.
+
+**Payoff.** Rows 3–5 and 7–9 read differently on a second playthrough once
+a pair notices the chord changes the needle's pace rather than whether a
+tap can land at all — the same body, felt as two different fights
+depending on whether the chord seat is paying attention.
+
+**Cost. Low.** No new primitive — `CHORD` is already built for THE
+TRIVET, THE HALTER and THE WINCH, `TAPS ON A MOVING TARGET` for the
+cinematic RATCHET, THE GALL and THE FLUE. The only new code is a speed
+multiplier on the needle's own script, read from the chord seat's state
+each frame rather than sampled once at a gate.
+
+**Reusable.** A held state changing how hard a different seat's gesture is
+to land, rather than whether it counts at all, is a third coupling shape
+beside THE WINCH's binary gate and THE SLUICE's continuous-pinch gate; any
+future concept wanting difficulty rather than validity to ride a partner's
+hold can reach for a speed or window multiplier before reaching for a
+spring-back rule.
+
+---
+
 ## The reusable boss mechanic library
 
 The brief asks for the primitives extracted. Here they are, and the useful

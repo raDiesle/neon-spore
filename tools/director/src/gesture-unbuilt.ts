@@ -69,6 +69,7 @@ export const SPECIFIED: readonly Gesture[] = [
       "docs/spec/bosses-cinematic.md THE RATCHET",
       `${SPEC} §38 THE GALL`,
       `${SPEC} §40 THE FLUE`,
+      `${SPEC} §43 THE GOVERNOR`,
     ],
   },
   {
@@ -149,6 +150,7 @@ export const SPECIFIED: readonly Gesture[] = [
       `${SPEC} §33 THE GRINDSTONE`,
       `${SPEC} §36 THE HALTER`,
       `${SPEC} §41 THE WINCH`,
+      `${SPEC} §43 THE GOVERNOR`,
     ],
   },
   {
