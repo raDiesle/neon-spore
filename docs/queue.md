@@ -1119,3 +1119,39 @@ swing-down-and-lock draw, and the axle's lit core answering the cannon's
 colour once both flats are clean and the caliper has bitten. Nothing new
 drawn here at all — this lane is wiring two existing looks onto one new
 body — and it stays unverified at tempo until the owner has looked.
+
+## §34 THE CYST — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new primitive: `FreezeTap` (THE VALVE's) and `SqueezeGap` (THE VISE's)
+paired as a dependency rather than a sequence — a flank's own
+`cystConvulsing` drift widens its gap every tick too fast for a pinch
+alone to close, so `SqueezeGap` only nets progress while the *other*
+seat's `FreezeTap` has that flank stilled. Eleven steps, three movements,
+the freezing hand always the squeezing hand's partner rather than the
+same seat doing both. The full beat list and primitive table entry are
+§34 of `docs/spec/bosses-choreographed.md`. `FreezeTap` and `SqueezeGap`
+each gain a second `where` entry in `tools/director/src/gesture-unbuilt.ts`
+— already done, land it with the rest. THE SLOW on every freeze and pinch
+window together. `bun run check` proves it.
+
+## §34 THE CYST — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §34 THE CYST's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (check
+`packages/content/src/silhouettes*.ts` first, then `tools/shape-sheet/src/drafts/`
+per `CLAUDE.md`'s rule against redrawing a shape the game already has) for
+a pulsing, unevenly shuddering sac, and the stillness cue that is this
+body's whole tell — the shudder stopping dead rather than any new
+particle. No sprite-atlas experiment queued for the shudder itself: it is
+a continuous drift that must agree with the sim's freeze state every
+tick, not a hinge-and-strain motion resolved once per beat the way THE
+SLING's arm-draw is, so it stays a procedural phase clock the freeze can
+simply stop advancing rather than a candidate for `docs/raster.md`'s
+baked-strip treatment. Nothing here is drawn yet and stays unverified at
+tempo until the owner has looked.

@@ -3815,6 +3815,99 @@ own boss — is the first proof on this page that two already-spent
 gestures can carry a whole body between them; any future concept short on
 budget can reach for an existing pair before inventing a new primitive.
 
+### §34 THE CYST — a pulse stilled by one hand so the other can close it
+
+**Question.** THE VALVE's `FreezeTap` always frees a *pull*; THE VISE's
+`SqueezeGap` always closes on its own, unassisted. Neither concept has
+asked the two to depend on each other — a body that convulses too fast
+for a pinch to ever narrow the gap, so the pinch can only bite while the
+*other* seat's freeze has stopped it dead. THE GRINDSTONE proved two
+spent gestures can carry one body in sequence; this one proves they can
+carry it as a dependency, one seat's hold making the other seat's squeeze
+possible rather than the two never touching.
+
+**Silhouette.** A pulsing sac mid-hull, one spine, two flanks that
+convulse in a slow, uneven shudder even when nothing is happening to it —
+health is the two flanks, each stilled then pinched shut, plus a soft
+core exposed once both are closed; the core takes three ordinary hits.
+
+**Mechanic.** `cystConvulsing` drives both flanks' gap wider every tick
+on its own clock, too fast for a pinch alone to ever out-pace it.
+`cystFreezeLeft` / `cystFreezeRight` are `FreezeTap`, read exactly as THE
+VALVE reads its pin — a timed tap against the flank's own shudder
+reaching a mark — and halt that flank's convulsion for `cystFreezeBeats`.
+Only while frozen does `SqueezeGap`, read exactly as THE VISE reads it, on
+`cystGapLeftMilli` / `cystGapRightMilli` actually fall net of the
+convulsion; the freeze running out before the gap crosses its threshold
+lets the shudder resume and the gap spring back open, the same
+forgiving shape THE VALVE's own freeze uses on its pull.
+
+**Player 1 and Player 2.** Identical screens, both flanks and the core
+visible on both — but **the freezing hand is always the flank's own
+seat's partner**, not the seat that then squeezes: Player 2 freezes the
+left flank for Player 1 to pinch, Player 1 freezes the right flank for
+Player 2 to pinch, the cross the Question asks for made literal in who
+touches what.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left flank** ||||||
+| 1 | The sac shudders in frame, both flanks dim, gap always drifting wide | — | — | — | — | — |
+| 2 | The left flank's shudder mark lights | P2 | tap to still it (`FREEZE TAP`) | 2 beats, seen | left flank stops dead | shudder continues, retry |
+| 3 | The stilled left flank sits frozen | P1 | pinch it shut (`SQUEEZE ONE BODY`) | 4 beats, held, frozen | left flank cracks | freeze runs out before the gap closes, flank springs back wide, retry from row 2 |
+| **Movement 2 — the right flank** ||||||
+| 4 | The right flank's shudder mark lights | P1 | tap to still it | 2 beats, seen | right flank stops | shudder continues, retry |
+| 5 | The stilled right flank | P2 | pinch it shut | 4 beats, held, frozen | right flank cracks, core bared | freeze runs out, retry from row 4 |
+| **Movement 3 — the core, held stilled while fired** ||||||
+| 6 | The bared core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both flanks creep back toward shuddering over the core | P1+P2 | one re-taps to still it (`FREEZE TAP`) while the other holds the pinch shut (`SQUEEZE ONE BODY`) | 3 beats, held | core stays bared | core reseals, movement's fire beats lost until both flanks crack again |
+| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Flanks creep back a second time, faster | P1+P2 | re-tap and hold again | 3 beats, held | stays bared | reseals, retry |
+| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, core spent | stays lit |
+| 11 | Both flanks split wide for good and the sac hangs open, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every freeze window (rows 2, 4, 7, 9) and every
+pinch window (rows 3, 5, 7, 9) together — the two are now one beat to
+watch rather than two, since a freeze that lands a half-beat late costs
+the partner's whole squeeze, the sharpest version yet of THE VALVE's own
+argument for slowing the tap that another thumb cannot see coming.
+
+**Presentation.** No camera. Each cracked flank a soft hull-shock thud;
+the shudder itself a small, continuous wet flex with no particle of its
+own, so its stopping dead is the only visible event on the body between
+cracks.
+
+**Animation.** Five poses: shuddering whole; left stilled and cracked;
+both cracked, core bared; core guarded, flanks creeping back; split wide,
+spent. The shudder is drawn as a continuous uneven flex rather than a
+loop, so a frozen flank reads by its sudden stillness against the other
+still moving — the same tell THE VALVE's stopped wheel gives.
+
+**Colour.** Sac a dull bruised violet, the stilled flank's mark a plain
+white the way THE VALVE's pin socket is; the core is the only lit colour,
+lit in whichever cannon colour a given beat wants.
+
+**Payoff.** Row 7 and 9 — the freeze and the squeeze asked for at once,
+on two different seats, holding a `FIRE` step already under way; no
+earlier body on this page has asked both spent-elsewhere gestures of both
+seats in the same window.
+
+**Cost. Very low.** No new primitive — `FreezeTap` and `SqueezeGap` are
+both already built for THE VALVE and THE VISE. The only new code is the
+sac's own continuous-drift field and the cross-seat wiring that reads one
+seat's freeze against the other's squeeze, which is ordinary per-boss
+wiring rather than a new field type or gesture.
+
+**Reusable.** The dependency itself — one seat's hold gating whether the
+other seat's own spent gesture can do anything at all, rather than the
+two gestures only ever appearing on the same body without touching — is
+the first proof on this page that a pairing can be a lock-and-key rather
+than a sequence; any future concept wanting one seat to visibly need the
+other's hand, not just their timing, can reach for it before inventing a
+third verb.
+
 ---
 
 ## The reusable boss mechanic library

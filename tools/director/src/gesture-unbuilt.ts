@@ -28,7 +28,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       window: { from: 5, to: 9, label: "frozen" },
     },
-    where: [`${SPEC} §25 THE VALVE`],
+    where: [`${SPEC} §25 THE VALVE`, `${SPEC} §34 THE CYST`],
   },
   {
     name: "SENDING NOTHING",
@@ -114,7 +114,7 @@ export const SPECIFIED: readonly Gesture[] = [
       note: "the gap between the two, not either one",
     },
     platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
-    where: [`${SPEC} §28 THE VISE`],
+    where: [`${SPEC} §28 THE VISE`, `${SPEC} §34 THE CYST`],
   },
   {
     name: "CHORD",
