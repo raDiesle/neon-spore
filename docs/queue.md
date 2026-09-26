@@ -431,21 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## A ring let go of while THE GIMBAL shears stays held
-
-- **Found:** 2026-09-26, claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea
-- **Taken:** 2026-09-26, claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea (claim: claude/queue-a-ring-let-go-of-while-the-gimbal-shears-stays-h)
-- **Files:** `packages/sim/src/gimbal-hand.ts`, `packages/sim/src/gimbal-step.ts`, `packages/sim/test/`
-
-`gimbalHeard` returns before anything else while the drum is not turning, so
-a hand lifted during the three shear beats is never heard: `handMilli` keeps
-its bearing, and when the next marks light that ring neither drifts home nor
-draws unheld (`render/gimbal-grip.ts` `gimbalHeld`) with no finger on it. The
-film steps around it by lifting after the marks relight. Let a release (and a
-grab's `NO_BEARING`) through in every phase — only the *turn* needs
-`gimbalTurning` — and hold it with a test that lifts mid-shear and sees the
-ring drift on the first turning beat.
-
 ## `bun run shot` has no way to name a wave, and the filter route misses it
 
 - **Found:** 2026-09-25, claude/reprise-boss-visibility-timing-6c7bb7

@@ -21749,3 +21749,15 @@ Bottleneck: none worth the name — THE HASP had already taught the film a
 held depth, so the ratchet needed two table rows and a ghost hand.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A ring let go of while THE GIMBAL shears is let go of
+
+- reading: 5 min. The gimbal's hand and step, and which phase gates what.
+- writing: 5 min. The release and the grab moved above the turning gate, a
+  test page of its own, and the film's stale sentence.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: `gimbal.test.ts` at the length ceiling, so the two tests needed a
+file of their own with its own copy of the setup.

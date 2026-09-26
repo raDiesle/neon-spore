@@ -16,9 +16,9 @@ import type { GuideScene } from "../scene-types.js";
  * hence the page that says where, not which way.
  *
  * Both true, both held through `gimbalHoldBeats`, and a tooth shears off each.
- * Both hands come off only once the next marks are up: a hand let go of while
- * the drum is shearing is not heard at all (`sim/gimbal-hand.ts`), and a film
- * should not rest on that. Every distance is on the hand's own face, clockwise
+ * Both hands stay on until the next marks are up, so the last page shows two
+ * rings sheared and still held rather than drifting home under nobody's
+ * thumb (`sim/gimbal-step.ts`). Every distance is on the hand's own face, clockwise
  * positive (`scene-turn.ts`), and `test/scene-gimbal.test.ts` holds the
  * shear to the beat it lands on.
  */

@@ -48,15 +48,20 @@ export function gimbalHeard(world: World, player: 1 | 2, command: Command): void
   const which = ringFor(command.target);
   if (which === null || which.player !== player) return;
   const s = gimbalBoss(world);
-  if (s === null || !gimbalTurning(s)) return;
+  if (s === null) return;
   const ring = which.ring;
   // The hand off the ring, or one that has just gone on: either way there is
   // no reference, and the ring is left where it stands — to drift back to
-  // rest on the beat if the hand stays off (`gimbal-step.ts`).
+  // rest on the beat if the hand stays off (`gimbal-step.ts`). **Heard in
+  // every phase**: a hand lifted while the drum shears is off the ring all
+  // the same, and a ring that kept its bearing through the shear would be
+  // held, and drawn held, with no finger on it when the next marks lit.
   if (!command.on || command.fromMilli < 0) {
     s.handMilli[ring] = NO_BEARING;
     return;
   }
+  // Only the turn itself waits for the marks.
+  if (!gimbalTurning(s)) return;
   const at = ((command.fromMilli % TURN) + TURN) % TURN;
   const was = s.handMilli[ring];
   s.handMilli[ring] = at;
