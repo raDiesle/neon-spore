@@ -21514,3 +21514,5 @@ typed by the lists, so the compiler named every place the new names had to go.
 
 Bottleneck: the frame tool's holds went in as one argument under zsh until
 they were split, and read as no swipes at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

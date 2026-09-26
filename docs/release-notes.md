@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e5c983ee5 — THE INSTAR's moult is drawn: the hide split on a pale body, peeled per swipe
+
+The last step's hide now stands split along the back with the next body pale in the split, and every counted swipe peels a strip more of its own half down — the half by the head is player 1's, the one by the rear player 2's — the torn lip curled dark under it. Left undone, the strike sets the split dark and whole on the body before its shock comes down on the hull, and it stays set until the next morph.
+
 ## 2026-09-26 · ea5cf8c6e — THE INSTAR moults at the end: each seat swipes its half of the hide off
 
 The fight has a last step: after the mixed lash the body passes twice and comes in side on, still, for its moult, and each seat swipes its half of the old skin off its back, downward, eight swipes each, the two finishing together. Left alone, the window closes on the hide and the fight is lost, as on any other part.
