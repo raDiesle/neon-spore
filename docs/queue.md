@@ -1897,3 +1897,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at e72d91c4b: THE OCULUS's lens watched at tempo: the pair sliding s…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/oculus-draw.ts`, `packages/render/src/oculus-marks.ts`
+
+*THE OCULUS's body: a lapped rim, six iris blades that slide shut, the core* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
+
+- THE OCULUS's lens watched at tempo: the pair sliding shut under two thumbs, the socket's break, the lit core, the shatter
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

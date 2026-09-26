@@ -23176,3 +23176,5 @@ the previous landing and this one behind it.
 
 Bottleneck: writing — an iris that pivots on its pins rather than fades is
 five points of geometry, and each had to be seen shut and open.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

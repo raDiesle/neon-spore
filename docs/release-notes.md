@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e72d91c4b — THE OCULUS's body: a lapped rim, six iris blades that slide shut, the core
+
+Half one of §27's look. The lens stands over the middle column: a shell-grey rim of six lapped plates with a pin standing on it for each leaf, and six dull glass iris blades that swing about those pins — tucked under the rim when open, meeting in the iris's spiral when shut. The lit pair glows white and slides across the face by the share of its beats both thumbs have held, so the count is read off the lens; a reseal stands its pair cracked open. The break eases a hexagonal socket open between the six tips, the core inside is lit in the step's colour with a ring closing on its window and shrinks with every hit, and the lens shatters into six wedges. Both screens are drawn the same.
+
 ## 2026-09-26 · 60e6066eb — THE INSTAR's baked nests offered in VERSUS against the shipped ones
 
 The slot `instar:nest` puts the nests and eggs painted once at load beside the ones the game draws today, on a new director pose, INSTAR · THE BROOD, that reaches the step the nests are drawn in. `drawNests` now paints through a `NEST_LOOK` record the candidate patches; the game draws what it drew before (exemption: none needed — the shipped look is unchanged).
