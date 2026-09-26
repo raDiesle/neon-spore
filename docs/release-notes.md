@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 0915a5477 — THE INSTAR's third act: it crouches, perches, roars, sprawls and twists
+
+Five more poses laid in among the others, so the fight is twenty-three steps over sixteen poses. It crouches low and wide face-on (each seat taps its own eye), perches high on its wings with the brood on its back (SHOOT each nest), throws its head back to roar one glob down the middle (SHIELD), sprawls flat on the hull (each seat pulls its blade up) and twists head-down along a diagonal (player 1 pulls the head up, player 2 the tail down).
+
 ## 2026-09-26 · 98673ca77 — THE INSTAR's fall makes 54 gradients a frame instead of 126, and a nest one shell instead of sixteen
 
 A tube's light no longer carries its fade in the cached gradient's key: the stops are opaque and the fade is laid on as globalAlpha, so a body fading in or out stops rebuilding the light of every slice each frame. The eggs of a nest share one shell gradient, built about the egg's middle and laid by a translate. Brood falls from 91 gradients a frame to 65. A speed fix: nothing drawn changes.
