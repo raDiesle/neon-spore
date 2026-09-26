@@ -1,9 +1,11 @@
+import { LIGHT_HALF } from "@neon-spore/content";
 import { RATCHET_TEETH, type RatchetState, ratchetLoose, type World } from "@neon-spore/sim";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { litBox } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import {
@@ -22,6 +24,7 @@ import {
 import {
   ratchetLock,
   ratchetPawlY,
+  ratchetPlateBox,
   ratchetPlatePath,
   ratchetRails,
   ratchetStep,
@@ -141,6 +144,10 @@ function drawPlate(
   const plate = ratchetPlatePath(l, world.cfg, i, top);
   ctx.fillStyle = rgba(PALETTE.rockDark, spent ? 0.3 : 0.9);
   ctx.fill(plate);
+  if (!spent) {
+    const box = ratchetPlateBox(l, world.cfg, i, top);
+    litBox(ctx, plate, box.x, box.y, box.w, box.h, LIGHT_HALF.rock);
+  }
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.35) : PALETTE.rock;
   ctx.stroke(plate);

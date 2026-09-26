@@ -434,6 +434,18 @@ so it takes `litRound` with `spin` fixed at a literal `0`: depth without
 motion, because the motion itself would leak the one thing the design keeps
 from that seat.
 
+**A flat body that isn't round takes `litBox`, not a bent `litRound`.**
+THE RATCHET's seven rack plates (`ratchet-shape.ts`'s `ratchetPlatePath`) are
+straight-sided quads, tapering head to tail, and none of them read as a
+segment of a circle — clipping one to `litRound` would centre a radial
+gradient inside a shape it was never shaped for. `litBox` already exists for
+exactly this, the same ramp walked corner to corner across a rectangle rather
+than out from a centre (`magnet-coil.ts`'s `slab`), so each plate gets its own
+bounding box (`ratchetPlateBox`) and is lit as the flat slab it is rather than
+forced round. A spent plate, already drawn fainter to read as slack, is left
+unlit: the same call HASP's swung-open clasps make, since a body already
+reading as "gone" needs no light to prove it.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

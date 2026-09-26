@@ -110,6 +110,25 @@ export function ratchetPlatePath(l: Layout, cfg: SimConfig, i: number, top: numb
   return path;
 }
 
+/** Plate `i`'s own box for `litBox` — the outline's bounding rectangle, top-left
+ * corner and full width and height, so the ramp is sized to the plate rather
+ * than guessed at from outside (`ratchet-draw.ts`). */
+export function ratchetPlateBox(
+  l: Layout,
+  cfg: SimConfig,
+  i: number,
+  top: number,
+): { x: number; y: number; w: number; h: number } {
+  const x = ratchetX(l, cfg);
+  const side = ratchetSide(l, cfg);
+  const step = ratchetStep(l);
+  const w = ratchetGirth(l, i);
+  const lap = LAP * l.tile;
+  const left = x - w - (side < 0 ? lap : 0);
+  const right = x + w + (side > 0 ? lap : 0);
+  return { x: left, y: top + i * step, w: right - left, h: step };
+}
+
 /** Where the shoulder of plate `i` stands with the rack's top at `top`: the tip the pawl bears on. */
 export function ratchetShoulder(l: Layout, cfg: SimConfig, i: number, top: number): Point {
   const side = ratchetSide(l, cfg);
