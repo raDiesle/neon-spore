@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 35e53f042 — THE INSTAR's baked wing membranes offered in VERSUS
+
+The wing membrane's detail is painted once at load, flat in the wing's own frame: veins that branch from every bone and thin as they go, a hair of light on each, creases toward the hem, mottling, and a glow through each scallop. It is laid over the membrane in one drawImage under the plane's own map, so it beats and folds with the skin. Offered on instar:wing; the game still draws its nine straight veins. +1.4 kB gzipped, 6 canvas calls a wing against 42.
+
 ## 2026-09-26 · c6cabadaa — THE INSTAR's second act: five new poses, and the panel given back
 
 THE INSTAR now plays eighteen steps over eleven poses. Five new poses sit between the old ones: it rears back and spits two globs at the hull (raise the shield under each), glares face on (shoot each eye three times), dives head first (shield under the brow, twice), spreads its wings and shakes embers down (suck each in), and ends bare after the moult with its heart lit in the split (shoot it four times). The wave plays on STANDARD 5 so the panel answers those marks, and both seats are needed for every one.

@@ -23458,3 +23458,5 @@ by a red test, not by a list.
 - landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
 
 Bottleneck: fitting the painting's box to the flat wing's bones by hand.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
