@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 81ea644c1 — Wave 108 THE RIME: rub each half of the lens clear before it frosts back, then shoot the core
+
+A frosted lens over the middle of the field, iced in two halves. A half lights and its own seat rubs it back and forth: every fresh reversal shaves frost, and a beat nobody rubbed it grows some back. Two wipes a half bare the core, a fire step is the ordinary shot in its colour into the middle column, and a shield step is the guard pressed with the shield under the lens. The first spend of the unclaimed RUB gesture, the reversal count riding the drag's id. Specified in docs/spec/bosses.md §11.46, with ten departures from §29 argued by name.
+
 ## 2026-09-26 · 3c3b82322 — Graphics may look 3D; only the play stays 2D, and Zdog was weighed and not taken
 
 The style guide's Depth section and the depth skill read the owner's rule as "stay 2D". He meant the game does not move in 3D; how a body is drawn is free, and the rig is the preferred way. Zdog was drawn beside the rig with `bun run solid --zdog`: it turns correctly but is flat-shaded, so the rig stays, and a WebGL glow pass is queued as a VERSUS candidate with a phone battery and frame-time check. No look changed on the field.

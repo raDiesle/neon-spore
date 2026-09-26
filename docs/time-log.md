@@ -22550,3 +22550,5 @@ Bottleneck: writing — the old rule was read as "stay 2D" in three places, and 
 
 Bottleneck: registrations again — the twelve events and six config fields
 named in a dozen files, and two files the line limit made room in.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

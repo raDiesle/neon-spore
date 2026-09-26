@@ -1274,3 +1274,17 @@ battery drain over ten minutes of play with the pass on and off. Write both
 numbers into `docs/performance.md`. It ships only if the owner picks it in
 VERSUS and the phone numbers hold; otherwise the candidate stays as the
 record of why.
+
+## Unverified at 81ea644c1: THE RIME wave never watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-29-the-rime-the-simulation-lane
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*Wave 108 THE RIME: rub each half of the lens clear before it frosts back, then shoot the core* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
+
+- THE RIME wave never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
