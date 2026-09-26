@@ -50,6 +50,7 @@ export const SPECIFIED: readonly Gesture[] = [
     where: [
       `${SPEC} RestraintGate`,
       `${SPEC} §24 THE KEEL`,
+      `${SPEC} §25 THE VALVE`,
       `${SPEC} §36 THE HALTER`,
       `${SPEC} §40 THE FLUE`,
     ],
@@ -93,7 +94,12 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       note: "a reversal is where x changes sign",
     },
-    where: [`${SPEC} §29 THE RIME`, `${SPEC} §33 THE GRINDSTONE`, `${SPEC} §37 THE CAPSTAN`],
+    where: [
+      `${SPEC} §25 THE VALVE`,
+      `${SPEC} §29 THE RIME`,
+      `${SPEC} §33 THE GRINDSTONE`,
+      `${SPEC} §37 THE CAPSTAN`,
+    ],
   },
   {
     name: "SQUEEZE ONE BODY",

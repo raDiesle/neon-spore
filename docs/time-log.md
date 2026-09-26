@@ -23583,3 +23583,19 @@ Bottleneck: looking — the frames tool takes ticks, and how many ticks a
 morph spans had to be read off the script before a sheet showed anything.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §25 THE VALVE: a backdraught, a brace, a wipe, and a fade, at the owner's request
+
+- reading: 15 min. Re-read §25's existing beat list, mechanic and gesture
+  where-arrays before designing new states around its three-pin core.
+- writing: 30 min. Three new SLOW states (cap, brace, wipe) plus a closing
+  fade, rewritten beat list, THE SLOW/Presentation/Animation/Colour/Payoff/
+  Cost sections, and two `where`-array updates in `gesture-unbuilt.ts`.
+- looking: 0 min. Spec and registration only; the poses are a separate look
+  task, queued.
+- friction: 0 min.
+- landing: 10 min. Checked, staged by path, committed, checked divergence,
+  pushed.
+
+Bottleneck: none — the existing mechanic (freeze, turn, pull) already gave
+three natural seams to hang new states on without inventing a new verb.

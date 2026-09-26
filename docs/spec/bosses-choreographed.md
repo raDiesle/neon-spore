@@ -3202,56 +3202,82 @@ this page lets a gesture go to whichever hand is free.
 | 2 | The wheel lights and begins turning toward its mark on its own | P1 | steer the wheel onto the mark (`TURN`) | 5 beats, seen | wheel holds on the mark, freeze window opens | wheel drifts off and re-approaches |
 | 3 | The pin socket flashes while the wheel holds | P2 | tap to freeze (`FREEZE`) | 2 beats, seen | wheel stops dead, pin socket glows steady | wheel resumes turning, back to row 2 |
 | 4 | The frozen pin sits still, glowing | P1 or P2 | pull the pin out (`PULL`) | 3 beats, frozen | first pin comes free, drum lists slightly | freeze runs out, pin locks back in, movement repeats from row 2 |
-| **Movement 2 — a spark, then the second pin, faster** ||||||
-| 5 | A spark leaks from the listing drum | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
-| 6 | The wheel lights again, a longer turn to its mark | P1 | steer (`TURN`) | 5 beats, seen | holds, freeze window opens | drifts off |
-| 7 | Freeze window, shorter than movement 1's | P2 | tap (`FREEZE`) | 1 beat, seen | wheel stops | wheel resumes |
-| 8 | Frozen pin | P1 or P2 | pull (`PULL`) | 2 beats, frozen | second pin free, drum lists further | freeze runs out, repeat from row 6 |
-| 9 | A second spark, wider and hissing louder than the first, leaks from the drum's deeper list | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
-| **Movement 3 — the last pin holds the whole seal** ||||||
-| 10 | The wheel now turns *away* from a mark that sits behind it — a full lap before it can hold | P1 | steer the long way round (`TURN`) | 6 beats, seen | holds | drifts off, tries again |
-| 11 | Freeze window, the shortest yet | P2 | tap (`FREEZE`) | 1 beat, seen | stops | resumes |
-| 12 | Frozen pin, deep in the drum's face | P1 or P2 | pull (`PULL`) | 2 beats, frozen | last pin free | freeze runs out, repeat from row 10 |
-| 13 | With all three pins out, the drum's face strains and hisses against the last seal, about to blow | P1 and P2, together | hold a chord on the face (`CHORD`) | 3 beats, seen | face opens wide and clean — the fight's finish | face blows open rough instead, one hull hit as the pressure escapes wrong |
+| **Movement 2 — the empty socket blows back** ||||||
+| 5 | The first pin's socket, now empty, exhales a thin jet that catches the light — the drum's first tell that the pressure it held has nowhere to go but out | — | — | — | — | — |
+| 6 | The jet widens toward the wheel's own housing, threatening to foul the next turn | P1 or P2 | cap it, own colour (`TAP`) | 2 beats, seen | jet capped, socket dims to a dull glow | jet keeps widening, one hull hit, movement repeats from row 6 |
+| **Movement 3 — a spark, then the second pin, faster** ||||||
+| 7 | A spark leaks from the listing drum | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
+| 8 | The wheel lights again, a longer turn to its mark | P1 | steer (`TURN`) | 5 beats, seen | holds, freeze window opens | drifts off |
+| 9 | Freeze window, shorter than movement 1's | P2 | tap (`FREEZE`) | 1 beat, seen | wheel stops | wheel resumes |
+| 10 | Frozen pin | P1 or P2 | pull (`PULL`) | 2 beats, frozen | second pin free, drum lists further | freeze runs out, repeat from row 8 |
+| 11 | A second spark, wider and hissing louder than the first, leaks from the drum's deeper list | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
+| **Movement 4 — the drum shudders, braced together** ||||||
+| 12 | The two freed sockets ring hollow and the whole drum shudders, plates chattering against each other | — | — | — | — | — |
+| 13 | The chatter peaks, threatening to shake a plate loose before the last pin is even reached | P1 and P2, together | hold to steady it (`CHORD`) | 3 beats, seen | shudder stills, drum settles square | a plate shakes loose, one hull hit, the shudder continues |
+| **Movement 5 — the last pin holds the whole seal** ||||||
+| 14 | The wheel now turns *away* from a mark that sits behind it — a full lap before it can hold | P1 | steer the long way round (`TURN`) | 6 beats, seen | holds | drifts off, tries again |
+| 15 | Freeze window, the shortest yet | P2 | tap (`FREEZE`) | 1 beat, seen | stops | resumes |
+| 16 | Frozen pin, deep in the drum's face | P1 or P2 | pull (`PULL`) | 2 beats, frozen | last pin free | freeze runs out, repeat from row 14 |
+| **Movement 6 — wiped clean before the seal** ||||||
+| 17 | All three empty sockets weep a thin film across the drum's face, dulling the last seal underneath | — | — | — | — | — |
+| 18 | The film keeps spreading toward the seal's own seam | P1 or P2 | wipe the face clean (`RUB`) | 3 reversals, seen | face runs dry, the last seal stands bare | face stays slick, the chord in row 19 catches wrong, one hull hit |
+| **Movement 7 — the finish** ||||||
+| 19 | With all three pins out and the face wiped dry, the drum's bare seal strains and hisses, about to blow | P1 and P2, together | hold a chord on the face (`CHORD`) | 3 beats, seen | face opens wide and clean — the fight's finish | face blows open rough instead, one hull hit as the pressure escapes wrong |
+| 20 | The open face's light fades from white to nothing, the last of the hiss dying with it | P1 and P2 | send nothing (`SENDING NOTHING`) | 3 beats | drum falls dark and still | — |
 
-**THE SLOW** opens on every freeze window (rows 3, 7, 11) and every pull
-(rows 4, 8, 12) — the two beats a pair most needs slowed, since one thumb's
+**THE SLOW** opens on every freeze window (rows 3, 9, 15) and every pull
+(rows 4, 10, 16) — the two beats a pair most needs slowed, since one thumb's
 tap has to land inside a beat the other thumb cannot see coming any earlier
-than the wheel's own approach shows it — and on row 13's held brace, the one
-beat that asks both hands to hold rather than either hand to race, so the
-fight's finish reads as a release the pair earns rather than the third pull
-simply looking the same as the first two.
+than the wheel's own approach shows it — on row 6's cap and row 18's wipe,
+each its own kind of race against a leak spreading rather than a wheel
+turning — on row 13's held brace, which asks both hands to hold rather than
+either hand to race — and on row 19's held chord and row 20's stillness
+after it, so the fight's finish reads as a release the pair earns and then
+sits inside, rather than the third pull simply looking the same as the
+first two.
 
 **Presentation.** No camera. Each freed pin is one hull-shock pulse; the
 drum's list deepens visibly, plate by plate, which is the hull's reaction
 standing in for a health bar that this boss, like every other, does not have.
-Row 13's hiss rises under the held chord and cuts to the wide-open shock the
-moment it lands, or drops into the rough single hit if it slips.
+Row 6's jet and row 18's film both read as the drum's own distress leaking
+out between the pins rather than only at them. Row 13's chatter rattles the
+whole frame until the chord stills it. Row 19's hiss rises under the held
+chord and cuts to the wide-open shock the moment it lands, or drops into the
+rough single hit if it slips; row 20 lets that shock's light bleed out to
+nothing rather than cutting straight to the kill.
 
-**Animation.** Five poses: sealed and upright; listing one pin; listing two;
-braced and shuddering under the held chord; face open. The wheel's turn is
-drawn continuously rather than as a snap between marks, and a frozen wheel
-visibly stops mid-turn rather than resetting to the mark — the stillness is
-the tell that the freeze landed. The two sparks read at visibly different
-severity off the same leak — thinner and lower after the first pin,
-wider and louder after the second — so the drum's own distress escalates
-before the brace ever asks for a hold.
+**Animation.** Eight poses: sealed and upright; capped jet at the first
+socket; listing one pin; listing two; braced and stilled under the held
+chord; long way round on the last wheel; face wiped bare; face open, its
+light fading to dark. The wheel's turn is drawn continuously rather than as
+a snap between marks, and a frozen wheel visibly stops mid-turn rather than
+resetting to the mark — the stillness is the tell that the freeze landed.
+The two sparks read at visibly different severity off the same leak —
+thinner and lower after the first pin, wider and louder after the second —
+so the drum's own distress escalates in three different registers (a jet, a
+shudder, a film) before the brace and the chord ever ask for a hold.
 
 **Colour.** Drum iron grey; the wheel's mark and the pin's socket both plain
-white — nothing here is colour-gated, since either seat may take the pull.
+white — nothing here is colour-gated, since either seat may take the pull,
+the cap, or the wipe.
 
-**Payoff.** Row 10's long way round, where the pattern the first two
+**Payoff.** Row 14's long way round, where the pattern the first two
 movements taught (turn toward a visible mark) is broken on purpose the one
-time the boss can afford to — and row 13, the fight's other payoff, where
-three movements of racing a freeze end on the one beat that asks the pair to
-simply hold still together.
+time the boss can afford to — row 13, where the drum's own chatter forces a
+hold before either hand can go back to racing it — and row 19, the fight's
+last payoff, where three movements of racing a freeze end on the one beat
+that asks the pair to simply hold still together, and then to hold their
+hands off entirely while the drum goes dark.
 
-**Cost. Medium.** `BearingDrag` is shipped; `FreezeTap` is new and is the one
+**Cost. Medium.** `BearingDrag` is shipped; `FreezeTap` is the one
 genuinely new verb on either brief — `tools/director/test/on-field-controls.test.ts`'s
 exhaustive switch is where it is added, so the compiler is the checklist.
-Row 13 adds one boolean read off `CHORD`, already built for THE TRIVET, THE
-GRINDSTONE, THE HALTER, THE WINCH, THE GOVERNOR and THE MANTLE — no new
-primitive.
+Row 13's brace and row 19's finish both read one boolean off `CHORD`,
+already built for THE MANTLE, THE KEEL, THE TRIVET, THE GRINDSTONE, THE
+HALTER, THE WINCH and THE GOVERNOR. Row 18's wipe reads `RubCount` off the
+same pointer path already built for THE RIME, THE GRINDSTONE and THE
+CAPSTAN. Row 20's fade is `SENDING NOTHING`'s own idle read, already built
+for the restraint gate, THE KEEL, THE HALTER and THE FLUE. No new primitive.
 
 **Reusable.** `FreezeTap` itself, finally spent — as a press read on its edge
 on `valvePin` (`sim/valve-hand.ts`), not a `Hold` kind — and available to any later
