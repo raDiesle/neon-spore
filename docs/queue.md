@@ -702,6 +702,7 @@ comparison is the owner's, unverified until he has looked.
 ## §33 THE GRINDSTONE — effects and cue words
 
 - **Found:** 2026-09-26, tmp-grindstone-look
+- **Taken:** 2026-09-26, claude/queue-33-grindstone-fx (claim: claude/queue-33-the-grindstone-effects-and-cue-words)
 - **Needs:** §33 THE GRINDSTONE — the look (the body), landed 26 September 2026
 - **Files:** `packages/render/src/grindstone-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/boss-cue-draw.ts`
 
