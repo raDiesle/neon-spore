@@ -2476,33 +2476,23 @@ what the rest of this file holds.
 
 After the tubes were sliced by screen size and off-field views culled, the turn's worst frames are 1050–1125 draws and 90–140 gradients against 700–800 and 50–65 at rest (`test/instar-budget.test.ts`). What is left is frames where both views are really on the field, most of them with the body at a flight scale of 0.15–0.3: a speck about 60 px across that still draws about 430 ops a view. The biggest: `solid-tube-draw.ts:179` (205), `glow.ts:47` strokeGlow's layered passes (198), `glow.ts:52` (66), `instar-horn.ts:136` (60), `instar-hide.ts:148` (58), `instar-profile-surface.ts:201` (52). A level of detail keyed on `tubeScale()` would take most of it, and it goes to VERSUS as a candidate unless the owner answers yes.
 
-## §30 THE TRIVET — its hands, the second half of its look
+## §30 THE TRIVET — the lurch and the needle drawn
 
-- **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-30-the-trivet-its-hands-the-second-half-of-its-l)
-- **Needs:** §30 THE TRIVET — the look, half one (the body), landed first
-- **Files:** `packages/render/src/trivet-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`, `packages/hands/src/`
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `packages/render/src/trivet-pose.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/src/boss-cue-read-zh.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/trivet-frame.test.ts`
 
-The body is drawn: SINKER's hub in gunmetal with a CALTROP needle run out
-to each foot, the outer feet's socket plates lit a cold blue-white while a
-chord wants them and drawn pressed under a held pad, a foot swinging down by
-the share held and clamped on its second plant, the hub lit in its colour
-and smaller per hit, and the collapse (`render/trivet-*.ts`,
-`test/trivet-frame.test.ts`). **The pads on the field landed 26 September**:
-a seat's fingers in its zone are a chord, each finger a pad by the order it
-landed in (`render/trivet-grip.ts`, `render/chord.ts`,
-`apps/game/src/chord.ts`), with a ghost thumb on a held foot and both rows
-on ON THE FIELD. **AUTO's hand landed the same day** (`hands/boss-hands-trivet.ts`,
-`director/test/autopilot-trivet.test.ts`, the STATES sheet's four poses),
-and **THE SLOW's aim** after it: the light stands round the hub, as wide as
-the feet reach (`render/slow-boss-aim.ts`, `trivetReach`), and **the
-cue's words**: HOLD on each foot a lit chord asks for until it is down, FIRE
-under the middle column while the hub is lit (`render/boss-cue-read-zh.ts`).
-What is left is one lane, **the fx**, in
-`Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
-hub's hit flash and the collapse, the twelve `trivet*` events off the two
-silent lists as each gets its burst, and row 11's ring under the spent hub.
-Unverified at tempo until the owner has looked.
+The lurch (`tip`) and the needle landed in the simulation after the look
+was finished (`17331e932`, `docs/spec/bosses.md` §11.47) and neither is
+drawn: the stand does not lean onto the held foot, the hub stays over the
+middle while the shot that counts goes two columns to the pilot's side, no
+needle falls down its column, and `trivetTurn` — the thirteenth event — is
+on both silent lists with no burst. `trivet-fx.ts` throws a lurch's
+`trivetHit` at the middle, not at `e.col`. What to do, a look with no
+shipped alternative: pose the lean and the swung hub off the step's
+`offset`, draw the needle falling and turned, move the cue's `FIRE` and
+`HOLD` and THE SLOW's aim to the swung column, throw the hit and the turn
+where they happened, and prove each on every screen in
+`trivet-frame.test.ts`. `bun run check` proves it.
 
 ## `queue next` hands out a DEFERRED entry
 
