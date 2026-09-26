@@ -895,39 +895,31 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §36 THE HALTER — the look
+## §36 THE HALTER — the touch sender and its cue
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-33-the-grindstone-effects-and-cue-words (claim: claude/queue-36-the-halter-the-look)
-- **Needs:** §36 THE HALTER's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-26, claude/queue-36-the-halter-the-look (the body landed without it)
+- **Needs:** §36 THE HALTER's body, landed 26 September 2026 (`render/src/halter-draw.ts`)
+- **Files:** `apps/game/src/`, `packages/render/src/boss-cue.ts`, `packages/render/src/halter-marks.ts`, `docs/spec/bosses.md`
 
-Lane two, read against `docs/style-guide.md`: a new silhouette (check
-`packages/content/src/silhouettes*.ts` first, then
-`tools/shape-sheet/src/drafts/`) for a wary hull-plated creature with one
-spinal seam in three segments, and a continuous uneven tremor that stops
-dead the instant a segment settles — the tell is the tremor's silence,
-not a colour change or a snap. No sprite-atlas experiment queued: nothing
-here moves toward a resolved end pose the way a swipe or a chord's own
-release does: the tremor either runs or it doesn't. Nothing here is drawn
-yet and stays unverified at tempo until the owner has looked.
-
-**The touch sender rides this lane**, with the grips it draws: the
-simulation (wave 115, `docs/spec/bosses.md` §11.53) hears
+The simulation (wave 115, `docs/spec/bosses.md` §11.53) hears
 `halterChordLeft` and `halterChordRight` from *either* seat — THE TRIVET's
 pads, one drag a grip, `on: true` the thumb down and `on: false` its lift
 (`packages/sim/src/halter-hand.ts`) — and hears every other command as a
 stir. Nothing in `apps/game` sends a grip yet, so the seam is unanswerable
-on a phone until this lands; a test that both grips go out as two drags
-and a lift as one. The resting seat's screen must send nothing while it
-rests: check that no idle sender (a lean, a heartbeat drag) fires on a
-still phone, or the rest can never be reached.
+on a phone. The body already draws the two grips on the lit segment's seam
+(`halterGripAt`, `drawHalterGrips`); make those the touch targets on both
+seats, the way THE TRIVET's pads are, with a test that both grips go out as
+two drags and a lift as one. **The resting seat's screen must send nothing
+while it rests**: check that no idle sender (a lean, a heartbeat drag) fires
+on a still phone, or the rest can never be reached — and a test for it.
 
-**Its own blow rides this lane too**: a shot run out already calls
-`bossStrikesHull` (`packages/sim/src/halter-step.ts`) and draws the default
-lash. Give THE HALTER a `FROM` row and a `LOOK` row in
-`packages/render/src/boss-strike-look.ts` off the seam its drawer places,
-reaching the hull at `reach = 1`, proved in `render/test/boss-strike.test.ts`.
+Give it its arm in `render/src/boss-cue.ts`: one word by the grips on a
+rest-and-chord step (`HOLD`), and nothing on the resting seat — the
+plating going still is its answer (`halterShake`). Take `NO_HAND`'s
+`"halter"` out once an autopilot can grip and rest
+(`tools/director/test/autopilot.test.ts`), or leave it with the reason.
+The tremor, the parting and the blow are drawn and unverified at tempo
+until the owner has looked.
 
 ## §37 THE CAPSTAN — the simulation lane
 

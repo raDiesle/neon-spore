@@ -1,4 +1,5 @@
 import { CREATURE_HUES } from "./palette-creatures.js";
+import { LATE_CREATURE_HUES } from "./palette-creatures-late.js";
 
 /** The style guide, as values. Nothing here is decided in a component. */
 export const PALETTE = {
@@ -34,6 +35,7 @@ export const PALETTE = {
   goodRim: "#C7FFE4",
   sparkDim: "#8B85AB",
   ...CREATURE_HUES,
+  ...LATE_CREATURE_HUES,
 } as const;
 
 /**

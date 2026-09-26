@@ -1,5 +1,6 @@
 import type { BossKind, SimConfig } from "@neon-spore/sim";
-import { strikeFrom, strikeLook } from "./boss-strike-look.js";
+import { strikeFrom } from "./boss-strike-from.js";
+import { strikeLook } from "./boss-strike-look.js";
 import { type Layout, tileCX } from "./layout.js";
 
 /**

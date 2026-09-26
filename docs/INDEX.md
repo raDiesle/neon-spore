@@ -989,6 +989,7 @@ by hand never moves.
 |---|---|
 | `packages/render/src/palette.ts` | style guide as values |
 | `packages/render/src/palette-creatures.ts` | The hues one creature or boss owns, each with the argument for spending it |
+| `packages/render/src/palette-creatures-late.ts` | The hues one creature or boss owns, cut out of `palette-creatures.ts` when that file reached its ceiling |
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
@@ -1054,6 +1055,7 @@ by hand never moves.
 | `packages/render/src/boss-hurt.ts` | The shake and red glow any boss shows for a moment after the pair lands a sequence |
 | `packages/render/src/boss-blows.ts` | The blow for the bosses with no fx class of their own — throat, vane, cairn, baton — dealt off one event table |
 | `packages/render/src/boss-strike-fx.ts` | **A boss's blow at the hull, from the breach to the withdrawal.** The render half of `sim/boss-strike.ts` |
+| `packages/render/src/boss-strike-from.ts` | **Where a boss's blow at the hull leaves its body** (`boss-strike-look.ts` is what the blow looks like) |
 | `packages/render/src/boss-strike-look.ts` | **What a boss's own blow at the hull looks like** |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
@@ -1928,6 +1930,11 @@ by hand never moves.
 | `packages/render/src/harpoon-line.ts` | **THE LINE**: the thing at the top of the field firing a body at a control |
 | `packages/render/src/harpoon-mark.ts` | **WHAT IS ON THE CONTROL, WRITTEN ON IT.** The owner's point 2 of 14 September 2026 |
 | `packages/render/src/harpoon-place.ts` | **Where each harpooned body is drawn**, for the two passes that draw something attached to one |
+| `packages/render/src/halter-blow.ts` | **THE HALTER's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/halter-draw.ts` | **THE HALTER**: a plated slab hugged shut along a spinal seam of three segments; its tell is the tremor stopping |
+| `packages/render/src/halter-marks.ts` | **THE HALTER's marks**: what says what a step asks — a segment's stretch of the seam glowing |
+| `packages/render/src/halter-pose.ts` | **The clock THE HALTER is posed off** (§36, *Animation*) |
+| `packages/render/src/halter-shape.ts` | **THE HALTER's geometry**: where the seam is, and the plates it is made of |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |

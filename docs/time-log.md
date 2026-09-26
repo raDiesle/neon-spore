@@ -25243,3 +25243,17 @@ The bottleneck: friction — the lane had to be recovered from another
 session's transcript before it could be finished.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE HALTER has a body: a hunched plated seam that stops shaking
+
+- reading: 10 min. THE GRINDSTONE's body lane as the template, `halter*.ts`,
+  §11.53, THE TITHE · EDGE's card, `boss-strike-look.ts`.
+- writing: 15 min. Shape, poses, marks, drawer, the blow, a palette file,
+  `boss-strike-from.ts` cut out, the frame test.
+- looking: 5 min. Two frames: bricks on the first, a hunched back on the second.
+- friction: 5 min. Recovered from an interrupted session: its worktree could not
+  be written from here, so the lane moved to this one.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the interrupted lane's worktree belonged to another
+session, and the work had to move before a line could be written.

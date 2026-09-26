@@ -9836,12 +9836,37 @@ is lit, only in the middle column, and only in its colour unless it is
   ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
   choreographed body's since.
 
+**The look** (`render/src/halter-draw.ts`, 26 September 2026). **THE
+TITHE · EDGE** (`tools/shape-sheet/src/drafts/collected.ts`), the plated
+slab at its own proportions, cut along one spinal seam into three segments,
+each an upper and a lower plate, bent over a hunched spine and hung with six
+plates, two to a segment (`halter-shape.ts`). A crack is the two plates of a
+segment parting, a peach body showing between them; the centre parted is
+bared, with a core in it, dull until a fire step lights it in the shot's
+colour with a ring closing round it (`halter-marks.ts`). The asked segment's
+stretch of seam glows in the hull's rim-white and its two grips are lit on
+the seam by its ends, a grip held down drawn pressed; nothing marks the seat
+that rests. **The tell is the tremor's silence** (`halter-pose.ts`): every
+plate chatters on its own uneven sines, twice as hard while the seam is
+alarmed, and the chatter stops dead the instant the lit step's pair holds
+together (`halterPairing`) — no colour, no snap. The pair held parts the lit
+segment a hair by the share of its beats held, and a startle or a slip snaps
+it back shut; a guard's window lets the bared centre creep shut, pressed
+back open by the pair. Spent, every segment parts wide and the slab tips
+edge-on and fades — the one pose where the plating the pair read turns
+away. **Both screens are drawn the same**: which seat rests is the step's,
+and each seat has to see the other's grips and the stillness. A shot run out
+is its own blow (`halter-blow.ts`): one of the centre's hanging plates
+snaps off, turns end over end down the middle column and bites into the
+skin edge-first, cracking the plating either side, then crumbles. Nothing of
+it outlives a frame: the events are heard, not drawn.
+
 **Not yet.** Nothing in `apps/game` sends a grip, so the seam is
-unanswerable on a phone until the touch sender lands with the look; nothing
-of it is drawn; there is no autopilot hand
+unanswerable on a phone until the touch sender lands (`docs/queue.md`); the
+field says no cue word over it; there is no autopilot hand
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`). The fourteen sounds
-are bound (`packages/audio/src/bind-halter.ts`), and the events stay off the
-two silent lists' pictures until the look reads the state off `world`.
+are bound (`packages/audio/src/bind-halter.ts`), and the events stay on the
+two silent lists, since the picture reads the state off `world`.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/halter.test.ts`): the seam comes in alarmed with the centre

@@ -1,45 +1,29 @@
-import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
+import type { BossKind } from "@neon-spore/sim";
 import { davitBlow } from "./davit-blow.js";
-import { davitHook, davitMast } from "./davit-shape.js";
-import { fieldX } from "./field-flip.js";
 import { gimbalBlow } from "./gimbal-blow.js";
-import { gimbalCentre } from "./gimbal-shape.js";
+import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
 import type { Layout } from "./layout.js";
 import { ledgerBlow } from "./ledger-blow.js";
-import { ledgerBodyY } from "./ledger-shape.js";
 import { mantleBlow } from "./mantle-blow.js";
-import { mantleCentre } from "./mantle-shape.js";
 import { oculusBlow } from "./oculus-blow.js";
-import { oculusCentre } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
 import { plumbBlow } from "./plumb-blow.js";
-import { plumbHook, plumbSacBottom, plumbSacMiddle } from "./plumb-shape.js";
 import { ratchetBlow } from "./ratchet-blow.js";
-import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { rimeBlow } from "./rime-blow.js";
-import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { seamBlow } from "./seam-blow.js";
-import { seamCentre, seamHalfHeight } from "./seam-shape.js";
-import { spoolHome } from "./spool-shape.js";
 import { stareBlow } from "./stare-blow.js";
-import { stareEye } from "./stare-shape.js";
 import { trivetBlow } from "./trivet-blow.js";
-import { trivetCentre, trivetFoot } from "./trivet-shape.js";
 import { valveBlow } from "./valve-blow.js";
-import { valveCentre } from "./valve-shape.js";
 import { viseBlow } from "./vise-blow.js";
-import { viseCentre, viseRadius } from "./vise-shape.js";
 
 /**
  * **What a boss's own blow at the hull looks like**, when a window ran out
  * and the boss broke the ship (`sim/boss-strike.ts`, the owner's rule of 26
  * September 2026: the boss is seen doing it, never a rock nobody saw fall).
  *
- * Two tables and a default. `FROM` is where the blow leaves the body — the
- * boss's own centre, off the same function its drawer places it with, so the
- * blow cannot come out of somewhere the body is not. `LOOK` is a boss's own
- * picture of the blow. **The default lash is a floor, not the picture**: a
+ * A table and a default. Where the blow leaves the body is
+ * `boss-strike-from.ts`; `LOOK` is a boss's own picture of the blow. **The default lash is a floor, not the picture**: a
  * tendril thrown out of the body down to the column, in the boss's hue, and
  * pulled back. Each boss's own blow is one queue item (`docs/queue.md`) and
  * one row here.
@@ -68,59 +52,6 @@ export interface StrikeFrame {
 }
 
 export type StrikeLook = (ctx: CanvasRenderingContext2D, f: StrikeFrame) => void;
-
-const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
-  oculus: oculusCentre,
-  gimbal: gimbalCentre,
-  // Out of the bottom lobe, where the ridge's crack ends (`seam-blow.ts`).
-  seam: (l, cfg) => {
-    const c = seamCentre(l, cfg);
-    return { x: c.x, y: c.y + seamHalfHeight(l) * 0.9 };
-  },
-  valve: valveCentre,
-  spool: spoolHome,
-  // The hook at the chain's end, stowed — off the same shape the boom draws
-  // itself from (`davit-shape.ts`).
-  davit: (l, cfg) => {
-    const mast = davitMast(l, cfg);
-    const hook = davitHook(l, 0, 1);
-    return { x: mast.x + hook.x, y: mast.y + hook.y };
-  },
-  mantle: mantleCentre,
-  // The body's underside, where the cord leaves it: the side the plate is
-  // wrenched toward (`ledger-blow.ts`).
-  ledger: (l, cfg) => ({ x: fieldX(l, midCol(cfg)), y: ledgerBodyY(l).bottom }),
-  // The sac's low end, where the plumb line leaves it (`plumb-blow.ts`).
-  plumb: (l, cfg) => {
-    const h = plumbHook(l, cfg);
-    return { x: h.x, y: h.y + plumbSacMiddle(l).y + plumbSacBottom(l) };
-  },
-  // The pawl's seam, where the jammed rack lets its head plate go
-  // (`ratchet-blow.ts`).
-  ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
-  // The lens's underside, where a frosted sheet lets go (`rime-blow.ts`).
-  rime: (l, cfg) => {
-    const c = rimeCentre(l, cfg);
-    return { x: c.x, y: c.y + rimeRadius(l).ry };
-  },
-  // The eye itself, where the look leaves the socket (`stare-blow.ts`).
-  stare: (l, cfg) => {
-    const e = stareEye(l, cfg);
-    return { x: e.cx, y: e.cy };
-  },
-  // The middle foot, the one never lifted, where the needle drives on from
-  // (`trivet-blow.ts`).
-  trivet: (l, cfg) => {
-    const c = trivetCentre(l, cfg);
-    const f = trivetFoot(l, 2, 0, 0);
-    return { x: c.x + f.x, y: c.y + f.y };
-  },
-  // The split at the case's heavy end, where it spits its seed (`vise-blow.ts`).
-  vise: (l, cfg) => {
-    const c = viseCentre(l, cfg);
-    return { x: c.x, y: c.y + viseRadius(l).ry };
-  },
-};
 
 /** A boss's own blow; an empty table is every boss on the lash. */
 const LOOK: Partial<Record<BossKind, StrikeLook>> = {
@@ -152,6 +83,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // Its hook is already hanging off the boom in sight; the blow pays the
   // chain the rest of the way out and hauls it back taut.
   davit: davitBlow,
+  // A centre left unshot: the plating sheds a hanging plate that bites into the skin.
+  halter: halterBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
@@ -159,14 +92,6 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // a second blow the dragon never struck, so this one only times the crack.
   instar: () => {},
 };
-
-/** Where the blow leaves the body. A boss with no row in `FROM` sits where
- * most of them do, over the middle column three rows down the field. */
-export function strikeFrom(l: Layout, cfg: SimConfig, by: BossKind): Point {
-  const at = FROM[by];
-  if (at) return at(l, cfg);
-  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + 3 * l.tile };
-}
 
 export function strikeLook(by: BossKind): StrikeLook {
   return LOOK[by] ?? lash;

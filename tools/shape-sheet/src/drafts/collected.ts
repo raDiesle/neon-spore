@@ -96,11 +96,12 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
     // IDEAS group, so there is no heading left for this card to be offered to.
     // It is still the shape that was drawn for the encounter, and the encounter
     // is still there to be wanted — a picture waiting for a boss, which is what
-    // `free` means and how THE CODEX's card left the same list.
-    status: "free",
+    // `free` means and how THE CODEX's card left the same list. Taken 26
+    // September 2026 by THE HALTER's plating.
+    status: "taken",
     slot: "boss",
     owner:
-      "the case the whole shape has to survive: a demand in the outermost column of seven, which is where 'which part of a long thing is live' is a fine distinction rather than an obvious one — if this card reads, the body works, and if it does not, no amount of tuning the middle will save it",
+      "THE HALTER, taken 26 September 2026: the slab at its own proportions, cut along one spinal seam into three segments of an upper and a lower plate each, bent over a hunched spine, six hanging plates two to a segment (`render/halter-shape.ts`). The live plate and the seven columns are not used. Before that, the case the whole shape has to survive: a demand in the outermost column of seven, which is where 'which part of a long thing is live' is a fine distinction rather than an obvious one — if this card reads, the body works, and if it does not, no amount of tuning the middle will save it",
   },
   {
     subject: pile("THE CAIRN", "seven rocks in one outline, seams left to count", CAIRN),

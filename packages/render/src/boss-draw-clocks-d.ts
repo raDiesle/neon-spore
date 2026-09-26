@@ -3,6 +3,7 @@ import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGrindstone } from "./grindstone-draw.js";
+import { drawHalter } from "./halter-draw.js";
 import type { Layout } from "./layout.js";
 import { drawPlumb } from "./plumb-draw.js";
 import type { ViewState } from "./renderer.js";
@@ -26,7 +27,15 @@ import { drawTrivet } from "./trivet-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const LATE_PAIR_KINDS = ["sling", "trivet", "plumb", "davit", "cyst", "grindstone"] as const;
+export const LATE_PAIR_KINDS = [
+  "sling",
+  "trivet",
+  "plumb",
+  "davit",
+  "cyst",
+  "grindstone",
+  "halter",
+] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
 
@@ -102,5 +111,14 @@ export function drawLatePairBoss(
   // THE GRINDSTONE: two flats ground, a caliper bitten, the axle shot
   // (`grindstone-draw.ts`); a flat's clean flash, the caliper's flare, the
   // axle's flash and the snap free are `grindstone-fx.ts`.
-  drawGrindstone(ctx, l, world, boss, beat, beatPhase, time, effects.boss.grindstone);
+  if (boss.kind === "grindstone") {
+    drawGrindstone(ctx, l, world, boss, beat, beatPhase, time, effects.boss.grindstone);
+    return;
+  }
+
+  // THE HALTER: a plated slab hugged shut along a seam of three segments,
+  // each parted while one seat touches nothing and the other holds both
+  // grips, the bared centre shot; its tell is the tremor stopping
+  // (`halter-draw.ts`). Nothing of it outlives a frame.
+  drawHalter(ctx, l, world, boss, beat, beatPhase, time);
 }

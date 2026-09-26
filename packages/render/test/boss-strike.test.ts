@@ -1,8 +1,11 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type BossKind, DEFAULT_CONFIG, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "../src/arrivals.js";
+import { strikeFrom } from "../src/boss-strike-from.js";
 import { BossStrikeFx } from "../src/boss-strike-fx.js";
+import { lash, strikeLook } from "../src/boss-strike-look.js";
 import { ingestBreach } from "../src/effects-breach.js";
+import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -82,7 +85,7 @@ describe("a boss's blow at the hull", () => {
     const c = ctx as unknown as CanvasRenderingContext2D;
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
-      ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit"],
+      ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -106,6 +109,35 @@ describe("a boss's blow at the hull", () => {
     expect(ctx.calls - before).toBeLessThan(4);
     parts.bossStrike.update(0.4, L);
     expect(parts.arrivals.has(4, 3)).toBe(true);
+  });
+
+  it("THE HALTER sheds a plate from under its centre that bites the skin at reach 1", () => {
+    const { ctx } = stubCanvas();
+    const at: { x: number; y: number }[] = [];
+    const spy = new Proxy(ctx, {
+      get(t, k) {
+        if (k === "translate")
+          return (x: number, y: number) => {
+            at.push({ x, y });
+            t.translate(x, y);
+          };
+        const v = Reflect.get(t, k);
+        return typeof v === "function" ? v.bind(t) : v;
+      },
+    }) as unknown as CanvasRenderingContext2D;
+    const from = strikeFrom(L, CFG, "halter");
+    const centre = halterCentre(L, CFG);
+    expect(from.x).toBe(centre.x);
+    expect(from.y).toBeGreaterThan(centre.y);
+    const to = { x: from.x, y: L.hullY };
+    const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
+    const look = strikeLook("halter");
+    expect(look).not.toBe(lash);
+    look(spy, { ...frame, reach: 0 });
+    expect(at[0]).toEqual(from);
+    at.length = 0;
+    look(spy, { ...frame, reach: 1 });
+    expect(at[0]).toEqual(to);
   });
 
   it("forgets every blow on a restart", () => {
