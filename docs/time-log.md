@@ -21981,3 +21981,14 @@ Bottleneck: reading — the entry's "count the Nth" was `--until-on`'s step on
 in ticks, which only `until-on.test.ts` says plainly.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `scenes.ts` spreads the waves' films in from `scenes-waves.ts`
+
+- reading: 5 min. `scenes.ts` and `scenes-owed.ts`, the seam it names.
+- writing: 5 min. The sixty imports, their ids and rows moved to a table of
+  their own, spread back in first; the header and the tutorial skill's line.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the seam was already named by three files next door.

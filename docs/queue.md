@@ -431,18 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `packages/content/src/scenes.ts` is at 250 lines
-
-- **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
-- **Taken:** 2026-09-26, claude/queue-bun-run-frames-until-misses-an-event-that-fires (claim: claude/queue-packages-content-src-scenes-ts-is-at-250-lines)
-- **Files:** `packages/content/src/scenes.ts`
-
-ONE LAST CHANCE's film took the last line; the header paragraph on the
-choreographed films was shortened by one to make room. The next scene
-registered pushes it over. Move the `SCENES` table (or the `SceneId` union and
-the imports that feed it) into a file of its own imported back, the way the
-wave acts were cut out of `waves.ts`. Proof: `bun run check`, both files well
-under 230.
 ## `packages/sim/src/hash.ts` is at 250 lines
 
 - **Found:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for

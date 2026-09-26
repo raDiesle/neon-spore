@@ -828,6 +828,7 @@ by hand never moves.
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |
+| `packages/content/src/scenes-waves.ts` | The films of the waves and bosses that are not a family of their own — one per `scenes/` file |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |

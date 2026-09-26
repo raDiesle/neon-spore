@@ -194,8 +194,10 @@ the rules, change the entries or the acts — do not draw it.
 
 ## 2 · The shape of one
 
-Author in `packages/content/src/scenes/<wave-id>.ts`, add the id to `SceneId`
-and the scene to `SCENES` in `scenes.ts`, and name it from the wave's `guide`.
+Author in `packages/content/src/scenes/<wave-id>.ts`, add the id to
+`WaveSceneId` and the scene to `SCENES_WAVES` in `scenes-waves.ts` (or to the
+family table next door it belongs to — `scenes.ts` spreads all four), and name
+it from the wave's `guide`.
 
 ```ts
 const TWO_COLOURS: GuideScene = {
