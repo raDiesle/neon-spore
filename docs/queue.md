@@ -493,6 +493,7 @@ Unverified at tempo until the owner has looked.
 ## §28 THE VISE — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, main (claim: claude/queue-28-the-vise-the-look)
 - **Needs:** §28 THE VISE's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
