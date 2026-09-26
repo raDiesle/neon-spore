@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · fa47719d2 — AUTO plays THE SEAM: shoots each point and rock, takes the grit on the shield
+
+The autopilot's hand for THE SEAM: a lit point, rock or glow is shot in the step's colour up its own column until it has had enough, and grit, thrown blind or not, is taken on the shield under the ridge — both on a step that asks for both. A test plays THE SEAM to the end with all three points sealed, four throws turned, both rocks shot out and no scar. THE SEAM leaves NO_HAND, and §26's entry no longer lists the hand.
+
 ## 2026-09-26 · 276da622a — THE VISE watched through: every step reads, nothing found
 
 AUTO BOTH wins wave 107 in about 27 seconds with no slip or miss, and a strip at each receipt reads right: the crack, the bare kernel, the brace onto the shield, the seed burst and the split.

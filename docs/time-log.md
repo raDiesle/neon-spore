@@ -25167,3 +25167,5 @@ Bottleneck: looking — the wave runs past the frames tool's default
 
 The bottleneck: none — every answer is a standard shot or shield, and
 THE OCULUS's hand already carried both.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
