@@ -8630,12 +8630,20 @@ sheet and nothing else, THE SEAM's rule.
   a level reached rather than a count of beats held, so a window exactly its
   beats long can be met on any tick of it.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
+**The simulation lane and half one of the look have landed.** The body is
+drawn (`render/rime-draw.ts`, 26 September 2026): BULB · PEBBLE's featureless
+outline as a pane of dull grey glass, split down the spine into the pilot's
+half and the navigator's, with THE CAIRN's seven faceted sheets laid over it
+as pale frost; a half's clear patch as wide as its frost is gone; the lit half
+white and the other dulled; a surge crawling in from the rim through a shield
+step; the core lit in its colour once bared, smaller per hit; and the
+shatter dropping the sheets apart. Half two, the hands, is not: the render
 package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-carry all twelve of its events until lane two. The twelve sounds *are* bound
+still carry all twelve of its events. The twelve sounds *are* bound
 (`audio/src/bind-rime.ts`), heard where they happen, the clear pitched up per
 wipe and the hit per hit. There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), and no touch rubs a
+half from the field.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/rime.test.ts`): the lens comes in still with both halves frosted

@@ -24077,3 +24077,19 @@ Bottleneck: looking — the blow lands under the cannon, where the skin
 humps, so a straight seam floated off it until it was bent over the hump.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RIME's body: a frosted pane, wiped a half at a time (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 20 min. THE VISE's and THE OCULUS's body files, the rime state
+  and its clocks, the drafts for a featureless round body and a faceted pile.
+- writing: 35 min. Four render files, the arm in the clock dispatcher, two
+  palette entries, the frame test, the drafts marked taken, the specs, the
+  queue item rewritten to the hands.
+- looking: 25 min. Posed frames of the frost, a half wiped, the lit half,
+  the fire step, the surge and the shatter; the lit half and the patch each
+  redrawn after a look.
+- friction: 5 min. The frames tool has no hand on THE RIME, so every state
+  was posed with `--boss-json` rather than played to.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — a white glow on pale frost does not show, and only a frame said so.

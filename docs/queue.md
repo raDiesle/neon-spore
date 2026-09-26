@@ -485,19 +485,6 @@ director's autopilot hands (`packages/hands`) through the page's own tick, so
 first kernel flash. Proved by a test in `tools/frames/test/` that `--auto both`
 on THE VISE reaches a `viseHit` inside its budget.
 
-## §29 THE RIME — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-29-the-rime-the-look)
-- **Needs:** §29 THE RIME's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: frost drawn as a spreading
-clear patch rather than a fading overlay, so a half-wiped rime genuinely
-shows the glass under it, and a regrowth surge visibly creeping back before
-a shield stops it. Nothing here is drawn yet and stays unverified at tempo
-until the owner has looked.
-
 ## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
@@ -2635,3 +2622,41 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §29 THE RIME — its hands, the second half of its look
+
+- **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
+- **Needs:** §29 THE RIME — the look, half one (the body), landed first
+- **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`, `packages/hands/src/`
+
+The body is drawn: BULB · PEBBLE's pane of dull glass split down the spine,
+THE CAIRN's seven sheets of frost over it with their seams showing, a half's
+clear patch as wide as its frost is gone, the lit half white and the other
+dulled, a shield step's surge crawling in from the rim, the core lit in its
+colour and smaller per hit, and the shatter dropping the sheets apart
+(`render/rime-*.ts`, `test/rime-frame.test.ts`). What is left, in lanes:
+**the rub on the field** — a thumb down on a half sends `rimeHalfLeft` or
+`rimeHalfRight` with its reversal count as the drag's `id`, and nothing on
+the field sends one yet; **the autopilot hand** (`NO_HAND` in
+`tools/director/test/autopilot.test.ts` until then); **the fx**, in
+`Effects` and cleared in `reset()` — flakes shaved off under a rub, a half's
+clear, the core's hit flash and the shatter's, the twelve `rime*` events off
+the two silent lists as each gets its burst, and row 11's refreeze film;
+**the cue's words** (WIPE on the lit half, FIRE on the lit core, SHIELD on a
+surge); and **THE SLOW's aim** on the lens, one arm in `slow-boss-aim.ts`,
+`case "rime": return still(rimeCentre(l, world.cfg), longer(rimeRadius(l)))`,
+with its row in `slow-boss-aim.test.ts`. Unverified at tempo until the owner
+has looked.
+
+## The step colour is written three times: hoist it
+
+- **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
+- **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/oculus-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/sim/test/copies-table.ts`
+
+`seamColour`, `viseColour` and `oculusColour` are the same function — a
+step's `Color | "either"` to its body and rim colours, white for either —
+copied three times; THE RIME calls `seamColour` rather than make a fourth.
+Move it to one small module (`step-colour.ts`, say), call it from all four
+marks files, delete the copies, and add a row to the called-not-re-derived
+table in `packages/sim/test/copies-table.ts` so a fifth boss cannot copy
+it again. No picture changes; `bun run check` proves it.

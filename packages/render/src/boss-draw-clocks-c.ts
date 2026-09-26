@@ -8,6 +8,7 @@ import { drawMantle } from "./mantle-draw.js";
 import { drawOculus } from "./oculus-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
+import { drawRime } from "./rime-draw.js";
 import { drawSeam } from "./seam-draw.js";
 import { drawSpool } from "./spool-draw.js";
 import { drawValve } from "./valve-draw.js";
@@ -43,6 +44,7 @@ export const PAIR_KINDS = [
   "seam",
   "oculus",
   "vise",
+  "rime",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -164,5 +166,15 @@ export function drawPairBoss(
   // lit to say so (`vise-draw.ts`). What outlives a frame — a crack's thud,
   // a sprung lobe, the kernel's flash, the hull's shudder — is
   // `effects.boss.vise` (`vise-fx.ts`).
-  drawVise(ctx, l, world, boss, beat, beatPhase, time, effects.boss.vise);
+  if (boss.kind === "vise") {
+    drawVise(ctx, l, world, boss, beat, beatPhase, time, effects.boss.vise);
+    return;
+  }
+
+  // THE RIME: a frosted pane over the middle column, each half wiped clear by
+  // one seat, a core behind it both cannons are asked to hit. Both screens
+  // are drawn the same — the other seat has to see which half is lit to say
+  // so (`rime-draw.ts`). Nothing of it outlives a frame yet: its hands and
+  // effects are the second half of its look.
+  drawRime(ctx, l, world, boss, beat, beatPhase, time);
 }

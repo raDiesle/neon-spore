@@ -144,10 +144,10 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
       "lobes so shallow they are barely there, under a wobble that blurs them",
     ),
     motion: BULB_MOTION,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing wears it: `bulb:shape` / `pebble`, moved here with the other four on 9 September 2026. It argues that the bulb should be the body with *no feature at all* — lobes so shallow they are barely a departure from a circle, under a wobble larger than the lobes, so what a player sees is a soft round thing that breathes. Every other body on the field is trying to be recognised by a count or a point; this one would be recognised by having nothing to recognise. It is the opposite end of the slot from SPIKE and the two belong side by side, because the question underneath both is whether the first round body should be busy or plain. What it risks is that a circle is a rock: THE METEOR is the hard round thing at the same size, and with the lobes gone the difference rests entirely on the material and the colour",
+      "THE RIME, taken 26 September 2026, combined with THE CAIRN: its outline is the lens, a pane of glass with nothing to recognise, so the frost on it is the whole of what is read (`render/rime-shape.ts`). Before that, nothing wore it: `bulb:shape` / `pebble`, moved here with the other four on 9 September 2026. It argues that the bulb should be the body with *no feature at all* — lobes so shallow they are barely a departure from a circle, under a wobble larger than the lobes, so what a player sees is a soft round thing that breathes. Every other body on the field is trying to be recognised by a count or a point; this one would be recognised by having nothing to recognise. It is the opposite end of the slot from SPIKE and the two belong side by side, because the question underneath both is whether the first round body should be busy or plain. What it risks is that a circle is a rock: THE METEOR is the hard round thing at the same size, and with the lobes gone the difference rests entirely on the material and the colour",
   },
   {
     subject: blob(

@@ -61,6 +61,8 @@ export const FAMILIES: Family[] = [
       "viseCase",
       "viseCaseDark",
       "viseCrack",
+      "rimeFrost",
+      "rimeFrostDeep",
     ],
   },
   {

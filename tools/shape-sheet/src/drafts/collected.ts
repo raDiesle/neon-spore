@@ -109,11 +109,12 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
     // IDEAS group, so there is no heading left for this card to be offered to.
     // It is still the shape that was drawn for the encounter, and the encounter
     // is still there to be wanted — a picture waiting for a boss, which is what
-    // `free` means and how THE CODEX's card left the same list.
-    status: "free",
+    // `free` means and how THE CODEX's card left the same list. Taken 26
+    // September 2026 by THE RIME's frost.
+    status: "taken",
     slot: "boss",
     owner:
-      "the first boss that is a pile rather than a body, and the first drawn with facets instead of lobes: each unit contributes its own polygon rather than a metaball, so the outline creases where two units meet instead of bulging, and the seams survive into the silhouette — which matters because counting the units is counting the fight",
+      "THE RIME, taken 26 September 2026, combined with BULB · PEBBLE: its seven faceted units are the frost's seven sheets laid over the lens, seams left showing, dropped apart one sheet at a time when it shatters; its heptagon unit is the core as well (`render/rime-shape.ts`). Before that, the first boss that is a pile rather than a body, and the first drawn with facets instead of lobes: each unit contributes its own polygon rather than a metaball, so the outline creases where two units meet instead of bulging, and the seams survive into the silhouette — which matters because counting the units is counting the fight",
   },
   {
     subject: pile("THE CAIRN · PULLED", "one unit dragged clear — now it is only a rock", {

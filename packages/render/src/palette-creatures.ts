@@ -193,4 +193,12 @@ export const CREATURE_HUES = {
   viseCase: "#9C7A52",
   viseCaseDark: "#35271A",
   viseCrack: "#E6DCC6",
+  /**
+   * THE RIME's frost (§29, *Colour*): a pale blue-white film, and the grey of
+   * its seams. Greyer than `crystalField`'s ice-white and far from `cyan` and
+   * `cyanRim`, so a frosted pane never says *load cyan*; its seams sit between
+   * the frost and `rockDark`, so they read as cracks in ice rather than rock.
+   */
+  rimeFrost: "#CDD6E0",
+  rimeFrostDeep: "#6D7885",
 } as const;
