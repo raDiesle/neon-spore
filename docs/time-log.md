@@ -22690,3 +22690,5 @@ lens at once, and only a frame says which one is short.
 
 Bottleneck: writing — the forty-odd registrations a choreographed boss
 needs outside its own seven files, each found from the last one's commit.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

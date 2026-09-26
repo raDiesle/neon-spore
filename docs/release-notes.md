@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 94ea68ac6 — THE PLUMB: the simulation lane — a bob two phones hold level, then shoot into
+
+Wave 110 THE PLUMB is in: a bob hung skewed over the middle column whose two weights are settled true by each seat holding its own phone level inside a range for the count, the second settle inside a narrower one, spending the unclaimed TILT, AS A LEVEL gesture as LevelTilt for the first time. Four settles light the core, which is shot in its colour; between the shots both seats hold level at once to keep it lit. The twelve sounds are bound; nothing reads a phone's lean yet — that reader is queued — nothing is drawn, and there is no autopilot hand (docs/spec/bosses.md §11.48, nine departures argued).
+
 ## 2026-09-26 · 044d6f6d7 — THE INSTAR's wings are solid: a lit membrane and a tube arm, hung on a shoulder anchor
 
 Each wing is authored once, flat about its own shoulder, and hung on an anchor of the rig. The membrane is a new part kind, a sheet lit by its own normal, so as the wing beats on its roll it turns its face to the key and away and brightens and darkens on its own; light comes through it from the bones and goes dark at the hem. The arm is a lit tube of the rig. The figure's side blends the two carriages, face-on spread and hanging and side-on raised off the back, so the same wing serves both views, and the far one is the same wing mirrored and hazed.
