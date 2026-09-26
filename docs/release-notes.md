@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d316a7fd1 — THE INSTAR's eggs crack while nobody takes them, and the brood comes back swapped
+
+An egg still standing on either nest now cracks as the window runs: a hairline down from its crown at a quarter of the window, and at three quarters a dark split with the hatchling's ember eye moving in it, drawn on the egg and never as a bar. A second brood comes late in the script, before the mixed lash, with the counts swapped: the nests change sides, player 1 swipes the left ten off and player 2 taps the right sixteen flat.
+
 ## 2026-09-26 · 89bae1d3b — THE INSTAR's parts are the six its script names
 
 `INSTAR_PARTS` still listed `hand` and `tongue` from the five poses of 17 September, and no step of the script has named either since. They are cut from the list and from the strike's table, which gave both a slam that was never drawn; the tests that borrowed `hand` as an arbitrary part use `jaw`. The prose in `instar.ts` and the director's field-controls sheet now names the parts the boss has.

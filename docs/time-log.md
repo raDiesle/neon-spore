@@ -21412,3 +21412,5 @@ reached.
 
 Bottleneck: seeing the crack at all — the eggs are a few pixels wide on a
 phone, and the first stroke was thinner than the egg's own outline.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
