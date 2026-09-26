@@ -22196,3 +22196,5 @@ happen before the write-up is drafted, not after.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction — dropping the imports the cut stranded took as long as the cut.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
