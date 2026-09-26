@@ -23490,3 +23490,15 @@ Bottleneck: designing four new states that read as genuinely different
 pictures while spending no gesture the sim does not already build, so the
 whole redesign stays a spec-and-registration lane rather than a new-primitive
 one.
+
+## 2026-09-26 — THE MANTLE, the brace's look and its hand
+
+- reading: 10 min. How the shell, the handles, the grip and the cue are drawn.
+- writing: 25 min. `mantle-brace.ts`, the `HOLD` word, the hand's brace, the
+  sixth pose, the frame rig split out of `mantle-frame.test.ts`, the tests, §11.40.
+- looking: 5 min. One frame of the brace.
+- friction: 5 min. A glow test counted strokes, which a brighter glow does not add.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the brace is three pictures, and each needed a test that
+a count of colours could tell apart.

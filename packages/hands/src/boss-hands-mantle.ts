@@ -1,6 +1,7 @@
 import {
   type MantleState,
   mantleBoss,
+  mantleBracing,
   mantleFinale,
   mantleLeaking,
   mantlePulling,
@@ -22,6 +23,10 @@ import {
  * which is the half-way notch the groove draws (`mantle-handle.ts`), and
  * neither is the arm-wrestle the floor exists to refuse.
  *
+ * **The brace is a thumb laid on and kept still** (§23 rows 7 and 8): a side
+ * the shell reports let go is pressed at the top of its groove, and nothing
+ * lifts until the last pull lights.
+ *
  * **The finish is an edge**: a tap is judged on the press, so the seat whose
  * turn it is presses once every half beat and lets go on the tick after,
  * which is a thumb and not a held finger.
@@ -35,8 +40,20 @@ type Press = Omit<TimedCommand, "tick">;
 export const mantleHand = (w: World): Press[] => {
   const s = mantleBoss(w);
   if (s === null) return [];
-  return [...spark(s), ...pull(w, s), ...tap(w, s)];
+  return [...spark(s), ...brace(s), ...pull(w, s), ...tap(w, s)];
 };
+
+function brace(s: MantleState): Press[] {
+  if (!mantleBracing(s)) return [];
+  const out: Press[] = [];
+  for (const index of [0, 1] as const) {
+    if (s.held[index]) continue;
+    const target = index === 0 ? "mantleLeft" : "mantleRight";
+    const player = index === 0 ? 1 : 2;
+    out.push({ player, command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 } });
+  }
+  return out;
+}
 
 function spark(s: MantleState): Press[] {
   if (!mantleLeaking(s)) return [];

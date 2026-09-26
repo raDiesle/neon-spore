@@ -4,7 +4,7 @@ import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **THE MANTLE's five states**, posed with a hand on the controls
+ * **THE MANTLE's six states**, posed with a hand on the controls
  * (`boss-hands-mantle.ts`): the still and the first lit pull arrive by
  * themselves, and the rest are earned by both handles pulled together.
  *
@@ -35,6 +35,12 @@ export const MANTLE_POSES: Pose[] = [
     "spark",
     "Two pairs off, a spark leaking to the hull. P1 aims the middle; P2 fires.",
     { hand: mantleHand, want: leaking, hold: 6 },
+  ),
+  bossPose(
+    "mantle",
+    "brace",
+    "The seam glows and the shell shudders. P1 and P2 hold both handles still.",
+    { hand: mantleHand, hold: 6, budgetBeats: 80 },
   ),
   bossPose(
     "mantle",

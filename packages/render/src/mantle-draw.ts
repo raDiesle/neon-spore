@@ -6,6 +6,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { drawMantleBraceRings, drawMantleSeam, mantleShudder } from "./mantle-brace.js";
 import type { MantleFx } from "./mantle-fx.js";
 import { drawMantleHandles, drawMantleRing } from "./mantle-handle.js";
 import {
@@ -83,10 +84,13 @@ export function drawMantle(
 
   ctx.save();
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
-  ctx.translate(fx.hurt.shakeX(time, l.tile), fx.kick * l.tile - mantleLift(l, arrived));
+  const shudder = mantleShudder(l, world, s, time);
+  ctx.translate(fx.hurt.shakeX(time, l.tile) + shudder, fx.kick * l.tile - mantleLift(l, arrived));
   drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
   for (const side of [-1, 1] as const)
     drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
+  drawMantleSeam(ctx, l, world, s, at, beat, beatPhase);
+  drawMantleBraceRings(ctx, l, world, s, beatPhase);
   const lit = mantleHandlesLit(s, beat, beatPhase);
   if (mantleFinale(s)) drawMantleRing(ctx, l, s, at, beatPhase);
   else if (s.phase !== "dark") drawMantleHandles(ctx, l, world, s, at, poses, lit, time);

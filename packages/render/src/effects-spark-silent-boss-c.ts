@@ -65,8 +65,8 @@ export const SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
-  // THE MANTLE's brace before the last pair, from the revised lane: the
-  // simulation only, and its look is queued (`docs/queue.md`).
+  // THE MANTLE's brace before the last pair: its look is read off the
+  // world each frame (`mantle-brace.ts`), and nothing of it outlives one.
   "mantleGlow",
   "mantleSlip",
   "mantleSteady",

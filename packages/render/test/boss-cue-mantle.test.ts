@@ -25,8 +25,9 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE MANTLE, and the three words the field may say about it**
+ * **THE MANTLE, and the four words the field may say about it**
  * (`render/src/boss-cue-read-zc.ts`): `PULL` on each seat's own unheld knob,
+ * `HOLD` on it while the shell braces,
  * `TAP` on the core for the seat whose turn it is, `FIRE` over a leaking
  * spark. What is *not* said is the half that matters — nothing on a held
  * knob, whether its thumb is below the floor or past it, because how far is
@@ -96,6 +97,27 @@ describe("THE MANTLE", () => {
     s.phase = "dark";
     expect(cue(world, "p1")).toBeNull();
     expect(cue(world, "p2")).toBeNull();
+  });
+
+  it("asks each seat to HOLD its own knob while the shell braces, until it is held", () => {
+    const { world, s } = hung();
+    s.phase = "brace";
+    s.cursor = s.thresholds.length - 1;
+    s.held = [false, false];
+    for (const [role, seat] of [
+      ["p1", 1],
+      ["p2", 2],
+    ] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("HOLD");
+      expect(c?.kind).toBe("HOLD");
+      expect(c?.seat).toBe(seat);
+      const knob = mantleKnobCircle(LAYOUT[role], CFG, s, mantleSide(seat), world.beat, 0);
+      expect(c?.x).toBeCloseTo(knob.x, 5);
+    }
+    s.held = [true, false];
+    expect(cue(world, "p1")).toBeNull();
+    expect(cue(world, "p2")?.word).toBe("HOLD");
   });
 
   it("asks only the seat the finish is waiting on to TAP, on the core", () => {

@@ -7663,14 +7663,18 @@ its knob to half the threshold, never below the floor, and presses again only
 when lighting has put it back to nought; the spark is shot out of its column
 in cyan; the core is tapped every half beat by the seat it waits on. AUTO
 plays it to dark (`tools/director/test/autopilot-mantle.test.ts`) and the
-STATES sheet poses all five phases off it
+STATES sheet poses all six phases off it
 (`tools/director/src/poses-bosses-hands-mantle.ts`). What is left of half
 two: no sounds are bound — `tools/director/src/sound-link-none-c.ts` carries
-all ten of its events until it lands. **The brace is the simulation only**
-(26 September 2026): its four events are bound to sounds of their own and
-silent in `render/`, and nothing draws the glow, the shudder or the steady
-yet — during it the handles stand unlit — and the STATES sheet has no
-pose for it; both are queued (`docs/queue.md`).
+all ten of its events until it lands. **The brace is drawn** (26 September
+2026, `render/mantle-brace.ts`), off the world each frame: the seam cracks up
+from the tail a share per pair and glows in the core's colour, pulsing bright
+under the brace and brighter as the hold counts; the shell shudders side to
+side, less as the hold counts and half again with both thumbs down, so a slip
+is the shudder back at full; and each knob gets a ring, grey and breathing let
+go, lit and steady held. The handles stand unlit through it, and the cue says
+`HOLD` on each seat's own knob until that side is held. Its four events stay
+silent in `render/`, because nothing of the brace outlives a frame.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/mantle.test.ts`): it installs still and lights on cue; a shear

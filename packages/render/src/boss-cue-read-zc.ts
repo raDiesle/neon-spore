@@ -1,5 +1,6 @@
 import {
   type MantleState,
+  mantleBracing,
   mantleFinale,
   mantleLeaking,
   mantlePulling,
@@ -25,6 +26,11 @@ import { mantleCoreCircle, mantleKnobCircle, mantleSide } from "./mantle-grip.js
  * conversation, and the grey end of the cord already says a thumb is counting
  * for nothing (`drawCord`). A word on a held knob could only say *further*,
  * which is the other seat's line.
+ *
+ * **`HOLD` on each seat's own knob while the shell braces and that side is
+ * let go** (§23 rows 7 and 8): the gesture is a thumb laid on and kept still,
+ * so the kind is `HOLD`, and it goes the moment the thumb is down — a lift
+ * brings it back, which is the whole of what the slip needs to say.
  *
  * **`TAP` on the core ring for the seat whose tap the finish is waiting on**
  * (`heartbeatNext`), and nothing on the other screen: a wrong-seat tap is
@@ -60,6 +66,14 @@ export function mantleCues(
       const knob = mantleKnobCircle(l, cfg, s, mantleSide(seat), world.beat, beatPhase);
       const seed = seat === 1 ? 116 : 117;
       out.push({ seat, kind: "CARRY", word: "PULL", x: knob.x, y: knob.y, ...frame, seed });
+    }
+  }
+  if (mantleBracing(s)) {
+    for (const seat of [1, 2] as const) {
+      if (s.held[seat === 1 ? 0 : 1]) continue;
+      const knob = mantleKnobCircle(l, cfg, s, mantleSide(seat), world.beat, beatPhase);
+      const seed = seat === 1 ? 128 : 129;
+      out.push({ seat, kind: "HOLD", word: "HOLD", x: knob.x, y: knob.y, ...frame, seed });
     }
   }
   if (mantleFinale(s)) {
