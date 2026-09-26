@@ -1482,6 +1482,18 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
+## `--boss-json` throws in the page on a nested `"now"`
+
+- **Found:** 2026-09-26, claude/instar-rig
+- **Files:** `tools/frames/boss.ts`, `tools/frames/boss-install.ts`
+
+`bun run frames . --wave "THE GORGE" --boss-json '{"intakes":[{…,"fullBeat":"now",…}]}'`
+dies with a stack trace from inside the page's paint: `"now"` is resolved
+only at the top level (`boss.ts` line 132), so the string reaches the world
+as a beat and the draw does arithmetic on it. Either resolve `"now"` at any
+depth, or refuse a nested one on the command line with a sentence naming
+the key, before the browser opens. Worked around with a numeric beat.
+
 ## Unverified at b48c6880a: THE KEEL's joint tapped by a real thumb on a phone
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e

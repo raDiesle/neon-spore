@@ -610,6 +610,17 @@ run it, look at the PNG — that is the loop.
   skull, so the tube's round end is under the plate. A hinged part breathes
   on its hinge — the side-on jaw opens by a `breath` over its pose's opening
   — never by moving its points.
+- **A row of lobes bows in depth and turns, and never leaves its columns**
+  (`gorge-depth.ts`). A body whose parts stand over columns the rules read
+  gets depth only *in place*: give each part a `z` on a bow (the middle
+  nearest) plus a slow `breath` turn that brings one end forward as the other
+  goes back, then scale each by the lens, `lens / (lens - z)`, haze the far
+  ones a stepped share toward the field, and paint far to near so the nearer
+  is over the further where they meet. Its centre never moves. Things *inside*
+  a translucent part swim round it in depth — the half behind is drawn before
+  the skin and veiled by it, the half in front after — which is the reveal a
+  lens alone never gives. The rim is on the edge turned from the key and
+  slides with the turn; a rim all the way round is an outline.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency

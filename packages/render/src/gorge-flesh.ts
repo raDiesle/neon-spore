@@ -25,6 +25,9 @@ import { PALETTE } from "./palette.js";
  * new width on every frame.
  */
 
+/** How far across a lobe its light slides as the sack turns, in lobe radii. */
+const LIGHT_SLIDE = 0.18;
+
 /** Where the sack hangs: `gorge-draw.ts`' `gorgeSackBox`, and the tile. */
 export interface Sack {
   x: number;
@@ -109,6 +112,8 @@ export interface LobeSkin {
   wallAlpha: number;
   /** A full lobe is transparent: no wash of skin over the beads. */
   full: boolean;
+  /** The sack's turn, -1..1: the light slides across the lobe as it goes. */
+  turn: number;
 }
 
 export function paintLobeSkin(ctx: CanvasRenderingContext2D, body: Path2D, k: LobeSkin): void {
@@ -121,7 +126,8 @@ export function paintLobeSkin(ctx: CanvasRenderingContext2D, body: Path2D, k: Lo
     ctx.globalAlpha = 1;
   }
   ctx.clip(body);
-  const shade = ctx.createRadialGradient(x - rx * 0.35, cy - ry * 0.45, 0, x, cy, ry * 1.2);
+  const lx = x - rx * (0.35 - LIGHT_SLIDE * k.turn);
+  const shade = ctx.createRadialGradient(lx, cy - ry * 0.45, 0, x, cy, ry * 1.2);
   shade.addColorStop(0, rgba(PALETTE.sheenRim, k.full ? 0.12 : 0.22));
   shade.addColorStop(0.4, rgba(PALETTE.sheenRim, 0));
   shade.addColorStop(0.7, rgba(PALETTE.sheenDeep, 0));
@@ -152,7 +158,37 @@ export function paintLobeSkin(ctx: CanvasRenderingContext2D, body: Path2D, k: Lo
   ctx.globalAlpha = 0.5 * k.floorAlpha;
   ctx.stroke(body);
   ctx.restore();
-  shine(ctx, x - rx * 0.38, cy - ry * 0.48, rx * 0.26, ry * 0.1, 0.35);
+  shine(ctx, x - rx * (0.38 - LIGHT_SLIDE * k.turn), cy - ry * 0.48, rx * 0.26, ry * 0.1, 0.35);
+}
+
+/**
+ * The lobe's rim: the light from behind the sack caught on the edge turned
+ * away from the key, and nowhere else — a line all the way round would be the
+ * outline this skin replaced. It slides with the sack's turn, as the lit
+ * shoulder does, the other way.
+ */
+export function paintLobeRim(
+  ctx: CanvasRenderingContext2D,
+  body: Path2D,
+  x: number,
+  rx: number,
+  tile: number,
+  turn: number,
+  alpha: number,
+): void {
+  if (alpha <= 0) return;
+  const edge = x + rx * LIGHT_SLIDE * turn;
+  const rim = ctx.createLinearGradient(edge - rx * 0.1, 0, edge + rx, 0);
+  rim.addColorStop(0, rgba(PALETTE.sheenRim, 0));
+  rim.addColorStop(1, rgba(PALETTE.sheenRim, 0.5 * alpha));
+  ctx.save();
+  ctx.clip(body);
+  ctx.globalCompositeOperation = "lighter";
+  ctx.strokeStyle = rim;
+  ctx.lineWidth = tile * 0.08;
+  ctx.lineJoin = "round";
+  ctx.stroke(body);
+  ctx.restore();
 }
 
 /** The sack's upper wall lit from inside: the body stroked wide over its top half. */

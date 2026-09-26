@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
+import { lobeDepths } from "./gorge-depth.js";
 import { paintSack, paintSackGone } from "./gorge-flesh.js";
 import { drawLobe, lobeHex } from "./gorge-lobe.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -131,15 +132,20 @@ export function drawGorge(
   paintSack(ctx, body, { ...sack, tile: l.tile }, breath, lobes, y);
   drawHurt(ctx, body, hurt);
 
-  const nearest = showsGorgeNearest(l.role) ? gorgeNearestFull(g) : -1;
-  for (let i = 0; i < g.intakes.length; i++) {
+  // The far lobes first, so where two meet the nearer is over the further.
+  const depths = lobeDepths(g.intakes.length, time);
+  const order = depths.map((_, i) => i).sort((a, b) => (depths[a]?.s ?? 0) - (depths[b]?.s ?? 0));
+  for (const i of order) {
     const k = g.intakes[i];
-    if (k === undefined) continue;
+    const d = depths[i];
+    if (k === undefined || d === undefined) continue;
     const x = tileCX(l, g.col + i);
     const since = k.fullBeat < 0 ? -1 : beat - k.fullBeat + beatPhase;
-    drawLobe(ctx, l.tile, cfg, k, x, y, breath, since, i === g.mouth, time, i);
-    if (i === nearest) drawNearest(ctx, l, k, x, y, breath);
+    drawLobe(ctx, l.tile, cfg, k, x, y, breath, since, i === g.mouth, time, i, d);
   }
+  const nearest = showsGorgeNearest(l.role) ? gorgeNearestFull(g) : -1;
+  const k = g.intakes[nearest];
+  if (k !== undefined) drawNearest(ctx, l, k, tileCX(l, g.col + nearest), y, breath);
   if (showsGorgeTally(l.role)) drawTally(ctx, l, g, y);
 }
 

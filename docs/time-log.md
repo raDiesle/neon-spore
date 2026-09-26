@@ -22823,3 +22823,18 @@ Bottleneck: landing — the page is a copy of THE MANTLE's in shape, and the
 check waits longer than the writing took.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE GORGE's lobes bow in depth, and its beads swim behind the skin
+
+- reading: 10 min. The sack, the lobe, its flesh, and the frame test.
+- writing: 15 min. `gorge-depth.ts`, the lobes' lens, haze and painter's
+  order, the beads' swim, the rim, and the style-guide bullet.
+- looking: 15 min. A full lobe's slow-time echo drowned the first frames, so
+  the state had to be chosen without one; a rim all the way round read as
+  the outline the skin replaced, and was moved to the shadow edge.
+- friction: 5 min. A `"now"` inside a nested `--boss-json` intake is not
+  resolved, and the frame throws.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — only a frame showed the whole-outline rim reading as a
+drawn line.
