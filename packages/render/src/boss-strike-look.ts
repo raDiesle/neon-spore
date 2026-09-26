@@ -16,6 +16,8 @@ import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { seamBlow } from "./seam-blow.js";
 import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
+import { stareBlow } from "./stare-blow.js";
+import { stareEye } from "./stare-shape.js";
 import { valveBlow } from "./valve-blow.js";
 import { valveCentre } from "./valve-shape.js";
 import { viseBlow } from "./vise-blow.js";
@@ -76,6 +78,11 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   // The pawl's seam, where the jammed rack lets its head plate go
   // (`ratchet-blow.ts`).
   ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
+  // The eye itself, where the look leaves the socket (`stare-blow.ts`).
+  stare: (l, cfg) => {
+    const e = stareEye(l, cfg);
+    return { x: e.cx, y: e.cy };
+  },
   // The split at the case's heavy end, where it spits its seed (`vise-blow.ts`).
   vise: (l, cfg) => {
     const c = viseCentre(l, cfg);
@@ -102,6 +109,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   valve: valveBlow,
   // A kernel left unshot: the case spits a husk seed that cracks on the plating.
   vise: viseBlow,
+  // Its gaze is already in the sky; the look lands as one ray and brands the hull.
+  stare: stareBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

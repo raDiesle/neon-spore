@@ -24165,3 +24165,17 @@ Bottleneck: finding why the split lunge slipped — the eye was done before a
 hold that cannot be hurried.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE STARE's own blow at the hull
+
+- reading: 5 min. `stare-step.ts`'s `caught`, `stare-shape.ts`'s eye.
+- writing: 5 min. The gaze drawn in to one ray down the middle column, and the
+  eye's almond branded on the plating.
+- looking: 5 min. Frames forced with a look at seat 2 and
+  `--press 3:2:fire=red`.
+- friction: 5 min. `--press` refused a seat named `p1`, then the wrong seat,
+  then a shot with no colour, one message at a time.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: friction — finding a press the frames tool would accept took three
+tries.
