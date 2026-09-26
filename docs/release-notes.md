@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8af6f10dc — `--boss-json` reads `now` at any depth, so a nested one no longer kills the page
+
+`frames --wave "THE GORGE" --boss-json '{"intakes":[{…,"fullBeat":"now"}]}'` died with a stack trace from inside the page's paint: `now` was resolved only at the top level, so the word reached the world and the draw did arithmetic on it. The page now resolves `now` to `world.beat` at every depth of a list or a shape, the check counts a nested `now` as a number in a list of numbers, and a build with no `world.beat` refuses it by the field's name before anything is written.
+
 ## 2026-09-26 · a6dae2e33 — §27 THE OCULUS done in the queue
 
 ## 2026-09-26 · 439d8cb4f — THE OCULUS's glare and look are drawn
