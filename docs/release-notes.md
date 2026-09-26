@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 592d349ee — THE WARDEN's plates were lit at a frozen bearing while they visibly breathed
+
+A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, now moving past THE INSTAR to the other already-shipped bosses.
+
 ## 2026-09-26 · 60b3d3f6a — THE LEECH's guide is a film: the cannon walked a column a beat, lost when it parks
 
 THE LEECH's three strings are gone. Its guide is now THE LIMPET's rehearsal on the other half of the ship: the leech grips the cannon, player 2 calls MOVE CANNON, player 1 walks it to a new column every beat, and then the thumb stops and the round is lost to the still beats. `test/scene-leech.test.ts` holds the grip, the loss, and that the loss follows the last move by the harpoon's still beats.
