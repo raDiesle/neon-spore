@@ -141,7 +141,17 @@ function drawBody(
       : mixHex(PALETTE.hull, PALETTE.hullRim, warm);
   const rim = sealing ? PALETTE.rock : inside ? PALETTE.hull : PALETTE.hullRim;
   const glow = sealing ? 0 : warms ? pressure : 0;
-  paintSac(ctx, path, { c, rx, ry, tile }, hex, rim, inside ? 0.8 : 0.6, glow, sealing ? 0.5 : 1);
+  paintSac(
+    ctx,
+    path,
+    { c, rx, ry, tile },
+    hex,
+    rim,
+    inside ? 0.8 : 0.6,
+    glow,
+    sealing ? 0.5 : 1,
+    time,
+  );
   drawHurt(ctx, path, hurt);
   if (surgeHoldsCharge(s, cfg) && !sealing) {
     ctx.save();

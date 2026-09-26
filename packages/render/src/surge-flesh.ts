@@ -33,6 +33,17 @@ export interface Sac {
 /** The ribs: meridians by their half-width as a share of the bulb's. */
 const RIBS = [0.3, 0.6, 0.85];
 
+/** How far the sac's own specular drifts off its resting spot, as a share of
+ * `rx`/`ry`, and how long that takes. The bulb's own silhouette already
+ * wobbles on its own (`surgeBulbPath`'s blob wobble, `time * 0.35`), but the
+ * highlight that reads it as round sat at a fixed offset no matter how the
+ * body moved under it — beautifully lit and still a still life
+ * (`docs/style-guide.md`'s "Depth on a body that already ships", the same fix
+ * SINEW's mass already carries). On its own period, distinct from the bulb's
+ * own drift (0.35), so the highlight never comes back into step with it. */
+const SAC_LIT_WOBBLE = 0.06;
+const SAC_LIT_WOBBLE_RATE = 0.22;
+
 /**
  * `hex` the membrane, `rim` the light inside it, `glow` 0..1 how bright the
  * lower wall is lit, and `ribs` how much the ribs stand out — faint while it
@@ -47,6 +58,7 @@ export function paintSac(
   fill: number,
   glow: number,
   ribs: number,
+  time: number,
 ): void {
   const { c, rx, ry, tile } = s;
   ctx.save();
@@ -57,9 +69,10 @@ export function paintSac(
   ctx.fill(body);
   ctx.globalAlpha = 1;
   ctx.clip(body);
+  const wobble = SAC_LIT_WOBBLE * Math.sin(time * SAC_LIT_WOBBLE_RATE);
   const shade = ctx.createRadialGradient(
-    c.x - rx * 0.35,
-    c.y - ry * 0.45,
+    c.x - rx * (0.35 + wobble),
+    c.y - ry * (0.45 + wobble * 0.8),
     0,
     c.x,
     c.y,
