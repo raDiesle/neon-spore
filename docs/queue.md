@@ -430,6 +430,7 @@ calls `tileCY` rather than `landingY`. Add a case beside `landing.test.ts`'s.
 ## `opening.test.ts`'s twice-taken strip differed by three bytes once
 
 - **Found:** 2026-09-25, claude/meteor-impact-animation-timing-53afba
+- **Taken:** 2026-09-26, claude/queue-opening-test-ts-s-twice-taken-strip-differed-by
 - **Files:** `tools/frames/test/opening.test.ts`
 
 Under `check:fast` on a loaded machine, *takes the same strip twice,
