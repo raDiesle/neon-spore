@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 584b23ff5 — THE CHOKE's guide is a film: nobody steers, and the shot waits for the cannon
+
+The wave's three strings are gone, replaced by a rehearsal in three pages, played under the wave's own steer fault. On player 2's screen the cannon walks by itself. Player 1 is shown the light that marks its next step as it turns at the right wall. Player 2 fires on the beat it is back under the body. The press is timed on the game's half-beat shot grid, because half a beat later the bolt leaves from the next column. `scene-choke.test.ts` pins the walk and the kill. §3.2 now counts eighty-three films and seven guides still in prose.
+
 ## 2026-09-26 · 2305da78a — VERSUS offers four ways for THE SLOW's light to slow down round the boss
 
 A new `slow:light` slot argues the streams again, keeping PRISM under them and the fuse over them. ARRIVE is a warp jump run backwards: the field is streaked out from the boss on each slowed downbeat and the streaks shrink to still stars. CRAWL's sparks brake as they near and bank up off the skin; FREEZE's rings fall in and never land; HORIZON's rings of light are flung round the boss and brake to a stop each beat. The streams' keep-out moves into its own file, unchanged.
