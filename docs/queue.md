@@ -2467,6 +2467,7 @@ the hit, one lane per round, through a `by` of its own on the breach,
 ## THE MANTLE's and THE INSTAR's own blows at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-26, claude/instar-blow (claim: claude/queue-the-mantles-and-the-instars-own-blows-at-the-hul)
 - **Files:** `packages/sim/src/mantle-step.ts`, `packages/sim/src/instar-step.ts`, `packages/render/src/boss-strike-look.ts`
 
 Both still drop a rock on a timeout (`mantle-step.ts` `spendSpark`,
