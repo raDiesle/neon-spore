@@ -711,6 +711,7 @@ pin it in `claim-here.test.ts` beside the existing `lane (claim: …)` case.
 ## Fullscreen is asked for on a touch `pointerdown`, which carries no activation
 
 - **Found:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-fullscreen-is-asked-for-on-a-touch-pointerdown-w)
 - **Files:** `apps/game/src/join-room-step.ts`, `apps/game/src/fullscreen.ts`
 
 `goFullscreen()` runs on the READY circle's `pointerdown`. In the HTML spec's
