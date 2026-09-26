@@ -21461,3 +21461,5 @@ over, and the cut had to be found before anything could be tested.
 
 Bottleneck: the test's first anticlockwise step was past the half-turn a
 bearing may move in one tick, and read as nothing.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

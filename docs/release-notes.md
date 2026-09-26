@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 7aca9e687 — THE INSTAR's coil winds its two blades opposite ways
+
+On the coil, player 1 now winds the left blade back, anticlockwise, while player 2 winds the right one forward, so the two thumbs mirror each other and "turn it" is no longer enough: which way has to be said. The new gesture, `turnBack`, has its own arc running the other way inside the ring and its own word, TURN BACK; a clockwise wind on it counts nothing, as an anticlockwise one on a `turn` never did.
+
 ## 2026-09-26 · 50da59b1 — Links on the director's sheets are cyan, not the browser's dark blue
 
 The browser's default link colour was near-invisible on the director's black, and the RESEARCH tab is mostly links out to videos and store pages. A fix to something wrong rather than unlovely; the director is a tool, not a frame of the game.
