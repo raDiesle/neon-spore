@@ -6,10 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { SLOW_GRADE } from "./slow-pull/grade/index.js";
-import { SLOW_IMPLODE } from "./slow-pull/implode/index.js";
-import { SLOW_PRISM } from "./slow-pull/prism/index.js";
-import { SLOW_PUNCH } from "./slow-pull/punch/index.js";
-import { SLOW_SWALLOW } from "./slow-pull/swallow/index.js";
 
-export const VARIANTS: Variant[] = [SLOW_GRADE, SLOW_IMPLODE, SLOW_PRISM, SLOW_PUNCH, SLOW_SWALLOW];
+export const VARIANTS: Variant[] = [];

@@ -1148,3 +1148,19 @@ The owner kept the fuse the game already draws; ebb, halo and rails rejected,
 
 The other answers offered were `ebb`, `halo` and `rails`; they went with the
 slot.
+
+## `slow:pull` / `prism` — taken by hand, 2026-09-26
+
+The owner asked for prism *on top of* the shipped streams rather than instead
+of them, so it was taken by hand and the slot dropped: `drawPrism` runs under
+the streams in `intakeWindow` (`packages/render/src/slow-prism.ts`, with the
+lens helpers the slot shared in `slow-lens.ts`). He asked in the same breath
+for the streams themselves to be argued again, as light *slowing* round the
+boss — that is the next slot, not this one.
+
+prism — the field splits into its colours about the boss: red swells outward
+and blue falls inward, so the boss stays sharp and the edges of the room tear,
+kicked wider on every beat
+
+The other answers offered were `grade`, `implode`, `punch` and `swallow`; they
+went with the slot.

@@ -1060,10 +1060,12 @@ by hand never moves.
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
+| `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |
 | `packages/render/src/slow-intake-streams.ts` | The light running inward all the way round the boss, stopping at its skin and never crossing it |
-| `packages/render/src/slow-intake.ts` | THE SLOW's window as it ships: the streams round the boss, then the bar over them |
+| `packages/render/src/slow-intake.ts` | THE SLOW's window as it ships: the prism, the streams round the boss, then the bar over them |
 | `packages/render/src/slow-fuse.ts` | **A fuse along the top of the screen: how long the pair has left before the step fails.** The owner asked on… |
+| `packages/render/src/slow-prism.ts` | The frame's colours split about the boss on every slowed downbeat and closing across the beat, under the streams |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
 | `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |

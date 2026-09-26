@@ -2,6 +2,7 @@ import { drawFuse } from "./slow-fuse.js";
 import { aim, ramp } from "./slow-intake-aim.js";
 import { drawStreams } from "./slow-intake-streams.js";
 import type { SlowLook } from "./slow-look.js";
+import { drawPrism } from "./slow-prism.js";
 
 /**
  * **The owner's answer for THE SLOW's window: light run in round the boss,
@@ -19,6 +20,11 @@ import type { SlowLook } from "./slow-look.js";
  * starts, well away from the body, and the other answers to the same question
  * are in VERSUS against it (`slow:measure`).
  *
+ * **Under the streams, the prism** (`slow-prism.ts`): the owner took it from
+ * the `slow:pull` slot on 26 September 2026 *on top of what we have*, so the
+ * room tears into red and blue about the boss and the streams run in over the
+ * torn room, whole — a stream split three ways would be three streams.
+ *
  * **The light first, the fuse over it**: the fuse is the one thing here a pair
  * may have to read under pressure, and light added over a measure is a measure
  * that got harder to count.
@@ -31,6 +37,9 @@ import type { SlowLook } from "./slow-look.js";
 export const intakeWindow: SlowLook["paint"] = (ctx, l, world, view, win) => {
   const at = aim(world, l, world.beat, view.beatPhase);
   const up = ramp(win, world.cfg);
-  if (up > 0) drawStreams(ctx, l, at, up, win.through);
+  if (up > 0) {
+    drawPrism(ctx, l, at, up, win);
+    drawStreams(ctx, l, at, up, win.through);
+  }
   drawFuse(ctx, l, win);
 };

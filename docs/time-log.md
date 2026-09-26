@@ -21562,3 +21562,18 @@ Bottleneck: none worth the name — the seat already showed where a value read
 at boot has to be written.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SLOW's window splits the frame's colours under the streams
+
+- reading: 15 min. The `slow:pull` candidates, the shipped window's paint, the
+  lens helpers PRISM leaned on.
+- writing: 15 min. The lens helpers and the prism moved into `render/`, one
+  call under the streams, the slot dropped and its `DECIDED.md` entry
+  rewritten as taken.
+- looking: 10 min. The window before and after, frozen past a downbeat.
+- friction: 5 min. `git merge --ff-only origin/main` refused a local `main`
+  ahead of origin; the drop wrote "nothing taken" for a slot that was taken.
+- landing: 10 min. The INDEX rows, `check:fast` twice, the commit, `land`.
+
+Bottleneck: **reading** — PRISM was written against a lens helper in its slot,
+so taking it meant moving that helper first.

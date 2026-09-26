@@ -1,24 +1,21 @@
-import type { Layout } from "../../../../packages/render/src/layout.js";
-import type { SlowWindow } from "../../../../packages/render/src/slow-look.js";
-import type { SimConfig } from "../../../../packages/sim/src/index.js";
-import { beatSeconds, MILLI } from "../../../../packages/sim/src/index.js";
+import type { Layout } from "./layout.js";
+import type { SlowWindow } from "./slow-look.js";
 
 /**
- * **What every `slow:pull` answer needs and none of them is about**: the
- * frame's own pixels, and where the boss stands on them.
+ * **What a lens over THE SLOW's window needs and is not about**: the frame's
+ * own pixels, and where the boss stands on them.
  *
- * The owner asked on 25 September 2026 for the window to feel like light being
- * *sucked into the middle of the boss*, and named four screen effects to try —
- * a zoom blur, a colour split, a lens punch and a grade. Every one of them is a
- * picture of the frame already drawn, moved or recoloured about one point, so
- * they share the three steps here: copy what is on the canvas, find the boss
- * in device pixels, and work there with the play area as the only place paint
+ * Came out of the `slow:pull` slot (`tools/versus/DECIDED.md`, 26 September
+ * 2026) with the prism the owner took from it. A lens is a picture of the
+ * frame already drawn, moved or recoloured about one point, so every one
+ * shares the three steps here: copy what is on the canvas, find the boss in
+ * device pixels, and work there with the play area as the only place paint
  * can land.
  *
  * **The station makes it honest.** `SLOW_LOOK.paint` runs over every body and
  * under the ship (`canvas2d.ts`), so the copy is the field and nothing else:
  * the hull, the band and the fuse are drawn after it and stay sharp whatever
- * a candidate does to the room.
+ * a lens does to the room.
  */
 
 /** Two scratch surfaces, one per channel a split has to hold apart. */
@@ -93,20 +90,6 @@ export function inField(
   ctx.restore();
 }
 
-/**
- * Keeps the light and drops the room: the surface multiplied by itself
- * `times` times, so the field's dark ground goes to black long before anything
- * lit does. Without it a copy added over the frame adds the ground too — the
- * whole room lifts, and the edge of the stage shows as a box.
- */
-export function key(img: HTMLCanvasElement, times: number): void {
-  const c = img.getContext("2d");
-  if (c === null) return;
-  c.globalCompositeOperation = "multiply";
-  for (let i = 0; i < times; i++) c.drawImage(img, 0, 0);
-  c.globalCompositeOperation = "source-over";
-}
-
 /** `img` drawn at scale `s` about the eye — below one it falls in, above one it swells out. */
 export function drawAbout(
   ctx: CanvasRenderingContext2D,
@@ -115,16 +98,6 @@ export function drawAbout(
   s: number,
 ): void {
   ctx.drawImage(img, eye.x * (1 - s), eye.y * (1 - s), img.width * s, img.height * s);
-}
-
-/**
- * Seconds the window has run and has left, **in the hand** — the exchange
- * `slow-intake-aim.ts`' `ramp` makes, for a candidate whose motion is a snap
- * an eye judges in seconds rather than a sweep that keeps the beat.
- */
-export function handSeconds(win: SlowWindow, cfg: SimConfig): { since: number; until: number } {
-  const perBeat = beatSeconds(cfg) * (MILLI / cfg.slowRateMilli);
-  return { since: (win.beats - win.left) * perBeat, until: win.left * perBeat };
 }
 
 /** How far through its current beat the window stands, 0 to 1. */
