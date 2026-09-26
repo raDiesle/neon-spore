@@ -2279,22 +2279,6 @@ start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
 blind: send a PNG of the timeout (`bun run frames . --wave "THE RIME" --until breach`
 when the wave misses unattended), or land it `--unverified` if it does not.
 
-## THE RATCHET's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-26, claude/ratchet-blow (claim: claude/queue-the-ratchets-own-blow-at-the-hull)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-
-THE RATCHET's timeout already calls `bossStrikesHull` (`packages/sim/src/ratchet-step.ts`)
-and draws the default lash, a red tendril out of the body to the column and
-back. That lash is a floor, not the picture. Give THE RATCHET a `LOOK` row in
-`boss-strike-look.ts` made from its own body, the part of it that acts, in
-its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
-The blow must reach the hull at `reach = 1`, when the crack and the sparks
-start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
-blind: send a PNG of the timeout (`bun run frames . --wave "THE RATCHET" --until breach`
-when the wave misses unattended), or land it `--unverified` if it does not.
-
 ## THE TRIVET's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall

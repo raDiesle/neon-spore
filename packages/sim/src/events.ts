@@ -203,6 +203,9 @@ export type SimEvent =
       /** The boss that struck, when a window ran out (`boss-strike.ts`):
        * render/ draws its own blow rather than a rock nobody saw fall. */
       by?: BossKind;
+      /** Which of its blows, for a boss with more than one (THE RATCHET's
+       * jam and its loose bolt); none for the rest. */
+      blow?: string;
     }
   | { type: "petal"; col: number; row: number; left: number }
   | { type: "queenDown"; col: number; row: number }

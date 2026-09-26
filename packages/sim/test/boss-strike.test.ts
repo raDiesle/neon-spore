@@ -19,6 +19,14 @@ describe("bossStrikesHull", () => {
     expect(world.scars.map((s) => s.col)).toEqual([4]);
     const breach = world.events.find((e) => e.type === "breach");
     expect(breach).toMatchObject({ col: 4, weight: "heavy", by: "oculus" });
+    expect(breach).not.toHaveProperty("blow");
+  });
+
+  it("names which blow, for a boss with more than one", () => {
+    const world = createWorld(DEFAULT_CONFIG, 1);
+    bossStrikesHull(world, "ratchet", 5, 0, "bolt");
+    const breach = world.events.find((e) => e.type === "breach");
+    expect(breach).toMatchObject({ col: 5, by: "ratchet", blow: "bolt" });
   });
 });
 

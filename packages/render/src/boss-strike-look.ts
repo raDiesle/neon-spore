@@ -10,6 +10,8 @@ import { mantleCentre } from "./mantle-shape.js";
 import { oculusBlow } from "./oculus-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
+import { ratchetBlow } from "./ratchet-blow.js";
+import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { seamBlow } from "./seam-blow.js";
 import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
@@ -38,6 +40,8 @@ export interface Point {
 export interface StrikeFrame {
   /** The screen, for a look that sizes itself off its boss's own shape. */
   l: Layout;
+  /** Which of the boss's blows (`sim/boss-strike.ts`), when it has more than one. */
+  blow: string | undefined;
   from: Point;
   /** Where it lands: the column, on the skin. */
   to: Point;
@@ -65,6 +69,9 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   // The body's underside, where the cord leaves it: the side the plate is
   // wrenched toward (`ledger-blow.ts`).
   ledger: (l, cfg) => ({ x: fieldX(l, midCol(cfg)), y: ledgerBodyY(l).bottom }),
+  // The pawl's seam, where the jammed rack lets its head plate go
+  // (`ratchet-blow.ts`).
+  ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
 };
 
 /** A boss's own blow; an empty table is every boss on the lash. */
@@ -77,6 +84,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   ledger: ledgerBlow,
   // Its spark has already run the column down in sight; the blow bursts it.
   mantle: mantleBlow,
+  // The jam shoots the rack's head plate down the strut; the loose bolt,
+  // already fallen in sight, is driven home as THE HASP's is.
+  ratchet: ratchetBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

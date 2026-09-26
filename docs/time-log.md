@@ -23995,3 +23995,15 @@ in a document, and had to be dug out of the transcript.
 Bottleneck: looking — five VERSUS shots, about a minute each, one pose at a time.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-09-26 — THE RATCHET's own blows at the hull
+
+- reading: 10 min. `ratchet-step.ts`'s jam and bolt, `ratchet-shape.ts`'s rack.
+- writing: 15 min. A `blow` name on the breach, so the jam and the bolt
+  each get their own picture; the plate shot down the strut.
+- looking: 10 min. Frames of both, forced with `--boss teeth=2,clean=2`
+  and `--boss boltCol=5,boltBeat=0`.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: writing — both of THE RATCHET's blows land in the middle
+column, so the look could not tell them apart without the sim saying which.

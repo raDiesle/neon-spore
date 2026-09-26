@@ -1434,6 +1434,7 @@ by hand never moves.
 | `packages/render/src/ratchet-pose.ts` | **How far through a pose THE RATCHET is** — the clock the rack is posed off (§22, *Animation*) |
 | `packages/render/src/ratchet-shape.ts` | **Where THE RATCHET is**: a strut down the middle column, a rack of seven plates sliding up inside it |
 | `packages/render/src/ratchet-grip.ts` | **The two thumbs on THE RATCHET**: half two of the look lane |
+| `packages/render/src/ratchet-blow.ts` | **THE RATCHET's own blows at the hull** (`boss-strike-look.ts`): the jam shoots the rack's head plate down the strut; the loose bolt is driven home |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |
 | `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON and THE SCOUT are** |

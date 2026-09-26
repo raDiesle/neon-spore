@@ -18,6 +18,8 @@ import { type Layout, tileCX } from "./layout.js";
 
 interface Strike {
   by: BossKind;
+  /** Which of the boss's blows, when it has more than one. */
+  blow: string | undefined;
   col: number;
   age: number;
   /** Seconds out to the hull, then seconds pulling back. */
@@ -39,9 +41,10 @@ export class BossStrikeFx {
     col: number,
     beatSeconds: number,
     arrive: (x: number, y: number) => void,
+    blow?: string,
   ): void {
     const out = Math.min(OUT_MAX, beatSeconds * 0.5);
-    this.strikes.push({ by, col, age: 0, out, back: BACK, arrive });
+    this.strikes.push({ by, blow, col, age: 0, out, back: BACK, arrive });
   }
 
   update(dt: number, l: Layout): void {
@@ -66,6 +69,7 @@ export class BossStrikeFx {
       const x = tileCX(l, s.col);
       strikeLook(s.by)(ctx, {
         l,
+        blow: s.blow,
         from: strikeFrom(l, cfg, s.by),
         to: { x, y: surfaceY(x) },
         reach: Math.min(1, s.age / s.out),

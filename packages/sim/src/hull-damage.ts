@@ -54,9 +54,11 @@ export function breachHull(
   color: Color | null = null,
   /** The boss whose blow this is (`bossStrikesHull`); none for a body. */
   by?: BossKind,
+  /** Which of its blows, when it has more than one (`bossStrikesHull`). */
+  blow?: string,
 ): void {
   scarHull(world, col, kind, color);
-  breachUnscarred(world, col, kind, fromRow, weight, color, by);
+  breachUnscarred(world, col, kind, fromRow, weight, color, by, blow);
 }
 
 /**
@@ -111,6 +113,7 @@ export function breachUnscarred(
   weight: BreachWeight,
   color: Color | null = null,
   by?: BossKind,
+  blow?: string,
 ): void {
   failWave(world);
   world.events.push({
@@ -125,6 +128,7 @@ export function breachUnscarred(
     color,
     beat: world.beat,
     ...(by ? { by } : {}),
+    ...(blow ? { blow } : {}),
   });
 }
 

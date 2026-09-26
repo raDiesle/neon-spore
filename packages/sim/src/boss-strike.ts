@@ -30,6 +30,9 @@ export function bossStrikesHull(
   col: number,
   /** The row the blow starts from, when the sim knows one; 0 otherwise. */
   fromRow = 0,
+  /** Which of the boss's blows, when it has more than one: render/ draws
+   * each its own way (`boss-strike-look.ts`). */
+  blow?: string,
 ): void {
-  breachHull(world, col, "meteorFastest", fromRow, "heavy", null, by);
+  breachHull(world, col, "meteorFastest", fromRow, "heavy", null, by, blow);
 }

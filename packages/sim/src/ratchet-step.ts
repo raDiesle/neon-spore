@@ -132,5 +132,5 @@ function spendBolt(world: World, s: RatchetState): void {
   const col = s.boltCol;
   s.boltCol = NO_BOLT;
   world.events.push({ type: "ratchetBoltHit", col });
-  bossStrikesHull(world, "ratchet", col);
+  bossStrikesHull(world, "ratchet", col, 0, "bolt");
 }
