@@ -23039,3 +23039,15 @@ Bottleneck: writing — seeing that a cylinder's light is two numbers was the
 whole fix; the nine samples it replaced could never have keyed a cache.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A cloud session lands and pushes every queue item it works
+
+- reading: 5 min. `tools/queue/claim-push.ts` and `docs/cloud-session.md`,
+  for what `take` already pushes.
+- writing: 5 min. The CLAUDE.md line and the paragraph behind it.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: reading — the claim half was already built, so the work was
+finding that out before writing only the other half.

@@ -92,9 +92,9 @@ A session started from a phone clones `origin` and never sees this checkout.
 
 - **It reads the remote, not the tree**, and **pushes its own branch when
   done**, without being asked. Never a pull request.
-- **It lands `main` itself, every turn**, when the branch is rebased onto the
-  current `origin/main` and `bun run check` is green there; otherwise it pushes
-  the branch and says so.
+- **It lands and pushes `main` after every queue item**, as `take` pushes
+  the claim, once rebased onto `origin/main` and `bun run check` is green;
+  otherwise it pushes the branch and says so.
 - **It says which parts it could not verify, in that word, and queues them**
   with `bun run land --unverified "<what>"`, repeatable. `bun test` and the
   typecheck hold unaided; a wave watched at tempo, a sheet seen by an eye,

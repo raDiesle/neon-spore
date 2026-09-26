@@ -173,6 +173,21 @@ and reported the item ongoing anyway, which was a claim only this clone could
 see. The lane's `queue done` then removes an entry the trunk has since marked,
 and the landing's rebase resolves that on its own (`tools/land/queue-merge.ts`).
 
+**And a finished item is on `origin/main` before the next is claimed.** The
+owner, 26 September 2026: *"land on every queue item taken (update queue taken
+state) and when finished with item. this is generic for cloud sessions."* A
+claim that only this clone can see is no claim, and neither is a finished
+item held back for the end of a turn: another session reading `bun run queue`
+meanwhile sees the entry still open, or still taken by a lane that has in fact
+landed, and either starts it again or passes it over. So each item is two
+pushes. The first is the claim — `take` and `next` push their `Taken:` line
+themselves, and a refused push is brought up with `bun run push` and the
+claim made again before any work starts. The second is the item: `bun run
+land`, then `bun run push`, then `git rev-parse main origin/main` to see the
+two agree, and only then the next `take`. A push that reports a real
+disagreement is resolved on `main` (`git rebase origin/main`, `bunx tsc
+--noEmit`, `bun run check`) and pushed again before the next claim.
+
 **And the queue knows this is a cloud session.** `CLAUDE_CODE_REMOTE` is set
 on the web image, and `bun run queue` reads it: an entry the owner marked
 `- **Where:** local` — a wave to watch at tempo, a frame to measure — is
