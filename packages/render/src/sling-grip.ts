@@ -1,5 +1,5 @@
-import type { SimConfig, SlingState } from "@neon-spore/sim";
-import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { type SimConfig, type SlingState, slingAsks } from "@neon-spore/sim";
+import type { Circle, Layout } from "./layout.js";
 import { slingArrived } from "./sling-pose.js";
 import { slingHandle, slingTip } from "./sling-shape.js";
 import type { Field, Touch } from "./touch.js";
@@ -12,14 +12,18 @@ import { bossOf } from "./touch-field.js";
  * wrong seat's thumb finds nothing there to press.
  *
  * **A draw is `DrawRelease`, §32's primitive**: `on: true` is the thumb
- * landing on its own handle; the lift is the gesture, carrying the swipe's
- * side on `fromMilli` the way THE WARDEN's hatch does (`warden-grip.ts`), so
- * `touch.ts`'s `swiped` set has to know this target too or the sign never
- * reaches the sim.
+ * landing anywhere on the seat's own panel, not a handle circle — the sim's
+ * own rule (`sim/sling-hand.ts`) — so the hit test here is the whole field
+ * rather than a `hitCircle` the way every other grip's is. It is asked only
+ * while the lit step wants this seat's draw (`slingAsks`), so a fire step's
+ * cannon and trigger still answer underneath it. The lift is the gesture,
+ * carrying the swipe's side on `fromMilli` the way THE WARDEN's hatch does
+ * (`warden-grip.ts`), so `touch.ts`'s `swiped` set has to know this target
+ * too or the sign never reaches the sim.
  *
- * **The circle is the handle at rest**, where the cord hangs slack — not
- * wherever a live draw has pulled it — THE WARDEN's own rule: a thumb is
- * asked to land where the control stands, not chase where it goes once held.
+ * **The circle `slingDrawCircle` draws is the handle at rest**, where the
+ * cord hangs slack — used only for the ghost hand and the resting picture,
+ * never for the hit test, which a live draw would otherwise have to chase.
  */
 
 const GRIP_R_MUL = 0.85;
@@ -51,13 +55,11 @@ export function slingDrawCircle(
   };
 }
 
-export function slingDrawUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+export function slingDrawUnder(_l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "sling");
   if (s === null) return null;
   const side = seatSide(field);
-  if (side === null) return null;
-  const circle = slingDrawCircle(l, field.cfg, s, side, field.beat, field.beatPhase);
-  if (!hitCircle(circle, x, y)) return null;
+  if (side === null || !slingAsks(s, side)) return null;
   const t = target(side);
   return {
     player: field.seat,
