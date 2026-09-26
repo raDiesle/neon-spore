@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 17045470d — The director shows which step of its choreography a boss is on
+
+RUN now reads `STEP 7 / 28 · 21 TO GO · BROOD` beside ↺ WAVE whenever the wave's boss has a script, and nothing on any other wave. The count comes from one sim read, `bossScript` (packages/sim/src/boss-script.ts), across the four names a script goes by — steps, marks, tiles, thresholds — so the director and the game's HUD will count the same way. A test installs every boss wave the game ships and fails by name on one that keeps a cursor with no script found. The spec's `18 LEFT` became `18 TO GO`: nine bosses have an ask called left.
+
 ## 2026-09-26 · d0baa0268 — THE OCULUS's open leaves settle about their pins
 
 Each open leaf of the iris now settles about a degree and a half about its pin, slowly and on its own phase. The lit edge of a shut pair follows its blade, and a fully shut leaf holds exactly still, so the iris reads as clearly as before. Exemption: a look the owner asked for by name, the boss depth pass.

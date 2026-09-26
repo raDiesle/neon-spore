@@ -25213,3 +25213,5 @@ its script, across the four list names, and the director's RUN column shows
 
 Bottleneck: reading — the script sits under four different names across
 sixteen bosses, and each state file had to be opened to learn which.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
