@@ -7,7 +7,7 @@ import {
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { instarBetween } from "./instar-between.js";
-import { BEATEN, ENTER, placed } from "./instar-poses.js";
+import { BEATEN, ENTER, onNest, placed } from "./instar-poses.js";
 
 /**
  * **Where THE INSTAR is**, as one figure of numbers: the head and its two
@@ -116,8 +116,9 @@ export function deformed(
       if (m.gesture === "pullDown") g.jawUp = f.jawUp * (1 - p);
       else g.jawDown = f.jawDown * (1 - p);
     } else if (m.part === "eggs") {
-      // A tap squashes an egg where it lies; a swipe drags one off its nest.
-      if (m.gesture === "tap") g.nest = f.nest * (1 - p);
+      // A tap squashes an egg where it lies; a swipe drags one off its nest;
+      // a shot breaks whichever is on its half.
+      if (onNest(m)) g.nest = f.nest * (1 - p);
       else g.eggs = f.eggs * (1 - p);
     }
     // The fork is one tail: every thumb on it pushes its share of it back.

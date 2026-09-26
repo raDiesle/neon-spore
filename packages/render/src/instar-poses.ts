@@ -1,5 +1,6 @@
-import type { InstarMark, InstarPose } from "@neon-spore/sim";
+import { type InstarMark, type InstarPose, instarPanel } from "@neon-spore/sim";
 import { secondAct } from "./instar-poses-second.js";
+import { thirdAct } from "./instar-poses-third.js";
 import type { Figure } from "./instar-shape.js";
 
 /**
@@ -148,6 +149,7 @@ export const POSES: Record<InstarPose, Figure> = {
     split: 1,
   },
   ...secondAct(BREATH),
+  ...thirdAct(BREATH),
 };
 
 /** Beaten: side-on, sagging, the eyes shut, the wings folded, the tail down. */
@@ -174,13 +176,22 @@ export const BEATEN: Figure = {
  * hull (`sweepMilli`) takes the fork along the same line, as far as the
  * window has run (`along`), so the blade is always under its ring.
  */
+/** Whether an egg mark is on the nest (the tapped one, and on the left) or
+ * on the eggs (the swiped one, on the right). A shot from the panel has no
+ * hand to tell the two apart, so it goes by its half: the perch asks the
+ * cannon for both (`instar-script-third.ts`). */
+export function onNest(m: InstarMark): boolean {
+  if (m.gesture === "tap") return true;
+  return instarPanel(m.gesture) && m.xMilli < 500;
+}
+
 export function placed(pose: InstarPose, marks: readonly InstarMark[], along = 0): Figure {
   const g = { ...POSES[pose] };
   const tails = marks.filter((m) => m.part === "tail");
   for (const m of tails) g.tailX += ((m.sweepMilli ?? 0) * along) / tails.length;
   for (const m of marks) {
     if (m.part !== "eggs") continue;
-    if (m.gesture === "tap") {
+    if (onNest(m)) {
       g.nestX = m.xMilli;
       g.nestY = m.yMilli;
     } else {

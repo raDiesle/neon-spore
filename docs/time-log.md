@@ -23819,3 +23819,13 @@ Bottleneck: friction — twenty minutes on a shell quoting rule before a
 single honest number came out of the loop.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's third act: crouch, perch, roar, sprawl, twist
+
+- reading: 10 min. The second act's files as the pattern, the eye and fire tests that hold a mark to its part.
+- writing: 25 min. Five figures, five steps, the panel shot on a nest, the spec section.
+- looking: 10 min. The five poses photographed at the end of their morph; the first try was taken after the wave was lost.
+- friction: 10 min. The roar's fire mark broke the mouth-fire test and became a glob; the script went past its line limit and its first act moved to its own file.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — every new pose is a table of places decided for the first time.

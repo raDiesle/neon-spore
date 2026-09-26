@@ -62,7 +62,7 @@ export function drawInstar(
   const { head, r } = instarHeadAt(l, f);
   // The rear lights the same fire in its jaws: its globs are spat out of it.
   const pose = instarStep(s)?.pose;
-  const breath = pose === "breath" || pose === "rear";
+  const breath = pose === "breath" || pose === "rear" || pose === "roar";
   const fire =
     f.flame *
     (s.phase === "act" && breath

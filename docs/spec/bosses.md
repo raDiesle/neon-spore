@@ -6629,6 +6629,40 @@ names, the script, the controls, the sky, the tests), then the look (the five
 figures drawn as themselves, the glob, the embers, the heart, each eye's own
 wince).
 
+### The third act — five poses more, between the others (26 September 2026)
+
+The coordinator, relaying the owner the same day: *many more* states and
+poses, SLOW moments that need the pair to act. So the script goes from
+eighteen steps over eleven poses to **twenty-three over sixteen**, and each
+new pose is a body the others are not — low, high, thrown back, flat, upside
+down. Nothing new in the engine and no new part or gesture: the five are
+names, appended for the hash after `bare`. Laid in among the others, so no
+two new ones run together and the body answers thumbs and panel by turns:
+
+- **Crouch** (after the glare) — face-on, low and wide over the ship, jaws
+  shut, eyes narrowed: about to spring. **TAP**, ten each, each seat on its
+  own eye. Left alone, it springs.
+- **Perch** (after the coil) — high side-on, wings full up, the brood on its
+  back over both halves. **SHOOT**, twice at each nest. Left alone, the brood
+  hatches on the hull.
+- **Roar** (after the turned-round brood) — the head thrown back small at the
+  top, jaws wide at the sky, one great glob lobbed down the middle.
+  **SHIELD**, twice, under it. Left alone, it burns the hull.
+- **Sprawl** (after the spread) — flat along the hull side-on, wings folded,
+  the fork of its tail laid on the ship. **PULL UP**, each seat its own blade
+  off. Left alone, the tail crushes the hull.
+- **Twist** (after the mixed lash) — along a diagonal, head down at the hull
+  on the left, tail thrown up high on the right. Player 1 **PULLS UP** the
+  head; player 2 **PULLS DOWN** the tail. Left alone, the head hits the hull.
+
+A shot from the panel has no hand to tell a nest from the eggs, so it goes by
+its half: left of the seam is the nest, right is the eggs (`onNest`,
+`render/instar-poses.ts`). The roar's fire is the rear's glob, one instead of
+two, so the mouth lights for it as it does for the rear.
+
+The in-between motion into and out of the five is the three-quarter view's,
+as before; the sprites of each are the sprite thread's.
+
 ## 11.33 THE FILAMENT — the boss whose line one of you draws while the other follows it
 
 > The one that is a trace, and the trace is not fixed. One thumb lays the

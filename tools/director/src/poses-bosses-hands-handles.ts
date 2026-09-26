@@ -156,7 +156,7 @@ export const HANDLE_HAND_POSES: Pose[] = [
     "instar",
     "down",
     "The bare heart shot out and the instar is down. P1 slides the cannon under it; P2 fires.",
-    { hand: instarHand, want: instarIn("down"), hold: 6, budgetBeats: 250 },
+    { hand: instarHand, want: instarIn("down"), hold: 6, budgetBeats: 340 },
   ),
   bossPose(
     "filament",

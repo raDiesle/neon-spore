@@ -1,15 +1,33 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 import { INSTAR_BREATH } from "./instar-script-breath.js";
 import {
+  INSTAR_BREATH_TURNED,
+  INSTAR_BROOD,
+  INSTAR_BROOD_TURNED,
+  INSTAR_COIL,
+  INSTAR_LASH,
+  INSTAR_LASH_MIXED,
+  INSTAR_LUNGE,
+  INSTAR_LUNGE_SPLIT,
+  INSTAR_MOULT,
+} from "./instar-script-first.js";
+import {
   INSTAR_BARE,
   INSTAR_DIVE,
   INSTAR_GLARE,
   INSTAR_REAR,
   INSTAR_SPREAD,
 } from "./instar-script-second.js";
+import {
+  INSTAR_CROUCH,
+  INSTAR_PERCH,
+  INSTAR_ROAR,
+  INSTAR_SPRAWL,
+  INSTAR_TWIST,
+} from "./instar-script-third.js";
 
 /**
- * THE INSTAR's script: eighteen steps over eleven poses, and what the pair does to each.
+ * THE INSTAR's script: twenty-three steps over sixteen poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -83,7 +101,10 @@ import {
  * **The second act** (26 September 2026, `instar-script-second.ts`) lays five
  * panel steps in between these: the rear after the bites, the glare after the
  * lunge, the dive after the coil, the spread after the turned-round brood,
- * and the bare heart after the moult, which is now the finish.
+ * and the bare heart after the moult, which is now the finish. **The third**
+ * (the same day, `instar-script-third.ts`) lays five more: the crouch after
+ * the glare, the perch after the coil, the roar after the turned-round brood,
+ * the sprawl after the spread and the twist after the mixed lash.
  *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
  * the owner asked to be slow — *so it starts small in the background, then it
@@ -124,120 +145,22 @@ import {
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   ...INSTAR_BREATH,
   INSTAR_REAR,
-  {
-    pose: "brood",
-    arrive: "passes",
-    morphBeats: 12,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      { seat: "p1", part: "eggs", gesture: "tap", xMilli: 320, yMilli: 380, need: 16 },
-      { seat: "p2", part: "eggs", gesture: "swipeDown", xMilli: 660, yMilli: 360, need: 10 },
-    ],
-  },
-  {
-    pose: "lash",
-    arrive: "cross",
-    morphBeats: 7,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      {
-        seat: "p1",
-        part: "tail",
-        gesture: "tap",
-        xMilli: 380,
-        yMilli: 560,
-        need: 20,
-        sweepMilli: -110,
-      },
-      {
-        seat: "p2",
-        part: "tail",
-        gesture: "tap",
-        xMilli: 620,
-        yMilli: 560,
-        need: 20,
-        sweepMilli: -110,
-      },
-    ],
-  },
-  {
-    pose: "lunge",
-    arrive: "approach",
-    morphBeats: 6,
-    windowBeats: 5,
-    landBeats: 3,
-    marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 300, need: 3 }],
-  },
+  INSTAR_BROOD,
+  INSTAR_LASH,
+  INSTAR_LUNGE,
   INSTAR_GLARE,
-  {
-    pose: "breath",
-    arrive: "cross",
-    morphBeats: 6,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      { seat: "p1", part: "jaw", gesture: "pullDown", xMilli: 440, yMilli: 220, need: 4000 },
-      { seat: "p2", part: "jaw", gesture: "pullUp", xMilli: 560, yMilli: 500, need: 4000 },
-    ],
-  },
-  {
-    pose: "coil",
-    arrive: "passes",
-    morphBeats: 10,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      { seat: "p1", part: "tail", gesture: "turnBack", xMilli: 380, yMilli: 330, need: 2000 },
-      { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 330, need: 2000 },
-    ],
-  },
+  INSTAR_CROUCH,
+  INSTAR_BREATH_TURNED,
+  INSTAR_COIL,
+  INSTAR_PERCH,
   INSTAR_DIVE,
-  {
-    pose: "lunge",
-    arrive: "cross",
-    morphBeats: 7,
-    windowBeats: 5,
-    landBeats: 3,
-    marks: [
-      { seat: "p1", part: "head", gesture: "hold", xMilli: 440, yMilli: 300, need: 3 },
-      { seat: "p2", part: "eye", gesture: "tap", xMilli: 632, yMilli: 280, need: 12 },
-    ],
-  },
-  {
-    pose: "brood",
-    arrive: "passes",
-    morphBeats: 10,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      { seat: "p1", part: "eggs", gesture: "swipeDown", xMilli: 320, yMilli: 380, need: 10 },
-      { seat: "p2", part: "eggs", gesture: "tap", xMilli: 660, yMilli: 360, need: 16 },
-    ],
-  },
+  INSTAR_LUNGE_SPLIT,
+  INSTAR_BROOD_TURNED,
+  INSTAR_ROAR,
   INSTAR_SPREAD,
-  {
-    pose: "lash",
-    arrive: "cross",
-    morphBeats: 7,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      { seat: "p1", part: "tail", gesture: "tap", xMilli: 380, yMilli: 560, need: 20 },
-      { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 560, need: 2000 },
-    ],
-  },
-  {
-    pose: "moult",
-    arrive: "passes",
-    morphBeats: 10,
-    windowBeats: 4,
-    landBeats: 4,
-    marks: [
-      { seat: "p1", part: "hide", gesture: "swipeDown", xMilli: 380, yMilli: 400, need: 8 },
-      { seat: "p2", part: "hide", gesture: "swipeDown", xMilli: 620, yMilli: 390, need: 8 },
-    ],
-  },
+  INSTAR_SPRAWL,
+  INSTAR_LASH_MIXED,
+  INSTAR_TWIST,
+  INSTAR_MOULT,
   INSTAR_BARE,
 ];

@@ -81,7 +81,13 @@ export type InstarGesture = (typeof INSTAR_GESTURES)[number];
  * The five after the moult are the second act (26 September 2026), appended
  * for the hash: reared back high to spit, close with the eyes wide, diving
  * head-first at the ship, the wings raised wide to shake off embers, and the
- * new body bare after the moult with its heart lit. */
+ * new body bare after the moult with its heart lit.
+ *
+ * The five after those are the third act (26 September 2026), appended for
+ * the hash once more: crouched low and wide face-on to spring, perched high
+ * side-on with the wings up and the brood on its back, the head thrown up to
+ * roar fire down the middle, sprawled flat along the hull, and twisted
+ * head-down with the tail thrown high. */
 export const INSTAR_POSES = [
   "breath",
   "brood",
@@ -94,6 +100,11 @@ export const INSTAR_POSES = [
   "dive",
   "spread",
   "bare",
+  "crouch",
+  "perch",
+  "roar",
+  "sprawl",
+  "twist",
 ] as const;
 export type InstarPose = (typeof INSTAR_POSES)[number];
 

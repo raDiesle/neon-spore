@@ -825,9 +825,11 @@ by hand never moves.
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
-| `packages/content/src/instar-script.ts` | THE INSTAR's script: eighteen steps over eleven poses, and what the pair does to each |
+| `packages/content/src/instar-script.ts` | THE INSTAR's script: twenty-three steps over sixteen poses, and what the pair does to each |
 | `packages/content/src/instar-script-breath.ts` | **THE INSTAR's opening scene, the breath's three bites** |
 | `packages/content/src/instar-script-second.ts` | **THE INSTAR's second act**: five poses the first thirteen steps never showed |
+| `packages/content/src/instar-script-third.ts` | **THE INSTAR's third act**: crouch, perch, roar, sprawl and twist, laid between the others |
+| `packages/content/src/instar-script-first.ts` | **THE INSTAR's first act**: the steps the script had before the other two acts were laid in among them |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
@@ -1569,6 +1571,7 @@ by hand never moves.
 | `packages/render/src/instar-mark-feedback.ts` | **Which mark is wanted, and by whom**: the halo on this seat's open mark, the turning ring on the partner's |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the dragon as it comes in, the three the script names |
 | `packages/render/src/instar-poses-second.ts` | **THE INSTAR's second act, as figures** |
+| `packages/render/src/instar-poses-third.ts` | **THE INSTAR's third act, as figures** |
 | `packages/render/src/instar-plate.ts` | **What every part of THE INSTAR is drawn with**: the hide |
 | `packages/render/src/instar-place.ts` | **THE INSTAR's figure, in pixels**: a place, a length, the head, the far end and a mark on this screen's layout |
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
