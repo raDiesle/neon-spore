@@ -950,6 +950,7 @@ promote it out of "read" into its own queued fix.
 ## A claim whose push is rejected still hands the item out
 
 - **Found:** 2026-09-26, claude/peaceful-keller-lmm4gr
+- **Taken:** 2026-09-26, main (claim: claude/queue-a-claim-whose-push-is-rejected-still-hands-the-i)
 - **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/git.ts`
 
 Two sessions built §25 THE VALVE's simulation lane on 26 September 2026, and
