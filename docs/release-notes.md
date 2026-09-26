@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · a84b3164e — THE HASP's timeout blow is its own bolt driven into the hull
+
+The loose bolt already falls the whole column in sight, so its timeout is no longer a lash thrown on top of it: the same pale pin sinks into the plating to its head, the head flares white and cools to red like a rivet set hot, and the plating rings around it. Exemption: a look the owner asked for by name (a boss's timeout hit drawn as that boss's own blow).
+
 ## 2026-09-26 · cce1f5176 — THE SLOW's light stands round THE OCULUS's lens rather than splitting it
 
 While THE OCULUS holds a window open, THE SLOW's light now runs in round the lens and stops at its rim. PRISM splits everything as far as it is from the aim, and the aim used to be the cannon's column at the hull, so the lens at the top of the field was the thing split widest. The aim comes from a new table of bosses by kind (`render/slow-boss-aim.ts`), consulted after THE INSTAR and before the held body and the cannon; THE OCULUS is its first row, and the other bosses that open a window are queued. This finishes THE OCULUS's look.

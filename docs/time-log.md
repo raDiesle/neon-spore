@@ -23856,3 +23856,5 @@ Bottleneck: landing — the check and the push take longer than a table of one r
 
 Bottleneck: looking — the pin is a quarter of a tile wide, and the first
 frames had the cannon parked on top of it.
+
+*Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
