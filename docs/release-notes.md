@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4bd82343a — A cloud session lands and pushes every queue item it works
+
+A cloud session working the queue now puts two pushes on origin/main per item: the claim, which `take` already pushes, and the finished item, landed and pushed before the next one is claimed. The owner's rule for every cloud session, written into CLAUDE.md and docs/cloud-session.md.
+
 ## 2026-09-26 · b352eb26d — A tube's light is built once and laid by a transform: THE INSTAR makes 12 gradients a frame instead of about 170
 
 Every slice of a rig's tube used to build its own linear gradient, nine stops each, every frame. A cylinder's section is lit by two numbers — how much of the key falls along its width and how much on its face — so the gradient is now built once per stepped pair along a unit line and laid across each slice by a transform. The picture is unchanged; THE BATON, GLAND and THE WARDEN's roll get the same saving.
