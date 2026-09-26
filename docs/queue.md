@@ -417,6 +417,7 @@ three steps.
 ## A rock's hole puffs sit below the rock in its last six rows
 
 - **Found:** 2026-09-25, claude/meteor-impact-animation-timing-53afba
+- **Taken:** 2026-09-26, claude/queue-a-rocks-hole-puffs-sit-below-the-rock-in-its-las
 - **Files:** `packages/render/src/effects-spark.ts`, `packages/render/src/rock-fall.ts`
 
 A rock's last six rows are now drawn higher than its row, by a bend that
