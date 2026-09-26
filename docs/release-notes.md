@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d964e6408 — A wreck pulled under starts to sink on the next frame
+
+The sinking waited `FLEET_SHELL_BEATS` for a shell to land, but only the navigator's pull sinks a ship now, and nothing is in flight when it does — so a wreck sat afloat for two beats after its blow was over. The wait is gone, and `fleet-sink.test.ts` holds that the navigator's screen, which shows no floating hull, draws the wreck going under one tick after the pull. A fix to something wrong, not a look.
+
 ## 2026-09-26 · 0301b6883 — touch.ts, malfunction.ts and the field-controls page, split under the ceiling
 
 `touchMove` is in `render/touch-move.ts`, re-exported from `touch.ts` so nothing that imports it moved. `faultSwallows` and `eats` are in `sim/fault-swallow.ts`, and `command-locks.ts` and the six tests that asked for them import from there. The ship's five lobes on the ON THE FIELD tab — cannon, maw tap, shield plate and trigger, muzzle swipe — are in `field-controls-ship.ts`, spread back in where they stood. Nothing drawn changed.
