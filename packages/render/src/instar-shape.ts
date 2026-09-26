@@ -146,8 +146,12 @@ export function instarPhaseAt(s: InstarState, beat: number, beatPhase: number): 
   return Math.max(0, beat - s.phaseBeat + beatPhase);
 }
 
-/** The figure the body stands in this frame. */
-export function instarFigure(s: InstarState, beat: number, beatPhase: number): Figure {
+/**
+ * The figure the body stands in this frame. `held` is how far the window had
+ * run when the step landed (`InstarFx`): a swept blade eases back from there
+ * over the landing rather than being where it started on the landing tick.
+ */
+export function instarFigure(s: InstarState, beat: number, beatPhase: number, held = 0): Figure {
   const at = instarPhaseAt(s, beat, beatPhase);
   const step = instarStep(s);
   const prev = s.steps[s.cursor - 1];
@@ -162,7 +166,11 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number): F
     const t = at / (step.morphBeats * INSTAR_FLIGHT_ENDS);
     return lerp(from, placed(step.pose, step.marks), smoothstep(Math.min(1, t)));
   }
-  const pose = placed(step.pose, step.marks, instarThreat(s, beat, beatPhase));
+  const along =
+    s.phase === "land"
+      ? held * (1 - smoothstep(at / step.landBeats))
+      : instarThreat(s, beat, beatPhase);
+  const pose = placed(step.pose, step.marks, along);
   return deformed(pose, step.marks, (i) => {
     const need = step.marks[i]?.need ?? 1;
     return (s.progress[i] ?? 0) / need;

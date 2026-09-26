@@ -23550,3 +23550,18 @@ Bottleneck: tuning a repeating tile so it stops reading as stripes.
 Bottleneck: friction — finding a wave whose timeout fires without a hand on it.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's lashed tail eases back after a landing
+
+- reading: 10 min. Where the swept fork's place comes from in each phase,
+  and what the simulation keeps of the window once a step has landed.
+- writing: 10 min. The window's reach held in `InstarFx` through the
+  landing, the figure easing from it, a test.
+- looking: 0 min. A test pins the three points of the ease.
+- friction: 5 min. The last landing's branch could not be brought up to
+  the rebased trunk in place, so this one is a fresh branch.
+- landing: 10 min. `check:fast`, this entry, `land`.
+
+Bottleneck: reading — nothing in the state says how long the step was
+asked for once it has landed, so the reach had to be remembered by the
+picture.

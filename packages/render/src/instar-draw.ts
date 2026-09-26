@@ -54,7 +54,7 @@ export function drawInstar(
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
-  const { f, sway } = instarBody(s, cfg, beat, beatPhase);
+  const { f, sway } = instarBody(s, cfg, beat, beatPhase, fx.held);
   const morph = instarMorphAt(s, beat, beatPhase);
   const threat = instarThreat(s, beat, beatPhase);
   const { head, r } = instarHeadAt(l, f);

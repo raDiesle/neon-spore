@@ -45,6 +45,21 @@ describe("a swept mark", () => {
     const half = instarFigure(s, world.beat + (s.steps[cursor]?.windowBeats ?? 0) / 2, 0).tailX;
     expect(half - open).toBeCloseTo(sweep / 2, 6);
   });
+
+  it("eases the fork back over the landing from where the window had it", () => {
+    const world = hung();
+    const cursor = world.boss?.kind === "instar" ? world.boss.steps.findIndex(isSwept) : -1;
+    const s = acting(world, cursor);
+    const step = s.steps[cursor];
+    if (step === undefined) throw new Error("no swept step");
+    const sweep = step.marks[0]?.sweepMilli ?? 0;
+    const rest = instarFigure(s, world.beat, 0).tailX;
+    const landed = { ...s, phase: "land" as const, phaseBeat: world.beat };
+    const at = (beat: number) => instarFigure(landed, beat, 0, 0.5).tailX - rest;
+    expect(at(world.beat)).toBeCloseTo(sweep / 2, 6);
+    expect(Math.abs(at(world.beat + step.landBeats / 2))).toBeLessThan(Math.abs(sweep / 2));
+    expect(at(world.beat + step.landBeats)).toBeCloseTo(0, 6);
+  });
 });
 
 function isSwept(step: { marks: readonly { part: string; sweepMilli?: number }[] }): boolean {

@@ -68,9 +68,18 @@ export class InstarFx {
   /** The lips trembling under the jaw's shove. */
   readonly shove = new LipShove();
 
+  /** How far the window had run at the last frame of the step's asking,
+   * held through its landing so a swept blade eases back (`instarFigure`). */
+  private heldAlong = 0;
+
   /** How far the body is lifted right now, in tiles. */
   get jolt(): number {
     return this.joltNow;
+  }
+
+  /** How far the window had run when this step landed, 0..1 — nought outside a landing. */
+  get held(): number {
+    return this.heldAlong;
   }
 
   /** How hard the body is shivering sideways right now, 0..1. */
@@ -87,6 +96,7 @@ export class InstarFx {
    */
   place(l: Layout, s: InstarState, sway: Sway, along: number, head: Point, r: number): void {
     this.headR = r;
+    if (s.phase !== "land") this.heldAlong = s.phase === "act" ? along : 0;
     const step = instarStep(s);
     this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway, along));
     this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
@@ -196,6 +206,7 @@ export class InstarFx {
   clear(): void {
     this.joltNow = 0;
     this.flinchNow = 0;
+    this.heldAlong = 0;
     this.marks = [];
     this.swipes = [];
     this.head = null;

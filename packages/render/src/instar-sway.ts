@@ -102,9 +102,10 @@ export function instarBody(
   cfg: SimConfig,
   beat: number,
   beatPhase: number,
+  held = 0,
 ): { f: Figure; sway: Sway } {
   const sway = instarSway(s, cfg, beat, beatPhase);
-  const f = instarFigure(s, beat, beatPhase);
+  const f = instarFigure(s, beat, beatPhase, held);
   return {
     f: {
       ...f,
