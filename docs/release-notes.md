@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8e81c9176 — AUTO plays an ordinary wave: the cannon and the shield together
+
+AUTO in the director was bosses only. On a wave with no boss it now plays the field: player 1 stands the cannon under the body nearest the hull and player 2 fires its colour; player 2 carries the shield under the nearest rock and player 1 triggers the dome in the last stretch of the beat before it arrives. BOTH clears 43 of the 65 ordinary waves with the hull unscarred; the 22 whose creatures have a verb of their own are named in the test and queued, as is AUTO in the game's own TEST view, which needs the hands in a package the app can import.
+
 ## 2026-09-26 · d1f1aa255 — AUTO plays THE PULSE and THE REPRISE
 
 The director's AUTO row had no hand for these two and said "no hand for this boss" on them. Now it has one for each, in `boss-hands-unseen.ts`. On THE PULSE both seats press every arrow on its own tick, veiled ones included, and the round ends spent with the meter full. On THE REPRISE the cannon goes under the body nearest the hull, echoed or not, and fires that body's colour. It plays the wave out with nothing reaching the hull. Every boss in the game now has a row.
