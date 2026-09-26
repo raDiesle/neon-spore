@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ea5cf8c6e — THE INSTAR moults at the end: each seat swipes its half of the hide off
+
+The fight has a last step: after the mixed lash the body passes twice and comes in side on, still, for its moult, and each seat swipes its half of the old skin off its back, downward, eight swipes each, the two finishing together. Left alone, the window closes on the hide and the fight is lost, as on any other part.
+
 ## 2026-09-26 · 124616f91 — THE VOLLEY's shell breaks below the volley in its last six rows
 
 The ball bends onto the skin the same way a rock does, on the field's last six rows before the hull — but its shell fragments and burst squares were still thrown from the row's flat centre, up to a tile above the ball the pair were actually looking at. A ward or a hatch there now breaks the shell where it is drawn: `volley-shards.ts` and `effects-spark-worn.ts` place the pieces with `rockFallY` against the skin the host passes in, less the ball's own radius, the way `effects-spark-hole.ts` already places a crater's puffs.

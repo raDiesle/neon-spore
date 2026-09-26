@@ -21497,3 +21497,5 @@ bearing may move in one tick, and read as nothing.
 
 Bottleneck: none worth the name — the pose table and the strike's table are
 typed by the lists, so the compiler named every place the new names had to go.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
