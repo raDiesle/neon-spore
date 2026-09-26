@@ -437,6 +437,7 @@ an alignment.
 ## §27 THE OCULUS — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, main (claim: claude/queue-27-the-oculus-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 Two hold targets, `oculusLeafLeft` and `oculusLeafRight`, close a six-leaf
