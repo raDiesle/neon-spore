@@ -7,7 +7,8 @@ import { INSTAR_SCRIPT } from "../src/instar-script.js";
  * marks (`sweepMilli`): nothing in the simulation refuses a sweep that
  * carries a ring over the seam, and the ring would go on being refused to
  * the thumb whose half it had come into. And the coil's two winds, which are
- * the step only if they go opposite ways. And the moult, which is the last.
+ * the step only if they go opposite ways. And the moult and the bare heart
+ * after it, which are the finish.
  */
 const swept = INSTAR_SCRIPT.flatMap((step) => step.marks).filter((m) => (m.sweepMilli ?? 0) !== 0);
 
@@ -45,10 +46,10 @@ describe("THE INSTAR's script", () => {
     expect(ways).toEqual(new Set(["turn", "turnBack"]));
   });
 
-  it("ends on the moult, each seat swiping its own half of the hide off", () => {
-    const last = INSTAR_SCRIPT.at(-1);
-    expect(last?.pose).toBe("moult");
-    const marks = last?.marks ?? [];
+  it("moults second-last, each seat swiping its own half of the hide off", () => {
+    const moult = INSTAR_SCRIPT.at(-2);
+    expect(moult?.pose).toBe("moult");
+    const marks = moult?.marks ?? [];
     expect(marks.map((m) => m.seat).sort()).toEqual(["p1", "p2"]);
     for (const m of marks) {
       expect(m.part).toBe("hide");
@@ -56,5 +57,13 @@ describe("THE INSTAR's script", () => {
       // Left is player 1's, right is player 2's.
       expect(m.xMilli < 500).toBe(m.seat === "p1");
     }
+  });
+
+  it("ends on the bare heart, shot by both seats through the split", () => {
+    const last = INSTAR_SCRIPT.at(-1);
+    expect(last?.pose).toBe("bare");
+    expect(last?.marks.map((m) => [m.seat, m.part, m.gesture])).toEqual([
+      ["both", "heart", "shoot"],
+    ]);
   });
 });

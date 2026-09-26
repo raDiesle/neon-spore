@@ -63,7 +63,10 @@ import type { Wave } from "../wave-types.js";
  * stepper part with its text.* The marks are the instruction, where a mark
  * sits says whose, and its scanner box names the gesture; the wave opens on
  * its number and name. `test/waves.test.ts` names it, with THE FILAMENT, as a
- * wave first on a panel with nothing to say. The comment is up here rather than on the
+ * wave first on a panel with nothing to say. Since its second act (26
+ * September 2026) it plays on STANDARD 5, because five of its steps are
+ * answered by the ship's own panel — shield, shoot and suck under a mark
+ * (`sim/scene-panel.ts`). The comment is up here rather than on the
  * wave because the director writes this file back and keeps nothing between
  * a wave's braces.
  */
@@ -161,6 +164,6 @@ export const WAVES_ACT_7G: Wave[] = [
     entries: [],
     boss: { kind: "instar", steps: INSTAR_SCRIPT },
     bossType: "normal",
-    controls: "scene",
+    controls: "standard5",
   },
 ];

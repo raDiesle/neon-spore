@@ -54,6 +54,11 @@ const LIFE: Record<InstarPart, number> = {
   eye: SLAM_SECONDS,
   fire: FIRE_SECONDS,
   hide: HARDEN_SECONDS,
+  // The bare body's heart left lit is the new body hardening, the hide's way.
+  heart: HARDEN_SECONDS,
+  // A glob or an ember let through lands on the hull where its mark was.
+  glob: SLAM_SECONDS,
+  ember: SWARM_SECONDS,
 };
 
 export class InstarStrike {
@@ -82,7 +87,7 @@ export class InstarStrike {
   update(dt: number): void {
     if (this.now === null) return;
     this.now.age += dt;
-    if (this.now.part === "hide")
+    if (hardens(this.now.part))
       this.set = smoothstep(Math.min(1, this.now.age / (HARDEN_SECONDS * CRUST)));
     if (this.now.age >= LIFE[this.now.part]) this.now = null;
   }
@@ -95,7 +100,7 @@ export class InstarStrike {
       drawFlood(ctx, l, s.from[0] ?? { x: l.width / 2, y: l.gridTop }, t);
     else if (s.part === "eggs") drawSwarm(ctx, l, s.from, s.age);
     // The crust is the body's own (`instar-moult.ts`); the shock is the slam's.
-    else if (s.part === "hide") {
+    else if (hardens(s.part)) {
       if (t > CRUST) drawSlam(ctx, l, s.from, s.x, (t - CRUST) / (1 - CRUST));
     } else drawSlam(ctx, l, s.from, s.x, t);
   }
@@ -104,6 +109,11 @@ export class InstarStrike {
     this.now = null;
     this.set = 0;
   }
+}
+
+/** The parts whose strike is the new body hardening, then the slam. */
+function hardens(part: InstarPart): boolean {
+  return part === "hide" || part === "heart";
 }
 
 /** The fire out of the mouth: a front running to the corners, then the whole

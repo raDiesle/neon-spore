@@ -221,7 +221,7 @@ export function drawFrontHead(
   }
   ctx.restore();
   for (const s of sides) {
-    const open = s === 1 ? f.eye * (1 - 0.8 * f.wince) : f.eye;
+    const open = f.eye * (1 - 0.8 * (s === 1 ? f.wince : f.winceLeft));
     drawEye(ctx, frontEyeAt(f, top, r, s), r, s, open, time, fade);
   }
   return [chin, skull];

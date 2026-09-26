@@ -7,24 +7,26 @@ import {
   sceneBoss,
   type TimedCommand,
 } from "@neon-spore/sim";
-import { instarHand } from "./boss-hands-handles.js";
+import { sceneThumbs } from "./boss-hands-handles.js";
 import type { Hand } from "./hand.js";
 
 type Press = Omit<TimedCommand, "tick">;
 
 /**
- * **THE NETTLE's hands**: the thumbs on its body are THE INSTAR's hand
- * (`boss-hands-handles.ts`), and its SHOOT, SHIELD and SUCK marks are the
- * panel played straight — the first undone one, the cannon or the shield
+ * **A scene's hands**, THE NETTLE's and THE INSTAR's: the thumbs and the panel.
+ * The thumbs on the body are `sceneThumbs` (`boss-hands-handles.ts`), and the
+ * SHOOT, SHIELD and SUCK marks are the panel played straight — the first undone one, the cannon or the shield
  * slid under it, and the press (`sim/scene-panel.ts`). Both at once, so a
  * step with a tap on the body and a spore at the hull is answered the way a
  * pair answers it: one seat on each.
  *
  * It presses every tick it stands under the mark. The cannon refuses a shot
  * inside its cooldown and a bolt already climbing still counts when it goes
- * out, so a press too many is a bolt into the sky, which THE NETTLE takes.
+ * out, so a press too many is a bolt into the sky, which the scene takes.
+ * THE INSTAR has had panel marks since its second act (26 September 2026).
  */
-export const nettleHand: Hand = (w) => [...instarHand(w), ...panelPresses(w)];
+export const nettleHand: Hand = (w) => [...sceneThumbs(w), ...panelPresses(w)];
+export const instarHand: Hand = nettleHand;
 
 function panelPresses(w: Parameters<Hand>[0]): Press[] {
   const s = sceneBoss(w);

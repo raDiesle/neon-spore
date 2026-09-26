@@ -1,4 +1,5 @@
 import type { InstarMark, InstarPose } from "@neon-spore/sim";
+import { secondAct } from "./instar-poses-second.js";
 import type { Figure } from "./instar-shape.js";
 
 /**
@@ -29,6 +30,7 @@ const BREATH: Figure = {
   jawDown: 1,
   eye: 1,
   wince: 0,
+  winceLeft: 0,
   side: 0,
   wing: 1,
   rearX: 500,
@@ -47,6 +49,7 @@ const BREATH: Figure = {
   split: 0,
   shedNear: 0,
   shedFar: 0,
+  heart: 0,
 };
 
 /** The body as it comes in, before the first morph: the same face, the mouth
@@ -54,7 +57,8 @@ const BREATH: Figure = {
  * (`instar-flight.ts`). */
 export const ENTER: Figure = { ...BREATH, jawUp: 0.6, jawDown: 0.6, eye: 0.4, wing: 0.6 };
 
-/** The six poses the script names. */
+/** The poses the script names: six, and the five of the second act after
+ * them (`instar-poses-second.ts`). */
 export const POSES: Record<InstarPose, Figure> = {
   breath: BREATH,
   // Side-on, head to the left, the back running through the two nests: the
@@ -143,6 +147,7 @@ export const POSES: Record<InstarPose, Figure> = {
     nestY: 400,
     split: 1,
   },
+  ...secondAct(BREATH),
 };
 
 /** Beaten: side-on, sagging, the eyes shut, the wings folded, the tail down. */

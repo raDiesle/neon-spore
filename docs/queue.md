@@ -2168,3 +2168,18 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE INSTAR's second act — the look lane
+
+- **Found:** 2026-09-26, claude/instar-choreo
+- **Taken:** 2026-09-26, claude/instar-choreo (claim: claude/queue-the-instars-second-act-the-look-lane)
+- **Files:** `packages/render/src/instar-poses.ts`, `packages/render/src/instar-shape.ts`,
+  `packages/render/src/instar-head.ts`, new packages/render/src/instar-spit.ts,
+  new packages/render/src/instar-heart.ts
+
+The five new poses drawn as themselves: the glob the rear spits falling to
+each shield mark, the embers the spread shakes down, the heart lit through
+the bare body's split, and each eye wincing by its own count (a `winceLeft`
+beside `wince`). The in-between motion is the three-quarter-view session's,
+not this lane's (§11.32). `bun run check` proves it draws; the eye is the
+owner's.

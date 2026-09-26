@@ -23428,3 +23428,19 @@ Bottleneck: looking — which frame of a morph a tick lands on had to be
 worked out from the flight's own numbers before the pictures meant anything.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's second act: the simulation lane
+
+- reading: 5 min. The script, the NETTLE's panel marks and hands, the
+  new-boss-state list, the 3D thread's file ownership.
+- writing: 10 min. Five poses, three parts, five steps, the panel heard for
+  THE INSTAR, STANDARD 5, the scene hand shared, the tests moved.
+- looking: 0 min. Poses and marks are checked by the eye and frame tests;
+  the picture is the look lane's.
+- friction: 5 min. Shell quoting in the edit scripts, and the director's
+  DOWN pose running out of beats on the longer script.
+- landing: 5 min. `check:fast` three times, this entry, the commit.
+
+Bottleneck: finding the places a new part and a panel step reach outside the
+simulation — the hand, the director budget and the fire test were each found
+by a red test, not by a list.

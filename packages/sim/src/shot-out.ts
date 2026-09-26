@@ -15,7 +15,7 @@ import { oculusStruck } from "./oculus-shot.js";
 import { plumbStruck } from "./plumb-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { rimeStruck } from "./rime-shot.js";
-import { nettleStruck } from "./scene-panel.js";
+import { instarStruck, nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
 import { slingStruck } from "./sling-shot.js";
@@ -112,6 +112,7 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   hiveStruck(world, b);
   // A SHOOT mark on a scene's body over the bolt's column (`scene-panel.ts`).
   nettleStruck(world, b);
+  instarStruck(world, b);
   const wasted = wastes(world, taken);
   world.events.push({
     type: "shotOut",
@@ -162,6 +163,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "ratchet",
   "hive",
   "nettle",
+  "instar",
 ]);
 
 /** Whether a boss is hanging above the field to take a bolt out of the top. */

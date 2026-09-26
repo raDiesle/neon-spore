@@ -815,8 +815,9 @@ by hand never moves.
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
-| `packages/content/src/instar-script.ts` | THE INSTAR's script: thirteen steps over six poses, and what the pair does to each |
+| `packages/content/src/instar-script.ts` | THE INSTAR's script: eighteen steps over eleven poses, and what the pair does to each |
 | `packages/content/src/instar-script-breath.ts` | **THE INSTAR's opening scene, the breath's three bites** |
+| `packages/content/src/instar-script-second.ts` | **THE INSTAR's second act**: five poses the first thirteen steps never showed |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
@@ -1544,6 +1545,7 @@ by hand never moves.
 | `packages/render/src/instar-mark-grip.ts` | THE INSTAR's marks under a thumb — the hit test alone |
 | `packages/render/src/instar-mark-feedback.ts` | **Which mark is wanted, and by whom**: the halo on this seat's open mark, the turning ring on the partner's |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the dragon as it comes in, the three the script names |
+| `packages/render/src/instar-poses-second.ts` | **THE INSTAR's second act, as figures** |
 | `packages/render/src/instar-plate.ts` | **What every part of THE INSTAR is drawn with**: the hide |
 | `packages/render/src/instar-place.ts` | **THE INSTAR's figure, in pixels**: a place, a length, the head, the far end and a mark on this screen's layout |
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
@@ -2070,7 +2072,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-snake-grid.ts` | SNAKE's arena as the hand's search sees it (`boss-hands-snake.ts`): four headings |
 | `packages/hands/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
 | `packages/hands/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
-| `packages/hands/src/boss-hands-scene.ts` | **THE NETTLE's hands**: the thumbs on its body are THE INSTAR's hand (`boss-hands-handles.ts`) |
+| `packages/hands/src/boss-hands-scene.ts` | **A scene's hands**, THE NETTLE's and THE INSTAR's: the thumbs and the panel |
 | `packages/hands/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |

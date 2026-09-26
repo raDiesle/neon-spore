@@ -6544,6 +6544,67 @@ between runs (`render/test/instar-frame.test.ts`). Whether twelve beats
 is a window or a wait, and whether the body reads as *the bulb queen or
 the warden*, is the owner's eye.
 
+### The second act — five poses more, and the panel given back (26 September 2026)
+
+The owner, 26 September 2026: more visibly distinct states, SLOW moments where
+the pair has to act, standard controls for some steps, and *more graphic poses
+and some transition of movements to come into different poses and states*. So
+the script goes from thirteen steps over six poses to eighteen over eleven,
+and the wave goes from the `scene` set to **STANDARD 5**, THE NETTLE's
+(§11.39): the band is back, and five of the new steps are answered on it —
+the mark stands over a column and says SHOOT or SHIELD or SUCK, and the press
+in that column is the answer (`sim/scene-panel.ts`). Every window is still
+THE SLOW. The steps, in the order the fight tells them:
+
+1. *Breath*, three bites — as before.
+2. **Rear** (new) — it rears back face-on, high and small, the wings up, and
+   spits the fire it was made to swallow: a glob falls at each half of the
+   hull. **SHIELD, SHIELD**: the dome brought up under each glob, the
+   navigator moving it and the pilot pressing. Left alone, the glob burns
+   the hull.
+3. *Brood*, 4. *Lash*, 5. *Lunge* — as before.
+6. **Glare** (new) — it comes in close, face-on, jaws shut and eyes wide,
+   staring the ship down. **SHOOT, SHOOT**: a bolt into each eye, three
+   each, the pilot's cannon under it and the navigator's trigger, each eye
+   wincing shut by its own count. Left alone, the stare is the strike.
+7. *Breath, turned round*, 8. *Coil* — as before.
+9. **Dive** (new) — face-on, wings swept back, the head thrust huge at the
+   ship. **SHIELD** on the brow, twice: the dome up under it, and each press
+   drives the head back. Left alone, the head hits the hull.
+10. *Lunge, split*, 11. *Brood, turned round* — as before.
+12. **Spread** (new) — face-on, wings raised wide, head pulled back, shaking
+    embers off its wings onto both halves of the hull. **SUCK, SUCK**: the
+    maw opened under each ember, the pilot moving the cannon under it. Left
+    alone, the embers burn the hull.
+13. *Lash, mixed*, 14. *Moult* — as before.
+15. **Bare** (new, last) — the old skin gone, the new body pale and soft,
+    side-on and still, its **heart** lit through the split along the back.
+    **SHOOT**, four, for both: the one place the new body can be hurt, before
+    it hardens. This is the finish, the thing the moult was for.
+
+**Two new names, appended for the hash**: the poses `rear`, `glare`, `dive`,
+`spread`, `bare` after `moult`, and the part `heart` after `hide`. Nothing in
+the engine changes: a pose is a name the picture keys a `Figure` on, and a
+part is a name the strike keys its picture on.
+
+**The shot out of the top is THE INSTAR's** while it is up, the way it is
+every other sky boss's (`shot-out.ts`, `SKY_BOSSES`): a bolt fired at the
+body is not a shot at nothing on HARD.
+
+**The in-between motion is not the script's.** The morph is still
+`morphBeats` with the marks hidden, and the simulation says nothing about how
+the body gets from one figure to the next; the rearing, coiling and turning
+through a morph is drawn in `packages/render`, by the session building THE
+INSTAR's three-quarter view, keyed on the pose it comes from, the pose it
+goes to and how far the morph has run. The script gives the big changes the
+beats to be seen: a pose that turns the body round (side-on to face-on or
+back) is never under six morph beats.
+
+**Two lanes**, queued as *THE INSTAR's second act*: the simulation (the
+names, the script, the controls, the sky, the tests), then the look (the five
+figures drawn as themselves, the glob, the embers, the heart, each eye's own
+wince).
+
 ## 11.33 THE FILAMENT — the boss whose line one of you draws while the other follows it
 
 > The one that is a trace, and the trace is not fixed. One thumb lays the

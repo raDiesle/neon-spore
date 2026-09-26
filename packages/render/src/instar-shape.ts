@@ -24,7 +24,7 @@ import { BEATEN, ENTER, placed } from "./instar-poses.js";
  * per seat**: both screens see the same body, and the split of this boss is
  * in whose thumb each mark wants.
  *
- * **A pose is a figure, and a morph is a lerp.** Each of the six poses is
+ * **A pose is a figure, and a morph is a lerp.** Each of the poses is
  * one `Figure` (`instar-poses.ts`); the body between two of them is the
  * straight blend, eased, over the part of the step's `morphBeats` the flight
  * takes (`instar-flight.ts`), so the body has its new pose by the time it
@@ -57,6 +57,9 @@ export interface Figure {
   /** How far the right eye is struck shut, 0..1, on top of `eye`: the split
    * lunge's taps, one flinch each. */
   wince: number;
+  /** The left eye's, the same way: the glare's bolts strike each eye by its
+   * own count (§11.32's second act). */
+  winceLeft: number;
   /** How far the body has turned side-on, 0..1: 0 is the face at the ship,
    * 1 the dragon in profile, head to the left, back up, tail out behind. */
   side: number;
@@ -87,6 +90,9 @@ export interface Figure {
   split: number;
   shedNear: number;
   shedFar: number;
+  /** The bare body's heart lit through the split, 0..1, put out by the
+   * bolts on it. */
+  heart: number;
 }
 
 /** The pose's figure after its marks are done: the parts the pair undid. */
@@ -116,12 +122,15 @@ export function deformed(
     // The fork is one tail: every thumb on it pushes its share of it back.
     else if (m.part === "tail") g.tail -= (f.tail * p) / tails;
     else if (m.part === "head") g.reach = f.reach * (1 - p);
-    // An eye struck flinches shut by as much of its count as has landed.
-    else if (m.part === "eye") g.wince = p;
+    // An eye struck flinches shut by as much of its count as has landed,
+    // each eye by the mark on its own side.
+    else if (m.part === "eye") g[m.xMilli < 500 ? "winceLeft" : "wince"] = p;
     // The fire in the mouth is tapped out by as much of its count as has landed.
     else if (m.part === "fire") g.flame = f.flame * (1 - p);
     // A strip of the old hide off its half per counted swipe.
     else if (m.part === "hide") g[m.xMilli < 500 ? "shedNear" : "shedFar"] = p;
+    // The heart put out by as much of its count as has landed.
+    else if (m.part === "heart") g.heart = f.heart * (1 - p);
   });
   return g;
 }

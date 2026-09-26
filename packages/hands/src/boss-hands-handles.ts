@@ -132,16 +132,16 @@ export function surgeHandWith(vent: boolean): Hand {
 export const surgeHand: Hand = surgeHandWith(true);
 
 /**
- * THE INSTAR: every mark of the step that is up, answered in its own
+ * A scene's thumbs: every mark of the step that is up, answered in its own
  * gesture by the seat it belongs to, all in the same ticks — a pull carried
  * to its depth and kept there, a tap that lifts between presses, a swipe
  * carried past `instarSwipeMilli` and lifted, a turn wound a quarter a tick,
  * a hold both thumbs stay on (`instar-hand.ts`). A mark answered alone slips
  * when its partner is late (`instarTogetherBeats`), which is why the hand
- * answers them all at once. THE NETTLE's thumbs are played by the same
- * hand, and its panel marks by the panel (`boss-hands-scene.ts`).
+ * answers them all at once. Its panel marks are the panel's
+ * (`boss-hands-scene.ts`, where THE INSTAR's and THE NETTLE's hands are both).
  */
-export const instarHand: Hand = (w) => {
+export const sceneThumbs: Hand = (w) => {
   const s = sceneBoss(w);
   if (s === null || !instarActing(s)) return [];
   const marks = instarStep(s)?.marks ?? [];

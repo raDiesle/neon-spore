@@ -1,8 +1,15 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
 import { INSTAR_BREATH } from "./instar-script-breath.js";
+import {
+  INSTAR_BARE,
+  INSTAR_DIVE,
+  INSTAR_GLARE,
+  INSTAR_REAR,
+  INSTAR_SPREAD,
+} from "./instar-script-second.js";
 
 /**
- * THE INSTAR's script: thirteen steps over six poses, and what the pair does to each.
+ * THE INSTAR's script: eighteen steps over eleven poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -73,6 +80,11 @@ import { INSTAR_BREATH } from "./instar-script-breath.js";
  * (Steps 2–10 below are the script's steps 5–13: the breath's three bites are
  * one item because they are one scene.)
  *
+ * **The second act** (26 September 2026, `instar-script-second.ts`) lays five
+ * panel steps in between these: the rear after the bites, the glare after the
+ * lunge, the dive after the coil, the spread after the turned-round brood,
+ * and the bare heart after the moult, which is now the finish.
+ *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
  * the owner asked to be slow — *so it starts small in the background, then it
  * looks like it more and more flies towards the users screen* — twelve for
@@ -111,6 +123,7 @@ import { INSTAR_BREATH } from "./instar-script-breath.js";
  */
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   ...INSTAR_BREATH,
+  INSTAR_REAR,
   {
     pose: "brood",
     arrive: "passes",
@@ -157,6 +170,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     landBeats: 3,
     marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 300, need: 3 }],
   },
+  INSTAR_GLARE,
   {
     pose: "breath",
     arrive: "cross",
@@ -179,6 +193,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
       { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 330, need: 2000 },
     ],
   },
+  INSTAR_DIVE,
   {
     pose: "lunge",
     arrive: "cross",
@@ -201,6 +216,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
       { seat: "p2", part: "eggs", gesture: "tap", xMilli: 660, yMilli: 360, need: 16 },
     ],
   },
+  INSTAR_SPREAD,
   {
     pose: "lash",
     arrive: "cross",
@@ -223,4 +239,5 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
       { seat: "p2", part: "hide", gesture: "swipeDown", xMilli: 620, yMilli: 390, need: 8 },
     ],
   },
+  INSTAR_BARE,
 ];

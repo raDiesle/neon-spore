@@ -41,12 +41,13 @@ describe("THE INSTAR's struck eye", () => {
     }
   });
 
-  it("winces shut by as much of the count as has landed", () => {
-    for (const { step } of EYE_MARKS) {
-      const eye = step.marks.findIndex((m) => m.part === "eye");
+  it("winces shut by as much of the count as has landed, on the mark's own side", () => {
+    for (const { step, m } of EYE_MARKS) {
+      const eye = step.marks.indexOf(m);
+      const side = m.xMilli < 500 ? "winceLeft" : "wince";
       const half = deformed(POSES[step.pose], step.marks, (i) => (i === eye ? 0.5 : 0));
-      expect(half.wince).toBe(0.5);
-      expect(deformed(POSES[step.pose], step.marks, () => 0).wince).toBe(0);
+      expect(half[side]).toBe(0.5);
+      expect(deformed(POSES[step.pose], step.marks, () => 0)[side]).toBe(0);
     }
   });
 });

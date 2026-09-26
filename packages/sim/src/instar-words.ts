@@ -19,8 +19,23 @@ export type InstarSeat = (typeof INSTAR_SEATS)[number];
  * `fire` is the fire turning in the open mouth, tapped out between the
  * breath's bites and during the third, and last for the same reason. `hide`
  * is the old skin split along the back at the moult, swiped off in halves,
- * last again. */
-export const INSTAR_PARTS = ["jaw", "eggs", "tail", "head", "eye", "fire", "hide"] as const;
+ * last again. `heart` is the new body's, lit through the split once the hide
+ * is off, shot at the bare finish (§11.32's second act), last once more.
+ * `glob` is fire spat from the rear down at the hull, shielded off, and
+ * `ember` is fire shaken off the spread wings, sucked in; both the second
+ * act's, and after the heart for the hash. */
+export const INSTAR_PARTS = [
+  "jaw",
+  "eggs",
+  "tail",
+  "head",
+  "eye",
+  "fire",
+  "hide",
+  "heart",
+  "glob",
+  "ember",
+] as const;
 export type InstarPart = (typeof INSTAR_PARTS)[number];
 
 /**
@@ -61,8 +76,25 @@ export type InstarGesture = (typeof INSTAR_GESTURES)[number];
  * the hash wants a new name — its hide split along the back with the next
  * body pale in the split, the moult an instar is named for. A pose may come
  * round again in a later step with other marks on it; the list is the
- * pictures, not the steps. */
-export const INSTAR_POSES = ["breath", "brood", "lash", "lunge", "coil", "moult"] as const;
+ * pictures, not the steps.
+ *
+ * The five after the moult are the second act (26 September 2026), appended
+ * for the hash: reared back high to spit, close with the eyes wide, diving
+ * head-first at the ship, the wings raised wide to shake off embers, and the
+ * new body bare after the moult with its heart lit. */
+export const INSTAR_POSES = [
+  "breath",
+  "brood",
+  "lash",
+  "lunge",
+  "coil",
+  "moult",
+  "rear",
+  "glare",
+  "dive",
+  "spread",
+  "bare",
+] as const;
 export type InstarPose = (typeof INSTAR_POSES)[number];
 
 /**
