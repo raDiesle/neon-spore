@@ -22395,3 +22395,5 @@ Bottleneck: friction — the game's own config has no ready rig outside `apps/ga
 
 Bottleneck: registrations — twelve events and four config fields each have
 to be named in a dozen files the typecheck does not reach.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

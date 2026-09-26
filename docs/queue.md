@@ -986,3 +986,17 @@ end scarred or never clear (THE WISP never clears; the rest clear with two to
 twelve scars). Give each such creature its answer in the hand, a file per few
 creatures as the pods have theirs, taking its name out of `HALF_PLAYED` as it
 goes; the test already fails for any wave the hand stops clearing clean.
+
+## Unverified at 4a47be3b6: THE OCULUS wave never watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-27-the-oculus-the-simulation-lane
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*THE OCULUS: an eye both seats hold shut, then shoot into* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
+
+- THE OCULUS wave never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

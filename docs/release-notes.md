@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4a47be3b6 — THE OCULUS: an eye both seats hold shut, then shoot into
+
+Wave 106 THE OCULUS is a lens over the middle column with six leaves and a script of nine steps on the wave. Both seats hold their own leaf (Player 1 the left, Player 2 the right) and a shut step counts the beats both are down; a thumb lifted starts the count again, and a shut run out springs the pair and lights the same step again. Three pairs shut, the break opens the socket, and fire steps take the ordinary shot in the middle column in their colour, with reseal holds between them that swallow the socket if they run out. A fire step run out breaches the hull. The twelve sounds are bound. Nothing is drawn yet and there is no autopilot hand; bosses.md §11.44 argues the six departures from §27. No look was added, since nothing is drawn. The wave went in unweighed.
+
 ## 2026-09-26 · c94eb638d — THE WARD's last two rocks arrive a beat apart, so the shield can meet both
 
 THE WARD's fastest rock now enters on beat 8 instead of beat 7. Before, it reached the hull on the same tick as the rock before it, in a column far away. The shield stands in one column, so one of the two always breached, however well the pair played. AUTO on BOTH now clears the wave unscarred on both the poses' config and the game's own, and the director's test asks for that. THE WARD's perf row is marked unmeasured, since what it was weighed on changed. Exemption: a fix to something wrong rather than unlovely.
