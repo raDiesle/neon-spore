@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE MAZE's lever knob rests on top of the lit way in
-
-- **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
-- **Taken:** 2026-09-26, claude/queue-opening-test-ts-s-twice-taken-strip-differed-by (claim: claude/queue-the-mazes-lever-knob-rests-on-top-of-the-lit-way)
-- **Files:** `packages/render/src/maze-string.ts`, `packages/render/src/maze-door.ts`, `packages/render/test/maze-funnel.test.ts`
-
-When the drum has turned a way in round to the ship's column, the lever's
-knob often sits at the bottom of its ring as well, which puts the big knob
-disc over the lit door and hides the funnel's right lip (seen in
-`bun run frames . --wave "THE MAZE" --seat p1 --ticks 300 --hold mazeString=4000@240`).
-Either draw the lit door's lips and floor after the knob, or keep the knob
-out of the door's arc. Prove it with a test that the door's draw comes
-later in the op list than the knob's disc.
-
 ## THE SLOW does not say whether a window asks for something
 
 - **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717

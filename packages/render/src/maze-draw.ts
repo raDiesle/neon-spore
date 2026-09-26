@@ -96,6 +96,8 @@ export function drawMaze(
     mazeHeartPull(l, m),
     hurtShake(struck, time, l.tile),
   );
+  // The lever before the doors: the thumb brings the knob to the bottom just
+  // as a gap arrives there, and the lit lips have to read over it.
   drawMazeString(ctx, l, cfg, m, role, time);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);

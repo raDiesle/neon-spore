@@ -21306,3 +21306,15 @@ Bottleneck: the registrations — a new kind is a name in some thirty files
 across five packages, and only the typecheck and the tests find them.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MAZE's lit lips are held over the lever's knob
+
+- reading: 10 min. The door, the lever, the knob and the stub's ordered log.
+- writing: 5 min. One order test and one comment.
+- looking: 5 min. The frame the entry named, cropped at the door.
+- friction: 5 min. The stub logs a `Path2D`'s builders and not the context's,
+  so the test had to wrap `moveTo` itself.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the entry described a covering the frame no longer shows — the
+lips were already drawn after the knob — so the time went to proving that.
