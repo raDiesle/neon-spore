@@ -23037,3 +23037,5 @@ ridge did.
 
 Bottleneck: writing — seeing that a cylinder's light is two numbers was the
 whole fix; the nine samples it replaced could never have keyed a cache.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

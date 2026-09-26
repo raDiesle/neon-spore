@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b352eb26d — A tube's light is built once and laid by a transform: THE INSTAR makes 12 gradients a frame instead of about 170
+
+Every slice of a rig's tube used to build its own linear gradient, nine stops each, every frame. A cylinder's section is lit by two numbers — how much of the key falls along its width and how much on its face — so the gradient is now built once per stepped pair along a unit line and laid across each slice by a transform. The picture is unchanged; THE BATON, GLAND and THE WARDEN's roll get the same saving.
+
 ## 2026-09-26 · 9676391bb — THE SEAM has a body: a grey ridge in three stepped lobes whose teeth shed as its points seal
 
 Wave 105's ridge is drawn on every screen. Its shape is THE RIND's three sizes stood on end down the middle column. Each lobe's rim is toothed while its point is open and goes smooth once the point is sealed. The crack is wide at an open point and a thin closed seam at a sealed one. The lit point glows in the colour it asks for (white for either) inside a ring that closes as the step's beats run out. Grit falls from the gaping crack while the shield is owed. A rock is spat to its own column in the colour that breaks it. The sealed ridge splits down its crack.
