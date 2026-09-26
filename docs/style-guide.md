@@ -218,6 +218,17 @@ misunderstanding, and it is withdrawn.**
   (`ringSection`), and stepped to a forty-eighth they took THE INSTAR from
   about 170 gradients a frame to 12 with no pixel anyone can find
   (`solid-tube-light.ts`).
+- **A boss faced toward the seats is seen a third of the way round, not
+  square on.** Straight at us or straight side-on both read flat; the owner,
+  26 September 2026, asked for the half angle. The body and the wings go
+  through the rig's `view` at a yaw off face-on, so the flank shows and the
+  near wing spreads larger than the far one. A head with marks a thumb is on
+  is turned as two planes meeting down the snout, each foreshortened by its
+  own affine and fitted so each eye stays exactly where it was: the snout
+  swings to the far side, the far cheek is squeezed and goes into the cool
+  dark, the near one opens (`instar-turn.ts`). Drawing each half leaves out
+  what sits wholly on the other side, which holds the head to a sixth more
+  ops rather than twice as many.
 - **The limits are the phone's, not the dimension's.** Battery and frame time
   matter to the owner more than any look. No full engine — PixiJS, Three.js,
   Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame

@@ -5,6 +5,7 @@ import { mixHex } from "./hex.js";
 import { drawScales } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, drawSeam, faded, type Look } from "./instar-plate.js";
+import { BODY_DEPTH as DEPTH, BODY_LENS as LENS } from "./instar-turn.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawTube, rimTube } from "./solid-tube-draw.js";
 
@@ -27,9 +28,6 @@ const N = 30;
 const EVERY = 6;
 /** How far the body pinches in between two plates, so it reads as segments going away. */
 const PINCH = 0.16;
-/** How deep the body runs behind the neck, and how far off the eye is, in head radii. */
-const DEPTH = 6;
-const LENS = 10;
 /** The swim: how far the middle swings, in head radii, and its period in seconds. */
 const SWIM = 0.14;
 const SWIM_PERIOD = 4.2;
@@ -40,15 +38,14 @@ const SKIN = {
   sheen: PALETTE.sheenRim,
 };
 
-/** The body from `neck` back to `rear`, the far end first under everything. */
-export function drawFrontBody(
-  ctx: CanvasRenderingContext2D,
-  look: Look,
-  neck: Point,
-  rear: Point,
-): void {
-  const { r, fade, hurt, time } = look;
-  const w = view(FRONT, 0, r * LENS);
+/**
+ * The body from `neck` back to `rear`, seen from `turn` radians round off
+ * face-on: its rings, about the neck. At `0` every ring lands where the old
+ * plates sat; turned, the far end swings out to the side the head turns from.
+ */
+export function seeFrontBody(look: Look, neck: Point, rear: Point, turn: number): SeenRing[] {
+  const { r, time } = look;
+  const w = view(FRONT - turn, 0, r * LENS);
   const rings: Ring[] = [];
   for (let i = 0; i <= N; i++) {
     const u = i / N;
@@ -60,7 +57,17 @@ export function drawFrontBody(
     const at = { x: (rear.x - neck.x) * u + swim, y: (rear.y - neck.y) * u };
     rings.push({ c: { x, y: at.y / s, z: at.x / s }, r: (r * (0.7 - 0.5 * u) * plate(i)) / s });
   }
-  const seen = seeTube(rings, tubeFrames(rings), w);
+  return seeTube(rings, tubeFrames(rings), w);
+}
+
+/** The body `seeFrontBody` saw, the far end first under everything. */
+export function drawFrontBody(
+  ctx: CanvasRenderingContext2D,
+  look: Look,
+  neck: Point,
+  seen: readonly SeenRing[],
+): void {
+  const { r, fade, hurt } = look;
   ctx.save();
   ctx.translate(neck.x, neck.y);
   const hide = drawTube(ctx, seen, SKIN, fade);

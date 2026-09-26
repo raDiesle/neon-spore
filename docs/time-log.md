@@ -23193,3 +23193,18 @@ five points of geometry, and each had to be seen shut and open.
 
 Bottleneck: none — a direct revision of an existing section is faster than
 drafting a new one from scratch.
+
+## 2026-09-26 — THE INSTAR seen a third of the way round
+
+- reading: 15 min. How `instar-front.ts` builds the body and wings from the
+  rig's `view`, where the slow's light reads the far end, and the eye test.
+- writing: 30 min. `instar-turn.ts`, the body split into seeing and drawing,
+  the head drawn a half at a time, the style-guide bullet.
+- looking: 20 min. Frames before and after at three ticks, cropped on the
+  face; the body stayed hidden behind the head until the turn was raised.
+- friction: 5 min. The pose flag for `frames` had to be found in an old
+  transcript.
+- landing: 10 min. The render tests, the ops probe, `check:fast`, `land`.
+
+Bottleneck: looking — the first turn read on the wings and not on the head,
+and it took a second pass with a stronger snout and a shaded far cheek.

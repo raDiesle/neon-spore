@@ -100,8 +100,19 @@ export function frontEyeAt(f: Figure, head: Point, r: number, s: -1 | 1): Point 
   return r2(upperLip(f, head, r), r, s * 0.48, -0.44);
 }
 
-export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
+/**
+ * The head face-on; it answers with its two plates, the chin and the skull,
+ * for what is laid over them. With `half`, what sits wholly on the other side
+ * of the snout — a horn, an eye, a nostril, a drip — is left out, for a head
+ * drawn a half at a time (`instar-turn.ts`).
+ */
+export function drawFrontHead(
+  ctx: CanvasRenderingContext2D,
+  look: Look,
+  half?: -1 | 1,
+): readonly Path2D[] {
   const { f, head, r, fade, hurt, time } = look;
+  const sides = half ? [half] : ([-1, 1] as const);
   // The whole top of the head hangs off the upper lip, so a shove on it moves
   // the skull and the eyes with it.
   const top = { x: head.x, y: head.y - tremble(look.shoveUp, time, r, 0) };
@@ -113,7 +124,7 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   const gap = (down.y - up.y) / r;
   // The horns turn with the brow's idle turn, one coming forward as the other goes back.
   const browWobble = BROW_WOBBLE * Math.sin((time * (Math.PI * 2)) / BROW_WOBBLE_PERIOD);
-  for (const s of [-1, 1]) drawHorns(ctx, up, r, s, fade, browWobble);
+  for (const s of sides) drawHorns(ctx, up, r, s, fade, browWobble);
   const chin = new Path2D();
   LOWER.forEach(([x, y], i) => {
     const p = r2(down, r, x, y);
@@ -136,7 +147,8 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     [-0.3, 0.5, 1],
     [0.22, 0.56, 2],
   ] as const)
-    drawDrip(ctx, r2(down, r, x, y), r * 0.3, r * 0.028, time, k, fade);
+    if (!half || Math.sign(x) === half)
+      drawDrip(ctx, r2(down, r, x, y), r * 0.3, r * 0.028, time, k, fade);
   drawSeam(ctx, r2(down, r, -0.4, 0.3), r2(down, r, 0, 0.42), r2(down, r, 0.4, 0.3), fade);
   // The mouth, lip to lip, and the throat lit by the fire in it.
   const mouth = new Path2D();
@@ -166,7 +178,7 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   drawTeeth(ctx, down, r, -1, 0.08 + 0.07 * f.jawDown, fade);
   // Spit off the long fangs, while the mouth is open far enough to hang in.
   if (gap > 0.6)
-    for (const s of [-1, 1])
+    for (const s of sides)
       drawDrip(
         ctx,
         r2(up, r, s * 0.35, 0.22),
@@ -196,7 +208,7 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   drawSeam(ctx, r2(up, r, 0, -0.54), r2(up, r, 0.03, -0.3), r2(up, r, 0, -0.08), fade, 0.6);
   // The nostrils, smoking with the fire behind them.
   ctx.save();
-  for (const s of [-1, 1]) {
+  for (const s of sides) {
     const n = r2(up, r, s * 0.14, -0.1);
     ctx.fillStyle = faded(PALETTE.background, fade);
     ctx.beginPath();
@@ -208,8 +220,9 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     ctx.fill();
   }
   ctx.restore();
-  for (const s of [-1, 1] as const) {
+  for (const s of sides) {
     const open = s === 1 ? f.eye * (1 - 0.8 * f.wince) : f.eye;
     drawEye(ctx, frontEyeAt(f, top, r, s), r, s, open, time, fade);
   }
+  return [chin, skull];
 }

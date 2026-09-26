@@ -1,9 +1,10 @@
 import { FRONT, view } from "@neon-spore/content";
 import { halo } from "./glow.js";
-import { drawFrontBody } from "./instar-front-body.js";
+import { drawFrontBody, seeFrontBody } from "./instar-front-body.js";
 import { drawFrontHead } from "./instar-head.js";
 import { instarFarEnd } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
+import { drawTurnedHead, instarNeck, TURN } from "./instar-turn.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -15,23 +16,30 @@ import { PALETTE } from "./palette.js";
  * engines burning at the far end — and the wings spread wide off the
  * shoulders behind the head. Then the head (`instar-head.ts`).
  *
- * Drawn back to front, so the far end of the body is under everything.
+ * All of it a third of the way round (`instar-turn.ts`), and drawn back to
+ * front: the engines, the far wing hazed toward the field, the body, the near
+ * wing over it, the head over all.
  */
 
 /** How far off the eye is for the wings, in head radii: near enough that the tips swept back go small. */
 const WING_LENS = 10;
+/** How far the far wing is hazed toward the field, behind the body. */
+const FAR_WING = 0.3;
 
 export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f, head, r, fade, time } = look;
-  const rear = instarFarEnd(l, f);
-  const neck = { x: head.x, y: head.y - r * 0.95 };
-  drawEngines(ctx, rear, r, time, fade);
+  const neck = instarNeck(head, r);
+  const seen = seeFrontBody(look, neck, instarFarEnd(l, f), TURN);
+  const end = seen[seen.length - 1];
+  if (end) drawEngines(ctx, { x: neck.x + end.c.x, y: neck.y + end.c.y }, r, time, fade);
   const shoulder = { x: neck.x, y: neck.y + r * 0.05 };
-  const w = view(FRONT, 0, r * WING_LENS);
-  for (const s of [-1, 1] as const)
-    drawWing(ctx, look, shoulder, w, { x: 0, y: 0, z: s * r * 0.55 }, s);
-  drawFrontBody(ctx, look, neck, rear);
-  drawFrontHead(ctx, look);
+  const w = view(FRONT - TURN, 0, r * WING_LENS);
+  const wing = (s: 1 | -1, dark: number) =>
+    drawWing(ctx, look, shoulder, w, { x: 0, y: 0, z: s * r * 0.55 }, s, dark);
+  wing(-1, FAR_WING);
+  drawFrontBody(ctx, look, neck, seen);
+  wing(1, 0);
+  drawTurnedHead(ctx, head, r, fade, (half) => drawFrontHead(ctx, look, half));
 }
 
 /** The two engines at the far end: a steady burn, flickering. */
