@@ -2243,6 +2243,7 @@ once this lane lands.
 ## THE HASP's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-26, claude/hasp-blow (claim: claude/queue-the-hasps-own-blow-at-the-hull)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
 
 THE HASP's timeout already calls `bossStrikesHull` (`packages/sim/src/hasp-step.ts`)
