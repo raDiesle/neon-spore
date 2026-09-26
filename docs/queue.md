@@ -602,6 +602,7 @@ owner's, unverified until he has looked.
 ## Unverified at b8986b62b: READY's lift taking the screen on a real Android phone
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
+- **Taken:** 2026-09-26, claude/queue-unverified-at-b8986b62b-readys-lift-taking-the-s
 - **Files:** `apps/game/src/fullscreen.ts`, `apps/game/src/join-room-step.ts`, `apps/game/test/shake-permission.test.ts`, `docs/queue.md`, `docs/time-log.md`
 
 *The screen is asked for as the thumb lifts off READY, not as it goes down* landed from a session that could not look at it. What went unchecked:
