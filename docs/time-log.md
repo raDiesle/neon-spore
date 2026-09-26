@@ -25137,3 +25137,5 @@ draw files, so the entry was cut by what could be called, not by boss.
 
 Bottleneck: reading — the entry's suggestion crossed a design rule, and
 finding the part that could move took the time.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

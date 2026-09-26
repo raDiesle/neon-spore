@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8cb5edffb — THE HASP's swung clasps hang slack and sway on their hinges
+
+A clasp that has swung open now sways a little on its hinge, each on its own phase, as a loose part of the machine. The queue entry suggested a creeping hub instead, but the hub can't move on either screen: on the pilot's it is the cap §20 keeps still, and on the navigator's a wheel stopped mid-turn is the seized tell. The sealed row therefore stays still until the first clasp gives.
+
 ## 2026-09-26 · fd6a88f24 — THE SLOW's light stands round five more bosses rather than the cannon
 
 A second page of THE SLOW's aim table (`slow-boss-aim-b.ts`), handed the beat so a row can follow a body that moves: THE RIME's lens, THE SURGE's bulb, THE SINEW's mass where it hangs (not its root), THE FILAMENT's heart as big as the strands left in it, and THE SPOOL across the top — each the point its own shape file already names. Before, each was aimed at the cannon's column at the hull, so the boss up top was split widest. Exemption: a fix to something wrong — PRISM promises the boss does not split. The queue entry now lists the thirteen still falling through, each needing a point exported from its shape file first.
