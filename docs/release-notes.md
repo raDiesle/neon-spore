@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 249f9c33f — THE CYST is drawn, and a tap and a pinch reach it from a touch
+
+THE CYST now stands on the field as a four-lobed mauve sac over the middle column, the same on both phones. A lit flank shudders white beside its breathing freeze mark, stops dead when the partner taps the mark, and cracks as its own seat pinches it shut. The swell, the spore and the bud are each drawn, the core is bared and lit in its colour, smaller per hit, and the sac splits at the end. The field says TAP, SHUT and FIRE where each is wanted.
+
 ## 2026-09-26 · b322509d4 — docs/INDEX.md: add rows for plumb-fx.ts and boss-hands-plumb.ts
 
 Regenerated after the rebase brought the file map out of date.
