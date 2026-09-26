@@ -22135,3 +22135,5 @@ Bottleneck: landing — the full check is most of a refactor this size.
 
 Bottleneck: writing — the registrations again, a boss named in some thirty
 files before the first check runs.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 67defe055 — Add THE VALVE's simulation lane: a wheel one hand turns and the other freezes
+
+Wave 104 THE VALVE is a drum with three pins. The pilot turns `valveWheel` onto the wave's mark; while it sits there the navigator's press on `valvePin`, read on its edge, freezes the wheel — `FreezeTap`, spent for the first time — and either thumb then draws the pin out before the freeze runs out. The first pin leaks a spark, the later windows are shorter, and the third mark counts only after a full lap. The thirteen sounds are bound; nothing is drawn yet, and `docs/spec/bosses.md` §11.42 argues the seven departures from §25. Wave 104 went in unweighed (`baseline:blank`).
+
 ## 2026-09-26 · 40225f4c9 — THE INSTAR's figure in pixels is a file of its own
 
 `instar-shape.ts` held two things at 236 lines: the figure's arithmetic — the poses, the deformation by the marks, the morph, threat and fade clocks — and the figure turned into pixels. The second half (`Point`, `instarAt`, `instarLen`, `instarFarEnd`, `instarHeadAt`, `instarMarkPoint`, `instarMarkRadius`) is now `instar-place.ts`, and every importer asks the half it uses. Nothing drawn changes.
