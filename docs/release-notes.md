@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · bb43b0bf9 — THE INSTAR's word box never covers the partner's ring
+
+A mark's box used to flip to the ring's inner side when the outer side had no room. Near an edge, the flipped box landed on the partner's ring: in the lash step, player 1's PRESS TAP TAP covered player 2's ring. Now the box goes to the first place that fits the glass and covers no other mark on the step. It tries its own side first, then the mark's other side, then below the mark, then above it. Each mark's room is its window ring at its widest, or a swipe's whole track, plus the same margin.
+
 ## 2026-09-26 · 39a2aa5a9 — Queue the real-device performance profile as a local-only task
 
 Running bun run perf needs a browser and a real machine, which this lane doesn't have to itself right now — the owner asked to stop the parallel profiling and hand the actual run to a local session instead. Adds one
