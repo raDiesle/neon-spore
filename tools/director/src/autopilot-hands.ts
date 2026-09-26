@@ -18,6 +18,7 @@ import { snakeHand } from "./boss-hands-snake.js";
 import { spoolHand } from "./boss-hands-spool.js";
 import { lidHand } from "./boss-hands-stare.js";
 import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
+import { pulseHand, repriseHand } from "./boss-hands-unseen.js";
 import { wellHoldHand, wellWindHand } from "./boss-hands-well.js";
 import type { Hand } from "./poses-bosses-kit.js";
 
@@ -41,8 +42,9 @@ const either =
  * poses' other hands — THE SINEW's snap, THE SPOOL's wrong turn, THE LEAD's
  * late one — play it wrong on purpose, to reach a state, and are not here.
  *
- * A boss with no row has no hand anywhere in the director (THE PULSE, THE
- * REPRISE), and the autopilot says so rather than guessing.
+ * A boss with no row has no hand anywhere in the director, and the autopilot
+ * says so rather than guessing. THE PULSE and THE REPRISE were the last two,
+ * until `boss-hands-unseen.ts`.
  */
 export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   antiphon: antiphonHand,
@@ -63,8 +65,10 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   mirror: mirrorHand,
   nettle: nettleHand,
   pinball: pinballHand,
+  pulse: pulseHand,
   queen: queenHand,
   ratchet: ratchetHand,
+  reprise: repriseHand,
   scout: scoutHand,
   scuttle: scuttleHand,
   sinew: sinewHand,

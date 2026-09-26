@@ -431,18 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## AUTO has no hand for THE PULSE or THE REPRISE
-
-- **Found:** 2026-09-25, claude/game-multiplayer-testing-601794
-- **Taken:** 2026-09-26, claude/queue-a-versus-freeze-inside-the-slow-does-not-land-wh (claim: claude/queue-auto-has-no-hand-for-the-pulse-or-the-reprise)
-- **Files:** `tools/director/src/autopilot-hands.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/src/boss-hands-handles.ts`
-
-The director's AUTO row (OFF/BOTH/P1/P2) plays a boss live with the hand the
-poses reach its defeat with, and no pose has one for these two, so AUTO says
-*no hand for this boss* on them. Write a hand for each that plays it right
-(beside the others, or in a file of its own), add its row to `AUTOPILOT_HANDS`, and
-take its name out of `NO_HAND` in the test, which then proves the row exists.
-
 ## AUTO plays bosses only, and only in the director
 
 - **Found:** 2026-09-25, claude/game-multiplayer-testing-601794

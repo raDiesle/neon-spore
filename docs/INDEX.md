@@ -2100,6 +2100,7 @@ by hand never moves.
 | `tools/director/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `tools/director/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
 | `tools/director/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks and held there |
+| `tools/director/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
 | `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |

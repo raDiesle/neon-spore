@@ -5,6 +5,7 @@ import {
   BOSS_KINDS,
   filamentBoss,
   filamentTracing,
+  pulseRound,
   step,
   ticksPerBeat,
   type World,
@@ -19,15 +20,17 @@ import { stageField } from "../src/stage-field.js";
  * **AUTO plays one seat and the person the other** — the owner's ask of 25
  * September 2026, on THE FILAMENT: the pilot draws and the navigator follows,
  * and one mouse is one thumb. Pinned here: every boss the director has a hand
- * for is on the row; a seat on AUTO is the only seat it speaks for; a person
- * playing the pilot against AUTO's navigator pulls every filament out; and
- * the finger it draws is on the ring a thumb would be on.
+ * for is on the row; THE PULSE and THE REPRISE are played to their end; a
+ * seat on AUTO is the only seat it speaks for; a person playing the pilot
+ * against AUTO's navigator pulls every filament out; and the finger it draws
+ * is on the ring a thumb would be on.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
-/** The two bosses no pose has a hand for. A new boss is a row or a name here. */
-const NO_HAND = new Set(["pulse", "reprise"]);
+/** Bosses AUTO has no hand for. None, since THE PULSE and THE REPRISE got
+ * theirs; a new boss is a row in `AUTOPILOT_HANDS` or a name here. */
+const NO_HAND = new Set<string>();
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");
@@ -40,6 +43,34 @@ describe("AUTO", () => {
   test("every boss the director has a hand for is on the row", () => {
     const missing = BOSS_KINDS.filter((k) => !NO_HAND.has(k) && !(k in AUTOPILOT_HANDS));
     expect(missing).toEqual([]);
+  });
+
+  test("BOTH plays THE PULSE through every stage with the meter full", () => {
+    const world = bossWorld("pulse");
+    const { auto } = rig(() => world);
+    auto.setMode("both");
+    for (let i = 0; i < 20_000 && pulseRound(world)?.phase !== "spent"; i++) {
+      step(world, auto.commands(world));
+    }
+    const s = pulseRound(world);
+    expect(s?.phase).toBe("spent");
+    expect(s?.passed).toBe(true);
+    expect(s?.meter).toBe(world.cfg.pulseMeterMaxMilli);
+  });
+
+  test("BOTH plays THE REPRISE out, echoes and all, with nothing reaching the hull", () => {
+    const world = bossWorld("reprise");
+    const { auto } = rig(() => world);
+    auto.setMode("both");
+    const echoed = new Set<number>();
+    for (let i = 0; i < 20_000 && world.boss !== null; i++) {
+      for (const c of world.creatures) if (c.unseen) echoed.add(c.id);
+      step(world, auto.commands(world));
+    }
+    // The boss only takes itself off with the field empty (`sim/reprise.ts`).
+    expect(world.boss).toBeNull();
+    expect(echoed.size).toBeGreaterThan(0);
+    expect(world.scars).toEqual([]);
   });
 
   test("OFF sends nothing, and P2 sends only player 2's commands", () => {
