@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4d7e3fe61 — THE TRIVET's pads answer fingers on the field, a chord counted by order
+
+Each seat's fingers laid on its own side of the stand, from the hub's crown to under the feet, are a chord: the first finger down is the first pad, the next the lowest pad no finger is on, and each says its pad down as it lands and up as it lifts. The sockets are two millimetres apart on a phone, so the lit ones say how many fingers, never where. A foot with any pad down carries a ghost thumb, and both feet are rows on the director's ON THE FIELD tab with a pose each.
+
 ## 2026-09-26 · 8af6f10dc — `--boss-json` reads `now` at any depth, so a nested one no longer kills the page
 
 `frames --wave "THE GORGE" --boss-json '{"intakes":[{…,"fullBeat":"now"}]}'` died with a stack trace from inside the page's paint: `now` was resolved only at the top level, so the word reached the world and the draw did arithmetic on it. The page now resolves `now` to `world.beat` at every depth of a list or a shape, the check counts a nested `now` as a number in a list of numbers, and a build with no `world.beat` refuses it by the field's name before anything is written.

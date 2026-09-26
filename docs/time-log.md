@@ -24440,3 +24440,4 @@ Bottleneck: writing — the picture is small, but it had to thread the lens's fr
 
 Bottleneck: writing — a two-finger gesture touches a dozen registrations across four packages, the same ones THE VISE's pinch did.
 
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -2735,3 +2735,16 @@ force-push, but the next one can be refused: have `push.ts` list
 and saying to rebase it with `bun run land`, when there is any. A test
 builds a scratch repository with a merge on `main` and expects the refusal.
 
+## Unverified at 4d7e3fe61: THE TRIVET's chord under real fingers on a phone
+
+- **Found:** 2026-09-26, tmp-trivet-hands
+- **Files:** `apps/game/src/chord.ts`, `apps/game/src/input.ts`, `apps/game/test/chord.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
+
+*THE TRIVET's pads answer fingers on the field, a chord counted by order* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
+
+- THE TRIVET's chord under real fingers on a phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
