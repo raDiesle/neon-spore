@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c4028ae19 — A rig part hangs off an anchor and turns with it
+
+A jaw, a wing or an eye on a rig is now authored about its own hinge, and an `Anchor` says where that hinge sits on its parent and how far it is turned: roll lifts a wing, pitch drops a jaw, yaw turns a head, and a child hangs off its parent so the skull turns and the jaw goes with it. `drawRig` poses each anchor once per call before the painter sorts. The solid sheet's fins now beat about their shoulders and its eyes ride the head. Nothing the game draws changes: no boss uses an anchor yet.
+
 ## 2026-09-26 · 2046ec9e2 — THE TRIVET: the simulation lane — a stand two chords plant, then shoot into
 
 Wave 109 THE TRIVET is in: a three-legged stand over the middle column whose two outer feet are planted by each seat holding two, then three, of its own pads down together for the count, spending the unclaimed CHORD gesture as ChordHold for the first time. Four plants light the hub, which is shot in its colour; between the shots both seats chord at once to keep it down. The twelve sounds are bound; nothing is drawn yet and there is no autopilot hand (docs/spec/bosses.md §11.47, eight departures argued).
