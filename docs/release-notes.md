@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 3b20854a0 — THE OCULUS's cue says HOLD on each half of a lit pair and FIRE under the lit core
+
+While a pair of leaves is lit, a shut or a reseal, each seat now reads HOLD on its own half of the lens, and the word goes the moment that seat's thumb is down. While the core is lit, FIRE stands at the hull under the middle column on both screens, never naming the colour. Nothing is said between steps, through the break or as the lens shatters.
+
 ## 2026-09-26 · 713d49b1e — §23 THE MANTLE fights back: a buckle, a vent, a crosswise crack and a turn
 
 Between the third shear and the brace the shell now fights back, each beat under THE SLOW: the last pair bulges and both thumbs eased on their handles press it flat; a vent hisses open and one tap on the core from either player shuts it; a second crack crosses the first while the pair watch. After the last shear the halves swing on their hinges and both handles pulled past the floor guide them open onto the core. A torn buckle or an open vent leaks one spark; a turn run out swings back and never strikes. The four states are not drawn yet; that is the next lane.

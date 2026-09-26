@@ -2579,6 +2579,15 @@ poses are a look task, queued separately once this lane lands.
 
 - THE VISE's body watched at tempo
 
+## Unverified at 3b20854a0: THE OCULUS's HOLD and FIRE words read on two phones at…
+
+- **Found:** 2026-09-26, claude/queue-27-oculus-cue
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-ze.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/oculus-marks.ts`
+
+*THE OCULUS's cue says HOLD on each half of a lit pair and FIRE under the lit core* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
+
+- THE OCULUS's HOLD and FIRE words read on two phones at tempo
+
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
