@@ -1,5 +1,5 @@
 import { instarHand } from "@neon-spore/hands";
-import { instarActing, instarBoss, instarStep, step } from "@neon-spore/sim";
+import { type InstarPose, instarActing, instarBoss, instarStep, step } from "@neon-spore/sim";
 import { EVENT_CADENCE_SECONDS, type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossWorld, runHand } from "./poses-bosses-kit.js";
 
@@ -8,8 +8,11 @@ import { bossWorld, runHand } from "./poses-bosses-kit.js";
  * nobody answers: the globs out of the mouth in the rear, the embers off the
  * wings in the spread — the poses `instar:spit` is judged on, because the
  * first flash of the window shows the fire still in the mouth.
+ *
+ * Any pose of the script can be opened this way: the hand answers every step
+ * before it, so `poses-instar-acts.ts` uses it for the third and fourth acts.
  */
-function falling(pose: "rear" | "spread", name: string, note: string, lookAt: string): Pose {
+export function falling(pose: InstarPose, name: string, note: string, lookAt: string): Pose {
   return {
     name,
     note,
