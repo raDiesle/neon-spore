@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 793801554 — THE NETTLE's simulation: a jellyfish on THE INSTAR's engine, with SHOOT, SHIELD and SUCK
+
+Wave 101, THE NETTLE (§11.39): ten choreographed steps over eight poses of a jellyfish, every window THE SLOW. Most steps are thumbs on the body, as THE INSTAR's are — pull the stinging arms up, wind the iris shut, hold the mouth off, swipe the frill curtain away, tap the core — and four ask the ordinary panel for one press in one column: SHOOT a mark (a bolt out of its column), SHIELD it (the dome up under it), SUCK it (the maw open under it). Nothing else about the press is judged. The body is not drawn yet; that is the next lane. Wave 101 went in unweighed (baseline:blank).
+
 ## 2026-09-26 · e592b3182 — A GPU speck no longer fails the twice-taken strip
 
 The same build captured twice may now differ in a single rounded pixel: up to twelve channel bytes, by at most eight levels. The one recorded failure was three bytes on a mote at the edge of a light shaft. A real clock slip moves tens of thousands of bytes, and twenty loaded runs never reproduced it. Any larger difference still fails, and `pictureDiff` now also says how many levels it moved.

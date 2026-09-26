@@ -21304,3 +21304,5 @@ that ruled out a clock slip were what closed it, not a repro.
 
 Bottleneck: the registrations — a new kind is a name in some thirty files
 across five packages, and only the typecheck and the tests find them.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
