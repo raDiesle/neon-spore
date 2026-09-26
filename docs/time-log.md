@@ -21870,3 +21870,17 @@ Bottleneck: `faultSwallows` had seven importers across sim and its tests, so
 moving it was more repointing than cutting.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A pulled-under wreck sinks at once
+
+- reading: 5 min. `sinkPhase`, the one writer of `sunkBeat`, and the other
+  comments that mention the shell's flight — all still true of the salvo.
+- writing: 5 min. The subtraction out and its paragraph replaced; a new
+  `fleet-sink.test.ts`, because `fleet-frame.test.ts` is at 250 lines.
+- looking: 0 min. The test reads the navigator's screen, which draws only a
+  sinking hull, and fails on the old code.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding a frame assertion that tells afloat from sinking without
+reading pixels — the navigator's screen, which draws no hull that floats.

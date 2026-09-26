@@ -1,5 +1,4 @@
 import {
-  FLEET_SHELL_BEATS,
   type FleetShip,
   type FleetState,
   shipCol,
@@ -56,19 +55,16 @@ const HULLS: readonly HullSkin[] = [
  * anything that outlives a frame belongs, and this outlives nothing: a restart
  * builds a fresh world whose `sunkBeat` is all -1, so there is no way for last
  * run's sinking to be drawn over this one's chart.
+ *
+ * It starts on the beat it is written. A salvo used to sink a hull, and the
+ * shell was two beats in the air, so this waited them out; the only writer of
+ * `sunkBeat` now is the navigator's pull (`sim/fleet-flood.ts`
+ * `sinkFleetWreck`), and nothing is in flight when it lands.
  */
 function sinkPhase(world: World, boss: FleetState, at: number, beatPhase: number): number {
   const beat = boss.sunkBeat[at] ?? -1;
   if (beat === -1) return -1;
-  // The shell is still in the air. The simulation sank the ship on the beat
-  // the thumb landed, because two devices have to agree about that without
-  // either of them drawing anything — but nothing has reached the water yet,
-  // so the hull is still afloat as far as this picture is concerned. Arithmetic
-  // rather than a question put to `FleetFx`: the flight is a fixed number of
-  // beats, so subtracting it is the same answer with nothing to go stale
-  // (`fleet-shell.ts`).
-  const beats = world.beat - beat + beatPhase - FLEET_SHELL_BEATS;
-  if (beats < 0) return -1;
+  const beats = world.beat - beat + beatPhase;
   return Math.min(1, beats / FLEET_SINK_BEATS);
 }
 

@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## A sunk hull waits a shell's flight that no longer flies
-
-- **Found:** 2026-09-25, claude/boss-blow-e
-- **Taken:** 2026-09-26, claude/queue-split-touch-ts-malfunction-ts-and-the-field-cont (claim: claude/queue-a-sunk-hull-waits-a-shells-flight-that-no-longer)
-- **Files:** `packages/render/src/fleet-hulls.ts`, `packages/sim/src/fleet-flood.ts`
-
-`sinkPhase` subtracts `FLEET_SHELL_BEATS` from a sinking because *the shell
-is still in the air* — but a salvo no longer sinks anything: the only writer
-of `sunkBeat` is `sinkFleetWreck`, on the navigator's pull. So a wreck pulled
-under sits afloat for two beats before it starts to go, while the
-blow (`fleet-fx.ts`) is already over. Drop the subtraction and its paragraph,
-and add a case to the fleet frame tests that a hull pulled under is sinking on
-the next frame. A fix to something wrong, not a look.
-
 ## THE VANE's pin knocked out has no event and no sound
 
 - **Found:** 2026-09-25, claude/boss-blow-f
