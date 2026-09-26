@@ -21,7 +21,7 @@
 
 import { resolve } from "node:path";
 import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
-import { BYTES, spriteBytes } from "./src/sprite-bytes.js";
+import { allSpriteBytes, BYTES, spriteBytes } from "./src/sprite-bytes.js";
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));
 const only = args.find((a) => !a.endsWith(".png"));
@@ -96,6 +96,12 @@ for (const m of metrics) {
   );
   console.log(
     `             baked   ${total(m.opsBaked)} calls, ${m.usBaked.toFixed(1)} µs  (${top(m.opsBaked)})`,
+  );
+}
+if (metrics.length > 1) {
+  const [min, gz] = await allSpriteBytes();
+  console.log(
+    `\nall together  +${min} B minified, +${gz} B gzipped (the shared baker counted once)`,
   );
 }
 console.log(`\n${out}`);

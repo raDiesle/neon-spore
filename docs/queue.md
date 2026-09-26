@@ -2668,3 +2668,14 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE INSTAR's third act has no director poses
+
+- **Found:** 2026-09-26, claude/sprite-detail
+- **Files:** `tools/director/src/poses-instar-spit.ts`, `tools/director/src/poses-versus-states.ts`, `packages/render/src/instar-poses-third.ts`
+
+The five third-act poses (crouch, perch, roar, sprawl, twist) cannot be opened
+in the director or used as a VERSUS slot's pose, so checking a look in them
+meant a throwaway edit. `falling()` in `poses-instar-spit.ts` already drives
+the hand until a named pose is acting; widen its `pose` to any `InstarPose`
+and register five poses (`INSTAR · CROUCHED` and so on) in the gallery.

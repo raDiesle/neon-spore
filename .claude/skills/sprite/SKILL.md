@@ -70,5 +70,8 @@ prints, per sprite: **code** added to the bundle, minified and gzipped;
 µs, shipped and baked. The µs come from headless Chromium's software canvas —
 read the ratio, not the figure; the calls are exact.
 
+Every part baked so far, with its bytes and calls shipped against baked, is in
+`baked-parts.md` beside this file; add a row there for a new one.
+
 Then: draw it in a test through the stub (`packages/render/test/sprite-bake.test.ts`),
 and send the owner the sheet as PNG.

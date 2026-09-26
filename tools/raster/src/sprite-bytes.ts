@@ -91,3 +91,22 @@ export async function spriteBytes(name: string): Promise<[number, number]> {
     await rm(dir, { recursive: true, force: true });
   }
 }
+
+/** What every sprite in `BYTES` adds together, the shared baker counted once: [minified, gzipped]. */
+export async function allSpriteBytes(): Promise<[number, number]> {
+  const rows = Object.values(BYTES);
+  const dir = await mkdtemp(join(tmpdir(), "sprite-"));
+  try {
+    const [minS, gzS] = await weigh(
+      dir,
+      rows.map((r) => r.shipped),
+    );
+    const [minB, gzB] = await weigh(
+      dir,
+      rows.flatMap((r) => [r.shipped, r.baked]),
+    );
+    return [minB - minS, gzB - gzS];
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+}

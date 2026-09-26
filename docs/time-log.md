@@ -23983,3 +23983,13 @@ Bottleneck: friction — the photograph recipe lived only in the session, not
 in a document, and had to be dug out of the transcript.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's baked parts, checked in the third act and costed (claude/sprite-detail)
+
+- reading: 5 min. `instar-poses-third.ts` and the third act's script, to find a way to reach each pose.
+- writing: 10 min. `bun run sprite` prints all ten together; the before-and-after sheet.
+- looking: 15 min. Five third-act poses, each shot with a baked slot through a throwaway pose.
+- friction: 5 min. The third act has no director poses, so the shots went through temporary ones.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — five VERSUS shots, about a minute each, one pose at a time.
