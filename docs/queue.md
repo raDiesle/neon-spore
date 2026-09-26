@@ -910,6 +910,7 @@ what the rest of this file holds.
 ## §32 THE SLING — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-32-the-sling-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 The first choreographed body on this page whose gesture resolves at
