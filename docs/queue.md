@@ -692,6 +692,7 @@ the fix.
 ## Unverified at 4958f2180: the TEST panel's AUTO row, seen on a phone
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/queue-unverified-at-4958f2180-the-test-panels-auto-row
 - **Files:** `apps/game/index.html`, `apps/game/package.json`, `apps/game/src/autopilot.ts`, `apps/game/src/game.css`, `apps/game/src/main-world.ts`, `apps/game/src/main.ts`, `apps/game/src/testing.ts`, `apps/game/test/autopilot.test.ts`
 
 *The game's TEST panel has AUTO: the machine plays a seat, or both* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
