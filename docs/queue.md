@@ -545,6 +545,7 @@ colour a beat wants. Stays unverified at tempo until the owner has looked.
 ## §29 THE RIME — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/peaceful-keller-lmm4gr (claim: claude/queue-29-the-rime-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 A level that regrows on its own — the first field on this page that
