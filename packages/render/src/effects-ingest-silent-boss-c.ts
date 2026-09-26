@@ -190,6 +190,19 @@ export const INGEST_SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
+  // THE RIME's twelve, for the same reason (`packages/audio/src/bind-rime.ts`).
+  "rimeEnter",
+  "rimeLight",
+  "rimeShave",
+  "rimeClear",
+  "rimeFrost",
+  "rimeBare",
+  "rimeHit",
+  "rimeBlock",
+  "rimeCloud",
+  "rimeMiss",
+  "rimeShatter",
+  "rimeOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

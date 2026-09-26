@@ -57,7 +57,8 @@ type ChoreographedEvent =
           | `valve${string}`
           | `seam${string}`
           | `oculus${string}`
-          | `vise${string}`;
+          | `vise${string}`
+          | `rime${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

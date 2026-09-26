@@ -45,4 +45,17 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.viseMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.viseSplit": "the case splitting down its spine. Same argument.",
   "boss.viseOut": "the case gone and the wave ending. Same argument, and an absence.",
+  // THE RIME's twelve: a lens over the field, the same argument.
+  "boss.rimeEnter": "the lens settling over the field. A fixture, not a body on a grid.",
+  "boss.rimeLight": "a step lighting on the lens. Same argument.",
+  "boss.rimeShave": "frost rubbed off a half, which is a gesture and no body. Same argument.",
+  "boss.rimeClear": "a half wiped clear. Same argument.",
+  "boss.rimeFrost": "a half frosting over again. Same argument.",
+  "boss.rimeBare": "both halves clear and the core bare. Same argument.",
+  "boss.rimeHit": "a shot into the core. Same argument.",
+  "boss.rimeBlock": "a surge of frost turned by the shield. Same argument.",
+  "boss.rimeCloud": "the lens frosting over whole. Same argument.",
+  "boss.rimeMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.rimeShatter": "the lens shattering. Same argument.",
+  "boss.rimeOut": "the lens gone and the wave ending. Same argument, and an absence.",
 };

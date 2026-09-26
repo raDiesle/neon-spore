@@ -248,6 +248,10 @@ const ACCEPTED: Command[] = [
   // (`sim/vise-hand.ts`).
   { kind: "drag", target: "viseLobeLeft", on: true, fromMilli: 640 },
   { kind: "drag", target: "viseLobeRight", on: false, fromMilli: 0 },
+  // THE RIME's halves are rubs, one a seat, the reversal count riding `id`
+  // (`sim/rime-hand.ts`).
+  { kind: "drag", target: "rimeHalfLeft", on: true, fromMilli: 0, id: 3 },
+  { kind: "drag", target: "rimeHalfRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -404,6 +408,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   oculusLeafRight: true,
   viseLobeLeft: true,
   viseLobeRight: true,
+  rimeHalfLeft: true,
+  rimeHalfRight: true,
   crank: true,
 };
 

@@ -34,7 +34,9 @@ export type DragTargetD =
   | "oculusLeafLeft"
   | "oculusLeafRight"
   | "viseLobeLeft"
-  | "viseLobeRight";
+  | "viseLobeRight"
+  | "rimeHalfLeft"
+  | "rimeHalfRight";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -206,4 +208,17 @@ export type DragTargetD =
  * is always the left lobe and the navigator's the right, so the wrong seat's
  * message does nothing (`vise-hand.ts`). Lifted, the lobe is back open. No
  * `id`: one case, two lobes.
+ */
+
+/**
+ * `rimeHalfLeft` and `rimeHalfRight` are the seventy-seventh and
+ * seventy-eighth: one half of THE RIME's frosted lens under each seat's
+ * wiping thumb.
+ *
+ * Read as a **count** — `id` is how many times the thumb has turned back on
+ * itself since it went down: `RubCount`, the first target whose number is
+ * neither where a touch is nor how long it has stayed, but how often it has
+ * reversed. Geometry says whose is whose, `oculusLeafLeft`'s reason, and the
+ * wrong seat's message does nothing (`rime-hand.ts`). `fromMilli` is carried
+ * and not read.
  */

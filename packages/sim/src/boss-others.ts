@@ -16,7 +16,7 @@ import { stepLedger } from "./ledger-step.js";
 import { stepMantle } from "./mantle-step.js";
 import { stepMirror } from "./mirror.js";
 import { stepOculus } from "./oculus-step.js";
-import { stepRatchet } from "./ratchet-step.js";
+import { stepRime } from "./rime-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSeam } from "./seam-step.js";
 import { stepSinew } from "./sinew-step.js";
@@ -212,6 +212,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepVise(world, boss);
     return;
   }
+  // THE RIME: steps lit, the frost regrowing, and the shatter (`rime-step.ts`).
+  if (boss.kind === "rime") {
+    stepRime(world, boss);
+    return;
+  }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an
   // edge: the line paying out, the zone moving under a correction, the slip and
   // the rib easing are every one of them a beat's question (`spool-step.ts`).
@@ -227,16 +232,9 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepHasp(world, boss);
     return;
   }
-  // THE RATCHET on the beat is the pawl lighting, a window running out, the
-  // climb, the bolt and the open or the jam. A press is judged on the tick,
-  // against her hand (`ratchet-hand.ts`).
-  if (boss.kind === "ratchet") {
-    stepRatchet(world, boss);
-    return;
-  }
-  // And the six that are not stepped here at all, with THE VANE, THE CAIRN,
-  // THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the second page
-  // (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
+  // And the six that are not stepped here at all, with THE RATCHET, THE VANE,
+  // THE CAIRN, THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the
+  // second page (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
   // THE GIMBAL's branch took this one over its 250-line limit, and a later
   // boss's put it back there the same week. Both times the **last** rows
   // went, never the boss being worked on, whose branch stays under the comment

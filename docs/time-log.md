@@ -22534,3 +22534,19 @@ Bottleneck: looking — banding and seams in the tube shading only showed on the
 Bottleneck: writing — the old rule was read as "stay 2D" in three places, and each had to say the same corrected thing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RIME, the simulation lane
+
+- reading: 15 min. §29's beat list and THE VISE's files as the template,
+  the drag's `id` as the reversal count.
+- writing: 85 min. Seven sim files, the registrations across audio,
+  content, render, net and the director, twenty tests, §11.46.
+- looking: 0 min. Nothing drawn.
+- friction: 15 min. `boss-others.ts` too full to take the step, so RATCHET
+  moved out; `boss-nothing.ts` one line over the limit; a comment between
+  two waves the editor's save cannot carry, and a guide line joined by a
+  semicolon.
+- landing: 15 min. `check:fast`, the commit, `land`.
+
+Bottleneck: registrations again — the twelve events and six config fields
+named in a dozen files, and two files the line limit made room in.

@@ -14,6 +14,14 @@ import type { Wave } from "../wave-types.js";
  *
  * It authors the whole script, and nothing that falls: the pilot's two seams,
  * the navigator's two, then fire and hold in turn up to the white last hit.
+ *
+ * **THE RIME is the first boss answered by a rub.** Each seat wipes its own
+ * half of a frosted lens back and forth, and the frost it has not rubbed this
+ * beat grows back (§29, `sim/rime.ts`). Two wipes a half bare the core, which
+ * is shot in its colour; between the shots a surge of frost comes, and the
+ * shield under the middle turns it. Its script runs as THE VISE's does, with
+ * the shield where the hold was. A half's first wipe is from solid frost and
+ * gets the longer window; the second is from the film the first left.
  */
 export const WAVES_ACT_12: Wave[] = [
   {
@@ -36,6 +44,31 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "both", color: "either", beats: 3 },
         { ask: "fire", color: "cyan", beats: 3 },
         { ask: "both", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theRime",
+    name: "THE RIME",
+    guide: {
+      both: "Rub your half of the lens back and forth until it clears. Two wipes each bare the core. Shoot it in its colour. When the surge comes, shield it.",
+      p1: "1. Rub the left half back and forth and say so.\n2. Keep rubbing until it clears. If you stop, the frost grows back.\n3. When the core shows a colour, fire it. Press the shield when it is under the lens.",
+      p2: "1. Rub the right half back and forth and say so.\n2. Keep rubbing until it clears.\n3. White takes either colour. When the surge comes, move the shield under the lens.",
+    },
+    entries: [],
+    boss: {
+      kind: "rime",
+      steps: [
+        { ask: "left", color: "either", beats: 6 },
+        { ask: "left", color: "either", beats: 4 },
+        { ask: "right", color: "either", beats: 6 },
+        { ask: "right", color: "either", beats: 4 },
+        { ask: "fire", color: "red", beats: 3 },
+        { ask: "shield", color: "either", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "shield", color: "either", beats: 3 },
         { ask: "fire", color: "either", beats: 3 },
       ],
     },

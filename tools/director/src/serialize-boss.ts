@@ -181,6 +181,13 @@ export function serializeBoss(boss: BossEntry): string {
     );
     return `{ kind: "vise", steps: [${steps.join(", ")}] }`;
   }
+  // THE RIME's the same.
+  if (boss.kind === "rime") {
+    const steps = boss.steps.map(
+      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
+    );
+    return `{ kind: "rime", steps: [${steps.join(", ")}] }`;
+  }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

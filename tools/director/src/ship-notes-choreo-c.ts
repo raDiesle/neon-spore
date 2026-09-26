@@ -148,4 +148,18 @@ export const CHOREO_NOTES_C = {
     "pinch step stays lit past its count. Only the simulation lane has " +
     "landed — see sim/vise.ts, sim/vise-step.ts, sim/vise-hand.ts, " +
     "sim/vise-shot.ts, sim/config-vise.ts.",
+  "THE RIME — the boss two rubs wipe clear, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §29: a rub, each seat on " +
+    "its own half of a frosted lens over the middle column, and a script the " +
+    "wave authors. A left or right step shaves rimeShaveMilli of frost for " +
+    "every reversal of that seat's thumb; a beat with no rub grows " +
+    "rimeRegrowMilli back, and a half at nought is a wipe. A first wipe starts " +
+    "from solid frost, a second from the film (rimeFilmMilli) the first left; " +
+    "a wipe run out frosts the half solid and retries from its first wipe. Two " +
+    "wipes a half bare the core; a fire step wants a shot in its colour; a " +
+    "shield step is the guard pressed with the shield under the lens, and one " +
+    "run out clouds the lens until it is shielded again. A fire step run out " +
+    "is a hull hit, which is the wave. Only the simulation lane has landed — " +
+    "see sim/rime.ts, sim/rime-step.ts, sim/rime-hand.ts, sim/rime-guard.ts, " +
+    "sim/rime-shot.ts, sim/config-rime.ts.",
 } satisfies Partial<Record<GroupName, string>>;

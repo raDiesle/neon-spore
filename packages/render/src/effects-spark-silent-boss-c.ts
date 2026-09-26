@@ -134,4 +134,17 @@ export const SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
+  // THE RIME's twelve, the same (`packages/audio/src/bind-rime.ts`).
+  "rimeEnter",
+  "rimeLight",
+  "rimeShave",
+  "rimeClear",
+  "rimeFrost",
+  "rimeBare",
+  "rimeHit",
+  "rimeBlock",
+  "rimeCloud",
+  "rimeMiss",
+  "rimeShatter",
+  "rimeOut",
 ] as const satisfies readonly SimEvent["type"][];

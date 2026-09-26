@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { oculusCue } from "./bind-oculus.js";
+import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
@@ -24,6 +25,7 @@ type LaterEvent = Extract<
       | `seam${string}`
       | `oculus${string}`
       | `vise${string}`
+      | `rime${string}`
       | `undertow${string}`;
   }
 >;
@@ -80,6 +82,19 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "viseSplit":
     case "viseOut":
       return viseCue(e, cols);
+    case "rimeEnter":
+    case "rimeLight":
+    case "rimeShave":
+    case "rimeClear":
+    case "rimeFrost":
+    case "rimeBare":
+    case "rimeHit":
+    case "rimeBlock":
+    case "rimeCloud":
+    case "rimeMiss":
+    case "rimeShatter":
+    case "rimeOut":
+      return rimeCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

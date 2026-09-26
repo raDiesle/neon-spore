@@ -190,4 +190,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "seam",
   "oculus",
   "vise",
+  "rime",
 ];

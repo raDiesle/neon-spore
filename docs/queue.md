@@ -535,23 +535,6 @@ across the face rather than fading — the one body in this batch drawn as
 mechanism rather than flesh — and the bared core lit in whichever cannon
 colour a beat wants. Stays unverified at tempo until the owner has looked.
 
-## §29 THE RIME — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/peaceful-keller-lmm4gr (claim: claude/queue-29-the-rime-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-A level that regrows on its own — the first field on this page that
-regresses unwiped — cleared by `RubCount` (new — a back-and-forth wipe read
-as a count of x-sign reversals, so a seat reports it without a shared clock).
-`rimeLeftMilli` and `rimeRightMilli` wipe clear one half at a time, then the
-bare core takes three fire hits with two shield-defense beats against a
-regrowth surge. Eleven steps, three movements. The full beat list and
-primitive table entry are §29 of `docs/spec/bosses-choreographed.md`. `RUB`
-moves from `consider` to `specd` in `tools/director/src/gesture-unbuilt.ts`
-as part of this lane — already done, land it with the rest. THE SLOW on
-every wipe, fire and shield window. `bun run check` proves it.
-
 ## §28 THE VISE — the look
 
 - **Found:** 2026-09-26, this session

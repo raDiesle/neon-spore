@@ -82,6 +82,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", color: "red", beats: 3 },
     ],
   },
+  // THE RIME authors its script; two steps rather than the shipped nine
+  // (`rime-hash.ts`).
+  rime: {
+    kind: "rime",
+    steps: [
+      { ask: "right", color: "cyan", beats: 6 },
+      { ask: "shield", color: "red", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -210,5 +219,19 @@ export function patchBossD(boss: BossState): void {
     boss.bared = true;
     boss.gapMilli = [400, 2100];
     boss.heldBeats = 2;
+  }
+  if (boss.kind === "rime") {
+    // The right half part wiped with the core not yet bare — every field
+    // given a value (`rime-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.litTick = 41;
+    boss.wipes = [2, 1];
+    boss.hits = 1;
+    boss.bared = true;
+    boss.rimeMilli = [250, 625];
+    boss.rubs = [4, 7];
+    boss.rubbed = [false, true];
   }
 }

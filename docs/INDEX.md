@@ -199,6 +199,12 @@ by hand never moves.
 | `packages/sim/src/snake.ts` | SNAKE: one of you drives it and the other one works it |
 | `packages/sim/src/echo.ts` | THE ECHO: half speed down, dividing into four — the fan, the price and the one field it carries |
 | `packages/sim/src/rind.ts` | THE RIND: three sizes of one body — the shed, the kill at the end and the layer count that is also its health bar |
+| `packages/sim/src/rime-guard.ts` | **THE RIME's shield**, asked once a tick after the commands are heard |
+| `packages/sim/src/rime-hand.ts` | Two wiping thumbs on THE RIME, one half each |
+| `packages/sim/src/rime-hash.ts` | What THE RIME puts into `hashWorld`, and nothing else |
+| `packages/sim/src/rime-shot.ts` | **THE RIME's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/rime-step.ts` | THE RIME's clock: the lens settling, each step lighting |
+| `packages/sim/src/rime.ts` | THE RIME: a frosted lens of two halves over the middle column, each wiped clear by its own seat |
 | `packages/sim/src/events-creature.ts` | the arm of `SimEvent` about one body — a disguise, a covering, a cloud, a layer |
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
 | `packages/sim/src/echo-split.ts` | how an echo comes apart — which way the halves step, how long each generation waits first, and the pass that does it |
@@ -601,6 +607,7 @@ by hand never moves.
 | `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-rime.ts` | What THE RIME says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-oculus.ts` | What THE OCULUS says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
@@ -614,6 +621,7 @@ by hand never moves.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-ratchet.ts` | THE RATCHET's tuning: how deep the catch counts as set |
+| `packages/sim/src/config-rime.ts` | THE RIME's tuning: the rests around its steps, what a reversal shaves and a beat regrows |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
@@ -1965,6 +1973,7 @@ by hand never moves.
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's twelve, in a file of their own for `bind-gorge.ts`' reason |
 

@@ -84,6 +84,9 @@ const STILL_PROSE = [
   // And THE VISE (§28), a twelfth time: the case is undrawn, and the guide
   // says which thumb pinches which lobe.
   "THE VISE",
+  // And THE RIME (§29), a thirteenth time: the lens is undrawn, and the guide
+  // says which thumb rubs which half.
+  "THE RIME",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -110,9 +113,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix =
-      "update §1 of docs/spec/briefings.md, which says ninety-six of the hundred and seven";
-    expect(guided.length, fix).toBe(96);
-    expect(WAVES.length, fix).toBe(107);
+      "update §1 of docs/spec/briefings.md, which says ninety-seven of the hundred and eight";
+    expect(guided.length, fix).toBe(97);
+    expect(WAVES.length, fix).toBe(108);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

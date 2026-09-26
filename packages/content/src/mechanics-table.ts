@@ -147,6 +147,7 @@ export const MECHANICS = {
   seam: BOSS_MECHANICS.seam,
   oculus: BOSS_MECHANICS.oculus,
   vise: BOSS_MECHANICS.vise,
+  rime: BOSS_MECHANICS.rime,
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",

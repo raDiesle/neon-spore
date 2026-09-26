@@ -16,6 +16,7 @@ import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { oculusStruck } from "./oculus-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
+import { rimeStruck } from "./rime-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
 import { firstAlong } from "./shot-reach.js";
@@ -179,6 +180,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   oculusStruck(world, b);
   // And THE VISE's bared kernel (`vise-shot.ts`).
   viseStruck(world, b);
+  // And THE RIME's bared core (`rime-shot.ts`).
+  rimeStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

@@ -4,6 +4,7 @@ import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
 import { stepFleet } from "./fleet.js";
 import { stepMaze } from "./maze-round.js";
+import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepVane } from "./vane.js";
 import { stepWell } from "./well-step.js";
@@ -29,12 +30,22 @@ import type { World } from "./world.js";
  * chain a row came off, and the lane after the next one reads that rather
  * than guessing.
  *
+ * **THE RATCHET came across on 26 September 2026**, the last row on the first
+ * page when THE RIME's branch filled it.
+ *
  * **The check next door is unchanged.** `stepOtherBoss` ends by calling this
  * rather than by falling off its own end, so a boss stepped nowhere still
  * arrives at `offBeat` below and still has to say, by name, that it is
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE RATCHET on the beat is the pawl lighting, a window running out, the
+  // climb, the bolt and the open or the jam. A press is judged on the tick,
+  // against her hand (`ratchet-hand.ts`).
+  if (boss.kind === "ratchet") {
+    stepRatchet(world, boss);
+    return;
+  }
   if (boss.kind === "vane") {
     stepVane(world, boss);
     return;

@@ -20,6 +20,7 @@ import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
 import type { RatchetState } from "./ratchet.js";
 import type { RepriseState } from "./reprise-state.js";
+import type { RimeState } from "./rime.js";
 import type { ScoutState } from "./scout.js";
 import type { ScuttleState } from "./scuttle.js";
 import type { SeamState } from "./seam.js";
@@ -107,4 +108,5 @@ export type BossState =
   | ValveState
   | SeamState
   | OculusState
-  | ViseState;
+  | ViseState
+  | RimeState;

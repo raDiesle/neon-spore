@@ -17,6 +17,7 @@ import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { OCULUS_DEFAULTS, type OculusConfig } from "./config-oculus.js";
 import { RATCHET_DEFAULTS, type RatchetConfig } from "./config-ratchet.js";
+import { RIME_DEFAULTS, type RimeConfig } from "./config-rime.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
 import { SEAM_DEFAULTS, type SeamConfig } from "./config-seam.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
@@ -85,6 +86,7 @@ export interface BossClockConfig
     SeamConfig,
     OculusConfig,
     ViseConfig,
+    RimeConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -120,6 +122,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...SEAM_DEFAULTS,
   ...OCULUS_DEFAULTS,
   ...VISE_DEFAULTS,
+  ...RIME_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

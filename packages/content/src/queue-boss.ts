@@ -193,6 +193,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "oculus") return { ...boss };
   // THE VISE the same: its kernel is `midCol` and nothing else has a place.
   if (boss.kind === "vise") return { ...boss };
+  // THE RIME the same: its core is `midCol` and nothing else has a place.
+  if (boss.kind === "rime") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

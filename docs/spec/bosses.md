@@ -8084,6 +8084,121 @@ answered whole splits the case and ends the fight. Whether any of it *reads*
 — whether five beats of pinching is long or short with a voice in the way —
 is the owner's eye, after lane two.
 
+## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
+
+> A frosted lens over the middle of the field, iced in two halves. Your half
+> lights: rub it back and forth until it clears, and keep rubbing, because
+> the frost grows back. Two wipes a half and the core lies bare. Shoot it in
+> its colour, and when the surge comes, shield it.
+
+Designed as §29 of [bosses-choreographed](bosses-choreographed.md), the
+second of the concepts written to spend a gesture nobody had claimed — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. Where THE
+VISE asks each thumb to **close a distance**, this asks each to **keep
+turning back**: progress is the count of reversals in a wipe, and a beat
+without one lets the frost win ground back.
+
+**It is four wipes and three hits, and they are its health.** The state
+(`sim/rime.ts`, hashed in `sim/rime-hash.ts`) is the **phase** and the beat it
+began, the **cursor** into the script, the tick the lit step lit, the
+**wipes** each half has taken, the **hits** landed, whether the core is
+**bared**, each half's **frost** in thousandths, the last reversal count
+heard on each half, and whether each was **rubbed** this beat. The script is
+the wave's (`RimeEntry.steps`), copied at install: each step asks `left`,
+`right`, `fire` or `shield`, in a colour or `either`, for its own beats.
+
+**The rule, in one sentence.** Rub your half of the lens clear before the
+frost grows back, and shoot the bared core in its colour.
+
+**The split.** Geometry, THE MANTLE's rule: `rimeHalfLeft` is Player 1's and
+`rimeHalfRight` Player 2's, and the wrong seat's wipe is not heard
+(`sim/rime-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
+under the middle column, Player 2's trigger in its colour. A shield step is
+the ordinary shield, both seats' as it always is.
+
+**The clock** (`sim/rime-step.ts`). The lens settles for `rimeStillBeats`,
+then the first step lights under THE SLOW (`openSlow(…, "ask")`). A half's
+first wipe starts from solid frost, its second from `rimeFilmMilli`. Every
+fresh reversal on the lit half shaves `rimeShaveMilli`; a beat nobody rubbed
+it grows `rimeRegrowMilli` back. A half at nought is a wipe, and the fourth
+wipe bares the core. An answered step closes THE SLOW and the lens rests
+`rimeRestBeats` before the next lights. With the script done the lens
+shatters, and falls `rimeShatterBeats` before the wave may end.
+
+**The answers.** A wipe is answered on the tick its half reaches nought
+(`sim/rime-hand.ts`). A surge is answered as THE SEAM's grit is
+(`sim/rime-guard.ts`): the shield under the middle column while it is armed,
+the guard pressed after the step lit. A shot is judged where a bolt leaves
+the top of the field (`sim/rime-shot.ts`): only with the core bare, only
+while a fire step is lit, only in the middle column, and only in its colour
+unless it is `either`. The wrong colour is a colour missed on the balance
+sheet and nothing else, THE SEAM's rule.
+
+**Where this departs from the design, and why.** Ten places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §29's
+  rows 6 and 8 say "ordinary hull hit" and row 10 says the core "stays lit".
+  This game has no ordinary hit (`wave-fail.ts`), so every fire step run out
+  breaches the hull under the lens — THE SEAM's, THE OCULUS's and THE VISE's
+  precedent.
+- **A wipe run out is tried again from that half's first wipe.** Row 3's
+  "retry from row 2" is written as a rule rather than a row: the half frosts
+  back solid, and the cursor walks back over every step before it asking the
+  same half, taking a wipe off for each. The film is never a half's first.
+- **A surge run out asks the shield again, and does not ask the wipes
+  again.** Row 7 says the fire beats are lost "until both halves are wiped
+  clear again", which would mean a script that walks back over four wipes. A
+  surge run out clouds the whole lens and covers the core instead; the next
+  step lit is the same shield, and turning it bares the core again. The fire
+  beats are lost exactly as long as the shield is.
+- **The surge is SEAM's guard, not a held shield.** Row 7's "3 beats, held"
+  is the window; the answer is the guard pressed with the shield under the
+  lens after the step lit, one rule for the shield on every choreographed
+  boss.
+- **Frost regrows only on the lit half, and only through a beat nobody rubbed
+  it.** §29 says "each half regrows every beat nobody is wiping it"; a half
+  that is not asked for is not being fought over, and growing it back there
+  would be a clock the pair cannot see and did not agree to.
+- **`RubCount` rides the drag's `id`, and the two frosts are one pair.** §29
+  names `rimeLeftMilli` and `rimeRightMilli`; on the wire the reversal count
+  since the thumb went down is the `id` of a drag on `rimeHalfLeft` or
+  `rimeHalfRight`, only the reversals since the last count heard shave, and a
+  count lower than that is a fresh touch. The frosts live in the state as
+  `rimeMilli`.
+- **A wipe is answered on the tick.** Waiting for the beat would let the
+  frost that beat grows back undo a wipe the pair had already finished.
+- **The film is config, not authored.** Rows 3 and 5's regrowth film is
+  `rimeFilmMilli`, the same for both halves; the script says only which half
+  and for how long.
+- **The wipes and the hits are the health together.** §29 names rime
+  coverage plus a core of three hits; the script is nine steps, and the lens
+  shatters when the last is answered, which is the third hit.
+- **There is no grace on a wipe window.** Unlike THE VISE's pinch, a wipe is
+  a level reached rather than a count of beats held, so a window exactly its
+  beats long can be met on any tick of it.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+carry all twelve of its events until lane two. The twelve sounds *are* bound
+(`audio/src/bind-rime.ts`), heard where they happen, the clear pitched up per
+wipe and the hit per hit. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/rime.test.ts`): the lens comes in still with both halves frosted
+solid, and lights its first wipe under THE SLOW; no shot is taken while the
+core is covered; only fresh reversals shave, a count already heard shaves
+nothing and a thumb put down again counts from nought; the wrong seat's
+thumb and the half not lit are not heard; a half nobody rubbed through a beat
+grows back, and one somebody did does not; a half clears on the tick and the
+second wipe starts from the film; a wipe run out frosts solid and is tried
+again from its first wipe; the fourth wipe bares the core; a fire step wants
+its colour and the middle column, and run out is the wave; a shield step
+wants the shield under the lens, and run out clouds the core until it is
+shielded again; and a script answered whole shatters the lens and ends the
+fight. Whether any of it *reads* — whether a wipe of eight reversals is long
+or short with a voice in the way — is the owner's eye, after lane two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

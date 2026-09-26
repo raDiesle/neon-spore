@@ -17,6 +17,7 @@ import type {
   NettleEntry,
   OculusEntry,
   RatchetEntry,
+  RimeEntry,
   ScoutEntry,
   ScuttleEntry,
   SeamEntry,
@@ -170,7 +171,7 @@ import type {
  *
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
- *   THE VISE's too: its kernel is `midCol` (`sim/vise.ts`).
+ *   THE VISE's and THE RIME's too: the kernel and the core are `midCol`.
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
@@ -208,10 +209,10 @@ export function bossAuthorsNothing(
   | ValveEntry
   | SeamEntry
   | OculusEntry
-  | ViseEntry {
-  // A guard rather than a boolean over the kind, so the caller's chain still
-  // narrows: next door the four have to be *out* of the union before the
-  // queen's own form reads a column off what is left.
+  | ViseEntry
+  | RimeEntry {
+  // A guard rather than a boolean, so the caller's chain still narrows: the
+  // four leave the union before the queen's form reads a column off the rest.
   const { kind } = boss;
   return (
     kind === "gauge" ||
@@ -243,6 +244,7 @@ export function bossAuthorsNothing(
     kind === "valve" ||
     kind === "seam" ||
     kind === "oculus" ||
-    kind === "vise"
+    kind === "vise" ||
+    kind === "rime"
   );
 }

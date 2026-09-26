@@ -396,6 +396,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE VISE, the same.
   viseLobeLeft: "unbuilt",
   viseLobeRight: "unbuilt",
+  // THE RIME, the same.
+  rimeHalfLeft: "unbuilt",
+  rimeHalfRight: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

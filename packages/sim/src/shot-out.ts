@@ -11,6 +11,7 @@ import { ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
 import { oculusStruck } from "./oculus-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
+import { rimeStruck } from "./rime-shot.js";
 import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
@@ -84,6 +85,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   oculusStruck(world, b);
   // THE VISE's bared kernel, in its colour (`vise-shot.ts`).
   viseStruck(world, b);
+  // THE RIME's bared core, in its colour (`rime-shot.ts`).
+  rimeStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -134,6 +137,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "seam",
   "oculus",
   "vise",
+  "rime",
   "hasp",
   "ratchet",
   "hive",

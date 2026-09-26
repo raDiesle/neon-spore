@@ -14,6 +14,7 @@ import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
 import { oculusHashParts } from "./oculus-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
+import { rimeHashParts } from "./rime-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { seamHashParts } from "./seam-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
@@ -144,6 +145,11 @@ export function clockHashParts(boss: BossState): number[] {
   // the script (`vise-hash.ts`).
   if (boss.kind === "vise") {
     for (const n of viseHashParts(boss)) out.push(n);
+  }
+  // THE RIME: the phase, the cursor, the wipes, the hits, both halves' frost,
+  // the reversal counts and the script (`rime-hash.ts`).
+  if (boss.kind === "rime") {
+    for (const n of rimeHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

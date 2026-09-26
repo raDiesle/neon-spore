@@ -17,6 +17,8 @@ import { mirrorLobeHeard } from "./mirror-hand.js";
 import { oculusHeard } from "./oculus-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { ratchetHeard } from "./ratchet-hand.js";
+import { rimeGuarded } from "./rime-guard.js";
+import { rimeHeard } from "./rime-hand.js";
 import { scuttleHeard } from "./scuttle-hand.js";
 import { seamGuarded } from "./seam-guard.js";
 import { spoolHeard } from "./spool-hand.js";
@@ -104,6 +106,11 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE VISE's two gaps, on the tick for the same reason: a slip is the
   // instant a gap widens back past shut (`vise-hand.ts`).
   for (const c of commands) viseHeard(world, c.player, c.command);
+  // THE RIME's two wipes, on the tick because a half wiped to nought is
+  // answered then, before the beat's regrowth could undo it (`rime-hand.ts`);
+  // and its shield, THE SEAM's once a tick after the commands (`rime-guard.ts`).
+  for (const c of commands) rimeHeard(world, c.player, c.command);
+  rimeGuarded(world);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).
