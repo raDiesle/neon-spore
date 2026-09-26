@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d716f3c51 — THE OCULUS's timeout blow is a beam out of its own lens
+
+When a fire step runs out with the core unshot, the lens lets its light go as one beam, as wide as the face where it leaves and pinched to a point at the open column, burns a ring into the plating, and thins to a thread as the burn fades. It replaces the default lash. Exemption: a look the owner asked for by name (a boss's timeout hit drawn as that boss's own blow).
+
 ## 2026-09-26 · 6c6cc8e03 — THE INSTAR's body rings, baked, offered in VERSUS
 
 Side-on, each joint of the long body can now be drawn as armour: a dark groove where the segments part, the rear segment's lip standing proud with its crown lit and a row of knobs along it, fading toward the belly. One drawImage per ring from a joint painted once at load; +1.0 kB gzipped, 6 calls against the shipped 6. Offered on `instar:seam`, not drawn by the game.
