@@ -2681,3 +2681,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 8ed29868d: the whole solid sheet (bun run solid) seen by an eye a…
+
+- **Found:** 2026-09-26, claude/queue-cloud-only-a-densified-tube-costs-a-gradient-per
+- **Files:** `docs/queue.md`, `docs/time-log.md`, `packages/render/src/solid-tube-draw.ts`, `packages/render/test/solid-budget.test.ts`
+
+*A thin tube of a rig is sliced more coarsely along its length* landed from a session that could not look at it. What went unchecked:
+
+- the whole solid sheet (bun run solid) seen by an eye after a thin tube is sliced more coarsely — only a pixel diff and one magnified fin were looked at
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

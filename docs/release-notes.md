@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8ed29868d — A thin tube of a rig is sliced more coarsely along its length
+
+`drawTube` sliced every tube every six screen pixels. It now slices the length that finely only where the tube is drawn at least 16 px wide, and in proportion more coarsely below that. A slice's light is off by about its radius times how far the section turns across it, so a fin or a tail tip can take a longer slice for the same error in pixels. The width is still sliced every six. On the demo rig a frame is 116 fills from the side, where it was 130, and 85 from the front, where it was 96.
+
 ## 2026-09-26 · 06d6b2804 — THE RIME fogs over in a whiteout and flings an icicle once its core is bare
 
 Two story steps between the wipes, each lit under THE SLOW and each a hull hit if it runs out. In the whiteout both halves fog to the film and both seats rub together; a half left alone grows back, so they finish together. The icicle falls down a column off the middle and the shield under that column turns it. The script is eleven steps. No new event. Not drawn yet.
