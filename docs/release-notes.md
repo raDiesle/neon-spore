@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 9b196ec09 — THE RATCHET, THE HASP and THE SPOOL get story arcs between their steps
+
+Three older bosses repeated one picture three to five times. Each now has three or four states between its steps, each its own SLOW window and each answered with a hand the boss already has. THE RATCHET: the slip, the kick, the bind and the wind, the rack threatening to take a step back and never doing so. THE HASP: the rattle, the backspin, the rust and the swing. THE
+
 ## 2026-09-26 · b7440d5de — Mark §34 THE CYST's fuller story arc done
 
 ## 2026-09-26 · df39bf04b — THE CYST tells a longer story: a swell, a spore and a bud
