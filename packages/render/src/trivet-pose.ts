@@ -1,9 +1,11 @@
 import {
+  chording,
   type SimConfig,
   TRIVET_PLANTS_PER_FOOT,
   type TrivetState,
   trivetClosed,
   trivetLitStep,
+  trivetTipSide,
   trivetWindowBeats,
   type World,
 } from "@neon-spore/sim";
@@ -69,14 +71,16 @@ export function trivetLeft(world: World, s: TrivetState, beat: number, beatPhase
 /** The share of the lit chord step's beats its chord has been held, this beat's fraction included while it still is. */
 export function trivetHeldShare(s: TrivetState, beatPhase: number): number {
   const step = trivetLitStep(s);
-  if (step === null || step.ask === "fire") return 0;
+  if (step === null || !chording(s)) return 0;
   const running = trivetClosed(s) ? beatPhase : 0;
   return Math.min(1, (s.heldBeats + running) / Math.max(1, step.beats));
 }
 
-/** Whether the lit step is a chord on foot `side`'s own sockets: its own, or both. */
+/** Whether the lit step wants foot `side`'s own sockets: its own chord, both, or the lurch leaning on it. */
 export function trivetAsksFoot(s: TrivetState, side: 0 | 1): boolean {
-  const ask = trivetLitStep(s)?.ask;
+  const step = trivetLitStep(s);
+  const ask = step?.ask;
+  if (step !== null && ask === "tip") return trivetTipSide(step) === side;
   return ask === "both" || ask === (side === 0 ? "front" : "rear");
 }
 

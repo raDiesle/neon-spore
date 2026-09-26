@@ -24658,3 +24658,13 @@ Bottleneck: writing — the rig's `answer` had to learn the two new asks before 
 Bottleneck: friction — two sessions writing the next reading page at once, found only at the rebase.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's lurch and needle, drawn (claude/trivet-story-look)
+
+- reading: 10 min. THE TRIVET's draw, pose and cue pages; THE RIME's icicle and THE OCULUS's sight.
+- writing: 20 min. `trivet-story.ts`, the swung roots and hub, the cue words, two tests.
+- looking: 10 min. Two frames; the first pair came back posed at tick 400, long after the step had run out.
+- friction: 5 min. `--settle` only repaints, so the pose had to be reached with `--ticks`.
+- landing: 10 min. The spec, the ledger, `check:fast`, `land`, `push`.
+
+Bottleneck: looking — finding which flag leaves the world a beat into a step it installed.

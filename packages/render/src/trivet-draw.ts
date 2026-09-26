@@ -37,6 +37,14 @@ import {
   trivetPlatePath,
   trivetRoot,
 } from "./trivet-shape.js";
+import {
+  drawTrivetNeedle,
+  trivetHubSwing,
+  trivetLurchLift,
+  trivetNeedle,
+  trivetNeedleSink,
+  trivetStoryDx,
+} from "./trivet-story.js";
 
 /** How far the hub sinks as the stand collapses, in tiles. */
 const SINK = 1.4;
@@ -79,6 +87,10 @@ export function drawTrivet(
   const fall = SINK * buckle * buckle * l.tile;
   const sink = trivetHubPress(s) * l.tile + fall;
   const step = trivetLitStep(s);
+  // The lurch throws the hub out over its column and the roots go with it; the feet stay where they stand.
+  const swing = trivetHubSwing(l, world, s, beat, beatPhase);
+  const hub = { x: swing.dx, y: sink + swing.dy };
+  const root = (leg: 0 | 1 | 2): Point => swung(trivetRoot(l, leg, sink), sink, swing.tilt, hub);
 
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -86,27 +98,44 @@ export function drawTrivet(
     home.x + fx.hurt.shakeX(time, l.tile),
     home.y - trivetDrop(l, arrived) + fx.thud * l.tile,
   );
-  if (step?.ask === "fire") fx.tell(seamColour(step.color).rim);
+  if (step?.ask === "fire" || step?.ask === "tip") fx.tell(seamColour(step.color).rim);
 
   // The middle leg first, behind the two a seat answers for; it never lifts.
-  drawLeg(ctx, l, trivetRoot(l, 2, sink), lowered(trivetFoot(l, 2, 0, buckle), fall));
+  drawLeg(ctx, l, root(2), lowered(trivetFoot(l, 2, 0, buckle), fall));
   for (const side of [0, 1] as const) {
-    const lift = trivetFootLift(world, s, side, beat, beatPhase) * (1 - buckle);
+    const up =
+      trivetFootLift(world, s, side, beat, beatPhase) + trivetLurchLift(s, side, beat, beatPhase);
+    const lift = Math.min(1, up) * (1 - buckle);
     const foot = lowered(trivetFoot(l, side, lift, buckle), fall);
-    drawLeg(ctx, l, trivetRoot(l, side, sink), foot);
+    drawLeg(ctx, l, root(side), foot);
     drawPlate(ctx, l, s, step, side, foot, beatPhase, fx.snap(side));
     ctx.globalAlpha = alpha;
   }
 
-  ctx.translate(0, sink);
+  // The needle behind the hub it leaves, falling toward the hull under its column.
+  const toHull = l.hullY - (home.y - trivetDrop(l, arrived));
+  const out = trivetNeedle(s, beat, beatPhase);
+  const dx = trivetStoryDx(l, world, s);
+  drawTrivetNeedle(ctx, l, hub, out, trivetNeedleSink(s, beat, beatPhase), dx, toHull, beatPhase);
+
+  ctx.translate(hub.x, hub.y);
+  ctx.rotate(swing.tilt);
   drawHub(ctx, l, time, fx.hurt.value);
-  const firing = step !== null && step.ask === "fire" && s.hubLit;
+  const firing = step !== null && (step.ask === "fire" || step.ask === "tip") && s.hubLit;
   const lit = firing ? { color: step.color, left: trivetLeft(world, s, beat, beatPhase) } : null;
   // A core's hurt, called: a hub's face is smaller and brighter per hit the same way a kernel is.
   const hurt = coreHurt(s.hits);
   drawTrivetFace(ctx, l, hurt.size * (1 - 0.5 * buckle), hurt.bright, s.hubLit, lit, beatPhase);
   drawTrivetFlash(ctx, l, fx.flash, fx.collapse);
   ctx.restore();
+}
+
+/** A leg's root turned `tilt` about the standing hub at (0, `sink`) and carried to where the hub is now. */
+function swung(p: Point, sink: number, tilt: number, hub: Point): Point {
+  const c = Math.cos(tilt);
+  const n = Math.sin(tilt);
+  const y = p.y - sink;
+  return { x: hub.x + p.x * c - y * n, y: hub.y + p.x * n + y * c };
 }
 
 /** A foot moved `by` pixels further down. */

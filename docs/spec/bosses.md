@@ -8368,6 +8368,17 @@ Both are under THE SLOW, and either run out is a hull hit over its own
 column (`trivetMiss`). The script is eleven steps: two plants a foot, a
 shot, a brace, the lurch, a shot, the needle, a brace, a shot.
 
+**Both are drawn, the same day** (`render/trivet-story.ts`). The lurch
+throws the hub out over its column, low and tilted onto the leaning foot,
+its legs' roots carried with it and the feet left where they stand; the far
+foot comes up off the field and settles most of the way back once the
+leaning foot's chord is held. The needle is one more of CALTROP's needles,
+flung from the hub out over its column and sinking toward the hull as the
+step runs out, THE OCULUS's dotted sight from its point to the hull with a
+notch where the shield must stand. The cue: `HOLD` on the leaning foot until
+its chord is down, then `FIRE` under the swung hub; `SHIELD` under the
+needle's column, to either seat (`render/boss-cue-read-zh.ts`).
+
 **Where this departs from the design, and why.** Six places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §27's

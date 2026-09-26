@@ -3,6 +3,8 @@ import {
   type TrivetState,
   trivetChordHeld,
   trivetLitStep,
+  trivetStepCol,
+  trivetTipSide,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -28,7 +30,13 @@ import { trivetFootStanding } from "./trivet-grip.js";
  *
  * **`FIRE` at the hull under the middle column while the hub is lit**, to
  * either seat. The hub wants its own colour and the word never names one —
- * THE VISE's kernel, again.
+ * THE VISE's kernel, again. **On a lurch** it stands under the column the hub
+ * swung over instead, and the leaning foot's seat is shown `HOLD` on it until
+ * its chord is down, the way a plant is.
+ *
+ * **`SHIELD` at the hull under a needle's column**, to either seat: the
+ * navigator slides it there, and the pilot is the one who can see which
+ * column to say, both screens drawing the same needle.
  */
 
 const HALF_W = 0.9;
@@ -44,17 +52,26 @@ export function trivetCues(
   const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
   const step = trivetLitStep(s);
   if (step === null) return out;
-  if (step.ask === "fire" && s.hubLit) {
-    const x = fieldX(l, midCol(world.cfg));
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 141 });
+  const col = trivetStepCol(midCol(world.cfg), step);
+  if (step.ask === "needle") {
+    const x = fieldX(l, col);
+    out.push({ seat: null, kind: "PRESS", word: "SHIELD", x, y: l.hullY, ...frame, seed: 144 });
   }
   for (const seat of [1, 2] as const) {
     const side = seat === 1 ? 0 : 1;
-    const asked = step.ask === "both" || step.ask === (seat === 1 ? "front" : "rear");
+    const asked =
+      step.ask === "both" ||
+      step.ask === (seat === 1 ? "front" : "rear") ||
+      (step.ask === "tip" && trivetTipSide(step) === side);
     if (!asked || trivetChordHeld(s, side, step.pads)) continue;
     const foot = trivetFootStanding(l, world, s, seat, beatPhase);
     const seed = seat === 1 ? 142 : 143;
     out.push({ seat, kind: "HOLD", word: "HOLD", x: foot.x, y: foot.y, ...frame, seed });
+  }
+  // After the holds: on a lurch the shot is not heard until the leaning foot is held.
+  if ((step.ask === "fire" || step.ask === "tip") && s.hubLit) {
+    const x = fieldX(l, col);
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 141 });
   }
   return out;
 }

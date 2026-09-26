@@ -9,6 +9,8 @@ import {
   type TrivetState,
   ticksPerBeat,
   trivetBoss,
+  trivetStepCol,
+  trivetTipSide,
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
@@ -29,7 +31,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **THE TRIVET, and the two words the field may say about it**
  * (`render/src/boss-cue-read-zh.ts`): `HOLD` on each foot a lit chord asks
  * for, gone the moment every lit pad is down, and `FIRE` under the middle
- * column while the hub is lit. What is *not* said: nothing between steps or
+ * column while the hub is lit — under the swung hub on a lurch, with `HOLD`
+ * on the leaning foot — and `SHIELD` under a needle's column. What is *not* said: nothing between steps or
  * as the stand collapses, never on a foot the step does not ask for, and
  * never how many fingers or the colour the hub wants.
  */
@@ -137,10 +140,44 @@ describe("THE TRIVET", () => {
     }
   });
 
+  it("on a lurch, asks the leaning foot's seat to HOLD and puts FIRE under the swung hub", () => {
+    const { world, s } = stood();
+    const mask = light(s, world, "tip");
+    s.hubLit = true;
+    const tip = s.steps[s.cursor];
+    if (tip === undefined) throw new Error("no tip step");
+    const col = trivetStepCol(midCol(CFG), tip);
+    expect(col).not.toBe(midCol(CFG));
+    const seat = trivetTipSide(tip) === 0 ? "p1" : "p2";
+    const other = seat === "p1" ? "p2" : "p1";
+    expect(cue(world, seat)?.word).toBe("HOLD");
+    s.padsDown = trivetTipSide(tip) === 0 ? [mask, 0] : [0, mask];
+    for (const role of [seat, other] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("FIRE");
+      expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], col), 5);
+    }
+  });
+
+  it("puts SHIELD at the hull under a needle's column, on either screen", () => {
+    const { world, s } = stood();
+    light(s, world, "needle");
+    const needle = s.steps[s.cursor];
+    if (needle === undefined) throw new Error("no needle step");
+    const col = trivetStepCol(midCol(CFG), needle);
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("SHIELD");
+      expect(c?.seat).toBeNull();
+      expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], col), 5);
+      expect(c?.y).toBe(LAYOUT[role].hullY);
+    }
+  });
+
   it("never writes a number, a colour or a column", () => {
     const { world, s } = stood();
     const words: string[] = [];
-    for (const ask of ["front", "rear", "fire", "both"] as const) {
+    for (const ask of ["front", "rear", "fire", "both", "tip", "needle"] as const) {
       light(s, world, ask);
       s.hubLit = true;
       for (const role of ["p1", "p2"] as const) words.push(cue(world, role)?.word ?? "");

@@ -1920,6 +1920,7 @@ by hand never moves.
 | `packages/render/src/trivet-marks.ts` | **THE TRIVET's marks**: the two things that say what a step asks — the lit sockets on a foot |
 | `packages/render/src/trivet-pose.ts` | **The clock THE TRIVET is posed off** (§30, *Animation*) |
 | `packages/render/src/trivet-shape.ts` | **THE TRIVET's geometry**: where the stand is, and the paths it is made of |
+| `packages/render/src/trivet-story.ts` | **THE TRIVET's lurch and needle, drawn**: the hub thrown over its column, the far foot up, the needle flung with its sight to the hull |
 | `packages/render/src/trivet-grip.ts` | **The pads on THE TRIVET** — each seat's zone, where its foot stands this frame, and the press that takes a chord finger |
 | `packages/render/src/trivet-blow.ts` | THE TRIVET's own blow at the hull: the middle needle stamps the stand's footprint into the skin |
 | `packages/render/src/trivet-fx.ts` | What THE TRIVET leaves behind a frame (§30, *Presentation*): the **thud** of a foot driven home |
