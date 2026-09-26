@@ -22793,3 +22793,16 @@ Bottleneck: writing — the fx is a copy of THE MANTLE's in shape, and the
 five places it is registered are each one line that nothing names.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's horns are cones of bone, and its jaw breathes
+
+- reading: 5 min. Both heads' horn drawers and the tail's tube for reuse.
+- writing: 10 min. `instar-horn.ts`, both heads onto it, the jaw's breath,
+  and the style-guide bullet.
+- looking: 10 min. Two rounds: the far horn's round root stood proud of the
+  skull until it was rooted inside it.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — only a magnified frame showed the root's cap poking
+out above the skull.

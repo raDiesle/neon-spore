@@ -303,11 +303,9 @@ THE INSTAR's long body once turned its `angle` from the neck to the tail,
 both of which sit still for beats at a time between morphs, and needed a
 wobble of its own; it is a tube now and rolls about its own length instead
 (`instar-profile-life.ts`), on a period the skull's does not share. Its
-actual tail (`instar-tail.ts`) turns its `angle` from the rear to the fork
-the same way — the fork only moves once the tail is raised or lashing, so
-at rest it is the identical still life — and gets a third, differently
-perioded wobble rather than sharing either existing one
-(`TAIL_WOBBLE`/`TAIL_WOBBLE_PERIOD`).
+actual tail (`instar-tail.ts`) once turned its `angle` from the rear to the
+fork the same way, and is a tube now too, swinging on a breath of its own
+(`SWING_PERIOD`).
 
 **A `Form` that never sets `angle` at all is the same still life with the
 constant left out**, since `lightHide` reads a missing `angle` as a bare `0`
@@ -601,6 +599,17 @@ run it, look at the PNG — that is the loop.
   Sample it densely enough that a tight bend is not a row of elbows, and deal
   a chain's lag and growth out per ring from a whole-tail figure, so the
   motion does not change when the ring count does.
+- **A horn is a cone that leans in depth and turns with its skull**
+  (`instar-horn.ts`). Taper a tube from the root to nearly nothing, so the
+  light runs across it at any angle; ring it with a groove bowed toward the
+  root, lit just above. Give its point a `lean` toward the player or away:
+  the lens draws a swept-back point smaller and the stepped haze takes it
+  toward the field, which is what makes the face-on horns go *back* off the
+  brow. Turn it about its root by the skull's own idle turn, so the horns and
+  the light on the skull move together, and root it a little inside the
+  skull, so the tube's round end is under the plate. A hinged part breathes
+  on its hinge — the side-on jaw opens by a `breath` over its pose's opening
+  — never by moving its points.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency

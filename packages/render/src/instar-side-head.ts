@@ -1,8 +1,10 @@
 import { strokeGlow } from "./glow.js";
 import { drawDrip, drawGlint, drawScales } from "./instar-hide.js";
+import { drawHorn } from "./instar-horn.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { breath } from "./solid-motion.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -27,13 +29,20 @@ import { splinePath } from "./spline.js";
 const CROWN_WOBBLE = 0.09;
 const CROWN_WOBBLE_PERIOD = 5.5;
 
+/** How far the jaw's breath opens it on its hinge, in radians either side of rest, and its period. */
+const JAW_BREATH = 0.035;
+const JAW_BREATH_PERIOD = 3.3;
+
 /** The head in profile, snout to the left: the skull and its horns, the eye,
  * the lower jaw hinged open under it. */
 export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
   const at = (x: number, y: number): Point => ({ x: head.x + x * r, y: head.y + y * r });
   const hinge = at(0.3, 0.08);
-  const open = (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8;
+  // The jaw breathes on its hinge, never quite the same twice: a body at rest, not a still.
+  const open =
+    (0.15 + 0.55 * (f.jawUp + f.jawDown) * 0.5) * 0.8 +
+    JAW_BREATH * (1 + breath(time, JAW_BREATH_PERIOD, 0.35, 5));
   const cos = Math.cos(-open);
   const sin = Math.sin(-open);
   const jaw = (x: number, y: number): Point => {
@@ -84,62 +93,21 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
   const lip = jaw(-0.9, 0.2);
   drawDrip(ctx, lip, r * 0.3, r * 0.03, time, 1, fade);
   drawDrip(ctx, jaw(-0.4, 0.3), r * 0.2, r * 0.025, time, 4, fade);
-  for (const [bx, by, tx, ty] of [
-    [0.4, -0.42, 1.3, -0.98],
-    [0.15, -0.5, 0.75, -1.08],
+  const wobble = CROWN_WOBBLE * Math.sin((time * (Math.PI * 2)) / CROWN_WOBBLE_PERIOD);
+  // The far horn first, standing back off the far brow; the near one toward the player.
+  for (const [bx, by, tx, ty, lean] of [
+    [0.15, -0.5, 0.75, -1.08, -0.35],
+    [0.4, -0.42, 1.3, -0.98, 0.3],
   ] as const) {
-    const horn = new Path2D();
-    const b = at(bx, by);
-    horn.moveTo(b.x - r * 0.1, b.y);
-    horn.quadraticCurveTo(
-      at(bx + 0.5, by - 0.2).x,
-      at(bx + 0.5, by - 0.2).y,
-      at(tx, ty).x,
-      at(tx, ty).y,
-    );
-    horn.quadraticCurveTo(
-      at(bx + 0.45, by + 0.05).x,
-      at(bx + 0.45, by + 0.05).y,
-      b.x + r * 0.12,
-      b.y + r * 0.05,
-    );
-    horn.closePath();
-    ctx.save();
-    ctx.fillStyle = faded(PALETTE.rockDark, fade);
-    ctx.fill(horn);
-    const tip = at(tx, ty);
-    // Round it: a spike is a cone, and a cone's light runs across its width,
-    // not along its length. The old gradient ran base-to-tip and mostly
-    // faded alpha over a dark fill, which is why it read as a flat grey
-    // triangle. This one crosses the horn's own axis — key-lit edge bright,
-    // far edge dark again — so the spike reads as round from any angle it
-    // is drawn at.
-    const dx = tip.x - b.x;
-    const dy = tip.y - b.y;
-    const len = Math.hypot(dx, dy) || 1;
-    const nx = -dy / len;
-    const ny = dx / len;
-    const half = r * 0.16;
-    const round = ctx.createLinearGradient(
-      b.x - nx * half,
-      b.y - ny * half,
-      b.x + nx * half,
-      b.y + ny * half,
-    );
-    round.addColorStop(0, faded(PALETTE.rockDark, fade, 0.85));
-    round.addColorStop(0.42, faded(PALETTE.rock, fade, 0.9));
-    round.addColorStop(0.62, faded(PALETTE.rock, fade, 0.3));
-    round.addColorStop(1, faded(PALETTE.rockDark, fade, 0.8));
-    ctx.fillStyle = round;
-    ctx.fill(horn);
-    // A contact shadow where it roots in the skull, so it reads as planted
-    // rather than pasted on.
-    ctx.fillStyle = faded(PALETTE.rockDark, fade, 0.5);
-    ctx.beginPath();
-    ctx.ellipse(b.x, b.y, r * 0.13, r * 0.05, Math.atan2(dy, dx), 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-    strokeGlow(ctx, horn, faded(PALETTE.rock, fade), STROKE.inner, 0.3 * fade);
+    const horn = {
+      // Rooted a little inside the skull, so the root's round end is under it.
+      base: at(bx + 0.04, by + 0.08),
+      bend: at(bx + 0.5, by - 0.1),
+      tip: at(tx, ty),
+      width: r * 0.11,
+      lean: lean * r,
+    };
+    drawHorn(ctx, horn, r, fade, wobble);
   }
   const skull = splinePath(
     [
@@ -156,7 +124,6 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
     true,
   );
   const brow = at(-0.2, -0.2);
-  const wobble = CROWN_WOBBLE * Math.sin((time * (Math.PI * 2)) / CROWN_WOBBLE_PERIOD);
   const crown = { x: brow.x, y: brow.y, r: r * 0.95, ry: r * 0.3, angle: -0.2 + wobble };
   drawPlate(ctx, skull, fade, 0.7, hurt, crown);
   drawScales(ctx, skull, crown, r * 0.11, fade);

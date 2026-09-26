@@ -37,7 +37,7 @@ const LIP_OPEN = 0.75;
 /**
  * The jaw's and brow's own idle wobble on `Form.angle`, same reasoning as the
  * body's roll (`instar-profile-life.ts`), the skull's `CROWN_WOBBLE`
- * (`instar-side-head.ts`) and the tail's `TAIL_WOBBLE` (`instar-tail.ts`,
+ * (`instar-side-head.ts`) and the tail's swing (`instar-tail.ts`,
  * `docs/style-guide.md`'s "Depth on a body that already ships"): neither
  * `Form` here ever sets an `angle` at all, so `lightHide` has always shaded
  * them at a bare `0` (`instar-hide.ts`, `form.angle ?? 0`) — the same still
@@ -111,7 +111,9 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     y: head.y + r * (LIP_SHUT + LIP_OPEN * f.jawDown) + tremble(look.shoveDown, time, r, 1.7),
   };
   const gap = (down.y - up.y) / r;
-  for (const s of [-1, 1]) drawHorns(ctx, up, r, s, fade);
+  // The horns turn with the brow's idle turn, one coming forward as the other goes back.
+  const browWobble = BROW_WOBBLE * Math.sin((time * (Math.PI * 2)) / BROW_WOBBLE_PERIOD);
+  for (const s of [-1, 1]) drawHorns(ctx, up, r, s, fade, browWobble);
   const chin = new Path2D();
   LOWER.forEach(([x, y], i) => {
     const p = r2(down, r, x, y);
@@ -182,7 +184,6 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     else skull.lineTo(p.x, p.y);
   });
   skull.closePath();
-  const browWobble = BROW_WOBBLE * Math.sin((time * (Math.PI * 2)) / BROW_WOBBLE_PERIOD);
   const brow = {
     x: up.x,
     y: up.y - r * 0.36,

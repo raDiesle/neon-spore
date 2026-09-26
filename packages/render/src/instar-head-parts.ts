@@ -1,5 +1,6 @@
 import { strokeGlow } from "./glow.js";
 import { drawGlint } from "./instar-hide.js";
+import { drawHorn } from "./instar-horn.js";
 import type { Point } from "./instar-place.js";
 import { drawSeam, faded } from "./instar-plate.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -11,7 +12,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * file reached its limit; the head says where the jaws are, and this draws
  * what grows on them.
  *
- * Each is drawn as a made thing: the horns ridged and lighter toward the tip,
+ * Each is drawn as a made thing: the horns ridged tubes of bone (`instar-horn.ts`),
  * the eyes in a wet socket with a glint on them, each fang with its shadowed
  * side away from the key.
  */
@@ -22,47 +23,31 @@ export const r2 = (o: Point, r: number, x: number, y: number): Point => ({
   y: o.y + y * r,
 });
 
-/** Two horns off each brow, swept back and out. */
+/**
+ * Two horns off each brow, swept back and out: tubes of bone going away from
+ * the player (`instar-horn.ts`), so the lens draws their points in smaller
+ * and the haze takes them toward the field. `turn` is the brow's idle turn.
+ */
 export function drawHorns(
   ctx: CanvasRenderingContext2D,
   up: Point,
   r: number,
   s: number,
   fade: number,
+  turn = 0,
 ) {
-  for (const [bx, by, cx, cy, tx, ty, w] of [
-    [0.6, -0.64, 1.05, -0.85, 1.22, -1.42, 0.13],
-    [0.84, -0.4, 1.2, -0.45, 1.36, -0.78, 0.08],
+  for (const [bx, by, cx, cy, tx, ty, w, back] of [
+    [0.6, -0.6, 1.05, -0.85, 1.22, -1.42, 0.12, 1.1],
+    [0.84, -0.36, 1.2, -0.45, 1.36, -0.78, 0.075, 0.7],
   ] as const) {
-    const base = r2(up, r, s * bx, by);
-    const tip = r2(up, r, s * tx, ty);
-    const p = new Path2D();
-    p.moveTo(base.x - s * w * r, base.y);
-    p.quadraticCurveTo(up.x + s * (cx - w) * r, up.y + cy * r, tip.x, tip.y);
-    p.quadraticCurveTo(up.x + s * (cx + w) * r, up.y + (cy + w) * r, base.x + s * w * r, base.y);
-    p.closePath();
-    ctx.save();
-    ctx.fillStyle = faded(PALETTE.rockDark, fade);
-    ctx.fill(p);
-    // Bone, paler toward the tip, ringed with the ridges it grew in.
-    const g = ctx.createLinearGradient(base.x, base.y, tip.x, tip.y);
-    g.addColorStop(0, faded(PALETTE.rock, fade, 0));
-    g.addColorStop(1, faded(PALETTE.rock, fade, 0.55));
-    ctx.fillStyle = g;
-    ctx.fill(p);
-    ctx.clip(p);
-    ctx.strokeStyle = faded(PALETTE.background, fade, 0.5);
-    ctx.lineWidth = Math.max(0.8, r * 0.018);
-    ctx.beginPath();
-    for (const u of [0.25, 0.45, 0.62, 0.78]) {
-      const cx = base.x + (tip.x - base.x) * u;
-      const cy = base.y + (tip.y - base.y) * u;
-      ctx.moveTo(cx - r * 0.2, cy + r * 0.05);
-      ctx.quadraticCurveTo(cx, cy + r * 0.1, cx + r * 0.2, cy + r * 0.05);
-    }
-    ctx.stroke();
-    ctx.restore();
-    strokeGlow(ctx, p, faded(PALETTE.rock, fade), STROKE.inner, 0.3 * fade);
+    const horn = {
+      base: r2(up, r, s * bx, by),
+      bend: r2(up, r, s * cx, cy),
+      tip: r2(up, r, s * tx, ty),
+      width: w * r,
+      lean: -back * r,
+    };
+    drawHorn(ctx, horn, r, fade, turn);
   }
 }
 
