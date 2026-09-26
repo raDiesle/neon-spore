@@ -21318,3 +21318,5 @@ across five packages, and only the typecheck and the tests find them.
 
 Bottleneck: the entry described a covering the frame no longer shows — the
 lips were already drawn after the knob — so the time went to proving that.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

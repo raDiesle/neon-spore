@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 403bed5dd — THE MAZE's lit lips are held over the lever's knob
+
+When the pilot turns a way in to the bottom, the lever's knob often stands in the lit door. The door's lips were already drawn after the knob, so the funnel still showed over it, but nothing held that order. A test now draws the knob straight onto the lit door and checks that both lips come after its disc in the draw log. A comment in `maze-draw.ts` says why the lever goes before the doors. Nothing the game draws changed.
+
 ## 2026-09-26 · 793801554 — THE NETTLE's simulation: a jellyfish on THE INSTAR's engine, with SHOOT, SHIELD and SUCK
 
 Wave 101, THE NETTLE (§11.39): ten choreographed steps over eight poses of a jellyfish, every window THE SLOW. Most steps are thumbs on the body, as THE INSTAR's are — pull the stinging arms up, wind the iris shut, hold the mouth off, swipe the frill curtain away, tap the core — and four ask the ordinary panel for one press in one column: SHOOT a mark (a bolt out of its column), SHIELD it (the dome up under it), SUCK it (the maw open under it). Nothing else about the press is judged. The body is not drawn yet; that is the next lane. Wave 101 went in unweighed (baseline:blank).
