@@ -1,5 +1,6 @@
 import { ticksPerBeat } from "./config.js";
 import { wornKind } from "./creature-rules.js";
+import { spanOf } from "./span.js";
 import { type Color, isMeteorKind } from "./types.js";
 import type { World } from "./world.js";
 
@@ -27,7 +28,7 @@ import type { World } from "./world.js";
 export function purge(world: World): void {
   for (const c of world.creatures) {
     if (isMeteorKind(c.kind)) {
-      world.events.push({ type: "hole", col: c.col, row: c.row });
+      world.events.push({ type: "hole", col: c.col, row: c.row, kind: c.kind, span: spanOf(c) });
       continue;
     }
     world.events.push({

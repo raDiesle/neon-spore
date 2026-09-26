@@ -62,7 +62,7 @@ const SAMPLES: Record<string, SimEvent> = {
     wasted: false,
   },
   destroy: { type: "destroy", col: 3, row: 4, color: "cyan", kind: "bulb" },
-  hole: { type: "hole", col: 2, row: 5 },
+  hole: { type: "hole", col: 2, row: 5, kind: "meteor", span: 1 },
   reject: { type: "reject", col: 2, row: 5 },
   magnetPlate: { type: "magnetPlate", col: 2, row: 5, color: "cyan" },
   magnetBreak: { type: "magnetBreak", col: 2, row: 5, color: "red", fromLeft: true },

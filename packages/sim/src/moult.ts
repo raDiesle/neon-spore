@@ -4,6 +4,7 @@ import { damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { cargoLost, mawOpen, takeCargo } from "./pod-intake.js";
 import type { PodKind } from "./pod-types.js";
+import { spanOf } from "./span.js";
 import { type Creature, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
 import type { World } from "./world.js";
@@ -167,7 +168,7 @@ export function moultStruck(world: World, c: Creature): void {
   // which is the point of drawing it: a pair that shoots this half learns
   // nothing new, and learns it in the picture they already know.
   c.holes = Math.min(world.cfg.maxHoles, c.holes + 1);
-  world.events.push({ type: "hole", col: c.col, row: c.row });
+  world.events.push({ type: "hole", col: c.col, row: c.row, kind: c.kind, span: spanOf(c) });
 }
 
 /**

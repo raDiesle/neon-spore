@@ -9,6 +9,7 @@ import { coilStruck } from "./coil.js";
 import { coilIsDomed } from "./coil-state.js";
 import { fenceStruck } from "./fence.js";
 import { moultStruck } from "./moult.js";
+import { spanOf } from "./span.js";
 import { type Bullet, type Creature, isWardable } from "./types.js";
 import type { World } from "./world.js";
 
@@ -55,7 +56,13 @@ export function struckWithoutKilling(world: World, b: Bullet, hit: Creature): bo
     // instant it bursts the kind is a slick's and this branch stops catching
     // it (`volley.ts`).
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
-    world.events.push({ type: "hole", col: hit.col, row: hit.row });
+    world.events.push({
+      type: "hole",
+      col: hit.col,
+      row: hit.row,
+      kind: hit.kind,
+      span: spanOf(hit),
+    });
     return true;
   }
   // A body the cannon cannot answer still stops the bolt (`bullet-refused.ts`).

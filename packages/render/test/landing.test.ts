@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, hullRow } from "@neon-spore/sim";
 import { flatRadius } from "../src/creature-place.js";
+import { burstFor } from "../src/effects-spark.js";
 import { landingY } from "../src/landing.js";
-import { computeLayout, tileCY } from "../src/layout.js";
+import { bodyX, computeLayout, tileCY } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { rockRadius } from "../src/rock-size.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -81,6 +82,23 @@ describe("a landing beat", () => {
       expect(speed(p)).toBeGreaterThan(L.tile * (2 / 3));
       expect(speed(p)).toBeLessThanOrEqual(L.tile + 1e-6);
     }
+  });
+
+  it("throws a crater's puffs from the rock, not from its row", () => {
+    // A shot rock in its bent rows leaves its hole where it is drawn at the
+    // end of the beat (`effects-spark-hole.ts`); the row's centre is up to a
+    // tile under it.
+    for (let row = HULL - 6; row <= HULL; row++) {
+      const hole = { type: "hole", col: 3, row, kind: "meteor", span: 1 } as const;
+      const x = bodyX(L, 3, row);
+      const c = rock("meteor", row, row - 1);
+      const drawn = landingY(L, CFG, c, x, tileCY(L, row), 1, skin);
+      expect(burstFor(hole, L, skin)?.y).toBeCloseTo(drawn, 5);
+    }
+    expect(tileCY(L, HULL - 1) - fall(HULL - 1)).toBeGreaterThan(L.tile * 0.5);
+    // A moult's shell is not bent, and keeps its row.
+    const shell = { type: "hole", col: 3, row: HULL - 1, kind: "moult", span: 1 } as const;
+    expect(burstFor(shell, L, skin)?.y).toBe(tileCY(L, HULL - 1));
   });
 
   it("is where the replay takes the rock over, hit on its first frame", () => {

@@ -39,6 +39,9 @@ import { wellFromFlat } from "./well.js";
  * the well's pass can draw it where the lane is (`well-draw.ts`). What is not
  * told is the rest: a transient drawn *around a creature the world still
  * holds* asks `creatureCenter` each frame, and is queued with it.
+ *
+ * `skinY` is the plating the host last drew, for a rock's crater puffs, which
+ * are thrown from where its bent fall has it (`effects-spark-hole.ts`).
  */
 export function ingestAll(
   fx: Effects,
@@ -48,6 +51,7 @@ export function ingestAll(
   creatureIdAt: (col: number, row: number) => number,
   cfg: SimConfig,
   well: boolean,
+  skinY: SurfaceY | undefined,
 ): void {
   // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
   // parameter saying the same number is how two clocks start.
@@ -69,7 +73,7 @@ export function ingestAll(
   fx.ricochet.ingest(events, l, cfg, well);
   fx.shieldPush.ingest(events, l, burst);
   for (const e of events) {
-    const spark = burstFor(e, l);
+    const spark = burstFor(e, l, skinY);
     if (spark) burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
     // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`. Its
     // switch is exhaustive over `SimEvent`, not this call site — see its own

@@ -1,4 +1,5 @@
 import { curtainHemStruck } from "./curtain-shot.js";
+import { spanOf } from "./span.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -59,7 +60,13 @@ export function refusesABolt(kind: Creature["kind"]): boolean {
 export function refuseBolt(world: World, b: Bullet, hit: Creature): void {
   if (hit.kind === "cairn") {
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
-    world.events.push({ type: "hole", col: hit.col, row: hit.row });
+    world.events.push({
+      type: "hole",
+      col: hit.col,
+      row: hit.row,
+      kind: hit.kind,
+      span: spanOf(hit),
+    });
     return;
   }
   // THE CURTAIN's fabric takes a soft lobe off the hem, or is cloth (`curtain-shot.ts`).

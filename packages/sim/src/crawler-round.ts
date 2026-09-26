@@ -12,6 +12,7 @@ import {
   segmentColor,
 } from "./crawler.js";
 import { removeCreature } from "./field.js";
+import { spanOf } from "./span.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -138,7 +139,13 @@ export function alignCrawler(world: World, crawlerId: number): void {
 export function linkStruck(world: World, b: Bullet, hit: Creature): boolean {
   if (hit.color === null) {
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
-    world.events.push({ type: "hole", col: hit.col, row: hit.row });
+    world.events.push({
+      type: "hole",
+      col: hit.col,
+      row: hit.row,
+      kind: hit.kind,
+      span: spanOf(hit),
+    });
     return false;
   }
   if (hit.color !== b.color) {

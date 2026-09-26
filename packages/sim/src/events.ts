@@ -115,7 +115,12 @@ export type SimEvent =
       kind: Creature["kind"];
       of?: Creature["kind"];
     }
-  | { type: "hole"; col: number; row: number }
+  /**
+   * A crater, or a rock swept aside. `kind` and `span` are the body's, so a
+   * rock's puffs are thrown where its bent fall draws it rather than at its
+   * row (`render/rock-fall.ts`).
+   */
+  | { type: "hole"; col: number; row: number; kind: Creature["kind"]; span: number }
   | { type: "reject"; col: number; row: number }
   /**
    * A bolt turned away by a body that is not stone and cannot be broken — THE

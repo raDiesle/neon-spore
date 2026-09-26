@@ -1,7 +1,9 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { handedBurst } from "./effects-spark-handed.js";
+import { holeBurst } from "./effects-spark-hole.js";
 import { isSilent } from "./effects-spark-silent.js";
 import { wornBurst } from "./effects-spark-worn.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { bodyX, type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
@@ -38,7 +40,7 @@ export interface Burst {
   hex: string;
 }
 
-export function burstFor(e: SimEvent, l: Layout): Burst | null {
+export function burstFor(e: SimEvent, l: Layout, skinY?: SurfaceY): Burst | null {
   // The long tail of events that are answered some other way, taken out of the
   // union before the switch sees it (`effects-spark-silent.ts`). The guard
   // narrows, so `assertNever` still catches an event accounted for in neither.
@@ -62,7 +64,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "grip":
       return at(l, e.col, e.row, 7, PALETTE.pod);
     case "hole":
-      return at(l, e.col, e.row, 5, PALETTE.rock);
+      return holeBurst(e, l, skinY);
     // A plate off THE WARDEN's rim throws material the way a petal does, in
     // the rim's own colour — which is the colour that took it.
     case "plate":

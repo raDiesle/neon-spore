@@ -22,6 +22,19 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-26 — A rock's crater puffs are thrown from the rock
+
+- reading: 10 min. The five `hole` sources, `burstFor`, `landingY`,
+  `rockFallY`, and where each host hands `Effects` its events.
+- writing: 10 min. `kind` and `span` on the event, `effects-spark-hole.ts`,
+  the skin through `ingest`, one test.
+- looking: 0 min. Five puffs moved up to a tile; no frame was taken.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, one commit, `land`.
+
+Bottleneck: the event carried a row and nothing else, so the renderer had
+no way to ask what had been struck until the sim said.
+
 ## 2026-09-26 — The shield's push is shown as a mistake
 
 - reading: 15 min. The `Effects` roster and its four routes, the rim's

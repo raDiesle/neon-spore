@@ -189,8 +189,9 @@ export class Effects {
     creatureIdAt: (col: number, row: number) => number,
     cfg: SimConfig,
     well = false,
+    skinY?: SurfaceY,
   ): void {
-    ingestAll(this, events, l, time, creatureIdAt, cfg, well);
+    ingestAll(this, events, l, time, creatureIdAt, cfg, well, skinY);
   }
 
   /** Every clock forward by `dt`, every transient drawn, and everything

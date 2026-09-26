@@ -414,19 +414,6 @@ fire buttons in place of CALL. (b) is a sim change with a new `GaugeState`
 field, the codec, the director's `field-controls-gauge.ts`, and the guide's
 three steps.
 
-## A rock's hole puffs sit below the rock in its last six rows
-
-- **Found:** 2026-09-25, claude/meteor-impact-animation-timing-53afba
-- **Taken:** 2026-09-26, claude/queue-a-rocks-hole-puffs-sit-below-the-rock-in-its-las
-- **Files:** `packages/render/src/effects-spark.ts`, `packages/render/src/rock-fall.ts`
-
-A rock's last six rows are now drawn higher than its row, by a bend that
-puts it on the skin at the end of its landing beat (`rock-fall.ts`). A
-`hole` event's puffs are still thrown at `tileCY(row)`, up to about a tile
-under the rock the pair is looking at. Place them with `rockFallY` for a
-wardable kind, and grep render/ for any other reader of a rock's row that
-calls `tileCY` rather than `landingY`. Add a case beside `landing.test.ts`'s.
-
 ## `opening.test.ts`'s twice-taken strip differed by three bytes once
 
 - **Found:** 2026-09-25, claude/meteor-impact-animation-timing-53afba
@@ -871,3 +858,19 @@ detect a clean worktree that is not the main checkout (`git rev-parse
 and print `git checkout <branch>` there, with `bun install` still after it;
 say the same in the lane skill's section 1. Proof: a test in
 `tools/queue/test/` for both prompts, and `bun run check`.
+
+## THE VOLLEY's shell breaks below the volley in its last six rows
+
+- **Found:** 2026-09-26, claude/queue-a-rocks-hole-puffs-sit-below-the-rock-in-its-las
+- **Files:** `packages/render/src/volley-shards.ts`, `packages/render/src/effects-spark-worn.ts`
+
+`isWardable` takes THE VOLLEY, so `landingY` bends its last six rows as it
+bends a rock's (`rock-fall.ts`). The shell's fragments (`volley-shards.ts`:
+`y: tileCY(l, e.row)`) and the `volleyReturn`/`volleyHatch` squares
+(`effects-spark-worn.ts`) are still placed at the row's centre, up to about
+a tile under the shell the pair is looking at — `volleyReturn` always, since
+the shield answers it on its bent rows. Place them the way
+`effects-spark-hole.ts` places a crater's puffs: `rockFallY` against the
+skin the host passes to `Effects.ingest`, less the volley's radius
+(`volleyBallRadius`, not `rockRadius`). Proof: a case beside
+`landing.test.ts`'s crater case, and `bun run check`.
