@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 60b3d3f6a — THE LEECH's guide is a film: the cannon walked a column a beat, lost when it parks
+
+THE LEECH's three strings are gone. Its guide is now THE LIMPET's rehearsal on the other half of the ship: the leech grips the cannon, player 2 calls MOVE CANNON, player 1 walks it to a new column every beat, and then the thumb stops and the round is lost to the still beats. `test/scene-leech.test.ts` holds the grip, the loss, and that the loss follows the last move by the harpoon's still beats.
+
 ## 2026-09-26 · fc9524dfb — THE LIMPET's guide is a film: the shield walked a column a beat, lost when it parks
 
 THE LIMPET's three strings are gone. Its guide is now a rehearsal: the limpet grips the shield, player 1 calls MOVE SHIELD, player 2 walks it to a new column every beat, and then the thumb stops and the round is lost to the still beats. Both are the simulation's own events (`clingGrip`, then `waveFailed`), and `test/scene-limpet.test.ts` holds that the loss follows the last move by the harpoon's still beats. A meteor due after the loop keeps the field from counting as cleared.

@@ -21661,3 +21661,5 @@ never reached the loss it was written to show.
 
 Bottleneck: none worth the name — the sibling fault's film was the template,
 and the words tool's floors no longer move under it.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
