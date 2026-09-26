@@ -1,6 +1,7 @@
 import type { SeenRing, Vec3 } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { SHADOW, type Skin, sectionGradient } from "./solid-tube-light.js";
+import { offScreen, type Screen, tubeScale, tubeScreen } from "./solid-tube-screen.js";
 
 export type { Skin } from "./solid-tube-light.js";
 
@@ -28,7 +29,6 @@ const SEAM = 0.08;
 const OUT = 0.3;
 /** How far apart, in screen pixels, the rings a tube is shaded by may be. */
 const STEP_PX = 6;
-
 interface Pt {
   readonly x: number;
   readonly y: number;
@@ -63,18 +63,40 @@ export function drawTube(
 ): Path2D {
   const outline = tubePath(rings);
   if (rings.length < 2 || alpha <= 0) return outline;
+  const screen = tubeScreen(ctx);
+  if (screen && offScreen(screen, around(rings))) return outline;
   ctx.save();
   ctx.fillStyle = rgba(skin.base, alpha);
   ctx.fill(outline);
   ctx.clip(outline);
   const fine = densify(rings);
   for (let i = 0; i < fine.length - 1; i++) {
-    shadeSegment(ctx, fine[i] as SeenRing, fine[i + 1] as SeenRing, skin, alpha);
+    shadeSegment(ctx, fine[i] as SeenRing, fine[i + 1] as SeenRing, skin, alpha, screen);
   }
   capLight(ctx, rings[0] as SeenRing, -1, skin, alpha);
   capLight(ctx, rings[rings.length - 1] as SeenRing, 1, skin, alpha);
   ctx.restore();
   return outline;
+}
+
+/** The corners of a box round every ring of a tube. */
+function around(rings: readonly SeenRing[]): Pt[] {
+  let x0 = Infinity;
+  let y0 = Infinity;
+  let x1 = -Infinity;
+  let y1 = -Infinity;
+  for (const g of rings) {
+    x0 = Math.min(x0, g.c.x - g.r);
+    y0 = Math.min(y0, g.c.y - g.r);
+    x1 = Math.max(x1, g.c.x + g.r);
+    y1 = Math.max(y1, g.c.y + g.r);
+  }
+  return [
+    { x: x0, y: y0 },
+    { x: x1, y: y0 },
+    { x: x1, y: y1 },
+    { x: x0, y: y1 },
+  ];
 }
 
 /**
@@ -88,7 +110,7 @@ function densify(rings: readonly SeenRing[]): SeenRing[] {
     const a = rings[i] as SeenRing;
     const b = rings[i + 1] as SeenRing;
     const gap = Math.hypot(b.c.x - a.c.x, b.c.y - a.c.y) + Math.abs(b.r - a.r) * 2;
-    const n = Math.max(1, Math.min(8, Math.ceil(gap / STEP_PX)));
+    const n = Math.max(1, Math.min(8, Math.ceil((gap * tubeScale()) / STEP_PX)));
     for (let j = 0; j < n; j++) out.push(between(a, b, j / n));
   }
   out.push(rings[rings.length - 1] as SeenRing);
@@ -124,6 +146,7 @@ function shadeSegment(
   b: SeenRing,
   skin: Skin,
   alpha: number,
+  screen: Screen | null,
 ): void {
   const rx = (a.right.x + b.right.x) / 2;
   const ry = (a.right.y + b.right.y) / 2;
@@ -141,6 +164,8 @@ function shadeSegment(
   const bl = ext(b.left, a.left, b.c);
   const br = ext(b.right, a.right, b.c);
   const ar = ext(a.right, b.right, a.c);
+  // A slice wholly off the canvas paints nothing (`solid-tube-screen.ts`).
+  if (screen && offScreen(screen, [al, bl, br, ar])) return;
   ctx.beginPath();
   ctx.moveTo(al.x, al.y);
   ctx.lineTo(bl.x, bl.y);

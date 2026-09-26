@@ -24265,3 +24265,13 @@ Bottleneck: writing — four states is four drawings, each with its own answer
 to show.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's turn between its two views, brought down
+
+- reading: 5 min. The handover, `solid-tube-draw.ts`'s slicing, where each view's paint reaches.
+- writing: 20 min. `solid-tube-screen.ts`, `instar-reach.ts`, the pixel test that holds the reach, the budget rows.
+- looking: 10 min. Op-count probes over every step before and after, and a probe of which call sites a speck still pays for.
+- friction: 5 min. The reach test's canvas was too small for the front view's rings at first, and a first box too generous culled nothing.
+- landing: 5 min. `check:fast`, a copies-test hit on a re-derived `instarFarEnd`, this entry, `land`.
+
+Bottleneck: writing — a view can only be left undrawn by a box it provably stays inside, and measuring that box over the whole script was most of the work.

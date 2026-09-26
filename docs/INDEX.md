@@ -1633,6 +1633,7 @@ by hand never moves.
 | `packages/render/src/instar-hide-baked.ts` | **THE INSTAR's hide, baked** — the third example (`sprite-bake.ts`) |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
+| `packages/render/src/instar-reach.ts` |  |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
 | `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's new body, baked** — the fifth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
@@ -2009,6 +2010,7 @@ by hand never moves.
 | `packages/render/src/solid-rig.ts` | A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube |
 | `packages/render/src/solid-tube-draw.ts` | A TUBE OF A RIG, DRAWN: the outline `seeTube` found, filled |
 | `packages/render/src/solid-tube-light.ts` | The light across a tube's section: one gradient per stepped light, laid across each slice by a transform |
+| `packages/render/src/solid-tube-screen.ts` | **Where a tube of a rig lands on the screen**, for the one body drawn at any size and anywhere |
 | `packages/render/src/solid-sheet.ts` | A SHEET OF A RIG: skin stretched flat between bones — a wing's membrane, a fin, a sail |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |

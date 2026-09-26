@@ -2535,14 +2535,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE INSTAR's turn between its two views costs two to five times a still frame
-
-- **Found:** 2026-09-26, claude/instar-third-between
-- **Taken:** 2026-09-26, claude/instar-third-between (claim: claude/queue-the-instars-turn-between-its-two-views-costs-two)
-- **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/instar-front.ts`, `packages/render/src/instar-profile.ts`
-
-Measured with the op-count harness (`frame-harness.ts`, `runFrames`, 390×844 at dpr 3), a third of the way into a morph that turns the body between face-on and side-on: dive 1390 draws / 302 gradients, lunge after the arch 1326 / 297, lash after the loom 1230 / 261, roar 1246 / 253, arch 1349 / 243, hover 1230 / 230, rise 1204 / 228, coil 1192 / 213 — against 700–800 draws and 50–65 gradients for the same step at rest. The cause is the handover: while the figure's `side` is between 0.3 and 0.7, `drawInstar` draws both `drawFront` and `drawProfile` (`instarHandover`), and both views' tube-light sections re-key their gradients every frame because `side` and the flight's scale move continuously. It lasts a fraction of a morph, but the fourth act made it twelve of the script's twenty-eight changes. What to do: quantise what the tube-light sections key on during a turn, the way `key-light.ts` rounds its radius and spin, or skip the fainter view below a fade floor, and add an INSTAR row to a `*-budget.test.ts` for a mid-turn frame so it is held.
-
 ## Unverified at 8c0b4ab8c: THE KEEL's flip, marrow and cooldown never watched at…
 
 - **Found:** 2026-09-26, claude/queue-24-the-keel-a-fuller-story-arc-a-flip-a-reveal-a
@@ -2650,3 +2642,11 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE INSTAR drawn as a speck still pays for every glow pass and scale
+
+- **Found:** 2026-09-26, claude/instar-third-between
+- **Files:** `packages/render/src/glow.ts`, `packages/render/src/solid-tube-draw.ts`, `packages/render/src/instar-horn.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-profile-surface.ts`
+- **Asks:** may a body drawn under a flight scale below about a quarter skip its sub-pixel detail (glow's layered passes collapsed to one, hide scales and horn ridges left out), which changes pixels a few wide, or must the speck stay pixel-exact and the cost stay?
+
+After the tubes were sliced by screen size and off-field views culled, the turn's worst frames are 1050–1125 draws and 90–140 gradients against 700–800 and 50–65 at rest (`test/instar-budget.test.ts`). What is left is frames where both views are really on the field, most of them with the body at a flight scale of 0.15–0.3: a speck about 60 px across that still draws about 430 ops a view. The biggest: `solid-tube-draw.ts:179` (205), `glow.ts:47` strokeGlow's layered passes (198), `glow.ts:52` (66), `instar-horn.ts:136` (60), `instar-hide.ts:148` (58), `instar-profile-surface.ts:201` (52). A level of detail keyed on `tubeScale()` would take most of it, and it goes to VERSUS as a candidate unless the owner answers yes.

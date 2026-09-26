@@ -742,6 +742,25 @@ layer only, at half or quarter resolution, behind a switch, in
 `tools/versus/candidates/`, and it is judged on what it costs a real phone as
 much as on how it looks.
 
+**A rig drawn small or off the field costs what shows, not what it is.** A
+body flown in at an eighth of its size, or carried out past the edge, used to
+be sliced and filled as though it filled the field. That is how THE INSTAR's
+turn cost two to five times a still frame. Three things fix it, and none of
+them changes a pixel:
+- **A tube is sliced by its size on the screen.** `tubesAt(scale, …)`
+  (`solid-tube-screen.ts`) tells `drawTube` the flight's scale, so its rings
+  sit `STEP_PX` apart *on the screen*.
+- **A slice or a whole tube past one edge of the canvas is not filled**
+  (`offScreen`, read through the context's own transform).
+- **A view is not drawn at all when its box lands off the field**
+  (`instar-reach.ts`). The box is the view's own geometry grown by how far its
+  paint was measured to reach past it, and `test/instar-reach.test.ts` holds
+  that margin by drawing both views over the whole script into real pixels.
+  A box guessed rather than measured either culls nothing or cuts off a glow.
+
+The dive at a third of its morph went from 1390 draws and 302 gradients to
+1066 and 91. `test/instar-budget.test.ts` holds it there.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

@@ -2,17 +2,20 @@ import type { InstarState, World } from "@neon-spore/sim";
 import { instarEbb, instarFire } from "./instar-ebb.js";
 import { instarFlight } from "./instar-flight.js";
 import { drawFront } from "./instar-front.js";
+import { seeFrontBody } from "./instar-front-body.js";
 import type { InstarFx } from "./instar-fx.js";
 import { drawInstarHeart } from "./instar-heart.js";
 import { drawInstarMarks } from "./instar-marks.js";
-import { instarAt, instarHeadAt } from "./instar-place.js";
+import { instarAt, instarFarEnd, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
+import { frontReach, onField, profileReach } from "./instar-reach.js";
 import { instarFade, instarMorphAt, instarThreat } from "./instar-shape.js";
 import { drawInstarSpit } from "./instar-spit.js";
 import { instarBody } from "./instar-sway.js";
-import { instarHandover } from "./instar-turn.js";
+import { instarHandover, instarNeck, instarTurn } from "./instar-turn.js";
 import type { Layout } from "./layout.js";
+import { tubesAt } from "./solid-tube-screen.js";
 
 /**
  * **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32).
@@ -69,7 +72,8 @@ export function drawInstar(
   const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);
   ctx.translate(shake, -fx.jolt * l.tile);
   const flight = instarFlight(s, beat, beatPhase);
-  if (flight.scale !== 1 || flight.dxMilli !== 0 || flight.dyMilli !== 0) {
+  const flying = flight.scale !== 1 || flight.dxMilli !== 0 || flight.dyMilli !== 0;
+  if (flying) {
     const c = instarAt(l, 500, 380);
     ctx.translate(
       c.x + (flight.dxMilli * l.gridWidth) / 1000,
@@ -93,8 +97,24 @@ export function drawInstar(
     shoveDown: fx.shove.down,
   };
   const side = instarHandover(f.side);
-  if (side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - side) });
-  if (side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * side });
+  // Most of a turn is flown off the field, where a view is not drawn at all
+  // (`instar-reach.ts`); at rest the body is always on it.
+  const jolt = { x: shake, y: -fx.jolt * l.tile };
+  const neck = instarNeck(head, r);
+  const front =
+    side < 0.99 &&
+    (!flying ||
+      onField(
+        l,
+        frontReach(head, r, neck, seeFrontBody(look, neck, instarFarEnd(l, f), instarTurn(f.side))),
+        flight,
+        jolt,
+      ));
+  const profile = side > 0.01 && (!flying || onField(l, profileReach(l, f), flight, jolt));
+  tubesAt(flight.scale, flying, () => {
+    if (front) drawFront(ctx, l, { ...look, fade: fade * (1 - side) });
+    if (profile) drawProfile(ctx, l, { ...look, fade: fade * side });
+  });
   ctx.restore();
   // The second act's own things: the heart lit in the bare body, and what the
   // rear and the spread throw at the hull on its way down (§11.32).
