@@ -24095,3 +24095,14 @@ humps, so a straight seam floated off it until it was bent over the hump.
 Bottleneck: looking — a white glow on pale frost does not show, and only a frame said so.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VALVE's own blow at the hull
+
+- reading: 5 min. `valve-step.ts`'s `spendSpark`, `valve-draw.ts`'s `drawSpark`.
+- writing: 10 min. The ember burning in, the molten hole, the steam jet.
+- looking: 10 min. Frames forced with `--boss-json '{"sparkCol":5,"sparkBeat":"now"}'`;
+  six puffs read as a string of beads, ten read as a plume.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — the jet's spacing only showed itself in a frame.

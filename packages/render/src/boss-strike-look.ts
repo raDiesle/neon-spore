@@ -16,6 +16,7 @@ import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { seamBlow } from "./seam-blow.js";
 import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
+import { valveBlow } from "./valve-blow.js";
 import { valveCentre } from "./valve-shape.js";
 
 /**
@@ -90,6 +91,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   ratchet: ratchetBlow,
   // Its seam's bead has already run the column; the hull opens along that seam.
   gimbal: gimbalBlow,
+  // Its ember has already fallen the column; it burns through and the ship vents.
+  valve: valveBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

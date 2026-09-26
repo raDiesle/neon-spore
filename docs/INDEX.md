@@ -1218,6 +1218,7 @@ by hand never moves.
 | `packages/render/src/valve-marks.ts` | **THE VALVE's marks**: the three things on the drum that say a gesture — the wheel's mark |
 | `packages/render/src/valve-pose.ts` | **The clock THE VALVE is posed off** (§25, *Animation*): four poses — sealed and upright, listing one pin |
 | `packages/render/src/valve-shape.ts` | **THE VALVE's geometry**: where the drum hangs, and the paths it is made of |
+| `packages/render/src/valve-blow.ts` | THE VALVE's timeout blow: its ember burns through the hull and the ship vents a jet of steam up the column |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |
