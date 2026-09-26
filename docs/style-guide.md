@@ -446,6 +446,17 @@ forced round. A spent plate, already drawn fainter to read as slack, is left
 unlit: the same call HASP's swung-open clasps make, since a body already
 reading as "gone" needs no light to prove it.
 
+**A boss can need both primitives on different parts of the same body.** THE
+SPOOL's two flanges (`spool-shape.ts`'s `spoolFlangePath`) are ellipses, so
+they take `litRound` clipped to the path, with an idle wobble like the drum's
+and the shell's — the flange has no rotation of its own to feed, and the two
+ends are phase-offset by `end` so they don't breathe together. The barrel
+between them (`spoolBarrelPath`) is a literal rectangle, so it takes `litBox`
+across its own bounding box, the same call RATCHET's plates make. The four
+ribs proud of the barrel were left unlit: too small and too mechanical to read
+a gradient at their width, the same call that ruled out RATCHET's pawl and
+lock pieces.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

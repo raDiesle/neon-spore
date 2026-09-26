@@ -1,8 +1,9 @@
-import { facet, pin } from "@neon-spore/content";
+import { facet, LIGHT_HALF, pin } from "@neon-spore/content";
 import { SPOOL_RIBS, type SpoolState, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { litBox, litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawSpoolBrake } from "./spool-brake.js";
@@ -72,10 +73,10 @@ export function drawSpool(
   drawSpoolLine(ctx, l, cfg, s, pose, beat, beatPhase, time, run);
   ctx.globalAlpha = alpha;
   const hurt = fx.hurt.value;
-  drawFlange(ctx, l, pose, side, false, hurt);
+  drawFlange(ctx, l, pose, side, false, time, hurt);
   drawBarrel(ctx, l, pose, run, drift, hurt);
   drawRibs(ctx, l, world, s, pose, side, beat, beatPhase);
-  drawFlange(ctx, l, pose, -side as -1 | 1, true, hurt);
+  drawFlange(ctx, l, pose, -side as -1 | 1, true, time, hurt);
   if (s.phase !== "slack" && showsSpoolBrake(l.role)) drawSpoolBrake(ctx, l, cfg, s, pose, time);
   if (s.phase !== "slack" && showsSpoolZone(l.role)) {
     drawSpoolGauge(ctx, l, cfg, s, pose, beat, beatPhase, time);
@@ -83,18 +84,36 @@ export function drawSpool(
   ctx.restore();
 }
 
+/** The flanges' own idle turn under the light, no pose of their own to feed it with — one period apart so the two ends don't breathe together. */
+const FLANGE_WOBBLE = 0.05;
+const FLANGE_WOBBLE_PERIOD = 5.6;
+
 function drawFlange(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   pose: SpoolPose,
   end: -1 | 1,
   facing: boolean,
+  time: number,
   hurt: number,
 ): void {
   const alpha = ctx.globalAlpha;
   const path = spoolFlangePath(l, pose, end, facing);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(path);
+  ctx.save();
+  ctx.clip(path);
+  const wobble =
+    FLANGE_WOBBLE * Math.sin((time * (Math.PI * 2)) / FLANGE_WOBBLE_PERIOD + end * Math.PI * 0.5);
+  litRound(
+    ctx,
+    pose.at.x + end * spoolBarrelHalf(l, pose.turn),
+    pose.at.y,
+    spoolFlangeR(l),
+    LIGHT_HALF.rock,
+    wobble,
+  );
+  ctx.restore();
   strokeGlow(ctx, path, PALETTE.rock, STROKE.outline, 0.8, alpha);
   drawHurt(ctx, path, hurt);
   ctx.globalAlpha = alpha;
@@ -142,6 +161,7 @@ function drawBarrel(
   ctx.fill(path);
   const r = spoolWindR(l, pose.wound);
   const half = spoolBarrelHalf(l, pose.turn);
+  litBox(ctx, path, pose.at.x - half, pose.at.y - r, half * 2, r * 2, LIGHT_HALF.rock);
   const theta = (run * l.tile) / 100 / Math.max(1, r) + drift * 6;
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = STROKE.inner;
