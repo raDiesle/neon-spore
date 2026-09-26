@@ -602,6 +602,7 @@ owner's, unverified until he has looked.
 ## Unverified at 8e6e6e71: RESEARCH tab on the director's NOT BUILT YET sheet, see…
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Taken:** 2026-09-26, main (claim: claude/queue-unverified-at-8e6e6e71-research-tab-on-the-direc)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/README.md`, `docs/spec/transfers-touch.md`, `docs/time-log.md`, `tools/director/index.html`, `tools/director/src/backlog-api.ts`, `tools/director/src/backlog-page.ts`
 
 *A RESEARCH tab: other games' touch fights, co-op, and the inputs a phone offers* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
