@@ -319,6 +319,7 @@ by hand never moves.
 | `packages/sim/src/vise-hash.ts` | What THE VISE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/vise-shot.ts` | **THE VISE's shot**: the bared kernel, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/vise-step.ts` | THE VISE's clock: the case settling, each step lighting, the beats a pinch is kept shut being counted |
+| `packages/sim/src/vise-guard.ts` | **THE VISE's shield**, asked once a tick after the commands are heard — THE OCULUS's glare |
 | `packages/sim/src/vise.ts` | THE VISE: a seed-case of two lobes over the middle column, each cracked by its own seat pinching it shut |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
@@ -2098,7 +2099,7 @@ by hand never moves.
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
 | `packages/audio/src/bind-valve.ts` | THE VALVE's twenty-five, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-vise.ts` | THE VISE's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-vise.ts` | THE VISE's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |

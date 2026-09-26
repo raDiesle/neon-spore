@@ -471,6 +471,8 @@ const SAMPLES: Record<string, SimEvent> = {
   viseHit: { type: "viseHit", col: 5, hits: 2 },
   viseBrace: { type: "viseBrace", col: 5 },
   viseCover: { type: "viseCover", col: 5 },
+  viseBlock: { type: "viseBlock", col: 5 },
+  viseSeedBurst: { type: "viseSeedBurst", col: 7 },
   viseMiss: { type: "viseMiss", col: 5 },
   viseSplit: { type: "viseSplit", col: 5 },
   viseOut: { type: "viseOut", col: 5 },

@@ -64,7 +64,7 @@ export const WAVES_ACT_12: Wave[] = [
     id: "theVise",
     name: "THE VISE",
     guide: {
-      both: "Pinch your lobe shut until its seam cracks. Two seams each bare the kernel. Shoot it in its colour. When both light, pinch together.",
+      both: "Pinch your lobe shut until its seam cracks. Two seams each bare the kernel. Shoot it in its colour. When both light, pinch together. Shield the bite. Shoot the seed.",
       p1: "1. Pinch the left lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. When the kernel shows a colour, fire it.",
       p2: "1. Pinch the right lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. White takes either colour. Pinch with the other one when both light.",
     },
@@ -78,7 +78,9 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "right", color: "either", beats: 4 },
         { ask: "fire", color: "red", beats: 3 },
         { ask: "both", color: "either", beats: 3 },
+        { ask: "bite", color: "either", beats: 3 },
         { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "spit", color: "red", beats: 4, offset: 2 },
         { ask: "both", color: "either", beats: 3 },
         { ask: "fire", color: "either", beats: 3 },
       ],

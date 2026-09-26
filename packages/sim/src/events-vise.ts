@@ -7,7 +7,7 @@ import type { ViseAsk } from "./vise.js";
  * Every event carries `col`, the column it happened over, for the sounds to
  * pan to. The case hangs over the middle, so every one is there; the ones
  * about a lobe say which with `side`, the pilot's nought and the navigator's
- * one.
+ * one. The seed's burst is the one heard off the middle, over its column.
  */
 
 interface ViseColEvent {
@@ -34,7 +34,11 @@ export type ViseEvent =
   | ({ type: "viseBrace" } & ViseColEvent)
   /** A `both` step ran out: the lobes close over the kernel, to be held open again. */
   | ({ type: "viseCover" } & ViseColEvent)
-  /** A fire step ran out with the kernel unshot: the hull takes it. */
+  /** The bite met by the shield under the case. */
+  | ({ type: "viseBlock" } & ViseColEvent)
+  /** The spat seed shot in its colour, over the column it hung over. */
+  | ({ type: "viseSeedBurst" } & ViseColEvent)
+  /** A shot, bite or seed ran out unanswered: the hull takes it. */
   | ({ type: "viseMiss" } & ViseColEvent)
   /** The script is done and the case splits down its spine. */
   | ({ type: "viseSplit" } & ViseColEvent)

@@ -4,6 +4,7 @@ import {
   type ViseState,
   viseBoss,
   viseLitStep,
+  viseSeedCol,
   type World,
 } from "@neon-spore/sim";
 
@@ -20,14 +21,15 @@ import {
  * let go too, so a pinch never outlasts its step.
  *
  * **The shot** wants the step's colour; the white kernel takes either, and
- * the navigator fires cyan.
+ * the navigator fires cyan. **A spat seed** is the same shot up the column it
+ * hangs over, and **a bite** is the shield carried under the case and pressed.
  */
 type Press = Omit<TimedCommand, "tick">;
 
 export const viseHand = (w: World): Press[] => {
   const s = viseBoss(w);
   if (s === null) return [];
-  return [...pinch(w, s), ...shoot(w, s)];
+  return [...pinch(w, s), ...shoot(w, s), ...shield(w, s)];
 };
 
 function pinch(w: World, s: ViseState): Press[] {
@@ -46,9 +48,17 @@ function pinch(w: World, s: ViseState): Press[] {
 
 function shoot(w: World, s: ViseState): Press[] {
   const step = viseLitStep(s);
-  if (step?.ask !== "fire" || !s.bared) return [];
+  if ((step?.ask !== "fire" && step?.ask !== "spit") || !s.bared) return [];
+  const col = step.ask === "spit" ? viseSeedCol(midCol(w.cfg), step) : midCol(w.cfg);
   return [
-    { player: 1, command: { kind: "cannonCol", col: midCol(w.cfg) } },
+    { player: 1, command: { kind: "cannonCol", col } },
     { player: 2, command: { kind: "fire", color: step.color === "either" ? "cyan" : step.color } },
   ];
+}
+
+function shield(w: World, s: ViseState): Press[] {
+  if (viseLitStep(s)?.ask !== "bite") return [];
+  const col = midCol(w.cfg);
+  if (w.shieldCol !== col) return [{ player: 2, command: { kind: "shieldCol", col } }];
+  return [{ player: 1, command: { kind: "guard" } }];
 }

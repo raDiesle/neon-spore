@@ -154,9 +154,9 @@ export const CHOREO_NOTES_C = {
     "shot in its colour; a both step is both lobes pinched at once, and one run " +
     "out covers the kernel until it is held again. A fire step run out is a " +
     "hull hit, which is the wave. The grace (viseGraceBeats) is how long a " +
-    "pinch step stays lit past its count. Only the simulation lane has " +
-    "landed — see sim/vise.ts, sim/vise-step.ts, sim/vise-hand.ts, " +
-    "sim/vise-shot.ts, sim/config-vise.ts.",
+    "pinch step stays lit past its count. A bite wants the shield under the " +
+    "case, a spit a shot up the column the seed hangs over; either run out " +
+    "is a hull hit — sim/vise*.ts, sim/config-vise.ts.",
   "THE RIME — the boss two rubs wipe clear, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §29: a rub, each seat on " +
     "its own half of a frosted lens over the middle column, and a script the " +

@@ -2,10 +2,10 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE VISE's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE VISE's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
- * **Heard where they happen**: the case stands over `midCol`, so every one of
- * them is in the middle.
+ * **Heard where they happen**: the case stands over `midCol`, so every one but
+ * the seed's burst is in the middle, and that one is heard over its column.
  *
  * **A crack and a hit are pitched up as they add up**, so how far the pair
  * are along can be heard without either of them counting.
@@ -32,6 +32,12 @@ export function viseCue(e: Extract<SimEvent, { type: `vise${string}` }>, cols: n
       return { id: "boss.viseBrace", pan };
     case "viseCover":
       return { id: "boss.viseCover", pan };
+    case "viseBlock":
+      // The bite met: the shield's own clang, THE SEAM's grit sound.
+      return { id: "boss.seamBlock", pan };
+    case "viseSeedBurst":
+      // The seed burst: the kernel's hit, lower, since the kernel took nothing.
+      return { id: "boss.viseHit", pan, pitch: 0.85 };
     case "viseMiss":
       return { id: "boss.viseMiss", pan };
     case "viseSplit":

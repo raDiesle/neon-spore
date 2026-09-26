@@ -44,6 +44,10 @@ export const INGEST_SILENT_BOSS_D = [
   // filled: what they draw is read off the state (`sim/oculus-guard.ts`).
   "oculusBlock",
   "oculusGlance",
+  // THE VISE's bite met and seed burst, landed after page three filled: what
+  // they draw is read off the state (`sim/vise-guard.ts`, `sim/vise-shot.ts`).
+  "viseBlock",
+  "viseSeedBurst",
   // THE SLING's twelve: nothing is drawn yet, so nothing outlives a frame
   // (`packages/audio/src/bind-sling.ts`).
   "slingEnter",

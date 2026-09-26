@@ -24441,3 +24441,14 @@ Bottleneck: writing — the picture is small, but it had to thread the lens's fr
 Bottleneck: writing — a two-finger gesture touches a dozen registrations across four packages, the same ones THE VISE's pinch did.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VISE's bite and spit, the simulation
+
+- reading: 5 min. THE OCULUS's story lane, the VISE's step clock and shot.
+- writing: 25 min. The two asks, the shield check, the seed's column, the
+  hash, the sounds, the hand, the rig and the story tests.
+- looking: 0 min. No picture in this lane.
+- friction: 5 min. A compaction mid-lane.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the registrations outside the simulation, eleven files for two steps.

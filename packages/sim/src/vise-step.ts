@@ -23,7 +23,8 @@ import type { World } from "./world.js";
  * the cursor where it was: §28 has a missed crack widen back out and a missed
  * hold close the lobes over the kernel, and neither is a hull hit. **A shot
  * that runs out is the hull**, THE SEAM's rule (`seam-step.ts`): this game has
- * no hull hit that is not the wave.
+ * no hull hit that is not the wave. So is a bite left unshielded and a seed
+ * left hanging, the two story steps (`vise-guard.ts`, `vise-shot.ts`).
  */
 
 export function installVise(world: World, steps: readonly ViseStep[]): ViseState {
@@ -47,9 +48,14 @@ export function stepVise(world: World, s: ViseState): void {
   else if (s.phase === "lit") lit(world, s, since);
 }
 
-/** How long the lit step stays lit: a pinch's own beats and the grace, or a shot's beats. */
+/** Whether a step is a pinch, one lobe or both, rather than a shot or a shield. */
+function pinchStep(step: ViseStep): boolean {
+  return step.ask === "left" || step.ask === "right" || step.ask === "both";
+}
+
+/** How long the lit step stays lit: a pinch's own beats and the grace, or the step's beats. */
 export function viseWindowBeats(world: World, step: ViseStep): number {
-  return step.ask === "fire" ? step.beats : step.beats + world.cfg.viseGraceBeats;
+  return pinchStep(step) ? step.beats + world.cfg.viseGraceBeats : step.beats;
 }
 
 function lit(world: World, s: ViseState, since: number): void {
@@ -63,8 +69,8 @@ function lit(world: World, s: ViseState, since: number): void {
     }
   }
   if (since < viseWindowBeats(world, step)) return;
-  if (step.ask === "fire") miss(world, s);
-  else slipped(world, s, step);
+  if (pinchStep(step)) slipped(world, s, step);
+  else miss(world, s);
 }
 
 /** A pinch step kept shut its beats: a seam cracked, or both lobes held off the kernel. */
@@ -118,12 +124,16 @@ function next(world: World, s: ViseState): void {
   }
   s.phase = "lit";
   s.phaseBeat = world.beat;
+  s.litTick = world.tick;
   s.heldBeats = 0;
   openSlow(world, viseWindowBeats(world, step), "ask");
   world.events.push({ type: "viseLight", ask: step.ask, col });
 }
 
-/** A fire step ran out with the kernel unshot: the hull takes it, and the wave is lost. */
+/**
+ * A step with no second try ran out — the kernel unshot, the bite unshielded,
+ * the seed left hanging: the hull takes it, and the wave is lost.
+ */
 function miss(world: World, s: ViseState): void {
   const col = midCol(world.cfg);
   world.events.push({ type: "viseMiss", col });

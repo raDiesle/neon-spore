@@ -274,6 +274,7 @@ export function patchBossD(boss: BossState): void {
     // value (`vise-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
+    boss.litTick = 40;
     boss.cursor = 1;
     boss.cracks = [1, 2];
     boss.hits = 1;

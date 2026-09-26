@@ -12,6 +12,7 @@ export function viseHashParts(s: ViseState): number[] {
   const out = [
     VISE_PHASES.indexOf(s.phase) + 1,
     s.phaseBeat,
+    s.litTick,
     s.cursor,
     s.cracks.length,
     ...s.cracks,
@@ -26,6 +27,7 @@ export function viseHashParts(s: ViseState): number[] {
     out.push(VISE_ASKS.indexOf(step.ask) + 1);
     out.push(step.color === "red" ? 1 : step.color === "cyan" ? 2 : 3);
     out.push(step.beats);
+    out.push(step.offset ?? 0);
   }
   return out;
 }

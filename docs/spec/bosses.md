@@ -8562,7 +8562,7 @@ balance sheet and nothing else, THE SEAM's rule.
   count; the window is that plus `viseGraceBeats`. A window exactly the count
   long could only be met by a gap shut on the tick it lit.
 - **The seams and the hits are the health together.** §28 names two lobes
-  plus a kernel of three hits; the script is nine steps, and the case splits
+  plus a kernel of three hits; the script is eleven steps, and the case splits
   when the last is answered, which is the third hit.
 - **The gap rides the drag.** §28 names `viseGapLeftMilli` and
   `viseGapRightMilli`; on the wire, `SqueezeGap` is the drag's own
@@ -8571,6 +8571,16 @@ balance sheet and nothing else, THE SEAM's rule.
   primitive's other two costs — a one-thumb twin refused, and the iPhone's
   `gesturechange` stopped — are the app's, and wait for lane two with the
   body they are read on.
+
+**The story between the pinches** (`sim/vise-guard.ts`, `sim/vise-shot.ts`,
+26 September 2026, queued as §28). Once the kernel is bare the case fights
+back twice, each under THE SLOW and each a hull hit if it runs out. **The
+bite**: the case clamps down at the hull, answered by the shield under the
+middle, pressed after the step lit (`viseBlock`) — a shot does nothing.
+**The spit**: the kernel spits a seed that hangs `offset` columns off the
+middle, answered by a shot up that column in its colour (`viseSeedBurst`);
+the kernel was not struck, so it is not a hit. Both replace §28's row 11, a
+beat where the pair did nothing.
 
 **The simulation lane, the body and the pinch have landed; the rest of the
 hands has not.** The render package's silent-event lists and

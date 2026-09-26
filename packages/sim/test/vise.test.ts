@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { World } from "../src/index.js";
 import { slowing } from "../src/slow.js";
-import { VISE_SEAMS_PER_LOBE, viseLitStep } from "../src/vise.js";
+import { VISE_SEAMS_PER_LOBE } from "../src/vise.js";
 import { viseStruck } from "../src/vise-shot.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import {
@@ -10,12 +9,11 @@ import {
   install,
   pinch,
   pinchBoth,
-  releaseBoth,
-  rightColor,
   runUntil,
   SCRIPT,
   shot,
   toLit,
+  toStep,
   vise,
 } from "./vise-rig.js";
 
@@ -30,31 +28,6 @@ import {
  * rather than lost, that a shot outside its step or in the wrong colour does
  * nothing, and that a shot run out is the wave.
  */
-
-/** The lit step answered: its lobe or lobes pinched until it rests, or shot in its colour. */
-function answer(world: World): void {
-  const s = vise(world);
-  const step = viseLitStep(s);
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") viseStruck(world, shot(rightColor(step)));
-  else {
-    if (step.ask === "both") pinchBoth(world);
-    else pinch(world, step.ask, true);
-    runUntil(world, (w) => vise(w).phase === "rest");
-    releaseBoth(world);
-  }
-}
-
-/** A case with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (vise(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("THE VISE comes in", () => {
   it("still, both lobes whole and wide, the kernel covered", () => {
@@ -236,7 +209,7 @@ describe("a both", () => {
 
 describe("the end", () => {
   it("answered whole, the case splits and the fight ends", () => {
-    const world = toStep(8);
+    const world = toStep(SCRIPT.length - 1);
     viseStruck(world, shot("red"));
     expect(vise(world).hits).toBe(3);
     const seen = runUntil(world, (w) => w.boss === null);

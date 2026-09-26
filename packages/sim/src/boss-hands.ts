@@ -36,6 +36,7 @@ import { trivetHeard } from "./trivet-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
 import { valveHeard } from "./valve-hand.js";
+import { viseGuarded } from "./vise-guard.js";
 import { viseHeard } from "./vise-hand.js";
 import { wellHeard } from "./well-hand.js";
 import type { World } from "./world.js";
@@ -115,6 +116,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE VISE's two gaps, on the tick for the same reason: a slip is the
   // instant a gap widens back past shut (`vise-hand.ts`).
   for (const c of commands) viseHeard(world, c.player, c.command);
+  // Its bite, THE SEAM's shield once a tick after the commands (`vise-guard.ts`).
+  viseGuarded(world);
   // THE RIME's two wipes, on the tick because a half wiped to nought is
   // answered then, before the beat's regrowth could undo it (`rime-hand.ts`);
   // and its shield, THE SEAM's once a tick after the commands (`rime-guard.ts`).

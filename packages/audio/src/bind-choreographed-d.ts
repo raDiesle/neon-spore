@@ -133,6 +133,8 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "viseHit":
     case "viseBrace":
     case "viseCover":
+    case "viseBlock":
+    case "viseSeedBurst":
     case "viseMiss":
     case "viseSplit":
     case "viseOut":

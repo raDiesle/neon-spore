@@ -120,10 +120,12 @@ export {
   type VisePhase,
   type ViseState,
   type ViseStep,
+  viseBiting,
   viseBoss,
   viseClosed,
   viseDone,
   viseLitStep,
+  viseSeedCol,
   viseShut,
   vising,
 } from "./vise.js";

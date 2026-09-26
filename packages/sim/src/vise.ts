@@ -33,9 +33,12 @@ export type VisePhase = (typeof VISE_PHASES)[number];
 
 /**
  * What a step asks: the pilot's lobe pinched shut, the navigator's, a shot at
- * the kernel, or both lobes pinched to hold them off the kernel.
+ * the kernel, or both lobes pinched to hold them off the kernel — and the two
+ * story steps once the kernel is bare: the case **biting** down at the hull,
+ * answered by the shield under it, and the kernel **spitting** a seed that
+ * hangs over another column, answered by a shot up that column.
  */
-export const VISE_ASKS = ["left", "right", "fire", "both"] as const;
+export const VISE_ASKS = ["left", "right", "fire", "both", "bite", "spit"] as const;
 export type ViseAsk = (typeof VISE_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
@@ -48,6 +51,8 @@ export interface ViseStep {
    * for its shot.
    */
   beats: number;
+  /** Columns from the middle the seed hangs over. Only a spit step reads it. */
+  offset?: number;
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -63,6 +68,8 @@ export interface ViseState {
   phase: VisePhase;
   /** `world.beat` the phase began. */
   phaseBeat: number;
+  /** `world.tick` the lit step lit: a shield pressed before it answers no bite. */
+  litTick: number;
   /** The step lit, or the next to light. */
   cursor: number;
   /** Seams cracked on each lobe, the pilot's then the navigator's: nought up to `VISE_SEAMS_PER_LOBE`. */
@@ -96,6 +103,16 @@ export function vising(s: ViseState): boolean {
   return ask === "left" || ask === "right" || ask === "both";
 }
 
+/** Whether the lit step is the bite, answered by the shield under the case. */
+export function viseBiting(s: ViseState): boolean {
+  return viseLitStep(s)?.ask === "bite";
+}
+
+/** The column a spit step's seed hangs over: the middle, moved by its offset. */
+export function viseSeedCol(mid: number, step: ViseStep): number {
+  return mid + (step.offset ?? 0);
+}
+
 /** Whether a lobe's gap is pinched shut this instant. */
 export function viseShut(world: World, s: ViseState, side: 0 | 1): boolean {
   return s.gapMilli[side] <= world.cfg.viseShutMilli;
@@ -122,6 +139,7 @@ export function freshVise(beat: number, steps: readonly ViseStep[], openMilli: n
     steps: steps.map((step) => ({ ...step })),
     phase: "still",
     phaseBeat: beat,
+    litTick: 0,
     cursor: 0,
     cracks: [0, 0],
     hits: 0,

@@ -10,12 +10,13 @@ import {
   type World,
 } from "../src/index.js";
 import type { Bullet, Color } from "../src/types.js";
-import { type ViseState, type ViseStep, viseBoss } from "../src/vise.js";
+import { type ViseState, type ViseStep, viseBoss, viseLitStep, viseSeedCol } from "../src/vise.js";
+import { viseStruck } from "../src/vise-shot.js";
 
 /**
  * THE VISE's test rig: a script installed, a pinch on a lobe as the pair
  * would put it there, and a step driven to its answer. Shared by
- * `vise.test.ts`.
+ * `vise.test.ts` and `vise-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -30,7 +31,9 @@ export const SCRIPT: readonly ViseStep[] = [
   { ask: "right", color: "either", beats: 4 },
   { ask: "fire", color: "red", beats: 3 },
   { ask: "both", color: "either", beats: 3 },
+  { ask: "bite", color: "either", beats: 3 },
   { ask: "fire", color: "cyan", beats: 3 },
+  { ask: "spit", color: "red", beats: 4, offset: 2 },
   { ask: "both", color: "either", beats: 3 },
   { ask: "fire", color: "either", beats: 3 },
 ];
@@ -112,4 +115,36 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: ViseStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** The shield carried under the case and pressed, as the two seats would. */
+export function shieldUnder(world: World): string[] {
+  tick(world, [{ tick: world.tick, player: 2, command: { kind: "shieldCol", col: MID } }]);
+  return tick(world, [{ tick: world.tick, player: 1, command: { kind: "guard" } }]);
+}
+
+/** The lit step answered: pinched, shot, shielded or the seed burst, as it asks. */
+export function answer(world: World): void {
+  const step = viseLitStep(vise(world));
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") viseStruck(world, shot(rightColor(step)));
+  else if (step.ask === "spit") viseStruck(world, shot(rightColor(step), viseSeedCol(MID, step)));
+  else if (step.ask === "bite") shieldUnder(world);
+  else {
+    if (step.ask === "both") pinchBoth(world);
+    else pinch(world, step.ask, true);
+    runUntil(world, (w) => vise(w).phase === "rest");
+    releaseBoth(world);
+  }
+}
+
+/** A case with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number, steps: readonly ViseStep[] = SCRIPT): World {
+  const world = install(steps);
+  toLit(world);
+  while (vise(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }
