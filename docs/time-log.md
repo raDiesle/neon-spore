@@ -24995,3 +24995,5 @@ The bottleneck: `next` has no way to skip an entry that wants an idle machine.
 
 Bottleneck: looking — comparing the old and new scans is what found that four
 files on the list had gone unseen.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

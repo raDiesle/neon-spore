@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 30e5a488d — The rock ratchet reads only the files that name the rock, and sees all of them
+
+"a rock nobody saw fall" now asks `git grep` which of the 640-odd sim files mention `"meteorFastest"`, and runs its regex on those 14 alone. Handing every file to `readFileSync` had taken 7.8 s under a full check and failed a landing. The regex also ran only to the first `)`, so a column given as `midCol(world.cfg)` closed the call early, and four files on the exempt list were never seen. It now runs to the end of the statement, and the list must match exactly, so a file that gets its own blow has to come off it.
+
 ## 2026-09-26 · 02d521a09 — AUTO plays THE GRINDSTONE: rubs each flat clean, clamps, shoots
 
 Wave 112 had no autopilot hand, so a solo or watched run stood at the wheel doing nothing and the TEST panel said "no hand for this boss". The new hand rubs the lit flat from its own seat at about four reversals a beat, holds both jaws' pads through a clamp and lifts them after, and fires the lit axle's colour up the middle. A director test plays the whole wave on BOTH with no regrit, slip, loose clamp, miss or scar, and on P1 alone checks the navigator's flat and jaw are never touched.
