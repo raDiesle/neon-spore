@@ -1257,6 +1257,29 @@ numbers into `docs/performance.md`. It ships only if the owner picks it in
 VERSUS and the phone numbers hold; otherwise the candidate stays as the
 record of why.
 
+## THE GIMBAL is a fifth rig candidate, and the sharpest one for the mirror rule
+
+- **Found:** 2026-09-26, this session
+- **Needs:** "a densified tube costs a gradient per slice, per frame" and "a dragged tail wants a verlet chain in Effects", both above
+- **Files:** `packages/content/src/gimbal-script.ts`, `packages/render/src/gimbal-draw.ts`, `docs/style-guide.md`, `docs/spec/bosses.md`
+
+"move one boss a lane onto the solid rig, from the roster" names THE GORGE,
+THE ANTIPHON, THE BATON and THE LEAD. THE GIMBAL is a fifth, and its shape
+argues for it over any of the four: it is "a drum in two rings", the outer
+facing the pilot and drawn as the wheel is, the inner facing the navigator
+*from the other side* so her nought is the wheel's nought and her clockwise
+is its counter-clockwise (`docs/spec/bosses.md`, "THE GIMBAL", `gimbalShownMilli`).
+That is exactly the failure a flat pose cannot solve and a rig is built for —
+`docs/style-guide.md`'s "A boss seen from any side" — because the two rings
+are not the same picture mirrored, they are the same wheel seen from its two
+faces, which only a body modelled in three dimensions and projected can get
+right at once. Two balls (the hubs) and two tubes (the rings, ridged for the
+latch-teeth) is the whole rig; the near ring's swept teeth would want the
+"long enough to be both in front of and behind another" split the demo's tail
+already has a pattern for. Whoever takes this names it in the entry they
+leave behind, same as the four already listed, and it is a look:
+`tools/versus/candidates/`, never straight onto the field.
+
 ## Unverified at 81ea644c1: THE RIME wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-simulation-lane
