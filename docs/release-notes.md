@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8e6e6e71 — A RESEARCH tab: other games' touch fights, co-op, and the inputs a phone offers
+
+The director's NOT BUILT YET sheet gains a RESEARCH tab that renders docs/spec/transfers-touch.md in full: choreographed touch games (Rhythm Heaven, Thumper, Infinity Blade, TWEWY, Elite Beat Agents and more), co-op games that are played by talking (Spaceteam, Tick Tock, Operation Tango, Space Alert, Captain Sonar), twenty boss sequences mapped to the primitive library, and an inventory of the inputs a phone browser offers — used, specified, missed and worth having, missed and rightly so. Each game carries a video thumbnail and links to its video and store page; the renderer now makes an https link a real link. The links come from search results and were not opened.
+
 ## 2026-09-26 · d316a7fd1 — THE INSTAR's eggs crack while nobody takes them, and the brood comes back swapped
 
 An egg still standing on either nest now cracks as the window runs: a hairline down from its crown at a quarter of the window, and at three quarters a dark split with the hatchling's ember eye moving in it, drawn on the egg and never as a bar. A second brood comes late in the script, before the mixed lash, with the counts swapped: the nests change sides, player 1 swipes the left ten off and player 2 taps the right sixteen flat.
