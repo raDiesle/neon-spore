@@ -391,6 +391,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE OCULUS, the same.
   oculusLeafLeft: "unbuilt",
   oculusLeafRight: "unbuilt",
+  // THE VISE, the same.
+  viseLobeLeft: "unbuilt",
+  viseLobeRight: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

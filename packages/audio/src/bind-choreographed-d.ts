@@ -4,6 +4,7 @@ import { oculusCue } from "./bind-oculus.js";
 import { seamCue } from "./bind-seam.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
+import { viseCue } from "./bind-vise.js";
 
 /**
  * **The tail of `bind-choreographed-c.ts`**, cut off it the day THE OCULUS
@@ -17,7 +18,14 @@ import { valveCue } from "./bind-valve.js";
  */
 type LaterEvent = Extract<
   SimEvent,
-  { type: `valve${string}` | `seam${string}` | `oculus${string}` | `undertow${string}` }
+  {
+    type:
+      | `valve${string}`
+      | `seam${string}`
+      | `oculus${string}`
+      | `vise${string}`
+      | `undertow${string}`;
+  }
 >;
 
 export function laterCue(e: LaterEvent, cols: number): Cue {
@@ -59,6 +67,19 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "oculusShatter":
     case "oculusOut":
       return oculusCue(e, cols);
+    case "viseEnter":
+    case "viseLight":
+    case "viseSlip":
+    case "viseCrack":
+    case "viseSpring":
+    case "viseBare":
+    case "viseHit":
+    case "viseBrace":
+    case "viseCover":
+    case "viseMiss":
+    case "viseSplit":
+    case "viseOut":
+      return viseCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

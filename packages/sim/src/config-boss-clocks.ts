@@ -28,6 +28,7 @@ import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 import { VALVE_DEFAULTS, type ValveConfig } from "./config-valve.js";
 import { VANE_HAND_DEFAULTS, type VaneHandConfig } from "./config-vane.js";
+import { VISE_DEFAULTS, type ViseConfig } from "./config-vise.js";
 import { WARDEN_HAND_DEFAULTS, type WardenHandConfig } from "./config-warden.js";
 import { WELL_DEFAULTS, type WellConfig } from "./config-well.js";
 
@@ -83,6 +84,7 @@ export interface BossClockConfig
     ValveConfig,
     SeamConfig,
     OculusConfig,
+    ViseConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -117,6 +119,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...VALVE_DEFAULTS,
   ...SEAM_DEFAULTS,
   ...OCULUS_DEFAULTS,
+  ...VISE_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

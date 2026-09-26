@@ -32,4 +32,17 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.oculusMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.oculusShatter": "the eye bursting. Same argument.",
   "boss.oculusOut": "the eye gone and the wave ending. Same argument, and an absence.",
+  // THE VISE's twelve: a case over the field, the same argument.
+  "boss.viseEnter": "the case settling over the field. A fixture, not a body on a grid.",
+  "boss.viseLight": "a step lighting on the case. Same argument.",
+  "boss.viseSlip": "a pinch let open, which is a gesture and no body. Same argument.",
+  "boss.viseCrack": "a seam cracking in a lobe. Same argument.",
+  "boss.viseSpring": "a lobe springing wide again. Same argument.",
+  "boss.viseBare": "both lobes split and the kernel bare. Same argument.",
+  "boss.viseHit": "a shot into the kernel. Same argument.",
+  "boss.viseBrace": "both lobes held off the kernel. Same argument.",
+  "boss.viseCover": "the lobes closing over the kernel. Same argument.",
+  "boss.viseMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.viseSplit": "the case splitting down its spine. Same argument.",
+  "boss.viseOut": "the case gone and the wave ending. Same argument, and an absence.",
 };

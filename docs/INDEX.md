@@ -299,6 +299,11 @@ by hand never moves.
 | `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how far apart the rows it changes lane on are, and the widest a single change can reach |
 | `packages/sim/src/creature-state-held.ts` | **The state a hand writes**, as opposed to the state the beat writes |
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
+| `packages/sim/src/vise-hand.ts` | Two pinches on THE VISE, one lobe each |
+| `packages/sim/src/vise-hash.ts` | What THE VISE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/vise-shot.ts` | **THE VISE's shot**: the bared kernel, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/vise-step.ts` | THE VISE's clock: the case settling, each step lighting, the beats a pinch is kept shut being counted |
+| `packages/sim/src/vise.ts` | THE VISE: a seed-case of two lobes over the middle column, each cracked by its own seat pinching it shut |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
@@ -406,6 +411,7 @@ by hand never moves.
 | `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
+| `packages/sim/src/config-vise.ts` | THE VISE's tuning: the rests around its steps, the grace a pinch is given |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
 | `packages/sim/src/config-valve.ts` | THE VALVE's tuning: the beats every row of its beat list takes, how near a mark counts as on it |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
@@ -478,6 +484,7 @@ by hand never moves.
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/events-vane.ts` | **What THE VANE's second and third hands do that neither screen already says** |
 | `packages/sim/src/events-valve.ts` | What THE VALVE says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-vise.ts` | What THE VISE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/hash-creature-tail.ts` | **The end of one body's fingerprint**, from THE BALLOON's eight to THE CRYSTAL's leg |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
@@ -791,6 +798,7 @@ by hand never moves.
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
+| `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1906,6 +1914,7 @@ by hand never moves.
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
 | `packages/audio/src/bind-valve.ts` | THE VALVE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-vise.ts` | THE VISE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |

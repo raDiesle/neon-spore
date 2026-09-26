@@ -44,6 +44,7 @@ import { BOSS_THROAT_SOUNDS } from "./sounds/boss-throat.js";
 import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
 import { BOSS_VALVE_SOUNDS } from "./sounds/boss-valve.js";
 import { BOSS_VANE_SOUNDS } from "./sounds/boss-vane.js";
+import { BOSS_VISE_SOUNDS } from "./sounds/boss-vise.js";
 import { BOSS_WARDEN_SOUNDS } from "./sounds/boss-warden.js";
 import { BOSS_WELL_SOUNDS } from "./sounds/boss-well.js";
 import { CREATURE_SOUNDS } from "./sounds/creature.js";
@@ -98,6 +99,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_VALVE_SOUNDS,
   ...BOSS_SEAM_SOUNDS,
   ...BOSS_OCULUS_SOUNDS,
+  ...BOSS_VISE_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

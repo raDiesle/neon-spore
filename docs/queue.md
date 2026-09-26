@@ -459,7 +459,7 @@ proves it.
 ## THE NETTLE — effects: the strikes, the hurt flash and the death
 
 - **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)
-- **Needs:** THE NETTLE's look, above, landed first
+- **Needs:** THE NETTLE — the look
 - **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`
 
 Lane three. Right now `instar-fx.ts` skips any part THE NETTLE has that THE
@@ -541,24 +541,6 @@ Lane two: the six-leaf iris closing as a real iris does, each pair sliding
 across the face rather than fading — the one body in this batch drawn as
 mechanism rather than flesh — and the bared core lit in whichever cannon
 colour a beat wants. Stays unverified at tempo until the owner has looked.
-
-## §28 THE VISE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/peaceful-keller-lmm4gr (claim: claude/queue-28-the-vise-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-Two lobes read as a depth rather than a position: `SqueezeGap` (new — the
-gap between two touches on one body, falling as the fingers converge) cracks
-`viseGapLeftMilli` then `viseGapRightMilli` shut, and the bared kernel takes
-three fire hits with two defensive re-pinch beats against it closing again.
-Eleven steps, three movements. The full beat list and primitive table entry
-are §28 of `docs/spec/bosses-choreographed.md`. Named THE VISE, not THE HUSK
-— `packages/sim/src/pod-types.ts`'s `husk` pod already owns that name.
-`SQUEEZE ONE BODY` moves from `consider` to `specd` in
-`tools/director/src/gesture-unbuilt.ts` as part of this lane — already done,
-land it with the rest. THE SLOW on every squeeze and fire window. `bun run
-check` proves it.
 
 ## §29 THE RIME — the simulation lane
 

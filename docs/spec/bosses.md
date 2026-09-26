@@ -7967,6 +7967,111 @@ answered whole shatters the lens and ends the fight. Whether any of it
 *reads* — whether four beats of holding is long or short with a voice in the
 way — is the owner's eye, after lane two.
 
+## 11.45 THE VISE — the boss two pinches crack, then shoot into
+
+> A dry seed-case over the middle of the field, two lobes clamped on a
+> kernel. A seam lights on your lobe: pinch it shut and keep it shut. Two
+> seams a lobe and the kernel lies bare. Shoot it in its colour, and when the
+> lobes creep back, pinch both together.
+
+Designed as §28 of [bosses-choreographed](bosses-choreographed.md), the first
+of the concepts written to spend a gesture nobody had claimed — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. Where THE
+OCULUS asks two thumbs to *stay down*, this asks each to **close a distance**:
+the count only runs while the two touches on a lobe are pinched to within
+`viseShutMilli` of each other, and a gap opened back up starts it again.
+
+**It is four seams and three hits, and they are its health.** The state
+(`sim/vise.ts`, hashed in `sim/vise-hash.ts`) is the **phase** and the beat it
+began, the **cursor** into the script, the **cracks** in each lobe, the
+**hits** landed, whether the kernel is **bared**, each lobe's **gap** in
+thousandths, and the beats the lit pinch has been **held**. The script is the
+wave's (`ViseEntry.steps`), copied at install: each step asks `left`,
+`right`, `fire` or `both`, in a colour or `either`, for its own beats.
+
+**The rule, in one sentence.** Pinch your lobe shut until its seam cracks,
+and shoot the bared kernel in its colour.
+
+**The split.** Geometry, THE MANTLE's rule: `viseLobeLeft` is Player 1's and
+`viseLobeRight` Player 2's, and the wrong seat's pinch is not heard
+(`sim/vise-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
+under the middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/vise-step.ts`). The case settles for `viseStillBeats`,
+then the first step lights under THE SLOW (`openSlow(…, "ask")`). A pinch
+step counts each beat its lobe's gap — both gaps, for `both` — is at or under
+`viseShutMilli`, and is answered when the count reaches the step's beats; it
+stays lit for those beats plus `viseGraceBeats`. A `left` or `right` step
+answered cracks a seam in that lobe, and the fourth seam bares the kernel; a
+`both` step answered holds the lobes off it. An answered step closes THE SLOW
+and the case rests `viseRestBeats` before the next lights. With the script
+done the case splits, and hangs `viseSplitBeats` before the wave may end.
+
+**The answers.** A pinch that widens back past shut, in a lit pinch step, is
+a slip: the count goes back to nought, and nothing else is lost; a pinch
+lifted is the lobe back at `viseOpenMilli`. A shot is judged where a bolt
+leaves the top of the field (`sim/vise-shot.ts`): only with the kernel bare,
+only while a fire step is lit, only in the middle column, and only in its
+colour unless it is `either`. The wrong colour is a colour missed on the
+balance sheet and nothing else, THE SEAM's rule.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §28's
+  rows 6 and 8 say "ordinary hull hit" and row 10 says the kernel "stays
+  lit". In this game there is no ordinary hit (`wave-fail.ts`), so every fire
+  step run out breaches the hull under the case and the wave is lost — THE
+  SEAM's and THE OCULUS's precedent, and one rule rather than two.
+- **A pinch run out is tried again.** A seam run out springs its lobe wide;
+  a `both` run out closes the lobes over the kernel. Either way the case
+  rests and lights *the same step* again, so row 7's "fire beats lost until
+  it bares again" is the `both` asked again before the next fire step can
+  light.
+- **Row 7's "pinch to hold them open" is both lobes pinched shut.** The
+  pinch is the only way a lobe is held at all, so holding the case open is
+  the same gesture as cracking it, on both lobes at once; "open" is what the
+  case does, never what the gap does.
+- **There is no break step.** Row 5 bares the kernel in the same breath as
+  the fourth seam, so the bare is the seam's own consequence rather than a
+  step of the script; a script that asks for a shot before four seams are
+  cracked is a shot that cannot land.
+- **A gap is recorded whenever the case is present.** A pinch already shut
+  when a step lights is counted from its first beat — otherwise the pair
+  would have to open and close again to be heard.
+- **A pinch is given grace past its count.** §28's "5 beats, held" is the
+  count; the window is that plus `viseGraceBeats`. A window exactly the count
+  long could only be met by a gap shut on the tick it lit.
+- **The seams and the hits are the health together.** §28 names two lobes
+  plus a kernel of three hits; the script is nine steps, and the case splits
+  when the last is answered, which is the third hit.
+- **The gap rides the drag.** §28 names `viseGapLeftMilli` and
+  `viseGapRightMilli`; on the wire, `SqueezeGap` is the drag's own
+  `fromMilli` on `viseLobeLeft` and `viseLobeRight`, the thousandths between
+  the two touches, and the two gaps live in the state as `gapMilli`. The
+  primitive's other two costs — a one-thumb twin refused, and the iPhone's
+  `gesturechange` stopped — are the app's, and wait for lane two with the
+  body they are read on.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+carry all twelve of its events until lane two. The twelve sounds *are* bound
+(`audio/src/bind-vise.ts`), heard where they happen, the crack pitched up per
+seam and the hit per hit. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/vise.test.ts`): the case comes in still with both lobes whole and
+wide, and lights its first pinch under THE SLOW; no shot is taken while the
+kernel is covered; a gap wider than shut counts nothing, the other lobe
+counts nothing, a gap widened or a pinch lifted starts the count again, and
+the wrong seat's pinch is not heard; a pinch run out springs and relights the
+same step; the fourth seam bares the kernel; a fire step wants its colour and
+the middle column, and run out is the wave; a `both` counts nothing for one
+lobe, and run out covers the kernel until it is held again; and a script
+answered whole splits the case and ends the fight. Whether any of it *reads*
+— whether five beats of pinching is long or short with a voice in the way —
+is the owner's eye, after lane two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

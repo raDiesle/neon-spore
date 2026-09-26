@@ -24,6 +24,7 @@ import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
 import { valveHashParts } from "./valve-hash.js";
+import { viseHashParts } from "./vise-hash.js";
 import { wellHashParts } from "./well-hash.js";
 
 /**
@@ -138,6 +139,11 @@ export function clockHashParts(boss: BossState): number[] {
   // and the script (`oculus-hash.ts`).
   if (boss.kind === "oculus") {
     for (const n of oculusHashParts(boss)) out.push(n);
+  }
+  // THE VISE: the phase, the cursor, the cracks, the hits, both gaps and
+  // the script (`vise-hash.ts`).
+  if (boss.kind === "vise") {
+    for (const n of viseHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

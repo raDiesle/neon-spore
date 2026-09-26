@@ -27,6 +27,7 @@ import { throatHeard } from "./throat-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
 import { valveHeard } from "./valve-hand.js";
+import { viseHeard } from "./vise-hand.js";
 import { wellHeard } from "./well-hand.js";
 import type { World } from "./world.js";
 
@@ -100,6 +101,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE OCULUS's two leaves, on the tick because a slip is the instant a
   // thumb lifts; the beats held are counted on the beat (`oculus-hand.ts`).
   for (const c of commands) oculusHeard(world, c.player, c.command);
+  // THE VISE's two gaps, on the tick for the same reason: a slip is the
+  // instant a gap widens back past shut (`vise-hand.ts`).
+  for (const c of commands) viseHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

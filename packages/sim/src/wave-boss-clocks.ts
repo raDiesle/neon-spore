@@ -22,6 +22,7 @@ import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
 import { installUndertow } from "./undertow-step.js";
 import { installValve } from "./valve-step.js";
+import { installVise } from "./vise-step.js";
 import type { BossEntry, World } from "./world.js";
 
 /**
@@ -73,6 +74,7 @@ const CLOCK_KINDS = [
   "valve",
   "seam",
   "oculus",
+  "vise",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -206,6 +208,10 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // No creature and no row: a lens over the middle and the script its
     // wave authored (`oculus-step.ts`).
     world.boss = installOculus(world, boss.steps);
+  } else if (boss.kind === "vise") {
+    // No creature and no row: a seed-case over the middle and the script its
+    // wave authored (`vise-step.ts`).
+    world.boss = installVise(world, boss.steps);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

@@ -135,4 +135,17 @@ export const CHOREO_NOTES_C = {
     "THE SLOW spans every step but the break. Only the simulation lane has " +
     "landed — see sim/oculus.ts, sim/oculus-step.ts, sim/oculus-hand.ts, " +
     "sim/oculus-shot.ts, sim/config-oculus.ts.",
+  "THE VISE — the boss two pinches crack, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §28: a pinch, each seat on " +
+    "its own lobe of a case clamping a kernel over the middle column, and a " +
+    "script the wave authors. A left or right step cracks a seam once that " +
+    "lobe's gap has stayed at or under viseShutMilli for its beats; the gap " +
+    "widening back starts the count again, and a step run out springs the lobe " +
+    "and relights it. Two seams a lobe bare the kernel; a fire step wants a " +
+    "shot in its colour; a both step is both lobes pinched at once, and one run " +
+    "out covers the kernel until it is held again. A fire step run out is a " +
+    "hull hit, which is the wave. The grace (viseGraceBeats) is how long a " +
+    "pinch step stays lit past its count. Only the simulation lane has " +
+    "landed — see sim/vise.ts, sim/vise-step.ts, sim/vise-hand.ts, " +
+    "sim/vise-shot.ts, sim/config-vise.ts.",
 } satisfies Partial<Record<GroupName, string>>;

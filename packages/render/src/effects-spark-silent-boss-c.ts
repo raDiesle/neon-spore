@@ -121,4 +121,17 @@ export const SILENT_BOSS_C = [
   "oculusMiss",
   "oculusShatter",
   "oculusOut",
+  // THE VISE's twelve, the same (`packages/audio/src/bind-vise.ts`).
+  "viseEnter",
+  "viseLight",
+  "viseSlip",
+  "viseCrack",
+  "viseSpring",
+  "viseBare",
+  "viseHit",
+  "viseBrace",
+  "viseCover",
+  "viseMiss",
+  "viseSplit",
+  "viseOut",
 ] as const satisfies readonly SimEvent["type"][];

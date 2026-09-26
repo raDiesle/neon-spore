@@ -244,6 +244,10 @@ const ACCEPTED: Command[] = [
   // (`sim/oculus-hand.ts`).
   { kind: "drag", target: "oculusLeafLeft", on: true, fromMilli: 0 },
   { kind: "drag", target: "oculusLeafRight", on: false, fromMilli: 0 },
+  // THE VISE's lobes are pinches, one a seat, the gap read off `fromMilli`
+  // (`sim/vise-hand.ts`).
+  { kind: "drag", target: "viseLobeLeft", on: true, fromMilli: 640 },
+  { kind: "drag", target: "viseLobeRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -398,6 +402,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   valvePin: true,
   oculusLeafLeft: true,
   oculusLeafRight: true,
+  viseLobeLeft: true,
+  viseLobeRight: true,
   crank: true,
 };
 

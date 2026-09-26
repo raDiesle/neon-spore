@@ -176,6 +176,19 @@ export const INGEST_SILENT_BOSS_C = [
   "oculusMiss",
   "oculusShatter",
   "oculusOut",
+  // THE VISE's twelve, for the same reason (`packages/audio/src/bind-vise.ts`).
+  "viseEnter",
+  "viseLight",
+  "viseSlip",
+  "viseCrack",
+  "viseSpring",
+  "viseBare",
+  "viseHit",
+  "viseBrace",
+  "viseCover",
+  "viseMiss",
+  "viseSplit",
+  "viseOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

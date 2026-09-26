@@ -27,6 +27,7 @@ import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
 import { stepValve } from "./valve-step.js";
+import { stepVise } from "./vise-step.js";
 import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
 
@@ -204,6 +205,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE OCULUS: steps lit, holds counted, and the shatter (`oculus-step.ts`).
   if (boss.kind === "oculus") {
     stepOculus(world, boss);
+    return;
+  }
+  // THE VISE: steps lit, pinches counted, and the split (`vise-step.ts`).
+  if (boss.kind === "vise") {
+    stepVise(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

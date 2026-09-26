@@ -34,6 +34,7 @@ import type { TasterState } from "./taster.js";
 import type { ThroatState } from "./throat.js";
 import type { UndertowState } from "./undertow.js";
 import type { ValveState } from "./valve.js";
+import type { ViseState } from "./vise.js";
 import type { WellState } from "./well.js";
 
 /**
@@ -105,4 +106,5 @@ export type BossState =
   | KeelState
   | ValveState
   | SeamState
-  | OculusState;
+  | OculusState
+  | ViseState;

@@ -18,6 +18,7 @@ import { tasterStruck } from "./taster-shot.js";
 import type { Bullet } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
 import { vaneStruck } from "./vane.js";
+import { viseStruck } from "./vise-shot.js";
 import { failWave } from "./wave-fail.js";
 import type { World } from "./world.js";
 
@@ -81,6 +82,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   seamStruck(world, b);
   // THE OCULUS's open socket, in its colour (`oculus-shot.ts`).
   oculusStruck(world, b);
+  // THE VISE's bared kernel, in its colour (`vise-shot.ts`).
+  viseStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -130,6 +133,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "valve",
   "seam",
   "oculus",
+  "vise",
   "hasp",
   "ratchet",
   "hive",

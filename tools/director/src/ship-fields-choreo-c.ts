@@ -121,4 +121,13 @@ export const CHOREO_FIELD_GROUP_C = {
   oculusRestBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
   oculusGraceBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
   oculusShatterBeats: "THE OCULUS — the boss both hands hold shut, then shoot into",
+  // ViseConfig — the rests around the steps, the grace a pinch is given on
+  // top of its count, the split, and what open and shut are (`config-vise.ts`).
+  // The script is the wave's own.
+  viseStillBeats: "THE VISE — the boss two pinches crack, then shoot into",
+  viseRestBeats: "THE VISE — the boss two pinches crack, then shoot into",
+  viseGraceBeats: "THE VISE — the boss two pinches crack, then shoot into",
+  viseSplitBeats: "THE VISE — the boss two pinches crack, then shoot into",
+  viseOpenMilli: "THE VISE — the boss two pinches crack, then shoot into",
+  viseShutMilli: "THE VISE — the boss two pinches crack, then shoot into",
 } satisfies Record<string, GroupName>;

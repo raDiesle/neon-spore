@@ -1097,6 +1097,16 @@
       "mean": 0,
       "p90": 0,
       "unmeasured": true
+    },
+    {
+      "id": "theVise",
+      "wave": 107,
+      "name": "THE VISE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     }
   ]
 }

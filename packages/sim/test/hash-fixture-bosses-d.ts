@@ -73,6 +73,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", color: "red", beats: 3 },
     ],
   },
+  // THE VISE authors its script; two steps rather than the shipped nine
+  // (`vise-hash.ts`).
+  vise: {
+    kind: "vise",
+    steps: [
+      { ask: "left", color: "cyan", beats: 5 },
+      { ask: "fire", color: "red", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -188,6 +197,18 @@ export function patchBossD(boss: BossState): void {
     boss.hits = 1;
     boss.socketOpen = true;
     boss.held = [true, true];
+    boss.heldBeats = 2;
+  }
+  if (boss.kind === "vise") {
+    // The left lobe cracked once with the kernel bare — every field given a
+    // value (`vise-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.cracks = [1, 2];
+    boss.hits = 1;
+    boss.bared = true;
+    boss.gapMilli = [400, 2100];
     boss.heldBeats = 2;
   }
 }

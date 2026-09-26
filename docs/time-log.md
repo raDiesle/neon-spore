@@ -22445,3 +22445,18 @@ Bottleneck: writing — a boss's body is four files before a single frame can be
 Bottleneck: reading — the lid's pull is only taut if it survives the clamp to the field, which is two rules in two files.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VISE, the simulation lane
+
+- reading: 15 min. §28's beat list and THE OCULUS's files as the template,
+  the drag's `fromMilli` as the gap.
+- writing: 80 min. Seven sim files, the registrations across audio,
+  content, render, net and the director, a new act file, nineteen tests,
+  §11.45.
+- looking: 0 min. Nothing drawn.
+- friction: 10 min. A missing `LateEvent` member the typecheck found late,
+  and `act-11.ts` too full to take the wave.
+- landing: 15 min. `check:fast`, the commit, `land`.
+
+Bottleneck: registrations again — the twelve events and six config fields
+named in a dozen files, and the act split that the line limit forced.

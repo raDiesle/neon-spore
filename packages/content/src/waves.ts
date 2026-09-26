@@ -22,6 +22,7 @@ import { WAVES_ACT_8B } from "./waves/act-8b.js";
 import { WAVES_ACT_9 } from "./waves/act-9.js";
 import { WAVES_ACT_10 } from "./waves/act-10.js";
 import { WAVES_ACT_11 } from "./waves/act-11.js";
+import { WAVES_ACT_12 } from "./waves/act-12.js";
 
 export type {
   BossType,
@@ -74,6 +75,7 @@ export const WAVES: Wave[] = [
   ...WAVES_ACT_9,
   ...WAVES_ACT_10,
   ...WAVES_ACT_11,
+  ...WAVES_ACT_12,
 ];
 
 /**

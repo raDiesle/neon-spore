@@ -28,6 +28,7 @@ import type {
   ThroatEntry,
   UndertowEntry,
   ValveEntry,
+  ViseEntry,
   WellEntry,
 } from "@neon-spore/sim";
 
@@ -169,6 +170,7 @@ import type {
  *
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
+ *   THE VISE's too: its kernel is `midCol` (`sim/vise.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
@@ -205,7 +207,8 @@ export function bossAuthorsNothing(
   | KeelEntry
   | ValveEntry
   | SeamEntry
-  | OculusEntry {
+  | OculusEntry
+  | ViseEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -239,6 +242,7 @@ export function bossAuthorsNothing(
     kind === "keel" ||
     kind === "valve" ||
     kind === "seam" ||
-    kind === "oculus"
+    kind === "oculus" ||
+    kind === "vise"
   );
 }

@@ -31,6 +31,7 @@ import type { ThroatEvent } from "./events-throat.js";
 import type { UndertowEvent } from "./events-undertow.js";
 import type { ValveEvent } from "./events-valve.js";
 import type { VaneEvent } from "./events-vane.js";
+import type { ViseEvent } from "./events-vise.js";
 import type { WardenEvent } from "./events-warden.js";
 import type { WellEvent } from "./events-well.js";
 
@@ -77,6 +78,7 @@ export type BossEvent =
   | ValveEvent
   | SeamEvent
   | OculusEvent
+  | ViseEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -124,5 +126,6 @@ export type { ThroatEvent } from "./events-throat.js";
 export type { UndertowEvent } from "./events-undertow.js";
 export type { ValveEvent } from "./events-valve.js";
 export type { VaneEvent } from "./events-vane.js";
+export type { ViseEvent } from "./events-vise.js";
 export type { WardenEvent } from "./events-warden.js";
 export type { WellEvent } from "./events-well.js";

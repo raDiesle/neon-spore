@@ -130,6 +130,26 @@ export {
   valveOnMark,
   valveTurning,
 } from "./valve.js";
+// THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
+// the picture, the cue and the director's hand. Straight off `vise.ts`
+// (`docs/spec/bosses-choreographed.md` §28).
+export {
+  freshVise,
+  VISE_ASKS,
+  VISE_PHASES,
+  VISE_SEAMS_PER_LOBE,
+  type ViseAsk,
+  type ViseEntry,
+  type VisePhase,
+  type ViseState,
+  type ViseStep,
+  viseBoss,
+  viseClosed,
+  viseDone,
+  viseLitStep,
+  viseShut,
+  vising,
+} from "./vise.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

@@ -32,7 +32,9 @@ export type DragTargetD =
   | "valveWheel"
   | "valvePin"
   | "oculusLeafLeft"
-  | "oculusLeafRight";
+  | "oculusLeafRight"
+  | "viseLobeLeft"
+  | "viseLobeRight";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -191,4 +193,17 @@ export type DragTargetD =
  * wrong seat's message does nothing (`oculus-hand.ts`). What a hold is worth
  * is a number of beats both are down together, counted on the beat. No `id`:
  * one lens, two leaves.
+ */
+
+/**
+ * `viseLobeLeft` and `viseLobeRight` are the seventy-fifth and seventy-sixth:
+ * one lobe of THE VISE's seed-case under each seat's pinch.
+ *
+ * Read as a **gap** — `fromMilli` is the distance between the two touches on
+ * the lobe, in thousandths of a tile, falling as they converge: `SqueezeGap`,
+ * the first target whose number is two touches apart rather than one touch
+ * moved. Geometry says whose is whose, `oculusLeafLeft`'s reason: the pilot's
+ * is always the left lobe and the navigator's the right, so the wrong seat's
+ * message does nothing (`vise-hand.ts`). Lifted, the lobe is back open. No
+ * `id`: one case, two lobes.
  */

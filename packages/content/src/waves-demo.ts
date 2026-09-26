@@ -170,6 +170,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   valve: { wave: "theValve" },
   seam: { wave: "theSeam" },
   oculus: { wave: "theOculus" },
+  vise: { wave: "theVise" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },
