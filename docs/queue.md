@@ -904,6 +904,7 @@ what the rest of this file holds.
 ## §32 THE SLING — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, tmp-sling-look-wt (claim: claude/queue-32-the-sling-the-look)
 - **Needs:** §32 THE SLING's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
