@@ -24561,3 +24561,30 @@ Bottleneck: landing — a two-line row waits on the full suite.
 Bottleneck: writing — a half left alone had to regrow in the whiteout without undoing the one just wiped.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §35 THE DAVIT — the look (claude/queue-35-the-davit-the-look)
+
+- reading: 30 min. THE PLUMB's lean sender and THE SLING's draw sender, to
+  see which of the two the boom's swing and the hook's loose each reuse;
+  `boss-strike-look.ts`'s two tables for where a blow's `FROM` and `LOOK`
+  rows go; the `new-boss` and `depth` skills' five-point bar.
+- writing: 100 min. `davit-shape.ts`, `davit-pose.ts`, `davit-draw.ts`,
+  `davit-marks.ts`, `davit-blow.ts`, `davit-grip.ts`, the lean sender's
+  generalisation off THE PLUMB in `apps/game/src/lean.ts`,
+  `davit-frame.test.ts` across every state on three screens, and
+  `docs/spec/bosses.md` §11.52's *The look* section.
+- looking: 15 min. `bun run frames` at rest, mid-swing and lit, to see the
+  boom stand off its mast and the hook catch its colour.
+- friction: 20 min. A stale `docs/INDEX.md` after the new render files
+  landed, fixed by `bun run index`; three palette colours
+  (`davitSteel`/`davitSteelDark`/`davitChain`) missing from
+  `tools/style-guide/src/families.ts`'s filing, caught by
+  `style-guide.test.ts` and fixed by hand, then `bun run style-guide`
+  to regenerate the sheet.
+- landing: 15 min. `check:fast` green after the two fixes above; the ledger
+  rows for THE DAVIT in `docs/spec/bosses-choreographed.md` updated by hand
+  to say the look is done; `bun run land`.
+
+Bottleneck: friction — a new boss's render files carry two more registrations
+than the code itself does, an index row and a palette filing, and both only
+surface as a red check well after the drawing is finished.

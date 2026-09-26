@@ -184,6 +184,14 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     () => pointerSeat(o.role(), desk.seat()),
     () => (world.boss?.kind === "plumb" ? world.boss : null),
   );
+  // And THE DAVIT's, the same lean steering its boom instead of a weight
+  // (`lean.ts`, `sim/davit-hand.ts`).
+  bindLean(
+    buffer,
+    () => pointerSeat(o.role(), desk.seat()),
+    () => (world.boss?.kind === "davit" ? world.boss : null),
+    (p) => (p === 1 ? "davitSteerLeft" : "davitSteerRight"),
+  );
 
   const brief = bindBriefing({
     canvas,

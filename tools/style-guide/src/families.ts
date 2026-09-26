@@ -70,6 +70,9 @@ export const FAMILIES: Family[] = [
       "plumbBronze",
       "plumbBronzeDark",
       "plumbGlass",
+      "davitSteel",
+      "davitSteelDark",
+      "davitChain",
     ],
   },
   {

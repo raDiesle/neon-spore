@@ -140,8 +140,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // maw's rule on the boss's own ship (`sim/mirror-hand.ts`) — so the lift
     // says where the hand ended; THE WARDEN's hatch is the second, a swipe
     // (`sim/warden-hand.ts`). THE SLING's own cords are the third, loosed
-    // toward whichever column is lit (`sim/sling-hand.ts`). Every other
-    // drag's lift only lets go.
+    // toward whichever column is lit (`sim/sling-hand.ts`), and THE DAVIT's
+    // hook the fourth, the same gesture off its one shared boom
+    // (`sim/davit-hand.ts`). Every other drag's lift only lets go.
     // A pinch's finger lets go of nothing alone: the pair's lift is the one
     // that opens the lobe again (`pinch.ts`). A chord's finger lifts the pad
     // its host counted it as (`chord.ts`).
@@ -150,7 +151,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
       hold.target === "mirrorLobe" ||
       hold.target === "wardenHatch" ||
       hold.target === "slingDrawLeft" ||
-      hold.target === "slingDrawRight";
+      hold.target === "slingDrawRight" ||
+      hold.target === "davitLooseLeft" ||
+      hold.target === "davitLooseRight";
     const carried = swiped && at !== undefined;
     const dx = carried ? Math.round(((at.x - hold.originX) * 1000) / l.tile) : 0;
     const dy = carried ? Math.round(((at.y - hold.originY) * 1000) / l.tile) : 0;

@@ -1922,6 +1922,12 @@ by hand never moves.
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
 | `packages/render/src/dark-tap.ts` | **A finger on THE DARK**: a press anywhere on the field lights the square under it |
+| `packages/render/src/davit-blow.ts` | **THE DAVIT's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/davit-draw.ts` | **THE DAVIT** (§35): a crane boom on a mast over the middle column |
+| `packages/render/src/davit-grip.ts` | **THE DAVIT's two looses as controls**: `davitLooseLeft` is the pilot's (seat 1) |
+| `packages/render/src/davit-marks.ts` | A step's colour on the canvas: its cannon's, or the hull's rim for one either answers (§32's rule, shared) |
+| `packages/render/src/davit-pose.ts` | THE DAVIT's timing: how far the boom has stood up out of stowed, how far a lit step's window has run |
+| `packages/render/src/davit-shape.ts` | **THE DAVIT's geometry**: a boom stowed pointing straight up off a mast over the middle column |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
@@ -2265,7 +2271,7 @@ by hand never moves.
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
-| `apps/game/src/lean.ts` | **The phone's own lean**, which is THE PLUMB's control |
+| `apps/game/src/lean.ts` | **The phone's own lean**, first THE PLUMB's control |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
 | `apps/game/src/join-step-view.ts` | the chrome around whichever of the room screen's four steps is up — the blocks, the heading, the one way back |

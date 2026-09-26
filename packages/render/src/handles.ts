@@ -2,6 +2,7 @@ import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
+import { davitLooseUnder } from "./davit-grip.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
@@ -134,7 +135,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     oculusLeafUnder(l, x, y, field) ?? // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
     viseLobeUnder(l, x, y, field) ?? // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
     slingDrawUnder(l, x, y, field) ?? // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
-    trivetPadUnder(l, x, y, field) // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
+    trivetPadUnder(l, x, y, field) ?? // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
+    davitLooseUnder(l, x, y, field) // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
   );
 }
 

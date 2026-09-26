@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
 import { drawHasp } from "./hasp-draw.js";
@@ -51,6 +52,7 @@ export const PAIR_KINDS = [
   "sling",
   "trivet",
   "plumb",
+  "davit",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -214,5 +216,17 @@ export function drawPairBoss(
   // the same — the other seat has to see whose bubble is off to say so
   // (`plumb-draw.ts`). Nothing of it outlives a frame yet: its hands and
   // effects are the second half of its look.
-  drawPlumb(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "plumb") {
+    drawPlumb(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE DAVIT: a crane boom over the middle column, swung by whichever seat's
+  // lean is steering it and let go by a loose off each seat's own thumb, a
+  // hook on the end of its slack chain both cannons are asked to hit. Both
+  // screens are drawn the same — the other seat has to see which half the
+  // lean is steering and how far the lit step's window has run
+  // (`davit-draw.ts`). Nothing of it outlives a frame yet: its hands and
+  // effects are the second half of its look.
+  drawDavit(ctx, l, world, boss, beat, beatPhase, time);
 }

@@ -9560,14 +9560,28 @@ unless it is `either`.
   *drawn* creeping is a picture, and the simulation's drift is one
   number, `davitDriftMilli`.
 
-**The simulation lane has landed.** Nothing in `apps/game` sends a
-`davitSteer*` or `davitLoose*` drag yet, so the boom cannot be answered on
-a real phone — the touch sender is queued with the look (`docs/queue.md`).
-Nothing of it is drawn: the render package's silent-event lists and
-`tools/director/src/sound-link-none-d.ts` carry all thirteen of its events
-until lane two. The thirteen sounds *are* bound (`audio/src/bind-davit.ts`),
-all in the middle, a loose and a hit pitched up as they add up. There is no
-autopilot hand yet (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+**The look** (`render/src/davit-draw.ts`, `davit-marks.ts`, `davit-pose.ts`,
+`davit-shape.ts`). A steel boom stands off a mast over the middle column,
+settling up out of stowed under `davitStood`, and swings toward whichever
+half the live `aimMilli` points into. While the lit step wants a lean — a
+swing or a reland, never a fire step — a pulsing halo rings the boom, off
+`drawDavit`'s own `ask !== "fire" && ask !== "reland"` read of the script;
+a fire step drops the halo and lights the hook instead, in that step's own
+colour, with a ring that closes as `davitWindowLeft` runs its window out.
+Between steps the hook hangs dark. `apps/game`'s lean sender is the one
+THE PLUMB already had, generalised to send `davitSteerLeft` /
+`davitSteerRight` when a boss asks for them rather than PLUMB's own
+targets (`apps/game/src/lean.ts`); the loose is THE SLING's draw sender,
+unchanged, since `davitLooseLeft` / `davitLooseRight` are ordinary drag
+targets. A window run out at a fire step breaks the hull with the boom's
+own blow (`render/src/davit-blow.ts`): the hook pays its chain out onto the
+plating and is hauled back taut, never a rock. `render/test/davit-frame.test.ts`
+covers every state — stowed, resting, swung either way, asking, lit red or
+cyan, spent — on all three screens. There is still no autopilot hand
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), and the events
+themselves stay off the two silent lists' pictures: the state they carry
+(the aim, the phase, the lit colour) is already read straight off `world`
+every frame, so no event needs a picture of its own.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/davit.test.ts`): the boom comes in with the pivot dark and no
@@ -9584,7 +9598,7 @@ column, and run out is the wave; a reland is either seat's, and run out
 dims the pivot until it is made; and a script answered whole swings the
 boom spent and ends the fight. Whether any of it *reads* — whether leaning
 a phone for a partner's draw feels like aiming for them — is the owner's
-eye, after lane two and the touch sender, on two real phones.
+eye, on two real phones.
 
 ## Retired
 

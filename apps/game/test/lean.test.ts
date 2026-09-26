@@ -1,23 +1,28 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import type { Command } from "@neon-spore/sim";
+import type { Command, DragTarget } from "@neon-spore/sim";
 import { askForLean, LEAN_STEP_MILLI, leanMilli, leanReader } from "../src/lean.js";
 
 /**
- * **THE PLUMB's lean on the wire** (`lean.ts`): one reading per half degree
- * moved, never one per event; only while a bob is on the field; the seat's
- * own weight; and `on: false` once when the page loses the sensor. The
- * reader is tested without a page — the listener around it is two lines.
+ * **THE PLUMB's and THE DAVIT's lean on the wire** (`lean.ts`): one reading
+ * per half degree moved, never one per event; only while a bob is on the
+ * field; the seat's own weight; and `on: false` once when the page loses the
+ * sensor. Both bosses share the same reader — only the target it sends
+ * differs, PLUMB's the default and DAVIT's passed explicitly. The reader is
+ * tested without a page — the listener around it is two lines.
  */
 
 type Sent = { player: 1 | 2; command: Command };
 
-function reader(o: { seat?: 1 | 2; bob?: () => object | null } = {}) {
+function reader(
+  o: { seat?: 1 | 2; bob?: () => object | null; target?: (p: 1 | 2) => DragTarget } = {},
+) {
   const sent: Sent[] = [];
   const bob = {};
   const r = leanReader(
     (player, command) => sent.push({ player, command }),
     () => o.seat ?? 1,
     o.bob ?? (() => bob),
+    o.target,
   );
   return { r, sent };
 }
@@ -108,6 +113,17 @@ describe("leanReader", () => {
     const { r, sent } = reader();
     r.read(Number.NaN);
     expect(sent).toHaveLength(0);
+  });
+
+  it("sends THE DAVIT's own targets when told to, not PLUMB's", () => {
+    const target: (p: 1 | 2) => DragTarget = (p) =>
+      p === 1 ? "davitSteerLeft" : "davitSteerRight";
+    const left = reader({ seat: 1, target });
+    const right = reader({ seat: 2, target });
+    left.r.read(2);
+    right.r.read(2);
+    expect(left.sent[0]?.command).toMatchObject({ target: "davitSteerLeft" });
+    expect(right.sent[0]?.command).toMatchObject({ target: "davitSteerRight" });
   });
 });
 

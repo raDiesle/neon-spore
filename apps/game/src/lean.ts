@@ -1,16 +1,20 @@
-import type { Command } from "@neon-spore/sim";
+import type { Command, DragTarget } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
- * **The phone's own lean**, which is THE PLUMB's control: each seat holds its
+ * **The phone's own lean**, first THE PLUMB's control: each seat holds its
  * phone level to hang its weight true (`docs/spec/bosses-choreographed.md`
- * §31, `sim/plumb-hand.ts`). The second input in the game that is not a
- * finger on the glass, and it lives beside the first (`shake.ts`).
+ * §31, `sim/plumb-hand.ts`), and now THE DAVIT's too, steering its boom onto
+ * a lit column the same way (§35, `sim/davit-hand.ts`). The second input in
+ * the game that is not a finger on the glass, and it lives beside the first
+ * (`shake.ts`).
  *
  * **What goes on the wire is `gamma`, the phone's roll left or right, in
- * thousandths of a degree** — `LevelTilt`, as §31 names it — as a drag on the
- * seat's own weight: the pilot's `plumbLevelLeft`, the navigator's
- * `plumbLevelRight`. `on: false` is a phone that has stopped being read.
+ * thousandths of a degree** — `LevelTilt`, as §31 names it — as a drag on
+ * whichever target the boss reading it is asking for: PLUMB's own weight
+ * (`plumbLevelLeft`/`Right`) or DAVIT's boom (`davitSteerLeft`/`Right`), the
+ * pilot's the left of either pair and the navigator's the right. `on: false`
+ * is a phone that has stopped being read.
  *
  * **Not every event is sent.** A browser reports orientation at up to sixty
  * a second and every one sent is a command in the lockstep buffer, so a
@@ -18,10 +22,10 @@ import type { InputBuffer } from "./input-buffer.js";
  * sent. The ranges it is judged against are four to eight degrees, so half a
  * degree is finer than any of them can tell.
  *
- * **Only while a bob is on the field.** A lean at any other wave is a
- * command nothing hears, so none is sent; and a new bob — the wave started
- * again — begins with neither phone read (`freshPlumb`), so the reader forgets
- * what it sent and tells the new one at its next event.
+ * **Only while the boss reading it is on the field.** A lean at any other
+ * wave is a command nothing hears, so none is sent; and a fresh boss —
+ * the wave started again — begins with neither phone read, so the reader
+ * forgets what it sent and tells the new one at its next event.
  */
 
 /** How far, in thousandths of a degree, a lean must move before it is sent again. */
@@ -44,17 +48,18 @@ export interface LeanReader {
 
 /**
  * The reader without the page: what a reading is sent as, and when. `bob` is
- * the plumb on the field or `null`, compared by identity so a restarted wave
- * is a new bob.
+ * the boss reading it on the field or `null`, compared by identity so a
+ * restarted wave is a new bob. `target` names the pilot's and the
+ * navigator's drag target for whichever boss is asking.
  */
 export function leanReader(
   push: (player: 1 | 2, command: Command) => void,
   seat: () => 1 | 2,
   bob: () => object | null,
+  target: (p: 1 | 2) => DragTarget = (p) => (p === 1 ? "plumbLevelLeft" : "plumbLevelRight"),
 ): LeanReader {
   let sent: number | null = null;
   let heard: object | null = null;
-  const target = (p: 1 | 2) => (p === 1 ? "plumbLevelLeft" : "plumbLevelRight");
   return {
     read: (gamma) => {
       const now = bob();
@@ -85,9 +90,14 @@ export function leanReader(
  * **iOS's permission is not asked for here**, `shake.ts`'s reason: it can
  * only be requested from a press. `askForLean` below asks.
  */
-export function bindLean(buffer: InputBuffer, seat: () => 1 | 2, bob: () => object | null): void {
+export function bindLean(
+  buffer: InputBuffer,
+  seat: () => 1 | 2,
+  bob: () => object | null,
+  target?: (p: 1 | 2) => DragTarget,
+): void {
   if (typeof window === "undefined" || typeof document === "undefined") return;
-  const reader = leanReader((p, c) => buffer.push(p, c), seat, bob);
+  const reader = leanReader((p, c) => buffer.push(p, c), seat, bob, target);
   window.addEventListener("deviceorientation", (e: DeviceOrientationEvent) => {
     // Desktop browsers deliver one event with every field null, and so does a
     // phone whose sensor was refused: that is silence, not a lean of nought.

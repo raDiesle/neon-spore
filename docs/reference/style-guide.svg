@@ -324,6 +324,21 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">plumbGlass</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E3EEC4 76°</text>
     </g>
+    <g transform="translate(420 1856)">
+      <rect width="66" height="46" rx="4" fill="#7C8797" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">davitSteel</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#7C8797 216°</text>
+    </g>
+    <g transform="translate(496 1856)">
+      <rect width="66" height="46" rx="4" fill="#2C323B" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">davitSteelDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2C323B 216°</text>
+    </g>
+    <g transform="translate(572 1856)">
+      <rect width="66" height="46" rx="4" fill="#9B9384" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">davitChain</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#9B9384 39°</text>
+    </g>
 <text x="40" y="1962" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE FILM</text>
 <text x="150" y="1962" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.</text>
     <g transform="translate(40 1978)">

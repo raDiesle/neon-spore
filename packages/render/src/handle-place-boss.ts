@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { curtainHemAt } from "./curtain-grip.js";
+import { davitLooseCircle } from "./davit-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
 import { hiveHaulCircle } from "./hive-grip.js";
@@ -172,6 +173,13 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "trivet" ? world.boss : null;
     if (b === null || !trivetTakesChord(b)) return null;
     return trivetFootStanding(l, world, b, target === "trivetPadFront" ? 1 : 2, beatPhase);
+  }
+  if (target === "davitLooseLeft" || target === "davitLooseRight") {
+    // THE DAVIT's hook, the one shared rest handle either seat's loose takes
+    // it at — the boom itself never moves for a hand (`davit-grip.ts`).
+    const b = world.boss?.kind === "davit" ? world.boss : null;
+    if (b === null) return null;
+    return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);
   }
   return undefined;
 }

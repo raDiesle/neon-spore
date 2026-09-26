@@ -64,5 +64,9 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
     if (b.padsDown[seat === 1 ? 0 : 1] === 0) return null;
     return handleCircle(l, world, seat === 1 ? "trivetPadFront" : "trivetPadRear", beatPhase);
   }
+  if (b?.kind === "davit") {
+    if (!b.holding[seat === 1 ? 0 : 1]) return null;
+    return handleCircle(l, world, seat === 1 ? "davitLooseLeft" : "davitLooseRight", beatPhase);
+  }
   return null;
 }

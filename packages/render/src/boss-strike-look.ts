@@ -1,4 +1,6 @@
 import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
+import { davitBlow } from "./davit-blow.js";
+import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
 import { gimbalBlow } from "./gimbal-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
@@ -77,6 +79,13 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   },
   valve: valveCentre,
   spool: spoolHome,
+  // The hook at the chain's end, stowed — off the same shape the boom draws
+  // itself from (`davit-shape.ts`).
+  davit: (l, cfg) => {
+    const mast = davitMast(l, cfg);
+    const hook = davitHook(l, 0, 1);
+    return { x: mast.x + hook.x, y: mast.y + hook.y };
+  },
   mantle: mantleCentre,
   // The body's underside, where the cord leaves it: the side the plate is
   // wrenched toward (`ledger-blow.ts`).
@@ -140,6 +149,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   plumb: plumbBlow,
   // A hub left unshot: the middle needle stamps the stand's footprint into the skin.
   trivet: trivetBlow,
+  // Its hook is already hanging off the boom in sight; the blow pays the
+  // chain the rest of the way out and hauls it back taut.
+  davit: davitBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
