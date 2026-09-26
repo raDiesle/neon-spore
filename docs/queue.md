@@ -841,6 +841,7 @@ what the rest of this file holds.
 ## `byDepth()` sorts and copies every creature, every frame, whatever is on screen
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-bydepth-sorts-and-copies-every-creature-every-fr)
 - **Files:** `packages/render/src/depth.ts`, `packages/render/src/frame-field.ts`
 
 `byDepth()` (`depth.ts:148`) does `[...creatures].sort(...)` once per frame
