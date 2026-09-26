@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 284d082b8 — THE INSTAR's turn between its two views no longer costs two to five times a still frame
+
+The dive a third into its morph drew 1390 times with 302 gradients; it now draws 1066 with 91, and the roar, coil and hover turns come down with it to 1090–1125 draws and 115–138 gradients against 700–800 at rest. Tubes are sliced by their size on the screen rather than the body's own, a slice or tube past the canvas edge is not filled, and a view flown off the field is not drawn at all, bounded by a box a pixel test holds over the whole script. `instar-budget.test.ts` keeps the turn there.
+
 ## 2026-09-26 · 3315fbcaa — Queue: THE VALVE's fuller story arc is done
 
 ## 2026-09-26 · babf72274 — THE VALVE's story states are drawn: the jet, the brace, the wipe, the seal

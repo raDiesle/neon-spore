@@ -24275,3 +24275,5 @@ to show.
 - landing: 5 min. `check:fast`, a copies-test hit on a re-derived `instarFarEnd`, this entry, `land`.
 
 Bottleneck: writing — a view can only be left undrawn by a box it provably stays inside, and measuring that box over the whole script was most of the work.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
