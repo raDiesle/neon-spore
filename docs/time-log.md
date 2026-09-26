@@ -23645,3 +23645,13 @@ Bottleneck: landing — the full check is longer than the lane.
 
 Bottleneck: none — the boss's own design (gated standard controls, no new
 gesture) meant the new states only needed new pictures, not new mechanics.
+
+## 2026-09-26 — THE SEAM's own blow: its crack runs down to the hull
+
+- reading: 5 min. THE SEAM's shape, its colours, where its crack ends.
+- writing: 10 min. `seam-blow.ts`, its `FROM` and `LOOK` rows, the test row.
+- looking: 5 min. Two frames of the timeout.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a crack with lips needs its own outline, not a stroke.

@@ -5,7 +5,8 @@ import type { Layout } from "./layout.js";
 import { mantleCentre } from "./mantle-shape.js";
 import { oculusCentre } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
-import { seamCentre } from "./seam-shape.js";
+import { seamBlow } from "./seam-blow.js";
+import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
 import { valveCentre } from "./valve-shape.js";
 
@@ -46,14 +47,20 @@ export type StrikeLook = (ctx: CanvasRenderingContext2D, f: StrikeFrame) => void
 const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   oculus: oculusCentre,
   gimbal: gimbalCentre,
-  seam: seamCentre,
+  // Out of the bottom lobe, where the ridge's crack ends (`seam-blow.ts`).
+  seam: (l, cfg) => {
+    const c = seamCentre(l, cfg);
+    return { x: c.x, y: c.y + seamHalfHeight(l) * 0.9 };
+  },
   valve: valveCentre,
   spool: spoolHome,
   mantle: mantleCentre,
 };
 
 /** A boss's own blow; an empty table is every boss on the lash. */
-const LOOK: Partial<Record<BossKind, StrikeLook>> = {};
+const LOOK: Partial<Record<BossKind, StrikeLook>> = {
+  seam: seamBlow,
+};
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where
  * most of them do, over the middle column three rows down the field. */
