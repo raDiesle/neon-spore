@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 0230b7270 — AUTO plays THE RIME: wipes each half clear, turns every surge, shoots
+
+The autopilot's hand for THE RIME: the seat whose half is lit rubs it clear, four reversals a beat as THE GRINDSTONE's hand does, both seats through a whiteout; the shield goes under a surge or an icicle's column and is pressed; the bared core is shot in the step's colour. A test plays wave THE RIME to the end with no wipe run out, no surge let through and no scar. THE GRINDSTONE and THE RIME leave NO_HAND, and §29's entry now lists the four lanes left: the field's rub, the fx, the cue's words, THE SLOW's aim.
+
 ## 2026-09-26 · da04b4ad2 — THE OCULUS played through: every step reads, and the director's AUTO row is queued
 
 AUTO BOTH plays wave 106 to its shatter in about 24 seconds, every receipt in order and none missed, and a strip at each one reads right. The director's AUTO buttons turned out to sit under the map panel at desktop widths, so a pointer cannot press them; that is now its own queue entry.
