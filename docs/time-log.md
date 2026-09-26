@@ -24311,3 +24311,15 @@ Bottleneck: looking — legs that stopped short of the hub and a collapse that f
 Bottleneck: writing — every new event is five registrations outside `sim`.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SEAM's turn and glow drawn
+
+- reading: 5 min. The ridge's draw, pose, shape and marks pages.
+- writing: 15 min. `seam-story.ts`, the face split out of `drawRidge`, a
+  frame test for both states.
+- looking: 10 min. Frames of the glow, the edge-on turn and the back; the
+  glow too faint on the first look, brightened.
+- friction: 5 min. The first frames ran past the window and showed a miss.
+- landing: 5 min.
+
+Bottleneck: looking — the glow's strength only showed in a real frame.

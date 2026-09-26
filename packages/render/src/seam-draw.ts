@@ -32,6 +32,7 @@ import {
   seamMouth,
   seamRidgePath,
 } from "./seam-shape.js";
+import { drawSeamBack, drawSeamGlow, seamTurn, seamTurnWidth } from "./seam-story.js";
 
 /**
  * **THE SEAM**: a shelled ridge standing down the middle column with one
@@ -86,7 +87,10 @@ export function drawSeam(
   drawThrown(ctx, l, world, s, c, beat, beatPhase, time);
 }
 
-/** The ridge itself: THE RIND's three lobes in shell grey, the crack down its spine, and the lit point on it. */
+/**
+ * The ridge itself: THE RIND's three lobes in shell grey, the crack down its
+ * spine, and what the lit step lays on it — or, turned away, its back.
+ */
 function drawRidge(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -99,6 +103,9 @@ function drawRidge(
   const open = seamOpen(s, world.cfg, beat, beatPhase);
   const ridge = seamRidgePath(l, open, time * 0.6);
   const half = seamHalfHeight(l);
+  const turn = seamTurn(s, world.cfg, beat, beatPhase);
+  ctx.save();
+  ctx.scale(seamTurnWidth(turn), 1);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(ridge);
   ctx.save();
@@ -108,7 +115,22 @@ function drawRidge(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(ridge);
+  if (turn >= 0.5) drawSeamBack(ctx, l, ridge, half);
+  else drawFace(ctx, l, world, s, ridge, open, beat, beatPhase);
+  ctx.restore();
+}
 
+/** The face the pair reads: the crack, and the lit point or the glow on it. */
+function drawFace(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  s: SeamState,
+  ridge: Path2D,
+  open: number[],
+  beat: number,
+  beatPhase: number,
+): void {
   const gritting = seamWantsShield(s);
   const crack = seamCrackPath(l, open, seamGape(s, gritting, beat, beatPhase));
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
@@ -118,8 +140,12 @@ function drawRidge(
   ctx.stroke(crack);
 
   const step = seamLitStep(s);
-  if (step === null || step.ask !== "point" || !seamWantsShot(s)) return;
+  if (step === null || !seamWantsShot(s)) return;
   const left = seamLeft(s, seamStepBeats(world, s), beat, beatPhase);
+  if (step.ask === "glow") {
+    drawSeamGlow(ctx, l, ridge, crack, s.quenched, world.cfg.seamGlowShots, left, beatPhase);
+  }
+  if (step.ask !== "point") return;
   drawSeamPoint(ctx, l, seamLitPoint(s), step, left, beatPhase);
 }
 

@@ -1441,6 +1441,7 @@ by hand never moves.
 | `packages/render/src/seam-marks.ts` | **THE SEAM's marks**: the three things that say what a step asks — the lit point, which is *shoot here |
 | `packages/render/src/seam-pose.ts` | **The clock THE SEAM is posed off** (§26, *Animation*): four poses — the crack dark, one point sealed |
 | `packages/render/src/seam-shape.ts` | **THE SEAM's geometry**: where the ridge stands, and the paths it is made of |
+| `packages/render/src/seam-story.ts` | **THE SEAM's two story steps, drawn** (§26's story item; the rules are `sim/seam.ts`'s `blind` and `glow`) |
 | `packages/render/src/seam-blow.ts` | **THE SEAM's own blow at the hull** (`boss-strike-look.ts`): its crack does not stop at the ridge |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |

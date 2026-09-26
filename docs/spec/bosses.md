@@ -8234,6 +8234,14 @@ steps the ridge had not told before, both in the shipped script:
 The script is eleven steps now: the turn after movement one's seal, the
 glow before the last point.
 
+**Both are drawn** (`render/seam-story.ts`, `test/seam-story-frame.test.ts`).
+The turn swings the ridge round on its spine, narrowing to an edge and
+widening again with its back to the pair — darker, ribbed across, no crack —
+and swings back over the rest after; its grit falls as ever. The glow burns
+the crack white and lights a vein out through the shell per shot owed, one
+going dark as each lands, with the ring round the middle lobe closing as the
+window runs.
+
 **Where this departs from the design, and why.** Seven places.
 
 - **Three points, one per movement.** §26 lights more points than three; the
