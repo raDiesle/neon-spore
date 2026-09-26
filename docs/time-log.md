@@ -23355,3 +23355,14 @@ Bottleneck: writing — a grip is seven registrations, and only the test says
 which of them is missing.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §32 THE SLING: a cooling tick left alone, at the owner's request
+
+- reading: 5 min. §32's existing section, rows 1–11, five poses.
+- writing: 10 min. Row 11, THE SLOW, Presentation, Animation, Colour,
+  Payoff and Cost, the queue and time-log entries.
+- looking: 0 min. Spec and registration only — the look is queued separately.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, commit, push.
+
+Bottleneck: none — a direct revision of an existing section is faster than drafting a new one from scratch.

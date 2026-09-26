@@ -3842,39 +3842,48 @@ what tells two identical screens apart on this page.
 | 8 | Yoke flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
 | 9 | Arms creep slack a second time, faster | P1+P2 | hold and loose together | 3 beats, held, then released true | stays drawn | springs loose, retry |
 | 10 | Yoke flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, yoke spent | stays lit |
-| 11 | Both arms loose at once and the fork snaps forward, spent | — | — | — | — | — |
+| 11 | The spent yoke ticks as it cools, the fork straining faintly against its own catch | P1+P2 | send nothing — no hold, no draw (`SENDING NOTHING`) | 3 beats, seen | the tick fades out, catch holds on its own | a reflex draw snaps the catch loose early, one extra beat before it resets |
+| 12 | Both arms loose at once and the fork snaps forward, spent | — | — | — | — | — |
 
 **THE SLOW** opens on every draw window (rows 2, 3, 4, 5, 7, 9) and every
 fire window (rows 6, 8, 10) — a hold that only resolves at the release is
 exactly THE VISE's, THE TRIVET's and THE PLUMB's argument for seconds over
 beats, more so here: the lit column can be forgotten by the time the hand
-finally lets go.
+finally lets go. Row 11 opens it on the opposite hand: after ten beats of
+drawing and holding, the fight's last beat asks for neither.
 
 **Presentation.** No camera. Each true loose a taut snap; each yoke hit an
-ordinary shot's flash; a wrong-direction release a slack, empty thud.
+ordinary shot's flash; a wrong-direction release a slack, empty thud. Row
+11's cooling tick fades out on its own, no snap, no thud — the one beat on
+the fork that asks for silence back.
 
-**Animation.** Five poses: both arms slack; left drawn; both drawn, yoke
-lit; yoke guarded, arms creeping slack; both loosed, fork snapped forward.
-An arm draws by bending back under load rather than fading taut — the same
-drawn-as-mechanism choice THE OCULUS, THE VISE, THE RIME, THE TRIVET and THE
-PLUMB all make.
+**Animation.** Six poses: both arms slack; left drawn; both drawn, yoke
+lit; yoke guarded, arms creeping slack; spent yoke ticking, catch straining
+untouched; both loosed, fork snapped forward. An arm draws by bending back
+under load rather than fading taut — the same drawn-as-mechanism choice THE
+OCULUS, THE VISE, THE RIME, THE TRIVET and THE PLUMB all make.
 
 **Colour.** Arm and fork a scoured steel grey, the cup a hot amber when
 drawn true; the yoke is the only lit colour on the body, lit in whichever
 cannon colour a given beat wants, THE SEAM's and THE OCULUS's rule again.
+Row 11's cooling tick carries no cannon colour, the yoke fading from white
+back to the fork's own scoured grey.
 
 **Payoff.** Rows 7 and 9 — `HOLD, THEN SWIPE` asked for defensively,
 redrawing an arm under a `FIRE` step already under way, the same shape as
 THE OCULUS's row 7, THE VISE's rows 7/9, THE TRIVET's rows 7/9 and THE
 PLUMB's rows 7/9, spent here on a hold-then-direction instead of a touch or
-a pose.
+a pose. Row 11 is the fight's other payoff: the one beat that asks the pair
+to neither hold nor draw, after ten beats that asked for nothing else.
 
 **Cost. Low.** One new primitive, `DrawRelease` (a held pointer, counted
 while down, resolved by the coarse left/right direction of its release
 against a column already lit — pure pointer state, no new field type, and
 both halves of the gesture, the hold and the directional swipe, are already
 built); the draw/spring threshold logic reuses THE VALVE's landed/missed
-window shape.
+window shape; and one boolean for row 11's hold, a read off `SENDING
+NOTHING`, already built for THE KEEL, THE SEAM, THE OCULUS, THE VISE, THE
+RIME, THE TRIVET, THE PLUMB, THE HALTER and THE FLUE.
 
 **Reusable.** `DrawRelease` itself — the first primitive on this page whose
 outcome is decided at release rather than at the moment a threshold is

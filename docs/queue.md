@@ -2113,3 +2113,22 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §32 THE SLING — a revised simulation lane, a cooling tick left alone
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+THE SLING's fight ran ten beats deep on `HOLD, THEN SWIPE` — draw an arm,
+guard a fire step, never once ask the pair to stop holding and stop
+drawing. Row 11 is new: the spent yoke ticks as it cools for three beats,
+and the pair passes it by sending nothing — no hold, no draw (`SENDING
+NOTHING`, a reuse, already built for THE KEEL, THE SEAM, THE OCULUS, THE
+VISE, THE RIME, THE TRIVET, THE PLUMB, THE HALTER and THE FLUE — no
+`gesture-unbuilt.ts` edit needed). A reflex draw snaps the catch loose
+early and costs one extra beat. THE SLOW, Presentation, Animation (five
+poses to six), Colour, Payoff and Cost sections are updated to match; one
+new boolean for row 11's hold. `bun run check` proves the sim half; the
+sixth pose is a look task, queued separately once this lane lands.
