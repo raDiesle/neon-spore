@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8c0b4ab8c — THE KEEL's spine flips, lights its marrow and cools before the end
+
+Once the last segment locks, the spine now bows the wrong way under THE SLOW, and both players hold its two end joints down together to stop it; let it run out and it snaps against the hull and bows again. That lights a seam down the middle, where one bolt of each colour seals it, or it burns the left-middle segment loose for the tempo run to re-earn. After the rock, the locked spine banks from white to iron while both hands stay off, and a tap flares it and holds it a beat longer.
+
 ## 2026-09-26 · c9dfeb8b9 — THE INSTAR's fourth act walked step to step: nothing snaps, and its turns are queued for their cost
 
 The hover, the bow, the arch, the rise and the loom go in and out through the same in-betweens as every other pose, and `instar-seams.test.ts`, which walks every step of the script into the next a tick at a time, now walks all twenty-eight and passes. A third of the way into a morph that turns the body between its two views, a frame costs two to five times one at rest — both views are drawn across the handover — and that is queued with the figures. The loom's comment no longer promises a fire it never lights. Nothing drawn changes.

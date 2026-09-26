@@ -24060,3 +24060,5 @@ Bottleneck: looking — a mid-change frame of a pass or an approach is mostly sk
 - landing: 10 min. `check:fast`, the commit, `bun run land --keep`.
 
 Bottleneck: friction — the audio switch and the spark list were full, and THE KEEL's rows had to move to a fresh page before a line of them could go in.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
