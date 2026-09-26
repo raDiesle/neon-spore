@@ -25139,3 +25139,18 @@ Bottleneck: reading — the entry's suggestion crossed a design rule, and
 finding the part that could move took the time.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## THE VISE watched through — 2026-09-26
+
+AUTO BOTH wins wave 107 at tick 3225 with no slip or miss; strips at the
+crack, the bare kernel, the brace and block, the seed burst and the split
+all read. Nothing found.
+
+- **reading** — 0 min
+- **writing** — 5 min
+- **looking** — 10 min. Five strips.
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: looking — the wave runs past the frames tool's default
+3000 ticks, so the first pass had to be run again further out.

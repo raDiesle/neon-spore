@@ -734,21 +734,6 @@ lash. Give THE DAVIT a `FROM` row and a `LOOK` row in
 `packages/render/src/boss-strike-look.ts` off the boom its drawer places,
 reaching the hull at `reach = 1`, proved in `render/test/boss-strike.test.ts`.
 
-## Unverified at 7a259b7f7: THE VISE wave never watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-28-the-vise-the-simulation-lane
-- **Taken:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at (claim: claude/queue-unverified-at-7a259b7f7-the-vise-wave-never-watc)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
-
-*Wave 107 THE VISE: pinch each lobe shut until its seam cracks, then shoot the kernel* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
-
-- THE VISE wave never watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
