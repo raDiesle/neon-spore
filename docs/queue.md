@@ -1443,6 +1443,79 @@ THE CAPSTAN's cradle and THE DAVIT's boom were both ruled out on. Nothing
 here is drawn yet and stays unverified at tempo until the owner has
 looked.
 
+## §40 THE FLUE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new gesture, no new primitive: `SENDING NOTHING` (THE HALTER's) paired
+with `TAPS ON A MOVING TARGET` (THE RATCHET's, THE GALL's) for the first
+time. `flueRestBeats` is THE HALTER's own per-seat rest counter, read
+exactly the same way; while it sits under threshold the ember drifts
+under the simulation's own clock and `TAPS ON A MOVING TARGET` does not
+register at all. The new wiring is the coupling: a landed tap advances
+`flueTapsLanded` and relocates the ember (THE RATCHET's own rule), but
+the instant the resting seat sends one command mid-sequence, both
+counters — not just the rest counter — snap to nought together, so a
+lapse costs the whole count banked so far rather than only the tap in
+flight. Eleven steps, three movements, resting and tapping swapping seat
+by movement. The full beat list and primitive table entry are §40 of
+`docs/spec/bosses-choreographed.md`. `SENDING NOTHING` and
+`TAPS ON A MOVING TARGET` each already carry a §40 THE FLUE entry in
+their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it
+with the rest. THE SLOW on every rest-and-tap window. `bun run check`
+proves it.
+
+## §40 THE FLUE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §40 THE FLUE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (checked
+this session against `packages/content/src/silhouettes*.ts` and every
+file under `tools/shape-sheet/src/drafts/` — nothing vent- or
+duct-shaped exists to reuse or collide with) for a slotted exhaust flue
+with an ember riding inside it, a short trailing smear while it drifts
+that vanishes the instant it steadies — the tell is the smear's absence,
+not a colour change — and a short bright tick on each landed tap, reused
+from THE RATCHET's own. No sprite-atlas experiment queued: the drift is
+the simulation's own clock running every tick, not a pose resolved once
+per beat, the same reasoning THE BURGEE's sweep and THE CAPSTAN's cradle
+were both ruled out on. Nothing here is drawn yet and stays unverified
+at tempo until the owner has looked.
+
+## THE STARE's turn is a squash-and-shear, not a placed surface
+
+- **Found:** 2026-09-26, this session
+- **Files:** `packages/render/src/stare-shape.ts`, `packages/render/src/stare-draw.ts`, `packages/content/src/surface.ts`, `.claude/skills/depth`
+
+THE STARE's whole tell is a turn: the eye is seen edge-on as a sliver
+while it is away, then widens to its full face over the seven-beat
+warning (`stare-shape.ts`'s `face`, `0..1`). It is drawn today by
+squashing the almond's width and adding a manual shear so the sliver
+"reads as turned rather than squeezed" — the file's own comment says so.
+That is exactly the failure `.claude/skills/depth` names: *"an `sx`
+cosine with no shading is a coin being flipped... a beautifully lit ball
+that does not move is a still life"* — a pose can carry a silhouette but
+cannot place a feature (a pupil, a lash, a highlight) by longitude and
+latitude, so nothing on the eye can ever be foreshortened or lit
+differently between edge-on and face-on; the shear is a hand-built
+workaround for the one thing a pose cannot do.
+
+The candidate: replace the squash-and-shear with `surface.ts`'s
+`pin`/`facet` projection on the almond socket — the iris, the lashes and
+the highlight placed on the surface rather than squashed with it — so
+the turn gets a real asymmetric cue and shading instead of a width
+number. THE STARE's socket is big enough on screen (`stareShape`'s tile
+math) to afford it, and the boss already has nothing else moving that a
+placed surface would fight. This is a look and ships only through
+`tools/versus/candidates/` (`docs/looks.md`) beside the shipped
+squash-and-shear — none of CLAUDE.md's three exemptions apply on their
+own (not asked for by name, a shipped alternative already exists, and
+the current version is unlovely rather than wrong), so it waits on the
+owner picking it, not on a lane landing it straight to the field.
+
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/keel-draw.ts`, `packages/render/src/keel-marks.ts`
 
