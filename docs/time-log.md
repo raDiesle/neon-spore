@@ -21966,3 +21966,16 @@ Bottleneck: friction — the file every queue helper is reached through had no
 room for one more re-export.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `frames --until` watches every stretch between two presses
+
+- reading: 5 min. `reach.ts`, `capture.ts`'s first frame, `press-plan.ts` and
+  the fake driver in `until.test.ts`.
+- writing: 10 min. The wait on every segment, `--until-on`'s step on moved
+  into `reachFirstFrame` with the presses that fall inside it, a test file.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry's "count the Nth" was `--until-on`'s step on
+in ticks, which only `until-on.test.ts` says plainly.

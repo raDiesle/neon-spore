@@ -50,11 +50,26 @@ export async function reachFirstFrame(
   const span = until ? until.cap : reach.advanceBy;
   const plan = pressPlan(reach.press ?? [], span);
   let at: number | null = null;
-  for (const [i, step] of plan.entries()) {
-    const last = i === plan.length - 1;
-    if (last && until) at = await d.advance(step.advance, until.event);
-    else if (step.advance > 0) await d.advance(step.advance);
+  // **Watched on every stretch between two presses, not only the last.** A
+  // run that goes on pressing after the event — a guard every beat, and
+  // `--until shieldPush` — once walked past it blind and called it missed.
+  let sent = 0;
+  for (const step of plan) {
+    if (step.advance > 0) at = await d.advance(step.advance, until?.event);
+    if (at !== null) break;
     if (step.press) await d.press(step.press);
+    sent++;
+  }
+  // `--until-on` steps on from the event, and a press that falls inside those
+  // ticks is still heard, on the same rule as the search's.
+  const on = until?.on;
+  if (at !== null && on !== undefined) {
+    const into = at - from;
+    const rest = plan
+      .slice(sent)
+      .flatMap((s) => (s.press ? [{ ...s.press, tick: s.press.tick - into }] : []))
+      .filter((p) => p.tick >= 0 && p.tick <= on);
+    await strideOn(d, on, rest);
   }
   if (until && at === null) {
     // The presses the round refused are the likeliest reason, and the report

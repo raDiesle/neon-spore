@@ -431,21 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `bun run frames --until` misses an event that fires between two presses
-
-- **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
-- **Taken:** 2026-09-26, claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it (claim: claude/queue-bun-run-frames-until-misses-an-event-that-fires)
-- **Files:** `tools/frames/reach.ts`, `tools/frames/until.ts`
-
-`reachFirstFrame` hands `until.event` to `d.advance` only on the last segment
-of `pressPlan`; every earlier segment advances blind. So `--press` that keeps
-pressing after the event (a guard every beat, say) and `--until shieldPush`
-reports the push as missed although it happened, and `--until-on N` counts
-only the occurrences after the last press. The lane worked round it by ending
-the presses before the push. Watch the event on every segment, carry the count
-across them, and stop at the Nth wherever it falls; a test in
-`tools/frames/test/` that presses past the event holds it.
-
 ## `packages/content/src/scenes.ts` is at 250 lines
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
