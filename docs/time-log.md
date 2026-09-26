@@ -22624,3 +22624,5 @@ Bottleneck: landing — a one-entry change still runs the full check.
 
 Bottleneck: friction — a boss registered in forty-odd files collides in all
 of them with the boss that landed first.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

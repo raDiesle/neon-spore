@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2046ec9e2 — THE TRIVET: the simulation lane — a stand two chords plant, then shoot into
+
+Wave 109 THE TRIVET is in: a three-legged stand over the middle column whose two outer feet are planted by each seat holding two, then three, of its own pads down together for the count, spending the unclaimed CHORD gesture as ChordHold for the first time. Four plants light the hub, which is shot in its colour; between the shots both seats chord at once to keep it down. The twelve sounds are bound; nothing is drawn yet and there is no autopilot hand (docs/spec/bosses.md §11.47, eight departures argued).
+
 ## 2026-09-26 · a30442526 — Queued: a rig part hangs off an anchor and inherits its turn
 
 The owner wants no library in the game but what Zdog does well built as our own: a jaw, wing or fin authored relative to its parent and turned with it. One CLOUD ONLY entry in the queue; no code changes.
