@@ -24714,3 +24714,5 @@ Bottleneck: reading — choosing which older bosses fall shortest takes reading 
 - landing: 10 min. `check:fast`, the commit, `land`, `push`, twice.
 
 Bottleneck: friction — a second session drew the same claimed look from an item of its own, found only at the rebase.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -2725,3 +2725,17 @@ a `bossStrikesHull` and the state again.
 Draw §21's three new poses: the line stopped with the casing shuddering, a
 loop of line thrown wide, the line furred with standing fibres. A look with
 no shipped alternative.
+
+## Unverified at 98106e512: THE TRIVET's lurch aim and needle sparks watched at te…
+
+- **Found:** 2026-09-26, tmp-trivet-aim
+- **Files:** `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/test/trivet-fx.test.ts`
+
+*THE SLOW follows THE TRIVET's lurch, and its hit and turned needle burst where they happen* landed from a session that could not look at it. What went unchecked:
+
+- THE TRIVET's lurch aim and needle sparks watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
