@@ -13,6 +13,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
+import { shake } from "./autopilot-harpoon.js";
+import { catchMoult } from "./autopilot-moult.js";
 import { catchPod, hanging } from "./autopilot-pod-hand.js";
 import type { Hand } from "./hand.js";
 
@@ -29,9 +31,13 @@ import type { Hand } from "./hand.js";
  * (`content/controls.ts`), so P1 and P2 on AUTO split along the same line.
  *
  * A hand for the plain field, and its pods — shot loose, followed down and
- * swallowed, a husk let past (`autopilot-pod-hand.ts`). A creature with a verb
- * of its own — a hold, a reach, a drag — is not answered here, and the wave it
- * is on is one AUTO only half plays.
+ * swallowed, a husk let past (`autopilot-pod-hand.ts`). A few creatures with a
+ * verb of their own have theirs in a file beside this one: THE SHELL's column
+ * and THE LURE left alone (`autopilot-aim.ts`), THE MOULT caught or turned
+ * (`autopilot-moult.ts`), and a control THE LIMPET or THE LEECH has harpooned
+ * kept moving (`autopilot-harpoon.ts`). Any other creature with a verb of its
+ * own — a hold, a reach, a drag — is not answered here, and the wave it is on
+ * is one AUTO only half plays.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -59,8 +65,12 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
  * (`autopilot-pod-hand.ts`). Any colour frees a pod.
  */
 function cannon(w: World): Press[] {
+  const off = shake(w, "leech", w.cannonCol);
+  if (off !== null) return [aim(off)];
   const chase = catchPod(w);
   if (chase !== null) return chase;
+  const moult = catchMoult(w);
+  if (moult !== null) return moult;
   const body = lowest(w, cannonAnswers);
   const pod = body ? undefined : hanging(w);
   const col = body ? aimColumn(body) : pod ? Math.round(pod.colMilli / MILLI) : null;
@@ -75,7 +85,9 @@ function cannon(w: World): Press[] {
  * on the beat it arrives (`guardArmed`, `resolveHull`).
  */
 function shield(w: World): Press[] {
-  const rock = lowest(w, (c) => isWardable(c.kind));
+  const off = shake(w, "limpet", w.shieldCol);
+  if (off !== null) return [carry(off)];
+  const rock = lowest(w, (c) => isWardable(c.kind) || c.kind === "moult");
   if (rock === undefined) return [];
   if (!occupiesCol(rock, w.shieldCol)) return [carry(rock.col)];
   if (rock.row < shieldRow(w.cfg) - 1 || guardArmed(w)) return [];

@@ -24,8 +24,9 @@ import { stageField } from "../src/stage-field.js";
 /** Ordinary waves whose creatures have a verb of their own — a hold, a reach,
  * a drag — that the field hand does not play. A wave that gains one is a
  * name here or a hand for its creature. The pods have theirs
- * (`autopilot-pod-hand.ts`), and THE SHELL's column and THE LURE's left-alone
- * are in `autopilot-aim.ts`. */
+ * (`autopilot-pod-hand.ts`), and so do THE SHELL, THE LURE, THE MOULT, THE
+ * LIMPET and THE LEECH (`autopilot-aim.ts`, `autopilot-moult.ts`,
+ * `autopilot-harpoon.ts`). */
 const HALF_PLAYED = new Set([
   "THE CLASP",
   "THE WISP",
@@ -35,13 +36,10 @@ const HALF_PLAYED = new Set([
   "THE CRAWLER",
   "THE MAGNET",
   "THE JAM",
-  "THE LIMPET",
-  "THE LEECH",
   "THE CHOIR",
   "THE BEATBOX",
   "THE WEIGHT",
   "THE MINE",
-  "THE MOULT",
 ]);
 
 /** Wave `index` stood up the way the game starts it, on the poses' config. */
