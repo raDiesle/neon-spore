@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · a6dae2e33 — §27 THE OCULUS done in the queue
+
+## 2026-09-26 · 439d8cb4f — THE OCULUS's glare and look are drawn
+
+The glare dilates the core white and throws a beam of pale light straight down to the hull under the middle column, a bar lit where it lands, with SHIELD beside it. The look rolls the core aside in its socket, lit in its colour, with a dotted sight to the column it looks down and a notch there, with FIRE beside it. Both ease in while lit and back over the rest after, the same on both screens.
+
 ## 2026-09-26 · 143917958 — The director draws a markdown `---` as a rule, not three dashes
 
 RESEARCH's tab on NOT BUILT YET was seen by an eye: its sections, links and video list render. What it showed was three literal dashes as a paragraph between every section, and the same line is used 28 times on the choreographed bosses' page and in the briefings — the renderer now draws `---`, `***` and `___` as a thin rule in the sheet's line colour.
