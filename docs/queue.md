@@ -676,6 +676,7 @@ what the rest of this file holds.
 ## Unverified at 4a47be3b6: THE OCULUS wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-27-the-oculus-the-simulation-lane
+- **Taken:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
 
 *THE OCULUS: an eye both seats hold shut, then shoot into* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
