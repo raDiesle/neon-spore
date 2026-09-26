@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 667f59c31 — THE INSTAR turns on round between its face-on view and its profile
+
+Between the two views the face-on body, wings and snout now keep turning the way the profile faces, and the profile takes over only across the middle of the turn, so a change of pose reads as one solid body turning rather than two ghosts crossfading. When a body already on the field has to come in again from the distance, it first flies up and away to the speck the approach starts from, instead of vanishing to it in one frame. The slow's aim follows the body's far end in whichever view has it.
+
 ## 2026-09-26 · 4b5e7e87c — SNAKE's hand plans on flat arrays, and SHED's pose builds in a tenth of the time
 
 The hand that plays SNAKE for the director's poses replanned its path every tick with string keys and a scan of every rock, enemy and body tile for each tile it asked about. At fifteen tiles of body that was 2 ms a tick, and the SHED pose took four and a half seconds to build, twice per test, so it timed out whenever its shard shared the machine. The arena is now laid out once per call as flat arrays, and the search runs over numbered states. It sends the same commands on every one of 22,500 ticks of SNAKE, checked side by side against the old hand, twelve times faster.
