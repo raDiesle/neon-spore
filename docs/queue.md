@@ -1329,3 +1329,158 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §36 THE HALTER — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new gesture, and only one new primitive tenant: `RestraintGate` has
+sat in the catalogue unclaimed since the touch inventory, and this is its
+first anchor. `halterRestBeats` is a per-seat counter that any command at
+all resets to nought — the mirror of an ordinary hold counter rather than
+a new field kind — read true only while the *other* seat's `CHORD`
+(`halterChordLeft` / `halterChordRight`, read exactly as THE TRIVET reads
+its planted feet) is also held, both counters clearing together the
+moment either half fails. Eleven steps, three movements, the resting half
+and the chording half swapping seat by movement the way THE CYST's
+freezing and squeezing hands already do. The full beat list and primitive
+table entry are §36 of `docs/spec/bosses-choreographed.md`.
+`SENDING NOTHING` and `CHORD` each already carry a §36 THE HALTER entry
+in their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land
+it with the rest, nothing further to register there. THE SLOW on every
+rest-and-chord window. `bun run check` proves it.
+
+## §36 THE HALTER — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §36 THE HALTER's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (check
+`packages/content/src/silhouettes*.ts` first, then
+`tools/shape-sheet/src/drafts/`) for a wary hull-plated creature with one
+spinal seam in three segments, and a continuous uneven tremor that stops
+dead the instant a segment settles — the tell is the tremor's silence,
+not a colour change or a snap. No sprite-atlas experiment queued: nothing
+here moves toward a resolved end pose the way a swipe or a chord's own
+release does: the tremor either runs or it doesn't. Nothing here is drawn
+yet and stays unverified at tempo until the owner has looked.
+
+## §37 THE CAPSTAN — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new primitive: `TILT, AS A LEVEL` (THE PLUMB's) and `RUB` (THE RIME's)
+paired so one seat's held lean picks, live, which of two wear counters
+the other seat's continuous reversals apply to — the hidden face's own
+count held rather than lost or spent while it isn't chosen, a
+pause-not-reset retarget distinct from THE HALTER's shared gate or THE
+DAVIT's live aim. Eleven steps, three movements, steering and wearing
+swapping seat by movement. The full beat list and primitive table entry
+are §37 of `docs/spec/bosses-choreographed.md`. `TILT, AS A LEVEL` and
+`RUB` each already carry a §37 THE CAPSTAN entry in their `where` arrays
+in `tools/director/src/gesture-unbuilt.ts` — land it with the rest. THE
+SLOW on every steer-and-wear window. `bun run check` proves it.
+
+## §37 THE CAPSTAN — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §37 THE CAPSTAN's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (check
+`packages/content/src/silhouettes*.ts` first, then
+`tools/shape-sheet/src/drafts/`) for a squat rusted drum on a rocking
+cradle, the cradle's lean slow and visible rather than a snap so which
+face is exposed reads at a glance, and a continuous rattle that keeps
+judder under a wiping hand that has paused — the same drawn-as-mechanism
+choice THE PLUMB's own lean already makes. No sprite-atlas experiment
+queued: the cradle is driven by the live tilt reading every tick, not
+resolved once per beat, the same reasoning THE DAVIT's boom was ruled out
+on. Nothing here is drawn yet and stays unverified at tempo until the
+owner has looked.
+
+## §38 THE GALL — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new primitive: `SQUEEZE ONE BODY`'s own closing gap (THE VISE's,
+THE CYST's) paired with THE RATCHET's own anti-camping idea, but against
+a continuous pinch rather than a discrete tap — `gallPosMilli` holds one
+of four fixed points on a seam, jumping to a different one the instant a
+close lands rather than on a touch or a timer, and `gallGapMilli` is
+`SQUEEZE ONE BODY`'s own gap read unchanged. Four steps, one movement,
+nothing hidden from either seat since finding the point is the whole
+difficulty. The full beat list and primitive table entry are §38 of
+`docs/spec/bosses-choreographed.md`. `TAPS ON A MOVING TARGET` and
+`SQUEEZE ONE BODY` each already carry a §38 THE GALL entry in their
+`where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it with
+the rest. THE SLOW on every closing window. `bun run check` proves it.
+
+## §38 THE GALL — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §38 THE GALL's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (check
+`packages/content/src/silhouettes*.ts` first, then
+`tools/shape-sheet/src/drafts/`) for a soft duller-hulled nodule on a
+raised seam, its jump between the seam's four points a single frame
+rather than a slide — a rolling nodule would read as a target to lead,
+which is a different game. No sprite-atlas experiment queued: the whole
+concept spends its cost on the relocation, and its closing pinch reuses
+THE VISE's own gap-closing frames rather than drawing new ones. Nothing
+here is drawn yet and stays unverified at tempo until the owner has
+looked.
+
+## §39 THE BURGEE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new primitive: `FREEZE TAP` (THE VALVE's, THE CYST's) paired with
+`HOLD, THEN SWIPE` (THE SLING's, THE DAVIT's) for the first time —
+`burgeeSwingMilli` sweeps the field's columns under the simulation's own
+clock, never a player's to move directly; one seat's timed freeze stills
+it, the other seat's held-then-released swipe only lands a catch if the
+release matches the frozen column while the freeze still holds. Nine
+steps, three movements, the freezing half and the aiming half swapping
+seat by catch. The full beat list and primitive table entry are §39 of
+`docs/spec/bosses-choreographed.md`. `FREEZE TAP` and `HOLD, THEN SWIPE`
+each already carry a §39 THE BURGEE entry in their `where` arrays in
+`tools/director/src/gesture-unbuilt.ts` — land it with the rest. THE SLOW
+on every catch window. `bun run check` proves it.
+
+## §39 THE BURGEE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §39 THE BURGEE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (check
+`packages/content/src/silhouettes*.ts` first, then
+`tools/shape-sheet/src/drafts/`) for a pennant on a free-swinging boom,
+easing into stillness on a landed freeze rather than snapping to a stop —
+the same drawn-as-mechanism choice THE VALVE's freeze and THE PLUMB's
+lean both make — and a limp flutter with no snap on a mistimed swipe. No
+sprite-atlas experiment queued: the sweep is the simulation's own clock
+running every tick, not a pose resolved once per beat, the same reasoning
+THE CAPSTAN's cradle and THE DAVIT's boom were both ruled out on. Nothing
+here is drawn yet and stays unverified at tempo until the owner has
+looked.
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/keel-draw.ts`, `packages/render/src/keel-marks.ts`
+
+*THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
+
+- THE KEEL's body watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
