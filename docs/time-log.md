@@ -23112,3 +23112,19 @@ strand, and every value had to be read off the sheet before it looked right.
 Bottleneck: designing a coupling shape genuinely different from THE
 WINCH's and THE SLUICE's own gate — a chord that changes difficulty rather
 than validity — took longer to settle on than writing it up once decided.
+
+## 2026-09-26 — §23 THE MANTLE: a brace beat and three visible crack states, at the owner's request
+
+- reading: 10 min. The full §23 section as it stood, and `CHORD`'s existing
+  `where` array to confirm THE MANTLE would be a first use rather than a
+  repeat.
+- writing: 20 min. The brace row, the renumbered beat list, the three-state
+  crack and quickening-heartbeat notes, the `where` registration and the
+  queue entry.
+- looking: 0 min. Spec and registration only — the look is queued
+  separately.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, this entry, the commit.
+
+Bottleneck: none — a direct revision of an existing section is faster than
+drafting a new one from scratch.

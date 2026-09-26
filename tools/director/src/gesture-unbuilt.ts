@@ -146,6 +146,7 @@ export const SPECIFIED: readonly Gesture[] = [
       window: { from: 3, to: 8, label: "both down" },
     },
     where: [
+      `${SPEC} §23 THE MANTLE`,
       `${SPEC} §30 THE TRIVET`,
       `${SPEC} §33 THE GRINDSTONE`,
       `${SPEC} §36 THE HALTER`,
