@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 276da622a — THE VISE watched through: every step reads, nothing found
+
+AUTO BOTH wins wave 107 in about 27 seconds with no slip or miss, and a strip at each receipt reads right: the crack, the bare kernel, the brace onto the shield, the seed burst and the split.
+
 ## 2026-09-26 · 8cb5edffb — THE HASP's swung clasps hang slack and sway on their hinges
 
 A clasp that has swung open now sways a little on its hinge, each on its own phase, as a loose part of the machine. The queue entry suggested a creeping hub instead, but the hub can't move on either screen: on the pilot's it is the cap §20 keeps still, and on the navigator's a wheel stopped mid-turn is the seized tell. The sealed row therefore stays still until the first clasp gives.
