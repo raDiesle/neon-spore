@@ -3,6 +3,7 @@ import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
 import { stepFleet } from "./fleet.js";
+import { stepHasp } from "./hasp-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
@@ -31,7 +32,8 @@ import type { World } from "./world.js";
  * than guessing.
  *
  * **THE RATCHET came across on 26 September 2026**, the last row on the first
- * page when THE RIME's branch filled it.
+ * page when THE RIME's branch filled it, and **THE HASP** the same day, when
+ * THE PLUMB's did.
  *
  * **The check next door is unchanged.** `stepOtherBoss` ends by calling this
  * rather than by falling off its own end, so a boss stepped nowhere still
@@ -39,6 +41,14 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE HASP on the beat is the latches, the heat, the one bolt and the row
+  // swinging clear — and the *saying* of the gate, once per change. Whether
+  // the wheel turns at all is asked on the tick, where the hand is
+  // (`hasp-hand.ts`).
+  if (boss.kind === "hasp") {
+    stepHasp(world, boss);
+    return;
+  }
   // THE RATCHET on the beat is the pawl lighting, a window running out, the
   // climb, the bolt and the open or the jam. A press is judged on the tick,
   // against her hand (`ratchet-hand.ts`).

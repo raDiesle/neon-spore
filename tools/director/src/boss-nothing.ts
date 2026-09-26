@@ -16,6 +16,7 @@ import type {
   MantleEntry,
   NettleEntry,
   OculusEntry,
+  PlumbEntry,
   RatchetEntry,
   RimeEntry,
   ScoutEntry,
@@ -159,17 +160,14 @@ import type {
  *   wave, too few for a form. No column, its segments are spread over the
  *   field and its socket is `midCol`; no number, the loose segments are the
  *   health (`sim/keel.ts`).
- *
  * - **THE VALVE**'s three marks are one list, THE GIMBAL's kind of field.
  *   No column, the drum is `midCol`; no number, the pins are the health
  *   (`sim/valve.ts`).
- *
  * - **THE SEAM**'s script is one list of steps, THE KEEL's kind of field.
  *   No column, the ridge is `midCol`; no number, the points are the health.
- *
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
- *   THE VISE's, THE RIME's and THE TRIVET's too: all three are `midCol`.
+ *   THE VISE's, THE RIME's, THE TRIVET's and THE PLUMB's too: all `midCol`.
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
@@ -209,7 +207,8 @@ export function bossAuthorsNothing(
   | OculusEntry
   | ViseEntry
   | RimeEntry
-  | TrivetEntry {
+  | TrivetEntry
+  | PlumbEntry {
   // A guard rather than a boolean, so the caller's chain still narrows: the
   // four leave the union before the queen's form reads a column off the rest.
   const { kind } = boss;
@@ -245,6 +244,7 @@ export function bossAuthorsNothing(
     kind === "oculus" ||
     kind === "vise" ||
     kind === "rime" ||
-    kind === "trivet"
+    kind === "trivet" ||
+    kind === "plumb"
   );
 }

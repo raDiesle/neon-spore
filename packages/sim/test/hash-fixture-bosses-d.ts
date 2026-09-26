@@ -100,6 +100,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", pads: 2, color: "cyan", beats: 3 },
     ],
   },
+  // THE PLUMB authors its script; two steps rather than the shipped nine
+  // (`plumb-hash.ts`).
+  plumb: {
+    kind: "plumb",
+    steps: [
+      { ask: "left", rangeMilli: 4000, color: "cyan", beats: 4 },
+      { ask: "fire", rangeMilli: 0, color: "red", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -253,6 +262,18 @@ export function patchBossD(boss: BossState): void {
     boss.hits = 1;
     boss.hubLit = true;
     boss.padsDown = [3, 5];
+    boss.heldBeats = 2;
+  }
+  if (boss.kind === "plumb") {
+    // The left weight settled once and the right true, the core lit, both
+    // phones leaning — every field given a value (`plumb-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.weights = [1, 2];
+    boss.hits = 1;
+    boss.coreLit = true;
+    boss.tiltMilli = [300, -700];
     boss.heldBeats = 2;
   }
 }

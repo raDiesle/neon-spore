@@ -538,6 +538,7 @@ by hand never moves.
 | `packages/sim/src/command-leave.ts` | **The two presses that leave a run**, read above every lock a boss or a fault puts on a press |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
 | `packages/sim/src/config-push.ts` | **How far the shield pushes a creature back up the field** (`shield-push.ts`) |
+| `packages/sim/src/config-plumb.ts` | THE PLUMB's tuning: the rests around its steps, the grace a level is given |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
 | `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
 | `packages/sim/src/pulse-hash.ts` | What THE PULSE puts into `hashWorld`, and nothing else |
@@ -591,6 +592,7 @@ by hand never moves.
 | `packages/sim/src/drag-targets-b.ts` | **Every thing on this field a hand may take hold of, the second page** — the names from THE FLEET's chart on |
 | `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
 | `packages/sim/src/drag-targets-d.ts` | **Every thing on this field a hand may take hold of, the fourth page** — the names from THE HIVE's underside on |
+| `packages/sim/src/drag-targets-e.ts` | **Every thing on this field a hand may take hold of, the fifth page** — the names from THE TRIVET's feet on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
@@ -611,6 +613,7 @@ by hand never moves.
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
 | `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
+| `packages/sim/src/events-plumb.ts` | What THE PLUMB says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-rime.ts` | What THE RIME says as it happens, one line per thing the picture and the sound answer |
@@ -671,6 +674,11 @@ by hand never moves.
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/sim/src/pinball-hash.ts` | What PINBALL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/pinball-open.ts` | **Standing PINBALL up**: one round opened, the board loaded onto the table |
+| `packages/sim/src/plumb-hand.ts` | The furthest a phone leans either way, in thousandths of a degree: gamma's own range |
+| `packages/sim/src/plumb-hash.ts` | What THE PLUMB puts into `hashWorld`, and nothing else |
+| `packages/sim/src/plumb-shot.ts` | **THE PLUMB's shot**: the lit core, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/plumb-step.ts` | THE PLUMB's clock: the bob settling, each step lighting, the beats a lean is held being counted |
+| `packages/sim/src/plumb.ts` | THE PLUMB: a lopsided bob hung off the hull over the middle column |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
@@ -1939,6 +1947,7 @@ by hand never moves.
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-filament.ts` | THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
+| `packages/audio/src/bind-plumb.ts` | THE PLUMB's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-snake-body.ts`' reason |
 | `packages/audio/src/bind-pulse-hand.ts` | THE PULSE's hand on the bar, in a file of their own for `bind-scout-hand.ts`' reason — `bind.ts` is full |

@@ -77,6 +77,27 @@ export {
   oculusHolding,
   oculusLitStep,
 } from "./oculus.js";
+// THE PLUMB's bob: the phase, the lit step, the weights and both seats'
+// leans, for the picture, the cue and the director's hand. Straight off
+// `plumb.ts` (`docs/spec/bosses-choreographed.md` §31).
+export {
+  freshPlumb,
+  levelling,
+  PLUMB_ASKS,
+  PLUMB_PHASES,
+  PLUMB_SETTLES_PER_WEIGHT,
+  PLUMB_UNREAD,
+  type PlumbAsk,
+  type PlumbEntry,
+  type PlumbPhase,
+  type PlumbState,
+  type PlumbStep,
+  plumbBoss,
+  plumbDone,
+  plumbLevel,
+  plumbLitStep,
+  plumbTrue,
+} from "./plumb.js";
 export {
   NO_CATCH,
   RATCHET_CLEAN,

@@ -63,6 +63,7 @@ type LateEvent = Extract<
       | `vise${string}`
       | `rime${string}`
       | `trivet${string}`
+      | `plumb${string}`
       | `undertow${string}`;
   }
 >;

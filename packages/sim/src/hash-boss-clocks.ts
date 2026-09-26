@@ -13,6 +13,7 @@ import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { mantleHashParts } from "./mantle-hash.js";
 import { oculusHashParts } from "./oculus-hash.js";
+import { plumbHashParts } from "./plumb-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
 import { rimeHashParts } from "./rime-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
@@ -156,6 +157,11 @@ export function clockHashParts(boss: BossState): number[] {
   // and the script (`trivet-hash.ts`).
   if (boss.kind === "trivet") {
     for (const n of trivetHashParts(boss)) out.push(n);
+  }
+  // THE PLUMB: the phase, the cursor, the weights, the hits, both seats'
+  // leans and the script (`plumb-hash.ts`).
+  if (boss.kind === "plumb") {
+    for (const n of plumbHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

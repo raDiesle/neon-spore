@@ -256,6 +256,10 @@ const ACCEPTED: Command[] = [
   // (`sim/trivet-hand.ts`).
   { kind: "drag", target: "trivetPadFront", id: 2, on: true, fromMilli: 0 },
   { kind: "drag", target: "trivetPadRear", id: 0, on: false, fromMilli: 0 },
+  // THE PLUMB's levels are leant, one weight a seat, the lean on `fromMilli`
+  // in thousandths of a degree either way (`sim/plumb-hand.ts`).
+  { kind: "drag", target: "plumbLevelLeft", on: true, fromMilli: -4500 },
+  { kind: "drag", target: "plumbLevelRight", on: false, fromMilli: 90000 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -416,6 +420,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   rimeHalfRight: true,
   trivetPadFront: true,
   trivetPadRear: true,
+  plumbLevelLeft: true,
+  plumbLevelRight: true,
   crank: true,
 };
 

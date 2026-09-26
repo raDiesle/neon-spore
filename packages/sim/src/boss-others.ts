@@ -7,7 +7,6 @@ import { stepCurtain } from "./curtain-step.js";
 import { stepFilament } from "./filament-step.js";
 import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
-import { stepHasp } from "./hasp-step.js";
 import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
 import { stepKeel } from "./keel-step.js";
@@ -16,6 +15,7 @@ import { stepLedger } from "./ledger-step.js";
 import { stepMantle } from "./mantle-step.js";
 import { stepMirror } from "./mirror.js";
 import { stepOculus } from "./oculus-step.js";
+import { stepPlumb } from "./plumb-step.js";
 import { stepRime } from "./rime-step.js";
 import { stepScuttle } from "./scuttle-step.js";
 import { stepSeam } from "./seam-step.js";
@@ -220,6 +220,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepTrivet(world, boss);
     return;
   }
+  // THE PLUMB: steps lit, leans counted, and the swing free (`plumb-step.ts`).
+  if (boss.kind === "plumb") {
+    stepPlumb(world, boss);
+    return;
+  }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an
   // edge: the line paying out, the zone moving under a correction, the slip and
   // the rib easing are every one of them a beat's question (`spool-step.ts`).
@@ -227,15 +232,7 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepSpool(world, boss);
     return;
   }
-  // THE HASP on the beat is the latches, the heat, the one bolt and the row
-  // swinging clear — and the *saying* of the gate, once per change. Whether
-  // the wheel turns at all is asked on the tick, where the hand is
-  // (`hasp-hand.ts`).
-  if (boss.kind === "hasp") {
-    stepHasp(world, boss);
-    return;
-  }
-  // And the six that are not stepped here at all, with THE RATCHET, THE VANE,
+  // And the six that are not stepped here at all, with THE HASP, THE RATCHET, THE VANE,
   // THE CAIRN, THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the
   // second page (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
   // THE GIMBAL's branch took this one over its 250-line limit, and a later

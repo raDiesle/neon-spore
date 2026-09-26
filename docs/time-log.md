@@ -22675,3 +22675,18 @@ Bottleneck: looking — the width of a wing face-on comes from three turns and a
 lens at once, and only a frame says which one is short.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE PLUMB, the simulation lane
+
+- reading: 15 min. §31, THE TRIVET's commit for the registration list, and
+  how a drag could carry a lean rather than a touch.
+- writing: 85 min. Seven sim files, the registrations across audio,
+  content, render, net and the director, the tests, §11.48, the queued lean
+  reader.
+- looking: 0 min. Nothing drawn.
+- friction: 10 min. A hash-coverage miss on a fixture step authored
+  `either`, which the colour encoding cannot tell from itself.
+- landing: 15 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the forty-odd registrations a choreographed boss
+needs outside its own seven files, each found from the last one's commit.

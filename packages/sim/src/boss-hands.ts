@@ -15,6 +15,7 @@ import { mantleHeard } from "./mantle-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { oculusHeard } from "./oculus-hand.js";
+import { plumbHeard } from "./plumb-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { ratchetHeard } from "./ratchet-hand.js";
 import { rimeGuarded } from "./rime-guard.js";
@@ -115,6 +116,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE TRIVET's pads, on the tick for the same reason: a slip is the instant
   // a pad of the lit chord lifts (`trivet-hand.ts`).
   for (const c of commands) trivetHeard(world, c.player, c.command);
+  // THE PLUMB's leans, the same: a drift is the instant a lean leaves range
+  // (`plumb-hand.ts`).
+  for (const c of commands) plumbHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

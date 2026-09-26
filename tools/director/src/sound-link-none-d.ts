@@ -71,4 +71,17 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.trivetMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.trivetCollapse": "the stand's three feet buckling. Same argument.",
   "boss.trivetOut": "the stand gone and the wave ending. Same argument, and an absence.",
+  // THE PLUMB's twelve: a bob over the field, the same argument.
+  "boss.plumbEnter": "the bob swinging in over the field. A fixture, not a body on a grid.",
+  "boss.plumbLight": "a step lighting on the bob. Same argument.",
+  "boss.plumbDrift": "a lean drifting off level, which is a gesture and no body. Same argument.",
+  "boss.plumbSettle": "a weight settling true. Same argument.",
+  "boss.plumbSwing": "a weight swinging loose. Same argument.",
+  "boss.plumbCore": "both weights true and the core lit. Same argument.",
+  "boss.plumbHit": "a shot into the core. Same argument.",
+  "boss.plumbSteady": "both weights held true under the core. Same argument.",
+  "boss.plumbDim": "the core dimming, a weight off true. Same argument.",
+  "boss.plumbMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.plumbFree": "both weights snapping loose. Same argument.",
+  "boss.plumbOut": "the bob gone and the wave ending. Same argument, and an absence.",
 };

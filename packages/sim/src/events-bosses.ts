@@ -14,6 +14,7 @@ import type { LedgerEvent } from "./events-ledger.js";
 import type { MantleEvent } from "./events-mantle.js";
 import type { OculusEvent } from "./events-oculus.js";
 import type { PinballEvent } from "./events-pinball.js";
+import type { PlumbEvent } from "./events-plumb.js";
 import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
 import type { RatchetEvent } from "./events-ratchet.js";
@@ -83,6 +84,7 @@ export type BossEvent =
   | ViseEvent
   | RimeEvent
   | TrivetEvent
+  | PlumbEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -113,6 +115,7 @@ export type { LedgerEvent } from "./events-ledger.js";
 export type { MantleEvent } from "./events-mantle.js";
 export type { OculusEvent } from "./events-oculus.js";
 export type { PinballEvent } from "./events-pinball.js";
+export type { PlumbEvent } from "./events-plumb.js";
 export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";
 export type { RatchetEvent } from "./events-ratchet.js";

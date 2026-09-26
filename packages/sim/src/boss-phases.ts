@@ -16,6 +16,7 @@ import { MANTLE_PHASES } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
 import { OCULUS_PHASES } from "./oculus.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
+import { PLUMB_PHASES } from "./plumb.js";
 import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { RATCHET_PHASES } from "./ratchet.js";
 import { RIME_PHASES } from "./rime.js";
@@ -123,5 +124,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   vise: VISE_PHASES,
   rime: RIME_PHASES,
   trivet: TRIVET_PHASES,
+  plumb: PLUMB_PHASES,
   fleet: FLEET_PHASES,
 };

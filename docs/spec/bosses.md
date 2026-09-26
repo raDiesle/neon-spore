@@ -8333,6 +8333,130 @@ script answered whole collapses the stand and ends the fight. Whether any
 of it *reads* — whether three thumbs on one phone is a stance or a
 cramp — is the owner's eye, after lane two.
 
+## 11.48 THE PLUMB — the boss two phones hold level, then shoot into
+
+> A bob hung skewed over the middle of the field, both weights swinging
+> loose. Your weight's level lights: hold your phone flat and still until
+> the weight hangs true. Two settles a weight and the core lights. Shoot it
+> in its colour, and when the weights creep off true, both of you hold level
+> again.
+
+Designed as §31 of [bosses-choreographed](bosses-choreographed.md), the
+fourth of the concepts written to spend a gesture nobody had claimed — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. Where THE
+TRIVET asks one seat for **several thumbs at once**, this asks for **no
+thumb at all**: progress is the beats the phone itself has been held inside
+a range of level, and drifting out of it starts the count again.
+
+**It is four settles and three hits, and they are its health.** The state
+(`sim/plumb.ts`, hashed in `sim/plumb-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the **settles** on each
+weight, the **hits** landed, whether the **core** is lit, each seat's last
+**lean** in thousandths of a degree, and the beats the lit level has been
+held. The script is the wave's (`PlumbEntry.steps`), copied at install: each
+step asks `left`, `right`, `fire` or `both`, inside a range of level, in a
+colour or `either`, for its own beats.
+
+**The rule, in one sentence.** Hold your phone level inside the lit range
+for the count, and shoot the lit core in its colour.
+
+**The split.** Geometry, THE MANTLE's rule: `plumbLevelLeft` is Player 1's
+and `plumbLevelRight` Player 2's, and the wrong seat's reading is not heard
+(`sim/plumb-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
+under the middle column, Player 2's trigger in its colour. A `both` step is
+both phones level at once, each seat on its own weight.
+
+**The clock** (`sim/plumb-step.ts`). The bob settles for `plumbStillBeats`,
+then the first step lights under THE SLOW (`openSlow(…, "ask")`). Each beat
+the lit lean is in range counts one; at the step's own beats the weight
+settles, or under the core the weights are held true. A level step stays
+lit `plumbGraceBeats` past its count. The fourth settle lights the core. An
+answered step closes THE SLOW and the bob rests `plumbRestBeats` before the
+next lights. With the script done both weights snap loose, and the bob
+swings free `plumbFreeBeats` before the wave may end.
+
+**The answers.** A lean is heard on the tick (`sim/plumb-hand.ts`), and a
+lean leaving the range while the level was held starts its count from
+nought. A level is counted on the beat, because what it asks is a number of
+beats. A lean either way counts the same: the range is how far off level,
+not which way. A shot is judged where a bolt leaves the top of the field
+(`sim/plumb-shot.ts`): only with the core lit, only while a fire step is
+lit, only in the middle column, and only in its colour unless it is
+`either`. The wrong colour is a colour missed on the balance sheet and
+nothing else, THE SEAM's rule.
+
+**Where this departs from the design, and why.** Nine places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §31's
+  rows 6 and 8 say "ordinary hull hit" and row 10 says the core "stays lit".
+  This game has no ordinary hit (`wave-fail.ts`), so every fire step run out
+  breaches the hull under the bob — THE SEAM's, THE OCULUS's, THE VISE's,
+  THE RIME's and THE TRIVET's precedent.
+- **A level is given grace.** §31's windows are "6 beats, held" and
+  "4 beats, held"; a window exactly its count long could only be met by a
+  phone already level on its first beat. The step stays lit
+  `plumbGraceBeats` longer, and more so here than for a pinch: a phone has
+  to be picked up and found level.
+- **The lean is recorded whenever the bob is present.** A phone held level
+  in the rest before its step lights is counted from that step's first
+  beat; only a drift *during* the lit level resets.
+- **`LevelTilt` rides the drag.** §31 names `plumbLeftTiltMilli` and
+  `plumbRightTiltMilli`; on the wire a reading is a drag on `plumbLevelLeft`
+  or `plumbLevelRight` whose `fromMilli` is the lean, and `on` whether the
+  phone is being read at all. A phone that stops reporting is `PLUMB_UNREAD`,
+  as far off level as a lean can be, so putting it down is a drift. The
+  state keeps both as `tiltMilli`.
+- **The range is the step's.** §31 says "a tighter level" without a number;
+  the script carries each step's `rangeMilli` — eight degrees, then four,
+  then six and five under the core — so the narrowing is authored, not a
+  constant.
+- **"Retry from row 2" is the same step relit.** Rows 3 and 5 have a second
+  level run out go back to the first. A settle already made stays made — the
+  weight swings loose out of the second, tighter level, not out of the
+  first — so the cursor stays where it was and the same step lights again
+  after the rest.
+- **There is no break step.** Row 5 lights the core with the right weight
+  locked; the script lights it with the fourth settle, whichever weight that
+  is, and the next step is the first shot.
+- **The settles and the hits are the health together.** §31 names two
+  counterweights plus a core of three hits; the script is nine steps, and
+  the bob swings free when the last is answered, which is the third hit.
+- **Row 7's lost fire beats are the `both` step asked again.** "Fire beats
+  lost until both weights settle true again" is written as the rule a `both`
+  step run out already has: the core dims, the same `both` lights again, and
+  no fire step lights until it is held.
+
+A reading is clamped to ninety degrees either way, gamma's own range, so a
+lie on the wire is only ever a phone held on its edge.
+
+**Only the simulation lane has landed.** Nothing reads a phone's lean yet:
+`apps/game` sends no `plumbLevel*` drag, so the wave is unanswerable on a
+real phone until the lean reader lands (`docs/queue.md`). Nothing of it is
+drawn either: the render package's silent-event lists and
+`tools/director/src/sound-link-none-d.ts` carry all twelve of its events
+until lane two. The twelve sounds *are* bound (`audio/src/bind-plumb.ts`),
+heard where they happen, the settle pitched up per level and the hit per
+hit. There is no autopilot hand yet (`tools/director/test/autopilot.test.ts`'s
+`NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/plumb.test.ts`): the bob comes in still with both weights loose,
+the core dark and neither phone read, and lights its first level under THE
+SLOW; no shot is taken while the core is dark; a level counts only with the
+lean inside the step's range, either way alike — not outside it, not inside
+the first step's range once the second narrows it, not on the other weight;
+a lean leaving the range or a phone put down starts the count again, one
+that stays in range does not; the wrong seat is not heard; a lean past a
+phone's range is held to the furthest a phone leans; a phone already level
+counts from the step's first beat; a level run out swings the weight loose
+and lights the same step again; the fourth settle lights the core; a fire
+step wants its colour and the middle column, and run out is the wave; a
+`both` wants both phones, drifts on either, and run out dims the core until
+it is held; and a script answered whole snaps both weights free and ends
+the fight. Whether any of it *reads* — whether a phone held flat under a
+voice is a stillness or a wobble — is the owner's eye, after lane two and
+the lean reader.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

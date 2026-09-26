@@ -1,8 +1,8 @@
 /**
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
- * that `hold-targets.ts` had no row for — fifty-seven of them, from the crank
- * to THE TRIVET's rear foot.
+ * that `hold-targets.ts` had no row for — fifty-nine of them, from the crank
+ * to THE PLUMB's right weight.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -122,6 +122,9 @@ export const ROWS: Record<string, Row> = {
   // `trivet-hand.ts`: a foot each, its pads held down together; the pilot's is the front.
   trivetPadFront: { id: true },
   trivetPadRear: { seat: 2, id: true },
+  // `plumb-hand.ts`: a weight each, the lean on `fromMilli`; the pilot's is the left.
+  plumbLevelLeft: {},
+  plumbLevelRight: { seat: 2 },
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

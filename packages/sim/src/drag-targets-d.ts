@@ -1,3 +1,5 @@
+import type { DragTargetE } from "./drag-targets-e.js";
+
 /**
  * **Every thing on this field a hand may take hold of, the fourth page** — the
  * names from THE HIVE's underside on.
@@ -10,6 +12,9 @@
  * THE HIVE's underside came over with this file. `drag-targets.ts` unions the
  * pages together, so `DragTarget` is one name and nothing that reaches for it
  * knows there are four.
+ *
+ * **This page is full**, and `drag-targets-e.ts` carries THE TRIVET and every
+ * boss from here on.
  */
 // THE GIMBAL's two rings, argued below: the first pair of targets that are
 // one object, read from its two opposite faces.
@@ -37,8 +42,7 @@ export type DragTargetD =
   | "viseLobeRight"
   | "rimeHalfLeft"
   | "rimeHalfRight"
-  | "trivetPadFront"
-  | "trivetPadRear";
+  | DragTargetE;
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -223,18 +227,4 @@ export type DragTargetD =
  * reversed. Geometry says whose is whose, `oculusLeafLeft`'s reason, and the
  * wrong seat's message does nothing (`rime-hand.ts`). `fromMilli` is carried
  * and not read.
- */
-
-/**
- * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
- * eightieth: the row of sockets on THE TRIVET's front foot under the
- * pilot's thumbs, and on its rear foot under the navigator's.
- *
- * Read as a **level**, `oculusLeafLeft`'s shape, but **one drag a pad**: the
- * `id` names the socket, nought up to `TRIVET_PADS`, because a chord is two or
- * three of them down together and each lifts on its own — `ChordHold`, the
- * first target a seat holds more than one of at once. Geometry says whose is
- * whose, `viseLobeLeft`'s reason: the pilot's is always the front foot and the
- * navigator's the rear, so the wrong seat's message does nothing
- * (`trivet-hand.ts`). `fromMilli` is unused and sent as nought.
  */

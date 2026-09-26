@@ -14,6 +14,7 @@ import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { mantleStruck } from "./mantle-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { oculusStruck } from "./oculus-shot.js";
+import { plumbStruck } from "./plumb-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { rimeStruck } from "./rime-shot.js";
@@ -185,6 +186,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   rimeStruck(world, b);
   // And THE TRIVET's lit hub (`trivet-shot.ts`).
   trivetStruck(world, b);
+  // And THE PLUMB's lit core (`plumb-shot.ts`).
+  plumbStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

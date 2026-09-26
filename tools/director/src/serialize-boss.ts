@@ -195,6 +195,14 @@ export function serializeBoss(boss: BossEntry): string {
     );
     return `{ kind: "trivet", steps: [${steps.join(", ")}] }`;
   }
+  // THE PLUMB's the same, and each step says how far off level still counts.
+  if (boss.kind === "plumb") {
+    const steps = boss.steps.map(
+      (s) =>
+        `{ ask: "${s.ask}", rangeMilli: ${s.rangeMilli}, color: "${s.color}", beats: ${s.beats} }`,
+    );
+    return `{ kind: "plumb", steps: [${steps.join(", ")}] }`;
+  }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

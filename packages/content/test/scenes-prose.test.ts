@@ -90,6 +90,9 @@ const STILL_PROSE = [
   // And THE TRIVET (§30), a fourteenth time: the stand is undrawn, and the
   // guide says which thumbs hold which foot.
   "THE TRIVET",
+  // And THE PLUMB (§31), a fifteenth time: the bob is undrawn, and the guide
+  // says which phone holds which weight.
+  "THE PLUMB",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -116,9 +119,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix =
-      "update §1 of docs/spec/briefings.md, which says ninety-eight of the hundred and nine";
-    expect(guided.length, fix).toBe(98);
-    expect(WAVES.length, fix).toBe(109);
+      "update §1 of docs/spec/briefings.md, which says ninety-nine of the hundred and ten";
+    expect(guided.length, fix).toBe(99);
+    expect(WAVES.length, fix).toBe(110);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

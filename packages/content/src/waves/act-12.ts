@@ -29,6 +29,13 @@ import type { Wave } from "../wave-types.js";
  * the count (`docs/spec/bosses-choreographed.md` §30, `sim/trivet.ts`). Both
  * feet home light the hub, which is shot in its colour; between the shots
  * both seats chord at once to keep the feet planted under it.
+ *
+ * **THE PLUMB is the first boss answered by the phone itself**, the same
+ * shape a fourth time: a bob over the middle column, each seat's weight hung
+ * true by holding its own phone level, inside a range that narrows on the
+ * second settle (`docs/spec/bosses-choreographed.md` §31, `sim/plumb.ts`).
+ * Both weights true light the core, which is shot in its colour; between the
+ * shots both seats hold level at once to keep the weights true under it.
  */
 export const WAVES_ACT_12: Wave[] = [
   {
@@ -102,6 +109,31 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "fire", pads: 2, color: "cyan", beats: 3 },
         { ask: "both", pads: 2, color: "either", beats: 3 },
         { ask: "fire", pads: 2, color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "thePlumb",
+    name: "THE PLUMB",
+    guide: {
+      both: "Hold your phone level until your weight hangs true. Both weights true light the core. Shoot it in its colour. When both levels light, hold both phones level.",
+      p1: "1. Hold your phone flat and still when the left weight lights, and say so.\n2. Keep it level until the weight hangs true.\n3. When the core shows a colour, fire it.",
+      p2: "1. Hold your phone flat and still when the right weight lights, and say so.\n2. Keep it level until the weight hangs true.\n3. White takes either colour. Hold level with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "plumb",
+      steps: [
+        { ask: "left", rangeMilli: 8000, color: "either", beats: 6 },
+        { ask: "left", rangeMilli: 4000, color: "either", beats: 4 },
+        { ask: "right", rangeMilli: 8000, color: "either", beats: 6 },
+        { ask: "right", rangeMilli: 4000, color: "either", beats: 4 },
+        { ask: "fire", rangeMilli: 0, color: "red", beats: 3 },
+        { ask: "both", rangeMilli: 6000, color: "either", beats: 3 },
+        { ask: "fire", rangeMilli: 0, color: "cyan", beats: 3 },
+        { ask: "both", rangeMilli: 5000, color: "either", beats: 3 },
+        { ask: "fire", rangeMilli: 0, color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

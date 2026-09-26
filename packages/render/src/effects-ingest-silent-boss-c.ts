@@ -216,6 +216,19 @@ export const INGEST_SILENT_BOSS_C = [
   "trivetMiss",
   "trivetCollapse",
   "trivetOut",
+  // THE PLUMB's twelve, for the same reason (`packages/audio/src/bind-plumb.ts`).
+  "plumbEnter",
+  "plumbLight",
+  "plumbDrift",
+  "plumbSettle",
+  "plumbSwing",
+  "plumbCore",
+  "plumbHit",
+  "plumbSteady",
+  "plumbDim",
+  "plumbMiss",
+  "plumbFree",
+  "plumbOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

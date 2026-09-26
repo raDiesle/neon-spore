@@ -30,6 +30,7 @@ import { BOSS_MANTLE_SOUNDS } from "./sounds/boss-mantle.js";
 import { BOSS_OCULUS_SOUNDS } from "./sounds/boss-oculus.js";
 import { BOSS_PINBALL_HAND_SOUNDS } from "./sounds/boss-pinball-hand.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
+import { BOSS_PLUMB_SOUNDS } from "./sounds/boss-plumb.js";
 import { BOSS_PULSE_HAND_SOUNDS } from "./sounds/boss-pulse-hand.js";
 import { BOSS_RATCHET_SOUNDS } from "./sounds/boss-ratchet.js";
 import { BOSS_RIME_SOUNDS } from "./sounds/boss-rime.js";
@@ -104,6 +105,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_VISE_SOUNDS,
   ...BOSS_RIME_SOUNDS,
   ...BOSS_TRIVET_SOUNDS,
+  ...BOSS_PLUMB_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

@@ -35,6 +35,7 @@ import type { InstarEntry, NettleEntry } from "./instar.js";
 import type { KeelEntry } from "./keel.js";
 import type { MantleEntry } from "./mantle.js";
 import type { OculusEntry } from "./oculus.js";
+import type { PlumbEntry } from "./plumb.js";
 import type { RimeEntry } from "./rime.js";
 import type { SeamEntry } from "./seam.js";
 import type { MirrorStep } from "./simon.js";
@@ -183,7 +184,9 @@ export type BossEntry =
   // The one that authors wipes and a shield as well as shots: a lens rubbed clear (`rime.ts`).
   | RimeEntry
   // The one that authors chords as well as shots: a stand planted by two seats' pads (`trivet.ts`).
-  | TrivetEntry;
+  | TrivetEntry
+  // The one that authors leans as well as shots: a bob held level by two phones (`plumb.ts`).
+  | PlumbEntry;
 
 // The three this page had no room left for, handed across on 22 September
 // 2026 — the last rows it held, the way every overflowing page in the
@@ -227,6 +230,7 @@ export type { InstarEntry, NettleEntry } from "./instar.js";
 export type { KeelEntry } from "./keel.js";
 export type { MantleEntry } from "./mantle.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";
+export type { PlumbEntry, PlumbStep } from "./plumb.js";
 export type { RimeEntry, RimeStep } from "./rime.js";
 export type { SeamEntry, SeamStep } from "./seam.js";
 export type { TrivetEntry, TrivetStep } from "./trivet.js";

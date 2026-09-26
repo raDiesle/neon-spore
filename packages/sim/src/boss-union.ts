@@ -17,6 +17,7 @@ import type { MantleState } from "./mantle.js";
 import type { MazeState } from "./maze-state.js";
 import type { OculusState } from "./oculus.js";
 import type { PinballState } from "./pinball.js";
+import type { PlumbState } from "./plumb.js";
 import type { PulseState } from "./pulse.js";
 import type { RatchetState } from "./ratchet.js";
 import type { RepriseState } from "./reprise-state.js";
@@ -111,4 +112,5 @@ export type BossState =
   | OculusState
   | ViseState
   | RimeState
-  | TrivetState;
+  | TrivetState
+  | PlumbState;

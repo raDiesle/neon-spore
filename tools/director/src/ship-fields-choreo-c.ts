@@ -146,4 +146,11 @@ export const CHOREO_FIELD_GROUP_C = {
   trivetRestBeats: "THE TRIVET — the boss two chords plant, then shoot into",
   trivetGraceBeats: "THE TRIVET — the boss two chords plant, then shoot into",
   trivetCollapseBeats: "THE TRIVET — the boss two chords plant, then shoot into",
+  // PlumbConfig — the rests around the steps, the grace a level is given on
+  // top of its count, and the swing free (`config-plumb.ts`). The script is
+  // the wave's own, ranges and all.
+  plumbStillBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
+  plumbRestBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
+  plumbGraceBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
+  plumbFreeBeats: "THE PLUMB — the boss two phones hold level, then shoot into",
 } satisfies Record<string, GroupName>;

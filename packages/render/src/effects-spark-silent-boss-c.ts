@@ -160,4 +160,17 @@ export const SILENT_BOSS_C = [
   "trivetMiss",
   "trivetCollapse",
   "trivetOut",
+  // THE PLUMB's twelve, the same (`packages/audio/src/bind-plumb.ts`).
+  "plumbEnter",
+  "plumbLight",
+  "plumbDrift",
+  "plumbSettle",
+  "plumbSwing",
+  "plumbCore",
+  "plumbHit",
+  "plumbSteady",
+  "plumbDim",
+  "plumbMiss",
+  "plumbFree",
+  "plumbOut",
 ] as const satisfies readonly SimEvent["type"][];

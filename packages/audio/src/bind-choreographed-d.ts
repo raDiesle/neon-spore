@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { oculusCue } from "./bind-oculus.js";
+import { plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
 import { trivetCue } from "./bind-trivet.js";
@@ -28,6 +29,7 @@ type LaterEvent = Extract<
       | `vise${string}`
       | `rime${string}`
       | `trivet${string}`
+      | `plumb${string}`
       | `undertow${string}`;
   }
 >;
@@ -110,6 +112,19 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "trivetCollapse":
     case "trivetOut":
       return trivetCue(e, cols);
+    case "plumbEnter":
+    case "plumbLight":
+    case "plumbDrift":
+    case "plumbSettle":
+    case "plumbSwing":
+    case "plumbCore":
+    case "plumbHit":
+    case "plumbSteady":
+    case "plumbDim":
+    case "plumbMiss":
+    case "plumbFree":
+    case "plumbOut":
+      return plumbCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

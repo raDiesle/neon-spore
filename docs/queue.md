@@ -596,25 +596,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## §31 THE PLUMB — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-31-the-plumb-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-The first choreographed body on this page read off the phone's own pose
-rather than a touch: `LevelTilt` (new — the phone's gamma lean held inside
-a target range, drawn with an on-screen twin per THE CHOIR's rule) settles
-`plumbLeftTiltMilli` then `plumbRightTiltMilli`, and the lit core takes
-three fire hits with two defensive re-level beats (both seats at once)
-against it swinging off true. Eleven steps, three movements. The full beat
-list and primitive table entry are §31 of
-`docs/spec/bosses-choreographed.md`. `TILT, AS A LEVEL` moves from
-`consider` to `specd` in `tools/director/src/gesture-unbuilt.ts` as part of
-this lane — already done, land it with the rest, and gated behind the same
-iPhone motion permission prompt as the shake. THE SLOW on every level and
-fire window. `bun run check` proves it.
-
 ## §30 THE TRIVET — the look
 
 - **Found:** 2026-09-26, this session
@@ -625,6 +606,26 @@ Lane two, read against `docs/style-guide.md`: a three-legged stand whose
 feet swing down and lock rather than fade in, and the hub's lit core
 answering the cannon's colour once both outer feet are planted. Nothing
 here is drawn yet and stays unverified at tempo until the owner has looked.
+
+## §31 THE PLUMB — the lean reader
+
+- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-simulation-lane
+- **Files:** `apps/game/src/shake.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/keys.ts`, `packages/sim/src/plumb-hand.ts`
+
+Wave 110 THE PLUMB is in the simulation and unanswerable on a real phone:
+nothing in `apps/game` sends a `plumbLevelLeft` or `plumbLevelRight` drag.
+Write the reader next to `bindShake`: a `deviceorientation` listener whose
+`gamma`, in thousandths of a degree, goes out as `{ kind: "drag", target,
+fromMilli: lean, on: true }` for the seat's own weight (P1 left, P2 right) —
+**only when the reading crosses a step of about half a degree, never every
+event**, since each is a command on the wire; and `on: false` once when the
+page loses the sensor. `askForMotion` is only called for Player 1 today
+(`join-room-step.ts`) and asks `DeviceMotionEvent`; the lean wants both
+seats asked, and `DeviceOrientationEvent.requestPermission` too on iOS. A
+keyboard fallback for a desk, like `keys.ts`'s shake: two keys leaning the
+seat's reading a few degrees either way. A test that a burst of orientation
+events inside one step sends one command. `bun run check` proves it; a real
+phone held level is unverified.
 
 ## §31 THE PLUMB — the look
 
