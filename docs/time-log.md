@@ -21613,3 +21613,5 @@ end with it mid-screen, which leaves exactly one zero for the shot that lands.
 
 Bottleneck: **looking** — each candidate took two or three shots before its
 light read as light slowing rather than as sticks or a smear.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

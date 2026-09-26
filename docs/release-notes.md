@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2305da78a — VERSUS offers four ways for THE SLOW's light to slow down round the boss
+
+A new `slow:light` slot argues the streams again, keeping PRISM under them and the fuse over them. ARRIVE is a warp jump run backwards: the field is streaked out from the boss on each slowed downbeat and the streaks shrink to still stars. CRAWL's sparks brake as they near and bank up off the skin; FREEZE's rings fall in and never land; HORIZON's rings of light are flung round the boss and brake to a stop each beat. The streams' keep-out moves into its own file, unchanged.
+
 ## 2026-09-26 · b8bc73338 — THE INSTAR's face-on jaw, brow and body segments wobble their shading too
 
 A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, starting with THE INSTAR.
