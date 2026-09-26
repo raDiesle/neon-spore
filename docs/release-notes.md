@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c1a2af169 — THE SEAM's crack has a light that creeps along its spine
+
+A faint shell-grey light now sits inside the crack and drifts slowly up and down the spine, from the first widening point to the last, on its own slow clock. Before this, only the outline's wobble and the beat moved the ridge. The light is grey, not a step's colour, so it is not read as a lit step, and the glow step's white is still drawn over it. Exemption: a look the owner asked for by name, the boss depth pass.
+
 ## 2026-09-26 · 395652828 — AUTO plays THE VALVE: turns each mark, freezes and pulls, plays the story between
 
 The director's AUTO now has a hand for THE VALVE. The pilot's thumb turns the wheel clockwise onto each mark, going the full lap first in the third movement. The navigator taps the pin to freeze the wheel and draws it out. Between the pins the hand caps the jet, shoots the spark, holds the brace and the seal with both thumbs, and rubs the film off. It plays to the end with no window run out and the hull never struck.
