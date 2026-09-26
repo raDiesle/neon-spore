@@ -2184,6 +2184,7 @@ owner's.
 ## §23 THE MANTLE — a fuller story arc, buckle, vent, turn and reveal
 
 - **Found:** 2026-09-26, this session, at the owner's direction, sharpened by
+- **Taken:** 2026-09-26, claude/queue-23-the-mantle-the-braces-look-and-its-hand (claim: claude/queue-23-the-mantle-a-fuller-story-arc-buckle-vent-tur)
   the coordinator session's own review: the earlier closing-beat-only pass
   across §23–§33 was too thin against the owner's ask for bosses that read as
   a story through distinct visual states and SLOW beats. §23 THE MANTLE had no
