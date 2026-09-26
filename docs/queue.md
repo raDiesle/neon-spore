@@ -1605,3 +1605,45 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §41 THE WINCH — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/gesture-unbuilt-b.ts`
+
+No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
+with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first time —
+the seam is which seat governs which. One seat holds a two-control chord
+down as a brake; the other draws and releases toward a lit column exactly
+as THE SLING already resolves it, but the draw only counts while the
+brake's chord is still held whole. Breaking the chord — either control
+lifted — at any point mid-draw springs the draw back slack, the same
+"spring back rather than lose the step outright" `DrawRelease` already
+uses for an early or wrong-direction release; it does not reset THE
+WINCH's own banked count of prior full turns, only the draw in flight.
+This is a harsher coupling than THE CAPSTAN's `TILT, AS A LEVEL` + `RUB`
+(a lifted tilt there only pauses the hidden face's rub counter, never
+springs anything back) and reads differently from a restraint gate: the
+brake seat is not sending nothing, it is actively holding, and it is the
+*other* seat's in-progress gesture that answers to it. The full beat list
+and primitive table entry are §41 of `docs/spec/bosses-choreographed.md`.
+`CHORD` and `HOLD, THEN SWIPE` each already carry a §41 THE WINCH entry
+in their `where` arrays, split across `gesture-unbuilt.ts` and the new
+`gesture-unbuilt-b.ts` — land both files with the rest. THE SLOW on every
+draw the brake is covering. `bun run check` proves it.
+
+## §41 THE WINCH — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §41 THE WINCH's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (checked
+this session against `packages/content/src/silhouettes*.ts` and every
+file under `tools/shape-sheet/src/drafts/` — nothing winch-, drum- or
+brake-shaped exists to reuse or collide with) for a drum and cable under
+tension, the cable paying out smoothly while the brake holds and snapping
+taut with a visible shudder the instant the brake breaks — the tell is
+the shudder, not a colour change, the same drawn-as-mechanism choice
+THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
+drawn yet and stays unverified at tempo until the owner has looked.

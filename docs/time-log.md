@@ -22887,3 +22887,22 @@ scene of the same shape had to refactor two director files to fit.
 
 Bottleneck: friction — the drafts directory has no field a script can grep
 for a named subject, so ruling one out means reading the files.
+
+## 2026-09-26 — §41 THE WINCH: a draw that only counts while the brake holds whole
+
+- reading: 20 min. §30 THE TRIVET and §32 THE SLING in full, for `ChordHold`
+  and `DrawRelease`; `gesture-unbuilt.ts`'s `where` arrays across every spec'd
+  boss to find the one unused primitive pairing, after ruling out two already
+  taken (`TILT, AS A LEVEL` + `RUB`, §37 THE CAPSTAN; `FREEZE TAP` +
+  `SQUEEZE ONE BODY`, §34 THE CYST).
+- writing: 25 min. The spec entry, the beat list, and the two `where`
+  registrations.
+- looking: 0 min. Nothing drawn yet — spec and registrations only.
+- friction: 15 min. The second registration pushed `gesture-unbuilt.ts` past
+  the 250-line ceiling; split `WORTH_CONSIDERING` into a new
+  `gesture-unbuilt-b.ts`, updated `gesture-catalogue.ts`'s import, and reran
+  `bun run index` for the new file's row.
+- landing: 10 min. `check:fast`, the queue entries, this entry, the commit.
+
+Bottleneck: friction — the file split was unplanned work the registration
+itself caused, not the boss concept.

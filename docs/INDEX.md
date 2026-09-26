@@ -2723,7 +2723,8 @@ by hand never moves.
 | `tools/director/src/gesture-phone.ts` | The left half of a GESTURES card: a phone in portrait |
 | `tools/director/src/gesture-prims.ts` | What a GESTURES figure is drawn in: the viewBox, the primitives and the director's own colours as literals |
 | `tools/director/src/gesture-types.ts` | What a card on CONTROLS › GESTURES is made of: a gesture, where it stands |
-| `tools/director/src/gesture-unbuilt.ts` | What the game does not read yet: three the spec already asks for by name, and eight worth having |
+| `tools/director/src/gesture-unbuilt.ts` | What the game does not read yet: eight the spec already asks for by name |
+| `tools/director/src/gesture-unbuilt-b.ts` | The eight worth having, continued from `gesture-unbuilt.ts` — split here once that page passed 250 lines |
 | `tools/director/src/gestures-page.ts` | GESTURES — the fourth inner tab of CONTROLS: every gesture a phone can make that this game reads, could read |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |

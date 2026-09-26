@@ -4504,6 +4504,108 @@ reach for it before inventing a new kind of gate.
 
 ---
 
+### §41 THE WINCH — a draw that only counts while the other hand keeps the brake down
+
+**Question.** `CHORD` has only ever gated whether a *hold* is counted true;
+`HOLD, THEN SWIPE` has only ever been judged against a lit column, its
+outcome decided at the release and by nothing the other seat is doing.
+THE CAPSTAN paired a held state with a continuous wipe, but breaking the
+hold there only *pauses* the wipe's own count — nothing is lost. This
+concept asks whether a chord held by one seat can gate, moment to
+moment, whether a wholly different continuous gesture — another seat's
+draw, already under way — is honoured at all: a chord that breaks before
+the draw is loosed springs the draw itself back slack, the same
+undrawing `DrawRelease` already does on an early or wrong-direction
+release, now caused by a hand that was never touching the draw.
+
+**Silhouette.** A geared winch mid-hull, a hook drawn back along a track
+by one hand, a two-post brake astride the spool that the other hand
+chords to lock it. Health is the two draws, one per seat, each loosed at
+a lit column, plus a lit pawl once both are locked home; the pawl takes
+three ordinary hits.
+
+**Mechanic.** `winchBrakeLeft` / `winchBrakeRight`, one per seat, read by
+`CHORD`, exactly as THE TRIVET's planted feet — held true only while
+none of the two posts has lifted. `winchDrawnMilli`, the other seat, read
+by `HOLD, THEN SWIPE` exactly as THE SLING's arms: a hold on the hook,
+counted while held, resolved at release against a lit column. But the
+draw is only ever loosed while the *other* seat's brake chord is
+currently held — a release timed true against the column, with the
+brake up, springs the hook back slack all the same, precisely as an
+early or wrong-direction release already does; the brake breaking mid-draw
+costs nothing banked so far, only the draw in flight, so a seat that has
+been holding the chord for four beats loses no ground when its partner's
+hook is still short of the column.
+
+**Player 1 and Player 2.** Identical screens, both posts, the hook and
+the pawl visible on both — but **the seat chording the brake is never
+the seat drawing the hook**: Player 1 chords for Player 2 to draw, then
+the two trade so Player 2 chords for Player 1, the same cross THE
+CAPSTAN's steering and wiping already make literal.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left draw** ||||||
+| 1 | The hook hangs slack at the spool, both posts up, pawl dark | — | — | — | — | — |
+| 2 | The brake's two posts light | P1 | hold two controls together (`CHORD`) | held, steadying | brake locked | either lifts, posts spring up, retry |
+| 3 | The hook's cup lights, a column lit to match | P2 | hold, then loose it toward the lit column (`HOLD, THEN SWIPE`), brake held throughout | 5 beats, held, then released true, brake down at release | left draw locked home | brake lifts before release, or held too short, or wrong direction: hook springs slack, retry from row 2 |
+| **Movement 2 — the right draw, roles swapped** ||||||
+| 4 | The brake's posts light for the other seat | P2 | hold two controls together | held, steadying | brake locked | posts spring up, retry |
+| 5 | The hook's cup lights, column lit | P1 | hold, then loose it true, brake held throughout | 5 beats, held, then released true, brake down at release | right draw locked home, pawl lights | springs slack, retry from row 4 |
+| **Movement 3 — the pawl, held down** ||||||
+| 6 | The pawl flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both hooks creep slack under the pawl | P1+P2 | one chords the brake while the other redraws | held, then released true | pawl stays down | brake lifts or draw springs, movement's fire beats lost until both draws lock home again |
+| 8 | Pawl flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Hooks creep slack a second time, faster | P1+P2 | chord and redraw again, roles free to trade | held, then released true | stays down | springs, retry |
+| 10 | Pawl flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, winch spent | stays lit |
+| 11 | Both posts lift for good and the spool spins free, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every brake-and-draw window (rows 2–3, 4–5, 7, 9)
+together — the chord and the draw are one thing to watch rather than
+two, since a post lifted a beat before the release costs a draw the
+chording seat never touched, the same seconds-not-beats argument THE
+TRIVET's and THE SLING's own windows already make, now spent across two
+seats' unrelated gestures at once.
+
+**Presentation.** No camera. Each locked draw a taut snap, THE SLING's
+own; each post held down a low steady creak; a draw sprung by a lifted
+brake the same slack, empty thud `DrawRelease` already gives a
+wrong-direction release.
+
+**Animation.** Five poses: both hooks slack, posts up; left drawn,
+brake down; both drawn, pawl lit; pawl guarded, a hook creeping slack;
+posts up for good, spool spun free. The hook draws by bending the cable
+taut under load rather than fading in, the same drawn-as-mechanism
+choice THE SLING and THE TRIVET both make.
+
+**Colour.** Winch and posts a scoured steel grey, the hook a hot amber
+when drawn true, same as THE SLING's cup; the pawl is the only lit
+colour on the body, in whichever cannon colour a given beat wants.
+
+**Payoff.** Rows 3 and 5 — a draw already timed true against its column
+undone by a hand that was never on it, the sharpest version yet of one
+seat's gesture answering for a state only the other seat holds, distinct
+from THE CAPSTAN's pause-without-loss and from THE HALTER's and THE
+FLUE's own restraint gates, which read absence rather than another
+seat's active hold.
+
+**Cost. Low.** No new primitive — `CHORD` is already built for THE
+TRIVET and THE HALTER, `HOLD, THEN SWIPE` for THE SLING. The only new
+code is reading the brake seat's chord state at the instant the draw
+seat releases, ordinary per-boss wiring rather than a new field type.
+
+**Reusable.** Gating one seat's release-resolved gesture on a wholly
+different seat's continuously-held state, so that state's lapse springs
+the gesture back rather than merely pausing it, is a shape distinct from
+THE CAPSTAN's retarget-without-loss and from every restraint gate reading
+one seat's own absence; any future concept wanting a partner's hold to
+underwrite the other partner's aim can reach for it before inventing a
+new kind of coupling.
+
+---
+
 ## The reusable boss mechanic library
 
 The brief asks for the primitives extracted. Here they are, and the useful
