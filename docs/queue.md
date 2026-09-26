@@ -2207,3 +2207,17 @@ four new booleans and one new hashed read of `mantlePairMilli`'s existing
 buckle/vent/turn thresholds, not a new primitive. `bun run check` proves the
 sim half; the three new poses (buckled valve, vented crack, hinged-open
 valves) are a look task, queued separately once this lane lands.
+
+## Unverified at f043ab146: THE MANTLE's brace watched at tempo: the shudder, the…
+
+- **Found:** 2026-09-26, claude/queue-23-the-mantle-the-braces-look-and-its-hand
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/hands/src/boss-hands-mantle.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`
+
+*§23 THE MANTLE: the brace is drawn, asked for and played* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
+
+- THE MANTLE's brace watched at tempo: the shudder, the glow's pulse and the knob rings
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

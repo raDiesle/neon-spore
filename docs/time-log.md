@@ -23502,3 +23502,5 @@ one.
 
 Bottleneck: writing — the brace is three pictures, and each needed a test that
 a count of colours could tell apart.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

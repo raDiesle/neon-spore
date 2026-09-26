@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f043ab146 — §23 THE MANTLE: the brace is drawn, asked for and played
+
+Before the last pair the seam now cracks up from the tail and glows red, pulsing brighter as the hold counts; the shell shudders side to side, less as the hold counts and half again with both thumbs down; and each knob gets a ring, grey and breathing when let go, lit when held. The field says HOLD on each seat's own knob until that side is held, the autopilot braces, and the STATES sheet poses the brace as THE MANTLE's sixth state.
+
 ## 2026-09-26 · 03643d0e8 — Queue: SNAKE · SHED's pose is built at the edge of its timeout
 
 Its fresh-build test timed out once under a landing's full check; the item names the file and the fix.
