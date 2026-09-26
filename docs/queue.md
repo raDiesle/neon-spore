@@ -664,6 +664,7 @@ splitting work too big for one sitting).
 ## The wider graphics-improvement pass has no single owner yet
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the
+- **Taken:** 2026-09-26, claude/task-queue-work-aab360 (claim: claude/queue-the-wider-graphics-improvement-pass-has-no-singl)
   owner's *"slow down"* request)
 - **Files:** `docs/style-guide.md`
 
