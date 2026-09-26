@@ -3,6 +3,8 @@ import { fieldX } from "./field-flip.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { haspBlow } from "./hasp-blow.js";
 import type { Layout } from "./layout.js";
+import { ledgerBlow } from "./ledger-blow.js";
+import { ledgerBodyY } from "./ledger-shape.js";
 import { mantleCentre } from "./mantle-shape.js";
 import { oculusBlow } from "./oculus-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
@@ -59,6 +61,9 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   valve: valveCentre,
   spool: spoolHome,
   mantle: mantleCentre,
+  // The body's underside, where the cord leaves it: the side the plate is
+  // wrenched toward (`ledger-blow.ts`).
+  ledger: (l, cfg) => ({ x: fieldX(l, midCol(cfg)), y: ledgerBodyY(l).bottom }),
 };
 
 /** A boss's own blow; an empty table is every boss on the lash. */
@@ -67,6 +72,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   seam: seamBlow,
   // Its bolt has already fallen the column in sight; the blow drives it home.
   hasp: haspBlow,
+  // Its cord is already rooted at the socket; the blow wrenches that plate up.
+  ledger: ledgerBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

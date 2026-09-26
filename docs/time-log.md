@@ -23889,3 +23889,15 @@ Bottleneck: reading — the whole lane was THE OCULUS's shape, and the only
 question was whether a lift after a crack could be heard as a slip.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE LEDGER's own blow at the hull
+
+- reading: 10 min. `ledger-step.ts`'s bill, `ledger-shape.ts`'s socket and body.
+- writing: 10 min. The plate wrenched up on its hinge, the hole, the rivets, the slam.
+- looking: 15 min. Frames of the timeout, forced with a bead in `--boss-json`;
+  the first pass left the plate hovering flat before the yank.
+- friction: 5 min. An unforced run failed on a rock, not on the bill.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — the bill only comes on a forced bead, and the wave
+fails on the same tick, so every frame after it is held.

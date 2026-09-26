@@ -1803,6 +1803,7 @@ by hand never moves.
 | `packages/render/src/ledger-haul.ts` | **The pilot's carry on the taut cord** |
 | `packages/render/src/ledger-pull.ts` | **The pilot's two hands on THE LEDGER's cord**: his thumb on the soonest return |
 | `packages/render/src/ledger-metal.ts` | **What THE LEDGER is made of**: plating — two halves of dark metal |
+| `packages/render/src/ledger-blow.ts` | **THE LEDGER's own blow at the hull** (`boss-strike-look.ts`): the bill is collected: its cord wrenches the socket's plate up off the hull and slams it back |
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-depth.ts` | **THE LEAD in depth**: the ridge is not a grey band laid across the top of the field but a ledge seen a… |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |

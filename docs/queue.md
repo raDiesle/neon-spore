@@ -2253,22 +2253,6 @@ start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
 blind: send a PNG of the timeout (`bun run frames . --wave "THE GRINDSTONE" --until breach`
 when the wave misses unattended), or land it `--unverified` if it does not.
 
-## THE LEDGER's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-26, claude/ledger-blow (claim: claude/queue-the-ledgers-own-blow-at-the-hull)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-
-THE LEDGER's timeout already calls `bossStrikesHull` (`packages/sim/src/ledger-step.ts`)
-and draws the default lash, a red tendril out of the body to the column and
-back. That lash is a floor, not the picture. Give THE LEDGER a `LOOK` row in
-`boss-strike-look.ts` made from its own body, the part of it that acts, in
-its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
-The blow must reach the hull at `reach = 1`, when the crack and the sparks
-start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
-blind: send a PNG of the timeout (`bun run frames . --wave "THE LEDGER" --until breach`
-when the wave misses unattended), or land it `--unverified` if it does not.
-
 ## THE SLING's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
