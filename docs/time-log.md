@@ -23615,3 +23615,5 @@ three natural seams to hang new states on without inventing a new verb.
 
 Bottleneck: writing — the registrations outside the simulation are the
 same sixty files a boss, and only discoverable from one another.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

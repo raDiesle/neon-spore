@@ -2573,3 +2573,19 @@ session working from a tree not yet fetched never sees it. Have `bun run
 queue next` and `take` fetch `origin/main` first and refuse an item taken
 there, and have `bun run land` warn when the lane's queue item was marked
 done by a commit it does not carry. `bun run check` proves the refusal.
+
+## Unverified at 881f776df: THE DAVIT: no touch sends a lean or draw
+
+- **Found:** 2026-09-26, claude/davit-sim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*§35 THE DAVIT: pair LevelTilt with DrawRelease as a steer, the simulation lane* landed from a session that could not look at it. The commit touched 63 more files. What went unchecked:
+
+- THE DAVIT: no touch sends a lean or draw
+- THE DAVIT is undrawn
+- THE DAVIT never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

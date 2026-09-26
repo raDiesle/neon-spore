@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 881f776df — §35 THE DAVIT: pair LevelTilt with DrawRelease as a steer, the simulation lane
+
+Wave 114 THE DAVIT is in: a crane boom pivoted off the hull's spine, where one seat leans a phone to steer it onto the lit side and holds it there while the other holds a draw and looses it that way; a draw counts only while the partner's lean holds the target and lands only if it lifts while the lean still holds, swiped toward that side. Two looses each way light the pivot, shot in its colour, with relands between the shots that either seat can make. Nine steps, thirteen sounds bound, 26 tests; seven departures from the design argued in docs/spec/bosses.md §11.52. Nothing sends a lean or a draw from a touch yet (queued with the look), nothing is drawn, and there is no autopilot hand.
+
 ## 2026-09-26 · 113f19f0e — THE INSTAR moves between its poses rather than blending
 
 Every change of pose is now drawn between its two keys instead of blended: the head leads and the body follows, the wings fold in through the middle and open late, the jaws half shut and the fire dies with them, the head dips the wrong way first and settles with a small overshoot, and a turn closes the eyes through its middle. Both ends are exact, so the marks glow where they always did. It covers the second act's rear, glare, dive, spread and bare as well as every earlier pose.
