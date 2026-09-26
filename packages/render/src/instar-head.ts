@@ -21,6 +21,12 @@ import { PALETTE, STROKE } from "./palette.js";
  * to the bite by as much as its thumb has pushed it (`instar-shape.ts`,
  * `deformed`): the whole upper head comes down, the chin comes up, and the
  * fire has less room between them.
+ *
+ * **A shoved lip trembles** (`instar-shove.ts`): on the beat the jaw pushes
+ * back against a thumb, that lip jumps outward and quivers as it settles,
+ * twice as far at the third bite's push as at the second's — the owner's
+ * *player really feels when pulling it is required to be stronger*. Only the
+ * drawing trembles; the marks stay where the thumbs are.
  */
 
 /** How far each lip stands off the middle of the mouth, in head radii: shut and wide. */
@@ -42,6 +48,17 @@ const JAW_WOBBLE = 0.05;
 const JAW_WOBBLE_PERIOD = 4.7;
 const BROW_WOBBLE = 0.05;
 const BROW_WOBBLE_PERIOD = 8.6;
+
+/** How far a lip shoved at full strength jumps outward, in head radii, and how fast it quivers. */
+const TREMBLE = 0.09;
+const TREMBLE_HZ = 13;
+
+/** A lip's outward offset under a shove of strength `k`, in pixels: most of
+ * it a jump open, the rest a quiver; `phase` so the two lips are not in step. */
+function tremble(k: number, time: number, r: number, phase: number): number {
+  if (k <= 0) return 0;
+  return k * r * TREMBLE * (0.6 + 0.4 * Math.sin(time * Math.PI * 2 * TREMBLE_HZ + phase));
+}
 
 /** The upper jaw and brow, from the lip up, in head radii. */
 const UPPER: readonly (readonly [number, number])[] = [
@@ -84,8 +101,14 @@ export function frontEyeAt(f: Figure, head: Point, r: number, s: -1 | 1): Point 
 
 export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
-  const up = upperLip(f, head, r);
-  const down = { x: head.x, y: head.y + r * (LIP_SHUT + LIP_OPEN * f.jawDown) };
+  // The whole top of the head hangs off the upper lip, so a shove on it moves
+  // the skull and the eyes with it.
+  const top = { x: head.x, y: head.y - tremble(look.shoveUp, time, r, 0) };
+  const up = upperLip(f, top, r);
+  const down = {
+    x: head.x,
+    y: head.y + r * (LIP_SHUT + LIP_OPEN * f.jawDown) + tremble(look.shoveDown, time, r, 1.7),
+  };
   const gap = (down.y - up.y) / r;
   for (const s of [-1, 1]) drawHorns(ctx, up, r, s, fade);
   const chin = new Path2D();
@@ -185,6 +208,6 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
   ctx.restore();
   for (const s of [-1, 1] as const) {
     const open = s === 1 ? f.eye * (1 - 0.8 * f.wince) : f.eye;
-    drawEye(ctx, frontEyeAt(f, head, r, s), r, s, open, time, fade);
+    drawEye(ctx, frontEyeAt(f, top, r, s), r, s, open, time, fade);
   }
 }

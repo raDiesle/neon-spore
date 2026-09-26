@@ -130,6 +130,7 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.instarShow": "the marks lighting on the body. Same argument.",
   "boss.instarRefuse": "a thumb from the wrong seat on a mark. The mark's, not a card's.",
   "boss.instarAnswer": "one unit of a mark's need given. Same argument.",
+  "boss.instarShove": "the jaw pushing back against a thumb on a pull. Same argument.",
   "boss.instarDone": "a mark reaching its need. Same argument.",
   "boss.instarSlip": "a done mark slipping back to nought. Same argument.",
   "boss.instarLand": "every mark of a step done together. Same argument.",

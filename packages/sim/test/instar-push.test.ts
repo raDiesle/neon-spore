@@ -5,6 +5,8 @@ import {
   DEFAULT_CONFIG,
   type InstarState,
   instarBoss,
+  instarMarkCol,
+  type SimEvent,
   startWave,
   step,
   type TimedCommand,
@@ -19,6 +21,7 @@ import {
  * still opens again under the thumb, and the thumb has to go that much
  * further to shut it — the owner's *pulling it is required to be stronger*.
  * A step with no push is the first bite, and stays where the thumb put it.
+ * Every shove is said (`instarShove`), for the lips to tremble and the ear.
  */
 
 const CFG = { ...DEFAULT_CONFIG };
@@ -132,5 +135,35 @@ describe("THE INSTAR's jaw pushing back", () => {
     const seen = runTo(world, t + 2, [pull(t, NEED), lower]);
     expect(seen.has("instarLand")).toBe(true);
     expect(s.phase).toBe("land");
+  });
+});
+
+describe("THE INSTAR's shove, said", () => {
+  /** Every shove a thumb held on the upper jaw for `beats` met. */
+  function shoves(pushMilli: number | undefined, beats: number): SimEvent[] {
+    const { world } = install(pushMilli);
+    runTo(world, TPB * MORPH + 1);
+    const t = world.tick;
+    const out: SimEvent[] = [];
+    while (world.tick < t + TPB * beats) {
+      step(world, world.tick === t ? [pull(t, NEED)] : []);
+      out.push(...world.events.filter((e) => e.type === "instarShove"));
+    }
+    return out;
+  }
+
+  it("is one event a beat, on the thumb's mark, with the push", () => {
+    const upper = bite(PUSH).marks[0];
+    if (upper === undefined) throw new Error("the bite has no upper jaw");
+    const col = instarMarkCol(CFG, upper);
+    const said = shoves(PUSH, 2);
+    expect(said).toEqual([
+      { type: "instarShove", mark: 0, part: "jaw", pushMilli: PUSH, col },
+      { type: "instarShove", mark: 0, part: "jaw", pushMilli: PUSH, col },
+    ]);
+  });
+
+  it("is never said on a bite with no push", () => {
+    expect(shoves(undefined, 3)).toEqual([]);
   });
 });

@@ -1,5 +1,5 @@
 /**
- * THE INSTAR's eleven, in a file of their own for `boss-gorge.ts`' reason.
+ * THE INSTAR's twelve, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **body over the field that changes shape**, and everything
  * here is the sound of chitin and what is under it: the enter is a weight
@@ -7,7 +7,8 @@
  * new pose sliding out of it, a long wet slide; the show is the marks
  * lighting, a short bright click per pose — the one sound that says *now*;
  * the refuse is a dry knock, flat, the boss's *not yours*; the answer is the
- * part giving a little, a slap or a pull's creak; the done is the part
+ * part giving a little, a slap or a pull's creak; the shove is the jaw
+ * forcing itself open under a thumb, a low grinding heave on the beat; the done is the part
  * giving whole, a snap and a release; the slip is it clamping back, a wet
  * suck; the land is the beat landed, a chord for the pair, pitched up as the
  * steps go by; the strike is the part hitting the hull, the one heavy thing
@@ -68,6 +69,19 @@ export const BOSS_INSTAR_SOUNDS: SoundDef[] = [
     use: "One unit of a mark's need on THE INSTAR — a tap, a swipe lifted, a quarter turn, a pull halfway.",
     level: 0.3,
     layers: [thud(300, 160, 0.08, 0.3), after(0.02, soft(0.4, spore(420, 0.12, 0.1, 30)))],
+  },
+  {
+    id: "boss.instarShove",
+    family: "boss",
+    blurb: "The jaw forcing itself open under the thumb: a low grinding heave, on the beat.",
+    status: "bound",
+    use: "THE INSTAR pushing back against a thumb on a pull, once a beat — louder and lower the harder it pushes.",
+    level: 0.38,
+    layers: [
+      noise(0.14, { type: "bandpass", freq: 260, toFreq: 180, q: 3 }, 0.01, 0.1, 0.45),
+      after(0.02, thud(140, 70, 0.14, 0.34)),
+      after(0.06, soft(0.5, sub(52, 0.3, 0.3))),
+    ],
   },
   {
     id: "boss.instarDone",

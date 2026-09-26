@@ -1437,6 +1437,7 @@ by hand never moves.
 | `packages/render/src/instar-plate.ts` | **What every part of THE INSTAR is drawn with**: the hide |
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
+| `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
 | `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
@@ -1896,7 +1897,7 @@ by hand never moves.
 | `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
-| `packages/audio/src/bind-instar.ts` | THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-instar.ts` | THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-warden-hand.ts` | THE WARDEN's hold, throw and slam, cued at the hatch's column |
 | `packages/audio/src/bind-well.ts` | THE WELL's four, in a file of their own for `bind-gauge.ts`'s reason — `bind-choreographed-b.ts` is full |

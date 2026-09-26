@@ -34,6 +34,9 @@ export interface Look {
   fire: number;
   /** How far the new body in the moult's split has hardened, 0..1 (`InstarStrike.harden`). */
   harden: number;
+  /** How hard each lip trembles with the jaw's shove, 0..1 (`instar-shove.ts`). */
+  shoveUp: number;
+  shoveDown: number;
 }
 
 /** A colour at the fade: the hex itself while the body is whole, so the frame

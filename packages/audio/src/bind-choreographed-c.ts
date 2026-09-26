@@ -101,6 +101,7 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "instarShow":
     case "instarRefuse":
     case "instarAnswer":
+    case "instarShove":
     case "instarDone":
     case "instarSlip":
     case "instarLand":

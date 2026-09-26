@@ -51,6 +51,7 @@ export const SILENT_BOSS_B = [
   "instarShow",
   "instarRefuse",
   "instarAnswer",
+  "instarShove",
   "instarDone",
   "instarSlip",
   "instarLand",

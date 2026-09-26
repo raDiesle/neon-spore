@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR, breath: the shove is seen and heard
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-26, claude/queue-split-boss-hurt-test-ts-past-250-lines (claim: claude/queue-the-instar-breath-the-shove-is-seen-and-heard)
-- **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/instar-shape.ts`, `packages/sim/src/instar-step.ts`, `.claude/skills/new-boss-state`
-
-The second and third bites of the breath push back against both thumbs every
-beat (`pushMilli`, `sim/instar-step.ts` `pushBack`), and today the only sign
-is the jaw drawn a little more open. The lips should tremble on the beat of a
-shove, stronger at the third bite's push, and the shove should have a sound —
-which is a new event, `instarShove`, and so the twelve registrations
-`.claude/skills/new-boss-state` lists. A look the owner asked for by name
-(*player really feels when pulling it is required to be stronger*).
-
 ## `bind.ts` and `ship-fields.ts` sit at their line ceiling
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd

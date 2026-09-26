@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason.
+ * THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one is panned to the column it happened over, and here the pan is
  * **the mark**: a mark's answer, its done and its slip all come from where
@@ -12,6 +12,11 @@ import { type Cue, panForCol } from "./bind.js";
  * out — are from the middle, where it hangs. The refusal is the one sound
  * addressed to a seat, and it is not panned to the mark but said flat: it is
  * the boss saying *not yours*, not the mark saying anything.
+ *
+ * The shove is the jaw forcing itself open against a thumb, once a beat, and
+ * it is **louder and lower the harder it pushes**: the third bite's shove is
+ * twice the second's (`instar-script-breath.ts`), and the pair should hear
+ * that it is.
  */
 export function instarCue(
   e: Extract<
@@ -23,6 +28,7 @@ export function instarCue(
         | "instarShow"
         | "instarRefuse"
         | "instarAnswer"
+        | "instarShove"
         | "instarDone"
         | "instarSlip"
         | "instarLand"
@@ -45,6 +51,13 @@ export function instarCue(
       return { id: "boss.instarRefuse", pan: 0 };
     case "instarAnswer":
       return { id: "boss.instarAnswer", pan };
+    case "instarShove":
+      return {
+        id: "boss.instarShove",
+        pan,
+        gain: Math.min(1, 0.5 + e.pushMilli / 1000),
+        pitch: 1 - Math.min(0.2, e.pushMilli / 2500),
+      };
     case "instarDone":
       return { id: "boss.instarDone", pan };
     case "instarSlip":

@@ -35,6 +35,10 @@ export type InstarEvent =
   | ({ type: "instarAnswer"; mark: number; part: ScenePart } & InstarColEvent)
   /** Mark `mark` reached its need: the part gives — the hand opens, the tail lifts. */
   | ({ type: "instarDone"; mark: number; part: ScenePart } & InstarColEvent)
+  /** The part pushed back `pushMilli` against the thumb on pull mark `mark`, on
+   * a beat of a step that shoves (`instar-step.ts` `pushBack`): the jaw
+   * forcing itself open again, once a beat for as long as the thumb stays. */
+  | ({ type: "instarShove"; mark: number; part: ScenePart; pushMilli: number } & InstarColEvent)
   /** Mark `mark` was done and its partner was not in time: back to nought. */
   | ({ type: "instarSlip"; mark: number; part: ScenePart } & InstarColEvent)
   /** Every mark of step `step` is done together: the beat is landed. */

@@ -6273,7 +6273,10 @@ four times — the jaws shut; forced open again where it stays (the arrival
 `stay`) while player 2 taps the fire in the mouth out, eight taps; shut
 against a push, `pushMilli` thousandths of a tile taken back off each pull
 every beat a thumb is on it, 250 on the second bite and 500 on the third,
-so a jaw shut early and held still opens again under the thumb; and the
+so a jaw shut early and held still opens again under the thumb — each
+shove said as `instarShove`, with the push, so the lip it shoved jumps and
+trembles (`render/instar-shove.ts`) and a grinding heave sounds, louder and
+lower at the third bite's push than at the second's; and the
 third bite three marks, player 2 pulling the upper jaw while player 1 taps
 the fire out, six, and then pulls the lower jaw up to meet it. The fire is
 its own part, `fire`, last in `INSTAR_PARTS`, and a count of taps, so it

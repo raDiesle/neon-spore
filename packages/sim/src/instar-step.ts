@@ -45,7 +45,8 @@ import type { World } from "./world.js";
  * says it does (`pushMilli`): each beat a thumb is on the mark, the carry
  * loses that much, and a jaw that was shut is open again until the thumb goes
  * further. On the beat, like the slip, so the shove is a pulse the pair can
- * feel in the music rather than a drift.
+ * feel in the music rather than a drift — and said, one `instarShove` per
+ * thumb it pushed, so the lips can tremble and the ear can hear it.
  *
  * And the beat is what counts a **hold**: a mark whose thumbs are all on it
  * gains one unit per beat they stay, which is the one gesture with no command
@@ -128,7 +129,7 @@ function slipLonely(world: World, s: SceneState): void {
 /** The part pushes back against every thumb on a pull, by the step's
  * `pushMilli`: what it has taken back is kept in `ref` (`NO_BEARING` until
  * the first shove of a grab), so the next move is judged against it. */
-function pushBack(s: SceneState): void {
+function pushBack(world: World, s: SceneState): void {
   const step = instarStep(s);
   const push = step?.pushMilli ?? 0;
   if (step === null || push <= 0) return;
@@ -138,6 +139,8 @@ function pushBack(s: SceneState): void {
     s.ref[i] = Math.max(0, s.ref[i] ?? NO_BEARING) + push;
     s.progress[i] = Math.max(0, (s.progress[i] ?? 0) - push);
     if ((s.progress[i] ?? 0) < mark.need) s.doneBeat[i] = NOT_DONE;
+    const col = instarMarkCol(world.cfg, mark);
+    world.events.push({ type: "instarShove", mark: i, part: mark.part, pushMilli: push, col });
   }
 }
 
@@ -188,7 +191,7 @@ export function stepInstar(world: World, s: SceneState): void {
   }
   if (s.phase === "act") {
     slipLonely(world, s);
-    pushBack(s);
+    pushBack(world, s);
     countHolds(world, s);
     // A hold that landed the step this beat has closed the window itself.
     if (instarActing(s) && world.beat >= instarStrikeBeat(s)) strike(world, s);

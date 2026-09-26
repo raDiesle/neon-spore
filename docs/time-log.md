@@ -21918,3 +21918,18 @@ Bottleneck: none. The work was done by the lane before it, which did not
 close this entry because it did not claim it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's shove is seen and heard
+
+- reading: 10 min. `pushBack`, the head's two lips, `InstarFx`, the new-boss-state
+  table, and the mixer, to learn that two identical cues in a frame are one.
+- writing: 15 min. `instarShove` with the push; `boss.instarShove`, louder and
+  lower with the push; `LipShove` and the lips' tremble; the registrations.
+- looking: 0 min. The tremble is proved by the drawn log differing, not by eye.
+- friction: 5 min. `instar-fx.ts` was near its limit, so the tremble went to a
+  file of its own; `INSTAR_BREATH` is not exported, so the test finds its bites
+  by their push.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the event touches the simulation, the ear and the
+picture, and each had its own place to register it.

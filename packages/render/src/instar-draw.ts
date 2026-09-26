@@ -78,7 +78,19 @@ export function drawInstar(
     ctx.translate(-c.x, -c.y);
   }
   const hurt = fx.hurt.value;
-  const look: Look = { f, head, r, time, fade, hurt, threat, fire, harden: fx.strike.harden };
+  const look: Look = {
+    f,
+    head,
+    r,
+    time,
+    fade,
+    hurt,
+    threat,
+    fire,
+    harden: fx.strike.harden,
+    shoveUp: fx.shove.up,
+    shoveDown: fx.shove.down,
+  };
   if (f.side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - f.side) });
   if (f.side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * f.side });
   ctx.restore();

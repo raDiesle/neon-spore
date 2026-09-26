@@ -298,6 +298,7 @@ const SAMPLES: Record<string, SimEvent> = {
   instarShow: { type: "instarShow", col: 5, step: 1 },
   instarRefuse: { type: "instarRefuse", col: 3, mark: 0, player: 2 },
   instarAnswer: { type: "instarAnswer", col: 3, mark: 0, part: "jaw" },
+  instarShove: { type: "instarShove", mark: 0, part: "jaw", pushMilli: 250, col: 3 },
   instarDone: { type: "instarDone", col: 3, mark: 0, part: "jaw" },
   instarSlip: { type: "instarSlip", col: 7, mark: 1, part: "eggs" },
   instarLand: { type: "instarLand", col: 5, step: 1 },

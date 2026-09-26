@@ -9,6 +9,7 @@ import { BossHurt } from "./boss-hurt.js";
 import { GripVerdicts } from "./grip-verdict.js";
 import { FallingEggs } from "./instar-eggs.js";
 import { instarAt, instarMarkPoint, type Point } from "./instar-shape.js";
+import { LipShove } from "./instar-shove.js";
 import { InstarStrike } from "./instar-strike.js";
 import type { Sway } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -21,8 +22,9 @@ import { PALETTE } from "./palette.js";
  * fire or swarm or tail (`instar-strike.ts`), the **eggs** a swipe takes off
  * its nest falling to the hull and the ones a tap bursts where they lie
  * (`instar-eggs.ts`), the **hurt** of a step the pair landed — a shake and
- * a red glow on the body (`boss-hurt.ts`) — and the bursts its eleven
- * receipts throw.
+ * a red glow on the body (`boss-hurt.ts`), the **tremble** of a lip the jaw
+ * shoved back against its thumb (`instar-shove.ts`) — and the bursts its
+ * eleven receipts throw.
  *
  * Everything else is drawn off the world every frame (`instar-draw.ts`).
  * These are here for THE HIVE's reason: a landing is one tick in the
@@ -63,6 +65,8 @@ export class InstarFx {
   readonly strike = new InstarStrike();
   /** The blow a landed step deals the body. */
   readonly hurt = new BossHurt();
+  /** The lips trembling under the jaw's shove. */
+  readonly shove = new LipShove();
 
   /** How far the body is lifted right now, in tiles. */
   get jolt(): number {
@@ -86,6 +90,7 @@ export class InstarFx {
     const step = instarStep(s);
     this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway, along));
     this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
+    this.shove.place(step);
     this.head = head;
   }
 
@@ -120,6 +125,9 @@ export class InstarFx {
           if (e.part !== "eggs") break;
           if (this.swipes[e.mark] === false) this.eggs.squash(mark(e.mark), this.headR || l.tile);
           else this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
+          break;
+        case "instarShove":
+          this.shove.hit(e.mark, e.pushMilli);
           break;
         case "instarDone":
           at(mark(e.mark), 8, PALETTE.hullRim);
@@ -176,6 +184,7 @@ export class InstarFx {
     this.verdicts.update(step);
     this.eggs.update(step);
     this.hurt.update(step);
+    this.shove.update(step);
   }
 
   /** The falling and the burst eggs, and the strike over everything. */
@@ -195,6 +204,7 @@ export class InstarFx {
     this.verdicts.clear();
     this.eggs.clear();
     this.hurt.clear();
+    this.shove.clear();
   }
 }
 
