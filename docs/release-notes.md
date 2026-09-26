@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f8bf140fd — THE COUNT's guide is a film: a shot on sight shuts it, a shot on zero lands
+
+The wave's three strings are gone, replaced by a rehearsal in four pages. Player 1 sees the blades. Player 2 fires on sight: the body is refused and shut grey. Player 1 counts down out loud. Player 2 fires on zero, and the body is destroyed. Both shots are real. `scene-count.test.ts` pins them to the zeros that seed 1 rolls. §3.2 now counts eighty-two films and eight guides still in prose.
+
 ## 2026-09-26 · 3dbbb759f — THE SLOW's window splits the frame's colours under the streams
 
 On every slowed downbeat the frame's red and blue now pull apart about the boss and close again across the beat, under the light running in round it — PRISM from the `slow:pull` VERSUS slot, on top of what the window already drew. The rest of that slot (grade, implode, punch, swallow) is dropped.

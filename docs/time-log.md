@@ -21593,3 +21593,5 @@ so taking it meant moving that helper first.
 
 Bottleneck: the first timing failed the page tests — a page about a body must
 end with it mid-screen, which leaves exactly one zero for the shot that lands.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
