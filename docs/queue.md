@@ -2691,3 +2691,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at ebfb94360: THE SEAM's turn and glow at tempo
+
+- **Found:** 2026-09-26, claude/queue-26-the-seam-the-ridge-turns-away-then-glows-from
+- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-d.ts`, `packages/audio/src/bind-seam.ts`, `packages/audio/test/bind.test.ts`, `packages/content/src/waves/act-11.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`
+
+*THE SEAM turns its face away, then glows from within* landed from a session that could not look at it. The commit touched 13 more files. What went unchecked:
+
+- THE SEAM's turn and glow at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

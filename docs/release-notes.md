@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ebfb94360 — THE SEAM turns its face away, then glows from within
+
+Two new steps in THE SEAM's script, each under THE SLOW and each a hull hit if it runs out. The turn: the ridge faces away and throws its grit blind, taking no shot, only the shield under the ridge. The glow: heat gathers up the crack and takes three shots of either colour in the middle column to quench. The script is eleven steps now. Neither is drawn yet; the look is the next lane.
+
 ## 2026-09-26 · 8a8d7d625 — THE TRIVET is drawn: a gunmetal stand on three needles, its feet lit by the chord
 
 Wave 109's stand gets its body, the first half of its look: SINKER's hub in dull gunmetal with one of CALTROP's needles run out to each foot as a leg, the two outer feet on plates of sockets lit a cold blue-white while a chord wants them and drawn pressed under a held pad, a foot swinging down by the share held and clamped at its ankle on its second plant, the hub lit in its fire step's colour with its ring closing and smaller per hit, the feet creeping loose through a `both` step, and the collapse splaying the legs flat as the hub sinks. The hands — pads on the field, the autopilot hand, the fx, the cue's words and THE SLOW's aim — are queued as the second half.
