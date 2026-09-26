@@ -2622,3 +2622,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 40d1ce2b9: THE MANTLE's spark bursting on the hull, watched at te…
+
+- **Found:** 2026-09-26, claude/mantle-blow
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-strike-look.ts`, `packages/render/src/mantle-blow.ts`, `packages/render/test/boss-strike.test.ts`, `packages/sim/src/mantle-step.ts`
+
+*THE MANTLE's spark bursts on the hull itself, not a rock* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
+
+- THE MANTLE's spark bursting on the hull, watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

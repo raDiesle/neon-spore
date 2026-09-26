@@ -23940,3 +23940,5 @@ Bottleneck: looking — a fire painted with sharp tongues reads as a blade at th
 
 The bottleneck was the landing, as it was for the last lane: the trunk moved
 under the check three times before it held.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 40d1ce2b9 — THE MANTLE's spark bursts on the hull itself, not a rock
+
+A spark nobody shot used to break the hull with a rock falling from the top of the field. Now the spark that ran down the column in sight bursts where it landed: the bead squashes flat on the plating, throws a spatter of drops and leaves a red scald spreading. The wave is lost the same way, with the same scar and sound.
+
 ## 2026-09-26 · df2173bd5 — THE INSTAR's fire globs, embers and heart are offered baked in VERSUS
 
 The glob is a ball of flame in four churning frames, with its trail as the same painting shrinking behind it: 6 draws where the game makes 19. An ember is a halo, a hot core and a glint in one draw. The heart is a shaded organ with a crease, veins and a wet highlight in one draw. They show on `instar:spit` and `instar:heart`, and a new pose, INSTAR · THE GLOBS FALLING, puts globs in flight. The game still draws the shipped fire (a look with a shipped alternative, so it goes to VERSUS).
