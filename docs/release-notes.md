@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 899c01eb2 — Five boss blows in the queue now say they wait on the boss's body
+
+THE CYST, THE GRINDSTONE, THE SLING, THE TRIVET and THE PLUMB draw nothing on the field yet, so their timeout blows have no part of the boss to be made from. Each queue entry now says so, and to take it after that boss's look lands.
+
 ## 2026-09-26 · 7a02ab28c — THE SLING's fork is drawn: the pull, the cup, and every pose
 
 Steel tines swing out from the hull as the fork arrives, and stand folded before it. Each cord hangs slack in cord-brown until the lit step asks that seat's arm, then glows the hull's own white and draws further home as the pull holds; a thumb is heard anywhere on the seat's own panel, not only on the rest handle's circle, and the lift carries the swipe's side the way THE WARDEN's hatch does. The cup at the crotch lights the step's own colour once a fire step asks it, brightens once the yoke has answered, and a closing ring counts the firing window down. The fork goes translucent and lifts away once it is spent.
