@@ -816,20 +816,6 @@ which is a new event, `instarShove`, and so the twelve registrations
 `.claude/skills/new-boss-state` lists. A look the owner asked for by name
 (*player really feels when pulling it is required to be stronger*).
 
-## A wave and its guide that teach the push-back
-
-- **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
-- **Taken:** 2026-09-26, claude/shield-enemy-knockback-6364bd (claim: claude/queue-a-wave-and-its-guide-that-teach-the-push-back)
-- **Files:** `.claude/skills/new-wave/SKILL.md`, `.claude/skills/new-tutorial/SKILL.md`, `packages/content/src/scenes/the-volley.ts`
-
-**After the two entries above have landed.** The owner asked for a new wave
-with a guide explaining the mechanic (25 September 2026). One sentence: the
-shield saves the hull from a creature once, but only the cannon kills it.
-Slicks and bulbs with a rock or two, the shield shown; the guide's rehearsal
-shows a push, the red shield and ONE LAST CHANCE, then the cannon finishing it.
-Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
-`bun run check` holds it.
-
 ## `bind.ts` and `ship-fields.ts` sit at their line ceiling
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
