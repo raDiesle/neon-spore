@@ -80,7 +80,11 @@ describe("a boss's blow at the hull", () => {
   it("draws for every boss, out and back, on a canvas that takes it", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;
-    for (const by of ["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"] as const) {
+    const bosses = [
+      ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
+      ...["ratchet", "valve", "vise", "rime"],
+    ] as const;
+    for (const by of bosses) {
       const fx = new BossStrikeFx();
       fx.spawn(by, 4, BEAT_SECONDS, () => {});
       const before = ctx.calls;

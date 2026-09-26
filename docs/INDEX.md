@@ -1349,6 +1349,7 @@ by hand never moves.
 | `packages/render/src/rime-marks.ts` | **THE RIME's marks**: the three things that say what a step asks — the lit half |
 | `packages/render/src/rime-pose.ts` | **The clock THE RIME is posed off** (§29, *Animation*) |
 | `packages/render/src/rime-shape.ts` | **THE RIME's geometry**: where the lens stands, and the paths it is made of |
+| `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |

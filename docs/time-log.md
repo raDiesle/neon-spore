@@ -24196,3 +24196,15 @@ Bottleneck: friction — the bug announced itself by claiming work the owner
 had put on hold.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RIME's own blow at the hull
+
+- reading: 5 min. `rime-step.ts`'s `miss`, `rime-shape.ts`'s lens and sheets.
+- writing: 10 min. A frosted sheet dropped from the lens, bursting into chips
+  and creeping frost ferns along the skin.
+- looking: 10 min. Frames forced at the first fire step; the ferns first
+  stood off the hump in the air and were tipped down onto its slopes.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — the ferns needed a second pass to sit on the hump.

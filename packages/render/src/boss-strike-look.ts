@@ -13,6 +13,8 @@ import { oculusCentre } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
 import { ratchetBlow } from "./ratchet-blow.js";
 import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
+import { rimeBlow } from "./rime-blow.js";
+import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { seamBlow } from "./seam-blow.js";
 import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
@@ -78,6 +80,11 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   // The pawl's seam, where the jammed rack lets its head plate go
   // (`ratchet-blow.ts`).
   ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
+  // The lens's underside, where a frosted sheet lets go (`rime-blow.ts`).
+  rime: (l, cfg) => {
+    const c = rimeCentre(l, cfg);
+    return { x: c.x, y: c.y + rimeRadius(l).ry };
+  },
   // The eye itself, where the look leaves the socket (`stare-blow.ts`).
   stare: (l, cfg) => {
     const e = stareEye(l, cfg);
@@ -111,6 +118,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   vise: viseBlow,
   // Its gaze is already in the sky; the look lands as one ray and brands the hull.
   stare: stareBlow,
+  // A core left unshot: the lens drops a frosted sheet that bursts and frosts the skin.
+  rime: rimeBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
