@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 3c3b82322 — Graphics may look 3D; only the play stays 2D, and Zdog was weighed and not taken
+
+The style guide's Depth section and the depth skill read the owner's rule as "stay 2D". He meant the game does not move in 3D; how a body is drawn is free, and the rig is the preferred way. Zdog was drawn beside the rig with `bun run solid --zdog`: it turns correctly but is flat-shaded, so the rig stays, and a WebGL glow pass is queued as a VERSUS candidate with a phone battery and frame-time check. No look changed on the field.
+
 ## 2026-09-26 · 2110a01aa — A boss can be built as a rig and seen correctly from any side
 
 The foundation for turning a boss between side, three-quarter and front: parts authored in three dimensions (tubes along a spine, balls), turned and projected per frame with a fixed key light, ordered far-first, hazed with depth, a contact shadow where a ball rests on a tube, opaque densified tube shading and baked lit ball sprites. Motion comes from hashed noise, a wandering breath and chain follow-through. `bun run solid` renders the test rig as a PNG sheet; the technique is in docs/style-guide.md, the research in the depth skill, and four CLOUD ONLY entries in the queue carry the rest. Nothing the game draws changes yet.
