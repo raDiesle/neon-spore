@@ -213,6 +213,13 @@ export function serializeBoss(boss: BossEntry): string {
     );
     return `{ kind: "davit", steps: [${steps.join(", ")}] }`;
   }
+  // THE HALTER's the same, and a step says only what it asks and its colour.
+  if (boss.kind === "halter") {
+    const steps = boss.steps.map(
+      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
+    );
+    return `{ kind: "halter", steps: [${steps.join(", ")}] }`;
+  }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

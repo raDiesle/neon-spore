@@ -1,7 +1,7 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 
 /** The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason. */
-type BossIdB = Extract<MechanicId, "davit" | "vane">;
+type BossIdB = Extract<MechanicId, "davit" | "halter" | "vane">;
 
 /**
  * **The bosses `mechanics-bosses.ts` had no room for**, started on 26
@@ -16,6 +16,10 @@ type BossIdB = Extract<MechanicId, "davit" | "vane">;
 export const BOSS_MECHANICS_B = {
   davit: {
     what: "Your partner leans the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
+    reach: "spawn",
+  },
+  halter: {
+    what: "One of you touches nothing while the other holds both grips. Hold it together and the seam opens. Then shoot the bared centre.",
     reach: "spawn",
   },
   vane: {

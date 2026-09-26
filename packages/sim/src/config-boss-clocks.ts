@@ -8,6 +8,7 @@ import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { GRINDSTONE_DEFAULTS, type GrindstoneConfig } from "./config-grindstone.js";
+import { HALTER_DEFAULTS, type HalterConfig } from "./config-halter.js";
 import { HASP_DEFAULTS, type HaspConfig } from "./config-hasp.js";
 import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
@@ -99,6 +100,7 @@ export interface BossClockConfig
     GrindstoneConfig,
     CystConfig,
     DavitConfig,
+    HalterConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -141,6 +143,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...GRINDSTONE_DEFAULTS,
   ...CYST_DEFAULTS,
   ...DAVIT_DEFAULTS,
+  ...HALTER_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

@@ -64,6 +64,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   grindstone: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   cyst: "THE CYST — the boss one hand stills for the other to crack",
   davit: "THE DAVIT — the boss one hand steers for the other to loose",
+  halter: "THE HALTER — the boss one hand keeps still for the other to open",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

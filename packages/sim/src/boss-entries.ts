@@ -34,6 +34,7 @@ import type { DavitEntry } from "./davit.js";
 import type { FilamentEntry } from "./filament.js";
 import type { GimbalEntry } from "./gimbal.js";
 import type { GrindstoneEntry } from "./grindstone.js";
+import type { HalterEntry } from "./halter.js";
 import type { InstarEntry, NettleEntry } from "./instar.js";
 import type { KeelEntry } from "./keel.js";
 import type { MantleEntry } from "./mantle.js";
@@ -186,7 +187,9 @@ export type BossEntry =
   // The one that authors flanks as well as shots: a sac one seat stills for the other (`cyst.ts`).
   | CystEntry
   // The one that authors leans and draws as well as shots: a boom one seat steers for the other (`davit.ts`).
-  | DavitEntry;
+  | DavitEntry
+  // The one that authors rests and chords as well as shots: a seam one seat stays off while the other grips (`halter.ts`).
+  | HalterEntry;
 
 // The four this page had no room left for, handed across on 22 and 26
 // September 2026 — the last rows it held, the way every overflowing page in
@@ -229,6 +232,7 @@ export type { DavitEntry, DavitStep } from "./davit.js";
 export type { FilamentEntry } from "./filament.js";
 export type { GimbalEntry } from "./gimbal.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
+export type { HalterEntry, HalterStep } from "./halter.js";
 export type { InstarEntry, NettleEntry } from "./instar.js";
 export type { KeelEntry } from "./keel.js";
 export type { MantleEntry } from "./mantle.js";

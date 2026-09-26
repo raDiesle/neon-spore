@@ -538,6 +538,11 @@ by hand never moves.
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
 | `packages/sim/src/harpoon.ts` | **THE LEECH and THE LIMPET as malfunctions** |
+| `packages/sim/src/halter-hand.ts` | Every command either seat sends while THE HALTER is up — **all of them** |
+| `packages/sim/src/halter-hash.ts` | What THE HALTER puts into `hashWorld`, and nothing else |
+| `packages/sim/src/halter-shot.ts` | **THE HALTER's shot**: the bared centre, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/halter-step.ts` | THE HALTER's clock: the seam settling in, each step lighting, each seat's rest counted |
+| `packages/sim/src/halter.ts` | THE HALTER: a wary seam over the middle column, in three segments |
 | `packages/sim/src/hive-hash.ts` | What THE HIVE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/hive-hand.ts` | **Two thumbs on THE HIVE's underside**, off the wire, on the tick |
 | `packages/sim/src/hive-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE HIVE |
@@ -636,6 +641,7 @@ by hand never moves.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-halter.ts` | What THE HALTER says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
@@ -674,6 +680,7 @@ by hand never moves.
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
+| `packages/sim/src/config-halter.ts` | THE HALTER's tuning: the beats around its steps, the rest a seat must keep |
 | `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
 | `packages/sim/src/config-keel.ts` | THE KEEL's tuning: how many segments the spine has |
 | `packages/sim/src/config-oculus.ts` | THE OCULUS's tuning: the rests around its steps and the grace a hold is given… |
@@ -2138,6 +2145,7 @@ by hand never moves.
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-halter.ts` | THE HALTER's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own so the page that routes them stays a switch |

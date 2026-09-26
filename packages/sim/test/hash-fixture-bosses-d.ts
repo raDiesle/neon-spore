@@ -145,6 +145,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "red", beats: 3 },
     ],
   },
+  // THE HALTER authors its script; two steps rather than the shipped seven,
+  // the colour set off `either` so the walk can move it (`halter-hash.ts`).
+  halter: {
+    kind: "halter",
+    steps: [
+      { ask: "left", color: "red", beats: 6 },
+      { ask: "fire", color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -379,5 +388,20 @@ export function patchBossD(boss: BossState): void {
     boss.holding = [false, true];
     boss.drawnBeats = [0, 3];
     boss.aimMilli = -19000;
+  }
+  if (boss.kind === "halter") {
+    // One segment cracked, the centre bare and shot once, a seat part way
+    // rested and the other stirred, a grip down on each — every field given a
+    // value (`halter-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.cracks = [1, 0];
+    boss.hits = 1;
+    boss.bared = true;
+    boss.restBeats = [2, 1];
+    boss.stirred = [true, false];
+    boss.grips = [3, 1];
+    boss.heldBeats = 1;
   }
 }

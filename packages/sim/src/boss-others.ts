@@ -236,7 +236,7 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepDavit(world, boss);
     return;
   }
-  // And the six that are not stepped here at all, with THE CYST, THE GRINDSTONE, THE SPOOL, THE HASP, THE RATCHET, THE VANE,
+  // And the six that are not stepped here at all, with THE HALTER, THE CYST, THE GRINDSTONE, THE SPOOL, THE HASP, THE RATCHET, THE VANE,
   // THE CAIRN, THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the
   // second page (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
   // THE GIMBAL's branch took this one over its 250-line limit, and a later

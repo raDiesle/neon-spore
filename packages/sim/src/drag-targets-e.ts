@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, and THE DAVIT's leans and draws. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, and THE HALTER's grips. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -29,7 +29,9 @@ export type DragTargetE =
   | "davitSteerLeft"
   | "davitSteerRight"
   | "davitLooseLeft"
-  | "davitLooseRight";
+  | "davitLooseRight"
+  | "halterChordLeft"
+  | "halterChordRight";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -112,4 +114,14 @@ export type DragTargetE =
  * `slingDrawLeft`'s: `DrawRelease`, `on` the finger down and the lift's
  * `fromMilli` the swipe's sign. The wrong seat's touch does nothing
  * (`davit-hand.ts`). `id` is unused.
+ */
+
+/**
+ * `halterChordLeft` and `halterChordRight` are the ninety-seventh and
+ * ninety-eighth: THE HALTER's two grips, both on each seat's screen, since
+ * which seat chords is the lit step's.
+ *
+ * No new reading: `CHORD`, `trivetPadFront`'s — `on` the thumb down and a
+ * lift the thumb up, the two kept as a mask a seat. Either seat's are heard
+ * (`halter-hand.ts`). `id` and `fromMilli` are unused.
  */

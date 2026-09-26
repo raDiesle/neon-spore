@@ -424,6 +424,8 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   davitSteerRight: "unbuilt",
   davitLooseLeft: "unbuilt",
   davitLooseRight: "unbuilt",
+  halterChordLeft: "unbuilt",
+  halterChordRight: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

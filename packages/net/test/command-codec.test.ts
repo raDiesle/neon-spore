@@ -282,6 +282,10 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "davitSteerRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "davitLooseLeft", on: true, fromMilli: 0 },
   { kind: "drag", target: "davitLooseRight", on: false, fromMilli: -1 },
+  // THE HALTER's grips carry nothing but the thumb down or up, from either
+  // seat (`sim/halter-hand.ts`).
+  { kind: "drag", target: "halterChordLeft", on: true, fromMilli: 0 },
+  { kind: "drag", target: "halterChordRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -458,6 +462,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   davitSteerRight: true,
   davitLooseLeft: true,
   davitLooseRight: true,
+  halterChordLeft: true,
+  halterChordRight: true,
   crank: true,
 };
 

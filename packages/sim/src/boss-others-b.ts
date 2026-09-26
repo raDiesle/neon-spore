@@ -5,6 +5,7 @@ import { stepCairn } from "./cairn.js";
 import { stepCyst } from "./cyst-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGrindstone } from "./grindstone-step.js";
+import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepRatchet } from "./ratchet-step.js";
@@ -46,6 +47,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE HALTER: rests counted, pairs held together, windows shut, and the split (`halter-step.ts`).
+  if (boss.kind === "halter") {
+    stepHalter(world, boss);
+    return;
+  }
   // THE CYST: steps lit, taps waited for, pinches counted, and the split (`cyst-step.ts`).
   if (boss.kind === "cyst") {
     stepCyst(world, boss);

@@ -28,4 +28,18 @@ export const CHOREO_NOTES_D = {
     "here yet. Only the simulation lane has landed — see sim/davit.ts, " +
     "sim/davit-step.ts, sim/davit-hand.ts, sim/davit-shot.ts, " +
     "sim/config-davit.ts.",
+  "THE HALTER — the boss one hand keeps still for the other to open":
+    "Asked for in docs/spec/bosses-choreographed.md §36: a seam over the " +
+    "middle column that opens only while one seat sends nothing at all — " +
+    "RestraintGate, counted in whole beats from the step's light and zeroed " +
+    "by any command — and the other holds both grips, THE TRIVET's chord. " +
+    "Held together halterHoldBeats, the lit segment cracks. The left mark " +
+    "rests the navigator and the pilot grips, the right the other way; both " +
+    "cracked bare the centre, shot in its colour. A guard step keeps it bare " +
+    "and takes the pair either way round; a guard failed or run out shuts it " +
+    "until the guard is made again. A segment window run out is tried again " +
+    "after halterPauseBeats; a fire step run out is a hull hit, which is the " +
+    "wave. Nothing on the phone sends a grip here yet. Only the simulation " +
+    "lane has landed — see sim/halter.ts, sim/halter-step.ts, " +
+    "sim/halter-hand.ts, sim/halter-shot.ts, sim/config-halter.ts.",
 } satisfies Partial<Record<GroupName, string>>;

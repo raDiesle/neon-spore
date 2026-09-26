@@ -71,6 +71,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   "THE CYST — the boss one hand stills for the other to crack",
   "THE DAVIT — the boss one hand steers for the other to loose",
+  "THE HALTER — the boss one hand keeps still for the other to open",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

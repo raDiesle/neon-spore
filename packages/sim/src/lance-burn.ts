@@ -8,6 +8,7 @@ import { davitStruck } from "./davit-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { grindstoneStruck } from "./grindstone-shot.js";
+import { halterStruck } from "./halter-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { keelStruck } from "./keel-shot.js";
@@ -200,6 +201,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   cystStruck(world, b);
   // And THE DAVIT's lit pivot (`davit-shot.ts`).
   davitStruck(world, b);
+  // And THE HALTER's bared centre (`halter-shot.ts`).
+  halterStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

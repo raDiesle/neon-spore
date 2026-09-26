@@ -108,6 +108,21 @@ export const INGEST_SILENT_BOSS_D = [
   "davitMiss",
   "davitSpent",
   "davitOut",
+  // THE HALTER's fourteen, the same (`packages/audio/src/bind-halter.ts`).
+  "halterEnter",
+  "halterLight",
+  "halterSettle",
+  "halterStartle",
+  "halterSlip",
+  "halterCrack",
+  "halterBare",
+  "halterGuard",
+  "halterShut",
+  "halterSeal",
+  "halterHit",
+  "halterMiss",
+  "halterSplit",
+  "halterOut",
   // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
   // what the drum does is read off its phase (`valve-story.ts`), never off these.
   "valveJet",

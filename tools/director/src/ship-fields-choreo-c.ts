@@ -212,4 +212,12 @@ export const CHOREO_FIELD_GROUP_C = {
   davitGraceBeats: "THE DAVIT — the boss one hand steers for the other to loose",
   davitSpentBeats: "THE DAVIT — the boss one hand steers for the other to loose",
   davitDriftMilli: "THE DAVIT — the boss one hand steers for the other to loose",
+  // HalterConfig — the alarm before the first step, the pause between steps,
+  // how long a seat must send nothing, how long the pair must hold, and the
+  // spent seam (`config-halter.ts`).
+  halterAlarmBeats: "THE HALTER — the boss one hand keeps still for the other to open",
+  halterPauseBeats: "THE HALTER — the boss one hand keeps still for the other to open",
+  halterRestThreshold: "THE HALTER — the boss one hand keeps still for the other to open",
+  halterHoldBeats: "THE HALTER — the boss one hand keeps still for the other to open",
+  halterSpentBeats: "THE HALTER — the boss one hand keeps still for the other to open",
 } satisfies Record<string, GroupName>;

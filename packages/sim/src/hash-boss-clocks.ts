@@ -8,6 +8,7 @@ import { filamentHashParts } from "./filament-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { grindstoneHashParts } from "./grindstone-hash.js";
+import { halterHashParts } from "./halter-hash.js";
 import { haspHashParts } from "./hasp-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
@@ -186,6 +187,11 @@ export function clockHashParts(boss: BossState): number[] {
   // seats' leans, fingers and counts, the boom and the script (`davit-hash.ts`).
   if (boss.kind === "davit") {
     for (const n of davitHashParts(boss)) out.push(n);
+  }
+  // THE HALTER: the phase, the cursor, the cracks, the hits, the centre, both
+  // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).
+  if (boss.kind === "halter") {
+    for (const n of halterHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

@@ -24716,3 +24716,17 @@ Bottleneck: reading — choosing which older bosses fall shortest takes reading 
 Bottleneck: friction — a second session drew the same claimed look from an item of its own, found only at the rebase.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §36 THE HALTER, the simulation lane (claude/queue-36-the-halter-the-simulation-lane)
+
+- reading: 15 min. §36's rows, THE DAVIT's lane as the template, and the
+  `new-boss` and `new-boss-state` lists.
+- writing: 50 min. The seam, its clock, its hands and its shot, fourteen
+  sounds, wave 115, twenty-five tests and §11.53.
+- looking: 0 min. Nothing drawn yet; the look is lane two.
+- friction: 10 min. Some forty registrations across six packages, each found
+  from the one before it.
+- landing: 15 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the registrations outside the simulation outweigh the
+seam itself.

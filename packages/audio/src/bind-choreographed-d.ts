@@ -3,6 +3,7 @@ import type { Cue } from "./bind-cue.js";
 import { cystCue } from "./bind-cyst.js";
 import { davitCue } from "./bind-davit.js";
 import { grindstoneCue } from "./bind-grindstone.js";
+import { halterCue, isHalterEvent } from "./bind-halter.js";
 import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
 import { plumbCue } from "./bind-plumb.js";
@@ -41,11 +42,14 @@ type LaterEvent = Extract<
       | `grindstone${string}`
       | `cyst${string}`
       | `davit${string}`
+      | `halter${string}`
       | `undertow${string}`;
   }
 >;
 
 export function laterCue(e: LaterEvent, cols: number): Cue {
+  // THE HALTER whole, by its prefix: this page had no room for fourteen cases.
+  if (isHalterEvent(e)) return halterCue(e, cols);
   switch (e.type) {
     case "keelEnter":
     case "keelLight":

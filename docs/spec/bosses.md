@@ -9682,6 +9682,119 @@ boom spent and ends the fight. Whether any of it *reads* — whether leaning
 a phone for a partner's draw feels like aiming for them — is the owner's
 eye, on two real phones.
 
+## 11.53 THE HALTER — the boss one hand keeps still for the other to open
+
+> A wary seam down the hull's spine that hugs its plating shut at the
+> faintest touch. One of you touches nothing at all while the other holds
+> both grips down; held together, a segment cracks. Both cracked bare the
+> centre: shoot it in its colour, and between the shots keep the plating
+> off it the same way, either way round.
+
+Designed as §36 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`, and the
+first tenant of `RestraintGate` (`docs/spec/transfers-touch.md` §4): a step
+passed by sending the game **nothing**, paired with THE TRIVET's `CHORD` on
+the other screen and asked true at the same instant.
+
+**It is two segments and three hits, and they are its health.** The state
+(`sim/halter.ts`, hashed in `sim/halter-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, whether each segment has
+**cracked**, the **hits**, whether the centre is **bared**, each seat's
+**rest** in whole beats, whether each seat has **stirred** since the last
+beat, each seat's **grips** as a mask, and the beats the lit step's pair has
+been **held** together. The script is the wave's (`HalterEntry.steps`),
+copied at install: each step asks `left`, `right`, `guard` or `fire`, with a
+colour or `either` and its own beats.
+
+**The rule, in one sentence.** One of you touches nothing while the other
+holds both grips; hold it together and the seam opens; then shoot the bared
+centre.
+
+**The split.** Not by geometry: both seats have `halterChordLeft` and
+`halterChordRight`, and which seat rests is the step's — the role swap by
+movement §36 asks for. The `left` step rests the navigator and grips the
+pilot, the `right` step the other way about, and a `guard` either way round.
+A fire step is the ordinary shot — Player 1's cannon under the middle
+column, Player 2's trigger in its colour.
+
+**The clock** (`sim/halter-step.ts`). The seam sits alarmed for
+`halterAlarmBeats`, then the first step lights; a rest-and-chord step under
+THE SLOW (`openSlow(…, "ask")`), a fire step without it, as §36 says. Each
+beat a seat sent nothing in adds one to its rest, up to
+`halterRestThreshold`; a seat that sent anything goes back to nought. A seat
+is *settled* at the threshold with no grip down, and each beat the step's
+rester is settled while the other seat holds both grips counts one; at
+`halterHoldBeats` the segment cracks, or the guard is made. The second crack
+bares the centre. An answered step closes THE SLOW and the seam pauses
+`halterPauseBeats` before the next lights. With the script done the seam
+splits spent, and hangs `halterSpentBeats` before the wave may end.
+
+**The answers** (`sim/halter-hand.ts`). **Every command either seat sends
+while the seam is up is heard** — a drag, a press, the cannon slid, a colour
+primed — which no other hand in the game does; nothing is read from it but
+whose it was, and a chord's grip. A settled rester who sends one is
+startled (`halterStartle`); a chording seat lifting a grip while the pair
+held slips (`halterSlip`); either one while the pair held clears **both**
+counters, so the pair builds the stillness and the grip again from nothing,
+§36's rule. A shot is judged where a bolt leaves the top of the field
+(`sim/halter-shot.ts`): only with the centre bared, only while a fire step
+is lit, only in the middle column, and only in its colour unless it is
+`either`.
+
+**Where this departs from the design, and why.** Seven places.
+
+- **The eleven rows are seven steps.** Rows 2 and 3, and 4 and 5, are one
+  step each: the rest is worth nothing until the chord holds with it, so
+  the mark asks for both at once and the settle is heard as it comes
+  (`halterSettle`). Rows 1 and 11 are the seam's own phases, alarmed and
+  spent. The script is left, right, fire, guard, fire, guard, fire; row 9's
+  "faster" is the second guard's shorter window, six beats to eight.
+- **The rest is held at the threshold and zeroed as a step lights.** A
+  count that ran on would let a seat bank stillness through the pause and
+  settle the moment a mark lit, so a settle would answer nothing. Held at
+  the threshold, one stray command costs the same wherever it lands.
+- **A rester with a thumb on a grip is not resting.** A held drag sends no
+  further command, so a seat could keep a grip down and count as silent.
+  `RestraintGate` asks for touching nothing, and a thumb on a grip is
+  touching something.
+- **A segment's window run out is tried again.** Rows 3 and 5 retry "from
+  row 2" and "from row 4": the seam flinches shut (`halterShut`), pauses,
+  and relights the same step. It is no hull hit.
+- **A guard's pairing is free.** Row 7 says "P1+P2" and row 9 "roles free
+  to trade"; both guards take either seat resting, and a settled seat
+  taking the chord in a guard is choosing its half, not startled.
+- **A guard comes apart the instant the pair does.** Row 7's plating shuts
+  when the window runs out, and also the moment a startle or a slip breaks
+  the pair while it held (`halterSeal`); the cursor stays, so no fire step
+  lights until the same guard is made. The hits already landed stay.
+- **A fire step run out is a hull hit, and a hull hit is the wave.** Rows
+  6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game has no
+  ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+
+**Not yet.** Nothing in `apps/game` sends a grip, so the seam is
+unanswerable on a phone until the touch sender lands with the look; nothing
+of it is drawn; there is no autopilot hand
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`). The fourteen sounds
+are bound (`packages/audio/src/bind-halter.ts`), and the events stay off the
+two silent lists' pictures until the look reads the state off `world`.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/halter.test.ts`): the seam comes in alarmed with the centre
+covered and takes no shot, and lights its first segment under THE SLOW; the
+rest is counted from the light, a beat at a time, held at the threshold,
+and zeroed by any command at all; a rester with a thumb on a grip never
+settles; the pair held its beats cracks the lit segment, and the wrong way
+round counts nothing; a grip lifted, or the rester stirring, while the pair
+held clears both counters and says which; a segment run out shuts and is
+lit again, never the wave; the second crack bares the centre; a fire step
+lights without THE SLOW, wants its colour and the middle column, and run
+out is the wave; a guard is made either way round, comes apart into a
+seal, and run out shuts the centre until it is made; the script answered
+whole splits the seam and ends the fight; and two devices part over a
+single stray command. Whether any of it *reads* — whether keeping still for
+a partner feels like helping them — is the owner's eye, on two real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

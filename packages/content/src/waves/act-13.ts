@@ -16,6 +16,13 @@ import type { Wave } from "../wave-types.js";
  * It authors the whole script, and nothing that falls: the left swing twice,
  * the right swing twice, each to one half and then the other, then fire and
  * reland in turn up to the white last hit.
+ *
+ * **THE HALTER is the first boss that asks a seat to do nothing.** A wary
+ * seam on the hull's spine: on each lit segment one seat sends no command at
+ * all while the other holds both grips, and held together the segment cracks
+ * (§36, `sim/halter.ts`). The left mark rests the navigator and the right the
+ * pilot; after the bare, a guard takes either way round. Three shots at the
+ * bared centre, the last one white.
  */
 export const WAVES_ACT_13: Wave[] = [
   {
@@ -39,6 +46,29 @@ export const WAVES_ACT_13: Wave[] = [
         { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "cyan", beats: 3 },
         { ask: "reland", leanMilli: 10000, rangeMilli: 8000, color: "either", beats: 3 },
         { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theHalter",
+    name: "THE HALTER",
+    guide: {
+      both: "One of you touches nothing while the other holds both grips. Hold it together and the seam opens. Then shoot the bared centre.",
+      p1: "1. Left mark: hold both grips down while your partner keeps still.\n2. Right mark: let go and touch nothing at all.\n3. When the seam starts to close, do it again, either way round.\n4. Shoot the centre in its colour.",
+      p2: "1. Left mark: let go and touch nothing at all.\n2. Right mark: hold both grips down while your partner keeps still.\n3. When the seam starts to close, do it again, either way round.\n4. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "halter",
+      steps: [
+        { ask: "left", color: "either", beats: 10 },
+        { ask: "right", color: "either", beats: 10 },
+        { ask: "fire", color: "red", beats: 3 },
+        { ask: "guard", color: "either", beats: 8 },
+        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "guard", color: "either", beats: 6 },
+        { ask: "fire", color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

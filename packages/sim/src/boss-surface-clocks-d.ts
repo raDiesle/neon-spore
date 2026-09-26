@@ -1,7 +1,8 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
  * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac,
- * THE DAVIT's boom, THE VISE's seed-case and THE TRIVET's stand.
+ * THE DAVIT's boom, THE HALTER's seam, THE VISE's seed-case and THE
+ * TRIVET's stand.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -84,6 +85,30 @@ export {
   grindstoneJawHeld,
   grindstoneLitStep,
 } from "./grindstone.js";
+// THE HALTER's seam: the phase, the lit step, the cracks, both seats' rests
+// and grips, and which pairing holds, for the picture, the cue and the
+// director's hand. Straight off `halter.ts` (`docs/spec/bosses-choreographed.md` §36).
+export {
+  freshHalter,
+  HALTER_ASKS,
+  HALTER_BOTH_GRIPS,
+  HALTER_PHASES,
+  type HalterAsk,
+  type HalterEntry,
+  type HalterPhase,
+  type HalterState,
+  type HalterStep,
+  halterBoss,
+  halterDone,
+  halterGripped,
+  halterGuarding,
+  halterLitStep,
+  halterPairing,
+  halterResters,
+  halterSeatIndex,
+  halterSettled,
+  halterSide,
+} from "./halter.js";
 // THE PLUMB's window in beats, for the ring round its core and the creep of
 // its weights off true (`plumb-step.ts`).
 export { plumbWindowBeats } from "./plumb-step.js";

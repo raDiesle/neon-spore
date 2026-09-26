@@ -97,8 +97,8 @@ describe("buildBacklog", () => {
     // group is read off the ledger, not off a status word on the Contents
     // list. THE KEEL (§24), THE VALVE (§25), THE SEAM (§26), THE OCULUS
     // (§27), THE VISE (§28), THE RIME (§29), THE TRIVET (§30), THE PLUMB
-    // (§31), THE SLING (§32), THE GRINDSTONE (§33), THE CYST (§34) and THE
-    // DAVIT (§35) left it when their simulation lanes landed.
+    // (§31), THE SLING (§32), THE GRINDSTONE (§33), THE CYST (§34), THE
+    // DAVIT (§35) and THE HALTER (§36) left it when their simulation lanes landed.
     expect(proposedNames).not.toContain("THE MANTLE");
     expect(proposedNames).not.toContain("THE KEEL");
     expect(proposedNames).not.toContain("THE VALVE");
@@ -112,6 +112,7 @@ describe("buildBacklog", () => {
     expect(proposedNames).not.toContain("THE GRINDSTONE");
     expect(proposedNames).not.toContain("THE CYST");
     expect(proposedNames).not.toContain("THE DAVIT");
+    expect(proposedNames).not.toContain("THE HALTER");
   });
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {
