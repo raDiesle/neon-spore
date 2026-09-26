@@ -21817,3 +21817,5 @@ with no hand on it was the shortest.
 
 Bottleneck: finding that the refusal the entry described was already gone,
 which a one-file scratch run settled faster than reading the history.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

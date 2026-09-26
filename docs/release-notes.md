@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ccdfe0b9f — The time log grows at its end, and says so
+
+Two lanes that both wrote their entry at the top of `docs/time-log.md` no longer stop a landing — the duplicate-heading fix had already made that merge go through — and the arriving entry is put at the end, where `land` stamps the measured line. The ledger's preamble now tells a session to write there, and a test holds two top-written entries merging with nothing lost.
+
 ## 2026-09-26 · 1afe9d842 — `wouldHear` asks a press behind the ones already queued on its tick
 
 A hold is a grab, a carry and a lift sent on one tick, and `bun run frames` asked each of them against the tick's bare world, so the lift found no hand on the handle and every hold reported one press unheard that the round had in fact heard. `InputBuffer.queued()` hands the presses already waiting to `wouldHear`, which steps both copies with them first.
