@@ -1603,19 +1603,6 @@ silhouette collision — do that first. This is a proposal for which look to
 claim next, not a claim itself; the owner or whichever session claims
 THE VALVE's look decides.
 
-## The build-stamp test still times out when `check:fast` is contended
-
-- **Found:** 2026-09-26, claude/instar-rig
-- **Taken:** 2026-09-26, claude/queue-the-build-stamp-test-still-times-out-when-check
-- **Files:** `tools/test/build-stamp.test.ts`
-
-`the build stamp > is read through BUILD_STAMP` passed its 5-second timeout
-once in a 49-shard `check:fast` on 26 September and passed at once when run
-again, and alone it takes 140 ms. The parallel reads of 16 September were not
-margin enough. Either give the walk a longer timeout of its own or read only
-the files that can hold the identifier (the sources `git ls-files` names),
-and prove it by a green `bun run check` on a busy machine.
-
 ## §25 THE VALVE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e

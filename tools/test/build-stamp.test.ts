@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { readdirSync } from "node:fs";
-import { dirname, join, relative, sep } from "node:path";
+import { dirname, join, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
@@ -30,53 +29,33 @@ const ALLOWED = new Set([
 ]);
 
 /**
- * Directories this never descends into. **`.claude` is here because a
- * worktree is a full copy of the repository sitting inside the repository**:
- * the owner keeps every open lane under `.claude/worktrees/`, and without
- * this the scan reports each lane's own `build.ts` and `build-stamp.ts` as
- * offenders — the same allowed files over and over, from a path `ALLOWED`
- * cannot match because it is relative to the outer root. In a fresh clone
- * there are no worktrees, which is why the hole was invisible.
- *
- * **`.wrangler` is here because something else is writing it while this runs.**
- * `bun run check` deals its tests across twelve shards, and the relay's own
- * shard has a wrangler up bundling the worker into a `.wrangler/tmp` of its own;
- * this scan walked into one of those directories and then read a file the
- * bundler had already deleted, which came back as `ENOENT` on a path nobody
- * wrote and a red check on a lane that had touched none of it. A generated
- * directory is not a source tree, whoever happens to own it at the time.
+ * **The files are the ones `git` names, and `git grep` reads them.** This
+ * used to walk the disk itself and hand every `.ts` file to `Bun.file`, and
+ * it passed its 5-second timeout twice under a contended check: on
+ * 16 September 2026 with the reads in turn, and on 26 September with them all
+ * at once. Alone, one `git grep` reads the same files in about 150 ms, and it
+ * needs no list of what to skip. A worktree under `.claude/worktrees/` is a
+ * repository of its own, which `git grep` never descends into, and
+ * `node_modules`, `dist` and a wrangler's `.wrangler/tmp` — written while
+ * this runs, by the relay's own shard — are all in `.gitignore`.
+ * `--untracked` keeps a file a lane has added and not committed yet in reach.
+ * `legacy/` is left out by name: reference only, never built.
  */
-const SKIP = new Set([".claude", ".wrangler", "node_modules", "dist", ".git", "legacy", "assets"]);
-
-function sources(dir: string, found: string[] = []): string[] {
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (SKIP.has(entry.name)) continue;
-    const full = join(dir, entry.name);
-    if (entry.isDirectory()) sources(full, found);
-    else if (entry.name.endsWith(".ts")) found.push(full);
-  }
-  return found;
+function mentions(name: string): string[] {
+  const out = Bun.spawnSync(
+    ["git", "grep", "-l", "--untracked", "-F", name, "--", "*.ts", ":!legacy"],
+    { cwd: root },
+  );
+  // 1 is `git grep` finding nothing, which is an answer; anything else is not.
+  if (out.exitCode !== 0 && out.exitCode !== 1) throw new Error(out.stderr.toString());
+  return out.stdout.toString().split("\n").filter(Boolean);
 }
 
 describe("the build stamp", () => {
-  /**
-   * **Read together rather than one after another.** The walk itself is
-   * nothing — 25 ms of the 325 this used to take — and the rest was 2,353
-   * `readFileSync` calls waiting on the disk in turn. `bun run check` deals
-   * its tests across thirteen shards all reading that same disk, and on
-   * 16 September 2026 this test passed its own 5-second timeout and turned a
-   * green lane red; alone, the same file had taken 475 ms. Handing the reads
-   * to the runtime at once costs 50 ms instead of 250 on an idle machine,
-   * measured both orders round, and that is the margin the contended run
-   * wanted.
-   */
-  it("is read through BUILD_STAMP, never through the raw identifier", async () => {
-    const files = sources(root);
-    const texts = await Promise.all(files.map((file) => Bun.file(file).text()));
-    const offenders = files
-      .filter((_file, at) => texts[at]?.includes("__BUILD_DATE__"))
-      .map((file) => relative(root, file))
-      .filter((file) => !ALLOWED.has(file.split("/").join(sep)));
+  it("is read through BUILD_STAMP, never through the raw identifier", () => {
+    const offenders = mentions("__BUILD_DATE__").filter(
+      (file) => !ALLOWED.has(file.split("/").join(sep)),
+    );
     expect(offenders).toEqual([]);
   });
 

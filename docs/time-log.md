@@ -24848,3 +24848,14 @@ Bottleneck: reading — six of the fourteen bosses the entry named had already
 been fixed by earlier lanes, and only opening every file showed that.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — the build-stamp scan reads through `git grep`
+
+- **reading** — 5 min
+- **writing** — 5 min
+- **looking** — 0 min
+- **friction** — 5 min. The first queue item `next` handed over needed a real
+  Android phone and was given back.
+- **landing** — 10 min
+
+Bottleneck: landing — the full check is most of a lane this small.
