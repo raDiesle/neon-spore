@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f1a5426ba — THE OCULUS answers a thumb: each seat holds its own half of the lens
+
+A press on the left half of THE OCULUS's lens is the pilot's leaf and on the right half the navigator's, by geometry, on both phones; the other seat's thumb there falls through. The press is sent held and the lift lets go, from the drop into frame until the lens shatters, so a pair of thumbs laid on early is counted from the first beat. The ghost thumb stands on a half only while its leaf is held, and the director's on-field controls tab lists both.
+
 ## 2026-09-26 · 84ca0c796 — Mark §23 THE MANTLE's revised simulation lane done
 
 ## 2026-09-26 · afa67457a — §23 THE MANTLE: a held brace before the last pair

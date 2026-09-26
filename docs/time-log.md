@@ -23353,3 +23353,5 @@ Bottleneck: none — a direct revision of an existing section is faster than dra
 
 Bottleneck: writing — a grip is seven registrations, and only the test says
 which of them is missing.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

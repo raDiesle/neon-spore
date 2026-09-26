@@ -2098,3 +2098,17 @@ back up and costs one extra beat. THE SLOW, Presentation, Animation (five
 poses to six), Colour, Payoff and Cost sections are updated to match; one
 new boolean for row 11's hold. `bun run check` proves the sim half; the
 sixth pose is a look task, queued separately once this lane lands.
+
+## Unverified at f1a5426ba: THE OCULUS's ghost thumbs seen on a half at tempo whil…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`
+
+*THE OCULUS answers a thumb: each seat holds its own half of the lens* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
+
+- THE OCULUS's ghost thumbs seen on a half at tempo while a leaf is held, and two real phones shutting a pair
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
