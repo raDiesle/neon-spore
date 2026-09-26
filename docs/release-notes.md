@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 02d521a09 — AUTO plays THE GRINDSTONE: rubs each flat clean, clamps, shoots
+
+Wave 112 had no autopilot hand, so a solo or watched run stood at the wheel doing nothing and the TEST panel said "no hand for this boss". The new hand rubs the lit flat from its own seat at about four reversals a beat, holds both jaws' pads through a clamp and lifts them after, and fires the lit axle's colour up the middle. A director test plays the whole wave on BOTH with no regrit, slip, loose clamp, miss or scar, and on P1 alone checks the navigator's flat and jaw are never touched.
+
 ## 2026-09-26 · c61d2b271 — Audit the still-life signatures outside the bosses and queue what they found
 
 Every creature drawn through the shared living skin keeps its light and sheen still while its outline wobbles, the same failure the bosses were swept for; THE WISP's arm light stays at the root while the arm swings; countdown, beatbox and throb have no motion of their own; and sheen.ts carries three dead exports beside two stale comments. Four queue entries, each with what was checked and ruled out, and the research entry removed.
