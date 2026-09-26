@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 16e41db11 — Mark §30 THE TRIVET's revised simulation lane done
+
+## 2026-09-26 · 1338476b6 — THE TRIVET is drawn lurching onto a foot and flinging a needle
+
+The lurch throws the hub out over the column its shot is wanted in, low and tilted onto the leaning foot, and lifts the far foot off the field until the leaning foot's chord is held. The needle is one of CALTROP's needles flung from the hub over its column, sinking toward the hull with a dotted sight down to where the shield must stand. The field says HOLD on the leaning foot, then FIRE under the swung hub, and SHIELD under the needle's column, to either seat. A look with no shipped alternative. Nothing delegated.
+
 ## 2026-09-26 · 236c425b2 — §30 THE TRIVET's hands are done; the lurch and the needle it grew since are queued to be drawn
 
 The pads, the autopilot hand, THE SLOW's aim, the cue's words and the fx have all landed, so the item is out of the queue. The lurch and the needle landed in the simulation after the look was finished and nothing draws them; that is queued as its own item.

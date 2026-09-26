@@ -24668,3 +24668,5 @@ Bottleneck: friction — two sessions writing the next reading page at once, fou
 - landing: 10 min. The spec, the ledger, `check:fast`, `land`, `push`.
 
 Bottleneck: looking — finding which flag leaves the world a beat into a step it installed.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
