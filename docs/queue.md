@@ -2599,11 +2599,11 @@ to each foot, the outer feet's socket plates lit a cold blue-white while a
 chord wants them and drawn pressed under a held pad, a foot swinging down by
 the share held and clamped on its second plant, the hub lit in its colour
 and smaller per hit, and the collapse (`render/trivet-*.ts`,
-`test/trivet-frame.test.ts`). What is left, in lanes: **the pads on the
-field** — a thumb down on a lit socket sends `trivetPadFront` or
-`trivetPadRear` with the pad as the drag's `id`, and its lift the same with
-`on: false`; nothing on the field sends one yet, and `trivetSocketAt` in
-`trivet-shape.ts` is where a socket is; **the autopilot hand** (`NO_HAND`
+`test/trivet-frame.test.ts`). **The pads on the field landed 26 September**:
+a seat's fingers in its zone are a chord, each finger a pad by the order it
+landed in (`render/trivet-grip.ts`, `render/chord.ts`,
+`apps/game/src/chord.ts`), with a ghost thumb on a held foot and both rows
+on ON THE FIELD. What is left, in lanes: **the autopilot hand** (`NO_HAND`
 in `tools/director/test/autopilot.test.ts` until then); **the fx**, in
 `Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
 hub's hit flash and the collapse, the twelve `trivet*` events off the two
@@ -2707,3 +2707,31 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `apps/game/src/input.ts` is at 250 lines
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `apps/game/src/input.ts`, `apps/game/src/pinch.ts`, `apps/game/src/chord.ts`
+
+THE TRIVET's chord took `input.ts` to exactly the limit: it now owns the
+pointer map, the coalesced moves, the release on blur and two multi-finger
+trackers (`Pinches`, `Chords`) wired in by hand at the same three places
+(down, up, release-all). Cut the multi-finger half out — one `Fingers`
+module that owns both trackers and answers `down`/`move`/`up` with the
+commands to say — so the next two-finger gesture is one line in it and not
+three in `input.ts`. `apps/game/test/pinch.test.ts` and `chord.test.ts`
+prove the behaviour is unchanged.
+
+## `bun run push` sends a merge commit to `main`
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `tools/land/push.ts`, `tools/land/test/`
+
+`origin/main` carries `11f25490a` (*Merge branch 'main' into
+claude/queue-the-ratchets-picture-has-never-been-drawn*), against the rule
+that history on `main` is linear. It cannot be taken back out without a
+force-push, but the next one can be refused: have `push.ts` list
+`origin/main..main --merges` before it sends and stop, naming the commit
+and saying to rebase it with `bun run land`, when there is any. A test
+builds a scratch repository with a merge on `main` and expects the refusal.
+

@@ -31,6 +31,7 @@ import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
+import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
 import { VISE_GRIPS } from "./poses-field-controls-vise.js";
 
 /**
@@ -188,6 +189,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...KEEL_GRIPS,
     ...OCULUS_GRIPS,
     ...VISE_GRIPS,
+    ...TRIVET_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

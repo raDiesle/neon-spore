@@ -1867,6 +1867,7 @@ by hand never moves.
 | `packages/render/src/choke-coil.ts` | **The coil, which is THE CHOKE's one word said in two places.** On the field the choke is wound round the… |
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
+| `packages/render/src/chord.ts` | **`ChordHold` from several fingers** — the second gesture in the game read off more than one touch at once |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |
@@ -1913,6 +1914,7 @@ by hand never moves.
 | `packages/render/src/trivet-marks.ts` | **THE TRIVET's marks**: the two things that say what a step asks — the lit sockets on a foot |
 | `packages/render/src/trivet-pose.ts` | **The clock THE TRIVET is posed off** (§30, *Animation*) |
 | `packages/render/src/trivet-shape.ts` | **THE TRIVET's geometry**: where the stand is, and the paths it is made of |
+| `packages/render/src/trivet-grip.ts` | **The pads on THE TRIVET** — each seat's zone, where its foot stands this frame, and the press that takes a chord finger |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
@@ -2245,6 +2247,7 @@ by hand never moves.
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
 | `apps/game/src/coalesced.ts` | Every position a `pointermove` actually carries, not just the last one |
 | `apps/game/src/canvas-sheets.ts` | The two pages drawn on the game's own canvas over a frame |
+| `apps/game/src/chord.ts` | **Which pad each finger is** — THE TRIVET's chord counted by the order fingers land in, the pointers' half of `render/chord.ts` |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |
 | `apps/game/src/press-lag-page.ts` | `?lag=1`: the wait between a thumb and the field answering it, in the corner |
@@ -2472,6 +2475,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
+| `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2916,6 +2920,7 @@ by hand never moves.
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |
+| `tools/director/src/field-controls-trivet.ts` | THE TRIVET's two feet, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-stare.ts` | THE STARE's lid, in a file of its own — `field-controls-page.ts` is at its limit |

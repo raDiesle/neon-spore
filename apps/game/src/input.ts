@@ -6,6 +6,7 @@ import {
   touchMove,
   touchUp,
 } from "@neon-spore/render";
+import { Chords } from "./chord.js";
 import { samplesOf } from "./coalesced.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
@@ -60,6 +61,8 @@ export function bindControls(bindings: Bindings): Controls {
   const hand = new ShipHandWatch();
   /** Two fingers on one pinch body, paired here and read by `render/pinch.ts`. */
   const pinches = new Pinches();
+  /** And a chord's fingers, each counted as a pad (`chord.ts`). */
+  const chords = new Chords();
   const say = (s: Pinched | null, id: number): void => {
     if (s) buffer.push(from(s, id), s.command);
   };
@@ -91,6 +94,7 @@ export function bindControls(bindings: Bindings): Controls {
     // 2's thumb landing on the muzzle, decided on the lift (`render/touch-ship.ts`).
     for (const t of touches) if (t.command) buffer.push(from(t, id), t.command);
     say(pinches.down(layout(), id, holds, x, y), id);
+    say(chords.down(id, holds), id);
     if (!first) pressY.delete(id);
   };
 
@@ -113,6 +117,7 @@ export function bindControls(bindings: Bindings): Controls {
         if (t?.command) buffer.push(from(t, id), t.command);
       }
       say(pinches.up(id), id);
+      say(chords.up(id), id);
       pressY.delete(id);
     }
     hand.clear();
@@ -181,6 +186,7 @@ export function bindControls(bindings: Bindings): Controls {
       if (t?.command) buffer.push(from(t, e.pointerId), t.command);
     }
     say(pinches.up(e.pointerId), e.pointerId);
+    say(chords.up(e.pointerId), e.pointerId);
     pressY.delete(e.pointerId);
   };
   canvas.addEventListener("pointerup", (e) => up(e, inStage(e) ?? undefined));

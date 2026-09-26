@@ -8,6 +8,9 @@
  * it. `index.ts` re-exports the page whole, so no import moved. The layout's
  * own hit tests (`hitCircle`, `hitReach`) stay with the layout they measure.
  */
+
+// A chord's fingers, counted into pads by the host that owns them (`apps/game/src/chord.ts`).
+export { chordFinger, chordSays } from "./chord.js";
 export { creatureAt } from "./creature-under.js";
 export { deskDown, deskDownAll, pressSeat } from "./desk-grab.js";
 export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";

@@ -167,6 +167,14 @@ export type Hold =
        * pointers (`pinch.ts`, `apps/game/src/pinch.ts`).
        */
       pinch?: true;
+      /**
+       * One finger of a **chord** — THE TRIVET's feet: which pad it is, is
+       * the order it landed in among the fingers on the same body, so neither
+       * its press, its move nor its lift says anything alone, and the pad is
+       * counted by whoever owns the pointers (`chord.ts`,
+       * `apps/game/src/chord.ts`).
+       */
+      chord?: true;
     };
 
 export interface Touch {

@@ -8860,7 +8860,7 @@ nothing else, THE SEAM's rule.
   already has: the hub rocks up and goes dark, the same `both` lights again,
   and no fire step lights until it is held.
 
-**The simulation and the body are in; the hands are not.** The body landed
+**The simulation, the body and the pads are in; the rest of the hands are not.** The body landed
 26 September 2026: SINKER's hub in dull gunmetal with one of CALTROP's
 needles run out to each foot as a leg — the needle only, since CALTROP's
 body is THE LEECH's — the two outer feet each on a plate of
@@ -8871,9 +8871,13 @@ both feet hold it, lit in its fire step's colour with its ring closing,
 smaller and brighter per hit (THE VISE's figure, `viseKernelHurt`); and the
 collapse splaying the legs flat as the hub sinks (`render/trivet-shape.ts`,
 `trivet-pose.ts`, `trivet-draw.ts`, `trivet-marks.ts`,
-`test/trivet-frame.test.ts`). **The hands are queued**: nothing sends a pad
-from a touch on the field, and the receipts, the cue's words and THE
-SLOW's aim wait on them — the render package's silent-event lists and
+`test/trivet-frame.test.ts`). **The pads landed the same day**: a seat's
+fingers in its zone — its side of the hub, from the crown to under the
+feet — are a chord, each finger a pad by the order it landed in, since
+sockets two millimetres apart cannot be told apart under a thumb
+(`render/trivet-grip.ts`, `render/chord.ts`, `apps/game/src/chord.ts`),
+with a ghost thumb on a foot while any of its pads is down. The receipts,
+the cue's words and THE SLOW's aim are queued — the render package's silent-event lists and
 `tools/director/src/sound-link-none-d.ts` carry all twelve of its events
 until then. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up

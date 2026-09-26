@@ -38,7 +38,7 @@ export interface FieldControlDef {
    * fact a strip's position already gives away for free and a field control
    * has to say out loud. */
   seat: string;
-  gesture: "press" | "hold" | "grab and drag" | "pinch";
+  gesture: "press" | "hold" | "grab and drag" | "pinch" | "chord";
   does: string;
   /** The function in `touch.ts` (or, for the guide, in `briefing.ts`) that
    * answers this control — read the code there, this is only a pointer. */

@@ -24422,3 +24422,21 @@ had landed beside it.
 Bottleneck: writing — the picture is small, but it had to thread the lens's frame through to the hull.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's pads on the field, a chord counted by finger order (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 15 min. `sim/trivet-hand.ts`, THE VISE's pinch pair through
+  `input.ts`, `touch*.ts`, the grip, handle-place and ghost-thumb pages and
+  the director's pinch rows and poses.
+- writing: 30 min. `render/chord.ts`, `apps/game/src/chord.ts`,
+  `trivet-grip.ts`, the three registrations, the director rows and poses,
+  two test files, the controls rows and the status paragraphs.
+- looking: 0 min. The ghost thumb is a shipped circle on a new handle;
+  nothing new was framed.
+- friction: 10 min. A context compaction mid-lane, and a Python replace on
+  an empty match that wrote itself between every character of `queue.md`
+  and had to be restored from git.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — a two-finger gesture touches a dozen registrations across four packages, the same ones THE VISE's pinch did.
+

@@ -36,6 +36,7 @@ import { surgeBulbUnder } from "./surge-grip.js";
 import { tasterGripUnder } from "./taster-grip.js";
 import { throatGripUnder } from "./throat-grip.js";
 import type { Field, Touch } from "./touch.js";
+import { trivetPadUnder } from "./trivet-grip.js";
 import { undertowGripUnder } from "./undertow-grip.js";
 import { vaneGripUnder } from "./vane-grip.js";
 import { viseLobeUnder } from "./vise-grip.js";
@@ -132,7 +133,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     keelJointUnder(l, x, y, field) ?? // THE KEEL's lit joint, either seat's tap, the wrong one refused by the simulation (`keel-grip.ts`).
     oculusLeafUnder(l, x, y, field) ?? // THE OCULUS's lens, this seat's half of it held down (`oculus-grip.ts`).
     viseLobeUnder(l, x, y, field) ?? // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
-    slingDrawUnder(l, x, y, field) // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
+    slingDrawUnder(l, x, y, field) ?? // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
+    trivetPadUnder(l, x, y, field) // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
   );
 }
 

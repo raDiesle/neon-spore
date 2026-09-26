@@ -32,6 +32,7 @@ import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { TASTER_CONTROLS } from "./field-controls-taster.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
+import { TRIVET_CONTROLS } from "./field-controls-trivet.js";
 import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
 import { VISE_CONTROLS } from "./field-controls-vise.js";
@@ -153,7 +154,10 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE OCULUS's two leaf holds, a half of the lens a seat by geometry
   // (`field-controls-oculus.ts`).
   ...OCULUS_CONTROLS,
-  // THE VISE's two lobe pinches, the only two-finger gesture in the game
+  // THE VISE's two lobe pinches, the first two-finger gesture in the game
   // (`field-controls-vise.ts`).
   ...VISE_CONTROLS,
+  // THE TRIVET's two feet, the first chord: a finger a pad, counted by the
+  // order they land in (`field-controls-trivet.ts`).
+  ...TRIVET_CONTROLS,
 ];

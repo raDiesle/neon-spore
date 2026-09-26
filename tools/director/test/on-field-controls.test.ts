@@ -404,8 +404,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE RIME: simulation lane only, no look yet.
   rimeHalfLeft: "unbuilt",
   rimeHalfRight: "unbuilt",
-  trivetPadFront: "unbuilt",
-  trivetPadRear: "unbuilt",
+  // THE TRIVET's two feet, chorded one a seat by geometry though both screens
+  // draw both (`render/trivet-grip.ts`, `bosses-choreographed.md` §30).
+  trivetPadFront: "field",
+  trivetPadRear: "field",
   plumbLevelLeft: "unbuilt",
   plumbLevelRight: "unbuilt",
   slingDrawLeft: "unbuilt",

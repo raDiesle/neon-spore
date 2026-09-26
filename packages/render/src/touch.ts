@@ -143,8 +143,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // toward whichever column is lit (`sim/sling-hand.ts`). Every other
     // drag's lift only lets go.
     // A pinch's finger lets go of nothing alone: the pair's lift is the one
-    // that opens the lobe again (`pinch.ts`).
-    if (hold.pinch) return null;
+    // that opens the lobe again (`pinch.ts`). A chord's finger lifts the pad
+    // its host counted it as (`chord.ts`).
+    if (hold.pinch || hold.chord) return null;
     const swiped =
       hold.target === "mirrorLobe" ||
       hold.target === "wardenHatch" ||
