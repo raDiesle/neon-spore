@@ -434,6 +434,7 @@ an alignment.
 ## A long press on the field can open the iOS callout and a pinch can zoom the page
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Taken:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an (claim: claude/queue-a-long-press-on-the-field-can-open-the-ios-callo)
 - **Files:** `apps/game/src/game.css`, `apps/game/index.html`
 
 Safari ignores `user-scalable=no` since iOS 10 and shows the copy/share
