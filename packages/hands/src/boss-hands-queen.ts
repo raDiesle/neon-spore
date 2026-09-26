@@ -5,7 +5,7 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on THE BULB QUEEN**, and her own page for the reason

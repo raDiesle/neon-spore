@@ -22,14 +22,14 @@ import {
   tasterPhase,
   tasterPried,
   tasterWindow,
+  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { POSE_TPB as TPB } from "./pose-kit.js";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the bosses that keep a ledger of their own** — THE
- * TASTER, THE LEDGER, THE LEAD — each a `Hand` (`poses-bosses-kit.ts`).
+ * TASTER, THE LEDGER, THE LEAD — each a `Hand` (`hand.ts`).
  * These three are not answered by a shot but by *which* shot, or by none:
  * the fan grows toward the colour the pair leans on and breaks to the
  * other; the cord bills every bolt once it whips, and the plate answers the
@@ -70,7 +70,7 @@ const stalk = (on: boolean): Press => ({
 /** The cannon is free: nothing of the pair's is on its way up. */
 const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
 /** The first tick of a beat, where a fill has to start to finish on one. */
-const onBeat = (w: World): boolean => w.tick % TPB === 0;
+const onBeat = (w: World): boolean => w.tick % ticksPerBeat(w.cfg) === 0;
 
 /**
  * THE TASTER: a set blade breaks to the colour opposite its edge, so the

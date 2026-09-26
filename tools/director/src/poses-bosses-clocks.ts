@@ -1,5 +1,5 @@
+import { lidHand } from "@neon-spore/hands";
 import { vanePhase, wardenPhase } from "@neon-spore/sim";
-import { lidHand } from "./boss-hands-stare.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

@@ -1,4 +1,4 @@
-import { ratchetBlindHand, ratchetHand } from "./boss-hands-ratchet.js";
+import { ratchetBlindHand, ratchetHand } from "@neon-spore/hands";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

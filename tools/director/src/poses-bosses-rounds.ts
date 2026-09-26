@@ -1,3 +1,4 @@
+import { gaugeHand, gaugeJamHand, mazeHand, mirrorHand, snakeHand } from "@neon-spore/hands";
 import {
   type GaugeState,
   gaugeBound,
@@ -6,9 +7,6 @@ import {
   snakeGrip,
   type World,
 } from "@neon-spore/sim";
-import { gaugeHand, gaugeJamHand } from "./boss-hands-gauge.js";
-import { mazeHand, mirrorHand } from "./boss-hands-rounds.js";
-import { snakeHand } from "./boss-hands-snake.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

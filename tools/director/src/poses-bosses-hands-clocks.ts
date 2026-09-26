@@ -1,4 +1,15 @@
 import {
+  leadHand,
+  leadHandLate,
+  leadHoldHand,
+  ledgerHand,
+  spoolHand,
+  spoolWrongHand,
+  tasterHand,
+  wellHoldHand,
+  wellWindHand,
+} from "@neon-spore/hands";
+import {
   leadHolding,
   leadPassing,
   leadRunning,
@@ -9,15 +20,6 @@ import {
   type World,
   wellHeldNow,
 } from "@neon-spore/sim";
-import {
-  leadHand,
-  leadHandLate,
-  leadHoldHand,
-  ledgerHand,
-  tasterHand,
-} from "./boss-hands-clocks.js";
-import { spoolHand, spoolWrongHand } from "./boss-hands-spool.js";
-import { wellHoldHand, wellWindHand } from "./boss-hands-well.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

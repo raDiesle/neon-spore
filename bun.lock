@@ -49,6 +49,13 @@
         "@neon-spore/sim": "workspace:*",
       },
     },
+    "packages/hands": {
+      "name": "@neon-spore/hands",
+      "version": "0.0.0",
+      "dependencies": {
+        "@neon-spore/sim": "workspace:*",
+      },
+    },
     "packages/net": {
       "name": "@neon-spore/net",
       "version": "0.0.0",
@@ -92,6 +99,7 @@
       "dependencies": {
         "@neon-spore/audio": "workspace:*",
         "@neon-spore/content": "workspace:*",
+        "@neon-spore/hands": "workspace:*",
         "@neon-spore/render": "workspace:*",
         "@neon-spore/shape-sheet": "workspace:*",
         "@neon-spore/sim": "workspace:*",
@@ -415,6 +423,8 @@
     "@neon-spore/frames": ["@neon-spore/frames@workspace:tools/frames"],
 
     "@neon-spore/game": ["@neon-spore/game@workspace:apps/game"],
+
+    "@neon-spore/hands": ["@neon-spore/hands@workspace:packages/hands"],
 
     "@neon-spore/hooks": ["@neon-spore/hooks@workspace:tools/hooks"],
 

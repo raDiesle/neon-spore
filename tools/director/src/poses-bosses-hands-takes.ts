@@ -1,4 +1,3 @@
-import { repriseEchoing, repriseHeld, spliceRound, type World } from "@neon-spore/sim";
 import {
   antiphonHand,
   antiphonPullHand,
@@ -6,7 +5,8 @@ import {
   cairnHoldHand,
   spliceHand,
   undertowHand,
-} from "./boss-hands-takes.js";
+} from "@neon-spore/hands";
+import { repriseEchoing, repriseHeld, spliceRound, type World } from "@neon-spore/sim";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

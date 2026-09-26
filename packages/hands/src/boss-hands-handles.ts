@@ -27,11 +27,11 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the bosses a handle answers** — THE SINEW, THE
- * SURGE, THE INSTAR — each a `Hand` (`poses-bosses-kit.ts`). None of these
+ * SURGE, THE INSTAR — each a `Hand` (`hand.ts`). None of these
  * is shot at: the pair holds a thing on the screen, and what the boss judges
  * is how far, how long and whether both hands did it together. So each hand
  * here is a drag on the boss's own `DragTarget`, re-sent every tick with

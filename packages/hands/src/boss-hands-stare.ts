@@ -1,5 +1,5 @@
 import { stareBoss, stareLidFree } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * The free seat's thumb on THE STARE's lid: pulled to the bottom the tick

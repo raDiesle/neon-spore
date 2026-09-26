@@ -1,4 +1,13 @@
 import {
+  curtainHand,
+  curtainHandWith,
+  fleetHand,
+  gorgeHand,
+  hiveHand,
+  hiveWringHand,
+  scuttleHand,
+} from "@neon-spore/hands";
+import {
   curtainCoreBare,
   curtainLobesLeft,
   fleetAfloat,
@@ -9,9 +18,6 @@ import {
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
-import { fleetHand } from "./boss-hand-fleet.js";
-import { hiveHand, hiveWringHand } from "./boss-hand-hive.js";
-import { curtainHand, curtainHandWith, gorgeHand, scuttleHand } from "./boss-hands-field.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

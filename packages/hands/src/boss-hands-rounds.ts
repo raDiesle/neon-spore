@@ -8,12 +8,12 @@ import {
   mirrorGesture,
   type TimedCommand,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the rounds a hand has to play** — THE MAZE, THE
  * MIRROR's pin, PINBALL's three thumbs — each a
- * `Hand` (`poses-bosses-kit.ts`). A round's other phases arrive with nobody
+ * `Hand` (`hand.ts`). A round's other phases arrive with nobody
  * pressing (`poses-bosses-rounds.ts`); these are the ones whose played states
  * do not, and each hand plays the round's own test rig straight: the string
  * pulled until the way in clicks onto a column, the shot up it.

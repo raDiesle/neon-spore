@@ -1,5 +1,5 @@
+import { queenHand } from "@neon-spore/hands";
 import { queenGesture, type World } from "@neon-spore/sim";
-import { queenHand } from "./boss-hands-queen.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

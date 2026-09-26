@@ -1928,6 +1928,35 @@ by hand never moves.
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason |
 
+### packages/hands
+
+| Path | One line |
+|---|---|
+| `packages/hands/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
+| `packages/hands/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
+| `packages/hands/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
+| `packages/hands/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
+| `packages/hands/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
+| `packages/hands/src/boss-hands-scene.ts` | **THE NETTLE's hands**: the thumbs on its body are THE INSTAR's hand (`boss-hands-handles.ts`) |
+| `packages/hands/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
+| `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
+| `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
+| `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
+| `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
+| `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
+| `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
+| `packages/hands/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
+| `packages/hands/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
+| `packages/hands/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
+| `packages/hands/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
+| `packages/hands/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks and held there |
+| `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
+| `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
+| `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
+| `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
+| `packages/hands/src/autopilot-field-hand.ts` | **The pair's hands on an ordinary wave**: the cannon and the shield together |
+| `packages/hands/src/hand.ts` | **A hand on the controls, reading the field as it goes**: what the pair presses this tick |
+
 ### apps/game
 
 | Path | One line |
@@ -2133,27 +2162,6 @@ by hand never moves.
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
-| `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
-| `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
-| `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
-| `tools/director/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
-| `tools/director/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
-| `tools/director/src/boss-hands-scene.ts` | **THE NETTLE's hands**: the thumbs on its body are THE INSTAR's hand (`boss-hands-handles.ts`) |
-| `tools/director/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
-| `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
-| `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
-| `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
-| `tools/director/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
-| `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
-| `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
-| `tools/director/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
-| `tools/director/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
-| `tools/director/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
-| `tools/director/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
-| `tools/director/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks and held there |
-| `tools/director/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
-| `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
-| `tools/director/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
@@ -2810,8 +2818,6 @@ by hand never moves.
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
-| `tools/director/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
-| `tools/director/src/autopilot-field-hand.ts` | **The pair's hands on an ordinary wave**: the cannon and the shield together |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |
 | `tools/imports/imports.ts` | Dropping the names a file split strands in an import list, and refusing to delete a statement |
 | `tools/imports/run.ts` | `bun run imports` — drop the names a file split stranded in an import list |

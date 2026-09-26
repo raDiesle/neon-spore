@@ -1,4 +1,5 @@
 import { buildBoss, buildPods, buildQueue, placedFaults, WAVES } from "@neon-spore/content";
+import type { Hand } from "@neon-spore/hands";
 import { step, type TimedCommand, type World } from "@neon-spore/sim";
 import { type BossKind, bossTitle } from "./boss-states.js";
 import { fresh, POSE_CONFIG, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
@@ -63,21 +64,8 @@ export interface BossPoseExtra {
   budgetBeats?: number;
 }
 
-/**
- * **A hand on the controls, reading the field as it goes**: what the pair
- * presses this tick, given the world as it stands.
- *
- * A fixed list of timed commands (`cmds`) is enough for a state the clock
- * brings on by itself, and for a handle in a known place. It is not enough
- * for the states a hand has to *earn* — the column THE WARDEN's pupil has
- * drifted to, the column THE THROAT's mouth hangs over — because each of
- * those is a fact the
- * pair reads off the field and answers, and no list written beforehand can
- * know it. So a hand is a function of the world, called every tick, and its
- * commands are sent on that tick — which is exactly what a device does. The
- * hands themselves are `boss-hands-*.ts`.
- */
-export type Hand = (world: World) => Omit<TimedCommand, "tick">[];
+/** A hand on the controls, reading the field as it goes — `@neon-spore/hands`. */
+export type { Hand };
 
 /** Run with a hand on the controls until the state arrives; throws on the budget, for `runUntil`'s reason. */
 export function runHand(

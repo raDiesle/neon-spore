@@ -6,6 +6,7 @@
   "dependencies": {
     "@neon-spore/audio": "workspace:*",
     "@neon-spore/content": "workspace:*",
+    "@neon-spore/hands": "workspace:*",
     "@neon-spore/render": "workspace:*",
     "@neon-spore/shape-sheet": "workspace:*",
     "@neon-spore/sim": "workspace:*",

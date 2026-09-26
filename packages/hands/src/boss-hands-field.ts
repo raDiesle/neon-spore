@@ -19,11 +19,11 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN,
- * THE SCUTTLE — each a `Hand` (`poses-bosses-kit.ts`); THE FLEET's grew to
+ * THE SCUTTLE — each a `Hand` (`hand.ts`); THE FLEET's grew to
  * three states and a page of its own (`boss-hand-fleet.ts`), and THE HIVE's
  * to two thumbs and `boss-hand-hive.ts`.
  * Like the shot hands (`boss-hands-shots.ts`), each is the fight's own rule

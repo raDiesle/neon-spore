@@ -13,6 +13,7 @@ export const GROUPS = [
   "packages/render",
   "packages/net",
   "packages/audio",
+  "packages/hands",
   "apps/game",
   "apps/server",
   "tools",

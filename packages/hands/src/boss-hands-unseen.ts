@@ -6,12 +6,12 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the two fights about what one of them cannot see** —
  * THE PULSE's veil and THE REPRISE's echo — each a `Hand`
- * (`poses-bosses-kit.ts`). No pose reaches either one's end, so neither had a
+ * (`hand.ts`). No pose reaches either one's end, so neither had a
  * hand anywhere in the director until AUTO wanted one to play them with.
  *
  * A hand reads the world, not a screen, so the thing each fight takes away is

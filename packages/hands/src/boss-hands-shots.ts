@@ -15,11 +15,11 @@ import {
   wardenTether,
   wardenThrown,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the bosses a shot answers** — THE WARDEN and THE
- * VANE — each a `Hand` (`poses-bosses-kit.ts`): what to
+ * VANE — each a `Hand` (`hand.ts`): what to
  * press this tick, read off the field as it stands, the way a pair plays it.
  *
  * Each hand is the fight's own rule played straight, and nothing cleverer:

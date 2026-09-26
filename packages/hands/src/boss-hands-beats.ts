@@ -16,11 +16,11 @@ import {
   throatMouthRow,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the bosses a beat answers** — THE BATON and THE
- * THROAT — each a `Hand` (`poses-bosses-kit.ts`). The shot bosses' hands
+ * THROAT — each a `Hand` (`hand.ts`). The shot bosses' hands
  * (`boss-hands-shots.ts`) spray and let the boss judge the beat; these two
  * cannot, because what they answer is not a shot but a moment: a turn taken
  * and then the other seat's, a gum flung along a row as the mouth passes. So each hand reads the moment off the field the way the pair

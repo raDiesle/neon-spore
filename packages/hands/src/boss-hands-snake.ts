@@ -11,7 +11,7 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or

@@ -1,7 +1,7 @@
+import { autopilotHand } from "@neon-spore/hands";
 import type { Field, Layout, Stage, Viewport } from "@neon-spore/render";
 import { type TimedCommand, ticksPerBeat, type World } from "@neon-spore/sim";
 import { AutopilotGhosts, type Finger } from "./autopilot-ghost.js";
-import { autopilotHand } from "./autopilot-hands.js";
 
 /**
  * **AUTO: the machine plays a seat, live, while you play the other.**

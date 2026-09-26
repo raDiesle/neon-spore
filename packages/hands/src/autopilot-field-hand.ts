@@ -11,7 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on an ordinary wave**: the cannon and the shield

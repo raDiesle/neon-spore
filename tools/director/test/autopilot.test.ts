@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
+import { AUTOPILOT_HANDS, filamentHand } from "@neon-spore/hands";
 import { computeLayout, type Field, touchDown, type Viewport } from "@neon-spore/render";
 import {
   BOSS_KINDS,
@@ -10,8 +11,6 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { AUTOPILOT_HANDS } from "../src/autopilot-hands.js";
-import { filamentHand } from "../src/boss-hands-handles.js";
 import { bossWorld, phaseOf } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";

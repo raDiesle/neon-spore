@@ -5,7 +5,7 @@ import { FIELD_HAND_POSES } from "../src/poses-bosses-hands-field.js";
 
 /**
  * THE FLEET's three states on the STATES sheet are earned by a hand, not
- * set (`boss-hand-fleet.ts`): the sights walked onto a hull, the plume held
+ * set (`packages/hands/src/boss-hand-fleet.ts`): the sights walked onto a hull, the plume held
  * and the hull raked, the wreck pulled under. `boss-states.test.ts` proves
  * the names; this proves the hand gets there, because a pose whose budget
  * runs out throws and a sheet with one blank card is a sheet nobody trusts.

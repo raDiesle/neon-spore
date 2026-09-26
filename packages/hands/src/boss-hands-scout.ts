@@ -9,7 +9,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * THE SCOUT: a deliberately stupid autopilot, lifted from

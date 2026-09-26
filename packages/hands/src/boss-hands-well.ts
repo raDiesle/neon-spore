@@ -1,5 +1,5 @@
 import { type TimedCommand, type World, wellBoss, wellHeldNow } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pilot's thumb on THE WELL's seam**, on a page of its own because this

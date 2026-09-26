@@ -445,7 +445,7 @@ seat's thumb is never drawn**: the count starting is the only thing about
 it that is shown, and a ring thrown off both lobes marks the pin landing
 and the pin lost (`render/src/mirror-grip-fx.ts`). The director's `hold`
 pose is played by a hand that answers every round and then pins
-(`tools/director/src/boss-hands-rounds.ts`), and the row is in
+(`packages/hands/src/boss-hands-rounds.ts`), and the row is in
 `docs/spec/controls.md`.
 
 **The look of the copy itself** (`render/src/mirror-chamber.ts`, 18
@@ -7482,7 +7482,7 @@ mark a press; the intake counts on a SUCK mark only with the cannon under it,
 and the sucked spore waits for its partner's taps without slipping; a drag on
 a panel mark moves nothing; a panel mark left undone strikes the hull, which
 is the wave; and the fingerprint moves with a panel mark's count. The
-director's hand (`tools/director/src/boss-hands-scene.ts`) plays the whole
+director's hand (`packages/hands/src/boss-hands-scene.ts`) plays the whole
 script and brings it down on beat 104. Whether any of it *reads* is the
 owner's eye.
 
@@ -8610,7 +8610,7 @@ it like any other phase — *a ring is cracked and stuck*, the pilot turns and
 the navigator waits — and the gallery's own hand had to learn the second
 gesture to draw the three cards behind it at all: a rig that could fire but
 not wind left the boss standing in `seized` until its budget ran out
-(`tools/director/src/boss-hands-shots.ts`). **No eye has
+(`packages/hands/src/boss-hands-shots.ts`). **No eye has
 seen it and no pair has fought it**: whether three flattened arcs of organs
 read as three cadences at 26 pixels, and whether a turn and a half an organ is
 heavy enough to be a decision and light enough to be worth making with a rock

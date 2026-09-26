@@ -772,23 +772,22 @@ owner's, unverified until he has looked.
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
 - **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-games-test-view-has-no-auto)
-- **Files:** `tools/director/src/autopilot-field-hand.ts`, `tools/director/src/autopilot-hands.ts`, `tools/director/src/boss-hands-*.ts`, `apps/game/src/testing.ts`
+- **Files:** `apps/game/src/testing.ts`, `apps/game/package.json`, `packages/hands/src/autopilot-hands.ts`
 
 The second half of "AUTO plays bosses only, and only in the director". The
 director's AUTO now plays an ordinary wave as well as every boss, but a phone
-alone under the game's TEST panel still has no second thumb, and `apps/game`
-cannot import from `tools/`. Move the hands (`fieldHand`, `AUTOPILOT_HANDS`,
-and the `Hand` type out of `poses-bosses-kit.ts`) into a package both can
-import — a new `packages/hands`, not `sim`: they are a player's input fed
-through `step`, not a rule — leave the director importing them from there,
-and give `testing.ts` an OFF/BOTH/P1/P2 row that adds the hand's commands to
-the tick the way the director's `stage-autopilot.ts` does. Prove it with a
-test that the game's loop, AUTO on BOTH, clears ONE LAST CHANCE headless.
+alone under the game's TEST panel still has no second thumb. The hands are in
+`packages/hands` now (`fieldHand`, `AUTOPILOT_HANDS`, `autopilotHand`, the
+`Hand` type), moved there on 26 September 2026 so that `apps/game` can import
+them; what is left is the game's half. Give `testing.ts` an OFF/BOTH/P1/P2 row
+that adds the hand's commands to the tick the way the director's
+`stage-autopilot.ts` does, and prove it with a test that the game's loop, AUTO
+on BOTH, clears ONE LAST CHANCE headless.
 
 ## AUTO's field hand half plays 22 ordinary waves
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
-- **Files:** `tools/director/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
 
 `fieldHand` plays the cannon and the shield and nothing else, so the waves
 whose creature has a verb of its own — SALVAGE, CATCH AND AIM, THE LURE, THE

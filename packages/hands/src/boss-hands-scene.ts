@@ -8,7 +8,7 @@ import {
   type TimedCommand,
 } from "@neon-spore/sim";
 import { instarHand } from "./boss-hands-handles.js";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 type Press = Omit<TimedCommand, "tick">;
 

@@ -11,11 +11,11 @@ import {
   undertowBoss,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **The pair's hands on the bosses a taking answers** — THE CAIRN, THE
- * SPLICE, THE UNDERTOW, THE ANTIPHON — each a `Hand` (`poses-bosses-kit.ts`).
+ * SPLICE, THE UNDERTOW, THE ANTIPHON — each a `Hand` (`hand.ts`).
  * A rock pulled out of the pile, a number sucked down its straw, a lobe
  * held in the maw, an organ pitted by its own colour: each is one thing
  * taken off the boss, and the hand takes it the way the pair does, one

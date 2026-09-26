@@ -22229,3 +22229,15 @@ lane, only the entry that hands it to a local session by name.
 Bottleneck: friction — finding the tick the lash step is still on screen.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — The hands move into packages/hands, so the game can play them too
+
+- reading: 5 min. The entry, `stage-autopilot.ts`, the hands' imports and the index's groups.
+- writing: 15 min. Twenty-three files moved, `hand.ts` and the barrel, every
+  director importer repointed, the index's new group, the purity guard.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. Repointing left files with two imports from the one package;
+  a script merged them and `imports:sort` put them in order.
+- landing: 5 min. `check:fast`, the doc-drift paths, the commit, `land`.
+
+Bottleneck: writing — the move itself was one command, the forty importers it stranded were the work.

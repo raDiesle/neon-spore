@@ -1,4 +1,4 @@
-import { batonDrawHand, batonHand, throatHand } from "./boss-hands-beats.js";
+import { batonDrawHand, batonHand, throatHand } from "@neon-spore/hands";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

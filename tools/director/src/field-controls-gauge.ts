@@ -11,7 +11,7 @@ import type { FieldControlDef } from "./field-control-def.js";
  * Each row names **its own state** rather than the phase the two of them live
  * inside: `THE GAUGE · JAMMED` and `THE GAUGE · BOUND` are poses on the STATES
  * sheet, reached by a hand that plays the round into them and not by a field
- * written by hand (`poses-bosses-rounds.ts`, `boss-hands-gauge.ts`). Both rows
+ * written by hand (`poses-bosses-rounds.ts`, `packages/hands/src/boss-hands-gauge.ts`). Both rows
  * pointed at `THE GAUGE · PLAY` until 21 September 2026, which is a picture of
  * the round with neither control drawn on it — a reader following the link
  * found no ring where the row said one stands.

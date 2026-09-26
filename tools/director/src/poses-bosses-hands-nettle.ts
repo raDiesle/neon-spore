@@ -1,5 +1,5 @@
+import { nettleHand } from "@neon-spore/hands";
 import type { World } from "@neon-spore/sim";
-import { nettleHand } from "./boss-hands-scene.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

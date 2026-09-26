@@ -1,4 +1,15 @@
 import {
+  filamentHand,
+  gimbalHand,
+  haspHand,
+  instarHand,
+  sinewCatchHand,
+  sinewHand,
+  sinewSnapHand,
+  surgeHand,
+  surgeHandWith,
+} from "@neon-spore/hands";
+import {
   sinewCaught,
   sinewHeld,
   sinewSwinging,
@@ -7,17 +18,6 @@ import {
   surgeWarding,
   type World,
 } from "@neon-spore/sim";
-import { gimbalHand } from "./boss-hands-gimbal.js";
-import {
-  filamentHand,
-  instarHand,
-  sinewCatchHand,
-  sinewHand,
-  sinewSnapHand,
-  surgeHand,
-  surgeHandWith,
-} from "./boss-hands-handles.js";
-import { haspHand } from "./boss-hands-hasp.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 

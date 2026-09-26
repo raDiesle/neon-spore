@@ -1,5 +1,5 @@
+import { instarHand } from "@neon-spore/hands";
 import { slowing, type World } from "@neon-spore/sim";
-import { instarHand } from "./boss-hands-handles.js";
 import { EVENT_CADENCE_SECONDS, type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossWorld, runHand } from "./poses-bosses-kit.js";
 

@@ -21,7 +21,7 @@ import { lidHand } from "./boss-hands-stare.js";
 import { antiphonHand, cairnHand, spliceHand, undertowHand } from "./boss-hands-takes.js";
 import { pulseHand, repriseHand } from "./boss-hands-unseen.js";
 import { wellHoldHand, wellWindHand } from "./boss-hands-well.js";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 export type BossKind = NonNullable<World["boss"]>["kind"];
 

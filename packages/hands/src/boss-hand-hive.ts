@@ -10,10 +10,10 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
- * **The pair's hands on THE HIVE**, a `Hand` (`poses-bosses-kit.ts`) — cut
+ * **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) — cut
  * out of `boss-hands-field.ts` for THE FLEET's reason (`boss-hand-fleet.ts`):
  * the mass's own two states gave the fight two gestures more than that file
  * had room for.

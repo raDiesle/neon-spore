@@ -8,10 +8,10 @@ import {
   shipRow,
   type World,
 } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
- * **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) —
+ * **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) —
  * cut out of `boss-hands-field.ts` when the fight's second and third states
  * (`sim/fleet-state.ts`) gave it two more gestures than that file had room
  * for.

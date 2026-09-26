@@ -11,7 +11,13 @@ import { ROOT, stripNonCode } from "./source-scan.js";
  * and in the PostToolUse hook after every edit inside `packages/sim`.
  */
 
-const GUARDED = ["packages/sim/src", "packages/content/src"];
+/**
+ * `packages/hands` too, since 26 September 2026: a hand is a player's input
+ * rather than a rule, but the director's headless runs and the game's AUTO
+ * row both replay it tick for tick, and a clock or a die in one is a run that
+ * cannot be repeated.
+ */
+const GUARDED = ["packages/sim/src", "packages/content/src", "packages/hands/src"];
 
 interface Ban {
   /** Matched against source with comments and string literals removed. */

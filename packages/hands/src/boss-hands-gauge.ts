@@ -1,5 +1,5 @@
 import { gaugeRound, gaugeSeated, type TimedCommand } from "@neon-spore/sim";
-import type { Hand } from "./poses-bosses-kit.js";
+import type { Hand } from "./hand.js";
 
 /**
  * **THE GAUGE's hands**, in a file of their own — `boss-hands-rounds.ts` was

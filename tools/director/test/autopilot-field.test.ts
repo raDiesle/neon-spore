@@ -15,7 +15,7 @@ import { stageField } from "../src/stage-field.js";
 
 /**
  * **AUTO plays an ordinary wave too**: the cannon and the shield together,
- * fed through `step` the way a thumb's presses are (`autopilot-field-hand.ts`).
+ * fed through `step` the way a thumb's presses are (`packages/hands/src/autopilot-field-hand.ts`).
  * Pinned here: BOTH clears ONE LAST CHANCE, rocks and slimes both, with every
  * rock turned by the dome; and every ordinary wave not named below is cleared
  * with the hull unscarred.
