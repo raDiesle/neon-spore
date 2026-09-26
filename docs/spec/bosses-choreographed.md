@@ -3746,19 +3746,25 @@ word, is what tells two identical screens apart on this page.
 | 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
 | 9 | Weights creep off a second time, faster | P1+P2 | lean level together | 3 beats, held | stays lit | dims, retry |
 | 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, core spent | stays lit |
-| 11 | Both weights snap loose at once and the bob swings free, spent | — | — | — | — | — |
+| 11 | The spent core's light bleeds down through the chains, threatening to spill into a fresh lean | P1+P2 | send nothing — leave both phones flat, untouched (`SENDING NOTHING`) | 3 beats, seen | the light bleeds off harmlessly, chains still | a reflex tilt draws the light back up and resets it, one extra beat before it settles |
+| 12 | Both weights snap loose at once and the bob swings free, spent | — | — | — | — | — |
 
 **THE SLOW** opens on every level window (rows 2, 3, 4, 5, 7, 9) and every
 fire window (rows 6, 8, 10) — a held lean is exactly THE VISE's and THE
 TRIVET's argument for seconds over beats, and more so here: a phone actually
 has to be picked up and tilted, which reads as nothing on the field until
-the on-screen bubble is watched too.
+the on-screen bubble is watched too. Row 11 opens it on the opposite pose:
+after ten beats spent leaning level or firing, the fight's last beat asks
+the pair to lay the phones flat and leave them there.
 
 **Presentation.** No camera. Each settled weight a soft chime; each core
-hit an ordinary shot's flash; a weight swinging loose a low creak.
+hit an ordinary shot's flash; a weight swinging loose a low creak. Row 11's
+bleeding light is a slow, silent fade down the chains, no chime, no creak —
+the one quiet beat on the whole bob.
 
-**Animation.** Five poses: both weights swinging; left settled; both
-settled, core lit; core guarded, weights creeping off; both swung free. A
+**Animation.** Six poses: both weights swinging; left settled; both
+settled, core lit; core guarded, weights creeping off; spent core's light
+bleeding down the chains, both weights untouched; both swung free. A
 weight settles by easing to a stop rather than snapping into place — the
 same drawn-as-mechanism choice THE OCULUS, THE VISE, THE RIME and THE
 TRIVET all make.
@@ -3766,18 +3772,23 @@ TRIVET all make.
 **Colour.** Bob and chains a dull verdigris bronze, the level glass a pale
 green-white when lit; the core is the only lit colour on the body, lit in
 whichever cannon colour a given beat wants, THE SEAM's and THE OCULUS's
-rule again.
+rule again. Row 11's bleeding light carries no cannon colour, fading from
+white to the bob's own dull bronze as it drains.
 
 **Payoff.** Rows 7 and 9 — `TILT, AS A LEVEL` asked for defensively,
 resettling a weight under a `FIRE` step already under way, the same shape
 as THE OCULUS's row 7, THE VISE's rows 7/9 and THE TRIVET's rows 7/9, spent
-here on a phone's own pose instead of a touch.
+here on a phone's own pose instead of a touch. Row 11 is the fight's other
+payoff: the one beat that asks the pair to put the phones down rather than
+pick them up, closing a fight built entirely from holding them level.
 
 **Cost. Low–medium.** One new primitive, `LevelTilt` (a `deviceorientation`
 gamma reading held inside a threshold range — the same iPhone motion
 permission gate as the shake, and the on-screen twin `gesture-unbuilt.ts`
 already names as the rule); the settle/drift threshold logic reuses THE
-VALVE's landed/missed window shape.
+VALVE's landed/missed window shape; and one boolean for row 11's hold, a
+read off `SENDING NOTHING`, already built for THE KEEL, THE SEAM, THE
+OCULUS, THE VISE, THE RIME, THE TRIVET, THE HALTER and THE FLUE.
 
 **Reusable.** `LevelTilt` itself — the first primitive on this page read
 from the phone's own orientation rather than from a touch, pairing with the

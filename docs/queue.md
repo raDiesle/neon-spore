@@ -2067,3 +2067,22 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §31 THE PLUMB — a revised simulation lane, a light left to bleed off
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+THE PLUMB's fight ran ten beats deep on `TILT, AS A LEVEL` — level a weight,
+guard a fire step, never once ask the pair to put the phones down. Row 11
+is new: the spent core's light bleeds down the chains for three beats, and
+the pair passes it by sending nothing — leaving both phones flat and
+untouched (`SENDING NOTHING`, a reuse, already built for THE KEEL, THE
+SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE HALTER and THE
+FLUE — no `gesture-unbuilt.ts` edit needed). A reflex tilt draws the light
+back up and costs one extra beat. THE SLOW, Presentation, Animation (five
+poses to six), Colour, Payoff and Cost sections are updated to match; one
+new boolean for row 11's hold. `bun run check` proves the sim half; the
+sixth pose is a look task, queued separately once this lane lands.
