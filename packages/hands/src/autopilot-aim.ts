@@ -22,8 +22,10 @@ export function aimColumn(c: Creature): number {
  * **Whether the cannon answers this body at all**: a body with a colour that
  * the shield does not turn. A lure is not one. It wears a real colour, any shot
  * that lands on it costs the hull, and left alone it leaves by itself two rows
- * short of the ship (`lure-exit.ts`). So the hand leaves it alone.
+ * short of the ship (`lure-exit.ts`). So the hand leaves it alone. A clasp is
+ * not one either until the shield has broken it: a shot at a shut one is spent
+ * on nothing (`claspStruck`).
  */
 export function cannonAnswers(c: Creature): boolean {
-  return c.color !== null && !isWardable(c.kind) && c.kind !== "lure";
+  return c.color !== null && !isWardable(c.kind) && c.kind !== "lure" && c.kind !== "clasp";
 }

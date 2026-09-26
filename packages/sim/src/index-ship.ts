@@ -39,7 +39,14 @@ export { carryIsReady, type GripPush, gripPushOf } from "./grip-push.js";
 // What a hand on a body *is* — the one rule the sim, the hit test and the
 // picture all ask rather than answer for themselves (`hand.ts`).
 export { type HandMeans, handMeans } from "./hand.js";
-export { handleBoundsMilli, isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
+export {
+  clampPull,
+  handleBoundsMilli,
+  isqrt,
+  type PullVec,
+  pullIsTaut,
+  tileCentreMilli,
+} from "./handle-pull.js";
 export {
   type BreachWeight,
   guardArmed,
@@ -57,7 +64,15 @@ export {
   primeColor,
   priming,
 } from "./lance.js";
-export { lidHandleMilli, lidIsHeld, lidIsOpen, lidOpenMilli, lidPull, lidSide } from "./lid.js";
+export {
+  cordRest,
+  lidHandleMilli,
+  lidIsHeld,
+  lidIsOpen,
+  lidOpenMilli,
+  lidPull,
+  lidSide,
+} from "./lid.js";
 export { isLockedOn, lockedBody } from "./lock.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export { ARM_HOME, reachOut, reachTipMilli } from "./reach.js";

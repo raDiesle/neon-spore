@@ -1980,6 +1980,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-pod-hand.ts` | AUTO's pods: shot loose, followed down and swallowed, a husk let past with the maw shut |
 | `packages/hands/src/autopilot-aim.ts` | **Which column the cannon stands in to answer a body**, on an ordinary wave |
 | `packages/hands/src/autopilot-moult.ts` | **THE MOULT, on AUTO**: a body that is a rock and a cargo by turns |
+| `packages/hands/src/autopilot-lid.ts` | **THE LID, on AUTO**: player 1 pulls the cord taut and holds the cannon's fire until the lens is bare |
 | `packages/hands/src/hand.ts` | **A hand on the controls, reading the field as it goes**: what the pair presses this tick |
 
 ### apps/game

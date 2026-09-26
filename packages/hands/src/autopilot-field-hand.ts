@@ -14,6 +14,7 @@ import {
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
 import { shake } from "./autopilot-harpoon.js";
+import { holdLid, lidShut } from "./autopilot-lid.js";
 import { catchMoult } from "./autopilot-moult.js";
 import { catchPod, hanging } from "./autopilot-pod-hand.js";
 import type { Hand } from "./hand.js";
@@ -31,11 +32,13 @@ import type { Hand } from "./hand.js";
  * (`content/controls.ts`), so P1 and P2 on AUTO split along the same line.
  *
  * A hand for the plain field, and its pods — shot loose, followed down and
- * swallowed, a husk let past (`autopilot-pod-hand.ts`). A few creatures with a
- * verb of their own have theirs in a file beside this one: THE SHELL's column
- * and THE LURE left alone (`autopilot-aim.ts`), THE MOULT caught or turned
- * (`autopilot-moult.ts`), and a control THE LIMPET or THE LEECH has harpooned
- * kept moving (`autopilot-harpoon.ts`). Any other creature with a verb of its
+ * swallowed, a husk let past (`autopilot-pod-hand.ts`). THE CLASP is the
+ * shield's half too: the dome comes up in its column and breaks it. A few
+ * creatures with a verb of their own have theirs in a file beside this one:
+ * THE SHELL's column and THE LURE left alone (`autopilot-aim.ts`), THE MOULT
+ * caught or turned (`autopilot-moult.ts`), a control THE LIMPET or THE LEECH
+ * has harpooned kept moving (`autopilot-harpoon.ts`), and THE LID held open
+ * while it is shot (`autopilot-lid.ts`). Any other creature with a verb of its
  * own — a hold, a reach, a drag — is not answered here, and the wave it is on
  * is one AUTO only half plays.
  */
@@ -61,7 +64,7 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
 
 /**
  * The cannon's half: a falling pod first, then under the lowest coloured body
- * and its colour when free, then a hanging pod shot loose
+ * and its colour when free — a lid held open first — then a hanging pod shot loose
  * (`autopilot-pod-hand.ts`). Any colour frees a pod.
  */
 function cannon(w: World): Press[] {
@@ -75,21 +78,26 @@ function cannon(w: World): Press[] {
   const pod = body ? undefined : hanging(w);
   const col = body ? aimColumn(body) : pod ? Math.round(pod.colMilli / MILLI) : null;
   if (col === null) return [];
-  if (w.cannonCol !== col) return [aim(col)];
+  const hold = holdLid(w, body);
+  if (w.cannonCol !== col) return [aim(col), ...hold];
+  if (lidShut(w, body)) return hold;
   return free(w) ? [fire(body?.color ?? "red")] : [];
 }
 
 /**
- * The shield's half. The dome is triggered in the last stretch of the beat
+ * The shield's half, under rocks and under THE CLASP, whose shield breaks
+ * wherever it stands once the dome comes up in its column. The dome is triggered in the last stretch of the beat
  * before the rock reaches its row, short enough that the window is still open
  * on the beat it arrives (`guardArmed`, `resolveHull`).
  */
 function shield(w: World): Press[] {
   const off = shake(w, "limpet", w.shieldCol);
   if (off !== null) return [carry(off)];
-  const rock = lowest(w, (c) => isWardable(c.kind) || c.kind === "moult");
+  const rock = lowest(w, (c) => isWardable(c.kind) || c.kind === "moult" || c.kind === "clasp");
   if (rock === undefined) return [];
   if (!occupiesCol(rock, w.shieldCol)) return [carry(rock.col)];
+  // A clasp is broken at any row, the moment the dome comes up in its column.
+  if (rock.kind === "clasp") return guardArmed(w) ? [] : [trigger];
   if (rock.row < shieldRow(w.cfg) - 1 || guardArmed(w)) return [];
   const toBeat = ticksPerBeat(w.cfg) - beatPhaseTicks(w.cfg, w.tick);
   return toBeat <= guardWindowTicks(w.cfg) / 2 ? [trigger] : [];

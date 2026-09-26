@@ -25,12 +25,11 @@ import { stageField } from "../src/stage-field.js";
  * a drag — that the field hand does not play. A wave that gains one is a
  * name here or a hand for its creature. The pods have theirs
  * (`autopilot-pod-hand.ts`), and so do THE SHELL, THE LURE, THE MOULT, THE
- * LIMPET and THE LEECH (`autopilot-aim.ts`, `autopilot-moult.ts`,
- * `autopilot-harpoon.ts`). */
+ * LIMPET, THE LEECH and THE LID (`autopilot-aim.ts`, `autopilot-moult.ts`,
+ * `autopilot-harpoon.ts`, `autopilot-lid.ts`). THE CLASP is the field hand's
+ * own shield. */
 const HALF_PLAYED = new Set([
-  "THE CLASP",
   "THE WISP",
-  "THE LID",
   "THE CRYSTAL",
   "THE STRAND",
   "THE CRAWLER",
