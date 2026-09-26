@@ -22366,3 +22366,5 @@ Bottleneck: reading — the pod's rules are spread over four files, and THE WARD
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — the bench across every wave was the time; it showed a defended wave never stands above eight bodies.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

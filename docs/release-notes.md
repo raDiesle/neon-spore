@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2d6677d5b — A probe can play a wave with AUTO on both seats
+
+`played` and `playedBeat` in `tools/probe/world.ts` step a wave with the same hand as the TEST panel and the director, so a benchmark sees a defended hull. Before, a probe could only step a wave that nobody answered. Run across every wave for 160 beats this way, the busiest wave stands at eight bodies, and no wave's step averages more than 5 µs a tick. The figures are in the September performance audit.
+
 ## 2026-09-26 · 1cfd1dfed — AUTO catches the pods: SALVAGE, CATCH AND AIM, THE PURGE and THE HUSK now play through
 
 AUTO's field hand played the cannon and the shield and left every pod hanging, so the pod waves never cleared. It now shoots a hanging pod loose once no body is falling, stands the cannon under a falling one, and holds the maw open over the last stretch of the fall — and lets a husk past with the maw shut. Four waves come out of the half-played list, cleared unscarred.
