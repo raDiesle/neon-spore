@@ -23915,3 +23915,5 @@ fails on the same tick, so every frame after it is held.
 - landing: 10 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: reading — each boss had to be asked whether it still moves when its window opens.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

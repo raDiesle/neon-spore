@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b083b387a — THE SLOW's light stands round THE GIMBAL, THE HASP, THE MANTLE, THE VALVE and THE VISE
+
+Five more rows in the table of bosses THE SLOW aims at by kind: the gimbal's outer ring, the hasp's clasp being worked, and the longer axis of the mantle's, the valve's and the vise's ovals, each a point and a size its own shape file already names. No row reads a lift, because no window opens before a boss has left its still phase. PRISM no longer splits these bosses red and blue, and CRAWL's light banks against their outlines rather than the cannon's. Exemption: a fix to something wrong rather than unlovely, since PRISM's promise is that the boss does not split.
+
 ## 2026-09-26 · 2a07df2f4 — THE LEDGER's timeout blow wrenches its socket's plate off the hull
 
 When a bill nobody answered lands, the hull no longer takes a thrown rock. THE LEDGER's cord is already rooted in the ship, so it yanks: the plate the socket sits in is wrenched up on its hinge toward the body, a red hole shows under it, its rivets spit loose, and it slams back down with a ring along the plating.
