@@ -149,7 +149,7 @@ export function drawPairBoss(
   // THE OCULUS: a lens of six leaves over the middle column, shut a pair at a
   // time by both thumbs holding together, a core in the socket behind them.
   // Both screens are drawn the same — a hold asks both seats at once
-  // (`oculus-draw.ts`). Nothing of it outlives a frame yet: its effects are
-  // the second half of its look.
-  drawOculus(ctx, l, world, boss, beat, beatPhase, time);
+  // (`oculus-draw.ts`). What outlives a frame — the thud of a shut pair, the
+  // core's flash, the hull's shudder — is `effects.boss.oculus` (`oculus-fx.ts`).
+  drawOculus(ctx, l, world, boss, beat, beatPhase, time, effects.boss.oculus);
 }

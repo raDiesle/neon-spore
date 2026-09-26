@@ -62,6 +62,7 @@ export class BossTransients extends BossRoster {
     this.ratchet.ingest(events, l, cfg, beatSeconds, role, burst);
     this.mantle.ingest(events, l, cfg, beatSeconds, burst);
     this.keel.ingest(events, l, cfg, beatSeconds, burst);
+    this.oculus.ingest(events, l, cfg, beatSeconds, burst);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
     this.blows.ingest(events);
@@ -95,6 +96,7 @@ export class BossTransients extends BossRoster {
     this.ratchet.update(dt);
     this.mantle.update(dt);
     this.keel.update(dt);
+    this.oculus.update(dt);
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
     this.blows.update(dt);
@@ -145,6 +147,7 @@ export class BossTransients extends BossRoster {
     this.ratchet.clear();
     this.mantle.clear();
     this.keel.clear();
+    this.oculus.clear();
     this.blows.clear();
     this.strike.clear();
   }

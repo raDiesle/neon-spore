@@ -2,15 +2,15 @@ import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { oculusLeafEdge, oculusSocketRadius } from "./oculus-shape.js";
+import { oculusLeafEdge, oculusRadius, oculusSocketRadius } from "./oculus-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **THE OCULUS's marks**: the two things that say what a step asks — the lit
  * pair, which is *both hold now*, and the lit core, which is *shoot here, in
  * this colour*. Cut from `oculus-draw.ts` the day it was written, along the
- * line its second half will grow on — the cue words and the leaves' thud come
- * here.
+ * line its second half will grow on — the cue words come here, and the
+ * flashes `oculus-fx.ts` times are drawn here.
  */
 
 /** A step's colour on the canvas: its cannon's, or white for a step either answers (§27, *Colour*). */
@@ -70,4 +70,32 @@ export function drawOculusCore(
   const rr = oculusSocketRadius(l) * 1.25;
   ring.arc(0, 0, rr, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
   strokeGlow(ctx, ring, body, STROKE.outline, 1);
+}
+
+/**
+ * A core hit's flash and the shatter's (§27, *Presentation*): white over the
+ * socket, the first hit a thin flare, the second fuller, the third filling the
+ * socket; the shatter's the whole lens at once. `flash.hits` is the hit it was.
+ */
+export function drawOculusFlash(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  flash: { now: number; hits: number },
+  shatter: number,
+): void {
+  if (flash.now > 0 && flash.hits > 0) {
+    const hits = Math.min(3, flash.hits);
+    const r = oculusSocketRadius(l) * (0.15 + 0.35 * hits) * (1.4 - 0.4 * flash.now);
+    const p = new Path2D();
+    p.arc(0, 0, Math.max(0.5, r), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
+    ctx.fill(p);
+    strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  }
+  if (shatter > 0) {
+    const p = new Path2D();
+    p.arc(0, 0, oculusRadius(l).rim * (1.1 - 0.3 * shatter), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.hullRim, 0.5 * shatter);
+    ctx.fill(p);
+  }
 }

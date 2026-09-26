@@ -67,6 +67,9 @@ export function drawOnShip(
   // And THE KEEL's: the open socket and the tail's rock each hit the hull
   // once, and the plating shudders for it (`keel-fx.ts`, §24).
   held.effects.boss.keel.drawShock(ctx, l, surfaceY, view.time);
+  // And THE OCULUS's: each pair held shut is a soft thud through the plating,
+  // a reseal a quieter one (`oculus-fx.ts`, §27).
+  held.effects.boss.oculus.drawShock(ctx, l, surfaceY, view.time);
   // And any boss's own blow when a window ran out, instead of a rock nobody
   // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
   held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);

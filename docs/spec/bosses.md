@@ -8215,6 +8215,15 @@ fight to the shatter with no pair slipped or sprung and the hull never
 struck, and the STATES sheet poses all four phases
 (`hands/boss-hands-oculus.ts`, `director/test/autopilot-oculus.test.ts`).
 
+**Its receipts are drawn** (26 September 2026), §27's *Presentation*: a pair
+held shut presses the lens down a touch and sends a soft shudder down the
+plating, a reseal the same and quieter; a core hit flashes white over the
+socket, a thin flare the first time and filling the socket the third, and
+bursts in the core's colour; the shatter flashes the whole lens. A missed
+core is the lens's own blow at the hull, which every boss that strikes draws
+the same way (`boss-strike-fx.ts`). A shut pair and a core hit deal the blow
+every boss takes (`render/oculus-fx.ts`, `test/oculus-fx.test.ts`).
+
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a

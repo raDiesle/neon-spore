@@ -23617,3 +23617,14 @@ Bottleneck: writing — the registrations outside the simulation are the
 same sixty files a boss, and only discoverable from one another.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's receipts drawn (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. THE KEEL's fx commit as the pattern, §27's *Presentation*.
+- writing: 15 min. `oculus-fx.ts`, the flash in `oculus-marks.ts`, the
+  drawer's shake and thud, the registrations, the hurt row, the test.
+- looking: 0 min. Nothing seen; queued as unverified.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: landing — the full check is longer than the lane.

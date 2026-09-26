@@ -169,7 +169,9 @@ export const INGEST_SILENT_BOSS_C = [
   "seamMiss",
   "seamSplit",
   "seamOut",
-  // THE OCULUS's twelve, for the same reason (`packages/audio/src/bind-oculus.ts`).
+  // THE OCULUS's twelve: its thud, flashes, shock and bursts are
+  // `oculus-fx.ts`', read above the loop with the rest of each boss's; how
+  // shut each leaf is stays read off the state.
   "oculusEnter",
   "oculusLight",
   "oculusSlip",

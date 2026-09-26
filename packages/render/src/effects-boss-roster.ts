@@ -15,6 +15,7 @@ import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
 import { MantleFx } from "./mantle-fx.js";
 import { MazeGripFx } from "./maze-grip-fx.js";
+import { OculusFx } from "./oculus-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
@@ -158,6 +159,10 @@ export class BossRoster {
    * and its receipts' bursts — thrown the same on both screens, and told the
    * socket's colour by the drawer (`keel-fx.ts`, `keel-draw.ts`). */
   readonly keel = new KeelFx();
+  /** THE OCULUS's thud, the core's flash and the shatter's, and the hull
+   * shock, and its receipts' bursts — thrown the same on both screens, and
+   * told the core's colour by the drawer (`oculus-fx.ts`, `oculus-draw.ts`). */
+  readonly oculus = new OculusFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

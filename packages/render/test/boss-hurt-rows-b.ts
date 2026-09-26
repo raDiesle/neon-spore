@@ -157,6 +157,21 @@ export const HURT_ROWS_B: Row[] = [
     ],
     hurt: (fx) => fx.boss.keel.hurt,
   },
+  {
+    boss: "oculus",
+    // A pair held shut, and a core hit; a reseal only keeps the socket open.
+    land: [
+      { type: "oculusShut", shut: 2, col: 3 },
+      { type: "oculusHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "oculusLight", ask: "shut", col: 3 },
+      { type: "oculusSlip", col: 3 },
+      { type: "oculusSpring", col: 3 },
+      { type: "oculusReseal", col: 3 },
+    ],
+    hurt: (fx) => fx.boss.oculus.hurt,
+  },
 ];
 
 /** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */

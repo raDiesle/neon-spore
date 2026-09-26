@@ -6,10 +6,17 @@ import {
   oculusWindowBeats,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
-import { drawOculusCore, drawOculusLitPair } from "./oculus-marks.js";
+import type { OculusFx } from "./oculus-fx.js";
+import {
+  drawOculusCore,
+  drawOculusFlash,
+  drawOculusLitPair,
+  oculusColour,
+} from "./oculus-marks.js";
 import {
   oculusArrived,
   oculusLeft,
@@ -44,6 +51,10 @@ import { PALETTE, STROKE } from "./palette.js";
  * and the only colour on it is what a step asks for — the lit pair in white,
  * the core in its cannon's colour. **Its health is the core**, smaller for
  * every hit it has taken.
+ *
+ * What outlives a frame — the thud of a shut pair, a core hit's flash, the
+ * shatter's, the blow — is `fx` (`oculus-fx.ts`), told the core's colour here
+ * because the event that hits it does not carry one.
  */
 export function drawOculus(
   ctx: CanvasRenderingContext2D,
@@ -53,16 +64,22 @@ export function drawOculus(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: OculusFx,
 ): void {
   const cfg = world.cfg;
   const arrived = oculusArrived(s, cfg, beat, beatPhase);
   const home = oculusCentre(l, cfg);
   const shatter = oculusShatter(s, cfg, beat, beatPhase);
 
+  const step = oculusLitStep(s);
+  if (step?.ask === "fire") fx.tell(oculusColour(step.color).rim);
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * shatter);
-  ctx.translate(home.x, home.y - oculusLift(l, arrived));
-  if (shatter <= 0) drawLens(ctx, l, world, s, beat, beatPhase, time);
+  ctx.translate(
+    home.x + fx.hurt.shakeX(time, l.tile),
+    home.y - oculusLift(l, arrived) + fx.thud * l.tile,
+  );
+  if (shatter <= 0) drawLens(ctx, l, world, s, beat, beatPhase, time, fx);
   else {
     // The lens falls apart along its plates: six wedges, each thrown out
     // along its own middle and turned a little as it goes.
@@ -78,14 +95,15 @@ export function drawOculus(
       wedge.arc(0, 0, rim, a - seg / 2, a + seg / 2);
       wedge.closePath();
       ctx.clip(wedge);
-      drawLens(ctx, l, world, s, beat, beatPhase, time);
+      drawLens(ctx, l, world, s, beat, beatPhase, time, fx);
       ctx.restore();
     }
   }
+  drawOculusFlash(ctx, l, fx.flash, fx.shatter);
   ctx.restore();
 }
 
-/** The lens whole: glass face, the leaves across it, the socket and core behind, the rim over their roots. */
+/** The lens whole: glass face, the leaves across it, the socket and core behind, the rim over their roots, the blow over the rim. */
 function drawLens(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -94,6 +112,7 @@ function drawLens(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: OculusFx,
 ): void {
   const face = oculusFacePath(l);
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
@@ -139,6 +158,7 @@ function drawLens(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(ring);
+  drawHurt(ctx, ring, fx.hurt.value);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.5);
   ctx.stroke(oculusLapPath(l));
