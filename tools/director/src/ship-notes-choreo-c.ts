@@ -168,7 +168,7 @@ export const CHOREO_NOTES_C = {
     "wipes a half bare the core; a fire step wants a shot in its colour; a " +
     "shield step is the guard pressed with the shield under the lens, and one " +
     "run out clouds the lens until it is shielded again. A fire step run out " +
-    "is a hull hit, which is the wave. Only the simulation lane has landed — " +
+    "is a hull hit, and so is a whiteout left unrubbed or an icicle unshielded — " +
     "see sim/rime.ts, sim/rime-step.ts, sim/rime-hand.ts, sim/rime-guard.ts, " +
     "sim/rime-shot.ts, sim/config-rime.ts.",
   "THE TRIVET — the boss two chords plant, then shoot into":

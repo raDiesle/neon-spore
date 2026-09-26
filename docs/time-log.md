@@ -24535,3 +24535,14 @@ Bottleneck: writing — the seed had to be carried from the kernel's frame out t
 Bottleneck: landing — a two-line row waits on the full suite.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE RIME's whiteout and icicle
+
+- reading: 5 min. The lens's step, hand and guard pages, THE VISE's story test.
+- writing: 25 min. The two asks, the thaw, the icicle's column, the rig's
+  answers, the story test, the script at eleven steps.
+- looking: 0 min. Nothing drawn yet; the look is the next lane.
+- friction: 10 min. A compaction mid-lane, and a stray `cat` that waited on stdin.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — a half left alone had to regrow in the whiteout without undoing the one just wiped.

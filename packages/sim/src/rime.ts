@@ -37,9 +37,12 @@ export type RimePhase = (typeof RIME_PHASES)[number];
 
 /**
  * What a step asks: the pilot's half wiped clear, the navigator's, a shot at
- * the core, or the shield raised against a surge.
+ * the core, or the shield raised against a surge — and the two story steps
+ * once the core is bare: a **whiteout** that fogs both halves at once, wiped
+ * by both seats together, and an **icicle** the core flings down another
+ * column, turned by the shield under it.
  */
-export const RIME_ASKS = ["left", "right", "fire", "shield"] as const;
+export const RIME_ASKS = ["left", "right", "fire", "shield", "both", "icicle"] as const;
 export type RimeAsk = (typeof RIME_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
@@ -49,6 +52,8 @@ export interface RimeStep {
   color: Color | "either";
   /** Beats the step stays lit waiting for its answer. */
   beats: number;
+  /** Columns from the middle the icicle falls down. Only an icicle step reads it. */
+  offset?: number;
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -98,6 +103,16 @@ export function rimeWiping(s: RimeState): 0 | 1 | null {
   if (ask === "left") return 0;
   if (ask === "right") return 1;
   return null;
+}
+
+/** Whether the lit step wants `side` rubbed: its own wipe, or the whiteout's. */
+export function rimeRubbing(s: RimeState, side: 0 | 1): boolean {
+  return rimeWiping(s) === side || rimeLitStep(s)?.ask === "both";
+}
+
+/** The column an icicle step's icicle falls down: the middle, moved by its offset. */
+export function rimeIcicleCol(mid: number, step: RimeStep): number {
+  return mid + (step.offset ?? 0);
 }
 
 /** The lens shattered: the fight is over and it is only falling. */

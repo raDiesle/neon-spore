@@ -1,6 +1,6 @@
 import { midCol } from "./config.js";
-import { rimeBoss, rimeWiping } from "./rime.js";
-import { rimeCleared } from "./rime-step.js";
+import { rimeBoss, rimeRubbing, rimeWiping } from "./rime.js";
+import { rimeCleared, rimeThawed } from "./rime-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -21,6 +21,8 @@ import type { World } from "./world.js";
  *
  * A half wiped to nought is answered **on the tick**: waiting for the beat
  * would let the frost the beat grows back undo a wipe the pair had finished.
+ * In the whiteout both halves are lit at once, and it is answered when both
+ * are nought together (`rimeThawed`).
  */
 export function rimeHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -37,10 +39,12 @@ export function rimeHeard(world: World, player: 1 | 2, command: Command): void {
   const count = Math.max(0, command.id ?? 0);
   const fresh = count >= s.rubs[side] ? count - s.rubs[side] : count;
   s.rubs[side] = count;
-  if (fresh === 0 || rimeWiping(s) !== side) return;
+  if (fresh === 0 || !rimeRubbing(s, side)) return;
   s.rubbed[side] = true;
   s.rimeMilli[side] = Math.max(0, s.rimeMilli[side] - fresh * world.cfg.rimeShaveMilli);
   const col = midCol(world.cfg);
   world.events.push({ type: "rimeShave", side, rimeMilli: s.rimeMilli[side], col });
-  if (s.rimeMilli[side] === 0) rimeCleared(world, s, side);
+  if (s.rimeMilli[side] > 0) return;
+  if (rimeWiping(s) === side) rimeCleared(world, s, side);
+  else rimeThawed(world, s);
 }

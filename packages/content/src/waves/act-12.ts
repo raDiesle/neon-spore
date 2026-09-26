@@ -93,7 +93,7 @@ export const WAVES_ACT_12: Wave[] = [
     guide: {
       both: "Rub your half of the lens back and forth until it clears. Two wipes each bare the core. Shoot it in its colour. When the surge comes, shield it.",
       p1: "1. Rub the left half back and forth and say so.\n2. Keep rubbing until it clears. If you stop, the frost grows back.\n3. When the core shows a colour, fire it. Press the shield when it is under the lens.",
-      p2: "1. Rub the right half back and forth and say so.\n2. Keep rubbing until it clears.\n3. White takes either colour. When the surge comes, move the shield under the lens.",
+      p2: "1. Rub the right half back and forth and say so.\n2. Keep rubbing until it clears.\n3. White takes either colour. When the surge comes, move the shield under the lens.\n4. In the fog, both rub. Shield the icicle.",
     },
     entries: [],
     boss: {
@@ -105,7 +105,9 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "right", color: "either", beats: 4 },
         { ask: "fire", color: "red", beats: 3 },
         { ask: "shield", color: "either", beats: 3 },
+        { ask: "both", color: "either", beats: 5 },
         { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "icicle", color: "either", beats: 4, offset: -2 },
         { ask: "shield", color: "either", beats: 3 },
         { ask: "fire", color: "either", beats: 3 },
       ],

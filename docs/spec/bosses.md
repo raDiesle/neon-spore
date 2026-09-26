@@ -8689,7 +8689,8 @@ began, the **cursor** into the script, the tick the lit step lit, the
 **bared**, each half's **frost** in thousandths, the last reversal count
 heard on each half, and whether each was **rubbed** this beat. The script is
 the wave's (`RimeEntry.steps`), copied at install: each step asks `left`,
-`right`, `fire` or `shield`, in a colour or `either`, for its own beats.
+`right`, `fire`, `shield`, `both` or `icicle`, in a colour or `either`, for
+its own beats, and an icicle step an `offset` from the middle column.
 
 **The rule, in one sentence.** Rub your half of the lens clear before the
 frost grows back, and shoot the bared core in its colour.
@@ -8755,11 +8756,30 @@ sheet and nothing else, THE SEAM's rule.
   `rimeFilmMilli`, the same for both halves; the script says only which half
   and for how long.
 - **The wipes and the hits are the health together.** §29 names rime
-  coverage plus a core of three hits; the script is nine steps, and the lens
+  coverage plus a core of three hits; the script is eleven steps, and the lens
   shatters when the last is answered, which is the third hit.
 - **There is no grace on a wipe window.** Unlike THE VISE's pinch, a wipe is
   a level reached rather than a count of beats held, so a window exactly its
   beats long can be met on any tick of it.
+
+**The story between the wipes** (26 September 2026, the owner's ask for more
+states where the pair must act). Once the core is bare, two steps turn the
+fight back on the pair, each lit under THE SLOW and each a hull hit if it
+runs out:
+
+- **The whiteout** (`both`). Both halves fog over at once, to the film, and
+  the core is covered again. Both seats rub together: a half left alone
+  grows back while the other is wiped, so they have to finish together, and
+  the core is bare the tick both are nought (`rimeThawed`, `rimeBare`).
+- **The icicle** (`icicle`). The core flings an icicle down a column off the
+  middle, two to the left in the shipped script. The shield under *that*
+  column turns it (`rimeBlock`); the shield under the lens does nothing, and
+  the lens stays bare either way. Run out, it strikes the hull under its own
+  column.
+
+No new event: the whiteout ends on `rimeBare`, the icicle on `rimeBlock`, and
+either run out on `rimeMiss`. `sim/test/rime-story.test.ts` proves both. The
+two are not drawn yet; that is the next lane.
 
 **The simulation lane and half one of the look have landed.** The body is
 drawn (`render/rime-draw.ts`, 26 September 2026): BULB · PEBBLE's featureless

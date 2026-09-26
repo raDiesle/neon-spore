@@ -26,15 +26,15 @@ export type RimeEvent =
   | ({ type: "rimeClear"; side: 0 | 1; wipes: number } & RimeColEvent)
   /** A wipe ran out: the half frosts back solid, to be wiped from its first wipe again. */
   | ({ type: "rimeFrost"; side: 0 | 1 } & RimeColEvent)
-  /** Both halves clear and the core lies bare. */
+  /** Both halves clear and the core lies bare — after the four wipes, or the whiteout wiped. */
   | ({ type: "rimeBare" } & RimeColEvent)
   /** The core shot in its colour; `hits` is how many it has taken. */
   | ({ type: "rimeHit"; hits: number } & RimeColEvent)
-  /** A surge of frost turned by the shield: the lens stays bare. */
+  /** A surge of frost, or an icicle over its own column, turned by the shield. */
   | ({ type: "rimeBlock" } & RimeColEvent)
   /** A shield step ran out: the surge frosts the lens over, to be shielded again. */
   | ({ type: "rimeCloud" } & RimeColEvent)
-  /** A fire step ran out with the core unshot: the hull takes it. */
+  /** A shot, whiteout or icicle ran out unanswered: the hull takes it. */
   | ({ type: "rimeMiss" } & RimeColEvent)
   /** The script is done and the lens shatters. */
   | ({ type: "rimeShatter" } & RimeColEvent)

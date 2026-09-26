@@ -6,6 +6,8 @@ import {
   RIME_WIPES_PER_HALF,
   type RimeState,
   type RimeStep,
+  rimeIcicleCol,
+  rimeRubbing,
   rimeWiping,
 } from "./rime.js";
 import { closeSlow, openSlow } from "./slow.js";
@@ -25,7 +27,8 @@ import type { World } from "./world.js";
  * **A wipe that runs out is tried again from that half's first wipe**, §29's
  * row 3, and **a surge that runs out is the shield asked again**; neither is a
  * hull hit. **A shot that runs out is the hull**, THE SEAM's rule
- * (`seam-step.ts`): this game has no hull hit that is not the wave.
+ * (`seam-step.ts`): this game has no hull hit that is not the wave. So is a
+ * whiteout left unwiped and an icicle left unshielded, the two story steps.
  */
 
 export function installRime(world: World, steps: readonly RimeStep[]): RimeState {
@@ -53,13 +56,15 @@ function lit(world: World, s: RimeState, since: number): void {
   const step = s.steps[s.cursor];
   if (step === undefined) return;
   const side = rimeWiping(s);
-  if (side !== null && !s.rubbed[side])
-    s.rimeMilli[side] = Math.min(RIME_FULL_MILLI, s.rimeMilli[side] + world.cfg.rimeRegrowMilli);
+  for (const half of [0, 1] as const) {
+    if (!rimeRubbing(s, half) || s.rubbed[half]) continue;
+    s.rimeMilli[half] = Math.min(RIME_FULL_MILLI, s.rimeMilli[half] + world.cfg.rimeRegrowMilli);
+  }
   s.rubbed = [false, false];
   if (since < step.beats) return;
-  if (step.ask === "fire") miss(world, s);
-  else if (side !== null) frosted(world, s, side);
-  else clouded(world, s);
+  if (side !== null) frosted(world, s, side);
+  else if (step.ask === "shield") clouded(world, s);
+  else miss(world, s, step);
 }
 
 /**
@@ -101,6 +106,18 @@ export function rimeCleared(world: World, s: RimeState, side: 0 | 1): void {
 }
 
 /**
+ * A half rubbed to nought in the whiteout: with the other clear too, the fog
+ * is gone and the core bare again. A half left alone regrows meanwhile, so
+ * the two have to finish together.
+ */
+export function rimeThawed(world: World, s: RimeState): void {
+  if (s.rimeMilli[0] > 0 || s.rimeMilli[1] > 0) return;
+  s.bared = true;
+  world.events.push({ type: "rimeBare", col: midCol(world.cfg) });
+  rimeAnswered(world, s);
+}
+
+/**
  * The lit step has its answer: THE SLOW lets go, the cursor moves on and the
  * lens rests. Called by a wipe, the shield and the shot.
  */
@@ -126,13 +143,22 @@ function next(world: World, s: RimeState): void {
   const side = rimeWiping(s);
   if (side !== null)
     s.rimeMilli[side] = s.wipes[side] === 0 ? RIME_FULL_MILLI : world.cfg.rimeFilmMilli;
+  if (step.ask === "both") {
+    s.bared = false;
+    s.rimeMilli = [world.cfg.rimeFilmMilli, world.cfg.rimeFilmMilli];
+  }
   openSlow(world, step.beats, "ask");
   world.events.push({ type: "rimeLight", ask: step.ask, col });
 }
 
-/** A fire step ran out with the core unshot: the hull takes it, and the wave is lost. */
-function miss(world: World, s: RimeState): void {
-  const col = midCol(world.cfg);
+/**
+ * A step with no second try ran out — the core unshot, the whiteout unwiped,
+ * the icicle unshielded: the hull takes it, under the icicle where one fell,
+ * and the wave is lost.
+ */
+function miss(world: World, s: RimeState, step: RimeStep): void {
+  const mid = midCol(world.cfg);
+  const col = step.ask === "icicle" ? rimeIcicleCol(mid, step) : mid;
   world.events.push({ type: "rimeMiss", col });
   closeSlow(world);
   rest(world, s, true);

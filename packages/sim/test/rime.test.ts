@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { World } from "../src/index.js";
-import { RIME_FULL_MILLI, RIME_WIPES_PER_HALF, rimeLitStep } from "../src/rime.js";
+import { RIME_FULL_MILLI, RIME_WIPES_PER_HALF } from "../src/rime.js";
 import { rimeStruck } from "../src/rime-shot.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
@@ -8,7 +7,6 @@ import {
   beats,
   CFG,
   install,
-  rightColor,
   rime,
   rub,
   runUntil,
@@ -16,6 +14,7 @@ import {
   shield,
   shot,
   toLit,
+  toStep,
   wipe,
 } from "./rime-rig.js";
 
@@ -31,26 +30,6 @@ import {
  * that a shot outside its step or in the wrong colour does nothing, and that
  * a shot run out is the wave.
  */
-
-/** The lit step answered: its half wiped clear, the shield under the lens, or shot in its colour. */
-function answer(world: World): void {
-  const step = rimeLitStep(rime(world));
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") rimeStruck(world, shot(rightColor(step)));
-  else if (step.ask === "shield") shield(world);
-  else wipe(world, step.ask);
-}
-
-/** A lens with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (rime(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("THE RIME comes in", () => {
   it("still, both halves frosted solid, the core covered", () => {
@@ -237,7 +216,7 @@ describe("a shield step", () => {
 
 describe("the end", () => {
   it("answered whole, the lens shatters and the fight ends", () => {
-    const world = toStep(8);
+    const world = toStep(SCRIPT.length - 1);
     rimeStruck(world, shot("red"));
     expect(rime(world).hits).toBe(3);
     const seen = runUntil(world, (w) => w.boss === null);

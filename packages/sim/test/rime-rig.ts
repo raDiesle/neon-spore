@@ -9,13 +9,20 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { type RimeState, type RimeStep, rimeBoss } from "../src/rime.js";
+import {
+  type RimeState,
+  type RimeStep,
+  rimeBoss,
+  rimeIcicleCol,
+  rimeLitStep,
+} from "../src/rime.js";
+import { rimeStruck } from "../src/rime-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
  * THE RIME's test rig: a script installed, a wiping thumb on a half as the
  * pair would put it there, the shield under the lens, and a step driven to
- * its answer. Shared by `rime.test.ts`.
+ * its answer. Shared by `rime.test.ts` and `rime-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -30,7 +37,9 @@ export const SCRIPT: readonly RimeStep[] = [
   { ask: "right", color: "either", beats: 4 },
   { ask: "fire", color: "red", beats: 3 },
   { ask: "shield", color: "either", beats: 3 },
+  { ask: "both", color: "either", beats: 5 },
   { ask: "fire", color: "cyan", beats: 3 },
+  { ask: "icicle", color: "either", beats: 4, offset: -2 },
   { ask: "shield", color: "either", beats: 3 },
   { ask: "fire", color: "either", beats: 3 },
 ];
@@ -117,4 +126,42 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: RimeStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** Both seats' thumbs on their halves at once, turned back as often as the frost takes. */
+export function thaw(world: World): Set<string> {
+  const counts = rime(world).rimeMilli.map((m) => Math.ceil(m / CFG.rimeShaveMilli));
+  const drag = (player: 1 | 2, target: "rimeHalfLeft" | "rimeHalfRight", on: boolean, id = 0) => ({
+    tick: world.tick,
+    player,
+    command: { kind: "drag" as const, target, on, fromMilli: 0, id },
+  });
+  const seen = new Set(
+    tick(world, [drag(1, "rimeHalfLeft", false), drag(2, "rimeHalfRight", false)]),
+  );
+  const on = [drag(1, "rimeHalfLeft", true, counts[0]), drag(2, "rimeHalfRight", true, counts[1])];
+  for (const t of tick(world, on)) seen.add(t);
+  return seen;
+}
+
+/** The lit step answered: its half wiped, both together, the shield where it is wanted, or shot. */
+export function answer(world: World): void {
+  const step = rimeLitStep(rime(world));
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") rimeStruck(world, shot(rightColor(step)));
+  else if (step.ask === "shield") shield(world);
+  else if (step.ask === "icicle") shield(world, rimeIcicleCol(MID, step));
+  else if (step.ask === "both") thaw(world);
+  else wipe(world, step.ask);
+}
+
+/** A lens with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number, steps: readonly RimeStep[] = SCRIPT): World {
+  const world = install(steps);
+  toLit(world);
+  while (rime(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }

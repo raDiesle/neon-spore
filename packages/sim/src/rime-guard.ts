@@ -1,7 +1,7 @@
 import { markMoment } from "./balance.js";
 import { midCol } from "./config.js";
 import { guardArmed } from "./hull-guard.js";
-import { rimeBoss, rimeLitStep } from "./rime.js";
+import { rimeBoss, rimeIcicleCol, rimeLitStep } from "./rime.js";
 import { rimeAnswered } from "./rime-step.js";
 import type { World } from "./world.js";
 
@@ -15,16 +15,23 @@ import type { World } from "./world.js";
  * surge is always turned. A surge turned leaves the core bare — or bares it
  * again, after one that ran out frosted it over.
  *
+ * **An icicle** is the same shield under the column it falls down, and turns
+ * nothing about the lens: the core stays as bare as it was.
+ *
  * The sheet is billed as THE SEAM bills it, for its reason: there is no body
  * here for `wardTurns` to take.
  */
 export function rimeGuarded(world: World): void {
   const s = rimeBoss(world);
-  if (s === null || rimeLitStep(s)?.ask !== "shield") return;
-  const col = midCol(world.cfg);
+  const step = s === null ? null : rimeLitStep(s);
+  if (s === null || step === null || (step.ask !== "shield" && step.ask !== "icicle")) return;
+  const mid = midCol(world.cfg);
+  const col = step.ask === "icicle" ? rimeIcicleCol(mid, step) : mid;
   if (world.shieldCol !== col || !guardArmed(world) || world.guardTick < s.litTick) return;
-  s.bared = true;
-  s.rimeMilli = [0, 0];
+  if (step.ask === "shield") {
+    s.bared = true;
+    s.rimeMilli = [0, 0];
+  }
   world.guard.tries += 1;
   world.guard.deflected += 1;
   markMoment(world, true);
