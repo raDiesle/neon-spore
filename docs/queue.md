@@ -618,6 +618,7 @@ what the rest of this file holds.
 ## THE INSTAR's word box flips onto the partner's ring near an edge
 
 - **Found:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-the-instars-word-box-flips-onto-the-partners-rin)
 - **Files:** `packages/render/src/instar-word.ts`, `packages/render/src/instar-marks.ts`
 
 `drawInstarWord` hangs a mark's box outward, away from the middle, and flips
