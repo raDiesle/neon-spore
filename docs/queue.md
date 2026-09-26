@@ -434,6 +434,7 @@ an alignment.
 ## `packages/sim/src/hash.ts` is at 250 lines
 
 - **Found:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for
+- **Taken:** 2026-09-26, claude/queue-packages-content-src-scenes-ts-is-at-250-lines (claim: claude/queue-packages-sim-src-hash-ts-is-at-250-lines)
 - **Files:** `packages/sim/src/hash.ts`, `packages/sim/test/hash-coverage.test.ts`
 
 THE SLOW's `slowAsks` took the last line, and a comment was folded to make
