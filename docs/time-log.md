@@ -24982,3 +24982,16 @@ be one paint function.
 The bottleneck: `next` has no way to skip an entry that wants an idle machine.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — the rock ratchet asks `git grep` which files to read
+
+- **reading** — 5 min
+- **writing** — 5 min
+- **looking** — 5 min. Checking the narrowed scan against the full one, which
+  turned up the regex that stopped at the first `)`.
+- **friction** — 5 min. A heredoc with a doubled backslash was blocked, and
+  a `queue next` claimed without leaving its branch checked out.
+- **landing** — 5 min
+
+Bottleneck: looking — comparing the old and new scans is what found that four
+files on the list had gone unseen.
