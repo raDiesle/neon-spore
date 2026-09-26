@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 394267839 — THE MANTLE's buckle, vent, cross crack and turn are drawn
+
+The four story beats the shell gained in the last landing now show on both screens. The buckle swells the valves and throbs, lying flatter each beat both thumbs hold them eased, with HOLD on a knob until it is. The vent is a red slot gaping on the seam with hiss rising off it, and TAP from either player is answered on it. A crack runs out across the seam through the cross and stays through the brace. The turn stands the split halves part-way open, rocking, and opens them further as both pulls near the floor, with PULL on each knob; the heartbeat opens them the rest of the way from there.
+
 ## 2026-09-26 · fbbee644f — The INSTAR's globs, embers and heart paint through a seam
 
 `SPIT_LOOK` (glob, spark) and `HEART_LOOK` (paint) hold the calls the game already made, in the same order, so VERSUS can offer a baked look through them. The frame drawn is unchanged.

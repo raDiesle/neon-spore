@@ -2257,6 +2257,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 ## THE LEDGER's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-26, claude/ledger-blow (claim: claude/queue-the-ledgers-own-blow-at-the-hull)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
 
 THE LEDGER's timeout already calls `bossStrikesHull` (`packages/sim/src/ledger-step.ts`)
@@ -2636,6 +2637,20 @@ pushed note's sha is an ancestor of the pushed head.
 *THE SLOW's light stands round THE OCULUS's lens rather than splitting it* landed from a session that could not look at it. What went unchecked:
 
 - THE SLOW's light round THE OCULUS's lens watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
+
+## Unverified at 394267839: THE MANTLE's buckle, vent, cross crack and turn watche…
+
+- **Found:** 2026-09-26, claude/mantle-story-look
+- **Files:** `docs/INDEX.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/mantle-brace.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/mantle-grip.ts`
+
+*THE MANTLE's buckle, vent, cross crack and turn are drawn* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
+
+- THE MANTLE's buckle, vent, cross crack and turn watched at tempo
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.

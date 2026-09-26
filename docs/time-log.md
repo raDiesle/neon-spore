@@ -23872,3 +23872,5 @@ frames had the cannon parked on top of it.
 
 The bottleneck was finding that the vent's `TAP` had nothing under it to
 touch: the sim took the tap, but the touch layer only knew the finale's core.
+
+*Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
