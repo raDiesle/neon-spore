@@ -18,6 +18,8 @@ import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
 import { valveBlow } from "./valve-blow.js";
 import { valveCentre } from "./valve-shape.js";
+import { viseBlow } from "./vise-blow.js";
+import { viseCentre, viseRadius } from "./vise-shape.js";
 
 /**
  * **What a boss's own blow at the hull looks like**, when a window ran out
@@ -74,6 +76,11 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   // The pawl's seam, where the jammed rack lets its head plate go
   // (`ratchet-blow.ts`).
   ratchet: (l, cfg) => ({ x: ratchetX(l, cfg), y: ratchetPawlY(l) }),
+  // The split at the case's heavy end, where it spits its seed (`vise-blow.ts`).
+  vise: (l, cfg) => {
+    const c = viseCentre(l, cfg);
+    return { x: c.x, y: c.y + viseRadius(l).ry };
+  },
 };
 
 /** A boss's own blow; an empty table is every boss on the lash. */
@@ -93,6 +100,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   gimbal: gimbalBlow,
   // Its ember has already fallen the column; it burns through and the ship vents.
   valve: valveBlow,
+  // A kernel left unshot: the case spits a husk seed that cracks on the plating.
+  vise: viseBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

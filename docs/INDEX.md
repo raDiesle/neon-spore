@@ -1266,6 +1266,7 @@ by hand never moves.
 | `packages/render/src/vise-shape.ts` | **THE VISE's geometry**: where the seed-case stands, and the paths it is made of |
 | `packages/render/src/vise-grip.ts` | **The pinch on THE VISE** — the first of its hands lanes |
 | `packages/render/src/vise-fx.ts` | What THE VISE leaves behind a frame (§28, *Presentation*): the **dry thud** of a seam cracking |
+| `packages/render/src/vise-blow.ts` | THE VISE's timeout blow: the case spits a husk seed that cracks in two on the hull |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |

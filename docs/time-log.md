@@ -24136,3 +24136,16 @@ never passes through the loop that presses AUTO, was three files away from
 the flag.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VISE's own blow at the hull
+
+- reading: 10 min. `vise-step.ts`'s `miss`, `vise-shape.ts`'s kernel and case.
+- writing: 10 min. The husk seed spat from the case's heavy end, cracked in two
+  on the plating.
+- looking: 5 min. Frames forced with
+  `--boss-json '{"cursor":4,"phase":"lit","phaseBeat":"now","bared":true,"cracks":[2,2]}'`.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: reading — forcing a fire step meant finding the script's first
+`fire` in `act-12.ts`.
