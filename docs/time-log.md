@@ -24048,3 +24048,5 @@ hand before this lane could start.
 - landing: 5 min. `check:fast`, this entry, `land`.
 
 Bottleneck: looking — a mid-change frame of a pass or an approach is mostly sky or a speck, and finding the tick where the body is on screen and halfway is by trial.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

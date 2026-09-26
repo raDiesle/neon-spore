@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c9dfeb8b9 — THE INSTAR's fourth act walked step to step: nothing snaps, and its turns are queued for their cost
+
+The hover, the bow, the arch, the rise and the loom go in and out through the same in-betweens as every other pose, and `instar-seams.test.ts`, which walks every step of the script into the next a tick at a time, now walks all twenty-eight and passes. A third of the way into a morph that turns the body between its two views, a frame costs two to five times one at rest — both views are drawn across the handover — and that is queued with the figures. The loom's comment no longer promises a fire it never lights. Nothing drawn changes.
+
 ## 2026-09-26 · 58857f734 — THE VISE's cue says SHUT on each lobe a lit pinch asks for and FIRE under the lit kernel
 
 While a seam is lit, the seat whose lobe it is reads SHUT on that lobe — both seats on a step that asks for both — and the word goes the moment the lobe is pinched shut, coming back if it is let go before its count is up. While the kernel is lit, FIRE stands at the hull under the middle column on both screens, never naming the colour. Nothing is said between steps or as the case splits. This is the last of THE VISE's look.
