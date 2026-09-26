@@ -632,21 +632,6 @@ doc with the numbers, distinct from the existing read/headless sections. If
 either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
 promote it out of "read" into its own queued fix.
 
-## Unverified at 4a47be3b6: THE OCULUS wave never watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-27-the-oculus-the-simulation-lane
-- **Taken:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
-
-*THE OCULUS: an eye both seats hold shut, then shoot into* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
-
-- THE OCULUS wave never watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at b66adf07c: THE MANTLE's pull read at tempo: the bow, the cord and…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
@@ -3172,3 +3157,17 @@ Two stale comments found beside it:
   `litFace(piece, ink.rot)`.
 
 `bun run check` proves it: nothing else changes.
+
+## The director's AUTO buttons cannot be clicked at desktop widths
+
+- **Found:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa
+- **Files:** `tools/director/src/director-field.css`, `tools/director/index.html`
+
+The TEST panel's AUTO row (OFF/BOTH/P1/P2, `index.html` line 223) sits in
+the header's `.transport`, which is `position: static`. At 1500x950, and
+at 800x600 too, `main` (`position: relative`) paints over it: the element
+at BOTH's centre is the map panel's `.cell-actions` (`#cellDelete`), so a
+pointer never reaches the button. It was worked around with a script's
+`button.click()`. Give the header, or its `.transport`, a stacking context
+above `main` (`position: relative; z-index: 1`), and prove it by
+`document.elementFromPoint` at the button's centre in a preview check.

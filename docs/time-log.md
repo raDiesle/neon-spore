@@ -24997,3 +24997,22 @@ Bottleneck: looking — comparing the old and new scans is what found that four
 files on the list had gone unseen.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## THE OCULUS watched through — 2026-09-26
+
+AUTO BOTH played wave 106 to its shatter at tick 2850 with every step in
+order and no slip or miss: three shuts, the break, three hits, the glare
+blocked, two reseals, the glance, the shatter. A strip at each receipt reads
+right. One finding filed: the director's AUTO row is under `main`.
+
+- **reading** — 5 min
+- **writing** — 5 min
+- **looking** — 15 min. The browser pane was hidden, so the director ran at
+  a frame and a half a second; the wave was played again by `bun run frames
+  --auto both`, one strip per receipt.
+- **friction** — 5 min. The AUTO buttons could not be clicked (queued), and
+  `bun run sheet` wants the prefix without its dash.
+- **landing** — 5 min
+
+Bottleneck: looking — a hidden pane runs nothing at tempo, so the watching
+had to move to headless strips.
