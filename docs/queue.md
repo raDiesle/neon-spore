@@ -863,6 +863,7 @@ comparison is the owner's, unverified until he has looked.
 ## §33 THE GRINDSTONE — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, tmp-grindstone-look (claim: claude/queue-33-the-grindstone-the-look)
 - **Needs:** §33 THE GRINDSTONE's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
