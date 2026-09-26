@@ -22241,3 +22241,5 @@ Bottleneck: friction — finding the tick the lash step is still on screen.
 - landing: 5 min. `check:fast`, the doc-drift paths, the commit, `land`.
 
 Bottleneck: writing — the move itself was one command, the forty importers it stranded were the work.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
