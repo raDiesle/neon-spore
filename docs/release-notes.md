@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ea8bc71fc — Defer the sprite atlas experiments on THE VISE, RIME, TRIVET, PLUMB and SLING
+
+The owner narrowed scope: new graphics stay on THE INSTAR only, as the one example, so the five queued sprite experiments on other bosses wait, each marked with why and with baked detail named as the cheaper first try.
+
 ## 2026-09-26 · 81cb582f1 — Sprites baked at load: THE INSTAR's egg and nest offered, and `bun run sprite`
 
 Detail can now be drawn once, by our own code, onto an offscreen canvas at load and blitted every frame after: a grey body and light strip per size, tinted once per colour pair. Two examples on THE INSTAR show it: an egg with veins, speckle and a hatchling that stirs through four frames, and a nest wound from a hundred and sixty silk strands with dew. They add about 2 kB gzipped each and draw in half the canvas calls of the shipped drawings. They are offered, not wired into the game. `bun run sprite` renders the strips beside the shipped drawing and prints each sprite's code bytes, bake time, picture weight and draw cost; `.claude/skills/sprite` says how to author one.
