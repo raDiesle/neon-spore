@@ -1439,6 +1439,7 @@ what the rest of this file holds.
 ## `--boss-json` throws in the page on a nested `"now"`
 
 - **Found:** 2026-09-26, claude/instar-rig
+- **Taken:** 2026-09-26, main (claim: claude/queue-boss-json-throws-in-the-page-on-a-nested-now)
 - **Files:** `tools/frames/boss.ts`, `tools/frames/boss-install.ts`
 
 `bun run frames . --wave "THE GORGE" --boss-json '{"intakes":[{…,"fullBeat":"now",…}]}'`
