@@ -434,6 +434,7 @@ an alignment.
 ## THE INSTAR, moult: the split hide and the pale body in it
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-26, claude/queue-the-instar-a-last-step-the-moult (claim: claude/queue-the-instar-moult-the-split-hide-and-the-pale-bod)
 - **Files:** `packages/render/src/instar-poses.ts`, `packages/render/src/instar-draw.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-strike.ts`, `packages/render/src/instar-shape.ts`
 
 The moult's simulation and script landed 26 September 2026
