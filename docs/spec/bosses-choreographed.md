@@ -4011,6 +4011,106 @@ proof on this page that a pairing can be a hand-off in real time; any
 future concept wanting one seat to visibly aim for the other to fire can
 reach for it before inventing a third verb.
 
+### §36 THE HALTER — a seam that only bares itself while one hand proves it isn't there
+
+**Question.** Every gesture on this page so far is a presence — a tap, a
+hold, a pinch, a lean, a chord, some command arriving and being read.
+`RestraintGate` has sat in the catalogue since the touch inventory was
+drawn (`docs/spec/transfers-touch.md` §4) asking for the opposite: a step
+passed by sending *nothing* for a graded span, an absence the input layer
+has never had to express. No boss on this page has anchored it, and none
+has asked it to hold true at the same instant as an ordinary presence on
+the other screen — THE CYST's freeze *gates* the squeeze that follows it,
+THE DAVIT's tilt *drives* the release that follows it, but both are one
+seat's hand feeding the other's turn. This one asks for two independent
+holds, one of them a graded nothing, to be true **together**, and to fall
+apart the moment either one is not.
+
+**Silhouette.** A wary creature mid-hull that hugs its own plating shut
+at the faintest touch — one seam down its spine, in three segments, each
+baring itself only while calm and taking one hit before it closes for
+good.
+
+**Mechanic.** `halterAlarmed` holds the seam shut and refuses every hit
+by default. `halterRestBeats` counts consecutive beats in which the
+resting seat has sent the game *no* command at all — a drag, a hold, a
+tap, every one of them resets it to nought, read exactly as
+`RestraintGate` is catalogued. At `halterRestThreshold` beats of true
+stillness the creature settles — but the settled segment only bares
+itself while the *other* seat's `halterChordLeft` / `halterChordRight`
+(`CHORD`, read exactly as THE TRIVET reads its two planted feet) are
+both held down at that same instant. Either half failing — the resting
+seat sending one command, or the chording seat lifting either thumb —
+snaps the seam shut and both counters to nought together; the pair must
+produce the stillness and the grip from nothing a second time, not merely
+resume where they left off.
+
+**Player 1 and Player 2.** Identical screens, the seam's three segments
+visible on both, but which seat rests and which chords swaps by
+movement, the same trade THE CYST's freeze and squeeze already make.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left segment** ||||||
+| 1 | The seam sits shut, plating tight, nothing lit | — | — | — | — | — |
+| 2 | The left segment's mark lights | P2 | send nothing at all (`SENDING NOTHING`) | held to threshold | rest counter reaches threshold | any command resets it, retry |
+| 3 | The left segment sits ready to settle | P1 | hold both grips (`CHORD`) while P2 stays off | held to threshold, together | left segment bares and cracks | either hand fails, both counters reset, retry from row 2 |
+| **Movement 2 — the right segment, roles swapped** ||||||
+| 4 | The right segment's mark lights | P1 | send nothing at all | held to threshold | rest counter reaches threshold | any command resets it, retry |
+| 5 | The right segment sits ready to settle | P2 | hold both grips while P1 stays off | held to threshold, together | right segment bares and cracks, centre exposed | either hand fails, retry from row 4 |
+| **Movement 3 — the centre, held bared while fired** ||||||
+| 6 | The bared centre flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | The plating creeps back toward alarmed over the centre | P1+P2 | one sends nothing while the other holds the chord | held to threshold, together | centre stays bared | plating shuts, movement's fire beats lost until both counters reach threshold again |
+| 8 | Centre flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Plating creeps back a second time, faster | P1+P2 | rest and chord again, roles free to trade | held to threshold, together | stays bared | shuts, retry |
+| 10 | Centre flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, seam spent | stays lit |
+| 11 | The seam splits wide for good and the plating hangs open, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every rest-and-chord window (rows 2–3, 4–5, 7, 9)
+together — the two counters are one thing to watch rather than two, since
+a single stray command a beat before threshold costs the partner's whole
+grip, the sharpest version yet of the forgiving-reset shape THE VALVE's
+own freeze first used.
+
+**Presentation.** No camera. The plating a small continuous tremor with
+no particle of its own, so its going still is the only visible event on
+the body; each cracked segment a soft hull-shock thud, same weight as
+THE CYST's flanks.
+
+**Animation.** Five poses: alarmed whole; left settled and cracked; both
+cracked, centre bared; centre guarded, plating creeping back; split wide,
+spent. The tremor is a continuous uneven shiver rather than a loop, so
+its stopping dead against a chording thumb still moving elsewhere is the
+tell, the same contrast THE CYST's frozen flank gives against its
+shuddering twin.
+
+**Colour.** Plating a dull wary grey-green, the resting seat's mark a
+plain white the way THE VALVE's pin socket is; the centre is the only lit
+colour, in whichever cannon colour a given beat wants.
+
+**Payoff.** Rows 7 and 9 — a graded absence and an active chord asked of
+both seats at once, holding a `FIRE` step already under way; no earlier
+body on this page has asked one seat to prove they are *not* touching
+anything while the other proves they are gripping something, in the same
+window.
+
+**Cost. Medium.** `RestraintGate` has never anchored a boss before this
+one, so `halterRestBeats` is the primitive's first real reader — a
+per-seat counter reset by any command, the mirror image of a hold
+counter rather than a new field kind. `CHORD` itself is already built for
+THE TRIVET. No new gesture, no new primitive class: the brief's own
+catalogue already named `RestraintGate`, this is only its first tenant.
+
+**Reusable.** The overlap itself — a graded absence from one seat true at
+the same instant as an ordinary held presence from the other, either one
+falling clearing both — is the first proof on this page that a pairing
+can ask for a *nothing* and a *something* together rather than two
+somethings in sequence or in dependency; any future concept wanting one
+seat to prove restraint while the other proves grip can reach for it
+before inventing a third verb.
+
 ---
 
 ## The reusable boss mechanic library

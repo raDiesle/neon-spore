@@ -46,7 +46,7 @@ export const SPECIFIED: readonly Gesture[] = [
       beats: [2, 4, 6, 8],
       window: { from: 2, to: 8, label: "nothing, three beats" },
     },
-    where: [`${SPEC} RestraintGate`],
+    where: [`${SPEC} RestraintGate`, `${SPEC} §36 THE HALTER`],
   },
   {
     name: "TAPS ON A MOVING TARGET",
@@ -133,7 +133,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       window: { from: 3, to: 8, label: "both down" },
     },
-    where: [`${SPEC} §30 THE TRIVET`, `${SPEC} §33 THE GRINDSTONE`],
+    where: [`${SPEC} §30 THE TRIVET`, `${SPEC} §33 THE GRINDSTONE`, `${SPEC} §36 THE HALTER`],
   },
   {
     name: "TILT, AS A LEVEL",
