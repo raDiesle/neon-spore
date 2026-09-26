@@ -471,7 +471,6 @@ into the roster. `bun run check` proves it.
 ## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, main (claim: claude/queue-deferred-28-the-vise-sprite-atlas-experiment-the)
 - **Needs:** §28 THE VISE's look, above, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
