@@ -725,3 +725,79 @@ Move `goFullscreen()` to that `pointerup` listener as well (it already exists
 beside the `pointerdown` one), keep `fullscreen.ts`'s header in step with the
 new press, and extend `apps/game/test/shake-permission.test.ts`'s stubbed room
 to show fullscreen is asked on the lift and not on the press.
+
+## `byDepth()` sorts and copies every creature, every frame, whatever is on screen
+
+- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Files:** `packages/render/src/depth.ts`, `packages/render/src/frame-field.ts`
+
+`byDepth()` (`depth.ts:148`) does `[...creatures].sort(...)` once per frame
+from `drawCreatures` (`frame-field.ts:73`), on every wave, whether or not
+depth order changed since the last frame. It is the one render-side cost that
+is neither gated behind "this creature kind is on the field" nor bounded by
+anything but creature count. Cache the sorted order and only re-sort when
+`world.creatures` has actually changed shape (a spawn, a removal, or a swap in
+row/col that could cross a depth boundary), or fold the sort into whatever
+already walks the array once a beat (`onBeat`) instead of once a frame. Pin it
+with a case in `packages/render/test/frame.test.ts` or a small dedicated test
+that counts calls to the comparator across repeated frames of a still field.
+
+## `gyres(world)` filters `world.creatures` twice a frame, then once more per wheel
+
+- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Files:** `packages/render/src/gyre.ts`, `packages/render/src/gyre-wind.ts`
+
+`gyres(world)` (`gyre.ts:47`) is `world.creatures.filter(kind === "gyre")`,
+and it runs twice every frame from two independent call sites —
+`drawGyreWind` (`gyre-wind.ts:76`) and `drawGyres` (`gyre.ts:69`) — neither
+aware of the other. `drawGyres` then filters the whole creature list again
+**inside its own loop, once per wheel** (`gyre.ts:75`,
+`world.creatures.filter(m => m.gyreId === c.id)`), so a wave with several
+gyres rescans every creature once per wheel on top of the two whole-list
+filters. Compute the gyre list once per frame (pass it into both draw
+functions, or read the same cached value they already share for other
+per-frame data) and, inside `drawGyres`, group the wobbling bodies by
+`gyreId` in one pass instead of filtering per wheel. `packages/render/test/frame.test.ts`
+already stands a wave with gyres up; a call-count assertion on the filter (or
+just the resulting draw order, which the grouping must preserve) is enough to
+pin it.
+
+## The shot sweep rescans every creature and every pod, per bullet, per tick
+
+- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Files:** `packages/sim/src/bullets.ts`, `packages/sim/src/shot-reach.ts`, `packages/sim/src/pods.ts`
+
+`advanceBullets()` (`bullets.ts:110`) calls `sweep(world, b)` once per live
+bullet; `sweep` calls `firstAlong()` (`shot-reach.ts:36`), a full linear scan
+of `world.creatures` (`shot-reach.ts:45`), and `firstPodAlong()`
+(`pods.ts:134`), a full linear scan of `world.pods` — with no column-first
+culling, so the cost is O(bullets × creatures) + O(bullets × pods) every
+tick. The 11×15 field (`packages/sim/src/config.ts:224`) keeps this small in
+absolute terms today, but a bucket keyed by `col` (creatures and pods grouped
+once per tick, or kept incrementally as they move) would turn each bullet's
+lookup into an O(1) bucket read instead of a scan of the whole list, and costs
+nothing on a quiet wave. `advanceBullets` also rebuilds a fresh `alive:
+Bullet[]` array every tick regardless of whether a bullet died — worth
+folding into the same pass if this gets touched. A budget-style test
+(`packages/sim/test/`) asserting the scan count per tick against bullet count
+would pin the O(n) shape before and after.
+
+## The headless sim benchmark under-represents a busy boss fight
+
+- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Files:** `tools/probe/world.ts`
+
+`waveWorld()` stands a wave up with an empty command stream and nothing
+defends the hull, so a benchmark that runs `step()` in a loop with no
+commands sees creatures spawn, cross the field, and get removed on arrival —
+real per-tick cost, but never more than one or two creatures alive at once,
+which undershoots the standing population of an actual busy boss fight (the
+thing `docs/perf-audit-2026-09.md` was asked to cover). `tools/probe/` has no
+helper that holds a wave at a high standing population — one that plays a
+simple defend policy (shield under whatever is about to reach the hull, or
+just never removes a creature that reaches it) so a probe script can measure
+`step()` cost with, say, twenty-plus creatures on the field at once the way a
+real boss fight runs. This is a missing tool rather than a bug: add a
+`heldWorld`-style helper beside `waveWorld` in `tools/probe/world.ts`, or a
+second `beat`-like function that takes a defend callback, and use it from a
+`scratch/` benchmark the next time this is measured.
