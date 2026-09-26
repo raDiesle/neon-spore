@@ -85,9 +85,19 @@ export async function installBoss(page: Page, fields: BossSpec): Promise<void> {
     };
     const boss = world.boss;
     const body = (world.creatures ?? []).find((c) => c.id === boss.creatureId);
+    // `now` at any depth of `--boss-json` is the beat (`boss.ts`). Spelled out
+    // here rather than imported: this function crosses into the page as text.
+    const resolve = (v: unknown): unknown => {
+      if (v === "now") return world.beat;
+      if (Array.isArray(v)) return v.map(resolve);
+      if (v === null || typeof v !== "object") return v;
+      const out: Record<string, unknown> = {};
+      for (const [k, inner] of Object.entries(v)) out[k] = resolve(inner);
+      return out;
+    };
     for (const one of list) {
       const on = one.where === "creature" && body !== undefined ? body : boss;
-      on[one.key] = one.value === null ? world.beat : one.value;
+      on[one.key] = one.value === null ? world.beat : resolve(one.value);
     }
   }, fields);
 }

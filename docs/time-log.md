@@ -29,6 +29,20 @@ entry at the end whichever end it was written at (`tools/land/ledger-merge.ts`).
 The entries dated 25 and 26 September 2026 above the first old one were
 written at the top before that was said, and are left where they are.
 
+## 2026-09-26 — `--boss-json` reads `now` at any depth
+
+- reading: 5 min. `boss.ts`, `boss-check.ts`, `boss-install.ts`, the queue
+  entry, THE GORGE's intake shape.
+- writing: 10 min. `hasNow`, the page's resolve, a nested `now` counting as a
+  number in a list, four tests.
+- looking: 10 min. THE GORGE with a `"fullBeat":"now"` intake, captured
+  through the new code and dying in `paint` through the old.
+- friction: 5 min. `frames <sha>` runs this tree's install code on both
+  sides, so the old failure had to be reproduced by swapping the file back.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — reproducing the old failure took longer than fixing it.
+
 ## 2026-09-26 — CONTROLS › GESTURES: every gesture and phone event, drawn
 
 - reading: 15 min. §4 of `transfers-touch.md`, the CONTROLS inner tabs, which

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { bossSpec, parseBoss, parseBossJson } from "../boss.js";
+import { bossSpec, hasNow, parseBoss, parseBossJson } from "../boss.js";
 import { parseFrameSpec } from "../flags.js";
 
 /**
@@ -114,8 +114,21 @@ describe("parseBossJson", () => {
     expect(parseBossJson('{"phaseBeat":"now"}')).toEqual([{ key: "phaseBeat", value: null }]);
   });
 
-  it("leaves a `now` inside a list alone, because nothing substitutes in there", () => {
-    expect(parseBossJson('{"beats":["now"]}')).toEqual([{ key: "beats", value: ["now"] }]);
+  it("carries a nested `now` as the word, for the page to resolve at any depth", () => {
+    // THE GORGE's intakes: the word reached the draw as a beat and killed the
+    // page's paint, before `installBoss` resolved it at every depth.
+    const intakes = '{"intakes":[{"side":0,"fullBeat":"now"}]}';
+    expect(parseBossJson(intakes)).toEqual([
+      { key: "intakes", value: [{ side: 0, fullBeat: "now" }] },
+    ]);
+  });
+
+  it("finds a `now` however deep it is written, and nothing else", () => {
+    expect(hasNow([{ side: 0, fullBeat: "now" }])).toBe(true);
+    expect(hasNow({ a: { b: ["now"] } })).toBe(true);
+    expect(hasNow([{ side: 0, fullBeat: 3 }])).toBe(false);
+    expect(hasNow("nowhere")).toBe(false);
+    expect(hasNow(null)).toBe(false);
   });
 
   it("refuses what is not an object of fields", () => {

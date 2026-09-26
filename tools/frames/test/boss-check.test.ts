@@ -111,6 +111,14 @@ describe("the fields of the boss and its body", () => {
     expect(refusal([{ key: "phaseBeat", value: null }], { phaseBeat: 0 })).toBe("");
   });
 
+  it("takes a nested `now` as a number in a list, and only where there is a beat", () => {
+    const intakes: BossSpec = [{ key: "intakes", value: [{ side: 0, fullBeat: "now" }] }];
+    expect(refusal(intakes, { intakes: [{ side: 1, fullBeat: 4 }] })).toBe("");
+    expect(refusal([{ key: "beats", value: ["now", 3] }], { beats: [1] })).toBe("");
+    const blind = { ...seen(intakes, { intakes: [] }), beatIsNumber: false };
+    expect(bossRefusal(intakes, blind)).toMatch(/intakes: a now inside it/);
+  });
+
   it("refuses the whole list when one field is wrong, naming the first", () => {
     const list: BossSpec = [
       { key: "live", value: 10 },

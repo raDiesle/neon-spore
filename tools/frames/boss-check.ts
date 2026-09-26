@@ -22,7 +22,7 @@
  * so it takes anything.
  */
 
-import type { BossSpec } from "./boss.js";
+import { type BossSpec, hasNow, NOW } from "./boss.js";
 
 /** What the page read off the boss for one field of the list. */
 export interface FieldSeen {
@@ -72,6 +72,9 @@ export function bossRefusal(list: BossSpec, seen: BossSeen): string {
     }
     const said = valueRefusal(flag, one.key, field.was, one.value, seen.beatIsNumber);
     if (said !== "") return said;
+    if (hasNow(one.value) && !seen.beatIsNumber) {
+      return `--boss-json ${one.key}: a now inside it, and this build has no world.beat to read`;
+    }
   }
   return "";
 }
@@ -122,7 +125,8 @@ function itemRefusal(key: string, was: unknown[], want: unknown[]): string {
   const shapes = was.filter((w) => kindOf(w) === "shape") as Record<string, unknown>[];
   const known = new Set(shapes.flatMap((s) => Object.keys(s)));
   for (const [n, item] of want.entries()) {
-    const kind = kindOf(item);
+    // A `now` is the beat it will be by the time it is written, not a word.
+    const kind = item === NOW ? "number" : kindOf(item);
     const at = `--boss-json ${key}[${n}]`;
     if (!kinds.has(kind)) {
       const holds = [...kinds].join(" or ");

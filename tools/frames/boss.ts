@@ -38,12 +38,18 @@
  * flag said about the other object: `--creature petals=6`.
  *
  * `now` is the one word with a meaning of its own, for any numeric field: it is
- * `world.beat` — and a `"now"` at the top level of `--boss-json` is the same
- * word, so the flags read alike. Inside a list it is left as it is: a list
- * of beats written by hand is not a state anybody has wanted a picture of, and
- * a substitution that reached into one would be a rule nobody could see. A phase written with `phaseBeat=0` at tick 900 is a phase that
+ * `world.beat`. A phase written with `phaseBeat=0` at tick 900 is a phase that
  * began seven beats ago, and for every boss in the game that is a phase already
  * over — which is a picture of nothing, convincingly.
+ *
+ * **In `--boss-json` it means the same at any depth** (26 September 2026). It
+ * used to be read at the top level only, on the argument that nobody wanted a
+ * list of beats written by hand — and then THE GORGE's intakes wanted one,
+ * `{"intakes":[{…,"fullBeat":"now"}]}`, and the word reached the world as a
+ * word and the draw did arithmetic on it, dying inside the page's paint. No
+ * boss field holds the word `now` as a word, so the rule has no exception to
+ * hide. The top level crosses as `null`, as `--boss`'s does; a nested one
+ * crosses as the word and the page resolves it (`boss-install.ts`).
  */
 
 /** One field of the installed boss, or of its body, as it crosses into the page. */
@@ -109,6 +115,16 @@ function scalars(
   });
 }
 
+/** The word that means `world.beat`, on any flag and at any depth. */
+export const NOW = "now";
+
+/** Whether `value` holds a `now` anywhere down, which the page resolves. */
+export function hasNow(value: unknown): boolean {
+  if (value === NOW) return true;
+  if (value === null || typeof value !== "object") return false;
+  return Object.values(value as Record<string, unknown>).some(hasNow);
+}
+
 /**
  * `--boss-json '{"sockets": [1,1,0], "phaseBeat": "now"}'` off the command line.
  *
@@ -129,7 +145,7 @@ export function parseBossJson(value: string | undefined): BossSpec | undefined {
   }
   const fields = Object.entries(parsed as Record<string, unknown>);
   if (fields.length === 0) throw new Error("--boss-json '{}': a field or two, and not nothing");
-  return fields.map(([key, v]) => ({ key, value: v === "now" ? null : v }));
+  return fields.map(([key, v]) => ({ key, value: v === NOW ? null : v }));
 }
 
 /**
@@ -161,7 +177,7 @@ export function bossSpec(
 
 /** A value's own kind, off how it is written. Everything else is a string. */
 function read(flag: string, key: string, text: string): number | string | boolean | null {
-  if (text === "now") return null;
+  if (text === NOW) return null;
   if (text === "true") return true;
   if (text === "false") return false;
   if (/^-?\d+(\.\d+)?$/.test(text)) {
