@@ -2112,6 +2112,7 @@ by hand never moves.
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
+| `apps/game/src/lean.ts` | **The phone's own lean**, which is THE PLUMB's control |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
 | `apps/game/src/join-step-view.ts` | the chrome around whichever of the room screen's four steps is up — the blocks, the heading, the one way back |

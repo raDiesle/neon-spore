@@ -8435,10 +8435,14 @@ nothing else, THE SEAM's rule.
 A reading is clamped to ninety degrees either way, gamma's own range, so a
 lie on the wire is only ever a phone held on its edge.
 
-**Only the simulation lane has landed.** Nothing reads a phone's lean yet:
-`apps/game` sends no `plumbLevel*` drag, so the wave is unanswerable on a
-real phone until the lean reader lands (`docs/queue.md`). Nothing of it is
-drawn either: the render package's silent-event lists and
+**The simulation lane and the lean reader have landed.** A phone's gamma
+goes out as its seat's own drag (`apps/game/src/lean.ts`): one reading each
+time the lean has moved half a degree from the last one sent, never one per
+event, and only while a bob is on the field — a new bob, the wave started
+again, is told the lean afresh; a page hidden sends `on: false` once. iOS is
+asked for the sensor from the lift off THE PLUMB's own READY (`briefing.ts`),
+which is the navigator's first ask — `askForMotion` asks only the pilot. No
+desk key leans yet (`docs/queue.md`). Nothing of it is drawn: the render package's silent-event lists and
 `tools/director/src/sound-link-none-d.ts` carry all twelve of its events
 until lane two. The twelve sounds *are* bound (`audio/src/bind-plumb.ts`),
 heard where they happen, the settle pitched up per level and the hit per
@@ -8460,8 +8464,8 @@ step wants its colour and the middle column, and run out is the wave; a
 `both` wants both phones, drifts on either, and run out dims the core until
 it is held; and a script answered whole snaps both weights free and ends
 the fight. Whether any of it *reads* — whether a phone held flat under a
-voice is a stillness or a wobble — is the owner's eye, after lane two and
-the lean reader.
+voice is a stillness or a wobble — is the owner's eye, after lane two, on two real
+phones.
 
 ## Retired
 

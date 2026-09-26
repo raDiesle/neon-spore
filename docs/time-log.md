@@ -22745,3 +22745,16 @@ Bottleneck: reading — the grip is short, but the seven places a boss's
 control is registered are found only from one another.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE PLUMB, the lean reader
+
+- reading: 10 min. `shake.ts`'s permission path, `plumb-hand.ts`, and how
+  the lockstep drops the half a device does not hold.
+- writing: 20 min. `lean.ts`, its binding and ask, the test, §11.48 and
+  §31's ledger, and the desk key queued with its question.
+- looking: 0 min. Nothing drawn, and no phone to hold.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — which gesture could ask iOS for the navigator without
+putting a prompt in front of every game's READY.

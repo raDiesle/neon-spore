@@ -605,26 +605,23 @@ feet swing down and lock rather than fade in, and the hub's lit core
 answering the cannon's colour once both outer feet are planted. Nothing
 here is drawn yet and stays unverified at tempo until the owner has looked.
 
-## §31 THE PLUMB — the lean reader
+## §31 THE PLUMB — a desk key that leans
 
-- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-simulation-lane
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-31-the-plumb-the-lean-reader)
-- **Files:** `apps/game/src/shake.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/keys.ts`, `packages/sim/src/plumb-hand.ts`
+- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader
+- **Files:** `apps/game/src/keys.ts`, `packages/content/src/keys-desk.ts`, `apps/game/src/lean.ts`
+- **Asks:** Which slot leans a seat's phone at a desk on THE PLUMB — the pilot's I/S with the navigator's J/L (the slots the wave leaves idle, but the two seats on different kinds of key), or the arrows, left/right the pilot's and up/down the navigator's (one pair each, but both seats on the one cluster)?
 
-Wave 110 THE PLUMB is in the simulation and unanswerable on a real phone:
-nothing in `apps/game` sends a `plumbLevelLeft` or `plumbLevelRight` drag.
-Write the reader next to `bindShake`: a `deviceorientation` listener whose
-`gamma`, in thousandths of a degree, goes out as `{ kind: "drag", target,
-fromMilli: lean, on: true }` for the seat's own weight (P1 left, P2 right) —
-**only when the reading crosses a step of about half a degree, never every
-event**, since each is a command on the wire; and `on: false` once when the
-page loses the sensor. `askForMotion` is only called for Player 1 today
-(`join-room-step.ts`) and asks `DeviceMotionEvent`; the lean wants both
-seats asked, and `DeviceOrientationEvent.requestPermission` too on iOS. A
-keyboard fallback for a desk, like `keys.ts`'s shake: two keys leaning the
-seat's reading a few degrees either way. A test that a burst of orientation
-events inside one step sends one command. `bun run check` proves it; a real
-phone held level is unverified.
+The phone lean landed (`lean.ts`) and a desk still cannot play wave 110:
+no key sends a `plumbLevel*` drag. The owner's rule in `keys-desk.ts` is
+that no panel adds a letter, and THE PLUMB's fire steps need A/D (the
+cannon to the middle column) and Q/E (the colours), so the lean has to take
+a slot the wave does not use. Once the slot is picked: each key steps the
+seat's lean two degrees either way from a start of ten degrees off level,
+sent through `leanReader` so the wire sees the same drag a phone sends;
+`drag` is already past `panelSends`'s gate. A test in the shape of
+`lean.test.ts` that the two keys walk the reading into the first step's
+range. `bun run check` proves it; `keys.ts` is at 244 lines, so the keys go
+in a file of their own.
 
 ## §31 THE PLUMB — the look
 
