@@ -33,6 +33,7 @@ import { trivetCues } from "./boss-cue-read-zh.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { plumbCues } from "./plumb-marks.js";
 
 /**
  * **THE CUE**: the one word the field says at the moment it wants something,
@@ -175,6 +176,11 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // And THE TRIVET's, a word on each foot a lit chord asks for, gone once it is held, and one under the lit hub (`boss-cue-read-zh.ts`).
     case "trivet":
       return trivetCues(l, world, boss, beatPhase);
+    // And THE PLUMB's, `LEVEL` on the glass a seat's phone is asked level,
+    // `BOTH` across the pair once a step asks both, and `FIRE` once the core
+    // is lit (`plumb-marks.ts`).
+    case "plumb":
+      return plumbCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

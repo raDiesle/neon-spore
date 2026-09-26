@@ -1,10 +1,24 @@
-import { type Color, PLUMB_UNREAD, type PlumbState, plumbLitStep } from "@neon-spore/sim";
+import {
+  type Color,
+  PLUMB_UNREAD,
+  type PlumbState,
+  plumbLitStep,
+  type World,
+} from "@neon-spore/sim";
+import type { BossCue } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { PLUMB_VIAL_MILLI, plumbAsked } from "./plumb-pose.js";
-import { plumbCore, plumbGlass, plumbVialPath } from "./plumb-shape.js";
+import { PLUMB_VIAL_MILLI, plumbArrived, plumbAsked, plumbSkew } from "./plumb-pose.js";
+import {
+  plumbCore,
+  plumbCoreAt,
+  plumbGlass,
+  plumbHook,
+  plumbLift,
+  plumbVialPath,
+} from "./plumb-shape.js";
 import { seamColour } from "./seam-marks.js";
 
 /**
@@ -106,4 +120,54 @@ export function drawPlumbGlass(
   ctx.fill(bubble);
   if (inside) strokeGlow(ctx, bubble, PALETTE.plumbGlass, STROKE.inner, 1.2);
   ctx.restore();
+}
+
+const HALF_W = 0.9;
+const HALF_H = 0.62;
+
+/**
+ * The lit step's word: `LEVEL` on the glass a seat's phone is asked to bring
+ * true, `BOTH` across the pair once a step asks it of both at once, and
+ * `FIRE` on the core once it is lit — the anchor is the hook already carrying
+ * the drop-in lift (`plumbLift`), matching `drawPlumb`'s own translate.
+ */
+export function plumbCues(
+  l: Layout,
+  world: World,
+  s: PlumbState,
+  beatPhase: number,
+): readonly BossCue[] {
+  const step = plumbLitStep(s);
+  if (step === null) return [];
+  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const hook = plumbHook(l, world.cfg);
+  const arrived = plumbArrived(s, world, world.beat, beatPhase);
+  const anchor = { x: hook.x, y: hook.y - plumbLift(l, arrived) };
+  if (step.ask === "fire") {
+    if (!s.coreLit) return [];
+    const core = plumbCoreAt(l, anchor, plumbSkew(s, beatPhase));
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x: core.x, y: core.y, ...frame, seed: 147 }];
+  }
+  if (step.ask === "both") {
+    const g0 = plumbGlass(l, 0);
+    const g1 = plumbGlass(l, 1);
+    const x = anchor.x + (g0.x + g1.x) / 2;
+    const y = anchor.y + g0.y;
+    const halfW = (g1.x - g0.x) / 2 + g0.hw;
+    return [{ seat: null, kind: "HOLD", word: "BOTH", x, y, halfW, halfH: g0.hh, seed: 146 }];
+  }
+  const side: 0 | 1 = step.ask === "left" ? 0 : 1;
+  const seat: 1 | 2 = side === 0 ? 1 : 2;
+  const g = plumbGlass(l, side);
+  return [
+    {
+      seat,
+      kind: "HOLD",
+      word: "LEVEL",
+      x: anchor.x + g.x,
+      y: anchor.y + g.y,
+      ...frame,
+      seed: side === 0 ? 144 : 145,
+    },
+  ];
 }

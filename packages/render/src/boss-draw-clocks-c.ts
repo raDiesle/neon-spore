@@ -215,10 +215,10 @@ export function drawPairBoss(
   // at each end of its beam brought true by one seat holding its phone level,
   // a core in its belly both cannons are asked to hit. Both screens are drawn
   // the same — the other seat has to see whose bubble is off to say so
-  // (`plumb-draw.ts`). Nothing of it outlives a frame yet: its hands and
-  // effects are the second half of its look.
+  // (`plumb-draw.ts`). A weight's settle, a drift's jolt, the core's hit and
+  // the free swing's release are `effects.boss.plumb` (`plumb-fx.ts`).
   if (boss.kind === "plumb") {
-    drawPlumb(ctx, l, world, boss, beat, beatPhase, time);
+    drawPlumb(ctx, l, world, boss, beat, beatPhase, time, effects.boss.plumb);
     return;
   }
 

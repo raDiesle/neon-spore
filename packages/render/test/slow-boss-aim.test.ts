@@ -17,6 +17,7 @@ import { haspCentre, haspShellRadius } from "../src/hasp-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { mantleCentre, mantleReach } from "../src/mantle-shape.js";
 import { oculusCentre, oculusRadius } from "../src/oculus-shape.js";
+import { plumbCore, plumbHook, plumbSacMiddle } from "../src/plumb-shape.js";
 import { bossAim } from "../src/slow-boss-aim.js";
 import { aim } from "../src/slow-intake-aim.js";
 import { trivetCentre, trivetReach } from "../src/trivet-shape.js";
@@ -80,6 +81,15 @@ describe("THE SLOW's aim at a boss", () => {
     ["valve", () => round(valveCentre(L, CFG), Math.max(valveReach(L).rx, valveReach(L).ry))],
     ["vise", () => round(viseCentre(L, CFG), Math.max(viseRadius(L).rx, viseRadius(L).ry))],
     ["trivet", () => round(trivetCentre(L, CFG), trivetReach(L))],
+    [
+      "plumb",
+      () => {
+        const hook = plumbHook(L, CFG);
+        const mid = plumbSacMiddle(L);
+        const core = plumbCore(L);
+        return round({ x: hook.x + mid.x + core.x, y: hook.y + mid.y + core.y }, core.r);
+      },
+    ],
   ] as const)("stands round THE %s's whole body, over the middle column", (kind, want) => {
     const at = aim(stood(kind), L, 0, 0);
     expect(at).toEqual(want());

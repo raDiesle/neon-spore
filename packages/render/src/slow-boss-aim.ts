@@ -11,6 +11,7 @@ import { haspCentre, haspShellRadius } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 import { mantleCentre, mantleReach } from "./mantle-shape.js";
 import { oculusCentre, oculusRadius } from "./oculus-shape.js";
+import { plumbCore, plumbHook, plumbSacMiddle } from "./plumb-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
 import { trivetCentre, trivetReach } from "./trivet-shape.js";
 import { trivetStoryDx } from "./trivet-story.js";
@@ -73,6 +74,15 @@ export function bossAim(world: World, l: Layout): Aim | null {
       const lurch = s !== null && trivetLitStep(s)?.ask === "tip";
       const dx = lurch ? trivetStoryDx(l, world, s) : 0;
       return still({ x: at.x + dx, y: at.y }, trivetReach(l));
+    }
+    // The bob hangs still whenever the window is open: the light stands at
+    // the core, not the whole body — the core is the thing both cannons are
+    // asked to hit (`plumb-shape.ts`).
+    case "plumb": {
+      const hook = plumbHook(l, world.cfg);
+      const mid = plumbSacMiddle(l);
+      const core = plumbCore(l);
+      return still({ x: hook.x + mid.x + core.x, y: hook.y + mid.y + core.y }, core.r);
     }
     default:
       return null;

@@ -16,6 +16,7 @@ import { LedgerFx } from "./ledger-fx.js";
 import { MantleFx } from "./mantle-fx.js";
 import { MazeGripFx } from "./maze-grip-fx.js";
 import { OculusFx } from "./oculus-fx.js";
+import { PlumbFx } from "./plumb-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
@@ -175,6 +176,11 @@ export class BossRoster {
    * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,
    * `trivet-draw.ts`). */
   readonly trivet = new TrivetFx();
+  /** THE PLUMB's settle ringing a glass, a drift's jolt, the core's hit and
+   * the free swing's release, and its receipts' bursts — thrown the same on
+   * both screens, and told the core's colour by the drawer (`plumb-fx.ts`,
+   * `plumb-draw.ts`). */
+  readonly plumb = new PlumbFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

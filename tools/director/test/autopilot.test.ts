@@ -32,7 +32,7 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
  * MANTLE, THE KEEL, THE OCULUS, THE VISE and THE TRIVET their own
  * (`autopilot-mantle.test.ts`, `autopilot-keel.test.ts`, `autopilot-oculus.test.ts`,
  * `autopilot-vise.test.ts`, `autopilot-trivet.test.ts`); THE VALVE, THE SEAM,
- * THE RIME, THE PLUMB, THE SLING, THE GRINDSTONE, THE CYST, THE DAVIT and THE
+ * THE RIME, THE SLING, THE GRINDSTONE, THE CYST, THE DAVIT and THE
  * HALTER are here for one reason — only their simulation lanes
  * have landed (`docs/spec/bosses.md` §11.42–§11.53),
  * and an autopilot hand plays a boss against poses that do not exist yet. A
@@ -42,7 +42,6 @@ const NO_HAND = new Set([
   "valve",
   "seam",
   "rime",
-  "plumb",
   "sling",
   "grindstone",
   "cyst",

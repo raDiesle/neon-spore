@@ -225,7 +225,7 @@ export const INGEST_SILENT_BOSS_C = [
   "trivetTurn",
   "trivetCollapse",
   "trivetOut",
-  // THE PLUMB's twelve, for the same reason (`packages/audio/src/bind-plumb.ts`).
+  // THE PLUMB's twelve: what outlives a frame is `plumb-fx.ts`, read above the loop.
   "plumbEnter",
   "plumbLight",
   "plumbDrift",

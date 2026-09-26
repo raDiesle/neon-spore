@@ -182,7 +182,8 @@ export const SILENT_BOSS_C = [
   "trivetTurn",
   "trivetCollapse",
   "trivetOut",
-  // THE PLUMB's twelve, the same (`packages/audio/src/bind-plumb.ts`).
+  // THE PLUMB's twelve, no burst from this table: each is thrown above the
+  // loop by its own fx file (`plumb-fx.ts`).
   "plumbEnter",
   "plumbLight",
   "plumbDrift",

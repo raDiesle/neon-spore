@@ -24732,3 +24732,25 @@ Bottleneck: writing — the registrations outside the simulation outweigh the
 seam itself.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §31 THE PLUMB's hands, the second half of its look
+
+- reading: 25 min. `plumb.ts`'s state and helpers, `plumb-hand.ts` and
+  `drag-targets-e.ts` for `LevelTilt`'s exact shape, `boss-hands-trivet.ts`,
+  `autopilot-touch.ts`'s and `autopilot-lid.ts`'s continuous-drag hands, and
+  the two silent lists' own pages.
+- writing: 60 min. The cue's words on `boss-cue.ts`, the fx in `plumb-fx.ts`
+  and wired through `effects-boss.ts`/`effects-boss-roster.ts`, THE SLOW's
+  aim in `slow-boss-aim.ts` with its test row, and the autopilot hand in
+  the new `boss-hands-plumb.ts`, registered in `index.ts`,
+  `autopilot-hands.ts` and off `NO_HAND` in `autopilot.test.ts`.
+- looking: 5 min. One frame of the sac turned face-on with its core lit.
+- friction: 10 min. THE SLING's page put the silent list over its own
+  ceiling; a fourth page opened for THE PLUMB's twelve.
+- landing: 15 min. `check:fast` across its shards, the commit, `land`.
+
+Bottleneck: writing — four lanes (the cue's words, the fx, THE SLOW's aim,
+the autopilot hand) each needing its own registrations read before its
+render code could go in.
+
+*Measured: from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

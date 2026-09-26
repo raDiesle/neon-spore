@@ -145,6 +145,19 @@ export function plumbCore(l: Layout): Point & { r: number } {
   return { x: 0, y: CORE_AT * SAC_RY * l.tile, r: CORE * SAC_RX * l.tile };
 }
 
+/**
+ * The core's centre on the canvas: `hook` already carries the drop-in lift,
+ * and the sac's own frame turns with the beam's `skew` about it — the bob is
+ * drawn inside `ctx.rotate(skew)`, the glasses are not. Called rather than
+ * re-derived by the core's cue mark (`plumb-marks.ts`).
+ */
+export function plumbCoreAt(l: Layout, hook: Point, skew: number): Point & { r: number } {
+  const mid = plumbSacMiddle(l);
+  const c = plumbCore(l);
+  const y = mid.y + c.y;
+  return { x: hook.x - y * Math.sin(skew), y: hook.y + y * Math.cos(skew), r: c.r };
+}
+
 /** Ball `side`'s radius, in pixels. */
 export function plumbBallR(l: Layout, side: 0 | 1): number {
   return BALL[side] * l.tile;

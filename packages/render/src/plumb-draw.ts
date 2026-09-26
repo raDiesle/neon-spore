@@ -10,6 +10,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import type { PlumbFx } from "./plumb-fx.js";
 import { drawPlumbCore, drawPlumbGlass } from "./plumb-marks.js";
 import {
   plumbArrived,
@@ -34,6 +35,7 @@ import {
   plumbSacPath,
   plumbSacRadius,
 } from "./plumb-shape.js";
+import { seamColour } from "./seam-marks.js";
 
 /**
  * **THE PLUMB**: a lopsided bob hung off a hook over the middle column, a
@@ -61,6 +63,7 @@ export function drawPlumb(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: PlumbFx,
 ): void {
   const arrived = plumbArrived(s, world, beat, beatPhase);
   const free = plumbFree(s, world, beat, beatPhase);
@@ -80,7 +83,7 @@ export function drawPlumb(
   const skew = plumbSkew(s, beatPhase) + 0.6 * free * Math.sin(free * Math.PI * 3);
   ctx.save();
   ctx.rotate(skew);
-  drawBob(ctx, l, world, s, beat, beatPhase, time);
+  drawBob(ctx, l, world, s, beat, beatPhase, time, fx);
   ctx.restore();
 
   for (const side of [0, 1] as const) {
@@ -121,6 +124,7 @@ function drawBob(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: PlumbFx,
 ): void {
   const hook = plumbHookPath(l);
   ctx.lineWidth = STROKE.inner;
@@ -165,6 +169,7 @@ function drawBob(
     step !== null && step.ask === "fire" && s.coreLit
       ? { color: step.color, left: plumbLeft(s, world, beat, beatPhase) }
       : null;
+  if (fire !== null) fx.tell(seamColour(fire.color).rim);
   drawPlumbCore(ctx, l, turn, coreHurt(s.hits), s.coreLit, fire, beatPhase);
   ctx.restore();
 }
