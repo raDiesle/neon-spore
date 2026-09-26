@@ -2642,3 +2642,17 @@ file. After the rebase, map each rewritten commit to its new sha (the
 subject is unique per landing; or `git rebase`'s own rewritten list) and
 restamp both files before the push, with a test in `tools/land/test/` that a
 pushed note's sha is an ancestor of the pushed head.
+
+## Unverified at cce1f5176: THE SLOW's light round THE OCULUS's lens watched at te…
+
+- **Found:** 2026-09-26, claude/queue-27-oculus-aim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`
+
+*THE SLOW's light stands round THE OCULUS's lens rather than splitting it* landed from a session that could not look at it. What went unchecked:
+
+- THE SLOW's light round THE OCULUS's lens watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

@@ -23842,3 +23842,5 @@ Bottleneck: writing — every new pose is a table of places decided for the firs
 - landing: 10 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: landing — the check and the push take longer than a table of one row.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
