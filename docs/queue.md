@@ -2039,6 +2039,7 @@ a look task, queued separately once this lane lands.
 ## §23 THE MANTLE — the brace's look, and its hand
 
 - **Found:** 2026-09-26, claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis, landing the brace's simulation
+- **Taken:** 2026-09-26, claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis (claim: claude/queue-23-the-mantle-the-braces-look-and-its-hand)
 - **Files:** `packages/render/src/mantle-pose.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/hands/src/boss-hands-mantle.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`, `docs/spec/bosses.md`
 
 THE MANTLE's `brace` phase is in the simulation (`mantleBracing`, `held`,
