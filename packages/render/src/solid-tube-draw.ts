@@ -29,6 +29,13 @@ const SEAM = 0.08;
 const OUT = 0.3;
 /** How far apart, in screen pixels, the rings a tube is shaded by may be. */
 const STEP_PX = 6;
+/**
+ * The drawn radius, in screen pixels, below which a tube is sliced more
+ * coarsely along its length: a slice's light is off by about its radius times
+ * how far the section turns across it, so a thin tube can take a longer slice
+ * for the same error in pixels (`densify`).
+ */
+const FINE_R_PX = 16;
 interface Pt {
   readonly x: number;
   readonly y: number;
@@ -103,14 +110,23 @@ function around(rings: readonly SeenRing[]): Pt[] {
  * Rings in between the authored ones, a few pixels apart on the screen: each
  * slice's gradient is sized to its own ring, so where the width changes fast
  * a coarse spine shows as steps along the outline.
+ *
+ * The width is always sliced at `STEP_PX`; the length is sliced at `STEP_PX`
+ * only where the tube is drawn at least `FINE_R_PX` wide, and more coarsely
+ * the thinner it is — a fin or the tip of a tail cost a fill every six pixels
+ * for light no eye could tell from a slice twice as long.
  */
 function densify(rings: readonly SeenRing[]): SeenRing[] {
   const out: SeenRing[] = [];
+  const scale = tubeScale();
   for (let i = 0; i < rings.length - 1; i++) {
     const a = rings[i] as SeenRing;
     const b = rings[i + 1] as SeenRing;
-    const gap = Math.hypot(b.c.x - a.c.x, b.c.y - a.c.y) + Math.abs(b.r - a.r) * 2;
-    const n = Math.max(1, Math.min(8, Math.ceil((gap * tubeScale()) / STEP_PX)));
+    const along = Math.hypot(b.c.x - a.c.x, b.c.y - a.c.y) * scale;
+    const wide = Math.max(a.r, b.r) * scale;
+    const step = STEP_PX * Math.max(1, FINE_R_PX / Math.max(wide, 1e-3));
+    const slices = along / step + (Math.abs(b.r - a.r) * 2 * scale) / STEP_PX;
+    const n = Math.max(1, Math.min(8, Math.ceil(slices)));
     for (let j = 0; j < n; j++) out.push(between(a, b, j / n));
   }
   out.push(rings[rings.length - 1] as SeenRing);

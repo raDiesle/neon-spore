@@ -29,6 +29,19 @@ entry at the end whichever end it was written at (`tools/land/ledger-merge.ts`).
 The entries dated 25 and 26 September 2026 above the first old one were
 written at the top before that was said, and are left where they are.
 
+## 2026-09-26 — a thin tube is sliced more coarsely along its length
+
+- reading: 10 min. `solid-tube-draw.ts`, the section-gradient cache in
+  `solid-tube-light.ts`, the INSTAR budget test's shape.
+- writing: 5 min. The budget test, `FINE_R_PX` in `densify`.
+- looking: 10 min. The solid sheet before and after, diffed pixel by pixel,
+  and a fin magnified four times.
+- friction: 5 min. No PIL here; the diff was read with `tools/frames/pixels.ts`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the entry's gradient-per-slice was already cached, so
+the only cap left moves pixels, and those had to be counted.
+
 ## 2026-09-26 — THE MANTLE's "spark" is a state, not a phase nothing entered
 
 - reading: 10 min. Every reader of `"spark"`, `boss-phases.ts`'s second

@@ -1014,21 +1014,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## CLOUD ONLY — a densified tube costs a gradient per slice, per frame
-
-- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Taken:** 2026-09-26, main (claim: claude/queue-cloud-only-a-densified-tube-costs-a-gradient-per)
-- **Files:** `packages/render/src/solid-tube-draw.ts`, `packages/render/src/solid-rig.ts`
-
-`drawTube` inserts a ring every 6 px and fills one linear gradient per slice,
-so a 230 px body is about forty `createLinearGradient` calls a frame before
-its tail and fins. Add an op-count budget test for `drawRig` on the demo rig
-(`tools/raster/src/solid-demo.ts`) beside the other `*-budget.test.ts`, then
-cap it: a coarser step when the drawn radius is small, or a gradient reused
-between slices whose stops round to the same six-step mix. The sheet from
-`bun run solid` must look the same before and after — say *unverified* if no
-eye saw it.
-
 ## CLOUD ONLY — a dragged tail wants a verlet chain in Effects
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
