@@ -471,6 +471,7 @@ into the roster. `bun run check` proves it.
 ## §27 THE OCULUS — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-27-the-oculus-the-look)
 - **Needs:** §27 THE OCULUS's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
