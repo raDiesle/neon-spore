@@ -24075,3 +24075,5 @@ Bottleneck: friction — the audio switch and the spark list were full, and THE 
 
 Bottleneck: looking — the blow lands under the cannon, where the skin
 humps, so a straight seam floated off it until it was bent over the hump.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · bbcdf7e5a — THE GIMBAL's timeout blow splits the hull along its seam
+
+When the seam's spark is left unanswered, the bead that ran down the middle column is pressed flat into the skin, and the plating splits along a seam in the colour it was venting. The split spits beads of that colour along the hull and closes dark. It replaces the generic lash.
+
 ## 2026-09-26 · 8c0b4ab8c — THE KEEL's spine flips, lights its marrow and cools before the end
 
 Once the last segment locks, the spine now bows the wrong way under THE SLOW, and both players hold its two end joints down together to stop it; let it run out and it snaps against the hull and bows again. That lights a seam down the middle, where one bolt of each colour seals it, or it burns the left-middle segment loose for the tempo run to re-earn. After the rock, the locked spine banks from white to iron while both hands stay off, and a tap flares it and holds it a beat longer.
