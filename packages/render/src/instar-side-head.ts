@@ -12,6 +12,21 @@ import { splinePath } from "./spline.js";
  * body out behind it.
  */
 
+/**
+ * How far the skull's light-facing angle idles, in radians, and how long one
+ * wobble takes there and back, in `look.time`'s own seconds — own-motion, so
+ * wall-clock is the right clock for it (`renderer.ts`'s `ViewState.time`).
+ *
+ * The skull's pose does not otherwise change frame to frame, so the plate lit
+ * by `lightHide` was a still life: rounded and shaded, but paired with no
+ * motion, which reads as a photograph of a ball rather than a ball
+ * (`docs/style-guide.md`, "Depth on a body that already ships"). This is
+ * small enough that the pose still reads as still — only the wet shoulder
+ * `lightHide` paints slides visibly across the plate.
+ */
+const CROWN_WOBBLE = 0.09;
+const CROWN_WOBBLE_PERIOD = 5.5;
+
 /** The head in profile, snout to the left: the skull and its horns, the eye,
  * the lower jaw hinged open under it. */
 export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
@@ -116,7 +131,8 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
     true,
   );
   const brow = at(-0.2, -0.2);
-  const crown = { x: brow.x, y: brow.y, r: r * 0.95, ry: r * 0.3, angle: -0.2 };
+  const wobble = CROWN_WOBBLE * Math.sin((time * (Math.PI * 2)) / CROWN_WOBBLE_PERIOD);
+  const crown = { x: brow.x, y: brow.y, r: r * 0.95, ry: r * 0.3, angle: -0.2 + wobble };
   drawPlate(ctx, skull, fade, 0.7, hurt, crown);
   drawScales(ctx, skull, crown, r * 0.11, fade);
   // Teeth along the upper lip, over the open mouth.

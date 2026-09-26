@@ -252,6 +252,32 @@ with a placed surface as the last row for every posed one to be read against;
 motion that stops turning fails a test rather than a review. The procedure, and
 what is dangerous where, is `.claude/skills/depth`.
 
+### Depth on a body that already ships
+
+A body large enough for `key-light.ts`'s `litRound`/`litBox` or `instar-hide.ts`'s
+`lightHide` (a boss, a card, a rock) gets its five zones from a `Form`'s
+`x, y, r, ry, angle` — and `angle` is the one field of the four a drawer can
+leave a bare constant, because the other three still size the gradient to the
+plate even when it does not turn. A constant `angle` still shows rounding and a
+shoulder, so it looks finished at a glance; by the pairing rule above it is a
+still life anyway, because the lit half has nothing paired with it. THE
+INSTAR's side skull (`instar-side-head.ts`) was this: `angle: -0.2`, never
+touched again after the plate it lit was written.
+
+**The fix is not a real turn.** The body is not rotating, and borrowing a
+rotation for the lighting would run into the reason the whole-body sway stays
+a displacement (`instar-sway.ts`): a turn taken for lighting must not reach the
+silhouette or a mark's own coordinates. It is a small wobble folded only into
+the `Form.angle` handed to `lightHide`/`drawScales`, own-motion and so on
+wall-clock `time` like the rest of a boss's idle detail (a drip's stretch, a
+lamp's pulse) rather than `world.beat` — nothing about *which way the light
+sits on an otherwise-still plate* has to agree between two phones the way a
+synced gesture does. Small enough that the pose still reads as still; the cue
+is the wet shoulder sliding, not the skull visibly turning. A part that is
+already posed for a real reason — a hinged jaw, a limb whose angle is an
+`atan2` off a moving point — keeps that angle and gets no wobble added; the
+gap is only in the parts a pose leaves at a constant.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring
