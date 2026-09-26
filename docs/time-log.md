@@ -22692,3 +22692,25 @@ Bottleneck: writing — the forty-odd registrations a choreographed boss
 needs outside its own seven files, each found from the last one's commit.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §39 THE BURGEE, then queuing §36-39's implementation and look tasks
+
+- reading: 20 min. `docs/spec/bosses-choreographed.md`'s gesture library and
+  §38 THE GALL for the pairing gap THE BURGEE fills; then most of
+  `packages/render/src/*-flesh.ts`/`*-draw.ts` and their sibling geometry
+  files for the "living secondary motion" audit; then re-reading §36-39's
+  own spec sections to file their queue entries accurately.
+- writing: 30 min. §39 THE BURGEE's full spec entry, two `gesture-unbuilt.ts`
+  `where`-array edits, and eight `docs/queue.md` entries (a simulation-lane
+  and a look entry each for §36 THE HALTER, §37 THE CAPSTAN, §38 THE GALL
+  and §39 THE BURGEE).
+- looking: 0 min. No frame drawn this lane — spec prose and queue entries
+  only, nothing to render yet.
+- friction: 0 min.
+- landing: 10 min. Two rounds of `check:fast`, two commits, no push (kept
+  local per standing instruction).
+
+Bottleneck: reading — the audit's real cost was the number of files a
+"no independent motion" grep can falsely flag, each needing a sibling file
+checked before it could be ruled out; every file sampled this round turned
+out not to be a miss once its sibling was read.
