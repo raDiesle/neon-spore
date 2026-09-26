@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 00c2806d0 — THE VISE's timeout blow is a husk seed spat at the hull
+
+When a fire step runs out with the kernel unshot, the seed-case spits a seed from its heavy end. The seed is a husk in the case's own dry brown, the kernel's pointed oval, and it tumbles down the middle column. It lands point first, cracks down its length, and its two halves spring apart the way the case's lobes do. It replaces the generic lash.
+
 ## 2026-09-26 · b444e0272 — bun run frames --auto plays the game's own AUTO to a boss's receipt
 
 `--auto both|p1|p2` switches on the hands the phone's TEST panel plays with, for the ticks a capture steps, so `--wave "THE VISE" --auto both --until viseHit --until-on 2` is a frame of the first kernel flash (tick 1922) with no list of presses written by hand. The page's `advance` now presses AUTO where the frame loop does, after the keys and before the tick drains; off, which is every capture before this, presses nothing.
