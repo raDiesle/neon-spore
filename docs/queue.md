@@ -2145,6 +2145,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+- **Waits on:** THE CYST's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
 
 THE CYST's timeout already calls `bossStrikesHull` (`packages/sim/src/cyst-step.ts`)
 and draws the default lash, a red tendril out of the body to the column and
@@ -2160,6 +2161,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+- **Waits on:** THE GRINDSTONE's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
 
 THE GRINDSTONE's timeout already calls `bossStrikesHull` (`packages/sim/src/grindstone-step.ts`)
 and draws the default lash, a red tendril out of the body to the column and
@@ -2175,6 +2177,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+- **Waits on:** THE SLING's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
 
 THE SLING's timeout already calls `bossStrikesHull` (`packages/sim/src/sling-step.ts`)
 and draws the default lash, a red tendril out of the body to the column and
@@ -2190,6 +2193,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+- **Waits on:** THE TRIVET's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
 
 THE TRIVET's timeout already calls `bossStrikesHull` (`packages/sim/src/trivet-step.ts`)
 and draws the default lash, a red tendril out of the body to the column and
@@ -2205,6 +2209,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+- **Waits on:** THE PLUMB's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
 
 THE PLUMB's timeout already calls `bossStrikesHull` (`packages/sim/src/plumb-step.ts`)
 and draws the default lash, a red tendril out of the body to the column and
