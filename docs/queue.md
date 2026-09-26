@@ -434,6 +434,7 @@ an alignment.
 ## `bind.ts` and `ship-fields.ts` sit at their line ceiling
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
+- **Taken:** 2026-09-26, claude/queue-the-instar-breath-the-shove-is-seen-and-heard (claim: claude/queue-bind-ts-and-ship-fields-ts-sit-at-their-line-cei)
 - **Files:** `packages/audio/src/bind.ts`, `tools/director/src/ship-fields.ts`
 
 The shield push landed one `case` in `bind.ts`, which is now exactly 250
