@@ -148,6 +148,30 @@ export const SPECIFIED: readonly Gesture[] = [
     platform: "Same gate as the shake on an iPhone; Android asks nothing.",
     where: [`${SPEC} §31 THE PLUMB`],
   },
+  {
+    name: "HOLD, THEN SWIPE",
+    state: "specd",
+    does: "A held note that ends in a direction (Beatstar). THE SLING's `DrawRelease`: a draw held, then loosed toward whichever column is lit.",
+    hand: [
+      { k: "hold", at: [30, 60] },
+      {
+        k: "path",
+        pts: [
+          [30, 60],
+          [70, 40],
+        ],
+      },
+    ],
+    timeline: {
+      lanes: [
+        { event: "pointerdown", marks: [1] },
+        { event: "pointermove", marks: [[6, 7.7]] },
+        { event: "pointerup", marks: [8] },
+      ],
+      window: { from: 1, to: 6, label: "held" },
+    },
+    where: [`${SPEC} §32 THE SLING`],
+  },
 ];
 
 export const WORTH_CONSIDERING: readonly Gesture[] = [
@@ -208,29 +232,5 @@ export const WORTH_CONSIDERING: readonly Gesture[] = [
       beats: [2, 3, 4, 5, 6],
     },
     why: "Graded against the beat, not against the voice, so the delay does not matter.",
-  },
-  {
-    name: "HOLD, THEN SWIPE",
-    state: "consider",
-    does: "A held note that ends in a direction (Beatstar). Two verbs the game has, joined.",
-    hand: [
-      { k: "hold", at: [30, 60] },
-      {
-        k: "path",
-        pts: [
-          [30, 60],
-          [70, 40],
-        ],
-      },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [1] },
-        { event: "pointermove", marks: [[6, 7.7]] },
-        { event: "pointerup", marks: [8] },
-      ],
-      window: { from: 1, to: 6, label: "held" },
-    },
-    why: "Both halves are built and tested; only the join is new.",
   },
 ];

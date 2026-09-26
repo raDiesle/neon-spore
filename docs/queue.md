@@ -1032,3 +1032,59 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §32 THE SLING — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+The first choreographed body on this page whose gesture resolves at
+release rather than at the moment a threshold is crossed: `DrawRelease`
+(new — a hold counted while down, resolved by the coarse left/right
+direction of its release against a column already lit) draws
+`slingLeftDrawnMilli` then `slingRightDrawnMilli`, and the lit yoke takes
+three fire hits with two defensive re-draw beats (both seats at once)
+against it springing loose. Eleven steps, three movements. The full beat
+list and primitive table entry are §32 of
+`docs/spec/bosses-choreographed.md`. `HOLD, THEN SWIPE` moves from
+`consider` to `specd` in `tools/director/src/gesture-unbuilt.ts` as part of
+this lane — already done, land it with the rest. THE SLOW on every draw
+and fire window. `bun run check` proves it.
+
+## §32 THE SLING — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §32 THE SLING's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a forked arm that bends back
+under load rather than fading taut, and the yoke's lit core answering the
+cannon's colour once both arms have drawn true. Nothing here is drawn yet
+and stays unverified at tempo until the owner has looked.
+
+## §32 THE SLING — sprite atlas experiment: the arm drawing home
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §32 THE SLING's look, above, landed first
+- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
+  `assets/raster/`, `docs/raster.md`
+
+`docs/raster.md` rule 3/4/5: an arm bending back under load and locking
+drawn (rows 2, 3, 4 and 5 of the beat list) is a hinge-and-strain motion,
+not a shape that recolours — a candidate for a painted frame-by-frame strip
+rather than a procedural one. It is simulation-triggered, so rule 5 makes
+the format a sprite atlas, never an APNG or animated WebP: draw one arm's
+draw-and-lock the way `burst-art.ts` draws the existing burst, pack it with
+`bun run raster` into its own `sling-draw-strip.webp` (atlas) and
+`sling-draw.apng` (lossless master), reused for both arms by mirror and
+gated behind the same `?raster=1` flag through a new
+`bindRasterSlingDraw` in `apps/game/src/raster.ts`. **Budget: the atlas
+(the only file the field fetches) stays under 90 kB**, the same ceiling THE
+VISE's, THE RIME's, THE TRIVET's and THE PLUMB's atlas experiments already
+use — if the painted version does not read at 12 frames or 80 px, drop
+frames before raising the budget. Record the exact atlas byte count in the
+commit that lands this, next to the number `bun run raster` printed before
+this lane touched anything. Offered, never replacing: the procedural draw
+stays the shipping look until the owner compares them on the RASTER tab.
+`bun run raster:verify` and `bun run check` prove it; the visual
+comparison is the owner's, unverified until he has looked.

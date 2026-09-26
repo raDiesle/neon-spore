@@ -3641,6 +3641,91 @@ shake's existing permission gate; any future body wanting the tension of
 "hold the phone still and level" can spend it without re-deriving the
 threshold or the twin.
 
+### §32 THE SLING — a draw held long enough to loose it aimed
+
+**Question.** `HOLD, THEN SWIPE` joins two verbs already built, a hold and a
+directional release, into one gesture nothing on this page has asked for:
+cock a mechanism by holding it, then choose where it goes by how the finger
+leaves rather than where it lands. Every hold on this page so far ends by
+letting go or by a separate `FIRE`; this is the first whose release
+direction is itself the answer.
+
+**Silhouette.** A forked arm bolted mid-hull, base fixed, cup empty and
+slack. **Health is the two draw-arms**, one per seat, each loosed at a lit
+column, plus a lit yoke once both have loosed true; the yoke takes three
+ordinary hits.
+
+**Mechanic.** `slingLeftDrawnMilli` / `slingRightDrawnMilli`, one per seat,
+read by `DrawRelease` — named here for the first time: a hold begun
+anywhere on the seat's own panel, counted while continuously held, ended by
+a swipe whose direction at lift is read coarse, left half or right half of
+the panel. A column lights on the hull before the window opens; the draw
+only counts as loosed if the release direction matches which half that
+column falls in. Held too briefly, released too early, or loosed the wrong
+way all spring the arm back slack rather than losing the step outright, the
+same forgiving shape THE VALVE's freeze, THE VISE's pinch, THE TRIVET's
+chord and THE PLUMB's lean all use.
+
+**Player 1 and Player 2.** Identical screens, left arm / right arm fixed by
+geometry — the same rule a seventh time running: geometry, never a word, is
+what tells two identical screens apart on this page.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left arm** ||||||
+| 1 | The arm hangs slack, cup empty, yoke dark | — | — | — | — | — |
+| 2 | The left arm's cup lights, a column lit to match | P1 | hold, then loose it toward the lit column (`HOLD, THEN SWIPE`) | 5 beats, held, then released true | left arm draws home | held too short, wrong direction, or early release: arm springs slack, retry |
+| 3 | A second, longer draw on the same arm | P1 | hold and loose again, column swapped | 4 beats, held, then released true | left arm locked drawn | springs slack, retry from row 2 |
+| **Movement 2 — the right arm** ||||||
+| 4 | The right arm's cup lights, column lit | P2 | hold, then loose it true | 5 beats, held, then released true | right arm draws home | springs slack, retry |
+| 5 | Second, longer draw on the right arm | P2 | hold and loose again | 4 beats, held, then released true | right arm locked, yoke lights | springs slack, retry from row 4 |
+| **Movement 3 — the yoke, held drawn** ||||||
+| 6 | The yoke flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both arms creep slack under the yoke | P1+P2 | hold and loose together to redraw them | 3 beats, held, then released true | yoke stays drawn | yoke springs loose, movement's fire beats lost until both arms redraw true |
+| 8 | Yoke flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Arms creep slack a second time, faster | P1+P2 | hold and loose together | 3 beats, held, then released true | stays drawn | springs loose, retry |
+| 10 | Yoke flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, yoke spent | stays lit |
+| 11 | Both arms loose at once and the fork snaps forward, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every draw window (rows 2, 3, 4, 5, 7, 9) and every
+fire window (rows 6, 8, 10) — a hold that only resolves at the release is
+exactly THE VISE's, THE TRIVET's and THE PLUMB's argument for seconds over
+beats, more so here: the lit column can be forgotten by the time the hand
+finally lets go.
+
+**Presentation.** No camera. Each true loose a taut snap; each yoke hit an
+ordinary shot's flash; a wrong-direction release a slack, empty thud.
+
+**Animation.** Five poses: both arms slack; left drawn; both drawn, yoke
+lit; yoke guarded, arms creeping slack; both loosed, fork snapped forward.
+An arm draws by bending back under load rather than fading taut — the same
+drawn-as-mechanism choice THE OCULUS, THE VISE, THE RIME, THE TRIVET and THE
+PLUMB all make.
+
+**Colour.** Arm and fork a scoured steel grey, the cup a hot amber when
+drawn true; the yoke is the only lit colour on the body, lit in whichever
+cannon colour a given beat wants, THE SEAM's and THE OCULUS's rule again.
+
+**Payoff.** Rows 7 and 9 — `HOLD, THEN SWIPE` asked for defensively,
+redrawing an arm under a `FIRE` step already under way, the same shape as
+THE OCULUS's row 7, THE VISE's rows 7/9, THE TRIVET's rows 7/9 and THE
+PLUMB's rows 7/9, spent here on a hold-then-direction instead of a touch or
+a pose.
+
+**Cost. Low.** One new primitive, `DrawRelease` (a held pointer, counted
+while down, resolved by the coarse left/right direction of its release
+against a column already lit — pure pointer state, no new field type, and
+both halves of the gesture, the hold and the directional swipe, are already
+built); the draw/spring threshold logic reuses THE VALVE's landed/missed
+window shape.
+
+**Reusable.** `DrawRelease` itself — the first primitive on this page whose
+outcome is decided at release rather than at the moment a threshold is
+crossed; any future body wanting "commit to a direction only when you let
+go" can spend it without re-deriving what counts as a match.
+
 ---
 
 ## The reusable boss mechanic library
