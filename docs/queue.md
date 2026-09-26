@@ -2685,6 +2685,7 @@ what the rest of this file holds.
 ## §22 THE RATCHET — the story between the teeth, the simulation
 
 - **Found:** 2026-09-26, claude/older-boss-stories, at the owner's ask that existing bosses read as a story of distinct states
+- **Taken:** 2026-09-26, claude/older-boss-stories (claim: claude/queue-22-the-ratchet-the-story-between-the-teeth-the-s)
 - **Files:** `packages/sim/src/ratchet.ts`, `packages/sim/src/ratchet-step.ts`, `packages/sim/src/ratchet-hand.ts`, `packages/sim/src/config-ratchet.ts`, `packages/sim/src/events-ratchet.ts`, `packages/sim/src/ratchet-hash.ts`
 
 Build §22's four story states — the slip, the kick, the bind, the wind —
