@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f7dcb39cc — THE INSTAR's timeout breaks the hull with its own blow, not a rock
+
+When a window runs out on THE INSTAR, the hit now comes from the part the pair let through: the fire, the swarm, the blades or the glob. It no longer comes from a rock nobody saw fall. The breach names the boss, so no rock is replayed. The part's own strike picture was already there, so the INSTAR's look row adds nothing on top of it. THE MANTLE's half is requeued on its own.
+
 ## 2026-09-26 · 13c34088d — THE VISE gets its body: a seed-case that cracks and bares its kernel
 
 THE VISE (§28, wave 107) is now drawn. It is a tan seed-case of two lobes, hinged at the top of the spine. The seam a pinch asks for is lit white, and it cracks down from the top as the pinch holds. Two cracked seams swing a lobe open. With both lobes open, the kernel in the hollow is bared and lit in the colour its fire step asks for. A ring round it closes as the step's beats run out, and the kernel gets smaller and brighter with every hit. Through an unanswered `both` step the lobes creep shut over it, and once it is spent the case splits down its spine. Both screens draw it the same. This is half one of its look; the hands are queued as the second half.

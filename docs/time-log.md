@@ -23713,3 +23713,5 @@ and nearly every line of it is geometry decided for the first time.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction — the trunk moved under the previous landing's check three times.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
