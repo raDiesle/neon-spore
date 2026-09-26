@@ -946,3 +946,22 @@ wave gets flagged, and add a new **measured (real device)** section to the
 doc with the numbers, distinct from the existing read/headless sections. If
 either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
 promote it out of "read" into its own queued fix.
+
+## A claim whose push is rejected still hands the item out
+
+- **Found:** 2026-09-26, claude/peaceful-keller-lmm4gr
+- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/git.ts`
+
+Two sessions built §25 THE VALVE's simulation lane on 26 September 2026, and
+one of them was thrown away whole. A cloud session's `bun run queue next`
+wrote its `Taken:` line onto its own `main`, and the push to `origin/main` was
+refused: another session had pushed its own `Taken:` line for the same item a
+moment earlier. `onTrunk` prints `⚑ origin/main not updated` and returns
+`true`, so `next` printed the prompt as usual. A `| tail -40` cut the warning
+off, and the lane went ahead. Make a rejected claim push fail the claim. Fetch
+`origin/main`. If its copy of the entry has a `Taken:` line, drop the branch,
+put the local `main` back on `origin/main`, and throw with the holder's name.
+If it has no `Taken:` line, redo the mark on top of `origin/main` and push
+again, once. Give the error the last line of the output, not a line in the
+middle. Test it in `tools/queue/test/` against a bare repo as the origin,
+with a second clone that pushes first.

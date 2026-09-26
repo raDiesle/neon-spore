@@ -22243,3 +22243,18 @@ Bottleneck: friction — finding the tick the lash step is still on screen.
 Bottleneck: writing — the move itself was one command, the forty importers it stranded were the work.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §25 THE VALVE, built twice: a claim that never reached origin
+
+- reading: 20 min. §25 of `bosses-choreographed.md`, THE KEEL's lane as the
+  pattern, the drag and hold paths, the registrations table.
+- writing: 90 min. The whole simulation lane: state, step, hash, config,
+  events, sounds, the director's sheet, §11.42, seventeen tests. Thrown away.
+- looking: 0 min. Nothing drawn.
+- friction: 15 min. Working out why `origin/main` already held THE VALVE, and
+  which claim was whose.
+- landing: 10 min. `check` was green before the fetch showed the duplicate;
+  this commit files the finding.
+
+Bottleneck: the claim — `queue next` reported success when its push was
+rejected, so a whole lane duplicated another session's.
