@@ -1891,28 +1891,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §28 THE VISE — a revised simulation lane, a kernel left to burn out
-
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-26, claude/oculus-story-look (claim: claude/queue-28-the-vise-a-revised-simulation-lane-a-kernel-l)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-THE VISE already ships as a choreographed scene of pinched lobes and gated
-kernel shots (`docs/spec/bosses.md` §28). This adds a new closing row 11
-where the spent kernel crackles between the lobes and the pair must hold
-both hands off entirely — reading off `SENDING NOTHING`, already built for
-THE KEEL, THE SEAM, THE OCULUS, THE HALTER and THE FLUE, a reuse rather than
-a first use, so no gesture-registration edit is needed. It is the fight's
-one beat built from neither a pinch nor a shot, after three movements built
-from nothing else — the same closing shape just given to THE OCULUS,
-fitting here since both bosses guard a fire step with a hold. This is one
-new boolean field, no new sim state beyond it. `bun run check` proves the
-sim half; the sixth pose (spent kernel crackling, unpinched) and the
-escalating kernel-flash brightness across rows 6, 8 and 10 are a look task,
-queued separately once this lane lands.
-
 ## §29 THE RIME — a revised simulation lane, a film left to crack alone
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
