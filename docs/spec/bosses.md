@@ -8456,8 +8456,16 @@ a white one. BOTH plays the fight to the split with all four seams cracked,
 no pinch slipped or sprung, the kernel never covered again and the hull never
 struck, and the STATES sheet poses all four phases
 (`hands/boss-hands-vise.ts`, `director/test/autopilot-vise.test.ts`).
-**Still queued**: the crack's thud and the spring, the flashes, the twelve
-events off the silent lists, the cue's words and THE SLOW's aim on the case.
+**Its receipts are drawn** (26 September 2026), §28's *Presentation*: a seam
+cracking presses the case down a touch, throws dry husk dust off the lobe that
+gave and sends a soft thud down the plating; a pinch run out throws its lobe
+open past where it rests to ring down back to it; a kernel hit flashes white
+over the hollow, a thin flare the first time and the whole hollow by the
+third, and bursts in the kernel's colour; the split flashes the whole case.
+A crack and a kernel hit deal the case the blow every boss takes; a missed
+kernel is the case's own blow at the hull (`render/vise-fx.ts`,
+`test/vise-fx.test.ts`). THE SLOW's light stands round the case's longer
+axis (`render/slow-boss-aim.ts`). **Still queued**: the cue's words.
 
 ## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
 

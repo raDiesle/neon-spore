@@ -26,6 +26,7 @@ import { StareFx } from "./stare-fx.js";
 import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
 import { UndertowFx } from "./undertow-fx.js";
+import { ViseFx } from "./vise-fx.js";
 import { WardenFx } from "./warden-fx.js";
 
 /**
@@ -163,6 +164,11 @@ export class BossRoster {
    * shock, and its receipts' bursts — thrown the same on both screens, and
    * told the core's colour by the drawer (`oculus-fx.ts`, `oculus-draw.ts`). */
   readonly oculus = new OculusFx();
+  /** THE VISE's thud, the sprung lobes, the kernel's flash and the split's,
+   * the hull shock, and its receipts' bursts — thrown the same on both
+   * screens, and told the kernel's colour by the drawer (`vise-fx.ts`,
+   * `vise-draw.ts`). */
+  readonly vise = new ViseFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

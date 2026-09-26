@@ -468,12 +468,28 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
+## `bun run frames` cannot picture a boss's receipt
+
+- **Found:** 2026-09-26, claude/vise-fx
+- **Files:** `tools/frames/run.ts`, `tools/frames/until.ts`, `tools/frames/boss.ts`, `tools/frames/flag-lists.ts`
+
+A receipt — a crack's thud, a kernel hit's flash — is drawn only in the few
+frames after its event, and nothing in `bun run frames` can make that event
+happen: `--boss`/`--boss-json` set the boss's state but throw no event, `--hand`
+has no pinch or hold for a boss's own targets, and there is no autopilot. So
+THE VISE's receipts (`render/vise-fx.ts`) landed unseen, and so will every
+boss's next. Add `--auto <both|p1|p2>`, which steps the world with the
+director's autopilot hands (`packages/hands`) through the page's own tick, so
+`--wave "THE VISE" --auto both --until viseHit --until-on 2` is a frame of the
+first kernel flash. Proved by a test in `tools/frames/test/` that `--auto both`
+on THE VISE reaches a `viseHit` inside its budget.
+
 ## §28 THE VISE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
 - **Taken:** 2026-09-26, main (claim: claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo)
 - **Needs:** §28 THE VISE — the look, half one (the body), landed first
-- **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/vise-draw.ts`, `packages/render/src/boss-cue-read-ze.ts`
 
 The body is drawn: the seed-case of two bristled half-shells hinged at the
 spine, standing open by their seams, narrowed by the gap pinched on each, the
@@ -485,13 +501,14 @@ same seat pairs with it, and the gap between the fingertips is sent as
 `viseLobeLeft`/`viseLobeRight`'s `fromMilli` (`render/vise-grip.ts`,
 `render/pinch.ts`, `apps/game/src/pinch.ts`, the director's two rows), and
 **the autopilot hand** the same day (`hands/boss-hands-vise.ts`, the STATES
-poses, `autopilot-vise.test.ts`). What is left is one lane, **the fx**, in
-`Effects` and cleared in `reset()`: each
-crack's dry thud, the spring of a pinch run out, the cover closing back over
-the kernel, the kernel's hit flash and the split's, the twelve `vise*` events
-off the two silent lists as each gets its burst, **THE SLOW's aim** on the
-case and **the cue's words** (SHUT on the lit lobe, FIRE on the lit kernel).
-Unverified at tempo until the owner has looked.
+poses, `autopilot-vise.test.ts`), and **the receipts** the same day: a
+crack's dry thud, a sprung lobe ringing open, the kernel's flash and the
+split's, the twelve `vise*` events thrown above the loop (`render/vise-fx.ts`).
+THE SLOW's aim on the case landed elsewhere the same day
+(`render/slow-boss-aim.ts`). What is left is one lane: **the cue's words**,
+SHUT on the lit lobe and FIRE on the lit kernel, in `vise-marks.ts` —
+THE OCULUS's HOLD and FIRE in `render/boss-cue-read-ze.ts` are the pattern. Unverified at
+tempo until the owner has looked.
 
 ## §29 THE RIME — the look
 

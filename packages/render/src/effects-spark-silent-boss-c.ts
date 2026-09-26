@@ -135,7 +135,8 @@ export const SILENT_BOSS_C = [
   "oculusMiss",
   "oculusShatter",
   "oculusOut",
-  // THE VISE's twelve, the same (`packages/audio/src/bind-vise.ts`).
+  // THE VISE's twelve, no burst from this table: each is thrown above the
+  // loop by its own fx file (`vise-fx.ts`).
   "viseEnter",
   "viseLight",
   "viseSlip",

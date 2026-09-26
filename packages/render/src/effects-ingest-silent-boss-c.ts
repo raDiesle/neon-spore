@@ -184,7 +184,8 @@ export const INGEST_SILENT_BOSS_C = [
   "oculusMiss",
   "oculusShatter",
   "oculusOut",
-  // THE VISE's twelve, for the same reason (`packages/audio/src/bind-vise.ts`).
+  // THE VISE's twelve: what outlives a frame is `vise-fx.ts`', read above
+  // the loop; how open and how cracked each lobe is stays read off the state.
   "viseEnter",
   "viseLight",
   "viseSlip",

@@ -3,14 +3,14 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { viseKernel, viseKernelPath, viseSeamPath } from "./vise-shape.js";
+import { viseKernel, viseKernelPath, viseRadius, viseSeamPath } from "./vise-shape.js";
 
 /**
  * **THE VISE's marks**: the two things that say what a step asks — the lit
  * seam, which is *pinch this lobe shut*, and the lit kernel, which is *shoot
  * here, in this colour*. Cut from `vise-draw.ts` the day it was written, along
- * the line its second half will grow on — the cue words and the crack's thud
- * come here.
+ * the line its second half grew on: the flashes `vise-fx.ts` times are drawn
+ * here too, and the cue words will be.
  */
 
 /** A step's colour on the canvas: its cannon's, or white for a step either answers (§28, *Colour*). */
@@ -73,4 +73,34 @@ export function drawViseKernel(
   const ring = new Path2D();
   ring.arc(k.x, k.y, k.r * 1.45, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
   strokeGlow(ctx, ring, body, STROKE.outline, 1);
+}
+
+/**
+ * A kernel hit's flash — white over the hollow, a thin flare the first time
+ * and the whole hollow by the third — and the split's, over the whole case.
+ * Laid in the case's own frame, over the lobes.
+ */
+export function drawViseFlash(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  flash: { now: number; hits: number },
+  split: number,
+): void {
+  if (flash.now > 0 && flash.hits > 0) {
+    const hits = Math.min(3, flash.hits);
+    const k = viseKernel(l);
+    const r = k.r * (0.4 + 0.45 * hits) * (1.4 - 0.4 * flash.now);
+    const p = new Path2D();
+    p.arc(k.x, k.y, Math.max(0.5, r), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
+    ctx.fill(p);
+    strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  }
+  if (split > 0) {
+    const { rx, ry } = viseRadius(l);
+    const p = new Path2D();
+    p.ellipse(0, 0, rx * (1.1 - 0.3 * split), ry * (1.1 - 0.3 * split), 0, 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.viseCrack, 0.5 * split);
+    ctx.fill(p);
+  }
 }

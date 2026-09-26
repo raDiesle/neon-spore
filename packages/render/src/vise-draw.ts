@@ -6,11 +6,13 @@ import {
   viseWindowBeats,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawViseKernel, drawViseLitSeam } from "./vise-marks.js";
+import type { ViseFx } from "./vise-fx.js";
+import { drawViseFlash, drawViseKernel, drawViseLitSeam, viseColour } from "./vise-marks.js";
 import {
   viseArrived,
   viseHeldShare,
@@ -44,7 +46,11 @@ import {
  * **A husk, not flesh**: dry tan shell, the cracks a paler white, and the only
  * colour on it is what a step asks for — the lit seam in white, the kernel in
  * its cannon's colour. **Its health is the kernel**, smaller and brighter for
- * every hit it has taken. Nothing here outlives a frame.
+ * every hit it has taken.
+ *
+ * What outlives a frame — a crack's thud, a sprung lobe ringing, a kernel
+ * hit's flash, the split's, the blow — is `fx` (`vise-fx.ts`), told the
+ * kernel's colour here because the event that hits it does not carry one.
  */
 export function drawVise(
   ctx: CanvasRenderingContext2D,
@@ -54,6 +60,7 @@ export function drawVise(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: ViseFx,
 ): void {
   const cfg = world.cfg;
   const arrived = viseArrived(s, cfg, beat, beatPhase);
@@ -62,11 +69,15 @@ export function drawVise(
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * split);
-  ctx.translate(home.x, home.y - viseLift(l, arrived));
+  ctx.translate(
+    home.x + fx.hurt.shakeX(time, l.tile),
+    home.y - viseLift(l, arrived) + fx.thud * l.tile,
+  );
 
   ctx.fillStyle = rgba(PALETTE.background, 0.92);
   ctx.fill(viseHollowPath(l));
   const step = viseLitStep(s);
+  if (step?.ask === "fire") fx.tell(viseColour(step.color).rim);
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing
     ? { color: step.color, left: viseLeft(s, viseWindowBeats(world, step), beat, beatPhase) }
@@ -80,8 +91,8 @@ export function drawVise(
   const both = step?.ask === "both";
   const litSide = viseLitSide(s);
   for (const side of [0, 1] as const) {
-    const lean = viseOpenAngle(world, s, side, beat, beatPhase);
-    drawLobe(ctx, l, s, side, lean, viseSqueeze(cfg, s, side), split, time);
+    const lean = viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side);
+    drawLobe(ctx, l, s, side, lean, viseSqueeze(cfg, s, side), split, time, fx.hurt.value);
     if (both || litSide === side) {
       ctx.save();
       lobeFrame(ctx, l, side, lean, viseSqueeze(cfg, s, side), split);
@@ -98,6 +109,7 @@ export function drawVise(
     ctx.strokeStyle = rgba(PALETTE.viseCrack, 0.35);
     ctx.stroke(viseSpinePath(l));
   }
+  drawViseFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();
 }
 
@@ -123,7 +135,7 @@ function lobeFrame(
   ctx.scale(1 - 0.18 * squeeze, 1);
 }
 
-/** One half-shell: tan fill, the key light on it, its bristled outline, and every seam already cracked. */
+/** One half-shell: tan fill, the key light on it, its bristled outline, the blow over it, and every seam already cracked. */
 function drawLobe(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -133,6 +145,7 @@ function drawLobe(
   squeeze: number,
   split: number,
   time: number,
+  hurt: number,
 ): void {
   const shell = viseLobePath(l, side);
   const { ry, rx } = viseRadius(l);
@@ -147,6 +160,7 @@ function drawLobe(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.viseCaseDark, 0.95);
   ctx.stroke(shell);
+  drawHurt(ctx, shell, hurt);
   const cracked = Math.min(VISE_SEAMS_PER_LOBE, s.cracks[side]);
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.viseCrack, 0.85);

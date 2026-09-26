@@ -23942,3 +23942,17 @@ The bottleneck was the landing, as it was for the last lane: the trunk moved
 under the check three times before it held.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §28 THE VISE, its hands, lane three of four: the receipts
+
+- reading: 5 min. THE OCULUS's fx commit as the pattern, THE VISE's twelve
+  events.
+- writing: 15 min. `vise-fx.ts`, the flash in `vise-marks.ts`, the draw's
+  thud, spring and blow, the roster and silent-list rows, the tests.
+- looking: 5 min. Looking for a way to take a frame of a kernel hit;
+  `bun run frames` has none, and it is queued.
+- friction: 5 min. A rebase of lane two over a trunk that had moved.
+- landing: 10 min. `check:fast`, the land and the push.
+
+Bottleneck: writing — the pattern was THE OCULUS's line for line; the one
+new thing was the sprung lobe ringing past its rest.

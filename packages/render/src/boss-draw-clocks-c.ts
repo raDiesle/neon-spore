@@ -161,7 +161,8 @@ export function drawPairBoss(
   // THE VISE: a seed-case of two lobes over the middle column, each pinched
   // shut by one seat, a kernel in the hollow both cannons are asked to hit.
   // Both screens are drawn the same — the other seat has to see which lobe is
-  // lit to say so (`vise-draw.ts`). Nothing of it outlives a frame yet: its
-  // hands and effects are the second half of its look.
-  drawVise(ctx, l, world, boss, beat, beatPhase, time);
+  // lit to say so (`vise-draw.ts`). What outlives a frame — a crack's thud,
+  // a sprung lobe, the kernel's flash, the hull's shudder — is
+  // `effects.boss.vise` (`vise-fx.ts`).
+  drawVise(ctx, l, world, boss, beat, beatPhase, time, effects.boss.vise);
 }

@@ -70,6 +70,9 @@ export function drawOnShip(
   // And THE OCULUS's: each pair held shut is a soft thud through the plating,
   // a reseal a quieter one (`oculus-fx.ts`, §27).
   held.effects.boss.oculus.drawShock(ctx, l, surfaceY, view.time);
+  // And THE VISE's: each seam cracking is a dry thud through the plating
+  // (`vise-fx.ts`, §28).
+  held.effects.boss.vise.drawShock(ctx, l, surfaceY, view.time);
   // And any boss's own blow when a window ran out, instead of a rock nobody
   // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
   held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);

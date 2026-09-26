@@ -172,6 +172,21 @@ export const HURT_ROWS_B: Row[] = [
     ],
     hurt: (fx) => fx.boss.oculus.hurt,
   },
+  {
+    boss: "vise",
+    // A seam cracked, and a kernel hit; a spring or a cover only asks again.
+    land: [
+      { type: "viseCrack", side: 0, cracks: 1, col: 3 },
+      { type: "viseHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "viseLight", ask: "left", col: 3 },
+      { type: "viseSlip", side: 0, col: 3 },
+      { type: "viseSpring", side: 1, col: 3 },
+      { type: "viseCover", col: 3 },
+    ],
+    hurt: (fx) => fx.boss.vise.hurt,
+  },
 ];
 
 /** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */
