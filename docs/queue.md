@@ -434,6 +434,7 @@ an alignment.
 ## THE MAZE's lever knob rests on top of the lit way in
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
+- **Taken:** 2026-09-26, claude/queue-opening-test-ts-s-twice-taken-strip-differed-by (claim: claude/queue-the-mazes-lever-knob-rests-on-top-of-the-lit-way)
 - **Files:** `packages/render/src/maze-string.ts`, `packages/render/src/maze-door.ts`, `packages/render/test/maze-funnel.test.ts`
 
 When the drum has turned a way in round to the ship's column, the lever's
