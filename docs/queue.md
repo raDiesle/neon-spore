@@ -2004,3 +2004,24 @@ else. This is one new boolean field, no new sim state beyond it. `bun run
 check` proves the sim half; the sixth pose (spent core crackling, unheld)
 and the escalating core-flash brightness across rows 6, 8 and 10 are a look
 task, queued separately once this lane lands.
+
+## §28 THE VISE — a revised simulation lane, a kernel left to burn out
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+THE VISE already ships as a choreographed scene of pinched lobes and gated
+kernel shots (`docs/spec/bosses.md` §28). This adds a new closing row 11
+where the spent kernel crackles between the lobes and the pair must hold
+both hands off entirely — reading off `SENDING NOTHING`, already built for
+THE KEEL, THE SEAM, THE OCULUS, THE HALTER and THE FLUE, a reuse rather than
+a first use, so no gesture-registration edit is needed. It is the fight's
+one beat built from neither a pinch nor a shot, after three movements built
+from nothing else — the same closing shape just given to THE OCULUS,
+fitting here since both bosses guard a fire step with a hold. This is one
+new boolean field, no new sim state beyond it. `bun run check` proves the
+sim half; the sixth pose (spent kernel crackling, unpinched) and the
+escalating kernel-flash brightness across rows 6, 8 and 10 are a look task,
+queued separately once this lane lands.

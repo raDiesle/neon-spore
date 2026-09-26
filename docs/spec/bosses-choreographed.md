@@ -3463,33 +3463,48 @@ OCULUS both use.
 | 8 | Kernel flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
 | 9 | Lobes creep shut a second time, faster | P1+P2 | pinch to hold open | 3 beats, held | stays open | shuts, retry |
 | 10 | Kernel flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, kernel spent | stays lit |
-| 11 | Both lobes spring wide and the case splits down the spine | — | — | — | — | — |
+| 11 | The spent kernel crackles between the lobes, drawing them shut around anything that touches it | P1+P2 | send nothing — hands off both lobes (`SENDING NOTHING`) | 3 beats, seen | the kernel burns out untouched, lobes stay wide | a reflex pinch draws its own lobe shut around the crackle, one extra beat added before it burns out |
+| 12 | Both lobes spring wide and the case splits down the spine | — | — | — | — | — |
 
 **THE SLOW** opens on every pinch window (rows 2, 3, 4, 5, 7, 9) and every
 fire window (rows 6, 8, 10) — a sustained pinch is exactly THE OCULUS's
 argument for more seconds than beats, since most of it is a seat confirming
-out loud that the gap is actually closing.
+out loud that the gap is actually closing. Row 11 opens it on the opposite
+gesture: after ten beats spent either pinching or firing, the fight's last
+beat asks both thumbs to come off the case entirely, so the finish reads as
+the kernel spending itself rather than one more thing to grip.
 
 **Presentation.** No camera. Each cracked lobe a soft hull-shock thud,
-quieter for a reseal; each kernel hit an ordinary shot's flash.
+quieter for a reseal; each kernel hit an ordinary shot's flash, brighter
+each time — the first a thin spark, the second fuller, the third a flash
+that fills the case. Row 11's spent kernel crackles across its window with
+nothing to press against, then dims to nothing a beat before the split.
 
-**Animation.** Five poses: intact; left cracked; both cracked, kernel bared;
-kernel guarded, lobes creeping shut; shattered. The lobes peel back the way a
-real seed-case does — hinging outward along the spine rather than fading — the
-same drawn-as-mechanism choice THE OCULUS makes for its leaves.
+**Animation.** Six poses: intact; left cracked; both cracked, kernel bared;
+kernel guarded, lobes creeping shut; spent kernel crackling, both lobes held
+wide and unpinched; shattered. The lobes peel back the way a real seed-case
+does — hinging outward along the spine rather than fading — the same
+drawn-as-mechanism choice THE OCULUS makes for its leaves.
 
 **Colour.** Case shell a dry tan-brown, the crack lines a paler dry white;
 the kernel is the only lit colour on the body, lit in whichever cannon colour
-a given beat wants, THE SEAM's and THE OCULUS's rule again.
+a given beat wants, THE SEAM's and THE OCULUS's rule again, brightening
+across rows 6, 8 and 10. Row 11's spent kernel burns flat white with no
+cannon colour in it, cooling to dry brown as it dims.
 
 **Payoff.** Rows 7 and 9 — `SQUEEZE ONE BODY` asked for defensively, guarding
 a `FIRE` step already under way, the same shape as THE OCULUS's row 7 spent
-on the newer gesture instead of a hold.
+on the newer gesture instead of a hold. Row 11 is the fight's other payoff:
+the one beat built from neither a pinch nor a shot, after three movements
+that asked for nothing else, and getting it wrong looks exactly like the
+reflex the fight spent ten beats teaching.
 
 **Cost. Low–medium.** One new primitive, `SqueezeGap` (two-finger continuous
 distance read as a depth — needs a one-thumb twin refused, and the iPhone's
 native `gesturechange` stopped from firing alongside it); the crack/reseal
-threshold logic reuses THE VALVE's landed/missed window shape.
+threshold logic reuses THE VALVE's landed/missed window shape; and one
+boolean for row 11's hold, a read off `SENDING NOTHING`, already built for
+THE KEEL, THE SEAM, THE OCULUS, THE HALTER and THE FLUE.
 
 **Reusable.** `SqueezeGap` itself — the first primitive on this page to read
 a *distance between two touches on one body* rather than a displacement, a
