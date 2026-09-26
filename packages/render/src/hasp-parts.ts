@@ -1,3 +1,4 @@
+import { LIGHT_HALF } from "@neon-spore/content";
 import {
   type HaspState,
   haspBurning,
@@ -10,6 +11,7 @@ import { strokeGlow } from "./glow.js";
 import { haspFree, haspLatchHex, haspSpokeTurns, haspWorkIndex } from "./hasp-pose.js";
 import { haspBarAt, haspCentre, haspHubRadius, haspRail, haspStapleFoot } from "./hasp-shape.js";
 import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -50,13 +52,21 @@ export function drawHaspWheel(
   disc.arc(at.x, at.y, r, 0, Math.PI * 2);
   ctx.fillStyle = free ? rgba(PALETTE.rock, 0.28) : rgba(PALETTE.rockDark, 0.95);
   ctx.fill(disc);
+  const turn = haspSpokeTurns(s, cfg, i, beat, beatPhase) * Math.PI * 2;
+  // Lit by the same turn the spokes are drawn at: a hub genuinely spins, so
+  // its own rotation is what feeds litRound's spin rather than an idle wobble
+  // invented for it — and a seized wheel stopping the turn is the shading
+  // stopping with it, exactly the tell the knurl already gives.
+  ctx.save();
+  ctx.clip(disc);
+  litRound(ctx, at.x, at.y, r, LIGHT_HALF.rock, turn);
+  ctx.restore();
   if (free || clearing) strokeGlow(ctx, disc, PALETTE.rock, STROKE.outline, clearing ? 0.6 : 1);
   else {
     ctx.lineWidth = STROKE.outline;
     ctx.strokeStyle = rgba(PALETTE.rock, working ? 0.4 : 0.25);
     ctx.stroke(disc);
   }
-  const turn = haspSpokeTurns(s, cfg, i, beat, beatPhase) * Math.PI * 2;
   const spokes = new Path2D();
   for (let k = 0; k < SPOKES; k++) {
     const a = turn + (k * Math.PI * 2) / SPOKES;
@@ -97,6 +107,12 @@ export function drawHaspCap(
   cap.arc(at.x, at.y, r * 0.8, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(cap);
+  // No wobble here, on purpose: this cap is the one the docstring above says
+  // may never move, so its light is fixed rather than fed a turn of its own.
+  ctx.save();
+  ctx.clip(cap);
+  litRound(ctx, at.x, at.y, r * 0.8, LIGHT_HALF.rock, 0);
+  ctx.restore();
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.6);
   ctx.stroke(cap);

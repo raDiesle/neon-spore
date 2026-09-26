@@ -417,6 +417,23 @@ ramp has a range to move through. Any other creature body this dark before
 `litRound` is added needs the same check: does the flat fill sit far enough
 above the ramp's floor for `shade` alone to read?
 
+**A boss can hide more than one flat-fill body, and each gets its own read.**
+THE HASP had three: the sealed clasp shell, the navigator's wheel disc and the
+pilot's cap (`hasp-draw.ts`, `hasp-parts.ts`), all rock and metal so all three
+take `LIGHT_HALF.rock`, and each answers the "what moves the light" question
+differently. The shell has no pose of its own between swings, so it gets an
+idle wobble exactly like the drum's, phase-offset per clasp index so a row of
+three doesn't breathe together. The wheel already computes a real turn to draw
+its spokes by — **when a part has its own genuine rotation, feed that straight
+into `litRound`'s `spin` rather than inventing a second, idle one**: a seized
+wheel's shading then stops exactly when its spokes stop, the same tell the
+knurl already gives, instead of two motions disagreeing about whether the hub
+is turning. The cap is the one piece on this boss with an explicit rule against
+moving at all — the pilot is never shown whether the wheel behind it turns —
+so it takes `litRound` with `spin` fixed at a literal `0`: depth without
+motion, because the motion itself would leak the one thing the design keeps
+from that seat.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

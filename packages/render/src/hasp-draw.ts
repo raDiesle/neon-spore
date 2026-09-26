@@ -1,3 +1,4 @@
+import { LIGHT_HALF } from "@neon-spore/content";
 import { HASP_COUNT, type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
@@ -5,11 +6,23 @@ import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
-import { haspCentre, haspHubRadius, haspShellPath } from "./hasp-shape.js";
+import { haspCentre, haspHubRadius, haspShellPath, haspShellRadius } from "./hasp-shape.js";
 import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
+
+/**
+ * The shell's own idle turn, wall-clock seconds there and back — the same
+ * reasoning as `gimbal-draw.ts`'s `DRUM_WOBBLE`: a sealed clasp's pose does
+ * not change frame to frame between swings, so a flat fill read as a lid
+ * rather than a shell. Each clasp's own index is added into the phase so the
+ * row does not breathe in lockstep (`docs/style-guide.md`, "Depth on a body
+ * that already ships").
+ */
+const HASP_WOBBLE = 0.05;
+const HASP_WOBBLE_PERIOD = 6.9;
 
 /**
  * **THE HASP**: three sealed clasps down the middle of the field, each two
@@ -55,7 +68,7 @@ export function drawHasp(
   if (clearing > 0) drawPassage(ctx, l, world, clearing);
   for (let i = 0; i < HASP_COUNT; i++) {
     const gape = haspGape(s, cfg, i, beat, beatPhase, wheel);
-    drawClasp(ctx, l, world, s, i, gape, fx.hurt.value);
+    drawClasp(ctx, l, world, s, i, gape, fx.hurt.value, time);
     if (wheel) drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase);
     else drawHaspCap(ctx, l, cfg, i);
   }
@@ -95,11 +108,20 @@ function drawClasp(
   i: number,
   gape: number,
   hurt: number,
+  time: number,
 ): void {
   const shell = haspShellPath(l, world.cfg, i, gape);
   const spent = haspOpened(s, i) && s.phase !== "clear";
   ctx.fillStyle = rgba(PALETTE.rockDark, spent ? 0.5 : 0.88);
   ctx.fill(shell);
+  if (!spent) {
+    const at = haspCentre(l, world.cfg, i);
+    ctx.save();
+    ctx.clip(shell);
+    const wobble = HASP_WOBBLE * Math.sin((time * (Math.PI * 2)) / HASP_WOBBLE_PERIOD + i);
+    litRound(ctx, at.x, at.y, haspShellRadius(l), LIGHT_HALF.rock, wobble);
+    ctx.restore();
+  }
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.45) : PALETTE.rock;
   ctx.stroke(shell);

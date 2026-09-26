@@ -53,6 +53,12 @@ export function haspHubRadius(l: Layout): number {
   return HUB * l.tile;
 }
 
+/** The shut shell's own radius on this screen — the longer of its two half-axes,
+ * for a light that has to reach every facet (`hasp-draw.ts`). */
+export function haspShellRadius(l: Layout): number {
+  return Math.max(SHELL_RX, SHELL_RY) * l.tile;
+}
+
 /**
  * The outer edge as a fraction of the half-width, `f` of the way from nose
  * to tail — THE CASE's flank exactly: a rounded shoulder over the first
