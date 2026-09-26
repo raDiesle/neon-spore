@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2b291c8d3 — THE VALVE tells a story between its pins: a jet, a brace, a wipe and a seal
+
+Each pin out now opens a state of its own under THE SLOW. The first socket blows back and either thumb taps the pin to cap it; the second pin out sets the drum shuddering until both thumbs hold the pin together; the last lets a film over the face that the thumbs rub dry, and the bare seal strains until both hold it again. Each state run out is the drum's own blow at the hull.
+
 ## 2026-09-26 · 4195f1437 — THE RIME's timeout blow is a frosted sheet off its own lens
 
 When a fire step runs out with the core unshot, one of the lens's seven-sided frosted sheets breaks off its underside and drops down the middle column, turning. On the hull it bursts into chips and its frost creeps down both slopes of the plating in ferns of pale ice. Before, a generic lash was thrown. The strike test now draws the newer blows too (THE RATCHET's, THE VALVE's, THE VISE's and THE RIME's).
