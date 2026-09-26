@@ -7,6 +7,7 @@ import { stepCurtain } from "./curtain-step.js";
 import { stepFilament } from "./filament-step.js";
 import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
+import { stepGrindstone } from "./grindstone-step.js";
 import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
 import { stepKeel } from "./keel-step.js";
@@ -228,6 +229,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE SLING: steps lit, draws counted, and the snap free (`sling-step.ts`).
   if (boss.kind === "sling") {
     stepSling(world, boss);
+    return;
+  }
+  // THE GRINDSTONE: grit regrown, clamps counted, and the snap free (`grindstone-step.ts`).
+  if (boss.kind === "grindstone") {
+    stepGrindstone(world, boss);
     return;
   }
   // And the six that are not stepped here at all, with THE SPOOL, THE HASP, THE RATCHET, THE VANE,

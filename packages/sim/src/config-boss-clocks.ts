@@ -5,6 +5,7 @@ import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
+import { GRINDSTONE_DEFAULTS, type GrindstoneConfig } from "./config-grindstone.js";
 import { HASP_DEFAULTS, type HaspConfig } from "./config-hasp.js";
 import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
@@ -93,6 +94,7 @@ export interface BossClockConfig
     TrivetConfig,
     PlumbConfig,
     SlingConfig,
+    GrindstoneConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -132,6 +134,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...TRIVET_DEFAULTS,
   ...PLUMB_DEFAULTS,
   ...SLING_DEFAULTS,
+  ...GRINDSTONE_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

@@ -925,25 +925,6 @@ stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
 
-## §33 THE GRINDSTONE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-33-the-grindstone-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-No new primitive: the first choreographed body spent entirely on two
-gestures already built for other bosses, paired in an order neither has
-used before. `RUB` (THE RIME's) grinds `grindLeftMilli` then
-`grindRightMilli` clean; `CHORD` (THE TRIVET's) locks the axle's caliper,
-answered with three fire hits and two defensive re-clamp beats (both
-seats at once). Eleven steps, three movements, same shapes THE RIME and
-THE TRIVET already carry — no new field type, no new registration
-category. The full beat list and primitive table entry are §33 of
-`docs/spec/bosses-choreographed.md`. `RUB` and `CHORD` each gain a second
-`where` entry in `tools/director/src/gesture-unbuilt.ts` — already done,
-land it with the rest. THE SLOW on every grind, chord and fire window.
-`bun run check` proves it.
-
 ## §33 THE GRINDSTONE — the look
 
 - **Found:** 2026-09-26, this session
@@ -956,6 +937,16 @@ swing-down-and-lock draw, and the axle's lit core answering the cannon's
 colour once both flats are clean and the caliper has bitten. Nothing new
 drawn here at all — this lane is wiring two existing looks onto one new
 body — and it stays unverified at tempo until the owner has looked.
+
+**The touch sender rides this lane**, with the panels it draws: the
+simulation (wave 112, `docs/spec/bosses.md` §11.50) hears `grindFlatLeft`
+and `grindJawLeft` from Player 1 and `grindFlatRight` and `grindJawRight`
+from Player 2. A flat is a drag whose `id` is the thumb's reversals since
+it went down, sent again each time it turns back, and `on: false` at the
+lift; a jaw is one drag a pad, `id` 0 or 1, `on` down and up
+(`packages/sim/src/grindstone-hand.ts`). Nothing in `apps/game` sends one
+yet, so the wheel is unanswerable on a phone until this lands; a test that
+a back-and-forth rub sends a rising count and a pad lift sends its `id`.
 
 ## §34 THE CYST — the simulation lane
 

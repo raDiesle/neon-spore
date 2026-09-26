@@ -8635,6 +8635,126 @@ any of it *reads* — whether a swipe at the lift under a voice is a flick or
 a fumble — is the owner's eye, after lane two and the touch sender, on two
 real phones.
 
+## 11.50 THE GRINDSTONE — the boss two thumbs grind true, then shoot into
+
+> A stone wheel on an axle over the middle of the field, both flats
+> gritted and the caliper slack. Your flat lights: rub it back and forth
+> until it is clean, and once more when a film comes back. Both flats
+> clean bite the caliper shut. Shoot the axle in its colour, and when the
+> caliper creeps loose, both of you hold every pad of your jaw down.
+
+Designed as §33 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`, and the
+first on that page with **no gesture of its own**: THE RIME's rub grinds
+the flats and THE TRIVET's chord holds the caliper, two spent gestures
+carrying one body in sequence.
+
+**It is four passes and three hits, and they are its health.** The state
+(`sim/grindstone.ts`, hashed in `sim/grindstone-hash.ts`) is the **phase**
+and the beat it began, the **cursor** into the script, the **passes**
+ground on each flat, the **hits** landed, whether the caliper is
+**locked**, each flat's **grit** in thousandths, each seat's reversal count
+since its thumb went down and whether it rubbed this beat, the **pads**
+each seat holds down as a mask, and the beats a clamp has been held. The
+script is the wave's (`GrindstoneEntry.steps`), copied at install: each
+step asks `left`, `right`, `fire` or `clamp`, in a colour or `either`, for
+its own beats.
+
+**The rule, in one sentence.** Rub your flat until it is clean, twice; shoot
+the locked axle in its colour; when the jaws light, both hold every pad.
+
+**The split.** Geometry, THE MANTLE's rule: `grindFlatLeft` and
+`grindJawLeft` are Player 1's, `grindFlatRight` and `grindJawRight` Player
+2's, and the wrong seat's touch is not heard (`sim/grindstone-hand.ts`). A
+fire step is the ordinary shot — Player 1's cannon under the middle
+column, Player 2's trigger in its colour. A clamp is both seats at once,
+each on its own jaw.
+
+**The clock** (`sim/grindstone-step.ts`). The wheel settles for
+`grindstoneStillBeats`, then the first step lights under THE SLOW
+(`openSlow(…, "ask")`). Each beat the lit flat was not rubbed it regrits
+`grindstoneRegrowMilli`. Each beat every pad of both jaws is down a clamp
+counts one, up to its step's beats; a clamp stays lit
+`grindstoneGraceBeats` past its count. An answered step closes THE SLOW and
+the wheel rests `grindstoneRestBeats` before the next lights. With the
+script done the wheel spins free, and rolls away `grindstoneFreeBeats`
+before the wave may end.
+
+**The answers.** A flat is heard as THE RIME hears a half: the drag's `id`
+is the thumb's reversals since it went down, only the ones since the last
+count shave `grindstoneShaveMilli`, a lift sets the count back to nought,
+and a flat ground to nought is answered on the tick (`grindstoneClear`). A
+flat's second pass starts from `grindstoneFilmMilli` rather than solid.
+Both flats clean bite the caliper shut (`grindstoneBite`). A jaw is heard
+as THE TRIVET hears a foot: one drag a pad by its `id`, kept whenever the
+wheel is present, and a pad lifting from a held clamp slips it
+(`grindstoneSlip`) and starts its count again. A shot is judged where a
+bolt leaves the top of the field (`sim/grindstone-shot.ts`): only with the
+caliper locked, only while a fire step is lit, only in the middle column,
+and only in its colour unless it is `either`.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **A fire step run out is a hull hit, and a hull hit is the wave.** §33's
+  rows 6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game
+  has no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+- **A clamp run out is asked again, not a regrind.** Row 7 has the fire
+  beats lost "until both flats are ground clean again". A rewind to the
+  flats would re-ask the fire steps already answered, which are the
+  health; so a clamp run out springs the caliper loose (`grindstoneLoose`),
+  darkens the axle, and the same clamp lights again after the rest. No fire
+  step lights until it is held — the design's loss, kept without undoing a
+  hit.
+- **A clamp is given grace.** A window exactly its count long could only be
+  met by thumbs already down on its first beat; the step stays lit
+  `grindstoneGraceBeats` longer, THE TRIVET's and THE SLING's reason.
+- **"Two controls together" is every pad of both jaws.** `CHORD` is THE
+  TRIVET's pads, so each jaw has `GRINDSTONE_PADS` (two) and a clamp
+  counts only while all four are down, one pair a seat.
+- **The drag targets are named for the body.** §33 names `grindLeftMilli`,
+  `grindRightMilli` and `caliperHeld`; on the wire they are
+  `grindFlatLeft`/`Right` carrying the reversal count and
+  `grindJawLeft`/`Right` carrying a pad, and the grit is one pair,
+  `gritMilli`, THE RIME's frosts' shape.
+- **The caliper bites by itself.** Row 5's "caliper closes" is not a step:
+  the second pass on the second flat answered locks it on the same tick.
+- **A pass run out rewinds to that flat's first.** Rows 3 and 5 say "retry
+  from row 2" and "from row 4": the flat regrits solid (`grindstoneRegrit`),
+  its passes go back to nought and the cursor to its first pass. Nothing
+  answered on the other flat is lost. It is no hull hit — §33 asks none.
+- **The passes and the hits are the health together.** §33 names two flats
+  plus an axle of three hits; the script is nine steps, and the wheel
+  spins free when the last is answered, which is the third hit.
+
+**The simulation lane has landed.** Nothing in `apps/game` sends a
+`grindFlat*` or `grindJaw*` drag yet, so the wheel cannot be answered on a
+real phone — the touch sender is queued with the look (`docs/queue.md`).
+Nothing of it is drawn: the render package's silent-event lists and
+`tools/director/src/sound-link-none-d.ts` carry all thirteen of its events
+until lane two. The thirteen sounds *are* bound
+(`audio/src/bind-grindstone.ts`), heard where they happen, the shave
+pitched up as the flat comes clean, the clear per pass and the hit per
+hit. There is no autopilot hand yet (`tools/director/test/autopilot.test.ts`'s
+`NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/grindstone.test.ts`): the wheel comes in gritted with the
+caliper open and lights the left flat under THE SLOW; a fresh reversal on
+the lit flat by its own seat shaves it, a reversal already counted does
+not, and a lift counts again from nought; the other seat and the unlit
+flat are not heard; a beat nobody rubbed regrits and a beat somebody did
+does not; a second pass starts from a film; a pass run out regrits the flat
+and rewinds to its first pass, and is no hull hit; both flats clean bite
+the caliper; a shot outside its step, off the axle or in the wrong colour
+does nothing, and one in its colour is a hit; a fire step run out is the
+wave; a clamp is counted only with every pad of both jaws down by their own
+seats, slips when a pad lifts, counts pads already down, is given its
+grace, and run out springs the caliper and is asked again; and a script
+answered whole spins the wheel free and ends the fight. Whether any of it
+*reads* — whether rubbing a flat under a voice feels like grinding — is the
+owner's eye, after lane two and the touch sender, on two real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

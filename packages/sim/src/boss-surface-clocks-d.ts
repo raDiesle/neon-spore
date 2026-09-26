@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
- * and the thumb on its seam.
+ * and the thumb on its seam, and THE GRINDSTONE's wheel.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -12,6 +12,28 @@
  * is one something outside `packages/sim` imports.
  */
 
+// THE GRINDSTONE's wheel: the phase, the lit step, the flats' grit, the
+// caliper and both seats' jaws, for the picture, the cue and the director's
+// hand. Straight off `grindstone.ts` (`docs/spec/bosses-choreographed.md` §33).
+export {
+  freshGrindstone,
+  GRINDSTONE_ASKS,
+  GRINDSTONE_FULL_MILLI,
+  GRINDSTONE_PADS,
+  GRINDSTONE_PASSES_PER_FLAT,
+  GRINDSTONE_PHASES,
+  type GrindstoneAsk,
+  type GrindstoneEntry,
+  type GrindstonePhase,
+  type GrindstoneState,
+  type GrindstoneStep,
+  grinding,
+  grindstoneBoss,
+  grindstoneClamped,
+  grindstoneDone,
+  grindstoneJawHeld,
+  grindstoneLitStep,
+} from "./grindstone.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

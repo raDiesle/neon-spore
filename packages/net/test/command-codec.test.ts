@@ -264,6 +264,12 @@ const ACCEPTED: Command[] = [
   // `fromMilli` by its sign alone (`sim/sling-hand.ts`).
   { kind: "drag", target: "slingDrawLeft", on: true, fromMilli: 0 },
   { kind: "drag", target: "slingDrawRight", on: false, fromMilli: -1 },
+  // THE GRINDSTONE's flats carry a reversal count on `id`, and its jaws a
+  // pad (`sim/grindstone-hand.ts`).
+  { kind: "drag", target: "grindFlatLeft", on: true, fromMilli: 0, id: 3 },
+  { kind: "drag", target: "grindFlatRight", on: false, fromMilli: 0 },
+  { kind: "drag", target: "grindJawLeft", on: true, fromMilli: 0, id: 1 },
+  { kind: "drag", target: "grindJawRight", on: false, fromMilli: 0, id: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -428,6 +434,10 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   plumbLevelRight: true,
   slingDrawLeft: true,
   slingDrawRight: true,
+  grindFlatLeft: true,
+  grindFlatRight: true,
+  grindJawLeft: true,
+  grindJawRight: true,
   crank: true,
 };
 

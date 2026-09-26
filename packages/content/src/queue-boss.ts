@@ -201,6 +201,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "plumb") return { ...boss };
   // THE SLING the same: its yoke is `midCol` and its aims are sides, not columns.
   if (boss.kind === "sling") return { ...boss };
+  // THE GRINDSTONE the same: its axle is `midCol` and its flats are seats.
+  if (boss.kind === "grindstone") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

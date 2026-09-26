@@ -96,6 +96,9 @@ const STILL_PROSE = [
   // And THE SLING (§32), a sixteenth time: the fork is undrawn, and the guide
   // says which finger draws which arm.
   "THE SLING",
+  // And THE GRINDSTONE (§33), a seventeenth time: the wheel is undrawn, and
+  // the guide says which thumb grinds which flat.
+  "THE GRINDSTONE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -122,9 +125,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix =
-      "update §1 of docs/spec/briefings.md, which says one hundred of the hundred and eleven";
-    expect(guided.length, fix).toBe(100);
-    expect(WAVES.length, fix).toBe(111);
+      "update §1 of docs/spec/briefings.md, which says one hundred and one of the hundred and twelve";
+    expect(guided.length, fix).toBe(101);
+    expect(WAVES.length, fix).toBe(112);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

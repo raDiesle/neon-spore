@@ -118,6 +118,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", aim: "left", color: "cyan", beats: 3 },
     ],
   },
+  // THE GRINDSTONE authors its script; two steps rather than the shipped nine
+  // (`grindstone-hash.ts`).
+  grindstone: {
+    kind: "grindstone",
+    steps: [
+      { ask: "left", color: "red", beats: 6 },
+      { ask: "clamp", color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -298,5 +307,21 @@ export function patchBossD(boss: BossState): void {
     boss.holding = [true, false];
     boss.drawnBeats = [2, 0];
     boss.loosed = [false, true];
+  }
+  if (boss.kind === "grindstone") {
+    // The left flat passed once and the right twice, the caliper locked, a
+    // thumb part way through a pass and a pad down on each jaw — every field
+    // given a value (`grindstone-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.passes = [1, 2];
+    boss.hits = 1;
+    boss.locked = true;
+    boss.gritMilli = [400, 700];
+    boss.rubs = [3, 1];
+    boss.rubbed = [true, false];
+    boss.padsDown = [1, 3];
+    boss.heldBeats = 2;
   }
 }

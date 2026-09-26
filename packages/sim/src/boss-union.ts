@@ -7,6 +7,7 @@ import type { FilamentState } from "./filament.js";
 import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
+import type { GrindstoneState } from "./grindstone.js";
 import type { HaspState } from "./hasp.js";
 import type { HiveState } from "./hive.js";
 import type { InstarState, NettleState } from "./instar.js";
@@ -115,4 +116,5 @@ export type BossState =
   | RimeState
   | TrivetState
   | PlumbState
-  | SlingState;
+  | SlingState
+  | GrindstoneState;

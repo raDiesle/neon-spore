@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
+import { grindstoneCue } from "./bind-grindstone.js";
 import { oculusCue } from "./bind-oculus.js";
 import { plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
@@ -32,6 +33,7 @@ type LaterEvent = Extract<
       | `trivet${string}`
       | `plumb${string}`
       | `sling${string}`
+      | `grindstone${string}`
       | `undertow${string}`;
   }
 >;
@@ -140,6 +142,20 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "slingFree":
     case "slingOut":
       return slingCue(e, cols);
+    case "grindstoneEnter":
+    case "grindstoneLight":
+    case "grindstoneShave":
+    case "grindstoneClear":
+    case "grindstoneRegrit":
+    case "grindstoneBite":
+    case "grindstoneSlip":
+    case "grindstoneClamp":
+    case "grindstoneLoose":
+    case "grindstoneHit":
+    case "grindstoneMiss":
+    case "grindstoneFree":
+    case "grindstoneOut":
+      return grindstoneCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

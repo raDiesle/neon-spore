@@ -36,6 +36,7 @@ const AUTHORS_NOTHING = [
   "trivet",
   "plumb",
   "sling",
+  "grindstone",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -172,8 +173,8 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   No column, the ridge is `midCol`; no number, the points are the health.
  * - **THE OCULUS**'s script the same, and the same two answers: the eye is
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
- *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's and THE SLING's too:
- *   all `midCol`.
+ *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's, THE SLING's and THE
+ *   GRINDSTONE's too: all `midCol`.
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

@@ -5,6 +5,7 @@ import { curtainHashParts } from "./curtain-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
+import { grindstoneHashParts } from "./grindstone-hash.js";
 import { haspHashParts } from "./hasp-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
@@ -168,6 +169,11 @@ export function clockHashParts(boss: BossState): number[] {
   // counts and the script (`sling-hash.ts`).
   if (boss.kind === "sling") {
     for (const n of slingHashParts(boss)) out.push(n);
+  }
+  // THE GRINDSTONE: the phase, the cursor, the passes, the hits, the caliper,
+  // both flats' grit and rubs, both jaws and the script (`grindstone-hash.ts`).
+  if (boss.kind === "grindstone") {
+    for (const n of grindstoneHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

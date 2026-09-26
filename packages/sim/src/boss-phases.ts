@@ -6,6 +6,7 @@ import { GAUGE_PHASES } from "./gauge.js";
 import { GAUGE_GRIPS } from "./gauge-hand.js";
 import { GIMBAL_PHASES } from "./gimbal.js";
 import { GORGE_PHASES } from "./gorge.js";
+import { GRINDSTONE_PHASES } from "./grindstone.js";
 import { HASP_PHASES } from "./hasp.js";
 import { HIVE_PHASES } from "./hive.js";
 import { HIVE_LOBES } from "./hive-lobe.js";
@@ -127,5 +128,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   trivet: TRIVET_PHASES,
   plumb: PLUMB_PHASES,
   sling: SLING_PHASES,
+  grindstone: GRINDSTONE_PHASES,
   fleet: FLEET_PHASES,
 };

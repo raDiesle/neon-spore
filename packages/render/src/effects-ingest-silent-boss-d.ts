@@ -29,4 +29,18 @@ export const INGEST_SILENT_BOSS_D = [
   "slingMiss",
   "slingFree",
   "slingOut",
+  // THE GRINDSTONE's thirteen, the same (`packages/audio/src/bind-grindstone.ts`).
+  "grindstoneEnter",
+  "grindstoneLight",
+  "grindstoneShave",
+  "grindstoneClear",
+  "grindstoneRegrit",
+  "grindstoneBite",
+  "grindstoneSlip",
+  "grindstoneClamp",
+  "grindstoneLoose",
+  "grindstoneHit",
+  "grindstoneMiss",
+  "grindstoneFree",
+  "grindstoneOut",
 ] as const satisfies readonly SimEvent["type"][];

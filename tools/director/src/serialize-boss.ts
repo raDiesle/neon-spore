@@ -167,9 +167,14 @@ export function serializeBoss(boss: BossEntry): string {
     );
     return `{ kind: "seam", steps: [${steps.join(", ")}] }`;
   }
-  // THE OCULUS's the same, and THE VISE's and THE RIME's, which author the
-  // same three fields a step.
-  if (boss.kind === "oculus" || boss.kind === "vise" || boss.kind === "rime") {
+  // THE OCULUS's the same, and THE VISE's, THE RIME's and THE GRINDSTONE's,
+  // which author the same three fields a step.
+  if (
+    boss.kind === "oculus" ||
+    boss.kind === "vise" ||
+    boss.kind === "rime" ||
+    boss.kind === "grindstone"
+  ) {
     const steps = boss.steps.map(
       (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
     );

@@ -249,6 +249,7 @@ by hand never moves.
 | `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — how wide the sack is, how many beads fill an intake |
 | `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how near a mark is near enough, how long an alignment has to be held |
+| `packages/sim/src/config-grindstone.ts` | THE GRINDSTONE's tuning: the rests around its steps, what a reversal shaves and a beat regrits |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
@@ -406,6 +407,7 @@ by hand never moves.
 | `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
 | `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as four events (`gauge.ts`, `gauge-hand.ts`) |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-grindstone.ts` | What THE GRINDSTONE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/keel-hand.ts` | THE KEEL's one thumb: a tap on the lit joint, from the seat whose half of the screen it sits over |
 | `packages/sim/src/keel-hash.ts` | What THE KEEL puts into `hashWorld`, and nothing else |
@@ -449,6 +451,11 @@ by hand never moves.
 | `packages/sim/src/events-mantle.ts` | What THE MANTLE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
+| `packages/sim/src/grindstone-hand.ts` | Two grinding thumbs and two jaws on THE GRINDSTONE, one of each a seat |
+| `packages/sim/src/grindstone-hash.ts` | What THE GRINDSTONE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/grindstone-shot.ts` | **THE GRINDSTONE's shot**: the lit axle, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/grindstone-step.ts` | THE GRINDSTONE's clock: the wheel settling, each step lighting |
+| `packages/sim/src/grindstone.ts` | THE GRINDSTONE: a gritted wheel on a fixed axle mid-hull, each of its two flats ground clean by its own seat |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/gorge-hand.ts` | **The two hands on THE GORGE**: player 1's pinch on a full intake and player 2's pry on the mouth |
 | `packages/sim/src/gorge-step.ts` | THE GORGE's clock — the vent, the spit, the mouth feeding itself and the beats after the beam |
@@ -1997,6 +2004,7 @@ by hand never moves.
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-grindstone.ts` | THE GRINDSTONE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |

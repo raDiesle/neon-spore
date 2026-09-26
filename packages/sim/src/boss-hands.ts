@@ -5,6 +5,7 @@ import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
+import { grindstoneHeard } from "./grindstone-hand.js";
 import { haspHeard } from "./hasp-hand.js";
 import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
@@ -123,6 +124,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE SLING's draws, the same: a draw is judged the instant it lifts
   // (`sling-hand.ts`).
   for (const c of commands) slingHeard(world, c.player, c.command);
+  // THE GRINDSTONE's passes and clamps, the same: a flat ground clean and a
+  // jaw pad lifting are both the instant (`grindstone-hand.ts`).
+  for (const c of commands) grindstoneHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

@@ -97,4 +97,18 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.slingMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.slingFree": "the fork snapping forward, spent. Same argument.",
   "boss.slingOut": "the fork gone and the wave ending. Same argument, and an absence.",
+  // THE GRINDSTONE's thirteen: a wheel over the field, the same argument.
+  "boss.grindstoneEnter": "the wheel turning in over the field. A fixture, not a body on a grid.",
+  "boss.grindstoneLight": "a step lighting on the wheel. Same argument.",
+  "boss.grindstoneShave": "a flat rubbed, which is a gesture and no body. Same argument.",
+  "boss.grindstoneClear": "a flat ground clean. Same argument.",
+  "boss.grindstoneRegrit": "a flat gritting over again. Same argument.",
+  "boss.grindstoneBite": "the caliper biting shut on the wheel. Same argument.",
+  "boss.grindstoneSlip": "a pad lifting off a jaw. Same argument.",
+  "boss.grindstoneClamp": "both jaws held home. Same argument.",
+  "boss.grindstoneLoose": "the caliper springing loose. Same argument.",
+  "boss.grindstoneHit": "a shot into the axle. Same argument.",
+  "boss.grindstoneMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.grindstoneFree": "the wheel spinning free, spent. Same argument.",
+  "boss.grindstoneOut": "the wheel gone and the wave ending. Same argument, and an absence.",
 };

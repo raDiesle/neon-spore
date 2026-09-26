@@ -5,6 +5,7 @@ import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
+import { grindstoneStruck } from "./grindstone-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { keelStruck } from "./keel-shot.js";
@@ -191,6 +192,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   plumbStruck(world, b);
   // And THE SLING's lit yoke (`sling-shot.ts`).
   slingStruck(world, b);
+  // And THE GRINDSTONE's lit axle (`grindstone-shot.ts`).
+  grindstoneStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

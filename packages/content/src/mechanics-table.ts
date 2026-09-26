@@ -151,6 +151,7 @@ export const MECHANICS = {
   trivet: BOSS_MECHANICS.trivet,
   plumb: BOSS_MECHANICS.plumb,
   sling: BOSS_MECHANICS.sling,
+  grindstone: BOSS_MECHANICS.grindstone,
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",

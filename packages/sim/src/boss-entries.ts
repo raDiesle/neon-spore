@@ -31,6 +31,7 @@ import type {
 } from "./boss-entries-round.js";
 import type { FilamentEntry } from "./filament.js";
 import type { GimbalEntry } from "./gimbal.js";
+import type { GrindstoneEntry } from "./grindstone.js";
 import type { InstarEntry, NettleEntry } from "./instar.js";
 import type { KeelEntry } from "./keel.js";
 import type { MantleEntry } from "./mantle.js";
@@ -189,7 +190,9 @@ export type BossEntry =
   // The one that authors leans as well as shots: a bob held level by two phones (`plumb.ts`).
   | PlumbEntry
   // The one that authors draws as well as shots: a fork loosed by two seats' holds (`sling.ts`).
-  | SlingEntry;
+  | SlingEntry
+  // The one that authors passes and clamps as well as shots: a wheel ground by two seats (`grindstone.ts`).
+  | GrindstoneEntry;
 
 // The three this page had no room left for, handed across on 22 September
 // 2026 — the last rows it held, the way every overflowing page in the
@@ -229,6 +232,7 @@ export type {
 } from "./boss-entries-round.js";
 export type { FilamentEntry } from "./filament.js";
 export type { GimbalEntry } from "./gimbal.js";
+export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
 export type { InstarEntry, NettleEntry } from "./instar.js";
 export type { KeelEntry } from "./keel.js";
 export type { MantleEntry } from "./mantle.js";

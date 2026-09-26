@@ -43,6 +43,14 @@ import type { Wave } from "../wave-types.js";
  * side as it leaves (`docs/spec/bosses-choreographed.md` §32,
  * `sim/sling.ts`). Both arms drawn light the yoke, which is shot in its
  * colour; between the shots both seats draw and loose at once to keep it lit.
+ *
+ * **THE GRINDSTONE is the first boss spent on two gestures already built**,
+ * the same shape a sixth time: a wheel over the middle column, each seat's
+ * flat rubbed clean twice as THE RIME's halves are, then a caliper both
+ * seats hold shut with every pad as THE TRIVET's feet are planted
+ * (`docs/spec/bosses-choreographed.md` §33, `sim/grindstone.ts`). Both flats
+ * clean lock the caliper and light the axle, which is shot in its colour;
+ * between the shots both seats clamp at once to keep it locked.
  */
 export const WAVES_ACT_12: Wave[] = [
   {
@@ -166,6 +174,31 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "fire", aim: "left", color: "cyan", beats: 3 },
         { ask: "both", aim: "right", color: "either", beats: 3 },
         { ask: "fire", aim: "left", color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theGrindstone",
+    name: "THE GRINDSTONE",
+    guide: {
+      both: "Rub your flat back and forth until clean, twice. Both flats clean lock the caliper: shoot the axle in its colour. When the jaws light, both hold every pad.",
+      p1: "1. Rub the left flat back and forth when it lights, until it is clean.\n2. Rub it again when the film comes back.\n3. When the jaws light, hold both of your pads down with the other one.",
+      p2: "1. Rub the right flat back and forth when it lights, until it is clean.\n2. Rub it again when the film comes back.\n3. White takes either colour. Hold both pads down when the jaws light.",
+    },
+    entries: [],
+    boss: {
+      kind: "grindstone",
+      steps: [
+        { ask: "left", color: "either", beats: 6 },
+        { ask: "left", color: "either", beats: 4 },
+        { ask: "right", color: "either", beats: 6 },
+        { ask: "right", color: "either", beats: 4 },
+        { ask: "fire", color: "red", beats: 3 },
+        { ask: "clamp", color: "either", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "clamp", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

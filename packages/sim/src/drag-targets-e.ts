@@ -7,7 +7,8 @@
  * seam: build order, with the *last* boss on the full page handed across
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
- * THE PLUMB's levels were written on it, and THE SLING's draws after them. `drag-targets.ts` unions the pages
+ * THE PLUMB's levels were written on it, and THE SLING's draws and THE
+ * GRINDSTONE's flats and jaws after them. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -16,7 +17,11 @@ export type DragTargetE =
   | "plumbLevelLeft"
   | "plumbLevelRight"
   | "slingDrawLeft"
-  | "slingDrawRight";
+  | "slingDrawRight"
+  | "grindFlatLeft"
+  | "grindFlatRight"
+  | "grindJawLeft"
+  | "grindJawRight";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -60,4 +65,17 @@ export type DragTargetE =
  * its release and the direction is the answer. Geometry says whose is whose,
  * `viseLobeLeft`'s reason, and the wrong seat's hold does nothing
  * (`sling-hand.ts`). `id` is unused.
+ */
+
+/**
+ * `grindFlatLeft`, `grindFlatRight`, `grindJawLeft` and `grindJawRight` are
+ * the eighty-fifth to the eighty-eighth: THE GRINDSTONE's two flats and the
+ * two jaws of its caliper, the `…Left` pair under the pilot's thumb and the
+ * `…Right` under the navigator's.
+ *
+ * No new reading. A flat is `rimeHalfLeft`'s: `RubCount`, the drag's `id` the
+ * reversals since the thumb went down. A jaw is `trivetPadFront`'s:
+ * `ChordHold`, one drag a pad, its `id` naming which of `GRINDSTONE_PADS`.
+ * Geometry says whose is whose, and the wrong seat's touch does nothing
+ * (`grindstone-hand.ts`).
  */

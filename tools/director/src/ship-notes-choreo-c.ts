@@ -205,4 +205,21 @@ export const CHOREO_NOTES_C = {
     "sends a draw yet. Only the simulation lane has landed — see " +
     "sim/sling.ts, sim/sling-step.ts, sim/sling-hand.ts, sim/sling-shot.ts, " +
     "sim/config-sling.ts.",
+  "THE GRINDSTONE — the boss two thumbs grind true, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §33: a wheel over the " +
+    "middle column, each seat rubbing its own flat back and forth to " +
+    "grind it clean as THE RIME's halves are wiped, twice a flat, the " +
+    "second pass from a thin film; each fresh reversal shaves " +
+    "grindstoneShaveMilli, and a beat nobody rubbed regrows " +
+    "grindstoneRegrowMilli. A pass run out regrits the flat and asks its " +
+    "first pass again. Both flats clean lock the caliper and light the " +
+    "axle; a fire step wants a shot in its colour; a clamp step is both " +
+    "seats holding every pad of their jaws down together for its beats, " +
+    "as THE TRIVET's chords are, and one run out springs the caliper " +
+    "loose and is asked again. A fire step run out is a hull hit, which " +
+    "is the wave. The grace (grindstoneGraceBeats) is how long a clamp " +
+    "stays lit past its count. Nothing on the phone sends a rub or a pad " +
+    "yet. Only the simulation lane has landed — see sim/grindstone.ts, " +
+    "sim/grindstone-step.ts, sim/grindstone-hand.ts, " +
+    "sim/grindstone-shot.ts, sim/config-grindstone.ts.",
 } satisfies Partial<Record<GroupName, string>>;
