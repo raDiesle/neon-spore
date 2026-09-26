@@ -945,6 +945,7 @@ what the rest of this file holds.
 ## THE GORGE's flesh has no secondary motion of its own
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-the-gorges-flesh-has-no-secondary-motion-of-its
 - **Files:** `packages/render/src/gorge-flesh.ts`, `packages/render/src/gorge-flesh-torn.ts`, `packages/render/src/gorge-draw.ts`
 
 Confirmed, not sampled: every `breath` term in `paintSack`, `paintSackGone`
