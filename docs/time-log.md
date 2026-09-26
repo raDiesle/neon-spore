@@ -22431,3 +22431,5 @@ Bottleneck: reading — each creature's answer is in its own long sim file, and 
 - landing: 5 min. `check:fast`, the queue entry for half two, `land`.
 
 Bottleneck: writing — a boss's body is four files before a single frame can be seen, since the hit test half two needs has to read the same geometry.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

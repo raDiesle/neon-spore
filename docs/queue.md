@@ -1017,3 +1017,17 @@ the colour that is loaded. Give each creature its answer in the hand, a file
 per few creatures as the others have theirs. Take its name out of
 `HALF_PLAYED` as it goes. The test already fails for any wave the hand stops
 clearing clean.
+
+## Unverified at b66adf07c: THE MANTLE's pull read at tempo: the bow, the cord and…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/mantle-handle.ts`
+
+*THE MANTLE is drawn: a plated shell over the field, bowing as both thumbs pull* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
+
+- THE MANTLE's pull read at tempo: the bow, the cord and the shed plate watched moving
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
