@@ -95,7 +95,7 @@ export function drawCueText(
   // prompt system for three bosses. #34 asks for one word and not for a form.
   // And `CARRY` never, since the verb under it is always the motion
   // (`saysKind`).
-  if (saysKind(cue.kind, cue.word)) {
+  if (cue.soon !== true && saysKind(cue.kind, cue.word)) {
     ctx.globalAlpha = breath * KIND_ALPHA;
     ctx.font = KIND_FONT;
     ctx.fillText(cue.kind, cue.x, kindY(cue.y, cue.halfH, wordY, floor));

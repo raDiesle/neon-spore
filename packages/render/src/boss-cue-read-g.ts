@@ -5,7 +5,6 @@ import {
   type SnakeState,
   snakeCrashed,
   snakeGrip,
-  snakePointAt,
   snakeResting,
   snakeShotStop,
   type World,
@@ -14,6 +13,7 @@ import type { BossCue } from "./boss-cue.js";
 import { chartOf, chartX, chartY } from "./fleet-chart.js";
 import type { Layout } from "./layout.js";
 import { type Arena, arenaX, arenaY, snakeArena } from "./snake-draw.js";
+import { snakeHint } from "./snake-hint.js";
 
 /**
  * **What the rounds drawn as a chart are asking for** — page seven of the
@@ -131,32 +131,33 @@ function tileMid(a: Arena, col: number, row: number): { x: number; y: number } {
 }
 
 /**
- * SNAKE. Two words, both player 1's, and the driver is told nothing at all.
+ * SNAKE. One mark, on both screens: **EAT** on a point, **SHOOT** on an enemy.
  *
- * Both screens carry the whole arena (the owner, 25 September 2026), but the
- * only word the field could put on her wheel is `TURN`, and *which way* is the
- * answer the pair has to agree on out loud. A cue that turned her would be a
- * second driver, and there is only one round in here.
+ * The owner, 25 September 2026: *the controls button is not clear if its
+ * eating or shooting. and have a hint if to eat or to shoot, if the snake
+ * looks on it or if its the most near item next to snake head* — and *all is
+ * seen by both*. So the verbs are the words on player 1's two buttons, the
+ * mark stands on the one item `snakeHint` picks, and the seat is `null`: the
+ * driver steers to it, the shooter presses on it, and both are reading the
+ * same arena.
  *
- * **He is told his own two verbs, each at the moment it will land.**
+ * **The kind line says when.** Most of the time the mark is `soon`: the verb
+ * alone, saying which press the item will want. `PRESS` goes over it only on
+ * the step a press would land:
  *
- * - `PRESS` / `OPEN` on a point standing in the tile the head is about to
- *   step onto. The mouth is a window rather than a hold and the rest is at
- *   least as long as the window (`snake-controls.ts`), so the word comes out
- *   on the last step before it is owed and never earlier: a mark that stood
- *   over a point three tiles out would be an invitation to spend the window
- *   before the body arrives.
- * - `PRESS` / `FIRE` on the enemy a shot taken this instant would actually
- *   reach — `snakeShotStop`'s answer, which is the round's own walk and not a
- *   second copy of it, so the word cannot promise a hit a meteor would take.
- *   It goes out while the trigger is resting, which is the argument every cue
- *   over a refusing button makes.
- *
- * The point comes first because it expires first: the head is one step from
- * it, and an enemy inside the reach is still inside the reach next step.
+ * - on a point in the tile the head is about to step onto. The mouth is a
+ *   window rather than a hold and the rest is at least as long as the window
+ *   (`snake-controls.ts`), so `PRESS` three tiles out would spend it before
+ *   the body arrives. Past `snakeGorgeTiles` the press is a dead button and
+ *   the mouth is pulled open on the head instead, so the kind is `CARRY`,
+ *   which draws no line (`saysKind`);
+ * - on the enemy a shot taken this instant would reach — `snakeShotStop`'s
+ *   answer, the round's own walk, so the word cannot promise a hit a meteor
+ *   would take — while the trigger is not resting.
  *
  * Nothing at all outside `play` — the fold is a picture, the verdict is over,
- * and a crashed body has no head to spit out of.
+ * and a crashed body has no head to spit out of — and nothing on the way
+ * home, which has its own mark.
  */
 export function snakeCues(l: Layout, world: World, s: SnakeState): readonly BossCue[] {
   if (s.phase !== "play" || snakeCrashed(s)) return [];
@@ -164,25 +165,18 @@ export function snakeCues(l: Layout, world: World, s: SnakeState): readonly Boss
   if (head === undefined) return [];
   const a = snakeArena(l, world.cfg);
   if (a.tile <= 0) return [];
+  const hint = snakeHint(world.cfg.snakeCols, world.cfg.snakeRows, s);
+  if (hint === null) return [];
   const half = a.tile * TILE_HALF;
-  const out: BossCue[] = [];
-
-  const next = { col: head.col + s.dirCol, row: head.row + s.dirRow };
-  if (snakePointAt(s, next.col, next.row) !== -1) {
-    const at = tileMid(a, next.col, next.row);
-    // The word follows the gesture: past `snakeGorgeTiles` the MAW press is a
-    // dead button and the mouth is a thing to be pulled open on the head, so
-    // the kind over the mark changes with the body (`sim/snake-controls.ts`,
-    // `docs/spec/interludes.md`). Saying PRESS there would name a button that
-    // does nothing, which is worse than saying nothing at all.
+  const at = { ...tileMid(a, hint.col, hint.row), halfW: half, halfH: half };
+  if (hint.eat) {
+    const next = hint.col === head.col + s.dirCol && hint.row === head.row + s.dirRow;
     const kind = snakeGrip(world.cfg, s) === "crawl" ? "PRESS" : "CARRY";
-    out.push({ seat: 1, kind, word: "OPEN", ...at, halfW: half, halfH: half, seed: 75 });
+    return [{ seat: null, kind, word: "EAT", ...at, seed: 75, soon: !next }];
   }
-
   const stop = snakeShotStop(world, s);
-  if (stop !== null && stop.enemy !== -1 && !snakeResting(world, s)) {
-    const at = tileMid(a, stop.col, stop.row);
-    out.push({ seat: 1, kind: "PRESS", word: "FIRE", ...at, halfW: half, halfH: half, seed: 76 });
-  }
-  return out;
+  const lands =
+    stop !== null && stop.col === hint.col && stop.row === hint.row && stop.enemy !== -1;
+  const now = lands && !snakeResting(world, s);
+  return [{ seat: null, kind: "PRESS", word: "SHOOT", ...at, seed: 76, soon: !now }];
 }

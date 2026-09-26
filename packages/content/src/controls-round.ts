@@ -126,14 +126,14 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     id: "snakeFire",
     player: 1,
     form: "lobe",
-    label: "FIRE",
+    label: "SHOOT",
     does: "A shot straight out of the head. It is the only thing that takes an enemy off the arena.",
   },
   {
     id: "snakeMaw",
     player: 1,
     form: "lobe",
-    label: "MAW",
+    label: "EAT",
     does: "Opens the mouth for a moment. A point driven over with it shut starts the round again.",
   },
   {

@@ -25,15 +25,15 @@ import { drawSnakeHead } from "./snake-head.js";
  * the body takes it, so the driver can see the press was heard before the
  * head moves.
  *
- * **Player 1's two carry the head itself.** FIRE is the head with a bolt of
+ * **Player 1's two carry the head itself, and their verb.** SHOOT is the head with a bolt of
  * venom standing off its snout, and the bolt fades while the trigger rests;
- * MAW is the same head with its jaws at the gape the mouth is actually at
+ * EAT is the same head with its jaws at the gape the mouth is actually at
  * (`snake-clock.ts`), lit amber for as long as it stands open — the button
  * *is* the mouth, the way THE SCOUT's MAW is the ship's intake. Both are drawn
  * by the head's own drawer, so the thing under the thumb and the thing on the
  * arena are the same picture at two sizes.
  *
- * **MAW goes dark once the jaws stick.** Past `snakeGorgeTiles` the press is
+ * **EAT goes dark once the jaws stick.** Past `snakeGorgeTiles` the press is
  * refused outright and the mouth is prised open on the body instead
  * (`sim/snake-controls.ts`). The head on the face still shows the gape, since
  * the mouth can still stand open, but the halo and the fill that say *press
@@ -92,16 +92,49 @@ export function drawSnakeLobe(
   paintLobe(ctx, x, y, r, "both");
   const tile = r * HEAD_TILE;
   const arena = { x: 0, y: 0, tile, cols: 1, rows: 1 };
-  // The head sits a shade low so the venom ahead of it, or the open jaws,
-  // stand in the middle of the face.
-  const headY = y + (which === "fire" ? r * 0.28 : r * 0.1);
+  // The picture stands in the top of the face and the word under it. The
+  // head sits a shade low in that space, so the venom ahead of it, or the
+  // open jaws, stand in its middle.
+  const top = y - r * WORD_ROOM;
+  const headY = top + (which === "fire" ? r * 0.28 : r * 0.1);
   if (which === "fire")
-    drawVenom(ctx, x, y, r, live && round !== null ? restLeft(world, round) : 1);
+    drawVenom(ctx, x, top, r, live && round !== null ? restLeft(world, round) : 1);
   drawSnakeHead(ctx, arena, { x, y: headY }, 0, -1, open, flick(world.tick));
+  drawWord(ctx, x, y + r * 0.56, r, which === "fire" ? "SHOOT" : "EAT", lit);
+}
+
+/** How far the picture on player 1's faces is lifted to leave room for the word. */
+const WORD_ROOM = 0.2;
+
+/**
+ * The button's verb on its own face: **SHOOT** and **EAT**, the words the
+ * field's hint says over the item (`boss-cue-read-g.ts`). The owner, 25
+ * September 2026: *the controls button is not clear if its eating or
+ * shooting.* A dark copy under it, one pixel down, keeps it readable over the
+ * lit fill as well as the dead one.
+ */
+function drawWord(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  word: string,
+  lit: boolean,
+): void {
+  const size = Math.max(7, Math.round(r * 0.3));
+  ctx.save();
+  ctx.font = `800 ${size}px "Courier New",monospace`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#1B0630";
+  ctx.fillText(word, x + 1, y + 1);
+  ctx.fillStyle = lit ? "#1B0630" : PALETTE.text;
+  ctx.fillText(word, x, y);
+  ctx.restore();
 }
 
 /**
- * Whether the MAW face is lit: the round in play and its press still answered.
+ * Whether the EAT face is lit: the round in play and its press still answered.
  * The mouth's own gape says whether it is open. This says only whether the
  * button under the thumb is the thing that opened it.
  */

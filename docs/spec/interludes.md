@@ -539,7 +539,7 @@ of beats. `SNAKE_GRIPS` in `snake.ts` is the table and `snakeGrip` reads it.
 | Body | Tiles | What is new | Whose hand |
 |---|---|---|---|
 | `crawl` | 3–5 | the four verbs as the round was built | both, on the panel |
-| `gorge` | 6–7 | **the jaws stick.** MAW is a dead button, and its face drops the light that says press me (`snakeMawLit`); player 1 prises them apart on the head itself (`snakeJaws`, `snakeJawsMilli`) | player 1, on the body |
+| `gorge` | 6–7 | **the jaws stick.** EAT is a dead button, and its face drops the light that says press me (`snakeMawLit`); player 1 prises them apart on the head itself (`snakeJaws`, `snakeJawsMilli`) | player 1, on the body |
 | `shed` | 8+ | **the tail drags.** Player 2 may lift its last `snakeTailTiles` clear with a thumb on it (`snakeTail`); the head passes through where they stood | player 2, on the body |
 
 **The jaws are the same window under another hand.** A prise opens the mouth

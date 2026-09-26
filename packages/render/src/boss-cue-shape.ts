@@ -111,6 +111,14 @@ export interface BossCue {
    * it: never a column, a colour or a count, only the reason.
    */
   why?: string;
+  /**
+   * **A mark on what comes next, not a call for the thumb now.** The kind line
+   * is left off, and the verb alone says which press the item will want.
+   * SNAKE's hint is the case (`boss-cue-read-g.ts`): `PRESS` over a point
+   * three tiles out would spend the mouth before the body gets there. The
+   * kind stays on the cue as data, as `CARRY`'s does.
+   */
+  soon?: boolean;
 }
 
 /** Whether this screen is the one being asked. */

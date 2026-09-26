@@ -22,6 +22,10 @@ export {
   // player 2's thumb is on it — read, never re-derived from `body.length`
   // (`snake.ts`, `docs/spec/interludes.md`).
   snakeCrashed,
+  // What is standing on a tile and where a shot would stop: the field's own
+  // word for this round is read off these rather than off a second copy of
+  // the arena (`render/boss-cue-read-g.ts`, `render/snake-hint.ts`).
+  snakeEnemyAt,
   // The mouth in the floor and whether it is open, and the step the body is
   // on this tick: the picture slides on the same step the simulation takes
   // (`snake-home.ts`).
@@ -30,11 +34,9 @@ export {
   snakeGrip,
   snakeHolds,
   snakeLifted,
-  // What is standing on a tile and where a shot would stop: the field's own
-  // word for this round is read off these two rather than off a second walk
-  // of the arena (`render/boss-cue-read-g.ts`).
   snakePointAt,
   snakeResting,
+  snakeRockAt,
   snakeRound,
   snakeShotStop,
   snakeStepTicks,

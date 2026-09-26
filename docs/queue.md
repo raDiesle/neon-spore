@@ -910,23 +910,6 @@ shows a push, the red shield and ONE LAST CHANCE, then the cannon finishing it.
 Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
 `bun run check` holds it.
 
-## SNAKE: the buttons say EAT and SHOOT, and the field hints which one
-
-- **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4
-- **Taken:** 2026-09-26, claude/snake-game-mechanics-ee4ed4 (claim: claude/queue-snake-the-buttons-say-eat-and-shoot-and-the-fiel)
-- **Files:** `packages/render/src/snake-button.ts`, `packages/render/src/boss-cue-read-g.ts`, `packages/render/test/boss-cue-snake.test.ts`, `tools/words/test/drawn.test.ts`
-
-The owner, 25 September 2026: *the controls button is not clear if its eating
-or shooting. and have a hint if to eat or to shoot, if the snake looks on it
-or if its the most near item next to snake head.* Put the words **SHOOT** and
-**EAT** on player 1's two lobes (the owner's own words for these, as THE
-UNDERTOW's SUCK and SHOOT; `.claude/skills/game-words` section 6). Change the
-cue in `boss-cue-read-g.ts` from PRESS/OPEN and PRESS/FIRE to **EAT** on a point
-and **SHOOT** on an enemy the shot reaches (`snakeShotStop`). Put the hint on
-the item the head faces. If it faces none, put it on the nearest item to the
-head. Both screens show it. `bun run words` and `bun test tools/words` hold
-the words, and `bun run check` the rest. A look the owner asked for by name.
-
 ## SNAKE: the hull and the band at half height in this round
 
 - **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4

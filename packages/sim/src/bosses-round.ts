@@ -137,7 +137,7 @@ export {
   snakeLifted,
 } from "./snake.js";
 
-export { snakeCrashed, snakePointAt } from "./snake-arena.js";
+export { snakeCrashed, snakeEnemyAt, snakePointAt, snakeRockAt } from "./snake-arena.js";
 export { snakeResting } from "./snake-controls.js";
 // The way home after a cleared arena: the picture opens the mouth off it and
 // slides the body on the same step the simulation takes (`snake-home.ts`).

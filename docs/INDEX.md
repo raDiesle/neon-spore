@@ -1120,6 +1120,7 @@ by hand never moves.
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
 | `packages/render/src/snake-head.ts` | The head, shut and open |
 | `packages/render/src/snake-home.ts` | **The mouth on the way home**, the picture half of `sim/snake-home.ts` |
+| `packages/render/src/snake-hint.ts` | **Which item the field's hint stands on**, and whether it is eaten or shot |
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |

@@ -709,7 +709,7 @@ stand; the films and the files they name do not.
 | THE WARDEN | — the guide teaches WATCH only | — | `HOLD` / `HOLD` on the shut eye, hers, under NARROW while a line hangs and her thumb is not down; `CARRY` / `SWIPE` on the hatch, his, under GLARE until it is thrown — one word for each of the two later hands, said by the cue and never by the ring (`warden-grip.ts`) |
 | THE FLEET | `PLAYER 1 FIRES THE SALVO` | `THE SHELL IS THE RELOAD` | `PRESS` / `FIRE` on the sights, his alone, while they stand on a hull nobody has fired at |
 | THE VANE | `PLAYER 2 FIRES RED` | `THE COLUMN MUST BE CLEAR` | `PRESS` / `FIRE` on the mouth of the split, hers, and `CARRY` / `MOVE` on his cannon |
-| SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |
+| SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `SHOOT` on an enemy and `EAT` on a point, on the one item the head looks at or is nearest to, on both screens; `PRESS` over it only on the step a press lands |
 | PINBALL | `PLAYER 1 SLIDES THE CANNON` | `THE CANNON ALSO CATCHES` | `CARRY` / `MOVE` on the cannon, his alone, while a ball in the air is coming down somewhere else |
 | THE SCOUT | `AT HOME, PLAYER 2 OPENS MAW` | `ONLY THE MAW TAKES A MOTE` | `PRESS` / `OPEN` on the mother ship's mouth, hers alone, while the little ship stands on it and the mouth is shut |
 | THE UNDERTOW | `PLAYER 1 SLIDES UNDER IT` | `THE CANNON MUST BE UNDER IT` | `CARRY` / `MOVE` on the cannon, his alone, while a lobe stands in a column he is not in |

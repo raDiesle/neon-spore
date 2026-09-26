@@ -21169,3 +21169,16 @@ The bottleneck was the design, not the code: deciding which of forty-seven
 kinds the shield may push took longer than finding where the push goes.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — SNAKE's buttons say SHOOT and EAT, and the field hints which one
+
+- reading: 5 min. The cue reading, the kind line's rule, and the lobe's face.
+- writing: 5 min. The hint's pick, the `soon` flag, the word on each face,
+  and the cue tests rewritten for both screens.
+- looking: 5 min. Three frames of player 1's screen, to see the words fit
+  the faces and the mark land on the enemy.
+- friction: 0 min.
+- landing: 5 min. The import sort, the file map, `check:fast`, `land`.
+
+Bottleneck: none worth the name. The first frame landed after the crash, so
+the tick had to be found by trying two more.

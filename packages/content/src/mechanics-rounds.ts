@@ -25,7 +25,7 @@ export const ROUND_MECHANICS = {
     reach: "spawn",
   },
   snake: {
-    what: "The ship becomes a snake that never stops. One of you turns it and sees only the snake and the meteors. The other shoots and sees the rest.",
+    what: "The ship becomes a snake that never stops. One of you turns it. The other shoots and eats. You both see all of it.",
     reach: "spawn",
   },
   pinball: {
