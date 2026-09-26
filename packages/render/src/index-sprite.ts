@@ -11,6 +11,8 @@ export { drawScales as drawHideScales, type Form, lightHide } from "./instar-hid
 export { drawBakedScales, HIDE_SPRITE } from "./instar-hide-baked.js";
 export { drawBakedNests, NEST_SPRITE } from "./instar-nest-baked.js";
 export type { Look } from "./instar-plate.js";
+export { drawBakedMembrane, WING_SPRITE } from "./instar-wing-baked.js";
+export { WING_LOOK, type WingSkin } from "./instar-wings.js";
 export {
   blitFrame,
   greySprite,

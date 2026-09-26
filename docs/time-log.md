@@ -23446,3 +23446,15 @@ simulation — the hand, the director budget and the fire test were each found
 by a red test, not by a list.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's baked wing membranes offered in VERSUS
+
+- reading: 5 min. `drawWing` and the rig that maps the flat wing to the
+  screen, and which of the wing files the 3D thread holds.
+- writing: 30 min. The membrane painting in the flat wing's frame, the
+  `WING_LOOK` seam, the candidate, the sprite-sheet demo and its byte row.
+- looking: 10 min. The sprite sheet, then the VERSUS shot.
+- friction: 5 min. A cast the typecheck refused on the wing's frame.
+- landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
+
+Bottleneck: fitting the painting's box to the flat wing's bones by hand.

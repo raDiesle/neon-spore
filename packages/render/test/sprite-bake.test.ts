@@ -3,6 +3,7 @@ import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
 import { drawBakedScales } from "../src/instar-hide-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
 import type { Look } from "../src/instar-plate.js";
+import { drawBakedMembrane } from "../src/instar-wing-baked.js";
 import type { Layout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { greySprite, SPRITE_STEP, spritePx, tintedSprite } from "../src/sprite-bake.js";
@@ -62,7 +63,7 @@ describe("a sprite baked at load", () => {
     expect([0, 0.3, 0.55, 0.9, 1.5].map(stirAt)).toEqual([0, 1, 2, 3, 3]);
   });
 
-  it("draws the baked egg, nests and hide with values a canvas accepts", () => {
+  it("draws the baked egg, nests, hide and wing with values a canvas accepts", () => {
     const { ctx: stub } = stubCanvas();
     const ctx = stub as unknown as CanvasRenderingContext2D;
     for (let i = 0; i < 40; i++) {
@@ -75,6 +76,22 @@ describe("a sprite baked at load", () => {
         { x: 300, y: 200, r: 150, ry: 90, angle: i / 10 },
         4 + i,
         threat,
+        3,
+      );
+      const o = { x: 200, y: 200 };
+      drawBakedMembrane(
+        ctx,
+        {
+          membrane: new Path2D(),
+          frame: [o, { x: 200 + 60 * Math.cos(i / 7), y: 200 + i }, { x: 200, y: 260 - i * 3 }],
+          root: o,
+          wrist: o,
+          tips: [o],
+          unit: 60,
+          fade: 1 - threat,
+          lit: 1,
+          sheen: threat,
+        },
         3,
       );
     }

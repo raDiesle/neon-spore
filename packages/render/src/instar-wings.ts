@@ -121,29 +121,23 @@ export function drawWing(
   ctx.translate(at.x, at.y);
   const skin = haze(MEMBRANE);
   const membrane = drawSheet(ctx, sheet, skin, fade, { from: 2, to: HEM_AT });
-  // Veins, from each bone into the skin, forking as they go.
-  const o = see(root, w);
-  const pw = see(wrist, w);
   const lit = 1 - 0.45 * dark;
-  ctx.save();
-  ctx.clip(membrane);
-  ctx.strokeStyle = faded(PALETTE.sheenCold, fade, (0.2 + 0.25 * sheet.lit) * lit);
-  ctx.lineWidth = STROKE.inner;
-  ctx.beginPath();
-  for (const t of tips.map((q) => see(q, w))) {
-    for (const u of [0.35, 0.6, 0.82]) {
-      const m = toward(pw, t, u);
-      const out = toward(m, o, 0.22);
-      ctx.moveTo(m.x, m.y);
-      ctx.lineTo(out.x, out.y);
-      const fork = toward(m, out, 0.55);
-      const twig = toward(out, t, 0.35);
-      ctx.moveTo(fork.x, fork.y);
-      ctx.lineTo(twig.x, twig.y);
-    }
-  }
-  ctx.stroke();
-  ctx.restore();
+  const frame: [Point, Point, Point] = [
+    see(shoulder, w),
+    see(rig({ x: 1, y: 0 }), w),
+    see(rig({ x: 0, y: 1 }), w),
+  ];
+  WING_LOOK.paint(ctx, {
+    membrane,
+    frame,
+    root: see(root, w),
+    wrist: see(wrist, w),
+    tips: tips.map((q) => see(q, w)),
+    unit: r * SPAN * FACE_ON.reach,
+    fade,
+    lit,
+    sheen: sheet.lit,
+  });
   strokeGlow(ctx, membrane, faded(PALETTE.sheenMid, fade, lit), STROKE.inner, 0.3 * fade);
   // The fingers: thin, and thinner where the lens puts them further off.
   for (const t of tips) {
@@ -168,6 +162,53 @@ export function drawWing(
   };
   drawRig(ctx, [arm], w, at.x, at.y, { deep: PALETTE.background, rim: PALETTE.sheenRim }, fade);
   drawClaw(ctx, at, see(wrist, w), see(rig({ x: WRIST.x + 0.12, y: WRIST.y - 0.3 }), w), fade, lit);
+}
+
+/**
+ * What the skin of one wing is drawn from, in the wing's screen space: the
+ * membrane, the flat wing's origin and its `x` and `y` axes one head radius
+ * out as the lens puts them, the bones the veins leave from, and how lit it is.
+ * `unit` is the flat wing's head radius at its widest carriage, in pixels.
+ */
+export interface WingSkin {
+  membrane: Path2D;
+  frame: readonly [Point, Point, Point];
+  root: Point;
+  wrist: Point;
+  tips: readonly Point[];
+  unit: number;
+  fade: number;
+  lit: number;
+  sheen: number;
+}
+
+/** What lays the veins in the skin, read on every call so VERSUS can offer another (`tools/versus`). */
+export const WING_LOOK: { paint: (ctx: CanvasRenderingContext2D, skin: WingSkin) => void } = {
+  paint: drawVeins,
+};
+
+/** Veins, from each bone into the skin, forking as they go. */
+function drawVeins(ctx: CanvasRenderingContext2D, skin: WingSkin): void {
+  const { root: o, wrist: pw, fade, lit } = skin;
+  ctx.save();
+  ctx.clip(skin.membrane);
+  ctx.strokeStyle = faded(PALETTE.sheenCold, fade, (0.2 + 0.25 * skin.sheen) * lit);
+  ctx.lineWidth = STROKE.inner;
+  ctx.beginPath();
+  for (const t of skin.tips) {
+    for (const u of [0.35, 0.6, 0.82]) {
+      const m = toward(pw, t, u);
+      const out = toward(m, o, 0.22);
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(out.x, out.y);
+      const fork = toward(m, out, 0.55);
+      const twig = toward(out, t, 0.35);
+      ctx.moveTo(fork.x, fork.y);
+      ctx.lineTo(twig.x, twig.y);
+    }
+  }
+  ctx.stroke();
+  ctx.restore();
 }
 
 /** A point `u` along the quadratic from `a` through control `c` to `b`. */

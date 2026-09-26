@@ -1,5 +1,6 @@
 import {
   drawBakedEgg,
+  drawBakedMembrane,
   drawBakedNests,
   drawBakedScales,
   drawEgg,
@@ -15,6 +16,9 @@ import {
   NEST_SPRITE,
   PALETTE,
   type SpriteSpec,
+  WING_LOOK,
+  WING_SPRITE,
+  type WingSkin,
 } from "@neon-spore/render";
 
 /**
@@ -87,6 +91,37 @@ function plate(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): 
   return [p, form];
 }
 
+/** A flat wing half a head radius to the unit, its membrane laid in the membrane's own colour. */
+function wing(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): WingSkin {
+  const u = r * 0.5;
+  const at = (qx: number, qy: number) => ({ x: x + qx * u, y: y + qy * u });
+  const bones = [
+    [0, 0],
+    [0.7, -0.75],
+    [1.45, -1.05],
+    [2.1, -0.05],
+    [1.55, 0.6],
+    [0.8, 0.8],
+    [0.15, 1.15],
+  ].map(([qx, qy]) => at(qx ?? 0, qy ?? 0));
+  const membrane = new Path2D();
+  for (const p of bones) membrane.lineTo(p.x, p.y);
+  membrane.closePath();
+  ctx.fillStyle = PALETTE.sheenDeep;
+  ctx.fill(membrane);
+  return {
+    membrane,
+    frame: [at(0, 0), at(1, 0), at(0, 1)],
+    root: at(0.15, 1.15),
+    wrist: at(1.45, -1.05),
+    tips: [at(2.1, -0.05), at(1.55, 0.6), at(0.8, 0.8)],
+    unit: u,
+    fade: 1,
+    lit: 1,
+    sheen: 0.6,
+  };
+}
+
 export const DEMOS: readonly SpriteDemo[] = [
   {
     name: "instar-egg",
@@ -134,6 +169,21 @@ export const DEMOS: readonly SpriteDemo[] = [
     baked(ctx, x, y, r, _threat, _time, dpr) {
       const [p, form] = plate(ctx, x, y, r);
       drawBakedScales(ctx, p, form, r * 0.13, 1, dpr);
+    },
+  },
+  {
+    name: "instar-wing",
+    spec: WING_SPRITE,
+    base: PALETTE.sheenDeep,
+    glow: PALETTE.sheenCold,
+    playH: (r) => r * 0.5 * 2.5,
+    threats: [0],
+    box: [-0.05, -0.6, 1.15, 0.65],
+    shipped(ctx, x, y, r) {
+      WING_LOOK.paint(ctx, wing(ctx, x, y, r));
+    },
+    baked(ctx, x, y, r, _threat, _time, dpr) {
+      drawBakedMembrane(ctx, wing(ctx, x, y, r), dpr);
     },
   },
 ];

@@ -8,5 +8,6 @@
 import type { Variant } from "../variant.js";
 import { INSTAR_HIDE_BAKED } from "./instar-hide/baked/index.js";
 import { INSTAR_NEST_BAKED } from "./instar-nest/baked/index.js";
+import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
 
-export const VARIANTS: Variant[] = [INSTAR_HIDE_BAKED, INSTAR_NEST_BAKED];
+export const VARIANTS: Variant[] = [INSTAR_HIDE_BAKED, INSTAR_NEST_BAKED, INSTAR_WING_BAKED];

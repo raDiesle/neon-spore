@@ -1559,6 +1559,7 @@ by hand never moves.
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
+| `packages/render/src/instar-wing-baked.ts` | **THE INSTAR's wing membrane, baked** — the fourth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
 | `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
