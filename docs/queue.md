@@ -434,6 +434,7 @@ an alignment.
 ## `bun run frames` cannot photograph a wave on HARD
 
 - **Found:** 2026-09-25, claude/hard-wasted-ricochet
+- **Taken:** 2026-09-26, claude/queue-land-stops-on-a-time-log-conflict-it-says-it-mer (claim: claude/queue-bun-run-frames-cannot-photograph-a-wave-on-hard)
 - **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/page.ts`, `tools/frames/run.ts`
 
 The difficulty a run is played at lives in `localStorage` (`neon-spore.progress`,
