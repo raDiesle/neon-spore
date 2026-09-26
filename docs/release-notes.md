@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 9e598c0c8 — THE INSTAR's baked parts are checked in the fourth act's poses
+
+Every baked part draws without clipping in hover, bow, arch, rise and loom, as it did in the third act. The before-and-after sheet says so, and the queue item for the missing director poses now covers both acts.
+
 ## 2026-09-26 · 2f3938154 — THE RATCHET's timeout blows are its own head plate and its own bolt
 
 When THE RATCHET jams, the pawl lets go and the rack's head plate is shot down the strut, smearing behind it, and hits the plating flat, crumpling and throwing chips of its stone. When its loose bolt goes unshot, the pin already seen falling is driven home, as THE HASP's is. The breach now names which of a boss's blows it was, so the two can be drawn apart.
