@@ -2742,3 +2742,19 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE CYST watched at tempo on two phones
+
+- **Found:** 2026-09-26, claude/cyst-look
+- **Files:** `packages/render/src/cyst-draw.ts`, `packages/render/src/cyst-pose.ts`, `packages/render/src/cyst-grip.ts`, `packages/render/src/boss-cue-read-zi.ts`
+
+THE CYST's look (wave 113, `docs/spec/bosses.md` §11.51) is proved by
+`cyst-frame.test.ts` and `cyst-grip.test.ts` with its states set, and one
+still frame was seen. Nobody has played it at full speed. Open
+`bun run preview` with `?play=1` on THE CYST's wave, as P1 and P2, and
+play a whole fight by hand: a lit flank, the tap on the partner's mark, the
+pinch held until the crack, a swell, a spore, a bud, the bared core fired
+at, the split. Check that the `TAP`/`SHUT`/`FIRE` words sit on the thing
+they name, that a thumb on a mark is not taken as a pinch, and that THE
+SLOW lands on the lit step. Fix anything wrong, rather than unlovely, and
+queue each look as its own item.
