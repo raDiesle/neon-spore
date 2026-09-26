@@ -434,6 +434,7 @@ an alignment.
 ## A VERSUS freeze inside THE SLOW does not land where its seconds say
 
 - **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
+- **Taken:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for (claim: claude/queue-a-versus-freeze-inside-the-slow-does-not-land-wh)
 - **Files:** `tools/director/src/versus-pair.ts`, `tools/director/src/versus-pair-freeze.ts`, `tools/director/test/versus-freeze.test.ts`
 
 `Freeze` counts its target in ticks at `cfg.tickHz`, but while a window is
