@@ -737,6 +737,7 @@ reaching the hull at `reach = 1`, proved in `render/test/boss-strike.test.ts`.
 ## Unverified at 7a259b7f7: THE VISE wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-simulation-lane
+- **Taken:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at (claim: claude/queue-unverified-at-7a259b7f7-the-vise-wave-never-watc)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
 
 *Wave 107 THE VISE: pinch each lobe shut until its seam cracks, then shoot the kernel* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
