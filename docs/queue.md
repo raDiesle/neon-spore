@@ -471,6 +471,7 @@ into the roster. `bun run check` proves it.
 ## §25 THE VALVE — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-25-the-valve-the-look)
 - **Needs:** §25 THE VALVE's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
