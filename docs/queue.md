@@ -988,6 +988,7 @@ what the rest of this file holds.
 ## AUTO's field hand half plays 17 ordinary waves
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-autos-field-hand-half-plays-17-ordinary-waves)
 - **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
 
 `fieldHand` plays the cannon, the shield and the pods
