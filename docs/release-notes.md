@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 806043b6e — THE GIMBAL's rings are hoops in the world's light
+
+Each ring is now a hoop of metal with a body: a band wider than the rim, lit on the side toward the key and deep away from it, a shade round its inside and a cold rim caught on the outer edge turned from the light. The light never turns with the ring, so nothing is glued to the teeth; it sways a little with a slow breath, one per ring, and the rim, teeth and marks stay exactly where the seats read them.
+
+## 2026-09-26 · abf3c9f72 — THE LEAD's ridge is a ledge and its stalk a cord with a back
+
+THE LEAD's ridge reads as a ledge seen a little from above: a flat top hazed at its back and lit at its front edge, a crease where it turns down into the face, and its ends going away into the dark at the sides. The mound sits on that top in a flattened contact shadow and takes a cold rim down its far flank; the stalk's cord has a dark back and a dark where it goes under each bead, and every bead a cold rim. The angle, the bead count and the bead sizes are untouched.
+
+## 2026-09-26 · b844b2b28 — THE BATON's arm is a lit cord that swings in depth
+
+The tendon the sockets hang on is a tube of the rig now, lit round its back, rimmed in the cold light, and dark where it goes into each knuckle, so the knuckles are threaded on it. A slow swing runs down it toward the pair and away; nothing on the screen moves, so every socket and the bead stay where the fight puts them, and the knuckles, which are the health bar, keep their size. Thinned to the thread, the upper arm is still the hair it was.
+
+## 2026-09-26 · 2632fa2de — THE ANTIPHON's mantle turns in depth, its hem lobes rounded into pouches
+
+The long violet body now reads as a soft mass bowed toward the pair rather than a band across the top: each lobe of its hem is lit as its own pouch, both ends are hazed toward the field, and a slow turn takes one end back as the other comes forward, sliding its film streak and its rim along with it. What grows out of it sits in a contact shadow on the membrane, and each pit has a lit lower lip. Once the body is still it stops turning. Pits, perches and the rail are where they were.
+
 ## 2026-09-26 · 1f725b94e — THE SLING: the simulation lane — a fork two draws loose, then shoot into
 
 Wave 111 THE SLING is in: a forked arm bolted over the middle column whose two draw-arms are each cocked by one seat holding a finger down for the count and loosed by swiping toward the lit side as it lifts, spending the unclaimed HOLD, THEN SWIPE gesture as DrawRelease for the first time. Four draws light the yoke, which is shot in its colour; between the shots both seats draw and loose at once to keep it lit. The twelve sounds are bound; nothing in the game sends a draw from a touch yet — that rides the look — nothing is drawn, and there is no autopilot hand (docs/spec/bosses.md §11.49, nine departures argued). The director's boss-nothing guard is one list now, and serialize-boss one branch for the scenes it copies whole.

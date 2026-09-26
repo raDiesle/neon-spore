@@ -22958,3 +22958,5 @@ Bottleneck: landing — the main checkout carries another session's work.
 - landing: 5 min. `check:fast`, the commit, and `reconcile` tried again.
 
 Bottleneck: looking — a band had to be widened before it showed at all.
+
+*Measured: 23 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
