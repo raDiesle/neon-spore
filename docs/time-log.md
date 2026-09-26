@@ -29,6 +29,19 @@ entry at the end whichever end it was written at (`tools/land/ledger-merge.ts`).
 The entries dated 25 and 26 September 2026 above the first old one were
 written at the top before that was said, and are left where they are.
 
+## 2026-09-26 — THE MANTLE's "spark" is a state, not a phase nothing entered
+
+- reading: 10 min. Every reader of `"spark"`, `boss-phases.ts`'s second
+  axes, the director's STATES test, the AUTO test.
+- writing: 5 min. `MANTLE_SEAMS`, three render conditions trimmed, two
+  fixtures, one assertion.
+- looking: 0 min. Nothing drawn changed: every branch removed was dead.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the STATES card needed the name to survive, which only
+the director's test said.
+
 ## 2026-09-26 — `--boss-json` reads `now` at any depth
 
 - reading: 5 min. `boss.ts`, `boss-check.ts`, `boss-install.ts`, the queue

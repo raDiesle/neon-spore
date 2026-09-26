@@ -1142,23 +1142,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE MANTLE's "spark" phase is named and never entered
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, main (claim: claude/queue-the-mantles-spark-phase-is-named-and-never-enter)
-- **Files:** `packages/sim/src/mantle.ts`, `packages/sim/src/mantle-step.ts`, `packages/render/src/mantle-pose.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`, `packages/sim/test/mantle.test.ts`
-
-`MANTLE_PHASES` lists `"spark"`, and render reads it, but
-`sim/mantle-step.ts` never sets it: the leak on the second shear sets
-`sparkCol` and leaves the phase at `pull`. So the STATES card for "spark"
-is posed with a `want` on `mantleLeaking` rather than on the phase, and any
-reader that switches on `phase === "spark"` is dead code. Either drop
-`"spark"` from `MANTLE_PHASES` and every switch on it — the leak is already
-fully carried by `sparkCol` — or enter it on the leak and leave it when the
-spark is shot or lands. The first is smaller and matches what the
-simulation already does. Prove it with a test that walks every phase
-`MANTLE_PHASES` names through the step.
-
 ## THE GORGE's flesh has no secondary motion of its own
 
 - **Found:** 2026-09-26, this session

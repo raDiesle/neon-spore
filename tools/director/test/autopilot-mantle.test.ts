@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import { mantleBoss, step, type World } from "@neon-spore/sim";
+import { MANTLE_PHASES, mantleBoss, step, type World } from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
@@ -26,8 +26,11 @@ describe("AUTO on THE MANTLE", () => {
     let sheared = 0;
     let dark = false;
     let struck = 0;
+    const entered = new Set<string>();
     for (let i = 0; i < 30_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
+      const phase = mantleBoss(world)?.phase;
+      if (phase !== undefined) entered.add(phase);
       for (const e of world.events) {
         if (e.type === "mantleShear") sheared++;
         if (e.type === "mantleDark") dark = true;
@@ -38,5 +41,8 @@ describe("AUTO on THE MANTLE", () => {
     expect(dark).toBe(true);
     expect(struck).toBe(0);
     expect(mantleBoss(world)).toBeNull();
+    // Every phase the table names is one the step enters: "spark" was listed
+    // and never set, so a reader switching on it was dead code (`mantle.ts`).
+    expect([...MANTLE_PHASES].filter((p) => !entered.has(p))).toEqual([]);
   });
 });

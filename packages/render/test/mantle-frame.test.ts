@@ -28,7 +28,6 @@ beforeAll(() => {
 /** The spark leaking half way down its fuse, the second pair just shed. */
 function leaking(world: World): MantleState {
   const s = pulling(world, 0, 0, 2);
-  s.phase = "spark";
   s.sparkCol = midCol(CFG);
   s.sparkBeat = world.beat - Math.floor(CFG.mantleSparkBeats / 2);
   return s;

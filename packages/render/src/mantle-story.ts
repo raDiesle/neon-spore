@@ -68,7 +68,7 @@ export function mantleCrossCrack(
     return smoothstep(mantleInto(s, beat, beatPhase) / Math.max(1, cfg.mantleCrossBeats));
   }
   const last = s.cursor === pairs - 1;
-  return last && (s.phase === "brace" || s.phase === "pull" || s.phase === "spark") ? 1 : 0;
+  return last && (s.phase === "brace" || s.phase === "pull") ? 1 : 0;
 }
 
 /** How near the pair are to guiding the halves open: the lesser pull against the floor. */

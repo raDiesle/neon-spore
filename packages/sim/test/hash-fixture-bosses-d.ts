@@ -204,7 +204,7 @@ export function patchBossD(boss: BossState): void {
     // tap in — every nullable field given a value, so the walk can tell a
     // hashed one from a field it never sees change (`mantle-hash.ts`).
     boss.cursor = 1;
-    boss.phase = "spark";
+    boss.phase = "pull";
     boss.phaseBeat = 3;
     boss.depthMilli = [820, 640];
     boss.sparkCol = 4;

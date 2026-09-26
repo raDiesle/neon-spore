@@ -37,7 +37,6 @@ import type { World } from "./world.js";
 export const MANTLE_PHASES = [
   "still",
   "pull",
-  "spark",
   "heartbeat",
   "dark",
   "brace",
@@ -47,6 +46,15 @@ export const MANTLE_PHASES = [
   "turn",
 ] as const;
 export type MantlePhase = (typeof MANTLE_PHASES)[number];
+
+/**
+ * THE MANTLE's second axis, for the STATES sheet: what its seam is doing. A
+ * spark leaking from a sheared pair is carried by `sparkCol` alone and never by
+ * the phase, which stays `pull` while it falls — it was listed as a phase until
+ * 26 September 2026 and nothing ever entered it. It is still a state the pair
+ * meets a different gesture in, so it is named here, the way SNAKE's grips are.
+ */
+export const MANTLE_SEAMS = ["spark"] as const;
 
 /** The seam has no spark leaking from it. */
 export const NO_SPARK = -1;

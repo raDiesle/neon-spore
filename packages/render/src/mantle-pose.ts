@@ -45,7 +45,7 @@ export function mantleArrived(
 
 /** How lit the handles are: coming up over half a beat when a pull or the turn begins, dark otherwise. */
 export function mantleHandlesLit(s: MantleState, beat: number, beatPhase: number): number {
-  if (s.phase !== "pull" && s.phase !== "spark" && s.phase !== "turn") return 0;
+  if (s.phase !== "pull" && s.phase !== "turn") return 0;
   return smoothstep(into(s, beat, beatPhase) / 0.5);
 }
 
@@ -103,7 +103,7 @@ export function mantleValvePose(
   beat: number,
   beatPhase: number,
 ): ValvePose {
-  const pulling = s.phase === "pull" || s.phase === "spark";
+  const pulling = s.phase === "pull";
   const share = pulling ? Math.min(BOW_OVER, mantleSumShare(s, cfg)) : 0;
   const bulge = BULGE * mantleBulge(s, cfg, beat, beatPhase);
   const dragged = pulling || s.phase === "turn";

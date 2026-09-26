@@ -15,7 +15,7 @@ import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { KEEL_PHASES } from "./keel.js";
 import { LEDGER_PHASES } from "./ledger.js";
-import { MANTLE_PHASES } from "./mantle.js";
+import { MANTLE_PHASES, MANTLE_SEAMS } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
 import { OCULUS_PHASES } from "./oculus.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
@@ -120,7 +120,9 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   spool: SPOOL_PHASES,
   hasp: HASP_PHASES,
   ratchet: RATCHET_PHASES,
-  mantle: MANTLE_PHASES,
+  // Both of THE MANTLE's axes: the fight's clock, and a spark leaking from
+  // the seam — which is `sparkCol`, never a phase (`mantle.ts`).
+  mantle: [...MANTLE_PHASES, ...MANTLE_SEAMS],
   keel: KEEL_PHASES,
   valve: VALVE_PHASES,
   seam: SEAM_PHASES,
