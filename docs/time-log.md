@@ -24793,3 +24793,5 @@ Bottleneck: writing — twelve new events each need four registrations outside t
 
 Bottleneck: looking — finding which calls a speck spent its frame on took
 longer than leaving them out.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

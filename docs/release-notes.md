@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 55c9af745 — THE INSTAR drawn as a speck leaves out what cannot be seen
+
+When the flight carries THE INSTAR at a third of its size or less (60 to 120 px across on a phone), it is drawn without its surface texture: no hide scales, horn ridges or belly scutes, every other spine spike, one glow pass instead of three, and a tube's light read off rings six screen pixels apart. The outline, colours, light, rims and every part are still drawn. The dive's worst frame went from 440 fills and 513 strokes to 289 and 237; the coil and the roar peak at seven tenths of full size and are unchanged.
+
 ## 2026-09-26 · dc0234ffc — THE RATCHET tells a story between its teeth: a slip, a kick, a bind and a wind
 
 After each of the first four clean teeth the rack now threatens to undo the step, each state its own SLOW window: the slip is her catch set and held, the kick is his pawl held down, the bind is both at once, and the wind is her catch set three times over. A state run out is the rack's own blow at the hull, named for the state, and the state runs again; none takes a tooth back.
