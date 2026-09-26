@@ -1410,10 +1410,11 @@ by hand never moves.
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The clocks a wave's opening keeps between frames — the page's, the wave's — and the blobs a READY throws |
 | `packages/render/src/opening-key.ts` | Which page of a wave's opening is up, as a string only the clocks compare |
-| `packages/render/src/oculus-draw.ts` | **THE OCULUS**: a lens of six leaves over the middle column |
+| `packages/render/src/oculus-draw.ts` | Where the hull and the look's column are from the lens's centre — the story steps' aim |
 | `packages/render/src/oculus-marks.ts` | **THE OCULUS's marks**: the two things that say what a step asks — the lit pair, which is *both hold now* |
 | `packages/render/src/oculus-pose.ts` | **The clock THE OCULUS is posed off** (§27, *Animation*): five poses — open, two leaves shut, four |
 | `packages/render/src/oculus-shape.ts` | **THE OCULUS's geometry**: where the lens stands, and the paths it is made of |
+| `packages/render/src/oculus-story.ts` | **THE OCULUS's two story steps, drawn** (§27's story item; the rules are `sim/oculus-guard.ts` and… |
 | `packages/render/src/oculus-grip.ts` | **The thumbs on THE OCULUS** — the first of its hands lanes |
 | `packages/render/src/oculus-fx.ts` | What THE OCULUS leaves behind a frame (§27, *Presentation*) |
 | `packages/render/src/oculus-blow.ts` | **THE OCULUS's own blow at the hull** (`boss-strike-look.ts`): the lens does what a lens does |

@@ -1,12 +1,15 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
+  midCol,
   OCULUS_LEAVES,
   type OculusState,
   oculusLitStep,
+  oculusLookCol,
   oculusWindowBeats,
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
+import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -36,7 +39,20 @@ import {
   oculusRimPath,
   oculusSocketPath,
 } from "./oculus-shape.js";
+import {
+  drawOculusGlare,
+  drawOculusSight,
+  oculusCorePose,
+  oculusGaze,
+  oculusGlare,
+} from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
+
+/** Where the hull and the look's column are from the lens's centre — the story steps' aim. */
+interface Aim {
+  toHull: number;
+  lookX: number;
+}
 
 /**
  * **THE OCULUS**: a lens of six leaves over the middle column, shut two at a
@@ -51,6 +67,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * and the only colour on it is what a step asks for — the lit pair in white,
  * the core in its cannon's colour. **Its health is the core**, smaller for
  * every hit it has taken.
+ *
+ * The glare and the look, the two story steps, are `oculus-story.ts`.
  *
  * What outlives a frame — the thud of a shut pair, a core hit's flash, the
  * shatter's, the blow — is `fx` (`oculus-fx.ts`), told the core's colour here
@@ -73,13 +91,14 @@ export function drawOculus(
 
   const step = oculusLitStep(s);
   if (step?.ask === "fire") fx.tell(oculusColour(step.color).rim);
+  const y = home.y - oculusLift(l, arrived) + fx.thud * l.tile;
+  const looked = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
+  const lookCol = looked?.ask === "look" ? oculusLookCol(midCol(cfg), looked) : midCol(cfg);
+  const aim: Aim = { toHull: l.hullY - y, lookX: fieldX(l, lookCol) - home.x };
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * shatter);
-  ctx.translate(
-    home.x + fx.hurt.shakeX(time, l.tile),
-    home.y - oculusLift(l, arrived) + fx.thud * l.tile,
-  );
-  if (shatter <= 0) drawLens(ctx, l, world, s, beat, beatPhase, time, fx);
+  ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);
+  if (shatter <= 0) drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
   else {
     // The lens falls apart along its plates: six wedges, each thrown out
     // along its own middle and turned a little as it goes.
@@ -95,7 +114,7 @@ export function drawOculus(
       wedge.arc(0, 0, rim, a - seg / 2, a + seg / 2);
       wedge.closePath();
       ctx.clip(wedge);
-      drawLens(ctx, l, world, s, beat, beatPhase, time, fx);
+      drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
       ctx.restore();
     }
   }
@@ -113,6 +132,7 @@ function drawLens(
   beatPhase: number,
   time: number,
   fx: OculusFx,
+  aim: Aim,
 ): void {
   const face = oculusFacePath(l);
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
@@ -141,11 +161,21 @@ function drawLens(
     ctx.strokeStyle = rgba(PALETTE.rock, 0.6);
     ctx.stroke(socket);
   }
-  const firing = step !== null && step.ask === "fire" && s.socketOpen;
-  const lit = firing
-    ? { color: step.color, left: oculusLeft(s, oculusWindowBeats(world, step), beat, beatPhase) }
-    : null;
-  drawOculusCore(ctx, l, open, s.hits, lit, beatPhase);
+  // The core is lit while a step asks the eye itself: a fire, a look in
+  // its colour, a glare in white.
+  const eyed =
+    step !== null && (step.ask === "fire" || step.ask === "look" || step.ask === "glare");
+  const lit =
+    eyed && s.socketOpen
+      ? { color: step.color, left: oculusLeft(s, oculusWindowBeats(world, step), beat, beatPhase) }
+      : null;
+  const gaze = oculusGaze(s, world.cfg, beat, beatPhase);
+  const glare = oculusGlare(s, world.cfg, beat, beatPhase);
+  const core = oculusCorePose(l, gaze, glare);
+  ctx.save();
+  ctx.translate(core.x, core.y);
+  drawOculusCore(ctx, l, open, s.hits, lit, beatPhase, core.scale);
+  ctx.restore();
 
   const { rim } = oculusRadius(l);
   const ring = oculusRimPath(l, time * 0.6);
@@ -162,6 +192,9 @@ function drawLens(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.5);
   ctx.stroke(oculusLapPath(l));
+  drawOculusGlare(ctx, l, glare, aim.toHull, beatPhase);
+  const colour = oculusColour(step?.ask === "look" ? step.color : "either");
+  drawOculusSight(ctx, l, core, { x: aim.lookX, y: aim.toHull }, colour, gaze);
 
   if (step === null || (step.ask !== "shut" && step.ask !== "reseal")) return;
   const pair = oculusLitPair(s);

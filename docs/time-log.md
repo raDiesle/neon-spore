@@ -24393,3 +24393,16 @@ Bottleneck: friction — the previous lane's reconcile with two lanes that
 had landed beside it.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's glare and look drawn
+
+- reading: 5 min. The lens's draw, marks and cue pages, and SEAM's story
+  picture for the pattern.
+- writing: 20 min. The beam, the rolled core and its sight, the two cue
+  words, the frame and cue tests.
+- looking: 5 min. Two frames, the glare and the look, both read right first
+  time.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the picture is small, but it had to thread the lens's frame through to the hull.

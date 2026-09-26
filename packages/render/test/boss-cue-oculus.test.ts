@@ -6,6 +6,7 @@ import {
   type OculusAsk,
   type OculusState,
   oculusBoss,
+  oculusLookCol,
   startWave,
   step,
   ticksPerBeat,
@@ -29,7 +30,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **THE OCULUS, and the two words the field may say about it**
  * (`render/src/boss-cue-read-ze.ts`): `HOLD` on each seat's half of the lens
  * while a pair is lit, gone the moment that seat's thumb is down, and `FIRE`
- * under the middle column while the core is lit. What is *not* said: nothing
+ * under the middle column while the core is lit — under the column it looks
+ * down on a look — and `SHIELD` under the middle on a glare. What is *not* said: nothing
  * between steps or through the break, and never the colour the core wants.
  */
 
@@ -121,10 +123,35 @@ describe("THE OCULUS", () => {
     }
   });
 
+  it("puts FIRE under the column the eye looks down on a look", () => {
+    const { world, s } = stood();
+    light(s, world, "look");
+    const look = s.steps[s.cursor];
+    if (look === undefined) throw new Error("no look step");
+    expect(look.offset ?? 0).not.toBe(0);
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("FIRE");
+      expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], oculusLookCol(midCol(CFG), look)), 5);
+    }
+  });
+
+  it("puts SHIELD under the middle column on a glare, on either screen", () => {
+    const { world, s } = stood();
+    light(s, world, "glare");
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("SHIELD");
+      expect(c?.seat).toBeNull();
+      expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
+      expect(c?.y).toBe(LAYOUT[role].hullY);
+    }
+  });
+
   it("never writes a number, a colour or a column", () => {
     const { world, s } = stood();
     const words: string[] = [];
-    for (const ask of ["shut", "fire", "reseal"] as const) {
+    for (const ask of ["shut", "fire", "reseal", "glare", "look"] as const) {
       light(s, world, ask);
       for (const role of ["p1", "p2"] as const) words.push(cue(world, role)?.word ?? "");
     }

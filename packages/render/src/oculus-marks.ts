@@ -41,7 +41,7 @@ export function drawOculusLitPair(
  * The core in its socket: a bare round thing, smaller for every hit it has
  * taken — the health read off the body. Dark between fire steps; lit in the
  * step's colour while one is owed, with a ring round it closing as the step's
- * beats run out.
+ * beats run out. `scale` is how wide it stands: wider while it glares.
  */
 export function drawOculusCore(
   ctx: CanvasRenderingContext2D,
@@ -50,9 +50,10 @@ export function drawOculusCore(
   hits: number,
   lit: { color: Color | "either"; left: number } | null,
   beatPhase: number,
+  scale = 1,
 ): void {
   if (open <= 0) return;
-  const r = oculusSocketRadius(l) * open * 0.72 * Math.max(0.3, 1 - 0.2 * hits);
+  const r = oculusSocketRadius(l) * open * 0.72 * Math.max(0.3, 1 - 0.2 * hits) * scale;
   const core = new Path2D();
   core.arc(0, 0, Math.max(0.5, r), 0, Math.PI * 2);
   if (lit === null) {

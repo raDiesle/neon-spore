@@ -8476,9 +8476,16 @@ THE SLOW and both run out a hull hit (`bossStrikesHull`):
 
 The script is eleven steps now: the glare after the first fire, the look
 after the first reseal (`content/waves/act-11.ts`). AUTO answers both
-(`hands/boss-hands-oculus.ts`). **Neither is drawn yet**: the look lane is
-next, in the current style (`sim/test/oculus-story.test.ts` proves the
-rules).
+(`hands/boss-hands-oculus.ts`); `sim/test/oculus-story.test.ts` proves the
+rules.
+
+**Both are drawn** (`render/oculus-story.ts`, `test/oculus-story-frame.test.ts`).
+The glare dilates the core white and throws a pale beam from the socket to
+the hull under the middle column, with a bar lit where it lands; the look
+rolls the core aside in its socket, lit in its colour, with a dotted sight
+down to the hull at the column it looks down and a notch there. Each eases
+back over the rest after. The cue says `SHIELD` under the beam and `FIRE`
+under the notch (`render/boss-cue-read-ze.ts`).
 
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 

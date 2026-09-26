@@ -3,6 +3,7 @@ import {
   type OculusState,
   oculusHolding,
   oculusLitStep,
+  oculusLookCol,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -27,6 +28,10 @@ import { oculusHalfStanding } from "./oculus-grip.js";
  * either seat. The core wants its own colour, and the word never names one:
  * the core is lit in it on both screens, and which cannon is that colour is
  * the conversation — THE KEEL's socket, again (`boss-cue-read-zd.ts`).
+ *
+ * **The story steps** (`oculus-story.ts`): a look is `FIRE` at the hull
+ * under the column the eye looks down, where its notch is; a glare is
+ * `SHIELD` at the hull under the middle, where its beam lands.
  */
 
 const HALF_W = 0.9;
@@ -40,9 +45,14 @@ export function oculusCues(
 ): readonly BossCue[] {
   const out: BossCue[] = [];
   const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
-  if (oculusLitStep(s)?.ask === "fire") {
-    const x = fieldX(l, midCol(world.cfg));
+  const step = oculusLitStep(s);
+  if (step?.ask === "fire" || step?.ask === "look") {
+    const x = fieldX(l, oculusLookCol(midCol(world.cfg), step));
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 130 });
+  }
+  if (step?.ask === "glare") {
+    const x = fieldX(l, midCol(world.cfg));
+    out.push({ seat: null, kind: "PRESS", word: "SHIELD", x, y: l.hullY, ...frame, seed: 133 });
   }
   if (oculusHolding(s)) {
     for (const seat of [1, 2] as const) {
