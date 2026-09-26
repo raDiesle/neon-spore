@@ -2680,3 +2680,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A landing's record merge let two INDEX.md rows name one file
+
+- **Found:** 2026-09-26, claude/queue-cloud-only-a-dragged-tail-wants-a-verlet-chain-i
+- **Files:** `tools/land/`, `docs/INDEX.md`, `tools/index/test/drift.test.ts`
+
+`48ad4d936` (THE TRIVET's cue) reached `origin/main` with two rows for
+`boss-cue-read-zg.ts`, one of them saying THE TRIVET, and the drift test
+went red on main for every lane after it. The TRIVET lane had first written
+its page as `zg`, THE RIME landed `zg` meanwhile, and the record merge kept
+both sides' rows. The verlet lane dropped the row. What to do: find where
+`land`/`reconcile` merges `docs/INDEX.md`, make it re-run `bun run index`
+(or refuse) when two rows share a path, and prove it with a test that feeds
+it the two sides this commit had.

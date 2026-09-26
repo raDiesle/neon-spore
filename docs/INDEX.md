@@ -1031,7 +1031,6 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-ze.ts` | **What THE OCULUS is asking for** — page thirty-one of the readings |
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
 | `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
-| `packages/render/src/boss-cue-read-zg.ts` | **What THE TRIVET is asking for** — page thirty-three of the readings |
 | `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
