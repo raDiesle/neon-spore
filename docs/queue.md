@@ -846,22 +846,6 @@ which is a new event, `instarShove`, and so the twelve registrations
 `.claude/skills/new-boss-state` lists. A look the owner asked for by name
 (*player really feels when pulling it is required to be stronger*).
 
-## The push-back is shown as a mistake: red shield, a sound, ONE LAST CHANCE
-
-- **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
-- **Taken:** 2026-09-26, claude/shield-enemy-knockback-6364bd (claim: claude/queue-the-push-back-is-shown-as-a-mistake-red-shield-a)
-- **Files:** `packages/render/src/shield.ts`, `packages/render/src/shield-flash.ts`, `packages/render/src/effects-ingest.ts`, `packages/audio/src/bind.ts`, `packages/audio/src/bind-volley.ts`
-
-**After "The shield pushes a cannon creature back up, once" has landed** — it
-needs that entry's event. A look the owner asked for by name (25 September
-2026): pushing back a creature that belongs to the cannon is the wrong answer
-that still saves the hull, so the shield lights **red** for a moment with an
-effect, a "wrong" sound plays, and the pushed body carries the words **ONE LAST
-CHANCE** while it is in the air. The body is seen to bounce off the dome, not
-from inside it — `volleyReturn`'s `fromRow` comment has why. Words through
-`.claude/skills/game-words`; drawn again in `packages/render/test/frame.test.ts`;
-the effect cleared in `Effects.reset()`. `bun run check` holds it.
-
 ## A wave and its guide that teach the push-back
 
 - **Found:** 2026-09-25, claude/shield-enemy-knockback-6364bd
