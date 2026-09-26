@@ -434,6 +434,7 @@ an alignment.
 ## Split the canvas stub and THE THROAT's cue test, both past 250 lines
 
 - **Found:** 2026-09-25, claude/throat-boss-guide-8b22d2
+- **Taken:** 2026-09-26, claude/queue-the-directors-seek-counts-ticks-so-a-briefing-ea (claim: claude/queue-split-the-canvas-stub-and-the-throats-cue-test-b)
 - **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/boss-cue-throat.test.ts`
 
 The stub is 685 lines and the test 345. The stub grew a `strokeText` in this lane, the first caller of it in
