@@ -434,6 +434,7 @@ an alignment.
 ## THE SLOW does not say whether a window asks for something
 
 - **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
+- **Taken:** 2026-09-26, claude/queue-the-mazes-lever-knob-rests-on-top-of-the-lit-way (claim: claude/queue-the-slow-does-not-say-whether-a-window-asks-for)
 - **Files:** `packages/sim/src/slow.ts`, `packages/sim/src/hash.ts`, `packages/render/src/slow-fuse.ts`, `packages/sim/src/instar-step.ts`
 
 The fuse that counts a window down (`slow-fuse.ts`) should only draw on a
