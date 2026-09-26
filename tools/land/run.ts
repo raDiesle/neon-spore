@@ -50,17 +50,17 @@
  */
 
 import { crlfOnDisk, crlfRefusal } from "./crlf.js";
-import { git, gitOrDie, runner } from "./git.js";
-import { type Landing, plan, pushNow, SWEPT_NOTHING } from "./land.js";
+import { git, gitOrDie } from "./git.js";
+import { type Landing, plan, SWEPT_NOTHING } from "./land.js";
 import { writeNotes } from "./note-commit.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { everHeldIn, queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
-import { trunkRaced } from "./race.js";
+import { trunkMove, trunkRaced } from "./race.js";
 import { redCheckReport } from "./red-check.js";
-import { deleteRemote, deletionLine } from "./remote-branch.js";
 import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
-import { readState } from "./state.js";
+import { send } from "./send.js";
+import { readState, trunkTree } from "./state.js";
 import { sweep } from "./sweep.js";
 import { installFrozen, oldBunRefusal } from "./toolchain.js";
 
@@ -193,9 +193,14 @@ async function moveTrunk(): Promise<Landed[]> {
     console.log(`✗ ${raced}`);
     process.exit(1);
   }
+  // The holder read again, and handed on: the note and the sweep after this
+  // commit in whichever tree holds the trunk now (`trunkMove`).
+  const move = trunkMove(TRUNK, state.trunkTree, await trunkTree(root, TRUNK));
+  if (move.said) console.log(`  ⚑ ${move.said}`);
+  state.trunkTree = move.tree;
   try {
-    if (going.moveRef) await gitOrDie(["branch", "--force", TRUNK, head], root);
-    else await gitOrDie(["merge", "--ff-only", branch], state.trunkTree);
+    if (move.tree === "") await gitOrDie(["branch", "--force", TRUNK, head], root);
+    else await gitOrDie(["merge", "--ff-only", branch], move.tree);
   } catch (error) {
     console.log(`✗ ${TRUNK} would not fast-forward: ${(error as Error).message.split("\n")[0]}`);
     process.exit(1);
@@ -212,34 +217,6 @@ await writeNotes(state, landed, TRUNK, root, argv);
 const cleanup = going.sweeps ? await sweep(state, root, TRUNK) : SWEPT_NOTHING;
 if (!going.sweeps) console.log(`  kept     ${branch} and every worktree — --keep swept nothing`);
 
-if (pushNow(going, cleanup)) {
-  try {
-    await gitOrDie(["push", "origin", `${TRUNK}:${TRUNK}`], state.trunkTree || root);
-    console.log(`  pushed   origin/${TRUNK}`);
-  } catch {
-    const sha = await git(["rev-parse", "--short", TRUNK], state.trunkTree || root);
-    console.log(`✗ ${TRUNK} is at ${sha} locally; origin was not updated — run: bun run push`);
-    process.exit(2);
-  }
-} else if (going.mayPush) {
-  const unpushed = await git(
-    ["rev-list", "--count", `origin/${TRUNK}..${TRUNK}`],
-    state.trunkTree || root,
-  );
-  const behind = Number(unpushed) || 0;
-  const many = behind === 1 ? "commit" : "commits";
-  console.log(`  held     origin/${TRUNK} — ${behind} ${many} unpushed; bun run push sends them`);
-}
-
-// The branch on `origin`, which only a clone with no worktrees ever put there —
-// a cloud session pushes its lane so the turn has somewhere to report from, and
-// then lands it. Asked once and said in one line either way
-// (`remote-branch.ts`).
-if (going.sweeps && going.moveRef && going.mayPush) {
-  const onOrigin = await git(["ls-remote", "--heads", "origin", branch], root);
-  if (onOrigin) {
-    console.log(deletionLine(await deleteRemote(runner(root), branch), branch));
-  }
-}
+await send(going, cleanup, state, root);
 
 console.log(badge(branch, TRUNK, await git(["rev-parse", "--short", TRUNK], root), state.ahead));

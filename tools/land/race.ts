@@ -40,3 +40,28 @@ export function trunkRaced(trunk: string, before: string, now: string): string |
     `moved — run bun run land again and it will replay onto ${now.slice(0, 7)}`
   );
 }
+
+/**
+ * Who moves the trunk, asked again just before the move rather than trusted
+ * from the plan: the tree now holding it, or `""` for a ref move. `said` is
+ * the line that tells the landing the answer changed under it.
+ *
+ * The same gap as `trunkRaced`, from the other side. The plan read "no
+ * worktree holds it" and chose `git branch --force`; then the main checkout
+ * switched onto `main` during the minutes of `bun run check`, and the move
+ * died with *cannot force update the branch 'main' used by worktree* after a
+ * green check (26 September 2026). The other way round is worse: a tree that
+ * let go of `main` would be sent a `merge --ff-only` onto whatever branch it
+ * stands on now. So the holder is read twice, and the second reading wins.
+ */
+export function trunkMove(
+  trunk: string,
+  planned: string,
+  now: string,
+): { tree: string; said?: string } {
+  if (planned === now) return { tree: now };
+  if (now === "") {
+    return { tree: now, said: `${planned} let go of ${trunk} during the check; moving the ref` };
+  }
+  return { tree: now, said: `${now} took ${trunk} during the check; fast-forwarding it there` };
+}

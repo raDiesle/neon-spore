@@ -22093,3 +22093,16 @@ Bottleneck: friction — the clone's two shallow segments had to be joined
 before the trunk could be brought up.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `land` asks who holds the trunk again just before moving it
+
+- reading: 10 min. The entry, `run.ts`'s move, `race.ts`, `state.ts`,
+  `note-commit.ts` and `sweep.ts` for who reads `trunkTree` afterwards.
+- writing: 10 min. `trunkMove`, the re-read handed on to the note and the
+  sweep, `send.ts` split off, `race.test.ts` with `trunkRaced`'s cases moved in.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. `run.ts` reached its ceiling and the push half moved out.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the plan's holder is read in four places after the move,
+and the note's commit would have failed the same way.

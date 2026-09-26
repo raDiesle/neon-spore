@@ -2463,6 +2463,7 @@ by hand never moves.
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
 | `tools/land/stamp.ts` | The `*Measured:` line a landing stamps under a time-log entry — the elapsed from the lane's first commit to the trunk moving, beside the session's own estimate |
 | `tools/land/shallow.ts` | A shallow clone, which is what a cloud session lands from |
+| `tools/land/send.ts` | What a landing says to `origin` once the trunk has moved: the push, the count held back, the lane's own branch gone |
 | `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
 | `tools/frames/exec.ts` | The three things every part of this tool needs before it can do anything: where the checkout is |
 | `tools/frames/scratch.ts` | The throwaway checkouts `bun run frames` works out of: made, used, and — the part that was missing |
@@ -2470,7 +2471,7 @@ by hand never moves.
 | `tools/land/crlf.ts` | The line endings on disk, asked before `bun run check` is asked anything |
 | `tools/retry.ts` | Removing something from disk and then *asking* whether it went — the policy |
 | `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
-| `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
+| `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check`, and who holds the trunk once it is over |
 | `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
 | `tools/land/unverified-run.ts` | `bun run unverified <sha> --unverified "<what>" [--unverified "<what>" ...]` |
 | `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |

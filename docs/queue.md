@@ -680,22 +680,6 @@ cropped PNG is how each one gets checked once drawn. A boss with no lit
 plates at all (mechanism-only bodies, THE OCULUS among the unbuilt ones) has
 nothing to fix.
 
-## `land` fails when the trunk gets a holder during its check
-
-- **Found:** 2026-09-26, claude/slow-visual-versus-page-a1e86e
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-land-fails-when-the-trunk-gets-a-holder-during-i)
-- **Files:** `tools/land/run.ts`, `tools/land/say.ts`
-
-`moveTrunk` reads `going.moveRef` — "no worktree holds it" — when the landing
-is planned, then runs `bun run check` for minutes, then moves the ref with
-`git branch --force`. When the main checkout switched onto `main` in between,
-the move failed with *cannot force update the branch 'main' used by worktree*,
-after a green check, and the landing had to be run a third time (the second
-had lost to `trunkRaced`, as it should). Ask `git worktree list --porcelain`
-again beside `trunkRaced`, just before the move, and take the `merge --ff-only`
-path in the tree that now holds the trunk; pin it with a unit case on the
-planner that feeds it a holder appearing after the plan.
-
 ## Unverified at b8986b62b: READY's lift taking the screen on a real Android phone
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
