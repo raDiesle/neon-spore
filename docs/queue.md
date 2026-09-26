@@ -1000,18 +1000,3 @@ end scarred or never clear (THE WISP never clears; the rest clear with two to
 twelve scars). Give each such creature its answer in the hand, a file per few
 creatures as the pods have theirs, taking its name out of `HALF_PLAYED` as it
 goes; the test already fails for any wave the hand stops clearing clean.
-
-## THE WARD brings two rocks onto the hull on one tick, in two columns
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-ward-brings-two-rocks-onto-the-hull-on-one-t)
-- **Files:** `packages/content/src/waves/act-3b.ts`, `tools/director/test/autopilot-field.test.ts`
-
-THE WARD's `meteorFaster` (beat 6) and `meteorFastest` (beat 7) reach the hull
-on the same tick, tick 900 on `DEFAULT_CONFIG`, in columns 2 and 10. The shield
-stands in one column, and the ward pod only frees player 1 from the timing
-(`guardArmed`), so one of the two always breaches: AUTO on BOTH, which turns
-every other rock of the wave, takes one scar on the poses' config and loses the
-wave on the game's own. Move one entry by a beat, or its column next to the
-other's, so the two arrive a beat apart. Then take THE WARD out of
-`HALF_PLAYED`: the test then asks that the wave clears unscarred.

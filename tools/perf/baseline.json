@@ -366,12 +366,11 @@
       "id": "theWard",
       "wave": 34,
       "name": "THE WARD",
-      "bodies": 5,
-      "arrivals": "5:4960610",
-      "typical": 2.26,
-      "mean": 2.36,
-      "p90": 2.88,
-      "jitter": 0.171
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theWisp",

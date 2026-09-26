@@ -75,7 +75,7 @@ export const WAVES_ACT_3B: Wave[] = [
       { beat: 2, col: 2, kind: "meteorMedium", color: null },
       { beat: 4, col: 5, kind: "meteorFast", color: null },
       { beat: 6, col: 1, kind: "meteorFaster", color: null },
-      { beat: 7, col: 6, kind: "meteorFastest", color: null },
+      { beat: 8, col: 6, kind: "meteorFastest", color: null },
     ],
     pods: [{ beat: 0, col: 3, row: 2, kind: "ward" }],
   },
