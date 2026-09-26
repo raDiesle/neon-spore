@@ -434,6 +434,7 @@ an alignment.
 ## THE INSTAR, lash: a tail that sweeps rather than stands
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-26, claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta (claim: claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s)
 - **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-marks.ts`, `packages/sim/src/instar-hash.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-marks.ts`, `packages/content/src/instar-script.ts`
 
 Steps 3 and 7. The blades hang over two fixed points, so twenty taps are
