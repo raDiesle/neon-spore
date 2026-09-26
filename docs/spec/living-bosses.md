@@ -14,6 +14,10 @@ The owner asked for three things at once:
 3. The director shows which step of a choreography is playing, how many are
    left, and jumps to any step quickly.
 
+And, the same evening, a fourth: the parts move on their own too — the head,
+the body, the hands and limbs each tilt, turn and rotate a little, and none
+is ever held fixed. That is the part drift in section 1.
+
 What stays true from before: **the graphics look 3D, the game does not move
 in 3D** (`.claude/skills/depth`), battery and frame time matter more than any
 look, no library, and **a look is offered, never replaced** — every change
@@ -62,6 +66,174 @@ and fails on any step larger than a frame's share of that speed.
   `packages/content/src/surface.ts`. It reads as alive, not as turning. Such a
   boss gets its real turn only when it moves onto the rig.
 
+### Every part moves on its own
+
+The owner, 26 September 2026, after the drift above was written: the body
+turning as one piece is not enough. The body, the hands or limbs and above
+all the head each tilt, turn and rotate a little on their own, and none of
+them is ever held still. This is for every boss with a body.
+
+So on top of the whole-body drift there is a second layer, the **part
+drift**. Every named part of a boss — head, jaw, neck, arms, hands, claws,
+wings, tail, eyes, horns, antennae, lobes, whatever that boss has — gets
+three small angles of its own, about its own joint:
+
+| Angle | What it is | About |
+|---|---|---|
+| **turn** | the part swings to one side and back | the joint's up axis |
+| **tilt** | the part nods, or lifts and drops | the joint's side axis |
+| **rotate** | the part cocks, in the plane we see | the axis pointing at us |
+
+Each part turns **at its joint, never about its own middle**: the head at
+the neck, a hand at the wrist, a wing at the shoulder, a horn at its root. A
+part that turned about its centre would look pinned on, which is the thing
+the owner is asking to lose.
+
+**How big, how slow.** The ranges are small and the periods are the part's
+own, faster for a small part than a big one, which is what weight looks like:
+
+| Part | turn | tilt | rotate | Period (wandering) |
+|---|---|---|---|---|
+| head (on top of the body drift's head yaw) | ±6° | ±6° | ±8° (the cock of the head) | 3–5 s |
+| jaw | — | 0 to 4° open, never past shut | — | 2–4 s |
+| neck, each link | ±4° | ±3° | ±3° | follows the head |
+| arm, limb, at the shoulder or hip | ±5° | ±6° | ±4° | 4–6 s |
+| hand, claw, foot, at the wrist | ±8° | ±8° | ±6° | 2–4 s |
+| finger, talon, each | — | ±10° curl | — | 1.5–3 s |
+| wing, at the shoulder, out of its beat | ±4° | ±5° | ±3° | 3–5 s |
+| tail, each link | ±5° at the root, growing to ±10° at the tip | ±4° | ±4° | follows the body |
+| horn, antenna, feeler, each link | ±4° at the root, ±12° at the tip | ±6° | — | 2–4 s |
+| eyes, both together | a glance: the pupil moves up to 0.2 of the eye's radius | | | 1.5–4 s, with holds |
+| a slime's lobe | — | ±4° lean | ±3° | 2–5 s |
+
+A boss with a part not in the table takes the row of the part nearest it in
+size and in what it does. No part's own motion is faster than **20° a
+second**, and no point of the picture — a part's motion added to everything
+it hangs on — moves faster than **30° a second**. The same test as the body
+drift's samples ten minutes at every frame and fails on a larger step.
+
+**Follow-through and overlap.** The parts are a hierarchy, and motion runs
+down it late:
+
+- **the eyes lead the head, the head leads the body.** A glance comes
+  first, the head follows it a moment later, the body a moment after that.
+  An animal decides where to look with its eyes.
+- **the body leads the limbs, a limb leads its hand, a hand its fingers**;
+  **a root leads its tip** — neck, tail, horn, antenna.
+- Each child does what its parent did a little earlier and a little less,
+  through `chainAt` in `packages/render/src/solid-motion.ts`, *plus* its own
+  noise on its own seed. The lag is what makes the parts overlap instead of
+  moving in lockstep; the own noise is what keeps a child from being a
+  delayed copy of its parent.
+- **Settling.** When the script moves a part — a pose changes, a strike
+  lands, a gesture ends — the children overshoot and settle, a damped swing
+  of the time since that step began: `A · e^(−t/τ) · cos(ωt)`, with the
+  overshoot a fifth of the move, settled in about half a second. It is a
+  function of the step's own clock, so it keeps no state and nothing goes in
+  `Effects`, the same as the drift.
+
+**Out of phase.** Every part draws its noise from its own seed, the boss's
+seed and the part's index hashed together. No two parts of one boss move in
+step: two parts that are not parent and child correlate under 0.3 over ten
+minutes. **A pair is not a mirror** — the left hand and the right hand, the
+two wings, the two horns correlate under 0.5 — except the **eyes, which look
+the same way together**, as eyes do.
+
+**Where a gesture owns a part, the drift lets go.** A jaw the script opens to
+roar, an arm the script swings, a wing mid-beat: that part's own drift eases
+to nothing over a quarter beat as the gesture starts and back over a quarter
+beat after it ends, from where it was. The part layer never fights the
+choreography; it fills the time between.
+
+**Where a thumb is working, it dies down harder.** The body drift eases to a
+third over a window with marks. The part drift eases with it, and a part that
+**carries a live mark** eases to a sixth. The hit test goes through the part's
+own transform as well as the body's, so a mark on a turning hand is found
+where it is drawn, the way `instarMarkUnder` in
+`packages/render/src/instar-mark-grip.ts` already adds the weave. A beaten
+boss stills its parts with its body.
+
+**How a body on the rig gets it.** Each part is already hung on an anchor
+(`packages/content/src/solid-anchor.ts`). The three angles are one more
+rotation of the anchor's frame, turn, then tilt, then rotate, before its
+children are placed. Nothing else changes: the projection, the light and the
+ordering by depth already follow the anchors.
+
+**How an outline boss gets it.** In its draw code, each part is drawn inside
+its own `save` / `translate(joint)` / `rotate` / `restore`, with the turn
+shown the only way a flat part can — a squash across it by the cosine of the
+angle and a shift toward the side it turned to. That is a handful of
+transform calls per part per frame, and no path is rebuilt. A part that is
+**baked** is rotated at the blit, never baked again; anything keyed on one of
+its angles is keyed on the angle stepped to a forty-eighth of a turn, the
+same rule as the body. A boss whose parts are one merged path or one sprite
+has **its parts split out first**, in a lane of its own that changes no
+frame: the same picture, drawn from separate pieces, each with a joint. Only
+then does it get the part drift.
+
+**In the code.** In the same idle-drift.ts as the body drift, a second
+function: `partDrift(time, seed, part, parent, hush)` returns the three
+angles for one part, `part` naming its row of the table above and `parent`
+the angles of what it hangs on. Pure, seeded, on `look.time`, invisible to
+`hashWorld`.
+
+**Battery.** The part drift lives inside the body drift's budget, not beside
+it: the **same 10%** on a boss's row of its op-count budget test covers both
+layers together, and `packages/render/test/baked-growth.test.ts` stays flat
+with both running. On top of that:
+
+- **At most eight moving parts per boss**, a pair counting as two, and a
+  finger row as one. A boss with more picks the eight that read — the head
+  first, always.
+- **Parts smaller than 6 px on a 390 px field do not move**: the eye cannot
+  see it, and the frame pays for it.
+- **One number turns it down.** The drawer is handed a `life` level from 0
+  to 1 with the rest of the view, and multiplies the part drift by it. It is
+  1 today. What sets it lower — the player's motion setting, a phone's
+  battery saver, a frame that runs long — is the owner's to say, and is
+  queued as a question.
+
+### The part map
+
+What each boss moves, read from its draw code on 26 September 2026. **Ready**
+means each part is already drawn by its own function about its own point, so
+it takes the part drift as a rotation there. **Split first** means a part is
+drawn inside one shared path with the body and has to become its own piece,
+with a joint, before it can move.
+
+| Boss | Parts that move | State |
+|---|---|---|
+| THE INSTAR | head, jaw, eyes, horns, both wings and their claws, tail links, blade | ready (jaw, horns, wings and tail are already anchored) |
+| the queen (a kind, several waves) | shell, both wings, both crane arms, both claws and their fingers | **split first**: wings are inside the shell's one path |
+| the warden (a kind) | body, eye, both hatch lids, cilia | **split first**: the two lids share one path |
+| THE SPLICE (the eater) | head, eyes, jaw, neck, body, rear | ready, but no part rotates yet — add the joint |
+| THE REPRISE | sac, both cords, lens eye | ready |
+| THE THROAT | skin, each muscle ring, mouth | ready |
+| THE UNDERTOW | body, each lobe | ready |
+| THE GORGE | sack, each lobe | ready |
+| THE CURTAIN | membrane, hem weights, core | **split first**: the hem lobes are inside the membrane's path |
+| THE TASTER | crest, each blade | ready |
+| THE SINEW | mass, both handles, fibres | ready |
+| THE LEDGER | both halves, cord, whip | ready |
+| THE SURGE | bulb, both grips | ready |
+| THE STARE | cowl, eye, lid | ready |
+| THE HIVE | mass, each hanging lobe | **split first**: the lobes are inside the mass's path |
+| THE CYST | sac, each of its four lobes, core | **split first**: the lobes are one path |
+| THE VISE | both lobes, kernel | ready |
+| THE MANTLE | core, both valves | ready |
+| THE KEEL | each spine segment | ready |
+| THE CAIRN | each stone | ready |
+| THE FILAMENT | heart | ready |
+| THE ANTIPHON, THE BATON, THE LEAD, THE GIMBAL | as their rig rebuilds name them | the rig lane splits them |
+| THE NETTLE | its bell and each tentacle | not drawn yet: its body lane builds the parts separate from the start |
+
+**A mechanism is not an animal**, and the owner's ask is for the creatures.
+THE VANE, THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE, THE RIME,
+THE SLING, THE TRIVET, THE PLUMB, THE DAVIT and THE GRINDSTONE get the part
+drift only on what **hangs or hinges** — a boom, a bob, a hook, a jaw on its
+bolt, a tine, a spar's tip — at half the table's range, and nothing rigid
+wobbles. THE MAZE, THE FLEET and THE MIRROR have no body and get none.
+
 ### Where it lives
 
 One function in `packages/render`, a new file next to `packages/render/src/solid-motion.ts`
@@ -104,6 +276,9 @@ is added with the helper:
   budget test (the `*-budget.test.ts` files in `packages/render/test/`). The drift adds a
   handful of sines per boss per frame; the cost is in what the rig redraws
   when the view moves, and that is what the budget watches.
+- **The part drift shares this budget.** Its own limits — eight moving
+  parts, nothing under 6 px, the `life` level — are in "Every part moves on
+  its own" above.
 - **Nothing outlives a frame.** The drift is a pure function of time and a
   seed; there is no state, so nothing goes in `Effects`.
 - **No `shadowBlur`, no WebGL, no library.**
@@ -122,6 +297,11 @@ fit for the rig. This ask widens it to every visible boss. The order:
    un-defers them in that order.
 3. **Every other boss with a body**, on the outline tier: a pose-only drift
    through the shared helper, six bosses a lane, as a roster entry.
+
+The part drift rides the same order: each boss gets its parts moving in the
+lane that gives it the body drift. A boss whose parts are merged into one
+path or one sprite first has them split out, in a lane that changes no
+frame, before its drift lane.
 
 ---
 
@@ -283,13 +463,22 @@ paused there.
 
 1. The director's step readout.
 2. The director's jump.
-3. The idle drift helper, with its tests, drawing nothing.
+3. The idle drift helper, with the part drift in it, and its tests, drawing
+   nothing.
 4. THE INSTAR's one head, a VERSUS candidate.
 5. THE INSTAR's body with weight, a VERSUS candidate.
-6. THE INSTAR turning on the idle drift, a VERSUS candidate.
+6. THE INSTAR turning on the idle drift, its parts moving on their own, a
+   VERSUS candidate.
 7. THE INSTAR's serpentine flight, a VERSUS candidate.
-8. The four rig bosses, one lane each (their DEFERRED entries, un-deferred).
-9. The outline tier for every other boss, six a lane.
+8. The four rig bosses, one lane each (their DEFERRED entries, un-deferred),
+   each with its parts moving.
+9. The parts split out, where the part map says **split first**: the queen,
+   the warden's lids, and the hanging lobes of THE HIVE, THE CURTAIN and
+   THE CYST. These change no frame and can run any time after three.
+10. The outline tier for every other creature, six a lane, body and parts
+    together.
+11. The mechanisms' hinged parts, six a lane.
+12. What sets the `life` level lower: a question for the owner.
 
-One and two need no screen. Three needs none either. Four to nine are
+One, two, three and nine need no screen. Four to eight, ten and eleven are
 looked at, so they are local only.

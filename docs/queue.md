@@ -2755,6 +2755,21 @@ are not in step (their correlation over ten minutes under 0.2); the head
 leads the body; the same time and seed give the same angles. No drawer calls
 it yet, so no frame changes. `bun run check` proves it.
 
+**The part drift goes in the same file** (the owner, 26 September 2026: the
+head, the body, the hands and limbs each tilt, turn and rotate a little on
+their own). Add `partDrift(time, seed, part, parent, hush)` as section 1's
+"Every part moves on its own" gives it: turn, tilt and rotate about the
+part's joint, the ranges and periods of its table by part row, the child
+following its parent through `chainAt` plus its own noise, a settle function
+of the time since a step began, a gesture let-go that eases a part's drift to
+nothing over a quarter beat, a live-mark hush to a sixth, and a `life`
+multiplier from 0 to 1. The same test file also proves: every part row stays
+in its range; no part's own step exceeds 20° a second and no part plus its
+parents exceeds 30° a second; a child lags its parent; two parts that are
+not parent and child correlate under 0.3; the two of a pair under 0.5; the
+two eyes move together; the settle overshoots by a fifth and is within 1° of
+rest by half a second; `life` 0 gives exactly the parent's angles.
+
 ## Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -2809,11 +2824,15 @@ The owner: the full body should keep turning — look left, then right, the
 body too — so it reads 3D. Draw the side-on body through `view(SIDE + yaw)`
 with the idle drift's angles, head leading, and hush it to a third over
 windows with live marks. The mark hit test goes through the same projection
-(`instarMarkUnder`), so a drifted mark is found where it is drawn. A VERSUS
-candidate beside the fixed-angle body.
+(`instarMarkUnder`), so a drifted mark is found where it is drawn. Give every
+part its own `partDrift` on its anchor, as section 1's part map lists them:
+head, jaw, eyes, horns, both wings and their claws, the tail links and the
+blade — eyes leading the head, the wings' drift letting go while they beat,
+the jaw's while the script opens it. A VERSUS candidate beside the
+fixed-angle body.
 
 Done when: a test presses every mark of every step at the drift's widest
-yaw and finds it; `packages/render/test/baked-growth.test.ts` stays flat
+yaw, with every part at its widest too, and finds it; `packages/render/test/baked-growth.test.ts` stays flat
 with the drift running; op count within 10%; a strip of eight frames across
 ten seconds is sent to the owner. `bun run check` proves the tests.
 
@@ -2863,8 +2882,11 @@ The owner, 26 September 2026, widened the depth work from THE INSTAR alone
 to every boss with a body; this lifts the scope that deferred "move one boss
 a lane onto the solid rig, from the roster" and "THE GIMBAL, a fifth rig
 candidate". Take the next of THE GIMBAL, THE ANTIPHON, THE BATON and THE
-LEAD, in that order: rebuild it on the rig as those two entries say, give it
-the idle drift with its own seed and its hush over windows, and offer it as
+LEAD, in that order: rebuild it on the rig as those two entries say, with
+each part it has on its own anchor, give it the idle drift with its own seed
+and its hush over windows, give each part its `partDrift` (section 1, "Every
+part moves on its own" — at most eight, the head first where it has one, a
+mechanism's parts only where they hang or hinge), and offer it as
 a VERSUS candidate with its five-yaw sheet sent to the owner. Leave this
 entry with the rest listed; the last lane removes it and the two DEFERRED
 entries.
@@ -2883,12 +2905,105 @@ flat. `bun run check` proves the tests.
 Section 1 of `docs/spec/living-bosses.md`, the outline tier: a boss not on
 the rig takes the idle drift as a pose — lean, a small squash across the
 turn, a head offset where it has a head, surface marks moved by longitude
-through `pin`/`facet`. Take the six bosses with a body that come first in
-`packages/render/src/boss-draw.ts`'s order and are neither THE INSTAR nor
-one of the four rig bosses, give each its own seed, and offer the six as
-one VERSUS candidate with a strip of each. Write the next six into this
+through `pin`/`facet`. Each part the part map in section 1 marks **ready**
+also takes its `partDrift` inside its own save, translate to its joint,
+rotate and restore, with the turn shown as a squash by its cosine. Take the
+six creatures that come first in `packages/render/src/boss-draw.ts`'s
+order, are neither THE INSTAR nor one of the four rig bosses nor a
+mechanism, and are not waiting on a **split first** entry; give each its own
+seed, and offer the six as one VERSUS candidate with a strip of each. Write the next six into this
 entry's body as you leave it; the lane that finds none left removes it.
 
-Done when, per boss: its hit tests find every target at the drift's widest;
-op count within 10%; `baked-growth.test.ts` flat. `bun run check` proves the
-tests.
+Done when, per boss: its hit tests find every target at the body's and
+every part's widest; no two parts move in step (the helper's test, run on its
+part list); op count within 10% for both layers together;
+`baked-growth.test.ts` flat. `bun run check` proves the tests.
+
+## Living bosses — split the queen's wings out of her shell, drawing the same
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-crane.ts`, `packages/render/test/frame.test.ts`, `docs/spec/living-bosses.md`
+
+Section 1 of `docs/spec/living-bosses.md`, the part map: the queen's two
+wings are inside the shell's one path, so they cannot move on their own.
+Draw the shell and each wing as its own path, each wing about a joint where
+it meets the shell, and give the crane arms and claws a joint too if they
+lack one. The picture does not change: this is a refactor, not a look.
+
+Done when: a test draws the queen at every state before and after and finds
+the pixels equal (or within anti-aliasing, 1 in 255 per channel); each wing
+has a joint point a later lane can rotate about; the op count row moves by
+no more than the extra paths, with a sentence saying so. `bun run check`
+proves it.
+
+## Living bosses — split the warden's two hatch lids, drawing the same
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Files:** `packages/render/src/warden.ts`, `packages/render/src/warden-surface.ts`, `packages/render/test/frame.test.ts`, `docs/spec/living-bosses.md`
+
+Section 1's part map: the warden's two hatch lids share one path. Draw each
+lid on its own, about its hinge, so each can take its own `partDrift`
+later. The body contour stays one piece — it is the body — and the eye is
+already its own. No frame changes.
+
+Done when: a test draws the warden with the hatch shut, half and open,
+before and after, and finds the pixels equal within 1 in 255; each lid has a
+hinge point; `bun run check` proves it.
+
+## Living bosses — split the lobes of THE HIVE, THE CURTAIN and THE CYST
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Files:** `packages/render/src/hive-shape.ts`, `packages/render/src/hive-draw.ts`, `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-draw.ts`, `packages/render/src/cyst-shape.ts`, `packages/render/src/cyst-draw.ts`, `docs/spec/living-bosses.md`
+
+Section 1's part map: each of these draws its lobes inside the body's one
+path — THE HIVE's hanging lobes in the wax mass, THE CURTAIN's hem in the
+membrane, THE CYST's four lobes in the sac. Draw each lobe as its own piece
+over a body that is the rest, joined where it meets the body so the seam
+does not show, about a joint where it hangs. One boss at a time, landed
+separately if the sitting runs short; leave the rest named here. No frame
+changes, and the hit tests do not move.
+
+Done when, per boss: a test draws it at every state before and after and
+finds the pixels equal within 1 in 255; each lobe has a joint point; its
+grip tests still pass untouched. `bun run check` proves it.
+
+## Living bosses — the mechanisms swing what hangs or hinges, six per lane
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
+- **Files:** `packages/render/src/vane-draw.ts`, `packages/render/src/davit-draw.ts`, `packages/render/src/plumb-draw.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/sling-draw.ts`, `docs/spec/living-bosses.md`
+
+Section 1 of `docs/spec/living-bosses.md`, "A mechanism is not an animal":
+the machine bosses take `partDrift` only on the parts that hang or hinge, at
+half the table's range, and nothing rigid wobbles. Start with the six named
+in `Files:` — the vane's spar tip, the davit's boom and hook, the plumb's
+bob, the grindstone's jaws on their bolts, the trivet's feet, the sling's
+tines — and offer them as one VERSUS candidate with a strip of each. Then
+THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE and THE RIME; write
+what is left into this entry as you leave it.
+
+Done when, per boss: its hit tests find every target with each part at its
+widest; op count within 10%; `baked-growth.test.ts` flat. `bun run check`
+proves the tests.
+
+## Living bosses — what turns the bosses' life down
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
+- **Files:** `apps/game/src/settings.ts`, `packages/render/src/renderer.ts`, `docs/spec/living-bosses.md`
+- **Asks:** What should turn the bosses' part motion down: the existing motion setting, a phone's battery saver, a frame running long, or nothing?
+
+Section 1 of `docs/spec/living-bosses.md`: the part drift is multiplied by a
+`life` level from 0 to 1 handed to the drawers with the view, and it is 1
+until the owner says otherwise. The options: **the motion setting** (today
+it only stills the menu; it would also still the parts, and halve the body
+drift); **battery saver** (no browser says so reliably, so it would read a
+slow frame rate as the sign); **a frame that runs long** (the drift drops
+when the frame time passes its budget, and comes back slowly); or
+**nothing** (always 1). Wire the one he picks, with a test that the drawers
+see 0 when it says so.
+
+Done when: `life` reaches every drawer that calls `partDrift`; the chosen
+source sets it; a test proves the part angles are the parent's at 0.
+`bun run check` proves it.
