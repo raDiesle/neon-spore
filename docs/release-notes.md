@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 1d6ed94f2 — THE LID, THE STARE and THE CURTAIN pull along a channel
+
+THE LID's cord, THE STARE's lid and THE CURTAIN's hem now wear the pull look THE WARDEN's rope and THE MAZE's lever already have: a thin channel the whole of the travel that fills green behind the hand, the big circle to start riding where the thumb has it, and a press answered PULL_GRAB wider than the circle drawn. The lid's channel lies down, or across towards the middle once the field below is too short for it; the eye's lid runs down to where a shut lid stops, the hem up the whole of a full lift. A look the owner asked for by name (owner.md, 25 September 2026).
+
 ## 2026-09-26 · 0ef9fb223 — Queue: the push-back's look is done
 
 ## 2026-09-26 · f3ff7c254 — The shield's push shows as a mistake: a red rim, the error buzzer, ONE LAST CHANCE
