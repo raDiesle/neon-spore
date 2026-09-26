@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 0301b6883 — touch.ts, malfunction.ts and the field-controls page, split under the ceiling
+
+`touchMove` is in `render/touch-move.ts`, re-exported from `touch.ts` so nothing that imports it moved. `faultSwallows` and `eats` are in `sim/fault-swallow.ts`, and `command-locks.ts` and the six tests that asked for them import from there. The ship's five lobes on the ON THE FIELD tab — cannon, maw tap, shield plate and trigger, muzzle swipe — are in `field-controls-ship.ts`, spread back in where they stood. Nothing drawn changed.
+
 ## 2026-09-26 · b8bd9537a — The canvas stub and THE THROAT's cue test, split under the ceiling
 
 The stub was 692 lines. It is a chain of three classes now, one file each — `StubState` (styles, tally, log, transform), `StubText` (where words land) and `StubContext` (the draw calls) — with the argument checks and `StubPath` in `canvas-stub-check.ts`; every import of `canvas-stub.js` is unchanged. THE THROAT's cue test is two files by moment, the gum and a body in the mouth, and the rocks, over a shared rig.
