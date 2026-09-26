@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 098d11fad — THE MANTLE's spark is a state on the sheet, not a phase nothing entered
+
+`MANTLE_PHASES` listed "spark" and the step never set it: a leak sets `sparkCol` and the phase stays `pull`, so every `phase === "spark"` in render was dead code. The name leaves the phase table for a second axis, `MANTLE_SEAMS`, the way SNAKE's grips sit beside its phases, so the STATES sheet keeps its spark card. AUTO's run to dark now proves it enters every phase the table names. Nothing drawn changes.
+
 ## 2026-09-26 · ee6d1a6d9 — THE TRIVET stamps the hull with its middle needle when a fire step runs out
 
 When the hub is left unshot, the stand's third leg, the one it never lifts, cocks back and drives on out of its foot down the middle column, pierces the plating and leaves the stand's own footprint there, a plate with its sockets pressed into the skin, before it draws back up. It replaces the default red lash.
