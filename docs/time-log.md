@@ -22552,3 +22552,17 @@ Bottleneck: registrations again — the twelve events and six config fields
 named in a dozen files, and two files the line limit made room in.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's words: PULL, TAP, FIRE
+
+- reading: 10 min. THE RATCHET's reading, the dispatcher, the grip's knob and
+  ring, and the handles' drawing for what the picture already says.
+- writing: 15 min. The reading, its `case`, a test of what is said and what
+  is not, the spec and the queue item.
+- looking: 0 min. Nothing seen: a cloud session; the words at tempo are
+  queued unverified.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the rule for a held knob came from the cord's grey end,
+which is in the drawing, not in the queue item.

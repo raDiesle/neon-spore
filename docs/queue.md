@@ -477,11 +477,10 @@ into the roster. `bun run check` proves it.
 
 Half one drew the body, and the grip has landed (`render/mantle-grip.ts`,
 the `FIELD_CONTROLS` rows and gallery poses, `docs/spec/controls.md`), and
-so has what outlives a frame (`render/mantle-fx.ts`). What
+so has what outlives a frame (`render/mantle-fx.ts`), and its words
+(`render/boss-cue-read-zc.ts`). What
 is left, per `.claude/skills/new-boss` §5 and `.claude/skills/new-boss-state`:
 
-- **The verb and the cue**: the word on the knob (`PULL`, and nothing below
-  the floor) and the `boss-cue` read for its ten events.
 - **The autopilot hand**, off `NO_HAND` in `tools/director/test/autopilot.test.ts`.
 
 `bun run check` proves all of it but the feel; whether the pull reads at

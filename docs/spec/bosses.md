@@ -7577,8 +7577,12 @@ shear kicks the shell down on its hinge, deals it the blow and sends one
 shudder through the hull, with a burst off each valve where the pair was; the
 split kicks it harder; a finishing tap flares the core and the last one
 flares it, shudders the hull and deals the blow as it goes out; a shot spark
-bursts where it had run to on its fuse. What is left of half two: no word is
-shown on the field and no sounds are bound —
+bursts where it had run to on its fuse. And its words (26 September 2026,
+`render/boss-cue-read-zc.ts`): `PULL` on each seat's own knob while the
+handles are lit and nobody holds it, gone the moment a thumb is on, below the
+floor or past it; `TAP` on the core, only on the screen whose tap the finish
+is waiting on; `FIRE` at the hull under a leaking spark, ahead of both. What
+is left of half two: no sounds are bound —
 `tools/director/src/sound-link-none-c.ts` carries all ten of its events
 until it lands.
 There is no autopilot hand yet either

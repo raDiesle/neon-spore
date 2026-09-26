@@ -24,6 +24,7 @@ import { gimbalCues } from "./boss-cue-read-y.js";
 import { haspCues } from "./boss-cue-read-z.js";
 import { spoolCues } from "./boss-cue-read-za.js";
 import { ratchetCues } from "./boss-cue-read-zb.js";
+import { mantleCues } from "./boss-cue-read-zc.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -151,6 +152,9 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // And THE RATCHET's, one word to each seat's hand and one over a loose bolt (`boss-cue-read-zb.ts`).
     case "ratchet":
       return ratchetCues(l, world, boss);
+    // And THE MANTLE's, a word to each seat's knob, one on the core and one over a spark (`boss-cue-read-zc.ts`).
+    case "mantle":
+      return mantleCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is
@@ -184,7 +188,7 @@ export function bossCue(
 ): BossCue | null {
   for (const cue of bossCues(l, world, beatPhase, skinY)) {
     // The membrane under the mark, stamped once here rather than by each of
-    // the twenty-eight readings: `skinY` is already this function's argument,
+    // the twenty-nine readings: `skinY` is already this function's argument,
     // and a rule about where a word fits belongs to the one place every
     // reading passes through (`BossCue.wordFloor`).
     if (cueSeen(cue, l.role)) return { ...cue, wordFloor: cue.wordFloor ?? skinY(cue.x) };
