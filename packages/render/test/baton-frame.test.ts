@@ -14,7 +14,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
   CFG,
@@ -22,6 +22,7 @@ import {
   installCanvasGlobals,
   ROLES,
   runFrames,
+  VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
 
@@ -50,6 +51,8 @@ const GREY = "rgba(60,63,73,.62)";
 const TWIN_PUPIL = "#0B0614";
 /** What the thread keeps of the spine's width (`baton-draw.ts`). */
 const THREAD_WIDTH = 0.18;
+/** The spine's share of a tile (`baton-draw.ts`). */
+const SPINE = 0.16;
 
 function opened(): World {
   const world = createWorld(CFG, 3);
@@ -205,11 +208,14 @@ describe("the baton", () => {
       oneSegment(whole, false);
       const off = widths(drawn(whole, role, 3).text);
       // The one width the thread adds is the hair: the spine's width, which
-      // the segment below still has, at what the thread keeps of it.
+      // the segment below still has as a tube, at what the thread keeps of it.
       const added = [...on].filter((w) => !off.has(w));
       expect(added).toHaveLength(1);
       const hair = added[0] ?? 0;
-      expect([...off].some((w) => Math.abs(w * THREAD_WIDTH - hair) < 0.002)).toBe(true);
+      // The frame is laid out on the stage, a shade inside the window, so
+      // the window's tile is near the drawn one and not equal to it.
+      const spine = computeLayout(VIEWPORT, CFG, role).tile * SPINE;
+      expect(hair / (spine * THREAD_WIDTH)).toBeCloseTo(1, 1);
       expect([...off].every((w) => on.has(w))).toBe(true);
     });
   }

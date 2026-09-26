@@ -3,6 +3,7 @@ import { type BatonState, batonSocketRow, type SimConfig } from "@neon-spore/sim
 import { drawBead } from "./baton-bead-draw.js";
 import { strokeTendon } from "./baton-flesh.js";
 import { drawSocket, socketX } from "./baton-socket-draw.js";
+import { drawArmTube } from "./baton-tube.js";
 import { type Layout, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
 
@@ -102,9 +103,9 @@ export function drawBaton(
 
 /**
  * The arm itself, from its root above the field down to the lowest socket
- * that is out. One open stroke, for THE VANE's reason: a closed shape would
- * read as a body, and this is a mechanism — stroked as a tendon, a sheath, a
- * body and a lit core (`baton-flesh.ts`). When the arm has swung
+ * that is out. An open cord, for THE VANE's reason: a closed shape would
+ * read as a body, and this is a mechanism — a tube of the rig, lit round its
+ * back and swinging in depth (`baton-tube.ts`). When the arm has swung
  * the spine leans across the columns between the socket the bead left and
  * the one it is landing in, so the swing is a bend in the arm and not a jump.
  *
@@ -135,10 +136,12 @@ function drawSpine(
     pts.push({ x: socketX(l, b, i) + sway, y: tileCY(l, batonSocketRow(cfg, i)) });
   }
   const split = thread > 0 && pts.length > 2 ? pts.length - 2 : -1;
-  const upper = splinePath(split < 0 ? pts : pts.slice(0, split + 1), false);
+  const upper = split < 0 ? pts : pts.slice(0, split + 1);
   const width = l.tile * SPINE;
-  // On the thread the sheath and the lit core go out with the width, so the
-  // hair at the end of the thinning is the tendon's body alone.
-  strokeTendon(ctx, upper, width * (1 - (1 - THREAD_WIDTH) * thread), 1 - thread);
-  if (split >= 0) strokeTendon(ctx, splinePath(pts.slice(split), false), width, 1);
+  const thin = width * (1 - (1 - THREAD_WIDTH) * thread);
+  // The arm is a lit tube (`baton-tube.ts`) that thins with the thread; the
+  // hair at the end of the thinning is the tendon's body alone, one stroke.
+  if (thread >= 1) strokeTendon(ctx, splinePath(upper, false), thin, 0);
+  else drawArmTube(ctx, upper, thin, l.tile, time, split < 0);
+  if (split >= 0) drawArmTube(ctx, pts.slice(split), width, l.tile, time);
 }

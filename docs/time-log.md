@@ -22919,3 +22919,17 @@ itself caused, not the boss concept.
 
 Bottleneck: looking — only the frame showed the pouches' highlights reading
 as spots rather than as roundness.
+
+## 2026-09-26 — THE BATON's arm is a lit cord that swings in depth
+
+- reading: 10 min. The draw, the flesh, the socket, the thread's test, and
+  the tail and horn as the tube's pattern.
+- writing: 10 min. `baton-tube.ts`, the spine wired to it, and the thread
+  test measuring the hair against the tile.
+- looking: 5 min. The first rim in the key's colour read as a glass rod; the
+  cold light and a darker skin made it a cord.
+- friction: 5 min. The thread's test found the hair by the spine's stroke
+  width, which a tube no longer sets.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: friction — the thread's test was tied to the stroke it measured.

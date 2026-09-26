@@ -630,6 +630,15 @@ run it, look at the PNG — that is the loop.
   turn, a rim on the far end only, and a contact shadow round the root of
   whatever grows out of it. A body that goes still stops turning, so its
   stillness is seen in the light as well as in the breath.
+- **A cord that carries the count swings in depth and nowhere else**
+  (`baton-tube.ts`). THE BATON's arm is a tube of the rig sampled off the
+  same spline the stroke used, lit round its back, its rim in the cold light,
+  and a contact shadow on it where it goes into each knuckle so the knuckle
+  is threaded on the cord. A `breath` at the root runs down it by `chainAt`
+  toward the player and away; the lens is divided back out, so every joint
+  stays where the fight puts it and only the cord's girth and light change.
+  What reads as health — the knuckles and how many are lit — takes no lens.
+  A cord thinned to a hair is a stroke again: at that width a tube is all rim.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency
