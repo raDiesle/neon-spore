@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c14ba71ee — `scenes.ts` spreads the waves' films in from `scenes-waves.ts`
+
+The sixty films that belong to no family of their own — their imports, ids and rows — move to `scenes-waves.ts`, spread into `SCENES` first as they stood, beside the choreographed, fault and owed tables. `scenes.ts` is 69 lines, the new table 197; the tutorial skill names where a new film goes.
+
 ## 2026-09-26 · 4abe643c7 — `frames --until` watches every stretch between two presses
 
 The wait was handed to the last stretch of the press plan only, so a run that went on pressing past the event — a guard every beat under `--until shieldPush` — walked past it blind and called it missed. Every stretch is watched now and the run stops wherever the event falls, and `--until-on`'s step on hears the presses that fall inside its ticks.
