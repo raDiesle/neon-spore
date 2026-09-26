@@ -2859,6 +2859,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## THE OCULUS's leaves have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-26, claude/queue-the-oculuss-leaves-have-no-secondary-motion-of-t
 - **Files:** `packages/render/src/oculus-draw.ts`, `packages/render/src/oculus-shape.ts`
 
 From the secondary-motion audit. The rim's outline wobble
