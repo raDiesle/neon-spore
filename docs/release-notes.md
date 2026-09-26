@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d55a95c8a — THE MANTLE's transients: a shear kicks the shell and shudders the hull
+
+A plate-pair shearing now kicks the shell down on its hinge, deals it the blow every boss takes and sends one shudder through the hull, with a burst off each valve where the pair was; the split kicks it harder, a finishing tap flares the core, and the last one flares it out with a shudder and the blow. A shot spark bursts where it had run to on its fuse. The same on both screens (render/mantle-fx.ts). Exemption: a look with no shipped alternative — nothing outlived a frame on this boss before.
+
 ## 2026-09-26 · 500dcd2c2 — AUTO answers THE MAGNET, THE CRYSTAL, THE CHOIR, THE WISP, THE STRAND, THE CRAWLER and THE JAM
 
 AUTO now plays six more ordinary waves clean. It locks a magnet from the column beside it and fires the pole facing the cannon. It raises the dome under a crystal's middle and shoots while the crystal falls. It shakes a choir together, shoots a wisp in either colour, and shoots only a strand's lit bead. It stands the shield under a crawler's next plate on the beat. Under THE JAM's runaway cannon, player 1 stands under a body of the colour the next beat has loaded, or in an empty column. THE JAM is the one wave still named half played: its first lure comes on over the cannon on the tick the runaway fires. That is now queued for the owner.

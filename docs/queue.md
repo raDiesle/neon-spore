@@ -1208,3 +1208,17 @@ that "the cannon has to *leave*", which it cannot do in time. The options:
 which beat opens on red; the first lure authored in another column; or the
 breach kept on purpose. Whichever is picked, take THE JAM out of
 `HALF_PLAYED` if the test then passes.
+
+## Unverified at d55a95c8a: THE MANTLE's shear kick, core flare and hull shudder a…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
+
+*THE MANTLE's transients: a shear kicks the shell and shudders the hull* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
+
+- THE MANTLE's shear kick, core flare and hull shudder at tempo, by an eye on a phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

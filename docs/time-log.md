@@ -22508,3 +22508,5 @@ Bottleneck: reading — each creature's rule lives in two or three sim files, an
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — a shot spark's event says only its column, so the fuse is timed a second time on the render side to throw the burst where the bead had got to.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
