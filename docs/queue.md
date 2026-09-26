@@ -1368,6 +1368,7 @@ THE VALVE's look decides.
 ## §25 THE VALVE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/queue-25-the-valve-its-hands-the-second-half-of-its-lo
 - **Needs:** §25 THE VALVE — the look, half one (the body), landed first
 - **Files:** `packages/render/src/valve-marks.ts`, `packages/render/src/valve-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
 
