@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · a30442526 — Queued: a rig part hangs off an anchor and inherits its turn
+
+The owner wants no library in the game but what Zdog does well built as our own: a jaw, wing or fin authored relative to its parent and turned with it. One CLOUD ONLY entry in the queue; no code changes.
+
 ## 2026-09-26 · 754ae84e6 — THE INSTAR side-on is a lit tube, with its scales, lamps and spines placed round it
 
 The long body is drawn on the rig's tube now, one ring per sample of the spine, lit across its width with a rim along its edge and a contact shadow wherever a nest, the wing or the neck bears on it. The scales, the lamps and a row of spines down the back stand at an angle round those rings, and the body breathes, swims behind the far nest and rolls a little about its own length, so the rows walk round under a light that stays put. Exemption: a look the owner asked for by name.
