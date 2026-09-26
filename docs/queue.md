@@ -962,6 +962,7 @@ distinct from `beatPhase`, the way `well-flesh.ts`'s `breath` runs on
 ## §35 THE DAVIT — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-32-the-sling-the-look (claim: claude/queue-35-the-davit-the-look)
 - **Needs:** §35 THE DAVIT's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
