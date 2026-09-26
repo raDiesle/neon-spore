@@ -431,17 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## Split boss-hurt.test.ts, past 250 lines
-
-- **Found:** 2026-09-25, claude/boss-blow-f
-- **Taken:** 2026-09-26, claude/queue-the-vanes-pin-knocked-out-has-no-event-and-no-so (claim: claude/queue-split-boss-hurt-test-ts-past-250-lines)
-- **Files:** `packages/render/test/boss-hurt.test.ts`
-
-It was 332 lines on `main` before this lane and is 362 now: the table grows
-by a row a boss. Move `ROWS` into a `boss-hurt-rows.ts` beside it, with the
-two world builders (`instarMorphing`, `undertowStanding`), and keep the cases
-in the test. `bun run check` holds it.
-
 ## THE INSTAR, breath: the shove is seen and heard
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
