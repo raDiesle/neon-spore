@@ -448,7 +448,6 @@ then the picture, which lands under a look the owner asked for by name.
 ## `land` stops on a time-log conflict it says it merges
 
 - **Found:** 2026-09-25, claude/drop-wait-cues
-- **Taken:** 2026-09-26, main (claim: claude/queue-land-stops-on-a-time-log-conflict-it-says-it-mer)
 - **Files:** `tools/land/replay.ts`, `tools/land/ledger-merge.ts`, `tools/land/test/ledger-merge.test.ts`
 
 `replay.ts` lists `docs/time-log.md` as a conflict it settles on its own, but
