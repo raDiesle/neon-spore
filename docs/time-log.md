@@ -21761,3 +21761,5 @@ held depth, so the ratchet needed two table rows and a ghost hand.
 
 Bottleneck: `gimbal.test.ts` at the length ceiling, so the two tests needed a
 file of their own with its own copy of the setup.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
