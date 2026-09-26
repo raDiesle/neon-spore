@@ -1,0 +1,29 @@
+import * as look from "../../../../../packages/render/src/slow-look.js";
+import { patch, type Variant } from "../../../variant.js";
+import { freezeWindow } from "./paint.js";
+
+/**
+ * FREEZE — offered 26 September 2026, when the owner took PRISM on top of the
+ * streams and asked for the streams to be argued again as light *slowing*
+ * round the boss. Every answer in `slow:light` keeps the prism and the fuse
+ * and replaces the streams (`../window.ts`).
+ */
+export const SLOW_FREEZE: Variant = {
+  slot: "slow:light",
+  name: "freeze",
+  sentence:
+    "freeze — four times a beat a ring of cold light falls in from beyond the screen and slows to a standstill just off the skin, reddening and fading there, so the rings bank up at the boss like light that never lands",
+  dir: "tools/versus/candidates/slow-light/freeze",
+  patches: [
+    patch({
+      target: look.SLOW_LOOK,
+      reached: () => look.SLOW_LOOK,
+      where: {
+        file: "packages/render/src/slow-look.ts",
+        symbol: "SLOW_LOOK",
+        type: "SlowLook",
+      },
+      fields: { paint: freezeWindow },
+    }),
+  ],
+};

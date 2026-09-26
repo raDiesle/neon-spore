@@ -21595,3 +21595,21 @@ Bottleneck: the first timing failed the page tests — a page about a body must
 end with it mid-screen, which leaves exactly one zero for the shot that lands.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Four ways for THE SLOW's light to slow down, on VERSUS
+
+- reading: 10 min. The streams' keep-out, the window's clock, the pose the
+  dropped slot used.
+- writing: 35 min. The keep-out out of the streams into its own file, the
+  slot's shared window, ARRIVE, CRAWL, FREEZE and HORIZON.
+- looking: 35 min. Four shots, then again after each pass: HORIZON's first
+  lens duplicated the PULL UP label and the wings and was rewritten as a ring
+  that brakes; CRAWL's sparks read as sticks until they were stroked as light.
+- friction: 10 min. `land` for the lane before this one ran three times —
+  once the trunk moved during the check, once the main checkout took `main`
+  after the plan (queued); the sheet tool wanted numbered frames.
+- landing: 10 min. The INDEX row, a queue title over 80 characters,
+  `check:fast`, the commit, `land`.
+
+Bottleneck: **looking** — each candidate took two or three shots before its
+light read as light slowing rather than as sticks or a smear.

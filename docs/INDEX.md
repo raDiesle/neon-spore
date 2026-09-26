@@ -1067,6 +1067,7 @@ by hand never moves.
 | `packages/render/src/slow-intake.ts` | THE SLOW's window as it ships: the prism, the streams round the boss, then the bar over them |
 | `packages/render/src/slow-fuse.ts` | **A fuse along the top of the screen: how long the pair has left before the step fails.** The owner asked on… |
 | `packages/render/src/slow-prism.ts` | The frame's colours split about the boss on every slowed downbeat and closing across the beat, under the streams |
+| `packages/render/src/slow-keep-out.ts` | **The body THE SLOW's light may not cross**, as a shape a pass can clip to and a distance a pass can fade by |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
 | `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |

@@ -963,3 +963,18 @@ the other ring, and pin it in `packages/render/test/instar-word.test.ts`.
 move the other four onto it, keeping any variant a test genuinely needs (the
 desk's `put` step, the frame test's `morphing`/`down`) as a parameter or a
 local wrapper, and `bun run check` proves it.
+
+## `land` fails when the trunk gets a holder during its check
+
+- **Found:** 2026-09-26, claude/slow-visual-versus-page-a1e86e
+- **Files:** `tools/land/run.ts`, `tools/land/say.ts`
+
+`moveTrunk` reads `going.moveRef` — "no worktree holds it" — when the landing
+is planned, then runs `bun run check` for minutes, then moves the ref with
+`git branch --force`. When the main checkout switched onto `main` in between,
+the move failed with *cannot force update the branch 'main' used by worktree*,
+after a green check, and the landing had to be run a third time (the second
+had lost to `trunkRaced`, as it should). Ask `git worktree list --porcelain`
+again beside `trunkRaced`, just before the move, and take the `merge --ff-only`
+path in the tree that now holds the trunk; pin it with a unit case on the
+planner that feeds it a holder appearing after the plan.

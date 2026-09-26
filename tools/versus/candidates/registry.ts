@@ -6,5 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { SLOW_ARRIVE } from "./slow-light/arrive/index.js";
+import { SLOW_CRAWL } from "./slow-light/crawl/index.js";
+import { SLOW_FREEZE } from "./slow-light/freeze/index.js";
+import { SLOW_HORIZON } from "./slow-light/horizon/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [SLOW_ARRIVE, SLOW_CRAWL, SLOW_FREEZE, SLOW_HORIZON];
