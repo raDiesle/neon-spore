@@ -2530,6 +2530,7 @@ queue each look as its own item.
 ## Living bosses — the director shows which choreography step is playing
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-26, claude/queue-unverified-at-7a259b7f7-the-vise-wave-never-watc (claim: claude/queue-living-bosses-the-director-shows-which-choreogra)
 - **Files:** `tools/director/src/stage-transport.ts`, `tools/director/src/stage.ts`, `packages/sim/src/instar.ts`, `packages/sim/src/gimbal.ts`, `packages/sim/src/filament.ts`, `docs/spec/living-bosses.md`
 
 The owner, 26 September 2026: the director should say which step of a
