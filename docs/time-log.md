@@ -24106,3 +24106,5 @@ Bottleneck: looking — a white glow on pale frost does not show, and only a fra
 - landing: 10 min. `check:fast`, the commit, `bun run land`.
 
 Bottleneck: looking — the jet's spacing only showed itself in a frame.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
