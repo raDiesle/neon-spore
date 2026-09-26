@@ -22,6 +22,8 @@ import {
   type Point,
   type Seg,
 } from "./keel-shape.js";
+import { drawKeelEnds, drawKeelMarrow } from "./keel-story.js";
+import { keelHeat } from "./keel-story-pose.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -83,8 +85,11 @@ export function drawKeel(
   const open = keelOpen(s, cfg, beat, beatPhase);
   if (open > 0) drawKeelSocket(ctx, l, s, segs, open, beatPhase);
   segs.forEach((g, k) => {
-    drawSegment(ctx, l, s, k, g, beat, beatPhase, time, fx);
+    const heat = keelHeat(s, cfg, k, beat, beatPhase);
+    drawSegment(ctx, l, s, k, g, heat, beat, beatPhase, time, fx);
   });
+  drawKeelMarrow(ctx, l, s, segs, beatPhase);
+  drawKeelEnds(ctx, l, s, cfg, segs, beatPhase);
   if (keelLit(s) && s.joint !== NO_JOINT) {
     const g = segs[s.joint];
     if (g !== undefined) drawKeelRing(ctx, l, s, cfg, g.centre, beat, beatPhase);
@@ -115,13 +120,18 @@ function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[]): voi
   ctx.stroke(p);
 }
 
-/** One segment: the iron plate, lit by the one key light, its outline as bright as the pose says, the blow over it, and a seam if locked — flaring as it snaps. */
+/**
+ * One segment: the iron plate, lit by the one key light, its outline as
+ * bright as the pose says, the blow over it, and a seam if locked — flaring
+ * as it snaps, and white-hot while the cooldown has it hot.
+ */
 function drawSegment(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   s: KeelState,
   k: number,
   g: Seg,
+  heat: number,
   beat: number,
   beatPhase: number,
   time: number,
@@ -146,13 +156,17 @@ function drawSegment(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.35 + 0.6 * bright);
   ctx.stroke(plate);
+  if (heat > 0) {
+    ctx.strokeStyle = rgba(PALETTE.hullRim, 0.85 * heat);
+    ctx.stroke(plate);
+  }
   drawHurt(ctx, plate, fx.hurt.value);
   if (!s.locked[k]) return;
   const seam = keelSeamPath(l, g.centre, g.slope, g.pose);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.hullRim, 0.4 + 0.5 * bright);
   ctx.stroke(seam);
-  const glow = Math.max(0.6 * keelPulse(s, k, beatPhase), 1.4 * fx.snap(k));
+  const glow = Math.max(0.6 * keelPulse(s, k, beatPhase), 1.4 * fx.snap(k), 1.8 * heat);
   if (glow > 0) strokeGlow(ctx, seam, PALETTE.hullRim, STROKE.inner, glow);
 }
 

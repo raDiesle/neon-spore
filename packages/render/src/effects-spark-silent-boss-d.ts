@@ -18,7 +18,7 @@ import type { SimEvent } from "@neon-spore/sim";
  */
 export const SILENT_BOSS_D = [
   // THE KEEL's story beats, no burst from this table: the flip, the marrow
-  // and the cooldown are read off the state each frame (`sim/keel-story.ts`).
+  // and the cooldown are read off the state each frame (`render/src/keel-story.ts`).
   "keelFlip",
   "keelArrest",
   "keelSnap",

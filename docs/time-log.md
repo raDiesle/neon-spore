@@ -24108,3 +24108,13 @@ Bottleneck: looking — a white glow on pale frost does not show, and only a fra
 Bottleneck: looking — the jet's spacing only showed itself in a frame.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE KEEL's flip, marrow and cooldown, drawn (claude/keel-story-look)
+
+- reading: 10 min. `keel-draw.ts`, `keel-pose.ts`, `keel-grip.ts` and the cue page.
+- writing: 35 min. `keel-story.ts`, `keel-story-pose.ts`, the grip and cue arms, the frame test.
+- looking: 5 min. One frame of the flip.
+- friction: 10 min. An import cycle between the pose and the marks moved the numbers to a page of their own.
+- landing: 10 min. `check:fast`, the commit, `bun run land --keep`, the push.
+
+Bottleneck: writing — three states, each a pose, a mark, a grip and a cue, in five files.

@@ -1137,6 +1137,8 @@ by hand never moves.
 | `packages/render/src/keel-marks.ts` | **THE KEEL's marks**: the two things on the spine that say a gesture — the lit joint's ring |
 | `packages/render/src/keel-pose.ts` | **The clock THE KEEL is posed off** (§24, *Animation*): a loose |
 | `packages/render/src/keel-shape.ts` | **Where THE KEEL is**, in field pixels: six segments arched along the top of the field |
+| `packages/render/src/keel-story-pose.ts` | **The numbers THE KEEL's story between is posed off** (`keel-story.ts` draws them) |
+| `packages/render/src/keel-story.ts` | **THE KEEL's story between, drawn** (§24 rows 9, 10 and 15): the marks on the three states |
 | `packages/render/src/keel-grip.ts` | **The thumb on THE KEEL** — the first of its hands lanes |
 | `packages/render/src/keel-fx.ts` | What THE KEEL leaves behind a frame: the **snap** of a segment as it locks |
 | `packages/render/src/light-shafts.ts` | SUN FALLING INTO DEEP WATER |

@@ -28,7 +28,7 @@ export const INGEST_SILENT_BOSS_D = [
   "mantleTurned",
   // THE KEEL's story beats, landed after page three filled: the flip, the
   // marrow and the cooldown are read off the state each frame, and nothing of
-  // them outlives one (`sim/keel-story.ts`).
+  // them outlives one (`render/src/keel-story.ts`).
   "keelFlip",
   "keelArrest",
   "keelSnap",

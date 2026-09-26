@@ -1,6 +1,13 @@
-import { type KeelState, keelDone, keelThrown, type SimConfig } from "@neon-spore/sim";
+import {
+  type KeelState,
+  keelDone,
+  keelFlipping,
+  keelThrown,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { keelSegCentre, keelSegSlope, RISE, type Seg, type SegPose } from "./keel-shape.js";
+import { keelFlipRise } from "./keel-story-pose.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -45,10 +52,12 @@ export function keelArrived(s: KeelState, cfg: SimConfig, beat: number, beatPhas
 
 /**
  * How high the arch's middle stands over its ends, in tiles. Slack while it is
- * loose, taut in proportion to what has locked, tautest in the rigid hold —
- * and flattened to nothing as the spine snaps straight.
+ * loose, taut in proportion to what has locked, tautest in the rigid hold,
+ * bowed the wrong way through the flip (`keel-story-pose.ts`) — and flattened
+ * to nothing as the spine snaps straight.
  */
-export function keelRise(s: KeelState, beat: number, beatPhase: number): number {
+export function keelRise(s: KeelState, cfg: SimConfig, beat: number, beatPhase: number): number {
+  if (keelFlipping(s)) return keelFlipRise(s, cfg, beat, beatPhase);
   const locked = s.locked.filter(Boolean).length / Math.max(1, s.locked.length);
   const taut = RISE * (0.62 + 0.38 * locked);
   if (s.phase === "rigid") return RISE * 1.06;
@@ -156,7 +165,7 @@ export function keelSegs(
   beatPhase: number,
 ): Seg[] {
   const n = s.locked.length;
-  const rise = keelRise(s, beat, beatPhase);
+  const rise = keelRise(s, cfg, beat, beatPhase);
   const lift = (1 - keelArrived(s, cfg, beat, beatPhase)) * 3 * l.tile;
   return s.locked.map((_, k) => ({
     centre: keelSegCentre(l, cfg, k, n, rise, lift),

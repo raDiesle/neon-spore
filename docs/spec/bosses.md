@@ -7986,9 +7986,21 @@ stays a rock, since it is one the pair watched fall. Eight new events
 `keelCool`, `keelFlare`) reuse THE KEEL's own sounds at other pitches
 (`audio/src/bind-keel.ts`), and the hand holds the chord, fires both colours
 and keeps off the cooling spine. `sim/test/keel-story.test.ts` pins it.
-**None of the three is drawn yet**: the concave flip, the lit centre line and
-the banked cooldown, the grip on the end joints and the cue words are the
-look lane that follows.
+
+**The look of the three** (`render/src/keel-story.ts`, the numbers on
+`keel-story-pose.ts`). The flip swings the arch down through flat to a bow
+the wrong way, shuddering and deepening as its window runs out, and the chord
+pulls it back toward flat as it counts. A ring stands round each end joint,
+breathing while its thumb is up; the pad inside lights while that thumb is
+down, and the chord's count is an arc round both rings. Each seat is taken
+only on its own end ring, and the cue says `HOLD` there until the thumb is
+down. The marrow is a lens where the middle two segments meet, a red half and
+a cyan half, each filling when its bolt is in, with a faint beam down the
+middle column to the hull and `FIRE` over it. The cooldown strokes each
+segment white and fades it to iron one after another, left to right; a flare
+lengthens the bank, so a segment that had cooled glows again. A tap on any
+segment is taken while it cools, and the field says nothing.
+`render/test/keel-story-frame.test.ts` draws all three on every screen.
 
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
