@@ -558,7 +558,6 @@ in a file of their own.
 ## §31 THE PLUMB — the look
 
 - **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-deferred (claim: claude/queue-31-the-plumb-the-look)
 - **Needs:** §31 THE PLUMB's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
