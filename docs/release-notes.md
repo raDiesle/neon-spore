@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 5fc229846 — The build-stamp scan asks git grep instead of walking the disk
+
+The test that keeps `__BUILD_DATE__` out of the sources timed out under a busy `check:fast` twice, reading every `.ts` file on disk through its own walk. It now runs one `git grep` over the files git knows, untracked ones included. That takes about 150 ms alone and needs no list of directories to skip: nested worktrees, `node_modules`, `dist` and `.wrangler` are never reached. A planted offender still turns it red.
+
 ## 2026-09-26 · dd69266c3 — Close the still-life plates sweep: the rest of the roster had nothing to fix
 
 The entry named fourteen boss files. Six had already been given their own wobble by earlier lanes (WARDEN, SPOOL, HASP, SINEW, GUM, UNDERTOW). The other eight have no still life. THE SHELL's specular stays put on purpose, with the plate breathing under it. RATCHET's plates and SPOOL's barrel are lit with `litBox`, which has no bearing to wobble and steps in eight pixels. THE RIND's sheds and the magnet's hung stone already move. THE LID, THE CHOKE, THE SLOW and the warden surface have no lit plate. The style guide now says when a fixed light is not a still life. Nothing drawn changes.
