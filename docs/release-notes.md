@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 869783422 — THE GORGE's lobes bow in depth, and its beads swim behind the skin
+
+The sack is now a body bowed round toward the pair: the middle lobes stand nearest and swell by the lens, the outer ones go away and haze a step toward the field, and the whole row turns slowly so one end comes forward as the other goes back. Every lobe stays over its column. The beads swim round inside each lobe, veiled by the skin while they are behind it, and the rim light sits on the edge turned from the key and slides with the turn.
+
 ## 2026-09-26 · 3d1c57ed7 — THE KEEL says what it wants: TAP on the lit joint, FIRE under the socket and the rock
 
 When a joint is lit, TAP goes on its ring, shown only on the screen of the seat whose half it sits over. While the socket is open, FIRE goes at the hull under the middle column, on both screens; it never names the colour the socket wants. A falling rock puts FIRE at the hull under it, ahead of the rest. The exemption: a look with no shipped alternative, since the boss had no words at all.
