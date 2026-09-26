@@ -206,6 +206,8 @@ export function drawShieldRim(
   at: LobePositions,
   surface: (x: number) => Point,
   resonance = 0,
+  /** 0..1, the rim gone red after a push (`shield-push-fx.ts`). */
+  wrong = 0,
 ): void {
   const span = rimSpan(l, at);
   if (!span) return;
@@ -217,13 +219,12 @@ export function drawShieldRim(
   for (let i = 0; i <= steps; i++) pts.push(surface(from + (to - from) * (i / steps)));
 
   const seg = splinePath(pts, false);
-  strokeGlow(
-    ctx,
-    seg,
-    PALETTE.shieldRim,
-    w.widthBase + w.widthArmed * armed,
-    w.intensityBase + w.intensityArmed * armed,
-  );
+  const width = w.widthBase + w.widthArmed * armed;
+  const intensity = w.intensityBase + w.intensityArmed * armed;
+  // The red crosses over the cyan rather than sitting on it: two lit strokes
+  // added together are a third colour, and the owner asked for red.
+  if (wrong < 1) strokeGlow(ctx, seg, PALETTE.shieldRim, width, intensity, 1 - wrong);
+  if (wrong > 0) strokeGlow(ctx, seg, PALETTE.red, width, intensity + w.intensityArmed, wrong);
   // Presence, not the catch; `resonance` is the exception — `resonantLook`.
   drawShieldSparks(ctx, l, time, cols, surface, resonance);
   drawShieldFlashes(ctx, l, time, from, to, surface); // the rim's own span

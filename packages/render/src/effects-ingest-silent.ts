@@ -203,9 +203,9 @@ export const INGEST_SILENT = [
   // the field to draw. What the pair sees instead is the wave lost, which is
   // the ship's own answer and is drawn from world state.
   "huskSwallowed",
-  // The shield pushing a creature back up: the climb is drawn off the body
-  // itself (`fromRow`). What the push is *told* as is queued, and will move
-  // this into the switch next door.
+  // The shield pushing a creature back up. The climb is drawn off the body
+  // itself (`fromRow`), and the red rim, the spray and ONE LAST CHANCE are
+  // `shield-push-fx.ts`, fed beside this switch the way `volleyShards` is.
   "shieldPush",
 ] as const satisfies readonly SimEvent["type"][];
 

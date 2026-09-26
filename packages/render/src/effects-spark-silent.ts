@@ -141,9 +141,9 @@ export const SILENT = [
   // burrow causes throw the ordinary hull burst beside it.
   "crawlerBeam",
   "crawlerBurrow",
-  // The shield pushing a creature back up. The body is still on the field and
-  // is drawn climbing; the red dome and ONE LAST CHANCE are the look lane
-  // queued after this one, and they will take this row out.
+  // The shield pushing a creature back up. Its spray is red, not the body's
+  // colour, so it is thrown by `shield-push-fx.ts` with the rim it belongs to
+  // rather than from this table.
   "shieldPush",
 ] as const satisfies readonly SimEvent["type"][];
 

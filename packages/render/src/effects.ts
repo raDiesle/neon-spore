@@ -23,6 +23,7 @@ import { OpeningFx } from "./opening-fx.js";
 import { RecoilLeapFx } from "./recoil-leap.js";
 import { RicochetFx } from "./ricochet.js";
 import { RockImpactFx } from "./rock-impact.js";
+import { ShieldPushFx } from "./shield-push-fx.js";
 import { ShotOutFx } from "./shot-out.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
@@ -88,6 +89,10 @@ export class Effects {
   readonly harpoonLine = new HarpoonLineFx();
   /** THE VOLLEY's shell in pieces (`volley-shards.ts`). */
   readonly volleyShards = new VolleyShardsFx();
+  /** The shield pushing a creature back up: the red rim, the spray off the
+   * dome, and ONE LAST CHANCE over the body (`shield-push-fx.ts`). Public:
+   * `field-pose.ts` reads its red onto the rim through `HullMood.wrong`. */
+  readonly shieldPush = new ShieldPushFx();
   /** A bolt carried on past the top row to the top of the screen (`shot-out.ts`). */
   readonly shotOut = new ShotOutFx();
   /** And on HARD a wasted one, glancing off the top back onto the hull. Drawn

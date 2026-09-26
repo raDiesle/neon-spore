@@ -4,7 +4,7 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
 /**
  * **What THE VOLLEY sounds like**: a ward that sends it back, and the shell
  * coming apart over the body it was carrying — and the shield pushing any
- * other creature back up, which is the same move.
+ * other creature back up, which is the same move said as a mistake.
  *
  * Its own file rather than two more cases in `bind-creatures.ts`, which is at
  * its limit, and along the seam `events-volley.ts` already cuts in the
@@ -20,11 +20,18 @@ export function volleyCue(
   rows: number,
 ): Cue | null {
   switch (e.type) {
-    // The shield pushing a creature back up is the volley's own move on any
-    // other body, and it is said with the same word: the thing went somewhere
-    // else, and the column has not closed (`sim/shield-push.ts`). Its own
-    // "wrong answer" cue is queued with its look.
+    // The shield pushing a creature back up is the volley's move on any other
+    // body, and the owner asked for it to sound wrong (25 September 2026): a
+    // creature is the cannon's, and the shield under one is the right save
+    // made the wrong way. So it is the game's one error buzzer, THE BEATBOX's
+    // wrong count, and not the volley's bounce, which is a creature doing
+    // what it is for (`sim/shield-push.ts`).
     case "shieldPush":
+      return {
+        id: "beat.wrong",
+        pan: panForCol(e.col, cols),
+        pitch: pitchForRow(e.row, rows),
+      };
     case "volleyReturn":
       // The same bounce THE CAROM's wall and THE RECOIL's knock-back get, and
       // it is the same word a third time: the thing you were looking at went

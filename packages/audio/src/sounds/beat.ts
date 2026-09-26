@@ -93,7 +93,7 @@ export const BEAT_SOUNDS: SoundDef[] = [
     // pair is counting on — a wrong answer that drowns the question would take
     // the next run with it — and short, because the `breach` beside it is
     // already playing what the mistake cost.
-    use: "THE BEATBOX discharging: a run committed on the wrong count.",
+    use: "THE BEATBOX discharging: a run committed on the wrong count. And the shield pushing a creature back up: the hull saved the wrong way (bind-volley.ts).",
     // Both bodies are squares under a lowpass, and the filter is not a
     // flourish: a square is its fundamental plus everything above it, so an
     // open one at 196 Hz reaches a kilohertz into the voice and `judgeBand`

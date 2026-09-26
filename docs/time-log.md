@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-26 — The shield's push is shown as a mistake
+
+- reading: 15 min. The `Effects` roster and its four routes, the rim's
+  `strokeGlow`, the lure's label, the volley's cue file.
+- writing: 35 min. The red rim, the spray, ONE LAST CHANCE, the error buzzer
+  on the push, a frame test on three seats.
+- looking: 5 min. One frame from `bun run frames` after landing.
+- friction: 5 min. The test's first draft guessed `computeLayout`'s old
+  signature and the harness's return shape.
+- landing: 10 min. `check:fast`, one commit, `land`.
+
+Bottleneck: `frame-field.ts` and `effects-spark.ts` sit at their ceilings, so
+the words and the spray had to find a second home inside the `Effects` pass.
+
 ## 2026-09-26 — The shield pushes a cannon creature back up, once
 
 - reading: 25 min. THE VOLLEY's climb, `resolveHull`, `wardTurns`, the

@@ -41,6 +41,12 @@ export interface HullMood {
    * of them are lined up on the same column.
    */
   resonance?: number;
+  /**
+   * 0..1 while the rim is red after the shield pushed a creature back up —
+   * the right save made the wrong way (`shield-push-fx.ts`). Eased by the
+   * renderer's own clock, like `armed`, and absent on a ship with no shield.
+   */
+  wrong?: number;
   /** 0..1 towards the cannon lobe turned inside out — the maw. */
   intake: number;
   /** 0..1 while the skin around the maw comes apart over a pod. */

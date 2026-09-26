@@ -658,7 +658,7 @@ const COIL_IDS: Record<string, string> = {
 const VOLLEY_IDS: Record<string, string> = {
   volleyReturn: "impact.bounce",
   volleyHatch: "creature.moult",
-  shieldPush: "impact.bounce",
+  shieldPush: "beat.wrong",
 };
 
 /**

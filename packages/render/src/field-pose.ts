@@ -87,6 +87,7 @@ export class FieldPose {
       // Read straight off the world every frame rather than stored: it is a
       // fact about where two things are standing right now.
       resonance: claspResonanceIn(world),
+      wrong: effects.shieldPush.wrong,
       intake: this.intake,
       chew: effects.chew,
       charge: effects.charge,

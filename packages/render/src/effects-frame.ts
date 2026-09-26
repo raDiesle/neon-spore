@@ -67,6 +67,7 @@ export function ingestAll(
   fx.volleyShards.ingest(events, l, cfg);
   fx.shotOut.ingest(events, cfg, well);
   fx.ricochet.ingest(events, l, cfg, well);
+  fx.shieldPush.ingest(events, l, burst);
   for (const e of events) {
     const spark = burstFor(e, l);
     if (spark) burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
@@ -119,6 +120,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.harpoonLine.update(dt);
   e.volleyShards.update(dt);
   e.shotOut.update(dt, l);
+  e.shieldPush.update(dt);
   e.ricochet.update(dt, (x, y, n, hex) => e.sparks.burst(x, y, n, hex));
   e.crawler.update(dt);
   e.spriteBursts.update(dt);
@@ -157,6 +159,7 @@ export function drawAll(
   e.beatboxWaves.draw(ctx, l);
   e.beatboxSilences.draw(ctx, l);
   e.boss.draw(ctx, l);
+  e.shieldPush.draw(ctx, l, world, beatPhase);
   e.bodies.drawOnBodies(ctx, l, world, beatPhase, e.recoilLeap);
 }
 
@@ -179,6 +182,7 @@ export function resetAll(e: Effects): void {
   e.harpoonLine.reset();
   e.volleyShards.clear();
   e.shotOut.clear();
+  e.shieldPush.clear();
   e.ricochet.clear();
   e.crawler.clear();
   e.spriteBursts.clear();

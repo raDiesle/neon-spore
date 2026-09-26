@@ -197,7 +197,7 @@ export function drawHull(
   // and this call is the seam a candidate reaches through (`hull-break-look.ts`).
   drawHullBreaks(ctx, l, openCraters, time, (x) => skin(f, x), skin_.rim, skin_.muzzle);
   const on = (x: number) => surface(f, x);
-  drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0);
+  drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0, mood.wrong ?? 0);
   // A control held by a harpoon, heating up toward the tick it costs the round
   // — under the muzzle and the mouths rather than over them, because it is a
   // thing happening *to* the lobe and not a thing the lobe is doing
