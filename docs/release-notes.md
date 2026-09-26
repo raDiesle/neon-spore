@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e21cb86d7 — A slow window says whether it asks for something, and only an ask gets a fuse
+
+Every `openSlow` now names its kind: "ask" when the window waits on a player (a step, a catch, a lance to fill), "show" when it only lets a moment be seen (an eversion, a swallow, a fall). The world carries it as `slowAsks`, hashed, and the fuse is drawn on an ask alone instead of on any window long enough. THE SCUTTLE's four-beat wind-up gains the fuse; THE THROAT's and THE SURGE's eversions lose it. Exemption: a fix to something wrong rather than unlovely — the fuse counted down on windows where nothing could be done.
+
 ## 2026-09-26 · 403bed5dd — THE MAZE's lit lips are held over the lever's knob
 
 When the pilot turns a way in to the bottom, the lever's knob often stands in the lit door. The door's lips were already drawn after the knob, so the funnel still showed over it, but nothing held that order. A test now draws the knob straight onto the lit door and checks that both lips come after its disc in the draw log. A comment in `maze-draw.ts` says why the lever goes before the doors. Nothing the game draws changed.
