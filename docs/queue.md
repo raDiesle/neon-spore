@@ -2632,3 +2632,17 @@ directory and went through only once the worktree was removed by hand with
 working tool, and `.gitignore` could say so), or have `land --keep` print the
 removal command a cloud session needs; prove it with a test that `push`'s
 clean-tree check passes with a registered worktree under `.claude/worktrees/`.
+
+## Unverified at 8d811b23a: THE VISE's pinch felt with two real fingers on a phone
+
+- **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
+- **Files:** `apps/game/src/input.ts`, `apps/game/src/pinch.ts`, `apps/game/test/pinch.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
+
+*THE VISE answers a pinch: two fingers on your lobe, closed, crack its seam* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
+
+- THE VISE's pinch felt with two real fingers on a phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

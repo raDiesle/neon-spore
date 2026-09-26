@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8d811b23a — THE VISE answers a pinch: two fingers on your lobe, closed, crack its seam
+
+The first two-finger gesture in the game. A press in a seat's zone (its side of THE VISE's spine, across the rows the case stands in) takes hold and says nothing, because a finger alone is not a pinch. Once a second finger of the same seat is down, the gap between the fingertips is sent as the lobe's drag on every move that changes it, and either finger lifting lets the lobe go. A fingertip's width is taken off the distance, so two fingertips pressed together read shut on every phone.
+
 ## 2026-09-26 · 9585e0922 — THE INSTAR's eye iris, baked, offered in VERSUS
 
 The front eyes the glare turns on the players get an iris: fibres out from the slit, a ragged collarette, a dark limbal ring, ember flecks and a wet crescent, painted once and drawn in one drawImage squashed by the lid. The pupil, rim and glint stay live. Offered on `instar:eye`; the game still draws the flat gold. +1377 B gzipped, 5 calls and 1.5 µs against 4 and 1.5.

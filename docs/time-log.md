@@ -23801,3 +23801,5 @@ Bottleneck: judging brightness at play size, which only a full VERSUS shot shows
 Bottleneck: writing — the first two-finger gesture in a pipeline built to
 answer one finger at a time, so the pairing had to find a home before any
 of the VISE's own code could.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
