@@ -860,6 +860,18 @@ stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
 
+## boss-draw-clocks-c.ts is at its 250-line limit
+
+- **Found:** 2026-09-26, main (THE CYST and THE GRINDSTONE landing side by side)
+- **Files:** `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/boss-draw-clocks.ts`
+
+THE CYST and THE GRINDSTONE both appended an arm the same day and put the
+page at 254 lines; three comments were cut to bring it to exactly 250. The
+next boss added here fails `limits.test.ts`. Cut a page four
+(`boss-draw-clocks-d.ts`) from THE SLING on, the way page three was cut
+from page two, with its own `PAIR_KINDS` list dispatched from wherever page
+three is; `bun run check` proves it.
+
 ## §33 THE GRINDSTONE — the touch sender
 
 - **Found:** 2026-09-26, tmp-grindstone-look

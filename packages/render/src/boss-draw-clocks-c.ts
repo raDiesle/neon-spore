@@ -231,24 +231,20 @@ export function drawPairBoss(
   // hook on the end of its slack chain both cannons are asked to hit. Both
   // screens are drawn the same — the other seat has to see which half the
   // lean is steering and how far the lit step's window has run
-  // (`davit-draw.ts`). Nothing of it outlives a frame yet: its hands and
-  // effects are the second half of its look.
+  // (`davit-draw.ts`).
   if (boss.kind === "davit") {
     drawDavit(ctx, l, world, boss, beat, beatPhase, time);
     return;
   }
 
-  // THE CYST: a four-lobed sac over the middle column, each flank tapped
-  // still by one seat and pinched shut by the other, a core under the skin
-  // both cannons are asked to hit. Both screens are drawn the same
-  // (`cyst-draw.ts`). What outlives a frame — a crack's thud, a sprung flank,
-  // the core's flash and the split's — is `effects.boss.cyst` (`cyst-fx.ts`).
+  // THE CYST: a four-lobed sac, each flank tapped still by one seat and
+  // pinched shut by the other, a core both cannons hit (`cyst-draw.ts`); a
+  // crack's thud, a sprung flank and the core's flash are `cyst-fx.ts`.
   if (boss.kind === "cyst") {
     drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst);
     return;
   }
 
-  // THE GRINDSTONE: a gritted wheel whose flats each seat grinds clean, a
-  // caliper both bite shut, and the axle shot (`grindstone-draw.ts`).
+  // THE GRINDSTONE: two flats ground, a caliper bitten, the axle shot.
   drawGrindstone(ctx, l, world, boss, beat, beatPhase, time);
 }
