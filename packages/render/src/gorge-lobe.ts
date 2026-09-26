@@ -121,7 +121,7 @@ export function drawLobe(
   }
   // The pucker: the intake itself, a small dark mouth under the lobe that a
   // shot goes into. It is what makes the swallow a picture the rule teaches.
-  paintPucker(ctx, x, y, tile, floor);
+  paintPucker(ctx, x, y, tile, floor, time, seed);
 }
 
 /**

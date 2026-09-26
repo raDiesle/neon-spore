@@ -25047,3 +25047,16 @@ Bottleneck: writing — `input.ts` stood at its limit, so the three counted
 gestures went behind one `Fingers` host before a third could join them.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE GORGE's veins and mouths move on clocks of their own
+
+- **reading** — 10 min. What in the sack, the lobes and the torn skin
+  already had a clock: the beads orbit, the flaps sway and the lobe's light
+  idles, while the veins and the puckers had nothing but the beat.
+- **writing** — 10 min
+- **looking** — 0 min. A still frame shows none of it.
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: reading — telling which of the GORGE's parts already moved took
+as long as the change.

@@ -26,6 +26,18 @@ import { PALETTE } from "./palette.js";
  * new width on every frame.
  */
 
+/**
+ * The veins between the lobes, alive on a clock of their own: how far a vein's
+ * lean sways, as a share of its lean; how much its strength rises and falls;
+ * and how fast, in radians a second. Every other term on the sack is the beat's
+ * breath, which the whole sack takes at once, so the skin read as a thing
+ * pumped rather than a thing alive. Each vein is phased by its place, so a
+ * pulse runs along the row instead of every vein lighting at once.
+ */
+const VEIN_SWAY = 0.25;
+const VEIN_PULSE = 0.1;
+const VEIN_RATE = 0.7;
+
 /** Where the sack hangs: `gorge-draw.ts`' `gorgeSackBox`, and the tile. */
 export interface Sack {
   x: number;
@@ -37,13 +49,15 @@ export interface Sack {
 
 /**
  * The sack's skin, with a vein down between every two lobes. `lobes` is where
- * each lobe stands, and `intakeY` the line they hang from.
+ * each lobe stands, `intakeY` the line they hang from, and `time` wall-clock
+ * seconds, for the veins' own clock.
  */
 export function paintSack(
   ctx: CanvasRenderingContext2D,
   body: Path2D,
   s: Sack,
   breath: number,
+  time: number,
   lobes: number[],
   intakeY: number,
 ): void {
@@ -62,11 +76,12 @@ export function paintSack(
   ctx.lineCap = "round";
   ctx.strokeStyle = PALETTE.dim;
   ctx.lineWidth = Math.max(1, tile * 0.025);
-  ctx.globalAlpha = 0.3 + 0.15 * breath;
   for (let i = 0; i + 1 < lobes.length; i++) {
     const a = lobes[i] ?? 0;
     const mid = (a + (lobes[i + 1] ?? a)) / 2;
-    const lean = (i % 2 === 0 ? 1 : -1) * tile * 0.12;
+    const pulse = Math.sin(time * VEIN_RATE - i * 1.3);
+    ctx.globalAlpha = 0.3 + 0.15 * breath + VEIN_PULSE * pulse;
+    const lean = (i % 2 === 0 ? 1 : -1) * tile * 0.12 * (1 + VEIN_SWAY * pulse);
     ctx.beginPath();
     ctx.moveTo(mid - lean, s.y - s.ry * 0.85);
     ctx.quadraticCurveTo(mid + lean, s.y - s.ry * 0.2, mid, intakeY - tile * 0.15);

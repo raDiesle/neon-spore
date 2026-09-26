@@ -129,7 +129,7 @@ export function drawGorge(
   // Violet-grey and translucent: every red and cyan in the fight is a bead,
   // and the skin is the one thing on the screen in neither.
   const lobes = g.intakes.map((_, i) => tileCX(l, g.col + i));
-  paintSack(ctx, body, { ...sack, tile: l.tile }, breath, lobes, y);
+  paintSack(ctx, body, { ...sack, tile: l.tile }, breath, time, lobes, y);
   drawHurt(ctx, body, hurt);
 
   // The far lobes first, so where two meet the nearer is over the further.

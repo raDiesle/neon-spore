@@ -910,26 +910,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE GORGE's flesh has no secondary motion of its own
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-the-gorges-flesh-has-no-secondary-motion-of-its
-- **Files:** `packages/render/src/gorge-flesh.ts`, `packages/render/src/gorge-flesh-torn.ts`, `packages/render/src/gorge-draw.ts`
-
-Confirmed, not sampled: every `breath` term in `paintSack`, `paintSackGone`
-and `topWall` (`gorge-flesh.ts` lines 51, 64, 75, 93) is `breathOf(beatPhase)`
-(`gorge-draw.ts` lines 95-97) — read straight off the beat, the same pattern
-as THE BATON's confirmed miss. `gorge-flesh-torn.ts`'s `paintPucker` and
-`paintFlap` carry no time term at all. The only other clock anywhere in
-these three files is the `time * 0.4` fed to `blobPoints(...)` at
-`gorge-draw.ts` line 115, and that drives the sack's own silhouette wobble,
-not a placed feature — the category this audit already excludes. This is a
-second confirmed instance of "Living secondary motion is uneven across the
-boss roster"; do not fold it into that item's own audit, since that one is
-still open and this is a single found case. Give the lobe wall or the
-lit pool its own small period, distinct from `beatPhase`, the way
-`well-flesh.ts`'s `breath` runs on `time * 0.9` rather than the beat.
-
 ## Unverified at 1711568bc: AUTO playing THE MANTLE to dark, watched at tempo
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
