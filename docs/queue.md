@@ -747,6 +747,7 @@ say the same in the lane skill's section 1. Proof: a test in
 ## THE VOLLEY's shell breaks below the volley in its last six rows
 
 - **Found:** 2026-09-26, claude/queue-a-rocks-hole-puffs-sit-below-the-rock-in-its-las
+- **Taken:** 2026-09-26, main (claim: claude/queue-the-volleys-shell-breaks-below-the-volley-in-its)
 - **Files:** `packages/render/src/volley-shards.ts`, `packages/render/src/effects-spark-worn.ts`
 
 `isWardable` takes THE VOLLEY, so `landingY` bends its last six rows as it
