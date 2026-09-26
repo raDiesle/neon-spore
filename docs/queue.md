@@ -886,6 +886,7 @@ did — either is a coherent change.
 ## THE INSTAR looks flat and ugly from the side
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the
+- **Taken:** 2026-09-26, main (claim: claude/queue-the-instar-looks-flat-and-ugly-from-the-side)
   owner's *"slow down"* request)
 - **Files:** `packages/render/src/instar-profile.ts`,
   `packages/render/src/instar-side-head.ts`,
