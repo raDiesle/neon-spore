@@ -68,6 +68,15 @@ export interface Backlog {
    * finished one. The `### Rounds` ideas stay in `ideas.md` as text.
    */
   bosses: BacklogGroup[];
+  /**
+   * RESEARCH — `docs/spec/transfers-touch.md` as it stands, rendered whole on
+   * the client. Asked for by name on 26 September 2026: other games whose
+   * fights are choreographed and answered by touch, the co-op ones, the
+   * gestures a phone browser can read and which of them this game leaves
+   * unused, with the videos to go and watch. A study, not a list of entries,
+   * so nothing here parses it — the page is the file.
+   */
+  research: string;
   // MECHANICS was the other page until 17 September 2026 — see the file's own
   // note above. DESIGNS was a third until 12 September 2026: `docs/versus.md`,
   // `teaching.md` and `alive.md` read section by section as backlog. The owner
@@ -76,6 +85,6 @@ export interface Backlog {
   // overtaken.
 }
 
-export function buildBacklog(bosses: string, choreo: string): Backlog {
-  return { bosses: fromBosses(bosses, choreo) };
+export function buildBacklog(bosses: string, choreo: string, research: string): Backlog {
+  return { bosses: fromBosses(bosses, choreo), research };
 }

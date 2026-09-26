@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-26 — A RESEARCH tab: other games' touch fights, co-op, and the inputs a phone offers
+
+- reading: 25 min. The filter in `transfers.md`, the primitive library in
+  `bosses-choreographed.md`, `latency.md`, the director's backlog path.
+- writing: 60 min. Three research agents' reports merged into
+  `docs/spec/transfers-touch.md`, links out in the markdown renderer, the tab.
+- looking: 0 min. No browser pane in this session; the tab is queued unverified.
+- friction: 25 min. No web from the shell, so no link was opened; `check:fast`
+  outran the tool timeout and was moved to the background; a poses test that
+  timed out on this machine on a clean tree, split per pose.
+- landing: 20 min. Three director tests that read `Backlog` as all-groups, the
+  INDEX row, two `check:fast` runs.
+
+The bottleneck was the research itself: most pages refused a fetch, so every
+game had to be pinned from search results alone.
+
 ## 2026-09-26 — A rock's crater puffs are thrown from the rock
 
 - reading: 10 min. The five `hole` sources, `burstFor`, `landingY`,

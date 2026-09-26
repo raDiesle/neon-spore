@@ -54,13 +54,14 @@ describe("every pose", () => {
     });
   }
 
-  test("is built fresh, so opening the sheet twice draws the same frames", () => {
-    for (const [group, pose] of ALL) {
-      const a = pose.build();
-      const b = pose.build();
-      expect(hashWorld(a), `${group} · ${pose.name}`).toBe(hashWorld(b));
-    }
-  });
+  // One test per pose, not one for all of them: two builds of every pose in a
+  // single test took eleven seconds on a cloud machine on 26 September 2026,
+  // over the cap above, and a cap raised for one test is raised for all.
+  for (const [group, pose] of ALL) {
+    test(`${group} · ${pose.name} is built fresh, so opening the sheet twice draws the same frames`, () => {
+      expect(hashWorld(pose.build())).toBe(hashWorld(pose.build()));
+    });
+  }
 
   test("names what it frames, and a tile crop knows where to look", () => {
     for (const [group, pose] of ALL) {

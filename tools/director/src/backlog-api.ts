@@ -30,11 +30,13 @@ export async function backlogState(): Promise<Response> {
   // out to be built or half built; `bestiary.md` went with the roster the old
   // BOSSES tab drew. `systems.md` and `ideas.md` went with the MECHANICS page
   // itself — the sheet is one page now and it is the bosses.
-  const [bosses, choreo] = await Promise.all([
+  // The third is RESEARCH's, read whole and passed through (`backlog.ts`).
+  const [bosses, choreo, research] = await Promise.all([
     Bun.file(specFile(base, "bosses.md")).text(),
     Bun.file(specFile(base, "bosses-choreographed.md")).text(),
+    Bun.file(specFile(base, "transfers-touch.md")).text(),
   ]);
 
-  const backlog = buildBacklog(bosses, choreo);
+  const backlog = buildBacklog(bosses, choreo, research);
   return Response.json(backlog, { headers: noCache });
 }

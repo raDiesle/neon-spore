@@ -8,6 +8,7 @@ async function realBacklog(): Promise<Backlog> {
   return buildBacklog(
     await read("docs/spec/bosses.md"),
     await read("docs/spec/bosses-choreographed.md"),
+    await read("docs/spec/transfers-touch.md"),
   );
 }
 
@@ -22,14 +23,17 @@ const group = (groups: BacklogGroup[], title: string): BacklogGroup => {
 };
 
 describe("buildBacklog", () => {
-  test("the sheet is one page, and it is the bosses", async () => {
+  test("the sheet is the bosses, and the research beside them", async () => {
     const backlog = await realBacklog();
 
     // MECHANICS went on 17 September 2026 at the owner's ask, and with it the
     // three parsers that fed it. Held by name rather than by a count: a page
     // that comes back should come back deliberately, and a `mechanics` key
     // reappearing on this object is the old one creeping back in.
-    expect(Object.keys(backlog)).toEqual(["bosses"]);
+    // RESEARCH came on 26 September 2026, asked for by name: a study of
+    // other games, passed through whole rather than parsed into groups.
+    expect(Object.keys(backlog)).toEqual(["bosses", "research"]);
+    expect(backlog.research).toContain("# ");
     expect(backlog).not.toHaveProperty("mechanics");
     // And the two that went before it, for the same reason.
     expect(backlog).not.toHaveProperty("bestiary");
@@ -75,9 +79,7 @@ describe("buildBacklog", () => {
 
   test("a lead line is prose, never a flattened bullet list", async () => {
     const backlog = await realBacklog();
-    for (const entry of Object.values(backlog)
-      .flat()
-      .flatMap((g) => g.entries)) {
+    for (const entry of backlog.bosses.flatMap((g) => g.entries)) {
       expect({ name: entry.name, runOn: entry.note.includes(" - ") }).toEqual({
         name: entry.name,
         runOn: false,
@@ -103,17 +105,15 @@ describe("buildBacklog", () => {
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {
     const backlog = await realBacklog();
-    for (const groups of Object.values(backlog)) {
-      for (const group of groups as BacklogGroup[]) {
-        // A group with no entries is a heading the parser no longer finds.
-        //
-        // Except STILL IN HAND, which is empty on a day when every boss's look
-        // has landed — an outcome, not a broken parser. Its heading is held by
-        // name in the bosses test above instead.
-        if (group.title === "STILL IN HAND") continue;
-        const found = group.entries.length > 0;
-        expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
-      }
+    for (const group of backlog.bosses) {
+      // A group with no entries is a heading the parser no longer finds.
+      //
+      // Except STILL IN HAND, which is empty on a day when every boss's look
+      // has landed — an outcome, not a broken parser. Its heading is held by
+      // name in the bosses test above instead.
+      if (group.title === "STILL IN HAND") continue;
+      const found = group.entries.length > 0;
+      expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
     }
   });
 });

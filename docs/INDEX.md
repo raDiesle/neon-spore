@@ -2150,6 +2150,7 @@ by hand never moves.
 | `tools/director/src/main.ts` | The director: one screen where a wave is placed, played and judged — not |
 | `tools/director/src/main-tempo.ts` | **THE TEMPO HAS TWO CONTROLS AND THEY ARE ONE NUMBER.** TUNING's first slider moves `bpm` two points at a… |
 | `tools/director/src/markdown.ts` | The little of markdown the spec actually writes, turned into DOM: headings, paragraphs, bullets |
+| `tools/director/src/markdown-inline.ts` | The inline half of `markdown.ts`: bold, italics, code, links and images inside one line |
 | `tools/director/src/mobile-menu.ts` | On a phone the director opens on a menu, not on a wave |
 | `tools/director/src/music-page.ts` | MUSIC: six pieces nobody has decided to use |
 | `tools/director/src/music-plot.ts` | A theme drawn: the whole piece on one axis, time across, frequency up |

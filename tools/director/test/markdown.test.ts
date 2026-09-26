@@ -15,6 +15,8 @@ interface Node {
   className: string;
   /** Only an `<img>` sets one, and whether it does is the point — see below. */
   src?: string;
+  /** Only an `<a>` sets one: a link out keeps its address, a link in drops it. */
+  href?: string;
   appendChild(kid: Node): void;
 }
 
@@ -34,6 +36,7 @@ function node(tag: string): Node {
 function serialize(n: Node): string {
   if (n.tag === "#text") return n.textContent;
   if (n.tag === "img") return `<img src="${n.src ?? ""}">`;
+  if (n.tag === "a") return `<a href="${n.href ?? ""}">${n.textContent}</a>`;
   const inner = n.textContent + n.kids.map(serialize).join("");
   return `<${n.tag}>${inner}</${n.tag}>`;
 }
@@ -68,6 +71,13 @@ describe("renderMarkdown", () => {
 
   test("a link keeps its text and drops its target", () => {
     expect(render("see [latency](latency.md) for it")).toBe("<p>see latency for it</p>");
+    expect(render("[x](javascript:alert(1))")).toBe("<p>x</p>");
+  });
+
+  test("a link out over https is a link, so a video on the research page is one tap away", () => {
+    expect(render("[Thumper](https://www.youtube.com/watch?v=abc)")).toBe(
+      '<p><a href="https://www.youtube.com/watch?v=abc">Thumper</a></p>',
+    );
   });
 
   test("code spans and italics", () => {
@@ -125,7 +135,9 @@ describe("renderMarkdown", () => {
   test("a url may carry one level of brackets, and the prose keeps none of it", () => {
     expect(
       render("see [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) now"),
-    ).toBe("<p>see Asteroids now</p>");
+    ).toBe(
+      '<p>see <a href="https://en.wikipedia.org/wiki/Asteroids_(video_game)">Asteroids</a> now</p>',
+    );
   });
 
   test("a section with everything in it comes out in order", () => {

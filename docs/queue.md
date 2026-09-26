@@ -798,6 +798,49 @@ imported back, the way the bosses' hashes live in `*-hash.ts`. Keep the
 exceptions comment in `hash.ts`, where `hash-coverage.test.ts` and CLAUDE.md
 point. Proof: `bun run check`, both files well under 230.
 
+## Shaking the phone never reaches THE CHOIR on an iPhone
+
+- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Files:** `apps/game/src/shake.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/fullscreen.ts`
+
+iOS 13 and later deliver no `devicemotion` event until
+`DeviceMotionEvent.requestPermission()` has been called from a user gesture and
+granted. `shake.ts` names that in its comment and nothing in the app calls it,
+so on an iPhone the listener is silent and the pilot is left with the arrows.
+Call it once, guarded by `typeof DeviceMotionEvent.requestPermission ===
+"function"`, from the same press that asks for fullscreen — the READY press in
+`join-room-step.ts` through `fullscreen.ts` — and ignore a refusal, since the
+arrows stay either way. A unit test with a stubbed `DeviceMotionEvent` proves
+the call is made from the press and never at load. Found while writing the
+input inventory in `docs/spec/transfers-touch.md` (§4.2).
+
+## A long press on the field can open the iOS callout and a pinch can zoom the page
+
+- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Files:** `apps/game/src/game.css`, `apps/game/index.html`
+
+Safari ignores `user-scalable=no` since iOS 10 and shows the copy/share
+callout on a held finger unless `-webkit-touch-callout: none` is set. Neither
+the stylesheet nor the page sets it, and nothing cancels `gesturestart`, so a
+held press — which several bosses ask for — can raise a sheet over the field,
+and two fingers can zoom it. Add `-webkit-touch-callout: none` and
+`-webkit-user-select: none` next to the existing `touch-action` rules, and a
+`gesturestart` listener that calls `preventDefault` (non-passive). Proof:
+`bun run check`; whether the callout is gone on a real iPhone is unverified
+from a cloud session.
+
+## The spec calls `MutualRelease` unbuilt; THE SURGE built it
+
+- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/surge-step.ts`, `packages/sim/src/surge.ts`
+
+The library table (around "timed-release") and §8's table both mark
+`MutualRelease` — two lifts within N beats — as not built, but THE SURGE judges
+exactly that (`liftTick` in `surge.ts`, the window in `surge-step.ts`). Mark it
+built there, name the file, and say whether a later boss should call THE
+SURGE's judge rather than write its own; if it should, add the row to the
+called-not-re-derived table in `packages/sim/test/purity.test.ts`.
+
 ## §23 THE MANTLE — the simulation lane
 
 - **Found:** 2026-09-26, this session (DavidDe's ask for five more choreographed bosses read the same on both screens)
