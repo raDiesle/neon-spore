@@ -8457,7 +8457,8 @@ a window, by kind, each aimed at the point its own shape already names —
 here `oculusCentre`, as wide as the rim (`render/slow-boss-aim.ts`,
 `test/slow-boss-aim.test.ts`). THE GIMBAL, THE HASP, THE MANTLE, THE
 VALVE and THE VISE took their rows the same day — the outer ring, the clasp
-being worked, and each oval's longer axis; the rest are queued.
+being worked, and each oval's longer axis — and THE TRIVET after them, round
+its hub as wide as its feet reach; the rest are queued.
 
 **The story steps** (§27's queue item of 26 September 2026, the owner's
 13:12 brief: more states, each a slow window the pair must act in). Two
@@ -8894,8 +8895,11 @@ fingers in its zone — its side of the hub, from the crown to under the
 feet — are a chord, each finger a pad by the order it landed in, since
 sockets two millimetres apart cannot be told apart under a thumb
 (`render/trivet-grip.ts`, `render/chord.ts`, `apps/game/src/chord.ts`),
-with a ghost thumb on a foot while any of its pads is down. The receipts,
-the cue's words and THE SLOW's aim are queued — the render package's silent-event lists and
+with a ghost thumb on a foot while any of its pads is down. **THE SLOW's
+aim stands on it** (26 September 2026): the light stands round the hub, as
+wide as a planted foot's plate reaches (`trivetReach`), so it stops short of
+the legs rather than running across them (`render/slow-boss-aim.ts`). The
+receipts and the cue's words are queued — the render package's silent-event lists and
 `tools/director/src/sound-link-none-d.ts` carry all twelve of its events
 until then. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up

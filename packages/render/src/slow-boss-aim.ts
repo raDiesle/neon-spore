@@ -5,6 +5,7 @@ import type { Layout } from "./layout.js";
 import { mantleCentre, mantleReach } from "./mantle-shape.js";
 import { oculusCentre, oculusRadius } from "./oculus-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
+import { trivetCentre, trivetReach } from "./trivet-shape.js";
 import { valveCentre, valveReach } from "./valve-shape.js";
 import { viseCentre, viseRadius } from "./vise-shape.js";
 
@@ -20,8 +21,8 @@ import { viseCentre, viseRadius } from "./vise-shape.js";
  * radius that is the body's own extent, not a thumb's — the light stands
  * around the full boss (`slow-intake-aim.ts`).
  *
- * **No row reads a lift.** THE MANTLE, THE VALVE, THE VISE and THE OCULUS
- * drop into frame, but only while they are still, and no window opens before
+ * **No row reads a lift.** THE MANTLE, THE VALVE, THE VISE, THE OCULUS and
+ * THE TRIVET drop into frame, but only while they are still, and no window opens before
  * a boss has left its still phase — its arrival reads 1 from then on
  * (`vise-pose.ts` and its neighbours).
  *
@@ -55,6 +56,10 @@ export function bossAim(world: World, l: Layout): Aim | null {
       return still(valveCentre(l, world.cfg), longer(valveReach(l)));
     case "vise":
       return still(viseCentre(l, world.cfg), longer(viseRadius(l)));
+    // A stand, aimed at its hub, the target, and as wide as its feet reach:
+    // a light that stopped at the hub would run across the legs.
+    case "trivet":
+      return still(trivetCentre(l, world.cfg), trivetReach(l));
     default:
       return null;
   }

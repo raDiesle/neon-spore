@@ -18,6 +18,7 @@ import { mantleCentre, mantleReach } from "../src/mantle-shape.js";
 import { oculusCentre, oculusRadius } from "../src/oculus-shape.js";
 import { bossAim } from "../src/slow-boss-aim.js";
 import { aim } from "../src/slow-intake-aim.js";
+import { trivetCentre, trivetReach } from "../src/trivet-shape.js";
 import { valveCentre, valveReach } from "../src/valve-shape.js";
 import { viseCentre, viseRadius } from "../src/vise-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
@@ -77,6 +78,7 @@ describe("THE SLOW's aim at a boss", () => {
     ["mantle", () => round(mantleCentre(L, CFG), Math.max(mantleReach(L).rx, mantleReach(L).ry))],
     ["valve", () => round(valveCentre(L, CFG), Math.max(valveReach(L).rx, valveReach(L).ry))],
     ["vise", () => round(viseCentre(L, CFG), Math.max(viseRadius(L).rx, viseRadius(L).ry))],
+    ["trivet", () => round(trivetCentre(L, CFG), trivetReach(L))],
   ] as const)("stands round THE %s's whole body, over the middle column", (kind, want) => {
     const at = aim(stood(kind), L, 0, 0);
     expect(at).toEqual(want());

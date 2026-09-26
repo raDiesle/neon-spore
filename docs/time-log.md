@@ -24521,3 +24521,15 @@ Bottleneck: friction — two landings racing on the same status paragraphs and t
 Bottleneck: writing — the seed had to be carried from the kernel's frame out to its column.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SLOW's aim stands round THE TRIVET (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. `slow-boss-aim.ts`, its test and `trivet-shape.ts`'s
+  numbers for how far a planted foot reaches.
+- writing: 5 min. `trivetReach`, the row, its test case and the status lines.
+- looking: 0 min. The light's keep-out moved off the cannon onto the stand;
+  not photographed from a cloud session.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: landing — a two-line row waits on the full suite.

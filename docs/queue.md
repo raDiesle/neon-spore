@@ -1747,8 +1747,8 @@ not*: a point's fringe is as wide as it is far from the aim, and a boss with
 no row in `render/slow-boss-aim.ts` is aimed at the cannon's column at the
 hull, so one hung at the top of the field is the thing split *widest*
 (`bun run frames . --wave 105 --until seamLight --until-on 30`). The table
-has THE OCULUS, THE GIMBAL, THE HASP, THE MANTLE, THE VALVE and THE VISE
-since 26 September 2026, each a centre and an extent its own shape file
+has THE OCULUS, THE GIMBAL, THE HASP, THE MANTLE, THE VALVE, THE VISE and
+THE TRIVET since 26 September 2026, each a centre and an extent its own shape file
 names, and a case each in the test. Still falling through, all with a look
 and a named point: THE BATON, THE CURTAIN, THE FILAMENT
 (`filamentBodyPoint`), THE GORGE, THE HIVE, THE KEEL, THE LEAD, THE LEDGER,
@@ -1759,7 +1759,7 @@ and THE ANTIPHON, whose body is the width of the field: a disc round it is
 the whole top of the screen, so its row is a capsule along the box
 (`antiphonBox`) or the pilot's organ, not a centre. THE SEAM's row rides
 its hands (*§26 THE SEAM — its hands*). THE CYST, THE DAVIT, THE
-GRINDSTONE, THE PLUMB, THE RIME, THE SLING and THE TRIVET have no look yet
+GRINDSTONE, THE PLUMB, THE RIME and THE SLING have no look yet
 and take their row with it.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
@@ -2537,15 +2537,15 @@ a seat's fingers in its zone are a chord, each finger a pad by the order it
 landed in (`render/trivet-grip.ts`, `render/chord.ts`,
 `apps/game/src/chord.ts`), with a ghost thumb on a held foot and both rows
 on ON THE FIELD. **AUTO's hand landed the same day** (`hands/boss-hands-trivet.ts`,
-`director/test/autopilot-trivet.test.ts`, the STATES sheet's four poses).
+`director/test/autopilot-trivet.test.ts`, the STATES sheet's four poses),
+and **THE SLOW's aim** after it: the light stands round the hub, as wide as
+the feet reach (`render/slow-boss-aim.ts`, `trivetReach`).
 What is left, in lanes: **the fx**, in
 `Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
 hub's hit flash and the collapse, the twelve `trivet*` events off the two
 silent lists as each gets its burst, and row 11's ring under the spent hub;
-**the cue's words** (HOLD on the lit foot, FIRE under the middle column
-while the hub is lit); and **THE SLOW's aim** on the stand, one arm in
-`slow-boss-aim.ts` round `trivetCentre` and `trivetHubR`, with its row in
-`slow-boss-aim.test.ts`. Unverified at tempo until the owner has looked.
+and **the cue's words** (HOLD on the lit foot, FIRE under the middle column
+while the hub is lit). Unverified at tempo until the owner has looked.
 
 ## `queue next` hands out a DEFERRED entry
 

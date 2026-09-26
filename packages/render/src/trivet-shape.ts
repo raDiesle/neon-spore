@@ -92,6 +92,17 @@ export function trivetHubR(l: Layout): number {
   return HUB * l.tile;
 }
 
+/**
+ * How far the planted stand reaches from the hub's middle, in pixels: an
+ * outer foot's plate at its far end, which is further out than the middle
+ * foot comes down. A lifted foot swings about its root and stays about as
+ * far; only the collapse splays past it, and no window is open by then.
+ */
+export function trivetReach(l: Layout): number {
+  const foot = FOOT[0];
+  return Math.hypot(Math.abs(foot.x) + PLATE_HALF, foot.y + PLATE_HALF_H) * l.tile;
+}
+
 /** The hub's face at its fullest, in pixels. */
 export function trivetFaceR(l: Layout): number {
   return trivetHubR(l) * FACE;
