@@ -126,7 +126,7 @@ function drawTurned(
   // Filled, and dark enough to hold a silhouette against the background the
   // way `docs/alive.md` asks — but the *inside's* dark, never the tube's grey,
   // and wet (`throat-flesh-lip.ts`).
-  paintTurned(ctx, hoop, x, cy, rx, l.tile, out);
+  paintTurned(ctx, hoop, x, cy, rx, l.tile, out, time);
 }
 
 /** A turned ring's outline: wetter and less regular than the hoops it used to be. */

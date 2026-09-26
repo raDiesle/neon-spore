@@ -57,6 +57,13 @@ export function paintLip(
   ctx.restore();
 }
 
+/** How far the "wet" gradient's own centre drifts, and how fast — distinct
+ * from the turned ring's own `time*2.1` wobble (`throat-evert.ts`'s
+ * `insidePoints`) so the sheen never settles into step with the ring it lights
+ * (`docs/style-guide.md`'s "Depth on a body that already ships"). */
+const WET_LIT_WOBBLE = 0.06;
+const WET_LIT_WOBBLE_RATE = 0.8;
+
 /**
  * A ring of the inside, turned out through the mouth: the inside's own dark
  * flesh, wet, with the venom lit round its inner wall.
@@ -69,6 +76,7 @@ export function paintTurned(
   rx: number,
   tile: number,
   out: number,
+  time: number,
 ): void {
   ctx.save();
   ctx.globalAlpha = 0.9 * out;
@@ -81,14 +89,10 @@ export function paintTurned(
   ctx.globalAlpha = 0.35 + 0.45 * out;
   ctx.stroke(hoop);
   ctx.globalAlpha = 1;
-  const wet = ctx.createRadialGradient(
-    x - rx * 0.4,
-    y - rx * 0.2,
-    0,
-    x - rx * 0.4,
-    y - rx * 0.2,
-    rx,
-  );
+  const wobble = WET_LIT_WOBBLE * Math.sin(time * WET_LIT_WOBBLE_RATE);
+  const wx = x - rx * (0.4 + wobble);
+  const wy = y - rx * (0.2 + wobble * 0.8);
+  const wet = ctx.createRadialGradient(wx, wy, 0, wx, wy, rx);
   wet.addColorStop(0, rgba(PALETTE.venomRim, 0.3 * out));
   wet.addColorStop(1, rgba(PALETTE.venomRim, 0));
   ctx.fillStyle = wet;

@@ -324,6 +324,36 @@ offset rather than into the plate's geometry or a bearing, on its own period
 so it does not come back into step with the blob's own drift, the fibres'
 sway or their wave (`MASS_LIT_WOBBLE`/`MASS_LIT_WOBBLE_RATE`).
 
+**A fold through the body's own equator is still a position, and still goes
+stale.** THE SURGE's sac (`surge-flesh.ts`) shades itself with a radial
+gradient offset a fixed share of its own `rx`/`ry` toward the light, while the
+sac's silhouette breathes under it on the swell and the pressure and, past the
+half of an eversion, folds through its own middle. None of that reached the
+gradient's own offset. The fix is the same wobble, folded into the offset on
+its own rate, distinct from the swell's breath and the fold's own turn
+(`SAC_LIT_WOBBLE`/`SAC_LIT_WOBBLE_RATE`).
+
+**One boss can hide several still lifes, one per shaded part.** THE SPLICE's
+spore ball (`splice-ball.ts`) has two — the membrane's fill and the nucleus's
+core — each a radial gradient offset a fixed share of its own radius while the
+membrane wobbles on `b*0.5` and the nucleus on `b*0.8`. Fixing one and leaving
+the other is still a still life, just a smaller one. The fix is a separate
+wobble term for each, on its own rate so neither locks into step with the
+other or with the part it lights (`MEMBRANE_LIT_WOBBLE`/
+`MEMBRANE_LIT_WOBBLE_RATE`, `NUCLEUS_LIT_WOBBLE`/`NUCLEUS_LIT_WOBBLE_RATE`).
+The eater's head (`splice-eater-head.ts`) is the same failure once more, its
+"flesh" gradient offset fixed while the cranium wobbles on `b*0.4` and the jaw
+on `b*0.5` (`HEAD_LIT_WOBBLE`/`HEAD_LIT_WOBBLE_RATE`).
+
+**A part built to be handed a `time` it never receives has no wobble to
+fold in.** THE THROAT's everted ring (`throat-flesh-lip.ts`) shades its "wet"
+sheen with a gradient centred on the ring's own coordinates, fixed, while the
+ring it lights already wobbles by `time * 2.1` (`throat-evert.ts`'s
+`insidePoints`). `paintTurned` had no `time` parameter to read one from — the
+fix is the same wobble as anywhere else, but it first meant threading `time`
+through the one call site that paints a turned ring
+(`WET_LIT_WOBBLE`/`WET_LIT_WOBBLE_RATE`).
+
 **A body drawn once per beat rather than once per turn gets it too.**
 THE GUM's drop (`gum.ts`) shades its sac with a linear gradient run straight
 down `-GUM.ry` to `GUM.ry` — a bare axis, never touched — and sets its wet

@@ -28,6 +28,17 @@ export interface BallLook {
 
 const STILL: BallLook = { shake: 0, alpha: 1 };
 
+/** How far the membrane's own specular drifts off its resting spot, as a
+ * share of `r`, and how fast. The membrane's own silhouette already wobbles
+ * on `b*0.5` and the nucleus's on `b*0.8` (`blobPoints` below); each
+ * highlight gets its own rate, distinct from both, so neither ever locks
+ * into step with the body it is meant to be lighting
+ * (`docs/style-guide.md`'s "Depth on a body that already ships"). */
+const MEMBRANE_LIT_WOBBLE = 0.05;
+const MEMBRANE_LIT_WOBBLE_RATE = 0.7;
+const NUCLEUS_LIT_WOBBLE = 0.05;
+const NUCLEUS_LIT_WOBBLE_RATE = 1.1;
+
 /** Hairs round a pod's rim, each waving on its own phase. */
 function drawCilia(
   ctx: CanvasRenderingContext2D,
@@ -97,7 +108,15 @@ export function drawSlimeBall(
     blobPoints(x, y, r / Math.sqrt(stretch), r * stretch, 4, 0.04, 0.05, b * 0.5, seed, 28),
     true,
   );
-  const fill = ctx.createRadialGradient(x - r * 0.3, y - r * 0.35, r * 0.1, x, y, r * 1.05);
+  const mWobble = MEMBRANE_LIT_WOBBLE * Math.sin(b * MEMBRANE_LIT_WOBBLE_RATE);
+  const fill = ctx.createRadialGradient(
+    x - r * (0.3 + mWobble),
+    y - r * (0.35 + mWobble * 0.8),
+    r * 0.1,
+    x,
+    y,
+    r * 1.05,
+  );
   fill.addColorStop(0, rgba(PALETTE.podRim, 0.3));
   fill.addColorStop(0.6, rgba(PALETTE.pod, 0.14));
   fill.addColorStop(1, rgba(PALETTE.ember, 0.55));
@@ -127,7 +146,15 @@ export function drawSlimeBall(
   // The nucleus, beating, with the number in it.
   const nr = r * (0.55 + 0.08 * beatSwell);
   const nucleus = splinePath(blobPoints(x, y, nr, nr, 3, 0.06, 0.04, b * 0.8, seed + 2, 20), true);
-  const core = ctx.createRadialGradient(x - nr * 0.3, y - nr * 0.3, 0, x, y, nr);
+  const nWobble = NUCLEUS_LIT_WOBBLE * Math.sin(b * NUCLEUS_LIT_WOBBLE_RATE);
+  const core = ctx.createRadialGradient(
+    x - nr * (0.3 + nWobble),
+    y - nr * (0.3 + nWobble * 0.8),
+    0,
+    x,
+    y,
+    nr,
+  );
   core.addColorStop(0, PALETTE.podRim);
   core.addColorStop(0.5, PALETTE.pod);
   core.addColorStop(1, PALETTE.ember);

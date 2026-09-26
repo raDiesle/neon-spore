@@ -14,6 +14,13 @@ import { splinePath } from "./spline.js";
  * mouth is, which is where the tongue starts.
  */
 
+/** How far the flesh gradient's own offset drifts, and how fast — distinct
+ * from the cranium's `b*0.4` and jaw's `b*0.5` wobble so the highlight never
+ * settles into step with either (`docs/style-guide.md`'s "Depth on a body
+ * that already ships"). */
+const HEAD_LIT_WOBBLE = 0.04;
+const HEAD_LIT_WOBBLE_RATE = 0.9;
+
 function drawEye(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -143,9 +150,10 @@ export function drawEaterHead(
   ctx.lineWidth = Math.max(1.5, wide * 0.05);
   ctx.stroke(cranium);
   ctx.stroke(jaw);
+  const wobble = HEAD_LIT_WOBBLE * Math.sin(b * HEAD_LIT_WOBBLE_RATE);
   const flesh = ctx.createRadialGradient(
-    h.x - wide * 0.18,
-    h.y - wide * 0.24,
+    h.x - wide * (0.18 + wobble),
+    h.y - wide * (0.24 + wobble * 0.8),
     wide * 0.04,
     h.x,
     h.y,
