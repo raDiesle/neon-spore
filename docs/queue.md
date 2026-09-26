@@ -434,6 +434,7 @@ an alignment.
 ## The director's SEEK counts ticks, so a briefing eats the row it was sent to
 
 - **Found:** 2026-09-25, claude/wave-row-positioning-director-11eb05
+- **Taken:** 2026-09-26, claude/queue-land-cannot-merge-two-time-log-entries-written-a (claim: claude/queue-the-directors-seek-counts-ticks-so-a-briefing-ea)
 - **Files:** `tools/director/src/stage.ts`, `tools/director/test/stage-step.test.ts`
 
 `seek(beat)` in `stage.ts` rebuilds the world and steps `beat * ticksPerBeat` ticks. With
