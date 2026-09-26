@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 30ccbf7d2 — The TEST panel fits a 360px phone: sliders shrink, AUTO wraps
+
+Checked the TEST panel's AUTO row in the preview at 375, 360 and 320 wide. The row itself was fine at 375 and 360, and its "no hand for this boss" note fits on one line. But every slider's value ran 7px off the right edge of a 360px screen (most Android phones), and the panel scrolled sideways, because a range input keeps its intrinsic width. Range inputs may now shrink, and the AUTO row wraps its P2 button to a second line at 320 rather than clipping it.
+
 ## 2026-09-26 · ae90febd6 — Ten bosses filed for a part that moves on a clock of its own
 
 The secondary-motion audit went through the whole boss roster, checking the draw files for a clock that is not the beat, the outline's wobble or the light's drift. THE CYST, THE HASP, THE OCULUS, THE SEAM, THE VALVE, THE VISE, THE RIME, THE TRIVET, THE GRINDSTONE and THE RATCHET have none. Each is now its own queue entry with one small touch to try, offered through VERSUS. THE DAVIT and THE SLING are left to their open look lanes. The style guide's Motion section now says what counts as such a part.

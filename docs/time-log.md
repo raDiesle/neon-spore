@@ -24934,3 +24934,5 @@ grep, so each of ~150 hits was sorted by eye.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: finding a wave where the no-hand note shows, one wave at a time.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
