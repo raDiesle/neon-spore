@@ -65,13 +65,10 @@ export const SPECIFIED: readonly Gesture[] = [
     },
     where: [`${SPEC} RepeatedTap`, "docs/spec/bosses-cinematic.md THE RATCHET"],
   },
-];
-
-export const WORTH_CONSIDERING: readonly Gesture[] = [
   {
     name: "RUB",
-    state: "consider",
-    does: "Back and forth over one body, counting the reversals — wipe it clean. The parked LIMPET's move against the grip is exactly this.",
+    state: "specd",
+    does: "Back and forth over one body, counting the reversals — wipe it clean. THE RIME's `RubCount`: the level a seat reports without a shared clock, since it is only pointer events.",
     hand: [
       { k: "body", at: [46, 52], r: 16 },
       { k: "zigzag", from: [30, 52], to: [62, 52], n: 5 },
@@ -84,12 +81,12 @@ export const WORTH_CONSIDERING: readonly Gesture[] = [
       ],
       note: "a reversal is where x changes sign",
     },
-    why: "A level, not a moment, so it survives the voice delay; it is only pointer events.",
+    where: [`${SPEC} §29 THE RIME`],
   },
   {
     name: "SQUEEZE ONE BODY",
-    state: "consider",
-    does: "Two fingers on one blob, pinched together or spread apart; the gap is a depth. Squeeze a lobe, spread a membrane.",
+    state: "specd",
+    does: "Two fingers on one blob, pinched together or spread apart; the gap is a depth. THE VISE's `SqueezeGap`: a lobe cracked by pinching it shut.",
     hand: [
       { k: "body", at: [46, 52], r: 18 },
       {
@@ -116,9 +113,12 @@ export const WORTH_CONSIDERING: readonly Gesture[] = [
       ],
       note: "the gap between the two, not either one",
     },
-    why: "A world of blobs asks for it. It needs a one-thumb twin, and page zoom must be stopped first.",
     platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
+    where: [`${SPEC} §28 THE VISE`],
   },
+];
+
+export const WORTH_CONSIDERING: readonly Gesture[] = [
   {
     name: "A DRAWN GLYPH",
     state: "consider",

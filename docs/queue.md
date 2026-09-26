@@ -556,6 +556,112 @@ across the face rather than fading — the one body in this batch drawn as
 mechanism rather than flesh — and the bared core lit in whichever cannon
 colour a beat wants. Stays unverified at tempo until the owner has looked.
 
+## §28 THE VISE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+Two lobes read as a depth rather than a position: `SqueezeGap` (new — the
+gap between two touches on one body, falling as the fingers converge) cracks
+`viseGapLeftMilli` then `viseGapRightMilli` shut, and the bared kernel takes
+three fire hits with two defensive re-pinch beats against it closing again.
+Eleven steps, three movements. The full beat list and primitive table entry
+are §28 of `docs/spec/bosses-choreographed.md`. Named THE VISE, not THE HUSK
+— `packages/sim/src/pod-types.ts`'s `husk` pod already owns that name.
+`SQUEEZE ONE BODY` moves from `consider` to `specd` in
+`tools/director/src/gesture-unbuilt.ts` as part of this lane — already done,
+land it with the rest. THE SLOW on every squeeze and fire window. `bun run
+check` proves it.
+
+## §29 THE RIME — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+A level that regrows on its own — the first field on this page that
+regresses unwiped — cleared by `RubCount` (new — a back-and-forth wipe read
+as a count of x-sign reversals, so a seat reports it without a shared clock).
+`rimeLeftMilli` and `rimeRightMilli` wipe clear one half at a time, then the
+bare core takes three fire hits with two shield-defense beats against a
+regrowth surge. Eleven steps, three movements. The full beat list and
+primitive table entry are §29 of `docs/spec/bosses-choreographed.md`. `RUB`
+moves from `consider` to `specd` in `tools/director/src/gesture-unbuilt.ts`
+as part of this lane — already done, land it with the rest. THE SLOW on
+every wipe, fire and shield window. `bun run check` proves it.
+
+## §28 THE VISE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §28 THE VISE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a dry two-lobe seed-case
+hinged at a spine, each lobe peeling back as its own mechanism rather than
+tearing, and the kernel's lit core answering the cannon's colour once bared.
+Nothing here is drawn yet and stays unverified at tempo until the owner has
+looked.
+
+## §29 THE RIME — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §29 THE RIME's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: frost drawn as a spreading
+clear patch rather than a fading overlay, so a half-wiped rime genuinely
+shows the glass under it, and a regrowth surge visibly creeping back before
+a shield stops it. Nothing here is drawn yet and stays unverified at tempo
+until the owner has looked.
+
+## §28 THE VISE — sprite atlas experiment: the kernel crack
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §28 THE VISE's look, above, landed first
+- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
+  `assets/raster/`, `docs/raster.md`
+
+`docs/raster.md` rule 3/4/5: the kernel finally breaking open (row 11 of the
+beat list, the boss's one payoff frame) is a candidate for a painted
+frame-by-frame burst rather than a procedural one — a shell splitting is
+smears and irregular debris, not a shape that recolours. It is simulation-
+triggered, so rule 5 makes the format a sprite atlas, never an APNG or
+animated WebP: draw it the way `burst-art.ts` draws the existing burst,
+pack it with `bun run raster` into its own `vise-crack-strip.webp` (atlas)
+and `vise-crack.apng` (lossless master), and gate it behind the same
+`?raster=1` flag through a new `bindRasterViseCrack` in `apps/game/src/raster.ts`.
+**Budget: the atlas (the only file the field fetches) stays under 90 kB**,
+the number the existing burst atlas already lands under at 96 px/16 frames —
+if the painted version does not read at 12 frames or 80 px, drop frames
+before raising the budget. Record the exact atlas byte count in the commit
+that lands this, next to the number `bun run raster` printed before this
+lane touched anything, so the before/after is in the history rather than
+asserted. Offered, never replacing: the procedural crack stays the shipping
+look until the owner compares them on the RASTER tab, same as the existing
+burst and THE CLASP's shield. `bun run raster:verify` and `bun run check`
+prove it; the visual comparison is the owner's, unverified until he has
+looked.
+
+## §29 THE RIME — sprite atlas experiment: the bare-core reveal
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §29 THE RIME's look, above, landed first
+- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
+  `assets/raster/`, `docs/raster.md`
+
+Same experiment, second body: the moment the last rime half wipes away and
+the bare core is lit (row 6 of the beat list) is frost shattering off glass —
+painterly by `docs/raster.md`'s own test (grain, an irregular edge, no single
+distance function), and simulation-triggered, so rule 5 again makes it an
+atlas rather than an APNG or WebP. Pack `rime-clear-strip.webp` the same way,
+through the same `bun run raster` pipeline, behind `?raster=1`.
+**Budget: under 90 kB for the atlas**, same ceiling and same reasoning as
+THE VISE's entry above — these two share one budget line in the commit that
+lands them, not two separately-justified numbers. Record the exact atlas
+byte count next to what `bun run raster` printed beforehand. Offered, never
+replacing, same as every other baked look in this file. `bun run
+raster:verify` and `bun run check` prove it; the visual comparison is the
+owner's, unverified until he has looked.
+
 ## The game's TEST view has no AUTO
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director

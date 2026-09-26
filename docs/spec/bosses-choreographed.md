@@ -59,6 +59,8 @@ reordering the page without keeping them would break every one of them.
 - **[THE VALVE](#25-the-valve--freezing-what-the-other-hand-is-already-moving)** · §25 — freezing what the other hand is already moving. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); **lane one landed 26 September 2026** as [bosses](bosses.md) §11.42, wave 104 — the look is not written
 - **[THE SEAM](#26-the-seam--a-crack-the-cannon-answers-in-order-with-the-shield-in-between)** · §26 — a crack the cannon answers, in order, with the shield in between. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); queued, not yet claimed
 - **[THE OCULUS](#27-the-oculus--shutting-an-eye-together-then-answering-what-was-behind-it)** · §27 — shutting an eye together, then answering what was behind it. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); wants `SceneBreak`, named for the first time; queued, not yet claimed
+- **[THE VISE](#28-the-vise--a-gap-two-thumbs-close-from-opposite-sides)** · §28 — a gap two thumbs close from opposite sides. One of [more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list), written 26 September 2026; wants `SqueezeGap`, spending the unclaimed `SQUEEZE ONE BODY` gesture; queued, not yet claimed
+- **[THE RIME](#29-the-rime--a-level-nobody-has-to-hold-only-keep-re-reaching)** · §29 — a level nobody has to hold, only keep re-reaching. One of [more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list), written 26 September 2026; wants `RubCount`, spending the unclaimed `RUB` gesture; queued, not yet claimed
 
 **Still in hand — the simulation landed, the look is not written**
 
@@ -90,6 +92,7 @@ reordering the page without keeping them would break every one of them.
 [refused by name](#refused-by-name),
 [a second brief, and the four things in it this page did not have](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have),
 [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture),
+[more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list),
 [the reusable boss mechanic library](#the-reusable-boss-mechanic-library).
 
 ## Who is building what, so two sessions do not collide
@@ -3286,6 +3289,186 @@ long window.
 
 ---
 
+## More, spent from the unclaimed gesture list
+
+DavidDe, 26 September 2026: more choreographed concepts, easy to follow, more
+than ten steps apiece, in the same "both screens read the same picture" shape
+as the five above. **Written to spend gestures still sitting in `consider` on
+CONTROLS › GESTURES** (`tools/director/src/gesture-unbuilt.ts`) rather than to
+re-skin anything already shipped — `SQUEEZE ONE BODY` and `RUB` were both
+untouched by any of the twenty-two concepts above them, and each is spent here
+by exactly one new concept, the same one-primitive-one-boss discipline the
+library below already argues for. This is the first batch; more follow the
+same rule against the gestures still left in `consider`.
+
+**Nothing here is built.** Same split as the batch above: a simulation lane
+in `docs/queue.md`, claimable the ordinary way, and a look lane behind a
+`Needs:` line back to it. Neither concept has a "Who is building what" row
+below on purpose — a spec section with no row there is what puts a concept on
+the director's NOT BUILT YET page (`tools/director/src/backlog-bosses.ts`'s
+fourth group), and a row is only added once a lane actually claims one.
+
+### §28 THE VISE — a gap two thumbs close from opposite sides
+
+**Question.** `SqueezeGap` reads the distance between two touches on one body
+as a depth — no boss on this page or the last has spent it, since every
+closing mechanic so far reads a single continuous input (a drag's depth, a
+hold's duration). This asks each seat to pinch, alone on their own half, so
+the shared number a lobe cracks on is a gap held shut, not a level pushed to
+one end.
+
+**Silhouette.** A dry seed-case in two lobes, hinged at a spine down the
+middle. **Health is the two lobes**, each cracked by a sustained pinch, plus a
+soft kernel exposed once both are open; the kernel takes three ordinary hits.
+
+**Mechanic.** Two pinch targets, `viseGapLeftMilli` and `viseGapRightMilli`,
+one per screen-half the way THE MANTLE's handles work — `SqueezeGap`, named
+here for the first time: two touches on one body, their distance apart read
+as thousandths, falling as the fingers converge. Held under a closing
+threshold for the window's beat count cracks that lobe; the gap widening back
+past the threshold resets the lobe's progress rather than losing the step
+outright, the same forgiving shape THE MANTLE's pull uses.
+
+**Player 1 and Player 2.** Identical screens: the husk, both pinch zones, the
+kernel once exposed. Player 1 always pinches the left lobe, Player 2 the
+right — fixed by geometry, never said aloud, the same rule THE MANTLE and THE
+OCULUS both use.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left lobe** ||||||
+| 1 | The case enters whole, a hairline seam down the spine | — | — | — | — | — |
+| 2 | The left lobe's seam lights | P1 | pinch it shut (`SQUEEZE ONE BODY`) | 5 beats, held | left lobe cracks along its seam | gap widens back out, retry |
+| 3 | A second, tighter seam lights on the same lobe | P1 | pinch shut again | 4 beats, held | left lobe splits fully, hinges open | same |
+| **Movement 2 — the right lobe** ||||||
+| 4 | The right lobe's seam lights | P2 | pinch it shut | 5 beats, held | right lobe cracks | retry |
+| 5 | Second seam on the right | P2 | pinch shut again | 4 beats, held | right lobe splits open, kernel bared | same |
+| **Movement 3 — the kernel, held open** ||||||
+| 6 | The bared kernel flashes a colour | that cannon's seat | fire it (standard control, `FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both lobes creep shut over the kernel again | P1+P2 | pinch to hold them open (`SQUEEZE ONE BODY`, both) | 3 beats, held | lobes stay open | kernel shuts, movement's fire beats lost until it bares again |
+| 8 | Kernel flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Lobes creep shut a second time, faster | P1+P2 | pinch to hold open | 3 beats, held | stays open | shuts, retry |
+| 10 | Kernel flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, kernel spent | stays lit |
+| 11 | Both lobes spring wide and the case splits down the spine | — | — | — | — | — |
+
+**THE SLOW** opens on every pinch window (rows 2, 3, 4, 5, 7, 9) and every
+fire window (rows 6, 8, 10) — a sustained pinch is exactly THE OCULUS's
+argument for more seconds than beats, since most of it is a seat confirming
+out loud that the gap is actually closing.
+
+**Presentation.** No camera. Each cracked lobe a soft hull-shock thud,
+quieter for a reseal; each kernel hit an ordinary shot's flash.
+
+**Animation.** Five poses: intact; left cracked; both cracked, kernel bared;
+kernel guarded, lobes creeping shut; shattered. The lobes peel back the way a
+real seed-case does — hinging outward along the spine rather than fading — the
+same drawn-as-mechanism choice THE OCULUS makes for its leaves.
+
+**Colour.** Case shell a dry tan-brown, the crack lines a paler dry white;
+the kernel is the only lit colour on the body, lit in whichever cannon colour
+a given beat wants, THE SEAM's and THE OCULUS's rule again.
+
+**Payoff.** Rows 7 and 9 — `SQUEEZE ONE BODY` asked for defensively, guarding
+a `FIRE` step already under way, the same shape as THE OCULUS's row 7 spent
+on the newer gesture instead of a hold.
+
+**Cost. Low–medium.** One new primitive, `SqueezeGap` (two-finger continuous
+distance read as a depth — needs a one-thumb twin refused, and the iPhone's
+native `gesturechange` stopped from firing alongside it); the crack/reseal
+threshold logic reuses THE VALVE's landed/missed window shape.
+
+**Reusable.** `SqueezeGap` itself — the first primitive on this page to read
+a *distance between two touches on one body* rather than a displacement, a
+bearing or a duration; any future body that closes rather than opens can
+spend it without re-deriving the read.
+
+### §29 THE RIME — a level nobody has to hold, only keep re-reaching
+
+**Question.** `RUB` reads a level from the *count of reversals* in a
+back-and-forth wipe, not from a position or a duration — the one gesture on
+the unclaimed list that "survives the voice delay" on pointer events alone,
+in its own write-up's words, which makes it the first choreographed step
+whose progress a seat can report honestly without either side needing to
+agree on a clock. This spends it on a body whose progress can also creep
+backwards on its own, which nothing on this page has asked a seat to fight
+before.
+
+**Silhouette.** A lens standing over mid-field like THE OCULUS's, but frosted
+opaque rather than shut — an iced pane in two halves. **Health is rime
+coverage**, cleared per half by wiping, plus a bared core once both halves
+are clear; the core takes three hits the ordinary way.
+
+**Mechanic.** `rimeLeftMilli` / `rimeRightMilli`, one per screen-half fixed
+by geometry. `RubCount` — named here for the first time — reads a reversal
+(the touch's x changing sign) as a fixed shave off the half's rime; each half
+regrows a small amount every beat nobody is wiping it, so a seat that stops
+partway loses ground rather than banking it, the tension THE SPOOL's
+"letting it run is the point" argues from the other direction. Once both
+halves are bare, the core's socket opens the way THE OCULUS's does, and a
+regrowth surge across the whole lens is answered by the standard shield
+rather than by more wiping.
+
+**Player 1 and Player 2.** Identical screens, left half / right half fixed
+by geometry — the same MANTLE/OCULUS/HUSK rule a fourth time running, on
+purpose: geometry, never a word, is what tells two identical screens apart
+on this page.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left half** ||||||
+| 1 | The lens stands opaque, both halves iced solid | — | — | — | — | — |
+| 2 | The left half lights | P1 | wipe it clear (`RUB`) | 6 beats, wiped | left half clears | wipe stops, half regrows opaque, retry |
+| 3 | A film regrows over the left half's clear patch | P1 | wipe it again | 4 beats, wiped | stays clear, movement ends | regrows fully, retry from row 2 |
+| **Movement 2 — the right half** ||||||
+| 4 | The right half lights | P2 | wipe it clear | 6 beats, wiped | right half clears | regrows, retry |
+| 5 | The right half's own regrowth film | P2 | wipe again | 4 beats, wiped | stays clear | regrows, retry from row 4 |
+| **Movement 3 — the bare core, held clear** ||||||
+| 6 | The core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | A rime surge crawls back across the whole lens | P1+P2 | raise the shield (standard control) | 3 beats, held | surge blocked, lens stays bare | lens re-frosts, movement's fire beats lost until both halves are wiped clear again |
+| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | A second surge, faster | P1+P2 | shield | 3 beats, held | blocked | re-frosts, retry |
+| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, core spent | stays lit |
+| 11 | The whole lens shatters, ice falling away in sheets | — | — | — | — | — |
+
+**THE SLOW** opens on every wipe window (rows 2–5) and every fire and shield
+window (rows 6–10) — the wipe windows most of all, since a reversal count
+read at ordinary speed is the one gesture on this page that could otherwise
+look, to an eye watching rather than a hand doing it, like nothing is
+happening at all.
+
+**Presentation.** Frost flaking away in small bursts as a half clears (the
+existing particle machinery, no new kind); the regrowth surge a slow pale
+crawl inward from the rim; no camera.
+
+**Animation.** Five poses: opaque; left clear; both clear, core cracking
+open; guarded, a surge crawling back; shattered. Clearing is drawn as a
+spreading clear patch rather than a cross-blend — the wipe's own shape made
+visible, the same drawn-as-mechanism choice as THE OCULUS's leaves and THE
+HUSK's lobes, a third time running.
+
+**Colour.** The rime a pale blue-white film over dull glass-grey, the same
+lens-body tone as THE OCULUS's; the core is the only lit colour, lit in
+whichever cannon colour a beat wants.
+
+**Payoff.** Rows 7 and 9 — the standard shield spent defending a wipe
+already banked rather than the wipe itself, the same "defend what's already
+landed" shape as THE OCULUS's row 7 and THE VISE's rows 7/9, spent here on
+the shield instead of a hold or a pinch.
+
+**Cost. Low–medium.** One new primitive, `RubCount` (a reversal count read
+off pointer events alone, the unclaimed `RUB` gesture); a small per-beat
+regrowth tick on an otherwise ordinary threshold field; the standard shield
+gated by step the way THE SEAM already gates the standard shot.
+
+**Reusable.** `RubCount` itself, and the regrowing-threshold shape it is
+spent with — the first choreographed field on this page whose progress can
+run backwards on its own, which any future body wanting the tension of
+"stopping loses ground" can spend without re-deriving the tick.
+
 ---
 
 ## The reusable boss mechanic library
@@ -3346,6 +3529,8 @@ documentation guarantee in the repository and the reason this table is short.
 | **`SequenceTap`** | Several marks that must be answered in a written order, with a wrong one costing the step. Falls out of `BossSequenceStep` for free if a step may hold one mark and the script may hold many steps | `simon.ts`'s step cursor; §16's cursor | the second brief's sequence category, already shipped as THE SPLICE |
 | **`FollowTarget`** | A hold that stays valid only while the thumb keeps up with a body that is moving under it | `grip.ts` — a hand stays on a creature until the creature stops existing, and the creature is what moves | 11, and 17's follower |
 | **`RepeatedTap`** | A count of presses on a target that **moves between them**, so the count cannot be spent in one place | §16's `tap` counts grabs on a mark that stands still | the second brief's repeated-tap category — absent here, and no concept wants it yet |
+| **`SqueezeGap`** | Two touches on one body, their distance apart read as a depth in thousandths, falling as the fingers converge | nothing — `gesture-unbuilt.ts`'s unclaimed `SQUEEZE ONE BODY`; needs a one-thumb twin refused and the iPhone's native `gesturechange` stopped | 28 |
+| **`RubCount`** | A back-and-forth wipe over one body, read as a count of reversals (the touch's x changing sign) rather than a position; pure pointer events, so it survives the voice delay | nothing — `gesture-unbuilt.ts`'s unclaimed `RUB` | 29 |
 
 ### Information
 

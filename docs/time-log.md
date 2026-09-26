@@ -22157,3 +22157,31 @@ Bottleneck: reading — the coordinator's brief assumed a local machine that
 could run `bun run perf`; working out what this session could measure instead,
 and why the first probe attempt still measured nothing real, took longer than
 writing either the doc or the queue entries.
+
+## 2026-09-26 — Two new choreographed bosses, and their queue lanes
+
+- reading: 20 min. `bosses-choreographed.md` §27 THE OCULUS as the exact
+  house-style template; `gesture-unbuilt.ts`/`gesture-types.ts` for the
+  consider→specd promotion shape; `docs/raster.md` in full before writing the
+  sprite-atlas experiment entries; a grep across every boss-name file to catch
+  a naming collision.
+- writing: 50 min. §28 THE VISE (`SqueezeGap`) and §29 THE RIME (`RubCount`)
+  written end to end in `bosses-choreographed.md`, the reusable-primitive-
+  library rows, the gesture-catalogue promotions, and eight `docs/queue.md`
+  entries (two simulation lanes, two looks, two sprite-atlas experiments with
+  an explicit byte budget each).
+- looking: 0 min. Nothing drawn yet; both looks and both experiments are
+  queued, not built.
+- friction: 15 min. First draft named the RUB boss "THE GRIST" (already a
+  built boss) and the SqueezeGap boss "THE HUSK" (already a shipped pod,
+  `packages/sim/src/pod-types.ts`) — caught both by grep before landing, the
+  second only after the queue entry was already written once and had to be
+  redone under the new name. A background land elsewhere in this tree reset
+  `docs/queue.md` to `HEAD` between one edit and the next, discarding the
+  first attempt at the new entries; redone from the current file.
+- landing: 10 min. Typecheck, the commit, `land`, `push`.
+
+Bottleneck: naming collisions — two of the two new boss names collided with
+existing content on the first try, and checking against every spec file and
+`packages/sim/src/pod-types.ts` (not just other bosses' own headers) should
+happen before the write-up is drafted, not after.
