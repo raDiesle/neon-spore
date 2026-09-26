@@ -434,6 +434,7 @@ an alignment.
 ## THE INSTAR's words still name parts no pose draws
 
 - **Found:** 2026-09-25, claude/instar-boss-choreography-01e4c7
+- **Taken:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director (claim: claude/queue-the-instars-words-still-name-parts-no-pose-draws)
 - **Files:** `packages/sim/src/instar-words.ts`, `packages/render/src/instar-strike.ts`, `packages/render/src/instar-shape.ts`, `packages/render/src/instar-poses.ts`
 
 `INSTAR_PARTS` still lists `hand` and `tongue`, from the five poses of 17
