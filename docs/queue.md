@@ -471,6 +471,7 @@ into the roster. `bun run check` proves it.
 ## §23 THE MANTLE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-23-the-mantle-its-hands-the-second-half-of-its-l)
 - **Needs:** §23 THE MANTLE — the look, half one (the body), landed 26 September 2026
 - **Files:** `packages/render/src/mantle-shape.ts`, `packages/render/src/mantle-handle.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `docs/spec/bosses.md`
 
