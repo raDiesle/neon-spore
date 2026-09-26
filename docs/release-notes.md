@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · a39c488ec — A boss's timeout hit is the boss's own blow, not a falling rock
+
+When a boss's window runs out and it breaks the hull, the boss is now seen doing it: a lash thrown out of its body down to the column it missed, which lands as the crack opens and is pulled back. No rock falls. Fifteen bosses use it: THE OCULUS, THE HASP, THE CYST, THE GRINDSTONE, THE LEDGER, THE SLING, THE RIME, THE RATCHET, THE TRIVET, THE GIMBAL, THE VALVE, THE PLUMB, THE VISE, THE SEAM and THE STARE.
+
 ## 2026-09-26 · 36d7aa94c — THE INSTAR's baked pale body offered in VERSUS
 
 The new skin in the moult's split can now be seen crumpled and wet in VERSUS on instar:moult: soft folds running along the back, dark creases with lit crowns, short wrinkles and beads of wet, laid as one pattern fill that turns with the body. The game still draws the two flat fills. It adds 1.6 kB gzipped and 7 canvas calls a frame; the director gains an INSTAR · BARE pose.
