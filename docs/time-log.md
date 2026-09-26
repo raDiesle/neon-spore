@@ -23927,3 +23927,5 @@ Bottleneck: reading — each boss had to be asked whether it still moves when it
 - landing: 10 min. `check:fast`, the commit, `bun run land`.
 
 Bottleneck: looking — a fire painted with sharp tongues reads as a blade at the size it plays.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

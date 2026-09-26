@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · df2173bd5 — THE INSTAR's fire globs, embers and heart are offered baked in VERSUS
+
+The glob is a ball of flame in four churning frames, with its trail as the same painting shrinking behind it: 6 draws where the game makes 19. An ember is a halo, a hot core and a glint in one draw. The heart is a shaded organ with a crease, veins and a wet highlight in one draw. They show on `instar:spit` and `instar:heart`, and a new pose, INSTAR · THE GLOBS FALLING, puts globs in flight. The game still draws the shipped fire (a look with a shipped alternative, so it goes to VERSUS).
+
 ## 2026-09-26 · b083b387a — THE SLOW's light stands round THE GIMBAL, THE HASP, THE MANTLE, THE VALVE and THE VISE
 
 Five more rows in the table of bosses THE SLOW aims at by kind: the gimbal's outer ring, the hasp's clasp being worked, and the longer axis of the mantle's, the valve's and the vise's ovals, each a point and a size its own shape file already names. No row reads a lift, because no window opens before a boss has left its still phase. PRISM no longer splits these bosses red and blue, and CRAWL's light banks against their outlines rather than the cannon's. Exemption: a fix to something wrong rather than unlovely, since PRISM's promise is that the boss does not split.
