@@ -434,6 +434,7 @@ an alignment.
 ## THE VANE's pin knocked out has no event and no sound
 
 - **Found:** 2026-09-25, claude/boss-blow-f
+- **Taken:** 2026-09-26, claude/queue-a-sunk-hull-waits-a-shells-flight-that-no-longer (claim: claude/queue-the-vanes-pin-knocked-out-has-no-event-and-no-so)
 - **Files:** `packages/sim/src/vane.ts`, `packages/sim/src/events.ts`, `packages/audio/src/bind.ts`, `packages/render/src/boss-blows.ts`
 
 `vaneStruck` does `b.pins -= 1` and pushes nothing, so the one moment the
