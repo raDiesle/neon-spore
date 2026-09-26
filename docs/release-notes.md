@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 40225f4c9 — THE INSTAR's figure in pixels is a file of its own
+
+`instar-shape.ts` held two things at 236 lines: the figure's arithmetic — the poses, the deformation by the marks, the morph, threat and fade clocks — and the figure turned into pixels. The second half (`Point`, `instarAt`, `instarLen`, `instarFarEnd`, `instarHeadAt`, `instarMarkPoint`, `instarMarkRadius`) is now `instar-place.ts`, and every importer asks the half it uses. Nothing drawn changes.
+
 ## 2026-09-26 · 635d101c4 — `land` asks who holds the trunk again just before moving it
 
 A landing planned in a clone where nothing held `main` chose `git branch --force`; when the main checkout switched onto `main` during the minutes of `bun run check`, the move died after a green check and the landing had to be run again. `trunkMove` now reads the holder a second time beside `trunkRaced`, fast-forwards in the tree that holds the trunk now, and hands that tree on to the release note and the sweep. `send.ts` takes the push half out of `run.ts`, which had reached its ceiling.
