@@ -18,10 +18,13 @@ import { readSettings } from "./settings.js";
  * called from the place that would be tidiest — `onStart`, where both phones
  * arrive at beat zero — because on one of the two phones that moment is a
  * message off the relay and not a thumb. It hangs off the last press this
- * device makes on its own way onto the field instead: the thumb going *down*
- * on its READY circle (`join-room-step.ts`). Down rather than the hold
- * finishing, because the hold finishes inside a `requestAnimationFrame` and a
- * frame callback carries no activation.
+ * device makes on its own way onto the field instead: the thumb coming *off*
+ * its READY circle (`join-room-step.ts`). Not the hold finishing, because the
+ * hold finishes inside a `requestAnimationFrame` and a frame callback carries
+ * no activation; and not the thumb going down, because the HTML spec counts a
+ * `pointerdown` as activation only when its `pointerType` is `"mouse"` — on a
+ * phone it is the `pointerup` that grants it, which is why the motion
+ * permission was already asked there (`shake.ts`).
  *
  * **Two things ride along and cannot be had any other way.**
  * `screen.orientation.lock` is refused outside fullscreen, and a phone turned

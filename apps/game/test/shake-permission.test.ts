@@ -11,14 +11,21 @@ import { askForMotion, bindShake } from "../src/shake.js";
  * nothing in the app called it, so on an iPhone THE CHOIR could only be played
  * with the arrows (`shake.ts`). The page here is three stubs: a
  * `DeviceMotionEvent` that counts the asks, a `window` that takes listeners,
- * and the two READY circles `bindRoomStep` finds by id.
+ * and the two READY circles `bindRoomStep` finds by id. The screen rides on
+ * the same lift, for the same reason: a touch's `pointerdown` carries no
+ * activation, so a `requestFullscreen` made there is refused (`fullscreen.ts`).
  */
 
-type Listener = () => void;
+type Listener = (e?: { preventDefault: () => void }) => void;
 // Every global the stubs below replace, put back after each case: `bun test`
 // shares one process across files.
 const g = globalThis as Record<string, unknown>;
-const had = { window: g.window, document: g.document, DeviceMotionEvent: g.DeviceMotionEvent };
+const had = {
+  window: g.window,
+  document: g.document,
+  DeviceMotionEvent: g.DeviceMotionEvent,
+  requestAnimationFrame: g.requestAnimationFrame,
+};
 
 afterEach(() => {
   for (const [k, v] of Object.entries(had)) g[k] = v;
@@ -42,7 +49,7 @@ function circle() {
   const on = new Map<string, Listener[]>();
   return {
     fire: (type: string): void => {
-      for (const fn of on.get(type) ?? []) fn();
+      for (const fn of on.get(type) ?? []) fn({ preventDefault: () => {} });
     },
     addEventListener: (type: string, fn: Listener): void => {
       on.set(type, [...(on.get(type) ?? []), fn]);
@@ -52,18 +59,37 @@ function circle() {
   };
 }
 
-/** The room step bound on a page with only its two circles, painted as `player`. */
-function roomAs(player: 1 | 2): ReturnType<typeof circle> {
+/** How many times the page's root was asked for the screen, since the last `roomAs`. */
+const screen = { asks: 0 };
+
+/**
+ * The room step bound on a page with only its two circles, painted as
+ * `player` — alone, or `ready` with a partner, when the own circle can be
+ * held — and that seat's circle handed back.
+ */
+function roomAs(player: 1 | 2, paired = false): ReturnType<typeof circle> {
   const circles = { joinReady1: circle(), joinReady2: circle() };
-  g.document = { getElementById: (id: string) => circles[id as keyof typeof circles] ?? null };
+  screen.asks = 0;
+  g.document = {
+    getElementById: (id: string) => circles[id as keyof typeof circles] ?? null,
+    fullscreenElement: null,
+    documentElement: {
+      requestFullscreen: () => {
+        screen.asks++;
+        return Promise.reject(new Error("not in a test"));
+      },
+    },
+  };
+  g.requestAnimationFrame = () => 0;
   const step = bindRoomStep({
     ready: () => {},
     pickSeat: () => {},
     setLevel: () => {},
     level: () => "medium",
   });
-  step.paint({ ...SOLO_STATUS, player } as LinkStatus);
-  return circles.joinReady1;
+  const room = paired ? { state: "ready", peers: 2 } : {};
+  step.paint({ ...SOLO_STATUS, player, ...room } as LinkStatus);
+  return player === 1 ? circles.joinReady1 : circles.joinReady2;
 }
 
 describe("the motion permission", () => {
@@ -104,5 +130,24 @@ describe("the motion permission", () => {
     expect(() => askForMotion()).not.toThrow();
     g.DeviceMotionEvent = undefined;
     expect(() => askForMotion()).not.toThrow();
+  });
+});
+
+describe("the screen", () => {
+  it("is asked for as the thumb lifts off the own circle, never as it goes down", () => {
+    motion(async () => "granted");
+    const ready = roomAs(2, true);
+    ready.fire("pointerdown");
+    expect(screen.asks).toBe(0);
+    ready.fire("pointerup");
+    expect(screen.asks).toBe(1);
+  });
+
+  it("is not asked for by a lift that no holdable press went down before", () => {
+    motion(async () => "granted");
+    const alone = roomAs(2);
+    alone.fire("pointerdown");
+    alone.fire("pointerup");
+    expect(screen.asks).toBe(0);
   });
 });

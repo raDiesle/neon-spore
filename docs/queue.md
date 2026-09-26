@@ -694,20 +694,3 @@ had lost to `trunkRaced`, as it should). Ask `git worktree list --porcelain`
 again beside `trunkRaced`, just before the move, and take the `merge --ff-only`
 path in the tree that now holds the trunk; pin it with a unit case on the
 planner that feeds it a holder appearing after the plan.
-
-## Fullscreen is asked for on a touch `pointerdown`, which carries no activation
-
-- **Found:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-fullscreen-is-asked-for-on-a-touch-pointerdown-w)
-- **Files:** `apps/game/src/join-room-step.ts`, `apps/game/src/fullscreen.ts`
-
-`goFullscreen()` runs on the READY circle's `pointerdown`. In the HTML spec's
-list of activation-triggering events a `pointerdown` counts only when its
-`pointerType` is `"mouse"`; for a touch it is the `pointerup` (or `touchend`)
-that grants activation, so on an Android phone `requestFullscreen` is likely
-refused every time — silently, by design. The motion permission was put on the
-same circle's `pointerup` for exactly this reason (`askForMotion`, `shake.ts`).
-Move `goFullscreen()` to that `pointerup` listener as well (it already exists
-beside the `pointerdown` one), keep `fullscreen.ts`'s header in step with the
-new press, and extend `apps/game/test/shake-permission.test.ts`'s stubbed room
-to show fullscreen is asked on the lift and not on the press.

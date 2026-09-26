@@ -53,6 +53,9 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
   /** The hold filled and `ready` went out; the circle stays full until the
    * room says so back, rather than emptying for the round trip. */
   let sent = false;
+  /** The seat whose circle a holdable press went down on, until it lifts:
+   * the lift is what asks for the screen. */
+  let pressed: 1 | 2 | null = null;
 
   const arc = (node: HTMLElement, fill: number): void => {
     const ring = node.querySelector<SVGCircleElement>(".arc");
@@ -140,23 +143,25 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
     node?.addEventListener("pointerdown", (e) => {
       if (!last || !circleLook(last, seat, over()).holdable || sent) return;
       e.preventDefault();
-      // **The last press this device makes on its own way onto the field**, and
-      // so the one the screen is asked for from: `requestFullscreen` is refused
-      // outside a user gesture, and the hold finishing is a frame callback with
-      // no activation behind it. Refused, unwanted or unsupported, it does
-      // nothing and says nothing (`fullscreen.ts`).
-      goFullscreen();
+      pressed = seat;
       downAt = performance.now();
       paintCircles(last);
       requestAnimationFrame(tick);
     });
-    // And the pilot's phone asks for its sensor as the thumb comes off, the
-    // first moment a touch carries the activation iOS wants (`shake.ts`).
+    // The thumb coming off is the first moment a touch carries activation — a
+    // touch `pointerdown` grants none, only a mouse's does — so both asks ride
+    // on it. **The last press this device makes on its own way onto the
+    // field** takes the screen: the hold finishing is a frame callback with no
+    // activation behind it. Refused, unwanted or unsupported, it does nothing
+    // and says nothing (`fullscreen.ts`). And the pilot's phone asks for its
+    // sensor (`shake.ts`).
     node?.addEventListener("pointerup", () => {
+      if (pressed === seat) goFullscreen();
       if (last?.player === 1) askForMotion();
     });
   }
   const lift = (): void => {
+    pressed = null;
     if (downAt === null) return;
     downAt = null;
     if (last) paintCircles(last);
