@@ -10,7 +10,8 @@ import { viseKernel, viseKernelPath, viseRadius, viseSeamPath } from "./vise-sha
  * seam, which is *pinch this lobe shut*, and the lit kernel, which is *shoot
  * here, in this colour*. Cut from `vise-draw.ts` the day it was written, along
  * the line its second half grew on: the flashes `vise-fx.ts` times are drawn
- * here too, and the cue words will be.
+ * here too. The words over the marks are the cue's, every boss's way
+ * (`boss-cue-read-zf.ts`).
  */
 
 /** A step's colour on the canvas: its cannon's, or white for a step either answers (§28, *Colour*). */

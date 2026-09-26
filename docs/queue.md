@@ -484,32 +484,6 @@ director's autopilot hands (`packages/hands`) through the page's own tick, so
 first kernel flash. Proved by a test in `tools/frames/test/` that `--auto both`
 on THE VISE reaches a `viseHit` inside its budget.
 
-## §28 THE VISE — its hands, the second half of its look
-
-- **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
-- **Taken:** 2026-09-26, main (claim: claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo)
-- **Needs:** §28 THE VISE — the look, half one (the body), landed first
-- **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/vise-draw.ts`, `packages/render/src/boss-cue-read-ze.ts`
-
-The body is drawn: the seed-case of two bristled half-shells hinged at the
-spine, standing open by their seams, narrowed by the gap pinched on each, the
-lit seam white and cracking down by the share held, a `both` step's creep
-over the bared kernel, the kernel in its colour and smaller per hit, and the
-split (`render/vise-*.ts`). **The pinch on the field landed 26 September
-2026**: a press in a seat's zone takes hold silently, the second finger of the
-same seat pairs with it, and the gap between the fingertips is sent as
-`viseLobeLeft`/`viseLobeRight`'s `fromMilli` (`render/vise-grip.ts`,
-`render/pinch.ts`, `apps/game/src/pinch.ts`, the director's two rows), and
-**the autopilot hand** the same day (`hands/boss-hands-vise.ts`, the STATES
-poses, `autopilot-vise.test.ts`), and **the receipts** the same day: a
-crack's dry thud, a sprung lobe ringing open, the kernel's flash and the
-split's, the twelve `vise*` events thrown above the loop (`render/vise-fx.ts`).
-THE SLOW's aim on the case landed elsewhere the same day
-(`render/slow-boss-aim.ts`). What is left is one lane: **the cue's words**,
-SHUT on the lit lobe and FIRE on the lit kernel, in `vise-marks.ts` —
-THE OCULUS's HOLD and FIRE in `render/boss-cue-read-ze.ts` are the pattern. Unverified at
-tempo until the owner has looked.
-
 ## §29 THE RIME — the look
 
 - **Found:** 2026-09-26, this session

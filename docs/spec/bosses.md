@@ -8494,7 +8494,13 @@ third, and bursts in the kernel's colour; the split flashes the whole case.
 A crack and a kernel hit deal the case the blow every boss takes; a missed
 kernel is the case's own blow at the hull (`render/vise-fx.ts`,
 `test/vise-fx.test.ts`). THE SLOW's light stands round the case's longer
-axis (`render/slow-boss-aim.ts`). **Still queued**: the cue's words.
+axis (`render/slow-boss-aim.ts`). **Its cue says two words** (26 September
+2026), #34's: `SHUT` on each lobe a lit pinch asks for, the left one's to
+Player 1 and the right one's to Player 2, both on a `both` step, gone the
+moment that lobe is pinched under the shut line and said again if it is let
+go; and `FIRE` at the hull under the middle column while the kernel is lit,
+to either seat and never naming the colour. Nothing between steps or as it
+splits (`render/boss-cue-read-zf.ts`, `test/boss-cue-vise.test.ts`).
 
 ## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
 

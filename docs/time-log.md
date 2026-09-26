@@ -24021,3 +24021,18 @@ column, so the look could not tell them apart without the sim saying which.
 Bottleneck: looking — eight VERSUS shots, about a minute each, one pose at a time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §28 THE VISE, its hands, the last lane: the cue's words
+
+- reading: 5 min. THE OCULUS's cue page and its test as the pattern, THE
+  VISE's grip for where a lobe stands.
+- writing: 10 min. `boss-cue-read-zf.ts`, the switch row, the seven tests,
+  the spec lines.
+- looking: 0 min. No frame tool pictures a boss mid-step; the gap is queued.
+- friction: 10 min. The push before it found a trunk that had moved under
+  four records, resolved by hand.
+- landing: 5 min. `check:fast`, the land and the push.
+
+Bottleneck: friction — the previous lane's push rebased over another
+session's landing on the same boss, and its records had to be merged by
+hand before this lane could start.
