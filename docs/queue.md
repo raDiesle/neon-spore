@@ -1195,3 +1195,17 @@ scars, since a gum, a fence or a box breaks the hull without drawing one
 (`breachUnscarred`) — which is how THE GUM, THE GAP and THE CUT had been
 passing without an answer. Each creature is one file in `packages/hands/src/`
 and one name out of the set.
+
+## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`
+
+*THE MANTLE answers a thumb: each seat pulls its own knob, either taps the core* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
+
+- THE MANTLE's knobs under two real thumbs on phones: each seat's knob taken, the other's falling through
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

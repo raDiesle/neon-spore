@@ -22484,3 +22484,5 @@ Bottleneck: reading — the test had been counting scars, and a gum, a fence and
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — the director's row, pose and spec table each restate what the grip does, three copies of one paragraph.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 920f00b11 — THE MANTLE answers a thumb: each seat pulls its own knob, either taps the core
+
+Each seat now takes hold of its own knob on THE MANTLE, the pilot the left and the navigator the right, on both phones, and carries it down its groove; a thumb on the other seat's knob falls through, and one laid on a knob before the handles light is held. Once the shell splits, the ring round the bared core takes a tap from either seat, and the one it is not waiting on is refused by the simulation rather than passed to the cannon behind. The ghost hand stands on a pulled knob, and the director has the three rows and their poses.
+
 ## 2026-09-26 · e8e139843 — AUTO answers THE WEIGHT, THE MINE, THE BEATBOX, THE GUM and THE FENCE
 
 Both seats grip a weight together, the seat that cannot see a mine presses its tile, player 2 taps a box on the beat until its run is done, and player 2 grips a falling gum and swipes it toward the nearer wall. A fence is passed with the shield in its nearest gap; a fence with no gap has its crack burnt first by a bolt of the crack's colour. The field test now counts breaches rather than scars, since a gum, a fence or a box breaks the hull without one. Seven ordinary waves remain half played.
