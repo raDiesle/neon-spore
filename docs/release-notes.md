@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 1f725b94e — THE SLING: the simulation lane — a fork two draws loose, then shoot into
+
+Wave 111 THE SLING is in: a forked arm bolted over the middle column whose two draw-arms are each cocked by one seat holding a finger down for the count and loosed by swiping toward the lit side as it lifts, spending the unclaimed HOLD, THEN SWIPE gesture as DrawRelease for the first time. Four draws light the yoke, which is shot in its colour; between the shots both seats draw and loose at once to keep it lit. The twelve sounds are bound; nothing in the game sends a draw from a touch yet — that rides the look — nothing is drawn, and there is no autopilot hand (docs/spec/bosses.md §11.49, nine departures argued). The director's boss-nothing guard is one list now, and serialize-boss one branch for the scenes it copies whole.
+
 ## 2026-09-26 · d4f21f6a4 — THE KEEL has a hand: AUTO taps each joint from its own seat, shuts the socket and shoots the rock
 
 `hands/boss-hands-keel.ts` plays THE KEEL right: each lit joint tapped by the seat whose half it sits over, the socket shot up the middle in its own colour, a thrown rock shot out of its column first. AUTO plays the fight to straight with nothing missed, and the STATES sheet poses all eight phases. THE KEEL leaves NO_HAND and the OWED list, and its lane two is complete.

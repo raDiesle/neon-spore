@@ -1517,6 +1517,16 @@ what the rest of this file holds.
 
 - THE KEEL's autopilot hand watched at tempo on the STATES sheet
 
+## Unverified at 1f725b94e: THE SLING never watched at tempo, and undrawn
+
+- **Found:** 2026-09-26, claude/queue-32-the-sling-the-simulation-lane
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*THE SLING: the simulation lane — a fork two draws loose, then shoot into* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
+
+- THE SLING never watched at tempo, and undrawn
+- THE SLING has no touch sender, so no phone can answer it
+
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is

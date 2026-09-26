@@ -22869,3 +22869,5 @@ Bottleneck: writing — eight poses, each needing a note that names both seats.
 
 Bottleneck: friction — the registrations' pages were full, so a fifth
 scene of the same shape had to refactor two director files to fit.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
