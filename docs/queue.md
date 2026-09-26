@@ -1003,26 +1003,6 @@ single found case. Give a lit knuckle's pool or glow its own small period,
 distinct from `beatPhase`, the way `well-flesh.ts`'s `breath` runs on
 `time * 0.9` rather than the beat.
 
-## §35 THE DAVIT — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-35-the-davit-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-No new primitive: `LevelTilt` (THE PLUMB's) and `DrawRelease` (THE
-SLING's) paired so one seat's held tilt drives a shared aim reading in
-real time and the other seat's release only lands while that tilt is
-in threshold and the release direction matches the aim at that instant
-— a hand-off rather than THE GRINDSTONE's sequence or THE CYST's
-dependency. Eleven steps, three movements, the steering half and the
-drawing half swapping seat by movement the way THE CYST's freezing and
-squeezing hands do. The full beat list and primitive table entry are
-§35 of `docs/spec/bosses-choreographed.md`. `LevelTilt` and
-`DrawRelease` each gain a second `where` entry in
-`tools/director/src/gesture-unbuilt.ts` — already done, land it with
-the rest. THE SLOW on every steer-and-loose window and every fire
-window. `bun run check` proves it.
-
 ## §35 THE DAVIT — the look
 
 - **Found:** 2026-09-26, this session
