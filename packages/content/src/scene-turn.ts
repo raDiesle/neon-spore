@@ -2,6 +2,7 @@ import {
   BEARING_TURN,
   type DragTarget,
   gimbalTurnPerTickMilli,
+  haspTurnPerTickMilli,
   NO_BEARING,
   type SceneCommand,
   type SimConfig,
@@ -91,26 +92,31 @@ export function crankCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): Sce
 }
 
 /**
- * THE GIMBAL's ring, turned **a set distance and then held** — authored as a
- * `drag` on `gimbalOuter` or `gimbalInner`, with `toMilli` the distance round
- * the hand's own face, clockwise positive, and `until` the lift.
+ * A clock boss's wheel or ring, turned — authored as a `drag` on
+ * `gimbalOuter`, `gimbalInner` or `haspWheel`, with `toMilli` the distance
+ * round the hand's own face, clockwise positive, and `until` the lift.
  *
- * The crank has no destination; a ring has exactly one, its mark, and the
- * whole of the lesson is the hand that stops on it and stays. So the stream
- * stops advancing at the distance and keeps reporting the same bearing until
- * the lift: a hand still on the rim, which is what keeps the ring off its
- * drift (`sim/gimbal-step.ts`). The distance is the face's and not the
- * wheel's, because the navigator's ring is gripped from the far side and the
- * same number goes in mirrored (`sim/gimbal-hand.ts`) — a film writes what
- * the thumb does and the simulation says what that turns.
+ * **THE GIMBAL's ring is turned a set distance and then held.** The crank has
+ * no destination; a ring has exactly one, its mark, and the whole of the
+ * lesson is the hand that stops on it and stays. So the stream stops
+ * advancing at the distance and keeps reporting the same bearing until the
+ * lift: a hand still on the rim, which is what keeps the ring off its drift
+ * (`sim/gimbal-step.ts`). The distance is the face's and not the wheel's,
+ * because the navigator's ring is gripped from the far side and the same
+ * number goes in mirrored (`sim/gimbal-hand.ts`) — a film writes what the
+ * thumb does and the simulation says what that turns.
  *
- * The rate is the desk key's, `gimbalTurnPerTickMilli`, for the crank's
- * reason: asked for, not chosen.
+ * **THE HASP's wheel has no mark**, only a distance the simulation keeps, so
+ * a film leaves `toMilli` out and the hand turns until it lifts — and on a
+ * latch nobody holds it turns and nothing moves, which is the page.
+ *
+ * The rate is asked for, not chosen, the crank's reason: the desk key's
+ * `gimbalTurnPerTickMilli` for a ring, `haspTurnPerTickMilli` for the wheel.
  */
 export function ringCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
   const until = act.until ?? act.tick + SAMPLE_TICKS;
-  const travel = act.toMilli ?? 0;
-  const perTick = gimbalTurnPerTickMilli(cfg);
+  const travel = act.toMilli ?? Number.POSITIVE_INFINITY;
+  const perTick = target === "haspWheel" ? haspTurnPerTickMilli(cfg) : gimbalTurnPerTickMilli(cfg);
   return turning(target, player, act.tick, until, perTick, travel < 0 ? -1 : 1, Math.abs(travel));
 }

@@ -1,5 +1,6 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
-import { midCol } from "./config.js";
+import { midCol, type SimConfig } from "./config.js";
+import { ticksPerBeat } from "./config-derived.js";
 import { haspBoss, haspBurning, haspHeld, haspNeedMilli, haspWorking, NO_LATCH } from "./hasp.js";
 import { haspSlow, openHasp } from "./hasp-step.js";
 import type { Command } from "./types.js";
@@ -119,4 +120,21 @@ function wheelHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
   s.wheelMilli = (((s.wheelMilli + turned) % TURN) + TURN) % TURN;
   s.woundMilli += Math.abs(turned);
   if (s.woundMilli >= haspNeedMilli(s, world.cfg)) openHasp(world, s);
+}
+
+/**
+ * How far a hand with nothing to prove turns the wheel in one tick — **the
+ * first hasp's wind inside half a grip**, and the half is the argument.
+ *
+ * Nothing else on this boss names a turning speed: the wheel has no drift and
+ * no clock of its own, only a distance to be wound and a heat that ends the
+ * grip it is wound under (`config-hasp.ts`). So the pace a rehearsal or a
+ * desk turns at is read off those two, and half a grip is fast enough that
+ * the first hasp opens with the latch still cool and slow enough that one
+ * sample is a thirtieth of a turn, nowhere near the half a bearing reads as a
+ * hand jumping back (`bearing.ts`).
+ */
+export function haspTurnPerTickMilli(cfg: SimConfig): number {
+  const ticks = Math.max(1, Math.floor((cfg.haspHoldBeats * ticksPerBeat(cfg)) / 2));
+  return Math.max(1, Math.ceil(cfg.haspWindMilli / ticks));
 }

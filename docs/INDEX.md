@@ -702,6 +702,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-leech.ts` | THE LEECH's rehearsal: the cannon is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-codex.ts` | THE CODEX's rehearsal: the button that works and lies, and the word that says which |
 | `packages/content/src/scenes/the-gimbal.ts` | THE GIMBAL's rehearsal: two rings, one each, turned to two marks and held |
+| `packages/content/src/scenes/the-hasp.ts` | THE HASP's rehearsal: a wheel that turns only while the other player holds the latch |
 | `packages/content/src/scenes/the-throat.ts` | THE THROAT's rehearsal: what it takes, and the one thing that hurts it |
 | `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |
 | `packages/content/src/scenes/the-veer.ts` | THE VEER's rehearsal: the column stops being true while you are saying it |

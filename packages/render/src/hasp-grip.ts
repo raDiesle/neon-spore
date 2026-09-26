@@ -112,3 +112,20 @@ export function haspRimUnder(l: Layout, x: number, y: number, field: Field): Tou
     },
   };
 }
+
+/**
+ * **Where her thumb is on the wheel's rim** — at the bearing her hand last
+ * reported, not the one the wheel stands at, for the ghost hand of a
+ * rehearsal. The two agree while the latch is held and part the moment it is
+ * not: the hand goes on round and the knurl stays where it seized, which is
+ * the page (`sim/hasp-hand.ts`). The same `cos`/`sin` the spokes are drawn
+ * with (`hasp-parts.ts`), so a thumb at nought sits on a spoke at nought.
+ * Null with no hand on it.
+ */
+export function haspWheelHand(l: Layout, cfg: SimConfig, s: HaspState): Circle | null {
+  if (!haspWorking(s) || s.handMilli === NO_BEARING) return null;
+  const at = haspCentre(l, cfg, haspWorkIndex(s));
+  const r = haspHubRadius(l) * 1.12;
+  const a = (s.handMilli / 1000) * Math.PI * 2;
+  return { x: at.x + Math.cos(a) * r, y: at.y + Math.sin(a) * r, r: haspHubRadius(l) * 0.3 };
+}

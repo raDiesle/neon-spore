@@ -94,9 +94,7 @@ export const WAVES_ACT_11: Wave[] = [
     id: "theHasp",
     name: "THE HASP",
     guide: {
-      both: "Three hasps on a door. He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long.",
-      p1: "1. Drag the latch down and keep holding it.\n2. The wheel only turns while you hold. Say the moment you let go.\n3. Your hand burns if you hold too long. Only you see the heat.",
-      p2: "1. Drag round the wheel's rim and keep turning.\n2. It moves only while they hold. Say when it seizes, and how far round you are.\n3. The last hasp gives them less time. A piece works loose. Shoot it.",
+      scene: "theHasp",
     },
     entries: [],
     boss: { kind: "hasp" },

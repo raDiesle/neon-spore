@@ -21715,3 +21715,19 @@ Bottleneck: the machinery — no film had turned a ring to a place and held it,
 so the stream grew a stop before the film could be written.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE HASP's guide is a film
+
+- reading: 10 min. The hasp's hand and step, which seat holds which handle,
+  and how deep the latch has to go to count as held.
+- writing: 15 min. The wheel's turn rate as one exported figure, the wheel on
+  the ring stream, the latch's reach, the hand on the rim, the film and its
+  test, and the prose list and §3.2 moved.
+- looking: 5 min. One probe of the wheel against the latch, one capture of
+  the navigator's seized page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the wheel's speed — the film needed the simulation's own turn
+rate to wind the first hasp open inside a page, and it was a local sum until
+it became an export.

@@ -69,6 +69,9 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // (`sim/spool-hand.ts`), so a film about it writes `toMilli` every time; left
   // out, it is the whole reach, which is the slowest the line runs.
   if (target === "spoolBrake") return cfg.spoolReachMilli;
+  // THE HASP's latch is held down, and held is a depth past `haspGripMilli`
+  // (`sim/hasp.ts`): left out, a film carries it the whole reach.
+  if (target === "haspLatch") return cfg.haspReachMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -120,6 +123,17 @@ function pullsDown(target: DragTarget): boolean {
  * the target here, the way a press reads its seat off `ControlDef.player`,
  * rather than being a field a film could get wrong.
  */
+/** The handles that go round rather than along (`scene-turn.ts`). */
+const TURNED: ReadonlySet<DragTarget> = new Set(["gimbalOuter", "gimbalInner", "haspWheel"]);
+
+/** The handles only the navigator's thumb moves. */
+const NAVIGATORS: ReadonlySet<DragTarget> = new Set([
+  "balloonRight",
+  "sinewRight",
+  "gimbalInner",
+  "haspWheel",
+]);
+
 export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // THE SURGE's bulb is the one handle both seats hold, so the target cannot
   // say and the act does (`SceneAct.hand`); the pilot's when it does not.
@@ -128,9 +142,9 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   if (target === "surgeBulb" || target === "hiveLobe") return hand ?? 1;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
-  // THE GIMBAL's inner ring is the navigator's, by geometry
-  // (`sim/gimbal-hand.ts`).
-  return target === "balloonRight" || target === "sinewRight" || target === "gimbalInner" ? 2 : 1;
+  // THE GIMBAL's inner ring and THE HASP's wheel are the navigator's, by
+  // geometry and by the design (`sim/gimbal-hand.ts`, `sim/hasp-hand.ts`).
+  return NAVIGATORS.has(target) ? 2 : 1;
 }
 
 /**
@@ -150,8 +164,8 @@ function byColumn(target: DragTarget): boolean {
 export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
   const player = dragSeat(target, act.hand);
-  // A ring is turned, not carried: a bearing, and a stop on the mark.
-  if (target === "gimbalOuter" || target === "gimbalInner") return ringCommands(act, player, cfg);
+  // A ring or a wheel is turned, not carried: a bearing, not a distance.
+  if (TURNED.has(target)) return ringCommands(act, player, cfg);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid
