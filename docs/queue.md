@@ -1043,8 +1043,10 @@ unless it is a fix to something wrong rather than unlovely.
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the
   owner's *"slow down"* request)
-- **Files:** `docs/style-guide.md`, and whichever `*-flesh.ts`/`*-body.ts`
-  files the audit below finds lacking
+- **Files:** `docs/style-guide.md`
+
+Also whichever flesh and body files under `packages/render/src/` the audit
+below finds lacking.
 
 The owner's own words, 2026-09-26: *"i like that they look more 3
 dimensional... also more natural living animations."* The still-life
