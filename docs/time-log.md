@@ -21348,3 +21348,5 @@ window fails the pair when it runs out.
 
 Bottleneck: deciding which clock is the axis — the pair's seconds won,
 because that is what a person reading `freeze=` on a running pair counts.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

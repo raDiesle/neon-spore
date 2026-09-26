@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b58a58cae — A VERSUS freeze inside THE SLOW lands on the second it names
+
+`freeze=<seconds>` now counts the pair's own clock, tick by tick, each tick for the seconds it takes on the running pair — so a window THE SLOW opened is crossed at its own rate rather than four times too fast. The cadence clock and the freeze's count move together in one function, `freezeTick`, and the cadence is asked per tick, so a rebuild during a pending freeze lands on the same tick every time. On `THE SLOW · A WINDOW RUNNING OUT`, `freeze=4.2` is 4.2 seconds in, and `freeze=10` and `freeze=17` are two frames seven seconds apart.
+
 ## 2026-09-26 · f12aae1a — poses.test.ts: raise the idle-cost budget for pose count growth
 
 Found while landing an unrelated lane: the gallery grew from 210 to 261 poses since this test's timeout was tuned, and its own idle cost on a quiet cloud container now measures 9.7s against the 8s the old constant allowed. Not a flake — the arithmetic genuinely grew. Raised the idleMs argument from 1_000 to 1_300.
