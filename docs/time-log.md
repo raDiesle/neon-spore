@@ -24951,3 +24951,5 @@ The bottleneck: finding a wave where the no-hand note shows, one wave at a time.
 
 Bottleneck: friction — two file splits the size hook asked for, about as
 long as the slosh itself took.
+
+*Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

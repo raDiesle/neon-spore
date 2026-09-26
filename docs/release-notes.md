@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ba00dde9d — Queue: the rock ratchet test times out under a full check
+
+## 2026-09-26 · 4ce62072e — THE BATON's lit cups slosh on a clock of their own
+
+The violet pooled in a lit socket's cup now runs a tenth of a radius from side to side, and thins at the ends of its run. Each socket starts at its own phase, so the arm's live cups do not move together. Until now the socket's only motion was its beat breath, which every socket takes at once. Exemption: a look the owner asked for by name, the boss depth pass.
+
 ## 2026-09-26 · 30ccbf7d2 — The TEST panel fits a 360px phone: sliders shrink, AUTO wraps
 
 Checked the TEST panel's AUTO row in the preview at 375, 360 and 320 wide. The row itself was fine at 375 and 360, and its "no hand for this boss" note fits on one line. But every slider's value ran 7px off the right edge of a 360px screen (most Android phones), and the panel scrolled sideways, because a range input keeps its intrinsic width. Range inputs may now shrink, and the AUTO row wraps its P2 button to a second line at 320 rather than clipping it.
