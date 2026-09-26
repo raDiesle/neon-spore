@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · bdb865994 — A claim whose push origin refuses is made again, or given up
+
+`bun run queue next` and `take` used to warn when origin refused the claim's push, then hand the item out anyway. That is how two sessions built §25 THE VALVE. A refused claim now fetches origin. If origin's entry is already taken, the claim is given up with the holder's name. If it is free, the line is marked again over origin's trunk and pushed once more.
+
 ## 2026-09-26 · 8b681b4fc — THE GYRE's wheels are asked for once a frame
 
 `gyres(world)` filtered every creature twice a frame, once for the wind and once for the armature, and `drawGyres` filtered the whole list again for each wheel's carried bodies. `frame-field.ts` now asks for the wheels once and hands the list to both draws. `gyreCarried` sorts the carried bodies into their wheels in one pass, keeping the field's own order. Nothing drawn changes.

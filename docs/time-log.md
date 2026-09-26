@@ -22304,3 +22304,5 @@ Bottleneck: landing — the checks outlast a change this size.
 
 Bottleneck: diagnosis — the refusal came from a stale `main`, not a race,
 and only origin's log and the reflog showed it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
