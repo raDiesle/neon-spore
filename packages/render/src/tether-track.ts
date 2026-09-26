@@ -2,7 +2,8 @@ import type { Point } from "@neon-spore/content";
 import type { SimConfig, WardenState } from "@neon-spore/sim";
 import { fieldPoint } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
-import { PULL_TRACK_W, type PullTrack } from "./pull-track.js";
+import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
+import type { PullTrack } from "./pull-track.js";
 
 /**
  * **Where THE WARDEN's rope can be pulled**, as the channel `pull-track.ts`
@@ -14,14 +15,8 @@ import { PULL_TRACK_W, type PullTrack } from "./pull-track.js";
  * the rope comes out of, with a fifth of a tile in hand (`config-boss.ts`).
  * So the channel hangs straight down while nobody has it — not on along the
  * rope, which leans as the pupil walks and would point it off the field — and
- * once a hand is on it and has gone a handle's width it turns to the way
- * that hand is actually going — the fill has to be the pull, whichever way
- * it was made.
+ * once a hand is on it turns to follow that hand (`pull-line.ts`).
  */
-
-/** How far the hand goes, in handle radii, before the channel turns to follow it. */
-const FOLLOW_AFTER = 2;
-
 export function wardenRopeTrack(
   l: Layout,
   cfg: SimConfig,
@@ -30,25 +25,12 @@ export function wardenRopeTrack(
   rest: Circle,
 ): PullTrack {
   const from = b.pulling ? fieldPoint(l, { x: b.pullAnchorX, y: b.pullAnchorY }) : rest;
-  let dx = 0;
-  let dy = 1;
-  const hx = head.x - from.x;
-  const hy = head.y - from.y;
-  const went = Math.hypot(hx, hy);
-  if (b.pulling && went > 0) {
-    const k = Math.min(1, went / (rest.r * FOLLOW_AFTER));
-    dx = dx * (1 - k) + (hx / went) * k;
-    dy = dy * (1 - k) + (hy / went) * k;
-    const n = Math.hypot(dx, dy) || 1;
-    dx /= n;
-    dy /= n;
-  }
-  const len = (cfg.wardenTautMilli * l.tile) / 1000;
-  return {
-    pts: [
-      { x: from.x, y: from.y },
-      { x: from.x + dx * len, y: from.y + dy * len },
-    ],
-    w: rest.r * PULL_TRACK_W,
-  };
+  return straightPullTrack({
+    from,
+    r: rest.r,
+    head,
+    held: b.pulling,
+    rest: PULL_DOWN,
+    len: (cfg.wardenTautMilli * l.tile) / 1000,
+  });
 }

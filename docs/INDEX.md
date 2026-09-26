@@ -1158,6 +1158,7 @@ by hand never moves.
 | `packages/render/src/lid-plates.ts` | the shipped plates over the lid's lens — two grey rectangles sliding apart, and the lit seam between them |
 | `packages/render/src/lid-bevel.ts` | BEVEL — a kept look for THE LID's armour, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/lid-iris.ts` | IRIS — six armour leaves overlapping like a diaphragm |
+| `packages/render/src/lid-track.ts` | **Where THE LID's cord can be pulled**, as the channel `pull-track.ts` draws: from the cord's rest |
 | `packages/render/src/lid.ts` | you are drawing the armoured eye itself — the lens, the sliding plates and the fringe |
 | `packages/render/src/ease.ts` | The one easing curve `render/` uses, and the one place it is written out |
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
@@ -1702,6 +1703,7 @@ by hand never moves.
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
 | `packages/render/src/pull-knob.ts` | **Where a pull starts**: the big circle a thumb goes on (`drawPullKnob`), and `PULL_GRAB`, how far outside it a press is still taken |
+| `packages/render/src/pull-line.ts` | **A pull measured as a distance, as a straight channel** — the track builder THE WARDEN's rope |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |

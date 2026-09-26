@@ -9,10 +9,13 @@ import {
 } from "@neon-spore/sim";
 import { creatureCenter, flatCenter } from "./creature-place.js";
 import { strokeGlow } from "./glow.js";
-import { drawHandleRest, drawHandleRing, handleRadius, handleSag } from "./handle-draw.js";
+import { handleRadius, handleSag } from "./handle-draw.js";
 import { drawHandleHint, HINT_SOFT } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
+import { lidCordTrack } from "./lid-track.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
+import { drawPullTrack } from "./pull-track.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -138,9 +141,13 @@ function drawOne(
     waveSlack: 2.4,
   });
   const cord = splinePath(sag, false);
+  // The way the pull goes, under the cord so the cord lies in its channel,
+  // filling green behind the hand (`lid-track.ts`); then the circle to start,
+  // where the thumb has it (`pull-knob.ts`) — the owner's rule for every
+  // handle you pull.
+  const track = lidCordTrack(l, cfg, c, rest, head, held);
+  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
-
-  if (held) drawHandleRest(ctx, rest, hex);
-  drawHandleRing(ctx, { x: head.x, y: head.y, r: rest.r, hex, rim, held, pull, time });
+  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.62, HINT_SOFT);
 }

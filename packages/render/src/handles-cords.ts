@@ -2,6 +2,7 @@ import { NO_TETHER } from "@neon-spore/sim";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringGrab, mazeStringRim } from "./maze-string.js";
+import { PULL_GRAB } from "./pull-knob.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -85,7 +86,9 @@ export function lidCordUnder(l: Layout, x: number, y: number, field: Field): Tou
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of field.creatures) {
     if (c.kind !== "lid") continue;
-    const circle = lidCordCircle(l, field.cfg, c, field.beatPhase);
+    // Widened by `PULL_GRAB`, the owner's rule for every handle you pull.
+    const rest = lidCordCircle(l, field.cfg, c, field.beatPhase);
+    const circle = { ...rest, r: rest.r * PULL_GRAB };
     if (!hitCircle(circle, x, y)) continue;
     const d = Math.hypot(x - circle.x, y - circle.y);
     if (d >= bestDist) continue;

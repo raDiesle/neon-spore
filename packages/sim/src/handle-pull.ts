@@ -82,7 +82,12 @@ const CHROME_MILLI = 1000;
 /** The tile grid, in thousandths, inset by the radius of the handle itself —
  * so what is kept on the field is the whole circle and not its centre — and by
  * the app's chrome along the top. */
-function bounds(cfg: SimConfig): { x0: number; x1: number; y0: number; y1: number } {
+export function handleBoundsMilli(cfg: SimConfig): {
+  x0: number;
+  x1: number;
+  y0: number;
+  y1: number;
+} {
   const r = cfg.handleRadiusMilli;
   return {
     x0: r,
@@ -125,7 +130,7 @@ export function clampPull(
       ? { x: Math.round((raw.x * tautMilli) / len), y: Math.round((raw.y * tautMilli) / len) }
       : { x: Math.round(raw.x), y: Math.round(raw.y) };
 
-  const b = bounds(cfg);
+  const b = handleBoundsMilli(cfg);
   return {
     x: Math.max(b.x0, Math.min(b.x1, anchor.x + cut.x)) - anchor.x,
     y: Math.max(b.y0, Math.min(b.y1, anchor.y + cut.y)) - anchor.y,

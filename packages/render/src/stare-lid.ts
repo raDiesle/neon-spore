@@ -1,9 +1,12 @@
 import { type SimConfig, type StareState, stareLidFree } from "@neon-spore/sim";
 import { rimBox, rimPoint } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
-import { drawHandleRest, drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
+import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
+import { drawPullTrack } from "./pull-track.js";
 import { type StareEye, stareEye, stareLidDrop } from "./stare-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -23,13 +26,16 @@ import { showsStareLid } from "./view-role-clocks-b.js";
  * over, and the seat that may pull it is the other one
  * (`showsStareLid`, `sim/stare.ts` `stareLidFree`). The ring rests at the
  * brow while there is no hand on it and rides the edge down with the pull,
- * which is the shipped handle look (`handle-draw.ts`); it breathes while it
- * is free, fills while it is held, and is not drawn while the eye is
- * forcing the lid back up — the eye has it then, not a thumb.
+ * in a channel from the brow to where a shut lid's edge stops that fills
+ * green behind it — the owner's rule for every handle you pull
+ * (`pull-track.ts`, `pull-knob.ts`); it breathes while it is free, is lit
+ * while it is held, and is not drawn while the eye is forcing the lid back
+ * up — the eye has it then, not a thumb.
  *
  * The **rest** is the one place the circle is written down, and the hit
- * test answers there whatever the lid is doing: a press is tested against
- * the brow, and the pointer is captured from that press on (`handles.ts`).
+ * test answers there, widened by `PULL_GRAB`, whatever the lid is doing: a
+ * press is tested against the brow, and the pointer is captured from that
+ * press on (`handles.ts`).
  */
 
 /**
@@ -88,7 +94,8 @@ function coverPath(e: StareEye): Path2D {
 export function stareLidUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "stare");
   if (s === null || !stareLidFree(s, field.seat)) return null;
-  if (!hitCircle(stareLidRest(l, field.cfg), x, y)) return null;
+  const rest = stareLidRest(l, field.cfg);
+  if (!hitCircle({ ...rest, r: rest.r * PULL_GRAB }, x, y)) return null;
   return {
     player: field.seat,
     command: { kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli: 0 },
@@ -135,15 +142,22 @@ export function drawStareLid(
   if (!showsStareLid(role, s.watching)) return;
   if (s.phase === "opening") return;
   const held = s.lidSeat !== 0;
-  if (held) drawHandleRest(ctx, rest, PALETTE.rock);
-  drawHandleRing(ctx, {
-    x: rest.x,
-    y: edge,
+  const head = { x: rest.x, y: edge };
+  // Down only, and the whole of the edge's travel: the knob rides the edge,
+  // not the thumb, so the channel is where the edge can go.
+  const len = lidEdgeY(e, rest.y, 1) - rest.y;
+  const track = straightPullTrack({
+    from: rest,
     r: rest.r,
-    hex: PALETTE.rock,
-    rim: PALETTE.text,
+    head,
     held,
-    pull: drop,
-    time,
+    rest: PULL_DOWN,
+    len,
+    follow: false,
   });
+  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: drop, time });
+  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time });
 }
+
+/** The handle's colours: the cowl's rock, lit to the text colour while held. */
+const LOOK = { hex: PALETTE.rock, rim: PALETTE.text } as const;

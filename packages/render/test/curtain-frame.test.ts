@@ -232,11 +232,15 @@ describe("THE CURTAIN's fabric", () => {
     );
   });
 
-  it.each(ROLES)("fills the hem's gauge as the lift comes in, on %s", (role) => {
+  it.each(ROLES)("fills the hem's channel green as the lift comes in, on %s", (role) => {
+    // The channel fills behind the knob (`pull-track.ts`), and a hem nobody
+    // has lifted has nothing behind it.
     const half = hung();
     pinned(half).liftMilli = Math.round(CFG.curtainLiftMilli / 2);
     const none = hung();
     pinned(none);
-    expect(drawn(half, role, 3).calls).toBeGreaterThan(drawn(none, role, 3).calls);
+    expect(count(drawn(half, role, 3).text, PALETTE.good)).toBeGreaterThan(
+      count(drawn(none, role, 3).text, PALETTE.good),
+    );
   });
 });

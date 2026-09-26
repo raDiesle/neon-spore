@@ -1,9 +1,12 @@
 import { type Creature, CURTAIN_COLS, type CurtainState, type SimConfig } from "@neon-spore/sim";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
 import { drawnCol } from "./depth.js";
-import { drawHandleRest, drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
+import { PULL_UP, straightPullTrack } from "./pull-line.js";
+import { drawPullTrack } from "./pull-track.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -36,6 +39,12 @@ import { bossOf } from "./touch-field.js";
  * rail, which is what a curtain gathered to the top looks like. The gap over
  * the core opens for nothing else: the core is drawn first and the sheet over
  * it (`curtain-draw.ts`), so cloth lifted off a column is a column seen.
+ *
+ * **Drawn as the way it can be lifted**: a channel from the hem's rest up
+ * the whole of a full lift, filling green behind the hand, and the circle to
+ * start riding the edge — the owner's rule for every handle you pull
+ * (`pull-track.ts`, `pull-knob.ts`), answered well outside the circle drawn
+ * (`PULL_GRAB`).
  *
  * **The ring is on both screens**, because the gauge closing is the navigator's cue, because the instant it
  * closes is the instant her shot up that column is worth something. Whose
@@ -120,7 +129,7 @@ export function curtainHemUnder(l: Layout, x: number, y: number, field: Field): 
   const body = field.creatures.find((b) => b.id === c.creatureId);
   if (body === undefined) return null;
   const rest = curtainHemRest(l, field.cfg, body, field.beatPhase);
-  if (rest === null || !hitCircle(rest, x, y)) return null;
+  if (rest === null || !hitCircle({ ...rest, r: rest.r * PULL_GRAB }, x, y)) return null;
   return {
     player: 1,
     command: { kind: "drag", target: "curtainHem", on: true, fromMilli: 0, fromYMilli: 0 },
@@ -150,15 +159,22 @@ export function drawCurtainHem(
   const rest = curtainHemRest(l, cfg, body, beatPhase);
   if (rest === null) return;
   const held = c.liftMilli > 0;
-  if (held) drawHandleRest(ctx, rest, PALETTE.hull);
-  drawHandleRing(ctx, {
-    x: rest.x,
-    y: rest.y - curtainHemLift(l, cfg, c),
+  const head = { x: rest.x, y: rest.y - curtainHemLift(l, cfg, c) };
+  // Up only, and the whole of a full lift: the knob rides the hem, not the
+  // thumb, so the channel is where the hem can go.
+  const len = curtainHemReach(l);
+  const track = straightPullTrack({
+    from: rest,
     r: rest.r,
-    hex: PALETTE.hull,
-    rim: PALETTE.hullRim,
+    head,
     held,
-    pull: curtainHemPull(cfg, c),
-    time,
+    rest: PULL_UP,
+    len,
+    follow: false,
   });
+  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: curtainHemPull(cfg, c), time });
+  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time });
 }
+
+/** The handle's colours: the sheet's hull violet, and its lit rim. */
+const LOOK = { hex: PALETTE.hull, rim: PALETTE.hullRim } as const;

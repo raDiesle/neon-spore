@@ -463,7 +463,11 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       drawImage: 29,
       createLinearGradient: 20,
       createRadialGradient: 17,
-      "new Path2D": 55,
+      // Two more on 26 September 2026, when the cord's handle became the
+      // pull channel every pulled handle wears (`lid-track.ts`): the channel,
+      // its chevrons and the knob's disc are paths of their own, where the
+      // ring it replaced built one and drew its dial on the context's path.
+      "new Path2D": 57,
       fillText: 2,
     },
     {
@@ -479,7 +483,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // layout-only slot (`render/eye.ts`). The other six are the leaves'
       // curls (`lid-iris.ts`).
       createRadialGradient: 14,
-      "new Path2D": 30,
+      // The channel's two, as the row above.
+      "new Path2D": 32,
       fillText: 2,
     },
   ],

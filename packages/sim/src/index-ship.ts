@@ -39,7 +39,7 @@ export { carryIsReady, type GripPush, gripPushOf } from "./grip-push.js";
 // What a hand on a body *is* — the one rule the sim, the hit test and the
 // picture all ask rather than answer for themselves (`hand.ts`).
 export { type HandMeans, handMeans } from "./hand.js";
-export { isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
+export { handleBoundsMilli, isqrt, type PullVec, tileCentreMilli } from "./handle-pull.js";
 export { type BreachWeight, guardArmed, ticksSinceGuard } from "./hull.js";
 export {
   beamTicks,

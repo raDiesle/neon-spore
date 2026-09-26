@@ -222,12 +222,12 @@ describe("THE STARE's eye", () => {
     expect(rising.text).not.toBe(shut.text);
   });
 
-  it("draws the lid's ring on the seat the eye is not on, and never the watched one", () => {
-    // The ring under a thumb sweeps a gauge round itself from the top,
-    // clockwise — the one arc in the picture that starts at twelve — so the
-    // screens that draw the ring are the screens that draw that arc.
+  it("draws the lid's handle on the seat the eye is not on, and never the watched one", () => {
+    // A lid half down fills its channel green behind the knob (`pull-track.ts`)
+    // — the one green in the picture — so the screens that draw the handle
+    // are the screens that draw that green.
     const gauge = (role: ViewRole, arrange: (w: World) => void) =>
-      count(frame(role, arrange).text, ", -1.571, ");
+      count(frame(role, arrange).text, PALETTE.good);
     expect(gauge("p2", (w) => lidded(w, 1, 2))).toBeGreaterThan(0);
     expect(gauge("p1", (w) => lidded(w, 1, 2))).toBe(0);
     expect(gauge("p1", (w) => lidded(w, 2, 1))).toBeGreaterThan(0);

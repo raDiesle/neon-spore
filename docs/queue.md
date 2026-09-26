@@ -395,25 +395,6 @@ Per boss, the work is:
 
 Each boss lands as *a look the owner asked for by name*.
 
-## The other pull handles show the path they can be pulled
-
-- **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
-- **Taken:** 2026-09-26, claude/task-queue-work-ef5307 (claim: claude/queue-the-other-pull-handles-show-the-path-they-can-be)
-- **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`, `packages/render/src/pull-knob.ts`
-
-The owner's generic rule of 25 September 2026 (`owner.md`): a handle you
-pull is drawn as a thin channel along its travel that fills green behind
-the hand, a big circle to start, and a grab far wider than the circle — not
-a ring with a dial. THE WARDEN's rope and THE MAZE's lever wear it
-(`tether.ts`, `tether-track.ts`, `maze-string.ts`). The three files above
-still draw `drawHandleRest` and `drawHandleRing` for a pull measured as a
-distance: give each a track builder beside `tether-track.ts` (from where the
-hand took it, the taut distance long, the way the field fits it straight,
-half-width `PULL_TRACK_W` of the knob), call `drawPullTrack` in place of the
-ring and `drawPullKnob` over it, and widen its grab circle by `PULL_GRAB`
-(`pull-knob.ts`). Grips that are held rather than
-pulled keep their ring. Each lands as *a look the owner asked for by name*.
-
 ## THE GAUGE's cannon colour is a picture, not a rule
 
 - **Found:** 2026-09-25, claude/gauge-cannon-visual-clarity-82d0c7
@@ -887,3 +868,19 @@ Cut `bind.ts` the way `bind-volley.ts`, `bind-carom.ts` and `bind-gum.ts`
 were cut (the shared-defence cases — deflect, guard, shield push — are a
 natural file), and split `FIELD_GROUP` by group into a second page imported
 back. Proof: `bun run check`, both files well under 230.
+
+## `queue next` sends a worktree session to a tree it may not write
+
+- **Found:** 2026-09-26, claude/queue-the-other-pull-handles-show-the-path-they-can-be
+- **Files:** `tools/queue/prompt.ts`, `.claude/skills/lane/SKILL.md`
+
+The prompt `bun run queue next` prints always says `git worktree add` a new
+tree for the claimed branch. A desktop session already opened in a worktree
+of its own is refused every Write/Edit outside that tree by a harness hook,
+so the new tree cannot be worked in: this lane removed it again and ran
+`git checkout <branch>` in its own clean worktree instead. Have `prompt.ts`
+detect a clean worktree that is not the main checkout (`git rev-parse
+--git-common-dir` differs from `--git-dir`, `git status --porcelain` empty)
+and print `git checkout <branch>` there, with `bun install` still after it;
+say the same in the lane skill's section 1. Proof: a test in
+`tools/queue/test/` for both prompts, and `bun run check`.

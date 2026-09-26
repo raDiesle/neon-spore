@@ -21212,3 +21212,17 @@ Bottleneck: none worth the name. The first frame landed after the crash, so
 the tick had to be found by trying two more.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE LID, THE STARE and THE CURTAIN pull along a channel
+
+- reading: 10 min. The queue entry, the rope's and the lever's tracks, the
+  three handles and the sim's pull bounds.
+- writing: 15 min. One shared straight-track builder, three handles moved
+  onto it, the grab widened, two tests and a budget row.
+- looking: 5 min. One frame of THE LID with a thumb on its cord.
+- friction: 5 min. The branch was claimed in a second worktree this session
+  may not write to, so it was moved here.
+- landing: 10 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: the claimed branch's own worktree is outside the one the session
+may write, so the queue's first instruction had to be undone.
