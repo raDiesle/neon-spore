@@ -468,24 +468,6 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §23 THE MANTLE — its hands, the second half of its look
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-23-the-mantle-its-hands-the-second-half-of-its-l)
-- **Needs:** §23 THE MANTLE — the look, half one (the body), landed 26 September 2026
-- **Files:** `packages/render/src/mantle-handle.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `docs/spec/bosses.md`
-
-Half one drew the body, and the grip has landed (`render/mantle-grip.ts`,
-the `FIELD_CONTROLS` rows and gallery poses, `docs/spec/controls.md`), and
-so has what outlives a frame (`render/mantle-fx.ts`), and its words
-(`render/boss-cue-read-zc.ts`). What
-is left, per `.claude/skills/new-boss` §5 and `.claude/skills/new-boss-state`:
-
-- **The autopilot hand**, off `NO_HAND` in `tools/director/test/autopilot.test.ts`.
-
-`bun run check` proves all of it but the feel; whether the pull reads at
-tempo stays unverified until the owner has looked.
-
 ## §24 THE KEEL — the look
 
 - **Found:** 2026-09-26, this session
@@ -1301,3 +1283,19 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE MANTLE's "spark" phase is named and never entered
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `packages/sim/src/mantle.ts`, `packages/sim/src/mantle-step.ts`, `packages/render/src/mantle-pose.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`, `packages/sim/test/mantle.test.ts`
+
+`MANTLE_PHASES` lists `"spark"`, and render reads it, but
+`sim/mantle-step.ts` never sets it: the leak on the second shear sets
+`sparkCol` and leaves the phase at `pull`. So the STATES card for "spark"
+is posed with a `want` on `mantleLeaking` rather than on the phase, and any
+reader that switches on `phase === "spark"` is dead code. Either drop
+`"spark"` from `MANTLE_PHASES` and every switch on it — the leak is already
+fully carried by `sparkCol` — or enter it on the leak and leave it when the
+spark is shot or lands. The first is smaller and matches what the
+simulation already does. Prove it with a test that walks every phase
+`MANTLE_PHASES` names through the step.

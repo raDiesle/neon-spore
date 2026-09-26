@@ -7581,12 +7581,16 @@ bursts where it had run to on its fuse. And its words (26 September 2026,
 `render/boss-cue-read-zc.ts`): `PULL` on each seat's own knob while the
 handles are lit and nobody holds it, gone the moment a thumb is on, below the
 floor or past it; `TAP` on the core, only on the screen whose tap the finish
-is waiting on; `FIRE` at the hull under a leaking spark, ahead of both. What
-is left of half two: no sounds are bound —
-`tools/director/src/sound-link-none-c.ts` carries all ten of its events
-until it lands.
-There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+is waiting on; `FIRE` at the hull under a leaking spark, ahead of both. And
+its hand (26 September 2026, `hands/boss-hands-mantle.ts`): each seat carries
+its knob to half the threshold, never below the floor, and presses again only
+when lighting has put it back to nought; the spark is shot out of its column
+in cyan; the core is tapped every half beat by the seat it waits on. AUTO
+plays it to dark (`tools/director/test/autopilot-mantle.test.ts`) and the
+STATES sheet poses all five phases off it
+(`tools/director/src/poses-bosses-hands-mantle.ts`). What is left of half
+two: no sounds are bound — `tools/director/src/sound-link-none-c.ts` carries
+all ten of its events until it lands.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/mantle.test.ts`): it installs still and lights on cue; a shear

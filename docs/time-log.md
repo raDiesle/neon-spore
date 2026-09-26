@@ -22568,3 +22568,18 @@ Bottleneck: reading — the rule for a held knob came from the cord's grey end,
 which is in the drawing, not in the queue item.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's hand: AUTO pulls, shoots and taps it dark
+
+- reading: 10 min. THE SPOOL's level hand, the mantle's grip and tap rules,
+  and how `bossPose` arrives at a state that is not a stored phase.
+- writing: 20 min. The hand, its two registrations, five STATES poses, the
+  OWED and `NO_HAND` rows struck, an AUTO-to-dark test, the spec and the
+  dead-phase finding.
+- looking: 0 min. Nothing seen: a cloud session; AUTO playing it at tempo is
+  queued unverified.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the spark's STATES card needed its own `want`, because
+the phase it is named after is never entered.
