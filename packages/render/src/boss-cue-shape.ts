@@ -3,11 +3,11 @@ import { showsCannon, showsShield } from "./view-role.js";
 
 /**
  * **What a cue is**, and which screen is owed it: the shape `boss-cue.ts`'s
- * twenty-nine readings all return and every drawing of one reads.
+ * thirty readings all return and every drawing of one reads.
  *
  * Split off `boss-cue.ts` on 20 September 2026, when `wordFloor` took it past
  * 250 lines. The seam is the one the file already had: what a cue *is* here,
- * and which boss says what over there — the switch needs all twenty-nine
+ * and which boss says what over there — the switch needs all thirty
  * readings imported and this needs none of them.
  */
 

@@ -22808,3 +22808,16 @@ Bottleneck: looking — only a magnified frame showed the root's cap poking
 out above the skull.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE KEEL's words: TAP on the lit joint, FIRE under the socket and the rock
+
+- reading: 5 min. THE MANTLE's cue page and test, and which seat and which
+  colour the keel's joint, socket and rock take.
+- writing: 10 min. `boss-cue-read-zd.ts`, the switch's case, the test.
+- looking: 0 min. A word's placement is proved by the test; how it reads at
+  tempo is queued as unverified.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the page is a copy of THE MANTLE's in shape, and the
+check waits longer than the writing took.

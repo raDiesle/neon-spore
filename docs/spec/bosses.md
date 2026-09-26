@@ -7730,6 +7730,12 @@ two seams and jolts it harder. A socket or rock that reaches the hull bursts red
 there and shudders the plating. A shot rock bursts where it had fallen to. The
 events are read above the silent lists. Both screens are shown all of it.
 
+**And its words** (26 September 2026, `render/boss-cue-read-zd.ts`). `TAP`
+goes on the lit joint's ring, shown only to the seat whose half the joint sits
+over. `FIRE` goes at the hull under the middle column while the socket is open,
+on both screens; it never names the colour the socket wants. `FIRE` goes under
+a falling rock, ahead of the rest.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

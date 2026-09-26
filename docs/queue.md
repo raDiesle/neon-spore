@@ -481,9 +481,10 @@ row and pose, `keelJoint: "field"`). **The fx and the hurt have landed**
 (`render/keel-fx.ts`: the lock's snap and jolt, the socket shutting in its
 colour, the hull hits and their shudder, the blow on a lock and a shut; the
 sixteen events stay on the silent lists, read above the loop like THE
-MANTLE's). **The cue's words** (PRESS on the lit
-joint, FIRE on the socket), **the autopilot hand**, and the STATES poses, OWED
-and NO_HAND rows the other bosses carry. `keel-shape.ts` is at 238 lines, so
+MANTLE's). **The cue's words have landed** (`render/boss-cue-read-zd.ts`:
+TAP on the lit joint for its seat, FIRE under the socket and under the rock).
+Left: **the autopilot hand**, and the STATES poses, OWED and NO_HAND rows the
+other bosses carry. `keel-shape.ts` is at 238 lines, so
 the grip's hit test goes in a file of its own.
 
 ## §25 THE VALVE — the look
