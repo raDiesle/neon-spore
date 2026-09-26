@@ -22378,3 +22378,5 @@ Bottleneck: writing — the bench across every wave was the time; it showed a de
 - landing: 5 min. `check:fast`, the queue entry, `land`.
 
 Bottleneck: friction — the game's own config has no ready rig outside `apps/game/test`, so the check on it was a copied test deleted after.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

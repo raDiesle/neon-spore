@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c94eb638d — THE WARD's last two rocks arrive a beat apart, so the shield can meet both
+
+THE WARD's fastest rock now enters on beat 8 instead of beat 7. Before, it reached the hull on the same tick as the rock before it, in a column far away. The shield stands in one column, so one of the two always breached, however well the pair played. AUTO on BOTH now clears the wave unscarred on both the poses' config and the game's own, and the director's test asks for that. THE WARD's perf row is marked unmeasured, since what it was weighed on changed. Exemption: a fix to something wrong rather than unlovely.
+
 ## 2026-09-26 · 2d6677d5b — A probe can play a wave with AUTO on both seats
 
 `played` and `playedBeat` in `tools/probe/world.ts` step a wave with the same hand as the TEST panel and the director, so a benchmark sees a defended hull. Before, a probe could only step a wave that nobody answered. Run across every wave for 160 beats this way, the busiest wave stands at eight bodies, and no wave's step averages more than 5 µs a tick. The figures are in the September performance audit.
