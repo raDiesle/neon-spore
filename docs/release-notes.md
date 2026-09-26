@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · bab0462a9 — boss-hurt.test.ts is split already; its queue entry closes
+
+THE VANE's knock moved the blow table's rows into `boss-hurt-rows.ts` and `boss-hurt-rows-b.ts`, with the two world builders, and left the test at 94 lines — the split this entry asked for. Nothing else to do.
+
 ## 2026-09-26 · f5fe09ff1 — THE VANE's knocked-out pin is an event, with a sound and a blow
 
 A shot through the split that takes a pin out of the bearing now pushes `vaneKnock`, with the column and the pins left, and `boss.vaneKnock` plays it — an iron crack and the arm's weight settling, below the speech band. The blow on the hub is dealt off `BossBlows`' event table like THE THROAT's and THE BATON's, and the watcher that compared the pin count frame to frame (`seeVane`) is gone. The blow test's rows moved into two pages, `boss-hurt-rows.ts` and `-b.ts`, to make room for THE VANE's. A look with no shipped alternative: the moment had no sound, and the wash is the one it already showed.
