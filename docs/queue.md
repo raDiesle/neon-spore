@@ -781,24 +781,6 @@ at the wheel doing nothing. Write one that rubs the lit flat, holds both
 pads through a clamp and fires the lit colour, in the shape of THE RIME's
 and THE TRIVET's hands; a sim test that the autopilot clears wave 112.
 
-## THE BATON's flesh has no secondary motion of its own
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-the-batons-flesh-has-no-secondary-motion-of-its
-- **Files:** `packages/render/src/baton-flesh.ts`, `packages/render/src/baton-socket-draw.ts`
-
-Confirmed, not sampled: `paintKnuckle`'s `breath` (the socket's glow-and-pool
-term) is `(1 - beatPhase) ** 2` in `baton-socket-draw.ts` line 146 — read
-straight off the beat, with no independent-rate term anywhere in
-`baton-flesh.ts`, `baton-draw.ts`, `baton-grip.ts` or `baton-bead-draw.ts`.
-Every other term in those four files is state-driven (`swell`, the bead's
-own arc) rather than a clock of its own. This is one confirmed instance of
-"Living secondary motion is uneven across the boss roster"; do not fold it
-into that item's own audit, since that one is still open and this is a
-single found case. Give a lit knuckle's pool or glow its own small period,
-distinct from `beatPhase`, the way `well-flesh.ts`'s `breath` runs on
-`time * 0.9` rather than the beat.
-
 ## §35 THE DAVIT — the look
 
 - **Found:** 2026-09-26, this session

@@ -24936,3 +24936,18 @@ grep, so each of ~150 hits was sorted by eye.
 The bottleneck: finding a wave where the no-hand note shows, one wave at a time.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE BATON's lit cup sloshes on a clock of its own
+
+- **reading** — 10 min. THE SPLICE's cilia and drool, the one boss whose
+  flesh already moves on its own clock, and the knuckle's cup.
+- **writing** — 10 min
+- **looking** — 5 min. A six-frame strip of THE BATON.
+- **friction** — 10 min. The slosh took `baton-flesh.ts` to its limit and
+  pointing the gorge's comment at the new file took `gorge-flesh.ts` to its
+  own, so this became two splits: the drop is `baton-drop.ts` and the lobe's
+  skin is `gorge-lobe-skin.ts`.
+- **landing** — 5 min
+
+Bottleneck: friction — two file splits the size hook asked for, about as
+long as the slosh itself took.

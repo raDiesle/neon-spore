@@ -1806,6 +1806,7 @@ by hand never moves.
 | `packages/render/src/gorge-flesh-torn.ts` | THE GORGE's openings: the intake puckered under every lobe, and the flaps of a lobe the beam has torn open |
 | `packages/render/src/gorge-flesh.ts` | **What THE GORGE is made of**: a sack of wet membrane, thin enough to see through, veined |
 | `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
+| `packages/render/src/gorge-lobe-skin.ts` | **One lobe of THE GORGE's skin**: the wash over an empty one, the light across its top |
 | `packages/render/src/gorge-grip.ts` | **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the mouth |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
@@ -1973,6 +1974,7 @@ by hand never moves.
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/balloon-burst.ts` | **THE BALLOON popping**: the skin the pair stretched, torn into shreds that fly outward and fade in the air |
 | `packages/render/src/baton-draw.ts` | THE BATON, drawn: an arm of sockets hanging down the middle column |
+| `packages/render/src/baton-drop.ts` | **THE BATON's bead as a drop**, split off `baton-flesh.ts` when the cup's slosh took that file to its limit |
 | `packages/render/src/baton-bead-draw.ts` | THE BATON's bead — and its second, and the one the two become |
 | `packages/render/src/baton-grip.ts` | **THE BATON's own arm as a control**: the shell a thumb strips off a swelling socket |
 | `packages/render/src/baton-socket-draw.ts` | **One socket of THE BATON's arm**, drawn |

@@ -8,7 +8,7 @@ import {
   batonLead,
   type SimConfig,
 } from "@neon-spore/sim";
-import { paintDrop } from "./baton-flesh.js";
+import { paintDrop } from "./baton-drop.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { tileCX } from "./layout.js";

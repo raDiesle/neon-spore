@@ -5,7 +5,7 @@ import { PALETTE } from "./palette.js";
 /**
  * **What THE BATON's arm is made of**: a tendon hung from above the field,
  * a knuckle of flesh at every joint with a wet cup in it, and a drop of the
- * colour that takes it sitting in the cup.
+ * colour that takes it sitting in the cup (`baton-drop.ts`).
  *
  * Split off the three files that decide *what* the arm says — which sockets
  * are lit, how far the thread has thinned, which bead is the twin — so they
@@ -26,18 +26,27 @@ import { PALETTE } from "./palette.js";
  */
 
 /**
- * The lit shoulders idling on their own, in radii and radians a second. A
- * socket's ring wobbles on `time * 0.5` and up (`baton-socket-draw.ts`) and a
- * sitting bead on `time * 1.4` (`baton-bead-draw.ts`), and a gradient pinned
- * a fixed share of the radius toward the light is a still life over either
- * (`docs/style-guide.md`'s "Depth on a body that already ships"). Each on a
- * rate of its own; the sockets phased by their seed so the arm does not
- * wobble in step.
+ * The lit shoulder idling on its own, in radii and radians a second. A
+ * socket's ring wobbles on `time * 0.5` and up (`baton-socket-draw.ts`), and a
+ * gradient pinned a fixed share of the radius toward the light is a still life
+ * over it (`docs/style-guide.md`'s "Depth on a body that already ships").
+ * Phased by the socket's seed so the arm does not wobble in step; the drop's
+ * own is in `baton-drop.ts`.
  */
 const KNUCKLE_LIT_WOBBLE = 0.06;
 const KNUCKLE_LIT_WOBBLE_RATE = 0.37;
-const DROP_LIT_WOBBLE = 0.07;
-const DROP_LIT_WOBBLE_RATE = 0.53;
+
+/**
+ * The violet pooled in a lit cup, sloshing on its own clock: how far across
+ * the cup it runs, in radii, how fast in radians a second, and how much it
+ * thins at either end of the run. The socket's only other motion was its beat
+ * breath, which every socket on the arm takes at once; this is its own, and
+ * phased by the socket's seed, so the arm's live cups do not slosh together
+ * — the secondary motion THE SPLICE's cilia and drool already carry.
+ */
+const POOL_SLOSH = 0.1;
+const POOL_SLOSH_RATE = 1.3;
+const POOL_DIM = 0.12;
 
 /** The knuckle round one socket: `lit` while the bead has yet to pass it. */
 export interface Knuckle {
@@ -87,9 +96,14 @@ export function paintKnuckle(ctx: CanvasRenderingContext2D, joint: Path2D, k: Kn
   ctx.ellipse(x, cy, r * 0.6, r * 0.5, 0, 0, Math.PI * 2);
   ctx.fill();
   if (k.lit) {
-    // The violet the bead has still to pass, pooled in the cup.
-    const pool = ctx.createRadialGradient(x, cy + r * 0.12, 0, x, cy + r * 0.12, r * 0.5);
-    pool.addColorStop(0, rgba(PALETTE.hull, 0.55 + 0.4 * k.breath));
+    // The violet the bead has still to pass, pooled in the cup — and a
+    // liquid, so it sloshes on a clock of its own as well as swelling on the
+    // beat. Sideways, since a cup holds its level and spills across.
+    const slosh = Math.sin(k.time * POOL_SLOSH_RATE + k.seed * 2.3);
+    const px = x + r * POOL_SLOSH * slosh;
+    const py = cy + r * 0.12;
+    const pool = ctx.createRadialGradient(px, py, 0, px, py, r * 0.5);
+    pool.addColorStop(0, rgba(PALETTE.hull, 0.55 + 0.4 * k.breath - POOL_DIM * slosh * slosh));
     pool.addColorStop(1, rgba(PALETTE.hull, 0));
     ctx.fillStyle = pool;
     ctx.fill();
@@ -151,58 +165,8 @@ export function strokeTendon(
   ctx.restore();
 }
 
-/**
- * A bead, as a drop: its colour, shaded from a lit shoulder to a dark foot,
- * the light it throws caught on its lower edge in `rim`, and a wet point.
- * The body is filled in the plain colour first because that colour is the
- * navigator's whole answer and the tests read it off the op log. `time` is
- * for a drop that sits still and wobbles; one that moves on its own, like
- * THE GORGE's orbiting beads, leaves it out and its light stays put.
- */
-export function paintDrop(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  x: number,
-  y: number,
-  r: number,
-  hex: string,
-  rim: string,
-  tile: number,
-  lit: number,
-  time?: number,
-): void {
-  ctx.save();
-  ctx.fillStyle = hex;
-  ctx.fill(body);
-  ctx.clip(body);
-  const drift = time === undefined ? 0 : DROP_LIT_WOBBLE * Math.sin(time * DROP_LIT_WOBBLE_RATE);
-  const shade = ctx.createRadialGradient(
-    x - r * (0.3 + drift),
-    y - r * (0.35 + drift * 0.8),
-    0,
-    x,
-    y,
-    r * 1.1,
-  );
-  shade.addColorStop(0, rgba(PALETTE.sheenRim, 0.5));
-  shade.addColorStop(0.35, rgba(PALETTE.sheenRim, 0));
-  shade.addColorStop(0.65, rgba(PALETTE.sheenDeep, 0));
-  shade.addColorStop(1, rgba(PALETTE.sheenDeep, 0.55));
-  ctx.fillStyle = shade;
-  ctx.fill(body);
-  ctx.lineCap = "round";
-  ctx.lineWidth = Math.max(1, tile * 0.035);
-  ctx.strokeStyle = rim;
-  ctx.globalAlpha = lit;
-  ctx.beginPath();
-  ctx.arc(x, y, r * 0.78, Math.PI * 0.2, Math.PI * 0.8);
-  ctx.stroke();
-  ctx.restore();
-  paintFilm(ctx, x, y, r, 0.35);
-}
-
 /** The wet film on a shoulder: a soft bloom and a hard point. */
-function paintFilm(
+export function paintFilm(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,

@@ -1,10 +1,10 @@
 import { blobPoints, circleSubpath } from "@neon-spore/content";
 import { type GorgeIntake, gorgeFull, type SimConfig } from "@neon-spore/sim";
-import { paintDrop } from "./baton-flesh.js";
+import { paintDrop } from "./baton-drop.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { LobeDepth } from "./gorge-depth.js";
-import { paintLobeRim, paintLobeSkin } from "./gorge-flesh.js";
 import { paintFlap, paintPucker } from "./gorge-flesh-torn.js";
+import { paintLobeRim, paintLobeSkin } from "./gorge-lobe-skin.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
 import { splinePath } from "./spline.js";
