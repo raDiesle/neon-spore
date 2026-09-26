@@ -23968,3 +23968,5 @@ new thing was the sprung lobe ringing past its rest.
 - landing: 5 min. `check:fast`, this entry, `land`.
 
 Bottleneck: writing — the figure was already smooth everywhere, and it took a probe of every value to find the one thing that was not.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

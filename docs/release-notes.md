@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ee33ccf03 — THE INSTAR's fire ebbs over a landing instead of going out in a frame
+
+Every step of THE INSTAR's twenty-three is now walked into the next a tick at a time, and nothing in the figure snaps into or out of the third act's five poses. The one thing that did was the fire in the mouth: the breath's bites, the rear and the roar landed with it lit, and it went out on the landing tick. It now eases down across the landing from where the window left it, and so does the threat the body shows (`instar-ebb.ts`). `instar-seams.test.ts` fails on any part of the figure, or the fire, that moves further in one tick than a change ever moves it.
+
 ## 2026-09-26 · acbd58fe9 — THE VISE's receipts drawn: a crack thuds, a sprung lobe rings open, a kernel hit flashes wider each time
 
 A seam cracking now presses the case down a touch, throws dry husk dust off the lobe that gave and sends a soft thud down the plating, with the red blow every boss takes. A pinch run out throws its lobe open past where it rests, to ring back down to it. A kernel hit flashes white over the hollow — a thin flare the first time, the whole hollow by the third — bursts in the kernel's colour and deals the blow; the split flashes the whole case. A step lighting, a slip, the lobes held off, the kernel bared and the lobes closing back over it throw small bursts; a missed kernel is left to the boss's own blow at the hull.
