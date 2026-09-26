@@ -257,6 +257,13 @@ misunderstanding, and it is withdrawn.**
   with a small overshoot; and a turn closes the eyes through its middle. It is
   exact on both keys, so every mark glows where it always did
   (`instar-between.ts`).
+- **What a window builds up ebbs over the landing, from where it was left.**
+  A value that grows through a window — the fire in the mouth, the glow on
+  a blade — is not simply nought outside it, or it goes out in a frame on the
+  landing tick: the roar and the rear land with their fire still lit. It
+  eases down across the landing from the window's last value
+  (`instar-ebb.ts`), and `instar-seams.test.ts` walks every step of the
+  script into the next a tick at a time and fails on any value that jumps.
 - **The limits are the phone's, not the dimension's.** Battery and frame time
   matter to the owner more than any look. No full engine — PixiJS, Three.js,
   Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame

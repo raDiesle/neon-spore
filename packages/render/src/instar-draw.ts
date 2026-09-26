@@ -1,4 +1,5 @@
-import { type InstarState, instarStep, type World } from "@neon-spore/sim";
+import type { InstarState, World } from "@neon-spore/sim";
+import { instarEbb, instarFire } from "./instar-ebb.js";
 import { instarFlight } from "./instar-flight.js";
 import { drawFront } from "./instar-front.js";
 import type { InstarFx } from "./instar-fx.js";
@@ -59,17 +60,10 @@ export function drawInstar(
   const { f, sway } = instarBody(s, cfg, beat, beatPhase, fx.held);
   const morph = instarMorphAt(s, beat, beatPhase);
   const threat = instarThreat(s, beat, beatPhase);
+  // What the body shows of it ebbs over a landing from where the window left it.
+  const shown = s.phase === "land" ? fx.held * instarEbb(s, beat, beatPhase) : threat;
   const { head, r } = instarHeadAt(l, f);
-  // The rear lights the same fire in its jaws: its globs are spat out of it.
-  const pose = instarStep(s)?.pose;
-  const breath = pose === "breath" || pose === "rear" || pose === "roar";
-  const fire =
-    f.flame *
-    (s.phase === "act" && breath
-      ? 0.3 + 0.7 * threat
-      : s.phase === "morph" && breath
-        ? 0.3 * morph
-        : 0);
+  const fire = instarFire(s, f, beat, beatPhase, fx.held);
 
   ctx.save();
   const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);
@@ -92,7 +86,7 @@ export function drawInstar(
     time,
     fade,
     hurt,
-    threat,
+    threat: shown,
     fire,
     harden: fx.strike.harden,
     shoveUp: fx.shove.up,

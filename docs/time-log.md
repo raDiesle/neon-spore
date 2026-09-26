@@ -23958,3 +23958,13 @@ Bottleneck: writing — the pattern was THE OCULUS's line for line; the one
 new thing was the sprung lobe ringing past its rest.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's fire ebbs over a landing instead of going out in a frame
+
+- reading: 5 min. The third act's poses and steps, the in-between, the fire in the draw.
+- writing: 10 min. A probe of every step's one-tick jumps; the ebb; a test that walks the script.
+- looking: 5 min. Nine mid-change frames into and out of the five new poses.
+- friction: 5 min. The new file first went to a name already taken, `instar-fire.ts`, and was put back.
+- landing: 5 min. `check:fast`, this entry, `land`.
+
+Bottleneck: writing — the figure was already smooth everywhere, and it took a probe of every value to find the one thing that was not.
