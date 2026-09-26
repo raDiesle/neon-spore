@@ -24687,3 +24687,13 @@ The bottleneck was a context compaction mid-lane, which cost re-reading the
 files already edited.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Story arcs for THE RATCHET, THE HASP and THE SPOOL, written (claude/older-boss-stories)
+
+- reading: 15 min. The status table for the bosses outside §23–§33, their beat lists, THE MANTLE's and THE VALVE's story passes.
+- writing: 15 min. Three story tables in the spec and six queue items.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`, `push`.
+
+Bottleneck: reading — choosing which older bosses fall shortest takes reading every beat list.

@@ -2681,3 +2681,65 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §22 THE RATCHET — the story between the teeth, the simulation
+
+- **Found:** 2026-09-26, claude/older-boss-stories, at the owner's ask that existing bosses read as a story of distinct states
+- **Files:** `packages/sim/src/ratchet.ts`, `packages/sim/src/ratchet-step.ts`, `packages/sim/src/ratchet-hand.ts`, `packages/sim/src/config-ratchet.ts`, `packages/sim/src/events-ratchet.ts`, `packages/sim/src/ratchet-hash.ts`
+
+Build §22's four story states — the slip, the kick, the bind, the wind —
+as phases between the clean advances, THE VALVE's `valve-story.ts` the
+pattern: each its own SLOW window, answered on the catch and the pawl the
+boss already has, a state run out a `bossStrikesHull` and the state again,
+and no tooth ever given back. `.claude/skills/new-boss-state` lists the
+registrations. `bun run check` proves it.
+
+## §22 THE RATCHET — the story between the teeth, the look
+
+- **Found:** 2026-09-26, claude/older-boss-stories
+- **Needs:** §22 THE RATCHET — the story between the teeth, the simulation
+- **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-pose.ts`, `packages/render/test/frame.test.ts`
+
+Draw §22's four new poses: the rack sagging a tooth, the pawl sprung out of
+its seat, teeth grinding with sparks, the spring coiling tighter a turn at a
+time. A look with no shipped alternative.
+
+## §20 THE HASP — the story between the hasps, the simulation
+
+- **Found:** 2026-09-26, claude/older-boss-stories
+- **Files:** `packages/sim/src/hasp.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/hasp-hand.ts`, `packages/sim/src/hasp-hash.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/events-hasp.ts`
+
+Build §20's four story states — the rattle, the backspin, the rust, the
+swing — as phases between the hasps on the latch and the wheel the boss
+already has, THE VALVE's `valve-story.ts` the pattern. No hasp given back;
+a state run out is a `bossStrikesHull` and the state again.
+
+## §20 THE HASP — the story between the hasps, the look
+
+- **Found:** 2026-09-26, claude/older-boss-stories
+- **Needs:** §20 THE HASP — the story between the hasps, the simulation
+- **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/test/frame.test.ts`
+
+Draw §20's four new poses: a door shaking on its hinge, a wheel spinning
+backward with its mark smeared, a hasp furred with rust, three doors swaying
+half-shut. A look with no shipped alternative.
+
+## §21 THE SPOOL — the story between the ribs, the simulation
+
+- **Found:** 2026-09-26, claude/older-boss-stories
+- **Files:** `packages/sim/src/spool.ts`, `packages/sim/src/spool-step.ts`, `packages/sim/src/spool-hand.ts`, `packages/sim/src/spool-hash.ts`, `packages/sim/src/config-spool.ts`, `packages/sim/src/events-spool.ts`
+
+Build §21's three story states — the snag, the whip, the fray — as phases
+between the ribs, each read off the one brake's depth as a level, THE
+VALVE's `valve-story.ts` the pattern. No rib given back; a state run out is
+a `bossStrikesHull` and the state again.
+
+## §21 THE SPOOL — the story between the ribs, the look
+
+- **Found:** 2026-09-26, claude/older-boss-stories
+- **Needs:** §21 THE SPOOL — the story between the ribs, the simulation
+- **Files:** `packages/render/src/spool-draw.ts`, `packages/render/test/frame.test.ts`
+
+Draw §21's three new poses: the line stopped with the casing shuddering, a
+loop of line thrown wide, the line furred with standing fibres. A look with
+no shipped alternative.

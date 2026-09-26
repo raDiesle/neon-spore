@@ -2660,6 +2660,27 @@ own feeling and not a target.
 **Payoff.** Row 11 — three things opening together because two hands that
 never saw each other's half kept faith with it anyway.
 
+**The story between the hasps** (26 September 2026, the owner's ask that an
+existing boss read as a story of distinct states before a new one is started).
+Three hasps opened the same way three times is one picture shown three times.
+Four states now stand between them, each its own SLOW window, each answered
+with a hand the boss already has — the latch and the wheel — and none of them
+costing a hasp back. A state run out is the boss's own blow at the hull, and
+the state starts again.
+
+| # | What is seen | Who | Gesture | Window | Success | Miss |
+|---|---|---|---|---|---|---|
+| S1 | **The rattle.** The first hasp swung open, its hinge rattles loose and the door shakes in its frame | P1 | grip the latch and keep it gripped (`HOLD`) | `haspRattleBeats` held in a row, SLOW | the hinge quiets, the door hangs still | the door slams against the hull; the rattle starts again |
+| S2 | **The backspin.** The second wheel, freed, spins back on its own spring, its mark running away | P2 | turn the wheel forward against it (`TURN`), its travel counted | `haspWindTravelMilli` of travel inside `haspBackspinBeats`, SLOW | the spring catches, the wheel stays wound | the wheel spins off its mark and a spoke strikes the hull; again |
+| S3 | **The rust.** The last hasp is rusted in its seat, flaking orange along its seam | P1+P2 | he grips the latch while she rocks the wheel back and forth (`HOLD` + reversals on `TURN`) | `haspRustRocks` reversals inside `haspRustBeats`, SLOW | the rust breaks with a crack, the hasp is ordinary again | the rust bursts in a cloud against the hull; again |
+| S4 | **The swing.** All three open, the doors sway on their hinges and start to fall shut | P1+P2 | both hold: the latch gripped and the wheel still (`CHORD`) | `haspSwingBeats` both held in a row, SLOW | row 11's swing clear | a door slams on the hull; the doors still swing clear, rough — the end is not taken away, only its price |
+
+**The arc.** Open (the rattle, one hand steadying), escalate (the backspin,
+the other hand fighting a spring), crisis (the rust, both hands at once on
+different motions), payoff (the swing, both hands still). **Poses added:**
+a door shaking on its hinge; a wheel spinning backward with its mark
+smeared; a hasp furred with rust and flaking; three doors swaying half-shut.
+
 **Cost. Low.** Both marks are ordinary holds and drags; the gating rule (one
 target's motion permitted only while another is held) is a single per-tick
 read the sim already performs for every hand on the field. Nothing new in the
@@ -2758,6 +2779,26 @@ marks the zone or the depth — that is the sentence the pair has to say.
 than a break, because the whole fight has been training the pair toward
 exactly this stillness.
 
+**The story between the ribs** (26 September 2026, the owner's ask that an
+existing boss read as a story of distinct states before a new one is started).
+Four ribs eased by four held depths is the same picture four times. Three
+states now stand between them, each its own SLOW window and each answered on
+the one brake the pilot already holds — the brake's depth read as a level, as
+it always is. None costs a rib back; a state run out is the boss's own blow at
+the hull, and the state starts again.
+
+| # | What is seen | Who | Gesture | Window | Success | Miss |
+|---|---|---|---|---|---|---|
+| S1 | **The snag.** After the first rib, the line catches on the casing and stops dead, the spool shuddering | P1 | let the brake go right off and grip it again (`RELEASE`, then `HOLD`) | brake off `spoolSnagBeats` in a row inside `spoolSnagWindowBeats`, SLOW | the snag slips free, the line runs | the snagged line snaps taut against the hull; again |
+| S2 | **The whip.** After the second rib, the freed line whips in a loop across the field | P1 | brake full depth and keep it there (`HOLD`, deep) | `spoolWhipBeats` held deep in a row, SLOW | the loop damps flat | the loop lashes the hull; again |
+| S3 | **The fray.** After the third rib, the line frays, fibres standing off it | P1 | ease to the shallow end and hold it featherlight (`HOLD`, shallow) — she calls how light | `spoolFrayBeats` held shallow in a row, SLOW | the fray holds, the last rib can ease | a strand snaps and whips the hull; again |
+
+**The arc.** Open (the snag: letting go is the answer, the boss's own
+question in miniature), escalate (the whip: the opposite, all the way down),
+crisis (the fray: the narrowest touch before the narrowest zone), payoff
+(row 14's slack drift). **Poses added:** the line stopped with the casing
+shuddering; a loop of line thrown wide; the line furred with standing fibres.
+
 **Cost. Low.** `SplitGauge` is shipped twice already (THE SINEW, THE SURGE);
 `spoolBrake` is an ordinary depth-hold. Nothing new is asked of the engine.
 
@@ -2843,6 +2884,30 @@ every target lock in the game uses, because it is a lock and not ammunition.
 **Payoff.** Row 15 — the only finish on the page that shows, honestly, how
 much margin the pair had left over. Two unspent teeth is a clean run; none
 left is the same win, told differently.
+
+**The story between the teeth** (26 September 2026, the owner's ask that an
+existing boss read as a story of distinct states before a new one is
+started). Four poses and one loop run five times is a counter, not a story.
+Four states now stand between the clean advances, one after each of the
+first four, each its own SLOW window and each answered with a hand the boss
+already has — her catch and his pawl. **None takes a tooth back**, which is
+the boss's whole question: every state is the rack *threatening* to undo a
+step, and the pair stopping it. A state run out is the boss's own blow at
+the hull, and the state starts again.
+
+| # | What is seen | Who | Gesture | Window | Success | Miss |
+|---|---|---|---|---|---|---|
+| S1 | **The slip.** After the first clean tooth, the rack sags, grinding a tooth back down toward the catch | P2 | set the catch and keep it set (`HOLD`) | `ratchetSlipBeats` held in a row, SLOW | the catch bites and the rack stops sagging | the rack drops against the hull and is hauled back up; again |
+| S2 | **The kick.** After the second, the spring kicks and the pawl jumps out of its seat | P1 | press the pawl and keep it down (`HOLD`) | `ratchetKickBeats` held in a row, SLOW | the pawl seats with a clunk | the pawl flies against the hull and springs back; again |
+| S3 | **The bind.** After the third, the teeth grind against each other, sparking, the rack shaking on its strut | P1+P2 | both hold: catch set and pawl down (`CHORD`) | `ratchetBindBeats` both held in a row, SLOW | the teeth mesh and the shaking stops | the strut shakes a plate loose against the hull; again |
+| S4 | **The wind.** After the fourth, the spring has run down and the last tooth will not light | P2 | pump the catch: set it, let it go, set it again (`HOLD`, counted) | `ratchetWindSets` sets inside `ratchetWindBeats`, SLOW | the spring is wound tight and the fifth pawl lights | the spring unwinds with a whip against the hull; again |
+
+**The arc.** Open (the slip: her hand alone), escalate (the kick: his hand
+alone), crisis (the bind: both at once), payoff (the wind: her hand winding
+up the last climb, which lights row 13). The bolt of row 8 still comes loose
+on the second clean advance and falls while the kick is on. **Poses added:**
+the rack sagging a tooth; the pawl sprung out of its seat; teeth grinding
+with sparks; the spring coiling tighter a turn at a time.
 
 **Cost. Low.** `SequentialAction` is shipped (§16); a press that always
 advances and never reverses is a single line in the boss's own step function.
