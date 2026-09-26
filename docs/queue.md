@@ -2314,6 +2314,7 @@ what the rest of this file holds.
 ## §26 THE SEAM — the ridge turns away, then glows from within
 
 - **Found:** 2026-09-26, main, at the owner's request: existing bosses should
+- **Taken:** 2026-09-26, claude/queue-25-the-valve-a-fuller-story-arc-a-backdraught-a (claim: claude/queue-26-the-seam-the-ridge-turns-away-then-glows-from)
   carry more visually distinct states and more SLOW beats that read as a
   story, before any new boss is started; §26 THE SEAM's first pass already
   had a strong arc but only two picture beats (a flat ridge, a split ridge).
