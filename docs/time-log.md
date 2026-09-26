@@ -24120,3 +24120,17 @@ Bottleneck: looking — the jet's spacing only showed itself in a frame.
 Bottleneck: writing — three states, each a pose, a mark, a grip and a cue, in five files.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `bun run frames --auto`: AUTO plays to a boss's receipt
+
+- reading: 5 min. `page.ts`, the handle's `advance`, the game's AUTO and where
+  the loop calls it, the probe's `waveWorld`.
+- writing: 5 min. `setAuto` on the handle, `auto.ts`, the flag, a test.
+- looking: 5 min. Two captures of THE VISE's first kernel flash, the whole
+  field and a magnified crop.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the one fact that decided the design, that `advance`
+never passes through the loop that presses AUTO, was three files away from
+the flag.

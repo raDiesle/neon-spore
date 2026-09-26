@@ -38,6 +38,7 @@ import { dirname, join } from "node:path";
  * | `--at`, `--zoom` | `crop.ts` |
  * | `--hold` | `hold.ts`; every one of them, not the first, in `flag-lists.ts` |
  * | `--hand`, `--hand-over` | `hand.ts` |
+ * | `--auto` | `auto.ts`; the hands themselves in `packages/hands` |
  * | `--press` | `press.ts`; the column it names in `press-column.ts` |
  * | `--settle`, `--boss-round`, `--ticks` | `spec.ts`, on the field each one sets |
  * | `--seat`, `--level`, `--size`, `--raster` | `stage-spec.ts`; the stored two in `page-storage.ts` |
@@ -56,6 +57,7 @@ import { dirname, join } from "node:path";
  *   bun run frames . --wave 50 --until needWave --until-back 200   the rest before an event, not the end of it
  *   bun run frames . --wave 1 --until waveFailed --until-on 150     the rest after one: the lost screen
  *   bun run frames . --wave 21 --events   what fired, and on which tick
+ *   bun run frames . --wave "THE VISE" --auto both --until viseHit --until-on 2   AUTO plays to a boss's receipt
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames . --wave 21 --seat p1 --size 390x660   a short phone, its bars out
@@ -113,7 +115,7 @@ async function main(): Promise<void> {
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
         "[--settle N] [--size WxH] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
-        "[--creature key=value,…] [--raster] " +
+        "[--creature key=value,…] [--raster] [--auto both|p1|p2] " +
         "[--until EVENT] [--until-ticks N] [--until-back N | --until-on N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );

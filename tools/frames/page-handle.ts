@@ -93,6 +93,9 @@ declare global {
        * call somewhere in the page.
        */
       bossRound?(round: number): boolean;
+      /** AUTO for the ticks `advance` steps (`auto.ts`). Missing on a build
+       * from before it existed, so `--auto` says so by name. */
+      setAuto?(mode: "off" | "both" | "p1" | "p2"): void;
       /** Missing on a build from before `--hold` existed — which is every
        * parent of the commit that added it, so `--hold` says so by name rather
        * than failing as an undefined call somewhere in the page. */

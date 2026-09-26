@@ -9,6 +9,7 @@
  * caller that already reached for a `FrameSpec` through it did not move.
  */
 
+import type { AutoSeats } from "./auto.js";
 import type { BossSpec } from "./boss.js";
 import type { Crop } from "./crop.js";
 import type { FaultSpec } from "./fault.js";
@@ -199,6 +200,9 @@ export interface FrameSpec extends StageSpec {
    * `--boss-json` and `--creature` all land here, in that order.
    */
   boss?: BossSpec;
+  /** The seats the game's own AUTO plays while the run is stepped (`auto.ts`).
+   * Undefined is every capture from before it: nobody's hands but `--press`. */
+  auto?: AutoSeats;
 }
 
 /**

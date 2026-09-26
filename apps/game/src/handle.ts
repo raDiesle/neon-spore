@@ -1,5 +1,6 @@
 import type { Circle } from "@neon-spore/render";
 import { type SimEvent, setBossRound, step, type World } from "@neon-spore/sim";
+import type { AutoMode, GameAutopilot } from "./autopilot.js";
 import { pressVerbs } from "./handle-press.js";
 import type { InputBuffer } from "./input.js";
 import { runPerfPage } from "./perf-page.js";
@@ -60,6 +61,9 @@ export interface HandleParts {
      * ticks can neither see nor wait out. */
     readonly launching: boolean;
   };
+  /** AUTO, the same one the TEST panel switches (`autopilot.ts`), so a caller
+   * stepping ticks gets the hands a thumb-less phone plays with. */
+  auto: Pick<GameAutopilot, "setMode" | "press">;
 }
 
 /**
@@ -128,8 +132,19 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
     bossRound(round: number) {
       return setBossRound(world, round);
     },
+    /**
+     * Switch AUTO for the ticks `advance` steps. `advance` is not the frame
+     * loop, so AUTO pressed nothing under it and a boss's receipt — a run of
+     * correct presses deep — could not be photographed (`bun run frames
+     * --auto`). Off is every capture from before it, and presses nothing.
+     */
+    setAuto(mode: AutoMode) {
+      parts.auto.setMode(mode);
+    },
     advance(ticks: number) {
       for (let i = 0; i < ticks; i++) {
+        // Where the loop presses it: after the keys, before the tick drains.
+        parts.auto.press(world, buffer);
         step(world, buffer.drain(world.tick));
         if (world.events.length) {
           parts.frames.collect(world.events);

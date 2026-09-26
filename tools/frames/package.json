@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@neon-spore/content": "workspace:*",
+    "@neon-spore/hands": "workspace:*",
     "@neon-spore/net": "workspace:*",
     "@neon-spore/sim": "workspace:*"
   },

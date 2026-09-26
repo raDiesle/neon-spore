@@ -2996,6 +2996,7 @@ by hand never moves.
 | `tools/frames/menu-press.ts` | which button a word in a `--page` trail means, on whichever screen is up — the menu, or what a press on it opened |
 | `tools/frames/until.ts` | **Stopping on the tick something happened, instead of on a number.** `--ticks` is an absolute `world.tick` |
 | `tools/frames/until-flags.ts` | **`--until` and the two numbers that ride on it, read off the command line**: how far to look |
+| `tools/frames/auto.ts` | `--auto both`, `p1` or `p2`: the game's own AUTO plays those seats while a capture steps the ticks, so a boss's receipt can be photographed |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/director/src/stage-draft.ts` | **What the wave being edited says about itself**, read fresh on every call |
 | `tools/director/src/stage-field.ts` | **What the stage hands a hit test**, and nothing else |

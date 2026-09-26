@@ -1,4 +1,5 @@
 import type { Browser, Page } from "playwright-core";
+import { installAuto } from "./auto.js";
 import { installBoss } from "./boss-install.js";
 import { installFault } from "./fault.js";
 import { type OffOrigin, refuseOffOrigin } from "./offline.js";
@@ -138,6 +139,9 @@ export async function openStage(
 
   await clearOpening(page, spec.opening, driven);
   await turnGuide(page, spec);
+  // AUTO once the field is up, so the opening is cleared by the same ticks
+  // it always was (`auto.ts`).
+  if (spec.auto) await installAuto(page, spec.auto);
 
   // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
   // field for its first six seconds, and headless Chrome reports `pointer:

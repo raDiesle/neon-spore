@@ -203,6 +203,7 @@ bindTesting(
     progression,
     frames,
     renderer,
+    auto,
   },
   location.href,
 );

@@ -468,23 +468,6 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## `bun run frames` cannot picture a boss's receipt
-
-- **Found:** 2026-09-26, claude/vise-fx
-- **Taken:** 2026-09-26, main (claim: claude/queue-bun-run-frames-cannot-picture-a-bosss-receipt)
-- **Files:** `tools/frames/run.ts`, `tools/frames/until.ts`, `tools/frames/boss.ts`, `tools/frames/flag-lists.ts`
-
-A receipt — a crack's thud, a kernel hit's flash — is drawn only in the few
-frames after its event, and nothing in `bun run frames` can make that event
-happen: `--boss`/`--boss-json` set the boss's state but throw no event, `--hand`
-has no pinch or hold for a boss's own targets, and there is no autopilot. So
-THE VISE's receipts (`render/vise-fx.ts`) landed unseen, and so will every
-boss's next. Add `--auto <both|p1|p2>`, which steps the world with the
-director's autopilot hands (`packages/hands`) through the page's own tick, so
-`--wave "THE VISE" --auto both --until viseHit --until-on 2` is a frame of the
-first kernel flash. Proved by a test in `tools/frames/test/` that `--auto both`
-on THE VISE reaches a `viseHit` inside its budget.
-
 ## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
