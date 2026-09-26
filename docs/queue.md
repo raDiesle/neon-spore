@@ -2871,6 +2871,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## THE CYST's flesh has no secondary motion of its own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-26, claude/queue-the-cysts-flesh-has-no-secondary-motion-of-its-o
 - **Files:** `packages/render/src/cyst-draw.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/cyst-shape.ts`
 
 From the secondary-motion audit (`docs/style-guide.md`, *Motion*, "one part
