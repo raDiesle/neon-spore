@@ -434,6 +434,7 @@ an alignment.
 ## `queue next` sends a worktree session to a tree it may not write
 
 - **Found:** 2026-09-26, claude/queue-the-other-pull-handles-show-the-path-they-can-be
+- **Taken:** 2026-09-26, claude/queue-bind-ts-and-ship-fields-ts-sit-at-their-line-cei (claim: claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it)
 - **Files:** `tools/queue/prompt.ts`, `.claude/skills/lane/SKILL.md`
 
 The prompt `bun run queue next` prints always says `git worktree add` a new
