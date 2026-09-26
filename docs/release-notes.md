@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 81086e0ef — The style guide says no library, and that detail is baked rather than shipped
+
+The Depth section still allowed a small 3D library, which the owner ruled out on 26 September. It now says ideas are borrowed and the code is our own, and that detail which would be an image is drawn once at load and blitted; only what cannot be drawn is a file, a small lossy WebP atlas fetched with its wave, never an APNG or animated WebP on the field.
+
 ## 2026-09-26 · c2a4f79ca — THE VALVE has a body: an iron drum whose notched rim turns with its wheel, listing a step for every pin pulled
 
 The drum is THE CODEX's squat notched slab in iron. Its rim is scrolled by the wheel's bearing and nothing else, so a turned wheel runs the rim round and a frozen one stops it dead. THE TITHE's squared plates hang under it as the three pins. The wheel is drawn where it stands, never snapped to a mark, and its white pointer glows while frozen. The white mark is hollow while the third movement's lap is owed, with an arc filling as the lap is made. The white socket flashes while the wheel holds and glows once frozen, and the open window closes as an arc round it. The drum lists a step further for each pin out, the pulled pin slides free, and the last one splits the face open. The spark is an ember falling down its column. Both screens draw the same picture.
