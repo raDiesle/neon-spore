@@ -21793,3 +21793,5 @@ three greps through its store.
 
 Bottleneck: picking a boss whose lift is silent alone, and THE GIMBAL's ring
 with no hand on it was the shortest.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 1afe9d842 — `wouldHear` asks a press behind the ones already queued on its tick
+
+A hold is a grab, a carry and a lift sent on one tick, and `bun run frames` asked each of them against the tick's bare world, so the lift found no hand on the handle and every hold reported one press unheard that the round had in fact heard. `InputBuffer.queued()` hands the presses already waiting to `wouldHear`, which steps both copies with them first.
+
 ## 2026-09-26 · c5ee13c6d — `bun run shot --wave` opens the director on a named wave
 
 The filter route photographed wave one: the click on the first row landed before the rail had re-rendered under the filter, and nothing said so. `--wave "THE REPRISE"` takes a name, an id or the HUD's number, read the way `bun run frames --wave` reads it, and opens the director at that wave's own `?wave=`. A name that matches nothing throws, and so does a `--path` beside it.
