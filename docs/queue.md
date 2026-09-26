@@ -2268,27 +2268,6 @@ cannot be photographed there. THE SEAM misses on its own at tick 375 and
 was used instead. Add a way to reach a boss's timeout, for example
 `--until-on bossTimeout` that holds the controls off the ask until the
 window closes, and prove it with a test in `tools/frames/test/`.
-## §25 THE VALVE — a fuller story arc: a backdraught, a brace, a wipe, and a fade
-
-- **Found:** 2026-09-26, main, at the owner's request: existing bosses should
-- **Taken:** 2026-09-26, claude/keel-story-look (claim: claude/queue-25-the-valve-a-fuller-story-arc-a-backdraught-a)
-  carry more visually distinct states and more SLOW beats that read as a
-  story, before any new boss is started; §25 THE VALVE's first pass only had
-  its original three-pin race and a plain chord finish.
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
-
-Three new states, each its own SLOW gesture, inserted around the existing
-three-pin race rather than adding a fourth pin: a capped backdraught after
-the first pin (`TAP`, own colour, on the socket's own jet), a braced
-shudder after the second pin (`CHORD`, reused from the finish, now also the
-fight's mid-point), and a wiped-clean face after the third pin (`RUB`,
-reused from THE RIME and THE GRINDSTONE) before the seal can be attempted.
-The existing chord finish gains a closing `SENDING NOTHING` beat, letting
-the drum's light fade rather than cutting straight to dark. `RUB` and
-`SENDING NOTHING` both gained `§25 THE VALVE` in their `where` arrays.
-`bun run check` proves the sim half; the eight poses are a look task,
-queued separately once this lane lands.
-
 ## A cloud claim does not stop the owner's own session landing the same boss
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
