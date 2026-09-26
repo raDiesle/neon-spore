@@ -2810,6 +2810,7 @@ by hand never moves.
 | `tools/queue/tree.ts` | Where this checkout is, and what refs it has |
 | `tools/queue/lapsed.ts` | A claim with nothing left holding it up |
 | `tools/queue/list.ts` | `bun run queue` with no command: every entry, who holds it, and what the owner is asked |
+| `tools/queue/deferred.ts` | whether the owner has put an entry on hold: a Deferred field line under it, which `next` passes over |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |

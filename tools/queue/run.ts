@@ -30,6 +30,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { waiting } from "./asking.js";
 import { branchFor, claimOn, heldElsewhere, refuseNumbered, unclaimed } from "./claim.js";
+import { deferred } from "./deferred.js";
 import { clearTaken, removeItem } from "./edit.js";
 import { printList } from "./list.js";
 import { blocked } from "./needs.js";
@@ -77,11 +78,12 @@ if (!command || command === "list") {
   // still hands it out, and so does `take` (`asking.ts`). An entry waiting on
   // another entry is passed over on the same terms, for the same reason — a
   // session may want to start the blocked half early (`needs.ts`). And an
-  // entry needing hardware is passed over on every machine (`offered`).
+  // entry needing hardware is passed over on every machine (`offered`), and
+  // one the owner put on hold on every session (`deferred.ts`).
   const mine = free.filter((i) => fits(i, kind));
   const item = arg
     ? pick(items, arg)
-    : mine.find((i) => offered(i) && !waiting(i) && !blocked(i, items));
+    : mine.find((i) => offered(i) && !waiting(i) && !deferred(i) && !blocked(i, items));
   if (!item) {
     console.log(
       items.length === 0
@@ -90,8 +92,8 @@ if (!command || command === "list") {
           ? "Every item is taken. `bun run queue` says who is on each."
           : mine.length === 0
             ? `Every free item is reserved for the other kind of session (this is a ${kind} one).`
-            : "Every free item needs a phone in your hand, or waits on the owner's answer " +
-              'or on another entry. `bun run queue` says which, and `take "<title>"` takes one anyway.',
+            : "Every free item needs a phone in your hand, is deferred, or waits on the owner's " +
+              'answer or on another entry. `bun run queue` says which, and `take "<title>"` takes one anyway.',
     );
   } else {
     const held = claimOn(item, known);

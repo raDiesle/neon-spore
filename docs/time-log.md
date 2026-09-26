@@ -24181,3 +24181,16 @@ Bottleneck: friction — finding a press the frames tool would accept took three
 tries.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `queue next` passes over a deferred entry
+
+- reading: 5 min. `next`'s filter, `asking.ts` and `needs.ts` for the
+  pattern a field line follows.
+- writing: 5 min. `deferred.ts`, one more clause in the filter, three tests.
+- looking: 0 min.
+- friction: 5 min. `next` handed out a deferred entry and it had to be
+  released before this lane could start.
+- landing: 5 min.
+
+Bottleneck: friction — the bug announced itself by claiming work the owner
+had put on hold.
