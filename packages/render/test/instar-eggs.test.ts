@@ -79,7 +79,7 @@ describe("THE INSTAR's nests", () => {
 
   it("drops an egg on a counted swipe and on nothing else, and lets it go", () => {
     const fx = new InstarFx();
-    fx.ingest([{ type: "instarAnswer", mark: 0, part: "hand", col: 3 }], L, () => {});
+    fx.ingest([{ type: "instarAnswer", mark: 0, part: "jaw", col: 3 }], L, () => {});
     expect(fx.eggs.count).toBe(0);
     fx.ingest([answer], L, () => {});
     expect(fx.eggs.count).toBe(1);

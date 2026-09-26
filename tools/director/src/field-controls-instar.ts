@@ -16,8 +16,8 @@ export const INSTAR_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE INSTAR'S MARKS",
     where:
-      "a red ring on the part of the body the script wants moved — the jaw, a " +
-      "hand, the eggs, the tongue, the tail, the head — with the gesture drawn " +
+      "a red ring on the part of the body the script wants moved — the jaw, " +
+      "the eggs, the tail, the head, an eye, the fire — with the gesture drawn " +
       "inside it and its word in a scanner box over it, on both screens, while " +
       "the step's window is open; a second ring closing in on it is the window",
     seat:

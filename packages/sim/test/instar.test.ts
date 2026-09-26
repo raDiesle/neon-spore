@@ -49,7 +49,7 @@ const WINDOW = 8;
 const LAND = 2;
 
 function mark(seat: InstarSeat, gesture: InstarGesture, need: number) {
-  return { seat, part: "hand" as const, gesture, xMilli: 500, yMilli: 400, need };
+  return { seat, part: "jaw" as const, gesture, xMilli: 500, yMilli: 400, need };
 }
 
 function scripted(...marks: ReturnType<typeof mark>[]): BossSequenceStep {

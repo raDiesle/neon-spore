@@ -18,16 +18,7 @@ export type InstarSeat = (typeof INSTAR_SEATS)[number];
  * the lunge's second visit strikes the right eye while the brow is held.
  * `fire` is the fire turning in the open mouth, tapped out between the
  * breath's bites and during the third, and last for the same reason. */
-export const INSTAR_PARTS = [
-  "jaw",
-  "hand",
-  "eggs",
-  "tongue",
-  "tail",
-  "head",
-  "eye",
-  "fire",
-] as const;
+export const INSTAR_PARTS = ["jaw", "eggs", "tail", "head", "eye", "fire"] as const;
 export type InstarPart = (typeof INSTAR_PARTS)[number];
 
 /**

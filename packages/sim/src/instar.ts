@@ -18,8 +18,8 @@ import type { World } from "./world.js";
  *
  * The owner's ask, 17 September 2026, after the last bosses: *without reading
  * the tutorial it is impossible to understand what to do.* So this one has no
- * control set at all. What it has is **marks on its own body** — a ring on a
- * hand, on a clutch of eggs, on a tongue, on a tail — and the mark says what
+ * control set at all. What it has is **marks on its own body** — a ring on the
+ * jaw, on a clutch of eggs, on a tail, on an eye — and the mark says what
  * to do with the part under it and whose thumb it wants: one seat's while the
  * other watches, both seats' at once in two places, or both thumbs on the one
  * spot. The panel is the boss.
@@ -31,8 +31,8 @@ import type { World } from "./world.js";
  * morph takes before the marks appear, how long the window stays open, and
  * how long the body takes to land the beat before the next morph. A window
  * that closes with a mark still undone is the part doing what it was going
- * to do: the hand's weapon on the hull, the eggs hatching, the tongue's
- * poison, the tail's blow — one strike, and the owner's rule of 12 September
+ * to do: the jaw's fire on the hull, the eggs hatching, the tail's blow, the
+ * head's lunge — one strike, and the owner's rule of 12 September
  * 2026 makes any hull damage the whole wave (`instar-step.ts`).
  *
  * **A mark is a `Command`** and nothing else (filter 9): every one is a `drag`

@@ -21382,3 +21382,16 @@ Bottleneck: timing the dome — pressed in the last half-window of the beat
 before the rock reaches its row, so the window is still open when it arrives.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's parts are the six its script names
+
+- reading: 5 min. `INSTAR_PARTS`, the strike's table and the three tests
+  that borrowed `hand` as an arbitrary part.
+- writing: 5 min. Two names cut, the tests moved to `jaw`, two sentences of
+  prose that still listed them.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — `tsc` listed every place the two words
+reached.

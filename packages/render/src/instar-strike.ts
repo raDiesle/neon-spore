@@ -44,8 +44,6 @@ const LIFE: Record<InstarPart, number> = {
   jaw: FIRE_SECONDS,
   eggs: SWARM_SECONDS,
   tail: SLAM_SECONDS,
-  hand: SLAM_SECONDS,
-  tongue: SLAM_SECONDS,
   head: SLAM_SECONDS,
   eye: SLAM_SECONDS,
   fire: FIRE_SECONDS,

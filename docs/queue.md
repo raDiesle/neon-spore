@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR's words still name parts no pose draws
-
-- **Found:** 2026-09-25, claude/instar-boss-choreography-01e4c7
-- **Taken:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director (claim: claude/queue-the-instars-words-still-name-parts-no-pose-draws)
-- **Files:** `packages/sim/src/instar-words.ts`, `packages/render/src/instar-strike.ts`, `packages/render/src/instar-shape.ts`, `packages/render/src/instar-poses.ts`
-
-`INSTAR_PARTS` still lists `hand` and `tongue`, from the five poses of 17
-September. No step of `content/instar-script.ts` names either, so
-`instar-strike.ts` gives the two a slam it never draws. (`head` and the
-figure's `reach` are the *lunge*'s since 25 September,
-claude/instar-boss-enhancements-1ae51f, and stay.) Cut the two parts from the
-list (and from the cue, the director's sheet and any switch over them that
-`tsc` then names), and prove it with `bun run check`.
-
 ## THE INSTAR, brood: eggs that crack while nobody takes them
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
