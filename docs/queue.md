@@ -1169,33 +1169,6 @@ resolved once per beat, the same reasoning THE CYST's shudder was ruled
 out on. Nothing here is drawn yet and stays unverified at tempo until
 the owner has looked.
 
-## AUTO's field hand half plays 10 ordinary waves
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e; THE SHELL, THE LURE, THE MOULT, THE LIMPET, THE LEECH, THE LID and THE CLASP answered 2026-09-26, claude/happy-babbage-ilb1n9
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-autos-field-hand-half-plays-10-ordinary-waves)
-- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
-
-`fieldHand` plays the cannon, the shield and the pods
-(`autopilot-pod-hand.ts`), and breaks THE CLASP with the dome. THE SHELL, THE
-LURE, THE MOULT, the two harpoons and THE LID have their answers in a file each
-beside it (`autopilot-aim.ts`, `autopilot-moult.ts`, `autopilot-harpoon.ts`,
-`autopilot-lid.ts`). The waves whose creature has a verb of its own are still
-half played: THE WISP, THE CRYSTAL, THE STRAND, THE CRAWLER, THE MAGNET, THE
-JAM, THE CHOIR, THE BEATBOX, THE WEIGHT and THE MINE. They are the
-`HALF_PLAYED` set in the test. THE WISP never clears; the rest clear with four
-to ten scars.
-
-THE WEIGHT and THE MINE look nearest: a weight is a `grip` from each seat on
-the body, held together for `weightCrushMs` (`weight.ts`); a mine is the seat
-that sees it touching its tile (`mine.ts`). THE MAGNET needs THE LOCK and the
-cannon stood beside its column (`magnet.ts`, `lock.ts`). THE JAM's lures are
-already left alone. What is left is its fault: the cannon fires up player 1's
-column on every beat, alternating red and cyan, so the hand has to move the
-muzzle off a lure's column and time the column change to the colour that is
-loaded. Give each creature its answer in the hand, a file per few creatures as
-the others have theirs. Take its name out of `HALF_PLAYED` as it goes. The test
-already fails for any wave the hand stops clearing clean.
-
 ## Unverified at 7a259b7f7: THE VISE wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-simulation-lane
@@ -1209,3 +1182,20 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## AUTO's field hand half plays 7 ordinary waves
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e; ten creatures answered since, the last five 2026-09-26, claude/happy-babbage-ilb1n9
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
+
+`fieldHand` plays the cannon, the shield and the pods, and breaks THE CLASP
+with the dome. THE SHELL, THE LURE, THE MOULT, the two harpoons, THE LID, THE
+FENCE and the bodies a finger answers — THE WEIGHT, THE MINE, THE BEATBOX and
+THE GUM — have their answers in files beside it. The waves still half played
+are the `HALF_PLAYED` set in the test: THE WISP, THE CRYSTAL, THE STRAND, THE
+CRAWLER, THE MAGNET, THE JAM and THE CHOIR. THE WISP never clears; the rest
+clear with four to ten scars. The test now counts `breach` events rather than
+scars, since a gum, a fence or a box breaks the hull without drawing one
+(`breachUnscarred`) — which is how THE GUM, THE GAP and THE CUT had been
+passing without an answer. Each creature is one file in `packages/hands/src/`
+and one name out of the set.

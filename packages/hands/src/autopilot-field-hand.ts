@@ -13,10 +13,12 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
+import { burnFence, fenceGap } from "./autopilot-fence.js";
 import { shake } from "./autopilot-harpoon.js";
 import { holdLid, lidShut } from "./autopilot-lid.js";
 import { catchMoult } from "./autopilot-moult.js";
 import { catchPod, hanging } from "./autopilot-pod-hand.js";
+import { touchBodies } from "./autopilot-touch.js";
 import type { Hand } from "./hand.js";
 
 /**
@@ -37,10 +39,12 @@ import type { Hand } from "./hand.js";
  * creatures with a verb of their own have theirs in a file beside this one:
  * THE SHELL's column and THE LURE left alone (`autopilot-aim.ts`), THE MOULT
  * caught or turned (`autopilot-moult.ts`), a control THE LIMPET or THE LEECH
- * has harpooned kept moving (`autopilot-harpoon.ts`), and THE LID held open
- * while it is shot (`autopilot-lid.ts`). Any other creature with a verb of its
- * own — a hold, a reach, a drag — is not answered here, and the wave it is on
- * is one AUTO only half plays.
+ * has harpooned kept moving (`autopilot-harpoon.ts`), THE LID held open while
+ * it is shot (`autopilot-lid.ts`), THE FENCE passed through a gap or a burnt
+ * crack (`autopilot-fence.ts`), and the bodies a finger answers — THE WEIGHT,
+ * THE MINE, THE BEATBOX and THE GUM (`autopilot-touch.ts`). Any other creature
+ * with a verb of its own — a hold, a reach, a drag — is not answered here, and
+ * the wave it is on is one AUTO only half plays.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -63,9 +67,9 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
 }
 
 /**
- * The cannon's half: a falling pod first, then under the lowest coloured body
- * and its colour when free — a lid held open first — then a hanging pod shot loose
- * (`autopilot-pod-hand.ts`). Any colour frees a pod.
+ * The cannon's half: a falling pod first, then a fence's crack, then under the
+ * lowest coloured body and its colour when free — a lid held open first — then
+ * a hanging pod shot loose (`autopilot-pod-hand.ts`). Any colour frees a pod.
  */
 function cannon(w: World): Press[] {
   const off = shake(w, "leech", w.cannonCol);
@@ -74,6 +78,8 @@ function cannon(w: World): Press[] {
   if (chase !== null) return chase;
   const moult = catchMoult(w);
   if (moult !== null) return moult;
+  const wall = burnFence(w, free(w));
+  if (wall !== null) return wall;
   const body = lowest(w, cannonAnswers);
   const pod = body ? undefined : hanging(w);
   const col = body ? aimColumn(body) : pod ? Math.round(pod.colMilli / MILLI) : null;
@@ -94,6 +100,10 @@ function shield(w: World): Press[] {
   const off = shake(w, "limpet", w.shieldCol);
   if (off !== null) return [carry(off)];
   const rock = lowest(w, (c) => isWardable(c.kind) || c.kind === "moult" || c.kind === "clasp");
+  const gap = fenceGap(w);
+  if (gap !== null && (rock === undefined || gap.row >= rock.row)) {
+    return w.shieldCol === gap.col ? [] : [carry(gap.col)];
+  }
   if (rock === undefined) return [];
   if (!occupiesCol(rock, w.shieldCol)) return [carry(rock.col)];
   // A clasp is broken at any row, the moment the dome comes up in its column.
@@ -104,4 +114,4 @@ function shield(w: World): Press[] {
 }
 
 /** Both halves, each seat's presses its own. */
-export const fieldHand: Hand = (w) => [...cannon(w), ...shield(w)];
+export const fieldHand: Hand = (w) => [...cannon(w), ...shield(w), ...touchBodies(w)];
