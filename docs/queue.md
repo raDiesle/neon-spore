@@ -1205,6 +1205,27 @@ you leave behind, and leave the rest listed.
 on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
 reaches them.
 
+## CLOUD ONLY — a rig part hangs off an anchor and inherits its turn
+
+- **Found:** 2026-09-26, claude/queue-rig-anchors
+- **Files:** `packages/content/src/solid.ts`, `packages/render/src/solid-rig.ts`, `packages/render/test/solid.test.ts`, `docs/style-guide.md`
+
+The owner, 26 September 2026: no library in the game, but take what Zdog does
+well and build our own for Neon Spore. What Zdog does well is authoring: a
+part hangs off an anchor and inherits the anchor's turn, so a jaw hinged on a
+skull, a wing on a shoulder or a fin on a tail is written once, relative to
+its parent, and the whole limb turns when the parent does. The rig today is
+one flat list of parts, all in the rig's own origin, so every such part is
+re-placed by hand each frame. Add an `Anchor` to `solid.ts` (an origin, a
+yaw/pitch/roll, optional parent), have `drawRig` resolve each part's anchor
+chain into rig space once per frame before it sees and sorts them, and keep the
+painter's sort on the resolved parts, so a child can still pass in front of or
+behind its parent. It is pure arithmetic in `content`: no `Math.random`, no
+time but what is passed in. `solid.test.ts` proves a child turned with its
+anchor lands where the same part authored flat does, and the demo rig in
+`tools/raster/src/solid-demo.ts` hangs its wing off an anchor so `bun run
+solid` shows it; say *unverified* if no eye saw the sheet. No boss changes.
+
 ## A WebGL glow pass, tried as a candidate with its battery cost measured
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side

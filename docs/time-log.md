@@ -22597,3 +22597,13 @@ the phase it is named after is never entered.
 Bottleneck: looking — the default frame is too small to judge a surface detail, and it hid a flipped angle until it was rendered at phone scale.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Zdog's anchors, queued as our own for the rig
+
+- reading: 5 min. The rig's part list and the Zdog verdict in the style guide.
+- writing: 5 min. One queue entry.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — a one-entry change still runs the full check.
