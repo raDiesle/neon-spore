@@ -25215,3 +25215,14 @@ Bottleneck: reading — the script sits under four different names across
 sixteen bosses, and each state file had to be opened to learn which.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VALVE's autopilot hand
+
+- reading: 10 min. The wheel's bearing reading, the pin's edge, and the story between the pins.
+- writing: 5 min. `boss-hands-valve.ts`, its two registrations, the test.
+- looking: 0 min. The test plays THE VALVE to the end; nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: reading — the wheel moves by the step between two reports
+rather than to where the thumb is, and the third mark wants a full lap first.

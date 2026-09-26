@@ -2229,6 +2229,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-keel.ts` | **THE KEEL played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-oculus.ts` | **THE OCULUS played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-vise.ts` | **THE VISE played right**, for the STATES sheet and the autopilot |
+| `packages/hands/src/boss-hands-valve.ts` | **THE VALVE played right**, for the autopilot: the wheel turned onto each mark by the pilot |
 | `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: a lean held dead level on the asked seat's phone |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |

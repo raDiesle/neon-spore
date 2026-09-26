@@ -34,6 +34,7 @@ export * from "./boss-hands-stare.js";
 export * from "./boss-hands-takes.js";
 export * from "./boss-hands-trivet.js";
 export * from "./boss-hands-unseen.js";
+export * from "./boss-hands-valve.js";
 export * from "./boss-hands-vise.js";
 export * from "./boss-hands-well.js";
 export type { Hand } from "./hand.js";

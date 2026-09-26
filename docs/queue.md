@@ -1354,9 +1354,8 @@ THE VALVE's look decides.
 ## §25 THE VALVE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/queue-25-the-valve-its-hands-the-second-half-of-its-lo
 - **Needs:** §25 THE VALVE — the look, half one (the body), landed first
-- **Files:** `packages/render/src/valve-marks.ts`, `packages/render/src/valve-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/valve-marks.ts`, `packages/render/src/valve-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `apps/game/src/`
 
 The body is drawn: the drum, the wheel, the pins, the mark and the socket.
 What is left is everything a thumb or an event touches, THE KEEL's half two
@@ -1369,8 +1368,9 @@ model), and `valvePin` as a tap on the socket and a draw of at least
 and a thaw's kick, the spark's hull hit and the face falling open; the
 thirteen `valve*` events come off the two silent lists as each gets its
 burst. **Hurt**, **the cue's words** (TURN on the wheel, FREEZE on the
-socket, PULL on the live pin, FIRE on the spark), **the autopilot hand** and
-its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+socket, PULL on the live pin, FIRE on the spark), and the STATES poses. (The
+autopilot hand landed 26 September 2026: `hands/boss-hands-valve.ts`, which
+plays the whole fight, story included.)
 **The story between the pins** (`sim/valve-story.ts`, drawn by
 `render/valve-story.ts`) wants the same: its cue words TAP on the jet, HOLD
 for the brace and the seal, RUB for the wipe; the grip's reversal and hold
