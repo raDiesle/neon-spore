@@ -2240,22 +2240,6 @@ sequencing read on the existing per-segment state, not a new primitive.
 marrow-lit centre line, banked cooldown) are a look task, queued separately
 once this lane lands.
 
-## THE OCULUS's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-26, claude/oculus-blow (claim: claude/queue-the-oculuss-own-blow-at-the-hull)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-
-THE OCULUS's timeout already calls `bossStrikesHull` (`packages/sim/src/oculus-step.ts`)
-and draws the default lash, a red tendril out of the body to the column and
-back. That lash is a floor, not the picture. Give THE OCULUS a `LOOK` row in
-`boss-strike-look.ts` made from its own body, the part of it that acts, in
-its own hue, keeping the current style and adding no 3D rig. Its `FROM` row is already there.
-The blow must reach the hull at `reach = 1`, when the crack and the sparks
-start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
-blind: send a PNG of the timeout (`bun run frames . --wave "THE OCULUS" --until breach`
-when the wave misses unattended), or land it `--unverified` if it does not.
-
 ## THE HASP's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall

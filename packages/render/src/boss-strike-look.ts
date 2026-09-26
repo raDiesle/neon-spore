@@ -3,6 +3,7 @@ import { fieldX } from "./field-flip.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import type { Layout } from "./layout.js";
 import { mantleCentre } from "./mantle-shape.js";
+import { oculusBlow } from "./oculus-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
 import { seamBlow } from "./seam-blow.js";
@@ -31,6 +32,8 @@ export interface Point {
 
 /** One frame of one blow, handed to a look. */
 export interface StrikeFrame {
+  /** The screen, for a look that sizes itself off its boss's own shape. */
+  l: Layout;
   from: Point;
   /** Where it lands: the column, on the skin. */
   to: Point;
@@ -59,6 +62,7 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
 
 /** A boss's own blow; an empty table is every boss on the lash. */
 const LOOK: Partial<Record<BossKind, StrikeLook>> = {
+  oculus: oculusBlow,
   seam: seamBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming

@@ -65,6 +65,7 @@ export class BossStrikeFx {
     for (const s of this.strikes) {
       const x = tileCX(l, s.col);
       strikeLook(s.by)(ctx, {
+        l,
         from: strikeFrom(l, cfg, s.by),
         to: { x, y: surfaceY(x) },
         reach: Math.min(1, s.age / s.out),

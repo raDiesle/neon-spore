@@ -23759,3 +23759,16 @@ Bottleneck: friction — a rebase onto a rule that landed mid-lane.
 Bottleneck: finding a director pose that shows the side-on body uncovered.
 
 *Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's own blow at the hull
+
+- reading: 10 min. THE SEAM's blow as the pattern, `oculus-step.ts`'s miss,
+  the act-11 script for which step fires.
+- writing: 15 min. The beam, the burn ring, `l` added to `StrikeFrame`.
+- looking: 5 min. Frames of the miss, forced with `--boss cursor=4`.
+- friction: 10 min. Finding the script: the step list lives in the wave,
+  not beside the boss.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: friction — THE OCULUS never misses unattended, and which cursor
+lands on a fire step was only in `act-11.ts`.
