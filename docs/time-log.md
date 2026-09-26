@@ -23208,3 +23208,5 @@ drafting a new one from scratch.
 
 Bottleneck: looking — the first turn read on the wings and not on the head,
 and it took a second pass with a stronger snout and a shaded far cheek.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
