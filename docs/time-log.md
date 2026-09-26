@@ -21979,3 +21979,5 @@ room for one more re-export.
 
 Bottleneck: reading — the entry's "count the Nth" was `--until-on`'s step on
 in ticks, which only `until-on.test.ts` says plainly.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

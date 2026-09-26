@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4abe643c7 — `frames --until` watches every stretch between two presses
+
+The wait was handed to the last stretch of the press plan only, so a run that went on pressing past the event — a guard every beat under `--until shieldPush` — walked past it blind and called it missed. Every stretch is watched now and the run stops wherever the event falls, and `--until-on`'s step on hears the presses that fall inside its ticks.
+
 ## 2026-09-26 · 24789b995 — `queue next` says `git checkout` to a session in its own clean worktree
 
 A desktop session opened in a worktree may write nowhere else, so the `git worktree add` the prompt always printed made a tree it could not edit. `sessionTree` now finds a clean worktree that is not the main checkout, and the prompt prints `git -C <tree> checkout <branch>` there, `bun install` still after it; the lane skill says the same. The claim mark still names the spent head branch in that case, queued.
