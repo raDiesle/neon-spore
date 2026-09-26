@@ -431,18 +431,33 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## Film THE GIMBAL, THE HASP and THE RATCHET once each is drawn
+## Film THE HASP and THE RATCHET
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
 - **Taken:** 2026-09-26, claude/queue-film-the-codexs-guide-and-delete-its-words (claim: claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea)
-- **Files:** `packages/content/src/waves/act-10.ts`, `packages/content/src/waves/act-11.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+- **Files:** `packages/content/src/waves/act-11.ts`, `packages/content/src/scene-turn.ts`, `packages/content/src/scene-drag.ts`, `packages/render/src/guide-boss-hand.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
 
-Three of the ten guides still in words, and blocked rather than forgotten:
-none of the three bosses is drawn yet (`scenes-prose.test.ts` says why beside
-each), and a film rehearses the game's own screen. Whichever lane draws one
-films it in the same sitting, as the five items above do, and deletes its
-`both`/`p1`/`p2`. Until then the words are what the pair reads, and they stay.
-Not startable by a fresh session before the look lands — take it after.
+Two of the three guides still in words whose bosses are now drawn. THE
+GIMBAL's landed on 26 September 2026 (`scenes/the-gimbal.ts`) and taught the
+film a ring turned and held (`ringCommands`) and a hand on a clock boss on
+either seat (`guide-boss-hand.ts`). Each of these two needs its own handle
+taught the same way first — the hasp's latch (a depth held) and wheel (a
+bearing), the ratchet's catch (held) and pawl (pressed) — then its film, its
+`both`/`p1`/`p2` deleted, and `STILL_PROSE` and §3.2 moved by one.
+
+## A ring let go of while THE GIMBAL shears stays held
+
+- **Found:** 2026-09-26, claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea
+- **Files:** `packages/sim/src/gimbal-hand.ts`, `packages/sim/src/gimbal-step.ts`, `packages/sim/test/`
+
+`gimbalHeard` returns before anything else while the drum is not turning, so
+a hand lifted during the three shear beats is never heard: `handMilli` keeps
+its bearing, and when the next marks light that ring neither drifts home nor
+draws unheld (`render/gimbal-grip.ts` `gimbalHeld`) with no finger on it. The
+film steps around it by lifting after the marks relight. Let a release (and a
+grab's `NO_BEARING`) through in every phase — only the *turn* needs
+`gimbalTurning` — and hold it with a test that lifts mid-shear and sees the
+ring drift on the first turning beat.
 
 ## `bun run shot` has no way to name a wave, and the filter route misses it
 

@@ -1,6 +1,7 @@
 import { actCol, control, type GuideScene } from "@neon-spore/content";
 import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { bossThumb } from "./guide-boss-hand.js";
 import { handleCircle } from "./handles.js";
 import { hivePinchCircle } from "./hive-grip.js";
 import { fieldX, type Layout, tileCY } from "./layout.js";
@@ -206,6 +207,9 @@ export function handleThumb(
   seat: 1 | 2,
   beatPhase: number,
 ): { x: number; y: number; r: number } | null {
+  // A clock boss's handle, on either seat (`guide-boss-hand.ts`).
+  const onBoss = bossThumb(l, world, seat, beatPhase);
+  if (onBoss) return onBoss;
   // The navigator's one handle is THE HIVE's lobe, pinched. Her other — a
   // stuck gum — went with the sticking on 14 September 2026, and a gum is a
   // grip now (`sim/gum.ts`), which is the hand `gripThumb` draws.

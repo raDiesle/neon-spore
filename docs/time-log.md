@@ -21699,3 +21699,17 @@ neither is a simulation-lane concern on its face, but both gate `check:fast`
 and both took rewriting rather than a one-line patch.
 
 *Measured: unmeasured — landed in the same commit this log was written in.*
+
+## 2026-09-26 — THE GIMBAL's guide is a film
+
+- reading: 10 min. The ring's hand and step in the simulation, the crank's
+  bearing stream in `scene-turn.ts`, and where the ghost hands are placed.
+- writing: 10 min. A ring turn that stops on its mark and stays, the hand on
+  either seat's ring, the film, its test, and the prose list and §3.2 moved.
+- looking: 5 min. One probe of the rings against the marks, one capture of
+  the navigator's page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the machinery — no film had turned a ring to a place and held it,
+so the stream grew a stop before the film could be written.

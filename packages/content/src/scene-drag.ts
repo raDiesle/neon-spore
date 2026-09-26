@@ -1,6 +1,7 @@
 import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
 import { actCol } from "./scene-script.js";
+import { ringCommands } from "./scene-turn.js";
 
 /**
  * **A hand carrying a handle**, turned into the stream of `drag` messages a
@@ -127,7 +128,9 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   if (target === "surgeBulb" || target === "hiveLobe") return hand ?? 1;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
-  return target === "balloonRight" || target === "sinewRight" ? 2 : 1;
+  // THE GIMBAL's inner ring is the navigator's, by geometry
+  // (`sim/gimbal-hand.ts`).
+  return target === "balloonRight" || target === "sinewRight" || target === "gimbalInner" ? 2 : 1;
 }
 
 /**
@@ -147,6 +150,8 @@ function byColumn(target: DragTarget): boolean {
 export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
   const player = dragSeat(target, act.hand);
+  // A ring is turned, not carried: a bearing, and a stop on the mark.
+  if (target === "gimbalOuter" || target === "gimbalInner") return ringCommands(act, player, cfg);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid

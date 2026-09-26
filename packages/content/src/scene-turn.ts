@@ -1,6 +1,7 @@
 import {
   BEARING_TURN,
   type DragTarget,
+  gimbalTurnPerTickMilli,
   NO_BEARING,
   type SceneCommand,
   type SimConfig,
@@ -50,17 +51,19 @@ function turning(
   until: number,
   perTickMilli: number,
   way: -1 | 1,
+  stop = Number.POSITIVE_INFINITY,
 ): SceneCommand[] {
   const grab = { kind: "drag", target, on: true, fromMilli: NO_BEARING } as const;
   const out: SceneCommand[] = [{ tick: from, player, command: grab }];
   const step = perTickMilli * SAMPLE_TICKS;
-  let at = 0;
+  let travelled = 0;
   for (let tick = from; tick <= until; tick += SAMPLE_TICKS) {
-    out.push({ tick, player, command: { kind: "drag", target, on: true, fromMilli: at } });
     // Positive and inside one turn either way round: a bearing is where on the
     // circle the hand *is*, so a hand going the other way counts down through
     // the modulus rather than into negative numbers.
-    at = (at + way * step + BEARING_TURN) % BEARING_TURN;
+    const at = (((way * travelled) % BEARING_TURN) + BEARING_TURN) % BEARING_TURN;
+    out.push({ tick, player, command: { kind: "drag", target, on: true, fromMilli: at } });
+    travelled = Math.min(stop, travelled + step);
   }
   out.push({
     tick: until,
@@ -85,4 +88,29 @@ function turning(
 export function crankCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): SceneCommand[] {
   const until = act.until ?? act.tick + SAMPLE_TICKS;
   return turning("crank", player, act.tick, until, windPerTickMilli(cfg), 1);
+}
+
+/**
+ * THE GIMBAL's ring, turned **a set distance and then held** — authored as a
+ * `drag` on `gimbalOuter` or `gimbalInner`, with `toMilli` the distance round
+ * the hand's own face, clockwise positive, and `until` the lift.
+ *
+ * The crank has no destination; a ring has exactly one, its mark, and the
+ * whole of the lesson is the hand that stops on it and stays. So the stream
+ * stops advancing at the distance and keeps reporting the same bearing until
+ * the lift: a hand still on the rim, which is what keeps the ring off its
+ * drift (`sim/gimbal-step.ts`). The distance is the face's and not the
+ * wheel's, because the navigator's ring is gripped from the far side and the
+ * same number goes in mirrored (`sim/gimbal-hand.ts`) — a film writes what
+ * the thumb does and the simulation says what that turns.
+ *
+ * The rate is the desk key's, `gimbalTurnPerTickMilli`, for the crank's
+ * reason: asked for, not chosen.
+ */
+export function ringCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): SceneCommand[] {
+  const target = act.drag as DragTarget;
+  const until = act.until ?? act.tick + SAMPLE_TICKS;
+  const travel = act.toMilli ?? 0;
+  const perTick = gimbalTurnPerTickMilli(cfg);
+  return turning(target, player, act.tick, until, perTick, travel < 0 ? -1 : 1, Math.abs(travel));
 }

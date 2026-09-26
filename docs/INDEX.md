@@ -701,6 +701,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-limpet.ts` | THE LIMPET's rehearsal: the shield is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-leech.ts` | THE LEECH's rehearsal: the cannon is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-codex.ts` | THE CODEX's rehearsal: the button that works and lies, and the word that says which |
+| `packages/content/src/scenes/the-gimbal.ts` | THE GIMBAL's rehearsal: two rings, one each, turned to two marks and held |
 | `packages/content/src/scenes/the-throat.ts` | THE THROAT's rehearsal: what it takes, and the one thing that hurts it |
 | `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |
 | `packages/content/src/scenes/the-veer.ts` | THE VEER's rehearsal: the column stops being true while you are saying it |
@@ -1301,6 +1302,7 @@ by hand never moves.
 | `packages/render/src/caption-anchor-box.ts` | **The ring round a boss's fixture** — the two shapes every line of `caption-anchor-boss*.ts` answers with |
 | `packages/render/src/caption-hull-room.ts` | A caption on a control stands above THE UNDERTOW's lobes rather than over the plating they come through |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
+| `packages/render/src/guide-boss-hand.ts` | The ghost hand on a clock boss's own handle, on either seat |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
 | `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |
 | `packages/render/src/guide-look.ts` | The tutorial's furniture, as one record: the band across the top that says TUTORIAL and whose screen this is |

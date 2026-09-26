@@ -50,15 +50,13 @@ const STILL_PROSE = [
   // (`waves.test.ts`, `SAYS_ITSELF`).
   // And THE FILAMENT the same day, the same way: asked whether it wanted a
   // film, the owner answered *both guides go*.
-  // And THE GIMBAL, whose simulation landed 22 September 2026 (`bosses.md`
-  // §11.34) with nothing of it drawn at all yet. A film is a rehearsal of the
-  // game's own screen, and there is no screen to rehearse until the look lane
-  // draws the drum and its two rims; the guide says the rule in the meantime.
-  "THE GIMBAL",
+  // And THE GIMBAL, once the drum and its two rims were drawn:
+  // `scenes/the-gimbal.ts` is both rings turned to their marks and held — hers
+  // the other way round on her own face — and a tooth sheared off each.
   // THE SPOOL left this list on 24 September 2026, a day after its brake
   // learnt to answer a thumb: `scenes/the-spool.ts` is the shallow brake, the
   // slip, *slower* and the rib.
-  // And THE HASP the same day (§11.37), for the same reason a fourth time:
+  // THE HASP stays, the same day (§11.37), for the reason THE GIMBAL did:
   // the door of clasps, its wheel and the latch beside it are undrawn, so
   // there is no screen for a film to rehearse. The guide says the one thing
   // its pilot has to know — keep holding — until the look lane draws it.
@@ -88,9 +86,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-six films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-seven films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty-six, which is the number in the section. A film with no wave
+    // Eighty-seven, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);

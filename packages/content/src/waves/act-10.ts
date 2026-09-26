@@ -184,9 +184,7 @@ export const WAVES_ACT_10: Wave[] = [
     id: "theGimbal",
     name: "THE GIMBAL",
     guide: {
-      both: "A drum hangs in two rings, one each. Turn your ring to your mark and hold it. Both true breaks a tooth off each. A spark leaks late: shoot it.",
-      p1: "1. The outer ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Let go and your ring falls back to the top.",
-      p2: "1. The inner ring is yours. Drag round its rim to turn it.\n2. Hold it on your mark until both of you are true.\n3. Your rim and theirs do not agree. Say where your mark is, not which way to turn.",
+      scene: "theGimbal",
     },
     entries: [],
     boss: { kind: "gimbal", marks: GIMBAL_SCRIPT },
