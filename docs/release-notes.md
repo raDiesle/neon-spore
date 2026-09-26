@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 7a259b7f7 — Wave 107 THE VISE: pinch each lobe shut until its seam cracks, then shoot the kernel
+
+A dry seed-case over the middle of the field, two lobes clamped on a kernel. A seam lights on a lobe and its own seat pinches it shut for the step's beats; a gap widened back starts the count again. Two seams a lobe bare the kernel, a fire step is the ordinary shot in its colour into the middle column, and a both step asks the two lobes pinched at once to hold it bare. The first spend of the unclaimed SQUEEZE ONE BODY gesture, as the drag's own fromMilli. Specified in docs/spec/bosses.md §11.45, with eight departures from §28 argued by name; opens act twelve.
+
 ## 2026-09-26 · e49bba08b — AUTO answers THE LID and THE CLASP
 
 AUTO on both seats now clears THE LID and THE CLASP with the hull unscarred. On a lid, player 1 pulls the cord taut, in the first direction the field leaves room for, and player 2 holds fire until the lens is bare. A clasp is broken by raising the dome in its column, and the cannon waits for the body underneath. Ten ordinary waves are still half played; the queue entry names them.

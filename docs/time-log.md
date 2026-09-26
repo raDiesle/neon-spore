@@ -22460,3 +22460,5 @@ Bottleneck: reading — the lid's pull is only taut if it survives the clamp to 
 
 Bottleneck: registrations again — the twelve events and six config fields
 named in a dozen files, and the act split that the line limit forced.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

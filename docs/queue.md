@@ -1194,3 +1194,17 @@ muzzle off a lure's column and time the column change to the colour that is
 loaded. Give each creature its answer in the hand, a file per few creatures as
 the others have theirs. Take its name out of `HALF_PLAYED` as it goes. The test
 already fails for any wave the hand stops clearing clean.
+
+## Unverified at 7a259b7f7: THE VISE wave never watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-28-the-vise-the-simulation-lane
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+
+*Wave 107 THE VISE: pinch each lobe shut until its seam cracks, then shoot the kernel* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
+
+- THE VISE wave never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
