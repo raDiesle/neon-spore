@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §36 THE HALTER — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-33-the-grindstone-effects-and-cue-words (claim: claude/queue-36-the-halter-the-look)
 - **Needs:** §36 THE HALTER's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
