@@ -22,9 +22,15 @@ import type { World } from "./world.js";
  * **guard**: the same tap and pinch, to hold the flank off the core, which
  * reseals if it is missed and is bared again when the guard is made.
  *
+ * **Three story steps** break the alternation, each under THE SLOW. **The
+ * swell**: the sac goes taut and stops shuddering on its own, and both seats
+ * pinch their own flank shut together. **The spit**: a spore down a column
+ * off the middle, turned by the shield under it. **The bud**: a bud swells
+ * out over a column off the middle, shot there in its colour.
+ *
  * **Its health is the two flanks and the three shots.** A tap or a pinch
- * that runs out is tried again; a shot that runs out is a hull hit, which is
- * the wave.
+ * that runs out is tried again; a shot, a swell, a spit or a bud that runs
+ * out is THE CYST's own blow at the hull.
  */
 
 /**
@@ -35,17 +41,25 @@ import type { World } from "./world.js";
 export const CYST_PHASES = ["still", "lit", "frozen", "rest", "split"] as const;
 export type CystPhase = (typeof CYST_PHASES)[number];
 
-/** What a step asks: the left flank stilled and pinched, the right, or a shot at the core. */
-export const CYST_ASKS = ["left", "right", "fire"] as const;
+/**
+ * What a step asks: the left flank stilled and pinched, the right, a shot at
+ * the core, both flanks pinched at once, the spore shielded, or the bud shot.
+ */
+export const CYST_ASKS = ["left", "right", "fire", "swell", "spit", "bud"] as const;
 export type CystAsk = (typeof CYST_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
 export interface CystStep {
   ask: CystAsk;
-  /** The colour a shot must be, or `"either"`. Only a fire step reads it. */
+  /** The colour a shot must be, or `"either"`. A fire or bud step reads it. */
   color: Color | "either";
-  /** Beats: how long a pinch must be kept shut, how long a fire step waits for its shot. */
+  /**
+   * Beats: how long a pinch or a swell must be kept shut, how long a fire,
+   * spit or bud step waits for its answer.
+   */
   beats: number;
+  /** Columns off the middle the spore falls or the bud swells. Only a spit or a bud reads it. */
+  offset?: number;
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -76,8 +90,10 @@ export interface CystState {
   gapMilli: [number, number];
   /** Whether a thumb is down on each flank's freeze mark, the left then the right: the tap's edge. */
   tapDown: [boolean, boolean];
-  /** Beats of the frozen step its flank has been kept shut. */
+  /** Beats of the frozen step its flank has been kept shut, or of a swell both have. */
   heldBeats: number;
+  /** `world.tick` the lit step lit: a shield pressed before it turns no spore. */
+  litTick: number;
 }
 
 export function cystBoss(world: World): CystState | null {
@@ -106,6 +122,22 @@ export function cystGuarding(s: CystState): boolean {
 export function cystClosed(world: World, s: CystState): boolean {
   const side = cystSide(s);
   return s.phase === "frozen" && side !== null && s.gapMilli[side] <= world.cfg.cystShutMilli;
+}
+
+/** Whether the lit step is a swell and both flanks are pinched shut this instant. */
+export function cystClenched(world: World, s: CystState): boolean {
+  const shut = world.cfg.cystShutMilli;
+  return (
+    s.phase === "lit" &&
+    cystLitStep(s)?.ask === "swell" &&
+    s.gapMilli[0] <= shut &&
+    s.gapMilli[1] <= shut
+  );
+}
+
+/** The column a spore falls down or a bud swells over. */
+export function cystStepCol(mid: number, step: CystStep): number {
+  return mid + (step.offset ?? 0);
 }
 
 /** The seat that taps a flank still: always the partner of the seat that pinches it. */
@@ -137,5 +169,6 @@ export function freshCyst(beat: number, steps: readonly CystStep[], openMilli: n
     gapMilli: [openMilli, openMilli],
     tapDown: [false, false],
     heldBeats: 0,
+    litTick: 0,
   };
 }

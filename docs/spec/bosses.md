@@ -8562,6 +8562,27 @@ only while a fire step is lit, only in the middle column, and only in its
 colour unless it is `either`. The wrong colour is a colour missed on the
 balance sheet and nothing else, THE SEAM's rule.
 
+**The story steps** (§34's fuller arc, asked for by the owner on 26
+September 2026 — *much more different visual states and slow states where
+action is required*). Three, each lit under THE SLOW, each run out a hull
+hit over its own column (`bossStrikesHull`), and each with no new gesture:
+
+- **The swell.** The whole sac bloats and both flanks must be pinched shut
+  *together* for the step's beats — no tap first, the sac being taut
+  already. Either flank widening past shut slips the count
+  (`cystClenched`, `cystClench`). The only step both pinching hands answer
+  at once.
+- **The spit.** The sac spits a spore down a column `offset` off the
+  middle; the shield standing under that column, pressed after the step
+  lit, turns it (`sim/cyst-guard.ts`, THE TRIVET's needle; `cystTurn`).
+- **The bud.** A growth swells out over a column `offset` off the middle
+  and is shot there in its colour, bared core or not; the core's hits are
+  untouched (`cystPop`).
+
+The shipped script is eleven steps: the two cracks, a swell, the red shot,
+a spit, the left guard, the cyan shot, a bud, the right guard, a second
+swell, the white shot.
+
 **Where this departs from the design, and why.** Eight places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §28's
@@ -9413,8 +9434,9 @@ beat it began, the **cursor** into the script, the **cracks** on each
 flank, the **hits** landed, whether the core is **bared**, each flank's
 **gap** in thousandths, whether a thumb is down on each freeze mark, and
 the beats the lit flank has been kept shut. The script is the wave's
-(`CystEntry.steps`), copied at install: each step asks `left`, `right` or
-`fire`, in a colour or `either`, for its own beats.
+(`CystEntry.steps`), copied at install: each step asks `left`, `right`,
+`fire`, `swell`, `spit` or `bud`, in a colour or `either`, for its own
+beats, and a story step may stand `offset` columns off the middle.
 
 **The rule, in one sentence.** Tap to still your partner's flank, pinch
 your own shut while it is still; then shoot the bared core.
@@ -9493,9 +9515,11 @@ in its colour unless it is `either`.
 `cystFreeze*` or `cystFlank*` drag yet, so the sac cannot be answered on a
 real phone — the touch sender is queued with the look (`docs/queue.md`).
 Nothing of it is drawn: the render package's silent-event lists and
-`tools/director/src/sound-link-none-d.ts` carry all fourteen of its events
-until lane two. The fourteen sounds *are* bound (`audio/src/bind-cyst.ts`),
-all in the middle, the hit pitched up per hit. There is no autopilot hand
+`tools/director/src/sound-link-none-d.ts` carry all seventeen of its events
+until lane two. The seventeen are bound (`audio/src/bind-cyst.ts`), nearly
+all in the middle, the hit pitched up per hit; a swell held is a flank's
+crack pitched down, a spore turned the shield's own deflect, a bud burst the
+core's hit pitched up. There is no autopilot hand
 yet (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
 
 **Never watched at tempo.** What the tests say is the mechanism
@@ -9510,7 +9534,11 @@ the flank and asks again; the second crack bares the core; a fire step
 lights without THE SLOW, wants its colour and the middle column, and run
 out is the wave; a guard made keeps the core bare and a guard run out
 reseals it until the same guard is made; and a script answered whole
-splits the sac and ends the fight. Whether any of it *reads* — whether
+splits the sac and ends the fight. The story steps' own cases are
+`sim/test/cyst-story.test.ts`: each lights under THE SLOW; a swell is not
+held by one flank, is held by both, slips when one widens; a spore is turned
+only by the shield under its column; a bud takes only its colour over its
+column and leaves the core's hits alone; each run out is the hull. Whether any of it *reads* — whether
 tapping a partner's flank still feels like holding it for them — is the
 owner's eye, after lane two and the touch sender, on two real phones.
 

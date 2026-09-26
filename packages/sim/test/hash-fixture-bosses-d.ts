@@ -127,13 +127,13 @@ export const BOSS_ENTRIES_D = {
       { ask: "clamp", color: "cyan", beats: 3 },
     ],
   },
-  // THE CYST authors its script; two steps rather than the shipped seven
-  // (`cyst-hash.ts`).
+  // THE CYST authors its script; two steps rather than the shipped eleven,
+  // one of them off the middle (`cyst-hash.ts`).
   cyst: {
     kind: "cyst",
     steps: [
       { ask: "left", color: "red", beats: 4 },
-      { ask: "fire", color: "cyan", beats: 3 },
+      { ask: "bud", color: "cyan", beats: 3, offset: 2 },
     ],
   },
   // THE DAVIT's script, a swing and a shot, every authored field set off
@@ -363,6 +363,7 @@ export function patchBossD(boss: BossState): void {
     boss.gapMilli = [400, 700];
     boss.tapDown = [true, false];
     boss.heldBeats = 2;
+    boss.litTick = 40;
   }
   if (boss.kind === "davit") {
     // One swing landed and the other part way, the pivot lit, a lean read on

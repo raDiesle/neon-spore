@@ -22,12 +22,14 @@ export function cystHashParts(s: CystState): number[] {
     s.tapDown.length,
     ...s.tapDown.map((down) => (down ? 1 : 0)),
     s.heldBeats,
+    s.litTick,
     s.steps.length,
   ];
   for (const step of s.steps) {
     out.push(CYST_ASKS.indexOf(step.ask) + 1);
     out.push(step.color === "red" ? 1 : step.color === "cyan" ? 2 : 3);
     out.push(step.beats);
+    out.push(step.offset ?? 0);
   }
   return out;
 }

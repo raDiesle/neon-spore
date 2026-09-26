@@ -906,6 +906,7 @@ tempo until the owner has looked.
 ## §34 THE CYST — a fuller story arc: the swell, the spit and the bud
 
 - **Found:** 2026-09-26, claude/cyst-story, at the owner's direction (13:12Z): give the bosses added today more distinct states and SLOW beats that ask for action, enhancing existing bosses before new ones
+- **Taken:** 2026-09-26, claude/cyst-story (claim: claude/queue-34-the-cyst-a-fuller-story-arc-the-swell-the-spi)
 - **Files:** `packages/sim/src/cyst.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/cyst-shot.ts`, `packages/sim/src/cyst-hand.ts`, `packages/content/src/waves/act-12.ts`
 
 Three new steps under THE SLOW, from inputs THE CYST already has: **the

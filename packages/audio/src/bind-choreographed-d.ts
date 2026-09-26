@@ -218,6 +218,9 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "cystGuard":
     case "cystSeal":
     case "cystMiss":
+    case "cystClench":
+    case "cystTurn":
+    case "cystPop":
     case "cystSplit":
     case "cystOut":
       return cystCue(e, cols);

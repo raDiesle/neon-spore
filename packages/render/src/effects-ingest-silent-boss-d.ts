@@ -76,7 +76,7 @@ export const INGEST_SILENT_BOSS_D = [
   "grindstoneMiss",
   "grindstoneFree",
   "grindstoneOut",
-  // THE CYST's fourteen, the same (`packages/audio/src/bind-cyst.ts`).
+  // THE CYST's seventeen, the same (`packages/audio/src/bind-cyst.ts`).
   "cystEnter",
   "cystLight",
   "cystStill",
@@ -89,6 +89,9 @@ export const INGEST_SILENT_BOSS_D = [
   "cystGuard",
   "cystSeal",
   "cystMiss",
+  "cystClench",
+  "cystTurn",
+  "cystPop",
   "cystSplit",
   "cystOut",
   // THE DAVIT's thirteen, the same (`packages/audio/src/bind-davit.ts`).

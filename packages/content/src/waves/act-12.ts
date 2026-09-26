@@ -220,9 +220,9 @@ export const WAVES_ACT_12: Wave[] = [
     id: "theCyst",
     name: "THE CYST",
     guide: {
-      both: "When a flank shakes, your partner taps it still: pinch it shut to crack it. Both cracked: shoot the core in its colour. Then crack each flank once more.",
-      p1: "1. When the left flank shakes, your partner taps it. Then pinch it shut.\n2. When the right flank shakes, tap its mark so it stops.\n3. Shoot the bare core in its colour.",
-      p2: "1. When the left flank shakes, tap its mark so it stops.\n2. When the right flank shakes, your partner taps it. Then pinch it shut.\n3. White takes either colour.",
+      both: "A shaking flank: your partner taps it still, you pinch it shut. Both cracked: shoot the core in its colour. Swell: both pinch shut. Shield the spore. Shoot the bud.",
+      p1: "1. When the left flank shakes, your partner taps it. Then pinch it shut.\n2. When the right flank shakes, tap its mark so it stops.\n3. Shoot the bare core in its colour.\n4. Swell: pinch shut with your partner.",
+      p2: "1. When the left flank shakes, tap its mark so it stops.\n2. When the right flank shakes, your partner taps it. Then pinch it shut.\n3. Shield the spore. Shoot the bud in its colour.",
     },
     entries: [],
     boss: {
@@ -230,10 +230,14 @@ export const WAVES_ACT_12: Wave[] = [
       steps: [
         { ask: "left", color: "either", beats: 4 },
         { ask: "right", color: "either", beats: 4 },
+        { ask: "swell", color: "either", beats: 3 },
         { ask: "fire", color: "red", beats: 3 },
+        { ask: "spit", color: "either", beats: 4, offset: -2 },
         { ask: "left", color: "either", beats: 3 },
         { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "bud", color: "cyan", beats: 4, offset: 2 },
         { ask: "right", color: "either", beats: 2 },
+        { ask: "swell", color: "either", beats: 2 },
         { ask: "fire", color: "either", beats: 3 },
       ],
     },

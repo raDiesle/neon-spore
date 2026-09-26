@@ -25,6 +25,7 @@ export {
   type CystState,
   type CystStep,
   cystBoss,
+  cystClenched,
   cystClosed,
   cystDone,
   cystFreezer,
@@ -32,6 +33,7 @@ export {
   cystLitStep,
   cystPincher,
   cystSide,
+  cystStepCol,
   freshCyst,
 } from "./cyst.js";
 // THE DAVIT's boom: the phase, the lit step, the swings, the pivot, both

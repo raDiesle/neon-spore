@@ -37,12 +37,12 @@ function answer(world: World): void {
   const step = cystLitStep(s);
   if (step === null) throw new Error("nothing is lit");
   if (step.ask === "fire") cystStruck(world, shot(rightColor(step)));
-  else {
+  else if (step.ask === "left" || step.ask === "right") {
     tapUp(world, step.ask);
     pinch(world, step.ask, true);
     runUntil(world, (w) => cyst(w).phase === "rest");
     pinch(world, step.ask, false);
-  }
+  } else throw new Error(`the flanks-and-core script asks no ${step.ask}`);
 }
 
 /** A sac with the steps before `n` answered and step `n` lit. */

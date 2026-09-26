@@ -3,9 +3,11 @@ import { midCol } from "./config.js";
 import {
   type CystState,
   type CystStep,
+  cystClenched,
   cystClosed,
   cystGuarding,
   cystSide,
+  cystStepCol,
   freshCyst,
 } from "./cyst.js";
 import { closeSlow, openSlow } from "./slow.js";
@@ -25,7 +27,11 @@ import type { World } from "./world.js";
  * relit after a rest with the cursor where it was — §34's "retry from row 2".
  * A guard that runs out reseals the core as well, and the same guard is asked
  * again until it is made. **A shot that runs out is the hull**, THE SEAM's
- * rule (`seam-step.ts`).
+ * rule (`seam-step.ts`). So is a swell let go, over the middle, and a spore
+ * unturned or a bud unshot, over its own column.
+ *
+ * **A swell is counted in the lit phase**: nothing stills it, the sac being
+ * taut already, so the beat counts both pinches from the moment it lights.
  */
 
 export function installCyst(world: World, steps: readonly CystStep[]): CystState {
@@ -55,17 +61,30 @@ export function cystFrozenBeats(world: World, step: CystStep): number {
   return step.beats + world.cfg.cystGraceBeats;
 }
 
-/** How long a step is lit before its tap or its shot: the tap's window, or a shot's beats. */
+/**
+ * How long a step is lit before its answer: a flank's tap window, a swell's
+ * beats and the grace, or a shot's, a spit's or a bud's beats.
+ */
 export function cystLitBeats(world: World, step: CystStep): number {
-  return step.ask === "fire" ? step.beats : world.cfg.cystTapBeats;
+  if (step.ask === "left" || step.ask === "right") return world.cfg.cystTapBeats;
+  return step.ask === "swell" ? step.beats + world.cfg.cystGraceBeats : step.beats;
 }
 
 function lit(world: World, s: CystState, since: number): void {
   const step = s.steps[s.cursor];
-  if (step === undefined || since < cystLitBeats(world, step)) return;
+  if (step === undefined) return;
+  if (step.ask === "swell" && cystClenched(world, s)) {
+    s.heldBeats += 1;
+    if (s.heldBeats >= step.beats) {
+      world.events.push({ type: "cystClench", col: midCol(world.cfg) });
+      cystAnswered(world, s);
+      return;
+    }
+  }
+  if (since < cystLitBeats(world, step)) return;
   const side = cystSide(s);
   if (side === null) {
-    miss(world, s);
+    miss(world, s, cystStepCol(midCol(world.cfg), step));
     return;
   }
   world.events.push({ type: "cystShudder", side, col: midCol(world.cfg) });
@@ -140,7 +159,7 @@ export function cystAnswered(world: World, s: CystState): void {
 
 /**
  * The next step lights; or, with the script done, the sac splits. A flank
- * lights under THE SLOW for its tap; a shot lights without it, §34's rows.
+ * or a story step lights under THE SLOW; a shot lights without it, §34's rows.
  */
 function next(world: World, s: CystState): void {
   const step = s.steps[s.cursor];
@@ -154,14 +173,15 @@ function next(world: World, s: CystState): void {
   s.phase = "lit";
   s.phaseBeat = world.beat;
   s.heldBeats = 0;
+  s.litTick = world.tick;
   if (step.ask !== "fire") openSlow(world, cystLitBeats(world, step), "ask");
   world.events.push({ type: "cystLight", ask: step.ask, col });
 }
 
-/** A fire step ran out with the core unshot: the hull takes it, and the wave is lost. */
-function miss(world: World, s: CystState): void {
-  const col = midCol(world.cfg);
+/** A shot, a swell, a spit or a bud ran out unanswered: the hull takes it at `col`. */
+function miss(world: World, s: CystState, col: number): void {
   world.events.push({ type: "cystMiss", col });
+  closeSlow(world);
   rest(world, s, true);
   bossStrikesHull(world, "cyst", col);
 }

@@ -689,6 +689,7 @@ by hand never moves.
 | `packages/sim/src/cyst-hash.ts` | What THE CYST puts into `hashWorld`, and nothing else |
 | `packages/sim/src/cyst-shot.ts` | **THE CYST's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/cyst-step.ts` | THE CYST's clock: the sac settling, each step lighting, a lit flank waiting for its tap |
+| `packages/sim/src/cyst-guard.ts` | **THE CYST's spore, turned**, asked once a tick after the commands are heard |
 | `packages/sim/src/cyst.ts` | THE CYST: a sac of two flanks over the middle column |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
@@ -2122,7 +2123,7 @@ by hand never moves.
 | `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
 | `packages/audio/src/bind-choreographed-d.ts` | **The tail of `bind-choreographed-c.ts`** |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
-| `packages/audio/src/bind-cyst.ts` | THE CYST's fourteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-cyst.ts` | THE CYST's seventeen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |

@@ -1,6 +1,7 @@
 import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
+import { cystGuarded } from "./cyst-guard.js";
 import { cystHeard } from "./cyst-hand.js";
 import { davitHeard } from "./davit-hand.js";
 import { filamentHeard } from "./filament-hand.js";
@@ -141,6 +142,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE CYST's taps and pinches, the same: a tap is an edge and a pinch
   // widening past shut is the instant (`cyst-hand.ts`).
   for (const c of commands) cystHeard(world, c.player, c.command);
+  // Its spore, THE TRIVET's needle once a tick after the commands (`cyst-guard.ts`).
+  cystGuarded(world);
   // THE DAVIT's leans and draws, the same: a lean leaving its target and a
   // draw lifting are both the instant (`davit-hand.ts`).
   for (const c of commands) davitHeard(world, c.player, c.command);

@@ -24670,3 +24670,18 @@ Bottleneck: friction — two sessions writing the next reading page at once, fou
 Bottleneck: looking — finding which flag leaves the world a beat into a step it installed.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE CYST's swell, spit and bud
+
+- reading: 15 min. THE TRIVET's story lane as the pattern, CYST's step,
+  hand, shot and hash, the new-boss-state registrations.
+- writing: 35 min. Three asks with an offset, `cyst-guard.ts`, the swell's
+  count and slip, three events and their sounds, an eleven-step script,
+  `cyst-story.test.ts`, the spec. Nothing delegated.
+- looking: 0 min. Nothing drawn in this lane; the look is next.
+- friction: 5 min. One edit script failed its first assertion on a comment
+  line and a heredoc with a doubled backslash was refused by the guard hook.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck was a context compaction mid-lane, which cost re-reading the
+files already edited.

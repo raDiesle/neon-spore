@@ -5,8 +5,10 @@ import type { CystAsk } from "./cyst.js";
  * sound answer.
  *
  * Every event carries `col`, the column it happened over, for the sounds to
- * pan to. The sac hangs over the middle, so every one is there; the ones
- * about a flank say which with `side`, the left nought and the right one.
+ * pan to. The sac hangs over the middle, so nearly every one is there — a
+ * spore's turn and a bud's pop are over their own column, and so is a miss
+ * of either; the ones about a flank say which with `side`, the left nought
+ * and the right one.
  */
 
 interface CystColEvent {
@@ -37,8 +39,14 @@ export type CystEvent =
   | ({ type: "cystGuard"; side: 0 | 1 } & CystColEvent)
   /** A guard missed: the flank closes over the core, to be held off again. */
   | ({ type: "cystSeal"; side: 0 | 1 } & CystColEvent)
-  /** A fire step ran out with the core unshot: the hull takes it. */
+  /** A step ran out unanswered — the core unshot, a swell let go, a spore unturned, a bud unshot: the hull takes it. */
   | ({ type: "cystMiss" } & CystColEvent)
+  /** A swell held: both flanks kept shut together its beats, and the sac sinks back. */
+  | ({ type: "cystClench" } & CystColEvent)
+  /** A spore turned by the shield under its column. */
+  | ({ type: "cystTurn" } & CystColEvent)
+  /** A bud shot in its colour over its column, and burst. */
+  | ({ type: "cystPop" } & CystColEvent)
   /** The script is done and the sac splits wide. */
   | ({ type: "cystSplit" } & CystColEvent)
   /** The split sac has fallen `cystSplitBeats`; the wave may end. */

@@ -243,8 +243,8 @@ export const CHOREO_NOTES_C = {
     "the core; a fire step wants a shot in its colour; a flank step on a " +
     "cracked flank holds it off the core, and one run out reseals the core " +
     "and is asked again. A fire step run out is a hull hit, which is the " +
-    "wave. THE SLOW holds over a tap and a pinch, never over a shot. " +
-    "Nothing on the phone sends a tap or a pinch yet. Only the simulation " +
-    "lane has landed — see sim/cyst.ts, sim/cyst-step.ts, " +
-    "sim/cyst-hand.ts, sim/cyst-shot.ts, sim/config-cyst.ts.",
+    "wave. Story steps under THE SLOW, each run out a hull hit: a swell " +
+    "pinched shut on both flanks at once, a spore off the middle turned by " +
+    "the shield, a bud off the middle shot in its colour. THE SLOW never " +
+    "holds a shot. Only the simulation lane has landed — sim/cyst*.ts.",
 } satisfies Partial<Record<GroupName, string>>;

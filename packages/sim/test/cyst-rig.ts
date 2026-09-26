@@ -15,14 +15,17 @@ import type { Bullet, Color } from "../src/types.js";
 /**
  * THE CYST's test rig: a script installed, a tap on a freeze mark and a pinch
  * on a flank as the pair would put them there, and a step driven to its
- * answer. Shared by `cyst.test.ts`.
+ * answer. Shared by `cyst.test.ts` and `cyst-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
 export const TPB = ticksPerBeat(CFG);
 export const MID = midCol(CFG);
 
-/** The shipped wave's script, written out: sim tests do not read content. */
+/**
+ * The flanks-and-core script, the fight before its story steps: what
+ * `cyst.test.ts` counts its cursors against.
+ */
 export const SCRIPT: readonly CystStep[] = [
   { ask: "left", color: "either", beats: 4 },
   { ask: "right", color: "either", beats: 4 },
@@ -30,6 +33,21 @@ export const SCRIPT: readonly CystStep[] = [
   { ask: "left", color: "either", beats: 3 },
   { ask: "fire", color: "cyan", beats: 3 },
   { ask: "right", color: "either", beats: 2 },
+  { ask: "fire", color: "either", beats: 3 },
+];
+
+/** The shipped wave's script, written out: sim tests do not read content. */
+export const STORY: readonly CystStep[] = [
+  { ask: "left", color: "either", beats: 4 },
+  { ask: "right", color: "either", beats: 4 },
+  { ask: "swell", color: "either", beats: 3 },
+  { ask: "fire", color: "red", beats: 3 },
+  { ask: "spit", color: "either", beats: 4, offset: -2 },
+  { ask: "left", color: "either", beats: 3 },
+  { ask: "fire", color: "cyan", beats: 3 },
+  { ask: "bud", color: "cyan", beats: 4, offset: 2 },
+  { ask: "right", color: "either", beats: 2 },
+  { ask: "swell", color: "either", beats: 2 },
   { ask: "fire", color: "either", beats: 3 },
 ];
 
@@ -112,6 +130,16 @@ export function pinch(
   return tick(world, [
     { tick: world.tick, player, command: { kind: "drag", target, on, fromMilli: gap } },
   ]);
+}
+
+/** The shield slid under `col` and pressed, on two ticks, as THE TRIVET's rig does. */
+export function shield(world: World, col = MID): Set<string> {
+  const seen = new Set(
+    tick(world, [{ tick: world.tick, player: 2, command: { kind: "shieldCol", col } }]),
+  );
+  for (const t of tick(world, [{ tick: world.tick, player: 1, command: { kind: "guard" } }]))
+    seen.add(t);
+  return seen;
 }
 
 export function shot(color: Color, col = MID): Bullet {
