@@ -87,8 +87,17 @@ export function drawEgg(
 }
 
 /** The two nests on the back, each shivering with the window, one egg
- * fewer for every tap and every swipe. */
+ * fewer for every tap and every swipe — drawn by `NEST_LOOK.paint`. */
 export function drawNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
+  NEST_LOOK.paint(ctx, l, look);
+}
+
+/** How the nests are painted: a record VERSUS patches (`tools/versus/candidates/instar-nest`). */
+export const NEST_LOOK: {
+  paint: (ctx: CanvasRenderingContext2D, l: Layout, look: Look) => void;
+} = { paint: drawShippedNests };
+
+function drawShippedNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f } = look;
   drawNest(ctx, look, instarAt(l, f.nestX, f.nestY), Math.round(f.nest * NEST), SPOTS_NEST, 3);
   drawNest(ctx, look, instarAt(l, f.eggsX, f.eggsY), Math.round(f.eggs * CLUTCH), SPOTS, 7);

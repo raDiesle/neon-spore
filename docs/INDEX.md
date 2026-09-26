@@ -2701,6 +2701,7 @@ by hand never moves.
 | `tools/director/src/poses-handover.ts` | the state `handover:notice` is judged on — the pilot's screen a beat before THE HANDOVER warns, replayed once a window |
 | `tools/director/src/poses-husk.ts` | The state a candidate for `pod:husk-tell` is judged on |
 | `tools/director/src/poses-guide.ts` | A page of a tutorial's film, on player 1's phone |
+| `tools/director/src/poses-instar-brood.ts` | THE INSTAR in its brood, the two nests on its back full and the marks up over them |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-advance.ts` | **One tick of a pose's world**, and the one thing four tests and the seat probe want out of `versus-pair.ts`… |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |

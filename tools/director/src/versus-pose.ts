@@ -34,6 +34,7 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
+  "instar:nest": "INSTAR · THE BROOD",
   "slow:light": "THE SLOW · A WINDOW RUNNING OUT",
 };
 

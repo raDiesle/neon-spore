@@ -23145,3 +23145,17 @@ Bottleneck: friction — two registration pages at their line limit, each
 needing a move before the new boss fitted.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's baked nests offered in VERSUS
+
+- reading: 10 min. How a VERSUS slot takes a record, `SLOW_LOOK` as the
+  template, and the director kit for a pose that reaches the brood.
+- writing: 10 min. The `NEST_LOOK` seam, the candidate, the brood pose and
+  its `SLOT_POSE` row.
+- looking: 5 min. `bun run versus:shot instar:nest baked`, read once.
+- friction: 10 min. The deferral could not land while the main checkout
+  held another thread's uncommitted edits; waited for it to clear.
+- landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
+
+Bottleneck: the main checkout being dirty from another thread, which held
+the previous landing and this one behind it.

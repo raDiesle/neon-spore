@@ -2,6 +2,7 @@ import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 import { BREACH_ROCKS_POSE, BREACH_STRIKE_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
 import { GUIDE_FILM_POSE, LOST_SCREEN_POSE } from "./poses-guide.js";
 import { HANDOVER_TRADE_POSE } from "./poses-handover.js";
+import { INSTAR_BROOD_POSE } from "./poses-instar-brood.js";
 import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
 
@@ -59,4 +60,5 @@ export const VERSUS_STATE_POSES: Pose[] = [
   LOST_SCREEN_POSE,
   SLOW_WINDOW_POSE,
   SLOW_RUNS_OUT_POSE,
+  INSTAR_BROOD_POSE,
 ];
