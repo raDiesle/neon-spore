@@ -912,6 +912,7 @@ Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
 ## SNAKE: the buttons say EAT and SHOOT, and the field hints which one
 
 - **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4
+- **Taken:** 2026-09-26, claude/snake-game-mechanics-ee4ed4 (claim: claude/queue-snake-the-buttons-say-eat-and-shoot-and-the-fiel)
 - **Files:** `packages/render/src/snake-button.ts`, `packages/render/src/boss-cue-read-g.ts`, `packages/render/test/boss-cue-snake.test.ts`, `tools/words/test/drawn.test.ts`
 
 The owner, 25 September 2026: *the controls button is not clear if its eating
