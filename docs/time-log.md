@@ -22212,3 +22212,5 @@ Bottleneck: friction — dropping the imports the cut stranded took as long as t
 Bottleneck: the owner asked mid-turn to stop parallel profiling and queue the
 real-device work instead — the actual `bun run perf` run never happened this
 lane, only the entry that hands it to a local session by name.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

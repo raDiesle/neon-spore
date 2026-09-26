@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 39a2aa5a9 — Queue the real-device performance profile as a local-only task
+
+Running bun run perf needs a browser and a real machine, which this lane doesn't have to itself right now — the owner asked to stop the parallel profiling and hand the actual run to a local session instead. Adds one
+
 ## 2026-09-26 · b754b644a — THE INSTAR's render tests stand the body up with the one kit
 
 `desk-grab`, `instar-eggs`, `instar-frame` and `instar-together` each carried their own `hung()` and `acting()`. All four now use `instar-kit.ts`. The kit's `acting` takes an optional `put` step, which the desk test needs for the step shapes the script no longer has. The frame test keeps `morphing` and `down` as local wrappers over `acting`.
