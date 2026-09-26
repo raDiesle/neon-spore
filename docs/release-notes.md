@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d4813c42c — THE PLUMB drops a bob down its own plumb line when a fire step runs out
+
+When the core is left unshot, a small bob, the sac's own shape with a brass point under it, drops out of the sac's low end on a taut line straight down the middle column, slow off the sac and fast at the skin. It strikes point first, leaves a bronze dent, and is reeled back up. It replaces the default red lash.
+
 ## 2026-09-26 · 2c4906bcf — Mark §28 THE VISE done
 
 ## 2026-09-26 · 54ba8085c — THE VISE's bite and spit are drawn
