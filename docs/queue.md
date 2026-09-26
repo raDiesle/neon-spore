@@ -3073,3 +3073,17 @@ plate is already *drawn slack* (`drawPlate`, line 133): let a slack plate
 sway a degree on its own period, offset per plate, while the teeth still
 below the pawl stay rigid — which also says which plates are spent. A look:
 offered through VERSUS.
+
+## The rock ratchet test reads every sim file and times out under load
+
+- **Found:** 2026-09-26, claude/queue-the-batons-flesh-has-no-secondary-motion-of-its
+- **Where:** local
+- **Files:** `packages/sim/test/boss-strike.test.ts`, `tools/test/build-stamp.test.ts`
+
+"a rock nobody saw fall" hands every file in `packages/sim/src` to
+`readFileSync` and a regex. Alone it takes about 0.7 s; under `bun run land`'s
+check on 26 September it took 7.8 s and failed its 5-second timeout, which cost
+a landing. `tools/test/build-stamp.test.ts` had the same disease and now asks
+`git grep` instead. Do the same here: `git grep -l -E` with the regex over
+`packages/sim/src/*.ts`, with `--untracked`, and exit code 1 meaning none found.
+Done when the test reads no file itself and `bun run check` is green.
