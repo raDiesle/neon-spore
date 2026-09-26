@@ -84,6 +84,8 @@ export interface World extends ShipState, FaultState {
    */
   slowFromBeat: number;
   slowToBeat: number;
+  /** Whether the window up asks the pair for something (`slow.ts` `SlowKind`). */
+  slowAsks: boolean;
 
   /**
    * **What the pair has spent, per colour, beat by beat** — the only thing in
@@ -175,6 +177,7 @@ export function createWorld(
     hasLance: true,
     slowFromBeat: NO_SLOW,
     slowToBeat: NO_SLOW,
+    slowAsks: false,
     spend: newSpendLedger(),
     creatures: [],
     bullets: [],

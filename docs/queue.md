@@ -431,23 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE SLOW does not say whether a window asks for something
-
-- **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
-- **Taken:** 2026-09-26, claude/queue-the-mazes-lever-knob-rests-on-top-of-the-lit-way (claim: claude/queue-the-slow-does-not-say-whether-a-window-asks-for)
-- **Files:** `packages/sim/src/slow.ts`, `packages/sim/src/hash.ts`, `packages/render/src/slow-fuse.ts`, `packages/sim/src/instar-step.ts`
-
-The fuse that counts a window down (`slow-fuse.ts`) should only draw on a
-window that fails the pair when it runs out — a step, a pry, a grip — and
-never on a dramatic beat that asks for nothing (THE INSTAR's fall, a flash, a
-landing). `World` carries only `slowFromBeat` and `slowToBeat`, so the fuse
-guesses by length: `FUSE_MIN_BEATS = 5`, since the asking windows today run
-six beats and up and the others one to four. Give `openSlow` an `asks` flag,
-store it as a hashed `World` field (`hash.ts`), pass it at every `openSlow` call,
-and have the fuse read it instead of the length. Prove it with a sim test that
-THE INSTAR's step window asks and its fall does not, and a render test that
-the fuse draws on the first and not the second.
-
 ## A VERSUS freeze inside THE SLOW does not land where its seconds say
 
 - **Found:** 2026-09-25, claude/slow-mode-progress-indicator-b0f717
@@ -860,3 +843,16 @@ registered pushes it over. Move the `SCENES` table (or the `SceneId` union and
 the imports that feed it) into a file of its own imported back, the way the
 wave acts were cut out of `waves.ts`. Proof: `bun run check`, both files well
 under 230.
+
+## `packages/sim/src/hash.ts` is at 250 lines
+
+- **Found:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for
+- **Files:** `packages/sim/src/hash.ts`, `packages/sim/test/hash-coverage.test.ts`
+
+THE SLOW's `slowAsks` took the last line, and a comment was folded to make
+room. The next `World` field pushes it over. `hashWorld` is one function of
+about 220 lines. Move the per-field pushes for one self-contained group, such as
+the ship and shield fields or the slow and spend ledger, into a helper file
+imported back, the way the bosses' hashes live in `*-hash.ts`. Keep the
+exceptions comment in `hash.ts`, where `hash-coverage.test.ts` and CLAUDE.md
+point. Proof: `bun run check`, both files well under 230.

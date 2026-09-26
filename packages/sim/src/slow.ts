@@ -40,6 +40,16 @@ import { MILLI, type World } from "./world.js";
 export const NO_SLOW = -1;
 
 /**
+ * **Whether a window asks for something.** `"ask"` is a window that fails the
+ * pair if it runs out unanswered — a step, a pry, a grip, a pin — and `"show"`
+ * is a dramatic beat that asks for nothing and fails nobody: a fall, an
+ * eversion, a landing. Only an asking window gets the fuse that counts it
+ * down (`render/slow-fuse.ts`); one on a show would count down to a hit that
+ * never comes. Every `openSlow` names one, so a new window has to say.
+ */
+export type SlowKind = "ask" | "show";
+
+/**
  * Whether the beat is being played slowly this instant.
  *
  * Half-open, `[from, to)`, for the reason every window in this game is: the
@@ -79,12 +89,15 @@ export function slowRateMilli(world: World): number {
  *
  * Re-opening while one is already up simply moves the end, which is right: two
  * dramatic beats in a row are one long window, not a window that stops and
- * starts again in the middle of the pair's sentence about it.
+ * starts again in the middle of the pair's sentence about it. The latest
+ * opening also says whether it asks, since it is the one saying where the
+ * window ends.
  */
-export function openSlow(world: World, beats: number): void {
+export function openSlow(world: World, beats: number, kind: SlowKind): void {
   if (beats <= 0) return;
   world.slowFromBeat = slowing(world) ? world.slowFromBeat : world.beat;
   world.slowToBeat = world.beat + beats;
+  world.slowAsks = kind === "ask";
 }
 
 /**
@@ -125,4 +138,5 @@ export function closeSlow(world: World): void {
 export function clearSlow(world: World): void {
   world.slowFromBeat = NO_SLOW;
   world.slowToBeat = NO_SLOW;
+  world.slowAsks = false;
 }

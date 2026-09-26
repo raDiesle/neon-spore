@@ -65,7 +65,7 @@ export function throatChoked(world: World, b: ThroatState): void {
   // the one shot with no sound.
   world.events.push({ type: "throatChoke", col: mouth });
   if (throatSpent(cfg, b)) return;
-  openSlow(world, cfg.slowBeats);
+  openSlow(world, cfg.slowBeats, "show");
 }
 
 /**

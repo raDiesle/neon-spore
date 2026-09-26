@@ -171,7 +171,7 @@ function wind(world: World, s: ScuttleState): void {
   s.windBeat = world.beat;
   s.cycleBeat = world.beat;
   scuttleClearSwing(s);
-  openSlow(world, cfg.scuttleSlowBeats);
+  openSlow(world, cfg.scuttleSlowBeats, "ask");
   world.events.push({
     type: "scuttleWind",
     col: scuttleSocketCol(cfg, last),

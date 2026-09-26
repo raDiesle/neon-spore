@@ -20,6 +20,6 @@ export function batonSlow(world: World, b: BatonState): void {
   if (b.stage === "passing" && b.swellSocket >= 0) end = b.swellBeat + cfg.batonSwellBeats;
   else if (b.stage === "merging") end = b.stageBeat + cfg.batonMergeWindowBeats;
   else if (b.stage === "crossing") end = b.stageBeat + cfg.batonFinalBeats;
-  if (end > world.beat) openSlow(world, end - world.beat);
+  if (end > world.beat) openSlow(world, end - world.beat, "ask");
   else closeSlow(world);
 }

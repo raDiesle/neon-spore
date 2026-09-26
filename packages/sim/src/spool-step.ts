@@ -186,7 +186,7 @@ function easeRib(world: World, s: SpoolState): void {
   }
   s.phase = "slack";
   s.phaseBeat = world.beat;
-  openSlow(world, world.cfg.spoolSlowBeats);
+  openSlow(world, world.cfg.spoolSlowBeats, "show");
   world.events.push({ type: "spoolSlack", col });
   world.events.push({ type: "spoolDrift", col });
 }

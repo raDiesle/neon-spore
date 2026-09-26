@@ -127,7 +127,7 @@ function burnHand(world: World, s: HaspState): void {
  */
 export function haspSlow(world: World, s: HaspState): void {
   if (haspWorking(s) && haspHeld(s, world.cfg)) {
-    openSlow(world, s.gripBeat + haspFuseBeats(s, world.cfg) - world.beat);
+    openSlow(world, s.gripBeat + haspFuseBeats(s, world.cfg) - world.beat, "ask");
   } else closeSlow(world);
 }
 

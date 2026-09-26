@@ -86,7 +86,7 @@ export function curtainStruck(world: World, b: Bullet): void {
   // slow over it would be a slow over the whole of `hung`.
   if (c.phase === "hung" && body !== undefined) {
     enterCurtain(world, c, "pinned");
-    openSlow(world, world.cfg.curtainPinBeats);
+    openSlow(world, world.cfg.curtainPinBeats, "ask");
     world.events.push({ type: "curtainPin", col: c.coreCol, beats: world.cfg.curtainPinBeats });
   }
 }

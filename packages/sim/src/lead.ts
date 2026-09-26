@@ -203,5 +203,5 @@ export function leadCrossed(from: number, to: number, col: number): boolean {
  */
 export function leadAsk(world: World, wait: number): void {
   const cfg = world.cfg;
-  openSlow(world, wait + Math.ceil((cfg.cols - 1) / cfg.leadPassCols) + 1);
+  openSlow(world, wait + Math.ceil((cfg.cols - 1) / cfg.leadPassCols) + 1, "ask");
 }

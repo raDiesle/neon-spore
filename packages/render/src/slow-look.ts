@@ -48,6 +48,8 @@ export interface SlowWindow {
   readonly through: number;
   /** Beats left, fractional, and never negative. */
   readonly left: number;
+  /** Whether it fails the pair if it runs out (`sim/slow.ts` `SlowKind`). */
+  readonly asks: boolean;
 }
 
 /**
@@ -66,7 +68,7 @@ export function slowWindow(world: World, beatPhase: number): SlowWindow | null {
   if (beats <= 0) return null;
   const now = world.beat + beatPhase;
   const through = Math.min(1, Math.max(0, (now - world.slowFromBeat) / beats));
-  return { beats, through, left: Math.max(0, world.slowToBeat - now) };
+  return { beats, through, left: Math.max(0, world.slowToBeat - now), asks: world.slowAsks };
 }
 
 /**

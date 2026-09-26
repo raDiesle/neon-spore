@@ -62,29 +62,23 @@ const WARN = 0.5;
 /** Beats left at which the fuse turns red. */
 const URGENT = 2;
 
-/**
- * **The shortest window the fuse is drawn on, in beats.**
- *
- * Nothing in the world says whether a window asks for something. Most boss
- * windows do — a step to answer, a pry to hold — and they run from six beats
- * up; the rest are a dramatic beat or two, a fall or a landing, that asks for
- * nothing and fails nobody (`decisions.md` #33). THE INSTAR's fall is four. A
- * fuse on one of those would count down to a hit that never comes, so the
- * length decides until the world can say it (`docs/queue.md`).
- */
-export const FUSE_MIN_BEATS = 5;
-
 /** The fuse's colours for how much of the window is left: the ship's violet,
  * then the ember's orange, then red. */
-export function fuseColours(win: SlowWindow): { body: string; core: string } {
+export function fuseColours(win: Omit<SlowWindow, "asks">): { body: string; core: string } {
   if (win.left <= URGENT) return { body: PALETTE.red, core: PALETTE.redRim };
   if (win.left <= win.beats * WARN) return { body: PALETTE.ember, core: PALETTE.emberRim };
   return { body: PALETTE.hull, core: PALETTE.hullRim };
 }
 
-/** Draws the fuse for the window this frame is inside. */
+/**
+ * Draws the fuse for the window this frame is inside — **only on one that
+ * asks.** A dramatic beat, a fall or a landing, asks for nothing and fails
+ * nobody (`decisions.md` #33); a fuse on it would count down to a hit that
+ * never comes. The world says which it is (`sim/slow.ts` `SlowKind`), so the
+ * fuse no longer guesses from the window's length.
+ */
 export function drawFuse(ctx: CanvasRenderingContext2D, l: Layout, win: SlowWindow): void {
-  if (win.beats < FUSE_MIN_BEATS) return;
+  if (!win.asks) return;
   const rest = win.left / win.beats;
   if (rest <= 0) return;
   const { body, core } = fuseColours(win);

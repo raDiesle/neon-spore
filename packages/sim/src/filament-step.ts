@@ -129,7 +129,7 @@ export function pullFilament(world: World, s: FilamentState): void {
   if (tiles === null) return;
   s.phase = "pull";
   s.phaseBeat = world.beat;
-  openSlow(world, world.cfg.filamentSlowBeats);
+  openSlow(world, world.cfg.filamentSlowBeats, "show");
   world.events.push({
     type: "filamentPulled",
     index: s.cursor,

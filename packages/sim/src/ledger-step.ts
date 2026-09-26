@@ -237,7 +237,7 @@ export function stepLedger(world: World, t: LedgerState): void {
   stepLedgerHands(world, t);
   for (const b of t.beads) {
     if (b.beat - world.beat === 1) {
-      openSlow(world, cfg.ledgerSlowBeats);
+      openSlow(world, cfg.ledgerSlowBeats, "show");
       break;
     }
   }

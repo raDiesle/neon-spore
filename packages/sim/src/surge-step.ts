@@ -127,7 +127,7 @@ export function stepSurge(world: World, s: SurgeState): void {
   }
   if (s.nearBeat < 0) {
     s.nearBeat = world.beat;
-    openSlow(world, cfg.surgeNearSlowBeats);
+    openSlow(world, cfg.surgeNearSlowBeats, "show");
     world.events.push({ type: "surgeNear", col: midCol(cfg) });
   }
 }

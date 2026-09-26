@@ -204,7 +204,7 @@ function last(world: World, u: UndertowState, b: UndertowBreach): void {
   if (u.hold >= cfg.undertowHoldBeats) {
     u.taken += 1;
     world.events.push({ type: "undertowSwallowed", col: b.col });
-    openSlow(world, cfg.undertowSlowBeats);
+    openSlow(world, cfg.undertowSlowBeats, "show");
     u.breaches = [];
     u.phase = "taken";
     u.phaseBeat = world.beat;

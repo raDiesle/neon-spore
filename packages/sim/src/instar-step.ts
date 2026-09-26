@@ -182,7 +182,7 @@ export function stepInstar(world: World, s: SceneState): void {
     // is a third for exactly as long as the pair is being asked for something
     // and not one beat longer (`slow.ts` `closeSlow`, and the owner's rule in
     // its header). Both devices reach this line on the same tick.
-    openSlow(world, step.windowBeats);
+    openSlow(world, step.windowBeats, "ask");
     world.events.push({ type: "instarShow", step: s.cursor, col: mid });
     return;
   }
@@ -202,7 +202,7 @@ export function stepInstar(world: World, s: SceneState): void {
   if (next === null) {
     s.phase = "down";
     armMarks(s);
-    openSlow(world, cfg.instarSlowBeats);
+    openSlow(world, cfg.instarSlowBeats, "show");
     world.events.push({ type: "instarDown", col: mid });
     return;
   }

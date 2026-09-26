@@ -369,6 +369,8 @@ describe("the window is the slow", () => {
     // as long as the pair is being asked for something.
     expect(world.slowFromBeat).toBe(s.phaseBeat);
     expect(world.slowToBeat).toBe(s.phaseBeat + WINDOW);
+    // And it asks: a step unanswered is a strike, so the fuse counts it down.
+    expect(world.slowAsks).toBe(true);
   });
 
   it("shuts on the tick the step is answered", () => {
@@ -405,6 +407,8 @@ describe("the last step", () => {
     // own window shut on the landing, beats earlier.
     expect(world.slowFromBeat).toBe(s.phaseBeat);
     expect(world.slowToBeat).toBe(s.phaseBeat + CFG.instarSlowBeats);
+    // The fall asks for nothing and fails nobody, so it carries no fuse.
+    expect(world.slowAsks).toBe(false);
     expect(world.restBeat).toBe(0);
     seen = runTo(world, world.tick + TPB * (CFG.instarOutBeats + 1));
     expect(seen.has("instarOut")).toBe(true);

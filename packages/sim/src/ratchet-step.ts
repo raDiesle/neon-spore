@@ -76,7 +76,7 @@ export function stepRatchet(world: World, s: RatchetState): void {
 function lightPawl(world: World, s: RatchetState): void {
   s.phase = "work";
   s.phaseBeat = world.beat;
-  openSlow(world, ratchetWindowBeats(s, world.cfg));
+  openSlow(world, ratchetWindowBeats(s, world.cfg), "ask");
   world.events.push({ type: "ratchetLit", teeth: s.teeth, col: midCol(world.cfg) });
 }
 

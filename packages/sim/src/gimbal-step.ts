@@ -118,7 +118,7 @@ function shear(world: World, s: GimbalState): void {
   s.phase = "shear";
   s.phaseBeat = world.beat;
   s.heldBeats = 0;
-  openSlow(world, cfg.gimbalSlowBeats);
+  openSlow(world, cfg.gimbalSlowBeats, "show");
   world.events.push({ type: "gimbalShear", teeth: gimbalTeeth(s), col: midCol(cfg) });
   // One tooth pair left and the drum swings loose in its cradle: the spark
   // from the seam, the fight's one ordinary hazard (§18, row 9).

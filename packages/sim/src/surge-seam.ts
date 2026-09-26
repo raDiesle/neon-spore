@@ -52,7 +52,7 @@ export function surgeVent(world: World, s: SurgeState): void {
   const row = surgeBulbRow(s, cfg);
   if (s.notches >= cfg.surgeNotches) {
     s.evertBeat = world.beat;
-    openSlow(world, cfg.surgeEvertBeats);
+    openSlow(world, cfg.surgeEvertBeats, "show");
     world.events.push({ type: "surgeEvert", col, row });
     return;
   }

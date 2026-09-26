@@ -29,6 +29,6 @@ export function undertowSlow(world: World, u: UndertowState): void {
     }
     if (span > 0) left = Math.max(left, b.stageBeat + span - world.beat);
   }
-  if (left > 0) openSlow(world, left);
+  if (left > 0) openSlow(world, left, "ask");
   else closeSlow(world);
 }

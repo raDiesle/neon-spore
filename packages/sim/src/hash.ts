@@ -133,9 +133,11 @@ export function hashWorld(world: World): number {
   // these two integers. Nothing about the simulation reads them — what they
   // decide is how many milliseconds of wall clock a tick is worth in
   // `apps/game/src/loop.ts` — and they are in here for that reason rather than
-  // in spite of it (`slow.ts`, `docs/decisions.md` #33).
+  // in spite of it (`slow.ts`, `docs/decisions.md` #33). Whether it asks is
+  // the fuse on both screens, so it is agreed about the same way.
   push(world.slowFromBeat);
   push(world.slowToBeat);
+  push(world.slowAsks ? 1 : 0);
   // What the pair has spent, beat by beat (`spend.ts`). Two devices that
   // disagree about the tally disagree about the colour THE TASTER's next blade
   // grows in, and therefore about which colour breaks it.

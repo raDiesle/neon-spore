@@ -136,13 +136,13 @@ function part(world: World, s: SinewState): void {
   s.holdBeat = -1;
   s.slackMilli = 0;
   if (s.fibres <= 0) {
-    openSlow(world, cfg.sinewFallBeats);
+    openSlow(world, cfg.sinewFallBeats, "ask");
     s.fallBeat = world.beat;
     const row = sinewMassRow(s, cfg, world.beat);
     world.events.push({ type: "sinewFall", col: s.massCol, row });
     return;
   }
-  openSlow(world, cfg.sinewPartSlowBeats);
+  openSlow(world, cfg.sinewPartSlowBeats, "show");
   rollZone(world, s);
   world.events.push({
     type: "sinewPart",

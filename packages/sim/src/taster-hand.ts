@@ -197,6 +197,6 @@ function pry(world: World, t: TasterState, on: boolean, fromYMilli: number): voi
   if (t.pryMilli < cfg.tasterPryMilli) return;
   t.pryBeat = world.beat;
   t.pryFills = 0;
-  openSlow(world, cfg.tasterPryBeats);
+  openSlow(world, cfg.tasterPryBeats, "ask");
   world.events.push({ type: "tasterPry", col: t.col + Math.floor(t.blades.length / 2) });
 }

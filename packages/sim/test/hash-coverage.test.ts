@@ -317,6 +317,7 @@ describe("the fingerprint covers the world", () => {
         "scars",
         "shieldCol",
         "shieldSinceTick",
+        "slowAsks",
         "slowFromBeat",
         "slowToBeat",
         "spawned",

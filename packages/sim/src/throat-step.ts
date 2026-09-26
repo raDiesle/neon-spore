@@ -92,7 +92,7 @@ export function stepThroat(world: World, b: ThroatState): void {
     // The payoff, slowed: a closed contour turning through its own opening is
     // the one thing in this fight nobody may press anything during, which is
     // exactly what THE SLOW is for (`docs/decisions.md` #33).
-    openSlow(world, cfg.throatEvertBeats);
+    openSlow(world, cfg.throatEvertBeats, "show");
     // Said on the beat the last ring went slack and not on the beat the boss
     // is nulled, because the sound is the ending starting: THE SLOW is open
     // for `throatEvertBeats` after this and the pair watches the whole turn.

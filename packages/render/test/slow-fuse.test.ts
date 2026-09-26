@@ -1,9 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { createWorld } from "@neon-spore/sim";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type Layout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { drawFuse, FUSE_MIN_BEATS, FUSE_TOP_PX } from "../src/slow-fuse.js";
-import type { SlowWindow } from "../src/slow-look.js";
+import { drawFuse, FUSE_TOP_PX } from "../src/slow-fuse.js";
+import { type SlowWindow, slowWindow } from "../src/slow-look.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -26,8 +27,8 @@ beforeAll(installCanvasGlobals);
 
 const LAYOUT: Layout = computeLayout(VIEWPORT, CFG, "p1");
 
-function window(beats: number, left: number): SlowWindow {
-  return { beats, left, through: (beats - left) / beats };
+function window(beats: number, left: number, asks = true): SlowWindow {
+  return { beats, left, through: (beats - left) / beats, asks };
 }
 
 /**
@@ -78,11 +79,11 @@ describe("how much of the fuse is left", () => {
   });
 
   /** A dramatic beat asks for nothing and fails nobody; a fuse on it would
-   * count down to a hit that never comes. THE INSTAR's fall is four. */
-  it("draws nothing on a window too short to be asking for something", () => {
-    expect(drawn(window(FUSE_MIN_BEATS - 1, FUSE_MIN_BEATS - 1)).log).toHaveLength(0);
-    expect(drawn(window(4, 4)).log).toHaveLength(0);
-    expect(drawn(window(6, 6)).log.length).toBeGreaterThan(0);
+   * count down to a hit that never comes. The world says which a window is,
+   * so a long show gets no fuse and a short ask still does. */
+  it("draws only on a window that asks for something", () => {
+    expect(drawn(window(8, 8, false)).log).toHaveLength(0);
+    expect(drawn(window(4, 4, true)).log.length).toBeGreaterThan(0);
   });
 });
 
@@ -110,5 +111,29 @@ describe("what colour it is", () => {
   it("goes red for the last two beats", () => {
     expect(shows(window(8, 1.5), PALETTE.red)).toBe(true);
     expect(shows(window(8, 1.5), PALETTE.ember)).toBe(false);
+  });
+});
+
+/**
+ * **The world says whether a window asks, and the fuse believes it.** THE
+ * INSTAR's two windows, set rather than played into (`slow-look.test.ts` says
+ * why; `sim/test/instar.test.ts` holds which one each opens): a step, which
+ * strikes if it runs out, and the body's fall, which asks for nothing.
+ */
+describe("which windows get a fuse", () => {
+  function instarWindow(beats: number, asks: boolean): SlowWindow {
+    const world = createWorld(CFG, 5);
+    world.beat = 10;
+    world.slowFromBeat = 10;
+    world.slowToBeat = 10 + beats;
+    world.slowAsks = asks;
+    const win = slowWindow(world, 0);
+    if (win === null) throw new Error("no window");
+    return win;
+  }
+
+  it("draws on THE INSTAR's step and not on its fall", () => {
+    expect(drawn(instarWindow(8, true)).log.length).toBeGreaterThan(0);
+    expect(drawn(instarWindow(CFG.instarSlowBeats, false)).log).toHaveLength(0);
   });
 });

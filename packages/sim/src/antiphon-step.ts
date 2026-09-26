@@ -179,7 +179,7 @@ export function stepAntiphon(world: World, s: AntiphonState): void {
   if (s.organs.length > 0) {
     const standUp = (s.organs[0]?.grownBeat ?? beat) + cfg.antiphonGrowBeats;
     if (beat >= antiphonSinkBeat(s, cfg)) sink(world, s);
-    else if (beat === standUp) openSlow(world, antiphonWindow(s, cfg));
+    else if (beat === standUp) openSlow(world, antiphonWindow(s, cfg), "ask");
     return;
   }
   const rested = beat - s.cycleBeat >= cfg.antiphonRestBeats;

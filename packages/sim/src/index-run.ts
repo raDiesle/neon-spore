@@ -69,7 +69,7 @@ export { arrivingFirst, atBodyCol, type SceneCommand } from "./scene-aim.js";
 // **THE SLOW**, and it leaves the package because it has to: the only clock in
 // the stack is `apps/game/src/loop.ts`, so the simulation says *which beats are
 // slowed* and the app says *how long a tick is worth* (`docs/decisions.md` #33).
-export { NO_SLOW, slowing, slowRateMilli } from "./slow.js";
+export { NO_SLOW, type SlowKind, slowing, slowRateMilli } from "./slow.js";
 // **The spend ledger's one reader outside the simulation**, and the narrowest
 // one there is: how many shots of a colour the pair has spent over a window,
 // which is the number the navigator is shown on THE TASTER's wave and has to

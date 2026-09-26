@@ -28,6 +28,6 @@ export function gorgeSlow(world: World, g: GorgeState): void {
     }
     if (gorgePried(g)) left = Math.max(left, g.pryBeat + cfg.gorgePryBeats - world.beat);
   }
-  if (left > 0) openSlow(world, left);
+  if (left > 0) openSlow(world, left, "ask");
   else closeSlow(world);
 }

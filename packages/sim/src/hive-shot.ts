@@ -65,6 +65,6 @@ export function hiveStruck(world: World, b: Bullet): void {
   // The last seal is the drama, and it is watched at the slow rate.
   s.downBeat = world.beat;
   enterHivePhase(s, "down", world.beat);
-  openSlow(world, world.cfg.hiveSlowBeats);
+  openSlow(world, world.cfg.hiveSlowBeats, "show");
   world.events.push({ type: "hiveDown", col: b.col });
 }
