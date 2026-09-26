@@ -697,6 +697,7 @@ planner that feeds it a holder appearing after the plan.
 ## `next` from a clean session worktree marks the spent branch as worked
 
 - **Found:** 2026-09-26, claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-next-from-a-clean-session-worktree-marks-the-spe)
 - **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/mark.ts`
 
 `claim` writes `takenMark(branch, today, headBranch(root))`, so a session
