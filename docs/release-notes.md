@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 113f19f0e — THE INSTAR moves between its poses rather than blending
+
+Every change of pose is now drawn between its two keys instead of blended: the head leads and the body follows, the wings fold in through the middle and open late, the jaws half shut and the fire dies with them, the head dips the wrong way first and settles with a small overshoot, and a turn closes the eyes through its middle. Both ends are exact, so the marks glow where they always did. It covers the second act's rear, glare, dive, spread and bare as well as every earlier pose.
+
+## 2026-09-26 · f941aadc1 — THE INSTAR's lashed tail eases back after a landing
+
+The fork a lash sweeps across the hull used to jump back to where it started on the tick the pair landed the step. It now eases back from where the window had carried it, over the step's landing beats, so the tail visibly settles instead of snapping.
+
 ## 2026-09-26 · a39c488ec — A boss's timeout hit is the boss's own blow, not a falling rock
 
 When a boss's window runs out and it breaks the hull, the boss is now seen doing it: a lash thrown out of its body down to the column it missed, which lands as the crack opens and is pulled back. No rock falls. Fifteen bosses use it: THE OCULUS, THE HASP, THE CYST, THE GRINDSTONE, THE LEDGER, THE SLING, THE RIME, THE RATCHET, THE TRIVET, THE GIMBAL, THE VALVE, THE PLUMB, THE VISE, THE SEAM and THE STARE.
