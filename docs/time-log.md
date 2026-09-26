@@ -23005,3 +23005,18 @@ Bottleneck: writing — two borrowed gestures meant two hands' worth of
 rules to restate for one body, each departure argued against §33's rows.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SEAM has a body: a grey ridge in three stepped lobes whose teeth shed as its points seal
+
+- reading: 5 min. THE SEAM's state and step clock, and THE VALVE's body as
+  the pattern to follow.
+- writing: 5 min. `seam-shape.ts`, `seam-pose.ts`, `seam-draw.ts`,
+  `seam-marks.ts`, the frame test on three screens, the spec and the split.
+- looking: 5 min. Three frames of wave 105: the still ridge read as meant,
+  and the lit one showed THE SLOW's prism splitting it — queued.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — the first lit frame was unreadable, and finding that
+the prism aims at the cannon for every boss but one took longer than the
+ridge did.

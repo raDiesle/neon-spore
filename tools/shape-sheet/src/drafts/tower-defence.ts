@@ -95,10 +95,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       teeth: 9,
     }),
     motion: TWITCH,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "THE RIND is built and does not carry this: it wears the slick's contour or the bulb's, three sizes stepped down a whole body per hit (rind.ts), so this card is the shape it was not given rather than the shape it has. What it still argues, and what the built one took, is the second half — the size steps rather than eases, because a jump is an event and an ease is breathing, and the pair has to see an event to say the word again. What is on offer here is the first half: a rim that goes from toothed to smooth as the layers go, which the shipped body says nothing about",
+      "THE SEAM, taken 26 September 2026: the three sizes stood on end down the middle column as its ridge, one lobe to a point on its crack, and a lobe's teeth shed as its point seals — so the rim goes smooth as the health goes (`render/seam-shape.ts`). Before that, THE RIND is built and does not carry this: it wears the slick's contour or the bulb's, three sizes stepped down a whole body per hit (rind.ts), so this card is the shape it was not given rather than the shape it has. What it still argues, and what the built one took, is the second half — the size steps rather than eases, because a jump is an event and an ease is breathing, and the pair has to see an event to say the word again. What is on offer here is the first half: a rim that goes from toothed to smooth as the layers go, which the shipped body says nothing about",
   },
   {
     subject: spanned("THE CANOPY", "a faceted arc over the whole hull, with the middle spent", {

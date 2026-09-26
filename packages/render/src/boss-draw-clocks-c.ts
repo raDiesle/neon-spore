@@ -7,6 +7,7 @@ import type { Layout } from "./layout.js";
 import { drawMantle } from "./mantle-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
+import { drawSeam } from "./seam-draw.js";
 import { drawSpool } from "./spool-draw.js";
 import { drawValve } from "./valve-draw.js";
 
@@ -37,6 +38,7 @@ export const PAIR_KINDS = [
   "mantle",
   "keel",
   "valve",
+  "seam",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -127,5 +129,15 @@ export function drawPairBoss(
   // Both screens are drawn the same — each thumb times itself off the other's
   // half (`valve-draw.ts`). Nothing of it outlives a frame yet: its effects are
   // the second half of its look.
-  drawValve(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "valve") {
+    drawValve(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE SEAM: a shelled ridge down the middle column, a crack along its spine
+  // widening at the three points that are its health. Both screens are drawn
+  // the same — which seat answers a step is the colour it asks for
+  // (`seam-draw.ts`). Nothing of it outlives a frame yet: its effects are the
+  // second half of its look.
+  drawSeam(ctx, l, world, boss, beat, beatPhase, time);
 }

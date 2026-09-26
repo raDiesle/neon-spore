@@ -468,19 +468,6 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §26 THE SEAM — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-26-the-seam-the-look)
-- **Needs:** §26 THE SEAM's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two: the cracked ridge, deliberately undramatic — no morph between its
-four poses, since the whole claim of this concept is that the standard shot
-and shield, gated by step, are already expressive enough without one. The
-cheapest look on this batch. Stays unverified at tempo until the owner has
-looked.
-
 ## §27 THE OCULUS — the look
 
 - **Found:** 2026-09-26, this session
@@ -1728,3 +1715,42 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §26 THE SEAM — its hands, the second half of its look
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Needs:** §26 THE SEAM — the look, half one (the body), landed first
+- **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+
+The body is drawn: the ridge, the crack, the lit point, the grit, the rock
+and the split. What is left is everything an event or a hand touches. There
+is no grip to write — every answer is the standard shot or shield. **The
+fx**, in `Effects` and cleared in `reset()`: a sealed point's hull-shock
+click, the grit's ordinary deflected-hit spark on the shield (§26,
+*Presentation*), a rock shot out, a miss and the split; the nine `seam*`
+events come off the two silent lists as each gets its burst. **THE SLOW's
+aim** (`slow-intake-aim.ts`) on the lit point, or the rock while one flies:
+today it falls back to the cannon, so the prism splits the ridge widest
+exactly where the step is being read. **Hurt**, **the cue's words** (FIRE
+on the lit point and the rock, SHIELD on the grit), **the autopilot hand**
+and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+Unverified at tempo until the owner has looked.
+
+## THE SLOW's prism aims at the cannon for every boss but THE INSTAR
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
+- **Files:** `packages/render/src/slow-intake-aim.ts`, `packages/render/src/slow-prism.ts`
+
+PRISM's promise is *the room splits into its colours, and the boss does
+not*: a point's fringe is as wide as it is far from the aim. But `aim()`
+asks only THE INSTAR where its head is; every other boss that opens THE
+SLOW — THE HASP, THE KEEL, THE VALVE, THE SEAM and some thirty more
+(`grep -l openSlow packages/sim/src`) — falls through to a held body or the
+cannon's column at the hull, so a boss hung at the top of the field is the
+thing split *widest*, red and blue outlines a quarter-tile apart
+(`bun run frames . --wave 105 --until seamLight --until-on 30`). The fix is
+the head registered per boss, not re-derived: a small table in render from
+boss kind to the point its own `-shape.ts` already names (`valveCentre`,
+`seamCentre`, …), consulted before the fallbacks, and a test that a boss's
+own outline is drawn with the narrowest split of the frame. THE SEAM's
+entry is in its hands item above; this one is the rest.

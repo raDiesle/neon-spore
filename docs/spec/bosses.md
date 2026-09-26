@@ -7960,6 +7960,23 @@ for both halves in either order; and a script answered whole splits the ridge
 and ends the fight. Whether any of it *reads* is the owner's eye, after lane
 two.
 
+**Half the look has landed** (26 September 2026): the body. THE RIND's three
+sizes stood on end down the middle column in shell grey, one lobe to a point,
+each lobe's rim toothed while its point is open and shedding its teeth as it
+seals — so the outline goes smooth as the health goes. The crack is a jagged
+dark line down the spine, wide at an open point and a thin closed seam at a
+sealed one, the sealed point closing over the rest that follows its seal.
+The lit point glows in the colour it asks for, white for either, with a ring
+round it closing as the step's beats run out, read off `seamStepBeats`, the
+number the simulation judges by. Grit is shards thrown from the crack's
+mouth down the middle column while the shield is owed, the whole crack
+gaping; a rock is spat from the mouth to its own column and falls in the
+colour that breaks it. The sealed ridge splits in two halves down the crack
+(`render/seam-shape.ts`, `seam-pose.ts`, `seam-draw.ts`, `seam-marks.ts`).
+**Half two, the hands, is queued**: the seal's click and the grit's spark,
+the nine events off the silent lists, hurt, the cue's words, THE SLOW's aim
+on the lit point, and the autopilot hand.
+
 ## 11.44 THE OCULUS — the boss both hands hold shut, then shoot into
 
 > A great lens over the middle of the field, six leaves open across its face.

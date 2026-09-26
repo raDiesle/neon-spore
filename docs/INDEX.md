@@ -1377,6 +1377,10 @@ by hand never moves.
 | `packages/render/src/nav-slab.ts` | The slab the guide's bar stands on |
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 | `packages/render/src/seam-line.ts` | WHERE THE MEMBRANE MAY SWING — the numbers, and nothing that draws |
+| `packages/render/src/seam-draw.ts` | **THE SEAM**: a shelled ridge standing down the middle column with one crack along its spine |
+| `packages/render/src/seam-marks.ts` | **THE SEAM's marks**: the three things that say what a step asks — the lit point, which is *shoot here |
+| `packages/render/src/seam-pose.ts` | **The clock THE SEAM is posed off** (§26, *Animation*): four poses — the crack dark, one point sealed |
+| `packages/render/src/seam-shape.ts` | **THE SEAM's geometry**: where the ridge stands, and the paths it is made of |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
