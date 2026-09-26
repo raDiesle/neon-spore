@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 115c7f2cf — THE GRINDSTONE answers a thumb: its flats rubbed, its jaws held
+
+A press on a seat's own flat now takes a rub, and its count of turns back is sent as the drag's id at every reversal (nought on the press, the count with `on: false` at the lift). A press on that seat's jaw is one finger of a chord, counted pad by pad the way THE TRIVET's feet are. Wave 112 can now be played on a phone. The hit test reads the wheel where the draw puts it: dropped in, caliper swung. `apps/game`'s pinch, chord and rub counters sit behind one `Fingers` host, which keeps `input.ts` under its limit. THE RIME's halves can reuse the rub counter unchanged.
+
 ## 2026-09-26 · 0230b7270 — AUTO plays THE RIME: wipes each half clear, turns every surge, shoots
 
 The autopilot's hand for THE RIME: the seat whose half is lit rubs it clear, four reversals a beat as THE GRINDSTONE's hand does, both seats through a whiteout; the shield goes under a surge or an icicle's column and is pressed; the bared core is shot in the step's colour. A test plays wave THE RIME to the end with no wipe run out, no surge let through and no scar. THE GRINDSTONE and THE RIME leave NO_HAND, and §29's entry now lists the four lanes left: the field's rub, the fx, the cue's words, THE SLOW's aim.

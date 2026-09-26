@@ -25045,3 +25045,5 @@ The bottleneck: none worth the name — the rub copied straight from THE GRINDST
 
 Bottleneck: writing — `input.ts` stood at its limit, so the three counted
 gestures went behind one `Fingers` host before a third could join them.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
