@@ -23901,3 +23901,5 @@ question was whether a lift after a crack could be heard as a slip.
 
 Bottleneck: looking — the bill only comes on a forced bead, and the wave
 fails on the same tick, so every frame after it is held.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

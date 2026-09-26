@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2a07df2f4 — THE LEDGER's timeout blow wrenches its socket's plate off the hull
+
+When a bill nobody answered lands, the hull no longer takes a thrown rock. THE LEDGER's cord is already rooted in the ship, so it yanks: the plate the socket sits in is wrenched up on its hinge toward the body, a red hole shows under it, its rivets spit loose, and it slams back down with a ring along the plating.
+
 ## 2026-09-26 · ad98df0f0 — THE VISE has a hand: AUTO pinches the lit lobe shut and shoots the kernel
 
 `hands/boss-hands-vise.ts` plays THE VISE right: the lit lobe pinched shut by its own seat, both lobes on a `both` step, let go once the step is answered, and the bared kernel shot up the middle in its colour. AUTO plays the fight to the split with all four seams cracked, no pinch slipped or sprung, the kernel never covered again and the hull never struck, and the STATES sheet poses all four phases. THE VISE leaves NO_HAND and the OWED list.
