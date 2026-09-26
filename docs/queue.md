@@ -1419,9 +1419,8 @@ what the rest of this file holds.
 ## §26 THE SEAM — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo
 - **Needs:** §26 THE SEAM — the look, half one (the body), landed first
-- **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: the ridge, the crack, the lit point, the grit, the rock
 and the split. What is left is everything an event or a hand touches. There
@@ -1433,8 +1432,9 @@ events come off the two silent lists as each gets its burst. **THE SLOW's
 aim** (`slow-intake-aim.ts`) on the lit point, or the rock while one flies:
 today it falls back to the cannon, so the prism splits the ridge widest
 exactly where the step is being read. **Hurt**, **the cue's words** (FIRE
-on the lit point and the rock, SHIELD on the grit), **the autopilot hand**
-and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+on the lit point and the rock, SHIELD on the grit), and the STATES poses.
+The autopilot hand is done (`hands/boss-hands-seam.ts`,
+`director/test/autopilot-seam.test.ts`).
 **The story between the pins** (`sim/valve-story.ts`, drawn by
 `render/valve-story.ts`) wants the same: its cue words TAP on the jet, HOLD
 for the brace and the seal, RUB for the wipe; the grip's reversal and hold

@@ -38,7 +38,7 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
  * and an autopilot hand plays a boss against poses that do not exist yet. A
  * new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */
-const NO_HAND = new Set(["valve", "seam", "sling", "cyst", "davit", "halter"]);
+const NO_HAND = new Set(["valve", "sling", "cyst", "davit", "halter"]);
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");

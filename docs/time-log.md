@@ -25156,3 +25156,14 @@ Bottleneck: looking — the wave runs past the frames tool's default
 3000 ticks, so the first pass had to be run again further out.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SEAM's autopilot hand
+
+- reading: 5 min. THE SEAM's shot and shield rules and its script.
+- writing: 5 min. `boss-hands-seam.ts`, its two registrations, the test.
+- looking: 0 min. The test plays THE SEAM to the end; nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: none — every answer is a standard shot or shield, and
+THE OCULUS's hand already carried both.

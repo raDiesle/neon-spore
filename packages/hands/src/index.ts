@@ -26,6 +26,7 @@ export * from "./boss-hands-rime.js";
 export * from "./boss-hands-rounds.js";
 export * from "./boss-hands-scene.js";
 export * from "./boss-hands-scout.js";
+export * from "./boss-hands-seam.js";
 export * from "./boss-hands-shots.js";
 export * from "./boss-hands-snake.js";
 export * from "./boss-hands-spool.js";

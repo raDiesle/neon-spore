@@ -2207,6 +2207,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
 | `packages/hands/src/boss-hands-scene.ts` | **A scene's hands**, THE NETTLE's and THE INSTAR's: the thumbs and the panel |
 | `packages/hands/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
+| `packages/hands/src/boss-hands-seam.ts` | **THE SEAM played right**, for the autopilot: every answer is the standard shot or shield (§26) |
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |

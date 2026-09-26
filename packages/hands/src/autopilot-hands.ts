@@ -20,6 +20,7 @@ import { rimeHand } from "./boss-hands-rime.js";
 import { mazeHand, mirrorHand, pinballHand } from "./boss-hands-rounds.js";
 import { instarHand, nettleHand } from "./boss-hands-scene.js";
 import { scoutHand } from "./boss-hands-scout.js";
+import { seamHand } from "./boss-hands-seam.js";
 import { vaneHand, wardenHand } from "./boss-hands-shots.js";
 import { snakeHand } from "./boss-hands-snake.js";
 import { spoolHand } from "./boss-hands-spool.js";
@@ -85,6 +86,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   reprise: repriseHand,
   rime: rimeHand,
   scout: scoutHand,
+  seam: seamHand,
   scuttle: scuttleHand,
   sinew: sinewHand,
   snake: snakeHand,
