@@ -7,6 +7,7 @@ import {
   NO_BEARING,
   type World,
 } from "@neon-spore/sim";
+import { paintHoop } from "./gimbal-depth.js";
 import { gimbalOpenPhase, gimbalShearPhase, gimbalSpinMilli } from "./gimbal-drum.js";
 import { drawGimbalKnurl, gimbalHeld } from "./gimbal-grip.js";
 import {
@@ -63,6 +64,7 @@ export function drawGimbalRing(
   const left = gimbalTeeth(s);
   const at_true = gimbalTurning(s) && gimbalRingTrue(s, cfg, beat, ring);
 
+  paintHoop(ctx, at, r, l.tile, ring, time);
   const rim = gimbalRimPath(at, r);
   ctx.lineWidth = STROKE.outline;
   if (at_true) strokeGlow(ctx, rim, PALETTE.rock, STROKE.outline, 1.4);

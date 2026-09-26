@@ -649,6 +649,14 @@ run it, look at the PNG — that is the loop.
   each bead and the mound take a cold rim on the edge turned from the key.
   Every mark is laid on things in place: the angle, the bead count and the
   bead sizes are the readout and are never touched.
+- **A ring that is a readout is a hoop lit by the world's light, which never
+  turns with it** (`gimbal-depth.ts`). THE GIMBAL's rings take a band wider
+  than the rim's stroke, lit on the side toward the key and deep away from it,
+  a shade round its inside and a cold rim on the outer edge turned from the
+  key. The light sways a little with a `breath`, one per ring and out of step,
+  as though each hoop rocks in its pins; a highlight carried round with the
+  teeth would be a sticker on a disc, and the ring's face is what a thumb is
+  answered against. The rim, the teeth and every mark stay where they were.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency

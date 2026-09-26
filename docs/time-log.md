@@ -22947,3 +22947,14 @@ Bottleneck: friction — the thread's test was tied to the stroke it measured.
   the main checkout's two uncommitted files.
 
 Bottleneck: landing — the main checkout carries another session's work.
+
+## 2026-09-26 — THE GIMBAL's rings are hoops in the world's light
+
+- reading: 5 min. The ring draw, its shape and the seat-equality tests.
+- writing: 10 min. `gimbal-depth.ts` and the ring wired to it.
+- looking: 10 min. A band as wide as the rim's stroke vanished under it; twice
+  as wide and set inward it reads as a hoop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, and `reconcile` tried again.
+
+Bottleneck: looking — a band had to be widened before it showed at all.
