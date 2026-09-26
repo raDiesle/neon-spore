@@ -1,9 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { type PlacedFault, TO_THE_END } from "../src/fault-placed.js";
+import { faultSwallows } from "../src/fault-swallow.js";
 import { handedOver, handoverLeft, handoverWarning } from "../src/handover.js";
 import { hashWorld } from "../src/hash.js";
-import { faultSwallows, MALFUNCTION_KINDS } from "../src/malfunction.js";
+import { MALFUNCTION_KINDS } from "../src/malfunction.js";
 import type { Command, TimedCommand } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type SpawnEntry, step, type World } from "../src/world.js";

@@ -32,7 +32,7 @@ import type { ControlDef, ControlId } from "./controls.js";
  * Whether this control is one the fault has taken over — drawn, and answering
  * nobody.
  *
- * It says what `faultSwallows` says in `packages/sim/src/malfunction.ts`, one
+ * It says what `faultSwallows` says in `packages/sim/src/fault-swallow.ts`, one
  * level up: that one is about a *command* arriving at the world and this is
  * about a *button* on a panel, and the two are not the same list — a swipe on
  * the hull is a `fire` with no lobe anywhere near it. The simulation is the
@@ -59,7 +59,7 @@ function brokenBy(id: ControlId, m: { kind: MalfunctionKind }): boolean {
   // was the only kind left, and it drew a torn, bleeding GUARD on every CODEX
   // wave — a button that works, answers the thumb and is the pilot's only
   // defence, painted as the one thing it is not. `faultSwallows` swallows
-  // neither fault's presses (`sim/malfunction.ts`), and this is that answer
+  // neither fault's presses (`sim/fault-swallow.ts`), and this is that answer
   // said where the button is drawn: THE CODEX changes what a colour means and
   // THE HANDOVER changes whose screen a panel is on, and neither takes a
   // control away from anybody. A panel whose hold fills nothing draws nothing

@@ -396,6 +396,7 @@ by hand never moves.
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
+| `packages/sim/src/fault-swallow.ts` | Whether this press falls into a control the fault has taken over |
 | `packages/sim/src/fault-clock.ts` | The beat a fault is on and how often it acts — the one clock every malfunction reads and none of them keeps |
 | `packages/sim/src/fault-placed.ts` | **A FAULT IS A PENCIL ON THE MAP**: a kind, the beat it enters the wave on, and the number of beats it holds |
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
@@ -1707,6 +1708,7 @@ by hand never moves.
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
 | `packages/render/src/touch-well.ts` | THE WELL's screen as a control: the same two questions `touch.ts` asks of the flat field |
 | `packages/render/src/touch-band.ts` | A press on the panel below the field: the buttons, and the two strips |
+| `packages/render/src/touch-move.ts` | The same finger, moved, and the two kinds of answer it can have |
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
@@ -2622,6 +2624,7 @@ by hand never moves.
 | `tools/director/src/field-controls-scout.ts` | **THE SCOUT's two hands on its own picture**, in a file of its own |
 | `tools/director/src/field-controls-snake.ts` | **SNAKE's two hands on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-spool.ts` | THE SPOOL's brake, as one row of the ON THE FIELD tab |
+| `tools/director/src/field-controls-ship.ts` | The ship's own handles on the field — the cannon, its maw, the shield's plate and trigger |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |

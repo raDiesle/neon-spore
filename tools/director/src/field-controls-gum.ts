@@ -22,7 +22,7 @@ export const GUM_CONTROLS: readonly FieldControlDef[] = [
       "right and it leaves the lane: it flies out level along its row, " +
       "gumFlingCols a beat, and is gone at the wall. Either side is right. " +
       "A gum already on the ship's row is too late to take (sim/gum.ts).",
-    source: "touch.ts — the grip branch of touchMove()",
+    source: "touch-move.ts — the grip branch of touchMove()",
     holdKind: "grip",
     dragTarget: "gripBody",
     sends: ["drag"],

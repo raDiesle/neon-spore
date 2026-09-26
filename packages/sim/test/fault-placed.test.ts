@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { faultCovers, faultOn, faultsNow, faultWindow, TO_THE_END } from "../src/fault-placed.js";
-import { faultSwallows } from "../src/malfunction.js";
+import { faultSwallows } from "../src/fault-swallow.js";
 import type { Command } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, step, type World } from "../src/world.js";

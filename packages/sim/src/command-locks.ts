@@ -1,5 +1,5 @@
 import { batonLocks } from "./baton-press.js";
-import { faultSwallows } from "./malfunction.js";
+import { faultSwallows } from "./fault-swallow.js";
 import { mirrorHoldsControls } from "./mirror.js";
 import { stareBreaks } from "./stare-step.js";
 import type { TimedCommand } from "./types.js";

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
+import { faultSwallows } from "../src/fault-swallow.js";
 import { flipInWave, flipSeat } from "../src/flip.js";
 import { hashWorld } from "../src/hash.js";
-import { faultSwallows } from "../src/malfunction.js";
 import type { Command, TimedCommand } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type SpawnEntry, step, type World } from "../src/world.js";

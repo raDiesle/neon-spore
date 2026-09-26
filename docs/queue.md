@@ -431,19 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## Split touch.ts, malfunction.ts and the field-controls page
-
-- **Found:** 2026-09-25, claude/fault-brush-darkness-28adad
-- **Taken:** 2026-09-26, claude/queue-split-the-canvas-stub-and-the-throats-cue-test-b (claim: claude/queue-split-touch-ts-malfunction-ts-and-the-field-cont)
-- **Files:** `packages/render/src/touch.ts`, `packages/sim/src/malfunction.ts`, `tools/director/src/field-controls-page.ts`
-
-THE DARK took `touch.ts` to 249 lines and `malfunction.ts` to 250, and only
-fit because comments were shortened; the field-controls page is at 230. The
-next fault or field gesture pushes all three over. `touch.ts`: move
-`touchMove`'s per-hold dispatch into its own file beside `touch-hold.ts`.
-`malfunction.ts`: move the per-kind swallow table out. The page: split the
-entries by which seat holds them. `bun run check` holds all three.
-
 ## A sunk hull waits a shell's flight that no longer flies
 
 - **Found:** 2026-09-25, claude/boss-blow-e
