@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 98673ca77 — THE INSTAR's fall makes 54 gradients a frame instead of 126, and a nest one shell instead of sixteen
+
+A tube's light no longer carries its fade in the cached gradient's key: the stops are opaque and the fade is laid on as globalAlpha, so a body fading in or out stops rebuilding the light of every slice each frame. The eggs of a nest share one shell gradient, built about the egg's middle and laid by a translate. Brood falls from 91 gradients a frame to 65. A speed fix: nothing drawn changes.
+
 ## 2026-09-26 · 8d811b23a — THE VISE answers a pinch: two fingers on your lobe, closed, crack its seam
 
 The first two-finger gesture in the game. A press in a seat's zone (its side of THE VISE's spine, across the rows the case stands in) takes hold and says nothing, because a finger alone is not a pinch. Once a second finger of the same seat is down, the gap between the fingertips is sent as the lobe's drag on every move that changes it, and either finger lifting lets the lobe go. A fingertip's width is taken off the distance, so two fingertips pressed together read shut on every phone.
