@@ -23504,3 +23504,18 @@ Bottleneck: writing — the brace is three pictures, and each needed a test that
 a count of colours could tell apart.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §24 THE KEEL: a fuller story arc, at the owner's request
+
+- reading: 15 min. §24's existing section, its rigid-spine build, and
+  `CHORD`'s existing `where` list.
+- writing: 25 min. Three new states (flip, marrow reveal, cooldown), THE
+  SLOW, Presentation, Animation, Colour, Payoff and Cost rewritten to match,
+  the queue and time-log entries.
+- looking: 0 min. Spec and registration only — the look is queued separately.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, commit, push.
+
+Bottleneck: finding three states that read as a real reversal rather than a
+fourth identical joint, while spending no gesture the sim does not already
+build.

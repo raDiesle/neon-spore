@@ -3086,27 +3086,38 @@ of the difficulty.
 | 6 | With four segments locked the spine's midpoint splits, baring a single lit socket | — | — | — | — | — |
 | 7 | The socket flashes a colour | whichever cannon owns that colour | fire the socket (standard control) | 3 beats, seen | socket shuts, third segment (left-middle) locks itself for free | socket stays open, an ordinary hull hit next beat |
 | 8 | Fourth segment (right-middle) lights, window shorter than movement 1's | nearer seat | tap | 3 beats, seen | segment locks — spine fully rigid | joint re-lights |
-| **Movement 3 — the spine holds its breath** ||||||
-| 9 | Every seam flares, then the whole spine hums and quivers, straining against its own new rigidity | both, together | send nothing — hands off both marks | 3 beats, seen | the hum settles, every seam flares bright once and holds; tempo run opens at full brightness | one segment relights loose — the tempo run opens one joint short, that segment re-earned in row 10 |
-| **Movement 4 — the whole spine, at tempo** ||||||
-| 10 | Every joint dims at once, then relights in a fast unpredictable order, one at a time | nearer seat, per joint | tap, three joints in a row | 2 beats each, seen | each locked joint pulses brighter | a missed one loosens that segment again — it simply re-lights later |
-| 11 | The spine holds rigid for one full beat, every segment locked and bright | — | — | — | — | — |
-| 12 | The tail whips once, throwing a single hazard rock down the field | P1 or P2 | fire it, own colour | 2 beats, seen | rock destroyed | ordinary hull hit |
-| 13 | The spine snaps straight and the fight ends | — | — | — | — | — |
+| **Movement 3 — the spine turns against itself** ||||||
+| 9 | Fully rigid, the spine flexes the other way, its arch flipping from convex to concave — a shape it has not held all fight | P1+P2 | hold a chord on the two end joints, arresting the flip (`CHORD`) | 3 beats, seen | the flip is arrested, the spine restraightens | either hand lifts: the flip completes and the spine snaps back hard, an ordinary hull hit |
+| 10 | With the flip arrested, a marrow-bright seam glows down the spine's centre, a light never shown before | P1+P2 | fire together at the marrow line, own colours | 3 beats, seen | the marrow seals, its light banked for the run ahead | unfired in time: the marrow burns through, one locked segment loosens, re-earned in row 12 |
+| **Movement 4 — the spine holds its breath** ||||||
+| 11 | Every seam flares, then the whole spine hums and quivers, straining against its own new rigidity | both, together | send nothing — hands off both marks | 3 beats, seen | the hum settles, every seam flares bright once and holds; tempo run opens at full brightness | one segment relights loose — the tempo run opens one joint short, that segment re-earned in row 12 |
+| **Movement 5 — the whole spine, at tempo** ||||||
+| 12 | Every joint dims at once, then relights in a fast unpredictable order, one at a time | nearer seat, per joint | tap, three joints in a row | 2 beats each, seen | each locked joint pulses brighter | a missed one loosens that segment again — it simply re-lights later |
+| 13 | The spine holds rigid for one full beat, every segment locked and bright | — | — | — | — | — |
+| 14 | The tail whips once, throwing a single hazard rock down the field | P1 or P2 | fire it, own colour | 2 beats, seen | rock destroyed | ordinary hull hit |
+| 15 | The spine's locked segments dim from white down to a banked iron glow, in sequence, still rigid, cooling | P1+P2 | send nothing — hands off both marks | 3 beats, seen | segments bank to a quiet glow, spine snaps straight, fight ends clean | a reflex tap on any segment relights it, one extra beat before it banks |
 
 **THE SLOW** opens on every joint window in movements 1 and 2 (rows 2–5, 7,
-8) and on row 9's held breath; movement 4's re-lit joints (row 10) run at
-tempo on purpose — a spine that has taught its rule for eight beats is
-allowed to ask for it fast. Row 9 adds a beat where nothing is pressed at
-all — after eight beats of tapping wherever the mark lands, the pair's one
-mistake to avoid is reaching for it, so the story reads as the spine
-gathering itself rather than one more identical joint.
+8), on row 9's flip and row 10's marrow shot, and on rows 11 and 15's held
+breaths; movement 5's re-lit joints (row 12) run at tempo on purpose — a
+spine that has taught its rule for eight beats is allowed to ask for it fast.
+Row 9 turns the fight against itself for the first time — the spine, having
+only ever bowed one way, bows the other, and holding the chord rather than
+tapping a joint is the whole of the ask. Row 10 is the fight's one reveal, a
+light the spine has kept banked the entire time. Row 11 asks for the
+opposite of the eight beats before it — after tapping wherever the mark
+lands, the pair's one mistake to avoid is reaching for it, so the story
+reads as the spine gathering itself rather than one more identical joint —
+and row 15 closes the fight the way every other boss in this run now does,
+a beat of restraint after the last hit lands.
 
 **Presentation.** No camera. Each lock is a short hull-shock click; the
-socket shot of row 7 is an ordinary shot's flash, nothing new. Row 9's hum
-is a low, rising drone that cuts to the same seam-flare pulse as an ordinary
-lock the moment the hold survives, or drops flat the moment either mark is
-touched.
+socket shot of row 7 is an ordinary shot's flash, nothing new; row 9's flip
+is a deep, groaning creak, lower than the hold's hum; row 10's marrow shot
+resolves into the same shock pulse an ordinary lock uses, but longer and
+brighter. Row 11's hum is a low, rising drone that cuts to the same
+seam-flare pulse as an ordinary lock the moment the hold survives, or drops
+flat the moment either mark is touched.
 
 **Animation.** Segments individually locking rigid out of a loose, faintly
 swaying rest pose — six independent joints rather than one body morphing
@@ -3114,29 +3125,40 @@ whole, which is the one place this page's bodies do not share THE INSTAR's
 single-figure blend, because a spine's whole point is that its parts move
 separately. A locked seam is no longer one brightness throughout: **hairline
 white** through movement 1's four locks, **a fuller pulsing seam** once the
-socket frees the fifth in movement 2, and **a held flare, then full white**
-across every segment at once on row 9 — the spine visibly gathering light as
-it nears the tempo run rather than snapping from dim to bright in one frame.
-The hold itself is a new pose: the whole arch swells and dims on a slow
-period, on top of the segments' own rest sway, read the same way a
-held-breath chest would.
+socket frees the fifth in movement 2, **the whole arch bowed concave** under
+row 9's flip, **a marrow-bright centre line** while row 10's shot is live,
+and **a held flare, then full white** across every segment at once on row 11
+— the spine visibly gathering light as it nears the tempo run rather than
+snapping from dim to bright in one frame. The hold itself is a new pose: the
+whole arch swells and dims on a slow period, on top of the segments' own
+rest sway, read the same way a held-breath chest would. Row 15 closes on a
+last new pose: every segment's seam fading from white to a dim banked iron,
+the arch straightening the instant the last one banks.
 
 **Colour.** Iron grey throughout; a locked segment carries a seam that
 brightens across the fight as above, never a colour that implies ownership —
 geometry alone says whose joint it is, and it changes every time the mark
-moves.
+moves. Row 10's marrow line is the one warm light the spine shows all
+fight, banked the instant it is sealed.
 
-**Payoff.** Row 9 is the fight's other payoff beside row 10: the one beat
+**Payoff.** Row 11 is the fight's other payoff beside row 12: the one beat
 where the pair, having spent eight beats reaching for whatever lit up, must
 recognise that reaching is now the wrong answer — a beat of restraint
 between the last deliberate joint and the fast, wordless run, so the story
-reads as tension held and then released rather than nine taps in a row.
+reads as tension held and then released rather than nine taps in a row. Row
+9's flip and row 10's reveal are a payoff of their own, the one place in the
+fight the spine actively fights the pair's progress rather than simply
+asking for the next joint.
 
 **Cost. Low.** One drag target, no new hashed field beyond which end the
 joint currently sits at (an index, the way `instar`'s pose index already
-works), a boolean per segment, and one boolean for row 9's hold — a read off
-`SENDING NOTHING`, already built for THE HALTER and THE FLUE, first use on
-THE KEEL.
+works), a boolean per segment, and one boolean each for rows 9, 10, 11 and
+15's holds — reads off `CHORD` (already built for THE MANTLE, THE VALVE, THE
+TRIVET, THE GRINDSTONE, THE HALTER and THE WINCH, first use on THE KEEL), an
+ordinary simultaneous fire, and `SENDING NOTHING` (already built for THE
+MANTLE, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE
+SLING, THE GRINDSTONE, THE HALTER and THE FLUE, first use on THE KEEL was
+row 11's own).
 
 **Reusable.** A single mark whose **owning seat is read off its position
 rather than authored per step** — named `GeometrySeat` and built with lane

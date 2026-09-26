@@ -152,6 +152,7 @@ export const SPECIFIED: readonly Gesture[] = [
     },
     where: [
       `${SPEC} §23 THE MANTLE`,
+      `${SPEC} §24 THE KEEL`,
       `${SPEC} §25 THE VALVE`,
       `${SPEC} §30 THE TRIVET`,
       `${SPEC} §33 THE GRINDSTONE`,
