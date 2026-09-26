@@ -22714,3 +22714,16 @@ Bottleneck: reading — the audit's real cost was the number of files a
 "no independent motion" grep can falsely flag, each needing a sibling file
 checked before it could be ruled out; every file sampled this round turned
 out not to be a miss once its sibling was read.
+
+## 2026-09-26 — THE INSTAR's body face-on is a tube going into depth
+
+- reading: 5 min. The front drawer, the tube draw and the lens's scale.
+- writing: 20 min. The body as one tube with its rings along depth, the lens
+  divided back out so it keeps the old footprint, and the bands on it.
+- looking: 15 min. Two rounds: the smooth tube read as a horn until it was
+  pinched at every seam, and the swim moved the far end off its engines.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — the front view is only seen during the breath, washed
+in its light, so every detail of it is judged through the glare.

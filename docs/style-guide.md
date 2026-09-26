@@ -583,6 +583,12 @@ run it, look at the PNG — that is the loop.
   nothing animated but the hinge. The arm is a tube of the rig, and the far
   wing is the same wing mirrored across z (negate roll and yaw, keep pitch)
   and hazed.
+- **A body seen end-on is a tube whose spine runs into depth**
+  (`instar-front-body.ts`). The rings go along the rig's `x`, which the front
+  view turns away from the player; each is placed where the flat picture had
+  it, the lens divided back out, so the body keeps its footprint and gains its
+  roundness. Pinch the girth at every seam — a smooth tube seen end-on reads
+  as a horn, a pinched one as plates going away.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency
