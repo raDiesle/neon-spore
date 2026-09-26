@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c61d2b271 — Audit the still-life signatures outside the bosses and queue what they found
+
+Every creature drawn through the shared living skin keeps its light and sheen still while its outline wobbles, the same failure the bosses were swept for; THE WISP's arm light stays at the root while the arm swings; countdown, beatbox and throb have no motion of their own; and sheen.ts carries three dead exports beside two stale comments. Four queue entries, each with what was checked and ruled out, and the research entry removed.
+
 ## 2026-09-26 · ba00dde9d — Queue: the rock ratchet test times out under a full check
 
 ## 2026-09-26 · 4ce62072e — THE BATON's lit cups slosh on a clock of their own
