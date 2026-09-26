@@ -7571,9 +7571,16 @@ both screens (`render/mantle-draw.ts`, `mantle-handle.ts`, `mantle-shape.ts`,
 geometry, though both screens draw both — the other seat's knob falls
 through — and a thumb laid on a knob before the handles light is held; the
 ring round the bared core takes a tap from either seat, and the wrong one is
-refused by the simulation rather than passed on. What is left of half two:
-no word is shown on the field and no sounds are bound — `tools/director/src/sound-link-none-c.ts` and the render
-package's silent-event lists carry all ten of its events until it lands.
+refused by the simulation rather than passed on. So have its transients
+(26 September 2026, `render/mantle-fx.ts`), the same on both screens: a
+shear kicks the shell down on its hinge, deals it the blow and sends one
+shudder through the hull, with a burst off each valve where the pair was; the
+split kicks it harder; a finishing tap flares the core and the last one
+flares it, shudders the hull and deals the blow as it goes out; a shot spark
+bursts where it had run to on its fuse. What is left of half two: no word is
+shown on the field and no sounds are bound —
+`tools/director/src/sound-link-none-c.ts` carries all ten of its events
+until it lands.
 There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
 

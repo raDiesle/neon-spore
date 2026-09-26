@@ -130,6 +130,19 @@ export const HURT_ROWS_B: Row[] = [
     part: [{ type: "vanePin", col: 3 }],
     hurt: (fx) => fx.boss.blows.vane,
   },
+  {
+    boss: "mantle",
+    // A pair shorn off, and the last tap that puts the core out.
+    land: [
+      { type: "mantleShear", left: 3, col: 3 },
+      { type: "mantleDark", col: 3 },
+    ],
+    part: [
+      { type: "mantleLight", col: 3 },
+      { type: "mantleBeat", left: 3, col: 3 },
+    ],
+    hurt: (fx) => fx.boss.mantle.hurt,
+  },
 ];
 
 /** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */

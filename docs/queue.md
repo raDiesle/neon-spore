@@ -476,14 +476,12 @@ into the roster. `bun run check` proves it.
 - **Files:** `packages/render/src/mantle-handle.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `docs/spec/bosses.md`
 
 Half one drew the body, and the grip has landed (`render/mantle-grip.ts`,
-the `FIELD_CONTROLS` rows and gallery poses, `docs/spec/controls.md`). What
+the `FIELD_CONTROLS` rows and gallery poses, `docs/spec/controls.md`), and
+so has what outlives a frame (`render/mantle-fx.ts`). What
 is left, per `.claude/skills/new-boss` §5 and `.claude/skills/new-boss-state`:
 
 - **The verb and the cue**: the word on the knob (`PULL`, and nothing below
   the floor) and the `boss-cue` read for its ten events.
-- **What outlives a frame**: `effects.boss.mantle` (`mantle-fx.ts`, the kick
-  of a shear, the jolt of the split, the flash of the dark) cleared in
-  `Effects.reset()`, with the ten events taken off the two silent lists.
 - **The autopilot hand**, off `NO_HAND` in `tools/director/test/autopilot.test.ts`.
 
 `bun run check` proves all of it but the feel; whether the pull reads at

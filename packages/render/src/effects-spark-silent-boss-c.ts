@@ -53,9 +53,8 @@ export const SILENT_BOSS_C = [
   "gorgeNick",
   "gorgePryFill",
   "tasterPryFill",
-  // THE MANTLE's ten, no burst from this table: only its simulation lane has
-  // landed, so there is nothing on the field yet for a burst to land on. Sound
-  // is what these ten get instead (`packages/audio/src/bind-mantle.ts`).
+  // THE MANTLE's ten, no burst from this table: each is thrown above the loop
+  // by its own fx file (`mantle-fx.ts`).
   "mantleEnter",
   "mantleLight",
   "mantleShear",
@@ -66,8 +65,9 @@ export const SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
-  // THE KEEL's sixteen, for THE MANTLE's reason: nothing on the field yet
-  // for a burst to land on (`packages/audio/src/bind-keel.ts`).
+  // THE KEEL's sixteen, no burst from this table: only its simulation lane
+  // has landed, so there is nothing on the field yet for a burst to land on.
+  // Sound is what these get instead (`packages/audio/src/bind-keel.ts`).
   "keelEnter",
   "keelLight",
   "keelLock",

@@ -1,11 +1,12 @@
 import { blobPoints, LIGHT_HALF } from "@neon-spore/content";
 import { type MantleState, mantleFinale, mantleLeaking, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
-import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import type { MantleFx } from "./mantle-fx.js";
 import { drawMantleHandles, drawMantleRing } from "./mantle-handle.js";
 import {
   mantleArrived,
@@ -22,6 +23,7 @@ import {
   mantlePlatePath,
   mantleReach,
   mantleRimPath,
+  mantleSparkPoint,
   PLATE_BOUNDS,
   type Point,
   type Side,
@@ -58,7 +60,8 @@ const PLATES = PLATE_BOUNDS.length - 1;
  * **The pull is drawn as the shell swelling**, off the summed depth
  * (`mantle-pose.ts`): both flanks bow outward as the thumbs pull, and each
  * valve's tail drops under its own handle. The handles, the cord and the
- * finish's ring are `mantle-handle.ts`.
+ * finish's ring are `mantle-handle.ts`; what outlives a frame — the kick of
+ * a shear, the blow, the core's flare — is `fx` (`mantle-fx.ts`).
  */
 export function drawMantle(
   ctx: CanvasRenderingContext2D,
@@ -68,6 +71,7 @@ export function drawMantle(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: MantleFx,
 ): void {
   const cfg = world.cfg;
   const arrived = mantleArrived(s, cfg, beat, beatPhase);
@@ -79,10 +83,10 @@ export function drawMantle(
 
   ctx.save();
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
-  ctx.translate(0, -mantleLift(l, arrived));
-  drawCore(ctx, l, world, s, at, beat, beatPhase);
+  ctx.translate(fx.hurt.shakeX(time, l.tile), fx.kick * l.tile - mantleLift(l, arrived));
+  drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
   for (const side of [-1, 1] as const)
-    drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time);
+    drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
   const lit = mantleHandlesLit(s, beat, beatPhase);
   if (mantleFinale(s)) drawMantleRing(ctx, l, s, at, beatPhase);
   else if (s.phase !== "dark") drawMantleHandles(ctx, l, world, s, at, poses, lit, time);
@@ -103,6 +107,7 @@ function drawCore(
   at: Point,
   beat: number,
   beatPhase: number,
+  flare: number,
 ): void {
   const { rx, ry } = mantleReach(l);
   const open = mantleOpen(s, beat, beatPhase);
@@ -127,7 +132,8 @@ function drawCore(
   const warm = life * (0.35 + 0.1 * s.cursor + 0.45 * open);
   ctx.fillStyle = rgba(life > 0.35 ? CORE : PALETTE.rockDark, Math.min(0.9, warm));
   ctx.fill(core);
-  if (life > 0.35) strokeGlow(ctx, core, CORE, STROKE.inner, 0.4 + 0.8 * open + 0.6 * pulse * open);
+  if (life > 0.35 || flare > 0)
+    strokeGlow(ctx, core, CORE, STROKE.inner, 0.4 + 0.8 * open + 0.6 * pulse * open + 1.2 * flare);
 }
 
 /**
@@ -145,6 +151,7 @@ function drawValve(
   beat: number,
   beatPhase: number,
   time: number,
+  hurt: number,
 ): void {
   const { rx, ry } = mantleReach(l);
   const shed = mantleShed(s, beat, beatPhase);
@@ -175,6 +182,7 @@ function drawValve(
     ctx.lineWidth = STROKE.outline;
     ctx.strokeStyle = PALETTE.rock;
     ctx.stroke(plate);
+    drawHurt(ctx, plate, hurt);
     ctx.restore();
   }
   const rim = mantleRimPath(l, at, side, pose);
@@ -198,13 +206,10 @@ function drawSpark(
   beat: number,
   beatPhase: number,
 ): void {
-  const { ry } = mantleReach(l);
   const along = smoothstep(
     (beat - s.sparkBeat + beatPhase) / Math.max(1, world.cfg.mantleSparkBeats),
   );
-  const x = fieldX(l, s.sparkCol);
-  const from = at.y + ry;
-  const y = from + (l.hullY - from) * along;
+  const { x, y } = mantleSparkPoint(l, at, s.sparkCol, along);
   const bead = new Path2D();
   bead.ellipse(x, y, l.tile * 0.18, l.tile * 0.26, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(CORE, 0.55 + 0.4 * along);

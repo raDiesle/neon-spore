@@ -11,6 +11,7 @@ import { HiveFx } from "./hive-fx.js";
 import { InstarFx } from "./instar-fx.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
+import { MantleFx } from "./mantle-fx.js";
 import { MazeGripFx } from "./maze-grip-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
@@ -148,6 +149,9 @@ export class BossRoster {
    * set and a let-go on the catch's screens alone, a burnt tooth nowhere
    * (`ratchet-fx.ts`, `view-role-clocks-c.ts`). */
   readonly ratchet = new RatchetFx();
+  /** THE MANTLE's kick, flare and hull shock, and its receipts' bursts —
+   * thrown the same on both screens, like the rest of it (`mantle-fx.ts`). */
+  readonly mantle = new MantleFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

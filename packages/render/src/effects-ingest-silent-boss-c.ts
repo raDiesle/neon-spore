@@ -107,10 +107,9 @@ export const INGEST_SILENT_BOSS_C = [
   "gorgeNick",
   "gorgePryFill",
   "tasterPryFill",
-  // THE MANTLE's ten, nothing carried into the next frame: only its
-  // simulation lane has landed, so there is no picture yet to redraw a
-  // transient over. Sound is what these ten get instead
-  // (`packages/audio/src/bind-mantle.ts`).
+  // THE MANTLE's ten: its kick, flare, shock and bursts are `mantle-fx.ts`',
+  // read above the loop with the rest of each boss's; how far the shell is
+  // pried stays read off the state.
   "mantleEnter",
   "mantleLight",
   "mantleShear",
@@ -121,8 +120,10 @@ export const INGEST_SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
-  // THE KEEL's sixteen, for THE MANTLE's reason: only its simulation lane
-  // has landed (`packages/audio/src/bind-keel.ts`).
+  // THE KEEL's sixteen, nothing carried into the next frame: only its
+  // simulation lane has landed, so there is no picture yet to redraw a
+  // transient over. Sound is what these get instead
+  // (`packages/audio/src/bind-keel.ts`).
   "keelEnter",
   "keelLight",
   "keelLock",

@@ -1765,6 +1765,7 @@ by hand never moves.
 | `packages/render/src/mantle-pose.ts` | **The clock THE MANTLE is posed off** (§23, *Animation*): five poses |
 | `packages/render/src/mantle-shape.ts` | **Where THE MANTLE is**, in field pixels: the two valves of its shell, the plates they are laid in |
 | `packages/render/src/mantle-grip.ts` | **The thumbs on THE MANTLE** — half two of the look lane |
+| `packages/render/src/mantle-fx.ts` | What THE MANTLE leaves behind a frame: the **kick** of the shell as a plate-pair shears |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |

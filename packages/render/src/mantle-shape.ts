@@ -96,6 +96,16 @@ export function mantleRing(l: Layout, at: Point): Point & { r: number } {
 }
 
 /**
+ * Where the leaking spark's bead is, `along` 0 at the gap under the shell to 1
+ * on the hull: drawn there (`mantle-draw.ts`) and put out there
+ * (`mantle-fx.ts`), one place.
+ */
+export function mantleSparkPoint(l: Layout, at: Point, col: number, along: number): Point {
+  const from = at.y + RY * l.tile;
+  return { x: fieldX(l, col), y: from + (l.hullY - from) * along };
+}
+
+/**
  * THE CASE's flank as a share of the half-width, `f` of the way nose to tail:
  * round up to full width over the first third, then one long fall to a blunt
  * tail (`tools/shape-sheet/src/forms/hinged.ts`, unchanged).

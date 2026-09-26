@@ -61,6 +61,9 @@ export function drawOnShip(
   // And THE RATCHET's: every clean tooth is one shudder through the plating
   // and a burnt one none (`ratchet-fx.ts`, §22).
   held.effects.boss.ratchet.drawShock(ctx, l, surfaceY, view.time);
+  // And THE MANTLE's: each shearing pair is one shudder through the plating,
+  // and the core going out one more (`mantle-fx.ts`, §23).
+  held.effects.boss.mantle.drawShock(ctx, l, surfaceY, view.time);
   // And a gum splashing across the ship, on the same membrane and over the
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).

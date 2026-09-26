@@ -22498,3 +22498,13 @@ Bottleneck: writing — the director's row, pose and spec table each restate wha
 Bottleneck: reading — each creature's rule lives in two or three sim files, and a scratch diagnostic that printed breaches by tick was what showed which rule to read.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's transients: the kick of a shear, the core's flare, the hull's shudder
+
+- reading: 5 min. THE RATCHET's fx and its wiring through the roster, the verbs, the drawer and the ship's plating; §23's *Presentation*.
+- writing: 15 min. `mantle-fx.ts`, the spark's place factored into `mantleSparkPoint`, the drawer's kick, blow and flare, the fx test, the blow's row.
+- looking: 0 min. The frames are compared as logs; nothing was looked at by an eye.
+- friction: 0 min. None.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a shot spark's event says only its column, so the fuse is timed a second time on the render side to throw the burst where the bead had got to.

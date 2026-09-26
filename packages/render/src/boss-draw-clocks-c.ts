@@ -94,7 +94,8 @@ export function drawPairBoss(
   // THE MANTLE: a plated shell over the middle of the field, pried open a
   // pair of plates at a time by both thumbs pulling together. Both screens
   // are drawn the same — both valves, both handles and the one cord between
-  // them — because the sum is the point (`mantle-draw.ts`). Nothing outlives
-  // a frame yet: its `effects.boss` field is the look's second half.
-  drawMantle(ctx, l, world, boss, beat, beatPhase, time);
+  // them — because the sum is the point (`mantle-draw.ts`). What outlives a
+  // frame — the kick of a shear, the core's flare, the hull's shudder — is
+  // `effects.boss.mantle` (`mantle-fx.ts`).
+  drawMantle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mantle);
 }

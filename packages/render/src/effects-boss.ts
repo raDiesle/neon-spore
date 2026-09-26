@@ -60,6 +60,7 @@ export class BossTransients extends BossRoster {
     this.spool.ingest(events, l, cfg, burst);
     this.hasp.ingest(events, l, cfg, beatSeconds, role, burst);
     this.ratchet.ingest(events, l, cfg, beatSeconds, role, burst);
+    this.mantle.ingest(events, l, cfg, beatSeconds, burst);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
     this.blows.ingest(events);
@@ -91,6 +92,7 @@ export class BossTransients extends BossRoster {
     this.spool.update(dt);
     this.hasp.update(dt);
     this.ratchet.update(dt);
+    this.mantle.update(dt);
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
     this.blows.update(dt);
@@ -138,6 +140,7 @@ export class BossTransients extends BossRoster {
     this.spool.clear();
     this.hasp.clear();
     this.ratchet.clear();
+    this.mantle.clear();
     this.blows.clear();
   }
 }
