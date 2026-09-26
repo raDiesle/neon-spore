@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2110a01aa — A boss can be built as a rig and seen correctly from any side
+
+The foundation for turning a boss between side, three-quarter and front: parts authored in three dimensions (tubes along a spine, balls), turned and projected per frame with a fixed key light, ordered far-first, hazed with depth, a contact shadow where a ball rests on a tube, opaque densified tube shading and baked lit ball sprites. Motion comes from hashed noise, a wandering breath and chain follow-through. `bun run solid` renders the test rig as a PNG sheet; the technique is in docs/style-guide.md, the research in the depth skill, and four CLOUD ONLY entries in the queue carry the rest. Nothing the game draws changes yet.
+
 ## 2026-09-26 · d55a95c8a — THE MANTLE's transients: a shear kicks the shell and shudders the hull
 
 A plate-pair shearing now kicks the shell down on its hinge, deals it the blow every boss takes and sends one shudder through the hull, with a burst off each valve where the pair was; the split kicks it harder, a finishing tap flares the core, and the last one flares it out with a shudder and the blow. A shot spark bursts where it had run to on its fuse. The same on both screens (render/mantle-fx.ts). Exemption: a look with no shipped alternative — nothing outlived a frame on this boss before.
