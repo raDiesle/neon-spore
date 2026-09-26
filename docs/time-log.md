@@ -24391,3 +24391,5 @@ Bottleneck: writing — the story steps are two rules, but a boss state is eleve
 
 Bottleneck: friction — the previous lane's reconcile with two lanes that
 had landed beside it.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

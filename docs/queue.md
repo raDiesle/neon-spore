@@ -2723,3 +2723,17 @@ has landed — the body, the hands, the fx, the cue and the autopilot hand,
 as far as each has them — reading the section's own row in
 `bosses-choreographed.md`, and leave no two with the same wording.
 `bun run check` proves it.
+
+## Unverified at 143917958: the YouTube thumbnails and video links in docs/spec/tr…
+
+- **Found:** 2026-09-26, claude/queue-unverified-at-8e6e6e71-research-tab-on-the-direc
+- **Files:** `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-markdown.css`, `tools/director/src/markdown.ts`, `tools/director/test/markdown.test.ts`
+
+*The director draws a markdown `---` as a rule, not three dashes* landed from a session that could not look at it. What went unchecked:
+
+- the YouTube thumbnails and video links in docs/spec/transfers-touch.md, opened — the container's proxy refuses YouTube
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
