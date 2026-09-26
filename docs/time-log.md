@@ -21182,3 +21182,5 @@ kinds the shield may push took longer than finding where the push goes.
 
 Bottleneck: none worth the name. The first frame landed after the crash, so
 the tick had to be found by trying two more.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
