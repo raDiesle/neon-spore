@@ -1752,6 +1752,10 @@ by hand never moves.
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
 | `packages/render/src/magnet-ore.ts` | ORE — THE MAGNET's body as the game draws it since 11 September 2026 |
+| `packages/render/src/mantle-draw.ts` | The core's colour: red, the one warm thing on the body |
+| `packages/render/src/mantle-handle.ts` | **THE MANTLE's marks**: the two handles and the one cord between them while the shell is being pried |
+| `packages/render/src/mantle-pose.ts` | **The clock THE MANTLE is posed off** (§23, *Animation*): five poses |
+| `packages/render/src/mantle-shape.ts` | **Where THE MANTLE is**, in field pixels: the two valves of its shell, the plates they are laid in |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |

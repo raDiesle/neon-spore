@@ -468,21 +468,30 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §23 THE MANTLE — the look
+## §23 THE MANTLE — its hands, the second half of its look
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-23-the-mantle-the-look)
-- **Needs:** §23 THE MANTLE's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Needs:** §23 THE MANTLE — the look, half one (the body), landed 26 September 2026
+- **Files:** `packages/render/src/mantle-shape.ts`, `packages/render/src/mantle-handle.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `docs/spec/bosses.md`
 
-Lane two, per `.claude/skills/new-boss` §5, read against THE INSTAR's
-five-point checklist: the shell's two valves as a body with parts a mark can
-sit on, bowing outward under a growing pull (deformation off `mantlePairMilli`
-rather than a bar), the split-open pose a blend rather than a cut, and the
-bared core's alternating-tap finish as the mark saying which gesture. Nothing
-here is drawn yet. A cloud session can render and inspect static frames the
-ordinary way (`bun run frames`), but whether the pull reads right at tempo is
-for the owner's own eye and stays unverified until he has looked.
+Half one drew the body and nothing answers a thumb yet. Half two, per
+`.claude/skills/new-boss` §5 and `.claude/skills/new-boss-state`:
+
+- **The grip**: `mantle-grip.ts` answering `mantleLeft` and `mantleRight` at
+  the knob `mantleHandleRest` puts on the screen, never a second copy of it
+  — the left knob for Player 1 and the right for Player 2 on both phones —
+  and `mantleCore` on the bared core inside `drawMantleRing`'s ring, with the
+  game's input wiring, the `FIELD_CONTROLS` rows, the gallery poses and
+  `docs/spec/controls.md`.
+- **The verb and the cue**: the word on the knob (`PULL`, and nothing below
+  the floor) and the `boss-cue` read for its ten events.
+- **What outlives a frame**: `effects.boss.mantle` (`mantle-fx.ts`, the kick
+  of a shear, the jolt of the split, the flash of the dark) cleared in
+  `Effects.reset()`, with the ten events taken off the two silent lists.
+- **The autopilot hand**, off `NO_HAND` in `tools/director/test/autopilot.test.ts`.
+
+`bun run check` proves all of it but the feel; whether the pull reads at
+tempo stays unverified until the owner has looked.
 
 ## §24 THE KEEL — the look
 

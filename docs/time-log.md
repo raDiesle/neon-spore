@@ -22421,3 +22421,13 @@ Bottleneck: reading — a diagnostic of every half-played wave was needed to fin
 Bottleneck: reading — each creature's answer is in its own long sim file, and the hand needs one rule out of each.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's body: a plated shell pried open by both thumbs at once
+
+- reading: 5 min. §23 and §11.40, THE GIMBAL's shape/pose/draw split, THE CASE's and THE SLATER's drafts.
+- writing: 10 min. Four render files through one `put` transform, the dispatcher's arm, the frame test, the spec rows.
+- looking: 5 min. One `bun run frames` of a pull mid-way; the test's colour counts corrected for `rgba` fills.
+- friction: 0 min. `queue done` refused a title the new half-two item contained, as it should; renamed.
+- landing: 5 min. `check:fast`, the queue entry for half two, `land`.
+
+Bottleneck: writing — a boss's body is four files before a single frame can be seen, since the hit test half two needs has to read the same geometry.

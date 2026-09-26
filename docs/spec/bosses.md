@@ -7558,12 +7558,19 @@ rule — for `mantleHeartbeatTaps`; the last one darkens the core, and it hangs
   no event) already means a mistimed tap costs nothing worse than a beat's
   wait — nothing further had to be built for the sentence to hold.
 
-**Only the simulation lane has landed.** No sounds are bound yet and nothing
-of it is drawn: `tools/director/src/sound-link-none-c.ts` and the render
-package's silent-event lists carry all ten of its events until lane two.
+**The simulation lane and half the look have landed.** The body is drawn
+(26 September 2026): THE CASE's wing-case valve laid with THE SLATER's lapped
+plates, four to a valve, shed a pair at a time tail first with the core's red
+showing through the gap; both flanks bowing on the one summed pull and each
+tail dragged by its own handle; both handles, their grooves, the floor's notch
+and half the threshold's, and the one cord that lights inward from each knob
+by that handle's counted share — grey below the floor — all drawn the same on
+both screens (`render/mantle-draw.ts`, `mantle-handle.ts`, `mantle-shape.ts`,
+`mantle-pose.ts`). Half two is not: no grip answers a thumb on a knob, and no
+sounds are bound — `tools/director/src/sound-link-none-c.ts` and the render
+package's silent-event lists carry all ten of its events until it lands.
 There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), since a hand plays a
-boss against poses that do not exist.
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/mantle.test.ts`): it installs still and lights on cue; a shear

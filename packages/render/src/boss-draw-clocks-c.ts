@@ -3,6 +3,7 @@ import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
 import { drawHasp } from "./hasp-draw.js";
 import type { Layout } from "./layout.js";
+import { drawMantle } from "./mantle-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSpool } from "./spool-draw.js";
@@ -26,7 +27,7 @@ import { drawSpool } from "./spool-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const PAIR_KINDS = ["gimbal", "spool", "hasp", "ratchet"] as const;
+export const PAIR_KINDS = ["gimbal", "spool", "hasp", "ratchet", "mantle"] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
 
@@ -85,5 +86,15 @@ export function drawPairBoss(
   // (`view-role-clocks-c.ts`). What outlives a frame — the jolt and click of
   // a clean tooth, the hull's shudder — is `effects.boss.ratchet`
   // (`ratchet-draw.ts`, `ratchet-fx.ts`).
-  drawRatchet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ratchet);
+  if (boss.kind === "ratchet") {
+    drawRatchet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.ratchet);
+    return;
+  }
+
+  // THE MANTLE: a plated shell over the middle of the field, pried open a
+  // pair of plates at a time by both thumbs pulling together. Both screens
+  // are drawn the same — both valves, both handles and the one cord between
+  // them — because the sum is the point (`mantle-draw.ts`). Nothing outlives
+  // a frame yet: its `effects.boss` field is the look's second half.
+  drawMantle(ctx, l, world, boss, beat, beatPhase, time);
 }
