@@ -491,6 +491,7 @@ Unverified at tempo until the owner has looked.
 ## §28 THE VISE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
+- **Taken:** 2026-09-26, main (claim: claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo)
 - **Needs:** §28 THE VISE — the look, half one (the body), landed first
 - **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
 
