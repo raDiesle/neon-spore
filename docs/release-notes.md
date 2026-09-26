@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 101166687 — The spec marks `MutualRelease` built by THE SURGE, and a copy of its window is refused
+
+Four tables across the choreographed and cinematic pages still listed `MutualRelease` — two lifts within a beat — as unbuilt. THE SURGE built it: the lift is a `drag` with `on: false`, and the window is `liftTogetherUntil` in `beat-clock.ts`. The rows now say so and name the files, and a later boss calls that function: a row in the copies table refuses `lift + tpb` written out anywhere else.
+
 ## 2026-09-26 · 990c8eb02 — A held finger raises no callout and two fingers zoom nothing on an iPhone
 
 Safari ignores `user-scalable=no` and shows its copy/share callout on a held finger unless told not to. `game.css` now sets `-webkit-touch-callout: none` and `-webkit-user-select: none` beside `user-select` on the page, and `refusePinch` (`no-pinch.ts`) cancels WebKit's `gesturestart` and `gesturechange` from a listener that is not passive. Nothing drawn moved.
