@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4c7090ce0 — THE OCULUS's receipts drawn: a shut pair thuds, a core hit flashes wider each time
+
+A pair of leaves held shut now presses the lens down a touch and sends a soft shudder down the plating, with the red blow every boss takes; a reseal thuds the same, quieter, and deals nothing. A core hit flashes white over the socket — a thin flare the first time, filling the socket the third — bursts in the core's colour and deals the blow; the shatter flashes the whole lens. A missed core is left to the boss's own blow at the hull, which every striking boss now shares. A step lighting, a thumb slipping, a pair springing open and the socket swallowed throw small bursts.
+
 ## 2026-09-26 · 881f776df — §35 THE DAVIT: pair LevelTilt with DrawRelease as a steer, the simulation lane
 
 Wave 114 THE DAVIT is in: a crane boom pivoted off the hull's spine, where one seat leans a phone to steer it onto the lit side and holds it there while the other holds a draw and looses it that way; a draw counts only while the partner's lean holds the target and lands only if it lifts while the lean still holds, swiped toward that side. Two looses each way light the pivot, shot in its colour, with relands between the shots that either seat can make. Nine steps, thirteen sounds bound, 26 tests; seven departures from the design argued in docs/spec/bosses.md §11.52. Nothing sends a lean or a draw from a touch yet (queued with the look), nothing is drawn, and there is no autopilot hand.

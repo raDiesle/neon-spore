@@ -2518,7 +2518,6 @@ cannot be photographed there. THE SEAM misses on its own at tick 375 and
 was used instead. Add a way to reach a boss's timeout, for example
 `--until-on bossTimeout` that holds the controls off the ask until the
 window closes, and prove it with a test in `tools/frames/test/`.
-
 ## §25 THE VALVE — a fuller story arc: a backdraught, a brace, a wipe, and a fade
 
 - **Found:** 2026-09-26, main, at the owner's request: existing bosses should
@@ -2562,6 +2561,20 @@ done by a commit it does not carry. `bun run check` proves the refusal.
 - THE DAVIT: no touch sends a lean or draw
 - THE DAVIT is undrawn
 - THE DAVIT never watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
+
+## Unverified at 4c7090ce0: THE OCULUS's thud, core flashes and shatter flash watc…
+
+- **Found:** 2026-09-26, claude/queue-27-the-oculus-its-hands-the-second-half-of-its-l
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`
+
+*THE OCULUS's receipts drawn: a shut pair thuds, a core hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
+
+- THE OCULUS's thud, core flashes and shatter flash watched at tempo
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
