@@ -1759,6 +1759,7 @@ by hand never moves.
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
+| `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |
 | `packages/render/src/countdown-look.ts` | THE COUNT's look as a record VERSUS can patch: `over` on both screens, `count` on the pilot's — IRIS filled in |
 | `packages/render/src/countdown-dial.ts` | DIAL — a kept look for THE COUNT, drawn only on the SHAPES page's LIBRARY |
@@ -1954,6 +1955,10 @@ by hand never moves.
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
 | `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
+| `packages/render/src/plumb-draw.ts` | **THE PLUMB**: a lopsided bob of old bronze hung off a hook over the middle column, a ball on a chain at each end of its beam |
+| `packages/render/src/plumb-marks.ts` | **THE PLUMB's marks**: a level's glass with its bubble, and the lit core in its step's colour |
+| `packages/render/src/plumb-pose.ts` | **The clock THE PLUMB is posed off** (§31, *Animation*) |
+| `packages/render/src/plumb-shape.ts` | **THE PLUMB's geometry**: where the bob hangs, and the paths it is made of |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |

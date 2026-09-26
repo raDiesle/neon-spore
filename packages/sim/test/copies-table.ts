@@ -762,13 +762,13 @@ export const COPIES: Copy[] = [
       /<\s*(?:\w+\.)*cols\s*(?:\)\s*return\s*1\b|\?\s*1\s*:\s*2\b)|midCol\([^)]*\)\s*\?\s*1\s*:\s*2\b/,
   },
   {
-    // **How a struck core shrinks and brightens** — THE VISE's kernel, a
-    // little smaller and brighter per hit. THE RIME's core wrote the figure
-    // out a second time on the day it was drawn, and THE TRIVET's hub was one
-    // paste from a third; the next core retuned would leave a copy answering
-    // for a kernel that no longer exists.
-    call: "viseKernelHurt",
-    owner: "packages/render/src/vise-pose.ts",
-    pattern: /1\s*-\s*0\.12\s*\*\s*\w*hits/,
+    // **How a struck core shrinks and brightens** — THE VISE's kernel figure,
+    // a little smaller and brighter per hit. THE RIME's core wrote it out a
+    // second time on the day it was drawn, and THE TRIVET's hub and THE
+    // PLUMB's core were each one paste from a third; `core-hurt.ts` is the one
+    // copy, and the next core that takes shots calls it.
+    call: "coreHurt",
+    owner: "packages/render/src/core-hurt.ts",
+    pattern: /1\s*-\s*0\.12\s*\*\s*\w+/,
   },
 ];

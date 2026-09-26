@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
+import { coreHurt } from "./core-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -16,7 +17,6 @@ import { drawViseFlash, drawViseKernel, drawViseLitSeam, viseColour } from "./vi
 import {
   viseArrived,
   viseHeldShare,
-  viseKernelHurt,
   viseLeft,
   viseLitSide,
   viseOpenAngle,
@@ -82,7 +82,7 @@ export function drawVise(
   const lit = firing
     ? { color: step.color, left: viseLeft(s, viseWindowBeats(world, step), beat, beatPhase) }
     : null;
-  const hurt = viseKernelHurt(s.hits);
+  const hurt = coreHurt(s.hits);
   drawViseKernel(ctx, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase);
 
   const held = viseHeldShare(world, s, beatPhase);

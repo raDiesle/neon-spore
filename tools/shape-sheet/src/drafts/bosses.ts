@@ -54,11 +54,12 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
     // IDEAS group, so there is no heading left for this card to be offered to.
     // It is still the shape that was drawn for the encounter, and the encounter
     // is still there to be wanted — a picture waiting for a boss, which is what
-    // `free` means and how THE CODEX's card left the same list.
-    status: "free",
+    // `free` means and how THE CODEX's card left the same list. Taken 26
+    // September 2026 by THE PLUMB's bob, combined with THE POMMEL.
+    status: "taken",
     slot: "boss",
     owner:
-      "the only boss that descends continuously, so its shape has to say heavy before it has moved: mass pulled to the bottom, a narrow top where the stalk takes the load, and a lift that comes fast and falls back slowly",
+      "THE PLUMB, taken 26 September 2026, combined with THE POMMEL: the sac is the bob, hung off a hook under a beam with THE POMMEL's balls on chains at its ends, turned edge-on until both are brought true and face-on to show the core in its belly (`render/plumb-shape.ts`). Before that: drawn for an encounter as the only boss that descends continuously, so its shape has to say heavy before it has moved: mass pulled to the bottom, a narrow top where the stalk takes the load, and a lift that comes fast and falls back slowly",
   },
   {
     subject: glyphed("THE CODEX", "a slab whose rim scrolls a key", 96, 54, 13, 1.4),

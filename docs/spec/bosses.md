@@ -8963,16 +8963,27 @@ nothing else, THE SEAM's rule.
 A reading is clamped to ninety degrees either way, gamma's own range, so a
 lie on the wire is only ever a phone held on its edge.
 
-**The simulation lane and the lean reader have landed.** A phone's gamma
+**The simulation lane, the lean reader and half one of the look have
+landed.** The body is drawn (`render/plumb-draw.ts`, 26 September 2026):
+THE WEIGHT's sac as a bob of old bronze hung off a hook over the middle
+column, a beam across it with THE POMMEL's balls on chains at its ends, the
+pilot's heavier, so it hangs lopsided and comes level a quarter per settle
+as a steady phone brings its weight true; a spirit level under each ball,
+lit while its step asks, the bubble at the lean the phone reports and
+bright inside the range; the sac seen edge-on until both weights are true
+and turned face-on to show the core, lit in its colour with its ring
+closing, smaller and brighter per hit; the weights swaying off true as a
+`both` step runs out unheld; and the bob swinging free. A phone's gamma
 goes out as its seat's own drag (`apps/game/src/lean.ts`): one reading each
 time the lean has moved half a degree from the last one sent, never one per
 event, and only while a bob is on the field — a new bob, the wave started
 again, is told the lean afresh; a page hidden sends `on: false` once. iOS is
 asked for the sensor from the lift off THE PLUMB's own READY (`briefing.ts`),
 which is the navigator's first ask — `askForMotion` asks only the pilot. No
-desk key leans yet (`docs/queue.md`). Nothing of it is drawn: the render package's silent-event lists and
-`tools/director/src/sound-link-none-d.ts` carry all twelve of its events
-until lane two. The twelve sounds *are* bound (`audio/src/bind-plumb.ts`),
+desk key leans yet (`docs/queue.md`). Half two of the look, the hands, is
+not in: the render package's silent-event lists and
+`tools/director/src/sound-link-none-d.ts` still carry all twelve of its
+events. The twelve sounds *are* bound (`audio/src/bind-plumb.ts`),
 heard where they happen, the settle pitched up per level and the hit per
 hit. There is no autopilot hand yet (`tools/director/test/autopilot.test.ts`'s
 `NO_HAND`).

@@ -215,4 +215,13 @@ export const CREATURE_HUES = {
   trivetMetal: "#5B616E",
   trivetMetalDark: "#23262E",
   trivetSocket: "#D9E8FA",
+  /**
+   * THE PLUMB's old bronze (§31, *Colour*): a dull olive bronze, its shadow,
+   * and the pale green-white of its level glass. Greener and greyer than
+   * `viseCase`'s brown so the two never read as one family, and far from
+   * both cannons, so the only colour a fire step shows is the one it asks for.
+   */
+  plumbBronze: "#8F8660",
+  plumbBronzeDark: "#2A2A1E",
+  plumbGlass: "#E3EEC4",
 } as const;

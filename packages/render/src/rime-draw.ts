@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type RimeState, rimeLitStep, rimeWiping, type World } from "@neon-spore/sim";
+import { coreHurt } from "./core-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -17,7 +18,6 @@ import {
   rimeRadius,
   rimeSheet,
 } from "./rime-shape.js";
-import { viseKernelHurt } from "./vise-pose.js";
 
 /**
  * **THE RIME**: a frosted pane of glass over the middle column, each half
@@ -58,8 +58,7 @@ export function drawRime(
   const step = rimeLitStep(s);
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing ? { color: step.color, left: rimeLeft(s, beat, beatPhase) } : null;
-  // THE VISE's figure, called: a core is smaller and brighter per hit the same way a kernel is.
-  const hurt = viseKernelHurt(s.hits);
+  const hurt = coreHurt(s.hits);
   drawRimeCore(ctx, l, hurt.size * (1 - 0.6 * shatter), hurt.bright, s.bared, lit, beatPhase);
   ctx.globalAlpha = alpha;
 

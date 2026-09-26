@@ -6,6 +6,7 @@ import {
   trivetLitStep,
   type World,
 } from "@neon-spore/sim";
+import { coreHurt } from "./core-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -32,7 +33,6 @@ import {
   trivetPlatePath,
   trivetRoot,
 } from "./trivet-shape.js";
-import { viseKernelHurt } from "./vise-pose.js";
 
 /** How far the hub sinks as the stand collapses, in tiles. */
 const SINK = 1.4;
@@ -90,8 +90,8 @@ export function drawTrivet(
   drawHub(ctx, l, time);
   const firing = step !== null && step.ask === "fire" && s.hubLit;
   const lit = firing ? { color: step.color, left: trivetLeft(world, s, beat, beatPhase) } : null;
-  // THE VISE's figure, called: a hub's face is smaller and brighter per hit the same way a kernel is.
-  const hurt = viseKernelHurt(s.hits);
+  // A core's hurt, called: a hub's face is smaller and brighter per hit the same way a kernel is.
+  const hurt = coreHurt(s.hits);
   drawTrivetFace(ctx, l, hurt.size * (1 - 0.5 * buckle), hurt.bright, s.hubLit, lit, beatPhase);
   ctx.restore();
 }

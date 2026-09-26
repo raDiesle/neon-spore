@@ -24341,3 +24341,20 @@ Bottleneck: looking — the glow's strength only showed in a real frame.
 Bottleneck: friction — a paragraph repeated word for word across sections turns any edit by text into an edit of all of them.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE PLUMB's look, half one: the body and the level glass
+
+- reading: 20 min. `plumb.ts` and `plumb-step.ts` for what the simulation
+  keeps, THE RIME's four render files and its frame test as the pattern,
+  THE WEIGHT's and THE POMMEL's drafts.
+- writing: 40 min. `plumb-shape.ts`, `plumb-pose.ts`, `plumb-marks.ts`,
+  `plumb-draw.ts`, the frame test, and `coreHurt` hoisted out of THE VISE
+  and THE RIME before a third copy was written.
+- looking: 5 min. One frame forced with a lit left level and both phones
+  read.
+- friction: 5 min. A heredoc with doubled backslashes blocked by the guard
+  hook; the copies row went in with the editor instead.
+- landing: 10 min. `check:fast`, the docs, the commit, `bun run land`.
+
+Bottleneck: writing — four render files for a boss with a beam, two chains
+and two glasses is more drawing than any single-body boss before it.

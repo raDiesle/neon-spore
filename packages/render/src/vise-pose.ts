@@ -113,8 +113,3 @@ export function viseOpenAngle(
   const split = viseSplit(s, world.cfg, beat, beatPhase);
   return split > 0 ? Math.max(open, BARED) + THROWN * split : open;
 }
-
-/** The kernel's size and how bright it burns: a little smaller and brighter for every hit (§28, *Colour*). */
-export function viseKernelHurt(hits: number): { size: number; bright: number } {
-  return { size: Math.max(0.55, 1 - 0.12 * hits), bright: Math.min(1, 0.55 + 0.2 * hits) };
-}

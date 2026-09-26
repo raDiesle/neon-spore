@@ -6,6 +6,7 @@ import { drawKeel } from "./keel-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMantle } from "./mantle-draw.js";
 import { drawOculus } from "./oculus-draw.js";
+import { drawPlumb } from "./plumb-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawRime } from "./rime-draw.js";
@@ -49,6 +50,7 @@ export const PAIR_KINDS = [
   "rime",
   "sling",
   "trivet",
+  "plumb",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -201,5 +203,16 @@ export function drawPairBoss(
   // planted, shot. Both screens are drawn the same — the other seat has to see
   // which foot is lit to say so (`trivet-draw.ts`). Nothing of it outlives a
   // frame yet: its hands and effects are the second half of its look.
-  drawTrivet(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "trivet") {
+    drawTrivet(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE PLUMB: a lopsided bob hung over the middle column, a ball on a chain
+  // at each end of its beam brought true by one seat holding its phone level,
+  // a core in its belly both cannons are asked to hit. Both screens are drawn
+  // the same — the other seat has to see whose bubble is off to say so
+  // (`plumb-draw.ts`). Nothing of it outlives a frame yet: its hands and
+  // effects are the second half of its look.
+  drawPlumb(ctx, l, world, boss, beat, beatPhase, time);
 }

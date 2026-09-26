@@ -543,19 +543,6 @@ sent through `leanReader` so the wire sees the same drag a phone sends;
 range. `bun run check` proves it; `keys.ts` is at 244 lines, so the keys go
 in a file of their own.
 
-## §31 THE PLUMB — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, main (claim: claude/queue-31-the-plumb-the-look)
-- **Needs:** §31 THE PLUMB's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a plumb bob easing to a stop
-as each weight settles true rather than snapping level, plus the on-screen
-bubble-in-a-glass twin `LevelTilt` needs so the tilt reads without seeing
-the other phone move. Nothing here is drawn yet and stays unverified at
-tempo until the owner has looked.
-
 ## DEFERRED — §30 THE TRIVET — sprite atlas experiment: the feet planting home
 
 - **Found:** 2026-09-26, this session
@@ -2542,6 +2529,31 @@ surge); and **THE SLOW's aim** on the lens, one arm in `slow-boss-aim.ts`,
 `case "rime": return still(rimeCentre(l, world.cfg), longer(rimeRadius(l)))`,
 with its row in `slow-boss-aim.test.ts`. Unverified at tempo until the owner
 has looked.
+
+## §31 THE PLUMB — its hands, the second half of its look
+
+- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-look
+- **Needs:** §31 THE PLUMB — the look, half one (the body), landed first
+- **Files:** `packages/render/src/plumb-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/hands/src/`
+
+The body is drawn: THE WEIGHT's sac as a bronze bob on a hook, THE POMMEL's
+balls on chains off its beam, the beam brought level a quarter per settle, a
+spirit level under each ball with its bubble at the phone's lean, the sac
+turned face-on to show the core once both weights are true, the core lit in
+its colour and smaller per hit, and the bob swinging free
+(`render/plumb-*.ts`, `test/plumb-frame.test.ts`). What is left, in lanes:
+**the autopilot hand** — a lean held inside the lit step's range on the asked
+seat, a shot at the lit core (`NO_HAND` in
+`tools/director/test/autopilot.test.ts` until then); **the fx**, in `Effects`
+and cleared in `reset()` — a weight's settle ringing, a drift's jolt, the
+core's hit flash and the free swing's, the twelve `plumb*` events off the two
+silent lists as each gets its burst; **the cue's words** (LEVEL on the asked
+glass, FIRE on the lit core, BOTH across the two glasses); and **THE SLOW's
+aim** on the bob, one arm in `slow-boss-aim.ts` at the core, off
+`plumbHook` and `plumbSacMiddle` plus `plumbCore`, with its row in
+`slow-boss-aim.test.ts`. The sixth pose, the light bleeding off, waits on
+"§31 THE PLUMB — a revised simulation lane, a light left to bleed off".
+Unverified at tempo until the owner has looked.
 
 ## The step colour is written three times: hoist it
 

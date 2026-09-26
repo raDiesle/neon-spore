@@ -104,6 +104,9 @@ export {
   trivetLitStep,
 } from "./trivet.js";
 export { trivetWindowBeats } from "./trivet-step.js";
+// THE PLUMB's the same, for the ring round its core and the creep of its
+// weights off true (`plumb-step.ts`).
+export { plumbWindowBeats } from "./plumb-step.js";
 // THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
 // the picture, the cue and the director's hand. Straight off `vise.ts`
 // (`docs/spec/bosses-choreographed.md` §28).

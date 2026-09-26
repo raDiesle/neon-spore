@@ -179,9 +179,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       seed: 2.4,
     }),
     motion: SWELL,
-    status: "free",
+    // Taken 26 September 2026 by THE PLUMB's counterweights, combined with THE WEIGHT.
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing carries it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. The two were judged side by side and this is the one that stands; THE BURR is in `retired.ts` with the reason it lost. The **walk** it is drawn with has since been claimed — THE THROB wears six clubs on a small core, so `clubbedPoints` is `packages/content/src/body-path-clubbed.ts` now and this card reads the same copy. The body is still free: what a creature took was the construction, not this tuning of it",
+      "THE PLUMB, taken 26 September 2026, combined with THE WEIGHT: its balls on stalks are the bob's two counterweights, a lobed cap apiece on a chain off each end of the beam, the pilot's heavier, each with its own seed so no two are the same (`render/plumb-shape.ts`). Before that, nothing carried it: the same Galaxy Defense stage boss THE BURR was converted from, converted a second time because the first one got the rim wrong. THE BURR reads as a sea urchin — `studded` samples one radius per angle, and a club is wider at its tip than at its waist, so the neck is the one part a radius function cannot keep. This is the same body walked instead of sampled, which is the only way this catalogue can draw a ball on a stalk. The two were judged side by side and this is the one that stands; THE BURR is in `retired.ts` with the reason it lost. The **walk** it is drawn with has since been claimed — THE THROB wears six clubs on a small core, so `clubbedPoints` is `packages/content/src/body-path-clubbed.ts` now and this card reads the same copy. The body is still free: what a creature took was the construction, not this tuning of it",
   },
 ];
