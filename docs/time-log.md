@@ -22137,3 +22137,23 @@ Bottleneck: writing — the registrations again, a boss named in some thirty
 files before the first check runs.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A cloud-legal performance audit: reading, no bun run perf
+
+- reading: 55 min. `docs/queue.md`, `docs/cloud-session.md`, `docs/performance.md`
+  in full to confirm `bun run perf` is forbidden here in any form; `step.ts`,
+  `briefing.ts` and four tests to rule out the intro/guide gate as the cause of
+  a near-empty probed field; `config.ts`/`config-derived.ts` for `tickHz`/`bpm`.
+- writing: 40 min. A `tools/probe/scratch/bench.ts` headless step() benchmark
+  (rewritten once), the findings doc, four queue entries.
+- looking: 0 min. No frame this task could measure — that is the finding.
+- friction: 35 min. Chased a wrong hypothesis (the briefing/intro gate holding
+  the probed world) before finding `DEFAULT_CONFIG.briefings: false` means it
+  never held in the first place; the real reason for near-zero standing
+  creature counts is queued as its own finding rather than fixed here.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: reading — the coordinator's brief assumed a local machine that
+could run `bun run perf`; working out what this session could measure instead,
+and why the first probe attempt still measured nothing real, took longer than
+writing either the doc or the queue entries.
