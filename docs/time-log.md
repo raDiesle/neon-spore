@@ -22319,3 +22319,14 @@ and only origin's log and the reflog showed it.
 Bottleneck: friction — a wave opened by the TEST panel opens on its guide, and nothing said so until a trace did.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `byDepth()` measured and left as it is
+
+- reading: 5 min. The queue entry, `depth.ts`, the audit it came from.
+- writing: 5 min. The audit updated with the figure and why no cache.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — deciding a cache was not worth its state took longer than
+timing it.

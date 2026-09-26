@@ -827,23 +827,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `byDepth()` sorts and copies every creature, every frame, whatever is on screen
-
-- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-bydepth-sorts-and-copies-every-creature-every-fr)
-- **Files:** `packages/render/src/depth.ts`, `packages/render/src/frame-field.ts`
-
-`byDepth()` (`depth.ts:148`) does `[...creatures].sort(...)` once per frame
-from `drawCreatures` (`frame-field.ts:73`), on every wave, whether or not
-depth order changed since the last frame. It is the one render-side cost that
-is neither gated behind "this creature kind is on the field" nor bounded by
-anything but creature count. Cache the sorted order and only re-sort when
-`world.creatures` has actually changed shape (a spawn, a removal, or a swap in
-row/col that could cross a depth boundary), or fold the sort into whatever
-already walks the array once a beat (`onBeat`) instead of once a frame. Pin it
-with a case in `packages/render/test/frame.test.ts` or a small dedicated test
-that counts calls to the comparator across repeated frames of a still field.
-
 ## The shot sweep rescans every creature and every pod, per bullet, per tick
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26

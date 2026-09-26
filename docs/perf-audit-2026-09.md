@@ -20,6 +20,17 @@ spots redo work every frame regardless of what is on screen:
 - **`byDepth()`** (`packages/render/src/depth.ts:148`) copies and sorts the
   whole creature array every frame, for every wave, whether or not depth
   order actually changed.
+  **Measured afterwards, and left as it is** (26 September 2026): a bun
+  loop timing `byDepth` alone takes 0.7 µs a frame at 20 bodies, 2.6 µs at
+  60 and 9 µs at 150. That is well under a thousandth of a 16.7 ms frame at
+  any population the game reaches. A cache kept between frames would have to
+  live in `Effects` and be cleared on a restart. It would also have to know
+  when the glide reorders two bodies mid-beat (`drawnRow` reads `beatPhase`).
+  Checking that is the same pass over the field the sort already makes. So
+  the queue item was closed without a cache.
+- **`gyres(world)`** was fixed on the same day: the wheels are asked for once
+  a frame and the carried bodies are sorted into them in one pass
+  (`gyreCarried`, `gyre.ts`). The description below is how it stood.
 - **`gyres(world)`** (`packages/render/src/gyre.ts:47`) filters
   `world.creatures` for gyre wheels, and is called twice per frame from two
   different draw functions (`gyre-wind.ts:76`, `gyre.ts:69`) — the same
@@ -92,7 +103,7 @@ below.
 
 Real frame time and real GC pause length on a device — the thing `bun run
 perf` measures weekly against a baseline — needs a browser and a machine,
-neither of which this session has. The two `read` findings above (`byDepth`,
-`gyres`) are plausible costs, not measured ones, until someone runs `bun run
-perf --wave "THE GYRE"` (the worst measured frame above) on real hardware
-and checks whether either shows up.
+neither of which this session has. Of the two `read` findings above,
+`byDepth` has since been timed headlessly and is negligible, and `gyres` is
+fixed. Whether THE GYRE's frame (the worst measured one above) shows anything
+else still needs `bun run perf --wave "THE GYRE"` on real hardware.
