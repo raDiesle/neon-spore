@@ -804,6 +804,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, and the pair answers it downward |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: a wrong candidate first, then six organs described across the two seats |
+| `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |

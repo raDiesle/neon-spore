@@ -21257,3 +21257,18 @@ Bottleneck: `check:fast`. Three of its rules each asked for one more line, and
 each needed a full run to find.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — ONE LAST CHANCE: a wave and its guide that teach the push-back
+
+- reading: 10 min. THE VOLLEY's film, the tutorial rules, and where act one
+  first puts the shield under a creature.
+- writing: 20 min. The film, its test, the wave, and the pinned wave numbers
+  in nine tests and documents that moved with the insertion.
+- looking: 10 min. A probe of the film's ticks to place the late trigger
+  and the shot at the top of the climb.
+- friction: 15 min. `bun run frames --until` missing a push that fired
+  between presses (queued), and the full suite failing on every pinned count.
+- landing: 5 min.
+
+The bottleneck was the renumbering: one wave inserted early in act one moved
+every wave number a test or a document pins after it.

@@ -3,6 +3,7 @@ import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { CYAN } from "./scenes/cyan.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
+import { ONE_LAST_CHANCE } from "./scenes/one-last-chance.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
@@ -82,10 +83,9 @@ import { type OwedSceneId, SCENES_OWED } from "./scenes-owed.js";
  * *where does page `n` start and stop*. The shapes a film is written in are
  * `scene-types.ts`; `.claude/skills/new-tutorial` is how to write one.
  *
- * **The choreographed bosses' films are next door** (`scenes-choreographed.ts`):
- * THE GORGE's took this list to its 250th line, and the fifteen designs on
- * `docs/spec/bosses-choreographed.md` are one page of the spec, so their
- * films are one file of the list. A new film for one of them goes there.
+ * **The choreographed bosses' films are next door** (`scenes-choreographed.ts`),
+ * one file for the one page of the spec they were designed on; a new film for
+ * one of them goes there.
  */
 
 export type SceneId =
@@ -95,6 +95,7 @@ export type SceneId =
   | "twoRocks"
   | "theHand"
   | "torch"
+  | "oneLastChance"
   | "theLure"
   | "theThrob"
   | "theDart"
@@ -159,6 +160,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   twoRocks: TWO_ROCKS,
   theHand: THE_HAND,
   torch: THE_TORCH,
+  oneLastChance: ONE_LAST_CHANCE,
   theLure: THE_LURE,
   theThrob: THE_THROB,
   theDart: THE_DART,

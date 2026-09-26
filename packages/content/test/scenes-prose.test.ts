@@ -86,9 +86,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-eight of ninety-nine";
-    expect(guided.length, fix).toBe(88);
-    expect(WAVES.length, fix).toBe(99);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-nine of the hundred";
+    expect(guided.length, fix).toBe(89);
+    expect(WAVES.length, fix).toBe(100);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

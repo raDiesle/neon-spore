@@ -874,3 +874,29 @@ the shield answers it on its bent rows. Place them the way
 skin the host passes to `Effects.ingest`, less the volley's radius
 (`volleyBallRadius`, not `rockRadius`). Proof: a case beside
 `landing.test.ts`'s crater case, and `bun run check`.
+
+## `bun run frames --until` misses an event that fires between two presses
+
+- **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
+- **Files:** `tools/frames/reach.ts`, `tools/frames/until.ts`
+
+`reachFirstFrame` hands `until.event` to `d.advance` only on the last segment
+of `pressPlan`; every earlier segment advances blind. So `--press` that keeps
+pressing after the event (a guard every beat, say) and `--until shieldPush`
+reports the push as missed although it happened, and `--until-on N` counts
+only the occurrences after the last press. The lane worked round it by ending
+the presses before the push. Watch the event on every segment, carry the count
+across them, and stop at the Nth wherever it falls; a test in
+`tools/frames/test/` that presses past the event holds it.
+
+## `packages/content/src/scenes.ts` is at 250 lines
+
+- **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
+- **Files:** `packages/content/src/scenes.ts`
+
+ONE LAST CHANCE's film took the last line; the header paragraph on the
+choreographed films was shortened by one to make room. The next scene
+registered pushes it over. Move the `SCENES` table (or the `SceneId` union and
+the imports that feed it) into a file of its own imported back, the way the
+wave acts were cut out of `waves.ts`. Proof: `bun run check`, both files well
+under 230.

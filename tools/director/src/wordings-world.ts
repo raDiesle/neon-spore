@@ -27,7 +27,7 @@ import {
  */
 
 /** The first wave that names the full STANDARD set (`control-sets-table.ts`). */
-export const WORDINGS_WAVE = 13;
+export const WORDINGS_WAVE = 14;
 
 export const SLICK_COL = 3;
 export const BULB_COL = 7;

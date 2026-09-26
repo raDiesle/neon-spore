@@ -123,6 +123,22 @@ export const WAVES_ACT_1: Wave[] = [
     controls: "standard4",
   },
   {
+    id: "oneLastChance",
+    name: "ONE LAST CHANCE",
+    guide: {
+      scene: "oneLastChance",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "meteor", color: null },
+      { beat: 3, col: 3, color: "red" },
+      { beat: 6, col: 1, color: "cyan" },
+      { beat: 9, col: 5, kind: "meteor", color: null },
+      { beat: 10, col: 5, color: "cyan" },
+      { beat: 13, col: 2, color: "red" },
+    ],
+    controls: "standard4",
+  },
+  {
     id: "shieldThenCannon",
     name: "SHIELD, THEN CANNON",
     entries: [

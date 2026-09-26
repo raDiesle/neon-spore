@@ -118,6 +118,11 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // fired at where something *is*, and a rock is the one body the pilot can
   // answer without the cannon leaving the column the pair has agreed on.
   "THE LEAD": ["meteor"],
+  // ONE LAST CHANCE introduces no creature — what is new is that the shield
+  // pushes a creature back up once and never kills it — and the rock is the
+  // contrast the lesson is made of: the one body the shield *is* for, in the
+  // same column as a slick the shield will only send back.
+  "ONE LAST CHANCE": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

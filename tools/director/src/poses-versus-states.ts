@@ -19,7 +19,7 @@ import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
  * wave list that reordered under this fails there rather than quietly drawing
  * a band with nothing on it.
  */
-export const WAVE_WITH_BOTH_FACES = 13;
+export const WAVE_WITH_BOTH_FACES = 14;
 
 /**
  * The band with an ACTION face on it. Every other pose on the sheet starts

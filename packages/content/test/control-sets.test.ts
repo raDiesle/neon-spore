@@ -253,8 +253,9 @@ describe("the standard ladder", () => {
       "standard2",
       "standard2",
       "standard3",
-      // Eight waves on the top rung, because the maw is held back until
+      // Nine waves on the top rung, because the maw is held back until
       // SALVAGE — the one wave whose subject asks for it.
+      "standard4",
       "standard4",
       "standard4",
       "standard4",
