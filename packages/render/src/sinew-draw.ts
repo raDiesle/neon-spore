@@ -100,6 +100,6 @@ function drawMass(
   const hex = crushed ? PALETTE.ember : mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.35);
   const rim = crushed ? PALETTE.emberRim : PALETTE.hullRim;
   const m = { x: c.x, y: c.y, rx, ry: sinewMassRy(l), tile: l.tile };
-  paintMass(ctx, path, m, hex, rim, strain);
+  paintMass(ctx, path, m, hex, rim, strain, time);
   drawHurt(ctx, path, hurt);
 }

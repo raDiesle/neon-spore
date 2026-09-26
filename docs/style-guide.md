@@ -313,6 +313,17 @@ is the same wobble, folded into the angle `litAt` is called with rather than
 into the plate's geometry, on its own period so it does not come back into
 step with the ring's drift or the breath (`LIT_WOBBLE`/`LIT_WOBBLE_RATE`).
 
+**Nor is it only a bearing** — the same failure is there wherever a lit
+surface's *position* is read off a value that never moves at all. THE
+SINEW's muscle mass (`sinew-flesh.ts`) shades itself with a radial gradient
+centred a fixed `rx * 0.3, ry * 0.5` off the mass's own centre, and that
+offset never moved a hair — while the mass's own silhouette breathes on its
+own terms, wobbling by the blob path's `time * 0.4`. Beautifully lit and
+still a still life. The fix is the same wobble, folded into the gradient's
+offset rather than into the plate's geometry or a bearing, on its own period
+so it does not come back into step with the blob's own drift, the fibres'
+sway or their wave (`MASS_LIT_WOBBLE`/`MASS_LIT_WOBBLE_RATE`).
+
 **A glow inside the body is a different cue from a lit surface**, and the
 owner asked for it by name alongside gradients and fills on 26 September
 2026. `lightHide`'s zones all read the hide as an opaque shell with light

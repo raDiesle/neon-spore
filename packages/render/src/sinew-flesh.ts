@@ -30,6 +30,18 @@ export interface Muscle {
   tile: number;
 }
 
+/** How far the mass's own specular drifts off its resting spot, as a share of
+ * `rx`/`ry`, and how long that takes. The mass's silhouette already breathes
+ * on its own (`sinewMassPath`'s blob wobble, `time * 0.4`), but the highlight
+ * that reads it as round sat at a fixed offset from centre no matter how the
+ * body moved under it — beautifully lit and still a still life
+ * (`docs/style-guide.md`'s "Depth on a body that already ships"). On its own
+ * period, distinct from the blob's own drift (0.4), the fibres' sway (1.1) and
+ * wave (`WAVE_HZ`, 1.8), so the highlight never comes back into step with any
+ * of the mass's other motion. */
+const MASS_LIT_WOBBLE = 0.06;
+const MASS_LIT_WOBBLE_RATE = 0.27;
+
 /**
  * The mass: `hex` its flesh, `rim` its inside light, `strain` 0..1 how hard
  * the pair has it — the wall glows brighter with it, from inside.
@@ -41,6 +53,7 @@ export function paintMass(
   hex: string,
   rim: string,
   strain: number,
+  time: number,
 ): void {
   const { x, y, rx, ry, tile } = m;
   ctx.save();
@@ -51,9 +64,10 @@ export function paintMass(
   ctx.fill(body);
   ctx.globalAlpha = 1;
   ctx.clip(body);
+  const wobble = MASS_LIT_WOBBLE * Math.sin(time * MASS_LIT_WOBBLE_RATE);
   const shade = ctx.createRadialGradient(
-    x - rx * 0.3,
-    y - ry * 0.5,
+    x - rx * (0.3 + wobble),
+    y - ry * (0.5 + wobble * 0.8),
     0,
     x,
     y,
