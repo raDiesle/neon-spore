@@ -6,6 +6,7 @@ import type { GyreState } from "./creature-state-gyre.js";
 import type { HeadingState } from "./creature-state-heading.js";
 import type { HeldState } from "./creature-state-held.js";
 import type { MineState } from "./creature-state-mine.js";
+import type { PushState } from "./creature-state-push.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
 import type { PodKind } from "./pod-types.js";
@@ -54,6 +55,7 @@ export interface CreatureState
     HeadingState,
     HeldState,
     MineState,
+    PushState,
     StrandState,
     VeerState {
   /**

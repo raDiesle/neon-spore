@@ -489,6 +489,7 @@ by hand never moves.
 | `packages/sim/src/command-locks.ts` | **Every way a press is refused before it is read**, in one place |
 | `packages/sim/src/command-leave.ts` | **The two presses that leave a run**, read above every lock a boss or a fault puts on a press |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
+| `packages/sim/src/config-push.ts` | **How far the shield pushes a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
 | `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
 | `packages/sim/src/pulse-hash.ts` | What THE PULSE puts into `hashWorld`, and nothing else |
@@ -512,6 +513,7 @@ by hand never moves.
 | `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
 | `packages/sim/src/shot-out.ts` | A shot past the top row: every boss hook up there, then the `shotOut` event |
 | `packages/sim/src/ship-verbs.ts` | **Which commands are a seat talking to the ship**, as against the host talking to the run |
+| `packages/sim/src/shield-push.ts` | **The shield pushes a creature back up the field, once** — the allow-list, the climb and the push |
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
 | `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
 | `packages/sim/src/config-beatbox.ts` | THE BEATBOX's numbers: how many beats one asks for, how near the beat a tap has to land |
@@ -536,6 +538,7 @@ by hand never moves.
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
+| `packages/sim/src/creature-state-push.ts` | **The shield's push, as two fields**, and `shield-push.ts` is the whole of what they mean |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/drag-targets-b.ts` | **Every thing on this field a hand may take hold of, the second page** — the names from THE FLEET's chart on |
 | `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
@@ -558,6 +561,7 @@ by hand never moves.
 | `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
+| `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |

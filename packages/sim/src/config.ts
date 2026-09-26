@@ -18,6 +18,7 @@ import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 import { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 import type { PairConfig } from "./config-pair.js";
 import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
+import { PUSH_DEFAULTS, type PushConfig } from "./config-push.js";
 import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
@@ -54,6 +55,7 @@ export { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
 export { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 export { PAIR_ON, type PairConfig } from "./config-pair.js";
 export { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
+export { PUSH_DEFAULTS, type PushConfig } from "./config-push.js";
 export { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 // The rounds are one block now, and only the block is re-exported here: the
@@ -101,6 +103,7 @@ export interface SimConfig
     MalfunctionConfig,
     PairConfig,
     PodConfig,
+    PushConfig,
     RoundConfig,
     RunConfig,
     RecoilConfig,
@@ -213,6 +216,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...RECOIL_DEFAULTS,
   ...ROCK_CROSS_DEFAULTS,
   ...POD_DEFAULTS,
+  ...PUSH_DEFAULTS,
   ...ROUND_DEFAULTS,
   ...RUN_DEFAULTS,
   ...SHOT_DEFAULTS,

@@ -22,6 +22,20 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-26 — The shield pushes a cannon creature back up, once
+
+- reading: 25 min. THE VOLLEY's climb, `resolveHull`, `wardTurns`, the
+  event's four consumers and the hash fixture.
+- writing: 40 min. The push state, config, event, allow-list, the hull and
+  ward branches, ten tests, the spec paragraph.
+- looking: 0 min. Nothing new is drawn yet; the look is the next lane.
+- friction: 5 min. `check:fast` needed `bun install --force` for two tools'
+  workspace links.
+- landing: 10 min. `check:fast`, one commit, `land`.
+
+Bottleneck: a new event is owed to four exhaustive consumers in three
+packages, and each one is only found by the type error it raises.
+
 ## 2026-09-25 — The director's `3` key is gone; AUTO plays both seats
 
 - reading: 5 min. Where the cue key was bound, stepped and documented.

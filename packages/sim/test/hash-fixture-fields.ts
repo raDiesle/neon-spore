@@ -69,6 +69,8 @@ export const creature = (): Required<Creature> => ({
   veerDist: 3,
   volleyPlates: 2,
   volleyRise: 3,
+  pushRise: 2,
+  pushed: true,
   strandId: 4,
   strandOrder: 2,
   strandSpent: true,

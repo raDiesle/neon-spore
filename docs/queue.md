@@ -924,3 +924,16 @@ must agree: render's `frameLayout` (with `flippedLayout`/`rolledLayout`) and
 the game's input `layout()` in `apps/game/src/viewport.ts`, which hit-tests
 without the world today. A test that a press on a SNAKE lobe lands where the
 lobe is drawn holds the pair together. A look the owner asked for by name.
+
+## `bind.ts` and `ship-fields.ts` sit at their line ceiling
+
+- **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
+- **Files:** `packages/audio/src/bind.ts`, `tools/director/src/ship-fields.ts`
+
+The shield push landed one `case` in `bind.ts`, which is now exactly 250
+lines, and two fields in `ship-fields.ts`, now 243 — the hook asked for a seam.
+The next event or `SimConfig` key will push either over `limits.test.ts`.
+Cut `bind.ts` the way `bind-volley.ts`, `bind-carom.ts` and `bind-gum.ts`
+were cut (the shared-defence cases — deflect, guard, shield push — are a
+natural file), and split `FIELD_GROUP` by group into a second page imported
+back. Proof: `bun run check`, both files well under 230.

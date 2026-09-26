@@ -60,8 +60,12 @@ tap or drag.
 queued and executed on the next beat, so it stays tied to the clock. The shield
 is **passively useless**. A meteor is only deflected if **player 1 triggers at
 the moment of contact**. Both halves must arrive: the right column (player 2)
-and the right moment (player 1). Against creatures the shield does nothing —
-those belong to the cannon.
+and the right moment (player 1). A creature met the same way is **pushed
+back up the field, once** — nine rows (`shieldPushRows` a beat for
+`shieldPushBeats`), and from there it falls again under its
+own rule, still the cannon's to kill; the second arrival breaks the hull
+through the dome (`shield-push.ts`, the owner, 25 September 2026). The rocks,
+THE VOLLEY, THE GUM and the bodies with answers of their own are not pushed.
 
 Trigger window: **900 ms** (`guardWindowMs`). The German original said 260 ms
 in this section and 600 ms in its own open questions; the prototype ran 600.

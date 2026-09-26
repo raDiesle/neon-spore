@@ -6,6 +6,7 @@ import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactWeight } from "./impact.js";
 import { moultArrives } from "./moult.js";
+import { pushOffered } from "./shield-push.js";
 import { beadIsSpent } from "./strand.js";
 import { type Creature, isWardable, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
@@ -94,20 +95,23 @@ export function resolveHull(world: World): void {
 
     const wardable = isWardable(c.kind);
     // A body the shield answers is in reach of it a row before it is in reach
-    // of the hull. Nothing else is: the shield has nothing to say to a slick
-    // or a boss, so those are still only resolved on the ship's row. THE
-    // WARDEN's line never arrives here at all — it hangs where the rim puts it
-    // and falls no further (docs/spec/bosses.md 11.4). `isWardable` rather
-    // than `isMeteorKind`, so THE VOLLEY is offered the same row: it is a rock
-    // until the pair has warded it three times.
-    if (c.row < (wardable ? guardRow : shipRow)) {
+    // of the hull. Nothing else is: the shield has nothing to say to a boss,
+    // so those are still only resolved on the ship's row. THE WARDEN's line
+    // never arrives here at all — it hangs where the rim puts it and falls no
+    // further (docs/spec/bosses.md 11.4). `isWardable` rather than
+    // `isMeteorKind`, so THE VOLLEY is offered the same row: it is a rock
+    // until the pair has warded it three times. And a creature the shield has
+    // not pushed yet is offered it too, once (`shield-push.ts`); pushed, it is
+    // only the hull's again.
+    const answerable = wardable || pushOffered(c);
+    if (c.row < (answerable ? guardRow : shipRow)) {
       survivors.push(c);
       continue;
     }
 
-    const inColumn = wardable && occupiesCol(c, world.shieldCol);
+    const inColumn = answerable && occupiesCol(c, world.shieldCol);
 
-    if (wardable && inColumn && guardArmed(world)) {
+    if (answerable && inColumn && guardArmed(world)) {
       // Turned. Most bodies leave the field here; a volley is hit back *up*
       // it and comes down again, which is the one thing about a ward that is
       // a fact about the creature rather than about the shield (`ward.ts`).

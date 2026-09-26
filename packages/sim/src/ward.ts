@@ -1,5 +1,6 @@
 import { markMoment } from "./balance.js";
-import { bodyCenterCol, type Creature, spanOf } from "./types.js";
+import { shieldPush } from "./shield-push.js";
+import { bodyCenterCol, type Creature, isWardable, spanOf } from "./types.js";
 import { volleyReturn } from "./volley.js";
 import type { World } from "./world.js";
 
@@ -25,12 +26,22 @@ import type { World } from "./world.js";
 /**
  * A body the shield answered. Returns whether it **stays on the field**.
  *
+ * Three answers now: a rock leaves, a volley climbs and loses a plate, and any
+ * other body is pushed back up once (`shield-push.ts`).
+ *
  * The guard record and the balance moment are taken here rather than at the
  * call site, because they are the same for both answers: the pair did their
  * half, and whether the thing they turned is gone or merely going the other
  * way is a fact about the creature and not about the ward.
  */
 export function wardTurns(world: World, c: Creature, guardRow: number): boolean {
+  // **A creature the shield pushes is not a ward the guard record counts.**
+  // `tries`, `deflected` and the moment below are the rocks' lesson — the
+  // column said, the trigger on the beat, the thing gone — and a push is a
+  // rescue from something that was the cannon's to kill. Counting it as a
+  // deflection would tell the pair their shield did its job on a body the
+  // owner wants told as the wrong answer (`shield-push.ts`).
+  if (!isWardable(c.kind)) return shieldPush(world, c, guardRow);
   world.guard.tries += 1;
   world.guard.deflected += 1;
   markMoment(world, true);

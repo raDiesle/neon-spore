@@ -57,6 +57,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   tickHz: "PLUMBING — not a dial a person turns",
   inputDelayTicks: "PLUMBING — not a dial a person turns",
   guardWindowMs: "GUARD — the shared defence",
+  shieldPushRows: "GUARD — the shared defence",
+  shieldPushBeats: "GUARD — the shared defence",
   malfunctionEveryBeats: "THE MALFUNCTION — a control that acts by itself",
   // THE CODEX's hold: how long one key stands before it turns over.
   codexHoldBeats: "THE MALFUNCTION — a control that acts by itself",

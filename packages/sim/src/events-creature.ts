@@ -10,6 +10,7 @@ import type { FenceEvent } from "./events-fence.js";
 import type { GhostEvent } from "./events-ghost.js";
 import type { GumEvent } from "./events-gum.js";
 import type { MagnetEvent } from "./events-magnet.js";
+import type { PushEvent } from "./events-push.js";
 import type { StrandEvent } from "./events-strand.js";
 import type { VeilEvent } from "./events-veil.js";
 import type { VolleyEvent } from "./events-volley.js";
@@ -201,6 +202,7 @@ export type CreatureEvent =
   // And THE VOLLEY's two — the ward that sends it back and the shell bursting
   // over the body — are `events-volley.ts`, on exactly the same terms.
   | VolleyEvent
+  | PushEvent
   // And THE CRAWLER's two — the beam that takes a stripped worm and the burrow
   // when one gets in — are `events-crawler.ts`, on the same terms. Its two
   // *answers* are a plain `destroy` and a plain `deflect`.
@@ -241,6 +243,7 @@ export type { FenceEvent } from "./events-fence.js";
 export type { GhostEvent } from "./events-ghost.js";
 export type { GumEvent } from "./events-gum.js";
 export type { MagnetEvent } from "./events-magnet.js";
+export type { PushEvent } from "./events-push.js";
 export type { StrandEvent } from "./events-strand.js";
 export type { VeilEvent } from "./events-veil.js";
 export type { VolleyEvent } from "./events-volley.js";

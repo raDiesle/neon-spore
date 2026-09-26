@@ -128,6 +128,7 @@ export {
   shellPieceAt,
   shellPiecesLeft,
 } from "./shell.js";
+export { isPushable, pushIsClimbing, pushOffered, pushRiseLeft } from "./shield-push.js";
 export {
   beadIsActive,
   beadIsLit,

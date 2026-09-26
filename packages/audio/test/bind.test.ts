@@ -408,6 +408,7 @@ const SAMPLES: Record<string, SimEvent> = {
   crystalSplit: { type: "crystalSplit", col: 4, row: 5, color: "red" },
   volleyReturn: { type: "volleyReturn", id: 4, col: 2, row: 13, left: 2 },
   volleyHatch: { type: "volleyHatch", col: 2, row: 6, kind: "slick", color: "red" },
+  shieldPush: { type: "shieldPush", id: 5, col: 3, row: 13, kind: "slick" },
   claspBreak: { type: "claspBreak", id: 7, col: 3, row: 5, kind: "bulb", color: "cyan" },
   coilBreak: { type: "coilBreak", id: 8, col: 4, row: 6, ward: true },
   coilJump: { type: "coilJump", id: 9, col: 4, row: 6 },
@@ -657,6 +658,7 @@ const COIL_IDS: Record<string, string> = {
 const VOLLEY_IDS: Record<string, string> = {
   volleyReturn: "impact.bounce",
   volleyHatch: "creature.moult",
+  shieldPush: "impact.bounce",
 };
 
 /**

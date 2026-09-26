@@ -239,6 +239,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return fenceCue(e, cols, rows);
     case "volleyReturn":
     case "volleyHatch":
+    case "shieldPush":
       return volleyCue(e, cols, rows);
     // THE BATON's seven and THE UNDERTOW's nine, in `bind-choreographed.ts`:
     // the branch is narrowed by every case above it, so an event this switch

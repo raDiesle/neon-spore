@@ -69,6 +69,11 @@ export function lateHashParts(c: Creature): number[] {
   // `c.color` beside it.
   out.push(c.volleyPlates ?? -1);
   out.push(c.volleyRise ?? -1);
+  // The shield's push: the climb decides which way the body goes on the next
+  // beat, the volley's reason, and `pushed` whether the shield will answer it
+  // again — one device pushing a slick the other lets through is two hulls.
+  out.push(c.pushRise ?? -1);
+  out.push(c.pushed ? 1 : 0);
   // Which side THE VEER's next change of lane takes, and how wide it is. They
   // decide the column the rock will be standing in three rows from now, and
   // therefore the column the shield has to be in when it lands — so two

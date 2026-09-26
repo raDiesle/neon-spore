@@ -7,6 +7,7 @@ import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { stepGyre } from "./gyre.js";
 import { stepMine } from "./mine.js";
 import { rockCrosses, stepRockAcross } from "./rock-cross.js";
+import { pushIsClimbing, stepPush } from "./shield-push.js";
 import { slowStep } from "./slow-fall.js";
 import { throatHolds } from "./throat-pull.js";
 import type { Creature } from "./types.js";
@@ -51,6 +52,14 @@ import type { World } from "./world.js";
  * before it asks, the last because it keeps its `from` fields across beats.
  */
 export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
+  // **A body the shield has just pushed climbs, before any rule of its own.**
+  // First in the list because it is a condition on the body that outranks its
+  // kind: a dart, a ghost or a chute that is going up has not started its own
+  // path yet, and resumes it from the top of the climb (`shield-push.ts`).
+  if (pushIsClimbing(c)) {
+    stepPush(world, c);
+    return true;
+  }
   // A dart takes a diagonal every other beat and hangs in between, and
   // `stepDart` is the whole of that — a body that both stepped and fell would
   // be moving three rows on the beats it moved.
