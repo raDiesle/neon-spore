@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b53db2e2e — queue next passes over an entry the owner deferred
+
+`bun run queue next` now skips any entry with a `- **Deferred:**` field line, the same way it skips one waiting on an answer. It had handed a session one of the sprite-atlas entries the owner put on hold on 26 September. A body that merely uses the word "deferred" is not read as the field.
+
 ## 2026-09-26 · 285bca345 — THE STARE's timeout blow is its own look landing on the hull
 
 When the eye catches a seat pressing, its gaze now draws in to one hard red ray that burns down the middle column from the eye to the hull, and brands the eye's own almond, with its pupil, into the plating. The brand glows and cools as the ray lets go. Before, a generic lash was thrown out of the sky.
