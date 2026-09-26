@@ -336,6 +336,19 @@ same wobble, folded into the gradient's axis and the gloss's offset
 together, on its own rate distinct from the trail's and the blob's own
 wobble terms (`SAC_LIT_WOBBLE`/`SAC_LIT_WOBBLE_RATE`).
 
+**A shared paint file can be lit correctly and still miss it on one caller.**
+THE UNDERTOW's lobes (`undertow-lobe.ts`) each trace a rim that already
+wobbles per frame — `0.03 * sin(time * 1.3 + a * 2 + seed)` — but the `Mass`
+handed to `undertow-flesh.ts`'s gradient, underlight and film sat on a bare
+`x`, `top`, `skin`, `hw` with no time term at all, while the body drawn two
+functions down in the same file (`drawBody`) already folds its own sway into
+the `Mass` it hands the same paint code. Beautifully lit by design — the
+paint file itself is correct — and still a still life on the one caller that
+never passed its own motion in. The fix is the same wobble, folded into the
+lit `Mass`'s `x` rather than the paint code, on its own rate distinct from
+the rim's own (1.3) and the body's sway (0.9)
+(`LOBE_LIT_WOBBLE`/`LOBE_LIT_WOBBLE_RATE`).
+
 **A glow inside the body is a different cue from a lit surface**, and the
 owner asked for it by name alongside gradients and fills on 26 September
 2026. `lightHide`'s zones all read the hide as an opaque shell with light

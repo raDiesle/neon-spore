@@ -42,6 +42,16 @@ const BURIED = 0.6;
 /** How wide the body swells above the breach that is too narrow for it, in tiles. */
 const BODY_HALF = 1.7;
 
+/** How far a lobe's lit side drifts as it breathes, and how fast. The outline
+ * already wobbles on its own (the `0.03 * sin(time * 1.3 + a * 2 + seed)` term
+ * below), but the gradient and film that light it (`undertow-flesh.ts`) sat on
+ * a fixed `x`, no matter how the rim bulged under them — beautifully lit and
+ * still a still life (`docs/style-guide.md`'s "Depth on a body that already
+ * ships"). On its own rate, distinct from the outline's own (1.3) and the
+ * body's sway (0.9), so it never comes back into step with either. */
+const LOBE_LIT_WOBBLE = 0.06;
+const LOBE_LIT_WOBBLE_RATE = 0.47;
+
 export function drawUndertowLobes(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -92,7 +102,8 @@ function drawLobe(
     pts.push({ x: x + Math.cos(a) * hw * m, y: mid + Math.sin(a) * hh * m });
   }
   const path = splinePath(pts, true);
-  paintLobe(ctx, path, { x, top, skin, hw, tile: l.tile }, tall);
+  const wobble = LOBE_LIT_WOBBLE * Math.sin(time * LOBE_LIT_WOBBLE_RATE + seed * 1.7);
+  paintLobe(ctx, path, { x: x + hw * wobble, top, skin, hw, tile: l.tile }, tall);
   drawHurt(ctx, path, hurt);
 }
 
