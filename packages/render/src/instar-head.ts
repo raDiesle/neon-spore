@@ -27,6 +27,22 @@ import { PALETTE, STROKE } from "./palette.js";
 const LIP_SHUT = 0.08;
 const LIP_OPEN = 0.75;
 
+/**
+ * The jaw's and brow's own idle wobble on `Form.angle`, same reasoning as the
+ * body's `BODY_WOBBLE` (`instar-profile.ts`), the skull's `CROWN_WOBBLE`
+ * (`instar-side-head.ts`) and the tail's `TAIL_WOBBLE` (`instar-tail.ts`,
+ * `docs/style-guide.md`'s "Depth on a body that already ships"): neither
+ * `Form` here ever sets an `angle` at all, so `lightHide` has always shaded
+ * them at a bare `0` (`instar-hide.ts`, `form.angle ?? 0`) — the same still
+ * life as an unmoving `atan2`, just with no motion to begin with. Two
+ * different periods, neither shared with a period already used elsewhere, so
+ * the jaw and the brow do not slide together.
+ */
+const JAW_WOBBLE = 0.05;
+const JAW_WOBBLE_PERIOD = 4.7;
+const BROW_WOBBLE = 0.05;
+const BROW_WOBBLE_PERIOD = 8.6;
+
 /** The upper jaw and brow, from the lip up, in head radii. */
 const UPPER: readonly (readonly [number, number])[] = [
   [-0.64, 0.02],
@@ -79,7 +95,14 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     else chin.lineTo(p.x, p.y);
   });
   chin.closePath();
-  const jaw = { x: down.x, y: down.y + r * 0.28, r: r * 0.72, ry: r * 0.36 };
+  const jawWobble = JAW_WOBBLE * Math.sin((time * (Math.PI * 2)) / JAW_WOBBLE_PERIOD);
+  const jaw = {
+    x: down.x,
+    y: down.y + r * 0.28,
+    r: r * 0.72,
+    ry: r * 0.36,
+    angle: jawWobble,
+  };
   drawPlate(ctx, chin, fade, 0.6, hurt, jaw);
   drawScales(ctx, chin, jaw, r * 0.11, fade);
   // Slime off the chin, stretching and giving back.
@@ -135,7 +158,14 @@ export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): void {
     else skull.lineTo(p.x, p.y);
   });
   skull.closePath();
-  const brow = { x: up.x, y: up.y - r * 0.36, r: r * 0.9, ry: r * 0.42 };
+  const browWobble = BROW_WOBBLE * Math.sin((time * (Math.PI * 2)) / BROW_WOBBLE_PERIOD);
+  const brow = {
+    x: up.x,
+    y: up.y - r * 0.36,
+    r: r * 0.9,
+    ry: r * 0.42,
+    angle: browWobble,
+  };
   drawPlate(ctx, skull, fade, 0.7, hurt, brow);
   drawScales(ctx, skull, brow, r * 0.12, fade);
   drawSeam(ctx, r2(up, r, 0, -0.54), r2(up, r, 0.03, -0.3), r2(up, r, 0, -0.08), fade, 0.6);

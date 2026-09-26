@@ -22,6 +22,18 @@ import { splinePath } from "./spline.js";
 /** Segments between the engines and the back of the head. */
 const SEGMENTS = 5;
 
+/**
+ * Each segment's own idle wobble on `Form.angle`, same reasoning as the
+ * jaw's and brow's `JAW_WOBBLE`/`BROW_WOBBLE` (`instar-head.ts`,
+ * `docs/style-guide.md`'s "Depth on a body that already ships"): a
+ * segment's `Form` never sets an `angle` either, so it has always shaded at
+ * a bare `0`. One wobble, phase-offset per segment the same way the lamps'
+ * pulse already is (`time * 2.4 - k * 0.8`), so the five plates don't turn
+ * in step.
+ */
+const SEGMENT_WOBBLE = 0.05;
+const SEGMENT_WOBBLE_PERIOD = 5.0;
+
 export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
   const rear = instarFarEnd(l, f);
@@ -45,7 +57,9 @@ export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look):
       blobPoints(c.x, c.y, rad, rad * 0.62, 5, 0.05, 0.02, time, 40 + k, 20),
       true,
     );
-    const form = { x: c.x, y: c.y, r: rad, ry: rad * 0.62 };
+    const wobble =
+      SEGMENT_WOBBLE * Math.sin((time * (Math.PI * 2)) / SEGMENT_WOBBLE_PERIOD - k * 0.8);
+    const form = { x: c.x, y: c.y, r: rad, ry: rad * 0.62, angle: wobble };
     drawPlate(ctx, p, fade, 0.35 + 0.2 * t, hurt, form);
     drawScales(ctx, p, form, rad * 0.24, fade);
     const y = c.y + rad * 0.15;

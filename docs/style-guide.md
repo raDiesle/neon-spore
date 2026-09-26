@@ -289,6 +289,18 @@ at rest it is the identical still life — and gets a third, differently
 perioded wobble rather than sharing either existing one
 (`TAIL_WOBBLE`/`TAIL_WOBBLE_PERIOD`).
 
+**A `Form` that never sets `angle` at all is the same still life with the
+constant left out**, since `lightHide` reads a missing `angle` as a bare `0`
+(`instar-hide.ts`, `form.angle ?? 0`) — indistinguishable from the skull's
+`angle: -0.2` except that the number was never written down. THE INSTAR's
+face-on jaw and brow (`instar-head.ts`) and its face-on body segments
+(`instar-front.ts`) were all like this, and all get the same wobble folded in
+as their first `angle`, each on its own period
+(`JAW_WOBBLE`/`JAW_WOBBLE_PERIOD`, `BROW_WOBBLE`/`BROW_WOBBLE_PERIOD`,
+`SEGMENT_WOBBLE`/`SEGMENT_WOBBLE_PERIOD` — the segments phase-offset per
+segment the way their lamps' pulse already is, so five plates do not turn in
+step either).
+
 **A glow inside the body is a different cue from a lit surface**, and the
 owner asked for it by name alongside gradients and fills on 26 September
 2026. `lightHide`'s zones all read the hide as an opaque shell with light
