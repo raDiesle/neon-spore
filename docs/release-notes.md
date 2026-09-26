@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 1cfd1dfed — AUTO catches the pods: SALVAGE, CATCH AND AIM, THE PURGE and THE HUSK now play through
+
+AUTO's field hand played the cannon and the shield and left every pod hanging, so the pod waves never cleared. It now shoots a hanging pod loose once no body is falling, stands the cannon under a falling one, and holds the maw open over the last stretch of the fall — and lets a husk past with the maw shut. Four waves come out of the half-played list, cleared unscarred.
+
 ## 2026-09-26 · 168faab97 — The shot sweep is measured and left as it is
 
 A headless bench timed every shot's scan of the bodies and pods on the field. It costs 3.6 µs a tick at 20 bodies and 10 shots, and 26 µs at 60 and 30. The heaviest case is 0.3% of a frame. A column bucket would have to be rebuilt every tick, because bodies mid-move, wide bodies and the queen each stand in lanes of their own. So it would cost the same pass it saves. The figures are in the September performance audit, and the queue item is closed with no change to the simulation.
