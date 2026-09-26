@@ -630,6 +630,7 @@ owner's, unverified until he has looked.
 ## §30 THE TRIVET — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-30-the-trivet-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 The first choreographed body on this page read off a seat's own panel
