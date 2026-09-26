@@ -24295,3 +24295,5 @@ Bottleneck: writing — a view can only be left undrawn by a box it provably sta
 - landing: 5 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: looking — legs that stopped short of the hub and a collapse that folded inward only showed in a frame.
+
+*Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

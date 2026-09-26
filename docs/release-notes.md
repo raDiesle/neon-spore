@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8a8d7d625 — THE TRIVET is drawn: a gunmetal stand on three needles, its feet lit by the chord
+
+Wave 109's stand gets its body, the first half of its look: SINKER's hub in dull gunmetal with one of CALTROP's needles run out to each foot as a leg, the two outer feet on plates of sockets lit a cold blue-white while a chord wants them and drawn pressed under a held pad, a foot swinging down by the share held and clamped at its ankle on its second plant, the hub lit in its fire step's colour with its ring closing and smaller per hit, the feet creeping loose through a `both` step, and the collapse splaying the legs flat as the hub sinks. The hands — pads on the field, the autopilot hand, the fx, the cue's words and THE SLOW's aim — are queued as the second half.
+
 ## 2026-09-26 · 284d082b8 — THE INSTAR's turn between its two views no longer costs two to five times a still frame
 
 The dive a third into its morph drew 1390 times with 302 gradients; it now draws 1066 with 91, and the roar, coil and hover turns come down with it to 1090–1125 draws and 115–138 gradients against 700–800 at rest. Tubes are sliced by their size on the screen rather than the body's own, a slice or tube past the canvas edge is not filled, and a view flown off the field is not drawn at all, bounded by a box a pixel test holds over the whole script. `instar-budget.test.ts` keeps the turn there.

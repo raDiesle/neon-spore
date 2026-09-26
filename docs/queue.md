@@ -2677,3 +2677,17 @@ know to pass it by `take`. Skip it in the automatic pick the way `waiting`
 is skipped (a `- **Deferred:**` line, or the title's prefix), keep `take`
 and `next <n>` handing it over, and add the case to
 `tools/queue/test/`. `bun run check` proves it.
+
+## Unverified at 8a8d7d625: THE TRIVET's body watched at tempo
+
+- **Found:** 2026-09-26, claude/trivet-rebase
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/palette-creatures.ts`
+
+*THE TRIVET is drawn: a gunmetal stand on three needles, its feet lit by the chord* landed from a session that could not look at it. The commit touched 12 more files. What went unchecked:
+
+- THE TRIVET's body watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
