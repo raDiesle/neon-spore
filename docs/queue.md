@@ -1912,3 +1912,31 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §24 THE KEEL — a revised simulation lane, a held breath before the tempo run
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+
+THE KEEL already ships (wave 103, `docs/spec/bosses.md` §11.41). The spec
+now asks for a new row between the spine going fully rigid and the fast
+tempo run: every seam flares, then the whole spine hums and quivers, and
+both seats must send nothing — hands off both marks — for three beats
+(`SENDING NOTHING`, already built for THE HALTER and THE FLUE, first use on
+THE KEEL, so its `where` array in `tools/director/src/gesture-unbuilt.ts`
+already carries a §24 THE KEEL entry, land it with the rest) before the hum
+settles and the tempo run opens at full brightness; touching either mark
+during the hold loosens one segment, which costs one extra tap once the
+tempo run starts rather than ending the fight. This is one new field, a
+boolean read off the restraint window, plus one new movement dividing the
+beat list where the old movement 3 became movement 4. The locked seam's
+brightness is now three visibly distinct states across the fight (hairline
+after movement 1, a fuller pulsing seam once the socket frees a segment in
+movement 2, a held flare then full white on the new row) rather than one
+texture throughout — a draw-time read of the existing per-segment locked
+booleans and how many are set, no new simulation state beyond the hold's own
+boolean. `bun run check` proves the sim half; the new pose (the arch
+swelling and dimming through the hold) and the three seam-brightness states
+are a look task, queued separately once this lane lands.

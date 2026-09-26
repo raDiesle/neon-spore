@@ -23178,3 +23178,18 @@ Bottleneck: writing — an iris that pivots on its pins rather than fades is
 five points of geometry, and each had to be seen shut and open.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §24 THE KEEL: a held-breath beat before the tempo run, at the owner's request
+
+- reading: 10 min. The full §24 section and `SENDING NOTHING`'s existing
+  `where` array to confirm THE KEEL would be a first use.
+- writing: 20 min. The new movement, the renumbered beat list, the
+  three-state seam brightness and hold-pose notes, the `where`
+  registration and the queue entry.
+- looking: 0 min. Spec and registration only — the look is queued
+  separately.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, this entry, the commit.
+
+Bottleneck: none — a direct revision of an existing section is faster than
+drafting a new one from scratch.
