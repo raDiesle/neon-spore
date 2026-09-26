@@ -22198,3 +22198,17 @@ happen before the write-up is drafted, not after.
 Bottleneck: friction — dropping the imports the cut stranded took as long as the cut.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Queue the real-device profile instead of running it
+
+- reading: 5 min. `docs/queue.md`'s `Where: local` convention and its own
+  entry format, `tools/perf/waves.ts` for the reference waves.
+- writing: 5 min. One queue entry, `Where: local`, naming the worst
+  already-measured frame and what a real run should add.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the owner asked mid-turn to stop parallel profiling and queue the
+real-device work instead — the actual `bun run perf` run never happened this
+lane, only the entry that hands it to a local session by name.
