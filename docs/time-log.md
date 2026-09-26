@@ -21763,3 +21763,17 @@ Bottleneck: `gimbal.test.ts` at the length ceiling, so the two tests needed a
 file of their own with its own copy of the setup.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `bun run shot --wave` names a wave
+
+- reading: 5 min. The shot's flags, the frames tool's own wave resolver, and
+  which list the director's `?wave=` counts.
+- writing: 5 min. The flag, its throw on nothing and beside a `--path`, two
+  tests, the usage and `docs/commands.md` lines.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The last landing waited on another session's uncommitted
+  files in the main checkout before this lane started.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: confirming the director's wave index is `WAVES`' own, which took
+three greps through its store.

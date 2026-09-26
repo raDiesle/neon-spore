@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { WAVES } from "@neon-spore/content";
 import { portIn } from "../director-serve.js";
 import { readShotFlags } from "../shot-flags.js";
 
@@ -69,6 +70,22 @@ describe("readShotFlags", () => {
       nth: 4,
       hold: "Control",
     });
+  });
+
+  /**
+   * The director's `?wave=` is an index into `WAVES`, and a name is what a
+   * caller knows — the filter route reached the first row instead.
+   */
+  it("opens the director on a wave named by name, id or the HUD's number", () => {
+    const at = WAVES.findIndex((w) => w.name === "THE REPRISE");
+    expect(shot("--wave", "THE REPRISE").path).toBe(`/?wave=${at}`);
+    expect(shot("--wave", "theReprise").path).toBe(`/?wave=${at}`);
+    expect(shot("--wave", String(at + 1)).path).toBe(`/?wave=${at}`);
+  });
+
+  it("refuses a wave that matches nothing, and a --path beside a --wave", () => {
+    expect(() => shot("--wave", "THE NOTHING")).toThrow("no wave with that name");
+    expect(() => shot("--wave", "THE REPRISE", "--path", "/?play=1")).toThrow("--path");
   });
 
   it("reads a crop in the element's own pixels", () => {

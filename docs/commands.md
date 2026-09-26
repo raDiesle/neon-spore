@@ -110,6 +110,7 @@ bun run frames <sha>   # PNG frames of the game at a sha — tools/frames/
                        #   header's table says which (tools/frames/run.ts)
 bun run shot <#sel> <out.png>          # one element of the running director
                        #   --serve starts one of its own and stops it; --port uses one that is up
+                       #   --wave "THE REPRISE" opens it on that wave (a name, an id or a number)
 bun run menu-shot <out.png>            # a page of the game's menu — starts its own preview
                        #   --page "SETTINGS > CONTROLS" is the words a thumb would press
                        #   photographs as a phone; --desk for the rows only a mouse is offered

@@ -17,6 +17,9 @@ export function usage(): never {
   console.error("       --nth is which of its matches to press, counting from 1");
   console.error('       --inner is a tab inside the sheet --open just opened, e.g. "WORDINGS"');
   console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
+  console.error(
+    '       --wave opens the director on a wave by name, id or number, e.g. "THE REPRISE"',
+  );
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
   console.error(
