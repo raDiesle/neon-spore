@@ -610,6 +610,7 @@ here is drawn yet and stays unverified at tempo until the owner has looked.
 ## §31 THE PLUMB — the lean reader
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-simulation-lane
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-31-the-plumb-the-lean-reader)
 - **Files:** `apps/game/src/shake.ts`, `apps/game/src/join-room-step.ts`, `apps/game/src/keys.ts`, `packages/sim/src/plumb-hand.ts`
 
 Wave 110 THE PLUMB is in the simulation and unanswerable on a real phone:
