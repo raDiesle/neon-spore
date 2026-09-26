@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4ebf6f736 — A heading used twice no longer stops every ledger merge
+
+`bun run land` stopped on `docs/time-log.md` on 25 September whenever two lanes appended in the same hour, though the ledger is one of the conflicts it settles itself. The cause was not at the end both sides wrote to: `main` carried one heading twice with two different bodies (one lane, landed in two parts under one subject), and the record merge keyed entries by heading alone, so it refused the whole file. Entries are now followed by heading and occurrence, counted from the end nobody writes to, so a second body under an old heading is a row added rather than a conflict. The repo test's ledger now carries the doubled heading, and the 25 September landing rebuilt from history merges to the file that was resolved by hand.
+
 ## 2026-09-26 · cceb969f — Director: CONTROLS › GESTURES draws every gesture and phone event
 
 A fourth inner tab under DOCUMENTATION › CONTROLS catalogues what the game's controls can be built from: thirty-three gestures, each drawn as a hand on a phone beside the pointer, touch or sensor events it fires on a timeline, and grouped by where it stands — built (with the files that read it), specified by a boss in the spec, worth considering, and missed on purpose (with why not). Under them, the eighteen raw browser events with what an iPhone and an Android do with each and which file of the game listens.
