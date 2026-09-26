@@ -956,24 +956,6 @@ lift; a jaw is one drag a pad, `id` 0 or 1, `on` down and up
 yet, so the wheel is unanswerable on a phone until this lands; a test that
 a back-and-forth rub sends a rising count and a pad lift sends its `id`.
 
-## §34 THE CYST — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-34-the-cyst-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-No new primitive: `FreezeTap` (THE VALVE's) and `SqueezeGap` (THE VISE's)
-paired as a dependency rather than a sequence — a flank's own
-`cystConvulsing` drift widens its gap every tick too fast for a pinch
-alone to close, so `SqueezeGap` only nets progress while the *other*
-seat's `FreezeTap` has that flank stilled. Eleven steps, three movements,
-the freezing hand always the squeezing hand's partner rather than the
-same seat doing both. The full beat list and primitive table entry are
-§34 of `docs/spec/bosses-choreographed.md`. `FreezeTap` and `SqueezeGap`
-each gain a second `where` entry in `tools/director/src/gesture-unbuilt.ts`
-— already done, land it with the rest. THE SLOW on every freeze and pinch
-window together. `bun run check` proves it.
-
 ## §34 THE CYST — the look
 
 - **Found:** 2026-09-26, this session
