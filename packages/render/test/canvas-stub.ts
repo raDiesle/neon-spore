@@ -12,10 +12,29 @@
  * Bun has no DOM, so this also installs the two globals render/ reaches for:
  * `document.createElement("canvas")` (glow sprites, the dither tile) and
  * `Path2D`.
+ *
+ * The context is a chain of three, one file each: `canvas-stub-state.ts`
+ * (styles, tally, log, transform), `canvas-stub-text.ts` (where words land),
+ * and the draw calls here. The checks every argument goes through, and the
+ * path, are `canvas-stub-check.ts`.
  */
 
 import { cpuTimeout } from "../../../tools/test/cpu-time.js";
 import { clearBakedCaches } from "../src/baked.js";
+import {
+  fail,
+  nums,
+  radii,
+  StubGradient,
+  StubImageData,
+  StubPath,
+  StubPattern,
+  setActiveLog,
+  setActiveTally,
+} from "./canvas-stub-check.js";
+import { StubText } from "./canvas-stub-text.js";
+
+export type { TextBox } from "./canvas-stub-text.js";
 
 /**
  * The cap a test that draws through this canvas runs under.
@@ -58,381 +77,9 @@ import { clearBakedCaches } from "../src/baked.js";
  */
 export const FRAME_TIMEOUT_MS: number = cpuTimeout(3_000);
 
-const COLOR = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$|^rgba?\([^)]+\)$/i;
-
-class StubFail extends Error {}
-
-/** Where one `fillText` landed: its top-left corner and its size. */
-export interface TextBox {
-  text: string;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-}
-
-function fail(where: string, detail: string): never {
-  throw new StubFail(`${where}: ${detail}`);
-}
-
-/** Shared by every counted call site, including StubPath's constructor,
- * which has no `this: StubContext` to hang a method off of. */
-let activeTally: Map<string, number> | undefined;
-let activeLog: string[] | undefined;
-
-function round(v: unknown): unknown {
-  return typeof v === "number" ? Math.round(v * 1000) / 1000 : v;
-}
-
-function hit(name: string, args?: unknown[]): void {
-  if (activeTally) activeTally.set(name, (activeTally.get(name) ?? 0) + 1);
-  if (activeLog) {
-    const rendered = args ? args.map(round).join(", ") : "";
-    activeLog.push(args ? `${name}(${rendered})` : name);
-  }
-}
-
-/**
- * A path builder: every coordinate checked, and the call written into the
- * ordered log.
- *
- * **The shape a path is made of is part of the picture**, and it used to be
- * the one part the log left out — `StubPath`'s builders went through `nums`
- * for validation and never through `hit`, so only `new Path2D` appeared and
- * that is a count rather than a shape. `.claude/skills/render-perf` names an
- * ordered diff of the log as the proof that a speed change draws the same
- * thing, and the savings left in this renderer are mostly of the shape *move
- * work out of `fillRect` and into a path* — invisible to that diff on the
- * side that matters. THE FLEET's crossings became exactly that and had to be
- * held with an arithmetic invariant instead.
- *
- * Logged and not tallied: `new Path2D` is the count that a budget is written
- * against, and a row per builder would be a hundred and thirty of them for
- * one lattice.
- */
-function drew(where: string, values: number[]): void {
-  nums(where, values);
-  if (activeLog) activeLog.push(`${where}(${values.map(round).join(", ")})`);
-}
-
-/** Every coordinate that reaches the canvas has to be a real number. */
-function nums(where: string, values: number[]): void {
-  for (const v of values) {
-    if (typeof v !== "number" || !Number.isFinite(v)) fail(where, `${v} is not a finite number`);
-  }
-}
-
-/**
- * The corner radii of a `roundRect`, checked the way a real canvas checks
- * them and returned as the list to log.
- *
- * `CanvasRenderingContext2D.roundRect` takes **either one radius or a list of
- * up to four**, one per corner clockwise from the top-left, and every browser
- * the game runs in honours the list. This stub took the number only, so a
- * shape that is round at the top and near-square at the foot could not be
- * drawn by anything held here — which is every candidate and every frame test
- * — and `tools/versus/candidates/guide-chrome/tide/plate.ts` wrote its crest
- * with one radius and a comment saying why. 16 September 2026.
- *
- * A real one throws `RangeError` on an empty list or a fifth entry and
- * `IndexSizeError` on a negative one, so this refuses all three: a stub that
- * takes a call the browser will not take is a test that passes on a frame
- * nobody can draw.
- */
-function radii(where: string, r: number | number[]): number[] {
-  const list = Array.isArray(r) ? r : [r];
-  if (list.length < 1 || list.length > 4)
-    fail(where, `${list.length} radii — a corner list is one to four`);
-  nums(where, list);
-  for (const v of list) if (v < 0) fail(where, `radius ${v} is negative`);
-  return list;
-}
-
-function color(where: string, value: unknown): void {
-  if (value instanceof StubGradient || value instanceof StubPattern) return;
-  if (typeof value !== "string" || !COLOR.test(value))
-    fail(where, `${String(value)} is not a colour`);
-}
-
-class StubGradient {
-  addColorStop(offset: number, value: string): void {
-    nums("addColorStop", [offset]);
-    if (offset < 0 || offset > 1) fail("addColorStop", `offset ${offset} is outside 0..1`);
-    color("addColorStop", value);
-  }
-}
-
-class StubPattern {}
-
-/** A path is a string of numbers; one NaN in it and the shape silently vanishes. */
-class StubPath {
-  constructor(d?: string) {
-    if (d !== undefined && /NaN|Infinity|undefined/.test(d)) {
-      fail("new Path2D", `path contains ${/NaN/.test(d) ? "NaN" : "a non-finite value"}`);
-    }
-    hit("new Path2D");
-  }
-
-  /** A path can also be built by call, not only from a string — and a real
-   * `Path2D` refuses a non-finite coordinate the same as a string one. Every
-   * builder the game uses is here; a missing one is not a silent no-op but a
-   * `TypeError` at the first frame that reaches it, which is how the veil's
-   * cloud went a whole lane without a single frame drawn over it. */
-  rect(x: number, y: number, w: number, h: number): void {
-    drew("Path2D.rect", [x, y, w, h]);
-  }
-  moveTo(x: number, y: number): void {
-    drew("Path2D.moveTo", [x, y]);
-  }
-  lineTo(x: number, y: number): void {
-    drew("Path2D.lineTo", [x, y]);
-  }
-  quadraticCurveTo(...a: number[]): void {
-    drew("Path2D.quadraticCurveTo", a);
-  }
-  bezierCurveTo(...a: number[]): void {
-    drew("Path2D.bezierCurveTo", a);
-  }
-  closePath(): void {
-    if (activeLog) activeLog.push("Path2D.closePath");
-  }
-  arc(x: number, y: number, r: number, from: number, to: number): void {
-    drew("Path2D.arc", [x, y, r, from, to]);
-    if (r < 0) fail("Path2D.arc", `radius ${r} is negative`);
-  }
-  /** A rounded rectangle in one call — THE MAGNET's plate, and the only
-   * builder in this file that was missing until a frame actually reached it.
-   * One radius or a corner list, refused the way a real one refuses them
-   * (`radii`). */
-  roundRect(x: number, y: number, w: number, h: number, r: number | number[]): void {
-    drew("Path2D.roundRect", [x, y, w, h, ...radii("Path2D.roundRect", r)]);
-  }
-  /** The rounded corner every plate in the intro is cut with. A real one
-   * refuses a negative radius the same way `arc` does. */
-  arcTo(x1: number, y1: number, x2: number, y2: number, r: number): void {
-    drew("Path2D.arcTo", [x1, y1, x2, y2, r]);
-    if (r < 0) fail("Path2D.arcTo", `radius ${r} is negative`);
-  }
-  ellipse(
-    x: number,
-    y: number,
-    rx: number,
-    ry: number,
-    rotation: number,
-    from: number,
-    to: number,
-  ): void {
-    drew("Path2D.ellipse", [x, y, rx, ry, rotation, from, to]);
-    if (rx < 0 || ry < 0) fail("Path2D.ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
-  }
-  /** One path folded into another, which is how a hole is cut: a crust drawn
-   * as a shell with a disc added to it and filled `evenodd` (`carom.ts`). A
-   * real one takes a `Path2D`; anything else is a `TypeError` there and has to
-   * be one here, or the mistake is a silent no-op and the hole never appears. */
-  addPath(path: StubPath): void {
-    if (!(path instanceof StubPath)) fail("Path2D.addPath", `${String(path)} is not a Path2D`);
-    if (activeLog) activeLog.push("Path2D.addPath");
-  }
-}
-
-class StubImageData {
-  data: Uint8ClampedArray;
-  constructor(
-    readonly width: number,
-    readonly height: number,
-  ) {
-    this.data = new Uint8ClampedArray(width * height * 4);
-  }
-}
-
-export class StubContext {
-  /** The element this context belongs to, as a real one has: a surface that
-   * clears itself reads its own device size off it (`surface-clear.ts`).
-   * `stubCanvas` fills it in; a bare `new StubContext()` gets a zero-sized
-   * stand-in rather than `undefined`. */
-  canvas: HTMLCanvasElement = { width: 0, height: 0 } as HTMLCanvasElement;
-  private _fillStyle: unknown = "#000000";
-  private _strokeStyle: unknown = "#000000";
-  private _lineWidth = 1;
-  private _globalAlpha = 1;
-  private _lineDash: number[] = [];
-  private _lineDashOffset = 0;
-  font = "10px sans-serif";
-  textAlign = "start";
-  lineCap = "butt";
-  lineJoin = "miter";
-  shadowBlur = 0;
-  /** How many draw calls a frame made, so a test can tell a frame from nothing. */
-  calls = 0;
-  /** Per-method call counts, for a test that budgets op counts rather than
-   * merely detecting a frame. Reset it (`ctx.tally.clear()`) between frames. */
-  readonly tally = new Map<string, number>();
-  /** Optional ordered log of every call the picture is made of — the counted
-   * ones and the path builders that are not counted — compact enough to diff
-   * two frames by eye. Unset by default; assign an array to start recording. */
-  private _log?: string[];
-  /**
-   * Every word drawn, as the box it occupies, when a test asks for it. Unset
-   * by default; assign an array to start collecting. The box is the glyphs'
-   * own — the baseline `fillText` was given, an ascent of eight tenths of the
-   * font's size above it, and the width `measureText` answers, all put through
-   * the context's own transform — so two texts that overlap here overlap on
-   * the phone.
-   */
-  texts?: TextBox[];
-  private _globalCompositeOperation = "source-over";
-
-  // Deliberately does *not* claim `activeTally`/`activeLog` here — a frame
-  // draws through offscreen sprite-baking canvases too (`glow.ts`'s halo
-  // sprites, `sheen.ts`'s grain and dither pattern), each its own
-  // `StubContext` created via `document.createElement("canvas")`. If the
-  // constructor claimed the module pointers, the last sprite baked before a
-  // frame's `new Path2D(...)` would silently steal its tally. Only
-  // `stubCanvas`'s caller decides which context is "the frame" — see there.
-
-  set log(v: string[] | undefined) {
-    this._log = v;
-    activeLog = v;
-  }
-  get log(): string[] | undefined {
-    return this._log;
-  }
-
-  set fillStyle(v: unknown) {
-    color("fillStyle", v);
-    this._fillStyle = v;
-    this.mark("set fillStyle", v);
-  }
-  get fillStyle(): unknown {
-    return this._fillStyle;
-  }
-  set strokeStyle(v: unknown) {
-    color("strokeStyle", v);
-    this._strokeStyle = v;
-    this.mark("set strokeStyle", v);
-  }
-  get strokeStyle(): unknown {
-    return this._strokeStyle;
-  }
-  set lineWidth(v: number) {
-    nums("lineWidth", [v]);
-    if (v <= 0) fail("lineWidth", `${v} draws nothing`);
-    this._lineWidth = v;
-    this.mark("set lineWidth", v);
-  }
-  get lineWidth(): number {
-    return this._lineWidth;
-  }
-  /** Out of range is not an error in a browser; it is a mistake everywhere else. */
-  set globalAlpha(v: number) {
-    nums("globalAlpha", [v]);
-    if (v < 0 || v > 1) fail("globalAlpha", `${v} is outside 0..1`);
-    this._globalAlpha = v;
-    this.mark("set globalAlpha", v);
-  }
-  get globalAlpha(): number {
-    return this._globalAlpha;
-  }
-  set globalCompositeOperation(v: string) {
-    this._globalCompositeOperation = v;
-    this.mark("set globalCompositeOperation", v);
-  }
-  get globalCompositeOperation(): string {
-    return this._globalCompositeOperation;
-  }
-
-  /** Records to this instance's tally/log, not the module-level `active*`
-   * pointers — those exist only so `StubPath`, which has no `this: StubContext`,
-   * can still tally itself against whichever context last constructed one.
-   * `value` is a setter's new value (logged as `name=value`); `args` is a
-   * method's argument list (logged as `name(args)`). At most one is given. */
-  private mark(name: string, value?: unknown, args?: unknown[]): void {
-    this.tally.set(name, (this.tally.get(name) ?? 0) + 1);
-    if (!this.log) return;
-    if (args) this.log.push(`${name}(${args.map(round).join(", ")})`);
-    else if (value !== undefined) this.log.push(`${name}=${round(value)}`);
-    else this.log.push(name);
-  }
-
-  /**
-   * A dash pattern, which a browser takes silently and then draws nothing
-   * from if a number in it is not finite or is negative — the exact shape of
-   * failure this stub exists for. `lineDashOffset` is a plain number and gets
-   * the same treatment through its setter below.
-   */
-  setLineDash(pattern: number[]): void {
-    if (!Array.isArray(pattern)) fail("setLineDash", "pattern is not an array");
-    nums("setLineDash", pattern);
-    for (const v of pattern) {
-      if (v < 0) fail("setLineDash", `dash ${v} is negative`);
-    }
-    this._lineDash = pattern.slice();
-  }
-  getLineDash(): number[] {
-    return this._lineDash.slice();
-  }
-  set lineDashOffset(v: number) {
-    nums("lineDashOffset", [v]);
-    this._lineDashOffset = v;
-  }
-  get lineDashOffset(): number {
-    return this._lineDashOffset;
-  }
-
-  /**
-   * The context's own transform, so a text box is where the word lands.
-   *
-   * `texts` promises that two boxes which overlap here overlap on the phone,
-   * and until 16 September 2026 that was only true of words drawn with no
-   * transform on the context: a `fillText` was recorded at the coordinates it
-   * was handed. A guide draws its page inside a translate (`guide-film.ts`)
-   * and a count-in inside another (`simon-fx.ts`), so their boxes landed
-   * hundreds of pixels from where the eye sees them — which read as words in
-   * places nothing is, and hid words in places something is.
-   *
-   * Six numbers in canvas order. A rotation is carried on the corner and not
-   * on the box, which stays axis-aligned at the scaled size: nothing in
-   * `render/` writes rotated type, and a box that lied about its angle would
-   * be a second wrong answer rather than the same one.
-   */
-  private m: [number, number, number, number, number, number] = [1, 0, 0, 1, 0, 0];
-  private mStack: [number, number, number, number, number, number][] = [];
-  /** The alpha and the compositing a `save` holds, as a real context does: a
-   * fade set inside a `save` that outlived its `restore` here once made a glow
-   * look as if it arrived faded when a browser would have handed it 1. */
-  private aStack: [number, string][] = [];
-
-  private mul(n: readonly number[]): void {
-    const [a, b, c, d, e, f] = this.m;
-    const [A, B, C, D, E, F] = n as [number, number, number, number, number, number];
-    this.m = [
-      a * A + c * B,
-      b * A + d * B,
-      a * C + c * D,
-      b * C + d * D,
-      a * E + c * F + e,
-      b * E + d * F + f,
-    ];
-  }
-
-  /** A point through the current transform. */
-  private at(x: number, y: number): { x: number; y: number } {
-    const [a, b, c, d, e, f] = this.m;
-    return { x: a * x + c * y + e, y: b * x + d * y + f };
-  }
-
-  save(): void {
-    this.mark("save");
-    this.mStack.push([...this.m]);
-    this.aStack.push([this._globalAlpha, this._globalCompositeOperation]);
-  }
-  restore(): void {
-    this.mark("restore");
-    const was = this.mStack.pop();
-    if (was) this.m = was;
-    const paint = this.aStack.pop();
-    if (paint) [this._globalAlpha, this._globalCompositeOperation] = paint;
-  }
+/** The context a frame draws through: the path and draw calls, on top of the
+ * state and the text recording it inherits. */
+export class StubContext extends StubText {
   beginPath(): void {
     this.mark("beginPath");
   }
@@ -440,18 +87,6 @@ export class StubContext {
   clip(): void {
     this.mark("clip");
   }
-  /**
-   * Six tenths of the font's size per character — Courier's advance, and the
-   * game sets nothing else. It used to answer six pixels a character whatever
-   * the font said, which made every plate sized off a measurement about half
-   * as wide as the real one; a test asking whether two boxes overlap was
-   * answering for a picture the phone never draws.
-   */
-  measureText(text: string): { width: number } {
-    const px = /(\d+(?:\.\d+)?)px/.exec(this.font);
-    return { width: text.length * 0.6 * (px ? Number(px[1]) : 10) };
-  }
-
   moveTo(...a: number[]): void {
     nums("moveTo", a);
   }
@@ -481,50 +116,6 @@ export class StubContext {
   roundRect(x: number, y: number, w: number, h: number, r: number | number[]): void {
     nums("roundRect", [x, y, w, h]);
     radii("roundRect", r);
-  }
-  translate(...a: number[]): void {
-    nums("translate", a);
-    this.mul([1, 0, 0, 1, a[0] as number, a[1] as number]);
-  }
-  scale(...a: number[]): void {
-    nums("scale", a);
-    this.mul([a[0] as number, 0, 0, a[1] as number, 0, 0]);
-  }
-  rotate(...a: number[]): void {
-    nums("rotate", a);
-    const r = a[0] as number;
-    this.mul([Math.cos(r), Math.sin(r), -Math.sin(r), Math.cos(r), 0, 0]);
-  }
-  /** The general one, which a shear has to go through: a flung gum leans
-   * into its flight (`gum.ts`), and nothing else in render/ reaches for it. */
-  transform(...a: number[]): void {
-    nums("transform", a);
-    this.mul(a);
-  }
-  /** The transform as a real context hands it back: a pass that works on the
-   * frame's own pixels has to know where a point landed on them
-   * (`tools/versus/candidates/slow-pull/lens.ts`). */
-  getTransform(): { a: number; b: number; c: number; d: number; e: number; f: number } {
-    const [a, b, c, d, e, f] = this.m;
-    return { a, b, c, d, e, f };
-  }
-  /** Logged as well as checked, unlike `translate`/`scale`/`rotate`: a
-   * surface that wipes itself has to put the identity on first, and the log
-   * is the only place a test can see that it did (`surface-clear.test.ts`). */
-  setTransform(...a: number[]): void {
-    nums("setTransform", a);
-    this.m =
-      a.length >= 6
-        ? [
-            a[0] as number,
-            a[1] as number,
-            a[2] as number,
-            a[3] as number,
-            a[4] as number,
-            a[5] as number,
-          ]
-        : [1, 0, 0, 1, 0, 0];
-    this.mark("setTransform", undefined, a);
   }
 
   arc(x: number, y: number, r: number, from: number, to: number): void {
@@ -567,34 +158,6 @@ export class StubContext {
   strokeRect(...a: number[]): void {
     nums("strokeRect", a);
     this.calls++;
-  }
-  // A rim under letters, always followed by the `fillText` that records the
-  // box, so it is counted and checked and never recorded a second time.
-  strokeText(text: string, x: number, y: number): void {
-    nums("strokeText", [x, y]);
-    if (/NaN|undefined/.test(text)) fail("strokeText", `text reads "${text}"`);
-    this.calls++;
-    this.mark("strokeText", undefined, [x, y]);
-  }
-  fillText(text: string, x: number, y: number): void {
-    nums("fillText", [x, y]);
-    if (/NaN|undefined/.test(text)) fail("fillText", `text reads "${text}"`);
-    this.calls++;
-    this.mark("fillText", undefined, [x, y]);
-    if (this.texts) {
-      const width = this.measureText(text).width;
-      const px = /(\d+(?:\.\d+)?)px/.exec(this.font);
-      const size = px ? Number(px[1]) : 10;
-      const left =
-        this.textAlign === "center" ? x - width / 2 : this.textAlign === "right" ? x - width : x;
-      // Through the transform, so the box is where the word lands rather than
-      // where the caller counted from (`m` above).
-      const [a0, b0, c0, d0] = this.m;
-      const sx = Math.hypot(a0, b0);
-      const sy = Math.hypot(c0, d0);
-      const p = this.at(left, y - size * 0.8);
-      this.texts.push({ text, x: p.x, y: p.y, w: width * sx, h: size * sy });
-    }
   }
   fill(): void {
     this.calls++;
@@ -651,13 +214,13 @@ export class StubContext {
 export function stubCanvas(primary = true): { canvas: HTMLCanvasElement; ctx: StubContext } {
   const ctx = new StubContext();
   if (primary) {
-    activeTally = ctx.tally;
+    setActiveTally(ctx.tally);
     // And the log with it, which a fresh context does not have. Left pointing
     // at an earlier test's array, every path coordinate of every later frame
     // in the process was appended to it: `surface-clear.test.ts` sharing a
     // shard with `briefing.test.ts` grew one process past 50 GB on 23
     // September 2026 and took the machine down.
-    activeLog = undefined;
+    setActiveLog(undefined);
   }
   const canvas = {
     width: 0,
