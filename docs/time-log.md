@@ -22258,3 +22258,5 @@ Bottleneck: writing — the move itself was one command, the forty importers it 
 
 Bottleneck: the claim — `queue next` reported success when its push was
 rejected, so a whole lane duplicated another session's.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

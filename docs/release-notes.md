@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 1e08ce8da — Queue the claim whose rejected push still hands the item out
+
+Two sessions built §25 THE VALVE's simulation lane: `queue next` warned that its push to origin/main was refused, then printed the prompt anyway. The duplicate lane is dropped unlanded; the fix is queued.
+
 ## 2026-09-26 · 9b45d26e1 — The hands move into packages/hands, so the game can play them too
 
 AUTO's hands — the field hand, every boss's hand and the `Hand` type — lived in `tools/director`, where `apps/game` cannot reach them. They are a new package, `@neon-spore/hands`, now: not `sim`, because a hand is a player's input fed through `step` and not a rule. The director imports them from there and plays exactly as before; `poses-bosses-kit.ts` re-exports `Hand` for its own cards. The purity test guards the package like `sim` and `content`, since a headless run replays a hand tick for tick, and the index has a `packages/hands` section.
