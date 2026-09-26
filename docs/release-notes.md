@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4195f1437 — THE RIME's timeout blow is a frosted sheet off its own lens
+
+When a fire step runs out with the core unshot, one of the lens's seven-sided frosted sheets breaks off its underside and drops down the middle column, turning. On the hull it bursts into chips and its frost creeps down both slopes of the plating in ferns of pale ice. Before, a generic lash was thrown. The strike test now draws the newer blows too (THE RATCHET's, THE VALVE's, THE VISE's and THE RIME's).
+
 ## 2026-09-26 · b53db2e2e — queue next passes over an entry the owner deferred
 
 `bun run queue next` now skips any entry with a `- **Deferred:**` field line, the same way it skips one waiting on an answer. It had handed a session one of the sprite-atlas entries the owner put on hold on 26 September. A body that merely uses the word "deferred" is not read as the field.

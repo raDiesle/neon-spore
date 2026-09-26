@@ -24208,3 +24208,5 @@ had put on hold.
 - landing: 10 min. `check:fast`, the commit, `bun run land`.
 
 Bottleneck: looking — the ferns needed a second pass to sit on the hump.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
