@@ -1877,26 +1877,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §29 THE RIME — a revised simulation lane, a film left to crack alone
-
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-26, claude/queue-28-the-vise-a-revised-simulation-lane-a-kernel-l (claim: claude/queue-29-the-rime-a-revised-simulation-lane-a-film-lef)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-THE RIME already ships as a choreographed scene of wiped-clear halves and
-guarded core shots (`docs/spec/bosses.md` §29). This adds a new closing row
-11 where a thin film refreezes over the spent core and the pair must hold
-off wiping, firing and shielding alike — reading off `SENDING NOTHING`,
-already built for THE KEEL, THE SEAM, THE OCULUS, THE VISE, THE HALTER and
-THE FLUE, a reuse rather than a first use, so no gesture-registration edit
-is needed. It is the fight's one beat built from none of its three verbs,
-closing an arc that opened on a wipe with a beat that asks for the
-opposite. This is one new boolean field, no new sim state beyond it. `bun
-run check` proves the sim half; the sixth pose (spent core under a cracking
-refreeze) is a look task, queued separately once this lane lands.
-
 ## §30 THE TRIVET — a revised simulation lane, a ring left to settle
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
