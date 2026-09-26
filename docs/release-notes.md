@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e8e139843 — AUTO answers THE WEIGHT, THE MINE, THE BEATBOX, THE GUM and THE FENCE
+
+Both seats grip a weight together, the seat that cannot see a mine presses its tile, player 2 taps a box on the beat until its run is done, and player 2 grips a falling gum and swipes it toward the nearer wall. A fence is passed with the shield in its nearest gap; a fence with no gap has its crack burnt first by a bolt of the crack's colour. The field test now counts breaches rather than scars, since a gum, a fence or a box breaks the hull without one. Seven ordinary waves remain half played.
+
 ## 2026-09-26 · 7a259b7f7 — Wave 107 THE VISE: pinch each lobe shut until its seam cracks, then shoot the kernel
 
 A dry seed-case over the middle of the field, two lobes clamped on a kernel. A seam lights on a lobe and its own seat pinches it shut for the step's beats; a gap widened back starts the count again. Two seams a lobe bare the kernel, a fire step is the ordinary shot in its colour into the middle column, and a both step asks the two lobes pinched at once to hold it bare. The first spend of the unclaimed SQUEEZE ONE BODY gesture, as the drag's own fromMilli. Specified in docs/spec/bosses.md §11.45, with eight departures from §28 argued by name; opens act twelve.
