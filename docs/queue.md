@@ -398,6 +398,7 @@ Each boss lands as *a look the owner asked for by name*.
 ## The other pull handles show the path they can be pulled
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
+- **Taken:** 2026-09-26, claude/task-queue-work-ef5307 (claim: claude/queue-the-other-pull-handles-show-the-path-they-can-be)
 - **Files:** `packages/render/src/lid-string.ts`, `packages/render/src/curtain-grip.ts`, `packages/render/src/stare-lid.ts`, `packages/render/src/pull-track.ts`, `packages/render/src/pull-knob.ts`
 
 The owner's generic rule of 25 September 2026 (`owner.md`): a handle you
