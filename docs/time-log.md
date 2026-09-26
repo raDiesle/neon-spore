@@ -21851,3 +21851,5 @@ stepper before a test could reach it.
 Bottleneck: the queue asked for the text calls alone to move, and the stub
 would still have been 630 lines after it, so the rest of the seams had to be
 found first.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

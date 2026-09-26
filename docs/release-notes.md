@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b8bd9537a — The canvas stub and THE THROAT's cue test, split under the ceiling
+
+The stub was 692 lines. It is a chain of three classes now, one file each — `StubState` (styles, tally, log, transform), `StubText` (where words land) and `StubContext` (the draw calls) — with the argument checks and `StubPath` in `canvas-stub-check.ts`; every import of `canvas-stub.js` is unchanged. THE THROAT's cue test is two files by moment, the gum and a body in the mouth, and the rocks, over a shared rig.
+
 ## 2026-09-26 · 273ab9401 — The director's SEEK lands on the row it was sent to, past the briefing
 
 SEEK stepped `beat * ticksPerBeat` ticks, and with briefings on the introduction and the guide hold the wave's beat at 0 while the tick counts, so a row picked on the map came up as row 0 behind the briefing. The stepper now seeks: both seats are done with the briefing at once, and it steps until `waveBeat` is the row, stopping where the wave ended if it ends first.
