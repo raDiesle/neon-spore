@@ -658,21 +658,6 @@ already covered above, and file what it finds as its own queue entries
 rather than fixing on sight — this entry is the research-scope handoff, not
 the fix.
 
-## Unverified at 4958f2180: the TEST panel's AUTO row, seen on a phone
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/queue-unverified-at-4958f2180-the-test-panels-auto-row
-- **Files:** `apps/game/index.html`, `apps/game/package.json`, `apps/game/src/autopilot.ts`, `apps/game/src/game.css`, `apps/game/src/main-world.ts`, `apps/game/src/main.ts`, `apps/game/src/testing.ts`, `apps/game/test/autopilot.test.ts`
-
-*The game's TEST panel has AUTO: the machine plays a seat, or both* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
-
-- the TEST panel's AUTO row, seen on a phone
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 4a47be3b6: THE OCULUS wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-27-the-oculus-the-simulation-lane

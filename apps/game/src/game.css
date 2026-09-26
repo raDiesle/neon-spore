@@ -709,8 +709,11 @@ body.in-room #viewSwitch {
   text-align: right;
   color: #f2e9dc;
 }
+/* `min-width: 0`, or a range input keeps its ~129px intrinsic width and pushes
+   the value past the right edge of a 360px phone. */
 .row input {
   flex: 1;
+  min-width: 0;
   accent-color: #ffc24b;
 }
 .row input[type="checkbox"] {
@@ -734,6 +737,7 @@ body.in-room #viewSwitch {
 #autoRow {
   flex: 1;
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
 }
 #panel #autoRow button {

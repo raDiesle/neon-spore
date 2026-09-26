@@ -24922,3 +24922,15 @@ Bottleneck: reading — `litRound`'s drift and a real part look the same to a
 grep, so each of ~150 hits was sorted by eye.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — the TEST panel's AUTO row, seen at phone widths
+
+- reading: 5 min. The entry, `testing.ts`'s AUTO row, the panel's CSS.
+- writing: 5 min. Two lines of CSS: range inputs may shrink, the row may wrap.
+- looking: 15 min. The preview at 375, 360 and 320 wide, measured in the page;
+  stepped to W104 to see the no-hand note.
+- friction: 5 min. The pane's scaled screenshot put coordinate clicks off
+  target; clicked by element instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: finding a wave where the no-hand note shows, one wave at a time.
