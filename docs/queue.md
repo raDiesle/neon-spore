@@ -1208,6 +1208,7 @@ reaches them.
 ## CLOUD ONLY — a rig part hangs off an anchor and inherits its turn
 
 - **Found:** 2026-09-26, claude/queue-rig-anchors
+- **Taken:** 2026-09-26, claude/rig-anchors (claim: claude/queue-cloud-only-a-rig-part-hangs-off-an-anchor-and-in)
 - **Files:** `packages/content/src/solid.ts`, `packages/render/src/solid-rig.ts`, `packages/render/test/solid.test.ts`, `docs/style-guide.md`
 
 The owner, 26 September 2026: no library in the game, but take what Zdog does
