@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR, coil: the blades wind opposite ways
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s (claim: claude/queue-the-instar-coil-the-blades-wind-opposite-ways)
-- **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-hand.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/src/instar-word.ts`, `packages/content/src/instar-script.ts`, `packages/sim/test/instar.test.ts`
-
-Step 6. Both seats wind clockwise, the crank's direction. Add `turnBack`,
-anticlockwise, as a seventh gesture in `INSTAR_GESTURES`, with its own
-arrow glyph and word, and let the coil ask player 1 to wind the left blade
-back while player 2 winds the right forward, so the two thumbs mirror each
-other. The gesture rides the one `instarMark` target, so the command codec
-does not change; the test proves a clockwise wind on a `turnBack` mark counts
-nothing.
-
 ## THE INSTAR, a last step: the moult
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f

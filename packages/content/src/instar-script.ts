@@ -45,7 +45,10 @@ import { INSTAR_BREATH } from "./instar-script-breath.js";
  *    learned whose jaw was whose has to say it again.
  * 6. *Coil* — it passes twice and comes in low, side on, its tail wound up
  *    high over its back to spring. Each seat **winds** its blade of the fork
- *    back, two turns each, clockwise. Left alone, it springs at the hull.
+ *    back, two turns each, **and the two wind opposite ways**: player 1
+ *    anticlockwise, player 2 clockwise, the thumbs mirroring each other — so
+ *    "turn it" is not enough, and which way has to be said. Left alone, it
+ *    springs at the hull.
  * 7. *Lunge, split* — the head down at the ship again, and this time one
  *    thumb holds it: player 1 holds the brow off, left of the seam, for
  *    three beats, while player 2 strikes the right eye, twelve taps, and it
@@ -166,7 +169,7 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     windowBeats: 4,
     landBeats: 3,
     marks: [
-      { seat: "p1", part: "tail", gesture: "turn", xMilli: 380, yMilli: 330, need: 2000 },
+      { seat: "p1", part: "tail", gesture: "turnBack", xMilli: 380, yMilli: 330, need: 2000 },
       { seat: "p2", part: "tail", gesture: "turn", xMilli: 620, yMilli: 330, need: 2000 },
     ],
   },

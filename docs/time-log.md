@@ -21447,3 +21447,17 @@ Bottleneck: the script file's line limit — two marks written out long took it
 over, and the cut had to be found before anything could be tested.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's coil winds its two blades opposite ways
+
+- reading: 0 min. The hand's `turn`, the glyph, the word, the grip and
+  AUTO's hand, which are every place a gesture is named.
+- writing: 5 min. `turnBack` appended for the hash, `instarWound` for the
+  places that asked `=== "turn"`, the arc drawn either way, the script's
+  coil, two tests.
+- looking: 0 min. The coil from player 1's phone.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the test's first anticlockwise step was past the half-turn a
+bearing may move in one tick, and read as nothing.

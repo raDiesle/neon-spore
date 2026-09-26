@@ -174,6 +174,11 @@ function gesture(w: World, player: 1 | 2, id: number, mark: SceneMark): Press {
       return drag(even, 0, w.cfg.instarSwipeMilli);
     case "turn":
       return drag(true, ((w.tick * BEARING_TURN) / 4) % BEARING_TURN);
+    case "turnBack":
+      return drag(
+        true,
+        (BEARING_TURN - (((w.tick * BEARING_TURN) / 4) % BEARING_TURN)) % BEARING_TURN,
+      );
     case "hold":
       return drag(true);
     // The panel's, never a thumb on the body: the hand above skips them.

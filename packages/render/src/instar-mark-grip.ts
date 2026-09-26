@@ -1,4 +1,10 @@
-import { type InstarMark, instarActing, instarStep, NO_BEARING } from "@neon-spore/sim";
+import {
+  type InstarMark,
+  instarActing,
+  instarStep,
+  instarWound,
+  NO_BEARING,
+} from "@neon-spore/sim";
 import { instarMarkPoint, instarMarkRadius, instarThreat, type Point } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -74,7 +80,7 @@ export function instarMarkBoth(l: Layout, x: number, y: number, field: Field): b
 
 /**
  * A press on one of the marks while they are up: the nearest ring under the
- * thumb, as a `drag` on `instarMark` with `id` naming which. A `turn` mark's
+ * thumb, as a `drag` on `instarMark` with `id` naming which. A wound mark's
  * hold keeps the *mark's centre* as its origin and is flagged `turns`, so
  * every move after it reports a bearing round the ring rather than a carry
  * (`touch-drag.ts` `turnAbout`) — THE CLAW's crank, on the field.
@@ -89,7 +95,7 @@ export function instarMarkUnder(l: Layout, x: number, y: number, field: Field): 
   const found = markUnder(l, x, y, field);
   if (found === null) return null;
   const { id, mark, at } = found;
-  const turns = mark.gesture === "turn";
+  const turns = instarWound(mark.gesture);
   return {
     player: field.seat,
     command: {

@@ -174,6 +174,12 @@ export function instarPanel(gesture: InstarGesture): boolean {
   return gesture === "shoot" || gesture === "shield" || gesture === "suck";
 }
 
+/** Whether a gesture is wound about the mark's centre, one way or the
+ * other: `turn` clockwise, `turnBack` anticlockwise (`instar-hand.ts`). */
+export function instarWound(gesture: InstarGesture): boolean {
+  return gesture === "turn" || gesture === "turnBack";
+}
+
 /** Whether a gesture is a pull, which stands at the thumb's depth and which
  * a step's `pushMilli` pushes back against (`instar-step.ts`). */
 export function instarPulled(gesture: InstarGesture): boolean {

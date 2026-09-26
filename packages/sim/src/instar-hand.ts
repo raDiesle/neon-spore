@@ -5,6 +5,7 @@ import {
   instarPanel,
   instarSeatHears,
   instarStep,
+  instarWound,
   type SceneMark,
   type SceneState,
   sceneBoss,
@@ -17,8 +18,8 @@ import type { World } from "./world.js";
  * A thumb on one of THE INSTAR's marks — or THE NETTLE's, on the same engine.
  *
  * Every mark is the one `instarMark` target with `id` naming which, and the
- * six gestures are read off what a `drag` already carries rather than six
- * commands: the **grab** is the first `on` from a seat whose thumb was not on
+ * thumb gestures are read off what a `drag` already carries rather than one
+ * command each: the **grab** is the first `on` from a seat whose thumb was not on
  * the mark, a **move** is every `on` after it, the **lift** is `on: false`.
  * From those, with the crank's bearing and the sinew's depth:
  *
@@ -36,7 +37,8 @@ import type { World } from "./world.js";
  * - `turn` winds clockwise like the crank (`crank.ts`): the step between two
  *   bearings, up to half a turn, is progress; anticlockwise is nothing. The
  *   answer is said once a quarter turn rather than once a tick, so the sound
- *   is a ratchet and not a hum.
+ *   is a ratchet and not a hum. `turnBack` is the same the other way round,
+ *   and a clockwise wind on it is nothing.
  * - `hold` is only the thumbs' bookkeeping here: the beat counts it
  *   (`instar-step.ts`). A thumb coming off before it is done is the hold
  *   broken, back to nought.
@@ -79,8 +81,8 @@ export function instarHeard(world: World, player: 1 | 2, command: Command): void
     pull(world, s, i, mark, command);
   } else if (mark.gesture === "swipeDown") {
     swipe(world, s, i, command);
-  } else if (mark.gesture === "turn") {
-    turn(world, s, i, command);
+  } else if (instarWound(mark.gesture)) {
+    turn(world, s, i, command, mark.gesture === "turn" ? 1 : -1);
   } else if (!command.on && (s.progress[i] ?? 0) > 0) {
     slipMark(world, s, i);
   }
@@ -115,7 +117,8 @@ function swipe(world: World, s: SceneState, i: number, command: Command): void {
   if (armed) answerMark(world, s, i, 1);
 }
 
-function turn(world: World, s: SceneState, i: number, command: Command): void {
+/** `way` is 1 for clockwise, -1 for anticlockwise: the direction that counts. */
+function turn(world: World, s: SceneState, i: number, command: Command, way: 1 | -1): void {
   if (command.kind !== "drag") return;
   // The hand off, or a hand just on: no reference yet, the way the crank
   // reads a press (`crank.ts`).
@@ -127,7 +130,7 @@ function turn(world: World, s: SceneState, i: number, command: Command): void {
   const from = s.ref[i] ?? NO_BEARING;
   s.ref[i] = at;
   if (from === NO_BEARING) return;
-  const step = (at - from + TURN) % TURN;
+  const step = (way * (at - from) + TURN) % TURN;
   if (step === 0 || step > MAX_BEARING_STEP) return;
   const before = s.progress[i] ?? 0;
   const quarter = TURN / 4;

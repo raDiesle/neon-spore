@@ -81,6 +81,7 @@ export const INSTAR_WORDS: Record<InstarGesture, { kind: CueKind; word: string }
   tap: { kind: "PRESS", word: "TAP TAP" },
   swipeDown: { kind: "CARRY", word: "SWIPE DOWN" },
   turn: { kind: "TURN", word: "TURN" },
+  turnBack: { kind: "TURN", word: "TURN BACK" },
   hold: { kind: "HOLD", word: "HOLD BOTH" },
   // THE NETTLE's panel verbs: a press of a panel button, said as the button is.
   shoot: { kind: "PRESS", word: "SHOOT" },

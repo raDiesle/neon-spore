@@ -42,6 +42,7 @@ export {
   instarStep,
   instarStrikeBeat,
   instarSwipeAlong,
+  instarWound,
   NETTLE_PARTS,
   NETTLE_POSES,
   type NettleEntry,

@@ -26,7 +26,7 @@ export type InstarPart = (typeof INSTAR_PARTS)[number];
  * `pullDown`/`pullUp` — thousandths of a tile the thumb must carry the part,
  * and hold there; `tap` — presses; `swipeDown` — carries past
  * `instarSwipeMilli` that end in a lift; `turn` — thousandths of a turn wound
- * clockwise; `hold` — beats the mark's own thumbs stay on it: both seats' on a
+ * clockwise, and `turnBack` the same anticlockwise; `hold` — beats the mark's own thumbs stay on it: both seats' on a
 `both` mark, one seat's on its own.
  *
  * **The last three are the ship's own panel**, added for THE NETTLE (§11.n):
@@ -46,6 +46,9 @@ export const INSTAR_GESTURES = [
   "shoot",
   "shield",
   "suck",
+  // Last, for the hash: the turn the other way, so two thumbs on the coil
+  // can mirror each other rather than wind as one.
+  "turnBack",
 ] as const;
 export type InstarGesture = (typeof INSTAR_GESTURES)[number];
 
@@ -103,7 +106,7 @@ export interface SceneMark<Part extends string = string> {
    * thousandths of the field's width, leftward negative: at `xMilli` when the
    * window opens, `sweepMilli` further on when it closes, evenly between.
    * Absent is still. It stays on its own seat's half the whole way, so where
-   * it is still says whose it is, and a `turn` never sweeps — the thumb winds
+   * it is still says whose it is, and a wound mark never sweeps — the thumb winds
    * about where the ring was when it came down (`content/test/instar-script.test.ts`).
    */
   sweepMilli?: number;
