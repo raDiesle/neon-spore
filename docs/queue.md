@@ -2162,34 +2162,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §23 THE MANTLE — a fuller story arc, buckle, vent, turn and reveal
-
-- **Found:** 2026-09-26, this session, at the owner's direction, sharpened by
-- **Taken:** 2026-09-26, claude/queue-23-the-mantle-the-braces-look-and-its-hand (claim: claude/queue-23-the-mantle-a-fuller-story-arc-buckle-vent-tur)
-  the coordinator session's own review: the earlier closing-beat-only pass
-  across §23–§33 was too thin against the owner's ask for bosses that read as
-  a story through distinct visual states and SLOW beats. §23 THE MANTLE had no
-  closing beat yet (its finish is the alternating-tap heartbeat, not a `FIRE`
-  hit, so it fell outside that earlier pass) and gets the fuller redesign
-  first, in build order.
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Three new states between the shell's second and third plate-pair shears and
-its brace: a buckle (row 7, `CHORD`, a bulge the shell has never shown before,
-pressed flat), a vent (row 8, `TAP`, a seam aperture that flashes the core's
-own colour early), and a crosswise second crack (row 9, a picture beat setting
-up the brace). A fourth new state sits between the last shear and the core
-reveal: the two valves swing open on hinges rather than the shell just falling
-apart, guided by one more gentle `PULL` (row 12) — a turn and a reveal in one.
-A closing restraint beat (row 17, `SENDING NOTHING`) was also added, matching
-the pattern already built for the other ten bosses in this run. None of the
-four new states asks for a gesture the sim does not already have — `CHORD`,
-`TAP` and `PULL` are all spent elsewhere on this same page — so the build is
-four new booleans and one new hashed read of `mantlePairMilli`'s existing
-buckle/vent/turn thresholds, not a new primitive. `bun run check` proves the
-sim half; the three new poses (buckled valve, vented crack, hinged-open
-valves) are a look task, queued separately once this lane lands.
-
 ## Unverified at f043ab146: THE MANTLE's brace watched at tempo: the shudder, the…
 
 - **Found:** 2026-09-26, claude/queue-23-the-mantle-the-braces-look-and-its-hand
@@ -2536,17 +2508,6 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## THE MANTLE's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall; THE INSTAR's half landed on its own
-- **Taken:** 2026-09-26, claude/mantle-blow (claim: claude/queue-the-mantles-own-blow-at-the-hull)
-- **Files:** `packages/sim/src/mantle-step.ts`, `packages/render/src/boss-strike-look.ts`, `packages/sim/test/boss-strike.test.ts`
-
-THE MANTLE still drops a rock on a timeout (`mantle-step.ts` `spendSpark`).
-Call `bossStrikesHull(world, "mantle", col)` instead, add it a `LOOK` row
-(it already has its `FROM` row), and take `mantle-step.ts` out of
-`STILL_A_ROCK` in `sim/test/boss-strike.test.ts`.
 
 ## Unverified at 713d49b1e: THE MANTLE's buckle, vent, crack and turn, played at t…
 

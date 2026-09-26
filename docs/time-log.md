@@ -23929,3 +23929,14 @@ Bottleneck: reading — each boss had to be asked whether it still moves when it
 Bottleneck: looking — a fire painted with sharp tongues reads as a blade at the size it plays.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's own blow at the hull
+
+- reading: 5 min. `boss-strike.ts`, THE HASP's blow, where the spark runs.
+- writing: 10 min. `mantle-blow.ts`, the call, the LOOK row, the ratchet.
+- looking: 5 min. One frame of the spark bursting on the plating.
+- friction: 5 min. `--until` refuses `--ticks`; the boss is set at the jump.
+- landing: 10 min. `check:fast`, the commit, `bun run land --keep`.
+
+The bottleneck was the landing, as it was for the last lane: the trunk moved
+under the check three times before it held.

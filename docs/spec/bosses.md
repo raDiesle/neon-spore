@@ -7727,7 +7727,10 @@ shear kicks the shell down on its hinge, deals it the blow and sends one
 shudder through the hull, with a burst off each valve where the pair was; the
 split kicks it harder; a finishing tap flares the core and the last one
 flares it, shudders the hull and deals the blow as it goes out; a shot spark
-bursts where it had run to on its fuse. And its words (26 September 2026,
+bursts where it had run to on its fuse. A spark nobody shot bursts on the plating where it
+ran to (`render/mantle-blow.ts`): the bead squashes flat on the skin, throws
+a spatter of drops and leaves a red scald spreading, which is THE MANTLE's own
+blow at the hull, never a rock (`bossStrikesHull`, 26 September 2026). And its words (26 September 2026,
 `render/boss-cue-read-zc.ts`): `PULL` on each seat's own knob while the
 handles are lit and nobody holds it, gone the moment a thumb is on, below the
 floor or past it; `TAP` on the core, only on the screen whose tap the finish

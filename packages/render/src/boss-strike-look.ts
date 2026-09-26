@@ -5,6 +5,7 @@ import { haspBlow } from "./hasp-blow.js";
 import type { Layout } from "./layout.js";
 import { ledgerBlow } from "./ledger-blow.js";
 import { ledgerBodyY } from "./ledger-shape.js";
+import { mantleBlow } from "./mantle-blow.js";
 import { mantleCentre } from "./mantle-shape.js";
 import { oculusBlow } from "./oculus-blow.js";
 import { oculusCentre } from "./oculus-shape.js";
@@ -74,6 +75,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   hasp: haspBlow,
   // Its cord is already rooted at the socket; the blow wrenches that plate up.
   ledger: ledgerBlow,
+  // Its spark has already run the column down in sight; the blow bursts it.
+  mantle: mantleBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

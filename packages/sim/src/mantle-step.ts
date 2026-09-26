@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import {
   type MantlePhase,
   type MantleState,
@@ -154,12 +154,15 @@ function shear(world: World, s: MantleState): void {
   else light(world, s);
 }
 
-/** The leaking spark, unanswered for `mantleSparkBeats`: the hull, and the wave. */
+/**
+ * The leaking spark, unanswered for `mantleSparkBeats`: the hull, and the wave
+ * — the spark itself bursting there, never a rock (`boss-strike.ts`).
+ */
 function spendSpark(world: World, s: MantleState): void {
   if (!mantleLeaking(s)) return;
   if (world.beat - s.sparkBeat < world.cfg.mantleSparkBeats) return;
   const col = s.sparkCol;
   s.sparkCol = NO_SPARK;
   world.events.push({ type: "mantleSparkHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "mantle", col);
 }

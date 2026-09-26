@@ -1894,6 +1894,7 @@ by hand never moves.
 | `packages/render/src/mantle-grip.ts` | **The thumbs on THE MANTLE** — half two of the look lane |
 | `packages/render/src/mantle-fx.ts` | What THE MANTLE leaves behind a frame: the **kick** of the shell as a plate-pair shears |
 | `packages/render/src/mantle-brace.ts` | **THE MANTLE's brace, drawn**: the seam's crack and glow, the shudder, and each knob's hold ring |
+| `packages/render/src/mantle-blow.ts` | **THE MANTLE's own blow at the hull**: the leaked spark bursting on the plating |
 | `packages/render/src/mantle-vent.ts` | **THE MANTLE's vent and its crosswise crack, drawn** — the red slot with its hiss, and the crack across the seam |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
