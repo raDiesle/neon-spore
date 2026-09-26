@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 754ae84e6 — THE INSTAR side-on is a lit tube, with its scales, lamps and spines placed round it
+
+The long body is drawn on the rig's tube now, one ring per sample of the spine, lit across its width with a rim along its edge and a contact shadow wherever a nest, the wing or the neck bears on it. The scales, the lamps and a row of spines down the back stand at an angle round those rings, and the body breathes, swims behind the far nest and rolls a little about its own length, so the rows walk round under a light that stays put. Exemption: a look the owner asked for by name.
+
 ## 2026-09-26 · 1711568bc — THE MANTLE has a hand: AUTO pulls both knobs, shoots the spark and taps the core dark
 
 AUTO now plays THE MANTLE through to the end. Each seat carries its knob to half the threshold, never below the floor, and presses again only when the handles light back to nought. The leaking spark is shot out of its column, and the core is tapped every half beat by the seat it is waiting on. The STATES sheet poses all five of its phases off the same hand.
