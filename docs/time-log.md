@@ -24811,3 +24811,13 @@ The bottleneck: writing — a body built from two cards and three shipped
 figures is four files, and every figure had to be read before it was called.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Living bosses: the concept and its ten queue entries (claude/living-motion-spec)
+
+- reading: 30 min. THE INSTAR's render files, the rig, `solid-motion.ts`, the director's stage files and the DEFERRED rig entries.
+- writing: 35 min. `docs/spec/living-bosses.md` and ten queue entries. Nothing delegated.
+- looking: 10 min. Two frames of THE INSTAR, side-on and three-quarter.
+- friction: 10 min. A sheet prefix with a trailing dash, four wrong paths in the concept, and a context compaction mid-lane.
+- landing: 10 min. `check:fast`, the commit, the rebase, `land`.
+
+Bottleneck: reading — the rig, the three INSTAR head paths and the director's replay had to be understood before any step could be named in real files.

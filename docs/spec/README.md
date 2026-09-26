@@ -45,6 +45,7 @@ and record why in `docs/decisions.md`.
 | [interludes.md](interludes.md) | a round that is not the field — what one is, where it sits, what failing costs | not built |
 | [bosses-choreographed.md](bosses-choreographed.md) | A Way Out at boss scale: an authored scene instead of a loop, fifteen concepts and the primitives they share | not built |
 | [bosses-cinematic.md](bosses-cinematic.md) | the owner's own brief: nineteen more choreographed-scene concepts, words only | not built |
+| [living-bosses.md](living-bosses.md) | every boss kept alive by a slow drift of angles, THE INSTAR's one head, heavier body and serpentine flight, and the director's step readout and jump | not built |
 
 ## What is not here
 

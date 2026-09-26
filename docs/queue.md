@@ -2758,3 +2758,202 @@ at, the split. Check that the `TAP`/`SHUT`/`FIRE` words sit on the thing
 they name, that a thumb on a mark is not taken as a pinch, and that THE
 SLOW lands on the lit step. Fix anything wrong, rather than unlovely, and
 queue each look as its own item.
+
+## Living bosses — the director shows which choreography step is playing
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Files:** `tools/director/src/stage-transport.ts`, `tools/director/src/stage.ts`, `packages/sim/src/instar.ts`, `packages/sim/src/gimbal.ts`, `packages/sim/src/filament.ts`, `docs/spec/living-bosses.md`
+
+The owner, 26 September 2026: the director should say which step of a
+choreographed boss is playing and how many are left. `docs/spec/living-bosses.md`
+section 3 is the design. Add a readout to the stage, beside play and
+restart, shown only when the wave has a choreographed boss:
+`STEP 7 / 25 · 18 LEFT`, then the step's pose name where it has one. Read it
+through one adapter per state shape in a new file under `tools/director/src/`:
+the shared scene state (`cursor`, `steps.length`) covers THE INSTAR and THE
+NETTLE, and THE GIMBAL and THE FILAMENT get one line each. Numbers count from
+1 for a person; `cursor === steps.length` reads `DONE`.
+
+Done when: the readout follows the step as THE INSTAR plays under AUTO; a
+test walks every boss wave whose state has a `cursor` and fails if it has no
+adapter; a wave with no choreographed boss shows nothing. `bun run check`
+proves it.
+
+## Living bosses — the director jumps to any choreography step
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Needs:** Living bosses — the director shows which choreography step is playing
+- **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-step.ts`, `tools/director/src/stage-autopilot.ts`, `tools/director/test/stage-step.test.ts`, `docs/spec/living-bosses.md`
+
+Section 3 of `docs/spec/living-bosses.md`. Beside the step readout, add ◀ and
+▶ for the step before and after and a list of every step by number and pose
+name. A jump rebuilds the world and replays it headless with AUTO on both
+seats, the way `stage.seek` replays to a beat, until the boss's `cursor` is
+the step asked for and its phase is the start of that step's morph, then
+pauses there, drawn. Remember the tick each step was first reached on, so a
+later jump replays straight to it; drop the memory on restart and on a wave
+change. A jump that cannot reach its step within the wave's length stops at
+the furthest step it reached, says so, and stays paused.
+
+Done when: a test jumps THE INSTAR to its last step and back to its second
+and finds `cursor` right both times; a second jump to a remembered step
+replays no further than its tick; ◀ at step 1 and ▶ at the last do nothing.
+`bun run check` proves it.
+
+## Living bosses — the idle drift, a helper that draws nothing yet
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Files:** `packages/render/src/solid-motion.ts`, `packages/content/src/solid.ts`, `docs/spec/living-bosses.md`, `docs/style-guide.md`
+
+Section 1 of `docs/spec/living-bosses.md`. Write idle-drift.ts in
+`packages/render/src/`: `idleDrift(time, seed)` returns body yaw, pitch,
+roll and head yaw, each `noise1` of time on its own seed within the ranges
+and periods the table gives, the body following the head through `chainAt`
+a quarter cycle late at half its size. Add a `hush` input from 0 to 1 that
+scales it, for the windows over marks and for a beaten boss, and a helper
+that eases `hush` over one beat from where it was. Add
+`docs/style-guide.md`'s rule for it under "A boss seen from any side".
+
+Done when a new test proves: every angle stays in its range over ten
+minutes; no frame-to-frame step exceeds 12° a second at 60 frames; two seeds
+are not in step (their correlation over ten minutes under 0.2); the head
+leads the body; the same time and seed give the same angles. No drawer calls
+it yet, so no frame changes. `bun run check` proves it.
+
+## Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
+- **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/solid-rig.ts`, `packages/content/src/solid-anchor.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
+
+The owner, 26 September 2026: the side head looks unnatural and does not
+match the front head. Section 2 of `docs/spec/living-bosses.md` names the
+parts: skull ball, short broad muzzle tube, jaw on its own anchor, two horn
+tubes, two brow sheets, eyes and head marks placed by `pin`/`facet`. The
+face-on head is the design; model it on the rig so the side view is the same
+head turned. Build it as a VERSUS candidate beside the shipped two heads,
+never on the field, with a sheet at five yaws from face-on to side, jaw shut
+and open.
+
+Done when: the candidate is in VERSUS; at face-on it matches the shipped
+head's eyes and marks within 2 px at 390 wide; at side-on it has one full
+eye, a blunt muzzle and horns sweeping back; the sheet PNG is sent to the
+owner; its op count is within 10% of the shipped head's in
+`packages/render/test/instar-budget.test.ts`. `bun run check` proves the
+tests; the look is his to pick.
+
+## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
+- **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-profile-surface.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-poses.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
+
+The owner: the body is too thin and does not look cool. Replace the width
+the poses' top and bottom lines give with the radius profile in section 2 of
+`docs/spec/living-bosses.md` (chest 1.05 head radii, tapering to 0.07 at the
+tail's blade), add the paler belly band placed by longitude and a higher
+ridge at the chest. Keep the nests sitting on the back in every pose — the
+spine still runs under each nest. A VERSUS candidate beside the shipped
+body, with the rig sheet at five yaws.
+
+Done when: the candidate is in VERSUS with the new head; every pose of
+`packages/render/src/instar-poses.ts` still has both nests on the body (a
+test); the tail's width falls monotonically root to tip; the sheet PNG is
+sent to the owner; op count within 10%. `bun run check` proves the tests.
+
+## Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
+- **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-sway.ts`, `packages/render/test/instar-budget.test.ts`, `packages/render/test/baked-growth.test.ts`, `docs/spec/living-bosses.md`
+
+The owner: the full body should keep turning — look left, then right, the
+body too — so it reads 3D. Draw the side-on body through `view(SIDE + yaw)`
+with the idle drift's angles, head leading, and hush it to a third over
+windows with live marks. The mark hit test goes through the same projection
+(`instarMarkUnder`), so a drifted mark is found where it is drawn. A VERSUS
+candidate beside the fixed-angle body.
+
+Done when: a test presses every mark of every step at the drift's widest
+yaw and finds it; `packages/render/test/baked-growth.test.ts` stays flat
+with the drift running; op count within 10%; a strip of eight frames across
+ten seconds is sent to the owner. `bun run check` proves the tests.
+
+## Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
+- **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-profile-life.ts`, `packages/render/src/solid-motion.ts`, `packages/render/test/instar-flight.test.ts`, `docs/spec/living-bosses.md`
+
+The owner: flight should be serpentine, like a Chinese dragon undulating
+through the air. Section 2 of `docs/spec/living-bosses.md`: the head flies a
+path with a sideways and a smaller vertical wave; each ring follows where
+the head was, by arc length, so the wave travels to the tail; one and a half
+crests along the body, growing from a third of a head radius at the neck to
+one at the tip; the vertical half seen in depth through the rig's lens; one
+slow wing beat per crest past the shoulders. Over `INSTAR_FLIGHT_ENDS` the
+wave settles into the resting undulation from where it was, never cut.
+
+Done when: a test finds the crest's position moving tailward every frame of
+a flight; `packages/render/test/instar-seams.test.ts` still finds no value
+jumping at the landing; the candidate is in VERSUS; a strip of one arrival
+is sent to the owner. `bun run check` proves the tests.
+
+## Living bosses — ship THE INSTAR's picked candidates
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
+- **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
+- **Asks:** Of the four THE INSTAR candidates in VERSUS (one head, body with weight, turning, serpentine flight), which ship?
+
+Put the ones the owner picks on the field and retire what they replace:
+with the one head picked, `instar-side-head.ts` and the handover in
+`instar-turn.ts` go. Move the section in `docs/spec/living-bosses.md` to
+built. `frame.test.ts` draws THE INSTAR at side, three-quarter and front.
+`bun run check` proves it.
+
+## Living bosses — the four rig bosses get the idle drift, one per lane
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — ship THE INSTAR's picked candidates
+- **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
+
+The owner, 26 September 2026, widened the depth work from THE INSTAR alone
+to every boss with a body; this lifts the scope that deferred "move one boss
+a lane onto the solid rig, from the roster" and "THE GIMBAL, a fifth rig
+candidate". Take the next of THE GIMBAL, THE ANTIPHON, THE BATON and THE
+LEAD, in that order: rebuild it on the rig as those two entries say, give it
+the idle drift with its own seed and its hush over windows, and offer it as
+a VERSUS candidate with its five-yaw sheet sent to the owner. Leave this
+entry with the rest listed; the last lane removes it and the two DEFERRED
+entries.
+
+Done when, per boss: the candidate is in VERSUS; its hit tests find every
+target at the drift's widest; op count within 10%; `baked-growth.test.ts`
+flat. `bun run check` proves the tests.
+
+## Living bosses — every other boss gets the outline drift, six per lane
+
+- **Found:** 2026-09-26, claude/living-motion-spec
+- **Where:** local
+- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
+- **Files:** `packages/render/src/boss-draw.ts`, `packages/content/src/surface.ts`, `docs/spec/living-bosses.md`
+
+Section 1 of `docs/spec/living-bosses.md`, the outline tier: a boss not on
+the rig takes the idle drift as a pose — lean, a small squash across the
+turn, a head offset where it has a head, surface marks moved by longitude
+through `pin`/`facet`. Take the six bosses with a body that come first in
+`packages/render/src/boss-draw.ts`'s order and are neither THE INSTAR nor
+one of the four rig bosses, give each its own seed, and offer the six as
+one VERSUS candidate with a strip of each. Write the next six into this
+entry's body as you leave it; the lane that finds none left removes it.
+
+Done when, per boss: its hit tests find every target at the drift's widest;
+op count within 10%; `baked-growth.test.ts` flat. `bun run check` proves the
+tests.
