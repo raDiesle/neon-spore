@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 19757ad85 — Queue: the push-back's wave is done
+
+## 2026-09-26 · ab91be642 — ONE LAST CHANCE: a wave, ninth in act one, that teaches the shield's push-back
+
+The one where the shield saves you once, and only the cannon kills it. Its guide is a three-page film: player 1's shield pushes a slick back up, the body comes down carrying ONE LAST CHANCE, and player 2 shoots it red before the second fall. The wave that follows mixes rocks, which the shield ends, with creatures, which it only delays. It sits after TORCH, so every later wave number moves up by one.
+
 ## 2026-09-26 · dabeb53c3 — A rock's crater puffs are thrown from the rock, not from its row
 
 A shot rock in its last six rows is drawn higher than its row by the bend that lands it on the skin at the end of its beat, and its hole's five puffs came out at the row's centre, up to a tile under it. The `hole` event now carries the body's kind and span, and a warded kind's puffs are placed by the same `rockFallY` the field pass draws it by, against the skin the host last drew. A moult, a cairn or a ring keeps its row. A fix to something wrong rather than unlovely.
