@@ -1987,6 +1987,7 @@ by hand never moves.
 | `packages/render/src/plumb-pose.ts` | **The clock THE PLUMB is posed off** (§31, *Animation*) |
 | `packages/render/src/plumb-shape.ts` | **THE PLUMB's geometry**: where the bob hangs, and the paths it is made of |
 | `packages/render/src/plumb-blow.ts` | THE PLUMB's own blow at the hull: a small bob drops down its plumb line and strikes point first |
+| `packages/render/src/plumb-fx.ts` | What THE PLUMB leaves behind a frame: a weight's **settle** ringing its glass, a **drift**'s jolt through it |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |
@@ -2203,6 +2204,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-keel.ts` | **THE KEEL played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-oculus.ts` | **THE OCULUS played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-vise.ts` | **THE VISE played right**, for the STATES sheet and the autopilot |
+| `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: a lean held dead level on the asked seat's phone |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
