@@ -23444,3 +23444,5 @@ worked out from the flight's own numbers before the pictures meant anything.
 Bottleneck: finding the places a new part and a panel step reach outside the
 simulation — the hand, the director budget and the fire test were each found
 by a red test, not by a list.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

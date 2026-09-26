@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c6cabadaa — THE INSTAR's second act: five new poses, and the panel given back
+
+THE INSTAR now plays eighteen steps over eleven poses. Five new poses sit between the old ones: it rears back and spits two globs at the hull (raise the shield under each), glares face on (shoot each eye three times), dives head first (shield under the brow, twice), spreads its wings and shakes embers down (suck each in), and ends bare after the moult with its heart lit in the split (shoot it four times). The wave plays on STANDARD 5 so the panel answers those marks, and both seats are needed for every one.
+
 ## 2026-09-26 · 667f59c31 — THE INSTAR turns on round between its face-on view and its profile
 
 Between the two views the face-on body, wings and snout now keep turning the way the profile faces, and the profile takes over only across the middle of the turn, so a change of pose reads as one solid body turning rather than two ghosts crossfading. When a body already on the field has to come in again from the distance, it first flies up and away to the speck the approach starts from, instead of vanishing to it in one frame. The slow's aim follows the body's far end in whichever view has it.
