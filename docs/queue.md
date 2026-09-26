@@ -434,6 +434,7 @@ an alignment.
 ## A ring let go of while THE GIMBAL shears stays held
 
 - **Found:** 2026-09-26, claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea
+- **Taken:** 2026-09-26, claude/queue-film-the-gimbal-the-hasp-and-the-ratchet-once-ea (claim: claude/queue-a-ring-let-go-of-while-the-gimbal-shears-stays-h)
 - **Files:** `packages/sim/src/gimbal-hand.ts`, `packages/sim/src/gimbal-step.ts`, `packages/sim/test/`
 
 `gimbalHeard` returns before anything else while the drum is not turning, so
