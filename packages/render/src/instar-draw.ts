@@ -81,6 +81,6 @@ export function drawInstar(
   if (f.side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - f.side) });
   if (f.side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * f.side });
   ctx.restore();
-  fx.place(l, s, sway, head, r);
+  fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);
 }

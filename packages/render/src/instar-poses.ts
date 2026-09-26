@@ -140,9 +140,15 @@ export const BEATEN: Figure = {
  * tap's mark, the swiped one at the swipe's. The brood is played twice, the
  * second time with the seats' counts swapped (`instar-script.ts`), and since
  * left is player 1's the nests change sides with them.
+ *
+ * And the fork carried with its blades: a tail mark that sweeps across the
+ * hull (`sweepMilli`) takes the fork along the same line, as far as the
+ * window has run (`along`), so the blade is always under its ring.
  */
-export function placed(pose: InstarPose, marks: readonly InstarMark[]): Figure {
+export function placed(pose: InstarPose, marks: readonly InstarMark[], along = 0): Figure {
   const g = { ...POSES[pose] };
+  const tails = marks.filter((m) => m.part === "tail");
+  for (const m of tails) g.tailX += ((m.sweepMilli ?? 0) * along) / tails.length;
   for (const m of marks) {
     if (m.part !== "eggs") continue;
     if (m.gesture === "tap") {

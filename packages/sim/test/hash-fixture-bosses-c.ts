@@ -47,7 +47,8 @@ export const BOSS_ENTRIES_C = {
   // is the smallest script that is still the scene — a beat the pair has to
   // land together — and one step is enough, because the fingerprint's job is
   // the cursor and the per-mark counts, not the length of the list
-  // (`instar-hash.ts`).
+  // (`instar-hash.ts`). One mark sweeps, so the sweep is not a column of
+  // zeroes the walk cannot tell from an unhashed field.
   instar: {
     kind: "instar",
     steps: [
@@ -59,7 +60,15 @@ export const BOSS_ENTRIES_C = {
         landBeats: 2,
         pushMilli: 250,
         marks: [
-          { seat: "p1", part: "jaw", gesture: "pullDown", xMilli: 500, yMilli: 440, need: 1000 },
+          {
+            seat: "p1",
+            part: "jaw",
+            gesture: "pullDown",
+            xMilli: 500,
+            yMilli: 440,
+            need: 1000,
+            sweepMilli: -80,
+          },
           { seat: "p2", part: "jaw", gesture: "pullUp", xMilli: 500, yMilli: 240, need: 1000 },
         ],
       },

@@ -1,4 +1,5 @@
 import type { BossSequenceStep } from "@neon-spore/sim";
+import { INSTAR_BREATH } from "./instar-script-breath.js";
 
 /**
  * THE INSTAR's script: twelve steps over five poses, and what the pair does to each.
@@ -19,23 +20,9 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *
  * **What each step is, in the picture.**
  *
- * 1. *Breath* — it comes in from far off, small, and flies at the ship until
- *    it fills the field, jaws already open on a fire turning in its mouth.
- *    Player 2 pushes the upper jaw down and player 1 the lower jaw up, four
- *    tiles each, so the jaws meet; both must be at depth at once, and a jaw
- *    let go of opens again. Left open, it breathes the fire over the field.
- *    **Three times** (the owner, 25 September 2026: *you repeat 3 times so
- *    dragon tries to keep mouth open and it tries to push back*): the jaws
- *    meet, it forces them open again where it is (`stay`), and the second
- *    bite pushes back against both thumbs every beat, the third twice as
- *    hard (`pushMilli`) — a jaw shut early and held there waiting for the
- *    other opens again under the thumb, so the pull has to be *stronger*,
- *    further, and the two jaws have to meet at once. **Between the first
- *    and second bites** the jaws are forced open on the fire and player 2
- *    taps it out, eight taps; **the third bite** is three marks — player 2
- *    pulls the upper jaw against the push while player 1 taps the fire out,
- *    six, and then pulls the lower jaw up to meet it (the owner, the same
- *    day: *combine with some other movement action in between or during*).
+ * 1. *Breath* — it comes in from far off and bites three times, the pair
+ *    pushing its jaws shut and tapping out the fire between
+ *    (`instar-script-breath.ts`, where the three are written).
  * 2. *Brood* — it flies off, crosses the frame twice, and comes in to stay
  *    side on, with a brood of eggs on its back, one nest over each half.
  *    Player 1 taps the left nest's eggs until every one is squashed; player 2
@@ -43,9 +30,12 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    so the last of each must land inside `instarTogetherBeats` of the other.
  *    Left alone, the eggs hatch and the brood eats the ship.
  * 3. *Lash* — it goes out one side and comes in from the other, and its
- *    forked tail comes at the ship. Each seat taps its own blade of the fork
- *    back, player 1 the left and player 2 the right, and again the two counts
- *    must finish together. Left alone, the tail hits the hull.
+ *    forked tail comes at the ship **sweeping leftward along the hull** as
+ *    the window runs, the blades carried with it. Each seat taps its own
+ *    blade of the fork back, player 1 the left and player 2 the right, and
+ *    the thumb has to follow it: twenty taps are not twenty in one place. The
+ *    right blade stops short of the seam, so it is still player 2's. Again
+ *    the two counts must finish together. Left alone, the tail hits the hull.
  * 4. *Lunge* — it comes in face on and drives its head down at the ship to
  *    butt it. One mark, on the brow, for **both** thumbs: both seats hold it
  *    off together for three beats, and either thumb lifting lets it come on
@@ -67,7 +57,9 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  *    nest has to say it again, the breath's turning-round played on the eggs.
  * 9. *Lash, mixed* — the tail at the ship once more, and each blade asks a
  *    different thing: player 1 taps the left back, player 2 winds the right.
- *    Two counts in two gestures, finishing together.
+ *    Two counts in two gestures, finishing together. This fork stands still:
+ *    a turn winds about where its ring was when the thumb came down, so a
+ *    wound blade never sweeps (`sweepMilli`).
  *
  * (Steps 2–9 below are the script's steps 5–12: the breath's three bites are
  * one item because they are one scene.)
@@ -109,50 +101,7 @@ import type { BossSequenceStep } from "@neon-spore/sim";
  * first of the queue's next steps: one seat holding while the other strikes.
  */
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
-  {
-    pose: "breath",
-    arrive: "approach",
-    morphBeats: 8,
-    windowBeats: 4,
-    landBeats: 3,
-    marks: [
-      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
-      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
-    ],
-  },
-  {
-    pose: "breath",
-    arrive: "stay",
-    morphBeats: 3,
-    windowBeats: 4,
-    landBeats: 2,
-    marks: [{ seat: "p2", part: "fire", gesture: "tap", xMilli: 540, yMilli: 360, need: 8 }],
-  },
-  {
-    pose: "breath",
-    arrive: "stay",
-    morphBeats: 3,
-    windowBeats: 4,
-    landBeats: 2,
-    pushMilli: 250,
-    marks: [
-      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
-      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
-    ],
-  },
-  {
-    pose: "breath",
-    arrive: "stay",
-    morphBeats: 3,
-    windowBeats: 4,
-    landBeats: 3,
-    pushMilli: 500,
-    marks: [
-      { seat: "p2", part: "jaw", gesture: "pullDown", xMilli: 560, yMilli: 220, need: 4000 },
-      { seat: "p1", part: "fire", gesture: "tap", xMilli: 460, yMilli: 360, need: 6 },
-      { seat: "p1", part: "jaw", gesture: "pullUp", xMilli: 440, yMilli: 500, need: 4000 },
-    ],
-  },
+  ...INSTAR_BREATH,
   {
     pose: "brood",
     arrive: "passes",
@@ -171,8 +120,24 @@ export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
     windowBeats: 4,
     landBeats: 3,
     marks: [
-      { seat: "p1", part: "tail", gesture: "tap", xMilli: 380, yMilli: 560, need: 20 },
-      { seat: "p2", part: "tail", gesture: "tap", xMilli: 620, yMilli: 560, need: 20 },
+      {
+        seat: "p1",
+        part: "tail",
+        gesture: "tap",
+        xMilli: 380,
+        yMilli: 560,
+        need: 20,
+        sweepMilli: -110,
+      },
+      {
+        seat: "p2",
+        part: "tail",
+        gesture: "tap",
+        xMilli: 620,
+        yMilli: 560,
+        need: 20,
+        sweepMilli: -110,
+      },
     ],
   },
   {

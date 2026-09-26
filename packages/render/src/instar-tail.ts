@@ -16,6 +16,9 @@ import { splinePath } from "./spline.js";
  *
  * So the fork stands at `tail` of the way from its rest to the hull, and
  * every tap takes its share of that back (`instar-shape.ts`, `deformed`).
+ * Where the script sweeps the blades' marks along the hull (`sweepMilli`) the
+ * fork goes with them (`instar-poses.ts`, `placed`), so a blade is always
+ * under the ring a thumb is chasing.
  * While the window runs the blades shiver, harder as it closes, and glow red
  * with what they are about to do (`instarThreat`).
  */

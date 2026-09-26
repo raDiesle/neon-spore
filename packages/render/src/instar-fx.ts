@@ -77,13 +77,14 @@ export class InstarFx {
   /**
    * Told by the drawer where the marks and the head are this frame, swing
    * included — a burst thrown at a mark the body has swung away from lands
-   * on empty field (`instar-sway.ts`). `r` is the head's radius, which an
+   * on empty field (`instar-sway.ts`), and so does one thrown where a swept
+   * mark was (`along`). `r` is the head's radius, which an
    * egg is sized by, and `head` is where the fire comes out of.
    */
-  place(l: Layout, s: InstarState, sway: Sway, head: Point, r: number): void {
+  place(l: Layout, s: InstarState, sway: Sway, along: number, head: Point, r: number): void {
     this.headR = r;
     const step = instarStep(s);
-    this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway));
+    this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway, along));
     this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
     this.head = head;
   }

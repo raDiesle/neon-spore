@@ -147,7 +147,7 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number): F
     const t = at / (step.morphBeats * INSTAR_FLIGHT_ENDS);
     return lerp(from, placed(step.pose, step.marks), smoothstep(Math.min(1, t)));
   }
-  const pose = placed(step.pose, step.marks);
+  const pose = placed(step.pose, step.marks, instarThreat(s, beat, beatPhase));
   return deformed(pose, step.marks, (i) => {
     const need = step.marks[i]?.need ?? 1;
     return (s.progress[i] ?? 0) / need;
@@ -213,21 +213,24 @@ export function instarHeadAt(l: Layout, f: Figure): { head: Point; r: number } {
 }
 
 /**
- * Where a mark sits, in pixels — the script's own place for it, carried by
+ * Where a mark sits, in pixels — the script's own place for it, swept as far
+ * as the window has run (`along`, `instarThreat`; `sweepMilli`), carried by
  * the frame's swing (`instar-sway.ts`).
  *
- * **The offset is asked for and never defaulted.** A caller that forgot it
- * would draw a ring where the body used to hang, or find a thumb on one, and
- * both failures are quiet: the ring is still a ring and the press is still a
- * press. Naming the two numbers at every call site is what makes a caller
- * that has not asked where the body swung to this frame say so out loud.
+ * **The offset and the sweep are asked for and never defaulted.** A caller
+ * that forgot either would draw a ring where the body used to hang, or find a
+ * thumb on one, and both failures are quiet: the ring is still a ring and the
+ * press is still a press. Naming them at every call site is what makes a
+ * caller that has not asked where the ring went this frame say so out loud.
  */
 export function instarMarkPoint(
   l: Layout,
   mark: InstarMark,
   sway: { xMilli: number; yMilli: number },
+  along: number,
 ): Point {
-  return instarAt(l, mark.xMilli + sway.xMilli, mark.yMilli + sway.yMilli);
+  const x = mark.xMilli + (mark.sweepMilli ?? 0) * along;
+  return instarAt(l, x + sway.xMilli, mark.yMilli + sway.yMilli);
 }
 
 /** A mark's radius in pixels: the handle's, the one size a thumb is asked for. */

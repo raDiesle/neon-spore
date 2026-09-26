@@ -1,22 +1,10 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, controlSetForWave } from "@neon-spore/content";
-import {
-  createWorld,
-  type InstarState,
-  instarBoss,
-  NO_BEARING,
-  NOT_DONE,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
 import { instarMarkUnder } from "../src/instar-mark-grip.js";
 import { instarMarkPoint } from "../src/instar-shape.js";
 import { instarBody, instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
-import type { Field } from "../src/touch.js";
-import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
+import { acting, field, hung } from "./instar-kit.js";
 
 /**
  * **THE INSTAR's body travels, and everything of it travels together.**
@@ -43,52 +31,6 @@ import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 const L = computeLayout(VIEWPORT, CFG, "test");
-const TPB = ticksPerBeat(CFG);
-
-/** A world with the body hung and a few beats of the wave behind it. */
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  return world;
-}
-
-/** The body acting on a step, its marks up and untouched. */
-function acting(world: World, cursor: number): InstarState {
-  const s = instarBoss(world);
-  if (s === null) throw new Error("the instar wave hung no body");
-  s.cursor = cursor;
-  s.phase = "act";
-  s.phaseBeat = world.beat;
-  const n = s.steps[cursor]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
-  return s;
-}
-
-/** The field as a thumb on this screen sees it, standing on one beat of it. */
-function field(world: World, beat: number, beatPhase: number): Field {
-  return {
-    creatures: world.creatures,
-    cannonCol: world.cannonCol,
-    shieldCol: world.shieldCol,
-    beatPhase,
-    skinY: null,
-    beat,
-    waveBeat: world.waveBeat,
-    tick: world.tick,
-    seat: 1,
-    cfg: CFG,
-    boss: world.boss,
-    controls: controlSetForWave(waveWith("instar")),
-    faults: [],
-    well: false,
-  };
-}
-
 describe("the body travels", () => {
   it("carries the head a fifth of the field across a beat", () => {
     const world = hung();
@@ -105,7 +47,7 @@ describe("the body travels", () => {
     if (mark === undefined) throw new Error("the script's first step has no mark");
     const at = (phase: number): { head: number; ring: number } => {
       const { f, sway } = instarBody(s, CFG, world.beat, phase);
-      return { head: f.headX, ring: instarMarkPoint(L, mark, sway).x };
+      return { head: f.headX, ring: instarMarkPoint(L, mark, sway, 0).x };
     };
     const a = at(0);
     const b = at(0.25);
@@ -122,7 +64,7 @@ describe("a thumb finds a mark where it is drawn", () => {
     const mark = s.steps[0]?.marks[0];
     if (mark === undefined) throw new Error("the script's first step has no mark");
     const { sway } = instarBody(s, CFG, beat, phase);
-    const at = instarMarkPoint(L, mark, sway);
+    const at = instarMarkPoint(L, mark, sway, 0);
     const t = instarMarkUnder(L, at.x, at.y, field(world, beat, phase));
     expect(t?.command?.kind).toBe("drag");
     const hold = t?.hold ?? null;
@@ -136,7 +78,7 @@ describe("a thumb finds a mark where it is drawn", () => {
     const phase = 0.25;
     const mark = s.steps[0]?.marks[0];
     if (mark === undefined) throw new Error("the script's first step has no mark");
-    const still = instarMarkPoint(L, mark, { xMilli: 0, yMilli: 0 });
+    const still = instarMarkPoint(L, mark, { xMilli: 0, yMilli: 0 }, 0);
     expect(instarMarkUnder(L, still.x, still.y, field(world, beat, phase))).toBeNull();
   });
 });

@@ -18,7 +18,7 @@ import { deskDown, deskDownAll } from "../src/desk-grab.js";
 import { pointerSeats } from "../src/desk-seat.js";
 import { gaugeBandGrip } from "../src/gauge-grip.js";
 import { gaugeDial } from "../src/gauge-round.js";
-import { instarMarkPoint } from "../src/instar-shape.js";
+import { instarMarkPoint, instarThreat } from "../src/instar-shape.js";
 import { instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { type Field, type Touch, touchMove } from "../src/touch.js";
@@ -120,7 +120,12 @@ function instarField(world: World, seat: 1 | 2): Field {
 function ringAt(s: InstarState, world: World, id: number): { x: number; y: number } {
   const mark = s.steps[s.cursor]?.marks[id];
   if (mark === undefined) throw new Error(`pose ${s.cursor} has no mark ${id}`);
-  return instarMarkPoint(L, mark, instarSway(s, CFG, world.beat, 0));
+  return instarMarkPoint(
+    L,
+    mark,
+    instarSway(s, CFG, world.beat, 0),
+    instarThreat(s, world.beat, 0),
+  );
 }
 
 /** Which seat each mark of the pose is asking for, so a case names a seat

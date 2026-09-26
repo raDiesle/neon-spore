@@ -98,6 +98,15 @@ export interface SceneMark<Part extends string = string> {
   yMilli: number;
   /** How much, in the gesture's own unit (`INSTAR_GESTURES`). Never nought. */
   need: number;
+  /**
+   * **How far the mark travels across the field while its window runs**, in
+   * thousandths of the field's width, leftward negative: at `xMilli` when the
+   * window opens, `sweepMilli` further on when it closes, evenly between.
+   * Absent is still. It stays on its own seat's half the whole way, so where
+   * it is still says whose it is, and a `turn` never sweeps — the thumb winds
+   * about where the ring was when it came down (`content/test/instar-script.test.ts`).
+   */
+  sweepMilli?: number;
 }
 
 export type InstarMark = SceneMark<InstarPart>;

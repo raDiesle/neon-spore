@@ -61,6 +61,7 @@ export function instarHashParts(s: SceneState): number[] {
         m.xMilli,
         m.yMilli,
         m.need,
+        m.sweepMilli ?? 0,
       );
   }
   for (const n of s.progress) out.push(n);

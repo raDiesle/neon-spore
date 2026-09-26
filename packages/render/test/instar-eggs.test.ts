@@ -62,7 +62,7 @@ describe("THE INSTAR's nests", () => {
     const tap = INSTAR_SCRIPT[EGGS_STEP]?.marks.findIndex(tapped) ?? -1;
     expect(tap).toBeGreaterThanOrEqual(0);
     const fx = new InstarFx();
-    fx.place(L, s, { xMilli: 0, yMilli: 0 }, { x: 0, y: 0 }, 40);
+    fx.place(L, s, { xMilli: 0, yMilli: 0 }, 0, { x: 0, y: 0 }, 40);
     fx.ingest([{ type: "instarAnswer", mark: tap, part: "eggs", col: 3 }], L, () => {});
     expect(fx.eggs.count).toBe(1);
     // A burst is the splat alone, which is gone in well under the fall.

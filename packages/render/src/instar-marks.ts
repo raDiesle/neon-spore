@@ -6,16 +6,20 @@ import {
   instarActing,
   instarMarkDone,
   instarStep,
-  instarStrikeBeat,
   instarSwipeAlong,
   type SimConfig,
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
-import { drawInstarGlyph } from "./instar-glyphs.js";
-import { drawInstarHalo, drawInstarTheirs, drawInstarWait } from "./instar-mark-feedback.js";
-import { INSTAR_FLIGHT_ENDS, instarMarkPoint, instarMarkRadius } from "./instar-shape.js";
+import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
+import { drawInstarRing } from "./instar-ring.js";
+import {
+  INSTAR_FLIGHT_ENDS,
+  instarMarkPoint,
+  instarMarkRadius,
+  instarThreat,
+} from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import {
   drawInstarDone,
@@ -115,20 +119,19 @@ export function drawInstarMarks(
     if (morph < ANTICIPATE_FROM) return;
     const glow = ((morph - ANTICIPATE_FROM) / (1 - ANTICIPATE_FROM)) * 0.5;
     for (const mark of step.marks) {
-      const at = instarMarkPoint(l, mark, sway);
+      const at = instarMarkPoint(l, mark, sway, 0);
       const p = new Path2D(circleSubpath(at.x, at.y, r * (1.6 - 0.6 * glow)));
       strokeGlow(ctx, p, PALETTE.red, STROKE.inner, glow);
     }
     return;
   }
   if (!instarActing(s)) return;
-  const left = Math.max(
-    0,
-    Math.min(1, (instarStrikeBeat(s) - beat - beatPhase) / step.windowBeats),
-  );
   const awaited = instarAwaited(s, cfg, beat, beatPhase);
+  // How far the window has run moves a swept mark; what is left of it closes the ring.
+  const along = instarThreat(s, beat, beatPhase);
+  const left = 1 - along;
   step.marks.forEach((mark, i) => {
-    const at = instarMarkPoint(l, mark, sway);
+    const at = instarMarkPoint(l, mark, sway, along);
     const mine = instarMarkIsMine(role, mark.seat);
     // Beside the ring, clear of the window ring at its widest, away from the middle.
     const side = mark.xMilli < 500 ? -1 : 1;
@@ -163,7 +166,7 @@ export function drawInstarMarks(
         return;
       }
       if (mine) drawInstarHalo(ctx, at.x, at.y, r, time);
-      drawRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
+      drawInstarRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
       if (!mine) drawInstarTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);
       const off = r * 3.1;
@@ -186,62 +189,4 @@ function drawVerdict(
 ): void {
   const v = verdicts.at(i);
   if (v !== null) drawVerdictRing(ctx, x, y, r, v);
-}
-
-/**
- * The ring itself: red, brighter for the seat it wants, breathing until a
- * thumb lands, its arc filling as the part gives.
- *
- * `awaited` is the partner already answered and counting: the ring breathes
- * harder and burns brighter, because this is the mark the step is waiting on
- * and what happens if it does not come is the other one going back to nought
- * (`instar-together.ts`).
- */
-function drawRing(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  gesture: InstarGesture,
-  mine: boolean,
-  held: boolean,
-  along: number,
-  time: number,
-  awaited: boolean,
-): void {
-  const beat = awaited ? 7 : 4;
-  const swell = awaited ? 0.14 : 0.08;
-  const breathe = held ? 1 : 1 + swell * Math.sin(time * beat);
-  const p = new Path2D(circleSubpath(x, y, r * breathe));
-  ctx.save();
-  ctx.fillStyle = PALETTE.background;
-  ctx.fill(p);
-  ctx.fillStyle = PALETTE.red;
-  ctx.globalAlpha = held ? 0.5 + along * 0.4 : mine ? 0.22 : 0.1;
-  ctx.fill(p);
-  ctx.restore();
-  strokeGlow(
-    ctx,
-    p,
-    held || awaited ? PALETTE.redRim : PALETTE.red,
-    STROKE.inner,
-    (mine ? (held ? 1.4 : 1.3) : 0.4) * (awaited ? 1.35 : 1),
-  );
-  ctx.save();
-  ctx.strokeStyle = ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
-  ctx.globalAlpha = mine ? 0.95 : 0.5;
-  if (mine) drawInstarGlyph(ctx, gesture, x, y, r, time);
-  ctx.restore();
-  if (!mine) drawInstarWait(ctx, x, y, r, time);
-  if (along <= 0) return;
-  // Green: the part is giving, so the carry is going the right way — the
-  // simulation holds a pull the wrong way at nought, so an arc at all is
-  // already the answer to *am I doing it right* (`instar-mark-feedback.ts`).
-  ctx.save();
-  ctx.strokeStyle = PALETTE.good;
-  ctx.lineWidth = STROKE.outline * 1.6;
-  ctx.beginPath();
-  ctx.arc(x, y, r * 1.55, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * along);
-  ctx.stroke();
-  ctx.restore();
 }

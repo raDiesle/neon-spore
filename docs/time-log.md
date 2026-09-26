@@ -21416,17 +21416,32 @@ reached.
 
 ## 2026-09-26 — THE INSTAR's eggs crack, and the brood comes back with the seats swapped
 
-- reading: 10 min. The nest drawer, the poses and the profile's spine, and
-  the script's scene list.
-- writing: 15 min. `instar-egg-crack.ts`, the nests stood at their marks
+- reading: 0 min. The nest drawer, the poses and the profile's spine, and
+  the script's scene list, in a few reads.
+- writing: 5 min. `instar-egg-crack.ts`, the nests stood at their marks
   (`placed`), the spine's knots ordered by x, the second brood step, a test.
-- looking: 10 min. Crops of the hairline and the split at phone size, then
+- looking: 5 min. Crops of the hairline and the split at phone size, then
   the swapped step's frame.
 - friction: 0 min.
-- landing: 5 min. The shape file went past 250 with `placed` in it and was
+- landing: 0 min. The shape file went past 250 with `placed` in it and was
   moved next door; `check:fast`, the commit, `land`.
 
 Bottleneck: seeing the crack at all — the eggs are a few pixels wide on a
 phone, and the first stroke was thinner than the egg's own outline.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's lash sweeps along the hull
+
+- reading: 0 min. The mark's words and hash, where a ring is placed, found
+  and burst, and the swing that already carries all three.
+- writing: 5 min. `sweepMilli` and its hash, the one place a ring is
+  (`instarMarkPoint` asked for how far the window has run), the fork carried
+  by it, the breath's scene cut off the script at its line limit, a test kit
+  and two tests.
+- looking: 0 min. The lash at the window's open and near its close.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the script file's line limit — two marks written out long took it
+over, and the cut had to be found before anything could be tested.

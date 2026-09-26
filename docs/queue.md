@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR, lash: a tail that sweeps rather than stands
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-26, claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta (claim: claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s)
-- **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-marks.ts`, `packages/sim/src/instar-hash.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-marks.ts`, `packages/content/src/instar-script.ts`
-
-Steps 3 and 7. The blades hang over two fixed points, so twenty taps are
-twenty presses in one place. Give `InstarMark` an optional sweep, a distance
-in thousandths that the mark travels across the field over the window, and
-let the fork carry its blades along the same line (`instar-tail.ts` aims at
-the pose's `tailX` today, and would aim at the mark instead). A mark stays on its own seat's half of the field, so where
-it sits still says whose it is. Every new field goes in `hashWorld`, and the
-test taps a moving mark at the wrong place and gets nothing.
-
 ## THE INSTAR, coil: the blades wind opposite ways
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
@@ -1036,3 +1022,28 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE INSTAR's word box flips onto the partner's ring near an edge
+
+- **Found:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s
+- **Files:** `packages/render/src/instar-word.ts`, `packages/render/src/instar-marks.ts`
+
+`drawInstarWord` hangs a mark's box outward, away from the middle, and flips
+it to the ring's inner side when the outer side has no room. Near an edge —
+the sway's far end, and now the lash's sweep, which carries player 1's blade
+to 270 before the sway — the flipped box lands on the partner's ring, 240
+thousandths across: the P1 lash box covers P2's ring (`bun run frames . --wave
+"THE INSTAR"` with the lash step, `--until-on 280`). This is a fix, not a
+look: stand the box above or below its ring when neither side is clear of
+the other ring, and pin it in `packages/render/test/instar-word.test.ts`.
+
+## THE INSTAR's render tests each stand the body up their own way
+
+- **Found:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s
+- **Files:** `packages/render/test/instar-kit.ts`, `packages/render/test/desk-grab.test.ts`, `packages/render/test/instar-eggs.test.ts`, `packages/render/test/instar-frame.test.ts`, `packages/render/test/instar-together.test.ts`
+
+`hung()` and `acting()` are written five times over, near enough the same.
+`instar-kit.ts` now holds the sway test's copy and the sweep test uses it;
+move the other four onto it, keeping any variant a test genuinely needs (the
+desk's `put` step, the frame test's `morphing`/`down`) as a parameter or a
+local wrapper, and `bun run check` proves it.

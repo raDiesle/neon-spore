@@ -1,5 +1,5 @@
 import { type InstarMark, instarActing, instarStep, NO_BEARING } from "@neon-spore/sim";
-import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-shape.js";
+import { instarMarkPoint, instarMarkRadius, instarThreat, type Point } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import { hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
@@ -32,9 +32,10 @@ function markUnder(
   if (step === null) return null;
   const r = instarMarkRadius(l, field.cfg);
   const sway = instarSway(s, field.cfg, field.beat, field.beatPhase);
+  const along = instarThreat(s, field.beat, field.beatPhase);
   let best: { id: number; mark: InstarMark; at: Point; d: number } | null = null;
   step.marks.forEach((mark, id) => {
-    const at = instarMarkPoint(l, mark, sway);
+    const at = instarMarkPoint(l, mark, sway, along);
     if (!hitCircle({ x: at.x, y: at.y, r }, x, y)) return;
     const d = (x - at.x) ** 2 + (y - at.y) ** 2;
     if (best === null || d < best.d) best = { id, mark, at, d };

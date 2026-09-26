@@ -718,6 +718,7 @@ by hand never moves.
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
 | `packages/content/src/instar-script.ts` | THE INSTAR's script: twelve steps over five poses, and what the pair does to each |
+| `packages/content/src/instar-script-breath.ts` | **THE INSTAR's opening scene, the breath's three bites** |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
@@ -1429,6 +1430,7 @@ by hand never moves.
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
+| `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
