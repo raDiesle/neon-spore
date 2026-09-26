@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8cb8e2524 — Living bosses: every part of a boss moves on its own, in the spec
+
+The owner asked that a boss's head, body, hands and limbs each tilt, turn and rotate a little and never stay fixed. The living-bosses spec now has a part drift on top of the body drift, with small slow ranges per part, follow-through down each chain, and parts that never move in step. It also has a map of which bosses can take it now and which must have their parts split out first. The queue's drift tasks carry it, and five new entries split the merged parts, swing the mechanisms' hinges, and ask what should turn the motion down.
+
 ## 2026-09-26 · 4320d1cdb — The clock bosses' drawing gets a page four, from THE SLING on
 
 `boss-draw-clocks-c.ts` sat at exactly 250 lines after THE CYST and THE GRINDSTONE landed side by side, so the next boss would have failed the file-size test. Its last six bosses — THE SLING, THE TRIVET, THE PLUMB, THE DAVIT, THE CYST and THE GRINDSTONE — move to `boss-draw-clocks-d.ts`, with their own kind list, dispatched from `boss-draw-clocks.ts` beside page three. Nothing drawn changes. The Android READY check is now marked `Where: phone`, so `queue next` stops handing it to a session at a desk.
