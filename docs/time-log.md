@@ -24093,3 +24093,5 @@ humps, so a straight seam floated off it until it was bent over the hump.
 - landing: 10 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: looking — a white glow on pale frost does not show, and only a frame said so.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

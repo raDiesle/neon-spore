@@ -2660,3 +2660,17 @@ Move it to one small module (`step-colour.ts`, say), call it from all four
 marks files, delete the copies, and add a row to the called-not-re-derived
 table in `packages/sim/test/copies-table.ts` so a fifth boss cannot copy
 it again. No picture changes; `bun run check` proves it.
+
+## Unverified at f36bb0d02: THE RIME's body watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/palette-creatures.ts`
+
+*THE RIME's body: a frosted pane of glass, wiped clear a half at a time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
+
+- THE RIME's body watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

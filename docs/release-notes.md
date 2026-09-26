@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f36bb0d02 — THE RIME's body: a frosted pane of glass, wiped clear a half at a time
+
+Wave 108 is drawn. THE RIME is a pane of dull grey glass over the middle column. Its outline is BULB · PEBBLE, split down the spine into the pilot's half and the navigator's. THE CAIRN's seven faceted sheets lie over it as pale frost, with their seams showing. A wiped half's clear patch is as wide as its frost is gone. The half a wipe asks for glows white, and the other half dulls. A shield step's surge crawls in from the rim. The core is lit in its colour once bared, and shrinks with every hit. The shatter drops the seven sheets apart. Exemption used: a look with no shipped alternative.
+
 ## 2026-09-26 · bbcdf7e5a — THE GIMBAL's timeout blow splits the hull along its seam
 
 When the seam's spark is left unanswered, the bead that ran down the middle column is pressed flat into the skin, and the plating splits along a seam in the colour it was venting. The split spits beads of that colour along the hull and closes dark. It replaces the generic lash.
