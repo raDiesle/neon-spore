@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 500dcd2c2 — AUTO answers THE MAGNET, THE CRYSTAL, THE CHOIR, THE WISP, THE STRAND, THE CRAWLER and THE JAM
+
+AUTO now plays six more ordinary waves clean. It locks a magnet from the column beside it and fires the pole facing the cannon. It raises the dome under a crystal's middle and shoots while the crystal falls. It shakes a choir together, shoots a wisp in either colour, and shoots only a strand's lit bead. It stands the shield under a crawler's next plate on the beat. Under THE JAM's runaway cannon, player 1 stands under a body of the colour the next beat has loaded, or in an empty column. THE JAM is the one wave still named half played: its first lure comes on over the cannon on the tick the runaway fires. That is now queued for the owner.
+
 ## 2026-09-26 · 920f00b11 — THE MANTLE answers a thumb: each seat pulls its own knob, either taps the core
 
 Each seat now takes hold of its own knob on THE MANTLE, the pilot the left and the navigator the right, on both phones, and carries it down its groove; a thumb on the other seat's knob falls through, and one laid on a knob before the handles light is held. Once the shell splits, the ring round the bared core takes a tap from either seat, and the one it is not waiting on is refused by the simulation rather than passed to the cannon behind. The ghost hand stands on a pulled knob, and the director has the three rows and their poses.

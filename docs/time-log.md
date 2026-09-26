@@ -22496,3 +22496,5 @@ Bottleneck: writing — the director's row, pose and spec table each restate wha
 - landing: 5 min. `check:fast`, the queue entry closed and THE JAM's opening filed, `land`.
 
 Bottleneck: reading — each creature's rule lives in two or three sim files, and a scratch diagnostic that printed breaches by tick was what showed which rule to read.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
