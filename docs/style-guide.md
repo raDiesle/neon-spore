@@ -241,6 +241,14 @@ misunderstanding, and it is withdrawn.**
   again from the distance, it first goes: up and away by the same scale law
   run backwards, swerving wide, and only then makes its approach
   (`instar-flight.ts`'s `LEAVE`).
+- **A change of pose is drawn between its two keys, never blended.** A
+  straight blend moves every part at once and reads as a morph. Instead the
+  head leads and the body follows over its own later stretch; the wings fold
+  in through the middle and open late; the jaws half shut and the fire dies
+  with them; the head first dips the wrong way and settles into its new place
+  with a small overshoot; and a turn closes the eyes through its middle. It is
+  exact on both keys, so every mark glows where it always did
+  (`instar-between.ts`).
 - **The limits are the phone's, not the dimension's.** Battery and frame time
   matter to the owner more than any look. No full engine — PixiJS, Three.js,
   Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame

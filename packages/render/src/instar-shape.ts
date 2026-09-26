@@ -6,6 +6,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { instarBetween } from "./instar-between.js";
 import { BEATEN, ENTER, placed } from "./instar-poses.js";
 
 /**
@@ -24,9 +25,9 @@ import { BEATEN, ENTER, placed } from "./instar-poses.js";
  * per seat**: both screens see the same body, and the split of this boss is
  * in whose thumb each mark wants.
  *
- * **A pose is a figure, and a morph is a lerp.** Each of the poses is
- * one `Figure` (`instar-poses.ts`); the body between two of them is the
- * straight blend, eased, over the part of the step's `morphBeats` the flight
+ * **A pose is a figure, and a morph is drawn between two.** Each of the poses
+ * is one `Figure` (`instar-poses.ts`); the body between two of them is keyed
+ * in-between motion (`instar-between.ts`) over the part of the step's `morphBeats` the flight
  * takes (`instar-flight.ts`), so the body has its new pose by the time it
  * comes to rest and the marks glow up on it. While the marks are up the
  * figure is the pose's, **deformed by how far each mark has got** — each jaw
@@ -164,7 +165,7 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number, he
   }
   if (s.phase === "morph") {
     const t = at / (step.morphBeats * INSTAR_FLIGHT_ENDS);
-    return lerp(from, placed(step.pose, step.marks), smoothstep(Math.min(1, t)));
+    return instarBetween(from, placed(step.pose, step.marks), Math.min(1, t));
   }
   const along =
     s.phase === "land"

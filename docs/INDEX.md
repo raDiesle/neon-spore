@@ -1581,6 +1581,7 @@ by hand never moves.
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
 | `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's new body, baked** — the fifth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
+| `packages/render/src/instar-between.ts` | **THE INSTAR between two poses**: the in-between motion of a morph, keyed on the pose it comes from |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |

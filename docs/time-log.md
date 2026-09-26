@@ -23565,3 +23565,19 @@ Bottleneck: friction — finding a wave whose timeout fires without a hand on it
 Bottleneck: reading — nothing in the state says how long the step was
 asked for once it has landed, so the reach had to be remembered by the
 picture.
+
+## 2026-09-26 — THE INSTAR moves between its poses rather than blending
+
+- reading: 10 min. The five new poses, the script's order and which changes
+  happen in place on screen, where an in-between is seen.
+- writing: 20 min. `instar-between.ts`: the head leading, the body
+  following, the wings gathering, a dip and a settle, a blink on a turn;
+  a test of each.
+- looking: 10 min. Three sheets of six frames each, through the rear, the
+  glare and the bare body's arrival.
+- friction: 5 min. The first frames were a beat apart, not a morph apart:
+  a beat is 75 ticks.
+- landing: 5 min. `check:fast`, this entry, the commit.
+
+Bottleneck: looking — the frames tool takes ticks, and how many ticks a
+morph spans had to be read off the script before a sheet showed anything.
