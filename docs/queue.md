@@ -434,6 +434,7 @@ an alignment.
 ## THE INSTAR, breath: the shove is seen and heard
 
 - **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
+- **Taken:** 2026-09-26, claude/queue-split-boss-hurt-test-ts-past-250-lines (claim: claude/queue-the-instar-breath-the-shove-is-seen-and-heard)
 - **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/instar-shape.ts`, `packages/sim/src/instar-step.ts`, `.claude/skills/new-boss-state`
 
 The second and third bites of the breath push back against both thumbs every
