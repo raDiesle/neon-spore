@@ -2400,15 +2400,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE INSTAR drawn as a speck still pays for every glow pass and scale
-
-- **Found:** 2026-09-26, claude/instar-third-between
-- **Taken:** 2026-09-26, main (claim: claude/queue-the-instar-drawn-as-a-speck-still-pays-for-every)
-- **Files:** `packages/render/src/glow.ts`, `packages/render/src/solid-tube-draw.ts`, `packages/render/src/instar-horn.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-profile-surface.ts`
-- **Asks:** may a body drawn under a flight scale below about a quarter skip its sub-pixel detail (glow's layered passes collapsed to one, hide scales and horn ridges left out), which changes pixels a few wide, or must the speck stay pixel-exact and the cost stay?
-
-After the tubes were sliced by screen size and off-field views culled, the turn's worst frames are 1050–1125 draws and 90–140 gradients against 700–800 and 50–65 at rest (`test/instar-budget.test.ts`). What is left is frames where both views are really on the field, most of them with the body at a flight scale of 0.15–0.3: a speck about 60 px across that still draws about 430 ops a view. The biggest: `solid-tube-draw.ts:179` (205), `glow.ts:47` strokeGlow's layered passes (198), `glow.ts:52` (66), `instar-horn.ts:136` (60), `instar-hide.ts:148` (58), `instar-profile-surface.ts:201` (52). A level of detail keyed on `tubeScale()` would take most of it, and it goes to VERSUS as a candidate unless the owner answers yes.
-
 ## `queue next` hands out a DEFERRED entry
 
 - **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look

@@ -761,6 +761,22 @@ them changes a pixel:
 The dive at a third of its morph went from 1390 draws and 302 gradients to
 1066 and 91. `test/instar-budget.test.ts` holds it there.
 
+**A speck is drawn without its surface texture.** This one does change
+pixels, and the owner asked for it (26 September 2026, *drop details if its
+reasonable save battery*). At a flight scale of 0.3 or less (`speck()` in
+`solid-tube-screen.ts`) the body is 60 to 120 px across, the *turning body*
+row of the table below, where parts on a rim survive and texture does not:
+- the scales on the hide, the horn's ridges and the belly's scutes are left
+  out, and the profile's spine keeps every other spike;
+- a glow's layered passes, under a pixel apart at that size, are one pass at
+  their middle carrying their summed light (`strokeGlow`);
+- a tube's light is read off rings `STEP_PX` apart on the screen (`thinned`);
+  its outline keeps every ring.
+
+The outline, the colours, the light across each tube, the rims and every part
+are still drawn. The dive went from 440 fills and 513 strokes to 289 and 237;
+the coil and the roar peak at seven tenths of full size and are unchanged.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring

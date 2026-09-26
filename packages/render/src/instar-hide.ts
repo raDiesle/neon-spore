@@ -2,6 +2,7 @@ import { KEY } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import type { Point } from "./instar-place.js";
 import { PALETTE } from "./palette.js";
+import { speck } from "./solid-tube-screen.js";
 
 /**
  * **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays
@@ -105,6 +106,7 @@ export function drawScales(
   size: number,
   fade: number,
 ): void {
+  if (speck()) return;
   HIDE_LOOK.paint(ctx, p, form, size, fade);
 }
 

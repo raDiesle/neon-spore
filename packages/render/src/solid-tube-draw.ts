@@ -1,7 +1,7 @@
 import type { SeenRing, Vec3 } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { SHADOW, type Skin, sectionGradient } from "./solid-tube-light.js";
-import { offScreen, type Screen, tubeScale, tubeScreen } from "./solid-tube-screen.js";
+import { offScreen, type Screen, thinned, tubeScale, tubeScreen } from "./solid-tube-screen.js";
 
 export type { Skin } from "./solid-tube-light.js";
 
@@ -76,7 +76,7 @@ export function drawTube(
   ctx.fillStyle = rgba(skin.base, alpha);
   ctx.fill(outline);
   ctx.clip(outline);
-  const fine = densify(rings);
+  const fine = densify(thinned(rings, STEP_PX));
   for (let i = 0; i < fine.length - 1; i++) {
     shadeSegment(ctx, fine[i] as SeenRing, fine[i + 1] as SeenRing, skin, alpha, screen);
   }

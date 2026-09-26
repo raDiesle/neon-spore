@@ -14,6 +14,7 @@ import { faded } from "./instar-plate.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawContact, hazeSkin } from "./solid-haze.js";
 import { drawTube, rimTube } from "./solid-tube-draw.js";
+import { speck } from "./solid-tube-screen.js";
 
 /**
  * **A horn of THE INSTAR, as a tube of the rig**: a cone of bone grown along
@@ -93,7 +94,7 @@ export function drawHorn(
   ctx.save();
   ctx.translate(h.base.x, h.base.y);
   const hide = drawTube(ctx, seen, skin, fade);
-  drawRidges(ctx, hide, seen, r, fade);
+  if (!speck()) drawRidges(ctx, hide, seen, r, fade);
   // Where it roots in the skull, so it reads as planted rather than pasted on.
   drawContact(ctx, hide, 0, 0, h.width * 1.6, 0.8 * fade);
   rimTube(ctx, hide, PALETTE.rock, Math.max(1, r * 0.025), fade * (1 - back * 0.6));

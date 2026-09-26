@@ -1,6 +1,7 @@
 import type { Point } from "./instar-place.js";
 import { faded } from "./instar-plate.js";
 import { PALETTE } from "./palette.js";
+import { speck } from "./solid-tube-screen.js";
 
 /**
  * THE INSTAR's belly plates side-on: a short dark notch in from the belly
@@ -15,6 +16,7 @@ export function drawScutes(
   r: number,
   fade: number,
 ): void {
+  if (speck()) return;
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineWidth = Math.max(1, r * 0.03);

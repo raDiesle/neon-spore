@@ -13,6 +13,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * left undrawn (`solid-tube-screen.ts`, `instar-reach.ts`); these rows hold it
  * there. The dive was 1390 draws and 302 gradients before.
  *
+ * The dive flies the body at a fifth of its size, a speck, and a speck is
+ * drawn without its surface texture (`speck` in `solid-tube-screen.ts`): 440
+ * fills and 513 strokes became 289 and 237. The coil and the roar peak at
+ * seven tenths, where nothing is left out.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -30,30 +35,30 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 477,
+      fill: 451,
       stroke: 513,
       drawImage: 30,
-      createLinearGradient: 87,
+      createLinearGradient: 74,
       createRadialGradient: 40,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 440,
-      stroke: 513,
+      fill: 289,
+      stroke: 237,
       drawImage: 30,
-      createLinearGradient: 57,
+      createLinearGradient: 46,
       createRadialGradient: 39,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 490,
+      fill: 458,
       stroke: 524,
       drawImage: 32,
-      createLinearGradient: 99,
+      createLinearGradient: 91,
       createRadialGradient: 39,
     },
   },

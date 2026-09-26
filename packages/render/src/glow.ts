@@ -1,5 +1,6 @@
 import { bakedCache } from "./baked.js";
 import { STROKE } from "./palette.js";
+import { speck } from "./solid-tube-screen.js";
 
 /**
  * Glow without shadowBlur.
@@ -41,10 +42,17 @@ export function strokeGlow(
   const prev = ctx.globalCompositeOperation;
   ctx.globalCompositeOperation = "lighter";
   ctx.strokeStyle = color;
-  for (let i = STROKE.glowPasses; i >= 1; i--) {
-    ctx.lineWidth = width + (i * spread) / STROKE.glowPasses;
-    ctx.globalAlpha = (0.1 * intensity * alpha) / i;
+  if (speck()) {
+    // A speck's passes are under a pixel apart: one at their middle carries their light.
+    ctx.lineWidth = width + spread / 2;
+    ctx.globalAlpha = Math.min(1, 0.1 * intensity * alpha * PASS_SUM);
     ctx.stroke(path);
+  } else {
+    for (let i = STROKE.glowPasses; i >= 1; i--) {
+      ctx.lineWidth = width + (i * spread) / STROKE.glowPasses;
+      ctx.globalAlpha = (0.1 * intensity * alpha) / i;
+      ctx.stroke(path);
+    }
   }
   ctx.globalCompositeOperation = prev;
   ctx.globalAlpha = alpha;
@@ -52,6 +60,12 @@ export function strokeGlow(
   ctx.stroke(path);
   ctx.globalAlpha = 1;
 }
+
+/** What the glow passes' alphas add up to, over `0.1 * intensity * alpha`. */
+const PASS_SUM = Array.from({ length: STROKE.glowPasses }, (_, i) => 1 / (i + 1)).reduce(
+  (a, b) => a + b,
+  0,
+);
 
 /**
  * How far a body's glow reaches, for the bodies drawn under a scale: the

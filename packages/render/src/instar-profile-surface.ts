@@ -16,6 +16,7 @@ import { rgba } from "./hex.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, faded } from "./instar-plate.js";
 import { PALETTE } from "./palette.js";
+import { speck } from "./solid-tube-screen.js";
 
 /**
  * **What sits on THE INSTAR's long body, placed round it** — the owner, 26
@@ -102,7 +103,7 @@ export function drawScales(
   fade: number,
 ): void {
   const n = body.rings.length;
-  if (size < 2 || fade <= 0 || n < 3) return;
+  if (size < 2 || fade <= 0 || n < 3 || speck()) return;
   const a0 = (body.seen[0] as SeenRing).c;
   const a1 = (body.seen[n - 1] as SeenRing).c;
   const gap = Math.hypot(a1.x - a0.x, a1.y - a0.y) / (n - 1);
@@ -174,12 +175,14 @@ export function drawRidge(
   every: number,
 ): void {
   if (fade <= 0) return;
+  // A speck keeps every other spine (`speck`), each one of those it had.
+  const k = speck() ? every * 2 : every;
   const a = (far ? -RIDGE_SPREAD : RIDGE_SPREAD) + roll;
   const n = body.rings.length - 1;
   const lit = faded(far ? PALETTE.sheenCold : PALETTE.rock, fade, far ? 0.5 : 0.85);
   const dark = faded(far ? SHADOW : PALETTE.rockDark, fade, far ? 0.8 : 0.95);
   ctx.save();
-  for (let i = every * 2; i < n - every; i += every) {
+  for (let i = every * 2; i < n - every; i += k) {
     const u = i / n;
     const base = place(body, i, a);
     if (!far && base.near < 0) continue;

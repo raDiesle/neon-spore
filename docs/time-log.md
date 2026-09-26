@@ -24778,3 +24778,18 @@ Bottleneck: the context compaction, which cost re-reading the files already writ
 Bottleneck: writing — twelve new events each need four registrations outside the simulation.
 
 *Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR drawn as a speck (claude/queue-the-instar-drawn-as-a-speck-still-pays-for-every)
+
+- reading: 5 min. The flight, `drawTube`, `strokeGlow`, the hide, horn,
+  scute and spine painters, and the budget test.
+- writing: 5 min. `speck()`, `thinned`, the one-pass glow, five call sites,
+  the budget rows and the style-guide paragraph.
+- looking: 5 min. Per-call attribution of a dive frame, then a Skia before
+  and after of it, diffed and cropped.
+- friction: 0 min. The first measure read beatPhase 0, a still flight scale,
+  and was rerun at once.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — finding which calls a speck spent its frame on took
+longer than leaving them out.
