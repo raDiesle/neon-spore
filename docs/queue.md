@@ -496,6 +496,7 @@ Unverified at tempo until the owner has looked.
 ## §29 THE RIME — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-29-the-rime-the-look)
 - **Needs:** §29 THE RIME's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
