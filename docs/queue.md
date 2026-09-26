@@ -1122,9 +1122,12 @@ in `Effects`, stepped per frame and cleared in `Effects.reset()`, would give a
 boss's trailing part real inertia. It must pass `restart.test.ts` and must be
 a render-side effect only — nothing in sim reads it.
 
-## CLOUD ONLY — move one boss a lane onto the solid rig, from the roster
+## DEFERRED — CLOUD ONLY — move one boss a lane onto the solid rig, from the roster
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Deferred:** 2026-09-26, this session. The owner narrowed scope: new
+  depth/graphics work stays on THE INSTAR only, as the one example, until
+  he says otherwise — no other boss moves onto the rig for now.
 - **Files:** `packages/render/src/solid-rig.ts`, `docs/style-guide.md`
 
 `drawRig` draws tubes and balls from any side with a fixed key, haze and
@@ -1135,9 +1138,12 @@ correctly when the fight turns them. **Each one is a look**: it goes to
 `bun run solid`'s pattern for its own sheet. Take one, name it in the entry
 you leave behind, and leave the rest listed.
 
-## CLOUD ONLY — the rig has no frame.test coverage until a boss uses it
+## DEFERRED — CLOUD ONLY — the rig has no frame.test coverage until a boss uses it
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Deferred:** 2026-09-26, this session. Follows the roster entry above:
+  only matters once a non-INSTAR boss ships on the rig, which is paused
+  until the owner says so.
 - **Files:** `packages/render/test/frame.test.ts`, `packages/render/test/solid.test.ts`
 
 `solid.test.ts` draws the rig through the stub from every side; nothing in
@@ -1165,10 +1171,12 @@ numbers into `docs/performance.md`. It ships only if the owner picks it in
 VERSUS and the phone numbers hold; otherwise the candidate stays as the
 record of why.
 
-## THE GIMBAL is a fifth rig candidate, and the sharpest one for the mirror rule
+## DEFERRED — THE GIMBAL, a fifth rig candidate, sharpest for the mirror rule
 
 - **Found:** 2026-09-26, this session
 - **Needs:** "a densified tube costs a gradient per slice, per frame" and "a dragged tail wants a verlet chain in Effects", both above
+- **Deferred:** 2026-09-26, this session. Same scope narrowing as the roster
+  entry above — no boss but THE INSTAR moves onto the rig for now.
 - **Files:** `packages/content/src/gimbal-script.ts`, `packages/render/src/gimbal-draw.ts`, `docs/style-guide.md`, `docs/spec/bosses.md`
 
 "move one boss a lane onto the solid rig, from the roster" names THE GORGE,
@@ -1464,9 +1472,12 @@ per beat, the same reasoning THE BURGEE's sweep and THE CAPSTAN's cradle
 were both ruled out on. Nothing here is drawn yet and stays unverified
 at tempo until the owner has looked.
 
-## THE STARE's turn is a squash-and-shear, not a placed surface
+## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
 
 - **Found:** 2026-09-26, this session
+- **Deferred:** 2026-09-26, this session. The owner narrowed scope: new
+  depth/graphics work stays on THE INSTAR only, as the one example, until
+  he says otherwise — no other boss moves onto placed-surface depth for now.
 - **Files:** `packages/render/src/stare-shape.ts`, `packages/render/src/stare-draw.ts`, `packages/content/src/surface.ts`, `.claude/skills/depth`
 
 THE STARE's whole tell is a turn: the eye is seen edge-on as a sliver
@@ -1627,11 +1638,15 @@ the shudder, not a colour change, the same drawn-as-mechanism choice
 THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
 drawn yet and stays unverified at tempo until the owner has looked.
 
-## §25 THE VALVE's look — the wheel drawn placed-surface, not a flat spin
+## DEFERRED — §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session
 - **Needs:** nothing — THE VALVE's simulation lane already landed, and its
   look is queued but not yet claimed
+- **Deferred:** 2026-09-26, this session. The owner narrowed scope: new
+  depth/graphics work stays on THE INSTAR only, as the one example, until
+  he says otherwise — no other boss moves onto placed-surface depth or the
+  rig for now.
 - **Files:** `docs/spec/bosses-choreographed.md`
 
 THE VALVE's wheel (§25) is the best-fitting candidate on this page's whole
