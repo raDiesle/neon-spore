@@ -1,6 +1,7 @@
 import { type SimConfig, type SimEvent, TRIVET_PLANTS_PER_FOOT } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
+import { fieldX } from "./field-flip.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { drawHullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
@@ -28,8 +29,10 @@ import { trivetCentre, trivetFoot, trivetHubR } from "./trivet-shape.js";
  * springing back up, the brace, the hub rocking up and the collapse deal
  * nothing.
  *
- * A missed hub throws nothing here: the hull it breaks is the boss's own
- * blow, the middle needle's stamp (`trivet-blow.ts`, `boss-strike-fx.ts`).
+ * A hub hit is thrown over the column it was shot in, which is the middle
+ * but for a lurch's; a needle turned throws the shield's sparks at the hull
+ * under its column. A missed hub or needle throws nothing here: the hull it
+ * breaks is the boss's own blow (`trivet-blow.ts`, `boss-strike-fx.ts`).
  *
  * The hub's colour is the lit step's and not in `trivetHit`, so the drawer
  * tells it every frame (`tell`), THE VISE's way. Everything is cleared in
@@ -129,10 +132,13 @@ export class TrivetFx {
           burst(mid.x, mid.y - r * 0.5, 8, PALETTE.trivetMetalDark);
           break;
         case "trivetHit":
-          burst(mid.x, mid.y, 8 + 6 * e.hits, this.hubHex);
+          burst(fieldX(l, e.col), mid.y, 8 + 6 * e.hits, this.hubHex);
           this.flashNow = 1;
           this.flashHits = e.hits;
           this.hurt.hit();
+          break;
+        case "trivetTurn":
+          burst(fieldX(l, e.col), l.hullY - r, 10, PALETTE.trivetSocket);
           break;
         case "trivetCollapse":
           burst(mid.x, mid.y, 24, PALETTE.trivetMetal);

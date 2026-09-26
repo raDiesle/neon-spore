@@ -24699,3 +24699,18 @@ files already edited.
 Bottleneck: reading — choosing which older bosses fall shortest takes reading every beat list.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's lurch aimed at, its hit and turned needle thrown where they happen (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 15 min. The two story steps' simulation, THE OCULUS's sight, THE
+  RIME's icicle cue, the drawer, the pose, THE SLOW's aim and the fx.
+- writing: 35 min. The whole look — drawer, pose, cue, aim, fx, sixteen frame
+  tests — of which only the aim, the two bursts and the story paragraphs'
+  move into §11.47 survived.
+- looking: 0 min. Not photographed from a cloud session.
+- friction: 15 min. Another session drew the lurch and the needle a minute
+  after this lane claimed them; the landing's rebase conflicted in ten files,
+  and the lane was cut back to what main lacked.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`, twice.
+
+Bottleneck: friction — a second session drew the same claimed look from an item of its own, found only at the rebase.

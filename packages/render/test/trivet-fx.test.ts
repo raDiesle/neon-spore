@@ -11,6 +11,7 @@ import {
   trivetBoss,
   type World,
 } from "@neon-spore/sim";
+import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { TrivetFx } from "../src/trivet-fx.js";
@@ -122,6 +123,17 @@ describe("THE TRIVET's transients", () => {
     expect(fx.flash.now).toBe(0);
   });
 
+  it("throws a lurch's hit over the column it was shot in, and a needle turned at the hull under its own", () => {
+    const fx = new TrivetFx();
+    const [swung] = said(fx, [{ type: "trivetHit", hits: 2, col: MID - 2 }]);
+    expect(swung?.x).toBeCloseTo(fieldX(L, MID - 2), 5);
+    const [turned] = said(fx, [{ type: "trivetTurn", col: MID + 2 }]);
+    expect(turned?.x).toBeCloseTo(fieldX(L, MID + 2), 5);
+    expect(turned?.y ?? 0).toBeGreaterThan(trivetCentre(L, CFG).y);
+    expect(turned?.hex).toBe(PALETTE.trivetSocket);
+    expect(fx.hurt.value).toBe(1);
+  });
+
   it("leaves a missed hub's blow at the hull to the strike", () => {
     const fx = new TrivetFx();
     expect(said(fx, [{ type: "trivetMiss", col: MID }])).toEqual([]);
@@ -173,11 +185,15 @@ function frame(role: ViewRole, event: SimEvent | null): string {
 }
 
 describe("THE TRIVET's transients on the field", () => {
-  it.each(ROLES)("reacts to a plant, a hub hit and the collapse, on %s", (role) => {
-    // Every seat is thrown all three: nothing of this boss is split between them.
-    const quiet = frame(role, null);
-    expect(frame(role, plant(0, TRIVET_PLANTS_PER_FOOT))).not.toBe(quiet);
-    expect(frame(role, hit(1))).not.toBe(quiet);
-    expect(frame(role, { type: "trivetCollapse", col: MID })).not.toBe(quiet);
-  });
+  it.each(ROLES)(
+    "reacts to a plant, a hub hit, the collapse and a needle turned, on %s",
+    (role) => {
+      // Every seat is thrown all three: nothing of this boss is split between them.
+      const quiet = frame(role, null);
+      expect(frame(role, plant(0, TRIVET_PLANTS_PER_FOOT))).not.toBe(quiet);
+      expect(frame(role, hit(1))).not.toBe(quiet);
+      expect(frame(role, { type: "trivetCollapse", col: MID })).not.toBe(quiet);
+      expect(frame(role, { type: "trivetTurn", col: MID + 2 })).not.toBe(quiet);
+    },
+  );
 });

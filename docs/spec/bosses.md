@@ -8353,32 +8353,6 @@ while a fire step is lit, only in the middle column, and only in its colour
 unless it is `either`. The wrong colour is a colour missed on the balance
 sheet and nothing else, THE SEAM's rule.
 
-**Two story steps, 26 September 2026**, so the fight is more than plant and
-shoot (the owner's 13:12 brief: more states where the pair must act, told as
-a story). **The lurch** (`tip`): the stand leans hard onto one foot and the
-hub swings out over another column, two to the pilot's side in the script.
-The leaning foot's seat holds its chord — every lit pad down — while the
-pair shoots the swung hub in its colour; a shot there with that foot let
-go, or up the middle, is not heard (`sim/trivet-shot.ts`). **The needle**:
-the hub flings a needle down a column two to the navigator's side, turned
-by the shield under that column while it is armed, the guard pressed after
-the step lit — THE RIME's icicle (`sim/trivet-guard.ts`, `trivetTurn`,
-bound to the shield's own deflect). A shield under the stand turns nothing.
-Both are under THE SLOW, and either run out is a hull hit over its own
-column (`trivetMiss`). The script is eleven steps: two plants a foot, a
-shot, a brace, the lurch, a shot, the needle, a brace, a shot.
-
-**Both are drawn, the same day** (`render/trivet-story.ts`). The lurch
-throws the hub out over its column, low and tilted onto the leaning foot,
-its legs' roots carried with it and the feet left where they stand; the far
-foot comes up off the field and settles most of the way back once the
-leaning foot's chord is held. The needle is one more of CALTROP's needles,
-flung from the hub out over its column and sinking toward the hull as the
-step runs out, THE OCULUS's dotted sight from its point to the hull with a
-notch where the shield must stand. The cue: `HOLD` on the leaning foot until
-its chord is down, then `FIRE` under the swung hub; `SHIELD` under the
-needle's column, to either seat (`render/boss-cue-read-zh.ts`).
-
 **Where this departs from the design, and why.** Six places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §27's
@@ -8921,6 +8895,36 @@ shot is judged where a bolt leaves the top of the field
 lit, only in the middle column, and only in its colour unless it is
 `either`. The wrong colour is a colour missed on the balance sheet and
 nothing else, THE SEAM's rule.
+
+**Two story steps, 26 September 2026**, so the fight is more than plant and
+shoot (the owner's 13:12 brief: more states where the pair must act, told as
+a story). **The lurch** (`tip`): the stand leans hard onto one foot and the
+hub swings out over another column, two to the pilot's side in the script.
+The leaning foot's seat holds its chord — every lit pad down — while the
+pair shoots the swung hub in its colour; a shot there with that foot let
+go, or up the middle, is not heard (`sim/trivet-shot.ts`). **The needle**:
+the hub flings a needle down a column two to the navigator's side, turned
+by the shield under that column while it is armed, the guard pressed after
+the step lit — THE RIME's icicle (`sim/trivet-guard.ts`, `trivetTurn`,
+bound to the shield's own deflect). A shield under the stand turns nothing.
+Both are under THE SLOW, and either run out is a hull hit over its own
+column (`trivetMiss`). The script is eleven steps: two plants a foot, a
+shot, a brace, the lurch, a shot, the needle, a brace, a shot.
+
+**Both are drawn, the same day** (`render/trivet-story.ts`). The lurch
+throws the hub out over its column, low and tilted onto the leaning foot,
+its legs' roots carried with it and the feet left where they stand; the far
+foot comes up off the field and settles most of the way back once the
+leaning foot's chord is held. The needle is one more of CALTROP's needles,
+flung from the hub out over its column and sinking toward the hull as the
+step runs out, THE OCULUS's dotted sight from its point to the hull with a
+notch where the shield must stand. The cue: `HOLD` on the leaning foot until
+its chord is down, then `FIRE` under the swung hub; `SHIELD` under the
+needle's column, to either seat (`render/boss-cue-read-zh.ts`). THE SLOW
+stands round the hub swung over while a lurch is lit, as wide as before
+(`render/slow-boss-aim.ts`); a lurch's hit bursts over the column it was
+shot in, and a needle turned throws the shield's sparks at the hull under
+its own (`render/trivet-fx.ts`).
 
 **Where this departs from the design, and why.** Eight places.
 

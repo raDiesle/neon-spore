@@ -9,6 +9,7 @@ import {
   startWave,
   step,
   ticksPerBeat,
+  trivetBoss,
   type World,
 } from "@neon-spore/sim";
 import { gimbalCentre, gimbalRingR } from "../src/gimbal-shape.js";
@@ -95,6 +96,18 @@ describe("THE SLOW's aim at a boss", () => {
     const next = aim(world, L, 0, 0);
     expect(next).toEqual(round(haspCentre(L, CFG, 1), r));
     expect(next.y).not.toBe(haspCentre(L, CFG, 0).y);
+  });
+
+  it("stands round THE TRIVET's hub swung over in a lurch, as wide as before", () => {
+    const world = stood("trivet");
+    const s = trivetBoss(world);
+    if (s === null) throw new Error("the trivet wave stood no stand");
+    s.phase = "lit";
+    s.cursor = s.steps.findIndex((x) => x.ask === "tip");
+    const home = trivetCentre(L, CFG);
+    const at = aim(world, L, 0, 0);
+    expect(at.x).toBeLessThan(home.x - L.tile);
+    expect(at).toEqual(round({ x: at.x, y: home.y }, trivetReach(L)));
   });
 
   it("has no row for a field with no boss, which still aims at the cannon's column", () => {

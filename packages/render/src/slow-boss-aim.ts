@@ -1,4 +1,11 @@
-import { HASP_COUNT, haspBoss, OUTER, type World } from "@neon-spore/sim";
+import {
+  HASP_COUNT,
+  haspBoss,
+  OUTER,
+  trivetBoss,
+  trivetLitStep,
+  type World,
+} from "@neon-spore/sim";
 import { gimbalCentre, gimbalRingR } from "./gimbal-shape.js";
 import { haspCentre, haspShellRadius } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
@@ -6,6 +13,7 @@ import { mantleCentre, mantleReach } from "./mantle-shape.js";
 import { oculusCentre, oculusRadius } from "./oculus-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
 import { trivetCentre, trivetReach } from "./trivet-shape.js";
+import { trivetStoryDx } from "./trivet-story.js";
 import { valveCentre, valveReach } from "./valve-shape.js";
 import { viseCentre, viseRadius } from "./vise-shape.js";
 
@@ -57,9 +65,15 @@ export function bossAim(world: World, l: Layout): Aim | null {
     case "vise":
       return still(viseCentre(l, world.cfg), longer(viseRadius(l)));
     // A stand, aimed at its hub, the target, and as wide as its feet reach:
-    // a light that stopped at the hub would run across the legs.
-    case "trivet":
-      return still(trivetCentre(l, world.cfg), trivetReach(l));
+    // a light that stopped at the hub would run across the legs. A lurch's
+    // window is on the hub swung over; the feet it leans on are still in reach.
+    case "trivet": {
+      const s = trivetBoss(world);
+      const at = trivetCentre(l, world.cfg);
+      const lurch = s !== null && trivetLitStep(s)?.ask === "tip";
+      const dx = lurch ? trivetStoryDx(l, world, s) : 0;
+      return still({ x: at.x + dx, y: at.y }, trivetReach(l));
+    }
     default:
       return null;
   }

@@ -2457,25 +2457,6 @@ what the rest of this file holds.
 
 After the tubes were sliced by screen size and off-field views culled, the turn's worst frames are 1050–1125 draws and 90–140 gradients against 700–800 and 50–65 at rest (`test/instar-budget.test.ts`). What is left is frames where both views are really on the field, most of them with the body at a flight scale of 0.15–0.3: a speck about 60 px across that still draws about 430 ops a view. The biggest: `solid-tube-draw.ts:179` (205), `glow.ts:47` strokeGlow's layered passes (198), `glow.ts:52` (66), `instar-horn.ts:136` (60), `instar-hide.ts:148` (58), `instar-profile-surface.ts:201` (52). A level of detail keyed on `tubeScale()` would take most of it, and it goes to VERSUS as a candidate unless the owner answers yes.
 
-## §30 THE TRIVET — the lurch and the needle drawn
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, tmp-trivet-lurch (claim: claude/queue-30-the-trivet-the-lurch-and-the-needle-drawn)
-- **Files:** `packages/render/src/trivet-pose.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/src/boss-cue-read-zh.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/trivet-frame.test.ts`
-
-The lurch (`tip`) and the needle landed in the simulation after the look
-was finished (`17331e932`, `docs/spec/bosses.md` §11.47) and neither is
-drawn: the stand does not lean onto the held foot, the hub stays over the
-middle while the shot that counts goes two columns to the pilot's side, no
-needle falls down its column, and `trivetTurn` — the thirteenth event — is
-on both silent lists with no burst. `trivet-fx.ts` throws a lurch's
-`trivetHit` at the middle, not at `e.col`. What to do, a look with no
-shipped alternative: pose the lean and the swung hub off the step's
-`offset`, draw the needle falling and turned, move the cue's `FIRE` and
-`HOLD` and THE SLOW's aim to the swung column, throw the hit and the turn
-where they happened, and prove each on every screen in
-`trivet-frame.test.ts`. `bun run check` proves it.
-
 ## `queue next` hands out a DEFERRED entry
 
 - **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look
