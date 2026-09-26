@@ -434,6 +434,7 @@ an alignment.
 ## §26 THE SEAM — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-26-the-seam-the-simulation-lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 Nothing new: an authored `BossSequenceStep` list gating the ordinary shot and
