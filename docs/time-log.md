@@ -22330,3 +22330,5 @@ Bottleneck: friction — a wave opened by the TEST panel opens on its guide, and
 
 Bottleneck: reading — deciding a cache was not worth its state took longer than
 timing it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

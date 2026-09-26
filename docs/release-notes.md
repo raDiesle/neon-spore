@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 30a7b03ed — byDepth's per-frame sort is measured and left uncached
+
+The audit guessed that `byDepth` copying and sorting the creature list every frame was a real cost. A bun loop timing it alone says otherwise: 2.6 µs a frame at 60 bodies and 9 µs at 150, well under a thousandth of a frame. A cache would need state in `Effects` and a check for the glide reordering bodies mid-beat, which is as much work as the sort itself. The audit now carries the figures and says the gyre half of it is fixed.
+
 ## 2026-09-26 · 4958f2180 — The game's TEST panel has AUTO: the machine plays a seat, or both
 
 A phone alone under the TEST panel had one pair of thumbs, so a fight that wants two presses at once could not be tried. The panel now has an AUTO row — OFF, BOTH, P1, P2 — that runs the director's own hands (now in packages/hands) on the game's tick, pressing into the same input buffer a thumb does. It says "no hand for this boss" where there is none. In a room the lockstep keeps only this device's seat, so AUTO never plays the partner.
