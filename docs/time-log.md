@@ -21242,3 +21242,5 @@ may write, so the queue's first instruction had to be undone.
 
 Bottleneck: `check:fast`. Three of its rules each asked for one more line, and
 each needed a full run to find.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
