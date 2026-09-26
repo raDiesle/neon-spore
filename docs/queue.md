@@ -459,6 +459,7 @@ proves it.
 ## THE NETTLE — effects: the strikes, the hurt flash and the death
 
 - **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)
+- **Taken:** 2026-09-26, claude/peaceful-keller-lmm4gr (claim: claude/queue-the-nettle-effects-the-strikes-the-hurt-flash-an)
 - **Needs:** THE NETTLE's look, above, landed first
 - **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`
 
