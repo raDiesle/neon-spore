@@ -431,20 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE VANE's pin knocked out has no event and no sound
-
-- **Found:** 2026-09-25, claude/boss-blow-f
-- **Taken:** 2026-09-26, claude/queue-a-sunk-hull-waits-a-shells-flight-that-no-longer (claim: claude/queue-the-vanes-pin-knocked-out-has-no-event-and-no-so)
-- **Files:** `packages/sim/src/vane.ts`, `packages/sim/src/events.ts`, `packages/audio/src/bind.ts`, `packages/render/src/boss-blows.ts`
-
-`vaneStruck` does `b.pins -= 1` and pushes nothing, so the one moment the
-pair beat THE VANE's bearing is silent, and the render side has to watch the
-pin count to show the blow (`BossBlows.seeVane`). Push a `vanePin` event
-there with the pins left and the column, give it a sound in the catalogue
-beside the other bosses' landings, deal the blow off `BLOW_OF` instead of the
-watcher, and drop `seeVane` and its case in `boss-hurt-drawn.test.ts` for a row in
-`boss-hurt.test.ts`. `bun run check` holds it.
-
 ## Split boss-hurt.test.ts, past 250 lines
 
 - **Found:** 2026-09-25, claude/boss-blow-f

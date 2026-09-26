@@ -185,6 +185,8 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "the arm let go, or torn out of the thumb when its beats ran out, sweeping on from wherever the cycle has got to. Same argument.",
   "boss.vaneHaul":
     "player 2 carrying the seized housing off a pinned arm under SEIZE, which is the only way the last pin can be answered. Same argument.",
+  "boss.vaneKnock":
+    "a shot through the split knocking a pin out of the bearing hung off the top edge. Same argument.",
   // SNAKE's two hands on its own body. The sheet's cards are for creatures and
   // fixtures on the field, and in this round the field is gone altogether
   // (`sim/snake-controls.ts`, `docs/spec/interludes.md`).

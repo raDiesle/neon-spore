@@ -100,6 +100,7 @@ const SAMPLES: Record<string, SimEvent> = {
   vanePin: { type: "vanePin", col: 3 },
   vaneSlip: { type: "vaneSlip", col: 3 },
   vaneHaul: { type: "vaneHaul", col: 2 },
+  vaneKnock: { type: "vaneKnock", pins: 2, col: 3 },
   snakePrise: { type: "snakePrise", col: 3, row: 4 },
   snakeLift: { type: "snakeLift", col: 2, row: 6 },
   snakeDrop: { type: "snakeDrop", col: 2, row: 6 },

@@ -147,6 +147,8 @@ export const SILENT_BOSS_B = [
   "vanePin",
   "vaneSlip",
   "vaneHaul",
+  // The knock's picture is the blow on the hub and a pin fewer drawn.
+  "vaneKnock",
   // SNAKE's two hands, no burst until the look lane draws them.
   "snakePrise",
   "snakeLift",

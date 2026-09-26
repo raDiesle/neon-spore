@@ -2,9 +2,9 @@
  * THE VANE's two hands on the picture, in a file of their own for
  * `boss-warden.ts`' reason: the boss had no sounds of its own until 18
  * September 2026, because nothing about it happened that was not a state both
- * screens already drew. These three are a sweeping arm caught under a thumb, a
- * caught arm let go, and a seized housing hauled off its bearing — and all
- * three stay out of the 300–3000 Hz band, because under VEER and SEIZE the
+ * screens already drew. These four are a sweeping arm caught under a thumb, a
+ * caught arm let go, a seized housing hauled off its bearing and a pin knocked
+ * out of it — and all four stay out of the 300–3000 Hz band, because under VEER and SEIZE the
  * pair is saying a column to each other across a voice delay
  * (docs/spec/audio.md §1).
  */
@@ -54,6 +54,21 @@ export const BOSS_VANE_SOUNDS: SoundDef[] = [
       { source: "triangle", freq: 58, toFreq: 132, gain: 0.22, attack: 0.03, release: 0.26 },
       after(0.2, metal(76, 0.32, 0.3, 210)),
       after(0.2, sub(50, 0.34, 0.3)),
+    ],
+  },
+  {
+    id: "boss.vaneKnock",
+    family: "boss",
+    blurb: "A pin knocked out of a bearing: an iron crack, and the weight of the arm settling.",
+    status: "bound",
+    use: "A shot through THE VANE's split takes a pin out of the bearing — one fewer, and the last ends it.",
+    level: 0.46,
+    // The landing, THE HASP's `haspOpen` in shape: a struck metal under the
+    // band first, then the mass of the thing it held dropping after it.
+    layers: [
+      metal(120, 0.5, 0.32, 150),
+      after(0.04, thud(190, 70, 0.2, 0.38)),
+      after(0.16, soft(0.5, sub(48, 0.4, 0.3))),
     ],
   },
 ];

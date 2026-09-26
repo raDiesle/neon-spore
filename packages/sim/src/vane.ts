@@ -129,6 +129,7 @@ export function vaneStruck(world: World, bullet: Bullet): void {
   metColor(world);
   spendOpening(world, b);
   b.pins -= 1;
+  world.events.push({ type: "vaneKnock", pins: b.pins, col: bullet.col });
   if (b.pins > 0) return;
 
   world.boss = null;

@@ -21886,3 +21886,19 @@ Bottleneck: finding a frame assertion that tells afloat from sinking without
 reading pixels — the navigator's screen, which draws no hull that floats.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VANE's knocked-out pin is an event, with a sound and a blow
+
+- reading: 10 min. `vaneStruck`, the vane's three events and every file they
+  are registered in, `BossBlows`, and `new-boss-state`'s list.
+- writing: 20 min. `vaneKnock` in sim with its test; the bind, the switch,
+  `boss.vaneKnock`, the sample, both silent lists and the sound-link reason;
+  `BLOW_OF` instead of `seeVane`; the blow test's rows cut into two pages.
+- looking: 0 min. The blow is the same wash, dealt off an event now.
+- friction: 5 min. `vanePin` was already the pilot's hand, so the queue's
+  name could not be used; and a three-pin bearing opens past SWING, which a
+  first test assumed it did not.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: `boss-hurt.test.ts` was 362 lines, so a row could not go in until
+its table had been cut into two pages.

@@ -152,10 +152,9 @@ export function drawBoss(
 
   if (boss.kind === "vane") {
     // No body among the creatures: the arm hangs off the top edge, so there is
-    // nothing of it on the grid to find. The blow is a pin gone since the last
-    // frame, which no event says (`boss-blows.ts`).
-    const hurt = effects.boss.blows.seeVane(boss.pins);
-    drawVane(ctx, l, world, boss, view.beatPhase, view.time, hurt);
+    // nothing of it on the grid to find. The blow is a pin knocked out
+    // (`vaneKnock`, `boss-blows.ts`).
+    drawVane(ctx, l, world, boss, view.beatPhase, view.time, effects.boss.blows.vane);
     return;
   }
 

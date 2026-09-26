@@ -994,6 +994,10 @@ saw it stop. `VaneState` gained `pinBeat`, `pinCol`, `pinSide`, `hauled` and
 numbers, in `BossClockConfig` with the other counts a pair says out loud. The
 three events — `vanePin`, `vaneSlip`, `vaneHaul` — are `events-vane.ts`, the
 boss's first, cued by `bind-vane.ts` and voiced by `sounds/boss-vane.ts`.
+A fourth, `vaneKnock`, is the pin a shot knocks out of the bearing, with the
+pins left (`vane.ts` `vaneStruck`, 26 September 2026): it has `boss.vaneKnock`,
+and it deals the blow off `BossBlows`' table rather than a pin count watched
+frame to frame.
 
 **What is not built: the three events** (read against the tree 23 September
 2026). The arm is drawn where `vane-grip.ts` says the thumb has it, so a pinned
