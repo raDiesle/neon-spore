@@ -324,6 +324,18 @@ offset rather than into the plate's geometry or a bearing, on its own period
 so it does not come back into step with the blob's own drift, the fibres'
 sway or their wave (`MASS_LIT_WOBBLE`/`MASS_LIT_WOBBLE_RATE`).
 
+**A body drawn once per beat rather than once per turn gets it too.**
+THE GUM's drop (`gum.ts`) shades its sac with a linear gradient run straight
+down `-GUM.ry` to `GUM.ry` — a bare axis, never touched — and sets its wet
+gloss at a fixed `-rx * 0.3, -ry * 0.45`, while the sac's own silhouette
+breathes on `contourClock` feeding `blobRadiusMul`'s wobble terms every
+frame it falls or flies. Beautifully lit and still a still life, on a body
+with no boss-sized rig at all — the same failure reaches a creature this
+small once its shading is a gradient and not a flat fill. The fix is the
+same wobble, folded into the gradient's axis and the gloss's offset
+together, on its own rate distinct from the trail's and the blob's own
+wobble terms (`SAC_LIT_WOBBLE`/`SAC_LIT_WOBBLE_RATE`).
+
 **A glow inside the body is a different cue from a lit surface**, and the
 owner asked for it by name alongside gradients and fills on 26 September
 2026. `lightHide`'s zones all read the hide as an opaque shell with light

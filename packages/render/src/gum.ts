@@ -71,7 +71,18 @@ export function drawGumBody(b: Body): void {
       ctx.fill();
     }
     ctx.restore();
-    paintSac(ctx, path, x, y, s * FLUNG_STRETCH, s * FLUNG_SQUASH, back * 0.35, world.cfg, near);
+    paintSac(
+      ctx,
+      path,
+      x,
+      y,
+      s * FLUNG_STRETCH,
+      s * FLUNG_SQUASH,
+      back * 0.35,
+      world.cfg,
+      near,
+      time,
+    );
     return;
   }
   // Small drops left behind it up the lane, each falling back from where the
@@ -85,8 +96,20 @@ export function drawGumBody(b: Body): void {
     ctx.fill();
   }
   ctx.restore();
-  paintSac(ctx, path, x, y, s, s, 0, world.cfg, near);
+  paintSac(ctx, path, x, y, s, s, 0, world.cfg, near, time);
 }
+
+/** How far the sac's own gradient axis and gloss spot drift as they wobble,
+ * and how fast. The sac's silhouette already breathes on its own
+ * (`contourClock` feeding `blobRadiusMul`'s wobble terms), but the gradient
+ * that reads it as round, and the gloss that reads it as wet, sat at a fixed
+ * spot no matter how the body moved under them — beautifully lit and still a
+ * still life (`docs/style-guide.md`'s "Depth on a body that already ships").
+ * On its own rate, distinct from the trail's (1.6, 1.1) and the blob's own
+ * wobble terms (0.9, 0.53, 0.31, 0.6), so neither comes back into step with
+ * any of the sac's other motion. */
+const SAC_LIT_WOBBLE = 0.06;
+const SAC_LIT_WOBBLE_RATE = 0.24;
 
 /** One sac, filled from rim-light at the top to its deep green at the bottom,
  * with its border on. `shear` leans it: a flung drop leans into its flight. */
@@ -100,12 +123,14 @@ function paintSac(
   shear: number,
   cfg: SimConfig,
   near: number,
+  time: number,
 ): void {
   ctx.save();
   ctx.translate(x, y);
   ctx.transform(1, 0, shear, 1, 0, 0);
   ctx.scale(sx, sy);
-  const g = ctx.createLinearGradient(0, -GUM.ry, 0, GUM.ry);
+  const wobble = SAC_LIT_WOBBLE * Math.sin(time * SAC_LIT_WOBBLE_RATE);
+  const g = ctx.createLinearGradient(GUM.rx * wobble, -GUM.ry, -GUM.rx * wobble, GUM.ry);
   g.addColorStop(0, hazed(cfg, PALETTE.venomRim, near));
   g.addColorStop(0.4, hazed(cfg, PALETTE.venom, near));
   g.addColorStop(1, hazed(cfg, PALETTE.venomDeep, near));
@@ -118,7 +143,15 @@ function paintSac(
   ctx.globalAlpha = 0.45;
   ctx.fillStyle = PALETTE.venomRim;
   ctx.beginPath();
-  ctx.ellipse(-GUM.rx * 0.3, -GUM.ry * 0.45, GUM.rx * 0.22, GUM.ry * 0.1, -0.5, 0, Math.PI * 2);
+  ctx.ellipse(
+    -GUM.rx * (0.3 + wobble * 0.7),
+    -GUM.ry * (0.45 + wobble * 0.5),
+    GUM.rx * 0.22,
+    GUM.ry * 0.1,
+    -0.5,
+    0,
+    Math.PI * 2,
+  );
   ctx.fill();
   ctx.restore();
 }
