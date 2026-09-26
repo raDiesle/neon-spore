@@ -634,6 +634,7 @@ promote it out of "read" into its own queued fix.
 ## Living secondary motion is uneven across the boss roster
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the
+- **Taken:** 2026-09-26, claude/task-queue-work-7441c0 (claim: claude/queue-living-secondary-motion-is-uneven-across-the-bos)
   owner's *"slow down"* request)
 - **Files:** `docs/style-guide.md`
 
