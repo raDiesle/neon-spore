@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e510429b3 — THE INSTAR's ten baked parts have a before-and-after sheet
+
+`.claude/skills/sprite/baked-parts.md` lists every sprite baked for THE INSTAR with the bytes it adds and its canvas calls, shipped against baked. All ten together add 6.8 kB gzipped, and `bun run sprite` now prints that total. Every baked part was checked in the five third-act poses and draws cleanly there.
+
 ## 2026-09-26 · dc2f6fc20 — THE INSTAR's fourth act: hover, bow, arch, rise and loom
 
 Five more poses laid in among the other three acts, each with its own SLOW moment: hovering high with the tail's fork shot off, bowed with both seats holding the head, arched over the ship with the nest tapped flat and the tail pulled up, risen upright with embers sucked under each half, and looming so close the jaws fill the field, pulled shut with the seats swapped. The script is now twenty-eight steps over twenty-one poses.

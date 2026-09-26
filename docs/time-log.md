@@ -23993,3 +23993,5 @@ in a document, and had to be dug out of the transcript.
 - landing: 10 min. `check:fast`, the commit, `bun run land`.
 
 Bottleneck: looking — five VERSUS shots, about a minute each, one pose at a time.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
