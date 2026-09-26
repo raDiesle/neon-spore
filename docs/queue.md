@@ -1024,6 +1024,7 @@ goes; the test already fails for any wave the hand stops clearing clean.
 ## THE WARD brings two rocks onto the hull on one tick, in two columns
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-ward-brings-two-rocks-onto-the-hull-on-one-t)
 - **Files:** `packages/content/src/waves/act-3b.ts`, `tools/director/test/autopilot-field.test.ts`
 
 THE WARD's `meteorFaster` (beat 6) and `meteorFastest` (beat 7) reach the hull
