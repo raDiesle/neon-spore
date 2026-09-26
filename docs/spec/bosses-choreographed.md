@@ -3249,33 +3249,50 @@ standard controls, timed by a script, are already legible enough.
 | **Movement 2 — both colours, closer together** ||||||
 | 5 | Two points light at once, red then cyan a beat apart | both cannons in turn | fire each in its own colour (`FIRE`) | 3 beats each, seen | both seal | whichever is missed stays lit |
 | 6 | The seam widens again, longer spray | both seats | shield (`SHIELD`) | 2 beats, seen | blocked | ordinary hit |
-| 7 | A hazard rock spits from the crack itself | whoever's colour it carries | fire it (`FIRE`) | 2 beats, seen | destroyed | ordinary hit |
+| 7 | A false point flickers at the crack's midpoint, dim and colourless, no cannon's tell on it | both seats | send nothing — hold fire (`SENDING NOTHING`) | 3 beats, seen | flicker fades, the true points hold | firing at it cracks the ridge further, an ordinary hull hit, and the point it was mimicking dims back to unlit |
+| 8 | A hazard rock spits from the crack itself | whoever's colour it carries | fire it (`FIRE`) | 2 beats, seen | destroyed | ordinary hit |
 | **Movement 3 — the last point, and both controls in the same beat** ||||||
-| 8 | The last point lights white — either colour answers it, the one point on the ridge that is not colour-gated | either seat | fire it (`FIRE`) | 3 beats, seen | point seals | stays lit |
-| 9 | The whole ridge shudders, throwing grit **and** a hazard rock in the same beat | one seat shields while the other fires | shield and fire, together (`SHIELD` / `FIRE`) | 3 beats, seen | both answered | whichever is missed lands as an ordinary hit |
-| 10 | The sealed ridge splits down its own crack | — | — | — | — | — |
+| 9 | The last point lights white — either colour answers it, the one point on the ridge that is not colour-gated | either seat | fire it (`FIRE`) | 3 beats, seen | point seals | stays lit |
+| 10 | The whole ridge shudders, throwing grit **and** a hazard rock in the same beat | one seat shields while the other fires | shield and fire, together (`SHIELD` / `FIRE`) | 3 beats, seen | both answered | whichever is missed lands as an ordinary hit |
+| 11 | With every real point sealed, the crack itself goes dark and still for a breath before it gives | both seats | send nothing — hold fire (`SENDING NOTHING`) | 2 beats, seen | the ridge splits clean along the seam | firing early holds the ridge shut one extra beat, resealed and reopened |
+| 12 | The sealed ridge splits down its own crack | — | — | — | — | — |
 
-**THE SLOW** opens on every fire and shield window (rows 2–9) — the
+**THE SLOW** opens on every fire and shield window (rows 2–10) — the
 ordinary controls, at ordinary tempo, are the whole of what THE INSTAR's
 brief asked to be rid of for one boss; here they are kept and simply given
-the room a choreographed step already gives every other gesture.
+the room a choreographed step already gives every other gesture. Rows 7 and
+11 are the exception inside that rule: the one thing to press is nothing at
+all, so the story reads as the pair learning to read the ridge rather than
+firing at whatever lights, and the fight's last beat is the same restraint
+proven once more, this time on a ridge that has nothing left to shoot.
 
 **Presentation.** No camera. Each sealed point is a hull-shock click; the
 widening seam's grit is an ordinary deflected-hit spark, nothing new drawn.
+Row 7's false point pulses at half the brightness of a real one, on its own
+slower period, so a seat who has learned the tell can read it before the
+window even opens. Row 11's held dark is silent — no drone, no spark — the
+one quiet beat on the whole ridge.
 
-**Animation.** Four poses: dark crack; one point sealed; two points sealed;
+**Animation.** Six poses: dark crack; one point sealed; two points sealed;
+false point flickering, dim and unlit-coloured; the last white point sealed;
 split open. No morph — the ridge does not move between poses, since its whole
 claim is that the *standard* loop is already expressive enough without one.
 
 **Colour.** The ridge itself shell-grey; each point lit in the cannon colour
-that answers it, the game's existing rule, spent rather than reinvented.
+that answers it, the game's existing rule, spent rather than reinvented. The
+false point of row 7 carries no cannon colour at all, dim white-grey against
+the shell — the one point on the ridge that a colour never answers.
 
-**Payoff.** Row 9 — the one beat on this page that asks both standard
+**Payoff.** Row 10 — the one beat on this page that asks both standard
 controls of both seats inside a single window, which no ordinary wave does.
+Row 11 is the fight's other payoff: a ridge with nothing left to seal, and
+the only thing still asked of the pair is to not reach for it.
 
 **Cost. Very low.** Nothing new: a `BossSequenceStep` list gating the
-existing shot and shield commands. The whole of the design is which beat asks
-for which of the two things the pair already knows how to do.
+existing shot and shield commands, plus one boolean for rows 7 and 11's hold
+— a read off `SENDING NOTHING`, already built for THE KEEL, THE HALTER and
+THE FLUE. The whole of the design is which beat asks for which of the three
+things the pair already knows how to do, including doing nothing.
 
 **Reusable.** A choreographed scene built entirely out of gated standard
 controls — worth pointing at whenever the brief's *"standard controls for a

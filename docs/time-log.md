@@ -23225,3 +23225,17 @@ and it took a second pass with a stronger snout and a shaded far cheek.
 
 Bottleneck: none — a direct revision of an existing section is faster than
 drafting a new one from scratch.
+
+## 2026-09-26 — §26 THE SEAM: two beats of holding fire, at the owner's request
+
+- reading: 5 min. The existing section, the `SENDING NOTHING` primitive's
+  where-array, the queue and time-log templates from §24 and §25.
+- writing: 15 min. Two new restraint beats, the renumbered beat list, THE
+  SLOW, Presentation, Animation, Colour, Payoff and Cost updated to match.
+- looking: 0 min. Spec and registration only — the look is queued
+  separately.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, this entry, the commit.
+
+Bottleneck: none — a direct revision of an existing section is faster than
+drafting a new one from scratch.

@@ -1964,3 +1964,24 @@ with one hull hit as the pressure escapes wrong. This is one new field, a
 boolean read off the chord, no new primitive. `bun run check` proves the sim
 half; the fifth pose (braced and shuddering) and the two-severity spark are
 a look task, queued separately once this lane lands.
+
+## §26 THE SEAM — a revised simulation lane, two beats of holding fire
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+THE SEAM already ships as a choreographed scene gating the standard `FIRE`
+and `SHIELD` commands (`docs/spec/bosses.md` §26). This adds two beats built
+entirely from restraint: a new row 7 where a false, colourless point flickers
+at the crack's midpoint and the pair must send nothing rather than fire at
+it, and a new row 11 where the ridge goes dark and still for a breath after
+its last real point seals, again answered by holding fire rather than
+reaching for a target that no longer exists. Both read off `SENDING
+NOTHING`, already built for THE KEEL, THE HALTER and THE FLUE — a reuse, not
+a first use, so no gesture-registration edit is needed. This is one new
+boolean field per row, both reads off the same restraint primitive, no new
+sim state beyond it. `bun run check` proves the sim half; the false point's
+dim half-brightness pulse and the two new poses (flickering false point,
+sealed white point) are a look task, queued separately once this lane lands.
