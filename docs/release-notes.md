@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · fbbee644f — The INSTAR's globs, embers and heart paint through a seam
+
+`SPIT_LOOK` (glob, spark) and `HEART_LOOK` (paint) hold the calls the game already made, in the same order, so VERSUS can offer a baked look through them. The frame drawn is unchanged.
+
 ## 2026-09-26 · a84b3164e — THE HASP's timeout blow is its own bolt driven into the hull
 
 The loose bolt already falls the whole column in sight, so its timeout is no longer a lash thrown on top of it: the same pale pin sinks into the plating to its head, the head flares white and cools to red like a rivet set hot, and the plating rings around it. Exemption: a look the owner asked for by name (a boss's timeout hit drawn as that boss's own blow).
