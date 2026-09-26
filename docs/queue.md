@@ -971,22 +971,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## AUTO's field hand half plays 17 ordinary waves
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-autos-field-hand-half-plays-17-ordinary-waves)
-- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
-
-`fieldHand` plays the cannon, the shield and the pods
-(`autopilot-pod-hand.ts`), so the waves whose creature has a verb of its own —
-THE LURE, THE SHELL, THE CLASP, THE WISP, THE LID, THE CRYSTAL, THE STRAND,
-THE CRAWLER, THE MAGNET, THE JAM, THE LIMPET, THE LEECH, THE CHOIR, THE
-BEATBOX, THE WEIGHT, THE MINE, THE MOULT; the `HALF_PLAYED` set in the test —
-end scarred or never clear (THE WISP never clears; the rest clear with two to
-twelve scars). Give each such creature its answer in the hand, a file per few
-creatures as the pods have theirs, taking its name out of `HALF_PLAYED` as it
-goes; the test already fails for any wave the hand stops clearing clean.
-
 ## Unverified at 4a47be3b6: THE OCULUS wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-27-the-oculus-the-simulation-lane
@@ -1000,3 +984,24 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## AUTO's field hand half plays 15 ordinary waves
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e; THE SHELL and THE LURE answered 2026-09-26, claude/happy-babbage-ilb1n9
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `packages/hands/src/autopilot-aim.ts`, `tools/director/test/autopilot-field.test.ts`
+
+`fieldHand` plays the cannon, the shield and the pods
+(`autopilot-pod-hand.ts`), and `autopilot-aim.ts` knows THE SHELL's column
+and leaves THE LURE alone. The waves whose creature has a verb of its own
+are still half played: THE CLASP, THE WISP, THE LID, THE CRYSTAL, THE STRAND,
+THE CRAWLER, THE MAGNET, THE JAM, THE LIMPET, THE LEECH, THE CHOIR, THE
+BEATBOX, THE WEIGHT, THE MINE and THE MOULT. They are the `HALF_PLAYED` set
+in the test. THE WISP never clears; the rest clear with two to ten scars.
+
+THE JAM's lures are already left alone. What is left is its fault: the cannon
+fires up player 1's column on every beat, alternating red and cyan, so the
+hand has to move the muzzle off a lure's column and time the column change to
+the colour that is loaded. Give each creature its answer in the hand, a file
+per few creatures as the pods have theirs. Take its name out of `HALF_PLAYED`
+as it goes. The test already fails for any wave the hand stops clearing
+clean.

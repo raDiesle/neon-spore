@@ -12,6 +12,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
 import { catchPod, hanging } from "./autopilot-pod-hand.js";
 import type { Hand } from "./hand.js";
 
@@ -60,9 +61,9 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
 function cannon(w: World): Press[] {
   const chase = catchPod(w);
   if (chase !== null) return chase;
-  const body = lowest(w, (c) => c.color !== null && !isWardable(c.kind));
+  const body = lowest(w, cannonAnswers);
   const pod = body ? undefined : hanging(w);
-  const col = body ? body.col : pod ? Math.round(pod.colMilli / MILLI) : null;
+  const col = body ? aimColumn(body) : pod ? Math.round(pod.colMilli / MILLI) : null;
   if (col === null) return [];
   if (w.cannonCol !== col) return [aim(col)];
   return free(w) ? [fire(body?.color ?? "red")] : [];

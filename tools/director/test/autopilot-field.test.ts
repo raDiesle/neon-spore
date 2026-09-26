@@ -22,12 +22,11 @@ import { stageField } from "../src/stage-field.js";
  */
 
 /** Ordinary waves whose creatures have a verb of their own — a hold, a reach,
- * a drag, a lure — that the field hand does not play. A wave that gains one
- * is a name here or a hand for its creature. The pods have theirs
- * (`autopilot-pod-hand.ts`). */
+ * a drag — that the field hand does not play. A wave that gains one is a
+ * name here or a hand for its creature. The pods have theirs
+ * (`autopilot-pod-hand.ts`), and THE SHELL's column and THE LURE's left-alone
+ * are in `autopilot-aim.ts`. */
 const HALF_PLAYED = new Set([
-  "THE LURE",
-  "THE SHELL",
   "THE CLASP",
   "THE WISP",
   "THE LID",

@@ -1973,6 +1973,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
 | `packages/hands/src/autopilot-field-hand.ts` | **The pair's hands on an ordinary wave**: the cannon and the shield together |
 | `packages/hands/src/autopilot-pod-hand.ts` | AUTO's pods: shot loose, followed down and swallowed, a husk let past with the maw shut |
+| `packages/hands/src/autopilot-aim.ts` | **Which column the cannon stands in to answer a body**, on an ordinary wave |
 | `packages/hands/src/hand.ts` | **A hand on the controls, reading the field as it goes**: what the pair presses this tick |
 
 ### apps/game
