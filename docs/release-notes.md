@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 285bca345 — THE STARE's timeout blow is its own look landing on the hull
+
+When the eye catches a seat pressing, its gaze now draws in to one hard red ray that burns down the middle column from the eye to the hull, and brands the eye's own almond, with its pupil, into the plating. The brand glows and cools as the ray lets go. Before, a generic lash was thrown out of the sky.
+
 ## 2026-09-26 · f42ade3a8 — THE INSTAR plays through, and the split lunge's eye no longer slips
 
 A headless run of the whole fight with the right answer to every step now guards the script: all twenty-eight steps land in order with no strike, refusal or slip. Its first run found a trap in the split lunge — the eye tapped shut before the brow's three-beat hold was up went back to nought and had to be tapped again. A hold is now waited for the way a panel shot is.

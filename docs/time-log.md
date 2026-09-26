@@ -24179,3 +24179,5 @@ hold that cannot be hurried.
 
 Bottleneck: friction — finding a press the frames tool would accept took three
 tries.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
