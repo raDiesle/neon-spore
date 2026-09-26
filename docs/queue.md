@@ -2578,3 +2578,17 @@ seam bleeding hot-white light through the shell, answered with an ungated
 `FIRE`/`SHIELD`/`SENDING NOTHING` vocabulary, which is itself the point this
 concept was written to prove. `bun run check` proves the sim half; the nine
 poses are a look task, queued separately once this lane lands.
+
+## Unverified at 13c34088d: THE VISE's body watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/palette-creatures.ts`
+
+*THE VISE gets its body: a seed-case that cracks and bares its kernel* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
+
+- THE VISE's body watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 13c34088d — THE VISE gets its body: a seed-case that cracks and bares its kernel
+
+THE VISE (§28, wave 107) is now drawn. It is a tan seed-case of two lobes, hinged at the top of the spine. The seam a pinch asks for is lit white, and it cracks down from the top as the pinch holds. Two cracked seams swing a lobe open. With both lobes open, the kernel in the hollow is bared and lit in the colour its fire step asks for. A ring round it closes as the step's beats run out, and the kernel gets smaller and brighter with every hit. Through an unanswered `both` step the lobes creep shut over it, and once it is spent the case splits down its spine. Both screens draw it the same. This is half one of its look; the hands are queued as the second half.
+
 ## 2026-09-26 · 92e55e431 — THE INSTAR's far pass flies head first
 
 Before the moult, the far pass across the top went left to right while the profile looks left, so the body flew backwards, tail first. It now crosses right to left like every other pass, and a test holds every arrival to the way the head faces.

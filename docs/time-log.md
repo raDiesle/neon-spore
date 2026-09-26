@@ -23701,3 +23701,5 @@ which way it flew was only plain on a sheet of the whole flight.
 
 Bottleneck: writing — four files for one body is THE OCULUS's split again,
 and nearly every line of it is geometry decided for the first time.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
