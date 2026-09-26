@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · da04b4ad2 — THE OCULUS played through: every step reads, and the director's AUTO row is queued
+
+AUTO BOTH plays wave 106 to its shatter in about 24 seconds, every receipt in order and none missed, and a strip at each one reads right. The director's AUTO buttons turned out to sit under the map panel at desktop widths, so a pointer cannot press them; that is now its own queue entry.
+
 ## 2026-09-26 · 30e5a488d — The rock ratchet reads only the files that name the rock, and sees all of them
 
 "a rock nobody saw fall" now asks `git grep` which of the 640-odd sim files mention `"meteorFastest"`, and runs its regex on those 14 alone. Handing every file to `readFileSync` had taken 7.8 s under a full check and failed a landing. The regex also ran only to the first `)`, so a column given as `midCol(world.cfg)` closed the call early, and four files on the exempt list were never seen. It now runs to the end of the statement, and the list must match exactly, so a file that gets its own blow has to come off it.

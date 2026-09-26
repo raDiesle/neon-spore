@@ -25016,3 +25016,5 @@ right. One finding filed: the director's AUTO row is under `main`.
 
 Bottleneck: looking — a hidden pane runs nothing at tempo, so the watching
 had to move to headless strips.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
