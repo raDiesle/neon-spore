@@ -693,6 +693,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-choke.ts` | THE CHOKE's rehearsal: nobody steers, and the shot is a beat rather than a place |
 | `packages/content/src/scenes/the-limpet.ts` | THE LIMPET's rehearsal: the shield is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-leech.ts` | THE LEECH's rehearsal: the cannon is held, and standing still is the mistake |
+| `packages/content/src/scenes/the-codex.ts` | THE CODEX's rehearsal: the button that works and lies, and the word that says which |
 | `packages/content/src/scenes/the-throat.ts` | THE THROAT's rehearsal: what it takes, and the one thing that hurts it |
 | `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |
 | `packages/content/src/scenes/the-veer.ts` | THE VEER's rehearsal: the column stops being true while you are saying it |

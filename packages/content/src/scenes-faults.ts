@@ -1,5 +1,6 @@
 import type { GuideScene } from "./scene-types.js";
 import { THE_CHOKE } from "./scenes/the-choke.js";
+import { THE_CODEX } from "./scenes/the-codex.js";
 import { THE_DARK } from "./scenes/the-dark.js";
 import { THE_FLIP } from "./scenes/the-flip.js";
 import { THE_HANDOVER } from "./scenes/the-handover.js";
@@ -27,7 +28,8 @@ export type FaultSceneId =
   | "theDark"
   | "theChoke"
   | "theLimpet"
-  | "theLeech";
+  | "theLeech"
+  | "theCodex";
 
 export const SCENES_FAULTS: Record<FaultSceneId, GuideScene> = {
   theHandover: THE_HANDOVER,
@@ -36,4 +38,5 @@ export const SCENES_FAULTS: Record<FaultSceneId, GuideScene> = {
   theChoke: THE_CHOKE,
   theLimpet: THE_LIMPET,
   theLeech: THE_LEECH,
+  theCodex: THE_CODEX,
 };

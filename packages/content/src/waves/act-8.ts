@@ -148,9 +148,7 @@ export const WAVES_ACT_8: Wave[] = [
     id: "theCodex",
     name: "THE CODEX",
     guide: {
-      both: "Every four beats, something swaps what the two colours kill. Red kills what cyan should, and cyan what red should. The shot looks and sounds the same.",
-      p1: "1. Only you see it. The air moves in slow bands while the colours swap.\n2. Say which it is, and again every time it turns.",
-      p2: "1. Both your buttons work and one of them lies.\n2. Fire the colour your partner says, not the body's colour.\n3. A body that refuses a shot means the key turned as you pressed.",
+      scene: "theCodex",
     },
     entries: [
       { beat: 0, col: 2, color: "red" },

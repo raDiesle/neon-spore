@@ -21663,3 +21663,17 @@ Bottleneck: none worth the name — the sibling fault's film was the template,
 and the words tool's floors no longer move under it.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE CODEX's guide is a film
+
+- reading: 5 min. The key's clock in `sim/codex.ts` and THE COUNT's film,
+  the other single-body lesson about a moment.
+- writing: 5 min. The film, its test, the fault registered, the guide
+  swapped, the prose list and §3.2 moved by one.
+- looking: 5 min. Two probes of the key against the shots, then one capture
+  of the navigator's page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the hold — both shots and the pages between them fit inside one
+swapped hold of four beats, so the pages are cut to their floor.
