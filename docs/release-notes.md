@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e62d7b973 — THE INSTAR's long body idles and glows: a wobble on its lit shoulder, an ember pulse in its chest
+
+A look the owner asked for by name (25/26 September 2026): the boss visuals should look more three-dimensional, with a constant living motion that makes the depth visible. The side-on skull's own still-life fix already landed (crown wobble); this carries the same technique to the long body's plate, whose `Form.angle` was likewise a bare constant between morphs, and adds the "glow inside of body" the owner named directly — a soft ember pulse showing through the chest, on its own clock so it does not slide in step with the skull's wobble.
+
 ## 2026-09-26 · 4ebf6f736 — A heading used twice no longer stops every ledger merge
 
 `bun run land` stopped on `docs/time-log.md` on 25 September whenever two lanes appended in the same hour, though the ledger is one of the conflicts it settles itself. The cause was not at the end both sides wrote to: `main` carried one heading twice with two different bodies (one lane, landed in two parts under one subject), and the record merge keyed entries by heading alone, so it refused the whole file. Entries are now followed by heading and occurrence, counted from the end nobody writes to, so a second body under an old heading is a row added rather than a conflict. The repo test's ledger now carries the doubled heading, and the 25 September landing rebuilt from history merges to the file that was resolved by hand.
