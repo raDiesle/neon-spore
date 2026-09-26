@@ -903,6 +903,19 @@ simply stop advancing rather than a candidate for `docs/raster.md`'s
 baked-strip treatment. Nothing here is drawn yet and stays unverified at
 tempo until the owner has looked.
 
+## §34 THE CYST — a fuller story arc: the swell, the spit and the bud
+
+- **Found:** 2026-09-26, claude/cyst-story, at the owner's direction (13:12Z): give the bosses added today more distinct states and SLOW beats that ask for action, enhancing existing bosses before new ones
+- **Files:** `packages/sim/src/cyst.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/cyst-shot.ts`, `packages/sim/src/cyst-hand.ts`, `packages/content/src/waves/act-12.ts`
+
+Three new steps under THE SLOW, from inputs THE CYST already has: **the
+swell** (the sac goes taut and both seats pinch their own flank shut
+together), **the spit** (a spore down a column off the middle, turned by the
+shield under it) and **the bud** (a bud out over a column off the middle,
+shot there in its colour). A swell, spit or bud run out is THE CYST's own
+blow at the hull over its column. The script grows from seven steps to
+eleven. The look is §34's look lane, which draws these states with the rest.
+
 ## THE BATON's flesh has no secondary motion of its own
 
 - **Found:** 2026-09-26, this session
