@@ -3077,6 +3077,7 @@ offered through VERSUS.
 ## The rock ratchet test reads every sim file and times out under load
 
 - **Found:** 2026-09-26, claude/queue-the-batons-flesh-has-no-secondary-motion-of-its
+- **Taken:** 2026-09-26, claude/queue-the-rock-ratchet-test-reads-every-sim-file-and-t
 - **Where:** local
 - **Files:** `packages/sim/test/boss-strike.test.ts`, `tools/test/build-stamp.test.ts`
 
