@@ -61,6 +61,8 @@ reordering the page without keeping them would break every one of them.
 - **[THE OCULUS](#27-the-oculus--shutting-an-eye-together-then-answering-what-was-behind-it)** · §27 — shutting an eye together, then answering what was behind it. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); wants `SceneBreak`, named for the first time; queued, not yet claimed
 - **[THE VISE](#28-the-vise--a-gap-two-thumbs-close-from-opposite-sides)** · §28 — a gap two thumbs close from opposite sides. One of [more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list), written 26 September 2026; wants `SqueezeGap`, spending the unclaimed `SQUEEZE ONE BODY` gesture; queued, not yet claimed
 - **[THE RIME](#29-the-rime--a-level-nobody-has-to-hold-only-keep-re-reaching)** · §29 — a level nobody has to hold, only keep re-reaching. One of [more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list), written 26 September 2026; wants `RubCount`, spending the unclaimed `RUB` gesture; queued, not yet claimed
+- **[THE TRIVET](#30-the-trivet--three-feet-each-planted-only-while-a-chord-holds)** · §30 — three feet, each planted only while a chord holds. One of [more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list), written 26 September 2026; wants `ChordHold`, spending the unclaimed `CHORD` gesture; queued, not yet claimed
+- **[THE PLUMB](#31-the-plumb--a-lean-held-long-enough-to-bring-it-level)** · §31 — a lean held long enough to bring it level. One of [more, spent from the unclaimed gesture list](#more-spent-from-the-unclaimed-gesture-list), written 26 September 2026; wants `LevelTilt`, spending the unclaimed `TILT, AS A LEVEL` gesture; queued, not yet claimed
 
 **Still in hand — the simulation landed, the look is not written**
 
@@ -3295,11 +3297,12 @@ DavidDe, 26 September 2026: more choreographed concepts, easy to follow, more
 than ten steps apiece, in the same "both screens read the same picture" shape
 as the five above. **Written to spend gestures still sitting in `consider` on
 CONTROLS › GESTURES** (`tools/director/src/gesture-unbuilt.ts`) rather than to
-re-skin anything already shipped — `SQUEEZE ONE BODY` and `RUB` were both
-untouched by any of the twenty-two concepts above them, and each is spent here
-by exactly one new concept, the same one-primitive-one-boss discipline the
-library below already argues for. This is the first batch; more follow the
-same rule against the gestures still left in `consider`.
+re-skin anything already shipped — `SQUEEZE ONE BODY`, `RUB`, `CHORD` and
+`TILT, AS A LEVEL` were all four untouched by any of the twenty-two concepts
+above them, and each is spent here by exactly one new concept, the same
+one-primitive-one-boss discipline the library below already argues for. Four
+so far; more follow the same rule against the gestures still left in
+`consider`.
 
 **Nothing here is built.** Same split as the batch above: a simulation lane
 in `docs/queue.md`, claimable the ordinary way, and a look lane behind a
@@ -3469,6 +3472,170 @@ spent with — the first choreographed field on this page whose progress can
 run backwards on its own, which any future body wanting the tension of
 "stopping loses ground" can spend without re-deriving the tick.
 
+### §30 THE TRIVET — three feet, each planted only while a chord holds
+
+**Question.** `CHORD` reads two or three of one seat's own controls held
+down together, not in sequence — nothing on this page or the last has asked
+a single hand to press more than one control at once, since every mechanic
+so far reads one continuous input per hand. This asks each seat to plant an
+actual tripod stance, two thumbs down together and held, and asks both seats
+to do it at once for the last foot.
+
+**Silhouette.** A three-legged stand splayed wide over the hull, each foot a
+lit socket on the seat's own panel rather than a body on the field. **Health
+is the two outer feet**, one per seat, plus a lit hub once both are planted;
+the hub takes three ordinary hits.
+
+**Mechanic.** `trivetFrontHeld` / `trivetRearHeld`, one per seat, read by
+`ChordHold` — named here for the first time: two (or three) of a seat's own
+controls held down together, counted true only while none of them has
+lifted, for the window's beat count. Either control lifting early resets
+that foot's progress rather than losing the step outright, the same
+forgiving shape THE VALVE's freeze and THE VISE's pinch both use. The hub's
+movement asks both seats to chord at once — the first place on this page a
+held window, rather than a release, is judged across both seats together.
+
+**Player 1 and Player 2.** Identical screens, front foot / rear foot fixed
+by geometry — the same rule a fifth time running: geometry, never a word, is
+what tells two identical screens apart on this page.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the front foot** ||||||
+| 1 | The stand drops in, both feet lifted, hub dark | — | — | — | — | — |
+| 2 | The front foot's socket lights | P1 | hold two controls together (`CHORD`) | 5 beats, held | front foot plants | either lifts, foot springs back up, retry |
+| 3 | A second, tighter light on the same socket | P1 | chord again, three controls | 4 beats, held | front foot driven fully home | springs back, retry from row 2 |
+| **Movement 2 — the rear foot** ||||||
+| 4 | The rear foot's socket lights | P2 | hold two controls together | 5 beats, held | rear foot plants | springs back, retry |
+| 5 | Second, tighter light on the rear socket | P2 | chord again, three controls | 4 beats, held | rear foot driven home, hub lights | springs back, retry from row 4 |
+| **Movement 3 — the hub, held down** ||||||
+| 6 | The hub flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both outer feet creep loose under the hub | P1+P2 | chord together to replant them | 3 beats, held | hub stays down | hub rocks back up, movement's fire beats lost until both feet replant |
+| 8 | Hub flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Feet creep loose a second time, faster | P1+P2 | chord together, both feet | 3 beats, held | stays down | rocks back up, retry |
+| 10 | Hub flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, hub spent | stays lit |
+| 11 | All three feet buckle at once and the stand collapses | — | — | — | — | — |
+
+**THE SLOW** opens on every chord window (rows 2, 3, 4, 5, 7, 9) and every
+fire window (rows 6, 8, 10) — a held chord is exactly THE VISE's argument
+for seconds over beats, since most of it is a seat confirming out loud that
+both thumbs are actually still down.
+
+**Presentation.** No camera. Each planted foot a flat hull-shock thud;
+each hub hit an ordinary shot's flash; a foot springing loose a short
+metallic ring.
+
+**Animation.** Five poses: both feet up; front planted; both planted, hub
+lit; hub guarded, feet creeping loose; collapsed. A foot plants by swinging
+down and locking rather than fading in — the same drawn-as-mechanism choice
+THE OCULUS, THE VISE and THE RIME all make.
+
+**Colour.** Stand a dull gunmetal, the sockets a cold blue-white when lit;
+the hub is the only lit colour on the body, lit in whichever cannon colour
+a given beat wants, THE SEAM's and THE OCULUS's rule again.
+
+**Payoff.** Rows 7 and 9 — `CHORD` asked for defensively, replanting a
+foot under a `FIRE` step already under way, the same shape as THE OCULUS's
+row 7 and THE VISE's rows 7/9, spent here on a chord instead of a hold or a
+pinch.
+
+**Cost. Low.** One new primitive, `ChordHold` (a fixed set of a seat's own
+controls, all held with none lifting, for a beat count — pure pointer state,
+no new field type); the plant/spring threshold logic reuses THE VALVE's
+landed/missed window shape.
+
+**Reusable.** `ChordHold` itself — the first primitive on this page read
+from a seat's own panel rather than from a body on the field or a phone's
+sensors; any future body that wants "more than one thumb down at once" can
+spend it without re-deriving what counts as a lift.
+
+### §31 THE PLUMB — a lean held long enough to bring it level
+
+**Question.** `TILT, AS A LEVEL` reads the phone's own lean, held at an
+angle, as a level rather than a touch — the one gesture on the unclaimed
+list that is not a finger at all, which makes it the first choreographed
+step judged on how the phone itself is posed. `gesture-unbuilt.ts`'s own
+note on it — always with an on-screen twin, and only once the motion
+permission is asked for — is THE CHOIR's shake rule, carried over to a hold
+instead of an instant.
+
+**Silhouette.** A lopsided weight hung off-centre from the hull, a plumb bob
+dragged out of true by its own drift. **Health is the two counterweights**,
+one per seat, each brought level by a held tilt, plus a lit core once both
+hang straight; the core takes three ordinary hits.
+
+**Mechanic.** `plumbLeftTiltMilli` / `plumbRightTiltMilli`, one per seat,
+read by `LevelTilt` — named here for the first time: the phone's own lean
+(gamma) held inside a target range, thousandths of a degree off level,
+counted only while the lean stays inside the range. Each screen draws an
+on-screen level — a bubble in a glass — mirroring the reading, so the
+gesture reads without anyone able to see the other phone move. Drifting
+back out of range resets that weight's progress rather than losing the step
+outright, the same forgiving shape THE VALVE's freeze, THE VISE's pinch and
+THE TRIVET's chord all use.
+
+**Player 1 and Player 2.** Identical screens, left weight / right weight
+fixed by geometry — the same rule a sixth time running: geometry, never a
+word, is what tells two identical screens apart on this page.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left weight** ||||||
+| 1 | The bob hangs skewed, both weights swinging loose, core dark | — | — | — | — | — |
+| 2 | The left weight's level lights | P1 | lean the phone level (`TILT, AS A LEVEL`) | 6 beats, held | left weight settles true | tilt drifts out, weight swings loose, retry |
+| 3 | A tighter level lights on the same weight | P1 | lean level again | 4 beats, held | left weight locked plumb | swings loose, retry from row 2 |
+| **Movement 2 — the right weight** ||||||
+| 4 | The right weight's level lights | P2 | lean the phone level | 6 beats, held | right weight settles true | swings loose, retry |
+| 5 | Tighter level on the right weight | P2 | lean level again | 4 beats, held | right weight locked, core lights | swings loose, retry from row 4 |
+| **Movement 3 — the core, held plumb** ||||||
+| 6 | The core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | Both weights creep off true again | P1+P2 | lean level together to hold them | 3 beats, held | core stays lit | core dims, movement's fire beats lost until both weights settle true again |
+| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Weights creep off a second time, faster | P1+P2 | lean level together | 3 beats, held | stays lit | dims, retry |
+| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, core spent | stays lit |
+| 11 | Both weights snap loose at once and the bob swings free, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every level window (rows 2, 3, 4, 5, 7, 9) and every
+fire window (rows 6, 8, 10) — a held lean is exactly THE VISE's and THE
+TRIVET's argument for seconds over beats, and more so here: a phone actually
+has to be picked up and tilted, which reads as nothing on the field until
+the on-screen bubble is watched too.
+
+**Presentation.** No camera. Each settled weight a soft chime; each core
+hit an ordinary shot's flash; a weight swinging loose a low creak.
+
+**Animation.** Five poses: both weights swinging; left settled; both
+settled, core lit; core guarded, weights creeping off; both swung free. A
+weight settles by easing to a stop rather than snapping into place — the
+same drawn-as-mechanism choice THE OCULUS, THE VISE, THE RIME and THE
+TRIVET all make.
+
+**Colour.** Bob and chains a dull verdigris bronze, the level glass a pale
+green-white when lit; the core is the only lit colour on the body, lit in
+whichever cannon colour a given beat wants, THE SEAM's and THE OCULUS's
+rule again.
+
+**Payoff.** Rows 7 and 9 — `TILT, AS A LEVEL` asked for defensively,
+resettling a weight under a `FIRE` step already under way, the same shape
+as THE OCULUS's row 7, THE VISE's rows 7/9 and THE TRIVET's rows 7/9, spent
+here on a phone's own pose instead of a touch.
+
+**Cost. Low–medium.** One new primitive, `LevelTilt` (a `deviceorientation`
+gamma reading held inside a threshold range — the same iPhone motion
+permission gate as the shake, and the on-screen twin `gesture-unbuilt.ts`
+already names as the rule); the settle/drift threshold logic reuses THE
+VALVE's landed/missed window shape.
+
+**Reusable.** `LevelTilt` itself — the first primitive on this page read
+from the phone's own orientation rather than from a touch, pairing with the
+shake's existing permission gate; any future body wanting the tension of
+"hold the phone still and level" can spend it without re-deriving the
+threshold or the twin.
+
 ---
 
 ## The reusable boss mechanic library
@@ -3531,6 +3698,8 @@ documentation guarantee in the repository and the reason this table is short.
 | **`RepeatedTap`** | A count of presses on a target that **moves between them**, so the count cannot be spent in one place | §16's `tap` counts grabs on a mark that stands still | the second brief's repeated-tap category — absent here, and no concept wants it yet |
 | **`SqueezeGap`** | Two touches on one body, their distance apart read as a depth in thousandths, falling as the fingers converge | nothing — `gesture-unbuilt.ts`'s unclaimed `SQUEEZE ONE BODY`; needs a one-thumb twin refused and the iPhone's native `gesturechange` stopped | 28 |
 | **`RubCount`** | A back-and-forth wipe over one body, read as a count of reversals (the touch's x changing sign) rather than a position; pure pointer events, so it survives the voice delay | nothing — `gesture-unbuilt.ts`'s unclaimed `RUB` | 29 |
+| **`ChordHold`** | A fixed set of a seat's own controls, two or three, all held down together with none lifting, for a beat count | nothing — `gesture-unbuilt.ts`'s unclaimed `CHORD`; inside the iPhone's five-finger limit at two or three | 30 |
+| **`LevelTilt`** | The phone's own lean (gamma) held inside a target range for a beat count, drawn with an on-screen twin | THE CHOIR's shake permission gate; `gesture-unbuilt.ts`'s unclaimed `TILT, AS A LEVEL` | 31 |
 
 ### Information
 

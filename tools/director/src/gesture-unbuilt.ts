@@ -116,6 +116,38 @@ export const SPECIFIED: readonly Gesture[] = [
     platform: "iPhone also fires gesturechange for it, which is the one to refuse.",
     where: [`${SPEC} §28 THE VISE`],
   },
+  {
+    name: "CHORD",
+    state: "specd",
+    does: '"Hold two and five": two or three controls pressed at once. THE TRIVET\'s `ChordHold`: a foot planted only while a chord holds.',
+    hand: [
+      { k: "hold", at: [22, 128] },
+      { k: "hold", at: [60, 128] },
+    ],
+    timeline: {
+      lanes: [
+        { event: "pointerdown", marks: [2] },
+        { event: "pointerdown", finger: 2, marks: [3] },
+        { event: "pointerup", marks: [8] },
+        { event: "pointerup", finger: 2, marks: [8] },
+      ],
+      window: { from: 3, to: 8, label: "both down" },
+    },
+    where: [`${SPEC} §30 THE TRIVET`],
+  },
+  {
+    name: "TILT, AS A LEVEL",
+    state: "specd",
+    does: "The phone leaned left or right and held there; the angle is a level, like a hold. THE PLUMB's `LevelTilt`: a weight brought level by a held lean.",
+    hand: [],
+    phone: { tilt: 18 },
+    timeline: {
+      lanes: [{ event: "deviceorientation", marks: [[0.5, 9.5]] }],
+      note: "gamma: degrees left and right",
+    },
+    platform: "Same gate as the shake on an iPhone; Android asks nothing.",
+    where: [`${SPEC} §31 THE PLUMB`],
+  },
 ];
 
 export const WORTH_CONSIDERING: readonly Gesture[] = [
@@ -147,25 +179,6 @@ export const WORTH_CONSIDERING: readonly Gesture[] = [
     why: "Describing a shape across a room is exactly the talking the game is for.",
   },
   {
-    name: "CHORD",
-    state: "consider",
-    does: '"Hold two and five": two or three controls pressed at once. Easy to say, and indifferent to the beat.',
-    hand: [
-      { k: "hold", at: [22, 128] },
-      { k: "hold", at: [60, 128] },
-    ],
-    timeline: {
-      lanes: [
-        { event: "pointerdown", marks: [2] },
-        { event: "pointerdown", finger: 2, marks: [3] },
-        { event: "pointerup", marks: [8] },
-        { event: "pointerup", finger: 2, marks: [8] },
-      ],
-      window: { from: 3, to: 8, label: "both down" },
-    },
-    why: "Inside the iPhone's five-finger limit at two or three, and the pointer map already tracks two.",
-  },
-  {
     name: "DOUBLE TAP",
     state: "consider",
     does: "Two taps quickly, as a confirm — only on a thing where one tap means nothing.",
@@ -178,19 +191,6 @@ export const WORTH_CONSIDERING: readonly Gesture[] = [
       window: { from: 2, to: 5, label: "≈250 ms" },
     },
     why: "Never on a fire button: every single tap there would wait ~250 ms to learn it was not a double.",
-  },
-  {
-    name: "TILT, AS A LEVEL",
-    state: "consider",
-    does: "The phone leaned left or right and held there; the angle is a level, like a hold.",
-    hand: [],
-    phone: { tilt: 18 },
-    timeline: {
-      lanes: [{ event: "deviceorientation", marks: [[0.5, 9.5]] }],
-      note: "gamma: degrees left and right",
-    },
-    why: "Always with an on-screen twin (THE CHOIR's rule), and only once the iPhone permission is asked for.",
-    platform: "Same gate as the shake on an iPhone; Android asks nothing.",
   },
   {
     name: "CALL AND RESPONSE",
