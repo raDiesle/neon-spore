@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · d4f21f6a4 — THE KEEL has a hand: AUTO taps each joint from its own seat, shuts the socket and shoots the rock
+
+`hands/boss-hands-keel.ts` plays THE KEEL right: each lit joint tapped by the seat whose half it sits over, the socket shot up the middle in its own colour, a thrown rock shot out of its column first. AUTO plays the fight to straight with nothing missed, and the STATES sheet poses all eight phases. THE KEEL leaves NO_HAND and the OWED list, and its lane two is complete.
+
 ## 2026-09-26 · 869783422 — THE GORGE's lobes bow in depth, and its beads swim behind the skin
 
 The sack is now a body bowed round toward the pair: the middle lobes stand nearest and swell by the lens, the outer ones go away and haze a step toward the field, and the whole row turns slowly so one end comes forward as the other goes back. Every lobe stays over its column. The beads swim round inside each lobe, veiled by the skin while they are behind it, and the rim light sits on the edge turned from the key and slides with the turn.
