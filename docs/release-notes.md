@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · dc2f6fc20 — THE INSTAR's fourth act: hover, bow, arch, rise and loom
+
+Five more poses laid in among the other three acts, each with its own SLOW moment: hovering high with the tail's fork shot off, bowed with both seats holding the head, arched over the ship with the nest tapped flat and the tail pulled up, risen upright with embers sucked under each half, and looming so close the jaws fill the field, pulled shut with the seats swapped. The script is now twenty-eight steps over twenty-one poses.
+
 ## 2026-09-26 · ee33ccf03 — THE INSTAR's fire ebbs over a landing instead of going out in a frame
 
 Every step of THE INSTAR's twenty-three is now walked into the next a tick at a time, and nothing in the figure snaps into or out of the third act's five poses. The one thing that did was the fire in the mouth: the breath's bites, the rear and the roar landed with it lit, and it went out on the landing tick. It now eases down across the landing from where the window left it, and so does the threat the body shows (`instar-ebb.ts`). `instar-seams.test.ts` fails on any part of the figure, or the fire, that moves further in one tick than a change ever moves it.

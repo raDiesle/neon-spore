@@ -23981,3 +23981,5 @@ Bottleneck: writing — the figure was already smooth everywhere, and it took a 
 
 Bottleneck: friction — the photograph recipe lived only in the session, not
 in a document, and had to be dug out of the transcript.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
