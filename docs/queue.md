@@ -662,6 +662,112 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
+## §30 THE TRIVET — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+The first choreographed body on this page read off a seat's own panel
+rather than a body on the field: `ChordHold` (new — two or three of one
+seat's own controls held together, none lifting, for a beat count) plants
+`trivetFrontHeld` then `trivetRearHeld`, and the lit hub takes three fire
+hits with two defensive re-chord beats (both seats at once) against it
+rocking loose. Eleven steps, three movements. The full beat list and
+primitive table entry are §30 of `docs/spec/bosses-choreographed.md`.
+`CHORD` moves from `consider` to `specd` in
+`tools/director/src/gesture-unbuilt.ts` as part of this lane — already
+done, land it with the rest. THE SLOW on every chord and fire window. `bun
+run check` proves it.
+
+## §31 THE PLUMB — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+The first choreographed body on this page read off the phone's own pose
+rather than a touch: `LevelTilt` (new — the phone's gamma lean held inside
+a target range, drawn with an on-screen twin per THE CHOIR's rule) settles
+`plumbLeftTiltMilli` then `plumbRightTiltMilli`, and the lit core takes
+three fire hits with two defensive re-level beats (both seats at once)
+against it swinging off true. Eleven steps, three movements. The full beat
+list and primitive table entry are §31 of
+`docs/spec/bosses-choreographed.md`. `TILT, AS A LEVEL` moves from
+`consider` to `specd` in `tools/director/src/gesture-unbuilt.ts` as part of
+this lane — already done, land it with the rest, and gated behind the same
+iPhone motion permission prompt as the shake. THE SLOW on every level and
+fire window. `bun run check` proves it.
+
+## §30 THE TRIVET — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §30 THE TRIVET's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a three-legged stand whose
+feet swing down and lock rather than fade in, and the hub's lit core
+answering the cannon's colour once both outer feet are planted. Nothing
+here is drawn yet and stays unverified at tempo until the owner has looked.
+
+## §31 THE PLUMB — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §31 THE PLUMB's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a plumb bob easing to a stop
+as each weight settles true rather than snapping level, plus the on-screen
+bubble-in-a-glass twin `LevelTilt` needs so the tilt reads without seeing
+the other phone move. Nothing here is drawn yet and stays unverified at
+tempo until the owner has looked.
+
+## §30 THE TRIVET — sprite atlas experiment: the feet planting home
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §30 THE TRIVET's look, above, landed first
+- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
+  `assets/raster/`, `docs/raster.md`
+
+`docs/raster.md` rule 3/4/5: a foot swinging down and locking home (rows 2,
+3, 4 and 5 of the beat list) is a hinge-and-slam motion, not a shape that
+recolours — a candidate for a painted frame-by-frame strip rather than a
+procedural one. It is simulation-triggered, so rule 5 makes the format a
+sprite atlas, never an APNG or animated WebP: draw one foot's swing-and-lock
+the way `burst-art.ts` draws the existing burst, pack it with `bun run
+raster` into its own `trivet-plant-strip.webp` (atlas) and
+`trivet-plant.apng` (lossless master), reused for all three feet by mirror
+and gated behind the same `?raster=1` flag through a new
+`bindRasterTrivetPlant` in `apps/game/src/raster.ts`. **Budget: the atlas
+(the only file the field fetches) stays under 90 kB**, the same ceiling THE
+VISE's and THE RIME's atlas experiments already use — if the painted
+version does not read at 12 frames or 80 px, drop frames before raising the
+budget. Record the exact atlas byte count in the commit that lands this,
+next to the number `bun run raster` printed before this lane touched
+anything. Offered, never replacing: the procedural plant stays the shipping
+look until the owner compares them on the RASTER tab. `bun run
+raster:verify` and `bun run check` prove it; the visual comparison is the
+owner's, unverified until he has looked.
+
+## §31 THE PLUMB — sprite atlas experiment: the bob settling true
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §31 THE PLUMB's look, above, landed first
+- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
+  `assets/raster/`, `docs/raster.md`
+
+Same experiment, third body: a counterweight easing to a stop as it settles
+true (rows 2, 3, 4 and 5 of the beat list) is a damped swing with a
+verdigris sheen, painterly by `docs/raster.md`'s own test, and
+simulation-triggered, so rule 5 again makes it an atlas rather than an APNG
+or WebP. Pack `plumb-settle-strip.webp` the same way, through the same `bun
+run raster` pipeline, behind `?raster=1`. **Budget: under 90 kB for the
+atlas**, same ceiling and same reasoning as THE VISE's, THE RIME's and THE
+TRIVET's entries above — all four share one budget line in the commit that
+lands them, not four separately-justified numbers. Record the exact atlas
+byte count next to what `bun run raster` printed beforehand. Offered, never
+replacing, same as every other baked look in this file. `bun run
+raster:verify` and `bun run check` prove it; the visual comparison is the
+owner's, unverified until he has looked.
+
 ## The game's TEST view has no AUTO
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
