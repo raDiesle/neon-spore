@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 89325a27f — THE PLUMB is drawn: a bronze bob on a hook, two weights on chains, a level glass under each
+
+Half one of §31's look. THE WEIGHT's sac hangs as a bob of old bronze off a hook over the middle column, with a beam across it and THE POMMEL's balls on chains at its ends. The pilot's ball is the heavier, so the bob hangs lopsided and comes level a quarter per settle as a steady phone brings its weight true. Under each ball is a spirit level: lit while its step asks, the bubble at the lean the phone reports and bright inside the range. The sac is seen edge-on until both weights are true, then turns face-on to show the core, which is lit in its colour with a ring closing, smaller and brighter per hit. The weights sway off true as a `both` step runs out, and the bob swings free at the end. Both screens are drawn the same.
+
 ## 2026-09-26 · e1c951018 — THE KEEL and THE OCULUS no longer claim THE VALVE's story as theirs
 
 The landing that drew THE VALVE's story states wrote its paragraph into `docs/spec/bosses.md` by replacing a sentence five sections share word for word, so THE KEEL's and THE OCULUS's sections each described THE VALVE's jet, brace, wipe and seal as their own (THE SEAM's lane took it out of its own section in the meantime). The two are put back to what they said before; THE VALVE's own section and THE TRIVET's keep their new text. That the restored paragraphs were already stale is queued.

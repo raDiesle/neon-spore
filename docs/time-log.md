@@ -24358,3 +24358,5 @@ Bottleneck: friction — a paragraph repeated word for word across sections turn
 
 Bottleneck: writing — four render files for a boss with a beam, two chains
 and two glasses is more drawing than any single-body boss before it.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

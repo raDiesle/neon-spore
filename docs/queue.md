@@ -2695,6 +2695,15 @@ what the rest of this file holds.
 
 - THE SEAM's turn and glow at tempo
 
+## Unverified at 89325a27f: THE PLUMB's body and level glass seen at tempo on real…
+
+- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-look
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-hurt.ts`
+
+*THE PLUMB is drawn: a bronze bob on a hook, two weights on chains, a level glass under each* landed from a session that could not look at it. The commit touched 15 more files. What went unchecked:
+
+- THE PLUMB's body and level glass seen at tempo on real phones
+
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
