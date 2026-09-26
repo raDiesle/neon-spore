@@ -684,21 +684,6 @@ built there, name the file, and say whether a later boss should call THE
 SURGE's judge rather than write its own; if it should, add the row to the
 called-not-re-derived table in `packages/sim/test/purity.test.ts`.
 
-## §23 THE MANTLE — the simulation lane
-
-- **Found:** 2026-09-26, this session (DavidDe's ask for five more choreographed bosses read the same on both screens)
-- **Taken:** 2026-09-26, this session (claim: claude/mantle-boss-simulation)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-A shelled body with two handles, `mantleLeft` and `mantleRight`, pulled down
-together by both seats at once — a floor-checked sum (`mantlePairMilli`)
-rather than a split gauge, shown identically on both screens. Eight plates as
-the health, three pull-together movements, a two-seat alternating tap finish
-on the bared core. The full beat list, mechanic and departures are §23 of
-`docs/spec/bosses-choreographed.md`. Every row of
-`.claude/skills/new-boss/registrations.md` for a field-adjacent choreographed
-scene, THE SLOW on every pull window, `bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
 
 ## §24 THE KEEL — the simulation lane
 
@@ -711,8 +696,7 @@ lights is the one the cue calls, with no `Alternation` refusal and no per-step
 authored seat. One standard-control fire step at the midpoint (movement 2).
 The full beat list is §24 of `docs/spec/bosses-choreographed.md`. THE SLOW on
 every joint window except the fast re-lit run in movement 3, which is at
-tempo on purpose. `bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
+tempo on purpose. `bun run check` proves it.
 
 ## §25 THE VALVE — the simulation lane
 
@@ -727,8 +711,7 @@ away from its mark before it can hold. The full beat list is §25 of
 `docs/spec/bosses-choreographed.md`. New member on `Hold["kind"]`, so
 `tools/director/test/on-field-controls.test.ts`'s exhaustive switch is part of this
 lane and not a follow-up. THE SLOW on every freeze and every pull.
-`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
+`bun run check` proves it.
 
 ## §26 THE SEAM — the simulation lane
 
@@ -741,8 +724,7 @@ the health. The cheapest of the five — proof that a choreographed scene can
 be built entirely out of the standard controls DavidDe asked to keep for
 specific sequences. The full beat list is §26 of
 `docs/spec/bosses-choreographed.md`. THE SLOW on every fire and shield
-window. `bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
+window. `bun run check` proves it.
 
 ## §27 THE OCULUS — the simulation lane
 
@@ -756,8 +738,7 @@ shut, a `SceneBreak` (named here for the first time) hands the scene to an
 ordinary gated shot at the bared core, with two more held-reseal beats
 defending it. The full beat list is §27 of
 `docs/spec/bosses-choreographed.md`. THE SLOW on every hold and every fire.
-`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
+`bun run check` proves it.
 
 ## §23 THE MANTLE — the look
 
