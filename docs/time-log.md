@@ -22758,3 +22758,5 @@ control is registered are found only from one another.
 
 Bottleneck: reading — which gesture could ask iOS for the navigator without
 putting a prompt in front of every game's READY.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

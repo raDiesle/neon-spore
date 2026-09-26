@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 3e44d9370 — THE PLUMB: the lean reader — a phone's roll goes out as its seat's weight
+
+Wave 110 can now be played on a real phone. The phone's gamma goes out as the seat's own `plumbLevel*` drag, but only after it has moved half a degree since the last reading sent, never once per event, and only while a bob is on the field. A hidden page sends `on: false` once. iOS asks for the sensor when the thumb lifts off READY on THE PLUMB's own guide, so the navigator is asked there too. A desk key that leans is queued, with the question of which slot it takes.
+
 ## 2026-09-26 · b48c6880a — THE KEEL answers a thumb: a tap on the lit joint's ring
 
 A tap inside the white ring round THE KEEL's lit joint now reaches the simulation, from either seat, on the circle the drawing puts there. The seat the joint is not over is refused by the simulation silently, and the tap is kept off the cannon behind the ring, as THE MANTLE's core does. The segments are placed once (`keelSegs`) for the drawing and the grip, and the ring's circle is shared. The director's ON THE FIELD tab gains THE KEEL'S JOINT and its pose, and `keelJoint` moves from unbuilt to the field.
