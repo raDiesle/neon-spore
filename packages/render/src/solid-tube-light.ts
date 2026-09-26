@@ -1,6 +1,6 @@
 import { ringSection, type SeenRing, sectionLight } from "@neon-spore/content";
 import { bakedCache } from "./baked.js";
-import { mixHex, rgba } from "./hex.js";
+import { mixHex } from "./hex.js";
 
 /**
  * THE LIGHT ACROSS A TUBE'S SECTION, as a gradient built once and reused
@@ -10,6 +10,12 @@ import { mixHex, rgba } from "./hex.js";
  * the key falls along its width and how much on its face (`ringSection`) —
  * and those two, stepped, are the key. A tube's neighbouring slices share a
  * gradient, and a tube that is still holds the same few from frame to frame.
+ *
+ * **The stops are opaque and the fade is not in the key.** A body fading in
+ * or out — THE INSTAR's fall, its passes — would otherwise step its fade
+ * into a new key nearly every frame and rebuild the light of every slice it
+ * has; the caller lays the fade on as `globalAlpha` instead, which composites
+ * the same.
  *
  * Rebuilt when the context changes, as `gradient-slot.ts` is, so a gradient
  * is never used on a canvas other than the one that made it.
@@ -29,30 +35,27 @@ export interface Skin {
 const KS = [-1, -0.88, -0.62, -0.3, 0, 0.3, 0.62, 0.88, 1] as const;
 
 /**
- * How finely a section's light and a tube's fade are stepped to key a cached
- * gradient: fine enough that no stop moves by a visible amount, coarse enough
- * that a tube's neighbouring slices share one.
+ * How finely a section's light is stepped to key a cached gradient: fine
+ * enough that no stop moves by a visible amount, coarse enough that a tube's
+ * neighbouring slices share one.
  */
 const LIGHT_STEPS = 48;
-const FADE_STEPS = 32;
 /** Held gradients before the cache starts again; a settled scene holds a few dozen. */
 const HELD = 512;
 const GRADIENTS = bakedCache<string, CanvasGradient>();
 
 let owner: CanvasRenderingContext2D | undefined;
 
-/** The gradient across a section lit as `ring` is, from 0 (its right) to 1 (its left). */
+/** The gradient across a section lit as `ring` is, from 0 (its right) to 1 (its left), opaque. */
 export function sectionGradient(
   ctx: CanvasRenderingContext2D,
   ring: SeenRing,
   skin: Skin,
-  alpha: number,
 ): CanvasGradient {
   const { across, facing } = ringSection(ring);
   const qa = Math.round(across * LIGHT_STEPS);
   const qf = Math.round(facing * LIGHT_STEPS);
-  const qo = Math.round(alpha * FADE_STEPS);
-  const key = `${skin.base}${skin.lift}${skin.sheen}|${qa}|${qf}|${qo}`;
+  const key = `${skin.base}${skin.lift}${skin.sheen}|${qa}|${qf}`;
   if (owner !== ctx) {
     owner = ctx;
     GRADIENTS.clear();
@@ -63,7 +66,6 @@ export function sectionGradient(
   g = ctx.createLinearGradient(0, 0, 1, 0);
   const lit = sectionLight(qa / LIGHT_STEPS, qf / LIGHT_STEPS, KS);
   const peak = Math.max(...lit);
-  const fade = qo / FADE_STEPS;
   // Opaque stops, each the base mixed toward its zone, so the overlap between
   // two quads cannot stack into a band the way translucent ones did.
   KS.forEach((k, j) => {
@@ -76,7 +78,7 @@ export function sectionGradient(
     else if (l >= peak - 1e-6 && l > 0.6) hex = mixHex(skin.lift, skin.sheen, 0.34);
     else if (l >= 0.45) hex = mixHex(skin.base, skin.lift, ((l - 0.45) / 0.55) * 0.75);
     else hex = dark;
-    (g as CanvasGradient).addColorStop(t, rgba(hex, fade));
+    (g as CanvasGradient).addColorStop(t, hex);
   });
   GRADIENTS.set(key, g);
   return g;

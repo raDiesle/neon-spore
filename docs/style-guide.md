@@ -218,6 +218,14 @@ misunderstanding, and it is withdrawn.**
   (`ringSection`), and stepped to a forty-eighth they took THE INSTAR from
   about 170 gradients a frame to 12 with no pixel anyone can find
   (`solid-tube-light.ts`).
+- **A fade is `globalAlpha`, never part of a cached gradient's key.** A
+  body fading in or out steps a keyed fade to a new value nearly every
+  frame, and every slice rebuilds its light: THE INSTAR's fall made 126
+  gradients a frame that way, 54 with the stops opaque and the fade laid on
+  by the caller, which composites the same. For the same reason a gradient
+  repeated at many places — an egg's shell, sixteen to a nest — is built
+  about its own middle and laid by a translate, one per frame instead of
+  one per egg (`gradient-slot.ts`).
 - **A boss faced toward the seats is seen a third of the way round, not
   square on.** Straight at us or straight side-on both read flat; the owner,
   26 September 2026, asked for the half angle. The body and the wings go

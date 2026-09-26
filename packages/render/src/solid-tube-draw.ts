@@ -149,7 +149,8 @@ function shadeSegment(
   ctx.closePath();
   ctx.save();
   ctx.transform(ux, uy, -uy, ux, rx, ry);
-  ctx.fillStyle = sectionGradient(ctx, a, skin, alpha);
+  if (alpha < 1) ctx.globalAlpha *= alpha;
+  ctx.fillStyle = sectionGradient(ctx, a, skin);
   ctx.fill();
   ctx.restore();
 }

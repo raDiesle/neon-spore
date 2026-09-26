@@ -23803,3 +23803,17 @@ answer one finger at a time, so the pairing had to find a home before any
 of the VISE's own code could.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's fight counted, and two gradients stopped rebuilding
+
+- reading: 10 min. The stub canvas's tally, the tube light's cache, the eggs.
+- writing: 10 min. Three probes; the fade out of the tube light's key and
+  into `globalAlpha`; one egg shell shared by translate.
+- looking: 0 min. Counts only; nothing on screen changes.
+- friction: 20 min. zsh does not split an unquoted `$a`, so every loop of
+  the probe ran one argument and printed the same frame for every pose,
+  which read as a harness bug until the cursor came out NaN.
+- landing: 5 min. `check:fast`, this entry, `land`.
+
+Bottleneck: friction — twenty minutes on a shell quoting rule before a
+single honest number came out of the loop.

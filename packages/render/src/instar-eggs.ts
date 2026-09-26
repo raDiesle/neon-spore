@@ -1,4 +1,5 @@
 import { strokeGlow } from "./glow.js";
+import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { rgba } from "./hex.js";
 import { drawEggCrack } from "./instar-egg-crack.js";
 import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
@@ -48,6 +49,8 @@ const FALL_SECONDS = 0.55;
 /** How long the broken egg stays on the hull, in seconds. */
 const SPLAT_SECONDS = 0.3;
 
+const SHELL = gradientSlot<CanvasGradient>();
+
 /** One egg: a bile oval, rimmed, a hatchling curled dark inside it. Exported for
  * `bun run sprite`, which sets it beside the baked egg (`instar-egg-baked.ts`). */
 export function drawEgg(
@@ -67,13 +70,18 @@ export function drawEgg(
   // yolk gone deep toward the far one.
   ctx.save();
   ctx.clip(p);
+  // Built about the egg's own middle and laid on by a translate, so every
+  // egg of a nest shares the one gradient (`gradient-slot.ts`).
   const w = r * EGG_W;
-  const shell = ctx.createRadialGradient(x - w * 0.35, y - w * 0.4, 0, x, y, r * EGG_H * 1.1);
-  shell.addColorStop(0, faded(PALETTE.bileRim, fade, 0.55));
-  shell.addColorStop(0.5, faded(PALETTE.bile, fade, 0));
-  shell.addColorStop(1, faded(PALETTE.bileDeep, fade, 0.7));
-  ctx.fillStyle = shell;
-  ctx.fillRect(x - w * 1.5, y - w * 1.8, w * 3, w * 3.6);
+  ctx.translate(x, y);
+  ctx.fillStyle = slotGradient(ctx, SHELL, `${r}|${fade}`, () => {
+    const g = ctx.createRadialGradient(-w * 0.35, -w * 0.4, 0, 0, 0, r * EGG_H * 1.1);
+    g.addColorStop(0, faded(PALETTE.bileRim, fade, 0.55));
+    g.addColorStop(0.5, faded(PALETTE.bile, fade, 0));
+    g.addColorStop(1, faded(PALETTE.bileDeep, fade, 0.7));
+    return g;
+  });
+  ctx.fillRect(-w * 1.5, -w * 1.8, w * 3, w * 3.6);
   ctx.restore();
   ctx.strokeStyle = faded(PALETTE.bileDeep, fade, 0.9);
   ctx.lineWidth = Math.max(1, r * 0.03);
