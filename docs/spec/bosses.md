@@ -9154,8 +9154,8 @@ not in: the render package's silent-event lists and
 `tools/director/src/sound-link-none-d.ts` still carry all twelve of its
 events. The twelve sounds *are* bound (`audio/src/bind-plumb.ts`),
 heard where they happen, the settle pitched up per level and the hit per
-hit. There is no autopilot hand yet (`tools/director/test/autopilot.test.ts`'s
-`NO_HAND`).
+hit. The autopilot hand plays it to the end
+(`tools/director/test/autopilot-grindstone.test.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/plumb.test.ts`): the bob comes in still with both weights loose,
@@ -9403,16 +9403,16 @@ and only in its colour unless it is `either`.
   plus an axle of three hits; the script is nine steps, and the wheel
   spins free when the last is answered, which is the third hit.
 
-**The simulation lane has landed.** Nothing in `apps/game` sends a
-`grindFlat*` or `grindJaw*` drag yet, so the wheel cannot be answered on a
-real phone — the touch sender is queued with the look (`docs/queue.md`).
-Its events have no effects yet: the render package's silent-event lists
+**The simulation lane has landed.** **The touch sender has too**
+(`render/src/grindstone-grip.ts`, `render/src/rub.ts`, `apps/game/src/rub.ts`):
+a thumb on a seat's own flat is a rub whose turns its host counts, and a
+finger on its jaw one pad of THE TRIVET's chord. Its events have no effects yet: the render package's silent-event lists
 and `tools/director/src/sound-link-none-d.ts` carry all thirteen until the
 effects lane. The thirteen sounds *are* bound
 (`audio/src/bind-grindstone.ts`), heard where they happen, the shave
 pitched up as the flat comes clean, the clear per pass and the hit per
-hit. There is no autopilot hand yet (`tools/director/test/autopilot.test.ts`'s
-`NO_HAND`).
+hit. The autopilot hand plays it to the end
+(`tools/director/test/autopilot-grindstone.test.ts`).
 
 **The look** (`render/src/grindstone-draw.ts`, `grindstone-shape.ts`,
 `grindstone-pose.ts`, `grindstone-marks.ts`, half one of lane two). The
@@ -9434,9 +9434,12 @@ snapping back when a pad lifts; bitten, they creep loose as a clamp's window
 runs out and are pressed home by the hold (THE TRIVET's and THE VISE's
 figures). **The perspective changes** when it spins free: the jaws are flung
 off both ways and the wheel turns edge-on as it falls, so the flats the pair
-ground go away. Not yet built: the effects (a shave's grit, a clear's flash,
-the bite, a hit's flash, the hull's blow as the boss's own), the cue words,
-the touch sender and the autopilot hand, each queued.
+ground go away. **The cue words** (`render/src/boss-cue-read-zj.ts`): `RUB` on
+the lit flat to its seat for the whole pass, `HOLD` on each jaw a clamp asks
+for until both its pads are down, and `FIRE` at the hull under the middle
+column once the caliper is locked on a fire step — never a count or the
+axle's colour. Not yet built: the effects (a shave's grit, a clear's flash,
+the bite, a hit's flash, the hull's blow as the boss's own), queued.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/grindstone.test.ts`): the wheel comes in gritted with the

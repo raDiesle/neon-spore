@@ -710,8 +710,9 @@ The body draws nothing that outlives a frame. Its events are still on the
 silent lists: grit shaved off a flat as a reversal lands, a flash as a flat
 comes clean, the caliper biting, the hit flash on the axle, the strike
 look, the fall. Add them through `Effects` (cleared in `Effects.reset()`),
-take the events off the silent lists, and give the steps their cue words
-(RUB, HOLD, FIRE). Each is drawn again in `frame.test.ts`.
+take the events off the silent lists, and draw each again in `frame.test.ts`.
+The cue words (RUB, HOLD, FIRE) landed on their own, 26 September 2026
+(`boss-cue-read-zj.ts`); only the effects are left.
 
 ## §35 THE DAVIT — the look
 

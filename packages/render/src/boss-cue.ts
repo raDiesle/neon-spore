@@ -31,6 +31,7 @@ import { viseCues } from "./boss-cue-read-zf.js";
 import { rimeCues } from "./boss-cue-read-zg.js";
 import { trivetCues } from "./boss-cue-read-zh.js";
 import { cystCues } from "./boss-cue-read-zi.js";
+import { grindstoneCues } from "./boss-cue-read-zj.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -185,6 +186,9 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // And THE CYST's, a tap on the lit mark then a pinch on its flank, a pair on a swell, and one at the hull (`boss-cue-read-zi.ts`).
     case "cyst":
       return cystCues(l, world, boss, beatPhase);
+    // And THE GRINDSTONE's, a rub on the lit flat, a word on each jaw a clamp asks for, gone once it is held, and one under the lit axle (`boss-cue-read-zj.ts`).
+    case "grindstone":
+      return grindstoneCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is
