@@ -1197,6 +1197,7 @@ by hand never moves.
 | `packages/render/src/slow-prism.ts` | The frame's colours split about the boss on every slowed downbeat and closing across the beat, under the streams |
 | `packages/render/src/slow-keep-out.ts` | **The body THE SLOW's light may not cross**, as a shape a pass can clip to and a distance a pass can fade by |
 | `packages/render/src/slow-crawl.ts` | Rays round the boss, and sparks of light strung along each one at once |
+| `packages/render/src/slow-boss-aim.ts` | **Where a boss that opens THE SLOW stands, by kind** |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |

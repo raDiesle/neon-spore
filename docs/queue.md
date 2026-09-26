@@ -468,26 +468,6 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §27 THE OCULUS — its hands, the second half of its look
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-27-the-oculus-its-hands-the-second-half-of-its-l)
-- **Needs:** §27 THE OCULUS — the look, half one (the body), landed first
-- **Files:** `packages/render/src/slow-intake-aim.ts`, `apps/game/src/`
-
-The body is drawn: the rim and its pins, the six leaves as iris blades, the
-lit pair sliding shut as it is held, a reseal's cracked pair, the socket's
-break, the core in its colour and smaller per hit, and the shatter. What is
-left is the aim. The on-field leaf holds landed 26 September 2026
-(`render/oculus-grip.ts`: each seat's half of the lens is its leaf, by
-geometry), and the autopilot hand and the STATES poses after them
-(`hands/boss-hands-oculus.ts`), the fx the same day (`render/oculus-fx.ts`:
-the thud, the flashes, the hull shock and the bursts), and the cue's words
-(`render/boss-cue-read-ze.ts`: HOLD on each seat's half of a lit pair, FIRE
-under the lit core). **THE SLOW's aim** on the lens (the prism splits it
-today — the item below on the prism's aim is the general case).
-Unverified at tempo until the owner has looked.
-
 ## §28 THE VISE — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
@@ -1852,7 +1832,7 @@ Unverified at tempo until the owner has looked.
 ## THE SLOW's prism aims at the cannon for every boss but THE INSTAR
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
-- **Files:** `packages/render/src/slow-intake-aim.ts`, `packages/render/src/slow-prism.ts`
+- **Files:** `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`
 
 PRISM's promise is *the room splits into its colours, and the boss does
 not*: a point's fringe is as wide as it is far from the aim. But `aim()`
@@ -1861,12 +1841,12 @@ SLOW — THE HASP, THE KEEL, THE VALVE, THE SEAM and some thirty more
 (`grep -l openSlow packages/sim/src`) — falls through to a held body or the
 cannon's column at the hull, so a boss hung at the top of the field is the
 thing split *widest*, red and blue outlines a quarter-tile apart
-(`bun run frames . --wave 105 --until seamLight --until-on 30`). The fix is
-the head registered per boss, not re-derived: a small table in render from
-boss kind to the point its own `-shape.ts` already names (`valveCentre`,
-`seamCentre`, …), consulted before the fallbacks, and a test that a boss's
-own outline is drawn with the narrowest split of the frame. THE SEAM's
-entry is in its hands item above; this one is the rest.
+(`bun run frames . --wave 105 --until seamLight --until-on 30`). The table
+exists since 26 September 2026: `render/slow-boss-aim.ts`, from boss kind
+to the point its own `-shape.ts` already names, consulted after THE INSTAR
+and before the fallbacks, with THE OCULUS as its one row. What is left is a
+row for each other boss that opens a window (`valveCentre`, `seamCentre`,
+…) and a case for each in its test.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 
@@ -2646,3 +2626,19 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `bun run push` leaves release-note shas that are not in the history
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `tools/land/push.ts`, `tools/land/notes-merge.ts`, `docs/release-notes.md`
+
+When `bun run push` finds `origin/main` ahead, it rebases the trunk onto it
+and *settles* `docs/release-notes.md`, but the sha each note was stamped with
+at `land` is the pre-rebase commit's, so it names a commit no history holds:
+of the twelve newest notes on 26 September 2026, five (`3b20854a0`,
+`13c34088d`, `d4eafbf4c`, `4c7090ce0`, `881f776df`) are not ancestors of
+`main`. The same holds for the `## Unverified at <sha>:` headings in this
+file. After the rebase, map each rewritten commit to its new sha (the
+subject is unique per landing; or `git rebase`'s own rewritten list) and
+restamp both files before the push, with a test in `tools/land/test/` that a
+pushed note's sha is an ancestor of the pushed head.

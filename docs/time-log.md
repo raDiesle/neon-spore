@@ -23831,3 +23831,14 @@ single honest number came out of the loop.
 Bottleneck: writing — every new pose is a table of places decided for the first time.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SLOW's light stands round THE OCULUS's lens (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. `slow-intake-aim.ts`, the prism item, `oculus-shape.ts`.
+- writing: 10 min. The boss table, its call from `aim()`, the test, the
+  specs and the queue.
+- looking: 5 min. One frame of the lit pair under THE SLOW.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: landing — the check and the push take longer than a table of one row.

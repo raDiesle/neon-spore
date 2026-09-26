@@ -6,6 +6,7 @@ import { instarAt, instarLen } from "./instar-place.js";
 import { instarBody } from "./instar-sway.js";
 import { instarEnginesAt } from "./instar-turn.js";
 import { type Layout, tileCX } from "./layout.js";
+import { bossAim } from "./slow-boss-aim.js";
 import type { SlowWindow } from "./slow-look.js";
 
 /**
@@ -85,9 +86,10 @@ export interface Aim {
  * **Read fresh every frame and never remembered**: a body that moves takes the
  * light with it, and a window that ends leaves nothing behind.
  *
- * The fallbacks are in the order the field is worth looking at: a held body if
- * anybody has a hand down, and the cannon's own column if nobody has — which is
- * at worst the column the pair is aiming, and never nothing.
+ * The fallbacks are in the order the field is worth looking at: the boss if
+ * its kind has a row (`slow-boss-aim.ts`), a held body if anybody has a hand
+ * down, and the cannon's own column if nobody has — which is at worst the
+ * column the pair is aiming, and never nothing.
  */
 export function aim(world: World, l: Layout, beat: number, beatPhase: number): Aim {
   const instar = instarBoss(world);
@@ -99,6 +101,9 @@ export function aim(world: World, l: Layout, beat: number, beatPhase: number): A
     const top = instarEnginesAt(l, f);
     return { x, y, r: instarLen(l, f.headR), ax: top.x, ay: top.y };
   }
+  // A boss that stands still is registered by kind (`slow-boss-aim.ts`).
+  const boss = bossAim(world, l);
+  if (boss !== null) return boss;
   // Whose grip it is belongs to `grip.ts`, so each body is asked rather than
   // the two grip fields read (`world-ship.ts`, and `focus` does the same).
   const held = world.creatures.filter(
