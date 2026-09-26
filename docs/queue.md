@@ -745,17 +745,6 @@ look, the fall. Add them through `Effects` (cleared in `Effects.reset()`),
 take the events off the silent lists, and give the steps their cue words
 (RUB, HOLD, FIRE). Each is drawn again in `frame.test.ts`.
 
-## §33 THE GRINDSTONE — autopilot hand
-
-- **Found:** 2026-09-26, tmp-grindstone-look
-- **Taken:** 2026-09-26, claude/queue-33-the-grindstone-autopilot-hand
-- **Files:** `packages/sim/src/grindstone-hand.ts`, `packages/sim/src/boss-hands.ts`
-
-There is no autopilot hand for wave 112, so a solo or a watched run stands
-at the wheel doing nothing. Write one that rubs the lit flat, holds both
-pads through a clamp and fires the lit colour, in the shape of THE RIME's
-and THE TRIVET's hands; a sim test that the autopilot clears wave 112.
-
 ## §35 THE DAVIT — the look
 
 - **Found:** 2026-09-26, this session
@@ -1771,6 +1760,11 @@ SLOW, Presentation, Animation (five poses to six), Colour, Payoff and Cost
 sections are updated to match; one new boolean for row 11's hold. `bun run
 check` proves the sim half; the sixth pose is a look task, queued
 separately once this lane lands.
+
+The autopilot has a hand for it now (`hands/boss-hands-grindstone.ts`,
+`tools/director/test/autopilot-grindstone.test.ts`): it rubs and clamps
+only on a lit `left`/`right`/`clamp` step, so row 11 should need nothing of
+it — add the row to that test's expectations and prove it sends nothing.
 
 ## Unverified at 4b5e7e87c: GRAPHICS → EFFECTS: the five buttons, and each page op…
 

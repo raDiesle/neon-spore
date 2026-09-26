@@ -24968,3 +24968,15 @@ Bottleneck: reading — forty creature kinds, and most of them turned out to
 be one paint function.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE GRINDSTONE's autopilot hand
+
+- reading: 10 min. THE GRINDSTONE's rules, THE TRIVET's hand and test; there is
+  no RIME hand yet, so the rub had no pattern to copy.
+- writing: 10 min. `boss-hands-grindstone.ts`, its two registrations, the test.
+- looking: 0 min. The test plays wave 112 to the end; nothing drawn changed.
+- friction: 5 min. `queue next` offered the perf audit twice; it wants a quiet
+  machine, and six sessions were running.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: `next` has no way to skip an entry that wants an idle machine.
