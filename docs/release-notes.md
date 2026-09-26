@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · e592b3182 — A GPU speck no longer fails the twice-taken strip
+
+The same build captured twice may now differ in a single rounded pixel: up to twelve channel bytes, by at most eight levels. The one recorded failure was three bytes on a mote at the edge of a light shaft. A real clock slip moves tens of thousands of bytes, and twenty loaded runs never reproduced it. Any larger difference still fails, and `pictureDiff` now also says how many levels it moved.
+
 ## 2026-09-26 · 19757ad85 — Queue: the push-back's wave is done
 
 ## 2026-09-26 · ab91be642 — ONE LAST CHANCE: a wave, ninth in act one, that teaches the shield's push-back
