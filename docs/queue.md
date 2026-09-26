@@ -450,6 +450,7 @@ from a cloud session.
 ## The spec calls `MutualRelease` unbuilt; THE SURGE built it
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
+- **Taken:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an (claim: claude/queue-the-spec-calls-mutualrelease-unbuilt-the-surge-b)
 - **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/surge-step.ts`, `packages/sim/src/surge.ts`
 
 The library table (around "timed-release") and §8's table both mark
