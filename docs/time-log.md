@@ -24496,3 +24496,14 @@ Bottleneck: writing — the registrations outside the simulation, eleven files f
 Bottleneck: friction — two landings racing on the same status paragraphs and the same file tails.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VISE's bite and spit drawn
+
+- reading: 5 min. The case's draw and pose pages, THE OCULUS's sight.
+- writing: 20 min. The lunge, the white bar, the spat seed and its sight,
+  the two cue words, the frame and cue tests.
+- looking: 5 min. Two frames, the bite and the spit, both read right.
+- friction: 5 min. A compaction between the frames and the look at them.
+- landing: 5 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the seed had to be carried from the kernel's frame out to its column.

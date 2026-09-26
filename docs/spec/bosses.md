@@ -8582,6 +8582,14 @@ middle, answered by a shot up that column in its colour (`viseSeedBurst`);
 the kernel was not struck, so it is not a hit. Both replace §28's row 11, a
 beat where the pair did nothing.
 
+**The look of the two** (`render/src/vise-story.ts`, 26 September 2026). The
+bite clamps both lobes in and lunges the case a third of the way down to the
+hull, and a white bar is lit on the hull under the middle, where the shield
+goes; the cue says SHIELD there. The spit throws a small copy of the kernel
+out to hang over its column in its colour, with THE OCULUS's dotted sight
+from it to the hull and the notch where the shot comes up; the cue says FIRE
+under it. Both ease back out over the rest after. Both screens the same.
+
 **The simulation lane, the body and the pinch have landed; the rest of the
 hands has not.** The render package's silent-event lists and
 `tools/director/src/sound-link-none-d.ts` carry all twelve of its events until

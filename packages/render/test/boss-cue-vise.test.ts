@@ -9,6 +9,7 @@ import {
   type ViseAsk,
   type ViseState,
   viseBoss,
+  viseSeedCol,
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
@@ -29,7 +30,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **THE VISE, and the two words the field may say about it**
  * (`render/src/boss-cue-read-zf.ts`): `SHUT` on each lobe a lit pinch asks
  * for, gone the moment that lobe is pinched under the shut line, and `FIRE`
- * under the middle column while the kernel is lit. What is *not* said:
+ * under the middle column while the kernel is lit — under the seed's column
+ * on a spit — and `SHIELD` under the middle on a bite. What is *not* said:
  * nothing between steps or as the case splits, never on a lobe the step does
  * not ask for, and never the colour the kernel wants.
  */
@@ -134,10 +136,35 @@ describe("THE VISE", () => {
     }
   });
 
+  it("puts FIRE under the column the seed hangs over on a spit", () => {
+    const { world, s } = stood();
+    light(s, world, "spit");
+    const spit = s.steps[s.cursor];
+    if (spit === undefined) throw new Error("no spit step");
+    expect(spit.offset ?? 0).not.toBe(0);
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("FIRE");
+      expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], viseSeedCol(midCol(CFG), spit)), 5);
+    }
+  });
+
+  it("puts SHIELD under the middle column on a bite, on either screen", () => {
+    const { world, s } = stood();
+    light(s, world, "bite");
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("SHIELD");
+      expect(c?.seat).toBeNull();
+      expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
+      expect(c?.y).toBe(LAYOUT[role].hullY);
+    }
+  });
+
   it("never writes a number, a colour or a column", () => {
     const { world, s } = stood();
     const words: string[] = [];
-    for (const ask of ["left", "right", "fire", "both"] as const) {
+    for (const ask of ["left", "right", "fire", "both", "bite", "spit"] as const) {
       light(s, world, ask);
       for (const role of ["p1", "p2"] as const) words.push(cue(world, role)?.word ?? "");
     }

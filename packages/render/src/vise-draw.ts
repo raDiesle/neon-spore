@@ -1,13 +1,16 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
+  midCol,
   VISE_SEAMS_PER_LOBE,
   type ViseState,
   viseLitStep,
+  viseSeedCol,
   viseWindowBeats,
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
+import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -33,6 +36,7 @@ import {
   viseSeamPath,
   viseSpinePath,
 } from "./vise-shape.js";
+import { drawViseBiteBar, drawViseSeed, viseBite, viseLunge, viseSpit } from "./vise-story.js";
 
 /**
  * **THE VISE**: a seed-case of two lobes over the middle column, each pinched
@@ -47,6 +51,8 @@ import {
  * colour on it is what a step asks for — the lit seam in white, the kernel in
  * its cannon's colour. **Its health is the kernel**, smaller and brighter for
  * every hit it has taken.
+ *
+ * The bite and the spit, the two story steps, are `vise-story.ts`.
  *
  * What outlives a frame — a crack's thud, a sprung lobe ringing, a kernel
  * hit's flash, the split's, the blow — is `fx` (`vise-fx.ts`), told the
@@ -66,13 +72,13 @@ export function drawVise(
   const arrived = viseArrived(s, cfg, beat, beatPhase);
   const split = viseSplit(s, cfg, beat, beatPhase);
   const home = viseCentre(l, cfg);
+  const bite = viseBite(s, cfg, beat, beatPhase);
+  const standing = home.y - viseLift(l, arrived) + fx.thud * l.tile;
+  const y = standing + viseLunge(bite, l.hullY - standing);
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * split);
-  ctx.translate(
-    home.x + fx.hurt.shakeX(time, l.tile),
-    home.y - viseLift(l, arrived) + fx.thud * l.tile,
-  );
+  ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);
 
   ctx.fillStyle = rgba(PALETTE.background, 0.92);
   ctx.fill(viseHollowPath(l));
@@ -91,7 +97,8 @@ export function drawVise(
   const both = step?.ask === "both";
   const litSide = viseLitSide(s);
   for (const side of [0, 1] as const) {
-    const lean = viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side);
+    // A bite clamps both lobes shut on the kernel as it lunges.
+    const lean = (viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side)) * (1 - bite);
     drawLobe(ctx, l, s, side, lean, viseSqueeze(cfg, s, side), split, time, fx.hurt.value);
     if (both || litSide === side) {
       ctx.save();
@@ -108,6 +115,13 @@ export function drawVise(
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.viseCrack, 0.35);
     ctx.stroke(viseSpinePath(l));
+  }
+  drawViseBiteBar(ctx, l, bite, l.hullY - y, beatPhase);
+  const spat = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
+  if (spat?.ask === "spit") {
+    const seedX = fieldX(l, viseSeedCol(midCol(cfg), spat)) - home.x;
+    const spit = viseSpit(s, cfg, beat, beatPhase);
+    drawViseSeed(ctx, l, spit, seedX, l.hullY - y, spat.color, beatPhase);
   }
   drawViseFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();
