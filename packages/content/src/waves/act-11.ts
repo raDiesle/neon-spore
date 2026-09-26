@@ -1,3 +1,4 @@
+import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -62,6 +63,14 @@ import type { Wave } from "../wave-types.js";
  * still having room: the first boss where a step, once taken, is never taken
  * back. Every press climbs the rack a tooth; she decides only whether it was
  * clean, by holding the catch he cannot see (`sim/ratchet.ts`).
+ *
+ * **THE NETTLE came in behind that on 26 September 2026**: THE INSTAR's
+ * engine, a jellyfish for a body, and the ship's panel given back — STANDARD
+ * 5, every button without the lance, so a SHOOT mark is a shot and not a
+ * charge. Like THE INSTAR it authors its script and nothing that falls
+ * (`nettle-script.ts`). It carries a guide in words, because a wave goes
+ * without one only on the owner's word (`content/test/waves.test.ts`), and
+ * the new thing in it is that the panel answers a mark.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -97,5 +106,18 @@ export const WAVES_ACT_11: Wave[] = [
     entries: [],
     boss: { kind: "ratchet" },
     bossType: "normal",
+  },
+  {
+    id: "theNettle",
+    name: "THE NETTLE",
+    guide: {
+      both: "A jellyfish over the ship. Its rings say what to do. A hand is your thumb on it. SHOOT, SHIELD or SUCK is the panel, under the ring.",
+      p1: "1. Pull, tap, turn or hold the rings on the left, and the shared ones.\n2. Move the cannon under SHOOT or SUCK. Hold SUCK yourself.\n3. When the shield is under SHIELD, press your shield button.",
+      p2: "1. Pull, tap, turn or hold the rings on the right, and the shared ones.\n2. Fire when the cannon is under SHOOT.\n3. Move the shield under SHIELD, and say when.",
+    },
+    entries: [],
+    boss: { kind: "nettle", steps: NETTLE_SCRIPT },
+    bossType: "normal",
+    controls: "standard5",
   },
 ];

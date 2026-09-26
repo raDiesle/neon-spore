@@ -31,14 +31,31 @@ export const INSTAR_PARTS = [
 export type InstarPart = (typeof INSTAR_PARTS)[number];
 
 /**
- * The six gestures, and what `need` counts for each:
+ * The gestures, and what `need` counts for each:
  * `pullDown`/`pullUp` — thousandths of a tile the thumb must carry the part,
  * and hold there; `tap` — presses; `swipeDown` — carries past
  * `instarSwipeMilli` that end in a lift; `turn` — thousandths of a turn wound
  * clockwise; `hold` — beats the mark's own thumbs stay on it: both seats' on a
 `both` mark, one seat's on its own.
+ *
+ * **The last three are the ship's own panel**, added for THE NETTLE (§11.n):
+ * `shoot` — bolts out of the top of the mark's column, either colour;
+ * `shield` — the dome brought up with the shield under the mark; `suck` — the
+ * maw opened with the cannon under it. No thumb on the body answers them and
+ * no drag on one counts (`instar-hand.ts`); the panel does (`scene-panel.ts`).
+ * Appended, because the hash names a gesture by its place in this list.
  */
-export const INSTAR_GESTURES = ["pullDown", "pullUp", "tap", "swipeDown", "turn", "hold"] as const;
+export const INSTAR_GESTURES = [
+  "pullDown",
+  "pullUp",
+  "tap",
+  "swipeDown",
+  "turn",
+  "hold",
+  "shoot",
+  "shield",
+  "suck",
+] as const;
 export type InstarGesture = (typeof INSTAR_GESTURES)[number];
 
 /** The poses the body morphs between, one per step, named for the picture:
@@ -75,9 +92,15 @@ export type InstarArrival = (typeof INSTAR_ARRIVALS)[number];
 export const INSTAR_PHASES = ["morph", "act", "land", "down"] as const;
 export type InstarPhase = (typeof INSTAR_PHASES)[number];
 
-export interface InstarMark {
+/**
+ * **A mark on any scene's body**, over the parts that scene is written in —
+ * THE INSTAR's (`InstarMark`) or THE NETTLE's (`nettle-words.ts`). The engine
+ * reads only the seat, the gesture, the place and the need; the part is the
+ * picture's and the strike's.
+ */
+export interface SceneMark<Part extends string = string> {
   seat: InstarSeat;
-  part: InstarPart;
+  part: Part;
   gesture: InstarGesture;
   /** Where on the field it sits, in thousandths of the field's width and height. */
   xMilli: number;
@@ -86,9 +109,11 @@ export interface InstarMark {
   need: number;
 }
 
+export type InstarMark = SceneMark<InstarPart>;
+
 /** One beat of a choreographed scene: a pose, its marks and its three clocks. */
-export interface BossSequenceStep {
-  pose: InstarPose;
+export interface SceneStep<Pose extends string = string, Part extends string = string> {
+  pose: Pose;
   /** How the body flies into the pose while it morphs. */
   arrive: InstarArrival;
   /** Beats the body takes to morph into the pose, marks hidden. */
@@ -105,8 +130,10 @@ export interface BossSequenceStep {
    * owner, 25 September 2026: *pulling it is required to be stronger*.
    * Absent is nought: the part stays where the thumb puts it. */
   pushMilli?: number;
-  marks: readonly InstarMark[];
+  marks: readonly SceneMark<Part>[];
 }
+
+export type BossSequenceStep = SceneStep<InstarPose, InstarPart>;
 
 /** What a wave authors: the script, and nothing else. */
 export interface InstarEntry {

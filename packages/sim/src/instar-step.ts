@@ -8,10 +8,15 @@ import {
   instarHeld,
   instarMarkCol,
   instarMarkDone,
+  instarPanel,
   instarPulled,
   instarStep,
   instarStrikeBeat,
+  type NettleState,
+  type NettleStep,
   NOT_DONE,
+  type SceneState,
+  type SceneStep,
 } from "./instar.js";
 import { answerMark, armMarks, slipMark } from "./instar-marks.js";
 import { closeSlow, openSlow } from "./slow.js";
@@ -48,9 +53,24 @@ import type { World } from "./world.js";
  */
 
 export function installInstar(world: World, steps: readonly BossSequenceStep[]): InstarState {
-  const s: InstarState = {
-    kind: "instar",
-    steps: steps.map((step) => ({ ...step, marks: step.marks.map((m) => ({ ...m })) })),
+  const s: InstarState = { kind: "instar", steps: copySteps(steps), ...fresh(world) };
+  enter(world, s);
+  return s;
+}
+
+/** THE NETTLE is THE INSTAR's engine with its own words (`nettle-words.ts`). */
+export function installNettle(world: World, steps: readonly NettleStep[]): NettleState {
+  const s: NettleState = { kind: "nettle", steps: copySteps(steps), ...fresh(world) };
+  enter(world, s);
+  return s;
+}
+
+function copySteps<St extends SceneStep>(steps: readonly St[]): St[] {
+  return steps.map((step) => ({ ...step, marks: step.marks.map((m) => ({ ...m })) }));
+}
+
+function fresh(world: World): Omit<SceneState, "kind" | "steps"> {
+  return {
     cursor: 0,
     phase: "morph",
     phaseBeat: world.beat,
@@ -59,16 +79,18 @@ export function installInstar(world: World, steps: readonly BossSequenceStep[]):
     ref: [],
     thumbs: [],
   };
+}
+
+function enter(world: World, s: SceneState): void {
   armMarks(s);
   const mid = midCol(world.cfg);
   world.events.push({ type: "instarEnter", col: mid });
   const first = instarStep(s);
   if (first !== null)
     world.events.push({ type: "instarMorph", step: 0, pose: first.pose, col: mid });
-  return s;
 }
 
-function strike(world: World, s: InstarState): void {
+function strike(world: World, s: SceneState): void {
   const step = instarStep(s);
   if (step === null) return;
   // The first undone mark's part is the one that strikes; a step with two
@@ -86,9 +108,14 @@ function strike(world: World, s: InstarState): void {
   }
 }
 
-function slipLonely(world: World, s: InstarState): void {
+function slipLonely(world: World, s: SceneState): void {
   const step = instarStep(s);
   if (step === null || step.marks.length < 2) return;
+  // Together is only asked of thumbs on the body. A mark done while what is
+  // left is the panel's waits for the panel: the cannon has to get there,
+  // and a pair cannot shoot and tap *at once* in any sense worth saying.
+  const body = step.marks.some((m, i) => !instarPanel(m.gesture) && !instarMarkDone(s, i));
+  if (!body) return;
   for (let i = 0; i < step.marks.length; i++) {
     const mark = step.marks[i];
     const done = s.doneBeat[i] ?? NOT_DONE;
@@ -101,7 +128,7 @@ function slipLonely(world: World, s: InstarState): void {
 /** The part pushes back against every thumb on a pull, by the step's
  * `pushMilli`: what it has taken back is kept in `ref` (`NO_BEARING` until
  * the first shove of a grab), so the next move is judged against it. */
-function pushBack(s: InstarState): void {
+function pushBack(s: SceneState): void {
   const step = instarStep(s);
   const push = step?.pushMilli ?? 0;
   if (step === null || push <= 0) return;
@@ -121,7 +148,7 @@ const HOLDERS = { p1: 1, p2: 2, both: 3 } as const;
 /** Every thumb a hold mark wants on it is one more beat of it — both on a
  * `both` mark, and one seat's alone on a mark of its own, which is the
  * lunge holding its brow while the other seat strikes the eye. */
-function countHolds(world: World, s: InstarState): void {
+function countHolds(world: World, s: SceneState): void {
   const step = instarStep(s);
   if (step === null) return;
   for (let i = 0; i < step.marks.length; i++) {
@@ -131,7 +158,7 @@ function countHolds(world: World, s: InstarState): void {
   }
 }
 
-export function stepInstar(world: World, s: InstarState): void {
+export function stepInstar(world: World, s: SceneState): void {
   const cfg = world.cfg;
   const mid = midCol(cfg);
   if (s.phase === "down") {

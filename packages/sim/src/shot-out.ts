@@ -8,6 +8,7 @@ import { hiveStruck } from "./hive-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
+import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { tasterStruck } from "./taster-shot.js";
 import type { Bullet } from "./types.js";
@@ -71,6 +72,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // THE HIVE's underside: an open breach in the bolt's column and colour is
   // sealed, the wrong colour provokes it (`hive-shot.ts`).
   hiveStruck(world, b);
+  // A SHOOT mark on a scene's body over the bolt's column (`scene-panel.ts`).
+  nettleStruck(world, b);
   const wasted = wastes(world, taken);
   world.events.push({
     type: "shotOut",
@@ -108,6 +111,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "hasp",
   "ratchet",
   "hive",
+  "nettle",
 ]);
 
 /** Whether a boss is hanging above the field to take a bolt out of the top. */

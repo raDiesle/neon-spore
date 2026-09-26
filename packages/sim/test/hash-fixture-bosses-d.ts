@@ -23,6 +23,27 @@ export const BOSS_ENTRIES_D = {
   hasp: { kind: "hasp" },
   // THE RATCHET the same: seven teeth is the silhouette (`RatchetEntry`).
   ratchet: { kind: "ratchet" },
+  // THE NETTLE authors its script whole, for THE INSTAR's reason on `-c.ts`:
+  // one step, a thumb's mark and a panel's, because the fingerprint's job is
+  // the cursor and the per-mark counts, and its own parts and poses are read
+  // off its own lists by place (`instar-hash.ts`).
+  nettle: {
+    kind: "nettle",
+    steps: [
+      {
+        pose: "gaze",
+        arrive: "approach",
+        morphBeats: 2,
+        windowBeats: 6,
+        landBeats: 2,
+        pushMilli: 250,
+        marks: [
+          { seat: "p1", part: "arm", gesture: "pullUp", xMilli: 318, yMilli: 720, need: 1000 },
+          { seat: "both", part: "spot", gesture: "shoot", xMilli: 681, yMilli: 300, need: 3 },
+        ],
+      },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -65,5 +86,15 @@ export function patchBossD(boss: BossState): void {
     boss.cleanLast = true;
     boss.boltCol = 4;
     boss.boltBeat = 6;
+  }
+  if (boss.kind === "nettle") {
+    // THE INSTAR's patch on `-c.ts`: the marks up, a thumb on the arm, the
+    // arm halfway and the spot shot out a beat ago.
+    boss.phase = "act";
+    boss.phaseBeat = 3;
+    boss.progress = [500, 3];
+    boss.doneBeat = [-1, 5];
+    boss.ref = [250, -1];
+    boss.thumbs = [1, 0];
   }
 }

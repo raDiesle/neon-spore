@@ -9,7 +9,7 @@ import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
 import type { HaspState } from "./hasp.js";
 import type { HiveState } from "./hive.js";
-import type { InstarState } from "./instar.js";
+import type { InstarState, NettleState } from "./instar.js";
 import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
 import type { MazeState } from "./maze-state.js";
@@ -94,4 +94,5 @@ export type BossState =
   | GimbalState
   | SpoolState
   | HaspState
-  | RatchetState;
+  | RatchetState
+  | NettleState;

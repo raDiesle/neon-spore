@@ -52,4 +52,17 @@ export const CHOREO_NOTES_C = {
     "over the middle column: either colour takes it, and ratchetBoltBeats " +
     "unanswered is a strike on the hull. See sim/ratchet.ts, " +
     "sim/ratchet-hand.ts, sim/config-ratchet.ts.",
+  "THE NETTLE — a jellyfish marked for thumbs and for the panel: shoot it, shield it, suck it":
+    "Asked for on 26 September 2026 and written up in docs/spec/bosses.md " +
+    "§11.39: THE INSTAR's engine with the default panel back. The script " +
+    "(packages/content/src/nettle-script.ts) is ten steps over eight poses " +
+    "of a jellyfish, every window THE SLOW. Most marks are thumbs on the " +
+    "body, as THE INSTAR's are; four steps ask the panel instead — a SHOOT " +
+    "mark counts a bolt out of the top of its column, a SHIELD mark the " +
+    "guard pressed with the shield under it, a SUCK mark the intake opened " +
+    "with the cannon under it. Each is one press, nothing else about it is " +
+    "judged, and a panel mark never slips. A window closing on an undone " +
+    "mark is one strike on the hull, which is the wave. The clocks are " +
+    "THE INSTAR's own fields. See sim/scene-panel.ts, sim/instar.ts, " +
+    "sim/nettle-words.ts.",
 } satisfies Partial<Record<GroupName, string>>;

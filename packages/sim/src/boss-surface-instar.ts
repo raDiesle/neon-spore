@@ -11,7 +11,8 @@
  * imports. Every mark is drawn from the step under the cursor, by the seat it
  * belongs to, and the content that authors a script needs the step's shape
  * and the closed lists it is written in (`instar.ts`) — the engine every
- * choreographed scene runs on.
+ * choreographed scene runs on, and THE NETTLE's words beside them
+ * (`nettle-words.ts`), which is the second scene on it.
  */
 export {
   type BossSequenceStep,
@@ -36,9 +37,23 @@ export {
   instarHeld,
   instarMarkCol,
   instarMarkDone,
+  instarPanel,
   instarSeatHears,
   instarStep,
   instarStrikeBeat,
   instarSwipeAlong,
+  NETTLE_PARTS,
+  NETTLE_POSES,
+  type NettleEntry,
+  type NettlePart,
+  type NettlePose,
+  type NettleState,
+  type NettleStep,
   NOT_DONE,
+  type SceneMark,
+  type ScenePart,
+  type ScenePose,
+  type SceneState,
+  type SceneStep,
+  sceneBoss,
 } from "./instar.js";

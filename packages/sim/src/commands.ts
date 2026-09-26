@@ -13,6 +13,7 @@ import { mazeHeard } from "./maze-controls.js";
 import { mineTapped } from "./mine.js";
 import { mirrorHeard } from "./mirror.js";
 import { reachHeard, reachOut } from "./reach.js";
+import { sceneGuard, sceneSuck } from "./scene-panel.js";
 import { fireStep } from "./simon.js";
 import { spliceHeard } from "./splice-round.js";
 import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
@@ -92,6 +93,8 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // malfunction arms it on the beat with nobody pressing anything and the
       // two paths must not drift (`armShield` in `hull-guard.ts`).
       armShield(world);
+      // And a SHIELD mark on a scene's body over the dome (`scene-panel.ts`).
+      sceneGuard(world);
       break;
     case "shake":
       // THE CHOIR, and the only command in the game that is not a thumb on
@@ -115,6 +118,8 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // under the cannon, if there is one, and the number at the far end of
       // its straw on its way down (`splice-round.ts`).
       spliceHeard(world);
+      // And a SUCK mark on a scene's body over the cannon (`scene-panel.ts`).
+      sceneSuck(world);
       // The maw *is* the cannon lobe, turned inside out (docs/spec/systems.md
       // 5.7). Whatever was filling it goes out of the same opening — and, like
       // a cannon that slid, it empties the fill without taking the shot the

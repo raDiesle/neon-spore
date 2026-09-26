@@ -156,8 +156,8 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepHive(world, boss);
     return;
   }
-  // THE INSTAR on the beat is the script's clock; the thumbs are on the tick (`instar-hand.ts`).
-  if (boss.kind === "instar") {
+  // THE INSTAR and THE NETTLE on the beat are the script's clock; the thumbs are on the tick (`instar-hand.ts`).
+  if (boss.kind === "instar" || boss.kind === "nettle") {
     stepInstar(world, boss);
     return;
   }

@@ -1,12 +1,12 @@
 import { NO_BEARING } from "./bearing.js";
 import { midCol } from "./config.js";
 import {
-  type InstarState,
   instarAllDone,
   instarMarkCol,
   instarMarkDone,
   instarStep,
   NOT_DONE,
+  type SceneState,
 } from "./instar.js";
 import { closeSlow } from "./slow.js";
 import type { World } from "./world.js";
@@ -23,7 +23,7 @@ import type { World } from "./world.js";
  */
 
 /** The per-mark lists sized to the current step, everything at nought. */
-export function armMarks(s: InstarState): void {
+export function armMarks(s: SceneState): void {
   const n = instarStep(s)?.marks.length ?? 0;
   s.progress = [];
   s.doneBeat = [];
@@ -51,7 +51,7 @@ export function armMarks(s: InstarState): void {
  * than the reward. Both devices shut it on the same tick because both land the
  * step there.
  */
-export function landStep(world: World, s: InstarState): void {
+export function landStep(world: World, s: SceneState): void {
   if (s.phase !== "act" || !instarAllDone(s)) return;
   s.phase = "land";
   s.phaseBeat = world.beat;
@@ -67,7 +67,7 @@ export function landStep(world: World, s: InstarState): void {
  */
 export function answerMark(
   world: World,
-  s: InstarState,
+  s: SceneState,
   i: number,
   units: number,
   absolute = false,
@@ -88,7 +88,7 @@ export function answerMark(
 
 /** A done mark whose partner did not come in time — or a pull let go of
  * before the step landed — back to nought. */
-export function slipMark(world: World, s: InstarState, i: number): void {
+export function slipMark(world: World, s: SceneState, i: number): void {
   const mark = instarStep(s)?.marks[i];
   if (mark === undefined || s.phase !== "act") return;
   s.progress[i] = 0;

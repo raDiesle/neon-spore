@@ -36,6 +36,7 @@ type BossId = Extract<
   | "spool"
   | "hasp"
   | "ratchet"
+  | "nettle"
 >;
 
 /**
@@ -157,6 +158,10 @@ export const BOSS_MECHANICS = {
   },
   instar: {
     what: "No controls. The body is the panel. Red marks show where it will strike and whose thumb it wants. Answer every mark before its window shuts.",
+    reach: "spawn",
+  },
+  nettle: {
+    what: "A jellyfish over the ship. Marks on its body say what to do: a thumb, or SHOOT, SHIELD or SUCK under the mark. Answer each before it shuts.",
     reach: "spawn",
   },
   filament: {

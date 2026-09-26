@@ -1,19 +1,20 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import {
-  type InstarMark,
-  type InstarState,
   instarActing,
-  instarBoss,
   instarMarkCol,
+  instarPanel,
   instarSeatHears,
   instarStep,
+  type SceneMark,
+  type SceneState,
+  sceneBoss,
 } from "./instar.js";
 import { answerMark, slipMark } from "./instar-marks.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * A thumb on one of THE INSTAR's marks.
+ * A thumb on one of THE INSTAR's marks — or THE NETTLE's, on the same engine.
  *
  * Every mark is the one `instarMark` target with `id` naming which, and the
  * six gestures are read off what a `drag` already carries rather than six
@@ -51,11 +52,13 @@ const P2 = 2;
 
 export function instarHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "instarMark") return;
-  const s = instarBoss(world);
+  const s = sceneBoss(world);
   if (s === null || !instarActing(s)) return;
   const i = command.id ?? -1;
   const mark = instarStep(s)?.marks[i];
-  if (mark === undefined) return;
+  // A panel verb's mark is a place, not a handle: the panel answers it
+  // (`scene-panel.ts`), and a thumb on it is a thumb on nothing.
+  if (mark === undefined || instarPanel(mark.gesture)) return;
   if (!instarSeatHears(mark.seat, player)) {
     if (command.on)
       world.events.push({
@@ -83,7 +86,7 @@ export function instarHeard(world: World, player: 1 | 2, command: Command): void
   }
 }
 
-function pull(world: World, s: InstarState, i: number, mark: InstarMark, command: Command): void {
+function pull(world: World, s: SceneState, i: number, mark: SceneMark, command: Command): void {
   if (command.kind !== "drag") return;
   if (!command.on) {
     if ((s.progress[i] ?? 0) > 0) slipMark(world, s, i);
@@ -99,7 +102,7 @@ function pull(world: World, s: InstarState, i: number, mark: InstarMark, command
   answerMark(world, s, i, along, true, say);
 }
 
-function swipe(world: World, s: InstarState, i: number, command: Command): void {
+function swipe(world: World, s: SceneState, i: number, command: Command): void {
   if (command.kind !== "drag") return;
   const need = world.cfg.instarSwipeMilli;
   if (command.on) {
@@ -112,7 +115,7 @@ function swipe(world: World, s: InstarState, i: number, command: Command): void 
   if (armed) answerMark(world, s, i, 1);
 }
 
-function turn(world: World, s: InstarState, i: number, command: Command): void {
+function turn(world: World, s: SceneState, i: number, command: Command): void {
   if (command.kind !== "drag") return;
   // The hand off, or a hand just on: no reference yet, the way the crank
   // reads a press (`crank.ts`).

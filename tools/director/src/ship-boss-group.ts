@@ -44,6 +44,8 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   antiphon: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   hive: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   instar: "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
+  nettle:
+    "THE NETTLE — a jellyfish marked for thumbs and for the panel: shoot it, shield it, suck it",
   filament: "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   gimbal: "THE GIMBAL — the boss where the same turn is not the same turn",
   spool: "THE SPOOL — the boss where the line runs out at the speed one of you reads",

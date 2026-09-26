@@ -11,6 +11,7 @@ import { haspHand } from "./boss-hands-hasp.js";
 import { queenHand } from "./boss-hands-queen.js";
 import { ratchetHand } from "./boss-hands-ratchet.js";
 import { mazeHand, mirrorHand, pinballHand } from "./boss-hands-rounds.js";
+import { nettleHand } from "./boss-hands-scene.js";
 import { scoutHand } from "./boss-hands-scout.js";
 import { vaneHand, wardenHand } from "./boss-hands-shots.js";
 import { snakeHand } from "./boss-hands-snake.js";
@@ -60,6 +61,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   ledger: ledgerHand,
   maze: mazeHand,
   mirror: mirrorHand,
+  nettle: nettleHand,
   pinball: pinballHand,
   queen: queenHand,
   ratchet: ratchetHand,

@@ -149,10 +149,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // played (`sim/hive.ts` `hiveSiteCols`) and spills nothing but rocks from
   // them — so there is nothing to remap (`sim/hive-step.ts`).
   if (boss.kind === "hive") return { ...boss };
-  // THE INSTAR's marks are authored in thousandths of the field's width and
+  // THE INSTAR's marks, and THE NETTLE's, are authored in thousandths of the field's width and
   // height, which is already a fraction of whatever field is played — so
   // there is nothing to remap (`sim/instar.ts`).
-  if (boss.kind === "instar") return { ...boss };
+  if (boss.kind === "instar" || boss.kind === "nettle") return { ...boss };
   // THE FILAMENT's filaments hang from a free end, and the free end is a
   // column like any other; the word after it is the line's own shape and is
   // not bent to the field (`sim/filament.ts`).

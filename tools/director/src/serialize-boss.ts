@@ -133,6 +133,8 @@ export function serializeBoss(boss: BossEntry): string {
   // reason: a beat list of poses, marks and clocks is authored to be read
   // down a page (`packages/content/src/instar-script.ts`).
   if (boss.kind === "instar") return '{ kind: "instar", steps: INSTAR_SCRIPT }';
+  // THE NETTLE's the same way (`packages/content/src/nettle-script.ts`).
+  if (boss.kind === "nettle") return '{ kind: "nettle", steps: NETTLE_SCRIPT }';
   // THE FILAMENT's paths are words a hand walks (`sim/filament.ts`), named
   // for the same reason (`packages/content/src/filament-script.ts`).
   if (boss.kind === "filament") return '{ kind: "filament", filaments: FILAMENT_SCRIPT }';

@@ -66,7 +66,7 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  */
 
 /**
- * The six gestures' verbs, and the `CueKind` each reduces to — #34's own
+ * The gestures' verbs, and the `CueKind` each reduces to — #34's own
  * four (`boss-cue.ts`): a press of a button, a hold of one, a thumb carried,
  * a turn of the crank. A pull and a swipe are both a carry, one held at its
  * depth and one let go on the lift; a tap is the press repeated.
@@ -78,6 +78,10 @@ export const INSTAR_WORDS: Record<InstarGesture, { kind: CueKind; word: string }
   swipeDown: { kind: "CARRY", word: "SWIPE DOWN" },
   turn: { kind: "TURN", word: "TURN" },
   hold: { kind: "HOLD", word: "HOLD BOTH" },
+  // THE NETTLE's panel verbs: a press of a panel button, said as the button is.
+  shoot: { kind: "PRESS", word: "SHOOT" },
+  shield: { kind: "PRESS", word: "SHIELD" },
+  suck: { kind: "PRESS", word: "SUCK" },
 };
 
 /** The two lines a seat reads over a mark: the kind and the gesture on its

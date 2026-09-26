@@ -7396,6 +7396,83 @@ colour and strikes the hull if nobody answers it; five clean opens the rack
 and takes it out of the wave; and the third burn jams it into the hull. Whether
 any of it *reads* is the owner's eye, after lane two.
 
+## 11.39 THE NETTLE — a jellyfish marked for thumbs and for the panel
+
+> The one where the panel answers the body. A jellyfish the size of the field
+> hangs over the ship, and every pose it takes is marked: a ring for a thumb,
+> or a ring with SHOOT, SHIELD or SUCK on it, over a column, for the panel.
+
+Asked for by the owner on 26 September 2026 — *another boss more like "the
+instar" with choreographed mainly about ingame gesture events. we can also
+have standard control set enabled, but do not do complex logic with it. just
+some steps can be "shoot it" "suck it" or "shield it"* — and so not one of
+the designs on [bosses-choreographed](bosses-choreographed.md). It is the
+third kind in `.claude/skills/new-boss`, a choreographed scene, and it is
+**THE INSTAR's engine with a second body**: the same phases, clocks, marks,
+events, hash and hand (`sim/instar.ts`), carried by a `NettleState` beside
+`InstarState` in one `SceneState` union, with only the words the picture is
+made of its own (`sim/nettle-words.ts`). The wave is `theNettle`, played on
+STANDARD 5 — every button but the lance, so a SHOOT mark is a shot and not a
+charge.
+
+**The rule, in one sentence.** Do what each ring says before it shuts: a
+thumb on the body, or the cannon or the shield under it and the press.
+
+**The script** (`content/src/nettle-script.ts`) is ten steps over eight poses:
+the arms at the hull pulled up (one seat each); two eyespots shot, three
+bolts each; the brood sac tapped by player 2 while two spores at the hull are
+sucked in; the body turned to its underside and the iris of a mouth wound
+shut; the mouth held off by both thumbs; three globs of acid shielded; the
+arms again with the hands swapped and pulling back; the frill curtain swiped
+away; the core tapped by both; and the core shot, four bolts. Every window is
+THE SLOW, as THE INSTAR's are.
+
+**The panel's three words** (`sim/scene-panel.ts`). `shoot`, `shield` and
+`suck` are gestures on the end of `INSTAR_GESTURES`, so the hash's indices
+are unchanged, and `instarPanel` names them. A panel mark is never a drag:
+its answer is the press the panel already sends, heard in the column it
+happened in — a bolt out of the top of the mark's column (`shotLeaves`, either
+colour), the guard with the shield in it, the intake with the cannon in it.
+Each press counts one on the first undone mark of that word in that column,
+so two globs in one column are two presses. The mark stands on a column's
+centre, `(col + ½)` elevenths of the field, so the column it names is the
+column it is drawn in (`instarMarkCol`). THE NETTLE is a sky boss
+(`SKY_BOSSES`), so no shot at it is ever wasted on HARD.
+
+**A panel mark never slips.** Nobody can hold a press, so `instarHeld` answers
+true for one, and a thumb's mark finished alone slips only while another
+*thumb's* mark is undone: a spore sucked in waits for player 2's taps on the
+sac for as long as the window lasts.
+
+**Where this departs from THE INSTAR, and why.** Two places. *It has a guide
+in words*: a wave goes without one only on the owner's word
+(`content/test/waves.test.ts`, `SAYS_ITSELF`), and the new thing here — that
+the panel answers a ring — is a thing to say once. *Its sounds are THE
+INSTAR's*: the events are the same events (`events-instar.ts`), so a mark
+shown, answered, slipped or struck sounds as it does on the dragon, and a
+panel press has the panel's own sound as well.
+
+**What is not built.** The body. Lane two draws it: a translucent bell with
+the core glowing through it, rim light, the stinging arms, the frill, the sac,
+the eyespots and the iris, a pose per step and a lerp between them, the
+turn to the underside, and every part deformed by how far its mark is along
+(render/nettle-draw.ts and the files it splits into), and it gives the
+thumbs their marks to grab (`render/instar-mark-grip.ts` reads THE INSTAR
+alone). Until then nothing of it is drawn and only the panel can answer it.
+The strike of a part left undone, and the death, are lane three.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/nettle.test.ts`): it installs as its own kind and morphs with the
+marks hidden; a bolt counts on a SHOOT mark in its own column and not in
+another; the guard counts on a SHIELD mark only with the shield under it, one
+mark a press; the intake counts on a SUCK mark only with the cannon under it,
+and the sucked spore waits for its partner's taps without slipping; a drag on
+a panel mark moves nothing; a panel mark left undone strikes the hull, which
+is the wave; and the fingerprint moves with a panel mark's count. The
+director's hand (`tools/director/src/boss-hands-scene.ts`) plays the whole
+script and brings it down on beat 104. Whether any of it *reads* is the
+owner's eye.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

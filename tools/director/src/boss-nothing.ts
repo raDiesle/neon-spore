@@ -12,6 +12,7 @@ import type {
   InstarEntry,
   LeadEntry,
   LedgerEntry,
+  NettleEntry,
   RatchetEntry,
   ScoutEntry,
   ScuttleEntry,
@@ -115,7 +116,8 @@ import type {
  *   already a picture) and THE SCOUT's (a mark is a place in thousandths):
  *   the panel says where it is and gets out of the way. No column, the body
  *   hangs over the middle; no number, the steps left are the health
- *   (`sim/instar.ts`).
+ *   (`sim/instar.ts`). **THE NETTLE** is the same engine and the same
+ *   answer, in `packages/content/src/nettle-script.ts`.
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -167,6 +169,7 @@ export function bossAuthorsNothing(
   | AntiphonEntry
   | HiveEntry
   | InstarEntry
+  | NettleEntry
   | FilamentEntry
   | GimbalEntry
   | SpoolEntry
@@ -195,6 +198,7 @@ export function bossAuthorsNothing(
     kind === "antiphon" ||
     kind === "hive" ||
     kind === "instar" ||
+    kind === "nettle" ||
     kind === "filament" ||
     kind === "gimbal" ||
     kind === "spool" ||

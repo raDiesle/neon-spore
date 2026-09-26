@@ -5,13 +5,14 @@ import {
   filamentTileAt,
   filamentTiles,
   filamentTracing,
-  type InstarMark,
   instarActing,
-  instarBoss,
   instarMarkDone,
+  instarPanel,
   instarSeatHears,
   instarStep,
   NO_GRAB,
+  type SceneMark,
+  sceneBoss,
   sinewBoss,
   sinewCaught,
   sinewInZone,
@@ -137,14 +138,16 @@ export const surgeHand: Hand = surgeHandWith(true);
  * carried past `instarSwipeMilli` and lifted, a turn wound a quarter a tick,
  * a hold both thumbs stay on (`instar-hand.ts`). A mark answered alone slips
  * when its partner is late (`instarTogetherBeats`), which is why the hand
- * answers them all at once.
+ * answers them all at once. THE NETTLE's thumbs are played by the same
+ * hand, and its panel marks by the panel (`boss-hands-scene.ts`).
  */
 export const instarHand: Hand = (w) => {
-  const s = instarBoss(w);
+  const s = sceneBoss(w);
   if (s === null || !instarActing(s)) return [];
   const marks = instarStep(s)?.marks ?? [];
   const out: Press[] = [];
   marks.forEach((mark, i) => {
+    if (instarPanel(mark.gesture)) return;
     if (instarMarkDone(s, i) && mark.gesture !== "hold") return;
     for (const player of [1, 2] as const) {
       if (instarSeatHears(mark.seat, player)) out.push(gesture(w, player, i, mark));
@@ -154,7 +157,7 @@ export const instarHand: Hand = (w) => {
 };
 
 /** One tick of one mark's gesture, for one thumb (`INSTAR_GESTURES`). */
-function gesture(w: World, player: 1 | 2, id: number, mark: InstarMark): Press {
+function gesture(w: World, player: 1 | 2, id: number, mark: SceneMark): Press {
   const even = w.tick % 2 === 0;
   const drag = (on: boolean, fromMilli = 0, fromYMilli = 0): Press => ({
     player,
@@ -173,6 +176,11 @@ function gesture(w: World, player: 1 | 2, id: number, mark: InstarMark): Press {
       return drag(true, ((w.tick * BEARING_TURN) / 4) % BEARING_TURN);
     case "hold":
       return drag(true);
+    // The panel's, never a thumb on the body: the hand above skips them.
+    case "shoot":
+    case "shield":
+    case "suck":
+      return drag(false);
   }
 }
 

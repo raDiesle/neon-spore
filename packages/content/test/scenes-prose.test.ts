@@ -61,6 +61,10 @@ const STILL_PROSE = [
   // And THE RATCHET (§11.38), a fifth time: the rack, its catch and its
   // pawl are undrawn, and the guide says who holds and who presses.
   "THE RATCHET",
+  // And THE NETTLE (§11.39), a sixth time, 26 September 2026: the jellyfish
+  // is undrawn, and the guide says which marks are a thumb and which the
+  // panel's.
+  "THE NETTLE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -75,9 +79,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-one films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty, which is the number in the section. A film with no wave
+    // Eighty-one, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
@@ -86,9 +90,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-nine of the hundred";
-    expect(guided.length, fix).toBe(89);
-    expect(WAVES.length, fix).toBe(100);
+    const fix = "update §1 of docs/spec/briefings.md, which says ninety of the hundred and one";
+    expect(guided.length, fix).toBe(90);
+    expect(WAVES.length, fix).toBe(101);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

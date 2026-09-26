@@ -298,6 +298,7 @@ by hand never moves.
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
+| `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
 | `packages/sim/src/scout-fly.ts` | One tick of the flight, and the four things that decide how it feels |
 | `packages/sim/src/scout-hash.ts` | What THE SCOUT puts into `hashWorld`, and nothing else |
@@ -433,7 +434,7 @@ by hand never moves.
 | `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
 | `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
-| `packages/sim/src/instar-hand.ts` | A thumb on one of THE INSTAR's marks |
+| `packages/sim/src/instar-hand.ts` | A thumb on one of THE INSTAR's marks — or THE NETTLE's, on the same engine |
 | `packages/sim/src/instar-hash.ts` | What THE INSTAR puts into `hashWorld`, and nothing else |
 | `packages/sim/src/instar-marks.ts` | What happens to one mark: armed, answered, done, slipped |
 | `packages/sim/src/instar-step.ts` | THE INSTAR's clock: the morph, the window, the landing, the next pose |
@@ -555,7 +556,7 @@ by hand never moves.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
 | `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
@@ -625,6 +626,7 @@ by hand never moves.
 | `packages/sim/src/antiphon-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE ANTIPHON |
 | `packages/sim/src/antiphon-step.ts` | THE ANTIPHON's clock — the rise, the growth, the window, the sinking, the still and the ship, and the collapse |
 | `packages/sim/src/antiphon.ts` | THE ANTIPHON: describing a thing that has no name |
+| `packages/sim/src/nettle-words.ts` | **The words THE NETTLE's script is written in** — its parts and its poses |
 
 ### packages/content
 
@@ -844,6 +846,7 @@ by hand never moves.
 | `packages/content/src/antiphon-contours.ts` | **THE ANTIPHON's table of contours** — the sixteen shapes the body can grow |
 | `packages/content/src/filament-script.ts` | THE FILAMENT's seven filaments: where each hangs, and the line it makes |
 | `packages/content/src/filament-look.ts` | **THE FILAMENT as the inside of an alien** — the owner, 25 September 2026 |
+| `packages/content/src/nettle-script.ts` | THE NETTLE's script: ten steps over eight poses, and what the pair does to each |
 
 ### packages/render
 
@@ -2084,6 +2087,7 @@ by hand never moves.
 | `tools/director/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `tools/director/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
 | `tools/director/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
+| `tools/director/src/boss-hands-scene.ts` | **THE NETTLE's hands**: the thumbs on its body are THE INSTAR's hand (`boss-hands-handles.ts`) |
 | `tools/director/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
 | `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
@@ -2465,6 +2469,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
+| `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |

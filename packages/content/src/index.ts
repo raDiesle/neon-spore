@@ -94,6 +94,7 @@ export {
   unreachedMechanics,
   type WaveKind,
 } from "./mechanics.js";
+export { NETTLE_SCRIPT } from "./nettle-script.js";
 export {
   BANK,
   type Beats,

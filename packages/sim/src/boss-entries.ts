@@ -31,7 +31,7 @@ import type {
 } from "./boss-entries-round.js";
 import type { FilamentEntry } from "./filament.js";
 import type { GimbalEntry } from "./gimbal.js";
-import type { InstarEntry } from "./instar.js";
+import type { InstarEntry, NettleEntry } from "./instar.js";
 import type { MirrorStep } from "./simon.js";
 
 /**
@@ -154,6 +154,8 @@ export type BossEntry =
   | RatchetEntry
   // The one that authors a script: the beat list a scene is (`instar.ts`).
   | InstarEntry
+  // And the second scene on its engine, in its own words (`nettle-words.ts`).
+  | NettleEntry
   // The one that authors a line: the filaments a pair draws and follows (`filament.ts`).
   | FilamentEntry
   // The one that authors a turn: the alignments two rings are held on (`gimbal.ts`).
@@ -197,4 +199,4 @@ export type {
 } from "./boss-entries-round.js";
 export type { FilamentEntry } from "./filament.js";
 export type { GimbalEntry } from "./gimbal.js";
-export type { InstarEntry } from "./instar.js";
+export type { InstarEntry, NettleEntry } from "./instar.js";

@@ -1,4 +1,10 @@
-import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
+import {
+  INSTAR_PARTS,
+  type InstarPart,
+  type InstarState,
+  instarStep,
+  type SimEvent,
+} from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { GripVerdicts } from "./grip-verdict.js";
 import { FallingEggs } from "./instar-eggs.js";
@@ -130,6 +136,8 @@ export class InstarFx {
           break;
         case "instarStrike":
           at({ x: tileCX(l, e.col), y: l.hullY }, 16, PALETTE.red);
+          // A part THE INSTAR does not have is THE NETTLE's, not this body's.
+          if (!isInstarPart(e.part)) break;
           this.strike.hit(
             e.part,
             e.part === "jaw" || e.part === "fire" ? [this.headOr(l)] : this.marks,
@@ -186,4 +194,8 @@ export class InstarFx {
     this.eggs.clear();
     this.hurt.clear();
   }
+}
+
+function isInstarPart(part: string): part is InstarPart {
+  return (INSTAR_PARTS as readonly string[]).includes(part);
 }

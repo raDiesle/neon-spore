@@ -11,6 +11,8 @@ import {
   INSTAR_PHASES,
   INSTAR_POSES,
   INSTAR_SEATS,
+  NETTLE_PARTS,
+  NETTLE_POSES,
 } from "../src/instar.js";
 import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "../src/malfunction.js";
 import { MAZE_PHASES } from "../src/maze.js";
@@ -105,6 +107,8 @@ const FAMILIES: readonly (readonly string[])[] = [
   INSTAR_PARTS,
   INSTAR_GESTURES,
   INSTAR_POSES,
+  NETTLE_PARTS,
+  NETTLE_POSES,
   INSTAR_ARRIVALS,
   INSTAR_PHASES,
 ];

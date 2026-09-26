@@ -159,6 +159,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   antiphon: { wave: "theAntiphon" },
   hive: { wave: "theHive" },
   instar: { wave: "theInstar" },
+  nettle: { wave: "theNettle" },
   filament: { wave: "theFilament" },
   gimbal: { wave: "theGimbal" },
   spool: { wave: "theSpool" },

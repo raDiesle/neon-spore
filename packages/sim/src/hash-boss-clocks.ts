@@ -89,8 +89,8 @@ export function clockHashParts(boss: BossState): number[] {
   if (boss.kind === "hive") {
     for (const n of hiveHashParts(boss)) out.push(n);
   }
-  // THE INSTAR: the whole script, the cursor and phase, and every mark's count (`instar-hash.ts`).
-  if (boss.kind === "instar") {
+  // THE INSTAR and THE NETTLE: the whole script, the cursor and phase, and every mark's count (`instar-hash.ts`).
+  if (boss.kind === "instar" || boss.kind === "nettle") {
     for (const n of instarHashParts(boss)) out.push(n);
   }
   // THE GIMBAL: the alignments, the cursor and phase, both rings' bearings and both hands' (`gimbal-hash.ts`).

@@ -5,7 +5,9 @@ import {
   INSTAR_PHASES,
   INSTAR_POSES,
   INSTAR_SEATS,
-  type InstarState,
+  NETTLE_PARTS,
+  NETTLE_POSES,
+  type SceneState,
 } from "./instar.js";
 
 /**
@@ -23,8 +25,14 @@ import {
  * a length cannot fold into the same number, and the four per-mark lists
  * each carry their own count because the coverage test lengthens each on
  * its own.
+ *
+ * **THE NETTLE is hashed by the same function** with its own parts and poses
+ * (`nettle-words.ts`): the kind itself is already in the hash ahead of this,
+ * so a pose's index means the list of the boss that is up.
  */
-export function instarHashParts(s: InstarState): number[] {
+export function instarHashParts(s: SceneState): number[] {
+  const poses: readonly string[] = s.kind === "instar" ? INSTAR_POSES : NETTLE_POSES;
+  const parts: readonly string[] = s.kind === "instar" ? INSTAR_PARTS : NETTLE_PARTS;
   const out = [
     s.steps.length,
     s.cursor,
@@ -37,7 +45,7 @@ export function instarHashParts(s: InstarState): number[] {
   ];
   for (const step of s.steps) {
     out.push(
-      INSTAR_POSES.indexOf(step.pose) + 1,
+      poses.indexOf(step.pose) + 1,
       INSTAR_ARRIVALS.indexOf(step.arrive) + 1,
       step.morphBeats,
       step.windowBeats,
@@ -48,7 +56,7 @@ export function instarHashParts(s: InstarState): number[] {
     for (const m of step.marks)
       out.push(
         INSTAR_SEATS.indexOf(m.seat) + 1,
-        INSTAR_PARTS.indexOf(m.part) + 1,
+        parts.indexOf(m.part) + 1,
         INSTAR_GESTURES.indexOf(m.gesture) + 1,
         m.xMilli,
         m.yMilli,

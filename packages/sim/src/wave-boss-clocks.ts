@@ -6,7 +6,7 @@ import { installGimbal } from "./gimbal-step.js";
 import { installGorge } from "./gorge-step.js";
 import { installHasp } from "./hasp-step.js";
 import { installHive } from "./hive-step.js";
-import { installInstar } from "./instar-step.js";
+import { installInstar, installNettle } from "./instar-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installRatchet } from "./ratchet-step.js";
@@ -62,6 +62,7 @@ const CLOCK_KINDS = [
   "spool",
   "hasp",
   "ratchet",
+  "nettle",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -168,6 +169,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // seven teeth, a catch for one seat and a pawl for the other, and every
     // figure in it tuning (`ratchet-step.ts`).
     world.boss = installRatchet(world);
+  } else if (boss.kind === "nettle") {
+    // THE INSTAR's engine with the ship's panel back: a jellyfish that is the
+    // whole picture, and marks on it the cannon and the shield answer as well
+    // as the thumbs (`nettle-words.ts`, `scene-panel.ts`).
+    world.boss = installNettle(world, boss.steps);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

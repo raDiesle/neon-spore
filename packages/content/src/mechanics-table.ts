@@ -135,6 +135,7 @@ export const MECHANICS = {
   antiphon: BOSS_MECHANICS.antiphon,
   hive: BOSS_MECHANICS.hive,
   instar: BOSS_MECHANICS.instar,
+  nettle: BOSS_MECHANICS.nettle,
   filament: BOSS_MECHANICS.filament,
   gimbal: BOSS_MECHANICS.gimbal,
   spool: BOSS_MECHANICS.spool,

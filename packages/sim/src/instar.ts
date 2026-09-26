@@ -3,10 +3,12 @@ import type { SimConfig } from "./config.js";
 import type {
   BossSequenceStep,
   InstarGesture,
-  InstarMark,
   InstarPhase,
   InstarSeat,
+  SceneMark,
+  SceneStep,
 } from "./instar-words.js";
+import type { NettleStep } from "./nettle-words.js";
 import type { World } from "./world.js";
 
 /**
@@ -66,12 +68,31 @@ export {
   type InstarPhase,
   type InstarPose,
   type InstarSeat,
+  type SceneMark,
+  type SceneStep,
 } from "./instar-words.js";
+export {
+  NETTLE_PARTS,
+  NETTLE_POSES,
+  type NettleEntry,
+  type NettlePart,
+  type NettlePose,
+  type NettleStep,
+  type ScenePart,
+  type ScenePose,
+} from "./nettle-words.js";
 
-export interface InstarState {
-  kind: "instar";
+/**
+ * **A scene's place in its script**, for any boss built on this engine: THE
+ * INSTAR, and THE NETTLE after it (`nettle-words.ts`). The two differ only in
+ * `kind` and in the words their steps are written in, so every function below
+ * takes either (`SceneState`) and the kind is only asked where the picture or
+ * the hash needs to know whose words they are.
+ */
+export interface SceneStateOf<Kind extends string, Step extends SceneStep> {
+  kind: Kind;
   /** The script, copied in so content is never written to (`scout-hash.ts`). */
-  steps: BossSequenceStep[];
+  steps: Step[];
   /** Which step the scene is on; `steps.length` once the last has landed. */
   cursor: number;
   phase: InstarPhase;
@@ -89,6 +110,10 @@ export interface InstarState {
   thumbs: number[];
 }
 
+export type InstarState = SceneStateOf<"instar", BossSequenceStep>;
+export type NettleState = SceneStateOf<"nettle", NettleStep>;
+export type SceneState = InstarState | NettleState;
+
 export const NOT_DONE = -1;
 
 export function instarBoss(world: World): InstarState | null {
@@ -96,27 +121,33 @@ export function instarBoss(world: World): InstarState | null {
   return boss !== null && boss.kind === "instar" ? boss : null;
 }
 
+/** Whichever scene is up — THE INSTAR or THE NETTLE — or null. */
+export function sceneBoss(world: World): SceneState | null {
+  const boss = world.boss;
+  return boss !== null && (boss.kind === "instar" || boss.kind === "nettle") ? boss : null;
+}
+
 /** The step the scene is on, or null once every step has landed. */
-export function instarStep(s: InstarState): BossSequenceStep | null {
+export function instarStep<S extends SceneState>(s: S): S["steps"][number] | null {
   return s.steps[s.cursor] ?? null;
 }
 
 /** Whether the marks are up and a thumb on one counts. */
-export function instarActing(s: InstarState): boolean {
+export function instarActing(s: SceneState): boolean {
   return s.phase === "act";
 }
 
-export function instarDown(s: InstarState): boolean {
+export function instarDown(s: SceneState): boolean {
   return s.phase === "down";
 }
 
 /** Whether mark `i` of the current step has reached its need. */
-export function instarMarkDone(s: InstarState, i: number): boolean {
+export function instarMarkDone(s: SceneState, i: number): boolean {
   return (s.doneBeat[i] ?? NOT_DONE) !== NOT_DONE;
 }
 
 /** Whether every mark of the current step is done. */
-export function instarAllDone(s: InstarState): boolean {
+export function instarAllDone(s: SceneState): boolean {
   const step = instarStep(s);
   if (step === null) return false;
   for (let i = 0; i < step.marks.length; i++) if (!instarMarkDone(s, i)) return false;
@@ -131,7 +162,16 @@ export function instarAllDone(s: InstarState): boolean {
  * a moment too long before its partner's is not together (`instar-step.ts`).
  */
 export function instarHeld(gesture: InstarGesture): boolean {
+  // A panel verb waits for the panel, however long the partner takes: the
+  // ship has one cannon, so two shots in two columns are never at once.
+  if (instarPanel(gesture)) return true;
   return gesture === "pullDown" || gesture === "pullUp" || gesture === "hold";
+}
+
+/** Whether a gesture is the ship's own panel's rather than a thumb on the
+ * body: `shoot`, `shield`, `suck` (`scene-panel.ts`). */
+export function instarPanel(gesture: InstarGesture): boolean {
+  return gesture === "shoot" || gesture === "shield" || gesture === "suck";
 }
 
 /** Whether a gesture is a pull, which stands at the thumb's depth and which
@@ -149,7 +189,7 @@ export function instarPulled(gesture: InstarGesture): boolean {
  * word, so the arc on both phones is the carry the lift will be judged on
  * (`instar-hand.ts`), and nought for any mark that is not a swipe.
  */
-export function instarSwipeAlong(s: InstarState, cfg: SimConfig, i: number): number {
+export function instarSwipeAlong(s: SceneState, cfg: SimConfig, i: number): number {
   const mark = instarStep(s)?.marks[i];
   if (mark?.gesture !== "swipeDown") return 0;
   const carried = s.ref[i] ?? NO_BEARING;
@@ -163,12 +203,12 @@ export function instarSeatHears(seat: InstarSeat, player: 1 | 2): boolean {
 }
 
 /** The column a mark stands over, for the events and the sounds. */
-export function instarMarkCol(cfg: SimConfig, mark: InstarMark): number {
+export function instarMarkCol(cfg: SimConfig, mark: SceneMark): number {
   return Math.max(0, Math.min(cfg.cols - 1, Math.floor((mark.xMilli * cfg.cols) / 1000)));
 }
 
 /** The beat the open window closes on, or `-1` when none is open. */
-export function instarStrikeBeat(s: InstarState): number {
+export function instarStrikeBeat(s: SceneState): number {
   const step = instarStep(s);
   if (step === null || s.phase !== "act") return -1;
   return s.phaseBeat + step.windowBeats;

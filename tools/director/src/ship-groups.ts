@@ -35,6 +35,7 @@ export type GroupName =
   | "THE ANTIPHON — the boss that grows a thing nobody has a word for"
   | "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling"
   | "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you"
+  | "THE NETTLE — a jellyfish marked for thumbs and for the panel: shoot it, shield it, suck it"
   | "THE FILAMENT — the boss whose line one of you draws while the other follows it"
   | "THE GIMBAL — the boss where the same turn is not the same turn"
   | "THE SPOOL — the boss where the line runs out at the speed one of you reads"
@@ -125,6 +126,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
+  "THE NETTLE — a jellyfish marked for thumbs and for the panel: shoot it, shield it, suck it",
   "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   "THE GIMBAL — the boss where the same turn is not the same turn",
   "THE SPOOL — the boss where the line runs out at the speed one of you reads",
