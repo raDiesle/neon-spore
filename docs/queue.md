@@ -742,7 +742,6 @@ defending it. The full beat list is §27 of
 ## THE NETTLE — the look
 
 - **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)
-- **Taken:** 2026-09-26, main (claim: claude/queue-the-nettle-the-look)
 - **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-marks.ts`, `docs/spec/bosses-choreographed.md`
 
 THE NETTLE's simulation lane is landed on `main` (`79380155`) as wave 101,
