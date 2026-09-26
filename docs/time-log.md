@@ -21731,3 +21731,5 @@ so the stream grew a stop before the film could be written.
 Bottleneck: the wheel's speed — the film needed the simulation's own turn
 rate to wind the first hasp open inside a page, and it was a local sum until
 it became an export.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
