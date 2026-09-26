@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 99063dd92 — Living bosses: the concept, and ten queue entries to build it
+
+docs/spec/living-bosses.md designs three things the owner asked for on 26 September 2026. First, every visible boss kept alive by a slow, capped drift of body yaw, pitch, roll and head yaw, which never snaps and stays inside the battery budget. Second, THE INSTAR modelled with one head on the rig, a heavier tapered body, and a flight that undulates like a Chinese dragon. Third, the director's readout of which choreography step is playing and how many are left, with a jump to any step. The queue gets ten entries in order. The director and the drift helper come first, needing no screen. THE INSTAR's four looks follow as VERSUS candidates, then the rig bosses and the outline tier, all local only. Nothing is built yet.
+
 ## 2026-09-26 · cfbd51983 — Queue THE CYST watched at tempo on two phones
 
 The look landed with its states set in tests and one still frame seen; a full fight played by hand on both phones is the check left.
