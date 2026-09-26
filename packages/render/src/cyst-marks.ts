@@ -58,10 +58,24 @@ export function drawCystMark(
 }
 
 /**
+ * The covered core's own motion: how far it rises and sinks, in tiles, and how
+ * much it squashes as it goes, each with its own rate in radians a second so
+ * the two never fall into step with each other or with the beat.
+ */
+const CORE_DRIFT = 0.04;
+const CORE_DRIFT_RATE = 0.5;
+const CORE_SQUASH = 0.05;
+const CORE_SQUASH_RATE = 0.83;
+
+/**
  * The core: under the skin while the sac is whole, a shadow through it; bared,
  * a dark hollow with the core in it, dull between fire steps and lit in the
  * step's colour while one is owed, brighter for every hit it has taken, with
  * a ring round it closing as the step's beats run out.
+ *
+ * The shadow under the skin moves on a clock of its own, the one thing in
+ * the sac that does: it rises and sinks down its column and squashes as it
+ * goes. Bared, it is the target and holds still.
  */
 export function drawCystCore(
   ctx: CanvasRenderingContext2D,
@@ -71,11 +85,18 @@ export function drawCystCore(
   bare: boolean,
   lit: CystCoreLit | null,
   beatPhase: number,
+  time: number,
 ): void {
   const core = cystCorePath(l, size);
   if (!bare) {
+    const drift = Math.sin(time * CORE_DRIFT_RATE);
+    const squash = CORE_SQUASH * Math.sin(time * CORE_SQUASH_RATE);
+    ctx.save();
+    ctx.translate(0, l.tile * CORE_DRIFT * drift);
+    ctx.scale(1 + squash, 1 - squash);
     ctx.fillStyle = rgba(PALETTE.cystSacDark, 0.45);
     ctx.fill(core);
+    ctx.restore();
     return;
   }
   const hollow = new Path2D();

@@ -25075,3 +25075,14 @@ Bottleneck: reading — the spec's GRINDSTONE paragraphs still said the touch
 sender and the autopilot hand were missing, and were brought up to date first.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE CYST's covered core rises, sinks and squashes on its own
+
+- **reading** — 10 min. The core's drawer and which of its states is the
+  target, so that only the covered shadow moves.
+- **writing** — 5 min
+- **looking** — 0 min. A still frame shows none of it.
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: reading — deciding which state may move without moving the target.

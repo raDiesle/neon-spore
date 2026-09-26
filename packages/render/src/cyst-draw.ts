@@ -108,7 +108,7 @@ export function drawCyst(
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing ? { color: step.color, left } : null;
   const hurt = coreHurt(s.hits);
-  drawCystCore(ctx, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase);
+  drawCystCore(ctx, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase, time);
 
   // A spore or a bud is the step lit, or the one just answered easing out.
   const told =

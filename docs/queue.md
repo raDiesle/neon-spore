@@ -2869,23 +2869,6 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## THE CYST's flesh has no secondary motion of its own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-26, claude/queue-the-cysts-flesh-has-no-secondary-motion-of-its-o
-- **Files:** `packages/render/src/cyst-draw.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/cyst-shape.ts`
-
-From the secondary-motion audit (`docs/style-guide.md`, *Motion*, "one part
-on a clock of its own"). The only clocks in the seven `cyst-*.ts` files are
-the light's drift (`litRound(..., 0.02 * Math.sin(time * 0.6))`,
-`cyst-draw.ts` line 153), the beat pulses in `cyst-marks.ts` and
-`cyst-story.ts`, and `cyst-pose.ts`'s `shake`, which is a reaction to a tap
-rather than anything idle. It is the one *flesh* body the audit found bare —
-a sac that never moves under its skin. Touch: let the core drift under the
-skin on a slow period of its own (`time * 0.5`, a few hundredths of a tile,
-never off its column), or give the sac's lower lobes a slow bulge a fifth of
-a cycle apart. A look: offered through VERSUS (`docs/looks.md`).
-
 ## THE HASP's clasps have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
