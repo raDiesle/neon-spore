@@ -68,12 +68,12 @@ export function ingestAll(
   fx.recoilLeap.ingest(events, spb);
   fx.coilFlight.ingest(events, l, spb);
   fx.harpoonLine.ingest(events, l);
-  fx.volleyShards.ingest(events, l, cfg);
+  fx.volleyShards.ingest(events, l, cfg, skinY);
   fx.shotOut.ingest(events, cfg, well);
   fx.ricochet.ingest(events, l, cfg, well);
   fx.shieldPush.ingest(events, l, burst);
   for (const e of events) {
-    const spark = burstFor(e, l, skinY);
+    const spark = burstFor(e, l, cfg, skinY);
     if (spark) burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
     // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`. Its
     // switch is exhaustive over `SimEvent`, not this call site — see its own

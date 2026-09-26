@@ -38,6 +38,26 @@ End each entry with the one bottleneck, in a sentence.
 The bottleneck was the research itself: most pages refused a fetch, so every
 game had to be pinned from search results alone.
 
+## 2026-09-26 — THE VOLLEY's shell breaks below the volley in its last six rows
+
+- reading: 15 min. The queue entry, `effects-spark-hole.ts`'s crater pattern,
+  `rock-fall.ts`, `landing.ts`, and the render pipeline carrying `skinY`
+  through `effects.ts` → `effects-frame.ts` → `burstFor`/`wornBurst` and
+  `VolleyShardsFx.ingest`.
+- writing: 25 min. `skinY`/`cfg` threaded through four render files, the bent
+  placement in `volley-shards.ts` and `effects-spark-worn.ts`, a new case in
+  `landing.test.ts` beside the crater one.
+- looking: 0 min. A placement fix under the last six rows, proved by the
+  test's numbers against `rockFallY`, not by eye.
+- friction: 0 min.
+- landing: 10 min. `bunx tsc --noEmit` caught three call sites `burstFor`'s
+  new parameter broke; `bun run format` wrapped two lines lint flagged; one
+  clean `check:fast` run.
+
+The bottleneck was reading the propagation path: five files pass `skinY` and
+`cfg` down to where the placement actually happens, and the fix is small once
+that path is found.
+
 ## 2026-09-26 — A rock's crater puffs are thrown from the rock
 
 - reading: 10 min. The five `hole` sources, `burstFor`, `landingY`,

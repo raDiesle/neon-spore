@@ -1,7 +1,9 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { stream } from "./hash.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { rockFallY } from "./rock-fall.js";
 import { volleyBallRadius } from "./volley.js";
 import { CORE_MUL } from "./volley-core.js";
 import { cutShell, type Piece, type Point } from "./volley-pieces.js";
@@ -33,6 +35,13 @@ import { STONE_FILL } from "./volley-stone.js";
  * and the count, so both phones watch the same pieces leave. Kept in
  * `Effects`, cleared on restart. The cutting itself is `volley-pieces.ts`; this
  * file throws what it cuts, lets it fall and draws it.
+ *
+ * **A ward or a hatch on THE VOLLEY's last six rows breaks it where it is
+ * drawn, not where its row's centre is.** The ball is bent onto the skin the
+ * same way a rock is (`rock-fall.ts`, `landing.ts`), so a shell taken apart a
+ * tile above its own row's centre used to throw its pieces from that centre
+ * — up to about a tile under the ball the pair were looking at. `rockFallY`
+ * places the break the same way the field pass places the ball.
  */
 
 /** Flight: the pull down in tiles a second squared, seconds in the air and
@@ -59,7 +68,12 @@ interface Fall {
 export class VolleyShardsFx {
   private falls: Fall[] = [];
 
-  ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig): void {
+  ingest(
+    events: readonly SimEvent[],
+    l: Layout,
+    cfg: SimConfig,
+    skinY: SurfaceY | undefined,
+  ): void {
     for (const e of events) {
       if (e.type !== "volleyReturn" && e.type !== "volleyHatch") continue;
       const total = Math.max(1, cfg.volleyPlates);
@@ -80,11 +94,14 @@ export class VolleyShardsFx {
       const cyan = !ward && e.color === "cyan";
       const glow = ward ? PALETTE.shieldRim : cyan ? PALETTE.cyan : PALETTE.red;
       const skin = cyan ? PALETTE.cyanDark : PALETTE.redDark;
+      const x = tileCX(l, e.col);
+      const flat = tileCY(l, e.row);
+      const y = rockFallY(l, e.row, flat, (skinY ? skinY(x) : l.hullY) - r);
       this.falls.push({
         pieces: cutShell(from, span, sweep, r, ward, l.tile, rnd),
-        x: tileCX(l, e.col),
-        y: tileCY(l, e.row),
-        floor: l.hullY - tileCY(l, e.row) - 2,
+        x,
+        y,
+        floor: l.hullY - flat - 2,
         tile: l.tile,
         fill: ward ? [STONE_FILL, PALETTE.rockDark] : [skin, skin],
         edge: ward ? [PALETTE.rock, PALETTE.sparkDim] : [glow, skin],

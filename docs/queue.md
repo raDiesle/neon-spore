@@ -718,23 +718,6 @@ and print `git checkout <branch>` there, with `bun install` still after it;
 say the same in the lane skill's section 1. Proof: a test in
 `tools/queue/test/` for both prompts, and `bun run check`.
 
-## THE VOLLEY's shell breaks below the volley in its last six rows
-
-- **Found:** 2026-09-26, claude/queue-a-rocks-hole-puffs-sit-below-the-rock-in-its-las
-- **Taken:** 2026-09-26, main (claim: claude/queue-the-volleys-shell-breaks-below-the-volley-in-its)
-- **Files:** `packages/render/src/volley-shards.ts`, `packages/render/src/effects-spark-worn.ts`
-
-`isWardable` takes THE VOLLEY, so `landingY` bends its last six rows as it
-bends a rock's (`rock-fall.ts`). The shell's fragments (`volley-shards.ts`:
-`y: tileCY(l, e.row)`) and the `volleyReturn`/`volleyHatch` squares
-(`effects-spark-worn.ts`) are still placed at the row's centre, up to about
-a tile under the shell the pair is looking at — `volleyReturn` always, since
-the shield answers it on its bent rows. Place them the way
-`effects-spark-hole.ts` places a crater's puffs: `rockFallY` against the
-skin the host passes to `Effects.ingest`, less the volley's radius
-(`volleyBallRadius`, not `rockRadius`). Proof: a case beside
-`landing.test.ts`'s crater case, and `bun run check`.
-
 ## `bun run frames --until` misses an event that fires between two presses
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd

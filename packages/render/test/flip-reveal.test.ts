@@ -54,8 +54,12 @@ describe("a body crossing the switch", () => {
   });
 
   it("bursts where it was drawn: the mirror up high, the truth down low", () => {
-    const up = burstFor({ type: "destroy", col: 1, row: high, color: "red" } as never, turned);
-    const down = burstFor({ type: "destroy", col: 1, row: low, color: "red" } as never, turned);
+    const up = burstFor({ type: "destroy", col: 1, row: high, color: "red" } as never, turned, CFG);
+    const down = burstFor(
+      { type: "destroy", col: 1, row: low, color: "red" } as never,
+      turned,
+      CFG,
+    );
     expect(up?.x).toBeCloseTo(fieldX(turned, 1), 6);
     expect(down?.x).toBeCloseTo(tileCX(flat, 1), 6);
   });

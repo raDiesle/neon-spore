@@ -1,4 +1,4 @@
-import type { SimEvent } from "@neon-spore/sim";
+import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { handedBurst } from "./effects-spark-handed.js";
 import { holeBurst } from "./effects-spark-hole.js";
 import { isSilent } from "./effects-spark-silent.js";
@@ -40,7 +40,7 @@ export interface Burst {
   hex: string;
 }
 
-export function burstFor(e: SimEvent, l: Layout, skinY?: SurfaceY): Burst | null {
+export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: SurfaceY): Burst | null {
   // The long tail of events that are answered some other way, taken out of the
   // union before the switch sees it (`effects-spark-silent.ts`). The guard
   // narrows, so `assertNever` still catches an event accounted for in neither.
@@ -113,7 +113,7 @@ export function burstFor(e: SimEvent, l: Layout, skinY?: SurfaceY): Burst | null
     case "crystalSplit":
     case "volleyReturn":
     case "volleyHatch":
-      return wornBurst(e, l);
+      return wornBurst(e, l, cfg, skinY);
 
     // A layer off THE RIND, and a bead shrivelling on THE STRAND: the body's
     // own colour, because the shot landed and the pair should feel that it did

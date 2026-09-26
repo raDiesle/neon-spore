@@ -1,7 +1,11 @@
-import type { SimEvent } from "@neon-spore/sim";
+import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import type { Burst } from "./effects-spark.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { rockFallY } from "./rock-fall.js";
+import { volleyBallRadius } from "./volley.js";
+import { CORE_MUL } from "./volley-core.js";
 
 /**
  * The bursts for a covering coming off a body that is still there — plating,
@@ -34,6 +38,8 @@ export function wornBurst(
     }
   >,
   l: Layout,
+  cfg: SimConfig,
+  skinY: SurfaceY | undefined,
 ): Burst {
   switch (e.type) {
     // A piece coming off THE SHELL: an ordinary burst in the armour's own
@@ -83,17 +89,39 @@ export function wornBurst(
     // body met it — a few, because the shell's own material is real pieces
     // now (`volley-shards.ts`) and squares over fragments is two effects.
     case "volleyReturn":
-      return at(l, e.col, e.row, 6, PALETTE.shieldRim);
+      return wornVolley(l, cfg, skinY, e.col, e.row, true, 6, PALETTE.shieldRim);
 
     // And the shell itself, coming apart in mid-air: a handful of the rock's
     // colour under the fragments `volley-shards.ts` throws. Not the ordinary
     // colours: nothing died, and a red or cyan shower is what this game pays
     // for a lane closing.
     case "volleyHatch":
-      return at(l, e.col, e.row, 6, PALETTE.rock);
+      return wornVolley(l, cfg, skinY, e.col, e.row, false, 6, PALETTE.rock);
   }
 }
 
 function at(l: Layout, col: number, row: number, n: number, hex: string): Burst {
   return { x: tileCX(l, col), y: tileCY(l, row), n, hex };
+}
+
+// THE VOLLEY's ball is bent onto the skin on its last six rows
+// (`rock-fall.ts`, `landing.ts`): a break drawn at its row's flat centre would
+// sit up to a tile under the ball the pair are looking at there. Placed the
+// way `holeBurst` places a crater's puffs — `rockFallY` against the skin the
+// host passes in, less the ball's own radius.
+function wornVolley(
+  l: Layout,
+  cfg: SimConfig,
+  skinY: SurfaceY | undefined,
+  col: number,
+  row: number,
+  ward: boolean,
+  n: number,
+  hex: string,
+): Burst {
+  const x = tileCX(l, col);
+  const flat = tileCY(l, row);
+  const r = volleyBallRadius(l, cfg, 1, row) * (ward ? 1 : CORE_MUL);
+  const y = rockFallY(l, row, flat, (skinY ? skinY(x) : l.hullY) - r);
+  return { x, y, n, hex };
 }

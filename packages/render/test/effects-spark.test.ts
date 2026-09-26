@@ -30,7 +30,7 @@ const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
 
 describe("the lure hit's burst", () => {
   it("lands where the lure was", () => {
-    const b = burstFor({ type: "lureHit", col: 3, row: 5, color: "cyan" }, L);
+    const b = burstFor({ type: "lureHit", col: 3, row: 5, color: "cyan" }, L, CFG);
     expect(b).not.toBeNull();
     expect(b?.x).toBeCloseTo(tileCX(L, 3), 6);
     expect(b?.y).toBeCloseTo(tileCY(L, 5), 6);
@@ -39,13 +39,21 @@ describe("the lure hit's burst", () => {
   it("carries the disguise's own colour, which is the one both players saw", () => {
     // The same colour the blast over the stage and the breaches at the hull
     // are drawn in, so the three read as one event rather than as three.
-    expect(burstFor({ type: "lureHit", col: 0, row: 0, color: "red" }, L)?.hex).toBe(PALETTE.red);
-    expect(burstFor({ type: "lureHit", col: 0, row: 0, color: "cyan" }, L)?.hex).toBe(PALETTE.cyan);
+    expect(burstFor({ type: "lureHit", col: 0, row: 0, color: "red" }, L, CFG)?.hex).toBe(
+      PALETTE.red,
+    );
+    expect(burstFor({ type: "lureHit", col: 0, row: 0, color: "cyan" }, L, CFG)?.hex).toBe(
+      PALETTE.cyan,
+    );
   });
 
   it("is a bigger burst than an ordinary kill, not a smaller one", () => {
-    const lure = burstFor({ type: "lureHit", col: 2, row: 2, color: "red" }, L);
-    const destroyed = burstFor({ type: "destroy", col: 2, row: 2, color: "red", kind: "slick" }, L);
+    const lure = burstFor({ type: "lureHit", col: 2, row: 2, color: "red" }, L, CFG);
+    const destroyed = burstFor(
+      { type: "destroy", col: 2, row: 2, color: "red", kind: "slick" },
+      L,
+      CFG,
+    );
     expect(lure?.n ?? 0).toBeGreaterThan(destroyed?.n ?? Infinity);
   });
 });
@@ -73,7 +81,7 @@ describe("events with nothing to burst", () => {
       { type: "tether", col: 0, control: "shield", color: "red" },
       { type: "mirrorDown", col: 0 },
     ] as const;
-    for (const e of noBurst) expect(burstFor(e, L)).toBeNull();
+    for (const e of noBurst) expect(burstFor(e, L, CFG)).toBeNull();
   });
 });
 

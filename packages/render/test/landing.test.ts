@@ -4,8 +4,11 @@ import { flatRadius } from "../src/creature-place.js";
 import { burstFor } from "../src/effects-spark.js";
 import { landingY } from "../src/landing.js";
 import { bodyX, computeLayout, tileCY } from "../src/layout.js";
+import { rockFallY } from "../src/rock-fall.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { rockRadius } from "../src/rock-size.js";
+import { volleyBallRadius } from "../src/volley.js";
+import { CORE_MUL } from "../src/volley-core.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
@@ -93,12 +96,29 @@ describe("a landing beat", () => {
       const x = bodyX(L, 3, row);
       const c = rock("meteor", row, row - 1);
       const drawn = landingY(L, CFG, c, x, tileCY(L, row), 1, skin);
-      expect(burstFor(hole, L, skin)?.y).toBeCloseTo(drawn, 5);
+      expect(burstFor(hole, L, CFG, skin)?.y).toBeCloseTo(drawn, 5);
     }
     expect(tileCY(L, HULL - 1) - fall(HULL - 1)).toBeGreaterThan(L.tile * 0.5);
     // A moult's shell is not bent, and keeps its row.
     const shell = { type: "hole", col: 3, row: HULL - 1, kind: "moult", span: 1 } as const;
-    expect(burstFor(shell, L, skin)?.y).toBe(tileCY(L, HULL - 1));
+    expect(burstFor(shell, L, CFG, skin)?.y).toBe(tileCY(L, HULL - 1));
+  });
+
+  it("breaks THE VOLLEY's shell from the ball, not from its row", () => {
+    // The ball bends onto the skin the same way a rock does (`rock-fall.ts`);
+    // its shards and its burst squares (`volley-shards.ts`,
+    // `effects-spark-worn.ts`) must leave from where it is drawn, not from the
+    // row's centre it would otherwise fall from.
+    for (let row = HULL - 6; row <= HULL; row++) {
+      const ward = { type: "volleyReturn", id: 1, col: 3, row, left: 0 } as const;
+      const hatch = { type: "volleyHatch", col: 3, row, kind: "volley", color: "red" } as const;
+      const r = volleyBallRadius(L, CFG, 1, row);
+      const drawn = rockFallY(L, row, tileCY(L, row), skin() - r);
+      expect(burstFor(ward, L, CFG, skin)?.y).toBeCloseTo(drawn, 5);
+      const rCore = r * CORE_MUL;
+      const drawnCore = rockFallY(L, row, tileCY(L, row), skin() - rCore);
+      expect(burstFor(hatch, L, CFG, skin)?.y).toBeCloseTo(drawnCore, 5);
+    }
   });
 
   it("is where the replay takes the rock over, hit on its first frame", () => {
