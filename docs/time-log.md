@@ -24009,3 +24009,13 @@ Bottleneck: writing — both of THE RATCHET's blows land in the middle
 column, so the look could not tell them apart without the sim saying which.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's baked parts, checked in the fourth act (claude/sprite-detail)
+
+- reading: 5 min. `instar-poses-fourth.ts`, for the five pose names.
+- writing: 5 min. The sheet's closing line and the queue item widened to the fourth act.
+- looking: 15 min. Eight VERSUS shots across hover, bow, arch, rise and loom through throwaway poses.
+- friction: 5 min. The fourth act has no director poses either, so the same temporary edit again.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — eight VERSUS shots, about a minute each, one pose at a time.

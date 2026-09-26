@@ -37,5 +37,8 @@ one gradient fill. There the baked version costs the same or a few calls more,
 as with the eye, the moult and the seam, and what it buys is detail rather than
 speed.
 
-Checked in all five third-act poses (crouch, perch, roar, sprawl, twist) on
-26 September 2026. Every baked part draws there without clipping or popping.
+Checked in the five third-act poses (crouch, perch, roar, sprawl, twist) and
+the five fourth-act poses (hover, bow, arch, rise, loom) on 26 September 2026.
+Every baked part draws there without clipping or popping. The fire, the heart
+and the pale body only show in their own states, which none of those poses
+puts on screen, so they were checked in their own slots' poses.
