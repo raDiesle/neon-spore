@@ -830,6 +830,7 @@ what the rest of this file holds.
 ## The headless sim benchmark under-represents a busy boss fight
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-the-headless-sim-benchmark-under-represents-a-bu)
 - **Files:** `tools/probe/world.ts`
 
 `waveWorld()` stands a wave up with an empty command stream and nothing
