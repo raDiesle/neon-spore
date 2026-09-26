@@ -761,6 +761,7 @@ owner's, unverified until he has looked.
 ## AUTO's field hand half plays 22 ordinary waves
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-autos-field-hand-half-plays-22-ordinary-waves)
 - **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
 
 `fieldHand` plays the cannon and the shield and nothing else, so the waves
