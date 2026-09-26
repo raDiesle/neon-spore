@@ -434,6 +434,7 @@ an alignment.
 ## AUTO plays bosses only, and only in the director
 
 - **Found:** 2026-09-25, claude/game-multiplayer-testing-601794
+- **Taken:** 2026-09-26, claude/queue-auto-has-no-hand-for-the-pulse-or-the-reprise (claim: claude/queue-auto-plays-bosses-only-and-only-in-the-director)
 - **Files:** `tools/director/src/stage-autopilot.ts`, `tools/director/src/autopilot-ghost.ts`, `apps/game/src/`
 
 AUTO covers the bosses because the director's hands only exist for them; an
