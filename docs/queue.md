@@ -431,19 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## The spec calls `MutualRelease` unbuilt; THE SURGE built it
-
-- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
-- **Taken:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an (claim: claude/queue-the-spec-calls-mutualrelease-unbuilt-the-surge-b)
-- **Files:** `docs/spec/bosses-choreographed.md`, `packages/sim/src/surge-step.ts`, `packages/sim/src/surge.ts`
-
-The library table (around "timed-release") and §8's table both mark
-`MutualRelease` — two lifts within N beats — as not built, but THE SURGE judges
-exactly that (`liftTick` in `surge.ts`, the window in `surge-step.ts`). Mark it
-built there, name the file, and say whether a later boss should call THE
-SURGE's judge rather than write its own; if it should, add the row to the
-called-not-re-derived table in `packages/sim/test/purity.test.ts`.
-
 ## §24 THE KEEL — the simulation lane
 
 - **Found:** 2026-09-26, this session

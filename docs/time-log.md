@@ -22033,3 +22033,15 @@ going down grants no activation, so the lift had to be found instead.
 Bottleneck: friction — a second `next` claimed the item after this one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — The spec marks `MutualRelease` built by THE SURGE, and a copy of its window is refused
+
+- reading: 5 min. The four spec tables, `surge-hand.ts`, `beat-clock.ts`,
+  the copies table.
+- writing: 5 min. Six spec rows, a doc line, one copies row.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the judge lived in `beat-clock.ts`, not the files the
+entry named.

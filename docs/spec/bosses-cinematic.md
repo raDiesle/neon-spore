@@ -426,14 +426,14 @@ built. **Mechanic**: authored entirely from shipped primitives —
 `BossSequenceStep` into one closing beat list with no new gesture and no new
 hashed field. **Beats**: a movement each drawn from THE INSTAR's cursor
 mechanism, THE ANTIPHON's description split and THE BATON's alternation, in
-that order, ending on a `MutualRelease` (unbuilt, wanted by THE SURGE) shared
+that order, ending on a `MutualRelease` (built by THE SURGE, `liftTogetherUntil`) shared
 by both seats at once. **Time**: SLOW on the very last beat, both screens,
 the only truly shared slow window on this page. **Nearest neighbour**: none —
 it is explicitly not a fourth question, it is the page closing on the third
 kind's own claim that a scene can be *authored* rather than built, the same
 sentence [bosses-choreographed](bosses-choreographed.md#the-briefs-own-worked-encounter-read-against-this-engine)
-already made about `BossSequenceStep`. Wants `MutualRelease`, `SceneBreak` and
-`StepBack` before it can be written at all — the last of the four
+already made about `BossSequenceStep`. Wants `SceneBreak` and `StepBack` —
+`MutualRelease` is THE SURGE's already — before it can be written at all — the last of the four
 build-first primitives this brief never needed on its own, and the one
 `THE ZENITH` needs from all of them at once.
 
@@ -452,7 +452,7 @@ reference sheet's twelve, is more useful than asserting a fourth question
 this brief cannot actually verify. **Four claim a primitive the library
 already named and never built**: THE RATCHET (`RepeatedTap`), THE FOUNDRY
 (`FreezeTap`), THE WICKER (`DelayedConsequence`) and THE ZENITH
-(`MutualRelease`, `SceneBreak`, `StepBack` together) — the closest this page
+(`SceneBreak` and `StepBack`, closing on THE SURGE's `MutualRelease`) — the closest this page
 comes to the brief's own "final multi-mechanic" ask being answered by
 spending debt rather than inventing more of it.
 

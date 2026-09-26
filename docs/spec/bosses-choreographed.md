@@ -1351,7 +1351,10 @@ one, which `touch.ts` can already say honestly for a colour thumb
 (`world.prime`) and cannot yet for a field hold — that is the real work.
 
 **Reusable.** `ReleaseWindow` — a step passed by lifting, not pressing.
-`MutualRelease` — two lifts within N beats. `ChargeSum` — shared with THE SINEW.
+`MutualRelease` — two lifts within N beats, **built**: the lift is a `drag`
+with `on: false` (`surge-hand.ts`), and the window is `liftTogetherUntil`
+(`beat-clock.ts`), which a later boss calls rather than writes out again
+(`packages/sim/test/copies-table.ts`). `ChargeSum` — shared with THE SINEW.
 
 ---
 
@@ -2277,7 +2280,7 @@ content does not.
 | 5 — P2 taps the organ the pull exposed | a step whose second mark exists only after the first landed | shipped, and it is what §16's cursor is for |
 | 6 — P2 rotates it until three symbols line up | `turn`, a bearing read like the crank's | shipped |
 | 7 — both hold two anchors while it pulls away | THE BALLOON, and §16's `hold` | shipped |
-| 8 — **both release together, and the chest explodes** | `MutualRelease` — `touchUp` is the end of a command here and not a command | **not built** |
+| 8 — **both release together, and the chest explodes** | `MutualRelease` — THE SURGE's lift, a `drag` with `on: false`, judged by `liftTogetherUntil` (`surge-hand.ts`) | shipped |
 | the scene break: a second creature emerges, the arena darkens | a named scene above the step list, item 2 above | **not built** |
 | the shrinking ring under every prompt | the ready gate's circles, `queen-drop.ts`'s bar | shipped, reusable as-is |
 
@@ -2307,7 +2310,7 @@ them are a body swap on a question already asked, which is filter 8.
 | push-away | THE PUSH, THE CURTAIN (6) | shipped |
 | repeated-tap | nothing. §16 counts taps; nothing tracks a target that moves between them | **absent** |
 | trace-path | nothing at all — there is no gesture for following a line | **absent** |
-| timed-release | `MutualRelease`, wanted by (9) | unbuilt primitive |
+| timed-release | THE SURGE (9) — `MutualRelease`, `liftTogetherUntil` in `beat-clock.ts` | shipped |
 | transformation | THE INSTAR (16) | shipped |
 | split | THE SCUTTLE (15) — it comes apart into its own arrivals | shipped |
 | multi-stage environmental | THE UNDERTOW (13) — it takes the hull | shipped |
@@ -3326,7 +3329,7 @@ documentation guarantee in the repository and the reason this table is short.
 |---|---|---|---|
 | **`BearingDrag`** | A hand going round a circle, reporting thousandths of a turn rather than a distance | `crank` in `drag-targets.ts`, `sim/crank.ts` — shipped, on the panel; wanted on the field | 2 |
 | **`PulledMagnitude`** / **`ChargeSum`** | Two seats' drag depths or hold durations **summed** against a target window, with each seat shown half the gauge. The first scalar coupling in the game | `balloon-pull.ts` sums nothing — it asks a threshold of each | 8, 9 |
-| **`ReleaseWindow`** / **`MutualRelease`** | A step passed by **lifting**, and two lifts within N beats. `touchUp` has to become a command rather than the end of one — `touch.ts` can say this honestly for a colour thumb and not yet for a field hold | `world.prime`'s explicit `touchUp` | 9 |
+| **`ReleaseWindow`** / **`MutualRelease`** | A step passed by **lifting**, and two lifts within N beats. **Built by THE SURGE** (9): the lift is a `drag` with `on: false` (`surge-hand.ts`), and the window is `liftTogetherUntil` (`beat-clock.ts`) — a later boss calls it (`copies-table.ts`) | `world.prime`'s explicit `touchUp` | 9 |
 | **`FreezeTap`** | A timed tap by one seat that holds whatever the other seat is currently dragging. **The one genuinely new verb on the sheet** (card 11) | nothing | none of the fifteen, and it should be built into the first one that wants it rather than speculatively |
 | **`SharedPush`** | One object, two hands, opposite pulls cancel — promoted from an assist to a mechanic, at seven columns wide | THE PUSH, `grip-push.ts`, `grip-push-dir.ts` | 6 |
 | **`FeedTarget`** | A place on a boss that accepts a **body** rather than a shot | `resolveIntake` accepts a pod at the hull; nothing accepts one anywhere else | 1 |

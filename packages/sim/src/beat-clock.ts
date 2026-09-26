@@ -64,7 +64,9 @@ export const NO_LIFT = -1;
 /**
  * The last tick a second thumb may lift and still be *together* with a first
  * one lifted on `liftTick`: one beat of ticks after it. THE SURGE judges its
- * mutual lift by it.
+ * mutual lift by it, and it is the spec's `MutualRelease` — a later boss that
+ * judges two lifts calls this rather than adding a beat to a tick itself
+ * (`test/copies-table.ts`).
  */
 export function liftTogetherUntil(cfg: SimConfig, liftTick: number): number {
   return liftTick + ticksPerBeat(cfg);

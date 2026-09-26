@@ -740,4 +740,14 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/instar-shape.ts",
     pattern: /instarAt\(\s*\w+,\s*\w+\.rearX,\s*\w+\.rearY\s*\)/,
   },
+  {
+    // **Whether two lifts were together** — the spec's `MutualRelease`, built
+    // by THE SURGE. One caller today (`surge-hand.ts`) and the row is here
+    // before a second, for the spool's reason above: the next boss judged by
+    // two thumbs coming off is one line of `lift + tpb` away from a window
+    // that stops following the first one's.
+    call: "liftTogetherUntil",
+    owner: "packages/sim/src/beat-clock.ts",
+    pattern: /\b\w*[lL]ift\w*\s*\+\s*(?:tpb|ticksPerBeat\s*\()/,
+  },
 ];

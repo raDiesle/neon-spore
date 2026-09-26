@@ -625,7 +625,7 @@ Every in-screen control is in [controls](controls.md).
 | Tap versus hold on one control | built | the colour lobes: a tap fires, a hold fills the lance (`sim/lance.ts`) |
 | Hold, as a level | built, and the game's commonest verb | `sim/grip.ts`, THE SURGE, THE WARDEN, THE GORGE, THE PULSE and more |
 | Timed whole-screen hold | built | the guide and the ready gate (`apps/game/src/briefing.ts`) |
-| Mutual release | built as THE SURGE (`sim/surge*.ts`) | the library still lists `MutualRelease` unbuilt — see the queue |
+| Mutual release | built as THE SURGE (`sim/surge*.ts`) | `liftTogetherUntil` (`beat-clock.ts`) is the window, called rather than copied |
 | Drag, as a displacement from the grab | built, heavily | `DragTarget`: the tether, the balloon, THE SINEW, the lid, THE HIVE |
 | Swipe, two-way, past a distance | built | the muzzle swipe, THE GUM, THE INSTAR, THE TASTER's wipe |
 | Circle / bearing | built | the crank (`sim/crank.ts`), the gimbal, THE MAZE, `sim/bearing.ts` |
