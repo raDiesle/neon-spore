@@ -3,6 +3,7 @@ import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { CYST_DEFAULTS, type CystConfig } from "./config-cyst.js";
+import { DAVIT_DEFAULTS, type DavitConfig } from "./config-davit.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
@@ -97,6 +98,7 @@ export interface BossClockConfig
     SlingConfig,
     GrindstoneConfig,
     CystConfig,
+    DavitConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -138,6 +140,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...SLING_DEFAULTS,
   ...GRINDSTONE_DEFAULTS,
   ...CYST_DEFAULTS,
+  ...DAVIT_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

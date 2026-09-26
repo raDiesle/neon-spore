@@ -16,8 +16,9 @@
  * that grow by a field and by a branch, cut out so this file does not.
  */
 import type { Wave, WaveGuide } from "@neon-spore/content";
-import { faultLine, serializeBoss } from "./serialize-boss.js";
+import { serializeBoss } from "./serialize-boss.js";
 import { serializeEntry, serializePod } from "./serialize-entry.js";
+import { faultLine } from "./serialize-fault.js";
 
 function escapeString(s: string): string {
   return s

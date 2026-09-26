@@ -182,4 +182,12 @@ export const CHOREO_FIELD_GROUP_C = {
   cystSplitBeats: "THE CYST — the boss one hand stills for the other to crack",
   cystOpenMilli: "THE CYST — the boss one hand stills for the other to crack",
   cystShutMilli: "THE CYST — the boss one hand stills for the other to crack",
+  // DavitConfig — the rests around the steps, the grace a swing is given
+  // past its beats, the spent boom, and how fast an unsteered boom swings
+  // back (`config-davit.ts`).
+  davitStillBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitRestBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitGraceBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitSpentBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitDriftMilli: "THE DAVIT — the boss one hand steers for the other to loose",
 } satisfies Record<string, GroupName>;

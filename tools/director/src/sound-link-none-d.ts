@@ -126,4 +126,18 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.cystMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.cystSplit": "the sac splitting, spent. Same argument.",
   "boss.cystOut": "the sac gone and the wave ending. Same argument, and an absence.",
+  // THE DAVIT's thirteen: a boom over the field, the same argument.
+  "boss.davitEnter": "the boom settling in over the field. A fixture, not a body on a grid.",
+  "boss.davitLight": "a step lighting on the boom. Same argument.",
+  "boss.davitDrift": "a lean leaving its target, which is a gesture and no body. Same argument.",
+  "boss.davitSlack": "a draw loosed wrong, sprung slack. Same argument.",
+  "boss.davitLoose": "a draw loosed true. Same argument.",
+  "boss.davitSway": "a swing run out, the boom swaying back. Same argument.",
+  "boss.davitPivot": "the pivot lighting. Same argument.",
+  "boss.davitHit": "a shot into the pivot. Same argument.",
+  "boss.davitReland": "the boom relanded under the pivot. Same argument.",
+  "boss.davitDim": "the pivot dimming. Same argument.",
+  "boss.davitMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
+  "boss.davitSpent": "the boom swung hard over, spent. Same argument.",
+  "boss.davitOut": "the boom gone and the wave ending. Same argument, and an absence.",
 };

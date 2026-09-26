@@ -2,6 +2,7 @@ import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
+import { stepCyst } from "./cyst-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGrindstone } from "./grindstone-step.js";
 import { stepHasp } from "./hasp-step.js";
@@ -36,7 +37,8 @@ import type { World } from "./world.js";
  * **THE RATCHET came across on 26 September 2026**, the last row on the first
  * page when THE RIME's branch filled it, and **THE HASP** the same day, when
  * THE PLUMB's did, and **THE SPOOL** after it, when THE SLING's did, and
- * **THE GRINDSTONE** after that, when THE CYST's did.
+ * **THE GRINDSTONE** after that, when THE CYST's did, and **THE CYST** after
+ * that, when THE DAVIT's did.
  *
  * **The check next door is unchanged.** `stepOtherBoss` ends by calling this
  * rather than by falling off its own end, so a boss stepped nowhere still
@@ -44,6 +46,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE CYST: steps lit, taps waited for, pinches counted, and the split (`cyst-step.ts`).
+  if (boss.kind === "cyst") {
+    stepCyst(world, boss);
+    return;
+  }
   // THE GRINDSTONE: grit regrown, clamps counted, and the snap free (`grindstone-step.ts`).
   if (boss.kind === "grindstone") {
     stepGrindstone(world, boss);

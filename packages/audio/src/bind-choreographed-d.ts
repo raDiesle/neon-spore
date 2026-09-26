@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { cystCue } from "./bind-cyst.js";
+import { davitCue } from "./bind-davit.js";
 import { grindstoneCue } from "./bind-grindstone.js";
 import { oculusCue } from "./bind-oculus.js";
 import { plumbCue } from "./bind-plumb.js";
@@ -36,6 +37,7 @@ type LaterEvent = Extract<
       | `sling${string}`
       | `grindstone${string}`
       | `cyst${string}`
+      | `davit${string}`
       | `undertow${string}`;
   }
 >;
@@ -173,6 +175,20 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "cystSplit":
     case "cystOut":
       return cystCue(e, cols);
+    case "davitEnter":
+    case "davitLight":
+    case "davitDrift":
+    case "davitSlack":
+    case "davitLoose":
+    case "davitSway":
+    case "davitPivot":
+    case "davitHit":
+    case "davitReland":
+    case "davitDim":
+    case "davitMiss":
+    case "davitSpent":
+    case "davitOut":
+      return davitCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

@@ -1,6 +1,6 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { BEATBOX_MECHANIC } from "./mechanics-beatbox.js";
-import { BOSS_MECHANICS } from "./mechanics-bosses.js";
+import { BOSS_MECHANICS, BOSS_MECHANICS_B } from "./mechanics-bosses.js";
 import { HANDED_MECHANICS } from "./mechanics-handed.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { ROUND_MECHANICS } from "./mechanics-rounds.js";
@@ -152,10 +152,8 @@ export const MECHANICS = {
   sling: BOSS_MECHANICS.sling,
   grindstone: BOSS_MECHANICS.grindstone,
   cyst: BOSS_MECHANICS.cyst,
-  vane: {
-    what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
-    reach: "spawn",
-  },
+  davit: BOSS_MECHANICS_B.davit,
+  vane: BOSS_MECHANICS_B.vane,
   well: {
     what: "Player 1 sees the field as a clock, with the ship in the middle. Column four is four o'clock. The two ends of the field meet at twelve.",
     reach: "spawn",

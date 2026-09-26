@@ -1,5 +1,7 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 
+export { BOSS_MECHANICS_B } from "./mechanics-bosses-b.js";
+
 /**
  * The keys of the table below, checked against the roster — `mechanics-split.ts`'
  * `SplitId` for the same reason: a name that is not a `MechanicId` collapses to

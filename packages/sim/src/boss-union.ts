@@ -4,6 +4,7 @@ import type { FleetState, QueenState, VaneState, WardenState } from "./boss-stat
 import type { CairnState } from "./cairn.js";
 import type { CurtainState } from "./curtain.js";
 import type { CystState } from "./cyst.js";
+import type { DavitState } from "./davit.js";
 import type { FilamentState } from "./filament.js";
 import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
@@ -119,4 +120,5 @@ export type BossState =
   | PlumbState
   | SlingState
   | GrindstoneState
-  | CystState;
+  | CystState
+  | DavitState;

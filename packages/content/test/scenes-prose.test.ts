@@ -102,6 +102,9 @@ const STILL_PROSE = [
   // And THE CYST (§34), an eighteenth time: the sac is undrawn, and the
   // guide says whose tap stills which flank.
   "THE CYST",
+  // And THE DAVIT (§35), a nineteenth time: the boom is undrawn, and the
+  // guide says which swing each seat leans and which it draws.
+  "THE DAVIT",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -128,9 +131,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix =
-      "update §1 of docs/spec/briefings.md, which says one hundred and two of the hundred and thirteen";
-    expect(guided.length, fix).toBe(102);
-    expect(WAVES.length, fix).toBe(113);
+      "update §1 of docs/spec/briefings.md, which says one hundred and three of the hundred and fourteen";
+    expect(guided.length, fix).toBe(103);
+    expect(WAVES.length, fix).toBe(114);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

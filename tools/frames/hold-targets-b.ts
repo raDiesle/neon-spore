@@ -1,8 +1,8 @@
 /**
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
- * that `hold-targets.ts` had no row for — sixty-nine of them, from the crank
- * to THE CYST's right flank.
+ * that `hold-targets.ts` had no row for — seventy-three of them, from the crank
+ * to THE DAVIT's right draw.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -140,6 +140,12 @@ export const ROWS: Record<string, Row> = {
   cystFreezeRight: {},
   cystFlankLeft: {},
   cystFlankRight: { seat: 2 },
+  // `davit-hand.ts`: a lean and a draw each, both on `fromMilli`; the pilot's
+  // are the left, and the wrong seat's touch does nothing.
+  davitSteerLeft: {},
+  davitLooseLeft: {},
+  davitSteerRight: { seat: 2 },
+  davitLooseRight: { seat: 2 },
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

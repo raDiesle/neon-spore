@@ -1,6 +1,7 @@
 import type { GroupName } from "./ship-groups.js";
 import { CHOREO_NOTES_B } from "./ship-notes-choreo-b.js";
 import { CHOREO_NOTES_C } from "./ship-notes-choreo-c.js";
+import { CHOREO_NOTES_D } from "./ship-notes-choreo-d.js";
 
 /**
  * The paragraph under each **choreographed boss's** card.
@@ -152,6 +153,7 @@ export const CHOREO_NOTES = {
   // THE LEDGER and everything after it (`ship-notes-choreo-b.ts`).
   ...CHOREO_NOTES_B,
   ...CHOREO_NOTES_C,
+  ...CHOREO_NOTES_D,
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

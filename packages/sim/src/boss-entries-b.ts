@@ -1,8 +1,8 @@
 import type { MazeWheel } from "./maze-wheel.js";
 
 /**
- * **The last three entries `boss-entries.ts` had room for**: THE MAZE, THE
- * WELL and THE REPRISE.
+ * **The entries `boss-entries.ts` had no room for**: THE MAZE, THE WELL and
+ * THE REPRISE, and THE VANE after them.
  *
  * They came across on 22 September 2026, when the queue found that page seven
  * lines from its 250-line limit and named it as one of the five a
@@ -63,4 +63,19 @@ export interface WellEntry {
 export interface RepriseEntry {
   kind: "reprise";
   beat?: number;
+}
+
+/**
+ * What a wave authors when it wants THE VANE. No column: the bearing hangs dead
+ * centre off the top edge, and an arm on an off-centre pivot would have a long
+ * side and a short one, so the fold would mean a different thing depending on
+ * which half of the field a body came down in. Only how many pins hold the
+ * bearing, which is how long the fight is.
+ *
+ * Came across on 26 September 2026, the last entry defined on the first page
+ * when THE DAVIT's union row took it past its 250-line limit.
+ */
+export interface VaneEntry {
+  kind: "vane";
+  pins?: number;
 }

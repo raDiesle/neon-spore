@@ -136,6 +136,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", color: "cyan", beats: 3 },
     ],
   },
+  // THE DAVIT's script, a swing and a shot, every authored field set off
+  // `either` so the walk can move it (`davit-hash.ts`).
+  davit: {
+    kind: "davit",
+    steps: [
+      { ask: "left", leanMilli: -20000, rangeMilli: 8000, color: "cyan", beats: 6 },
+      { ask: "fire", leanMilli: 0, rangeMilli: 0, color: "red", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -348,5 +357,20 @@ export function patchBossD(boss: BossState): void {
     boss.gapMilli = [400, 700];
     boss.tapDown = [true, false];
     boss.heldBeats = 2;
+  }
+  if (boss.kind === "davit") {
+    // One swing landed and the other part way, the pivot lit, a lean read on
+    // each seat, a finger down and counting, and the boom off hanging — every
+    // field given a value (`davit-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.swings = [2, 1];
+    boss.hits = 1;
+    boss.pivotLit = true;
+    boss.tiltMilli = [-19000, 4000];
+    boss.holding = [false, true];
+    boss.drawnBeats = [0, 3];
+    boss.aimMilli = -19000;
   }
 }

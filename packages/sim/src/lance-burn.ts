@@ -4,6 +4,7 @@ import { resolve } from "./bullet-hit.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
+import { davitStruck } from "./davit-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { grindstoneStruck } from "./grindstone-shot.js";
@@ -197,6 +198,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   grindstoneStruck(world, b);
   // And THE CYST's bared core (`cyst-shot.ts`).
   cystStruck(world, b);
+  // And THE DAVIT's lit pivot (`davit-shot.ts`).
+  davitStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

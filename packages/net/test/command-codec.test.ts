@@ -276,6 +276,12 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "cystFreezeRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "cystFlankLeft", on: true, fromMilli: 650 },
   { kind: "drag", target: "cystFlankRight", on: false, fromMilli: 0 },
+  // THE DAVIT's leans carry the phone's signed lean on `fromMilli`, and its
+  // draws the swipe's sign on the lift (`sim/davit-hand.ts`).
+  { kind: "drag", target: "davitSteerLeft", on: true, fromMilli: -20000 },
+  { kind: "drag", target: "davitSteerRight", on: false, fromMilli: 0 },
+  { kind: "drag", target: "davitLooseLeft", on: true, fromMilli: 0 },
+  { kind: "drag", target: "davitLooseRight", on: false, fromMilli: -1 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -448,6 +454,10 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   cystFreezeRight: true,
   cystFlankLeft: true,
   cystFlankRight: true,
+  davitSteerLeft: true,
+  davitSteerRight: true,
+  davitLooseLeft: true,
+  davitLooseRight: true,
   crank: true,
 };
 

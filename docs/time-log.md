@@ -23599,3 +23599,19 @@ morph spans had to be read off the script before a sheet showed anything.
 
 Bottleneck: none — the existing mechanic (freeze, turn, pull) already gave
 three natural seams to hang new states on without inventing a new verb.
+
+## 2026-09-26 — THE DAVIT, the simulation lane
+
+- reading: 5 min. THE CYST's lane as the template, and THE PLUMB's and
+  THE SLING's hands for the two gestures it pairs.
+- writing: 15 min. The seven sim files, the rig and its tests, the
+  registrations across content, net, render, audio and the director, and
+  §11.52.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. A heredoc into an unset scratch variable hung on stdin,
+  and `serialize-boss.ts` and `mechanics-table.ts` went past 250, so
+  `faultLine` and THE VANE's row moved out.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — the registrations outside the simulation are the
+same sixty files a boss, and only discoverable from one another.

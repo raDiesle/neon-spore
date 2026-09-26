@@ -177,6 +177,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   sling: { wave: "theSling" },
   grindstone: { wave: "theGrindstone" },
   cyst: { wave: "theCyst" },
+  davit: { wave: "theDavit" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

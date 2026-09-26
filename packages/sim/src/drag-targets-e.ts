@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, and THE CYST's marks and flanks. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, and THE DAVIT's leans and draws. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -25,7 +25,11 @@ export type DragTargetE =
   | "cystFreezeLeft"
   | "cystFreezeRight"
   | "cystFlankLeft"
-  | "cystFlankRight";
+  | "cystFlankRight"
+  | "davitSteerLeft"
+  | "davitSteerRight"
+  | "davitLooseLeft"
+  | "davitLooseRight";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -95,4 +99,17 @@ export type DragTargetE =
  * down and up. A flank is `viseLobeLeft`'s: `SqueezeGap`, `fromMilli` the
  * gap between the two touches. The wrong seat's touch does nothing
  * (`cyst-hand.ts`). `id` is unused.
+ */
+
+/**
+ * `davitSteerLeft`, `davitSteerRight`, `davitLooseLeft` and `davitLooseRight`
+ * are the ninety-third to the ninety-sixth: THE DAVIT's two leans and two
+ * draws, one of each for each seat — the pilot's are the `Left` pair, the
+ * navigator's the `Right`. Which of a seat's two is live is the lit step's.
+ *
+ * No new reading. A lean is `plumbLevelLeft`'s: `LevelTilt`, `fromMilli` the
+ * phone's lean and a lift a phone that stopped reporting. A draw is
+ * `slingDrawLeft`'s: `DrawRelease`, `on` the finger down and the lift's
+ * `fromMilli` the swipe's sign. The wrong seat's touch does nothing
+ * (`davit-hand.ts`). `id` is unused.
  */

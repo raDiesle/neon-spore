@@ -2,6 +2,7 @@ import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand
 import { batonHeard } from "./baton-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
 import { cystHeard } from "./cyst-hand.js";
+import { davitHeard } from "./davit-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
@@ -131,6 +132,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE CYST's taps and pinches, the same: a tap is an edge and a pinch
   // widening past shut is the instant (`cyst-hand.ts`).
   for (const c of commands) cystHeard(world, c.player, c.command);
+  // THE DAVIT's leans and draws, the same: a lean leaving its target and a
+  // draw lifting are both the instant (`davit-hand.ts`).
+  for (const c of commands) davitHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

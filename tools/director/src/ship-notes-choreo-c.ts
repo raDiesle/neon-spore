@@ -10,8 +10,9 @@ import type { GroupName } from "./ship-groups.js";
  * `-b.ts` itself was cut along — the order they were built in, which nothing
  * depends on. Spread into `CHOREO_NOTES` in place, so the totality guard is
  * unchanged: a card added to `GroupName` and left without a paragraph on
- * *any* page is the same compile error it always was. The next boss's
- * paragraph goes here.
+ * *any* page is the same compile error it always was. THE DAVIT's would
+ * have put it past 250, so it and every boss after it go on the next page
+ * (`ship-notes-choreo-d.ts`).
  */
 export const CHOREO_NOTES_C = {
   "THE HASP — the boss where one of you only has to hold on, and cannot":

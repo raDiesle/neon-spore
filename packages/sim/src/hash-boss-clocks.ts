@@ -3,6 +3,7 @@ import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
+import { davitHashParts } from "./davit-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
@@ -180,6 +181,11 @@ export function clockHashParts(boss: BossState): number[] {
   // flanks' gaps and taps and the script (`cyst-hash.ts`).
   if (boss.kind === "cyst") {
     for (const n of cystHashParts(boss)) out.push(n);
+  }
+  // THE DAVIT: the phase, the cursor, the swings, the hits, the pivot, both
+  // seats' leans, fingers and counts, the boom and the script (`davit-hash.ts`).
+  if (boss.kind === "davit") {
+    for (const n of davitHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

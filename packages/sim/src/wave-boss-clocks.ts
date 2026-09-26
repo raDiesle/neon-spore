@@ -2,6 +2,7 @@ import { installAntiphon } from "./antiphon-step.js";
 import { installBaton } from "./baton-step.js";
 import { installCurtain } from "./curtain-step.js";
 import { installCyst } from "./cyst-step.js";
+import { installDavit } from "./davit-step.js";
 import { installFilament } from "./filament-step.js";
 import { installGimbal } from "./gimbal-step.js";
 import { installGorge } from "./gorge-step.js";
@@ -87,6 +88,7 @@ const CLOCK_KINDS = [
   "sling",
   "grindstone",
   "cyst",
+  "davit",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -213,11 +215,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // marks its wave authored for the wheel (`valve-step.ts`).
     world.boss = installValve(world, boss.marks);
   } else if (boss.kind === "seam") {
-    // THE SEAM and the eight after it leave the same nothing: no creature and
+    // THE SEAM and the nine after it leave the same nothing: no creature and
     // no row, a body over the middle column — a ridge, a lens, a seed-case, a
-    // frosted lens, a stand, a bob, a fork, a wheel and a sac — and the script
-    // its wave authored (each one's `<kind>-step.ts`). One comment for the nine
-    // rather than the same two lines nine times.
+    // frosted lens, a stand, a bob, a fork, a wheel, a sac and a boom — and
+    // the script its wave authored (each one's `<kind>-step.ts`). One comment
+    // for the ten rather than the same two lines ten times.
     world.boss = installSeam(world, boss.steps);
   } else if (boss.kind === "oculus") {
     world.boss = installOculus(world, boss.steps);
@@ -235,6 +237,8 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     world.boss = installGrindstone(world, boss.steps);
   } else if (boss.kind === "cyst") {
     world.boss = installCyst(world, boss.steps);
+  } else if (boss.kind === "davit") {
+    world.boss = installDavit(world, boss.steps);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

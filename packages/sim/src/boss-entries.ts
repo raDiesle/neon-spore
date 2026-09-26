@@ -1,4 +1,4 @@
-import type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
+import type { MazeEntry, RepriseEntry, VaneEntry, WellEntry } from "./boss-entries-b.js";
 import type {
   BatonEntry,
   CurtainEntry,
@@ -30,6 +30,7 @@ import type {
   SpliceEntry,
 } from "./boss-entries-round.js";
 import type { CystEntry } from "./cyst.js";
+import type { DavitEntry } from "./davit.js";
 import type { FilamentEntry } from "./filament.js";
 import type { GimbalEntry } from "./gimbal.js";
 import type { GrindstoneEntry } from "./grindstone.js";
@@ -118,18 +119,6 @@ export interface CairnEntry {
   units?: number;
 }
 
-/**
- * What a wave authors when it wants THE VANE. No column: the bearing hangs dead
- * centre off the top edge, and an arm on an off-centre pivot would have a long
- * side and a short one, so the fold would mean a different thing depending on
- * which half of the field a body came down in. Only how many pins hold the
- * bearing, which is how long the fight is.
- */
-export interface VaneEntry {
-  kind: "vane";
-  pins?: number;
-}
-
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -195,12 +184,14 @@ export type BossEntry =
   // The one that authors passes and clamps as well as shots: a wheel ground by two seats (`grindstone.ts`).
   | GrindstoneEntry
   // The one that authors flanks as well as shots: a sac one seat stills for the other (`cyst.ts`).
-  | CystEntry;
+  | CystEntry
+  // The one that authors leans and draws as well as shots: a boom one seat steers for the other (`davit.ts`).
+  | DavitEntry;
 
-// The three this page had no room left for, handed across on 22 September
-// 2026 — the last rows it held, the way every overflowing page in the
-// repository gives its end of the chain back (`boss-entries-b.ts`).
-export type { MazeEntry, RepriseEntry, WellEntry } from "./boss-entries-b.js";
+// The four this page had no room left for, handed across on 22 and 26
+// September 2026 — the last rows it held, the way every overflowing page in
+// the repository gives its end of the chain back (`boss-entries-b.ts`).
+export type { MazeEntry, RepriseEntry, VaneEntry, WellEntry } from "./boss-entries-b.js";
 // The twenty-one that are a clock and author nothing, over two pages
 // (`boss-entries-clocks.ts`, `boss-entries-clocks-b.ts`).
 export type {
@@ -234,6 +225,7 @@ export type {
   SpliceEntry,
 } from "./boss-entries-round.js";
 export type { CystEntry, CystStep } from "./cyst.js";
+export type { DavitEntry, DavitStep } from "./davit.js";
 export type { FilamentEntry } from "./filament.js";
 export type { GimbalEntry } from "./gimbal.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";

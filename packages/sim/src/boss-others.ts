@@ -4,7 +4,7 @@ import { stepLateBoss } from "./boss-others-b.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCurtain } from "./curtain-step.js";
-import { stepCyst } from "./cyst-step.js";
+import { stepDavit } from "./davit-step.js";
 import { stepFilament } from "./filament-step.js";
 import { stepGimbal } from "./gimbal-step.js";
 import { stepGorge } from "./gorge-step.js";
@@ -231,12 +231,12 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepSling(world, boss);
     return;
   }
-  // THE CYST: steps lit, taps waited for, pinches counted, and the split (`cyst-step.ts`).
-  if (boss.kind === "cyst") {
-    stepCyst(world, boss);
+  // THE DAVIT: steps lit, steered draws counted, the boom swinging back, and the spent boom (`davit-step.ts`).
+  if (boss.kind === "davit") {
+    stepDavit(world, boss);
     return;
   }
-  // And the six that are not stepped here at all, with THE GRINDSTONE, THE SPOOL, THE HASP, THE RATCHET, THE VANE,
+  // And the six that are not stepped here at all, with THE CYST, THE GRINDSTONE, THE SPOOL, THE HASP, THE RATCHET, THE VANE,
   // THE CAIRN, THE MAZE, THE SPLICE, THE FLEET and THE WELL, are on the
   // second page (`boss-others-b.ts`). The first hand-across was on 22 September 2026, when
   // THE GIMBAL's branch took this one over its 250-line limit, and a later

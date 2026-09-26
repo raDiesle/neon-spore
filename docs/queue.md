@@ -1039,6 +1039,24 @@ resolved once per beat, the same reasoning THE CYST's shudder was ruled
 out on. Nothing here is drawn yet and stays unverified at tempo until
 the owner has looked.
 
+**The touch sender rides this lane**, with the panels it draws: the
+simulation (wave 114, `docs/spec/bosses.md` §11.52) hears `davitSteerLeft`
+and `davitLooseLeft` from Player 1 and `davitSteerRight` and
+`davitLooseRight` from Player 2. A steer is THE PLUMB's lean — a drag whose
+`fromMilli` is the phone's lean in thousandths of a degree, sent as it
+changes, and `on: false` when the phone stops reporting; a loose is THE
+SLING's draw — `on: true` a finger down on the seat's panel, `on: false` at
+the lift carrying the swipe on `fromMilli` by its sign alone
+(`packages/sim/src/davit-hand.ts`). Nothing in `apps/game` sends one yet,
+so the boom is unanswerable on a phone until this lands; a test that a lean
+sends its reading and a lift sends one command with the swipe's sign.
+
+**Its own blow rides this lane too**: a shot run out already calls
+`bossStrikesHull` (`packages/sim/src/davit-step.ts`) and draws the default
+lash. Give THE DAVIT a `FROM` row and a `LOOK` row in
+`packages/render/src/boss-strike-look.ts` off the boom its drawer places,
+reaching the hull at `reach = 1`, proved in `render/test/boss-strike.test.ts`.
+
 ## Unverified at 7a259b7f7: THE VISE wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-the-simulation-lane
@@ -2542,3 +2560,16 @@ the drum's light fade rather than cutting straight to dark. `RUB` and
 `SENDING NOTHING` both gained `§25 THE VALVE` in their `where` arrays.
 `bun run check` proves the sim half; the eight poses are a look task,
 queued separately once this lane lands.
+
+## A cloud claim does not stop the owner's own session landing the same boss
+
+- **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
+- **Files:** `tools/queue/run.ts`, `docs/cloud-session.md`
+
+A cloud session claimed "§34 THE CYST — the simulation lane" and had it
+half built when a local session landed THE CYST from `main`; the cloud
+lane was abandoned whole. The claim is a commit on `origin/main`, and a
+session working from a tree not yet fetched never sees it. Have `bun run
+queue next` and `take` fetch `origin/main` first and refuse an item taken
+there, and have `bun run land` warn when the lane's queue item was marked
+done by a commit it does not carry. `bun run check` proves the refusal.

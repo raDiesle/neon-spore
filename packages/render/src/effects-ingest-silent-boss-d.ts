@@ -58,4 +58,18 @@ export const INGEST_SILENT_BOSS_D = [
   "cystMiss",
   "cystSplit",
   "cystOut",
+  // THE DAVIT's thirteen, the same (`packages/audio/src/bind-davit.ts`).
+  "davitEnter",
+  "davitLight",
+  "davitDrift",
+  "davitSlack",
+  "davitLoose",
+  "davitSway",
+  "davitPivot",
+  "davitHit",
+  "davitReland",
+  "davitDim",
+  "davitMiss",
+  "davitSpent",
+  "davitOut",
 ] as const satisfies readonly SimEvent["type"][];

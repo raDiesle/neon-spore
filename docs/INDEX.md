@@ -145,6 +145,11 @@ by hand never moves.
 | `packages/sim/src/creature-rules.ts` | the state machines the bestiary asks for that are small enough to be one function each |
 | `packages/sim/src/dart.ts` | THE DART: the first body that does not hold its lane |
 | `packages/sim/src/dark.ts` | THE DARK: |
+| `packages/sim/src/davit-hand.ts` | A lean and a draw for each seat on THE DAVIT, heard as THE PLUMB and THE SLING hear theirs |
+| `packages/sim/src/davit-hash.ts` | What THE DAVIT puts into `hashWorld`, and nothing else |
+| `packages/sim/src/davit-shot.ts` | **THE DAVIT's shot**: the lit pivot, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/davit-step.ts` | THE DAVIT's clock: the boom settling, each step lighting, the beats a steered draw is held being counted |
+| `packages/sim/src/davit.ts` | THE DAVIT: a crane boom pivoted off the hull's spine |
 | `packages/sim/src/events.ts` | everything the simulation reports about a tick, and the whole of what it says to anybody |
 | `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
 | `packages/sim/src/gauge-band.ts` | **The band between the two marks**: where it lands, where it walks, and how wide it is at this moment |
@@ -243,6 +248,7 @@ by hand never moves.
 | `packages/sim/src/filament-turn.ts` | Whose move THE FILAMENT waits on, and the beat a line standing still strikes the hull |
 | `packages/sim/src/filament.ts` | THE FILAMENT: a body over the field made of loose filaments, the way a nerve is a bundle |
 | `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
+| `packages/sim/src/config-davit.ts` | THE DAVIT's tuning: the rests around its steps, the grace a swing is given |
 | `packages/sim/src/bullet-hit-boss.ts` | a shot met the queen or the warden and you want to know which half of the pair a rejection is charged to |
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
@@ -387,7 +393,7 @@ by hand never moves.
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
 | `packages/sim/src/boss-entries-clocks-b.ts` | **The tail of `boss-entries-clocks.ts`** |
-| `packages/sim/src/boss-entries-b.ts` | **The last three entries `boss-entries.ts` had room for**: THE MAZE, THE WELL and THE REPRISE |
+| `packages/sim/src/boss-entries-b.ts` | **The entries `boss-entries.ts` had no room for**: THE MAZE, THE WELL and THE REPRISE, and THE VANE after them |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/boss-others-b.ts` | **The tail of `boss-others.ts`**, cut off it on 22 September 2026 when THE GIMBAL's branch took that page… |
@@ -637,6 +643,7 @@ by hand never moves.
 | `packages/sim/src/events-rime.ts` | What THE RIME says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-oculus.ts` | What THE OCULUS says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-davit.ts` | What THE DAVIT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -743,6 +750,7 @@ by hand never moves.
 | `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
 | `packages/content/src/mechanics-worn.ts` | a slick or a bulb wearing something that has to come off first — one sentence said six ways |
 | `packages/content/src/mechanics-bosses.ts` | the four bosses, and the line the warden throws — a rule change each, not a body |
+| `packages/content/src/mechanics-bosses-b.ts` | The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason |
 | `packages/content/src/mechanics.ts` | every mechanic the game has, so that something can be said about all of them at once |
 | `packages/content/src/motions.ts` | the motions themselves: one record per body that has one, and the pairing of a kind to its own |
 | `packages/content/src/ship-silhouettes.ts` | the ship's own shapes: the hull it is drawn as, the two lobes that stand on it, and the maw one turns into |
@@ -846,6 +854,7 @@ by hand never moves.
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
 | `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
+| `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -2068,6 +2077,7 @@ by hand never moves.
 | `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-davit.ts` | THE DAVIT's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 
 ### packages/hands
 
@@ -2683,6 +2693,7 @@ by hand never moves.
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
 | `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
+| `tools/director/src/serialize-fault.ts` | **A `Malfunction` as its own source, arm by arm**, and every field of the arm is written |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
@@ -2871,6 +2882,7 @@ by hand never moves.
 | `tools/director/src/ship-notes-choreo.ts` | The paragraph under each **choreographed boss's** card |
 | `tools/director/src/ship-notes-choreo-b.ts` | The paragraph under each **choreographed boss's** card, the second page |
 | `tools/director/src/ship-notes-choreo-c.ts` | The paragraph under each **choreographed boss's** card, the third page |
+| `tools/director/src/ship-notes-choreo-d.ts` | The paragraph under each **choreographed boss's** card, the fourth page |
 | `tools/director/src/ship-boss-group.ts` | **The boss group each `BossEntry` kind shows.** It arrived in `ship-groups.ts` with THE CLAW |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |

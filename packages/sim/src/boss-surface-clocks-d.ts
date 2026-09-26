@@ -1,6 +1,7 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
- * and the thumb on its seam, THE GRINDSTONE's wheel and THE CYST's sac.
+ * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac and
+ * THE DAVIT's boom.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -33,6 +34,32 @@ export {
   cystSide,
   freshCyst,
 } from "./cyst.js";
+// THE DAVIT's boom: the phase, the lit step, the swings, the pivot, both
+// seats' leans and draws, and whose is live, for the picture, the cue and the
+// director's hand. Straight off `davit.ts` (`docs/spec/bosses-choreographed.md` §35).
+export {
+  DAVIT_ASKS,
+  DAVIT_LOOSES_PER_SWING,
+  DAVIT_PHASES,
+  DAVIT_UNREAD,
+  type DavitAsk,
+  type DavitEntry,
+  type DavitHalf,
+  type DavitPhase,
+  type DavitState,
+  type DavitStep,
+  davitBoss,
+  davitDone,
+  davitDraws,
+  davitHalf,
+  davitLitStep,
+  davitOnTarget,
+  davitSteered,
+  davitSteering,
+  davitSteers,
+  davitSwipe,
+  freshDavit,
+} from "./davit.js";
 // THE GRINDSTONE's wheel: the phase, the lit step, the flats' grit, the
 // caliper and both seats' jaws, for the picture, the cue and the director's
 // hand. Straight off `grindstone.ts` (`docs/spec/bosses-choreographed.md` §33).
