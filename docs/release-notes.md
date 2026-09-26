@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 25eda4aa8 — THE MANTLE's pull watched through: the bow, the cord and the shed plates all read
+
+AUTO BOTH wins wave 102 in eleven seconds with no retries, and a strip at each step shows the shell bowing, the cord bending under it and the plates falling away. Landing it lost the race to main five times in a row, each after a full check; that is now a queue entry of its own.
+
 ## 2026-09-26 · ec8fa58d6 — THE CYST's core moves under its skin
 
 While the sac is whole, the core's shadow under the skin now rises and sinks a little within its column and squashes as it goes, on two slow clocks that never line up with the beat. Before this, nothing in the sac moved under the skin. Once bared, the core is the target and holds still, as before.

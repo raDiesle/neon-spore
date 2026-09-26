@@ -25106,3 +25106,5 @@ full check every time the trunk moves.
 
 Bottleneck: friction — a landing that has to beat seven other lanes to the
 trunk spends more time checking than the lane spent working.
+
+*Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
