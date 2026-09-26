@@ -35,7 +35,7 @@ export interface PressVerbs {
 export function pressVerbs(world: World, buffer: InputBuffer): PressVerbs {
   return {
     send: (player, command) => buffer.push(player, command),
-    wouldHear: (player, command) => wouldHear(world, player, command),
+    wouldHear: (player, command) => wouldHear(world, player, command, buffer.queued()),
   };
 }
 
@@ -55,11 +55,22 @@ export function pressVerbs(world: World, buffer: InputBuffer): PressVerbs {
  * press. A press whose only effect is on a field `hashWorld` leaves out
  * (`docs/decisions.md` #23) reads as unheard; none of the exceptions is
  * something a press is for.
+ *
+ * **`ahead` is what is already queued for the same tick**, and both copies
+ * step with it. A hold is two or three commands sent on one tick — a grab, a
+ * carry, a lift — and asked alone the lift found no hand on the handle and
+ * read unheard, though the round heard all three (`tools/frames/drive.ts`).
  */
-export function wouldHear(world: World, player: 1 | 2, command: Command): boolean {
+export function wouldHear(
+  world: World,
+  player: 1 | 2,
+  command: Command,
+  ahead: readonly { player: 1 | 2; command: Command }[] = [],
+): boolean {
   const quiet = structuredClone(world);
   const pressed = structuredClone(world);
-  step(quiet, []);
-  step(pressed, [{ tick: world.tick, player, command }]);
+  const earlier = ahead.map((a) => ({ tick: world.tick, ...a }));
+  step(quiet, earlier);
+  step(pressed, [...earlier, { tick: world.tick, player, command }]);
   return hashWorld(quiet) !== hashWorld(pressed);
 }

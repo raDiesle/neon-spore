@@ -21779,3 +21779,17 @@ Bottleneck: confirming the director's wave index is `WAVES`' own, which took
 three greps through its store.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `wouldHear` asks behind the tick's queued presses
+
+- reading: 5 min. The queue entry, `handle-press.ts`, `input-buffer.ts`, and
+  whether `drive.ts` can let a tick drain between a hold's sends (it cannot:
+  ticks move only through `ns.advance`).
+- writing: 5 min. `InputBuffer.queued()`, the `ahead` parameter, a THE
+  GIMBAL test where the lift is heard only behind its grab and carry.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: picking a boss whose lift is silent alone, and THE GIMBAL's ring
+with no hand on it was the shortest.

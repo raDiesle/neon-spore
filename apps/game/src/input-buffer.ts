@@ -40,6 +40,15 @@ export class InputBuffer {
     return out;
   }
 
+  /**
+   * What is waiting for the next tick, unstamped and left where it is — so a
+   * press can be asked about against the ones already sent ahead of it on the
+   * same tick (`handle-press.ts` `wouldHear`).
+   */
+  queued(): { player: 1 | 2; command: Command }[] {
+    return this.pending.map((p) => ({ player: p.player, command: p.command }));
+  }
+
   /** Paused: what was pressed is dropped, and was never answered. */
   clear(): void {
     this.pending.length = 0;

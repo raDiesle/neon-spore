@@ -431,23 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `wouldHear` asks each press of a one-tick gesture alone
-
-- **Found:** 2026-09-25, claude/task-queue-work-efc91a
-- **Taken:** 2026-09-26, claude/queue-bun-run-shot-has-no-way-to-name-a-wave-and-the-f (claim: claude/queue-wouldhear-asks-each-press-of-a-one-tick-gesture)
-- **Files:** `apps/game/src/handle-press.ts`, `tools/frames/drive.ts`, `tools/frames/report.ts`
-
-`bun run frames . --wave "THE INSTAR" --boss cursor=1,phase=act,phaseBeat=now
---hold "instarSwipe2=0,y=1600,id=1@20" --until instarAnswer` lands the swipe
-and still prints `unheard: 1 of 3 … 20:2:drag`: the lift, asked on a world
-where the grab and the carry sent a moment earlier have not been applied, arms
-nothing. `wouldHear` steps one command against the tick's world, and a hold is
-two or three commands sent on the same tick — THE THROAT's grab reads unheard
-the same way. Ask each press against a copy that already has the tick's
-earlier sends in it (the page knows them; `ns.send` queues them), so the
-report names only a press the round actually dropped. Provable with a test on
-`wouldHear` with a queued grab and carry before the lift.
-
 ## `land` cannot merge two time-log entries written at the top of the file
 
 - **Found:** 2026-09-25, claude/filament-picture-clarity

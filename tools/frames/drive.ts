@@ -184,6 +184,8 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
       // **Asked before it is sent**, of two copies of the world: a press the
       // round refuses changes nothing and photographs as no press at all, so
       // the run says so rather than leaving the picture to (`handle-press.ts`).
+      // It is asked behind whatever this tick has already queued, so a hold's
+      // lift is judged with its grab and carry applied, not alone.
       // Null on a build from before the question existed.
       const heard = ns.wouldHear ? ns.wouldHear(sent.player, command) : null;
       ns.send(sent.player, command);
