@@ -758,20 +758,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## AUTO's field hand half plays 22 ordinary waves
-
-- **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-autos-field-hand-half-plays-22-ordinary-waves)
-- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
-
-`fieldHand` plays the cannon and the shield and nothing else, so the waves
-whose creature has a verb of its own — SALVAGE, CATCH AND AIM, THE LURE, THE
-CLASP, THE CRAWLER, THE JAM and sixteen more, the `HALF_PLAYED` set in the
-test — end scarred or never clear. Give each such creature its answer in the
-hand (a file per few creatures, as the boss hands are split), taking its name
-out of `HALF_PLAYED` as it goes; the test already fails for any wave the hand
-stops clearing clean.
-
 ## Unverified at 8e6e6e71: RESEARCH tab on the director's NOT BUILT YET sheet, see…
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
@@ -1019,3 +1005,32 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## AUTO's field hand half plays 17 ordinary waves
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
+
+`fieldHand` plays the cannon, the shield and the pods
+(`autopilot-pod-hand.ts`), so the waves whose creature has a verb of its own —
+THE LURE, THE SHELL, THE CLASP, THE WISP, THE LID, THE CRYSTAL, THE STRAND,
+THE CRAWLER, THE MAGNET, THE JAM, THE LIMPET, THE LEECH, THE CHOIR, THE
+BEATBOX, THE WEIGHT, THE MINE, THE MOULT; the `HALF_PLAYED` set in the test —
+end scarred or never clear (THE WISP never clears; the rest clear with two to
+twelve scars). Give each such creature its answer in the hand, a file per few
+creatures as the pods have theirs, taking its name out of `HALF_PLAYED` as it
+goes; the test already fails for any wave the hand stops clearing clean.
+
+## THE WARD brings two rocks onto the hull on one tick, in two columns
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `packages/content/src/waves/act-3b.ts`, `tools/director/test/autopilot-field.test.ts`
+
+THE WARD's `meteorFaster` (beat 6) and `meteorFastest` (beat 7) reach the hull
+on the same tick, tick 900 on `DEFAULT_CONFIG`, in columns 2 and 10. The shield
+stands in one column, and the ward pod only frees player 1 from the timing
+(`guardArmed`), so one of the two always breaches: AUTO on BOTH, which turns
+every other rock of the wave, takes one scar on the poses' config and loses the
+wave on the game's own. Move one entry by a beat, or its column next to the
+other's, so the two arrive a beat apart. Then take THE WARD out of
+`HALF_PLAYED`: the test then asks that the wave clears unscarred.

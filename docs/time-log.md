@@ -22344,3 +22344,13 @@ timing it.
 Bottleneck: reading — the lane rule for wide bodies, bodies mid-move and the queen is what showed that a column bucket would cost the same pass it saves.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — AUTO catches the pods on an ordinary wave
+
+- reading: 10 min. `pods.ts`, the maw's window, the shot that frees a pod, THE WARD's entries.
+- writing: 10 min. `autopilot-pod-hand.ts`, the cannon half asking it first, the test's set.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. A probe of all twenty-two waves first, to cut the lane at the one verb five of them share.
+- landing: 5 min. `check:fast`, the index line, two queue entries, `land`.
+
+Bottleneck: reading — the pod's rules are spread over four files, and THE WARD's lone scar took a trace to show it was the wave, not the hand.

@@ -1963,6 +1963,7 @@ by hand never moves.
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
 | `packages/hands/src/autopilot-field-hand.ts` | **The pair's hands on an ordinary wave**: the cannon and the shield together |
+| `packages/hands/src/autopilot-pod-hand.ts` | AUTO's pods: shot loose, followed down and swallowed, a husk let past with the maw shut |
 | `packages/hands/src/hand.ts` | **A hand on the controls, reading the field as it goes**: what the pair presses this tick |
 
 ### apps/game

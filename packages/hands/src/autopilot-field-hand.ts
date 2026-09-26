@@ -5,12 +5,14 @@ import {
   guardArmed,
   guardWindowTicks,
   isWardable,
+  MILLI,
   occupiesCol,
   shieldRow,
   type TimedCommand,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { catchPod, hanging } from "./autopilot-pod-hand.js";
 import type { Hand } from "./hand.js";
 
 /**
@@ -25,9 +27,10 @@ import type { Hand } from "./hand.js";
  * onto the dome's row. Each seat's commands are its own
  * (`content/controls.ts`), so P1 and P2 on AUTO split along the same line.
  *
- * A hand for the plain field and nothing more: a creature with a verb of its
- * own — a hold, a reach, a drag — is not answered here, and the wave it is on
- * is one AUTO only half plays.
+ * A hand for the plain field, and its pods — shot loose, followed down and
+ * swallowed, a husk let past (`autopilot-pod-hand.ts`). A creature with a verb
+ * of its own — a hold, a reach, a drag — is not answered here, and the wave it
+ * is on is one AUTO only half plays.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -49,12 +52,20 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
   return best;
 }
 
-/** The cannon's half: under the lowest coloured body, and its colour when free. */
+/**
+ * The cannon's half: a falling pod first, then under the lowest coloured body
+ * and its colour when free, then a hanging pod shot loose
+ * (`autopilot-pod-hand.ts`). Any colour frees a pod.
+ */
 function cannon(w: World): Press[] {
+  const chase = catchPod(w);
+  if (chase !== null) return chase;
   const body = lowest(w, (c) => c.color !== null && !isWardable(c.kind));
-  if (body === undefined || body.color === null) return [];
-  if (w.cannonCol !== body.col) return [aim(body.col)];
-  return free(w) ? [fire(body.color)] : [];
+  const pod = body ? undefined : hanging(w);
+  const col = body ? body.col : pod ? Math.round(pod.colMilli / MILLI) : null;
+  if (col === null) return [];
+  if (w.cannonCol !== col) return [aim(col)];
+  return free(w) ? [fire(body?.color ?? "red")] : [];
 }
 
 /**
