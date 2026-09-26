@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 7b4422c74 — THE INSTAR's shove is seen and heard
+
+On the second and third bites of the breath the jaw pushes back against every thumb on it once a beat, and until now the only sign was the jaw drawn a little more open. Each shove is now `instarShove`, with the push: the lip it shoved jumps outward and quivers as it settles (`instar-shove.ts`), and `boss.instarShove` sounds a low grinding heave — both twice as hard at the third bite's push as at the second's. A look the owner asked for by name: *player really feels when pulling it is required to be stronger*.
+
 ## 2026-09-26 · bab0462a9 — boss-hurt.test.ts is split already; its queue entry closes
 
 THE VANE's knock moved the blow table's rows into `boss-hurt-rows.ts` and `boss-hurt-rows-b.ts`, with the two world builders, and left the test at 94 lines — the split this entry asked for. Nothing else to do.

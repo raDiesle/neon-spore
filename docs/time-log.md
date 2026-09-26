@@ -21933,3 +21933,5 @@ close this entry because it did not claim it.
 
 Bottleneck: reading — the event touches the simulation, the ear and the
 picture, and each had its own place to register it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
