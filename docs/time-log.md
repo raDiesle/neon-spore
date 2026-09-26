@@ -24588,3 +24588,5 @@ Bottleneck: writing — a half left alone had to regrow in the whiteout without 
 Bottleneck: friction — a new boss's render files carry two more registrations
 than the code itself does, an index row and a palette filing, and both only
 surface as a red check well after the drawing is finished.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 3847118c1 — THE DAVIT gets a look: a boom on a mast, steered and loosed
+
+A steel boom stands off a mast over the middle column, settling out of stowed and swinging toward whichever half the live lean points into. A halo rings it while a swing or a reland wants steering; a fire step drops the halo and lights the hook instead, in that step's own colour, with a ring that closes as the window runs out. A window run out breaks the hull with the boom's own blow, the hook paying its chain out and hauled back taut.
+
 ## 2026-09-26 · 8ed29868d — A thin tube of a rig is sliced more coarsely along its length
 
 `drawTube` sliced every tube every six screen pixels. It now slices the length that finely only where the tube is drawn at least 16 px wide, and in proportion more coarsely below that. A slice's light is off by about its radius times how far the section turns across it, so a fin or a tail tip can take a longer slice for the same error in pixels. The width is still sliced every six. On the demo rig a frame is 116 fills from the side, where it was 130, and 85 from the front, where it was 96.
