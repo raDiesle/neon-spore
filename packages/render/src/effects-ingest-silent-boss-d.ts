@@ -62,7 +62,7 @@ export const INGEST_SILENT_BOSS_D = [
   "slingMiss",
   "slingFree",
   "slingOut",
-  // THE GRINDSTONE's thirteen, the same (`packages/audio/src/bind-grindstone.ts`).
+  // THE GRINDSTONE's thirteen: what outlives a frame is `grindstone-fx.ts`', read above the loop.
   "grindstoneEnter",
   "grindstoneLight",
   "grindstoneShave",

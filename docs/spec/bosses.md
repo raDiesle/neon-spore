@@ -9406,9 +9406,10 @@ and only in its colour unless it is `either`.
 **The simulation lane has landed.** **The touch sender has too**
 (`render/src/grindstone-grip.ts`, `render/src/rub.ts`, `apps/game/src/rub.ts`):
 a thumb on a seat's own flat is a rub whose turns its host counts, and a
-finger on its jaw one pad of THE TRIVET's chord. Its events have no effects yet: the render package's silent-event lists
-and `tools/director/src/sound-link-none-d.ts` carry all thirteen until the
-effects lane. The thirteen sounds *are* bound
+finger on its jaw one pad of THE TRIVET's chord. Its thirteen events stay on the render package's silent-event lists, as
+every boss with its own fx file's do — they are thrown above the loop
+(`grindstone-fx.ts`) — and on `tools/director/src/sound-link-none-d.ts`, a
+fixture and no body on a grid. The thirteen sounds *are* bound
 (`audio/src/bind-grindstone.ts`), heard where they happen, the shave
 pitched up as the flat comes clean, the clear per pass and the hit per
 hit. The autopilot hand plays it to the end
@@ -9438,8 +9439,13 @@ ground go away. **The cue words** (`render/src/boss-cue-read-zj.ts`): `RUB` on
 the lit flat to its seat for the whole pass, `HOLD` on each jaw a clamp asks
 for until both its pads are down, and `FIRE` at the hull under the middle
 column once the caliper is locked on a fire step — never a count or the
-axle's colour. Not yet built: the effects (a shave's grit, a clear's flash,
-the bite, a hit's flash, the hull's blow as the boss's own), queued.
+axle's colour. **The effects** (`render/src/grindstone-fx.ts`): grit off a
+flat at every reversal; a flash along a flat's face as a pass comes clean;
+the caliper flaring along both jaws and pressing the wheel down, with a
+shudder down the plating, as it bites or a clamp is held home; an axle hit
+flashing wider for every hit; and the snap free flashing pale with a harder
+shudder. A clean pass and a hit deal the wheel the blow every boss takes; a
+fire step run out is the boss's own blow at the hull (`boss-strike-fx.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/grindstone.test.ts`): the wheel comes in gritted with the

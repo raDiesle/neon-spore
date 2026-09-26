@@ -202,6 +202,21 @@ export const HURT_ROWS_B: Row[] = [
     ],
     hurt: (fx) => fx.boss.trivet.hurt,
   },
+  {
+    boss: "grindstone",
+    // A pass ground clean, and the axle hit; a shave, a bite or a clamp only works toward one.
+    land: [
+      { type: "grindstoneClear", side: 0, passes: 1, col: 3 },
+      { type: "grindstoneHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "grindstoneLight", ask: "left", col: 3 },
+      { type: "grindstoneShave", side: 0, gritMilli: 500, col: 3 },
+      { type: "grindstoneBite", col: 3 },
+      { type: "grindstoneSlip", side: 1, col: 3 },
+    ],
+    hurt: (fx) => fx.boss.grindstone.hurt,
+  },
 ];
 
 /** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */

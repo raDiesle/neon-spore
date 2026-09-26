@@ -25169,3 +25169,16 @@ The bottleneck: none — every answer is a standard shot or shield, and
 THE OCULUS's hand already carried both.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE GRINDSTONE's effects
+
+- **reading** — 5 min. THE TRIVET's and THE CYST's fx files, their tests and
+  their registrations.
+- **writing** — 15 min. The fx file, the flash in the marks, the draw reading
+  it, five registrations, the blow's row, the test, `HullShock`, the spec.
+- **looking** — 0 min. The frame test sees each event change every screen.
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: writing — the fx file came out near its limit on a clock nine
+other files already copy, so that clock became `HullShock` first.

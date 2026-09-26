@@ -6,10 +6,14 @@ import {
   grindstoneLitStep,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
+import { strokeGlow } from "./glow.js";
+import type { GrindstoneFx } from "./grindstone-fx.js";
 import {
   drawGrindstoneAxle,
   drawGrindstoneFaceGlow,
+  drawGrindstoneFlash,
   drawGrindstonePads,
 } from "./grindstone-marks.js";
 import {
@@ -36,6 +40,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { seamColour } from "./seam-marks.js";
 
 /** How far the jaws are flung spinning free, in tiles, and how thin the wheel turns edge-on. */
 const FLING = 2.2;
@@ -52,8 +57,12 @@ const EDGE_ON = 0.22;
  *
  * **Its health is read off the stone** — no bar: each flat cut deeper for
  * every pass, a patch of it ground clean as the grit comes off, the caliper
- * shut round it, and the axle smaller and brighter for every shot. Nothing of
- * it outlives a frame yet: its effects are a lane of their own.
+ * shut round it, and the axle smaller and brighter for every shot.
+ *
+ * What outlives a frame — a flat's flash as it comes clean, the caliper's
+ * flare and thud, an axle hit's flash, the snap free's, the blow — is `fx`
+ * (`grindstone-fx.ts`), told the axle's colour here because the event that
+ * hits it does not carry one.
  */
 export function drawGrindstone(
   ctx: CanvasRenderingContext2D,
@@ -63,6 +72,7 @@ export function drawGrindstone(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: GrindstoneFx,
 ): void {
   const cfg = world.cfg;
   const arrived = grindstoneArrived(s, cfg, beat, beatPhase);
@@ -74,7 +84,8 @@ export function drawGrindstone(
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(axle.x, axle.y);
+  ctx.translate(axle.x + fx.hurt.shakeX(time, l.tile), axle.y + fx.thud * l.tile);
+  if (step?.ask === "fire") fx.tell(seamColour(step.color).rim);
 
   // The caliper first, behind the wheel it closes on; spinning free it is flung off both ways.
   const pads = step?.ask === "clamp";
@@ -83,7 +94,7 @@ export function drawGrindstone(
     const out = side === 0 ? -1 : 1;
     ctx.translate(out * FLING * free * l.tile, -FLING * 0.5 * free * l.tile);
     ctx.globalAlpha = alpha * (1 - free);
-    drawJaw(ctx, l, side, shut, pads, s.padsDown[side], beatPhase, free);
+    drawJaw(ctx, l, side, shut, pads, s.padsDown[side], beatPhase, free, fx.flare);
     ctx.restore();
   }
 
@@ -94,12 +105,15 @@ export function drawGrindstone(
     grindstoneCut(l, grindstoneDepth(s, 1)),
   ];
   const wheel = grindstoneWheelPath(l, grindstoneSpin(arrived, free), cuts);
-  drawWheel(ctx, l, wheel, time);
+  drawWheel(ctx, l, wheel, time, fx.hurt.value);
   const lit = grinding(s);
   for (const side of [0, 1] as const) {
     drawFlat(ctx, l, wheel, side, cuts[side], grindstoneClear(s, side));
-    if (lit === side)
-      drawGrindstoneFaceGlow(ctx, grindstoneFacePath(l, side, cuts[side]), beatPhase);
+    const face = grindstoneFacePath(l, side, cuts[side]);
+    if (lit === side) drawGrindstoneFaceGlow(ctx, face, beatPhase);
+    // A pass just ground clean flashes along its face in the bare stone's tan.
+    if (fx.clean(side) > 0)
+      strokeGlow(ctx, face, PALETTE.grindstoneFlat, STROKE.outline, fx.clean(side));
     ctx.globalAlpha = alpha;
   }
 
@@ -110,11 +124,18 @@ export function drawGrindstone(
   // A core's hurt, called: the axle is smaller and brighter per shot the same way a kernel is.
   const hurt = coreHurt(s.hits);
   drawGrindstoneAxle(ctx, l, hurt.size, hurt.bright, s.locked, shot, beatPhase);
+  drawGrindstoneFlash(ctx, l, fx.flash, fx.free);
   ctx.restore();
 }
 
-/** THE SMART's stone, the key light on it, and grit speckled over it. */
-function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, wheel: Path2D, time: number): void {
+/** THE SMART's stone, the key light on it, and the blow over it. */
+function drawWheel(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  wheel: Path2D,
+  time: number,
+  hurt: number,
+): void {
   const r = grindstoneR(l);
   ctx.fillStyle = PALETTE.grindstoneStone;
   ctx.fill(wheel);
@@ -122,6 +143,7 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, wheel: Path2D, time
   ctx.clip(wheel);
   litRound(ctx, 0, -r * 0.15, r * 1.1, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.5));
   ctx.restore();
+  drawHurt(ctx, wheel, hurt);
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.grindstoneStoneDark, 0.9);
   ctx.stroke(wheel);
@@ -161,7 +183,7 @@ function drawFlat(
   ctx.restore();
 }
 
-/** Jaw `side` of THE HOOD, swung out about the crown bolt as far as it is slack, its pads by its tip. */
+/** Jaw `side` of THE HOOD, swung out about the crown bolt as far as it is slack, its pads by its tip, flaring as it bites. */
 function drawJaw(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -171,6 +193,7 @@ function drawJaw(
   down: number,
   beatPhase: number,
   free: number,
+  flare: number,
 ): void {
   const bolt = grindstoneBolt(l, shut);
   ctx.translate(bolt.x, bolt.y);
@@ -182,6 +205,7 @@ function drawJaw(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.75);
   ctx.stroke(jaw);
+  if (flare > 0) strokeGlow(ctx, jaw, PALETTE.hullRim, STROKE.inner, flare);
   const alpha = ctx.globalAlpha;
   drawGrindstonePads(ctx, l, side, GRINDSTONE_PADS, lit, down, shut, beatPhase);
   ctx.globalAlpha = alpha;

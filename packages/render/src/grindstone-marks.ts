@@ -95,3 +95,31 @@ export function drawGrindstoneAxle(
   ring.arc(0, 0, r * 1.5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
   strokeGlow(ctx, ring, body, STROKE.outline, 1);
 }
+
+/**
+ * Over the axle, after its face: an axle hit's flash, wider for every hit,
+ * and the pale flash of the wheel snapping free — THE TRIVET's hub flash
+ * (`trivet-marks.ts`) at the axle's own size.
+ */
+export function drawGrindstoneFlash(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  flash: { now: number; hits: number },
+  free: number,
+): void {
+  if (flash.now > 0 && flash.hits > 0) {
+    const hits = Math.min(3, flash.hits);
+    const r = grindstoneAxleR(l) * (0.6 + 0.5 * hits) * (1.4 - 0.4 * flash.now);
+    const p = new Path2D();
+    p.arc(0, 0, Math.max(0.5, r), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
+    ctx.fill(p);
+    strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  }
+  if (free > 0) {
+    const p = new Path2D();
+    p.arc(0, 0, grindstoneAxleR(l) * (2.6 - 0.6 * free), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.grindstoneFlat, 0.45 * free);
+    ctx.fill(p);
+  }
+}

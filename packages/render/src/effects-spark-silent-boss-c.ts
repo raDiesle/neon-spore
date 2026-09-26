@@ -209,7 +209,8 @@ export const SILENT_BOSS_C = [
   "slingMiss",
   "slingFree",
   "slingOut",
-  // THE GRINDSTONE's thirteen, the same (`packages/audio/src/bind-grindstone.ts`).
+  // THE GRINDSTONE's thirteen, no burst from this table: each is thrown above
+  // the loop by its own fx file (`grindstone-fx.ts`).
   "grindstoneEnter",
   "grindstoneLight",
   "grindstoneShave",

@@ -1804,6 +1804,7 @@ by hand never moves.
 | `packages/render/src/grindstone-pose.ts` | **The clock THE GRINDSTONE is posed off**: the drop, the depth and grit of each flat, the caliper's swing and creep, the fall |
 | `packages/render/src/grindstone-shape.ts` | **THE GRINDSTONE's geometry**: where the wheel is, and the paths of the wheel, its flats, the patch and the caliper's jaws |
 | `packages/render/src/grindstone-grip.ts` | **The flats and the jaws on THE GRINDSTONE** |
+| `packages/render/src/grindstone-fx.ts` | What THE GRINDSTONE leaves behind a frame (§33, *Presentation*) |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |

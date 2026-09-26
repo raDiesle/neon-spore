@@ -99,6 +99,8 @@ export function drawLatePairBoss(
     return;
   }
 
-  // THE GRINDSTONE: two flats ground, a caliper bitten, the axle shot.
-  drawGrindstone(ctx, l, world, boss, beat, beatPhase, time);
+  // THE GRINDSTONE: two flats ground, a caliper bitten, the axle shot
+  // (`grindstone-draw.ts`); a flat's clean flash, the caliper's flare, the
+  // axle's flash and the snap free are `grindstone-fx.ts`.
+  drawGrindstone(ctx, l, world, boss, beat, beatPhase, time, effects.boss.grindstone);
 }

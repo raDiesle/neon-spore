@@ -111,3 +111,43 @@ export function drawHullShock(
   }
   ctx.restore();
 }
+
+/**
+ * **A shock's clock**: struck at a strength for a life in seconds, fading
+ * linearly to nothing, drawn along the hull. The one clock an fx file that
+ * shudders the plating keeps, instead of the three fields and four
+ * arithmetic lines each of them used to carry. Cleared with its owner.
+ */
+export class HullShock {
+  private left = 0;
+  private life = 1;
+  private force = 0;
+
+  /** Struck now: `force` at its strongest, gone after `life` seconds. */
+  strike(life: number, force: number): void {
+    this.life = Math.max(1e-6, life);
+    this.left = this.life;
+    this.force = force;
+  }
+
+  /** How strong it is right now, 0 when the ship is quiet. */
+  get now(): number {
+    return this.left > 0 ? this.force * (this.left / this.life) : 0;
+  }
+
+  update(dt: number): void {
+    this.left = Math.max(0, this.left - dt);
+    if (this.left === 0) this.force = 0;
+  }
+
+  draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
+    const force = this.now;
+    if (force > 0) drawHullShock(ctx, l, surfaceY, time, force);
+  }
+
+  clear(): void {
+    this.left = 0;
+    this.life = 1;
+    this.force = 0;
+  }
+}

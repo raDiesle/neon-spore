@@ -8,6 +8,7 @@ import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
+import { GrindstoneFx } from "./grindstone-fx.js";
 import { HaspFx } from "./hasp-fx.js";
 import { HiveFx } from "./hive-fx.js";
 import { InstarFx } from "./instar-fx.js";
@@ -186,6 +187,11 @@ export class BossRoster {
    * and its receipts' bursts — thrown the same on both screens, and told the
    * core's colour by the drawer (`cyst-fx.ts`, `cyst-draw.ts`). */
   readonly cyst = new CystFx();
+  /** THE GRINDSTONE's grit, a flat's clean flash, the caliper's flare and
+   * thud, the axle's flash and the snap free's, the hull shock, and its
+   * receipts' bursts — thrown the same on both screens, and told the axle's
+   * colour by the drawer (`grindstone-fx.ts`, `grindstone-draw.ts`). */
+  readonly grindstone = new GrindstoneFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

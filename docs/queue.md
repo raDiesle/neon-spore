@@ -684,21 +684,6 @@ stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
 
-## §33 THE GRINDSTONE — effects and cue words
-
-- **Found:** 2026-09-26, tmp-grindstone-look
-- **Taken:** 2026-09-26, claude/queue-33-grindstone-fx (claim: claude/queue-33-the-grindstone-effects-and-cue-words)
-- **Needs:** §33 THE GRINDSTONE — the look (the body), landed 26 September 2026
-- **Files:** `packages/render/src/grindstone-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/boss-cue-draw.ts`
-
-The body draws nothing that outlives a frame. Its events are still on the
-silent lists: grit shaved off a flat as a reversal lands, a flash as a flat
-comes clean, the caliper biting, the hit flash on the axle, the strike
-look, the fall. Add them through `Effects` (cleared in `Effects.reset()`),
-take the events off the silent lists, and draw each again in `frame.test.ts`.
-The cue words (RUB, HOLD, FIRE) landed on their own, 26 September 2026
-(`boss-cue-read-zj.ts`); only the effects are left.
-
 ## §35 THE DAVIT — the look
 
 - **Found:** 2026-09-26, this session
@@ -2926,9 +2911,8 @@ From the secondary-motion audit. Outside the beat pulses in
 (`grindstone-draw.ts` line 124). Do not turn the wheel — how far it is
 ground is read off its cut faces. Touch: the caliper's two jaws, one to a
 seat, tremble a hair at their tips on periods a fifth of a cycle apart while
-open, and go dead still when they bear on the stone. Work it after
-"§33 THE GRINDSTONE — effects and cue words", which is in the same files. A
-look: offered through VERSUS.
+open, and go dead still when they bear on the stone. The effects landed first, 26 September 2026 (`grindstone-fx.ts`), and the
+jaws already flare along their outline as they bite. A look: offered through VERSUS.
 
 ## THE RATCHET's spent plates have no secondary motion of their own
 
@@ -3115,3 +3099,19 @@ repository, which has grown. Read each file once and share it across the
 four cases, or narrow the glob, as "The rock ratchet reads only the files
 that name the rock" did for its test; then time it alone and set the figures
 from that.
+
+## Nine fx files still keep the hull shock's clock by hand
+
+- **Found:** 2026-09-26, claude/queue-33-the-grindstone-effects-and-cue-words
+- **Files:** `packages/render/src/hull-shock.ts`, `packages/render/src/hasp-fx.ts`, `packages/render/src/keel-fx.ts`, `packages/render/src/ledger-fx.ts`, `packages/render/src/mantle-fx.ts`, `packages/render/src/oculus-fx.ts`, `packages/render/src/ratchet-fx.ts`, `packages/render/src/sinew-fx.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/src/vise-fx.ts`
+
+Each of these carries `shockLeft`, `shockLife` and `shockForce`, a private
+`shock(life, force)`, the same two lines in `update`, three in `clear` and a
+`drawShock` that calls `drawHullShock` — the same clock re-derived nine times.
+`HullShock` in `hull-shock.ts` is that clock, and `grindstone-fx.ts` is the
+first to hold one (`readonly shock = new HullShock()`, drawn from
+`frame-on-ship.ts` as `shock.draw`). Move the nine onto it, one per file,
+keeping each file's own strengths and lives; `frame-on-ship.ts`' calls change
+with them, and the fx tests that read a shock read `shock.now`. Then add a row
+to `packages/sim/test/purity.test.ts`' called-not-re-derived table for
+`shockLeft`, so a tenth copy is caught.
