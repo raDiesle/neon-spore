@@ -77,7 +77,8 @@ export function drawInstar(
     ctx.scale(flight.scale, flight.scale);
     ctx.translate(-c.x, -c.y);
   }
-  const look: Look = { f, head, r, time, fade, hurt: fx.hurt.value, threat, fire };
+  const hurt = fx.hurt.value;
+  const look: Look = { f, head, r, time, fade, hurt, threat, fire, harden: fx.strike.harden };
   if (f.side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - f.side) });
   if (f.side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * f.side });
   ctx.restore();

@@ -32,6 +32,8 @@ export interface Look {
   threat: number;
   /** How big the fire in the mouth is, 0..1, before the jaws choke it. */
   fire: number;
+  /** How far the new body in the moult's split has hardened, 0..1 (`InstarStrike.harden`). */
+  harden: number;
 }
 
 /** A colour at the fade: the hex itself while the body is whole, so the frame

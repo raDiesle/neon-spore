@@ -21499,3 +21499,18 @@ Bottleneck: none worth the name — the pose table and the strike's table are
 typed by the lists, so the compiler named every place the new names had to go.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's moult drawn: the split hide, the pale body, the hardening
+
+- reading: 0 min. The side-on drawer, the figure and its deforming, the strike's table.
+- writing: 5 min. Three figure fields driven by the hide marks, the split and
+  its torn lip on the back line, the strike's hardening held on the body until
+  the next morph, a test.
+- looking: 5 min. Frames of the split untouched, peeled by real swipes, and
+  set after the strike; the first crust was a pair of lids off the split and
+  went onto the body instead.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the frame tool's holds went in as one argument under zsh until
+they were split, and read as no swipes at all.

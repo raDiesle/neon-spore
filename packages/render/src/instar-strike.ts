@@ -16,7 +16,10 @@ import { PALETTE, STROKE } from "./palette.js";
  *   ship*: a swarm hatches off the nests, flies down to the hull and gnaws
  *   along it;
  * - the **tail** — *the tail will hit the players ship*: the blades come down
- *   on the hull, and a ring of shock runs out of where they struck.
+ *   on the hull, and a ring of shock runs out of where they struck;
+ * - the **hide** — the moult the pair did not stop: the pale body in the split
+ *   hardens dark and whole (`harden`, drawn on the body by `instar-moult.ts`),
+ *   and then the shock of it comes down on the hull the way the tail's does.
  *
  * The damage is the simulation's (`sim/instar-step.ts`, `strike`) and is the
  * same for all three; this is only what it looks like. It outlives the frame
@@ -27,6 +30,9 @@ import { PALETTE, STROKE } from "./palette.js";
 const FIRE_SECONDS = 1.6;
 const SWARM_SECONDS = 2;
 const SLAM_SECONDS = 0.8;
+/** The hardening, and the share of it the crust takes to close before the shock. */
+const HARDEN_SECONDS = 1.3;
+const CRUST = 0.45;
 /** How many hatch off the nests. */
 const SWARM = 26;
 /** When each of the swarm reaches the hull, in seconds after it hatched. */
@@ -47,12 +53,22 @@ const LIFE: Record<InstarPart, number> = {
   head: SLAM_SECONDS,
   eye: SLAM_SECONDS,
   fire: FIRE_SECONDS,
-  // The new body hardened in its split: until the moult has its own, the slam.
-  hide: SLAM_SECONDS,
+  hide: HARDEN_SECONDS,
 };
 
 export class InstarStrike {
   private now: Strike | null = null;
+  private set = 0;
+
+  /** How far the new body in the moult's split has hardened, 0..1. It stays
+   * set after the strike is spent, until the next morph (`soften`). */
+  get harden(): number {
+    return this.set;
+  }
+
+  soften(): void {
+    this.set = 0;
+  }
 
   /** The part that was not stopped, where it strikes from, and the column it hits. */
   hit(part: InstarPart, from: readonly Point[], x: number): void {
@@ -66,6 +82,8 @@ export class InstarStrike {
   update(dt: number): void {
     if (this.now === null) return;
     this.now.age += dt;
+    if (this.now.part === "hide")
+      this.set = smoothstep(Math.min(1, this.now.age / (HARDEN_SECONDS * CRUST)));
     if (this.now.age >= LIFE[this.now.part]) this.now = null;
   }
 
@@ -76,11 +94,15 @@ export class InstarStrike {
     if (s.part === "jaw" || s.part === "fire")
       drawFlood(ctx, l, s.from[0] ?? { x: l.width / 2, y: l.gridTop }, t);
     else if (s.part === "eggs") drawSwarm(ctx, l, s.from, s.age);
-    else drawSlam(ctx, l, s.from, s.x, t);
+    // The crust is the body's own (`instar-moult.ts`); the shock is the slam's.
+    else if (s.part === "hide") {
+      if (t > CRUST) drawSlam(ctx, l, s.from, s.x, (t - CRUST) / (1 - CRUST));
+    } else drawSlam(ctx, l, s.from, s.x, t);
   }
 
   clear(): void {
     this.now = null;
+    this.set = 0;
   }
 }
 

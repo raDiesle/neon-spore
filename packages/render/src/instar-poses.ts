@@ -44,6 +44,9 @@ const BREATH: Figure = {
   tailY: 560,
   reach: 0,
   flame: 1,
+  split: 0,
+  shedNear: 0,
+  shedFar: 0,
 };
 
 /** The body as it comes in, before the first morph: the same face, the mouth
@@ -120,8 +123,8 @@ export const POSES: Record<InstarPose, Figure> = {
     tailY: 330,
   },
   // Side-on and still, the wings folded, the back low and long through the
-  // two halves of the hide it is shedding, at 380/400 and 620/390. The split
-  // and the pale body in it are the moult's own picture, still to be drawn.
+  // two halves of the hide it is shedding, at 380/400 and 620/390, the hide
+  // split open along it on the pale body underneath (`instar-moult.ts`).
   moult: {
     ...BREATH,
     headX: 230,
@@ -138,6 +141,7 @@ export const POSES: Record<InstarPose, Figure> = {
     eggsY: 390,
     nestX: 380,
     nestY: 400,
+    split: 1,
   },
 };
 

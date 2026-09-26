@@ -1,6 +1,7 @@
 import { halo } from "./glow.js";
 import { drawNests } from "./instar-eggs.js";
 import { drawScales } from "./instar-hide.js";
+import { drawMoult } from "./instar-moult.js";
 import { drawLamp, drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-shape.js";
 import { drawSideHead } from "./instar-side-head.js";
@@ -20,7 +21,8 @@ import { splinePath } from "./spline.js";
  *
  * **The back runs through the nests.** The spine is a spline from the neck,
  * under each nest, to the rear, so wherever a pose puts its nests the eggs
- * sit on the body and not beside it (`instar-poses.ts`).
+ * sit on the body and not beside it (`instar-poses.ts`) — and the moult's
+ * split runs along it too (`instar-moult.ts`).
  */
 
 /** Samples along the spine. */
@@ -102,6 +104,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
       pulse,
     );
   }
+  drawMoult(ctx, top, bottom, look);
   drawTail(ctx, l, look, rear);
   drawWing(ctx, look, back(0.42), back(0.7), wingAt);
   drawNests(ctx, l, look);

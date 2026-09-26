@@ -25,14 +25,14 @@ import type { Layout } from "./layout.js";
  * per seat**: both screens see the same body, and the split of this boss is
  * in whose thumb each mark wants.
  *
- * **A pose is a figure, and a morph is a lerp.** Each of the five poses is
+ * **A pose is a figure, and a morph is a lerp.** Each of the six poses is
  * one `Figure` (`instar-poses.ts`); the body between two of them is the
  * straight blend, eased, over the part of the step's `morphBeats` the flight
  * takes (`instar-flight.ts`), so the body has its new pose by the time it
  * comes to rest and the marks glow up on it. While the marks are up the
  * figure is the pose's, **deformed by how far each mark has got** — each jaw
  * pushed shut as far as the thumb has pushed it, one egg fewer per tap and
- * per swipe, the fork pushed back with every tap. A morph starts from the
+ * per swipe, the fork pushed back with every tap, a strip of the hide per swipe. A morph starts from the
  * last pose *with its marks done*, so nothing opens again at the beat the
  * body begins to change.
  */
@@ -85,6 +85,11 @@ export interface Figure {
   /** How much of the fire in the mouth is still burning, 0..1: tapped out
    * by a mark on it, lit again when the next bite comes. */
   flame: number;
+  /** The moult: how wide the hide stands split along the back, 0..1, and how
+   * much of each half is swiped off it — the half by the head, the one by the rear. */
+  split: number;
+  shedNear: number;
+  shedFar: number;
 }
 
 /** The pose's figure after its marks are done: the parts the pair undid. */
@@ -118,6 +123,8 @@ export function deformed(
     else if (m.part === "eye") g.wince = p;
     // The fire in the mouth is tapped out by as much of its count as has landed.
     else if (m.part === "fire") g.flame = f.flame * (1 - p);
+    // A strip of the old hide off its half per counted swipe.
+    else if (m.part === "hide") g[m.xMilli < 500 ? "shedNear" : "shedFar"] = p;
   });
   return g;
 }
@@ -140,8 +147,10 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number): F
   const prev = s.steps[s.cursor - 1];
   const from = prev === undefined ? ENTER : landed(prev.pose, prev.marks);
   if (s.phase === "down" || step === null) {
-    // The last landing's figure sagging into the beaten one over the out beats.
-    return lerp(from, BEATEN, smoothstep(at / 2));
+    // The last landing's figure sagging into the beaten one over the out
+    // beats, in whatever of the new body it has shed into.
+    const { split, shedNear, shedFar } = from;
+    return lerp(from, { ...BEATEN, split, shedNear, shedFar }, smoothstep(at / 2));
   }
   if (s.phase === "morph") {
     const t = at / (step.morphBeats * INSTAR_FLIGHT_ENDS);

@@ -104,6 +104,7 @@ export class InstarFx {
         case "instarMorph":
           at(this.headOr(l), 8, PALETTE.hull);
           this.verdicts.clear();
+          this.strike.soften();
           break;
         case "instarShow":
           for (const p of this.marks) at(p, 5, PALETTE.red);

@@ -431,24 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE INSTAR, moult: the split hide and the pale body in it
-
-- **Found:** 2026-09-25, claude/instar-boss-enhancements-1ae51f
-- **Taken:** 2026-09-26, claude/queue-the-instar-a-last-step-the-moult (claim: claude/queue-the-instar-moult-the-split-hide-and-the-pale-bod)
-- **Files:** `packages/render/src/instar-poses.ts`, `packages/render/src/instar-draw.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/instar-strike.ts`, `packages/render/src/instar-shape.ts`
-
-The moult's simulation and script landed 26 September 2026
-(claude/queue-the-instar-a-last-step-the-moult): the last step is the
-`moult` pose, each seat swiping its half of the `hide` off, eight swipes
-each. What is left is the picture. Today the pose is only a side-on body
-with the back low (`POSES.moult`), and its strike borrows the tail's slam
-(`LIFE.hide`). Draw the hide split along the back with the next body pale in
-the split, peeling a strip off each half per counted swipe (a `Figure` field
-the `placedBy` branch for `hide` drives, the way the nests shrink), and a
-strike of its own: the pale body hardening dark and whole. It lands under a
-look the owner asked for by name (the item's own ask), with a frame in
-`packages/render/test/frame.test.ts`.
-
 ## `land` stops on a time-log conflict it says it merges
 
 - **Found:** 2026-09-25, claude/drop-wait-cues
