@@ -434,6 +434,7 @@ an alignment.
 ## Split boss-hurt.test.ts, past 250 lines
 
 - **Found:** 2026-09-25, claude/boss-blow-f
+- **Taken:** 2026-09-26, claude/queue-the-vanes-pin-knocked-out-has-no-event-and-no-so (claim: claude/queue-split-boss-hurt-test-ts-past-250-lines)
 - **Files:** `packages/render/test/boss-hurt.test.ts`
 
 It was 332 lines on `main` before this lane and is 362 now: the table grows
