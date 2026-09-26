@@ -84,9 +84,7 @@ export const WAVES_ACT_7A: Wave[] = [
     id: "theChoke",
     name: "THE CHOKE",
     guide: {
-      both: "Something at the top of the field has the steering. No shot reaches it. The cannon walks by itself, a column a beat, wall to wall. The trigger still works.",
-      p1: "1. You cannot steer.\n2. The light off the cannon shows where it goes next. Only you see it.\n3. Call the column it will be under on the next beat.\n4. Say when it turns at a wall.",
-      p2: "1. Your trigger works. The cannon walks by itself.\n2. Fire on the beat it is under a body.\n3. Wait for the call, not the sight of it.",
+      scene: "theChoke",
     },
     entries: [
       { beat: 0, col: 4, color: "red" },

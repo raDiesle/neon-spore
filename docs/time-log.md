@@ -21615,3 +21615,16 @@ Bottleneck: **looking** — each candidate took two or three shots before its
 light read as light slowing rather than as sticks or a smear.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE CHOKE's guide is a film
+
+- reading: 5 min. The wave's argument, THE JAM's film and the fault list, the
+  steered walk in `choke.ts`.
+- writing: 5 min. The film, its test, the guide swapped, the prose list and
+  §3.2 moved by one.
+- looking: 5 min. Two probes of the walk, then one capture of the pilot's page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the shot grid — on the game's half-beat grid the first press left
+a beat late from the next column, so the film is written against it.
