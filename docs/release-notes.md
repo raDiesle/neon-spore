@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b48c6880a — THE KEEL answers a thumb: a tap on the lit joint's ring
+
+A tap inside the white ring round THE KEEL's lit joint now reaches the simulation, from either seat, on the circle the drawing puts there. The seat the joint is not over is refused by the simulation silently, and the tap is kept off the cannon behind the ring, as THE MANTLE's core does. The segments are placed once (`keelSegs`) for the drawing and the grip, and the ring's circle is shared. The director's ON THE FIELD tab gains THE KEEL'S JOINT and its pose, and `keelJoint` moves from unbuilt to the field.
+
 ## 2026-09-26 · bdc1a253a — THE INSTAR's body face-on is a round tube going back into the dark
 
 The body behind the head, seen face-on during the breath, was five flat plates stacked smaller. It is now one tube of the rig whose spine runs into depth: lit across its width, rimmed, pinched in at every seam so it reads as plates going away, with the scales, seams and gold lamps on each band. It covers what the plates covered, and it swims — a slow wave through the middle, the neck and the engines held where they are.

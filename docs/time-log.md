@@ -22743,3 +22743,5 @@ in its light, so every detail of it is judged through the glare.
 
 Bottleneck: reading — the grip is short, but the seven places a boss's
 control is registered are found only from one another.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

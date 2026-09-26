@@ -1483,3 +1483,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at b48c6880a: THE KEEL's joint tapped by a real thumb on a phone
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`, `packages/render/src/keel-draw.ts`
+
+*THE KEEL answers a thumb: a tap on the lit joint's ring* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
+
+- THE KEEL's joint tapped by a real thumb on a phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
