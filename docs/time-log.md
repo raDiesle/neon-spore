@@ -22332,3 +22332,13 @@ Bottleneck: reading — deciding a cache was not worth its state took longer tha
 timing it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — the shot sweep measured and left as it is
+
+- reading: 5 min. The queue entry, `shot-reach.ts`, `bullets.ts`, `pods.ts`.
+- writing: 5 min. A probe bench, and the audit's table with the reason for no bucket.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the lane rule for wide bodies, bodies mid-move and the queen is what showed that a column bucket would cost the same pass it saves.

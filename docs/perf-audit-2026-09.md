@@ -58,6 +58,25 @@ watching if a future profile ever shows the sim step itself hot.
 `advanceBullets` also rebuilds a fresh `alive: Bullet[]` array every tick
 regardless of whether a bullet died.
 
+**Measured afterwards, and left as it is** (26 September 2026). A bun loop
+timed `firstAlong` and `firstPodAlong` once for every shot, which is the whole
+scan a tick makes. Figures per tick:
+
+| bodies | 10 shots | 30 shots |
+|---|---|---|
+| 20 | 3.6 µs | 9 µs |
+| 60 | 9 µs | 26 µs |
+| 150 | 26 µs | 60 µs |
+
+At 120 ticks a second, even the heavy 60-and-30 case is about 50 µs of a
+16.7 ms frame, which is 0.3%. A column bucket would not be free either. A body
+part-way through a move stands in the lane `creatureLane` gives it for that
+tick, a wide body stands in several lanes, and the queen stands in two lanes
+that are not a span. So the bucket would have to be rebuilt every tick, and
+that rebuild is the same pass over `world.creatures` that the scan already
+makes, with a second copy of the lane rule. The `alive` array is one small
+allocation a tick. The queue item was closed with no change to the sim.
+
 No creature-vs-creature nested scan exists in `step.ts`'s own call list;
 collision-shaped cost is concentrated in the shot/pod sweep above.
 
@@ -103,7 +122,7 @@ below.
 
 Real frame time and real GC pause length on a device — the thing `bun run
 perf` measures weekly against a baseline — needs a browser and a machine,
-neither of which this session has. Of the two `read` findings above,
-`byDepth` has since been timed headlessly and is negligible, and `gyres` is
-fixed. Whether THE GYRE's frame (the worst measured one above) shows anything
-else still needs `bun run perf --wave "THE GYRE"` on real hardware.
+neither of which this session has. Of the `read` findings above, `byDepth`
+and the shot sweep have since been timed headlessly and are negligible, and
+`gyres` is fixed. Whether THE GYRE's frame (the worst measured one above) shows
+anything else still needs `bun run perf --wave "THE GYRE"` on real hardware.

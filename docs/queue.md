@@ -827,27 +827,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The shot sweep rescans every creature and every pod, per bullet, per tick
-
-- **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-the-shot-sweep-rescans-every-creature-and-every)
-- **Files:** `packages/sim/src/bullets.ts`, `packages/sim/src/shot-reach.ts`, `packages/sim/src/pods.ts`
-
-`advanceBullets()` (`bullets.ts:110`) calls `sweep(world, b)` once per live
-bullet; `sweep` calls `firstAlong()` (`shot-reach.ts:36`), a full linear scan
-of `world.creatures` (`shot-reach.ts:45`), and `firstPodAlong()`
-(`pods.ts:134`), a full linear scan of `world.pods` — with no column-first
-culling, so the cost is O(bullets × creatures) + O(bullets × pods) every
-tick. The 11×15 field (`packages/sim/src/config.ts:224`) keeps this small in
-absolute terms today, but a bucket keyed by `col` (creatures and pods grouped
-once per tick, or kept incrementally as they move) would turn each bullet's
-lookup into an O(1) bucket read instead of a scan of the whole list, and costs
-nothing on a quiet wave. `advanceBullets` also rebuilds a fresh `alive:
-Bullet[]` array every tick regardless of whether a bullet died — worth
-folding into the same pass if this gets touched. A budget-style test
-(`packages/sim/test/`) asserting the scan count per tick against bullet count
-would pin the O(n) shape before and after.
-
 ## The headless sim benchmark under-represents a busy boss fight
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
