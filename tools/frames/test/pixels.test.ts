@@ -118,6 +118,7 @@ describe("pictureDiff", () => {
     nudged[16 + 4 + 2] = ((nudged[16 + 4 + 2] ?? 0) + 9) & 0xff;
     const said = pictureDiff(writePng(4, 3, pixels, 0, 6), writePng(4, 3, nudged, 0, 6));
     expect(said).toContain("1 of 48 channel bytes differ");
+    expect(said).toContain("by at most 9 levels");
     expect(said).toContain("x=1, y=1");
   });
 });

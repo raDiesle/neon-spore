@@ -4,7 +4,7 @@ import { join } from "node:path";
 import type { Browser } from "playwright-core";
 import { type CaptureResult, captureFrames, closeBrowser, launchBrowser } from "../capture.js";
 import { clearOpening } from "../opening.js";
-import { pictureDiff, pictureDigest } from "../pixels.js";
+import { pictureDelta, pictureDiff, pictureDigest } from "../pixels.js";
 import { scratchDir, sweepScratch } from "../scratch.js";
 import { root, startPreview } from "../serve.js";
 
@@ -332,7 +332,21 @@ describe("captureFrames past a wave's opening", () => {
    * and placed on the frame (`png.ts`). A pair that comes back with nothing to
    * say is two encodings of one picture, and the digest would already have
    * treated them as equal.
+   *
+   * **A speck is not a difference.** It failed once more, 25 September 2026:
+   * frame 2 of the settled strip, 3 of 987480 channel bytes, one pixel at
+   * x=81, y=271 — open sky, a faint mote at the edge of a light shaft drawn
+   * with `lighter`. What a real clock slip looks like was measured then: one
+   * extra paint moves 30 to 70 thousand bytes, and a change of rasterizer
+   * (`--disable-gpu`, SwiftShader) 81 to 533 thousand. Twenty runs under a
+   * loaded CPU, and four copies in parallel, never reproduced it. So a pair
+   * that disagrees in a handful of bytes by a few levels is the GPU rounding
+   * one blended pixel differently, and is let through; anything larger is
+   * still reported in full, with how many levels it moved.
    */
+  const SPECK_BYTES = 12;
+  const SPECK_LEVELS = 8;
+
   async function shotDiff(a: CaptureResult, b: CaptureResult): Promise<string> {
     if (a.whole.join() === b.whole.join()) return "";
     const lines: string[] = [];
@@ -340,6 +354,8 @@ describe("captureFrames past a wave's opening", () => {
       if (a.whole[i] === b.whole[i]) continue;
       const one = await Bun.file(a.paths[i] as string).bytes();
       const two = await Bun.file(b.paths[i] as string).bytes();
+      const d = pictureDelta(one, two);
+      if (d && d.differing <= SPECK_BYTES && d.most <= SPECK_LEVELS) continue;
       lines.push(`frame ${i}: ${pictureDiff(one, two)}`);
     }
     return lines.join("; ");

@@ -21274,3 +21274,17 @@ The bottleneck was the renumbering: one wave inserted early in act one moved
 every wave number a test or a document pins after it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A GPU speck no longer fails the twice-taken strip
+
+- reading: 10 min. The capture's clocks, the backdrop's motes and shafts, and
+  what sits at the failing pixel.
+- writing: 5 min. `pictureDelta`, the level figure in `pictureDiff`, and the
+  speck allowance in `shotDiff`.
+- looking: 25 min. Twenty loaded runs that never failed, one extra paint and
+  two rasterizer switches, each counted in bytes.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: trying to reproduce a failure that never came back; the figures
+that ruled out a clock slip were what closed it, not a repro.

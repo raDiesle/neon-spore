@@ -107,26 +107,54 @@ export function pictureDigest(bytes: Uint8Array): string {
   return new Bun.CryptoHasher("sha256").update(`${width}x${height}:`).update(pixels).digest("hex");
 }
 
-/** How much of two pictures disagrees and where it starts — what a failed
- * comparison says instead of two digests. */
-export function pictureDiff(a: Uint8Array, b: Uint8Array): string {
+/** How two pictures of one shape disagree: how many channel bytes, by at
+ * most how many levels, and the pixel the first of them is in. */
+export interface PictureDelta {
+  readonly differing: number;
+  readonly most: number;
+  readonly x: number;
+  readonly y: number;
+  readonly length: number;
+}
+
+/** `undefined` for two pictures of different shapes. */
+export function pictureDelta(a: Uint8Array, b: Uint8Array): PictureDelta | undefined {
   const one = decodePng(a);
   const two = decodePng(b);
-  if (one.width !== two.width || one.height !== two.height) {
-    return `${one.width}x${one.height} against ${two.width}x${two.height}`;
-  }
+  if (one.width !== two.width || one.height !== two.height) return undefined;
   let differing = 0;
+  let most = 0;
   let first = -1;
   for (let i = 0; i < one.pixels.length; i++) {
-    if (one.pixels[i] === two.pixels[i]) continue;
+    const d = Math.abs((one.pixels[i] ?? 0) - (two.pixels[i] ?? 0));
+    if (d === 0) continue;
     if (first === -1) first = i;
     differing++;
+    most = Math.max(most, d);
   }
-  if (differing === 0) return "";
   const channels = one.pixels.length / (one.width * one.height);
-  const pixel = Math.floor(first / channels);
+  const pixel = Math.max(0, Math.floor(first / channels));
+  return {
+    differing,
+    most,
+    x: pixel % one.width,
+    y: Math.floor(pixel / one.width),
+    length: one.pixels.length,
+  };
+}
+
+/** How much of two pictures disagrees, by how much, and where it starts —
+ * what a failed comparison says instead of two digests. */
+export function pictureDiff(a: Uint8Array, b: Uint8Array): string {
+  const d = pictureDelta(a, b);
+  if (!d) {
+    const one = decodePng(a);
+    const two = decodePng(b);
+    return `${one.width}x${one.height} against ${two.width}x${two.height}`;
+  }
+  if (d.differing === 0) return "";
   return (
-    `${differing} of ${one.pixels.length} channel bytes differ, ` +
-    `first at x=${pixel % one.width}, y=${Math.floor(pixel / one.width)}`
+    `${d.differing} of ${d.length} channel bytes differ, by at most ${d.most} levels, ` +
+    `first at x=${d.x}, y=${d.y}`
   );
 }
