@@ -966,3 +966,141 @@ If it has no `Taken:` line, redo the mark on top of `origin/main` and push
 again, once. Give the error the last line of the output, not a line in the
 middle. Test it in `tools/queue/test/` against a bare repo as the origin,
 with a second clone that pushes first.
+
+## The still-life gradient fix has five more boss flesh files to check
+
+- **Found:** 2026-09-26, cloud session (this session, stopping here per the
+  owner's *"slow down the project's parallelization"*)
+- **Files:** `packages/render/src/baton-flesh.ts`,
+  `packages/render/src/gorge-flesh.ts`,
+  `packages/render/src/antiphon-flesh.ts`,
+  `packages/render/src/curtain-flesh.ts`, `packages/render/src/lead-flesh.ts`
+
+**The pattern**, already fixed six times over (WARDEN, SINEW, GUM, THE
+SURGE's sac, THE SPLICE's membrane/nucleus/eater-head, THE THROAT's everted
+ring — `docs/style-guide.md`'s "Depth — flat assets that read as solid"): a
+body shades itself with a `createRadialGradient`/`createLinearGradient`
+whose own centre is a fixed fraction of the body's own radius toward the
+light, while the silhouette it lights — built with `blobPoints` on a `time`
+or beat-phase term, in the caller — breathes, swells or turns under it every
+frame. The gradient's offset never follows, so a beautifully lit body still
+reads as a still life. The fix: a small sine wobble folded into the
+gradient's own offset, on a rate distinct from whatever else already
+animates that part, named `<PART>_LIT_WOBBLE`/`<PART>_LIT_WOBBLE_RATE` (see
+any of the six fixed files for the exact shape), plus a new paragraph in
+`docs/style-guide.md`'s "Depth" section naming the file and the wobble
+constants, in the same voice as the paragraphs already there.
+
+**Confirmed candidate:** `gorge-flesh.ts`'s `paintLobeSkin` — its `shade`
+gradient (`createRadialGradient(x - rx * 0.35, cy - ry * 0.45, ...)`) lights
+a lobe body built with `blobPoints(..., time * 0.5, ...)` in
+`gorge-lobe.ts:75`; `paintSack`'s body wobbles on `time * 0.4` in
+`gorge-draw.ts:115`, though `paintSack` has no offset-gradient of its own to
+fix (its `under` gradient is a fixed vertical light-from-above, not a
+follow-the-light offset, so leave it). Fix `paintLobeSkin`'s `shade` only.
+
+**Not yet checked**, in this order: `antiphon-flesh.ts` (a radial gradient at
+a fixed `x - r*0.35, y - r*0.4` — find its caller, likely
+`antiphon-draw.ts` or similar, and confirm the silhouette it lights
+wobbles before fixing), `curtain-flesh.ts` (two radial gradients, same
+shape), `lead-flesh.ts` (two radial gradients, same shape). **Check the
+caller before touching any of them** — the fix only applies where the
+silhouette actually wobbles under a fixed-offset gradient; a body that is a
+plain unwobbling circle or ellipse is not this bug.
+
+`baton-flesh.ts` (THE BATON's arm material — `paintKnuckle`'s `flesh`/`pit`/
+`pool` gradients and `paintDrop`'s `shade` gradient, all fixed-offset) was
+read in full and its own `joint`/`body` `Path2D`s are built by its callers
+(`baton-bead-draw.ts`, `baton-socket-draw.ts`), not with `blobPoints` inside
+this file — check those two callers first; if the joint/bead shapes are
+static circles/ellipses rather than a wobbling blob, this file does not fit
+the pattern and should be skipped rather than force-fixed.
+
+For each file that does fit: apply the fix, add the style-guide paragraph,
+`bun run check:fast`, commit by path with a Before/After message ending in
+the `Co-Authored-By` trailer, land, push. One commit per file is fine, or
+batch the whole set into one commit the way THE SURGE/SPLICE/THROAT batch
+did — either is a coherent change.
+
+## THE INSTAR looks flat and ugly from the side
+
+- **Found:** 2026-09-26, cloud session (this session, stopping here per the
+  owner's *"slow down"* request)
+- **Files:** `packages/render/src/instar-profile.ts`,
+  `packages/render/src/instar-side-head.ts`,
+  `packages/render/src/instar-body-shade.ts`,
+  `packages/render/src/instar-shape.ts`
+
+The owner's own words, 2026-09-26: *"e.g. 'the instar' when boss is shown
+from the side, it looks very ugly."* THE INSTAR is drawn from more than one
+angle across its poses (`instar-poses.ts`, `instar-front.ts` vs
+`instar-side-head.ts`/`instar-profile.ts`), and the side view is the one
+that reads worst. This has not been investigated yet — the next session
+should start by rendering THE INSTAR's side pose at tempo (`bun run
+frames <sha>` on a frame where it is side-on, or `bun run preview` with
+`?play=1` and the director's pose picker) and comparing it against
+`.claude/skills/depth`'s rule (**"a body's silhouette is posed; its surface
+is placed"**) and the five-zone lighting pass in
+`tools/director/src/skins/light.ts` (`terminatorPass`, `contactPass`,
+`specularPass`, `rimLightPass`, reflected light). Likely candidates for what
+is missing, to check rather than assume: no depth-projected surface features
+on the side profile (marks/plates drawn in flat picture space instead of
+via `packages/content/src/surface.ts`'s `pin`/`facet`), or a silhouette that
+does not foreshorten correctly when turned side-on. Read `instar-shape.ts`
+and `instar-body-shade.ts` first to see which of the two failures (or both)
+is present, per `.claude/skills/depth`'s "The one rule". Any fix here is a
+**look**, so it goes to `tools/versus/candidates/` first per
+`docs/looks.md`/`docs/versus.md` and the three exemptions in `CLAUDE.md`
+unless it is a fix to something wrong rather than unlovely.
+
+## Living secondary motion is uneven across the boss roster
+
+- **Found:** 2026-09-26, cloud session (this session, stopping here per the
+  owner's *"slow down"* request)
+- **Files:** `docs/style-guide.md`, and whichever `*-flesh.ts`/`*-body.ts`
+  files the audit below finds lacking
+
+The owner's own words, 2026-09-26: *"i like that they look more 3
+dimensional... also more natural living animations."* The still-life
+gradient fix (queued above) is one half of "alive" — the light following the
+body. The other half, not yet audited across the roster, is **secondary
+motion**: does each boss have at least one part that moves on a phase of its
+own, distinct from its main silhouette wobble and distinct from the beat —
+a cilia wave, a drool sway, a vein pulse, an antenna droop, the kind of
+detail THE SPLICE's `drawCilia` (`splice-ball.ts`) and THE SPLICE eater's
+`drawDrool` (`splice-eater-head.ts`) already carry. **Audit**: grep every
+`*-flesh.ts`/`*-body.ts`/`*-draw.ts` in `packages/render/src/` for a boss
+that has *no* independent secondary-motion term at all (only the one
+silhouette wobble plus the beat pulse), list them in a fresh queue entry
+each, and propose one small secondary-motion touch per boss found lacking,
+following the existing idiom (a `Math.sin` term on a rate distinct from the
+body's own wobble, cheap, no new allocation per frame per
+`.claude/skills/depth`'s "Depth that costs no frames"). This is research
+work — do the audit and file what it finds as new queue entries; do not
+try to fix every boss in one sitting (`docs/lane-speed.md`'s rule on
+splitting work too big for one sitting).
+
+## The wider graphics-improvement pass has no single owner yet
+
+- **Found:** 2026-09-26, cloud session (this session, stopping here per the
+  owner's *"slow down"* request)
+- **Files:** `docs/style-guide.md`
+
+The owner asked, 2026-09-26, for a general investigation — beyond bosses —
+into how the game's graphics overall can read as more three-dimensional and
+alive: *"make first some investigation how in general we can improve
+graphics all over... maybe strategies like gradient, fillings, shadows,
+glows inside of body can help."* The still-life fix and the secondary-motion
+audit above are the two concrete threads pulled out of that so far, both
+scoped to boss "flesh" files. **Not yet covered**: whether the same two
+patterns (a fixed-offset gradient under a wobbling silhouette; a silhouette
+with no secondary motion of its own) also show up outside bosses — creature
+sprites (`packages/content/src/creatures.ts`-registered bodies drawn
+elsewhere in `packages/render/src/`), the hull itself, and any wave-level
+ambient shading. A fresh session should grep the same two signatures
+(`createRadialGradient`/`createLinearGradient` with a fixed fractional
+offset; a `blobPoints` silhouette wobble with no matching gradient-offset
+wobble) across the rest of `packages/render/src/`, outside the boss files
+already covered above, and file what it finds as its own queue entries
+rather than fixing on sight — this entry is the research-scope handoff, not
+the fix.
