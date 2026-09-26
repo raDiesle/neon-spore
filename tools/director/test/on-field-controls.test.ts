@@ -380,11 +380,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // (`sim/ratchet-hand.ts`, `docs/spec/bosses.md` §11.38).
   ratchetCatch: "field",
   ratchetPawl: "field",
-  // THE MANTLE, as every one above it: simulation lane only, no look yet.
-  mantleLeft: "unbuilt",
-  mantleRight: "unbuilt",
-  mantleCore: "unbuilt",
-  // THE KEEL, the same.
+  // THE MANTLE's two knobs, one a seat by geometry though both screens draw
+  // both, and the ring round its core, tapped from either seat in turn
+  // (`render/mantle-grip.ts`, `docs/spec/bosses.md` §11.40).
+  mantleLeft: "field",
+  mantleRight: "field",
+  mantleCore: "field",
+  // THE KEEL: simulation lane only, no look yet.
   keelJoint: "unbuilt",
   valveWheel: "unbuilt",
   valvePin: "unbuilt",

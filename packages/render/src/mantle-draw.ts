@@ -18,6 +18,7 @@ import {
 } from "./mantle-pose.js";
 import {
   mantleCentre,
+  mantleLift,
   mantlePlatePath,
   mantleReach,
   mantleRimPath,
@@ -78,7 +79,7 @@ export function drawMantle(
 
   ctx.save();
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
-  ctx.translate(0, -(1 - arrived) * 3 * l.tile);
+  ctx.translate(0, -mantleLift(l, arrived));
   drawCore(ctx, l, world, s, at, beat, beatPhase);
   for (const side of [-1, 1] as const)
     drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time);

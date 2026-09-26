@@ -22474,3 +22474,13 @@ named in a dozen files, and the act split that the line limit forced.
 Bottleneck: reading — the test had been counting scars, and a gum, a fence and a box break the hull without one, so three waves passed that AUTO never answered.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's grip: each thumb on its own knob, either on the core
+
+- reading: 5 min. THE RATCHET's and THE SPOOL's grips, `handle-place-boss.ts`, the ghost hand, the sim's `mantle-hand.ts` for which seat a tap is refused from.
+- writing: 10 min. `mantle-grip.ts` off the drawing's own lift and ring, three wirings, the grip test, three director rows and poses, the spec rows.
+- looking: 0 min. Nothing drawn changes; the knobs are where half one put them.
+- friction: 0 min. None.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the director's row, pose and spec table each restate what the grip does, three copies of one paragraph.

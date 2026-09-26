@@ -4,6 +4,7 @@ import {
   haspWorking,
   hiveClenched,
   INNER,
+  mantleFinale,
   OUTER,
   type World,
 } from "@neon-spore/sim";
@@ -12,6 +13,7 @@ import { gimbalRingCircle } from "./gimbal-grip.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
 import { hiveHaulCircle } from "./hive-grip.js";
 import type { Circle, Layout } from "./layout.js";
+import { mantleCoreCircle, mantleKnobStanding, mantleTakesPull } from "./mantle-grip.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
@@ -118,6 +120,19 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "ratchet" ? world.boss : null;
     if (b === null || !ratchetTakesHand(b)) return null;
     return target === "ratchetCatch" ? ratchetCatchCircle(l, cfg, b) : ratchetPadCircle(l, cfg);
+  }
+  if (target === "mantleLeft" || target === "mantleRight") {
+    // THE MANTLE's two knobs, each at the depth its seat's thumb has it, on
+    // the shell as it hangs this frame. Null once the shell splits, where no
+    // groove is drawn (`mantle-grip.ts`).
+    const b = world.boss?.kind === "mantle" ? world.boss : null;
+    if (b === null || !mantleTakesPull(b)) return null;
+    return mantleKnobStanding(l, world, b, target === "mantleLeft" ? 1 : 2, beatPhase);
+  }
+  if (target === "mantleCore") {
+    // And the ring round its bared core, for as long as the finish runs.
+    const b = world.boss?.kind === "mantle" ? world.boss : null;
+    return b !== null && mantleFinale(b) ? mantleCoreCircle(l, cfg) : null;
   }
   return undefined;
 }

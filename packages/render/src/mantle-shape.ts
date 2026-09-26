@@ -70,9 +70,29 @@ export function mantleCentre(l: Layout, cfg: SimConfig): Point {
   return { x: fieldX(l, midCol(cfg)), y: l.gridTop + ROW * l.tile };
 }
 
+/**
+ * How far above its hanging place the shell is while it drops into frame, in
+ * pixels: three rows at `arrived` 0, none once it hangs. The drawing and the
+ * grip both place through it, so a knob is answered where the falling shell
+ * has it rather than where it will be.
+ */
+export function mantleLift(l: Layout, arrived: number): number {
+  return (1 - arrived) * 3 * l.tile;
+}
+
 /** The shell's half-length in pixels, which the core and the leak are sized against. */
 export function mantleReach(l: Layout): { rx: number; ry: number } {
   return { rx: RX * l.tile, ry: RY * l.tile };
+}
+
+/**
+ * The finish's ring round the bared core, a little below the shell's middle
+ * where the core itself sits: drawn there (`drawMantleRing`) and tapped
+ * there (`mantle-grip.ts`), one circle.
+ */
+export function mantleRing(l: Layout, at: Point): Point & { r: number } {
+  const { rx, ry } = mantleReach(l);
+  return { x: at.x, y: at.y + ry * 0.12, r: rx * 0.95 };
 }
 
 /**

@@ -7,7 +7,7 @@ import { counted, mantleCoreBeat } from "./mantle-pose.js";
 import {
   mantleHandleRest,
   mantleKnobDrop,
-  mantleReach,
+  mantleRing,
   mantleStrapPath,
   type Point,
   type Side,
@@ -203,15 +203,13 @@ export function drawMantleRing(
   at: Point,
   beatPhase: number,
 ): void {
-  const { rx, ry } = mantleReach(l);
-  const cy = at.y + ry * 0.12;
-  const r = rx * 0.95;
+  const ring = mantleRing(l, at);
   const gap = 0.14;
   const pulse = mantleCoreBeat(beatPhase);
   for (const index of [0, 1] as const) {
     const from = index === 0 ? Math.PI / 2 + gap : -Math.PI / 2 + gap;
     const arc = new Path2D();
-    arc.ellipse(at.x, cy, r, r, 0, from, from + Math.PI - 2 * gap);
+    arc.ellipse(ring.x, ring.y, ring.r, ring.r, 0, from, from + Math.PI - 2 * gap);
     if (index === s.heartbeatNext)
       strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.outline * 1.5, 0.8 + pulse);
     else {

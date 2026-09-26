@@ -473,17 +473,12 @@ into the roster. `bun run check` proves it.
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-23-the-mantle-its-hands-the-second-half-of-its-l)
 - **Needs:** §23 THE MANTLE — the look, half one (the body), landed 26 September 2026
-- **Files:** `packages/render/src/mantle-shape.ts`, `packages/render/src/mantle-handle.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `docs/spec/bosses.md`
+- **Files:** `packages/render/src/mantle-handle.ts`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `docs/spec/bosses.md`
 
-Half one drew the body and nothing answers a thumb yet. Half two, per
-`.claude/skills/new-boss` §5 and `.claude/skills/new-boss-state`:
+Half one drew the body, and the grip has landed (`render/mantle-grip.ts`,
+the `FIELD_CONTROLS` rows and gallery poses, `docs/spec/controls.md`). What
+is left, per `.claude/skills/new-boss` §5 and `.claude/skills/new-boss-state`:
 
-- **The grip**: `mantle-grip.ts` answering `mantleLeft` and `mantleRight` at
-  the knob `mantleHandleRest` puts on the screen, never a second copy of it
-  — the left knob for Player 1 and the right for Player 2 on both phones —
-  and `mantleCore` on the bared core inside `drawMantleRing`'s ring, with the
-  game's input wiring, the `FIELD_CONTROLS` rows, the gallery poses and
-  `docs/spec/controls.md`.
 - **The verb and the cue**: the word on the knob (`PULL`, and nothing below
   the floor) and the `boss-cue` read for its ten events.
 - **What outlives a frame**: `effects.boss.mantle` (`mantle-fx.ts`, the kick

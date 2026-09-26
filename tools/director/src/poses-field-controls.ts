@@ -24,6 +24,7 @@ import { DARK_LIGHT } from "./poses-field-controls-dark.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
+import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
 import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
@@ -180,6 +181,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     SPOOL_BRAKE,
     ...HASP_GRIPS,
     ...RATCHET_GRIPS,
+    ...MANTLE_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

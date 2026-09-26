@@ -22,6 +22,8 @@ import type { Circle, Layout } from "./layout.js";
  * wheel stands, so a seized wheel is a hand going round a wheel that is not.
  * THE RATCHET's catch is the navigator's, drawn while it has a depth, and its
  * pawl the pilot's, drawn for as long as his thumb is down on the pad.
+ * THE MANTLE's knobs are one a seat, left the pilot's and right the
+ * navigator's, each drawn while the simulation has it pulled down its groove.
  */
 export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: number): Circle | null {
   const b = world.boss;
@@ -38,6 +40,10 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
     if (seat === 1) return b.pawlDown ? handleCircle(l, world, "ratchetPawl", beatPhase) : null;
     if (b.catchMilli === NO_CATCH) return null;
     return handleCircle(l, world, "ratchetCatch", beatPhase);
+  }
+  if (b?.kind === "mantle") {
+    if (b.depthMilli[seat === 1 ? 0 : 1] <= 0) return null;
+    return handleCircle(l, world, seat === 1 ? "mantleLeft" : "mantleRight", beatPhase);
   }
   return null;
 }

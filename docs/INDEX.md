@@ -1764,6 +1764,7 @@ by hand never moves.
 | `packages/render/src/mantle-handle.ts` | **THE MANTLE's marks**: the two handles and the one cord between them while the shell is being pried |
 | `packages/render/src/mantle-pose.ts` | **The clock THE MANTLE is posed off** (§23, *Animation*): five poses |
 | `packages/render/src/mantle-shape.ts` | **Where THE MANTLE is**, in field pixels: the two valves of its shell, the plates they are laid in |
+| `packages/render/src/mantle-grip.ts` | **The thumbs on THE MANTLE** — half two of the look lane |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |
@@ -2268,6 +2269,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
+| `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2705,6 +2707,7 @@ by hand never moves.
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-mantle.ts` | THE MANTLE's two knobs and its core, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |

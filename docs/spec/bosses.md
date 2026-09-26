@@ -7566,8 +7566,13 @@ tail dragged by its own handle; both handles, their grooves, the floor's notch
 and half the threshold's, and the one cord that lights inward from each knob
 by that handle's counted share — grey below the floor — all drawn the same on
 both screens (`render/mantle-draw.ts`, `mantle-handle.ts`, `mantle-shape.ts`,
-`mantle-pose.ts`). Half two is not: no grip answers a thumb on a knob, and no
-sounds are bound — `tools/director/src/sound-link-none-c.ts` and the render
+`mantle-pose.ts`). The grip has landed too (26 September 2026,
+`render/mantle-grip.ts`): each seat takes hold of its own knob only, by
+geometry, though both screens draw both — the other seat's knob falls
+through — and a thumb laid on a knob before the handles light is held; the
+ring round the bared core takes a tap from either seat, and the wrong one is
+refused by the simulation rather than passed on. What is left of half two:
+no word is shown on the field and no sounds are bound — `tools/director/src/sound-link-none-c.ts` and the render
 package's silent-event lists carry all ten of its events until it lands.
 There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).

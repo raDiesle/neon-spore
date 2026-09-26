@@ -14,6 +14,7 @@ import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { LEDGER_CONTROLS } from "./field-controls-ledger.js";
+import { MANTLE_CONTROLS } from "./field-controls-mantle.js";
 import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { PINBALL_CONTROLS } from "./field-controls-pinball.js";
@@ -140,4 +141,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // and the other a press judged by it**, once, on the tick it lands
   // (`field-controls-ratchet.ts`).
   ...RATCHET_CONTROLS,
+  // THE MANTLE's two knobs and its core, the only boss here whose **both
+  // screens draw both handles** (`field-controls-mantle.ts`).
+  ...MANTLE_CONTROLS,
 ];

@@ -16,6 +16,7 @@ import type { Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
 import { ledgerGripUnder } from "./ledger-grip.js";
 import { ledgerPullUnder } from "./ledger-pull.js";
+import { mantleCoreUnder, mantleHandleUnder } from "./mantle-grip.js";
 import { mazeHeartUnder } from "./maze-grip.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
 import { pinballGripUnder } from "./pinball-grip.js";
@@ -121,7 +122,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     haspRimUnder(l, x, y, field) ?? // And its wheel, the navigator's, turned about the hub (`hasp-grip.ts`).
     spoolBrakeUnder(l, x, y, field) ?? // THE SPOOL's brake, the pilot's, until the casing goes slack (`spool-grip.ts`).
     ratchetCatchUnder(l, x, y, field) ?? // THE RATCHET's catch, the navigator's, carried down its rail (`ratchet-grip.ts`).
-    ratchetPawlUnder(l, x, y, field) // And its pawl, the pilot's, pressed on her SET (`ratchet-grip.ts`).
+    ratchetPawlUnder(l, x, y, field) ?? // And its pawl, the pilot's, pressed on her SET (`ratchet-grip.ts`).
+    mantleHandleUnder(l, x, y, field) ?? // THE MANTLE's knob on this seat's side, pulled down its groove (`mantle-grip.ts`).
+    mantleCoreUnder(l, x, y, field) // And the ring round its bared core, either seat's, in the finish (`mantle-grip.ts`).
   );
 }
 
