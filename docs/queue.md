@@ -434,6 +434,7 @@ an alignment.
 ## Film THE COUNT's guide, and delete its words
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Taken:** 2026-09-26, claude/queue-bun-run-frames-cannot-photograph-a-wave-on-hard (claim: claude/queue-film-the-counts-guide-and-delete-its-words)
 - **Files:** `packages/content/src/waves/act-3.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
 
 THE COUNT's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
