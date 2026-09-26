@@ -4394,6 +4394,116 @@ carry.
 
 ---
 
+### §40 THE FLUE — a vent that only steadies for as long as a hand proves still
+
+**Question.** THE HALTER's `RestraintGate` has only ever gated a single
+held instant — the seam bares itself the moment both counters cross
+threshold together, and a lapse costs that instant and nothing else.
+`TAPS ON A MOVING TARGET` has only ever asked for discrete presses against
+a mark that moves *on its own schedule between them* (THE RATCHET) or *on
+the count's own completion* (THE GALL), neither one gated by anything the
+other seat is doing. This concept asks whether a graded absence can gate
+not one instant but a whole multi-step count — three taps, not one hold,
+spent only while the stillness that unlocked them never once lets go —
+so that a single stray command partway through does not cost the tap in
+flight, it costs the entire sequence back to nought.
+
+**Silhouette.** A slotted exhaust flue running mid-hull across the lit
+columns, an ember riding inside it that drifts along the slot on its own
+whenever the flue is not held quiet — health is two movements of three
+taps each, plus a damper over a lit core once both are spent; the core
+takes three ordinary hits.
+
+**Mechanic.** `flueRestBeats` counts consecutive beats in which the
+resting seat has sent the game no command at all — a drag, a hold, a
+tap, every one of them resets it to nought, read exactly as
+`RestraintGate` is catalogued and exactly as THE HALTER's own
+`halterRestBeats` first anchored it. While `flueRestBeats` sits under
+`flueRestThreshold` the ember drifts along the slot under the
+simulation's own clock, the undriven sweep THE BURGEE's `burgeeSwingMilli`
+already keeps; at threshold the drift stops dead. Only while it is
+stopped does the other seat's `TAPS ON A MOVING TARGET` register at
+all — a tap thrown at a still-drifting ember lands nowhere, there being
+nothing steady yet to land it against. Each landed tap advances
+`flueTapsLanded` and relocates the ember to a new resting notch along the
+slot, read exactly as THE RATCHET's own mark; three taps landed close the
+movement. But the rest counter is never banked partway: the instant the
+resting seat sends one command, mid-sequence, `flueRestBeats` snaps to
+nought, the drift resumes, and `flueTapsLanded` for the movement in
+progress snaps to nought with it — the whole count must be spent inside
+one unbroken stillness, not merely the tap that happened to be in flight
+when it broke.
+
+**Player 1 and Player 2.** Identical screens, the flue and its ember
+visible on both, but which seat rests and which taps swaps by movement,
+the same trade THE HALTER's rest-and-chord roles already make.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the first three notches** ||||||
+| 1 | The ember drifts loose along the slot, damper dark | — | — | — | — | — |
+| 2 | The slot's first stretch lights | P2 | send nothing at all (`SENDING NOTHING`) | held to threshold | rest counter reaches threshold, ember steadies | any command resets it, drift resumes, retry |
+| 3 | The steadied ember sits ready down the slot | P1 | tap it three times as it relocates (`TAPS ON A MOVING TARGET`) | 3 taps, steadied only | first movement's three taps land | P2 sends one command mid-sequence, drift resumes, both counters reset to nought, retry from row 2 |
+| **Movement 2 — the second three notches, roles swapped** ||||||
+| 4 | The slot's second stretch lights | P1 | send nothing at all | held to threshold | rest counter reaches threshold, ember steadies | any command resets it, retry |
+| 5 | The steadied ember | P2 | tap it three times as it relocates | 3 taps, steadied only | second movement's three taps land, core bared | P1 sends one command mid-sequence, both counters reset, retry from row 4 |
+| **Movement 3 — the core, held bared under a closing damper** ||||||
+| 6 | The bared core flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | The damper creeps back toward shut over the core | either seat, free to trade | send nothing at all, alone this time | held to threshold | core stays bared | rest counter resets, damper shuts, movement's fire beats lost until rest reaches threshold again |
+| 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Damper creeps back a second time, faster | either seat | send nothing again | held to threshold | stays bared | resets, retry |
+| 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, flue spent | stays lit |
+| 11 | The damper swings open wide for good, ember gone still | — | — | — | — | — |
+
+**THE SLOW** opens on every rest-and-tap window (rows 2–3, 4–5, 7, 9)
+together — the rest counter and the tap count are one thing to watch
+rather than two, since a single stray command two taps into a movement
+costs both taps already landed, the sharpest version yet of the
+forgiving-elsewhere, unforgiving-here shape THE HALTER's own overlap
+first drew, now spent on a count instead of a single window.
+
+**Presentation.** No camera. The ember a small steady glow with a short
+trailing smear while it drifts, the smear vanishing the instant it
+steadies so the going-still reads as clearly as THE HALTER's plating
+going quiet; each landed tap a short bright tick, same weight as THE
+RATCHET's own.
+
+**Animation.** Five poses: ember drifting, damper dark; first three
+notches spent, ember steadied at rest; both movements spent, core bared;
+core guarded, damper creeping shut; damper open wide, spent. The drift is
+a continuous even glide rather than a loop, so its stopping dead under a
+resting thumb is the tell, the same contrast THE HALTER's stilled tremor
+and THE CYST's frozen flank both already give.
+
+**Colour.** Flue and slot a dull sooted grey, the ember a plain warm
+white the way THE HALTER's resting mark and THE RATCHET's own mark both
+are; the core is the only lit colour, in whichever cannon colour a given
+beat wants.
+
+**Payoff.** Rows 3 and 5 — a whole three-tap sequence held hostage to an
+unbroken stillness from the other seat, rather than one instant or one
+tap; no earlier body on this page has asked a graded absence to gate more
+than a single window, and none has cost a landed count back to nought
+for a lapse that arrived after the count, not before it.
+
+**Cost. Low.** No new primitive — `SENDING NOTHING` is already built for
+THE HALTER and `TAPS ON A MOVING TARGET` for THE RATCHET and THE GALL.
+The only new code is coupling the two counters so a lapse in the first
+clears the second along with it, ordinary per-boss wiring rather than a
+new field type or gesture.
+
+**Reusable.** Gating a multi-step count, rather than a single held
+instant, on an unbroken restraint — so a lapse costs everything the count
+has already banked, not merely the step in flight — is a shape distinct
+from THE HALTER's one-window overlap and from THE RATCHET's or THE
+GALL's ungated relocation; any future concept wanting a sustained
+restraint to underwrite a whole sequence rather than one instant can
+reach for it before inventing a new kind of gate.
+
+---
+
 ## The reusable boss mechanic library
 
 The brief asks for the primitives extracted. Here they are, and the useful

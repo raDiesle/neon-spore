@@ -46,7 +46,7 @@ export const SPECIFIED: readonly Gesture[] = [
       beats: [2, 4, 6, 8],
       window: { from: 2, to: 8, label: "nothing, three beats" },
     },
-    where: [`${SPEC} RestraintGate`, `${SPEC} §36 THE HALTER`],
+    where: [`${SPEC} RestraintGate`, `${SPEC} §36 THE HALTER`, `${SPEC} §40 THE FLUE`],
   },
   {
     name: "TAPS ON A MOVING TARGET",
@@ -67,6 +67,7 @@ export const SPECIFIED: readonly Gesture[] = [
       `${SPEC} RepeatedTap`,
       "docs/spec/bosses-cinematic.md THE RATCHET",
       `${SPEC} §38 THE GALL`,
+      `${SPEC} §40 THE FLUE`,
     ],
   },
   {

@@ -22871,3 +22871,19 @@ Bottleneck: friction — the registrations' pages were full, so a fifth
 scene of the same shape had to refactor two director files to fit.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §40 THE FLUE: a restraint that gates a whole tap sequence, not one instant
+
+- reading: 15 min. §36 THE HALTER and §39 THE BURGEE in full, for the shape
+  a rest-gate and a relocating-tap pairing already take; `gesture-unbuilt.ts`
+  for which gesture sat least paired.
+- writing: 25 min. The spec entry, the beat list, and the two `where`
+  registrations.
+- looking: 0 min. Nothing drawn yet — spec and registrations only.
+- friction: 5 min. `tools/shape-sheet/src/drafts/` had no vent or duct
+  draft to reuse; checked `machined.ts` and `systems.ts` by hand once a
+  `name:` grep matched only helper signatures instead of named subjects.
+- landing: 10 min. `check:fast`, this entry, the commit.
+
+Bottleneck: friction — the drafts directory has no field a script can grep
+for a named subject, so ruling one out means reading the files.
