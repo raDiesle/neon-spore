@@ -104,6 +104,18 @@ const FLOOR = 0.16;
 const BREATH = 0.008;
 const BREATH_RATE = 0.55;
 
+/** How far a plate's own light drifts off its face bearing, in radians, and
+ * how long that takes. A bearing this steady is a still life no matter how
+ * good the light is (`docs/style-guide.md`'s "Depth on a body that already
+ * ships"): the ring's own drift (`plateStart`) is one shared hair moved the
+ * same way for every plate, and `lift`'s breath never reaches the shading at
+ * all, so each plate's lit edge and seam sat frozen while the slab itself
+ * breathed under it. On its own period, distinct from the ring's drift
+ * (0.2) and the breath (`BREATH_RATE`, 0.55), so no two of a plate's own
+ * motions come back into step. */
+const LIT_WOBBLE = 0.05;
+const LIT_WOBBLE_RATE = 0.35;
+
 /**
  * The light a plate takes, given the bearing its outer face points along.
  *
@@ -165,8 +177,9 @@ export function drawPlates(d: WardenPlatesDraw): void {
     // Each plate breathes on a phase of its own, so the ring reads as a row of
     // separate slabs rather than as one thing scaled up and down.
     const lift = LIFT + BREATH * Math.sin(time * BREATH_RATE + k * 1.3);
+    const wobble = LIT_WOBBLE * Math.sin(time * LIT_WOBBLE_RATE + k * 2.4);
     for (const [s, e] of clear(a0, a0 + arc * PLATE_SPAN, cut)) {
-      const lit = litAt((s + e) / 2);
+      const lit = litAt((s + e) / 2 + wobble);
       const face = mixHex(PALETTE.rockDark, PALETTE.rock, FLOOR + (1 - FLOOR) * lit);
       const inner = INNER + lift;
       const outer = OUTER + lift;

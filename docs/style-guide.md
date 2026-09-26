@@ -301,6 +301,18 @@ as their first `angle`, each on its own period
 segment the way their lamps' pulse already is, so five plates do not turn in
 step either).
 
+**The still life is not only a body's own `Form.angle`** — anywhere a lit
+surface's bearing is read off a value that only a shared, near-frozen drift
+touches, the same failure is there under a different name. THE WARDEN's
+armour (`warden-plates.ts`) shades each plate by calling `litAt` on that
+plate's own face bearing, and that bearing moves only by the ring's shared
+0.01-radian drift — the one thing that gives each plate its own presence,
+the breath in its `lift`, never reached the shading at all, so every plate's
+lit edge and seam sat still while the slab under it visibly breathed. The fix
+is the same wobble, folded into the angle `litAt` is called with rather than
+into the plate's geometry, on its own period so it does not come back into
+step with the ring's drift or the breath (`LIT_WOBBLE`/`LIT_WOBBLE_RATE`).
+
 **A glow inside the body is a different cue from a lit surface**, and the
 owner asked for it by name alongside gradients and fills on 26 September
 2026. `lightHide`'s zones all read the hide as an opaque shell with light
