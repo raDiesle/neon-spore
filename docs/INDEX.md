@@ -1445,6 +1445,7 @@ by hand never moves.
 | `packages/render/src/instar-mark-feedback.ts` | **Which mark is wanted, and by whom**: the halo on this seat's open mark, the turning ring on the partner's |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the dragon as it comes in, the three the script names |
 | `packages/render/src/instar-plate.ts` | **What every part of THE INSTAR is drawn with**: the hide |
+| `packages/render/src/instar-place.ts` | **THE INSTAR's figure, in pixels**: a place, a length, the head, the far end and a mark on this screen's layout |
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |

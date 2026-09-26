@@ -22108,3 +22108,14 @@ Bottleneck: reading — the plan's holder is read in four places after the move,
 and the note's commit would have failed the same way.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's figure in pixels is a file of its own
+
+- reading: 5 min. The queue entry, `instar-shape.ts`, its thirty importers.
+- writing: 10 min. A script cut the file and repointed every import by which
+  half each name now lives in; the copies-table owner and three comments.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 10 min. `imports:sort`, `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the full check is most of a refactor this size.

@@ -2,7 +2,7 @@ import type { InstarPart } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
-import type { Point } from "./instar-shape.js";
+import type { Point } from "./instar-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 

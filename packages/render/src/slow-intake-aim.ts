@@ -2,7 +2,7 @@ import type { SimConfig } from "@neon-spore/sim";
 import { beatSeconds, gripsCreature, instarBoss, MILLI, type World } from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
-import { instarAt, instarFarEnd, instarLen } from "./instar-shape.js";
+import { instarAt, instarFarEnd, instarLen } from "./instar-place.js";
 import { instarBody } from "./instar-sway.js";
 import { type Layout, tileCX } from "./layout.js";
 import type { SlowWindow } from "./slow-look.js";
@@ -94,7 +94,7 @@ export function aim(world: World, l: Layout, beat: number, beatPhase: number): A
     const { f } = instarBody(instar, world.cfg, beat, beatPhase);
     const { x, y } = instarAt(l, f.headX, f.headY);
     // The far end of the body, where its engines burn — the same point the
-    // drawers run the body back to (`instar-shape.ts`).
+    // drawers run the body back to (`instar-place.ts`).
     const top = instarFarEnd(l, f);
     return { x, y, r: instarLen(l, f.headR), ax: top.x, ay: top.y };
   }

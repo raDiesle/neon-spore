@@ -5,7 +5,8 @@ import {
   instarWound,
   NO_BEARING,
 } from "@neon-spore/sim";
-import { instarMarkPoint, instarMarkRadius, instarThreat, type Point } from "./instar-shape.js";
+import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
+import { instarThreat } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import { hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";

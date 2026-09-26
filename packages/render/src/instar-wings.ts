@@ -1,6 +1,6 @@
 import { strokeGlow } from "./glow.js";
+import type { Point } from "./instar-place.js";
 import { faded, type Look, toward } from "./instar-plate.js";
-import type { Point } from "./instar-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**

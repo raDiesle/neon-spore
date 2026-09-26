@@ -1,7 +1,7 @@
 import { strokeGlow } from "./glow.js";
 import { drawGlint } from "./instar-hide.js";
+import { instarAt, type Point } from "./instar-place.js";
 import { drawPlate, faded, type Look, toward } from "./instar-plate.js";
-import { instarAt, type Point } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";

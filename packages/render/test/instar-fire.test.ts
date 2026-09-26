@@ -1,7 +1,8 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { INSTAR_SCRIPT } from "@neon-spore/content";
+import { instarAt, instarHeadAt } from "../src/instar-place.js";
 import { POSES } from "../src/instar-poses.js";
-import { deformed, instarAt, instarHeadAt } from "../src/instar-shape.js";
+import { deformed } from "../src/instar-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
 

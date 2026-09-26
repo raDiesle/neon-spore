@@ -1,6 +1,6 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { instarMarkUnder } from "../src/instar-mark-grip.js";
-import { instarMarkPoint } from "../src/instar-shape.js";
+import { instarMarkPoint } from "../src/instar-place.js";
 import { instarBody, instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";

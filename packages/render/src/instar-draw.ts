@@ -3,9 +3,10 @@ import { instarFlight } from "./instar-flight.js";
 import { drawFront } from "./instar-front.js";
 import type { InstarFx } from "./instar-fx.js";
 import { drawInstarMarks } from "./instar-marks.js";
+import { instarAt, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
-import { instarAt, instarFade, instarHeadAt, instarMorphAt, instarThreat } from "./instar-shape.js";
+import { instarFade, instarMorphAt, instarThreat } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
 import type { Layout } from "./layout.js";
 

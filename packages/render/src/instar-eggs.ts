@@ -3,8 +3,8 @@ import { rgba } from "./hex.js";
 import { drawEggCrack } from "./instar-egg-crack.js";
 import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
 import { drawGlint } from "./instar-hide.js";
+import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
-import { instarAt, type Point } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 

@@ -1,6 +1,6 @@
 import { KEY } from "@neon-spore/content";
 import { rgba } from "./hex.js";
-import type { Point } from "./instar-shape.js";
+import type { Point } from "./instar-place.js";
 import { PALETTE } from "./palette.js";
 
 /**

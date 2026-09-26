@@ -1,6 +1,6 @@
 import { rgba } from "./hex.js";
+import type { Point } from "./instar-place.js";
 import { faded } from "./instar-plate.js";
-import type { Point } from "./instar-shape.js";
 import { PALETTE } from "./palette.js";
 
 /**

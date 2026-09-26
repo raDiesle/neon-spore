@@ -27,7 +27,7 @@ import { splinePath } from "./spline.js";
 
 export type { Point };
 
-/** A grab ring's radius, in tiles — THE INSTAR's marks are 0.3 (`instar-shape.ts`). */
+/** A grab ring's radius, in tiles — THE INSTAR's marks are 0.3 (`instar-place.ts`). */
 export const GRAB_R = 0.34;
 /** How far a pulled filament slides up into the body over the pull, in tiles. */
 const PULL_RISE = 2.5;

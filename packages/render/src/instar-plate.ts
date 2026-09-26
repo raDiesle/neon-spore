@@ -2,7 +2,8 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Form, lightHide } from "./instar-hide.js";
-import type { Figure, Point } from "./instar-shape.js";
+import type { Point } from "./instar-place.js";
+import type { Figure } from "./instar-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**

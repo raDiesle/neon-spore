@@ -2,8 +2,9 @@ import { strokeGlow } from "./glow.js";
 import { drawFireball } from "./instar-fire.js";
 import { drawEye, drawHorns, drawSinews, drawTeeth, r2 } from "./instar-head-parts.js";
 import { drawDrip, drawScales } from "./instar-hide.js";
+import type { Point } from "./instar-place.js";
 import { drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
-import type { Figure, Point } from "./instar-shape.js";
+import type { Figure } from "./instar-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**

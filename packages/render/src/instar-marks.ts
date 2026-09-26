@@ -13,13 +13,9 @@ import type { CueKind } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
+import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarRing } from "./instar-ring.js";
-import {
-  INSTAR_FLIGHT_ENDS,
-  instarMarkPoint,
-  instarMarkRadius,
-  instarThreat,
-} from "./instar-shape.js";
+import { INSTAR_FLIGHT_ENDS, instarThreat } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import {
   drawInstarDone,

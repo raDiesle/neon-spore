@@ -8,7 +8,7 @@ import {
 import { BossHurt } from "./boss-hurt.js";
 import { GripVerdicts } from "./grip-verdict.js";
 import { FallingEggs } from "./instar-eggs.js";
-import { instarAt, instarMarkPoint, type Point } from "./instar-shape.js";
+import { instarAt, instarMarkPoint, type Point } from "./instar-place.js";
 import { LipShove } from "./instar-shove.js";
 import { InstarStrike } from "./instar-strike.js";
 import type { Sway } from "./instar-sway.js";

@@ -600,20 +600,6 @@ hand (a file per few creatures, as the boss hands are split), taking its name
 out of `HALF_PLAYED` as it goes; the test already fails for any wave the hand
 stops clearing clean.
 
-## instar-shape.ts is 236 lines: split the pixels from the figure
-
-- **Found:** 2026-09-26, claude/queue-the-instar-brood-eggs-that-crack-while-nobody-ta
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-instar-shape-ts-is-236-lines-split-the-pixels-fr)
-- **Files:** `packages/render/src/instar-shape.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/filament-shape.ts`
-
-The file holds two things: the figure's arithmetic (`Figure`, `deformed`,
-`instarFigure`, the morph, threat and fade clocks) and the figure turned into
-pixels (`instarAt`, `instarLen`, `instarFarEnd`, `instarHeadAt`,
-`instarMarkPoint`, `instarMarkRadius`, about seventy lines). Move the second
-into `instar-place.ts` and point the importers at it; no drawing changes, and
-`bun run check` proves it. Its importers are about twenty `instar-*.ts` files
-and four tests; `grep -rl instar-shape packages/render` lists them.
-
 ## Unverified at 8e6e6e71: RESEARCH tab on the director's NOT BUILT YET sheet, see…
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0

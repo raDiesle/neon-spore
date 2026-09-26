@@ -737,7 +737,7 @@ export const COPIES: Copy[] = [
     // was private to `instar-draw.ts`. Move the engines and a copy lets the
     // light cross the rear plates with nothing red to say so.
     call: "instarFarEnd",
-    owner: "packages/render/src/instar-shape.ts",
+    owner: "packages/render/src/instar-place.ts",
     pattern: /instarAt\(\s*\w+,\s*\w+\.rearX,\s*\w+\.rearY\s*\)/,
   },
   {
