@@ -9,7 +9,7 @@
 > with no guide — and a wave gone again, which skips its guide — opens instead
 > on its introduction: those two lines alone, plain text on the field, which
 > pass on a timer.
-> §3.2 says which ten are still prose and why the count is a test rather than
+> §3.2 says which eight are still prose and why the count is a test rather than
 > a sentence anybody has to remember.
 >
 > **Three decisions below have been overturned on the way in**, and the
@@ -303,7 +303,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but nine of them
+### 3.2 The rehearsals — all but eight of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -313,10 +313,10 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-one of them now**, one per guided wave bar nine, and
+**There are eighty-two of them now**, one per guided wave bar eight, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The nine that are still the three strings
-and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
+rather than a page of prose. The eight that are still the three strings
+and the two circles are **THE CHOKE, THE LIMPET, THE LEECH, THE
 CODEX, THE GIMBAL, THE HASP,
 THE RATCHET and THE NETTLE** — and
 that list is held by
@@ -324,7 +324,7 @@ that list is held by
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those nine is a film nobody has written, and since THE
+**Every one of those eight is a film nobody has written, and since THE
 HIVE's they are owed by the lanes that draw them.** THE GORGE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026), every column authored because the sack does

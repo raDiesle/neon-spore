@@ -118,9 +118,7 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theCount",
     name: "THE COUNT",
     guide: {
-      both: "A round body with an eye. Blades close it, one fewer each beat. Shoot only on the beat the eye opens. Any other beat shuts it grey for three beats.",
-      p1: "1. You can see the blades.\n2. Count them down out loud: three, two, one, zero.\n3. Say the column with it.",
-      p2: "1. Your eye never blinks.\n2. Load the colour and aim the column.\n3. Fire on the word zero. Not on sight, not on your own count.",
+      scene: "theCount",
     },
     entries: [
       { beat: 0, col: 3, kind: "countdown", color: "red" },

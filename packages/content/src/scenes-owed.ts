@@ -1,4 +1,5 @@
 import type { GuideScene } from "./scene-types.js";
+import { THE_COUNT } from "./scenes/the-count.js";
 import { THE_HUSK } from "./scenes/the-husk.js";
 import { THE_REPRISE } from "./scenes/the-reprise.js";
 import { THE_STARE } from "./scenes/the-stare.js";
@@ -18,10 +19,11 @@ import { THE_STARE } from "./scenes/the-stare.js";
  * one of the guides still on that list is added here; `scenes.ts` spreads
  * this table into `SCENES` and widens `SceneId` by the id.
  */
-export type OwedSceneId = "theReprise" | "theStare" | "theHusk";
+export type OwedSceneId = "theReprise" | "theStare" | "theHusk" | "theCount";
 
 export const SCENES_OWED: Record<OwedSceneId, GuideScene> = {
   theReprise: THE_REPRISE,
   theStare: THE_STARE,
   theHusk: THE_HUSK,
+  theCount: THE_COUNT,
 };

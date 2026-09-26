@@ -21579,3 +21579,17 @@ Bottleneck: **reading** — PRISM was written against a lens helper in its slot,
 so taking it meant moving that helper first.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE COUNT's guide is a film
+
+- reading: 5 min. The tutorial skill, THE THROB's and THE LURE's films, the
+  count's rules and the §3.2 counts.
+- writing: 5 min. The film, its test, the guide swapped, the prose list and
+  the section moved by one.
+- looking: 5 min. A probe of where seed 1 puts the zeros, then one capture of
+  the shut page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the first timing failed the page tests — a page about a body must
+end with it mid-screen, which leaves exactly one zero for the shot that lands.

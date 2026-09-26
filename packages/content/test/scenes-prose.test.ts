@@ -32,7 +32,8 @@ import { SCENES } from "../src/scenes.js";
  * hand landing on nothing turned out to be exactly the picture.
  */
 const STILL_PROSE = [
-  "THE COUNT",
+  // THE COUNT left this list on 26 September 2026: `scenes/the-count.ts` is
+  // the shot on sight refused and the shot on zero taken.
   "THE CHOKE",
   "THE LIMPET",
   "THE LEECH",
@@ -79,9 +80,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-one films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-two films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty-one, which is the number in the section. A film with no wave
+    // Eighty-two, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
