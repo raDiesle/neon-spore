@@ -13,11 +13,19 @@
  * is the largest pool of decided, sized, unstarted work in the repository and
  * nothing was drawing it.
  *
+ * **A fourth group joined it on 26 September 2026**: a concept written up on
+ * `bosses-choreographed.md` with no row in that page's own "Who is building
+ * what" ledger — a full spec, nobody's lane. DavidDe asked for a page reading
+ * development state per boss; this is that page's fourth answer, and it is
+ * "not started" rather than "not built", because a concept here has never had
+ * a line of simulation written at all.
+ *
  * **Nothing here classifies a boss.** Which group one is in is the `##`
- * heading it stands under in `bosses.md`, so a look that lands moves a boss by
- * being moved in the spec — the rule `backlog.ts` already follows for
- * `ideas.md`'s `###` groups, and the reason `parseNumberedSections` carries a
- * `group`.
+ * heading it stands under in `bosses.md` (or, for the fourth group, whether
+ * its name has a ledger row in `bosses-choreographed.md`), so a look that
+ * lands, or a lane that gets claimed, moves a boss by being moved in the spec
+ * — the rule `backlog.ts` already follows for `ideas.md`'s `###` groups, and
+ * the reason `parseNumberedSections` carries a `group`.
  */
 
 import type { BacklogEntry, BacklogGroup } from "./backlog.js";
@@ -116,6 +124,55 @@ function scenePrimitives(choreo: string): BacklogEntry[] {
   return entries;
 }
 
+/**
+ * Every concept name that already has a row in "Who is building what" — the
+ * ledger table at the top of `bosses-choreographed.md`. A name absent from it
+ * has no lane claimed at all, whatever a hand-written status word next to it
+ * on the Contents list says — the ledger is the one place a claim is real
+ * (`docs/spec/bosses-choreographed.md`, *Who is building what*).
+ */
+function ledgerNames(choreo: string): Set<string> {
+  const names = new Set<string>();
+  for (const line of choreo.split(/\r?\n/)) {
+    if (!line.trim().startsWith("|")) continue;
+    const cells = line
+      .trim()
+      .split("|")
+      .slice(1, -1)
+      .map((c) => c.trim());
+    if (cells.length < 2) continue;
+    const linkText = cells[0]!.match(/\[([^\]]+)\]/)?.[1];
+    if (!linkText) continue;
+    names.add(normalizeName(linkText.replace(/^§?\d+\s+/, "")));
+  }
+  return names;
+}
+
+/**
+ * A concept written up on `bosses-choreographed.md` with no lane claimed for
+ * it yet — a full spec, ten-plus steps, nobody's simulation branch open. This
+ * is DavidDe's "not done yet" ask of 26 September 2026 answered the way the
+ * rest of this page already is: read live off the spec rather than hand-kept,
+ * so a claimed lane drops out of this group the moment its ledger row lands.
+ */
+function unstartedConcepts(choreo: string): BacklogEntry[] {
+  const claimed = ledgerNames(choreo);
+  const entries: BacklogEntry[] = [];
+  const heading = /^### §(\d+) ([A-Z][A-Z '.]+) — (.+)$/gm;
+  for (const m of choreo.matchAll(heading)) {
+    const [, num, name, question] = m as unknown as [string, string, string, string];
+    if (claimed.has(normalizeName(name))) continue;
+    entries.push({
+      name: name.trim(),
+      kind: `§${num}`,
+      note: question.trim(),
+      detail: "",
+      ref: "bosses-choreographed.md",
+    });
+  }
+  return entries;
+}
+
 function toEntry(s: ReturnType<typeof parseNumberedSections>[number], note: string): BacklogEntry {
   return {
     name: s.title,
@@ -165,6 +222,12 @@ export function fromBosses(bosses: string, choreo: string): BacklogGroup[] {
       note: "the library rows with no shipped ancestor — bosses-choreographed.md",
       builtHidden: 0,
       entries: scenePrimitives(choreo),
+    },
+    {
+      title: "PROPOSED, NOT STARTED",
+      note: "written up on bosses-choreographed.md, no lane claimed yet — the development state DavidDe asked for",
+      builtHidden: 0,
+      entries: unstartedConcepts(choreo),
     },
   ];
 }

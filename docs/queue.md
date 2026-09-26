@@ -844,7 +844,6 @@ registered pushes it over. Move the `SCENES` table (or the `SceneId` union and
 the imports that feed it) into a file of its own imported back, the way the
 wave acts were cut out of `waves.ts`. Proof: `bun run check`, both files well
 under 230.
-
 ## `packages/sim/src/hash.ts` is at 250 lines
 
 - **Found:** 2026-09-26, claude/queue-the-slow-does-not-say-whether-a-window-asks-for
@@ -857,3 +856,136 @@ the ship and shield fields or the slow and spend ledger, into a helper file
 imported back, the way the bosses' hashes live in `*-hash.ts`. Keep the
 exceptions comment in `hash.ts`, where `hash-coverage.test.ts` and CLAUDE.md
 point. Proof: `bun run check`, both files well under 230.
+
+## §23 THE MANTLE — the simulation lane
+
+- **Found:** 2026-09-26, this session (DavidDe's ask for five more choreographed bosses read the same on both screens)
+- **Taken:** 2026-09-26, this session (claim: claude/mantle-boss-simulation)
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+A shelled body with two handles, `mantleLeft` and `mantleRight`, pulled down
+together by both seats at once — a floor-checked sum (`mantlePairMilli`)
+rather than a split gauge, shown identically on both screens. Eight plates as
+the health, three pull-together movements, a two-seat alternating tap finish
+on the bared core. The full beat list, mechanic and departures are §23 of
+`docs/spec/bosses-choreographed.md`. Every row of
+`.claude/skills/new-boss/registrations.md` for a field-adjacent choreographed
+scene, THE SLOW on every pull window, `bun run check` proves it.
+
+## §24 THE KEEL — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+A six-segment spine whose one tap target, `keelJoint`, walks between the
+left and right half of the body — whichever seat is nearer the mark when it
+lights is the one the cue calls, with no `Alternation` refusal and no per-step
+authored seat. One standard-control fire step at the midpoint (movement 2).
+The full beat list is §24 of `docs/spec/bosses-choreographed.md`. THE SLOW on
+every joint window except the fast re-lit run in movement 3, which is at
+tempo on purpose. `bun run check` proves it.
+
+## §25 THE VALVE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+`FreezeTap` — the one genuinely new verb on either brief — finally spent:
+Player 2's timed tap halts the `valveWheel` bearing drag Player 1 is turning,
+and only while frozen can either seat pull the stilled `valvePin` free.
+Three pins as the health, three movements, the last one turning the wheel
+away from its mark before it can hold. The full beat list is §25 of
+`docs/spec/bosses-choreographed.md`. New member on `Hold["kind"]`, so
+`tools/director/test/on-field-controls.test.ts`'s exhaustive switch is part of this
+lane and not a follow-up. THE SLOW on every freeze and every pull.
+`bun run check` proves it.
+
+## §26 THE SEAM — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+Nothing new: an authored `BossSequenceStep` list gating the ordinary shot and
+shield commands at a lit point on a cracked ridge, three widened points as
+the health. The cheapest of the five — proof that a choreographed scene can
+be built entirely out of the standard controls DavidDe asked to keep for
+specific sequences. The full beat list is §26 of
+`docs/spec/bosses-choreographed.md`. THE SLOW on every fire and shield
+window. `bun run check` proves it.
+
+## §27 THE OCULUS — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+Two hold targets, `oculusLeafLeft` and `oculusLeafRight`, close a six-leaf
+iris two at a time — a *held* `SimultaneousAction` rather than a released
+one, reopening if either thumb lets go before the window's beat count. Once
+shut, a `SceneBreak` (named here for the first time) hands the scene to an
+ordinary gated shot at the bared core, with two more held-reseal beats
+defending it. The full beat list is §27 of
+`docs/spec/bosses-choreographed.md`. THE SLOW on every hold and every fire.
+`bun run check` proves it.
+
+## §23 THE MANTLE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §23 THE MANTLE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, per `.claude/skills/new-boss` §5, read against THE INSTAR's
+five-point checklist: the shell's two valves as a body with parts a mark can
+sit on, bowing outward under a growing pull (deformation off `mantlePairMilli`
+rather than a bar), the split-open pose a blend rather than a cut, and the
+bared core's alternating-tap finish as the mark saying which gesture. Nothing
+here is drawn yet. A cloud session can render and inspect static frames the
+ordinary way (`bun run frames`), but whether the pull reads right at tempo is
+for the owner's own eye and stays unverified until he has looked.
+
+## §24 THE KEEL — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §24 THE KEEL's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two: six segments locking rigid one at a time out of a loose, swaying
+rest pose — independent joints rather than one body morphing whole, the one
+place this batch's bodies depart from THE INSTAR's single-figure blend on
+purpose. The moving tap mark is the cue; the midpoint socket of movement 2 is
+the one standard-control moment. Nothing here is drawn yet and stays
+unverified at tempo until the owner has looked.
+
+## §25 THE VALVE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §25 THE VALVE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two: the wheel's turn drawn continuously rather than snapping between
+marks, a frozen wheel visibly stopping mid-turn as the tell that `FreezeTap`
+landed, and the drum listing further, plate by plate, as each pin comes free
+— the hull's-reaction stand-in for a health bar. Nothing here is drawn yet
+and stays unverified at tempo until the owner has looked.
+
+## §26 THE SEAM — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §26 THE SEAM's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two: the cracked ridge, deliberately undramatic — no morph between its
+four poses, since the whole claim of this concept is that the standard shot
+and shield, gated by step, are already expressive enough without one. The
+cheapest look on this batch. Stays unverified at tempo until the owner has
+looked.
+
+## §27 THE OCULUS — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §27 THE OCULUS's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two: the six-leaf iris closing as a real iris does, each pair sliding
+across the face rather than fading — the one body in this batch drawn as
+mechanism rather than flesh — and the bared core lit in whichever cannon
+colour a beat wants. Stays unverified at tempo until the owner has looked.
