@@ -34,7 +34,7 @@ function zdogCell(parts: Part[], yaw: number, pitch: number): HTMLCanvasElement 
           color: p.skin.base,
         });
       }
-    } else {
+    } else if (p.kind === "ball") {
       const ball = new Zdog.Shape({
         addTo: illo,
         translate: p.c,

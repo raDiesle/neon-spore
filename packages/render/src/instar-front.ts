@@ -1,4 +1,4 @@
-import { blobPoints } from "@neon-spore/content";
+import { blobPoints, FRONT, view } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { drawFrontHead } from "./instar-head.js";
 import { drawScales } from "./instar-hide.js";
@@ -34,21 +34,18 @@ const SEGMENTS = 5;
 const SEGMENT_WOBBLE = 0.05;
 const SEGMENT_WOBBLE_PERIOD = 5.0;
 
+/** How far off the eye is for the wings, in head radii: near enough that the tips swept back go small. */
+const WING_LENS = 10;
+
 export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
   const rear = instarFarEnd(l, f);
   const neck = { x: head.x, y: head.y - r * 0.95 };
   drawEngines(ctx, rear, r, time, fade);
   const shoulder = { x: neck.x, y: neck.y + r * 0.05 };
-  for (const s of [-1, 1]) {
-    drawWing(
-      ctx,
-      look,
-      { x: shoulder.x + s * r * 0.55, y: shoulder.y },
-      { x: shoulder.x + s * r * 0.4, y: shoulder.y + r * 0.95 },
-      { ex: { x: -s * r * 0.85, y: 0 }, ey: { x: 0, y: r * 0.85 } },
-    );
-  }
+  const w = view(FRONT, 0, r * WING_LENS);
+  for (const s of [-1, 1] as const)
+    drawWing(ctx, look, shoulder, w, { x: 0, y: 0, z: s * r * 0.55 }, s);
   for (let k = 0; k < SEGMENTS; k++) {
     const t = k / (SEGMENTS - 1);
     const c = toward(rear, neck, t);

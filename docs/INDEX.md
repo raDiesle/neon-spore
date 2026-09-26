@@ -1508,7 +1508,7 @@ by hand never moves.
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
 | `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
-| `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers |
+| `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers — and solid |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
 | `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
@@ -1874,8 +1874,9 @@ by hand never moves.
 | `packages/render/src/solid-ball.ts` | A ROUND PART OF A RIG — a head, a knuckle, an eye, a nest — lit once and stamped |
 | `packages/render/src/solid-haze.ts` | DEPTH ACROSS A RIG: what makes the far wing read as further than the near one when both are the same size on… |
 | `packages/render/src/solid-motion.ts` | MOTION THAT A RIG HAS WITHOUT BEING TOLD: the always-on life of a body, as pure functions of time |
-| `packages/render/src/solid-rig.ts` | A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube or a ball |
+| `packages/render/src/solid-rig.ts` | A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube |
 | `packages/render/src/solid-tube-draw.ts` | A TUBE OF A RIG, DRAWN: the outline `seeTube` found, filled |
+| `packages/render/src/solid-sheet.ts` | A SHEET OF A RIG: skin stretched flat between bones — a wing's membrane, a fin, a sail |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
 | `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |

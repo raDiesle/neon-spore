@@ -568,6 +568,21 @@ run it, look at the PNG — that is the loop.
   `drawRig` poses each anchor once per call and carries the part into rig
   space before it is seen, so the painter still sorts where the part really
   is. Animate a hinge by turning its anchor, never by moving every ring.
+- **A sheet is skin between bones** (`solid-sheet.ts`): one polygon in rig
+  space — a wing's membrane, a fin — lit by its own Newell normal, turned to
+  face the viewer first since a membrane takes the key on either side. Three
+  fills: the skin nearly opaque, its lit colour by how square it is to the
+  key, and a *glow* gradient between two of its points for light coming
+  through it, sheen at the bones going to `#0B1024` at the hem. Its outline
+  gets the tube's rim.
+- **THE INSTAR's wings are the worked example** (`instar-wings.ts`). Each is
+  authored once, flat about its shoulder, and hung on an anchor; the figure's
+  `side` blends two carriages — face-on spread and hanging, side-on raised off
+  the back — so one wing serves both views. The beat is on the roll, so the
+  membrane turns its face to the key and away and brightens and darkens with
+  nothing animated but the hinge. The arm is a tube of the rig, and the far
+  wing is the same wing mirrored across z (negate roll and yaw, keep pitch)
+  and hazed.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency

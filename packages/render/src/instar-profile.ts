@@ -1,3 +1,4 @@
+import { SIDE, view } from "@neon-spore/content";
 import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
@@ -86,15 +87,9 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
     bottom.push({ x: p.x - nx * w * lung * 0.9, y: p.y - ny * w * lung * 0.9 });
   });
   const back = (u: number): Point => top[Math.round(u * N)] ?? rear;
-  const wingAt = { ex: { x: 0, y: r * 0.8 }, ey: { x: r * 0.8, y: 0 } };
-  drawWing(
-    ctx,
-    look,
-    { x: back(0.38).x - r * 0.25, y: back(0.38).y - r * 0.1 },
-    back(0.62),
-    wingAt,
-    1,
-  );
+  const W = view(SIDE);
+  const farRoot = { x: back(0.38).x - r * 0.25, y: back(0.38).y - r * 0.1 };
+  drawWing(ctx, look, farRoot, W, { x: 0, y: 0, z: -r * 0.3 }, -1, 1);
   const flick = 0.75 + 0.25 * Math.sin(time * 21);
   halo(
     ctx,
@@ -131,7 +126,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   rimTube(ctx, hide, PALETTE.sheenRim, r * 0.06, fade);
   drawMoult(ctx, coarse(top), coarse(bottom), look);
   drawTail(ctx, l, look, rear);
-  drawWing(ctx, look, back(0.42), back(0.7), wingAt);
+  drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
   drawSideHead(ctx, { ...look, head: headBob(head, r, time) });
 }

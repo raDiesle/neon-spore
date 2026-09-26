@@ -15,11 +15,12 @@ import {
 } from "@neon-spore/content";
 import { drawBall } from "./solid-ball.js";
 import { backness, drawContact, hazeSkin } from "./solid-haze.js";
+import { drawSheet, type Glow, type SeenSheet, seeSheet } from "./solid-sheet.js";
 import { drawTube, rimTube, type Skin } from "./solid-tube-draw.js";
 
 /**
- * A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube or a
- * ball, authored side-on in pixels about the rig's own origin
+ * A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube, a
+ * ball or a sheet of skin (`solid-sheet.ts`), authored side-on in pixels about the rig's own origin
  * (`packages/content/src/solid.ts`).
  *
  * The order is the whole trick. Every part is seen, then sorted far-first on
@@ -57,7 +58,18 @@ export interface BallPart {
   readonly anchor?: Anchor;
 }
 
-export type Part = TubePart | BallPart;
+export interface SheetPart {
+  readonly kind: "sheet";
+  /** One closed polygon: a membrane between bones. */
+  readonly points: readonly Vec3[];
+  readonly skin: Skin;
+  /** Where the light comes through it, and the hem it fades out at. */
+  readonly glow?: Glow;
+  /** The hinge this sheet is authored about, if it hangs off one. */
+  readonly anchor?: Anchor;
+}
+
+export type Part = TubePart | BallPart | SheetPart;
 
 export interface RigLook {
   /** The field colour far parts are hazed toward. */
@@ -73,6 +85,7 @@ interface Placed {
   readonly i: number;
   readonly z: number;
   readonly rings?: SeenRing[];
+  readonly sheet?: SeenSheet;
 }
 
 /** The part carried off its anchor into rig space; itself when it has none. */
@@ -80,11 +93,17 @@ export function hung(part: Part, poses?: Map<Anchor, Hinge>): Part {
   if (!part.anchor) return part;
   const pose = poseOf(part.anchor, poses);
   if (part.kind === "ball") return { ...part, c: hang(pose, part.c), anchor: undefined };
+  if (part.kind === "sheet")
+    return { ...part, points: part.points.map((p) => hang(pose, p)), anchor: undefined };
   return { ...part, rings: hangRings(pose, part.rings), anchor: undefined };
 }
 
 function place(part: Part, i: number, w: View): Placed {
   if (part.kind === "ball") return { part, i, z: see(part.c, w).z };
+  if (part.kind === "sheet") {
+    const sheet = seeSheet(part.points, w);
+    return { part, i, z: sheet.z, sheet };
+  }
   const rings = seeTube(part.rings, tubeFrames(part.rings), w);
   const z = rings.reduce((s, r) => s + r.c.z, 0) / Math.max(1, rings.length);
   return { part, i, z, rings };
@@ -113,6 +132,12 @@ export function drawRig(
     if (p.part.kind === "tube" && p.rings) {
       const outline = drawTube(ctx, p.rings, skin, alpha);
       rimTube(ctx, outline, look.rim, 2, alpha * (1 - backness(p.z, near, far) * 0.6));
+      outlines.set(p.i, outline);
+      continue;
+    }
+    if (p.part.kind === "sheet" && p.sheet) {
+      const outline = drawSheet(ctx, p.sheet, skin, alpha, p.part.glow);
+      rimTube(ctx, outline, look.rim, 1, alpha * (1 - backness(p.z, near, far) * 0.6));
       outlines.set(p.i, outline);
       continue;
     }

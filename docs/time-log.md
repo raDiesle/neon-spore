@@ -22657,3 +22657,19 @@ Bottleneck: writing — six gestures and eight phases is a body and its marks,
 which is two files before it is one.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's wings on the rig: a lit membrane on a shoulder anchor
+
+- reading: 10 min. The anchor, the tube draw, both wing call sites and the
+  poses that carry `side` and `wing`.
+- writing: 35 min. The sheet part, its place in the rig's painter, the wing
+  rewritten flat about its shoulder, and the two callers.
+- looking: 25 min. Four rounds of front and side frames against the shipped
+  ones: face-on the first cut was a third narrower, from the sweep, the lift
+  and the lens together.
+- friction: 5 min. A probe script outside the workspace could not resolve the
+  content package, and the new part kind broke the Zdog page's narrowing.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: looking — the width of a wing face-on comes from three turns and a
+lens at once, and only a frame says which one is short.

@@ -14,6 +14,15 @@ export {
   hung,
   type Part,
   type RigLook,
+  type SheetPart,
   type TubePart,
 } from "./solid-rig.js";
+export {
+  drawSheet,
+  type Glow,
+  newell,
+  type SeenSheet,
+  seeSheet,
+  sheetPath,
+} from "./solid-sheet.js";
 export { drawTube, rimTube, type Skin, tubePath } from "./solid-tube-draw.js";
