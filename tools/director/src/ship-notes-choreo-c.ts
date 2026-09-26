@@ -246,5 +246,5 @@ export const CHOREO_NOTES_C = {
     "wave. Story steps under THE SLOW, each run out a hull hit: a swell " +
     "pinched shut on both flanks at once, a spore off the middle turned by " +
     "the shield, a bud off the middle shot in its colour. THE SLOW never " +
-    "holds a shot. Only the simulation lane has landed — sim/cyst*.ts.",
+    "holds a shot. The picture is render/cyst*.ts, the lit flank white.",
 } satisfies Partial<Record<GroupName, string>>;

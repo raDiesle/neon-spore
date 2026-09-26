@@ -37,6 +37,9 @@ export {
   cystStepCol,
   freshCyst,
 } from "./cyst.js";
+// And how long a step is lit and a flank stilled, so the rings the picture
+// closes read the numbers the simulation judges by (`cyst-step.ts`).
+export { cystFrozenBeats, cystLitBeats } from "./cyst-step.js";
 // THE DAVIT's boom: the phase, the lit step, the swings, the pivot, both
 // seats' leans and draws, and whose is live, for the picture, the cue and the
 // director's hand. Straight off `davit.ts` (`docs/spec/bosses-choreographed.md` §35).

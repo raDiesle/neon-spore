@@ -2,6 +2,7 @@ import { AntiphonFx } from "./antiphon-fx.js";
 import { BossBlows } from "./boss-blows.js";
 import { BossStrikeFx } from "./boss-strike-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
+import { CystFx } from "./cyst-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
@@ -181,6 +182,10 @@ export class BossRoster {
    * both screens, and told the core's colour by the drawer (`plumb-fx.ts`,
    * `plumb-draw.ts`). */
   readonly plumb = new PlumbFx();
+  /** THE CYST's thud, the sprung flanks, the core's flash and the split's,
+   * and its receipts' bursts — thrown the same on both screens, and told the
+   * core's colour by the drawer (`cyst-fx.ts`, `cyst-draw.ts`). */
+  readonly cyst = new CystFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

@@ -26,7 +26,8 @@ import type { Circle, Layout } from "./layout.js";
  * navigator's, each drawn while the simulation has it pulled down its groove.
  * THE OCULUS's halves are the same pair, each drawn while its leaf is held,
  * and THE VISE's lobes, each drawn while a pinch is on it. THE TRIVET's
- * feet are one a seat again, each drawn while any pad of its chord is down.
+ * feet are one a seat again, each drawn while any pad of its chord is down,
+ * and THE CYST's flanks, each drawn while its pincher has it closing.
  */
 export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: number): Circle | null {
   const b = world.boss;
@@ -63,6 +64,11 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
   if (b?.kind === "trivet") {
     if (b.padsDown[seat === 1 ? 0 : 1] === 0) return null;
     return handleCircle(l, world, seat === 1 ? "trivetPadFront" : "trivetPadRear", beatPhase);
+  }
+  if (b?.kind === "cyst") {
+    const side = seat === 1 ? 0 : 1;
+    if (b.gapMilli[side] >= world.cfg.cystOpenMilli) return null;
+    return handleCircle(l, world, side === 0 ? "cystFlankLeft" : "cystFlankRight", beatPhase);
   }
   if (b?.kind === "davit") {
     if (!b.holding[seat === 1 ? 0 : 1]) return null;

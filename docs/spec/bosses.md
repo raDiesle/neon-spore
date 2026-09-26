@@ -9515,12 +9515,29 @@ in its colour unless it is `either`.
   names. THE SLOW opens on every tap and every pinch as the design says,
   and never on a fire step, which the design does not list.
 
-**The simulation lane has landed.** Nothing in `apps/game` sends a
-`cystFreeze*` or `cystFlank*` drag yet, so the sac cannot be answered on a
-real phone — the touch sender is queued with the look (`docs/queue.md`).
-Nothing of it is drawn: the render package's silent-event lists and
-`tools/director/src/sound-link-none-d.ts` carry all seventeen of its events
-until lane two. The seventeen are bound (`audio/src/bind-cyst.ts`), nearly
+**The look** (`render/cyst-*.ts`, 26 September 2026) is BULB · CLOVER
+from the shape sheet's drafts, which nothing wore before: a four-lobed
+mauve sac over the middle column (`cyst-shape.ts`), its left and right
+lobes the flanks. **Both phones draw the same sac.** A lit flank shudders
+and is outlined white, with its freeze mark beside it breathing and a ring
+closing as the tap's window runs out; tapped, the mark fills and the flank
+stops dead (`cyst-pose.ts`), and while it is pinched the flank narrows and a
+pale crack runs along it by the share of the beats held. A cracked flank
+keeps its scar; a guard lights that scar. The swell blows the whole outline
+taut and white; a spit grows a spore at the sac's foot and drops it down its
+column; a bud swells over its column in its colour (`cyst-story.ts`). The
+core is a shadow under the skin until both flanks crack, then a dark hollow
+with the core in it, lit in the fire step's colour with a closing ring,
+smaller and brighter per hit (`cyst-marks.ts`). What outlives a frame — a
+crack's thud, a sprung flank, the core's flash, the split — is
+`effects.boss.cyst` (`cyst-fx.ts`). The words (`boss-cue-read-zi.ts`) are
+`TAP` on the lit flank's mark to the freezer, then `SHUT` on the flank to
+the pincher, `SHUT` to both on a swell, `FIRE` at the hull while the core
+is bared, and `SHIELD` or `FIRE` under a spore or a bud. The hands
+(`cyst-grip.ts`): a tap on the partner's mark is sent at once, and a pinch
+is taken anywhere on this seat's side of the sac, as THE VISE takes it.
+Its timeout blow is still the default lash and its autopilot hand is not
+written; both are queued (`docs/queue.md`). The seventeen are bound (`audio/src/bind-cyst.ts`), nearly
 all in the middle, the hit pitched up per hit; a swell held is a flank's
 crack pitched down, a spore turned the shield's own deflect, a bud burst the
 core's hit pitched up. There is no autopilot hand

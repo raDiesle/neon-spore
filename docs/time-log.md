@@ -24754,3 +24754,13 @@ the autopilot hand) each needing its own registrations read before its
 render code could go in.
 
 *Measured: from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE CYST's look, the touch sender and the words (claude/cyst-look)
+
+- reading: 20 min. THE VISE's and THE TRIVET's render files and tests, the shape sheet's drafts, the cue pages.
+- writing: 65 min. Seven `cyst-*.ts` render files, the cue page, nine wiring edits, two test files, the spec. Nothing delegated.
+- looking: 5 min. One frame of the wave.
+- friction: 10 min. A silent-list edit script aimed at the wrong comment, and a context compaction mid-lane.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: the context compaction, which cost re-reading the files already written.

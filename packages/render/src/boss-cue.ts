@@ -30,6 +30,7 @@ import { oculusCues } from "./boss-cue-read-ze.js";
 import { viseCues } from "./boss-cue-read-zf.js";
 import { rimeCues } from "./boss-cue-read-zg.js";
 import { trivetCues } from "./boss-cue-read-zh.js";
+import { cystCues } from "./boss-cue-read-zi.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -181,6 +182,9 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // is lit (`plumb-marks.ts`).
     case "plumb":
       return plumbCues(l, world, boss, beatPhase);
+    // And THE CYST's, a tap on the lit mark then a pinch on its flank, a pair on a swell, and one at the hull (`boss-cue-read-zi.ts`).
+    case "cyst":
+      return cystCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

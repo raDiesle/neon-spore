@@ -228,4 +228,12 @@ export const CREATURE_HUES = {
   davitSteel: "#7C8797",
   davitSteelDark: "#2C323B",
   davitChain: "#9B9384",
+  /**
+   * THE CYST's sac (§34): a dull mauve flesh and its shadow, greyer than
+   * `hull` and far from `red`, and the pale scar a crack leaves — so the only
+   * colours on it are what a step asks for.
+   */
+  cystSac: "#8A6E82",
+  cystSacDark: "#2C2029",
+  cystScar: "#F1E2EC",
 } as const;

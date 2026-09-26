@@ -884,26 +884,6 @@ lift; a jaw is one drag a pad, `id` 0 or 1, `on` down and up
 yet, so the wheel is unanswerable on a phone until this lands; a test that
 a back-and-forth rub sends a rising count and a pad lift sends its `id`.
 
-## §34 THE CYST — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/cyst-story (claim: claude/queue-34-the-cyst-the-look)
-- **Needs:** §34 THE CYST's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (check
-`packages/content/src/silhouettes*.ts` first, then `tools/shape-sheet/src/drafts/`
-per `CLAUDE.md`'s rule against redrawing a shape the game already has) for
-a pulsing, unevenly shuddering sac, and the stillness cue that is this
-body's whole tell — the shudder stopping dead rather than any new
-particle. No sprite-atlas experiment queued for the shudder itself: it is
-a continuous drift that must agree with the sim's freeze state every
-tick, not a hinge-and-strain motion resolved once per beat the way THE
-SLING's arm-draw is, so it stays a procedural phase clock the freeze can
-simply stop advancing rather than a candidate for `docs/raster.md`'s
-baked-strip treatment. Nothing here is drawn yet and stays unverified at
-tempo until the owner has looked.
-
 ## THE BATON's flesh has no secondary motion of its own
 
 - **Found:** 2026-09-26, this session
@@ -1729,9 +1709,10 @@ UNDERTOW — several move, so a row may need the pose rather than the home —
 and THE ANTIPHON, whose body is the width of the field: a disc round it is
 the whole top of the screen, so its row is a capsule along the box
 (`antiphonBox`) or the pilot's organ, not a centre. THE SEAM's row rides
-its hands (*§26 THE SEAM — its hands*). THE CYST, THE DAVIT, THE
+its hands (*§26 THE SEAM — its hands*). THE DAVIT, THE
 GRINDSTONE, THE PLUMB, THE RIME and THE SLING have no look yet
-and take their row with it.
+and take their row with it; THE CYST took its row with its look
+(26 September 2026).
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 
@@ -1981,7 +1962,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-- **Waits on:** THE CYST's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
+- **Waits on:** nothing since 26 September 2026: THE CYST's look has landed (`packages/render/src/cyst-*.ts`), so a flank lobe or the spore's tip is there to make the blow from.
 
 THE CYST's timeout already calls `bossStrikesHull` (`packages/sim/src/cyst-step.ts`)
 and draws the default lash, a red tendril out of the body to the column and
@@ -2750,3 +2731,18 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE CYST's autopilot hand
+
+- **Found:** 2026-09-26, claude/cyst-look
+- **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`
+
+THE CYST is drawn and can be answered from a touch, but no hand plays it:
+it stays in `autopilot.test.ts`'s `NO_HAND`. Write the hand, a new
+packages/hands/src/boss-hands-cyst.ts, the way
+`boss-hands-vise.ts` plays THE VISE — on a lit flank step, the freezer's
+`cystFreeze*` edge; once frozen, the pincher's `cystFlank*` drag with
+`fromMilli` at or under `cystShutMilli` until the step's beats are held;
+on a swell both flanks at once; on fire, spit and bud the cannon or the
+shield at `cystStepCol` — then take THE CYST out of `NO_HAND` and prove it
+with `bun run check`.

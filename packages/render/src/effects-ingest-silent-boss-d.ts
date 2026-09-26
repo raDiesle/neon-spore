@@ -76,7 +76,8 @@ export const INGEST_SILENT_BOSS_D = [
   "grindstoneMiss",
   "grindstoneFree",
   "grindstoneOut",
-  // THE CYST's seventeen, the same (`packages/audio/src/bind-cyst.ts`).
+  // THE CYST's seventeen: what outlives a frame is `cyst-fx.ts`', read above
+  // the loop; how open and how cracked each flank is stays read off the state.
   "cystEnter",
   "cystLight",
   "cystStill",
@@ -94,7 +95,8 @@ export const INGEST_SILENT_BOSS_D = [
   "cystPop",
   "cystSplit",
   "cystOut",
-  // THE DAVIT's thirteen, the same (`packages/audio/src/bind-davit.ts`).
+  // THE DAVIT's thirteen: nothing of it outlives a frame yet
+  // (`packages/audio/src/bind-davit.ts`).
   "davitEnter",
   "davitLight",
   "davitDrift",

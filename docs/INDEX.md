@@ -1041,6 +1041,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zf.ts` | **What THE VISE is asking for** — page thirty-two of the readings |
 | `packages/render/src/boss-cue-read-zg.ts` | **What THE RIME is asking for** — page thirty-three of the readings |
 | `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
+| `packages/render/src/boss-cue-read-zi.ts` | **What THE CYST is asking for** — page thirty-five of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1663,7 +1664,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
 | `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
 | `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
-| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's fourteen, THE DAVIT's thirteen |
+| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's seventeen, THE DAVIT's thirteen |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-hole.ts` | **A crater's puffs, thrown from the rock rather than from its row.** A rock's last six rows are drawn higher… |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
@@ -2025,6 +2026,13 @@ by hand never moves.
 | `packages/render/src/curtain-flesh.ts` | **What THE CURTAIN is made of**: a wet membrane hung from a gathered top edge |
 | `packages/render/src/curtain-sheet.ts` | THE CURTAIN's two shapes: the membrane with its hem, and the core |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
+| `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |
+| `packages/render/src/cyst-fx.ts` | What THE CYST leaves behind a frame (§34): the **thud** of a flank cracking |
+| `packages/render/src/cyst-grip.ts` | **The hands on THE CYST** (§34): a tap on a freeze mark, and a pinch on a flank |
+| `packages/render/src/cyst-marks.ts` | **THE CYST's marks**: the things that say what a step asks — a lit freeze mark beside a flank |
+| `packages/render/src/cyst-pose.ts` | **THE CYST's pose, read off the state every frame** (§34): how far in the sac has dropped |
+| `packages/render/src/cyst-shape.ts` | **THE CYST's geometry**: where the sac stands, and the paths it is made of |
+| `packages/render/src/cyst-story.ts` | **THE CYST's three story steps, drawn** (§34; the rules are `sim/cyst-step.ts` and `sim/cyst-shot.ts`) |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/spool-brake.ts` | **The pilot's brake**: a rail hanging outside the brake's flange, a knob on it at the depth his thumb has it |
