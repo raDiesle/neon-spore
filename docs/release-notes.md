@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 60e6066eb — THE INSTAR's baked nests offered in VERSUS against the shipped ones
+
+The slot `instar:nest` puts the nests and eggs painted once at load beside the ones the game draws today, on a new director pose, INSTAR · THE BROOD, that reaches the step the nests are drawn in. `drawNests` now paints through a `NEST_LOOK` record the candidate patches; the game draws what it drew before (exemption: none needed — the shipped look is unchanged).
+
 ## 2026-09-26 · af5f7f106 — Queue: §34 THE CYST — the simulation lane done
 
 ## 2026-09-26 · 61e23e34c — §34 THE CYST: pair FreezeTap with SqueezeGap as a dependency, the simulation lane

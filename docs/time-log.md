@@ -23159,3 +23159,5 @@ needing a move before the new boss fitted.
 
 Bottleneck: the main checkout being dirty from another thread, which held
 the previous landing and this one behind it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
