@@ -22626,3 +22626,13 @@ Bottleneck: friction — a boss registered in forty-odd files collides in all
 of them with the boss that landed first.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A rig part hangs off an anchor and turns with it
+
+- reading: 10 min. The rig's parts, the view's yaw sense, how content exports the solid page.
+- writing: 25 min. The anchor arithmetic, the rig resolving it, two tests, the demo's fins and eyes on hinges, the style-guide line.
+- looking: 5 min. One solid sheet: the fins stay on their shoulders from every side.
+- friction: 5 min. `Pose` was already a name in content, so the resolved anchor is a `Hinge`.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the sign of each turn had to be pinned by a test before the demo could use it.

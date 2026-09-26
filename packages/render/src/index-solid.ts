@@ -8,5 +8,12 @@
 export { drawBall } from "./solid-ball.js";
 export { backness, drawContact, hazeSkin } from "./solid-haze.js";
 export { breath, chainAt, noise1 } from "./solid-motion.js";
-export { type BallPart, drawRig, type Part, type RigLook, type TubePart } from "./solid-rig.js";
+export {
+  type BallPart,
+  drawRig,
+  hung,
+  type Part,
+  type RigLook,
+  type TubePart,
+} from "./solid-rig.js";
 export { drawTube, rimTube, type Skin, tubePath } from "./solid-tube-draw.js";

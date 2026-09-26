@@ -1,5 +1,10 @@
 import {
+  type Anchor,
   farFirst,
+  type Hinge,
+  hang,
+  hangRings,
+  poseOf,
   type Ring,
   type SeenRing,
   see,
@@ -27,12 +32,18 @@ import { drawTube, rimTube, type Skin } from "./solid-tube-draw.js";
  * fill and the light across it, the rim, and — for a part that `rests` on an
  * earlier one — the contact shadow on that one first, so the one sits *on*
  * the other. The light does not turn; every part is lit from the one key.
+ *
+ * A part with an `anchor` is authored about its own hinge and hangs off it
+ * (`packages/content/src/solid-anchor.ts`): it is carried into rig space
+ * first, every anchor posed once per call, and only then seen and sorted.
  */
 
 export interface TubePart {
   readonly kind: "tube";
   readonly rings: readonly Ring[];
   readonly skin: Skin;
+  /** The hinge this tube is authored about, if it hangs off one. */
+  readonly anchor?: Anchor;
 }
 
 export interface BallPart {
@@ -42,6 +53,8 @@ export interface BallPart {
   readonly skin: Skin;
   /** The index of the part this one bears on, for its contact shadow. */
   readonly rests?: number;
+  /** The hinge this ball is authored about, if it hangs off one. */
+  readonly anchor?: Anchor;
 }
 
 export type Part = TubePart | BallPart;
@@ -62,6 +75,14 @@ interface Placed {
   readonly rings?: SeenRing[];
 }
 
+/** The part carried off its anchor into rig space; itself when it has none. */
+export function hung(part: Part, poses?: Map<Anchor, Hinge>): Part {
+  if (!part.anchor) return part;
+  const pose = poseOf(part.anchor, poses);
+  if (part.kind === "ball") return { ...part, c: hang(pose, part.c), anchor: undefined };
+  return { ...part, rings: hangRings(pose, part.rings), anchor: undefined };
+}
+
 function place(part: Part, i: number, w: View): Placed {
   if (part.kind === "ball") return { part, i, z: see(part.c, w).z };
   const rings = seeTube(part.rings, tubeFrames(part.rings), w);
@@ -79,7 +100,8 @@ export function drawRig(
   look: RigLook,
   alpha = 1,
 ): void {
-  const placed = parts.map((p, i) => place(p, i, w));
+  const poses = new Map<Anchor, Hinge>();
+  const placed = parts.map((p, i) => place(hung(p, poses), i, w));
   const zs = placed.map((p) => p.z);
   const near = Math.max(...zs);
   const far = Math.min(...zs);

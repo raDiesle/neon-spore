@@ -915,6 +915,7 @@ by hand never moves.
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 | `packages/content/src/solid-tube.ts` | A LONG PART OF A RIG: a body, a neck, a tail — a spine of rings |
+| `packages/content/src/solid-anchor.ts` | A PART THAT HANGS OFF ANOTHER: a jaw hinged on the skull, a wing on the shoulder, a claw on the wing |
 | `packages/content/src/solid.ts` | A BOSS SEEN FROM ANY SIDE |
 | `packages/content/src/rooted.ts` | A bulb held down by roots: a round body with narrow tendrils reaching from its underside |
 | `packages/content/src/antiphon-contours.ts` | **THE ANTIPHON's table of contours** — the sixteen shapes the body can grow |

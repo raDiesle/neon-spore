@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { FRONT, SIDE, THREE_QUARTER, view } from "@neon-spore/content";
-import { breath, chainAt, drawBall, drawRig, noise1, type Part } from "../src/index.js";
+import { breath, chainAt, drawBall, drawRig, hung, noise1, type Part } from "../src/index.js";
 import { hazeSkin } from "../src/solid-haze.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -58,6 +58,28 @@ describe("drawRig", () => {
       document.createElement = orig as typeof document.createElement;
     }
     expect(count).toBeLessThanOrEqual(2);
+  });
+});
+
+describe("an anchored part", () => {
+  it("is drawn where the same part authored flat in the rig is", () => {
+    const fin = RIG[1] as Extract<Part, { kind: "tube" }>;
+    const hinge = { x: 0, y: -20, z: 20 };
+    const local = fin.rings.map((r) => ({
+      c: { x: r.c.x - hinge.x, y: r.c.y - hinge.y, z: r.c.z - hinge.z },
+      r: r.r,
+    }));
+    const moved = hung({ ...fin, rings: local, anchor: { at: hinge } });
+    expect(moved.kind === "tube" && moved.rings).toEqual(fin.rings);
+    const ball = hung({
+      kind: "ball",
+      c: { x: 5, y: 0, z: 0 },
+      r: 4,
+      skin: SKIN,
+      anchor: { at: hinge },
+    });
+    expect(ball.kind === "ball" && ball.c).toEqual({ x: 5, y: -20, z: 20 });
+    expect(hung(fin)).toBe(fin);
   });
 });
 

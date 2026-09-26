@@ -560,6 +560,14 @@ run it, look at the PNG — that is the loop.
   `noise1` is a hashed value noise, `breath` a period that wanders by it,
   `chainAt(root, t, i, lag)` is link `i` doing what the root did `lag·i`
   earlier. A tail is a chain; nothing is simulated, so nothing outlives a frame.
+- **A part hangs off an anchor** (`solid-anchor.ts`). A jaw, a wing, an eye is
+  authored about its own hinge, and its `Anchor` says where the hinge sits on
+  its parent and how far it is turned there — `roll` about the body's length
+  lifts a wing, `pitch` in the side plane drops a jaw, `yaw` turns a head —
+  with an optional `parent`, so the skull turns and the jaw goes with it.
+  `drawRig` poses each anchor once per call and carries the part into rig
+  space before it is seen, so the painter still sorts where the part really
+  is. Animate a hinge by turning its anchor, never by moving every ring.
 
 **Zdog was tried beside the rig and not taken.** `bun run solid --zdog` draws
 the same body both ways (`tools/raster/src/zdog-page.ts`; zdog is a devDependency
@@ -567,9 +575,9 @@ of `tools/raster` for that sheet only, never of the game). Zdog turns and
 orders one body correctly, but every part is one flat colour: no key light, no
 haze, no contact, so a turn reads as a paper cut-out rotating. Adding a light
 to it means writing what `solid-tube-draw.ts` already does, on top of 7 KB
-gzipped of a library last released in 2019 with no types. What is worth
+gzipped of a library last released in 2019 with no types. What was worth
 borrowing is its way of authoring — a part hangs off an anchor and inherits
-its turn — which a rig can grow as a `group` of parts without the library.
+its turn — and the rig has it now, without the library.
 
 **A GPU pass is a candidate, never the default.** A WebGL glow over the 2D
 canvas uploads the whole frame to the GPU every frame and runs a shader over

@@ -108,6 +108,7 @@ export {
   type View,
   view,
 } from "./solid.js";
+export { type Anchor, type Hinge, hang, hangRings, poseOf } from "./solid-anchor.js";
 export {
   type Frame,
   onRing,
