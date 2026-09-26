@@ -1509,3 +1509,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 3d1c57ed7: THE KEEL's TAP and FIRE words read at tempo on a phone
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zd.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-keel.test.ts`
+
+*THE KEEL says what it wants: TAP on the lit joint, FIRE under the socket and the rock* landed from a session that could not look at it. What went unchecked:
+
+- THE KEEL's TAP and FIRE words read at tempo on a phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

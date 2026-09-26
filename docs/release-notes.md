@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 3d1c57ed7 — THE KEEL says what it wants: TAP on the lit joint, FIRE under the socket and the rock
+
+When a joint is lit, TAP goes on its ring, shown only on the screen of the seat whose half it sits over. While the socket is open, FIRE goes at the hull under the middle column, on both screens; it never names the colour the socket wants. A falling rock puts FIRE at the hull under it, ahead of the rest. The exemption: a look with no shipped alternative, since the boss had no words at all.
+
 ## 2026-09-26 · e58c0f6c4 — THE INSTAR's horns are cones of bone that lean in depth, and its jaw breathes
 
 Both heads' horns are tubes of the rig now: tapered to a point, lit across their width, ringed with the ridges they grew in, and leaning toward the player or away. Face-on they sweep back off the brow, their points drawn smaller by the lens and hazed toward the field; side-on the far horn stands back and the near one comes forward. They turn with the skull's own idle turn, so the horns and the light on the skull move together. The side-on jaw breathes on its hinge.

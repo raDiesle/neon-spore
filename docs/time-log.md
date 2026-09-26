@@ -22821,3 +22821,5 @@ out above the skull.
 
 Bottleneck: landing — the page is a copy of THE MANTLE's in shape, and the
 check waits longer than the writing took.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
