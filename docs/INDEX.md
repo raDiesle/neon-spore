@@ -1364,6 +1364,10 @@ by hand never moves.
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The clocks a wave's opening keeps between frames — the page's, the wave's — and the blobs a READY throws |
 | `packages/render/src/opening-key.ts` | Which page of a wave's opening is up, as a string only the clocks compare |
+| `packages/render/src/oculus-draw.ts` | **THE OCULUS**: a lens of six leaves over the middle column |
+| `packages/render/src/oculus-marks.ts` | **THE OCULUS's marks**: the two things that say what a step asks — the lit pair, which is *both hold now* |
+| `packages/render/src/oculus-pose.ts` | **The clock THE OCULUS is posed off** (§27, *Animation*): five poses — open, two leaves shut, four |
+| `packages/render/src/oculus-shape.ts` | **THE OCULUS's geometry**: where the lens stands, and the paths it is made of |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |

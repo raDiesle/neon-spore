@@ -84,6 +84,7 @@ export {
   oculusHolding,
   oculusLitStep,
 } from "./oculus.js";
+export { oculusWindowBeats } from "./oculus-step.js";
 // THE PLUMB's bob: the phase, the lit step, the weights and both seats'
 // leans, for the picture, the cue and the director's hand. Straight off
 // `plumb.ts` (`docs/spec/bosses-choreographed.md` §31).

@@ -82,10 +82,10 @@ export const ARMOURED_DRAFTS: CatalogueEntry[] = [
       curl: 1,
     }),
     motion: TUMBLE,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "the second half of THE SLATER and useless without it: every parameter identical, with the curl pinned at 1 so the closed state can be judged on its own rather than glimpsed for a quarter of a cycle. It carries TUMBLE deliberately and the choice is the question rather than a decoration — a shut woodlouse is a ball, and a ball that rolls is the exact thing this game already draws nine of. If the seams are not enough to hold it apart from a meteor while it turns, then the whole roll costs a kind and buys a rock, and the pair should be retired together",
+      "THE OCULUS, taken 26 September 2026, combined with THROB · CROWN: the shut disc is its lens's rim, six lapped plates curled into a closed ring round the face, each lapping the next, with CROWN's six even knobs standing on it as the pins its iris leaves swing from (`render/oculus-shape.ts`). The roll is not used — nothing tumbles, the lens stands. Before that, nothing carried it: the second half of THE SLATER and useless without it: every parameter identical, with the curl pinned at 1 so the closed state can be judged on its own rather than glimpsed for a quarter of a cycle. It carries TUMBLE deliberately and the choice is the question rather than a decoration — a shut woodlouse is a ball, and a ball that rolls is the exact thing this game already draws nine of. If the seams are not enough to hold it apart from a meteor while it turns, then the whole roll costs a kind and buys a rock, and the pair should be retired together",
   },
   {
     subject: curled("THE CRAWLER", "a chain of hard plates with a flex running down it", {

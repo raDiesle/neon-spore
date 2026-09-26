@@ -468,17 +468,27 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §27 THE OCULUS — the look
+## §27 THE OCULUS — its hands, the second half of its look
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-27-the-oculus-the-look)
-- **Needs:** §27 THE OCULUS's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Needs:** §27 THE OCULUS — the look, half one (the body), landed first
+- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
 
-Lane two: the six-leaf iris closing as a real iris does, each pair sliding
-across the face rather than fading — the one body in this batch drawn as
-mechanism rather than flesh — and the bared core lit in whichever cannon
-colour a beat wants. Stays unverified at tempo until the owner has looked.
+The body is drawn: the rim and its pins, the six leaves as iris blades, the
+lit pair sliding shut as it is held, a reseal's cracked pair, the socket's
+break, the core in its colour and smaller per hit, and the shatter. What is
+left is everything an event or a hand touches. **The on-field leaf holds**:
+`oculusLeafLeft` and `oculusLeafRight` are still "unbuilt" in
+`on-field-controls.test.ts` — a thumb's target on each half of the lens, one
+per seat by geometry, THE MANTLE's grip. **The fx**, in `Effects` and cleared
+in `reset()`: each shut pair's soft hull-shock thud (§27, *Presentation*),
+the spring of a pair let go, the socket swallowed shut, the core's hit flash
+and the shatter's; the twelve `oculus*` events come off the two silent lists
+as each gets its burst. **THE SLOW's aim** on the lens (the prism splits it
+today — the item below on the prism's aim is the general case). **The cue's
+words** (HOLD on the lit pair, FIRE on the lit core), **the autopilot hand**
+and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+Unverified at tempo until the owner has looked.
 
 ## §28 THE VISE — the look
 

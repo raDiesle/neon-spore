@@ -23161,3 +23161,18 @@ Bottleneck: the main checkout being dirty from another thread, which held
 the previous landing and this one behind it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS's body: a lapped rim, six iris blades and the core
+
+- reading: 15 min. §27, `oculus.ts` and `oculus-step.ts` for what the state
+  holds, and THE SEAM's four body files as the pattern.
+- writing: 45 min. `oculus-shape.ts`, `oculus-pose.ts`, `oculus-marks.ts`,
+  `oculus-draw.ts`, the dispatch, the frame test, the drafts and the specs.
+- looking: 20 min. Posed with `--boss-json` open, two, four and six shut;
+  a shut lens left dark slivers at the rim until the blade ran past it.
+- friction: 10 min. THE SLOW's prism splits the lens in every lit or later
+  frame, so the pictures had to hold the rest far off to be read at all.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — an iris that pivots on its pins rather than fades is
+five points of geometry, and each had to be seen shut and open.

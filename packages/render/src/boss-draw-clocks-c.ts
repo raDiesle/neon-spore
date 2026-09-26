@@ -5,6 +5,7 @@ import { drawHasp } from "./hasp-draw.js";
 import { drawKeel } from "./keel-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMantle } from "./mantle-draw.js";
+import { drawOculus } from "./oculus-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSeam } from "./seam-draw.js";
@@ -39,6 +40,7 @@ export const PAIR_KINDS = [
   "keel",
   "valve",
   "seam",
+  "oculus",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -139,5 +141,15 @@ export function drawPairBoss(
   // the same — which seat answers a step is the colour it asks for
   // (`seam-draw.ts`). Nothing of it outlives a frame yet: its effects are the
   // second half of its look.
-  drawSeam(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "seam") {
+    drawSeam(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE OCULUS: a lens of six leaves over the middle column, shut a pair at a
+  // time by both thumbs holding together, a core in the socket behind them.
+  // Both screens are drawn the same — a hold asks both seats at once
+  // (`oculus-draw.ts`). Nothing of it outlives a frame yet: its effects are
+  // the second half of its look.
+  drawOculus(ctx, l, world, boss, beat, beatPhase, time);
 }

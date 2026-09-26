@@ -8068,6 +8068,26 @@ answered whole shatters the lens and ends the fight. Whether any of it
 *reads* — whether four beats of holding is long or short with a voice in the
 way — is the owner's eye, after lane two.
 
+**Half the look has landed** (26 September 2026): the body. A lens over the
+middle column, its rim THE SLATER — SHUT's lapped plates curled into a ring
+in shell grey, with THROB · CROWN's six even knobs standing on it as the
+pins its leaves hang from — the one body on §27's page drawn as mechanism.
+The six leaves are dull glass iris blades, each swinging about its pin: open,
+they are tucked out under the rim; shut, they meet in the middle in the
+iris's spiral. The lit pair's leading edges glow white, and the pair slides
+across the face by the share of its beats both thumbs have held, so the
+count is read off the face and a lifted thumb drops it back out. A reseal
+stands its pair cracked part open. The break eases a hexagonal socket open
+between the six tips; the core inside is dark between fire steps and lit in
+the step's colour, white for either, with a ring closing as the window runs
+out, read off `oculusWindowBeats`, the number the simulation judges by — and
+smaller for every hit. The lens shatters into six wedges thrown out along
+their plates (`render/oculus-shape.ts`, `oculus-pose.ts`, `oculus-draw.ts`,
+`oculus-marks.ts`). **Half two, the hands, is queued**: the leaves' thud and
+the spring, the swallow, the hit's flash and the shatter's, the twelve
+events off the silent lists, the cue's words, THE SLOW's aim on the lens,
+the on-field leaf holds, and the autopilot hand.
+
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a
