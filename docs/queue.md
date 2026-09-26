@@ -1145,6 +1145,7 @@ what the rest of this file holds.
 ## THE MANTLE's "spark" phase is named and never entered
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-26, main (claim: claude/queue-the-mantles-spark-phase-is-named-and-never-enter)
 - **Files:** `packages/sim/src/mantle.ts`, `packages/sim/src/mantle-step.ts`, `packages/render/src/mantle-pose.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`, `packages/sim/test/mantle.test.ts`
 
 `MANTLE_PHASES` lists `"spark"`, and render reads it, but
