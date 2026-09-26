@@ -23729,3 +23729,5 @@ Bottleneck: friction — the trunk moved under the previous landing's check thre
 
 Bottleneck: writing — eight new events are forty registrations across seven
 packages, and only the typecheck finds them one at a time.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

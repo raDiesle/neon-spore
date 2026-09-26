@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 713d49b1e — §23 THE MANTLE fights back: a buckle, a vent, a crosswise crack and a turn
+
+Between the third shear and the brace the shell now fights back, each beat under THE SLOW: the last pair bulges and both thumbs eased on their handles press it flat; a vent hisses open and one tap on the core from either player shuts it; a second crack crosses the first while the pair watch. After the last shear the halves swing on their hinges and both handles pulled past the floor guide them open onto the core. A torn buckle or an open vent leaks one spark; a turn run out swings back and never strikes. The four states are not drawn yet; that is the next lane.
+
 ## 2026-09-26 · f7dcb39cc — THE INSTAR's timeout breaks the hull with its own blow, not a rock
 
 When a window runs out on THE INSTAR, the hit now comes from the part the pair let through: the fire, the swarm, the blades or the glob. It no longer comes from a rock nobody saw fall. The breach names the boss, so no rock is replayed. The part's own strike picture was already there, so the INSTAR's look row adds nothing on top of it. THE MANTLE's half is requeued on its own.

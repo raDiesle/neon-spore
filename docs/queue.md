@@ -2593,3 +2593,17 @@ THE MANTLE still drops a rock on a timeout (`mantle-step.ts` `spendSpark`).
 Call `bossStrikesHull(world, "mantle", col)` instead, add it a `LOOK` row
 (it already has its `FROM` row), and take `mantle-step.ts` out of
 `STILL_A_ROCK` in `sim/test/boss-strike.test.ts`.
+
+## Unverified at 713d49b1e: THE MANTLE's buckle, vent, crack and turn, played at t…
+
+- **Found:** 2026-09-26, claude/queue-23-the-mantle-a-fuller-story-arc-buckle-vent-tur
+- **Files:** `docs/INDEX.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-mantle.ts`, `packages/audio/src/sounds/boss-mantle.ts`, `packages/audio/test/bind.test.ts`
+
+*§23 THE MANTLE fights back: a buckle, a vent, a crosswise crack and a turn* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
+
+- THE MANTLE's buckle, vent, crack and turn, played at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
