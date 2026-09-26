@@ -434,6 +434,7 @@ an alignment.
 ## A sunk hull waits a shell's flight that no longer flies
 
 - **Found:** 2026-09-25, claude/boss-blow-e
+- **Taken:** 2026-09-26, claude/queue-split-touch-ts-malfunction-ts-and-the-field-cont (claim: claude/queue-a-sunk-hull-waits-a-shells-flight-that-no-longer)
 - **Files:** `packages/render/src/fleet-hulls.ts`, `packages/sim/src/fleet-flood.ts`
 
 `sinkPhase` subtracts `FLEET_SHELL_BEATS` from a sinking because *the shell
