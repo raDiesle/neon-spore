@@ -939,6 +939,7 @@ a back-and-forth rub sends a rising count and a pad lift sends its `id`.
 ## §34 THE CYST — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-34-the-cyst-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 No new primitive: `FreezeTap` (THE VALVE's) and `SqueezeGap` (THE VISE's)
