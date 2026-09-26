@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 9585e0922 — THE INSTAR's eye iris, baked, offered in VERSUS
+
+The front eyes the glare turns on the players get an iris: fibres out from the slit, a ragged collarette, a dark limbal ring, ember flecks and a wet crescent, painted once and drawn in one drawImage squashed by the lid. The pupil, rim and glint stay live. Offered on `instar:eye`; the game still draws the flat gold. +1377 B gzipped, 5 calls and 1.5 µs against 4 and 1.5.
+
 ## 2026-09-26 · d716f3c51 — THE OCULUS's timeout blow is a beam out of its own lens
 
 When a fire step runs out with the core unshot, the lens lets its light go as one beam, as wide as the face where it leaves and pinched to a point at the open column, burns a ring into the plating, and thins to a thread as the burn fades. It replaces the default lash. Exemption: a look the owner asked for by name (a boss's timeout hit drawn as that boss's own blow).
