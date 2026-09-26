@@ -23757,3 +23757,5 @@ Bottleneck: friction — a rebase onto a rule that landed mid-lane.
 - landing: 10 min. `check:fast`, the index, the commit, `land`, `push`.
 
 Bottleneck: finding a director pose that shows the side-on body uncovered.
+
+*Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

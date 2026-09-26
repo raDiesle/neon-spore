@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 6c6cc8e03 — THE INSTAR's body rings, baked, offered in VERSUS
+
+Side-on, each joint of the long body can now be drawn as armour: a dark groove where the segments part, the rear segment's lip standing proud with its crown lit and a row of knobs along it, fading toward the belly. One drawImage per ring from a joint painted once at load; +1.0 kB gzipped, 6 calls against the shipped 6. Offered on `instar:seam`, not drawn by the game.
+
 ## 2026-09-26 · 3b20854a0 — THE OCULUS's cue says HOLD on each half of a lit pair and FIRE under the lit core
 
 While a pair of leaves is lit, a shut or a reseal, each seat now reads HOLD on its own half of the lens, and the word goes the moment that seat's thumb is down. While the core is lit, FIRE stands at the hull under the middle column on both screens, never naming the colour. Nothing is said between steps, through the break or as the lens shatters.
