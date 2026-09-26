@@ -830,6 +830,7 @@ what the rest of this file holds.
 ## The shot sweep rescans every creature and every pod, per bullet, per tick
 
 - **Found:** 2026-09-26, claude/perf-audit-cloud-2026-09-26
+- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-the-shot-sweep-rescans-every-creature-and-every)
 - **Files:** `packages/sim/src/bullets.ts`, `packages/sim/src/shot-reach.ts`, `packages/sim/src/pods.ts`
 
 `advanceBullets()` (`bullets.ts:110`) calls `sweep(world, b)` once per live
