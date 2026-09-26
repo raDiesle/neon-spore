@@ -19,6 +19,10 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     shipped: ["instar-eggs.ts", "drawNests"],
     baked: ["instar-nest-baked.ts", "drawBakedNests"],
   },
+  "instar-eye": {
+    shipped: ["instar-head-parts.ts", "drawEye"],
+    baked: ["instar-eye-baked.ts", "drawBakedIris"],
+  },
   "instar-hide": {
     shipped: ["instar-hide.ts", "drawScales"],
     baked: ["instar-hide-baked.ts", "drawBakedScales"],

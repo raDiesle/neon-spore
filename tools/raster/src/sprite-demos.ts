@@ -1,5 +1,6 @@
 import {
   drawBakedEgg,
+  drawBakedIris,
   drawBakedMembrane,
   drawBakedNests,
   drawBakedPale,
@@ -10,7 +11,9 @@ import {
   drawHideScales,
   drawNests,
   EGG_SPRITE,
+  EYE_SPRITE,
   HIDE_SPRITE,
+  IRIS_LOOK,
   NEST_SPRITE,
   PALE_LOOK,
   PALE_SPRITE,
@@ -21,7 +24,7 @@ import {
   WING_LOOK,
   WING_SPRITE,
 } from "@neon-spore/render";
-import { flat, look, plate, ring, split, wing } from "./sprite-fixtures.js";
+import { flat, iris, look, plate, ring, split, wing } from "./sprite-fixtures.js";
 
 /**
  * **What `bun run sprite` can show**: each baked sprite beside the drawing it
@@ -90,6 +93,21 @@ export const DEMOS: readonly SpriteDemo[] = [
     },
     baked(ctx, x, y, r, threat, time, dpr) {
       drawBakedNests(ctx, flat(dpr), look(x, y, r, threat, time));
+    },
+  },
+  {
+    name: "instar-eye",
+    spec: EYE_SPRITE,
+    base: PALETTE.pod,
+    glow: PALETTE.ember,
+    playH: (r) => r * 0.2,
+    threats: [0],
+    box: [-0.2, -0.12, 0.2, 0.12],
+    shipped(ctx, x, y, r) {
+      IRIS_LOOK.paint(ctx, iris(x, y, r));
+    },
+    baked(ctx, x, y, r, _threat, _time, dpr) {
+      drawBakedIris(ctx, iris(x, y, r), IRIS_LOOK.paint, dpr);
     },
   },
   {

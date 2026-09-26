@@ -1,5 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
+import { drawBakedIris } from "../src/instar-eye-baked.js";
+import { IRIS_LOOK } from "../src/instar-head-parts.js";
 import { drawBakedScales } from "../src/instar-hide-baked.js";
 import { drawBakedPale } from "../src/instar-moult-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
@@ -65,7 +67,7 @@ describe("a sprite baked at load", () => {
     expect([0, 0.3, 0.55, 0.9, 1.5].map(stirAt)).toEqual([0, 1, 2, 3, 3]);
   });
 
-  it("draws the baked egg, nests, hide, wing, pale body and rings with values a canvas accepts", () => {
+  it("draws the baked egg, nests, hide, wing, pale body, rings and eye with values a canvas accepts", () => {
     const { ctx: stub } = stubCanvas();
     const ctx = stub as unknown as CanvasRenderingContext2D;
     for (let i = 0; i < 40; i++) {
@@ -106,6 +108,12 @@ describe("a sprite baked at load", () => {
       drawBakedSeam(
         ctx,
         { top: o, bottom: { x: 210, y: 300 + i }, r: 150, fade: 1 - threat, hide: new Path2D() },
+        3,
+      );
+      drawBakedIris(
+        ctx,
+        { at: o, r: 150, open: 1 - threat, look: i, fade: 1 - threat, eye: new Path2D() },
+        IRIS_LOOK.paint,
         3,
       );
     }

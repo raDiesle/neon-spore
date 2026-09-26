@@ -23774,3 +23774,13 @@ Bottleneck: friction — THE OCULUS never misses unattended, and which cursor
 lands on a fire step was only in `act-11.ts`.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 26 September 2026 — THE INSTAR's eye iris, baked, offered in VERSUS (claude/sprite-detail)
+
+- reading: 5 min. `drawEye` and the ring lane's seam pattern.
+- writing: 15 min. the `IRIS_LOOK` seam, the baked iris, demo, byte row, candidate, test.
+- looking: 15 min. three shots; a dark sclera made it muddy, then the gold at half alpha was too thin.
+- friction: 5 min. a context compaction mid-lane.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: judging brightness at play size, which only a full VERSUS shot shows.

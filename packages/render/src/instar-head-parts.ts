@@ -51,6 +51,29 @@ export function drawHorns(
   }
 }
 
+/** One of the front eyes' irises: `eye` is the lid's opening, `look` how far the slit has turned. */
+export interface EyeIris {
+  at: Point;
+  r: number;
+  open: number;
+  look: number;
+  fade: number;
+  eye: Path2D;
+}
+
+/** How an iris is painted: the seam VERSUS offers a baked one through (`instar-eye-baked.ts`). */
+export const IRIS_LOOK: { paint: (ctx: CanvasRenderingContext2D, iris: EyeIris) => void } = {
+  paint: (ctx, { at, r, open, look, fade, eye }) => {
+    ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
+    ctx.fill(eye);
+    // The iris burns hotter round the slit.
+    ctx.fillStyle = faded(PALETTE.ember, fade, 0.55);
+    ctx.beginPath();
+    ctx.ellipse(at.x + look, at.y, r * 0.07, r * 0.07 * open, 0, 0, Math.PI * 2);
+    ctx.fill();
+  },
+};
+
 /** A slanted gold eye with a slit pupil, narrowed as `eye` goes to nought. */
 export function drawEye(
   ctx: CanvasRenderingContext2D,
@@ -80,15 +103,9 @@ export function drawEye(
   if (open <= 0.02) return;
   const p = new Path2D();
   p.ellipse(at.x, at.y, r * 0.17, r * 0.075 * open, tilt, 0, Math.PI * 2);
-  ctx.save();
-  ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
-  ctx.fill(p);
-  // The iris burns hotter round the slit.
-  ctx.fillStyle = faded(PALETTE.ember, fade, 0.55);
-  ctx.beginPath();
   const look = Math.sin(time * 0.6) * r * 0.04;
-  ctx.ellipse(at.x + look, at.y, r * 0.07, r * 0.07 * open, 0, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.save();
+  IRIS_LOOK.paint(ctx, { at, r, open, look, fade, eye: p });
   ctx.fillStyle = faded(PALETTE.background, fade);
   ctx.beginPath();
   ctx.ellipse(at.x + look, at.y, r * 0.022, r * 0.068 * open, 0, 0, Math.PI * 2);

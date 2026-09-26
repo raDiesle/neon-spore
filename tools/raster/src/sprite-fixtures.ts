@@ -1,5 +1,6 @@
 import {
   type BodyRing,
+  type EyeIris,
   type Form,
   type Layout,
   type Look,
@@ -111,4 +112,11 @@ export function split(x: number, y: number, r: number): PaleSkin {
   }
   pale.closePath();
   return { pale, back, crest: back[6] ?? { x, y }, r, fade: 1, breath: 1 };
+}
+
+/** One of the front eyes at a head radius of `r`, the lid half open and the slit turned a little. */
+export function iris(x: number, y: number, r: number): EyeIris {
+  const eye = new Path2D();
+  eye.ellipse(x, y, r * 0.17, r * 0.075 * 0.8, -0.35, 0, Math.PI * 2);
+  return { at: { x, y }, r, open: 0.8, look: r * 0.02, fade: 1, eye };
 }

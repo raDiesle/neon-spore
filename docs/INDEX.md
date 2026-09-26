@@ -1593,6 +1593,7 @@ by hand never moves.
 | `packages/render/src/instar-egg-spots.ts` | **Where THE INSTAR's eggs sit in their two nests**, in head radii from the nest's middle |
 | `packages/render/src/instar-egg-crack.ts` | **An egg nobody has taken yet, cracking as the window runs**: a hairline at a quarter of it, a split with an eye moving inside at three quarters |
 | `packages/render/src/instar-egg-baked.ts` | **THE INSTAR's egg, baked** — the first example of detail drawn once at load (`sprite-bake.ts`) |
+| `packages/render/src/instar-eye-baked.ts` | **THE INSTAR's eye, baked** — the seventh example (`sprite-bake.ts`): the iris of the front eyes |
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
 | `packages/render/src/instar-heart.ts` | THE INSTAR's bare heart: a glow beating at the heart mark, put out by each shot |
