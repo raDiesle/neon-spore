@@ -81,7 +81,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       note: "a reversal is where x changes sign",
     },
-    where: [`${SPEC} §29 THE RIME`],
+    where: [`${SPEC} §29 THE RIME`, `${SPEC} §33 THE GRINDSTONE`],
   },
   {
     name: "SQUEEZE ONE BODY",
@@ -133,7 +133,7 @@ export const SPECIFIED: readonly Gesture[] = [
       ],
       window: { from: 3, to: 8, label: "both down" },
     },
-    where: [`${SPEC} §30 THE TRIVET`],
+    where: [`${SPEC} §30 THE TRIVET`, `${SPEC} §33 THE GRINDSTONE`],
   },
   {
     name: "TILT, AS A LEVEL",

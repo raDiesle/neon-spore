@@ -1088,3 +1088,34 @@ this lane touched anything. Offered, never replacing: the procedural draw
 stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
+
+## §33 THE GRINDSTONE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+
+No new primitive: the first choreographed body spent entirely on two
+gestures already built for other bosses, paired in an order neither has
+used before. `RUB` (THE RIME's) grinds `grindLeftMilli` then
+`grindRightMilli` clean; `CHORD` (THE TRIVET's) locks the axle's caliper,
+answered with three fire hits and two defensive re-clamp beats (both
+seats at once). Eleven steps, three movements, same shapes THE RIME and
+THE TRIVET already carry — no new field type, no new registration
+category. The full beat list and primitive table entry are §33 of
+`docs/spec/bosses-choreographed.md`. `RUB` and `CHORD` each gain a second
+`where` entry in `tools/director/src/gesture-unbuilt.ts` — already done,
+land it with the rest. THE SLOW on every grind, chord and fire window.
+`bun run check` proves it.
+
+## §33 THE GRINDSTONE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §33 THE GRINDSTONE's simulation lane, above, landed first
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a ground flat reusing THE
+RIME's spreading-clear-patch draw, a caliper reusing THE TRIVET's
+swing-down-and-lock draw, and the axle's lit core answering the cannon's
+colour once both flats are clean and the caliper has bitten. Nothing new
+drawn here at all — this lane is wiring two existing looks onto one new
+body — and it stays unverified at tempo until the owner has looked.

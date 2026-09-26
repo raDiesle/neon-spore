@@ -3726,6 +3726,95 @@ outcome is decided at release rather than at the moment a threshold is
 crossed; any future body wanting "commit to a direction only when you let
 go" can spend it without re-deriving what counts as a match.
 
+### §33 THE GRINDSTONE — a wheel ground true, then held true by a locked caliper
+
+**Question.** Not a new primitive — the first concept on this page spent
+entirely on gestures already built for other bodies, paired in an order
+neither has used before. `RUB` (THE RIME's wipe) grinds a flat; `CHORD`
+(THE TRIVET's plant) locks it once ground, rather than grinding and locking
+being the same motion done twice. Every choreographed boss so far answers
+its own movements with its own single primitive; this one asks whether two
+already-spent gestures read as a different fight in a different order.
+
+**Silhouette.** A gritted stone wheel on a fixed axle mid-hull, two flats
+facing the seats, a caliper slack around the rim. **Health is the two
+flats ground clean**, one per seat, plus a lit axle once both flats are
+true and the caliper has bitten; the axle takes three ordinary hits.
+
+**Mechanic.** `grindLeftMilli` / `grindRightMilli`, one per seat, read by
+`RUB` exactly as THE RIME reads it — a reversal against that seat's own
+flat, shaved off per pass, regrowing a small amount every beat nobody is
+grinding it. Once both flats are ground clean, `caliperHeld` — read by
+`CHORD` exactly as THE TRIVET reads it — locks the wheel dead so the axle
+can be fired on; either control lifting early lets the caliper spring
+loose rather than losing the step outright, the same forgiving shape THE
+VALVE's freeze, THE VISE's pinch, THE TRIVET's chord, THE PLUMB's lean and
+THE SLING's draw all use. Nothing here is a new field type: both
+thresholds are the same regrowing-shave and plant-and-spring shapes THE
+RIME and THE TRIVET already carry.
+
+**Player 1 and Player 2.** Identical screens, left flat / right flat fixed
+by geometry — the same rule an eighth time running: geometry, never a
+word, is what tells two identical screens apart on this page.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the left flat** ||||||
+| 1 | The wheel turns rough, both flats gritted, axle dark | — | — | — | — | — |
+| 2 | The left flat lights | P1 | grind it clean (`RUB`) | 6 beats, wiped | left flat clears | wipe stops, flat regrits, retry |
+| 3 | A film regrits over the left flat's clear patch | P1 | grind it again | 4 beats, wiped | stays clear, movement ends | regrits fully, retry from row 2 |
+| **Movement 2 — the right flat** ||||||
+| 4 | The right flat lights | P2 | grind it clean | 6 beats, wiped | right flat clears | regrits, retry |
+| 5 | The right flat's own regrit film | P2 | grind again | 4 beats, wiped | stays clear, caliper closes | regrits, retry from row 4 |
+| **Movement 3 — the axle, held locked** ||||||
+| 6 | The axle flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
+| 7 | The caliper creeps loose on the wheel | P1+P2 | hold two controls together to re-clamp it (`CHORD`) | 3 beats, held | axle stays locked | caliper springs loose, movement's fire beats lost until both flats are ground clean again |
+| 8 | Axle flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
+| 9 | Caliper creeps loose a second time, faster | P1+P2 | chord together, re-clamp | 3 beats, held | stays locked | springs loose, retry |
+| 10 | Axle flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, axle spent | stays lit |
+| 11 | The caliper snaps off and the wheel spins free, spent | — | — | — | — | — |
+
+**THE SLOW** opens on every grind window (rows 2–5) and every chord and
+fire window (rows 6–10) — the grind windows most of all, exactly THE
+RIME's own argument, since a reversal count read at ordinary speed looks
+like nothing is happening at all.
+
+**Presentation.** Sparks flicking off in small bursts as a flat clears
+(the existing particle machinery, no new kind); the caliper's jaw a flat
+metallic clack shutting; no camera.
+
+**Animation.** Five poses: rough wheel; left ground; both ground, caliper
+closing; axle guarded, caliper creeping loose; caliper snapped off, wheel
+spinning free. Grinding is drawn as a spreading clear patch exactly as THE
+RIME draws it; the caliper shuts by swinging down and locking exactly as
+THE TRIVET's feet do — both drawn-as-mechanism choices reused whole rather
+than redrawn.
+
+**Colour.** Wheel a dull quarried grey, the ground flats a pale sandy tan;
+the axle is the only lit colour on the body, lit in whichever cannon
+colour a given beat wants, THE SEAM's and THE OCULUS's rule again.
+
+**Payoff.** Rows 7 and 9 — `CHORD` asked for defensively, re-clamping the
+caliper under a `FIRE` step already under way, the same shape as THE
+OCULUS's row 7, THE VISE's rows 7/9, THE TRIVET's rows 7/9, THE PLUMB's
+rows 7/9 and THE SLING's rows 7/9 — spent here on the same body a
+different primitive already ground clean.
+
+**Cost. Very low.** No new primitive at all — `RUB` and `CHORD` are both
+already built for THE RIME and THE TRIVET, and both threshold shapes
+(regrowing shave, plant-and-spring) are already carried by those bodies.
+The only new code is the wheel's own two-field, two-gesture wiring: no new
+field type, no new gesture, no new registration category beyond what
+adding any boss already asks.
+
+**Reusable.** The pairing itself — grind with one gesture, lock with
+another, rather than a single primitive answering every movement of its
+own boss — is the first proof on this page that two already-spent
+gestures can carry a whole body between them; any future concept short on
+budget can reach for an existing pair before inventing a new primitive.
+
 ---
 
 ## The reusable boss mechanic library
