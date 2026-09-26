@@ -682,6 +682,7 @@ nothing to fix.
 ## `land` fails when the trunk gets a holder during its check
 
 - **Found:** 2026-09-26, claude/slow-visual-versus-page-a1e86e
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-land-fails-when-the-trunk-gets-a-holder-during-i)
 - **Files:** `tools/land/run.ts`, `tools/land/say.ts`
 
 `moveTrunk` reads `going.moveRef` — "no worktree holds it" — when the landing
