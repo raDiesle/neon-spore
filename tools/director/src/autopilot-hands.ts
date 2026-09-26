@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { fieldHand } from "./autopilot-field-hand.js";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
 import { batonHand, throatHand } from "./boss-hands-beats.js";
@@ -86,7 +87,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   well: either(wellWindHand, wellHoldHand),
 };
 
-/** The hand for the boss on the field, or null: no boss, or one with no hand. */
+/** The hand for the boss on the field, null for a boss with no hand, and the
+ * cannon and shield played together when there is no boss at all
+ * (`autopilot-field-hand.ts`). */
 export function autopilotHand(w: World): Hand | null {
-  return w.boss ? (AUTOPILOT_HANDS[w.boss.kind] ?? null) : null;
+  return w.boss ? (AUTOPILOT_HANDS[w.boss.kind] ?? null) : fieldHand;
 }

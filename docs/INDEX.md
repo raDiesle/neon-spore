@@ -2741,6 +2741,7 @@ by hand never moves.
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
+| `tools/director/src/autopilot-field-hand.ts` | **The pair's hands on an ordinary wave**: the cannon and the shield together |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |
 | `tools/imports/imports.ts` | Dropping the names a file split strands in an import list, and refusing to delete a statement |
 | `tools/imports/run.ts` | `bun run imports` — drop the names a file split stranded in an import list |

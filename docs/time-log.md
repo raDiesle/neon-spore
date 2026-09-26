@@ -21366,3 +21366,17 @@ Bottleneck: reading the two fights closely enough to say what playing them
 right is — every arrow twice, and the field played straight in the dark.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — AUTO plays an ordinary wave: the cannon and the shield together
+
+- reading: 10 min. Who holds which control, how the dome is armed and when
+  `resolveHull` asks it, and how a wave is credited.
+- writing: 10 min. `autopilot-field-hand.ts`, the fallback in
+  `autopilotHand`, and a test that sweeps every ordinary wave.
+- looking: 0 min.
+- friction: 5 min. The formatter rewrote a new test's imports under a
+  scripted edit, and `shieldRow` and `guardWindowTicks` were not exported.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: timing the dome — pressed in the last half-window of the beat
+before the rock reaches its row, so the window is still open when it arrives.

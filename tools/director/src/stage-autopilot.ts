@@ -13,7 +13,9 @@ import { autopilotHand } from "./autopilot-hands.js";
  * is gone in its favour. The director already had a hand that plays every boss right — the
  * poses reach each state with it (`boss-hands-*.ts`) — and only ever ran it
  * off screen, to stand a picture up. This runs the same hand on the stage's
- * own tick, at the stage's own tempo, for the seats this row names:
+ * own tick, at the stage's own tempo, for the seats this row names — and on
+ * a wave with no boss, the cannon and the shield played together
+ * (`autopilot-field-hand.ts`):
  *
  * - **OFF** — nothing, the default.
  * - **BOTH** — the hand plays the whole boss; watch it played right.
@@ -63,7 +65,7 @@ export function stageAutopilot(deps: StageAutopilotDeps, doc?: Document): StageA
   const paintNote = (w: World | null): void => {
     if (!note) return;
     const none = mode !== "off" && w !== null && autopilotHand(w) === null;
-    note.textContent = none ? (w?.boss ? "no hand for this boss" : "bosses only") : "";
+    note.textContent = none ? "no hand for this boss" : "";
   };
 
   const setMode = (m: AutoMode): void => {

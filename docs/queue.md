@@ -431,19 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## AUTO plays bosses only, and only in the director
-
-- **Found:** 2026-09-25, claude/game-multiplayer-testing-601794
-- **Taken:** 2026-09-26, claude/queue-auto-has-no-hand-for-the-pulse-or-the-reprise (claim: claude/queue-auto-plays-bosses-only-and-only-in-the-director)
-- **Files:** `tools/director/src/stage-autopilot.ts`, `tools/director/src/autopilot-ghost.ts`, `apps/game/src/`
-
-AUTO covers the bosses because the director's hands only exist for them; an
-ordinary wave's co-op controls (cannon and shield together) have no hand, and
-the game's own TEST view on a phone has no AUTO at all. A seat-playing hand
-for ordinary waves would reach both. Keep it out of `sim`: it is a player's
-input, fed through `step` like a thumb's. Prove it with a test that AUTO BOTH
-clears one ordinary wave headless.
-
 ## THE INSTAR's words still name parts no pose draws
 
 - **Found:** 2026-09-25, claude/instar-boss-choreography-01e4c7
@@ -963,3 +950,32 @@ Lane two: the six-leaf iris closing as a real iris does, each pair sliding
 across the face rather than fading — the one body in this batch drawn as
 mechanism rather than flesh — and the bared core lit in whichever cannon
 colour a beat wants. Stays unverified at tempo until the owner has looked.
+
+## The game's TEST view has no AUTO
+
+- **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
+- **Files:** `tools/director/src/autopilot-field-hand.ts`, `tools/director/src/autopilot-hands.ts`, `tools/director/src/boss-hands-*.ts`, `apps/game/src/testing.ts`
+
+The second half of "AUTO plays bosses only, and only in the director". The
+director's AUTO now plays an ordinary wave as well as every boss, but a phone
+alone under the game's TEST panel still has no second thumb, and `apps/game`
+cannot import from `tools/`. Move the hands (`fieldHand`, `AUTOPILOT_HANDS`,
+and the `Hand` type out of `poses-bosses-kit.ts`) into a package both can
+import — a new `packages/hands`, not `sim`: they are a player's input fed
+through `step`, not a rule — leave the director importing them from there,
+and give `testing.ts` an OFF/BOTH/P1/P2 row that adds the hand's commands to
+the tick the way the director's `stage-autopilot.ts` does. Prove it with a
+test that the game's loop, AUTO on BOTH, clears ONE LAST CHANCE headless.
+
+## AUTO's field hand half plays 22 ordinary waves
+
+- **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
+- **Files:** `tools/director/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
+
+`fieldHand` plays the cannon and the shield and nothing else, so the waves
+whose creature has a verb of its own — SALVAGE, CATCH AND AIM, THE LURE, THE
+CLASP, THE CRAWLER, THE JAM and sixteen more, the `HALF_PLAYED` set in the
+test — end scarred or never clear. Give each such creature its answer in the
+hand (a file per few creatures, as the boss hands are split), taking its name
+out of `HALF_PLAYED` as it goes; the test already fails for any wave the hand
+stops clearing clean.
