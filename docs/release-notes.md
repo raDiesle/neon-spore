@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 9676391bb — THE SEAM has a body: a grey ridge in three stepped lobes whose teeth shed as its points seal
+
+Wave 105's ridge is drawn on every screen. Its shape is THE RIND's three sizes stood on end down the middle column. Each lobe's rim is toothed while its point is open and goes smooth once the point is sealed. The crack is wide at an open point and a thin closed seam at a sealed one. The lit point glows in the colour it asks for (white for either) inside a ring that closes as the step's beats run out. Grit falls from the gaping crack while the shield is owed. A rock is spat to its own column in the colour that breaks it. The sealed ridge splits down its crack.
+
 ## 2026-09-26 · 448d98d6c — THE GRINDSTONE: the simulation lane — a wheel two thumbs grind true, then shoot into
 
 Wave 112 THE GRINDSTONE is in: a stone wheel on an axle over the middle column, the first choreographed body with no gesture of its own. Each seat rubs its own flat clean twice, heard as THE RIME hears a half; both flats clean bite the caliper shut, and the axle is shot in its colour; between the shots both seats hold every pad of their jaws down, heard as THE TRIVET hears a foot, or the caliper springs loose and the clamp is asked again. The thirteen sounds are bound; nothing in the game sends a grind or a clamp from a touch yet — that rides the look — nothing is drawn, and there is no autopilot hand (docs/spec/bosses.md §11.50, eight departures argued).

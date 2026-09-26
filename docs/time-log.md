@@ -23020,3 +23020,5 @@ rules to restate for one body, each departure argued against §33's rows.
 Bottleneck: looking — the first lit frame was unreadable, and finding that
 the prism aims at the cannon for every boss but one took longer than the
 ridge did.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

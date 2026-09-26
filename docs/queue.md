@@ -1754,3 +1754,17 @@ boss kind to the point its own `-shape.ts` already names (`valveCentre`,
 `seamCentre`, …), consulted before the fallbacks, and a test that a boss's
 own outline is drawn with the narrowest split of the frame. THE SEAM's
 entry is in its hands item above; this one is the rest.
+
+## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/seam-draw.ts`, `packages/render/src/seam-marks.ts`
+
+*THE SEAM has a body: a grey ridge in three stepped lobes whose teeth shed as its points seal* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
+
+- THE SEAM's ridge watched at tempo: the lit point, the grit, the rock, the split
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
