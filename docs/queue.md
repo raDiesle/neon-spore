@@ -739,6 +739,39 @@ defending it. The full beat list is §27 of
 `docs/spec/bosses-choreographed.md`. THE SLOW on every hold and every fire.
 `bun run check` proves it.
 
+## THE NETTLE — the look
+
+- **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)
+- **Files:** `packages/render/src/boss-draw-clocks-b.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-marks.ts`, `docs/spec/bosses-choreographed.md`
+
+THE NETTLE's simulation lane is landed on `main` (`79380155`) as wave 101,
+`bosses.md` §11.39: a jellyfish on THE INSTAR's engine, ten steps, thumbs on
+the body for most and the panel for SHOOT, SHIELD or SUCK marks
+(`sim/scene-panel.ts`). Nothing is drawn yet. Add poses, a morph blending
+between them, the fly-in and the turn to the underside in new render/nettle-*.ts
+files: a see-through bell with a glowing core, rim
+light, arms, frills, a brood sac, eyespots and an iris mouth, each part bent
+by how far its own answer has got. Add `"nettle"` to `FX_KINDS` and the draw
+branch in `boss-draw-clocks-b.ts` (near lines 49 and 167); reuse
+`drawInstarMarks` (`instar-marks.ts`) for the rings. `instar-mark-grip.ts`
+answers the `"instar"` boss only, so THE NETTLE's rings cannot be grabbed
+until it answers `"nettle"` too. A new render/test/nettle-frame.test.ts
+proves every state on both screens. Update §11.39's "What is not built" and
+the ledger row in `docs/spec/bosses-choreographed.md`. `bun run check`
+proves it.
+
+## THE NETTLE — effects: the strikes, the hurt flash and the death
+
+- **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)
+- **Needs:** THE NETTLE's look, above, landed first
+- **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`
+
+Lane three. Right now `instar-fx.ts` skips any part THE NETTLE has that THE
+INSTAR does not (the sac, the eyespots, the iris, the panel marks). Give it
+its own nettle-fx.ts under effects-boss, the way other choreographed
+bosses split their strikes and death out of the shared engine, and wire it
+into the roster. `bun run check` proves it.
+
 ## §23 THE MANTLE — the look
 
 - **Found:** 2026-09-26, this session
