@@ -32,6 +32,17 @@ export interface KeelConfig {
   keelRockBeats: number;
   /** Beats the straightened spine hangs before the wave may end. */
   keelOpenBeats: number;
+  /** The flip's window, in beats, under THE SLOW: the arch bows the wrong way
+   * and the chord on the two end joints must arrest it inside this. */
+  keelFlipBeats: number;
+  /** Beats in a row both end joints must be held down to arrest the flip. */
+  keelChordBeats: number;
+  /** The marrow's window, in beats, under THE SLOW: both colours up the middle. */
+  keelMarrowBeats: number;
+  /** Beats the locked segments take to bank, one after another, hands off. */
+  keelCoolBeats: number;
+  /** The most beats reflex taps may add to the cooldown, one a tap. */
+  keelCoolFlares: number;
 }
 
 export const KEEL_DEFAULTS: KeelConfig = {
@@ -46,4 +57,9 @@ export const KEEL_DEFAULTS: KeelConfig = {
   keelRigidBeats: 1,
   keelRockBeats: 2,
   keelOpenBeats: 2,
+  keelFlipBeats: 4,
+  keelChordBeats: 2,
+  keelMarrowBeats: 3,
+  keelCoolBeats: 3,
+  keelCoolFlares: 2,
 };

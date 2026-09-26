@@ -3,6 +3,7 @@ import type { Cue } from "./bind-cue.js";
 import { cystCue } from "./bind-cyst.js";
 import { davitCue } from "./bind-davit.js";
 import { grindstoneCue } from "./bind-grindstone.js";
+import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
 import { plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
@@ -15,7 +16,8 @@ import { viseCue } from "./bind-vise.js";
 
 /**
  * **The tail of `bind-choreographed-c.ts`**, cut off it the day THE OCULUS
- * came to be bound on a page eight lines from its limit.
+ * came to be bound on a page eight lines from its limit; THE KEEL came over
+ * the same day, when its story's eight arrived.
  *
  * The same rule as the page before it: the last bosses go on, and THE
  * UNDERTOW's `default` goes with them because it has to stand at the foot of
@@ -27,6 +29,7 @@ type LaterEvent = Extract<
   SimEvent,
   {
     type:
+      | `keel${string}`
       | `valve${string}`
       | `seam${string}`
       | `oculus${string}`
@@ -44,6 +47,31 @@ type LaterEvent = Extract<
 
 export function laterCue(e: LaterEvent, cols: number): Cue {
   switch (e.type) {
+    case "keelEnter":
+    case "keelLight":
+    case "keelLock":
+    case "keelMiss":
+    case "keelSlip":
+    case "keelSplit":
+    case "keelSocket":
+    case "keelShut":
+    case "keelSocketHit":
+    case "keelDim":
+    case "keelRigid":
+    case "keelThrow":
+    case "keelRockOut":
+    case "keelRockHit":
+    case "keelStraight":
+    case "keelOut":
+    case "keelFlip":
+    case "keelArrest":
+    case "keelSnap":
+    case "keelMarrow":
+    case "keelSeal":
+    case "keelBurn":
+    case "keelCool":
+    case "keelFlare":
+      return keelCue(e, cols);
     case "valveEnter":
     case "valveLight":
     case "valveHold":

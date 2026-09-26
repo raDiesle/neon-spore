@@ -420,6 +420,7 @@ by hand never moves.
 | `packages/sim/src/keel-hash.ts` | What THE KEEL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/keel-shot.ts` | **THE KEEL's two targets**: the midpoint's socket (movement 2) and the tail's rock (movement 3) |
 | `packages/sim/src/keel-step.ts` | THE KEEL's clock: every row of §24's beat list that is a beat's question — a joint lighting |
+| `packages/sim/src/keel-story.ts` | **THE KEEL's story between the last lock and the end** (§24 rows 9, 10 and 15) |
 | `packages/sim/src/keel.ts` | THE KEEL: a six-segment spine arched along the top of the field |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, what splitting one is worth, what a whole one costs |
@@ -1627,6 +1628,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
 | `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
 | `packages/render/src/effects-spark-silent-boss-c.ts` | **The bosses' half of the not-a-burst list, the third page** — THE GAUGE's four and THE WELL's four |
+| `packages/render/src/effects-spark-silent-boss-d.ts` | **The bosses' half of the not-a-burst list, the fourth page** — THE CYST's fourteen, THE DAVIT's thirteen |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-hole.ts` | **A crater's puffs, thrown from the rock rather than from its row.** A rock's last six rows are drawn higher… |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
@@ -2108,7 +2110,7 @@ by hand never moves.
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-keel.ts` | THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-keel.ts` | THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-davit.ts` | THE DAVIT's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 
@@ -2754,7 +2756,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
-| `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eight states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
+| `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eleven states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |

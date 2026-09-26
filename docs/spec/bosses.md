@@ -7955,6 +7955,41 @@ missed (`tools/director/test/autopilot-keel.test.ts`), and the STATES sheet
 poses all eight phases (`tools/director/src/poses-bosses-hands-keel.ts`).
 Lane two is complete.
 
+**The story between** (26 September 2026, `sim/keel-story.ts`, queued as §24
+*a fuller story arc*). Three states turn nine taps into a spine that fights
+back, shows what it kept, and cools, and each asks the pair for something:
+
+- **The flip.** The moment movement two locks its last joint, the arch bows
+  the wrong way under THE SLOW (`keelFlipBeats`). Both seats hold their own
+  end joint down together — Player 1 the left, Player 2 the right
+  (`keelEndSeg`) — for `keelChordBeats` beats running, and it is arrested
+  (`CHORD`, its first use on THE KEEL). A beat without both thumbs down starts
+  the count again. Run out, the spine snaps back against the hull — THE
+  KEEL's own blow, through `bossStrikesHull` — and bows again. Every
+  `keelJoint` press or lift writes the seat's thumb (`held`) in every phase.
+- **The marrow.** Arrested, a seam lights down the spine's middle under THE
+  SLOW (`keelMarrowBeats`), and one bolt of each colour up the middle column
+  seals it. §24 asks for the two cannons at once; the simulation counts each
+  colour once, whenever it lands inside the window, since a same-tick rule is
+  one a pair cannot see. Unsealed, it burns through and the left-middle
+  segment works loose, re-earned in the tempo run after the reprise — a cost,
+  not the wave.
+- **The cooldown.** After the rock is shot, the locked segments bank from
+  white to iron over `keelCoolBeats`, under THE SLOW, while both hands stay
+  off (`SENDING NOTHING`). A tap on the spine is the reflex it forbids: it
+  flares, and the bank takes a beat longer, at most `keelCoolFlares` times.
+  It never costs the wave.
+
+The socket's timeout is now its own blow too (`bossStrikesHull`); the rock
+stays a rock, since it is one the pair watched fall. Eight new events
+(`keelFlip`, `keelArrest`, `keelSnap`, `keelMarrow`, `keelSeal`, `keelBurn`,
+`keelCool`, `keelFlare`) reuse THE KEEL's own sounds at other pitches
+(`audio/src/bind-keel.ts`), and the hand holds the chord, fires both colours
+and keeps off the cooling spine. `sim/test/keel-story.test.ts` pins it.
+**None of the three is drawn yet**: the concave flip, the lit centre line and
+the banked cooldown, the grip on the end joints and the cue words are the
+look lane that follows.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

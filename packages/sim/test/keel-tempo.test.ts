@@ -59,12 +59,13 @@ describe("movement three", () => {
 });
 
 describe("the tail's rock", () => {
-  it("is shot out in either colour, and the spine lies straight and goes", () => {
+  it("is shot out in either colour, and the spine cools, lies straight and goes", () => {
     const world = install("red");
     toRock(world);
     keelStruck(world, shot(keel(world).rockCol, "cyan"));
     expect(keel(world).rockCol).toBe(NO_ROCK);
-    const seen = runUntil(world, (w) => w.boss === null, CFG.keelOpenBeats + 3);
+    const seen = runUntil(world, (w) => w.boss === null, CFG.keelCoolBeats + CFG.keelOpenBeats + 4);
+    expect(seen.has("keelCool")).toBe(true);
     expect(seen.has("keelStraight")).toBe(true);
     expect(seen.has("keelOut")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);

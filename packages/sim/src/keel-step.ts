@@ -1,3 +1,4 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import { breachHull } from "./hull-damage.js";
 import {
@@ -11,6 +12,14 @@ import {
   NO_JOINT,
   NO_ROCK,
 } from "./keel.js";
+import {
+  keelEnter as enter,
+  openCool,
+  openFlip,
+  stepCool,
+  stepFlip,
+  stepMarrow,
+} from "./keel-story.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -42,6 +51,10 @@ export function installKeel(
     repriseCursor: 0,
     rockCol: NO_ROCK,
     rockBeat: 0,
+    held: [false, false],
+    chordBeats: 0,
+    marrow: [false, false],
+    flares: 0,
   };
   world.events.push({ type: "keelEnter", col: midCol(world.cfg) });
   return s;
@@ -66,21 +79,18 @@ export function stepKeel(world: World, s: KeelState): void {
   else if (s.phase === "split" && since >= cfg.keelSplitBeats) flash(world, s);
   else if (s.phase === "socket" && since >= cfg.keelSocketBeats) socketHit(world, s);
   else if (s.phase === "rigid" && since >= cfg.keelRigidBeats) throwRock(world, s);
-  else if (s.phase === "rock" && !keelThrown(s)) enter(world, s, "straight");
-}
-
-function enter(world: World, s: KeelState, phase: KeelState["phase"]): void {
-  s.phase = phase;
-  s.phaseBeat = world.beat;
-  s.joint = NO_JOINT;
-  if (phase === "straight") world.events.push({ type: "keelStraight", col: midCol(world.cfg) });
+  else if (s.phase === "flip") stepFlip(world, s, since);
+  else if (s.phase === "marrow") stepMarrow(world, s, since);
+  else if (s.phase === "rock" && !keelThrown(s)) openCool(world, s);
+  else if (s.phase === "cool") stepCool(world, s, since);
 }
 
 /**
  * Whatever comes after a rest: the next joint, or the seam between two
  * movements. The first ends with two segments loose, which is the midpoint;
- * the second with none, which dims the spine for the tempo run; the third
- * with nothing left to light, which is the rigid hold.
+ * the second with none, the spine first rigid, which bows it the wrong way
+ * (`keel-story.ts`); the third with nothing left to light, which is the rigid
+ * hold.
  */
 function advance(world: World, s: KeelState): void {
   const mid = midCol(world.cfg);
@@ -91,10 +101,7 @@ function advance(world: World, s: KeelState): void {
     return;
   }
   if (s.movement === 2 && keelLoose(s) === 0) {
-    s.movement = 3;
-    s.repriseCursor = 0;
-    enter(world, s, "rest");
-    world.events.push({ type: "keelDim", col: mid });
+    openFlip(world, s);
     return;
   }
   const seg = keelNextJoint(s);
@@ -148,7 +155,7 @@ function flash(world: World, s: KeelState): void {
 function socketHit(world: World, s: KeelState): void {
   const col = midCol(world.cfg);
   world.events.push({ type: "keelSocketHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "keel", col);
   flash(world, s);
 }
 

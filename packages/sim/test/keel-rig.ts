@@ -15,9 +15,9 @@ import type { Bullet, Color } from "../src/types.js";
 
 /**
  * THE KEEL's test rig: a wave installed, a tap from the seat that owns the lit
- * joint, and the three places a test starts from — the socket flashing, the
- * spine dim before the fast run, and the rock in the air. Shared by
- * `keel.test.ts` and `keel-tempo.test.ts`.
+ * joint, and the places a test starts from — the socket flashing, the flip,
+ * the marrow, the spine dim before the fast run, and the rock in the air. Shared by
+ * `keel.test.ts`, `keel-tempo.test.ts` and `keel-story.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -80,12 +80,30 @@ export function toSocket(world: World): void {
   }
   runUntil(world, (w) => keel(w).phase === "socket");
 }
-/** Through movement two: the socket shut, the last joint tapped, the spine dim. */
-export function toTempo(world: World): void {
+/** Through movement two: the socket shut, the last joint tapped, the flip begun. */
+export function toFlip(world: World): void {
   toSocket(world);
   keelStruck(world, shot(MID, "red"));
   runUntil(world, isLit);
   answer(world);
+  runUntil(world, (w) => keel(w).phase === "flip");
+}
+
+/** Both end joints held down this tick. */
+export const chord = (tick: number): TimedCommand[] => [tap(tick, 1), tap(tick, 2)];
+
+/** The flip held until it is arrested: the marrow lit. */
+export function toMarrow(world: World): void {
+  toFlip(world);
+  tick(world, chord(world.tick));
+  runUntil(world, (w) => keel(w).phase === "marrow", CFG.keelFlipBeats + 1);
+}
+
+/** Through the story: the flip arrested, the marrow sealed, the spine dim. */
+export function toTempo(world: World): void {
+  toMarrow(world);
+  keelStruck(world, shot(MID, "red"));
+  keelStruck(world, shot(MID, "cyan"));
   runUntil(world, (w) => keel(w).movement === 3);
 }
 

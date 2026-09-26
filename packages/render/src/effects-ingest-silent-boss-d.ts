@@ -26,6 +26,17 @@ export const INGEST_SILENT_BOSS_D = [
   "mantleTurn",
   "mantleSwing",
   "mantleTurned",
+  // THE KEEL's story beats, landed after page three filled: the flip, the
+  // marrow and the cooldown are read off the state each frame, and nothing of
+  // them outlives one (`sim/keel-story.ts`).
+  "keelFlip",
+  "keelArrest",
+  "keelSnap",
+  "keelMarrow",
+  "keelSeal",
+  "keelBurn",
+  "keelCool",
+  "keelFlare",
   // THE SLING's twelve: nothing is drawn yet, so nothing outlives a frame
   // (`packages/audio/src/bind-sling.ts`).
   "slingEnter",

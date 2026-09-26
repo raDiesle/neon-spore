@@ -2168,32 +2168,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §24 THE KEEL — a fuller story arc, a flip, a reveal, a cooldown
-
-- **Found:** 2026-09-26, this session, at the owner's direction, sharpened by
-- **Taken:** 2026-09-26, claude/mantle-blow (claim: claude/queue-24-the-keel-a-fuller-story-arc-a-flip-a-reveal-a)
-  the coordinator session's own review: the earlier closing-beat-only pass
-  across §23–§33 was too thin against the owner's ask for bosses that read as
-  a story through distinct visual states and SLOW beats. THE KEEL is second
-  in build order, after THE MANTLE.
-- **Files:** `docs/spec/bosses-choreographed.md`,
-  `tools/director/src/gesture-unbuilt.ts`
-
-Three new states between the spine going fully rigid and its existing held
-breath: a flip (row 9, `CHORD`, the arch bowing the wrong way for the first
-time — `CHORD`'s first use on THE KEEL, its `where` array updated), a marrow
-reveal (row 10, a simultaneous fire from both cannons at a light the spine
-has kept banked all fight), and a closing cooldown (row 15, `SENDING
-NOTHING`, the locked segments banking from white to iron in sequence,
-matching the pattern already built for the other ten bosses in this run).
-None of the three new states asks for a gesture the sim does not already
-have — `CHORD` and `SENDING NOTHING` are both built, and the marrow shot is
-an ordinary simultaneous fire — so the build is new booleans and one small
-sequencing read on the existing per-segment state, not a new primitive.
-`bun run check` proves the sim half; the three new poses (concave flip,
-marrow-lit centre line, banked cooldown) are a look task, queued separately
-once this lane lands.
-
 ## THE CYST's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall

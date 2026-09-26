@@ -3,10 +3,11 @@ import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **THE KEEL's eight states**, posed with a hand on the controls
+ * **THE KEEL's eleven states**, posed with a hand on the controls
  * (`boss-hands-keel.ts`): the still and the first lit joint arrive by
  * themselves, and the rest are earned by each joint tapped by the seat whose
- * half it sits over, the socket shot in its colour and the rock shot out.
+ * half it sits over, the socket shot in its colour, the flip held by both,
+ * the marrow shot in both colours, and the rock shot out.
  */
 export const KEEL_POSES: Pose[] = [
   bossPose(
@@ -38,6 +39,18 @@ export const KEEL_POSES: Pose[] = [
   ),
   bossPose(
     "keel",
+    "flip",
+    "The spine bows the wrong way. P1 holds the left end joint; P2 holds the right, together.",
+    { hand: keelHand, hold: 2, budgetBeats: 160 },
+  ),
+  bossPose(
+    "keel",
+    "marrow",
+    "A seam lit down the middle. P1 aims the middle; P2 fires red, then cyan.",
+    { hand: keelHand, hold: 1, budgetBeats: 160 },
+  ),
+  bossPose(
+    "keel",
     "rigid",
     "Every joint answered at tempo, the spine held rigid. P1 and P2 wait.",
     {
@@ -51,6 +64,11 @@ export const KEEL_POSES: Pose[] = [
     hold: 6,
     budgetBeats: 200,
   }),
+  bossPose("keel", "cool", "The spine banks from white to iron. P1 and P2 keep their hands off.", {
+    hand: keelHand,
+    hold: 2,
+    budgetBeats: 240,
+  }),
   bossPose(
     "keel",
     "straight",
@@ -58,7 +76,7 @@ export const KEEL_POSES: Pose[] = [
     {
       hand: keelHand,
       hold: 6,
-      budgetBeats: 200,
+      budgetBeats: 240,
     },
   ),
 ];

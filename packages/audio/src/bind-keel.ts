@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE KEEL's sixteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Everything pans to where it happens**, unlike THE MANTLE's: the whole
  * question of this boss is which half of the screen the joint sits on, so a
@@ -11,6 +11,12 @@ import { type Cue, panForCol } from "./bind.js";
  *
  * **The lock is pitched up per joint seated**, so how far the pair are along
  * can be heard without either of them counting.
+ *
+ * **The story between (§24 rows 9, 10 and 15) is heard in the first sixteen's own
+ * voices, bent**: the flip is the split's creak dropped low, the arrest a lock
+ * knocked high, the snap the socket's blow; the marrow is the socket's call
+ * pitched warm and its seal the shut rung high; the burn is a slip; the
+ * cooldown the dim, and a flare a joint lighting.
  */
 export function keelCue(e: Extract<SimEvent, { type: `keel${string}` }>, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -49,5 +55,21 @@ export function keelCue(e: Extract<SimEvent, { type: `keel${string}` }>, cols: n
       return { id: "boss.keelStraight", pan };
     case "keelOut":
       return { id: "boss.keelOut", pan };
+    case "keelFlip":
+      return { id: "boss.keelSplit", pan, pitch: 0.7 };
+    case "keelArrest":
+      return { id: "boss.keelLock", pan, pitch: 1.3 };
+    case "keelSnap":
+      return { id: "boss.keelSocketHit", pan };
+    case "keelMarrow":
+      return { id: "boss.keelSocket", pan, pitch: 0.8 };
+    case "keelSeal":
+      return { id: "boss.keelShut", pan, pitch: 1.2 };
+    case "keelBurn":
+      return { id: "boss.keelSlip", pan };
+    case "keelCool":
+      return { id: "boss.keelDim", pan };
+    case "keelFlare":
+      return { id: "boss.keelLight", pan };
   }
 }

@@ -7,7 +7,6 @@ import { gimbalCue } from "./bind-gimbal.js";
 import { haspCue } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
-import { keelCue } from "./bind-keel.js";
 import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
@@ -40,7 +39,8 @@ import { spoolCue } from "./bind-spool.js";
  *
  * **And three more went on to `bind-choreographed-d.ts` on 26 September
  * 2026**, THE VALVE and THE SEAM with THE UNDERTOW's default, when THE OCULUS
- * came to be bound on a page eight lines from the limit.
+ * came to be bound on a page eight lines from the limit. THE KEEL followed
+ * them the same day, when its story's eight came to be bound here.
  */
 type LateEvent = Extract<
   SimEvent,
@@ -218,24 +218,7 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "mantleSwing":
     case "mantleTurned":
       return mantleCue(e, cols);
-    case "keelEnter":
-    case "keelLight":
-    case "keelLock":
-    case "keelMiss":
-    case "keelSlip":
-    case "keelSplit":
-    case "keelSocket":
-    case "keelShut":
-    case "keelSocketHit":
-    case "keelDim":
-    case "keelRigid":
-    case "keelThrow":
-    case "keelRockOut":
-    case "keelRockHit":
-    case "keelStraight":
-    case "keelOut":
-      return keelCue(e, cols);
-    // THE VALVE, THE SEAM, THE OCULUS and the default: `bind-choreographed-d.ts`.
+    // THE KEEL, THE VALVE, THE SEAM, THE OCULUS and the default: `bind-choreographed-d.ts`.
     default:
       return laterCue(e, cols);
   }

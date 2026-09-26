@@ -27,6 +27,13 @@ import type { World } from "./world.js";
  * every joint and re-lights the wave's own three at tempo, and a miss there
  * loosens that segment again until it is answered. Then the spine holds one
  * beat, the tail throws a rock the cannon must shoot, and the fight ends.
+ *
+ * **The story between** (§24 rows 9, 10 and 15, `keel-story.ts`): with the
+ * spine first rigid, at the end of the second movement, it bows the wrong way
+ * — the flip, arrested by both thumbs holding its two end joints down at once;
+ * then a marrow seam lights down its middle, sealed by both colours up the
+ * middle column; and after the rock the locked segments bank one by one while
+ * both hands stay off.
  */
 
 export const KEEL_PHASES = [
@@ -35,8 +42,11 @@ export const KEEL_PHASES = [
   "rest",
   "split",
   "socket",
+  "flip",
+  "marrow",
   "rigid",
   "rock",
+  "cool",
   "straight",
 ] as const;
 export type KeelPhase = (typeof KEEL_PHASES)[number];
@@ -78,6 +88,15 @@ export interface KeelState {
   rockCol: number;
   /** `world.beat` the rock was thrown. */
   rockBeat: number;
+  /** Whether each seat's thumb is down on its end joint, P1's then P2's —
+   * kept in every phase, so a chord already down counts when the flip comes. */
+  held: [boolean, boolean];
+  /** Beats in a row the flip has had both end joints held. */
+  chordBeats: number;
+  /** Which colours have hit the marrow line, red's then cyan's. */
+  marrow: [boolean, boolean];
+  /** Beats reflex taps have added to the cooldown. */
+  flares: number;
 }
 
 export function keelBoss(world: World): KeelState | null {
@@ -130,6 +149,26 @@ export function keelWindowBeats(cfg: SimConfig, s: KeelState): number {
   if (s.movement === 1) return cfg.keelJointBeats;
   if (s.movement === 2) return cfg.keelLastJointBeats;
   return cfg.keelTempoBeats;
+}
+
+/** The arch bowed the wrong way, waiting for the chord on its two ends. */
+export function keelFlipping(s: KeelState): boolean {
+  return s.phase === "flip";
+}
+
+/** The marrow seam lit down the spine's middle, waiting for both colours. */
+export function keelMarrowLit(s: KeelState): boolean {
+  return s.phase === "marrow";
+}
+
+/** The locked segments banking after the rock, hands off. */
+export function keelCooling(s: KeelState): boolean {
+  return s.phase === "cool";
+}
+
+/** The end joint a seat holds in the flip: P1 the leftmost, P2 the rightmost. */
+export function keelEndSeg(s: KeelState, seat: 1 | 2): number {
+  return seat === 1 ? 0 : s.locked.length - 1;
 }
 
 /** The spine snapped straight: the fight is over and it is only hanging. */

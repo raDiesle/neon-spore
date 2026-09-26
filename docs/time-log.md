@@ -24050,3 +24050,13 @@ hand before this lane could start.
 Bottleneck: looking — a mid-change frame of a pass or an approach is mostly sky or a speck, and finding the tick where the body is on screen and halfway is by trial.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE KEEL's flip, marrow and cooldown (claude/queue-24-the-keel-a-fuller-story-arc-a-flip-a-reveal-a)
+
+- reading: 15 min. `keel-step.ts`, `keel-hand.ts`, the new-boss-state list.
+- writing: 50 min. `keel-story.ts`, five fields, eight events, the hand, the cards, the rig and tests.
+- looking: 0 min. Nothing is drawn yet; the look is the next lane.
+- friction: 20 min. Three pages at the ceiling gave a boss back; `held` stayed down in the rig.
+- landing: 10 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — the audio switch and the spark list were full, and THE KEEL's rows had to move to a fresh page before a line of them could go in.

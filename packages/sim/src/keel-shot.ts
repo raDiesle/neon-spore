@@ -1,6 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
 import { midCol } from "./config.js";
 import { keelBoss, keelThrown, NO_JOINT, NO_ROCK } from "./keel.js";
+import { keelMarrowStruck } from "./keel-story.js";
 import { closeSlow } from "./slow.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
@@ -15,6 +16,8 @@ import type { World } from "./world.js";
  * is a colour missed on the balance sheet and nothing else: the socket stays
  * open and its window runs on.
  *
+ * **The marrow wants both**, one bolt of each up the middle (`keel-story.ts`).
+ *
  * **The rock wants either colour**, THE MANTLE's spark's argument: a rock is
  * not a body with a colour the pair could have got wrong, and what it costs to
  * miss is the column.
@@ -27,6 +30,7 @@ export function keelStruck(world: World, bullet: Bullet): void {
     world.events.push({ type: "keelRockOut", col: bullet.col });
     return;
   }
+  if (keelMarrowStruck(world, s, bullet)) return;
   if (s.phase !== "socket" || bullet.col !== midCol(world.cfg)) return;
   if (bullet.color !== s.socket) {
     missedColor(world);

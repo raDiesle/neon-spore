@@ -100,15 +100,15 @@ export const CHOREO_NOTES_C = {
     "when neither seat is named. A spine of keelSegments segments arches over " +
     "the field; one joint lights at a time, and only the seat whose half of the " +
     "screen it sits over may tap it (geometrySeat) — the middle column either. " +
-    "Movement one lights the ends inward, alternating; at two loose the middle " +
-    "opens and its socket flashes the wave's colour, which only that colour's " +
-    "shot shuts, locking a joint for free; unanswered it is a hit on the hull " +
-    "and flashes again. Movement three dims the spine and relights it at " +
-    "keelTempoBeats in the wave's own order, with no SLOW; a miss there slips " +
-    "the segment loose. Then the spine goes rigid and the tail throws one rock " +
-    "down its column — either colour answers it. THE SLOW spans every joint and " +
-    "the socket before movement three. Only the simulation lane has landed — " +
-    "see sim/keel.ts, sim/keel-step.ts, sim/keel-hand.ts, sim/config-keel.ts.",
+    "Movement one lights the ends inward; at two loose the socket flashes the " +
+    "wave's colour, which only that shot shuts. Then it flips: both seats hold " +
+    "their end joint keelChordBeats together inside keelFlipBeats, or it snaps " +
+    "at the hull and flips again. A marrow lights the middle column for a bolt " +
+    "of each colour in keelMarrowBeats, or it burns a segment loose. Movement " +
+    "three relights it at keelTempoBeats, no SLOW, and a miss slips a segment. " +
+    "The rock that follows answers to either colour, and the spine cools " +
+    "keelCoolBeats hands-off, a tap flaring it (keelCoolFlares). Only the " +
+    "simulation lane has landed — see sim/keel*.ts, sim/config-keel.ts.",
   "THE VALVE — the boss one hand turns and the other hand stops":
     "Asked for in docs/spec/bosses-choreographed.md §25: can one hand stop what " +
     "the other is moving. A drum with a wheel and a pin. The pilot turns the " +

@@ -1,4 +1,13 @@
-import { keelBoss, keelLit, keelLoose, keelSeat, keelSegCol, NO_JOINT } from "./keel.js";
+import {
+  keelBoss,
+  keelCooling,
+  keelLit,
+  keelLoose,
+  keelSeat,
+  keelSegCol,
+  NO_JOINT,
+} from "./keel.js";
+import { keelFlared } from "./keel-story.js";
 import { closeSlow } from "./slow.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -17,11 +26,20 @@ import type { World } from "./world.js";
  * A landed tap locks the segment, shuts THE SLOW on the spot (the owner's
  * rule, `slow.ts` `closeSlow`), and leaves the spine resting until the next
  * beat lights what comes after (`keel-step.ts`).
+ *
+ * **Every press and lift is also a thumb down or up** on the seat's end joint,
+ * kept in `held` in every phase: the flip counts the chord off it on the beat
+ * (`keel-story.ts`). And a press while the spine cools is a reflex tap, which
+ * flares it.
  */
 export function keelHeard(world: World, player: 1 | 2, command: Command): void {
-  if (command.kind !== "drag" || command.target !== "keelJoint" || !command.on) return;
+  if (command.kind !== "drag" || command.target !== "keelJoint") return;
   const s = keelBoss(world);
-  if (s === null || !keelLit(s)) return;
+  if (s === null) return;
+  s.held[player - 1] = command.on;
+  if (!command.on) return;
+  if (keelCooling(s)) keelFlared(world, s);
+  if (!keelLit(s)) return;
   const cols = world.cfg.cols;
   const wants = keelSeat(s, cols);
   if (wants !== null && player !== wants) return;

@@ -35,6 +35,22 @@ export type KeelEvent =
   | ({ type: "keelSocketHit" } & KeelColEvent)
   /** Every joint dims at once, before the tempo run. */
   | ({ type: "keelDim" } & KeelColEvent)
+  /** The spine, first rigid, bows the wrong way: the chord on its ends is wanted. */
+  | ({ type: "keelFlip" } & KeelColEvent)
+  /** Both end joints held long enough: the flip is arrested. */
+  | ({ type: "keelArrest" } & KeelColEvent)
+  /** The flip ran out: the spine snaps back against the hull, and bows again. */
+  | ({ type: "keelSnap" } & KeelColEvent)
+  /** A marrow seam lights down the spine's middle, for both colours. */
+  | ({ type: "keelMarrow" } & KeelColEvent)
+  /** Both colours hit the marrow line: it seals. */
+  | ({ type: "keelSeal" } & KeelColEvent)
+  /** The marrow burned through unsealed: segment `seg` works loose. */
+  | ({ type: "keelBurn"; seg: number } & KeelColEvent)
+  /** The rock is gone: the locked segments begin to bank, hands off. */
+  | ({ type: "keelCool" } & KeelColEvent)
+  /** A tap on the cooling spine: it flares, and banks a beat later. */
+  | ({ type: "keelFlare" } & KeelColEvent)
   /** Every segment locked: the spine holds rigid. */
   | ({ type: "keelRigid" } & KeelColEvent)
   /** The tail whips and throws one rock down its column. */
