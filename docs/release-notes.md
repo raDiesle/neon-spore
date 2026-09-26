@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 39e279958 — Queue: the shield push is done
+
+## 2026-09-26 · 61e730c6a — The shield pushes a creature back up the field, once
+
+A creature that reaches the dome with the shield in its column and the trigger on the beat is no longer let through to the hull: it is thrown nine rows back up and falls again under its own rule, still the cannon's to kill. Once per creature — the second arrival breaks the hull as before. Rocks, THE VOLLEY, THE GUM, the bosses and the bodies with answers of their own are not pushed. For now the push is heard as the volley's bounce and drawn as the climb alone; the red shield and ONE LAST CHANCE are the next lane.
+
 ## 2026-09-26 · 3cc7521e2 — SNAKE's buttons say SHOOT and EAT, and the field hints which one
 
 Player 1's two buttons now carry their verb on the face, SHOOT and EAT, under the head. The field puts one mark on one item: the one the head is looking at, or else the nearest one. It says EAT on a point and SHOOT on an enemy, on both screens. PRESS stands over the word only on the step a press would land: the point in the next tile, or the enemy a shot would reach now.
