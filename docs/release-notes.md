@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 58857f734 — THE VISE's cue says SHUT on each lobe a lit pinch asks for and FIRE under the lit kernel
+
+While a seam is lit, the seat whose lobe it is reads SHUT on that lobe — both seats on a step that asks for both — and the word goes the moment the lobe is pinched shut, coming back if it is let go before its count is up. While the kernel is lit, FIRE stands at the hull under the middle column on both screens, never naming the colour. Nothing is said between steps or as the case splits. This is the last of THE VISE's look.
+
 ## 2026-09-26 · 9e598c0c8 — THE INSTAR's baked parts are checked in the fourth act's poses
 
 Every baked part draws without clipping in hover, bow, arch, rise and loom, as it did in the third act. The before-and-after sheet says so, and the queue item for the missing director poses now covers both acts.

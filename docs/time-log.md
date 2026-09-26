@@ -24036,3 +24036,5 @@ Bottleneck: looking — eight VERSUS shots, about a minute each, one pose at a t
 Bottleneck: friction — the previous lane's push rebased over another
 session's landing on the same boss, and its records had to be merged by
 hand before this lane could start.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

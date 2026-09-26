@@ -2639,3 +2639,17 @@ in the director or used as a VERSUS slot's pose, so checking a look in them
 meant a throwaway edit. `falling()` in `poses-instar-spit.ts` already drives
 the hand until a named pose is acting; widen its `pose` to any `InstarPose`
 and register ten poses (`INSTAR · CROUCHED` and so on) in the gallery.
+
+## Unverified at 58857f734: THE VISE's SHUT and FIRE read at tempo on a phone, nev…
+
+- **Found:** 2026-09-26, claude/vise-cue
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zf.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/vise-marks.ts`
+
+*THE VISE's cue says SHUT on each lobe a lit pinch asks for and FIRE under the lit kernel* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
+
+- THE VISE's SHUT and FIRE read at tempo on a phone, never seen in a real frame
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
