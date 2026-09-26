@@ -599,22 +599,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## Unverified at 8e6e6e71: RESEARCH tab on the director's NOT BUILT YET sheet, see…
-
-- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
-- **Taken:** 2026-09-26, main (claim: claude/queue-unverified-at-8e6e6e71-research-tab-on-the-direc)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/README.md`, `docs/spec/transfers-touch.md`, `docs/time-log.md`, `tools/director/index.html`, `tools/director/src/backlog-api.ts`, `tools/director/src/backlog-page.ts`
-
-*A RESEARCH tab: other games' touch fights, co-op, and the inputs a phone offers* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
-
-- RESEARCH tab on the director's NOT BUILT YET sheet, seen by an eye
-- video links and YouTube thumbnails in docs/spec/transfers-touch.md, never opened
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Other bosses' plates are still lifes the same way THE INSTAR's were
 
 - **Found:** 2026-09-26, queue-boss-depth-wobble-beyond-instar

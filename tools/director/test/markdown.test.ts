@@ -80,6 +80,12 @@ describe("renderMarkdown", () => {
     );
   });
 
+  test("a line of three dashes is a rule, not a paragraph of dashes", () => {
+    expect(render("One.\n\n---\n\nTwo.")).toBe("<p>One.</p><hr></hr><p>Two.</p>");
+    expect(render("One.\n***\n* * *")).toBe("<p>One.</p><hr></hr><hr></hr>");
+    expect(render("- a bullet\n---")).toBe("<ul><li>a bullet</li></ul><hr></hr>");
+  });
+
   test("code spans and italics", () => {
     expect(render("`radar` is *owned*")).toBe("<p><code>radar</code> is <i>owned</i></p>");
   });

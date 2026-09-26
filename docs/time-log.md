@@ -24375,3 +24375,19 @@ and two glasses is more drawing than any single-body boss before it.
 Bottleneck: writing — the story steps are two rules, but a boss state is eleven registrations outside the simulation.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — RESEARCH's tab seen by an eye, and `---` drawn as a rule
+
+- reading: 5 min. The queue entry, `markdown.ts` and its test, `shot.ts`'s
+  flags for reaching a tab inside NOT BUILT YET.
+- writing: 5 min. `isRule`, the `hr` style, one test.
+- looking: 10 min. The whole tab shot at two scales and read in bands,
+  before and after.
+- friction: 20 min. THE PLUMB's landing met THE TRIVET and THE SEAM on
+  `origin/main` and nine files had to be merged by hand before this began;
+  YouTube is refused by the container's proxy, so no thumbnail or video
+  could be opened.
+- landing: 5 min. `check:fast`, this entry, `bun run land`.
+
+Bottleneck: friction — the previous lane's reconcile with two lanes that
+had landed beside it.

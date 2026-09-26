@@ -1,7 +1,7 @@
 /**
  * The little of markdown the spec actually writes, turned into DOM: headings,
- * paragraphs, bullets, blockquotes and tables, with bold, italics, code and
- * links inline. It exists because the panels used to show one parsed sentence
+ * paragraphs, bullets, blockquotes, tables and rules, with bold, italics, code
+ * and links inline. It exists because the panels used to show one parsed sentence
  * per entry while the paragraph that argued for it stayed in the file — the
  * Jammer's whole design is three sentences the director never showed.
  *
@@ -16,6 +16,15 @@ export { inline };
 
 function isTable(line: string): boolean {
   return line.trim().startsWith("|");
+}
+
+/**
+ * `---`, `***` or `___` alone on a line. RESEARCH's file parts its sections
+ * with one, and before this the page drew three dashes as a paragraph between
+ * every pair — `* * *` reads as a bullet, so it is asked first.
+ */
+function isRule(line: string): boolean {
+  return /^([-*_])(\s*\1){2,}$/.test(line.trim());
 }
 
 function isBullet(line: string): boolean {
@@ -34,7 +43,13 @@ function isNumbered(line: string): boolean {
 function isBlock(line: string): boolean {
   const t = line.trim();
   return (
-    t === "" || t.startsWith("#") || t.startsWith(">") || isTable(t) || isBullet(t) || isNumbered(t)
+    t === "" ||
+    t.startsWith("#") ||
+    t.startsWith(">") ||
+    isTable(t) ||
+    isRule(t) ||
+    isBullet(t) ||
+    isNumbered(t)
   );
 }
 
@@ -143,6 +158,9 @@ export function renderMarkdown(container: HTMLElement, text: string): void {
       i++;
     } else if (isTable(trimmed)) {
       i = table(container, lines, i);
+    } else if (isRule(trimmed)) {
+      container.appendChild(document.createElement("hr"));
+      i++;
     } else if (trimmed.startsWith(">")) {
       i = quote(container, lines, i);
     } else if (isBullet(trimmed)) {

@@ -79,6 +79,11 @@ details.more > summary:hover {
 .md li {
   margin: 0 0 4px;
 }
+.md hr {
+  margin: 14px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
 .md blockquote {
   margin: 0 0 8px;
   padding-left: 8px;
