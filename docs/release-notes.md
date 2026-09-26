@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 819111adf — THE SEAM is drawn turning its back, and glowing from within
+
+When the ridge turns away it swings round on its spine, edge-on for a moment, and shows its back: darker, ribbed across, with no crack to shoot. It swings back over the rest after. When it glows, the crack burns white and a vein lights out through the shell for each shot still owed; each shot that lands puts one out, and a ring round the middle lobe closes as the window runs. White, because either colour quenches it.
+
 ## 2026-09-26 · ebfb94360 — THE SEAM turns its face away, then glows from within
 
 Two new steps in THE SEAM's script, each under THE SLOW and each a hull hit if it runs out. The turn: the ridge faces away and throws its grit blind, taking no shot, only the shield under the ridge. The glow: heat gathers up the crack and takes three shots of either colour in the middle column to quench. The script is eleven steps now. Neither is drawn yet; the look is the next lane.

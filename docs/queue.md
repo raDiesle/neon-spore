@@ -2705,3 +2705,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 819111adf: THE SEAM's turn and glow watched at tempo
+
+- **Found:** 2026-09-26, claude/queue-26-the-seam-the-ridge-turns-away-then-glows-from
+- **Files:** `docs/INDEX.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/seam-draw.ts`, `packages/render/src/seam-story.ts`, `packages/render/test/seam-story-frame.test.ts`
+
+*THE SEAM is drawn turning its back, and glowing from within* landed from a session that could not look at it. What went unchecked:
+
+- THE SEAM's turn and glow watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
