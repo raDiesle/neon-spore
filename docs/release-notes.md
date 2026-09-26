@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 6ee3c4a00 — THE UNDERTOW's lobes were lit from a spot their own rim outgrew
+
+A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, moving through the already-shipped bosses.
+
 ## 2026-09-26 · 78bd6557d — A ring let go of while THE GIMBAL shears is let go of
 
 A thumb lifted from a ring during the shear's beats used to go unheard: the ring kept its bearing, and when the next marks lit it neither drifted home nor drew unheld, with nobody's finger on it. A release and a grab are now heard in every phase, and only the turn itself waits for the marks. A new test page lifts a hand mid-shear and sees its ring drift on the first turning beat while the other stays held.
