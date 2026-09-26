@@ -1696,3 +1696,17 @@ burst. **Hurt**, **the cue's words** (TURN on the wheel, FREEZE on the
 socket, PULL on the live pin, FIRE on the spark), **the autopilot hand** and
 its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
 Unverified at tempo until the owner has looked.
+
+## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/valve-draw.ts`, `packages/render/src/valve-marks.ts`
+
+*THE VALVE has a body: an iron drum whose notched rim turns with its wheel, listing a step for every pin pulled* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
+
+- THE VALVE's drum watched at tempo: the wheel's turn, the freeze, the list
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

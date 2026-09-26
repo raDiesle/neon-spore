@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · c2a4f79ca — THE VALVE has a body: an iron drum whose notched rim turns with its wheel, listing a step for every pin pulled
+
+The drum is THE CODEX's squat notched slab in iron. Its rim is scrolled by the wheel's bearing and nothing else, so a turned wheel runs the rim round and a frozen one stops it dead. THE TITHE's squared plates hang under it as the three pins. The wheel is drawn where it stands, never snapped to a mark, and its white pointer glows while frozen. The white mark is hollow while the third movement's lap is owed, with an arc filling as the lap is made. The white socket flashes while the wheel holds and glows once frozen, and the open window closes as an arc round it. The drum lists a step further for each pin out, the pulled pin slides free, and the last one splits the face open. The spark is an ember falling down its column. Both screens draw the same picture.
+
 ## 2026-09-26 · 806043b6e — THE GIMBAL's rings are hoops in the world's light
 
 Each ring is now a hoop of metal with a body: a band wider than the rim, lit on the side toward the key and deep away from it, a shade round its inside and a cold rim caught on the outer edge turned from the light. The light never turns with the ring, so nothing is glued to the teeth; it sways a little with a slow breath, one per ring, and the rim, teeth and marks stay exactly where the seats read them.
