@@ -1606,6 +1606,7 @@ THE VALVE's look decides.
 ## The build-stamp test still times out when `check:fast` is contended
 
 - **Found:** 2026-09-26, claude/instar-rig
+- **Taken:** 2026-09-26, claude/queue-the-build-stamp-test-still-times-out-when-check
 - **Files:** `tools/test/build-stamp.test.ts`
 
 `the build stamp > is read through BUILD_STAMP` passed its 5-second timeout
