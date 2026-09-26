@@ -42,6 +42,58 @@ export function drawInstarSpit(
   });
 }
 
+/** A glob where it is this frame: its ball, and up to five points behind it. */
+export interface GlobBall {
+  at: Point;
+  r: number;
+  trail: Point[];
+  time: number;
+  i: number;
+}
+
+/** One ember spark: its core's radius and how bright it flickers. */
+export interface Spark {
+  at: Point;
+  r: number;
+  flicker: number;
+  k: number;
+}
+
+/** How a glob and a spark are painted — the seam VERSUS offers a baked look through. */
+export const SPIT_LOOK: {
+  glob: (ctx: CanvasRenderingContext2D, ball: GlobBall) => void;
+  spark: (ctx: CanvasRenderingContext2D, spark: Spark) => void;
+} = {
+  glob: (ctx, { at, r, trail }) => {
+    trail.forEach((p, n) => {
+      const k = n + 1;
+      ctx.fillStyle = rgba(PALETTE.ember, 0.35 * (1 - k / 6));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r * (1 - k * 0.13), 0, Math.PI * 2);
+      ctx.fill();
+    });
+    const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 1.8);
+    g.addColorStop(0, rgba(PALETTE.podRim, 0.95));
+    g.addColorStop(0.35, rgba(PALETTE.pod, 0.9));
+    g.addColorStop(0.7, rgba(PALETTE.ember, 0.6));
+    g.addColorStop(1, rgba(PALETTE.ember, 0));
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(at.x, at.y, r * 1.8, 0, Math.PI * 2);
+    ctx.fill();
+  },
+  spark: (ctx, { at, r, flicker }) => {
+    ctx.fillStyle = rgba(PALETTE.ember, 0.35 * flicker);
+    ctx.beginPath();
+    ctx.arc(at.x, at.y, r * 2.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = rgba(PALETTE.emberRim, 0.95 * flicker);
+    ctx.beginPath();
+    ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
+    ctx.fill();
+  },
+};
+
 /** A glob: a ball of fire swelling in the mouth over the first fifth of the
  * window, then arcing out and down to its mark, a trail of flame behind it. */
 function drawGlob(
@@ -63,23 +115,10 @@ function drawGlob(
   });
   const here = at(fly);
   const r = l.tile * (0.25 + 0.35 * grow) * (1 + 0.08 * Math.sin(time * 18 + i));
+  const trail: Point[] = [];
+  for (let k = 1; k <= 5 && fly > 0; k++) trail.push(at(Math.max(0, fly - k * 0.035)));
   ctx.save();
-  for (let k = 1; k <= 5 && fly > 0; k++) {
-    const p = at(Math.max(0, fly - k * 0.035));
-    ctx.fillStyle = rgba(PALETTE.ember, 0.35 * (1 - k / 6));
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, r * (1 - k * 0.13), 0, Math.PI * 2);
-    ctx.fill();
-  }
-  const g = ctx.createRadialGradient(here.x, here.y, 0, here.x, here.y, r * 1.8);
-  g.addColorStop(0, rgba(PALETTE.podRim, 0.95));
-  g.addColorStop(0.35, rgba(PALETTE.pod, 0.9));
-  g.addColorStop(0.7, rgba(PALETTE.ember, 0.6));
-  g.addColorStop(1, rgba(PALETTE.ember, 0));
-  ctx.fillStyle = g;
-  ctx.beginPath();
-  ctx.arc(here.x, here.y, r * 1.8, 0, Math.PI * 2);
-  ctx.fill();
+  SPIT_LOOK.glob(ctx, { at: here, r, trail, time, i });
   ctx.restore();
 }
 
@@ -105,14 +144,7 @@ function drawEmbers(
     const y = to.y - fall * (1 - t) * (0.6 + 0.4 * sinHash(k * 3 + 1));
     const r = l.tile * (0.07 + 0.06 * sinHash(k + 7));
     const flicker = 0.6 + 0.4 * Math.sin(time * 22 + k * 2.3);
-    ctx.fillStyle = rgba(PALETTE.ember, 0.35 * flicker);
-    ctx.beginPath();
-    ctx.arc(x, y, r * 2.4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = rgba(PALETTE.emberRim, 0.95 * flicker);
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
+    SPIT_LOOK.spark(ctx, { at: { x, y }, r, flicker, k });
   }
   ctx.restore();
 }

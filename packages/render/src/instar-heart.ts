@@ -1,9 +1,40 @@
 import { type InstarState, instarStep } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
-import { instarMarkPoint } from "./instar-place.js";
+import { instarMarkPoint, type Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+
+/** The heart where it beats this frame: `r` swells with the thump, `a` is its strength. */
+export interface HeartBeat {
+  at: Point;
+  r: number;
+  thump: number;
+  a: number;
+}
+
+/** How the heart is painted — the seam VERSUS offers a baked look through. */
+export const HEART_LOOK: { paint: (ctx: CanvasRenderingContext2D, beat: HeartBeat) => void } = {
+  paint: (ctx, { at, r, thump, a }) => {
+    const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 2.2);
+    g.addColorStop(0, rgba(PALETTE.redRim, 0.9 * a));
+    g.addColorStop(0.25, rgba(PALETTE.red, (0.6 + 0.3 * thump) * a));
+    g.addColorStop(0.6, rgba(PALETTE.ember, 0.25 * a));
+    g.addColorStop(1, rgba(PALETTE.red, 0));
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(at.x, at.y, r * 2.2, 0, Math.PI * 2);
+    ctx.fill();
+    // The heart itself: two lobes and a point, the shape the word already is.
+    const h = r * 0.55;
+    ctx.fillStyle = rgba(PALETTE.redRim, 0.85 * a);
+    ctx.beginPath();
+    ctx.moveTo(at.x, at.y + h);
+    ctx.bezierCurveTo(at.x - h * 1.4, at.y, at.x - h * 0.6, at.y - h * 1.1, at.x, at.y - h * 0.35);
+    ctx.bezierCurveTo(at.x + h * 0.6, at.y - h * 1.1, at.x + h * 1.4, at.y, at.x, at.y + h);
+    ctx.fill();
+  },
+};
 
 /**
  * **The bare body's heart**, lit in the split along its back after the moult
@@ -33,22 +64,6 @@ export function drawInstarHeart(
   const a = f.heart * fade;
   const r = l.tile * (0.9 + 0.35 * thump);
   ctx.save();
-  const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 2.2);
-  g.addColorStop(0, rgba(PALETTE.redRim, 0.9 * a));
-  g.addColorStop(0.25, rgba(PALETTE.red, (0.6 + 0.3 * thump) * a));
-  g.addColorStop(0.6, rgba(PALETTE.ember, 0.25 * a));
-  g.addColorStop(1, rgba(PALETTE.red, 0));
-  ctx.fillStyle = g;
-  ctx.beginPath();
-  ctx.arc(at.x, at.y, r * 2.2, 0, Math.PI * 2);
-  ctx.fill();
-  // The heart itself: two lobes and a point, the shape the word already is.
-  const h = r * 0.55;
-  ctx.fillStyle = rgba(PALETTE.redRim, 0.85 * a);
-  ctx.beginPath();
-  ctx.moveTo(at.x, at.y + h);
-  ctx.bezierCurveTo(at.x - h * 1.4, at.y, at.x - h * 0.6, at.y - h * 1.1, at.x, at.y - h * 0.35);
-  ctx.bezierCurveTo(at.x + h * 0.6, at.y - h * 1.1, at.x + h * 1.4, at.y, at.x, at.y + h);
-  ctx.fill();
+  HEART_LOOK.paint(ctx, { at, r, thump, a });
   ctx.restore();
 }
