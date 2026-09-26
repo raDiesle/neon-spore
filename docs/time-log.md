@@ -24007,3 +24007,5 @@ Bottleneck: looking — five VERSUS shots, about a minute each, one pose at a ti
 
 Bottleneck: writing — both of THE RATCHET's blows land in the middle
 column, so the look could not tell them apart without the sim saying which.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

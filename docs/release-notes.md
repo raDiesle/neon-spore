@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2f3938154 — THE RATCHET's timeout blows are its own head plate and its own bolt
+
+When THE RATCHET jams, the pawl lets go and the rack's head plate is shot down the strut, smearing behind it, and hits the plating flat, crumpling and throwing chips of its stone. When its loose bolt goes unshot, the pin already seen falling is driven home, as THE HASP's is. The breach now names which of a boss's blows it was, so the two can be drawn apart.
+
 ## 2026-09-26 · e510429b3 — THE INSTAR's ten baked parts have a before-and-after sheet
 
 `.claude/skills/sprite/baked-parts.md` lists every sprite baked for THE INSTAR with the bytes it adds and its canvas calls, shipped against baked. All ten together add 6.8 kB gzipped, and `bun run sprite` now prints that total. Every baked part was checked in the five third-act poses and draws cleanly there.
