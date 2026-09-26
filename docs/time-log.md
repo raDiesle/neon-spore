@@ -25073,3 +25073,5 @@ as long as the change.
 
 Bottleneck: reading — the spec's GRINDSTONE paragraphs still said the touch
 sender and the autopilot hand were missing, and were brought up to date first.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

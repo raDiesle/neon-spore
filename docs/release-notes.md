@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 5a89448e0 — THE GRINDSTONE's cue words: RUB on the lit flat, HOLD on each jaw, FIRE at the axle
+
+The field now says what the wheel wants. RUB stands on the lit flat for its seat's thumb, for the whole pass; on a clamp, HOLD stands on each jaw until both its pads are down, and comes back for a jaw let go; and FIRE stands at the hull under the middle column once the caliper is locked on a fire step. Never a count or the axle's colour. The effects are still to come.
+
 ## 2026-09-26 · 88666459a — THE GORGE's veins and mouths move on clocks of their own
 
 The veins between the lobes now sway and pulse slowly, one after another along the row, and each pucker under a lobe gapes and purses out of step with the others. Until now the sack's skin moved only with the beat's breath, which the whole sack takes at once, so it looked pumped rather than alive. Exemption: a look the owner asked for by name, the boss depth pass.
