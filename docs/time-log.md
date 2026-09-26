@@ -24118,3 +24118,5 @@ Bottleneck: looking — the jet's spacing only showed itself in a frame.
 - landing: 10 min. `check:fast`, the commit, `bun run land --keep`, the push.
 
 Bottleneck: writing — three states, each a pose, a mark, a grip and a cue, in five files.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
