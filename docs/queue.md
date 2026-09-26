@@ -665,6 +665,7 @@ owner's, unverified until he has looked.
 ## The game's TEST view has no AUTO
 
 - **Found:** 2026-09-26, claude/queue-auto-plays-bosses-only-and-only-in-the-director
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-games-test-view-has-no-auto)
 - **Files:** `tools/director/src/autopilot-field-hand.ts`, `tools/director/src/autopilot-hands.ts`, `tools/director/src/boss-hands-*.ts`, `apps/game/src/testing.ts`
 
 The second half of "AUTO plays bosses only, and only in the director". The
