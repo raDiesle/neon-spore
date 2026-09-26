@@ -23685,3 +23685,19 @@ Bottleneck: looking — the far pass is a quarter of the body's size, so
 which way it flew was only plain on a sheet of the whole flight.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §28 THE VISE, half one of its look: the body
+
+- reading: 15 min. THE OCULUS's body lane as the pattern, THE VISE's state
+  and step, §28's *Animation* and *Colour*, the drafts for a seed-case.
+- writing: 45 min. Shape, pose, draw and marks, the frame test, the palette
+  split, the docs.
+- looking: 0 min. Nothing seen by an eye here — the frame tests only.
+- friction: 10 min. The palette sat at its line ceiling and needed its seam
+  first; the canvas stub logs no transforms, so two poses that differ only
+  by a hinge angle drew the same text until the kernel's shadow and the
+  `both` seams made them say it.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: writing — four files for one body is THE OCULUS's split again,
+and nearly every line of it is geometry decided for the first time.

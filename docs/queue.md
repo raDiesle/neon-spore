@@ -488,18 +488,27 @@ item below on the prism's aim is the general case). **The cue's words**
 (HOLD on the lit pair, FIRE on the lit core).
 Unverified at tempo until the owner has looked.
 
-## §28 THE VISE — the look
+## §28 THE VISE — its hands, the second half of its look
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, main (claim: claude/queue-28-the-vise-the-look)
-- **Needs:** §28 THE VISE's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
+- **Needs:** §28 THE VISE — the look, half one (the body), landed first
+- **Files:** `packages/render/src/vise-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
 
-Lane two, read against `docs/style-guide.md`: a dry two-lobe seed-case
-hinged at a spine, each lobe peeling back as its own mechanism rather than
-tearing, and the kernel's lit core answering the cannon's colour once bared.
-Nothing here is drawn yet and stays unverified at tempo until the owner has
-looked.
+The body is drawn: the seed-case of two bristled half-shells hinged at the
+spine, standing open by their seams, narrowed by the gap pinched on each, the
+lit seam white and cracking down by the share held, a `both` step's creep
+over the bared kernel, the kernel in its colour and smaller per hit, and the
+split (`render/vise-*.ts`). What is left is everything an event or a hand
+touches. **The pinch on the field**: each seat's thumb and finger on its
+lobe, read as `SqueezeGap` and sent as `viseLobeLeft`/`viseLobeRight` (THE
+MANTLE's geometry — nothing sends it from a touch yet). **The fx**, in
+`Effects` and cleared in `reset()`: each crack's dry thud, the spring of a
+pinch run out, the cover closing back over the kernel, the kernel's hit
+flash and the split's; the twelve `vise*` events come off the two silent
+lists as each gets its burst. **THE SLOW's aim** on the case. **The cue's
+words** (SHUT on the lit lobe, FIRE on the lit kernel), **the autopilot
+hand** and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES
+poses. Unverified at tempo until the owner has looked.
 
 ## §29 THE RIME — the look
 

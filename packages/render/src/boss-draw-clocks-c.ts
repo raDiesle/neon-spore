@@ -11,6 +11,7 @@ import type { ViewState } from "./renderer.js";
 import { drawSeam } from "./seam-draw.js";
 import { drawSpool } from "./spool-draw.js";
 import { drawValve } from "./valve-draw.js";
+import { drawVise } from "./vise-draw.js";
 
 /**
  * **The clock bosses, drawn — page three**: the pairs asked for by name, each
@@ -41,6 +42,7 @@ export const PAIR_KINDS = [
   "valve",
   "seam",
   "oculus",
+  "vise",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -151,5 +153,15 @@ export function drawPairBoss(
   // Both screens are drawn the same — a hold asks both seats at once
   // (`oculus-draw.ts`). What outlives a frame — the thud of a shut pair, the
   // core's flash, the hull's shudder — is `effects.boss.oculus` (`oculus-fx.ts`).
-  drawOculus(ctx, l, world, boss, beat, beatPhase, time, effects.boss.oculus);
+  if (boss.kind === "oculus") {
+    drawOculus(ctx, l, world, boss, beat, beatPhase, time, effects.boss.oculus);
+    return;
+  }
+
+  // THE VISE: a seed-case of two lobes over the middle column, each pinched
+  // shut by one seat, a kernel in the hollow both cannons are asked to hit.
+  // Both screens are drawn the same — the other seat has to see which lobe is
+  // lit to say so (`vise-draw.ts`). Nothing of it outlives a frame yet: its
+  // hands and effects are the second half of its look.
+  drawVise(ctx, l, world, boss, beat, beatPhase, time);
 }

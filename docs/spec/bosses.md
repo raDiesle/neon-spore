@@ -8309,9 +8309,9 @@ balance sheet and nothing else, THE SEAM's rule.
   `gesturechange` stopped — are the app's, and wait for lane two with the
   body they are read on.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-carry all twelve of its events until lane two. The twelve sounds *are* bound
+**The simulation lane and the body have landed; the hands have not.** The
+render package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+carry all twelve of its events until half two. The twelve sounds *are* bound
 (`audio/src/bind-vise.ts`), heard where they happen, the crack pitched up per
 seam and the hit per hit. There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
@@ -8328,6 +8328,28 @@ lobe, and run out covers the kernel until it is held again; and a script
 answered whole splits the case and ends the fight. Whether any of it *reads*
 — whether five beats of pinching is long or short with a voice in the way —
 is the owner's eye, after lane two.
+
+**Half the look has landed** (26 September 2026): the body. A seed-case over
+the middle column, two drafts combined: BULB · PEAR's hanging outline, heavier
+at the bottom, split down its long axis into the two lobes, and BULB · BURR's
+twelve-lobe bristle for its edge, six to a side — a husk rather than a sac,
+in the field's only brown (`viseCase`), its cracks a dry white. Each lobe is a
+half-shell hinged at the top of the spine: it stands open at the bottom by
+the seams cracked on it, wide over a bared kernel, gaping a sliver once it
+has closed back over one, and is drawn narrower by the gap pinched on it, so
+a thumb and finger closing are seen closing on the body. The lit seam glows
+white and cracks down from the top by the share of its beats the gap has
+been held, read off the shell, and a widened gap drops it back. A `both` step
+lights the tight seam on each lobe, and over a bared kernel lets the lobes
+creep shut as its window runs out, held open by the share held. The kernel
+lies in shadow while covered and catches the light once bared; a fire step
+lights it in the step's colour, white for either, with a ring closing off
+`viseWindowBeats`, the number the simulation judges by — smaller and
+brighter for every hit. The case splits by throwing both lobes out and down
+(`render/vise-shape.ts`, `vise-pose.ts`, `vise-draw.ts`, `vise-marks.ts`).
+**Half two, the hands, is queued**: the pinch drawn on the field, the crack's
+thud and the spring, the flashes, the twelve events off the silent lists, the
+cue's words, THE SLOW's aim on the case, and the autopilot hand.
 
 ## 11.46 THE RIME — the boss two rubs wipe clear, then shoot into
 

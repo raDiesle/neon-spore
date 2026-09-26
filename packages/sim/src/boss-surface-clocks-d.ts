@@ -1,7 +1,7 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
- * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac and
- * THE DAVIT's boom.
+ * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac,
+ * THE DAVIT's boom and THE VISE's seed-case.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -82,6 +82,29 @@ export {
   grindstoneJawHeld,
   grindstoneLitStep,
 } from "./grindstone.js";
+// THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
+// the picture, the cue and the director's hand. Straight off `vise.ts`
+// (`docs/spec/bosses-choreographed.md` §28).
+export {
+  freshVise,
+  VISE_ASKS,
+  VISE_PHASES,
+  VISE_SEAMS_PER_LOBE,
+  type ViseAsk,
+  type ViseEntry,
+  type VisePhase,
+  type ViseState,
+  type ViseStep,
+  viseBoss,
+  viseClosed,
+  viseDone,
+  viseLitStep,
+  viseShut,
+  vising,
+} from "./vise.js";
+// And the lit step's window, so the ring the picture closes and the creep of
+// the lobes read the same number the simulation judges by (`vise-step.ts`).
+export { viseWindowBeats } from "./vise-step.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

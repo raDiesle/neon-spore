@@ -969,6 +969,7 @@ by hand never moves.
 | Path | One line |
 |---|---|
 | `packages/render/src/palette.ts` | style guide as values |
+| `packages/render/src/palette-creatures.ts` | The hues one creature or boss owns, each with the argument for spending it |
 | `packages/render/src/panel-plan.ts` | where the controls stand on the panel, as a record — the rows, the radius and each seat's spread, read by the layout and by bandLobes so drawing and touch move together |
 | `packages/render/src/glow.ts` | glow without shadowBlur |
 | `packages/render/src/layout.ts` | screen geometry, shared with input hit-testing |
@@ -1248,6 +1249,10 @@ by hand never moves.
 | `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE THROAT onward |
 | `packages/render/src/view-role-clocks-b.ts` | **The clock bosses' halves, page two** |
 | `packages/render/src/view-role-clocks-c.ts` | **The clock bosses' halves, page three** |
+| `packages/render/src/vise-draw.ts` | **THE VISE**: a seed-case of two lobes over the middle column |
+| `packages/render/src/vise-marks.ts` | **THE VISE's marks**: the two things that say what a step asks — the lit seam |
+| `packages/render/src/vise-pose.ts` | **The clock THE VISE is posed off** (§28, *Animation*): intact; a lobe cracked |
+| `packages/render/src/vise-shape.ts` | **THE VISE's geometry**: where the seed-case stands, and the paths it is made of |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |

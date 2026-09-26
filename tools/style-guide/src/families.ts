@@ -58,6 +58,9 @@ export const FAMILIES: Family[] = [
       "arc",
       "arcRim",
       "crystalField",
+      "viseCase",
+      "viseCaseDark",
+      "viseCrack",
     ],
   },
   {

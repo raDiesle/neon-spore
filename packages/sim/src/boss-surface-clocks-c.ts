@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the third page** — THE KEEL's
- * spine to THE VISE's seed-case, and THE RATCHET's rack.
+ * spine to THE VALVE's drum, and THE RATCHET's rack.
  *
  * Cut when THE HASP's door took `boss-surface-clocks-b.ts` to 258 lines
  * against a 250-line limit, along the seam that file was itself cut on: the
@@ -11,7 +11,8 @@
  *
  * **A fourth page opened when THE GRINDSTONE's names would have taken this
  * one past 250**, and THE WELL's rows went across, the last ones here
- * (`boss-surface-clocks-d.ts`).
+ * (`boss-surface-clocks-d.ts`); THE VISE's followed, the last again, when
+ * this page reached 252.
  *
  * The rule the first page states holds here unchanged: a name on these pages
  * is one something outside `packages/sim` imports.
@@ -21,7 +22,7 @@
 // whether a bolt is loose — for the picture, the sound, the cue and the
 // director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
 export type { RatchetEntry } from "./boss-entries-clocks-b.js";
-// THE WELL's names and THE GRINDSTONE's, the last rows this page held
+// THE WELL's names, THE GRINDSTONE's and THE VISE's, the last rows this page held
 // (`boss-surface-clocks-d.ts`).
 export * from "./boss-surface-clocks-d.js";
 // THE KEEL's spine: the phase, the movement, where the joint sits and whose
@@ -227,23 +228,3 @@ export {
 // And both windows' lengths, so the rings the picture closes read the same
 // number the simulation judges by (`valve-step.ts`).
 export { valveFreezeBeats, valvePullBeats } from "./valve-step.js";
-// THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
-// the picture, the cue and the director's hand. Straight off `vise.ts`
-// (`docs/spec/bosses-choreographed.md` §28).
-export {
-  freshVise,
-  VISE_ASKS,
-  VISE_PHASES,
-  VISE_SEAMS_PER_LOBE,
-  type ViseAsk,
-  type ViseEntry,
-  type VisePhase,
-  type ViseState,
-  type ViseStep,
-  viseBoss,
-  viseClosed,
-  viseDone,
-  viseLitStep,
-  viseShut,
-  vising,
-} from "./vise.js";

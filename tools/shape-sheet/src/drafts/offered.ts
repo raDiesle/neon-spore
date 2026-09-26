@@ -120,10 +120,10 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
       "twelve small lobes, past counting on purpose",
     ),
     motion: BULB_MOTION,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing wears it: `bulb:shape` / `burr`, moved here with the other four on 9 September 2026. It argues that the bulb should be recognised by its *edge quality* rather than by a number — twelve small lobes is not a count anybody will make, it is a burr, a seed head, a thing covered in something, and that is a description a player can give without having counted. It argues directly with what the shipped shape decided: nine shallow lobes was thrown out for being a texture rather than a count, and six was chosen because six can be counted. This says the premise was wrong, and that the way to make a texture work is to go further past counting rather than back from it. It loses the same way its ancestor did if the rim shimmers at 26 px on a contour already breathing on its own clock",
+      "THE VISE, taken 26 September 2026, combined with BULB · PEAR: its twelve lobes are the bristle on the seed-case's edge, six to a side of the spine, shallow enough at the size of the field that the rim reads dry rather than shimmering (`render/vise-shape.ts`). Before that, nothing wore it: `bulb:shape` / `burr`, moved here with the other four on 9 September 2026. It argues that the bulb should be recognised by its *edge quality* rather than by a number — twelve small lobes is not a count anybody will make, it is a burr, a seed head, a thing covered in something, and that is a description a player can give without having counted. It argues directly with what the shipped shape decided: nine shallow lobes was thrown out for being a texture rather than a count, and six was chosen because six can be counted. This says the premise was wrong, and that the way to make a texture work is to go further past counting rather than back from it. It loses the same way its ancestor did if the rim shimmers at 26 px on a contour already breathing on its own clock",
   },
   {
     subject: blob(
@@ -156,10 +156,10 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
       "one lobe on a body taller than it is wide — heavier at the bottom",
     ),
     motion: BULB_MOTION,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing wears it: `bulb:shape` / `pear`, moved here with the other four on 9 September 2026. It argues that the bulb should stop being symmetrical — one lobe placed by a quarter-turn seed on a body taller than it is wide, a fruit hanging, with a fat end and a narrow one. Every other body in the game is either symmetrical about its long axis or pointed along it; this is the only shape that is simply heavier at the bottom, which is a thing a falling body can honestly be. It is also the only one of the five that changes the *proportion* rather than the count — 46 by 56 against the shipped 52 square — which is the axis `nameability.ts` measures first, and the reason to read it beside the other four rather than alone. What it risks is that tall is the slick's business turned ninety degrees: the two first bodies are told apart mostly by proportion, one long and one round, and a bulb with a proportion of its own spends that difference",
+      "THE VISE, taken 26 September 2026, combined with BULB · BURR: its hanging proportion, heavier at the bottom, is the seed-case's outline, split down its long axis into the two lobes that hinge at the top of the spine (`render/vise-shape.ts`). The slick objection does not reach a boss three tiles high over the middle column. Before that, nothing wore it: `bulb:shape` / `pear`, moved here with the other four on 9 September 2026. It argues that the bulb should stop being symmetrical — one lobe placed by a quarter-turn seed on a body taller than it is wide, a fruit hanging, with a fat end and a narrow one. Every other body in the game is either symmetrical about its long axis or pointed along it; this is the only shape that is simply heavier at the bottom, which is a thing a falling body can honestly be. It is also the only one of the five that changes the *proportion* rather than the count — 46 by 56 against the shipped 52 square — which is the axis `nameability.ts` measures first, and the reason to read it beside the other four rather than alone. What it risks is that tall is the slick's business turned ninety degrees: the two first bodies are told apart mostly by proportion, one long and one round, and a bulb with a proportion of its own spends that difference",
   },
   {
     subject: blob(
