@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · af5f7f106 — Queue: §34 THE CYST — the simulation lane done
+
+## 2026-09-26 · 61e23e34c — §34 THE CYST: pair FreezeTap with SqueezeGap as a dependency, the simulation lane
+
+Wave 113 THE CYST is a sac over the middle column whose lit flank shudders until the partner taps its mark still, then is pinched shut by its own seat for the step's beats to crack it. Both flanks cracked bare the core, shot in its colour; between the shots a cracked flank is stilled and pinched again, and a guard run out reseals the core. THE SLOW holds over every tap and pinch. Seven steps, fourteen sounds bound, 26 tests; bosses §11.51 argues eight departures from the design by name.
+
 ## 2026-09-26 · ea8bc71fc — Defer the sprite atlas experiments on THE VISE, RIME, TRIVET, PLUMB and SLING
 
 The owner narrowed scope: new graphics stay on THE INSTAR only, as the one example, so the five queued sprite experiments on other bosses wait, each marked with why and with baked detail named as the cheaper first try.
