@@ -24902,3 +24902,21 @@ The bottleneck: the Android check had no `Where: phone`, so `next` offered it to
 Bottleneck: reading — mapping which of forty-odd boss draws have their parts drawn separately.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## Living secondary motion is uneven across the boss roster — 2026-09-26
+
+The audit: 41 bosses' draw files grepped for a clock that is neither the
+beat, the outline's wobble nor the light's drift. Ten were found without
+one and filed each as its own entry, and the rule went into the style guide.
+
+- **reading** — 5 min. Every hit of the grep had to be read to tell a
+  part moving from the light's drift or a story step.
+- **writing** — 5 min
+- **looking** — 0 min. Nothing drawn changed.
+- **friction** — 0 min. zsh does not split an unquoted `$files`, so the
+  first sweep read no file and reported every boss bare; and `check:fast` wanted a
+  `bun install --force` for stale workspace links. Under five together.
+- **landing** — 5 min
+
+Bottleneck: reading — `litRound`'s drift and a real part look the same to a
+grep, so each of ~150 hits was sorted by eye.

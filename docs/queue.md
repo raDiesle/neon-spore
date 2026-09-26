@@ -632,36 +632,6 @@ doc with the numbers, distinct from the existing read/headless sections. If
 either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
 promote it out of "read" into its own queued fix.
 
-## Living secondary motion is uneven across the boss roster
-
-- **Found:** 2026-09-26, cloud session (this session, stopping here per the
-- **Taken:** 2026-09-26, claude/task-queue-work-7441c0 (claim: claude/queue-living-secondary-motion-is-uneven-across-the-bos)
-  owner's *"slow down"* request)
-- **Files:** `docs/style-guide.md`
-
-Also whichever flesh and body files under `packages/render/src/` the audit
-below finds lacking.
-
-The owner's own words, 2026-09-26: *"i like that they look more 3
-dimensional... also more natural living animations."* The still-life
-gradient fix (queued above) is one half of "alive" — the light following the
-body. The other half, not yet audited across the roster, is **secondary
-motion**: does each boss have at least one part that moves on a phase of its
-own, distinct from its main silhouette wobble and distinct from the beat —
-a cilia wave, a drool sway, a vein pulse, an antenna droop, the kind of
-detail THE SPLICE's `drawCilia` (`splice-ball.ts`) and THE SPLICE eater's
-`drawDrool` (`splice-eater-head.ts`) already carry. **Audit**: grep every
-`*-flesh.ts`/`*-body.ts`/`*-draw.ts` in `packages/render/src/` for a boss
-that has *no* independent secondary-motion term at all (only the one
-silhouette wobble plus the beat pulse), list them in a fresh queue entry
-each, and propose one small secondary-motion touch per boss found lacking,
-following the existing idiom (a `Math.sin` term on a rate distinct from the
-body's own wobble, cheap, no new allocation per frame per
-`.claude/skills/depth`'s "Depth that costs no frames"). This is research
-work — do the audit and file what it finds as new queue entries; do not
-try to fix every boss in one sitting (`docs/lane-speed.md`'s rule on
-splitting work too big for one sitting).
-
 ## The wider graphics-improvement pass has no single owner yet
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the
@@ -3007,3 +2977,130 @@ see 0 when it says so.
 Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
+
+## THE CYST's flesh has no secondary motion of its own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/cyst-draw.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/cyst-shape.ts`
+
+From the secondary-motion audit (`docs/style-guide.md`, *Motion*, "one part
+on a clock of its own"). The only clocks in the seven `cyst-*.ts` files are
+the light's drift (`litRound(..., 0.02 * Math.sin(time * 0.6))`,
+`cyst-draw.ts` line 153), the beat pulses in `cyst-marks.ts` and
+`cyst-story.ts`, and `cyst-pose.ts`'s `shake`, which is a reaction to a tap
+rather than anything idle. It is the one *flesh* body the audit found bare —
+a sac that never moves under its skin. Touch: let the core drift under the
+skin on a slow period of its own (`time * 0.5`, a few hundredths of a tile,
+never off its column), or give the sac's lower lobes a slow bulge a fifth of
+a cycle apart. A look: offered through VERSUS (`docs/looks.md`).
+
+## THE HASP's clasps have no secondary motion of their own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/src/hasp-shape.ts`
+
+From the secondary-motion audit. `HASP_WOBBLE` (`hasp-draw.ts` line 121) is
+the light's drift inside each shell, not a part moving; everything else in
+the seven `hasp-*.ts` files is state or beat. Touch: the hub riveted over a
+sealed clasp's seam creeps round a few degrees and back on its own period,
+offset per clasp by its index, so a shut row reads as held rather than
+painted. A look: offered through VERSUS.
+
+## THE OCULUS's leaves have no secondary motion of their own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/oculus-draw.ts`, `packages/render/src/oculus-shape.ts`
+
+From the secondary-motion audit. The rim's outline wobble
+(`oculusRimPath(l, time * 0.6)`, `oculus-draw.ts` line 181) is the
+silhouette, and the rest is the light's drift and beat pulses. The body is
+mechanism on purpose (`oculus-shape.ts`: *drawn as mechanism rather than
+flesh*), so the touch is a mechanism's: each leaf *hangs from its pin*, so
+let an open leaf settle a degree or two about its pin on its own slow period,
+offset per leaf. A look: offered through VERSUS.
+
+## THE SEAM's ridge has no secondary motion of its own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/seam-draw.ts`, `packages/render/src/seam-shape.ts`
+
+From the secondary-motion audit. `seamRidgePath(l, open, time * 0.6)` is the
+silhouette's wobble, `seam-marks.ts`'s turning rings are the touch feedback,
+and the rest is the light's drift and the beat. Touch: the crack's inner
+glow creeps along the spine on a period of its own, brightest at a point
+that wanders between the three widening points, so the shell reads as
+something alive inside. A look: offered through VERSUS.
+
+## THE VALVE's pins have no secondary motion of their own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/valve-draw.ts`, `packages/render/src/valve-shape.ts`
+
+From the secondary-motion audit. `valveRimPath(..., time * 0.4)` is the
+drum's outline, `valve-story.ts` moves only in a story step, and the rest is
+light and state. The three pins *hang* under the drum (`valve-shape.ts`
+line 46) and never swing: let each still-hung pin sway a degree about its
+top on a slow period, offset per pin, the way a hung plate would. A look:
+offered through VERSUS.
+
+## THE VISE's husk has no secondary motion of its own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/vise-draw.ts`, `packages/render/src/vise-marks.ts`
+
+From the secondary-motion audit. The only clock outside the story steps is
+the light's drift (`vise-draw.ts` line 172). A dry husk should stay still,
+so the touch goes on the kernel: let it turn slowly in the hollow — its
+highlight wandering round it on a period of its own — without leaving its
+column. A look: offered through VERSUS.
+
+## THE RIME's pane has no secondary motion outside its story
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/rime-draw.ts`, `packages/render/src/rime-story.ts`
+
+From the secondary-motion audit. `rime-story.ts` line 77 drifts three frost
+bands on `time * 0.4`, but only inside a story step; the pane itself has
+the light's drift (`rime-draw.ts` line 123) and nothing else. Touch: a slow
+glint travelling across the seven ice sheets on its own period, fainter than
+the story's bands so the two stay told apart. A look: offered through
+VERSUS.
+
+## THE TRIVET's stand has no secondary motion of its own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-shape.ts`
+
+From the secondary-motion audit. `trivetHubSwing` (`trivet-story.ts`
+line 81) moves only during a lurch or a fling; outside those the stand is
+still but for the light's drift (`trivet-draw.ts` line 197). Touch: a lifted
+foot dangles a degree about its root on a slow period of its own, and
+settles dead still once it is planted, so the hold still reads as the swing
+stopping. A look: offered through VERSUS.
+
+## THE GRINDSTONE's wheel has no secondary motion of its own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/grindstone-draw.ts`, `packages/render/src/grindstone-shape.ts`
+
+From the secondary-motion audit. Outside the beat pulses in
+`grindstone-marks.ts` the only clock is the light's drift
+(`grindstone-draw.ts` line 124). Do not turn the wheel — how far it is
+ground is read off its cut faces. Touch: the caliper's two jaws, one to a
+seat, tremble a hair at their tips on periods a fifth of a cycle apart while
+open, and go dead still when they bear on the stone. Work it after
+"§33 THE GRINDSTONE — effects and cue words", which is in the same files. A
+look: offered through VERSUS.
+
+## THE RATCHET's spent plates have no secondary motion of their own
+
+- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-parts.ts`
+
+From the secondary-motion audit. The seven `ratchet-*.ts` files have no
+clock of their own at all: `time` reaches only the hurt shake
+(`ratchet-draw.ts` line 83). The rack is a machine on purpose, but a spent
+plate is already *drawn slack* (`drawPlate`, line 133): let a slack plate
+sway a degree on its own period, offset per plate, while the teeth still
+below the pawl stay rigid — which also says which plates are spent. A look:
+offered through VERSUS.

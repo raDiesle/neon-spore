@@ -821,6 +821,14 @@ reaction proportional to its cause.
 - **Phase offset is the cheapest detail available.** Two parts breathing
   together are one flat object; the same two a fifth of a cycle apart are a
   near thing and a far thing with material between them.
+- **Every boss has one part on a clock of its own** — a cilium, a hung pin,
+  a slack plate, a core drifting under the skin — on a period that is neither
+  the beat nor its outline's wobble. Neither of those counts, nor the light's
+  drift inside a `litRound`, nor a shake or a lurch that answers a step —
+  none of them is a part moving on its own. On a machine the part is one that hangs or
+  has come loose. This is not the idle drift of `spec/living-bosses.md`,
+  which turns the whole body. The audit of 26 September 2026 filed each
+  boss without one as its own queue entry.
 - **A blocked shot is a 60 ms hit-stop at the canonical silhouette, then a
   recoil.** Holding the shape dead still is the one item anywhere that
   *increases* legibility rather than merely not harming it.
