@@ -24823,3 +24823,13 @@ figures is four files, and every figure had to be read before it was called.
 Bottleneck: reading — the rig, the three INSTAR head paths and the director's replay had to be understood before any step could be named in real files.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — The rounds' own timeout hit, written up for VERSUS (claude/rounds-timeout-queue)
+
+- reading: 10 min. The eight rounds' breach calls, `breach-strike.ts`, `rock-impact.ts`, `boss-strike-fx.ts` and the VERSUS page.
+- writing: 10 min. The queue item rewritten with the owner's answer and a four-step plan.
+- looking: 0 min. Nothing drawn.
+- friction: 10 min. The RATCHET landing's full check timed out on a frames capture while other lanes landed; a second loop landed it.
+- landing: 5 min. `check:fast`, `land`, `push`.
+
+Bottleneck: friction — the full check's capture test times out when several lanes land at once.

@@ -2051,17 +2051,53 @@ Where no rock was on screen before the hit, switch it to `bossStrikesHull`
 with a `LOOK` row, and take the file out of `STILL_A_ROCK`. Where the rock
 was really there, say so in the test's comment.
 
-## The rounds still drop a rock when their window runs out
+## The rounds' own timeout hit, offered on VERSUS beside the rock
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Files:** `packages/sim/src/fleet.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/maze-verdict.ts`, `packages/sim/src/mirror-round.ts`, `packages/sim/src/pinball-round.ts`, `packages/sim/src/pulse-round.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/snake-move.ts`
-- **Asks:** Should the rounds' timeout hits be each round's own picture too, or stay the falling rock?
+- **Files:** `packages/sim/src/hull-damage.ts`, `packages/sim/src/events.ts`, `packages/sim/src/fleet.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/maze-verdict.ts`, `packages/sim/src/mirror-round.ts`, `packages/sim/src/pinball-round.ts`, `packages/sim/src/pulse-round.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/snake-move.ts`, `packages/render/src/rock-impact.ts`, `packages/render/src/effects-breach.ts`, `tools/versus/candidates/`, `tools/director/src/versus-pose.ts`, `tools/director/src/poses-versus-states.ts`
 
-The owner's rule names bosses, and these are rounds and interludes with no
-boss body to strike from, so the ratchet in `sim/test/boss-strike.test.ts`
-allows all eight. The options are (a) each round gets its own picture of
-the hit, one lane per round, through a `by` of its own on the breach,
-(b) one shared picture for every round, or (c) they keep the rock.
+The owner answered on 26 September 2026 (17:40Z): *give me a versus
+version so i can compare on page*. So the rock stays what the game draws,
+and a round's own picture of the hit is a VERSUS candidate beside it.
+Nothing of it was built.
+
+1. **The sim names the round.** The eight rounds above break the hull with
+   `breachHull(world, col, "meteorFastest", 0, "heavy")` when their window
+   runs out. Add `roundStrikesHull(world, round, col)` beside
+   `bossStrikesHull` (`sim/boss-strike.ts`) that does the same and puts an
+   optional `round` field on the `breach` event (`events.ts`), and call it
+   from all eight. Same scar, same sound, same fail: nothing visible moves.
+   `sim/test/boss-strike.test.ts` lets these eight through as exceptions;
+   make it require `round` on them instead.
+2. **The seam is at draw time, not at ingest.** A candidate's record is in
+   place only for one `draw()` (`breach-strike.ts` says why), so the choice
+   of rock or picture cannot be made in `ingestBreach`. Carry `round` onto
+   the rock `rock-impact.ts` spawns, and add an exported record
+   `ROUND_STRIKE_LOOK = { paint: null }` in a new file render/round-strike-look.ts
+   with `paint(ctx, { round, x, from, to, reach, after, tile, time })`,
+   `StrikeFrame`'s shape. In `RockImpactFx.draw`, a rock with a `round`
+   while `paint` is set draws the paint instead of the rock body and its
+   tail, with `reach` its fall progress; the arrival, the sparks and the
+   crack stay on the rock's clock, so nothing else changes. With `paint`
+   null the game draws exactly what it draws today; prove that in
+   `render/test/frame.test.ts`.
+3. **The candidate**, slot `round:timeout-hit`, one shared picture:
+   the round's window closing on the ship. A bar of light the width of the
+   field comes down from where the rock would have appeared, narrowing to
+   one tile over the struck column as it falls, pinches into a spike at
+   `reach = 1`, and runs out along the membrane as a flat ring while
+   `after` goes to 1. In THE SLOW's colour (`slow-look.ts`), so it reads as
+   time rather than stone. No 3D rig. `bun run versus new round:timeout-hit
+   window` prints the directory and the rules.
+4. **Its pose.** Add a pose in `poses-versus-states.ts` where a round's
+   window runs out unattended (the pulse round's meter emptying is the
+   easiest to reach with no hand), and a row for the slot in
+   `versus-pose.ts`. Judged live, not still: `bun run versus:shot
+   round:timeout-hit window --freeze <seconds> --only candidate` for the
+   PNG sent to the owner, one frame mid-fall.
+
+Exemption: none. This is a look with a shipped alternative, the rock, and
+that is why it goes to VERSUS.
 
 ## `bun run frames` cannot make a boss's window run out
 
