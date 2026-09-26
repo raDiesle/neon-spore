@@ -3559,37 +3559,49 @@ on this page.
 | 8 | Core flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
 | 9 | A second surge, faster | P1+P2 | shield | 3 beats, held | blocked | re-frosts, retry |
 | 10 | Core flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, core spent | stays lit |
-| 11 | The whole lens shatters, ice falling away in sheets | — | — | — | — | — |
+| 11 | A thin refreezing film crawls over the spent core, cracking as it goes | P1+P2 | send nothing — no wipe, no shield (`SENDING NOTHING`) | 3 beats, seen | the film shatters on its own, core fully spent | a reflex wipe or shield scatters the crack early, one extra beat added before it spends |
+| 12 | The whole lens shatters, ice falling away in sheets | — | — | — | — | — |
 
 **THE SLOW** opens on every wipe window (rows 2–5) and every fire and shield
 window (rows 6–10) — the wipe windows most of all, since a reversal count
 read at ordinary speed is the one gesture on this page that could otherwise
 look, to an eye watching rather than a hand doing it, like nothing is
-happening at all.
+happening at all. Row 11 opens it on stillness instead: after ten beats
+spent wiping, firing or shielding, the fight's last beat asks the pair to
+leave the last film alone and let it crack on its own.
 
 **Presentation.** Frost flaking away in small bursts as a half clears (the
 existing particle machinery, no new kind); the regrowth surge a slow pale
-crawl inward from the rim; no camera.
+crawl inward from the rim; no camera. Row 11's refreezing film ticks and
+hairline-cracks across its window with nothing pressed against it, then
+shatters a beat before the lens itself does.
 
-**Animation.** Five poses: opaque; left clear; both clear, core cracking
-open; guarded, a surge crawling back; shattered. Clearing is drawn as a
-spreading clear patch rather than a cross-blend — the wipe's own shape made
-visible, the same drawn-as-mechanism choice as THE OCULUS's leaves and THE
-HUSK's lobes, a third time running.
+**Animation.** Six poses: opaque; left clear; both clear, core cracking
+open; guarded, a surge crawling back; spent core under a cracking refreeze,
+untouched; shattered. Clearing is drawn as a spreading clear patch rather
+than a cross-blend — the wipe's own shape made visible, the same
+drawn-as-mechanism choice as THE OCULUS's leaves and THE HUSK's lobes, a
+third time running.
 
 **Colour.** The rime a pale blue-white film over dull glass-grey, the same
 lens-body tone as THE OCULUS's; the core is the only lit colour, lit in
-whichever cannon colour a beat wants.
+whichever cannon colour a beat wants. Row 11's refreeze film carries no
+cannon colour, the same pale blue-white as the opening ice, closing the
+lens's colour arc where it began.
 
 **Payoff.** Rows 7 and 9 — the standard shield spent defending a wipe
 already banked rather than the wipe itself, the same "defend what's already
 landed" shape as THE OCULUS's row 7 and THE VISE's rows 7/9, spent here on
-the shield instead of a hold or a pinch.
+the shield instead of a hold or a pinch. Row 11 is the fight's other
+payoff: the one beat built from none of the fight's three verbs, closing an
+arc that opened on a wipe with a beat that asks for the opposite.
 
 **Cost. Low–medium.** One new primitive, `RubCount` (a reversal count read
 off pointer events alone, the unclaimed `RUB` gesture); a small per-beat
 regrowth tick on an otherwise ordinary threshold field; the standard shield
-gated by step the way THE SEAM already gates the standard shot.
+gated by step the way THE SEAM already gates the standard shot; and one
+boolean for row 11's hold, a read off `SENDING NOTHING`, already built for
+THE KEEL, THE SEAM, THE OCULUS, THE VISE, THE HALTER and THE FLUE.
 
 **Reusable.** `RubCount` itself, and the regrowing-threshold shape it is
 spent with — the first choreographed field on this page whose progress can
