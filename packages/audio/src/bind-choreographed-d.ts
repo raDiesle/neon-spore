@@ -85,6 +85,18 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "valveSparkHit":
     case "valveOpen":
     case "valveOut":
+    case "valveJet":
+    case "valveCap":
+    case "valveBlow":
+    case "valveShudder":
+    case "valveBrace":
+    case "valveShake":
+    case "valveFilm":
+    case "valveDry":
+    case "valveSmear":
+    case "valveStrain":
+    case "valveSeal":
+    case "valveRough":
       return valveCue(e, cols);
     case "seamEnter":
     case "seamLight":

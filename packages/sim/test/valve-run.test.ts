@@ -7,6 +7,7 @@ import { valveFreezeBeats, valvePullBeats } from "../src/valve-step.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import {
   answerMovement,
+  answerStory,
   CFG,
   freeze,
   install,
@@ -128,12 +129,11 @@ describe("the last pin", () => {
     expect(slowing(world)).toBe(true);
     pull(world);
     expect(valve(world).pins).toBe(0);
-    const seen = runUntil(
-      world,
-      (w) => w.boss === null,
-      CFG.valveListBeats + CFG.valveOpenBeats + 2,
-    );
-    expect(seen.has("valveOpen")).toBe(true);
+    expect(valve(world).phase).toBe("wipe");
+    const story = answerStory(world);
+    expect([...story].filter((t) => t === "valveDry" || t === "valveSeal")).toHaveLength(2);
+    expect(story.has("valveOpen")).toBe(true);
+    const seen = runUntil(world, (w) => w.boss === null, CFG.valveOpenBeats + 2);
     expect(seen.has("valveOut")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);
   });

@@ -4,12 +4,14 @@ import { midCol } from "./config.js";
 import { NO_SPARK } from "./mantle.js";
 import { closeSlow, openSlow } from "./slow.js";
 import { freshValve, type ValveState, valveLeaking, valveOnMark } from "./valve.js";
+import { stepBrace, stepJet, stepSeal, stepWipe } from "./valve-story.js";
 import type { World } from "./world.js";
 
 /**
  * THE VALVE's clock: every row of §25's beat list that is a beat's question —
  * the drum settling, a mark lighting, the freeze window and the pull window
- * running out, the list between pins, the spark's fall and the end.
+ * running out, the list between pins, the spark's fall and the end — and the
+ * story between the pins, whose beats are `valve-story.ts`'s.
  *
  * The wheel and the pin are judged on the tick (`valve-hand.ts`) and the spark
  * where a bolt leaves the top (`valve-shot.ts`).
@@ -41,10 +43,14 @@ export function stepValve(world: World, s: ValveState): void {
     return;
   }
   if (s.phase === "still" && since >= cfg.valveStillBeats) light(world, s);
-  else if (s.phase === "list" && since >= cfg.valveListBeats) listed(world, s);
+  else if (s.phase === "list" && since >= cfg.valveListBeats) light(world, s);
   else if (s.phase === "hold" && since > valveFreezeBeats(world, s)) kick(world, s, "valveLapse");
   else if (s.phase === "frozen" && since > valvePullBeats(world, s)) kick(world, s, "valveThaw");
   else if (s.phase === "turn") valveCheckMark(world, s);
+  else if (s.phase === "jet") stepJet(world, s, since);
+  else if (s.phase === "brace") stepBrace(world, s, since);
+  else if (s.phase === "wipe") stepWipe(world, s, since);
+  else if (s.phase === "seal") stepSeal(world, s, since);
 }
 
 /** The freeze window, by movement: long in the first, short after. */
@@ -79,18 +85,6 @@ function light(world: World, s: ValveState): void {
   valveCheckMark(world, s);
 }
 
-/** The drum has listed: the face falls open if the pins are gone, and the next
- * mark lights if they are not. */
-function listed(world: World, s: ValveState): void {
-  if (s.pins > 0) {
-    light(world, s);
-    return;
-  }
-  s.phase = "open";
-  s.phaseBeat = world.beat;
-  world.events.push({ type: "valveOpen", col: midCol(world.cfg) });
-}
-
 /**
  * A window ran out — the freeze untapped, or the pull undrawn. The wheel is
  * kicked off its mark and this movement's turning starts again from nothing,
@@ -105,7 +99,7 @@ function kick(world: World, s: ValveState, type: "valveLapse" | "valveThaw"): vo
   world.events.push({ type, col: midCol(world.cfg) });
 }
 
-/** The first pin out: a spark leaks down the drum's own column. */
+/** The first pin's jet capped: a spark leaks down the drum's own column. */
 export function valveLeak(world: World, s: ValveState): void {
   s.sparkCol = midCol(world.cfg);
   s.sparkBeat = world.beat;

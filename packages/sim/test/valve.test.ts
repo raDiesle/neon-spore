@@ -139,7 +139,7 @@ describe("the pin", () => {
     expect(seen.has("valvePull")).toBe(true);
     expect(valve(world).pins).toBe(2);
     expect(valve(world).movement).toBe(2);
-    expect(slowing(world)).toBe(false);
+    expect(valve(world).phase).toBe("jet");
   });
 
   it("thaws when the pull window runs out, and the wheel is kicked", () => {

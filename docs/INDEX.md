@@ -182,6 +182,7 @@ by hand never moves.
 | `packages/sim/src/valve-hash.ts` | What THE VALVE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/valve-shot.ts` | **THE VALVE's one target**: the spark the first pin leaks down the drum's column |
 | `packages/sim/src/valve-step.ts` | THE VALVE's clock: every row of §25's beat list that is a beat's question — the drum settling |
+| `packages/sim/src/valve-story.ts` | **THE VALVE's story between the pins** (§25 rows 5–6, 12–13, 17–19) |
 | `packages/sim/src/valve.ts` | THE VALVE: a squat drum standing over the field with one wheel in its face and a pin beside it |
 | `packages/sim/src/veil.ts` | THE VEIL: a thundercloud with a body inside it, the first creature hidden from player 2 |
 | `packages/sim/src/warden-cycle.ts` | THE WARDEN's cycle, as arithmetic |
@@ -2074,7 +2075,7 @@ by hand never moves.
 | `packages/audio/src/bind-curtain.ts` | THE CURTAIN's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
-| `packages/audio/src/bind-valve.ts` | THE VALVE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-valve.ts` | THE VALVE's twenty-five, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-vise.ts` | THE VISE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |

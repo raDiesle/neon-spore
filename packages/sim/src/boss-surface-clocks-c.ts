@@ -223,14 +223,17 @@ export {
   type ValvePhase,
   type ValveState,
   valveBoss,
+  valveBracing,
   valveDone,
   valveFrozen,
   valveHolding,
+  valveJetting,
   valveLeaking,
   valveMark,
   valveNeedMilli,
   valveOnMark,
   valveTurning,
+  valveWiping,
 } from "./valve.js";
 // And both windows' lengths, so the rings the picture closes read the same
 // number the simulation judges by (`valve-step.ts`).

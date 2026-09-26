@@ -24210,3 +24210,18 @@ had put on hold.
 Bottleneck: looking — the ferns needed a second pass to sit on the hump.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VALVE's story between the pins: jet, brace, wipe, seal
+
+- reading: 15 min. THE KEEL's story page and test, THE RIME's rub, the
+  valve's hand and step, `bossStrikesHull`.
+- writing: 35 min. `valve-story.ts`, the held, chord and rub state, twelve
+  events through every registration, the rig's story answers and a test.
+- looking: 0 min. Nothing of it is drawn yet.
+- friction: 10 min. The hash-coverage test wanted the lengths of the two new
+  pairs, and the last-pin test had to learn that the face now opens inside
+  the story.
+- landing: 10 min.
+
+Bottleneck: writing — twelve events is twelve rows in six registration files
+before the first test can run.

@@ -94,4 +94,18 @@ export const INGEST_SILENT_BOSS_D = [
   "davitMiss",
   "davitSpent",
   "davitOut",
+  // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
+  // what the drum does is read off its phase (`valve-story.ts`), never off these.
+  "valveJet",
+  "valveCap",
+  "valveBlow",
+  "valveShudder",
+  "valveBrace",
+  "valveShake",
+  "valveFilm",
+  "valveDry",
+  "valveSmear",
+  "valveStrain",
+  "valveSeal",
+  "valveRough",
 ] as const satisfies readonly SimEvent["type"][];

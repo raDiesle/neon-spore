@@ -35,6 +35,20 @@ export interface ValveConfig {
   valveSparkBeats: number;
   /** Beats the open face hangs before the wave may end. */
   valveOpenBeats: number;
+  /** The jet's window, in beats, for a tap on the pin to cap it. */
+  valveJetBeats: number;
+  /** Beats in a row both thumbs hold the pin to still the shudder. */
+  valveBraceBeats: number;
+  /** The shudder's window, in beats, before a plate shakes loose. */
+  valveShudderBeats: number;
+  /** Reversals rubbed on the pin, between both thumbs, to wipe the film. */
+  valveWipeRubs: number;
+  /** The film's window, in beats, before it smears. */
+  valveWipeBeats: number;
+  /** Beats in a row both thumbs hold the pin to open the seal clean. */
+  valveSealBeats: number;
+  /** The seal's window, in beats, before it blows open rough. */
+  valveStrainBeats: number;
 }
 
 export const VALVE_DEFAULTS: ValveConfig = {
@@ -50,4 +64,11 @@ export const VALVE_DEFAULTS: ValveConfig = {
   valveListBeats: 1,
   valveSparkBeats: 2,
   valveOpenBeats: 2,
+  valveJetBeats: 2,
+  valveBraceBeats: 3,
+  valveShudderBeats: 6,
+  valveWipeRubs: 3,
+  valveWipeBeats: 4,
+  valveSealBeats: 3,
+  valveStrainBeats: 6,
 };

@@ -34,7 +34,31 @@ export type ValveEvent =
   | ({ type: "valveSparkOut" } & ValveColEvent)
   /** Nobody shot it: the spark reached the hull. */
   | ({ type: "valveSparkHit" } & ValveColEvent)
-  /** The last pin is out: the face falls open. */
+  /** The first pin's empty socket blows back: a tap on the pin caps it. */
+  | ({ type: "valveJet" } & ValveColEvent)
+  /** The jet was capped. */
+  | ({ type: "valveCap" } & ValveColEvent)
+  /** The jet ran uncapped and blew against the hull. */
+  | ({ type: "valveBlow" } & ValveColEvent)
+  /** The second pin out: the drum shudders, both thumbs to hold the pin. */
+  | ({ type: "valveShudder" } & ValveColEvent)
+  /** The shudder stilled, braced. */
+  | ({ type: "valveBrace" } & ValveColEvent)
+  /** Unbraced, a plate shook loose against the hull. */
+  | ({ type: "valveShake" } & ValveColEvent)
+  /** The last pin out: a film weeps over the face, to be rubbed off. */
+  | ({ type: "valveFilm" } & ValveColEvent)
+  /** The face ran dry. */
+  | ({ type: "valveDry" } & ValveColEvent)
+  /** Still slick, the film smeared against the hull and came back. */
+  | ({ type: "valveSmear" } & ValveColEvent)
+  /** Wiped, the bare seal strains: both thumbs to hold the pin. */
+  | ({ type: "valveStrain" } & ValveColEvent)
+  /** Held, the seal opened clean. */
+  | ({ type: "valveSeal" } & ValveColEvent)
+  /** Unheld, the seal blew open rough, against the hull. */
+  | ({ type: "valveRough" } & ValveColEvent)
+  /** The face falls open, clean or rough: the fight is over. */
   | ({ type: "valveOpen" } & ValveColEvent)
   /** The open face has hung `valveOpenBeats`; the wave may end. */
   | ({ type: "valveOut" } & ValveColEvent);

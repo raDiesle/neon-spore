@@ -115,8 +115,8 @@ export const CHOREO_NOTES_C = {
     "wheel onto its mark (valveNearMilli); while it sits there the navigator's " +
     "tap on the pin freezes it (valveFreezeBeats, then the fast one), and while " +
     "frozen either seat draws the pin to valvePullMilli (valvePullBeats). A " +
-    "window run out kicks the wheel off its mark. Three pins are the health; " +
-    "the first out leaks a spark, shot in either colour, or the hull. The third " +
+    "window run out kicks the wheel off its mark. Three pins are the health; a " +
+    "jet (tap), a brace and a seal (both hold) and a wipe (rub) follow them. The third " +
     "mark only counts after a full lap one way (valveLapMilli). THE SLOW spans " +
     "every freeze and pull window. Only the simulation lane has landed — see " +
     "sim/valve.ts, sim/valve-step.ts, sim/valve-hand.ts, sim/config-valve.ts.",

@@ -237,7 +237,10 @@ export function patchBossD(boss: BossState): void {
     boss.wheelMilli = 610;
     boss.handMilli = 420;
     boss.travelMilli = -1080;
-    boss.pinDown = true;
+    boss.held = [true, true];
+    boss.chordBeats = 2;
+    boss.rubs = [3, 1];
+    boss.wiped = 2;
     boss.sparkCol = 10;
     boss.sparkBeat = 5;
   }

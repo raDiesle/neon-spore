@@ -35,9 +35,22 @@ export const VALVE_PINS = 3;
 /**
  * Where the scene is: settling, the wheel to be turned, the wheel on its mark
  * and the freeze window open, frozen and the pin to be pulled, the drum listing
- * after a pin, and the face fallen open.
+ * after a pin, and the face fallen open — with the story between the pins
+ * (`valve-story.ts`): the first socket's jet, the drum's shudder braced, the
+ * film wiped off the face, and the bare seal strained.
  */
-export const VALVE_PHASES = ["still", "turn", "hold", "frozen", "list", "open"] as const;
+export const VALVE_PHASES = [
+  "still",
+  "turn",
+  "hold",
+  "frozen",
+  "list",
+  "jet",
+  "brace",
+  "wipe",
+  "seal",
+  "open",
+] as const;
 export type ValvePhase = (typeof VALVE_PHASES)[number];
 
 /** What a wave authors: the wheel's mark in each movement, as a bearing. */
@@ -66,9 +79,15 @@ export interface ValveState {
   /** How far the wheel has been turned since this movement's turn began, and
    * which way: signed, so a hand working it back and forth gets nowhere. */
   travelMilli: number;
-  /** Whether the navigator's thumb is down on the pin — what makes the tap an
-   * edge rather than a level. */
-  pinDown: boolean;
+  /** Whether each seat's thumb is down on the pin, P1's first — what makes a
+   * tap an edge rather than a level, and what the brace and the seal count. */
+  held: [boolean, boolean];
+  /** Beats in a row both thumbs have held the pin, in the brace or the seal. */
+  chordBeats: number;
+  /** The last reversal count each seat's rub reported (`valve-hand.ts`). */
+  rubs: [number, number];
+  /** Reversals rubbed into this film so far, up to `valveWipeRubs`. */
+  wiped: number;
   /** The column the spark falls in, `NO_SPARK` while none is loose. */
   sparkCol: number;
   /** `world.beat` the spark leaked. */
@@ -118,6 +137,21 @@ export function valveLeaking(s: ValveState): boolean {
   return s.sparkCol !== NO_SPARK;
 }
 
+/** Whether the first socket's jet is blowing and a tap on the pin caps it. */
+export function valveJetting(s: ValveState): boolean {
+  return s.phase === "jet";
+}
+
+/** Whether the drum shudders, or its bare seal strains: both thumbs to hold the pin. */
+export function valveBracing(s: ValveState): boolean {
+  return s.phase === "brace" || s.phase === "seal";
+}
+
+/** Whether the film is on the face and a rub on the pin wipes it. */
+export function valveWiping(s: ValveState): boolean {
+  return s.phase === "wipe";
+}
+
 /** The face fallen open: the fight is over and the drum is only hanging. */
 export function valveDone(s: ValveState): boolean {
   return s.phase === "open";
@@ -135,7 +169,10 @@ export function freshValve(beat: number, marks: readonly number[]): ValveState {
     wheelMilli: 0,
     handMilli: NO_BEARING,
     travelMilli: 0,
-    pinDown: false,
+    held: [false, false],
+    chordBeats: 0,
+    rubs: [0, 0],
+    wiped: 0,
     sparkCol: NO_SPARK,
     sparkBeat: 0,
   };

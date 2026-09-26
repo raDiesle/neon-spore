@@ -2,8 +2,9 @@ import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import { midCol } from "./config.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { Command } from "./types.js";
-import { VALVE_PINS, valveBoss, valveOnMark, valveTurning } from "./valve.js";
+import { type ValveState, valveBoss, valveOnMark, valveTurning, valveWiping } from "./valve.js";
 import { valveCheckMark, valveLeak, valvePullBeats } from "./valve-step.js";
+import { openBrace, openJet, openWipe, valveCapped, valveRubbed } from "./valve-story.js";
 import type { World } from "./world.js";
 
 /**
@@ -57,11 +58,14 @@ function wheelHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
 
 /**
  * The pin: a tap from the navigator while the wheel is held freezes it, and
- * then a draw from either seat, deep enough, pulls it.
+ * then a draw from either seat, deep enough, pulls it. Between the pins it is
+ * the whole of the story (`valve-story.ts`): tapped by either thumb to cap
+ * the jet, held by both through the brace and the seal, rubbed by either to
+ * wipe the film.
  *
- * **The tap is an edge.** `pinDown` is the navigator's thumb on it, so a thumb
- * already resting on the pin when the window opens has to lift and come down
- * again — the tap is an answer to the mark, never a thumb parked in advance.
+ * **A tap is an edge.** `held` is each seat's thumb on it, so a thumb already
+ * resting on the pin when the window opens has to lift and come down again —
+ * the tap is an answer to the mark, never a thumb parked in advance.
  */
 function pinHeard(world: World, player: 1 | 2, command: Extract<Command, { kind: "drag" }>): void {
   const s = valveBoss(world);
@@ -69,12 +73,18 @@ function pinHeard(world: World, player: 1 | 2, command: Extract<Command, { kind:
   const cfg = world.cfg;
   const mid = midCol(cfg);
   if (!command.on) {
-    if (player === 2) s.pinDown = false;
+    s.held[player - 1] = false;
+    s.rubs[player - 1] = 0;
     return;
   }
-  const edge = player === 2 && !s.pinDown;
-  if (player === 2) s.pinDown = true;
-  if (s.phase === "hold" && edge) {
+  const edge = !s.held[player - 1];
+  s.held[player - 1] = true;
+  rubHeard(world, s, player, command.id ?? 0);
+  if (s.phase === "jet" && edge) {
+    valveCapped(world, s, () => valveLeak(world, s));
+    return;
+  }
+  if (s.phase === "hold" && edge && player === 2) {
     s.phase = "frozen";
     s.phaseBeat = world.beat;
     openSlow(world, valvePullBeats(world, s) + 1, "ask");
@@ -85,8 +95,21 @@ function pinHeard(world: World, player: 1 | 2, command: Extract<Command, { kind:
   s.pins -= 1;
   closeSlow(world);
   world.events.push({ type: "valvePull", pins: s.pins, col: mid });
-  if (s.pins === VALVE_PINS - 1) valveLeak(world, s);
   if (s.pins > 0 && s.movement < 3) s.movement = (s.movement + 1) as 2 | 3;
-  s.phase = "list";
-  s.phaseBeat = world.beat;
+  if (s.pins === 2) openJet(world, s);
+  else if (s.pins === 1) openBrace(world, s);
+  else openWipe(world, s);
+}
+
+/**
+ * A rub on the pin: the reversal count rides the drag's `id`, THE RIME's
+ * reading (`rime-hand.ts`) — a count lower than the last one heard is a fresh
+ * touch, and every reversal in it is new. Counted only while the film is on.
+ */
+function rubHeard(world: World, s: ValveState, player: 1 | 2, id: number): void {
+  const count = Math.max(0, id);
+  const last = s.rubs[player - 1] ?? 0;
+  const fresh = count >= last ? count - last : count;
+  s.rubs[player - 1] = count;
+  if (valveWiping(s)) valveRubbed(world, s, fresh);
 }

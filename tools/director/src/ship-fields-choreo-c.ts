@@ -119,6 +119,13 @@ export const CHOREO_FIELD_GROUP_C = {
   valveListBeats: "THE VALVE — the boss one hand turns and the other hand stops",
   valveSparkBeats: "THE VALVE — the boss one hand turns and the other hand stops",
   valveOpenBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveJetBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveBraceBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveShudderBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveWipeRubs: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveWipeBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveSealBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveStrainBeats: "THE VALVE — the boss one hand turns and the other hand stops",
   // SeamConfig — how long each kind of step stays lit, and the rests
   // around them (`config-seam.ts`). The script is the wave's own.
   seamStillBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",

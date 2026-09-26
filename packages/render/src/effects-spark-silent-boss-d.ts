@@ -56,4 +56,17 @@ export const SILENT_BOSS_D = [
   "davitMiss",
   "davitSpent",
   "davitOut",
+  // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`).
+  "valveJet",
+  "valveCap",
+  "valveBlow",
+  "valveShudder",
+  "valveBrace",
+  "valveShake",
+  "valveFilm",
+  "valveDry",
+  "valveSmear",
+  "valveStrain",
+  "valveSeal",
+  "valveRough",
 ] as const satisfies readonly SimEvent["type"][];

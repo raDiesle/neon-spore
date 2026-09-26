@@ -8030,8 +8030,10 @@ shipped ancestor, spent here for the first time.
 (`sim/valve.ts`, hashed in `sim/valve-hash.ts`) is the **phase** and the beat
 it began, the **movement** (1 to 3), the **pins** still in, where the
 **wheel** stands, where the pilot's **hand** last reported, the signed
-**travel** since this movement's turning began, whether the navigator's thumb
-is **down on the pin**, the spark's column and beat, and the wave's **marks**,
+**travel** since this movement's turning began, whether each seat's thumb is
+**held** on the pin, the beats the two have held it **together**, each
+thumb's **rubs** so far and how far the film is **wiped**, the spark's column
+and beat, and the wave's **marks**,
 one bearing per movement. A pin out is one fewer; with none left the face
 falls open.
 
@@ -8042,7 +8044,7 @@ it, then pull the pin before it thaws.
 again, a bearing in `fromMilli`, and only Player 1's hand turns it. The wheel
 answers only while it is being turned or held — never frozen, which is the
 whole of a freeze. `valvePin` is two gestures on one name: Player 2's press,
-read on its **edge** (`pinDown`), is the freeze, and once the wheel is frozen
+read on its **edge** (`held`), is the freeze, and once the wheel is frozen
 a draw from **either** seat to `valvePullMilli` in `fromYMilli` pulls the pin.
 The freeze is not a new `Hold["kind"]`: a press on a `DragTarget` is already
 a message the wire carries, and what it looks like is lane two's.
@@ -8094,11 +8096,34 @@ face fall open, and it hangs `valveOpenBeats` before the wave may end.
   close once they are *past* their beats, and THE SLOW is opened one beat
   longer to span the same stretch.
 
+**The story between the pins** (`sim/valve-story.ts`, 26 September 2026,
+§25 rows 5–6, 12–13 and 17–19). Each pin out now opens a state of its own
+under THE SLOW, and each run out is the drum's own blow against the hull
+(`bossStrikesHull`), which is the wave:
+
+- **The jet.** The first socket blows back. Either seat taps the pin — an
+  edge, as the freeze is — inside `valveJetBeats` and it is capped; the spark
+  leaks after it. Left open: `valveBlow`.
+- **The brace.** The second pin out and the drum shudders. Both thumbs hold
+  the pin together for `valveBraceBeats` beats in a row, counted on the beat,
+  and it stills. Unbraced by `valveShudderBeats`: `valveShake`.
+- **The wipe.** The last pin out and a film weeps over the face. Either
+  thumb rubs the pin back and forth, `valveWipeRubs` reversals between them,
+  read as THE RIME reads its rub. Still slick after `valveWipeBeats`:
+  `valveSmear`, and the film comes back whole.
+- **The seal.** Wiped, the bare seal strains. Both thumbs hold for
+  `valveSealBeats` and the face opens clean; run out `valveStrainBeats` and
+  it blows open rough, against the hull. The face is open either way.
+
+Two rows of the story are not built: the second spark (row 11), which would
+be the first again, and row 20's fade, which asked the pair to send nothing —
+a closing beat with no action in it, which the story brief rules out.
+
 **Only the simulation lane has landed.** Nothing of it is drawn: the render
 package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
-carry all thirteen of its events until lane two. The thirteen sounds *are*
+carry all twenty-five of its events until lane two. The twenty-five *are*
 bound (`audio/src/bind-valve.ts`), all heard from the middle, the pull pitched
-up per pin out. There is no autopilot hand yet either
+up per pin out; the story's twelve reuse the drum's own sounds, bent. There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
 
 **Never watched at tempo.** What the tests say is the mechanism

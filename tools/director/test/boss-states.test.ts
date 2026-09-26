@@ -30,7 +30,7 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // THE VALVE's simulation lane has landed with no look yet, so none of its
   // six phases has a pose to draw them from (`docs/spec/bosses-choreographed.md`
   // §25). Struck the day the look lane lands.
-  valve: ["still", "turn", "hold", "frozen", "list", "open"],
+  valve: ["still", "turn", "hold", "frozen", "list", "jet", "brace", "wipe", "seal", "open"],
   // THE SEAM the same, §26: its four.
   seam: ["still", "lit", "rest", "split"],
   // THE RIME the same, §29: its four.
