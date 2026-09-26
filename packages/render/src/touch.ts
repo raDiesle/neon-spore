@@ -145,8 +145,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // (`sim/davit-hand.ts`). Every other drag's lift only lets go.
     // A pinch's finger lets go of nothing alone: the pair's lift is the one
     // that opens the lobe again (`pinch.ts`). A chord's finger lifts the pad
-    // its host counted it as (`chord.ts`).
-    if (hold.pinch || hold.chord) return null;
+    // its host counted it as (`chord.ts`), and a rub's the count its host
+    // kept (`rub.ts`).
+    if (hold.pinch || hold.chord || hold.rub) return null;
     const swiped =
       hold.target === "mirrorLobe" ||
       hold.target === "wardenHatch" ||

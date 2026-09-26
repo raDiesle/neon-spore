@@ -175,6 +175,13 @@ export type Hold =
        * `apps/game/src/chord.ts`).
        */
       chord?: true;
+      /**
+       * One thumb **rubbing** — THE GRINDSTONE's flats: what it sends is how
+       * many times it has turned back since it went down, so its press, its
+       * move and its lift are counted by whoever owns the pointers (`rub.ts`,
+       * `apps/game/src/rub.ts`).
+       */
+      rub?: true;
     };
 
 export interface Touch {

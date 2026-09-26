@@ -16,6 +16,8 @@ export { deskDown, deskDownAll, pressSeat } from "./desk-grab.js";
 export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
 // A pinch's two fingers, paired by the host that owns them (`apps/game/src/pinch.ts`).
 export { FINGERTIPS_MILLI, pinchGapMilli, pinching, pinchSays } from "./pinch.js";
+// A rubbing thumb's turns, counted by the host that owns it (`apps/game/src/rub.ts`).
+export { RUB_TURN, rubFinger, rubSays } from "./rub.js";
 export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";
 export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
 export {

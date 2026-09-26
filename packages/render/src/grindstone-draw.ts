@@ -22,8 +22,8 @@ import {
   grindstoneSpin,
 } from "./grindstone-pose.js";
 import {
+  grindstoneAxleAt,
   grindstoneBolt,
-  grindstoneCentre,
   grindstoneCut,
   grindstoneFacePath,
   grindstoneJawPath,
@@ -37,8 +37,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
-/** How far the wheel falls spinning free, in tiles; how far the jaws are flung, and how thin it turns edge-on. */
-const FALL = 2.4;
+/** How far the jaws are flung spinning free, in tiles, and how thin the wheel turns edge-on. */
 const FLING = 2.2;
 const EDGE_ON = 0.22;
 
@@ -68,14 +67,14 @@ export function drawGrindstone(
   const cfg = world.cfg;
   const arrived = grindstoneArrived(s, cfg, beat, beatPhase);
   const free = grindstoneFree(s, cfg, beat, beatPhase);
-  const home = grindstoneCentre(l, cfg);
+  const axle = grindstoneAxleAt(l, cfg, arrived, free);
   const alpha = (0.2 + 0.8 * arrived) * (1 - 0.8 * free);
   const step = grindstoneLitStep(s);
   const shut = grindstoneShut(world, s, beat, beatPhase);
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(home.x, home.y - (1 - arrived) * 2 * l.tile + FALL * free * free * l.tile);
+  ctx.translate(axle.x, axle.y);
 
   // The caliper first, behind the wheel it closes on; spinning free it is flung off both ways.
   const pads = step?.ask === "clamp";

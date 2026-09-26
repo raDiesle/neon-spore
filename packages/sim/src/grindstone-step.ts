@@ -50,8 +50,9 @@ export function stepGrindstone(world: World, s: GrindstoneState): void {
   else if (s.phase === "lit") lit(world, s, since);
 }
 
-/** How long the lit step stays lit: a clamp's own beats and the grace, or a pass's or a shot's beats. */
-export function grindstoneWindowBeats(world: World, step: GrindstoneStep): number {
+/** How long the lit step stays lit: a clamp's own beats and the grace, or a pass's or a shot's beats.
+ * Only the tuning is read, so a hit test holding a `Field` can ask it too. */
+export function grindstoneWindowBeats(world: Pick<World, "cfg">, step: GrindstoneStep): number {
   return step.ask === "clamp" ? step.beats + world.cfg.grindstoneGraceBeats : step.beats;
 }
 

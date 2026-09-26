@@ -63,6 +63,16 @@ export function grindstoneCentre(l: Layout, cfg: SimConfig): Point {
   return { x: fieldX(l, midCol(cfg)), y: l.gridTop + ROW * l.tile };
 }
 
+/** How far the wheel falls spinning free, and drops in from arriving, in tiles. */
+const FALL = 2.4;
+const DROP = 2;
+
+/** The axle where the wheel stands this frame: dropped in `arrived` of the way, fallen `free` of it. */
+export function grindstoneAxleAt(l: Layout, cfg: SimConfig, arrived: number, free: number): Point {
+  const home = grindstoneCentre(l, cfg);
+  return { x: home.x, y: home.y + (-(1 - arrived) * DROP + FALL * free * free) * l.tile };
+}
+
 /** The wheel's radius, in pixels. */
 export function grindstoneR(l: Layout): number {
   return WHEEL * l.tile;

@@ -699,25 +699,6 @@ stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
 
-## §33 THE GRINDSTONE — the touch sender
-
-- **Found:** 2026-09-26, tmp-grindstone-look
-- **Taken:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl (claim: claude/queue-33-the-grindstone-the-touch-sender)
-- **Needs:** §33 THE GRINDSTONE — the look (the body), landed 26 September 2026
-- **Files:** `apps/game/src/`, `packages/sim/src/grindstone-hand.ts`
-
-Split off the look lane, which landed the body alone. The simulation (wave
-112, `docs/spec/bosses.md` §11.50) hears `grindFlatLeft` and `grindJawLeft`
-from Player 1 and `grindFlatRight` and `grindJawRight` from Player 2. A
-flat is a drag whose `id` is the thumb's reversals since it went down, sent
-again each time it turns back, and `on: false` at the lift; a jaw is one
-drag a pad, `id` 0 or 1, `on` down and up. Hit-test against the drawn flat
-and pads (`packages/render/src/grindstone-shape.ts`: `grindstoneFacePath`,
-`grindstonePadAt` turned by `grindstoneJawTurn` about `grindstoneBolt`).
-Nothing in `apps/game` sends one yet, so the wheel is unanswerable on a
-phone; a test that a back-and-forth rub sends a rising count and a pad lift
-sends its `id`.
-
 ## §33 THE GRINDSTONE — effects and cue words
 
 - **Found:** 2026-09-26, tmp-grindstone-look
@@ -2181,7 +2162,10 @@ colour and smaller per hit, and the shatter dropping the sheets apart
 (`render/rime-*.ts`, `test/rime-frame.test.ts`). What is left, in lanes:
 **the rub on the field** — a thumb down on a half sends `rimeHalfLeft` or
 `rimeHalfRight` with its reversal count as the drag's `id`, and nothing on
-the field sends one yet; **the fx**, in `Effects` and cleared in `reset()` — flakes shaved off under a rub, a half's
+the field sends one yet — the count is kept already (`apps/game/src/rub.ts`,
+THE GRINDSTONE's), so this is a `rime-grip.ts` whose press on a half is a
+`rub: true` hold, `grindstone-grip.ts` its model; **the fx**, in `Effects`
+and cleared in `reset()` — flakes shaved off under a rub, a half's
 clear, the core's hit flash and the shatter's, the twelve `rime*` events off
 the two silent lists as each gets its burst, and row 11's refreeze film;
 **the cue's words** (WIPE on the lit half, FIRE on the lit core, SHIELD on a

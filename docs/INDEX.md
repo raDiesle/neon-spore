@@ -1776,6 +1776,7 @@ by hand never moves.
 | `packages/render/src/reprise-body.ts` | THE REPRISE's body: THE WEIGHT's sac hung through the tear on two cords, a halo that pulses on the beat, and the beam while an echo plays |
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
+| `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the third gesture a host has to keep count of |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
@@ -1800,6 +1801,7 @@ by hand never moves.
 | `packages/render/src/grindstone-marks.ts` | **THE GRINDSTONE's marks**: what a step asks — a flat's face glowing, a jaw's pads lit, the axle in a shot's colour |
 | `packages/render/src/grindstone-pose.ts` | **The clock THE GRINDSTONE is posed off**: the drop, the depth and grit of each flat, the caliper's swing and creep, the fall |
 | `packages/render/src/grindstone-shape.ts` | **THE GRINDSTONE's geometry**: where the wheel is, and the paths of the wheel, its flats, the patch and the caliper's jaws |
+| `packages/render/src/grindstone-grip.ts` | **The flats and the jaws on THE GRINDSTONE** |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
@@ -2260,6 +2262,7 @@ by hand never moves.
 | `apps/game/src/viewport-measure.ts` | how big the picture may be now, and whether it moved across or down |
 | `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `touch.ts` |
 | `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
+| `apps/game/src/fingers.ts` | **The gestures one sample cannot answer**, kept together: two fingers on one pinch body (`pinch.ts`) |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
@@ -2287,6 +2290,7 @@ by hand never moves.
 | `apps/game/src/menu-pages.ts` | the menu's two jump lists, and the level page whose heading says whose tempo it is |
 | `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
 | `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
+| `apps/game/src/rub.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
 | `apps/game/src/shell-menu.ts` | What the shell hands the menu — beside `shell.ts` rather than inside it |
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |

@@ -53,8 +53,9 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
   }
   if (hold.kind === "drag") {
     // **A pinch's finger says nothing alone**: the gap is the pair's (`pinch.ts`),
-    // and a chord's finger is a pad counted by its host (`chord.ts`).
-    if (hold.pinch || hold.chord) return null;
+    // a chord's finger is a pad counted by its host (`chord.ts`), and a rub's
+    // turns are counted there too (`rub.ts`).
+    if (hold.pinch || hold.chord || hold.rub) return null;
     // **The crank is not carried anywhere, it is turned**, and what a turn
     // reports is an angle rather than a distance (`touch-drag.ts`).
     if (hold.target === "crank") return crankTurn(hold, x, y);

@@ -69,7 +69,7 @@ export function grindstoneSpin(arrived: number, free: number): number {
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function grindstoneLeft(
-  world: World,
+  world: Pick<World, "cfg">,
   s: GrindstoneState,
   beat: number,
   beatPhase: number,
@@ -90,7 +90,7 @@ export function grindstoneHeldShare(s: GrindstoneState, beatPhase: number): numb
 
 /** How far the caliper is shut: 0 slack, 1 bitten home. */
 export function grindstoneShut(
-  world: World,
+  world: Pick<World, "cfg">,
   s: GrindstoneState,
   beat: number,
   beatPhase: number,
