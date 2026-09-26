@@ -2872,6 +2872,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## THE HASP's clasps have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-26, claude/queue-the-hasps-clasps-have-no-secondary-motion-of-the
 - **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/src/hasp-shape.ts`
 
 From the secondary-motion audit. `HASP_WOBBLE` (`hasp-draw.ts` line 121) is
