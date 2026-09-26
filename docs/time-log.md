@@ -23630,3 +23630,18 @@ same sixty files a boss, and only discoverable from one another.
 Bottleneck: landing — the full check is longer than the lane.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §26 THE SEAM: the ridge turns away, then glows from within, at the owner's request
+
+- reading: 15 min. Re-read §26's existing beat list and its own "no new
+  primitive" reusable claim before designing states that kept that claim true.
+- writing: 25 min. Two new states (turn, inner glow) inserted as new
+  movements, rewritten beat list, THE SLOW/Presentation/Animation/Colour/
+  Payoff/Cost sections.
+- looking: 0 min. Spec only; the poses are a separate look task, queued.
+- friction: 0 min.
+- landing: 10 min. Checked, staged by path, committed, checked divergence,
+  pushed.
+
+Bottleneck: none — the boss's own design (gated standard controls, no new
+gesture) meant the new states only needed new pictures, not new mechanics.

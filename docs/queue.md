@@ -2580,3 +2580,22 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## §26 THE SEAM — the ridge turns away, then glows from within
+
+- **Found:** 2026-09-26, main, at the owner's request: existing bosses should
+  carry more visually distinct states and more SLOW beats that read as a
+  story, before any new boss is started; §26 THE SEAM's first pass already
+  had a strong arc but only two picture beats (a flat ridge, a split ridge).
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Two new states, both drawn as continuous motion rather than the page's usual
+cut, since the whole boss's claim is that the standard loop needs no new
+gesture — only new pictures for it to answer. A turn (the ridge rotates its
+cracked face away, asking for a blind `SHIELD` timed off its own rhythm
+rather than off sight) becomes the story's reversal; an inner glow (a second
+seam bleeding hot-white light through the shell, answered with an ungated
+`FIRE`) becomes its crisis. No new primitive: both reuse the boss's existing
+`FIRE`/`SHIELD`/`SENDING NOTHING` vocabulary, which is itself the point this
+concept was written to prove. `bun run check` proves the sim half; the nine
+poses are a look task, queued separately once this lane lands.

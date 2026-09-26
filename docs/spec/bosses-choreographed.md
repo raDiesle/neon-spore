@@ -3325,58 +3325,91 @@ standard controls, timed by a script, are already legible enough.
 | 2 | The crack's first point lights red | red cannon's seat | fire it (standard control, `FIRE`) | 3 beats, seen | point seals, seam dims there | point stays lit, ordinary hull hit |
 | 3 | The seam widens along its whole length, a spray of grit thrown at the hull | both seats | raise the shield (standard control, `SHIELD`) | 2 beats, seen | grit blocked | ordinary hull hit |
 | 4 | Second point lights cyan | cyan cannon's seat | fire it (`FIRE`) | 3 beats, seen | point seals | ordinary hull hit |
-| **Movement 2 — both colours, closer together** ||||||
-| 5 | Two points light at once, red then cyan a beat apart | both cannons in turn | fire each in its own colour (`FIRE`) | 3 beats each, seen | both seal | whichever is missed stays lit |
-| 6 | The seam widens again, longer spray | both seats | shield (`SHIELD`) | 2 beats, seen | blocked | ordinary hit |
-| 7 | A false point flickers at the crack's midpoint, dim and colourless, no cannon's tell on it | both seats | send nothing — hold fire (`SENDING NOTHING`) | 3 beats, seen | flicker fades, the true points hold | firing at it cracks the ridge further, an ordinary hull hit, and the point it was mimicking dims back to unlit |
-| 8 | A hazard rock spits from the crack itself | whoever's colour it carries | fire it (`FIRE`) | 2 beats, seen | destroyed | ordinary hit |
-| **Movement 3 — the last point, and both controls in the same beat** ||||||
-| 9 | The last point lights white — either colour answers it, the one point on the ridge that is not colour-gated | either seat | fire it (`FIRE`) | 3 beats, seen | point seals | stays lit |
-| 10 | The whole ridge shudders, throwing grit **and** a hazard rock in the same beat | one seat shields while the other fires | shield and fire, together (`SHIELD` / `FIRE`) | 3 beats, seen | both answered | whichever is missed lands as an ordinary hit |
-| 11 | With every real point sealed, the crack itself goes dark and still for a breath before it gives | both seats | send nothing — hold fire (`SENDING NOTHING`) | 2 beats, seen | the ridge splits clean along the seam | firing early holds the ridge shut one extra beat, resealed and reopened |
-| 12 | The sealed ridge splits down its own crack | — | — | — | — | — |
+| **Movement 2 — the ridge turns its face away** ||||||
+| 5 | The ridge slowly rotates its cracked face away from the field, presenting its smooth shielded back — the first time it has moved at all | — | — | — | — | — |
+| 6 | Grit sprays from the hidden crack, unseen but felt through the hull | both seats | raise the shield, blind (`SHIELD`) | 2 beats, seen | blocked, the ridge begins turning back | ordinary hull hit, the ridge holds its back turned one beat longer |
+| **Movement 3 — both colours, closer together** ||||||
+| 7 | The ridge settles face-front again, crack lit along its spine as before | — | — | — | — | — |
+| 8 | Two points light at once, red then cyan a beat apart | both cannons in turn | fire each in its own colour (`FIRE`) | 3 beats each, seen | both seal | whichever is missed stays lit |
+| 9 | The seam widens again, longer spray | both seats | shield (`SHIELD`) | 2 beats, seen | blocked | ordinary hit |
+| 10 | A false point flickers at the crack's midpoint, dim and colourless, no cannon's tell on it | both seats | send nothing — hold fire (`SENDING NOTHING`) | 3 beats, seen | flicker fades, the true points hold | firing at it cracks the ridge further, an ordinary hull hit, and the point it was mimicking dims back to unlit |
+| 11 | A hazard rock spits from the crack itself | whoever's colour it carries | fire it (`FIRE`) | 2 beats, seen | destroyed | ordinary hit |
+| **Movement 4 — the seam glows from within** ||||||
+| 12 | With every point sealed at least once, the crack glows from within — a second, deeper seam bleeding light through the shell where no point has ever lit before | — | — | — | — | — |
+| 13 | The inner glow gathers at a single point along the seam, brighter than any point yet | either seat | fire it (`FIRE`) | 3 beats, seen | inner light quenched, the ridge groans along its whole length | stays lit, ordinary hull hit, the glow keeps gathering |
+| **Movement 5 — the last point, and both controls in the same beat** ||||||
+| 14 | The last point lights white — either colour answers it, the one point on the ridge that is not colour-gated | either seat | fire it (`FIRE`) | 3 beats, seen | point seals | stays lit |
+| 15 | The whole ridge shudders, throwing grit **and** a hazard rock in the same beat | one seat shields while the other fires | shield and fire, together (`SHIELD` / `FIRE`) | 3 beats, seen | both answered | whichever is missed lands as an ordinary hit |
+| 16 | With every real point sealed and the inner glow spent, the crack itself goes dark and still for a breath before it gives | both seats | send nothing — hold fire (`SENDING NOTHING`) | 2 beats, seen | the ridge splits clean along the seam | firing early holds the ridge shut one extra beat, resealed and reopened |
+| 17 | The sealed ridge splits down its own crack | — | — | — | — | — |
 
-**THE SLOW** opens on every fire and shield window (rows 2–10) — the
+**THE SLOW** opens on every fire and shield window (rows 2–15) — the
 ordinary controls, at ordinary tempo, are the whole of what THE INSTAR's
 brief asked to be rid of for one boss; here they are kept and simply given
-the room a choreographed step already gives every other gesture. Rows 7 and
-11 are the exception inside that rule: the one thing to press is nothing at
-all, so the story reads as the pair learning to read the ridge rather than
-firing at whatever lights, and the fight's last beat is the same restraint
-proven once more, this time on a ridge that has nothing left to shoot.
+the room a choreographed step already gives every other gesture. Row 6's
+shield is blind rather than cued by sight of the crack, which is its own
+kind of slow: the pair times it off the ridge's own turning rather than off
+a lit point. Rows 10 and 16 are the exception inside the rule: the one thing
+to press is nothing at all, so the story reads as the pair learning to read
+the ridge rather than firing at whatever lights, and the fight's last beat
+is the same restraint proven once more, this time on a ridge that has
+nothing left to shoot.
 
 **Presentation.** No camera. Each sealed point is a hull-shock click; the
 widening seam's grit is an ordinary deflected-hit spark, nothing new drawn.
-Row 7's false point pulses at half the brightness of a real one, on its own
-slower period, so a seat who has learned the tell can read it before the
-window even opens. Row 11's held dark is silent — no drone, no spark — the
-one quiet beat on the whole ridge.
+Row 5's turn is the ridge's only travel in the whole fight — a slow rotation
+rather than a cut, so the pair watches it happen rather than discovering it
+already turned. Row 12's inner glow reads through the shell itself, a
+brightness with no point yet under it. Row 10's false point pulses at half
+the brightness of a real one, on its own slower period, so a seat who has
+learned the tell can read it before the window even opens. Row 16's held
+dark is silent — no drone, no spark — the one quiet beat on the whole ridge.
 
-**Animation.** Six poses: dark crack; one point sealed; two points sealed;
-false point flickering, dim and unlit-coloured; the last white point sealed;
-split open. No morph — the ridge does not move between poses, since its whole
-claim is that the *standard* loop is already expressive enough without one.
+**Animation.** Nine poses: dark crack; one point sealed; two points sealed;
+turned away, back presented; false point flickering, dim and unlit-coloured;
+inner seam glowing through the shell; the last white point sealed; braced
+under the shield-and-fire pair; split open. The turn (row 5) and the
+inner-glow gather (row 12–13) are the only poses drawn as continuous motion
+rather than a snap between marks — everything else on this page is a cut,
+since the boss's whole claim is that the *standard* loop is already
+expressive enough without one, and these two are the exceptions that earn
+their motion by being the story's turn and its crisis.
 
 **Colour.** The ridge itself shell-grey; each point lit in the cannon colour
 that answers it, the game's existing rule, spent rather than reinvented. The
-false point of row 7 carries no cannon colour at all, dim white-grey against
-the shell — the one point on the ridge that a colour never answers.
+false point of row 10 carries no cannon colour at all, dim white-grey against
+the shell — the one point on the ridge that a colour never answers. The
+inner glow of row 12 is neither cannon's colour, a plain hot white the game
+has not used on this ridge before — the one thing about the boss that is not
+gated by who owns it.
 
-**Payoff.** Row 10 — the one beat on this page that asks both standard
+**Payoff.** Row 5's turn breaks the pattern the first movement taught (the
+ridge sits still and shows you everything) the one time the boss can afford
+to, and asks the shield to be raised on the crack's own rhythm rather than
+its sight. Row 13 is the crisis: a light with no point under it, gathering
+rather than simply lit, the one beat that is not a fire-on-cue like every
+row around it. Row 15 is the one beat on this page that asks both standard
 controls of both seats inside a single window, which no ordinary wave does.
-Row 11 is the fight's other payoff: a ridge with nothing left to seal, and
+Row 16 is the fight's last payoff: a ridge with nothing left to seal, and
 the only thing still asked of the pair is to not reach for it.
 
 **Cost. Very low.** Nothing new: a `BossSequenceStep` list gating the
-existing shot and shield commands, plus one boolean for rows 7 and 11's hold
-— a read off `SENDING NOTHING`, already built for THE KEEL, THE HALTER and
-THE FLUE. The whole of the design is which beat asks for which of the three
-things the pair already knows how to do, including doing nothing.
+existing shot and shield commands, plus one boolean for rows 10 and 16's
+hold — a read off `SENDING NOTHING`, already built for THE KEEL, THE VALVE,
+THE HALTER and THE FLUE. Row 5's turn and row 12's glow are both a plain
+interpolated pose already read the way every other choreographed picture on
+this page is read, gated the same `BossSequenceStep` way as any fire or
+shield window. The whole of the design is still which beat asks for which
+of the three things the pair already knows how to do, including doing
+nothing.
 
 **Reusable.** A choreographed scene built entirely out of gated standard
 controls — worth pointing at whenever the brief's *"standard controls for a
 specific sequence"* line comes up again, since this is the cheapest possible
-answer to it.
+answer to it. Row 5's blind shield (a control asked for on rhythm rather
+than on sight) and row 12's ungated inner glow (a light with no cannon
+colour) are both worth reaching for again on a boss that wants one beat that
+reads as a genuine surprise rather than another lit point.
 
 ### §27 THE OCULUS — shutting an eye together, then answering what was behind it
 
