@@ -2579,6 +2579,7 @@ what the rest of this file holds.
 ## THE INSTAR's third and fourth acts have no director poses
 
 - **Found:** 2026-09-26, claude/sprite-detail
+- **Taken:** 2026-09-26, claude/instar-director-acts (claim: claude/queue-the-instars-third-and-fourth-acts-have-no-direct)
 - **Files:** `tools/director/src/poses-instar-spit.ts`, `tools/director/src/poses-versus-states.ts`, `packages/render/src/instar-poses-third.ts`, `packages/render/src/instar-poses-fourth.ts`
 
 The five third-act poses (crouch, perch, roar, sprawl, twist) and the five
