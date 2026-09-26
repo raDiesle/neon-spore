@@ -1728,34 +1728,6 @@ drawn-as-mechanism choice THE VISE's pinch and THE WINCH's brake both
 make. Nothing here is drawn yet and stays unverified at tempo until the
 owner has looked.
 
-## §23 THE MANTLE — a revised simulation lane, more visual states and a brace beat
-
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-26, claude/queue-34-the-cyst-the-simulation-lane (claim: claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
-
-The spec now asks for a new row between the third pull and the last pair's
-pull: the shell shudders and glows at the seam, fighting to snap back shut,
-and the pair must hold a chord on the two handles (`CHORD`, already built
-for THE TRIVET, THE GRINDSTONE, THE HALTER and THE WINCH — first use on THE
-MANTLE, so its `where` array in `tools/director/src/gesture-unbuilt.ts`
-already carries a §23 THE MANTLE entry, land it with the rest) rather than
-pulling, to steady it before the last pull can open. This is one new field,
-a boolean read off the existing chord primitive with no new gesture type,
-plus a short hold window before row 8 (the renumbered last-pair pull) in
-`docs/spec/bosses-choreographed.md`'s own beat list. The seam's crack is
-also now three distinct lengths (hairline after the first pair, full after
-the second, gone at the split) rather than one texture, and the core's own
-heartbeat rate now visibly quickens across the three alternating-tap rounds
-— both are draw-time reads off fields the sim already keeps
-(`mantlePairMilli`, the plate count, the heartbeat's own beat index), no new
-simulation state beyond the brace boolean. `bun run check` proves the sim
-half; the eight-pose animation list is a look task, queued separately once
-this lane lands.
-
-
 ## DEFERRED — §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session
