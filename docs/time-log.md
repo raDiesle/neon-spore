@@ -22317,3 +22317,5 @@ and only origin's log and the reflog showed it.
 - landing: 5 min. `check:fast`, the index line, the commit, `land`.
 
 Bottleneck: friction — a wave opened by the TEST panel opens on its guide, and nothing said so until a trace did.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
