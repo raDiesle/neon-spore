@@ -28,6 +28,15 @@ import { PALETTE } from "./palette.js";
 /** How far across a lobe its light slides as the sack turns, in lobe radii. */
 const LIGHT_SLIDE = 0.18;
 
+/** The lobe's light idling on its own between turns, in lobe radii and
+ * radians a second. The skin wobbles on `time * 0.5` (`gorge-lobe.ts`) and the
+ * sack's turn only moves the light when the sack itself turns, so without this
+ * a lobe breathes under a highlight painted on (`docs/style-guide.md`'s "Depth
+ * on a body that already ships"). On its own rate, and phased by the lobe's
+ * seed so the row does not wobble in step. */
+const LOBE_LIT_WOBBLE = 0.06;
+const LOBE_LIT_WOBBLE_RATE = 0.31;
+
 /** Where the sack hangs: `gorge-draw.ts`' `gorgeSackBox`, and the tile. */
 export interface Sack {
   x: number;
@@ -114,6 +123,9 @@ export interface LobeSkin {
   full: boolean;
   /** The sack's turn, -1..1: the light slides across the lobe as it goes. */
   turn: number;
+  /** Wall-clock seconds and the lobe's own seed, for the light's idle. */
+  time: number;
+  seed: number;
 }
 
 export function paintLobeSkin(ctx: CanvasRenderingContext2D, body: Path2D, k: LobeSkin): void {
@@ -126,8 +138,10 @@ export function paintLobeSkin(ctx: CanvasRenderingContext2D, body: Path2D, k: Lo
     ctx.globalAlpha = 1;
   }
   ctx.clip(body);
-  const lx = x - rx * (0.35 - LIGHT_SLIDE * k.turn);
-  const shade = ctx.createRadialGradient(lx, cy - ry * 0.45, 0, x, cy, ry * 1.2);
+  const drift = LOBE_LIT_WOBBLE * Math.sin(k.time * LOBE_LIT_WOBBLE_RATE + k.seed * 1.7);
+  const slide = LIGHT_SLIDE * k.turn - drift;
+  const lx = x - rx * (0.35 - slide);
+  const shade = ctx.createRadialGradient(lx, cy - ry * (0.45 + drift * 0.8), 0, x, cy, ry * 1.2);
   shade.addColorStop(0, rgba(PALETTE.sheenRim, k.full ? 0.12 : 0.22));
   shade.addColorStop(0.4, rgba(PALETTE.sheenRim, 0));
   shade.addColorStop(0.7, rgba(PALETTE.sheenDeep, 0));
@@ -158,7 +172,7 @@ export function paintLobeSkin(ctx: CanvasRenderingContext2D, body: Path2D, k: Lo
   ctx.globalAlpha = 0.5 * k.floorAlpha;
   ctx.stroke(body);
   ctx.restore();
-  shine(ctx, x - rx * (0.38 - LIGHT_SLIDE * k.turn), cy - ry * 0.48, rx * 0.26, ry * 0.1, 0.35);
+  shine(ctx, x - rx * (0.38 - slide), cy - ry * 0.48, rx * 0.26, ry * 0.1, 0.35);
 }
 
 /**

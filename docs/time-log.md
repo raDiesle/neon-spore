@@ -24861,3 +24861,16 @@ been fixed by earlier lanes, and only opening every file showed that.
 Bottleneck: landing — the full check is most of a lane this small.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — still-life gradients on five more boss flesh files
+
+- **reading** — 15 min. Each flesh file's caller, to see whether the shape
+  under the gradient actually wobbles.
+- **writing** — 15 min
+- **looking** — 5 min. One frame of THE BATON, where the drift is a pixel.
+- **friction** — 5 min. A `next` by title claimed nothing, and a `next`
+  with no argument handed back an item that needs a real Android phone.
+- **landing** — 10 min
+
+Bottleneck: reading — the entry was right that the caller decides, and there
+were six callers across five files.

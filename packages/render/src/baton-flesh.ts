@@ -25,6 +25,20 @@ import { PALETTE } from "./palette.js";
  * counts widths to find the hair (`baton-frame.test.ts`).
  */
 
+/**
+ * The lit shoulders idling on their own, in radii and radians a second. A
+ * socket's ring wobbles on `time * 0.5` and up (`baton-socket-draw.ts`) and a
+ * sitting bead on `time * 1.4` (`baton-bead-draw.ts`), and a gradient pinned
+ * a fixed share of the radius toward the light is a still life over either
+ * (`docs/style-guide.md`'s "Depth on a body that already ships"). Each on a
+ * rate of its own; the sockets phased by their seed so the arm does not
+ * wobble in step.
+ */
+const KNUCKLE_LIT_WOBBLE = 0.06;
+const KNUCKLE_LIT_WOBBLE_RATE = 0.37;
+const DROP_LIT_WOBBLE = 0.07;
+const DROP_LIT_WOBBLE_RATE = 0.53;
+
 /** The knuckle round one socket: `lit` while the bead has yet to pass it. */
 export interface Knuckle {
   x: number;
@@ -36,6 +50,9 @@ export interface Knuckle {
   breath: number;
   /** How far a dark one has swollen towards letting go, 0..1. */
   swell: number;
+  /** Wall-clock seconds and the socket's own seed, for the light's idle. */
+  time: number;
+  seed: number;
 }
 
 export function paintKnuckle(ctx: CanvasRenderingContext2D, joint: Path2D, k: Knuckle): void {
@@ -44,7 +61,15 @@ export function paintKnuckle(ctx: CanvasRenderingContext2D, joint: Path2D, k: Kn
   // a spent one is the same knuckle gone grey. That difference is the count.
   if (k.lit) halo(ctx, x, y, r * 2.2, PALETTE.hull, 0.3 + 0.25 * k.breath);
   ctx.save();
-  const flesh = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.05, x, y, r * 1.15);
+  const drift = KNUCKLE_LIT_WOBBLE * Math.sin(k.time * KNUCKLE_LIT_WOBBLE_RATE + k.seed * 1.7);
+  const flesh = ctx.createRadialGradient(
+    x - r * (0.35 + drift),
+    y - r * (0.4 + drift * 0.8),
+    r * 0.05,
+    x,
+    y,
+    r * 1.15,
+  );
   flesh.addColorStop(0, k.lit ? PALETTE.sheenRim : PALETTE.rock);
   flesh.addColorStop(0.5, k.lit ? PALETTE.hull : PALETTE.rockDark);
   flesh.addColorStop(1, PALETTE.sheenDeep);
@@ -130,7 +155,9 @@ export function strokeTendon(
  * A bead, as a drop: its colour, shaded from a lit shoulder to a dark foot,
  * the light it throws caught on its lower edge in `rim`, and a wet point.
  * The body is filled in the plain colour first because that colour is the
- * navigator's whole answer and the tests read it off the op log.
+ * navigator's whole answer and the tests read it off the op log. `time` is
+ * for a drop that sits still and wobbles; one that moves on its own, like
+ * THE GORGE's orbiting beads, leaves it out and its light stays put.
  */
 export function paintDrop(
   ctx: CanvasRenderingContext2D,
@@ -142,12 +169,21 @@ export function paintDrop(
   rim: string,
   tile: number,
   lit: number,
+  time?: number,
 ): void {
   ctx.save();
   ctx.fillStyle = hex;
   ctx.fill(body);
   ctx.clip(body);
-  const shade = ctx.createRadialGradient(x - r * 0.3, y - r * 0.35, 0, x, y, r * 1.1);
+  const drift = time === undefined ? 0 : DROP_LIT_WOBBLE * Math.sin(time * DROP_LIT_WOBBLE_RATE);
+  const shade = ctx.createRadialGradient(
+    x - r * (0.3 + drift),
+    y - r * (0.35 + drift * 0.8),
+    0,
+    x,
+    y,
+    r * 1.1,
+  );
   shade.addColorStop(0, rgba(PALETTE.sheenRim, 0.5));
   shade.addColorStop(0.35, rgba(PALETTE.sheenRim, 0));
   shade.addColorStop(0.65, rgba(PALETTE.sheenDeep, 0));

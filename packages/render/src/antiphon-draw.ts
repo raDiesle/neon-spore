@@ -206,7 +206,7 @@ function drawContour(
   const r = l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
   const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes, turn);
   budContact(ctx, body, at.x, at.y, r, fade);
-  paintBud(ctx, p, at.x, at.y, r, l.tile, hex, rim, fade);
+  paintBud(ctx, p, at.x, at.y, r, l.tile, hex, rim, fade, time);
 }
 
 /** The window: a thread along the underside of the body, shortening from both ends as the beats run out. */

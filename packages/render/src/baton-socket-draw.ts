@@ -167,7 +167,7 @@ export function drawSocket(
     true,
   );
   const alpha = ctx.globalAlpha;
-  paintKnuckle(ctx, ring, { x, y, r, tile: l.tile, lit, breath, swell });
+  paintKnuckle(ctx, ring, { x, y, r, tile: l.tile, lit, breath, swell, time, seed: socket });
   drawHurt(ctx, ring, hurt * alpha);
   ctx.globalAlpha = alpha;
 }

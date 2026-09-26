@@ -116,7 +116,7 @@ export function drawBead(
   halo(ctx, x, y, r * reach, hex, bead.struck ? 0.7 : 0.3 + 0.25 * pulse);
   if (merged) halo(ctx, x, y, r * reach * 2, hex, 0.35 + 0.2 * pulse);
   const body = splinePath(blobPoints(x, y, r, r, 3, 0.1, 0.05, time * 1.4, 11, 20), true);
-  paintDrop(ctx, body, x, y, r, hex, rim, l.tile, bead.struck ? 1 : 0.55 + 0.4 * pulse);
+  paintDrop(ctx, body, x, y, r, hex, rim, l.tile, bead.struck ? 1 : 0.55 + 0.4 * pulse, time);
   if (twin) {
     ctx.save();
     ctx.fillStyle = PUPIL_FILL;

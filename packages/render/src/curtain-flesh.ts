@@ -137,6 +137,16 @@ export function paintBead(
 }
 
 /**
+ * The bare core's shading idling on its own, in radii and radians a second.
+ * Its skin wobbles on `time * 0.9` and throbs on `time * 9`
+ * (`curtain-sheet.ts`), and a shadow pinned a fixed share of the radius away
+ * from the light is a still life over both (`docs/style-guide.md`'s "Depth on
+ * a body that already ships"). On a rate of its own.
+ */
+const CORE_LIT_WOBBLE = 0.06;
+const CORE_LIT_WOBBLE_RATE = 0.43;
+
+/**
  * The bare core: a dark skin with its colour pooled in it, lit on the inside
  * of its lower wall, and filmed. `beat` is the naked core's throb, 0 → 1,
  * lit round its whole wall in the rim; `fade` its going.
@@ -153,6 +163,7 @@ export function paintCoreBody(
   rim: string,
   beat: number,
   fade: number,
+  time: number,
 ): void {
   ctx.save();
   ctx.globalAlpha = fade;
@@ -165,7 +176,15 @@ export function paintCoreBody(
   blood.addColorStop(1, rgba(hex, 0));
   ctx.fillStyle = blood;
   ctx.fill(body);
-  const shade = ctx.createRadialGradient(x - r * 0.35, y - r * 0.45, 0, x, y, r * 1.2);
+  const drift = CORE_LIT_WOBBLE * Math.sin(time * CORE_LIT_WOBBLE_RATE);
+  const shade = ctx.createRadialGradient(
+    x - r * (0.35 + drift),
+    y - r * (0.45 + drift * 0.8),
+    0,
+    x,
+    y,
+    r * 1.2,
+  );
   shade.addColorStop(0.5, rgba(PALETTE.sheenDeep, 0));
   shade.addColorStop(1, rgba(PALETTE.sheenDeep, 0.55));
   ctx.fillStyle = shade;

@@ -131,6 +131,16 @@ export function paintPit(
 }
 
 /**
+ * The bud's light idling on its own, in radii and radians a second. Its
+ * contour wobbles on `time * 0.3` and its size pulses on `time * 4`
+ * (`antiphon-draw.ts`), and a gradient pinned a fixed share of the radius
+ * toward the light is a still life over both (`docs/style-guide.md`'s "Depth
+ * on a body that already ships"). On a rate of its own.
+ */
+const BUD_LIT_WOBBLE = 0.06;
+const BUD_LIT_WOBBLE_RATE = 0.41;
+
+/**
  * A bud: an organ or a candidate, flesh of `hex` shaded, its lower wall lit
  * from inside in `rim`, a wet point on it.
  */
@@ -144,6 +154,7 @@ export function paintBud(
   hex: string,
   rim: string,
   fade: number,
+  time: number,
 ): void {
   ctx.save();
   ctx.globalAlpha = 0.75;
@@ -151,7 +162,15 @@ export function paintBud(
   ctx.fill(bud);
   ctx.globalAlpha = 1;
   ctx.clip(bud);
-  const shade = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, 0, x, y, r * 1.2);
+  const drift = BUD_LIT_WOBBLE * Math.sin(time * BUD_LIT_WOBBLE_RATE);
+  const shade = ctx.createRadialGradient(
+    x - r * (0.35 + drift),
+    y - r * (0.4 + drift * 0.8),
+    0,
+    x,
+    y,
+    r * 1.2,
+  );
   shade.addColorStop(0, rgba(PALETTE.sheenRim, 0.3 * fade));
   shade.addColorStop(0.35, rgba(PALETTE.sheenRim, 0));
   shade.addColorStop(0.6, rgba(PALETTE.sheenDeep, 0));

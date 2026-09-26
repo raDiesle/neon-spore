@@ -439,6 +439,21 @@ fix is the same wobble as anywhere else, but it first meant threading `time`
 through the one call site that paints a turned ring
 (`WET_LIT_WOBBLE`/`WET_LIT_WOBBLE_RATE`).
 
+**A shared paint function lights some callers that wobble and some that
+don't.** THE BATON's `paintDrop` (`baton-flesh.ts`) shades a sitting bead
+whose blob wobbles on `time * 1.4`, and THE GORGE borrows the same function
+for its beads, which orbit inside a lobe and are already moving. The wobble is
+opt-in: a caller that sits still passes its `time`, and one that moves leaves
+it out (`DROP_LIT_WOBBLE`/`DROP_LIT_WOBBLE_RATE`). The same sweep on
+26 September 2026 folded it into THE BATON's socket knuckles
+(`KNUCKLE_LIT_WOBBLE`, phased by socket), THE GORGE's lobe skin
+(`gorge-flesh.ts`, `LOBE_LIT_WOBBLE`, phased by seed, on top of the slide the
+sack's turn already gives it), THE ANTIPHON's buds (`antiphon-flesh.ts`,
+`BUD_LIT_WOBBLE`) and THE CURTAIN's bare core (`curtain-flesh.ts`,
+`CORE_LIT_WOBBLE`). THE LEAD's mound and beads and THE CURTAIN's hem beads
+are plain ellipses and circles under the same kind of gradient. They are not
+the bug and were left alone.
+
 **A body drawn once per beat rather than once per turn gets it too.**
 THE GUM's drop (`gum.ts`) shades its sac with a linear gradient run straight
 down `-GUM.ry` to `GUM.ry` — a bare axis, never touched — and sets its wet

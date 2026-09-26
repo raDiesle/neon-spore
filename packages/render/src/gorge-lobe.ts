@@ -104,6 +104,8 @@ export function drawLobe(
     wallAlpha: 0.3 + 0.2 * breath,
     full,
     turn: depth.turn,
+    time,
+    seed,
   });
   // Where it hangs from the sack, dark under its crown, so it is hung and not pasted.
   drawContact(ctx, body, x, cy - ry, rx * 1.1, 0.55);

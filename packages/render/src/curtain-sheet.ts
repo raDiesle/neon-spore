@@ -179,6 +179,6 @@ export function drawCurtainCore(
   const path = splinePath(blobPoints(x, y, r, r, 5, 0.14, 0.05, time * 0.9, 47, 32), true);
   const dark = color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
   const beat = naked ? 0.5 + 0.5 * Math.sin(time * 9) : 0;
-  paintCoreBody(ctx, path, x, y, r, t, hex, dark, rimHex, beat, fade);
+  paintCoreBody(ctx, path, x, y, r, t, hex, dark, rimHex, beat, fade, time);
   drawHurt(ctx, path, hurt * fade);
 }
