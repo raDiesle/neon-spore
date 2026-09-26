@@ -23,9 +23,23 @@ import {
 } from "./gimbal-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsGimbalInner, showsGimbalOuter } from "./view-role-clocks-c.js";
+
+/**
+ * How far each leaf's own light idles off true, in radians, and how long one
+ * wobble takes there and back, in wall-clock seconds — the drum's own version
+ * of `instar-side-head.ts`'s `CROWN_WOBBLE`: sealed shut, the leaf's pose
+ * never changes frame to frame, so a flat fill read as a lid rather than a
+ * dome. `litRound` gives it the same five-zone shading a rock or an ore vein
+ * already gets (`key-light.ts`), and this idle turn is what keeps the light on
+ * it from being a photograph. The two leaves run a turn apart (`side` added
+ * straight into the phase) so the shoulders do not slide in lockstep.
+ */
+const DRUM_WOBBLE = 0.05;
+const DRUM_WOBBLE_PERIOD = 6.4;
 
 /**
  * **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field
@@ -121,6 +135,11 @@ function drawDrum(
     const leaf = gimbalLeafPath(at, r, side, open);
     ctx.fillStyle = rgba(PALETTE.rockDark, 0.85);
     ctx.fill(leaf);
+    ctx.save();
+    ctx.clip(leaf);
+    const wobble = DRUM_WOBBLE * Math.sin((time * (Math.PI * 2)) / DRUM_WOBBLE_PERIOD + side);
+    litRound(ctx, at.x, at.y, r, "value", wobble);
+    ctx.restore();
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.45);
     ctx.stroke(gimbalRibPath(at, r, side, open));

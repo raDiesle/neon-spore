@@ -387,6 +387,23 @@ shadowed side, so the contrast is sized to the plate's width instead of its
 length. Any plate whose `r` far exceeds its `ry` gets the same treatment
 rather than a tweak to the shared radial pass.
 
+**A flat fill on a rounded body is a silhouette wearing a colour, not a body.**
+THE GIMBAL's sealed drum (`gimbal-draw.ts`) drew each hatch leaf as one solid
+`fillStyle` under a stroke — a dome that read as a lid, because nothing in it
+answered where the light was. `key-light.ts`'s `litRound` already exists for
+exactly this — a rock, an ore vein, a meteor all clip to their own path and
+call it, cached by radius and spin so it costs nothing per frame — and a leaf
+sealed shut is round the same way those are: clip to the leaf's own path, then
+`litRound` over it before the ribs and outline draw on top. A body with no pose
+to turn it still needs *some* motion for the light to sit on, or a beautifully
+shaded dome is a still life the instant the pose stops moving (`instar-profile.ts`'s
+`BODY_WOBBLE`, `instar-side-head.ts`'s `CROWN_WOBBLE`) — the drum's own
+`DRUM_WOBBLE` feeds a slow idle turn into `litRound`'s own `spin` argument
+rather than inventing a second wobble mechanism, with the two leaves a turn out
+of phase so their shoulders do not slide together. Any other sealed, rounded
+body drawn as a flat fill — a pod, a shell, a drum, a tank — gets the same
+`litRound`-plus-idle-spin pair rather than a bespoke gradient.
+
 ## Motion
 
 **Motion is where liveliness comes from at 26 px, not detail.** A damped spring
