@@ -581,6 +581,19 @@ ribs proud of the barrel were left unlit: too small and too mechanical to read
 a gradient at their width, the same call that ruled out RATCHET's pawl and
 lock pieces.
 
+**A light that stays put is a still life only when the plate stays put
+too.** THE SHELL's specular (`shell-plate.ts`) is fixed in the body's frame on
+purpose, and the plate breathes under it. That movement between the two is
+the pairing, and a wobble would only blur the cue that says the plate is hard.
+A `litBox` span has no bearing to wobble, and it snaps to eight pixels, so a
+wobble folded into its offset would step rather than slide. That is why
+RATCHET's rack plates and SPOOL's barrel keep it bare. A shed piece in flight
+(THE RIND's `rind-slough.ts`, `rind-pod.ts`, `rind-flakes.ts`) and a hung
+stone whose swing `litRound` turns back out (`magnet-ore.ts`) are already
+moving under their light. The sweep that closed this out on 26 September
+2026 also found no lit plate at all on THE LID (its plates are the LIBRARY's,
+not the field's), THE CHOKE, THE SLOW or `warden-surface.ts`.
+
 ### A boss seen from any side
 
 The owner, 26 September 2026: the bosses should be shown *from different

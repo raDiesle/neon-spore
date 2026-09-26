@@ -24835,3 +24835,14 @@ Bottleneck: reading — the rig, the three INSTAR head paths and the director's 
 Bottleneck: friction — the full check's capture test times out when several lanes land at once.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — other bosses' still-life plates, the sweep
+
+- **reading** — 15 min
+- **writing** — 5 min
+- **looking** — 0 min
+- **friction** — 0 min
+- **landing** — 5 min
+
+Bottleneck: reading — six of the fourteen bosses the entry named had already
+been fixed by earlier lanes, and only opening every file showed that.
