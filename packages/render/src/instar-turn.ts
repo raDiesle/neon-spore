@@ -1,4 +1,5 @@
 import { FRONT, see, view } from "@neon-spore/content";
+import { smoothstep } from "./ease.js";
 import { rgba } from "./hex.js";
 import { instarFarEnd, instarHeadAt, type Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
@@ -24,22 +25,46 @@ import { SHADOW } from "./solid-tube-light.js";
  * is squeezed, the near one opens. The lips' marks sit near the midline and
  * move by less than the shove's own tremble.
  *
- * The turn is a constant, not a breath: the body's far end is where the
- * slow's light is aimed (`slow-intake-aim.ts`), and that reads the figure
- * without a clock.
+ * **Between the two views it keeps turning.** At rest the turn is `TURN`,
+ * and as the figure's `side` runs toward the profile the face-on body, its
+ * wings and its snout go on round the same way (`instarTurn`), still solid,
+ * until the profile — which is where they were headed — takes over from
+ * them across the middle of the turn (`instarHandover`). A crossfade of two
+ * still views was two ghosts of one body; this is one body turning, with the
+ * cut hidden where the two views nearly agree.
+ *
+ * The turn is read off the figure, not a clock: the body's far end is where
+ * the slow's light is aimed (`slow-intake-aim.ts`), and at rest it is where it
+ * always was.
  */
 
 /** How far round from face-on the body and the wings are seen, in radians. */
 export const TURN = 0.55;
+/** How far round the face-on view has gone by the time the profile has it whole. */
+const TURN_FAR = 1.3;
+/** Where in the figure's `side` the profile takes over, and over how much of it. */
+const HANDOVER_AT = 0.3;
+const HANDOVER_SPAN = 0.4;
 /** How deep the body runs behind the neck, and how far off the eye is, in head radii. */
 export const BODY_DEPTH = 6;
 export const BODY_LENS = 10;
 /** How far the snout's midline swings toward the far side, in head radii. */
 const SNOUT = 0.14;
+const SNOUT_FAR = 0.3;
 /** How dark the far cheek goes at its edge. */
 const FAR_CHEEK = 0.35;
 /** How far out each eye sits, in head radii — the two places the head's affines hold. */
 const EYE_X = 0.48;
+
+/** How far round the face-on view is seen, with the figure `side` of the way to its profile. */
+export function instarTurn(side: number): number {
+  return TURN + (TURN_FAR - TURN) * side;
+}
+
+/** How much of the body the profile draws, 0..1: none until the turn is well under way. */
+export function instarHandover(side: number): number {
+  return smoothstep((side - HANDOVER_AT) / HANDOVER_SPAN);
+}
 
 /** Where the body leaves the back of the head. */
 export function instarNeck(head: Point, r: number): Point {
@@ -54,28 +79,30 @@ export function turnedFarEnd(neck: Point, rear: Point, r: number, turn = TURN): 
   return { x: neck.x + p.x, y: neck.y + p.y };
 }
 
-/** Where the engines burn in this frame's figure: turned face-on, as it is side-on. */
+/** Where the engines burn in this frame's figure: in whichever view has the body. */
 export function instarEnginesAt(l: Layout, f: Figure): Point {
   const rear = instarFarEnd(l, f);
   const { head, r } = instarHeadAt(l, f);
-  const t = turnedFarEnd(instarNeck(head, r), rear, r);
-  return { x: t.x + (rear.x - t.x) * f.side, y: t.y + (rear.y - t.y) * f.side };
+  const t = turnedFarEnd(instarNeck(head, r), rear, r, instarTurn(f.side));
+  const k = instarHandover(f.side);
+  return { x: t.x + (rear.x - t.x) * k, y: t.y + (rear.y - t.y) * k };
 }
 
 /**
  * The head `draw` draws about `head`, turned: once for each half, clipped at
  * the snout and squeezed or opened about it, so each eye stays where it was.
  * The far half, turned from the eye, goes into the cool dark toward its edge
- * over the plates `draw` answers with.
+ * over the plates `draw` answers with. `side` swings the snout further round.
  */
 export function drawTurnedHead(
   ctx: CanvasRenderingContext2D,
   head: Point,
   r: number,
-  fade: number,
+  look: { fade: number; side: number },
   draw: (half: -1 | 1) => readonly Path2D[],
 ): void {
-  const m = -SNOUT * r;
+  const { fade, side } = look;
+  const m = -(SNOUT + (SNOUT_FAR - SNOUT) * side) * r;
   for (const s of [-1, 1] as const) {
     const k = 1 - (s * m) / (EYE_X * r);
     ctx.save();

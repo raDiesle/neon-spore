@@ -16,6 +16,9 @@ import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
  * - **approach**: far off and high, a speck, coming at the screen. Its size
  *   is a thing at a distance closing on the eye — `1 / z` with `z` falling
  *   straight — so it creeps for most of the flight and looms at the end.
+ *   When a body is already on the field it first goes: off and up into the
+ *   distance by the same law run backwards, swerving wide, to the speck the
+ *   approach starts from — never gone from full size to a speck in a frame.
  * - **passes**: up and off the top, then a pass across far away, a nearer
  *   pass back, and in from the right to stay. The turn side-on happens during
  *   the passes, while the body is small and moving.
@@ -49,11 +52,20 @@ export function instarFlight(s: InstarState, beat: number, beatPhase: number): F
   if (s.phase !== "morph" || step === null) return AT_REST;
   const t = instarPhaseAt(s, beat, beatPhase) / (step.morphBeats * INSTAR_FLIGHT_ENDS);
   if (t >= 1) return AT_REST;
-  return flown(step.arrive, Math.max(0, t));
+  return flown(step.arrive, Math.max(0, t), s.cursor > 0);
 }
 
-/** The flight of one arrival, `t` from 0 to 1. */
-export function flown(arrive: InstarArrival, t: number): Flight {
+/** How much of an approach is spent leaving, when there was a body on the field to leave. */
+const LEAVE = 0.3;
+
+/** The flight of one arrival, `t` from 0 to 1; `leaves` when a body stood on the field before it. */
+export function flown(arrive: InstarArrival, t: number, leaves = false): Flight {
+  if (arrive === "approach" && leaves) {
+    if (t >= LEAVE) return flown(arrive, (t - LEAVE) / (1 - LEAVE));
+    const e = smoothstep(t / LEAVE);
+    const scale = 1 / (1 + (FAR - 1) * e);
+    return { dxMilli: -380 * Math.sin(Math.PI * e), dyMilli: -320 * (1 - scale), scale };
+  }
   if (arrive === "approach") {
     const scale = 1 / (1 + (FAR - 1) * (1 - t));
     // Far off is high up, near the horizon, and it weaves as it comes.

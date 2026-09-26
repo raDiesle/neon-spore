@@ -229,6 +229,18 @@ misunderstanding, and it is withdrawn.**
   dark, the near one opens (`instar-turn.ts`). Drawing each half leaves out
   what sits wholly on the other side, which holds the head to a sixth more
   ops rather than twice as many.
+- **Between two views a body keeps turning; it is never two ghosts.** A
+  crossfade of a still face-on view into a still profile shows one body twice.
+  Instead the face-on body, wings and snout go on round the way the profile
+  faces as the figure runs toward it, still drawn solid, and the profile takes
+  over only across the middle of the turn, where the two nearly agree
+  (`instarTurn`, `instarHandover`). Where a fire is aimed at the body's far
+  end, that end is read from whichever view has the body, so the aim moves
+  with the turn and not by a cut.
+- **A body on the field never jumps to a speck.** When a boss must come in
+  again from the distance, it first goes: up and away by the same scale law
+  run backwards, swerving wide, and only then makes its approach
+  (`instar-flight.ts`'s `LEAVE`).
 - **The limits are the phone's, not the dimension's.** Battery and frame time
   matter to the owner more than any look. No full engine — PixiJS, Three.js,
   Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame

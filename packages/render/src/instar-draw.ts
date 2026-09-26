@@ -8,6 +8,7 @@ import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
 import { instarFade, instarMorphAt, instarThreat } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
+import { instarHandover } from "./instar-turn.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -21,7 +22,8 @@ import type { Layout } from "./layout.js";
  * it flies off and passes and comes back side-on, the nests on its back
  * (`instar-profile.ts`, `instar-eggs.ts`); it crosses out and in from the
  * other side and swings its tail at the ship (`instar-tail.ts`). Between the
- * two views the body turns, which is a crossfade by the figure's `side`.
+ * two views the body turns on round, and the profile takes over across the
+ * middle of the turn (`instar-turn.ts`).
  *
  * Read off the world every frame; what outlives a frame — the jolt of a
  * landing, the flinch at a wrong thumb, the strike of a part not stopped —
@@ -92,8 +94,9 @@ export function drawInstar(
     shoveUp: fx.shove.up,
     shoveDown: fx.shove.down,
   };
-  if (f.side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - f.side) });
-  if (f.side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * f.side });
+  const side = instarHandover(f.side);
+  if (side < 0.99) drawFront(ctx, l, { ...look, fade: fade * (1 - side) });
+  if (side > 0.01) drawProfile(ctx, l, { ...look, fade: fade * side });
   ctx.restore();
   fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);

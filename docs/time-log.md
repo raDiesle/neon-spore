@@ -23410,3 +23410,19 @@ Bottleneck: landing — the red test that stopped the previous lane's `land`
 was this one, so the fix came before that lane could go in.
 
 *Measured: 25 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR turns on round between its views
+
+- reading: 15 min. How the handover crossfaded two still views, where the
+  slow's light reads the body's far end, and how an approach starts.
+- writing: 25 min. The turn read off the figure's `side`, the handover
+  moved to the middle of the turn, the leave before an approach, two
+  style-guide bullets.
+- looking: 35 min. Brood passes at seven ticks, the side-on pose, and the
+  approach after a body already on the field.
+- friction: 10 min. A probe hung on a stray `cat` with no input, and a
+  crop at half zoom failed without a word.
+- landing: 10 min. `check:fast`, this entry, `land`.
+
+Bottleneck: looking — which frame of a morph a tick lands on had to be
+worked out from the flight's own numbers before the pictures meant anything.

@@ -4,7 +4,7 @@ import { drawFrontBody, seeFrontBody } from "./instar-front-body.js";
 import { drawFrontHead } from "./instar-head.js";
 import { instarFarEnd } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
-import { drawTurnedHead, instarNeck, TURN } from "./instar-turn.js";
+import { drawTurnedHead, instarNeck, instarTurn } from "./instar-turn.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -16,7 +16,8 @@ import { PALETTE } from "./palette.js";
  * engines burning at the far end — and the wings spread wide off the
  * shoulders behind the head. Then the head (`instar-head.ts`).
  *
- * All of it a third of the way round (`instar-turn.ts`), and drawn back to
+ * All of it a third of the way round at rest and further round as it turns
+ * toward the profile (`instar-turn.ts`), and drawn back to
  * front: the engines, the far wing hazed toward the field, the body, the near
  * wing over it, the head over all.
  */
@@ -29,17 +30,18 @@ const FAR_WING = 0.3;
 export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f, head, r, fade, time } = look;
   const neck = instarNeck(head, r);
-  const seen = seeFrontBody(look, neck, instarFarEnd(l, f), TURN);
+  const turn = instarTurn(f.side);
+  const seen = seeFrontBody(look, neck, instarFarEnd(l, f), turn);
   const end = seen[seen.length - 1];
   if (end) drawEngines(ctx, { x: neck.x + end.c.x, y: neck.y + end.c.y }, r, time, fade);
   const shoulder = { x: neck.x, y: neck.y + r * 0.05 };
-  const w = view(FRONT - TURN, 0, r * WING_LENS);
+  const w = view(FRONT - turn, 0, r * WING_LENS);
   const wing = (s: 1 | -1, dark: number) =>
     drawWing(ctx, look, shoulder, w, { x: 0, y: 0, z: s * r * 0.55 }, s, dark);
   wing(-1, FAR_WING);
   drawFrontBody(ctx, look, neck, seen);
   wing(1, 0);
-  drawTurnedHead(ctx, head, r, fade, (half) => drawFrontHead(ctx, look, half));
+  drawTurnedHead(ctx, head, r, { fade, side: f.side }, (half) => drawFrontHead(ctx, look, half));
 }
 
 /** The two engines at the far end: a steady burn, flickering. */
