@@ -43,6 +43,7 @@ describe("buildBacklog", () => {
       "STILL IN HAND",
       "LEFT ON A BUILT BOSS",
       "PRIMITIVES A SCENE STILL NEEDS",
+      "PROPOSED, NOT STARTED",
     ]);
 
     // **Not a list of names.** Which group a boss is in is the `##` heading it
@@ -82,6 +83,22 @@ describe("buildBacklog", () => {
         runOn: false,
       });
     }
+  });
+
+  test("PROPOSED, NOT STARTED holds a concept only until its ledger row lands", async () => {
+    const backlog = await realBacklog();
+    const proposed = group(backlog.bosses, "PROPOSED, NOT STARTED");
+    const proposedNames = proposed.entries.map((e) => e.name);
+
+    // THE MANTLE (§23) already has a ledger row ("claimed, simulation lane
+    // starting") the moment it was written, so it never appears here — the
+    // group is read off the ledger, not off a status word on the Contents
+    // list. The other four of the same batch have no row yet.
+    expect(proposedNames).not.toContain("THE MANTLE");
+    expect(proposedNames).toContain("THE KEEL");
+    expect(proposedNames).toContain("THE VALVE");
+    expect(proposedNames).toContain("THE SEAM");
+    expect(proposedNames).toContain("THE OCULUS");
   });
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {

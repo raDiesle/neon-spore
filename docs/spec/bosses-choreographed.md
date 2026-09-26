@@ -54,6 +54,11 @@ reordering the page without keeping them would break every one of them.
 - **[THE HASP](#20-the-hasp--whether-a-grip-nobody-can-see-is-the-one-holding-the-door)** · §20 — whether a grip nobody can see is the one holding the door. One of [five more](#five-more-asked-for-by-name); **lane one landed 22 September 2026** as [bosses](bosses.md) §11.37, wave 101; the look and the hands landed 23 September 2026 — lane two done
 - **[THE SPOOL](#21-the-spool--whether-letting-it-run-is-the-point)** · §21 — whether letting it run is the point. One of [five more](#five-more-asked-for-by-name); **lane one landed 22 September 2026** as [bosses](bosses.md) §11.36, wave 100, and **the look's body 23 September** — the hands are open
 - **[THE RATCHET](#22-the-ratchet--whether-a-step-can-be-taken-back)** · §22 — whether a step can be taken back. One of [five more](#five-more-asked-for-by-name); **lane one landed 23 September 2026** as [bosses](bosses.md) §11.38, wave 102; the picture and the hands landed the same day
+- **[THE MANTLE](#23-the-mantle--whether-a-shared-number-still-needs-two-hands)** · §23 — whether a shared number still needs two hands. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture), written 26 September 2026; **simulation lane claimed and landing the same sitting**
+- **[THE KEEL](#24-the-keel--whose-thumb-the-spine-calls-on-next)** · §24 — whose thumb the spine calls on next. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); queued, not yet claimed
+- **[THE VALVE](#25-the-valve--freezing-what-the-other-hand-is-already-moving)** · §25 — freezing what the other hand is already moving. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); wants `FreezeTap`, the one gesture on either brief with no shipped ancestor besides `TraceDrag`; queued, not yet claimed
+- **[THE SEAM](#26-the-seam--a-crack-the-cannon-answers-in-order-with-the-shield-in-between)** · §26 — a crack the cannon answers, in order, with the shield in between. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); queued, not yet claimed
+- **[THE OCULUS](#27-the-oculus--shutting-an-eye-together-then-answering-what-was-behind-it)** · §27 — shutting an eye together, then answering what was behind it. One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture); wants `SceneBreak`, named for the first time; queued, not yet claimed
 
 **Still in hand — the simulation landed, the look is not written**
 
@@ -81,6 +86,7 @@ reordering the page without keeping them would break every one of them.
 [the filter these had to pass](#the-filter-these-fifteen-had-to-pass),
 [refused by name](#refused-by-name),
 [a second brief, and the four things in it this page did not have](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have),
+[five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture),
 [the reusable boss mechanic library](#the-reusable-boss-mechanic-library).
 
 ## Who is building what, so two sessions do not collide
@@ -115,6 +121,7 @@ done.
 
 | Concept | State | Lane |
 |---|---|---|
+| [§23 THE MANTLE](#23-the-mantle--whether-a-shared-number-still-needs-two-hands) | **claimed, simulation lane starting** | One of [five more, both screens reading the same picture](#five-more-both-screens-reading-the-same-picture), written 26 September 2026 at DavidDe's ask. Taken the same sitting; `docs/queue.md` carries the entry |
 | [§22 THE RATCHET](#22-the-ratchet--whether-a-step-can-be-taken-back) | **lane one landed, 23 September 2026**; the picture and the hands the same day | The simulation is in as wave 102 THE RATCHET and `docs/spec/bosses.md` §11.38: `ratchetCatch` a depth drag read as a **level**, THE HASP's latch again, and `ratchetPawl` a press read on its edge, with the judgement between them one `ratchetHeld` in the boss's own hand file. Seven teeth as the health, five clean to open, a burn on every press with the catch unset, a spent catch after every clean tooth, one loose bolt on the second clean tooth, and a jam into the hull on the third burn. Nine departures are argued by name in §11.38: the burn is a dull thud rather than a silence, the windows are counted in beats rather than 900/700/600 ms, a window nobody answers burns a tooth, the catch is spent by a clean tooth and has to be lifted, the rack jams on the burn that makes five unreachable rather than playing out its dead teeth, the bolt takes either colour, there is no longer hold on rows 9–10, `SequentialAction` is not used because the press is judged rather than refused, and THE SLOW spans each window. Lane two's first half, the picture, is `render/ratchet-draw.ts`: THE CRAWLER stood upright as the rack, spent plates slack above the pawl, the lock's pins counting the clean teeth, the catch and its glow on the navigator's screen alone, a click, jolt and hull shudder on every clean tooth and nothing on a burn, and the strut folding away. The second half, the hands, is `render/ratchet-grip.ts` and `render/boss-cue-read-zb.ts`: her catch carried down its rail with HOLD and LIFT on it, his pad pressed with ON SET on it, and FIRE over a loose bolt. The guide is prose |
 | [§20 THE HASP](#20-the-hasp--whether-a-grip-nobody-can-see-is-the-one-holding-the-door) | **lane one landed, 22 September 2026**; lane two landed 23 September | The simulation is in as wave 101 THE HASP and `docs/spec/bosses.md` §11.37: `haspLatch` as a depth drag read as a **level** — where THE BELLOWS's handle next door is an edge — and `haspWheel` as a bearing drag wound by travel the way `crank.ts` reads one, with the gate between them a single per-tick `haspHeld` in the boss's own hand file and nothing in the engine, which is §20's *Reusable* finding proved. Three clasps as the health, the heat as the pilot's whole readout with a shorter fuse on the last, the seize and the free said once each so neither screen ever carries the other's reason, one loose bolt on the second opening, and THE SLOW on a burn that takes a wind already begun. **Five departures are argued by name** in §11.37: nothing in the fight carries a window, a late call gives nothing back, THE SLOW opens on one regrip call rather than three, row 7's bolt takes either colour, and the wheel is wound by travel rather than turned to a mark. Lane two's first half, the look, is drawn (`render/hasp-draw.ts`): the row, the latch's cool-to-hot drift on the pilot's screen alone, the wheel and its creep on the navigator's alone, the dim on a seize and the row swinging clear, with the receipts split by seat in `hasp-fx.ts`. The hands are in too (`render/hasp-grip.ts`): his press on the bar carried a tile down a one-tile rail, hers anywhere on the working wheel read as a bearing about its hub, `HOLD` while the latch is up and `TURN` only while the wheel is free, and no desk keys |
 | [§21 THE SPOOL](#21-the-spool--whether-letting-it-run-is-the-point) | **lane one landed, 22 September 2026; lane two's body 23 September** — the hands open | The simulation is in as wave 100 THE SPOOL and `docs/spec/bosses.md` §11.36: `spoolBrake` as one depth-drag on the pilot's seat alone, read as a **level** and never an edge, with letting go the fast end rather than a neutral one; four ribs as the health, easing rather than cracking; the zone narrowing 360, 280, 200, 120 thousandths a rib and the movement running one leg, then two, then three; the target rate rolled off `world.rng` per leg, with `spoolBrakeForRateMilli` as the receipt that every roll is reachable (a `copies-table.ts` row — called, never re-derived); and THE SLOW on the drift, which is §21's calm finish. **Two departures are argued by name** in §11.36: leaving the zone resets the movement rather than costing a hull hit — the beat list against the prose, and a hull hit fails the whole wave on the one boss whose gesture is learnt by holding it wrong — and the hazard rock is thrown on every slip from movement 2 on rather than once, because a rule with an exception is what the skill forbids. The navigator's `EASE` and `HOLD` are speech, not `Command`s, so her half has no window and nothing is written for the pair to read aloud. Lane two's first half, the body, is drawn (`render/spool-draw.ts`): the casing and its four ribs, the winding and the line whose speed is the only rate the picture says, the pilot's brake on his screen alone and the navigator's gauge on hers, and the flange turning to face the ship in the slack. The hands are open: the rail's hit test, the cue word on the knob, the film and the controls rows |
@@ -2830,6 +2837,439 @@ machinery. `SlowMotionInteraction` is THE SLOW and shipped;
 `CinematicFocus` is the hull's reaction and not the frame's, which is
 correction 4 above; `BossSequence`, `BossSequenceStep` and `SequentialAction`
 are built.
+
+---
+
+## Five more, both screens reading the same picture
+
+DavidDe, 26 September 2026: more of exactly what THE INSTAR is — easy to
+follow, no complex mechanics, no tutorial needed before the wave, in-game
+gestures on the body rather than the panel, the standard controls allowed back
+in for a specific sequence such as firing, and *both players see the same at
+the same time*. That last clause is new against the two briefs above it, both
+of which reached for a split in **what each seat is shown** as the first move
+of nearly every concept (`PerSeatTruth`, `DescribedTarget`, `SplitGauge`). It
+does not relax filter 8's *every boss splits something* — CLAUDE.md's own rule
+— it says which half of a boss carries the split from here on: **the eyes stay
+together, the hands do not.** Both screens draw the identical picture, at the
+identical moment; what tells the two thumbs apart is geometry (whose half of
+the body a mark sits on, the way THE INSTAR's own marks already do) or which
+verb a step asks for (one seat holds while the other pulls). Neither screen is
+ever the only one carrying a fact the other needs — there is nothing to
+describe across the call, because there is nothing hidden.
+
+**The filter these five pass**, on top of filter 8 (`## The filter these
+fifteen had to pass`): a shipped boss already asking the same question is a
+re-skin regardless of how it looks, so each entry below says in one line why
+it is not THE INSTAR, THE GIMBAL, THE HASP, THE SPOOL, THE RATCHET or any of
+the fifteen wearing a new coat. Every gesture is a member of `DragTarget` or
+`Hold["kind"]`, or it is a `build first` line in the library below, named as
+such. Ten steps each, minimum, each asking for an action; THE SLOW opens on
+every step whose window is genuinely a decision rather than a courtesy. **No
+`Files:` line below names a file the tree does not yet have** — the queue
+entries at the foot of `docs/queue.md` are where each one's actual paths live,
+written the ordinary way, at the moment a lane claims one.
+
+**Nothing here is built.** `docs/queue.md` carries the simulation lane of each
+as its own entry, claimable the ordinary way (`bun run queue next`), and the
+look as a second entry with a `Needs:` line back to it, same split as the
+brief above (`.claude/skills/new-boss` lane one, then lane two). §23 THE
+MANTLE's simulation lane is claimed and landing in the same sitting this
+section was written in.
+
+### §23 THE MANTLE — whether a shared number still needs two hands
+
+**Question.** THE SINEW and THE SURGE both split one gauge across two
+screens — his zone, her sum, neither the other's (`SplitGauge`). This asks the
+opposite: put the *same* number on both screens, the true combined pull, and
+see whether two hands are still worth having when neither is hiding anything
+from the other. They are, because the body only answers a pull both thumbs are
+making **at once** — a sum reached by one seat holding while the other has let
+go does nothing.
+
+**Silhouette.** A hinged carapace shell, closed over a soft core, hanging at
+mid-field — the shape a beetle's wing case makes closed. **Health is four
+plate-pairs (eight plates)**, always shed as a pair, one off the left valve
+and one off the right, the instant the pair beneath them is pried. A shell
+with no plates left splits down its seam.
+
+**Mechanic.** The shell has two named handles, `mantleLeft` and `mantleRight`,
+each an ordinary depth drag (`instarMark`'s own kind, pointed at a different
+target). **Geometry, not a seat number, says whose handle is whose**: the left
+valve is always pulled from the left edge of the screen and the right valve
+from the right, on both phones, so a player picks up whichever handle is on
+their side without being told which one that is. The sim keeps the two depths
+and a `mantlePairMilli` sum; a pair shears the instant the sum crosses that
+movement's threshold **while both depths are simultaneously above a floor** —
+one thumb parked at maximum while the other is at zero never sums to a shear,
+which is the one rule that makes it a two-hand mechanic and not an
+arm-wrestle. This is `PulledMagnitude`/`ChargeSum` from the library, spent for
+the first time, and shown identically on both screens rather than split.
+
+**Player 1 and Player 2.** Identical screens: the shell, both handles, the sum
+gauge (a single bar, not two), the plate count. Player 1's thumb only moves
+the left handle and Player 2's only the right — the drag target checks which
+half of the shell a touch fell on and refuses the wrong one, the same silent
+refusal THE INSTAR's marks already use.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — learning the shell** ||||||
+| 1 | The shell drops into frame, closed, both handles dark | — | — | — | — | — |
+| 2 | Both handles light at once | P1+P2 | pull both handles down together (`PULL`) | 5 beats, seen | sum crosses the first threshold — first plate-pair shears | either handle drifts back if let go before the sum is reached |
+| 3 | The gap under the sheared plates leaks light | — | — | — | — | — |
+| **Movement 2 — a hand that stops costs both of you** ||||||
+| 4 | Both handles light again, the gauge's threshold a notch higher | P1+P2 | pull together, harder | 5 beats, seen | second plate-pair shears | same |
+| 5 | A spark leaks from the open gap — the ordinary hazard | P1 or P2 | fire it out, own colour | 2 beats, seen | spark goes out | spark reaches the hull, an ordinary hit |
+| 6 | Third handles-light beat, threshold higher again | P1+P2 | pull together | 4 beats, seen | third plate-pair shears | same |
+| **Movement 3 — the last pair, and the core underneath it** ||||||
+| 7 | The last pair sits stiffer than the rest — the sim asks for the same threshold in a shorter window | P1+P2 | pull together, faster | 3 beats, seen | last plate-pair shears, shell splits down the seam | same, window resets |
+| 8 | The bare core beats inside the open shell, twice a beat | — | — | — | — | — |
+| 9 | The core's beat lights the left half of a ring around it | P1 | tap on the beat (`TAP`) | 1 beat, seen | left arc dims | a miss costs nothing — the core keeps beating |
+| 10 | The core's beat lights the right half, a beat later | P2 | tap on the beat (`TAP`) | 1 beat, seen | right arc dims | same |
+| 11 | Both arcs dim, alternating, three more rounds — a call to make sure the pair is trading rather than both mashing | P1+P2 | alternate taps, never both on the same beat | 6 beats total, seen | core goes dark, fight ends | a same-beat double tap does not cost the wave — it costs one round, replayed |
+
+**THE SLOW** opens on every "pull together" window (rows 2, 4, 6, 7) — the
+sum is drawn ticking up in real time, and the third-rate window is what lets a
+pair actually watch the bar cross the line together rather than guessing.
+Rows 9–10 run at tempo: a heartbeat is the one moment on this page the owner's
+rule about a called window does not apply, because the whole point of the
+finish is that it is fast.
+
+**Presentation.** No camera. Each shearing pair is one hull-shock pulse; the
+open gap's spark is the dim treatment THE THROAT's choked ring already uses.
+
+**Animation.** Five poses: shut; one pair short; two pairs short; split open
+with the core showing; the core dark. The valves themselves visibly bow
+outward under a growing pull rather than sliding — the deformation reads off
+`mantlePairMilli` directly, never off the plate count.
+
+**Colour.** The shell is carapace grey throughout; the core is the one warm
+colour on the body, red or cyan chosen once per run, and it says nothing about
+which seat fires — nobody fires at it. Geometry alone says which handle is
+whose, the rule THE GIMBAL's rings and THE BALLOON's two grips already use.
+
+**Payoff.** Row 11's alternating heartbeat, coming right after nine beats of
+both thumbs pulling in lockstep — the one place on this page the pair has to
+stop acting together to finish the fight.
+
+**Cost. Low.** Both handles are `instarMark`'s own drag kind pointed at two
+targets instead of one; the only new state is `mantlePairMilli`, one hashed
+field, and the floor-check that makes the sum a two-hand rule.
+
+**Reusable.** The floor-checked sum — `PulledMagnitude`/`ChargeSum` finally
+spent — and the alternating single-tap finish, a `RepeatedTap` cousin worth
+naming if a later boss wants a heartbeat of its own.
+
+### §24 THE KEEL — whose thumb the spine calls on next
+
+**Question.** Every shipped boss with more than one gesture assigns a step to
+a seat once, in the script. This assigns it **live**, by where a moving mark
+lands: the same joint, pressed by whichever thumb is nearer it at the moment
+it lights, on a spine both screens draw identically. It is not THE BATON's
+`Alternation` — nothing here refuses a repeat — and it is not THE INSTAR's
+geometry, which is fixed per mark; here one mark walks the whole body and the
+seat it wants changes with it.
+
+**Silhouette.** An exoskeletal spine, six segments, arched along the top of
+the field like a stripped ribcage. **Health is the six segments**; a joint
+answered on time locks its segment rigid and lights it, a joint missed leaves
+its segment loose, and a spine with every segment loose thrashes and opens a
+breach instead of dying cleanly.
+
+**Mechanic.** One drag target, `keelJoint`, always a plain tap
+(`instarMark`'s tap kind). It appears at the leftmost unlocked segment first
+and at the rightmost the beat after, alternating ends rather than working
+straight down the spine — so the seat it is nearest keeps changing without
+`Alternation`'s refusal ever entering the sim. Whichever screen-half the joint
+currently sits over is the seat it will accept; the boss cue's scan ring and
+`PRESS` word appear on that seat alone, the ordinary rule.
+
+**Player 1 and Player 2.** Identical screens: the whole spine, six segments,
+the one joint mark wherever it currently sits. Neither seat is told in
+advance which end the mark will visit next — reading the spine is the whole
+of the difficulty.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the two ends** ||||||
+| 1 | The spine arches into frame, all six segments loose and dim | — | — | — | — | — |
+| 2 | The leftmost joint lights | whoever is nearer the left half | tap the joint (`PRESS`) | 4 beats, seen | segment 1 locks, lights | joint dims and re-lights the same place a beat later |
+| 3 | The rightmost joint lights | whoever is nearer the right half | tap | 4 beats, seen | segment 6 locks | same |
+| 4 | Second-from-left lights | nearer seat | tap | 4 beats, seen | segment 2 locks | same |
+| 5 | Second-from-right lights | nearer seat | tap | 4 beats, seen | segment 5 locks | same |
+| **Movement 2 — the spine opens an eye, and the cannon answers** ||||||
+| 6 | With four segments locked the spine's midpoint splits, baring a single lit socket | — | — | — | — | — |
+| 7 | The socket flashes a colour | whichever cannon owns that colour | fire the socket (standard control) | 3 beats, seen | socket shuts, third segment (left-middle) locks itself for free | socket stays open, an ordinary hull hit next beat |
+| 8 | Fourth segment (right-middle) lights, window shorter than movement 1's | nearer seat | tap | 3 beats, seen | segment locks — spine fully rigid | joint re-lights |
+| **Movement 3 — the whole spine, at tempo** ||||||
+| 9 | Every joint dims at once, then relights in a fast unpredictable order, one at a time | nearer seat, per joint | tap, three joints in a row | 2 beats each, seen | each locked joint pulses brighter | a missed one loosens that segment again — it simply re-lights later |
+| 10 | The spine holds rigid for one full beat, every segment locked and bright | — | — | — | — | — |
+| 11 | The tail whips once, throwing a single hazard rock down the field | P1 or P2 | fire it, own colour | 2 beats, seen | rock destroyed | ordinary hull hit |
+| 12 | The spine snaps straight and the fight ends | — | — | — | — | — |
+
+**THE SLOW** opens on every joint window in movements 1 and 2 (rows 2–5, 7,
+8) and on row 7's socket; movement 3's re-lit joints (row 9) run at tempo on
+purpose — a spine that has taught its rule for eight beats is allowed to ask
+for it fast.
+
+**Presentation.** No camera. Each lock is a short hull-shock click; the
+socket shot of row 7 is an ordinary shot's flash, nothing new.
+
+**Animation.** Segments individually locking rigid out of a loose, faintly
+swaying rest pose — six independent joints rather than one body morphing
+whole, which is the one place this page's bodies do not share THE INSTAR's
+single-figure blend, because a spine's whole point is that its parts move
+separately.
+
+**Colour.** Iron grey throughout; a locked segment carries a thin white seam,
+never a colour that implies ownership — geometry alone says whose joint it
+is, and it changes every time the mark moves.
+
+**Payoff.** Row 9 — the rule the first eight beats taught (nearer thumb takes
+the joint) run three times in two beats each, which is the fastest a pair on
+this page is asked to read where a mark landed and pass it wordlessly between
+them.
+
+**Cost. Low.** One drag target, no new hashed field beyond which end the
+joint currently sits at (an index, the way `instar`'s pose index already
+works) and a boolean per segment.
+
+**Reusable.** A single mark whose **owning seat is read off its position
+rather than authored per step** — worth a name (`GeometrySeat`?) if a later
+boss wants the same trick without re-deriving it.
+
+### §25 THE VALVE — freezing what the other hand is already moving
+
+**Question.** THE HASP already couples a latch one seat holds with a wheel
+the other turns, but neither screen there shows the other's half. This keeps
+both halves on both screens and spends the one genuinely new verb on the
+refused sheet instead: `FreezeTap`, a timed tap by one seat that stops
+whatever the other seat is continuously dragging, so the drag can be pulled
+out of danger rather than pursued.
+
+**Silhouette.** A squat drum standing over the field with a single wheel set
+in its face and a pin socket beside it. **Health is three latch-pins**, each
+freed and pulled in its own movement; a drum with no pins seizes and splits.
+
+**Mechanic.** `valveWheel` is a `BearingDrag` — Player 1 turns it steadily
+toward a lit mark, the way `crank.ts` already reads a turn. `valvePin` is
+`FreezeTap` — Player 2's tap, timed against the wheel's own mark reaching a
+window, halts the wheel's motion in the sim for `valveFreezeBeats` (it does
+not answer to a further turn while frozen). Only while frozen can Player 1
+drag the now-still pin fully out (an ordinary depth drag) — pulling on a
+moving pin does nothing, which is the coupling: the freeze is what makes the
+pull possible, and the pull is a race against the freeze running out.
+
+**Player 1 and Player 2.** Identical screens: the drum, the turning wheel,
+the pin. Player 1 owns the wheel's turn; Player 2 owns the freeze tap. Once
+frozen, **either** seat may pull the pin — the sim does not care whose thumb
+does it, only that it happens before the freeze ends, which is the one moment
+this page lets a gesture go to whichever hand is free.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — the first pin** ||||||
+| 1 | The drum settles into frame, wheel dark, pin socket dim | — | — | — | — | — |
+| 2 | The wheel lights and begins turning toward its mark on its own | P1 | steer the wheel onto the mark (`TURN`) | 5 beats, seen | wheel holds on the mark, freeze window opens | wheel drifts off and re-approaches |
+| 3 | The pin socket flashes while the wheel holds | P2 | tap to freeze (`FREEZE`) | 2 beats, seen | wheel stops dead, pin socket glows steady | wheel resumes turning, back to row 2 |
+| 4 | The frozen pin sits still, glowing | P1 or P2 | pull the pin out (`PULL`) | 3 beats, frozen | first pin comes free, drum lists slightly | freeze runs out, pin locks back in, movement repeats from row 2 |
+| **Movement 2 — a spark, then the second pin, faster** ||||||
+| 5 | A spark leaks from the listing drum | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
+| 6 | The wheel lights again, a longer turn to its mark | P1 | steer (`TURN`) | 5 beats, seen | holds, freeze window opens | drifts off |
+| 7 | Freeze window, shorter than movement 1's | P2 | tap (`FREEZE`) | 1 beat, seen | wheel stops | wheel resumes |
+| 8 | Frozen pin | P1 or P2 | pull (`PULL`) | 2 beats, frozen | second pin free, drum lists further | freeze runs out, repeat from row 6 |
+| **Movement 3 — the last pin holds the whole seal** ||||||
+| 9 | The wheel now turns *away* from a mark that sits behind it — a full lap before it can hold | P1 | steer the long way round (`TURN`) | 6 beats, seen | holds | drifts off, tries again |
+| 10 | Freeze window, the shortest yet | P2 | tap (`FREEZE`) | 1 beat, seen | stops | resumes |
+| 11 | Frozen pin, deep in the drum's face | P1 or P2 | pull (`PULL`) | 2 beats, frozen | last pin free | freeze runs out, repeat from row 9 |
+| 12 | With all three pins out the drum's face falls open | — | — | — | — | — |
+
+**THE SLOW** opens on every freeze window (rows 3, 7, 10) and every pull
+(rows 4, 8, 11) — the two beats a pair most needs slowed, since one thumb's
+tap has to land inside a beat the other thumb cannot see coming any earlier
+than the wheel's own approach shows it.
+
+**Presentation.** No camera. Each freed pin is one hull-shock pulse; the
+drum's list deepens visibly, plate by plate, which is the hull's reaction
+standing in for a health bar that this boss, like every other, does not have.
+
+**Animation.** Four poses: sealed and upright; listing one pin; listing two;
+face open. The wheel's turn is drawn continuously rather than as a snap
+between marks, and a frozen wheel visibly stops mid-turn rather than resetting
+to the mark — the stillness is the tell that the freeze landed.
+
+**Colour.** Drum iron grey; the wheel's mark and the pin's socket both plain
+white — nothing here is colour-gated, since either seat may take the pull.
+
+**Payoff.** Row 9's long way round, where the pattern the first two movements
+taught (turn toward a visible mark) is broken on purpose the one time the
+boss can afford to.
+
+**Cost. Medium.** `BearingDrag` is shipped; `FreezeTap` is new and is the one
+genuinely new verb on either brief — `tools/director/test/on-field-controls.test.ts`'s
+exhaustive switch is where it is added, so the compiler is the checklist.
+
+**Reusable.** `FreezeTap` itself, finally spent, and available to any later
+concept that wants one hand to arrest what the other is doing rather than
+race it.
+
+### §26 THE SEAM — a crack the cannon answers, in order, with the shield in between
+
+**Question.** THE INSTAR's brief said no control set at all; this is the
+other half DavidDe asked for in the same breath — a choreographed scene built
+**around** the standard controls rather than instead of them, because the cue
+and THE SLOW make a plain shot or a plain shield block just as legible a step
+as a drag ever is. It is not THE VOLLEY or THE CRYSTAL: those are field
+bosses answered with the ordinary loop running at ordinary speed, and this is
+an authored beat list where each shot or block is its own step with its own
+window, the way every other choreographed scene on this page works.
+
+**Silhouette.** A shelled ridge running down the field's centre column with a
+single crack along its spine, widening in three places. **Health is the
+crack's three widened points**; each is sealed shut by a well-timed shot, and
+a ridge with all three sealed splits along the crack instead.
+
+**Mechanic.** Nothing new: an ordinary `Command` shot at a lit point, an
+ordinary shield hold, both read the way the default loop already reads them.
+What makes it choreographed rather than a field boss in a costume is that the
+sim only accepts a shot or a shield at the moment its own step says so — a
+shot at a point that has not lit does nothing, the way a step outside its
+window never does on any boss on this page (`SequentialAction`).
+
+**Player 1 and Player 2.** Identical screens: the whole ridge, the lit point,
+whichever control the current step wants drawn with its cue word. Which seat
+acts is the cannon's own colour rule already in the game — nothing new is
+being split, which is the point: this concept's entire claim is that the
+standard controls, timed by a script, are already legible enough.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — learning the crack** ||||||
+| 1 | The ridge rises into frame, crack dark along its spine | — | — | — | — | — |
+| 2 | The crack's first point lights red | red cannon's seat | fire it (standard control, `FIRE`) | 3 beats, seen | point seals, seam dims there | point stays lit, ordinary hull hit |
+| 3 | The seam widens along its whole length, a spray of grit thrown at the hull | both seats | raise the shield (standard control, `SHIELD`) | 2 beats, seen | grit blocked | ordinary hull hit |
+| 4 | Second point lights cyan | cyan cannon's seat | fire it (`FIRE`) | 3 beats, seen | point seals | ordinary hull hit |
+| **Movement 2 — both colours, closer together** ||||||
+| 5 | Two points light at once, red then cyan a beat apart | both cannons in turn | fire each in its own colour (`FIRE`) | 3 beats each, seen | both seal | whichever is missed stays lit |
+| 6 | The seam widens again, longer spray | both seats | shield (`SHIELD`) | 2 beats, seen | blocked | ordinary hit |
+| 7 | A hazard rock spits from the crack itself | whoever's colour it carries | fire it (`FIRE`) | 2 beats, seen | destroyed | ordinary hit |
+| **Movement 3 — the last point, and both controls in the same beat** ||||||
+| 8 | The last point lights white — either colour answers it, the one point on the ridge that is not colour-gated | either seat | fire it (`FIRE`) | 3 beats, seen | point seals | stays lit |
+| 9 | The whole ridge shudders, throwing grit **and** a hazard rock in the same beat | one seat shields while the other fires | shield and fire, together (`SHIELD` / `FIRE`) | 3 beats, seen | both answered | whichever is missed lands as an ordinary hit |
+| 10 | The sealed ridge splits down its own crack | — | — | — | — | — |
+
+**THE SLOW** opens on every fire and shield window (rows 2–9) — the
+ordinary controls, at ordinary tempo, are the whole of what THE INSTAR's
+brief asked to be rid of for one boss; here they are kept and simply given
+the room a choreographed step already gives every other gesture.
+
+**Presentation.** No camera. Each sealed point is a hull-shock click; the
+widening seam's grit is an ordinary deflected-hit spark, nothing new drawn.
+
+**Animation.** Four poses: dark crack; one point sealed; two points sealed;
+split open. No morph — the ridge does not move between poses, since its whole
+claim is that the *standard* loop is already expressive enough without one.
+
+**Colour.** The ridge itself shell-grey; each point lit in the cannon colour
+that answers it, the game's existing rule, spent rather than reinvented.
+
+**Payoff.** Row 9 — the one beat on this page that asks both standard
+controls of both seats inside a single window, which no ordinary wave does.
+
+**Cost. Very low.** Nothing new: a `BossSequenceStep` list gating the
+existing shot and shield commands. The whole of the design is which beat asks
+for which of the two things the pair already knows how to do.
+
+**Reusable.** A choreographed scene built entirely out of gated standard
+controls — worth pointing at whenever the brief's *"standard controls for a
+specific sequence"* line comes up again, since this is the cheapest possible
+answer to it.
+
+### §27 THE OCULUS — shutting an eye together, then answering what was behind it
+
+**Question.** `SimultaneousAction` (two commands inside one shared window) is
+shipped machinery nothing on this page has spent on a *hold* rather than a
+release — every simultaneous beat so far (THE BELLOWS's retired exchange, THE
+GIMBAL's alignment) asks for two things to land at once. This asks two seats
+to **keep** holding at once, for as long as the boss can still reopen what
+they are holding shut — the tension is sustained rather than a single instant.
+
+**Silhouette.** A great lens standing over mid-field, six leaves closed like
+an iris across its face. **Health is the six leaves**, shut two at a time,
+plus a single core exposed once all six are shut; the core takes three hits,
+and a spent core lets the lens shatter.
+
+**Mechanic.** Two hold targets, `oculusLeafLeft` and `oculusLeafRight`, one
+per screen-half the way THE MANTLE's handles work. Holding both closes one
+pair of leaves for as long as both holds are live; letting go before the
+window's beat count reopens that pair only, never the whole lens. Once six
+leaves are shut, the lens's core socket opens and the scene switches to the
+ordinary shot the way THE SEAM's does — a `SceneBreak`, named here for the
+first time on this page rather than left as an unlabelled long `landBeats`.
+
+**Player 1 and Player 2.** Identical screens: the lens, both leaf-holds, the
+core once it is exposed. Player 1 always holds the left leaf, Player 2 the
+right — the same fixed-by-geometry rule as THE MANTLE, so nothing about who
+holds which is ever said aloud.
+
+**The beat list.**
+
+| # | Picture | Seat | Gesture | Window | Landed | Missed |
+|---|---|---|---|---|---|---|
+| **Movement 1 — shutting the eye** ||||||
+| 1 | The lens opens into frame, all six leaves apart | — | — | — | — | — |
+| 2 | The first pair of leaves lights | P1+P2 | hold both leaves together (`HOLD`) | 4 beats, held | first pair shuts and locks | either hold breaks, leaves reopen, retry |
+| 3 | Second pair lights | P1+P2 | hold together (`HOLD`) | 4 beats, held | second pair shuts | same |
+| 4 | Third pair lights | P1+P2 | hold together (`HOLD`) | 4 beats, held | third pair shuts, lens fully closed | same |
+| **Movement 2 — the socket, and the standard controls** ||||||
+| 5 | The shut lens's centre socket cracks open, a bare core inside | — | — | — | — | — |
+| 6 | The core flashes a colour | that cannon's seat | fire it (standard control, `FIRE`) | 3 beats, seen | first core hit lands | ordinary hull hit |
+| 7 | Two leaves crack apart again, threatening to swallow the socket shut | P1+P2 | hold both to reseal them (`HOLD`) | 3 beats, held | leaves reseal, socket stays open | socket closes early, movement's fire beats are lost until it reopens |
+| 8 | The core flashes again, other colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | second core hit | ordinary hull hit |
+| **Movement 3 — the last hit, held through** ||||||
+| 9 | Two more leaves crack apart, longer window | P1+P2 | hold to reseal (`HOLD`) | 4 beats, held | reseal holds | socket closes, retry |
+| 10 | The core flashes white — either colour answers it | either seat | fire it (`FIRE`) | 3 beats, seen | third hit lands, core spent | stays lit |
+| 11 | Every leaf springs open at once and the lens shatters | — | — | — | — | — |
+
+**THE SLOW** opens on every hold window (rows 2–4, 7, 9) and every fire
+window (rows 6, 8, 10) — a sustained hold is exactly the kind of window the
+owner's 22 September rule already argues needs more seconds than beats, since
+most of it is the pair confirming out loud that both thumbs are actually down.
+
+**Presentation.** No camera. Each shut pair of leaves is a soft hull-shock
+thud; a resealed pair mid-socket is the same, quieter; each core hit is an
+ordinary shot's flash.
+
+**Animation.** Five poses: open; two leaves shut; four shut; all six shut
+with the socket cracking; shattered. The leaves close as a real iris does —
+each pair sliding across the face rather than fading out — which is the one
+place on this page a body's motion is drawn as mechanism rather than as flesh.
+
+**Colour.** The lens rim shell-grey, the leaves themselves a dull glass tone;
+the core is the only lit colour on the body, and it is lit in whichever
+cannon colour a given beat wants, the same rule THE SEAM spends.
+
+**Payoff.** Row 7 — the one beat on this page where a `HOLD` is asked for
+*defensively*, to protect a `FIRE` step already under way rather than to
+progress the fight on its own.
+
+**Cost. Low–medium.** Two hold targets (shipped kind), one `SceneBreak`
+(named for the first time, costing only the label — the machinery already
+exists as an authored long `landBeats`), and the ordinary shot command gated
+by step the way THE SEAM already gates it.
+
+**Reusable.** A *held-open* `SimultaneousAction` rather than a released one,
+and `SceneBreak` itself, finally named rather than left as an anonymous
+long window.
 
 ---
 
