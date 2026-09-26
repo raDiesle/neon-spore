@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 50da59b1 — Links on the director's sheets are cyan, not the browser's dark blue
+
+The browser's default link colour was near-invisible on the director's black, and the RESEARCH tab is mostly links out to videos and store pages. A fix to something wrong rather than unlovely; the director is a tool, not a frame of the game.
+
 ## 2026-09-26 · 418ed2bed — THE INSTAR's lash sweeps along the hull, and the thumbs follow it
 
 On the first lash the forked tail no longer stands over two fixed points: both blades travel 110 thousandths leftward as the window runs, the fork carried with them, and each seat's twenty taps have to chase its own blade. Player 2's blade stops short of the seam, so where a mark is still says whose it is. The mixed lash stays still, because a wound blade turns about a fixed place.
