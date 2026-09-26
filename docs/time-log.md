@@ -24211,6 +24211,18 @@ had put on hold.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-26 — THE TRIVET's own blow at the hull
+
+- reading: 5 min. `trivet-step.ts`'s `miss`, `trivet-shape.ts`'s legs and plates.
+- writing: 10 min. The middle needle cocked and driven on out of its foot,
+  and the stand's footprint stamped into the skin.
+- looking: 10 min. Frames forced at the first fire step; the footprint was
+  dark on dark and got a pale rim.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — the footprint needed a second pass to read under the crack's flash.
+
 ## 2026-09-26 — THE RIME's own blow at the hull
 
 - reading: 5 min. `rime-step.ts`'s `miss`, `rime-shape.ts`'s lens and sheets.

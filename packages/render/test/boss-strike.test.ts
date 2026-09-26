@@ -82,7 +82,7 @@ describe("a boss's blow at the hull", () => {
     const c = ctx as unknown as CanvasRenderingContext2D;
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
-      ...["ratchet", "valve", "vise", "rime"],
+      ...["ratchet", "valve", "vise", "rime", "trivet"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();

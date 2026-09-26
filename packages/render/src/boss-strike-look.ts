@@ -20,6 +20,8 @@ import { seamCentre, seamHalfHeight } from "./seam-shape.js";
 import { spoolHome } from "./spool-shape.js";
 import { stareBlow } from "./stare-blow.js";
 import { stareEye } from "./stare-shape.js";
+import { trivetBlow } from "./trivet-blow.js";
+import { trivetCentre, trivetFoot } from "./trivet-shape.js";
 import { valveBlow } from "./valve-blow.js";
 import { valveCentre } from "./valve-shape.js";
 import { viseBlow } from "./vise-blow.js";
@@ -90,6 +92,13 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
     const e = stareEye(l, cfg);
     return { x: e.cx, y: e.cy };
   },
+  // The middle foot, the one never lifted, where the needle drives on from
+  // (`trivet-blow.ts`).
+  trivet: (l, cfg) => {
+    const c = trivetCentre(l, cfg);
+    const f = trivetFoot(l, 2, 0, 0);
+    return { x: c.x + f.x, y: c.y + f.y };
+  },
   // The split at the case's heavy end, where it spits its seed (`vise-blow.ts`).
   vise: (l, cfg) => {
     const c = viseCentre(l, cfg);
@@ -120,6 +129,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   stare: stareBlow,
   // A core left unshot: the lens drops a frosted sheet that bursts and frosts the skin.
   rime: rimeBlow,
+  // A hub left unshot: the middle needle stamps the stand's footprint into the skin.
+  trivet: trivetBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
