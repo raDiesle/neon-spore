@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 2c4906bcf — Mark §28 THE VISE done
+
+## 2026-09-26 · 54ba8085c — THE VISE's bite and spit are drawn
+
+The bite clamps the case in and lunges it toward the hull, with a white bar lit on the hull under the middle where the shield goes and SHIELD beside it. The spit throws a small seed out of the kernel to hang over its column in its colour, with a dotted sight down to the hull and FIRE under it. Both ease back out over the rest after, the same on both screens.
+
 ## 2026-09-26 · 098d11fad — THE MANTLE's spark is a state on the sheet, not a phase nothing entered
 
 `MANTLE_PHASES` listed "spark" and the step never set it: a leak sets `sparkCol` and the phase stays `pull`, so every `phase === "spark"` in render was dead code. The name leaves the phase table for a second axis, `MANTLE_SEAMS`, the way SNAKE's grips sit beside its phases, so the STATES sheet keeps its spark card. AUTO's run to dark now proves it enters every phase the table names. Nothing drawn changes.

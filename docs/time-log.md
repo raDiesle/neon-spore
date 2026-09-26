@@ -24507,3 +24507,5 @@ Bottleneck: friction — two landings racing on the same status paragraphs and t
 - landing: 5 min. `check:fast`, the commit, `land`, `push`.
 
 Bottleneck: writing — the seed had to be carried from the kernel's frame out to its column.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
