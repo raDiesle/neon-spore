@@ -9,13 +9,13 @@
          unreachable on a real phone. -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Neon Spore — Director</title>
-    <!-- One sheet, in eighteen files, imported in order by `src/director.css`.
+    <!-- One sheet, in twenty files, imported in order by `src/director.css`.
          Cutting the <style> block out of this page and letting Biome format it
          left 2 985 lines in one file, twelve times the ceiling every other
          file here keeps; the sheet's own section comments already fell on the
          page's seams, so those are the seams.
 
-         The order lives in that one file rather than as eighteen links here
+         The order lives in that one file rather than as twenty links here
          because a split stylesheet is still one cascade and the dev route
          rewrites a page's links in reverse — `director.css` says so at length.
          Add a new sheet to its list, where its rules already sit. -->
@@ -409,12 +409,15 @@
             itself — no name of its own until now, read out of
             `packages/render/src/touch.ts`. TRIED AND SET ASIDE is what was
             played this way before and was asked to be kept rather than
-            deleted. See `docs/spec/controls.md`.
+            deleted. GESTURES is what all of it can be built from: every
+            gesture and browser event a phone offers, drawn, and where each
+            stands. See `docs/spec/controls.md`.
           </p>
           <div id="controlsInnerTabs" class="ctltabs">
             <button type="button" data-tab="panels" class="on">PANELS</button>
             <button type="button" data-tab="field">ON THE FIELD</button>
             <button type="button" data-tab="tried">TRIED AND SET ASIDE</button>
+            <button type="button" data-tab="gestures">GESTURES</button>
           </div>
           <div class="ctlpage on" id="ctl-panels">
             <div id="controlSetsBody"></div>
@@ -440,6 +443,17 @@
               the spec; this only names it and says where to look.
             </p>
             <div id="controlsTriedBody"></div>
+          </div>
+          <div class="ctlpage" id="ctl-gestures">
+            <p class="note">
+              What the rest can be built from: every gesture a phone can make,
+              drawn as the hand on the glass beside the browser events it
+              fires — the ones the game reads, the ones the spec asks for, the
+              ones worth having and the ones left out on purpose, and under
+              them the raw events. The same list in prose is §4 of
+              `docs/spec/transfers-touch.md`.
+            </p>
+            <div id="gesturesBody"></div>
           </div>
         </div>
         <div class="sheetpage" id="mech-style">

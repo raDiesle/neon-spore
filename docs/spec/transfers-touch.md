@@ -581,6 +581,10 @@ The verdict column is [the filter](transfers.md#the-filter).
 
 ## 4. Every input a phone browser can read
 
+Drawn, one card a gesture with the events it fires, in the director:
+DOCUMENTATION › CONTROLS › GESTURES (`tools/director/src/gesture-*.ts`). A
+gesture added to either place is added to both.
+
 ### 4.1 What the platform offers
 
 As of September 2026. iOS means Safari, including the home-screen app.

@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-26 — CONTROLS › GESTURES: every gesture and phone event, drawn
+
+- reading: 15 min. §4 of `transfers-touch.md`, the CONTROLS inner tabs, which
+  file of `apps/game` listens for which event.
+- writing: 70 min. Thirty-three gestures in four states, the eighteen raw
+  events, a phone-and-timeline figure laid out as numbers, the page, a test.
+- looking: 20 min. A full-page shot of the tab: a wrong stamp on the
+  WORTH CONSIDERING cards and ragged event tables, both fixed.
+- friction: 15 min. An import cycle between figure and phone; `shot --tab`
+  opens NOT BUILT YET rather than a DOCUMENTATION tab; no PIL to crop with.
+- landing: 10 min. Lint's formatting, a file split at the line limit,
+  `check:fast`, the commit, `land`.
+
+Bottleneck: fitting words into a 320×170 figure — five labels overran their
+frame and were found by the bounds test rather than by eye.
+
 ## 2026-09-26 — A RESEARCH tab: other games' touch fights, co-op, and the inputs a phone offers
 
 - reading: 25 min. The filter in `transfers.md`, the primitive library in

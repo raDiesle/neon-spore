@@ -1,7 +1,7 @@
 /**
- * The director's one stylesheet, in eighteen files, in this order.
+ * The director's one stylesheet, in twenty files, in this order.
  *
- * `index.html` used to link the eighteen directly, and the order of the links
+ * `index.html` used to link the twenty directly, and the order of the links
  * was the cascade: `director-phone.css` came last so that its
  * `@media (max-width: 700px)` block, tying on specificity with the column
  * rules above it, won by coming after them. Bun 1.4's HTML dev route rewrites
@@ -35,6 +35,7 @@
 @import "./director-boss.css";
 @import "./director-rounds.css";
 @import "./director-controls.css";
+@import "./director-gestures.css";
 @import "./director-styleguide.css";
 @import "./director-wordings.css";
 @import "./director-phone.css";

@@ -1,0 +1,172 @@
+/* CONTROLS › GESTURES (`gestures-page.ts`): a card per gesture, the hand on
+   the phone beside the events it fires, grouped by where it stands; then the
+   raw events as tables. */
+
+.gesture-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0 0 14px;
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+.gesture-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.gesture-legend .ev {
+  font-family: var(--mono);
+}
+.gesture-legend .ev-note {
+  flex-basis: 100%;
+}
+.gesture-legend i.mark {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.gesture-legend i.dot {
+  background: var(--gold);
+}
+.gesture-legend i.ring {
+  background: var(--gold);
+  box-shadow:
+    0 0 0 2px var(--bg),
+    0 0 0 3px var(--gold);
+}
+.gesture-legend i.arrow {
+  border-radius: 0;
+  height: 3px;
+  background: var(--cyan);
+}
+.gesture-legend i.blob {
+  background: #1a1436;
+  border: 1px dashed var(--gold);
+}
+.gesture-legend i.zone {
+  border-radius: 0;
+  background: rgba(255, 84, 112, 0.2);
+  border: 1px dashed var(--red);
+}
+
+.gesture-group h2 {
+  margin: 22px 0 2px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+.gesture-group.state-built h2 {
+  color: var(--green);
+}
+.gesture-group.state-specd h2 {
+  color: var(--cyan);
+}
+.gesture-group.state-consider h2 {
+  color: var(--gold);
+}
+.gesture-group.state-missed h2 {
+  color: var(--red);
+}
+.gesture-group .sub {
+  margin: 0 0 10px;
+  color: var(--dim);
+  font-size: 0.8rem;
+}
+
+.gesture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+.gesture-card {
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  border-radius: 6px;
+}
+.gesture-card.state-built {
+  border-left-color: var(--green);
+}
+.gesture-card.state-specd {
+  border-left-color: var(--cyan);
+}
+.gesture-card.state-consider {
+  border-left-color: var(--gold);
+}
+.gesture-card.state-missed {
+  border-left-color: var(--red);
+}
+.gesture-card h3 {
+  margin: 0 0 6px;
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.gesture-card h3 .stamp {
+  margin-left: 8px;
+  color: var(--dim);
+  font-size: 0.7rem;
+}
+svg.gesture-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--mono);
+  background: #0a0719;
+  border-radius: 4px;
+}
+.gesture-card dl {
+  margin: 8px 0 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 3px 10px;
+  font-size: 0.8rem;
+}
+.gesture-card dt {
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+.gesture-card dd {
+  margin: 0;
+  color: var(--dim);
+}
+
+.gesture-events h4 {
+  margin: 14px 0 4px;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.gesture-events td.ev-name {
+  font-family: var(--mono);
+}
+.gesture-events td.used {
+  color: var(--green);
+}
+.gesture-events td.unused {
+  color: var(--dim);
+}
+/* One grid for every family's table, so the columns line up down the page. */
+.gesture-events table {
+  width: 100%;
+  table-layout: fixed;
+}
+.gesture-events th:nth-child(1) {
+  width: 17%;
+}
+.gesture-events th:nth-child(2) {
+  width: 35%;
+}
+.gesture-events th:nth-child(3),
+.gesture-events th:nth-child(4) {
+  width: 14%;
+}
+.gesture-events td {
+  overflow-wrap: anywhere;
+}

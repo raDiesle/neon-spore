@@ -2539,6 +2539,18 @@ by hand never moves.
 | `tools/director/src/grid-reprise.ts` | **Where THE REPRISE's dark falls, on the map**: a line under the row each stretch is sent again after, with its count and rows |
 | `tools/director/src/grid-follow.ts` | The map follows the beat that is playing, keeping the next few rows on screen too, in steps rather than by the beat — and stands aside as soon as a hand scrolls |
 | `tools/director/src/grid-metrics.ts` | The map's own arithmetic: the width of a cell, of the beat numbers, of the strip of row buttons, and what the nine tracks add up to |
+| `tools/director/src/gesture-built-moves.ts` | The gestures the game reads today, second half: everything where the finger — or the phone — **moves** |
+| `tools/director/src/gesture-built.ts` | The gestures the game reads today, first half: everything a finger does **without travelling** — a press |
+| `tools/director/src/gesture-catalogue.ts` | Every gesture on CONTROLS › GESTURES, in the order the page shows them: built, specified, worth considering, stay missed |
+| `tools/director/src/gesture-events.ts` | The raw events a phone browser hands a page, what an iPhone and an Android do with each, and which file of the game listens |
+| `tools/director/src/gesture-figure.ts` | The picture on a GESTURES card, as a list of primitives with absolute coordinates |
+| `tools/director/src/gesture-marks.ts` | The hand on a GESTURES card's phone: a touch, a hold, a path, an arc, a rub, a body being squeezed |
+| `tools/director/src/gesture-missed.ts` | What the game does not read, **on purpose** — each with the reason, which is the point of drawing it |
+| `tools/director/src/gesture-phone.ts` | The left half of a GESTURES card: a phone in portrait |
+| `tools/director/src/gesture-prims.ts` | What a GESTURES figure is drawn in: the viewBox, the primitives and the director's own colours as literals |
+| `tools/director/src/gesture-types.ts` | What a card on CONTROLS › GESTURES is made of: a gesture, where it stands |
+| `tools/director/src/gesture-unbuilt.ts` | What the game does not read yet: three the spec already asks for by name, and eight worth having |
+| `tools/director/src/gestures-page.ts` | GESTURES — the fourth inner tab of CONTROLS: every gesture a phone can make that this game reads, could read |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
