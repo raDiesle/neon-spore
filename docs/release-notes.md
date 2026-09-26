@@ -25,6 +25,22 @@ A look the owner asked for by name, 26 September 2026 — depth and liveliness a
 
 THE LEECH's three strings are gone. Its guide is now THE LIMPET's rehearsal on the other half of the ship: the leech grips the cannon, player 2 calls MOVE CANNON, player 1 walks it to a new column every beat, and then the thumb stops and the round is lost to the still beats. `test/scene-leech.test.ts` holds the grip, the loss, and that the loss follows the last move by the harpoon's still beats.
 
+## 2026-09-26 · c02fea26 — Blank the baseline row for wave 102 THE MANTLE
+
+bun run baseline:blank, as CLAUDE.md's performance rule asks for any wave with no measured row rather than leaving check red on it.
+
+## 2026-09-26 · de20d202 — Fix THE MANTLE's openSlow call for the three-argument SlowKind signature
+
+Rebasing onto main picked up the new SlowKind argument on openSlow; the shear's window is a moment to be seen rather than one that waits on a player, the same "show" THE GIMBAL's own shear window already uses.
+
+## 2026-09-26 · 8c03a3ad — Add THE MANTLE's simulation lane: a floor-checked pull on two handles
+
+A hinged shell over a bare core, pried open by two handles pulled down together — the summed depth of both must clear a per-handle floor and a per-movement threshold at once, or neither counts, answering whether a number shown identically on both screens still needs two hands (docs/spec/bosses-choreographed.md §23). Four plate-pairs as the health, a spark leaking between the second and third shears, and an alternating single-tap finish on the bared core once it splits.
+
+## 2026-09-26 · 726ac810 — Spec five more choreographed bosses, both screens reading the same picture
+
+DavidDe asked for more of what THE INSTAR is: easy to follow, no tutorial needed, at least ten steps each with a required action and THE SLOW, heavy on the boss's own body but with the standard controls allowed back in for a specific sequence such as firing — and, new against the two earlier briefs, both screens showing the same thing at the same time rather than splitting information between seats.
+
 ## 2026-09-26 · fc9524dfb — THE LIMPET's guide is a film: the shield walked a column a beat, lost when it parks
 
 THE LIMPET's three strings are gone. Its guide is now a rehearsal: the limpet grips the shield, player 1 calls MOVE SHIELD, player 2 walks it to a new column every beat, and then the thumb stops and the round is lost to the still beats. Both are the simulation's own events (`clingGrip`, then `waveFailed`), and `test/scene-limpet.test.ts` holds that the loss follows the last move by the harpoon's still beats. A meteor due after the loop keeps the field from counting as cleared.
