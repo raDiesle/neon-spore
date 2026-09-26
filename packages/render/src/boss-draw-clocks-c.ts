@@ -203,10 +203,11 @@ export function drawPairBoss(
   // THE TRIVET: a three-legged stand splayed over the middle of the field,
   // each outer foot swung down by one seat's chord and the hub, once both are
   // planted, shot. Both screens are drawn the same — the other seat has to see
-  // which foot is lit to say so (`trivet-draw.ts`). Nothing of it outlives a
-  // frame yet: its hands and effects are the second half of its look.
+  // which foot is lit to say so (`trivet-draw.ts`). What outlives a frame —
+  // a plant's thud, a clamp's flare, the hub's flash, the hull's shudder — is
+  // `effects.boss.trivet` (`trivet-fx.ts`).
   if (boss.kind === "trivet") {
-    drawTrivet(ctx, l, world, boss, beat, beatPhase, time);
+    drawTrivet(ctx, l, world, boss, beat, beatPhase, time, effects.boss.trivet);
     return;
   }
 

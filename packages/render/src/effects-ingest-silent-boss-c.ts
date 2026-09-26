@@ -211,7 +211,7 @@ export const INGEST_SILENT_BOSS_C = [
   "rimeMiss",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's thirteen, for the same reason (`packages/audio/src/bind-trivet.ts`).
+  // THE TRIVET's thirteen: what outlives a frame is `trivet-fx.ts`', read above the loop.
   "trivetEnter",
   "trivetLight",
   "trivetSlip",

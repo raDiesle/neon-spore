@@ -73,6 +73,9 @@ export function drawOnShip(
   // And THE VISE's: each seam cracking is a dry thud through the plating
   // (`vise-fx.ts`, §28).
   held.effects.boss.vise.drawShock(ctx, l, surfaceY, view.time);
+  // And THE TRIVET's: each foot driven home is a thud through the plating,
+  // the collapse a harder one (`trivet-fx.ts`, §30).
+  held.effects.boss.trivet.drawShock(ctx, l, surfaceY, view.time);
   // And any boss's own blow when a window ran out, instead of a rock nobody
   // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
   held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);

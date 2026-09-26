@@ -167,7 +167,8 @@ export const SILENT_BOSS_C = [
   "rimeMiss",
   "rimeShatter",
   "rimeOut",
-  // THE TRIVET's thirteen, the same (`packages/audio/src/bind-trivet.ts`).
+  // THE TRIVET's thirteen, no burst from this table: each is thrown above the
+  // loop by its own fx file (`trivet-fx.ts`).
   "trivetEnter",
   "trivetLight",
   "trivetSlip",

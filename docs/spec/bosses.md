@@ -8952,10 +8952,15 @@ cue says two words** (26 September 2026): `HOLD` on each foot a lit chord
 asks for, on the foot as its leg has it swung, gone once every lit pad is
 down and back if one lifts, and `FIRE` under the middle column while the
 hub is lit — never how many fingers, which the lit sockets say
-(`render/boss-cue-read-zg.ts`). The receipts are queued — the render
-package's silent-event lists and
-`tools/director/src/sound-link-none-d.ts` carry all twelve of its events
-until then. The twelve sounds *are* bound
+(`render/boss-cue-read-zh.ts`). **The receipts are drawn** (26 September
+2026): a plant presses the stand down a touch and thuds through the
+plating, the clamp flares along an ankle on the plant that locks it, a hub
+hit flashes white over the face — a thin flare the first time, past its rim
+by the third — and bursts in the hub's colour, and the collapse flashes the
+hub pale and shudders the hull harder; a plant and a hit each deal the blow
+every boss takes, since the plants and the hits are its health together
+(`render/trivet-fx.ts`). A missed hub is left to the middle needle's stamp
+at the hull. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up
 per level and the hit per hit. **AUTO has a hand for it** (26 September
 2026): each seat puts down exactly the pads its lit step lights, one drag a

@@ -187,6 +187,21 @@ export const HURT_ROWS_B: Row[] = [
     ],
     hurt: (fx) => fx.boss.vise.hurt,
   },
+  {
+    boss: "trivet",
+    // A foot planted, and the hub hit; a spring or a rock only asks again.
+    land: [
+      { type: "trivetPlant", side: 0, level: 1, col: 3 },
+      { type: "trivetHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "trivetLight", ask: "front", col: 3 },
+      { type: "trivetSlip", side: 0, col: 3 },
+      { type: "trivetSpring", side: 1, col: 3 },
+      { type: "trivetRock", col: 3 },
+    ],
+    hurt: (fx) => fx.boss.trivet.hurt,
+  },
 ];
 
 /** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */

@@ -24642,3 +24642,17 @@ Bottleneck: landing — the full suite for one page of reading.
 Bottleneck: writing — the rig's `answer` had to learn the two new asks before any step past them could be reached in a test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's receipts drawn (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 10 min. `vise-fx.ts` and the commit that wired it, the TRIVET's
+  twelve events, its drawer and marks.
+- writing: 20 min. `trivet-fx.ts`, its wiring in the roster, the ingest, the
+  hull shock and the drawer, the flash in the marks, the hurt row and
+  `trivet-fx.test.ts`, the status lines.
+- looking: 0 min. Not photographed from a cloud session.
+- friction: 10 min. The previous landing's rebase: THE RIME had taken cue
+  page `zg` and seed 140 in the meantime.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: friction — two sessions writing the next reading page at once, found only at the rebase.

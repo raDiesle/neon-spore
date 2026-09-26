@@ -2497,7 +2497,7 @@ on ON THE FIELD. **AUTO's hand landed the same day** (`hands/boss-hands-trivet.t
 and **THE SLOW's aim** after it: the light stands round the hub, as wide as
 the feet reach (`render/slow-boss-aim.ts`, `trivetReach`), and **the
 cue's words**: HOLD on each foot a lit chord asks for until it is down, FIRE
-under the middle column while the hub is lit (`render/boss-cue-read-zg.ts`).
+under the middle column while the hub is lit (`render/boss-cue-read-zh.ts`).
 What is left is one lane, **the fx**, in
 `Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
 hub's hit flash and the collapse, the twelve `trivet*` events off the two

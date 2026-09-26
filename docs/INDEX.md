@@ -1922,6 +1922,7 @@ by hand never moves.
 | `packages/render/src/trivet-shape.ts` | **THE TRIVET's geometry**: where the stand is, and the paths it is made of |
 | `packages/render/src/trivet-grip.ts` | **The pads on THE TRIVET** — each seat's zone, where its foot stands this frame, and the press that takes a chord finger |
 | `packages/render/src/trivet-blow.ts` | THE TRIVET's own blow at the hull: the middle needle stamps the stand's footprint into the skin |
+| `packages/render/src/trivet-fx.ts` | What THE TRIVET leaves behind a frame (§30, *Presentation*): the **thud** of a foot driven home |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/dark-field.ts` | **THE DARK, as a screen sees it**: the field above the ship put out |
