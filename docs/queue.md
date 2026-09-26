@@ -471,7 +471,6 @@ into the roster. `bun run check` proves it.
 ## §24 THE KEEL — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-24-the-keel-its-hands-the-second-half-of-its-loo)
 - **Needs:** §24 THE KEEL — the look, half one (the body), landed first
 - **Files:** `packages/render/src/keel-marks.ts`, `packages/render/src/keel-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `apps/game/src/`
 
