@@ -2388,6 +2388,7 @@ has looked.
 ## §31 THE PLUMB — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-look
+- **Taken:** 2026-09-26, main (claim: claude/queue-31-the-plumb-its-hands-the-second-half-of-its-lo)
 - **Needs:** §31 THE PLUMB — the look, half one (the body), landed first
 - **Files:** `packages/render/src/plumb-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/hands/src/`
 
