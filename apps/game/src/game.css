@@ -19,6 +19,12 @@ body {
      front of it. */
   overscroll-behavior: none;
   user-select: none;
+  /* Safari keeps its own spelling of the line above, and a finger held on the
+     field — which several bosses ask for — raises the copy/share callout over
+     it unless it is refused outright. Both reach every element under the body,
+     so the whole page is covered; the pinch is refused in `no-pinch.ts`. */
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 /* The rectangle actually showing.

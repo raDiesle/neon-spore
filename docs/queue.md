@@ -431,22 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## A long press on the field can open the iOS callout and a pinch can zoom the page
-
-- **Found:** 2026-09-26, claude/laughing-goodall-xscpy0
-- **Taken:** 2026-09-26, claude/queue-shaking-the-phone-never-reaches-the-choir-on-an (claim: claude/queue-a-long-press-on-the-field-can-open-the-ios-callo)
-- **Files:** `apps/game/src/game.css`, `apps/game/index.html`
-
-Safari ignores `user-scalable=no` since iOS 10 and shows the copy/share
-callout on a held finger unless `-webkit-touch-callout: none` is set. Neither
-the stylesheet nor the page sets it, and nothing cancels `gesturestart`, so a
-held press — which several bosses ask for — can raise a sheet over the field,
-and two fingers can zoom it. Add `-webkit-touch-callout: none` and
-`-webkit-user-select: none` next to the existing `touch-action` rules, and a
-`gesturestart` listener that calls `preventDefault` (non-passive). Proof:
-`bun run check`; whether the callout is gone on a real iPhone is unverified
-from a cloud session.
-
 ## The spec calls `MutualRelease` unbuilt; THE SURGE built it
 
 - **Found:** 2026-09-26, claude/laughing-goodall-xscpy0

@@ -22021,3 +22021,13 @@ Bottleneck: reading — the entry named the press that goes down, and a touch
 going down grants no activation, so the lift had to be found instead.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A held finger raises no callout and two fingers zoom nothing on an iPhone
+
+- reading: 5 min. `game.css`'s touch rules, `input.ts`, `main.ts`.
+- writing: 5 min. The two WebKit properties, `no-pinch.ts`, its test.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. Two claims taken by running `queue next` twice.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a second `next` claimed the item after this one.

@@ -1982,6 +1982,7 @@ by hand never moves.
 | `apps/game/src/join-room.ts` | The rules of step 4, THE ROOM: who may shape it, and what each READY circle is doing |
 | `apps/game/src/join-chip.ts` | The corner chip: the network indicator, and the door back into the room screen for a player already in one |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
+| `apps/game/src/no-pinch.ts` | **Two fingers never zoom the page.** Safari has ignored `user-scalable=no` since iOS 10 |
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
 | `apps/game/src/partners.ts` | WHAT A DEVICE REMEMBERS ABOUT THE PEOPLE IT HAS PLAYED WITH, and the rules for changing that list |

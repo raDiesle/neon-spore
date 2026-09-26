@@ -14,6 +14,7 @@ import { interpolationRequested } from "./interpolate.js";
 import { shellWiring } from "./main-shell.js";
 import { openWorld } from "./main-world.js";
 import { menuIdleHz } from "./menu-idle.js";
+import { refusePinch } from "./no-pinch.js";
 import { bindPressLag } from "./press-lag-page.js";
 import { pressQuit } from "./quit.js";
 import { bindRasterBurst, bindRasterClasp } from "./raster.js";
@@ -64,6 +65,9 @@ bindAwake(run);
 // And a tab in the background holds it still, then lets go on the way back
 // (`hidden-hold.ts`).
 bindHiddenHold(run);
+
+// Safari zooms on a pinch whatever the viewport tag says (`no-pinch.ts`).
+refusePinch();
 
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.
