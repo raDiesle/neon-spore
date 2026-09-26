@@ -1,16 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, INSTAR_SCRIPT } from "@neon-spore/content";
-import {
-  createWorld,
-  type InstarState,
-  instarBoss,
-  NO_BEARING,
-  NOT_DONE,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { INSTAR_SCRIPT } from "@neon-spore/content";
+import { step } from "@neon-spore/sim";
 import { CLUTCH, NEST } from "../src/instar-eggs.js";
 import { InstarFx } from "../src/instar-fx.js";
 import { placed } from "../src/instar-poses.js";
@@ -22,8 +12,8 @@ import {
   installCanvasGlobals,
   runFrames,
   VIEWPORT,
-  waveWith,
 } from "./frame-harness.js";
+import { acting, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -58,7 +48,7 @@ describe("THE INSTAR's nests", () => {
 
   it("bursts a tapped egg where it lies rather than dropping it", () => {
     const world = hung();
-    const s = acting(world);
+    const s = acting(world, EGGS_STEP);
     const tap = INSTAR_SCRIPT[EGGS_STEP]?.marks.findIndex(tapped) ?? -1;
     expect(tap).toBeGreaterThanOrEqual(0);
     const fx = new InstarFx();
@@ -108,7 +98,7 @@ describe("THE INSTAR's nests", () => {
   it("draws the falling egg on the field", () => {
     const bile = (drop: boolean): number => {
       const world = hung();
-      acting(world);
+      acting(world, EGGS_STEP);
       const log: string[] = [];
       runFrames(world, "p2", 9, {
         every: 3,
@@ -125,26 +115,3 @@ describe("THE INSTAR's nests", () => {
     expect(bile(true)).toBeGreaterThan(bile(false));
   });
 });
-
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < ticksPerBeat(CFG) * 4; i++) step(world, []);
-  return world;
-}
-
-/** The eggs step with its window open and nothing answered. */
-function acting(world: World): InstarState {
-  const s = instarBoss(world);
-  if (s === null) throw new Error("the instar wave hung no body");
-  s.cursor = EGGS_STEP;
-  s.phase = "act";
-  s.phaseBeat = world.beat;
-  const n = s.steps[EGGS_STEP]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
-  return s;
-}

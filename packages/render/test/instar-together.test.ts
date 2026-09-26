@@ -1,28 +1,15 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   type BossSequenceStep,
-  createWorld,
-  type InstarState,
   instarBoss,
   instarHeld,
-  NO_BEARING,
   NOT_DONE,
-  startWave,
-  step,
-  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import { instarAwaited, instarTogetherLeft } from "../src/instar-together.js";
 import type { TextBox } from "./canvas-stub.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  ROLES,
-  runFrames,
-  waveWith,
-} from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import { acting, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -47,30 +34,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
-
-const TPB = ticksPerBeat(CFG);
-
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  return world;
-}
-
-function acting(world: World, cursor: number): InstarState {
-  const s = instarBoss(world);
-  if (s === null) throw new Error("the instar wave hung no body");
-  s.cursor = cursor;
-  s.phase = "act";
-  s.phaseBeat = world.beat;
-  const n = s.steps[cursor]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
-  return s;
-}
 
 describe("the together window, read", () => {
   it("runs from whole to nothing over the beats a partner is given", () => {

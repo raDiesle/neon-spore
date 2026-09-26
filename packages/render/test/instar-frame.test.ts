@@ -1,16 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, INSTAR_SCRIPT } from "@neon-spore/content";
-import {
-  createWorld,
-  type InstarState,
-  instarBoss,
-  NO_BEARING,
-  NOT_DONE,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { INSTAR_SCRIPT } from "@neon-spore/content";
+import { type InstarState, step, type World } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -22,8 +12,8 @@ import {
   ROLES,
   runFrames,
   VIEWPORT,
-  waveWith,
 } from "./frame-harness.js";
+import { acting, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -49,37 +39,7 @@ beforeAll(() => {
   for (const role of ROLES) drawn(hung(), role, 3);
 });
 
-const TPB = ticksPerBeat(CFG);
 const L = computeLayout(VIEWPORT, CFG, "test");
-
-/** A world with the body in, a few beats along so a `phaseBeat` set in the past is one the world has seen. */
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  return world;
-}
-
-function body(world: World): InstarState {
-  const s = instarBoss(world);
-  if (s === null) throw new Error("the instar wave hung no body");
-  return s;
-}
-
-/** Step `cursor` with its marks up, the window just opened, nothing answered. */
-function acting(world: World, cursor = 0): InstarState {
-  const s = body(world);
-  s.cursor = cursor;
-  s.phase = "act";
-  s.phaseBeat = world.beat;
-  const n = s.steps[cursor]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
-  return s;
-}
 
 /** Step `cursor` halfway through its morph. */
 function morphing(world: World, cursor = 0): InstarState {

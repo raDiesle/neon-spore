@@ -1,5 +1,6 @@
 import { buildBoss, buildQueue, controlSetForWave } from "@neon-spore/content";
 import {
+  type BossSequenceStep,
   createWorld,
   type InstarState,
   instarBoss,
@@ -15,8 +16,9 @@ import { CFG, waveWith } from "./frame-harness.js";
 
 /**
  * **THE INSTAR stood up for a test**: the wave's body hung, a step's marks
- * put up untouched, and the field a thumb on one screen sees. Several tests
- * still carry a copy of their own (`docs/queue.md`); a new one takes these.
+ * put up untouched, and the field a thumb on one screen sees. Every INSTAR
+ * render test stands the body up with these; a variant one test needs — the
+ * frame test's `morphing` or `down` — is a local wrapper over `acting`.
  */
 
 export const TPB = ticksPerBeat(CFG);
@@ -30,10 +32,14 @@ export function hung(): World {
   return world;
 }
 
-/** The body acting on a step, its marks up and untouched. */
-export function acting(world: World, cursor: number): InstarState {
+/**
+ * The body acting on a step, its marks up and untouched — or `put` in that
+ * step's place, for a shape of step the shipped script does not have.
+ */
+export function acting(world: World, cursor: number, put?: BossSequenceStep): InstarState {
   const s = instarBoss(world);
   if (s === null) throw new Error("the instar wave hung no body");
+  if (put !== undefined) s.steps[cursor] = put;
   s.cursor = cursor;
   s.phase = "act";
   s.phaseBeat = world.beat;

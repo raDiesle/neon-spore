@@ -22185,3 +22185,14 @@ Bottleneck: naming collisions — two of the two new boss names collided with
 existing content on the first try, and checking against every spec file and
 `packages/sim/src/pod-types.ts` (not just other bosses' own headers) should
 happen before the write-up is drafted, not after.
+
+## 2026-09-26 — THE INSTAR's render tests stand the body up with the one kit
+
+- reading: 5 min. The entry, `instar-kit.ts` and the four copies of `hung`/`acting`.
+- writing: 5 min. `acting` takes `put`, the four copies cut, the imports dropped.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The guard refused biome's unsafe fix; `bun run imports`
+  did it, and one type it could not rule out went back by hand.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — dropping the imports the cut stranded took as long as the cut.

@@ -6,12 +6,8 @@ import {
   DEFAULT_CONFIG,
   type GaugeState,
   type InstarState,
-  instarBoss,
-  NO_BEARING,
-  NOT_DONE,
   startWave,
   step,
-  ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
 import { deskDown, deskDownAll } from "../src/desk-grab.js";
@@ -24,6 +20,7 @@ import { instarSway } from "../src/instar-sway.js";
 import { computeLayout } from "../src/layout.js";
 import { type Field, type Touch, touchMove } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
+import { acting, hung, TPB } from "./instar-kit.js";
 
 /**
  * **The test screen's one mouse picking a seat for itself.**
@@ -46,17 +43,7 @@ import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 const L = computeLayout(VIEWPORT, CFG, "test");
-const TPB = ticksPerBeat(CFG);
 const BOTH = pointerSeats("test", undefined);
-
-/** THE INSTAR's body hung, a few beats of its wave behind it. */
-function hung(): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  return world;
-}
 
 /**
  * The two shapes of step the desk has to answer that the shipped script no
@@ -79,23 +66,6 @@ const TOGETHER: BossSequenceStep = {
   landBeats: 4,
   marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 320, need: 6 }],
 };
-
-/** One pose of the script acting, its marks up and untouched — or `put` in
- * its place, for a shape of step the script does not have. */
-function acting(world: World, cursor: number, put?: BossSequenceStep): InstarState {
-  const s = instarBoss(world);
-  if (s === null) throw new Error("the instar wave hung no body");
-  if (put !== undefined) s.steps[cursor] = put;
-  s.cursor = cursor;
-  s.phase = "act";
-  s.phaseBeat = world.beat;
-  const n = s.steps[cursor]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
-  return s;
-}
 
 /** The field as one seat sees it, standing on this beat of the wave. */
 function instarField(world: World, seat: 1 | 2): Field {

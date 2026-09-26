@@ -721,18 +721,6 @@ thousandths across: the P1 lash box covers P2's ring (`bun run frames . --wave
 look: stand the box above or below its ring when neither side is clear of
 the other ring, and pin it in `packages/render/test/instar-word.test.ts`.
 
-## THE INSTAR's render tests each stand the body up their own way
-
-- **Found:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-the-instars-render-tests-each-stand-the-body-up)
-- **Files:** `packages/render/test/instar-kit.ts`, `packages/render/test/desk-grab.test.ts`, `packages/render/test/instar-eggs.test.ts`, `packages/render/test/instar-frame.test.ts`, `packages/render/test/instar-together.test.ts`
-
-`hung()` and `acting()` are written five times over, near enough the same.
-`instar-kit.ts` now holds the sway test's copy and the sweep test uses it;
-move the other four onto it, keeping any variant a test genuinely needs (the
-desk's `put` step, the frame test's `morphing`/`down`) as a parameter or a
-local wrapper, and `bun run check` proves it.
-
 ## Other bosses' plates are still lifes the same way THE INSTAR's were
 
 - **Found:** 2026-09-26, queue-boss-depth-wobble-beyond-instar
