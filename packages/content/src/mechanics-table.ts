@@ -13,8 +13,7 @@ import { WORN_MECHANICS } from "./mechanics-worn.js";
  * The rows themselves, lifted out of `mechanics.ts` when that file crossed the
  * 250-line limit. What stayed there is the shape of a mechanic and the four
  * questions asked of the set; this is the data, and the half that grows.
- */
-/**
+ *
  * One row per mechanic. `as const satisfies` rather than a type annotation on
  * purpose: `satisfies` still fails the type check when a kind is added to the
  * simulation and not to this table — a guard the retired briefing catalogue
@@ -152,6 +151,7 @@ export const MECHANICS = {
   plumb: BOSS_MECHANICS.plumb,
   sling: BOSS_MECHANICS.sling,
   grindstone: BOSS_MECHANICS.grindstone,
+  cyst: BOSS_MECHANICS.cyst,
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",

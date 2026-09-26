@@ -222,4 +222,20 @@ export const CHOREO_NOTES_C = {
     "yet. Only the simulation lane has landed — see sim/grindstone.ts, " +
     "sim/grindstone-step.ts, sim/grindstone-hand.ts, " +
     "sim/grindstone-shot.ts, sim/config-grindstone.ts.",
+  "THE CYST — the boss one hand stills for the other to crack":
+    "Asked for in docs/spec/bosses-choreographed.md §34: a sac over the " +
+    "middle column whose lit flank shudders until the other seat taps its " +
+    "mark, read as THE VALVE reads its pin, within cystTapBeats. A stilled " +
+    "flank is pinched by its own seat, read as THE VISE reads a lobe: kept " +
+    "under cystShutMilli for the step's beats it cracks, and a pinch that " +
+    "widens starts the count again. The stilled flank is given the beats " +
+    "and cystGraceBeats, then springs wide. The pilot pinches the left and " +
+    "taps the right, the navigator the other way. Both flanks cracked bare " +
+    "the core; a fire step wants a shot in its colour; a flank step on a " +
+    "cracked flank holds it off the core, and one run out reseals the core " +
+    "and is asked again. A fire step run out is a hull hit, which is the " +
+    "wave. THE SLOW holds over a tap and a pinch, never over a shot. " +
+    "Nothing on the phone sends a tap or a pinch yet. Only the simulation " +
+    "lane has landed — see sim/cyst.ts, sim/cyst-step.ts, " +
+    "sim/cyst-hand.ts, sim/cyst-shot.ts, sim/config-cyst.ts.",
 } satisfies Partial<Record<GroupName, string>>;

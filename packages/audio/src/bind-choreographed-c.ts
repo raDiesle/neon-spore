@@ -66,6 +66,7 @@ type LateEvent = Extract<
       | `plumb${string}`
       | `sling${string}`
       | `grindstone${string}`
+      | `cyst${string}`
       | `undertow${string}`;
   }
 >;

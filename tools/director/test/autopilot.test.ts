@@ -31,9 +31,9 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
  * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs, and THE
  * MANTLE and THE KEEL their own (`autopilot-mantle.test.ts`,
  * `autopilot-keel.test.ts`); THE VALVE, THE SEAM, THE OCULUS, THE VISE, THE
- * RIME, THE TRIVET, THE PLUMB, THE SLING and THE GRINDSTONE are here for one
- * reason — only their simulation lanes have landed (`docs/spec/bosses.md`
- * §11.42–§11.50),
+ * RIME, THE TRIVET, THE PLUMB, THE SLING, THE GRINDSTONE and THE CYST are
+ * here for one reason — only their simulation lanes have landed
+ * (`docs/spec/bosses.md` §11.42–§11.51),
  * and an autopilot hand plays a boss against poses that do not exist yet. A
  * new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */
@@ -47,6 +47,7 @@ const NO_HAND = new Set([
   "plumb",
   "sling",
   "grindstone",
+  "cyst",
 ]);
 
 function rig(w: () => World) {

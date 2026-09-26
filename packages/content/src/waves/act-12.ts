@@ -51,6 +51,13 @@ import type { Wave } from "../wave-types.js";
  * (`docs/spec/bosses-choreographed.md` §33, `sim/grindstone.ts`). Both flats
  * clean lock the caliper and light the axle, which is shot in its colour;
  * between the shots both seats clamp at once to keep it locked.
+ *
+ * **THE CYST is the first boss where one seat's tap is the other's cue**:
+ * a sac over the middle column whose lit flank shudders until the partner
+ * taps it still, then is pinched shut by its own seat to crack
+ * (`docs/spec/bosses-choreographed.md` §34, `sim/cyst.ts`). Both flanks
+ * cracked bare the core, which is shot in its colour; between the shots a
+ * cracked flank is stilled and pinched again to hold it off the core.
  */
 export const WAVES_ACT_12: Wave[] = [
   {
@@ -198,6 +205,29 @@ export const WAVES_ACT_12: Wave[] = [
         { ask: "clamp", color: "either", beats: 3 },
         { ask: "fire", color: "cyan", beats: 3 },
         { ask: "clamp", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theCyst",
+    name: "THE CYST",
+    guide: {
+      both: "When a flank shakes, your partner taps it still: pinch it shut to crack it. Both cracked: shoot the core in its colour. Then crack each flank once more.",
+      p1: "1. When the left flank shakes, your partner taps it. Then pinch it shut.\n2. When the right flank shakes, tap its mark so it stops.\n3. Shoot the bare core in its colour.",
+      p2: "1. When the left flank shakes, tap its mark so it stops.\n2. When the right flank shakes, your partner taps it. Then pinch it shut.\n3. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "cyst",
+      steps: [
+        { ask: "left", color: "either", beats: 4 },
+        { ask: "right", color: "either", beats: 4 },
+        { ask: "fire", color: "red", beats: 3 },
+        { ask: "left", color: "either", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 3 },
+        { ask: "right", color: "either", beats: 2 },
         { ask: "fire", color: "either", beats: 3 },
       ],
     },

@@ -62,7 +62,8 @@ type ChoreographedEvent =
           | `trivet${string}`
           | `plumb${string}`
           | `sling${string}`
-          | `grindstone${string}`;
+          | `grindstone${string}`
+          | `cyst${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

@@ -412,6 +412,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   grindFlatRight: "unbuilt",
   grindJawLeft: "unbuilt",
   grindJawRight: "unbuilt",
+  cystFreezeLeft: "unbuilt",
+  cystFreezeRight: "unbuilt",
+  cystFlankLeft: "unbuilt",
+  cystFlankRight: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

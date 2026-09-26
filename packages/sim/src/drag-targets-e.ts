@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, and THE CYST's marks and flanks. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -21,7 +21,11 @@ export type DragTargetE =
   | "grindFlatLeft"
   | "grindFlatRight"
   | "grindJawLeft"
-  | "grindJawRight";
+  | "grindJawRight"
+  | "cystFreezeLeft"
+  | "cystFreezeRight"
+  | "cystFlankLeft"
+  | "cystFlankRight";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -78,4 +82,17 @@ export type DragTargetE =
  * `ChordHold`, one drag a pad, its `id` naming which of `GRINDSTONE_PADS`.
  * Geometry says whose is whose, and the wrong seat's touch does nothing
  * (`grindstone-hand.ts`).
+ */
+
+/**
+ * `cystFreezeLeft`, `cystFreezeRight`, `cystFlankLeft` and `cystFlankRight`
+ * are the eighty-ninth to the ninety-second: THE CYST's two freeze marks and
+ * its two flanks. **Each side's two belong to different seats**: the pilot
+ * pinches the left flank and taps the right mark, the navigator the other way
+ * round, so the hand that stills a flank is always its pincher's partner.
+ *
+ * No new reading. A mark is `valvePin`'s tap: `FreezeTap`, an edge, `on`
+ * down and up. A flank is `viseLobeLeft`'s: `SqueezeGap`, `fromMilli` the
+ * gap between the two touches. The wrong seat's touch does nothing
+ * (`cyst-hand.ts`). `id` is unused.
  */

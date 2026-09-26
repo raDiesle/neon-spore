@@ -8772,6 +8772,128 @@ answered whole spins the wheel free and ends the fight. Whether any of it
 *reads* — whether rubbing a flat under a voice feels like grinding — is the
 owner's eye, after lane two and the touch sender, on two real phones.
 
+## 11.51 THE CYST — the boss one hand stills for the other to crack
+
+> A sac over the middle of the field, two flanks shuddering over a core.
+> When a flank shakes, the other seat taps its mark and it stops dead;
+> while it is still, its own seat pinches it shut until it cracks. Both
+> cracked bare the core: shoot it in its colour, and between the shots
+> still and pinch a cracked flank again to hold it off the core.
+
+Designed as §34 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`, and the
+second on that page with **no gesture of its own**: THE VALVE's tap stills
+a flank and THE VISE's pinch cracks it, two spent gestures carrying one
+body as a dependency rather than in sequence — one seat's tap is what lets
+the other seat's pinch count at all.
+
+**It is two cracks and three hits, and they are its health.** The state
+(`sim/cyst.ts`, hashed in `sim/cyst-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the **cracks** on each
+flank, the **hits** landed, whether the core is **bared**, each flank's
+**gap** in thousandths, whether a thumb is down on each freeze mark, and
+the beats the lit flank has been kept shut. The script is the wave's
+(`CystEntry.steps`), copied at install: each step asks `left`, `right` or
+`fire`, in a colour or `either`, for its own beats.
+
+**The rule, in one sentence.** Tap to still your partner's flank, pinch
+your own shut while it is still; then shoot the bared core.
+
+**The split.** Geometry, THE MANTLE's rule, crossed: the pilot pinches
+`cystFlankLeft` and taps `cystFreezeRight`, the navigator pinches
+`cystFlankRight` and taps `cystFreezeLeft` — the freezing hand is always
+the pinching hand's partner (`cystFreezer`, `cystPincher`), and the wrong
+seat's touch is not heard (`sim/cyst-hand.ts`). A fire step is the
+ordinary shot — Player 1's cannon under the middle column, Player 2's
+trigger in its colour.
+
+**The clock** (`sim/cyst-step.ts`). The sac settles for `cystStillBeats`,
+then the first flank lights shuddering under THE SLOW
+(`openSlow(…, "ask")`) for `cystTapBeats`. The partner's tap stills it:
+the phase is `frozen`, THE SLOW is held for the step's beats and
+`cystGraceBeats`, and each beat the flank's gap is at or under
+`cystShutMilli` counts one. The count reached cracks the flank. An
+answered step closes THE SLOW and the sac rests `cystRestBeats` before the
+next lights. With the script done the sac splits, and falls
+`cystSplitBeats` before the wave may end.
+
+**The answers.** A tap is heard as THE VALVE hears its pin: an edge, so a
+thumb already resting on the mark when the flank lights has to lift and
+come down again, and only on the lit flank's own mark while it shudders.
+A flank is heard as THE VISE hears a lobe: `fromMilli` is the gap,
+recorded whenever the sac is present, a lift is the flank back at
+`cystOpenMilli`, and a gap widening back past shut on the stilled flank
+slips it (`cystSlip`) and starts its count again. A shot is judged where a
+bolt leaves the top of the field (`sim/cyst-shot.ts`): only with the core
+bared, only while a fire step is lit, only in the middle column, and only
+in its colour unless it is `either`.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **The shudder is a rule, not a field.** §34 names `cystConvulsing`, a
+  drift that widens both gaps every tick faster than a pinch can close
+  them. What that drift *does* is make a pinch on a flank nobody stilled
+  count nothing, so that is what the simulation says: a pinch is only
+  counted in the `frozen` phase. A drift field would be a number no seat
+  could read and that no answer depends on the value of.
+- **A tap and its pinch are one step.** Rows 2 and 3 (and 4 and 5) are
+  one `left` or `right` step: the tap has `cystTapBeats`, the pinch the
+  step's beats. Two script steps would let the tap be answered and the
+  pinch left for a later step, which the design never asks.
+- **A pinch is given grace.** A window exactly its count long could only
+  be met by a pinch already shut on the tap's tick; the flank stays still
+  `cystGraceBeats` longer, THE TRIVET's, THE SLING's and THE GRINDSTONE's
+  reason. §34's `cystFreezeBeats` is that sum.
+- **A pinch already shut when the flank is stilled counts.** The gap is
+  kept whether or not the flank is still, so a pinch that waits for its
+  partner's tap is counted from the tap's first beat — the dependency the
+  design asks for, without making the pinching seat guess the tap.
+- **A guard is a flank step on a cracked flank, one flank at a time.**
+  Rows 7 and 9 ask "one re-taps while the other holds the pinch" of both
+  flanks creeping back. A step on a flank already cracked is that guard:
+  the same tap and pinch, with the left guarded before the second shot
+  and the right before the third, so each seat pinches once and taps once
+  in the last movement, and a guard needs no fourth gesture.
+- **A guard run out reseals the core, and the same guard is asked again.**
+  Row 7 loses the movement's fire beats "until both flanks crack again".
+  Re-asking both cracks would re-ask what is already answered; the core
+  seals (`cystSeal`), no fire step lights until the guard is made, and the
+  hits already landed stay — THE GRINDSTONE's clamp, the same argument.
+- **A fire step run out is a hull hit, and a hull hit is the wave.** Rows
+  6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game has no
+  ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+- **The drag targets are named for the body, and THE SLOW does not hold a
+  shot.** §34's `cystGapLeftMilli` and `cystGapRightMilli` are one pair,
+  `gapMilli`, carried on `cystFlankLeft`/`Right`; the marks keep their
+  names. THE SLOW opens on every tap and every pinch as the design says,
+  and never on a fire step, which the design does not list.
+
+**The simulation lane has landed.** Nothing in `apps/game` sends a
+`cystFreeze*` or `cystFlank*` drag yet, so the sac cannot be answered on a
+real phone — the touch sender is queued with the look (`docs/queue.md`).
+Nothing of it is drawn: the render package's silent-event lists and
+`tools/director/src/sound-link-none-d.ts` carry all fourteen of its events
+until lane two. The fourteen sounds *are* bound (`audio/src/bind-cyst.ts`),
+all in the middle, the hit pitched up per hit. There is no autopilot hand
+yet (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/cyst.test.ts`): the sac comes in whole with the core covered
+and lights the left flank under THE SLOW; only the partner's tap on the
+lit flank's own mark stills it, and only as an edge; a tap run out
+shudders and asks the same step again, and is no hull hit; a pinch counts
+nothing on a flank nobody stilled, counts from the first beat when it was
+already shut, counts nothing wider than shut, slips and starts again when
+it widens, and is not heard from the wrong seat; a pinch run out springs
+the flank and asks again; the second crack bares the core; a fire step
+lights without THE SLOW, wants its colour and the middle column, and run
+out is the wave; a guard made keeps the core bare and a guard run out
+reseals it until the same guard is made; and a script answered whole
+splits the sac and ends the fight. Whether any of it *reads* — whether
+tapping a partner's flank still feels like holding it for them — is the
+owner's eye, after lane two and the touch sender, on two real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

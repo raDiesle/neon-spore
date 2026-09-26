@@ -23128,3 +23128,18 @@ than validity — took longer to settle on than writing it up once decided.
 
 Bottleneck: none — a direct revision of an existing section is faster than
 drafting a new one from scratch.
+
+## 2026-09-26 — THE CYST, the simulation lane
+
+- reading: 5 min. THE GRINDSTONE's lane as the template, and THE VALVE's
+  and THE VISE's hands for the two gestures it reuses.
+- writing: 20 min. The seven sim files, the rig and its tests, the
+  registrations across content, net, render, audio and the director, and
+  §11.51.
+- looking: 0 min. Nothing drawn.
+- friction: 10 min. `boss-others.ts` was full, so THE GRINDSTONE moved to
+  the late page, and `mechanics-table.ts` crossed 250 by one line.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — two registration pages at their line limit, each
+needing a move before the new boss fitted.

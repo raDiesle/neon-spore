@@ -270,6 +270,12 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "grindFlatRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "grindJawLeft", on: true, fromMilli: 0, id: 1 },
   { kind: "drag", target: "grindJawRight", on: false, fromMilli: 0, id: 0 },
+  // THE CYST's marks are taps, and its flanks carry the pinch's gap on
+  // `fromMilli` (`sim/cyst-hand.ts`).
+  { kind: "drag", target: "cystFreezeLeft", on: true, fromMilli: 0 },
+  { kind: "drag", target: "cystFreezeRight", on: false, fromMilli: 0 },
+  { kind: "drag", target: "cystFlankLeft", on: true, fromMilli: 650 },
+  { kind: "drag", target: "cystFlankRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -438,6 +444,10 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   grindFlatRight: true,
   grindJawLeft: true,
   grindJawRight: true,
+  cystFreezeLeft: true,
+  cystFreezeRight: true,
+  cystFlankLeft: true,
+  cystFlankRight: true,
   crank: true,
 };
 

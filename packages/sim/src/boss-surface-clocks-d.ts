@@ -1,6 +1,6 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
- * and the thumb on its seam, and THE GRINDSTONE's wheel.
+ * and the thumb on its seam, THE GRINDSTONE's wheel and THE CYST's sac.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -12,6 +12,27 @@
  * is one something outside `packages/sim` imports.
  */
 
+// THE CYST's sac: the phase, the lit step, the flanks, their gaps and taps,
+// and whose hand is on which, for the picture, the cue and the director's
+// hand. Straight off `cyst.ts` (`docs/spec/bosses-choreographed.md` §34).
+export {
+  CYST_ASKS,
+  CYST_PHASES,
+  type CystAsk,
+  type CystEntry,
+  type CystPhase,
+  type CystState,
+  type CystStep,
+  cystBoss,
+  cystClosed,
+  cystDone,
+  cystFreezer,
+  cystGuarding,
+  cystLitStep,
+  cystPincher,
+  cystSide,
+  freshCyst,
+} from "./cyst.js";
 // THE GRINDSTONE's wheel: the phase, the lit step, the flats' grit, the
 // caliper and both seats' jaws, for the picture, the cue and the director's
 // hand. Straight off `grindstone.ts` (`docs/spec/bosses-choreographed.md` §33).

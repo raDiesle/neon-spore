@@ -170,4 +170,14 @@ export const CHOREO_FIELD_GROUP_C = {
   grindstoneRegrowMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFilmMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneGraceBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  // CystConfig — the rests around the steps, the tap's window, the grace a
+  // stilled flank is given, the split, and the gaps a flank rests at and
+  // counts as shut below (`config-cyst.ts`).
+  cystStillBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystRestBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystTapBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystGraceBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystSplitBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystOpenMilli: "THE CYST — the boss one hand stills for the other to crack",
+  cystShutMilli: "THE CYST — the boss one hand stills for the other to crack",
 } satisfies Record<string, GroupName>;

@@ -29,6 +29,7 @@ import type {
   SnakeEntry,
   SpliceEntry,
 } from "./boss-entries-round.js";
+import type { CystEntry } from "./cyst.js";
 import type { FilamentEntry } from "./filament.js";
 import type { GimbalEntry } from "./gimbal.js";
 import type { GrindstoneEntry } from "./grindstone.js";
@@ -192,7 +193,9 @@ export type BossEntry =
   // The one that authors draws as well as shots: a fork loosed by two seats' holds (`sling.ts`).
   | SlingEntry
   // The one that authors passes and clamps as well as shots: a wheel ground by two seats (`grindstone.ts`).
-  | GrindstoneEntry;
+  | GrindstoneEntry
+  // The one that authors flanks as well as shots: a sac one seat stills for the other (`cyst.ts`).
+  | CystEntry;
 
 // The three this page had no room left for, handed across on 22 September
 // 2026 — the last rows it held, the way every overflowing page in the
@@ -230,6 +233,7 @@ export type {
   SnakeEntry,
   SpliceEntry,
 } from "./boss-entries-round.js";
+export type { CystEntry, CystStep } from "./cyst.js";
 export type { FilamentEntry } from "./filament.js";
 export type { GimbalEntry } from "./gimbal.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";

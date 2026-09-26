@@ -127,6 +127,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "clamp", color: "cyan", beats: 3 },
     ],
   },
+  // THE CYST authors its script; two steps rather than the shipped seven
+  // (`cyst-hash.ts`).
+  cyst: {
+    kind: "cyst",
+    steps: [
+      { ask: "left", color: "red", beats: 4 },
+      { ask: "fire", color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -322,6 +331,20 @@ export function patchBossD(boss: BossState): void {
     boss.rubs = [3, 1];
     boss.rubbed = [true, false];
     boss.padsDown = [1, 3];
+    boss.heldBeats = 2;
+  }
+  if (boss.kind === "cyst") {
+    // The left flank cracked, the right stilled and pinched part way, the
+    // core bare and a thumb down on a mark — every field given a value
+    // (`cyst-hash.ts`).
+    boss.phase = "frozen";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.cracks = [1, 0];
+    boss.hits = 1;
+    boss.bared = true;
+    boss.gapMilli = [400, 700];
+    boss.tapDown = [true, false];
     boss.heldBeats = 2;
   }
 }

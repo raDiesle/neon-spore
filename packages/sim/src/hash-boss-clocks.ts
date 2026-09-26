@@ -2,6 +2,7 @@ import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
 import { curtainHashParts } from "./curtain-hash.js";
+import { cystHashParts } from "./cyst-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
@@ -174,6 +175,11 @@ export function clockHashParts(boss: BossState): number[] {
   // both flats' grit and rubs, both jaws and the script (`grindstone-hash.ts`).
   if (boss.kind === "grindstone") {
     for (const n of grindstoneHashParts(boss)) out.push(n);
+  }
+  // THE CYST: the phase, the cursor, the cracks, the hits, the core, both
+  // flanks' gaps and taps and the script (`cyst-hash.ts`).
+  if (boss.kind === "cyst") {
+    for (const n of cystHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

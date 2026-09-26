@@ -1,8 +1,8 @@
 /**
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
- * that `hold-targets.ts` had no row for — sixty-five of them, from the crank
- * to THE GRINDSTONE's right jaw.
+ * that `hold-targets.ts` had no row for — sixty-nine of them, from the crank
+ * to THE CYST's right flank.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -134,6 +134,12 @@ export const ROWS: Record<string, Row> = {
   grindFlatRight: { seat: 2, id: true },
   grindJawLeft: { id: true },
   grindJawRight: { seat: 2, id: true },
+  // `cyst-hand.ts`: a flank each, pinched shut, and a mark each tapped by the
+  // other seat — the pilot pinches the left and taps the right.
+  cystFreezeLeft: { seat: 2 },
+  cystFreezeRight: {},
+  cystFlankLeft: {},
+  cystFlankRight: { seat: 2 },
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

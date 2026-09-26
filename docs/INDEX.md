@@ -545,9 +545,11 @@ by hand never moves.
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
 | `packages/sim/src/config-choke.ts` | THE CHOKE's one number: how many beats the steer fault takes per column of the cannon's walk |
 | `packages/sim/src/config-curtain.ts` | THE CURTAIN's numbers — the row the fabric hangs at, how much of it must stay on the field |
+| `packages/sim/src/config-cyst.ts` | THE CYST's tuning: the rests around its steps, the window a tap is given, the grace a pinch is given |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
 | `packages/sim/src/events-cling.ts` | **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a control, is shaken a move looser |
 | `packages/sim/src/events-curtain.ts` | **Everything THE CURTAIN does that neither screen already says**, as events |
+| `packages/sim/src/events-cyst.ts` | What THE CYST says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
 | `packages/sim/src/command-locks.ts` | **Every way a press is refused before it is read**, in one place |
 | `packages/sim/src/command-leave.ts` | **The two presses that leave a run**, read above every lock a boss or a fault puts on a press |
@@ -669,6 +671,11 @@ by hand never moves.
 | `packages/sim/src/curtain-shove.ts` | **The shove**: two hands on the sheet, carrying it along its rail |
 | `packages/sim/src/curtain-step.ts` | THE CURTAIN's clock — the soft lobes redrawn, the roll-back, the core's fire, the beats after the last hit |
 | `packages/sim/src/curtain.ts` | THE CURTAIN: what it is standing in front of |
+| `packages/sim/src/cyst-hand.ts` | THE CYST's four handles: a freeze mark and a flank on each side |
+| `packages/sim/src/cyst-hash.ts` | What THE CYST puts into `hashWorld`, and nothing else |
+| `packages/sim/src/cyst-shot.ts` | **THE CYST's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/cyst-step.ts` | THE CYST's clock: the sac settling, each step lighting, a lit flank waiting for its tap |
+| `packages/sim/src/cyst.ts` | THE CYST: a sac of two flanks over the middle column |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/stare-hand.ts` | **The one hand on THE STARE**: the lid, pulled down over the eye by the seat it is not looking at |
@@ -2004,6 +2011,7 @@ by hand never moves.
 | `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
 | `packages/audio/src/bind-choreographed-d.ts` | **The tail of `bind-choreographed-c.ts`** |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
+| `packages/audio/src/bind-cyst.ts` | THE CYST's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
