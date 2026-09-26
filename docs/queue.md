@@ -434,6 +434,7 @@ an alignment.
 ## `bun run shot` has no way to name a wave, and the filter route misses it
 
 - **Found:** 2026-09-25, claude/reprise-boss-visibility-timing-6c7bb7
+- **Taken:** 2026-09-26, claude/queue-a-ring-let-go-of-while-the-gimbal-shears-stays-h (claim: claude/queue-bun-run-shot-has-no-way-to-name-a-wave-and-the-f)
 - **Files:** `tools/frames/shot-flags.ts`, `tools/frames/shot.ts`, `docs/commands.md`
 
 `bun run shot "#grid" out.png --serve --type "#waveFilter=REPRISE" --click
