@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 40707a6fd — THE GUM's drop was lit from an axis that never moved off it
+
+A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, moving through the already-shipped bosses.
+
 ## 2026-09-26 · 3ce520964 — THE GIMBAL's guide is a film: both rings turned to their marks and held
 
 The pilot turns the outer ring a quarter round to its mark and keeps a hand on it; the navigator turns the inner ring the same quarter the other way round on her own face, and with both true through the hold a tooth shears off each. The film can now turn a ring a set distance and hold it there (`ringCommands`), and the ghost hand rides a held ring on either seat (`render/guide-boss-hand.ts`). The guide's words are gone. Look exemption: a look the owner asked for by name — the queue item, from the owner's "a film or words, not both" (25 September 2026).
