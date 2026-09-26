@@ -1,8 +1,8 @@
 /**
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
- * that `hold-targets.ts` had no row for — forty-seven of them, from the crank
- * to THE KEEL's joint.
+ * that `hold-targets.ts` had no row for — forty-nine of them, from the crank
+ * to THE VALVE's pin.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -105,6 +105,10 @@ export const ROWS: Record<string, Row> = {
   // `keel-hand.ts`: a press either seat may send; where the joint sits
   // decides whose counts.
   keelJoint: {},
+  // `valve-hand.ts`: the wheel is the pilot's bearing; the pin is the
+  // navigator's tap and then either seat's draw.
+  valveWheel: {},
+  valvePin: { seat: 2 },
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

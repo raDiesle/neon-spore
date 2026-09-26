@@ -39,6 +39,7 @@ type BossId = Extract<
   | "nettle"
   | "mantle"
   | "keel"
+  | "valve"
 >;
 
 /**
@@ -192,6 +193,10 @@ export const BOSS_MECHANICS = {
   },
   keel: {
     what: "Six joints. When one lights, the one whose half it is on taps it. The middle opens: shoot it in its colour. Then fast joints, and one rock.",
+    reach: "spawn",
+  },
+  valve: {
+    what: "One turns the wheel onto its mark. The other taps the pin to freeze it. Then either pulls it. Three pins, and the last wants a full turn.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

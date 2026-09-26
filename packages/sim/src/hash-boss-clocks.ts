@@ -21,6 +21,7 @@ import { surgeHashParts } from "./surge-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
+import { valveHashParts } from "./valve-hash.js";
 import { wellHashParts } from "./well-hash.js";
 
 /**
@@ -120,6 +121,11 @@ export function clockHashParts(boss: BossState): number[] {
   // the rock, every segment's lock and the authored order (`keel-hash.ts`).
   if (boss.kind === "keel") {
     for (const n of keelHashParts(boss)) out.push(n);
+  }
+  // THE VALVE: the phase and movement, the pins, the wheel, the hand, the
+  // travel, the pin's thumb, the spark and the marks (`valve-hash.ts`).
+  if (boss.kind === "valve") {
+    for (const n of valveHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

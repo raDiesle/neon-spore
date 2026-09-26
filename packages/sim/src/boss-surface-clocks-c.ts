@@ -73,6 +73,25 @@ export {
   ratchetWindowBeats,
   ratchetWorking,
 } from "./ratchet.js";
+// THE VALVE's drum: the phase, the movement, the pins, the wheel and its mark,
+// and the spark, for the picture, the cue and the director's hand. Straight
+// off `valve.ts` (`docs/spec/bosses-choreographed.md` §25).
+export {
+  VALVE_PHASES,
+  VALVE_PINS,
+  type ValveEntry,
+  type ValvePhase,
+  type ValveState,
+  valveBoss,
+  valveDone,
+  valveFrozen,
+  valveHolding,
+  valveLeaking,
+  valveMark,
+  valveNeedMilli,
+  valveOnMark,
+  valveTurning,
+} from "./valve.js";
 // THE WELL's face, and the thumb on its seam: how far it has turned and which
 // way it is read, for the projection that draws it (`render/well-roll.ts`),
 // the hit test that answers it (`render/touch-well.ts`) and the director's

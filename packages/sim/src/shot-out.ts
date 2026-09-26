@@ -14,6 +14,7 @@ import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { tasterStruck } from "./taster-shot.js";
 import type { Bullet } from "./types.js";
+import { valveStruck } from "./valve-shot.js";
 import { vaneStruck } from "./vane.js";
 import { failWave } from "./wave-fail.js";
 import type { World } from "./world.js";
@@ -72,6 +73,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // THE KEEL's socket, in its own colour, and its tail's rock, in either
   // (`keel-shot.ts`).
   keelStruck(world, b);
+  // THE VALVE's spark, in either colour (`valve-shot.ts`).
+  valveStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -118,6 +121,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "gimbal",
   "mantle",
   "keel",
+  "valve",
   "hasp",
   "ratchet",
   "hive",

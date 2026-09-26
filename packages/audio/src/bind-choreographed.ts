@@ -53,7 +53,8 @@ type ChoreographedEvent =
           | `hasp${string}`
           | `ratchet${string}`
           | `mantle${string}`
-          | `keel${string}`;
+          | `keel${string}`
+          | `valve${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

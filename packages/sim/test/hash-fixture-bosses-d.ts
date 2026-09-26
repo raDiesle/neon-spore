@@ -52,6 +52,9 @@ export const BOSS_ENTRIES_D = {
   // THE KEEL authors its socket and its tempo run; two joints rather than the
   // shipped three, for the same reason (`keel-hash.ts`).
   keel: { kind: "keel", socket: "cyan", reprise: [4, 0] },
+  // THE VALVE authors its marks; two rather than the shipped three, for the
+  // same reason (`valve-hash.ts`).
+  valve: { kind: "valve", marks: [250, 600] },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -131,5 +134,19 @@ export function patchBossD(boss: BossState): void {
     boss.repriseCursor = 1;
     boss.rockCol = 10;
     boss.rockBeat = 5;
+  }
+  if (boss.kind === "valve") {
+    // Frozen in the third movement with a hand on the rim, a thumb on the pin
+    // and a spark loose — every field given a value (`valve-hash.ts`).
+    boss.phase = "frozen";
+    boss.phaseBeat = 3;
+    boss.movement = 3;
+    boss.pins = 1;
+    boss.wheelMilli = 610;
+    boss.handMilli = 420;
+    boss.travelMilli = -1080;
+    boss.pinDown = true;
+    boss.sparkCol = 10;
+    boss.sparkBeat = 5;
   }
 }

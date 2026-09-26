@@ -25,6 +25,7 @@ import type {
   TasterEntry,
   ThroatEntry,
   UndertowEntry,
+  ValveEntry,
   WellEntry,
 } from "@neon-spore/sim";
 
@@ -156,6 +157,10 @@ import type {
  *   field and its socket is `midCol`; no number, the loose segments are the
  *   health (`sim/keel.ts`).
  *
+ * - **THE VALVE**'s three marks are one list, THE GIMBAL's kind of field.
+ *   No column, the drum is `midCol`; no number, the pins are the health
+ *   (`sim/valve.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
@@ -188,7 +193,8 @@ export function bossAuthorsNothing(
   | HaspEntry
   | RatchetEntry
   | MantleEntry
-  | KeelEntry {
+  | KeelEntry
+  | ValveEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -219,6 +225,7 @@ export function bossAuthorsNothing(
     kind === "hasp" ||
     kind === "ratchet" ||
     kind === "mantle" ||
-    kind === "keel"
+    kind === "keel" ||
+    kind === "valve"
   );
 }

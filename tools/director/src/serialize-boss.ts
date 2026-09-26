@@ -158,6 +158,8 @@ export function serializeBoss(boss: BossEntry): string {
   if (boss.kind === "keel") {
     return `{ kind: "keel", socket: "${boss.socket}", reprise: [${boss.reprise.join(", ")}] }`;
   }
+  // THE VALVE's marks are three bearings, the same reason.
+  if (boss.kind === "valve") return `{ kind: "valve", marks: [${boss.marks.join(", ")}] }`;
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

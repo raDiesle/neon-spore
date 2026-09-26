@@ -43,6 +43,7 @@ export type GroupName =
   | "THE RATCHET — the boss where every step you take stays taken"
   | "THE MANTLE — the boss both hands have to pull at once, or neither counts"
   | "THE KEEL — the boss whose next joint is whichever thumb is nearer"
+  | "THE VALVE — the boss one hand turns and the other hand stops"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -136,6 +137,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE RATCHET — the boss where every step you take stays taken",
   "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  "THE VALVE — the boss one hand turns and the other hand stops",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

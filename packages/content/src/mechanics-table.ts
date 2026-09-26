@@ -143,6 +143,7 @@ export const MECHANICS = {
   ratchet: BOSS_MECHANICS.ratchet,
   mantle: BOSS_MECHANICS.mantle,
   keel: BOSS_MECHANICS.keel,
+  valve: BOSS_MECHANICS.valve,
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",
     reach: "spawn",

@@ -22121,3 +22121,17 @@ and the note's commit would have failed the same way.
 Bottleneck: landing — the full check is most of a refactor this size.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — Add THE VALVE's simulation lane: a wheel one hand turns and the other freezes
+
+- reading: 10 min. §25's beat list, THE KEEL's lane as the model,
+  `hasp-hand.ts` for the bearing wheel, `bearing.ts`.
+- writing: 45 min. Eight sim files, the thirteen sounds and their binding,
+  some thirty registrations, twenty-four tests, §11.42.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. `NO_SPARK` written a second time collided with THE
+  MANTLE's in `boss-surface-clocks-c.ts`; imported instead.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the registrations again, a boss named in some thirty
+files before the first check runs.

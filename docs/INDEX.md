@@ -172,6 +172,11 @@ by hand never moves.
 | `packages/sim/src/vane-hash.ts` | THE VANE in the fingerprint |
 | `packages/sim/src/vane-open.ts` | **Where THE VANE's arm is standing and whether the bearing is open** — one place, read by the fold, the shot |
 | `packages/sim/src/vane.ts` | THE VANE's whole choreography: the boss that bends the field instead of the beat |
+| `packages/sim/src/valve-hand.ts` | THE VALVE's two handles: the wheel, the pilot's, and the pin |
+| `packages/sim/src/valve-hash.ts` | What THE VALVE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/valve-shot.ts` | **THE VALVE's one target**: the spark the first pin leaks down the drum's column |
+| `packages/sim/src/valve-step.ts` | THE VALVE's clock: every row of §25's beat list that is a beat's question — the drum settling |
+| `packages/sim/src/valve.ts` | THE VALVE: a squat drum standing over the field with one wheel in its face and a pin beside it |
 | `packages/sim/src/veil.ts` | THE VEIL: a thundercloud with a body inside it, the first creature hidden from player 2 |
 | `packages/sim/src/warden-cycle.ts` | THE WARDEN's cycle, as arithmetic |
 | `packages/sim/src/warden.ts` | THE WARDEN's whole choreography: a gate held open by a rope somebody is pulling |
@@ -400,6 +405,7 @@ by hand never moves.
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
+| `packages/sim/src/config-valve.ts` | THE VALVE's tuning: the beats every row of its beat list takes, how near a mark counts as on it |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/fault-swallow.ts` | Whether this press falls into a control the fault has taken over |
 | `packages/sim/src/fault-clock.ts` | The beat a fault is on and how often it acts — the one clock every malfunction reads and none of them keeps |
@@ -464,6 +470,7 @@ by hand never moves.
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/events-vane.ts` | **What THE VANE's second and third hands do that neither screen already says** |
+| `packages/sim/src/events-valve.ts` | What THE VALVE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/hash-creature-tail.ts` | **The end of one body's fingerprint**, from THE BALLOON's eight to THE CRYSTAL's leg |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
@@ -1880,6 +1887,7 @@ by hand never moves.
 | `packages/audio/src/bind-curtain.ts` | THE CURTAIN's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
+| `packages/audio/src/bind-valve.ts` | THE VALVE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |

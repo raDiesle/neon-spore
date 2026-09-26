@@ -7674,6 +7674,110 @@ fails the wave; and the fingerprint is deterministic and diverges on a
 different reprise. Whether any of it *reads* is the owner's eye, after lane
 two.
 
+## 11.42 THE VALVE — the boss one hand turns and the other hand stops
+
+> A drum stands over the field with a wheel in its face and a pin beside it.
+> Turn the wheel onto its mark; while it sits there, tap the pin and the wheel
+> freezes dead. Then pull the pin before it thaws. Three pins, and the last
+> mark is a whole lap away.
+
+Designed as §25 of [bosses-choreographed](bosses-choreographed.md), one of the
+owner's batch of five choreographed bosses of 26 September 2026 that read the
+same on both screens — the third of the three kinds in
+`.claude/skills/new-boss`, a choreographed scene. THE HASP couples a hand that
+holds with a hand that turns, and each screen shows only its own half. This
+one shows both halves on both screens and asks whether one hand can **stop**
+what the other is moving — `FreezeTap`, the one verb on either brief with no
+shipped ancestor, spent here for the first time.
+
+**It is three pins (`VALVE_PINS`), and they are its health.** The state
+(`sim/valve.ts`, hashed in `sim/valve-hash.ts`) is the **phase** and the beat
+it began, the **movement** (1 to 3), the **pins** still in, where the
+**wheel** stands, where the pilot's **hand** last reported, the signed
+**travel** since this movement's turning began, whether the navigator's thumb
+is **down on the pin**, the spark's column and beat, and the wave's **marks**,
+one bearing per movement. A pin out is one fewer; with none left the face
+falls open.
+
+**The rule, in one sentence.** Turn the wheel onto the mark, tap to freeze
+it, then pull the pin before it thaws.
+
+**The two handles** (`sim/valve-hand.ts`). `valveWheel` is THE HASP's wheel
+again, a bearing in `fromMilli`, and only Player 1's hand turns it. The wheel
+answers only while it is being turned or held — never frozen, which is the
+whole of a freeze. `valvePin` is two gestures on one name: Player 2's press,
+read on its **edge** (`pinDown`), is the freeze, and once the wheel is frozen
+a draw from **either** seat to `valvePullMilli` in `fromYMilli` pulls the pin.
+The freeze is not a new `Hold["kind"]`: a press on a `DragTarget` is already
+a message the wire carries, and what it looks like is lane two's.
+
+**The clock** (`sim/valve-step.ts`). The drum settles for `valveStillBeats`,
+then the first mark lights. The wheel is on it once it stands within
+`valveNearMilli`; the freeze window opens under THE SLOW (`openSlow(…,
+"ask")`) — `valveFreezeBeats` in the first movement, `valveFreezeFastBeats`
+after. Turning off the mark inside the window is a slip: the window shuts and
+the turning goes on. The tap freezes the wheel and opens the pull window,
+again under THE SLOW — `valvePullBeats`, then `valvePullFastBeats`. A window
+that runs out kicks the wheel `valveKickMilli` off its mark and the turning
+starts again from nothing. A pin out closes THE SLOW, and the drum lists for
+`valveListBeats` before the next mark lights. The first pin out leaks a spark
+down the drum's column, with `valveSparkBeats` before it reaches the hull. In
+the third movement the mark only counts once the wheel has travelled
+`valveLapMilli` one way round — row 9's long way. The last pin out lets the
+face fall open, and it hangs `valveOpenBeats` before the wave may end.
+
+**Where this departs from the design, and why.** Seven places.
+
+- **The turn carries no window.** §25 gives rows 2, 6 and 9 five or six
+  beats. What a missed turn would cost is nothing the turning is not already
+  costing, and a window on the pilot's half would be a clock nobody can see
+  — THE HASP's argument for its own wheel. The windows are on the freeze and
+  the pull, where a second hand is waiting.
+- **The lap is signed travel, not a direction.** Row 9 says the wheel turns
+  *away* from a mark behind it. What the simulation holds is that the wheel
+  has gone `valveLapMilli` one way round since the movement began, so a hand
+  working it back and forth gets nowhere, and either way round counts — a
+  pilot who goes the other way has still gone the long way.
+- **The spark takes either colour, and a miss is the wave.** §25 says own
+  colour and an ordinary hull hit. It is THE MANTLE's spark and THE KEEL's
+  rock again: a hazard, not a colour question, and the one standard-control
+  step in the fight.
+- **The spark falls while the drum lists, not before the second mark.** Row 5
+  sits between the movements; here it leaks with the first pin and falls
+  through the list and into the second turn, so a pair shooting it is a pair
+  already turning.
+- **The freeze is a press on `valvePin`, not a new `Hold` kind.** Named above;
+  the look lane decides what the press looks like.
+- **A lapse or a thaw kicks the wheel off its mark and starts the travel
+  again.** §25 says the wheel resumes turning and the movement repeats; a
+  wheel left standing on its mark would reopen the window on the next tick,
+  and the third movement's lap would be owed only once.
+- **A window opened mid-beat is counted from the beat after it.** The wheel
+  lands on its mark whenever a thumb gets it there, so a one-beat window
+  judged from the beat it opened in could be a handful of ticks. Both windows
+  close once they are *past* their beats, and THE SLOW is opened one beat
+  longer to span the same stretch.
+
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+carry all thirteen of its events until lane two. The thirteen sounds *are*
+bound (`audio/src/bind-valve.ts`), all heard from the middle, the pull pitched
+up per pin out. There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/valve.test.ts`, `sim/test/valve-run.test.ts`): the drum comes in
+still with three pins and the marks brought inside a turn; the mark lights
+and only the pilot's hand turns the wheel; standing on the mark opens the
+freeze window under THE SLOW; turning off it slips; the navigator's tap
+freezes and a thumb already resting on the pin does not; a frozen wheel
+ignores the hand; a shallow draw does nothing and a deep one from either seat
+pulls; both windows lapse into a kick; the first pin leaks the spark, shot
+out in either colour or failing the wave; the later windows are shorter; the
+third movement's mark refuses a hand worked back and forth and takes a full
+lap either way round; and the last pin opens the face and ends the fight.
+Whether any of it *reads* is the owner's eye, after lane two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

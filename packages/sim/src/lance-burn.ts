@@ -21,6 +21,7 @@ import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { undertowBurned } from "./undertow-press.js";
+import { valveStruck } from "./valve-shot.js";
 import { vaneStruck } from "./vane.js";
 import type { World } from "./world.js";
 
@@ -167,6 +168,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   mantleStruck(world, b);
   // And THE KEEL's socket and rock, the socket in its own colour (`keel-shot.ts`).
   keelStruck(world, b);
+  // And THE VALVE's spark, in either colour (`valve-shot.ts`).
+  valveStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

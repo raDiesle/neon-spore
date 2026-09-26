@@ -25,6 +25,7 @@ import { STARE_PHASES } from "./stare.js";
 import { TASTER_PHASES } from "./taster.js";
 import { THROAT_PHASES } from "./throat.js";
 import { UNDERTOW_PHASES } from "./undertow.js";
+import { VALVE_PHASES } from "./valve.js";
 import { VANE_PHASES } from "./vane-cycle.js";
 import { WARDEN_PHASES } from "./warden-cycle.js";
 
@@ -111,5 +112,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   ratchet: RATCHET_PHASES,
   mantle: MANTLE_PHASES,
   keel: KEEL_PHASES,
+  valve: VALVE_PHASES,
   fleet: FLEET_PHASES,
 };

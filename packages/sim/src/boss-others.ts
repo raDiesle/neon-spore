@@ -24,6 +24,7 @@ import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
+import { stepValve } from "./valve-step.js";
 import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
 
@@ -186,6 +187,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // socket and the rock are every one of them a beat's question (`keel-step.ts`).
   if (boss.kind === "keel") {
     stepKeel(world, boss);
+    return;
+  }
+  // THE VALVE: the windows, the list and the spark (`valve-step.ts`).
+  if (boss.kind === "valve") {
+    stepValve(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

@@ -35,6 +35,7 @@ import type { InstarEntry, NettleEntry } from "./instar.js";
 import type { KeelEntry } from "./keel.js";
 import type { MantleEntry } from "./mantle.js";
 import type { MirrorStep } from "./simon.js";
+import type { ValveEntry } from "./valve.js";
 
 /**
  * **What a wave authors when it wants a boss that stands on the field** — and
@@ -165,7 +166,9 @@ export type BossEntry =
   // The one that authors a sum: the four thresholds two handles pull to together (`mantle.ts`).
   | MantleEntry
   // The one that authors no seat: a joint whose thumb is wherever it sits (`keel.ts`).
-  | KeelEntry;
+  | KeelEntry
+  // The one that authors a bearing: the mark the wheel is turned onto (`valve.ts`).
+  | ValveEntry;
 
 // The three this page had no room left for, handed across on 22 September
 // 2026 — the last rows it held, the way every overflowing page in the
@@ -208,3 +211,4 @@ export type { GimbalEntry } from "./gimbal.js";
 export type { InstarEntry, NettleEntry } from "./instar.js";
 export type { KeelEntry } from "./keel.js";
 export type { MantleEntry } from "./mantle.js";
+export type { ValveEntry } from "./valve.js";

@@ -90,4 +90,19 @@ export const CHOREO_FIELD_GROUP_C = {
   keelRigidBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelRockBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelOpenBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  // ValveConfig — how near the mark counts, the lap, the depth of a pull,
+  // the kick, and the patience of every row of the beat list
+  // (`config-valve.ts`). Where the marks sit is the wave's own.
+  valveStillBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveNearMilli: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveLapMilli: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveFreezeBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveFreezeFastBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valvePullBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valvePullFastBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valvePullMilli: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveKickMilli: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveListBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveSparkBeats: "THE VALVE — the boss one hand turns and the other hand stops",
+  valveOpenBeats: "THE VALVE — the boss one hand turns and the other hand stops",
 } satisfies Record<string, GroupName>;

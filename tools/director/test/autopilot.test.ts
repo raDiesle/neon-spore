@@ -30,12 +30,12 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 /**
  * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs; THE
- * MANTLE and THE KEEL are here for its own reason — only its simulation lane has landed
- * (`docs/spec/bosses.md` §11.40, §11.41), and an autopilot hand plays a boss against
+ * MANTLE, THE KEEL and THE VALVE are here for its own reason — only its simulation lane has landed
+ * (`docs/spec/bosses.md` §11.40–§11.42), and an autopilot hand plays a boss against
  * poses that do not exist yet. A new boss is a row in `AUTOPILOT_HANDS` or a
  * name here.
  */
-const NO_HAND = new Set(["mantle", "keel"]);
+const NO_HAND = new Set(["mantle", "keel", "valve"]);
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");

@@ -45,6 +45,7 @@ export type {
   TasterEntry,
   ThroatEntry,
   UndertowEntry,
+  ValveEntry,
   VaneEntry,
   WardenEntry,
   WellEntry,

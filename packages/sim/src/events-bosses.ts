@@ -27,6 +27,7 @@ import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
 import type { ThroatEvent } from "./events-throat.js";
 import type { UndertowEvent } from "./events-undertow.js";
+import type { ValveEvent } from "./events-valve.js";
 import type { VaneEvent } from "./events-vane.js";
 import type { WardenEvent } from "./events-warden.js";
 import type { WellEvent } from "./events-well.js";
@@ -71,6 +72,7 @@ export type BossEvent =
   | GimbalEvent
   | MantleEvent
   | KeelEvent
+  | ValveEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -114,6 +116,7 @@ export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";
 export type { ThroatEvent } from "./events-throat.js";
 export type { UndertowEvent } from "./events-undertow.js";
+export type { ValveEvent } from "./events-valve.js";
 export type { VaneEvent } from "./events-vane.js";
 export type { WardenEvent } from "./events-warden.js";
 export type { WellEvent } from "./events-well.js";

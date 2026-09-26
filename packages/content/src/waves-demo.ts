@@ -167,6 +167,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   ratchet: { wave: "theRatchet" },
   mantle: { wave: "theMantle" },
   keel: { wave: "theKeel" },
+  valve: { wave: "theValve" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

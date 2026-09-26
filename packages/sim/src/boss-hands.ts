@@ -24,6 +24,7 @@ import { tasterHandsHeard } from "./taster-hand.js";
 import { throatHeard } from "./throat-hand.js";
 import type { TimedCommand } from "./types.js";
 import { undertowHandsHeard } from "./undertow-hand.js";
+import { valveHeard } from "./valve-hand.js";
 import { wellHeard } from "./well-hand.js";
 import type { World } from "./world.js";
 
@@ -88,6 +89,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE KEEL's joint, on the tick because a tap is an edge and the window
   // it lands in is judged against the beat it lit on (`keel-hand.ts`).
   for (const c of commands) keelHeard(world, c.player, c.command);
+  // THE VALVE's wheel and pin, on the tick because a turn is a bearing and
+  // the freeze an edge (`valve-hand.ts`).
+  for (const c of commands) valveHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

@@ -83,6 +83,10 @@ import type { Wave } from "../wave-types.js";
  * whose tap a joint wants is read off which half of the screen it sits on,
  * never authored (`docs/spec/bosses-choreographed.md` §24). It authors the
  * socket's colour and the order of the fast run, and nothing that falls.
+ *
+ * **THE VALVE came in behind that on 26 September**: a wheel one seat turns
+ * and a pin the other taps to stop it (`docs/spec/bosses-choreographed.md`
+ * §25). It authors where each movement's mark sits, and nothing that falls.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -150,6 +154,18 @@ export const WAVES_ACT_11: Wave[] = [
     },
     entries: [],
     boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
+    bossType: "normal",
+  },
+  {
+    id: "theValve",
+    name: "THE VALVE",
+    guide: {
+      both: "One turns the wheel onto the mark. The other taps the pin to stop it. Then pull the pin down. Three pins. The last wants a full turn first.",
+      p1: "1. Turn the wheel with your thumb until it sits on the mark.\n2. Hold it still. The other screen taps the pin.\n3. A spark falls after the first pin. Move the cannon under it.",
+      p2: "1. When the wheel is on the mark, tap the pin once.\n2. Then drag the pin down before it thaws. Either of you may.\n3. Fire at the spark before it lands.",
+    },
+    entries: [],
+    boss: { kind: "valve", marks: [250, 600, 850] },
     bossType: "normal",
   },
 ];

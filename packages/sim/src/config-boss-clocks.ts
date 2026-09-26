@@ -24,6 +24,7 @@ import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
+import { VALVE_DEFAULTS, type ValveConfig } from "./config-valve.js";
 import { VANE_HAND_DEFAULTS, type VaneHandConfig } from "./config-vane.js";
 import { WARDEN_HAND_DEFAULTS, type WardenHandConfig } from "./config-warden.js";
 import { WELL_DEFAULTS, type WellConfig } from "./config-well.js";
@@ -77,6 +78,7 @@ export interface BossClockConfig
     GimbalConfig,
     MantleConfig,
     KeelConfig,
+    ValveConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -108,6 +110,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...GIMBAL_DEFAULTS,
   ...MANTLE_DEFAULTS,
   ...KEEL_DEFAULTS,
+  ...VALVE_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

@@ -431,22 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## §25 THE VALVE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-24-the-keel-the-simulation-lane (claim: claude/queue-25-the-valve-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-`FreezeTap` — the one genuinely new verb on either brief — finally spent:
-Player 2's timed tap halts the `valveWheel` bearing drag Player 1 is turning,
-and only while frozen can either seat pull the stilled `valvePin` free.
-Three pins as the health, three movements, the last one turning the wheel
-away from its mark before it can hold. The full beat list is §25 of
-`docs/spec/bosses-choreographed.md`. New member on `Hold["kind"]`, so
-`tools/director/test/on-field-controls.test.ts`'s exhaustive switch is part of this
-lane and not a follow-up. THE SLOW on every freeze and every pull.
-`bun run check` proves it.
-
 ## §26 THE SEAM — the simulation lane
 
 - **Found:** 2026-09-26, this session

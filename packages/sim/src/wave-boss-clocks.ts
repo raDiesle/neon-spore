@@ -19,6 +19,7 @@ import { installSurge } from "./surge-step.js";
 import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
 import { installUndertow } from "./undertow-step.js";
+import { installValve } from "./valve-step.js";
 import type { BossEntry, World } from "./world.js";
 
 /**
@@ -67,6 +68,7 @@ const CLOCK_KINDS = [
   "nettle",
   "mantle",
   "keel",
+  "valve",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -188,6 +190,10 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // the field, every segment loose, and the socket's colour and the tempo
     // run's order its wave authored (`keel-step.ts`).
     world.boss = installKeel(world, boss.socket, boss.reprise);
+  } else if (boss.kind === "valve") {
+    // No creature and no row: a drum over the field, three pins in, and the
+    // marks its wave authored for the wheel (`valve-step.ts`).
+    world.boss = installValve(world, boss.marks);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No

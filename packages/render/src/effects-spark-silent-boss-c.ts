@@ -84,4 +84,18 @@ export const SILENT_BOSS_C = [
   "keelRockHit",
   "keelStraight",
   "keelOut",
+  // THE VALVE's thirteen, the same (`packages/audio/src/bind-valve.ts`).
+  "valveEnter",
+  "valveLight",
+  "valveHold",
+  "valveSlip",
+  "valveLapse",
+  "valveFreeze",
+  "valveThaw",
+  "valvePull",
+  "valveSpark",
+  "valveSparkOut",
+  "valveSparkHit",
+  "valveOpen",
+  "valveOut",
 ] as const satisfies readonly SimEvent["type"][];

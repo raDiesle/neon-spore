@@ -100,4 +100,15 @@ export const CHOREO_NOTES_C = {
     "down its column — either colour answers it. THE SLOW spans every joint and " +
     "the socket before movement three. Only the simulation lane has landed — " +
     "see sim/keel.ts, sim/keel-step.ts, sim/keel-hand.ts, sim/config-keel.ts.",
+  "THE VALVE — the boss one hand turns and the other hand stops":
+    "Asked for in docs/spec/bosses-choreographed.md §25: can one hand stop what " +
+    "the other is moving. A drum with a wheel and a pin. The pilot turns the " +
+    "wheel onto its mark (valveNearMilli); while it sits there the navigator's " +
+    "tap on the pin freezes it (valveFreezeBeats, then the fast one), and while " +
+    "frozen either seat draws the pin to valvePullMilli (valvePullBeats). A " +
+    "window run out kicks the wheel off its mark. Three pins are the health; " +
+    "the first out leaks a spark, shot in either colour, or the hull. The third " +
+    "mark only counts after a full lap one way (valveLapMilli). THE SLOW spans " +
+    "every freeze and pull window. Only the simulation lane has landed — see " +
+    "sim/valve.ts, sim/valve-step.ts, sim/valve-hand.ts, sim/config-valve.ts.",
 } satisfies Partial<Record<GroupName, string>>;

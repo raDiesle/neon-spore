@@ -184,6 +184,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // THE KEEL the same: its segments are spread across whatever width the
   // field has, and its socket is `midCol` (`sim/keel.ts` `keelSegCol`).
   if (boss.kind === "keel") return { ...boss };
+  // THE VALVE the same: its marks are bearings, and its drum is `midCol`.
+  if (boss.kind === "valve") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

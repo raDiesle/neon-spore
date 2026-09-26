@@ -28,7 +28,9 @@ export type DragTargetD =
   | "mantleLeft"
   | "mantleRight"
   | "mantleCore"
-  | "keelJoint";
+  | "keelJoint"
+  | "valveWheel"
+  | "valvePin";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -163,4 +165,16 @@ export type DragTargetD =
  * screen it sits over as it lights (`geometrySeat`); the other seat's message
  * does nothing, `gimbalOuter`'s reason, except that which seat is the wrong one
  * changes every time the joint moves (`keel-hand.ts`).
+ */
+
+/**
+ * `valveWheel` and `valvePin` are the seventy-first and seventy-second.
+ *
+ * The wheel is `haspWheel`'s shape, a bearing in `fromMilli`, and only the
+ * pilot's is heard. The pin is two gestures on one name: the navigator's
+ * press is the freeze — an edge, the design's `FreezeTap` — and, once the
+ * wheel is frozen, a draw from either seat to `valvePullMilli` in
+ * `fromYMilli` pulls it (`valve-hand.ts`). A new `Hold["kind"]` for the tap
+ * was not added: the press is already a message the wire carries, and what it
+ * looks like is the look lane's.
  */
