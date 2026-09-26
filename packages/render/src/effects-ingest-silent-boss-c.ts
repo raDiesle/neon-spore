@@ -120,10 +120,9 @@ export const INGEST_SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
-  // THE KEEL's sixteen, nothing carried into the next frame: only its
-  // simulation lane has landed, so there is no picture yet to redraw a
-  // transient over. Sound is what these get instead
-  // (`packages/audio/src/bind-keel.ts`).
+  // THE KEEL's sixteen: its jolt, snaps, shock and bursts are `keel-fx.ts`',
+  // read above the loop with the rest of each boss's; which segments are
+  // locked stays read off the state.
   "keelEnter",
   "keelLight",
   "keelLock",

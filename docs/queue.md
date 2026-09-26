@@ -477,11 +477,11 @@ into the roster. `bun run check` proves it.
 The body is drawn: the arch, the plates, the ring and the socket. What is
 left is everything a thumb or an event touches, THE MANTLE's half two in the
 same order. **The grip has landed** (`render/keel-grip.ts`, the director's
-row and pose, `keelJoint: "field"`). **The fx**, in `Effects` and cleared
-in `reset()`: the lock's snap (`keelLock`), the socket shutting (`keelShut`;
-`keelOpen` drops straight to 0 today), a miss, a slip, and the rock's and the
-missed socket's hull hits. The sixteen `keel*` events come off the two silent
-lists as each gets its burst. **Hurt**, **the cue's words** (PRESS on the lit
+row and pose, `keelJoint: "field"`). **The fx and the hurt have landed**
+(`render/keel-fx.ts`: the lock's snap and jolt, the socket shutting in its
+colour, the hull hits and their shudder, the blow on a lock and a shut; the
+sixteen events stay on the silent lists, read above the loop like THE
+MANTLE's). **The cue's words** (PRESS on the lit
 joint, FIRE on the socket), **the autopilot hand**, and the STATES poses, OWED
 and NO_HAND rows the other bosses carry. `keel-shape.ts` is at 238 lines, so
 the grip's hit test goes in a file of its own.

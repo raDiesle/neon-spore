@@ -1,7 +1,9 @@
 import { blobPoints, LIGHT_HALF } from "@neon-spore/content";
 import { type KeelState, keelLit, NO_JOINT, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import type { KeelFx } from "./keel-fx.js";
 import { drawKeelRing, drawKeelSocket } from "./keel-marks.js";
 import {
   keelArrived,
@@ -44,6 +46,10 @@ import { splinePath } from "./spline.js";
  * more of it locks (`keel-pose.ts`). The lit joint is a white ring round its
  * plate with the window closing round it — the mark that says *tap here, now*
  * — and the rock the tail throws falls down its column to the hull.
+ *
+ * What outlives a frame — the jolt of a lock, the snap on its seam, the blow —
+ * is `fx` (`keel-fx.ts`), told the socket's colour here because the event
+ * that shuts it does not carry one.
  */
 export function drawKeel(
   ctx: CanvasRenderingContext2D,
@@ -53,13 +59,16 @@ export function drawKeel(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: KeelFx,
 ): void {
   const cfg = world.cfg;
   const n = s.locked.length;
   const arrived = keelArrived(s, cfg, beat, beatPhase);
   const segs = keelSegs(l, cfg, s, beat, beatPhase);
 
+  fx.tell(PALETTE[s.socket]);
   ctx.save();
+  ctx.translate(fx.hurt.shakeX(time, l.tile), -fx.jolt * l.tile);
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
   drawTendons(ctx, l, segs);
   segs.forEach((g, k) => {
@@ -74,7 +83,7 @@ export function drawKeel(
   const open = keelOpen(s, cfg, beat, beatPhase);
   if (open > 0) drawKeelSocket(ctx, l, s, segs, open, beatPhase);
   segs.forEach((g, k) => {
-    drawSegment(ctx, l, s, k, g, beat, beatPhase, time);
+    drawSegment(ctx, l, s, k, g, beat, beatPhase, time, fx);
   });
   if (keelLit(s) && s.joint !== NO_JOINT) {
     const g = segs[s.joint];
@@ -106,7 +115,7 @@ function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[]): voi
   ctx.stroke(p);
 }
 
-/** One segment: the iron plate, lit by the one key light, its outline as bright as the pose says, and a seam if locked. */
+/** One segment: the iron plate, lit by the one key light, its outline as bright as the pose says, the blow over it, and a seam if locked — flaring as it snaps. */
 function drawSegment(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -116,6 +125,7 @@ function drawSegment(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: KeelFx,
 ): void {
   const bright = keelBright(s, k, beat, beatPhase);
   const plate = keelPlatePath(l, g.centre, g.slope, g.pose);
@@ -136,13 +146,14 @@ function drawSegment(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.35 + 0.6 * bright);
   ctx.stroke(plate);
+  drawHurt(ctx, plate, fx.hurt.value);
   if (!s.locked[k]) return;
   const seam = keelSeamPath(l, g.centre, g.slope, g.pose);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.hullRim, 0.4 + 0.5 * bright);
   ctx.stroke(seam);
-  const pulse = keelPulse(s, k, beatPhase);
-  if (pulse > 0) strokeGlow(ctx, seam, PALETTE.hullRim, STROKE.inner, 0.6 * pulse);
+  const glow = Math.max(0.6 * keelPulse(s, k, beatPhase), 1.4 * fx.snap(k));
+  if (glow > 0) strokeGlow(ctx, seam, PALETTE.hullRim, STROKE.inner, glow);
 }
 
 /** The tail's rock, a lump of the same iron, falling. */

@@ -7723,6 +7723,13 @@ is taken from either seat, on the circle the drawing puts there
 simulation, silently, rather than passed to the cannon behind the ring — THE
 MANTLE's core's rule. No ghost thumb: the tap is momentary.
 
+**The fx and the hurt have landed** (26 September 2026, `render/keel-fx.ts`).
+A lock flares its seam, jolts the spine up a little and deals it the blow every
+boss takes. The socket shutting bursts in the socket's colour, snaps the middle
+two seams and jolts it harder. A socket or rock that reaches the hull bursts red
+there and shudders the plating. A shot rock bursts where it had fallen to. The
+events are read above the silent lists. Both screens are shown all of it.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

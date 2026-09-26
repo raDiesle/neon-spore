@@ -65,9 +65,8 @@ export const SILENT_BOSS_C = [
   "mantleBeat",
   "mantleDark",
   "mantleOut",
-  // THE KEEL's sixteen, no burst from this table: only its simulation lane
-  // has landed, so there is nothing on the field yet for a burst to land on.
-  // Sound is what these get instead (`packages/audio/src/bind-keel.ts`).
+  // THE KEEL's sixteen, no burst from this table: each is thrown above the
+  // loop by its own fx file (`keel-fx.ts`).
   "keelEnter",
   "keelLight",
   "keelLock",

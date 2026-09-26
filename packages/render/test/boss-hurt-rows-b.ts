@@ -143,6 +143,20 @@ export const HURT_ROWS_B: Row[] = [
     ],
     hurt: (fx) => fx.boss.mantle.hurt,
   },
+  {
+    boss: "keel",
+    // A joint locked in its window, and the shot that shuts the socket.
+    land: [
+      { type: "keelLock", seg: 0, loose: 5, col: 0 },
+      { type: "keelShut", col: 3 },
+    ],
+    part: [
+      { type: "keelLight", seg: 0, seat: 1, col: 0 },
+      { type: "keelMiss", seg: 0, col: 0 },
+      { type: "keelSlip", seg: 0, col: 0 },
+    ],
+    hurt: (fx) => fx.boss.keel.hurt,
+  },
 ];
 
 /** THE UNDERTOW with a lobe up in a breach: nothing of it shows otherwise. */

@@ -1094,6 +1094,7 @@ by hand never moves.
 | `packages/render/src/keel-pose.ts` | **The clock THE KEEL is posed off** (§24, *Animation*): a loose |
 | `packages/render/src/keel-shape.ts` | **Where THE KEEL is**, in field pixels: six segments arched along the top of the field |
 | `packages/render/src/keel-grip.ts` | **The thumb on THE KEEL** — the first of its hands lanes |
+| `packages/render/src/keel-fx.ts` | What THE KEEL leaves behind a frame: the **snap** of a segment as it locks |
 | `packages/render/src/light-shafts.ts` | SUN FALLING INTO DEEP WATER |
 | `packages/render/src/lobe.ts` | One lobe of the membrane, as a bump on the contour |
 | `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |

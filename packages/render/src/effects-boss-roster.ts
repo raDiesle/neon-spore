@@ -9,6 +9,7 @@ import { GorgeFx } from "./gorge-fx.js";
 import { HaspFx } from "./hasp-fx.js";
 import { HiveFx } from "./hive-fx.js";
 import { InstarFx } from "./instar-fx.js";
+import { KeelFx } from "./keel-fx.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
 import { MantleFx } from "./mantle-fx.js";
@@ -152,6 +153,10 @@ export class BossRoster {
   /** THE MANTLE's kick, flare and hull shock, and its receipts' bursts —
    * thrown the same on both screens, like the rest of it (`mantle-fx.ts`). */
   readonly mantle = new MantleFx();
+  /** THE KEEL's jolt, the snap on each seam as it locks and the hull shock,
+   * and its receipts' bursts — thrown the same on both screens, and told the
+   * socket's colour by the drawer (`keel-fx.ts`, `keel-draw.ts`). */
+  readonly keel = new KeelFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

@@ -22776,3 +22776,18 @@ Bottleneck: looking — the lash's curl is tighter than the tail is thick, and
 only a frame of it showed what that does to a tube.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE KEEL's fx: the snap of a lock, the socket shutting, the hull hit
+
+- reading: 5 min. THE MANTLE's fx and its five wiring points, and where each
+  of the sixteen keel events is pushed and with which column.
+- writing: 20 min. `keel-fx.ts`, threading it through the drawer, the roster,
+  the ingest loop and the hull shock, the hurt row and its test.
+- looking: 0 min. A burst lasts a frame or two; watching it at tempo is
+  queued as unverified.
+- friction: 5 min. The previous landing's claim had been re-stamped on
+  `main`, so the branch had to be brought up before starting.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the fx is a copy of THE MANTLE's in shape, and the
+five places it is registered are each one line that nothing names.

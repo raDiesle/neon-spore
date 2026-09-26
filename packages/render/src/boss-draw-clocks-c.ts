@@ -106,6 +106,7 @@ export function drawPairBoss(
   // THE KEEL: a spine of six segments arched along the top of the field,
   // locked rigid a joint at a time. Both screens are drawn the same — whose
   // thumb a joint wants is which half it sits over, and both have to see it
-  // (`keel-draw.ts`). Nothing of it outlives a frame yet.
-  drawKeel(ctx, l, world, boss, beat, beatPhase, time);
+  // (`keel-draw.ts`). What outlives a frame — the jolt of a lock, each seam's
+  // snap, the hull's shudder — is `effects.boss.keel` (`keel-fx.ts`).
+  drawKeel(ctx, l, world, boss, beat, beatPhase, time, effects.boss.keel);
 }
