@@ -2198,3 +2198,30 @@ the bare body's split, and each eye wincing by its own count (a `winceLeft`
 beside `wince`). The in-between motion is the three-quarter-view session's,
 not this lane's (§11.32). `bun run check` proves it draws; the eye is the
 owner's.
+
+## §23 THE MANTLE — a fuller story arc, buckle, vent, turn and reveal
+
+- **Found:** 2026-09-26, this session, at the owner's direction, sharpened by
+  the coordinator session's own review: the earlier closing-beat-only pass
+  across §23–§33 was too thin against the owner's ask for bosses that read as
+  a story through distinct visual states and SLOW beats. §23 THE MANTLE had no
+  closing beat yet (its finish is the alternating-tap heartbeat, not a `FIRE`
+  hit, so it fell outside that earlier pass) and gets the fuller redesign
+  first, in build order.
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Three new states between the shell's second and third plate-pair shears and
+its brace: a buckle (row 7, `CHORD`, a bulge the shell has never shown before,
+pressed flat), a vent (row 8, `TAP`, a seam aperture that flashes the core's
+own colour early), and a crosswise second crack (row 9, a picture beat setting
+up the brace). A fourth new state sits between the last shear and the core
+reveal: the two valves swing open on hinges rather than the shell just falling
+apart, guided by one more gentle `PULL` (row 12) — a turn and a reveal in one.
+A closing restraint beat (row 17, `SENDING NOTHING`) was also added, matching
+the pattern already built for the other ten bosses in this run. None of the
+four new states asks for a gesture the sim does not already have — `CHORD`,
+`TAP` and `PULL` are all spent elsewhere on this same page — so the build is
+four new booleans and one new hashed read of `mantlePairMilli`'s existing
+buckle/vent/turn thresholds, not a new primitive. `bun run check` proves the
+sim half; the three new poses (buckled valve, vented crack, hinged-open
+valves) are a look task, queued separately once this lane lands.

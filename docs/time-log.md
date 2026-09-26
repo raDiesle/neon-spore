@@ -23473,3 +23473,20 @@ Bottleneck: fitting the painting's box to the flat wing's bones by hand.
 Bottleneck: landing — the full check is longer than the lane.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §23 THE MANTLE: a fuller story arc, at the owner's request
+
+- reading: 15 min. §23's existing section, its already-built brace, and the
+  git history of the lanes that shipped it.
+- writing: 30 min. Four new states (buckle, vent, second crack, hinge-turn),
+  THE SLOW, Presentation, Animation, Colour, Payoff and Cost rewritten to
+  match, a closing restraint beat, the queue and time-log entries.
+- looking: 0 min. Spec and registration only — the look is queued separately.
+- friction: 5 min. A first pass wrote this entry as a table rather than the
+  house's bullet form, caught and redone before commit.
+- landing: 10 min. `check:fast`, commit, push.
+
+Bottleneck: designing four new states that read as genuinely different
+pictures while spending no gesture the sim does not already build, so the
+whole redesign stays a spec-and-registration lane rather than a new-primitive
+one.

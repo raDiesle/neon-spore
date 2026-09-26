@@ -2962,58 +2962,86 @@ refusal THE INSTAR's marks already use.
 | 4 | Both handles light again, the gauge's threshold a notch higher | P1+P2 | pull together, harder | 5 beats, seen | second plate-pair shears | same |
 | 5 | A spark leaks from the open gap — the ordinary hazard | P1 or P2 | fire it out, own colour | 2 beats, seen | spark goes out | spark reaches the hull, an ordinary hit |
 | 6 | Third handles-light beat, threshold higher again, the seam-crack now runs the shell's full length | P1+P2 | pull together | 4 beats, seen | third plate-pair shears | same |
-| **Movement 3 — the shell braces, then splits, then a heartbeat underneath** ||||||
-| 7 | The seam glows white and the shell visibly shudders, fighting to snap back shut before the last pull can land | P1+P2 | hold a chord on the two handles rather than pulling them (`CHORD`), steadying the shudder | held, 3 beats, seen | the shudder settles, the last pair's pull opens | either hand lifts: the shudder worsens and the window is lost, retry from the glow |
-| 8 | The last pair sits stiffer than the rest — the sim asks for the same threshold in a shorter window | P1+P2 | pull together, faster | 3 beats, seen | last plate-pair shears, shell splits down the seam | same, window resets |
-| 9 | The bare core beats inside the open shell, twice a beat, dim at first | — | — | — | — | — |
-| 10 | The core's beat lights the left half of a ring around it, brighter than row 9's dim opening | P1 | tap on the beat (`TAP`) | 1 beat, seen | left arc dims | a miss costs nothing — the core keeps beating |
-| 11 | The core's beat lights the right half, a beat later | P2 | tap on the beat (`TAP`) | 1 beat, seen | right arc dims | same |
-| 12 | Both arcs dim, alternating, three more rounds, the core's own beat visibly quickening each round — a call to make sure the pair is trading rather than both mashing | P1+P2 | alternate taps, never both on the same beat | 6 beats total, seen | core goes dark, fight ends | a same-beat double tap does not cost the wave — it costs one round, replayed |
+| **Movement 3 — the shell fights back** ||||||
+| 7 | The weakened valve buckles outward, a bulge pushing past the shell's own silhouette — a shape the shell has not made before | P1+P2 | hold a chord on the two handles, pressing the bulge flat rather than pulling (`CHORD`) | 3 beats, seen | the bulge flattens, the shell holds its line | left unheld: the valve tears early, shearing the next pair for free but doubling the spark row that follows it |
+| 8 | A vent hisses open along the crack, a seam aperture never shown before | P1 or P2 | tap the vent shut the instant it opens (`TAP`) | 1 beat, seen | vent seals, quiets | unplugged: the vent feeds an extra spark, a second row 5 to clear before the shell continues |
+| 9 | A second crack crosses the first, running the shell's height rather than its length, and pulses with a light pushing through from directly behind the core | — | — | — | — | — |
+| **Movement 4 — the shell braces, then splits, then a heartbeat underneath** ||||||
+| 10 | The seam glows white and the shell visibly shudders, fighting to snap back shut before the last pull can land | P1+P2 | hold a chord on the two handles rather than pulling them (`CHORD`), steadying the shudder | held, 3 beats, seen | the shudder settles, the last pair's pull opens | either hand lifts: the shudder worsens and the window is lost, retry from the glow |
+| 11 | The last pair sits stiffer than the rest — the sim asks for the same threshold in a shorter window | P1+P2 | pull together, faster | 3 beats, seen | last plate-pair shears, shell splits down the seam | same, window resets |
+| 12 | The two valves swing apart on hinges never used before, turning to show the core from underneath rather than head-on | P1+P2 | pull both handles once more, gently, guiding the halves the rest of the way open (`PULL`) | 2 beats, seen | halves settle fully open, core sits exposed and steady | released early: the halves swing too wide, the core dims and the beat retries once |
+| 13 | The bare core beats inside the open shell, twice a beat, dim at first | — | — | — | — | — |
+| 14 | The core's beat lights the left half of a ring around it, brighter than row 13's dim opening | P1 | tap on the beat (`TAP`) | 1 beat, seen | left arc dims | a miss costs nothing — the core keeps beating |
+| 15 | The core's beat lights the right half, a beat later | P2 | tap on the beat (`TAP`) | 1 beat, seen | right arc dims | same |
+| 16 | Both arcs dim, alternating, three more rounds, the core's own beat visibly quickening each round — a call to make sure the pair is trading rather than both mashing | P1+P2 | alternate taps, never both on the same beat | 6 beats total, seen | core goes dark, fight ends | a same-beat double tap does not cost the wave — it costs one round, replayed |
+| 17 | The spent core's light bleeds down through the split valves, threatening to draw them shut over it one last time | P1+P2 | send nothing — leave both handles untouched (`SENDING NOTHING`) | 3 beats, seen | the light bleeds off harmlessly, valves stay open | a reflex grab on either handle draws its valve shut over the dark core, one extra beat before it settles |
 
-**THE SLOW** opens on every "pull together" window (rows 2, 4, 6, 8) and now
-also on row 7's brace — the sum is drawn ticking up in real time, and the
-third-rate window is what lets a pair actually watch the bar cross the line
-together rather than guessing; the brace adds a beat where nothing is being
-pulled at all, only held, so the story reads as strain-then-release rather
-than four pulls in a row. Rows 10–11 run at tempo: a heartbeat is the one
-moment on this page the owner's rule about a called window does not apply,
-because the whole point of the finish is that it is fast, and row 12's
-quickening beat is what tells the pair the fight is closing without a word.
+**THE SLOW** opens on every "pull together" window (rows 2, 4, 6, 11) and now
+runs through the whole of Movement 3 as well: row 7's buckle asks for a held
+chord rather than a pull, row 8's vent asks for a single well-placed tap
+against a beat that has not been seen before, and row 12's guided turn is a
+third kind of pull again, gentler than the others, guiding rather than
+straining. The story this buys is a real arc rather than four pulls in a row —
+open (rows 1–3), escalate (4–6), the shell fighting back with a shape, an
+opening and a second crack it has not shown before (7–9), the turn at row 10's
+brace, the crisis of row 11's last shear, and row 12's reveal before the
+payoff. Rows 14–15 run at tempo: a heartbeat is the one moment on this page
+the owner's rule about a called window does not apply, because the whole
+point of the finish is that it is fast, and row 16's quickening beat is what
+tells the pair the fight is closing without a word. Row 17 closes it the way
+every other boss in this run now does: a beat of restraint after the last hit
+lands, nothing pulled, nothing held, just watched.
 
 **Presentation.** No camera. Each shearing pair is one hull-shock pulse; the
 open gap's spark is the dim treatment THE THROAT's choked ring already uses;
-row 7's held chord is a low groan that rises in pitch the longer it holds and
-resolves into the same shock pulse the moment it lands.
+row 7's buckle is a low, uneven creak, distinct from the brace's steadier
+groan; row 8's vent is a short hiss with its own bright, thin light, cut off
+the instant it is tapped; row 10's held chord is a low groan that rises in
+pitch the longer it holds and resolves into the same shock pulse the moment
+it lands; row 12's turn is silent but for the hinge, a sound the shell has not
+made before.
 
-**Animation.** Eight poses: shut; hairline crack after the first pair; crack
-run full length after the second; braced and shuddering under the held chord;
-split open with the bare core dim; left arc lit brighter mid-heartbeat; right
-arc lit; the core dark for good. The valves themselves visibly bow outward
-under a growing pull rather than sliding — the deformation reads off
-`mantlePairMilli` directly, never off the plate count — and the seam-crack's
-own length reads off the plate count directly, so the shell's damage is
-readable at a glance well before either handle's next pull begins.
+**Animation.** Eleven poses: shut; hairline crack after the first pair; crack
+run full length after the second; buckled, a bulge pressed flat under the
+held chord; vented, a bright aperture along the crack; the second, crosswise
+crack pulsing with the core's light behind it; braced and shuddering under
+the held chord; split down the seam; the two valves swung open on their
+hinges, core seen from beneath; left arc lit brighter mid-heartbeat; right arc
+lit; the core dark for good, valves settled open. The valves themselves
+visibly bow outward under a growing pull rather than sliding — the
+deformation reads off `mantlePairMilli` directly, never off the plate count —
+and the seam-crack's own length reads off the plate count directly, so the
+shell's damage is readable at a glance well before either handle's next pull
+begins.
 
 **Colour.** The shell is carapace grey throughout; the core is the one warm
 colour on the body, red or cyan chosen once per run, and it says nothing about
-which seat fires — nobody fires at it. Geometry alone says which handle is
-whose, the rule THE GIMBAL's rings and THE BALLOON's two grips already use.
+which seat fires — nobody fires at it. The vent at row 8 flashes the core's
+own colour early, a preview of what is behind the shell before the shell
+admits it. Geometry alone says which handle is whose, the rule THE GIMBAL's
+rings and THE BALLOON's two grips already use.
 
-**Payoff.** Row 12's alternating heartbeat, coming right after a brace and
-nine beats of both thumbs pulling in lockstep — the one place on this page
-the pair has to stop acting together to finish the fight; row 7's brace is a
-second, smaller payoff of its own, the one beat in the whole fight where
-holding still, not pulling, is what the shell asks for.
+**Payoff.** Row 16's alternating heartbeat, coming right after a brace, a
+buckle, a vent, a second crack and a guided turn — the one place on this page
+the pair has to stop acting together to finish the fight; row 12's hinge-turn
+is a payoff of its own, the shell finally showing what a straight split never
+would; row 7's buckle is the smallest of the three, the first beat in the
+whole fight where holding still, not pulling, is what the shell asks for.
 
 **Cost. Low.** Both handles are `instarMark`'s own drag kind pointed at two
 targets instead of one; the only new state is `mantlePairMilli`, one hashed
-field, and the floor-check that makes the sum a two-hand rule. The brace adds
-one boolean read off `CHORD`, already built for THE TRIVET, THE GRINDSTONE,
-THE HALTER and THE WINCH.
+field, and the floor-check that makes the sum a two-hand rule. Rows 7, 8, 10
+and 12 spend booleans off primitives already built elsewhere on this page —
+`CHORD`, `TAP` and `PULL` — so no new gesture is asked for anywhere in the
+fight. Row 17 adds one boolean off `SENDING NOTHING`, already built for THE
+KEEL, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE
+SLING, THE GRINDSTONE, THE HALTER and THE FLUE.
 
 **Reusable.** The floor-checked sum — `PulledMagnitude`/`ChargeSum` finally
 spent — and the alternating single-tap finish, a `RepeatedTap` cousin worth
-naming if a later boss wants a heartbeat of its own.
+naming if a later boss wants a heartbeat of its own; the guided-turn pull at
+row 12, a softer `PULL` variant, worth naming if a later boss wants to turn a
+split into a reveal rather than an instant cut.
 
 ### §24 THE KEEL — whose thumb the spine calls on next
 
