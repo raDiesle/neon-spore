@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 044d6f6d7 — THE INSTAR's wings are solid: a lit membrane and a tube arm, hung on a shoulder anchor
+
+Each wing is authored once, flat about its own shoulder, and hung on an anchor of the rig. The membrane is a new part kind, a sheet lit by its own normal, so as the wing beats on its roll it turns its face to the key and away and brightens and darkens on its own; light comes through it from the bones and goes dark at the hem. The arm is a lit tube of the rig. The figure's side blends the two carriages, face-on spread and hanging and side-on raised off the back, so the same wing serves both views, and the far one is the same wing mirrored and hazed.
+
 ## 2026-09-26 · d08eb0292 — THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time
 
 The spine is THE CANOPY's faceted arc laid with THE BRISTLE's squared-off lozenges, one segment over each of its columns, with ribs hung underneath. A loose segment is dull, sags and sways on its own count. A locked one is lit, rigid and seamed white, and the arch tightens as more of it locks. The lit joint carries a white ring whose arc closes with the window. The midpoint hinges apart round a socket of the wave's colour. The tempo run dims every joint and brings the answered ones back up. Then the spine holds rigid, the tail whips and drops its rock down its column, and the spine snaps straight. Both screens draw the same picture.

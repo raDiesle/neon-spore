@@ -22673,3 +22673,5 @@ which is two files before it is one.
 
 Bottleneck: looking — the width of a wing face-on comes from three turns and a
 lens at once, and only a frame says which one is short.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
