@@ -24640,3 +24640,5 @@ Bottleneck: landing — the full suite for one page of reading.
 - landing: 10 min. The guide, the spec, the ship note, `check:fast`, `land`, `push`.
 
 Bottleneck: writing — the rig's `answer` had to learn the two new asks before any step past them could be reached in a test.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

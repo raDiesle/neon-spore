@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 17331e932 — THE TRIVET lurches onto one foot and flings a needle, two action steps under THE SLOW
+
+The lurch: the stand leans hard onto a foot and the hub swings two columns off the middle; that foot's seat holds its chord while the pair shoots the swung hub in its colour. The needle: the hub flings one down a column two to the other side, turned by the shield under it (trivetTurn, the shield's own deflect). Either run out is a hull hit over its own column. The script is now eleven steps and four hits; the AUTO hand answers both, and the wave editor keeps a step's offset when it saves. Simulation only: neither is drawn yet. Nothing delegated.
+
 ## 2026-09-26 · 40adcdf3f — INDEX.md drops a second row for boss-cue-read-zg.ts that named THE TRIVET
 
 THE TRIVET's cue landed with two index rows for THE RIME's page, and the drift test was red on main for every lane after it. The TRIVET row for `boss-cue-read-zh.ts` stays. How the landing let it through is queued.
