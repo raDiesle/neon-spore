@@ -274,9 +274,26 @@ lamp's pulse) rather than `world.beat` — nothing about *which way the light
 sits on an otherwise-still plate* has to agree between two phones the way a
 synced gesture does. Small enough that the pose still reads as still; the cue
 is the wet shoulder sliding, not the skull visibly turning. A part that is
-already posed for a real reason — a hinged jaw, a limb whose angle is an
-`atan2` off a moving point — keeps that angle and gets no wobble added; the
-gap is only in the parts a pose leaves at a constant.
+driven every frame for a real reason — a hinged jaw's swing, a limb whose
+angle is an `atan2` recomputed off a point the input or the sim is actively
+moving — keeps that angle bare; the wobble adds nothing where the angle is
+already live. **An `atan2` off a point that only moves at a pose change is
+constant in between**, which is the same still life with extra arithmetic:
+THE INSTAR's long body (`instar-profile.ts`) turns its `angle` from the neck
+to the tail, both of which sit still for beats at a time between morphs, so
+it gets the same wobble as the skull, on its own period so the two lit
+shoulders do not slide together (`BODY_WOBBLE`/`BODY_WOBBLE_PERIOD`).
+
+**A glow inside the body is a different cue from a lit surface**, and the
+owner asked for it by name alongside gradients and fills on 26 September
+2026. `lightHide`'s zones all read the hide as an opaque shell with light
+falling on the outside; a soft colour breathing up *through* it — behind the
+plates rather than across them — reads as something alive underneath. THE
+INSTAR's chest (`instar-profile.ts`) blits `glow.ts`'s `halo()` in the ember
+the mouth's fire already uses, sized to the body and pulsing on its own
+wall-clock period, under the plate rather than clipped to it: cheap (one
+cached sprite), and it needs no new zone in `lightHide` because it is not a
+light falling on the surface at all.
 
 ## Motion
 

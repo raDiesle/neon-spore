@@ -28,6 +28,25 @@ import { splinePath } from "./spline.js";
 /** Samples along the spine. */
 const N = 16;
 
+/**
+ * The long body's own idle wobble on `Form.angle`, same reasoning as the
+ * skull's `CROWN_WOBBLE` (`instar-side-head.ts`, `docs/style-guide.md`'s
+ * "Depth on a body that already ships"): the plate's shading is otherwise a
+ * still life between morphs, since the pose only turns it when the spine
+ * itself moves. A different period than the skull's, so the two lit
+ * shoulders do not slide in step — "phase offset is the cheapest detail
+ * available" (`docs/style-guide.md`, Motion).
+ */
+const BODY_WOBBLE = 0.05;
+const BODY_WOBBLE_PERIOD = 7.2;
+
+/** How far into the body the inner ember glow sits, and how it breathes: the
+ * lung a dragon's fire comes from, showing through the hide as a soft pulse
+ * rather than a lit surface — the "glow inside of body" the owner asked for
+ * on 26 September 2026, alongside gradients and fills already in `lightHide`. */
+const EMBER_GLOW_AT = 0.22;
+const EMBER_GLOW_PERIOD = 3.4;
+
 export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f, head, r, fade, hurt, time } = look;
   const rear = instarFarEnd(l, f);
@@ -81,16 +100,20 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   // way it runs from the neck to the rear.
   const from = spine[0] as Point;
   const mid = spine[N / 2] as Point;
+  const wobble = BODY_WOBBLE * Math.sin((time * (Math.PI * 2)) / BODY_WOBBLE_PERIOD);
   const form = {
     x: mid.x,
     y: mid.y,
     r: Math.hypot(rear.x - from.x, rear.y - from.y) / 2,
     ry: r * 0.5,
-    angle: Math.atan2(rear.y - from.y, rear.x - from.x),
+    angle: Math.atan2(rear.y - from.y, rear.x - from.x) + wobble,
   };
   drawPlate(ctx, hide, fade, 0.5, hurt, form);
   drawScales(ctx, hide, { ...form, y: form.y - r * 0.12, ry: r * 0.3 }, r * 0.13, fade);
   drawScutes(ctx, bottom, spine, r, fade);
+  const glowAt = spine[Math.round(EMBER_GLOW_AT * N)] as Point;
+  const breathe = 0.55 + 0.45 * Math.sin((time * (Math.PI * 2)) / EMBER_GLOW_PERIOD);
+  halo(ctx, glowAt.x, glowAt.y, r * 0.5, PALETTE.ember, 0.45 * breathe * fade);
   for (let i = 2; i < N - 1; i += 2) {
     const a = top[i] as Point;
     const b = bottom[i] as Point;
