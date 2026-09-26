@@ -13,43 +13,28 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { branchFor } from "./claim.js";
+import { pushTrunk, type Sent, settleRefused } from "./claim-push.js";
 import { clearTaken, hasEntry, markTaken, takenIn } from "./edit.js";
 import { commitOnRef, gitIn, gitWith } from "./git.js";
 import { takenMark } from "./mark.js";
 import type { Item } from "./queue.js";
-import type { Trunk } from "./stale.js";
-import { git, hasBranch, ROOT, TRUNK, workedOn } from "./tree.js";
+import { git, ROOT, TRUNK, trunkTree, workedOn } from "./tree.js";
 
 // The facts about the checkout live in `tree.ts` now; they are said again here
 // because this file is the door the tool comes in by.
-export { git, hasBranch, headBranch, mainCheckout, PATHS, ROOT, refs, TRUNK } from "./tree.js";
-
-/**
- * The trunk as a ref this checkout can read: its own `main`, or origin's copy
- * in a clone that checked out one lane by name and never made a `main`.
- */
-export function trunkRef(): string {
-  return hasBranch(TRUNK) ? TRUNK : `origin/${TRUNK}`;
-}
-
-/** The trunk's files and log, the shape `stale.ts` reads an entry against. */
-export function trunkView(): Trunk {
-  const ref = trunkRef();
-  return {
-    tree: git("ls-tree", "-r", "--name-only", ref).out.split("\n").filter(Boolean),
-    log: (paths) => git("log", "-1", "--format=%h%x09%cs%x09%s", ref, "--", ...paths),
-  };
-}
-
-/** The worktree holding the trunk, or "" when nothing has it checked out. */
-export function trunkTree(root = ROOT): string {
-  let path = "";
-  for (const line of gitIn(root, "worktree", "list", "--porcelain").out.split("\n")) {
-    if (line.startsWith("worktree ")) path = line.slice("worktree ".length).trim();
-    if (line.trim() === `branch refs/heads/${TRUNK}`) return path;
-  }
-  return "";
-}
+export {
+  git,
+  hasBranch,
+  headBranch,
+  mainCheckout,
+  PATHS,
+  ROOT,
+  refs,
+  TRUNK,
+  trunkRef,
+  trunkTree,
+  trunkView,
+} from "./tree.js";
 
 /**
  * Rewrite one of the two files on the trunk, commit it there and push.
@@ -72,13 +57,16 @@ export function trunkTree(root = ROOT): string {
  * The one refusal left is a warning rather than an error: the trunk tree has
  * the file modified. The branch is the gate and it has already been taken by
  * the time this runs, and `--only` would commit *their* version of the file.
+ *
+ * What the push did is returned rather than only printed: a claim origin
+ * refused is not a claim, and `claim` settles it (`claim-push.ts`).
  */
 export function onTrunk(
   item: Item,
   edit: (md: string) => string,
   subject: string,
   root = ROOT,
-): boolean {
+): Sent | false {
   const tree = trunkTree(root);
   const rel = `docs/${item.source}.md`;
   if (!tree) {
@@ -95,11 +83,7 @@ export function onTrunk(
   }
   console.log(`  ${TRUNK}     ${rel} — ${subject}`);
 
-  if (!gitIn(root, "remote", "get-url", "origin").ok) return true;
-  const pushed = gitIn(tree || root, "push", "origin", `${TRUNK}:${TRUNK}`);
-  if (pushed.ok) console.log(`  pushed   origin/${TRUNK}`);
-  else console.log(`  ⚑ origin/${TRUNK} not updated — run: git push origin ${TRUNK}`);
-  return true;
+  return pushTrunk(root, tree);
 }
 
 /** Whether the trunk's own copy of the file has an entry under this title. */
@@ -202,7 +186,9 @@ export function claim(item: Item, root = ROOT, dealt = false): string {
       console.log(`           so the line lands with the work that queued it`);
       return branch;
     }
-    const marked = onTrunk(item, edit, `Mark ${JSON.stringify(item.title)} taken`, root);
+    const put = () => onTrunk(item, edit, `Mark ${JSON.stringify(item.title)} taken`, root);
+    const marked = put();
+    if (marked === "refused") settleRefused(item, put, root, trunkTree(root));
     if (marked) {
       const moved = gitIn(root, "branch", "--force", branch, TRUNK);
       if (!moved.ok) throw new Error(`could not move the claim onto ${TRUNK}: ${moved.err}`);

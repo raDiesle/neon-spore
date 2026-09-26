@@ -7,10 +7,15 @@
  * — and nothing here writes anything. `repo.ts` is still the one file the tool
  * imports from: it re-exports what it does not use itself, so a split made for
  * the ceiling's sake did not become a rename in six call sites.
+ *
+ * `trunkRef`, `trunkView` and `trunkTree` followed on 26 September 2026, when
+ * a refused claim push (`claim-push.ts`) brought `repo.ts` near the ceiling
+ * again: they only read where the trunk is.
  */
 
 import { dirname, join } from "node:path";
 import { gitIn } from "./git.js";
+import type { Trunk } from "./stale.js";
 
 export const ROOT = join(import.meta.dirname, "..", "..");
 export const PATHS = {
@@ -88,4 +93,31 @@ export function refs(): string[] {
     .split("\n")
     .map((s) => s.trim())
     .filter(Boolean);
+}
+
+/**
+ * The trunk as a ref this checkout can read: its own `main`, or origin's copy
+ * in a clone that checked out one lane by name and never made a `main`.
+ */
+export function trunkRef(): string {
+  return hasBranch(TRUNK) ? TRUNK : `origin/${TRUNK}`;
+}
+
+/** The trunk's files and log, the shape `stale.ts` reads an entry against. */
+export function trunkView(): Trunk {
+  const ref = trunkRef();
+  return {
+    tree: git("ls-tree", "-r", "--name-only", ref).out.split("\n").filter(Boolean),
+    log: (paths) => git("log", "-1", "--format=%h%x09%cs%x09%s", ref, "--", ...paths),
+  };
+}
+
+/** The worktree holding the trunk, or "" when nothing has it checked out. */
+export function trunkTree(root = ROOT): string {
+  let path = "";
+  for (const line of gitIn(root, "worktree", "list", "--porcelain").out.split("\n")) {
+    if (line.startsWith("worktree ")) path = line.slice("worktree ".length).trim();
+    if (line.trim() === `branch refs/heads/${TRUNK}`) return path;
+  }
+  return "";
 }

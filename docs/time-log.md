@@ -22290,3 +22290,17 @@ first check runs.
 Bottleneck: landing — the checks outlast a change this size.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A claim whose push origin refuses is made again or given up
+
+- reading: 10 min. `repo.ts`'s `onTrunk` and `claim`, `commitOnRef`, the
+  claim tests' fixtures, and origin's log to find why the claim was refused.
+- writing: 25 min. `claim-push.ts`, the trunk helpers moved into `tree.ts`
+  for the line ceiling, a test with a bare origin and two clones.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. A new workspace package from the trunk needed `bun install`
+  before the typecheck would run.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: diagnosis — the refusal came from a stale `main`, not a race,
+and only origin's log and the reflog showed it.

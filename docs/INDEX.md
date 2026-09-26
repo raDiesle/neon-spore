@@ -2362,6 +2362,7 @@ by hand never moves.
 | `tools/land/sweep.ts` | Everything that happens after the fast-forward and does not touch a ref: the release note |
 | `tools/orphans/run.ts` | `bun run orphans` — what is built and reached by nothing |
 | `tools/queue/claim.ts` | Who is already working on a queue item |
+| `tools/queue/claim-push.ts` | The push that makes a `Taken:` line a claim, and what a claim does when origin refuses it |
 | `tools/queue/queue.ts` | The technical queue: what a session found and did not do, written in a shape a fresh session can pick up cold |
 | `tools/queue/repo.ts` | every `git` the queue runs: the branches, a claim made and dropped, the trunk's own copy of the file |
 | `tools/queue/run.ts` | `bun run queue` — what is waiting, and what somebody is already on |
