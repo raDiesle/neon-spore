@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · ee6d1a6d9 — THE TRIVET stamps the hull with its middle needle when a fire step runs out
+
+When the hub is left unshot, the stand's third leg, the one it never lifts, cocks back and drives on out of its foot down the middle column, pierces the plating and leaves the stand's own footprint there, a plate with its sockets pressed into the skin, before it draws back up. It replaces the default red lash.
+
 ## 2026-09-26 · 69764810f — THE TRIVET has an autopilot hand, and the STATES sheet poses its four phases
 
 AUTO now puts down each seat's lit pads in order, fires the named colour down the middle column while the hub is lit, and walks the stand to its collapse unaided; the director's STATES sheet poses it still, lit, at rest and collapsing. A director tool and a test hand, not a look.
