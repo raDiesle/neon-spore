@@ -3652,35 +3652,48 @@ what tells two identical screens apart on this page.
 | 8 | Hub flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
 | 9 | Feet creep loose a second time, faster | P1+P2 | chord together, both feet | 3 beats, held | stays down | rocks back up, retry |
 | 10 | Hub flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, hub spent | stays lit |
-| 11 | All three feet buckle at once and the stand collapses | — | — | — | — | — |
+| 11 | The planted feet ring under the spent hub, straining loose again on their own | P1+P2 | send nothing — no chord, no control | 3 beats, seen | the ring dies out, feet stay planted on their own | a reflex chord jolts a foot loose and rings it again, one extra beat before it settles |
+| 12 | All three feet buckle at once and the stand collapses | — | — | — | — | — |
 
 **THE SLOW** opens on every chord window (rows 2, 3, 4, 5, 7, 9) and every
 fire window (rows 6, 8, 10) — a held chord is exactly THE VISE's argument
 for seconds over beats, since most of it is a seat confirming out loud that
-both thumbs are actually still down.
+both thumbs are actually still down. Row 11 opens it on the opposite hand:
+after ten beats spent chording or firing, the fight's last beat asks both
+seats to let go of every control at once and trust the stand to settle on
+its own.
 
 **Presentation.** No camera. Each planted foot a flat hull-shock thud;
 each hub hit an ordinary shot's flash; a foot springing loose a short
-metallic ring.
+metallic ring. Row 11's dying ring is the same metallic sound, decaying
+across its window with no chord to answer it, gone quiet a beat before the
+collapse.
 
-**Animation.** Five poses: both feet up; front planted; both planted, hub
-lit; hub guarded, feet creeping loose; collapsed. A foot plants by swinging
-down and locking rather than fading in — the same drawn-as-mechanism choice
-THE OCULUS, THE VISE and THE RIME all make.
+**Animation.** Six poses: both feet up; front planted; both planted, hub
+lit; hub guarded, feet creeping loose; feet ringing under the spent hub,
+every control let go; collapsed. A foot plants by swinging down and locking
+rather than fading in — the same drawn-as-mechanism choice THE OCULUS, THE
+VISE and THE RIME all make.
 
 **Colour.** Stand a dull gunmetal, the sockets a cold blue-white when lit;
 the hub is the only lit colour on the body, lit in whichever cannon colour
-a given beat wants, THE SEAM's and THE OCULUS's rule again.
+a given beat wants, THE SEAM's and THE OCULUS's rule again. Row 11's ring
+carries no lit colour at all, the sockets fading back to their dull
+gunmetal as the feet settle.
 
 **Payoff.** Rows 7 and 9 — `CHORD` asked for defensively, replanting a
 foot under a `FIRE` step already under way, the same shape as THE OCULUS's
 row 7 and THE VISE's rows 7/9, spent here on a chord instead of a hold or a
-pinch.
+pinch. Row 11 is the fight's other payoff: after three movements that never
+once asked both seats to let go of everything, the last beat is exactly
+that.
 
 **Cost. Low.** One new primitive, `ChordHold` (a fixed set of a seat's own
 controls, all held with none lifting, for a beat count — pure pointer state,
 no new field type); the plant/spring threshold logic reuses THE VALVE's
-landed/missed window shape.
+landed/missed window shape; and one boolean for row 11's hold, a read off
+`SENDING NOTHING`, already built for THE KEEL, THE SEAM, THE OCULUS, THE
+VISE, THE RIME, THE HALTER and THE FLUE.
 
 **Reusable.** `ChordHold` itself — the first primitive on this page read
 from a seat's own panel rather than from a body on the field or a phone's

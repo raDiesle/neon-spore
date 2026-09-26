@@ -2044,3 +2044,22 @@ closing an arc that opened on a wipe with a beat that asks for the
 opposite. This is one new boolean field, no new sim state beyond it. `bun
 run check` proves the sim half; the sixth pose (spent core under a cracking
 refreeze) is a look task, queued separately once this lane lands.
+
+## §30 THE TRIVET — a revised simulation lane, a ring left to settle
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+THE TRIVET already ships as a choreographed scene of chorded feet and
+guarded hub shots (`docs/spec/bosses.md` §30). This adds a new closing row
+11 where the planted feet ring loose under the spent hub and the pair must
+let go of every control at once — reading off `SENDING NOTHING`, already
+built for THE KEEL, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE HALTER
+and THE FLUE, a reuse rather than a first use, so no gesture-registration
+edit is needed. It is the fight's one beat built from letting go of
+everything, after three movements that never once asked for that. This is
+one new boolean field, no new sim state beyond it. `bun run check` proves
+the sim half; the sixth pose (feet ringing under the spent hub, unheld) is
+a look task, queued separately once this lane lands.
