@@ -441,6 +441,7 @@ const SAMPLES: Record<string, SimEvent> = {
   seamEnter: { type: "seamEnter", col: 5 },
   seamLight: { type: "seamLight", col: 5, ask: "point" },
   seamDim: { type: "seamDim", col: 5 },
+  seamQuench: { type: "seamQuench", col: 5, left: 1 },
   seamSeal: { type: "seamSeal", col: 5, sealed: 2 },
   seamRockOut: { type: "seamRockOut", col: 5 },
   seamBlock: { type: "seamBlock", col: 5 },

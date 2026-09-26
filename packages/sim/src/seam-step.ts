@@ -44,6 +44,8 @@ export function seamStepBeats(world: World, s: SeamState): number {
   if (ask === "grit") return cfg.seamGritBeats;
   if (ask === "rock") return cfg.seamRockBeats;
   if (ask === "both") return cfg.seamBothBeats;
+  if (ask === "blind") return cfg.seamBlindBeats;
+  if (ask === "glow") return cfg.seamGlowBeats;
   return cfg.seamPointBeats;
 }
 
@@ -71,6 +73,7 @@ function next(world: World, s: SeamState): void {
   s.litTick = world.tick;
   s.shot = false;
   s.guarded = false;
+  s.quenched = 0;
   openSlow(world, seamStepBeats(world, s), "ask");
   world.events.push({ type: "seamLight", ask: step.ask, col: seamStepCol(world, step) });
 }

@@ -9,7 +9,14 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { type SeamState, type SeamStep, seamBoss, seamLitStep, seamStepCol } from "../src/seam.js";
+import {
+  type SeamState,
+  type SeamStep,
+  seamBoss,
+  seamLitStep,
+  seamShields,
+  seamStepCol,
+} from "../src/seam.js";
 import { seamStruck } from "../src/seam-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
@@ -27,10 +34,12 @@ export const SCRIPT: readonly SeamStep[] = [
   { ask: "point", color: "red", offset: 0, seals: false },
   { ask: "grit", color: "either", offset: 0, seals: false },
   { ask: "point", color: "cyan", offset: 0, seals: true },
+  { ask: "blind", color: "either", offset: 0, seals: false },
   { ask: "point", color: "red", offset: 0, seals: false },
   { ask: "point", color: "cyan", offset: 0, seals: true },
   { ask: "grit", color: "either", offset: 0, seals: false },
   { ask: "rock", color: "cyan", offset: 2, seals: false },
+  { ask: "glow", color: "either", offset: 0, seals: false },
   { ask: "point", color: "either", offset: 0, seals: true },
   { ask: "both", color: "either", offset: -2, seals: false },
 ];
@@ -89,8 +98,11 @@ export function answer(world: World): void {
   const s = seam(world);
   const step = seamLitStep(s);
   if (step === null) throw new Error("nothing is lit");
-  if (step.ask !== "grit") seamStruck(world, shot(seamStepCol(world, step), rightColor(step)));
-  if (step.ask === "grit" || step.ask === "both") shield(world);
+  const shots = step.ask === "glow" ? world.cfg.seamGlowShots : 1;
+  if (step.ask !== "grit" && step.ask !== "blind")
+    for (let i = 0; i < shots; i++)
+      seamStruck(world, shot(seamStepCol(world, step), rightColor(step)));
+  if (seamShields(step)) shield(world);
 }
 
 /** A colour the step takes. */

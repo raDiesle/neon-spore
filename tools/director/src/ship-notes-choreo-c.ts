@@ -126,11 +126,11 @@ export const CHOREO_NOTES_C = {
     "column, and a script the wave authors. Each step lights one thing: a point " +
     "shot in its colour (seamPointBeats), grit taken on the shield under the " +
     "ridge (seamGritBeats), a rock shot in its column (seamRockBeats), or grit " +
-    "and a rock at once (seamBothBeats). A shot or a shield outside its step " +
-    "does nothing; a step run out is a hull hit, which is the wave. Three " +
-    "sealing points are the health. THE SLOW spans every step. Only the " +
-    "simulation lane has landed — see sim/seam.ts, sim/seam-step.ts, " +
-    "sim/seam-shot.ts, sim/seam-guard.ts, sim/config-seam.ts.",
+    "and a rock at once (seamBothBeats). The story: the ridge turned face away " +
+    "throws grit blind (seamBlindBeats), and a glow gathers on the crack until " +
+    "seamGlowShots shots of either colour quench it (seamGlowBeats). A step run " +
+    "out is a hull hit, which is the wave. Three sealing points are the health, " +
+    "and THE SLOW spans every step — sim/seam*.ts, sim/config-seam.ts.",
   "THE OCULUS — the boss both hands hold shut, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §27: two seats holding at " +
     "once, for as long as the count runs. An eye over the middle column behind " +

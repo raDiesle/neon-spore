@@ -111,10 +111,11 @@ export const SILENT_BOSS_C = [
   "valveSparkHit",
   "valveOpen",
   "valveOut",
-  // THE SEAM's nine, the same (`packages/audio/src/bind-seam.ts`).
+  // THE SEAM's ten, the same (`packages/audio/src/bind-seam.ts`).
   "seamEnter",
   "seamLight",
   "seamDim",
+  "seamQuench",
   "seamSeal",
   "seamRockOut",
   "seamBlock",

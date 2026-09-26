@@ -101,6 +101,7 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "seamEnter":
     case "seamLight":
     case "seamDim":
+    case "seamQuench":
     case "seamSeal":
     case "seamRockOut":
     case "seamBlock":

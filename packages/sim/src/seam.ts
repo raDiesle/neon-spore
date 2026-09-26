@@ -34,9 +34,15 @@ export const SEAM_POINTS = 3;
 export const SEAM_PHASES = ["still", "lit", "rest", "split"] as const;
 export type SeamPhase = (typeof SEAM_PHASES)[number];
 
-/** What a step asks: a point shot, grit shielded, a rock shot, or grit and a
- * rock at once. */
-export const SEAM_ASKS = ["point", "grit", "rock", "both"] as const;
+/**
+ * What a step asks: a point shot, grit shielded, a rock shot, grit and a rock
+ * at once — and the two story steps (§26 rows 5–7 and 12–13): **`blind`**,
+ * the ridge turned face away while it throws, its grit taken on the shield
+ * with the crack out of sight; and **`glow`**, heat bleeding up through the
+ * shell and gathering at one point on the crack, quenched by
+ * `seamGlowShots` shots of either colour.
+ */
+export const SEAM_ASKS = ["point", "grit", "rock", "both", "blind", "glow"] as const;
 export type SeamAsk = (typeof SEAM_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
@@ -73,6 +79,8 @@ export interface SeamState {
   shot: boolean;
   /** Whether this step's grit has been taken on the shield. */
   guarded: boolean;
+  /** Shots landed on this step's glow, nought up to `seamGlowShots`. */
+  quenched: number;
 }
 
 export function seamBoss(world: World): SeamState | null {
@@ -88,20 +96,25 @@ export function seamLitStep(s: SeamState): SeamStep | null {
 /** Whether the lit step wants a shot, and has not had it. */
 export function seamWantsShot(s: SeamState): boolean {
   const step = seamLitStep(s);
-  return step !== null && step.ask !== "grit" && !s.shot;
+  return step !== null && step.ask !== "grit" && step.ask !== "blind" && !s.shot;
 }
 
 /** Whether the lit step wants the shield, and has not had it. */
 export function seamWantsShield(s: SeamState): boolean {
   const step = seamLitStep(s);
-  return step !== null && (step.ask === "grit" || step.ask === "both") && !s.guarded;
+  return step !== null && seamShields(step) && !s.guarded;
 }
 
-/** The column a step is answered in: the ridge for a point and grit, the
- * rock's own column for a rock. */
+/** Whether a step is answered on the shield at all: grit, thrown blind or not. */
+export function seamShields(step: SeamStep): boolean {
+  return step.ask === "grit" || step.ask === "both" || step.ask === "blind";
+}
+
+/** The column a step is answered in: the ridge for everything but a rock,
+ * the rock's own column for a rock. */
 export function seamStepCol(world: World, step: SeamStep): number {
   const mid = midCol(world.cfg);
-  if (step.ask === "point" || step.ask === "grit") return mid;
+  if (step.ask !== "rock" && step.ask !== "both") return mid;
   return clampCol(world.cfg, mid + step.offset);
 }
 
@@ -122,5 +135,6 @@ export function freshSeam(beat: number, steps: readonly SeamStep[]): SeamState {
     litTick: 0,
     shot: false,
     guarded: false,
+    quenched: 0,
   };
 }

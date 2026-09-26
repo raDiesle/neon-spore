@@ -254,6 +254,7 @@ export function patchBossD(boss: BossState): void {
     boss.litTick = 40;
     boss.shot = true;
     boss.guarded = true;
+    boss.quenched = 2;
   }
   if (boss.kind === "oculus") {
     // The first pair held with the socket open — every field given a value

@@ -16,6 +16,12 @@ export interface SeamConfig {
   seamRockBeats: number;
   /** Beats grit and a rock at once wait for both answers. */
   seamBothBeats: number;
+  /** Beats the ridge, turned face away, waits for its grit on the shield. */
+  seamBlindBeats: number;
+  /** Beats the glow gathers, waiting for its shots. */
+  seamGlowBeats: number;
+  /** Shots of either colour that quench the glow. */
+  seamGlowShots: number;
   /** Beats the ridge rests after a step before the next lights. */
   seamRestBeats: number;
   /** Beats the split ridge hangs before the wave may end. */
@@ -28,6 +34,9 @@ export const SEAM_DEFAULTS: SeamConfig = {
   seamGritBeats: 2,
   seamRockBeats: 2,
   seamBothBeats: 3,
+  seamBlindBeats: 3,
+  seamGlowBeats: 4,
+  seamGlowShots: 3,
   seamRestBeats: 1,
   seamSplitBeats: 2,
 };

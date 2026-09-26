@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SEAM's ten, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the ridge stands over `midCol`, so all but a
  * rock's are in the middle, and a rock spat to one side is heard on that side.
@@ -19,6 +19,9 @@ export function seamCue(e: Extract<SimEvent, { type: `seam${string}` }>, cols: n
       return { id: "boss.seamLight", pan };
     case "seamDim":
       return { id: "boss.seamDim", pan };
+    case "seamQuench":
+      // The glow's own dimming: the dim click, lower the more is left to put out.
+      return { id: "boss.seamDim", pan, pitch: 1 - Math.min(3, e.left) * 0.08 };
     case "seamSeal":
       // Higher as the points close: the crack shutting reads as the click rising.
       return { id: "boss.seamSeal", pan, pitch: 1 + Math.max(0, e.sealed - 1) * 0.06 };

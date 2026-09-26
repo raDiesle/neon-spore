@@ -24297,3 +24297,15 @@ Bottleneck: writing — a view can only be left undrawn by a box it provably sta
 Bottleneck: looking — legs that stopped short of the hub and a collapse that folded inward only showed in a frame.
 
 *Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE SEAM's story steps: the turn and the glow
+
+- reading: 10 min. THE SEAM's step, shot and guard pages, and its tests.
+- writing: 35 min. Two asks, three config fields, a quench count and its
+  event, the script to eleven steps, a story test file, the registrations.
+- looking: 0 min. Nothing drawn in this lane.
+- friction: 10 min. The VALVE look's write-up had pasted its paragraph over
+  four other bosses' openers in `bosses.md`; restored here.
+- landing: 10 min.
+
+Bottleneck: writing — every new event is five registrations outside `sim`.

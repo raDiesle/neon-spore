@@ -37,6 +37,9 @@ export const INGEST_SILENT_BOSS_D = [
   "keelBurn",
   "keelCool",
   "keelFlare",
+  // THE SEAM's glow, landed after page three filled: how much of it is
+  // left is read off the state each frame (`sim/seam-shot.ts`).
+  "seamQuench",
   // THE SLING's twelve: nothing is drawn yet, so nothing outlives a frame
   // (`packages/audio/src/bind-sling.ts`).
   "slingEnter",

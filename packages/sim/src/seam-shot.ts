@@ -13,6 +13,9 @@ import type { World } from "./world.js";
  * THE KEEL's socket's rule: the other one is a colour missed on the balance
  * sheet and nothing else, and the step stays lit. A step authored `"either"`
  * takes both, the white point and the last rock.
+ *
+ * **The glow** takes either colour and more than one shot: it is answered
+ * once `seamGlowShots` have landed, each a `seamQuench` with what is left.
  */
 export function seamStruck(world: World, bullet: Bullet): void {
   const s = seamBoss(world);
@@ -26,6 +29,14 @@ export function seamStruck(world: World, bullet: Bullet): void {
     }
     metColor(world);
   }
+  if (step.ask === "glow") {
+    // The glow gathers until enough shots have landed on it; each one tells
+    // the picture how much is left.
+    s.quenched += 1;
+    const left = Math.max(0, world.cfg.seamGlowShots - s.quenched);
+    world.events.push({ type: "seamQuench", left, col: bullet.col });
+    if (left > 0) return;
+  }
   s.shot = true;
   if (step.ask === "point") {
     if (step.seals) {
@@ -34,7 +45,7 @@ export function seamStruck(world: World, bullet: Bullet): void {
     } else {
       world.events.push({ type: "seamDim", col: bullet.col });
     }
-  } else {
+  } else if (step.ask !== "glow") {
     world.events.push({ type: "seamRockOut", col: bullet.col });
   }
   if (!seamWantsShield(s)) seamAnswered(world, s);

@@ -160,7 +160,7 @@ describe("the rest of the script", () => {
   }
 
   it("spits a rock to one side, shot in its own column and colour", () => {
-    const world = toStep(6);
+    const world = toStep(7);
     const rock = MID + 2;
     seamStruck(world, shot(MID, "cyan"));
     seamStruck(world, shot(rock, "red"));
@@ -172,20 +172,20 @@ describe("the rest of the script", () => {
 
   it("the white point takes either colour", () => {
     for (const color of ["red", "cyan"] as const) {
-      const world = toStep(7);
+      const world = toStep(9);
       seamStruck(world, shot(MID, color));
       expect(seam(world).sealed).toBe(3);
     }
   });
 
   it("grit and a rock at once wait for both halves, in either order", () => {
-    const world = toStep(8);
+    const world = toStep(10);
     seamStruck(world, shot(MID - 2, "red"));
     expect(seam(world).phase).toBe("lit");
     shield(world);
     expect(seam(world).phase).toBe("rest");
 
-    const other = toStep(8);
+    const other = toStep(10);
     shield(other);
     expect(seam(other).phase).toBe("lit");
     seamStruck(other, shot(MID - 2, "cyan"));
@@ -193,7 +193,7 @@ describe("the rest of the script", () => {
   });
 
   it("answered whole, the sealed ridge splits and the fight ends", () => {
-    const world = toStep(8);
+    const world = toStep(10);
     answer(world);
     expect(seam(world).sealed).toBe(SEAM_POINTS);
     const seen = runUntil(world, (w) => w.boss === null);

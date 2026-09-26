@@ -22,6 +22,8 @@ export type SeamEvent =
   | ({ type: "seamDim" } & SeamColEvent)
   /** A point shot shut; `sealed` is how many are shut now. */
   | ({ type: "seamSeal"; sealed: number } & SeamColEvent)
+  /** A shot landed on the glow; `left` is how many more it wants, 0 once quenched. */
+  | ({ type: "seamQuench"; left: number } & SeamColEvent)
   /** A spat rock shot out. */
   | ({ type: "seamRockOut" } & SeamColEvent)
   /** Grit taken on the shield. */

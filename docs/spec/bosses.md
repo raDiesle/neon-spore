@@ -7895,19 +7895,8 @@ there is a `rest` of `keelRestBeats`.
 - **The tail is the rightmost segment**, since §24 names a tail and not
   which end; the rock falls on Player 2's half.
 
-**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
-over the drum in its own frame, all white and iron so either seat answers.
-The jet is pale steam puffing down and out of the first empty slot, its lip
-glowing ember, the socket flashing for the tap. The brace shudders the whole
-drum, less as the chord counts; a half-ring each side of the socket lights
-under each held thumb, P1 left and P2 right, and a disc fills inside it with
-the beats held. The wipe is a pale film over the face, dripping, cleared from
-the left a share per rub. The seal is a white seam split down the face,
-widening as its window runs, pulsing, with the two half-rings back for the
-hold. Each window closes as the arc round the socket, read off the story's
-own beats. No cue word or grip yet: those are half two's.
-
-**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
 carry all sixteen of its events until lane two. The sixteen sounds *are*
 bound (`audio/src/bind-keel.ts`), each panned to the column it happens in,
 the lock pitched up per joint seated. There is no autopilot hand yet either
@@ -8202,7 +8191,7 @@ each one is only heard inside its own step.
 it began, the **cursor** into the script, the points **sealed**, the tick the
 lit step lit, and whether its **shot** and its **shield** have landed. The
 script itself is the wave's (`SeamEntry.steps`), copied at install: each step
-asks for a `point`, `grit`, a `rock` or `both`, in a colour or `either`, at
+asks for a `point`, `grit`, a `rock`, `both`, `blind` or `glow`, in a colour or `either`, at
 an offset from the middle, and says whether it `seals`.
 
 **The rule, in one sentence.** Shoot the lit point in its colour, and shield
@@ -8229,6 +8218,22 @@ the commands (`sim/seam-guard.ts`, called from `boss-hands.ts`): the plate
 under the ridge, armed, by a guard pressed since the step lit — THE LEDGER's
 test with one term more, and billed the way THE LEDGER bills a ward.
 
+**The story steps** (§26's queue item of 26 September 2026, the owner's
+13:12 brief: more states, each a slow window the pair must act in). Two
+steps the ridge had not told before, both in the shipped script:
+
+- **The turn** (`blind`, `seamBlindBeats`). The ridge turns its face away
+  and throws grit blind: no point is lit, no shot is taken, and only the
+  shield under the ridge answers it (`seamShields`).
+- **The glow** (`glow`, `seamGlowBeats`). Heat gathers up the crack from
+  inside and takes `seamGlowShots` shots in the middle column, either
+  colour, to quench — each shot a `seamQuench` counting down what is left
+  (`quenched` on the state, hashed, reset every step). A glow half quenched
+  still runs out against the hull.
+
+The script is eleven steps now: the turn after movement one's seal, the
+glow before the last point.
+
 **Where this departs from the design, and why.** Seven places.
 
 - **Three points, one per movement.** §26 lights more points than three; the
@@ -8254,20 +8259,9 @@ test with one term more, and billed the way THE LEDGER bills a ward.
   shield row for `resolveHull` to meet, so the plate and the guard are read
   against the lit step directly, once a tick, after the commands.
 
-**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
-over the drum in its own frame, all white and iron so either seat answers.
-The jet is pale steam puffing down and out of the first empty slot, its lip
-glowing ember, the socket flashing for the tap. The brace shudders the whole
-drum, less as the chord counts; a half-ring each side of the socket lights
-under each held thumb, P1 left and P2 right, and a disc fills inside it with
-the beats held. The wipe is a pale film over the face, dripping, cleared from
-the left a share per rub. The seal is a white seam split down the face,
-widening as its window runs, pulsing, with the two half-rings back for the
-hold. Each window closes as the arc round the socket, read off the story's
-own beats. No cue word or grip yet: those are half two's.
-
-**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
-carry all nine of its events until lane two. The nine sounds *are* bound
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+carry all ten of its events until lane two. The ten sounds *are* bound
 (`audio/src/bind-seam.ts`), heard where they happen, the seal pitched up per
 point closed. There is no autopilot hand yet either
 (`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
@@ -8280,7 +8274,11 @@ grit is taken only on a shield under the ridge with a guard pressed after it
 lit, and takes no shot; a step run out is the wave; a rock is shot in its own
 column and colour; the white point takes either; grit and a rock at once wait
 for both halves in either order; and a script answered whole splits the ridge
-and ends the fight. Whether any of it *reads* is the owner's eye, after lane
+and ends the fight. `sim/test/seam-story.test.ts` adds the two story steps:
+the turn lights under THE SLOW, takes no shot and only the shield, and runs
+out after `seamBlindBeats`; the glow takes either colour, counts down its
+quenches in the middle column only, and half quenched is still a miss; the
+shipped script is eleven steps and answered whole it splits. Whether any of it *reads* is the owner's eye, after lane
 two.
 
 **Half the look has landed** (26 September 2026): the body. THE RIND's three
@@ -8372,19 +8370,8 @@ sheet and nothing else, THE SEAM's rule.
   plus a core of three hits; the script is nine steps, and the lens shatters
   when the last is answered, which is the third hit.
 
-**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
-over the drum in its own frame, all white and iron so either seat answers.
-The jet is pale steam puffing down and out of the first empty slot, its lip
-glowing ember, the socket flashing for the tap. The brace shudders the whole
-drum, less as the chord counts; a half-ring each side of the socket lights
-under each held thumb, P1 left and P2 right, and a disc fills inside it with
-the beats held. The wipe is a pale film over the face, dripping, cleared from
-the left a share per rub. The seal is a white seam split down the face,
-widening as its window runs, pulsing, with the two half-rings back for the
-hold. Each window closes as the arc round the socket, read off the story's
-own beats. No cue word or grip yet: those are half two's.
-
-**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+**Only the simulation lane has landed.** Nothing of it is drawn: the render
+package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
 carry all twelve of its events until lane two. The twelve sounds *are* bound
 (`audio/src/bind-oculus.ts`), heard where they happen, the shut pitched up
 per pair and the hit per hit. There is no autopilot hand yet either
