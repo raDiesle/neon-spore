@@ -2182,6 +2182,7 @@ what the rest of this file holds.
 ## §29 THE RIME — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
+- **Taken:** 2026-09-26, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
 - **Needs:** §29 THE RIME — the look, half one (the body), landed first
 - **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`, `packages/hands/src/`
 
