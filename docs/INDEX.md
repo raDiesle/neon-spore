@@ -391,6 +391,7 @@ by hand never moves.
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
 | `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until it is torn out by hand (`maze-hand.ts` |
 | `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
+| `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
@@ -399,8 +400,14 @@ by hand never moves.
 | `packages/sim/src/fault-placed.ts` | **A FAULT IS A PENCIL ON THE MAP**: a kind, the beat it enters the wave on, and the number of beats it holds |
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
 | `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
+| `packages/sim/src/mantle-hand.ts` | Three thumbs on THE MANTLE: the two pull handles, and the bared core's alternating tap |
+| `packages/sim/src/mantle-hash.ts` | What THE MANTLE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/mantle-shot.ts` | **THE MANTLE's one target**: the spark leaking from the bared core once the shell is fully split (§23 |
+| `packages/sim/src/mantle-step.ts` | THE MANTLE's clock: the handles lighting, the sum judged every beat, the shear, the spark |
+| `packages/sim/src/mantle.ts` | THE MANTLE: a hinged carapace shell, closed over a soft core, pried open by two hands pulling **together** |
 | `packages/sim/src/moult.ts` | THE MOULT: one body that is a rock half the time and a cargo the other half |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
+| `packages/sim/src/events-mantle.ts` | What THE MANTLE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
@@ -769,6 +776,7 @@ by hand never moves.
 | `packages/content/src/silhouettes-spare.ts` | **The two contours next door that are not a body on the roster**: one retired, one a capsule |
 | `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
+| `packages/content/src/mantle-script.ts` | THE MANTLE's four pull-together thresholds: the summed depth of both handles, thousandths of a tile |
 | `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
 | `packages/content/src/veer-clown-figure.ts` | THE VEER's rider **placed**: where every disc of the clown falls on a rock of a given centre and radius |
 | `packages/content/src/scenes/the-claw.ts` | THE CLAW's rehearsal: one of you has every button and none of the map |
@@ -1868,6 +1876,7 @@ by hand never moves.
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
+| `packages/audio/src/bind-mantle.ts` | THE MANTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |

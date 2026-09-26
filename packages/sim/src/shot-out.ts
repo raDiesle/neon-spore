@@ -7,6 +7,7 @@ import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerStruck } from "./ledger-shot.js";
+import { mantleStruck } from "./mantle-shot.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
@@ -64,6 +65,9 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   // THE GIMBAL's leaking seam, the one thing in that whole fight a cannon has
   // to do, and either colour does it (`gimbal-shot.ts`).
   gimbalStruck(world, b);
+  // THE MANTLE's bared-core spark, the same shape and the same either colour
+  // (`mantle-shot.ts`).
+  mantleStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -108,6 +112,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "scuttle",
   "antiphon",
   "gimbal",
+  "mantle",
   "hasp",
   "ratchet",
   "hive",

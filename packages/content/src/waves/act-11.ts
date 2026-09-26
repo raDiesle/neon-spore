@@ -1,3 +1,4 @@
+import { MANTLE_SCRIPT } from "../mantle-script.js";
 import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
 
@@ -71,6 +72,12 @@ import type { Wave } from "../wave-types.js";
  * (`nettle-script.ts`). It carries a guide in words, because a wave goes
  * without one only on the owner's word (`content/test/waves.test.ts`), and
  * the new thing in it is that the panel answers a mark.
+ *
+ * **THE MANTLE came in behind that on 26 September 2026**: a hinged shell
+ * pried open by two hands pulling together, the shared brief's first answer —
+ * both screens read the true combined pull, never one seat's own half of it
+ * (`docs/spec/bosses-choreographed.md` §23). Four plate-pairs, then the bare
+ * core's alternating tap.
  */
 export const WAVES_ACT_11: Wave[] = [
   {
@@ -119,5 +126,17 @@ export const WAVES_ACT_11: Wave[] = [
     boss: { kind: "nettle", steps: NETTLE_SCRIPT },
     bossType: "normal",
     controls: "standard5",
+  },
+  {
+    id: "theMantle",
+    name: "THE MANTLE",
+    guide: {
+      both: "Two handles, one each. Pull both down together, hard enough, to open one of its four joints. Letting go costs the whole pull. Then tap the bare core, turn about.",
+      p1: "1. Drag the left handle down and hold it with the other screen's pull.\n2. Both must pull hard enough at once, or nothing shears.\n3. Once the core is bare, tap it only when it is your turn.",
+      p2: "1. Drag the right handle down and hold it with the other screen's pull.\n2. Letting go costs the whole pull. Start again together.\n3. A spark leaks partway through. Shoot it before it reaches the hull.",
+    },
+    entries: [],
+    boss: { kind: "mantle", thresholds: MANTLE_SCRIPT },
+    bossType: "normal",
   },
 ];

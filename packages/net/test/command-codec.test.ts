@@ -222,6 +222,15 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "ratchetCatch", on: false, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "ratchetPawl", on: true, fromMilli: 0 },
   { kind: "drag", target: "ratchetPawl", on: false, fromMilli: 0 },
+  // THE MANTLE's two pull handles are depth drags reset to nought on release,
+  // and its core a press either seat may land — all three on the wire, or a
+  // dropped release reads as a pull nobody is holding (`sim/mantle-hand.ts`).
+  { kind: "drag", target: "mantleLeft", on: true, fromMilli: 0, fromYMilli: 600 },
+  { kind: "drag", target: "mantleLeft", on: false, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "mantleRight", on: true, fromMilli: 0, fromYMilli: 300 },
+  { kind: "drag", target: "mantleRight", on: false, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "mantleCore", on: true, fromMilli: 0 },
+  { kind: "drag", target: "mantleCore", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -368,6 +377,9 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   haspWheel: true,
   ratchetCatch: true,
   ratchetPawl: true,
+  mantleLeft: true,
+  mantleRight: true,
+  mantleCore: true,
   crank: true,
 };
 

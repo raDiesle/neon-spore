@@ -12,6 +12,7 @@ import type {
   InstarEntry,
   LeadEntry,
   LedgerEntry,
+  MantleEntry,
   NettleEntry,
   RatchetEntry,
   ScoutEntry,
@@ -144,6 +145,11 @@ import type {
  *   be answering the only question this boss asks
  *   (`sim/config-ledger.ts`).
  *
+ * - **THE MANTLE**'s thresholds are authored in
+ *   `packages/content/src/mantle-script.ts`, THE INSTAR's answer: a beat list
+ *   read by index rather than a per-wave form. No column, the shell hangs over
+ *   `midCol`; no number, the plate-pairs left are the health (`sim/mantle.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
@@ -174,7 +180,8 @@ export function bossAuthorsNothing(
   | GimbalEntry
   | SpoolEntry
   | HaspEntry
-  | RatchetEntry {
+  | RatchetEntry
+  | MantleEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -203,6 +210,7 @@ export function bossAuthorsNothing(
     kind === "gimbal" ||
     kind === "spool" ||
     kind === "hasp" ||
-    kind === "ratchet"
+    kind === "ratchet" ||
+    kind === "mantle"
   );
 }

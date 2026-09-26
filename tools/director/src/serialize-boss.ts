@@ -150,6 +150,9 @@ export function serializeBoss(boss: BossEntry): string {
   // THE GIMBAL's alignments are three bearings apiece and named for the same
   // reason (`packages/content/src/gimbal-script.ts`).
   if (boss.kind === "gimbal") return '{ kind: "gimbal", marks: GIMBAL_SCRIPT }';
+  // THE MANTLE's thresholds are named for the same reason
+  // (`packages/content/src/mantle-script.ts`).
+  if (boss.kind === "mantle") return '{ kind: "mantle", thresholds: MANTLE_SCRIPT }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

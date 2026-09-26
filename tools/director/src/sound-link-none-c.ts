@@ -177,4 +177,25 @@ export const NO_SUBJECT_C: Record<string, string> = {
   // (`sound-link-none.ts`, boss.tasterRise).
   "boss.tasterPryFill":
     "a right beam into the pried interlock short of the last, one still owed. The fan's, and a fan of blades is not a card.",
+  // THE MANTLE's ten. A hinged carapace shell hung over the middle of the
+  // field: a fixture, THE GIMBAL's own answer said about a shell instead of a
+  // drum. Only the simulation lane has landed, so nothing about it is drawn
+  // yet at all (`sim/events-mantle.ts`).
+  "boss.mantleEnter":
+    "the shell dropping into frame, closed, both handles dark. It is a fixture hung over the middle rather than a body among the creatures, and the sheet's cards are bodies on a grid.",
+  "boss.mantleLight": "the next movement's handles lighting. A mark on the fixture. Same argument.",
+  "boss.mantleShear":
+    "a plate-pair shearing off each valve. The plate is part of the fixture's own casing rather than a body. Same argument.",
+  "boss.mantleSplit":
+    "the last pair gone and the shell splitting open. Same argument — the fixture unmaking itself, as THE GIMBAL's hatch is.",
+  "boss.mantleLeak":
+    "the bared core's spark starting from the open seam. A spark is not a body and the seam is the fixture's.",
+  "boss.mantleSparkOut": "that spark shot out, in either colour. Same argument.",
+  "boss.mantleSparkHit":
+    "nobody shot it and it reached the hull. What is hit is the ship, which the hull's own sounds already have; what made it is the shell.",
+  "boss.mantleBeat":
+    "an alternating tap landing on the bared core. The core is part of the fixture and a tap is nobody's contour. Same argument.",
+  "boss.mantleDark": "the last tap landed and the core going dark. Same argument, and an absence.",
+  "boss.mantleOut":
+    "the dark hatch falling away and the wave ending. Same argument, and an absence.",
 };

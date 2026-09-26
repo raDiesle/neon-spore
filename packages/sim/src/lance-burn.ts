@@ -10,6 +10,7 @@ import { hiveStruck } from "./hive-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
+import { mantleStruck } from "./mantle-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
@@ -160,6 +161,9 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE GIMBAL's leaking seam, the one thing in that whole fight a
   // cannon has to do, and either colour does it (`gimbal-shot.ts`).
   gimbalStruck(world, b);
+  // And THE MANTLE's bared-core spark, the same shape and the same either
+  // colour (`mantle-shot.ts`).
+  mantleStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

@@ -10,6 +10,7 @@ import type { HiveEvent } from "./events-hive.js";
 import type { InstarEvent } from "./events-instar.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
+import type { MantleEvent } from "./events-mantle.js";
 import type { PinballEvent } from "./events-pinball.js";
 import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
@@ -67,6 +68,7 @@ export type BossEvent =
   | InstarEvent
   | FilamentEvent
   | GimbalEvent
+  | MantleEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -93,6 +95,7 @@ export type { HiveEvent } from "./events-hive.js";
 export type { InstarEvent } from "./events-instar.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
+export type { MantleEvent } from "./events-mantle.js";
 export type { PinballEvent } from "./events-pinball.js";
 export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";

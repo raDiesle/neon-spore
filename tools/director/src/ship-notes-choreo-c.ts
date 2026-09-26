@@ -65,4 +65,25 @@ export const CHOREO_NOTES_C = {
     "mark is one strike on the hull, which is the wave. The clocks are " +
     "THE INSTAR's own fields. See sim/scene-panel.ts, sim/instar.ts, " +
     "sim/nettle-words.ts.",
+  "THE MANTLE — the boss both hands have to pull at once, or neither counts":
+    "Asked for on 26 September 2026 and written up in " +
+    "docs/spec/bosses-choreographed.md §23: whether a shared number still " +
+    "needs two hands. A hinged carapace shell hangs over the middle of the " +
+    "field with a handle at each valve — mantleLeft is always Player 1's, " +
+    "mantleRight always Player 2's, geometry rather than a seat number. Its " +
+    "health is four plate-pairs, MANTLE_SCRIPT's own thresholds " +
+    "(packages/content/src/mantle-script.ts). Both handles read live pull " +
+    "depth and reset to nought the instant a thumb lifts; a pair-shear needs " +
+    "the summed depth of both past the movement's threshold while both sit " +
+    "past mantleFloorMilli at once — one thumb parked at the top while the " +
+    "other is at nought shears nothing. THE SLOW spans every shear. A spark " +
+    "leaks from the open shell between the second and third movements: " +
+    "either colour shot at it in mantleSparkBeats answers it, and unanswered " +
+    "it is one strike on the hull, which is the wave. The last pair splits " +
+    "the shell and bares the core, whose alternating finish " +
+    "(mantleHeartbeatTaps taps, mantleCore, whichever seat is next) is the " +
+    "one place in the fight the pair stop pulling together. The dark core " +
+    "hangs mantleOpenBeats before the fight ends. Only the simulation lane " +
+    "has landed — see sim/mantle.ts, sim/mantle-hand.ts, " +
+    "sim/config-mantle.ts.",
 } satisfies Partial<Record<GroupName, string>>;

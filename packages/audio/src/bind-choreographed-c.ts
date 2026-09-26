@@ -6,6 +6,7 @@ import { gimbalCue } from "./bind-gimbal.js";
 import { haspCue } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
+import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
 import { spoolCue } from "./bind-spool.js";
@@ -49,6 +50,7 @@ type LateEvent = Extract<
       | `spool${string}`
       | `hasp${string}`
       | `ratchet${string}`
+      | `mantle${string}`
       | `undertow${string}`;
   }
 >;
@@ -175,6 +177,17 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "ratchetJam":
     case "ratchetOut":
       return ratchetCue(e, cols);
+    case "mantleEnter":
+    case "mantleLight":
+    case "mantleShear":
+    case "mantleSplit":
+    case "mantleLeak":
+    case "mantleSparkOut":
+    case "mantleSparkHit":
+    case "mantleBeat":
+    case "mantleDark":
+    case "mantleOut":
+      return mantleCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

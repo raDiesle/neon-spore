@@ -7479,6 +7479,96 @@ director's hand (`tools/director/src/boss-hands-scene.ts`) plays the whole
 script and brings it down on beat 104. Whether any of it *reads* is the
 owner's eye.
 
+## 11.40 THE MANTLE — the boss both hands have to pull at once, or neither counts
+
+> The one where nothing is hidden from either screen. A hinged shell hangs
+> closed over a soft core. Two handles, one each. Pull both down together,
+> hard enough, and a plate-pair shears — a hand that stops costs both of you.
+
+Designed as §23 of [bosses-choreographed](bosses-choreographed.md), asked for
+by the owner on 26 September 2026 alongside four more choreographed bosses
+that read the same on both screens — and the second of the three kinds in
+`.claude/skills/new-boss`, a choreographed scene. The field under it is still;
+the boss *is* the picture. THE SINEW and THE SURGE both split one gauge across
+two screens, his zone and her sum, neither the other's (`SplitGauge`); this one
+asks the opposite question — put the *true combined pull* on both screens,
+identically, and see whether two hands are still worth having when neither is
+hiding anything from the other.
+
+**It is four plate-pairs over a bare core.** The state (`sim/mantle.ts`,
+hashed in `sim/mantle-hash.ts`) is the **phase** and the beat it began, the
+**cursor** (plate-pairs sheared), each handle's live pull depth
+(`depthMilli`), the bared core's hazard spark column and the beat it started,
+and the alternating finish's next seat and taps landed. Its health is the four
+plate-pairs named by `MANTLE_SCRIPT` (`content/src/mantle-script.ts`,
+`[1400, 1700, 1900, 2200]`) — a wave's own thresholds, so a heavier or
+lighter shell never touches this file.
+
+**The rule, in one sentence.** Pull both handles down at once, hard enough and
+together enough, and a plate-pair shears; let go and the pull is lost.
+
+**The sum is floor-checked, not split.** `mantleLeft` is always Player 1's
+handle and `mantleRight` always Player 2's — geometry, not a seat number, the
+same rule THE GIMBAL's two rings and THE BALLOON's two grips already use
+(`sim/mantle-hand.ts`). A shear needs the summed depth of both handles past
+the movement's threshold **while both depths sit above `mantleFloorMilli`
+at once** (`mantleCharged`) — one thumb parked at maximum while the other is
+at nought never shears anything, which is the whole of what makes this a
+two-hand mechanic and not an arm-wrestle either seat could win alone. This is
+`PulledMagnitude`/`ChargeSum` from the reusable library, spent for the first
+time. Letting go resets that handle to nought at once; there is no drift to
+bank progress against.
+
+**The clock** (`sim/mantle-step.ts`). The shell hangs still for
+`mantleStillBeats`, then both handles light and stay lit until the sum
+clears — there is no window and no timeout on a pull movement, unlike every
+other choreographed boss's step. A plate-pair sheared under THE SLOW
+(`mantleSlowBeats`) relights the next pair; the last shear splits the shell
+instead and starts the alternating finish. A spark leaks from the open gap the
+instant the *second* pair shears (`s.cursor === 2`), the fight's one ordinary
+hazard: either colour answers it within `mantleSparkBeats` or it strikes the
+hull. Once split, the bare core takes an alternating tap from whichever seat
+`heartbeatNext` names — the wrong seat's tap is silently refused, the ordinary
+rule — for `mantleHeartbeatTaps`; the last one darkens the core, and it hangs
+`mantleOpenBeats` before the wave may end.
+
+**Where this departs from the design, and why.** Three places.
+
+- **No window or timeout on a pull movement.** §23's beat list gives each
+  pull-together beat a beat count and a "missed" outcome — a handle drifting
+  back if let go before the sum is reached. There is no drift to walk back:
+  letting go already costs the whole pull at once, so a second penalty for
+  running out of time would be the same lesson said twice. A pair can take as
+  long as they need to find the together of it.
+- **The spark takes either colour.** §23 says *own colour*; a spark is not a
+  body with a colour the pair could have got wrong, the same rule THE
+  GIMBAL's seam already uses. What it costs to miss is the column, not the
+  colour.
+- **The finish has no same-beat forgiveness.** §23's row 11 spends a sentence
+  on a same-beat double tap costing a replayed round rather than the wave.
+  Two separate players' commands landing on the same tick already resolve in
+  arrival order under lockstep, and the ordinary silent refusal (wrong seat,
+  no event) already means a mistimed tap costs nothing worse than a beat's
+  wait — nothing further had to be built for the sentence to hold.
+
+**Only the simulation lane has landed.** No sounds are bound yet and nothing
+of it is drawn: `tools/director/src/sound-link-none-c.ts` and the render
+package's silent-event lists carry all ten of its events until lane two.
+There is no autopilot hand yet either
+(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), since a hand plays a
+boss against poses that do not exist.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/mantle.test.ts`): it installs still and lights on cue; a shear
+needs both handles above the floor and the sum past the threshold, and a
+handle below the floor contributes nothing even at maximum depth; letting go
+resets a handle to nought rather than banking it; the second shear leaks a
+spark that either colour answers or that reaches the hull unanswered; the
+finish takes alternating taps only from the named seat and refuses the
+other's; the last tap darkens the core and ends the wave after
+`mantleOpenBeats`; and the fingerprint is deterministic and diverges on any
+differing input. Whether any of it *reads* is the owner's eye, after lane two.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

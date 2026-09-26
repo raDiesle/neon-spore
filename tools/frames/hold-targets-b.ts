@@ -1,8 +1,8 @@
 /**
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
- * that `hold-targets.ts` had no row for — forty-three of them, from the crank
- * to THE RATCHET's pawl.
+ * that `hold-targets.ts` had no row for — forty-six of them, from the crank
+ * to THE MANTLE's core.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -96,6 +96,12 @@ export const ROWS: Record<string, Row> = {
   haspWheel: { seat: 2 },
   ratchetCatch: { seat: 2 },
   ratchetPawl: {},
+  // `mantle-hand.ts`: a handle each, and the bared core's tap either seat may
+  // send — geometry decides whose pull counts, the finale's own alternation
+  // decides whose tap does.
+  mantleLeft: {},
+  mantleRight: { seat: 2 },
+  mantleCore: {},
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

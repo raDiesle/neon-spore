@@ -29,6 +29,7 @@ export type {
   InstarEntry,
   LeadEntry,
   LedgerEntry,
+  MantleEntry,
   PinballEntry,
   PulseEntry,
   RepriseEntry,

@@ -11,6 +11,7 @@ import { HIVE_PHASES } from "./hive.js";
 import { HIVE_LOBES } from "./hive-lobe.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { LEDGER_PHASES } from "./ledger.js";
+import { MANTLE_PHASES } from "./mantle.js";
 import { MAZE_PHASES } from "./maze.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
@@ -107,5 +108,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   spool: SPOOL_PHASES,
   hasp: HASP_PHASES,
   ratchet: RATCHET_PHASES,
+  mantle: MANTLE_PHASES,
   fleet: FLEET_PHASES,
 };

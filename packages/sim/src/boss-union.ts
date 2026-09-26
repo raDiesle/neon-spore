@@ -12,6 +12,7 @@ import type { HiveState } from "./hive.js";
 import type { InstarState, NettleState } from "./instar.js";
 import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
+import type { MantleState } from "./mantle.js";
 import type { MazeState } from "./maze-state.js";
 import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
@@ -95,4 +96,5 @@ export type BossState =
   | SpoolState
   | HaspState
   | RatchetState
-  | NettleState;
+  | NettleState
+  | MantleState;

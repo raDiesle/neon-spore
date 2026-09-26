@@ -53,4 +53,17 @@ export const SILENT_BOSS_C = [
   "gorgeNick",
   "gorgePryFill",
   "tasterPryFill",
+  // THE MANTLE's ten, no burst from this table: only its simulation lane has
+  // landed, so there is nothing on the field yet for a burst to land on. Sound
+  // is what these ten get instead (`packages/audio/src/bind-mantle.ts`).
+  "mantleEnter",
+  "mantleLight",
+  "mantleShear",
+  "mantleSplit",
+  "mantleLeak",
+  "mantleSparkOut",
+  "mantleSparkHit",
+  "mantleBeat",
+  "mantleDark",
+  "mantleOut",
 ] as const satisfies readonly SimEvent["type"][];

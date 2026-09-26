@@ -107,6 +107,20 @@ export const INGEST_SILENT_BOSS_C = [
   "gorgeNick",
   "gorgePryFill",
   "tasterPryFill",
+  // THE MANTLE's ten, nothing carried into the next frame: only its
+  // simulation lane has landed, so there is no picture yet to redraw a
+  // transient over. Sound is what these ten get instead
+  // (`packages/audio/src/bind-mantle.ts`).
+  "mantleEnter",
+  "mantleLight",
+  "mantleShear",
+  "mantleSplit",
+  "mantleLeak",
+  "mantleSparkOut",
+  "mantleSparkHit",
+  "mantleBeat",
+  "mantleDark",
+  "mantleOut",
   // THE GAUGE's four, the first events this round has had at all: the needle,
   // the band, the jam and the bind are every one of them world state, read off
   // `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every frame

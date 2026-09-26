@@ -17,6 +17,23 @@
 // whether a bolt is loose — for the picture, the sound, the cue and the
 // director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
 export type { RatchetEntry } from "./boss-entries-clocks-b.js";
+// THE MANTLE's shell: the phase, the cursor, both handles' depths and the
+// bared core's spark and finish, for the picture, the cue and the director's
+// hand. Straight off `mantle.ts` (`docs/spec/bosses-choreographed.md` §23).
+export {
+  MANTLE_PHASES,
+  type MantleEntry,
+  type MantlePhase,
+  type MantleState,
+  mantleBoss,
+  mantleCharged,
+  mantleDone,
+  mantleFinale,
+  mantleLeaking,
+  mantlePairsLeft,
+  mantlePulling,
+  NO_SPARK,
+} from "./mantle.js";
 export {
   NO_CATCH,
   RATCHET_CLEAN,

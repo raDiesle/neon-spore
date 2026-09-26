@@ -380,6 +380,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // (`sim/ratchet-hand.ts`, `docs/spec/bosses.md` §11.38).
   ratchetCatch: "field",
   ratchetPawl: "field",
+  // THE MANTLE, as every one above it: simulation lane only, no look yet.
+  mantleLeft: "unbuilt",
+  mantleRight: "unbuilt",
+  mantleCore: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

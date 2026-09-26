@@ -10,6 +10,7 @@ import { hiveHeard } from "./hive-hand.js";
 import { instarHeard } from "./instar-hand.js";
 import { leadHeard } from "./lead-hand.js";
 import { ledgerHandsHeard } from "./ledger-hand.js";
+import { mantleHeard } from "./mantle-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
@@ -79,6 +80,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // on it (`gimbal-hand.ts`). Whether it sits true, and for how long, is the
   // beat's and nothing else is.
   for (const c of commands) gimbalHeard(world, c.player, c.command);
+  // THE MANTLE's two handles and its bared core's tap, on the tick because a
+  // handle's depth is where the thumb is now and a released handle has to
+  // reach nought before the next beat judges the sum (`mantle-hand.ts`).
+  for (const c of commands) mantleHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

@@ -24,7 +24,10 @@ export type DragTargetD =
   | "haspLatch"
   | "haspWheel"
   | "ratchetCatch"
-  | "ratchetPawl";
+  | "ratchetPawl"
+  | "mantleLeft"
+  | "mantleRight"
+  | "mantleCore";
 
 /**
  * `hiveLobe` is the fifty-seventh, and the second handle read two ways by the
@@ -129,4 +132,23 @@ export type DragTargetD =
  * what her catch decides is only whether the tooth was clean
  * (`ratchet-hand.ts`). Two names for `haspLatch`'s reason: the seat is the
  * encounter, and the wrong one's message does nothing.
+ */
+
+/**
+ * `mantleLeft` and `mantleRight` are the sixty-seventh and sixty-eighth, and
+ * `mantleCore` the sixty-ninth.
+ *
+ * The two handles are depth drags, `sinewLeft`'s shape — `fromYMilli`, read
+ * live and reset to nought the instant the thumb lifts, `haspLatch`'s
+ * *keep holding* rather than a crossing — and geometry says whose is whose,
+ * `gimbalOuter`'s reason: the pilot's is always `mantleLeft`, the navigator's
+ * always `mantleRight`, so the seat is checked against the name and the wrong
+ * one's message does nothing (`mantle-hand.ts`). No `id`: one shell, two
+ * handles.
+ *
+ * `mantleCore` is a press, `ratchetPawl`'s shape, but answered by *either*
+ * seat rather than one: once the shell is split it is whichever seat
+ * `heartbeatNext` names, and it alternates with every landed tap. No target
+ * before it has let both seats answer the same name — a pair discover which
+ * of them the core wants by watching whose tap counts.
  */

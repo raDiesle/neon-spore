@@ -10,6 +10,7 @@ import { hiveHashParts } from "./hive-hash.js";
 import { instarHashParts } from "./instar-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
+import { mantleHashParts } from "./mantle-hash.js";
 import { ratchetHashParts } from "./ratchet-hash.js";
 import { scuttleHashParts } from "./scuttle-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
@@ -108,6 +109,11 @@ export function clockHashParts(boss: BossState): number[] {
   // THE RATCHET: the phase, the teeth, both hands and the bolt (`ratchet-hash.ts`).
   if (boss.kind === "ratchet") {
     for (const n of ratchetHashParts(boss)) out.push(n);
+  }
+  // THE MANTLE: the thresholds, the cursor and phase, both handles' depths, the
+  // spark and the heartbeat finale (`mantle-hash.ts`).
+  if (boss.kind === "mantle") {
+    for (const n of mantleHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

@@ -178,6 +178,9 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "hasp") return { ...boss };
   // THE RATCHET the same: its rack and its bolt are both `midCol` (`sim/ratchet-step.ts`).
   if (boss.kind === "ratchet") return { ...boss };
+  // THE MANTLE the same: its shell and its bared core's spark are both
+  // `midCol` (`sim/mantle-step.ts`).
+  if (boss.kind === "mantle") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

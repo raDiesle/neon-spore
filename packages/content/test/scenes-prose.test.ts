@@ -70,6 +70,10 @@ const STILL_PROSE = [
   // is undrawn, and the guide says which marks are a thumb and which the
   // panel's.
   "THE NETTLE",
+  // And THE MANTLE (§23), a seventh time, the same day: the shell and its two
+  // handles are undrawn, and the guide says which handle is whose and what
+  // letting go costs.
+  "THE MANTLE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -95,9 +99,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says ninety of the hundred and one";
-    expect(guided.length, fix).toBe(90);
-    expect(WAVES.length, fix).toBe(101);
+    const fix = "update §1 of docs/spec/briefings.md, which says ninety-one of the hundred and two";
+    expect(guided.length, fix).toBe(91);
+    expect(WAVES.length, fix).toBe(102);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

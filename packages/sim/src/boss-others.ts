@@ -12,6 +12,7 @@ import { stepHive } from "./hive-step.js";
 import { stepInstar } from "./instar-step.js";
 import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
+import { stepMantle } from "./mantle-step.js";
 import { stepMirror } from "./mirror.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepScuttle } from "./scuttle-step.js";
@@ -171,6 +172,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // seam — is here (`gimbal-step.ts`).
   if (boss.kind === "gimbal") {
     stepGimbal(world, boss);
+    return;
+  }
+  // THE MANTLE is almost all beat too: a handle's depth is where the thumb has
+  // it, and whether the sum crosses this movement's threshold is a beat's
+  // question, not a tick's (`mantle-step.ts`).
+  if (boss.kind === "mantle") {
+    stepMantle(world, boss);
     return;
   }
   // THE SPOOL is nearly all clock, because a brake is a level rather than an

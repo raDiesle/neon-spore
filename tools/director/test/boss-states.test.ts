@@ -26,7 +26,12 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  * strand held, a straw fed — which the first lane of this work did not pose.
  */
 
-const OWED: Partial<Record<BossKind, readonly string[]>> = {};
+const OWED: Partial<Record<BossKind, readonly string[]>> = {
+  // THE MANTLE's simulation lane has landed with no look yet, so none of its
+  // five phases has a pose to draw them from (`docs/spec/bosses-choreographed.md`
+  // §23). Struck the day the look lane lands.
+  mantle: ["still", "pull", "spark", "heartbeat", "dark"],
+};
 
 describe("the BOSSES category", () => {
   test("names the states of every boss the simulation knows", () => {

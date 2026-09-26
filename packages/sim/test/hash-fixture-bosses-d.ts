@@ -44,6 +44,11 @@ export const BOSS_ENTRIES_D = {
       },
     ],
   },
+  // THE MANTLE authors its thresholds whole, for THE GIMBAL's reason on
+  // `-c.ts`: two of them rather than the shipped four, because the
+  // fingerprint's job is the cursor and both handles' depths, not the length
+  // of the list (`mantle-hash.ts`).
+  mantle: { kind: "mantle", thresholds: [1400, 1700] },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -96,5 +101,19 @@ export function patchBossD(boss: BossState): void {
     boss.doneBeat = [-1, 5];
     boss.ref = [250, -1];
     boss.thumbs = [1, 0];
+  }
+  if (boss.kind === "mantle") {
+    // One plate-pair sheared, both handles held past the floor, a spark
+    // leaking in a column with a beat on it, and the finale's alternation a
+    // tap in — every nullable field given a value, so the walk can tell a
+    // hashed one from a field it never sees change (`mantle-hash.ts`).
+    boss.cursor = 1;
+    boss.phase = "spark";
+    boss.phaseBeat = 3;
+    boss.depthMilli = [820, 640];
+    boss.sparkCol = 4;
+    boss.sparkBeat = 5;
+    boss.heartbeatNext = 1;
+    boss.heartbeatDone = 2;
   }
 }

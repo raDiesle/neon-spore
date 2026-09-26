@@ -684,7 +684,6 @@ built there, name the file, and say whether a later boss should call THE
 SURGE's judge rather than write its own; if it should, add the row to the
 called-not-re-derived table in `packages/sim/test/purity.test.ts`.
 
-
 ## §24 THE KEEL — the simulation lane
 
 - **Found:** 2026-09-26, this session

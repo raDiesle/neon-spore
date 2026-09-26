@@ -21679,3 +21679,23 @@ Bottleneck: the hold — both shots and the pages between them fit inside one
 swapped hold of four beats, so the pages are cut to their floor.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE MANTLE's simulation: a floor-checked sum on two handles
+
+- reading: 10 min. §23's beat list, `PulledMagnitude`/`ChargeSum`, THE
+  GIMBAL's own lane-one commit as the template for the registration surface.
+- writing: 25 min. The engine, the hand, the step clock, the shot, the
+  events, the script, and every row of `.claude/skills/new-boss/registrations.md`.
+- looking: 0 min. Nothing is drawn yet; only the mechanism is proven.
+- friction: 20 min. A public-surface export bug (`boss-surface-clocks-c.ts`'s
+  dead-end via `boss-entries.ts`), a hash-coverage miss on `depthMilli`'s own
+  length, a words-contract rewrite (`plate` and `seat` are both banned), and
+  two catalogue sounds sitting inside the speech band.
+- landing: 15 min. `bun run tools/words/run.ts`, the audio band fixes, §11.40,
+  the ledger row, the queue entry, `check:fast`, `land`.
+
+Bottleneck: the words-contract rewrite and the audio band fixes together —
+neither is a simulation-lane concern on its face, but both gate `check:fast`
+and both took rewriting rather than a one-line patch.
+
+*Measured: unmeasured — landed in the same commit this log was written in.*

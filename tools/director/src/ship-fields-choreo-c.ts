@@ -63,4 +63,16 @@ export const CHOREO_FIELD_GROUP_C = {
   ratchetClimbBeats: "THE RATCHET — the boss where every step you take stays taken",
   ratchetBoltBeats: "THE RATCHET — the boss where every step you take stays taken",
   ratchetOpenBeats: "THE RATCHET — the boss where every step you take stays taken",
+  // MantleConfig — the floor either handle must clear before it counts toward
+  // the sum, how long the shell hangs dark before the first handles light,
+  // the hazard spark's patience, THE SLOW on every shear, the alternating
+  // finish's own taps, and the dark core's hang (`config-mantle.ts`). The four
+  // thresholds are not here, because they are the wave's own
+  // (`mantle-script.ts`).
+  mantleFloorMilli: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleStillBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleSparkBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleSlowBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleHeartbeatTaps: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
+  mantleOpenBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
 } satisfies Record<string, GroupName>;

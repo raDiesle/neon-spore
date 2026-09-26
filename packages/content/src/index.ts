@@ -80,6 +80,7 @@ export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 // Which kinds are bodies and what each looks like: contour and own-motion, one row.
 export { hasOwnBody, livingBodyKinds, livingSilhouette } from "./living-look.js";
 export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
+export { MANTLE_SCRIPT } from "./mantle-script.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
   MECHANIC_IDS,

@@ -37,6 +37,7 @@ type BossId = Extract<
   | "hasp"
   | "ratchet"
   | "nettle"
+  | "mantle"
 >;
 
 /**
@@ -182,6 +183,10 @@ export const BOSS_MECHANICS = {
   },
   ratchet: {
     what: "One holds the catch, the other presses the pawl. Every press climbs one tooth for good, and is clean only while the catch is held. Five clean of seven.",
+    reach: "spawn",
+  },
+  mantle: {
+    what: "Two handles, one each. Pull both down together, hard enough, to open one of its four joints. Letting go costs the whole pull. Then tap the bare core, turn about.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

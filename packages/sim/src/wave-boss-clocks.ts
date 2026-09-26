@@ -9,6 +9,7 @@ import { installHive } from "./hive-step.js";
 import { installInstar, installNettle } from "./instar-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
+import { installMantle } from "./mantle-step.js";
 import { installRatchet } from "./ratchet-step.js";
 import { installScuttle } from "./scuttle-step.js";
 import { installSinew } from "./sinew-step.js";
@@ -63,6 +64,7 @@ const CLOCK_KINDS = [
   "hasp",
   "ratchet",
   "nettle",
+  "mantle",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -174,6 +176,11 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // whole picture, and marks on it the cannon and the shield answer as well
     // as the thumbs (`nettle-words.ts`, `scene-panel.ts`).
     world.boss = installNettle(world, boss.steps);
+  } else if (boss.kind === "mantle") {
+    // No creature and no row: a hinged carapace shell over the field, two
+    // handles at its valves, and four thresholds its wave authored for the
+    // summed pull to cross (`mantle-step.ts`).
+    world.boss = installMantle(world, boss.thresholds);
   } else {
     // THE INSTAR, the last kind in the list and so the branch with no test on
     // it — the next boss goes in above it, with its `kind` on the list. No
