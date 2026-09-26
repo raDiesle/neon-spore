@@ -24795,3 +24795,17 @@ Bottleneck: looking — finding which calls a speck spent its frame on took
 longer than leaving them out.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §33 THE GRINDSTONE: the body
+
+- reading: 25 min. §33's *Look* and *Animation*, §11.50, THE RIME's patch,
+  THE TRIVET's swing, THE VISE's creep, THE SEAM's colour, the DAVIT's
+  dispatch in `boss-draw-clocks-c.ts`, THE SMART and THE HOOD cards.
+- writing: 60 min. Four render files, the palette keys, the surface export,
+  seventeen frame tests, the spec and the queue split.
+- looking: 0 min. Unverified at tempo; queued.
+- friction: 10 min. A spec replacement matched four rows and had to be scoped.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck: writing — a body built from two cards and three shipped
+figures is four files, and every figure had to be read before it was called.

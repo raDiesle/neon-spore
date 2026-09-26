@@ -3,6 +3,7 @@ import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
+import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHasp } from "./hasp-draw.js";
 import { drawKeel } from "./keel-draw.js";
 import type { Layout } from "./layout.js";
@@ -55,6 +56,7 @@ export const PAIR_KINDS = [
   "plumb",
   "davit",
   "cyst",
+  "grindstone",
 ] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
@@ -241,5 +243,12 @@ export function drawPairBoss(
   // both cannons are asked to hit. Both screens are drawn the same
   // (`cyst-draw.ts`). What outlives a frame — a crack's thud, a sprung flank,
   // the core's flash and the split's — is `effects.boss.cyst` (`cyst-fx.ts`).
-  drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst);
+  if (boss.kind === "cyst") {
+    drawCyst(ctx, l, world, boss, beat, beatPhase, time, effects.boss.cyst);
+    return;
+  }
+
+  // THE GRINDSTONE: a gritted wheel whose flats each seat grinds clean, a
+  // caliper both bite shut, and the axle shot (`grindstone-draw.ts`).
+  drawGrindstone(ctx, l, world, boss, beat, beatPhase, time);
 }

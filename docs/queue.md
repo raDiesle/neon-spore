@@ -860,29 +860,46 @@ stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
 
-## §33 THE GRINDSTONE — the look
+## §33 THE GRINDSTONE — the touch sender
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, tmp-grindstone-look (claim: claude/queue-33-the-grindstone-the-look)
-- **Needs:** §33 THE GRINDSTONE's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-26, tmp-grindstone-look
+- **Needs:** §33 THE GRINDSTONE — the look (the body), landed 26 September 2026
+- **Files:** `apps/game/src/`, `packages/sim/src/grindstone-hand.ts`
 
-Lane two, read against `docs/style-guide.md`: a ground flat reusing THE
-RIME's spreading-clear-patch draw, a caliper reusing THE TRIVET's
-swing-down-and-lock draw, and the axle's lit core answering the cannon's
-colour once both flats are clean and the caliper has bitten. Nothing new
-drawn here at all — this lane is wiring two existing looks onto one new
-body — and it stays unverified at tempo until the owner has looked.
+Split off the look lane, which landed the body alone. The simulation (wave
+112, `docs/spec/bosses.md` §11.50) hears `grindFlatLeft` and `grindJawLeft`
+from Player 1 and `grindFlatRight` and `grindJawRight` from Player 2. A
+flat is a drag whose `id` is the thumb's reversals since it went down, sent
+again each time it turns back, and `on: false` at the lift; a jaw is one
+drag a pad, `id` 0 or 1, `on` down and up. Hit-test against the drawn flat
+and pads (`packages/render/src/grindstone-shape.ts`: `grindstoneFacePath`,
+`grindstonePadAt` turned by `grindstoneJawTurn` about `grindstoneBolt`).
+Nothing in `apps/game` sends one yet, so the wheel is unanswerable on a
+phone; a test that a back-and-forth rub sends a rising count and a pad lift
+sends its `id`.
 
-**The touch sender rides this lane**, with the panels it draws: the
-simulation (wave 112, `docs/spec/bosses.md` §11.50) hears `grindFlatLeft`
-and `grindJawLeft` from Player 1 and `grindFlatRight` and `grindJawRight`
-from Player 2. A flat is a drag whose `id` is the thumb's reversals since
-it went down, sent again each time it turns back, and `on: false` at the
-lift; a jaw is one drag a pad, `id` 0 or 1, `on` down and up
-(`packages/sim/src/grindstone-hand.ts`). Nothing in `apps/game` sends one
-yet, so the wheel is unanswerable on a phone until this lands; a test that
-a back-and-forth rub sends a rising count and a pad lift sends its `id`.
+## §33 THE GRINDSTONE — effects and cue words
+
+- **Found:** 2026-09-26, tmp-grindstone-look
+- **Needs:** §33 THE GRINDSTONE — the look (the body), landed 26 September 2026
+- **Files:** `packages/render/src/grindstone-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/boss-cue-draw.ts`
+
+The body draws nothing that outlives a frame. Its events are still on the
+silent lists: grit shaved off a flat as a reversal lands, a flash as a flat
+comes clean, the caliper biting, the hit flash on the axle, the strike
+look, the fall. Add them through `Effects` (cleared in `Effects.reset()`),
+take the events off the silent lists, and give the steps their cue words
+(RUB, HOLD, FIRE). Each is drawn again in `frame.test.ts`.
+
+## §33 THE GRINDSTONE — autopilot hand
+
+- **Found:** 2026-09-26, tmp-grindstone-look
+- **Files:** `packages/sim/src/grindstone-hand.ts`, `packages/sim/src/boss-hands.ts`
+
+There is no autopilot hand for wave 112, so a solo or a watched run stands
+at the wheel doing nothing. Write one that rubs the lit flat, holds both
+pads through a clamp and fires the lit colour, in the shape of THE RIME's
+and THE TRIVET's hands; a sim test that the autopilot clears wave 112.
 
 ## THE BATON's flesh has no secondary motion of its own
 

@@ -1,0 +1,193 @@
+import { LIGHT_HALF } from "@neon-spore/content";
+import {
+  GRINDSTONE_PADS,
+  type GrindstoneState,
+  grinding,
+  grindstoneLitStep,
+  type World,
+} from "@neon-spore/sim";
+import { coreHurt } from "./core-hurt.js";
+import {
+  drawGrindstoneAxle,
+  drawGrindstoneFaceGlow,
+  drawGrindstonePads,
+} from "./grindstone-marks.js";
+import {
+  grindstoneArrived,
+  grindstoneClear,
+  grindstoneDepth,
+  grindstoneFree,
+  grindstoneLeft,
+  grindstoneShut,
+  grindstoneSpin,
+} from "./grindstone-pose.js";
+import {
+  grindstoneBolt,
+  grindstoneCentre,
+  grindstoneCut,
+  grindstoneFacePath,
+  grindstoneJawPath,
+  grindstoneJawTurn,
+  grindstonePatchPath,
+  grindstoneR,
+  grindstoneWheelPath,
+} from "./grindstone-shape.js";
+import { rgba } from "./hex.js";
+import { litRound } from "./key-light.js";
+import type { Layout } from "./layout.js";
+import { PALETTE, STROKE } from "./palette.js";
+
+/** How far the wheel falls spinning free, in tiles; how far the jaws are flung, and how thin it turns edge-on. */
+const FALL = 2.4;
+const FLING = 2.2;
+const EDGE_ON = 0.22;
+
+/**
+ * **THE GRINDSTONE**: a gritted wheel on an axle over the middle of the
+ * field, each flat ground clean by its own seat, a caliper both seats bite
+ * shut, and the lit axle shot (§11.50, `bosses-choreographed.md` §33).
+ *
+ * **Both screens are drawn the same.** Nothing here reads `l.role`: a flat and
+ * a jaw are one seat's, but the other has to see which is lit to say so, and
+ * a fire step's colour says which cannon answers.
+ *
+ * **Its health is read off the stone** — no bar: each flat cut deeper for
+ * every pass, a patch of it ground clean as the grit comes off, the caliper
+ * shut round it, and the axle smaller and brighter for every shot. Nothing of
+ * it outlives a frame yet: its effects are a lane of their own.
+ */
+export function drawGrindstone(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  s: GrindstoneState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+): void {
+  const cfg = world.cfg;
+  const arrived = grindstoneArrived(s, cfg, beat, beatPhase);
+  const free = grindstoneFree(s, cfg, beat, beatPhase);
+  const home = grindstoneCentre(l, cfg);
+  const alpha = (0.2 + 0.8 * arrived) * (1 - 0.8 * free);
+  const step = grindstoneLitStep(s);
+  const shut = grindstoneShut(world, s, beat, beatPhase);
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(home.x, home.y - (1 - arrived) * 2 * l.tile + FALL * free * free * l.tile);
+
+  // The caliper first, behind the wheel it closes on; spinning free it is flung off both ways.
+  const pads = step?.ask === "clamp";
+  for (const side of [0, 1] as const) {
+    ctx.save();
+    const out = side === 0 ? -1 : 1;
+    ctx.translate(out * FLING * free * l.tile, -FLING * 0.5 * free * l.tile);
+    ctx.globalAlpha = alpha * (1 - free);
+    drawJaw(ctx, l, side, shut, pads, s.padsDown[side], beatPhase, free);
+    ctx.restore();
+  }
+
+  // Edge-on as it falls: the flats the pair ground turn away and only the rim is left.
+  ctx.scale(1 - (1 - EDGE_ON) * free, 1);
+  const cuts: [number, number] = [
+    grindstoneCut(l, grindstoneDepth(s, 0)),
+    grindstoneCut(l, grindstoneDepth(s, 1)),
+  ];
+  const wheel = grindstoneWheelPath(l, grindstoneSpin(arrived, free), cuts);
+  drawWheel(ctx, l, wheel, time);
+  const lit = grinding(s);
+  for (const side of [0, 1] as const) {
+    drawFlat(ctx, l, wheel, side, cuts[side], grindstoneClear(s, side));
+    if (lit === side)
+      drawGrindstoneFaceGlow(ctx, grindstoneFacePath(l, side, cuts[side]), beatPhase);
+    ctx.globalAlpha = alpha;
+  }
+
+  const firing = step !== null && step.ask === "fire" && s.locked;
+  const shot = firing
+    ? { color: step.color, left: grindstoneLeft(world, s, beat, beatPhase) }
+    : null;
+  // A core's hurt, called: the axle is smaller and brighter per shot the same way a kernel is.
+  const hurt = coreHurt(s.hits);
+  drawGrindstoneAxle(ctx, l, hurt.size, hurt.bright, s.locked, shot, beatPhase);
+  ctx.restore();
+}
+
+/** THE SMART's stone, the key light on it, and grit speckled over it. */
+function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, wheel: Path2D, time: number): void {
+  const r = grindstoneR(l);
+  ctx.fillStyle = PALETTE.grindstoneStone;
+  ctx.fill(wheel);
+  ctx.save();
+  ctx.clip(wheel);
+  litRound(ctx, 0, -r * 0.15, r * 1.1, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.5));
+  ctx.restore();
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = rgba(PALETTE.grindstoneStoneDark, 0.9);
+  ctx.stroke(wheel);
+}
+
+/**
+ * Flat `side`'s face: a band of grit along it, and the clean patch ground into
+ * the grit, `clear` of the way open — THE RIME's patch, worn into grit
+ * rather than wiped out of frost, and the bare stone under it the sandy tan of a
+ * ground face.
+ */
+function drawFlat(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  wheel: Path2D,
+  side: 0 | 1,
+  cut: number,
+  clear: number,
+): void {
+  const band = 0.34 * l.tile;
+  const x = side === 0 ? -cut : cut - band;
+  const grit = new Path2D();
+  grit.rect(x, -grindstoneR(l), band, grindstoneR(l) * 2);
+  ctx.save();
+  ctx.clip(wheel);
+  ctx.clip(grit);
+  ctx.fillStyle = rgba(PALETTE.grindstoneStoneDark, 0.75);
+  ctx.fill(grit);
+  if (clear > 0) {
+    const patch = grindstonePatchPath(l, side, cut, clear);
+    ctx.fillStyle = PALETTE.grindstoneFlat;
+    ctx.fill(patch);
+    ctx.lineWidth = STROKE.inner;
+    ctx.strokeStyle = rgba(PALETTE.grindstoneStoneDark, 0.8);
+    ctx.stroke(patch);
+  }
+  ctx.restore();
+}
+
+/** Jaw `side` of THE HOOD, swung out about the crown bolt as far as it is slack, its pads by its tip. */
+function drawJaw(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  side: 0 | 1,
+  shut: number,
+  lit: boolean,
+  down: number,
+  beatPhase: number,
+  free: number,
+): void {
+  const bolt = grindstoneBolt(l, shut);
+  ctx.translate(bolt.x, bolt.y);
+  ctx.rotate(grindstoneJawTurn(side, shut) + (side === 0 ? -1 : 1) * free * 0.8);
+  ctx.translate(-bolt.x, -bolt.y);
+  const jaw = grindstoneJawPath(l, side, shut);
+  ctx.fillStyle = PALETTE.rockDark;
+  ctx.fill(jaw);
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = rgba(PALETTE.rock, 0.75);
+  ctx.stroke(jaw);
+  const alpha = ctx.globalAlpha;
+  drawGrindstonePads(ctx, l, side, GRINDSTONE_PADS, lit, down, shut, beatPhase);
+  ctx.globalAlpha = alpha;
+  const pin = new Path2D();
+  pin.arc(bolt.x, bolt.y, 0.09 * l.tile, 0, Math.PI * 2);
+  ctx.fillStyle = PALETTE.rock;
+  ctx.fill(pin);
+}

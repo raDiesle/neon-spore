@@ -76,6 +76,9 @@ export const FAMILIES: Family[] = [
       "cystSac",
       "cystSacDark",
       "cystScar",
+      "grindstoneStone",
+      "grindstoneStoneDark",
+      "grindstoneFlat",
     ],
   },
   {

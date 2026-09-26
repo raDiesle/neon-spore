@@ -88,6 +88,7 @@ export {
   grindstoneJawHeld,
   grindstoneLitStep,
 } from "./grindstone.js";
+export { grindstoneWindowBeats } from "./grindstone-step.js";
 // THE HALTER's seam: the phase, the lit step, the cracks, both seats' rests
 // and grips, and which pairing holds, for the picture, the cue and the
 // director's hand. Straight off `halter.ts` (`docs/spec/bosses-choreographed.md` §36).

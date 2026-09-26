@@ -1795,6 +1795,10 @@ by hand never moves.
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |
 | `packages/render/src/grip-verdict.ts` | **Was that right?** — answered on the thing the thumb touched, the moment the simulation has judged it |
+| `packages/render/src/grindstone-draw.ts` | **THE GRINDSTONE**, drawn: THE SMART's wheel with its flats ground, THE HOOD's caliper, the lit axle, the fall |
+| `packages/render/src/grindstone-marks.ts` | **THE GRINDSTONE's marks**: what a step asks — a flat's face glowing, a jaw's pads lit, the axle in a shot's colour |
+| `packages/render/src/grindstone-pose.ts` | **The clock THE GRINDSTONE is posed off**: the drop, the depth and grit of each flat, the caliper's swing and creep, the fall |
+| `packages/render/src/grindstone-shape.ts` | **THE GRINDSTONE's geometry**: where the wheel is, and the paths of the wheel, its flats, the patch and the caliper's jaws |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
