@@ -434,6 +434,7 @@ an alignment.
 ## §25 THE VALVE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/queue-24-the-keel-the-simulation-lane (claim: claude/queue-25-the-valve-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 `FreezeTap` — the one genuinely new verb on either brief — finally spent:
