@@ -28,11 +28,22 @@ import type { Item } from "./queue.js";
  * command is printed under it because a relative one, run from a session the
  * desktop app started in `.claude/worktrees/<session>/`, made a tree inside a
  * tree on 23 September 2026. Without it — a test — the path stays relative.
+ *
+ * `here` is the asking session's own tree when it is a clean worktree that is
+ * not the main checkout (`sessionTree`). A desktop session is refused every
+ * write outside the tree it was opened in, so a new tree would be one it could
+ * not edit — a lane on 26 September 2026 made one, removed it, and checked the
+ * branch out where it stood. With `here` the prompt says that instead.
  */
 export function promptFor(
   item: Item,
   branch: string,
-  { stale, needs, home }: { stale?: string; needs?: string; home?: string } = {},
+  {
+    stale,
+    needs,
+    home,
+    here,
+  }: { stale?: string; needs?: string; home?: string; here?: string } = {},
 ): string {
   const from = item.source === "parked" ? "docs/parked.md" : "docs/queue.md";
   const tree = branch.replace(/^claude\//, "");
@@ -114,12 +125,23 @@ export function promptFor(
     `are the table of cuts in docs/lane-speed.md; read it rather than inventing`,
     `one.`,
     "",
-    `The branch is already made and is your claim on the item — check it out in`,
-    `its own worktree, do not make another:`,
-    "",
-    `    git worktree add ${trees}/${tree} ${branch}`,
-    "",
-    `then \`bun install\` from inside that tree (.claude/skills/lane says why).`,
+    ...(here
+      ? [
+          `The branch is already made and is your claim on the item — check it out in`,
+          `the clean worktree you are standing in, do not make another:`,
+          "",
+          `    git -C ${here} checkout ${branch}`,
+          "",
+          `then \`bun install\` in that tree (.claude/skills/lane says why).`,
+        ]
+      : [
+          `The branch is already made and is your claim on the item — check it out in`,
+          `its own worktree, do not make another:`,
+          "",
+          `    git worktree add ${trees}/${tree} ${branch}`,
+          "",
+          `then \`bun install\` from inside that tree (.claude/skills/lane says why).`,
+        ]),
     "",
     `## ${item.title}`,
     "",

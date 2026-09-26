@@ -33,6 +33,22 @@ export function mainCheckout(root = ROOT): string {
   return r.ok ? dirname(r.out) : root;
 }
 
+/**
+ * This tree's path when it is a clean worktree of its own — not the main
+ * checkout, nothing uncommitted — and "" otherwise. A desktop session opened in
+ * such a tree may write nowhere else, so a claimed branch is checked out where
+ * it stands rather than in a new tree it could not edit (`prompt.ts`).
+ */
+export function sessionTree(root = ROOT): string {
+  const dir = gitIn(root, "rev-parse", "--path-format=absolute", "--git-dir");
+  const common = gitIn(root, "rev-parse", "--path-format=absolute", "--git-common-dir");
+  if (!dir.ok || !common.ok || dir.out === common.out) return "";
+  const status = gitIn(root, "status", "--porcelain");
+  if (!status.ok || status.out !== "") return "";
+  const top = gitIn(root, "rev-parse", "--show-toplevel");
+  return top.ok ? top.out : "";
+}
+
 /** Whether this checkout has the branch itself, rather than origin's copy of it. */
 export function hasBranch(branch: string): boolean {
   return git("rev-parse", "--verify", "--quiet", `refs/heads/${branch}`).ok;

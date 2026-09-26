@@ -21951,3 +21951,16 @@ Bottleneck: writing — a case list is cheapest to shorten by a guard, and it
 took one cut that did not reach far enough to see it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — `queue next` says `git checkout` to a session in its own clean worktree
+
+- reading: 5 min. `prompt.ts`, `show.ts`, `tree.ts` and the lane skill.
+- writing: 10 min. `sessionTree`, the prompt's second checkout form, the
+  lane skill's paragraph, and a test for the probe and both prompts.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. `repo.ts` sits two lines under its ceiling, so the probe is
+  imported from `tree.ts` rather than re-exported; a heredoc was refused.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the file every queue helper is reached through had no
+room for one more re-export.

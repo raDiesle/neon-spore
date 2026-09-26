@@ -23,7 +23,12 @@ same item. Check it out, do not make another:
 git worktree add .claude/worktrees/queue-<slug> claude/queue-<slug>
 ```
 
-Then, **from inside the new tree**, `bun install`. This is not optional and
+**A session already standing in a clean worktree of its own checks the
+branch out there instead** — `git checkout claude/queue-<slug>` — and the
+prompt `next` prints says so. A desktop session is refused every write outside
+the tree it was opened in, so a new tree would be one it could not edit.
+
+Then, **from inside the new tree** (or the one you checked out in), `bun install`. This is not optional and
 `node_modules` must not be linked or copied from the main checkout: the
 workspace links inside it point at the main tree's `packages/*` by absolute
 path, so a test would run against another tree's code and report a result about

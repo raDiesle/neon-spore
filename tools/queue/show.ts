@@ -21,6 +21,7 @@ import { promptFor } from "./prompt.js";
 import type { Item } from "./queue.js";
 import { mainCheckout, trunkRef, trunkView } from "./repo.js";
 import { staleLine, staleness } from "./stale.js";
+import { sessionTree } from "./tree.js";
 
 /** The whole brief for one item on one branch, as `next` hands it out. */
 export function briefFor(item: Item, branch: string, items: readonly Item[]): string {
@@ -28,6 +29,7 @@ export function briefFor(item: Item, branch: string, items: readonly Item[]): st
     stale: staleLine(staleness(item, trunkView()), trunkRef()),
     needs: blockedBy(item, items)?.title,
     home: mainCheckout(),
+    here: sessionTree() || undefined,
   });
 }
 

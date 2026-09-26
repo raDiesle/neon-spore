@@ -431,23 +431,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## `queue next` sends a worktree session to a tree it may not write
-
-- **Found:** 2026-09-26, claude/queue-the-other-pull-handles-show-the-path-they-can-be
-- **Taken:** 2026-09-26, claude/queue-bind-ts-and-ship-fields-ts-sit-at-their-line-cei (claim: claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it)
-- **Files:** `tools/queue/prompt.ts`, `.claude/skills/lane/SKILL.md`
-
-The prompt `bun run queue next` prints always says `git worktree add` a new
-tree for the claimed branch. A desktop session already opened in a worktree
-of its own is refused every Write/Edit outside that tree by a harness hook,
-so the new tree cannot be worked in: this lane removed it again and ran
-`git checkout <branch>` in its own clean worktree instead. Have `prompt.ts`
-detect a clean worktree that is not the main checkout (`git rev-parse
---git-common-dir` differs from `--git-dir`, `git status --porcelain` empty)
-and print `git checkout <branch>` there, with `bun install` still after it;
-say the same in the lane skill's section 1. Proof: a test in
-`tools/queue/test/` for both prompts, and `bun run check`.
-
 ## `bun run frames --until` misses an event that fires between two presses
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd
@@ -803,3 +786,17 @@ had lost to `trunkRaced`, as it should). Ask `git worktree list --porcelain`
 again beside `trunkRaced`, just before the move, and take the `merge --ff-only`
 path in the tree that now holds the trunk; pin it with a unit case on the
 planner that feeds it a holder appearing after the plan.
+
+## `next` from a clean session worktree marks the spent branch as worked
+
+- **Found:** 2026-09-26, claude/queue-queue-next-sends-a-worktree-session-to-a-tree-it
+- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`, `tools/queue/mark.ts`
+
+`claim` writes `takenMark(branch, today, headBranch(root))`, so a session
+standing in its own clean worktree on the branch it just landed marks the new
+item `<spent branch> (claim: <claim branch>)` — and `next`'s prompt now tells
+that same session to `git checkout` the claim branch (`sessionTree`), so the
+mark names the one branch the work will never be on. `take`, draining several
+items on one lane branch, needs the head recorded as it is. Have `next` (not
+`take`) pass the claim branch as `actual` when `sessionTree()` is non-empty;
+pin it in `claim-here.test.ts` beside the existing `lane (claim: …)` case.
