@@ -471,6 +471,7 @@ into the roster. `bun run check` proves it.
 ## `bun run frames` cannot picture a boss's receipt
 
 - **Found:** 2026-09-26, claude/vise-fx
+- **Taken:** 2026-09-26, main (claim: claude/queue-bun-run-frames-cannot-picture-a-bosss-receipt)
 - **Files:** `tools/frames/run.ts`, `tools/frames/until.ts`, `tools/frames/boss.ts`, `tools/frames/flag-lists.ts`
 
 A receipt — a crack's thud, a kernel hit's flash — is drawn only in the few
