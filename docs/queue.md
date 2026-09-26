@@ -434,6 +434,7 @@ an alignment.
 ## Film THE LIMPET's guide, and delete its words
 
 - **Found:** 2026-09-25, claude/wave-details-text-cleanup-d25f4a
+- **Taken:** 2026-09-26, claude/queue-film-the-chokes-guide-and-delete-its-words (claim: claude/queue-film-the-limpets-guide-and-delete-its-words)
 - **Files:** `packages/content/src/waves/act-7a.ts`, `packages/content/src/scenes.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
 
 THE LIMPET's guide is still `both`/`p1`/`p2`, one of the ten the owner's *a film
