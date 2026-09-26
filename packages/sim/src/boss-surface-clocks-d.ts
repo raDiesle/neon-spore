@@ -82,6 +82,9 @@ export {
   grindstoneJawHeld,
   grindstoneLitStep,
 } from "./grindstone.js";
+// THE PLUMB's window in beats, for the ring round its core and the creep of
+// its weights off true (`plumb-step.ts`).
+export { plumbWindowBeats } from "./plumb-step.js";
 // THE TRIVET's stand: the phase, the lit step, the feet and both seats' pads,
 // for the picture, the cue and the director's hand. Straight off `trivet.ts`
 // (`docs/spec/bosses-choreographed.md` §30).
@@ -104,9 +107,6 @@ export {
   trivetLitStep,
 } from "./trivet.js";
 export { trivetWindowBeats } from "./trivet-step.js";
-// THE PLUMB's the same, for the ring round its core and the creep of its
-// weights off true (`plumb-step.ts`).
-export { plumbWindowBeats } from "./plumb-step.js";
 // THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
 // the picture, the cue and the director's hand. Straight off `vise.ts`
 // (`docs/spec/bosses-choreographed.md` §28).
