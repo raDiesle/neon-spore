@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 8b681b4fc — THE GYRE's wheels are asked for once a frame
+
+`gyres(world)` filtered every creature twice a frame, once for the wind and once for the armature, and `drawGyres` filtered the whole list again for each wheel's carried bodies. `frame-field.ts` now asks for the wheels once and hands the list to both draws. `gyreCarried` sorts the carried bodies into their wheels in one pass, keeping the field's own order. Nothing drawn changes.
+
 ## 2026-09-26 · 75f50597c — Keep a queue entry's Files line to paths the tree has
 
 "Living secondary motion is uneven across the boss roster" named a glob and a clause in its Files line, which the doc-drift test reads as paths and fails on. The Files line now names docs/style-guide.md alone and the audit's wider scope moves into the body.
