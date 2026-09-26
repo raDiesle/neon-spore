@@ -825,38 +825,6 @@ the `Co-Authored-By` trailer, land, push. One commit per file is fine, or
 batch the whole set into one commit the way THE SURGE/SPLICE/THROAT batch
 did — either is a coherent change.
 
-## THE INSTAR looks flat and ugly from the side
-
-- **Found:** 2026-09-26, cloud session (this session, stopping here per the
-- **Taken:** 2026-09-26, main (claim: claude/queue-the-instar-looks-flat-and-ugly-from-the-side)
-  owner's *"slow down"* request)
-- **Files:** `packages/render/src/instar-profile.ts`,
-  `packages/render/src/instar-side-head.ts`,
-  `packages/render/src/instar-body-shade.ts`,
-  `packages/render/src/instar-shape.ts`
-
-The owner's own words, 2026-09-26: *"e.g. 'the instar' when boss is shown
-from the side, it looks very ugly."* THE INSTAR is drawn from more than one
-angle across its poses (`instar-poses.ts`, `instar-front.ts` vs
-`instar-side-head.ts`/`instar-profile.ts`), and the side view is the one
-that reads worst. This has not been investigated yet — the next session
-should start by rendering THE INSTAR's side pose at tempo (`bun run
-frames <sha>` on a frame where it is side-on, or `bun run preview` with
-`?play=1` and the director's pose picker) and comparing it against
-`.claude/skills/depth`'s rule (**"a body's silhouette is posed; its surface
-is placed"**) and the five-zone lighting pass in
-`tools/director/src/skins/light.ts` (`terminatorPass`, `contactPass`,
-`specularPass`, `rimLightPass`, reflected light). Likely candidates for what
-is missing, to check rather than assume: no depth-projected surface features
-on the side profile (marks/plates drawn in flat picture space instead of
-via `packages/content/src/surface.ts`'s `pin`/`facet`), or a silhouette that
-does not foreshorten correctly when turned side-on. Read `instar-shape.ts`
-and `instar-body-shade.ts` first to see which of the two failures (or both)
-is present, per `.claude/skills/depth`'s "The one rule". Any fix here is a
-**look**, so it goes to `tools/versus/candidates/` first per
-`docs/looks.md`/`docs/versus.md` and the three exemptions in `CLAUDE.md`
-unless it is a fix to something wrong rather than unlovely.
-
 ## Living secondary motion is uneven across the boss roster
 
 - **Found:** 2026-09-26, cloud session (this session, stopping here per the

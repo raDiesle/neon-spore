@@ -22585,3 +22585,13 @@ Bottleneck: writing — the spark's STATES card needed its own `want`, because
 the phase it is named after is never entered.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's side body is a lit tube with its surface placed round it
+
+- reading: 15 min. The rig's tube (`solid-tube.ts`), how its frames turn, the old body pass and what else read it.
+- writing: 60 min. The body on the rig, the scales, lamps and ridge placed round its rings, the breath, swim and roll, the doc changes.
+- looking: 30 min. Frames at 1x said nothing about a 25 px body; at zoom 3 the ridge turned out to be on the belly.
+- friction: 15 min. The rig's frames start from "up", so a spine leaving the neck backward put every angle upside down.
+- landing: 10 min. The render tests, `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the default frame is too small to judge a surface detail, and it hid a flipped angle until it was rendered at phone scale.

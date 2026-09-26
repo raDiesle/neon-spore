@@ -36,7 +36,7 @@ const LIP_OPEN = 0.75;
 
 /**
  * The jaw's and brow's own idle wobble on `Form.angle`, same reasoning as the
- * body's `BODY_WOBBLE` (`instar-profile.ts`), the skull's `CROWN_WOBBLE`
+ * body's roll (`instar-profile-life.ts`), the skull's `CROWN_WOBBLE`
  * (`instar-side-head.ts`) and the tail's `TAIL_WOBBLE` (`instar-tail.ts`,
  * `docs/style-guide.md`'s "Depth on a body that already ships"): neither
  * `Form` here ever sets an `angle` at all, so `lightHide` has always shaded

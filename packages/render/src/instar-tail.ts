@@ -33,7 +33,7 @@ const N = 18;
 
 /**
  * The tail's own idle wobble on `Form.angle`, same reasoning as the body's
- * `BODY_WOBBLE` (`instar-profile.ts`) and the skull's `CROWN_WOBBLE`
+ * roll (`instar-profile-life.ts`) and the skull's `CROWN_WOBBLE`
  * (`instar-side-head.ts`, `docs/style-guide.md`'s "Depth on a body that
  * already ships"): `fork` only actually moves once the tail is raised or
  * lashing (`threat`, `f.tail` above), so at rest — trailing behind the

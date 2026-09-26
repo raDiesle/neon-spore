@@ -299,10 +299,10 @@ angle is an `atan2` recomputed off a point the input or the sim is actively
 moving — keeps that angle bare; the wobble adds nothing where the angle is
 already live. **An `atan2` off a point that only moves at a pose change is
 constant in between**, which is the same still life with extra arithmetic:
-THE INSTAR's long body (`instar-profile.ts`) turns its `angle` from the neck
-to the tail, both of which sit still for beats at a time between morphs, so
-it gets the same wobble as the skull, on its own period so the two lit
-shoulders do not slide together (`BODY_WOBBLE`/`BODY_WOBBLE_PERIOD`). Its
+THE INSTAR's long body once turned its `angle` from the neck to the tail,
+both of which sit still for beats at a time between morphs, and needed a
+wobble of its own; it is a tube now and rolls about its own length instead
+(`instar-profile-life.ts`), on a period the skull's does not share. Its
 actual tail (`instar-tail.ts`) turns its `angle` from the rear to the fork
 the same way — the fork only moves once the tail is raised or lashing, so
 at rest it is the identical still life — and gets a third, differently
@@ -430,12 +430,21 @@ running down it. THE INSTAR's long body (`instar-profile.ts`) has an `r`
 spends nearly all of itself reaching the ends and has almost nothing left
 for top-to-bottom contrast — beautifully lit at the skull, nearly flat three
 plates down the same hide. The fix is not a change to `lightHide`, which is
-still right for the round plates it already shades: a second, dedicated pass
-(`shadeBody`, `instar-body-shade.ts`) fills each segment between the spine's
-`top`/`bottom` offset arrays with its own short linear gradient, lit side to
-shadowed side, so the contrast is sized to the plate's width instead of its
-length. Any plate whose `r` far exceeds its `ry` gets the same treatment
-rather than a tweak to the shared radial pass.
+still right for the round plates it already shades. The body is now a tube of
+the rig instead (`solid-tube.ts`, `drawTube`): one ring per sample of the
+spine, each lit across its own width as the cylinder it is, so the contrast is
+sized to the section and not to the length. Any body whose length far exceeds
+its width is a tube, not a plate with a tweak to the shared radial pass.
+
+**On a tube, what sits on the surface is placed round the rings.** THE
+INSTAR's scales, lamps and back ridge (`instar-profile-surface.ts`) stand at an
+angle from the back round each ring, the angle read with a slow roll added
+(`instar-profile-life.ts`), so the rows walk round under a light that stays put:
+the near ones crowd toward the limb and go, the far ones come over the back.
+The rig's frames start from "up", and a spine that leaves its first sample
+running backward has its back underneath — `bodyOf` checks which way the first
+frame faces against the outline's own top and turns the angle round, or every
+spine lands on the belly.
 
 **A flat fill on a rounded body is a silhouette wearing a colour, not a body.**
 THE GIMBAL's sealed drum (`gimbal-draw.ts`) drew each hatch leaf as one solid
@@ -446,8 +455,8 @@ call it, cached by radius and spin so it costs nothing per frame — and a leaf
 sealed shut is round the same way those are: clip to the leaf's own path, then
 `litRound` over it before the ribs and outline draw on top. A body with no pose
 to turn it still needs *some* motion for the light to sit on, or a beautifully
-shaded dome is a still life the instant the pose stops moving (`instar-profile.ts`'s
-`BODY_WOBBLE`, `instar-side-head.ts`'s `CROWN_WOBBLE`) — the drum's own
+shaded dome is a still life the instant the pose stops moving (`instar-profile-life.ts`'s
+roll, `instar-side-head.ts`'s `CROWN_WOBBLE`) — the drum's own
 `DRUM_WOBBLE` feeds a slow idle turn into `litRound`'s own `spin` argument
 rather than inventing a second wobble mechanism, with the two leaves a turn out
 of phase so their shoulders do not slide together. Any other sealed, rounded

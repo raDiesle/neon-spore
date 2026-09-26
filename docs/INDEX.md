@@ -1487,11 +1487,14 @@ by hand never moves.
 | `packages/render/src/instar-plate.ts` | **What every part of THE INSTAR is drawn with**: the hide |
 | `packages/render/src/instar-place.ts` | **THE INSTAR's figure, in pixels**: a place, a length, the head, the far end and a mark on this screen's layout |
 | `packages/render/src/instar-profile.ts` | **THE INSTAR side-on**: the perspective the owner asked to change to on 25 September 2026 |
+| `packages/render/src/instar-profile-life.ts` | **THE INSTAR side-on, alive**: what the long body does on its own clock while the script holds it in a pose |
+| `packages/render/src/instar-profile-surface.ts` | **What sits on THE INSTAR's long body, placed round it** — the owner, 26 September 2026 |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
 | `packages/render/src/instar-strike.ts` | **What THE INSTAR does when the pair do not stop it**, one picture per part |
 | `packages/render/src/instar-side-head.ts` | **THE INSTAR's head side-on**, snout to the left: the skull and its horns, the socket and the eye in it |
+| `packages/render/src/instar-scutes.ts` | THE INSTAR's belly plates side-on: a short dark notch in from the belly edge at each sample of the spine |
 | `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/instar-wings.ts` | **THE INSTAR's wings**: a bat's, membrane stretched between an arm and three long fingers |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
@@ -1505,7 +1508,6 @@ by hand never moves.
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
-| `packages/render/src/instar-body-shade.ts` | The body's own light and shadow, top to bottom across its width, one segment of the spine at a time |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
