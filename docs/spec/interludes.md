@@ -639,6 +639,13 @@ once the whole body is inside, the next arena opens and the body comes out of
 the same open mouth. After the last arena the mouth closes behind the tail
 under the verdict. Missing the mouth is a crash like any other wall.
 
+**The hull and the band stand at half their height in this round**
+(`snakeHullPct`, `render/snake-layout.ts`, the owner, 25 September 2026: the
+round's buttons are fewer and smaller). The field moves down into the room
+they give up. The arena is as wide as the field already, so on a phone it keeps
+its size and comes down with the hull. The frame and the finger read one layout
+(`render/world-layout.ts`), so a lobe is pressed where it is drawn.
+
 **The rest of its numbers are in `packages/sim/src/config-snake.ts`.**
 `snakeCols` and `snakeRows` are the arena in tiles, and have nothing to do with
 the field's `cols`, because the field is gone. `snakeStartTiles` is how long the

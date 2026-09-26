@@ -843,21 +843,6 @@ shows a push, the red shield and ONE LAST CHANCE, then the cannon finishing it.
 Follow both skills; THE VOLLEY's rehearsal is the nearest pattern.
 `bun run check` holds it.
 
-## SNAKE: the hull and the band at half height in this round
-
-- **Found:** 2026-09-25, claude/snake-game-mechanics-ee4ed4
-- **Taken:** 2026-09-26, claude/snake-game-mechanics-ee4ed4 (claim: claude/queue-snake-the-hull-and-the-band-at-half-height-in-th)
-- **Files:** `packages/render/src/layout.ts`, `packages/render/src/field-flip.ts`, `packages/render/src/well-roll.ts`, `apps/game/src/viewport.ts`, `apps/game/src/field-input.ts`, `packages/render/src/hull-frame.ts`, `packages/render/src/snake-draw.ts`
-
-The owner, 25 September 2026: *have hull ship height around half of regular
-one, as we have smaller controls.* While a SNAKE round holds the world, the
-band and the hull are about half their usual height, and the arena grows into
-the room they give up. The layout has to be world-aware in two places that
-must agree: render's `frameLayout` (with `flippedLayout`/`rolledLayout`) and
-the game's input `layout()` in `apps/game/src/viewport.ts`, which hit-tests
-without the world today. A test that a press on a SNAKE lobe lands where the
-lobe is drawn holds the pair together. A look the owner asked for by name.
-
 ## `bind.ts` and `ship-fields.ts` sit at their line ceiling
 
 - **Found:** 2026-09-26, claude/shield-enemy-knockback-6364bd

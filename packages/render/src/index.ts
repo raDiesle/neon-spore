@@ -100,6 +100,7 @@ export {
   tileCX,
   tileCY,
   type ViewRole,
+  worldLayout,
 } from "./layout.js";
 export { drawLid } from "./lid.js";
 export { bevel } from "./lid-bevel.js";

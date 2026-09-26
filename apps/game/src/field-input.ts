@@ -4,18 +4,17 @@ import {
   cannonGrab,
   DeskSeat,
   type Field,
-  flippedLayout,
   handedLayout,
   handedRole,
   type Layout,
   pointerSeat,
   pointerSeats,
-  rolledLayout,
   shieldGrab,
   showsWell,
   type ViewRole,
   wellCannonGrab,
   wellShieldGrab,
+  worldLayout,
 } from "@neon-spore/render";
 import { briefingHolds, faultsNow, guideHolds, handedOver, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
@@ -97,9 +96,11 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
    * `rolledLayout` rides on the end for the same reason one boss further on:
    * THE WELL's face turns, and a thumb has to be answered by the face it is
    * looking at rather than the one it opened on (`render/well-roll.ts`).
+   * All three come from `worldLayout`, which the frame calls too, so they are
+   * applied in one order in one place (`render/world-layout.ts`) — SNAKE's
+   * short band is the third, and it moves every lobe.
    */
-  const layout = (): Layout =>
-    rolledLayout(flippedLayout(handedLayout(o.layout(), world), world), world);
+  const layout = (): Layout => worldLayout(handedLayout(o.layout(), world), world);
   // The desk keys, for the screen that shows both seats: while 1 or 2 is held
   // the mouse is that player's hand on the field, and while 3 is held it is
   // both players' (`render/desk-seat.ts`).

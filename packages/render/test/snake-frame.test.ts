@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss } from "@neon-spore/content";
 import { createWorld, snakeCrashed, startWave, ticksPerBeat } from "@neon-spore/sim";
-import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
+import { computeLayout, computeStage, type ViewRole, worldLayout } from "../src/layout.js";
 import { snakeMawLit } from "../src/snake-button.js";
 import { snakeArena } from "../src/snake-draw.js";
 import { snakeJawsCircle, snakeTailCircle } from "../src/snake-grip.js";
@@ -110,15 +110,14 @@ describe("SNAKE draws on all three screens", () => {
    */
   it("draws both rings on the body they are taken on", () => {
     const stage = computeStage(VIEWPORT);
-    const l = computeLayout(
-      { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr },
-      CFG,
-      "test",
-    );
     const world = createWorld(CFG, 7, []);
     startWave(world, index, [], [], buildBoss(index, CFG.cols));
     const boss = world.boss;
     if (boss?.kind !== "snake") throw new Error("SNAKE's wave installed no round");
+    // The round's own short band, which is what the frame is drawn against
+    // (`snake-layout.ts`).
+    const vp = { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr };
+    const l = worldLayout(computeLayout(vp, CFG, "test"), world);
     boss.phase = "play";
     boss.dirCol = 0;
     boss.dirRow = -1;

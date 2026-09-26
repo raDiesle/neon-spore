@@ -21228,3 +21228,17 @@ Bottleneck: the claimed branch's own worktree is outside the one the session
 may write, so the queue's first instruction had to be undone.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — SNAKE's hull and band stand at half height
+
+- reading: 5 min. The layout, the two world steps it already had, the hull's
+  depth, and how input builds the layout it hit-tests.
+- writing: 5 min. The config field, the snake step, `worldLayout` for both
+  callers, and the lobe test.
+- looking: 5 min. A frame before and after, side by side.
+- friction: 0 min.
+- landing: 5 min. The import sort, the timeout rule, the doc-drift row and one
+  grip test that read the plain layout.
+
+Bottleneck: `check:fast`. Three of its rules each asked for one more line, and
+each needed a full run to find.

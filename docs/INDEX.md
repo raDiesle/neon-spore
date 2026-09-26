@@ -1196,6 +1196,7 @@ by hand never moves.
 | `packages/render/src/snake-emerge.ts` | The body coming out of the ship |
 | `packages/render/src/snake-jaw.ts` | What one of SNAKE's jaws is: its outline, what is marked on it |
 | `packages/render/src/snake-grip.ts` | **SNAKE's two hands on its own body** |
+| `packages/render/src/snake-layout.ts` | **SNAKE's short hull and band.** While a snake round holds the world |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
@@ -1349,6 +1350,7 @@ by hand never moves.
 | `packages/render/src/well-roll.ts` | THE WELL's roll, as a screen sees it — the angle on the layout, so a frame and a finger cannot disagree |
 | `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/wet-socket.ts` | **A wet hollow in whatever surface a body stands on**: darker than the water round it, darkest at the bottom |
+| `packages/render/src/world-layout.ts` |  |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/queen-facet.ts` | FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |

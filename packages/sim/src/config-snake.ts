@@ -105,6 +105,16 @@ export interface SnakeConfig {
    * is nothing left to steer, and the pair is waiting on the next arena.
    */
   snakeHomeStepTicks: number;
+  /**
+   * How tall the hull and the band stand while a snake round holds the world,
+   * as a percentage of their height on every other wave. The arena grows into
+   * the room they give up (`render/snake-layout.ts`).
+   *
+   * 50: the owner, 25 September 2026, asked for the hull at about half its
+   * usual height, because the round's buttons are fewer and smaller. A view
+   * number, never read by a rule, like `bandSoloPct`.
+   */
+  snakeHullPct: number;
 }
 
 /**
@@ -139,4 +149,5 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   // still a reason to steer.
   snakeShotTiles: 10,
   snakeHomeStepTicks: 10,
+  snakeHullPct: 50,
 };

@@ -83,7 +83,7 @@ function wrapAngle(diff: number): number {
 
 export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {
   const { cx, rx } = hullSpan(l);
-  const ry = l.tile * 1.6;
+  const ry = l.tile * 1.6 * l.hullScale;
   const cy = l.hullY + ry;
   const toAngle = (x: number): number => hullAngleAtX(x, cx, rx);
 

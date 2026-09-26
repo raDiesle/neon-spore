@@ -19,7 +19,6 @@ export {
   type ViewRole,
 } from "./view-role.js";
 
-import { flippedLayout } from "./field-flip.js";
 import type { Stage } from "./layout-stage.js";
 import { bandHeightFor } from "./layout-stage.js";
 import { PANEL_PLAN } from "./panel-plan.js";
@@ -27,7 +26,7 @@ import { PANEL_PLAN } from "./panel-plan.js";
 // written down. Re-exported so nothing holding a `Strip` had to move.
 import { type Strip, stripBands } from "./strip-band.js";
 import { showsCannon, showsShield, type ViewRole } from "./view-role.js";
-import { rolledLayout } from "./well-roll.js";
+import { worldLayout } from "./world-layout.js";
 
 export type { Strip };
 
@@ -95,6 +94,9 @@ export interface Layout {
    * follows from them (`well-roll.ts`). Nought on every other wave.
    */
   wellRoll: number;
+  /** How tall the hull and the band stand, as a share of their usual height:
+   * 1 but in a SNAKE round, and here for `flip`'s reason (`snake-layout.ts`). */
+  hullScale: number;
 }
 
 export interface Circle {
@@ -103,10 +105,10 @@ export interface Circle {
   r: number;
 }
 
-export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole): Layout {
-  const { width, height } = viewport;
+export function computeLayout(vp: Viewport, cfg: SimConfig, role: ViewRole, hullScale = 1): Layout {
+  const { width, height } = vp;
   const solo = role !== "test";
-  const bandHeight = bandHeightFor(height, cfg);
+  const bandHeight = bandHeightFor(height, cfg) * hullScale;
   const playHeight = height - bandHeight;
   const bandTop = playHeight;
   const radarHeight = cfg.radarHeightPx;
@@ -154,9 +156,10 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     // Nor this, and out of the same drawer: a boss's face is a fact about the
     // world, not about a viewport (`well-roll.ts`).
     wellRoll: 0,
+    hullScale,
     width,
     height,
-    dpr: viewport.dpr,
+    dpr: vp.dpr,
     cols: cfg.cols,
     rows: cfg.rows,
     tile,
@@ -184,11 +187,12 @@ export { bodyX, fieldCol, fieldX, flippedLayout } from "./field-flip.js";
  * height it is cut around. Re-exported because a caller holding a layout was
  * already asking this file where the game is (`layout-stage.ts`). */
 export { computeStage, type Stage } from "./layout-stage.js";
-
 /** THE WELL's face, and how far it has turned — re-exported beside the fold
  * for the fold's reason: both are a fact about the world put on a layout so a
  * frame and a finger cannot disagree (`well-roll.ts`). */
 export { rolledLayout } from "./well-roll.js";
+/** The world's three steps on a layout, shared with input (`world-layout.ts`). */
+export { worldLayout } from "./world-layout.js";
 
 export function tileCX(l: Layout, col: number): number {
   return l.gridLeft + col * l.tile + l.tile / 2;
@@ -228,13 +232,10 @@ export function rowFromY(l: Layout, y: number): number {
  * arithmetic, so it is redone every frame rather than cached — a test slider
  * moves `cols` between two frames.
  *
- * `flippedLayout` is THE FLIP: the turned seat's field comes back mirrored,
- * and input is handed a layout too, so a finger and a frame fold together.
- * `rolledLayout` is THE WELL's face turned, on the same two callers and for
- * the same reason (`well-roll.ts`).
+ * What the world does to it — SNAKE's band, THE FLIP, THE WELL's face — is
+ * `worldLayout`, which input calls too (`world-layout.ts`).
  */
 export function frameLayout(view: ViewState, stage: Stage, dpr: number): Layout {
   const vp = { width: stage.width, height: stage.height, dpr };
-  const l = flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
-  return rolledLayout(l, view.world);
+  return worldLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
 }
