@@ -69,6 +69,9 @@ export function valveLit(s: ValveState): number {
 export function valveSocketGlow(s: ValveState, beatPhase: number): number {
   if (s.phase === "hold") return 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
   if (s.phase === "frozen") return 1;
+  // The story's tap and rub flash the socket; its holds keep it lit, the half-rings saying whose thumb is down.
+  if (s.phase === "jet" || s.phase === "wipe") return 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
+  if (s.phase === "brace" || s.phase === "seal") return 0.7;
   return 0;
 }
 

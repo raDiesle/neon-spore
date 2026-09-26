@@ -24250,3 +24250,16 @@ Bottleneck: friction — the two skills' checklists overlap enough that the
 wrong one reads as right until they are compared line by line.
 
 *Measured: 42 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VALVE's story states drawn: jet, brace, wipe, seal
+
+- reading: 10 min. THE KEEL's story look and its frame test, the drum's
+  shape and pose pages.
+- writing: 30 min. `valve-story.ts`, the shake through `valve-draw.ts`, the
+  story windows in the marks and the socket, a frame test per state.
+- looking: 10 min. One wipe frame through `bun run frames`, cropped.
+- friction: 5 min. The frames CLI's crop takes the rectangle as one argument.
+- landing: 10 min.
+
+Bottleneck: writing — four states is four drawings, each with its own answer
+to show.

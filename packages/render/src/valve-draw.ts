@@ -31,6 +31,7 @@ import {
   valveWheel,
   valveWheelPath,
 } from "./valve-shape.js";
+import { drawValveStory, valveShake } from "./valve-story.js";
 
 /**
  * **THE VALVE**: a squat iron drum standing over the middle of the field,
@@ -61,10 +62,11 @@ export function drawValve(
   const home = valveCentre(l, cfg);
   const c = { x: home.x, y: home.y - valveLift(l, arrived) };
   const open = valveOpen(s, cfg, beat, beatPhase);
+  const shake = valveShake(l, s, cfg, beat, beatPhase);
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.5 * open);
-  ctx.translate(c.x, c.y);
+  ctx.translate(c.x + shake.x, c.y + shake.y);
   ctx.rotate(valveList(s, cfg, beat, beatPhase));
   for (let i = 0; i < VALVE_PINS; i++) drawPin(ctx, l, world, s, i, beat, beatPhase);
   if (open <= 0) drawDrum(ctx, l, world, s, beat, beatPhase, time);
@@ -116,6 +118,7 @@ function drawDrum(
   drawWheel(ctx, l, s);
   drawValveMark(ctx, l, world, s, valveLit(s));
   drawValveSocket(ctx, l, world, s, beat, beatPhase);
+  drawValveStory(ctx, l, s, world.cfg, beat, beatPhase);
 }
 
 /**

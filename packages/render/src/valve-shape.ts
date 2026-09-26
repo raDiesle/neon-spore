@@ -185,6 +185,12 @@ export function valveHolePath(l: Layout, i: number, pins: number): Path2D {
   return p;
 }
 
+/** The middle of the slot pin `i` leaves: where the jet blows from. */
+export function valveHoleCentre(l: Layout, i: number, pins: number): Point {
+  const w = (PIN_SPAN * 2 * l.tile) / pins;
+  return { x: -PIN_SPAN * l.tile + i * w + w / 2, y: RY * l.tile * 0.78 };
+}
+
 /** The spark's place, `along` of the way from under the drum to the hull, in its column — field coordinates, not the drum's. */
 export function valveSparkPoint(l: Layout, at: Point, col: number, along: number): Point {
   const from = at.y + RY * l.tile;

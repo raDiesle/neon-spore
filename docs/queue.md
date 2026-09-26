@@ -1747,6 +1747,11 @@ thirteen `valve*` events come off the two silent lists as each gets its
 burst. **Hurt**, **the cue's words** (TURN on the wheel, FREEZE on the
 socket, PULL on the live pin, FIRE on the spark), **the autopilot hand** and
 its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+**The story between the pins** (`sim/valve-story.ts`, drawn by
+`render/valve-story.ts`) wants the same: its cue words TAP on the jet, HOLD
+for the brace and the seal, RUB for the wipe; the grip's reversal and hold
+reports reaching `valveRubbed` and `held`; and its twelve events off the
+silent lists as each gets its burst.
 Unverified at tempo until the owner has looked.
 
 ## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…
@@ -1792,6 +1797,11 @@ today it falls back to the cannon, so the prism splits the ridge widest
 exactly where the step is being read. **Hurt**, **the cue's words** (FIRE
 on the lit point and the rock, SHIELD on the grit), **the autopilot hand**
 and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+**The story between the pins** (`sim/valve-story.ts`, drawn by
+`render/valve-story.ts`) wants the same: its cue words TAP on the jet, HOLD
+for the brace and the seal, RUB for the wipe; the grip's reversal and hold
+reports reaching `valveRubbed` and `held`; and its twelve events off the
+silent lists as each gets its burst.
 Unverified at tempo until the owner has looked.
 
 ## THE SLOW's prism still aims at the cannon for seventeen drawn bosses

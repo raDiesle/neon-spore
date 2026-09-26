@@ -111,9 +111,14 @@ export function drawValveSocket(
   strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.outline, 1.2);
 }
 
-/** The length of whichever window is open, in beats; nought while neither is. */
+/** The length of whichever window is open, in beats — the story's four as well — and nought while none is. */
 function windowBeats(world: World, s: ValveState): number {
   if (s.phase === "hold") return valveFreezeBeats(world, s);
   if (s.phase === "frozen") return valvePullBeats(world, s);
+  const cfg = world.cfg;
+  if (s.phase === "jet") return cfg.valveJetBeats;
+  if (s.phase === "brace") return cfg.valveShudderBeats;
+  if (s.phase === "wipe") return cfg.valveWipeBeats;
+  if (s.phase === "seal") return cfg.valveStrainBeats;
   return 0;
 }

@@ -7895,8 +7895,19 @@ there is a `rest` of `keelRestBeats`.
 - **The tail is the rightmost segment**, since §24 names a tail and not
   which end; the rock falls on Player 2's half.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
+over the drum in its own frame, all white and iron so either seat answers.
+The jet is pale steam puffing down and out of the first empty slot, its lip
+glowing ember, the socket flashing for the tap. The brace shudders the whole
+drum, less as the chord counts; a half-ring each side of the socket lights
+under each held thumb, P1 left and P2 right, and a disc fills inside it with
+the beats held. The wipe is a pale film over the face, dripping, cleared from
+the left a share per rub. The seal is a white seam split down the face,
+widening as its window runs, pulsing, with the two half-rings back for the
+hold. Each window closes as the arc round the socket, read off the story's
+own beats. No cue word or grip yet: those are half two's.
+
+**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
 carry all sixteen of its events until lane two. The sixteen sounds *are*
 bound (`audio/src/bind-keel.ts`), each panned to the column it happens in,
 the lock pitched up per joint seated. There is no autopilot hand yet either
@@ -8119,8 +8130,19 @@ Two rows of the story are not built: the second spark (row 11), which would
 be the first again, and row 20's fade, which asked the pair to send nothing —
 a closing beat with no action in it, which the story brief rules out.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
+over the drum in its own frame, all white and iron so either seat answers.
+The jet is pale steam puffing down and out of the first empty slot, its lip
+glowing ember, the socket flashing for the tap. The brace shudders the whole
+drum, less as the chord counts; a half-ring each side of the socket lights
+under each held thumb, P1 left and P2 right, and a disc fills inside it with
+the beats held. The wipe is a pale film over the face, dripping, cleared from
+the left a share per rub. The seal is a white seam split down the face,
+widening as its window runs, pulsing, with the two half-rings back for the
+hold. Each window closes as the arc round the socket, read off the story's
+own beats. No cue word or grip yet: those are half two's.
+
+**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
 carry all twenty-five of its events until lane two. The twenty-five *are*
 bound (`audio/src/bind-valve.ts`), all heard from the middle, the pull pitched
 up per pin out; the story's twelve reuse the drum's own sounds, bent. There is no autopilot hand yet either
@@ -8232,8 +8254,19 @@ test with one term more, and billed the way THE LEDGER bills a ward.
   shield row for `resolveHull` to meet, so the plate and the guard are read
   against the lit step directly, once a tick, after the commands.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
+**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
+over the drum in its own frame, all white and iron so either seat answers.
+The jet is pale steam puffing down and out of the first empty slot, its lip
+glowing ember, the socket flashing for the tap. The brace shudders the whole
+drum, less as the chord counts; a half-ring each side of the socket lights
+under each held thumb, P1 left and P2 right, and a disc fills inside it with
+the beats held. The wipe is a pale film over the face, dripping, cleared from
+the left a share per rub. The seal is a white seam split down the face,
+widening as its window runs, pulsing, with the two half-rings back for the
+hold. Each window closes as the arc round the socket, read off the story's
+own beats. No cue word or grip yet: those are half two's.
+
+**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
 carry all nine of its events until lane two. The nine sounds *are* bound
 (`audio/src/bind-seam.ts`), heard where they happen, the seal pitched up per
 point closed. There is no autopilot hand yet either
@@ -8339,8 +8372,19 @@ sheet and nothing else, THE SEAM's rule.
   plus a core of three hits; the script is nine steps, and the lens shatters
   when the last is answered, which is the third hit.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
+over the drum in its own frame, all white and iron so either seat answers.
+The jet is pale steam puffing down and out of the first empty slot, its lip
+glowing ember, the socket flashing for the tap. The brace shudders the whole
+drum, less as the chord counts; a half-ring each side of the socket lights
+under each held thumb, P1 left and P2 right, and a disc fills inside it with
+the beats held. The wipe is a pale film over the face, dripping, cleared from
+the left a share per rub. The seal is a white seam split down the face,
+widening as its window runs, pulsing, with the two half-rings back for the
+hold. Each window closes as the arc round the socket, read off the story's
+own beats. No cue word or grip yet: those are half two's.
+
+**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
 carry all twelve of its events until lane two. The twelve sounds *are* bound
 (`audio/src/bind-oculus.ts`), heard where they happen, the shut pitched up
 per pair and the hit per hit. There is no autopilot hand yet either
@@ -8793,8 +8837,19 @@ nothing else, THE SEAM's rule.
   already has: the hub rocks up and goes dark, the same `both` lights again,
   and no fire step lights until it is held.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
+**The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
+over the drum in its own frame, all white and iron so either seat answers.
+The jet is pale steam puffing down and out of the first empty slot, its lip
+glowing ember, the socket flashing for the tap. The brace shudders the whole
+drum, less as the chord counts; a half-ring each side of the socket lights
+under each held thumb, P1 left and P2 right, and a disc fills inside it with
+the beats held. The wipe is a pale film over the face, dripping, cleared from
+the left a share per rub. The seal is a white seam split down the face,
+widening as its window runs, pulsing, with the two half-rings back for the
+hold. Each window closes as the arc round the socket, read off the story's
+own beats. No cue word or grip yet: those are half two's.
+
+**The events are still silent.** The render package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
 carry all twelve of its events until lane two. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up
 per level and the hit per hit. There is no autopilot hand yet either
