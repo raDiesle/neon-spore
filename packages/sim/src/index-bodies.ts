@@ -96,6 +96,7 @@ export {
 } from "./countdown.js";
 export {
   type CrystalDir,
+  crystalFalling,
   crystalHeading,
   crystalHeld,
   crystalMiddleCol,

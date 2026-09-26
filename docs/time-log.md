@@ -22486,3 +22486,13 @@ Bottleneck: reading — the test had been counting scars, and a gum, a fence and
 Bottleneck: writing — the director's row, pose and spec table each restate what the grip does, three copies of one paragraph.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — AUTO answers THE MAGNET, THE CRYSTAL, THE CHOIR, THE WISP, THE STRAND, THE CRAWLER and THE JAM
+
+- reading: 25 min. `magnet.ts`, `crystal.ts`, the choir's shake, `wisp.ts`, `strand.ts`, `crawler.ts` with `crawler-beat.ts`, `malfunction.ts` with `fault-clock.ts`.
+- writing: 20 min. Five hands files, the lit-bead filter, the wisp in `cannonAnswers`, two sim exports, the test down to one name.
+- looking: 0 min. Nothing drawn changes.
+- friction: 10 min. `ticksSinceGuard` counts from the window's close, so the crystal's re-press was wrong the first time; one export missing.
+- landing: 5 min. `check:fast`, the queue entry closed and THE JAM's opening filed, `land`.
+
+Bottleneck: reading — each creature's rule lives in two or three sim files, and a scratch diagnostic that printed breaches by tick was what showed which rule to read.

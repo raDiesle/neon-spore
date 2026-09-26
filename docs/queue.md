@@ -1178,24 +1178,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## AUTO's field hand half plays 7 ordinary waves
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e; ten creatures answered since, the last five 2026-09-26, claude/happy-babbage-ilb1n9
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-autos-field-hand-half-plays-7-ordinary-waves)
-- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/test/autopilot-field.test.ts`
-
-`fieldHand` plays the cannon, the shield and the pods, and breaks THE CLASP
-with the dome. THE SHELL, THE LURE, THE MOULT, the two harpoons, THE LID, THE
-FENCE and the bodies a finger answers — THE WEIGHT, THE MINE, THE BEATBOX and
-THE GUM — have their answers in files beside it. The waves still half played
-are the `HALF_PLAYED` set in the test: THE WISP, THE CRYSTAL, THE STRAND, THE
-CRAWLER, THE MAGNET, THE JAM and THE CHOIR. THE WISP never clears; the rest
-clear with four to ten scars. The test now counts `breach` events rather than
-scars, since a gum, a fence or a box breaks the hull without drawing one
-(`breachUnscarred`) — which is how THE GUM, THE GAP and THE CUT had been
-passing without an answer. Each creature is one file in `packages/hands/src/`
-and one name out of the set.
-
 ## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
@@ -1209,3 +1191,21 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE JAM's first runaway shot lands on its first lure
+
+- **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
+- **Files:** `packages/content/src/waves/act-7.ts`, `tools/director/test/autopilot-field.test.ts`
+- **Asks:** Which way should THE JAM open: the fault placed a beat late, the first lure moved off the cannon's column, or the breach kept as the lesson?
+
+THE JAM's beat-0 lure comes on at authored column 3, which is the cannon's
+starting column, on tick 75. The runaway cannon's first shot goes off on that
+same tick, so the lure takes a red shot before either seat has seen it, and
+three `lure` breaches land at tick 152. AUTO answers every beat after that
+(`autopilot-jam.ts`), and it is why THE JAM is the one name left in the field
+test's `HALF_PLAYED`. The wave's own comment says the first six beats teach
+that "the cannon has to *leave*", which it cannot do in time. The options:
+`faults: [{ kind: "cannon", color: "alternating", at: 1 }]`, which also moves
+which beat opens on red; the first lure authored in another column; or the
+breach kept on purpose. Whichever is picked, take THE JAM out of
+`HALF_PLAYED` if the test then passes.

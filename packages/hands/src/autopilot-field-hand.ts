@@ -1,4 +1,5 @@
 import {
+  beadIsActive,
   beatPhaseTicks,
   type Color,
   type Creature,
@@ -13,9 +14,14 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
+import { shakeChoir } from "./autopilot-choir.js";
+import { wardCrawler } from "./autopilot-crawler.js";
+import { crystalOpen, lowestCrystal, shieldCrystal } from "./autopilot-crystal.js";
 import { burnFence, fenceGap } from "./autopilot-fence.js";
 import { shake } from "./autopilot-harpoon.js";
+import { steerRunaway } from "./autopilot-jam.js";
 import { holdLid, lidShut } from "./autopilot-lid.js";
+import { lockMagnet, magnetSide, shotColor } from "./autopilot-magnet.js";
 import { catchMoult } from "./autopilot-moult.js";
 import { catchPod, hanging } from "./autopilot-pod-hand.js";
 import { touchBodies } from "./autopilot-touch.js";
@@ -35,16 +41,22 @@ import type { Hand } from "./hand.js";
  *
  * A hand for the plain field, and its pods — shot loose, followed down and
  * swallowed, a husk let past (`autopilot-pod-hand.ts`). THE CLASP is the
- * shield's half too: the dome comes up in its column and breaks it. A few
+ * shield's half too: the dome comes up in its column and breaks it; and THE
+ * STRAND is the cannon's, which takes a thread's lit bead and no other. A few
  * creatures with a verb of their own have theirs in a file beside this one:
- * THE SHELL's column and THE LURE left alone (`autopilot-aim.ts`), THE MOULT
- * caught or turned (`autopilot-moult.ts`), a control THE LIMPET or THE LEECH
- * has harpooned kept moving (`autopilot-harpoon.ts`), THE LID held open while
- * it is shot (`autopilot-lid.ts`), THE FENCE passed through a gap or a burnt
- * crack (`autopilot-fence.ts`), and the bodies a finger answers — THE WEIGHT,
- * THE MINE, THE BEATBOX and THE GUM (`autopilot-touch.ts`). Any other creature
- * with a verb of its own — a hold, a reach, a drag — is not answered here, and
- * the wave it is on is one AUTO only half plays.
+ * THE SHELL's column, THE LURE left alone and THE WISP shot in either colour
+ * (`autopilot-aim.ts`), THE MOULT caught or turned (`autopilot-moult.ts`), a
+ * control THE LIMPET or THE LEECH has harpooned kept moving
+ * (`autopilot-harpoon.ts`), THE LID held open while it is shot
+ * (`autopilot-lid.ts`), THE FENCE passed through a gap or a burnt crack
+ * (`autopilot-fence.ts`), THE MAGNET locked from beside it
+ * (`autopilot-magnet.ts`), THE CRYSTAL opened in the middle
+ * (`autopilot-crystal.ts`), THE CHOIR shaken together (`autopilot-choir.ts`),
+ * THE CRAWLER's plates turned by the dome (`autopilot-crawler.ts`), THE JAM's
+ * runaway cannon steered (`autopilot-jam.ts`), and the bodies a finger answers
+ * — THE WEIGHT, THE MINE, THE BEATBOX and THE GUM (`autopilot-touch.ts`). Any
+ * other creature with a verb of its own is not answered here, and the wave it
+ * is on is one AUTO only half plays.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -66,6 +78,11 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
   return best;
 }
 
+/** Whether the cannon answers `c` now: THE STRAND's beads only while lit, since
+ * a shot on any other swells the thread back (`strand.ts`). */
+const answersNow = (w: World, c: Creature): boolean =>
+  cannonAnswers(c) && (c.kind !== "strand" || beadIsActive(w, c));
+
 /**
  * The cannon's half: a falling pod first, then a fence's crack, then under the
  * lowest coloured body and its colour when free — a lid held open first — then
@@ -74,20 +91,34 @@ function lowest(w: World, take: (c: Creature) => boolean): Creature | undefined 
 function cannon(w: World): Press[] {
   const off = shake(w, "leech", w.cannonCol);
   if (off !== null) return [aim(off)];
+  const runaway = steerRunaway(w);
+  if (runaway !== null) return runaway;
   const chase = catchPod(w);
   if (chase !== null) return chase;
   const moult = catchMoult(w);
   if (moult !== null) return moult;
   const wall = burnFence(w, free(w));
   if (wall !== null) return wall;
-  const body = lowest(w, cannonAnswers);
+  const body = lowest(w, (c) => answersNow(w, c));
   const pod = body ? undefined : hanging(w);
-  const col = body ? aimColumn(body) : pod ? Math.round(pod.colMilli / MILLI) : null;
+  const col =
+    body?.kind === "magnet"
+      ? magnetSide(w, body)
+      : body
+        ? aimColumn(body)
+        : pod
+          ? Math.round(pod.colMilli / MILLI)
+          : null;
   if (col === null) return [];
+  const choir = shakeChoir(body);
+  if (choir !== null) return choir;
   const hold = holdLid(w, body);
   if (w.cannonCol !== col) return [aim(col), ...hold];
   if (lidShut(w, body)) return hold;
-  return free(w) ? [fire(body?.color ?? "red")] : [];
+  if (body?.kind === "crystal" && !crystalOpen(w, body)) return [];
+  const lock = lockMagnet(w, body);
+  if (lock.length > 0) return lock;
+  return free(w) ? [fire(shotColor(w, body))] : [];
 }
 
 /**
@@ -103,6 +134,14 @@ function shield(w: World): Press[] {
   const gap = fenceGap(w);
   if (gap !== null && (rock === undefined || gap.row >= rock.row)) {
     return w.shieldCol === gap.col ? [] : [carry(gap.col)];
+  }
+  const crystal = lowestCrystal(w);
+  if (crystal !== undefined && (rock === undefined || crystal.row >= rock.row)) {
+    return shieldCrystal(w, crystal);
+  }
+  if (rock === undefined || rock.row < shieldRow(w.cfg) - 2) {
+    const plate = wardCrawler(w);
+    if (plate !== null) return plate;
   }
   if (rock === undefined) return [];
   if (!occupiesCol(rock, w.shieldCol)) return [carry(rock.col)];

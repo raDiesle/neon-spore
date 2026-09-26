@@ -21,23 +21,18 @@ import { stageField } from "../src/stage-field.js";
  * with no breach of the hull.
  */
 
-/** Ordinary waves whose creatures have a verb of their own — a hold, a reach,
- * a drag — that the field hand does not play. A wave that gains one is a
- * name here or a hand for its creature. The pods have theirs
- * (`autopilot-pod-hand.ts`), and so do THE SHELL, THE LURE, THE MOULT, THE
- * LIMPET, THE LEECH, THE LID, THE FENCE, THE WEIGHT, THE MINE, THE BEATBOX
- * and THE GUM (`autopilot-aim.ts`, `autopilot-moult.ts`, `autopilot-harpoon.ts`,
- * `autopilot-lid.ts`, `autopilot-fence.ts`, `autopilot-touch.ts`). THE CLASP
- * is the field hand's own shield. */
-const HALF_PLAYED = new Set([
-  "THE WISP",
-  "THE CRYSTAL",
-  "THE STRAND",
-  "THE CRAWLER",
-  "THE MAGNET",
-  "THE JAM",
-  "THE CHOIR",
-]);
+/** Ordinary waves AUTO plays and cannot clear clean, each with its reason.
+ * Every creature has its verb answered now — the pods (`autopilot-pod-hand.ts`),
+ * THE SHELL, THE LURE and THE WISP (`autopilot-aim.ts`), THE MOULT, THE
+ * LIMPET and THE LEECH, THE LID, THE FENCE, THE MAGNET, THE CRYSTAL, THE
+ * CHOIR, THE CRAWLER, THE JAM's runaway cannon, and the bodies a finger
+ * answers (`autopilot-touch.ts`); THE CLASP and THE STRAND are the field
+ * hand's own. A wave that gains a verb is a name here or a hand for it.
+ *
+ * THE JAM opens with a lure over the cannon's starting column on the beat the
+ * runaway fires its first shot, so no hand, AUTO's or a person's, can take
+ * the cannon off it in time (`docs/queue.md`). */
+const HALF_PLAYED = new Set(["THE JAM"]);
 
 /** Wave `index` stood up the way the game starts it, on the poses' config. */
 function waveWorld(index: number): World {

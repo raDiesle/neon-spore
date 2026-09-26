@@ -31,6 +31,7 @@ export {
   CRAWLER_MIN,
   CRAWLER_SIDES,
   type CrawlerSide,
+  crawlerCrawls,
   crawlerHeading,
   crawlerSegmentCount,
   crawlerSide,
