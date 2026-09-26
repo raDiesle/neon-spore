@@ -115,7 +115,9 @@ export {
   type Ring,
   ringLight,
   ringNormal,
+  ringSection,
   type SeenRing,
+  sectionLight,
   seeTube,
   tubeFrames,
 } from "./solid-tube.js";

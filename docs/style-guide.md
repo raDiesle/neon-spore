@@ -209,6 +209,15 @@ misunderstanding, and it is withdrawn.**
   its wave, with the motion between frames done by transforms and one base
   tinted rather than a frame per colour. Never an APNG or an animated WebP
   on the field.
+- **A gradient that repeats is built once, along a unit line, and laid by a
+  transform.** A path is fixed where it is built, but a gradient is read
+  under the transform in force when it fills — so one gradient from (0, 0)
+  to (1, 0), keyed on the few numbers its stops depend on, serves every
+  slice that shares them. A tube's slices are lit by two numbers, how much
+  of the key falls along the width and how much on the face
+  (`ringSection`), and stepped to a forty-eighth they took THE INSTAR from
+  about 170 gradients a frame to 12 with no pixel anyone can find
+  (`solid-tube-light.ts`).
 - **The limits are the phone's, not the dimension's.** Battery and frame time
   matter to the owner more than any look. No full engine — PixiJS, Three.js,
   Rive, Lottie — the owner, 26 September 2026. Anything that runs per frame

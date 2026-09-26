@@ -23022,3 +23022,18 @@ the prism aims at the cannon for every boss but one took longer than the
 ridge did.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A tube's gradients are built once and laid by a transform
+
+- reading: 10 min. `solid-tube-draw.ts`, `ringLight` and `keyLit`, and how
+  `gradient-slot.ts` and `bakedCache` already hold gradients.
+- writing: 20 min. `ringSection` and `sectionLight` in content, the cached
+  unit gradient in a new `solid-tube-light.ts`, the style-guide bullet.
+- looking: 10 min. Before and after of THE INSTAR from both seats and of
+  THE BATON, cropped at three times: no difference to be seen.
+- friction: 5 min. `frames HEAD` compares a commit with its parent, so the
+  change had to be committed before it could be compared.
+- landing: 10 min. The render and content tests, `check:fast`, `land`.
+
+Bottleneck: writing — seeing that a cylinder's light is two numbers was the
+whole fix; the nine samples it replaced could never have keyed a cache.

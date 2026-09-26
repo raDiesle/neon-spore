@@ -1,5 +1,8 @@
-import { ringLight, type SeenRing, type Vec3 } from "@neon-spore/content";
-import { mixHex, rgba } from "./hex.js";
+import type { SeenRing, Vec3 } from "@neon-spore/content";
+import { rgba } from "./hex.js";
+import { SHADOW, type Skin, sectionGradient } from "./solid-tube-light.js";
+
+export type { Skin } from "./solid-tube-light.js";
 
 /**
  * A TUBE OF A RIG, DRAWN: the outline `seeTube` found, filled, and lit across
@@ -21,8 +24,6 @@ import { mixHex, rgba } from "./hex.js";
  * else (`docs/spec/graphics.md`).
  */
 
-const SHADOW = "#0B1024";
-const BOUNCE = "#9FB4E8";
 const SEAM = 0.08;
 const OUT = 0.3;
 /** How far apart, in screen pixels, the rings a tube is shaded by may be. */
@@ -32,16 +33,6 @@ interface Pt {
   readonly x: number;
   readonly y: number;
 }
-
-/** How a tube is dressed: its own colour, its lit colour and its sheen. */
-export interface Skin {
-  readonly base: string;
-  readonly lift: string;
-  readonly sheen: string;
-}
-
-/** Where across the width the light is sampled, `right` edge -1 to `left` edge 1. */
-const KS = [-1, -0.88, -0.62, -0.3, 0, 0.3, 0.62, 0.88, 1] as const;
 
 /** The outline of a seen tube: one edge, round the far end, back, round the near. */
 export function tubePath(rings: readonly SeenRing[]): Path2D {
@@ -119,7 +110,14 @@ function between(a: SeenRing, b: SeenRing, k: number): SeenRing {
   };
 }
 
-/** One stretch between two rings, lit across by the nearer ring's section. */
+/**
+ * One stretch between two rings, lit across by the nearer ring's section.
+ *
+ * The gradient is built once per light, along a unit line from 0 to 1, and
+ * laid across each slice by a transform: a path is fixed where it was built,
+ * but a gradient is read under the transform in force when it fills. That is
+ * one `createLinearGradient` per distinct section rather than one per slice.
+ */
 function shadeSegment(
   ctx: CanvasRenderingContext2D,
   a: SeenRing,
@@ -127,6 +125,11 @@ function shadeSegment(
   skin: Skin,
   alpha: number,
 ): void {
+  const rx = (a.right.x + b.right.x) / 2;
+  const ry = (a.right.y + b.right.y) / 2;
+  const ux = (a.left.x + b.left.x) / 2 - rx;
+  const uy = (a.left.y + b.left.y) / 2 - ry;
+  if (ux * ux + uy * uy < 1e-4) return;
   // A little longer each way, so no seam of the base shows between two, and
   // pushed out past the outline so the clip, not the quad, is the edge. The
   // stops are opaque, so the overlap cannot stack into a band.
@@ -138,36 +141,17 @@ function shadeSegment(
   const bl = ext(b.left, a.left, b.c);
   const br = ext(b.right, a.right, b.c);
   const ar = ext(a.right, b.right, a.c);
-  const quad = new Path2D();
-  quad.moveTo(al.x, al.y);
-  quad.lineTo(bl.x, bl.y);
-  quad.lineTo(br.x, br.y);
-  quad.lineTo(ar.x, ar.y);
-  quad.closePath();
-  const g = ctx.createLinearGradient(
-    (a.right.x + b.right.x) / 2,
-    (a.right.y + b.right.y) / 2,
-    (a.left.x + b.left.x) / 2,
-    (a.left.y + b.left.y) / 2,
-  );
-  const lit = ringLight(a, KS);
-  const peak = Math.max(...lit);
-  // Opaque stops, each the base mixed toward its zone, so the overlap between
-  // two quads cannot stack into a band the way translucent ones did.
-  KS.forEach((k, j) => {
-    const l = lit[j] as number;
-    const t = (k + 1) / 2;
-    const edge = Math.abs(k) > 0.95;
-    const dark = mixHex(skin.base, SHADOW, ((0.45 - l) / 0.45) * 0.7);
-    let hex: string;
-    if (edge && l < 0.3) hex = mixHex(dark, BOUNCE, 0.22);
-    else if (l >= peak - 1e-6 && l > 0.6) hex = mixHex(skin.lift, skin.sheen, 0.34);
-    else if (l >= 0.45) hex = mixHex(skin.base, skin.lift, ((l - 0.45) / 0.55) * 0.75);
-    else hex = dark;
-    g.addColorStop(t, rgba(hex, alpha));
-  });
-  ctx.fillStyle = g;
-  ctx.fill(quad);
+  ctx.beginPath();
+  ctx.moveTo(al.x, al.y);
+  ctx.lineTo(bl.x, bl.y);
+  ctx.lineTo(br.x, br.y);
+  ctx.lineTo(ar.x, ar.y);
+  ctx.closePath();
+  ctx.save();
+  ctx.transform(ux, uy, -uy, ux, rx, ry);
+  ctx.fillStyle = sectionGradient(ctx, a, skin, alpha);
+  ctx.fill();
+  ctx.restore();
 }
 
 /**

@@ -1919,6 +1919,7 @@ by hand never moves.
 | `packages/render/src/solid-motion.ts` | MOTION THAT A RIG HAS WITHOUT BEING TOLD: the always-on life of a body, as pure functions of time |
 | `packages/render/src/solid-rig.ts` | A RIG, DRAWN FROM ANY SIDE: a boss as a list of parts, each a tube |
 | `packages/render/src/solid-tube-draw.ts` | A TUBE OF A RIG, DRAWN: the outline `seeTube` found, filled |
+| `packages/render/src/solid-tube-light.ts` | The light across a tube's section: one gradient per stepped light, laid across each slice by a transform |
 | `packages/render/src/solid-sheet.ts` | A SHEET OF A RIG: skin stretched flat between bones — a wing's membrane, a fin, a sail |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |

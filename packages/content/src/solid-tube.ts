@@ -157,12 +157,22 @@ export function seeTube(rings: readonly Ring[], frames: readonly Frame[], w: Vie
  * `right` to `left` to read at `(k + 1) / 2`.
  */
 export function ringLight(ring: SeenRing, ks: readonly number[]): number[] {
-  return ks.map((k) => {
-    const q = Math.sqrt(Math.max(0, 1 - k * k));
-    return keyLit(
-      ring.e.x * k + ring.f.x * q,
-      ring.e.y * k + ring.f.y * q,
-      ring.e.z * k + ring.f.z * q,
-    );
-  });
+  const { across, facing } = ringSection(ring);
+  return sectionLight(across, facing, ks);
+}
+
+/**
+ * The two numbers a ring's light depends on: how much of the key falls along
+ * its width (`e`) and how much on its face (`f`). A section is lit as a
+ * cylinder, so every sample across it is a blend of these two — which is what
+ * lets a renderer key a cache on them rather than on the nine samples.
+ */
+export function ringSection(ring: SeenRing): { across: number; facing: number } {
+  const dot = (v: Vec3) => keyLit(v.x, v.y, v.z) - keyLit(-v.x, -v.y, -v.z);
+  return { across: dot(ring.e), facing: dot(ring.f) };
+}
+
+/** `ringLight` from the two numbers `ringSection` gives. */
+export function sectionLight(across: number, facing: number, ks: readonly number[]): number[] {
+  return ks.map((k) => Math.max(0, across * k + facing * Math.sqrt(Math.max(0, 1 - k * k))));
 }
