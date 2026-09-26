@@ -73,11 +73,12 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
     // boss, which is what `free` means. What the shipped fault does *not* do is
     // write the key anywhere: it is the air that is wrong, so the question this
     // card was drawn to answer — can a key be read off a travelling rim at boss
-    // size — is untouched rather than settled.
-    status: "free",
+    // size — is untouched rather than settled. Taken 26 September 2026 by THE
+    // VALVE's drum, whose rim is scrolled by its wheel rather than by a key.
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing wears it: drawn for THE CODEX while it was an encounter — it rewrites what a colour means and the current key is legible only on its own skin, which only the other player can read, so the key is cut into the silhouette and travels, and a player reading it aloud is the fight. The fault that shipped instead writes no key at all",
+      "THE VALVE, taken 26 September 2026, combined with THE TITHE: the notched slab is the drum, and its notches scroll with the wheel's bearing, so a turned wheel runs the rim round and a frozen one stops it dead (`render/valve-shape.ts`); the same form in miniature is the wheel in its face. No key is cut into it. Before that, nothing wore it: drawn for THE CODEX while it was an encounter — it rewrites what a colour means and the current key is legible only on its own skin, which only the other player can read, so the key is cut into the silhouette and travels, and a player reading it aloud is the fight. The fault that shipped instead writes no key at all",
   },
   {
     subject: arm("THE CONDUCTOR", "an arm, not a body — it sweeps the top of the field", 150, 0.9),

@@ -468,19 +468,6 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §25 THE VALVE — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-25-the-valve-the-look)
-- **Needs:** §25 THE VALVE's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two: the wheel's turn drawn continuously rather than snapping between
-marks, a frozen wheel visibly stopping mid-turn as the tell that `FreezeTap`
-landed, and the drum listing further, plate by plate, as each pin comes free
-— the hull's-reaction stand-in for a health bar. Nothing here is drawn yet
-and stays unverified at tempo until the owner has looked.
-
 ## §26 THE SEAM — the look
 
 - **Found:** 2026-09-26, this session
@@ -1688,3 +1675,24 @@ again, and alone it takes 140 ms. The parallel reads of 16 September were not
 margin enough. Either give the walk a longer timeout of its own or read only
 the files that can hold the identifier (the sources `git ls-files` names),
 and prove it by a green `bun run check` on a busy machine.
+
+## §25 THE VALVE — its hands, the second half of its look
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Needs:** §25 THE VALVE — the look, half one (the body), landed first
+- **Files:** `packages/render/src/valve-marks.ts`, `packages/render/src/valve-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+
+The body is drawn: the drum, the wheel, the pins, the mark and the socket.
+What is left is everything a thumb or an event touches, THE KEEL's half two
+in the same order. **The grip**: `valveWheel` answered as a bearing about the
+wheel's hub where `valve-shape.ts` puts it (THE HASP's `hasp-grip.ts` is the
+model), and `valvePin` as a tap on the socket and a draw of at least
+`valvePullMilli` on the live pin; `on-field-controls.test.ts`'s
+`valveWheel`/`valvePin` "unbuilt" rows moved to built. **The fx**, in
+`Effects` and cleared in `reset()`: the freeze's clamp, the pull, a lapse's
+and a thaw's kick, the spark's hull hit and the face falling open; the
+thirteen `valve*` events come off the two silent lists as each gets its
+burst. **Hurt**, **the cue's words** (TURN on the wheel, FREEZE on the
+socket, PULL on the live pin, FIRE on the spark), **the autopilot hand** and
+its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+Unverified at tempo until the owner has looked.

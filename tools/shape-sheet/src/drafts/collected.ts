@@ -79,11 +79,12 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
     // IDEAS group, so there is no heading left for this card to be offered to.
     // It is still the shape that was drawn for the encounter, and the encounter
     // is still there to be wanted — a picture waiting for a boss, which is what
-    // `free` means and how THE CODEX's card left the same list.
-    status: "free",
+    // `free` means and how THE CODEX's card left the same list. Taken 26
+    // September 2026 by THE VALVE's pins.
+    status: "taken",
     slot: "boss",
     owner:
-      "the first boss wider than the middle of the field, and a body that is mostly edge: the live plate is not lit, it *reaches*, because a silhouette has no colours and the pair are reading it at 26 px — one plate hanging two and a half times as far is the only part of the outline that moves, and it steps one column every cycle",
+      "THE VALVE, taken 26 September 2026, combined with THE CODEX: three of the plates are the drum's pins, hung under it, and the one to be pulled is the one that reaches while the wheel is frozen; a pulled one slides free and leaves a slot (`render/valve-shape.ts`). The slab and the seven columns are not used. Before that, the first boss wider than the middle of the field, and a body that is mostly edge: the live plate is not lit, it *reaches*, because a silhouette has no colours and the pair are reading it at 26 px — one plate hanging two and a half times as far is the only part of the outline that moves, and it steps one column every cycle",
   },
   {
     subject: plated("THE TITHE · EDGE", "the live plate at the far end of the body", {

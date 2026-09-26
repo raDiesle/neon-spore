@@ -1,6 +1,6 @@
 /**
- * **The clock bosses' half of the surface, the third page** — THE WELL's face
- * and the thumb on its seam, and THE RATCHET's rack.
+ * **The clock bosses' half of the surface, the third page** — THE KEEL's
+ * spine to THE VISE's seed-case, and THE RATCHET's rack.
  *
  * Cut when THE HASP's door took `boss-surface-clocks-b.ts` to 258 lines
  * against a 250-line limit, along the seam that file was itself cut on: the
@@ -17,6 +17,8 @@
 // whether a bolt is loose — for the picture, the sound, the cue and the
 // director's hand. Straight off `ratchet.ts` (`docs/spec/bosses.md` §11.38).
 export type { RatchetEntry } from "./boss-entries-clocks-b.js";
+// THE WELL's names, the last rows this page held (`boss-surface-clocks-d.ts`).
+export * from "./boss-surface-clocks-d.js";
 // THE KEEL's spine: the phase, the movement, where the joint sits and whose
 // thumb it wants, the locked segments and the tail's rock, for the picture,
 // the cue and the director's hand. Straight off `keel.ts`
@@ -213,6 +215,9 @@ export {
   valveOnMark,
   valveTurning,
 } from "./valve.js";
+// And both windows' lengths, so the rings the picture closes read the same
+// number the simulation judges by (`valve-step.ts`).
+export { valveFreezeBeats, valvePullBeats } from "./valve-step.js";
 // THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
 // the picture, the cue and the director's hand. Straight off `vise.ts`
 // (`docs/spec/bosses-choreographed.md` §28).
@@ -233,18 +238,3 @@ export {
   viseShut,
   vising,
 } from "./vise.js";
-// THE WELL's face, and the thumb on its seam: how far it has turned and which
-// way it is read, for the projection that draws it (`render/well-roll.ts`),
-// the hit test that answers it (`render/touch-well.ts`) and the director's
-// hand. On a clocks page at all because `boss-surface.ts` is at its limit
-// (`well.ts`).
-export {
-  NO_WELL_GRIP,
-  WELL_PHASES,
-  type WellPhase,
-  type WellState,
-  wellBoss,
-  wellHeldNow,
-  wellHoldLeft,
-  wellMaxOffsetMilli,
-} from "./well.js";

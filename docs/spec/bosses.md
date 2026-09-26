@@ -7849,6 +7849,26 @@ third movement's mark refuses a hand worked back and forth and takes a full
 lap either way round; and the last pin opens the face and ends the fight.
 Whether any of it *reads* is the owner's eye, after lane two.
 
+**Half the look has landed** (26 September 2026): the body. THE CODEX's
+squat slab in iron, its thirteen rim notches scrolled by the wheel's bearing
+and nothing else, so a turned wheel runs the rim round and a frozen one stops
+it dead; THE TITHE's squared plates hung under it as the three pins. The
+wheel is drawn where it stands every frame, never snapped to a mark, its
+white pointer glowing steady while frozen. The mark is a white notch outside
+the wheel, hollow while the third movement's lap is owed, with a thin arc
+filling as the lap is made. The socket is a white ring that flashes on the
+beat while the wheel holds and glows steady once frozen, and the open
+window — the freeze while it holds, the pull while it is frozen — closes as
+an arc round it, read off `valveFreezeBeats` and `valvePullBeats`, the
+numbers the simulation judges by. The pin to pull reaches further while it
+may be pulled. The drum lists a step further for each pin out, the pulled
+pin sliding free over the list and leaving a dark slot; the last one splits
+the face open in two halves. The spark is an ember falling down its column
+(`render/valve-shape.ts`, `valve-pose.ts`, `valve-draw.ts`,
+`valve-marks.ts`). **Half two, the hands, is queued**: the grip on
+`valveWheel` and `valvePin`, the fx and the events off the silent lists,
+hurt, the cue's words and the autopilot hand.
+
 ## 11.43 THE SEAM — the boss answered with the cannon and the shield, in order
 
 > A shelled ridge down the middle of the field, one crack along its spine.

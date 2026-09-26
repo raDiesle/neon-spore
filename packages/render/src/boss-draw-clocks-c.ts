@@ -8,6 +8,7 @@ import { drawMantle } from "./mantle-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSpool } from "./spool-draw.js";
+import { drawValve } from "./valve-draw.js";
 
 /**
  * **The clock bosses, drawn — page three**: the pairs asked for by name, each
@@ -28,7 +29,15 @@ import { drawSpool } from "./spool-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const PAIR_KINDS = ["gimbal", "spool", "hasp", "ratchet", "mantle", "keel"] as const;
+export const PAIR_KINDS = [
+  "gimbal",
+  "spool",
+  "hasp",
+  "ratchet",
+  "mantle",
+  "keel",
+  "valve",
+] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
 
@@ -108,5 +117,15 @@ export function drawPairBoss(
   // thumb a joint wants is which half it sits over, and both have to see it
   // (`keel-draw.ts`). What outlives a frame — the jolt of a lock, each seam's
   // snap, the hull's shudder — is `effects.boss.keel` (`keel-fx.ts`).
-  drawKeel(ctx, l, world, boss, beat, beatPhase, time, effects.boss.keel);
+  if (boss.kind === "keel") {
+    drawKeel(ctx, l, world, boss, beat, beatPhase, time, effects.boss.keel);
+    return;
+  }
+
+  // THE VALVE: a squat drum over the middle of the field, a wheel in its face
+  // the pilot turns onto a mark and a pin the navigator's tap freezes it for.
+  // Both screens are drawn the same — each thumb times itself off the other's
+  // half (`valve-draw.ts`). Nothing of it outlives a frame yet: its effects are
+  // the second half of its look.
+  drawValve(ctx, l, world, boss, beat, beatPhase, time);
 }

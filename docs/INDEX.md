@@ -252,7 +252,8 @@ by hand never moves.
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
-| `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE WELL's face and the thumb on its seam |
+| `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE KEEL's spine to THE VISE's seed-case |
+| `packages/sim/src/boss-surface-clocks-d.ts` | **The clock bosses' half of the surface, the fourth page** — THE WELL's face and the thumb on its seam |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-splice.ts` | **THE SPLICE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 25 September 2026 |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
@@ -1176,6 +1177,10 @@ by hand never moves.
 | `packages/render/src/vane-spar.ts` | THE VANE's lever, as metal — the spar, its bracing, the counterweight and the fork |
 | `packages/render/src/vane-bearing.ts` | THE VANE's bearing — the mount, the hub and the bolt circle the pair is spending |
 | `packages/render/src/vane-grip.ts` | **THE VANE's two hands**, and the geometry the drawing and the hit test share |
+| `packages/render/src/valve-draw.ts` | **THE VALVE**: a squat iron drum standing over the middle of the field, one wheel in its face |
+| `packages/render/src/valve-marks.ts` | **THE VALVE's marks**: the three things on the drum that say a gesture — the wheel's mark |
+| `packages/render/src/valve-pose.ts` | **The clock THE VALVE is posed off** (§25, *Animation*): four poses — sealed and upright, listing one pin |
+| `packages/render/src/valve-shape.ts` | **THE VALVE's geometry**: where the drum hangs, and the paths it is made of |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |

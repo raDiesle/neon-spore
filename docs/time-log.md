@@ -22960,3 +22960,17 @@ Bottleneck: landing — the main checkout carries another session's work.
 Bottleneck: looking — a band had to be widened before it showed at all.
 
 *Measured: 23 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE VALVE has a body: an iron drum whose notched rim turns with its wheel, listing a step for every pin pulled
+
+- reading: 15 min. THE KEEL's body, THE HASP's wheel, the valve's state and
+  windows, and which free drafts fit a drum and three pins.
+- writing: 40 min. `valve-shape.ts`, `valve-pose.ts`, `valve-draw.ts`,
+  `valve-marks.ts`, the frame test on three screens, the spec and the split.
+- looking: 5 min. The test's colour counts, since a cloud session has no eye.
+- friction: 5 min. `tsc -p packages/render` has no tsconfig to find; the root
+  typecheck is the one that runs.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: writing — six phases, each needing a pose that reads apart from
+its neighbours in a counted log rather than to an eye.
