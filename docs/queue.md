@@ -545,6 +545,7 @@ owner's, unverified until he has looked.
 ## §30 THE TRIVET — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-30-the-trivet-the-look)
 - **Needs:** §30 THE TRIVET's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
