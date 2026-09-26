@@ -24248,3 +24248,5 @@ before the first test can run.
 
 Bottleneck: friction — the two skills' checklists overlap enough that the
 wrong one reads as right until they are compared line by line.
+
+*Measured: 42 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

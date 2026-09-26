@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 7a02ab28c — THE SLING's fork is drawn: the pull, the cup, and every pose
+
+Steel tines swing out from the hull as the fork arrives, and stand folded before it. Each cord hangs slack in cord-brown until the lit step asks that seat's arm, then glows the hull's own white and draws further home as the pull holds; a thumb is heard anywhere on the seat's own panel, not only on the rest handle's circle, and the lift carries the swipe's side the way THE WARDEN's hatch does. The cup at the crotch lights the step's own colour once a fire step asks it, brightens once the yoke has answered, and a closing ring counts the firing window down. The fork goes translucent and lifts away once it is spent.
+
+## 2026-09-26 · cde6477a0 — THE SLING's draw is heard anywhere on the seat's own panel
+
+A finger on the fork's rest handle was the only thumb sling-grip.ts answered, so the fork could not be drawn on a phone: the panel is wide and the handle a small circle nowhere near where a thumb actually lands. The simulation's own rule (sling-hand.ts) is that on: true fires from anywhere on the seat's panel while the lit step asks its draw, so slingDrawUnder now hit-tests the whole field, gated by slingAsks, leaving cannon and trigger free during a fire step. sling-grip.test.ts covers the gating and the lift's swipe sign.
+
+## 2026-09-26 · d4b0c005f — WIP: THE SLING look, pre-rebase checkpoint
+
 ## 2026-09-26 · 2b291c8d3 — THE VALVE tells a story between its pins: a jet, a brace, a wipe and a seal
 
 Each pin out now opens a state of its own under THE SLOW. The first socket blows back and either thumb taps the pin to cap it; the second pin out sets the drum shuddering until both thumbs hold the pin together; the last lets a film over the face that the thumbs rub dry, and the bare seal strains until both hold it again. Each state run out is the drum's own blow at the hull.
