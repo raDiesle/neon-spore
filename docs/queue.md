@@ -1166,6 +1166,7 @@ what the rest of this file holds.
 ## §36 THE HALTER — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-26, main (claim: claude/queue-36-the-halter-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 No new gesture, and only one new primitive tenant: `RestraintGate` has
