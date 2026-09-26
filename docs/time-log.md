@@ -23072,3 +23072,19 @@ finding that out before writing only the other half.
 Bottleneck: reading — confirming no existing boss already couples a
 continuous SqueezeGap read against a different seat's gesture took longer
 than writing the new coupling itself.
+
+## 2026-09-26 — Sprites baked at load: THE INSTAR's egg and nest, and `bun run sprite`
+
+- reading: 15 min. THE INSTAR's egg and nest drawings, the raster tools'
+  browser harness, and the queued VISE, RIME and TRIVET sprite items so as
+  not to repeat them.
+- writing: 35 min. The bake module, the two painters, the sheet page and
+  its byte weigher, the skill and the test.
+- looking: 10 min. Three passes of the sheet: labels overlapping, silk
+  arcing like a cage over the eggs, then right.
+- friction: 5 min. `index.ts` near its size cap, split to a sub-barrel; the
+  timeout-cap test.
+- landing: 10 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: writing the painters — the detail is hand-placed strand by
+strand, and every value had to be read off the sheet before it looked right.

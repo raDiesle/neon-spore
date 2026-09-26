@@ -77,6 +77,8 @@ export {
 } from "./hull-break-look.js";
 // A boss from any side, on a page of its own (`index-solid.ts`).
 export * from "./index-solid.js";
+// Sprites baked at load, and the examples offered on THE INSTAR (`index-sprite.ts`).
+export * from "./index-sprite.js";
 // A finger on the field, and whose it is: every name a host needs to answer a
 // touch the way the frame is drawn, on a page of its own (`index-touch.ts`).
 export * from "./index-touch.js";

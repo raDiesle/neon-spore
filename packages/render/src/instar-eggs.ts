@@ -48,8 +48,9 @@ const FALL_SECONDS = 0.55;
 /** How long the broken egg stays on the hull, in seconds. */
 const SPLAT_SECONDS = 0.3;
 
-/** One egg: a bile oval, rimmed, a hatchling curled dark inside it. */
-function drawEgg(
+/** One egg: a bile oval, rimmed, a hatchling curled dark inside it. Exported for
+ * `bun run sprite`, which sets it beside the baked egg (`instar-egg-baked.ts`). */
+export function drawEgg(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,

@@ -1173,6 +1173,7 @@ by hand never moves.
 | `packages/render/src/slow-prism.ts` | The frame's colours split about the boss on every slowed downbeat and closing across the beat, under the streams |
 | `packages/render/src/slow-keep-out.ts` | **The body THE SLOW's light may not cross**, as a shape a pass can clip to and a distance a pass can fade by |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
+| `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |
 | `packages/render/src/tether-look.ts` | THE ONE RECORD A CANDIDATE **TETHER** LOOK PATCHES |
 | `packages/render/src/tether-looks.ts` | THE FOUR THINGS A ROPE CAN BE, and the one the field draws |
@@ -1551,14 +1552,17 @@ by hand never moves.
 | `packages/render/src/instar-eggs.ts` | THE INSTAR's clutch, one egg per swipe, and the egg each counted swipe drops to the hull |
 | `packages/render/src/instar-egg-spots.ts` | **Where THE INSTAR's eggs sit in their two nests**, in head radii from the nest's middle |
 | `packages/render/src/instar-egg-crack.ts` | **An egg nobody has taken yet, cracking as the window runs**: a hairline at a quarter of it, a split with an eye moving inside at three quarters |
+| `packages/render/src/instar-egg-baked.ts` | **THE INSTAR's egg, baked** — the first example of detail drawn once at load (`sprite-bake.ts`) |
 | `packages/render/src/instar-head.ts` | **THE INSTAR's head, face-on**: a dragon's, the jaws wide at the ship |
 | `packages/render/src/instar-head-parts.ts` | **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and the sinew strung between the jaws |
 | `packages/render/src/instar-hide.ts` | **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays down |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
+| `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
+| `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
@@ -2496,11 +2500,14 @@ by hand never moves.
 | `tools/raster/src/png.ts` | The parts of the PNG container an animator needs, and nothing else |
 | `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
+| `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
+| `tools/raster/src/sprite-page.ts` | The sprite sheet's page: bundled for the browser by `sprite.ts` and run there, so the bake |
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
+| `tools/raster/sprite.ts` | `bun run sprite [name] [out.png]` — the sprite sheet |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |
 | `tools/shape-sheet/src/contour.ts` | An open contour must not be filled — SVG would close it across the ends |
 | `tools/shape-sheet/src/drawn-size.ts` | The 20–26 px floor `docs/spec/graphics.md` sets for a body to stay nameable |

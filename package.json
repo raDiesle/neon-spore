@@ -56,6 +56,7 @@
     "shot": "bun run tools/frames/shot.ts",
     "sheet": "bun run tools/frames/sheet.ts",
     "solid": "bun run tools/raster/solid.ts",
+    "sprite": "bun run tools/raster/sprite.ts",
     "menu-shot": "bun run tools/frames/menu-shot.ts",
     "room-shot": "bun run tools/frames/room-shot.ts",
     "crop": "bun run tools/frames/crop-png.ts",

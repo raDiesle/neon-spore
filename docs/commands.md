@@ -157,6 +157,7 @@ bun run raster         # regenerate the baked assets under assets/raster/
 bun run raster:pack <dir>   # shrink hand-painted frames into one strip the game can draw
 bun run raster:verify  # open them in a real browser and check every frame decodes
 bun run solid [out.png]  # the rig turned side to front, in a real browser — the look loop for solid-*.ts; --zdog draws it beside Zdog
+bun run sprite [name] [out.png] # sprites baked at load: strips, shipped vs baked at play size, and each one's code bytes, bake ms, picture bytes and draw cost — .claude/skills/sprite
 bun run build          # the game and the director
 bun run build:game     # apps/game alone
 bun run build:director # tools/director alone
