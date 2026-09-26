@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 06d6b2804 — THE RIME fogs over in a whiteout and flings an icicle once its core is bare
+
+Two story steps between the wipes, each lit under THE SLOW and each a hull hit if it runs out. In the whiteout both halves fog to the film and both seats rub together; a half left alone grows back, so they finish together. The icicle falls down a column off the middle and the shield under that column turns it. The script is eleven steps. No new event. Not drawn yet.
+
 ## 2026-09-26 · d75b9936b — THE SLOW's light stands round THE TRIVET
 
 One more row in the table of bosses THE SLOW aims at by kind: the stand's hub, as wide as a planted foot's plate reaches from it (`trivetReach`), so PRISM no longer splits the stand red and blue and CRAWL's light stops short of the legs rather than running across them. Exemption: a fix to something wrong rather than unlovely, since PRISM's promise is that the boss does not split.
