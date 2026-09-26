@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 26797268a — THE SINEW's muscle mass was lit from a spot that never moved off it
+
+A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, moving through the already-shipped bosses.
+
 ## 2026-09-26 · 334058536 — THE CODEX's guide is a film: red refused by a red body, cyan on the pilot's word
 
 THE CODEX's three strings are gone. Its guide is now a rehearsal: player 1's page shows the shimmer only the pilot is drawn, on and then off; player 2 fires red into a red body in a swapped hold and it is refused; and in the same hold player 2 fires cyan, what player 1 said, and it lands. `test/scene-codex.test.ts` holds that both shots leave the muzzle while the key is turned over, so a retimed press cannot quietly become an ordinary shot.
