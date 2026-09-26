@@ -23844,3 +23844,15 @@ Bottleneck: writing — every new pose is a table of places decided for the firs
 Bottleneck: landing — the check and the push take longer than a table of one row.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE HASP's own blow at the hull
+
+- reading: 10 min. `hasp-step.ts`'s `spendBolt`, `hasp-draw.ts`'s falling bolt.
+- writing: 10 min. The bolt driven home, the hot head, the rings.
+- looking: 10 min. Frames of the timeout, forced with `--boss boltCol=3,boltBeat=0`
+  so the cannon did not stand over the pin.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `bun run land`.
+
+Bottleneck: looking — the pin is a quarter of a tile wide, and the first
+frames had the cannon parked on top of it.

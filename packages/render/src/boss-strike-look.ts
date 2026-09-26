@@ -1,6 +1,7 @@
 import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import { gimbalCentre } from "./gimbal-shape.js";
+import { haspBlow } from "./hasp-blow.js";
 import type { Layout } from "./layout.js";
 import { mantleCentre } from "./mantle-shape.js";
 import { oculusBlow } from "./oculus-blow.js";
@@ -64,6 +65,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
 const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   oculus: oculusBlow,
   seam: seamBlow,
+  // Its bolt has already fallen the column in sight; the blow drives it home.
+  hasp: haspBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
