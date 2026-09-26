@@ -41,6 +41,9 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   cyst: ["still", "lit", "frozen", "rest", "split"],
   davit: ["still", "lit", "rest", "spent"],
   halter: ["alarmed", "lit", "pause", "spent"],
+  // THE RATCHET's story between the teeth: the simulation has landed, the
+  // four poses are the look lane (§22). Struck the day it lands.
+  ratchet: ["slip", "kick", "bind", "wind"],
 };
 
 describe("the BOSSES category", () => {

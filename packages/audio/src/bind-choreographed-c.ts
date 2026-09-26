@@ -195,6 +195,18 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "ratchetOpen":
     case "ratchetJam":
     case "ratchetOut":
+    case "ratchetSlip":
+    case "ratchetBite":
+    case "ratchetDrop":
+    case "ratchetKick":
+    case "ratchetSeat":
+    case "ratchetFly":
+    case "ratchetBind":
+    case "ratchetMesh":
+    case "ratchetShake":
+    case "ratchetWind":
+    case "ratchetWound":
+    case "ratchetUnwind":
       return ratchetCue(e, cols);
     case "mantleEnter":
     case "mantleLight":

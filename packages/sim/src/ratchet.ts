@@ -48,9 +48,22 @@ export const RATCHET_CLEAN = 5;
 
 /**
  * Where the scene is: the rack hanging still, a pawl lit and waiting for a
- * press, the rack climbing one tooth, the top catch open, or the rack jammed.
+ * press, the rack climbing one tooth, the top catch open, or the rack jammed
+ * — and between the first four clean teeth, the story: the rack slipping,
+ * the pawl kicked out, the teeth binding, the spring run down
+ * (`ratchet-story.ts`).
  */
-export const RATCHET_PHASES = ["still", "work", "climb", "open", "jam"] as const;
+export const RATCHET_PHASES = [
+  "still",
+  "work",
+  "climb",
+  "open",
+  "jam",
+  "slip",
+  "kick",
+  "bind",
+  "wind",
+] as const;
 export type RatchetPhase = (typeof RATCHET_PHASES)[number];
 
 export interface RatchetState {
@@ -78,6 +91,10 @@ export interface RatchetState {
   boltCol: number;
   /** `world.beat` the bolt came loose. */
   boltBeat: number;
+  /** Beats in a row the story state's hand has been held, counted on the beat. */
+  holdBeats: number;
+  /** Times the catch has been set while the spring is being wound. */
+  windSets: number;
 }
 
 export function ratchetBoss(world: World): RatchetState | null {
@@ -118,6 +135,11 @@ export function ratchetMargin(s: RatchetState): number {
 /** Whether a bolt is loose and there is something to shoot. */
 export function ratchetLoose(s: RatchetState): boolean {
   return s.boltCol !== NO_BOLT;
+}
+
+/** Whether one of the four states between the clean teeth is on (`ratchet-story.ts`). */
+export function ratchetStory(s: RatchetState): boolean {
+  return s.phase === "slip" || s.phase === "kick" || s.phase === "bind" || s.phase === "wind";
 }
 
 /** The top catch has given, and nothing is left to press. */

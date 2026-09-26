@@ -2615,19 +2615,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §22 THE RATCHET — the story between the teeth, the simulation
-
-- **Found:** 2026-09-26, claude/older-boss-stories, at the owner's ask that existing bosses read as a story of distinct states
-- **Taken:** 2026-09-26, claude/older-boss-stories (claim: claude/queue-22-the-ratchet-the-story-between-the-teeth-the-s)
-- **Files:** `packages/sim/src/ratchet.ts`, `packages/sim/src/ratchet-step.ts`, `packages/sim/src/ratchet-hand.ts`, `packages/sim/src/config-ratchet.ts`, `packages/sim/src/events-ratchet.ts`, `packages/sim/src/ratchet-hash.ts`
-
-Build §22's four story states — the slip, the kick, the bind, the wind —
-as phases between the clean advances, THE VALVE's `valve-story.ts` the
-pattern: each its own SLOW window, answered on the catch and the pawl the
-boss already has, a state run out a `bossStrikesHull` and the state again,
-and no tooth ever given back. `.claude/skills/new-boss-state` lists the
-registrations. `bun run check` proves it.
-
 ## §22 THE RATCHET — the story between the teeth, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories

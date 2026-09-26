@@ -63,6 +63,13 @@ export const CHOREO_FIELD_GROUP_C = {
   ratchetClimbBeats: "THE RATCHET — the boss where every step you take stays taken",
   ratchetBoltBeats: "THE RATCHET — the boss where every step you take stays taken",
   ratchetOpenBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetSlipBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetKickBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetBindBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetStoryBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetWindSets: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetWindBeats: "THE RATCHET — the boss where every step you take stays taken",
+  ratchetStory: "THE RATCHET — the boss where every step you take stays taken",
   // MantleConfig — the floor either handle must clear before it counts toward
   // the sum, how long the shell hangs dark before the first handles light,
   // the hazard spark's patience, THE SLOW on every shear, the alternating

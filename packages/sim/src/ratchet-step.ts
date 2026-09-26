@@ -7,8 +7,10 @@ import {
   RATCHET_TEETH,
   type RatchetState,
   ratchetLoose,
+  ratchetStory,
   ratchetWindowBeats,
 } from "./ratchet.js";
+import { openStory, ratchetStoryAfter, stepStory } from "./ratchet-story.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -39,6 +41,8 @@ export function installRatchet(world: World): RatchetState {
     cleanLast: false,
     boltCol: NO_BOLT,
     boltBeat: 0,
+    holdBeats: 0,
+    windSets: 0,
   };
   world.events.push({ type: "ratchetEnter", col: midCol(world.cfg) });
   return s;
@@ -59,6 +63,10 @@ export function stepRatchet(world: World, s: RatchetState): void {
   }
   if (s.phase === "still") {
     if (since >= cfg.ratchetStillBeats) lightPawl(world, s);
+    return;
+  }
+  if (ratchetStory(s)) {
+    stepStory(world, s, since);
     return;
   }
   if (s.phase === "climb") {
@@ -123,6 +131,10 @@ export function advanceRatchet(world: World, s: RatchetState, clean: boolean, la
     s.boltBeat = world.beat;
     world.events.push({ type: "ratchetBolt", col: mid });
   }
+  // A clean tooth is followed by the rack threatening to undo it; a burn is
+  // not, because nothing climbed (`ratchet-story.ts`).
+  const story = clean && world.cfg.ratchetStory ? ratchetStoryAfter(s.clean) : null;
+  if (story !== null) openStory(world, s, story);
 }
 
 /** The loose bolt, unanswered for `ratchetBoltBeats`: the hull, and the wave. */

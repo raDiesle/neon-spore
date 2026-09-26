@@ -7,6 +7,7 @@ import {
   ratchetWorking,
 } from "./ratchet.js";
 import { advanceRatchet } from "./ratchet-step.js";
+import { ratchetPumped } from "./ratchet-story.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -66,6 +67,7 @@ function catchHeard(
   const now = ratchetHeld(s, cfg);
   if (now === was) return;
   world.events.push({ type: now ? "ratchetSet" : "ratchetLet", col: mid });
+  if (now) ratchetPumped(world, s);
 }
 
 /**

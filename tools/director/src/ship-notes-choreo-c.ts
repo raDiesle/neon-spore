@@ -51,8 +51,8 @@ export const CHOREO_NOTES_C = {
     "a third burn makes five unreachable, and the rack jams into the hull, " +
     "which is the wave. After the second clean tooth a bolt works loose " +
     "over the middle column: either colour takes it, and ratchetBoltBeats " +
-    "unanswered is a strike on the hull. See sim/ratchet.ts, " +
-    "sim/ratchet-hand.ts, sim/config-ratchet.ts.",
+    "unanswered is a strike on the hull. After each of the first four clean " +
+    "teeth a story state runs: slip, kick, bind, wind (sim/ratchet-story.ts).",
   "THE NETTLE — a jellyfish marked for thumbs and for the panel: shoot it, shield it, suck it":
     "Asked for on 26 September 2026 and written up in docs/spec/bosses.md " +
     "§11.39: THE INSTAR's engine with the default panel back. The script " +

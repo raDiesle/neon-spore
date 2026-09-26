@@ -196,6 +196,8 @@ export function patchBossD(boss: BossState): void {
     boss.cleanLast = true;
     boss.boltCol = 4;
     boss.boltBeat = 6;
+    boss.holdBeats = 2;
+    boss.windSets = 1;
   }
   if (boss.kind === "nettle") {
     // THE INSTAR's patch on `-c.ts`: the marks up, a thumb on the arm, the

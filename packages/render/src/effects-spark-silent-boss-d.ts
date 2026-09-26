@@ -88,4 +88,18 @@ export const SILENT_BOSS_D = [
   "valveStrain",
   "valveSeal",
   "valveRough",
+  // THE RATCHET's story between the teeth (`packages/audio/src/bind-ratchet.ts`):
+  // what the rack does is read off its phase (`ratchet-story.ts`), never off these.
+  "ratchetSlip",
+  "ratchetBite",
+  "ratchetDrop",
+  "ratchetKick",
+  "ratchetSeat",
+  "ratchetFly",
+  "ratchetBind",
+  "ratchetMesh",
+  "ratchetShake",
+  "ratchetWind",
+  "ratchetWound",
+  "ratchetUnwind",
 ] as const satisfies readonly SimEvent["type"][];

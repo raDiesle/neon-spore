@@ -20,5 +20,7 @@ export function ratchetHashParts(s: RatchetState): number[] {
     s.cleanLast ? 1 : 0,
     s.boltCol,
     s.boltBeat,
+    s.holdBeats,
+    s.windSets,
   ];
 }

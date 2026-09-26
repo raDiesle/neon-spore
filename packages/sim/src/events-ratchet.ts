@@ -41,4 +41,30 @@ export type RatchetEvent =
   /** Five clean is out of reach: the rack jams into the hull, which is the wave. */
   | ({ type: "ratchetJam" } & RatchetColEvent)
   /** The open rack has hung `ratchetOpenBeats`; the wave may end. */
-  | ({ type: "ratchetOut" } & RatchetColEvent);
+  | ({ type: "ratchetOut" } & RatchetColEvent)
+  // The story between the teeth (`ratchet-story.ts`): each state opens, is
+  // won, or runs out against the hull and opens again.
+  /** After the first clean tooth the rack sags back toward the catch. */
+  | ({ type: "ratchetSlip" } & RatchetColEvent)
+  /** The catch held: it bites and the rack stops sagging. */
+  | ({ type: "ratchetBite" } & RatchetColEvent)
+  /** The slip ran out: the rack drops against the hull. */
+  | ({ type: "ratchetDrop" } & RatchetColEvent)
+  /** After the second the spring kicks the pawl out of its seat. */
+  | ({ type: "ratchetKick" } & RatchetColEvent)
+  /** The pawl held down: it seats with a clunk. */
+  | ({ type: "ratchetSeat" } & RatchetColEvent)
+  /** The kick ran out: the pawl flies against the hull. */
+  | ({ type: "ratchetFly" } & RatchetColEvent)
+  /** After the third the teeth grind and the rack shakes on its strut. */
+  | ({ type: "ratchetBind" } & RatchetColEvent)
+  /** Both held: the teeth mesh. */
+  | ({ type: "ratchetMesh" } & RatchetColEvent)
+  /** The bind ran out: the strut shakes a plate loose against the hull. */
+  | ({ type: "ratchetShake" } & RatchetColEvent)
+  /** After the fourth the spring has run down. */
+  | ({ type: "ratchetWind" } & RatchetColEvent)
+  /** Set enough times: the spring is wound tight. */
+  | ({ type: "ratchetWound" } & RatchetColEvent)
+  /** The wind ran out: the spring unwinds against the hull. */
+  | ({ type: "ratchetUnwind" } & RatchetColEvent);

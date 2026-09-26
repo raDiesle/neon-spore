@@ -556,6 +556,7 @@ by hand never moves.
 | `packages/sim/src/ratchet-hash.ts` | What THE RATCHET puts into `hashWorld`, and nothing else |
 | `packages/sim/src/ratchet-shot.ts` | **THE RATCHET's one target**: the bolt the second clean advance shakes loose (§22, row 8) |
 | `packages/sim/src/ratchet-step.ts` | THE RATCHET's clock: the pawl lighting, a window running out, the rack climbing, the one bolt |
+| `packages/sim/src/ratchet-story.ts` | **THE RATCHET's story between the teeth** (`docs/spec/bosses-choreographed.md` §22) |
 | `packages/sim/src/ratchet.ts` | THE RATCHET: a toothed rack down the middle of the field, in full view of both seats |
 | `packages/sim/src/choir-gesture.ts` | **The hand on THE CHOIR**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
@@ -2177,7 +2178,7 @@ by hand never moves.
 | `packages/audio/src/bind-throat.ts` | THE THROAT's two hands on the gullet itself, in a file of their own for `bind-vane.ts`' reason |
 | `packages/audio/src/bind-trivet.ts` | THE TRIVET's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
-| `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's fourteen, in a file of their own for `bind-gorge.ts`' reason |

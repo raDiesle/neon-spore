@@ -63,7 +63,8 @@ const RATCHET_PAWL: Pose = {
       w,
       "a clean tooth",
       [press],
-      (x) => x.boss?.kind === "ratchet" && x.boss.phase === "climb",
+      // A clean tooth opens the slip at once (`sim/ratchet-story.ts`).
+      (x) => x.boss?.kind === "ratchet" && x.boss.clean === 1,
     );
     return w;
   },

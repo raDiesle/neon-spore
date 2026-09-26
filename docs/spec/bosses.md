@@ -7473,6 +7473,20 @@ tooth, clean or burnt — the owner's rule of 22 September 2026.
 until it has been lifted or drawn back above the grip, so `SET` is said once a
 tooth and meant each time.
 
+**The story between the teeth** (`sim/ratchet-story.ts`, 26 September 2026,
+`bosses-choreographed.md` §22). After each of the first four clean teeth
+the rack threatens to undo the step, and the next pawl waits until the pair
+stops it — each state its own SLOW window. The **slip** is her catch set and
+held `ratchetSlipBeats` in a row; the **kick** is his pawl held down
+`ratchetKickBeats`; the **bind** is both at once for `ratchetBindBeats`; the
+**wind** is her catch set `ratchetWindSets` times, lifted between, inside
+`ratchetWindBeats`. The first three run out after `ratchetStoryBeats`. A
+state run out is the rack's own blow at the hull (`bossStrikesHull`, its
+`blow` named for the state) and the state runs again; none takes a tooth
+back. A state her catch answered spends it, as a clean tooth does. Burnt
+teeth open no state, and nor does the rehearsal, which turns `ratchetStory`
+off: the film stops before the story as it stops before the bolt.
+
 **The end.** Five clean and the rack opens (`ratchetOpen`), hangs for
 `ratchetOpenBeats` and goes. The burn that makes five clean unreachable — the
 third, since there are two to spare — jams it (`ratchetJam`), and the jam

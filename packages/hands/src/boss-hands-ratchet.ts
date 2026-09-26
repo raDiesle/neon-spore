@@ -3,6 +3,7 @@ import {
   ratchetBoss,
   ratchetHeld,
   ratchetLoose,
+  ratchetStory,
   ratchetWorking,
   type TimedCommand,
   type World,
@@ -16,6 +17,11 @@ import {
  * catch set a tick later sets nothing. After a clean tooth the catch is
  * spent, so the hand lifts it and sets it again, which is the one thing the
  * navigator has to learn (`sim/ratchet-hand.ts`).
+ *
+ * Between the teeth, each story state is answered with its own hand
+ * (`sim/ratchet-story.ts`): the catch set and held for the slip, the pawl
+ * held down for the kick, both for the bind, and the catch pumped — lifted,
+ * set, lifted — for the wind.
  *
  * Played blind is the pilot pressing with no catch under him at all: every
  * tooth burns, and the third burn jams the rack. That is the only wrong the
@@ -34,12 +40,26 @@ function play(w: World, catching: boolean): Press[] {
 }
 
 function hands(w: World, s: RatchetState, catching: boolean): Press[] {
+  if (ratchetStory(s)) return story(w, s);
   const held = ratchetHeld(s, w.cfg);
   if (ratchetWorking(s) && (held || !catching)) return s.pawlDown ? [pawl(false)] : [pawl(true)];
   const out: Press[] = s.pawlDown ? [pawl(false)] : [];
   if (!catching || held) return out;
   // A spent catch is lifted before it is set again.
   out.push(s.catchSpent ? caught(false, 0) : caught(true, w.cfg.ratchetReachMilli));
+  return out;
+}
+
+function story(w: World, s: RatchetState): Press[] {
+  const held = ratchetHeld(s, w.cfg);
+  const out: Press[] = [];
+  const pressing = s.phase === "kick" || s.phase === "bind";
+  if (s.pawlDown !== pressing) out.push(pawl(pressing));
+  if (s.phase === "kick") return out;
+  // The wind lifts a held catch to set it again; the others keep it held.
+  if (held && s.phase !== "wind") return out;
+  const lift = held || s.catchSpent;
+  out.push(lift ? caught(false, 0) : caught(true, w.cfg.ratchetReachMilli));
   return out;
 }
 

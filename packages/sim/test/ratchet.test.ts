@@ -1,29 +1,31 @@
 import { describe, expect, it } from "bun:test";
-import {
-  type Bullet,
-  createWorld,
-  DEFAULT_CONFIG,
-  hashWorld,
-  midCol,
-  type SimConfig,
-  startWave,
-  step,
-  type TimedCommand,
-  ticksPerBeat,
-  type World,
-} from "../src/index.js";
+import { type Bullet, hashWorld, midCol, type SimConfig, type World } from "../src/index.js";
 import {
   NO_BOLT,
   NO_CATCH,
   RATCHET_TEETH,
-  type RatchetState,
-  ratchetBoss,
   ratchetHeld,
   ratchetWindowBeats,
 } from "../src/ratchet.js";
 import { ratchetStruck } from "../src/ratchet-shot.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
+import {
+  beat,
+  CFG,
+  catchAt,
+  cleanTooth,
+  DOWN,
+  install,
+  lit,
+  pass,
+  pawlAt,
+  press,
+  rack,
+  reset,
+  runTo,
+  send,
+} from "./ratchet-rig.js";
 
 /**
  * THE RATCHET: the one boss where a step, once taken, is never taken back.
@@ -40,75 +42,6 @@ import { NOT_FAILED } from "../src/wave-fail.js";
  * The fingerprint is compared between two runs in one process rather than
  * pinned (`docs/decisions.md` #19).
  */
-
-const CFG: SimConfig = { ...DEFAULT_CONFIG };
-const TPB = ticksPerBeat(CFG);
-const DOWN = CFG.ratchetReachMilli;
-
-function install(over: Partial<SimConfig> = {}): World {
-  const world = createWorld({ ...CFG, ...over }, 0);
-  startWave(world, 0, [], [], { kind: "ratchet" });
-  return world;
-}
-
-function rack(world: World): RatchetState {
-  const s = ratchetBoss(world);
-  if (s === null) throw new Error("the wave installed no ratchet");
-  return s;
-}
-
-/** The navigator's thumb on the catch, carried `to` thousandths down. */
-const catchAt = (tick: number, to: number, on = true, player: 1 | 2 = 2): TimedCommand => ({
-  tick,
-  player,
-  command: { kind: "drag", target: "ratchetCatch", on, fromMilli: 0, fromYMilli: to },
-});
-
-/** The pilot's thumb on the pawl. */
-const pawlAt = (tick: number, on: boolean, player: 1 | 2 = 1): TimedCommand => ({
-  tick,
-  player,
-  command: { kind: "drag", target: "ratchetPawl", on, fromMilli: 0 },
-});
-
-/** Step to a tick, feeding commands on their stamp, and say what went by. */
-function runTo(world: World, tick: number, cmds: TimedCommand[] = []): Set<string> {
-  const seen = new Set<string>();
-  while (world.tick < tick) {
-    step(
-      world,
-      cmds.filter((c) => c.tick === world.tick),
-    );
-    for (const e of world.events) seen.add(e.type);
-  }
-  return seen;
-}
-
-/** A tick on, with these sent. */
-function send(world: World, make: (t: number) => TimedCommand[]): Set<string> {
-  const t = world.tick;
-  return runTo(world, t + 1, make(t));
-}
-
-const beat = (world: World, n = 1): Set<string> => runTo(world, world.tick + TPB * n);
-
-/** Past the still, or the climb: the next pawl is lit. */
-const lit = (world: World): Set<string> => beat(world, CFG.ratchetStillBeats + 1);
-
-/** A press and its release, two ticks. */
-function press(world: World): Set<string> {
-  const seen = send(world, (t) => [pawlAt(t, true)]);
-  for (const e of send(world, (t) => [pawlAt(t, false)])) seen.add(e);
-  return seen;
-}
-
-/** The catch set, then the pawl pressed: one clean tooth. */
-function cleanTooth(world: World): Set<string> {
-  const seen = send(world, (t) => [catchAt(t, 0, false)]);
-  for (const e of send(world, (t) => [catchAt(t, DOWN)])) seen.add(e);
-  for (const e of press(world)) seen.add(e);
-  return seen;
-}
 
 describe("THE RATCHET comes in", () => {
   it("over the middle, seven teeth, and neither hand on it", () => {
@@ -136,7 +69,8 @@ describe("the catch and the pawl", () => {
     expect(press(world).has("ratchetClick")).toBe(true);
     expect(rack(world).teeth).toBe(RATCHET_TEETH - 1);
     expect(rack(world).clean).toBe(1);
-    expect(rack(world).phase).toBe("climb");
+    // The first clean tooth is followed by the slip (`ratchet-story.test.ts`).
+    expect(rack(world).phase).toBe("slip");
   });
 
   it("and climb it burnt when it is not, which is still a tooth", () => {
@@ -168,12 +102,11 @@ describe("the catch and the pawl", () => {
     lit(world);
     send(world, (t) => [catchAt(t, DOWN)]);
     press(world);
-    beat(world, CFG.ratchetClimbBeats + 1);
     // Held down all along: the spent catch sets nothing.
     send(world, (t) => [catchAt(t, DOWN)]);
     expect(ratchetHeld(rack(world), world.cfg)).toBe(false);
-    expect(cleanTooth(world).has("ratchetClick")).toBe(true);
-    expect(rack(world).clean).toBe(2);
+    reset(world);
+    expect(ratchetHeld(rack(world), world.cfg)).toBe(true);
   });
 
   it("hears each target from its own seat only", () => {
@@ -217,7 +150,7 @@ describe("the bolt", () => {
     const world = install(over);
     lit(world);
     cleanTooth(world);
-    beat(world, CFG.ratchetClimbBeats + 1);
+    pass(world);
     return world;
   }
 
@@ -260,7 +193,7 @@ describe("the end of the rack", () => {
     lit(world);
     for (let i = 0; i < 4; i += 1) {
       cleanTooth(world);
-      beat(world, CFG.ratchetClimbBeats + 1);
+      pass(world);
     }
     expect(cleanTooth(world).has("ratchetOpen")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);
