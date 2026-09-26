@@ -473,21 +473,21 @@ into the roster. `bun run check` proves it.
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-27-the-oculus-its-hands-the-second-half-of-its-l)
 - **Needs:** §27 THE OCULUS — the look, half one (the body), landed first
-- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/autopilot.test.ts`, `apps/game/src/`
+- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: the rim and its pins, the six leaves as iris blades, the
 lit pair sliding shut as it is held, a reseal's cracked pair, the socket's
 break, the core in its colour and smaller per hit, and the shatter. What is
-left is everything an event or a hand touches, but the on-field leaf holds,
-which landed 26 September 2026 (`render/oculus-grip.ts`: each seat's half of
-the lens is its leaf, by geometry). **The fx**, in `Effects` and cleared
+left is everything an event touches. The on-field leaf holds landed 26
+September 2026 (`render/oculus-grip.ts`: each seat's half of the lens is its
+leaf, by geometry), and the autopilot hand and the STATES poses after them
+(`hands/boss-hands-oculus.ts`). **The fx**, in `Effects` and cleared
 in `reset()`: each shut pair's soft hull-shock thud (§27, *Presentation*),
 the spring of a pair let go, the socket swallowed shut, the core's hit flash
 and the shatter's; the twelve `oculus*` events come off the two silent lists
 as each gets its burst. **THE SLOW's aim** on the lens (the prism splits it
 today — the item below on the prism's aim is the general case). **The cue's
-words** (HOLD on the lit pair, FIRE on the lit core), **the autopilot hand**
-and its row out of `autopilot.test.ts`'s `NO_HAND`, and the STATES poses.
+words** (HOLD on the lit pair, FIRE on the lit core).
 Unverified at tempo until the owner has looked.
 
 ## §28 THE VISE — the look

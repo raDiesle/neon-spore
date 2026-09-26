@@ -11,6 +11,7 @@ import { filamentHand, sinewHand, surgeHand } from "./boss-hands-handles.js";
 import { haspHand } from "./boss-hands-hasp.js";
 import { keelHand } from "./boss-hands-keel.js";
 import { mantleHand } from "./boss-hands-mantle.js";
+import { oculusHand } from "./boss-hands-oculus.js";
 import { queenHand } from "./boss-hands-queen.js";
 import { ratchetHand } from "./boss-hands-ratchet.js";
 import { mazeHand, mirrorHand, pinballHand } from "./boss-hands-rounds.js";
@@ -69,6 +70,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,
+  oculus: oculusHand,
   pinball: pinballHand,
   pulse: pulseHand,
   queen: queenHand,

@@ -23460,3 +23460,14 @@ by a red test, not by a list.
 Bottleneck: fitting the painting's box to the flat wing's bones by hand.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE OCULUS has a hand (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. THE KEEL's hand commit as the pattern, `oculus-step.ts`
+  for when a lift slips a pair and when it does not.
+- writing: 10 min. The hand, the four poses, the AUTO test, the registrations.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: landing — the full check is longer than the lane.

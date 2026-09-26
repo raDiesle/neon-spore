@@ -17,6 +17,7 @@ export * from "./boss-hands-handles.js";
 export * from "./boss-hands-hasp.js";
 export * from "./boss-hands-keel.js";
 export * from "./boss-hands-mantle.js";
+export * from "./boss-hands-oculus.js";
 export * from "./boss-hands-queen.js";
 export * from "./boss-hands-ratchet.js";
 export * from "./boss-hands-rounds.js";

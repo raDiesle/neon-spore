@@ -11,6 +11,7 @@ import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
 import { MANTLE_POSES } from "./poses-bosses-hands-mantle.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
+import { OCULUS_POSES } from "./poses-bosses-hands-oculus.js";
 import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
 import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
 import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
@@ -54,6 +55,7 @@ export const BOSS_POSES: Pose[] = [
   ...NETTLE_POSES,
   ...MANTLE_POSES,
   ...KEEL_POSES,
+  ...OCULUS_POSES,
 ];
 
 /** The states of this boss no pose carries yet — what the category still owes. */
