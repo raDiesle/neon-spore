@@ -694,3 +694,17 @@ had lost to `trunkRaced`, as it should). Ask `git worktree list --porcelain`
 again beside `trunkRaced`, just before the move, and take the `merge --ff-only`
 path in the tree that now holds the trunk; pin it with a unit case on the
 planner that feeds it a holder appearing after the plan.
+
+## Unverified at b8986b62b: READY's lift taking the screen on a real Android phone
+
+- **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
+- **Files:** `apps/game/src/fullscreen.ts`, `apps/game/src/join-room-step.ts`, `apps/game/test/shake-permission.test.ts`, `docs/queue.md`, `docs/time-log.md`
+
+*The screen is asked for as the thumb lifts off READY, not as it goes down* landed from a session that could not look at it. What went unchecked:
+
+- READY's lift taking the screen on a real Android phone
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

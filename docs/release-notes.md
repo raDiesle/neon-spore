@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b8986b62b — The screen is asked for as the thumb lifts off READY, not as it goes down
+
+A touch's `pointerdown` carries no user activation — the HTML spec counts it only for a mouse — so on an Android phone the fullscreen request made as the thumb went down on the READY circle was refused every time, silently. It now goes out on that circle's `pointerup`, beside the motion permission, and only after a press that could hold the circle.
+
 ## 2026-09-26 · e327a8585 — `queue next` from a clean session worktree marks the claim as the worked branch
 
 A session standing in its own clean worktree, on the lane it has just landed, is told by `next` to `git checkout` the claim right there — but the `Taken:` line named that spent lane as the worked branch, the one branch the work would never be on. `next` now passes `dealt`, and `workedOn` in `tree.ts` answers the claim itself when `sessionTree()` is non-empty; `take`, which drains items onto the lane it stands on, still records the head.

@@ -22091,3 +22091,5 @@ Bottleneck: friction — the file the fix belonged in had four lines of room.
 
 Bottleneck: friction — the clone's two shallow segments had to be joined
 before the trunk could be brought up.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
