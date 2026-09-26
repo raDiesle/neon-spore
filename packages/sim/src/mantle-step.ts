@@ -73,7 +73,7 @@ function shear(world: World, s: MantleState): void {
   const cfg = world.cfg;
   s.cursor += 1;
   const left = s.thresholds.length - s.cursor;
-  openSlow(world, cfg.mantleSlowBeats);
+  openSlow(world, cfg.mantleSlowBeats, "show");
   world.events.push({ type: "mantleShear", left, col: midCol(cfg) });
   if (left === 0) {
     // The shell is fully split: the bare core shows, and the alternating
