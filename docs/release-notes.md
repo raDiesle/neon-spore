@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · fc7070475 — THE KEEL snaps as it locks: a seam flares, the spine jolts, the hull shudders
+
+A joint locked in its window now flares its seam white and jolts the whole spine up a touch, with the red blow every boss takes; the shot that shuts the socket bursts in the socket's colour and snaps the middle two; the open socket and the tail's rock each burst red where they hit the hull and send a shudder down the plating; a rock shot out bursts where it had fallen to. A joint lighting, missing or slipping throws a small burst and deals nothing.
+
 ## 2026-09-26 · 7baa61a6c — THE INSTAR's tail is a lit tube that swings
 
 The tail is now a tube of the rig: round and lit across its width, with a rim along its edge and a contact shadow where it goes into the rear. It swings on its own, a wave running from the root to the fork, across the picture and toward the player and away, so the rings turn in the light and the near end swells. Where the lash curls tighter than the tail is thick it is drawn as two tubes, root first, so it no longer folds through itself. The fork still lands over the marks the players tap.

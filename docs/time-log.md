@@ -22791,3 +22791,5 @@ only a frame of it showed what that does to a tube.
 
 Bottleneck: writing — the fx is a copy of THE MANTLE's in shape, and the
 five places it is registered are each one line that nothing names.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
