@@ -23210,3 +23210,18 @@ Bottleneck: looking — the first turn read on the wings and not on the head,
 and it took a second pass with a stronger snout and a shaded far cheek.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — §25 THE VALVE: a held chord to finish it, at the owner's request
+
+- reading: 10 min. The full §25 section and `CHORD`'s existing `where`
+  array to confirm THE VALVE would be a first use.
+- writing: 20 min. The second spark, the renumbered beat list, the finale
+  chord row, the fifth pose note, the `where` registration and the queue
+  entry.
+- looking: 0 min. Spec and registration only — the look is queued
+  separately.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, this entry, the commit.
+
+Bottleneck: none — a direct revision of an existing section is faster than
+drafting a new one from scratch.

@@ -1940,3 +1940,26 @@ booleans and how many are set, no new simulation state beyond the hold's own
 boolean. `bun run check` proves the sim half; the new pose (the arch
 swelling and dimming through the hold) and the three seam-brightness states
 are a look task, queued separately once this lane lands.
+
+## §25 THE VALVE — a revised simulation lane, a held chord to finish it
+
+- **Found:** 2026-09-26, this session, at the owner's direction: revise the
+  bosses added today for a fuller story arc, more distinct visual states and
+  more SLOW beats that ask for action
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+
+THE VALVE already ships (wave 104, `docs/spec/bosses.md` §11.42). The three
+movements read almost identically today — turn, freeze, pull, three times —
+so the spec now escalates the two sparks (thinner after the first pin,
+wider and louder after the second, off the same leak the sim already fires)
+and replaces the bare "face falls open" ending with a beat: once all three
+pins are out, the face strains and hisses against the last seal, and both
+seats must hold a chord on it (`CHORD`, already built for THE TRIVET, THE
+GRINDSTONE, THE HALTER, THE WINCH, THE GOVERNOR and THE MANTLE — first use
+on THE VALVE, so its `where` array in `tools/director/src/gesture-unbuilt.ts`
+already carries a §25 THE VALVE entry, land it with the rest) for three
+beats before it opens clean; missing it still opens the face, but rough,
+with one hull hit as the pressure escapes wrong. This is one new field, a
+boolean read off the chord, no new primitive. `bun run check` proves the sim
+half; the fifth pose (braced and shuddering) and the two-severity spark are
+a look task, queued separately once this lane lands.

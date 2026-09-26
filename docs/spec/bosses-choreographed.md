@@ -3157,36 +3157,51 @@ this page lets a gesture go to whichever hand is free.
 | 6 | The wheel lights again, a longer turn to its mark | P1 | steer (`TURN`) | 5 beats, seen | holds, freeze window opens | drifts off |
 | 7 | Freeze window, shorter than movement 1's | P2 | tap (`FREEZE`) | 1 beat, seen | wheel stops | wheel resumes |
 | 8 | Frozen pin | P1 or P2 | pull (`PULL`) | 2 beats, frozen | second pin free, drum lists further | freeze runs out, repeat from row 6 |
+| 9 | A second spark, wider and hissing louder than the first, leaks from the drum's deeper list | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
 | **Movement 3 — the last pin holds the whole seal** ||||||
-| 9 | The wheel now turns *away* from a mark that sits behind it — a full lap before it can hold | P1 | steer the long way round (`TURN`) | 6 beats, seen | holds | drifts off, tries again |
-| 10 | Freeze window, the shortest yet | P2 | tap (`FREEZE`) | 1 beat, seen | stops | resumes |
-| 11 | Frozen pin, deep in the drum's face | P1 or P2 | pull (`PULL`) | 2 beats, frozen | last pin free | freeze runs out, repeat from row 9 |
-| 12 | With all three pins out the drum's face falls open | — | — | — | — | — |
+| 10 | The wheel now turns *away* from a mark that sits behind it — a full lap before it can hold | P1 | steer the long way round (`TURN`) | 6 beats, seen | holds | drifts off, tries again |
+| 11 | Freeze window, the shortest yet | P2 | tap (`FREEZE`) | 1 beat, seen | stops | resumes |
+| 12 | Frozen pin, deep in the drum's face | P1 or P2 | pull (`PULL`) | 2 beats, frozen | last pin free | freeze runs out, repeat from row 10 |
+| 13 | With all three pins out, the drum's face strains and hisses against the last seal, about to blow | P1 and P2, together | hold a chord on the face (`CHORD`) | 3 beats, seen | face opens wide and clean — the fight's finish | face blows open rough instead, one hull hit as the pressure escapes wrong |
 
-**THE SLOW** opens on every freeze window (rows 3, 7, 10) and every pull
-(rows 4, 8, 11) — the two beats a pair most needs slowed, since one thumb's
+**THE SLOW** opens on every freeze window (rows 3, 7, 11) and every pull
+(rows 4, 8, 12) — the two beats a pair most needs slowed, since one thumb's
 tap has to land inside a beat the other thumb cannot see coming any earlier
-than the wheel's own approach shows it.
+than the wheel's own approach shows it — and on row 13's held brace, the one
+beat that asks both hands to hold rather than either hand to race, so the
+fight's finish reads as a release the pair earns rather than the third pull
+simply looking the same as the first two.
 
 **Presentation.** No camera. Each freed pin is one hull-shock pulse; the
 drum's list deepens visibly, plate by plate, which is the hull's reaction
 standing in for a health bar that this boss, like every other, does not have.
+Row 13's hiss rises under the held chord and cuts to the wide-open shock the
+moment it lands, or drops into the rough single hit if it slips.
 
-**Animation.** Four poses: sealed and upright; listing one pin; listing two;
-face open. The wheel's turn is drawn continuously rather than as a snap
-between marks, and a frozen wheel visibly stops mid-turn rather than resetting
-to the mark — the stillness is the tell that the freeze landed.
+**Animation.** Five poses: sealed and upright; listing one pin; listing two;
+braced and shuddering under the held chord; face open. The wheel's turn is
+drawn continuously rather than as a snap between marks, and a frozen wheel
+visibly stops mid-turn rather than resetting to the mark — the stillness is
+the tell that the freeze landed. The two sparks read at visibly different
+severity off the same leak — thinner and lower after the first pin,
+wider and louder after the second — so the drum's own distress escalates
+before the brace ever asks for a hold.
 
 **Colour.** Drum iron grey; the wheel's mark and the pin's socket both plain
 white — nothing here is colour-gated, since either seat may take the pull.
 
-**Payoff.** Row 9's long way round, where the pattern the first two movements
-taught (turn toward a visible mark) is broken on purpose the one time the
-boss can afford to.
+**Payoff.** Row 10's long way round, where the pattern the first two
+movements taught (turn toward a visible mark) is broken on purpose the one
+time the boss can afford to — and row 13, the fight's other payoff, where
+three movements of racing a freeze end on the one beat that asks the pair to
+simply hold still together.
 
 **Cost. Medium.** `BearingDrag` is shipped; `FreezeTap` is new and is the one
 genuinely new verb on either brief — `tools/director/test/on-field-controls.test.ts`'s
 exhaustive switch is where it is added, so the compiler is the checklist.
+Row 13 adds one boolean read off `CHORD`, already built for THE TRIVET, THE
+GRINDSTONE, THE HALTER, THE WINCH, THE GOVERNOR and THE MANTLE — no new
+primitive.
 
 **Reusable.** `FreezeTap` itself, finally spent — as a press read on its edge
 on `valvePin` (`sim/valve-hand.ts`), not a `Hold` kind — and available to any later
