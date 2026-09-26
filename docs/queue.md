@@ -2152,3 +2152,18 @@ SLOW, Presentation, Animation (five poses to six), Colour, Payoff and Cost
 sections are updated to match; one new boolean for row 11's hold. `bun run
 check` proves the sim half; the sixth pose is a look task, queued
 separately once this lane lands.
+
+## Unverified at 4b5e7e87c: GRAPHICS → EFFECTS: the five buttons, and each page op…
+
+- **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
+- **Files:** `docs/INDEX.md`, `docs/time-log.md`, `packages/hands/src/boss-hands-snake-grid.ts`, `packages/hands/src/boss-hands-snake.ts`, `packages/render/src/slow-crawl.ts`, `packages/render/src/slow-fuse.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/slow-intake.ts`
+
+2 commits landed, ending in *SNAKE's hand plans on flat arrays, and SHED's pose builds in a tenth of the time*, from a session that could not look at it. The commit touched 18 more files. What went unchecked:
+
+- GRAPHICS → EFFECTS: the five buttons, and each page opening in a new tab, seen by an eye
+- THE SLOW's CRAWL light watched at tempo in the game (wave with THE SLOW), over the prism and under the fuse
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

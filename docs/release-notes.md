@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · 4b5e7e87c — SNAKE's hand plans on flat arrays, and SHED's pose builds in a tenth of the time
+
+The hand that plays SNAKE for the director's poses replanned its path every tick with string keys and a scan of every rock, enemy and body tile for each tile it asked about. At fifteen tiles of body that was 2 ms a tick, and the SHED pose took four and a half seconds to build, twice per test, so it timed out whenever its shard shared the machine. The arena is now laid out once per call as flat arrays, and the search runs over numbered states. It sends the same commands on every one of 22,500 ticks of SNAKE, checked side by side against the old hand, twelve times faster.
+
+## 2026-09-26 · 2d697edcc — THE SLOW's light is CRAWL; every other slow:light answer is kept on GRAPHICS → EFFECTS
+
+Sparks now leave the edge of the screen as long cold streaks during THE SLOW's window. They brake as they near the boss, shorten to points, warm to red and bank up into a rim just off its skin. This replaces the one-speed streams, still over the prism and under the fuse. The streams and the three answers that lost to CRAWL (ARRIVE, FREEZE, HORIZON) are kept, together with CRAWL itself, marked as the one in the game, in a new EFFECTS view on the director's NOT BUILT YET → GRAPHICS page. Each button opens that effect alone and live in a new tab, on the pose it was judged on, for building boss effects from.
+
 ## 2026-09-26 · f1a5426ba — THE OCULUS answers a thumb: each seat holds its own half of the lens
 
 A press on the left half of THE OCULUS's lens is the pilot's leaf and on the right half the navigator's, by geometry, on both phones; the other seat's thumb there falls through. The press is sent held and the lift lets go, from the drop into frame until the lens shatters, so a pair of thumbs laid on early is counted from the first beat. The ghost thumb stands on a half only while its leaf is held, and the director's on-field controls tab lists both.

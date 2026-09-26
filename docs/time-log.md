@@ -23408,3 +23408,5 @@ opens on its own, since VERSUS only knows how to show two sides of a slot.
 
 Bottleneck: landing — the red test that stopped the previous lane's `land`
 was this one, so the fix came before that lane could go in.
+
+*Measured: 25 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
