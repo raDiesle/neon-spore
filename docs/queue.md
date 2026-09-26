@@ -2506,13 +2506,14 @@ landed in (`render/trivet-grip.ts`, `render/chord.ts`,
 on ON THE FIELD. **AUTO's hand landed the same day** (`hands/boss-hands-trivet.ts`,
 `director/test/autopilot-trivet.test.ts`, the STATES sheet's four poses),
 and **THE SLOW's aim** after it: the light stands round the hub, as wide as
-the feet reach (`render/slow-boss-aim.ts`, `trivetReach`).
-What is left, in lanes: **the fx**, in
+the feet reach (`render/slow-boss-aim.ts`, `trivetReach`), and **the
+cue's words**: HOLD on each foot a lit chord asks for until it is down, FIRE
+under the middle column while the hub is lit (`render/boss-cue-read-zg.ts`).
+What is left is one lane, **the fx**, in
 `Effects` and cleared in `reset()` — a foot's plant thud and its clamp, the
 hub's hit flash and the collapse, the twelve `trivet*` events off the two
-silent lists as each gets its burst, and row 11's ring under the spent hub;
-and **the cue's words** (HOLD on the lit foot, FIRE under the middle column
-while the hub is lit). Unverified at tempo until the owner has looked.
+silent lists as each gets its burst, and row 11's ring under the spent hub.
+Unverified at tempo until the owner has looked.
 
 ## `queue next` hands out a DEFERRED entry
 

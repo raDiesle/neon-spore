@@ -24602,3 +24602,17 @@ surface as a red check well after the drawing is finished.
 Bottleneck: writing — placing the icicle in the lens's frame so its sight lands on the hull under its own column.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE TRIVET's cue says HOLD and FIRE (claude/hopeful-bardeen-5pqz0e)
+
+- reading: 5 min. THE VISE's cue page and its test, and `sim/trivet.ts` for
+  when a chord is held.
+- writing: 10 min. `boss-cue-read-zh.ts`, its case, the test and the status
+  lines.
+- looking: 0 min. Two words on the field; not photographed from a cloud
+  session.
+- friction: 5 min. THE RIME landed page thirty-three first; the page moved
+  to `zh` and its seeds to 141–143.
+- landing: 10 min. `check:fast`, the commit, `land`, `push`.
+
+Bottleneck: landing — the full suite for one page of reading.

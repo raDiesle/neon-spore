@@ -8930,8 +8930,13 @@ sockets two millimetres apart cannot be told apart under a thumb
 with a ghost thumb on a foot while any of its pads is down. **THE SLOW's
 aim stands on it** (26 September 2026): the light stands round the hub, as
 wide as a planted foot's plate reaches (`trivetReach`), so it stops short of
-the legs rather than running across them (`render/slow-boss-aim.ts`). The
-receipts and the cue's words are queued — the render package's silent-event lists and
+the legs rather than running across them (`render/slow-boss-aim.ts`). **The
+cue says two words** (26 September 2026): `HOLD` on each foot a lit chord
+asks for, on the foot as its leg has it swung, gone once every lit pad is
+down and back if one lifts, and `FIRE` under the middle column while the
+hub is lit — never how many fingers, which the lit sockets say
+(`render/boss-cue-read-zg.ts`). The receipts are queued — the render
+package's silent-event lists and
 `tools/director/src/sound-link-none-d.ts` carry all twelve of its events
 until then. The twelve sounds *are* bound
 (`audio/src/bind-trivet.ts`), heard where they happen, the plant pitched up
