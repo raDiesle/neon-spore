@@ -1894,6 +1894,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §29 THE RIME — a revised simulation lane, a film left to crack alone
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-26, claude/queue-28-the-vise-a-revised-simulation-lane-a-kernel-l (claim: claude/queue-29-the-rime-a-revised-simulation-lane-a-film-lef)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
