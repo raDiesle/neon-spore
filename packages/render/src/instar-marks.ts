@@ -24,7 +24,7 @@ import {
   instarTogetherLeft,
 } from "./instar-together.js";
 import { drawInstarSwipe, instarTrack } from "./instar-track.js";
-import { drawInstarWord } from "./instar-word.js";
+import { drawInstarWord, type MarkRoom } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
@@ -127,10 +127,14 @@ export function drawInstarMarks(
   // How far the window has run moves a swept mark; what is left of it closes the ring.
   const along = instarThreat(s, beat, beatPhase);
   const left = 1 - along;
+  // Beside the ring, clear of the window ring at its widest.
+  const off = r * 3.1;
+  const rooms = step.marks.map((m) => markRoom(l, cfg, m, sway, along, r, off));
   step.marks.forEach((mark, i) => {
     const at = instarMarkPoint(l, mark, sway, along);
     const mine = instarMarkIsMine(role, mark.seat);
-    // Beside the ring, clear of the window ring at its widest, away from the middle.
+    // Away from the middle, and never over the step's other marks.
+    const room = { own: rooms[i] as MarkRoom, avoid: rooms.filter((_, j) => j !== i) };
     const side = mark.xMilli < 500 ? -1 : 1;
     if (instarMarkDone(s, i)) {
       drawInstarDone(
@@ -157,8 +161,7 @@ export function drawInstarMarks(
         const t = instarTrack(at.x, at.y, r, (l.tile * cfg.instarSwipeMilli) / 1000);
         drawInstarSwipe(ctx, t, r, mine, held, along, time, awaited, left);
         const mid = (t.top + t.bottom) / 2;
-        const off = r * 3.1;
-        drawInstarWord(ctx, l, word, at.x + side * off, mid, side, mine, kind, at.x - side * off);
+        drawInstarWord(ctx, l, word, at.x + side * off, mid, side, mine, kind, room);
         drawVerdict(ctx, verdicts, i, at.x, at.y, r);
         return;
       }
@@ -166,11 +169,29 @@ export function drawInstarMarks(
       drawInstarRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
       if (!mine) drawInstarTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);
-      const off = r * 3.1;
-      drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, at.x - side * off);
+      drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
     }
     drawVerdict(ctx, verdicts, i, at.x, at.y, r);
   });
+}
+
+/** The room a mark takes this frame: its ring, or a swipe's whole track, and
+ * `off` round it — what a word beside another mark may not cover. */
+function markRoom(
+  l: Layout,
+  cfg: SimConfig,
+  mark: InstarMark,
+  sway: { xMilli: number; yMilli: number },
+  along: number,
+  r: number,
+  off: number,
+): MarkRoom {
+  const at = instarMarkPoint(l, mark, sway, along);
+  const bottom =
+    mark.gesture === "swipeDown"
+      ? instarTrack(at.x, at.y, r, (l.tile * cfg.instarSwipeMilli) / 1000).bottom
+      : at.y;
+  return { left: at.x - off, right: at.x + off, top: at.y - off, bottom: bottom + off };
 }
 
 /** The verdict goes over the ring, the track's top or the dot, whichever this

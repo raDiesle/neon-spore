@@ -22214,3 +22214,16 @@ real-device work instead — the actual `bun run perf` run never happened this
 lane, only the entry that hands it to a local session by name.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's word box never covers the partner's ring
+
+- reading: 5 min. `instar-word.ts`, its two callers in `instar-marks.ts`, the
+  window ring's widest radius and the sway's reach.
+- writing: 10 min. A room per mark, four places tried in order, the test on
+  a phone layout.
+- looking: 5 min. Two frames of the lash step, before and after.
+- friction: 5 min. The first frame came after the wave was already lost, since
+  a written `act` phase strikes four beats after tick 0; `--ticks 280` caught it.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — finding the tick the lash step is still on screen.

@@ -813,21 +813,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE INSTAR's word box flips onto the partner's ring near an edge
-
-- **Found:** 2026-09-26, claude/queue-the-instar-lash-a-tail-that-sweeps-rather-than-s
-- **Taken:** 2026-09-26, claude/happy-babbage-ilb1n9 (claim: claude/queue-the-instars-word-box-flips-onto-the-partners-rin)
-- **Files:** `packages/render/src/instar-word.ts`, `packages/render/src/instar-marks.ts`
-
-`drawInstarWord` hangs a mark's box outward, away from the middle, and flips
-it to the ring's inner side when the outer side has no room. Near an edge —
-the sway's far end, and now the lash's sweep, which carries player 1's blade
-to 270 before the sway — the flipped box lands on the partner's ring, 240
-thousandths across: the P1 lash box covers P2's ring (`bun run frames . --wave
-"THE INSTAR"` with the lash step, `--until-on 280`). This is a fix, not a
-look: stand the box above or below its ring when neither side is clear of
-the other ring, and pin it in `packages/render/test/instar-word.test.ts`.
-
 ## Other bosses' plates are still lifes the same way THE INSTAR's were
 
 - **Found:** 2026-09-26, queue-boss-depth-wobble-beyond-instar

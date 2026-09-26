@@ -64,6 +64,26 @@ function halfWidth(ctx: CanvasRenderingContext2D, l: Layout, word: string, kind?
 }
 
 /**
+ * The room a mark takes on the glass: its window ring at its widest, or its
+ * track, and the margin the word keeps from either, in pixels.
+ */
+export interface MarkRoom {
+  readonly left: number;
+  readonly right: number;
+  readonly top: number;
+  readonly bottom: number;
+}
+
+/**
+ * Where a box beside a mark may go: the mark's own room, which it hangs off,
+ * and the rooms of the step's other marks, which it may never cover.
+ */
+export interface WordRoom {
+  readonly own: MarkRoom;
+  readonly avoid: readonly MarkRoom[];
+}
+
+/**
  * **The word beside a mark**: `x` is the box's near edge and `side` the way
  * it hangs off it, clamped to the glass.
  *
@@ -75,6 +95,15 @@ function halfWidth(ctx: CanvasRenderingContext2D, l: Layout, word: string, kind?
  * breathing room. A box too wide even for that is centred, which is the
  * honest picture of a label that does not fit; the old clamp pushed it off
  * the right edge instead, by exactly the amount it did not fit.
+ *
+ * **Given a `room`, the box goes to the first place that fits the glass and
+ * covers no other mark**: its own side, the mark's other side, below the
+ * mark, above it. The other side alone was the fix for a box pushed back over
+ * its own mark at an edge (24 September 2026), and near an edge that is the
+ * side the partner's ring is on: the lash's sweep carries player 1's blade to
+ * 270 thousandths with player 2's 240 across, and the flipped box stood on
+ * player 2's ring. Below comes before above because above a mark is the body
+ * it is on. When nowhere is clear the box stands where it always did.
  */
 export function drawInstarWord(
   ctx: CanvasRenderingContext2D,
@@ -87,17 +116,39 @@ export function drawInstarWord(
   /** The action's grammar, over the verb — one of `boss-cue.ts`'s `CueKind`
    * strings. Left out for a call that names a seat rather than an action. */
   kind?: string,
-  /** The near edge on the mark's other side, to hang the box off instead
-   * when this side has no room for it. */
-  other?: number,
+  room?: WordRoom,
 ): void {
   const half = halfWidth(ctx, l, word, kind) + l.tile * INSET_TILES;
   const at = (edge: number, way: number): number =>
     half * 2 >= l.width ? l.width / 2 : Math.min(Math.max(edge + way * half, half), l.width - half);
   const here = at(x, side);
-  const fits = (edge: number, way: number): boolean => at(edge, way) === edge + way * half;
-  const cx = other === undefined || fits(x, side) || !fits(other, -side) ? here : at(other, -side);
-  paint(ctx, l, word, kind, cx, y, mine);
+  if (room === undefined) {
+    paint(ctx, l, word, kind, here, y, mine);
+    return;
+  }
+  const hh = halfHeight(l, word, kind);
+  const { own } = room;
+  const mid = at((own.left + own.right) / 2, 0);
+  const other = side > 0 ? own.left : own.right;
+  const places: readonly (readonly [number, number, boolean])[] = [
+    [here, y, here === x + side * half],
+    [at(other, -side), y, at(other, -side) === other - side * half],
+    [mid, own.bottom + hh, own.bottom + hh * 2 <= l.height],
+    [mid, own.top - hh, own.top - hh * 2 >= 0],
+  ];
+  const clear = (cx: number, cy: number): boolean =>
+    room.avoid.every(
+      (a) => cx + half <= a.left || cx - half >= a.right || cy + hh <= a.top || cy - hh >= a.bottom,
+    );
+  const place = places.find(([cx, cy, fits]) => fits && clear(cx, cy)) ?? [here, y];
+  paint(ctx, l, word, kind, place[0], place[1], mine);
+}
+
+/** Half the box's height, one line or two — `paint`'s own box. */
+function halfHeight(l: Layout, word: string, kind?: string): number {
+  const h = l.tile * FONT_TILES;
+  const blockH = saysKind(kind, word) ? l.tile * KIND_TILES + l.tile * KIND_GAP_TILES + h : h;
+  return blockH / 2 + h * 0.45 * 0.6;
 }
 
 function paint(
