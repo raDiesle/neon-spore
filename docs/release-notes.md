@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · f12aae1a — poses.test.ts: raise the idle-cost budget for pose count growth
+
+Found while landing an unrelated lane: the gallery grew from 210 to 261 poses since this test's timeout was tuned, and its own idle cost on a quiet cloud container now measures 9.7s against the 8s the old constant allowed. Not a flake — the arithmetic genuinely grew. Raised the idleMs argument from 1_000 to 1_300.
+
+## 2026-09-26 · b643fd1c — Spec five more choreographed bosses, both screens reading the same picture
+
+DavidDe asked for more of what THE INSTAR is: easy to follow, no tutorial needed, at least ten steps each with a required action and THE SLOW, heavy on the boss's own body but with the standard controls allowed back in for a specific sequence such as firing — and, new against the two earlier briefs, both screens showing the same thing at the same time rather than splitting information between seats.
+
 ## 2026-09-26 · e21cb86d7 — A slow window says whether it asks for something, and only an ask gets a fuse
 
 Every `openSlow` now names its kind: "ask" when the window waits on a player (a step, a catch, a lance to fill), "show" when it only lets a moment be seen (an eversion, a swallow, a fall). The world carries it as `slowAsks`, hashed, and the fuse is drawn on an ask alone instead of on any window long enough. THE SCUTTLE's four-beat wind-up gains the fuse; THE THROAT's and THE SURGE's eversions lose it. Exemption: a fix to something wrong rather than unlovely — the fuse counted down on windows where nothing could be done.
