@@ -22729,3 +22729,17 @@ Bottleneck: looking — the front view is only seen during the breath, washed
 in its light, so every detail of it is judged through the glare.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE KEEL's grip: a tap on the lit joint's ring
+
+- reading: 10 min. THE MANTLE's grip, its handle placement, its director row
+  and pose, and how `keelHeard` refuses the wrong seat.
+- writing: 30 min. The segments put in one place for the drawing and the
+  thumb, the ring's circle shared, the grip, its test, the director's row and
+  pose, the spec and controls rows.
+- looking: 0 min. Nothing drawn changes.
+- friction: 5 min. A test's command needed its tick, and the import sort.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the grip is short, but the seven places a boss's
+control is registered are found only from one another.

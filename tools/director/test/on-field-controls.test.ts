@@ -386,8 +386,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   mantleLeft: "field",
   mantleRight: "field",
   mantleCore: "field",
-  // THE KEEL: simulation lane only, no look yet.
-  keelJoint: "unbuilt",
+  // THE KEEL's lit joint, tapped by whoever's half it sits over — a seat
+  // read off where the joint is, so it moves (`render/keel-grip.ts`,
+  // `docs/spec/bosses.md` §11.41).
+  keelJoint: "field",
+  // THE VALVE: simulation lane only, no look yet.
   valveWheel: "unbuilt",
   valvePin: "unbuilt",
   // THE OCULUS, the same.

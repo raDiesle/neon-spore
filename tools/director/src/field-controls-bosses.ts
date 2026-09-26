@@ -12,6 +12,7 @@ import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
+import { KEEL_CONTROLS } from "./field-controls-keel.js";
 import { LEAD_CONTROLS } from "./field-controls-lead.js";
 import { LEDGER_CONTROLS } from "./field-controls-ledger.js";
 import { MANTLE_CONTROLS } from "./field-controls-mantle.js";
@@ -144,4 +145,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE MANTLE's two knobs and its core, the only boss here whose **both
   // screens draw both handles** (`field-controls-mantle.ts`).
   ...MANTLE_CONTROLS,
+  // THE KEEL's lit joint, whose seat moves with where it sits
+  // (`field-controls-keel.ts`).
+  ...KEEL_CONTROLS,
 ];

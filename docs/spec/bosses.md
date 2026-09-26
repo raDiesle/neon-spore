@@ -7717,6 +7717,12 @@ snapped straight (`render/keel-shape.ts`, `keel-pose.ts`, `keel-draw.ts`,
 the fx and the events off the silent lists, hurt, the cue's words and the
 autopilot hand.
 
+**The grip has landed** (26 September 2026). A tap inside the lit joint's ring
+is taken from either seat, on the circle the drawing puts there
+(`render/keel-grip.ts`). The seat the joint is not over is refused by the
+simulation, silently, rather than passed to the cannon behind the ring — THE
+MANTLE's core's rule. No ghost thumb: the tap is momentary.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

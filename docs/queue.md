@@ -477,9 +477,8 @@ into the roster. `bun run check` proves it.
 
 The body is drawn: the arch, the plates, the ring and the socket. What is
 left is everything a thumb or an event touches, THE MANTLE's half two in the
-same order. **The grip**: `keelJoint` answered at the lit segment
-`keel-shape.ts` puts on the screen, and `on-field-controls.test.ts`'s
-`keelJoint: "unbuilt"` row moved to built. **The fx**, in `Effects` and cleared
+same order. **The grip has landed** (`render/keel-grip.ts`, the director's
+row and pose, `keelJoint: "field"`). **The fx**, in `Effects` and cleared
 in `reset()`: the lock's snap (`keelLock`), the socket shutting (`keelShut`;
 `keelOpen` drops straight to 0 today), a miss, a slip, and the rock's and the
 missed socket's hull hits. The sixteen `keel*` events come off the two silent

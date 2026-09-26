@@ -10,7 +10,7 @@ import {
   type Point,
   type Seg,
 } from "./keel-shape.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -59,6 +59,16 @@ export function drawKeelSocket(
 }
 
 /**
+ * The ring round the joint at `at`: where it is drawn and the circle a thumb
+ * is answered in (`keel-grip.ts`). Moved in off the field's edge by as much as
+ * its widest breath and its stroke need, so an end joint's ring is whole.
+ */
+export function keelRingCircle(l: Layout, at: Point): Circle {
+  const r = keelRingRadius(l);
+  return { ...keelRingCentre(l, at, r * 1.05 + STROKE.outline), r };
+}
+
+/**
  * The lit joint: a white ring round its plate that breathes on the beat, and
  * the arc of it that is left of the window shrinking to nothing — so the tap
  * it asks for is seen, and so is how long is left to give it.
@@ -72,8 +82,8 @@ export function drawKeelRing(
   beat: number,
   beatPhase: number,
 ): void {
-  const r = keelRingRadius(l) * (1 + 0.05 * Math.cos(beatPhase * Math.PI * 2));
-  const c = keelRingCentre(l, at, keelRingRadius(l) * 1.05 + STROKE.outline);
+  const c = keelRingCircle(l, at);
+  const r = c.r * (1 + 0.05 * Math.cos(beatPhase * Math.PI * 2));
   const left = Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, keelWindowBeats(cfg, s)));
   const ring = new Path2D();
   ring.arc(c.x, c.y, r, 0, Math.PI * 2);

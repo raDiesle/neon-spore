@@ -1093,6 +1093,7 @@ by hand never moves.
 | `packages/render/src/keel-marks.ts` | **THE KEEL's marks**: the two things on the spine that say a gesture — the lit joint's ring |
 | `packages/render/src/keel-pose.ts` | **The clock THE KEEL is posed off** (§24, *Animation*): a loose |
 | `packages/render/src/keel-shape.ts` | **Where THE KEEL is**, in field pixels: six segments arched along the top of the field |
+| `packages/render/src/keel-grip.ts` | **The thumb on THE KEEL** — the first of its hands lanes |
 | `packages/render/src/light-shafts.ts` | SUN FALLING INTO DEEP WATER |
 | `packages/render/src/lobe.ts` | One lobe of the membrane, as a bump on the contour |
 | `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |
@@ -2321,6 +2322,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
+| `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2773,6 +2775,7 @@ by hand never moves.
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

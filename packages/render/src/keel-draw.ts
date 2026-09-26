@@ -8,18 +8,15 @@ import {
   keelBright,
   keelOpen,
   keelPulse,
-  keelRise,
   keelRockAlong,
-  keelSegPose,
+  keelSegs,
 } from "./keel-pose.js";
 import {
   keelPlatePath,
   keelRibsPath,
   keelRockPoint,
   keelSeamPath,
-  keelSegCentre,
   keelSegEnd,
-  keelSegSlope,
   type Point,
   type Seg,
 } from "./keel-shape.js";
@@ -60,13 +57,7 @@ export function drawKeel(
   const cfg = world.cfg;
   const n = s.locked.length;
   const arrived = keelArrived(s, cfg, beat, beatPhase);
-  const rise = keelRise(s, beat, beatPhase);
-  const lift = (1 - arrived) * 3 * l.tile;
-  const segs = s.locked.map((_, k) => ({
-    centre: keelSegCentre(l, cfg, k, n, rise, lift),
-    slope: keelSegSlope(l, cfg, k, n, rise),
-    pose: keelSegPose(s, cfg, k, beat, beatPhase),
-  }));
+  const segs = keelSegs(l, cfg, s, beat, beatPhase);
 
   ctx.save();
   ctx.globalAlpha = 0.2 + 0.8 * arrived;

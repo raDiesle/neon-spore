@@ -12,6 +12,7 @@ import { curtainHemAt } from "./curtain-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
 import { hiveHaulCircle } from "./hive-grip.js";
+import { keelJointCircle } from "./keel-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { mantleCoreCircle, mantleKnobStanding, mantleTakesPull } from "./mantle-grip.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
@@ -133,6 +134,12 @@ export function bossHandleCircle(
     // And the ring round its bared core, for as long as the finish runs.
     const b = world.boss?.kind === "mantle" ? world.boss : null;
     return b !== null && mantleFinale(b) ? mantleCoreCircle(l, cfg) : null;
+  }
+  if (target === "keelJoint") {
+    // THE KEEL's ring round the lit joint, round the segment as it hangs this
+    // frame. Null between joints, where no ring is drawn (`keel-grip.ts`).
+    const b = world.boss?.kind === "keel" ? world.boss : null;
+    return b === null ? null : keelJointCircle(l, cfg, b, world.beat, beatPhase);
   }
   return undefined;
 }

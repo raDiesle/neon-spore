@@ -1,6 +1,7 @@
 import { type KeelState, keelDone, keelThrown, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { RISE, type SegPose } from "./keel-shape.js";
+import { keelSegCentre, keelSegSlope, RISE, type Seg, type SegPose } from "./keel-shape.js";
+import type { Layout } from "./layout.js";
 
 /**
  * **The clock THE KEEL is posed off** (§24, *Animation*): a loose, faintly
@@ -140,4 +141,26 @@ export function keelRockAlong(
 ): number {
   if (!keelThrown(s)) return -1;
   return Math.min(1, Math.max(0, (beat - s.rockBeat + beatPhase) / Math.max(1, cfg.keelRockBeats)));
+}
+
+/**
+ * Every segment as it stands this frame: its place on the arch, lifted while
+ * the spine drops in, and its pose. The one copy the drawing and the thumb
+ * both read (`keel-draw.ts`, `keel-grip.ts`).
+ */
+export function keelSegs(
+  l: Layout,
+  cfg: SimConfig,
+  s: KeelState,
+  beat: number,
+  beatPhase: number,
+): Seg[] {
+  const n = s.locked.length;
+  const rise = keelRise(s, beat, beatPhase);
+  const lift = (1 - keelArrived(s, cfg, beat, beatPhase)) * 3 * l.tile;
+  return s.locked.map((_, k) => ({
+    centre: keelSegCentre(l, cfg, k, n, rise, lift),
+    slope: keelSegSlope(l, cfg, k, n, rise),
+    pose: keelSegPose(s, cfg, k, beat, beatPhase),
+  }));
 }

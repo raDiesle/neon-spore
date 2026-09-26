@@ -12,6 +12,7 @@ import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
 import { instarMarkUnder } from "./instar-mark-grip.js";
+import { keelJointUnder } from "./keel-grip.js";
 import type { Layout } from "./layout.js";
 import { leadStalkUnder } from "./lead-grip.js";
 import { ledgerGripUnder } from "./ledger-grip.js";
@@ -124,7 +125,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     ratchetCatchUnder(l, x, y, field) ?? // THE RATCHET's catch, the navigator's, carried down its rail (`ratchet-grip.ts`).
     ratchetPawlUnder(l, x, y, field) ?? // And its pawl, the pilot's, pressed on her SET (`ratchet-grip.ts`).
     mantleHandleUnder(l, x, y, field) ?? // THE MANTLE's knob on this seat's side, pulled down its groove (`mantle-grip.ts`).
-    mantleCoreUnder(l, x, y, field) // And the ring round its bared core, either seat's, in the finish (`mantle-grip.ts`).
+    mantleCoreUnder(l, x, y, field) ?? // And the ring round its bared core, either seat's, in the finish (`mantle-grip.ts`).
+    keelJointUnder(l, x, y, field) // THE KEEL's lit joint, either seat's tap, the wrong one refused by the simulation (`keel-grip.ts`).
   );
 }
 
