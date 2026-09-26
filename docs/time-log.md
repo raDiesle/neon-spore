@@ -21646,3 +21646,5 @@ a beat late from the next column, so the film is written against it.
 
 Bottleneck: the empty field — the first cut cleared the wave on page two and
 never reached the loss it was written to show.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

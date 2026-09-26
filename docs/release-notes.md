@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · fc9524dfb — THE LIMPET's guide is a film: the shield walked a column a beat, lost when it parks
+
+THE LIMPET's three strings are gone. Its guide is now a rehearsal: the limpet grips the shield, player 1 calls MOVE SHIELD, player 2 walks it to a new column every beat, and then the thumb stops and the round is lost to the still beats. Both are the simulation's own events (`clingGrip`, then `waveFailed`), and `test/scene-limpet.test.ts` holds that the loss follows the last move by the harpoon's still beats. A meteor due after the loop keeps the field from counting as cleared.
+
 ## 2026-09-26 · e484fbf32 — Queue: the still-life-wobble fix proven on THE INSTAR is boss-by-boss work
 
 A look the owner asked for by name, 26 September 2026 — depth and liveliness across the boss's graphics, starting with THE INSTAR, now landed in full (skull, body, tail, jaw, brow, front-body segments — four documented cases in docs/style-guide.md's "Depth on a body that already ships").
