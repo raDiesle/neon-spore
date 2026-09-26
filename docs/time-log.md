@@ -22638,3 +22638,20 @@ of them with the boss that landed first.
 Bottleneck: writing — the sign of each turn had to be pinned by a test before the demo could use it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE KEEL's body: the spine of six segments, drawn
+
+- reading: 15 min. THE KEEL's simulation and phases, THE MANTLE's shape, pose
+  and draw split, and the two drafts the silhouette is taken from.
+- writing: 45 min. Four render files, the window's beats lifted out of the
+  step so the ring can read it, the dispatcher's branch, a set-state frame
+  test, the drafts marked, the spec, the ledger and the half-two queue item.
+- looking: 10 min. One real frame: the end segments and the ring were
+  clipped by the field's edge, so the plates were shortened to one column
+  and the ring kept inside the field.
+- friction: 5 min. `--until keelSocket` never fires with no hands, and
+  `keel-draw.ts` crossed the size line and was cut in two.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — six gestures and eight phases is a body and its marks,
+which is two files before it is one.

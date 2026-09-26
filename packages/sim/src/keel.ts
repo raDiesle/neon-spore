@@ -1,3 +1,4 @@
+import type { SimConfig } from "./config.js";
 import { geometrySeat } from "./geometry-seat.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -118,6 +119,17 @@ export function keelLit(s: KeelState): boolean {
 /** Whether the tail's rock is in the air and there is something to shoot. */
 export function keelThrown(s: KeelState): boolean {
   return s.rockCol !== NO_ROCK;
+}
+
+/**
+ * The lit joint's window, by movement: long, shorter, at tempo. The clock
+ * judges a miss by it (`keel-step.ts`) and the picture closes the joint's ring
+ * over it (`render/keel-draw.ts`), one number.
+ */
+export function keelWindowBeats(cfg: SimConfig, s: KeelState): number {
+  if (s.movement === 1) return cfg.keelJointBeats;
+  if (s.movement === 2) return cfg.keelLastJointBeats;
+  return cfg.keelTempoBeats;
 }
 
 /** The spine snapped straight: the fight is over and it is only hanging. */

@@ -67,10 +67,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       seed: 1.9,
     }),
     motion: LURCH,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing carries it: converted from the capsule-shaped bodies in the same frame, which wear a fringe of fine hairs all round a rounded rectangle. It is deliberately the same form as THE RASP at more than twice the count and half the width, so the two differ in exactly the numbers that separate a spine from a hair, and the body under it is squared off rather than round — and standing them beside each other is how you find out whether that difference is visible on a phone or only in the source file",
+      "THE KEEL, taken 26 September 2026, combined with THE CANOPY: its squared-off lozenge is each of the spine's six segments, laid along THE CANOPY's arc, and its fringe is kept only on the underside and thinned to three ribs a plate (`render/keel-shape.ts`). The full fringe all round is not used. Before that, nothing carried it: converted from the capsule-shaped bodies in the same frame, which wear a fringe of fine hairs all round a rounded rectangle. It is deliberately the same form as THE RASP at more than twice the count and half the width, so the two differ in exactly the numbers that separate a spine from a hair, and the body under it is squared off rather than round — and standing them beside each other is how you find out whether that difference is visible on a phone or only in the source file",
   },
   {
     // The numbers are the game's since THE FILAMENT took it (`content/filament-look.ts`),
@@ -110,10 +110,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       // director's own pair view is for.
       gone: 2,
     }),
-    status: "free",
+    status: "taken",
     slot: "field",
     owner:
-      "nothing carries it: converted from the Galaxy Defense dome, the one object on that page the ask named by hand. What is worth taking is not that it is a shield — we have a shield — but that it is *faceted*, so how much is left is a shape rather than a brightness, and a pair can say which part of it is gone. Drawn with two facets already spent, because a barrier at full strength is just an arc and says nothing about the mechanic",
+      "THE KEEL, taken 26 September 2026, combined with THE BRISTLE: the faceted arc over the whole field is the spine, six facets each one of THE BRISTLE's lozenges, and how much of it has locked is a shape the arch tightens into (`render/keel-shape.ts`). The spent middle is not used — the spine's midpoint splits round a socket instead. Before that, nothing carried it: converted from the Galaxy Defense dome, the one object on that page the ask named by hand. What is worth taking is not that it is a shield — we have a shield — but that it is *faceted*, so how much is left is a shape rather than a brightness, and a pair can say which part of it is gone. Drawn with two facets already spent, because a barrier at full strength is just an arc and says nothing about the mechanic",
   },
   {
     subject: studded("THE SMART", "a rock that has been turned and is coming back onto its line", {

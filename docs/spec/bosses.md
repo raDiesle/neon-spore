@@ -7701,6 +7701,22 @@ fails the wave; and the fingerprint is deterministic and diverges on a
 different reprise. Whether any of it *reads* is the owner's eye, after lane
 two.
 
+**Half the look has landed** (26 September 2026): the body. THE CANOPY's
+faceted arc laid with THE BRISTLE's squared-off lozenges, one to a segment and
+each over its own column, with the fringe kept only underneath as three ribs a
+plate. Iron grey throughout. A loose segment is duller, sags and sways on its
+own count, and its ribs trail; a locked one is lit and rigid, with a thin white
+seam. The arch tightens as more of it locks. The lit joint is a white ring with
+the window's arc closing round it, and the ring is kept inside the field at the
+two ends. The midpoint hinges apart to show the two cut end-faces and a socket
+of the wave's colour, which flashes on the beat until it is shot. The tempo run
+dims every joint, and an answered one comes back up pulsing. Then comes the
+rigid hold, the tail's whip, the rock falling down its column, and the spine
+snapped straight (`render/keel-shape.ts`, `keel-pose.ts`, `keel-draw.ts`,
+`keel-marks.ts`). **Half two, the hands, is queued**: the grip on `keelJoint`,
+the fx and the events off the silent lists, hurt, the cue's words and the
+autopilot hand.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

@@ -37,6 +37,7 @@ export {
   keelSeat,
   keelSegCol,
   keelThrown,
+  keelWindowBeats,
   NO_JOINT,
   NO_ROCK,
 } from "./keel.js";

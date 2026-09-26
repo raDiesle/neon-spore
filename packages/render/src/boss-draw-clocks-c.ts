@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
 import { drawGimbal } from "./gimbal-draw.js";
 import { drawHasp } from "./hasp-draw.js";
+import { drawKeel } from "./keel-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMantle } from "./mantle-draw.js";
 import { drawRatchet } from "./ratchet-draw.js";
@@ -27,7 +28,7 @@ import { drawSpool } from "./spool-draw.js";
 type Installed = NonNullable<World["boss"]>;
 
 /** The kinds this file draws. Appended, like every list of boss kinds. */
-export const PAIR_KINDS = ["gimbal", "spool", "hasp", "ratchet", "mantle"] as const;
+export const PAIR_KINDS = ["gimbal", "spool", "hasp", "ratchet", "mantle", "keel"] as const;
 
 export type PairBoss = Extract<Installed, { kind: (typeof PAIR_KINDS)[number] }>;
 
@@ -97,5 +98,14 @@ export function drawPairBoss(
   // them — because the sum is the point (`mantle-draw.ts`). What outlives a
   // frame — the kick of a shear, the core's flare, the hull's shudder — is
   // `effects.boss.mantle` (`mantle-fx.ts`).
-  drawMantle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mantle);
+  if (boss.kind === "mantle") {
+    drawMantle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.mantle);
+    return;
+  }
+
+  // THE KEEL: a spine of six segments arched along the top of the field,
+  // locked rigid a joint at a time. Both screens are drawn the same — whose
+  // thumb a joint wants is which half it sits over, and both have to see it
+  // (`keel-draw.ts`). Nothing of it outlives a frame yet.
+  drawKeel(ctx, l, world, boss, beat, beatPhase, time);
 }

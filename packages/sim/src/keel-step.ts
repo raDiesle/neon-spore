@@ -7,6 +7,7 @@ import {
   keelSeat,
   keelSegCol,
   keelThrown,
+  keelWindowBeats,
   NO_JOINT,
   NO_ROCK,
 } from "./keel.js";
@@ -61,19 +62,11 @@ export function stepKeel(world: World, s: KeelState): void {
   }
   if (s.phase === "still" && since >= cfg.keelStillBeats) advance(world, s);
   else if (s.phase === "rest" && since >= cfg.keelRestBeats) advance(world, s);
-  else if (s.phase === "joint" && since >= windowBeats(world, s)) miss(world, s);
+  else if (s.phase === "joint" && since >= keelWindowBeats(world.cfg, s)) miss(world, s);
   else if (s.phase === "split" && since >= cfg.keelSplitBeats) flash(world, s);
   else if (s.phase === "socket" && since >= cfg.keelSocketBeats) socketHit(world, s);
   else if (s.phase === "rigid" && since >= cfg.keelRigidBeats) throwRock(world, s);
   else if (s.phase === "rock" && !keelThrown(s)) enter(world, s, "straight");
-}
-
-/** The lit joint's window, by movement: long, shorter, at tempo. */
-function windowBeats(world: World, s: KeelState): number {
-  const cfg = world.cfg;
-  if (s.movement === 1) return cfg.keelJointBeats;
-  if (s.movement === 2) return cfg.keelLastJointBeats;
-  return cfg.keelTempoBeats;
 }
 
 function enter(world: World, s: KeelState, phase: KeelState["phase"]): void {
@@ -120,7 +113,7 @@ function light(world: World, s: KeelState, seg: number): void {
   s.phase = "joint";
   s.phaseBeat = world.beat;
   s.joint = seg;
-  if (s.movement !== 3) openSlow(world, windowBeats(world, s), "ask");
+  if (s.movement !== 3) openSlow(world, keelWindowBeats(world.cfg, s), "ask");
   const col = keelSegCol(seg, s.locked.length, cfg.cols);
   world.events.push({ type: "keelLight", seg, seat: keelSeat(s, cfg.cols) ?? 0, col });
 }

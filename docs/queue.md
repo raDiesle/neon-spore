@@ -468,19 +468,24 @@ its own nettle-fx.ts under effects-boss, the way other choreographed
 bosses split their strikes and death out of the shared engine, and wire it
 into the roster. `bun run check` proves it.
 
-## §24 THE KEEL — the look
+## §24 THE KEEL — its hands, the second half of its look
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (claim: claude/queue-24-the-keel-the-look)
-- **Needs:** §24 THE KEEL's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Needs:** §24 THE KEEL — the look, half one (the body), landed first
+- **Files:** `packages/render/src/keel-marks.ts`, `packages/render/src/keel-shape.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/test/on-field-controls.test.ts`, `apps/game/src/`
 
-Lane two: six segments locking rigid one at a time out of a loose, swaying
-rest pose — independent joints rather than one body morphing whole, the one
-place this batch's bodies depart from THE INSTAR's single-figure blend on
-purpose. The moving tap mark is the cue; the midpoint socket of movement 2 is
-the one standard-control moment. Nothing here is drawn yet and stays
-unverified at tempo until the owner has looked.
+The body is drawn: the arch, the plates, the ring and the socket. What is
+left is everything a thumb or an event touches, THE MANTLE's half two in the
+same order. **The grip**: `keelJoint` answered at the lit segment
+`keel-shape.ts` puts on the screen, and `on-field-controls.test.ts`'s
+`keelJoint: "unbuilt"` row moved to built. **The fx**, in `Effects` and cleared
+in `reset()`: the lock's snap (`keelLock`), the socket shutting (`keelShut`;
+`keelOpen` drops straight to 0 today), a miss, a slip, and the rock's and the
+missed socket's hull hits. The sixteen `keel*` events come off the two silent
+lists as each gets its burst. **Hurt**, **the cue's words** (PRESS on the lit
+joint, FIRE on the socket), **the autopilot hand**, and the STATES poses, OWED
+and NO_HAND rows the other bosses carry. `keel-shape.ts` is at 238 lines, so
+the grip's hit test goes in a file of its own.
 
 ## §25 THE VALVE — the look
 
