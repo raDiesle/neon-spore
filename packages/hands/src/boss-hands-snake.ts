@@ -11,6 +11,7 @@ import {
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
+import { DIRS, type Dir, type Grid, gridOf, wouldHit } from "./boss-hands-snake-grid.js";
 import type { Hand } from "./hand.js";
 
 /**
@@ -21,7 +22,7 @@ import type { Hand } from "./hand.js";
  * touch, rather than a hand that merely points and hopes. `snakeEnemyAt`,
  * `snakeRockAt`, `snakeOnBoard`, `snakeOccupies` and `fireSnake` are not on
  * `@neon-spore/sim`'s public surface (`boss-surface-snake.ts` names what is),
- * so the small grid rules below are this file's own, built only from what is
+ * so the small grid rules are this package's own (`boss-hands-snake-grid.ts`), built only from what is
  * — `SnakeRound`'s own lists, `SnakeState.struck`, `snakePointAt` and
  * `snakeShotStop`, both exported.
  *
@@ -36,130 +37,111 @@ import type { Hand } from "./hand.js";
  */
 
 type Press = Omit<TimedCommand, "tick">;
-type Dir = { dc: -1 | 0 | 1; dr: -1 | 0 | 1 };
-const DIRS: Dir[] = [
-  { dc: 0, dr: -1 },
-  { dc: 1, dr: 0 },
-  { dc: 0, dr: 1 },
-  { dc: -1, dr: 0 },
-];
-
-function key(col: number, row: number, dc: number, dr: number): string {
-  return `${col},${row},${dc},${dr}`;
-}
 
 /** The heading after a queued turn, the way `snake-move.ts`'s own `turned` reads. */
 function turnedDir(dc: number, dr: number, turn: -1 | 0 | 1): Dir {
-  const idx = DIRS.findIndex((d) => d.dc === dc && d.dr === dr);
-  const next = DIRS[(idx + turn + 4) % 4];
+  const next = DIRS[(dirIndex(dc, dr) + turn + 4) % 4];
   if (!next) throw new Error("a heading this package does not have");
   return next;
 }
 
-function liveEnemyAt(round: SnakeRound, struck: number[], col: number, row: number): boolean {
-  return round.enemies.some((t, i) => t.col === col && t.row === row && !struck.includes(i));
-}
-
-/** A rock, a standing enemy, or the body — mirrors `snake-arena.ts`'s `snakeOccupies`. */
-function occupied(
-  round: SnakeRound,
-  struck: number[],
-  body: SnakeTile[],
-  grow: number,
-  col: number,
-  row: number,
-): boolean {
-  if (round.rocks.some((t) => t.col === col && t.row === row)) return true;
-  if (liveEnemyAt(round, struck, col, row)) return true;
-  const spareTail = grow === 0;
-  for (let i = 0; i < body.length; i++) {
-    if (spareTail && i === body.length - 1) continue;
-    const t = body[i];
-    if (t && t.col === col && t.row === row) return true;
-  }
-  return false;
-}
-
-/** Whether firing from `(col, row, dc, dr)` would find a standing enemy — mirrors `snakeShotStop`. */
-function wouldHit(
-  round: SnakeRound,
-  struck: number[],
-  body: SnakeTile[],
-  grow: number,
-  cfg: World["cfg"],
-  col: number,
-  row: number,
-  dc: number,
-  dr: number,
-): boolean {
-  let c = col;
-  let r = row;
-  for (let reach = 0; reach < cfg.snakeShotTiles; reach++) {
-    c += dc;
-    r += dr;
-    if (c < 0 || r < 0 || c >= cfg.snakeCols || r >= cfg.snakeRows) return false;
-    if (liveEnemyAt(round, struck, c, r)) return true;
-    if (round.rocks.some((t) => t.col === c && t.row === r)) return false;
-    if (occupied(round, [], body, grow, c, r)) return false;
-  }
-  return false;
+function dirIndex(dc: number, dr: number): number {
+  return DIRS.findIndex((d) => d.dc === dc && d.dr === dr);
 }
 
 /**
  * The turn to send this tick, or `null` when nothing reachable is worth
  * reaching — the head's own state counts, so a hand already aimed or already
  * standing on a point returns straight-on rather than circling for one.
+ *
+ * A state is `(tile * 4 + heading)`, a number, and the queue is an array read
+ * from a moving front: the search visits the same states in the same order it
+ * did with string keys and `shift`, so it chooses the same turns.
  */
 function bfsFirstTurn(w: World, s: SnakeState, round: SnakeRound): -1 | 0 | 1 | null {
   const head = s.body[0];
   if (!head) return null;
-  const start = key(head.col, head.row, s.dirCol, s.dirRow);
-  const prev = new Map<string, { turn: -1 | 0 | 1; from: string } | null>();
-  prev.set(start, null);
-  const queue: string[] = [start];
+  const g = gridOf(w, s, round);
+  const { cols, rows } = g;
+  const reachTiles = w.cfg.snakeShotTiles;
   // A cleared arena has one goal left, the mouth in the floor (`snake-home.ts`).
   const home = snakeGoingHome(s);
   const gate = snakeGate(w.cfg);
-  const atGate = (col: number, row: number): boolean =>
-    home && col === gate.col && row === gate.row;
-  const isGoal = (col: number, row: number, dc: number, dr: number): boolean =>
+  const isGoal = (col: number, row: number, d: Dir): boolean =>
     home
-      ? atGate(col, row)
-      : snakePointAt(s, col, row) !== -1 ||
-        wouldHit(round, s.struck, s.body, s.grow, w.cfg, col, row, dc, dr);
-  let goal = isGoal(head.col, head.row, s.dirCol, s.dirRow) ? start : null;
-  while (queue.length > 0 && goal === null) {
-    const cur = queue.shift();
-    if (cur === undefined) break;
-    const [col, row, dc, dr] = cur.split(",").map(Number) as [number, number, number, number];
+      ? col === gate.col && row === gate.row
+      : (row >= 0 && row < rows && col >= 0 && col < cols && g.point[row * cols + col] === 1) ||
+        wouldHit(g, reachTiles, col, row, d);
+  const headDir = dirIndex(s.dirCol, s.dirRow);
+  const headDirOf = DIRS[headDir];
+  if (!headDirOf) return null;
+  if (isGoal(head.col, head.row, headDirOf)) return 0;
+  // Below the gate on its way home, the one step the grid does not hold is
+  // back up onto the gate itself.
+  if (head.row > rows) return turnOntoGate(g, head, headDir, home, gate);
+
+  const states = cols * (rows + 1) * 4;
+  const from = new Int32Array(states).fill(-2);
+  const turnOf = new Int8Array(states);
+  const start = (head.row * cols + head.col) * 4 + headDir;
+  from[start] = -1;
+  const queue = new Int32Array(states);
+  let front = 0;
+  let back = 0;
+  queue[back++] = start;
+  let goal = -1;
+  while (front < back && goal === -1) {
+    const cur = queue[front++] as number;
+    const cell = cur >> 2;
+    const col = cell % cols;
+    const row = (cell - col) / cols;
     for (const turn of [0, -1, 1] as const) {
-      const nd = turnedDir(dc, dr, turn);
+      const nd = DIRS[((cur & 3) + turn + 4) % 4] as Dir;
       const nc = col + nd.dc;
       const nr = row + nd.dr;
-      const off = nc < 0 || nr < 0 || nc >= w.cfg.snakeCols || nr >= w.cfg.snakeRows;
-      if (off && !atGate(nc, nr)) continue;
-      if (occupied(round, s.struck, s.body, s.grow, nc, nr) && snakePointAt(s, nc, nr) === -1)
-        continue;
-      const nk = key(nc, nr, nd.dc, nd.dr);
-      if (prev.has(nk)) continue;
-      prev.set(nk, { turn, from: cur });
-      queue.push(nk);
-      if (isGoal(nc, nr, nd.dc, nd.dr)) {
+      const off = nc < 0 || nr < 0 || nc >= cols || nr >= rows;
+      const atGate = home && nc === gate.col && nr === gate.row;
+      if (off && !atGate) continue;
+      const i = nr * cols + nc;
+      if (g.blocked[i] && !g.point[i]) continue;
+      const nk = i * 4 + (((cur & 3) + turn + 4) % 4);
+      if (from[nk] !== -2) continue;
+      from[nk] = cur;
+      turnOf[nk] = turn;
+      queue[back++] = nk;
+      if (isGoal(nc, nr, nd)) {
         goal = nk;
         break;
       }
     }
   }
-  if (goal === null) return null;
+  if (goal === -1) return null;
   let cur = goal;
   let firstTurn: -1 | 0 | 1 = 0;
-  for (;;) {
-    const p = prev.get(cur);
-    if (p === null || p === undefined) break;
-    firstTurn = p.turn;
-    cur = p.from;
+  while ((from[cur] as number) >= 0) {
+    firstTurn = turnOf[cur] as -1 | 0 | 1;
+    cur = from[cur] as number;
   }
   return firstTurn;
+}
+
+/** The first turn, in the search's own order, that steps onto an open gate. */
+function turnOntoGate(
+  g: Grid,
+  head: SnakeTile,
+  headDir: number,
+  home: boolean,
+  gate: SnakeTile,
+): -1 | 0 | 1 | null {
+  if (!home) return null;
+  for (const turn of [0, -1, 1] as const) {
+    const nd = DIRS[(headDir + turn + 4) % 4] as Dir;
+    if (head.col + nd.dc !== gate.col || head.row + nd.dr !== gate.row) continue;
+    const i = gate.row * g.cols + gate.col;
+    if (g.blocked[i] && !g.point[i]) continue;
+    return turn;
+  }
+  return null;
 }
 
 /**

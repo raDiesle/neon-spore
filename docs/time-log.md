@@ -23394,3 +23394,17 @@ Bottleneck: none — a direct revision of an existing section is faster than dra
 
 Bottleneck: writing — the kept effects had to become something the director
 opens on its own, since VERSUS only knows how to show two sides of a slot.
+
+## 2026-09-26 — SNAKE's hand searches flat arrays, and SHED's pose builds in a tenth of the time
+
+- reading: 5 min. Which pose was slow, and that the hand, not the
+  simulation, was nine-tenths of it.
+- writing: 15 min. The grid built once per call, the numeric search, the
+  split into `boss-hands-snake-grid.ts`.
+- looking: 0 min. Nothing drawn changes — the hand sends the same commands.
+- friction: 0 min.
+- landing: 10 min. A throwaway test running old and new hand side by side on
+  22,500 ticks of SNAKE, `check:fast`, the commit.
+
+Bottleneck: landing — the red test that stopped the previous lane's `land`
+was this one, so the fix came before that lane could go in.
