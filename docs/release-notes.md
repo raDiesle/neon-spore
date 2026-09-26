@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · cfbd51983 — Queue THE CYST watched at tempo on two phones
+
+The look landed with its states set in tests and one still frame seen; a full fight played by hand on both phones is the check left.
+
 ## 2026-09-26 · d30a4b113 — §33 THE GRINDSTONE: the body — THE SMART's wheel ground flat and THE HOOD's caliper biting
 
 Wave 112 is drawn. THE SMART's studded stone stands on its axle over the middle column. Each flat is cut deeper for every pass, and a patch of it is ground clean of grit. THE HOOD's caliper is split into two jaws on one bolt: they swing shut as a clamp is held, and creep loose once bitten. The axle is lit in the shot's colour, and the wheel turns edge-on as it falls free. Effects, cue words, the touch sender and an autopilot hand are queued separately. Exemption: a look with no shipped alternative.
