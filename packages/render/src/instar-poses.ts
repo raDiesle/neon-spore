@@ -1,4 +1,5 @@
 import { type InstarMark, type InstarPose, instarPanel } from "@neon-spore/sim";
+import { fourthAct } from "./instar-poses-fourth.js";
 import { secondAct } from "./instar-poses-second.js";
 import { thirdAct } from "./instar-poses-third.js";
 import type { Figure } from "./instar-shape.js";
@@ -150,6 +151,7 @@ export const POSES: Record<InstarPose, Figure> = {
   },
   ...secondAct(BREATH),
   ...thirdAct(BREATH),
+  ...fourthAct(BREATH),
 };
 
 /** Beaten: side-on, sagging, the eyes shut, the wings folded, the tail down. */

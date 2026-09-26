@@ -12,6 +12,13 @@ import {
   INSTAR_MOULT,
 } from "./instar-script-first.js";
 import {
+  INSTAR_ARCH,
+  INSTAR_BOW,
+  INSTAR_HOVER,
+  INSTAR_LOOM,
+  INSTAR_RISE,
+} from "./instar-script-fourth.js";
+import {
   INSTAR_BARE,
   INSTAR_DIVE,
   INSTAR_GLARE,
@@ -27,7 +34,7 @@ import {
 } from "./instar-script-third.js";
 
 /**
- * THE INSTAR's script: twenty-three steps over sixteen poses, and what the pair does to each.
+ * THE INSTAR's script: twenty-eight steps over twenty-one poses, and what the pair does to each.
  *
  * This is the owner's choreography of 25 September 2026 — a living ship with
  * a dragon's head — written as the beat list the simulation reads by index
@@ -104,7 +111,10 @@ import {
  * and the bare heart after the moult, which is now the finish. **The third**
  * (the same day, `instar-script-third.ts`) lays five more: the crouch after
  * the glare, the perch after the coil, the roar after the turned-round brood,
- * the sprawl after the spread and the twist after the mixed lash.
+ * the sprawl after the spread and the twist after the mixed lash. **The
+ * fourth** (`instar-script-fourth.ts`) five more: the hover after the rear,
+ * the bow after the lunge, the arch after the dive, the rise after the split
+ * lunge and the loom after the sprawl.
  *
  * **The clocks.** A morph is the flight: eight beats for the entrance, which
  * the owner asked to be slow — *so it starts small in the background, then it
@@ -145,20 +155,25 @@ import {
 export const INSTAR_SCRIPT: readonly BossSequenceStep[] = [
   ...INSTAR_BREATH,
   INSTAR_REAR,
+  INSTAR_HOVER,
   INSTAR_BROOD,
   INSTAR_LASH,
   INSTAR_LUNGE,
+  INSTAR_BOW,
   INSTAR_GLARE,
   INSTAR_CROUCH,
   INSTAR_BREATH_TURNED,
   INSTAR_COIL,
   INSTAR_PERCH,
   INSTAR_DIVE,
+  INSTAR_ARCH,
   INSTAR_LUNGE_SPLIT,
+  INSTAR_RISE,
   INSTAR_BROOD_TURNED,
   INSTAR_ROAR,
   INSTAR_SPREAD,
   INSTAR_SPRAWL,
+  INSTAR_LOOM,
   INSTAR_LASH_MIXED,
   INSTAR_TWIST,
   INSTAR_MOULT,

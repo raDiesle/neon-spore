@@ -6663,6 +6663,35 @@ two, so the mouth lights for it as it does for the rear.
 The in-between motion into and out of the five is the three-quarter view's,
 as before; the sprites of each are the sprite thread's.
 
+### The fourth act — five poses more, between the others (26 September 2026)
+
+The coordinator, the same day: *if you have a fourth act or more states in
+mind, go ahead.* So the script goes to **twenty-eight steps over twenty-one
+poses**, in the third act's form: five names appended for the hash after
+`twist`, nothing new in the engine, no new part or gesture, each laid where
+no two new ones run together.
+
+- **Hover** (after the rear) — high side-on, wings up, the tail hung down
+  from the rear with its fork over the hull. **SHOOT**, twice at each blade.
+  Left alone, the fork comes down on the hull.
+- **Bow** (after the lunge) — face-on, the head low over the ship, jaws
+  shut, eyes hooded, horns forward to gore. **HOLD**, each seat its own side
+  of the head, three beats, both at once. Left alone, it gores the hull.
+- **Arch** (after the dive) — side-on, head and rear down at the hull, the
+  back bridged high over the ship with the nest at its top. Player 1 **TAPS**
+  the nest flat, sixteen; player 2 **PULLS UP** the tail's blade off the
+  hull. Left alone, the brood hatches.
+- **Rise** (after the split lunge) — upright on its tail side-on, wings wide,
+  shaking embers down on both halves. **SUCK**, once under each. Left alone,
+  they burn the hull.
+- **Loom** (after the sprawl) — face-on and so close the head fills the
+  field, the jaws wide on the ship. The breath's jaws again with the seats
+  swapped: player 1 **PULLS UP** the lower lip, player 2 **PULLS DOWN** the
+  upper. Left alone, it bites.
+
+The director's `down` pose, which plays the whole script through, has its
+budget raised to 430 beats for the seventy-four the act adds.
+
 ## 11.33 THE FILAMENT — the boss whose line one of you draws while the other follows it
 
 > The one that is a trace, and the trace is not fixed. One thumb lays the

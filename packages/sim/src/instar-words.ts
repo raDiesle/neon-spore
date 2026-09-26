@@ -87,7 +87,12 @@ export type InstarGesture = (typeof INSTAR_GESTURES)[number];
  * the hash once more: crouched low and wide face-on to spring, perched high
  * side-on with the wings up and the brood on its back, the head thrown up to
  * roar fire down the middle, sprawled flat along the hull, and twisted
- * head-down with the tail thrown high. */
+ * head-down with the tail thrown high.
+ *
+ * And the fourth act's five after those (the same day): hovering high with
+ * the tail hung straight down, bowed with the horns at the ship, arched with
+ * the back up in a bridge, risen upright on its tail shaking embers off, and
+ * looming face-on so close the jaws fill the field. */
 export const INSTAR_POSES = [
   "breath",
   "brood",
@@ -105,6 +110,11 @@ export const INSTAR_POSES = [
   "roar",
   "sprawl",
   "twist",
+  "hover",
+  "bow",
+  "arch",
+  "rise",
+  "loom",
 ] as const;
 export type InstarPose = (typeof INSTAR_POSES)[number];
 

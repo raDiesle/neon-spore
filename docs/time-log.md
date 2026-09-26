@@ -23970,3 +23970,14 @@ new thing was the sprung lobe ringing past its rest.
 Bottleneck: writing — the figure was already smooth everywhere, and it took a probe of every value to find the one thing that was not.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's fourth act: hover, bow, arch, rise, loom
+
+- reading: 5 min. The third act's two files as the pattern.
+- writing: 25 min. Two new files, the script's order, the spec's section.
+- looking: 10 min. One sheet of the five poses, the marks on their parts.
+- friction: 10 min. Finding the frames command again after a compaction.
+- landing: 10 min. `check:fast`, the commit, `bun run land --keep`.
+
+Bottleneck: friction — the photograph recipe lived only in the session, not
+in a document, and had to be dug out of the transcript.
