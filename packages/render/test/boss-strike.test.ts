@@ -92,6 +92,18 @@ describe("a boss's blow at the hull", () => {
     }
   });
 
+  it("THE INSTAR's blow is its own part's picture, and still lands its crack", () => {
+    const { ctx } = stubCanvas();
+    const c = ctx as unknown as CanvasRenderingContext2D;
+    const parts = ingest("instar");
+    expect(parts.bossStrike.active).toBe(1);
+    const before = ctx.calls;
+    parts.bossStrike.draw(c, L, CFG, () => L.hullY, 0);
+    expect(ctx.calls - before).toBeLessThan(4);
+    parts.bossStrike.update(0.4, L);
+    expect(parts.arrivals.has(4, 3)).toBe(true);
+  });
+
   it("forgets every blow on a restart", () => {
     const fx = new BossStrikeFx();
     fx.spawn("oculus", 4, BEAT_SECONDS, () => {});

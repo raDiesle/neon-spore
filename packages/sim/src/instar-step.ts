@@ -1,6 +1,6 @@
 import { NO_BEARING } from "./bearing.js";
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import {
   type BossSequenceStep,
   type InstarState,
@@ -104,7 +104,9 @@ function strike(world: World, s: SceneState): void {
     // exactly as it closes on a landing (`slow.ts` `closeSlow`).
     closeSlow(world);
     world.events.push({ type: "instarStrike", part: mark.part, col });
-    breachHull(world, col, "meteorFastest", 0, "heavy");
+    // The part the pair let through is what breaks the hull, never a rock
+    // nobody saw fall (`boss-strike.ts`).
+    bossStrikesHull(world, "instar", col);
     return;
   }
 }

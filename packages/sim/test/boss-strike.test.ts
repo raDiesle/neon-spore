@@ -31,9 +31,8 @@ describe("bossStrikesHull", () => {
 const STILL_A_ROCK = new Set([
   // The blow itself, which keeps the rock's kind for the scar and the sound.
   "boss-strike.ts",
-  // THE MANTLE's and THE INSTAR's are their own threads' (`docs/queue.md`).
+  // THE MANTLE's is its own thread's (`docs/queue.md`).
   "mantle-step.ts",
-  "instar-step.ts",
   // A rock or a line that may really be in the picture: each is looked at.
   "keel-step.ts",
   "filament-step.ts",

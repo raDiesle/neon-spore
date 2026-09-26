@@ -2476,18 +2476,6 @@ allows all eight. The options are (a) each round gets its own picture of
 the hit, one lane per round, through a `by` of its own on the breach,
 (b) one shared picture for every round, or (c) they keep the rock.
 
-## THE MANTLE's and THE INSTAR's own blows at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-26, claude/instar-blow (claim: claude/queue-the-mantles-and-the-instars-own-blows-at-the-hul)
-- **Files:** `packages/sim/src/mantle-step.ts`, `packages/sim/src/instar-step.ts`, `packages/render/src/boss-strike-look.ts`
-
-Both still drop a rock on a timeout (`mantle-step.ts` `spendSpark`,
-`instar-step.ts` `strike`). Their files belonged to other lanes the day the
-rule landed, so they were left alone. Call `bossStrikesHull(world, "<kind>", col)`
-instead, add each a `LOOK` row, and take both files out of `STILL_A_ROCK`
-in `sim/test/boss-strike.test.ts`. THE MANTLE already has its `FROM` row.
-
 ## `bun run frames` cannot make a boss's window run out
 
 - **Found:** 2026-09-26, claude/timeout-hits
@@ -2595,3 +2583,13 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE MANTLE's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall; THE INSTAR's half landed on its own
+- **Files:** `packages/sim/src/mantle-step.ts`, `packages/render/src/boss-strike-look.ts`, `packages/sim/test/boss-strike.test.ts`
+
+THE MANTLE still drops a rock on a timeout (`mantle-step.ts` `spendSpark`).
+Call `bossStrikesHull(world, "mantle", col)` instead, add it a `LOOK` row
+(it already has its `FROM` row), and take `mantle-step.ts` out of
+`STILL_A_ROCK` in `sim/test/boss-strike.test.ts`.

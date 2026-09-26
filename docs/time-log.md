@@ -23703,3 +23703,13 @@ Bottleneck: writing — four files for one body is THE OCULUS's split again,
 and nearly every line of it is geometry decided for the first time.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — THE INSTAR's own blow at the hull
+
+- reading: 5 min. `boss-strike.ts`, the look table, and how THE INSTAR already draws its strike.
+- writing: 10 min. The call, the no-op look row and why, the test, THE MANTLE's half requeued.
+- looking: 0 min. Nothing new is drawn: the part's own strike was already the picture.
+- friction: 5 min. `land` for the last lane lost three races to a moving trunk.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the trunk moved under the previous landing's check three times.

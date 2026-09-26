@@ -60,6 +60,12 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
 /** A boss's own blow; an empty table is every boss on the lash. */
 const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   seam: seamBlow,
+  // THE INSTAR's blow is already in the picture: the part the pair let
+  // through — the fire, the swarm, the blades, the glob — is drawn coming
+  // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
+  // event. A lash thrown out of the middle of the field on top of it would be
+  // a second blow the dragon never struck, so this one only times the crack.
+  instar: () => {},
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where
