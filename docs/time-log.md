@@ -25088,3 +25088,21 @@ sender and the autopilot hand were missing, and were brought up to date first.
 Bottleneck: reading — deciding which state may move without moving the target.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## THE MANTLE's pull watched through — 2026-09-26
+
+AUTO BOTH wins wave 102 at tick 1350 with no retries; strips at the shear,
+the buckle, the split, the beat and the end show the shell bow, the cord
+bend under it and the plates shed. The PRESS/TAP pair on the bare core is
+the cue mark's usual two words. One finding filed: `land` re-running its
+full check every time the trunk moves.
+
+- **reading** — 5 min
+- **writing** — 5 min
+- **looking** — 10 min. Five strips and one crop.
+- **friction** — 20 min. The last landing lost the race to `main` five
+  times, a full check each (queued).
+- **landing** — 5 min
+
+Bottleneck: friction — a landing that has to beat seven other lanes to the
+trunk spends more time checking than the lane spent working.

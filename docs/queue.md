@@ -632,21 +632,6 @@ doc with the numbers, distinct from the existing read/headless sections. If
 either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
 promote it out of "read" into its own queued fix.
 
-## Unverified at b66adf07c: THE MANTLE's pull read at tempo: the bow, the cord and…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa (claim: claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/mantle-handle.ts`
-
-*THE MANTLE is drawn: a plated shell over the field, bowing as both thumbs pull* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
-
-- THE MANTLE's pull read at tempo: the bow, the cord and the shed plate watched moving
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## §32 THE SLING — the look
 
 - **Found:** 2026-09-26, this session
@@ -3122,3 +3107,34 @@ pointer never reaches the button. It was worked around with a script's
 `button.click()`. Give the header, or its `.transport`, a stacking context
 above `main` (`position: relative; z-index: 1`), and prove it by
 `document.elementFromPoint` at the button's centre in a preview check.
+
+## `bun run land` loses the race to the trunk over and over when lanes are busy
+
+- **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
+- **Files:** `tools/land/race.ts`, `tools/land/run.ts`, `tools/land/land.ts`
+
+With eight lanes landing at once, one landing of two docs files was refused
+by `trunkRaced` five times running: each attempt ran the whole of
+`bun run check`, found `main` moved meanwhile, and threw the result away.
+It was worked around by looping `bun run land --keep` in a shell. When the
+commits that moved the trunk touch none of the lane's files, or only the
+records `land` already merges (`docs/queue.md`, `docs/time-log.md`, the
+notes), let `land` replay onto the new trunk and run `check:fast` over the
+union of the two diffs, not the full check again, and retry by itself a
+bounded number of times before refusing. A test in `tools/land/test/` that
+moves the trunk between the check and the move proves it.
+
+## `limits.test.ts` runs nine times its figure and times out under load
+
+- **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
+- **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `tools/test/figure.ts`
+
+Timed alone at a slowdown of 1.8, "keeps source files under the limit"
+took 3583 ms against a figure of 400, and "has no control byte" 5001 ms
+against 450. In a full `bun run check` at a load average of 25 the first
+took 28944 ms and failed the 20 s timeout, turning a landing that touched
+two docs files red. Both cases glob and read every source file in the
+repository, which has grown. Read each file once and share it across the
+four cases, or narrow the glob, as "The rock ratchet reads only the files
+that name the rock" did for its test; then time it alone and set the figures
+from that.
