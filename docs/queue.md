@@ -434,6 +434,7 @@ an alignment.
 ## AUTO has no hand for THE PULSE or THE REPRISE
 
 - **Found:** 2026-09-25, claude/game-multiplayer-testing-601794
+- **Taken:** 2026-09-26, claude/queue-a-versus-freeze-inside-the-slow-does-not-land-wh (claim: claude/queue-auto-has-no-hand-for-the-pulse-or-the-reprise)
 - **Files:** `tools/director/src/autopilot-hands.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/src/boss-hands-handles.ts`
 
 The director's AUTO row (OFF/BOTH/P1/P2) plays a boss live with the hand the
