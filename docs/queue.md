@@ -2446,6 +2446,7 @@ when the wave misses unattended), or land it `--unverified` if it does not.
 ## THE SEAM's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-26, claude/seam-blow (claim: claude/queue-the-seams-own-blow-at-the-hull)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
 
 THE SEAM's timeout already calls `bossStrikesHull` (`packages/sim/src/seam-step.ts`)
