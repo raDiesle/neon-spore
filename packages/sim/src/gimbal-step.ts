@@ -1,4 +1,5 @@
 import { bearingToward, NO_BEARING } from "./bearing.js";
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   GIMBAL_RINGS,
@@ -9,7 +10,6 @@ import {
   gimbalTeeth,
   NO_SEAM,
 } from "./gimbal.js";
-import { breachHull } from "./hull-damage.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -136,5 +136,5 @@ function spendSeam(world: World, s: GimbalState): void {
   const col = s.seamCol;
   s.seamCol = NO_SEAM;
   world.events.push({ type: "gimbalSeamHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "gimbal", col);
 }

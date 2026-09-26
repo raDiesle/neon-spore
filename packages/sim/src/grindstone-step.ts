@@ -1,3 +1,4 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   freshGrindstone,
@@ -8,7 +9,6 @@ import {
   grinding,
   grindstoneClamped,
 } from "./grindstone.js";
-import { breachHull } from "./hull-damage.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -160,7 +160,7 @@ function miss(world: World, s: GrindstoneState): void {
   world.events.push({ type: "grindstoneMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "grindstone", col);
 }
 
 function rest(world: World, s: GrindstoneState, advance: boolean): void {

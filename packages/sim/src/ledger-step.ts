@@ -1,6 +1,6 @@
 import { markMoment } from "./balance.js";
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import { guardArmed } from "./hull-guard.js";
 import {
   type LedgerBead,
@@ -122,7 +122,7 @@ function bill(world: World, t: LedgerState): void {
   world.events.push({ type: "ledgerBill", col: t.socket });
   // `meteorFastest` and row 0, the idiom for a hit that came from off the
   // field rather than out of a body (`fleet.ts`, `mirror-round.ts`).
-  breachHull(world, t.socket, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "ledger", t.socket);
 }
 
 /**

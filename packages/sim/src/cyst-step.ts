@@ -1,3 +1,4 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   type CystState,
@@ -7,7 +8,6 @@ import {
   cystSide,
   freshCyst,
 } from "./cyst.js";
-import { breachHull } from "./hull-damage.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -163,7 +163,7 @@ function miss(world: World, s: CystState): void {
   const col = midCol(world.cfg);
   world.events.push({ type: "cystMiss", col });
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "cyst", col);
 }
 
 function rest(world: World, s: CystState, advance: boolean): void {

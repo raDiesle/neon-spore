@@ -1,4 +1,5 @@
 import { NO_BEARING } from "./bearing.js";
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   HASP_COUNT,
@@ -12,7 +13,6 @@ import {
   NO_BURN,
   NO_LATCH,
 } from "./hasp.js";
-import { breachHull } from "./hull-damage.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -189,5 +189,5 @@ function spendBolt(world: World, s: HaspState): void {
   const col = s.boltCol;
   s.boltCol = NO_BOLT;
   world.events.push({ type: "haspBoltHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "hasp", col);
 }

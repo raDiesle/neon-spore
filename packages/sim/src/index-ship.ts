@@ -17,6 +17,8 @@
 // CLAW's crank on the panel and THE GIMBAL's rings on the field
 // (`bearing.ts`).
 export { MAX_BEARING_STEP, NO_BEARING, TURN as BEARING_TURN } from "./bearing.js";
+// A boss's own blow at the hull, named on the breach it makes (`boss-strike.ts`).
+export { type BossKind, bossStrikesHull } from "./boss-strike.js";
 // THE CODEX: whether this wave has one and whether its key is turned over right
 // now. The picture asks, because the shimmer and the beam are drawn off it — on
 // the pilot's screen and on nothing the navigator sees (`codex.ts`).

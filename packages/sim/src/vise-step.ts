@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import { closeSlow, openSlow } from "./slow.js";
 import {
   freshVise,
@@ -129,7 +129,7 @@ function miss(world: World, s: ViseState): void {
   world.events.push({ type: "viseMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "vise", col);
 }
 
 function rest(world: World, s: ViseState, advance: boolean): void {

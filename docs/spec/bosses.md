@@ -172,6 +172,30 @@ adds two more for a scene.
 3. **Its health is its silhouette.** Petals, plates, a pupil that ends up
    permanently wide. **No bar, ever.**
 
+## A timeout hit is the boss's own blow
+
+*Generic*, the owner's rule of 26 September 2026: *whenever a boss damages the
+ship because time is over, there should be a graphics animation related to boss
+damaging it, not just a dumb meteor falling down (if meteor was not in the
+picture before and was only added to boss level for purpose of taking damage).*
+
+So a window that runs out, a spark nobody answered, a clock that reaches zero
+is **drawn as the boss carrying out the threat it was showing**: the lens fires
+the beam it was charging, the jaws close, the tail comes down, the spark it
+leaked runs the rest of the way. A rock appearing at the top of the field to
+fall on the ship is not one, however well it lands. A body that really is in
+the picture and really falls — THE SCUTTLE's thrown part, THE SINEW's mass —
+is its own blow and passes.
+
+**How a boss says it in the code.** `bossStrikesHull(world, by, col, fromRow)`
+(`sim/boss-strike.ts`) is the call, never `breachHull(world, col,
+"meteorFastest", 0, …)`: the same wave lost, the same scar and sound, and no
+rock replayed down the column. `by` names the boss, `fromRow` is the row its
+body strikes from, and render/ draws the blow that boss's way
+(`render/boss-strike-look.ts`) — a boss with no look of its own yet strikes
+down out of its own body in its own colour, and that default is a floor, not
+the picture. Each boss's own blow is one `docs/queue.md` item until it ships.
+
 ## Still in hand
 
 Nothing, as of 17 September 2026. See the contents above.

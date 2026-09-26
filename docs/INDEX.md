@@ -130,6 +130,7 @@ by hand never moves.
 | `packages/sim/src/reprise-plan.ts` | **THE REPRISE's schedule, read off a script without playing it**: which stretches are sent again, and after which row — the director's map reads it |
 | `packages/sim/src/reprise.ts` | **THE REPRISE's clock**: holds the wave's own arrivals and sends the stretch just gone down again, unseen |
 | `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
+| `packages/sim/src/boss-strike.ts` | **A boss breaking the hull itself** when its window runs out: the breach, with the boss named on it |
 | `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
 | `packages/sim/src/cling.ts` | **THE LIMPET and THE LEECH**: two bodies that fall straight down one lane, cannot be shot |
@@ -1016,6 +1017,8 @@ by hand never moves.
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/boss-hurt.ts` | The shake and red glow any boss shows for a moment after the pair lands a sequence |
 | `packages/render/src/boss-blows.ts` | The blow for the bosses with no fx class of their own — throat, vane, cairn, baton — dealt off one event table |
+| `packages/render/src/boss-strike-fx.ts` | **A boss's blow at the hull, from the breach to the withdrawal.** The render half of `sim/boss-strike.ts` |
+| `packages/render/src/boss-strike-look.ts` | **What a boss's own blow at the hull looks like** |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |

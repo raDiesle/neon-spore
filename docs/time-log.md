@@ -23534,3 +23534,17 @@ build.
 Bottleneck: tuning a repeating tile so it stops reading as stripes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-26 — A boss's timeout hit is the boss's own blow
+
+- reading: 5 min. Where a timeout breaches the hull, the rock's replay in
+  `effects-breach.ts`, and which bosses call it.
+- writing: 10 min. The rule in the spec and the style guide, `bossStrikesHull`
+  and fifteen bosses moved onto it, the lash and its fx, two tests, eighteen
+  queue entries.
+- looking: 5 min. A frame of THE SEAM's timeout, the lash reaching the hull.
+- friction: 5 min. Most bosses never miss unattended, so `frames --until
+  breach` came back empty on six waves before THE SEAM fired.
+- landing: 5 min. `check:fast`, the index rows, the commit, `land`.
+
+Bottleneck: friction — finding a wave whose timeout fires without a hand on it.

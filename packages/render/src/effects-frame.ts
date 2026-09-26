@@ -86,6 +86,7 @@ export function ingestAll(
       sparks: fx.sparks,
       spriteBursts: fx.spriteBursts,
       rockImpactFx: fx.rockImpact,
+      bossStrike: fx.boss.strike,
       coilFlight: fx.coilFlight,
       arrivals: fx.arrivals,
       deflectFx: fx.deflectFx,

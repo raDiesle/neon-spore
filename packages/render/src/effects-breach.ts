@@ -1,5 +1,6 @@
 import { isWardable, type SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import type { BossStrikeFx } from "./boss-strike-fx.js";
 import { breachHue } from "./breach-hue.js";
 import type { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -36,6 +37,8 @@ export interface BreachParts {
    * `coil-flight.ts` keeps lit behind it; a fall it never made would be drawn
    * over it. */
   tail?: boolean;
+  /** A boss's own blow, for a breach that names its boss (`boss-strike-fx.ts`). */
+  bossStrike?: BossStrikeFx;
 }
 
 export function ingestBreach(
@@ -101,6 +104,12 @@ export function ingestBreach(
     // Only now does this rock's own crack get to show.
     parts.arrivals.mark(loCol, span, e.beat);
   };
+  // **A boss's window ran out**: the boss struck, and no rock fell. The same
+  // landing, thrown when its own blow reaches the hull (`sim/boss-strike.ts`).
+  if (e.by !== undefined && parts.bossStrike) {
+    parts.bossStrike.spawn(e.by, e.col, beatSeconds, arrive);
+    return;
+  }
   parts.rockImpactFx.spawn(
     tileCX(l, e.col),
     l,

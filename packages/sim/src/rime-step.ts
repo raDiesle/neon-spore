@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import {
   freshRime,
   RIME_FULL_MILLI,
@@ -136,7 +136,7 @@ function miss(world: World, s: RimeState): void {
   world.events.push({ type: "rimeMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "rime", col);
 }
 
 function rest(world: World, s: RimeState, advance: boolean): void {

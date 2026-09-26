@@ -1,5 +1,6 @@
 import { AntiphonFx } from "./antiphon-fx.js";
 import { BossBlows } from "./boss-blows.js";
+import { BossStrikeFx } from "./boss-strike-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
@@ -161,4 +162,7 @@ export class BossRoster {
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */
   readonly blows = new BossBlows();
+  /** A boss's own blow at the hull when a window ran out, fed by
+   * `ingestBreach` and drawn over the ship (`boss-strike-fx.ts`). */
+  readonly strike = new BossStrikeFx();
 }

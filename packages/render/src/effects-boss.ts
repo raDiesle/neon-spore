@@ -98,6 +98,7 @@ export class BossTransients extends BossRoster {
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
     this.blows.update(dt);
+    this.strike.update(dt, l);
   }
 
   /** The ten drawn under the hull with everything else. The mirror, the
@@ -145,6 +146,7 @@ export class BossTransients extends BossRoster {
     this.mantle.clear();
     this.keel.clear();
     this.blows.clear();
+    this.strike.clear();
   }
 }
 

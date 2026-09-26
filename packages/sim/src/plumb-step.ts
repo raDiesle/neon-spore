@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import {
   freshPlumb,
   PLUMB_SETTLES_PER_WEIGHT,
@@ -129,7 +129,7 @@ function miss(world: World, s: PlumbState): void {
   world.events.push({ type: "plumbMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "plumb", col);
 }
 
 function rest(world: World, s: PlumbState, advance: boolean): void {

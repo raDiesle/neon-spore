@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import { closeSlow, openSlow } from "./slow.js";
 import {
   freshTrivet,
@@ -128,7 +128,7 @@ function miss(world: World, s: TrivetState): void {
   world.events.push({ type: "trivetMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "trivet", col);
 }
 
 function rest(world: World, s: TrivetState, advance: boolean): void {

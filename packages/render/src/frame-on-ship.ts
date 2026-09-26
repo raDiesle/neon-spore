@@ -67,6 +67,9 @@ export function drawOnShip(
   // And THE KEEL's: the open socket and the tail's rock each hit the hull
   // once, and the plating shudders for it (`keel-fx.ts`, §24).
   held.effects.boss.keel.drawShock(ctx, l, surfaceY, view.time);
+  // And any boss's own blow when a window ran out, instead of a rock nobody
+  // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
+  held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);
   // And a gum splashing across the ship, on the same membrane and over the
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).

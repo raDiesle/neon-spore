@@ -192,6 +192,13 @@ item naming the rule, never a fix made in passing.
   standing still has a clock of its own that strikes the hull — any fault
   loses the wave. A landed round is *PULLED* in green with how many are left
   (`render/filament-turn-draw.ts`, `sim/filament-turn.ts`).
+- ***Generic*: a timeout hit is the boss's own blow**, 26 September 2026:
+  *whenever a boss damages the ship because time is over, there should be a
+  graphics animation related to boss damaging it, not just a dumb meteor
+  falling down.* A boss that runs a window out calls `bossStrikesHull` and
+  draws the blow as the threat carried out; a rock that was never in the
+  picture is never the hit (`bosses.md`, *A timeout hit is the boss's own
+  blow*).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

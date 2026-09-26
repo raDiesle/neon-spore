@@ -1,3 +1,4 @@
+import type { BossKind } from "./boss-strike.js";
 import type { BossEvent } from "./events-bosses.js";
 import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
@@ -199,6 +200,9 @@ export type SimEvent =
       /** The beat this happened on — matches the `Scar`s it left, so render/
        * can tell a scar's crack apart from one an earlier beat left behind. */
       beat: number;
+      /** The boss that struck, when a window ran out (`boss-strike.ts`):
+       * render/ draws its own blow rather than a rock nobody saw fall. */
+      by?: BossKind;
     }
   | { type: "petal"; col: number; row: number; left: number }
   | { type: "queenDown"; col: number; row: number }

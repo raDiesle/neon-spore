@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import { freshOculus, type OculusState, type OculusStep, oculusBothHeld } from "./oculus.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
@@ -126,7 +126,7 @@ function miss(world: World, s: OculusState): void {
   world.events.push({ type: "oculusMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "oculus", col);
 }
 
 function rest(world: World, s: OculusState, advance: boolean): void {

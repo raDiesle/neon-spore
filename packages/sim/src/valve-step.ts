@@ -1,6 +1,6 @@
 import { TURN } from "./bearing.js";
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import { NO_SPARK } from "./mantle.js";
 import { closeSlow, openSlow } from "./slow.js";
 import { freshValve, type ValveState, valveLeaking, valveOnMark } from "./valve.js";
@@ -119,5 +119,5 @@ function spendSpark(world: World, s: ValveState): void {
   const col = s.sparkCol;
   s.sparkCol = NO_SPARK;
   world.events.push({ type: "valveSparkHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "valve", col);
 }

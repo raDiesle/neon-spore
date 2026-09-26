@@ -2247,3 +2247,277 @@ sequencing read on the existing per-segment state, not a new primitive.
 `bun run check` proves the sim half; the three new poses (concave flip,
 marrow-lit centre line, banked cooldown) are a look task, queued separately
 once this lane lands.
+
+## THE OCULUS's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE OCULUS's timeout already calls `bossStrikesHull` (`packages/sim/src/oculus-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE OCULUS a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. Its `FROM` row is already there.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE OCULUS" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE HASP's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE HASP's timeout already calls `bossStrikesHull` (`packages/sim/src/hasp-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE HASP a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE HASP" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE CYST's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE CYST's timeout already calls `bossStrikesHull` (`packages/sim/src/cyst-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE CYST a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE CYST" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE GRINDSTONE's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE GRINDSTONE's timeout already calls `bossStrikesHull` (`packages/sim/src/grindstone-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE GRINDSTONE a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE GRINDSTONE" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE LEDGER's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE LEDGER's timeout already calls `bossStrikesHull` (`packages/sim/src/ledger-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE LEDGER a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE LEDGER" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE SLING's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE SLING's timeout already calls `bossStrikesHull` (`packages/sim/src/sling-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE SLING a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE SLING" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE RIME's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE RIME's timeout already calls `bossStrikesHull` (`packages/sim/src/rime-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE RIME a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE RIME" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE RATCHET's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE RATCHET's timeout already calls `bossStrikesHull` (`packages/sim/src/ratchet-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE RATCHET a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE RATCHET" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE TRIVET's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE TRIVET's timeout already calls `bossStrikesHull` (`packages/sim/src/trivet-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE TRIVET a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE TRIVET" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE GIMBAL's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE GIMBAL's timeout already calls `bossStrikesHull` (`packages/sim/src/gimbal-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE GIMBAL a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. Its `FROM` row is already there.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE GIMBAL" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE VALVE's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE VALVE's timeout already calls `bossStrikesHull` (`packages/sim/src/valve-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE VALVE a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. Its `FROM` row is already there.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE VALVE" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE PLUMB's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE PLUMB's timeout already calls `bossStrikesHull` (`packages/sim/src/plumb-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE PLUMB a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE PLUMB" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE VISE's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE VISE's timeout already calls `bossStrikesHull` (`packages/sim/src/vise-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE VISE a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE VISE" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE SEAM's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE SEAM's timeout already calls `bossStrikesHull` (`packages/sim/src/seam-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE SEAM a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. Its `FROM` row is already there.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE SEAM" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE STARE's own blow at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
+
+THE STARE's timeout already calls `bossStrikesHull` (`packages/sim/src/stare-step.ts`)
+and draws the default lash, a red tendril out of the body to the column and
+back. That lash is a floor, not the picture. Give THE STARE a `LOOK` row in
+`boss-strike-look.ts` made from its own body, the part of it that acts, in
+its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
+The blow must reach the hull at `reach = 1`, when the crack and the sparks
+start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
+blind: send a PNG of the timeout (`bun run frames . --wave "THE STARE" --until breach`
+when the wave misses unattended), or land it `--unverified` if it does not.
+
+## THE KEEL's and THE FILAMENT's timeout hits are looked at
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/sim/src/keel-step.ts`, `packages/sim/src/filament-step.ts`, `packages/sim/test/boss-strike.test.ts`
+
+Both still drop a rock through `breachHull(..., "meteorFastest")`, and the
+ratchet test in `sim/test/boss-strike.test.ts` allows them. THE KEEL's
+`socketHit` and `spendRock` may be a rock that really is in the picture,
+and THE FILAMENT starts its hit from the line's row. Watch each timeout.
+Where no rock was on screen before the hit, switch it to `bossStrikesHull`
+with a `LOOK` row, and take the file out of `STILL_A_ROCK`. Where the rock
+was really there, say so in the test's comment.
+
+## The rounds still drop a rock when their window runs out
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/sim/src/fleet.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/maze-verdict.ts`, `packages/sim/src/mirror-round.ts`, `packages/sim/src/pinball-round.ts`, `packages/sim/src/pulse-round.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/snake-move.ts`
+- **Asks:** Should the rounds' timeout hits be each round's own picture too, or stay the falling rock?
+
+The owner's rule names bosses, and these are rounds and interludes with no
+boss body to strike from, so the ratchet in `sim/test/boss-strike.test.ts`
+allows all eight. The options are (a) each round gets its own picture of
+the hit, one lane per round, through a `by` of its own on the breach,
+(b) one shared picture for every round, or (c) they keep the rock.
+
+## THE MANTLE's and THE INSTAR's own blows at the hull
+
+- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Files:** `packages/sim/src/mantle-step.ts`, `packages/sim/src/instar-step.ts`, `packages/render/src/boss-strike-look.ts`
+
+Both still drop a rock on a timeout (`mantle-step.ts` `spendSpark`,
+`instar-step.ts` `strike`). Their files belonged to other lanes the day the
+rule landed, so they were left alone. Call `bossStrikesHull(world, "<kind>", col)`
+instead, add each a `LOOK` row, and take both files out of `STILL_A_ROCK`
+in `sim/test/boss-strike.test.ts`. THE MANTLE already has its `FROM` row.
+
+## `bun run frames` cannot make a boss's window run out
+
+- **Found:** 2026-09-26, claude/timeout-hits
+- **Files:** `tools/frames/until.ts`, `tools/frames/until-flags.ts`
+
+`--until breach` found no breach in 3000 ticks on THE OCULUS, THE VISE,
+THE HASP, THE TRIVET, THE RATCHET, THE CYST, THE SLING and THE GIMBAL:
+with no hand on them these bosses never miss, so a boss's timeout blow
+cannot be photographed there. THE SEAM misses on its own at tick 375 and
+was used instead. Add a way to reach a boss's timeout, for example
+`--until-on bossTimeout` that holds the controls off the ask until the
+window closes, and prove it with a test in `tools/frames/test/`.

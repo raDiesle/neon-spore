@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import {
   NO_BOLT,
   NO_CATCH,
@@ -114,7 +114,7 @@ export function advanceRatchet(world: World, s: RatchetState, clean: boolean, la
   if (s.clean + s.teeth < RATCHET_CLEAN) {
     s.phase = "jam";
     world.events.push({ type: "ratchetJam", col: mid });
-    breachHull(world, mid, "meteorFastest", 0, "heavy");
+    bossStrikesHull(world, "ratchet", mid);
     return;
   }
   s.phase = "climb";
@@ -132,5 +132,5 @@ function spendBolt(world: World, s: RatchetState): void {
   const col = s.boltCol;
   s.boltCol = NO_BOLT;
   world.events.push({ type: "ratchetBoltHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "ratchet", col);
 }

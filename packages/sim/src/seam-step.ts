@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import { freshSeam, type SeamState, type SeamStep, seamStepCol } from "./seam.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
@@ -86,7 +86,7 @@ function miss(world: World, s: SeamState): void {
   world.events.push({ type: "seamMiss", col });
   closeSlow(world);
   rest(world, s);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "seam", col);
 }
 
 function rest(world: World, s: SeamState): void {

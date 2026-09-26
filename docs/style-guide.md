@@ -738,6 +738,10 @@ reaction proportional to its cause.
 - **A blocked shot is a 60 ms hit-stop at the canonical silhouette, then a
   recoil.** Holding the shape dead still is the one item anywhere that
   *increases* legibility rather than merely not harming it.
+- **A boss that hurts the ship is seen doing it.** A window run out is the
+  boss's own blow landing — its beam, its jaws, its spark reaching the plate —
+  never a rock that was not in the picture falling to deliver the damage
+  (`spec/bosses.md`, *A timeout hit is the boss's own blow*).
 - **Reactions come off state render already holds** — the row against the hull
   row, a grip, a block, a destroy — never off a new field.
 

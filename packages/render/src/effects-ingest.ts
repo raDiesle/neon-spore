@@ -9,7 +9,7 @@ import type { CoilFlightFx } from "./coil-flight.js";
 import type { CrawlerFx } from "./crawler-fx.js";
 import type { Debris } from "./debris.js";
 import type { DeflectFx } from "./deflect.js";
-import { ingestBreach, ingestDeflect } from "./effects-breach.js";
+import { type BreachParts, ingestBreach, ingestDeflect } from "./effects-breach.js";
 import { breakBody } from "./effects-break.js";
 import { ingestMouth } from "./effects-ingest-pod.js";
 import { isIngestSilent } from "./effects-ingest-silent.js";
@@ -27,7 +27,7 @@ import type { SpriteBursts } from "./sprite-burst.js";
  * `ingestDeflect` already take. `Effects` owns every one of these; this file
  * only borrows them for the length of one call.
  */
-export interface IngestOneCtx {
+export interface IngestOneCtx extends Pick<BreachParts, "bossStrike"> {
   l: Layout;
   time: number;
   beatSeconds: number;
@@ -183,6 +183,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         rockImpactFx: ctx.rockImpactFx,
         arrivals: ctx.arrivals,
         tail: !ctx.coilFlight.landed(e.col),
+        bossStrike: ctx.bossStrike,
       });
       break;
     // The two things that reach the mouth and leave a picture behind — one

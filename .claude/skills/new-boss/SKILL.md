@@ -136,6 +136,8 @@ commit. The shape of it, from THE GORGE and THE CURTAIN:
   (`render/test/pair-order.test.ts`).
 - `render/test/<boss>-frame.test.ts`: every state of the picture on all three
   screens, set rather than waited for, and the split proved both ways.
+- A window that runs out breaks the hull with `bossStrikesHull`, and the blow
+  is drawn as the boss's own (`render/boss-strike-look.ts`), never a rock.
 - `docs/spec/bosses.md` §11.n gets *The look* and loses *What is not built*.
 **What the picture is measured against: THE INSTAR** (`docs/spec/bosses.md`
 §11.32), which is the owner's reference since 18 September 2026 — *detailed and

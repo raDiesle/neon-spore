@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
 import { nextInt } from "./rng.js";
 import type { StarePhase, StareState } from "./stare.js";
 import { stareForbids, stareWatches } from "./stare.js";
@@ -169,5 +169,5 @@ function caught(world: World, stare: StareState, player: 1 | 2, command: Command
   stare.caughtTick = world.tick;
   stare.caughtPlayer = player;
   world.events.push({ type: "stareCaught", player, command });
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "stare", midCol(world.cfg));
 }

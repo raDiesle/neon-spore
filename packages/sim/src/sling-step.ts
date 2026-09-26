@@ -1,5 +1,5 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull-damage.js";
 import {
   freshSling,
   SLING_DRAWS_PER_ARM,
@@ -132,7 +132,7 @@ function miss(world: World, s: SlingState): void {
   world.events.push({ type: "slingMiss", col });
   closeSlow(world);
   rest(world, s, true);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  bossStrikesHull(world, "sling", col);
 }
 
 function rest(world: World, s: SlingState, advance: boolean): void {
