@@ -24685,3 +24685,5 @@ Bottleneck: looking — finding which flag leaves the world a beat into a step i
 
 The bottleneck was a context compaction mid-lane, which cost re-reading the
 files already edited.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-26 · b7440d5de — Mark §34 THE CYST's fuller story arc done
+
+## 2026-09-26 · df39bf04b — THE CYST tells a longer story: a swell, a spore and a bud
+
+The sac now asks eleven steps instead of seven. Three new ones, each under THE SLOW and each a hull hit if left: the sac swells and both players pinch their flanks shut together; it spits a spore down a column off the middle and the shield under that column turns it; a bud grows over another column and is shot there in its colour. No new gesture: the pinch, the shield and the cannon the fight already uses.
+
+## 2026-09-26 · 880ca8b61 — Queue §34 THE CYST's fuller story arc: the swell, the spit and the bud
+
 ## 2026-09-26 · 16e41db11 — Mark §30 THE TRIVET's revised simulation lane done
 
 ## 2026-09-26 · 1338476b6 — THE TRIVET is drawn lurching onto a foot and flinging a needle
