@@ -908,18 +908,14 @@ pinch reader — hit-tested where `gall-draw.ts` draws the nodule
 (`gallPointAt`, `gallSize`), in a new gall-grip.ts the way `capstan-grip.ts`
 reads the drum. The field says no cue: `PINCH` beside the nodule on the
 seat whose half it is on, and `FIRE` on a bared root, on its own
-`boss-cue-read-*.ts` page. AUTO has no hand (`NO_HAND` in
-`autopilot.test.ts`): a boss-hands-gall.ts that pinches shut on the gall's
-point from its seat and shoots the root in its colour, with an
-autopilot-gall.test.ts playing the wave to its end. `bun run check` proves
-it; how a pinch on a jumping gall feels stays unverified until the owner
-holds two phones. **Once AUTO closes the gall, look at the blow and the
-receipts in a frame**, which nothing could reach when they landed:
-`bun run frames . --wave "THE GALL" --auto both --until gallClose --until-on 2`
-for a close's ghost, and `--until gallBare` for the lips tearing. The root's
-seed needs a fire step let run with the closes played, which `--auto-miss`
-cannot do (it misses every close, and the root is never bared) — the same
-gap as *`--auto-miss` cannot make THE CYST's or THE SLING's shot run out*.
+`boss-cue-read-*.ts` page. **AUTO's hand landed first**
+(`hands/boss-hands-gall.ts`, `autopilot-gall.test.ts`), and with it a close's
+ghost and the lips' tear were seen in a frame. `bun run check` proves it; how
+a pinch on a jumping gall feels stays unverified until the owner holds two
+phones. The root's seed needs a fire step let run with the closes played,
+which `--auto-miss` cannot do (it misses every close, and the root is never
+bared) — the same gap as *`--auto-miss` cannot make THE CYST's or THE
+SLING's shot run out*.
 ## §39 THE BURGEE — the simulation lane
 
 - **Found:** 2026-09-26, this session

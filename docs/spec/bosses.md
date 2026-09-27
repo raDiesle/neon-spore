@@ -10226,14 +10226,19 @@ fades — a moment of *it was here* beside the single frame of the jump; a
 window run out bulges it back; the bare tears fibres across the split that
 snap back to the lips; a hit flashes the root white, wider per hit. A close
 and a hit are a step landed and deal the blow every boss takes
-(`boss-hurt.ts`), a shake and red on the nodule and the root. None of it
-has been seen in a frame: nothing can close the gall yet, so no play
-reaches the root.
+(`boss-hurt.ts`), a shake and red on the nodule and the root. A close's
+ghost and the lips' tear have been seen in a frame under AUTO; the seed
+has not, because no play lets a fire step run with the closes made.
 
-**What is not built.** Nothing sends a pinch from a touch yet, the
-field says no cue, and AUTO has no hand for it
-(`tools/director/test/autopilot.test.ts`, `NO_HAND`; *§38 THE GALL — the
-pinch's touch, the cue and AUTO*). The guide is prose.
+**AUTO plays it** (`hands/boss-hands-gall.ts`,
+`tools/director/test/autopilot-gall.test.ts`): the seat whose half the
+gall sits on pinches it shut, sends the pinch again on the point it jumps
+to, and lets go once the step is answered; the bared root is shot up the
+middle in the step's colour.
+
+**What is not built.** Nothing sends a pinch from a touch yet, and the
+field says no cue (*§38 THE GALL — the pinch's touch, the cue and AUTO*).
+The guide is prose.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/gall.test.ts`): the gall comes in slack on the first point

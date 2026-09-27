@@ -6,6 +6,7 @@ import { batonHand, throatHand } from "./boss-hands-beats.js";
 import { capstanHand } from "./boss-hands-capstan.js";
 import { leadHand, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
 import { curtainHand, gorgeHand, scuttleHand } from "./boss-hands-field.js";
+import { gallHand } from "./boss-hands-gall.js";
 import { gaugeHand } from "./boss-hands-gauge.js";
 import { gimbalHand } from "./boss-hands-gimbal.js";
 import { grindstoneHand } from "./boss-hands-grindstone.js";
@@ -67,6 +68,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   curtain: curtainHand,
   filament: filamentHand,
   fleet: fleetHand,
+  gall: gallHand,
   gauge: gaugeHand,
   gimbal: gimbalHand,
   gorge: gorgeHand,

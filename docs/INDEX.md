@@ -2275,6 +2275,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-queen.ts` | **The pair's hands on THE BULB QUEEN** |
 | `packages/hands/src/boss-hands-well.ts` | **The pilot's thumb on THE WELL's seam** |
 | `packages/hands/src/boss-hands-gauge.ts` | **THE GAUGE's hands**, in a file of their own |
+| `packages/hands/src/boss-hands-gall.ts` | **THE GALL played right**, for the autopilot |
 | `packages/hands/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks and held there |
 | `packages/hands/src/boss-hands-grindstone.ts` | **THE GRINDSTONE played right**, for the autopilot: the lit flat rubbed clean by its own seat |
 | `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
