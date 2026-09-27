@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 83dccbbfc — Every boss but THE QUEEN is now held to no mark before its window opens
+
+THE GALL, THE GRINDSTONE, THE HALTER, THE PLUMB, THE RIME and THE SLING were read, whole draws and not only their marks files, and put up nothing early. THE SLING's cup now rings only while its yoke is lit as well as on the fire step, the simulation's own condition for a shot; the script never reaches a fire step with the yoke dark, so nothing a player sees changes. All six have rows in the shared marks-window test, and the queue entry is closed. THE SLING's cup, like THE BURGEE's and THE CYST's fire marks, is not yet required to be seen lit, for want of an AUTO hand. The new-boss skill now asks for a row here and in the hush test.
+
 ## 2026-09-27 · c5932ad94 — THE KEEL's body is seen in frames, and its entry comes out
 
 AUTO plays THE KEEL out in 17.5 s, P1's screen. The six plates arch over the field and pulse red and grey on the beat. The middle two hinge apart over the socket, then the spine flattens under a shield, burns a plate and goes rigid white. The end plates sit flush with the field's edge, which is what `keel-shape.ts` asks of them, and the end joint's ring is drawn whole. Nothing is clipped or out of place.
