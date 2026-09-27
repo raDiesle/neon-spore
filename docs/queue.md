@@ -445,6 +445,7 @@ in a file of their own.
 ## §31 THE PLUMB — sprite atlas experiment: the bob settling true
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-31-the-plumb-sprite-atlas-experiment-the-bob-set
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
