@@ -22,6 +22,7 @@ import {
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
 import { DARK_LIGHT } from "./poses-field-controls-dark.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
+import { HALTER_GRIPS } from "./poses-field-controls-halter.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
 import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
@@ -190,6 +191,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...OCULUS_GRIPS,
     ...VISE_GRIPS,
     ...TRIVET_GRIPS,
+    ...HALTER_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

@@ -25686,3 +25686,19 @@ found off a magnified shot.
 Bottleneck: friction — the edit had to be written twice.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE HALTER's grips, its cue and its autopilot hand
+
+- reading: 5 min. THE TRIVET's grip, cue, hand and director pages as
+  templates; `halter-hand.ts` for what a stir is; every sender in
+  `apps/game` for one that fires on a still phone.
+- writing: 10 min. `halter-grip.ts`, the chord bodies keyed by seat, the
+  cue page, the hand, two director pages, the lean table, five test files
+  and the spec paragraphs.
+- looking: 0 min.
+- friction: 0 min. The perf-audit item claimed first was given back on a
+  busy machine, in a minute.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a boss that hears every command makes every sender in
+the app part of its rules, and each had to be read to be ruled out.

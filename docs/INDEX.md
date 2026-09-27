@@ -1047,6 +1047,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zh.ts` | **What THE TRIVET is asking for** — page thirty-four of the readings |
 | `packages/render/src/boss-cue-read-zi.ts` | **What THE CYST is asking for** — page thirty-five of the readings |
 | `packages/render/src/boss-cue-read-zj.ts` | **What THE GRINDSTONE is asking for** — page thirty-six of the readings |
+| `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1939,6 +1940,7 @@ by hand never moves.
 | `packages/render/src/halter-marks.ts` | **THE HALTER's marks**: what says what a step asks — a segment's stretch of the seam glowing |
 | `packages/render/src/halter-pose.ts` | **The clock THE HALTER is posed off** (§36, *Animation*) |
 | `packages/render/src/halter-shape.ts` | **THE HALTER's geometry**: where the seam is, and the plates it is made of |
+| `packages/render/src/halter-grip.ts` | **The grips on THE HALTER**: either seat's thumb on the lit segment's two grips, a finger of a chord each |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
@@ -2224,6 +2226,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
+| `packages/hands/src/boss-hands-halter.ts` | **THE HALTER played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `packages/hands/src/boss-hands-trivet.ts` | **THE TRIVET played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
@@ -2534,6 +2537,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
+| `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
@@ -3013,6 +3017,7 @@ by hand never moves.
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |

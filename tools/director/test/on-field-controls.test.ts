@@ -424,8 +424,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   davitSteerRight: "unbuilt",
   davitLooseLeft: "unbuilt",
   davitLooseRight: "unbuilt",
-  halterChordLeft: "unbuilt",
-  halterChordRight: "unbuilt",
+  // THE HALTER's two grips on the lit segment's seam, either seat's on both
+  // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
+  halterChordLeft: "field",
+  halterChordRight: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

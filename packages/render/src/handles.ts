@@ -10,6 +10,7 @@ import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { grindstoneGripUnder } from "./grindstone-grip.js";
+import { halterGripUnder } from "./halter-grip.js";
 import { lidCordUnder, mazeStringUnder, wardenRopeUnder } from "./handles-cords.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
@@ -140,6 +141,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     trivetPadUnder(l, x, y, field) ?? // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
     grindstoneGripUnder(l, x, y, field) ?? // THE GRINDSTONE's flat rubbed, or a finger of its jaw's chord (`grindstone-grip.ts`).
     cystUnder(l, x, y, field) ?? // THE CYST's freeze mark, the partner's flank tapped still, or this seat's pinch zone (`cyst-grip.ts`).
+    halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).
     davitLooseUnder(l, x, y, field) // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
   );
 }

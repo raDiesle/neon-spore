@@ -9873,12 +9873,23 @@ snaps off, turns end over end down the middle column and bites into the
 skin edge-first, cracking the plating either side, then crumbles. Nothing of
 it outlives a frame: the events are heard, not drawn.
 
-**Not yet.** Nothing in `apps/game` sends a grip, so the seam is
-unanswerable on a phone until the touch sender lands (`docs/queue.md`); the
-field says no cue word over it; there is no autopilot hand
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`). The fourteen sounds
-are bound (`packages/audio/src/bind-halter.ts`), and the events stay on the
-two silent lists, since the picture reads the state off `world`.
+**The hands.** The two grips the body draws are the touch targets, on both
+screens and for either seat (`render/halter-grip.ts`): a thumb is taken on
+whichever lit grip it is nearer, out to most of a tile, as one finger of a
+chord, and the host says it down as it lands and up as it lifts
+(`chord-pads.ts`, whose bodies are told apart by seat as well as target
+since this boss, so at the desk two seats' thumbs on one grip are two). A
+resting seat's phone sends nothing: a finger off the glass says nothing, the
+lean is read only for THE PLUMB and THE DAVIT, and a shake wants a shove a
+hand never gives by holding (`apps/game/test/halter-rest.test.ts`). The cue
+(`boss-cue-read-zk.ts`) says `HOLD` between the lit grips to the seat that
+grips — to both on a guard until a thumb is down — gone once both grips are,
+nothing ever to the rester, and `FIRE` under the middle column on a shot
+with the centre bared. AUTO plays it out (`hands/boss-hands-halter.ts`): the
+gripper's two drags, the rester's silence, a guard made the left segment's
+way round. The fourteen sounds are bound (`packages/audio/src/bind-halter.ts`),
+and the events stay on the two silent lists, since the picture reads the
+state off `world`.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/halter.test.ts`): the seam comes in alarmed with the centre

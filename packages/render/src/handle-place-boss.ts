@@ -12,6 +12,7 @@ import { cystStanding } from "./cyst-grip.js";
 import { davitLooseCircle } from "./davit-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
+import { halterGripStanding } from "./halter-grip.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
 import { hiveHaulCircle } from "./hive-grip.js";
 import { keelJointCircle } from "./keel-grip.js";
@@ -192,6 +193,14 @@ export function bossHandleCircle(
     if (b === null || !grindstoneTakesHand(b)) return null;
     const t = target as "grindFlatLeft" | "grindFlatRight" | "grindJawLeft" | "grindJawRight";
     return grindstoneStanding(l, cfg, b, t, world.beat, beatPhase);
+  }
+  if (target === "halterChordLeft" || target === "halterChordRight") {
+    // THE HALTER's two grips on the lit segment's seam, either seat's. Null
+    // while no rest-and-chord step is lit (`halter-grip.ts`).
+    const b = world.boss?.kind === "halter" ? world.boss : null;
+    if (b === null) return null;
+    const side = target === "halterChordLeft" ? 0 : 1;
+    return halterGripStanding(l, cfg, b, side, world.beat, beatPhase);
   }
   if (target === "davitLooseLeft" || target === "davitLooseRight") {
     // THE DAVIT's hook, the one shared rest handle either seat's loose takes

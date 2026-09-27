@@ -1,4 +1,4 @@
-import type { Command, DragTarget } from "@neon-spore/sim";
+import type { Command, DragTarget, World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -30,6 +30,25 @@ import type { InputBuffer } from "./input-buffer.js";
 
 /** How far, in thousandths of a degree, a lean must move before it is sent again. */
 export const LEAN_STEP_MILLI = 500;
+
+/**
+ * The bosses a phone's lean is read for, and no other: at every other wave,
+ * THE HALTER's rest among them, a phone held however it is held sends
+ * nothing (`apps/game/test/halter-rest.test.ts`).
+ */
+export const LEAN_BOSSES = ["plumb", "davit"] as const;
+export type LeanBoss = (typeof LEAN_BOSSES)[number];
+
+/** The boss a lean is read for, on the field now, or null: what `leanReader` calls `bob`. */
+export function leanBob(world: World, kind: LeanBoss): object | null {
+  return world.boss?.kind === kind ? world.boss : null;
+}
+
+/** The drag a seat's lean goes out as, for the boss reading it. */
+export function leanTarget(kind: LeanBoss, p: 1 | 2): DragTarget {
+  if (kind === "davit") return p === 1 ? "davitSteerLeft" : "davitSteerRight";
+  return p === 1 ? "plumbLevelLeft" : "plumbLevelRight";
+}
 
 /** The furthest a phone rolls either way, gamma's own range, and the simulation's clamp. */
 const MAX_LEAN_MILLI = 90_000;

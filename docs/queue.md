@@ -895,33 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §36 THE HALTER — the touch sender and its cue
-
-- **Found:** 2026-09-26, claude/queue-36-the-halter-the-look (the body landed without it)
-- **Taken:** 2026-09-27, claude/queue-tasks-afbcc2 (claim: claude/queue-36-the-halter-the-touch-sender-and-its-cue)
-- **Needs:** §36 THE HALTER's body, landed 26 September 2026 (`render/src/halter-draw.ts`)
-- **Files:** `apps/game/src/`, `packages/render/src/boss-cue.ts`, `packages/render/src/halter-marks.ts`, `docs/spec/bosses.md`
-
-The simulation (wave 115, `docs/spec/bosses.md` §11.53) hears
-`halterChordLeft` and `halterChordRight` from *either* seat — THE TRIVET's
-pads, one drag a grip, `on: true` the thumb down and `on: false` its lift
-(`packages/sim/src/halter-hand.ts`) — and hears every other command as a
-stir. Nothing in `apps/game` sends a grip yet, so the seam is unanswerable
-on a phone. The body already draws the two grips on the lit segment's seam
-(`halterGripAt`, `drawHalterGrips`); make those the touch targets on both
-seats, the way THE TRIVET's pads are, with a test that both grips go out as
-two drags and a lift as one. **The resting seat's screen must send nothing
-while it rests**: check that no idle sender (a lean, a heartbeat drag) fires
-on a still phone, or the rest can never be reached — and a test for it.
-
-Give it its arm in `render/src/boss-cue.ts`: one word by the grips on a
-rest-and-chord step (`HOLD`), and nothing on the resting seat — the
-plating going still is its answer (`halterShake`). Take `NO_HAND`'s
-`"halter"` out once an autopilot can grip and rest
-(`tools/director/test/autopilot.test.ts`), or leave it with the reason.
-The tremor, the parting and the blow are drawn and unverified at tempo
-until the owner has looked.
-
 ## §37 THE CAPSTAN — the simulation lane
 
 - **Found:** 2026-09-26, this session
@@ -2757,3 +2730,22 @@ for a misser to let go, and the test's `bossBlow(name, true)` is null for both
 before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
+
+## GRINDSTONE, CYST and DAVIT handles still `"unbuilt"` in ON THE FIELD
+
+- **Found:** 2026-09-27, claude/queue-36-the-halter-the-touch-sender-and-its-cue
+- **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `tools/director/src/poses-field-controls.ts`, `docs/spec/controls.md`
+
+`TARGET_PLACE` still calls `grindFlatLeft`/`Right`, `grindJawLeft`/`Right`,
+`cystFreezeLeft`/`Right`, `cystFlankLeft`/`Right` and `davitLooseLeft`/`Right`
+`"unbuilt"`, but each one has a branch in `handleUnder()`
+(`render/src/handles.ts`: `grindstoneGripUnder`, `cystUnder`,
+`davitLooseUnder`), so a thumb can already reach it on a phone. That is the
+one direction the test's own preamble says it cannot catch: a look landed
+and nobody moved the row. Give each a `field-controls-<boss>.ts` page of
+`FIELD_CONTROLS` rows and a `poses-field-controls-<boss>.ts` pair of poses,
+THE HALTER's way (`field-controls-halter.ts`, `poses-field-controls-halter.ts`),
+the matching rows in `docs/spec/controls.md`, and move the targets to
+`"field"`. The DAVIT's `davitSteerLeft`/`Right` stay `"unbuilt"`: it is the
+lean, not a hand on the glass. THE SLING's own entry above covers
+`slingDrawLeft`/`Right`.

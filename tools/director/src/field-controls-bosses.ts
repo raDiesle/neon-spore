@@ -9,6 +9,7 @@ import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
+import { HALTER_CONTROLS } from "./field-controls-halter.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
@@ -160,4 +161,5 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE TRIVET's two feet, the first chord: a finger a pad, counted by the
   // order they land in (`field-controls-trivet.ts`).
   ...TRIVET_CONTROLS,
+  ...HALTER_CONTROLS,
 ];
