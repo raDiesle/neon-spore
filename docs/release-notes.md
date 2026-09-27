@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 5a725f52c — `apps/game/src/input.ts` no longer restates the desk's key table
+
+The file was at the length ceiling. Its multi-finger half had already moved to `render/fingers.ts`; what is cut now is a fourteen-line comment listing the desk keys, which disagreed with `content/keys-desk.ts` (it had A and D sliding the shield too). It points at that table instead, 235 lines.
+
 ## 2026-09-27 · 94e9c46a9 — `queue next` and `take` ask origin before claiming, and `land` says when an item was done twice
 
 `next` and `take` fetch `origin/main` and refuse an item origin marks taken by somebody else or no longer lists, so a session whose trunk was not fetched can no longer start a boss a cloud session already holds — THE CYST was built twice that way on 26 September. `next` passes such an item over rather than handing it out. `bun run land` prints a warning, with the commit, when the queue entry the lane took out was already gone from the trunk.

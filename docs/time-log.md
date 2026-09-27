@@ -25373,3 +25373,5 @@ answers already, and origin's check had to reuse them rather than add a fourth.
 
 Bottleneck: reading — half the entry had been done by the lane before, and the
 other half was a comment that had drifted from the table it repeated.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
