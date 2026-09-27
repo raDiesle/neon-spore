@@ -2796,6 +2796,7 @@ still hold them apart.
 ## The director's AUTO buttons cannot be clicked at desktop widths
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa
+- **Taken:** 2026-09-27, claude/queue-nine-fx-files-still-keep-the-hull-shocks-clock-b (claim: claude/queue-the-directors-auto-buttons-cannot-be-clicked-at)
 - **Files:** `tools/director/src/director-field.css`, `tools/director/index.html`
 
 The TEST panel's AUTO row (OFF/BOTH/P1/P2, `index.html` line 223) sits in
