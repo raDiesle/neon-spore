@@ -1604,6 +1604,7 @@ by hand never moves.
 | `packages/render/src/meteor-blaze.ts` | BLAZE: a scorched, cratered stone inside a torch's fireball, glowing pieces coming away up the wake; the look the owner had built in |
 | `packages/render/src/meteor-comet.ts` | COMET: a rusted iron stone white-hot underneath with a long plume of fire behind it and chips of rock tumbling up it |
 | `packages/render/src/meteor-smoulder.ts` | SMOULDER: a black stone white-hot along its underside under a column of dark smoke, ash and the odd ember tumbling up it |
+| `packages/render/src/mechanism-swing.ts` | The hung parts of THE DAVIT, THE PLUMB and THE SLING swing about their joints, hushed by THE SLOW; shipped at 0, patched by VERSUS |
 | `packages/render/src/chute-cut.ts` | A chute shot down under its canopy: the canopy cut loose and the body dropping out from under it |
 | `packages/render/src/chute-canopy.ts` | THE CANOPY'S GEOMETRY: the one shape a chute hangs under, and the two lengths that put it where it is |
 | `packages/render/src/chute-look.ts` | THE ONE RECORD A CANDIDATE **CHUTE** PATCHES |
@@ -2955,6 +2956,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
+| `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE DAVIT's, THE PLUMB's and THE SLING's stills, the poses their `swing` candidates are judged in |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eleven states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |

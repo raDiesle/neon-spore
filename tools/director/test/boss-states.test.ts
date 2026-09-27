@@ -35,10 +35,12 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   seam: ["still", "lit", "rest", "split"],
   // THE RIME the same, §29: its four, less the still posed for `rime:pane`.
   rime: ["lit", "rest", "shattered"],
-  plumb: ["still", "lit", "rest", "free"],
-  sling: ["still", "lit", "rest", "free"],
+  // THE PLUMB, THE SLING and THE DAVIT: less the stills posed for their
+  // swing's slots (`poses-bosses-hands-mechanisms.ts`).
+  plumb: ["lit", "rest", "free"],
+  sling: ["lit", "rest", "free"],
   cyst: ["still", "lit", "frozen", "rest", "split"],
-  davit: ["still", "lit", "rest", "spent"],
+  davit: ["lit", "rest", "spent"],
   halter: ["alarmed", "lit", "pause", "spent"],
   capstan: ["rusted", "lit", "rest", "open"],
   gall: ["slack", "lit", "rest", "flat"],

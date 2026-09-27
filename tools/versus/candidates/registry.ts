@@ -6,6 +6,14 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { DAVIT_HOOK_SWING } from "./davit-hook/swing/index.js";
 import { FRAME_BLOOM } from "./frame-glow/bloom/index.js";
+import { PLUMB_BOB_SWING } from "./plumb-bob/swing/index.js";
+import { SLING_TINE_SWING } from "./sling-tine/swing/index.js";
 
-export const VARIANTS: Variant[] = [FRAME_BLOOM];
+export const VARIANTS: Variant[] = [
+  DAVIT_HOOK_SWING,
+  FRAME_BLOOM,
+  PLUMB_BOB_SWING,
+  SLING_TINE_SWING,
+];

@@ -27009,3 +27009,17 @@ Bottleneck: reading — five files to learn where a mark stands and how a swipe'
 Bottleneck: writing — `boss-cue.ts` was at 249 lines, so the page could not go in until the choreographed half had a file of its own.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the mechanisms swing what hangs or hinges
+
+- reading: 15 min. The part drift and THE SLOW's hush, the three bosses'
+  draws and their hit tests, what the vane and the grindstone already do.
+- writing: 20 min. `mechanism-swing.ts`, the three draws, three VERSUS
+  candidates with a still pose each, the test, the spec's as-built note.
+- looking: 15 min. Six frames from `versus:shot`, cropped and paired.
+- friction: 5 min. The first hush stilled the swing in every window, which
+  is all of these three bosses' time; a hush by the part the mark is on.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the hush had to be worked out per part, since every
+step of these bosses opens THE SLOW.

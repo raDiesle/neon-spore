@@ -257,6 +257,23 @@ drift only on what **hangs or hinges** — a boom, a bob, a hook, a jaw on its
 bolt, a tine, a spar's tip — at half the table's range, and nothing rigid
 wobbles. THE MAZE, THE FLEET and THE MIRROR have no body and get none.
 
+*As built, 27 September 2026* (`packages/render/src/mechanism-swing.ts`,
+offered through VERSUS as `davit:hook`, `plumb:bob` and `sling:tine`, each
+`swing`): THE DAVIT's chain and hook swing about the boom's tip as a hand,
+THE PLUMB's bob on its hook as an arm, THE SLING's two tines on the crotch as
+a hand each, out of step. They take the row's **whole** range and not half:
+half of a hand's six degrees is under three pixels at the end of a
+tine, which is what the owner could not see on THE TRIVET's feet. Every step
+of the three opens THE SLOW, so the swing is hushed by `slowHush` — to a
+tenth on the part the window's mark is on (the hook and the bob on a fire
+step, a tine on its own seat's draw), a third elsewhere — and a test holds a
+mark five tiles out under a tenth of a tile a second at the tenth. THE
+GRINDSTONE's jaw tremble had shipped already; THE TRIVET's dangle was offered
+and dropped; THE VANE is left out, since its spar already whips as it swings
+(`vane-draw.ts`) and its tip is the fold line the pair read. THE SCUTTLE,
+THE SPOOL, THE HASP, THE RATCHET, THE VALVE (whose pins sway already) and
+THE RIME are `docs/queue.md`'s.
+
 ### Where it lives
 
 One function in `packages/render`, a new file next to `packages/render/src/solid-motion.ts`

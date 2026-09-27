@@ -35,6 +35,9 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "frame:glow": "LANCE · BURNING",
+  "davit:hook": "THE DAVIT · STILL",
+  "plumb:bob": "THE PLUMB · STILL",
+  "sling:tine": "THE SLING · STILL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

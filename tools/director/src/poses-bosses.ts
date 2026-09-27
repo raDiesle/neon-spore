@@ -11,6 +11,7 @@ import { GRINDSTONE_POSES } from "./poses-bosses-hands-grindstone.js";
 import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
 import { MANTLE_POSES } from "./poses-bosses-hands-mantle.js";
+import { MECHANISM_POSES } from "./poses-bosses-hands-mechanisms.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
 import { OCULUS_POSES } from "./poses-bosses-hands-oculus.js";
 import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
@@ -66,6 +67,7 @@ export const BOSS_POSES: Pose[] = [
   ...GRINDSTONE_POSES,
   ...RIME_POSES,
   ...VALVE_POSES,
+  ...MECHANISM_POSES,
 ];
 
 /** The states of this boss no pose carries yet — what the category still owes. */

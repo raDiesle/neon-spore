@@ -2280,26 +2280,26 @@ every part's widest; no two parts move in step (the helper's test, run on its
 part list); op count within 10% for both layers together;
 `baked-growth.test.ts` flat. `bun run check` proves the tests.
 
-## Living bosses — the mechanisms swing what hangs or hinges, six per lane
+## Living bosses — the other six mechanisms swing what hangs or hinges
 
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-every-other-boss-no-mark-before-its-window-opens (claim: claude/queue-living-bosses-the-mechanisms-swing-what-hangs-or)
+- **Found:** 2026-09-27, claude/queue-living-bosses-the-mechanisms-swing-what-hangs-or
 - **Where:** local
-- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
-- **Files:** `packages/render/src/vane-draw.ts`, `packages/render/src/davit-draw.ts`, `packages/render/src/plumb-draw.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/sling-draw.ts`, `docs/spec/living-bosses.md`
+- **Files:** `packages/render/src/mechanism-swing.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/hasp-draw.ts`, `packages/render/src/ratchet-draw.ts`, `packages/render/src/rime-draw.ts`, `docs/spec/living-bosses.md`
 
-Section 1 of `docs/spec/living-bosses.md`, "A mechanism is not an animal":
-the machine bosses take `partDrift` only on the parts that hang or hinge, at
-half the table's range, and nothing rigid wobbles. Start with the six named
-in `Files:` — the vane's spar tip, the davit's boom and hook, the plumb's
-bob, the grindstone's jaws on their bolts, the trivet's feet, the sling's
-tines — and offer them as one VERSUS candidate with a strip of each. Then
-THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE and THE RIME; write
-what is left into this entry as you leave it.
+Section 1 of `docs/spec/living-bosses.md`, "A mechanism is not an animal",
+built for THE DAVIT, THE PLUMB and THE SLING in `mechanism-swing.ts`: add
+each of THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET and THE RIME to
+`SwingBoss`, pick the part that hangs or hinges and its row, turn the canvas
+about its joint by `mechanismSwing` under `swingHush` (a tenth on the part
+the window's mark is on), and offer each as a `swing` VERSUS candidate with
+a pose in `poses-bosses-hands-mechanisms.ts`. The whole row's range, not
+half — half is under three pixels. THE VALVE's pins sway already and need
+nothing. A boss with no part that hangs or hinges is written into the spec
+as having none.
 
-Done when, per boss: its hit tests find every target with each part at its
-widest; op count within 10%; `baked-growth.test.ts` flat. `bun run check`
-proves the tests.
+Done when, per boss: its hit tests find every target with the part at its
+widest; `mechanism-swing.test.ts` holds its hushed speed; the shipped value
+is 0. `bun run check` proves the tests.
 
 ## Living bosses — what turns the bosses' life down
 

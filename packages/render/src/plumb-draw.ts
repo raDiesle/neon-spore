@@ -10,6 +10,7 @@ import { coreHurt } from "./core-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { mechanismSwing, swingHush, windowStep } from "./mechanism-swing.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { PlumbFx } from "./plumb-fx.js";
 import { drawPlumbCore, drawPlumbGlass } from "./plumb-marks.js";
@@ -82,7 +83,13 @@ export function drawPlumb(
   drawPlumbLine(ctx, l);
 
   // Free, the bob swings wide as it goes: a swing that grows while it fades.
-  const skew = plumbSkew(s, beatPhase) + 0.6 * free * Math.sin(free * Math.PI * 3);
+  // Hung, it swings a little on its hook on top of its tilt
+  // (`mechanism-swing.ts`); the core in its belly is a fire step's mark.
+  const carried = windowStep(s)?.ask === "fire";
+  const skew =
+    plumbSkew(s, beatPhase) +
+    0.6 * free * Math.sin(free * Math.PI * 3) +
+    mechanismSwing("plumb", 0, time, swingHush(world, beat, beatPhase, carried));
   ctx.save();
   ctx.rotate(skew);
   drawBob(ctx, l, world, s, beat, beatPhase, time, fx);

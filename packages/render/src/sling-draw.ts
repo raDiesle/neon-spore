@@ -3,6 +3,7 @@ import { type SlingState, slingAsks, slingLitStep, type World } from "@neon-spor
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
+import { mechanismSwing, swingHush, windowStep } from "./mechanism-swing.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawSlingCord, drawSlingCup } from "./sling-marks.js";
 import {
@@ -43,11 +44,22 @@ export function drawSling(
   ctx.translate(home.x, home.y);
 
   const step = slingLitStep(s);
+  // Each tine springs a little on the crotch and carries its cord with it
+  // (`mechanism-swing.ts`); a cord's handle is its seat's mark.
+  const asked = windowStep(s)?.ask;
   for (const side of [0, 1] as const) {
+    const carried = asked === "both" || asked === (side === 0 ? "left" : "right");
+    const hush = swingHush(world, beat, beatPhase, carried);
+    const swing = mechanismSwing("sling", side, time, hush);
+    if (swing !== 0) {
+      ctx.save();
+      ctx.rotate(swing);
+    }
     drawTine(ctx, l, side, arrived, time);
     const tension = slingTension(world, s, side, beat, beatPhase);
     const asking = step !== null && step.ask !== "fire" && slingAsks(s, side);
     drawSlingCord(ctx, l, side, tension, asking, beatPhase);
+    if (swing !== 0) ctx.restore();
   }
 
   // The cup rings only while a shot would land: the fire step, and the yoke
