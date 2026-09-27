@@ -2558,6 +2558,7 @@ check` proves it.
 ## THE INSTAR — holds still while its marks are live
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-instar-the-fire-in-its-mouth-is-a-soft-glow (claim: claude/queue-the-instar-holds-still-while-its-marks-are-live)
 - **Files:** `packages/render/src/instar-sway.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/test/instar-sway.test.ts`
 
 The owner, 27 September 2026: *when there is slow mode, the body of the boss
