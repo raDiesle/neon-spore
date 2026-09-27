@@ -92,7 +92,7 @@ export function drawRatchet(
   drawStrut(ctx, l, world);
   drawRatchetSpring(ctx, l, cfg, top);
   for (let i = 0; i < RATCHET_TEETH; i++) {
-    drawPlate(ctx, l, world, i, top, i + 1 <= rise + 1e-6, fx.hurt.value);
+    RATCHET_PLATE.paint(ctx, l, world, i, top, i + 1 <= rise + 1e-6, fx.hurt.value, time);
   }
   const bears = Math.max(0, Math.min(RATCHET_TEETH - 1, Math.round(rise) - 1));
   const lift = ratchetPawlLift(s, cfg, beat, beatPhase);
@@ -127,12 +127,28 @@ function drawStrut(ctx: CanvasRenderingContext2D, l: Layout, world: World): void
   ctx.stroke(strut);
 }
 
+/** How a plate is drawn, as a record so a second answer can stand beside it
+ * on VERSUS (`docs/versus.md`). `time` is the wall clock, which the shipped
+ * plate does not read: the rack is a machine on purpose. */
+export const RATCHET_PLATE: { paint: RatchetPlatePaint } = { paint: drawPlate };
+
+export type RatchetPlatePaint = (
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  i: number,
+  top: number,
+  spent: boolean,
+  hurt: number,
+  time: number,
+) => void;
+
 /**
  * One plate at the rack's height. A plate still below the pawl is a tooth
  * left and is drawn whole; one that has climbed past it is spent and drawn
  * slack, so the rack reads as a count from across a room.
  */
-function drawPlate(
+export function drawPlate(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,

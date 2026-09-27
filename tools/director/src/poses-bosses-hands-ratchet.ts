@@ -25,7 +25,12 @@ export const RATCHET_POSES: Pose[] = [
     "ratchet",
     "climb",
     "A clean tooth climbing, for good. P2 lifts the catch and holds it again; P1 waits for set.",
-    { hand: ratchetHand, hold: 6 },
+    {
+      hand: ratchetHand,
+      hold: 6,
+      lookAt:
+        "the spent plates above the pawl against the teeth still below it — whether slack reads as slack",
+    },
   ),
   bossPose("ratchet", "open", "Five clean teeth and the rack standing open. P1 and P2 are done.", {
     hand: ratchetHand,

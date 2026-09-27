@@ -2638,20 +2638,6 @@ seat, tremble a hair at their tips on periods a fifth of a cycle apart while
 open, and go dead still when they bear on the stone. The effects landed first, 26 September 2026 (`grindstone-fx.ts`), and the
 jaws already flare along their outline as they bite. A look: offered through VERSUS.
 
-## THE RATCHET's spent plates have no secondary motion of their own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-27, claude/queue-every-living-creatures-light-stands-still-while (claim: claude/queue-the-ratchets-spent-plates-have-no-secondary-moti)
-- **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-parts.ts`
-
-From the secondary-motion audit. The seven `ratchet-*.ts` files have no
-clock of their own at all: `time` reaches only the hurt shake
-(`ratchet-draw.ts` line 83). The rack is a machine on purpose, but a spent
-plate is already *drawn slack* (`drawPlate`, line 133): let a slack plate
-sway a degree on its own period, offset per plate, while the teeth still
-below the pawl stay rigid — which also says which plates are spent. A look:
-offered through VERSUS.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

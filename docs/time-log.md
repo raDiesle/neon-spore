@@ -25719,3 +25719,16 @@ Bottleneck: looking — a light moved by six hundredths of a body is only seen
 magnified, shipped beside candidate.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE RATCHET's spent plates sway, as a VERSUS candidate
+
+- reading: 5 min. The entry, `ratchet-draw.ts`, `ratchet-shape.ts` and the
+  boss's poses.
+- writing: 10 min. The plate behind a record, the candidate turning the
+  shipped plate about its top edge, and the climb pose's `lookAt`.
+- looking: 5 min. Two `versus:shot`s; two degrees was a pixel, so it swings
+  three and a half.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the swing's size was found off a magnified shot.

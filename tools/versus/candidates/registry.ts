@@ -17,6 +17,7 @@ import { INSTAR_NEST_BAKED } from "./instar-nest/baked/index.js";
 import { INSTAR_SEAM_BAKED } from "./instar-seam/baked/index.js";
 import { INSTAR_SPIT_BAKED } from "./instar-spit/baked/index.js";
 import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
+import { RATCHET_PLATE_SWAY } from "./ratchet-plate/sway/index.js";
 
 export const VARIANTS: Variant[] = [
   COUNTDOWN_EYE_DRIFT,
@@ -30,4 +31,5 @@ export const VARIANTS: Variant[] = [
   INSTAR_SEAM_BAKED,
   INSTAR_SPIT_BAKED,
   INSTAR_WING_BAKED,
+  RATCHET_PLATE_SWAY,
 ];
