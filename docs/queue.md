@@ -847,6 +847,7 @@ what the rest of this file holds.
 ## Unverified at d4f21f6a4: THE KEEL's autopilot hand watched at tempo on the STAT…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-unverified-at-d4f21f6a4-the-keels-autopilot-hand
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/boss-hands-keel.ts`, `packages/hands/src/index.ts`
 
 *THE KEEL has a hand: AUTO taps each joint from its own seat, shuts the socket and shoots the rock* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
