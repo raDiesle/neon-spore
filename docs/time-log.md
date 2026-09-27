@@ -27930,3 +27930,5 @@ small edits in ten files, the same ten each time.
 
 Bottleneck: writing. Keeping the plate in by its own corner left the ring
 3.6 px off it, so the margin had to be the ring's.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

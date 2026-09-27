@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · daad47ae2 — THE KEEL's end plates are no longer cut by the screen's edge
+
+The two end segments sit over column 0 and the last column, and a plate turned by the arch's slope, a sway or the tail's whip had its outer corner cut off at a phone's width. Their drawn middles are now kept inside the field by as much as the ring round a lit joint needs. The column the simulation judges is unchanged. The ring no longer moves in on its own, so it sits on the plate it lights, and the thumb is answered there. A test at 390×844 holds every plate's outline and an end joint's ring inside the field. This is the exemption for a fix to a shape clipping its frame.
+
 ## 2026-09-27 · 8f228e57e — THE TRIVET's foot planting home is painted, behind ?raster=1
 
 A plant now throws a painted slam under the foot that bit: the plate's after-image swinging down, a flash along its footprint, a shock squashed flat on the ground, dust and grit thrown out both ways, in metal colours only. Twelve frames of 96 px at 45 ms; the atlas is 15 690 B, under the 90 kB budget, and the APNG master 45 427 B. It is painted for the pilot's foot and mirrored for the navigator's through a new `flip` on SpriteBursts; the middle foot never plants. Without the flag nothing is fetched and the shipped thud is drawn as before.
