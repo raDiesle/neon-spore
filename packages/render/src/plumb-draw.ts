@@ -5,6 +5,7 @@ import {
   plumbLitStep,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -52,8 +53,9 @@ import { stepColour } from "./step-colour.js";
  * neither cannon's colour, the glass a pale green-white, and the only colour
  * on it is what a step asks for — the core in its cannon's colour. **Its
  * health is the tilt and the core**: the beam comes level a quarter per
- * settle, and the core is smaller and brighter for every hit. Nothing here
- * outlives a frame.
+ * settle, and the core is smaller and brighter for every hit. A settle and
+ * a core hit shake the bob and wash its sac red (`boss-hurt.ts`, the blow
+ * every boss takes). Nothing here outlives a frame.
  */
 export function drawPlumb(
   ctx: CanvasRenderingContext2D,
@@ -72,7 +74,7 @@ export function drawPlumb(
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(hook.x, hook.y - plumbLift(l, arrived));
+  ctx.translate(hook.x + fx.hurt.shakeX(time, l.tile), hook.y - plumbLift(l, arrived));
   for (const side of [0, 1] as const) {
     drawPlumbGlass(ctx, l, s, side, beatPhase);
     ctx.globalAlpha = alpha;
@@ -163,6 +165,7 @@ function drawBob(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.plumbBronze, 0.95);
   ctx.stroke(sac);
+  drawHurt(ctx, sac, fx.hurt.value);
 
   const step = plumbLitStep(s);
   const fire =

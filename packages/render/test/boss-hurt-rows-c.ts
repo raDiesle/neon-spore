@@ -57,4 +57,37 @@ export const HURT_ROWS_C: Row[] = [
     hit: [{ type: "burgeeFreeze", side: 0, col: 3 }],
     hurt: (fx) => fx.boss.burgee.hurt,
   },
+  {
+    boss: "plumb",
+    // A seat's glass held level and the core hit; a drift, a swing or the core lighting only works toward one.
+    land: [
+      { type: "plumbSettle", side: 0, level: 1, col: 3 },
+      { type: "plumbHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "plumbLight", ask: "left", col: 3 },
+      { type: "plumbDrift", side: 0, col: 3 },
+      { type: "plumbSwing", side: 1, col: 3 },
+      { type: "plumbCore", col: 3 },
+    ],
+    hit: "a settle is one seat's level held for its step, and the core is one shot",
+    hurt: (fx) => fx.boss.plumb.hurt,
+  },
+  {
+    boss: "cyst",
+    // A flank cracked and the core hit; the tap that stills it, a slip or a spring only works toward one.
+    land: [
+      { type: "cystCrack", side: 0, col: 3 },
+      { type: "cystHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "cystLight", ask: "left", col: 3 },
+      { type: "cystStill", side: 0, col: 3 },
+      { type: "cystShudder", side: 1, col: 3 },
+      { type: "cystSlip", side: 0, col: 3 },
+      { type: "cystSpring", side: 1, col: 3 },
+    ],
+    hit: "a crack is its tap and its pinch landed together, and the core is one shot",
+    hurt: (fx) => fx.boss.cyst.hurt,
+  },
 ];
