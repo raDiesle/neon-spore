@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 99d7594d0 — The surface marks wait on THE BULB QUEEN's answer
+
+No outline body turns, so a mark placed by longitude has nothing to follow; which body turns and by how much is the owner's answer to "THE BULB QUEEN's parts: how far", and the entry now says it waits on that.
+
 ## 2026-09-27 · 6284fb107 — THE TASTER's fan sways like a field of wheat
 
 One gust now runs across THE TASTER's blades, each tip swinging a moment after the one before it, by more than half a tile, with no two neighbours far enough apart to cross, since crossed blades are how the fan says closed. The roots stay in the crest, where the pin and the pry are. The fan is still once it closes and once it is thrown open. On the field under "a look with no shipped alternative".
