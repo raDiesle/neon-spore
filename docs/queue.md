@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §39 THE BURGEE — the blow and the receipts
 
 - **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look
+- **Taken:** 2026-09-27, claude/queue-39-the-burgee-the-look (claim: claude/queue-39-the-burgee-the-blow-and-the-receipts)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/burgee-fx.ts`, `packages/render/src/burgee-draw.ts`
 
 The body is drawn (§11.56, *The look*); the look's second half is left. A
