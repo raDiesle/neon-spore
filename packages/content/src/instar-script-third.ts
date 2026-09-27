@@ -32,7 +32,7 @@ export const INSTAR_CROUCH: BossSequenceStep = {
 export const INSTAR_PERCH: BossSequenceStep = {
   pose: "perch",
   arrive: "cross",
-  morphBeats: 8,
+  morphBeats: 20,
   windowBeats: 5,
   landBeats: 3,
   marks: [
@@ -47,7 +47,7 @@ export const INSTAR_PERCH: BossSequenceStep = {
 export const INSTAR_ROAR: BossSequenceStep = {
   pose: "roar",
   arrive: "passes",
-  morphBeats: 10,
+  morphBeats: 25,
   windowBeats: 5,
   landBeats: 3,
   marks: [{ seat: "both", part: "glob", gesture: "shield", xMilli: 500, yMilli: 760, need: 2 }],
@@ -58,7 +58,7 @@ export const INSTAR_ROAR: BossSequenceStep = {
 export const INSTAR_SPRAWL: BossSequenceStep = {
   pose: "sprawl",
   arrive: "cross",
-  morphBeats: 7,
+  morphBeats: 18,
   windowBeats: 4,
   landBeats: 3,
   marks: [

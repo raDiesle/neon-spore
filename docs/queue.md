@@ -2636,29 +2636,6 @@ at most 0.15 of its radius at threat 1, and the radius rising monotonically;
 a strip of four PNG frames across one window is sent. `bun run check` proves
 the tests.
 
-## THE INSTAR — longer to arrive, and much slower between poses
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-bun-run-frames-until-cannot-name-which-firing-of (claim: claude/queue-the-instar-longer-to-arrive-and-much-slower-betw)
-- **Files:** `packages/content/src/instar-script-first.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/content/src/instar-script-breath.ts`, `packages/render/src/instar-flight.ts`
-
-The owner, 27 September 2026: *the introduction flying of THE INSTAR before
-the first action must last longer, so it can introduce itself to the players
-before they need to interact with it. The same between the state changes (its
-flying around): this must be much, much slower, otherwise it is too fast for
-players to recognise.* This is the simulation half; the depth of the flight
-is the entry after this one. Raise the first step's `morphBeats` (12, arrive
-`passes`) to at least 24. Raise every other step whose `arrive` is not `stay`
-(6 to 10 today) to at least 2.5 times its value. Check that
-`INSTAR_FLIGHT_ENDS` still gives the flight most of the longer morph. The
-wave grows longer: run the timing check in `.claude/skills/new-wave`, and give
-the new length in the commit. Replay hashes that move are the change itself;
-re-record them by the replay test's own command.
-
-Done when: the first morph is at least twice today's; every flying arrival
-is at least 2.5 times; `instar-flight.test.ts` and `instar-seams.test.ts`
-pass; the wave passes its timing check. `bun run check` proves it.
-
 ## THE INSTAR — flies round in depth, not across
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

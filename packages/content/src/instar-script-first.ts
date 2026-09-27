@@ -12,7 +12,7 @@ import type { BossSequenceStep } from "@neon-spore/sim";
 export const INSTAR_BROOD: BossSequenceStep = {
   pose: "brood",
   arrive: "passes",
-  morphBeats: 12,
+  morphBeats: 30,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -25,7 +25,7 @@ export const INSTAR_BROOD: BossSequenceStep = {
 export const INSTAR_LASH: BossSequenceStep = {
   pose: "lash",
   arrive: "cross",
-  morphBeats: 7,
+  morphBeats: 18,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -54,7 +54,7 @@ export const INSTAR_LASH: BossSequenceStep = {
 export const INSTAR_LUNGE: BossSequenceStep = {
   pose: "lunge",
   arrive: "approach",
-  morphBeats: 6,
+  morphBeats: 15,
   windowBeats: 5,
   landBeats: 3,
   marks: [{ seat: "both", part: "head", gesture: "hold", xMilli: 500, yMilli: 300, need: 3 }],
@@ -64,7 +64,7 @@ export const INSTAR_LUNGE: BossSequenceStep = {
 export const INSTAR_BREATH_TURNED: BossSequenceStep = {
   pose: "breath",
   arrive: "cross",
-  morphBeats: 6,
+  morphBeats: 15,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -77,7 +77,7 @@ export const INSTAR_BREATH_TURNED: BossSequenceStep = {
 export const INSTAR_COIL: BossSequenceStep = {
   pose: "coil",
   arrive: "passes",
-  morphBeats: 10,
+  morphBeats: 25,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -90,7 +90,7 @@ export const INSTAR_COIL: BossSequenceStep = {
 export const INSTAR_LUNGE_SPLIT: BossSequenceStep = {
   pose: "lunge",
   arrive: "cross",
-  morphBeats: 7,
+  morphBeats: 18,
   windowBeats: 5,
   landBeats: 3,
   marks: [
@@ -103,7 +103,7 @@ export const INSTAR_LUNGE_SPLIT: BossSequenceStep = {
 export const INSTAR_BROOD_TURNED: BossSequenceStep = {
   pose: "brood",
   arrive: "passes",
-  morphBeats: 10,
+  morphBeats: 25,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -116,7 +116,7 @@ export const INSTAR_BROOD_TURNED: BossSequenceStep = {
 export const INSTAR_LASH_MIXED: BossSequenceStep = {
   pose: "lash",
   arrive: "cross",
-  morphBeats: 7,
+  morphBeats: 18,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -129,7 +129,7 @@ export const INSTAR_LASH_MIXED: BossSequenceStep = {
 export const INSTAR_MOULT: BossSequenceStep = {
   pose: "moult",
   arrive: "passes",
-  morphBeats: 10,
+  morphBeats: 25,
   windowBeats: 4,
   landBeats: 4,
   marks: [

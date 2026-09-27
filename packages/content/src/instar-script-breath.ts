@@ -28,7 +28,7 @@ export const INSTAR_BREATH: readonly BossSequenceStep[] = [
   {
     pose: "breath",
     arrive: "approach",
-    morphBeats: 8,
+    morphBeats: 24,
     windowBeats: 4,
     landBeats: 3,
     marks: [

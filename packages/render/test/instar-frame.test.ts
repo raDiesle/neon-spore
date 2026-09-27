@@ -3,6 +3,7 @@ import { INSTAR_SCRIPT } from "@neon-spore/content";
 import { type InstarState, step, type World } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { rgba } from "../src/hex.js";
+import { INSTAR_FLIGHT_ENDS } from "../src/instar-shape.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -41,11 +42,15 @@ beforeAll(() => {
 
 const L = computeLayout(VIEWPORT, CFG, "test");
 
-/** Step `cursor` halfway through its morph. */
+/**
+ * Step `cursor` on the last whole beat of its flight: back over the field and
+ * still turning. Halfway through a long morph a pass is still off to the right.
+ */
 function morphing(world: World, cursor = 0): InstarState {
   const s = acting(world, cursor);
   s.phase = "morph";
-  s.phaseBeat = world.beat - Math.floor((s.steps[cursor]?.morphBeats ?? 2) / 2);
+  const flight = Math.round((s.steps[cursor]?.morphBeats ?? 2) * INSTAR_FLIGHT_ENDS);
+  s.phaseBeat = world.beat - Math.max(0, flight - 1);
   return s;
 }
 

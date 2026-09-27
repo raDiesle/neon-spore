@@ -47,7 +47,7 @@ export const INSTAR_GLARE: BossSequenceStep = {
 export const INSTAR_DIVE: BossSequenceStep = {
   pose: "dive",
   arrive: "approach",
-  morphBeats: 8,
+  morphBeats: 20,
   windowBeats: 5,
   landBeats: 3,
   marks: [{ seat: "both", part: "head", gesture: "shield", xMilli: 500, yMilli: 360, need: 2 }],
@@ -58,7 +58,7 @@ export const INSTAR_DIVE: BossSequenceStep = {
 export const INSTAR_SPREAD: BossSequenceStep = {
   pose: "spread",
   arrive: "cross",
-  morphBeats: 7,
+  morphBeats: 18,
   windowBeats: 5,
   landBeats: 3,
   marks: [

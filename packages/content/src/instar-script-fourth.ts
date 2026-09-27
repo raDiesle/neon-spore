@@ -14,7 +14,7 @@ import type { BossSequenceStep } from "@neon-spore/sim";
 export const INSTAR_HOVER: BossSequenceStep = {
   pose: "hover",
   arrive: "passes",
-  morphBeats: 10,
+  morphBeats: 25,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -28,7 +28,7 @@ export const INSTAR_HOVER: BossSequenceStep = {
 export const INSTAR_BOW: BossSequenceStep = {
   pose: "bow",
   arrive: "approach",
-  morphBeats: 6,
+  morphBeats: 15,
   windowBeats: 5,
   landBeats: 3,
   marks: [
@@ -43,7 +43,7 @@ export const INSTAR_BOW: BossSequenceStep = {
 export const INSTAR_ARCH: BossSequenceStep = {
   pose: "arch",
   arrive: "cross",
-  morphBeats: 8,
+  morphBeats: 20,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -57,7 +57,7 @@ export const INSTAR_ARCH: BossSequenceStep = {
 export const INSTAR_RISE: BossSequenceStep = {
   pose: "rise",
   arrive: "cross",
-  morphBeats: 8,
+  morphBeats: 20,
   windowBeats: 4,
   landBeats: 3,
   marks: [
@@ -71,7 +71,7 @@ export const INSTAR_RISE: BossSequenceStep = {
 export const INSTAR_LOOM: BossSequenceStep = {
   pose: "loom",
   arrive: "approach",
-  morphBeats: 6,
+  morphBeats: 15,
   windowBeats: 4,
   landBeats: 3,
   marks: [
