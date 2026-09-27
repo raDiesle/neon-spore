@@ -27679,3 +27679,16 @@ because the socket's hit fails the wave first, so the state had to be
 forced into the rigid beat to see it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE KEEL's STRAIGHT card shows the spine straight
+
+- reading: 10 min. The hand, the eleven poses, the pose kit, `keel-pose.ts`.
+- writing: 5 min. One hold, and its comment.
+- looking: 15 min. The KEEL's STATES group from the director, AUTO on HARD
+  to the end, the STRAIGHT card again.
+- friction: 5 min. Finding the sheet's button label and group selector for
+  `bun run shot`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. Every card was right but one, and that one was only
+wrong by when it was photographed, so it took reading the snap's timing.

@@ -1,5 +1,5 @@
 import { keelHand } from "@neon-spore/hands";
-import type { Pose } from "./pose-kit.js";
+import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
@@ -75,7 +75,9 @@ export const KEEL_POSES: Pose[] = [
     "The rock shot out, the spine snapped straight. P1 and P2 are done.",
     {
       hand: keelHand,
-      hold: 6,
+      // A beat in, not six ticks: the snap takes three quarters of one
+      // (`render/keel-pose.ts`), and six ticks in it is still the arch.
+      hold: TPB,
       budgetBeats: 240,
     },
   ),
