@@ -198,7 +198,11 @@ if (!command || command === "list") {
   // the entry has just gone.
   if (hasBranch(branchFor(item))) console.log(`         ${drop(branchFor(item)).note}`);
 } else {
-  throw new Error(
-    `unknown command ${JSON.stringify(command)} — list | status | next | show | take | release | done`,
-  );
+  // A usage line, not a stack trace: `help` is what a lost caller types first.
+  const usage = "bun run queue [list | status | next | show | take | release | done]";
+  if (command === "help") console.log(usage);
+  else {
+    console.error(`unknown command ${JSON.stringify(command)} — ${usage}`);
+    process.exit(1);
+  }
 }
