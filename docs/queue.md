@@ -2339,6 +2339,7 @@ tell apart on a phone, and the op-count rows stay within 10%.
 ## `bun run frames` cannot put a picture at a chosen draw time
 
 - **Found:** 2026-09-27, claude/queue-cairn-reprise-parts
+- **Taken:** 2026-09-27, claude/queue-frames-time (claim: claude/queue-bun-run-frames-cannot-put-a-picture-at-a-chosen)
 - **Files:** `tools/frames/page.ts`, `tools/frames/spec.ts`, `tools/frames/capture.ts`, `tools/frames/recipes.ts`
 
 The *Big enough to be seen* test wants two stills at the moment a movement is
