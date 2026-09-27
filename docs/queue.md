@@ -617,6 +617,7 @@ what the rest of this file holds.
 ## `docs/perf-audit-2026-09.md` has no real-device numbers yet
 
 - **Found:** 2026-09-26, claude/perf-audit-real-run
+- **Taken:** 2026-09-27, claude/queue-docs-perf-audit-2026-09-md-has-no-real-device-nu
 - **Files:** `docs/perf-audit-2026-09.md`
 - **Where:** local
 
