@@ -771,6 +771,7 @@ what the rest of this file holds.
 ## §40 THE FLUE — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-the-slings-own-blow-at-the-hull (claim: claude/queue-40-the-flue-the-look)
 - **Needs:** §40 THE FLUE's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
