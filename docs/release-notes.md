@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7a3ecdf03 — THE CAPSTAN's lean becomes a drag
+
+THE CAPSTAN's cradle is steered by a thumb now, not the phone's tilt: a press on the drum's middle or its cradle, carried left or right past capstanPullMilli (600 thousandths of a tile), bares that side's face for as long as it is held, and a lift centres the pull, so the cradle drifts back and the rub pauses without resetting. The wire keeps the one capstanSteer target, and fromMilli is now the thumb's carry. The field says PULL where it said LEAN, the guide says "drag the drum left and hold it", ON THE FIELD gains THE CAPSTAN'S PULL, AUTO's non-steering seat lets go of the drum, and THE CAPSTAN is off LEAN_BOSSES. A control change the owner asked for by name, 27 September 2026: no wave may need a tilt sensor.
+
 ## 2026-09-27 · c1350ad20 — THE SLING's cord drawing home is painted, behind ?raster=1
 
 A draw loosed true now throws a painted strip over the cord that took it: the cord's after-image swept from slack to drawn, a strain running up it to the tine, the catch flashing shut, and fibres shaken off. One strip, painted for the pilot's cord and mirrored for the navigator's, spawned at the drawn cord's middle because the fork never moves. Without ?raster=1 nothing changes. Exemption: a look offered behind the flag, not shipped. The fifth row of `PAINTED_STRIPS`, the first strip to go in through the table.
