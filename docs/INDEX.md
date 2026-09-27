@@ -1757,6 +1757,8 @@ by hand never moves.
 | `packages/render/src/instar-hide-baked.ts` | **THE INSTAR's hide, baked** — the third example (`sprite-bake.ts`) |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
+| `packages/render/src/instar-rig-head-draw.ts` | **THE INSTAR's rig head, drawn** (`instar-rig-head.ts` is the model): the parts through `drawRig` |
+| `packages/render/src/instar-rig-head.ts` | **THE INSTAR's one head, modelled once** (`docs/spec/living-bosses.md` §2) |
 | `packages/render/src/instar-reach.ts` | **How far each of THE INSTAR's views reaches, and whether any of it is on the field** |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
 | `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's moult as a wound, baked** — the fifth example (`sprite-bake.ts`) |
@@ -2828,6 +2830,7 @@ by hand never moves.
 | `tools/raster/src/sprite-fixtures.ts` | The things `sprite-demos.ts` draws its sprites on: a nest's layout and window, a plate of hide |
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
+| `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |

@@ -83,6 +83,29 @@ describe("an anchored part", () => {
   });
 });
 
+describe("a mark", () => {
+  it("is drawn in the painter's order, off its anchor", () => {
+    const { ctx } = stubCanvas();
+    const drawn: string[] = [];
+    const mark = (name: string, z: number): Part => ({
+      kind: "mark",
+      c: { x: 0, y: 0, z },
+      draw: (_ctx, seen) => drawn.push(`${name}@${Math.round(seen.x)}`),
+      anchor: { at: { x: 10, y: 0, z: 0 } },
+    });
+    const look = { deep: "#07060F", rim: "#C9B8FF" };
+    drawRig(
+      ctx as unknown as CanvasRenderingContext2D,
+      [mark("near", 5), mark("far", -5)],
+      view(SIDE),
+      0,
+      0,
+      look,
+    );
+    expect(drawn).toEqual(["far@10", "near@10"]);
+  });
+});
+
 describe("haze", () => {
   it("leaves the nearest part alone and steps the rest", () => {
     expect(hazeSkin(SKIN, 0, "#07060F")).toBe(SKIN);

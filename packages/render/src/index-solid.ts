@@ -5,6 +5,10 @@
  * boss's renderer as it moves onto a rig. `index.ts` re-exports the page
  * whole.
  */
+// THE INSTAR's rig head, and the shipped face-on head the sheet sets beside it.
+export { drawFrontHead } from "./instar-head.js";
+export { ENTER as INSTAR_ENTER } from "./instar-poses.js";
+export { drawRigHead, type RigHeadLook } from "./instar-rig-head-draw.js";
 export { drawBall } from "./solid-ball.js";
 export { backness, drawContact, hazeSkin } from "./solid-haze.js";
 export { breath, chainAt, noise1 } from "./solid-motion.js";
@@ -12,6 +16,7 @@ export {
   type BallPart,
   drawRig,
   hung,
+  type MarkPart,
   type Part,
   type RigLook,
   type SheetPart,

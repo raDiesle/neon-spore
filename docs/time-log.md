@@ -27813,3 +27813,16 @@ Bottleneck: writing. A choreographed boss is still about thirty
 registrations outside the simulation, and each one is found from the last.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's rig head, half (A): the model and its sheet
+
+- reading: 10 min. The parked entry, `solid-rig.ts`, `solid-anchor.ts`,
+  `surface.ts`, the shipped face-on head and its parts.
+- writing: 15 min. The model, the `mark` part, the sheet page, the tests.
+- looking: 5 min. Two sheets: the skull made smaller, the jaw opened
+  further, the cheek given the maw's colour.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. The rig's axes and anchor turns had to be read off
+three files before one number of the head could be placed.

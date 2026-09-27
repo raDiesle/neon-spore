@@ -8,7 +8,9 @@
  * `solid-*.ts` drawing in render: change a part, run this, look at the PNG.
  * The page is bundled from `src/solid-page.ts` and drawn by a real browser's
  * canvas, the one the game draws on. `--zdog` draws the Zdog comparison
- * instead (`src/zdog-page.ts`).
+ * instead (`src/zdog-page.ts`); `--instar` draws THE INSTAR's rig head at
+ * five yaws, jaw shut and open, beside the shipped face-on head
+ * (`src/solid-instar-page.ts`).
  */
 
 import { resolve } from "node:path";
@@ -16,11 +18,13 @@ import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
 
 const args = process.argv.slice(2);
 const zdog = args.includes("--zdog");
+const instar = args.includes("--instar");
+const sheet = zdog ? "zdog" : instar ? "solid-instar" : "solid";
 const named = args.find((a) => !a.startsWith("--"));
-const out = resolve(named ?? `.claude/tmp/${zdog ? "zdog" : "solid"}-sheet.png`);
+const out = resolve(named ?? `.claude/tmp/${sheet}-sheet.png`);
 
 const built = await Bun.build({
-  entrypoints: [resolve(import.meta.dir, zdog ? "src/zdog-page.ts" : "src/solid-page.ts")],
+  entrypoints: [resolve(import.meta.dir, `src/${sheet}-page.ts`)],
   target: "browser",
   format: "iife",
 });

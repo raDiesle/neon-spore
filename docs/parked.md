@@ -60,46 +60,23 @@ on.
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-instars-one-head-modelled-once
 - **Where:** local
-- **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/solid-rig.ts`, `packages/content/src/surface.ts`, `tools/raster/solid.ts`, `tools/versus/candidates/registry.ts`, `packages/render/test/instar-budget.test.ts`, `docs/spec/living-bosses.md`
+- **Files:** `packages/render/src/instar-rig-head.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-front.ts`, `packages/render/src/instar-profile.ts`, `tools/versus/candidates/registry.ts`, `packages/render/test/instar-budget.test.ts`
 
-Moved here from the queue when the owner stopped the session. The one piece
-landed is the seam: `instar-head.ts` now exports `frontLipsAt` beside
-`frontEyeAt`, both taking only the jaw fields, so a rig head can be fitted to
-the shipped face-on marks by calling them, not by copying their numbers.
-The task itself, unchanged: model the face-on head on the rig (spec §2 names
-the parts), as a VERSUS candidate beside the shipped two heads, never on the
-field, with a sheet at five yaws from face-on to side, jaw shut and open.
-Done when the candidate is in VERSUS; face-on its eyes and lip marks are
-within 2 px of the shipped head's at 390 wide; side-on it shows one full eye,
-a blunt muzzle and horns sweeping back; the sheet PNG is sent to the owner;
-its op count is within 10% of the shipped head's in `instar-budget.test.ts`.
+Half **(A)** has landed: the model (`instar-rig-head.ts`, the parts;
+`instar-rig-head-draw.ts`, the eyes, nostrils and throat as `mark` parts of
+the rig, drawn in its painter's order), `bun run solid --instar` for its
+sheet at five yaws beside the shipped face-on head, jaw shut and open, and
+`packages/render/test/instar-rig-head.test.ts` — face-on its eyes and both
+lips are within 2 px of the shipped head's at 390 wide, side-on it shows one
+full eye, a blunt muzzle and horns swept back. The sheet went to the owner.
 
-Cut in two, to land separately: **(A)** the model, a `bun run solid` page for
-it (a flag choosing the page) and the geometry tests; **(B)** a patchable
-record the draw path reads the head through (VERSUS patches records, and
-today `drawFrontHead`/`drawSideHead` are called directly), the candidate, and
-the op budget.
-
-What was decided for (A), in head radii, authored side-on with the snout to
-`-x` and the origin at the mouth's middle face-on:
-- **The upper head only translates**, to `frontLipsAt(...).up`, exactly as
-  the shipped head does. A skull that pitched would change the eye-to-lip
-  distance face-on, which the shipped head holds at 0.44 whatever the jaw.
-  Its frame's origin is the upper lip's front middle.
-- **The skull** is a ball near `(0.55, -0.46)` in that frame, radius about
-  0.78; **the eyes** are `pin`s on it whose latitude and longitude are solved
-  from `frontEyeAt`'s offset (about 38° either side of the snout), drawn with
-  `facet(pin, yaw - FRONT)` through the shipped `drawEye`, scaled across by
-  `sx`, and left out when not `near`. That draw is orthographic with no view
-  pitch, so the facet and `see` agree exactly.
-- **The muzzle** is one tube with its underside on the lip line (rings from
-  0.3 to -0.75, radius 0.36 to 0.25), narrower than the eyes' spacing so an
-  eye is never on the muzzle's flank.
-- **The jaw** is a tube on its own anchor, pitched open (negative pitch drops
-  a `-x` jaw), and the hinge's height is solved so its front top lands on
-  `frontLipsAt(...).down`. Face-on the wide-open gape is 1.66 r, more than
-  the jaw's length can swing, so the hinge translates too, and a dark cheek
-  sheet between the skull's back and the jaw's back hides the gap at the side.
-- **The horns** are tubes rooted on the skull's top sides sweeping back and
-  up; **the brows** are sheets of points pinned on the skull just above each
-  eye.
+Half **(B)** is what is left: a patchable record the draw path reads the
+head through — VERSUS patches records, and today `drawFrontHead`
+(`instar-front.ts`, through `drawTurnedHead`) and `drawSideHead`
+(`instar-profile.ts`) are called directly — so the candidate can swap both
+for `drawRigHead` at the yaw the turn is at (`FRONT` face-on, `SIDE` in
+profile, `instarTurn(f.side)` between); the candidate in
+`tools/versus/candidates/`, never on the field; and a row in
+`instar-budget.test.ts` holding the candidate's op count within 10% of the
+shipped head's. The rig head draws no hide scales, drips or sinews yet; a
+look lane may add them once the owner has seen it on VERSUS.

@@ -6,6 +6,7 @@ import {
   hangRings,
   poseOf,
   type Ring,
+  type Seen,
   type SeenRing,
   see,
   seeTube,
@@ -69,7 +70,21 @@ export interface SheetPart {
   readonly anchor?: Anchor;
 }
 
-export type Part = TubePart | BallPart | SheetPart;
+/**
+ * A MARK ON A RIG: something the rig does not shade — an eye, a nostril, the
+ * fire in a mouth — drawn by its own hand at the point it sits on, in the
+ * painter's order with the parts round it, so a muzzle swung across it covers
+ * it. `draw` is handed where the point is seen, about the rig's origin.
+ */
+export interface MarkPart {
+  readonly kind: "mark";
+  readonly c: Vec3;
+  readonly draw: (ctx: CanvasRenderingContext2D, seen: Seen, alpha: number) => void;
+  /** The hinge this mark is authored about, if it hangs off one. */
+  readonly anchor?: Anchor;
+}
+
+export type Part = TubePart | BallPart | SheetPart | MarkPart;
 
 export interface RigLook {
   /** The field colour far parts are hazed toward. */
@@ -92,14 +107,15 @@ interface Placed {
 export function hung(part: Part, poses?: Map<Anchor, Hinge>): Part {
   if (!part.anchor) return part;
   const pose = poseOf(part.anchor, poses);
-  if (part.kind === "ball") return { ...part, c: hang(pose, part.c), anchor: undefined };
+  if (part.kind === "ball" || part.kind === "mark")
+    return { ...part, c: hang(pose, part.c), anchor: undefined };
   if (part.kind === "sheet")
     return { ...part, points: part.points.map((p) => hang(pose, p)), anchor: undefined };
   return { ...part, rings: hangRings(pose, part.rings), anchor: undefined };
 }
 
 function place(part: Part, i: number, w: View): Placed {
-  if (part.kind === "ball") return { part, i, z: see(part.c, w).z };
+  if (part.kind === "ball" || part.kind === "mark") return { part, i, z: see(part.c, w).z };
   if (part.kind === "sheet") {
     const sheet = seeSheet(part.points, w);
     return { part, i, z: sheet.z, sheet };
@@ -128,6 +144,10 @@ export function drawRig(
   ctx.save();
   ctx.translate(x, y);
   for (const p of farFirst(placed, (q) => q.z)) {
+    if (p.part.kind === "mark") {
+      p.part.draw(ctx, see(p.part.c, w), alpha);
+      continue;
+    }
     const skin = hazeSkin(p.part.skin, backness(p.z, near, far), look.deep, look.haze);
     if (p.part.kind === "tube" && p.rings) {
       const outline = drawTube(ctx, p.rings, skin, alpha);
