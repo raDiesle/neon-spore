@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 186cc3622 — THE VALVE's ten states are posed in the director, played by its hand
+
+The nine still owed — turn, hold, frozen, list, jet, brace, wipe, seal and open — are run to with `valveHand` on the grip's own commands, and struck from `boss-states.test.ts`'s OWED. The queue entry is cut down to the story's words and bursts. A director card, not a frame of the game: no look.
+
 ## 2026-09-27 · e10510674 — THE VALVE says what it wants: TURN on the wheel to the pilot, FREEZE on the socket to the navigator, PULL on the live pin to either, FIRE under the spark
 
 Each word stands on the circle its grip answers at, and so do the handle a rehearsal rings and the ghost thumbs: the pilot's drawn where his hand has gone round the rim, a seat's on the pin while it is down there. `handle-place-boss.ts` is split along its later bosses to make room. Exemption: a look with no shipped alternative — the drum said nothing before.
