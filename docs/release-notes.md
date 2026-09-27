@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 52f149693 — THE CYST's freeze marks and flanks have rows in ON THE FIELD
+
+The four handles a thumb has been able to reach since the sac's hands landed — each flank's freeze mark, tapped by the partner, and the flank itself, pinched by its own seat — now have a row each on the tab, a row each in docs/spec/controls.md, and four poses: each flank tapped still and pinched shut, photographed from the seat that tapped and the seat that pinches. The on-field test places the four targets "field". The second of three lanes of the queue's entry; THE DAVIT's loose is left on it.
+
+## 2026-09-27 · 9d5e0f004 — A pose command on a fractional tick is refused rather than never sent
+
+`run()` in the director's pose kit keyed commands by their tick and stepped whole ticks, so a command listed at a quarter-beat — 18.75 at 75 ticks a beat — was silently dropped. THE GRINDSTONE's rubbing poses had three of their five reversals on such ticks and only stood right because a reversal count that jumps shaves the same; they are now on whole ticks, and `run()` throws on one that is not. No other pose had one.
+
 ## 2026-09-27 · b3d705ae4 — THE CAPSTAN: one hand rocks the drum for the other to wear
 
 Wave 116 THE CAPSTAN, the simulation lane of bosses-choreographed §37 and bosses §11.54: a rusted drum on a cradle, two grated bands. One seat leans the phone past `capstanLeanMilli` to bare a face; fresh reversals from the other seat wear only that face, and the hidden one keeps its wear. On the left band the pilot steers and the navigator rubs, on the right the other way about, on a hold either. Both bands bright bare the core for the ordinary shot in its colour; a hold between the shots counts three beats with a rub on a bared face, a miss no reset, and run out covers the core until it is made. Nine departures from the design are argued by name in §11.54.
