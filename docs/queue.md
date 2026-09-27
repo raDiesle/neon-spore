@@ -2521,6 +2521,7 @@ the test.
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-every-other-boss-no-mark-before-its-window-opens
 - **Needs:** THE INSTAR — its marks show only while THE SLOW is open
 - **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/trivet-marks.ts`, `packages/render/src/keel-marks.ts`, `packages/render/src/valve-marks.ts`, `packages/render/src/seam-marks.ts`
 
