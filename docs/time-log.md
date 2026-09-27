@@ -27901,3 +27901,5 @@ flew past the frame — and only a picture showed it.
 - landing: 10 min. `check:fast`, the commit, `land`'s full `check`.
 
 Bottleneck: landing. The fix is ten lines, and the proof is the full check.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

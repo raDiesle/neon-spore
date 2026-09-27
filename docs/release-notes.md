@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 0d1b44804 — timeout-cap.test.ts reads its directory once, on a timeout of its own
+
+The test that holds every drawing test to a stated timeout read the whole of `packages/render/test` twice on bun's five-second default, and under eight shards it timed out at 5000 ms. Both of its tests now share one read in a `beforeAll`, and the file states a 30-second limit. The rule it checks and its failure are unchanged.
+
 ## 2026-09-27 · cfede88c0 — THE RIME's bare core is painted, behind ?raster=1
 
 THE RIME's bare-core reveal now has a painted clearing offered over it: the last frost shattering off the pane. It is sixteen 128 px frames in frost colours: a cold light over the glass, hairline fractures running out from the middle, thin plates of frost that spin as they fall, and a powder that drifts down after them. `RimeFx` spawns it on `rimeBare`, over the pane, and only once `bindRasterRimeClear` has installed it behind `?raster=1`. Without the flag nothing is fetched and the reveal draws as it ships. It is an offered look under "a look with no shipped alternative"; whether it reads better is the owner's eye, unverified. The atlas is 66 970 B against the 90 kB budget; THE VISE's is 43 238 B beside it, and `bun run raster rime-clear` printed 65.4 kB. The APNG master is 163 975 B, and `bun run raster:verify` decodes both. The first bake cut flakes square at the frame's edge, so anything near the edge now fades out first. The second strip made the first one's path generic: one bake (`strip-bake.ts`), one assets test and one verifier loop cover every strip in `STRIPS`, and the game's four `?raster=1` binders share one body.
