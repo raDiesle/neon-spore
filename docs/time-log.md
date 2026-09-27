@@ -27354,3 +27354,5 @@ follows only once `cystFreezer` and `cystPincher` are read.
 
 Bottleneck: reading — the entry counted eleven and the pattern found twenty,
 and each extra name had importers of its own to follow.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

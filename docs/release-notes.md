@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 368773754 — One `phaseInto` clock for the twenty choreographed bosses that each typed it
+
+How far into its phase a choreographed boss is — the beat, less the beat the phase began, plus this beat's fraction, never below nought — was written out in twenty pose files under four names (`into`, `instarPhaseAt`, `since`, `mantleInto`). It is one function in `render/src/phase-into.ts` now, and `copies-table.ts` fails on the next file that writes it instead of calling it. Nothing drawn changes. The unclamped `(beat - s.phaseBeat + beatPhase) / beats` ratios are a different rule and were left alone.
+
 ## 2026-09-27 · f2027c786 — AUTO plays THE CYST: each flank tapped still by the partner and pinched shut by its own seat, the core shot out
 
 `boss-hands-cyst.ts` taps a lit flank's freeze mark from the partner's seat and lifts before the next tap. Once the flank is still, its own seat pinches it shut and keeps it shut until the step goes. Both seats pinch on a swell, the shield turns the spore, and the cannon shoots the bud and the bared core in their colours. THE CYST leaves `NO_HAND` and has its own autopilot test, and its core's marks row no longer carries `unreached`.
