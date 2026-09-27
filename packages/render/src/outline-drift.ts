@@ -28,7 +28,7 @@ import { slowHush } from "./slow-hush.js";
  * bows rather than leans (`throat-sway.ts`).
  */
 
-export type OutlineBoss = "queen" | "cairn" | "reprise" | "warden" | "throat";
+export type OutlineBoss = "queen" | "cairn" | "reprise" | "warden" | "throat" | "undertow";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -37,6 +37,7 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   reprise: 0,
   warden: 1,
   throat: 1,
+  undertow: 1,
 };
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
@@ -46,6 +47,7 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   reprise: 127,
   warden: 131,
   throat: 137,
+  undertow: 139,
 };
 
 export const OUTLINE = {
@@ -59,9 +61,11 @@ export const OUTLINE = {
  * **The cap of a boss whose marks are found where they are drawn**, in tiles,
  * in place of `OUTLINE.shift`. THE WARDEN's eye is hit-tested, cued and roped
  * at its posed point (`warden-drift.ts`), so nothing holds its reach to a
- * hit circle and its rim rocks by most of a tile, which is seen.
+ * hit circle and its rim rocks by most of a tile, which is seen. THE
+ * UNDERTOW's lobes carry no mark at all: its two rings belong to the column,
+ * not the lobe (`undertow-drift.ts`).
  */
-const LIFTED: Partial<Record<OutlineBoss, number>> = { warden: 0.8 };
+const LIFTED: Partial<Record<OutlineBoss, number>> = { warden: 0.8, undertow: 0.9 };
 
 /** How far any point within reach of `boss`'s root moves at most, in tiles. */
 export function outlineShift(boss: OutlineBoss): number {
@@ -91,7 +95,8 @@ export interface Point {
 /**
  * `boss`'s pose at `time` seconds for a body whose farthest point is `reach`
  * pixels from its root, or `null` where it draws none — its seam at 0, or
- * hushed to nothing.
+ * hushed to nothing. `seed` is the boss's own unless one boss draws several
+ * bodies that must not lean in step.
  */
 export function outlinePose(
   boss: OutlineBoss,
@@ -99,10 +104,11 @@ export function outlinePose(
   hush: number,
   reach: number,
   tile: number,
+  seed = OUTLINE_SEED[boss],
 ): OutlinePose | null {
   const k = OUTLINE_DRIFT[boss] * hush;
   if (k <= 0 || reach <= 0) return null;
-  const d = idleDrift(time, OUTLINE_SEED[boss], k);
+  const d = idleDrift(time, seed, k);
   // Each channel's share of the cap, as a fraction of the reach.
   const shift = outlineShift(boss);
   const at = (share: number) => (share * shift * tile) / reach;

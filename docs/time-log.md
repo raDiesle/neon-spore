@@ -27544,3 +27544,17 @@ Bottleneck: writing — `valve-fx.ts` was at 205 lines, so the story's
 twelve bursts went on a page of their own.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE UNDERTOW leans where it comes up through the plating
+
+- reading: 10 min. The lobe and body drawers, and the grip places, to
+  prove that nothing is hit-tested on a lobe.
+- writing: 10 min. The pose per lobe, a seed override on `outlinePose`,
+  the test, the spec note, and narrowing the queue entry.
+- looking: 15 min. Three frame ticks with no lobe up, then `--events`
+  to find one standing.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. Without `--auto both` the frames run keeps the lobes
+down, and `--events` was the way to find a tick with one standing.

@@ -3,7 +3,9 @@ import { type SimConfig, type UndertowState, undertowLastCol } from "@neon-spore
 import { drawHurt } from "./boss-hurt.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
+import { withOutlinePose } from "./outline-drift.js";
 import { splinePath } from "./spline.js";
+import { bodyPose, lobePose } from "./undertow-drift.js";
 import { paintBody, paintLobe } from "./undertow-flesh.js";
 import { bodyHeight, bodyPass, lobeHeight, PLATE_HALF } from "./undertow-shape.js";
 
@@ -68,14 +70,22 @@ export function drawUndertowLobes(
     const h = lobeHeight(cfg, u, b, beat, beatPhase);
     if (h <= 0) continue;
     const x = tileCX(l, b.col);
-    drawLobe(ctx, l, x + shake, skinY(x), h, b.tall, time, b.col, hurt);
+    // Each leans about where it crosses the skin (`undertow-drift.ts`).
+    const root = { x: x + shake, y: skinY(x) };
+    withOutlinePose(ctx, lobePose(cfg, b.col, h, l.tile, beat, beatPhase), root, () =>
+      drawLobe(ctx, l, root.x, root.y, h, b.tall, time, b.col, hurt),
+    );
   }
   const pass = bodyPass(cfg, u, beat, beatPhase);
   if (pass < 0) return;
   // The sim clears the breaches at the swallow, so the hole the body is
   // squeezing through is the last lobe's own: a plate's width, dead centre.
   const x = tileCX(l, undertowLastCol(cfg));
-  drawBody(ctx, l, x + shake, skinY(x), bodyHeight(pass), time, hurt);
+  const tiles = bodyHeight(pass);
+  const root = { x: x + shake, y: skinY(x) };
+  withOutlinePose(ctx, bodyPose(cfg, tiles, l.tile, beat, beatPhase), root, () =>
+    drawBody(ctx, l, root.x, root.y, tiles, time, hurt),
+  );
 }
 
 /** One lobe: a blob standing on end, seeded per column so two are not one. */

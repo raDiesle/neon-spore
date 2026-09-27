@@ -2195,6 +2195,7 @@ by hand never moves.
 | `packages/render/src/solid-verlet.ts` | A TRAILING PART THAT IS DRAGGED: a verlet chain, for the one case `chainAt` (`solid-motion.ts`) is not |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
+| `packages/render/src/undertow-drift.ts` | **THE UNDERTOW leans where it comes up through the plating** |
 | `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |
 | `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands, how wide a breach is |
 | `packages/render/src/undertow-seam.ts` | THE UNDERTOW's seam: the skin lifted between two x's, the violet light under it |

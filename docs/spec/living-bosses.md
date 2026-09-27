@@ -124,6 +124,15 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   THE SLOW's aim and the cinch all read the swung ring. On the field under
   *a look with no shipped alternative*. The other four are their own entry.
 
+  *THE UNDERTOW, as built, 27 September 2026* (`undertow-drift.ts`): each
+  lobe, and the body once, leans about the point where it crosses the skin,
+  since the hull hides everything below that point. Each lobe takes a seed
+  from its column, so a row of them sways out of step. A rising lobe leans
+  only as far as it has risen. The top of a grown lobe leans by more than
+  half a tile, with the cap lifted to nine tenths. Nothing is hit-tested on
+  a lobe: the pin's and the free's rings stand over the column. On the
+  field under *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair
