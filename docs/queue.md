@@ -632,27 +632,6 @@ doc with the numbers, distinct from the existing read/headless sections. If
 either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
 promote it out of "read" into its own queued fix.
 
-## §32 THE SLING — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, tmp-sling-look-wt (claim: claude/queue-32-the-sling-the-look)
-- **Needs:** §32 THE SLING's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a forked arm that bends back
-under load rather than fading taut, and the yoke's lit core answering the
-cannon's colour once both arms have drawn true. Nothing here is drawn yet
-and stays unverified at tempo until the owner has looked.
-
-**The touch sender rides this lane**, with the panels it draws: the
-simulation (wave 111, `docs/spec/bosses.md` §11.49) hears `slingDrawLeft`
-from Player 1 and `slingDrawRight` from Player 2, a drag whose `on: true` is
-a finger down anywhere on the seat's own panel and whose `on: false` at the
-lift carries the swipe on `fromMilli` by its sign alone — negative left,
-positive right, nought no swipe (`packages/sim/src/sling-hand.ts`). Nothing
-in `apps/game` sends one yet, so the fork is unanswerable on a phone until
-this lands; a test that a lift sends one command with the swipe's sign.
-
 ## DEFERRED — §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session
@@ -683,41 +662,6 @@ this lane touched anything. Offered, never replacing: the procedural draw
 stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
-
-## §35 THE DAVIT — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-26, claude/queue-32-the-sling-the-look (claim: claude/queue-35-the-davit-the-look)
-- **Needs:** §35 THE DAVIT's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (check
-`packages/content/src/silhouettes*.ts` first, then
-`tools/shape-sheet/src/drafts/`) for a pivoted crane boom on a slack
-chain, and the boom easing toward wherever the live tilt points as its
-own tell rather than a snap. No sprite-atlas experiment queued: the
-boom's motion is driven by the live shared aim reading every tick, not
-resolved once per beat, the same reasoning THE CYST's shudder was ruled
-out on. Nothing here is drawn yet and stays unverified at tempo until
-the owner has looked.
-
-**The touch sender rides this lane**, with the panels it draws: the
-simulation (wave 114, `docs/spec/bosses.md` §11.52) hears `davitSteerLeft`
-and `davitLooseLeft` from Player 1 and `davitSteerRight` and
-`davitLooseRight` from Player 2. A steer is THE PLUMB's lean — a drag whose
-`fromMilli` is the phone's lean in thousandths of a degree, sent as it
-changes, and `on: false` when the phone stops reporting; a loose is THE
-SLING's draw — `on: true` a finger down on the seat's panel, `on: false` at
-the lift carrying the swipe on `fromMilli` by its sign alone
-(`packages/sim/src/davit-hand.ts`). Nothing in `apps/game` sends one yet,
-so the boom is unanswerable on a phone until this lands; a test that a lean
-sends its reading and a lift sends one command with the swipe's sign.
-
-**Its own blow rides this lane too**: a shot run out already calls
-`bossStrikesHull` (`packages/sim/src/davit-step.ts`) and draws the default
-lash. Give THE DAVIT a `FROM` row and a `LOOK` row in
-`packages/render/src/boss-strike-look.ts` off the boom its drawer places,
-reaching the hull at `reach = 1`, proved in `render/test/boss-strike.test.ts`.
 
 ## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
 
@@ -2583,3 +2527,18 @@ it the way `aim()` aims THE INSTAR — off `sceneBoss`, not `instarBoss` — or 
 a row on page four off its own shape file, a row in `slow-boss-aim-d.test.ts`,
 and add `"nettle"` to `WALKED` and `GAPPED` in `fuse-place.test.ts`.
 `bun run check` proves it.
+
+## `queue status` counts a spent claim as BUSY
+
+- **Found:** 2026-09-27, claude/cleanup-worktrees-branches-820b37
+- **Files:** `tools/queue/status.ts`, `tools/queue/spent.ts`, `tools/queue/test/`
+
+On 27 September 2026 `bun run queue status` said BUSY with ten items, and
+seven of them were held by claim branches whose tips were already on `main`,
+with no worktree holding them and no session open: each had landed a lane of
+a multi-lane entry, or nothing, and walked away. They had to be found by hand
+and given back with `release`. `spentHere` (`spent.ts`) already tells a spent
+claim from a live one, but only `take` asks it. Have `status` and the
+listing ask it too, and show a spent claim as `spent — bun run queue release`
+rather than counting it as work in progress. A test builds a claim branch
+merged into the trunk with no worktree on it and expects it not counted.

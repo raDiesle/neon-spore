@@ -26672,3 +26672,17 @@ by touch, because the grips and the drawing all asked `haspWorking`, so they
 had to move in this lane rather than wait for the look.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — every worktree, branch and claim checked against the trunk
+
+- reading: 15 min. Every worktree, local and remote branch, and queue claim,
+  each checked against `main` by ancestry, `git cherry`, or a diff when a
+  rebase changed the sha.
+- writing: 5 min. Two entries marked done, seven claims released, one
+  finding queued.
+- looking: 0 min.
+- friction: 5 min. The classifier refused to abort one tree's rebase or
+  force-remove two trees, so those three stay for the owner.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: telling a spent claim from a live one, by hand, ten times.
