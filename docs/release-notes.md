@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 36be12f90 — THE BURGEE's freeze ring and draw track answer a thumb
+
+The first of §39's three halves: `render/burgee-grip.ts` sends `burgeeFreeze` from a press on the ring over the lit column, and `burgeeDraw` from a finger on the track under it, the lift carrying the swipe's side, each only for the seat the lit step asks. The ring and track now stand where one function says, `burgeeMarks`, which the drawing, the grip and the director's hush reader all call; nothing drawn moved. Both controls are `field` on the ON THE FIELD tab, with a pose each, and `burgee-grip.test.ts` catches the first flag with two thumbs. The cue and AUTO are left in the queue entry.
+
 ## 2026-09-27 · 83dccbbfc — Every boss but THE QUEEN is now held to no mark before its window opens
 
 THE GALL, THE GRINDSTONE, THE HALTER, THE PLUMB, THE RIME and THE SLING were read, whole draws and not only their marks files, and put up nothing early. THE SLING's cup now rings only while its yoke is lit as well as on the fire step, the simulation's own condition for a shot; the script never reaches a fire step with the yoke dark, so nothing a player sees changes. All six have rows in the shared marks-window test, and the queue entry is closed. THE SLING's cup, like THE BURGEE's and THE CYST's fire marks, is not yet required to be seen lit, for want of an AUTO hand. The new-boss skill now asks for a row here and in the hush test.

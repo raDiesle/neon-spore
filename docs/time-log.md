@@ -26993,3 +26993,5 @@ had to read the state the call was handed.
 - landing: 5 min. `check:fast`, the index, the commit, `land`.
 
 Bottleneck: reading — five files to learn where a mark stands and how a swipe's sign reaches the sim.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
