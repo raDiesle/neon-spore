@@ -26638,3 +26638,5 @@ aim at, and that only showed once no render file turned out to draw it.
 Bottleneck: THE PLUMB's frame test. It failed because `plumb-draw.ts` never
 read the blow it was dealt, so the table caught a missing draw that no one
 had seen.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

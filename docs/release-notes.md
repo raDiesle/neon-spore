@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 3d4b55aa3 — Time log: THE CYST and THE PLUMB in the blow's table
+
+## 2026-09-27 · ba8539f1c — THE PLUMB shakes and goes red when a weight settles or the core is hit, and THE CYST and THE PLUMB have rows in the blow's table
+
+THE PLUMB took the blow but never drew it: plumb-fx.ts called hurt.hit() on a settle and on a core hit, but plumb-draw.ts never read fx.hurt. Now the bob shakes on the hook's translate and its sac is washed red after its outline, the way THE CYST draws its blow. Look exemption: a fix to something wrong rather than unlovely. The owner's rule of 24 September is that every boss shows the blow, and this one showed nothing.
+
 ## 2026-09-27 · b8d39c852 — Time log: THE SLOW's aim for five more bosses
 
 ## 2026-09-27 · 7b9abf3be — THE SLOW stands round THE SEAM, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE, and their fuse stands under them
