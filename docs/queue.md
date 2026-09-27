@@ -2639,6 +2639,7 @@ the tests.
 ## THE INSTAR — longer to arrive, and much slower between poses
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-bun-run-frames-until-cannot-name-which-firing-of (claim: claude/queue-the-instar-longer-to-arrive-and-much-slower-betw)
 - **Files:** `packages/content/src/instar-script-first.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/content/src/instar-script-breath.ts`, `packages/render/src/instar-flight.ts`
 
 The owner, 27 September 2026: *the introduction flying of THE INSTAR before
