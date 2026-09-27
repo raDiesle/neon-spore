@@ -2733,6 +2733,7 @@ shafts and motes drift (`backdrop.ts`, `light-shafts.ts`).
 ## THE WISP's arms leave their own light when they sway
 
 - **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Taken:** 2026-09-27, claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th (claim: claude/queue-the-wisps-arms-leave-their-own-light-when-they-s)
 - **Files:** `packages/render/src/wisp-arms.ts`
 
 Each arm is a ribbon lit across its width — lit edge on `KEY`'s side,
