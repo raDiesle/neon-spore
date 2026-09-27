@@ -27356,3 +27356,16 @@ Bottleneck: reading — the entry counted eleven and the pattern found twenty,
 and each extra name had importers of its own to follow.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §32 THE SLING — its hand
+
+- reading: 5 min. `sling.ts`, `sling-hand.ts`'s lift and swipe, the step's
+  beat count and the wave's nine steps.
+- writing: 10 min. `boss-hands-sling.ts`, its own autopilot test,
+  `NO_HAND` emptied, the cup's marks row, the spec and two queue entries.
+- looking: 0 min. AUTO is proved by the test that walks it.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the entry bundled the hand with the director's pose
+cards, and it was split so the hand could land alone.

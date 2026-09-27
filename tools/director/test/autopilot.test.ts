@@ -29,15 +29,14 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 /**
  * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs here, and
- * fourteen more their own file each (`autopilot-<boss>.test.ts`: THE MANTLE,
+ * fifteen more their own file each (`autopilot-<boss>.test.ts`: THE MANTLE,
  * THE KEEL, THE VALVE, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET,
- * THE GRINDSTONE, THE HALTER, THE CAPSTAN, THE GALL, THE FLUE and THE CYST).
- * THE SLING is here for one reason — an autopilot hand plays a boss against
- * poses, and it had none when its simulation lane landed
- * (`docs/spec/bosses.md`). A new boss is a row in `AUTOPILOT_HANDS` or a name
- * here.
+ * THE GRINDSTONE, THE HALTER, THE CAPSTAN, THE GALL, THE FLUE, THE CYST and
+ * THE SLING). None is left: a boss belongs here only while its simulation has
+ * landed and its hand has not (`docs/spec/bosses.md`). A new boss is a row in
+ * `AUTOPILOT_HANDS` or a name here.
  */
-const NO_HAND = new Set(["sling"]);
+const NO_HAND = new Set<string>([]);
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");

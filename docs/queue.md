@@ -1516,35 +1516,23 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §32 THE SLING — its hands, the second half of its look
+## §32 THE SLING — the director's pose cards
 
 - **Found:** 2026-09-26, claude/queue-32-the-sling-the-look
-- **Taken:** 2026-09-27, claude/queue-the-cysts-autopilot-hand (claim: claude/queue-32-the-sling-its-hands-the-second-half-of-its-lo)
-- **Needs:** §32 THE SLING — the look, half one (the body), landed first
-- **Files:** `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
+- **Files:** `tools/director/src/`, `tools/director/test/on-field-controls.test.ts`
 
-The body is drawn and the pinch is already on the field: the fork's tines
-fold and swing out, each cord slack in cord-brown until the lit step asks
-its seat, then glows and draws further home as the pull holds
-(`render/sling-marks.ts`, `render/sling-shape.ts`); a thumb anywhere on the
-asked seat's own panel takes the cord, the lift carries the swipe's side on
-`fromMilli` the way THE WARDEN's hatch does, and the cup lights the step's
-colour and brightens once the yoke answers (`render/sling-grip.ts`,
-`render/test/sling-grip.test.ts`, `render/test/sling-frame.test.ts`). What
-is left is the director's own half: **the pose cards**, a page of them
-named for the boss (one per state — folded, both cords slack, a cord
-asked, a cord held further home, a cord loosed, the cup dark, the cup lit
-and dim, the cup lit and bright, the window closing, spent) and **the
-autopilot hand** that drives the world into each of them, a page named for
-the boss too (`autopilot.test.ts`'s `NO_HAND` row for SLING coming out),
-and the `slingDrawLeft`/`slingDrawRight` rows in `on-field-controls.test.ts`'s
-`TARGET_PLACE`/`FIELD_CONTROLS`, moved from `"unbuilt"` to `"field"`
-alongside the new `FIELD_CONTROLS` entries once the pose cards exist for
-them to name. Unverified at tempo until the owner has looked.
-
-Once AUTO plays the fight through, take the `unreached` wrapper off
-THE SLING's `drawSlingCup` row in `tools/director/test/marks-window-rows-c.ts`,
-so the fire mark has to be seen lit in its window.
+The body is drawn, the pinch is on the field (`render/sling-grip.ts`), and
+AUTO plays the fight through (`packages/hands/src/boss-hands-sling.ts`,
+landed 27 September 2026). What is left is the director's own half: **the
+pose cards**, the way THE CYST and THE FLUE have them — a
+`field-controls-sling.ts` with a row for each draw and a
+`poses-field-controls-sling.ts` whose poses are run to, never set (one per
+seat's draw at least: a cord asked, a cord held further home, a cord
+loosed, the cup lit), spread into `field-controls-bosses.ts` and
+`poses-field-controls.ts`. Then move the `slingDrawLeft`/`slingDrawRight`
+rows in `on-field-controls.test.ts`'s `TARGET_PLACE` from `"unbuilt"` to
+`"field"`, and add a `docs/spec/controls.md` row for each. Unverified at
+tempo until the owner has looked.
 
 ## Unverified at b083b387a: THE SLOW's light round THE GIMBAL, THE HASP, THE MANTL…
 
@@ -2153,10 +2141,9 @@ source sets it; a test proves the part angles are the parent's at 0.
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`, `packages/sim/src/gall-step.ts`
-- **Needs:** §32 THE SLING — its hands, the second half of its look
 
-THE CYST's hand landed 27 September 2026 (`boss-hands-cyst.ts`), so its half
-can be tried now; THE SLING's still waits on its hand.
+Both hands landed 27 September 2026 (`boss-hands-cyst.ts`,
+`boss-hands-sling.ts`), so both fights now reach their fire steps under AUTO.
 
 `--auto both --auto-miss` keeps AUTO's hands off every other asking window,
 and that reaches the timeout blow of THE OCULUS, THE VISE, THE TRIVET, THE

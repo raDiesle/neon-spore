@@ -29,6 +29,7 @@ import { instarHand, nettleHand } from "./boss-hands-scene.js";
 import { scoutHand } from "./boss-hands-scout.js";
 import { seamHand } from "./boss-hands-seam.js";
 import { vaneHand, wardenHand } from "./boss-hands-shots.js";
+import { slingHand } from "./boss-hands-sling.js";
 import { snakeHand } from "./boss-hands-snake.js";
 import { spoolHand } from "./boss-hands-spool.js";
 import { lidHand } from "./boss-hands-stare.js";
@@ -76,6 +77,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   fleet: fleetHand,
   flue: flueHand,
   cyst: cystHand,
+  sling: slingHand,
   gall: gallHand,
   gauge: gaugeHand,
   gimbal: gimbalHand,

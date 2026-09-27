@@ -29,7 +29,7 @@ import { plumbAsked } from "../../../packages/render/src/plumb-pose.js";
 import * as rimeMarks from "../../../packages/render/src/rime-marks.js";
 import * as rimeStory from "../../../packages/render/src/rime-story.js";
 import * as slingMarks from "../../../packages/render/src/sling-marks.js";
-import { mark, type Row, unreached } from "./marks-window-kit.js";
+import { mark, type Row } from "./marks-window-kit.js";
 
 /**
  * **The rows after the second six bosses'** of `marks-window.test.ts`. THE GALL's scars
@@ -38,7 +38,7 @@ import { mark, type Row, unreached } from "./marks-window-kit.js";
  * the bite, and only the step's colour counts as lit. THE PLUMB's glass has
  * no argument that says it is asked, so its call is read off the state it
  * was handed. THE RIME's icicle is drawn from `rime-story.ts`, not its marks
- * file. THE SLING has no hand, so AUTO never gets it to a fire step.
+ * file.
  * THE FLUE's ring is round the ember only once it has steadied under a rester.
  */
 
@@ -49,7 +49,6 @@ const halter = (w: World) => w.boss as HalterState;
 const plumb = (w: World) => w.boss as PlumbState;
 const rime = (w: World) => w.boss as RimeState;
 const sling = (w: World) => w.boss as SlingState;
-const SLING_HAND = "§32 THE SLING — its hands, the second half of its look";
 
 /** THE HALTER's grips and seam: a lit step that asks for a hold, not the shot. */
 const halterHolds = (w: World) => {
@@ -149,14 +148,11 @@ export const ROWS_C: readonly Row[] = [
         (w) => slingAsks(sling(w), 0) || slingAsks(sling(w), 1),
         (a) => a[4] === true,
       ),
-      unreached(
-        mark(
-          slingMarks,
-          "drawSlingCup",
-          (w) => sling(w).yokeLit && slingLitStep(sling(w))?.ask === "fire",
-          (a) => a[3] !== null,
-        ),
-        SLING_HAND,
+      mark(
+        slingMarks,
+        "drawSlingCup",
+        (w) => sling(w).yokeLit && slingLitStep(sling(w))?.ask === "fire",
+        (a) => a[3] !== null,
       ),
     ],
   },
