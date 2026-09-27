@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · fe847c4f5 — The director's RUN column goes home when a narrow window is widened
+
+A director loaded at phone width opens on the menu with RUN (the transport, and AUTO's four buttons in it) moved into the header. Widening the window changed no class, so RUN stayed in a header that was a bar again, painted over by `main`, and AUTO could not be clicked at 1500 wide. `mobile-menu.ts` now listens to the breakpoint itself (`PHONE_QUERY`, from `phone-view.ts`), and sends RUN home on widening and back into an open menu on narrowing. The queue entry blamed stacking order; a load at desktop width was never broken. `FakeEl` gains `parentElement` and moves a node on `append`, as a browser does.
+
 ## 2026-09-27 · d007bc2da — `limits.test.ts` reads the tree once, in batches, for all four cases
 
 Before this, each case read every source file for itself, one file at a time, and the size case went past its 20 s timeout under a loaded `bun run check`. Now the file reads the tree once, in parallel batches of 256, and all four cases use that read. Run alternately with the old file on the same machine, the new one takes about 310 ms and the old about 1,060 ms. The two figures are set from that.
