@@ -25496,3 +25496,5 @@ function, and each had to be lifted out before a second caller could share it.
 
 Bottleneck: reading — the status lists in `bosses-choreographed.md` lag the
 files too, so every claim was read off the tree rather than off them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
