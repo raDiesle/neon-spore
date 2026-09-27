@@ -65,14 +65,18 @@ describe("THE MANTLE's brace", () => {
   it("shudders only while bracing, and less as the hold counts", () => {
     const world = hung();
     const at = 0.37;
-    const loose = Math.abs(mantleShudder(LAYOUT, world, bracing(world, [false, false]), at));
-    const held = Math.abs(mantleShudder(LAYOUT, world, bracing(world, [true, true]), at));
+    const loose = Math.abs(
+      mantleShudder(LAYOUT, world, bracing(world, [false, false]), world.beat, 0, at),
+    );
+    const held = Math.abs(
+      mantleShudder(LAYOUT, world, bracing(world, [true, true]), world.beat, 0, at),
+    );
     const late = bracing(world, [true, true], CFG.mantleBraceBeats - 1);
     expect(loose).toBeGreaterThan(0);
     expect(held).toBeLessThan(loose);
-    expect(Math.abs(mantleShudder(LAYOUT, world, late, at))).toBeLessThan(held);
+    expect(Math.abs(mantleShudder(LAYOUT, world, late, world.beat, 0, at))).toBeLessThan(held);
     expect(mantleBraceShare(late, CFG.mantleBraceBeats)).toBeGreaterThan(0);
-    expect(mantleShudder(LAYOUT, world, pulling(world, 0, 0, 1), at)).toBe(0);
+    expect(mantleShudder(LAYOUT, world, pulling(world, 0, 0, 1), world.beat, 0, at)).toBe(0);
   });
 
   it("draws the same brace the same way twice", () => {

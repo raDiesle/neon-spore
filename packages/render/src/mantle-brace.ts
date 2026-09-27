@@ -5,6 +5,7 @@ import type { Layout } from "./layout.js";
 import { mantleKnobCircle } from "./mantle-grip.js";
 import { mantleReach, type Point } from "./mantle-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { slowHush } from "./slow-hush.js";
 
 /**
  * **THE MANTLE's brace, drawn** (§23 rows 7 and 8): the shear before the last
@@ -21,7 +22,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * - **The shell shudders** while bracing, side to side, less as the hold
  *   counts up and half again while both thumbs are down. A lift puts the
  *   count back to nought, which is the shudder coming back at full — the slip
- *   needs no transient of its own.
+ *   needs no transient of its own. Inside an asking window of THE SLOW it
+ *   dies down to a fortieth, because it carries the knobs the pair are
+ *   holding (`slow-hush.ts`).
  * - **Each knob gets a breathing ring**: grey and breathing while that side
  *   is let go, lit and steady while it is held.
  */
@@ -32,12 +35,28 @@ export function mantleBraceShare(s: MantleState, braceBeats: number): number {
   return Math.min(1, s.braceBeats / Math.max(1, braceBeats));
 }
 
+/**
+ * What is left of the shudder inside a window. At its worst it is 0.08 tiles
+ * at about 39 radians a second, 3.1 tiles a second, and a fortieth of that is
+ * 0.08, under the tenth a live mark may move
+ * (`tools/director/test/boss-hush.test.ts`).
+ */
+const SHUDDER_HUSHED = 0.025;
+
 /** The shell's side-to-side shudder while bracing, in pixels: none otherwise. */
-export function mantleShudder(l: Layout, world: World, s: MantleState, time: number): number {
+export function mantleShudder(
+  l: Layout,
+  world: World,
+  s: MantleState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+): number {
   if (!mantleBracing(s)) return 0;
   const share = mantleBraceShare(s, world.cfg.mantleBraceBeats);
   const both = s.held[0] && s.held[1];
-  const amp = l.tile * 0.08 * (1 - share) * (both ? 0.5 : 1);
+  const hush = slowHush(world, beat, beatPhase, SHUDDER_HUSHED);
+  const amp = l.tile * 0.08 * (1 - share) * (both ? 0.5 : 1) * hush;
   return amp * Math.sin(time * 37) * (0.6 + 0.4 * Math.sin(time * 5.3));
 }
 

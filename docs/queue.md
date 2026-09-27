@@ -2572,16 +2572,28 @@ and to any pose the cue stands its word clear of.** The next lane should add
 a drawn-mark reader per boss, where the cue is not the ring's place, before
 it adds a row.
 
-Left, with what the probe of that lane found under AUTO:
-- **Cue already still in windows** (read each draw for wall-clock motion
-  before adding its row): THE HASP, THE RATCHET, THE MANTLE (`mantleShudder`
-  shakes the whole shell on `time`), THE KEEL, THE OCULUS, THE VISE, THE
-  RIME, THE TRIVET, THE PLUMB, THE GRINDSTONE, THE CYST (core drift and a
-  shake in `cyst-marks`), THE CAPSTAN (`capstanJudder` carries the marks),
-  THE SCUTTLE.
-- **Cue moves:** THE BATON, 30 tiles a second at its worst. Probably its
-  cue jumping between marks or the arm's gesture, and not yet read.
-- **Windows but no cue** (these need the drawn-mark reader first): THE
+**The second lane, 27 September 2026:** the test now reads every cue a
+screen may see (`bossCues`, exported), each matched to itself by its seed, so
+a cue handing over to another mark is not counted as motion; that was all
+of THE BATON's 30 tiles a second, and THE RATCHET's `FIRE` handing to its
+bar. **`DRAWN` in the test is the drawn-mark reader**: a boss's marks placed
+where no cue reaches, as its draw places them. A cue goes once the thumb does
+what it asks, so a held mark is only there. THE MANTLE's is its two knobs
+under the brace shudder, which carried them at 1.3 tiles a second under AUTO
+and is hushed to a fortieth (`mantle-brace.ts` `SHUDDER_HUSHED`). New rows:
+THE HASP, THE RATCHET, THE MANTLE, THE KEEL, THE OCULUS, THE VISE, THE BATON.
+Each of their draws was read for `time`, and what else moves is skin: a lit
+highlight's wobble, a spent clasp's slack, the oculus's leaves settling, a
+knob's outline, a hit's shake.
+
+Left, with what the first lane's probe found under AUTO:
+- **Cue already still in windows** (read each draw for wall-clock motion,
+  and add a `DRAWN` reader for any mark the cue stops naming, before adding
+  its row): THE RIME, THE TRIVET, THE PLUMB, THE GRINDSTONE, THE CYST (core
+  drift and a shake in `cyst-marks`), THE CAPSTAN (`capstanJudder` carries
+  the marks), THE SCUTTLE (its cue reads the part's row, not its drawn rise
+  and hang: a `DRAWN` reader).
+- **Windows but no cue** (these need a `DRAWN` reader first): THE
   SINEW, THE ANTIPHON, THE NETTLE, THE VALVE, THE SEAM, THE SLING, THE DAVIT,
   THE HALTER (`halterTremor`), THE GALL, THE BURGEE (`burgeeLay`'s sway on
   `time`).

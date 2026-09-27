@@ -26524,3 +26524,18 @@ Bottleneck: reading — whether a window can be open with the slow shut
 needed a probe: after a strike the step stays `act` on the frozen field.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — Every other boss holds still, seven more
+
+- reading: 5 min. The six draws for `time`, and why THE RATCHET's and THE
+  BATON's cues read as fast.
+- writing: 5 min. The test reads every cue by its seed and takes a `DRAWN`
+  reader; THE MANTLE's shudder hushed.
+- looking: 0 min. Nothing measured by eye; the hush is a number.
+- friction: 0 min. A stray `cd` ran the test once in the main checkout,
+  which changed nothing.
+- landing: 5 min. The MANTLE row made to fail at a tenth, `check:fast`, the
+  commit, `land`.
+
+Bottleneck: reading — the first MANTLE row passed unhushed, because a cue
+goes once the thumb holds, and finding that took the longest.

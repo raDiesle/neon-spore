@@ -85,7 +85,7 @@ export function drawMantle(
 
   ctx.save();
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
-  const shudder = mantleShudder(l, world, s, time);
+  const shudder = mantleShudder(l, world, s, beat, beatPhase, time);
   ctx.translate(fx.hurt.shakeX(time, l.tile) + shudder, fx.kick * l.tile - mantleLift(l, arrived));
   drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
   for (const side of [-1, 1] as const)

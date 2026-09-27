@@ -1,8 +1,18 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { computeLayout, type Viewport } from "@neon-spore/render";
-import { type BossKind, beatPhase, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
-import { bossCue } from "../../../packages/render/src/boss-cue.js";
+import { computeLayout, type Layout, type Viewport } from "@neon-spore/render";
+import {
+  type BossKind,
+  beatPhase,
+  mantleBracing,
+  slowing,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
+import { bossCues, cueSeen } from "../../../packages/render/src/boss-cue.js";
+import { mantleShudder } from "../../../packages/render/src/mantle-brace.js";
+import { mantleKnobCircle } from "../../../packages/render/src/mantle-grip.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
@@ -14,23 +24,64 @@ import { stageField } from "../src/stage-field.js";
  * one every other boss gets a row in.
  *
  * AUTO plays both seats through the boss's wave, and on every tick of an
- * asking window after its first half beat each screen's cue — the middle of
- * the mark it is owed (`boss-cue.ts`) — is read and compared with the tick
- * before. A tick of a window lasts `1000 / slowRateMilli` of a real one, so
- * the speed is in tiles a wall-clock second, and it must stay under a tenth.
+ * asking window after its first half beat every cue each screen may see — the
+ * middle of each mark the boss is asking for (`boss-cue.ts`) — is read and
+ * compared with the same cue, by its seed, on the tick before. A cue that
+ * gives way to another is a new mark and not a moved one: THE RATCHET's
+ * `FIRE` handing over to its bar, THE BATON's cue passing between its marks.
+ * A tick of a window lasts `1000 / slowRateMilli` of a real one, so the speed
+ * is in tiles a wall-clock second, and it must stay under a tenth.
  *
- * What this cannot see is a mark moved by anything the cue does not read: the
- * wall clock (`bossCue` takes no `time`), or a pose the cue stands its word
- * clear of — THE SCUTTLE's cue reads the part's row and not its drawn rise.
- * So a boss is given a row only once its draw has been read and its rings
- * are placed off the same state the cue is, and by nothing else.
+ * The cue reads no `time`, and it goes once the thumb is doing what it asks,
+ * so a boss whose draw moves a mark the cue no longer names, or moves it on
+ * the wall clock, is read in `DRAWN` too, from the functions its draw calls:
+ * THE MANTLE's brace shudder carries both knobs while the pair hold them.
+ * What this still cannot see is a pose the cue stands its word clear of —
+ * THE SCUTTLE's cue reads the part's row and not its drawn rise. So a boss is
+ * given a row only once its draw has been read and its rings are placed off
+ * the same state the cue is, and by the motions `DRAWN` names.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 const LIMIT = 0.1; // tiles a wall-clock second
 
 /** The bosses whose marks have been read and hold still; the rest are in `docs/queue.md`. */
-const STILL: readonly BossKind[] = ["undertow", "gorge", "curtain", "taster", "lead"];
+const STILL: readonly BossKind[] = [
+  "undertow",
+  "gorge",
+  "curtain",
+  "taster",
+  "lead",
+  "hasp",
+  "ratchet",
+  "mantle",
+  "keel",
+  "oculus",
+  "vise",
+  "baton",
+];
+
+interface Mark {
+  /** Apart from every cue's seed, which are all positive. */
+  id: number;
+  x: number;
+  y: number;
+}
+
+type Drawn = (l: Layout, world: World, beatPhase: number, time: number) => readonly Mark[];
+
+/** The marks a boss's draw places where its cue does not reach, as the draw places them. */
+const DRAWN: Partial<Record<BossKind, Drawn>> = {
+  mantle: (l, world, phase, time) => {
+    const s = world.boss;
+    if (s?.kind !== "mantle" || !mantleBracing(s)) return [];
+    const shudder = mantleShudder(l, world, s, world.beat, phase, time);
+    return ([-1, 1] as const).map((side, k) => {
+      const knob = mantleKnobCircle(l, world.cfg, s, side, world.beat, phase, s.depthMilli[k]);
+      return { id: -1 - k, x: knob.x + shudder, y: knob.y };
+    });
+  },
+};
 
 interface Reading {
   fastest: number;
@@ -47,22 +98,31 @@ function walk(kind: BossKind): Reading {
   const auto = stageAutopilot({ layout: () => test, field });
   auto.setMode("both");
   const tickSeconds = 1000 / cfg.tickHz / cfg.slowRateMilli;
-  const last: ({ x: number; y: number } | null)[] = [null, null];
+  const drawn = DRAWN[kind] ?? (() => []);
+  const last = seats.map(() => new Map<number, { x: number; y: number }>());
+  let time = 0;
   let fastest = 0;
   let samples = 0;
   for (let i = 0; i < 40_000 && world.boss !== null; i++) {
     step(world, auto.commands(world));
+    time += slowing(world) ? tickSeconds : 1 / cfg.tickHz;
     const settled =
       slowing(world) && world.slowAsks && world.tick >= (world.slowFromBeat + 0.5) * tpb;
+    const phase = beatPhase(cfg, world.tick);
     seats.forEach((l, k) => {
-      const cue = settled ? bossCue(l, world, beatPhase(cfg, world.tick), () => l.hullY) : null;
-      const was = last[k] ?? null;
-      if (cue !== null && was !== null) {
-        const tiles = Math.hypot(cue.x - was.x, cue.y - was.y) / l.tile;
-        fastest = Math.max(fastest, tiles / tickSeconds);
-        samples++;
+      const now = new Map<number, { x: number; y: number }>();
+      const cues = settled ? bossCues(l, world, phase, () => l.hullY) : [];
+      const seen = cues.filter((cue) => cueSeen(cue, l.role)).map((c) => ({ ...c, id: c.seed }));
+      for (const mark of settled ? [...seen, ...drawn(l, world, phase, time)] : []) {
+        const was = last[k]?.get(mark.id);
+        if (was !== undefined) {
+          const tiles = Math.hypot(mark.x - was.x, mark.y - was.y) / l.tile;
+          fastest = Math.max(fastest, tiles / tickSeconds);
+          samples++;
+        }
+        now.set(mark.id, { x: mark.x, y: mark.y });
       }
-      last[k] = cue === null ? null : { x: cue.x, y: cue.y };
+      last[k] = now;
     });
   }
   return { fastest, samples };

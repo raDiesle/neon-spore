@@ -93,9 +93,15 @@ const NONE: readonly BossCue[] = [];
  * `packages/sim`: `boss-draw-clocks.ts` reads the union exactly this way, and
  * twelve imported guards whose whole body is `boss.kind === "x"` would be the
  * same list written twice.
- * A screen is owed one cue and takes `bossCue` below.
+ * A screen is owed one cue and takes `bossCue` below; a test that holds every
+ * asked-for mark still reads them all (`tools/director/test/boss-hush.test.ts`).
  */
-function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): readonly BossCue[] {
+export function bossCues(
+  l: Layout,
+  world: World,
+  beatPhase: number,
+  skinY: SurfaceY,
+): readonly BossCue[] {
   const boss = world.boss;
   if (boss === null) return NONE;
   switch (boss.kind) {
