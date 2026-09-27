@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 8cfd1caf5 — THE INSTAR's fire in its mouth is a soft glow that grows
+
+The fire between the jaws is no longer a turning ball with an edge and arms, which read as a mark to press. It is three soft ember glows (radial gradients, with no stroke, rim or turning shape), and it flickers in brightness. When the window opens it is a speck, a tenth of the lip gap across, and it swells with the window, eased in so the last beats grow the most (`fireGrown`). It stays sized by the lips (`fireRadius`), so pushing the jaws shut still squeezes it out. The throat's wash and the nostrils follow the same curve, so they too start dimmer.
+
 ## 2026-09-27 · 678387284 — THE INSTAR flies round in depth, not across
 
 A pass and a cross no longer leave the frame sideways. The body flies an ellipse in width and depth: back into the distance first, small, high and dimmed to a little over half, then round to the front a fifth larger than at rest, and back again. The passes go round twice and the cross one and a half times, and the body settles into its pose out of the last of it. The body is mirrored on the far half of each lap so the head always faces the way it flies. It snaps to the mirror where it would turn edge-on, rather than thinning to a sliver. The approach and the stay are unchanged.
