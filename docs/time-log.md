@@ -25312,3 +25312,5 @@ Bottleneck: friction — the first item the queue offered needed an idle machine
 
 Bottleneck: reading — the refusal only happens on a clone without the local
 exclude, so the cause was not in the code the entry named.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

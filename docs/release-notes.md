@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1f6e848d4 — `bun run push` no longer refuses on a lane's worktree under .claude/worktrees/
+
+A kept lane's worktree is a directory with a `.git` file inside the checkout that has `main` out, and git lists it as untracked, so the push's clean-tree check refused on it. The owner's machine hid it with `.git/info/exclude`; a cloud clone has no such line. `.gitignore` now carries it, and a repo test reconciles a trunk with a registered worktree there.
+
 ## 2026-09-27 · 16d7aa4e2 — A lane's worktree on disk no longer stops `bun run push`
 
 `.claude/worktrees/` is ignored by the repository's own `.gitignore`. Only the owner's main checkout had it, in `.git/info/exclude`, which a clone never gets — so after `land --keep` a cloud session's push refused on the untracked worktree directory until it was removed by hand. A real-repo test proves the reconcile's clean-tree check passes with a registered worktree there.
