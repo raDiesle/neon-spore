@@ -26953,3 +26953,15 @@ decision the preamble records, and only reading it first caught that.
 Bottleneck: none worth the name — a test had already answered most of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE KEEL's body seen in frames
+
+- reading: 5 min. The entry, `keel-shape.ts`'s reason for end plates flush
+  with the field's edge.
+- writing: 0 min.
+- looking: 10 min. Three sheets out of `bun run frames` — the first locks,
+  the split through the rigid lock — and a crop of the arch.
+- friction: 5 min. A second `queue next` claimed THE BURGEE, given back.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — three sheets and a crop to clear one entry.
