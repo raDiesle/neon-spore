@@ -445,7 +445,6 @@ an alignment.
 ## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §28 THE VISE's look, above, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
   otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
@@ -477,7 +476,6 @@ looked.
 ## DEFERRED — §29 THE RIME — sprite atlas experiment: the bare-core reveal
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §29 THE RIME's look, above, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
   otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
@@ -520,7 +518,6 @@ in a file of their own.
 ## DEFERRED — §30 THE TRIVET — sprite atlas experiment: the feet planting home
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §30 THE TRIVET — its hands, the second half of its look, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
   otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
@@ -551,7 +548,6 @@ owner's, unverified until he has looked.
 ## DEFERRED — §31 THE PLUMB — sprite atlas experiment: the bob settling true
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §31 THE PLUMB's look, above, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
   otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
@@ -576,7 +572,6 @@ owner's, unverified until he has looked.
 ## DEFERRED — §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §32 THE SLING's look, above, landed first
 - **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
   new graphics stay on THE INSTAR only, as the one example, until he says
   otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
@@ -752,7 +747,7 @@ draw the brake is covering. `bun run check` proves it.
 ## §41 THE WINCH — the look
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §41 THE WINCH's simulation lane, above, landed first
+- **Needs:** §41 THE WINCH — the simulation lane
 - **Files:** `docs/spec/bosses-choreographed.md`
 
 Lane two, read against `docs/style-guide.md`: a new silhouette (checked
@@ -794,7 +789,7 @@ proves it.
 ## §42 THE SLUICE — the look
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §42 THE SLUICE's simulation lane, above, landed first
+- **Needs:** §42 THE SLUICE — the simulation lane
 - **Files:** `docs/spec/bosses-choreographed.md`
 
 Lane two, read against `docs/style-guide.md`: a new silhouette (checked
@@ -835,7 +830,7 @@ on every chord-governed tap. `bun run check` proves it.
 ## §43 THE GOVERNOR — the look
 
 - **Found:** 2026-09-26, this session
-- **Needs:** §43 THE GOVERNOR's simulation lane, above, landed first
+- **Needs:** §43 THE GOVERNOR — the simulation lane
 - **Files:** `docs/spec/bosses-choreographed.md`
 
 Lane two, read against `docs/style-guide.md`: a new silhouette (checked
@@ -913,7 +908,6 @@ what the rest of this file holds.
 ## §26 THE SEAM — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Needs:** §26 THE SEAM — the look, half one (the body), landed first
 - **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: the ridge, the crack, the lit point, the grit, the rock
@@ -1308,7 +1302,6 @@ what the rest of this file holds.
 ## §29 THE RIME — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
-- **Needs:** §29 THE RIME — the look, half one (the body), landed first
 - **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: BULB · PEBBLE's pane of dull glass split down the spine,

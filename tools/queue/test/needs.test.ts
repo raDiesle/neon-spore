@@ -64,6 +64,18 @@ describe("an entry that waits on another one", () => {
     expect(problemsIn(items)).toEqual([]);
   });
 
+  it("is a reported problem when the line is a sentence about the entry, not its title", () => {
+    // THE WINCH's look, 27 September 2026: this matched nothing, so `next`
+    // handed the look out with its simulation lane still in the file.
+    const md = LANE_TWO.replace(
+      "- **Needs:** THE GIMBAL is written and nobody has built its simulation",
+      "- **Needs:** THE GIMBAL's simulation lane, above, landed first",
+    );
+    const items = parseItems(`${LANE_ONE}\n${md}`, "queue");
+    expect(blocked(items[1]!, items)).toBe(false);
+    expect(problemsIn(items)[0] ?? "").toContain("the Needs: line is a sentence");
+  });
+
   it("is nobody's blocker but its own when the line quotes its own title", () => {
     const md = LANE_TWO.replace(
       "- **Needs:** THE GIMBAL is written and nobody has built its simulation",

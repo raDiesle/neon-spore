@@ -1,4 +1,5 @@
 import { answerTo } from "./asking.js";
+import { needOf } from "./needs.js";
 import { fieldOf, type Item, WHERE } from "./queue.js";
 
 /**
@@ -10,6 +11,10 @@ import { fieldOf, type Item, WHERE } from "./queue.js";
  */
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
+
+/** A `Needs:` line saying where its prerequisite is and that it has to land,
+ * rather than naming it. */
+const SENTENCE_NEED = /(,\s*above\b|\blanded first\s*$)/i;
 
 /** What `queue list` hangs off an entry's fields, and so what a title may not
  * repeat: `ASKS THE OWNER` from `Asks:`, `LOCAL ONLY` and `PHONE ONLY` from
@@ -82,6 +87,15 @@ export function problemsWith(item: Item): string[] {
   const shouted = MARKERS.find((m) => item.title.toUpperCase().includes(m));
   if (shouted) {
     problems.push(`${where} — the title says ${shouted}; the listing adds that from the field`);
+  }
+  // A `Needs:` written as a sentence about its prerequisite rather than as its
+  // title. It matches nothing, so it fails open (`needs.ts`) — and on 27
+  // September 2026 `next` handed out THE WINCH's look while its simulation
+  // lane was still in the file, because the line read *§41 THE WINCH's
+  // simulation lane, above, landed first*. A misspelt title cannot be told
+  // from a landed one; these two phrases can, and no title ends in them.
+  if (SENTENCE_NEED.test(needOf(item))) {
+    problems.push(`${where} — the Needs: line is a sentence; it is the other entry's title`);
   }
   const reserved = fieldOf(item.body, WHERE);
   if (reserved && item.where === "anywhere") {

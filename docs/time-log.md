@@ -27738,3 +27738,16 @@ Bottleneck: reading. The phone rule lived in three places — the land tool,
 the queue's preamble and the cloud-session doc — and each had to be found.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — A Needs: line written as a sentence is reported
+
+- reading: 5 min. `needs.ts`, `problems.ts`, their tests.
+- writing: 10 min. The check, its test, ten `Needs:` lines retitled or
+  dropped.
+- looking: 0 min.
+- friction: 5 min. `next` handed out THE WINCH's look with its simulation
+  lane still in the file; releasing it.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. The look was claimed by a pick that should have
+passed it over, and found only by reading its `Needs:` line by eye.
