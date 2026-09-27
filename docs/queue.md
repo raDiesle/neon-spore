@@ -445,6 +445,7 @@ in a file of their own.
 ## §30 THE TRIVET — sprite atlas experiment: the feet planting home
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-30-the-trivet-sprite-atlas-experiment-the-feet-p
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
