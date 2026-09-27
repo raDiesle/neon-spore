@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1ca426776 — Six more bosses hold their marks still while THE SLOW asks for them
+
+THE CAPSTAN's rattle shook and rolled the face a thumb is rubbing at 1.4 tiles a second. Inside an asking window both the shake and the roll now die down to a twenty-fifth. THE RIME, THE TRIVET, THE PLUMB, THE GRINDSTONE and THE CYST already placed their marks off the boss's state alone, and they and THE CAPSTAN now have rows in the shared test. THE CYST's lit flank still shudders, because that shudder is how the pair see which flank is lit. The queue entry lists the eleven bosses left.
+
 ## 2026-09-27 · 8c633d660 — Seven more bosses hold their marks still while THE SLOW asks for them
 
 The shared stillness test now reads every mark a screen may see and matches each one to itself, so a cue passing from one mark to the next is no longer counted as motion. That was all of THE BATON's 30 tiles a second. It also reads the marks a boss's draw places after the cue has gone, which is what caught THE MANTLE: its brace shudder carried both knobs the pair hold at 1.3 tiles a second. The shudder now dies down to a fortieth inside an asking window. THE HASP, THE RATCHET, THE MANTLE, THE KEEL, THE OCULUS, THE VISE and THE BATON have rows, and the queue entry lists the rest.
