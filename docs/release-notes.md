@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b452bfc77 — THE INSTAR shows the hurt on every counted bolt
+
+Every bolt a shoot mark counts now washes THE INSTAR red for half a second and shakes it half as hard as a landing does; a refused bolt or a miss shows nothing, and a landed step keeps the full blow. `BossHurt` holds the shake apart from the red for it (`jab`). A look the owner asked for by name, 27 September 2026.
+
 ## 2026-09-27 · aeec2be28 — The briefings spec's prose count is read by its test
 
 §3.2 of docs/spec/briefings.md named five guides still in prose; there are seventeen, every boss from THE NETTLE on. The paragraph now says the number and points at the list, and `scenes-prose.test.ts` reads the films, the prose guides and §1's wave count out of the document in words, so a boss that lands without updating the sentence goes red.
