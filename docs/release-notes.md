@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 2541fc84c — `queue next`'s pick is one list with the foot that counts what it passed over
+
+The automatic pick's four reasons to pass an entry by — an unanswered ask, an entry waiting on another, one needing a phone, one the owner deferred — are `handedOut` in `skipped.ts`, beside the listing's foot, which now counts the deferred entries too. A test holds the pick and the foot to the same list. `take` and `next <n>` still hand any of them over.
+
 ## 2026-09-27 · 7c61cfd64 — `bun run land` replays onto a trunk that moved during its check, rather than refusing
 
 When another lane lands while this one is in `bun run check`, and what arrived touches none of this lane's files but the records the replay settles on its own, `land` replays onto the new trunk and runs `check:fast --since <where the trunk stood>` over both diffs, up to three times, instead of throwing the whole check away. A trunk that took one of the lane's own files is still refused, and named. `check:fast` learns `--since <rev>`.
