@@ -1883,6 +1883,7 @@ replays no further than its tick; ◀ at step 1 and ▶ at the last do nothing.
 ## Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-auto-miss-cannot-make-the-galls-fire-step-run-ou (claim: claude/queue-living-bosses-the-instars-one-head-modelled-once)
 - **Where:** local
 - **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
 - **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/solid-rig.ts`, `packages/content/src/solid-anchor.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
