@@ -1785,6 +1785,7 @@ at the phone size, and `bun run check` is green.
 ## timeout-cap.test.ts times out under a full check, on bun's own default
 
 - **Found:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
+- **Taken:** 2026-09-27, claude/queue-where-phone (claim: claude/queue-timeout-cap-test-ts-times-out-under-a-full-check)
 - **Files:** `packages/render/test/timeout-cap.test.ts`
 
 The test that says every drawing test states its own timeout reads every
