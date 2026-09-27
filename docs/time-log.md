@@ -25887,3 +25887,5 @@ against the shipped pane said so.
 
 Bottleneck: looking — no pose showed the kernel bare and unlit, so one had
 to be found before anything could be judged.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
