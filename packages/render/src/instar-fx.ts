@@ -1,19 +1,13 @@
-import {
-  INSTAR_PARTS,
-  type InstarPart,
-  type InstarState,
-  instarStep,
-  type SimEvent,
-} from "@neon-spore/sim";
+import { type InstarState, instarStep, type SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { GripVerdicts } from "./grip-verdict.js";
 import { FallingEggs } from "./instar-eggs.js";
-import { instarAt, instarMarkPoint, type Point } from "./instar-place.js";
+import { ingestInstar, noSpots } from "./instar-fx-ingest.js";
+import { instarMarkPoint, type Point } from "./instar-place.js";
 import { LipShove } from "./instar-shove.js";
 import { InstarStrike } from "./instar-strike.js";
 import type { Sway } from "./instar-sway.js";
-import { type Layout, tileCX } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import type { Layout } from "./layout.js";
 
 /**
  * What THE INSTAR leaves behind a frame: the **jolt** of a landing and of
@@ -34,9 +28,9 @@ import { PALETTE } from "./palette.js";
  * (`restart.test.ts`).
  *
  * **The bursts land on the marks.** The drawer tells this the marks' places
- * every frame (`place`), since an event carries a mark's *index* and only
- * the picture knows where that part is drawn; a receipt with no mark bursts
- * at the head. Both screens see the same body, so nothing here is per seat.
+ * every frame (`place`), and what each event does with them is
+ * `instar-fx-ingest.ts`. Both screens see the same body, so nothing here is
+ * per seat.
  *
  * **Every touch is judged on the mark it touched** (`grip-verdict.ts`, the
  * owner's rule of 24 September 2026): a part that moved or gave washes its
@@ -44,23 +38,14 @@ import { PALETTE } from "./palette.js";
  * screens, since the partner is the one who says whose mark it was.
  */
 
-const JOLT_TILES = 0.15;
 const JOLT_DECAY = 8;
-const FLINCH = 1;
 const FLINCH_DECAY = 7;
 
 export class InstarFx {
   private joltNow = 0;
   private flinchNow = 0;
-  private marks: Point[] = [];
-  /** Whether each mark of this step is a swipe, which is what drops an egg:
-   * a tap on the brood squashes it where it lies. */
-  private swipes: boolean[] = [];
-  /** Whether each mark of this step is a shoot mark, whose every counted
-   * bolt is a hit the body shows (`BossHurt.jab`). */
-  private shoots: boolean[] = [];
-  private head: Point | null = null;
-  private headR = 0;
+  /** Where this frame drew the marks and the head (`instar-fx-ingest.ts`). */
+  readonly spots = noSpots();
   /** Whether the last touch on each mark of this step was right, by index. */
   readonly verdicts = new GripVerdicts();
   /** The eggs swiped off the nest, on their way down to the hull. */
@@ -81,6 +66,11 @@ export class InstarFx {
     return this.joltNow;
   }
 
+  /** Lifted by an event, in tiles; the update settles it. */
+  set jolt(tiles: number) {
+    this.joltNow = tiles;
+  }
+
   /** How far the window had run when this step landed, 0..1 — nought outside a landing. */
   get held(): number {
     return this.heldAlong;
@@ -91,6 +81,11 @@ export class InstarFx {
     return this.flinchNow;
   }
 
+  /** Shivered by an event, 0..1; the update stills it. */
+  set flinch(k: number) {
+    this.flinchNow = k;
+  }
+
   /**
    * Told by the drawer where the marks and the head are this frame, swing
    * included — a burst thrown at a mark the body has swung away from lands
@@ -99,14 +94,16 @@ export class InstarFx {
    * egg is sized by, and `head` is where the fire comes out of.
    */
   place(l: Layout, s: InstarState, sway: Sway, along: number, head: Point, r: number): void {
-    this.headR = r;
+    const spots = this.spots;
+    spots.headR = r;
     if (s.phase !== "land") this.heldAlong = s.phase === "act" ? along : 0;
     const step = instarStep(s);
-    this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway, along));
-    this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
-    this.shoots = step === null ? [] : step.marks.map((m) => m.gesture === "shoot");
+    const marks = step?.marks ?? [];
+    spots.marks = marks.map((m) => instarMarkPoint(l, m, sway, along));
+    spots.swipes = marks.map((m) => m.gesture === "swipeDown");
+    spots.shoots = marks.map((m) => m.gesture === "shoot");
     this.shove.place(step);
-    this.head = head;
+    spots.head = head;
   }
 
   ingest(
@@ -114,79 +111,7 @@ export class InstarFx {
     l: Layout,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
-    const at = (p: Point, n: number, hex: string) => burst(p.x, p.y, n, hex);
-    const mark = (i: number): Point => this.marks[i] ?? this.headOr(l);
-    for (const e of events) {
-      switch (e.type) {
-        case "instarEnter":
-          at(this.headOr(l), 10, PALETTE.dim);
-          break;
-        case "instarMorph":
-          at(this.headOr(l), 8, PALETTE.hull);
-          this.verdicts.clear();
-          this.strike.soften();
-          break;
-        case "instarShow":
-          for (const p of this.marks) at(p, 5, PALETTE.red);
-          break;
-        case "instarRefuse":
-          at(mark(e.mark), 4, PALETTE.dim);
-          this.flinchNow = FLINCH;
-          this.verdicts.mark(e.mark, false);
-          break;
-        case "instarAnswer":
-          at(mark(e.mark), 3, PALETTE.redRim);
-          this.verdicts.mark(e.mark, true);
-          if (this.shoots[e.mark] === true) this.hurt.jab();
-          if (e.part !== "eggs") break;
-          if (this.swipes[e.mark] === false) this.eggs.squash(mark(e.mark), this.headR || l.tile);
-          else this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
-          break;
-        case "instarShove":
-          this.shove.hit(e.mark, e.pushMilli);
-          break;
-        case "instarDone":
-          at(mark(e.mark), 8, PALETTE.hullRim);
-          this.joltNow = Math.max(this.joltNow, JOLT_TILES * 0.4);
-          this.verdicts.mark(e.mark, true);
-          break;
-        case "instarSlip":
-          at(mark(e.mark), 4, PALETTE.dim);
-          this.flinchNow = FLINCH * 0.7;
-          this.verdicts.mark(e.mark, false);
-          break;
-        case "instarLand":
-          at(this.headOr(l), 14, PALETTE.hull);
-          this.joltNow = JOLT_TILES;
-          this.hurt.hit();
-          break;
-        case "instarStrike":
-          at({ x: tileCX(l, e.col), y: l.hullY }, 16, PALETTE.red);
-          // A part THE INSTAR does not have is THE NETTLE's, not this body's.
-          if (!isInstarPart(e.part)) break;
-          this.strike.hit(
-            e.part,
-            e.part === "jaw" || e.part === "fire" ? [this.headOr(l)] : this.marks,
-            tileCX(l, e.col),
-          );
-          this.joltNow = JOLT_TILES * 2;
-          break;
-        case "instarDown":
-          at(this.headOr(l), 30, PALETTE.hullRim);
-          this.joltNow = JOLT_TILES * 2;
-          this.hurt.hit();
-          break;
-        case "instarOut":
-          at(this.headOr(l), 12, PALETTE.dim);
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
-  private headOr(l: Layout): Point {
-    return this.head ?? instarAt(l, 500, 300);
+    for (const e of events) ingestInstar(this, e, l, burst);
   }
 
   /** The jolt settled, the flinch stilled, the strike spent. */
@@ -213,19 +138,11 @@ export class InstarFx {
     this.joltNow = 0;
     this.flinchNow = 0;
     this.heldAlong = 0;
-    this.marks = [];
-    this.swipes = [];
-    this.shoots = [];
-    this.head = null;
+    Object.assign(this.spots, noSpots());
     this.strike.clear();
-    this.headR = 0;
     this.verdicts.clear();
     this.eggs.clear();
     this.hurt.clear();
     this.shove.clear();
   }
-}
-
-function isInstarPart(part: string): part is InstarPart {
-  return (INSTAR_PARTS as readonly string[]).includes(part);
 }

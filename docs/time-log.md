@@ -26229,3 +26229,15 @@ Bottleneck: reading — "a shoot mark" is a gesture on the step, not on the
 event, so the fx had to learn it from `place` the way it learns a swipe.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's fx events get a file of their own
+
+- reading: 5 min. `InstarFx` again, and `boss-blows.ts` for the shape.
+- writing: 10 min. The switch moved out, the placed marks gathered into one
+  object the switch reads, jolt and flinch given setters.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the switch wrote five private fields, so the seam
+needed a shape for them before the cut was one move.

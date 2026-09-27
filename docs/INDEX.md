@@ -1642,6 +1642,7 @@ by hand never moves.
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
 | `packages/render/src/instar-draw.ts` | **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32) |
 | `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
+| `packages/render/src/instar-fx-ingest.ts` | **What each of THE INSTAR's events does to its fx** |
 | `packages/render/src/instar-fire.ts` | **The fire in THE INSTAR's mouth**: a ball of flame turning on itself in the middle of the open jaws |
 | `packages/render/src/instar-flight.ts` | **How THE INSTAR arrives**, step by step: the flight the whole body takes over the first part of a morph |
 | `packages/render/src/instar-front.ts` | **THE INSTAR face-on**: a living ship coming at the screen |

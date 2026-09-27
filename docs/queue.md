@@ -2790,18 +2790,3 @@ page if it does not.
 
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
-
-## `instar-fx.ts` is 231 lines, and its event switch is the seam
-
-- **Found:** 2026-09-27, claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt
-- **Taken:** 2026-09-27, claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt (claim: claude/queue-instar-fx-ts-is-231-lines-and-its-event-switch-i)
-- **Files:** `packages/render/src/instar-fx.ts`, `packages/render/test/instar-hurt.test.ts`, `packages/render/test/instar-eggs.test.ts`
-
-The per-bolt hurt took `InstarFx` to 231 lines, nineteen under the ceiling
-`limits.test.ts` holds. Most of it is `ingest`, a switch over eleven event
-types that each touch one of the class's parts. Move the switch into a
-function of its own file that takes the fx and an event, the way
-`boss-blows.ts` holds the blows of the bosses with no fx class. Leave the
-class holding the state, `place`, `update`, `draw` and `clear`. No
-behaviour changes: `instar-hurt.test.ts`, `instar-eggs.test.ts` and
-`restart.test.ts` stay green unchanged, and `bun run check` proves it.
