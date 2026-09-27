@@ -2063,6 +2063,7 @@ flat. `bun run check` proves the tests.
 ## Living bosses — the outline drift for the next six, the warden to the taster
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-every-other-boss-gets-the-outline
+- **Taken:** 2026-09-27, claude/queue-warden-drift (claim: claude/queue-living-bosses-the-outline-drift-for-the-next-six)
 - **Where:** local
 - **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/tether.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
 
