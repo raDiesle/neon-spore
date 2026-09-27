@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §36 THE HALTER — the touch sender and its cue
 
 - **Found:** 2026-09-26, claude/queue-36-the-halter-the-look (the body landed without it)
+- **Taken:** 2026-09-27, claude/queue-tasks-afbcc2 (claim: claude/queue-36-the-halter-the-touch-sender-and-its-cue)
 - **Needs:** §36 THE HALTER's body, landed 26 September 2026 (`render/src/halter-draw.ts`)
 - **Files:** `apps/game/src/`, `packages/render/src/boss-cue.ts`, `packages/render/src/halter-marks.ts`, `docs/spec/bosses.md`
 
