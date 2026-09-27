@@ -445,6 +445,7 @@ an alignment.
 ## §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-28-the-vise-sprite-atlas-experiment-the-kernel-c
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
