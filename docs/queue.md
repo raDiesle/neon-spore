@@ -2122,6 +2122,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
+- **Taken:** 2026-09-27, claude/queue-32-the-sling-the-directors-pose-cards (claim: claude/queue-auto-miss-cannot-make-the-cysts-or-the-slings-sh)
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`, `packages/sim/src/gall-step.ts`
 
 Both hands landed 27 September 2026 (`boss-hands-cyst.ts`,
