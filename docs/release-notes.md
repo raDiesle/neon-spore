@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b8d39c852 — Time log: THE SLOW's aim for five more bosses
+
+## 2026-09-27 · 7b9abf3be — THE SLOW stands round THE SEAM, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE, and their fuse stands under them
+
+Five bosses opened windows that ask with no row on any page of THE SLOW's aim, so their light stood round the cannon on the hull and their fuse dropped onto the hull under it. Page four (slow-boss-aim-d.ts) gives each a capsule off its own shape file, placed where its drawer places it: the seam's ridge on end, the halter's slab with its plates parted, the capstan's drum and cradle as it rolls, the gall's seam across the field, and the burgee's spindle down to the flag as it swings. fuse-place.test.ts now walks all five and finds a gap on every tick; without the page, all five fail.
+
 ## 2026-09-27 · 14bc63cc3 — Time log: THE SLOW's fuse under the boss
 
 ## 2026-09-27 · 179dfd9e2 — THE SLOW's fuse stands under the boss, and is more than twice as thick

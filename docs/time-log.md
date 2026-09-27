@@ -26621,3 +26621,5 @@ gap" needed a rule of its own.
 
 Bottleneck: reading. THE NETTLE is named in the entry but has no body to
 aim at, and that only showed once no render file turned out to draw it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
