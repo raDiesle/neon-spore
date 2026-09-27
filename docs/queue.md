@@ -2425,6 +2425,7 @@ count and is refused. `bun run check` proves it.
 ## "At tempo" is a phone's word, and `HARDWARE` does not know it
 
 - **Found:** 2026-09-27, claude/queue-unverified-at-81ea644c1-the-rime-wave-never-watc
+- **Taken:** 2026-09-27, claude/queue-at-tempo-is-a-phones-word-and-hardware-does-not
 - **Files:** `tools/land/unverified.ts`, `tools/land/test/unverified.test.ts`, `docs/queue.md`
 
 `docs/queue.md` has 84 lines saying *at tempo* and nine entries marked
