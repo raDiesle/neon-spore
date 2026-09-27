@@ -2794,6 +2794,7 @@ test proves each of them fires. `bun run check` proves it.
 ## `instar-fx.ts` is 231 lines, and its event switch is the seam
 
 - **Found:** 2026-09-27, claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt
+- **Taken:** 2026-09-27, claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt (claim: claude/queue-instar-fx-ts-is-231-lines-and-its-event-switch-i)
 - **Files:** `packages/render/src/instar-fx.ts`, `packages/render/test/instar-hurt.test.ts`, `packages/render/test/instar-eggs.test.ts`
 
 The per-bolt hurt took `InstarFx` to 231 lines, nineteen under the ceiling
