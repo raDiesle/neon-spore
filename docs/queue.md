@@ -701,6 +701,7 @@ reaches them.
 ## A WebGL glow pass, tried as a candidate with its battery cost measured
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
+- **Taken:** 2026-09-27, claude/queue-a-webgl-glow-pass-tried-as-a-candidate-with-its
 - **Files:** `packages/render/src/glow.ts`, `tools/versus/candidates/registry.ts`, `docs/performance.md`
 - **Where:** local
 
