@@ -1463,22 +1463,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## SNAKE · SHED's pose is built at the edge of its timeout
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-stale-three-boss-status-rows-carry-the-oculuss-b (claim: claude/queue-snake-sheds-pose-is-built-at-the-edge-of-its-tim)
-- **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/poses.test.ts`
-
-`poses.test.ts`'s "is built fresh" test builds each pose twice, and SNAKE ·
-SHED's build — a hand run through three arenas to fifteen tiles, budget 140
-beats — takes about 3.5 s alone, so the pair is about 7 s against a
-`cpuTimeout(1_300)` that came out at 10.4 s under `bun run check`'s shards,
-and it timed out there once on 26 September 2026 (a landing's check, no
-snake file touched; green alone on the rerun). Make the build cheaper — start
-the pose from a world already in the third arena, or grow the body directly
-rather than playing it there — until the pair builds in well under half its
-cap. `bun run check` proves it, and the test's own time says by how much.
-
 ## Unverified at e72d91c4b: THE OCULUS's lens watched at tempo: the pair sliding s…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e

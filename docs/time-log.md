@@ -25272,3 +25272,15 @@ Bottleneck: reading — the entry was already done by the lanes that drew the
 three bosses, and only reading the rows showed it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — SNAKE · SHED's pose was already cheap
+
+- reading: 5 min. The pose, `bossPose`, the "is built fresh" test.
+- writing: 0 min. Nothing to change: `34ab4bfd2` had moved SNAKE's hand onto
+  flat arrays, and the build is about 0.2 s, the pair well under half its cap.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry was filed the same day as the fix that
+answered it, and only timing the build showed it.
