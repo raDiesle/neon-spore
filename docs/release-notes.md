@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ae15bfc21 — The hash fixture's fourth page is cut in two at THE RIME
+
+`hash-fixture-bosses-d.ts` had grown to 483 lines. It now runs THE HASP to THE RIME; THE TRIVET to THE BURGEE are a new `-e.ts`, and THE FLUE's page is renamed `-f.ts`, the last page, where a new boss goes. `BOSS_KINDS` keeps its order and `hash-coverage.test.ts` walks the same fields. The new-boss skill's registration row no longer names `-c.ts` as the last page.
+
 ## 2026-09-27 · 9e8c8068e — THE FLUE: an ember one seat keeps still for the other to tap
 
 Wave 119, THE FLUE, is in the simulation (docs/spec/bosses.md §11.57). An ember drifts along a slot mid-hull on its own. On a vent, one seat sends nothing for three beats and it stops dead; the other taps it three times as it hops between the step's notches, and one command from the still seat mid-count costs every tap landed. Two vents with the seats swapped bare the core, and three shots end it, the second and third each after a damper both seats keep their hands off. The sixteen sounds are bound. Nothing is drawn, no phone sends a tap yet, and AUTO has no hand — the look and the touch are queued. No look exemption is needed: nothing drawn changed.

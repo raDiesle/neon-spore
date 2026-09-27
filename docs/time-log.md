@@ -27093,3 +27093,5 @@ Bottleneck: writing — the registrations, some thirty files each needing one li
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none worth the name — a mechanical cut whose seam the queue entry had already chosen.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
