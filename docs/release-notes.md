@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 03d4fe480 — `queue take` claims an entry the trunk filed and has not pushed
+
+A lane that lands with `--keep` files its finding on the local `main` and pushes nothing. `take` then refused that finding as "already done on origin/main", and a fetch could never change that. Origin's view now says whether `origin/main` is an ancestor of the trunk. When it is, an entry that origin lacks and the trunk has was added on the trunk, so it is claimed the ordinary way.
+
 ## 2026-09-27 · 825849ced — THE COUNT's eye wanders in its socket, as a VERSUS candidate
 
 On the navigator's screen THE COUNT's core never moves. `countdown:eye` / `drift` lets it wander a hair about the middle of the socket on the body's own contour clock. It still never blinks and still tells nothing of the count. It is judged on a new pose, COUNT · THE NAVIGATOR'S EYE. THE THROB gets no candidate: its pores already turn with its spin on every frame, and a clock of their own would blur which colour faces the cannon.
