@@ -9,6 +9,7 @@ import { CYST_CONTROLS } from "./field-controls-cyst.js";
 import { DAVIT_CONTROLS } from "./field-controls-davit.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
+import { FLUE_CONTROLS } from "./field-controls-flue.js";
 import { GALL_CONTROLS } from "./field-controls-gall.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
@@ -184,4 +185,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE BURGEE's ring and track, the only pair here **one seat's tap answered
   // by the other's swipe** on one swinging flag (`field-controls-burgee.ts`).
   ...BURGEE_CONTROLS,
+  // THE FLUE's ember, the only control here **pressed while the partner sends
+  // nothing at all** — the column carried on the press (`field-controls-flue.ts`).
+  ...FLUE_CONTROLS,
 ];

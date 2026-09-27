@@ -12,6 +12,7 @@ import { capstanRubStanding, capstanTakesHand } from "./capstan-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { cystStanding } from "./cyst-grip.js";
 import { davitLooseCircle } from "./davit-grip.js";
+import { flueTapCircle } from "./flue-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
@@ -232,6 +233,13 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "gall" ? world.boss : null;
     if (b === null || !gallTakesPinch(b)) return null;
     return gallPointCircle(l, cfg, b.point);
+  }
+  if (target === "flueTap") {
+    // THE FLUE's ember, where the simulation holds it. Null while no vent is
+    // lit (`flue-grip.ts`).
+    const b = world.boss?.kind === "flue" ? world.boss : null;
+    if (b === null) return null;
+    return flueTapCircle(l, cfg, b);
   }
   return undefined;
 }

@@ -1787,6 +1787,7 @@ by hand never moves.
 | `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember rides in |
 | `packages/render/src/flue-blow.ts` | **THE FLUE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/flue-fx.ts` | What THE FLUE leaves behind a frame (§40, *Presentation*) |
+| `packages/render/src/flue-grip.ts` | **THE FLUE's tap as a control**: `flueTap`, pressed anywhere along the flue's row while a vent is lit |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |
@@ -2656,6 +2657,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's phone tipped over so its face is round |
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
+| `tools/director/src/poses-field-controls-flue.ts` | THE FLUE's tap, **photographed from the tapper's seat**, the screen it is pressed on |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -3128,6 +3130,7 @@ by hand never moves.
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
 | `tools/director/src/field-controls-fleet.ts` | **THE FLEET's three thumbs on the chart**, in a file of their own |
+| `tools/director/src/field-controls-flue.ts` | THE FLUE's tap, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |

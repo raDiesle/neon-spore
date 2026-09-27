@@ -25,6 +25,7 @@ import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
 import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
 import { DARK_LIGHT } from "./poses-field-controls-dark.js";
 import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
+import { FLUE_GRIPS } from "./poses-field-controls-flue.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
 import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
@@ -204,6 +205,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...CYST_GRIPS,
     ...DAVIT_GRIPS,
     ...BURGEE_GRIPS,
+    ...FLUE_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

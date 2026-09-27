@@ -27245,3 +27245,17 @@ Bottleneck: looking — the frames tool cannot aim at a game time, so the
 widest moment was found by a strip rather than asked for.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §40 THE FLUE — the touch
+
+- reading: 10 min. THE BURGEE's grip, placement, director row and pose as
+  the model; the flue's hand in the simulation, and how a column is turned.
+- writing: 15 min. `flue-grip.ts`, the slot's half-length, two
+  registrations, the director's control and pose, the spec row and nine
+  tests.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a touch lane is six files in three packages, and
+the burgee's was the only map to them.

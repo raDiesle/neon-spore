@@ -67,10 +67,15 @@ export function flueUnitR(l: Layout): number {
   return UNIT_R * l.tile;
 }
 
+/** Half the slot's straight length, middle to an end unit's middle, in pixels. */
+export function flueSlotHalf(l: Layout): number {
+  return FLUE_DAMPER * PITCH * l.tile;
+}
+
 /** The slot, end unit to end unit along the row, rounded at its ends. */
 export function flueSlotPath(l: Layout, cfg: SimConfig): Path2D {
   const c = flueCentre(l, cfg);
-  const half = FLUE_DAMPER * PITCH * l.tile;
+  const half = flueSlotHalf(l);
   const h = SLOT * l.tile;
   const p = new Path2D();
   p.moveTo(c.x - half, c.y - h);
