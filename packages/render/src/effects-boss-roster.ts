@@ -20,6 +20,7 @@ import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
 import { MantleFx } from "./mantle-fx.js";
 import { MazeGripFx } from "./maze-grip-fx.js";
+import { NettleFx } from "./nettle-fx.js";
 import { OculusFx } from "./oculus-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
@@ -131,6 +132,10 @@ export class BossRoster {
    * marks' places by the drawer every frame, so a burst lands on the part
    * the event names (`instar-fx.ts`, `instar-draw.ts`). */
   readonly instar = new InstarFx();
+  /** THE NETTLE's jolt, flinch, hurt, strike and death, and its receipts'
+   * bursts — the same engine's events as THE INSTAR's, handed here when the
+   * world's boss is this one (`nettle-fx.ts`, `nettle-draw.ts`). */
+  readonly nettle = new NettleFx();
   /** THE STARE's one transient: the flash of a press the eye caught, on the
    * caught seat's panel over everything, drawn last of the frame by
    * `canvas2d.ts` rather than here — a flash on a button stands on the button

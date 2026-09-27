@@ -1,4 +1,10 @@
-import { beatSeconds, type SimConfig, type SimEvent, type World } from "@neon-spore/sim";
+import {
+  type BossKind,
+  beatSeconds,
+  type SimConfig,
+  type SimEvent,
+  type World,
+} from "@neon-spore/sim";
 import type { Effects } from "./effects.js";
 import { breakSparks } from "./effects-break.js";
 import { ingestOne } from "./effects-ingest.js";
@@ -52,6 +58,7 @@ export function ingestAll(
   cfg: SimConfig,
   well: boolean,
   skinY: SurfaceY | undefined,
+  boss?: BossKind,
 ): void {
   // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
   // parameter saying the same number is how two clocks start.
@@ -63,7 +70,7 @@ export function ingestAll(
     const at = put(x, y);
     fx.sparks.burst(at.x, at.y, n, hex);
   };
-  fx.boss.ingest(events, l, cfg, spb, l.role, burst);
+  fx.boss.ingest(events, l, cfg, spb, l.role, burst, boss);
   fx.bodies.ingest(events, l, cfg, spb, time);
   fx.recoilLeap.ingest(events, spb);
   fx.coilFlight.ingest(events, l, spb);

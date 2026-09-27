@@ -26737,3 +26737,18 @@ Bottleneck: the arm and curtain figures were literals inside the drawers, and
 had to be named before the aim could read them rather than copy them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE NETTLE's effects: the strikes, the hurt and the death
+
+- reading: 10 min. `InstarFx` and its ingest, `BossHurt`'s jab, the strike
+  look table, and how the one scene engine's events reach one body.
+- writing: 20 min. `NettleFx`, its ingest, the six strike pictures and the
+  death; the boss kind threaded through `ingestAll`; the sim's breach named
+  for THE NETTLE; the hurt row and `nettle-fx.test.ts`.
+- looking: 0 min. No picture taken; the frame test proves it draws.
+- friction: 5 min. A frame test that counted red strokes passed on the
+  sparks alone and had to be rebuilt as a stubbed comparison.
+- landing: 5 min. `format`, `index`, `check:fast`, the commit, `land`.
+
+The bottleneck: two bosses on one engine say the same events, and finding
+where the body they belong to could be told apart.

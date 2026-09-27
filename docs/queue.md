@@ -434,19 +434,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## THE NETTLE — effects: the strikes, the hurt flash and the death
-
-- **Found:** 2026-09-26, this session (DavidDe's handoff from a session he gave the same task by accident)
-- **Taken:** 2026-09-27, claude/queue-the-nettle-effects-the-strikes-the-hurt-flash-an
-- **Needs:** THE NETTLE — the look
-- **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`
-
-Lane three. Right now `instar-fx.ts` skips any part THE NETTLE has that THE
-INSTAR does not (the sac, the eyespots, the iris, the panel marks). Give it
-its own nettle-fx.ts under effects-boss, the way other choreographed
-bosses split their strikes and death out of the shared engine, and wire it
-into the roster. `bun run check` proves it.
-
 ## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session

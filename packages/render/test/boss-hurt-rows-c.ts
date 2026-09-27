@@ -91,4 +91,15 @@ export const HURT_ROWS_C: Row[] = [
     hit: "a crack is its tap and its pinch landed together, and the core is one shot",
     hurt: (fx) => fx.boss.cyst.hurt,
   },
+  {
+    boss: "nettle",
+    // THE INSTAR's engine, so THE INSTAR's events: a step landed and the last.
+    land: [
+      { type: "instarLand", step: 0, col: 3 },
+      { type: "instarDown", col: 3 },
+    ],
+    part: [{ type: "instarDone", mark: 0, part: "arm", col: 3 }],
+    hit: "an instarAnswer on a shoot mark, which only the placed marks know: nettle-fx.test.ts",
+    hurt: (fx) => fx.boss.nettle.hurt,
+  },
 ];

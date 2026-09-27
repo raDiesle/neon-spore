@@ -100,6 +100,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // event. A lash thrown out of the middle of the field on top of it would be
   // a second blow the dragon never struck, so this one only times the crack.
   instar: () => {},
+  // THE NETTLE's the same way: the sting, the glare, the brood, the drop, the
+  // curtain and the flare are `nettle-strike.ts`'s, off its `instarStrike`.
+  nettle: () => {},
 };
 
 export function strikeLook(by: BossKind): StrikeLook {

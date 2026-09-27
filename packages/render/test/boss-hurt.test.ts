@@ -64,9 +64,9 @@ describe("the blow a boss takes", () => {
       it("is dealt by a landed sequence, not by one part of it, and forgotten on a restart", () => {
         for (const e of row.land) {
           const fx = new Effects();
-          fx.ingest(row.part, L, 0, () => 0, CFG);
+          fx.ingest(row.part, L, 0, () => 0, CFG, false, undefined, row.boss);
           expect(row.hurt(fx).value).toBe(0);
-          fx.ingest([e], L, 0, () => 0, CFG);
+          fx.ingest([e], L, 0, () => 0, CFG, false, undefined, row.boss);
           expect(row.hurt(fx).value).toBe(1);
           fx.reset();
           expect(fx).toEqual(new Effects());
@@ -81,7 +81,7 @@ describe("the blow a boss takes", () => {
         expect(row.hit.length).toBeGreaterThan(0);
         for (const e of row.hit) {
           const fx = new Effects();
-          fx.ingest([e], L, 0, () => 0, CFG);
+          fx.ingest([e], L, 0, () => 0, CFG, false, undefined, row.boss);
           expect(row.hurt(fx).value, e.type).toBe(1);
           expect(row.hurt(fx).shake, e.type).toBe(JAB_SHAKE);
           fx.reset();

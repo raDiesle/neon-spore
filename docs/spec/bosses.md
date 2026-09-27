@@ -7682,12 +7682,24 @@ globs and the oral-arm curtain. The core burns through as the one warm
 accent. `render/src/nettle-sway.ts` carries its own pulse — a bell's squeeze
 and release — in place of THE INSTAR's weave, and `instar-mark-grip.ts`'s hit
 test now shares between the two bosses, since no two of them install at
-once. `render/src/nettle-draw.ts` reads the world and keeps nothing; nothing
-outlives a frame, so there is no `effects.boss.nettle` to reset. Proved on
-all three screens, every pose, mid-morph and acting, marks up only while the
-window is open, the fill under a thumb and the dot once done, and the sag and
-fade once the last step lands (`render/test/nettle-frame.test.ts`). The
-strike of a part left undone, and the death, are lane three.
+once. Proved on all three screens, every pose, mid-morph and acting, marks
+up only while the window is open, the fill under a thumb and the dot once
+done, and the sag and fade once the last step lands
+(`render/test/nettle-frame.test.ts`).
+
+What outlives a frame is `effects.boss.nettle` (`render/src/nettle-fx.ts`,
+lane three, 27 September 2026): the jolt of a landing, the flinch at a
+refused thumb or a slip, the hurt of a landed step and the lighter one on
+each counted bolt, the verdict on each touched mark, and a strike picture
+per part left undone — the arm stings, the eyespots glare, the sac and its
+spores brood on the hull, the iris and the globs drop, the frill lets its
+curtain down, the core floods the screen — each ending in the shock along
+the hull (`nettle-strike.ts`); and the death, two rings and a spill of
+motes off the bell as the last step lands (`nettle-death.ts`). The two
+bodies share one engine's events, so `effects-boss.ts` hands them to this
+one or THE INSTAR's by the world's boss, and the hull breach is named
+`nettle` rather than `instar` (`sim/instar-step.ts`). Proved by
+`render/test/nettle-fx.test.ts` and THE NETTLE's row in `boss-hurt.test.ts`.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/nettle.test.ts`): it installs as its own kind and morphs with the

@@ -126,6 +126,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
       world.cfg,
       wellShown(l, world),
       this.held.skinY ?? undefined,
+      world.boss?.kind,
     );
     this.held.effects.update(view.dt, l);
     // The one transient this renderer holds outside `Effects`: it is drawn

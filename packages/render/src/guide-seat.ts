@@ -51,7 +51,16 @@ export class SeatView {
     // lights on (`unseen.ts`).
     const view = seenView(seen);
     const { world } = view;
-    this.effects.ingest(view.events, l, view.time, (col, row) => idAt(world, col, row), world.cfg);
+    this.effects.ingest(
+      view.events,
+      l,
+      view.time,
+      (col, row) => idAt(world, col, row),
+      world.cfg,
+      false,
+      undefined,
+      world.boss?.kind,
+    );
     this.effects.update(view.dt, l);
     this.effects.coordGrid.update(view.dt, wispOnField(world) || mineOnField(world));
 

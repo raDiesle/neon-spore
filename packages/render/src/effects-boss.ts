@@ -1,4 +1,4 @@
-import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import type { BossKind, SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossRoster } from "./effects-boss-roster.js";
 import type { Layout, ViewRole } from "./layout.js";
 
@@ -30,7 +30,8 @@ import type { Layout, ViewRole } from "./layout.js";
  */
 export class BossTransients extends BossRoster {
   /** `role` is the layout's: a seat's own transient is drawn only on its
-   * own screen. */
+   * own screen. `boss` is the world's, for the two bodies that share one
+   * engine's events; a caller with no world gets THE INSTAR. */
   ingest(
     events: readonly SimEvent[],
     l: Layout,
@@ -38,6 +39,7 @@ export class BossTransients extends BossRoster {
     beatSeconds: number,
     role: ViewRole,
     burst: Burst,
+    boss?: BossKind,
   ): void {
     this.mirror.ingest(events);
     this.warden.ingest(events);
@@ -52,7 +54,10 @@ export class BossTransients extends BossRoster {
     this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
     this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
     this.hive.ingest(events, l, role, burst);
-    this.instar.ingest(events, l, burst);
+    // THE INSTAR and THE NETTLE say the same events; which body they
+    // happened to is the world's boss (`sim/events-instar.ts`).
+    if (boss === "nettle") this.nettle.ingest(events, l, burst);
+    else this.instar.ingest(events, l, burst);
     this.stare.ingest(events, l, cfg, burst);
     this.undertow.ingest(events, l, cfg, beatSeconds, role);
     this.filament.ingest(events, l, cfg, burst);
@@ -95,6 +100,7 @@ export class BossTransients extends BossRoster {
     this.antiphon.update(dt);
     this.hive.update(dt);
     this.instar.update(dt);
+    this.nettle.update(dt);
     this.stare.update(dt);
     this.undertow.update(dt);
     this.filament.update(dt);
@@ -119,7 +125,7 @@ export class BossTransients extends BossRoster {
     this.strike.update(dt, l);
   }
 
-  /** The ten drawn under the hull with everything else. The mirror, the
+  /** The eleven drawn under the hull with everything else. The mirror, the
    * maze, the warden, the fleet and the reprise are drawn by the boss pass, the
    * sinew's shock on the finished ship (`frame-on-ship.ts`) and the stare's
    * flash over the band, last of the frame (`canvas2d.ts`). */
@@ -134,6 +140,7 @@ export class BossTransients extends BossRoster {
     this.scuttle.draw(ctx, l);
     this.antiphon.draw(ctx, l);
     this.instar.draw(ctx, l);
+    this.nettle.draw(ctx, l);
   }
 
   clear(): void {
@@ -154,6 +161,7 @@ export class BossTransients extends BossRoster {
     this.antiphon.clear();
     this.hive.clear();
     this.instar.clear();
+    this.nettle.clear();
     this.stare.clear();
     this.undertow.clear();
     this.filament.clear();

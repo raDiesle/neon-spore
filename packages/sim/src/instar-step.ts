@@ -105,8 +105,9 @@ function strike(world: World, s: SceneState): void {
     closeSlow(world);
     world.events.push({ type: "instarStrike", part: mark.part, col });
     // The part the pair let through is what breaks the hull, never a rock
-    // nobody saw fall (`boss-strike.ts`).
-    bossStrikesHull(world, "instar", col);
+    // nobody saw fall (`boss-strike.ts`) — named for the body it is, so THE
+    // NETTLE's blow is drawn as its own and not as THE INSTAR's.
+    bossStrikesHull(world, s.kind, col);
     return;
   }
 }

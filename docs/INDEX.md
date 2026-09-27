@@ -1318,9 +1318,13 @@ by hand never moves.
 | `packages/render/src/never.ts` | The one way this repository closes a `switch` — a `default` that only type-checks once `x` has narrowed to |
 | `packages/render/src/nettle-body.ts` | **THE NETTLE's own body, drawn** |
 | `packages/render/src/nettle-draw.ts` | **THE NETTLE**: a jellyfish the size of the field (§11.39, `docs/spec/bosses.md`) |
+| `packages/render/src/nettle-death.ts` | **THE NETTLE's death**: the last step landed and the bell lets go of everything it held |
 | `packages/render/src/nettle-figure.ts` | **THE NETTLE's own body**, next to its own poses table (`nettle-poses.ts`) rather than a branch in… |
+| `packages/render/src/nettle-fx-ingest.ts` | **What each of THE NETTLE's events does to its fx** |
+| `packages/render/src/nettle-fx.ts` | What THE NETTLE leaves behind a frame: the **jolt** of a landing |
 | `packages/render/src/nettle-poses.ts` | **THE NETTLE's poses**, one `Figure` each: the bell as it drifts in, the eight the script names |
 | `packages/render/src/nettle-sway.ts` | **THE NETTLE pulses**, and the bell carries with it |
+| `packages/render/src/nettle-strike.ts` | **What THE NETTLE does when the pair do not stop it**, one picture per kind of part |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |

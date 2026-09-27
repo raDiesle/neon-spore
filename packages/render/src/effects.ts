@@ -1,4 +1,4 @@
-import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import type { BossKind, SimConfig, SimEvent, World } from "@neon-spore/sim";
 import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
@@ -185,7 +185,8 @@ export class Effects {
 
   /** Every event applied to whatever here outlives its frame. The routing
    * is `effects-frame.ts`'s `ingestAll`, beside the three other verbs the
-   * class says to its roster; what `well` means is written there. */
+   * class says to its roster; what `well` means is written there, and
+   * `boss` is the world's (`effects-boss.ts`). */
   ingest(
     events: readonly SimEvent[],
     l: Layout,
@@ -194,8 +195,9 @@ export class Effects {
     cfg: SimConfig,
     well = false,
     skinY?: SurfaceY,
+    boss?: BossKind,
   ): void {
-    ingestAll(this, events, l, time, creatureIdAt, cfg, well, skinY);
+    ingestAll(this, events, l, time, creatureIdAt, cfg, well, skinY, boss);
   }
 
   /** Every clock forward by `dt`, every transient drawn, and everything

@@ -29,10 +29,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * done, and its end, on all three screens — `instar-frame.test.ts`'s own
  * arrangement, states set rather than played to.
  *
- * **Unlike THE INSTAR, there is no strike and no transient to prove** — its
- * marks stand at the script's own places, not on a part of the body, and
- * nothing here outlives a frame (`nettle-draw.ts`). That is lane three's own
- * later work.
+ * What outlives a frame — the strike, the death, the hurt, the verdicts —
+ * is `NettleFx`'s, and `nettle-fx.test.ts` proves it.
  */
 
 beforeAll(() => {

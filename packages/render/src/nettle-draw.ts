@@ -1,9 +1,10 @@
 import type { NettleState, World } from "@neon-spore/sim";
 import { drawInstarMarks } from "./instar-marks.js";
 import { instarAt, instarLen } from "./instar-place.js";
-import { instarFade } from "./instar-shape.js";
+import { instarFade, instarThreat } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { drawNettleBody } from "./nettle-body.js";
+import type { NettleFx } from "./nettle-fx.js";
 import { nettleBody } from "./nettle-sway.js";
 
 /**
@@ -21,12 +22,12 @@ import { nettleBody } from "./nettle-sway.js";
  * crown to underside is the crossfade by `f.side` (`nettle-body.ts`), the
  * same trick as THE INSTAR's front and profile.
  *
- * **Unlike THE INSTAR, nothing here outlives a frame.** THE NETTLE's marks
- * stand at the script's own places on the field, never on a part of the
- * body, so there is no jolt, no flinch, no strike to settle over the frames
- * after — the strikes of an undone part, and the death, are lane three's
- * own later work, not this one's. `drawInstarMarks` is handed a no-op
- * `verdicts` in place of an `InstarFx`'s.
+ * **What outlives a frame is `NettleFx`'s** (`nettle-fx.ts`): the bell is
+ * lifted by its jolt, shivered by its flinch and shaken and reddened by its
+ * hurt, and the marks wash with its verdicts. The marks stay where the
+ * script planted them — a thumb reaching for one is not shaken with the
+ * bell — and the strike and the death are drawn with the other boss
+ * transients, under the hull (`effects-boss.ts`).
  */
 export function drawNettle(
   ctx: CanvasRenderingContext2D,
@@ -36,6 +37,7 @@ export function drawNettle(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: NettleFx,
 ): void {
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
@@ -43,6 +45,10 @@ export function drawNettle(
   const { f, sway } = nettleBody(s, cfg, beat, beatPhase);
   const center = instarAt(l, f.bellX, f.bellY);
   const r = instarLen(l, f.bellR);
-  drawNettleBody(ctx, center.x, center.y, r, f, time, fade);
-  drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, { at: () => null });
+  const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);
+  const x = center.x + shake;
+  const y = center.y - fx.jolt * l.tile;
+  drawNettleBody(ctx, x, y, r, f, time, fade, fx.hurt.value);
+  fx.place(l, s, sway, instarThreat(s, beat, beatPhase), { x, y }, r);
+  drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, fx.verdicts);
 }

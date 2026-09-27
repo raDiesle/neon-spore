@@ -1,4 +1,5 @@
 import { blobPoints } from "@neon-spore/content";
+import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Figure } from "./nettle-figure.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -76,8 +77,10 @@ export function drawNettleBody(
   f: Figure,
   time: number,
   fade: number,
+  /** The blow the bell took, 0..1 (`boss-hurt.ts`): a red wash over it. */
+  hurt = 0,
 ): void {
-  drawBell(ctx, cx, cy, r, time, fade);
+  drawBell(ctx, cx, cy, r, time, fade, hurt);
   drawCore(ctx, cx, cy, r, f, fade);
   const top = fade * (1 - f.side);
   if (top > 0.01) drawCrown(ctx, cx, cy, r, f, top);
@@ -85,7 +88,7 @@ export function drawNettleBody(
   if (under > 0.01) drawUnderside(ctx, cx, cy, r, f, under);
 }
 
-/** The bell itself: a grown blob, not a circle. */
+/** The bell itself: a grown blob, not a circle, washed red while it is hurt. */
 function drawBell(
   ctx: CanvasRenderingContext2D,
   cx: number,
@@ -93,6 +96,7 @@ function drawBell(
   r: number,
   time: number,
   fade: number,
+  hurt: number,
 ): void {
   const p = splinePath(
     blobPoints(cx, cy, r, r * BELL_SQUASH, BELL_LOBES, BELL_LOBE_DEPTH, 0.025, time, 11, 40),
@@ -103,6 +107,7 @@ function drawBell(
   ctx.fill(p);
   ctx.globalAlpha = 1;
   strokeGlow(ctx, p, PALETTE.dim, STROKE.outline, 1, fade);
+  drawHurt(ctx, p, hurt * fade);
 }
 
 /** The core, burning inside the bell — the one warm accent, brightest at `core`. */

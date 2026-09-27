@@ -41,10 +41,15 @@ function bossBlow(name: string, miss: boolean): { by: string; kind: string } | n
   const index = WAVES.findIndex((w) => w.name === name);
   expect(index).toBeGreaterThan(-1);
   progression.jumpToWave(index);
+  // The boss this wave opened on: a wave beaten inside the look hands the
+  // field to the next one, whose own blow is not the one asked about.
+  let own = "";
   for (let i = 0; i < LOOK && !world.over; i++) {
     progression.tickOpening(1 / cfg.tickHz);
     readThrough(world, buffer);
     const kind = world.boss?.kind ?? "";
+    if (own === "") own = kind;
+    else if (kind !== "" && kind !== own) return null;
     if (!(miss && misser.withholds(world))) auto.press(world, buffer);
     step(world, buffer.drain(world.tick));
     for (const e of world.events) {

@@ -173,12 +173,11 @@ export function drawFxBoss(
 
   // THE NETTLE: a jellyfish the size of the field, stinging, staring,
   // spawning, then turned to gape its iris, spit its globs and let the
-  // curtain down before it bares and burns its own core. Nothing here
-  // outlives a frame — its marks stand at the script's own places, not on
-  // a part of the body — so there is no `effects.boss.nettle` to hand it
-  // (`nettle-draw.ts`).
+  // curtain down before it bares and burns its own core. What outlives a
+  // frame — the jolt, the flinch, the hurt, the verdicts on its marks — is
+  // `effects.boss.nettle` (`nettle-draw.ts`, `nettle-fx.ts`).
   if (boss.kind === "nettle") {
-    drawNettle(ctx, l, world, boss, beat, beatPhase, time);
+    drawNettle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.nettle);
     return;
   }
 
