@@ -2857,6 +2857,7 @@ list once it lands.
 ## `tools/frames/run.ts` is at 223 lines
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
+- **Taken:** 2026-09-27, claude/queue-the-slows-prism-still-aims-at-the-cannon-for-thi (claim: claude/queue-tools-frames-run-ts-is-at-223-lines)
 - **Files:** `tools/frames/run.ts`
 
 Most of the file is the flag-to-file table and the recipe list in its header
