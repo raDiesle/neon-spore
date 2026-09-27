@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ef9a7a7e7 — THE INSTAR's fire, eyes, nests and hide are baked, and THE COUNT's core wanders
+
+The owner's five picks on VERSUS of 27 September 2026 are in the game. THE INSTAR's globs and embers, the irises of its front eyes, its nests and eggs and the scales on its plates are the baked paintings, blitted from a sprite painted once at load; the drawn versions stay as the fallback for anything too small to bake. On the navigator's screen THE COUNT's core wanders a hair in its socket and still says nothing of the count. The nest costs +2.6 kB gzipped and draws in 74 µs against the old 110 µs; the eye +1.4 kB. Exemption used: a look the owner asked for by name.
+
 ## 2026-09-27 · 2abe5a403 — The idle drift and the part drift, a helper that draws nothing yet
 
 `idleDrift(time, seed, hush)` gives a boss's body yaw, pitch and roll, and the head's yaw on top. The head leads and the body follows it a quarter cycle late at half its size. `partDrift` gives each part a turn, tilt and rotate about its joint: late behind what it hangs on, on its own seed, eased off by a gesture's `letGo` and scaled by `life`. `glance` moves both pupils together, ahead of the head. `settle` is the damped swing back after a parent moves, and `easeHush` eases the hush over a beat. The speed ceilings are exact by construction and tested over ten minutes at every frame. That cut the head's reach from the table's 28° to 18°, and the spec says so. No drawer calls any of it yet, so no frame changes.
