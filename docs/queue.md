@@ -2771,6 +2771,7 @@ a sentence. `bun run check` proves it.
 ## THE INSTAR — every bolt that counts shows the hurt
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-docs-spec-briefings-md-3-2-names-five-prose-guid (claim: claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt)
 - **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/boss-hurt.ts`, `packages/render/test/boss-hurt.test.ts`
 
 The owner, 27 September 2026: *when correctly hit, there must be a clear
