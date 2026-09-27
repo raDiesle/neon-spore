@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · c5932ad94 — THE KEEL's body is seen in frames, and its entry comes out
+
+AUTO plays THE KEEL out in 17.5 s, P1's screen. The six plates arch over the field and pulse red and grey on the beat. The middle two hinge apart over the socket, then the spine flattens under a shield, burns a plate and goes rigid white. The end plates sit flush with the field's edge, which is what `keel-shape.ts` asks of them, and the end joint's ring is drawn whole. Nothing is clipped or out of place.
+
 ## 2026-09-27 · b9a204dd9 — AUTO is seen playing THE MANTLE to dark
 
 In frames, P1's screen, AUTO pulls the knobs and the shell shears, the spark leaks under a raised shield and is shot, and the core is tapped dark. The wave clears at 0:11 with no retries and nothing clipped. `autopilot-mantle.test.ts` already proves the four shears, the dark core and no spark struck. How THE MANTLE's effects read at tempo is its own entry, marked for a phone, so this one comes out of the queue.
