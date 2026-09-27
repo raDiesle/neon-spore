@@ -210,20 +210,10 @@ export function bindControls(bindings: Bindings): Controls {
 
   showKeyHint(canvas);
 
-  /**
-   * Keyboard, for playing both roles alone at a desk. A/D slide the cannon
-   * *and* the shield together, W fires red and opens the guard window in one
-   * press, Q fires red alone, E fires cyan — both **held**, so holding one
-   * fills the cannon lobe and fires a lance (`sim/lance.ts`) — and S opens the
-   * maw, so one hand drives a whole test run.
-   * J/L still move the shield alone and I still guards on its own, for the
-   * moments a test needs the two apart. The keys stay live in every view — the
-   * view switch decides what is *shown*, not what a single tester can reach.
-   * The arrows step between waves.
-   *
-   * `guard` is still player 1's command whichever key sends it: the trigger and
-   * the shield being in different hands is the rule the whole defence rests on.
-   */
+  // The keyboard, for playing both seats alone at a desk. Which key does what
+  // is a seat and a slot the wave's panel fills (`content/keys-desk.ts`, whose
+  // table this file used to restate, and got wrong); the keys that are nobody's
+  // button are `keys.ts`'s.
   return {
     tick: bindKeys({
       buffer,

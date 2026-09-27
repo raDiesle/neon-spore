@@ -2187,21 +2187,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `apps/game/src/input.ts` is at 250 lines
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-the-directors-stage-does-not-pair-a-pinch (claim: claude/queue-apps-game-src-input-ts-is-at-250-lines)
-- **Files:** `apps/game/src/input.ts`, `packages/render/src/pinch-pair.ts`, `packages/render/src/chord-pads.ts`
-
-THE TRIVET's chord took `input.ts` to exactly the limit: it now owns the
-pointer map, the coalesced moves, the release on blur and two multi-finger
-trackers (`Pinches`, `Chords`) wired in by hand at the same three places
-(down, up, release-all). Cut the multi-finger half out — one `Fingers`
-module that owns both trackers and answers `down`/`move`/`up` with the
-commands to say — so the next two-finger gesture is one line in it and not
-three in `input.ts`. `packages/render/test/pinch-pair.test.ts` and `chord.test.ts`
-prove the behaviour is unchanged.
-
 ## `bun run push` sends a merge commit to `main`
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e

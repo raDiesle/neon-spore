@@ -25361,3 +25361,15 @@ Bottleneck: reading — who counts as the caller on a `Taken:` line has three
 answers already, and origin's check had to reuse them rather than add a fourth.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `apps/game/src/input.ts` is off the length ceiling
+
+- reading: 5 min. The entry, `input.ts`, `keys.ts`, `content/keys-desk.ts`'s table.
+- writing: 5 min. The multi-finger half was already `render/fingers.ts`; the
+  keyboard's restated key table went for a pointer to the one that owns it.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — half the entry had been done by the lane before, and the
+other half was a comment that had drifted from the table it repeated.
