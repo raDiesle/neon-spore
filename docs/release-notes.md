@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 678387284 — THE INSTAR flies round in depth, not across
+
+A pass and a cross no longer leave the frame sideways. The body flies an ellipse in width and depth: back into the distance first, small, high and dimmed to a little over half, then round to the front a fifth larger than at rest, and back again. The passes go round twice and the cross one and a half times, and the body settles into its pose out of the last of it. The body is mirrored on the far half of each lap so the head always faces the way it flies. It snaps to the mirror where it would turn edge-on, rather than thinning to a sliver. The approach and the stay are unchanged.
+
 ## 2026-09-27 · 4e8d5b217 — THE BURGEE: a flag stilled by one seat and caught by the other
 
 Wave 118 is a pennant on a boom mid-hull that swings across the middle three columns on its own. The step's freezer taps it still over the lit column. The other seat holds a draw a beat and lets it go toward the column while the flag is still frozen. Two catches, with the seats swapped, light the spindle. It is shot three times in its colour, and between shots the creeping flag has to be caught back. This is §11.56 of the bosses spec. The design's §39 is departed from in eight places, each argued there by name.

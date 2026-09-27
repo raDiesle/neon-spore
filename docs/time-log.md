@@ -26410,3 +26410,5 @@ window outlasts a lap of the flag.
 
 Bottleneck: looking — facing read off the angle led the screen motion, and
 only the strip showed the edgewise sliver.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
