@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 2c42f2147 — THE SLOW's prism stands round seven long bosses instead of the cannon
+
+THE BATON, THE CURTAIN, THE GORGE, THE HIVE, THE KEEL, THE LEAD and THE LEDGER had no aim row, so PRISM split them widest of anything in the room, the opposite of its promise. Page three (`slow-boss-aim-c.ts`) takes the box each boss's own shape file already names and runs a capsule along its longer side, so a body nearly the width of the field is not ringed by a disc the size of the screen. The six still falling through are queued.
+
 ## 2026-09-27 · 4358f84d0 — A boss step's colour is `stepColour`, written once
 
 THE SEAM's step colour — the cannon's fill and rim, the hull's rim for a step either answers — had been pasted beside five other bosses' marks (THE OCULUS, THE VISE, THE CYST, THE SLING, THE DAVIT), and THE CYST's draw kept a rim-only ternary of it as well. It lives in `render/step-colour.ts` now, eighteen callers call it, and a row in the copies table fails on the next file that writes it out again. Nothing drawn changes.
