@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7fa2337cb — THE INSTAR's marks are up only while their window and THE SLOW are open
+
+The faint red ring that grew in on each of the next step's parts over the last two fifths of a morph is gone, and so is the ring left standing on the frozen field under the fail screen after a missed step. A mark now shows only while the step is acting and THE SLOW is open (`instarMarksUp`). The owner asked for it by name on 27 September 2026, and it fixes something wrong: a ring on a part that could not be answered yet.
+
 ## 2026-09-27 · 2c6a8b037 — Five more bosses hold their marks still while THE SLOW asks for them
 
 A new shared test walks each boss's wave with AUTO playing both seats. On every tick of an asking window after its first half beat, it checks that each screen's mark moves less than a tenth of a tile per wall-clock second. THE UNDERTOW, THE GORGE, THE CURTAIN, THE TASTER and THE LEAD have rows, and all five already pass: their rings are placed off the boss's state alone. The test fails on THE BATON, whose mark reads 30 tiles a second. THE INSTAR's hush curve moves to `slow-hush.ts`, so every boss uses one curve. THE SCUTTLE's wind-up shiver, which carries its live part, now dies down to a twenty-fifth inside a window. The queue entry stays open and lists the remaining bosses.

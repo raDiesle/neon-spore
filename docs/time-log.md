@@ -26522,3 +26522,5 @@ the ring's place took longer than writing the test.
 
 Bottleneck: reading — whether a window can be open with the slow shut
 needed a probe: after a strike the step stays `act` on the frozen field.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
