@@ -832,6 +832,7 @@ what the rest of this file holds.
 ## Unverified at fc7070475: THE KEEL's lock snap, socket shut and hull shock watch…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
 
 *THE KEEL snaps as it locks: a seam flares, the spine jolts, the hull shudders* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
