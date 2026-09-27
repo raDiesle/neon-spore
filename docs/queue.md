@@ -2161,6 +2161,7 @@ test beside `warden-drift.test.ts`. Done when `bun run check` is green.
 ## §25 THE VALVE — the second spark's severity, offered on VERSUS
 
 - **Found:** 2026-09-27, claude/queue-25-the-valve-revised-sim-second-spark
+- **Taken:** 2026-09-27, claude/queue-25-the-valve-revised-sim-second-spark (claim: claude/queue-25-the-valve-the-second-sparks-severity-offered)
 - **Files:** `packages/render/src/valve-draw.ts`, `packages/render/src/valve-fx.ts`, `tools/versus/candidates/`
 
 The revised simulation lane landed a second spark (§25 row 11), leaked as
