@@ -1,6 +1,7 @@
 import { keelSegCol, type SimConfig } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
+import { STROKE } from "./palette.js";
 
 /**
  * **Where THE KEEL is**, in field pixels: six segments arched along the top of
@@ -22,7 +23,8 @@ import type { Layout } from "./layout.js";
  *
  * **Each segment sits over its own column** (`keelSegCol`), so the joint a
  * thumb taps is over the column the simulation judges it in, and the arch is
- * the height alone. Everything on a segment is placed through one function,
+ * the height alone — except that the two end plates are drawn a few pixels in
+ * from the field's edge rather than cut by it. Everything on a segment is placed through one function,
  * `put`, which is where a segment sags, sways, hinges apart at the midpoint
  * and whips at the tail — so a plate, its seam, its ribs and the tendon to its
  * neighbour can never come apart from one another.
@@ -54,9 +56,8 @@ export interface Seg {
 const ENDS_ROW = 2.3;
 export const RISE = 1.25;
 /**
- * Half a segment's length along the arch and half its depth, in tiles. Half a
- * tile of length keeps each plate inside its own column, so the two at the
- * ends stop at the field's edge rather than past it.
+ * Half a segment's length along the arch and half its depth, in tiles: each
+ * plate inside its own column, the end two moved in too (`keelPlateReach`).
  */
 const HW = 0.5;
 const HH = 0.3;
@@ -67,6 +68,18 @@ const ROUND = 16;
 export function keelPlateHalf(l: Layout): number {
   return l.tile * HW;
 }
+/** The radius of the ring round a lit joint, in pixels: wide enough to circle the whole plate, corners and all. */
+export function keelRingRadius(l: Layout): number {
+  return Math.hypot(HW, HH) * 1.12 * l.tile;
+}
+/**
+ * How far an end plate's middle is kept inside the field, in pixels: as far as
+ * its ring needs at its widest breath, stroke and all — more than the plate's
+ * corner needs turned any way, so the plate is whole and the ring stays on it.
+ */
+export function keelPlateReach(l: Layout): number {
+  return keelRingRadius(l) * 1.05 + STROKE.outline;
+}
 /** Ribs under each segment, how long they hang in tiles, and where along the plate they are tied. */
 export const RIB_U = [-0.55, 0, 0.55] as const;
 export const RIB = 0.6;
@@ -74,7 +87,10 @@ export const RIB = 0.6;
 /**
  * The unposed middle of segment `k` of `n`: over its column, and up by the
  * arch's rise at its share of the way across. `rise` is in tiles and `lift`
- * in pixels, the drop into frame.
+ * in pixels, the drop into frame. The two end plates are moved in off the
+ * field's edge by as much as `keelPlateReach` needs — in the picture only,
+ * since the column is the rule's, and the ring round a joint and the thumb
+ * that taps it both follow the plate.
  */
 export function keelSegCentre(
   l: Layout,
@@ -86,7 +102,9 @@ export function keelSegCentre(
 ): Point {
   const f = (k + 0.5) / n;
   const y = l.gridTop + (ENDS_ROW - rise * Math.sin(Math.PI * f)) * l.tile - lift;
-  return { x: fieldX(l, keelSegCol(k, n, cfg.cols)), y };
+  const x = fieldX(l, keelSegCol(k, n, cfg.cols));
+  const m = keelPlateReach(l);
+  return { x: Math.min(Math.max(x, l.gridLeft + m), l.gridLeft + l.gridWidth - m), y };
 }
 
 /** The arch's own slope at segment `k`, from its neighbours on the screen — a turned screen turns it too. */
@@ -215,17 +233,6 @@ export function keelFacePath(
     Math.PI * 2,
   );
   return p;
-}
-
-/** The radius of the ring round a lit joint, in pixels: wide enough to circle the whole plate, corners and all. */
-export function keelRingRadius(l: Layout): number {
-  return Math.hypot(HW, HH) * 1.12 * l.tile;
-}
-
-/** Where the ring round the joint at `at` is centred: on it, moved in only as far as keeps a ring of radius `r` inside the field. */
-export function keelRingCentre(l: Layout, at: Point, r: number): Point {
-  const x = Math.min(Math.max(at.x, l.gridLeft + r), l.gridLeft + l.gridWidth - r);
-  return { x, y: at.y };
 }
 
 /**

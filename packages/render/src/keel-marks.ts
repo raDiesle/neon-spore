@@ -2,14 +2,7 @@ import { type KeelState, keelWindowBeats, type World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { keelMiddle } from "./keel-pose.js";
-import {
-  keelFacePath,
-  keelRingCentre,
-  keelRingRadius,
-  keelSegEnd,
-  type Point,
-  type Seg,
-} from "./keel-shape.js";
+import { keelFacePath, keelRingRadius, keelSegEnd, type Point, type Seg } from "./keel-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
@@ -78,12 +71,12 @@ export function drawKeelSocket(
 
 /**
  * The ring round the joint at `at`: where it is drawn and the circle a thumb
- * is answered in (`keel-grip.ts`). Moved in off the field's edge by as much as
- * its widest breath and its stroke need, so an end joint's ring is whole.
+ * is answered in (`keel-grip.ts`). It is centred on its plate, and an end
+ * plate is kept in off the field's edge far enough that its ring is whole
+ * (`keelPlateReach`).
  */
 export function keelRingCircle(l: Layout, at: Point): Circle {
-  const r = keelRingRadius(l);
-  return { ...keelRingCentre(l, at, r * 1.05 + STROKE.outline), r };
+  return { x: at.x, y: at.y, r: keelRingRadius(l) };
 }
 
 /**

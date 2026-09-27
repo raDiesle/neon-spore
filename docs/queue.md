@@ -1707,26 +1707,6 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## THE KEEL's end plates run off the field's edge
-
-- **Found:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
-- **Taken:** 2026-09-27, claude/queue-keel-plates (claim: claude/queue-the-keels-end-plates-run-off-the-fields-edge)
-- **Files:** `packages/render/src/keel-shape.ts`, `packages/render/src/keel-marks.ts`, `packages/render/test/keel-frame.test.ts`
-
-`keelSegCentre` puts each plate on its segment's column (`sim/keel.ts`
-`keelSegCol`), and the two end segments fall on column 0 and the last one.
-A plate is wider than a tile, so at 390×844 the left plate's outer third is
-cut by the screen edge and the right plate's tip is too
-(`bun run frames . --wave "THE KEEL" --auto both --until keelLock`). The
-lit ring round an end joint is already moved in off the edge
-(`keelRingCircle`); the plates are not. Pull the end plates' drawn centres
-in by as much as their half-width and outline need — in the picture only,
-since the column is the rule's — and have the ring follow the plate it
-circles. This is a fix to a shape clipping its frame, not a look. Check
-first whether the lane on "THE KEEL's body watched at tempo" has already
-done it. Done when a frame test puts every plate's outline inside the field
-at the phone size, and `bun run check` is green.
-
 ## A painted strip is twelve registrations, and only one of them names the others
 
 - **Found:** 2026-09-27, claude/queue-30-the-trivet-sprite-atlas-experiment-the-feet-p

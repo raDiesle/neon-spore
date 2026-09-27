@@ -27918,3 +27918,15 @@ Bottleneck: writing. The strip is one of five now, and the wiring is ten
 small edits in ten files, the same ten each time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE KEEL's end plates are kept inside the field
+
+- reading: 10 min. The entry, `keel-shape.ts`, `keel-marks.ts`, `keel-pose.ts`.
+- writing: 15 min. The end plates kept in by their ring's reach, the ring's
+  own clamp gone, a test at 390×844 over the sway, the whip and a lit end.
+- looking: 5 min. The frame before and after.
+- friction: 5 min. `keel-shape.ts` went past 250 lines twice.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing. Keeping the plate in by its own corner left the ring
+3.6 px off it, so the margin had to be the ring's.
