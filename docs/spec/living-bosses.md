@@ -270,9 +270,17 @@ step, a tine on its own seat's draw), a third elsewhere — and a test holds a
 mark five tiles out under a tenth of a tile a second at the tenth. THE
 GRINDSTONE's jaw tremble had shipped already; THE TRIVET's dangle was offered
 and dropped; THE VANE is left out, since its spar already whips as it swings
-(`vane-draw.ts`) and its tip is the fold line the pair read. THE SCUTTLE,
-THE SPOOL, THE HASP, THE RATCHET, THE VALVE (whose pins sway already) and
-THE RIME are `docs/queue.md`'s.
+(`vane-draw.ts`) and its tip is the fold line the pair read.
+
+The other six have nothing to add. THE VALVE's pins and THE HASP's spent
+half-shells sway on their hinges already (`valve-draw.ts`, `HASP_SLACK` in
+`hasp-draw.ts`). THE SCUTTLE's parts hang on threads a quarter of a tile
+long at most, so even a hand's whole range moves a part under two pixels —
+THE TRIVET's lesson again. THE RATCHET's pawl hinges, but it is sprung onto
+the teeth and lifts on every step; a pawl that swung loose would say the
+lock is broken. THE SPOOL's line is taut to the hull and its ribs ease
+open on the script's clock, and THE RIME is a pane of glass: nothing on
+either hangs.
 
 ### Where it lives
 
