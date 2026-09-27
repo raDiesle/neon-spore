@@ -27007,3 +27007,5 @@ Bottleneck: reading — five files to learn where a mark stands and how a swipe'
 - landing: 5 min. `check:fast`, the index, the commit, `land`.
 
 Bottleneck: writing — `boss-cue.ts` was at 249 lines, so the page could not go in until the choreographed half had a file of its own.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

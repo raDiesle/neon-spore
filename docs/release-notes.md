@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7c150caf0 — THE BURGEE's field says TAP, SWIPE and FIRE
+
+The cue for THE BURGEE: `TAP` on the freeze ring to the step's freezer until the flag is still, `HOLD · SWIPE` on the draw's track to the seat that draws, and `FIRE` under the middle column once the spindle is lit. It never says when to tap, which way to swipe, or the shot's colour. A look with no shipped alternative: the field said nothing over this boss.
+
 ## 2026-09-27 · 36be12f90 — THE BURGEE's freeze ring and draw track answer a thumb
 
 The first of §39's three halves: `render/burgee-grip.ts` sends `burgeeFreeze` from a press on the ring over the lit column, and `burgeeDraw` from a finger on the track under it, the lift carrying the swipe's side, each only for the seat the lit step asks. The ring and track now stand where one function says, `burgeeMarks`, which the drawing, the grip and the director's hush reader all call; nothing drawn moved. Both controls are `field` on the ON THE FIELD tab, with a pose each, and `burgee-grip.test.ts` catches the first flag with two thumbs. The cue and AUTO are left in the queue entry.
