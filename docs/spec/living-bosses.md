@@ -105,6 +105,17 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   stays at 0 until the cap is lifted: the next pose for an outline boss is
   one large enough to see, with the hit tests following it.
 
+  *The parts, as built, 27 September 2026* (`outline-parts.ts`,
+  `queen-parts.ts`): a part turns about its own joint by a matrix
+  (`partMatrix`), its angles scaled so its tip moves half a tile, a pair
+  drawn as exact mirrors. The queen's wings swing on their hinges and her
+  arms on their shoulders, and the arm's swing dies as it straightens to
+  let go; her claws stay still, since their opening is the drop's *when*.
+  It ships at 0 for her: her wings' ends are behind her torches and the
+  arm's elbow alone moves too little to see, so how far she moves is a
+  question on the queue ("THE BULB QUEEN's parts: how far"). THE CAIRN's and
+  THE REPRISE's parts and the surface marks are their own entry.
+
 ### Every part moves on its own
 
 The owner, 26 September 2026, after the drift above was written: the body

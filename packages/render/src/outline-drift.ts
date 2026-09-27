@@ -29,8 +29,12 @@ export type OutlineBoss = "queen" | "cairn" | "reprise";
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = { queen: 0, cairn: 0, reprise: 0 };
 
-/** Each boss's seed, so no two on one screen lean in step. */
-const SEED: Readonly<Record<OutlineBoss, number>> = { queen: 101, cairn: 113, reprise: 127 };
+/** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
+export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
+  queen: 101,
+  cairn: 113,
+  reprise: 127,
+};
 
 export const OUTLINE = {
   /** The most any point within reach moves from its rest, in tiles. */
@@ -73,7 +77,7 @@ export function outlinePose(
 ): OutlinePose | null {
   const k = OUTLINE_DRIFT[boss] * hush;
   if (k <= 0 || reach <= 0) return null;
-  const d = idleDrift(time, SEED[boss], k);
+  const d = idleDrift(time, OUTLINE_SEED[boss], k);
   // Each channel's share of the cap, as a fraction of the reach.
   const at = (share: number) => (share * OUTLINE.shift * tile) / reach;
   const { roll, squash, stretch, slide } = OUTLINE.share;

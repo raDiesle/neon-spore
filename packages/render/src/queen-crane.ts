@@ -1,4 +1,6 @@
 import { type QueenState, ROCK_CYCLE } from "@neon-spore/sim";
+import type { PartAngles } from "./idle-drift-parts.js";
+import { partMatrix, partPoint } from "./outline-parts.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { dropShare } from "./queen-drop.js";
 
@@ -103,6 +105,24 @@ export function craneJoints(
   return { shoulder: { x: sx, y: sy }, elbow: { x: ex, y: ey }, wrist: w };
 }
 
+/**
+ * Where the elbow is drawn on the idle drift: swung about the shoulder, the
+ * wrist left on its rock (`queen-parts.ts`). The swing dies as the arm
+ * straightens, so letting go looks the same every time — the drop's *when*
+ * is that pose.
+ */
+export function craneElbow(
+  j: CraneJoints,
+  drift: PartAngles | null,
+  release: number,
+): { x: number; y: number } {
+  const k = 1 - release;
+  if (drift === null || k <= 0) return j.elbow;
+  const axis = Math.atan2(j.wrist.y - j.shoulder.y, j.wrist.x - j.shoulder.x);
+  const a = { turn: drift.turn * k, tilt: drift.tilt * k, rotate: drift.rotate * k };
+  return partPoint(partMatrix(a, { joint: j.shoulder, axis }), j.elbow);
+}
+
 function joint(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
   ctx.fillStyle = PALETTE.background;
   ctx.beginPath();
@@ -126,11 +146,12 @@ export function drawCraneArm(
   ry: number,
   r: number,
   release: number,
+  drift: PartAngles | null = null,
 ): void {
   const j = craneJoints(tile, bodyX, bodyY, side, rx, ry, r, release);
   const { x: sx, y: sy } = j.shoulder;
-  const { x: ex, y: ey } = j.elbow;
   const w = j.wrist;
+  const { x: ex, y: ey } = craneElbow(j, drift, release);
 
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = STROKE.outline * 2.6;

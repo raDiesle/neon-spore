@@ -14,6 +14,7 @@ import { drawMirrorGrip, mirrorHandPlace } from "./mirror-grip.js";
 import { outlineHush, outlinePose, withOutlinePose } from "./outline-drift.js";
 import { drawQueen } from "./queen.js";
 import { queenRoot } from "./queen-figure.js";
+import { queenParts } from "./queen-parts.js";
 import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
 import { drawRepriseFuse } from "./reprise-fuse.js";
@@ -52,6 +53,7 @@ export function drawBoss(
     const root = queenRoot(l, queen);
     const hush = outlineHush(world, world.beat, view.beatPhase);
     const pose = outlinePose("queen", view.time, hush, root.reach, l.tile);
+    const parts = queenParts(l, queen, view.time, hush, root.reach);
     withOutlinePose(ctx, pose, root, () =>
       drawQueen(
         ctx,
@@ -66,6 +68,7 @@ export function drawBoss(
         effects.queenShake,
         world.cfg.queenEggGrowShare,
         effects.ship.queenHurt.value,
+        parts,
       ),
     );
     return;

@@ -7,6 +7,7 @@ import { drawEgg, drawSideHint } from "./queen-egg.js";
 import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
 import { drawQueenGrip } from "./queen-grip.js";
 import { QUEEN_LOOK } from "./queen-look.js";
+import { pairSide, type QueenPair, type QueenParts, swingWings } from "./queen-parts.js";
 import { queenShellParts, queenShellPath } from "./queen-shell.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
 
@@ -54,6 +55,8 @@ export function drawQueen(
   shake: number,
   eggGrowShare: number,
   hurt: number,
+  /** Her wings and crane arms on the idle drift (`queen-parts.ts`), or `null` still. */
+  parts: QueenParts | null = null,
 ): void {
   const f = QUEEN_FIGURE;
   const tile = l.tile;
@@ -98,6 +101,7 @@ export function drawQueen(
     time,
     healthShare,
     hurt,
+    parts?.wing ?? null,
   );
   // The rings player 1's thumb answers with, over the shell's lip, and the
   // pry and the hold read off the beat (`queen-grip.ts`).
@@ -122,6 +126,7 @@ export function drawQueen(
       beatPhase,
       time,
       eggGrowShare,
+      parts && pairSide(parts.arm, side),
     );
   }
 
@@ -175,12 +180,13 @@ function drawShell(
   time: number,
   healthShare: number,
   hurt: number,
+  wings: QueenPair | null,
 ): void {
   const phase = (id % 7) * 0.9;
   const wobbleMult = 1 + (1 - healthShare) * OUTER_WOBBLE_BONUS;
   const t = time * wobbleMult + phase;
   // Her wings and her back as pieces of the one contour (`queen-shell.ts`).
-  const path = queenShellPath(queenShellParts(rx, ry, t));
+  const path = queenShellPath(swingWings(queenShellParts(rx, ry, t), wings));
 
   ctx.save();
   ctx.translate(x, y);

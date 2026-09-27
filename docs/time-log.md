@@ -27179,3 +27179,18 @@ Bottleneck: none worth the name — the recipe the last lane wrote down removed 
 Bottleneck: none — the third of three blows off one recipe.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the outline tier's parts, built and held still for THE BULB QUEEN
+
+- reading: 15 min. `idle-drift-parts.ts`, the queen's shell, crane and egg,
+  and the new *Big enough to be seen* rule that landed mid-lane.
+- writing: 30 min. `outline-parts.ts`, `queen-parts.ts`, `craneElbow`, the
+  test; then reworked from a VERSUS slot to the game when main dropped it.
+- looking: 20 min. `bun run frames` at `--settle 200` and 2x crops: the
+  queen's parts at half a tile could not be told apart on a phone.
+- friction: 20 min. A rebase onto the rule change, with `queue.md`,
+  the spec and the time log taken from main and rewritten.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the frames showed her structure hides every part that
+may move, which turned a finished look into a question for the owner.

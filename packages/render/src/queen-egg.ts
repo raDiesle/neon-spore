@@ -1,5 +1,6 @@
 import { type Creature, type QueenState, queenTorchCol, spanCenterCol } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import type { PartAngles } from "./idle-drift-parts.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { craneRelease, drawCraneArm, drawCraneClaw } from "./queen-crane.js";
@@ -92,6 +93,8 @@ export function drawEgg(
   beatPhase: number,
   time: number,
   growShare: number,
+  /** This side's arm on the idle drift (`queen-parts.ts`), or `null` still. */
+  arm: PartAngles | null = null,
 ): void {
   const scale = eggScale(boss, side, beat, beatPhase, growShare);
 
@@ -106,7 +109,7 @@ export function drawEgg(
   const release = craneRelease(boss, side, beat, waveBeat, beatPhase, scale);
   const bodyX = tileCX(l, queen.col) + ox;
   const bodyY = tileCY(l, queen.row) + oy + QUEEN_FIGURE.bodyCy * l.tile;
-  drawCraneArm(ctx, l.tile, bodyX, bodyY, side, cx, cy, full, release);
+  drawCraneArm(ctx, l.tile, bodyX, bodyY, side, cx, cy, full, release, arm);
 
   if (scale > 0) {
     ctx.save();

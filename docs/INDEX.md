@@ -1512,6 +1512,7 @@ by hand never moves.
 | `packages/render/src/oculus-fx.ts` | What THE OCULUS leaves behind a frame (§27, *Presentation*) |
 | `packages/render/src/oculus-blow.ts` | **THE OCULUS's own blow at the hull** (`boss-strike-look.ts`): the lens does what a lens does |
 | `packages/render/src/outline-drift.ts` | **The outline tier** (`docs/spec/living-bosses.md` §1, "How far it reaches, by kind of body") |
+| `packages/render/src/outline-parts.ts` | **The outline tier's parts** (`docs/spec/living-bosses.md` §1, "How an outline boss gets it") |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |
@@ -1649,6 +1650,7 @@ by hand never moves.
 | `packages/render/src/queen-crane.ts` | THE CRANE — what holds each flank torch to the queen: an arm of two segments with a claw on the end |
 | `packages/render/src/queen-scutes.ts` | SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September 2026 |
 | `packages/render/src/queen-shell.ts` | **THE BULB QUEEN's shell in pieces**: her two wings, each with its joint, and the back between them |
+| `packages/render/src/queen-parts.ts` | **THE BULB QUEEN's parts on the idle drift** (`outline-parts.ts`) |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |

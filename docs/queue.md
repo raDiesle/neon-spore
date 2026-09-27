@@ -2185,27 +2185,6 @@ Add each boss to `OutlineBoss` and `SEED`, a candidate per slot, and its row
 to `outline-drift.test.ts`. Done when `bun run check` is green and each
 candidate's pose builds (`versus-pose.test.ts`).
 
-## Living bosses — the outline tier's parts and surface marks
-
-- **Found:** 2026-09-27, claude/queue-living-bosses-every-other-boss-gets-the-outline
-- **Taken:** 2026-09-27, claude/task-queue-work-fd3bdf (claim: claude/queue-living-bosses-the-outline-tiers-parts-and-surfac)
-- **Where:** local
-- **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-shell.ts`, `packages/render/src/queen-egg.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/idle-drift-parts.ts`, `packages/content/src/surface.ts`
-
-**Re-aimed, 27 September 2026**, for the reason under the entry above: a part
-that moves a few pixels is not offered. A part turns far enough to be seen, and
-its hit circle follows it.
-
-The body pose landed without the part drift the spec's part map marks
-**ready**: the queen's wings (`queenShellParts`), crane arms and claws
-(`craneJoints`), each stone of THE CAIRN, THE REPRISE's cords and lens eye.
-Each takes `partDrift` inside its own save, translate to its joint, rotate
-and restore, the turn a squash by its cosine, at most eight moving parts a
-boss; and the surface marks move by longitude through `pin`/`facet`. The same
-cap by reach holds a part's tip (a claw, a torch) inside its hit circle. Done
-when the part test's never-in-step check runs on each boss's part list, the
-op-count rows stay within 10% and `baked-growth.test.ts` is flat.
-
 ## Living bosses — what turns the bosses' life down
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -2306,3 +2285,56 @@ VERSUS" sentences in their headers. Then `bun run index`.
 Done when: `git grep MECHANISM_SWING` finds nothing outside the release notes,
 DECIDED.md and the spec's history, or the header says why it stays; `bun run
 check` is green.
+
+## THE BULB QUEEN's parts: how far
+
+- **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
+- **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/queen-parts.ts`, `packages/render/src/queen-crane.ts`, `packages/render/src/queen.ts`, `packages/render/test/outline-parts.test.ts`
+- **Asks:** How should THE BULB QUEEN's parts move so the movement is seen: large arms, torches that sway with her wings, her whole body instead, or not at all?
+
+The part drift is built and tested (`outline-parts.ts`, `queen-parts.ts`,
+`craneElbow`): her wings swing about their hinges and her arms about their
+shoulders, each pair an exact mirror, every tip half a tile at its widest,
+and it draws with no more ops than still. It ships at
+`OUTLINE_PARTS.queen = 0`, because at half a tile two phone stills side by
+side cannot be told apart. Her structure is why: her wings' moving ends sit
+behind the torch rocks; her arm's elbow and claw are the drop's timing cue
+(`craneRelease` straightens the arm and opens the claw in the beat before a
+drop); and `torchTremor` forbids her two sides moving differently. Her marks
+are on her body, so no hit test reads a part, and no cap is holding her back.
+The options:
+**(a) large arms.** Raise `PART.tip` for her arms to a tile or more, and accept
+that the straightening before a drop is read against an arm that is already
+moving (the swing still dies as it straightens).
+**(b) torches with the wings.** Move each torch rock with its wing, the same on
+both sides, so the wing's end shows; a torch then stands off its column by
+up to half a tile.
+**(c) her whole body.** Leave her parts still and give her a large body pose
+through `OUTLINE_DRIFT`, with `queenMarkCenter`'s hit test following the pose
+(the route of "the outline drift for the next six").
+**(d) nothing.** Remove `queen-parts.ts` and `craneElbow`, keep the helper for
+THE CAIRN and THE REPRISE.
+
+Wire the one he picks, with two stills at the widest moment that tell apart
+on a phone. `bun run check` proves it.
+
+## Living bosses — THE CAIRN's and THE REPRISE's parts, and the surface marks
+
+- **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
+- **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-lens.ts`, `packages/content/src/surface.ts`
+
+The second half of the old "outline tier's parts and surface marks" entry;
+the first half, THE BULB QUEEN, is built and waits on the entry above. The
+helper is on `main`: `partOn` gives a part's angles scaled so its tip moves
+`PART.tip` (half a tile), `partMatrix`/`partPoint` turn a point about its
+joint, and `OUTLINE_PARTS` holds each boss's share. Each stone of THE CAIRN,
+THE REPRISE's cords and lens eye, and the surface marks by longitude through
+`pin`/`facet`, move far enough to be seen (`docs/looks.md`, *Big enough to be
+seen*), with any hit circle on a moving part following it the way
+`instarMarkUnder` does. At most eight moving parts a boss; each pair an exact
+mirror where the boss is symmetric.
+
+Done when: the parts test's out-of-step and speed checks run on each boss's
+part list, a hit test on a moving part follows it, two stills at the widest
+moment tell apart on a phone, and the op-count rows stay within 10%.
+`bun run check` proves it.
