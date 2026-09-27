@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · a5b5731ad — THE FLUE's receipts and its own blow: a tick per tap, and a cinder coughed at the hull
+
+Each tap flashes a short bar through the slot across the ember. A lapse throws a ring off the ember. The notch of a vent just spent flares. The damper thuds as the core is bared, held or shut over. The core flashes white, wider for every hit. A vent spent, a damper held and a hit wash the flue red and shake it. A fire step run out now coughs a soot cinder with a white-hot heart down the middle column, which leaves a scorch and a spray of sparks on the skin. Exemption: a look with no shipped alternative.
+
 ## 2026-09-27 · 4eba5beeb — THE FLUE is drawn: a slotted flue whose ember glides until it stops dead
 
 THE FLUE's body, the look's first part. THE CAIRN · PULLED laid in a row: seven soot units across the middle of the field with a slot cut along them. The ember is a warm-white glow that glides the slot with a smear, and the smear is gone the instant the ember steadies. A ring round the steadied ember is full for the tapper and faint for the still seat. Three studs light as a vent's taps land, and an end unit's notch lights as each vent is spent. The damper, the middle unit, drops clear of a core that is lit in a shot's colour. The receipts and its own blow at the hull are queued. Exemption: a look with no shipped alternative.

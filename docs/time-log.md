@@ -27227,3 +27227,5 @@ here from its receipts and blow as THE GRINDSTONE's was.
 
 Bottleneck: writing — an fx lane is one class and seven registrations in
 other files, each found only by reading the last boss that did it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
