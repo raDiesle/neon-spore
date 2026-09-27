@@ -1875,6 +1875,7 @@ what the rest of this file holds.
 ## The director's stage does not pair a pinch
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
+- **Taken:** 2026-09-27, claude/queue-bun-run-push-refuses-while-a-lanes-worktree-is-s (claim: claude/queue-the-directors-stage-does-not-pair-a-pinch)
 - **Files:** `tools/director/src/stage-touch.ts`, `apps/game/src/pinch.ts`
 
 THE VISE's lobes are the first pinch: a press takes hold and says nothing,
