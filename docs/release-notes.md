@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ea1b53680 — `bun run frames --time 12.5` puts the picture at a chosen draw time
+
+The frozen clock a capture paints on can now be set: `--time <seconds>` puts the first frame's paint at exactly that draw time, on both sides of a pair, and a strip carries on from there. The moment a movement is widest — which the *Big enough to be seen* test asks the two stills to show — is a time the tests can find, and is now asked for rather than hunted through a strip. The simulation does not move; only the picture's clock does, and a build that keeps its own clock refuses the flag by name.
+
 ## 2026-09-27 · 8d7955762 — THE FLUE's tap from the glass: the column under the thumb, from either seat
 
 The flue's row, pressed while a vent is lit, sends `flueTap` with the column under the thumb as its `id`, turned back on a turned field, from either seat — the rester's press costs the taps, and that is the simulation's to decide. The director lists it ON THE FIELD with a pose of the ember stopped and one stud filled; the cue and AUTO are the two halves left on the queue.

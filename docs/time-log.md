@@ -27275,3 +27275,5 @@ the burgee's was the only map to them.
 
 Bottleneck: reading — the frozen clock's whole contract lives in one long
 comment, and it had to be read end to end before a second verb could join it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
