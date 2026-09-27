@@ -27694,3 +27694,15 @@ Bottleneck: looking. Every card was right but one, and that one was only
 wrong by when it was photographed, so it took reading the snap's timing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLING watched at tempo, drawn and answered by touch
+
+- reading: 5 min. The entry, the SLING's events, `sling-grip.test.ts`.
+- writing: 0 min. Nothing needed changing.
+- looking: 15 min. AUTO to `slingFree`; strips of the draw, the yoke, the
+  hit and the release; the fork at full size.
+- friction: 5 min. A second `queue next` claimed THE WINCH early.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. Both halves had been answered by later lanes, and the
+only way to know was to watch it through.
