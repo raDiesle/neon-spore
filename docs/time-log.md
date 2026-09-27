@@ -27290,3 +27290,5 @@ comment, and it had to be read end to end before a second verb could join it.
 
 Bottleneck: reading — where `STILL` may stand was decided by a test the
 next lane runs, not this one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

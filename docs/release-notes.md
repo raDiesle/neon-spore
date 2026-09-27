@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ae0b8f144 — THE FLUE's words: STILL to the seats keeping still, TAP on the stopped ember, FIRE on the bared core
+
+The field says `STILL` at the flue's middle to the vent's rester and to both seats through a damper, `TAP` on the ember to the tapper once it has stopped, jumping with it to each notch, and `FIRE` under the middle column once the core is bared. The count and the colour are never said. AUTO is the half left on the queue.
+
 ## 2026-09-27 · ea1b53680 — `bun run frames --time 12.5` puts the picture at a chosen draw time
 
 The frozen clock a capture paints on can now be set: `--time <seconds>` puts the first frame's paint at exactly that draw time, on both sides of a pair, and a strip carries on from there. The moment a movement is widest — which the *Big enough to be seen* test asks the two stills to show — is a time the tests can find, and is now asked for rather than hunted through a strip. The simulation does not move; only the picture's clock does, and a build that keeps its own clock refuses the flag by name.
