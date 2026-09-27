@@ -30,7 +30,7 @@ export function drawDavit(
   const cfg = world.cfg;
   const mast = davitMast(l, cfg);
   const stood = davitStood(s, beat, beatPhase, cfg.davitStillBeats);
-  const angle = davitAngle(s);
+  const angle = davitAngle(s, cfg, beatPhase);
   const sag = DAVIT_SAG;
 
   ctx.save();

@@ -170,7 +170,7 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     case "davit": {
       const s = davitBoss(world);
       if (s === null) return null;
-      const angle = davitAngle(s);
+      const angle = davitAngle(s, cfg, beatPhase);
       const parts = [{ x: 0, y: 0 }, davitTip(l, angle), davitHook(l, angle, DAVIT_SAG)];
       return spreadCapsule(offset(davitMast(l, cfg), parts), davitHookRadius(l));
     }

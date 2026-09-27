@@ -47,7 +47,7 @@ export function davitLooseCircle(
 ): Circle {
   const mast = davitMast(l, cfg);
   const stood = davitStood(s, beat, beatPhase, cfg.davitStillBeats);
-  const angle = davitAngle(s) * stood;
+  const angle = davitAngle(s, cfg, beatPhase) * stood;
   const hook = davitHook(l, angle, 1);
   return {
     x: mast.x + hook.x,

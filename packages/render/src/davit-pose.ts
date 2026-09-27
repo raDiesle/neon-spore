@@ -1,4 +1,4 @@
-import type { World } from "@neon-spore/sim";
+import type { SimConfig, World } from "@neon-spore/sim";
 import {
   type DavitState,
   davitHalf,
@@ -29,9 +29,28 @@ export function davitStood(
   return smoothstep(into(s, beat, beatPhase) / Math.max(1, stillBeats));
 }
 
-/** The angle the boom is drawn at: the live `aimMilli`, thousandths of a degree, in radians. */
-export function davitAngle(s: DavitState): number {
-  return (s.aimMilli / 1000) * (Math.PI / 180);
+/**
+ * **The angle the boom is drawn at**, in radians: the live `aimMilli` while a
+ * lean steers it, and with nobody steering, eased from there toward where
+ * the next beat's swing back leaves it.
+ *
+ * The simulation swings the boom back a whole `davitDriftMilli` once a beat
+ * (`davit-step.ts` `swing`), and drawn as it stood, the hook a fire step asks
+ * for jumped about an eighth of a tile each beat of its window. Eased, the
+ * beat lands where the drawing already is, as `sinewMassRowNow` eases THE
+ * SINEW's fall a row a beat. What is left is the instant a steer lets go in
+ * the middle of a beat, a loose landing or a lean leaving its target, when
+ * the boom takes up the part of the beat's swing already gone.
+ */
+export function davitAngle(s: DavitState, cfg: SimConfig, beatPhase: number): number {
+  const aim = davitSteering(s) === null ? swungBack(s.aimMilli, cfg, beatPhase) : s.aimMilli;
+  return (aim / 1000) * (Math.PI / 180);
+}
+
+/** `aimMilli` taken `beatPhase` of the way through one beat's swing back toward hanging, never past it. */
+function swungBack(aimMilli: number, cfg: SimConfig, beatPhase: number): number {
+  const drift = cfg.davitDriftMilli * Math.max(0, Math.min(1, beatPhase));
+  return aimMilli > 0 ? Math.max(0, aimMilli - drift) : Math.min(0, aimMilli + drift);
 }
 
 /**

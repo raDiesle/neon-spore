@@ -2383,24 +2383,6 @@ are creatures and rounds, not bosses.
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.
 
-## THE DAVIT's boom swings back a whole step a beat
-
-- **Found:** 2026-09-27, claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus
-- **Taken:** 2026-09-27, claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus (claim: claude/queue-the-davits-boom-swings-back-a-whole-step-a-beat)
-- **Files:** `packages/render/src/davit-pose.ts`, `packages/render/src/davit-draw.ts`, `packages/render/test/frame.test.ts`
-
-With nobody steering, the simulation swings THE DAVIT's boom back toward
-hanging by `davitDriftMilli` (4°) once a beat (`davit-step.ts` `swing`), and
-`davitAngle` draws `aimMilli` as it is. So through every fire step, which is
-a slow window asking for the hook, the hook jumps about 0.13 tile once a
-beat, at 4 tiles a second for the tick it moves. The boss-hush test keys the
-hook on the angle for that reason (`boss-hush-drawn-b.ts`). Ease the drawn
-angle between beats toward the next beat's, the way `sinewMassRowNow` eases
-THE SINEW's fall a row a beat, and then key the hush reader's id on nothing.
-It changes a frame, so the exemption to name is a fix to something wrong,
-stepped motion where every other stepped rule is eased, or it goes to
-VERSUS.
-
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

@@ -26880,3 +26880,16 @@ The bottleneck: a threshold a stub cannot judge. It took four real pairs to
 find a threshold at which the beam blooms at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE DAVIT's boom eased through its swing back
+
+- reading: 5 min. `davit-step.ts`'s `swing` and the four callers of
+  `davitAngle`.
+- writing: 5 min. `davitAngle` eased toward the next beat's swing back,
+  the hush reader unkeyed.
+- looking: 0 min. Held by the boss-hush test; a still frame shows nothing.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: deciding what the ease should do when a steer lets go mid-beat,
+which no state records the tick of.

@@ -155,7 +155,7 @@ const WANT: Record<string, (w: World) => Aim> = {
     );
   },
   davit: (w) => {
-    const angle = davitAngle(need(davitBoss(w), "davit"));
+    const angle = davitAngle(need(davitBoss(w), "davit"), CFG, 0);
     const mast = davitMast(L, CFG);
     const parts = [{ x: 0, y: 0 }, davitTip(L, angle), davitHook(L, angle, DAVIT_SAG)];
     return capsule(

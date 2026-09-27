@@ -115,14 +115,14 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
     return marks;
   },
   // The hook while a fire step asks for it, at the end of its chain off the
-  // boom's angle; both screens draw it the same. With nobody steering, the
-  // boom swings back toward hanging `davitDriftMilli` a beat, which is the
-  // rule and a whole step a beat, so the hook is keyed on the angle.
-  davit: (l, world) => {
+  // boom's angle; both screens draw it the same. With nobody steering the
+  // boom swings back toward hanging by the rule, eased through the beat
+  // (`davitAngle`), so it is left in.
+  davit: (l, world, phase) => {
     const s = world.boss;
     if (s?.kind !== "davit" || davitLitStep(s)?.ask !== "fire") return [];
     const mast = davitMast(l, world.cfg);
-    const hook = davitHook(l, davitAngle(s), DAVIT_SAG);
-    return [{ id: -200_000 - s.aimMilli, x: mast.x + hook.x, y: mast.y + hook.y }];
+    const hook = davitHook(l, davitAngle(s, world.cfg, phase), DAVIT_SAG);
+    return [{ id: -1, x: mast.x + hook.x, y: mast.y + hook.y }];
   },
 };
