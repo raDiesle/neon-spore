@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 0caba82b9 — THE VALVE leaks a second spark as the second pin's shudder is braced
+
+§25 row 11, off the same leak as the first: the first spark leaks as the jet is capped, the second as the brace stills, and each falls through the list and is shot out in either colour or reaches the hull. The revised lane's held chord on the last seal was already the seal phase. The two sparks' different severity is queued as a VERSUS look. A simulation change; nothing drawn changed, so no look.
+
 ## 2026-09-27 · ad5f4443e — THE UNDERTOW leans where it comes up through the plating
 
 Each of THE UNDERTOW's lobes, and its body once, now leans about the point where it crosses the hull's skin. The top of a grown lobe leans by more than half a tile, on a seed from its column, so a row of lobes sways out of step, and a lobe still rising leans only as far as it has risen. Nothing is hit-tested on a lobe (the pin's and the free's rings stand over the column), so the lean touches only the drawing. Exempt as a look with no shipped alternative: the lobes had no movement of their own beyond a rim wobble.

@@ -27574,3 +27574,5 @@ down, and `--events` was the way to find a tick with one standing.
 
 Bottleneck: reading — the entry asked for a chord the simulation already
 had, so the lane was finding the one row (the second spark) left to build.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
