@@ -2510,6 +2510,7 @@ and add `"nettle"` to `WALKED` and `GAPPED` in `fuse-place.test.ts`.
 ## `queue status` counts a spent claim as BUSY
 
 - **Found:** 2026-09-27, claude/cleanup-worktrees-branches-820b37
+- **Taken:** 2026-09-27, claude/task-queue-work-0762e9 (claim: claude/queue-queue-status-counts-a-spent-claim-as-busy)
 - **Files:** `tools/queue/status.ts`, `tools/queue/spent.ts`, `tools/queue/test/`
 
 On 27 September 2026 `bun run queue status` said BUSY with ten items, and
