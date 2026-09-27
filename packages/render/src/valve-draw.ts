@@ -8,7 +8,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
-import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -27,7 +26,6 @@ import {
   valveSocketGlow,
 } from "./valve-pose.js";
 import {
-  type Point,
   valveCentre,
   valveFacePath,
   valveHolePath,
@@ -37,11 +35,11 @@ import {
   valvePointerPath,
   valveReach,
   valveRimPath,
-  valveSparkPoint,
   valveSpokesPath,
   valveWheel,
   valveWheelPath,
 } from "./valve-shape.js";
+import { drawValveSpark } from "./valve-spark.js";
 import { drawValveStory, valveShake } from "./valve-story.js";
 
 /**
@@ -97,7 +95,7 @@ export function drawValve(
     }
   }
   ctx.restore();
-  if (valveLeaking(s)) drawSpark(ctx, l, world, s, c, beat, beatPhase);
+  if (valveLeaking(s)) drawValveSpark(ctx, l, world, s, c, beat, beatPhase);
 }
 
 /** The drum itself: THE CODEX's notched rim in iron, the face, the spent pins' slots, the wheel and the marks on it. */
@@ -220,25 +218,4 @@ function drawPin(
   if (s.phase === "frozen" && i === pulled(s))
     strokeGlow(ctx, plate, PALETTE.hullRim, STROKE.inner, 1);
   ctx.restore();
-}
-
-/** The spark the first pin leaks (row 5): an ember falling from under the drum down its column. */
-function drawSpark(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  s: ValveState,
-  at: Point,
-  beat: number,
-  beatPhase: number,
-): void {
-  const along = smoothstep(
-    (beat - s.sparkBeat + beatPhase) / Math.max(1, world.cfg.valveSparkBeats),
-  );
-  const { x, y } = valveSparkPoint(l, at, s.sparkCol, along);
-  const bead = new Path2D();
-  bead.ellipse(x, y, l.tile * 0.16, l.tile * 0.24, 0, 0, Math.PI * 2);
-  ctx.fillStyle = rgba(PALETTE.ember, 0.55 + 0.4 * along);
-  ctx.fill(bead);
-  strokeGlow(ctx, bead, PALETTE.emberRim, STROKE.inner, 1 + along);
 }

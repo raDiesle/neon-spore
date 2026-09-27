@@ -1,6 +1,7 @@
 import { valveHand } from "@neon-spore/hands";
-import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
-import { bossPose } from "./poses-bosses-kit.js";
+import { VALVE_PINS, valveLeaking, type World } from "@neon-spore/sim";
+import { POSE_CONFIG, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
+import { bossPose, bossWorld, runHand } from "./poses-bosses-kit.js";
 
 /**
  * **THE VALVE's ten states**, posed with a hand on the controls
@@ -81,3 +82,33 @@ export const VALVE_POSES: Pose[] = [
     { hand: valveHand, hold: 6, budgetBeats: 240 },
   ),
 ];
+
+/**
+ * The fight played to the second pin's brace, and the spark it leaks let fall
+ * a beat with nobody shooting it — the hand would shoot it at once — and
+ * replayed each beat, as long as it has left to fall. VERSUS
+ * `valve:spark` is judged here: the spec asks the second spark read at a
+ * different severity from the first, and this is the only frame it is on.
+ */
+function secondSpark(): World {
+  const w = bossWorld("valve");
+  runHand(
+    w,
+    "the second spark leaking",
+    valveHand,
+    (x) => x.boss?.kind === "valve" && valveLeaking(x.boss) && x.boss.pins === VALVE_PINS - 2,
+    200 * TPB,
+  );
+  run(w, TPB);
+  return w;
+}
+
+export const VALVE_SECOND_SPARK_POSE: Pose = {
+  name: "VALVE · THE SECOND SPARK FALLING",
+  note: "THE VALVE over the middle column, two of its three pins out and the shudder braced: a second ember falls from under the drum down its column. Player 1 has not aimed under it yet.",
+  lookAt: "whether the second spark reads as worse than the first, and as a thing to shoot",
+  crop: "field",
+  role: "p1",
+  build: secondSpark,
+  cadenceSeconds: 60 / POSE_CONFIG.bpm,
+};

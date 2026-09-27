@@ -2159,20 +2159,3 @@ straight onto the field under *a look with no shipped alternative*
 
 Add each boss to `OutlineBoss`, `OUTLINE_SEED` and `OUTLINE_PARTS`, and its
 test beside `warden-drift.test.ts`. Done when `bun run check` is green.
-
-## §25 THE VALVE — the second spark's severity, offered on VERSUS
-
-- **Found:** 2026-09-27, claude/queue-25-the-valve-revised-sim-second-spark
-- **Taken:** 2026-09-27, claude/queue-25-the-valve-revised-sim-second-spark (claim: claude/queue-25-the-valve-the-second-sparks-severity-offered)
-- **Files:** `packages/render/src/valve-draw.ts`, `packages/render/src/valve-fx.ts`, `tools/versus/candidates/`
-
-The revised simulation lane landed a second spark (§25 row 11), leaked as
-the second pin's shudder is braced, off the same leak as the first
-(`sim/valve-step.ts` `valveLeak`). The simulation does not tell them apart;
-the spec asks that they read at different severity — the second **wider and
-hissing louder**, off the drum's deeper list. Today `drawSpark` draws both
-the same, so a wider second ember is a look with a shipped alternative: offer
-it on VERSUS as `valve:spark` (the second read off `s.pins === 1`), the
-current bead beside it, and a louder `valveSpark` bend in
-`packages/audio/src/bind-valve.ts` if the owner picks it. Done when the
-candidate renders both sparks on its sheet and `bun run check` is green.

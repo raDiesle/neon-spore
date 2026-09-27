@@ -1309,6 +1309,7 @@ by hand never moves.
 | `packages/render/src/valve-pose.ts` | **The clock THE VALVE is posed off** (§25, *Animation*): four poses — sealed and upright, listing one pin |
 | `packages/render/src/valve-shape.ts` | **THE VALVE's geometry**: where the drum hangs, and the paths it is made of |
 | `packages/render/src/valve-story.ts` | **THE VALVE's story between the pins, drawn** (§25 rows 5–6, 12–13, 17–19; the rules are `sim/valve-story.ts`) |
+| `packages/render/src/valve-spark.ts` | **THE VALVE's sparks** (§25 rows 7 and 11): an ember falling from under the drum down its column |
 | `packages/render/src/valve-blow.ts` | THE VALVE's timeout blow: its ember burns through the hull and the ship vents a jet of steam up the column |
 | `packages/render/src/valve-grip.ts` | **The two thumbs on THE VALVE** — the grip of its hands lane |
 | `packages/render/src/valve-fx.ts` | What THE VALVE leaves behind a frame: the **clamp** round a frozen wheel, a pulled pin's slot, the kick, the hull shock |

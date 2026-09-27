@@ -27593,3 +27593,17 @@ thing that had to follow the lean, and finding that meant checking
 every reader of the intake's height.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §25 THE VALVE — the second spark's severity, offered on VERSUS
+
+- reading: 5 min. VERSUS's README, the `valve:pin` precedent, the slot map.
+- writing: 10 min. The spark moved to its own record, the pose that holds
+  the second spark falling, the candidate.
+- looking: 5 min. The first shot came up empty — the pair plays on past the
+  pose and the spark had landed — and `--freeze 0.1` held it.
+- friction: 5 min. The pose went first on the ON THE FIELD tab, whose
+  test wants a row for each pose; it moved to COMPARED LOOKS.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a spark falls in two beats, so the still needed a
+freeze before there was anything in it to judge.

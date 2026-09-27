@@ -1,4 +1,5 @@
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
+import { VALVE_SECOND_SPARK_POSE } from "./poses-bosses-hands-valve.js";
 import { BREACH_ROCKS_POSE, BREACH_STRIKE_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
 import { GUIDE_FILM_POSE, LOST_SCREEN_POSE } from "./poses-guide.js";
 import { HANDOVER_TRADE_POSE } from "./poses-handover.js";
@@ -68,4 +69,5 @@ export const VERSUS_STATE_POSES: Pose[] = [
   INSTAR_REAR_POSE,
   INSTAR_SPREAD_POSE,
   ...INSTAR_ACT_POSES,
+  VALVE_SECOND_SPARK_POSE,
 ];

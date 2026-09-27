@@ -6,5 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { VALVE_SPARK_WIDE } from "./valve-spark/wide/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [VALVE_SPARK_WIDE];
