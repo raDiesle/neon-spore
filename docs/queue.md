@@ -2639,6 +2639,7 @@ the tests.
 ## THE INSTAR — flies round in depth, not across
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-instar-longer-to-arrive-and-much-slower-betw (claim: claude/queue-the-instar-flies-round-in-depth-not-across)
 - **Needs:** THE INSTAR — longer to arrive, and much slower between poses
 - **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-place.ts`, `packages/render/test/instar-flight.test.ts`, `docs/spec/living-bosses.md`
 
