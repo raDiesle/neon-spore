@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f3baf18c1 — THE INSTAR: a shield or suck mark wears the panel's button face
+
+A shield mark now shows the panel's own SHIELD face, and a suck mark the SUCK face. Before this, both drew the hold's two thumbprints under their own words. The glyph switch now covers every gesture, so a new gesture fails to typecheck rather than borrowing another's picture. This is a fix to something wrong, not unlovely.
+
 ## 2026-09-27 · 7b228534f — THE INSTAR: a shoot mark is a crosshair
 
 A shoot mark is now a crosshair in the ship's violet: a ring with four ticks pointing in and nothing across the middle, so the part to shoot stays visible, glowing red, under it. It has no red halo. The window ring still closes and the progress arc still fills. Before this, a shoot mark drew the hold's two thumbprints. The owner asked for this look by name.
