@@ -1,13 +1,16 @@
 import type { InstarGesture } from "@neon-spore/sim";
-import { STROKE } from "./palette.js";
+import { emblem } from "./action-face.js";
+import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * **The gesture, drawn inside the ring** — one glyph per member of
  * `INSTAR_GESTURES`, so a mark says what it wants before the word over it
  * is read: an arrow down or up for the pulls, a ring of dots for the tap,
  * three chevrons for the swipe, a hooked arc for the turn — running
- * anticlockwise for `turnBack` — two thumbs for the hold. Each is drawn in the caller's stroke colour at the ring's
- * centre, `r` the ring's radius, `time` for the ones that move.
+ * anticlockwise for `turnBack` — two thumbs for the hold, and the panel's
+ * own button face for a shield or a suck. A shoot mark has none: its
+ * crosshair is the mark. Each is drawn in the caller's stroke colour at the
+ * ring's centre, `r` the ring's radius, `time` for the ones that move.
  *
  * Its own file because `instar-marks.ts` owns the ring, the window and the
  * word and was at its limit with those.
@@ -24,14 +27,59 @@ export function drawInstarGlyph(
   ctx.lineWidth = STROKE.outline;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  if (gesture === "pullDown" || gesture === "pullUp")
-    arrow(ctx, x, y, r, gesture === "pullDown" ? 1 : -1, time);
-  else if (gesture === "tap") tap(ctx, x, y, r, time);
-  else if (gesture === "swipeDown") chevrons(ctx, x, y, r, time);
-  else if (gesture === "turn") turn(ctx, x, y, r, time, 1);
-  else if (gesture === "turnBack") turn(ctx, x, y, r, time, -1);
-  else hold(ctx, x, y, r);
+  switch (gesture) {
+    case "pullDown":
+    case "pullUp":
+      arrow(ctx, x, y, r, gesture === "pullDown" ? 1 : -1, time);
+      break;
+    case "tap":
+      tap(ctx, x, y, r, time);
+      break;
+    case "swipeDown":
+      chevrons(ctx, x, y, r, time);
+      break;
+    case "turn":
+    case "turnBack":
+      turn(ctx, x, y, r, time, gesture === "turn" ? 1 : -1);
+      break;
+    case "hold":
+      hold(ctx, x, y, r);
+      break;
+    case "shield":
+    case "suck":
+      panelFace(ctx, x, y, r, gesture === "shield" ? "guard" : "intake");
+      break;
+    case "shoot":
+      // The crosshair is the whole mark, drawn in the ring's place (`instar-crosshair.ts`).
+      break;
+    default:
+      unknownGesture(gesture);
+  }
   ctx.restore();
+}
+
+/** A gesture with no branch above fails to typecheck here, rather than borrowing one. */
+function unknownGesture(gesture: never): never {
+  throw new Error(`no glyph for ${String(gesture)}`);
+}
+
+/** How big the panel's button face is drawn inside the ring, in ring radii. */
+const FACE = 0.62;
+
+/**
+ * THE NETTLE's panel verbs wear the panel's own button faces
+ * (`action-face.ts`): the ward swelling for SHIELD, the throat and its motes
+ * for SUCK — the same control on the field as under the thumb.
+ */
+function panelFace(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  kind: "guard" | "intake",
+): void {
+  const ink = typeof ctx.strokeStyle === "string" ? ctx.strokeStyle : PALETTE.text;
+  emblem(ctx, x, y, r * FACE, ink, kind);
 }
 
 /** A shaft with a head, sliding a little in its own direction. */

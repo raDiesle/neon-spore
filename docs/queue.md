@@ -2706,18 +2706,16 @@ cannon colours.
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
 
-## THE INSTAR — a shield or suck mark draws the hold's two thumbs
+## `bun run frames --until` cannot name which firing of an event
 
-- **Found:** 2026-09-27, claude/queue-the-instar-a-shoot-mark-is-a-crosshair
-- **Taken:** 2026-09-27, claude/queue-the-instar-a-shoot-mark-is-a-crosshair (claim: claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds)
-- **Files:** `packages/render/src/instar-glyphs.ts`, `packages/render/src/instar-ring.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-fourth.ts`
+- **Found:** 2026-09-27, claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds
+- **Files:** `tools/frames/until.ts`, `tools/frames/until-flags.ts`, `tools/frames/recipes.ts`
 
-`drawInstarGlyph` names six gestures and sends every other one to its last
-branch, `hold`, so a `shield` mark (the second act's glob and head) and a
-`suck` mark (the fourth act's ember) draw two thumbprints under the words
-SHIELD and SUCK. `shoot` fell through the same way until the crosshair
-took it out of the glyph. Give each of the two its own glyph, drawn from
-the shield and the suck the player's panel already shows, and make the
-branch exhaustive over `InstarGesture` so a new gesture fails to typecheck
-instead of borrowing one. A test draws every gesture's glyph and finds none
-drawn by another's branch. `bun run check` proves it.
+Photographing THE INSTAR's fifth step (a shield mark, open for one tick
+under AUTO) took eight runs of `--until fire --until-back N` bisecting for
+the tick. `--until` stops on the event's first firing, and a boss fires
+`instarShow` once a step. Let the flag take the event's own fields after a
+colon, `--until instarShow:step=4`, matched against the `key=value` scalars
+`until.ts` already prints for a miss, so a step, a mark or a column picks
+the firing. Add a recipe line, and a test in `tools/frames/test/` that
+stops on the second of two firings. `bun run check` proves it.

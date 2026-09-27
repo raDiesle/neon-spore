@@ -26335,3 +26335,16 @@ Bottleneck: looking — the first crosshair passed its test and could not be
 seen, and only a zoomed frame said so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR: a shield or suck mark wears the panel's face
+
+- reading: 5 min. The glyphs, the ship's marks and the panel's emblems.
+- writing: 10 min. The exhaustive switch, the panel face, and the test
+  that draws every glyph and finds no two alike.
+- looking: 15 min. A shield window lasts one tick under AUTO, and finding
+  that tick took eight frames.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — `bun run frames` has no way to stop inside the Nth
+step's window, so the tick was found by bisecting `--until-back`.
