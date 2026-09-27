@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · aeec2be28 — The briefings spec's prose count is read by its test
+
+§3.2 of docs/spec/briefings.md named five guides still in prose; there are seventeen, every boss from THE NETTLE on. The paragraph now says the number and points at the list, and `scenes-prose.test.ts` reads the films, the prose guides and §1's wave count out of the document in words, so a boss that lands without updating the sentence goes red.
+
 ## 2026-09-27 · aac5a337f — THE INSTAR's baked seam is deleted
 
 The seam's VERSUS slot was dropped on 27 September and nothing in the game drew it, so the module, its export, its sprite-sheet row, its byte row and its test call are gone. The baked-parts table is refreshed from today's `bun run sprite`: five of its parts are now in the game, and all nine together add 4.9 kB gzipped.

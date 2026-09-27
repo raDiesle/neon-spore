@@ -26211,3 +26211,5 @@ DECIDED.md before its total could be fixed.
 
 Bottleneck: friction — the entry's own figure was wrong, and the new test
 was what caught it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
