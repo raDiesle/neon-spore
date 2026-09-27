@@ -25389,3 +25389,17 @@ Bottleneck: reading — two more comments (`balloon-alive.ts`, `hull.ts`) pointe
 at what was being removed, and each had to be found before it could dangle.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `bun run frames --auto-miss` reaches a boss's timeout blow
+
+- reading: 15 min. `tools/frames/drive.ts`, `auto.ts`, `until-flags.ts`, the
+  game's `handle.ts` and `autopilot.ts`, `slow.ts`, the eight bosses' miss paths.
+- writing: 15 min. `auto-miss.ts` and its verb on the handle, the flag through
+  `flags.ts`, `spec.ts` and `page.ts`, two test files, two queue findings.
+- looking: 5 min. One `bun run frames` of THE OCULUS to its `oculusMiss` breach
+  at tick 3300.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — whether a boss can miss at all depends on what kind of
+ask it is, and that is in eight step files, not in one place.

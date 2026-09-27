@@ -2271,6 +2271,7 @@ by hand never moves.
 | `apps/game/src/welcome.ts` | the page before a device's first tutorial: once per device, pressed away, the film held on its first frame under it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/autopilot.ts` | AUTO under the TEST panel: the director's hands press OFF, BOTH, P1 or P2 into the game's own input buffer, on the tick |
+| `apps/game/src/auto-miss.ts` | AUTO's hands off every other asking window, so a boss's timeout blow is reached (`bun run frames --auto-miss`) |
 | `apps/game/src/at-a-desk.ts` | **Whether the person holding this is at a desk**, asked in one place |
 | `apps/game/src/awake.ts` | Keeping the screen on while the world ticks |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |

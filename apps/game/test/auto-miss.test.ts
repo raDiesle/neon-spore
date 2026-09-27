@@ -1,0 +1,92 @@
+import { describe, expect, it } from "bun:test";
+import { WAVES } from "@neon-spore/content";
+import { createWorld, guideHolds, onReadyPage, step, type World } from "@neon-spore/sim";
+import type { GameAudio } from "../src/audio.js";
+import { askMisser } from "../src/auto-miss.js";
+import { gameAutopilot } from "../src/autopilot.js";
+import { InputBuffer } from "../src/input-buffer.js";
+import { playConfig } from "../src/main-world.js";
+import { createWaveProgression } from "../src/waves.js";
+
+/**
+ * **AUTO with its hands off every other ask reaches a boss's own blow**
+ * (`auto-miss.ts`), which AUTO alone and no hands at all both never did — the
+ * reason `bun run frames --until breach` found nothing on these bosses.
+ *
+ * Played through the game's own tick, as `autopilot.test.ts` plays it: the
+ * guide turned by two thumbs, AUTO into the buffer, `step`, the progression.
+ */
+
+const SILENT = { restarted: () => {} } as unknown as GameAudio;
+const LOOK = 6000;
+
+function readThrough(world: World, buffer: InputBuffer): void {
+  if (!guideHolds(world)) return;
+  for (const seat of [1, 2] as const) {
+    const held = seat === 1 ? world.brief.holdP1 : world.brief.holdP2;
+    if (!onReadyPage(world, seat)) buffer.push(seat, { kind: "guideStep" });
+    else if (!held) buffer.push(seat, { kind: "brief", on: true });
+  }
+}
+
+/** The first breach the boss itself lands, as `by`, or null inside the look. */
+function bossBlow(name: string, miss: boolean): { by: string; kind: string } | null {
+  const cfg = playConfig();
+  const world = createWorld(cfg, 0);
+  const buffer = new InputBuffer();
+  const progression = createWaveProgression({ world, cfg, audio: SILENT, buffer });
+  const auto = gameAutopilot();
+  auto.setMode("both");
+  const misser = askMisser();
+  const index = WAVES.findIndex((w) => w.name === name);
+  expect(index).toBeGreaterThan(-1);
+  progression.jumpToWave(index);
+  for (let i = 0; i < LOOK && !world.over; i++) {
+    progression.tickOpening(1 / cfg.tickHz);
+    readThrough(world, buffer);
+    const kind = world.boss?.kind ?? "";
+    if (!(miss && misser.withholds(world))) auto.press(world, buffer);
+    step(world, buffer.drain(world.tick));
+    for (const e of world.events) {
+      if (e.type === "breach" && e.by === kind) return { by: e.by, kind };
+    }
+    if (world.events.length) progression.handle(world.events);
+  }
+  return null;
+}
+
+describe("--auto-miss", () => {
+  for (const name of ["THE OCULUS", "THE VISE", "THE TRIVET", "THE RATCHET"]) {
+    it(`reaches ${name}'s timeout blow, which AUTO alone never lands`, () => {
+      expect(bossBlow(name, false)).toBeNull();
+      expect(bossBlow(name, true)).not.toBeNull();
+    });
+  }
+});
+
+describe("askMisser", () => {
+  const world = (from: number, to: number, asks: boolean, beat: number) =>
+    ({ slowFromBeat: from, slowToBeat: to, slowAsks: asks, beat }) as World;
+
+  it("lets the first ask go, answers the next, and lets the third go", () => {
+    const m = askMisser();
+    expect(m.withholds(world(10, 14, true, 10))).toBe(true);
+    expect(m.withholds(world(10, 14, true, 13))).toBe(true);
+    expect(m.withholds(world(10, 14, true, 14))).toBe(false);
+    expect(m.withholds(world(20, 24, true, 21))).toBe(false);
+    expect(m.withholds(world(30, 32, true, 30))).toBe(true);
+  });
+
+  it("keeps a window extended as the same window", () => {
+    const m = askMisser();
+    expect(m.withholds(world(10, 14, true, 12))).toBe(true);
+    expect(m.withholds(world(10, 18, true, 16))).toBe(true);
+  });
+
+  it("never holds off a show, or a field with no window up", () => {
+    const m = askMisser();
+    expect(m.withholds(world(10, 14, false, 11))).toBe(false);
+    expect(m.withholds(world(-1, -1, false, 11))).toBe(false);
+    expect(m.withholds(world(20, 24, true, 20))).toBe(true);
+  });
+});

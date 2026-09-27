@@ -1780,19 +1780,6 @@ Nothing of it was built.
 Exemption: none. This is a look with a shipped alternative, the rock, and
 that is why it goes to VERSUS.
 
-## `bun run frames` cannot make a boss's window run out
-
-- **Found:** 2026-09-26, claude/timeout-hits
-- **Taken:** 2026-09-27, claude/queue-a-cloud-claim-does-not-stop-the-owners-own-sessi (claim: claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou)
-- **Files:** `tools/frames/until.ts`, `tools/frames/until-flags.ts`
-
-`--until breach` found no breach in 3000 ticks on THE OCULUS, THE VISE,
-THE HASP, THE TRIVET, THE RATCHET, THE CYST, THE SLING and THE GIMBAL:
-with no hand on them these bosses never miss, so a boss's timeout blow
-cannot be photographed there. THE SEAM misses on its own at tick 375 and
-was used instead. Add a way to reach a boss's timeout, for example
-`--until-on bossTimeout` that holds the controls off the ask until the
-window closes, and prove it with a test in `tools/frames/test/`.
 ## Unverified at 881f776df: THE DAVIT: no touch sends a lean or draw
 
 - **Found:** 2026-09-26, claude/davit-sim
@@ -2938,3 +2925,29 @@ keeping each file's own strengths and lives; `frame-on-ship.ts`' calls change
 with them, and the fx tests that read a shock read `shock.now`. Then add a row
 to `packages/sim/test/purity.test.ts`' called-not-re-derived table for
 `shockLeft`, so a tenth copy is caught.
+
+## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
+
+- **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
+- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`
+
+`--auto both --auto-miss` keeps AUTO's hands off every other asking window,
+and that reaches the timeout blow of THE OCULUS, THE VISE, THE TRIVET, THE
+HASP, THE RATCHET and THE GIMBAL. THE CYST and THE SLING breach only when a
+*fire* step runs out, and taking the hands off does not stop a shot. The
+cannon fires by itself every half beat (`fireEveryBeats`), so a cannon already
+under the aim answers the ask with nobody pressing. THE CYST's fire step also
+opens no window at all (`cyst-step.ts` `next`), so it is never withheld. The
+fix is a misser that moves the cannon off the aim during a withheld fire
+window, rather than one that only lets go. Add the two bosses to the test's
+list once it lands.
+
+## `tools/frames/run.ts` is at 223 lines
+
+- **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
+- **Files:** `tools/frames/run.ts`
+
+Most of the file is the flag-to-file table and the recipe list in its header
+comment, and every new flag adds a line to both. Move the recipes into
+`docs/commands.md`, or into their own tools/frames/recipes.ts printed by
+`--help`, before the next flag takes the file over the ceiling.

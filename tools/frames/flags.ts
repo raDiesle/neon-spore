@@ -1,5 +1,5 @@
 import { DIFFICULTIES, isDifficulty } from "@neon-spore/sim";
-import { parseAuto } from "./auto.js";
+import { parseAuto, parseAutoMiss } from "./auto.js";
 import { bossSpec, parseBoss, parseBossJson, parseCreature } from "./boss.js";
 import { parseAt } from "./crop.js";
 import { parseFault } from "./fault.js";
@@ -152,6 +152,10 @@ export function parseFrameSpec(
     // The game's own AUTO on those seats, for a receipt a run of correct
     // presses deep (`auto.ts`).
     ...(argv.includes("--auto") ? { auto: parseAuto(after("auto")) } : {}),
+    // And its hands off every other ask, for the blow a missed one lands.
+    ...(parseAutoMiss(argv.includes("--auto-miss"), argv.includes("--auto"))
+      ? { autoMiss: true }
+      : {}),
     // Undefined rather than 0, so `--opening guide` on a film of one page is
     // not refused for a flag nobody wrote.
     ...(argv.includes("--guide-page") ? { guidePage: flag("guide-page", 0) } : {}),

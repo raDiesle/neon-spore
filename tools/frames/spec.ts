@@ -203,6 +203,9 @@ export interface FrameSpec extends StageSpec {
   /** The seats the game's own AUTO plays while the run is stepped (`auto.ts`).
    * Undefined is every capture from before it: nobody's hands but `--press`. */
   auto?: AutoSeats;
+  /** AUTO lets every other asking window run out, so a boss's timeout blow is
+   * reached (`--auto-miss`, `apps/game/src/auto-miss.ts`). Needs `auto`. */
+  autoMiss?: true;
 }
 
 /**

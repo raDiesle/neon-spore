@@ -32,20 +32,44 @@ export function parseAuto(value: string | undefined): AutoSeats | undefined {
 }
 
 /**
+ * **`--auto-miss`: AUTO plays, and lets every other ask run out**
+ * (`apps/game/src/auto-miss.ts`). With no hand on them THE OCULUS, THE VISE,
+ * THE TRIVET, THE HASP, THE RATCHET and THE GIMBAL never reach an ask, and
+ * with AUTO they never miss one, so `--until breach` found nothing in either.
+ * On its own it would be a flag that changes nothing, so it is refused.
+ */
+export function parseAutoMiss(miss: boolean, auto: boolean): boolean {
+  if (miss && !auto) {
+    throw new Error("--auto-miss is AUTO holding off an ask: it needs --auto both|p1|p2 beside it");
+  }
+  return miss;
+}
+
+/**
  * Switch AUTO on in the page. After the opening, so the ticks that clear it
  * are the ones every capture has always spent; a build from before the handle
  * had the verb says so by name.
  */
-export async function installAuto(page: Page, seats: AutoSeats): Promise<void> {
-  await page.evaluate((mode) => {
-    const ns = window.neonSpore;
-    if (!ns) throw new Error("window.neonSpore missing before --auto");
-    if (!ns.setAuto) {
-      throw new Error(
-        "this build has no window.neonSpore.setAuto — --auto needs a commit at or after the " +
-          "one that added it, and a before/after pair cannot play its parent",
-      );
-    }
-    ns.setAuto(mode);
-  }, seats);
+export async function installAuto(page: Page, seats: AutoSeats, miss = false): Promise<void> {
+  await page.evaluate(
+    ([mode, withhold]) => {
+      const ns = window.neonSpore;
+      if (!ns) throw new Error("window.neonSpore missing before --auto");
+      if (!ns.setAuto) {
+        throw new Error(
+          "this build has no window.neonSpore.setAuto — --auto needs a commit at or after the " +
+            "one that added it, and a before/after pair cannot play its parent",
+        );
+      }
+      ns.setAuto(mode);
+      if (!withhold) return;
+      if (!ns.setAutoMiss) {
+        throw new Error(
+          "this build has no window.neonSpore.setAutoMiss — --auto-miss needs a newer commit",
+        );
+      }
+      ns.setAutoMiss(true);
+    },
+    [seats, miss] as [AutoSeats, boolean],
+  );
 }

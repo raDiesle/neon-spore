@@ -1,5 +1,6 @@
 import type { Circle } from "@neon-spore/render";
 import { type SimEvent, setBossRound, step, type World } from "@neon-spore/sim";
+import { askMisser } from "./auto-miss.js";
 import type { AutoMode, GameAutopilot } from "./autopilot.js";
 import { pressVerbs } from "./handle-press.js";
 import type { InputBuffer } from "./input.js";
@@ -74,6 +75,7 @@ export interface HandleParts {
  */
 export function installTestingHandle(parts: HandleParts): PerfHandle {
   const { world, buffer, progression } = parts;
+  let misser: ReturnType<typeof askMisser> | null = null;
   const handle = {
     world,
     jumpToWave: parts.jumpToWave,
@@ -141,10 +143,15 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
     setAuto(mode: AutoMode) {
       parts.auto.setMode(mode);
     },
+    /** AUTO's hands off every other asking window, so a boss's timeout blow
+     * can be reached (`auto-miss.ts`, `bun run frames --auto-miss`). */
+    setAutoMiss(on: boolean) {
+      misser = on ? askMisser() : null;
+    },
     advance(ticks: number) {
       for (let i = 0; i < ticks; i++) {
         // Where the loop presses it: after the keys, before the tick drains.
-        parts.auto.press(world, buffer);
+        if (!misser?.withholds(world)) parts.auto.press(world, buffer);
         step(world, buffer.drain(world.tick));
         if (world.events.length) {
           parts.frames.collect(world.events);

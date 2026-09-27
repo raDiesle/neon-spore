@@ -141,7 +141,7 @@ export async function openStage(
   await turnGuide(page, spec);
   // AUTO once the field is up, so the opening is cleared by the same ticks
   // it always was (`auto.ts`).
-  if (spec.auto) await installAuto(page, spec.auto);
+  if (spec.auto) await installAuto(page, spec.auto, spec.autoMiss === true);
 
   // The PC key toast (`apps/game/src/key-hint.ts`) sits over the top of the
   // field for its first six seconds, and headless Chrome reports `pointer:
