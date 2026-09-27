@@ -69,7 +69,8 @@ type ChoreographedEvent =
           | `capstan${string}`
           | `gall${string}`
           | `burgee${string}`
-          | `flue${string}`;
+          | `flue${string}`
+          | `governor${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

@@ -821,35 +821,11 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## §43 THE GOVERNOR — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-42-the-sluice-the-simulation-lane (claim: claude/queue-43-the-governor-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
-
-No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
-with `TAPS ON A MOVING TARGET` (THE GALL's, THE FLUE's and the cinematic
-RATCHET's own reading of a moving mark) for the first time — and for the
-first time on this page, the coupling is not a gate. THE WINCH's chord and
-THE SLUICE's pinch each decide whether a different seat's gesture counts
-at all; here the chord only ever changes how hard the other seat's tap is
-to land. One seat holds `CHORD` whole to keep `governorSpeedMul` at 1×, so
-a needle sweeping the rim stays at its scripted base pace; the instant any
-control of that chord lifts, the multiplier climbs toward 2× until the
-chord is replanted. A tap landed on a needle running hot still counts
-exactly as one landed slow — nothing already banked is undone by a broken
-chord, unlike every other coupling on this page. The full beat list and
-primitive table entry are §43 of `docs/spec/bosses-choreographed.md`.
-`TAPS ON A MOVING TARGET` and `CHORD` each already carry a §43 THE
-GOVERNOR entry in their `where` arrays in
-`tools/director/src/gesture-unbuilt.ts` — land it with the rest. THE SLOW
-on every chord-governed tap. `bun run check` proves it.
-
 ## §43 THE GOVERNOR — the look
 
 - **Found:** 2026-09-26, this session
 - **Needs:** §43 THE GOVERNOR — the simulation lane
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `packages/render/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
 
 Lane two, read against `docs/style-guide.md`: a new silhouette (checked
 this session against `packages/content/src/silhouettes*.ts` and every
@@ -864,6 +840,17 @@ dropping on the spindle rather than as a number or a trail, the same
 drawn-as-mechanism choice THE VISE's pinch and THE WINCH's brake both
 make. Nothing here is drawn yet and stays unverified at tempo until the
 owner has looked.
+
+The simulation landed 27 September 2026 (`docs/spec/bosses.md` §11.58) with
+three things this lane owes besides the body: **the touch** — the braking
+seat's two pads as `governorChordLeft`/`governorChordRight` with the pad as
+`id` (THE TRIVET's `render/trivet-grip.ts` and `chord-pads.ts`), and the
+tap as `governorTap`, an edge, from the lit step's tapper — with the three
+rows in `tools/director/test/on-field-controls.test.ts` moved off
+`unbuilt`; **the cue** — a word for the braking seat and one for the
+tapper, and `FIRE` on the lit hub (`render/boss-cue.ts`); and **AUTO's
+hand**, which takes `governor` out of `NO_HAND` in
+`tools/director/test/autopilot.test.ts`.
 
 ## §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 

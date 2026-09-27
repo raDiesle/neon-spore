@@ -1227,6 +1227,16 @@
       "mean": 0,
       "p90": 0,
       "unmeasured": true
+    },
+    {
+      "id": "theGovernor",
+      "wave": 120,
+      "name": "THE GOVERNOR",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     }
   ]
 }

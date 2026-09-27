@@ -268,6 +268,7 @@ by hand never moves.
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — how wide the sack is, how many beads fill an intake |
+| `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles, how near the mark a tap lands |
 | `packages/sim/src/config-gimbal.ts` | THE GIMBAL's tuning: how near a mark is near enough, how long an alignment has to be held |
 | `packages/sim/src/config-grindstone.ts` | THE GRINDSTONE's tuning: the rests around its steps, what a reversal shaves and a beat regrits |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
@@ -438,6 +439,7 @@ by hand never moves.
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it is flung — its landing is a `breach` |
 | `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
+| `packages/sim/src/events-governor.ts` | What THE GOVERNOR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as four events (`gauge.ts`, `gauge-hand.ts`) |
 | `packages/sim/src/events-gall.ts` | What THE GALL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
@@ -500,6 +502,12 @@ by hand never moves.
 | `packages/sim/src/gorge-pry.ts` | **The pry's own clock, and the bead a spit is**: what `gorge-step.ts` runs on the beat for player 2's thumb |
 | `packages/sim/src/gorge-mouth.ts` | **A bead in, a bead out, and THE GORGE's mouth**: what a shot does to an intake that takes it as a bead |
 | `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
+| `packages/sim/src/governor-hand.ts` | THE GOVERNOR's three handles: the two chords and the tap |
+| `packages/sim/src/governor-hash.ts` | What THE GOVERNOR puts into `hashWorld`, and nothing else |
+| `packages/sim/src/governor-shot.ts` | **THE GOVERNOR's shot**: the lit hub, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/governor-step.ts` | THE GOVERNOR's clock: each step lighting, a window running out, and the flyweights flown spent |
+| `packages/sim/src/governor-turn.ts` | **THE GOVERNOR's needle, turned**, once a tick after the commands are heard |
+| `packages/sim/src/governor.ts` | THE GOVERNOR: a flywheel governor mid-hull with a needle sweeping its rim on its own |
 | `packages/sim/src/gimbal-hand.ts` | Two hands on THE GIMBAL, one ring each, and **the same turn means two different things** |
 | `packages/sim/src/gimbal-hash.ts` | What THE GIMBAL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/gimbal-shot.ts` | **THE GIMBAL's one target**: the spark leaking from the drum's seam once two tooth pairs are off (§18, row 9) |
@@ -1851,6 +1859,7 @@ by hand never moves.
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |
 | `packages/render/src/effects-ingest-silent-boss-c.ts` | **The bosses' half of the silent list, the third page** — THE WELL's four and THE GIMBAL's ten |
 | `packages/render/src/effects-ingest-silent-boss-d.ts` | **The bosses' half of the silent list, the fourth page** — THE SLING's twelve, and the bosses after it |
+| `packages/render/src/effects-ingest-silent-boss-e.ts` | **The bosses' half of the silent list, the fifth page** — THE GOVERNOR's fourteen, and the bosses after it |
 | `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
@@ -2288,6 +2297,7 @@ by hand never moves.
 | `packages/audio/src/bind-burgee.ts` | Whether an event is THE BURGEE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
+| `packages/audio/src/bind-governor.ts` | Whether an event is THE GOVERNOR's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gall.ts` | Whether an event is THE GALL's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |

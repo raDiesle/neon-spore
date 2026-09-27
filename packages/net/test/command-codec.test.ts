@@ -300,6 +300,11 @@ const ACCEPTED: Command[] = [
   // THE FLUE's tap is an edge naming the column it went down on as `id`
   // (`sim/flue-hand.ts`).
   { kind: "drag", target: "flueTap", on: true, fromMilli: 0, id: 4 },
+  // THE GOVERNOR's pads name the pad as `id`, and its tap is an edge
+  // (`sim/governor-hand.ts`).
+  { kind: "drag", target: "governorChordLeft", on: true, fromMilli: 0, id: 0 },
+  { kind: "drag", target: "governorChordRight", on: false, fromMilli: 0, id: 1 },
+  { kind: "drag", target: "governorTap", on: true, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -484,6 +489,9 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   burgeeFreeze: true,
   burgeeDraw: true,
   flueTap: true,
+  governorChordLeft: true,
+  governorChordRight: true,
+  governorTap: true,
   crank: true,
 };
 

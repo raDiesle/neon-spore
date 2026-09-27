@@ -44,6 +44,7 @@ const AUTHORS_NOTHING = [
   "gall",
   "burgee",
   "flue",
+  "governor",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -183,7 +184,8 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's, THE SLING's, THE
  *   GRINDSTONE's, THE CYST's, THE DAVIT's, THE HALTER's and THE CAPSTAN's
  *   too: all `midCol`. THE GALL's points are the seam's own (`gallPointCol`),
- *   and THE BURGEE's columns and THE FLUE's notches are offsets from `midCol`.
+ *   and THE BURGEE's columns and THE FLUE's notches are offsets from `midCol`;
+ *   THE GOVERNOR's dial is `midCol` and its marks are thousandths of a lap.
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

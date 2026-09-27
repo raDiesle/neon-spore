@@ -4,6 +4,7 @@ import type { CystEntry } from "./cyst.js";
 import type { DavitEntry } from "./davit.js";
 import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
+import type { GovernorEntry } from "./governor.js";
 import type { GrindstoneEntry } from "./grindstone.js";
 import type { HalterEntry } from "./halter.js";
 import type { OculusEntry } from "./oculus.js";
@@ -56,7 +57,9 @@ export type ScriptedBossEntry =
   // The one that authors catches as well as shots: a flag one seat taps still for the other to catch (`burgee.ts`).
   | BurgeeEntry
   // The one that authors stillness as well as taps: an ember one seat keeps steady for the other to tap (`flue.ts`).
-  | FlueEntry;
+  | FlueEntry
+  // The one that authors a pace as well as taps: a needle one seat brakes for the other to tap (`governor.ts`).
+  | GovernorEntry;
 
 export type { BurgeeEntry, BurgeeStep } from "./burgee.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
@@ -64,6 +67,7 @@ export type { CystEntry, CystStep } from "./cyst.js";
 export type { DavitEntry, DavitStep } from "./davit.js";
 export type { FlueEntry, FlueStep } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";
+export type { GovernorEntry, GovernorStep } from "./governor.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
 export type { HalterEntry, HalterStep } from "./halter.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";

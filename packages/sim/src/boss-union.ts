@@ -13,6 +13,7 @@ import type { GallState } from "./gall.js";
 import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
+import type { GovernorState } from "./governor.js";
 import type { GrindstoneState } from "./grindstone.js";
 import type { HalterState } from "./halter.js";
 import type { HaspState } from "./hasp.js";
@@ -131,4 +132,5 @@ export type BossState =
   | CapstanState
   | GallState
   | BurgeeState
-  | FlueState;
+  | FlueState
+  | GovernorState;

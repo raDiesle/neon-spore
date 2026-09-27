@@ -8,6 +8,7 @@ import { stepCyst } from "./cyst-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
+import { stepGovernor } from "./governor-step.js";
 import { stepGrindstone } from "./grindstone-step.js";
 import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
@@ -51,6 +52,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE GOVERNOR: steps lit, windows run out, and the flyweights spent; the needle turns on the tick (`governor-step.ts`).
+  if (boss.kind === "governor") {
+    stepGovernor(world, boss);
+    return;
+  }
   // THE FLUE: each seat's rest counted, the ember drifting or steadied, and the damper open (`flue-step.ts`).
   if (boss.kind === "flue") {
     stepFlue(world, boss);

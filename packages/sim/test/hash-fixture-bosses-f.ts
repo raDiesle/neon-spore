@@ -22,6 +22,16 @@ export const BOSS_ENTRIES_F = {
       { ask: "fire", rester: "both", notches: [], color: "cyan", beats: 3 },
     ],
   },
+  // A tap, a retap and the shot, each tapper named and the colour set off
+  // `either` (`governor-hash.ts`).
+  governor: {
+    kind: "governor",
+    steps: [
+      { ask: "tap", tapper: 1, markMilli: 250, paceMilli: 3, color: "red", beats: 10 },
+      { ask: "retap", tapper: 2, markMilli: 500, paceMilli: 5, color: "either", beats: 6 },
+      { ask: "fire", tapper: 2, markMilli: 0, paceMilli: 0, color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE FLUE on's share of `patchBoss`. */
@@ -43,5 +53,20 @@ export function patchBossF(boss: BossState): void {
     boss.restBeats = [1, 2];
     boss.stirred = [true, false];
     boss.tapDown = [false, true];
+  }
+  if (boss.kind === "governor") {
+    // A tap step lit with the needle off the start and running hot, taps
+    // counted apart, the hub lit and shot once, one pad of each seat down and
+    // one thumb down — every field given a value (`governor-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.needleMilli = 430;
+    boss.speedMilli = 1500;
+    boss.taps = [3, 2];
+    boss.hits = 1;
+    boss.hubLit = true;
+    boss.padsDown = [1, 2];
+    boss.tapDown = [true, false];
   }
 }

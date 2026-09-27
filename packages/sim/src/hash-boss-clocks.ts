@@ -11,6 +11,7 @@ import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
+import { governorHashParts } from "./governor-hash.js";
 import { grindstoneHashParts } from "./grindstone-hash.js";
 import { halterHashParts } from "./halter-hash.js";
 import { haspHashParts } from "./hasp-hash.js";
@@ -216,6 +217,11 @@ export function clockHashParts(boss: BossState): number[] {
   // the core, the rests, the stirs and the thumbs, and the script (`flue-hash.ts`).
   if (boss.kind === "flue") {
     for (const n of flueHashParts(boss)) out.push(n);
+  }
+  // THE GOVERNOR: the phase, the cursor, the needle and its speed, the taps,
+  // the hits, the hub, the pads and the thumbs, and the script (`governor-hash.ts`).
+  if (boss.kind === "governor") {
+    for (const n of governorHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

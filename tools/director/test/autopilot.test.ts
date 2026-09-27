@@ -32,11 +32,11 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
  * fifteen more their own file each (`autopilot-<boss>.test.ts`: THE MANTLE,
  * THE KEEL, THE VALVE, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET,
  * THE GRINDSTONE, THE HALTER, THE CAPSTAN, THE GALL, THE FLUE, THE CYST and
- * THE SLING). None is left: a boss belongs here only while its simulation has
- * landed and its hand has not (`docs/spec/bosses.md`). A new boss is a row in
- * `AUTOPILOT_HANDS` or a name here.
+ * THE SLING). A boss belongs here only while its simulation has landed and
+ * its hand has not (`docs/spec/bosses.md`): THE GOVERNOR, whose hand waits on
+ * its look. A new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */
-const NO_HAND = new Set<string>([]);
+const NO_HAND = new Set<string>(["governor"]);
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");

@@ -69,6 +69,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   gall: "THE GALL — the boss that moves the moment it is closed",
   burgee: "THE BURGEE — a flag stilled by one seat and caught by the other",
   flue: "THE FLUE — an ember one seat keeps still for the other to tap",
+  governor: "THE GOVERNOR — a needle one seat brakes for the other to tap",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

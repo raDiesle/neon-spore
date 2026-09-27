@@ -100,7 +100,7 @@ describe("buildBacklog", () => {
     // (§31), THE SLING (§32), THE GRINDSTONE (§33), THE CYST (§34), THE
     // DAVIT (§35), THE HALTER (§36), THE CAPSTAN (§37), THE GALL (§38) and THE
     // BURGEE (§39) left it when their simulation lanes landed, and THE FLUE
-    // (§40) after them.
+    // (§40) and THE GOVERNOR (§43) after them.
     expect(proposedNames).not.toContain("THE MANTLE");
     expect(proposedNames).not.toContain("THE KEEL");
     expect(proposedNames).not.toContain("THE VALVE");
@@ -119,6 +119,7 @@ describe("buildBacklog", () => {
     expect(proposedNames).not.toContain("THE GALL");
     expect(proposedNames).not.toContain("THE BURGEE");
     expect(proposedNames).not.toContain("THE FLUE");
+    expect(proposedNames).not.toContain("THE GOVERNOR");
   });
 
   test("every group is populated, so a heading renamed in the spec is caught", async () => {

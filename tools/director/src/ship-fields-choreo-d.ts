@@ -52,4 +52,15 @@ export const CHOREO_FIELD_GROUP_D = {
   flueSpanMilli: "THE FLUE — an ember one seat keeps still for the other to tap",
   flueDriftMilli: "THE FLUE — an ember one seat keeps still for the other to tap",
   flueRestThreshold: "THE FLUE — an ember one seat keeps still for the other to tap",
+  // GovernorConfig — the slack before the first step, the rest between, the
+  // spent hub, the idle pace, the mark's half-width, and how hot the needle
+  // runs off the brake and how fast it climbs and eases (`config-governor.ts`).
+  governorSlackBeats: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorRestBeats: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorSpentBeats: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorIdleMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorMarkMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorHotMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorClimbMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
+  governorEaseMilli: "THE GOVERNOR — a needle one seat brakes for the other to tap",
 } satisfies Record<string, GroupName>;

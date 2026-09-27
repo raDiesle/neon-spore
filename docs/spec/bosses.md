@@ -10672,6 +10672,124 @@ down the middle column, slow off the flue and hard at the end; it leaves a
 scorch on the skin and a spray of the rim's white sparks. Whether a tick
 that small reads at tempo on a phone is the owner's eye.
 
+## 11.58 THE GOVERNOR — a needle one seat brakes for the other to tap
+
+> A needle runs round a dial mid-hull on its own. One of you holds both
+> brake pads down to keep it slow; the other taps as it crosses the lit
+> mark. Three marks each, the seats swapped. Then shoot the hub, tapping a
+> mark again, faster, before each shot after the first.
+
+Designed as §43 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. No new
+primitive: THE TRIVET's `CHORD` and THE RATCHET's `TAPS ON A MOVING
+TARGET`, paired for the first time so that **the chord sets the target's
+pace instead of gating the tap**. A tap on a needle running hot counts
+exactly as a tap on a slow one; the braking seat makes it easier or harder
+to land, never valid or not.
+
+**It is six taps and three shots, and they are its health.** The state
+(`sim/governor.ts`, hashed in `sim/governor-hash.ts`) is the **phase** and
+the beat it began, the **cursor** into the script, the **needle** in
+thousandths of a lap and its **speed** in thousandths of 1×, the **taps**
+landed on each seat's run, the **hits**, whether the **hub** is lit, and for
+each seat its **pads** down as a mask and its **thumb** on the tap. The
+script is the wave's (`GovernorEntry.steps`), copied at install: each step
+asks `tap`, `retap` or `fire`, names its **tapper** (the pilot or the
+navigator), the **mark** on the dial, the needle's **pace** a tick at 1×, a
+colour or `either`, and its own beats.
+
+**The rule, in one sentence.** One of you holds both pads down to keep the
+needle slow, and the other taps as it crosses the lit mark.
+
+**The split.** By the step, not by geometry: the dial is on both screens,
+and which seat brakes and which taps swaps by run, §43's cross. The first
+three marks are the pilot's to tap and the navigator's to brake, the next
+three the other way about. A fire step is the ordinary shot — Player 1's
+cannon under the middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/governor-step.ts`) runs on the beat: the governor is
+slack for `governorSlackBeats`, then each tap and retap step lights under
+THE SLOW (`openSlow(…, "ask")`) and each fire step without it. A tap run out
+sways (`governorSway`) and a retap run out dims the hub (`governorDim`);
+THE SLOW closes, the governor rests `governorRestBeats`, and the same step
+relights. A fire step run out is the hull (`governorMiss`). With the script
+done the flyweights fly wide (`governorSpent`) for `governorSpentBeats`
+before the wave may end.
+
+**The needle** (`sim/governor-turn.ts`) turns **on the tick**, after the
+commands are heard. First its speed: eased back toward 1× by
+`governorEaseMilli` a tick while the lit step's braking seat holds both its
+pads down, or while no step asks anyone to (`governorBraked`); climbed
+toward `governorHotMilli` by `governorClimbMilli` a tick otherwise. Then the
+turn: the lit step's pace, or `governorIdleMilli` between steps, times the
+speed. A mark is `governorMarkMilli` either side of it.
+
+**The answers** (`sim/governor-hand.ts`). The chords are
+`governorChordLeft`, heard only from the pilot, and `governorChordRight`,
+only from the navigator — THE TRIVET's feet, by geometry; one drag is one
+pad, its `id` the pad. A chord coming whole is said (`governorPlant`) and so
+is it coming apart (`governorSlip`). The tap is the drag `governorTap`,
+**an edge**, THE VALVE's pin. From the lit step's tapper, with the needle on
+the mark, it lands — a tap counted on that seat's run (`governorTick`), or
+on a retap the hub lit again (`governorRetap`) — and the step is answered;
+off the mark it skids (`governorSkid`) and the needle goes round again;
+from the other seat it does nothing. The sixth tap, three on each run,
+lights the hub (`governorHub`). A shot is judged where a bolt leaves the top
+of the field (`sim/governor-shot.ts`): only with the hub lit, only while a
+fire step is lit, only in the middle column, and only in its colour unless
+it is `either`.
+
+**Where this departs from the design, and why.** Seven places.
+
+- **The fifteen rows are eleven steps.** Rows 2 and 3 are one step, the
+  chord held *through* the tap as §43's own row 3 says ("chord held or
+  broken by P2 throughout"); so are rows 6 and 7. Rows 1 and 15 are the
+  slack and the spent.
+- **Each tap step is one mark.** §43 draws three marks a run as three rows;
+  each is its own step with its own place on the dial, so the rehearsal and
+  the script agree and a pair can learn where the next one is.
+- **Roles are not free to trade.** §43's row 13 says "roles free to trade".
+  Every step names its tapper and the braking seat is the other one: with
+  either seat free to tap, one seat could brake its own chord and tap
+  alone, and a boss one seat can play alone is a wave (`.claude/skills/new-boss`).
+  The last retap is the navigator's, so each seat taps once between the shots.
+- **A retap run out dims the hub.** §43's row 11 says the movement's fire
+  beats are lost "until three fresh taps land". Three more marks between
+  every shot would be a second fight inside the first; one mark, relit
+  until it is made, with the hub dark meanwhile, is THE BURGEE's recatch
+  (§11.56). "Faster" is the pace: four a tick on the first retap and five
+  on the second, against three.
+- **The needle turns on the tick.** §43 says "read from the chord seat's
+  state each frame". A mark is crossed in half a beat at 1× and a quarter at
+  2×; a needle stepped once a beat would jump clean over it on some laps and
+  not others. The tick is the simulation's frame.
+- **A fire step lights without THE SLOW.** §43 opens it on the taps; a fire
+  step is not one. THE BURGEE's and THE FLUE's shots are the same.
+- **A shot run out is a hull hit, and a hull hit is the wave.** §43's rows
+  10 and 12 say "ordinary hull hit", and row 14 "stays lit". This game has
+  no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+
+The design's `governorSpeedMul` is the state's `speedMilli`, in thousandths
+because the simulation stores integers.
+
+**What is proven, and what is not.** `sim/test/governor.test.ts` and
+`governor-hub.test.ts` prove the rules: the needle turns the step's pace a
+tick under the brake and twice it off, climbs no hotter than
+`governorHotMilli` and eases back once the chord is whole; the tapper's own
+chord brakes nothing; a chord is said whole and broken and one pad is not; a
+pad answers only its seat and its two ids; a tap off the mark skids, on it
+lands and moves the cursor on, from the other seat does nothing, and a thumb
+left down counts once; a tap at twice the speed still lands; a tap run out
+sways and relights; the sixth tap lights the hub; a shot wants its colour
+and the middle column; a fire step run out is the wave; a retap landed keeps
+the hub lit, and one run out dims it until it is made; and the whole script
+ends spent and out, the same twice from one seed. **Nothing is drawn,
+nothing on the phone sends a pad or a tap yet, and AUTO has no hand** — the
+look, the touch and the hand are the next lane. Whether a pair notices that
+the chord changes the needle's pace rather than whether a tap counts — §43's
+payoff — is the owner's eye.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

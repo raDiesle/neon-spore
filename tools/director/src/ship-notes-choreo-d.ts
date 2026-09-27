@@ -117,4 +117,18 @@ export const CHOREO_NOTES_D = {
     "which is the wave. Nothing on the phone sends a tap here yet. Only the " +
     "simulation lane has landed — see sim/flue.ts, sim/flue-step.ts, " +
     "sim/flue-hand.ts, sim/flue-shot.ts, sim/config-flue.ts.",
+  "THE GOVERNOR — a needle one seat brakes for the other to tap":
+    "Asked for in docs/spec/bosses-choreographed.md §43: a needle running " +
+    "round a dial mid-hull on its own. On a tap step one seat holds both " +
+    "brake pads down — THE HALTER's CHORD — and the needle turns at the " +
+    "step's pace; a pad off and it climbs toward governorHotMilli, twice " +
+    "as fast. The other seat taps as it crosses the lit mark, within " +
+    "governorMarkMilli, TAPS ON A MOVING TARGET. Three marks each, seats " +
+    "swapped, light the hub; before the second and third shots a seat taps " +
+    "the mark again at a faster pace. A tap run out is tried again, a " +
+    "retap run out dims the hub until it is made, and a fire step run out " +
+    "is a hull hit, which is the wave. Nothing on the phone sends a pad or " +
+    "a tap here yet. Only the simulation lane has landed — see " +
+    "sim/governor.ts, sim/governor-step.ts, sim/governor-hand.ts, " +
+    "sim/governor-turn.ts, sim/governor-shot.ts, sim/config-governor.ts.",
 } satisfies Partial<Record<GroupName, string>>;

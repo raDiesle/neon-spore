@@ -12,6 +12,8 @@ import { flueHeard } from "./flue-hand.js";
 import { gallHeard } from "./gall-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
+import { governorHeard } from "./governor-hand.js";
+import { governorTurned } from "./governor-turn.js";
 import { grindstoneHeard } from "./grindstone-hand.js";
 import { halterHeard } from "./halter-hand.js";
 import { haspHeard } from "./hasp-hand.js";
@@ -164,6 +166,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   for (const c of commands) burgeeHeard(world, c.player, c.command);
   // THE FLUE's rest and tap: every command heard, a lapse costing the taps landed (`flue-hand.ts`).
   for (const c of commands) flueHeard(world, c.player, c.command);
+  // THE GOVERNOR's chords and tap, and its needle turned after them (`governor-hand.ts`, `governor-turn.ts`).
+  for (const c of commands) governorHeard(world, c.player, c.command);
+  governorTurned(world);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

@@ -182,4 +182,20 @@ export const SILENT_BOSS_D = [
   "haspSway",
   "haspSteady",
   "haspRough",
+  // THE GOVERNOR's fourteen, no burst from this table until its look lane
+  // draws them: the needle, the pads and the hub are the state's own.
+  "governorEnter",
+  "governorLight",
+  "governorPlant",
+  "governorSlip",
+  "governorTick",
+  "governorSkid",
+  "governorHub",
+  "governorRetap",
+  "governorSway",
+  "governorDim",
+  "governorHit",
+  "governorMiss",
+  "governorSpent",
+  "governorOut",
 ] as const satisfies readonly SimEvent["type"][];

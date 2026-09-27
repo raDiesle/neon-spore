@@ -11,6 +11,7 @@ import { FLUE_DEFAULTS, type FlueConfig } from "./config-flue.js";
 import { GALL_DEFAULTS, type GallConfig } from "./config-gall.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
+import { GOVERNOR_DEFAULTS, type GovernorConfig } from "./config-governor.js";
 import { GRINDSTONE_DEFAULTS, type GrindstoneConfig } from "./config-grindstone.js";
 import { HALTER_DEFAULTS, type HalterConfig } from "./config-halter.js";
 import { HASP_DEFAULTS, type HaspConfig } from "./config-hasp.js";
@@ -109,6 +110,7 @@ export interface BossClockConfig
     GallConfig,
     BurgeeConfig,
     FlueConfig,
+    GovernorConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -156,6 +158,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...GALL_DEFAULTS,
   ...BURGEE_DEFAULTS,
   ...FLUE_DEFAULTS,
+  ...GOVERNOR_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

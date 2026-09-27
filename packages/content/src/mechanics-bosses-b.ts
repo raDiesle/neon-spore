@@ -3,7 +3,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
 /** The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason. */
 type BossIdB = Extract<
   MechanicId,
-  "burgee" | "capstan" | "davit" | "flue" | "gall" | "halter" | "vane"
+  "burgee" | "capstan" | "davit" | "flue" | "gall" | "governor" | "halter" | "vane"
 >;
 
 /**
@@ -40,6 +40,10 @@ export const BOSS_MECHANICS_B = {
   },
   flue: {
     what: "One of you keeps still until the ember stops. The other taps it three times before the still one moves. Then both hands off. Shoot the core in its colour.",
+    reach: "spawn",
+  },
+  governor: {
+    what: "One of you holds both brake pads to keep the needle slow. The other taps as it crosses the lit mark. Three taps each. Shoot the hub in its colour.",
     reach: "spawn",
   },
   vane: {

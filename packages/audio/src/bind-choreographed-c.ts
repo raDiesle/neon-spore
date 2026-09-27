@@ -8,6 +8,7 @@ import { filamentCue } from "./bind-filament.js";
 import { flueCue, isFlueEvent } from "./bind-flue.js";
 import { gallCue, isGallEvent } from "./bind-gall.js";
 import { gimbalCue } from "./bind-gimbal.js";
+import { governorCue, isGovernorEvent } from "./bind-governor.js";
 import { haspCue, isHaspEvent } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
@@ -77,12 +78,13 @@ type LateEvent = Extract<
       | `gall${string}`
       | `burgee${string}`
       | `flue${string}`
+      | `governor${string}`
       | `undertow${string}`;
   }
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue {
-  // THE CAPSTAN, THE GALL, THE BURGEE and THE FLUE are bound here and not on `bind-choreographed-d.ts`,
+  // THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE and THE GOVERNOR are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
   // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`).
   if (isHaspEvent(e)) return haspCue(e, cols);
@@ -90,6 +92,7 @@ export function lateCue(e: LateEvent, cols: number): Cue {
   if (isGallEvent(e)) return gallCue(e, cols);
   if (isBurgeeEvent(e)) return burgeeCue(e, cols);
   if (isFlueEvent(e)) return flueCue(e, cols);
+  if (isGovernorEvent(e)) return governorCue(e, cols);
   switch (e.type) {
     // The three that came over on 22 September 2026, in the order they stood
     // at the foot of `bind-choreographed.ts`.

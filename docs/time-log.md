@@ -27797,3 +27797,17 @@ Bottleneck: reading. Two of the entries overlapped work another entry had
 already taken over, and had to wait on it rather than be offered twice.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GOVERNOR, the simulation lane
+
+- reading: 25 min. §43, THE FLUE's commit as the template, the new-boss
+  registrations table, THE TRIVET's chord and THE RATCHET's taps.
+- writing: 70 min. Eight sim files and their tests, the wave, fourteen
+  sounds, the silent lists, the wire and the director's sheet, and §11.58.
+- looking: 0 min. Nothing drawn moved.
+- friction: 10 min. A heredoc the guard refused, rewritten as a script;
+  the audio panned by seat and redone by column.
+- landing: 10 min. `check:fast`, the index lines, the commit, `land`.
+
+Bottleneck: writing. A choreographed boss is still about thirty
+registrations outside the simulation, and each one is found from the last.

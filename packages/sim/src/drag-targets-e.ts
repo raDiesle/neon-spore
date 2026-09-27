@@ -37,7 +37,10 @@ export type DragTargetE =
   | "gallPinch"
   | "burgeeFreeze"
   | "burgeeDraw"
-  | "flueTap";
+  | "flueTap"
+  | "governorChordLeft"
+  | "governorChordRight"
+  | "governorTap";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -172,4 +175,16 @@ export type DragTargetE =
  * `fromMilli`, with `id` the column the thumb came down on — `gallPinch`'s
  * way of naming the place — because the ember moves between taps and a tap
  * counts only on the column it sits over (`flue-hand.ts`).
+ */
+
+/**
+ * `governorChordLeft` and `governorChordRight` are the hundred-and-fifth and
+ * sixth: THE GOVERNOR's brake, two pads under the pilot's thumbs and two under
+ * the navigator's; `governorTap` is the seventh, the needle, on both screens.
+ *
+ * No new reading. The chords are `trivetPadFront`'s and `halterChordLeft`'s —
+ * one drag a pad, `id` the pad and `on` whether it is down — and the tap is
+ * `valvePin`'s edge. What is new is only what the chord is worth: it never
+ * decides whether the tap counts, only how fast the needle runs
+ * (`governor-hand.ts`, `governor-turn.ts`).
  */

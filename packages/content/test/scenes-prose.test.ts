@@ -121,6 +121,9 @@ const STILL_PROSE = [
   // And THE FLUE (§40), a twenty-fourth time: the ember is undrawn, and the
   // guide says which seat keeps still and which taps, and when they swap.
   "THE FLUE",
+  // And THE GOVERNOR (§43), a twenty-fifth time: the dial is undrawn, and the
+  // guide says which seat brakes and which taps, and when they swap.
+  "THE GOVERNOR",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

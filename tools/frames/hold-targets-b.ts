@@ -2,7 +2,7 @@
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
  * that `hold-targets.ts` had no row for — seventy-seven of them, from the
- * crank to THE FLUE's tap.
+ * crank to THE GOVERNOR's tap.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -163,6 +163,11 @@ export const ROWS: Record<string, Row> = {
   // `flue-hand.ts`: an edge from the vent's tapper, with the column it went
   // down on as `id`.
   flueTap: { id: true },
+  // `governor-hand.ts`: a pad per drag, the pad as `id`, each seat's own
+  // side; the tap an edge from the lit step's tapper.
+  governorChordLeft: { id: true },
+  governorChordRight: { id: true },
+  governorTap: {},
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },
