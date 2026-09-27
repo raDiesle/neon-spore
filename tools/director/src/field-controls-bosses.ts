@@ -34,6 +34,7 @@ import { RATCHET_CONTROLS } from "./field-controls-ratchet.js";
 import { SCOUT_CONTROLS } from "./field-controls-scout.js";
 import { SCUTTLE_CONTROLS } from "./field-controls-scuttle.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
+import { SLING_CONTROLS } from "./field-controls-sling.js";
 import { SNAKE_CONTROLS } from "./field-controls-snake.js";
 import { SPOOL_CONTROLS } from "./field-controls-spool.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
@@ -188,4 +189,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE FLUE's ember, the only control here **pressed while the partner sends
   // nothing at all** — the column carried on the press (`field-controls-flue.ts`).
   ...FLUE_CONTROLS,
+  // THE SLING's two cords, the only pair here **taken anywhere on the seat's
+  // own screen** rather than on a part drawn (`field-controls-sling.ts`).
+  ...SLING_CONTROLS,
 ];

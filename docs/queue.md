@@ -1516,25 +1516,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §32 THE SLING — the director's pose cards
-
-- **Found:** 2026-09-26, claude/queue-32-the-sling-the-look
-- **Taken:** 2026-09-27, claude/queue-32-the-sling-its-hands-the-second-half-of-its-lo (claim: claude/queue-32-the-sling-the-directors-pose-cards)
-- **Files:** `tools/director/src/`, `tools/director/test/on-field-controls.test.ts`
-
-The body is drawn, the pinch is on the field (`render/sling-grip.ts`), and
-AUTO plays the fight through (`packages/hands/src/boss-hands-sling.ts`,
-landed 27 September 2026). What is left is the director's own half: **the
-pose cards**, the way THE CYST and THE FLUE have them — a
-`field-controls-sling.ts` with a row for each draw and a
-`poses-field-controls-sling.ts` whose poses are run to, never set (one per
-seat's draw at least: a cord asked, a cord held further home, a cord
-loosed, the cup lit), spread into `field-controls-bosses.ts` and
-`poses-field-controls.ts`. Then move the `slingDrawLeft`/`slingDrawRight`
-rows in `on-field-controls.test.ts`'s `TARGET_PLACE` from `"unbuilt"` to
-`"field"`, and add a `docs/spec/controls.md` row for each. Unverified at
-tempo until the owner has looked.
-
 ## Unverified at b083b387a: THE SLOW's light round THE GIMBAL, THE HASP, THE MANTL…
 
 - **Found:** 2026-09-26, claude/queue-slow-boss-aim

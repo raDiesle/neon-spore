@@ -37,6 +37,7 @@ import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
 import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
 import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
+import { SLING_GRIPS } from "./poses-field-controls-sling.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
@@ -206,6 +207,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...DAVIT_GRIPS,
     ...BURGEE_GRIPS,
     ...FLUE_GRIPS,
+    ...SLING_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

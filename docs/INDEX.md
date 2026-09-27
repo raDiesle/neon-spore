@@ -2645,6 +2645,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
 | `tools/director/src/poses-field-controls-sinew.ts` | THE SINEW with both hands on it and the sum somewhere on the band |
 | `tools/director/src/poses-field-controls-spool.ts` | THE SPOOL's brake under the pilot's thumb — one picture, where THE GIMBAL and THE HASP next door each need two |
+| `tools/director/src/poses-field-controls-sling.ts` | THE SLING's two cords, **each photographed from the seat that draws it**, the screen its thumb is on |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
@@ -3132,6 +3133,7 @@ by hand never moves.
 | `tools/director/src/field-controls-snake.ts` | **SNAKE's two hands on its own body**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-spool.ts` | THE SPOOL's brake, as one row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-ship.ts` | The ship's own handles on the field — the cannon, its maw, the shield's plate and trigger |
+| `tools/director/src/field-controls-sling.ts` | THE SLING's two cords, as rows of the ON THE FIELD tab: one a seat by geometry |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |

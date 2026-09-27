@@ -27371,3 +27371,17 @@ Bottleneck: writing — the entry bundled the hand with the director's pose
 cards, and it was split so the hand could land alone.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §32 THE SLING — the director's pose cards
+
+- reading: 5 min. THE CYST's and THE BURGEE's director rows and poses, and
+  the sling grip's hit area.
+- writing: 10 min. `field-controls-sling.ts`, `poses-field-controls-sling.ts`,
+  two registrations, the `TARGET_PLACE` rows, two spec rows.
+- looking: 0 min. The poses were built and read back held; no picture
+  moved in the game.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the rows' wording is shared across four near-twins,
+and each had to be checked so the sling's said what only it does.
