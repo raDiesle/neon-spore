@@ -26196,3 +26196,18 @@ VERSUS") was five slots out of date, so every row had to be checked against
 DECIDED.md before its total could be fixed.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — The briefings spec's prose count is read by its test
+
+- reading: 5 min. §3.2, the status line, and the test that held the list
+  but not the sentence.
+- writing: 10 min. A words helper, the three phrases the test now reads out
+  of the doc, the paragraph rewritten.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 5 min. The queue entry said twenty-two prose guides; the list
+  holds seventeen (its comments count removals too), so eighty-nine films
+  was right and only the five was stale.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the entry's own figure was wrong, and the new test
+was what caught it.

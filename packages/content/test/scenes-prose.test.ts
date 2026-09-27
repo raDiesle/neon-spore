@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "../src/index.js";
 import { SCENES } from "../src/scenes.js";
+import { spelled } from "./spelled.js";
 
 /**
  * **The guides that are still prose, and the count of the ones that are
@@ -118,6 +119,19 @@ const STILL_PROSE = [
 
 const guided = WAVES.filter((w) => w.guide);
 
+/**
+ * The document itself, one line: a sentence the formatter wraps is still the
+ * sentence. The counts below are read out of it rather than copied into this
+ * file, so the next boss lane is told the paragraph by name instead of
+ * finding a number here to move.
+ */
+const DOC = (
+  await Bun.file(
+    Bun.fileURLToPath(new URL("../../../docs/spec/briefings.md", import.meta.url)),
+  ).text()
+).replace(/\s+/g, " ");
+const section32 = DOC.slice(DOC.indexOf("### 3.2 "), DOC.indexOf("### 3.3 "));
+
 describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => {
   it("names exactly the guided waves that carry no film", () => {
     const prose = guided.filter((w) => !w.guide?.scene).map((w) => w.name);
@@ -128,21 +142,39 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty-nine films";
-    expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Eighty-nine, which is the number in the section. A film with no wave
-    // showing it is `scenes.test.ts`'s own failure; this is the other half —
-    // the two counts are the same number only while that holds.
-    expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
+    expect(filmed.length).toBe(guided.length - STILL_PROSE.length);
+    // A film with no wave showing it is `scenes.test.ts`'s own failure; this
+    // is the other half — the two counts are the same number only while that
+    // holds.
+    expect(Object.keys(SCENES).length).toBe(filmed.length);
+  });
+
+  it("says both of those numbers in §3.2, in words", () => {
+    // It named five prose guides for as long as it took twelve more bosses
+    // to land: the list above was held, the sentence was not. `toBe(true)`
+    // rather than `toContain`, which prints the whole section on a miss.
+    const films = spelled(guided.length - STILL_PROSE.length);
+    const prose = spelled(STILL_PROSE.length);
+    for (const phrase of [
+      `### 3.2 The rehearsals — all but ${prose} of them`,
+      `There are ${films} of them now`,
+      `bar ${prose},`,
+    ]) {
+      const fix = `update §3.2 of docs/spec/briefings.md to say "${phrase}"`;
+      expect(section32.includes(phrase), fix).toBe(true);
+    }
+    const status = `on all but ${prose} of them that is`;
+    expect(DOC.includes(status), `update the status line to say "${status}"`).toBe(true);
   });
 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix =
-      "update §1 of docs/spec/briefings.md, which says one hundred and six of the hundred and seventeen";
-    expect(guided.length, fix).toBe(106);
-    expect(WAVES.length, fix).toBe(117);
+    const all = spelled(WAVES.length).replace(/^one /, "");
+    const phrase = `${spelled(guided.length)} of the ${all} waves today`;
+    expect(DOC.includes(phrase), `update §1 of docs/spec/briefings.md to say "${phrase}"`).toBe(
+      true,
+    );
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

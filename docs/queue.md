@@ -2803,18 +2803,3 @@ page if it does not.
 
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
-
-## `docs/spec/briefings.md` §3.2 names five prose guides where there are twenty-two
-
-- **Found:** 2026-09-27, claude/queue-38-the-gall-the-simulation-lane
-- **Taken:** 2026-09-27, claude/queue-the-instars-baked-seam-is-dead-since-its-versus (claim: claude/queue-docs-spec-briefings-md-3-2-names-five-prose-guid)
-- **Files:** `docs/spec/briefings.md`, `packages/content/test/scenes-prose.test.ts`
-
-§3.2 says *eighty-nine of them now, one per guided wave bar five* and names
-THE NETTLE, THE MANTLE, THE KEEL, THE VALVE and THE SEAM as the ones still
-prose. `STILL_PROSE` in `scenes-prose.test.ts` holds twenty-two, every boss
-from THE OCULUS to THE GALL added since, and the count of films is no
-longer eighty-nine either. The test holds §1's figure but not §3.2's
-sentence. Rewrite the paragraph to say the number and point at the list,
-and make the test read the number out of §3.2 the way it reads §1's, so
-the next boss lane cannot leave it stale. `bun run check` proves it.
