@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 49b390373 — THE BULB QUEEN's wings are pieces with joints, and her arms have theirs
+
+THE BULB QUEEN's two wings are now pieces of her shell — each the run of the crystal's vertices about her long axis, with a joint at the middle of its root (`queenShellParts`, in `queen-shell.ts`) — laid back into the one contour her look fills, clips to and strokes. Each crane arm now gives its shoulder, elbow and wrist (`craneJoints`), and the claw hangs from the wrist. A test paints the old contour and the new one in her own look, whole and nearly gone, and finds the pixels equal. Nothing the game draws changes, and no op count moves: the shell is still one path.
+
 ## 2026-09-27 · c3782ff28 — Queue the owner's boss notes of 27 September as nineteen entries
 
 THE SLOW's fuse moves under the boss and grows taller, CRAWL's light gets quieter, marks show only while THE SLOW is open, and bosses hold still while their marks are live. For THE INSTAR: a softer mouth fire, longer and slower flights with a depth orbit, crosshair shoot marks, a red glow on the part to shoot, and a hurt on every bolt that counts. For VERSUS: five candidates to adopt, four to drop, the wing shown in a pose where it can be seen, the moult repainted as a wound, and a bigger heart in the bare pose.
