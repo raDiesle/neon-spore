@@ -27811,3 +27811,5 @@ already taken over, and had to wait on it rather than be offered twice.
 
 Bottleneck: writing. A choreographed boss is still about thirty
 registrations outside the simulation, and each one is found from the last.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
