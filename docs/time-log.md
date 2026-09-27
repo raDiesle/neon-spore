@@ -26829,3 +26829,5 @@ its words were not the three the flag looked for.
 
 The bottleneck: "at tempo, by an eye on a phone" is a hand's, and finding
 that out cost a live preview that could not run at tempo.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

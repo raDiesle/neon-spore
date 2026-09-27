@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 2ce25115e — THE MANTLE's shear effects are seen in frames, and tempo is left to a phone
+
+Frames at the first shear and at the finishing tap show the red wash on the shell, the hull rippling out from the struck column, the bursts on the valves and the lit core, with nothing clipped or out of place. Whether the kick and the shudder read at tempo in a hand is the one thing a frame cannot show, so the queue entry now says what was seen and is marked for a phone.
+
 ## 2026-09-27 · 6893f2ddf — `bun run queue help` prints its usage instead of a stack trace
 
 An unknown subcommand threw, so the first thing a lost caller types came back as eight lines of source and a Bun trace. `help` now prints the usage line, and anything else unknown says the same on stderr and exits 1.
