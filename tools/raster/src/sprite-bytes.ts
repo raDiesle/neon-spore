@@ -29,7 +29,7 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     baked: ["instar-spit-baked.ts", "drawBakedGlob"],
   },
   "instar-heart": {
-    shipped: ["instar-heart.ts", "HEART_LOOK"],
+    shipped: ["instar-heart.ts", "drawnHeart"],
     baked: ["instar-heart-baked.ts", "drawBakedHeart"],
   },
   "instar-hide": {

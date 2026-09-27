@@ -78,7 +78,7 @@ describe("the bare heart", () => {
     expect(Math.abs(mid - mark.y)).toBeLessThan(beat.r * 0.02);
   });
 
-  it("the body grows about the script's own mark, so the heart and the mark stay together", () => {
+  it("the heart is drawn on the script's own mark, so the two stay together", () => {
     expect(BARE_GROWTH).toBeGreaterThan(1);
     expect(heartMark?.xMilli).toBe(BARE_HEART.xMilli);
     expect(heartMark?.yMilli).toBe(BARE_HEART.yMilli);

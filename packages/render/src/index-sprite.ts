@@ -9,7 +9,7 @@ export { drawEggCrack } from "./instar-egg-crack.js";
 export { drawEgg, drawNests, drawnNests } from "./instar-eggs.js";
 export { drawBakedIris, EYE_SPRITE } from "./instar-eye-baked.js";
 export { drawnIris, type EyeIris, IRIS_LOOK } from "./instar-head-parts.js";
-export { HEART_LOOK, type HeartBeat } from "./instar-heart.js";
+export { drawnHeart, HEART_LOOK, type HeartBeat } from "./instar-heart.js";
 export { drawBakedHeart, HEART_SPRITE } from "./instar-heart-baked.js";
 export {
   drawnScales,

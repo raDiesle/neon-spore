@@ -11,6 +11,7 @@ import {
   drawEgg,
   drawEggCrack,
   drawnGlob,
+  drawnHeart,
   drawnIris,
   drawnNests,
   drawnScales,
@@ -18,7 +19,6 @@ import {
   EGG_SPRITE,
   EYE_SPRITE,
   GLOB_SPRITE,
-  HEART_LOOK,
   HEART_SPRITE,
   HIDE_SPRITE,
   NEST_SPRITE,
@@ -140,10 +140,10 @@ export const DEMOS: readonly SpriteDemo[] = [
     threats: [0],
     box: [-0.6, -0.6, 0.6, 0.6],
     shipped(ctx, x, y, r) {
-      HEART_LOOK.paint(ctx, beat(x, y, r));
+      drawnHeart(ctx, beat(x, y, r));
     },
     baked(ctx, x, y, r, _threat, _time, dpr) {
-      drawBakedHeart(ctx, beat(x, y, r), HEART_LOOK.paint, dpr);
+      drawBakedHeart(ctx, beat(x, y, r), drawnHeart, dpr);
     },
   },
   {

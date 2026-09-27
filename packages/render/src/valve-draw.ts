@@ -158,14 +158,23 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, s: ValveState): voi
   if (s.phase === "frozen") strokeGlow(ctx, pointer, PALETTE.hullRim, STROKE.outline, 1);
 }
 
+/** How far a pin swings each way, in radians — about three degrees, the least a plate reads at. */
+const SWAY = 0.05;
+/** The rate in radians a second, off the drum's 0.4. */
+const SWAY_RATE = 0.67;
+/** How far each pin's swing is out of step with the one before. */
+const SWAY_APART = 2.1;
+
 /**
  * How a hung pin swings about the top of its plate: an angle for pin `i`,
- * `going` of the way free, at `time` seconds. The shipped 0 hangs it dead
- * still with no transform at all — the seam a VERSUS candidate patches
- * (`tools/versus/candidates/valve-pin/`).
+ * `going` of the way free, at `time` seconds. Each still-hung pin sways on a
+ * slow period, out of step with the next, and stops as it slides free — the
+ * owner's pick on VERSUS `valve:pin`, 27 September 2026: *a little bit
+ * better*. A record, so a second answer can stand beside it.
  */
 export const VALVE_PIN: { sway: (i: number, going: number, time: number) => number } = {
-  sway: () => 0,
+  sway: (i, going, time) =>
+    SWAY * (1 - Math.min(1, going)) * Math.sin(time * SWAY_RATE + i * SWAY_APART),
 };
 
 /**

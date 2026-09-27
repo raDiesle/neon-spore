@@ -39,11 +39,10 @@ export function drawViseLitSeam(
 
 /**
  * How the kernel turns in its hollow and what its dull face carries, as a
- * record a VERSUS candidate patches (`tools/versus/candidates/vise-kernel/`).
- * `turn` is an angle about the kernel's centre at `time` seconds, and the
- * shipped 0 draws it exactly as it always was, with no transform at all;
- * `sheen` is drawn over the dull fill between fire steps, in the turned
- * frame, and the shipped one draws nothing.
+ * record so a second answer can stand beside it on VERSUS. `turn` is an angle
+ * about the kernel's centre at `time` seconds, and 0 draws it with no
+ * transform at all; `sheen` is drawn over the dull fill between fire steps,
+ * in the turned frame.
  */
 export interface ViseKernelIdle {
   turn: (time: number) => number;
@@ -56,7 +55,49 @@ export interface ViseKernelIdle {
     time: number,
   ) => void;
 }
-export const VISE_KERNEL: ViseKernelIdle = { turn: () => 0, sheen: () => {} };
+
+/** How far the kernel rocks each way, in radians — about five degrees. */
+const TURN = 0.09;
+/** Its rate in radians a second, off the light's 0.5. */
+const TURN_RATE = 0.37;
+/** The highlight's round the face, in radians a second. */
+const SHEEN_RATE = 0.83;
+/** The highlight at its brightest, in shadow and bared. */
+const SHEEN = { shadow: 0.1, bare: 0.25 };
+
+/**
+ * The kernel rocks a few degrees about its own centre on a slow period, never
+ * leaving its column, and between fire steps a soft highlight wanders round
+ * its face: faint while the lobes are over it, brighter once they stand open
+ * off it. The owner's pick on VERSUS `vise:kernel`, 27 September 2026: *a
+ * little bit better*. The lit kernel turns too, so a fire step lighting it is
+ * not a snap back to square.
+ */
+export const VISE_KERNEL: ViseKernelIdle = {
+  turn: (time) => TURN * Math.sin(time * TURN_RATE),
+  sheen: (ctx, l, core, size, bare, time) => {
+    const k = viseKernel(l);
+    const r = k.r * size;
+    const a = time * SHEEN_RATE;
+    const x = k.x + Math.cos(a) * r * 0.4;
+    const y = k.y + Math.sin(a) * r * 0.5;
+    const alpha = bare ? SHEEN.bare : SHEEN.shadow;
+    ctx.save();
+    ctx.clip(core);
+    // Three rings, widest faintest, so the spot is soft rather than a sticker.
+    for (const [w, strength] of [
+      [0.5, 0.3],
+      [0.32, 0.5],
+      [0.16, 0.8],
+    ] as const) {
+      const spot = new Path2D();
+      spot.arc(x, y, Math.max(0.5, r * w), 0, Math.PI * 2);
+      ctx.fillStyle = rgba(PALETTE.hullRim, alpha * strength);
+      ctx.fill(spot);
+    }
+    ctx.restore();
+  },
+};
 
 /**
  * The kernel in its hollow: dull brown between fire steps, in shadow while

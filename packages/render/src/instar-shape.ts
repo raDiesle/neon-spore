@@ -92,7 +92,7 @@ export interface Figure {
   split: number;
   shedNear: number;
   shedFar: number;
-  /** The bare body's heart lit through the split, 0..1, put out by the
+  /** The bare body's heart lit in its chest, 0..1, put out by the
    * bolts on it. */
   heart: number;
 }

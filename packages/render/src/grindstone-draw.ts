@@ -1,20 +1,14 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import {
-  GRINDSTONE_PADS,
-  type GrindstoneState,
-  grinding,
-  grindstoneLitStep,
-  type World,
-} from "@neon-spore/sim";
+import { type GrindstoneState, grinding, grindstoneLitStep, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { strokeGlow } from "./glow.js";
 import type { GrindstoneFx } from "./grindstone-fx.js";
+import { GRINDSTONE_JAW } from "./grindstone-jaw.js";
 import {
   drawGrindstoneAxle,
   drawGrindstoneFaceGlow,
   drawGrindstoneFlash,
-  drawGrindstonePads,
 } from "./grindstone-marks.js";
 import {
   grindstoneArrived,
@@ -27,11 +21,8 @@ import {
 } from "./grindstone-pose.js";
 import {
   grindstoneAxleAt,
-  grindstoneBolt,
   grindstoneCut,
   grindstoneFacePath,
-  grindstoneJawPath,
-  grindstoneJawTurn,
   grindstonePatchPath,
   grindstoneR,
   grindstoneWheelPath,
@@ -192,54 +183,4 @@ function drawFlat(
     ctx.stroke(patch);
   }
   ctx.restore();
-}
-
-/** How a caliper jaw is drawn, as a record so a second answer can stand
- * beside it on VERSUS (`docs/versus.md`). `time` is the wall clock, which the
- * shipped jaw does not read. */
-export const GRINDSTONE_JAW: { paint: GrindstoneJawPaint } = { paint: drawJaw };
-
-export type GrindstoneJawPaint = (
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  side: 0 | 1,
-  shut: number,
-  lit: boolean,
-  down: number,
-  beatPhase: number,
-  free: number,
-  flare: number,
-  time: number,
-) => void;
-
-/** Jaw `side` of THE HOOD, swung out about the crown bolt as far as it is slack, its pads by its tip, flaring as it bites. */
-export function drawJaw(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  side: 0 | 1,
-  shut: number,
-  lit: boolean,
-  down: number,
-  beatPhase: number,
-  free: number,
-  flare: number,
-): void {
-  const bolt = grindstoneBolt(l, shut);
-  ctx.translate(bolt.x, bolt.y);
-  ctx.rotate(grindstoneJawTurn(side, shut) + (side === 0 ? -1 : 1) * free * 0.8);
-  ctx.translate(-bolt.x, -bolt.y);
-  const jaw = grindstoneJawPath(l, side, shut);
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(jaw);
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.75);
-  ctx.stroke(jaw);
-  if (flare > 0) strokeGlow(ctx, jaw, PALETTE.hullRim, STROKE.inner, flare);
-  const alpha = ctx.globalAlpha;
-  drawGrindstonePads(ctx, l, side, GRINDSTONE_PADS, lit, down, shut, beatPhase);
-  ctx.globalAlpha = alpha;
-  const pin = new Path2D();
-  pin.arc(bolt.x, bolt.y, 0.09 * l.tile, 0, Math.PI * 2);
-  ctx.fillStyle = PALETTE.rock;
-  ctx.fill(pin);
 }

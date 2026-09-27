@@ -26754,3 +26754,17 @@ The bottleneck: two bosses on one engine say the same events, and finding
 where the body they belong to could be told apart.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — seven VERSUS slots decided: five taken, two dropped
+
+- reading: 10 min. `docs/versus.md`, the seven candidates, how this morning's
+  by-hand takes were written, THE INSTAR's heart mark and bare figure.
+- writing: 20 min. Five takes by hand (two into new files), the heart moved
+  to the chest, THE INSTAR's fire on GRAPHICS → EFFECTS, two tests reworked.
+- looking: 5 min. Two `versus:shot`s of the bare heart, back and chest.
+- friction: 5 min. The hook refused `biome --unsafe`; `bun run imports` did it.
+- landing: 5 min. `check:fast` three times: a missing index row, then THE
+  VISE's white-lit test counting the new sheen.
+
+Bottleneck: every function-valued take is still by hand, because each
+candidate wrote its paint inline in `index.ts`.

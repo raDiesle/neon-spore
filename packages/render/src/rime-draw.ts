@@ -13,6 +13,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { RIME_GLINT } from "./rime-glint.js";
 import { drawRimeCore, drawRimeLitHalf, drawRimeSurge } from "./rime-marks.js";
 import { rimeArrived, rimeClear, rimeLeft, rimeShatter, rimeSurge } from "./rime-pose.js";
 import {
@@ -126,21 +127,6 @@ function drawGlass(ctx: CanvasRenderingContext2D, l: Layout, time: number): void
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(lens);
 }
-
-/**
- * What a frosted sheet carries beyond its seam, drawn with the context at the
- * sheet's centre and clipped to what is still frosted: `sheet` is where it
- * stands on the pane, `facet` its outline. The shipped pane draws nothing
- * here — the seam a VERSUS candidate patches (`tools/versus/candidates/rime-pane/`).
- */
-export type RimeGlint = (
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  facet: Path2D,
-  sheet: { x: number; y: number; r: number },
-  time: number,
-) => void;
-export const RIME_GLINT: { paint: RimeGlint } = { paint: () => {} };
 
 /**
  * Half `side`'s frost, `clear` of it wiped away and `film` opaque: the pale film over the whole

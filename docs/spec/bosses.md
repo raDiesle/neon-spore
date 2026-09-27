@@ -6603,7 +6603,8 @@ THE SLOW. The steps, in the order the fight tells them:
     alone, the embers burn the hull.
 13. *Lash, mixed*, 14. *Moult* — as before.
 15. **Bare** (new, last) — the old skin gone, the new body pale and soft,
-    side-on and still, its **heart** lit through the split along the back.
+    side-on and still, its **heart** lit in the front of its chest, turned to
+    the cannon (moved off the back, the owner, 27 September 2026).
     **SHOOT**, four, for both: the one place the new body can be hurt, before
     it hardens. This is the finish, the thing the moult was for.
 

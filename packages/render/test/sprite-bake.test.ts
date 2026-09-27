@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
 import { drawBakedIris } from "../src/instar-eye-baked.js";
 import { drawnIris } from "../src/instar-head-parts.js";
-import { HEART_LOOK } from "../src/instar-heart.js";
+import { drawnHeart } from "../src/instar-heart.js";
 import { drawBakedHeart } from "../src/instar-heart-baked.js";
 import { drawBakedScales } from "../src/instar-hide-baked.js";
 import { drawBakedPale } from "../src/instar-moult-baked.js";
@@ -125,7 +125,7 @@ describe("a sprite baked at load", () => {
       );
       drawBakedGlob(ctx, { at: o, r: 2 + i, trail: [o, o], time: i / 60, i }, drawnGlob, 3);
       drawBakedSpark(ctx, { at: o, r: 1 + i / 4, flicker: threat, k: i }, drawnSpark, 3);
-      drawBakedHeart(ctx, { at: o, r: 1 + i, thump: threat, a: 1 - threat }, HEART_LOOK.paint, 3);
+      drawBakedHeart(ctx, { at: o, r: 1 + i, thump: threat, a: 1 - threat }, drawnHeart, 3);
     }
     expect(stub.calls).toBeGreaterThan(0);
   });

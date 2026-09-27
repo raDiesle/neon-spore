@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { Canvas2DRenderer } from "../../../packages/render/src/canvas2d.js";
+import { SPIT_LOOK } from "../../../packages/render/src/instar-spit.js";
 import { SLOW_LOOK } from "../../../packages/render/src/slow-look.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { beatPhase, step } from "../../../packages/sim/src/index.js";
@@ -56,10 +57,14 @@ describe("the kept effects", () => {
     expect(effectById("slow-light/streems")).toBeUndefined();
   });
 
-  it("exactly one of the slow:light group is the one in the game, and it is what ships", () => {
+  it("exactly one of each group is the one in the game, and it is what ships", () => {
     const shipped = EFFECTS.filter((e) => e.inGame);
-    expect(shipped.map((e) => e.id)).toEqual(["slow-light/crawl"]);
+    expect(shipped.map((e) => e.id)).toEqual(["slow-light/crawl", "instar-fire/baked"]);
     expect(shipped[0]?.variant.patches[0]?.fields).toEqual({ paint: SLOW_LOOK.paint });
+    expect(shipped[1]?.variant.patches[0]?.fields).toEqual({
+      glob: SPIT_LOOK.glob,
+      spark: SPIT_LOOK.spark,
+    });
   });
 
   for (const e of EFFECTS) {
@@ -68,18 +73,20 @@ describe("the kept effects", () => {
     });
   }
 
-  // Drawn once, on first use, after `beforeAll` has put a canvas in reach.
-  let shippedCalls: number | null = null;
-  const shipped = (): number => {
-    shippedCalls ??= drawPose(EFFECTS[0] as Effect, null);
-    return shippedCalls;
+  // Each group's shipped look, drawn once on first use, after `beforeAll` has put a canvas in reach.
+  const shippedCalls = new Map<string, number>();
+  const shipped = (group: string): number => {
+    const inGame = EFFECTS.find((e) => e.group === group && e.inGame) as Effect;
+    const calls = shippedCalls.get(group) ?? drawPose(inGame, null);
+    shippedCalls.set(group, calls);
+    return calls;
   };
   for (const e of EFFECTS) {
-    it(`${e.id} draws on its own pose${e.inGame ? "" : ", and draws something else than CRAWL"}`, () => {
+    it(`${e.id} draws on its own pose${e.inGame ? "" : ", and draws something else than what ships"}`, () => {
       const calls = drawPose(e, e.variant);
       expect(calls).toBeGreaterThan(0);
-      if (e.inGame) expect(calls).toBe(shipped());
-      else expect(calls).not.toBe(shipped());
+      if (e.inGame) expect(calls).toBe(shipped(e.group));
+      else expect(calls).not.toBe(shipped(e.group));
     });
   }
 });

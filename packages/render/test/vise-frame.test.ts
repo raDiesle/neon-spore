@@ -14,6 +14,7 @@ import {
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { VISE_KERNEL } from "../src/vise-marks.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -177,9 +178,20 @@ describe("THE VISE's seed-case", () => {
     const either = frame(role, (w) => firing(w, "either"));
     expect(tinted(red.text, PALETTE.red)).toBeGreaterThan(tinted(resting.text, PALETTE.red));
     expect(tinted(cyan.text, PALETTE.cyan)).toBeGreaterThan(tinted(resting.text, PALETTE.cyan));
-    expect(tinted(either.text, PALETTE.hullRim)).toBeGreaterThan(
-      tinted(resting.text, PALETTE.hullRim),
-    );
+    // The idle kernel's sheen is white too, so the white is counted against a
+    // resting kernel with its sheen held off: what is asked is the lit colour.
+    const sheen = VISE_KERNEL.sheen;
+    VISE_KERNEL.sheen = () => {};
+    try {
+      const dull = frame(role, (w) => {
+        posed(w, "rest", [2, 2]).bared = true;
+      });
+      expect(tinted(either.text, PALETTE.hullRim)).toBeGreaterThan(
+        tinted(dull.text, PALETTE.hullRim),
+      );
+    } finally {
+      VISE_KERNEL.sheen = sheen;
+    }
   });
 
   it.each(ROLES)("shrinks the kernel for every hit, on %s", (role) => {

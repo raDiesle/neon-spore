@@ -59,7 +59,7 @@ describe("THE INSTAR's script", () => {
     }
   });
 
-  it("ends on the bare heart, shot by both seats through the split", () => {
+  it("ends on the bare heart, shot by both seats", () => {
     const last = INSTAR_SCRIPT.at(-1);
     expect(last?.pose).toBe("bare");
     expect(last?.marks.map((m) => [m.seat, m.part, m.gesture])).toEqual([

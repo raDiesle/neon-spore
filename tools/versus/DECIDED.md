@@ -1271,3 +1271,61 @@ September: +2.6 kB gzipped counting the shared baker, +1.8 kB beside the
 baker the game already ships; 5.0 ms baked once.
 
 It was the only answer offered; the slot was closed with `drop`.
+
+## `grindstone:jaw` / `tremble` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *is better*. Taken by hand: GRINDSTONE_JAW.paint
+trembles each open jaw about the crown bolt and then draws the shipped jaw
+(grindstone-jaw.ts, split out of grindstone-draw.ts).
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `vise:kernel` / `turn` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *a little bit better*. Taken by hand:
+VISE_KERNEL's turn and sheen carry the candidate's numbers (vise-marks.ts).
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `valve:pin` / `sway` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *a little bit better*. Taken by hand:
+VALVE_PIN.sway carries the candidate's numbers (valve-draw.ts).
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `rime:pane` / `glint` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *a little bit better but barely visible*. Taken
+by hand: RIME_GLINT.paint is the glint, in rime-glint.ts with its type, split
+out of rime-draw.ts.
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `instar:heart` / `baked` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *barely visible, but little bit better. the
+heart should be on the torso front, also that it can be shot by cannon*. Taken
+by hand: HEART_LOOK.paint is drawBakedHeart, the flat heart kept as drawnHeart
+for one too small to bake; the heart mark moved from the back (500, 395) to
+the chest under the neck (340, 440), on the side turned to the cannon, and the
+body still grows about the old point (BARE_CENTRE).
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `trivet:foot` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *i do not see any difference*. A difference he
+cannot see at play size is code for nothing.
+
+The other answer offered was `dangle`; it went with the slot.
+
+## `instar:wing` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *i do not see any difference of current and
+comparison, but the sparkling looks good*. The sparkling is the baked fire
+already in the game since the morning (instar:spit); the baked veins are
+bytes for a difference he cannot see. The fire drawn before the bake is kept on GRAPHICS
+→ EFFECTS, as he asked.
+
+The other answer offered was `baked`; it went with the slot.

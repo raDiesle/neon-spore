@@ -4,7 +4,8 @@ import { type SpriteSpec, spritePow2, tintedSprite } from "./sprite-bake.js";
 
 /**
  * **THE INSTAR's heart, baked** — the tenth example (`sprite-bake.ts`): the
- * heart lit in the bare body's split after the moult (`instar-heart.ts`).
+ * heart lit in the front of the bare body's chest after the moult
+ * (`instar-heart.ts`).
  *
  * The shipped heart is a radial glow and a flat heart shape. Here it is an
  * organ: two lobes swollen and shaded round, a crease down the middle, veins
@@ -12,8 +13,8 @@ import { type SpriteSpec, spritePow2, tintedSprite } from "./sprite-bake.js";
  * light round its edge and the glow behind it. It swells with the thump by the
  * size it is drawn at, as the shipped one does, so the beat costs nothing.
  *
- * Not drawn by the game: offered in VERSUS on `instar:heart`
- * (`tools/versus/candidates/instar-heart/baked`).
+ * The game's heart since 27 September 2026, the owner's pick on VERSUS
+ * `instar:heart` (`tools/versus/DECIDED.md`).
  */
 
 /** The painting's reach, in the heart's `r`: the shipped glow's radius. */

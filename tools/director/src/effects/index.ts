@@ -1,7 +1,9 @@
+import * as spit from "../../../../packages/render/src/instar-spit.js";
 import * as look from "../../../../packages/render/src/slow-look.js";
 import type { Variant } from "../../../versus/variant.js";
 import { patch } from "../../../versus/variant.js";
 import type { Pose } from "../pose-kit.js";
+import { INSTAR_SPREAD_POSE } from "../poses-instar-spit.js";
 import { SLOW_RUNS_OUT_POSE } from "../poses-slow.js";
 import { arriveWindow } from "./slow-light/arrive.js";
 import { freezeWindow } from "./slow-light/freeze.js";
@@ -23,7 +25,9 @@ import { streamsWindow } from "./slow-light/streams.js";
  *
  * The first group is `slow:light`, closed 26 September 2026: the owner took
  * CRAWL into the game and asked for every other answer, and the streams it
- * replaced, to be kept here for the boss effects to come.
+ * replaced, to be kept here for the boss effects to come. The second is THE
+ * INSTAR's fire, 27 September 2026: the baked globs and embers went into the
+ * game that morning, and the owner asked for the fire before them to be kept.
  */
 
 export interface Effect {
@@ -82,6 +86,42 @@ function slow(
   };
 }
 
+/** Heading for THE INSTAR's fire. */
+export const INSTAR_FIRE = "THE INSTAR · FIRE";
+
+/** `SPIT_LOOK`, patched to `fields` — how a fire effect is put on the phone. */
+function fire(
+  name: string,
+  fields: Partial<typeof spit.SPIT_LOOK>,
+  e: Pick<Effect, "claim" | "note" | "inGame">,
+): Effect {
+  return {
+    id: `instar-fire/${name}`,
+    label: name.toUpperCase(),
+    group: INSTAR_FIRE,
+    pose: INSTAR_SPREAD_POSE,
+    variant: {
+      slot: "effect:instar-fire",
+      name,
+      sentence: name,
+      dir: "tools/director/src/effects",
+      patches: [
+        patch({
+          target: spit.SPIT_LOOK,
+          reached: () => spit.SPIT_LOOK,
+          where: {
+            file: "packages/render/src/instar-spit.ts",
+            symbol: "SPIT_LOOK",
+            type: "{ glob, spark }",
+          },
+          fields: { glob: spit.SPIT_LOOK.glob, spark: spit.SPIT_LOOK.spark, ...fields },
+        }),
+      ],
+    },
+    ...e,
+  };
+}
+
 export const EFFECTS: readonly Effect[] = [
   slow("crawl", null, {
     inGame: true,
@@ -109,6 +149,25 @@ export const EFFECTS: readonly Effect[] = [
       "Three rings of light circle the boss; on every slowed downbeat they are flung round it as long cold arcs, and across the beat they brake to points and warm to red, the ring nearest the boss slowing first.",
     note: "Stood against CRAWL on 26 September 2026.",
   }),
+  fire(
+    "baked",
+    {},
+    {
+      inGame: true,
+      claim:
+        "Globs of fire with tongues of flame and a trail of smoke, and embers that are a soft halo, a hot core and a four-point glint, painted once at load.",
+      note: "Taken from VERSUS on 27 September 2026 in place of the drawn fire (packages/render/src/instar-spit-baked.ts).",
+    },
+  ),
+  fire(
+    "drawn",
+    { glob: spit.drawnGlob, spark: spit.drawnSpark },
+    {
+      claim:
+        "Globs that are a gradient ball with five discs behind them, and embers that are a halo and a core.",
+      note: "In the game until 27 September 2026, when the baked fire replaced it; the owner asked for it to be kept here. The game still draws it for fire too small to bake.",
+    },
+  ),
 ];
 
 /** The effect at `id`, or undefined for a stale link. */

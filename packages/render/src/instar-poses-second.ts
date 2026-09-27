@@ -58,9 +58,10 @@ export function secondAct(breath: Figure): Record<Second & InstarPose, Figure> {
       flame: 0.6,
     },
     // After the moult: side-on and still, the old hide gone off both halves,
-    // the new body pale and its heart lit through the split along the back.
-    // Grown about its heart, so the one mark stays on it (`grownAbout`).
-    bare: grownAbout(BARE_HEART, BARE_GROWTH, {
+    // the new body pale and its heart lit in the front of its chest, under
+    // the neck and turned to the cannon. Grown about where it was drawn
+    // first (`grownAbout`), so growing it moves nothing else.
+    bare: grownAbout(BARE_CENTRE, BARE_GROWTH, {
       ...breath,
       headX: 230,
       headY: 310,
@@ -94,8 +95,17 @@ export function secondAct(breath: Figure): Record<Second & InstarPose, Figure> {
  */
 export const BARE_GROWTH = 1.25;
 
-/** Where the bare body's heart is, thousandths of the field: the script's one mark on it (`content/instar-script-second.ts`). */
-export const BARE_HEART = { xMilli: 500, yMilli: 395 } as const;
+/** The point the bare body is grown about, thousandths of the field: where its heart was before it moved to the chest. */
+export const BARE_CENTRE = { xMilli: 500, yMilli: 395 } as const;
+
+/**
+ * Where the bare body's heart is, thousandths of the field: the script's one
+ * mark on it (`content/instar-script-second.ts`). The owner, 27 September
+ * 2026, on `instar:heart`: *the heart should be on the torso front, also that
+ * it can be shot by cannon* — so it sits on the chest under the neck, on the
+ * side of the body turned to the ship, and not on the back.
+ */
+export const BARE_HEART = { xMilli: 340, yMilli: 440 } as const;
 
 /** `f` grown by `k` about `at`: every place moved away from it, the head's radius — and with it the body's girth — scaled. */
 export function grownAbout(at: { xMilli: number; yMilli: number }, k: number, f: Figure): Figure {

@@ -1437,6 +1437,7 @@ by hand never moves.
 | `packages/render/src/rime-shape.ts` | **THE RIME's geometry**: where the lens stands, and the paths it is made of |
 | `packages/render/src/rime-story.ts` | **THE RIME's two story steps, drawn** (§29's story item; the rules are `sim/rime-step.ts` |
 | `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
+| `packages/render/src/rime-glint.ts` | **THE RIME's frost glints**: a line of light crosses the pane on a slant every few seconds, catching the sheets' edges |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |
@@ -1875,12 +1876,13 @@ by hand never moves.
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
 | `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |
 | `packages/render/src/grip-verdict.ts` | **Was that right?** — answered on the thing the thumb touched, the moment the simulation has judged it |
-| `packages/render/src/grindstone-draw.ts` | **THE GRINDSTONE**, drawn: THE SMART's wheel with its flats ground, THE HOOD's caliper, the lit axle, the fall |
+| `packages/render/src/grindstone-draw.ts` | **THE GRINDSTONE**, drawn: THE SMART's wheel with its flats ground, the caliper flung free, the lit axle, the fall |
 | `packages/render/src/grindstone-marks.ts` | **THE GRINDSTONE's marks**: what a step asks — a flat's face glowing, a jaw's pads lit, the axle in a shot's colour |
 | `packages/render/src/grindstone-pose.ts` | **The clock THE GRINDSTONE is posed off**: the drop, the depth and grit of each flat, the caliper's swing and creep, the fall |
 | `packages/render/src/grindstone-shape.ts` | **THE GRINDSTONE's geometry**: where the wheel is, and the paths of the wheel, its flats, the patch and the caliper's jaws |
 | `packages/render/src/grindstone-grip.ts` | **The flats and the jaws on THE GRINDSTONE** |
 | `packages/render/src/grindstone-fx.ts` | What THE GRINDSTONE leaves behind a frame (§33, *Presentation*) |
+| `packages/render/src/grindstone-jaw.ts` | **THE GRINDSTONE's caliper jaws**: THE HOOD's two, trembling at the tip while they stand open |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |

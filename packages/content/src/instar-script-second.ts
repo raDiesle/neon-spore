@@ -67,13 +67,13 @@ export const INSTAR_SPREAD: BossSequenceStep = {
   ],
 };
 
-/** The hide off, the new body bare and its heart lit in the split. Shoot the
- * heart four times: the finish. */
+/** The hide off, the new body bare and its heart lit in the front of its
+ * chest, turned to the cannon. Shoot the heart four times: the finish. */
 export const INSTAR_BARE: BossSequenceStep = {
   pose: "bare",
   arrive: "stay",
   morphBeats: 6,
   windowBeats: 5,
   landBeats: 4,
-  marks: [{ seat: "both", part: "heart", gesture: "shoot", xMilli: 500, yMilli: 395, need: 4 }],
+  marks: [{ seat: "both", part: "heart", gesture: "shoot", xMilli: 340, yMilli: 440, need: 4 }],
 };

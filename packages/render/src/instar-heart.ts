@@ -1,10 +1,12 @@
 import { type InstarState, instarStep, type SimConfig } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
+import { drawBakedHeart } from "./instar-heart-baked.js";
 import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
 import { drawWeak } from "./instar-weak.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { screenDpr } from "./sprite-bake.js";
 
 /** The heart where it beats this frame: `r` swells with the thump, `a` is its strength. */
 export interface HeartBeat {
@@ -14,28 +16,35 @@ export interface HeartBeat {
   a: number;
 }
 
-/** How the heart is painted — the seam VERSUS offers a baked look through. */
+/**
+ * How the heart is painted: the baked organ (`instar-heart-baked.ts`), the
+ * owner's pick on VERSUS, 27 September 2026 — *barely visible, but little bit
+ * better*. The drawn one below paints a heart too small to bake.
+ */
 export const HEART_LOOK: { paint: (ctx: CanvasRenderingContext2D, beat: HeartBeat) => void } = {
-  paint: (ctx, { at, r, thump, a }) => {
-    const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 2.2);
-    g.addColorStop(0, rgba(PALETTE.redRim, 0.9 * a));
-    g.addColorStop(0.25, rgba(PALETTE.red, (0.6 + 0.3 * thump) * a));
-    g.addColorStop(0.6, rgba(PALETTE.ember, 0.25 * a));
-    g.addColorStop(1, rgba(PALETTE.red, 0));
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(at.x, at.y, r * 2.2, 0, Math.PI * 2);
-    ctx.fill();
-    // The heart itself: two lobes and a point, the shape the word already is.
-    const [p0, c1, c2, p1, c3, c4] = heartCurves(at, r);
-    ctx.fillStyle = rgba(PALETTE.redRim, 0.85 * a);
-    ctx.beginPath();
-    ctx.moveTo(p0.x, p0.y);
-    ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, p1.x, p1.y);
-    ctx.bezierCurveTo(c3.x, c3.y, c4.x, c4.y, p0.x, p0.y);
-    ctx.fill();
-  },
+  paint: (ctx, beat) => drawBakedHeart(ctx, beat, drawnHeart, screenDpr()),
 };
+
+/** The heart as it was drawn before it was baked: a radial glow and a flat heart shape. */
+export function drawnHeart(ctx: CanvasRenderingContext2D, { at, r, thump, a }: HeartBeat): void {
+  const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 2.2);
+  g.addColorStop(0, rgba(PALETTE.redRim, 0.9 * a));
+  g.addColorStop(0.25, rgba(PALETTE.red, (0.6 + 0.3 * thump) * a));
+  g.addColorStop(0.6, rgba(PALETTE.ember, 0.25 * a));
+  g.addColorStop(1, rgba(PALETTE.red, 0));
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, r * 2.2, 0, Math.PI * 2);
+  ctx.fill();
+  // The heart itself: two lobes and a point, the shape the word already is.
+  const [p0, c1, c2, p1, c3, c4] = heartCurves(at, r);
+  ctx.fillStyle = rgba(PALETTE.redRim, 0.85 * a);
+  ctx.beginPath();
+  ctx.moveTo(p0.x, p0.y);
+  ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, p1.x, p1.y);
+  ctx.bezierCurveTo(c3.x, c3.y, c4.x, c4.y, p0.x, p0.y);
+  ctx.fill();
+}
 
 /** The heart's half-height in its `r`, and how far below its paint point its middle falls, in that half-height. */
 export const HEART_H = 0.55;
@@ -90,7 +99,7 @@ export function heartBeat(
 }
 
 /**
- * **The bare body's heart**, lit in the split along its back after the moult
+ * **The bare body's heart**, lit in the front of its chest after the moult
  * (docs/spec/bosses.md §11.32, *The second act*): a glow that beats on the
  * music's beat where the step's heart mark is, under the ring, so the ring is
  * on something alive rather than on a stretch of body.
