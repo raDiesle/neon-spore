@@ -874,6 +874,7 @@ draw the brake is covering. `bun run check` proves it.
 ## §41 THE WINCH — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-41-the-winch-the-look
 - **Needs:** §41 THE WINCH's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
