@@ -8,7 +8,7 @@ import { drawBrood } from "./reprise-brood.js";
 import { drawTearLip } from "./reprise-flesh.js";
 import type { RepriseFx, ReprisePhase } from "./reprise-fx.js";
 import { drawLens } from "./reprise-lens.js";
-import { FUSE_TOP_PX } from "./slow-fuse.js";
+import type { Box } from "./slow-fuse-place.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -43,13 +43,13 @@ import { splinePath } from "./spline.js";
 
 /**
  * **Where the body hangs, and how big it is.** The unit is what fits between
- * the fuse along the top of the screen and the field's own top edge, held
- * between six tenths of a tile and a tile and a quarter, so a tall phone gets a bigger boss and
- * a short one still gets one that clears the fuse. The sac hangs a third of
- * its height into the field, through the tear.
+ * `TOP_PX` and the field's own top edge, held between six tenths of a tile and
+ * a tile and a quarter, so a tall phone gets a bigger boss and a short one
+ * still gets one that clears the top chrome. The sac hangs a third of its
+ * height into the field, through the tear.
  */
 export function repriseFrame(l: Layout, cfg: SimConfig): RepriseFrame {
-  const room = (l.gridTop - FUSE_TOP_PX - 6) / 1.65;
+  const room = (l.gridTop - TOP_PX - 6) / 1.65;
   const u = Math.min(l.tile * 1.25, Math.max(l.tile * 0.6, room));
   return {
     x: tileCX(l, midCol(cfg)),
@@ -59,6 +59,20 @@ export function repriseFrame(l: Layout, cfg: SimConfig): RepriseFrame {
     rx: u * 1.75,
     ry: u * 1.0,
   };
+}
+
+/**
+ * How far down the sac may reach from the top of the stage, in CSS pixels:
+ * under the ≡ button and the link chip, which reach 40 px down
+ * (`apps/game/src/game.css`). THE SLOW's fuse stood here until it moved under
+ * the body on 27 September 2026, and the body kept the room it had.
+ */
+const TOP_PX = 50;
+
+/** The sac's box at rest, for the fuse hung under it (`slow-fuse-place.ts`). */
+export function repriseBox(l: Layout, cfg: SimConfig): Box {
+  const f = repriseFrame(l, cfg);
+  return { left: f.x - f.rx, right: f.x + f.rx, top: f.cy - f.ry, bottom: f.cy + f.ry };
 }
 
 /**

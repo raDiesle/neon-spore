@@ -1267,7 +1267,8 @@ by hand never moves.
 | `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |
 | `packages/render/src/slow-intake.ts` | THE SLOW's window as it ships: the prism, the streams round the boss, then the bar over them |
-| `packages/render/src/slow-fuse.ts` | **A fuse along the top of the screen: how long the pair has left before the step fails.** The owner asked on… |
+| `packages/render/src/slow-fuse.ts` | A fuse under the boss: how long the pair has left before the step fails, burning in from both ends |
+| `packages/render/src/slow-fuse-place.ts` | Where the fuse stands: level under the boss, above the hull, and clear of every live mark's ring |
 | `packages/render/src/slow-prism.ts` | The frame's colours split about the boss on every slowed downbeat and closing across the beat, under the streams |
 | `packages/render/src/slow-keep-out.ts` | **The body THE SLOW's light may not cross**, as a shape a pass can clip to and a distance a pass can fade by |
 | `packages/render/src/slow-crawl.ts` | Rays round the boss, and sparks of light strung along each one at once |

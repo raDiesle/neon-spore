@@ -3,7 +3,16 @@ import { createWorld } from "@neon-spore/sim";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type Layout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { drawFuse, FUSE_TOP_PX } from "../src/slow-fuse.js";
+import { drawFuse } from "../src/slow-fuse.js";
+import {
+  type Box,
+  FUSE_THICK,
+  type FusePlace,
+  fuseBox,
+  fusePlace,
+  underAim,
+  underBox,
+} from "../src/slow-fuse-place.js";
 import { type SlowWindow, slowWindow } from "../src/slow-look.js";
 import {
   CFG,
@@ -27,6 +36,10 @@ beforeAll(installCanvasGlobals);
 
 const LAYOUT: Layout = computeLayout(VIEWPORT, CFG, "p1");
 
+/** Where the drawing tests stand the fuse: the middle of the screen, a third
+ * of the way down, four tiles long. Where it goes is `fusePlace`'s, below. */
+const PLACE: FusePlace = { x: LAYOUT.width / 2, y: LAYOUT.height / 3, half: LAYOUT.tile * 2 };
+
 function window(beats: number, left: number, asks = true): SlowWindow {
   return { beats, left, through: (beats - left) / beats, asks };
 }
@@ -38,7 +51,7 @@ function window(beats: number, left: number, asks = true): SlowWindow {
 function drawn(win: SlowWindow): { log: string[]; line: number[] | null } {
   const { ctx } = stubCanvas();
   ctx.log = [];
-  drawFuse(ctx as unknown as CanvasRenderingContext2D, LAYOUT, win);
+  drawFuse(ctx as unknown as CanvasRenderingContext2D, LAYOUT, win, PLACE);
   const log = ctx.log;
   ctx.log = undefined;
   const ends = log
@@ -50,28 +63,29 @@ function drawn(win: SlowWindow): { log: string[]; line: number[] | null } {
 }
 
 describe("how much of the fuse is left", () => {
-  /** Nearly the whole width, with the round ends pulled in far enough that
-   * neither cap nor spark is cut by the side of the screen. */
-  it("runs nearly the whole width of the screen on the tick the window opens", () => {
-    const [x0 = 0, , x1 = 0] = drawn(window(8, 8)).line ?? [];
-    expect(x0).toBeGreaterThan(LAYOUT.tile * 0.2);
-    expect(x1).toBeLessThan(LAYOUT.width - LAYOUT.tile * 0.2);
-    expect(x1 - x0).toBeGreaterThan(LAYOUT.width * 0.8);
+  it("runs its place's whole length on the tick the window opens, level", () => {
+    const [x0 = 0, y = 0, x1 = 0] = drawn(window(8, 8)).line ?? [];
+    expect(x0).toBeCloseTo(PLACE.x - PLACE.half, 2);
+    expect(x1).toBeCloseTo(PLACE.x + PLACE.half, 2);
+    expect(y).toBeCloseTo(PLACE.y, 2);
   });
 
-  it("burns in from both ends and stays on the screen's middle", () => {
+  it("burns in from both ends and stays on its place's middle", () => {
     const [f0 = 0, , f1 = 0] = drawn(window(8, 8)).line ?? [];
     const [x0 = 0, , x1 = 0] = drawn(window(8, 2)).line ?? [];
     expect(x1 - x0).toBeCloseTo((f1 - f0) / 4, 2);
-    expect((x0 + x1) / 2).toBeCloseTo(LAYOUT.width / 2, 2);
+    expect((x0 + x1) / 2).toBeCloseTo(PLACE.x, 2);
   });
 
-  /** Flush on the edge it was a two-pixel line with half of each spark off
-   * the screen — the owner's *cut off*, 25 September 2026. The ≡ button and
-   * the link chip reach 40 px down. */
-  it("hangs below the top chrome, not on the edge of the screen", () => {
-    expect(drawn(window(8, 5)).line?.[1]).toBe(FUSE_TOP_PX);
-    expect(FUSE_TOP_PX).toBeGreaterThan(40);
+  /** The owner, 27 September 2026: *more visible (e.g. more height)*. It
+   * was two tenths of a tile along the top of the screen. */
+  it("is more than twice as thick as it was, with the glow wider still", () => {
+    expect(FUSE_THICK).toBeGreaterThanOrEqual(0.45);
+    const widths = drawn(window(8, 6))
+      .log.filter((e) => e.startsWith("set lineWidth="))
+      .map((e) => Number(e.slice("set lineWidth=".length)));
+    expect(widths.some((w) => Math.abs(w - LAYOUT.tile * FUSE_THICK) < 0.01)).toBe(true);
+    expect(Math.max(...widths)).toBeGreaterThanOrEqual(LAYOUT.tile * FUSE_THICK * 2.5);
   });
 
   it("draws nothing once the window is spent", () => {
@@ -135,5 +149,62 @@ describe("which windows get a fuse", () => {
   it("draws on THE INSTAR's step and not on its fall", () => {
     expect(drawn(instarWindow(8, true)).log.length).toBeGreaterThan(0);
     expect(drawn(instarWindow(CFG.instarSlowBeats, false)).log).toHaveLength(0);
+  });
+});
+
+/**
+ * **Where it stands** — `src/slow-fuse-place.ts`, the owner's *below the boss
+ * and between the ship hull*, 27 September 2026. A body and marks set by
+ * hand; `tools/director/test/fuse-place.test.ts` walks every boss's windows.
+ */
+describe("where the fuse stands", () => {
+  const T = LAYOUT.tile;
+  const mid = LAYOUT.width / 2;
+  const body: Box = { left: mid - T, right: mid + T, top: T * 2, bottom: T * 4 };
+  const crosses = (a: Box, b: Box): boolean =>
+    a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+
+  it("stands level on the body's column, halfway to the hull, as long as the body is wide", () => {
+    const p = fusePlace(LAYOUT, underBox(body), []);
+    expect(p.x).toBeCloseTo(mid, 5);
+    expect(p.half).toBeCloseTo(T, 5);
+    expect(Math.abs(p.y - (body.bottom + LAYOUT.hullY) / 2)).toBeLessThan(T * 0.1);
+    const box = fuseBox(LAYOUT, p);
+    expect(box.top).toBeGreaterThanOrEqual(body.bottom);
+    expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
+  });
+
+  it("moves off a mark that sits in the middle of the gap", () => {
+    const y = (body.bottom + LAYOUT.hullY) / 2;
+    const mark: Box = { left: mid - T, right: mid + T, top: y - T, bottom: y + T };
+    const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underBox(body), [mark]));
+    expect(crosses(box, mark)).toBe(false);
+    expect(box.top).toBeGreaterThanOrEqual(body.bottom);
+    expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
+  });
+
+  it("drops to just above the hull where there is no gap", () => {
+    const low: Box = { ...body, bottom: LAYOUT.hullY - 2 };
+    const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underBox(low), []));
+    expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
+    expect(box.bottom).toBeGreaterThan(LAYOUT.hullY - T * 0.25);
+  });
+
+  /** THE INSTAR hangs head-down off a chain that climbs to its engines: the
+   * middle of head and engines is a column nothing of it hangs in. */
+  it("stands under a climbing body's lower end, as wide as that end", () => {
+    const at = { x: mid - T, y: T * 4, r: T, ax: mid + T * 3, ay: 0 };
+    const p = fusePlace(LAYOUT, underAim(at), []);
+    expect(p.x).toBeCloseTo(at.x, 5);
+    expect(p.half).toBeCloseTo(at.r, 5);
+    const level = { ...at, ay: at.y };
+    expect(fusePlace(LAYOUT, underAim(level), []).x).toBeCloseTo(mid + T, 5);
+  });
+
+  it("keeps both ends on the screen under a body wider than it", () => {
+    const wide: Box = { ...body, left: -T, right: LAYOUT.width + T };
+    const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underBox(wide), []));
+    expect(box.left).toBeGreaterThan(0);
+    expect(box.right).toBeLessThan(LAYOUT.width);
   });
 });

@@ -2471,35 +2471,6 @@ THE CYST's land on `cystCrack` and `cystHit`, part on `cystStill`,
 `cystSlip` and `cystSpring`; THE PLUMB's from what `plumb-fx.ts` hits on —
 and `bun run check` proves them.
 
-## THE SLOW — the fuse moves under the boss, and is taller
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-slow-crawls-light-is-quieter (claim: claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta)
-- **Files:** `packages/render/src/slow-fuse.ts`, `packages/render/src/slow-intake.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/test/slow-fuse.test.ts`, `packages/render/test/frame.test.ts`
-
-The owner, 27 September 2026: *make the remaining time in slow state of
-bosses below the boss and between the ship hull, and more visible (e.g. more
-height)*. Today the fuse runs along the top of the field at `FUSE_TOP_PX`. The
-history is in the header of `slow-fuse.ts`: on 24 September he took out a
-notched bar under the boss, and on 25 September he kept the fuse at the top.
-This asks for the place again and not for the notches, so keep everything
-else the fuse does: it burns in from both ends, it has no notches, it turns
-orange then red, and it stays at full strength.
-
-Stand it level, centred on the boss's column, halfway between the bottom of
-the body (`slow-intake-aim.ts` already says where the body stands and how
-wide it is) and the top of the hull. Make it at least twice as thick
-(`THICK` 0.2 → 0.45 tiles or more), with the glow widened to match. It must
-never lie over a live mark: THE INSTAR's tail marks sit low, at `yMilli` 600.
-Where there is no gap, it drops to just above the hull. THE REPRISE's fuse
-(commit 0a6610e96) moves with it. Rewrite the header's *where* paragraph.
-This is a look the owner asked for by name.
-
-Done when: a test walks every boss wave's slow windows and finds the fuse's
-box under the boss's box, above the hull and clear of every live mark's
-ring; the thickness is pinned; one PNG of THE INSTAR's window is sent.
-`bun run check` proves the tests.
-
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
@@ -2617,3 +2588,21 @@ cannon colours.
 
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
+
+## THE SLOW's aim has no row for six bosses, so their fuse sits under the cannon
+
+- **Found:** 2026-09-27, claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta
+- **Files:** `packages/render/src/slow-boss-aim.ts`, `packages/render/src/slow-boss-aim-b.ts`, `packages/render/src/slow-boss-aim-c.ts`, `packages/render/test/slow-boss-aim.test.ts`, `tools/director/test/fuse-place.test.ts`
+
+THE NETTLE, THE SEAM, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE open
+windows that ask, and no page of `bossAim` has a row for them, so `aim()`
+falls through to a held body or the cannon on the hull. The light has stood
+round the cannon for them since the aim was written. Since the fuse moved
+under the body (`slow-fuse-place.ts`), their fuse also drops onto the hull
+under the cannon rather than under the boss, and `fuse-place.test.ts` excuses
+them only as "no gap". Give each a row off its own shape file, the way the
+others are written (a centre and the body's own extent, or a capsule for a
+long body), and a row in `slow-boss-aim.test.ts`.
+
+Done when: all six have rows, and `fuse-place.test.ts` finds each of them
+with a gap and the fuse under the body. `bun run check` proves it.

@@ -1,11 +1,11 @@
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { FUSE_THICK, type FusePlace } from "./slow-fuse-place.js";
 import type { SlowWindow } from "./slow-look.js";
 
 /**
- * **A fuse across the top of the field: how long the pair has left before the
- * step fails.**
+ * **A fuse under the boss: how long the pair has left before the step fails.**
  *
  * The owner asked on 25 September 2026 for *some progress indicator* back on
  * the slow, *remaining time left to take damage when not succeeding*, a day
@@ -13,10 +13,13 @@ import type { SlowWindow } from "./slow-look.js";
  * four answers put to him this is the one he had built into the game, and he
  * kept it over the other three in VERSUS (`tools/versus/DECIDED.md`).
  *
- * **Where the light already starts.** The light runs in from the edge of the
- * screen (`slow-crawl.ts`), so the measure sits along the top edge
- * rather than in the field: nothing under the boss, nothing between the
- * marks, and no third place to look beside the body and the band.
+ * **Where the eye already is.** It stood along the top edge of the screen
+ * from 25 September 2026, beside where the light runs in, and on the 27th the
+ * owner moved it: *below the boss and between the ship hull*. So it stands
+ * level on the boss's own column, halfway between the bottom of the body and
+ * the top of the hull, and never over a live mark (`slow-fuse-place.ts` says
+ * where, and how it gets out of a mark's way). The pair is already looking at
+ * the body the window is about, and the measure is read without looking away.
  *
  * **It burns in from both ends** and meets in the middle on the beat the
  * window shuts, so the eye reads one length and never has to find which end is
@@ -25,11 +28,9 @@ import type { SlowWindow } from "./slow-look.js";
  * `URGENT` beats — the owner's, the same day: *add an orange-like warning
  * colour before the red, somewhere in the middle*.
  *
- * **It hangs below the top chrome, not on the edge.** Drawn flush against the
- * top of the canvas it was a two-pixel line with half of each spark off the
- * screen, and the owner read it as *cut off*. So it stands clear of the ≡
- * button and the link chip (`apps/game/src/game.css`, 8 px down and 32 tall),
- * thick enough to read at a glance, with round ends pulled in from the sides.
+ * **It is thick enough to read at a glance** — *more visible (e.g. more
+ * height)*, the same day: more than twice the two-tenths of a tile it was at
+ * the top, with the glow and the sparks widened to match, and round ends.
  *
  * **It does not fade with the light.** A measure that dims as it empties is a
  * measure that lies about its last beat, so it stands at full strength from
@@ -37,24 +38,11 @@ import type { SlowWindow } from "./slow-look.js";
  * shuts the window and takes the fuse with it (`sim/slow.ts` `closeSlow`).
  */
 
-/** How thick the fuse is, and how wide its glow, in tiles. */
-const THICK = 0.2;
-const GLOW = 0.6;
+/** How wide the fuse's glow is, in tiles; how thick it is is `FUSE_THICK`. */
+const GLOW = 1.2;
 
 /** The spark at each burning end, in tiles. */
-const SPARK = 0.5;
-
-/**
- * Where the fuse's middle stands below the top of the stage, in CSS pixels:
- * under the ≡ button and the link chip, which reach 40 px down
- * (`apps/game/src/game.css`), with room for the glow above it. Pixels, not
- * tiles, because the chrome it clears is.
- */
-export const FUSE_TOP_PX = 50;
-
-/** How far each end stands in from the side of the screen, in tiles, so the
- * round cap and its spark are whole at the open. */
-const SIDE = 0.35;
+const SPARK = 0.8;
 
 /** The share of the window left at which the fuse turns orange. */
 const WARN = 0.5;
@@ -77,16 +65,21 @@ export function fuseColours(win: Omit<SlowWindow, "asks">): { body: string; core
  * never comes. The world says which it is (`sim/slow.ts` `SlowKind`), so the
  * fuse no longer guesses from the window's length.
  */
-export function drawFuse(ctx: CanvasRenderingContext2D, l: Layout, win: SlowWindow): void {
+export function drawFuse(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  win: SlowWindow,
+  at: FusePlace,
+): void {
   if (!win.asks) return;
   const rest = win.left / win.beats;
   if (rest <= 0) return;
   const { body, core } = fuseColours(win);
-  drawFuseLine(ctx, l, rest, body, core);
+  drawFuseLine(ctx, l, at, rest, body, core);
 }
 
 /**
- * **The line itself**, `rest` of its whole length centred on the screen, with
+ * **The line itself**, `rest` of its whole length centred on `at`, with
  * a spark at each end. Shared with THE REPRISE's measure (`reprise-fuse.ts`),
  * so the two fuses in the game are one drawing and only what they count
  * differs.
@@ -94,14 +87,15 @@ export function drawFuse(ctx: CanvasRenderingContext2D, l: Layout, win: SlowWind
 export function drawFuseLine(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  at: FusePlace,
   rest: number,
   body: string,
   core: string,
 ): void {
-  const mid = l.width / 2;
-  const half = (mid - l.tile * SIDE) * rest;
-  const y = FUSE_TOP_PX;
-  const thick = l.tile * THICK;
+  const mid = at.x;
+  const half = at.half * rest;
+  const y = at.y;
+  const thick = l.tile * FUSE_THICK;
   const line = (width: number, colour: string): void => {
     ctx.lineWidth = width;
     ctx.strokeStyle = colour;

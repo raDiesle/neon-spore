@@ -137,7 +137,7 @@ export function drawBoss(
       time: view.time,
     });
     // And how long until the dark, or how far through it (`reprise-fuse.ts`).
-    if (clock) drawRepriseFuse(ctx, l, clock, view.beatPhase);
+    if (clock) drawRepriseFuse(ctx, l, world, clock, view.beatPhase);
     return;
   }
   // The clock bosses next door: nine of them hang over the top of the field

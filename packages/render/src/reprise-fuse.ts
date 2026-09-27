@@ -1,17 +1,20 @@
-import type { RepriseClock } from "@neon-spore/sim";
+import type { RepriseClock, World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { repriseBox } from "./reprise-draw.js";
 import { drawFuseLine, fuseColours } from "./slow-fuse.js";
+import { fuseAt, underBox } from "./slow-fuse-place.js";
 
 /**
- * **THE REPRISE's measure along the top of the screen: how long until the
- * dark, and how far through the dark the pair is.**
+ * **THE REPRISE's measure under its sac: how long until the dark, and how far
+ * through the dark the pair is.**
  *
  * The owner, 25 September 2026: *some loading indicator (can use new boss
  * loader on top of screen) when the next invisible starts again, and also
  * loading when it's the beats of invisible time*. So it is THE SLOW's fuse
- * (`slow-fuse.ts`) — the same line in the same place, drawn by the same
- * function — counting this fight's two clocks, and one line carries both:
+ * (`slow-fuse.ts`) — the same line in the same place, under the body and
+ * above the hull (`slow-fuse-place.ts`), drawn by the same function —
+ * counting this fight's two clocks, and one line carries both:
  *
  * - **While a stretch is recorded it burns down**, in from both ends, and meets
  *   in the middle on the beat the field goes dark. It goes orange at half and
@@ -52,19 +55,21 @@ export function repriseMeasure(clock: RepriseClock, beatPhase: number): RepriseM
 
 const clamp = (v: number): number => Math.min(1, Math.max(0, v));
 
-/** Draws the measure for this frame. */
+/** Draws the measure for this frame, under the sac at rest. */
 export function drawRepriseFuse(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  world: World,
   clock: RepriseClock,
   beatPhase: number,
 ): void {
   const m = repriseMeasure(clock, beatPhase);
   if (m.rest <= 0) return;
+  const at = fuseAt(l, world, beatPhase, underBox(repriseBox(l, world.cfg)));
   if (m.echo) {
-    drawFuseLine(ctx, l, m.rest, PALETTE.rock, PALETTE.text);
+    drawFuseLine(ctx, l, at, m.rest, PALETTE.rock, PALETTE.text);
     return;
   }
   const { body, core } = fuseColours({ beats: clock.beats, through: 1 - m.rest, left: m.left });
-  drawFuseLine(ctx, l, m.rest, body, core);
+  drawFuseLine(ctx, l, at, m.rest, body, core);
 }
