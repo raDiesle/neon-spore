@@ -47,9 +47,8 @@ export function balloonFilm(at: number): string {
   return mixHex(FILM[i] as string, FILM[(i + 1) % FILM.length] as string, p - Math.floor(p));
 }
 
-/** How fast the band travels round a balloon, in turns a second. Slow, for
- * `iridescence`'s reason word for word: the beat is the only thing on this
- * screen allowed to be fast. */
+/** How fast the band travels round a balloon, in turns a second. Slow on
+ * purpose: the beat is the only thing on this screen allowed to be fast. */
 const DRIFT = 0.055;
 /** How much of the film reaches the fill. The rest is `sheenDeep`, so the
  * silhouette still holds against the background — a fill that reaches the

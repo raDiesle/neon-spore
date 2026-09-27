@@ -185,9 +185,9 @@ function litSprite(which: LightHalf, pick: "shade" | "lift", r: number, step: nu
  * The light over a round body of radius `r` at `(x, y)` in the current
  * transform, `spin` being the rotation that transform already carries. The
  * caller clips to the body first — this paints a square, and the clip is what
- * makes it a body. Radius in steps of four and spin in 24ths, for the reason
- * `sheen.ts`'s `bloom` rounds its halo radius: a value that moves every frame
- * caches a canvas every frame.
+ * makes it a body. Radius in steps of four and spin in 24ths, because the
+ * sprite is cached per pair and a value that moves every frame caches a
+ * canvas every frame.
  */
 export function litRound(
   ctx: CanvasRenderingContext2D,

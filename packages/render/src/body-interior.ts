@@ -88,10 +88,12 @@ export const BULB_LOOK: BodyInterior = { paint: spores };
  *
  * It exists so that it can stop being identical without anybody deciding that
  * it should, and on 9 September 2026 that is exactly what happened from the
- * other side: the slick took BLOOM and this did not follow it. A dart, a throb,
- * an echo, a rind and every lure wearing one of them still draw two dots,
- * because nothing has ever said what else they might draw and a decision about
- * the slick is not a decision about them. That is the seam working rather than
+ * other side: the slick took BLOOM and this did not follow it. A dart and a
+ * throb still draw two dots, because nothing has ever said what else they
+ * might draw and a decision about the slick is not a decision about them. (An
+ * echo, a rind and a lure are not among them: each is worn as the slick or the
+ * bulb — `living-draw.ts` asks `wornKind` — and draws that body's interior.)
+ * That is the seam working rather than
  * an omission — and it is also the next question this file will be asked.
  */
 export const BODY_LOOK: BodyInterior = { paint: twoCores };

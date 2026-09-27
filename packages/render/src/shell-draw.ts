@@ -98,9 +98,9 @@ function drawOne(
     rim: hazed(cfg, PLATE_RIM, near),
     light,
     lineWidth: Math.max(1, r * 0.09) / scale,
-    // The lean the own-motion is carrying this frame. Nothing the shipped
-    // plate draws reads it; a look that puts a light on the armour has to turn
-    // `KEY` back by it, or the highlight sways with the body (`PlateInk`).
+    // The lean the own-motion is carrying this frame. The shipped plate turns
+    // `KEY` back by it (`keyIn` and `litFace` in `shell-plate.ts`), or the
+    // light on the armour would sway with the body (`PlateInk`).
     rot: livingPose(c, beats).rot,
   };
 

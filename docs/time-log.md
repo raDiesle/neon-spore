@@ -25375,3 +25375,15 @@ Bottleneck: reading — half the entry had been done by the lane before, and the
 other half was a comment that had drifted from the table it repeated.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — sheen.ts's three dead passes, and the comments that said otherwise
+
+- reading: 5 min. The entry, `sheen.ts`, `wornKind`, `shell-plate.ts`'s use of `rot`.
+- writing: 5 min. Three passes and the film they alone read went; the header,
+  `dither`'s note, `litRound`'s reason and two stale comments now say what runs.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — two more comments (`balloon-alive.ts`, `hull.ts`) pointed
+at what was being removed, and each had to be found before it could dangle.

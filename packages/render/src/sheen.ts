@@ -1,98 +1,17 @@
 import { hash01 } from "./backdrop.js";
-import { halo } from "./glow.js";
-import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
 
 /**
- * The light inside the membrane, and the film on top of it.
+ * The two membrane passes the wet skin still draws: a highlight that travels
+ * the way one travels over a soap bubble (`sweep`, from `gland-wet.ts`), and a
+ * grain under a twentieth of a level (`dither`, from `gland-join.ts`). The
+ * lit interior, the drifting film and the lights under the skin that used to
+ * sit beside them went when GLAND took the ship (`hull-sheen.ts`).
  *
- * The ship is one closed contour with no panels and no plating, so the only
- * thing that can say what it is made of is the light: a lit interior, a thin
- * iridescent film that drifts across it, and a highlight that travels the way
- * one travels over a soap bubble. All three are strokes of the contour itself,
- * clipped to the inside — never rectangles. A straight edge anywhere on this
- * ship reads as a seam, and the membrane has no seams.
+ * Neither opens a save/clip of its own: each runs inside its caller's clip,
+ * so each sets the state it needs rather than relying on a `restore` to have
+ * put the canvas back — see `dither`'s composite-operation reset below.
  */
-
-/** The film, as a loop: it wraps, so the drift never reaches an end. */
-const FILM = ["#4FE9E0", "#6E8CFF", "#C05CFF", "#FF6BD6", "#8B5BFF"] as const;
-
-/** The film colour at a position along the loop. `at` wraps, in turns. */
-function film(at: number): string {
-  const p = ((at % 1) + 1) * FILM.length;
-  const i = Math.floor(p) % FILM.length;
-  return mixHex(FILM[i] as string, FILM[(i + 1) % FILM.length] as string, p - Math.floor(p));
-}
-
-/**
- * The glow just under the skin.
- *
- * It used to be a gradient rectangle across the full width, starting at the
- * highest point of the contour — which meant that whenever the two lobes met
- * and the surface rose, a pale band slid up the whole hull and showed its own
- * straight lower edge. So the glow is a wide, soft stroke of the contour
- * itself, clipped to the inside of the hull: it follows every swelling exactly,
- * and the half that would spill into space is cut away by the clip rather than
- * by a horizontal line.
- */
-/**
- * Every one of the five passes below (`innerLight` here through `dither`) used
- * to open its own `save`/`clip(filled)`/`restore` — five clips a frame against
- * the same 140-segment hull path. `hull.ts` now opens one save/clip around all
- * five and restores once at the end, so each pass here sets the state it
- * needs rather than relying on a `restore` to have put the canvas back. A
- * pass that reads state without setting it first is a bug this file no longer
- * catches for free — see `dither`'s composite-operation reset below, the one
- * place that matters: every other value (strokeStyle, lineCap, lineWidth,
- * globalAlpha) each pass sets before it uses it.
- */
-export function innerLight(ctx: CanvasRenderingContext2D, body: Path2D): void {
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineCap = "round";
-  for (const [width, alpha] of [
-    [46, 0.05],
-    [22, 0.06],
-    [9, 0.08],
-  ] as const) {
-    ctx.globalAlpha = alpha;
-    ctx.lineWidth = width;
-    ctx.stroke(body);
-  }
-  ctx.globalAlpha = 1;
-}
-
-/**
- * The soap film: the whole spectrum laid across the field at once, added on top
- * of the hull rather than blended into it, and drifting slowly sideways. Slow
- * on purpose — the beat is the only thing on this screen allowed to be fast.
- */
-export function iridescence(
-  ctx: CanvasRenderingContext2D,
-  body: Path2D,
-  l: Layout,
-  time: number,
-): void {
-  ctx.globalCompositeOperation = "lighter";
-  ctx.lineCap = "round";
-
-  const g = ctx.createLinearGradient(l.gridLeft, 0, l.gridLeft + l.gridWidth, 0);
-  const drift = time * 0.045;
-  const stops = 12;
-  for (let i = 0; i <= stops; i++) g.addColorStop(i / stops, film(i / stops + drift));
-  ctx.strokeStyle = g;
-
-  for (const [width, alpha] of [
-    [34, 0.06],
-    [15, 0.07],
-    [5, 0.09],
-  ] as const) {
-    ctx.globalAlpha = alpha;
-    ctx.lineWidth = width;
-    ctx.stroke(body);
-  }
-  ctx.globalAlpha = 1;
-}
 
 /**
  * One bright spot travelling across the membrane, the way a highlight runs over
@@ -127,36 +46,6 @@ export function sweep(ctx: CanvasRenderingContext2D, body: Path2D, l: Layout, ti
     ctx.stroke(body);
   }
   ctx.globalAlpha = 1;
-}
-
-/**
- * Bioluminescence: a handful of soft lights adrift under the skin, each one a
- * different colour off the film, each on its own slow course. This is what
- * makes the ship read as a living thing rather than a lit shape — a jellyfish
- * is dark where it is thick and bright in patches, and the patches move.
- *
- * `surfaceY` is the membrane above a given x, so a light hangs under the skin
- * and rises with a lobe instead of swimming through the middle of the hull.
- */
-export function bloom(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  time: number,
-  surfaceY: (x: number) => number,
-): void {
-  for (let i = 0; i < 5; i++) {
-    // Coprime-ish speeds, so the five never line up into a row.
-    const u = (0.11 + i * 0.23 + time * (0.013 + i * 0.004)) % 1;
-    const x = l.gridLeft + u * l.gridWidth;
-    const breathe = 0.62 + 0.38 * Math.sin(time * (0.5 + i * 0.17) + i * 2.1);
-    const y = surfaceY(x) + l.tile * (0.55 + 0.75 * breathe);
-    // A fixed colour and a radius in whole steps: `halo` caches one sprite per
-    // pair, so a value that moves every frame caches a canvas every frame.
-    const radius = Math.round((l.tile * (1.1 + 0.5 * breathe)) / 4) * 4;
-    // `halo` saves and restores globalCompositeOperation/globalAlpha around
-    // itself, so it needs nothing reset before it and leaves nothing behind.
-    halo(ctx, x, y, radius, FILM[i] as string, 0.1 + 0.12 * breathe);
-  }
 }
 
 /**
@@ -199,11 +88,9 @@ function grainPattern(ctx: CanvasRenderingContext2D): CanvasPattern | null {
 export function dither(ctx: CanvasRenderingContext2D, filled: Path2D): void {
   const pattern = grainPattern(ctx);
   if (!pattern) return;
-  // The one value the shared save/clip in `hull.ts` cannot guarantee: this is
-  // the last of the five passes, and `iridescence`/`sweep` before it both
-  // leave `globalCompositeOperation` at `"lighter"`. Dither is a plain fill,
-  // not an additive one — this used to come free from each pass's own
-  // `restore`, and now has to be asked for.
+  // The one value a caller's clip cannot guarantee: `sweep` and the wet
+  // skin's other strokes leave `globalCompositeOperation` at `"lighter"`, and
+  // dither is a plain fill, not an additive one.
   ctx.globalCompositeOperation = "source-over";
   ctx.globalAlpha = 0.55;
   ctx.fillStyle = pattern;

@@ -2877,32 +2877,6 @@ VERSUS candidate on `BODY_LOOK`, never landed straight. Keep it inside the
 body at 0.8 tile — the nameability gate (`bun run shapes:report`) must
 still hold them apart.
 
-## sheen.ts carries three dead exports, and two comments say what the code does not
-
-- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
-- **Taken:** 2026-09-27, claude/queue-apps-game-src-input-ts-is-at-250-lines (claim: claude/queue-sheen-ts-carries-three-dead-exports-and-two-comm)
-- **Files:** `packages/render/src/sheen.ts`, `packages/render/src/key-light.ts`, `packages/render/src/body-interior.ts`, `packages/render/src/shell-draw.ts`
-
-`sheen.ts` exports `innerLight` (`:50`), `iridescence` (`:70`) and
-`bloom` (`:141`), and nothing in `packages/`, `apps/` or `tools/` imports
-any of them (a `bloom` in `body-bloom.ts` and one in
-`tools/shape-sheet/src/forms/radial.ts` are other functions of the same
-name; so is `tools/director/src/library/wisp-comb.ts`'s `iridescence`).
-Only `sweep` and `dither` are used. Remove the three, and move the reason
-`key-light.ts:189` cites (*`sheen.ts`'s `bloom` rounds its halo radius*)
-onto something that still exists — `litRound`'s own rounding says it.
-
-Two stale comments found beside it:
-
-- `body-interior.ts:91-93` says a rind and every lure draw two dots. They
-  draw the slick's or bulb's interior: `living-draw.ts:189` calls
-  `drawDetails` with `look = wornKind(c)`.
-- `shell-draw.ts:101-103` says nothing the shipped plate draws reads
-  `rot`. `shell-plate.ts:125-126` does — `keyIn(ink.rot)` and
-  `litFace(piece, ink.rot)`.
-
-`bun run check` proves it: nothing else changes.
-
 ## The director's AUTO buttons cannot be clicked at desktop widths
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa

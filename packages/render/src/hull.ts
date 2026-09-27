@@ -113,7 +113,7 @@ export function drawHull(
 
   // Dark where it is thick, bright at the skin: a jellyfish is mostly the
   // membrane, and a hull filled edge to edge with its own colour is a plate.
-  // The light is put back on top, by the passes in sheen.ts.
+  // The light is put back on top, by the material's passes (`hull-sheen.ts`).
   let top = Number.POSITIVE_INFINITY;
   for (const p of pts) if (p.y < top) top = p.y;
   const bg = ctx.createLinearGradient(0, top, 0, bottom);
