@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 2228b4ae9 — THE INSTAR holds still while its marks are live
+
+While THE SLOW is open, THE INSTAR's weave dies down to a twentieth of its size over half a beat, then comes back over half a beat after the window shuts, starting from wherever it had got to. Its marks go with it, so a ring is almost where it was while a thumb is aiming at it. A swept mark still travels along its track, because that travel is the gesture. The hit test reads the same window, carried on the new `Field.slow`, so a ring is still found where it is drawn. The marks are now drawn with the body's own sway rather than a second reading of it.
+
 ## 2026-09-27 · 8cfd1caf5 — THE INSTAR's fire in its mouth is a soft glow that grows
 
 The fire between the jaws is no longer a turning ball with an edge and arms, which read as a mark to press. It is three soft ember glows (radial gradients, with no stroke, rim or turning shape), and it flickers in brightness. When the window opens it is a speck, a tenth of the lip gap across, and it swells with the window, eased in so the last beats grow the most (`fireGrown`). It stays sized by the lips (`fireRadius`), so pushing the jaws shut still squeezes it out. The throat's wash and the nostrils follow the same curve, so they too start dimmer.
