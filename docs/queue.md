@@ -1385,6 +1385,7 @@ what the rest of this file holds.
 ## THE SLING's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-27, claude/queue-the-grindstones-own-blow-at-the-hull (claim: claude/queue-the-slings-own-blow-at-the-hull)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
 - **Waits on:** THE SLING's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
 
