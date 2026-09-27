@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d95a5811a — THE VALVE's story says TAP, HOLD and RUB on the socket, and each of its twelve events throws a burst
+
+The jet asks TAP, the brace and the seal HOLD, the wipe RUB, each on the socket to either seat. Each ask throws a puff where it opens, a white flare where it is answered, which is a step landed and hurts the drum, and a red burst with a shudder on the hull where it runs out (`valve-fx-story.ts`). Look exemption: a look with no shipped alternative — the story had neither words nor bursts.
+
 ## 2026-09-27 · ab94da2e3 — THE THROAT sways where it hangs free
 
 The gullet's middle rings now swing across, by more than half a tile at the widest, while its root at the top of the frame and its lowest ring (the navigator's cinch, just above the mouth) hold still. A lean about one root would have parted the tube from its mouth, so the throat bows instead: a bow and an S on two wanders from its own seed, driven off the beat. The sway lives in `rings()`, so the skin, the captions, THE SLOW's aim and the cinch all read the ring as drawn. Exempt as a look with no shipped alternative: the gullet had no movement of its own.

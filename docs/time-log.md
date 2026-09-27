@@ -27542,3 +27542,5 @@ the bow's peak had to be found before it.
 
 Bottleneck: writing — `valve-fx.ts` was at 205 lines, so the story's
 twelve bursts went on a page of their own.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
