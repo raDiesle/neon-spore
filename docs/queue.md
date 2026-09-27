@@ -647,12 +647,22 @@ breach kept on purpose. Whichever is picked, take THE JAM out of
 ## Unverified at d55a95c8a: THE MANTLE's shear kick, core flare and hull shudder a…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-unverified-at-d55a95c8a-the-mantles-shear-kick-c
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
+- **Where:** phone
 
 *THE MANTLE's transients: a shear kicks the shell and shudders the hull* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
 
 - THE MANTLE's shear kick, core flare and hull shudder at tempo, by an eye on a phone
+
+**Seen in frames on 27 September 2026, not at tempo:** `bun run frames .
+--wave "THE MANTLE" --auto both --until mantleShear` and `--until
+mantleBeat`, P1's screen. At the first shear the red wash is on the shell,
+the hull ripples out from the struck column and the bursts land on the
+valves; after the finishing tap the core is lit. Nothing is clipped or out of
+place. What is left is the one thing a frame cannot show: whether the kick
+and the shudder read at tempo, in a hand. The desktop app's browser pane
+ran the page at about 1.5 frames a second while hidden, so it could not
+answer that either.
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.

@@ -26815,3 +26815,17 @@ The bottleneck: an item no agent can finish was handed out twice because
 its words were not the three the flag looked for.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE MANTLE's shear, seen in frames and left to a phone
+
+- reading: 5 min. The entry, the transients commit (its sha was a cloud
+  session's and is not on the trunk), and the frames recipes.
+- writing: 5 min. The entry rewritten to what was seen and what was not.
+- looking: 15 min. Two strips off `bun run frames`, then the preview driven
+  through `window.neonSpore` to watch at tempo.
+- friction: 10 min. The browser pane was hidden and ran the page at 1.5
+  frames a second, and dropped the phone viewport between calls.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: "at tempo, by an eye on a phone" is a hand's, and finding
+that out cost a live preview that could not run at tempo.
