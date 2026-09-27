@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d8e5da340 — `bun run frames --auto-miss` lets every other ask run out, so a boss's timeout blow can be photographed
+
+With no hand on them, THE OCULUS, THE VISE, THE TRIVET, THE HASP, THE RATCHET and THE GIMBAL never reach an ask. With AUTO they reach every ask and never miss one. Either way `--until breach` found nothing there. `--auto both --auto-miss` keeps AUTO's hands off the first asking window, answers the next, lets the third go, and so on. A shot ask lands its blow on the first one, and a hold slips and is answered on its retry. THE OCULUS breaches by its own miss at tick 3300. THE CYST and THE SLING cannot be reached this way, because the cannon fires by itself, and that is queued.
+
 ## 2026-09-27 · d6789bef6 — `sheen.ts` keeps only the two passes the wet skin draws
 
 `innerLight`, `iridescence` and `bloom` had no caller since GLAND took the ship; they went with the film colours only they read. The comments that cited them (`key-light.ts`, `balloon-alive.ts`, `hull.ts`) now give their own reason, and two that had drifted say what the code does: an echo, a rind and a lure draw the body they wear (`body-interior.ts`), and the shipped plate does turn the key back by `rot` (`shell-draw.ts`). Nothing drawn changes.

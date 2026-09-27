@@ -25403,3 +25403,5 @@ at what was being removed, and each had to be found before it could dangle.
 
 Bottleneck: reading — whether a boss can miss at all depends on what kind of
 ask it is, and that is in eight step files, not in one place.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
