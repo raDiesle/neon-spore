@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · aac5a337f — THE INSTAR's baked seam is deleted
+
+The seam's VERSUS slot was dropped on 27 September and nothing in the game drew it, so the module, its export, its sprite-sheet row, its byte row and its test call are gone. The baked-parts table is refreshed from today's `bun run sprite`: five of its parts are now in the game, and all nine together add 4.9 kB gzipped.
+
 ## 2026-09-27 · 2efc0da0b — THE GALL has a body: a nodule on a raised seam that leans to its pincher
 
 THE GALL (wave 117, §11.55) is drawn. SYSTEMS' THE NEEDLE is laid across the field as a raised seam with four scars, rippling more in the rest after a jump. CREATURES' NOTCH 2 rides it as the nodule, heeled toward the end of the seat whose half it is on, and it jumps between points in a single frame. The pinch squeezes it narrow, the beats kept shut press it into the seam, and every close takes a lobe and a sixth of its size. After the third the nodule is pulled under, and the seam's lips peel back over the middle to bare the root, lit in the shot's colour. The pinch's two chevrons glow on the screen of the seat whose pinch it is and are a faint line on the other's. Its blow, receipts, touch, cue and AUTO hand are queued.
