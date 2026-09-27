@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 9ab601a1b — A queue entry's Needs: line written as a sentence is reported, not passed
+
+`next` handed out THE WINCH's look while its simulation lane was still in the file, because the look's line read "§41 THE WINCH's simulation lane, above, landed first" — which matches no title, and a Needs: that matches nothing fails open. A line ending "landed first" or saying ", above" is now a problem the queue reports, and the ten in the file are the title they meant, or gone where that entry already landed: THE WINCH's, THE SLUICE's and THE GOVERNOR's looks now wait on their simulation lanes.
+
 ## 2026-09-27 · 319c06b90 — Phone checks are the owner's regression pass, not queue entries
 
 `bun run land --unverified` (and `bun run unverified`) no longer queue an item that needs a phone in a hand — a real thumb, a real finger, words read on two phones. They print it as left for the owner's regression pass and queue only what a session with a screen can finish. The fifteen phone entries on the queue are cleared, the owner having tested them, and with them the three stale claims on THE MANTLE's knobs, its shear kick and THE RIME.

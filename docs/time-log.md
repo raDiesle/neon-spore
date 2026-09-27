@@ -27751,3 +27751,5 @@ the queue's preamble and the cloud-session doc — and each had to be found.
 
 Bottleneck: friction. The look was claimed by a pick that should have
 passed it over, and found only by reading its `Needs:` line by eye.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
