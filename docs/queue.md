@@ -2766,6 +2766,7 @@ so in the commit; `packages/render/test/frame.test.ts` must still draw it.
 ## COUNTDOWN, BEATBOX and THROB have no motion of their own
 
 - **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Taken:** 2026-09-27, claude/queue-the-directors-auto-buttons-cannot-be-clicked-at (claim: claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th)
 - **Files:** `packages/render/src/body-interior.ts`, `packages/render/src/creature-detail.ts`, `packages/render/src/beatbox-air.ts`, `packages/render/src/throb-pores.ts`
 
 The creature half of "Living secondary motion is uneven across the boss
