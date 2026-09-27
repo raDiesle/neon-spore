@@ -2359,6 +2359,7 @@ by itself.
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-davits-boom-swings-back-a-whole-step-a-beat (claim: claude/queue-every-other-boss-no-mark-before-its-window-opens)
 - **Files:** `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/filament-turn-marks.ts`, `packages/render/src/fleet-marks.ts`, `tools/director/test/marks-window.test.ts`
 
 The owner's rule from THE INSTAR entry above, given *e.g. in boss waves*,
