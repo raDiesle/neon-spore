@@ -917,6 +917,7 @@ unverified until the owner holds two phones.
 ## `sim/boss-entries.ts` is at the 250-line ceiling
 
 - **Found:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane (claim: claude/queue-sim-boss-entries-ts-is-at-the-250-line-ceiling)
 - **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-entries-*.ts`
 
 THE CAPSTAN's `CapstanEntry` took it from 246 lines to exactly 250, so the
