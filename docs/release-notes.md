@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b473759a6 — The other six machine bosses have nothing left to swing
+
+THE VALVE's pins and THE HASP's spent half-shells already sway on their hinges; THE SCUTTLE's parts hang on threads too short for a swing to move them two pixels; THE RATCHET's pawl is sprung onto its teeth, and a loose one would say the lock is broken; THE SPOOL's line is taut and THE RIME is glass. Written into docs/spec/living-bosses.md §1; the queue entry is done.
+
 ## 2026-09-27 · f14b19caa — AUTO plays THE BURGEE to the end
 
 THE BURGEE has an autopilot hand: the step's freezer taps the flag still the tick it swings over the lit column (the pilot on a recatch), and the other seat, its finger down on the draw since the step lit, swipes toward that column once the draw is counted and the flag is frozen; with the spindle lit, the cannon goes to the middle and fires the step's colour. BOTH plays the wave through with no flap, flutter or window run out.

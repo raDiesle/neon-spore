@@ -27050,3 +27050,5 @@ Bottleneck: writing — the draw has to be held from the step's light so its bea
 
 Bottleneck: reading — THE SCUTTLE's thread length had to be found before
 its swing could be measured as too small to see.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
