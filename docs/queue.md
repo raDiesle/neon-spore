@@ -2841,7 +2841,6 @@ to `packages/sim/test/purity.test.ts`' called-not-re-derived table for
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
-- **Taken:** 2026-09-27, claude/queue-eleven-index-md-rows-are-empty-and-a-row-once-wr (claim: claude/queue-auto-miss-cannot-make-the-cysts-or-the-slings-sh)
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`
 
 `--auto both --auto-miss` keeps AUTO's hands off every other asking window,
