@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §37 THE CAPSTAN — the rub's touch and the cue
 
 - **Found:** 2026-09-27, claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the
+- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-blow-and-the-receipts (claim: claude/queue-37-the-capstan-the-rubs-touch-and-the-cue)
 - **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/on-field-controls.test.ts`
 
 The lean goes out and AUTO plays the wave (§11.54, *The lean, and AUTO*);
