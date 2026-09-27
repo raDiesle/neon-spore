@@ -2271,6 +2271,7 @@ candidate's pose builds (`versus-pose.test.ts`).
 ## Living bosses — the outline tier's parts and surface marks
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-every-other-boss-gets-the-outline
+- **Taken:** 2026-09-27, claude/task-queue-work-fd3bdf (claim: claude/queue-living-bosses-the-outline-tiers-parts-and-surfac)
 - **Where:** local
 - **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-shell.ts`, `packages/render/src/queen-egg.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/idle-drift-parts.ts`, `packages/content/src/surface.ts`
 
