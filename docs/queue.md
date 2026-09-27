@@ -2173,6 +2173,7 @@ and `bun run check` is green.
 ## Living bosses — the outline drift for the next four, the undertow to the taster
 
 - **Found:** 2026-09-27, claude/queue-warden-drift
+- **Taken:** 2026-09-27, claude/queue-living-bosses-the-outline-drift-for-the-next-fiv (claim: claude/queue-living-bosses-the-outline-drift-for-the-next-fou)
 - **Where:** local
 - **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/undertow-lobe.ts`
 
