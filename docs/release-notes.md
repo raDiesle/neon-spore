@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 825849ced — THE COUNT's eye wanders in its socket, as a VERSUS candidate
+
+On the navigator's screen THE COUNT's core never moves. `countdown:eye` / `drift` lets it wander a hair about the middle of the socket on the body's own contour clock. It still never blinks and still tells nothing of the count. It is judged on a new pose, COUNT · THE NAVIGATOR'S EYE. THE THROB gets no candidate: its pores already turn with its spin on every frame, and a clock of their own would blur which colour faces the cannon.
+
 ## 2026-09-27 · 0b9f15783 — THE WISP's arms keep their own light when they sway
 
 Each arm is a ribbon lit across its width, and the band was built level with its root, so a swung arm's lower half ran past the band's ends and went one flat colour. The gradient now runs square to the arm, root to tip, centred on the middle of its spine, and `wisp-arms.test.ts` holds each outline inside its own light across eight seconds of sway. A fix to something wrong rather than unlovely: the file's own comment asks for one light across a sheet.
