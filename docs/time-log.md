@@ -27946,3 +27946,5 @@ Bottleneck: writing. Keeping the plate in by its own corner left the ring
 
 Bottleneck: looking. An additive layer over a body the field already draws
 has to be outlines and sheen, and only the sheet showed the discs burying it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

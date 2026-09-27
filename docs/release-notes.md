@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · e99fd8fad — THE PLUMB's weight settling true is painted, behind ?raster=1
+
+A settle now throws a painted swing under that weight's chain: the ball's rim at its last places along a dying arc, a verdigris sheen sliding across it, flecks shaken off at each turn, and a ring out from the ball as it comes true. It hangs from the beam's end, keyed by side through a new `key` on SpriteBursts, so it follows the beam as it turns; the navigator's is the pilot's strip mirrored. Sixteen frames of 128 px at 50 ms. Without the flag nothing is fetched and the shipped settle is drawn as before.
+
 ## 2026-09-27 · daad47ae2 — THE KEEL's end plates are no longer cut by the screen's edge
 
 The two end segments sit over column 0 and the last column, and a plate turned by the arch's slope, a sway or the tail's whip had its outer corner cut off at a phone's width. Their drawn middles are now kept inside the field by as much as the ring round a lit joint needs. The column the simulation judges is unchanged. The ring no longer moves in on its own, so it sits on the plate it lights, and the thumb is answered there. A test at 390×844 holds every plate's outline and an end joint's ring inside the field. This is the exemption for a fix to a shape clipping its frame.
