@@ -2065,6 +2065,7 @@ what the rest of this file holds.
 ## `queue next` hands out a DEFERRED entry
 
 - **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look
+- **Taken:** 2026-09-27, claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an (claim: claude/queue-queue-next-hands-out-a-deferred-entry)
 - **Files:** `tools/queue/run.ts`, `tools/queue/asking.ts`
 
 `next` skips an entry still waiting on the owner (`asking.ts`'s `waiting`)
