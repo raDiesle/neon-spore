@@ -350,8 +350,10 @@ Seen in real frames of the running game (`bun run frames . --wave "THE INSTAR"
   another yaw, so the side-on body is flat to us however well it is lit.
 - **A flight that moves the body, not through it.** The arrival
   (`packages/render/src/instar-flight.ts`) carries the whole figure by one
-  transform, `dx`, `dy` and a scale. The body is a rigid thing slid across
-  the sky.
+  transform, `dx`, `dy`, a scale and a mirror. The body is a rigid thing
+  carried round the sky: since 27 September 2026 a pass and a cross fly an
+  ellipse in width and depth, far behind the field and round in front of it,
+  mirrored on a lap's far half — but rigid.
 
 ### What changes
 
@@ -408,7 +410,7 @@ a third of the way round the chest; at its narrowest a little of the back.
 **It flies like a Chinese dragon.** In flight the body stops being one rigid
 figure carried by a transform. Instead:
 
-- the **head flies a path**: the arrival's line as today, plus a sideways
+- the **head flies a path**: the arrival's lap as today, plus a sideways
   wave across it and a smaller one up and down, so the head swims through
   the air;
 - **every ring of the body follows where the head was**, a little earlier

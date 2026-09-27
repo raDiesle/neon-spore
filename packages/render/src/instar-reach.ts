@@ -103,10 +103,13 @@ export function onField(l: Layout, box: Box, flight: Flight, shake: Point): bool
   const dx = c.x + (flight.dxMilli * l.gridWidth) / 1000 + shake.x;
   const dy = c.y + (flight.dyMilli * l.gridHeight) / 1000 + shake.y;
   const k = flight.scale;
+  // A body flying the other way is mirrored round its middle.
+  const a = (box.x0 - c.x) * k * flight.turn;
+  const b = (box.x1 - c.x) * k * flight.turn;
   const pad = 0.5 * l.tile;
   return (
-    dx + (box.x1 - c.x) * k > -pad &&
-    dx + (box.x0 - c.x) * k < l.width + pad &&
+    dx + Math.max(a, b) > -pad &&
+    dx + Math.min(a, b) < l.width + pad &&
     dy + (box.y1 - c.y) * k > -pad &&
     dy + (box.y0 - c.y) * k < l.height + pad
   );

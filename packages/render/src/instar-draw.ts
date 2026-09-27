@@ -73,14 +73,15 @@ export function drawInstar(
   const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);
   ctx.translate(shake, -fx.jolt * l.tile);
   const flight = instarFlight(s, beat, beatPhase);
-  const flying = flight.scale !== 1 || flight.dxMilli !== 0 || flight.dyMilli !== 0;
+  const flying =
+    flight.scale !== 1 || flight.turn !== 1 || flight.dxMilli !== 0 || flight.dyMilli !== 0;
   if (flying) {
     const c = instarAt(l, 500, 380);
     ctx.translate(
       c.x + (flight.dxMilli * l.gridWidth) / 1000,
       c.y + (flight.dyMilli * l.gridHeight) / 1000,
     );
-    ctx.scale(flight.scale, flight.scale);
+    ctx.scale(flight.scale * flight.turn, flight.scale);
     ctx.translate(-c.x, -c.y);
   }
   const hurt = fx.hurt.value;
@@ -90,7 +91,7 @@ export function drawInstar(
     head,
     r,
     time,
-    fade,
+    fade: fade * flight.light,
     hurt,
     threat: shown,
     fire,
@@ -115,8 +116,8 @@ export function drawInstar(
       ));
   const profile = side > 0.01 && (!flying || onField(l, profileReach(l, f), flight, jolt));
   tubesAt(flight.scale, flying, () => {
-    if (front) drawFront(ctx, l, { ...look, fade: fade * (1 - side) });
-    if (profile) drawProfile(ctx, l, { ...look, fade: fade * side });
+    if (front) drawFront(ctx, l, { ...look, fade: look.fade * (1 - side) });
+    if (profile) drawProfile(ctx, l, { ...look, fade: look.fade * side });
   });
   ctx.restore();
   // The second act's own things: the heart lit in the bare body, and what the

@@ -26397,3 +26397,16 @@ answered at their sweep, and the script had to be re-argued so that every
 window outlasts a lap of the flag.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR flies round in depth, not across
+
+- reading: 5 min. `instar-flight.ts`, the draw's transform, `onField`.
+- writing: 15 min. The lap, its facing, the mirror in the draw and the reach
+  box, the tests.
+- looking: 15 min. Three strips of the tail's pass; the second showed the
+  body going to a sliver end-on, and the edge floor came out of it.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — facing read off the angle led the screen motion, and
+only the strip showed the edgewise sliver.

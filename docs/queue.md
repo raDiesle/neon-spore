@@ -2618,31 +2618,6 @@ at most 0.15 of its radius at threat 1, and the radius rising monotonically;
 a strip of four PNG frames across one window is sent. `bun run check` proves
 the tests.
 
-## THE INSTAR — flies round in depth, not across
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-instar-longer-to-arrive-and-much-slower-betw (claim: claude/queue-the-instar-flies-round-in-depth-not-across)
-- **Needs:** THE INSTAR — longer to arrive, and much slower between poses
-- **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-place.ts`, `packages/render/test/instar-flight.test.ts`, `docs/spec/living-bosses.md`
-
-The owner, 27 September 2026: *it would be nice if the flying looks 3D: not
-just left to right out of the screen, but around, e.g. in the path of a
-circle, and more important to the back and again to the front, and so on, to
-create some depth feeling.* Today `passes` and `cross` leave the frame
-sideways. Replace them with an orbit in x and depth. The head flies an ellipse
-that goes far behind the field (small, dimmer, at `1 / z` as `approach`
-already scales) and sweeps back to the front (larger than at rest), one and
-a half to two laps before it settles into the pose. The body follows the
-head's path. It is always drawn under the ship and the hull.
-
-The serpentine candidate ("Living bosses — THE INSTAR's serpentine flight")
-travels along this path: whichever lands second composes with the other.
-This is a look the owner asked for by name.
-
-Done when: a test finds each flying arrival's scale below 0.5 and above
-1.1 of rest at least once, x staying within the field plus one head; `instar-seams.test.ts` finds no jump at the landing; a
-strip of one arrival is sent. `bun run check` proves the tests.
-
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

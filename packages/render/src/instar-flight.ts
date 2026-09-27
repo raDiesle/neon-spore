@@ -19,10 +19,14 @@ import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
  *   When a body is already on the field it first goes: off and up into the
  *   distance by the same law run backwards, swerving wide, to the speck the
  *   approach starts from — never gone from full size to a speck in a frame.
- * - **passes**: up and off the top, then a pass across far away, a nearer
- *   one, and in from the right to stay — every pass head first, right to left. The turn side-on happens during
- *   the passes, while the body is small and moving.
- * - **cross**: off to the left, head first, and in from the right.
+ * - **passes** and **cross**: round, not across — the owner, 27 September
+ *   2026: *not just left to right out of the screen, but around, e.g. in the
+ *   path of a circle, and more important to the back and again to the front*.
+ *   The body flies an ellipse in width and depth (`orbit`): back into the
+ *   distance first, small, high and dim, round to the front larger than at
+ *   rest, and back — two laps for the passes, one and a half for the cross —
+ *   and it settles into the pose out of the last of it. The turn side-on
+ *   happens on the way, while the body is small and moving.
  * - **stay**: no flight. The body is where the last step left it and only
  *   the pose comes back — the second and third bite of the breath.
  *
@@ -39,9 +43,16 @@ export interface Flight {
   dyMilli: number;
   /** The body's size against its size at rest. */
   scale: number;
+  /** Which way the body faces, -1..1: 1 the way it stands at rest, -1 its
+   * mirror — the far side of a lap, flying the other way — and nought seen
+   * end-on, flying straight into the distance or out of it. */
+  turn: number;
+  /** How bright the body is against at rest, 0..1: a body far behind the
+   * field is dimmer. */
+  light: number;
 }
 
-const AT_REST: Flight = { dxMilli: 0, dyMilli: 0, scale: 1 };
+const AT_REST: Flight = { dxMilli: 0, dyMilli: 0, scale: 1, turn: 1, light: 1 };
 
 /** How far away the approach starts: the body is `1 / FAR` of its size. */
 const FAR = 8;
@@ -64,43 +75,81 @@ export function flown(arrive: InstarArrival, t: number, leaves = false): Flight 
     if (t >= LEAVE) return flown(arrive, (t - LEAVE) / (1 - LEAVE));
     const e = smoothstep(t / LEAVE);
     const scale = 1 / (1 + (FAR - 1) * e);
-    return { dxMilli: -380 * Math.sin(Math.PI * e), dyMilli: -320 * (1 - scale), scale };
+    return {
+      ...AT_REST,
+      dxMilli: -380 * Math.sin(Math.PI * e),
+      dyMilli: -320 * (1 - scale),
+      scale,
+    };
   }
   if (arrive === "approach") {
     const scale = 1 / (1 + (FAR - 1) * (1 - t));
     // Far off is high up, near the horizon, and it weaves as it comes.
     const weave = 140 * Math.sin(t * Math.PI * 2.5) * (1 - t);
-    return { dxMilli: weave, dyMilli: -320 * (1 - scale), scale };
+    return { ...AT_REST, dxMilli: weave, dyMilli: -320 * (1 - scale), scale };
   }
-  if (arrive === "passes") return passes(t);
   // Stay: it never left. The morph is the jaws forced open where it is.
   if (arrive === "stay") return AT_REST;
-  // Cross: off to the left, and in from the right.
-  if (t < 0.45) {
-    const e = smoothstep(t / 0.45);
-    return { dxMilli: -1300 * e * e, dyMilli: -60 * e, scale: 1 };
-  }
-  const e = smoothstep((t - 0.45) / 0.55);
-  return { dxMilli: 1300 * (1 - e), dyMilli: -60 * (1 - e), scale: 1 };
+  return orbit(t, arrive === "passes" ? 2 : 1.5);
 }
 
-/** Up and away, a far pass, a near pass, and in to stay. */
-function passes(t: number): Flight {
-  if (t < 0.2) {
-    const e = smoothstep(t / 0.2);
-    return { dxMilli: 0, dyMilli: -1000 * e * e, scale: 1 + 0.6 * e };
-  }
-  if (t < 0.5) {
-    // Far off, across the top, right to left: the way its head faces, as
-    // every pass goes — the other way it flew backwards, tail first.
-    const e = (t - 0.2) / 0.3;
-    return { dxMilli: 1100 - 2200 * e, dyMilli: -220, scale: 0.35 };
-  }
-  if (t < 0.75) {
-    // Nearer, in again from the right, head first.
-    const e = (t - 0.5) / 0.25;
-    return { dxMilli: 1300 - 2600 * e, dyMilli: -60, scale: 0.7 };
-  }
-  const e = smoothstep((t - 0.75) / 0.25);
-  return { dxMilli: 1200 * (1 - e), dyMilli: 0, scale: 0.8 + 0.2 * e };
+/** How far the lap's centre is behind the body at rest, and how far round
+ * it the body flies — in the approach's depth, where the body is `1 / (1 + z)`
+ * of its size: from a third of it behind to a fifth larger in front. */
+const ORBIT_BEHIND = 0.75;
+const ORBIT_DEEP = 0.92;
+/** How far across the lap goes, thousandths of the field, before it is seen at its depth. */
+const ORBIT_WIDE = 700;
+/** How much of the flight the body takes to leave for the lap, and to settle out of it. */
+const ORBIT_OUT = 0.15;
+const ORBIT_SETTLE = 0.3;
+
+/** How much a step into the distance counts against one across, in the
+ * facing: thousandths of the field one unit of depth is worth. */
+const ORBIT_DEPTH_SEEN = 1000;
+/** The narrowest the body is drawn end-on: turned through nought it is a
+ * sliver, a card seen edgewise, so it snaps to its mirror from here. */
+const ORBIT_EDGE = 0.45;
+
+/**
+ * `laps` round an ellipse in width and depth, starting at its far end so the
+ * body goes to the back first. The lap is drawn at its depth by the
+ * approach's law, and it grows out of the body at rest and shrinks back into
+ * it (`reach`), so the flight starts and ends where the body stands.
+ *
+ * **The head faces the way it flies.** The near half of a lap goes right to
+ * left, the way the head faces at rest; on the far half the body is its own
+ * mirror, and it turns through end-on where the lap runs into the distance
+ * or out of it — read off the lap as drawn, since its depth moves where on
+ * the screen it turns — snapping to its mirror rather than going to a sliver.
+ */
+function orbit(t: number, laps: number): Flight {
+  const reach = smoothstep(t / ORBIT_OUT) * (1 - smoothstep((t - 1 + ORBIT_SETTLE) / ORBIT_SETTLE));
+  if (reach <= 0) return AT_REST;
+  const a = Math.PI * 2 * laps * t;
+  const here = lap(a, reach);
+  const on = lap(a + 1e-3, 1);
+  const was = lap(a - 1e-3, 1);
+  const across = on.dxMilli - was.dxMilli;
+  const deep = (on.z - was.z) * ORBIT_DEPTH_SEEN;
+  const facing = -across / (Math.hypot(across, deep) || 1);
+  const scale = 1 / (1 + here.z);
+  return {
+    dxMilli: here.dxMilli,
+    dyMilli: 320 * (scale - 1),
+    scale,
+    turn: edgewise(1 + (facing - 1) * reach),
+    light: Math.min(1, 0.35 + 0.65 * scale),
+  };
+}
+
+/** Where the lap is at angle `a`, grown `reach` out of the body at rest: its depth, and across as seen. */
+function lap(a: number, reach: number): { dxMilli: number; z: number } {
+  const z = reach * (ORBIT_BEHIND + ORBIT_DEEP * Math.cos(a));
+  return { dxMilli: (reach * ORBIT_WIDE * Math.sin(a)) / (1 + z), z };
+}
+
+/** A facing no narrower than `ORBIT_EDGE`, on the side it is already on. */
+function edgewise(turn: number): number {
+  return (turn < 0 ? -1 : 1) * Math.max(ORBIT_EDGE, Math.abs(turn));
 }
