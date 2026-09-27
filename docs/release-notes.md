@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ff6eb8c20 — THE CAPSTAN has a body: a rusted drum its cradle rocks by the lean itself
+
+THE CAPSTAN (wave 116, §11.54) is drawn: CREATURES' GATE laid across the middle column as a winch drum on its side, with SYSTEMS' BEARING RING for each end face, in a cradle that rolls by the steering seat's own tilt. As it rocks the bar narrows, the steered face comes round from a sliver and the other goes behind. Each band's eight marks are scrubbed bright one reversal at a time, its rim turning a tooth with each. The lean's mark is a lit horn, the rub's the bared face's rim, and the core under a riveted cap is lit in a shot's colour; the cap creeps back through a hold. The drum rattles unevenly throughout. Its own blow and the receipts are queued.
+
 ## 2026-09-27 · 00cb6eb7b — THE VALVE's hung pins sway, as a VERSUS candidate
 
 THE VALVE's three pins hung under the drum and never swung. SWAY makes each still-hung pin swing about three degrees about the top of its plate, on a slow period and out of step with the others, and a pin sliding free stops as it goes. The queue asked for one degree, which is a pixel at a plate's length. `valve-draw.ts` gains a `VALVE_PIN` record for the candidate to patch, and THE VALVE gains its first posed state: its still, which is struck off `OWED`.

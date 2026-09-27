@@ -25919,3 +25919,5 @@ made before anything could be seen.
 
 Bottleneck: the frame under THE SLOW — every band step is drawn through its
 prism, so a clean picture of the body had to wait for a fire step.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
