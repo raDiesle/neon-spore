@@ -1047,6 +1047,7 @@ THE VALVE's look decides.
 ## §25 THE VALVE — its story's words and bursts
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-25-the-valve-its-states-poses-and-its-storys-wor (claim: claude/queue-25-the-valve-its-storys-words-and-bursts)
 - **Files:** `packages/render/src/boss-cue-read-zp.ts`, `packages/render/src/valve-fx.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`
 
 The body is drawn, and on 27 September 2026 **the grip**
