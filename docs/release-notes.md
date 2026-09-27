@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b3d705ae4 — THE CAPSTAN: one hand rocks the drum for the other to wear
+
+Wave 116 THE CAPSTAN, the simulation lane of bosses-choreographed §37 and bosses §11.54: a rusted drum on a cradle, two grated bands. One seat leans the phone past `capstanLeanMilli` to bare a face; fresh reversals from the other seat wear only that face, and the hidden one keeps its wear. On the left band the pilot steers and the navigator rubs, on the right the other way about, on a hold either. Both bands bright bare the core for the ordinary shot in its colour; a hold between the shots counts three beats with a rub on a bared face, a miss no reset, and run out covers the core until it is made. Nine departures from the design are argued by name in §11.54.
+
 ## 2026-09-27 · bd30a8b9a — THE GRINDSTONE's flats and jaws have rows in ON THE FIELD
 
 The four handles a thumb has been able to reach since the hands lane landed — the pilot's left flat and jaw, the navigator's right — now have a row each on the tab, a row each in docs/spec/controls.md, and four poses: each seat's flat part ground, and one clamp photographed from both seats. The on-field test places the four targets "field". The first of three lanes of the queue's entry; CYST and DAVIT are left on it.
