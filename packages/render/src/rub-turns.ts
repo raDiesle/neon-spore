@@ -1,5 +1,7 @@
-import { type Hold, type Layout, RUB_TURN, rubFinger, rubSays } from "@neon-spore/render";
-import type { Pinched } from "./pinch.js";
+import type { Layout } from "./layout.js";
+import type { Pinched } from "./pinch-pair.js";
+import { RUB_TURN, rubFinger, rubSays } from "./rub.js";
+import type { Hold } from "./touch-hold.js";
 
 type RubHold = Extract<Hold, { kind: "drag" }>;
 

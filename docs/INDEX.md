@@ -1406,6 +1406,7 @@ by hand never moves.
 | `packages/render/src/filament-heart.ts` | **Where THE FILAMENT's heart is**, in field pixels — the owner, 25 September 2026 |
 | `packages/render/src/filament-vein.ts` | **The lit run as a vein** — the owner, 25 September 2026: *the vene to travel with some weapon* |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
+| `packages/render/src/fingers.ts` | **The gestures one sample cannot answer**, kept together: two fingers on one pinch body (`pinch.ts`) |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-tide-caption.ts` | The words, the ring and the scrim |
@@ -1782,6 +1783,7 @@ by hand never moves.
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the third gesture a host has to keep count of |
+| `packages/render/src/rub-turns.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
@@ -1898,6 +1900,7 @@ by hand never moves.
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/chord.ts` | **`ChordHold` from several fingers** — the second gesture in the game read off more than one touch at once |
+| `packages/render/src/chord-pads.ts` | Each finger on the body and the pad it was counted as |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |
@@ -2003,6 +2006,7 @@ by hand never moves.
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
 | `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
+| `packages/render/src/pinch-pair.ts` | A pinch's answer, and the seat it is from |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
 | `packages/render/src/plumb-draw.ts` | **THE PLUMB**: a lopsided bob of old bronze hung off a hook over the middle column, a ball on a chain at each end of its beam |
 | `packages/render/src/plumb-marks.ts` | **THE PLUMB's marks**: a level's glass with its bubble, and the lit core in its step's colour |
@@ -2275,7 +2279,6 @@ by hand never moves.
 | `apps/game/src/viewport-measure.ts` | how big the picture may be now, and whether it moved across or down |
 | `apps/game/src/input.ts` | pointers and capture; what a touch *means* is `touch.ts` |
 | `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
-| `apps/game/src/fingers.ts` | **The gestures one sample cannot answer**, kept together: two fingers on one pinch body (`pinch.ts`) |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
@@ -2303,7 +2306,6 @@ by hand never moves.
 | `apps/game/src/menu-pages.ts` | the menu's two jump lists, and the level page whose heading says whose tempo it is |
 | `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
 | `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
-| `apps/game/src/rub.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
 | `apps/game/src/shell-menu.ts` | What the shell hands the menu — beside `shell.ts` rather than inside it |
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
@@ -2311,7 +2313,6 @@ by hand never moves.
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
 | `apps/game/src/coalesced.ts` | Every position a `pointermove` actually carries, not just the last one |
 | `apps/game/src/canvas-sheets.ts` | The two pages drawn on the game's own canvas over a frame |
-| `apps/game/src/chord.ts` | **Which pad each finger is** — THE TRIVET's chord counted by the order fingers land in, the pointers' half of `render/chord.ts` |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |
 | `apps/game/src/press-lag-page.ts` | `?lag=1`: the wait between a thumb and the field answering it, in the corner |
@@ -2354,7 +2355,6 @@ by hand never moves.
 | `apps/game/src/interpolate.ts` | the picture drawn between ticks rather than on them, behind `?interpolate=1` |
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
-| `apps/game/src/pinch.ts` | A pinch's answer, and the seat it is from |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
 | `apps/game/src/menu-door.ts` | Whether a URL opens on the menu or goes straight to the field |
 | `apps/game/src/menu-bindings.ts` | **What the menu is handed, and what it hands back** — the shape, away from the knot that reads one |
@@ -2403,6 +2403,7 @@ by hand never moves.
 | `tools/director/src/grid.ts` | the beat grid a wave is placed on |
 | `tools/director/src/stage.ts` | the wave, playing, in the shape the phone draws |
 | `tools/director/src/stage-touch.ts` | the stage played rather than edited — the game's own controls |
+| `tools/director/src/stage-touch-ends.ts` | **What the stage's pointer binding is handed, and what it hands back** |
 | `tools/director/src/brushes.ts` | the palette's rows — a label, a stroke, subjects and a note per brush |
 | `tools/director/src/palette.ts` | the brush bar drawn from `brushes.ts`, grouped and with `hidden` applied |
 | `tools/director/src/entry-fields.ts` | what one arrival can say about itself: a rock's speed and width, a body's colour |

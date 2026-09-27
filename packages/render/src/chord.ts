@@ -13,7 +13,7 @@ import type { Hold } from "./touch-hold.js";
  * either. **Which pad a finger is, is the order it landed in** — the first
  * finger down on a body is pad nought, the next the lowest pad not already
  * under a finger — and that is whoever owns the pointers' business
- * (`apps/game/src/chord.ts`); what a finger on a pad *says* is this page's.
+ * (`chord-pads.ts`); what a finger on a pad *says* is this page's.
  *
  * **Why the order and not the place.** A foot's sockets are drawn a third of
  * a tile apart — two millimetres on a phone — and three strips laid across a

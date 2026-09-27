@@ -1,17 +1,17 @@
 import {
   deskDownAll,
+  Fingers,
   type Hold,
+  type Pinched,
   pressSeat,
   shipUnder,
   touchMove,
   touchUp,
 } from "@neon-spore/render";
 import { samplesOf } from "./coalesced.js";
-import { Fingers } from "./fingers.js";
 import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
-import type { Pinched } from "./pinch.js";
 import { ShipHandWatch } from "./ship-hand.js";
 
 export type { Bindings } from "./input-bindings.js";
@@ -59,7 +59,7 @@ export function bindControls(bindings: Bindings): Controls {
   const from = (t: { player: 1 | 2 }, id: number): 1 | 2 =>
     pressSeat(layout(), pressY.get(id) ?? 0, t, handed(), player());
   const hand = new ShipHandWatch();
-  /** A pinch's pair, a chord's pads and a rub's turns, counted here (`fingers.ts`). */
+  /** A pinch's pair, a chord's pads and a rub's turns, counted here (`render/fingers.ts`). */
   const fingers = new Fingers();
   const say = (said: readonly Pinched[], id: number): void => {
     for (const s of said) buffer.push(from(s, id), s.command);

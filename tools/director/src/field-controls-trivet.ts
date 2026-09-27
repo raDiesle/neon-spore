@@ -7,7 +7,7 @@ import type { FieldControlDef } from "./field-control-def.js";
  * foot is whose is geometry — the front, splayed left, the pilot's, the
  * rear, splayed right, the navigator's. What is new is the gesture: the first
  * chord in the game, one finger a pad, counted by the order they land in by
- * `apps/game/src/chord.ts` and said by `render/chord.ts`
+ * `packages/render/src/chord-pads.ts` and said by `render/chord.ts`
  * (`render/trivet-grip.ts`, `docs/spec/bosses-choreographed.md` §30).
  */
 const FOOT_DOES =
@@ -31,7 +31,7 @@ export const TRIVET_CONTROLS: readonly FieldControlDef[] = [
     gesture: "chord",
     does: FOOT_DOES,
     source:
-      "handles.ts — trivetPadUnder() under handleUnder(); the pads counted in apps/game/src/chord.ts",
+      "handles.ts — trivetPadUnder() under handleUnder(); the pads counted in packages/render/src/chord-pads.ts",
     holdKind: "drag",
     dragTarget: "trivetPadFront",
     sends: ["drag"],
@@ -45,7 +45,7 @@ export const TRIVET_CONTROLS: readonly FieldControlDef[] = [
     gesture: "chord",
     does: FOOT_DOES,
     source:
-      "handles.ts — trivetPadUnder() under handleUnder(); the pads counted in apps/game/src/chord.ts",
+      "handles.ts — trivetPadUnder() under handleUnder(); the pads counted in packages/render/src/chord-pads.ts",
     holdKind: "drag",
     dragTarget: "trivetPadRear",
     sends: ["drag"],

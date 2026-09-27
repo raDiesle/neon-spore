@@ -6,7 +6,7 @@ import type { FieldControlDef } from "./field-control-def.js";
  * THE OCULUS's arrangement: **both screens draw the whole case**, and whose
  * lobe is whose is geometry — the left the pilot's, the right the
  * navigator's. What is new is the gesture: the first pinch in the game, two
- * fingers of one seat on one body, paired by `apps/game/src/pinch.ts` and
+ * fingers of one seat on one body, paired by `packages/render/src/pinch-pair.ts` and
  * measured by `render/pinch.ts` (`render/vise-grip.ts`, `docs/spec/bosses.md`
  * §11.45).
  */
@@ -29,7 +29,8 @@ export const VISE_CONTROLS: readonly FieldControlDef[] = [
     seat: "player 1 — the left lobe is the pilot's, by geometry, on both phones; a navigator's fingers there fall through",
     gesture: "pinch",
     does: LOBE_DOES,
-    source: "handles.ts — viseLobeUnder() under handleUnder(); the pair in apps/game/src/pinch.ts",
+    source:
+      "handles.ts — viseLobeUnder() under handleUnder(); the pair in packages/render/src/pinch-pair.ts",
     holdKind: "drag",
     dragTarget: "viseLobeLeft",
     sends: ["drag"],
@@ -42,7 +43,8 @@ export const VISE_CONTROLS: readonly FieldControlDef[] = [
     seat: "player 2 — the right lobe is the navigator's, by geometry, on both phones; a pilot's fingers there fall through",
     gesture: "pinch",
     does: LOBE_DOES,
-    source: "handles.ts — viseLobeUnder() under handleUnder(); the pair in apps/game/src/pinch.ts",
+    source:
+      "handles.ts — viseLobeUnder() under handleUnder(); the pair in packages/render/src/pinch-pair.ts",
     holdKind: "drag",
     dragTarget: "viseLobeRight",
     sends: ["drag"],

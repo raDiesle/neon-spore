@@ -1,6 +1,7 @@
-import { chordFinger, chordSays, type Hold } from "@neon-spore/render";
 import type { DragTarget } from "@neon-spore/sim";
-import type { Pinched } from "./pinch.js";
+import { chordFinger, chordSays } from "./chord.js";
+import type { Pinched } from "./pinch-pair.js";
+import type { Hold } from "./touch-hold.js";
 
 type ChordHold = Extract<Hold, { kind: "drag" }>;
 

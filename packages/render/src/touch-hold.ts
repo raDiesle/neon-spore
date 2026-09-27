@@ -164,7 +164,7 @@ export type Hold =
        * One finger of a **pinch** — THE VISE's lobes: what it sends is the gap
        * to a second finger on the same body, so neither its move nor its lift
        * says anything alone, and the pair is answered by whoever owns the
-       * pointers (`pinch.ts`, `apps/game/src/pinch.ts`).
+       * pointers (`pinch.ts`, `pinch-pair.ts`).
        */
       pinch?: true;
       /**
@@ -172,14 +172,14 @@ export type Hold =
        * the order it landed in among the fingers on the same body, so neither
        * its press, its move nor its lift says anything alone, and the pad is
        * counted by whoever owns the pointers (`chord.ts`,
-       * `apps/game/src/chord.ts`).
+       * `chord-pads.ts`).
        */
       chord?: true;
       /**
        * One thumb **rubbing** — THE GRINDSTONE's flats: what it sends is how
        * many times it has turned back since it went down, so its press, its
        * move and its lift are counted by whoever owns the pointers (`rub.ts`,
-       * `apps/game/src/rub.ts`).
+       * `rub-turns.ts`).
        */
       rub?: true;
     };

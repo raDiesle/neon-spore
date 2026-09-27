@@ -25329,3 +25329,17 @@ Bottleneck: writing — pairing a commit with its replayed self needed a key
 that a rebase keeps, and author, date and subject was the one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the director's stage pairs a pinch, and counts a chord and a rub
+
+- reading: 10 min. `stage-touch.ts`, the game's `input.ts` and `fingers.ts`,
+  the three counters it holds, the stage test's stub window.
+- writing: 15 min. `Fingers` and its three counters moved to `packages/render`,
+  the stage fed them, a stage test red without it, the binding's two
+  interfaces cut out at 241 lines, every doc path moved.
+- looking: 0 min. Nothing the game draws changed.
+- friction: 5 min. Three rounds of lint for imports the cut left unused.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — moving four files meant rewriting every path to them in
+the specs, the queue and the director's control sources.

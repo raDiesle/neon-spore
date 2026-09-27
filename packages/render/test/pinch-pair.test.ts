@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { computeLayout, type Hold } from "@neon-spore/render";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { Pinches } from "../src/pinch.js";
+import { computeLayout, type Hold } from "../src/index.js";
+import { Pinches } from "../src/pinch-pair.js";
 
 /**
  * **Which two fingers are a pinch** — the pairing `pinch.ts` keeps, with the

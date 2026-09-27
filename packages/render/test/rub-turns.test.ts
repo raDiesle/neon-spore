@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { computeLayout, type Hold } from "@neon-spore/render";
 import { type Command, DEFAULT_CONFIG, type DragTarget } from "@neon-spore/sim";
 import { Fingers } from "../src/fingers.js";
-import { Rubs } from "../src/rub.js";
+import { computeLayout, type Hold } from "../src/index.js";
+import { Rubs } from "../src/rub-turns.js";
 
 /**
  * **How many times a thumb has turned back** — the count `rub.ts` keeps, with

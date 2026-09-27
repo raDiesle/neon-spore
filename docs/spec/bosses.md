@@ -8675,7 +8675,7 @@ drag's `fromMilli` on every move that changes it. The gap is the middles'
 distance less `FINGERTIPS_MILLI`, a fingertip's width: two fingertips pressed
 together stand nearly two tiles apart middle to middle on a phone, and read
 straight could never reach the shut line. Either finger lifting lets the lobe
-go. Which fingers pair is the game's (`apps/game/src/pinch.ts`), what a pair
+go. Which fingers pair is the game's (`packages/render/src/pinch-pair.ts`), what a pair
 means is render's (`render/pinch.ts`), so THE CYST's flanks can spend the same
 sender; a ghost thumb stands on a lobe while it is pinched
 (`render/vise-grip.ts`, `test/vise-grip.test.ts`, the director's two rows and
@@ -8993,7 +8993,7 @@ collapse splaying the legs flat as the hub sinks (`render/trivet-shape.ts`,
 fingers in its zone — its side of the hub, from the crown to under the
 feet — are a chord, each finger a pad by the order it landed in, since
 sockets two millimetres apart cannot be told apart under a thumb
-(`render/trivet-grip.ts`, `render/chord.ts`, `apps/game/src/chord.ts`),
+(`render/trivet-grip.ts`, `render/chord.ts`, `packages/render/src/chord-pads.ts`),
 with a ghost thumb on a foot while any of its pads is down. **THE SLOW's
 aim stands on it** (26 September 2026): the light stands round the hub, as
 wide as a planted foot's plate reaches (`trivetReach`), so it stops short of
@@ -9404,7 +9404,7 @@ and only in its colour unless it is `either`.
   spins free when the last is answered, which is the third hit.
 
 **The simulation lane has landed.** **The touch sender has too**
-(`render/src/grindstone-grip.ts`, `render/src/rub.ts`, `apps/game/src/rub.ts`):
+(`render/src/grindstone-grip.ts`, `render/src/rub.ts`, `packages/render/src/rub-turns.ts`):
 a thumb on a seat's own flat is a rub whose turns its host counts, and a
 finger on its jaw one pad of THE TRIVET's chord. Its thirteen events stay on the render package's silent-event lists, as
 every boss with its own fx file's do — they are thrown above the loop

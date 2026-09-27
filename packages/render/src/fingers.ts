@@ -1,7 +1,8 @@
-import type { Hold, Layout } from "@neon-spore/render";
-import { Chords } from "./chord.js";
-import { type Pinched, Pinches } from "./pinch.js";
-import { Rubs } from "./rub.js";
+import { Chords } from "./chord-pads.js";
+import type { Layout } from "./layout.js";
+import { type Pinched, Pinches } from "./pinch-pair.js";
+import { Rubs } from "./rub-turns.js";
+import type { Hold } from "./touch-hold.js";
 
 /**
  * **The gestures one sample cannot answer**, kept together: two fingers on

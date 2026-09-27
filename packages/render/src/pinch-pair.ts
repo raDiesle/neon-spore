@@ -1,5 +1,7 @@
-import { type Hold, type Layout, pinchGapMilli, pinching, pinchSays } from "@neon-spore/render";
 import type { Command, DragTarget } from "@neon-spore/sim";
+import type { Layout } from "./layout.js";
+import { pinchGapMilli, pinching, pinchSays } from "./pinch.js";
+import type { Hold } from "./touch-hold.js";
 
 /** A pinch's answer, and the seat it is from. */
 export interface Pinched {

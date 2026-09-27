@@ -13,7 +13,7 @@ import type { Hold } from "./touch-hold.js";
  * `pinch`, and says nothing — **a thumb alone is not a pinch**, the one-thumb
  * twin §28 asks to be refused — and its move and its lift say nothing either.
  * Which two fingers make a pair is whoever owns the pointers' business
- * (`apps/game/src/pinch.ts`); what a pair *means* is this page's, so the
+ * (`pinch-pair.ts`); what a pair *means* is this page's, so the
  * number is worked out in one place for every host.
  *
  * **The gap is the space between the fingertips, not between their middles.**

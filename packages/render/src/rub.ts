@@ -14,7 +14,7 @@ import type { Hold } from "./touch-hold.js";
  * at a time and keeps no state, so it cannot see a thumb turn: a press on a
  * rubbed face only takes hold, flagged `rub`, and its move and its lift say
  * nothing. The turns are counted by whoever owns the pointers
- * (`apps/game/src/rub.ts`); what a count *says* is this page's.
+ * (`rub-turns.ts`); what a count *says* is this page's.
  */
 
 /** How far back a thumb has to come before it has turned, in tiles — a jitter is not a rub. */

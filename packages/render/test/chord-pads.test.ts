@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import type { Hold } from "@neon-spore/render";
 import type { Command, DragTarget } from "@neon-spore/sim";
-import { Chords } from "../src/chord.js";
+import { Chords } from "../src/chord-pads.js";
+import type { Hold } from "../src/index.js";
 
 /**
  * **Which pad each finger is** — the count `chord.ts` keeps, with what a pad

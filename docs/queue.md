@@ -1873,26 +1873,10 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The director's stage does not pair a pinch
-
-- **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
-- **Taken:** 2026-09-27, claude/queue-bun-run-push-refuses-while-a-lanes-worktree-is-s (claim: claude/queue-the-directors-stage-does-not-pair-a-pinch)
-- **Files:** `tools/director/src/stage-touch.ts`, `apps/game/src/pinch.ts`
-
-THE VISE's lobes are the first pinch: a press takes hold and says nothing,
-and the gap is sent only by the host that pairs two pointers. The game does
-(`apps/game/src/input.ts` through `Pinches`); the director's stage answers
-pointers through `touchDown`/`touchMove`/`touchUp` alone, so two fingers on
-a lobe there send nothing and the case cannot be played by hand from the
-director. Move `Pinches` to `packages/render` (it keeps no DOM) or import it
-from the stage, feed it the stage's down/move/up the way `input.ts` does, and
-prove it with a stage test that two pointers on `viseLobeLeft` send a drag
-with the gap.
-
 ## Unverified at 8d811b23a: THE VISE's pinch felt with two real fingers on a phone
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
-- **Files:** `apps/game/src/input.ts`, `apps/game/src/pinch.ts`, `apps/game/test/pinch.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
+- **Files:** `apps/game/src/input.ts`, `packages/render/src/pinch-pair.ts`, `packages/render/test/pinch-pair.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
 
 *THE VISE answers a pinch: two fingers on your lobe, closed, crack its seam* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
 
@@ -2040,7 +2024,7 @@ colour and smaller per hit, and the shatter dropping the sheets apart
 (`render/rime-*.ts`, `test/rime-frame.test.ts`). What is left, in lanes:
 **the rub on the field** — a thumb down on a half sends `rimeHalfLeft` or
 `rimeHalfRight` with its reversal count as the drag's `id`, and nothing on
-the field sends one yet — the count is kept already (`apps/game/src/rub.ts`,
+the field sends one yet — the count is kept already (`packages/render/src/rub-turns.ts`,
 THE GRINDSTONE's), so this is a `rime-grip.ts` whose press on a half is a
 `rub: true` hold, `grindstone-grip.ts` its model; **the fx**, in `Effects`
 and cleared in `reset()` — flakes shaved off under a rub, a half's
@@ -2219,7 +2203,7 @@ what the rest of this file holds.
 ## `apps/game/src/input.ts` is at 250 lines
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `apps/game/src/input.ts`, `apps/game/src/pinch.ts`, `apps/game/src/chord.ts`
+- **Files:** `apps/game/src/input.ts`, `packages/render/src/pinch-pair.ts`, `packages/render/src/chord-pads.ts`
 
 THE TRIVET's chord took `input.ts` to exactly the limit: it now owns the
 pointer map, the coalesced moves, the release on blur and two multi-finger
@@ -2227,7 +2211,7 @@ trackers (`Pinches`, `Chords`) wired in by hand at the same three places
 (down, up, release-all). Cut the multi-finger half out — one `Fingers`
 module that owns both trackers and answers `down`/`move`/`up` with the
 commands to say — so the next two-finger gesture is one line in it and not
-three in `input.ts`. `apps/game/test/pinch.test.ts` and `chord.test.ts`
+three in `input.ts`. `packages/render/test/pinch-pair.test.ts` and `chord.test.ts`
 prove the behaviour is unchanged.
 
 ## `bun run push` sends a merge commit to `main`
@@ -2246,7 +2230,7 @@ builds a scratch repository with a merge on `main` and expects the refusal.
 ## Unverified at 4d7e3fe61: THE TRIVET's chord under real fingers on a phone
 
 - **Found:** 2026-09-26, tmp-trivet-hands
-- **Files:** `apps/game/src/chord.ts`, `apps/game/src/input.ts`, `apps/game/test/chord.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
+- **Files:** `packages/render/src/chord-pads.ts`, `apps/game/src/input.ts`, `packages/render/test/chord-pads.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
 
 *THE TRIVET's pads answer fingers on the field, a chord counted by order* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
 
