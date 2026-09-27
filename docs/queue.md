@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §37 THE CAPSTAN — the touch senders, the cue and the autopilot hand
 
 - **Found:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-sim-boss-entries-ts-is-at-the-250-line-ceiling (claim: claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the)
 - **Needs:** §37 THE CAPSTAN's simulation lane, above, landed first
 - **Files:** `apps/game/src/lean.ts`, `apps/game/src/field-input.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
 
