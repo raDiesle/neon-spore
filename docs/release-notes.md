@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d007bc2da — `limits.test.ts` reads the tree once, in batches, for all four cases
+
+Before this, each case read every source file for itself, one file at a time, and the size case went past its 20 s timeout under a loaded `bun run check`. Now the file reads the tree once, in parallel batches of 256, and all four cases use that read. Run alternately with the old file on the same machine, the new one takes about 310 ms and the old about 1,060 ms. The two figures are set from that.
+
 ## 2026-09-27 · 5a86e9ba5 — Nine boss fx files keep the hull shock's clock in `HullShock`
 
 THE HASP, THE KEEL, THE LEDGER, THE MANTLE, THE OCULUS, THE RATCHET, THE SINEW, THE TRIVET and THE VISE each carried their own `shockLeft`/`shockLife` (and three a `shockForce`) and a `drawShock` method; they now hold `readonly shock = new HullShock()` as THE GRINDSTONE does, with every strength and life unchanged, and `frame-on-ship.ts` calls `.shock.draw`. A copies-table row stops the next file declaring the fields by hand.
