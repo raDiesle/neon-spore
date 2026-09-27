@@ -2026,6 +2026,7 @@ has looked. The autopilot hand is done (`hands/boss-hands-rime.ts`,
 ## The step colour is written three times: hoist it
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
+- **Taken:** 2026-09-27, claude/queue-sheen-ts-carries-three-dead-exports-and-two-comm (claim: claude/queue-the-step-colour-is-written-three-times-hoist-it)
 - **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/oculus-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/sim/test/copies-table.ts`
 
 `seamColour`, `viseColour` and `oculusColour` are the same function — a
