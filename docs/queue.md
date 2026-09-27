@@ -2680,6 +2680,7 @@ offered through VERSUS.
 ## Every living creature's light stands still while its outline wobbles
 
 - **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Taken:** 2026-09-27, claude/queue-queue-take-calls-an-entry-a-landing-filed-but-di (claim: claude/queue-every-living-creatures-light-stands-still-while)
 - **Files:** `packages/render/src/living-skin.ts`, `packages/render/src/living-draw.ts`, `packages/render/src/key-light.ts`
 
 The creature half of the still-life sweep the bosses already had
