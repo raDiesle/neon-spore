@@ -27677,3 +27677,5 @@ meant reading the automatic cannon's cadence and the shot's column test.
 Bottleneck: looking. The rock hit is never reached under `--auto-miss`,
 because the socket's hit fails the wave first, so the state had to be
 forced into the rigid beat to see it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

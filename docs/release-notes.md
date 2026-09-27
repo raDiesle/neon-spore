@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 5978f809c — THE KEEL's hull hits land when what hits the hull does
+
+The tail's rock, left unanswered, fell down its column to the hull and then a second, flaming one fell again from the top of the field: the sim broke the hull from row 0. It now breaks it from the hull row the rock reached, so the rock lands once and the hole, sparks and crack show as it touches. The socket's hit is the boss's own blow, a quarter-second on its way; its red burst and the hull's shudder now wait for it to land instead of shaking the ship before anything reaches it. The lock snap and the socket shut were watched at tempo and read as written.
+
 ## 2026-09-27 · 456638883 — --auto-miss reaches THE GALL's own blow
 
 THE GALL's fire step is the one ask with no window, and the cannon fires by itself under the bared root, so a withheld hand never let it run out. The misser now withholds a lit fire step every time and slides the cannon one column off the middle while it is lit, so `bun run frames --auto both --auto-miss --until breach` reaches the seed `gall-blow.ts` draws, which no frame had shown. THE GALL joins the reach list in `auto-miss.test.ts`.
