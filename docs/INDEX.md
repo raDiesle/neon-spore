@@ -1084,6 +1084,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE BURGEE is asking for**: page forty of the readings |
 | `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings |
+| `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -2026,6 +2027,7 @@ by hand never moves.
 | `packages/render/src/creature-axes.ts` | **How wide and how tall a body is actually drawn** — the other half of `creatureRadius` |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/handle-place-boss.ts` | **Where a boss's handle is standing** — `handle-place.ts`' question |
+| `packages/render/src/handle-place-boss-b.ts` | **Where the later clock bosses' handles are standing** — the second page of `handle-place-boss.ts` |
 | `packages/render/src/handle-word.ts` | you are changing the word under a handle, or which seat reads which half of it |
 | `packages/render/src/handover-look.ts` | **THE HANDOVER's announcement**: the plate on the lip of the band that counts the trade down and counts the panels back, in the same words on both screens |
 | `packages/render/src/handover-hull.ts` | THE HANDOVER on the ship itself: two lobes on the hull handing one height back and forth for the length of the window, under the shipped plate |

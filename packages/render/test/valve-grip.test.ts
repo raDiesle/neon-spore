@@ -11,6 +11,8 @@ import {
   valveBoss,
   type World,
 } from "@neon-spore/sim";
+import { bossThumb } from "../src/guide-boss-hand.js";
+import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown, touchMove } from "../src/touch.js";
 import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "../src/valve-grip.js";
@@ -191,5 +193,45 @@ describe("a thumb on THE VALVE's pin", () => {
         expect(target(press(world, "p1", seat, socket(world, s, "p1")))).not.toBe("valvePin");
       }
     }
+  });
+});
+
+describe("THE VALVE's handles and its ghost thumbs", () => {
+  it("stands each handle on the circle its grip answers at, and nowhere outside its phases", () => {
+    const l = layout("test");
+    const turning = hung("turn");
+    expect(handleCircle(l, turning.world, "valveWheel", BEAT_PHASE)).toEqual(
+      wheel(turning.world, turning.s, "test"),
+    );
+    expect(handleCircle(l, turning.world, "valvePin", BEAT_PHASE)).toBeNull();
+    const holding = hung("hold");
+    expect(handleCircle(l, holding.world, "valvePin", BEAT_PHASE)).toEqual(
+      socket(holding.world, holding.s, "test"),
+    );
+    const frozen = hung("frozen");
+    expect(handleCircle(l, frozen.world, "valveWheel", BEAT_PHASE)).toBeNull();
+    expect(handleCircle(l, frozen.world, "valvePin", BEAT_PHASE)).toEqual(
+      valveLivePinCircle(l, CFG, frozen.s, frozen.world.beat, BEAT_PHASE),
+    );
+  });
+
+  it("draws the pilot's thumb where his hand has gone round the rim, not where the wheel stands", () => {
+    const { world, s } = hung("turn");
+    const l = layout("test");
+    expect(bossThumb(l, world, 1, BEAT_PHASE)).toBeNull();
+    const c = wheel(world, s, "test");
+    s.handMilli = 250;
+    const right = bossThumb(l, world, 1, BEAT_PHASE);
+    expect(right?.x ?? 0).toBeGreaterThan(c.x);
+    expect(right?.y ?? 0).toBeCloseTo(c.y, 0);
+  });
+
+  it("draws a seat's thumb on the pin while it is down there, and not before", () => {
+    const { world, s } = hung("brace", 2);
+    const l = layout("test");
+    expect(bossThumb(l, world, 2, BEAT_PHASE)).toBeNull();
+    s.held = [false, true];
+    expect(bossThumb(l, world, 2, BEAT_PHASE)).toEqual(socket(world, s, "test"));
+    expect(bossThumb(l, world, 1, BEAT_PHASE)).toBeNull();
   });
 });

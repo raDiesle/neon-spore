@@ -11,7 +11,14 @@ import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { pulled, valveList, valvePinReach } from "./valve-pose.js";
-import { type Point, valveCentre, valvePinCentre, valveSocket, valveWheel } from "./valve-shape.js";
+import {
+  onBearing,
+  type Point,
+  valveCentre,
+  valvePinCentre,
+  valveSocket,
+  valveWheel,
+} from "./valve-shape.js";
 
 /**
  * **The two thumbs on THE VALVE** — the grip of its hands lane, and the part
@@ -100,6 +107,45 @@ export function valveLivePinCircle(
   if (!valveFrozen(s) || i >= VALVE_PINS) return null;
   const pin = valvePinCentre(l, i, VALVE_PINS, valvePinReach(s, i, beatPhase));
   return { ...onDrum(l, cfg, s, pin, beat, beatPhase), r: pin.r };
+}
+
+/**
+ * The pin's one handle, for the ghost thumb and the cue: the live plate while
+ * frozen, where the pull is drawn from, the socket in every other pin phase,
+ * and `null` outside them — where `valvePinUnder` answers, one place a frame.
+ */
+export function valvePinHandle(
+  l: Layout,
+  cfg: SimConfig,
+  s: ValveState,
+  beat: number,
+  beatPhase: number,
+): Circle | null {
+  if (!PIN_PHASES.includes(s.phase)) return null;
+  return (
+    valveLivePinCircle(l, cfg, s, beat, beatPhase) ?? valveSocketCircle(l, cfg, s, beat, beatPhase)
+  );
+}
+
+/**
+ * **Where the pilot's thumb is on the wheel's rim**, THE HASP's
+ * `haspWheelHand`: at the bearing his hand last reported rather than the one
+ * the wheel stands at, so a thumb working it back and forth is drawn going
+ * round. Null with no hand on it, or while the wheel answers none.
+ */
+export function valveWheelHand(
+  l: Layout,
+  cfg: SimConfig,
+  s: ValveState,
+  beat: number,
+  beatPhase: number,
+): Circle | null {
+  if (!valveTurning(s) || s.handMilli === NO_BEARING) return null;
+  // The bearing is the screen's, taken about the hub where it stands
+  // (`turnAbout`), so it is laid off the listed hub and not turned with it.
+  const { at, r } = valveWheel(l);
+  const hub = onDrum(l, cfg, s, at, beat, beatPhase);
+  return { ...onBearing(hub, r, s.handMilli), r: r * 0.3 };
 }
 
 /**

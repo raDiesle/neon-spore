@@ -3,6 +3,7 @@ import { gimbalHeld } from "./gimbal-grip.js";
 import { handleCircle } from "./handles.js";
 import { haspWheelHand } from "./hasp-grip.js";
 import type { Circle, Layout } from "./layout.js";
+import { valvePinHandle, valveWheelHand } from "./valve-grip.js";
 
 /**
  * **The ghost hand on a clock boss's own handle** — the ones gripped on both
@@ -28,6 +29,9 @@ import type { Circle, Layout } from "./layout.js";
  * and THE VISE's lobes, each drawn while a pinch is on it. THE TRIVET's
  * feet are one a seat again, each drawn while any pad of its chord is down,
  * and THE CYST's flanks, each drawn while its pincher has it closing.
+ * THE VALVE's wheel is the pilot's, his thumb drawn where his hand has gone
+ * round to, THE HASP's again; its pin is either seat's, drawn while that
+ * seat's thumb is down on it.
  */
 export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: number): Circle | null {
   const b = world.boss;
@@ -73,6 +77,12 @@ export function bossThumb(l: Layout, world: World, seat: 1 | 2, beatPhase: numbe
   if (b?.kind === "davit") {
     if (!b.holding[seat === 1 ? 0 : 1]) return null;
     return handleCircle(l, world, seat === 1 ? "davitLooseLeft" : "davitLooseRight", beatPhase);
+  }
+  if (b?.kind === "valve") {
+    const hand = seat === 1 ? valveWheelHand(l, world.cfg, b, world.beat, beatPhase) : null;
+    if (hand !== null) return hand;
+    if (!b.held[seat - 1]) return null;
+    return valvePinHandle(l, world.cfg, b, world.beat, beatPhase);
   }
   return null;
 }

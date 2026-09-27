@@ -1044,25 +1044,25 @@ silhouette collision — do that first. This is a proposal for which look to
 claim next, not a claim itself; the owner or whichever session claims
 THE VALVE's look decides.
 
-## §25 THE VALVE — its cue words and poses, the rest of its hands
+## §25 THE VALVE — its STATES poses, and its story's words
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-25-the-valve-its-fx-cue-words-and-poses-the-rest (claim: claude/queue-25-the-valve-its-cue-words-and-poses-the-rest-of)
-- **Files:** `packages/render/src/valve-marks.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `tools/director/src/poses-bosses-hands-valve.ts`
+- **Files:** `tools/director/src/poses-bosses-hands-valve.ts`, `tools/director/test/boss-states.test.ts`, `packages/render/src/boss-cue-read-zp.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`
 
-The body is drawn, **the grip landed 27 September 2026**
-(`render/valve-grip.ts`), and **so did the fx** (`render/valve-fx.ts`): the
-clamp round a frozen wheel, a pulled pin's slot, the kick off a mark, the
-hull shock as the spark lands and the face falls open, and the blow a freeze
-and a pull deal. What is left, THE KEEL's half two in the same order:
-**the cue's words** (TURN on the wheel, FREEZE on the socket, PULL on the
-live pin, FIRE on the spark), with `handleCircle` standing on
-`valveWheelCircle`, `valveSocketCircle` and `valveLivePinCircle` so the ghost
-thumb and the word land where the grip answers, and the STATES poses on
-`boss-states.test.ts`'s `OWED`. Then **the story between the pins**
-(`sim/valve-story.ts`, drawn by `render/valve-story.ts`): its cue words TAP
-on the jet, HOLD for the brace and the seal, RUB for the wipe, and its
-twelve events off the `-d` silent lists as each gets its burst.
+The body is drawn, and on 27 September 2026 **the grip**
+(`render/valve-grip.ts`), **the fx** (`render/valve-fx.ts`) and **the cue's
+words** landed: TURN on the wheel, FREEZE on the socket, PULL on the live
+pin, FIRE under the spark (`boss-cue-read-zp.ts`), each on the circle the
+grip answers at, which `handleCircle` and the ghost thumb stand on too
+(`handle-place-boss-b.ts`, `guide-boss-hand.ts`). What is left, in two cuts:
+**the STATES poses** — the nine of its ten still on `boss-states.test.ts`'s
+`OWED` (`turn`, `hold`, `frozen`, `list`, `jet`, `brace`, `wipe`, `seal`,
+`open`), posed in `poses-bosses-hands-valve.ts` beside `still`, played to
+with the grip's own commands as `poses-field-controls-valve.ts` does. Then
+**the story between the pins** (`sim/valve-story.ts`, drawn by
+`render/valve-story.ts`): its cue words TAP on the jet, HOLD for the brace
+and the seal, RUB for the wipe, on `valveCues`' page, and its twelve events
+off the `-d` silent lists as each gets its burst in `valve-fx.ts`.
 Unverified at tempo until the owner has looked.
 
 ## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…

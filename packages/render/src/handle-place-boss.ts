@@ -7,16 +7,10 @@ import {
   OUTER,
   type World,
 } from "@neon-spore/sim";
-import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
-import { capstanRubStanding, capstanTakesHand } from "./capstan-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { cystStanding } from "./cyst-grip.js";
-import { davitLooseCircle } from "./davit-grip.js";
-import { flueTapCircle } from "./flue-grip.js";
-import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
-import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
-import { halterGripStanding } from "./halter-grip.js";
+import { laterBossHandleCircle } from "./handle-place-boss-b.js";
 import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
 import { hiveHaulCircle } from "./hive-grip.js";
 import { keelJointCircle } from "./keel-grip.js";
@@ -25,10 +19,8 @@ import { mantleCoreTarget, mantleKnobStanding, mantleTakesPull } from "./mantle-
 import { oculusHalfStanding, oculusTakesHold } from "./oculus-grip.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
 import { sinewHandleAt } from "./sinew-handles.js";
-import { slingDrawCircle } from "./sling-grip.js";
 import { spoolKnobStanding, spoolTakesHand } from "./spool-grip.js";
 import { surgeBulbCircle } from "./surge-shape.js";
-import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { viseLobeStanding, viseTakesPinch } from "./vise-grip.js";
 
 /**
@@ -44,7 +36,8 @@ import { viseLobeStanding, viseTakesPinch } from "./vise-grip.js";
  *
  * **`undefined` is "not mine" and `null` is "not now"**: a target this page
  * does not own falls back to `handleCircle`, and one it owns with no handle
- * on the field this frame is answered with nothing at all.
+ * on the field this frame is answered with nothing at all. From THE SLING on,
+ * the handles are the second page's (`handle-place-boss-b.ts`).
  */
 export function bossHandleCircle(
   l: Layout,
@@ -176,70 +169,5 @@ export function bossHandleCircle(
     const what = target.startsWith("cystFreeze") ? "mark" : "flank";
     return cystStanding(l, world, b, what, side, beatPhase);
   }
-  if (target === "slingDrawLeft" || target === "slingDrawRight") {
-    // THE SLING's two cords, each at the rest handle where its own seat's
-    // thumb takes it — the fork's own tines never move (`sling-grip.ts`).
-    const b = world.boss?.kind === "sling" ? world.boss : null;
-    if (b === null) return null;
-    return slingDrawCircle(l, cfg, b, target === "slingDrawLeft" ? 0 : 1, world.beat, beatPhase);
-  }
-  if (target === "trivetPadFront" || target === "trivetPadRear") {
-    // THE TRIVET's two feet, each where its leg has it swung this frame. Null
-    // once the stand collapses (`trivet-grip.ts`).
-    const b = world.boss?.kind === "trivet" ? world.boss : null;
-    if (b === null || !trivetTakesChord(b)) return null;
-    return trivetFootStanding(l, world, b, target === "trivetPadFront" ? 1 : 2, beatPhase);
-  }
-  if (target.startsWith("grind")) {
-    // THE GRINDSTONE's two flats and two jaws, each where the wheel stands and
-    // the caliper swings this frame. Null once it spins free (`grindstone-grip.ts`).
-    const b = world.boss?.kind === "grindstone" ? world.boss : null;
-    if (b === null || !grindstoneTakesHand(b)) return null;
-    const t = target as "grindFlatLeft" | "grindFlatRight" | "grindJawLeft" | "grindJawRight";
-    return grindstoneStanding(l, cfg, b, t, world.beat, beatPhase);
-  }
-  if (target === "halterChordLeft" || target === "halterChordRight") {
-    // THE HALTER's two grips on the lit segment's seam, either seat's. Null
-    // while no rest-and-chord step is lit (`halter-grip.ts`).
-    const b = world.boss?.kind === "halter" ? world.boss : null;
-    if (b === null) return null;
-    const side = target === "halterChordLeft" ? 0 : 1;
-    return halterGripStanding(l, cfg, b, side, world.beat, beatPhase);
-  }
-  if (target === "davitLooseLeft" || target === "davitLooseRight") {
-    // THE DAVIT's hook, the one shared rest handle either seat's loose takes
-    // it at — the boom itself never moves for a hand (`davit-grip.ts`).
-    const b = world.boss?.kind === "davit" ? world.boss : null;
-    if (b === null) return null;
-    return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);
-  }
-  if (target === "burgeeFreeze" || target === "burgeeDraw") {
-    // THE BURGEE's ring over the lit column and the tail of its track, where
-    // the fixture hangs still to be caught. Null between catches (`burgee-grip.ts`).
-    const b = world.boss?.kind === "burgee" ? world.boss : null;
-    if (b === null) return null;
-    return target === "burgeeFreeze" ? burgeeFreezeCircle(l, cfg, b) : burgeeDrawCircle(l, cfg, b);
-  }
-  if (target === "capstanRub") {
-    // THE CAPSTAN's bared face, or the one the lit band asks for, where the
-    // cradle rocks it this frame. Null once the drum is spent (`capstan-grip.ts`).
-    const b = world.boss?.kind === "capstan" ? world.boss : null;
-    if (b === null || !capstanTakesHand(b)) return null;
-    return capstanRubStanding(l, cfg, b, world.beat, beatPhase);
-  }
-  if (target === "gallPinch") {
-    // THE GALL's nodule on the point it sits on. Null once the third close
-    // pulls it under (`gall-grip.ts`).
-    const b = world.boss?.kind === "gall" ? world.boss : null;
-    if (b === null || !gallTakesPinch(b)) return null;
-    return gallPointCircle(l, cfg, b.point);
-  }
-  if (target === "flueTap") {
-    // THE FLUE's ember, where the simulation holds it. Null while no vent is
-    // lit (`flue-grip.ts`).
-    const b = world.boss?.kind === "flue" ? world.boss : null;
-    if (b === null) return null;
-    return flueTapCircle(l, cfg, b);
-  }
-  return undefined;
+  return laterBossHandleCircle(l, world, target, beatPhase);
 }

@@ -27481,3 +27481,17 @@ the canvas drew.
 Bottleneck: friction. The list's order is a contract only its tests state.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE VALVE's cue words, its handles and its ghost thumbs
+
+- reading: 5 min. THE KEEL's and THE FLUE's cue pages, `handle-place-boss.ts`,
+  `guide-boss-hand.ts` and `haspWheelHand` for the turned wheel's thumb.
+- writing: 10 min. The cue page and its test, the handle-place split and
+  the valve branch, the pin's handle and the wheel's hand, the grip tests.
+- looking: 0 min. The words are proven standing on the grip circles; no
+  one has watched them at tempo.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — `handle-place-boss.ts` sat at its length, so the
+valve's two handles began with a split along its later bosses.
