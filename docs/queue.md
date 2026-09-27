@@ -2153,7 +2153,7 @@ on a phone. `bun run check` proves it.
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
-- **Needs:** Living bosses — the outline drift for the next five, the throat to the taster
+- **Needs:** Living bosses — the outline drift for the next four, the undertow to the taster
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
@@ -2170,15 +2170,16 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## Living bosses — the outline drift for the next five, the throat to the taster
+## Living bosses — the outline drift for the next four, the undertow to the taster
 
 - **Found:** 2026-09-27, claude/queue-warden-drift
-- **Taken:** 2026-09-27, claude/queue-check-fast-does-not-run-the-index-row-drift-test (claim: claude/queue-living-bosses-the-outline-drift-for-the-next-fiv)
 - **Where:** local
-- **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
+- **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/undertow-lobe.ts`
 
 The rest of "the next six", split off when THE WARDEN landed on its own
-(`warden-drift.ts`, `warden-frame.ts`). That lane is the worked example:
+(`warden-drift.ts`, `warden-frame.ts`); THE THROAT landed after it
+(`throat-sway.ts`), bowing between two held ends because a lean would part
+its gullet from its mouth. That lane is the worked example:
 root the pose where the boss's marks are (the warden's foot), lift its cap
 in `LIFTED` (`outline-drift.ts`), make every hit test, cue and anchor ask for
 the posed point, drive the pose off the beat so the hit test can compute it,
@@ -2186,9 +2187,6 @@ and test that the widest point moves more than half a tile. Each goes
 straight onto the field under *a look with no shipped alternative*
 (`docs/looks.md`), not to VERSUS, and each can be its own lane:
 
-- **THE THROAT**: most of `drawThroat` is pinned to field columns (eversion,
-  mouth, grips, lock); pose only the rings and skin (`throat-draw.ts`), rooted
-  at the top over the middle column.
 - **THE UNDERTOW**: each lobe leans about its own base at the skin
   (`drawLobe`), the body about its breach, each its own seed.
 - **THE GORGE, THE CURTAIN, THE TASTER**: 7–11 tiles wide, so a lean about the

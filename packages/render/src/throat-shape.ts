@@ -9,6 +9,7 @@ import {
   throatStride,
 } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { throatSway } from "./throat-sway.js";
 
 /**
  * Where every part of THE THROAT is, as numbers — no canvas in this file.
@@ -166,7 +167,8 @@ export function throatGullet(
  * slack: a whole gullet bends only in its lowest rings and hangs straight from
  * the root, and one with four muscles gone sags across the field from the top —
  * which is the design's *the tube can no longer hold its own shape*, said with
- * the one number that already exists rather than with a second clock.
+ * the one number that already exists rather than with a second clock. On top
+ * of the lean the free middle sways, both ends held (`throat-sway.ts`).
  */
 export function rings(
   l: Layout,
@@ -193,7 +195,7 @@ export function rings(
       l.tile * (TOP_RX + (LOW_RX - TOP_RX) * t) * (1 - 0.22 * squeeze + SLACK_SPREAD * slack);
     out.push({
       index: i,
-      x: homeX + (mx - homeX) * t ** power,
+      x: homeX + (mx - homeX) * t ** power + throatSway(l, cfg, beat, beatPhase, t),
       y: rootY + (lowY - rootY) * t,
       rx,
       ry: rx * (slack > 0 ? SLACK_RY : TIGHT_RY + 0.06 * squeeze),

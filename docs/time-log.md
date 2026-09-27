@@ -27513,3 +27513,17 @@ valve's two handles began with a split along its later bosses.
 Bottleneck: friction — the card form's rules surfaced one failure per run.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE THROAT sways where it hangs free
+
+- reading: 10 min. The gullet's shape, and every reader of `rings()`:
+  the cinch, the captions, THE SLOW's aim.
+- writing: 10 min. The sway, the tables, the test, the spec note, and
+  narrowing the queue entry.
+- looking: 10 min. The first frames tick fell after the wave was lost,
+  and the second showed the bow.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. The frames run loses THE THROAT's wave by 17 s, so
+the bow's peak had to be found before it.

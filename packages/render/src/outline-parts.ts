@@ -39,13 +39,14 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * behind her torches and her arms still read as nearly still on a phone, and
  * moving them further runs into her drop cue (`docs/queue.md`, "THE BULB
  * QUEEN's parts: how far"). THE WARDEN has none: the whole ring rocks
- * (`warden-drift.ts`).
+ * (`warden-drift.ts`); nor THE THROAT, whose rings swing (`throat-sway.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   queen: 0,
   cairn: 1,
   reprise: 1,
   warden: 0,
+  throat: 0,
 };
 
 export const PART = {

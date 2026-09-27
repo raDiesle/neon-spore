@@ -1811,6 +1811,7 @@ by hand never moves.
 | `packages/render/src/throat-mouth.ts` | The mouth, the lip, and the column of field the inhale is holding |
 | `packages/render/src/throat-shape.ts` | Where every part of THE THROAT is, as numbers — no canvas in this file |
 | `packages/render/src/throat-say.ts` | The reason under each of THE THROAT's cue verbs (`BossCue.why`), and the receipt words |
+| `packages/render/src/throat-sway.ts` | **THE THROAT sways where it hangs free** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/throat-evert.ts` | **The eversion**: with every ring slack the tube can no longer hold its own shape |
 | `packages/render/src/throat-lock.ts` | NEXT INHALE: the column the mouth will be standing in on the beat it next takes something |
 | `packages/render/src/throat-grip.ts` | **THE THROAT's two hands**, and the two circles the drawing and the hit test share |

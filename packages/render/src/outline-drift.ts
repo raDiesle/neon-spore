@@ -23,10 +23,12 @@ import { slowHush } from "./slow-hush.js";
  * shipped 0 draws no transform at all. `queen:shell`, `cairn:pile` and
  * `reprise:sac` were dropped on 27 September 2026 (`tools/versus/DECIDED.md`),
  * and the seam stays for the outline drift the queue still owes the next six
- * bosses, which re-aims it at a movement big enough to be seen.
+ * bosses, which re-aims it at a movement big enough to be seen. THE THROAT
+ * takes the seam and the seed but not the pose: a body held at both ends
+ * bows rather than leans (`throat-sway.ts`).
  */
 
-export type OutlineBoss = "queen" | "cairn" | "reprise" | "warden";
+export type OutlineBoss = "queen" | "cairn" | "reprise" | "warden" | "throat";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -34,6 +36,7 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   cairn: 0,
   reprise: 0,
   warden: 1,
+  throat: 1,
 };
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
@@ -42,6 +45,7 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   cairn: 113,
   reprise: 127,
   warden: 131,
+  throat: 137,
 };
 
 export const OUTLINE = {

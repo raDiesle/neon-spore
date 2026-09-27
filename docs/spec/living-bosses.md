@@ -115,6 +115,15 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   the canvas drew. The clock is the beat, because a hit test has the beat
   and no frame time. The other five are their own entry on the queue.
 
+  *THE THROAT, as built, 27 September 2026* (`throat-sway.ts`): a lean
+  about one root would part the gullet from its mouth, so it bows instead.
+  The root at the top of the frame and the lowest ring, which is the
+  navigator's cinch, hold still. The rings between swing across, the middle
+  by more than half a tile, as a bow plus an S from the idle drift's roll
+  and pitch rows. The sway lives in `rings()`, so the skin, the captions,
+  THE SLOW's aim and the cinch all read the swung ring. On the field under
+  *a look with no shipped alternative*. The other four are their own entry.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair
