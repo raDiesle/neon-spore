@@ -7,6 +7,7 @@ import { drawGlint } from "./instar-hide.js";
 import { drawBakedNests } from "./instar-nest-baked.js";
 import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
+import { drawWeak } from "./instar-weak.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -99,6 +100,21 @@ export function drawEgg(
  * fewer for every tap and every swipe — drawn by `NEST_LOOK.paint`. */
 export function drawNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   NEST_LOOK.paint(ctx, l, look);
+  const k = (look.weak?.eggs ?? 0) * look.fade;
+  if (k <= 0) return;
+  const { f, r } = look;
+  // The glow runs round the mound and its eggs, on each nest that has any.
+  const nests = [
+    [f.nestX, f.nestY, f.nest],
+    [f.eggsX, f.eggsY, f.eggs],
+  ] as const;
+  for (const [x, y, n] of nests) {
+    if (n <= 0) continue;
+    const at = instarAt(l, x, y);
+    const outline = new Path2D();
+    outline.ellipse(at.x, at.y - r * 0.04, r * 0.56, r * 0.34, 0, 0, Math.PI * 2);
+    drawWeak(ctx, outline, k, "eggs");
+  }
 }
 
 /**

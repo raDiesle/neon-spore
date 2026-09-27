@@ -2721,27 +2721,3 @@ the owner asked for by name.
 
 Done when: the frame test finds the crosshair on the eye, egg, heart and
 tail shoot marks, and none on any other gesture. `bun run check` proves it.
-
-## THE INSTAR — the part to shoot glows red
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-every-other-boss-every-counted-hit-shows-the-hur (claim: claude/queue-the-instar-the-part-to-shoot-glows-red)
-- **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-heart.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/test/instar-budget.test.ts`
-
-The owner, 27 September 2026: *the element of the body to shoot must glow
-very red, so it can be understood as the fragile part of the boss to
-damage.* While a shoot mark's window is open, the part it names — the tail,
-the eyes, the eggs or the heart — glows a strong red along its own outline,
-pulsing on the beat, and the glow stops when that mark is done. Only that
-part glows. The whole-body red belongs to the hurt, and the two must not be
-confused. This is a look the owner asked for by name.
-
-Since 27 September 2026 each counted bolt also washes the whole body red
-for half a second (`BossHurt.jab`, `instar-fx.ts`), with half a landing's
-shake. Once each part has a red of its own here, narrow that wash to the
-part the bolt hit — `instarAnswer` carries the part — and leave the
-whole-body red to the landing.
-
-Done when: a test finds, on each shoot step, the red glow drawn on that part
-and on no other; op count within the budget test's tolerance, or moved with
-a sentence. `bun run check` proves it.

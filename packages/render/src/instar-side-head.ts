@@ -3,6 +3,7 @@ import { drawDrip, drawGlint, drawScales } from "./instar-hide.js";
 import { drawHorn } from "./instar-horn.js";
 import type { Point } from "./instar-place.js";
 import { drawLamp, drawPlate, drawSeam, faded, type Look } from "./instar-plate.js";
+import { drawWeak } from "./instar-weak.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { breath } from "./solid-motion.js";
 import { splinePath } from "./spline.js";
@@ -172,5 +173,6 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
   ctx.fill();
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.podRim, fade), STROKE.inner, 0.7 * fade);
+  drawWeak(ctx, p, (look.weak?.eye ?? 0) * fade, "eye");
   drawGlint(ctx, { x: eye.x - r * 0.06, y: eye.y - r * 0.015 * f.eye }, r * 0.02 * f.eye, fade);
 }

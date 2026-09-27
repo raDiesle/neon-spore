@@ -26305,3 +26305,16 @@ showed once the sim's lift was traced: without the point, a lift was never
 heard.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR: the part to shoot glows red
+
+- reading: 10 min. The script's shoot marks, the four parts' drawers, and
+  how the hurt paints, so the glow would not read as it.
+- writing: 15 min. `instar-weak.ts`, an outline handed back from each of the
+  four parts, and the test that finds which part it was laid on.
+- looking: 5 min. One frame of a shoot step.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — each part draws its outline in its own file, and the
+eye and the heart had to hand theirs back before a glow could follow it.

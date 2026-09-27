@@ -4,6 +4,7 @@ import { rgba } from "./hex.js";
 import { type Form, lightHide } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
+import type { InstarWeak } from "./instar-weak.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -38,6 +39,8 @@ export interface Look {
   /** How hard each lip trembles with the jaw's shove, 0..1 (`instar-shove.ts`). */
   shoveUp: number;
   shoveDown: number;
+  /** How hard each part a live shoot mark names glows, 0..1 (`instar-weak.ts`); none if absent. */
+  weak?: InstarWeak;
 }
 
 /** A colour at the fade: the hex itself while the body is whole, so the frame

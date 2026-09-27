@@ -2,6 +2,7 @@ import { type InstarState, instarStep, type SimConfig } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
+import { drawWeak } from "./instar-weak.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -107,6 +108,7 @@ export function drawInstarHeart(
   sway: { xMilli: number; yMilli: number },
   beatPhase: number,
   fade: number,
+  weak = 0,
 ): void {
   if (f.heart <= 0.01) return;
   const mark = instarStep(s)?.marks.find((m) => m.part === "heart");
@@ -115,4 +117,10 @@ export function drawInstarHeart(
   ctx.save();
   HEART_LOOK.paint(ctx, beat);
   ctx.restore();
+  const [p0, c1, c2, p1, c3, c4] = heartCurves(beat.at, beat.r);
+  const outline = new Path2D();
+  outline.moveTo(p0.x, p0.y);
+  outline.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, p1.x, p1.y);
+  outline.bezierCurveTo(c3.x, c3.y, c4.x, c4.y, p0.x, p0.y);
+  drawWeak(ctx, outline, weak * fade, "heart");
 }

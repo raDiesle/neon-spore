@@ -14,6 +14,7 @@ import { instarFade, instarMorphAt, instarThreat } from "./instar-shape.js";
 import { drawInstarSpit } from "./instar-spit.js";
 import { instarBody } from "./instar-sway.js";
 import { instarHandover, instarNeck, instarTurn } from "./instar-turn.js";
+import { instarWeak } from "./instar-weak.js";
 import type { Layout } from "./layout.js";
 import { tubesAt } from "./solid-tube-screen.js";
 
@@ -83,6 +84,7 @@ export function drawInstar(
     ctx.translate(-c.x, -c.y);
   }
   const hurt = fx.hurt.value;
+  const weak = instarWeak(s, beatPhase);
   const look: Look = {
     f,
     head,
@@ -95,6 +97,7 @@ export function drawInstar(
     harden: fx.strike.harden,
     shoveUp: fx.shove.up,
     shoveDown: fx.shove.down,
+    weak,
   };
   const side = instarHandover(f.side);
   // Most of a turn is flown off the field, where a view is not drawn at all
@@ -118,7 +121,7 @@ export function drawInstar(
   ctx.restore();
   // The second act's own things: the heart lit in the bare body, and what the
   // rear and the spread throw at the hull on its way down (§11.32).
-  drawInstarHeart(ctx, l, cfg, s, f, sway, beatPhase, fade);
+  drawInstarHeart(ctx, l, cfg, s, f, sway, beatPhase, fade, weak.heart);
   drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);

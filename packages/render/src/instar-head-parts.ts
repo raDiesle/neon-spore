@@ -86,7 +86,8 @@ export function drawnIris(
   ctx.fill();
 }
 
-/** A slanted gold eye with a slit pupil, narrowed as `eye` goes to nought. */
+/** A slanted gold eye with a slit pupil, narrowed as `eye` goes to nought;
+ * it answers with the eye's outline, or nothing while it is shut. */
 export function drawEye(
   ctx: CanvasRenderingContext2D,
   at: Point,
@@ -95,7 +96,7 @@ export function drawEye(
   open: number,
   time: number,
   fade: number,
-): void {
+): Path2D | null {
   drawSeam(
     ctx,
     r2(at, r, -0.2, -0.12 + s * 0.05),
@@ -112,7 +113,7 @@ export function drawEye(
   ctx.ellipse(at.x, at.y + r * 0.01, r * 0.22, r * 0.11, tilt, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
-  if (open <= 0.02) return;
+  if (open <= 0.02) return null;
   const p = new Path2D();
   p.ellipse(at.x, at.y, r * 0.17, r * 0.075 * open, tilt, 0, Math.PI * 2);
   const look = Math.sin(time * 0.6) * r * 0.04;
@@ -125,6 +126,7 @@ export function drawEye(
   ctx.restore();
   strokeGlow(ctx, p, faded(PALETTE.podRim, fade), STROKE.inner, 0.7 * fade);
   drawGlint(ctx, { x: at.x - r * 0.05, y: at.y - r * 0.02 * open }, r * 0.022 * open, fade);
+  return p;
 }
 
 /** The strings of sinew between the two jaws, gone once they are near shut. */

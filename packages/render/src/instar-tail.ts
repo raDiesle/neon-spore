@@ -13,6 +13,7 @@ import { mixHex } from "./hex.js";
 import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look, toward } from "./instar-plate.js";
 import { drawBlade } from "./instar-tail-blade.js";
+import { drawWeak } from "./instar-weak.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawContact } from "./solid-haze.js";
@@ -149,6 +150,7 @@ export function drawTail(ctx: CanvasRenderingContext2D, l: Layout, look: Look, r
     const hide = drawTube(ctx, seen.slice(from, to + 1), SKIN, fade);
     strokeGlow(ctx, hide, faded(PALETTE.hull, fade), STROKE.inner, 0.5 * fade);
     drawHurt(ctx, hide, hurt * fade);
+    drawWeak(ctx, hide, (look.weak?.tail ?? 0) * fade, "tail");
     drawRings(ctx, left, right, r, fade, from, to);
     // Where the tail goes into the rear.
     if (from === 0) drawContact(ctx, hide, 0, 0, r * 0.4, 0.8 * fade);
