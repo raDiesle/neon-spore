@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ab94da2e3 — THE THROAT sways where it hangs free
+
+The gullet's middle rings now swing across, by more than half a tile at the widest, while its root at the top of the frame and its lowest ring (the navigator's cinch, just above the mouth) hold still. A lean about one root would have parted the tube from its mouth, so the throat bows instead: a bow and an S on two wanders from its own seed, driven off the beat. The sway lives in `rings()`, so the skin, the captions, THE SLOW's aim and the cinch all read the ring as drawn. Exempt as a look with no shipped alternative: the gullet had no movement of its own.
+
 ## 2026-09-27 · 186cc3622 — THE VALVE's ten states are posed in the director, played by its hand
 
 The nine still owed — turn, hold, frozen, list, jet, brace, wipe, seal and open — are run to with `valveHand` on the grip's own commands, and struck from `boss-states.test.ts`'s OWED. The queue entry is cut down to the story's words and bursts. A director card, not a frame of the game: no look.

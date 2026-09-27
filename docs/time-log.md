@@ -27527,3 +27527,5 @@ Bottleneck: friction — the card form's rules surfaced one failure per run.
 
 Bottleneck: looking. The frames run loses THE THROAT's wave by 17 s, so
 the bow's peak had to be found before it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
