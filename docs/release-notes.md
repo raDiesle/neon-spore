@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · bd30a8b9a — THE GRINDSTONE's flats and jaws have rows in ON THE FIELD
+
+The four handles a thumb has been able to reach since the hands lane landed — the pilot's left flat and jaw, the navigator's right — now have a row each on the tab, a row each in docs/spec/controls.md, and four poses: each seat's flat part ground, and one clamp photographed from both seats. The on-field test places the four targets "field". The first of three lanes of the queue's entry; CYST and DAVIT are left on it.
+
 ## 2026-09-27 · d6003def4 — THE GRINDSTONE's caliper trembles while open, as a VERSUS candidate
 
 The wheel cannot be the part that moves, because how far it has been ground is read off its cut faces. `grindstone:jaw` / `tremble` moves the caliper instead. Each open jaw trembles a hair at its tip about the crown bolt, the two jaws a fifth of a cycle apart, and goes dead still as it bears on the stone. The jaw is now drawn through a record, `GRINDSTONE_JAW`, and the candidate turns the shipped jaw rather than copying it. THE GRINDSTONE also gets the four state cards it was still owed on the STATES sheet (still, lit, rest, free), struck from `OWED`. The candidate is judged on the still.
