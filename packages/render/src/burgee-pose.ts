@@ -70,17 +70,18 @@ export function burgeeAsked(s: BurgeeState, cfg: SimConfig, beatPhase: number): 
  * How the flag is laid: streamed out behind its boom by its drawn speed,
  * turned with the field (`across` is the sign of a column's pixels), opened
  * by as much, and rippled — quick and shallow while it streams, long and
- * slow for a flutter left by a swipe that caught nothing.
+ * slow for a flutter left by a swipe that caught nothing, a quick shiver for
+ * a tap off the mark — and a catch pulls it open and flat for a moment.
  */
 export function burgeeLay(fx: BurgeeFx, across: number, time: number): FlagLay {
-  const lean = fx.lean * Math.sign(across || 1);
+  const lean = fx.flag.lean * Math.sign(across || 1);
   const out = Math.abs(lean);
-  const limp = fx.limp;
+  const { limp, flap, taut } = fx;
   return {
-    angle: lean * STREAM + (1 - out) * SWAY * Math.sin(time * SWAY_RATE),
-    open: Math.min(1, 0.25 + 0.75 * out + 0.35 * limp),
-    ripple: 0.05 + 0.1 * out + 0.26 * limp,
-    wave: time * (2.4 + 7 * out - 1.2 * limp),
+    angle: lean * STREAM + (1 - out) * (1 - taut) * SWAY * Math.sin(time * SWAY_RATE),
+    open: Math.min(1, 0.25 + 0.75 * out + 0.35 * limp + taut),
+    ripple: (0.05 + 0.1 * out + 0.26 * limp + 0.14 * flap) * (1 - 0.85 * taut),
+    wave: time * (2.4 + 7 * out - 1.2 * limp + 9 * flap),
     time,
   };
 }

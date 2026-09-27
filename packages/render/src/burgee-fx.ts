@@ -1,85 +1,179 @@
-import type { SimEvent } from "@neon-spore/sim";
+import { midCol, type SimConfig, type SimEvent } from "@neon-spore/sim";
+import { BossHurt } from "./boss-hurt.js";
+import { BurgeeFlag } from "./burgee-flag.js";
+import { burgeePivot, burgeeSpindleAt, burgeeTip } from "./burgee-shape.js";
+import type { Burst } from "./effects-boss.js";
+import type { Layout } from "./layout.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * What THE BURGEE keeps between frames (§11.56): **the flag where it is
- * drawn**, eased toward where the simulation says it is, and the limp
- * flutter a mistimed swipe leaves in it.
+ * drawn** (`burgee-flag.ts`), what its receipts leave in the body for a
+ * moment, and the bursts its fifteen events throw.
  *
- * **The flag eases into stillness; it never snaps to a stop** (§39,
- * *Animation*). The simulation moves the flag once a beat and a freeze can
- * land at any instant of one, so the place the drawer asks for jumps — from
- * moving to held — the frame a freeze lands. The drawn flag is carried toward
- * that place at `EASE` a second rather than put there, and how fast it is
- * going is what streams the canvas out behind it (`burgee-pose.ts`): a flag
- * slowing is a flag falling limp.
- *
- * **A flutter is slow and has no snap**: `burgeeFlutter` — a lift that
- * caught nothing — starts a long low ripple that dies away, where a catch
- * would pull the flag taut. The first frame puts the flag where it is asked
- * for, so a wave begun or a restart never shows it sliding in from the
- * middle. Cleared in `Effects.reset()`.
+ * **What the receipts leave**: a freeze's **snap**, a ring thrown off the
+ * mark; a tap off the mark's **flap**, a quick shiver down the canvas; a
+ * **limp** flutter, long and slow with no snap, for a swipe that caught
+ * nothing and, less of it, for a catch run out; a catch's **taut** crack,
+ * the canvas pulled open and flat; the spindle's **light** as both catches
+ * are in; and its **flash** on a hit, wider for every hit. A catch, a
+ * recatch and a hit are a step landed, so each deals the blow every boss
+ * takes (`boss-hurt.ts`), and a freeze on the mark, a correct hit short of
+ * a catch, the lighter jab. The shot's colour is the lit step's and not in
+ * `burgeeHit`, so the drawer tells it every frame (`tell`). **Both screens
+ * are thrown the same.** Cleared in `Effects.reset()`.
  */
 
-/** How fast the drawn flag closes on where it is asked to be, per second. */
-const EASE = 9;
-/** How fast its speed is smoothed into the stream, per second. */
-const STREAM_EASE = 6;
-/** The speed, in thousandths of a column a second, at which the flag streams straight out. */
-const FULL_SPEED = 1800;
-/** How fast a flutter's ripple dies away, per second. */
+/** How fast a flutter dies away, and a freeze's snap, a flap, a catch's crack, the light and a hit's flash, per second. */
 const LIMP_DECAY = 0.7;
+const SNAP_DECAY = 3;
+const FLAP_DECAY = 3.5;
+const TAUT_DECAY = 2.2;
+const LIGHT_DECAY = 1.5;
+const FLASH_DECAY = 3;
+/** How much of a flutter a catch run out leaves: the flag sagging as it swings on. */
+const SWAY_LIMP = 0.55;
 
 export class BurgeeFx {
-  private drawnMilli: number | null = null;
-  private askedMilli = 0;
-  private leanNow = 0;
   private limpNow = 0;
-
-  /** Where the flag is drawn, thousandths of a column off the middle. */
-  get swing(): number {
-    return this.drawnMilli ?? this.askedMilli;
-  }
-
-  /**
-   * How far the flag streams, and which way, in the field's columns: -1
-   * straight out toward the lower columns, 1 toward the higher, nought
-   * hanging limp. It trails the way the flag is going, so it is the
-   * opposite of its speed; the pose turns it with the field.
-   */
-  get lean(): number {
-    return this.leanNow;
-  }
+  private snapNow = 0;
+  private snapCol = 0;
+  private flapNow = 0;
+  private tautNow = 0;
+  private lightNow = 0;
+  private flashNow = 0;
+  private flashHits = 0;
+  private shotHex: string = PALETTE.hullRim;
+  /** The flag where it is drawn, eased. */
+  readonly flag = new BurgeeFlag();
+  /** The blow a catch, a recatch and a hit deal the burgee, and a freeze's jab. */
+  readonly hurt = new BossHurt();
 
   /** How much of a flutter is still in the canvas, 1 as it starts and 0 gone. */
   get limp(): number {
     return this.limpNow;
   }
 
-  /** The drawer's word for where the flag is asked to be this frame. */
-  aim(swingMilli: number): void {
-    this.askedMilli = swingMilli;
-    if (this.drawnMilli === null) this.drawnMilli = swingMilli;
+  /** A freeze's snap off the mark: how much is left of it, 0..1, and the column it landed over. */
+  get snap(): { now: number; col: number } {
+    return { now: this.snapNow, col: this.snapCol };
   }
 
-  ingest(events: readonly SimEvent[]): void {
-    for (const e of events) if (e.type === "burgeeFlutter") this.limpNow = 1;
+  /** A tap off the mark's shiver down the canvas, a catch's pull taut, and the spindle lighting, each 0..1. */
+  get flap(): number {
+    return this.flapNow;
+  }
+  get taut(): number {
+    return this.tautNow;
+  }
+  get light(): number {
+    return this.lightNow;
+  }
+
+  /** The spindle hit's flash: how bright it still is, 0..1, and the hit it was. */
+  get flash(): { now: number; hits: number } {
+    return { now: this.flashNow, hits: this.flashHits };
+  }
+
+  /** The drawer's word for the colour the spindle is lit, which `burgeeHit` does not carry. */
+  tell(shotHex: string): void {
+    this.shotHex = shotHex;
+  }
+
+  ingest(
+    events: readonly SimEvent[],
+    l: Layout,
+    cfg: SimConfig,
+    _beatSeconds: number,
+    burst: Burst,
+  ): void {
+    for (const e of events) {
+      if (!e.type.startsWith("burgee")) continue;
+      const spindle = burgeeSpindleAt(l, cfg);
+      const mark = "col" in e ? burgeeTip(l, cfg, (e.col - midCol(cfg)) * 1000) : spindle;
+      switch (e.type) {
+        case "burgeeEnter": {
+          const pivot = burgeePivot(l, cfg);
+          burst(pivot.x, pivot.y, 10, PALETTE.burgeeSteelDark);
+          break;
+        }
+        case "burgeeFreeze":
+          burst(mark.x, mark.y, 5, PALETTE.hullRim);
+          this.snapNow = 1;
+          this.snapCol = e.col;
+          this.hurt.jab();
+          break;
+        case "burgeeFlap":
+          burst(mark.x, mark.y, 3, PALETTE.burgeeCanvasDark);
+          this.flapNow = 1;
+          break;
+        case "burgeeLapse":
+          burst(mark.x, mark.y, 4, PALETTE.burgeeCanvasDark);
+          break;
+        case "burgeeFlutter":
+          burst(mark.x, mark.y, 3, PALETTE.burgeeCanvas);
+          this.limpNow = 1;
+          break;
+        case "burgeeCatch":
+        case "burgeeRecatch":
+          burst(mark.x, mark.y, 9, PALETTE.burgeeCanvasCaught);
+          this.tautNow = 1;
+          this.limpNow = 0;
+          this.hurt.hit();
+          break;
+        case "burgeeSway":
+          burst(mark.x, mark.y, 5, PALETTE.burgeeCanvasDark);
+          this.limpNow = Math.max(this.limpNow, SWAY_LIMP);
+          break;
+        case "burgeeSpindle":
+          burst(spindle.x, spindle.y, 12, PALETTE.hullRim);
+          this.lightNow = 1;
+          break;
+        case "burgeeDim":
+          burst(spindle.x, spindle.y, 6, PALETTE.burgeeSteelDark);
+          break;
+        case "burgeeHit":
+          burst(spindle.x, spindle.y, 8 + 6 * e.hits, this.shotHex);
+          this.flashNow = 1;
+          this.flashHits = e.hits;
+          this.hurt.hit();
+          break;
+        case "burgeeMiss":
+          burst(spindle.x, spindle.y, 8, PALETTE.burgeeSteelDark);
+          break;
+        case "burgeeSpent":
+          burst(spindle.x, spindle.y, 16, PALETTE.burgeeSteel);
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.limpNow = Math.max(0, this.limpNow - LIMP_DECAY * step);
-    if (this.drawnMilli === null || step <= 0) return;
-    const before = this.drawnMilli;
-    this.drawnMilli += (this.askedMilli - before) * (1 - Math.exp(-EASE * step));
-    const speed = (this.drawnMilli - before) / step;
-    const lean = Math.max(-1, Math.min(1, -speed / FULL_SPEED));
-    this.leanNow += (lean - this.leanNow) * (1 - Math.exp(-STREAM_EASE * step));
+    this.snapNow = Math.max(0, this.snapNow - SNAP_DECAY * step);
+    this.flapNow = Math.max(0, this.flapNow - FLAP_DECAY * step);
+    this.tautNow = Math.max(0, this.tautNow - TAUT_DECAY * step);
+    this.lightNow = Math.max(0, this.lightNow - LIGHT_DECAY * step);
+    this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
+    if (this.flashNow === 0) this.flashHits = 0;
+    this.hurt.update(dt);
+    this.flag.update(dt);
   }
 
   clear(): void {
-    this.drawnMilli = null;
-    this.askedMilli = 0;
-    this.leanNow = 0;
     this.limpNow = 0;
+    this.snapNow = 0;
+    this.snapCol = 0;
+    this.flapNow = 0;
+    this.tautNow = 0;
+    this.lightNow = 0;
+    this.flashNow = 0;
+    this.flashHits = 0;
+    this.shotHex = PALETTE.hullRim;
+    this.hurt.clear();
+    this.flag.clear();
   }
 }

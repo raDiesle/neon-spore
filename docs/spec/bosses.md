@@ -10383,9 +10383,10 @@ the spindle and holds the flag; a shot wants its colour and the middle
 column; either seat may freeze a recatch; a recatch run out dims the
 spindle until it is made; a fire step run out is the wave; and the whole
 script swings the flag spent and out. `render/test/burgee-frame.test.ts`
-proves the body on every screen. **Nothing on a phone sends a tap or a
-draw yet, AUTO has no hand, and the events throw no burst** — each is a
-queued lane of its own. Whether a freeze on one phone answered by a swipe
+proves the body on every screen, `burgee-receipts.test.ts` the receipts
+and `boss-strike.test.ts` the blow. **Nothing on a phone sends a tap or a
+draw yet, and AUTO has no hand** — a queued lane of its own, so no play
+reaches a catch or the spindle and the receipts are proven only set. Whether a freeze on one phone answered by a swipe
 on the other *reads* at tempo is the owner's eye, on two real phones.
 
 **The look** (`render/src/burgee-draw.ts`, 27 September 2026 — the body).
@@ -10416,6 +10417,20 @@ ring closing while one is owed, one going dark and the spindle a little
 thinner for every shot (`coreHurt`); a guarded recatch dims the spindle
 until it is made. Hues: steel and a canvas tan, `burgeeSteel` to
 `burgeeCanvasCaught` (`palette-creatures-late.ts`).
+
+**The receipts and the blow** (`render/src/burgee-fx.ts`,
+`burgee-receipts.ts`, `burgee-blow.ts`, 27 September 2026). A freeze on the
+mark throws a white ring wide off it and deals the lighter jab; a tap off
+the mark sends a quick shiver down the canvas; a swipe that caught nothing
+leaves the long slow flutter, and a catch run out a little of it, the flag
+sagging as it swings on. A catch or a recatch cracks the canvas taut — pulled
+open and flat, white strokes flung off the hoist — and deals the blow every
+boss takes; both catches in flare the spindle white. A hit washes the
+spindle white and throws a ring off it, wider for every hit, and reddens it.
+**The blow**: a spindle left unshot tears a scrap off the fly of the flag
+held over the middle, COMMA at under half its size, which falls the way
+cloth falls — rocking and turning over down the middle column — and lands
+plastered flat on the skin, its fly still rippling as it fades.
 
 ## Retired
 

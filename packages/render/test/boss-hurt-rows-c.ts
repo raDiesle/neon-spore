@@ -39,4 +39,22 @@ export const HURT_ROWS_C: Row[] = [
     hit: "every close and every root shot is landed",
     hurt: (fx) => fx.boss.gall.hurt,
   },
+  {
+    boss: "burgee",
+    // A catch, a recatch and the spindle hit; a tap off the mark or a swipe that caught nothing only works toward one.
+    land: [
+      { type: "burgeeCatch", side: 1, catches: 1, col: 3 },
+      { type: "burgeeRecatch", side: 0, col: 5 },
+      { type: "burgeeHit", hits: 1, col: 4 },
+    ],
+    part: [
+      { type: "burgeeLight", ask: "catch", offset: -1, col: 3 },
+      { type: "burgeeFlap", side: 0, col: 3 },
+      { type: "burgeeFlutter", side: 1, col: 3 },
+      { type: "burgeeSway", col: 3 },
+    ],
+    // The flag tapped still on the mark, the catch not yet made.
+    hit: [{ type: "burgeeFreeze", side: 0, col: 3 }],
+    hurt: (fx) => fx.boss.burgee.hurt,
+  },
 ];

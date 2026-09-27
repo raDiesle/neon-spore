@@ -84,6 +84,11 @@ export function burgeeTip(
   return { x: pivot.x + dx, y: pivot.y + Math.cos(angle) * long, angle };
 }
 
+/** The flag's length from hoist to fly, in pixels. */
+export function burgeeFlagLong(l: Layout): number {
+  return FLAG_LONG * l.tile;
+}
+
 /** The spindle's half-height, in pixels: how far each swell is from the next. */
 export function burgeeSpindleTall(l: Layout): number {
   return SPINDLE_TALL * l.tile;

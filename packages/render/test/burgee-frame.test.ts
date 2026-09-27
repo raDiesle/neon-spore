@@ -28,6 +28,7 @@ beforeAll(() => {
   for (const role of ROLES) frame(role, () => {});
 });
 
+const L = computeLayout(VIEWPORT, CFG, "test");
 const TAN = mixHex(PALETTE.burgeeCanvas, PALETTE.burgeeCanvasCaught, 0);
 const CAUGHT = mixHex(PALETTE.burgeeCanvas, PALETTE.burgeeCanvasCaught, 1);
 
@@ -117,34 +118,34 @@ describe("THE BURGEE's flag, eased", () => {
 
   it("puts the flag where it is asked on the first frame, and eases it there after", () => {
     const fx = new BurgeeFx();
-    fx.aim(400);
-    expect(fx.swing).toBe(400);
-    fx.aim(-600);
+    fx.flag.aim(400);
+    expect(fx.flag.swing).toBe(400);
+    fx.flag.aim(-600);
     fx.update(1 / 60);
-    expect(fx.swing).toBeLessThan(400);
-    expect(fx.swing).toBeGreaterThan(-600);
+    expect(fx.flag.swing).toBeLessThan(400);
+    expect(fx.flag.swing).toBeGreaterThan(-600);
     for (let i = 0; i < 120; i++) fx.update(1 / 60);
-    expect(fx.swing).toBeCloseTo(-600, 0);
+    expect(fx.flag.swing).toBeCloseTo(-600, 0);
   });
 
   it("streams the flag behind the way it goes, and lets it fall limp as it stops", () => {
     const fx = new BurgeeFx();
-    fx.aim(-1000);
+    fx.flag.aim(-1000);
     for (let i = 0; i < 30; i++) {
-      fx.aim(-1000 + i * 60);
+      fx.flag.aim(-1000 + i * 60);
       fx.update(1 / 60);
     }
     // Going toward the higher columns, it trails toward the lower.
-    expect(fx.lean).toBeLessThan(-0.3);
+    expect(fx.flag.lean).toBeLessThan(-0.3);
     for (let i = 0; i < 120; i++) fx.update(1 / 60);
-    expect(Math.abs(fx.lean)).toBeLessThan(0.05);
+    expect(Math.abs(fx.flag.lean)).toBeLessThan(0.05);
   });
 
   it("flutters long and slow for a swipe that caught nothing, and it dies away", () => {
     const fx = new BurgeeFx();
-    fx.aim(0);
+    fx.flag.aim(0);
     const still = burgeeLay(fx, 1, 2);
-    fx.ingest([{ type: "burgeeFlutter", side: 1, col: 4 }]);
+    fx.ingest([{ type: "burgeeFlutter", side: 1, col: 4 }], L, CFG, 0.5, () => {});
     expect(fx.limp).toBe(1);
     expect(burgeeLay(fx, 1, 2).ripple).toBeGreaterThan(still.ripple);
     for (let i = 0; i < 180; i++) fx.update(1 / 60);
@@ -153,9 +154,9 @@ describe("THE BURGEE's flag, eased", () => {
 
   it("is left indistinguishable from a fresh one by a clear", () => {
     const fx = new BurgeeFx();
-    fx.aim(300);
-    fx.aim(-300);
-    fx.ingest([{ type: "burgeeFlutter", side: 0, col: 4 }]);
+    fx.flag.aim(300);
+    fx.flag.aim(-300);
+    fx.ingest([{ type: "burgeeFlutter", side: 0, col: 4 }], L, CFG, 0.5, () => {});
     fx.update(1 / 60);
     expect(fx).not.toEqual(new BurgeeFx());
     fx.clear();

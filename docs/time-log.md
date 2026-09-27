@@ -26475,3 +26475,18 @@ frames and each strip is a full render.
 Bottleneck: landing — the full check is most of the lane's wall time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE BURGEE tears a scrap off its flag, and its receipts snap, crack and flash
+
+- reading: 5 min. THE GALL's receipts commit as the template, and the
+  fifteen events.
+- writing: 20 min. The receipts in `burgee-fx.ts`, the eased flag split out
+  to `burgee-flag.ts`, the blow, the receipts' drawing, their tests and the
+  hurt row.
+- looking: 0 min. No play reaches a catch or the spindle without a touch
+  sender or an AUTO hand.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, the spec.
+
+Bottleneck: writing. `burgee-fx.ts` reached 220 lines with the receipts in,
+and the flag's ease had to be cut out into a file of its own mid-lane.

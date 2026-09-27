@@ -6,8 +6,10 @@ import {
   burgeeFreezes,
   burgeeFrozen,
   burgeeLitStep,
+  midCol,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import type { BurgeeFx } from "./burgee-fx.js";
 import { drawBurgeeRing, drawBurgeeStuds, drawBurgeeTrack } from "./burgee-marks.js";
 import {
@@ -19,6 +21,7 @@ import {
   burgeeSpent,
   burgeeSpindleGlow,
 } from "./burgee-pose.js";
+import { drawBurgeeCrack, drawBurgeeFlash, drawBurgeeSnap } from "./burgee-receipts.js";
 import {
   burgeeColumnPx,
   burgeeFlagPath,
@@ -65,7 +68,9 @@ const SEATS = [
  * beat slows the flag to a stop and never snaps it; how fast it is going is
  * what streams it out. **Its health is read off the body** — no bar: the
  * canvas brightens with each catch, and the spindle loses a stud and a
- * little of its girth to every shot.
+ * little of its girth to every shot. What outlives a frame besides — the
+ * receipts' snap, crack, light and flash, and the blow the burgee takes — is
+ * `fx` too, told the shot's colour here.
  */
 export function drawBurgee(
   ctx: CanvasRenderingContext2D,
@@ -78,14 +83,17 @@ export function drawBurgee(
   fx: BurgeeFx,
 ): void {
   const cfg = world.cfg;
-  fx.aim(burgeeAsked(s, cfg, beatPhase));
-  const tip = burgeeTip(l, cfg, fx.swing);
+  fx.flag.aim(burgeeAsked(s, cfg, beatPhase));
+  const tip = burgeeTip(l, cfg, fx.flag.swing);
   const pivot = burgeePivot(l, cfg);
 
   ctx.save();
   ctx.globalAlpha = 1 - 0.5 * burgeeSpent(s, cfg, beat, beatPhase);
-  ctx.translate(0, -(1 - burgeeArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile);
+  const shake = fx.hurt.shakeX(time, l.tile);
+  ctx.translate(shake, -(1 - burgeeArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile);
   if (burgeeCatching(s)) drawHands(ctx, l, world, s, beat, beatPhase, pivot);
+  const snap = fx.snap;
+  drawBurgeeSnap(ctx, l, burgeeTip(l, cfg, (snap.col - midCol(cfg)) * 1000), snap.now);
 
   const boom = new Path2D();
   boom.moveTo(pivot.x, pivot.y);
@@ -98,7 +106,8 @@ export function drawBurgee(
   ctx.strokeStyle = PALETTE.burgeeSteel;
   ctx.stroke(boom);
 
-  const flag = burgeeFlagPath(l, tip, burgeeLay(fx, burgeeColumnPx(l, cfg), time));
+  const lay = burgeeLay(fx, burgeeColumnPx(l, cfg), time);
+  const flag = burgeeFlagPath(l, tip, lay);
   ctx.fillStyle = mixHex(PALETTE.burgeeCanvas, PALETTE.burgeeCanvasCaught, burgeeCaught(s));
   ctx.fill(flag);
   ctx.save();
@@ -108,9 +117,11 @@ export function drawBurgee(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.burgeeCanvasDark, 0.95);
   ctx.stroke(flag);
+  drawHurt(ctx, flag, fx.hurt.value);
+  drawBurgeeCrack(ctx, l, tip, lay.angle, fx.taut);
   drawKnob(ctx, l, tip, 0.1);
 
-  drawSpindle(ctx, l, world, s, beat, beatPhase, time);
+  drawSpindle(ctx, l, world, s, beat, beatPhase, time, fx);
   drawKnob(ctx, l, pivot, 0.13);
   ctx.restore();
 }
@@ -147,7 +158,7 @@ function drawHands(
   drawBurgeeTrack(ctx, l, { x: pivot.x, y }, to, drawn, aimers.length > 0);
 }
 
-/** REVERB on end over the middle column, its studs, and its glow while lit. */
+/** REVERB on end over the middle column, its studs, its glow while lit, and its receipts. */
 function drawSpindle(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -156,6 +167,7 @@ function drawSpindle(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: BurgeeFx,
 ): void {
   const at = burgeeSpindleAt(l, world.cfg);
   const step = burgeeLitStep(s);
@@ -165,6 +177,7 @@ function drawSpindle(
     step?.ask === "fire" && s.spindleLit
       ? { color: step.color, left: burgeeLeft(s, beat, beatPhase) }
       : null;
+  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   ctx.save();
   ctx.translate(at.x, at.y);
   const body = burgeeSpindlePath(l, time, hurt.size);
@@ -179,7 +192,12 @@ function drawSpindle(
   ctx.stroke(body);
   if (lit !== null) strokeGlow(ctx, body, stepColour(lit.color).rim, STROKE.inner, hurt.bright);
   else if (glow > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.inner, 0.5 * glow);
-  drawBurgeeStuds(ctx, l, burgeeSpindleTall(l), s.hits, glow, lit, beatPhase);
+  // Both catches in: the spindle lights with a flare that settles to its glow.
+  if (fx.light > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.outline, fx.light);
+  drawHurt(ctx, body, fx.hurt.value);
+  const tall = burgeeSpindleTall(l);
+  drawBurgeeStuds(ctx, l, tall, s.hits, glow, lit, beatPhase);
+  drawBurgeeFlash(ctx, body, tall, fx.flash);
   ctx.restore();
 }
 

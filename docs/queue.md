@@ -895,26 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §39 THE BURGEE — the blow and the receipts
-
-- **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look
-- **Taken:** 2026-09-27, claude/queue-39-the-burgee-the-look (claim: claude/queue-39-the-burgee-the-blow-and-the-receipts)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/burgee-fx.ts`, `packages/render/src/burgee-draw.ts`
-
-The body is drawn (§11.56, *The look*); the look's second half is left. A
-shot run out is drawn as the default lash: give it its own blow in a new
-burgee-blow.ts, the way `capstan-blow.ts` is THE CAPSTAN's — the fixture's
-own thing thrown down the middle column (the flag torn off the boom's tip,
-say), with its row in `boss-strike-from.ts` and `boss-strike-look.ts` and
-in `boss-strike.test.ts`. Then the receipts, in `burgee-fx.ts`, which is
-already kept in `BossTransients` and reset (`effects-boss.ts`,
-`restart.test.ts`): a flash on the ring for `burgeeFreeze`, the flag
-snapping taut on `burgeeCatch`, a sway on a catch run out, the spindle
-lighting on `burgeeLit` and its flash on `burgeeHit` — taking those events
-out of the two silent lists' reason. `burgeeFlutter` is already read, for
-the limp. `bun run check` proves it; how it reads at tempo stays the
-owner's eye.
-
 ## §39 THE BURGEE — the tap's and the draw's touch, the cue and AUTO
 
 - **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look

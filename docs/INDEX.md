@@ -1101,10 +1101,13 @@ by hand never moves.
 | `packages/render/src/torch-veil.ts` | THE ONE RECORD A CANDIDATE **VEIL** PATCHES |
 | `packages/render/src/bullets.ts` | shots and their tails |
 | `packages/render/src/burgee-draw.ts` | **THE BURGEE**: a canvas pennant on a steel boom hanging from a turned spindle over the middle column |
-| `packages/render/src/burgee-fx.ts` | What THE BURGEE keeps between frames (§11.56): **the flag where it is drawn** |
+| `packages/render/src/burgee-fx.ts` | What THE BURGEE keeps between frames (§11.56): the eased flag, its receipts' snap, flap, crack, light and flash, and the blow it takes |
+| `packages/render/src/burgee-flag.ts` | **THE BURGEE's flag where it is drawn**, eased toward where the simulation says it is (§11.56) |
 | `packages/render/src/burgee-marks.ts` | **THE BURGEE's marks**: what says what a step asks |
 | `packages/render/src/burgee-pose.ts` | **The clock THE BURGEE is posed off** (§39, *Animation*), four poses: the flag sweeping loose |
 | `packages/render/src/burgee-shape.ts` | **THE BURGEE's geometry**: where the spindle stands, where the boom hangs and the paths the three are made of |
+| `packages/render/src/burgee-blow.ts` | **THE BURGEE's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/burgee-receipts.ts` | **What THE BURGEE's receipts are drawn as**, off the numbers `burgee-fx.ts` keeps: a freeze's snap |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |

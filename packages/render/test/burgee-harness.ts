@@ -4,6 +4,7 @@ import {
   type BurgeeStep,
   burgeeBoss,
   createWorld,
+  type SimEvent,
   startWave,
   step,
   ticksPerBeat,
@@ -72,8 +73,11 @@ export function posed(
   return s;
 }
 
-/** The frames of a pose, joined, the world held where it was posed. */
-export function frame(role: ViewRole, arrange: (world: World) => void): string {
+/**
+ * The frames of a pose, joined, the world held where it was posed, with
+ * `thrown` pushed onto the first tick's events.
+ */
+export function frame(role: ViewRole, arrange: (world: World) => void, thrown?: SimEvent): string {
   const world = stood();
   arrange(world);
   const log: string[] = [];
@@ -82,7 +86,9 @@ export function frame(role: ViewRole, arrange: (world: World) => void): string {
     onCanvas: (c) => {
       c.log = log;
     },
-    onTick: () => {},
+    onTick: (tick, w) => {
+      if (tick === 0 && thrown) w.events.push(thrown);
+    },
   });
   return log.join("|");
 }

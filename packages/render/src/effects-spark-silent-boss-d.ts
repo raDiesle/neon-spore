@@ -104,8 +104,8 @@ export const SILENT_BOSS_D = [
   "gallMiss",
   "gallFlat",
   "gallOut",
-  // THE BURGEE's fifteen, no burst from this table until its receipts lane
-  // throws them from `burgee-fx.ts` (`burgee-draw.ts` draws the body).
+  // THE BURGEE's fifteen, no burst from this table: each is thrown above the
+  // loop by its own fx file (`burgee-fx.ts`).
   "burgeeEnter",
   "burgeeLight",
   "burgeeFreeze",
