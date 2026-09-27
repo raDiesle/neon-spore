@@ -50,6 +50,15 @@ export interface Sprite {
   readonly frames: number;
 }
 
+/**
+ * The screen's device pixels per CSS pixel, for a baked painting drawn by a
+ * part that is handed no `Layout` (an iris, a plate's scales, a glob). One on
+ * a host with no screen, as under test.
+ */
+export function screenDpr(): number {
+  return (globalThis as { devicePixelRatio?: number }).devicePixelRatio ?? 1;
+}
+
 /** The step a sprite's height is rounded up to, in device pixels. */
 export const SPRITE_STEP = 8;
 

@@ -14,8 +14,8 @@ import { type SpriteSpec, spritePx, spriteRng, tintedSprite } from "./sprite-bak
  * the lid narrows and clipped to the eye; the pupil, rim and glint stay live
  * over it, so the look still follows the players.
  *
- * Not drawn by the game: offered in VERSUS on `instar:eye`
- * (`tools/versus/candidates/instar-eye/baked`).
+ * The game's iris since 27 September 2026, the owner's pick on VERSUS
+ * `instar:eye` (`tools/versus/DECIDED.md`).
  */
 
 const FIBRES = 56;

@@ -4,6 +4,7 @@ import { rgba } from "./hex.js";
 import { drawEggCrack } from "./instar-egg-crack.js";
 import { SPOTS, SPOTS_NEST } from "./instar-egg-spots.js";
 import { drawGlint } from "./instar-hide.js";
+import { drawBakedNests } from "./instar-nest-baked.js";
 import { instarAt, type Point } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
 import type { Layout } from "./layout.js";
@@ -100,12 +101,17 @@ export function drawNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look):
   NEST_LOOK.paint(ctx, l, look);
 }
 
-/** How the nests are painted: a record VERSUS patches (`tools/versus/candidates/instar-nest`). */
+/**
+ * How the nests are painted: the baked silk and eggs (`instar-nest-baked.ts`),
+ * the owner's pick on VERSUS, 27 September 2026, on the condition that it
+ * costs no more — 74 µs a draw against the 110 µs of `drawnNests`.
+ */
 export const NEST_LOOK: {
   paint: (ctx: CanvasRenderingContext2D, l: Layout, look: Look) => void;
-} = { paint: drawShippedNests };
+} = { paint: drawBakedNests };
 
-function drawShippedNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
+/** The nests as they were drawn before they were baked, strand by strand. */
+export function drawnNests(ctx: CanvasRenderingContext2D, l: Layout, look: Look): void {
   const { f } = look;
   drawNest(ctx, look, instarAt(l, f.nestX, f.nestY), Math.round(f.nest * NEST), SPOTS_NEST, 3);
   drawNest(ctx, look, instarAt(l, f.eggsX, f.eggsY), Math.round(f.eggs * CLUTCH), SPOTS, 7);

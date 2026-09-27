@@ -8,10 +8,11 @@ import { PALETTE } from "./palette.js";
 import { blitFrame, type SpriteSpec, spritePx, spriteRng, tintedSprite } from "./sprite-bake.js";
 
 /**
- * **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`),
- * offered beside `drawNests` in `instar-eggs.ts` and drawing the same places.
+ * **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`), and
+ * what `NEST_LOOK` draws since the owner took it on VERSUS, 27 September 2026,
+ * in the places `drawnNests` in `instar-eggs.ts` drew.
  *
- * The shipped silk is a mound and four threads. Here it is a cocoon: a hundred
+ * The drawn silk is a mound and four threads. Here it is a cocoon: a hundred
  * and sixty strands wound over the mound, clots where they bunch, and dew
  * caught on them in the light — a picture no frame could draw strand by strand,
  * and two blits because it was drawn once. **Two frames, a back and a front**:

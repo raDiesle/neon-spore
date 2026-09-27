@@ -14,8 +14,8 @@ import { type Sprite, type SpriteSpec, spritePx, spriteRng, tintedSprite } from 
  * could afford to stroke over a whole body. It takes the same plate, `Form`
  * and scale size as `drawScales`, so a caller can offer one for the other.
  *
- * Not drawn by the game: offered in VERSUS on every plate `drawScales` lays
- * (`tools/versus/candidates/instar-hide/baked`). The side tube's scales are
+ * Drawn on every plate `drawScales` lays since 27 September 2026, the
+ * owner's pick on VERSUS `instar:hide` (`tools/versus/DECIDED.md`). The side tube's scales are
  * laid round its rings instead (`instar-profile-surface.ts`) and keep theirs.
  */
 

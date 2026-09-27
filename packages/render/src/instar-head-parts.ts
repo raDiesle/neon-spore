@@ -1,9 +1,11 @@
 import { strokeGlow } from "./glow.js";
+import { drawBakedIris } from "./instar-eye-baked.js";
 import { drawGlint } from "./instar-hide.js";
 import { drawHorn } from "./instar-horn.js";
 import type { Point } from "./instar-place.js";
 import { drawSeam, faded } from "./instar-plate.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { screenDpr } from "./sprite-bake.js";
 
 /**
  * **The small parts of THE INSTAR's face**: the horns, the eyes, the fangs and
@@ -61,18 +63,28 @@ export interface EyeIris {
   eye: Path2D;
 }
 
-/** How an iris is painted: the seam VERSUS offers a baked one through (`instar-eye-baked.ts`). */
+/**
+ * How an iris is painted: the baked one (`instar-eye-baked.ts`), the owner's
+ * pick on VERSUS, 27 September 2026 — *looks better, build it into the game*.
+ * `drawnIris` paints one too small to bake.
+ */
 export const IRIS_LOOK: { paint: (ctx: CanvasRenderingContext2D, iris: EyeIris) => void } = {
-  paint: (ctx, { at, r, open, look, fade, eye }) => {
-    ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
-    ctx.fill(eye);
-    // The iris burns hotter round the slit.
-    ctx.fillStyle = faded(PALETTE.ember, fade, 0.55);
-    ctx.beginPath();
-    ctx.ellipse(at.x + look, at.y, r * 0.07, r * 0.07 * open, 0, 0, Math.PI * 2);
-    ctx.fill();
-  },
+  paint: (ctx, iris) => drawBakedIris(ctx, iris, drawnIris, screenDpr()),
 };
+
+/** An iris as it was drawn before it was baked: the gold, hotter round the slit. */
+export function drawnIris(
+  ctx: CanvasRenderingContext2D,
+  { at, r, open, look, fade, eye }: EyeIris,
+): void {
+  ctx.fillStyle = faded(PALETTE.pod, fade, 0.95);
+  ctx.fill(eye);
+  // The iris burns hotter round the slit.
+  ctx.fillStyle = faded(PALETTE.ember, fade, 0.55);
+  ctx.beginPath();
+  ctx.ellipse(at.x + look, at.y, r * 0.07, r * 0.07 * open, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
 
 /** A slanted gold eye with a slit pupil, narrowed as `eye` goes to nought. */
 export function drawEye(

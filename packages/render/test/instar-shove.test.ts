@@ -99,6 +99,9 @@ describe("THE INSTAR's lips under a shove", () => {
       drawFrontHead(ctx as unknown as CanvasRenderingContext2D, look);
       return log.join("|");
     };
+    // The first draw bakes the hide's tile of scales (`instar-hide-baked.ts`),
+    // and the bake's own paths land in the log; every draw after it blits.
+    drawn(0, 0);
     const still = drawn(0, 0);
     expect(drawn(0, 0)).toBe(still);
     expect(drawn(1, 0)).not.toBe(still);

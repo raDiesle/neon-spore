@@ -6,17 +6,12 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { COUNTDOWN_EYE_DRIFT } from "./countdown-eye/drift/index.js";
 import { INTERIOR_DRIFT } from "./creature-body-interior/drift/index.js";
 import { SKIN_DRIFT } from "./creature-skin/drift/index.js";
 import { GRINDSTONE_JAW_TREMBLE } from "./grindstone-jaw/tremble/index.js";
-import { INSTAR_EYE_BAKED } from "./instar-eye/baked/index.js";
 import { INSTAR_HEART_BAKED } from "./instar-heart/baked/index.js";
-import { INSTAR_HIDE_BAKED } from "./instar-hide/baked/index.js";
 import { INSTAR_MOULT_BAKED } from "./instar-moult/baked/index.js";
-import { INSTAR_NEST_BAKED } from "./instar-nest/baked/index.js";
 import { INSTAR_SEAM_BAKED } from "./instar-seam/baked/index.js";
-import { INSTAR_SPIT_BAKED } from "./instar-spit/baked/index.js";
 import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
 import { RATCHET_PLATE_SWAY } from "./ratchet-plate/sway/index.js";
 import { RIME_PANE_GLINT } from "./rime-pane/glint/index.js";
@@ -25,17 +20,12 @@ import { VALVE_PIN_SWAY } from "./valve-pin/sway/index.js";
 import { VISE_KERNEL_TURN } from "./vise-kernel/turn/index.js";
 
 export const VARIANTS: Variant[] = [
-  COUNTDOWN_EYE_DRIFT,
   INTERIOR_DRIFT,
   SKIN_DRIFT,
   GRINDSTONE_JAW_TREMBLE,
-  INSTAR_EYE_BAKED,
   INSTAR_HEART_BAKED,
-  INSTAR_HIDE_BAKED,
   INSTAR_MOULT_BAKED,
-  INSTAR_NEST_BAKED,
   INSTAR_SEAM_BAKED,
-  INSTAR_SPIT_BAKED,
   INSTAR_WING_BAKED,
   RATCHET_PLATE_SWAY,
   RIME_PANE_GLINT,

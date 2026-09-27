@@ -34,16 +34,11 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "instar:hide": "INSTAR · THE JAW HALF PULLED",
   "instar:moult": "INSTAR · BARE",
-  "instar:nest": "INSTAR · THE BROOD",
   "instar:seam": "INSTAR · THE BROOD",
-  "instar:eye": "INSTAR · THE JAW HALF PULLED",
   "instar:heart": "INSTAR · BARE",
-  "instar:spit": "INSTAR · THE GLOBS FALLING",
   "instar:wing": "INSTAR · THE JAW HALF PULLED",
   "creature:body-interior": "BODIES · THE TWO CORES",
-  "countdown:eye": "COUNT · THE NAVIGATOR'S EYE",
   "creature:skin": "BODIES · FOUR KINDS AT ONCE",
   "ratchet:plate": "THE RATCHET · CLIMB",
   "grindstone:jaw": "THE GRINDSTONE · STILL",

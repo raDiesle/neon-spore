@@ -9,8 +9,10 @@ import { smoothstep } from "./ease.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
 import { instarMarkPoint, type Point } from "./instar-place.js";
+import { drawBakedGlob, drawBakedSpark } from "./instar-spit-baked.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { screenDpr } from "./sprite-bake.js";
 
 /**
  * **What the second act throws at the hull**, drawn on its way down while the
@@ -59,40 +61,50 @@ export interface Spark {
   k: number;
 }
 
-/** How a glob and a spark are painted — the seam VERSUS offers a baked look through. */
+/**
+ * How a glob and a spark are painted: the baked fire (`instar-spit-baked.ts`),
+ * the owner's pick on VERSUS, 27 September 2026 — *I prefer it more, bring it
+ * into the game*. The drawn ones below paint anything too small to bake.
+ */
 export const SPIT_LOOK: {
   glob: (ctx: CanvasRenderingContext2D, ball: GlobBall) => void;
   spark: (ctx: CanvasRenderingContext2D, spark: Spark) => void;
 } = {
-  glob: (ctx, { at, r, trail }) => {
-    trail.forEach((p, n) => {
-      const k = n + 1;
-      ctx.fillStyle = rgba(PALETTE.ember, 0.35 * (1 - k / 6));
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, r * (1 - k * 0.13), 0, Math.PI * 2);
-      ctx.fill();
-    });
-    const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 1.8);
-    g.addColorStop(0, rgba(PALETTE.podRim, 0.95));
-    g.addColorStop(0.35, rgba(PALETTE.pod, 0.9));
-    g.addColorStop(0.7, rgba(PALETTE.ember, 0.6));
-    g.addColorStop(1, rgba(PALETTE.ember, 0));
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(at.x, at.y, r * 1.8, 0, Math.PI * 2);
-    ctx.fill();
-  },
-  spark: (ctx, { at, r, flicker }) => {
-    ctx.fillStyle = rgba(PALETTE.ember, 0.35 * flicker);
-    ctx.beginPath();
-    ctx.arc(at.x, at.y, r * 2.4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = rgba(PALETTE.emberRim, 0.95 * flicker);
-    ctx.beginPath();
-    ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
-    ctx.fill();
-  },
+  glob: (ctx, ball) => drawBakedGlob(ctx, ball, drawnGlob, screenDpr()),
+  spark: (ctx, spark) => drawBakedSpark(ctx, spark, drawnSpark, screenDpr()),
 };
+
+/** A glob as it was drawn before the fire was baked: a gradient ball and five discs behind it. */
+export function drawnGlob(ctx: CanvasRenderingContext2D, { at, r, trail }: GlobBall): void {
+  trail.forEach((p, n) => {
+    const k = n + 1;
+    ctx.fillStyle = rgba(PALETTE.ember, 0.35 * (1 - k / 6));
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r * (1 - k * 0.13), 0, Math.PI * 2);
+    ctx.fill();
+  });
+  const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 1.8);
+  g.addColorStop(0, rgba(PALETTE.podRim, 0.95));
+  g.addColorStop(0.35, rgba(PALETTE.pod, 0.9));
+  g.addColorStop(0.7, rgba(PALETTE.ember, 0.6));
+  g.addColorStop(1, rgba(PALETTE.ember, 0));
+  ctx.fillStyle = g;
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, r * 1.8, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+/** A spark as it was drawn before it was baked: a halo and a core. */
+export function drawnSpark(ctx: CanvasRenderingContext2D, { at, r, flicker }: Spark): void {
+  ctx.fillStyle = rgba(PALETTE.ember, 0.35 * flicker);
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, r * 2.4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = rgba(PALETTE.emberRim, 0.95 * flicker);
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, r, 0, Math.PI * 2);
+  ctx.fill();
+}
 
 /** A glob: a ball of fire swelling in the mouth over the first fifth of the
  * window, then arcing out and down to its mark, a trail of flame behind it. */

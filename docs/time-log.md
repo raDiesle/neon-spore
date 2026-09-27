@@ -26060,3 +26060,18 @@ Bottleneck: writing — the spec's head reach and its speed ceilings could not
 both hold, and the numbers had to be worked out before any code.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — VERSUS: THE INSTAR's baked spit, eye, nest and hide, and THE COUNT's wandering core, taken
+
+- reading: 10 min. The five candidates, their records, `versus adopt`'s
+  refusal, and every caller of the baked paintings in `tools/raster`.
+- writing: 15 min. Five records pointed at their paintings, the drawn ones
+  kept as fallbacks, `screenDpr`, the demos and bytes rows, DECIDED.md.
+- looking: 5 min. One frame of THE INSTAR.
+- friction: 5 min. `versus drop` headed every by-hand entry "nothing
+  taken", and the headings were rewritten.
+- landing: 5 min. Two budget rows and a warm-up draw in the shove test.
+
+Bottleneck: `versus adopt` refuses a candidate whose function is inline or
+imported from `packages/render`, which was all five, so every slot was
+taken by hand.

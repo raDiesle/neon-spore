@@ -1,8 +1,10 @@
 import { KEY } from "@neon-spore/content";
 import { rgba } from "./hex.js";
+import { drawBakedScales } from "./instar-hide-baked.js";
 import type { Point } from "./instar-place.js";
 import { PALETTE } from "./palette.js";
 import { speck } from "./solid-tube-screen.js";
+import { screenDpr } from "./sprite-bake.js";
 
 /**
  * **What THE INSTAR's hide is made of**, over the dark plate `drawPlate` lays
@@ -118,10 +120,16 @@ type PaintScales = (
   fade: number,
 ) => void;
 
-/** What lays the scales, read on every call so VERSUS can offer another (`tools/versus`). */
-export const HIDE_LOOK: { paint: PaintScales } = { paint: drawShippedScales };
+/**
+ * What lays the scales: the baked tile (`instar-hide-baked.ts`), the owner's
+ * pick on VERSUS, 27 September 2026 — *this effect is cooler and better*.
+ */
+export const HIDE_LOOK: { paint: PaintScales } = {
+  paint: (ctx, p, form, size, fade) => drawBakedScales(ctx, p, form, size, fade, screenDpr()),
+};
 
-function drawShippedScales(
+/** The scales as they were stroked before the tile was baked, a row of arcs at a time. */
+export function drawnScales(
   ctx: CanvasRenderingContext2D,
   p: Path2D,
   form: Form,

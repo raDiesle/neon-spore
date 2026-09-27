@@ -2802,26 +2802,6 @@ page if it does not.
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
 
-## VERSUS — adopt five: THE INSTAR's spit, eye, nest and hide, and COUNTDOWN's eye
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/versus-decision-queue-ac60fd (claim: claude/queue-versus-adopt-five-the-instars-spit-eye-nest-and)
-- **Files:** `tools/versus/candidates/registry.ts`, `tools/versus/DECIDED.md`, `packages/render/src/instar-spit.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/countdown-look.ts`
-
-The owner, 27 September 2026, picked five. `instar:spit baked` (*I prefer
-it more, bring it into the game*), `instar:eye baked` (*looks better, build it
-into the game*), `instar:nest baked`, `instar:hide baked` (*this effect is
-cooler and better*) and `countdown:eye drift` (*hard to see, but looks
-better, we can use it*). Take each with `bun run versus adopt <slot> <name>
-"<his words>"`. He took the nest on the condition that it costs no more, and
-`bun run sprite` on 27 September gave: nest +2.6 kB gzipped, 0.7 ms baked
-once, 74 µs a draw against the shipped 110 µs; eye +1.4 kB, 0.6 ms, 1.7 µs
-against 1.3 µs. Copy those figures into DECIDED.md. Update the frame and
-budget tests the adoptions move, with a sentence each.
-
-Done when: none of the five is left in the registry, and the frame and
-budget tests are green. `bun run check` proves it.
-
 ## VERSUS — drop four the owner could not tell apart
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

@@ -11,15 +11,17 @@ import {
   drawBakedSpark,
   drawEgg,
   drawEggCrack,
-  drawHideScales,
-  drawNests,
+  drawnGlob,
+  drawnIris,
+  drawnNests,
+  drawnScales,
+  drawnSpark,
   EGG_SPRITE,
   EYE_SPRITE,
   GLOB_SPRITE,
   HEART_LOOK,
   HEART_SPRITE,
   HIDE_SPRITE,
-  IRIS_LOOK,
   NEST_SPRITE,
   PALE_LOOK,
   PALE_SPRITE,
@@ -27,7 +29,6 @@ import {
   RING_LOOK,
   SEAM_SPRITE,
   SPARK_SPRITE,
-  SPIT_LOOK,
   type SpriteSpec,
   WING_LOOK,
   WING_SPRITE,
@@ -108,7 +109,7 @@ export const DEMOS: readonly SpriteDemo[] = [
     threats: [0, 0.9],
     box: [-0.66, -0.5, 0.66, 0.22],
     shipped(ctx, x, y, r, threat, time) {
-      drawNests(ctx, flat(1), look(x, y, r, threat, time));
+      drawnNests(ctx, flat(1), look(x, y, r, threat, time));
     },
     baked(ctx, x, y, r, threat, time, dpr) {
       drawBakedNests(ctx, flat(dpr), look(x, y, r, threat, time));
@@ -123,10 +124,10 @@ export const DEMOS: readonly SpriteDemo[] = [
     threats: [0],
     box: [-0.2, -0.12, 0.2, 0.12],
     shipped(ctx, x, y, r) {
-      IRIS_LOOK.paint(ctx, iris(x, y, r));
+      drawnIris(ctx, iris(x, y, r));
     },
     baked(ctx, x, y, r, _threat, _time, dpr) {
-      drawBakedIris(ctx, iris(x, y, r), IRIS_LOOK.paint, dpr);
+      drawBakedIris(ctx, iris(x, y, r), drawnIris, dpr);
     },
   },
   {
@@ -138,10 +139,10 @@ export const DEMOS: readonly SpriteDemo[] = [
     threats: [0],
     box: [-0.3, -0.4, 0.25, 0.25],
     shipped(ctx, x, y, r, _threat, time) {
-      SPIT_LOOK.glob(ctx, glob(x, y, r, time));
+      drawnGlob(ctx, glob(x, y, r, time));
     },
     baked(ctx, x, y, r, _threat, time, dpr) {
-      drawBakedGlob(ctx, glob(x, y, r, time), SPIT_LOOK.glob, dpr);
+      drawBakedGlob(ctx, glob(x, y, r, time), drawnGlob, dpr);
     },
   },
   {
@@ -169,7 +170,7 @@ export const DEMOS: readonly SpriteDemo[] = [
     box: [-0.66, -0.4, 0.66, 0.4],
     shipped(ctx, x, y, r) {
       const [p, form] = plate(ctx, x, y, r);
-      drawHideScales(ctx, p, form, r * 0.13, 1);
+      drawnScales(ctx, p, form, r * 0.13, 1);
     },
     baked(ctx, x, y, r, _threat, _time, dpr) {
       const [p, form] = plate(ctx, x, y, r);
@@ -215,10 +216,10 @@ export const DEMOS: readonly SpriteDemo[] = [
     threats: [0],
     box: [-0.08, -0.08, 0.08, 0.08],
     shipped(ctx, x, y, r) {
-      SPIT_LOOK.spark(ctx, spark(x, y, r));
+      drawnSpark(ctx, spark(x, y, r));
     },
     baked(ctx, x, y, r, _threat, _time, dpr) {
-      drawBakedSpark(ctx, spark(x, y, r), SPIT_LOOK.spark, dpr);
+      drawBakedSpark(ctx, spark(x, y, r), drawnSpark, dpr);
     },
   },
   {

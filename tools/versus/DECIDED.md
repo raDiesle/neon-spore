@@ -1181,3 +1181,50 @@ Nothing went with the slot this time. `arrive`, `freeze` and `horizon`, and the
 streams (`slow-intake-streams.ts` until today), moved to
 `tools/director/src/effects/slow-light/` and are listed on GRAPHICS → EFFECTS,
 each opening live on `versus.html?effect=slow-light/<name>`.
+
+## `instar:spit` / `baked` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *I prefer it more, bring it into
+the game*. SPIT_LOOK's glob and spark are drawBakedGlob and drawBakedSpark
+(instar-spit-baked.ts); the drawn ball and spark stay as drawnGlob and
+drawnSpark, painting anything too small to bake.
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `instar:eye` / `baked` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *looks better, build it into the
+game*. IRIS_LOOK.paint is drawBakedIris (instar-eye-baked.ts), the drawn gold
+kept as drawnIris for an iris too small to bake. Cost, bun run sprite on 27
+September: +1.4 kB gzipped, 0.6 ms baked once, 1.7 µs a draw against the drawn
+1.3 µs.
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `instar:nest` / `baked` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026, on the condition that it costs
+no more. Cost, bun run sprite on 27 September: +2.6 kB gzipped, 0.7 ms baked
+once, 74 µs a draw against the drawn 110 µs, so a frame pays less.
+NEST_LOOK.paint is drawBakedNests (instar-nest-baked.ts); the strand-by-strand
+nests stay as drawnNests for bun run sprite to compare against.
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `instar:hide` / `baked` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *this effect is cooler and
+better*. HIDE_LOOK.paint is drawBakedScales (instar-hide-baked.ts), one
+pattern fill a plate; the stroked rows stay as drawnScales for bun run sprite
+to compare against.
+
+It was the only answer offered; the slot was closed with `drop`.
+
+## `countdown:eye` / `drift` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *hard to see, but looks better,
+we can use it*. irisOver (countdown-iris.ts) now wanders the core about the
+socket on the body's contour clock, with the candidate's rates and its 0.09
+reach; COUNTDOWN_LOOK is unchanged.
+
+It was the only answer offered; the slot was closed with `drop`.

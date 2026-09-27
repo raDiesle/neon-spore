@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { drawBakedEgg, EGG_SPRITE, stirAt } from "../src/instar-egg-baked.js";
 import { drawBakedIris } from "../src/instar-eye-baked.js";
-import { IRIS_LOOK } from "../src/instar-head-parts.js";
+import { drawnIris } from "../src/instar-head-parts.js";
 import { HEART_LOOK } from "../src/instar-heart.js";
 import { drawBakedHeart } from "../src/instar-heart-baked.js";
 import { drawBakedScales } from "../src/instar-hide-baked.js";
@@ -9,7 +9,7 @@ import { drawBakedPale } from "../src/instar-moult-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
 import type { Look } from "../src/instar-plate.js";
 import { drawBakedSeam } from "../src/instar-seam-baked.js";
-import { SPIT_LOOK } from "../src/instar-spit.js";
+import { drawnGlob, drawnSpark } from "../src/instar-spit.js";
 import { drawBakedGlob, drawBakedSpark } from "../src/instar-spit-baked.js";
 import { drawBakedMembrane } from "../src/instar-wing-baked.js";
 import type { Layout } from "../src/layout.js";
@@ -117,11 +117,11 @@ describe("a sprite baked at load", () => {
       drawBakedIris(
         ctx,
         { at: o, r: 150, open: 1 - threat, look: i, fade: 1 - threat, eye: new Path2D() },
-        IRIS_LOOK.paint,
+        drawnIris,
         3,
       );
-      drawBakedGlob(ctx, { at: o, r: 2 + i, trail: [o, o], time: i / 60, i }, SPIT_LOOK.glob, 3);
-      drawBakedSpark(ctx, { at: o, r: 1 + i / 4, flicker: threat, k: i }, SPIT_LOOK.spark, 3);
+      drawBakedGlob(ctx, { at: o, r: 2 + i, trail: [o, o], time: i / 60, i }, drawnGlob, 3);
+      drawBakedSpark(ctx, { at: o, r: 1 + i / 4, flicker: threat, k: i }, drawnSpark, 3);
       drawBakedHeart(ctx, { at: o, r: 1 + i, thump: threat, a: 1 - threat }, HEART_LOOK.paint, 3);
     }
     expect(stub.calls).toBeGreaterThan(0);

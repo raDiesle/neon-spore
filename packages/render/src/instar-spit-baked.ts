@@ -15,8 +15,8 @@ import { type SpriteSpec, spritePow2, spriteRng, tintedSprite } from "./sprite-b
  * behind. An ember is a soft halo, a hot core and a four-point glint, one
  * `drawImage` where the game draws two discs.
  *
- * Not drawn by the game: offered in VERSUS on `instar:spit`
- * (`tools/versus/candidates/instar-spit/baked`).
+ * The game's fire since 27 September 2026, the owner's pick on VERSUS
+ * `instar:spit` (`tools/versus/DECIDED.md`).
  */
 
 const TONGUES = 14;

@@ -18,6 +18,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * fills and 513 strokes became 289 and 237. The coil and the roar peak at
  * seven tenths, where nothing is left out.
  *
+ * On 27 September 2026 the baked iris and hide were taken off VERSUS: the two
+ * front irises are a blit each (drawImage 30 → 32, fills two fewer) and the
+ * scales one pattern fill a plate instead of a stroked row of arcs (the coil's
+ * strokes 513 → 452, the roar's 524 → 463). The dive is a speck and lays no
+ * scales, so only its irises moved.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -35,9 +41,9 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 451,
-      stroke: 513,
-      drawImage: 30,
+      fill: 449,
+      stroke: 452,
+      drawImage: 32,
       createLinearGradient: 74,
       createRadialGradient: 40,
     },
@@ -45,9 +51,9 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 289,
+      fill: 287,
       stroke: 237,
-      drawImage: 30,
+      drawImage: 32,
       createLinearGradient: 46,
       createRadialGradient: 39,
     },
@@ -55,9 +61,9 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 458,
-      stroke: 524,
-      drawImage: 32,
+      fill: 456,
+      stroke: 463,
+      drawImage: 34,
       createLinearGradient: 91,
       createRadialGradient: 39,
     },

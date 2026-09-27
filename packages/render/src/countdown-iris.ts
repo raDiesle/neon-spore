@@ -1,6 +1,7 @@
 import { countdownIsOpen, countdownMarks, countdownSlots } from "@neon-spore/sim";
 import { countDisc } from "./countdown.js";
 import type { Body } from "./creature-body-in.js";
+import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -21,8 +22,14 @@ import { rgba } from "./hex.js";
  * hole to hit, and while it is closed the thing in the way is the body
  * itself. The blades left are the count, read as a fan from twelve.
  *
- * `irisOver` is on both screens and never moves: the socket and the core.
- * The navigator sees an eye that never blinks.
+ * `irisOver` is on both screens: the socket and the core. The navigator
+ * sees an eye that never blinks, and whose core wanders a hair about the
+ * bottom of the socket on the body's own contour clock, the way a pupil is
+ * never quite still — VERSUS `countdown:eye` / `drift`, the owner's pick of
+ * 27 September 2026 (*hard to see, but looks better, we can use it*). It
+ * still reads nothing of the count. On the pilot's screen the blades cover
+ * the socket until zero, and at zero `irisCount`'s blazing core is drawn over
+ * this one, centred and never narrower than it.
  */
 
 /** The socket's radius as a share of the body's, and the core's. Exported
@@ -31,9 +38,18 @@ export const SOCKET = 0.52;
 export const CORE = 0.17;
 const TAU = Math.PI * 2;
 const TOP = -Math.PI / 2;
+/** The core's wander rates, off every term that already moves a body — the
+ * contour's 0.9, 0.53 and 0.31 and the smoke's 0.9 — so the core is not read
+ * as the outline. */
+const WANDER_X = 0.61;
+const WANDER_Y = 0.47;
+/** How far the core wanders, as a share of the body's radius. The socket
+ * leaves it 0.35 of room; at 0.06 the move was a pixel on a phone and read as
+ * nothing (checked 27 September 2026). */
+const WANDER = 0.09;
 
 export function irisOver(b: Body): void {
-  const { ctx, world, near } = b;
+  const { ctx, world, near, c, time } = b;
   const { cx, cy, r, trio } = countDisc(b);
   ctx.fillStyle = rgba(trio.dark, 0.96);
   ctx.beginPath();
@@ -45,9 +61,12 @@ export function irisOver(b: Body): void {
   ctx.beginPath();
   ctx.arc(cx, cy, r * SOCKET, Math.PI * 0.85, Math.PI * 1.95);
   ctx.stroke();
+  const t = contourClock(c.id, time);
+  const dx = Math.sin(t * WANDER_X) * r * WANDER;
+  const dy = Math.sin(t * WANDER_Y + 1.1) * r * WANDER;
   ctx.fillStyle = hazed(world.cfg, trio.rim, near);
   ctx.beginPath();
-  ctx.arc(cx, cy, r * CORE, 0, TAU);
+  ctx.arc(cx + dx, cy + dy, r * CORE, 0, TAU);
   ctx.fill();
 }
 

@@ -9,22 +9,23 @@ import { join, resolve } from "node:path";
  * under `SPRITE_BYTES_CEILING`.
  */
 
-/** Per sprite: the shipped drawing's module and export, and the baked one's. */
+/** Per sprite: the drawing it is offered against (or, once taken, the drawn
+ * fallback it replaced), its module and export, and the baked one's. */
 export const BYTES: Record<string, { shipped: [string, string]; baked: [string, string] }> = {
   "instar-egg": {
     shipped: ["instar-eggs.ts", "drawEgg"],
     baked: ["instar-egg-baked.ts", "drawBakedEgg"],
   },
   "instar-nest": {
-    shipped: ["instar-eggs.ts", "drawNests"],
+    shipped: ["instar-eggs.ts", "drawnNests"],
     baked: ["instar-nest-baked.ts", "drawBakedNests"],
   },
   "instar-eye": {
-    shipped: ["instar-head-parts.ts", "drawEye"],
+    shipped: ["instar-head-parts.ts", "drawnIris"],
     baked: ["instar-eye-baked.ts", "drawBakedIris"],
   },
   "instar-glob": {
-    shipped: ["instar-spit.ts", "SPIT_LOOK"],
+    shipped: ["instar-spit.ts", "drawnGlob"],
     baked: ["instar-spit-baked.ts", "drawBakedGlob"],
   },
   "instar-heart": {
@@ -32,7 +33,7 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     baked: ["instar-heart-baked.ts", "drawBakedHeart"],
   },
   "instar-hide": {
-    shipped: ["instar-hide.ts", "drawScales"],
+    shipped: ["instar-hide.ts", "drawnScales"],
     baked: ["instar-hide-baked.ts", "drawBakedScales"],
   },
   "instar-moult": {
@@ -44,7 +45,7 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     baked: ["instar-seam-baked.ts", "drawBakedSeam"],
   },
   "instar-spark": {
-    shipped: ["instar-spit.ts", "SPIT_LOOK"],
+    shipped: ["instar-spit.ts", "drawnSpark"],
     baked: ["instar-spit-baked.ts", "drawBakedSpark"],
   },
   "instar-wing": {
