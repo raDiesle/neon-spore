@@ -31,6 +31,8 @@ const ROW = 1.6;
 const BOOM_LEN = 1.9;
 /** How far the chain hangs from the tip when it sags all the way home. */
 const CHAIN_LEN = 1.3;
+/** How far the chain hangs as drawn: all the way home, every frame. */
+export const DAVIT_SAG = 1;
 /** The hook's radius, in tiles. */
 const HOOK_R = 0.3;
 

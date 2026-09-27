@@ -1421,30 +1421,6 @@ reports reaching `valveRubbed` and `held`; and its twelve events off the
 silent lists as each gets its burst.
 Unverified at tempo until the owner has looked.
 
-## THE SLOW's prism still aims at the cannon for thirteen drawn bosses
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
-- **Taken:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou (claim: claude/queue-the-slows-prism-still-aims-at-the-cannon-for-thi)
-- **Files:** `packages/render/src/slow-boss-aim-c.ts`, `packages/render/test/slow-boss-aim-c.test.ts`, `packages/render/src/`
-
-PRISM's promise is *the room splits into its colours, and the boss does
-not*: a point's fringe is as wide as it is far from the aim, and a boss with
-no row in `render/slow-boss-aim.ts` or its pages two and three is aimed at
-the cannon's column at the hull, so one hung at the top of the field is the
-thing split *widest*
-(`bun run frames . --wave 105 --until seamLight --until-on 30`). Page three
-(`slow-boss-aim-c.ts`, 27 September 2026) runs a capsule the long way of
-the extent each boss's caption already rings, and has THE BATON, THE
-CURTAIN, THE GORGE, THE HIVE, THE KEEL, THE LEAD, THE LEDGER, THE RATCHET,
-THE SCUTTLE, THE TASTER, THE THROAT, THE UNDERTOW and THE ANTIPHON. Still
-falling through: THE GRINDSTONE, THE SLING and THE DAVIT, which have been
-drawn since this was filed — the wheel is `grindstoneAxleAt` and
-`grindstoneR` (a round body, page two's `still`), the yoke `slingCentre`
-with its tines (`slingTip`), and the davit a capsule from `davitMast` to
-`davitHook`, each read at the pose its drawer stands it in
-(its pose file). THE SEAM's row rides its hands (*§26 THE SEAM — its hands*),
-which already names it.
-
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e

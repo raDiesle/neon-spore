@@ -6,12 +6,14 @@ import {
   createWorld,
   curtainBody,
   curtainBoss,
+  davitBoss,
   gorgeBoss,
   keelBoss,
   leadBoss,
   ledgerBoss,
   ratchetBoss,
   scuttleBoss,
+  slingBoss,
   startWave,
   tasterBoss,
   throatBoss,
@@ -23,6 +25,8 @@ import { socketPoint, socketReach } from "../src/baton-socket-draw.js";
 import { sides, spread } from "../src/caption-anchor-box.js";
 import { curtainSheetSpan } from "../src/curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "../src/curtain-sheet.js";
+import { davitAngle } from "../src/davit-pose.js";
+import { DAVIT_SAG, davitHook, davitHookRadius, davitMast, davitTip } from "../src/davit-shape.js";
 import { drawnCol } from "../src/depth.js";
 import { gorgeSackBox } from "../src/gorge-draw.js";
 import { hiveBox } from "../src/hive-shape.js";
@@ -39,6 +43,8 @@ import {
 import { ledgerBodyBox, ledgerGap } from "../src/ledger-shape.js";
 import { ratchetLock, ratchetRails } from "../src/ratchet-shape.js";
 import { scuttleFrameBox } from "../src/scuttle-shape.js";
+import { slingArrived, slingGone, slingTension } from "../src/sling-pose.js";
+import { slingCupRadius, slingHandle, slingHome, slingTip } from "../src/sling-shape.js";
 import { capsule } from "../src/slow-boss-aim-c.js";
 import { type Aim, aim } from "../src/slow-intake-aim.js";
 import { tasterFanBox } from "../src/taster-draw.js";
@@ -130,6 +136,35 @@ const WANT: Record<string, (w: World) => Aim> = {
   taster: (w) => capsule(tasterFanBox(L, need(tasterBoss(w), "taster"))),
   throat: (w) =>
     capsule(around(throatGullet(L, CFG, need(throatBoss(w), "throat"), 0, 0), L.tile * GULLET_PAD)),
+  sling: (w) => {
+    const s = need(slingBoss(w), "sling");
+    const home = slingHome(L, CFG, slingGone(s, CFG, 0, 0));
+    const out = slingArrived(s, CFG, 0, 0);
+    const parts = [
+      { x: 0, y: 0 },
+      slingTip(L, 0, out),
+      slingHandle(L, 0, slingTension(w, s, 0, 0, 0)),
+      slingTip(L, 1, out),
+      slingHandle(L, 1, slingTension(w, s, 1, 0, 0)),
+    ];
+    return capsule(
+      around(
+        parts.map((p) => ({ x: home.x + p.x, y: home.y + p.y })),
+        slingCupRadius(L),
+      ),
+    );
+  },
+  davit: (w) => {
+    const angle = davitAngle(need(davitBoss(w), "davit"));
+    const mast = davitMast(L, CFG);
+    const parts = [{ x: 0, y: 0 }, davitTip(L, angle), davitHook(L, angle, DAVIT_SAG)];
+    return capsule(
+      around(
+        parts.map((p) => ({ x: mast.x + p.x, y: mast.y + p.y })),
+        davitHookRadius(L),
+      ),
+    );
+  },
   antiphon: (w) => {
     need(antiphonBoss(w), "antiphon");
     const b = antiphonBox(L, CFG);

@@ -3,6 +3,7 @@ import {
   batonBoss,
   curtainBody,
   curtainBoss,
+  davitBoss,
   gorgeBoss,
   hiveBoss,
   keelBoss,
@@ -10,6 +11,7 @@ import {
   ledgerBoss,
   ratchetBoss,
   scuttleBoss,
+  slingBoss,
   tasterBoss,
   throatBoss,
   undertowBoss,
@@ -20,6 +22,8 @@ import { socketPoint, socketReach } from "./baton-socket-draw.js";
 import { type Box, sides, spread } from "./caption-anchor-box.js";
 import { curtainSheetSpan } from "./curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
+import { davitAngle } from "./davit-pose.js";
+import { DAVIT_SAG, davitHook, davitHookRadius, davitMast, davitTip } from "./davit-shape.js";
 import { drawnCol } from "./depth.js";
 import { gorgeSackBox } from "./gorge-draw.js";
 import { hiveBox } from "./hive-shape.js";
@@ -30,6 +34,8 @@ import { leadAlong, leadAskedAngle, leadFoot, leadRidgeY, leadStalkLength } from
 import { ledgerBodyBox, ledgerGap } from "./ledger-shape.js";
 import { ratchetLock, ratchetRails } from "./ratchet-shape.js";
 import { scuttleFrameBox } from "./scuttle-shape.js";
+import { slingArrived, slingGone, slingTension } from "./sling-pose.js";
+import { slingCupRadius, slingHandle, slingHome, slingTip } from "./sling-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
 import { tasterFanBox } from "./taster-draw.js";
 import { GULLET_PAD, throatGullet } from "./throat-shape.js";
@@ -145,9 +151,36 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const b = antiphonBox(l, cfg);
       return capsule(sides(b.left, b.right, b.top, b.bottom));
     }
+    // The yoke: the crotch, both tines as splayed as it has arrived, and both
+    // cords as far drawn as their seat has them.
+    case "sling": {
+      const s = slingBoss(world);
+      if (s === null) return null;
+      const home = slingHome(l, cfg, slingGone(s, cfg, beat, beatPhase));
+      const out = slingArrived(s, cfg, beat, beatPhase);
+      const parts = [{ x: 0, y: 0 }];
+      for (const side of [0, 1] as const) {
+        const tension = slingTension(world, s, side, beat, beatPhase);
+        parts.push(slingTip(l, side, out), slingHandle(l, side, tension));
+      }
+      return spreadCapsule(offset(home, parts), slingCupRadius(l));
+    }
+    // The boom from the mast's foot to its tip, and the hook on its chain.
+    case "davit": {
+      const s = davitBoss(world);
+      if (s === null) return null;
+      const angle = davitAngle(s);
+      const parts = [{ x: 0, y: 0 }, davitTip(l, angle), davitHook(l, angle, DAVIT_SAG)];
+      return spreadCapsule(offset(davitMast(l, cfg), parts), davitHookRadius(l));
+    }
     default:
       return null;
   }
+}
+
+/** Points laid about a body's own origin, stood where the drawer plants it. */
+function offset(at: { x: number; y: number }, parts: readonly { x: number; y: number }[]) {
+  return parts.map((p) => ({ x: at.x + p.x, y: at.y + p.y }));
 }
 
 /**

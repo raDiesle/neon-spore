@@ -38,6 +38,15 @@ export function slingCentre(l: Layout, cfg: SimConfig): Point {
   return { x: fieldX(l, midCol(cfg)), y: l.gridTop + ROW * l.tile };
 }
 
+/** How far the yoke rises out of the field on its way out, in tiles. */
+const GONE_RISE = 3;
+
+/** The crotch where it stands this frame: home, lifted `gone` of the way out. */
+export function slingHome(l: Layout, cfg: SimConfig, gone: number): Point {
+  const home = slingCentre(l, cfg);
+  return { x: home.x, y: home.y - gone * l.tile * GONE_RISE };
+}
+
 /** Tine `side`'s tip, folded (`out` 0) or splayed to its full stand (`out` 1). */
 export function slingTip(l: Layout, side: 0 | 1, out: number): Point {
   const flip = side === 0 ? -1 : 1;

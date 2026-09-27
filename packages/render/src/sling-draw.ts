@@ -12,7 +12,7 @@ import {
   slingTension,
   slingWindowLeft,
 } from "./sling-pose.js";
-import { slingCentre, slingTinePath } from "./sling-shape.js";
+import { slingHome, slingTinePath } from "./sling-shape.js";
 
 /**
  * **THE SLING** (§32): a forked bracket over the middle column, folded until
@@ -36,11 +36,11 @@ export function drawSling(
   const cfg = world.cfg;
   const arrived = slingArrived(s, cfg, beat, beatPhase);
   const gone = slingGone(s, cfg, beat, beatPhase);
-  const home = slingCentre(l, cfg);
+  const home = slingHome(l, cfg, gone);
 
   ctx.save();
   ctx.globalAlpha = arrived * (1 - gone);
-  ctx.translate(home.x, home.y - gone * l.tile * 3);
+  ctx.translate(home.x, home.y);
 
   const step = slingLitStep(s);
   for (const side of [0, 1] as const) {

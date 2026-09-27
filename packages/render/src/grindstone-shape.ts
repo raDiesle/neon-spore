@@ -148,6 +148,11 @@ function hoodRadii(l: Layout, shut: number): { outer: number; inner: number } {
   return { outer, inner: outer - r * HOOD_THICK };
 }
 
+/** How far the caliper stands out from the axle, `shut` of the way bitten: the whole body's reach. */
+export function grindstoneReach(l: Layout, shut: number): number {
+  return hoodRadii(l, shut).outer;
+}
+
 /** The bolt the jaws hang from: the crown of the caliper. */
 export function grindstoneBolt(l: Layout, shut: number): Point {
   const { outer, inner } = hoodRadii(l, shut);

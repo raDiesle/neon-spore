@@ -7,7 +7,7 @@ import {
   drawDavitMast,
 } from "./davit-marks.js";
 import { davitAngle, davitPivotGlow, davitStood, davitWindowLeft } from "./davit-pose.js";
-import { davitMast } from "./davit-shape.js";
+import { DAVIT_SAG, davitMast } from "./davit-shape.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -31,7 +31,7 @@ export function drawDavit(
   const mast = davitMast(l, cfg);
   const stood = davitStood(s, beat, beatPhase, cfg.davitStillBeats);
   const angle = davitAngle(s);
-  const sag = 1;
+  const sag = DAVIT_SAG;
 
   ctx.save();
   ctx.globalAlpha = stood;

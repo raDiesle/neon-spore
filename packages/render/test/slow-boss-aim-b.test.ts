@@ -3,6 +3,7 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   filamentBoss,
+  grindstoneBoss,
   sinewBoss,
   startWave,
   surgeBoss,
@@ -10,6 +11,8 @@ import {
 } from "@neon-spore/sim";
 import { filamentHeart } from "../src/filament-heart.js";
 import { filamentStrands } from "../src/filament-shape.js";
+import { grindstoneArrived, grindstoneFree, grindstoneShut } from "../src/grindstone-pose.js";
+import { grindstoneAxleAt, grindstoneReach } from "../src/grindstone-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { rimeCentre, rimeRadius } from "../src/rime-shape.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "../src/sinew-shape.js";
@@ -56,6 +59,20 @@ describe("THE SLOW's aim at a boss, page two", () => {
   ] as const)("stands round THE %s's whole body, over the field", (kind, want) => {
     const at = aim(stood(kind), L, 0, 0);
     expect(at).toEqual(want());
+    expect(at.y).toBeLessThan(L.hullY - 2 * L.tile);
+  });
+
+  it("stands round THE GRINDSTONE's wheel where it stands, as wide as its caliper", () => {
+    const world = stood("grindstone");
+    const s = need(grindstoneBoss(world), "grindstone");
+    const axle = grindstoneAxleAt(
+      L,
+      CFG,
+      grindstoneArrived(s, CFG, 0, 0),
+      grindstoneFree(s, CFG, 0, 0),
+    );
+    const at = aim(world, L, 0, 0);
+    expect(at).toEqual(round(axle, grindstoneReach(L, grindstoneShut(world, s, 0, 0))));
     expect(at.y).toBeLessThan(L.hullY - 2 * L.tile);
   });
 

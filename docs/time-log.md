@@ -25498,3 +25498,16 @@ Bottleneck: reading — the status lists in `bosses-choreographed.md` lag the
 files too, so every claim was read off the tree rather than off them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLOW's aim for THE GRINDSTONE, THE SLING and THE DAVIT
+
+- reading: 10 min. The three drawers, to read each body at the pose they
+  stand it in, and the grindstone's caliper geometry.
+- writing: 10 min. Three rows; `grindstoneReach`, `slingHome` and `DAVIT_SAG`
+  exported and called by their drawers; the two tests.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the queue said these three had no look, and they had
+been drawn since; finding that out was the first ten minutes.
