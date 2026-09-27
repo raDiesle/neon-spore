@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1c82de73f — THE CAPSTAN throws a cog at the hull, and its receipts flare, ring and flash
+
+A step THE CAPSTAN is let run now throws a tooth off the drum. A small cog, BEARING RING at a quarter of the size, spins down the middle column from the cradle's foot, bites the skin and rusts away. Until now it was the default lash. Each worn reversal flares its face bare metal. A band worn bright throws a ring off its rim. A window run out knocks the drum down in its cradle. A hit flashes the core white. A band gone bright, a hold kept and a hit each deal the drum the shake and red that every boss takes.
+
 ## 2026-09-27 · a7b3158de — THE CURTAIN's hem and THE CYST's lobes are pieces with joints
 
 THE CURTAIN's hem is now a scallop a column, each with the joint it hangs from (`curtainHem`, in its own `curtain-hem.ts`), and THE CYST's sac is its four lobes, each a run of the outline with a joint at the waist where it parts from its neighbours (`cystLobes`). Both are laid back into their body's one outline, so nothing gets a seam; a pixel test for each fills the old outline and the new at every state and finds them equal. Nothing the game draws changes.
