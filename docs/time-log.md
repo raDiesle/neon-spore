@@ -27875,3 +27875,17 @@ Bottleneck: writing. The value was read in four files and two documents,
 and each carried its own sentence about the hardware.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE RIME's bare core, a painted atlas behind `?raster=1`
+
+- reading: 5 min. THE RIME's events, drawing and shape, and the VISE lane's
+  own path through the generator.
+- writing: 10 min. The painter, one bake and one assets test for every
+  strip, `RimeFx`, the one binder the four flags share, the tests and the doc.
+- looking: 5 min. The sixteen frames twice: the first bake cut flakes square
+  at the frame's edge.
+- friction: 0 min.
+- landing: 5 min. `raster:verify`, `check:fast`, the commit, `land`.
+
+Bottleneck: looking. The first bake was a fix waiting to be seen — flakes
+flew past the frame — and only a picture showed it.

@@ -26,6 +26,7 @@ import { OculusFx } from "./oculus-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
+import { RimeFx } from "./rime-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
@@ -187,6 +188,8 @@ export class BossRoster {
    * screens, and told the kernel's colour by the drawer (`vise-fx.ts`,
    * `vise-draw.ts`). */
   readonly vise = new ViseFx();
+  /** THE RIME's painted clearing over the bare core (`rime-fx.ts`). */
+  readonly rime = new RimeFx();
   /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
    * the hull shock, and its receipts' bursts — thrown the same on both
    * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,

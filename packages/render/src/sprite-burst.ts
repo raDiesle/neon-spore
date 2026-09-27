@@ -40,6 +40,12 @@ export const BURST_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 40
  */
 export const VISE_CRACK_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 45 };
 
+/**
+ * THE RIME's frost clearing off the pane, the same way again (`rime-fx.ts`
+ * plays it as the core lies bare).
+ */
+export const RIME_CLEAR_SHEET: SpriteSheet = { frames: 16, frameSize: 128, frameMs: 50 };
+
 interface LiveBurst {
   x: number;
   y: number;

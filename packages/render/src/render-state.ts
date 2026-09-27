@@ -135,6 +135,11 @@ export class RenderState {
     return this.effects.boss.vise.crack;
   }
 
+  /** THE RIME's painted clearing, the same (`rime-fx.ts`). */
+  get rimeClear(): SpriteBursts {
+    return this.effects.boss.rime.clear;
+  }
+
   /**
    * Whether the wave is still arriving — the two rings a crossed gate throws
    * over the field (`opening-fx.ts`).

@@ -282,6 +282,7 @@ well as at 16 — not a smaller file.
 ```bash
 bun run raster              # regenerate every painted asset in assets/raster/
 bun run raster vise-crack   # only THE VISE's crack — leave the burst's bytes alone
+bun run raster rime-clear   # only THE RIME's clearing
 bun run raster:verify       # open them in Chromium; check every frame decodes
 ```
 
@@ -379,7 +380,8 @@ the kernel's red or cyan with the procedural flash.
 It is sixteen frames of 96 px at 45 ms, 0.72 s, and it ships as
 `vise-crack-strip.webp` (the atlas) and `vise-crack.apng` (the lossless
 master), baked by `tools/raster/src/render-strip.ts` — `render.ts`'s pass
-without the burst's own extras, for every atlas after the first.
+without the burst's own extras, for every atlas after the first — and packed
+by `strip-bake.ts`, which every strip after the burst shares.
 
 | file | bytes |
 |---|---|
@@ -387,8 +389,9 @@ without the burst's own extras, for every atlas after the first.
 | `vise-crack-strip.webp`, the atlas the field fetches | **43 238** — under the 90 kB budget at the full 16 frames and 96 px |
 | `vise-crack.apng`, the master | 108 177 |
 
-`tools/raster/test/vise-crack-assets.test.ts` holds the manifest against
-`VISE_CRACK_SHEET` and the atlas under 90 kB.
+`tools/raster/test/strip-assets.test.ts` holds each strip's manifest
+against its renderer sheet and its atlas under 90 kB, for every strip in
+`spec.ts`'s `STRIPS`.
 
 **Where it plays.** §28's row 11 — the kernel crackling between the lobes
 until it burns out — was never built (§11.45: *there is no break step*), so
@@ -403,3 +406,32 @@ crack lies over it.
 **What is still open** is the owner's eye: whether the painted crack reads
 better than the split's flash and dust alone. Play THE VISE at `?raster=1`
 to the end and compare; the procedural split ships until he says otherwise.
+
+### The fourth strip: THE RIME's bare core
+
+Row 6 of §29's beat list — the last frost wiped off and the core lit — is
+frost shattering off glass: rule 4 again. `tools/raster/src/rime-clear-art.ts`
+paints a cold light over the pane gone in a quarter, nine kinked hairline
+fractures out from the middle, twenty-two thin plates of frost that start
+where the frost was (the pane clears all over at once) and spin as they
+fall, bright face on and dull edge on, and a powder that drifts down and
+outlasts them. Anything nearing the frame's edge fades before it is cut.
+**Frost colours only** — `rimeFrost`, `rimeFrostDeep`, a cold white — so
+the core's colour stays the procedural core's (rule 7).
+
+Sixteen frames of 128 px at 50 ms, 0.8 s: larger than the crack's because it
+covers the whole pane, 2.3 half-widths across.
+
+| file | bytes |
+|---|---|
+| `rime-clear-strip.webp`, the atlas the field fetches | **66 970** — under the same 90 kB budget as THE VISE's 43 238 |
+| `rime-clear.apng`, the master | 163 975 |
+
+`RimeFx` (`rime-fx.ts`, `effects.boss.rime`) spawns it on `rimeBare` at the
+pane's middle; `boss-draw-clocks-c.ts` draws it after the lens, and
+`bindRasterRimeClear` installs it behind `?raster=1`. Without the flag it
+draws nothing (`packages/render/test/rime-clear.test.ts`), and the shipped
+reveal — the patches wiped clear, the core lit — is drawn either way.
+
+**Still open**: the owner's eye. Play THE RIME at `?raster=1` to the bare
+core and compare.

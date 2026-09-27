@@ -176,7 +176,9 @@ export function drawPairBoss(
   // THE RIME: a frosted pane over the middle column, each half wiped clear by
   // one seat, a core behind it both cannons are asked to hit. Both screens
   // are drawn the same — the other seat has to see which half is lit to say
-  // so (`rime-draw.ts`). Nothing of it outlives a frame yet: its hands and
-  // effects are the second half of its look.
+  // so (`rime-draw.ts`). What outlives a frame is only the painted clearing
+  // behind `?raster=1` (`rime-fx.ts`); its hands and effects are the second
+  // half of its look.
   drawRime(ctx, l, world, boss, beat, beatPhase, time);
+  effects.boss.rime.clear.draw(ctx);
 }

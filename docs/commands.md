@@ -153,7 +153,7 @@ bun run breaks         # every tuning of the fracture engine, across time, on on
 
 ```
 bun run icons          # regenerate the home-screen PNGs from apps/game/icon.svg
-bun run raster [name]  # regenerate the baked assets under assets/raster/ — name one (`burst`, `vise-crack`) to leave the rest alone
+bun run raster [name]  # regenerate the baked assets under assets/raster/ — name one (`burst`, `vise-crack`, `rime-clear`) to leave the rest alone
 bun run raster:pack <dir>   # shrink hand-painted frames into one strip the game can draw
 bun run raster:verify  # open them in a real browser and check every frame decodes
 bun run solid [out.png]  # the rig turned side to front, in a real browser — the look loop for solid-*.ts; --zdog draws it beside Zdog; --instar draws THE INSTAR's rig head

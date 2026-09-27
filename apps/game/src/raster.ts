@@ -1,6 +1,7 @@
 import { loadAtlas } from "@neon-spore/render";
 import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
+import rimeClearStripUrl from "../../../assets/raster/rime-clear-strip.webp";
 import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
 
 /**
@@ -21,7 +22,7 @@ import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
  * Failure is silent by design (`loadAtlas` resolves to `null`): a phone on a
  * bad connection gets the procedural sparks, which is what it would have had.
  *
- * **Two assets go through here now, and the second one is why the first was
+ * **Four assets go through here now, and the second one is why the first was
  * worth generalising.** THE CLASP's hand-painted shield was baked in the same
  * pass as the burst and then never reached the field at all: `drawClaspShield`
  * takes an image or draws a procedural shell, and nothing anywhere passed an
@@ -46,52 +47,47 @@ export interface SpriteHost {
 /**
  * Installs the atlas if the flag is set. Returns what it did, so a caller that
  * wants to say so on screen can, and so a test can read the decision without
- * a network.
- */
-export async function bindRasterBurst(
-  host: SpriteHost,
-  href: string,
-): Promise<"off" | "installed" | "unavailable"> {
-  if (!rasterRequested(href)) return "off";
-  const atlas = await loadAtlas(burstStripUrl);
-  if (!atlas) return "unavailable";
-  host.install(atlas);
-  return "installed";
-}
-
-/**
- * The same, for THE CLASP's shield.
- *
- * A second function rather than a flag on the first: the two assets are
- * fetched independently, either can fail on its own, and a caller reading
+ * a network. One per strip rather than a flag on one: every strip is fetched
+ * on its own, either can fail on its own, and a caller reading
  * `"unavailable"` should be told which strip it was about. They share the
- * flag, so one query parameter turns both of the offered looks on at once —
- * which is what somebody comparing them actually wants, and what
- * `docs/raster.md` describes.
+ * flag, so one query parameter turns every offered look on at once — which is
+ * what somebody comparing them actually wants, and what `docs/raster.md`
+ * describes.
  */
-export async function bindRasterClasp(
+async function bindStrip(
   host: SpriteHost,
   href: string,
+  url: string,
 ): Promise<"off" | "installed" | "unavailable"> {
   if (!rasterRequested(href)) return "off";
-  const strip = await loadAtlas(claspStripUrl);
+  const strip = await loadAtlas(url);
   if (!strip) return "unavailable";
   host.install(strip);
   return "installed";
 }
 
+type Bound = Promise<"off" | "installed" | "unavailable">;
+
+/** The baked burst (`sprite-burst.ts`). */
+export const bindRasterBurst = (host: SpriteHost, href: string): Bound =>
+  bindStrip(host, href, burstStripUrl);
+
+/** THE CLASP's hand-painted shield. */
+export const bindRasterClasp = (host: SpriteHost, href: string): Bound =>
+  bindStrip(host, href, claspStripUrl);
+
 /**
- * The same, for THE VISE's painted kernel crack (`vise-fx.ts`), the third
- * strip behind the one flag. The shipped split — the flash and the husk dust
- * — is drawn either way; the crack is laid over it, never in its place.
+ * THE VISE's painted kernel crack (`vise-fx.ts`). The shipped split — the
+ * flash and the husk dust — is drawn either way; the crack is laid over it,
+ * never in its place.
  */
-export async function bindRasterViseCrack(
-  host: SpriteHost,
-  href: string,
-): Promise<"off" | "installed" | "unavailable"> {
-  if (!rasterRequested(href)) return "off";
-  const strip = await loadAtlas(viseCrackStripUrl);
-  if (!strip) return "unavailable";
-  host.install(strip);
-  return "installed";
-}
+export const bindRasterViseCrack = (host: SpriteHost, href: string): Bound =>
+  bindStrip(host, href, viseCrackStripUrl);
+
+/**
+ * THE RIME's painted clearing (`rime-fx.ts`), the frost shattering off the
+ * pane as the core lies bare. The shipped picture — the patches wiped clear,
+ * the core lit — is drawn either way; the clearing is laid over it.
+ */
+export const bindRasterRimeClear = (host: SpriteHost, href: string): Bound =>
+  bindStrip(host, href, rimeClearStripUrl);

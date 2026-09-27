@@ -31,3 +31,24 @@ export const VISE_CRACK: { size: number; frames: number; seed: number; frameMs: 
   seed: 20260926,
   frameMs: 45,
 };
+
+/**
+ * THE RIME's bare-core reveal (§29, row 6 of its beat list): the last frost
+ * shattering off the glass as the core is lit. Wider than the crack because
+ * it is drawn over the whole pane, and a little slower, because ice falls.
+ */
+export const RIME_CLEAR: { size: number; frames: number; seed: number; frameMs: number } = {
+  size: 128,
+  frames: 16,
+  seed: 20260927,
+  frameMs: 50,
+};
+
+/** Every painted strip that goes through `strip-bake.ts`, by its file name. */
+export const STRIPS: Record<
+  string,
+  { size: number; frames: number; seed: number; frameMs: number }
+> = {
+  "vise-crack": VISE_CRACK,
+  "rime-clear": RIME_CLEAR,
+};

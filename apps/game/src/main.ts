@@ -18,7 +18,12 @@ import { menuIdleHz } from "./menu-idle.js";
 import { refusePinch } from "./no-pinch.js";
 import { bindPressLag } from "./press-lag-page.js";
 import { pressQuit } from "./quit.js";
-import { bindRasterBurst, bindRasterClasp, bindRasterViseCrack } from "./raster.js";
+import {
+  bindRasterBurst,
+  bindRasterClasp,
+  bindRasterRimeClear,
+  bindRasterViseCrack,
+} from "./raster.js";
 import { createRunState } from "./run-state.js";
 import { bindShell } from "./shell.js";
 import { bindTestControls } from "./testing.js";
@@ -149,13 +154,14 @@ const link = bindShell(
   }),
 );
 
-// The baked burst, THE CLASP's hand-painted shield and THE VISE's painted
-// crack, all behind `?raster=1` — `raster.ts` and `docs/raster.md`. None is
+// The baked burst, THE CLASP's hand-painted shield, THE VISE's painted
+// crack and THE RIME's painted clearing, all behind `?raster=1` — `raster.ts` and `docs/raster.md`. None is
 // fetched at all without the flag, so the shipped field is byte for byte the
 // shipped field.
 void bindRasterBurst(renderer.sprites, location.href);
 void bindRasterClasp(renderer.claspShield, location.href);
 void bindRasterViseCrack(renderer.viseCrack, location.href);
+void bindRasterRimeClear(renderer.rimeClear, location.href);
 // Ink off the end of a mouse, and nothing at all on a phone (`trail.ts`).
 // Full size while a sheet is up and much smaller on the field: the "menu" hold
 // is exactly "something is covering the game", which is the question asked.

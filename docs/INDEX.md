@@ -1465,6 +1465,7 @@ by hand never moves.
 | `packages/render/src/rime-story.ts` | **THE RIME's two story steps, drawn** (§29's story item; the rules are `sim/rime-step.ts` |
 | `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
 | `packages/render/src/rime-glint.ts` | **THE RIME's frost glints**: a line of light crosses the pane on a slant every few seconds, catching the sheets' edges |
+| `packages/render/src/rime-fx.ts` | What THE RIME leaves behind a frame: so far only, behind `?raster=1`, the painted clearing |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |
@@ -2825,6 +2826,7 @@ by hand never moves.
 | `tools/raster/src/png.ts` | The parts of the PNG container an animator needs, and nothing else |
 | `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
 | `tools/raster/src/render-strip.ts` | Draws any painted effect into a strip in a real browser, and brings the bytes back |
+| `tools/raster/src/rime-clear-art.ts` | One frame of THE RIME's bare-core reveal, drawn into a 2D context |
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
 | `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
 | `tools/raster/src/sprite-page.ts` | The sprite sheet's page: bundled for the browser by `sprite.ts` and run there, so the bake |
@@ -2833,10 +2835,10 @@ by hand never moves.
 | `tools/raster/src/solid-demo.ts` | The test rig the solid sheet turns: not a boss, only the parts a boss is made of — a long body |
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
+| `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/src/vise-crack-art.ts` | One frame of THE VISE's kernel crack, drawn into a 2D context |
-| `tools/raster/src/vise-crack-bake.ts` | THE VISE's kernel crack, painted and packed: the atlas the field fetches, the lossless APNG master |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/sprite.ts` | `bun run sprite [name] [out.png]` — the sprite sheet |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |

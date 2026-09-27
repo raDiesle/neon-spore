@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   bindRasterBurst,
   bindRasterClasp,
+  bindRasterRimeClear,
   bindRasterViseCrack,
   rasterRequested,
 } from "../src/raster.js";
@@ -68,6 +69,18 @@ describe("the raster flag", () => {
     };
     expect(await bindRasterViseCrack(host, "http://game.invalid/")).toBe("off");
     expect(await bindRasterViseCrack(host, "http://game.invalid/?raster=0")).toBe("off");
+    expect(installs).toBe(0);
+  });
+
+  it("leaves THE RIME's bare core as it ships unless the flag is set", async () => {
+    let installs = 0;
+    const host = {
+      install(): void {
+        installs++;
+      },
+    };
+    expect(await bindRasterRimeClear(host, "http://game.invalid/")).toBe("off");
+    expect(await bindRasterRimeClear(host, "http://game.invalid/?raster=0")).toBe("off");
     expect(installs).toBe(0);
   });
 });
