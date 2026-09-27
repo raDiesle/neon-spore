@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7607a9406 — THE NETTLE has a row in THE SLOW's aim
+
+THE SLOW's light stands round THE NETTLE's bell, arms and curtain, and its fuse stands under the body with a gap to the hull, instead of both falling back to the cannon on the hull. The row is on page four, off `nettleReach`, which names the figures the drawers in `nettle-body.ts` already used.
+
 ## 2026-09-27 · c79bacf9e — `queue status` and the listing say a spent claim apart
 
 A claim branch this machine made, already on `main`, with no worktree on it, is no longer counted as work in progress: `status` answers IDLE when every claim left is spent, and both it and the listing print `spent — bun run queue release "<title>"` under the entry. Before this only `take` asked `spent.ts`, and on 27 September seven of ten BUSY items were spent claims found by hand.
