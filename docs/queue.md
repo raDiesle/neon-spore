@@ -722,7 +722,6 @@ reaching the hull at `reach = 1`, proved in `render/test/boss-strike.test.ts`.
 ## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-unverified-at-920f00b11-the-mantles-knobs-under
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`
 
 *THE MANTLE answers a thumb: each seat pulls its own knob, either taps the core* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
