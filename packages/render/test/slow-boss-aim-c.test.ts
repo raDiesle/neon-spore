@@ -45,7 +45,7 @@ import { ratchetLock, ratchetRails } from "../src/ratchet-shape.js";
 import { scuttleFrameBox } from "../src/scuttle-shape.js";
 import { slingArrived, slingGone, slingTension } from "../src/sling-pose.js";
 import { slingCupRadius, slingHandle, slingHome, slingTip } from "../src/sling-shape.js";
-import { capsule } from "../src/slow-boss-aim-c.js";
+import { capsule } from "../src/slow-boss-aim-d.js";
 import { type Aim, aim } from "../src/slow-intake-aim.js";
 import { tasterFanBox } from "../src/taster-draw.js";
 import { GULLET_PAD, throatGullet } from "../src/throat-shape.js";

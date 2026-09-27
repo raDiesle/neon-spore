@@ -59,6 +59,11 @@ export function seamHalfHeight(l: Layout): number {
   return ((BOTTOM - TOP) / 2) * l.tile;
 }
 
+/** The widest lobe's half-width before its teeth, in pixels: the ridge's widest. */
+export function seamHalfWidth(l: Layout): number {
+  return WIDTH * l.tile;
+}
+
 /** Lobe `k`'s size: THE RIND's layers, the widest on top. */
 function size(k: number): number {
   return 1 - STEP * k;

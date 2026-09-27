@@ -19,7 +19,7 @@ import {
 } from "@neon-spore/sim";
 import { antiphonBox } from "./antiphon-shape.js";
 import { socketPoint, socketReach } from "./baton-socket-draw.js";
-import { type Box, sides, spread } from "./caption-anchor-box.js";
+import { sides } from "./caption-anchor-box.js";
 import { curtainSheetSpan } from "./curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
 import { davitAngle } from "./davit-pose.js";
@@ -36,6 +36,7 @@ import { ratchetLock, ratchetRails } from "./ratchet-shape.js";
 import { scuttleFrameBox } from "./scuttle-shape.js";
 import { slingArrived, slingGone, slingTension } from "./sling-pose.js";
 import { slingCupRadius, slingHandle, slingHome, slingTip } from "./sling-shape.js";
+import { capsule, lastBossAim, spreadCapsule } from "./slow-boss-aim-d.js";
 import type { Aim } from "./slow-intake-aim.js";
 import { tasterFanBox } from "./taster-draw.js";
 import { GULLET_PAD, throatGullet } from "./throat-shape.js";
@@ -54,8 +55,8 @@ import { undertowEdgeBox } from "./undertow-shape.js";
  *
  * Every extent is the one the boss's caption rings (`caption-anchor-box.ts`'s
  * `spread` and `sides`), so the light and the ring cannot disagree on a body.
- * Rows may read the beat, as page two's do. A kind none of the three pages
- * has is aimed at the cannon, and the ones left are queued in `docs/queue.md`.
+ * Rows may read the beat, as page two's do. A kind with no row here goes on
+ * to page four (`slow-boss-aim-d.ts`).
  */
 export function longBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
   const cfg = world.cfg;
@@ -174,27 +175,11 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       return spreadCapsule(offset(davitMast(l, cfg), parts), davitHookRadius(l));
     }
     default:
-      return null;
+      return lastBossAim(world, l, beat, beatPhase);
   }
 }
 
 /** Points laid about a body's own origin, stood where the drawer plants it. */
 function offset(at: { x: number; y: number }, parts: readonly { x: number; y: number }[]) {
   return parts.map((p) => ({ x: at.x + p.x, y: at.y + p.y }));
-}
-
-/**
- * The capsule round a box, along its longer side: the shorter half-axis is
- * the radius and the two ends stand that far in from the box's ends, so the
- * capsule holds the whole oval and no more of the field than it must.
- */
-export function capsule({ x, y, rx, ry }: Box): Aim {
-  if (rx >= ry) return { x: x - (rx - ry), y, r: ry, ax: x + (rx - ry), ay: y };
-  return { x, y: y - (ry - rx), r: rx, ax: x, ay: y + (ry - rx) };
-}
-
-/** The capsule round a set of points, each `r` round — the extent a caption rings. */
-function spreadCapsule(points: readonly { x: number; y: number }[], r: number): Aim | null {
-  const b = spread(points, r);
-  return b === null ? null : capsule(b);
 }

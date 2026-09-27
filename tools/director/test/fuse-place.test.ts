@@ -34,10 +34,12 @@ import { stageField } from "../src/stage-field.js";
  * A body that comes within a fuse's height of the hull leaves no gap, and the
  * fuse drops onto the hull — or walks up off it, clear of a ring standing
  * there: that is the one place it may stand beside the body rather than under
- * it. THE UNDERTOW is that boss, and so is every boss THE SLOW's aim has no row
- * for, since its aim falls back to the cannon on the hull (`docs/queue.md`).
- * Every window must still be walked by somebody: THE INSTAR's, at least, and
- * THE REPRISE's clock.
+ * it. THE UNDERTOW is that boss. A boss THE SLOW's aim has no row for falls
+ * back to the cannon on the hull and would be excused the same way, which is
+ * how five bosses hid there until page four (`slow-boss-aim-d.ts`) gave them
+ * rows: those five must now be walked, and leave a gap on every tick. Every
+ * window must still be walked by somebody: THE INSTAR's, at least, and THE
+ * REPRISE's clock.
  */
 
 // Forty thousand ticks of a wave with AUTO on both seats; the slowest idle is
@@ -54,8 +56,13 @@ const KINDS = [
 const crosses = (a: Box, b: Box): boolean =>
   a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
 
+/** The bosses that must be walked, and the ones that must leave a gap on every tick. */
+const GAPPED: readonly string[] = ["seam", "halter", "capstan", "gall", "burgee"];
+const WALKED: readonly string[] = ["instar", "reprise", ...GAPPED];
+
 interface Walked {
   ticks: number;
+  gapped: number;
   wrong: string[];
 }
 
@@ -68,6 +75,7 @@ function walk(kind: BossKind): Walked {
   auto.setMode("both");
   const wrong: string[] = [];
   let ticks = 0;
+  let gapped = 0;
   for (let i = 0; i < TICKS && world.boss?.kind === kind; i++) {
     step(world, auto.commands(world));
     const bp = beatPhase(cfg, world.tick);
@@ -78,11 +86,12 @@ function walk(kind: BossKind): Walked {
     const box = fuseBox(l, fuseAt(l, world, bp, under));
     const at = `${kind} at tick ${world.tick}`;
     const gap = l.hullY - FUSE_OVER_HULL - body.bottom >= box.bottom - box.top;
+    if (gap) gapped++;
     if (box.bottom > l.hullY) wrong.push(`${at}: below the hull`);
     if (gap && box.top < body.bottom) wrong.push(`${at}: not under the body`);
     if (liveMarks(l, world, bp).some((m) => crosses(box, m))) wrong.push(`${at}: over a mark`);
   }
-  return { ticks, wrong };
+  return { ticks, gapped, wrong };
 }
 
 /** The body's whole box this tick, and the part the fuse stands under, or
@@ -104,8 +113,9 @@ function measured(
 
 describe("the fuse stands under the boss, above the hull, and over no mark", () => {
   test.each(KINDS)("%s", (kind) => {
-    const { ticks, wrong } = walk(kind);
+    const { ticks, gapped, wrong } = walk(kind);
     expect(wrong.slice(0, 5)).toEqual([]);
-    if (kind === "instar" || kind === "reprise") expect(ticks).toBeGreaterThan(0);
+    if (WALKED.includes(kind)) expect(ticks).toBeGreaterThan(0);
+    if (GAPPED.includes(kind)) expect(gapped).toBe(ticks);
   });
 });

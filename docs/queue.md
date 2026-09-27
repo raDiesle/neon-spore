@@ -2589,21 +2589,17 @@ cannon colours.
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
 
-## THE SLOW's aim has no row for six bosses, so their fuse sits under the cannon
+## THE NETTLE's row in THE SLOW's aim, once it is drawn
 
-- **Found:** 2026-09-27, claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta
-- **Taken:** 2026-09-27, claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta (claim: claude/queue-the-slows-aim-has-no-row-for-six-bosses-so-their)
-- **Files:** `packages/render/src/slow-boss-aim.ts`, `packages/render/src/slow-boss-aim-b.ts`, `packages/render/src/slow-boss-aim-c.ts`, `packages/render/test/slow-boss-aim.test.ts`, `tools/director/test/fuse-place.test.ts`
+- **Found:** 2026-09-27, claude/queue-the-slows-aim-has-no-row-for-six-bosses-so-their
+- **Needs:** THE NETTLE — the look
+- **Files:** `packages/render/src/slow-intake-aim.ts`, `packages/render/src/slow-boss-aim-d.ts`, `packages/render/test/slow-boss-aim-d.test.ts`, `tools/director/test/fuse-place.test.ts`
 
-THE NETTLE, THE SEAM, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE open
-windows that ask, and no page of `bossAim` has a row for them, so `aim()`
-falls through to a held body or the cannon on the hull. The light has stood
-round the cannon for them since the aim was written. Since the fuse moved
-under the body (`slow-fuse-place.ts`), their fuse also drops onto the hull
-under the cannon rather than under the boss, and `fuse-place.test.ts` excuses
-them only as "no gap". Give each a row off its own shape file, the way the
-others are written (a centre and the body's own extent, or a capsule for a
-long body), and a row in `slow-boss-aim.test.ts`.
-
-Done when: all six have rows, and `fuse-place.test.ts` finds each of them
-with a gap and the fuse under the body. `bun run check` proves it.
+THE NETTLE opens windows that ask and has no row on any page of THE SLOW's
+aim, so its light stands round the cannon and its fuse drops onto the hull.
+It could not be given one with the other five: it is THE INSTAR's engine with
+no look yet, so nothing names a body to stand round. Once the look lands, aim
+it the way `aim()` aims THE INSTAR — off `sceneBoss`, not `instarBoss` — or as
+a row on page four off its own shape file, a row in `slow-boss-aim-d.test.ts`,
+and add `"nettle"` to `WALKED` and `GAPPED` in `fuse-place.test.ts`.
+`bun run check` proves it.

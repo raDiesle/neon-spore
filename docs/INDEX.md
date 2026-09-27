@@ -1275,6 +1275,7 @@ by hand never moves.
 | `packages/render/src/slow-boss-aim.ts` | **Where a boss that opens THE SLOW stands, by kind** |
 | `packages/render/src/slow-boss-aim-b.ts` | **THE SLOW's aim, page two** — the rows `slow-boss-aim.ts` hands on when it has none of its own |
 | `packages/render/src/slow-boss-aim-c.ts` | **THE SLOW's aim, page three** — the bosses whose body is longer than it is round |
+| `packages/render/src/slow-boss-aim-d.ts` | **THE SLOW's aim, page four** — the five bosses that opened windows that ask and had no row on any page |
 | `packages/render/src/slow-hush.ts` | **A boss's natural motion dies down while THE SLOW is open** — the owner, 27 September 2026 |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
