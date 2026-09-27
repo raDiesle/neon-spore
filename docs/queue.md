@@ -2175,6 +2175,7 @@ what the rest of this file holds.
 ## A landing's record merge let two INDEX.md rows name one file
 
 - **Found:** 2026-09-26, claude/queue-cloud-only-a-dragged-tail-wants-a-verlet-chain-i
+- **Taken:** 2026-09-27, claude/queue-limits-test-ts-runs-nine-times-its-figure-and-ti (claim: claude/queue-a-landings-record-merge-let-two-index-md-rows-na)
 - **Files:** `tools/land/`, `docs/INDEX.md`, `tools/index/test/drift.test.ts`
 
 `48ad4d936` (THE TRIVET's cue) reached `origin/main` with two rows for
