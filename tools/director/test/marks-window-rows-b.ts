@@ -22,14 +22,13 @@ import * as cystMarks from "../../../packages/render/src/cyst-marks.js";
 import * as davitMarks from "../../../packages/render/src/davit-marks.js";
 import * as filamentMarks from "../../../packages/render/src/filament-turn-marks.js";
 import * as fleetGrip from "../../../packages/render/src/fleet-grip-draw.js";
-import { mark, type Row, unreached } from "./marks-window-kit.js";
+import { mark, type Row } from "./marks-window-kit.js";
 
 /**
  * **The second six bosses' rows** of `marks-window.test.ts`. THE BURGEE's
  * studs glow white once both catches are in, before a fire step is lit:
  * that is the spindle's state and its health, the colour and the closing
- * ring are the ask, and only those count as lit. Its fire and THE CYST's are
- * never reached, for want of a hand.
+ * ring are the ask, and only those count as lit.
  *
  * THE FLEET's `fleet-marks.ts` asks for nothing — the record, and the sights
  * that are the square's name — so its row is the grip on the wound, which is
@@ -42,7 +41,6 @@ const cyst = (w: World) => w.boss as CystState;
 const davit = (w: World) => w.boss as DavitState;
 const filament = (w: World) => w.boss as FilamentState;
 const fleet = (w: World) => w.boss as FleetState;
-const CYST_HAND = "THE CYST's autopilot hand";
 
 export const ROWS_B: readonly Row[] = [
   {
@@ -85,14 +83,11 @@ export const ROWS_B: readonly Row[] = [
     kind: "cyst",
     marks: [
       mark(cystMarks, "drawCystMark", (w) => cystSide(cyst(w)) !== null),
-      unreached(
-        mark(
-          cystMarks,
-          "drawCystCore",
-          (w) => cyst(w).bared && cystLitStep(cyst(w))?.ask === "fire",
-          (a) => a[5] !== null,
-        ),
-        CYST_HAND,
+      mark(
+        cystMarks,
+        "drawCystCore",
+        (w) => cyst(w).bared && cystLitStep(cyst(w))?.ask === "fire",
+        (a) => a[5] !== null,
       ),
     ],
   },

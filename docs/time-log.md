@@ -27324,3 +27324,17 @@ Bottleneck: reading — the eye carries the count and stands under the
 navigator's word, and both had to be traced before it could move at all.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CYST's autopilot hand
+
+- reading: 5 min. `cyst.ts`, `cyst-hand.ts`, the shot and the guard, and
+  the wave's eleven steps.
+- writing: 10 min. `boss-hands-cyst.ts` out of THE VISE's and THE FLUE's
+  hands, its own autopilot test, `NO_HAND`, the core's marks row, the spec
+  and the queue.
+- looking: 0 min. AUTO is proved by the test that walks it.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the four handles sit on crossed seats, and the hand
+follows only once `cystFreezer` and `cystPincher` are read.

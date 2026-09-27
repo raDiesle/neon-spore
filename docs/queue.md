@@ -1908,26 +1908,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE CYST's autopilot hand
-
-- **Found:** 2026-09-26, claude/cyst-look
-- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-touch-the-cue-and-auto (claim: claude/queue-the-cysts-autopilot-hand)
-- **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`
-
-THE CYST is drawn and can be answered from a touch, but no hand plays it:
-it stays in `autopilot.test.ts`'s `NO_HAND`. Write the hand, a new
-packages/hands/src/boss-hands-cyst.ts, the way
-`boss-hands-vise.ts` plays THE VISE — on a lit flank step, the freezer's
-`cystFreeze*` edge; once frozen, the pincher's `cystFlank*` drag with
-`fromMilli` at or under `cystShutMilli` until the step's beats are held;
-on a swell both flanks at once; on fire, spit and bud the cannon or the
-shield at `cystStepCol` — then take THE CYST out of `NO_HAND` and prove it
-with `bun run check`.
-
-Once AUTO plays the fight through, take the `unreached` wrapper off
-THE CYST's `drawCystCore` row in `tools/director/test/marks-window-rows-b.ts`, so the
-fire mark has to be seen lit in its window.
-
 ## Unverified at d30a4b113: THE GRINDSTONE's body never watched at tempo
 
 - **Found:** 2026-09-26, tmp-grindstone-look
@@ -2172,7 +2152,10 @@ source sets it; a test proves the part angles are the parent's at 0.
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`, `packages/sim/src/gall-step.ts`
-- **Needs:** THE CYST's autopilot hand
+- **Needs:** §32 THE SLING — its hands, the second half of its look
+
+THE CYST's hand landed 27 September 2026 (`boss-hands-cyst.ts`), so its half
+can be tried now; THE SLING's still waits on its hand.
 
 `--auto both --auto-miss` keeps AUTO's hands off every other asking window,
 and that reaches the timeout blow of THE OCULUS, THE VISE, THE TRIVET, THE
