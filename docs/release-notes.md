@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 00cb6eb7b — THE VALVE's hung pins sway, as a VERSUS candidate
+
+THE VALVE's three pins hung under the drum and never swung. SWAY makes each still-hung pin swing about three degrees about the top of its plate, on a slow period and out of step with the others, and a pin sliding free stops as it goes. The queue asked for one degree, which is a pixel at a plate's length. `valve-draw.ts` gains a `VALVE_PIN` record for the candidate to patch, and THE VALVE gains its first posed state: its still, which is struck off `OWED`.
+
 ## 2026-09-27 · 84aa7e41e — THE VISE's kernel turns in its hollow, as a VERSUS candidate
 
 Outside a story step THE VISE's only clock was the light's drift, and a dry husk should stay still, so TURN moves the kernel. It rocks a few degrees about its own centre on a slow period without leaving its column. Between fire steps a soft highlight wanders round its dull face, brighter once the lobes stand open. `vise-marks.ts` gains a `VISE_KERNEL` record for the candidate to patch. THE VISE's REST card is now the rest after both lobes crack, the only frame the kernel is bare and unlit.
