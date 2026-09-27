@@ -26895,3 +26895,16 @@ Bottleneck: deciding what the ease should do when a steer lets go mid-beat,
 which no state records the tick of.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE RIME seen in frames; tempo left to a phone
+
+- reading: 5 min. The entry, THE RIME's script windows and rub figures, the
+  MANTLE lane that closed the same kind of entry.
+- writing: 5 min. The entry's paragraph, and the finding about "at tempo".
+- looking: 15 min. A probe of AUTO's timeline, two sheets out of
+  `bun run frames`.
+- friction: 5 min. `bun run sheet` took the prefix `frame`, not `frame-`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — an entry that asks for tempo can only be answered in
+frames here, and the frames take the time.

@@ -742,12 +742,26 @@ leave behind, same as the four already listed, and it is a look:
 ## Unverified at 81ea644c1: THE RIME wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-simulation-lane
-- **Taken:** 2026-09-27, claude/queue-unverified-at-81ea644c1-the-rime-wave-never-watc
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
+- **Where:** phone
 
 *Wave 108 THE RIME: rub each half of the lens clear before it frosts back, then shoot the core* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
 
 - THE RIME wave never watched at tempo
+
+**Seen in frames on 27 September 2026, not at tempo:** `bun run frames .
+--wave "THE RIME" --auto both`, P1's screen, and a probe stepping AUTO tick by
+tick. AUTO clears it in 12.5 s: the left half is lit at beat 2 and rubbed
+clear by 3.9 s, the right by 7.9 s, then three hits, three blocks and the
+shatter at beat 18. In the frames the lit half is rimmed and throws flakes,
+the rubbed half clears in steps, a hit dims and shrinks the ringed core, and
+the shield rises on its window. At 96 bpm a first wipe needs about two
+reversals a second and a second wipe about 1.6, which a thumb can do. One
+thing a sheet could not settle: bolts fired after a hit seem to pass through
+the lens and go on up, which is either the overshoot every bolt has or a
+lens that has stopped counting — an eye at tempo tells the two apart. What
+is left is whether the rub reads as a rub in a hand, and nothing an agent
+has can answer it.
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -2407,3 +2421,20 @@ cannon colours.
 
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
+
+## "At tempo" is a phone's word, and `HARDWARE` does not know it
+
+- **Found:** 2026-09-27, claude/queue-unverified-at-81ea644c1-the-rime-wave-never-watc
+- **Files:** `tools/land/unverified.ts`, `tools/land/test/unverified.test.ts`, `docs/queue.md`
+
+`docs/queue.md` has 84 lines saying *at tempo* and nine entries marked
+`- **Where:** phone`. An entry asking for a wave "watched at tempo" is one no
+agent can finish: the frames tool shows it frame by frame, and the desktop
+app's browser pane runs a hidden page at about 1.5 frames a second. So
+`next` hands these to lanes that can only write down what the frames showed
+and mark the entry for a phone — THE MANTLE's and THE RIME's, both on 27
+September 2026. Add `\bat tempo\b` to `HARDWARE` in `unverified.ts`, with an
+`expect` in its test and a sentence in the comment above it, and put
+`- **Where:** phone` on every unmarked entry whose only unchecked line is
+about tempo. `bun run check` proves it, and `bun run queue` should then list
+them as needing a phone.
