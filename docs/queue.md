@@ -863,6 +863,7 @@ what the rest of this file holds.
 ## §41 THE WINCH — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-41-the-winch-the-simulation-lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/gesture-unbuilt-b.ts`
 
 No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
