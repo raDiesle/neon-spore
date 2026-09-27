@@ -27229,3 +27229,17 @@ Bottleneck: writing — an fx lane is one class and seven registrations in
 other files, each found only by reading the last boss that did it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CAIRN's stones rock on one another
+
+- reading: 10 min. `cairn-units.ts`, the pile, its hand and its settle ring,
+  and who reads a stone's place (only the picture).
+- writing: 15 min. `cairn-rock.ts`, the hush through five callers, the test.
+- looking: 10 min. `bun run frames` as a six-frame strip, cropped, to find
+  the widest moment.
+- friction: 10 min. The op budget's rows, remeasured, and the frame timeout
+  line a new frame test needs.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the frames tool cannot aim at a game time, so the
+widest moment was found by a strip rather than asked for.

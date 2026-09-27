@@ -2141,6 +2141,7 @@ by hand never moves.
 | `packages/render/src/cairn-pile.ts` | THE CAIRN's pile as the game draws it: seven live fires under one clip |
 | `packages/render/src/cairn-slime.ts` | What holds THE CAIRN together: a slime coat, lit seams, strands and a film |
 | `packages/render/src/cairn-units.ts` | Where THE CAIRN's stones stand, and the outline they make together |
+| `packages/render/src/cairn-rock.ts` | THE CAIRN's stones rocking on one another |
 | `packages/render/src/cairn.ts` | THE CAIRN, drawn: the field's own two-tile rocks stacked in courses, clipped to one silhouette so the seams between them stay countable |
 | `packages/render/src/curtain-draw.ts` | THE CURTAIN, drawn: a translucent violet-grey membrane hung across seven columns at `curtainRow` |
 | `packages/render/src/curtain-fx.ts` | What THE CURTAIN leaves behind a frame: the sheet falling once it is torn off the rail |

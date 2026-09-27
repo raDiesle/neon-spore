@@ -159,7 +159,15 @@ describe("a hand on the pile", () => {
     expect(field.calls).toBe(0);
     const over = stubCanvas().ctx;
     over.texts = [];
-    drawPileHand(over as unknown as CanvasRenderingContext2D, L, world, body, boss(world).units, 1);
+    drawPileHand(
+      over as unknown as CanvasRenderingContext2D,
+      L,
+      world,
+      body,
+      boss(world).units,
+      1,
+      1,
+    );
     expect(over.calls).toBeGreaterThan(0);
     expect(over.texts.map((t) => t.text)).toContain("P2 PULLS");
   });
@@ -168,7 +176,15 @@ describe("a hand on the pile", () => {
     const world = cairnWorld();
     const body = pile(world) as Creature;
     const { ctx } = stubCanvas();
-    drawPileHand(ctx as unknown as CanvasRenderingContext2D, L, world, body, boss(world).units, 1);
+    drawPileHand(
+      ctx as unknown as CanvasRenderingContext2D,
+      L,
+      world,
+      body,
+      boss(world).units,
+      1,
+      1,
+    );
     expect(ctx.calls).toBe(0);
   });
 });
@@ -178,14 +194,14 @@ describe("the stack the picture draws", () => {
     const world = cairnWorld();
     const body = pile(world) as Creature;
     for (const units of [7, 6, 4, 1, 0]) {
-      expect(cairnUnits(L, body, units, 0).length, `${units} left`).toBe(units);
+      expect(cairnUnits(L, body, units, 0, 1).length, `${units} left`).toBe(units);
     }
   });
 
   it("stacks them in courses, widest at the bottom", () => {
     const world = cairnWorld();
     const body = pile(world) as Creature;
-    const stack = cairnUnits(L, body, 7, 0);
+    const stack = cairnUnits(L, body, 7, 0, 0);
     const base = stack.slice(0, 4).map((u) => u.y);
     const apex = stack[6]?.y ?? 0;
     // Screen y grows downward, so the apex is above every stone in the base.

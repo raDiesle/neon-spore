@@ -52,6 +52,8 @@ export function drawCairnSettle(
   body: Creature,
   beatPhase: number,
   time: number,
+  /** `outlineHush`'s, so the ring stands on the stone where it has rocked to. */
+  hush: number,
 ): void {
   const t = pressure(world, boss, beatPhase);
   // The lane, all the way to the plating. A column said out loud is a number
@@ -71,7 +73,7 @@ export function drawCairnSettle(
   // simulation says — what leaves the pile is the apex, because that is the
   // order a stack comes down in (`cairn.ts`) — so the ring stands on the unit
   // that is about to be the last one drawn, and shakes as the count runs out.
-  const stack = cairnUnits(l, body, boss.units, time);
+  const stack = cairnUnits(l, body, boss.units, time, hush);
   const going = stack[stack.length - 1];
   if (going !== undefined) {
     const shake = l.tile * 0.05 * t * Math.sin(time * 22);

@@ -22,6 +22,8 @@ export function drawPileHand(
   body: Creature,
   units: number,
   time: number,
+  /** `outlineHush`'s: the ring closes on the stones where they have rocked to. */
+  hush: number,
   /** The two people's names, for the word under the ring (`grip.ts`). */
   names?: SeatNames,
 ): void {
@@ -32,7 +34,7 @@ export function drawPileHand(
   // The ring closes on the stack, not on the one tile the body is booked at:
   // `creatureRadius` answers a tile for this kind and the pile is five wide,
   // so the ring is drawn round every stone still standing (`cairn.ts`).
-  const stack = cairnUnits(l, body, units, time);
+  const stack = cairnUnits(l, body, units, time, hush);
   if (stack.length === 0) return;
   const xs = stack.map((u) => u.x);
   const ys = stack.map((u) => u.y);

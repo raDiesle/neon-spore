@@ -1,5 +1,6 @@
 import { CAIRN_BITE_ACROSS, CAIRN_BITE_UP, CAIRN_COURSES } from "@neon-spore/content";
 import { CAIRN_COLS, type Creature } from "@neon-spore/sim";
+import { rocked, type Shift, seatOf, stoneRock } from "./cairn-rock.js";
 import { signedHash } from "./hash.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./rock-size.js";
@@ -37,6 +38,8 @@ export interface CairnUnit {
   r: number;
   /** Its place in the stack, which seeds the settle and the pits. */
   slot: number;
+  /** How far it has rocked on its seat, radians clockwise (`cairn-rock.ts`). */
+  rock: number;
 }
 
 /**
@@ -51,8 +54,17 @@ export interface CairnUnit {
  * its neighbours — **a pile settles, it does not breathe**. One clock for all
  * seven would pulse the whole stack like a body, and the seams would stop
  * working against each other, which is the only thing keeping them countable.
+ * Over it, each stone rocks on the ones under it, far enough to be seen, and
+ * carries what stands on it (`cairn-rock.ts`).
  */
-export function cairnUnits(l: Layout, body: Creature, units: number, time: number): CairnUnit[] {
+export function cairnUnits(
+  l: Layout,
+  body: Creature,
+  units: number,
+  time: number,
+  /** `outlineHush`'s, which stills the rocking in THE SLOW; 0 is the stack at rest. */
+  hush: number,
+): CairnUnit[] {
   const r = rockRadius(l, 2);
   const inner = r * INNER;
   const across = 2 * inner * (1 - BITE_ACROSS);
@@ -60,30 +72,43 @@ export function cairnUnits(l: Layout, body: Creature, units: number, time: numbe
   const cx = tileCX(l, body.col + (CAIRN_COLS - 1) / 2);
   const cy = tileCY(l, body.row);
   const lift = ((COURSES.length - 1) * step) / 2;
+  const height = (2 * r) / l.tile;
   const out: CairnUnit[] = [];
+  let under: { x: number; top: Shift }[] = [];
   let slot = 0;
   for (let c = 0; c < COURSES.length && slot < units; c++) {
     const n = COURSES[c] as number;
+    const course: { x: number; top: Shift }[] = [];
     for (let i = 0; i < n && slot < units; i++) {
       const drift = r * 0.02;
+      const x = cx + (i - (n - 1) / 2) * across;
+      // Screen y grows downward, so course 0 — the widest — sits at the
+      // bottom and the apex is the one taken off first.
+      const y = cy - (c * step - lift);
+      const seat = seatOf(x, under, across);
+      const rock = stoneRock(slot, time, hush, height);
+      const moved = rocked(rock, r);
+      course.push({ x, top: { x: seat.x + moved.top.x, y: seat.y + moved.top.y } });
       out.push({
         x:
-          cx +
-          (i - (n - 1) / 2) * across +
+          x +
+          seat.x +
+          moved.mid.x +
           Math.sin(time * 1.7 + slot * 2.1) * drift +
           signedHash(body.id, slot, 1) * r * 0.05,
-        // Screen y grows downward, so course 0 — the widest — sits at the
-        // bottom and the apex is the one taken off first.
         y:
-          cy -
-          (c * step - lift) +
+          y +
+          seat.y +
+          moved.mid.y +
           Math.cos(time * 1.3 + slot * 1.7) * drift +
           signedHash(body.id, slot, 2) * r * 0.04,
         r,
         slot,
+        rock,
       });
       slot++;
     }
+    under = course;
   }
   return out;
 }
@@ -106,7 +131,7 @@ export function unitPath(u: CairnUnit): Path2D {
 }
 
 function unitInto(path: Path2D, u: CairnUnit): void {
-  const spin = signedHash(u.slot, 3) * Math.PI;
+  const spin = signedHash(u.slot, 3) * Math.PI + u.rock;
   for (let k = 0; k < 7; k++) {
     const a = spin + (k / 7) * Math.PI * 2;
     const x = u.x + Math.cos(a) * u.r;

@@ -58,7 +58,7 @@ function cairnWorld(units: number): { world: World; body: Creature; boss: CairnS
 function pileLog(role: ViewRole, units: number, time: number, window: boolean): string[] {
   const { body, boss } = cairnWorld(units);
   const l = computeLayout({ width: 390, height: 844, dpr: 3 }, CFG, role);
-  const stack = cairnUnits(l, body, boss.units, time);
+  const stack = cairnUnits(l, body, boss.units, time, 1);
   const look = meteorLookFor(body.id);
   const { ctx } = stubCanvas();
   const c = ctx as unknown as CanvasRenderingContext2D;
@@ -67,7 +67,7 @@ function pileLog(role: ViewRole, units: number, time: number, window: boolean): 
   c.clip(pilePath(stack));
   for (const u of stack) {
     const w: Window = window ? seenFrom(stack, u.x, u.y) : WHOLE;
-    drawRockBody(c, u.x, u.y, u.r, time, body.id * 31 + u.slot, 0, look, w);
+    drawRockBody(c, u.x, u.y, u.r, time, body.id * 31 + u.slot, 0, look, w, u.rock);
   }
   c.restore();
   return ctx.log;

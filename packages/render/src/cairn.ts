@@ -51,17 +51,20 @@ export function drawCairn(
   const pose = outlinePose("cairn", time, hush, root.reach, l.tile);
   if (pose !== null) ctx.transform(...poseMatrix(pose, root));
   const alpha = ctx.globalAlpha;
-  CAIRN_LOOK.pile(ctx, l, body, boss, time);
-  if (hurt.value > 0) drawHurt(ctx, pilePath(cairnUnits(l, body, boss.units, time)), hurt.value);
+  // Each stone rocks on its seat by the same hush (`cairn-rock.ts`), and every
+  // mark below asks `cairnUnits` with it, so each stays on its stone.
+  CAIRN_LOOK.pile(ctx, l, body, boss, time, hush);
+  if (hurt.value > 0)
+    drawHurt(ctx, pilePath(cairnUnits(l, body, boss.units, time, hush)), hurt.value);
   ctx.globalAlpha = alpha;
   // A hand on it, over the stack rather than under it — the field's grip
   // pass runs before the boss is drawn, and a ring behind seven rocks was
   // no ring at all (`cairn-hand.ts`).
-  drawPileHand(ctx, l, world, body, boss.units, time, view.names);
+  drawPileHand(ctx, l, world, body, boss.units, time, hush, view.names);
   // And, on one screen of the two, the lane the pile is about to drop one
   // into. After the pile, because it stands on the stone that is going and
   // has to be read over it (`cairn-settle.ts`).
-  if (showsCairnSettle(l)) drawCairnSettle(ctx, l, world, boss, body, view.beatPhase, time);
+  if (showsCairnSettle(l)) drawCairnSettle(ctx, l, world, boss, body, view.beatPhase, time, hush);
   ctx.restore();
 }
 

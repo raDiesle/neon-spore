@@ -46,8 +46,9 @@ export function livePile(
   body: Creature,
   boss: CairnState,
   time: number,
+  hush: number,
 ): void {
-  const stack = cairnUnits(l, body, boss.units, time);
+  const stack = cairnUnits(l, body, boss.units, time, hush);
   if (stack.length === 0) return;
   const look = meteorLookFor(body.id);
   const path = pilePath(stack);
@@ -56,7 +57,8 @@ export function livePile(
   ctx.clip(path);
   for (const u of stack) {
     const seed = body.id * 31 + u.slot;
-    drawRockBody(ctx, u.x, u.y, u.r, time, seed, 0, look, seenFrom(stack, u.x, u.y));
+    // Its fire turns with its rock, so the facets and the stone agree.
+    drawRockBody(ctx, u.x, u.y, u.r, time, seed, 0, look, seenFrom(stack, u.x, u.y), u.rock);
     // Each stone's seam straight after it, so the stone above covers the part
     // of the line its own body hides and only real joints stay drawn. Inside
     // the clip, so the silhouette keeps the stroke's inner half and the pile

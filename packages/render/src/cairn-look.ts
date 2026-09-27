@@ -26,5 +26,7 @@ export const CAIRN_LOOK: {
     body: Creature,
     boss: CairnState,
     time: number,
+    /** `outlineHush`'s, handed to `cairnUnits` so the stones rock as the marks on them do. */
+    hush: number,
   ) => void;
 } = { pile: livePile };

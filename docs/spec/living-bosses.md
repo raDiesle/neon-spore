@@ -113,7 +113,10 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   let go; her claws stay still, since their opening is the drop's *when*.
   It ships at 0 for her: her wings' ends are behind her torches and the
   arm's elbow alone moves too little to see, so how far she moves is a
-  question on the queue ("THE BULB QUEEN's parts: how far"). THE CAIRN's and
+  question on the queue ("THE BULB QUEEN's parts: how far"). THE CAIRN's
+  stones rock, each on the ones under it (`cairn-rock.ts`): its top half a
+  tile from its seat, what stands on it riding along, so the apex wanders
+  four fifths of a tile; every mark on a stone reads `cairnUnits` and follows.
   THE REPRISE's parts and the surface marks are their own entry.
 
 ### Every part moves on its own

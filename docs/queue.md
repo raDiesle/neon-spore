@@ -2301,28 +2301,6 @@ THE CAIRN and THE REPRISE.
 Wire the one he picks, with two stills at the widest moment that tell apart
 on a phone. `bun run check` proves it.
 
-## Living bosses — THE CAIRN's and THE REPRISE's parts, and the surface marks
-
-- **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
-- **Taken:** 2026-09-27, claude/queue-cairn-reprise-parts (claim: claude/queue-living-bosses-the-cairns-and-the-reprises-parts)
-- **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-lens.ts`, `packages/content/src/surface.ts`
-
-The second half of the old "outline tier's parts and surface marks" entry;
-the first half, THE BULB QUEEN, is built and waits on the entry above. The
-helper is on `main`: `partOn` gives a part's angles scaled so its tip moves
-`PART.tip` (half a tile), `partMatrix`/`partPoint` turn a point about its
-joint, and `OUTLINE_PARTS` holds each boss's share. Each stone of THE CAIRN,
-THE REPRISE's cords and lens eye, and the surface marks by longitude through
-`pin`/`facet`, move far enough to be seen (`docs/looks.md`, *Big enough to be
-seen*), with any hit circle on a moving part following it the way
-`instarMarkUnder` does. At most eight moving parts a boss; each pair an exact
-mirror where the boss is symmetric.
-
-Done when: the parts test's out-of-step and speed checks run on each boss's
-part list, a hit test on a moving part follows it, two stills at the widest
-moment tell apart on a phone, and the op-count rows stay within 10%.
-`bun run check` proves it.
-
 ## Eleven pose files each write out their own `into`
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
@@ -2336,3 +2314,39 @@ and THE FLUE's made eleven. One `phaseInto(s: { phaseBeat: number },
 beat, beatPhase)` in its own small file, called from each, and a row in
 `copies-table.ts` so the twelfth boss calls it rather than writing it,
 as `coreHurt` was gathered. `bun run check` proves it.
+
+## Living bosses — THE REPRISE's parts, and the surface marks
+
+- **Found:** 2026-09-27, claude/queue-cairn-reprise-parts
+- **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-lens.ts`, `packages/content/src/surface.ts`
+
+What is left of the outline tier's parts once THE CAIRN's stones rock
+(`cairn-rock.ts`, the worked example for a body made of parts). The helper is
+on `main`: `partOn` gives a part's angles scaled so its tip moves `PART.tip`
+(half a tile), `partMatrix`/`partPoint` turn a point about its joint, and
+`OUTLINE_PARTS` holds each boss's share. THE REPRISE's two cords and its lens
+eye move far enough to be seen (`docs/looks.md`, *Big enough to be seen*),
+the cords an exact mirror, with any mark on a moving part taking its place
+from the same function the drawer does, the way the cairn's settle ring does.
+Then the surface marks, by longitude through `pin`/`facet`, the same size
+rule. At most eight moving parts a boss.
+
+Done when: the parts test's out-of-step and speed checks run on THE REPRISE's
+parts, a mark on a moving part follows it, two stills at the widest moment
+tell apart on a phone, and the op-count rows stay within 10%.
+`bun run check` proves it.
+
+## `bun run frames` cannot put a picture at a chosen draw time
+
+- **Found:** 2026-09-27, claude/queue-cairn-reprise-parts
+- **Files:** `tools/frames/page.ts`, `tools/frames/spec.ts`, `tools/frames/capture.ts`, `tools/frames/recipes.ts`
+
+The *Big enough to be seen* test wants two stills at the moment a movement is
+widest, and every own-motion is drawn on `view.time`, which the tool pins to
+a counter of painted frames (`freezeClocks`). How many paints the opening and
+the settle cost is nobody's number, so the time a frame lands on is found by
+rendering a strip and looking — THE CAIRN's rocking stones took a six-frame
+strip and six crops to find one wide moment. Add `--time <seconds>`, which sets
+the pinned clock to that value before the last paint of each capture, on both
+sides of a pair, and a recipe line for it. Test it with a stub page: the
+clock the paint sees is the value asked for. `bun run check` proves it.

@@ -531,29 +531,34 @@ const SCENES: readonly Scene[] = [
     // `save` one higher on 25 September 2026: the blow of a pulled unit
     // shakes the pile, its hand and its lane mark under one translate
     // (`cairn.ts`), and that is one save a frame whether or not it is shaking.
+    // Remeasured on 27 September 2026, when the stones began to rock on one
+    // another (`cairn-rock.ts`): a stone rocked off the one beside it shows
+    // more of its fire past the others' circles, so the window keeps more of
+    // its marks (`rock-window.ts`) — `fill` and the gradients up by at most a
+    // twentieth, and no op added for the rock itself.
     rows: {
       p1: [
         {
           fillRect: 64,
-          stroke: 177,
-          fill: 293,
+          stroke: 180,
+          fill: 302,
           clip: 14,
-          save: 190,
+          save: 194,
           drawImage: 49,
-          createLinearGradient: 133,
-          createRadialGradient: 79,
+          createLinearGradient: 135,
+          createRadialGradient: 83,
           "new Path2D": 79,
           fillText: 6,
         },
         {
           fillRect: 64,
-          stroke: 179,
-          fill: 294,
+          stroke: 182,
+          fill: 300,
           clip: 14,
-          save: 190,
+          save: 193,
           drawImage: 49,
           createLinearGradient: 122,
-          createRadialGradient: 57,
+          createRadialGradient: 60,
           "new Path2D": 54,
           fillText: 6,
         },
@@ -561,25 +566,25 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 63,
-          stroke: 180,
-          fill: 300,
+          stroke: 183,
+          fill: 309,
           clip: 14,
-          save: 191,
+          save: 195,
           drawImage: 48,
-          createLinearGradient: 132,
-          createRadialGradient: 79,
+          createLinearGradient: 134,
+          createRadialGradient: 83,
           "new Path2D": 77,
           fillText: 6,
         },
         {
           fillRect: 63,
-          stroke: 182,
-          fill: 301,
+          stroke: 185,
+          fill: 307,
           clip: 14,
-          save: 191,
+          save: 194,
           drawImage: 48,
           createLinearGradient: 121,
-          createRadialGradient: 57,
+          createRadialGradient: 60,
           "new Path2D": 54,
           fillText: 6,
         },
