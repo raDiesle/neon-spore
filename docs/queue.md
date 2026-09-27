@@ -1481,6 +1481,7 @@ cap. `bun run check` proves it, and the test's own time says by how much.
 ## Stale: three boss status rows carry THE OCULUS's body sentence
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-tasks-3c2f5e (claim: claude/queue-stale-three-boss-status-rows-carry-the-oculuss-b)
 - **Files:** `docs/spec/bosses-choreographed.md`
 
 The status table's rows for §30 THE TRIVET, §29 THE RIME and §28 THE VISE
