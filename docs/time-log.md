@@ -25300,3 +25300,15 @@ answered it, and only timing the build showed it.
 Bottleneck: friction — the first item the queue offered needed an idle machine.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `bun run push` no longer refuses on a kept lane's worktree
+
+- reading: 5 min. `push.ts`, `reconcile.ts`'s clean-tree check, why the owner's
+  machine never saw it (`.git/info/exclude`).
+- writing: 5 min. The `.gitignore` line, a repo test that was red first.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the refusal only happens on a clone without the local
+exclude, so the cause was not in the code the entry named.

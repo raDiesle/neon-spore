@@ -12,6 +12,10 @@ coverage/
 !.aider.model.settings.yml
 !.aiderignore
 .claude/tmp/
+# Every lane's worktree lives here, inside the checkout that has `main` out, and
+# git counts a directory holding a `.git` file as untracked — so without this a
+# cloud clone's `bun run push` refused on a lane kept by `land --keep`.
+.claude/worktrees/
 .claude/settings.local.json
 
 # `bun run shapes:still` writes whatever was last asked for — one body, one
