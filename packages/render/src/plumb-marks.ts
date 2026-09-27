@@ -19,7 +19,7 @@ import {
   plumbLift,
   plumbVialPath,
 } from "./plumb-shape.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE PLUMB's marks**: the two things that say what a step asks — a level's
@@ -28,7 +28,7 @@ import { seamColour } from "./seam-marks.js";
  * written, along the line its second half grows on: the cue words and the
  * sparks come here.
  *
- * A step's colour is THE SEAM's (`seamColour`), called rather than copied.
+ * A step's colour is `stepColour`'s, called rather than copied.
  */
 
 /**
@@ -60,7 +60,7 @@ export function drawPlumbCore(
     ctx.stroke(core);
     return;
   }
-  const { body, rim } = seamColour(fire.color);
+  const { body, rim } = stepColour(fire.color);
   const pulse = 0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2);
   ctx.fillStyle = rgba(body, hurt.bright * pulse);
   ctx.fill(core);

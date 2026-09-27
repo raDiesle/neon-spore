@@ -4,12 +4,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { slingCordPath, slingCupPath, slingCupRadius } from "./sling-shape.js";
-
-/** A step's colour on the canvas: its cannon's, or the hull's rim for one either answers (§32). */
-export function slingColour(color: Color | "either"): { body: string; rim: string } {
-  if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
-  return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
-}
+import { stepColour } from "./step-colour.js";
 
 /** One side's cord: cord-brown at rest, glowing white while this side is the one asked to draw it. */
 export function drawSlingCord(
@@ -49,7 +44,7 @@ export function drawSlingCup(
     ctx.stroke(cup);
     return;
   }
-  const { body, rim } = slingColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, glow * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(cup);
   strokeGlow(ctx, cup, rim, STROKE.inner, 0.8 + glow);

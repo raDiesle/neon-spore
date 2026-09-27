@@ -5,7 +5,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { viseColour } from "./vise-marks.js";
+import { stepColour } from "./step-colour.js";
 import { into } from "./vise-pose.js";
 import { viseKernel, viseKernelPath } from "./vise-shape.js";
 
@@ -82,13 +82,13 @@ export function drawViseSeed(
   spit: number,
   seedX: number,
   toHull: number,
-  color: Parameters<typeof viseColour>[0],
+  color: Parameters<typeof stepColour>[0],
   beatPhase: number,
 ): void {
   if (spit <= 0) return;
   const k = viseKernel(l);
   const at = { x: k.x + (seedX - k.x) * spit, y: k.y + k.r * 1.5 * Math.sin(spit * Math.PI * 0.5) };
-  const colour = viseColour(color);
+  const colour = stepColour(color);
   ctx.save();
   ctx.translate(at.x - k.x, at.y - k.y);
   const seed = viseKernelPath(l, SEED);

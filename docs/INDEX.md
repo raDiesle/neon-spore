@@ -1217,7 +1217,7 @@ by hand never moves.
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |
-| `packages/render/src/sling-marks.ts` | A step's colour on the canvas: its cannon's, or the hull's rim for one either answers (§32) |
+| `packages/render/src/sling-marks.ts` | One side's cord: cord-brown at rest, glowing white while this side is the one asked to draw it |
 | `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
 | `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
@@ -1832,6 +1832,7 @@ by hand never moves.
 | `packages/render/src/strand-fuse.ts` | THE STRAND's thread going, drawn as a fuse |
 | `packages/render/src/strip-look.ts` | what a strip looks like, as a record — the trough, its lip, the rail, the stations and the block, lifted out of band-channel so a candidate panel can draw a rail as something else |
 | `packages/render/src/strip-band.ts` | HOW FAR OFF A STRIP A THUMB MAY LAND AND STILL MEAN IT |
+| `packages/render/src/step-colour.ts` | **A boss step's colour on the canvas**: its cannon's fill and rim |
 | `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
 | `packages/render/src/choir-arrows.ts` | **THE CHOIR's two arrows**: the way to open a membrane on a device that cannot tell you it has been shaken |
 | `packages/render/src/choir-prompt.ts` | **The instruction over a membrane**: a scan frame around the middle dot with the gesture written under it |
@@ -1963,7 +1964,7 @@ by hand never moves.
 | `packages/render/src/davit-blow.ts` | **THE DAVIT's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/davit-draw.ts` | **THE DAVIT** (§35): a crane boom on a mast over the middle column |
 | `packages/render/src/davit-grip.ts` | **THE DAVIT's two looses as controls**: `davitLooseLeft` is the pilot's (seat 1) |
-| `packages/render/src/davit-marks.ts` | A step's colour on the canvas: its cannon's, or the hull's rim for one either answers (§32's rule, shared) |
+| `packages/render/src/davit-marks.ts` | The mast's own socket: a dark steel foot the boom always stands out of |
 | `packages/render/src/davit-pose.ts` | THE DAVIT's timing: how far the boom has stood up out of stowed, how far a lit step's window has run |
 | `packages/render/src/davit-shape.ts` | **THE DAVIT's geometry**: a boom stowed pointing straight up off a mast over the middle column |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |

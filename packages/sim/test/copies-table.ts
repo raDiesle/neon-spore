@@ -771,4 +771,16 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/core-hurt.ts",
     pattern: /1\s*-\s*0\.12\s*\*\s*\w+/,
   },
+  {
+    // **A boss step's colour on the canvas** — its cannon's fill and rim, or
+    // the hull's rim for a step either answers. THE SEAM wrote it, and THE
+    // OCULUS, THE VISE, THE CYST, THE SLING and THE DAVIT each pasted it again
+    // beside their marks (THE CYST a rim-only ternary as well). Both spellings,
+    // and unstripped, because the `"either"` the shape turns on is a string.
+    call: "stepColour",
+    owner: "packages/render/src/step-colour.ts",
+    pattern:
+      /"either"\s*\)\s*return\s*\{\s*body:\s*PALETTE\.hullRim|PALETTE\.cyanRim\s*:\s*PALETTE\.hullRim/,
+    strip: false,
+  },
 ];

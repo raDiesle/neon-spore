@@ -4,7 +4,7 @@ import { halterCoreR, halterGripAt, halterGripR } from "./halter-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE HALTER's marks**: what says what a step asks — a segment's stretch of
@@ -12,7 +12,7 @@ import { seamColour } from "./seam-marks.js";
  * both*; and the bared core lit, which is *shoot here, in this colour*. The
  * glow and the grips are the white of the hull's rim, the one light on a
  * plating that is otherwise dull; the core is the only part in a cannon's
- * colour, THE SEAM's (`seamColour`), called rather than copied.
+ * colour, `stepColour`'s, called rather than copied.
  *
  * Nothing marks the seat that rests. What says it is resting is the plating
  * going still (`halterShake`), and a mark for it would be a thing to look at
@@ -79,7 +79,7 @@ export function drawHalterCore(
     ctx.stroke(face);
     return;
   }
-  const { body, rim } = seamColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(face);
   strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + bright);

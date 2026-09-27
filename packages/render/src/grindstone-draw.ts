@@ -40,7 +40,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 
 /** How far the jaws are flung spinning free, in tiles, and how thin the wheel turns edge-on. */
 const FLING = 2.2;
@@ -85,7 +85,7 @@ export function drawGrindstone(
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.translate(axle.x + fx.hurt.shakeX(time, l.tile), axle.y + fx.thud * l.tile);
-  if (step?.ask === "fire") fx.tell(seamColour(step.color).rim);
+  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
 
   // The caliper first, behind the wheel it closes on; spinning free it is flung off both ways.
   const pads = step?.ask === "clamp";

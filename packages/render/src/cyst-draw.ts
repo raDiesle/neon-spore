@@ -36,6 +36,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER), its
@@ -104,7 +105,7 @@ export function drawCyst(
     drawLitFlank(ctx, l, world, s, pose, beatPhase);
   }
 
-  if (step?.ask === "fire") fx.tell(cystColourRim(step.color));
+  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing ? { color: step.color, left } : null;
   const hurt = coreHurt(s.hits);
@@ -128,11 +129,6 @@ export function drawCyst(
   }
   drawCystFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();
-}
-
-/** A fire step's rim, told to the fx so a core hit bursts in the colour it was shot in. */
-function cystColourRim(color: "red" | "cyan" | "either"): string {
-  return color === "red" ? PALETTE.redRim : color === "cyan" ? PALETTE.cyanRim : PALETTE.hullRim;
 }
 
 /** The sac: mauve fill, the key light on it, its outline, the blow over it, and each flank's scar. */

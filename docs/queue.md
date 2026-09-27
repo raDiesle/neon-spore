@@ -2011,20 +2011,6 @@ has looked. The autopilot hand is done (`hands/boss-hands-rime.ts`,
 `director/test/autopilot-rime.test.ts`), and THE SLOW's aim on the lens
 (`render/slow-boss-aim-b.ts`).
 
-## The step colour is written three times: hoist it
-
-- **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
-- **Taken:** 2026-09-27, claude/queue-sheen-ts-carries-three-dead-exports-and-two-comm (claim: claude/queue-the-step-colour-is-written-three-times-hoist-it)
-- **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/oculus-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/sim/test/copies-table.ts`
-
-`seamColour`, `viseColour` and `oculusColour` are the same function — a
-step's `Color | "either"` to its body and rim colours, white for either —
-copied three times; THE RIME calls `seamColour` rather than make a fourth.
-Move it to one small module (`step-colour.ts`, say), call it from all four
-marks files, delete the copies, and add a row to the called-not-re-derived
-table in `packages/sim/test/copies-table.ts` so a fifth boss cannot copy
-it again. No picture changes; `bun run check` proves it.
-
 ## Unverified at f36bb0d02: THE RIME's body watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look

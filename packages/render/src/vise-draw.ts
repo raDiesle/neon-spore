@@ -15,8 +15,9 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 import type { ViseFx } from "./vise-fx.js";
-import { drawViseFlash, drawViseKernel, drawViseLitSeam, viseColour } from "./vise-marks.js";
+import { drawViseFlash, drawViseKernel, drawViseLitSeam } from "./vise-marks.js";
 import {
   viseArrived,
   viseHeldShare,
@@ -83,7 +84,7 @@ export function drawVise(
   ctx.fillStyle = rgba(PALETTE.background, 0.92);
   ctx.fill(viseHollowPath(l));
   const step = viseLitStep(s);
-  if (step?.ask === "fire") fx.tell(viseColour(step.color).rim);
+  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing
     ? { color: step.color, left: viseLeft(s, viseWindowBeats(world, step), beat, beatPhase) }

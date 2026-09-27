@@ -1,9 +1,10 @@
-import type { Color, SeamStep } from "@neon-spore/sim";
+import type { SeamStep } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { type Point, seamLobe, seamPointPath } from "./seam-shape.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE SEAM's marks**: the three things that say what a step asks — the lit
@@ -12,12 +13,6 @@ import { type Point, seamLobe, seamPointPath } from "./seam-shape.js";
  * Cut from `seam-draw.ts` the day it was written, along the line its second
  * half will grow on — the cue words and the grit's spark come here.
  */
-
-/** A step's colour on the canvas: its cannon's, or white for a step either answers (§26, *Colour*). */
-export function seamColour(color: Color | "either"): { body: string; rim: string } {
-  if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
-  return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
-}
 
 /**
  * The lit point: its opening on the crack glowing in the step's colour, and a
@@ -32,7 +27,7 @@ export function drawSeamPoint(
   left: number,
   beatPhase: number,
 ): void {
-  const { body, rim } = seamColour(step.color);
+  const { body, rim } = stepColour(step.color);
   const lens = seamPointPath(l, k);
   ctx.fillStyle = rgba(body, 0.45 + 0.25 * Math.cos(beatPhase * Math.PI * 2));
   ctx.fill(lens);
@@ -93,7 +88,7 @@ export function drawSeamRock(
   along: number,
   time: number,
 ): void {
-  const { body, rim } = seamColour(step.color);
+  const { body, rim } = stepColour(step.color);
   const across = Math.min(1, along * 3);
   const x = from.x + (toX - from.x) * across;
   const arc = -Math.sin(across * Math.PI) * 0.6 * l.tile;

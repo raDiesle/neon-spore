@@ -35,7 +35,7 @@ import {
   plumbSacPath,
   plumbSacRadius,
 } from "./plumb-shape.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE PLUMB**: a lopsided bob hung off a hook over the middle column, a
@@ -169,7 +169,7 @@ function drawBob(
     step !== null && step.ask === "fire" && s.coreLit
       ? { color: step.color, left: plumbLeft(s, world, beat, beatPhase) }
       : null;
-  if (fire !== null) fx.tell(seamColour(fire.color).rim);
+  if (fire !== null) fx.tell(stepColour(fire.color).rim);
   drawPlumbCore(ctx, l, turn, coreHurt(s.hits), s.coreLit, fire, beatPhase);
   ctx.restore();
 }

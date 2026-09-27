@@ -4,7 +4,7 @@ import { grindstoneAxleR, grindstonePadAt, grindstonePadR } from "./grindstone-s
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE GRINDSTONE's marks**: the things that say what a step asks — a flat's
@@ -12,7 +12,7 @@ import { seamColour } from "./seam-marks.js";
  * these*; and the lit axle, which is *shoot here, in this colour*. The glow
  * and the pads are the white of the hull's rim, the one light on a stone that
  * is otherwise dull (§33, *Colour*); the axle is the only part of the wheel in
- * a cannon's colour, THE SEAM's (`seamColour`), called rather than copied.
+ * a cannon's colour, `stepColour`'s, called rather than copied.
  */
 
 /** A lit flat's face, glowing on its beat: *grind this one*. */
@@ -87,7 +87,7 @@ export function drawGrindstoneAxle(
     ctx.stroke(face);
     return;
   }
-  const { body, rim } = seamColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(face);
   strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + bright);

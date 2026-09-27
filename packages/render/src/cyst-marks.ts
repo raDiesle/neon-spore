@@ -1,9 +1,10 @@
 import { cystCorePath, cystCoreR, cystMarkAt, cystR } from "./cyst-shape.js";
-import { type CystCoreLit, cystColour } from "./cyst-story.js";
+import type { CystCoreLit } from "./cyst-story.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE CYST's marks**: the things that say what a step asks — a lit freeze
@@ -111,7 +112,7 @@ export function drawCystCore(
     ctx.fill(core);
     return;
   }
-  const { body, rim } = cystColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(core);
   strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + bright);

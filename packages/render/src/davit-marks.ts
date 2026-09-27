@@ -13,12 +13,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-
-/** A step's colour on the canvas: its cannon's, or the hull's rim for one either answers (§32's rule, shared). */
-export function davitColour(color: Color | "either"): { body: string; rim: string } {
-  if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
-  return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
-}
+import { stepColour } from "./step-colour.js";
 
 /** The mast's own socket: a dark steel foot the boom always stands out of. */
 export function drawDavitMast(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -97,7 +92,7 @@ export function drawDavitHook(
     ctx.stroke(hook);
     return;
   }
-  const { body, rim } = davitColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, glow * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(hook);
   strokeGlow(ctx, hook, rim, STROKE.inner, 0.8 + glow);

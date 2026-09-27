@@ -10,7 +10,7 @@ import {
   rimeInnerPath,
   rimeLensPath,
 } from "./rime-shape.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE RIME's marks**: the three things that say what a step asks — the lit
@@ -19,8 +19,8 @@ import { seamColour } from "./seam-marks.js";
  * this colour*. Cut from `rime-draw.ts` the day it was written, along the line
  * its second half will grow on — the cue words and the flakes come here.
  *
- * A step's colour is THE SEAM's (`seamColour`), called rather than copied a
- * fourth time: its cannon's, or white for a step either answers.
+ * A step's colour is `stepColour`'s, called rather than copied: its
+ * cannon's, or white for a step either answers.
  */
 
 /** The lit half's outline, glowing white on its beat: a wipe is one seat's, and neither colour is its answer. */
@@ -87,7 +87,7 @@ export function drawRimeCore(
     ctx.stroke(core);
     return;
   }
-  const { body, rim } = seamColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(core);
   strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + bright);

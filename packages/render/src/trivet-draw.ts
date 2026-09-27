@@ -13,7 +13,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 import type { TrivetFx } from "./trivet-fx.js";
 import { drawTrivetFace, drawTrivetFlash, drawTrivetSockets } from "./trivet-marks.js";
 import {
@@ -98,7 +98,7 @@ export function drawTrivet(
     home.x + fx.hurt.shakeX(time, l.tile),
     home.y - trivetDrop(l, arrived) + fx.thud * l.tile,
   );
-  if (step?.ask === "fire" || step?.ask === "tip") fx.tell(seamColour(step.color).rim);
+  if (step?.ask === "fire" || step?.ask === "tip") fx.tell(stepColour(step.color).rim);
 
   // The middle leg first, behind the two a seat answers for; it never lifts.
   drawLeg(ctx, l, root(2), lowered(trivetFoot(l, 2, 0, buckle), fall));

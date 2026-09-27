@@ -4,6 +4,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { oculusLeafEdge, oculusRadius, oculusSocketRadius } from "./oculus-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE OCULUS's marks**: the two things that say what a step asks — the lit
@@ -13,12 +14,6 @@ import { PALETTE, STROKE } from "./palette.js";
  * here. The words over the marks are the cue's, every boss's way
  * (`boss-cue-read-ze.ts`).
  */
-
-/** A step's colour on the canvas: its cannon's, or white for a step either answers (§27, *Colour*). */
-export function oculusColour(color: Color | "either"): { body: string; rim: string } {
-  if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
-  return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
-}
 
 /**
  * The lit pair: both leaves' leading edges glowing white, since a hold asks
@@ -64,7 +59,7 @@ export function drawOculusCore(
     ctx.stroke(core);
     return;
   }
-  const { body, rim } = oculusColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, 0.65 + 0.25 * Math.cos(beatPhase * Math.PI * 2));
   ctx.fill(core);
   strokeGlow(ctx, core, rim, STROKE.inner, 1.3);

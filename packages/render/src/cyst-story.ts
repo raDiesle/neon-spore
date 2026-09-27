@@ -5,6 +5,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE CYST's three story steps, drawn** (§34; the rules are
@@ -27,12 +28,6 @@ const SINK = 0.45;
 /** The bud's radius, and how high over the sac's middle it grows, in tiles. */
 const BUD = 0.42;
 const BUD_RISE = 0.9;
-
-/** The step's colour as a fill and a rim; white for either. */
-export function cystColour(color: Color | "either"): { body: string; rim: string } {
-  if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
-  return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
-}
 
 /**
  * The spore, `out` of the way let go from `tip` to hang `dx` across, `sink`
@@ -91,7 +86,7 @@ export function drawCystBud(
   const r = BUD * l.tile * grown;
   const bud = new Path2D();
   bud.ellipse(at.x, at.y, Math.max(0.5, r), Math.max(0.5, r * 1.12), 0, 0, Math.PI * 2);
-  const { body, rim } = cystColour(color);
+  const { body, rim } = stepColour(color);
   ctx.fillStyle = rgba(body, 0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2));
   ctx.fill(bud);
   strokeGlow(ctx, bud, rim, STROKE.inner, grown);

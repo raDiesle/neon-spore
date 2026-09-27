@@ -3,6 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 import { viseKernel, viseKernelPath, viseRadius, viseSeamPath } from "./vise-shape.js";
 
 /**
@@ -13,12 +14,6 @@ import { viseKernel, viseKernelPath, viseRadius, viseSeamPath } from "./vise-sha
  * here too. The words over the marks are the cue's, every boss's way
  * (`boss-cue-read-zf.ts`).
  */
-
-/** A step's colour on the canvas: its cannon's, or white for a step either answers (§28, *Colour*). */
-export function viseColour(color: Color | "either"): { body: string; rim: string } {
-  if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
-  return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
-}
 
 /**
  * The lit seam, drawn in the lobe's own frame: the whole run of it glowing
@@ -66,7 +61,7 @@ export function drawViseKernel(
     ctx.stroke(core);
     return;
   }
-  const { body, rim } = viseColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(core);
   strokeGlow(ctx, core, rim, STROKE.inner, 0.8 + bright);

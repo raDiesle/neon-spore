@@ -14,12 +14,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import type { OculusFx } from "./oculus-fx.js";
-import {
-  drawOculusCore,
-  drawOculusFlash,
-  drawOculusLitPair,
-  oculusColour,
-} from "./oculus-marks.js";
+import { drawOculusCore, drawOculusFlash, drawOculusLitPair } from "./oculus-marks.js";
 import {
   oculusArrived,
   oculusLeft,
@@ -47,6 +42,7 @@ import {
   oculusGlare,
 } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /** Where the hull and the look's column are from the lens's centre — the story steps' aim. */
 interface Aim {
@@ -90,7 +86,7 @@ export function drawOculus(
   const shatter = oculusShatter(s, cfg, beat, beatPhase);
 
   const step = oculusLitStep(s);
-  if (step?.ask === "fire") fx.tell(oculusColour(step.color).rim);
+  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const y = home.y - oculusLift(l, arrived) + fx.thud * l.tile;
   const looked = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
   const lookCol = looked?.ask === "look" ? oculusLookCol(midCol(cfg), looked) : midCol(cfg);
@@ -212,7 +208,7 @@ function drawLens(
   ctx.strokeStyle = rgba(PALETTE.rock, 0.5);
   ctx.stroke(oculusLapPath(l));
   drawOculusGlare(ctx, l, glare, aim.toHull, beatPhase);
-  const colour = oculusColour(step?.ask === "look" ? step.color : "either");
+  const colour = stepColour(step?.ask === "look" ? step.color : "either");
   drawOculusSight(ctx, l, core, { x: aim.lookX, y: aim.toHull }, colour, gaze);
 
   if (step === null || (step.ask !== "shut" && step.ask !== "reseal")) return;

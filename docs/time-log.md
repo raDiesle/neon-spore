@@ -25405,3 +25405,16 @@ Bottleneck: reading — whether a boss can miss at all depends on what kind of
 ask it is, and that is in eight step files, not in one place.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the step colour, hoisted
+
+- reading: 5 min. The entry, the three copies it named and the grep that found
+  three more (THE CYST's, THE SLING's, THE DAVIT's) and a rim-only fourth.
+- writing: 10 min. `step-colour.ts`, eighteen callers moved onto it, the six
+  definitions gone, and a row in the copies table that catches both spellings.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry counted three copies and there were six; the
+grep for the function's body, not its name, is what found the rest.

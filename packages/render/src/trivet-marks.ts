@@ -3,7 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { seamColour } from "./seam-marks.js";
+import { stepColour } from "./step-colour.js";
 import { trivetFaceR, trivetHubR, trivetSocketAt, trivetSocketR } from "./trivet-shape.js";
 
 /**
@@ -13,7 +13,7 @@ import { trivetFaceR, trivetHubR, trivetSocketAt, trivetSocketR } from "./trivet
  * along the line its second half grew on: the flashes `trivet-fx.ts` times
  * are drawn here too, and row 11's ring will be.
  *
- * A step's colour is THE SEAM's (`seamColour`), called rather than copied:
+ * A step's colour is `stepColour`'s, called rather than copied:
  * its cannon's, or white for a step either answers. The sockets are the one
  * other light on the stand, a cold blue-white that is neither cannon's (§30,
  * *Colour*).
@@ -77,7 +77,7 @@ export function drawTrivetFace(
     ctx.stroke(face);
     return;
   }
-  const { body, rim } = seamColour(lit.color);
+  const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(face);
   strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + bright);
