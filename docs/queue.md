@@ -2600,6 +2600,7 @@ check` proves it.
 ## THE INSTAR — the fire in its mouth is a soft glow that grows
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-instar-flies-round-in-depth-not-across (claim: claude/queue-the-instar-the-fire-in-its-mouth-is-a-soft-glow)
 - **Files:** `packages/render/src/instar-fire.ts`, `packages/render/src/instar-head.ts`, `packages/render/test/instar-fire.test.ts`
 
 The owner, 27 September 2026: *the fire in the middle of the mouth must look
