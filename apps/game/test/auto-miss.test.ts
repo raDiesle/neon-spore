@@ -61,7 +61,14 @@ function bossBlow(name: string, miss: boolean): { by: string; kind: string } | n
 }
 
 describe("--auto-miss", () => {
-  for (const name of ["THE OCULUS", "THE VISE", "THE TRIVET", "THE RATCHET"]) {
+  for (const name of [
+    "THE OCULUS",
+    "THE VISE",
+    "THE TRIVET",
+    "THE RATCHET",
+    "THE CYST",
+    "THE SLING",
+  ]) {
     it(`reaches ${name}'s timeout blow, which AUTO alone never lands`, () => {
       expect(bossBlow(name, false)).toBeNull();
       expect(bossBlow(name, true)).not.toBeNull();

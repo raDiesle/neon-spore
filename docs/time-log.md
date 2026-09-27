@@ -27402,3 +27402,17 @@ Bottleneck: reading — deciding each seam's fate meant proving nothing in the
 queue or in VERSUS still patched it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `--auto-miss` reaches THE CYST's and THE SLING's blows
+
+- reading: 5 min. `auto-miss.ts`, its test, `gall-step.ts`'s `next` and
+  `miss`.
+- writing: 5 min. The two bosses added to the test's list; the queue entry
+  cut down to THE GALL alone.
+- looking: 0 min. A probe of `bossBlow` both ways for the three bosses; no
+  picture moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — THE GALL's fire step opens no window and the cannon
+fires by itself, which put its half past one sitting and back in the queue.

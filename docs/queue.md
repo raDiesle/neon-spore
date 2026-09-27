@@ -2119,44 +2119,25 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
+## `--auto-miss` cannot make THE GALL's fire step run out
 
-- **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
-- **Taken:** 2026-09-27, claude/queue-32-the-sling-the-directors-pose-cards (claim: claude/queue-auto-miss-cannot-make-the-cysts-or-the-slings-sh)
-- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`, `packages/sim/src/gall-step.ts`
+- **Found:** 2026-09-27, claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto
+- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/gall-step.ts`, `packages/render/src/gall-blow.ts`
 
-Both hands landed 27 September 2026 (`boss-hands-cyst.ts`,
-`boss-hands-sling.ts`), so both fights now reach their fire steps under AUTO.
+THE CYST and THE SLING were the first two of three: with their hands landed
+(27 September 2026) `--auto-miss` reaches both blows, and both are in
+`auto-miss.test.ts`'s list. THE GALL is left, and `bossBlow("THE GALL", true)`
+is still null, so its seed (`render/gall-blow.ts`) has never been in a frame.
 
-`--auto both --auto-miss` keeps AUTO's hands off every other asking window,
-and that reaches the timeout blow of THE OCULUS, THE VISE, THE TRIVET, THE
-HASP, THE RATCHET and THE GIMBAL. THE CYST and THE SLING breach only when a
-*fire* step runs out, and taking the hands off does not stop a shot. The
-cannon fires by itself every half beat (`fireEveryBeats`), so a cannon already
-under the aim answers the ask with nobody pressing. THE CYST's fire step also
-opens no window at all (`cyst-step.ts` `next`), so it is never withheld. The
-fix is a misser that moves the cannon off the aim during a withheld fire
-window, rather than one that only lets go. Add the two bosses to the test's
-list once it lands.
-
-**Tried 27 September 2026, and it cannot be proven yet.** Neither boss has an
-AUTO hand (both are in `autopilot.test.ts`'s `NO_HAND`), so with AUTO on both
-seats neither fight gets past its first step: THE CYST lights a flank and
-shudders it back every 225 ticks for the whole look, and THE SLING lights a
-draw and springs it every 600. No fire step is ever lit, so there is nothing
-for a misser to let go, and the test's `bossBlow(name, true)` is null for both
-before the auto-fire question comes up at all. Work it once THE CYST's hand
-and THE SLING's (the hands half of its look) have landed; the `Needs:` line
-names the first.
-
-**THE GALL is the third** (27 September 2026, claude/queue-38-the-gall-the-
-pinchs-touch-the-cue-and-auto). It has a hand now (`boss-hands-gall.ts`), but
-its blow is a fire step that runs out on the bared root (`gall-step.ts`
-`miss`), and `--auto-miss` withholds every close as well, so the root is never
-bared and the seed (`render/gall-blow.ts`) has never been in a frame. A
-misser for it has to play the closes and withhold only the fire step, and
-move the cannon off the middle column while it does, because the cannon fires
-by itself.
+Its blow is a fire step that runs out on the bared root (`gall-step.ts`
+`miss`). Only a close opens an asking window (`next`, `openSlow(…, "ask")`),
+so the fire step is never withheld; and a withheld hand would not stop the
+shot anyway, because the cannon fires by itself every half beat
+(`fireEveryBeats`) and sits under the root on the middle column. A misser for
+it has to play the closes as it does now, withhold the fire step, and slide
+the cannon off `midCol` while it does — so `askMisser` would need to hand
+back presses, not only a yes, and to know a lit fire step without a window.
+Add THE GALL to the test's list once it breaches.
 
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
