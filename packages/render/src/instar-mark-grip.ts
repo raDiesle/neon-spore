@@ -1,14 +1,9 @@
-import {
-  type InstarMark,
-  instarActing,
-  instarStep,
-  instarWound,
-  NO_BEARING,
-} from "@neon-spore/sim";
+import { instarActing, instarStep, instarWound, NO_BEARING, type SceneMark } from "@neon-spore/sim";
 import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import { instarThreat } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
 import { hitCircle, type Layout } from "./layout.js";
+import { nettleSway } from "./nettle-sway.js";
 import { NO_SPAN } from "./slow-hush.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -27,21 +22,29 @@ import { bossOf } from "./touch-field.js";
  * **The nearest ring under the thumb**, with where it is drawn this frame.
  * The one reading, so the two questions below cannot answer about two
  * different marks: what a press takes hold of, and whose the ring is.
+ *
+ * THE NETTLE shares this hit test — its marks are `SceneMark`s too
+ * (`nettle-words.ts`) — carried by its own pulse rather than THE INSTAR's
+ * weave (`nettle-sway.ts`). No two of these bosses are ever installed at
+ * once, so at most one of the two `bossOf` calls finds one.
  */
 function markUnder(
   l: Layout,
   x: number,
   y: number,
   field: Field,
-): { id: number; mark: InstarMark; at: Point } | null {
-  const s = bossOf(field, "instar");
+): { id: number; mark: SceneMark; at: Point } | null {
+  const s = bossOf(field, "instar") ?? bossOf(field, "nettle");
   if (s === null || !instarActing(s)) return null;
   const step = instarStep(s);
   if (step === null) return null;
   const r = instarMarkRadius(l, field.cfg);
-  const sway = instarSway(s, field.cfg, field.slow ?? NO_SPAN, field.beat, field.beatPhase);
+  const sway =
+    s.kind === "nettle"
+      ? nettleSway(s, field.cfg, field.beat, field.beatPhase)
+      : instarSway(s, field.cfg, field.slow ?? NO_SPAN, field.beat, field.beatPhase);
   const along = instarThreat(s, field.beat, field.beatPhase);
-  let best: { id: number; mark: InstarMark; at: Point; d: number } | null = null;
+  let best: { id: number; mark: SceneMark; at: Point; d: number } | null = null;
   step.marks.forEach((mark, id) => {
     const at = instarMarkPoint(l, mark, sway, along);
     if (!hitCircle({ x: at.x, y: at.y, r }, x, y)) return;

@@ -1,10 +1,10 @@
 import { circleSubpath } from "@neon-spore/content";
 import {
-  type InstarState,
   instarActing,
   instarHeld,
   instarStep,
   NOT_DONE,
+  type SceneState,
   type SimConfig,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
@@ -50,7 +50,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * mark in the step, which has nobody to be late.
  */
 export function instarTogetherLeft(
-  s: InstarState,
+  s: SceneState,
   cfg: SimConfig,
   i: number,
   beat: number,
@@ -71,7 +71,7 @@ export function instarTogetherLeft(
 /** Whether any mark of the step is answered and waiting — which is what
  * makes the marks still open the ones everybody is waiting on. */
 export function instarAwaited(
-  s: InstarState,
+  s: SceneState,
   cfg: SimConfig,
   beat: number,
   beatPhase: number,

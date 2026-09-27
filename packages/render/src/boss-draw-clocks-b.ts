@@ -9,6 +9,7 @@ import type { Layout } from "./layout.js";
 import { drawLead } from "./lead-draw.js";
 import { drawLeadGrip } from "./lead-grip.js";
 import { drawLedger } from "./ledger-draw.js";
+import { drawNettle } from "./nettle-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawScuttle } from "./scuttle-draw.js";
 import { drawScuttleGrip } from "./scuttle-grip.js";
@@ -47,6 +48,7 @@ export const FX_KINDS = [
   "antiphon",
   "hive",
   "instar",
+  "nettle",
   "stare",
   "filament",
 ] as const;
@@ -166,6 +168,17 @@ export function drawFxBoss(
   // `effects.boss.instar` (`instar-draw.ts`, `instar-fx.ts`).
   if (boss.kind === "instar") {
     drawInstar(ctx, l, world, boss, beat, beatPhase, time, effects.boss.instar);
+    return;
+  }
+
+  // THE NETTLE: a jellyfish the size of the field, stinging, staring,
+  // spawning, then turned to gape its iris, spit its globs and let the
+  // curtain down before it bares and burns its own core. Nothing here
+  // outlives a frame — its marks stand at the script's own places, not on
+  // a part of the body — so there is no `effects.boss.nettle` to hand it
+  // (`nettle-draw.ts`).
+  if (boss.kind === "nettle") {
+    drawNettle(ctx, l, world, boss, beat, beatPhase, time);
     return;
   }
 

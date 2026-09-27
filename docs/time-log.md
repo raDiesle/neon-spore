@@ -26688,3 +26688,19 @@ had to move in this lane rather than wait for the look.
 Bottleneck: telling a spent claim from a live one, by hand, ten times.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE NETTLE's look, carried onto the trunk
+
+- reading: 20 min. The seven commits of `claude/nettle-look`, 867 behind
+  `main`, against the trunk's own `instar-shape`/`instar-place` split and
+  the marks that now draw only while THE SLOW is open.
+- writing: 20 min. The five `nettle-*.ts` files copied, the INSTAR helpers
+  widened to `SceneState`, the grip and the boss switch taught the second
+  kind, the frame test opening THE SLOW, the spec paragraph and the ledger.
+- looking: 0 min. Carried as it was built; a picture is the owner's.
+- friction: 10 min. The branch's worktree stuck mid-rebase, which this lane
+  was not allowed to abort, so the carry was taken from the branch ref.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+The bottleneck: a branch left 867 commits behind is a port, not a rebase —
+every signature it called had moved under it.

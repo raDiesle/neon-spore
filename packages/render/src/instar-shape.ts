@@ -3,6 +3,7 @@ import {
   type InstarPose,
   type InstarState,
   instarStep,
+  type SceneState,
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
@@ -144,7 +145,7 @@ function lerp(a: Figure, b: Figure, t: number): Figure {
 }
 
 /** How far into the phase the frame is, in beats, sub-beat included. */
-export function instarPhaseAt(s: InstarState, beat: number, beatPhase: number): number {
+export function instarPhaseAt(s: SceneState, beat: number, beatPhase: number): number {
   return Math.max(0, beat - s.phaseBeat + beatPhase);
 }
 
@@ -181,7 +182,7 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number, he
 
 /** How far the morph has come, 0..1 — 1 outside a morph. The marks are shown
  * growing out of their parts over the last of it (`instar-marks.ts`). */
-export function instarMorphAt(s: InstarState, beat: number, beatPhase: number): number {
+export function instarMorphAt(s: SceneState, beat: number, beatPhase: number): number {
   const step = instarStep(s);
   if (s.phase !== "morph" || step === null) return 1;
   return Math.min(1, instarPhaseAt(s, beat, beatPhase) / step.morphBeats);
@@ -190,19 +191,14 @@ export function instarMorphAt(s: InstarState, beat: number, beatPhase: number): 
 /** How far the window has run, 0..1 — nought outside it. What the pair are
  * defending against grows by it: the fire in the mouth, the eggs' rumble,
  * the fork's wind-up (`instar-draw.ts`). */
-export function instarThreat(s: InstarState, beat: number, beatPhase: number): number {
+export function instarThreat(s: SceneState, beat: number, beatPhase: number): number {
   const step = instarStep(s);
   if (s.phase !== "act" || step === null) return 0;
   return Math.min(1, instarPhaseAt(s, beat, beatPhase) / step.windowBeats);
 }
 
 /** The body's opacity: whole until the last landing, then gone over `instarOutBeats`. */
-export function instarFade(
-  s: InstarState,
-  cfg: SimConfig,
-  beat: number,
-  beatPhase: number,
-): number {
+export function instarFade(s: SceneState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "down") return 1;
   return Math.max(0, 1 - instarPhaseAt(s, beat, beatPhase) / cfg.instarOutBeats);
 }

@@ -7671,14 +7671,23 @@ INSTAR's*: the events are the same events (`events-instar.ts`), so a mark
 shown, answered, slipped or struck sounds as it does on the dragon, and a
 panel press has the panel's own sound as well.
 
-**What is not built.** The body. Lane two draws it: a translucent bell with
-the core glowing through it, rim light, the stinging arms, the frill, the sac,
-the eyespots and the iris, a pose per step and a lerp between them, the
-turn to the underside, and every part deformed by how far its mark is along
-(render/nettle-draw.ts and the files it splits into), and it gives the
-thumbs their marks to grab (`render/instar-mark-grip.ts` reads THE INSTAR
-alone). Until then nothing of it is drawn and only the panel can answer it.
-The strike of a part left undone, and the death, are lane three.
+**The look.** A grown bell (`render/src/nettle-body.ts`), its fillStyle a
+plain `rockDark` faded by `globalAlpha` rather than baked into the colour the
+way THE INSTAR's `PLATE` is — the same `instarFade`, a different rendering of
+it. A pose per step and the eased lerp between them (`nettle-figure.ts`,
+`nettle-poses.ts`), the turn from crown to underside a crossfade by `f.side`
+across the same two engines: face-on shows the stinging arms, the rim
+eyespots, the brood sac and its spores; turned shows the iris, the held
+globs and the oral-arm curtain. The core burns through as the one warm
+accent. `render/src/nettle-sway.ts` carries its own pulse — a bell's squeeze
+and release — in place of THE INSTAR's weave, and `instar-mark-grip.ts`'s hit
+test now shares between the two bosses, since no two of them install at
+once. `render/src/nettle-draw.ts` reads the world and keeps nothing; nothing
+outlives a frame, so there is no `effects.boss.nettle` to reset. Proved on
+all three screens, every pose, mid-morph and acting, marks up only while the
+window is open, the fill under a thumb and the dot once done, and the sag and
+fade once the last step lands (`render/test/nettle-frame.test.ts`). The
+strike of a part left undone, and the death, are lane three.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/nettle.test.ts`): it installs as its own kind and morphs with the

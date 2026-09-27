@@ -1,4 +1,4 @@
-import type { InstarMark, SimConfig } from "@neon-spore/sim";
+import type { SceneMark, SimConfig } from "@neon-spore/sim";
 import type { Figure } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 
@@ -60,7 +60,7 @@ export function instarHeadAt(l: Layout, f: Figure): { head: Point; r: number } {
  */
 export function instarMarkPoint(
   l: Layout,
-  mark: InstarMark,
+  mark: SceneMark,
   sway: { xMilli: number; yMilli: number },
   along: number,
 ): Point {

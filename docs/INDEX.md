@@ -1316,6 +1316,11 @@ by hand never moves.
 | `packages/render/src/gradient-slot.ts` | A cache slot for one gradient that depends only on layout — never on time or an eased value |
 | `packages/render/src/gradient-held.ts` | `heldGradient`: a gradient whose every argument is a radius and a constant, built once and reused — never one keyed on `time` |
 | `packages/render/src/never.ts` | The one way this repository closes a `switch` — a `default` that only type-checks once `x` has narrowed to |
+| `packages/render/src/nettle-body.ts` | **THE NETTLE's own body, drawn** |
+| `packages/render/src/nettle-draw.ts` | **THE NETTLE**: a jellyfish the size of the field (§11.39, `docs/spec/bosses.md`) |
+| `packages/render/src/nettle-figure.ts` | **THE NETTLE's own body**, next to its own poses table (`nettle-poses.ts`) rather than a branch in… |
+| `packages/render/src/nettle-poses.ts` | **THE NETTLE's poses**, one `Figure` each: the bell as it drifts in, the eight the script names |
+| `packages/render/src/nettle-sway.ts` | **THE NETTLE pulses**, and the bell carries with it |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |

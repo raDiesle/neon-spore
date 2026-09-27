@@ -1,11 +1,11 @@
 import {
   type InstarGesture,
-  type InstarMark,
-  type InstarState,
   instarActing,
   instarMarkDone,
   instarStep,
   instarSwipeAlong,
+  type SceneMark,
+  type SceneState,
   type SimConfig,
   slowing,
   type World,
@@ -90,7 +90,7 @@ export const INSTAR_WORDS: Record<InstarGesture, { kind: CueKind; word: string }
 
 /** The two lines a seat reads over a mark: the kind and the gesture on its
  * own mark, the owner's name alone on its partner's. */
-export function instarMarkWord(mark: InstarMark, role: ViewRole): { kind?: CueKind; word: string } {
+export function instarMarkWord(mark: SceneMark, role: ViewRole): { kind?: CueKind; word: string } {
   if (instarMarkIsMine(role, mark.seat)) return INSTAR_WORDS[mark.gesture];
   return { word: mark.seat === "p1" ? "P1'S" : "P2'S" };
 }
@@ -102,7 +102,7 @@ export function instarMarkWord(mark: InstarMark, role: ViewRole): { kind?: CueKi
  * wave the two agree; after a strike they do not, and the slow is the one
  * that has it right.
  */
-export function instarMarksUp(world: World, s: InstarState): boolean {
+export function instarMarksUp(world: World, s: SceneState): boolean {
   return instarActing(s) && slowing(world);
 }
 
@@ -110,7 +110,7 @@ export function drawInstarMarks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
-  s: InstarState,
+  s: SceneState,
   sway: Sway,
   beat: number,
   beatPhase: number,
@@ -180,7 +180,7 @@ export function drawInstarMarks(
 function markRoom(
   l: Layout,
   cfg: SimConfig,
-  mark: InstarMark,
+  mark: SceneMark,
   sway: { xMilli: number; yMilli: number },
   along: number,
   r: number,
