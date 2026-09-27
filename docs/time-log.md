@@ -26603,3 +26603,5 @@ Bottleneck: looking — finding a tick where a window is open took a probe.
 
 Bottleneck: writing. THE UNDERTOW stands on the hull with its rings, so "no
 gap" needed a rule of its own.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

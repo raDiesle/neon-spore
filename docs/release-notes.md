@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 14bc63cc3 — Time log: THE SLOW's fuse under the boss
+
+## 2026-09-27 · 179dfd9e2 — THE SLOW's fuse stands under the boss, and is more than twice as thick
+
+The fuse that counts a window down now stands level on the boss's own column, halfway between the bottom of its body and the top of the hull, as long as the body is wide, instead of along the top of the screen. It never lies over a live mark: it walks off one to the nearest clear height, and where the body leaves no gap it drops to just above the hull. It is 0.45 tiles thick (was 0.2), with the glow and sparks widened to match. THE REPRISE's fuse moves under its sac the same way, and the sac keeps its size.
+
 ## 2026-09-27 · 7ef6289a6 — THE SLOW's light round the boss is quieter
 
 CRAWL, the light that runs in round a boss while a window is open and banks up against its skin, is about half as strong: each spark is lit at 0.45 where it was 0.85, and three ride each ray where four did, so the rim at the skin carries 40% of the light it did. What it says is unchanged: the light runs in, slows and stops short of the body. PRISM and the fuse are not touched. The two numbers are named, `CRAWL_SPARKS` and `CRAWL_LIT`, and `slow-look.test.ts` pins each at no more than 55% of what it was.
