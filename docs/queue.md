@@ -1890,6 +1890,7 @@ with the gap.
 ## `bun run push` refuses while a lane's worktree is still on disk
 
 - **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
+- **Taken:** 2026-09-27, claude/queue-snake-sheds-pose-is-built-at-the-edge-of-its-tim (claim: claude/queue-bun-run-push-refuses-while-a-lanes-worktree-is-s)
 - **Files:** `tools/land/push.ts`
 
 After `bun run land --keep` from inside a cloud session's worktree, `bun run
