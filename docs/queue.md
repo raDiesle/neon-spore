@@ -1519,6 +1519,7 @@ what the rest of this file holds.
 ## §32 THE SLING — the director's pose cards
 
 - **Found:** 2026-09-26, claude/queue-32-the-sling-the-look
+- **Taken:** 2026-09-27, claude/queue-32-the-sling-its-hands-the-second-half-of-its-lo (claim: claude/queue-32-the-sling-the-directors-pose-cards)
 - **Files:** `tools/director/src/`, `tools/director/test/on-field-controls.test.ts`
 
 The body is drawn, the pinch is on the field (`render/sling-grip.ts`), and
