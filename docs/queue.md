@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §37 THE CAPSTAN — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-36-the-halter-the-touch-sender-and-its-cue (claim: claude/queue-37-the-capstan-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 No new primitive: `TILT, AS A LEVEL` (THE PLUMB's) and `RUB` (THE RIME's)
