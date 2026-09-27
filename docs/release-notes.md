@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 3335c1fdb — THE NETTLE: the body, drawn
+
+Wave 101's jellyfish now has a body. There is a bell faded by globalAlpha, a pose for each step with an eased morph between poses, a turn from the crown to the underside, a pulse in place of THE INSTAR's weave, and a sag and fade once the last step lands. Its marks are THE INSTAR's rings, which draw only while THE SLOW is open. The grip's hit test now answers both bosses. This is carried from `claude/nettle-look` (seven commits, 867 behind `main`) and squashed onto the trunk's own instar-shape/instar-place split, with the INSTAR helpers widened to `SceneState`. The exemption used: a look with no shipped alternative, since nothing of THE NETTLE was drawn before. The strike of an undone part and the death are still lane three.
+
 ## 2026-09-27 · 0709dd2df — THE SLING's and THE DAVIT's looks are out of the queue, and seven stale claims are given back
 
 Both looks landed on 26 September 2026 (their grips are `render/sling-grip.ts` and `render/davit-grip.ts`), but their lanes left the queue done uncommitted in their worktrees. Seven claims whose branches had landed or held nothing are released, so `queue status` shows only THE NETTLE's look as taken. A finding is queued: `status` should tell a spent claim from a live one, the way `take` already does.

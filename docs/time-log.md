@@ -26704,3 +26704,5 @@ Bottleneck: telling a spent claim from a live one, by hand, ten times.
 
 The bottleneck: a branch left 867 commits behind is a port, not a rebase —
 every signature it called had moved under it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
