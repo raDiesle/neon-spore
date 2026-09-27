@@ -2590,18 +2590,3 @@ it the way `aim()` aims THE INSTAR — off `sceneBoss`, not `instarBoss` — or 
 a row on page four off its own shape file, a row in `slow-boss-aim-d.test.ts`,
 and add `"nettle"` to `WALKED` and `GAPPED` in `fuse-place.test.ts`.
 `bun run check` proves it.
-
-## THE PLUMB's steady deals no blow
-
-- **Found:** 2026-09-27, claude/queue-the-cyst-and-the-plumb-have-no-row-in-the-blows
-- **Taken:** 2026-09-27, claude/task-queue-work-e96a1b (claim: claude/queue-the-plumbs-steady-deals-no-blow)
-- **Files:** `packages/render/src/plumb-fx.ts`, `packages/render/test/boss-hurt-rows-c.ts`
-
-A "both" level step held for its beats is THE PLUMB's `plumbSteady`
-(`plumb-step.ts` `held`): both seats held true and the core lit, which is a
-landing as much as a settle is. `plumb-fx.ts` calls `hurt.hit()` on
-`plumbSettle` and `plumbHit` and not on `plumbSteady`, so the steady does not
-shake the bob, and the row in `boss-hurt-rows-c.ts` lists it neither as a
-landing nor as a part. Decide which one it is from `docs/spec/` on THE PLUMB.
-If it is a landing, hit on it and add it to the row's `land`; if it is not,
-add it to `part`. `bun run check` proves it.

@@ -14,10 +14,12 @@ import { plumbCoreAt, plumbGlass, plumbHook } from "./plumb-shape.js";
  * core's own size and brightness — is read off the boss every frame
  * (`plumb-draw.ts`, `plumb-pose.ts`).
  *
- * **A weight settling true and a shot landing are sequences landed**, so both
- * deal the bob the blow every boss takes (`boss-hurt.ts`). A drift, a swing
- * run out and the free release deal nothing — they are not a blow, they are
- * the window closing.
+ * **A weight settling true, both held true under the core (the steady) and a
+ * shot landing are sequences landed**, so each deals the bob the blow every
+ * boss takes (`boss-hurt.ts`): a steady is a level step held for its beats,
+ * two phones at once, as much as a settle is one. A drift, a swing run out
+ * and the free release deal nothing — they are not a blow, they are the
+ * window closing.
  *
  * The core's colour is the lit step's and not in `plumbHit`, so the drawer
  * tells it every frame (`tell`), THE VISE's way. Nothing here shakes the hull
@@ -37,7 +39,7 @@ export class PlumbFx {
   private hitNow = 0;
   private freeNow = 0;
   private coreHex: string = PALETTE.plumbGlass;
-  /** The blow a weight settling true or a shot landing deals the bob. */
+  /** The blow a weight settling true, a steady or a shot landing deals the bob. */
   readonly hurt = new BossHurt();
 
   /** How bright glass `side`'s settle ring still is, 0..1. */
@@ -87,6 +89,9 @@ export class PlumbFx {
         case "plumbHit":
           burst(core.x, core.y, 8 + 6 * e.hits, this.coreHex);
           this.hitNow = 1;
+          this.hurt.hit();
+          break;
+        case "plumbSteady":
           this.hurt.hit();
           break;
         case "plumbFree":

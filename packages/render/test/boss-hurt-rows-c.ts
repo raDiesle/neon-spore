@@ -59,9 +59,10 @@ export const HURT_ROWS_C: Row[] = [
   },
   {
     boss: "plumb",
-    // A seat's glass held level and the core hit; a drift, a swing or the core lighting only works toward one.
+    // A seat's glass held level, both held true under the core and the core hit; a drift, a swing or the core lighting only works toward one.
     land: [
       { type: "plumbSettle", side: 0, level: 1, col: 3 },
+      { type: "plumbSteady", col: 3 },
       { type: "plumbHit", hits: 1, col: 3 },
     ],
     part: [
@@ -70,7 +71,7 @@ export const HURT_ROWS_C: Row[] = [
       { type: "plumbSwing", side: 1, col: 3 },
       { type: "plumbCore", col: 3 },
     ],
-    hit: "a settle is one seat's level held for its step, and the core is one shot",
+    hit: "a settle or a steady is a level held for its step, and the core is one shot",
     hurt: (fx) => fx.boss.plumb.hurt,
   },
   {

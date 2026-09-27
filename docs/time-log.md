@@ -26640,3 +26640,16 @@ read the blow it was dealt, so the table caught a missing draw that no one
 had seen.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE PLUMB's steady deals the blow
+
+- reading: 5 min. `plumb-step.ts`'s `held`, §11.48 on the `both` step, and
+  THE CAPSTAN's row, whose hold made is a landing.
+- writing: 5 min. The steady's case in `plumb-fx.ts`, and the row moved.
+- looking: 5 min. One frame on the tick after the steady: the sac red.
+- friction: 0 min. `check:fast` found `@neon-spore/hands` unlinked in this
+  worktree and named the fix, `bun install --force`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name; the decision was the whole of it, and
+THE CAPSTAN's row had already made it.
