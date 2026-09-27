@@ -771,7 +771,6 @@ what the rest of this file holds.
 ## Unverified at 65443d517: THE MANTLE's PULL, TAP and FIRE words read at tempo on…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-unverified-at-65443d517-the-mantles-pull-tap-and
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-mantle.test.ts`
 
 *THE MANTLE says what it wants: PULL on each knob, TAP on the core, FIRE over the spark* landed from a session that could not look at it. What went unchecked:
