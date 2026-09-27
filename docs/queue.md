@@ -699,22 +699,6 @@ you leave behind, and leave the rest listed.
 on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
 reaches them.
 
-## The WebGL bloom candidate, measured on a phone against the shipped glow
-
-- **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Files:** `tools/versus/candidates/frame-glow/bloom/bloom-gl.ts`, `packages/render/src/frame-post.ts`, `docs/performance.md`
-- **Where:** phone
-
-The candidate is built (27 September 2026): `frame:glow` · `bloom` in VERSUS,
-a bright-pass and a two-round separable blur at a quarter of the frame's size
-in one WebGL context, laid back over the frame with `lighter`. The game never
-runs it. What is left is the half that needs a real phone in a hand: over the
-busiest boss wave, the frame time from the owner's weekly `bun run perf --wave
-"<wave>"` with the pass on and off, and the battery drained over ten minutes of
-play each way. Write both numbers into `docs/performance.md`, under "The WebGL
-bloom candidate". It ships only if the owner picks it in VERSUS and the numbers
-hold; otherwise the candidate stays as the record of why.
-
 ## DEFERRED — THE GIMBAL, a fifth rig candidate, sharpest for the mirror rule
 
 - **Found:** 2026-09-26, this session
@@ -2222,6 +2206,14 @@ flat. `bun run check` proves the tests.
 - **Where:** local
 - **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/tether.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
 
+**Re-aimed, 27 September 2026.** The owner could not see the outline drift on
+the queen, the cairn or the reprise (all three dropped, `DECIDED.md`) and said
+not to improve what is barely seen (`docs/looks.md`, *Big enough to be seen*).
+Do not offer the next six at the same fifth-of-a-tile cap: first make the
+boss's hit tests follow the pose, the way `instarMarkUnder` does, then lift the
+cap until the two stills of the pair can be told apart at a glance. The notes
+below on where each boss is rooted still hold.
+
 The outline tier's pose shipped as a helper and a seam at 0 for the queen,
 the cairn and the reprise (`outline-drift.ts`, VERSUS `*:*/drift`). The next
 six in `boss-draw.ts`'s order each need more than one wrapped call, which is
@@ -2249,6 +2241,10 @@ candidate's pose builds (`versus-pose.test.ts`).
 - **Taken:** 2026-09-27, claude/task-queue-work-fd3bdf (claim: claude/queue-living-bosses-the-outline-tiers-parts-and-surfac)
 - **Where:** local
 - **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-shell.ts`, `packages/render/src/queen-egg.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/idle-drift-parts.ts`, `packages/content/src/surface.ts`
+
+**Re-aimed, 27 September 2026**, for the reason under the entry above: a part
+that moves a few pixels is not offered. A part turns far enough to be seen, and
+its hit circle follows it.
 
 The body pose landed without the part drift the spec's part map marks
 **ready**: the queen's wings (`queenShellParts`), crane arms and claws
@@ -2340,3 +2336,23 @@ cannon colours.
 
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
+
+## The dropped swings, drift and bloom leave three seams at 0
+
+- **Found:** 2026-09-27, claude/versus-page-comparisons-dd7592
+- **Files:** `packages/render/src/mechanism-swing.ts`, `packages/render/test/mechanism-swing.test.ts`, `packages/render/src/outline-drift.ts`, `packages/render/test/outline-drift.test.ts`, `packages/render/src/frame-post.ts`, `docs/spec/living-bosses.md`
+
+`davit:hook`, `plumb:bob`, `sling:tine`, `queen:shell`, `cairn:pile`,
+`reprise:sac` and `frame:glow` were dropped on 27 September 2026
+(`tools/versus/DECIDED.md`). What they patched stays in the renderer at 0:
+`MECHANISM_SWING`, `OUTLINE_DRIFT` and `FRAME_POST.after`, each still called
+every frame of its boss or of every frame. `OUTLINE_DRIFT` is kept for the
+re-aimed outline entries above; decide the other two by reading their
+callers: `MECHANISM_SWING` goes unless a machine-boss lane is about to re-aim
+it at a movement that reads, and `FRAME_POST` goes unless something else
+patches it. Remove the calls, the modules and their tests, and the "offered in
+VERSUS" sentences in their headers. Then `bun run index`.
+
+Done when: `git grep MECHANISM_SWING` finds nothing outside the release notes,
+DECIDED.md and the spec's history, or the header says why it stays; `bun run
+check` is green.

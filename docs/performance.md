@@ -320,6 +320,13 @@ and off, and the battery drained over ten minutes of play each way. They are
 written here when they exist. It ships only if the owner picks it in VERSUS and
 both numbers hold; otherwise the candidate stays as the record of why.
 
+**Dropped, 27 September 2026, before it was measured.** The owner could not
+tell it from the shipped glow in VERSUS, so the phone run was never needed: a
+second context, a quarter-size blur each frame and the battery it drains buy a
+difference nobody saw (`tools/versus/DECIDED.md`, `frame:glow`). The pass left
+with the slot; `git show 1a177d1cc` has it. `FRAME_POST` stays in the renderer
+as a seam that does nothing.
+
 ## Comparing two runs
 
 `tools/perf/baseline.json` is the last run somebody meant to keep. A later run

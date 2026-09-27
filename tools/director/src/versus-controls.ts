@@ -60,18 +60,24 @@ export function picker<T>(
   return sel;
 }
 
-/** The pause/rate/blink/zoom bar and its note. */
-export function controlsBar(stage: HTMLElement, pair: Pair): HTMLElement[] {
+/** The pause/rate/blink/zoom bar and its note. `blink` is false for a
+ * `brandNew` candidate, which has no second side to flip to. */
+export function controlsBar(stage: HTMLElement, pair: Pair, blink = true): HTMLElement[] {
   const bar = el("div", "versus-bar");
   bar.append(
     toggle("⏸", (paused) => pair.setRunning(!paused)),
     picker(RATES, (r) => `${r}×`, pair.setRate, RATES.indexOf(1), "versus-rate"),
-    toggle("BLINK", (on) => {
-      stage.classList.toggle("is-blink", on);
-      pair.setBlink(on);
-    }),
-    toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1), "versus-zoom"),
   );
+  if (blink) {
+    bar.append(
+      toggle("BLINK", (on) => {
+        stage.classList.toggle("is-blink", on);
+        pair.setBlink(on);
+      }),
+    );
+  }
+  bar.append(toggle("2× — NOT TRUE SIZE", (on) => pair.setZoom(on ? 2 : 1), "versus-zoom"));
+  if (!blink) return [bar];
   const note = el(
     "p",
     "versus-blink-note",

@@ -132,3 +132,36 @@ five bodies under one skin and a `welling` is a torn opening — and none of tho
 can be expressed as six numbers. So the collection is only half reachable from a
 slot on the slick or the bulb today. `docs/queue.md` carries that as its own
 item.
+
+## Big enough to be seen — 27 September 2026
+
+The owner, 27 September 2026, after he could not tell eight VERSUS candidates
+in one day from what the game already draws — a rack plate's sway, a baked
+seam, a skin's drift, a body interior's drift, then THE DAVIT's hook, THE
+PLUMB's bob and THE SLING's tines swinging and a WebGL bloom over the frame:
+
+> probably you should not try to improve visuals which are barely seen, better
+> try to improve the overall body shapes or effects overall that they look 3d
+> and move natural. so the pose of boss and natural movement of tilt and
+> turning body pieces or something to move as part of the body, will not make
+> it look so boring (something moving can also be applied for bosses which are
+> not living like but machine like)
+
+**So a look is aimed at the whole body, and it is big.** The body's shape, its
+depth, its pose; a tilt of the whole of it; pieces turning as parts of it —
+and that goes for a machine as much as for a creature. A degree or two of lean,
+a hook turning a few pixels, a bloom over a glow that already glows: those are
+not offered at all.
+
+**The test before offering one:** take the two stills with `bun run
+versus:shot … --only current` and `--only candidate` at the moment the change
+is widest, and look at them side by side at true size. If they cannot be told
+apart at a glance, it is not offered. If the reason it is small is a cap — a
+hit test reading the rest pose, a hush in THE SLOW, a reach limit — the cap is
+the work: make the hit test follow the pose (`instarMarkUnder` is the worked
+example), then offer a movement that is large.
+
+**A thing the game does not draw at all is not a pair.** A candidate that adds
+something where there is nothing today sets `brandNew` (`tools/versus/variant.ts`):
+the page says NEW, in words, and shows the candidate alone, because a CURRENT
+phone beside it is a spot-the-difference with nothing to spot.

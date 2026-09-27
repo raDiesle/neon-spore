@@ -199,6 +199,14 @@ item naming the rule, never a fix made in passing.
   draws the blow as the threat carried out; a rock that was never in the
   picture is never the hit (`bosses.md`, *A timeout hit is the boss's own
   blow*).
+- **A look he cannot see is not a look**, 27 September 2026, after eight
+  VERSUS candidates in a day he could not tell from the shipped picture: *do
+  not try to improve visuals which are barely seen … improve the overall body
+  shapes … that they look 3d and move natural … tilt and turning body pieces
+  … also for bosses which are not living like but machine like.* A boss's
+  enhancement is its whole body — shape, depth, pose, a visible tilt, pieces
+  turning — never a few pixels on one part. The test and the reasoning:
+  `docs/looks.md`, *Big enough to be seen*.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

@@ -27109,3 +27109,16 @@ Bottleneck: none worth the name — a mechanical cut whose seam the queue entry 
 Bottleneck: none worth the name — the INDEX gate already showed where a second one goes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — VERSUS: seven slots dropped, NEW shown alone, "big enough to be seen"
+
+- reading: 10 min. The four slots, the swing and drift caps, the page's two
+  sides, the queue entries that would have offered more of the same.
+- writing: 15 min. Seven `versus drop`s, `brandNew` and its page and test,
+  `docs/looks.md`'s new section, the spec, queue and skill lines.
+- looking: 10 min. Two stills of THE DAVIT's hook, identical to the eye.
+- friction: 10 min. A shot loop that split its arguments wrong and hung.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the first batch of shots hung on a quoting mistake
+and had to be killed and run one by one.

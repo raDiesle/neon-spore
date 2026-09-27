@@ -1329,3 +1329,74 @@ bytes for a difference he cannot see. The fire drawn before the bake is kept on 
 → EFFECTS, as he asked.
 
 The other answer offered was `baked`; it went with the slot.
+
+## `sling:tine` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I do not see a difference.* A tine springing a
+few degrees on the crotch, hushed to a third inside every window THE SLING
+opens, is under the eye at play size. He also said not to polish what is
+barely seen: a machine should move as a body, visibly (`docs/looks.md`, "Big
+enough to be seen").
+
+The other answer offered was `swing`; it went with the slot.
+
+## `plumb:bob` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I do not see a difference.* The bob swings on
+the arm row's slow range and is hushed to a third in every window, which
+leaves a few pixels on a part a tile across. See `docs/looks.md`, "Big enough
+to be seen".
+
+The other answer offered was `swing`; it went with the slot.
+
+## `davit:hook` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *again I do not see a difference.* The hook is
+about thirty pixels long at play size and turns a few degrees, a third of that
+inside a window; the two stills taken for this decision were identical to the
+eye. See `docs/looks.md`, "Big enough to be seen".
+
+The other answer offered was `swing`; it went with the slot.
+
+## `frame:glow` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I do not see a difference.* A WebGL pass over
+the whole frame costs a second context, a quarter-size blur each frame and
+battery; the shipped strokes and baked halos already read as glow, so a bloom
+he cannot tell from them buys nothing. See `docs/looks.md`, "Big enough to be
+seen".
+
+The other answer offered was `bloom`; it went with the slot.
+
+## `queen:shell` — nothing taken, 2026-09-27
+
+Not judged by the owner. Dropped by the lane that took his verdict on the
+three mechanism swings, 27 September 2026, under the rule he gave with it: *do
+not try to improve visuals which are barely seen.* This drift leans the body a
+degree or two, capped so no point moves more than a fifth of a tile — the same
+size as `creature:skin` and `creature:body-interior`'s drift, which he could
+not see either. See `docs/looks.md`, "Big enough to be seen".
+
+The other answer offered was `drift`; it went with the slot.
+
+## `cairn:pile` — nothing taken, 2026-09-27
+
+Not judged by the owner. Dropped by the lane that took his verdict on the
+three mechanism swings, 27 September 2026, under the rule he gave with it: *do
+not try to improve visuals which are barely seen.* This drift leans the body a
+degree or two, capped so no point moves more than a fifth of a tile — the same
+size as `creature:skin` and `creature:body-interior`'s drift, which he could
+not see either. See `docs/looks.md`, "Big enough to be seen".
+
+The other answer offered was `drift`; it went with the slot.
+
+## `reprise:sac` — nothing taken, 2026-09-27
+
+Not judged by the owner. Dropped by the lane that took his verdict on the
+three mechanism swings, 27 September 2026, under the rule he gave with it: *do
+not try to improve visuals which are barely seen.* This drift leans the body a
+degree or two, capped so no point moves more than a fifth of a tile — the same
+size as `creature:skin` and `creature:body-interior`'s drift, which he could
+not see either. See `docs/looks.md`, "Big enough to be seen".
+
+The other answer offered was `drift`; it went with the slot.

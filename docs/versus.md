@@ -43,6 +43,14 @@ a hull wearing three or four holes at once — so `ship:crater` is judged live,
 on `BREACH · ROCKS COMING THROUGH`, and a candidate whose look is on every
 frame regardless still gets the picture.
 
+### Seen at a glance, or not offered — 27 September 2026
+
+The owner could not tell eight candidates in one day from the picture they
+would replace, and said not to improve what is barely seen. A candidate is
+offered only when its two stills can be told apart at a glance, and one that
+adds something where the game draws nothing is marked `brandNew` and shown
+alone, said to be NEW (`docs/looks.md`, *Big enough to be seen*).
+
 ## Photographing one — 9 September 2026
 
 `CLAUDE.md` says to send the owner a picture, and taking one of a live pair was

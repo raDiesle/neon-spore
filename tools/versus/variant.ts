@@ -121,6 +121,19 @@ export interface Variant {
    * this.
    */
   readonly screenshot?: { readonly freezeSeconds: number };
+  /**
+   * Set when the game draws **nothing** in this place today, so the candidate
+   * adds a thing rather than answering one. `today` says in one line what is
+   * there now ("THE SLING's tines have no cord").
+   *
+   * The page then says NEW, in words, above the phones, and shows the
+   * candidate alone. A CURRENT phone beside it would be the same picture
+   * without the thing, and it reads as a spot-the-difference: the owner, 27
+   * September 2026, *"when there is nothing to compare but completely new you
+   * need to write it clearly down on page and not show with current and
+   * candidate"*.
+   */
+  readonly brandNew?: { readonly today: string };
 }
 
 /** What `apply` overwrote, and what was there before. */

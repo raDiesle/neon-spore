@@ -99,6 +99,12 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   tenth in THE SLOW. THE WARDEN waits for its rope to be tied through the
   pose, and the parts and the surface marks are their own entries on the queue.
 
+  *Dropped, 27 September 2026:* all three slots, under the owner's rule of
+  that day (`docs/looks.md`, *Big enough to be seen*) — capped at a fifth of a
+  tile, the lean is the size he could not see on `creature:skin`. The helper
+  stays at 0 until the cap is lifted: the next pose for an outline boss is
+  one large enough to see, with the hit tests following it.
+
 ### Every part moves on its own
 
 The owner, 26 September 2026, after the drift above was written: the body
@@ -260,6 +266,13 @@ with a joint, before it can move.
 | THE ANTIPHON, THE BATON, THE LEAD, THE GIMBAL | as their rig rebuilds name them | the rig lane splits them |
 | THE NETTLE | its bell and each tentacle | not drawn yet: its body lane builds the parts separate from the start |
 
+**The owner, 27 September 2026, widened this:** a machine moves too —
+*"something moving can also be applied for bosses which are not living like but
+machine like"* — as a body, in a tilt, a turn or pieces turning, and large
+enough to be seen (`docs/looks.md`, *Big enough to be seen*). The paragraph
+below is the rule as it stood before that, and the swings it built are the ones
+he could not see.
+
 **A mechanism is not an animal**, and the owner's ask is for the creatures.
 THE VANE, THE SCUTTLE, THE SPOOL, THE HASP, THE RATCHET, THE VALVE, THE RIME,
 THE SLING, THE TRIVET, THE PLUMB, THE DAVIT and THE GRINDSTONE get the part
@@ -281,6 +294,11 @@ mark five tiles out under a tenth of a tile a second at the tenth. THE
 GRINDSTONE's jaw tremble had shipped already; THE TRIVET's dangle was offered
 and dropped; THE VANE is left out, since its spar already whips as it swings
 (`vane-draw.ts`) and its tip is the fold line the pair read.
+
+*Dropped, 27 September 2026:* `davit:hook`, `plumb:bob` and `sling:tine` —
+the owner could not see a difference on any of the three (`DECIDED.md`).
+`MECHANISM_SWING` stays at 0 until it is removed or re-aimed at a movement
+that reads.
 
 The other six have nothing to add. THE VALVE's pins and THE HASP's spent
 half-shells sway on their hinges already (`valve-draw.ts`, `HASP_SLACK` in

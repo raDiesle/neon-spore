@@ -1,6 +1,7 @@
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { patchedFields, type Slot, slots, type Variant } from "../../versus/variant.js";
 import { button, el } from "./dom.js";
+import { newNote } from "./versus-one.js";
 import { candidateUrl, openInNewTab } from "./versus-open.js";
 import { poseForSlot } from "./versus-pose.js";
 
@@ -83,6 +84,7 @@ function slotBlock(slot: Slot): HTMLElement {
 /** One candidate, said in words, with the button that draws it. */
 function door(candidate: Variant): HTMLElement {
   const card = el("div", "versus-door");
+  if (candidate.brandNew) card.appendChild(newNote(candidate.brandNew.today));
   card.appendChild(
     el("p", "versus-name", `${candidate.name.toUpperCase()} — ${candidate.sentence}`),
   );
