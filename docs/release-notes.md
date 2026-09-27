@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 8d7955762 — THE FLUE's tap from the glass: the column under the thumb, from either seat
+
+The flue's row, pressed while a vent is lit, sends `flueTap` with the column under the thumb as its `id`, turned back on a turned field, from either seat — the rester's press costs the taps, and that is the simulation's to decide. The director lists it ON THE FIELD with a pose of the ember stopped and one stud filled; the cue and AUTO are the two halves left on the queue.
+
 ## 2026-09-27 · 1cf4972cd — THE CAIRN's stones rock on one another, and the stones above ride along
 
 Each of the pile's seven stones rocks on the stones under it, out of step with the others, its top half a tile at the widest, and what stands on it rides along, so the apex wanders up to four fifths of a tile (`cairn-rock.ts`). The ring on the next stone to go, the hand's ring and the blow's red all read the same places, so each stays on its stone. Exemption: a look with no shipped alternative, since the stones did not rock before.

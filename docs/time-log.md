@@ -27259,3 +27259,5 @@ widest moment was found by a strip rather than asked for.
 
 Bottleneck: reading — a touch lane is six files in three packages, and
 the burgee's was the only map to them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
