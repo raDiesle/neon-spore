@@ -2502,6 +2502,7 @@ ring; the thickness is pinned; one PNG of THE INSTAR's window is sent.
 ## THE SLOW — CRAWL's light is quieter
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-every-other-boss-no-mark-before-its-window-opens (claim: claude/queue-the-slow-crawls-light-is-quieter)
 - **Files:** `packages/render/src/slow-crawl.ts`, `packages/render/test/slow-look.test.ts`
 
 The owner, 27 September 2026: *make the slow animation visual around the
