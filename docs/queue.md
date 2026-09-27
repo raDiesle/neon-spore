@@ -847,6 +847,7 @@ what the rest of this file holds.
 ## Unverified at 1f725b94e: THE SLING never watched at tempo, and undrawn
 
 - **Found:** 2026-09-26, claude/queue-32-the-sling-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-unverified-at-1f725b94e-the-sling-never-watched
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
 
 *THE SLING: the simulation lane — a fork two draws loose, then shoot into* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
