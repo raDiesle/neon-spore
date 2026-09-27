@@ -825,6 +825,7 @@ makes them built. `bun run check` proves it; at tempo is the owner's eye.
 ## `hash-fixture-bosses-d.ts` is at 483 lines
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
+- **Taken:** 2026-09-27, claude/task-queue-work-64c68c (claim: claude/queue-hash-fixture-bosses-d-ts-is-at-483-lines)
 - **Files:** `packages/sim/test/hash-fixture-bosses-d.ts`, `packages/sim/test/hash-fixture.ts`
 
 The fourth page of the hash fixture grew past the ~250 a file is held to,
