@@ -27826,3 +27826,5 @@ registrations outside the simulation, and each one is found from the last.
 
 Bottleneck: reading. The rig's axes and anchor turns had to be read off
 three files before one number of the head could be placed.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

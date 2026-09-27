@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 223156451 — THE INSTAR's one head is modelled on the rig, with its own sheet
+
+The face-on head is now built from rig parts: skull, muzzle, two mandibles on one hinge, four horns, two brows, fangs and a cheek. It can be drawn from any side with `drawRigHead`, and `bun run solid --instar` sets it beside the shipped head at five yaws, with the jaw shut and open. Face-on, its eyes and both lips land within 2 px of the shipped marks, because it calls `frontEyeAt` and `frontLipsAt`. Side-on it shows one full eye, a blunt muzzle and horns swept back. A rig may now carry a `mark`, drawn by its own hand in the painter's order; the eyes, nostrils and fire use it. Nothing on the field changes. The patchable record, the VERSUS candidate and the op budget stay parked as half (B).
+
 ## 2026-09-27 · 1c1527895 — THE GOVERNOR: a needle one seat brakes for the other to tap
 
 Wave 120 is THE GOVERNOR, §43's simulation, written up as bosses §11.58. A needle turns round a dial mid-hull on the tick. One seat holds both brake pads down to keep it at 1×; off the chord it climbs toward twice as fast. The other seat taps as it crosses the lit mark, and a tap on the mark lands however fast the needle runs, so the chord sets the pace and never whether the tap counts. There are three marks a seat, with the seats swapped, and then the hub lights and three shots take it. Before the second and third shots comes a retap at a faster pace. The fourteen sounds are bound. No look exemption is needed because nothing drawn changed: nothing is drawn, no touch sends a pad or a tap yet, and AUTO has no hand. The look, the touch and the hand are queued. The wave went in unweighed (`baseline:blank`). `act-13.ts` is full at 244 lines, so the next wave opens `act-14.ts`.
