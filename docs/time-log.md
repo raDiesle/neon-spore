@@ -27416,3 +27416,5 @@ queue or in VERSUS still patched it.
 
 Bottleneck: reading — THE GALL's fire step opens no window and the cannon
 fires by itself, which put its half past one sitting and back in the queue.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

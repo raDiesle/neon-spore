@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f3baa4ae9 — --auto-miss reaches THE CYST's and THE SLING's own blows
+
+With both hands landed, AUTO playing every other ask right carries both fights to a step that runs out and strikes the hull, so both join the bosses `auto-miss.test.ts` proves. THE GALL does not yet: its fire step opens no window and the cannon answers it by itself, and its queue entry now names that alone.
+
 ## 2026-09-27 · d693ba26b — The dropped swing and frame-pass seams leave the renderer
 
 `MECHANISM_SWING` and `FRAME_POST` drew nothing at 0 since `davit:hook`, `plumb:bob`, `sling:tine` and `frame:glow` were dropped, yet THE DAVIT, THE PLUMB and THE SLING asked the swing for an angle every frame and the renderer called the empty pass at the end of every frame. No lane was re-aiming either, so both modules, their test and their calls are gone. `OUTLINE_DRIFT` stays, and its header now says why: the outline drift the queue still owes re-aims it. Nothing drawn changes.
