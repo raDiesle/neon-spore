@@ -27067,3 +27067,15 @@ Bottleneck: reading — every body past the first three had something pinned
 to the field under it, which is what split the six into three and six more.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §40 THE FLUE, the simulation lane
+
+- reading: 5 min. §40, THE HALTER's rest and THE BURGEE's landing as the
+  template for every registration.
+- writing: 15 min. `sim/flue*.ts`, the registrations across six packages
+  and the director, a fifth hash-fixture page, the two test files, §11.57.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: writing — the registrations, some thirty files each needing one line, are most of the lane, and the typecheck only names the next few that are missing.

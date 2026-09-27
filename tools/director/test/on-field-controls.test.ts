@@ -445,6 +445,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // step's seat's, pressed where they are drawn (`render/burgee-grip.ts`, §11.56).
   burgeeFreeze: "field",
   burgeeDraw: "field",
+  // THE FLUE's tap: the simulation lane landed first and nothing on the
+  // phone sends it yet (§11.57).
+  flueTap: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

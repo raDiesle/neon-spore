@@ -40,3 +40,31 @@ export {
   burgeeSwipe,
   freshBurgee,
 } from "./burgee.js";
+
+// THE FLUE's ember: the phase, the lit step, the drift and the steadying,
+// whose rest is counted and whose tap is heard, the taps, the vents and the
+// core, for the picture, the cue and the director's hand. Straight off
+// `flue.ts` (§40).
+export {
+  FLUE_ASKS,
+  FLUE_PHASES,
+  FLUE_TAPS,
+  FLUE_VENTS,
+  type FlueAsk,
+  type FlueEntry,
+  type FluePhase,
+  type FlueState,
+  type FlueStep,
+  flueBoss,
+  flueDone,
+  flueDrifts,
+  flueEmberCol,
+  flueFiring,
+  flueLitStep,
+  flueResters,
+  flueSeatIndex,
+  flueSettled,
+  flueSteady,
+  flueTapper,
+  freshFlue,
+} from "./flue.js";

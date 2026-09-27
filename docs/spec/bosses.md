@@ -10497,6 +10497,127 @@ held over the middle, COMMA at under half its size, which falls the way
 cloth falls — rocking and turning over down the middle column — and lands
 plastered flat on the skin, its fly still rippling as it fades.
 
+## 11.57 THE FLUE — an ember one seat keeps still for the other to tap
+
+> An ember drifts along a slot mid-hull on its own. One of you sends
+> nothing at all until it stops dead; the other taps it three times as it
+> hops from notch to notch, before the still one moves. Twice, the seats
+> swapped. Then both hands off while the damper creeps, and shoot the core.
+
+Designed as §40 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. No new
+primitive: THE HALTER's `SENDING NOTHING` and THE RATCHET's `TAPS ON A
+MOVING TARGET`, paired for the first time, the stillness gating **a whole
+count** rather than one instant, so a lapse costs every tap already landed.
+
+**It is two vents and three shots, and they are its health.** The state
+(`sim/flue.ts`, hashed in `sim/flue-hash.ts`) is the **phase** and the beat
+it began, the **cursor** into the script, the **ember** in thousandths of a
+column off the middle and the way it drifts, the **taps** landed in the lit
+vent, the **vents** spent, the **hits**, whether the core is **bared**, and
+for each seat its **rest** in beats, whether it has **stirred** since the
+last beat, and its **thumb** on the ember. The script is the wave's
+(`FlueEntry.steps`), copied at install: each step asks `vent`, `damper` or
+`fire`, names its **rester** (the pilot, the navigator, or `both`), the
+**notches** a landed tap moves the ember to, a colour or `either`, and its
+own beats.
+
+**The rule, in one sentence.** One of you keeps still until the ember
+stops, and the other taps it three times before the still one moves.
+
+**The split.** By the step, not by geometry: the ember is on both screens,
+and which seat rests and which taps swaps by vent, THE HALTER's trade. The
+first vent is the navigator's to keep still and the pilot's to tap, the
+second the other way about. A fire step is the ordinary shot — Player 1's
+cannon under the middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/flue-step.ts`). Every beat each seat's rest is counted
+first: one more for a seat that sent nothing in it, nought for one that
+did, held at `flueRestThreshold` — THE HALTER's count exactly. Then the
+ember **drifts on its own**, `flueDriftMilli` a beat, turned back off
+either end of `flueSpanMilli`, unless the lit vent's rester has come to the
+threshold: the beat that happens it stops dead on the nearest whole column
+(`flueSteady`). The flue is slack for `flueSlackBeats`, then the first vent
+lights under THE SLOW (`openSlow(…, "ask")`), with both seats' rest counted
+from nought. A damper is answered the beat **both** seats reach the
+threshold (`flueHeld`), the core staying bared. A vent run out chokes
+(`flueChoke`) and a damper run out shuts over the core (`flueShut`); THE
+SLOW closes, the flue rests `fluePauseBeats`, and the same step relights.
+With the script done the damper swings open wide (`flueSpent`) for
+`flueSpentBeats` before the wave may end.
+
+**The answers** (`sim/flue-hand.ts`). **Every command either seat sends is
+heard** — a drag, a press, the cannon slid, a colour primed — and zeroes
+that seat's rest, THE HALTER's reading. The lit vent's rester sending one
+with taps landed is a lapse (`flueLapse`): the taps go back to nought and
+the ember drifts on from where it sat; with none landed it is only a stir
+(`flueStir`). The tap is the drag `flueTap`, **an edge**, THE VALVE's pin,
+with `id` the column the thumb came down on. From the vent's tapper, on a
+steady ember, on its column, it lands (`flueTick`) and moves the ember to
+the step's next notch; anywhere else, or on a drifting ember, it skids
+(`flueSkid`); from the rester it counts nothing and stirs. The third tap
+spends the vent (`flueVent`), and the second vent spent bares the core
+(`flueBare`). A shot is judged where a bolt leaves the top of the field
+(`sim/flue-shot.ts`): only with the core bared, only while a fire step is
+lit, only in the middle column, and only in its colour unless it is
+`either`.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **The eleven rows are seven steps.** Rows 2 and 3 are one vent and rows
+  4 and 5 another: the rest and the taps are one window, as §40's own
+  SLOW paragraph says — "one thing to watch rather than two". Rows 1 and
+  11 are the slack and the spent.
+- **A damper wants both hands off, not either seat's.** §40's rows 7 and
+  9 say "either seat, free to trade … alone this time". With every command
+  heard, a damper either seat could hold would be held by whichever seat
+  was not shooting, without anybody choosing to — a step that asks
+  nothing. Both seats is the one reading in which the damper is a thing
+  the pair does, and the guide says it: "both hands off".
+- **The notches are authored on the step.** §40 says a landed tap
+  "relocates the ember to a new resting notch". Two notches a vent, one
+  after each of the first two taps, written on the wave so the rehearsal
+  and the script agree and the pair can learn where it goes.
+- **The tap names its column.** `flueTap` carries `id`, `gallPinch`'s way
+  of naming the place, because the ember moves between taps and where the
+  thumb came down is the whole of the answer.
+- **Each step counts the rest from nought.** A stillness is proved inside
+  the step that asks for it: a seat that happened to be idle through the
+  pause does not walk into the vent already steady.
+- **A vent or a damper run out is tried again in place.** §40's "retry
+  from row 2" and "damper shuts … until rest reaches threshold again".
+  A vent relit starts its taps from nought; the first vent spent stays
+  spent. Row 9's "faster" is the shorter window: six beats against row
+  7's eight.
+- **A fire step lights without THE SLOW.** §40 opens it on the rest-and-tap
+  windows and the dampers; a fire step is neither. THE BURGEE's and every
+  choreographed body's shot are the same.
+- **A shot run out is a hull hit, and a hull hit is the wave.** §40's rows
+  6 and 8 say "ordinary hull hit", and row 10 "stays lit". This game has
+  no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+
+The design's `flueRestBeats` and `flueTapsLanded` are the state's `restBeats`
+and `taps`; the pause between steps is `fluePauseBeats` so it does not read
+as the rest being counted.
+
+**What is proven, and what is not.** `sim/test/flue.test.ts` and
+`flue-core.test.ts` prove the rules: the ember drifts its span and turns
+back; it stops dead on a whole column the beat the rester reaches the
+threshold, and the tapper's own commands do not loosen it; a tap lands on
+the steady ember and moves it to the step's notches in turn, the third
+spends the vent; a tap on another column or a drifting ember skids, one
+from the rester lands nothing and loosens it, and a thumb held down is one
+tap; a rester's command with taps landed costs all of them, and with none
+is a stir; a vent run out chokes and relights from nought; the second vent,
+seats swapped, bares the core; a shot wants its colour and the middle
+column; a damper is held only with both hands off, shuts while either
+moves, and is held the second time; a fire step run out is the wave; and
+the whole script ends spent and out. **Nothing is drawn, nothing on a phone
+sends a tap, and AUTO has no hand** — the look is queued. Whether three
+beats of doing nothing *reads* as a thing one seat is doing, on two real
+phones at tempo, is the owner's eye.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

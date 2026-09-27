@@ -198,6 +198,7 @@ by hand never moves.
 | `packages/sim/src/ghost.ts` | THE GHOST: a body only one screen draws, and the first creature whose secret is **where it is** |
 | `packages/sim/src/bosses.ts` | every boss's vocabulary, re-exported by `index.ts` — the seam `hash-boss.ts` already cut |
 | `packages/sim/src/config-fleet.ts` | THE FLEET's numbers: how big the chart is, how long the pair has, and what running out costs |
+| `packages/sim/src/config-flue.ts` | THE FLUE's tuning: the beats around its steps, how far and how fast the ember drifts on its own |
 | `packages/sim/src/fleet-board.ts` | THE FLEET's chart as arithmetic — where a ship stands, which squares are spent, what makes a fleet |
 | `packages/sim/src/fleet-flood.ts` | **THE FLEET's second and third states, on the beat** — the flood a hit opens |
 | `packages/sim/src/fleet-hand.ts` | **Three thumbs on THE FLEET's picture**, off the wire, on the tick |
@@ -205,6 +206,11 @@ by hand never moves.
 | `packages/sim/src/fleet-state.ts` | **THE FLEET's three states, and what the pair does in each.** Moved out of `boss-state.ts` with the second… |
 | `packages/sim/src/fleet.ts` | THE FLEET: one seat holds the map, the other holds the sights, and neither can reach the other's half |
 | `packages/sim/src/flip.ts` | THE FLIP: |
+| `packages/sim/src/flue-hand.ts` | Every command either seat sends while THE FLUE is up — **all of them** |
+| `packages/sim/src/flue-hash.ts` | What THE FLUE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/flue-shot.ts` | **THE FLUE's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/flue-step.ts` | THE FLUE's clock: the rest counted for each seat, the ember drifting on its own or stopping dead |
+| `packages/sim/src/flue.ts` | THE FLUE: a slotted exhaust flue mid-hull with an ember drifting inside it on its own |
 | `packages/sim/src/config-snake.ts` | SNAKE's numbers — the arena, the mouth's window, what starting over costs |
 | `packages/sim/src/snake-controls.ts` | The four verbs of the round, and the two seats they are split between |
 | `packages/sim/src/snake-move.ts` | One step of the body, and the four ways an attempt ends badly |
@@ -453,6 +459,7 @@ by hand never moves.
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
 | `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/sim/src/events-fleet.ts` | **Everything THE FLEET does that neither screen already says**, as events |
+| `packages/sim/src/events-flue.ts` | What THE FLUE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-filament.ts` | What THE FILAMENT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
@@ -2219,6 +2226,7 @@ by hand never moves.
 | `packages/audio/src/bind-capstan.ts` | THE CAPSTAN's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
+| `packages/audio/src/bind-flue.ts` | Whether an event is THE FLUE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
 | `packages/audio/src/bind-crawler.ts` | THE CRAWLER's two endings, as sounds |
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |

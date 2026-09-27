@@ -172,6 +172,23 @@ export const INGEST_SILENT_BOSS_D = [
   "burgeeMiss",
   "burgeeSpent",
   "burgeeOut",
+  // THE FLUE's sixteen: silent until its look lane draws them.
+  "flueEnter",
+  "flueLight",
+  "flueSteady",
+  "flueStir",
+  "flueTick",
+  "flueSkid",
+  "flueLapse",
+  "flueVent",
+  "flueBare",
+  "flueChoke",
+  "flueHeld",
+  "flueShut",
+  "flueHit",
+  "flueMiss",
+  "flueSpent",
+  "flueOut",
   // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
   // what the drum does is read off its phase (`valve-story.ts`), never off these.
   "valveJet",

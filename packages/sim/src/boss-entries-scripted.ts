@@ -2,6 +2,7 @@ import type { BurgeeEntry } from "./burgee.js";
 import type { CapstanEntry } from "./capstan.js";
 import type { CystEntry } from "./cyst.js";
 import type { DavitEntry } from "./davit.js";
+import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
 import type { GrindstoneEntry } from "./grindstone.js";
 import type { HalterEntry } from "./halter.js";
@@ -53,12 +54,15 @@ export type ScriptedBossEntry =
   // The one that authors closes as well as shots: a nodule pinched where it sits and moved (`gall.ts`).
   | GallEntry
   // The one that authors catches as well as shots: a flag one seat taps still for the other to catch (`burgee.ts`).
-  | BurgeeEntry;
+  | BurgeeEntry
+  // The one that authors stillness as well as taps: an ember one seat keeps steady for the other to tap (`flue.ts`).
+  | FlueEntry;
 
 export type { BurgeeEntry, BurgeeStep } from "./burgee.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { CystEntry, CystStep } from "./cyst.js";
 export type { DavitEntry, DavitStep } from "./davit.js";
+export type { FlueEntry, FlueStep } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
 export type { HalterEntry, HalterStep } from "./halter.js";

@@ -784,30 +784,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §40 THE FLUE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-No new gesture, no new primitive: `SENDING NOTHING` (THE HALTER's) paired
-with `TAPS ON A MOVING TARGET` (THE RATCHET's, THE GALL's) for the first
-time. `flueRestBeats` is THE HALTER's own per-seat rest counter, read
-exactly the same way; while it sits under threshold the ember drifts
-under the simulation's own clock and `TAPS ON A MOVING TARGET` does not
-register at all. The new wiring is the coupling: a landed tap advances
-`flueTapsLanded` and relocates the ember (THE RATCHET's own rule), but
-the instant the resting seat sends one command mid-sequence, both
-counters — not just the rest counter — snap to nought together, so a
-lapse costs the whole count banked so far rather than only the tap in
-flight. Eleven steps, three movements, resting and tapping swapping seat
-by movement. The full beat list and primitive table entry are §40 of
-`docs/spec/bosses-choreographed.md`. `SENDING NOTHING` and
-`TAPS ON A MOVING TARGET` each already carry a §40 THE FLUE entry in
-their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it
-with the rest. THE SLOW on every rest-and-tap window. `bun run check`
-proves it.
-
 ## §40 THE FLUE — the look
 
 - **Found:** 2026-09-26, this session
@@ -826,6 +802,37 @@ the simulation's own clock running every tick, not a pose resolved once
 per beat, the same reasoning THE BURGEE's sweep and THE CAPSTAN's cradle
 were both ruled out on. Nothing here is drawn yet and stays unverified
 at tempo until the owner has looked.
+
+## §40 THE FLUE — the touch, the cue and AUTO
+
+- **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
+- **Files:** `apps/game/src/`, `packages/render/src/boss-cue.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/src/gesture-unbuilt.ts`
+
+The simulation landed as wave 119 (`docs/spec/bosses.md` §11.57) and
+nothing on a phone sends `flueTap` yet: `on-field-controls.test.ts` holds
+it `"unbuilt"` and `autopilot.test.ts` holds `flue` in `NO_HAND`. Three
+pieces, each small: a press on the ember's column sends `flueTap` with
+`id` that column, from either seat, as an edge; the cue says `STILL` to
+the lit vent's rester and to both seats on a damper, `TAP` beside the
+steady ember to the tapper, `FIRE` on the bared core (`boss-cue-read-*`);
+and an AUTO hand, a boss-hands-flue page in the hands package, that keeps the rester's
+phone silent, taps the steady ember on `flueEmberCol` three times, sends
+nothing through a damper and shoots each fire step in its colour — then
+`flue` leaves `NO_HAND`, the control becomes `"field"`, and `SENDING
+NOTHING` / `TAPS ON A MOVING TARGET` can move off `specd` if the touch
+makes them built. `bun run check` proves it; at tempo is the owner's eye.
+
+## `hash-fixture-bosses-d.ts` is at 483 lines
+
+- **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
+- **Files:** `packages/sim/test/hash-fixture-bosses-d.ts`, `packages/sim/test/hash-fixture.ts`
+
+The fourth page of the hash fixture grew past the ~250 a file is held to,
+one boss at a time, before THE FLUE opened `-e.ts`. Split it into two
+pages at a boss boundary, keeping `BOSS_KINDS`' order (appended to, never
+inserted into) and each page's header naming the next; `hash-fixture.ts`
+composes one more spread and one more patch call. `bun run check` proves
+it — `hash-coverage.test.ts` walks the same fields either way.
 
 ## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
 

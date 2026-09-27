@@ -6,6 +6,7 @@ import { stepCairn } from "./cairn.js";
 import { stepCapstan } from "./capstan-step.js";
 import { stepCyst } from "./cyst-step.js";
 import { stepFleet } from "./fleet.js";
+import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
 import { stepGrindstone } from "./grindstone-step.js";
 import { stepHalter } from "./halter-step.js";
@@ -50,6 +51,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE FLUE: each seat's rest counted, the ember drifting or steadied, and the damper open (`flue-step.ts`).
+  if (boss.kind === "flue") {
+    stepFlue(world, boss);
+    return;
+  }
   // THE BURGEE: the flag's swing, a freeze run out, draws counted, and the flag spent (`burgee-step.ts`).
   if (boss.kind === "burgee") {
     stepBurgee(world, boss);

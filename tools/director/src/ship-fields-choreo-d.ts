@@ -43,4 +43,13 @@ export const CHOREO_FIELD_GROUP_D = {
   burgeeMarkMilli: "THE BURGEE — a flag stilled by one seat and caught by the other",
   burgeeFreezeBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
   burgeeDrawBeats: "THE BURGEE — a flag stilled by one seat and caught by the other",
+  // FlueConfig — the slack before the first step, the pause between, the
+  // open damper, the span and the drift, and the beats of nothing that steady
+  // the ember (`config-flue.ts`).
+  flueSlackBeats: "THE FLUE — an ember one seat keeps still for the other to tap",
+  fluePauseBeats: "THE FLUE — an ember one seat keeps still for the other to tap",
+  flueSpentBeats: "THE FLUE — an ember one seat keeps still for the other to tap",
+  flueSpanMilli: "THE FLUE — an ember one seat keeps still for the other to tap",
+  flueDriftMilli: "THE FLUE — an ember one seat keeps still for the other to tap",
+  flueRestThreshold: "THE FLUE — an ember one seat keeps still for the other to tap",
 } satisfies Record<string, GroupName>;

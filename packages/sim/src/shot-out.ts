@@ -5,6 +5,7 @@ import { capstanStruck } from "./capstan-shot.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
 import { davitStruck } from "./davit-shot.js";
+import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
@@ -117,6 +118,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   gallStruck(world, b);
   // THE BURGEE's lit spindle, in its colour (`burgee-shot.ts`).
   burgeeStruck(world, b);
+  // THE FLUE's bared core, in its colour (`flue-shot.ts`).
+  flueStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -179,6 +182,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "capstan",
   "gall",
   "burgee",
+  "flue",
   "hasp",
   "ratchet",
   "hive",

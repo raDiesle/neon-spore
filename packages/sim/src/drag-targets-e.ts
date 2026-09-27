@@ -36,7 +36,8 @@ export type DragTargetE =
   | "capstanRub"
   | "gallPinch"
   | "burgeeFreeze"
-  | "burgeeDraw";
+  | "burgeeDraw"
+  | "flueTap";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -161,4 +162,14 @@ export type DragTargetE =
  * nothing on `fromMilli`; `burgeeDraw` is `slingDrawLeft`'s draw, the finger
  * down and the lift carrying the swipe's sign on `fromMilli`
  * (`burgee-hand.ts`).
+ */
+
+/**
+ * `flueTap` is the hundred-and-fourth: THE FLUE's ember, on both screens and
+ * heard only from the seat the lit vent says taps.
+ *
+ * No new reading. It is `valvePin`'s tap, an edge with `on` and nothing on
+ * `fromMilli`, with `id` the column the thumb came down on — `gallPinch`'s
+ * way of naming the place — because the ember moves between taps and a tap
+ * counts only on the column it sits over (`flue-hand.ts`).
  */

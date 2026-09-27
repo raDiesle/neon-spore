@@ -8,6 +8,7 @@ import type { CurtainState } from "./curtain.js";
 import type { CystState } from "./cyst.js";
 import type { DavitState } from "./davit.js";
 import type { FilamentState } from "./filament.js";
+import type { FlueState } from "./flue.js";
 import type { GallState } from "./gall.js";
 import type { GaugeState } from "./gauge.js";
 import type { GimbalState } from "./gimbal.js";
@@ -129,4 +130,5 @@ export type BossState =
   | HalterState
   | CapstanState
   | GallState
-  | BurgeeState;
+  | BurgeeState
+  | FlueState;

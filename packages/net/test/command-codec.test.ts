@@ -297,6 +297,9 @@ const ACCEPTED: Command[] = [
   // the swipe's sign on `fromMilli` (`sim/burgee-hand.ts`).
   { kind: "drag", target: "burgeeFreeze", on: true, fromMilli: 0 },
   { kind: "drag", target: "burgeeDraw", on: false, fromMilli: -400 },
+  // THE FLUE's tap is an edge naming the column it went down on as `id`
+  // (`sim/flue-hand.ts`).
+  { kind: "drag", target: "flueTap", on: true, fromMilli: 0, id: 4 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -480,6 +483,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   gallPinch: true,
   burgeeFreeze: true,
   burgeeDraw: true,
+  flueTap: true,
   crank: true,
 };
 

@@ -44,6 +44,15 @@ import type { Wave } from "../wave-types.js";
  * `sim/burgee.ts`). Two catches, the seats swapped, light the spindle; three
  * shots at it, each after the flag has been caught back, the last one white.
  * Every catch's window outlasts a lap of the flag at its sweep.
+ *
+ * **THE FLUE is the first boss a stillness buys a whole count on.** An ember
+ * drifts along a slot mid-hull on its own until one seat has sent nothing for
+ * three beats; then it stops dead, and the other seat taps it three times as
+ * it hops from notch to notch (§40, `sim/flue.ts`). One command from the still
+ * seat mid-count costs every tap landed. Two vents, the seats swapped, bare the
+ * core; before each shot after the first both hands must come off while the
+ * damper creeps, and the last shot is white. Every vent's window holds the
+ * three beats of stillness three times over.
  */
 export const WAVES_ACT_13: Wave[] = [
   {
@@ -170,6 +179,29 @@ export const WAVES_ACT_13: Wave[] = [
           beats: 5,
         },
         { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theFlue",
+    name: "THE FLUE",
+    guide: {
+      both: "One of you keeps still until the ember stops. The other taps it three times before the still one moves. Then both hands off. Shoot the core in its colour.",
+      p1: "1. First, tap the stopped ember three times as it moves.\n2. Next, keep still while your partner taps.\n3. Hands off while the damper creeps. Shoot the core.",
+      p2: "1. First, keep still while your partner taps.\n2. Next, tap the stopped ember three times as it moves.\n3. Hands off while the damper creeps. Shoot the core.",
+    },
+    entries: [],
+    boss: {
+      kind: "flue",
+      steps: [
+        { ask: "vent", rester: 2, notches: [-2, 1], color: "either", beats: 12 },
+        { ask: "vent", rester: 1, notches: [2, -1], color: "either", beats: 12 },
+        { ask: "fire", rester: "both", notches: [], color: "red", beats: 3 },
+        { ask: "damper", rester: "both", notches: [], color: "either", beats: 8 },
+        { ask: "fire", rester: "both", notches: [], color: "cyan", beats: 3 },
+        { ask: "damper", rester: "both", notches: [], color: "either", beats: 6 },
+        { ask: "fire", rester: "both", notches: [], color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

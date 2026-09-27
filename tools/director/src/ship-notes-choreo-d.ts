@@ -103,4 +103,18 @@ export const CHOREO_NOTES_D = {
     "Only the simulation lane has landed — see sim/burgee.ts, " +
     "sim/burgee-step.ts, sim/burgee-hand.ts, sim/burgee-shot.ts, " +
     "sim/config-burgee.ts.",
+  "THE FLUE — an ember one seat keeps still for the other to tap":
+    "Asked for in docs/spec/bosses-choreographed.md §40: an ember in a slot " +
+    "mid-hull that drifts on its own, flueDriftMilli a beat, never a " +
+    "player's to move. On a vent one seat sends nothing at all — THE " +
+    "HALTER's SENDING NOTHING, every command heard — and after " +
+    "flueRestThreshold beats the ember stops dead; the other seat taps it " +
+    "three times as it hops between the step's notches, TAPS ON A MOVING " +
+    "TARGET. One command from the still seat mid-count costs every tap " +
+    "landed. Two vents, seats swapped, bare the core; before the second and " +
+    "third shots both hands must come off while the damper creeps. A vent " +
+    "or a damper run out is tried again; a fire step run out is a hull hit, " +
+    "which is the wave. Nothing on the phone sends a tap here yet. Only the " +
+    "simulation lane has landed — see sim/flue.ts, sim/flue-step.ts, " +
+    "sim/flue-hand.ts, sim/flue-shot.ts, sim/config-flue.ts.",
 } satisfies Partial<Record<GroupName, string>>;

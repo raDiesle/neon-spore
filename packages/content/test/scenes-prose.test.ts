@@ -118,6 +118,9 @@ const STILL_PROSE = [
   // And THE BURGEE (§39), a twenty-third time: the flag is undrawn, and the
   // guide says which seat taps and which draws, and when they swap.
   "THE BURGEE",
+  // And THE FLUE (§40), a twenty-fourth time: the ember is undrawn, and the
+  // guide says which seat keeps still and which taps, and when they swap.
+  "THE FLUE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

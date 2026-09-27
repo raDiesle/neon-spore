@@ -7,6 +7,7 @@ import { BOSS_ENTRIES_A, patchBossA } from "./hash-fixture-bosses-a.js";
 import { BOSS_ENTRIES_B, patchBossB } from "./hash-fixture-bosses-b.js";
 import { BOSS_ENTRIES_C, patchBossC } from "./hash-fixture-bosses-c.js";
 import { BOSS_ENTRIES_D, patchBossD } from "./hash-fixture-bosses-d.js";
+import { BOSS_ENTRIES_E, patchBossE } from "./hash-fixture-bosses-e.js";
 import { beam, bullet, charge, creature, pod, prime, scar } from "./hash-fixture-fields.js";
 
 /**
@@ -19,7 +20,7 @@ import { beam, bullet, charge, creature, pod, prime, scar } from "./hash-fixture
  * the wrong reason. The fixtures of the world's own lists, and the `Required`
  * typing that is the gate on them, are next door in `hash-fixture-fields.ts`.
  *
- * The bosses are four pages beside it (`hash-fixture-bosses-{a,b,c,d}.ts`),
+ * The bosses are five pages beside it (`hash-fixture-bosses-{a,b,c,d,e}.ts`),
  * each holding the entries and the patches of its stretch of `BOSS_KINDS`;
  * this file composes them, and the `Record` below is what says every kind
  * has an entry on one of them. The file stood at 766 lines before the cut,
@@ -32,6 +33,7 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   ...BOSS_ENTRIES_B,
   ...BOSS_ENTRIES_C,
   ...BOSS_ENTRIES_D,
+  ...BOSS_ENTRIES_E,
 };
 
 /** Every boss kind, so the walk covers each arm of `bossHashParts`. */
@@ -134,4 +136,5 @@ function patchBoss(world: World): void {
   patchBossB(boss);
   patchBossC(boss);
   patchBossD(boss);
+  patchBossE(boss);
 }

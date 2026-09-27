@@ -7,6 +7,7 @@ import { curtainHashParts } from "./curtain-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
 import { davitHashParts } from "./davit-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
+import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
@@ -210,6 +211,11 @@ export function clockHashParts(boss: BossState): number[] {
   // hits, the spindle, the thumbs and the draws, and the script (`burgee-hash.ts`).
   if (boss.kind === "burgee") {
     for (const n of burgeeHashParts(boss)) out.push(n);
+  }
+  // THE FLUE: the phase, the cursor, the ember, the taps, the vents, the hits,
+  // the core, the rests, the stirs and the thumbs, and the script (`flue-hash.ts`).
+  if (boss.kind === "flue") {
+    for (const n of flueHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

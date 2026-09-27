@@ -7,6 +7,7 @@ import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
 import { davitStruck } from "./davit-shot.js";
+import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
@@ -212,6 +213,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   gallStruck(world, b);
   // And THE BURGEE's lit spindle (`burgee-shot.ts`).
   burgeeStruck(world, b);
+  // And THE FLUE's bared core (`flue-shot.ts`).
+  flueStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

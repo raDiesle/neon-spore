@@ -160,7 +160,7 @@ export function serializeBoss(boss: BossEntry): string {
   }
   // THE VALVE's marks are three bearings, the same reason.
   if (boss.kind === "valve") return `{ kind: "valve", marks: [${boss.marks.join(", ")}] }`;
-  // THE SEAM through THE BURGEE: a script of steps, each a line's worth
+  // THE SEAM through THE FLUE: a script of steps, each a line's worth
   // (`serialize-boss-b.ts`).
   if (isScriptedEntry(boss)) return serializeScripted(boss);
   // THE SPLICE authors one number a round and the tangle is laid from the rng,

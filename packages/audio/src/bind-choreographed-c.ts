@@ -5,6 +5,7 @@ import { capstanCue, isCapstanEvent } from "./bind-capstan.js";
 import { laterCue } from "./bind-choreographed-d.js";
 import type { Cue } from "./bind-cue.js";
 import { filamentCue } from "./bind-filament.js";
+import { flueCue, isFlueEvent } from "./bind-flue.js";
 import { gallCue, isGallEvent } from "./bind-gall.js";
 import { gimbalCue } from "./bind-gimbal.js";
 import { haspCue, isHaspEvent } from "./bind-hasp.js";
@@ -75,18 +76,20 @@ type LateEvent = Extract<
       | `capstan${string}`
       | `gall${string}`
       | `burgee${string}`
+      | `flue${string}`
       | `undertow${string}`;
   }
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue {
-  // THE CAPSTAN, THE GALL and THE BURGEE are bound here and not on `bind-choreographed-d.ts`,
+  // THE CAPSTAN, THE GALL, THE BURGEE and THE FLUE are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
   // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`).
   if (isHaspEvent(e)) return haspCue(e, cols);
   if (isCapstanEvent(e)) return capstanCue(e, cols);
   if (isGallEvent(e)) return gallCue(e, cols);
   if (isBurgeeEvent(e)) return burgeeCue(e, cols);
+  if (isFlueEvent(e)) return flueCue(e, cols);
   switch (e.type) {
     // The three that came over on 22 September 2026, in the order they stood
     // at the foot of `bind-choreographed.ts`.

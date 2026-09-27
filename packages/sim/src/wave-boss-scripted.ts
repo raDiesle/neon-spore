@@ -3,6 +3,7 @@ import { installBurgee } from "./burgee-step.js";
 import { installCapstan } from "./capstan-step.js";
 import { installCyst } from "./cyst-step.js";
 import { installDavit } from "./davit-step.js";
+import { installFlue } from "./flue-step.js";
 import { installGall } from "./gall-step.js";
 import { installGrindstone } from "./grindstone-step.js";
 import { installHalter } from "./halter-step.js";
@@ -43,6 +44,7 @@ export const SCRIPTED_KINDS = [
   "capstan",
   "gall",
   "burgee",
+  "flue",
 ] as const;
 
 export type ScriptedEntry = Extract<BossEntry, { kind: (typeof SCRIPTED_KINDS)[number] }>;
@@ -65,5 +67,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "halter") return installHalter(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);
   if (boss.kind === "gall") return installGall(world, boss.steps);
-  return installBurgee(world, boss.steps);
+  if (boss.kind === "burgee") return installBurgee(world, boss.steps);
+  return installFlue(world, boss.steps);
 }

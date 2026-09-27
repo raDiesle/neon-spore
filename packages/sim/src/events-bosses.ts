@@ -6,6 +6,7 @@ import type { CurtainEvent } from "./events-curtain.js";
 import type { CystEvent } from "./events-cyst.js";
 import type { DavitEvent } from "./events-davit.js";
 import type { FilamentEvent } from "./events-filament.js";
+import type { FlueEvent } from "./events-flue.js";
 import type { GallEvent } from "./events-gall.js";
 import type { GaugeEvent } from "./events-gauge.js";
 import type { GimbalEvent } from "./events-gimbal.js";
@@ -101,6 +102,7 @@ export type BossEvent =
   | CapstanEvent
   | GallEvent
   | BurgeeEvent
+  | FlueEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -123,6 +125,7 @@ export type { CurtainEvent } from "./events-curtain.js";
 export type { CystEvent } from "./events-cyst.js";
 export type { DavitEvent } from "./events-davit.js";
 export type { FilamentEvent } from "./events-filament.js";
+export type { FlueEvent } from "./events-flue.js";
 export type { GallEvent } from "./events-gall.js";
 export type { GaugeEvent } from "./events-gauge.js";
 export type { GimbalEvent } from "./events-gimbal.js";

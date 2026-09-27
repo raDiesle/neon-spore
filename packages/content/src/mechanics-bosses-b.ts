@@ -1,7 +1,10 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 
 /** The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason. */
-type BossIdB = Extract<MechanicId, "burgee" | "capstan" | "davit" | "gall" | "halter" | "vane">;
+type BossIdB = Extract<
+  MechanicId,
+  "burgee" | "capstan" | "davit" | "flue" | "gall" | "halter" | "vane"
+>;
 
 /**
  * **The bosses `mechanics-bosses.ts` had no room for**, started on 26
@@ -33,6 +36,10 @@ export const BOSS_MECHANICS_B = {
   },
   burgee: {
     what: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
+    reach: "spawn",
+  },
+  flue: {
+    what: "One of you keeps still until the ember stops. The other taps it three times before the still one moves. Then both hands off. Shoot the core in its colour.",
     reach: "spawn",
   },
   vane: {
