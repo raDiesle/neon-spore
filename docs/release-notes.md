@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 8f228e57e — THE TRIVET's foot planting home is painted, behind ?raster=1
+
+A plant now throws a painted slam under the foot that bit: the plate's after-image swinging down, a flash along its footprint, a shock squashed flat on the ground, dust and grit thrown out both ways, in metal colours only. Twelve frames of 96 px at 45 ms; the atlas is 15 690 B, under the 90 kB budget, and the APNG master 45 427 B. It is painted for the pilot's foot and mirrored for the navigator's through a new `flip` on SpriteBursts; the middle foot never plants. Without the flag nothing is fetched and the shipped thud is drawn as before.
+
 ## 2026-09-27 · 0d1b44804 — timeout-cap.test.ts reads its directory once, on a timeout of its own
 
 The test that holds every drawing test to a stated timeout read the whole of `packages/render/test` twice on bun's five-second default, and under eight shards it timed out at 5000 ms. Both of its tests now share one read in a `beforeAll`, and the file states a 30-second limit. The rule it checks and its failure are unchanged.
