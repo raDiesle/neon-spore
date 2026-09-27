@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 9e8c8068e — THE FLUE: an ember one seat keeps still for the other to tap
+
+Wave 119, THE FLUE, is in the simulation (docs/spec/bosses.md §11.57). An ember drifts along a slot mid-hull on its own. On a vent, one seat sends nothing for three beats and it stops dead; the other taps it three times as it hops between the step's notches, and one command from the still seat mid-count costs every tap landed. Two vents with the seats swapped bare the core, and three shots end it, the second and third each after a damper both seats keep their hands off. The sixteen sounds are bound. Nothing is drawn, no phone sends a tap yet, and AUTO has no hand — the look and the touch are queued. No look exemption is needed: nothing drawn changed.
+
 ## 2026-09-27 · 3d054d425 — THE QUEEN, THE CAIRN and THE REPRISE lean on the idle drift, offered in VERSUS
 
 Three candidates, queen:shell, cairn:pile and reprise:sac, each named drift, give each body the outline tier's pose: the idle drift's roll as a lean about its root, the turn as a squash across it and a slide towards it, the pitch as a stretch up it. It is capped by reach, so no point of a body moves more than a fifth of a tile and every hit test keeps reading the rest pose; the queen, 3.7 tiles out to her torches, leans under 2 degrees. The reprise's tear, the field's own edge, stays put. It hushes to a tenth while THE SLOW is open. A look offered through VERSUS; nothing the game draws changes.

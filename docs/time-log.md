@@ -27079,3 +27079,5 @@ to the field under it, which is what split the six into three and six more.
 - landing: 5 min. `check:fast`, the index, the commit, `land`.
 
 Bottleneck: writing — the registrations, some thirty files each needing one line, are most of the lane, and the typecheck only names the next few that are missing.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
