@@ -5,6 +5,7 @@ import { cystBlow } from "./cyst-blow.js";
 import { davitBlow } from "./davit-blow.js";
 import { gallBlow } from "./gall-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
+import { grindstoneBlow } from "./grindstone-blow.js";
 import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
 import type { Layout } from "./layout.js";
@@ -97,6 +98,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   burgee: burgeeBlow,
   // A step let run: the bottom lobe spits a spore that bursts on the skin.
   cyst: cystBlow,
+  // A fire step let run: the wheel throws a chip that shatters to grit on the skin.
+  grindstone: grindstoneBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

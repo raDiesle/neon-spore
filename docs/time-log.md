@@ -27153,3 +27153,15 @@ Bottleneck: friction — `git revert` with a path list reverts everything, so
 the five files were checked out from the parent instead.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GRINDSTONE's own blow at the hull
+
+- reading: 5 min. The wheel's shape and palette, its fire step's `miss`, THE
+  CAPSTAN's cog for the thrown-and-tumbling shape.
+- writing: 5 min. `grindstone-blow.ts`, its two rows, the test's row.
+- looking: 5 min. The `--boss-json` one-step fire script THE CYST's lane
+  queued found the breach first time; a strip and a crop of the shatter.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the recipe the last lane wrote down removed this one's.

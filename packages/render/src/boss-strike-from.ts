@@ -7,6 +7,7 @@ import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
 import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
+import { grindstoneBlowFrom } from "./grindstone-blow.js";
 import { halterBlowFrom } from "./halter-blow.js";
 import type { Layout } from "./layout.js";
 import { ledgerBodyY } from "./ledger-shape.js";
@@ -92,6 +93,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   burgee: burgeeBlowFrom,
   // The bottom lobe's tip, the one that spits (`cyst-blow.ts`).
   cyst: cystBlowFrom,
+  // The bottom of the wheel, where the chip breaks off (`grindstone-blow.ts`).
+  grindstone: grindstoneBlowFrom,
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where

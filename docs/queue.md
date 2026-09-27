@@ -1382,27 +1382,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE GRINDSTONE's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-27, claude/queue-the-cysts-own-blow-at-the-hull (claim: claude/queue-the-grindstones-own-blow-at-the-hull)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-- **Waits on:** THE GRINDSTONE's body — `packages/render/src` draws nothing of it yet (26 September 2026), so there is no part of it to make the blow from. Take this after its look lands.
-
-THE GRINDSTONE's timeout already calls `bossStrikesHull` (`packages/sim/src/grindstone-step.ts`)
-and draws the default lash, a red tendril out of the body to the column and
-back. That lash is a floor, not the picture. Give THE GRINDSTONE a `LOOK` row in
-`boss-strike-look.ts` made from its own body, the part of it that acts, in
-its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
-The blow must reach the hull at `reach = 1`, when the crack and the sparks
-start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
-blind: send a PNG of the timeout (`bun run frames . --wave "THE GRINDSTONE" --until breach`
-when the wave misses unattended), or land it `--unverified` if it does not.
-If the wave never misses alone (THE CYST's did not: its first step is
-retried forever), install a one-step script that runs out and take a strip:
-`--boss-json '{"steps":[<one fire step>]}' --until breach --frames 6
---stride 0 --settle 3` — how THE CYST's was seen, 27 September 2026.
-
 ## THE SLING's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
