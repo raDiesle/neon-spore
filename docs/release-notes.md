@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · a7b3158de — THE CURTAIN's hem and THE CYST's lobes are pieces with joints
+
+THE CURTAIN's hem is now a scallop a column, each with the joint it hangs from (`curtainHem`, in its own `curtain-hem.ts`), and THE CYST's sac is its four lobes, each a run of the outline with a joint at the waist where it parts from its neighbours (`cystLobes`). Both are laid back into their body's one outline, so nothing gets a seam; a pixel test for each fills the old outline and the new at every state and finds them equal. Nothing the game draws changes.
+
 ## 2026-09-27 · 57d858680 — THE HIVE's hanging lobes are pieces with joints
 
 Each scallop of THE HIVE's underside is now a piece of its own — `hiveLobes` gives its joint on the underside's line over its site, its bend and where it ends — and the mass is built by laying the pieces into its one outline, so the translucent wax still has no seam. A test fills the old contour and the new one at every count of sites, closing and breathing, and finds the pixels equal. Nothing the game draws changes.

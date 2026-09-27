@@ -25948,3 +25948,5 @@ its own without a seam, and it cannot, so the piece is laid into one outline.
 
 Bottleneck: writing — the CURTAIN's file had to be cut before its pieces
 could stay in it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
