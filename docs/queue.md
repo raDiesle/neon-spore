@@ -2604,6 +2604,7 @@ count and is refused. `bun run check` proves it.
 ## `serialize-boss.ts` is at the 250-line limit
 
 - **Found:** 2026-09-27, claude/queue-39-the-burgee-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-the-instar-holds-still-while-its-marks-are-live (claim: claude/queue-serialize-boss-ts-is-at-the-250-line-limit)
 - **Files:** `tools/director/src/serialize-boss.ts`, `tools/director/test/wave-save.test.ts`
 
 THE BURGEE's branch took `serialize-boss.ts` to 251 lines. It was brought
