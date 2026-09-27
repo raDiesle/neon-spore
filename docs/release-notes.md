@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 4e8d5b217 — THE BURGEE: a flag stilled by one seat and caught by the other
+
+Wave 118 is a pennant on a boom mid-hull that swings across the middle three columns on its own. The step's freezer taps it still over the lit column. The other seat holds a draw a beat and lets it go toward the column while the flag is still frozen. Two catches, with the seats swapped, light the spindle. It is shot three times in its colour, and between shots the creeping flag has to be caught back. This is §11.56 of the bosses spec. The design's §39 is departed from in eight places, each argued there by name.
+
 ## 2026-09-27 · 49d899fce — THE INSTAR takes three times as long to arrive, 2.5 times as long between poses
 
 The first step flown, the breath's approach, now takes 24 beats of morph instead of 8. Every other step that flies — an approach, a pass or a cross — takes at least 2.5 times its old morph: 6 beats become 15, 7 become 18, 8 become 20, 10 become 25, 12 become 30. The steps that stay put are unchanged. The flight still has the first 60% of each morph (`INSTAR_FLIGHT_ENDS` is a share, not a count), so the marks still glow up on a body at rest.

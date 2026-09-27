@@ -26395,3 +26395,5 @@ step, and the first step flown is the breath's approach.
 Bottleneck: writing. The recatch windows in the design could not be
 answered at their sweep, and the script had to be re-argued so that every
 window outlasts a lap of the flag.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
