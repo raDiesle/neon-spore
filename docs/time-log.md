@@ -27369,3 +27369,5 @@ and each extra name had importers of its own to follow.
 
 Bottleneck: writing — the entry bundled the hand with the director's pose
 cards, and it was split so the hand could land alone.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
