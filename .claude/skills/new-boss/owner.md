@@ -205,8 +205,11 @@ item naming the rule, never a fix made in passing.
   shapes … that they look 3d and move natural … tilt and turning body pieces
   … also for bosses which are not living like but machine like.* A boss's
   enhancement is its whole body — shape, depth, pose, a visible tilt, pieces
-  turning — never a few pixels on one part. The test and the reasoning:
-  `docs/looks.md`, *Big enough to be seen*.
+  turning — never a few pixels on one part. Movement given to a part that is
+  still today is new, so it goes straight into the game rather than to VERSUS
+  (*why brand new should be on versus page and not build all of it directly
+  into game?*). The test and the reasoning: `docs/looks.md`, *Big enough to
+  be seen*.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

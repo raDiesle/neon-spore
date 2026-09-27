@@ -27139,3 +27139,15 @@ and had to be killed and run one by one.
 Bottleneck: looking — getting a breach at all needed a script the entry did not name.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — VERSUS: a brand-new look goes into the game, not onto the page
+
+- reading: 5 min. The exemption in `CLAUDE.md` and `docs/looks.md`, which
+  already answered the owner's question.
+- writing: 5 min. `brandNew` taken back out, the rule rewritten in four places.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 5 min. A revert that took the whole landing instead of five files.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — `git revert` with a path list reverts everything, so
+the five files were checked out from the parent instead.

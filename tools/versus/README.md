@@ -137,7 +137,7 @@ Five things worth knowing before the first one:
   is an asset there is no honest slot at all, because a candidate cannot
   repaint a webp.
 
-## Before it is offered: can it be seen, and is there anything to compare?
+## Before it is offered: can it be seen, and does it replace anything?
 
 **Take the two stills first** — `bun run versus:shot <slot> <name> --only
 current` and `--only candidate` at the moment the change is widest — and look
@@ -145,9 +145,9 @@ at them side by side. If they cannot be told apart at a glance, do not offer
 it: the owner dropped eight in one day for that (`docs/looks.md`, *Big enough
 to be seen*).
 
-**A candidate that adds a thing the game does not draw at all sets
-`brandNew: { today: "…" }`.** The page then says NEW in words and shows the
-candidate alone, with no CURRENT phone and no BLINK.
+**A thing the game does not draw at all is not a candidate.** There is no
+left-hand side for it, so it goes straight into the game as *a look with no
+shipped alternative* (`CLAUDE.md`), named in the commit.
 
 ## What the tests hold a candidate to
 

@@ -47,9 +47,10 @@ frame regardless still gets the picture.
 
 The owner could not tell eight candidates in one day from the picture they
 would replace, and said not to improve what is barely seen. A candidate is
-offered only when its two stills can be told apart at a glance, and one that
-adds something where the game draws nothing is marked `brandNew` and shown
-alone, said to be NEW (`docs/looks.md`, *Big enough to be seen*).
+offered only when its two stills can be told apart at a glance. Something the
+game does not draw at all is never a candidate: it has nothing to be compared
+with, so it goes straight into the game (`docs/looks.md`, *Big enough to be
+seen*).
 
 ## Photographing one — 9 September 2026
 

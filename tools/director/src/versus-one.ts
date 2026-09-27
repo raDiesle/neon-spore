@@ -57,7 +57,6 @@ export function renderCandidate(
   const pose = poseForSlot(slot.slot);
 
   row.appendChild(el("h2", "", `${slot.slot.toUpperCase()} · ${candidate.name.toUpperCase()}`));
-  if (candidate.brandNew) row.appendChild(newNote(candidate.brandNew.today));
   row.appendChild(el("p", "versus-name", candidate.sentence));
   row.appendChild(
     el(
@@ -84,16 +83,6 @@ export function renderCandidate(
   row.append(screensHost);
   if (plan !== null) row.appendChild(sizeNote(plan.share));
   return row;
-}
-
-/** What a `brandNew` candidate's page says first: there is nothing to compare. */
-export function newNote(today: string): HTMLElement {
-  return el(
-    "p",
-    "versus-new",
-    `NEW — THE GAME DRAWS NOTHING HERE TODAY. ${today} There is nothing to compare, ` +
-      "so this is the candidate alone.",
-  );
 }
 
 /** Links to how other games do this screen, each opening alone in a new tab. */
@@ -198,15 +187,6 @@ function renderScreen(
     // "PAUSED" caption.
     stage.append(rightBox);
     screen.append(stage, banner);
-    return screen;
-  }
-
-  if (candidate.brandNew) {
-    // Nothing on the left to compare with, so no CURRENT phone and no BLINK
-    // — only the candidate, still running, with its pause and rate.
-    rightBox.prepend(el("div", "versus-name", `NEW — ${candidate.name.toUpperCase()}`));
-    stage.append(rightBox);
-    screen.append(stage, ...controlsBar(stage, pair, false), banner);
     return screen;
   }
 

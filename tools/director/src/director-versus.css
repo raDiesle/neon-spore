@@ -286,15 +286,6 @@ body.standalone h1 {
 /* The one line saying what on the picture the vote is about, in plain words
    — gold and above the phones, because a reader who cannot find the
    difference never gets as far as the prose under it. */
-.versus-new {
-  margin: 8px 0 2px;
-  color: var(--gold);
-  font-size: 1.05rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  max-width: 720px;
-}
-
 .versus-look {
   margin: 8px 0 2px;
   color: var(--gold);

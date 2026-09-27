@@ -161,7 +161,15 @@ hit test reading the rest pose, a hush in THE SLOW, a reach limit — the cap is
 the work: make the hit test follow the pose (`instarMarkUnder` is the worked
 example), then offer a movement that is large.
 
-**A thing the game does not draw at all is not a pair.** A candidate that adds
-something where there is nothing today sets `brandNew` (`tools/versus/variant.ts`):
-the page says NEW, in words, and shows the candidate alone, because a CURRENT
-phone beside it is a spot-the-difference with nothing to spot.
+**A thing the game does not draw at all goes straight into the game.** The
+owner, the same day: *why brand new should be on versus page and not build all
+of it directly into game? You decide what makes sense.* Decided: VERSUS is for
+a second answer to something he already sees, and only for that. A part, an
+effect or a movement where today there is none — a still boss that starts to
+tilt and turn, a machine whose pieces start to move — has nothing to be
+compared with, so it lands on the field under the exemption **a look with no
+shipped alternative**, named in the commit, and he sees it as one PNG (or
+frames, for a movement). It still has to be big enough to be seen, and if he
+does not like it, that is a new lane that takes it out. Movement given to a
+part that is still today is new; changing a movement or a look he already sees
+is a replacement, and goes to VERSUS.
