@@ -445,6 +445,7 @@ in a file of their own.
 ## §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-32-the-sling-sprite-atlas-experiment-the-arm-dra
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
