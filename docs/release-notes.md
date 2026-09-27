@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · fdfa1e3fb — A painted strip is one row of one table
+
+Every painted strip's numbers now live in `PAINTED_STRIPS` (`packages/render/src/painted-strips.ts`). The renderer slices with that row, `tools/raster`'s `STRIPS` reads its numbers off it, the assets test checks the baked manifest against it, and `bindRasterStrips` binds every row behind `?raster=1` in one loop. `renderer.strip(name)` replaces the getter each strip had. THE VISE's crack, THE RIME's clearing, THE TRIVET's plant and THE PLUMB's settle are its four rows. The painters sit in one record typed on every name, and the copies table reads them off the directory. The next strip is a painter, a table row, its effect and a bake; `docs/raster.md` has the steps. The burst and THE CLASP's shield stay outside the table.
+
 ## 2026-09-27 · 34eecd5c6 — Fourteen of the owner's questions answered, and `queue next` asks the rest first
 
 The owner answered every question the queue was holding for him, and each entry now has an `Answered:` line, so `next` hands them out again. HARD judges each sky boss. THE GAUGE and THE INSTAR's shoot marks each get a colour rule. THE MAZE's lever turns the drum one-to-one. THE JAM's runaway starts once the first lure is at half height. THE WINCH and THE SLUICE are cut as copies of THE DAVIT, in favour of a fresh boss. THE PLUMB's lean becomes two pulls that must weigh the same, and THE DAVIT and THE CAPSTAN lose the lean for a drag too. Three new entries hold that work and THE SCUTTLE's frame, which is drawn above the canvas on the director's stage and on short phones. `bun run queue next` now prints every unanswered question before it hands anything out, and CLAUDE.md says a question is asked in the turn it is queued. The rules the owner gave for bosses are in `.claude/skills/new-boss/owner.md`.

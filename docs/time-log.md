@@ -27976,3 +27976,5 @@ each had to be turned into work a cold session can start.
 
 Bottleneck: writing. Twelve registrations in ten files had to move at once,
 since each one named the next.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
