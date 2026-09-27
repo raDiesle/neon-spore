@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 6893f2ddf — `bun run queue help` prints its usage instead of a stack trace
+
+An unknown subcommand threw, so the first thing a lost caller types came back as eight lines of source and a Bun trace. `help` now prints the usage line, and anything else unknown says the same on stderr and exits 1.
+
+## 2026-09-27 · a7d08535a — A queue entry that asks for a real thumb or finger is marked for a phone
+
+`bun run land --unverified` marks an item `Where: phone` so `queue next` passes it over, but it only knew "real phone", "real device" and "on glass". Five entries asking for real thumbs or fingers on THE MANTLE, THE KEEL, THE VISE and THE TRIVET sat unmarked, and THE MANTLE's knobs were handed out and given back twice. The pattern now knows thumbs and fingers, the five are marked, and they stay the owner's to take by name.
+
 ## 2026-09-27 · 1abc415c8 — THE SEAM, THE SLING, THE HALTER, THE GALL and THE VALVE hold their marks still in a window
 
 Five more bosses have rows in the shared hush test, each with a reader for the marks its draw places, now kept in boss-hush-drawn.ts. THE GALL's ripple carried both its rings on the wall clock, and THE VALVE's brace shudder carried the socket both thumbs hold; both now die down while THE SLOW asks. THE VALVE's drum also no longer jumps a list step as a pin comes out: the step now waits for the pin's story to end and eases in after it.
