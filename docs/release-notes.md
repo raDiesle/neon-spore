@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d9382f6df — THE CYST and THE FILAMENT put no mark up before its window opens
+
+THE CYST no longer keeps a dim ring and dot beside each flank at rest; a freeze mark stands only by the flank its lit step names. THE FILAMENT no longer pulses a ring up on the free end while it arms, when nothing touched there is heard; its READY or NEXT word still names the round, and the ring appears when the trace opens. THE BURGEE, THE CAPSTAN, THE DAVIT and THE FLEET were read and put up nothing early; THE FLEET's row is its grip on the wound, since its marks file asks nothing. All six have rows in the shared marks-window test, now split into a kit and two row files. THE BURGEE's and THE CYST's fire marks are held to their windows but cannot yet be required to be seen, because AUTO has no hand for either; the hand entries in the queue say to drop that exception. Six bosses are left.
+
 ## 2026-09-27 · 35e84ff7d — THE RIME seen in frames, and tempo left to a phone
 
 AUTO clears the wave in 12.5 s. In the frames, the lit half is rimmed and throws flakes, the rubbed half clears in steps, a hit dims and shrinks the ringed core, and the shield rises on its window. Nothing is clipped or out of place. A first wipe asks for about two reversals a second. Whether the rub reads as a rub in a hand is left to a phone, so the entry now says what was seen and is marked for one. A finding is queued: HARDWARE should know "at tempo", which 84 lines of the queue use and only nine entries mark.
