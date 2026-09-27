@@ -2206,6 +2206,7 @@ test beside `warden-drift.test.ts`. Done when `bun run check` is green.
 ## `check:fast` does not run the INDEX row drift test
 
 - **Found:** 2026-09-27, claude/queue-warden-drift
+- **Taken:** 2026-09-27, claude/queue-fast-index-drift (claim: claude/queue-check-fast-does-not-run-the-index-row-drift-test)
 - **Files:** `tools/check/fast-scope.ts`, `tools/check/test/fast-scope.test.ts`, `tools/index/test/drift.test.ts`
 
 `tools/index/test/drift.test.ts` fails when a `docs/INDEX.md` row names a
