@@ -25527,3 +25527,5 @@ been drawn since; finding that out was the first ten minutes.
 
 Bottleneck: reading — the entry, filed by this session an hour earlier, blamed
 the files; the eleven headers were there all along.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
