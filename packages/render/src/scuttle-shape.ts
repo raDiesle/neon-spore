@@ -8,6 +8,7 @@ import {
   scuttleWinding,
 } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
+import { type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
  * **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over
@@ -141,6 +142,33 @@ export function scuttleWindPhase(
   if (!scuttleWinding(s)) return 0;
   const beats = Math.max(1, scuttleWindBeats(cfg));
   return Math.min(1, Math.max(0, (beat - s.windBeat + beatPhase) / beats));
+}
+
+/**
+ * What is left of the wind-up's shiver in an open window: 0.05 of a tile at
+ * 40 radians a second is 2 tiles a second, and a twenty-fifth of it is 0.08,
+ * under the tenth a live mark may move (`tools/director/test/boss-hush.test.ts`).
+ */
+const SHIVER_HUSHED = 0.04;
+
+/**
+ * **A loose part's shiver as the frame winds up**, sideways in pixels. It is
+ * the part's own and not the throw's clock, so an open window hushes it
+ * (`slow-hush.ts`): the live part is a mark. The rise and the hang are the
+ * throw's clock and go on.
+ */
+export function scuttleShiver(
+  l: Layout,
+  cfg: SimConfig,
+  slow: SlowSpan,
+  s: ScuttleState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+): number {
+  const wind = scuttleWindPhase(s, cfg, beat, beatPhase);
+  const hush = slowHush(slow, beat, beatPhase, SHIVER_HUSHED);
+  return Math.sin(time * 40) * l.tile * 0.05 * wind * hush;
 }
 
 /** How far the frame has drawn back up, in pixels, at `phase` of the wind-up. */

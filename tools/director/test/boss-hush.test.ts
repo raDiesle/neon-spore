@@ -29,10 +29,11 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * functions its draw calls:
  * THE MANTLE's brace shudder carries both knobs while the pair hold them,
  * and THE CAPSTAN's rattle shakes and rolls the face a thumb is rubbing.
- * What this still cannot see is a pose the cue stands its word clear of —
- * THE SCUTTLE's cue reads the part's row and not its drawn rise. So a boss is
+ * What the cue cannot see is a pose it stands its word clear of — THE
+ * SCUTTLE's reads the part's row and not its drawn shiver. So a boss is
  * given a row only once its draw has been read and its rings are placed off
- * the same state the cue is, and by the motions `DRAWN` names.
+ * the same state the cue is, and by the motions `DRAWN` names. Every boss
+ * AUTO has a hand for has one; THE DAVIT waits on its hand (`docs/queue.md`).
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -63,6 +64,11 @@ const STILL: readonly BossKind[] = [
   "halter",
   "gall",
   "valve",
+  "nettle",
+  "scuttle",
+  "sinew",
+  "antiphon",
+  "burgee",
 ];
 
 interface Reading {

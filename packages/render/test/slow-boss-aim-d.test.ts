@@ -113,7 +113,7 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     const s = sceneBoss(world);
     if (s === null || s.kind !== "nettle") throw new Error("the nettle wave stood no bell");
     const beat = world.beat + 1_000;
-    const { f } = nettleBody(s, CFG, beat, 0);
+    const { f } = nettleBody(s, CFG, world, beat, 0);
     const c = instarAt(L, f.bellX, f.bellY);
     const r = instarLen(L, f.bellR);
     const still = bodyBox(aim(world, L, beat, 0));

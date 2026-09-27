@@ -42,7 +42,7 @@ export function drawNettle(
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
-  const { f, sway } = nettleBody(s, cfg, beat, beatPhase);
+  const { f, sway } = nettleBody(s, cfg, world, beat, beatPhase);
   const center = instarAt(l, f.bellX, f.bellY);
   const r = instarLen(l, f.bellR);
   const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);

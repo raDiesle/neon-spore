@@ -3,6 +3,7 @@ import { instarPhaseAt } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
 import type { Figure } from "./nettle-figure.js";
 import { nettleFigure } from "./nettle-figure.js";
+import { type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
  * **THE NETTLE pulses**, and the bell carries with it.
@@ -15,7 +16,10 @@ import { nettleFigure } from "./nettle-figure.js";
  * offset (`instar-mark-grip.ts`).
  *
  * Nothing here reads a clock: the pulse is a function of `beat` and
- * `beatPhase`, so a slow window (`sim/slow.ts`) slows it for free.
+ * `beatPhase`, so a slow window (`sim/slow.ts`) slows it for free — and
+ * dies down under it too (`slow-hush.ts`), since the pulse carries every mark
+ * a thumb is asked for, and slowed it still took them a fifth of a tile a
+ * second (`tools/director/test/boss-hush.test.ts`).
  */
 
 /** Thousandths of the field's height the bell rises and falls each pulse. */
@@ -28,15 +32,22 @@ const BEATS = 3;
 const STILLING = 2;
 
 /** Where the bell is carried this frame. */
-export function nettleSway(s: NettleState, cfg: SimConfig, beat: number, beatPhase: number): Sway {
+export function nettleSway(
+  s: NettleState,
+  cfg: SimConfig,
+  slow: SlowSpan,
+  beat: number,
+  beatPhase: number,
+): Sway {
   const swing = (beat + beatPhase) * ((Math.PI * 2) / BEATS);
   const alive =
     s.phase === "down"
       ? Math.max(0, 1 - instarPhaseAt(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
       : 1;
+  const k = alive * slowHush(slow, beat, beatPhase);
   return {
     xMilli: 0,
-    yMilli: -RISE * alive * (1 - Math.cos(swing)) * 0.5,
+    yMilli: -RISE * k * (1 - Math.cos(swing)) * 0.5,
   };
 }
 
@@ -46,10 +57,11 @@ export function nettleSway(s: NettleState, cfg: SimConfig, beat: number, beatPha
 export function nettleBody(
   s: NettleState,
   cfg: SimConfig,
+  slow: SlowSpan,
   beat: number,
   beatPhase: number,
 ): { f: Figure; sway: Sway } {
-  const sway = nettleSway(s, cfg, beat, beatPhase);
+  const sway = nettleSway(s, cfg, slow, beat, beatPhase);
   const f = nettleFigure(s, beat, beatPhase);
   return {
     f: { ...f, bellX: f.bellX + sway.xMilli, bellY: f.bellY + sway.yMilli },

@@ -5,6 +5,7 @@ import {
   gallLitStep,
   gallPincher,
   halterLitStep,
+  instarStep,
   mantleBracing,
   seamLitStep,
   seamWantsShot,
@@ -35,8 +36,12 @@ import {
 import { halterGripStanding } from "../../../packages/render/src/halter-grip.js";
 import { halterArrived, halterOpen } from "../../../packages/render/src/halter-pose.js";
 import { halterAt, halterBend, halterSpan } from "../../../packages/render/src/halter-shape.js";
+import { instarMarksUp } from "../../../packages/render/src/instar-marks.js";
+import { instarMarkPoint } from "../../../packages/render/src/instar-place.js";
+import { instarThreat } from "../../../packages/render/src/instar-shape.js";
 import { mantleShudder } from "../../../packages/render/src/mantle-brace.js";
 import { mantleKnobCircle } from "../../../packages/render/src/mantle-grip.js";
+import { nettleSway } from "../../../packages/render/src/nettle-sway.js";
 import { seamArrived, seamLitPoint, seamSplit } from "../../../packages/render/src/seam-pose.js";
 import { seamCentre, seamLift, seamLobe } from "../../../packages/render/src/seam-shape.js";
 import { seamTurn } from "../../../packages/render/src/seam-story.js";
@@ -56,6 +61,7 @@ import {
 } from "../../../packages/render/src/valve-shape.js";
 import { valveShake } from "../../../packages/render/src/valve-story.js";
 import { showsGallReach } from "../../../packages/render/src/view-role-clocks-c.js";
+import { DRAWN_B } from "./boss-hush-drawn-b.js";
 
 /**
  * **The drawn-mark readers `boss-hush.test.ts` walks**: a boss's marks placed
@@ -213,4 +219,16 @@ export const DRAWN: Partial<Record<BossKind, Drawn>> = {
     }
     return marks;
   },
+  // Its marks where THE INSTAR's stand (`instar-marks.ts`), carried by the
+  // bell's pulse; a swept mark's travel along its track is the gesture.
+  nettle: (l, world, phase) => {
+    const s = world.boss;
+    if (s?.kind !== "nettle" || !instarMarksUp(world, s)) return [];
+    const step = instarStep(s);
+    if (step === null) return [];
+    const sway = nettleSway(s, world.cfg, world, world.beat, phase);
+    const along = instarThreat(s, world.beat, phase);
+    return step.marks.map((m, k) => ({ id: -1 - k, ...instarMarkPoint(l, m, sway, along) }));
+  },
+  ...DRAWN_B,
 };

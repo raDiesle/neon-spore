@@ -26831,3 +26831,18 @@ The bottleneck: "at tempo, by an eye on a phone" is a hand's, and finding
 that out cost a live preview that could not run at tempo.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the last four bosses AUTO can play hold still in a window
+
+- reading: 15 min. Two agents traced the scuttle, sinew, antiphon and burgee
+  draws; the nettle's pulse read here.
+- writing: 10 min. `boss-hush-drawn-b.ts` with four readers, the nettle's
+  reader, `nettleSway` hushed, the scuttle's shiver moved to `scuttleShiver`.
+- looking: 0 min. Held by the boss-hush test; no picture.
+- friction: 5 min. Re-taking the entry after a release tripped on a stale
+  `docs/queue.md` and the old claim branch.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE ANTIPHON's rings were keyed on their index, and a new cycle
+lays a new rail inside the same window, so the first reading was a false
+13 tiles a second until they were keyed on their column.

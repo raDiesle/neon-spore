@@ -41,7 +41,7 @@ function markUnder(
   const r = instarMarkRadius(l, field.cfg);
   const sway =
     s.kind === "nettle"
-      ? nettleSway(s, field.cfg, field.beat, field.beatPhase)
+      ? nettleSway(s, field.cfg, field.slow ?? NO_SPAN, field.beat, field.beatPhase)
       : instarSway(s, field.cfg, field.slow ?? NO_SPAN, field.beat, field.beatPhase);
   const along = instarThreat(s, field.beat, field.beatPhase);
   let best: { id: number; mark: SceneMark; at: Point; d: number } | null = null;

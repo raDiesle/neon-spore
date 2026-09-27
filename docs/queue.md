@@ -2387,90 +2387,25 @@ are creatures and rounds, not bosses.
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.
 
-## Every other boss — holds still while its marks are live, six per lane
+## THE DAVIT's autopilot hand, and its row in the hush test
 
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-every-other-boss-holds-still-while-its-marks-are
-- **Files:** `tools/director/test/boss-hush.test.ts`, `tools/director/test/boss-hush-drawn.ts`, `packages/render/src/slow-hush.ts`, `packages/render/src/boss-cue.ts`
+- **Found:** 2026-09-27, claude/queue-every-other-boss-holds-still-while-its-marks-are
+- **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/boss-hush-drawn-b.ts`, `tools/director/test/boss-hush.test.ts`
 
-The same rule as THE INSTAR's, for every boss: in an open slow window with a
-live mark, the body's *natural* motion eases to a tenth. That covers a
-breath, a bob, a sway and an outline drift. Motion that *is* the rule stays:
-THE SINEW's mass falls a row a beat, THE FILAMENT's heart shrinks as each
-filament is pulled (`slow-boss-aim-b.ts` names both). Six per lane: find what
-moves each boss's marks during a window, hush the natural part, and add the
-boss to one shared test that walks its wave with AUTO and measures each live
-mark's drawn point at under 0.1 tile a second. Keep this entry open with the
-remaining bosses listed. The speed is the rule and the tenth is a guess: THE
-INSTAR's weave needed a twentieth to get under it (`instar-sway.ts`
-`HUSHED`), and `instar-sway.test.ts`'s "a window hushes the weave" is the
-shape of the test.
-
-Done when, per boss: the shared test has its row and it passes. `bun run
-check` proves it.
-
-**The first lane, 27 September 2026:** the shared test is
-`tools/director/test/boss-hush.test.ts`, and the curve is `slow-hush.ts`
-(`slowHush`, which THE INSTAR's hush is now a depth of). Rows: THE UNDERTOW,
-THE GORGE, THE CURTAIN, THE TASTER, THE LEAD. Their rings are placed off
-state alone, and their wall-clock motion is skin, a breathing radius or a
-hit's shake. THE SCUTTLE's wind-up shiver is hushed to a twenty-fifth
-(`scuttle-draw.ts` `SHIVER_HUSHED`), but it has no row: its cue reads the
-part's row and not its drawn rise and hang, so the test would pass whatever
-the part did. **The test reads `bossCue`, which is blind to the wall clock
-and to any pose the cue stands its word clear of.** The next lane should add
-a drawn-mark reader per boss, where the cue is not the ring's place, before
-it adds a row.
-
-**The second lane, 27 September 2026:** the test now reads every cue a
-screen may see (`bossCues`, exported), each matched to itself by its seed, so
-a cue handing over to another mark is not counted as motion; that was all
-of THE BATON's 30 tiles a second, and THE RATCHET's `FIRE` handing to its
-bar. **`DRAWN` in the test is the drawn-mark reader**: a boss's marks placed
-where no cue reaches, as its draw places them. A cue goes once the thumb does
-what it asks, so a held mark is only there. THE MANTLE's is its two knobs
-under the brace shudder, which carried them at 1.3 tiles a second under AUTO
-and is hushed to a fortieth (`mantle-brace.ts` `SHUDDER_HUSHED`). New rows:
-THE HASP, THE RATCHET, THE MANTLE, THE KEEL, THE OCULUS, THE VISE, THE BATON.
-Each of their draws was read for `time`, and what else moves is skin: a lit
-highlight's wobble, a spent clasp's slack, the oculus's leaves settling, a
-knob's outline, a hit's shake.
-
-**The third lane, 27 September 2026:** new rows THE RIME, THE TRIVET, THE
-PLUMB, THE GRINDSTONE, THE CYST and THE CAPSTAN. Only THE CAPSTAN's marks
-moved on the clock: its rattle shook and rolled the face being rubbed at 1.4
-tiles a second, and `capstanShake` (`capstan-pose.ts`) now hushes both to a
-twenty-fifth. The roll had to be hushed on its own, because `capstanJudder`
-does not scale it with the reach. The others' clocks move no mark: THE
-PLUMB's weights, THE RIME's fog, THE CYST's covered core (bared, it holds
-still), and THE CYST's lit flank, whose shudder bends the outline under a
-still ring. That shudder is the tap's own picture, so it was left.
-
-**The fourth lane, 27 September 2026:** the readers moved out to
-`boss-hush-drawn.ts`. New rows: THE SEAM, THE SLING, THE HALTER, THE GALL
-and THE VALVE, each with a `DRAWN` reader. THE GALL's ripple carried both
-its rings on the wall clock, and `gallRippling` now takes the world and
-hushes it. THE VALVE's brace shudder is hushed to a twenty-fifth
-(`valve-story.ts` `SHUDDER_HUSHED`). The reader also found a jump that was
-no motion at all: `valveList` counted a pin's list step from the pull, but
-the pull goes straight to the pin's story and `list` comes after. So the
-drum jumped a step as the pin came out, 0.14 tile at the socket, and dropped
-back to ease it in again. The story now plays with the drum where it stood.
-THE HALTER's `halterTremor` moves only the plates, never a grip or the core.
-**THE DAVIT has no row:** AUTO has no hand for it (`autopilot.test.ts`
-`NO_HAND`), so its wave never gets past the first lean, and nothing is ever
-asked of the hook. Its reader is simple (the hook's ring at
-`davitMast + davitHook(l, davitAngle(s), DAVIT_SAG)` while the step asks for
-`fire`, with nothing on the clock), and it goes in with the hand.
-
-Left, with what the first lane's probe found under AUTO:
-- **Cue already still in windows** (its cue reads the part's row, not its
-  drawn rise and hang, so it needs a `DRAWN` reader before its row): THE
-  SCUTTLE.
-- **Windows but no cue** (these need a `DRAWN` reader first): THE
-  SINEW, THE ANTIPHON, THE NETTLE (`instarMarkPoint` with `nettleSway`), THE
-  BURGEE (`burgeeLay`'s sway on `time`, through Effects' `BurgeeFx`).
-- **No hand for AUTO:** THE DAVIT, above.
+THE DAVIT is the one boss left out of `boss-hush.test.ts`, the test that
+holds every boss's marks under a tenth of a tile a second in a window. It is
+out because AUTO has no hand for it (`autopilot.test.ts` `NO_HAND`): its
+wave never gets past the first lean, so nothing is ever asked of the hook.
+Write the hand, a new packages/hands/src/boss-hands-davit.ts, from the lit
+step's ask (`davit.ts` `DAVIT_ASKS`): on `left` or `right`, the lean the
+step names (`leanMilli`); on `reland`, both seats; on `fire`, the cannon at
+`midCol` (`davit-shot.ts`). Then take THE DAVIT out of `NO_HAND`, add a
+`davit` reader to `DRAWN_B`, and add `"davit"` to `STILL`. The reader is
+the hook's ring at `davitMast + davitHook(l, davitAngle(s), DAVIT_SAG)`
+while the step asks for `fire`, with nothing on the clock. Mind the
+unverified entry *THE DAVIT: no touch sends a lean or draw*: the hand sends
+commands, not touches, so it does not wait on that one. `bun run check`
+proves it.
 
 ## THE INSTAR — a shoot mark asks for one colour, or none
 

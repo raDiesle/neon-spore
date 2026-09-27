@@ -106,7 +106,7 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     case "nettle": {
       const s = sceneBoss(world);
       if (s === null || s.kind !== "nettle") return null;
-      const { f } = nettleBody(s, cfg, beat, beatPhase);
+      const { f } = nettleBody(s, cfg, world, beat, beatPhase);
       const c = instarAt(l, f.bellX, f.bellY);
       return spreadCapsule(nettleReach(c.x, c.y, instarLen(l, f.bellR), f), 0);
     }
