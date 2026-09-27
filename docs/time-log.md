@@ -25654,3 +25654,5 @@ entry's three bodies cover the interior it proposed to move.
 
 Bottleneck: looking — a fix inside a twenty-pixel ribbon is proven by where
 its gradient stands, not by a frame.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

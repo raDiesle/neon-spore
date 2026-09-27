@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 0b9f15783 — THE WISP's arms keep their own light when they sway
+
+Each arm is a ribbon lit across its width, and the band was built level with its root, so a swung arm's lower half ran past the band's ends and went one flat colour. The gradient now runs square to the arm, root to tip, centred on the middle of its spine, and `wisp-arms.test.ts` holds each outline inside its own light across eight seconds of sway. A fix to something wrong rather than unlovely: the file's own comment asks for one light across a sheet.
+
 ## 2026-09-27 · ff5c0f1ea — The two cores inside a box and a dart drift, as a VERSUS candidate
 
 `creature:body-interior` / `drift` patches `BODY_LOOK`: the two dots every blob without an interior of its own draws now circle each other slowly and swell out of step, on rates none of the contour's terms use. It is judged on a new pose, `BODIES · THE TWO CORES`, a box and a dart. The entry named a count and a throb too, but both draw over their middle, and a frame of each was the same pixels shipped and patched; that is queued as its own entry. A look, offered through VERSUS and not landed on the field.
