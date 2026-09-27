@@ -2777,6 +2777,7 @@ a sentence. `bun run check` proves it.
 ## Every other boss — every counted hit shows the hurt
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-instar-fx-ts-is-231-lines-and-its-event-switch-i (claim: claude/queue-every-other-boss-every-counted-hit-shows-the-hur)
 - **Needs:** THE INSTAR — every bolt that counts shows the hurt
 - **Files:** `packages/render/src/boss-hurt.ts`, `packages/render/test/boss-hurt-rows.ts`, `packages/render/test/boss-hurt-rows-b.ts`, `packages/render/test/boss-hurt.test.ts`
 
