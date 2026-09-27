@@ -25482,3 +25482,17 @@ Bottleneck: reading — three of the six boxes existed only inside a caption
 function, and each had to be lifted out before a second caller could share it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §11.41, §11.43 and §11.44 say what of them has landed
+
+- reading: 10 min. What each of the three actually has on the trunk: the
+  render files, the hands, the cue pages, THE SLOW's table, the blows.
+- writing: 5 min. Three status paragraphs, each worded for its own boss, and
+  the `NO_HAND` comment in `autopilot.test.ts`, which named eight bosses for a
+  set of four.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the status lists in `bosses-choreographed.md` lag the
+files too, so every claim was read off the tree rather than off them.

@@ -7909,13 +7909,16 @@ there is a `rest` of `keelRestBeats`.
 - **The tail is the rightmost segment**, since §24 names a tail and not
   which end; the rock falls on Player 2's half.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
-carry all sixteen of its events until lane two. The sixteen sounds *are*
-bound (`audio/src/bind-keel.ts`), each panned to the column it happens in,
-the lock pitched up per joint seated. There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), since a hand plays a
-boss against poses that do not exist.
+**Both lanes have landed** (26 September 2026). The spine is drawn in two
+halves — the body (`render/keel-shape.ts`, `keel-pose.ts`, `keel-draw.ts`,
+`keel-marks.ts`) and the hands: the grip on `keelJoint` (`keel-grip.ts`), the
+lock and snap receipts with hurt (`keel-fx.ts`), the `TAP` and `FIRE` words
+(`boss-cue-read-zd.ts`), THE SLOW's light along the spine
+(`slow-boss-aim-c.ts`) and AUTO's hand (`hands/src/boss-hands-keel.ts`).
+The story between — the flip, the marrow and the cooldown — is drawn too
+(`keel-story.ts`, `keel-story-pose.ts`). The sixteen sounds are bound
+(`audio/src/bind-keel.ts`), each panned to the column it happens in, the lock
+pitched up per joint seated.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/keel.test.ts`, `sim/test/keel-tempo.test.ts`): `geometrySeat`
@@ -8281,12 +8284,16 @@ window runs.
   shield row for `resolveHull` to meet, so the plate and the guard are read
   against the lit step directly, once a tick, after the commands.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-c.ts`
-carry all ten of its events until lane two. The ten sounds *are* bound
-(`audio/src/bind-seam.ts`), heard where they happen, the seal pitched up per
-point closed. There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+**The simulation and half the look have landed** (26 September 2026). The
+ridge's body is drawn (`render/seam-shape.ts`, `seam-pose.ts`, `seam-draw.ts`,
+`seam-marks.ts`), with its story — the ridge turned away and the glow from
+within (`seam-story.ts`), the lit point's light creeping along the crack
+(`seam-line.ts`) — and its own blow at the hull when a step runs out
+(`seam-blow.ts`). AUTO plays it (`hands/src/boss-hands-seam.ts`). What is
+still missing is the look's second half, the hands, queued as its own entry:
+the seal's click and the grit's spark, hurt, the cue's words and THE SLOW's
+aim. The ten sounds are bound (`audio/src/bind-seam.ts`), heard where they
+happen, the seal pitched up per point closed.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/seam.test.ts`): the ridge comes in still with nothing sealed and
@@ -8392,12 +8399,17 @@ sheet and nothing else, THE SEAM's rule.
   plus a core of three hits; the script is nine steps, and the lens shatters
   when the last is answered, which is the third hit.
 
-**Only the simulation lane has landed.** Nothing of it is drawn: the render
-package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-carry all twelve of its events until lane two. The twelve sounds *are* bound
-(`audio/src/bind-oculus.ts`), heard where they happen, the shut pitched up
-per pair and the hit per hit. There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`).
+**Its look is done** (26 September 2026). The lens is drawn
+(`render/oculus-shape.ts`, `oculus-pose.ts`, `oculus-draw.ts`,
+`oculus-marks.ts`), each seat's half held as its own leaf on both phones
+(`oculus-grip.ts`); the thud of a shut pair, a quieter reseal and a core
+hit's flash wider each time are its receipts (`oculus-fx.ts`); `HOLD` and
+`FIRE` are its words (`boss-cue-read-ze.ts`); THE SLOW's light stands round
+the lens (`slow-boss-aim.ts`); its glare and look are drawn (`oculus-story.ts`),
+and so is its beam at the hull (`oculus-blow.ts`). AUTO has a hand for it
+(`hands/src/boss-hands-oculus.ts`). The twelve sounds are bound
+(`audio/src/bind-oculus.ts`), the shut pitched up per pair and the hit per
+hit.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/oculus.test.ts`): the lens comes in still with every leaf open and

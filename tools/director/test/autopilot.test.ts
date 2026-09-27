@@ -28,14 +28,12 @@ import { stageField } from "../src/stage-field.js";
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
 /**
- * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs, and THE
- * MANTLE, THE KEEL, THE OCULUS, THE VISE and THE TRIVET their own
- * (`autopilot-mantle.test.ts`, `autopilot-keel.test.ts`, `autopilot-oculus.test.ts`,
- * `autopilot-vise.test.ts`, `autopilot-trivet.test.ts`); THE VALVE, THE SEAM,
- * THE RIME, THE SLING, THE GRINDSTONE, THE CYST, THE DAVIT and THE
- * HALTER are here for one reason — only their simulation lanes
- * have landed (`docs/spec/bosses.md` §11.42–§11.53),
- * and an autopilot hand plays a boss against poses that do not exist yet. A
+ * Bosses AUTO has no hand for. THE PULSE and THE REPRISE got theirs here, and
+ * nine more their own file each (`autopilot-<boss>.test.ts`: THE MANTLE, THE
+ * KEEL, THE VALVE, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET and
+ * THE GRINDSTONE). THE SLING, THE CYST, THE DAVIT and THE HALTER are here for
+ * one reason — an autopilot hand plays a boss against poses, and theirs had
+ * none when their simulation lanes landed (`docs/spec/bosses.md`). A
  * new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */
 const NO_HAND = new Set(["sling", "cyst", "davit", "halter"]);

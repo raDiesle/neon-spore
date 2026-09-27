@@ -2113,23 +2113,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §11.41, §11.43 and §11.44 still say only the simulation has landed
-
-- **Found:** 2026-09-26, claude/valve-story-misplaced
-- **Taken:** 2026-09-27, claude/queue-queue-next-hands-out-a-deferred-entry (claim: claude/queue-11-41-11-43-and-11-44-still-say-only-the-simulat)
-- **Files:** `docs/spec/bosses.md`
-
-THE KEEL's, THE SEAM's and THE OCULUS's sections in `bosses.md` each still
-open their status with *Only the simulation lane has landed. Nothing of it
-is drawn*, and all three are drawn (`bosses-choreographed.md`'s status list
-says so, and THE OCULUS's look is done). The paragraph is word for word the
-same in each, which is how THE VALVE's story text was pasted into all five
-by one `replace` and had to be taken back out of three. Rewrite each to what
-has landed — the body, the hands, the fx, the cue and the autopilot hand,
-as far as each has them — reading the section's own row in
-`bosses-choreographed.md`, and leave no two with the same wording.
-`bun run check` proves it.
-
 ## Unverified at 143917958: the YouTube thumbnails and video links in docs/spec/tr…
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-8e6e6e71-research-tab-on-the-direc
