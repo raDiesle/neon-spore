@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1a177d1cc — A WebGL bloom over the whole frame, offered in VERSUS against the shipped glow
+
+`frame:glow` · `bloom` is a new VERSUS slot, judged on LANCE · BURNING. The frame is shrunk to a quarter of its size on each side, its bright part is pulled out by a threshold and blurred in two separable rounds in one WebGL context, and the result is drawn back over the frame with `lighter`. The game never runs it: `Canvas2DRenderer.draw` now ends by calling `FRAME_POST.after`, whose shipped body does nothing, and only the pair's right-hand side patches it. That hook is a refactor and changes no pixel. The candidate falls back to nothing when there is no real WebGL context.
+
 ## 2026-09-27 · 4ea2a1d65 — AUTO plays THE DAVIT, and its hook holds still in a window
 
 AUTO had no hand for THE DAVIT, so its wave never got past the first lean. `boss-hands-davit.ts` plays it right: the seat the lit step lets steer leans to the target, the other holds its draw until the steered beats are counted and looses toward the target's half, and a fire step is the shot out of the middle column. It beats the boss in all nine steps. With that, THE DAVIT has its row in the boss-hush test, the last one on the list. The boom's swing back a step a beat is filed in the queue.

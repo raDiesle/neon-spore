@@ -26878,3 +26878,5 @@ back (the rule, stepped once a beat) from a wall-clock motion took a probe.
 
 The bottleneck: a threshold a stub cannot judge. It took four real pairs to
 find a threshold at which the beam blooms at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
