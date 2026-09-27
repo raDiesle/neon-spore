@@ -2641,6 +2641,7 @@ jaws already flare along their outline as they bite. A look: offered through VER
 ## THE RATCHET's spent plates have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-27, claude/queue-every-living-creatures-light-stands-still-while (claim: claude/queue-the-ratchets-spent-plates-have-no-secondary-moti)
 - **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-parts.ts`
 
 From the secondary-motion audit. The seven `ratchet-*.ts` files have no
