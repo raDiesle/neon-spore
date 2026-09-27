@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · c1e8c1a8a — Every boss shows the hurt on each counted hit, not only on a landing
+
+The owner's rule for THE INSTAR, given for any boss: when correctly hit, there must be a clear visual every time. Eight bosses count several hits to one landing, and each of those hits now deals the lighter blow (the red at full, half the shake): THE GORGE's bead, vent shot and mouth beam, THE TASTER's pare and interlock beam, THE CURTAIN's lobe, THE FLEET's found and raked square, THE BATON's struck bead, THE MANTLE's finishing tap, and THE GRINDSTONE's and THE CAPSTAN's reversals. Every row of the boss-hurt table names its counted hits or says why it has none; the test deals each one.
+
 ## 2026-09-27 · 76b65b392 — AUTO pinches THE GALL wherever it jumps, and shoots the root
 
 AUTO has a hand for THE GALL. The seat whose half the gall sits on pinches it shut where it is and keeps it shut. When the gall jumps, that seat, or the other one, pinches it again on the point it went to, and lets go once the step is answered. With the root bared, the hand slides the cannon to the middle and fires the step's colour. autopilot-gall.test.ts plays the wave to its end: three closes, one hit, no window run out, no slip, no scar. Playing P1 alone, it only ever closes the gall on the pilot's own half.
