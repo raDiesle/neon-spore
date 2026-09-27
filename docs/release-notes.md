@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 8c633d660 — Seven more bosses hold their marks still while THE SLOW asks for them
+
+The shared stillness test now reads every mark a screen may see and matches each one to itself, so a cue passing from one mark to the next is no longer counted as motion. That was all of THE BATON's 30 tiles a second. It also reads the marks a boss's draw places after the cue has gone, which is what caught THE MANTLE: its brace shudder carried both knobs the pair hold at 1.3 tiles a second. The shudder now dies down to a fortieth inside an asking window. THE HASP, THE RATCHET, THE MANTLE, THE KEEL, THE OCULUS, THE VISE and THE BATON have rows, and the queue entry lists the rest.
+
 ## 2026-09-27 · 7fa2337cb — THE INSTAR's marks are up only while their window and THE SLOW are open
 
 The faint red ring that grew in on each of the next step's parts over the last two fifths of a morph is gone, and so is the ring left standing on the frozen field under the fail screen after a missed step. A mark now shows only while the step is acting and THE SLOW is open (`instarMarksUp`). The owner asked for it by name on 27 September 2026, and it fixes something wrong: a ring on a part that could not be answered yet.
