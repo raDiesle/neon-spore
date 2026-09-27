@@ -24,7 +24,15 @@ export interface Ongoing {
   readonly branch: string;
   /** Set when no branch is left holding the claim and it is past the grace (`lapsed.ts`). */
   readonly lapsed?: Lapsed;
+  /**
+   * Set when the claim is a lane on this machine that landed and walked away
+   * (`spent.ts`): the branches still standing for it. Not work in progress.
+   */
+  readonly spent?: readonly string[];
 }
+
+/** Whether a held item's claim is spent, asked of the repository (`spentHere`). */
+export type SpentOf = (item: Item) => readonly string[] | null;
 
 /**
  * Whether anything is being worked on right now, in the three states worth
@@ -50,16 +58,21 @@ export function statusOf(
   refs: readonly string[],
   today?: string,
   trunk = "main",
+  spentOf?: SpentOf,
 ): Status {
   const ongoing: Ongoing[] = [];
   for (const item of items) {
     const branch = claimOn(item, refs);
     if (!branch) continue;
     const gone = today ? lapsed(item, refs, today, trunk) : undefined;
-    ongoing.push(gone ? { item, branch, lapsed: gone } : { item, branch });
+    const spent = spentOf?.(item) ?? undefined;
+    ongoing.push({ item, branch, ...(gone ? { lapsed: gone } : {}), ...(spent ? { spent } : {}) });
   }
   const waiting = items.length - ongoing.length;
-  const state = items.length === 0 ? "done" : ongoing.length > 0 ? "busy" : "idle";
+  // A spent claim is nobody's work: seven of ten, on 27 September 2026, and
+  // BUSY on the strength of them had a session wait on a queue that was idle.
+  const live = ongoing.filter((o) => !o.spent).length;
+  const state = items.length === 0 ? "done" : live > 0 ? "busy" : "idle";
   return { state, ongoing, waiting };
 }
 
@@ -73,22 +86,38 @@ export function statusOf(
  * unasked. What the count was hiding is that some of its items are nobody's —
  * three of eight, the day this was written — so the number is said underneath
  * and the sentence that gives one back is said with it.
+ *
+ * **A spent claim is not BUSY**, and that is the other way round on purpose:
+ * it is decided on a local branch that is present and already on the trunk,
+ * with no worktree on it (`spent.ts`), which a cloud claim can never look
+ * like. It is listed under whichever word answers, with the command that
+ * gives it back.
  */
 export function statusLines(status: Status): string[] {
   if (status.state === "done") {
     return ["DONE — the queue is empty and nothing is being worked on."];
   }
   const rest = `${status.waiting} waiting.`;
+  const spent = status.ongoing.filter((o) => o.spent);
+  const spentLines =
+    spent.length === 0
+      ? []
+      : [
+          `       ${spent.length} spent ${spent.length === 1 ? "claim" : "claims"}, landed and left, not counted:`,
+          ...spent.map(
+            (o) =>
+              `       ${o.item.title} — spent — bun run queue release ${JSON.stringify(o.item.title)}`,
+          ),
+        ];
   if (status.state === "idle") {
-    return ["IDLE — nothing is being worked on.", `       ${rest}`];
+    return ["IDLE — nothing is being worked on.", `       ${rest}`, ...spentLines];
   }
-  const n = status.ongoing.length;
-  const gone = status.ongoing.filter((o) => o.lapsed);
+  const live = status.ongoing.filter((o) => !o.spent);
+  const n = live.length;
+  const gone = live.filter((o) => o.lapsed);
   return [
     `BUSY — ${n} ${n === 1 ? "item is" : "items are"} being worked on:`,
-    ...status.ongoing.map(
-      (o) => `       ${o.item.title} — ${o.branch}${o.lapsed ? " (lapsed)" : ""}`,
-    ),
+    ...live.map((o) => `       ${o.item.title} — ${o.branch}${o.lapsed ? " (lapsed)" : ""}`),
     `       ${rest}`,
     ...(gone.length === 0
       ? []
@@ -97,5 +126,6 @@ export function statusLines(status: Status): string[] {
             "no branch is left holding them. They stay taken until somebody says",
           `       bun run queue release "<title>" — \`bun run queue\` names them.`,
         ]),
+    ...spentLines,
   ];
 }

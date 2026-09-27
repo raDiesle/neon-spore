@@ -18,9 +18,11 @@
  * is on it and nothing of theirs can be lost. A cloud claim never has a local
  * ref, so it can never read as spent.
  *
- * Only `take` asks, and only after `heldElsewhere` has said the item is held:
- * a caller who wrote a title out and meant to start work. The listing and
- * `next` still read the claim as held.
+ * `take` asks after `heldElsewhere` has said the item is held: a caller who
+ * wrote a title out and meant to start work. Since 27 September 2026 `status`
+ * and the listing ask too, and say a spent claim apart with the `release`
+ * that gives it back rather than counting it as work in progress — seven of
+ * ten BUSY items were spent that day. `next` still reads the claim as held.
  */
 
 import { branchFor } from "./claim.js";

@@ -26706,3 +26706,17 @@ The bottleneck: a branch left 867 commits behind is a port, not a rebase —
 every signature it called had moved under it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `queue status` says a spent claim apart
+
+- reading: 0 min. `status.ts`, `spent.ts`, `list.ts`, the fixture in
+  `release-here.test.ts`.
+- writing: 5 min. `statusOf` takes a spent question, `status` and the
+  listing print `spent — bun run queue release`, one repo-backed test file.
+- looking: 0 min. A command's output, read in the terminal.
+- friction: 0 min. The guard refused a heredoc with a doubled backslash; the
+  edit script went through the Write tool instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the rule already existed in `spent.ts` and
+only needed asking from two more places.

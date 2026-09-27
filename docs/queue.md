@@ -2506,19 +2506,3 @@ it the way `aim()` aims THE INSTAR — off `sceneBoss`, not `instarBoss` — or 
 a row on page four off its own shape file, a row in `slow-boss-aim-d.test.ts`,
 and add `"nettle"` to `WALKED` and `GAPPED` in `fuse-place.test.ts`.
 `bun run check` proves it.
-
-## `queue status` counts a spent claim as BUSY
-
-- **Found:** 2026-09-27, claude/cleanup-worktrees-branches-820b37
-- **Taken:** 2026-09-27, claude/task-queue-work-0762e9 (claim: claude/queue-queue-status-counts-a-spent-claim-as-busy)
-- **Files:** `tools/queue/status.ts`, `tools/queue/spent.ts`, `tools/queue/test/`
-
-On 27 September 2026 `bun run queue status` said BUSY with ten items, and
-seven of them were held by claim branches whose tips were already on `main`,
-with no worktree holding them and no session open: each had landed a lane of
-a multi-lane entry, or nothing, and walked away. They had to be found by hand
-and given back with `release`. `spentHere` (`spent.ts`) already tells a spent
-claim from a live one, but only `take` asks it. Have `status` and the
-listing ask it too, and show a spent claim as `spent — bun run queue release`
-rather than counting it as work in progress. A test builds a claim branch
-merged into the trunk with no worktree on it and expects it not counted.

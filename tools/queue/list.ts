@@ -14,8 +14,9 @@ import { lapsed, lapsedLine } from "./lapsed.js";
 import { needsTag } from "./needs.js";
 import { problemsIn } from "./problems.js";
 import type { Item } from "./queue.js";
-import { trunkRef, trunkView } from "./repo.js";
+import { trunkRef, trunkTaken, trunkView } from "./repo.js";
 import { skipLines } from "./skipped.js";
+import { spentHere } from "./spent.js";
 import { staleLine, staleness } from "./stale.js";
 import { fits, type Kind, reservedTag } from "./where.js";
 
@@ -46,6 +47,12 @@ export function printList(
       const answer = answerTo(item);
       if (answer) console.log(`    ${answer}`);
       if (held) console.log(`    taken — ${held}`);
+      // A claim a lane here landed and walked away from is not somebody's
+      // work, and the listing says so with the sentence that gives it back
+      // (`spent.ts`) — before 27 September 2026 only `take` asked.
+      if (held && spentHere(item, item.taken || trunkTaken(item))) {
+        console.log(`    spent — bun run queue release ${JSON.stringify(item.title)}`);
+      }
       // And under that, when every branch behind it is gone and the mark is
       // old: the entry is still taken, and this is the sentence that gives it
       // back (`lapsed.ts`). Nothing is released for it — a cloud session's

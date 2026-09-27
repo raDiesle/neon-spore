@@ -71,7 +71,10 @@ const today = new Date().toISOString().slice(0, 10);
 if (!command || command === "list") {
   printList(items, known, kind, today);
 } else if (command === "status") {
-  for (const line of statusLines(statusOf(items, known, today, trunkRef()))) console.log(line);
+  // A claim this machine landed and left is not work in progress (`spent.ts`).
+  const spentOf = (i: Item) => spentHere(i, i.taken || trunkTaken(i));
+  const status = statusOf(items, known, today, trunkRef(), spentOf);
+  for (const line of statusLines(status)) console.log(line);
 } else if (command === "next") {
   // Origin is fetched before anything is picked, so a free-looking item another
   // clone already holds is passed over rather than handed out; asked last in
