@@ -154,6 +154,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", color: "cyan", beats: 3 },
     ],
   },
+  // THE CAPSTAN authors its script the same way, two steps of the shipped
+  // seven, the colour set off `either` (`capstan-hash.ts`).
+  capstan: {
+    kind: "capstan",
+    steps: [
+      { ask: "left", color: "red", beats: 6 },
+      { ask: "fire", color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -404,6 +413,21 @@ export function patchBossD(boss: BossState): void {
     boss.restBeats = [2, 1];
     boss.stirred = [true, false];
     boss.grips = [3, 1];
+    boss.heldBeats = 1;
+  }
+  if (boss.kind === "capstan") {
+    // The left band bright and the right part worn, the core bare and shot
+    // once, both seats leaning and both thumbs down, a hold beat counted —
+    // every field given a value (`capstan-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.wear = [8, 3];
+    boss.hits = 1;
+    boss.bared = true;
+    boss.tiltMilli = [-15000, 4000];
+    boss.rubs = [2, 5];
+    boss.rubbed = true;
     boss.heldBeats = 1;
   }
 }

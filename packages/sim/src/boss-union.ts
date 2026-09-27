@@ -2,6 +2,7 @@ import type { AntiphonState } from "./antiphon.js";
 import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
+import type { CapstanState } from "./capstan.js";
 import type { CurtainState } from "./curtain.js";
 import type { CystState } from "./cyst.js";
 import type { DavitState } from "./davit.js";
@@ -123,4 +124,5 @@ export type BossState =
   | GrindstoneState
   | CystState
   | DavitState
-  | HalterState;
+  | HalterState
+  | CapstanState;

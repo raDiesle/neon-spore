@@ -9907,6 +9907,129 @@ whole splits the seam and ends the fight; and two devices part over a
 single stray command. Whether any of it *reads* — whether keeping still for
 a partner feels like helping them — is the owner's eye, on two real phones.
 
+## 11.54 THE CAPSTAN — the boss one hand rocks for the other to wear
+
+> A squat rusted drum on a cradle over the hull's middle, a grated band on
+> each face. One of you leans the phone to rock a face toward the other, who
+> rubs that band bright. Both bands bright bare the core: shoot it in its
+> colour, and between the shots keep it bare the same way, either way round.
+
+Designed as §37 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. No new
+primitive: THE PLUMB's `LevelTilt` and THE RIME's `RubCount`, paired so the
+lean decides which of two bands the reversals land on — **a retarget, not a
+gate or an aim**, and the band turned away keeps its wear.
+
+**It is two bands and three hits, and they are its health.** The state
+(`sim/capstan.ts`, hashed in `sim/capstan-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, each band's **wear** in
+reversals, the **hits**, whether the core is **bared**, each seat's **lean**
+in thousandths of a degree, each seat's last **rub** count, whether a fresh
+reversal landed since the last beat, and the beats of a hold **kept** so
+far. The script is the wave's (`CapstanEntry.steps`), copied at install:
+each step asks `left`, `right`, `hold` or `fire`, with a colour or `either`
+and its own beats.
+
+**The rule, in one sentence.** One of you leans the phone to turn a band
+toward the other, who rubs it bright; then shoot the bared core.
+
+**The split.** Not by geometry: both seats send `capstanLean` and
+`capstanRub`, and which seat steers is the step's — the role swap by
+movement §37 asks for. The `left` step is the pilot's lean and the
+navigator's thumb, the `right` step the other way about, and a `hold`
+whichever seat leans past the mark, the pilot first, with the other
+rubbing. **The seat steering is never the seat rubbing**: a steerer's own
+reversals do nothing, silently. A fire step is the ordinary shot — Player
+1's cannon under the middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/capstan-step.ts`). The drum sits rusted for
+`capstanRustBeats`, then the first step lights; a steer-and-rub step or a
+hold under THE SLOW (`openSlow(…, "ask")`), a fire step without it, as §37
+says. A band cracks on the tick its wear reaches `capstanWearThreshold`;
+the second bright band bares the core. A hold counts one for each beat that
+had a face bared and a fresh reversal on it, up to `capstanHoldBeats`. An
+answered step closes THE SLOW and the drum rests `capstanRestBeats` before
+the next lights. With the script done the cap swings open, and the drum
+stands `capstanOpenBeats` before the wave may end.
+
+**The answers** (`sim/capstan-hand.ts`). A lean past `capstanLeanMilli`
+either way rocks the cradle to bare that side's face (`capstanRock`); back
+inside it, the cradle drifts to centre (`capstanDrift`). A thumb's
+reversals are counted fresh against the last count it sent, and a count
+lower than the last is a fresh touch; fresh reversals from the rubbing seat
+wear **only the bared face's band** (`capstanWear`). A shot is judged where
+a bolt leaves the top of the field (`sim/capstan-shot.ts`): only with the
+core bared, only while a fire step is lit, only in the middle column, and
+only in its colour unless it is `either`.
+
+**Where this departs from the design, and why.** Nine places.
+
+- **The eleven rows are seven steps.** Rows 2 and 3, and 4 and 5, are one
+  step each: the lean is worth nothing until the rub lands with it, so the
+  mark asks for both at once and the rock is heard as it comes
+  (`capstanRock`). Rows 1 and 11 are the drum's own phases, rusted and
+  open. The script is left, right, fire, hold, fire, hold, fire; row 9's
+  "faster" is the second hold's shorter window, six beats to eight.
+- **A band not lit stops one reversal short of bright.** §37 has the lean
+  swing the other face "out of reach"; here a steerer can rock either way,
+  and the face it bares takes the rub either way. Letting the wrong band
+  crack would answer the next step early; refusing it would throw the
+  pair's rubbing away. So it wears to one short and holds there, and cracks
+  on the first reversal once its own mark lights — nothing lost, which is
+  the boss's own rule.
+- **A band window run out is tried again, its wear kept.** Rows 3 and 5
+  have no window at all ("held, wears down"). A window gives THE SLOW an
+  end; run out, the drum stalls (`capstanStall`), rests and relights the
+  same step with every reversal still in both bands. It is no hull hit.
+- **A hold is counted in beats, and a beat missed is not a reset.** Row 7
+  asks one seat to steer "fully over while the other keeps wiping". A
+  beat counts one when a face is bared and a fresh reversal landed on it;
+  a beat without one is only not counted — pause, not reset, again.
+- **A hold's pairing is free.** Row 9 says "roles free to trade"; row 7
+  says "P1+P2". Both holds take either seat steering, the pilot's lean
+  first if both lean, and the other seat rubbing.
+- **A hold run out covers the core and is asked again.** Row 7's "fire
+  beats lost until both bands crack bright again" would ask the pair to
+  wear two bands already bright. The core rusts over (`capstanCover`),
+  the cursor stays, and no fire step lights until the same hold is made —
+  THE HALTER's guard. The hits already landed stay.
+- **A lean gone quiet is level.** THE PLUMB reads an unread phone as the
+  far end, because a lean there is judged by being *near* level; here a
+  lean is judged by being *past* a mark, so a phone that stopped reporting
+  rocks nothing.
+- **The lean and the rub are one target each, heard from either seat.**
+  §37 names `capstanTiltMilli` and a wear counter a face. The steering seat
+  changes by step, so the targets are the gesture, not the side
+  (`capstanLean`, `capstanRub`), and the wear counters are the state's own.
+- **A fire step run out is a hull hit, and a hull hit is the wave.** Rows
+  6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game has no
+  ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+
+**What is not built.** Nothing of it is drawn: no drum, no cradle, no band,
+no core — the look is lane two. Nothing on the phone sends a lean or a rub
+here yet: the lean is not on `LEAN_BOSSES` (`apps/game/src/lean.ts`), and
+no touch sends `capstanRub`. There is no cue and no autopilot hand. The
+fourteen sounds are bound (`packages/audio/src/bind-capstan.ts`), and the
+events are on the two silent lists until the look reads them.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/capstan.test.ts`): the drum comes in rusted with the core
+covered and takes no shot, and lights its first band under THE SLOW; a lean
+past the mark rocks the steering seat's face over, back inside drifts it,
+and the other seat's lean rocks nothing; the rubbing seat's reversals wear
+the bared face, the steerer's and a level cradle's wear nothing, and only
+fresh reversals count; the lit band worn to the threshold cracks and
+answers the step; the hidden face keeps its wear exactly; a band not lit
+stops one short and cracks once its mark is; the right band swaps the
+seats; a band window run out stalls and keeps its wear; a fire step lights
+without THE SLOW, wants its colour and the middle column, and run out is
+the wave; a hold counts beats without a reset, takes either way round, and
+run out covers the core until it is made; the script answered whole opens
+the cap and ends the fight; and two devices part over a single reversal.
+Whether any of it *reads* — whether steering for a partner's thumb feels
+like working together — is the owner's eye, on two real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

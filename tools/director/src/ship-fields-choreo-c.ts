@@ -227,4 +227,13 @@ export const CHOREO_FIELD_GROUP_C = {
   halterRestThreshold: "THE HALTER — the boss one hand keeps still for the other to open",
   halterHoldBeats: "THE HALTER — the boss one hand keeps still for the other to open",
   halterSpentBeats: "THE HALTER — the boss one hand keeps still for the other to open",
+  // CapstanConfig — the rust before the first step, the rest between steps,
+  // how far a lean rocks the cradle, the reversals that wear a band bright,
+  // the beats a hold needs, and the spent drum (`config-capstan.ts`).
+  capstanRustBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanRestBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanLeanMilli: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanWearThreshold: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanHoldBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanOpenBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
 } satisfies Record<string, GroupName>;

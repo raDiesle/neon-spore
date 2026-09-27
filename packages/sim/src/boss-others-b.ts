@@ -2,6 +2,7 @@ import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
+import { stepCapstan } from "./capstan-step.js";
 import { stepCyst } from "./cyst-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGrindstone } from "./grindstone-step.js";
@@ -47,6 +48,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE CAPSTAN: holds counted, windows run out, and the cap swung open (`capstan-step.ts`).
+  if (boss.kind === "capstan") {
+    stepCapstan(world, boss);
+    return;
+  }
   // THE HALTER: rests counted, pairs held together, windows shut, and the split (`halter-step.ts`).
   if (boss.kind === "halter") {
     stepHalter(world, boss);

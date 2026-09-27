@@ -1,5 +1,6 @@
 import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
+import { capstanHeard } from "./capstan-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
 import { cystGuarded } from "./cyst-guard.js";
 import { cystHeard } from "./cyst-hand.js";
@@ -151,6 +152,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE HALTER hears every command there is: any one at all is a seat's rest
   // gone, and a grip lifting is the pair coming apart (`halter-hand.ts`).
   for (const c of commands) halterHeard(world, c.player, c.command);
+  // THE CAPSTAN's leans and rubs: the cradle rocking and a band cracking are
+  // both the instant (`capstan-hand.ts`).
+  for (const c of commands) capstanHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

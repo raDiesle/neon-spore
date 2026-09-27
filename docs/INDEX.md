@@ -273,7 +273,8 @@ by hand never moves.
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
 | `packages/sim/src/wave-boss.ts` | you are adding a round or a boss with a place and need where a wave's `boss:` entry becomes installed state — and what each leaves on the field |
-| `packages/sim/src/wave-boss-clocks.ts` | you are adding a choreographed boss and need where its `boss:` entry becomes installed state — its branch and its `kind` on `CLOCK_KINDS` go here |
+| `packages/sim/src/wave-boss-clocks.ts` | you are adding a choreographed boss and need where its `boss:` entry becomes installed state — its branch and its `kind` on `CLOCK_KINDS` go here, or in `wave-boss-scripted.ts` if it installs a script and nothing else |
+| `packages/sim/src/wave-boss-scripted.ts` | **The clock bosses that install a script and nothing else** — THE SEAM and every one after it |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/warden-start.ts` | THE WARDEN takes the field where it stands and never leaves it: dead centre, at `wardenRow`, five columns wide |
 | `packages/sim/src/warden-hand.ts` | THE WARDEN's three hands on the tick: the rope, player 2's thumb on the eye under NARROW, player 1's swipe across the hatch under GLARE, and the slam that ends the window |
@@ -289,12 +290,19 @@ by hand never moves.
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
 | `packages/sim/src/cairn-hold.ts` | THE CAIRN's second gesture: a hand resting on the pile stops its shed clock for four beats, on the grip the pair already has and with no new word on the field |
+| `packages/sim/src/capstan-hand.ts` | THE CAPSTAN's two answers: the steering seat's lean rocking the cradle, the other seat's rub wearing the bared face |
+| `packages/sim/src/capstan-hash.ts` | What THE CAPSTAN puts into `hashWorld`, and nothing else |
+| `packages/sim/src/capstan-shot.ts` | **THE CAPSTAN's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/capstan-step.ts` | THE CAPSTAN's clock: the drum settling in, each step lighting, a hold's beats counted, a window running out |
+| `packages/sim/src/capstan.ts` | THE CAPSTAN: a squat drum over the middle column on a cradle that rocks one face or the other toward the… |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
 | `packages/sim/src/config-cairn.ts` | THE CAIRN's two clocks: the beats the pile stands before it sheds a rock itself, and the beats a still thumb buys back off them |
+| `packages/sim/src/config-capstan.ts` | THE CAPSTAN's tuning: the beats around its steps, how far a lean must go to rock the cradle |
 | `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
 | `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
+| `packages/sim/src/events-capstan.ts` | What THE CAPSTAN says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/config-pod.ts` | THE POD's numbers: how a capsule shot loose falls, how it steers itself into the maw |
 | `packages/sim/src/config-volley.ts` | THE VOLLEY's numbers: how steeply it comes in, how far a ward throws it back up the field |
 | `packages/sim/src/cross.ts` | **A body crossing the field and turning at its side walls** |
@@ -2138,6 +2146,7 @@ by hand never moves.
 | `packages/audio/src/music/themes.ts` | Nine pieces of music, none of which the game plays — the six below, and the three `deep.ts` adds |
 | `packages/audio/src/mixer-boss.ts` | the bosses' clocks, heard by comparing frames rather than by an event |
 | `packages/audio/src/bind-carom.ts` | **What THE CAROM and the body it throws out sound like**: a wall, a crack, an ejection and a canopy |
+| `packages/audio/src/bind-capstan.ts` | THE CAPSTAN's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |

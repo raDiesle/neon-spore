@@ -1,5 +1,6 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { bulletShown } from "./bullet-types.js";
+import { capstanStruck } from "./capstan-shot.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
 import { davitStruck } from "./davit-shot.js";
@@ -108,6 +109,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   davitStruck(world, b);
   // THE HALTER's bared centre, in its colour (`halter-shot.ts`).
   halterStruck(world, b);
+  // THE CAPSTAN's bared core, in its colour (`capstan-shot.ts`).
+  capstanStruck(world, b);
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
@@ -167,6 +170,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "cyst",
   "davit",
   "halter",
+  "capstan",
   "hasp",
   "ratchet",
   "hive",

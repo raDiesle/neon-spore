@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, and THE HALTER's grips. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, THE HALTER's grips, and THE CAPSTAN's lean and rub. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -31,7 +31,9 @@ export type DragTargetE =
   | "davitLooseLeft"
   | "davitLooseRight"
   | "halterChordLeft"
-  | "halterChordRight";
+  | "halterChordRight"
+  | "capstanLean"
+  | "capstanRub";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -124,4 +126,15 @@ export type DragTargetE =
  * No new reading: `CHORD`, `trivetPadFront`'s — `on` the thumb down and a
  * lift the thumb up, the two kept as a mask a seat. Either seat's are heard
  * (`halter-hand.ts`). `id` and `fromMilli` are unused.
+ */
+
+/**
+ * `capstanLean` and `capstanRub` are the ninety-ninth and hundredth: THE
+ * CAPSTAN's cradle and its bands, both heard from either seat, since which
+ * seat steers and which rubs is the lit step's.
+ *
+ * No new reading. `capstanLean` is `plumbLevelLeft`'s — `fromMilli` the
+ * phone's lean in thousandths of a degree, a lift a phone stopped reporting.
+ * `capstanRub` is `rimeHalfLeft`'s — `id` the reversals since the thumb went
+ * down, a lift the thumb up (`capstan-hand.ts`).
  */

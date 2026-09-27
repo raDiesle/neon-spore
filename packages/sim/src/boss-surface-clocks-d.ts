@@ -1,8 +1,8 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
  * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac,
- * THE DAVIT's boom, THE HALTER's seam, THE VISE's seed-case and THE
- * TRIVET's stand.
+ * THE DAVIT's boom, THE HALTER's seam, THE CAPSTAN's drum, THE VISE's
+ * seed-case and THE TRIVET's stand.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -14,6 +14,30 @@
  * is one something outside `packages/sim` imports.
  */
 
+// THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
+// steers and which rubs, and the face the cradle bares, for the picture, the
+// cue and the director's hand. Straight off `capstan.ts` (§37).
+export {
+  CAPSTAN_ASKS,
+  CAPSTAN_PHASES,
+  CAPSTAN_UNREAD,
+  type CapstanAsk,
+  type CapstanEntry,
+  type CapstanPhase,
+  type CapstanState,
+  type CapstanStep,
+  capstanBand,
+  capstanBoss,
+  capstanBright,
+  capstanDone,
+  capstanFace,
+  capstanLeanFace,
+  capstanLitStep,
+  capstanSeatIndex,
+  capstanSteerer,
+  capstanWearer,
+  freshCapstan,
+} from "./capstan.js";
 // THE CYST's sac: the phase, the lit step, the flanks, their gaps and taps,
 // and whose hand is on which, for the picture, the cue and the director's
 // hand. Straight off `cyst.ts` (`docs/spec/bosses-choreographed.md` §34).

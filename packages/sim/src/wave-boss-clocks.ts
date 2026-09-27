@@ -1,13 +1,9 @@
 import { installAntiphon } from "./antiphon-step.js";
 import { installBaton } from "./baton-step.js";
 import { installCurtain } from "./curtain-step.js";
-import { installCyst } from "./cyst-step.js";
-import { installDavit } from "./davit-step.js";
 import { installFilament } from "./filament-step.js";
 import { installGimbal } from "./gimbal-step.js";
 import { installGorge } from "./gorge-step.js";
-import { installGrindstone } from "./grindstone-step.js";
-import { installHalter } from "./halter-step.js";
 import { installHasp } from "./hasp-step.js";
 import { installHive } from "./hive-step.js";
 import { installInstar, installNettle } from "./instar-step.js";
@@ -15,22 +11,16 @@ import { installKeel } from "./keel-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installMantle } from "./mantle-step.js";
-import { installOculus } from "./oculus-step.js";
-import { installPlumb } from "./plumb-step.js";
 import { installRatchet } from "./ratchet-step.js";
-import { installRime } from "./rime-step.js";
 import { installScuttle } from "./scuttle-step.js";
-import { installSeam } from "./seam-step.js";
 import { installSinew } from "./sinew-step.js";
-import { installSling } from "./sling-step.js";
 import { installSpool } from "./spool-step.js";
 import { installSurge } from "./surge-step.js";
 import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
-import { installTrivet } from "./trivet-step.js";
 import { installUndertow } from "./undertow-step.js";
 import { installValve } from "./valve-step.js";
-import { installVise } from "./vise-step.js";
+import { installScripted, isScriptedEntry, SCRIPTED_KINDS } from "./wave-boss-scripted.js";
 import type { BossEntry, World } from "./world.js";
 
 /**
@@ -80,17 +70,7 @@ const CLOCK_KINDS = [
   "mantle",
   "keel",
   "valve",
-  "seam",
-  "oculus",
-  "vise",
-  "rime",
-  "trivet",
-  "plumb",
-  "sling",
-  "grindstone",
-  "cyst",
-  "davit",
-  "halter",
+  ...SCRIPTED_KINDS,
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -216,31 +196,10 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // No creature and no row: a drum over the field, three pins in, and the
     // marks its wave authored for the wheel (`valve-step.ts`).
     world.boss = installValve(world, boss.marks);
-  } else if (boss.kind === "seam") {
-    // THE SEAM and the ten after it leave the same nothing: no creature, no
-    // row, a body over the middle column and the script its wave authored
-    // (each one's `<kind>-step.ts`). One comment for the eleven.
-    world.boss = installSeam(world, boss.steps);
-  } else if (boss.kind === "oculus") {
-    world.boss = installOculus(world, boss.steps);
-  } else if (boss.kind === "vise") {
-    world.boss = installVise(world, boss.steps);
-  } else if (boss.kind === "rime") {
-    world.boss = installRime(world, boss.steps);
-  } else if (boss.kind === "trivet") {
-    world.boss = installTrivet(world, boss.steps);
-  } else if (boss.kind === "plumb") {
-    world.boss = installPlumb(world, boss.steps);
-  } else if (boss.kind === "sling") {
-    world.boss = installSling(world, boss.steps);
-  } else if (boss.kind === "grindstone") {
-    world.boss = installGrindstone(world, boss.steps);
-  } else if (boss.kind === "cyst") {
-    world.boss = installCyst(world, boss.steps);
-  } else if (boss.kind === "davit") {
-    world.boss = installDavit(world, boss.steps);
-  } else if (boss.kind === "halter") {
-    world.boss = installHalter(world, boss.steps);
+  } else if (isScriptedEntry(boss)) {
+    // THE SEAM and every boss after it leave the same nothing, one line each
+    // (`wave-boss-scripted.ts`).
+    world.boss = installScripted(world, boss);
   } else {
     // THE INSTAR, the last kind in the list — the next boss goes in above it,
     // with its `kind` on the list. No creature, no row and no field: a body

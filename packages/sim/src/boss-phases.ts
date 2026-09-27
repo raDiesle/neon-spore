@@ -1,5 +1,6 @@
 import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
+import { CAPSTAN_PHASES } from "./capstan.js";
 import { CYST_PHASES } from "./cyst.js";
 import { DAVIT_PHASES } from "./davit.js";
 import { FILAMENT_PHASES } from "./filament.js";
@@ -137,5 +138,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   cyst: CYST_PHASES,
   davit: DAVIT_PHASES,
   halter: HALTER_PHASES,
+  capstan: CAPSTAN_PHASES,
   fleet: FLEET_PHASES,
 };

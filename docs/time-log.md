@@ -25764,3 +25764,19 @@ Bottleneck: writing — four rows and four poses, and the entry split into
 three lanes because each boss is its own page.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CAPSTAN, the simulation lane
+
+- reading: 5 min. §37's beat list, THE HALTER's lane as the pattern, THE
+  PLUMB's lean and THE RIME's rub counting.
+- writing: 20 min. Seven sim files, the scripted-install split, the wave,
+  fourteen sounds and their binding, the registrations across the director,
+  the wire and the silent lists, twenty-five tests, §11.54 and the ledger.
+- looking: 0 min. Nothing is drawn.
+- friction: 5 min. Two files at the 250-line wall, stepped round by a split
+  and by routing through a sibling page, and a heredoc the guard hook refused.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a choreographed boss is still some forty registrations
+outside the simulation, each one small and each one found by the test that
+names it.

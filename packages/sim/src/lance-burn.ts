@@ -1,6 +1,7 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
+import { capstanStruck } from "./capstan-shot.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
@@ -203,6 +204,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   davitStruck(world, b);
   // And THE HALTER's bared centre (`halter-shot.ts`).
   halterStruck(world, b);
+  // And THE CAPSTAN's bared core (`capstan-shot.ts`).
+  capstanStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

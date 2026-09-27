@@ -220,6 +220,13 @@ export function serializeBoss(boss: BossEntry): string {
     );
     return `{ kind: "halter", steps: [${steps.join(", ")}] }`;
   }
+  // THE CAPSTAN's steps are the same three words.
+  if (boss.kind === "capstan") {
+    const steps = boss.steps.map(
+      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
+    );
+    return `{ kind: "capstan", steps: [${steps.join(", ")}] }`;
+  }
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

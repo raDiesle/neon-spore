@@ -1,6 +1,7 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
+import { CAPSTAN_DEFAULTS, type CapstanConfig } from "./config-capstan.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { CYST_DEFAULTS, type CystConfig } from "./config-cyst.js";
 import { DAVIT_DEFAULTS, type DavitConfig } from "./config-davit.js";
@@ -101,6 +102,7 @@ export interface BossClockConfig
     CystConfig,
     DavitConfig,
     HalterConfig,
+    CapstanConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -144,6 +146,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...CYST_DEFAULTS,
   ...DAVIT_DEFAULTS,
   ...HALTER_DEFAULTS,
+  ...CAPSTAN_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

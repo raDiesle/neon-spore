@@ -1,7 +1,7 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 
 /** The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason. */
-type BossIdB = Extract<MechanicId, "davit" | "halter" | "vane">;
+type BossIdB = Extract<MechanicId, "capstan" | "davit" | "halter" | "vane">;
 
 /**
  * **The bosses `mechanics-bosses.ts` had no room for**, started on 26
@@ -14,6 +14,10 @@ type BossIdB = Extract<MechanicId, "davit" | "halter" | "vane">;
  * in the place it has always held, so key order is untouched.
  */
 export const BOSS_MECHANICS_B = {
+  capstan: {
+    what: "One of you leans the phone to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+    reach: "spawn",
+  },
   davit: {
     what: "Your partner leans the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
     reach: "spawn",

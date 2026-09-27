@@ -29,6 +29,7 @@ import type {
   SnakeEntry,
   SpliceEntry,
 } from "./boss-entries-round.js";
+import type { CapstanEntry } from "./capstan.js";
 import type { CystEntry } from "./cyst.js";
 import type { DavitEntry } from "./davit.js";
 import type { FilamentEntry } from "./filament.js";
@@ -189,7 +190,9 @@ export type BossEntry =
   // The one that authors leans and draws as well as shots: a boom one seat steers for the other (`davit.ts`).
   | DavitEntry
   // The one that authors rests and chords as well as shots: a seam one seat stays off while the other grips (`halter.ts`).
-  | HalterEntry;
+  | HalterEntry
+  // The one that authors leans and rubs as well as shots: a drum one seat rocks for the other (`capstan.ts`).
+  | CapstanEntry;
 
 // The four this page had no room left for, handed across on 22 and 26
 // September 2026 — the last rows it held, the way every overflowing page in
@@ -227,6 +230,7 @@ export type {
   SnakeEntry,
   SpliceEntry,
 } from "./boss-entries-round.js";
+export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { CystEntry, CystStep } from "./cyst.js";
 export type { DavitEntry, DavitStep } from "./davit.js";
 export type { FilamentEntry } from "./filament.js";

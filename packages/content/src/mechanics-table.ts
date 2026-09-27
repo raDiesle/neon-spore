@@ -154,6 +154,7 @@ export const MECHANICS = {
   cyst: BOSS_MECHANICS.cyst,
   davit: BOSS_MECHANICS_B.davit,
   halter: BOSS_MECHANICS_B.halter,
+  capstan: BOSS_MECHANICS_B.capstan,
   vane: BOSS_MECHANICS_B.vane,
   well: {
     what: "Player 1 sees the field as a clock, with the ship in the middle. Column four is four o'clock. The two ends of the field meet at twelve.",

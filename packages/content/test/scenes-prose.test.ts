@@ -108,6 +108,9 @@ const STILL_PROSE = [
   // And THE HALTER (§36), a twentieth time: the seam is undrawn, and the
   // guide says which mark each seat rests on and which it grips.
   "THE HALTER",
+  // And THE CAPSTAN (§37), a twenty-first time: the drum is undrawn, and the
+  // guide says which mark each seat leans on and which it rubs.
+  "THE CAPSTAN",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -134,9 +137,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix =
-      "update §1 of docs/spec/briefings.md, which says one hundred and four of the hundred and fifteen";
-    expect(guided.length, fix).toBe(104);
-    expect(WAVES.length, fix).toBe(115);
+      "update §1 of docs/spec/briefings.md, which says one hundred and five of the hundred and sixteen";
+    expect(guided.length, fix).toBe(105);
+    expect(WAVES.length, fix).toBe(116);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

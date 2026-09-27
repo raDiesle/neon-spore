@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
+import { capstanCue, isCapstanEvent } from "./bind-capstan.js";
 import { laterCue } from "./bind-choreographed-d.js";
 import type { Cue } from "./bind-cue.js";
 import { filamentCue } from "./bind-filament.js";
@@ -69,11 +70,15 @@ type LateEvent = Extract<
       | `cyst${string}`
       | `davit${string}`
       | `halter${string}`
+      | `capstan${string}`
       | `undertow${string}`;
   }
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue {
+  // THE CAPSTAN is bound here and not on `bind-choreographed-d.ts`, which is
+  // two lines from the limit: handed over whole, before the switch.
+  if (isCapstanEvent(e)) return capstanCue(e, cols);
   switch (e.type) {
     // The three that came over on 22 September 2026, in the order they stood
     // at the foot of `bind-choreographed.ts`.

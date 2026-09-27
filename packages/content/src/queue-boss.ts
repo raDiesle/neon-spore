@@ -209,6 +209,8 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "davit") return { ...boss };
   // THE HALTER the same: its seam is `midCol` and its marks are seats.
   if (boss.kind === "halter") return { ...boss };
+  // THE CAPSTAN the same: its drum is `midCol` and its faces are sides.
+  if (boss.kind === "capstan") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

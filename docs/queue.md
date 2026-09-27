@@ -895,23 +895,36 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §37 THE CAPSTAN — the simulation lane
+## §37 THE CAPSTAN — the touch senders, the cue and the autopilot hand
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-36-the-halter-the-touch-sender-and-its-cue (claim: claude/queue-37-the-capstan-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
+- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane
+- **Needs:** §37 THE CAPSTAN's simulation lane, above, landed first
+- **Files:** `apps/game/src/lean.ts`, `apps/game/src/field-input.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
 
-No new primitive: `TILT, AS A LEVEL` (THE PLUMB's) and `RUB` (THE RIME's)
-paired so one seat's held lean picks, live, which of two wear counters
-the other seat's continuous reversals apply to — the hidden face's own
-count held rather than lost or spent while it isn't chosen, a
-pause-not-reset retarget distinct from THE HALTER's shared gate or THE
-DAVIT's live aim. Eleven steps, three movements, steering and wearing
-swapping seat by movement. The full beat list and primitive table entry
-are §37 of `docs/spec/bosses-choreographed.md`. `TILT, AS A LEVEL` and
-`RUB` each already carry a §37 THE CAPSTAN entry in their `where` arrays
-in `tools/director/src/gesture-unbuilt.ts` — land it with the rest. THE
-SLOW on every steer-and-wear window. `bun run check` proves it.
+The simulation hears `capstanLean` (the lean on `fromMilli`) and
+`capstanRub` (the thumb's reversal count on `id`, a lower count a fresh
+touch) from **either seat**, and nothing sends either. Put THE CAPSTAN on
+`LEAN_BOSSES` so both phones report their gamma while it stands; send
+`capstanRub` from a wipe anywhere over the drum, counting reversals the
+way THE RIME's rub already does, on both screens. The cue says `LEAN` to
+the seat the step steers with and `RUB` to the other (a hold: to whichever
+seat is leaning, then the other). The autopilot hand leans the steering
+seat past `capstanLeanMilli` toward the lit band and wipes with the other,
+and takes capstan out of `NO_HAND`; `on-field-controls.test.ts` marks both
+targets built. `bun run check` proves it; how the lean *feels* stays
+unverified until the owner holds two phones.
+
+## `sim/boss-entries.ts` is at the 250-line ceiling
+
+- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane
+- **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-entries-*.ts`
+
+THE CAPSTAN's `CapstanEntry` took it from 246 lines to exactly 250, so the
+next boss has nowhere to put its entry. Split the choreographed-scene
+entries (seam through capstan) into a `boss-entries-scripted.ts` beside
+`boss-entries-clocks.ts`, the way `wave-boss-scripted.ts` already holds
+their install, and re-export from the index as before. A move, not a
+change: `bun run check` proves it.
 
 ## §37 THE CAPSTAN — the look
 

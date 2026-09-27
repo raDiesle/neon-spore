@@ -125,6 +125,21 @@ export const INGEST_SILENT_BOSS_D = [
   "halterMiss",
   "halterSplit",
   "halterOut",
+  // THE CAPSTAN's fourteen, the same (`packages/audio/src/bind-capstan.ts`).
+  "capstanEnter",
+  "capstanLight",
+  "capstanRock",
+  "capstanDrift",
+  "capstanWear",
+  "capstanBright",
+  "capstanBare",
+  "capstanKept",
+  "capstanStall",
+  "capstanCover",
+  "capstanHit",
+  "capstanMiss",
+  "capstanOpen",
+  "capstanOut",
   // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
   // what the drum does is read off its phase (`valve-story.ts`), never off these.
   "valveJet",

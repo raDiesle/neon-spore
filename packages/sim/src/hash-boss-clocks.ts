@@ -1,6 +1,7 @@
 import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
+import { capstanHashParts } from "./capstan-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
 import { davitHashParts } from "./davit-hash.js";
@@ -192,6 +193,11 @@ export function clockHashParts(boss: BossState): number[] {
   // seats' rests, stirrings and grips, the pair's count and the script (`halter-hash.ts`).
   if (boss.kind === "halter") {
     for (const n of halterHashParts(boss)) out.push(n);
+  }
+  // THE CAPSTAN: the phase, the cursor, both bands' wear, the hits, the core,
+  // both seats' leans and reversal counts, the hold's count and the script (`capstan-hash.ts`).
+  if (boss.kind === "capstan") {
+    for (const n of capstanHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {
