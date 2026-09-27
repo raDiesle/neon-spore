@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b9b940f19 — The perf audit's real-device numbers are the weekly run's, not a lane's
+
+The September audit still has no frame time or GC numbers from a real browser, and a queue entry asked a lane to go and take them. The rules say no lane owes a `bun run perf` and a queue entry naming one is wrong, so the entry is given back and the audit now says where those numbers come from: the owner's next weekly run, on an idle machine, over THE GYRE and the busiest boss waves, in a section of their own.
+
 ## 2026-09-27 · 7770f9c53 — Four bosses move a little when they are idle, and THE INSTAR's heart moves to its chest
 
 THE VISE's kernel turns slowly and a soft sheen crosses it. THE VALVE's pins sway while they are still. THE RIME's panes catch a faint glint. THE GRINDSTONE's jaws tremble. THE INSTAR's heart is now the baked sprite. It sits on the front of the chest, facing the cannon, instead of on the back, and it is still shot four times. TRIVET:FOOT · DANGLE and INSTAR:WING · BAKED were dropped because the owner saw no difference. THE INSTAR's fire as it was drawn before the bake is kept on GRAPHICS → EFFECTS, next to the baked fire the game uses now.

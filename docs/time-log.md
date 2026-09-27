@@ -26782,3 +26782,5 @@ candidate wrote its paint inline in `index.ts`.
 
 The bottleneck: an entry that asked for a run the rules forbid a lane to
 owe, so the work was recognising that, not measuring.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
