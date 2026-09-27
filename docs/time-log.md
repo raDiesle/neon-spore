@@ -27023,3 +27023,5 @@ Bottleneck: writing — `boss-cue.ts` was at 249 lines, so the page could not go
 
 Bottleneck: writing — the hush had to be worked out per part, since every
 step of these bosses opens THE SLOW.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
