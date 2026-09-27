@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b1c986891 — `check:fast` runs the INDEX row drift test
+
+`tools/index/test/drift.test.ts` is now one of the sweeps every `check:fast` runs, whatever the diff touched. A doc comment rewritten outside `tools/index` could leave a `docs/INDEX.md` row naming a word its file no longer mentions, and until now only `bun run land`'s full check said so. The test reads the tree in about 0.6 s.
+
 ## 2026-09-27 · e0af3ed2b — THE WARDEN rocks on its foot, and its eye is found where it is drawn
 
 The ring leans about the bottom, where the throat is cut for the shot and the rope: the foot stays within a fifth of a tile while the top of the ring leans more than half a tile either way. The grip on the eye, the cues written on it and the rope's anchor all follow the pose, so a thumb lands on the eye the canvas drew. The pose runs off the beat because a hit test has no frame time. Shipped straight onto the field under the exemption *a look with no shipped alternative*: the ring stood still before. The other five bosses from the same entry are queued as their own entry.
