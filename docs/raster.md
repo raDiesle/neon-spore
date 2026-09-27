@@ -91,7 +91,8 @@ problem. One `<img src>` and it animates, with no loop, no `dt`, no code.
 | `packages/render/src/raster-caps.ts` | what the browser in front of us can do |
 | `packages/render/src/raster-load.ts` | `loadAtlas`, preferring `createImageBitmap` |
 | `packages/render/src/clasp-frames.ts` | `ClaspFrames` — the strip THE CLASP's shield is painted from |
-| `apps/game/src/raster.ts` | `bindRasterBurst` and `bindRasterClasp` — the flag, and what it installs |
+| `packages/render/src/painted-strips.ts` | `PAINTED_STRIPS` — every painted strip's numbers, by its asset's name |
+| `apps/game/src/raster.ts` | `bindRasterBurst`, `bindRasterClasp` and `bindRasterStrips` — the flag, and what it installs |
 
 **No dependency was added.** Both encoders are container arithmetic: an APNG
 is a PNG with three more chunk types, an animated WebP is a RIFF file with an
@@ -390,15 +391,15 @@ by `strip-bake.ts`, which every strip after the burst shares.
 | `vise-crack.apng`, the master | 108 177 |
 
 `tools/raster/test/strip-assets.test.ts` holds each strip's manifest
-against its renderer sheet and its atlas under 90 kB, for every strip in
-`spec.ts`'s `STRIPS`.
+against its row of `PAINTED_STRIPS` and its atlas under 90 kB, for every
+row.
 
 **Where it plays.** §28's row 11 — the kernel crackling between the lobes
 until it burns out — was never built (§11.45: *there is no break step*), so
 the frame the shipping game has for the kernel's end is the split. `ViseFx`
 spawns the crack on `viseSplit`, over the kernel, at 2.6 lobe-widths, as a
 second `SpriteBursts` of its own (`crack`, drawn by `vise-draw.ts` after the
-case); `bindRasterViseCrack` installs it behind the same `?raster=1`, and
+case); `bindRasterStrips` installs it behind the same `?raster=1`, and
 without the flag it draws nothing (`packages/render/test/vise-crack.test.ts`).
 The shipped split — its flash and its husk dust — is drawn either way; the
 crack lies over it.
@@ -429,7 +430,7 @@ covers the whole pane, 2.3 half-widths across.
 
 `RimeFx` (`rime-fx.ts`, `effects.boss.rime`) spawns it on `rimeBare` at the
 pane's middle; `boss-draw-clocks-c.ts` draws it after the lens, and
-`bindRasterRimeClear` installs it behind `?raster=1`. Without the flag it
+`bindRasterStrips` installs it behind `?raster=1`. Without the flag it
 draws nothing (`packages/render/test/rime-clear.test.ts`), and the shipped
 reveal — the patches wiped clear, the core lit — is drawn either way.
 
@@ -463,7 +464,7 @@ crack or a clearing — drawn 2.6 tiles wide, a plate and its grit either side.
 
 `TrivetFx.plant` (`trivet-fx.ts`, `effects.boss.trivet`) spawns it on
 `trivetPlant` at the foot that bit; `boss-draw-clocks-d.ts` draws it after the
-stand, and `bindRasterTrivetPlant` installs it behind `?raster=1`. Without the
+stand, and `bindRasterStrips` installs it behind `?raster=1`. Without the
 flag it draws nothing (`packages/render/test/trivet-plant.test.ts`), and the
 shipped thud — the stand pressed down, the grit, the shudder — is drawn
 either way. The burst draws additively, like every other light in the game, so
@@ -505,10 +506,32 @@ Sixteen frames of 128 px at 50 ms, 0.8 s.
 VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690, THE PLUMB's 42 130.
 
 `PlumbFx.swing` (`plumb-fx.ts`, `effects.boss.plumb`) spawns it on
-`plumbSettle`, and `bindRasterPlumbSettle` installs it behind `?raster=1`.
+`plumbSettle`, and `bindRasterStrips` installs it behind `?raster=1`.
 Without the flag it draws nothing (`packages/render/test/plumb-settle.test.ts`),
 and the shipped settle — the glass's ring, the ball easing still — is drawn
 either way.
 
 **Still open**: the owner's eye. Play THE PLUMB at `?raster=1` through a
 settle on each weight and compare.
+
+### The next strip
+
+A strip was twelve registrations once, and only the assets test named the
+others. It is one table now, `PAINTED_STRIPS` in
+`packages/render/src/painted-strips.ts`: the renderer slices a strip with its
+row, `tools/raster/src/spec.ts` hands the same row to the painter, the assets
+test holds the baked manifest against it, and `bindRasterStrips` binds every
+row behind `?raster=1` in one loop. The next one is:
+
+1. a painter, `tools/raster/src/<name>-art.ts`, and its line in `painters.ts`;
+2. a row in `PAINTED_STRIPS`;
+3. the effect that plays it — a `SpriteBursts` of its own — and its line in
+   `RenderState.strip`;
+4. its `-strip.webp` import in `apps/game/src/raster.ts`'s `STRIP_URLS`,
+   since a bundler import has to be written out to be hashed;
+5. `bun run raster <name>`.
+
+Steps 1, 3 and 4 are records typed on every name, so a row without one is a
+type error, not a strip that never reaches the field. The burst and THE
+CLASP's shield stay outside the table: the burst is baked with extras of its
+own, and the shield is a loop a creature holds.

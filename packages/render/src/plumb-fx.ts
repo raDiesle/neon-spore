@@ -2,9 +2,10 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import type { Layout } from "./layout.js";
+import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
 import { plumbCoreAt, plumbGlass, plumbHook } from "./plumb-shape.js";
-import { PLUMB_SETTLE_SHEET, SpriteBursts } from "./sprite-burst.js";
+import { SpriteBursts } from "./sprite-burst.js";
 
 /**
  * What THE PLUMB leaves behind a frame: a weight's **settle** ringing its
@@ -56,7 +57,7 @@ export class PlumbFx {
    * in beam-end coordinates, keyed by side, because the beam turns as it
    * comes true — `plumb-draw.ts` draws each side's from where its chain hangs.
    */
-  readonly swing = new SpriteBursts(PLUMB_SETTLE_SHEET);
+  readonly swing = new SpriteBursts(PAINTED_STRIPS["plumb-settle"]);
 
   /** How bright glass `side`'s settle ring still is, 0..1. */
   settle(side: 0 | 1): number {

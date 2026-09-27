@@ -119,6 +119,12 @@ export { MOUNT_LOOK, type MountLook } from "./mount-look.js";
 export { rasp } from "./mount-rasp.js";
 export { taproot } from "./mount-taproot.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
+export {
+  PAINTED_STRIPS,
+  type PaintedSheet,
+  STRIP_NAMES,
+  type StripName,
+} from "./painted-strips.js";
 export { PALETTE, STROKE } from "./palette.js";
 export { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 export { drawPinPieces } from "./pinball-piece.js";
@@ -161,15 +167,7 @@ export { drawSnakeRound } from "./snake-round.js";
 export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
 export { SplashTrail } from "./splash-trail.js";
 export { splinters } from "./splinter.js";
-export {
-  BURST_SHEET,
-  PLUMB_SETTLE_SHEET,
-  RIME_CLEAR_SHEET,
-  SpriteBursts,
-  type SpriteSheet,
-  TRIVET_PLANT_SHEET,
-  VISE_CRACK_SHEET,
-} from "./sprite-burst.js";
+export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { clearSurface } from "./surface-clear.js";
 // THE WARDEN's four ropes and the switch between them, for the ON THE FIELD
 // page to draw each as the real thing (`tether-looks.ts`).

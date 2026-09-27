@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, midCol, type SimEvent } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
-import { TRIVET_PLANT_SHEET } from "../src/sprite-burst.js";
+import { PAINTED_STRIPS } from "../src/painted-strips.js";
 import { TrivetFx } from "../src/trivet-fx.js";
 
 /**
@@ -16,7 +16,8 @@ import { TrivetFx } from "../src/trivet-fx.js";
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, DEFAULT_CONFIG, "test");
 const MID = midCol(DEFAULT_CONFIG);
 const ATLAS = {} as CanvasImageSource;
-const LIFE = (TRIVET_PLANT_SHEET.frames * TRIVET_PLANT_SHEET.frameMs) / 1000;
+const SHEET = PAINTED_STRIPS["trivet-plant"];
+const LIFE = (SHEET.frames * SHEET.frameMs) / 1000;
 const plant = (side: 0 | 1): SimEvent => ({ type: "trivetPlant", side, level: 1, col: MID });
 
 /** A context that writes down the calls a sprite burst makes, and nothing else. */

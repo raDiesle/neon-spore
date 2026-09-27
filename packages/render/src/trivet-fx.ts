@@ -4,8 +4,9 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
+import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
-import { SpriteBursts, TRIVET_PLANT_SHEET } from "./sprite-burst.js";
+import { SpriteBursts } from "./sprite-burst.js";
 import { trivetCentre, trivetFoot, trivetHubR } from "./trivet-shape.js";
 
 /**
@@ -69,7 +70,7 @@ export class TrivetFx {
   /** The blow a plant and a hub hit deal the stand. */
   readonly hurt = new BossHurt();
   /** The painted slam a plant throws under the foot: an offered look, off until installed. */
-  readonly plant = new SpriteBursts(TRIVET_PLANT_SHEET);
+  readonly plant = new SpriteBursts(PAINTED_STRIPS["trivet-plant"]);
 
   /** How far the whole stand is pressed down right now, in tiles. */
   get thud(): number {

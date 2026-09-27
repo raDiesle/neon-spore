@@ -1700,26 +1700,6 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## A painted strip is twelve registrations, and only one of them names the others
-
-- **Found:** 2026-09-27, claude/queue-30-the-trivet-sprite-atlas-experiment-the-feet-p
-- **Taken:** 2026-09-27, claude/queue-keel-plates (claim: claude/queue-a-painted-strip-is-twelve-registrations-and-only)
-- **Files:** `tools/raster/src/spec.ts`, `tools/raster/run.ts`, `tools/raster/test/strip-assets.test.ts`, `packages/render/src/sprite-burst.ts`, `packages/render/src/render-state.ts`, `packages/render/src/canvas2d-held.ts`, `packages/render/src/index.ts`, `apps/game/src/raster.ts`, `apps/game/src/main.ts`, `apps/game/test/raster.test.ts`, `packages/sim/test/copies-table.ts`
-
-THE VISE's crack, THE RIME's clearing and THE TRIVET's plant each made the
-same edits: a spec in `STRIPS`, an entry in `run.ts`'s `ASSETS`, a
-`*_SHEET` in `sprite-burst.ts` and its export, a getter in both
-`render-state.ts` and `canvas2d-held.ts`, a binder in `raster.ts` and its
-call in `main.ts`, a `SHEETS` row in the assets test, a flag test, and a
-painter in the copies table's `also`. The sheet's numbers are also written
-twice, in `spec.ts` and `sprite-burst.ts`, with nothing but the assets test
-holding them equal. Make a painted strip one entry: one table of strips in
-`render` (name → sheet), `spec.ts` reading its numbers from it, one
-`renderer.strip(name)` in place of a getter per strip, and one loop in
-`main.ts` over the table that binds every strip behind `?raster=1`. Keep the
-burst and THE CLASP's shield as they are; their hosts differ. Done when a
-sixth strip is a painter, one table row and a bake, and `bun run check` is green.
-
 ## THE SCUTTLE's frame is drawn above the canvas on a stage wider than 0.53
 
 - **Found:** 2026-09-27, claude/queue-task-questions-1c19ed

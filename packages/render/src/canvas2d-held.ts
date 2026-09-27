@@ -1,5 +1,6 @@
 import type { ClaspFrames } from "./clasp-frames.js";
 import type { SurfaceY } from "./hull-frame.js";
+import type { StripName } from "./painted-strips.js";
 import { RenderState } from "./render-state.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
@@ -15,7 +16,8 @@ export class HeldHost {
    * when a wave starts over (`render-state.ts`). */
   protected readonly held = new RenderState();
 
-  /** What a host may reach: the six atlases a baked look is installed into,
+  /** What a host may reach: the atlases a baked look is installed into —
+   * the burst, THE CLASP's shield and every painted strip by name —
    * the film REPLAY plays again and whether it has played out, and whether the
    * wave is still arriving. State rather than drawing, so every one is
    * `held`'s. */
@@ -25,17 +27,8 @@ export class HeldHost {
   get claspShield(): ClaspFrames {
     return this.held.claspShield;
   }
-  get viseCrack(): SpriteBursts {
-    return this.held.viseCrack;
-  }
-  get rimeClear(): SpriteBursts {
-    return this.held.rimeClear;
-  }
-  get trivetPlant(): SpriteBursts {
-    return this.held.trivetPlant;
-  }
-  get plumbSettle(): SpriteBursts {
-    return this.held.plumbSettle;
+  strip(name: StripName): SpriteBursts {
+    return this.held.strip(name);
   }
   get launching(): boolean {
     return this.held.launching;

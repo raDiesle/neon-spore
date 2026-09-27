@@ -1,11 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import {
-  PLUMB_SETTLE_SHEET,
-  RIME_CLEAR_SHEET,
-  type SpriteSheet,
-  TRIVET_PLANT_SHEET,
-  VISE_CRACK_SHEET,
-} from "@neon-spore/render";
+import { PAINTED_STRIPS, STRIP_NAMES } from "@neon-spore/render";
 import { readApngInfo } from "../src/apng.js";
 import { STRIPS } from "../src/spec.js";
 import { readWebpSize } from "../src/webp.js";
@@ -25,14 +19,6 @@ const load = async (name: string): Promise<Uint8Array> =>
 
 const BUDGET_BYTES = 90 * 1024;
 
-/** Which renderer sheet slices which strip. A strip missing here fails below. */
-const SHEETS: Record<string, SpriteSheet> = {
-  "vise-crack": VISE_CRACK_SHEET,
-  "rime-clear": RIME_CLEAR_SHEET,
-  "trivet-plant": TRIVET_PLANT_SHEET,
-  "plumb-settle": PLUMB_SETTLE_SHEET,
-};
-
 interface Manifest {
   frames: number;
   frameSize: number;
@@ -42,12 +28,13 @@ interface Manifest {
 }
 
 const manifests = new Map<string, Manifest>();
-for (const name of Object.keys(STRIPS)) {
+for (const name of STRIP_NAMES) {
   const file = Bun.file(Bun.fileURLToPath(new URL(`${name}.json`, dir)));
   manifests.set(name, (await file.json()) as Manifest);
 }
 
-for (const [name, spec] of Object.entries(STRIPS)) {
+for (const name of STRIP_NAMES) {
+  const spec = STRIPS[name];
   const manifest = manifests.get(name) as Manifest;
   describe(`the painted strip ${name}`, () => {
     it("is described by the same numbers the generator holds", () => {
@@ -57,12 +44,13 @@ for (const [name, spec] of Object.entries(STRIPS)) {
       expect(manifest.seed).toBe(spec.seed);
     });
 
-    it("is sliced by the renderer with those same numbers", () => {
-      expect(SHEETS[name]).toEqual({
-        frames: spec.frames,
-        frameSize: spec.size,
-        frameMs: spec.frameMs,
-      });
+    /**
+     * The generator's numbers are read off the renderer's table, so the check
+     * that still bites is the bytes: a row changed without `bun run raster`
+     * leaves a manifest the renderer would slice wrong.
+     */
+    it("was baked from the row the renderer slices it with", () => {
+      expect(manifest).toMatchObject(PAINTED_STRIPS[name]);
     });
 
     it("ships a lossless APNG master of every frame", async () => {

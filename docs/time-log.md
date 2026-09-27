@@ -27963,3 +27963,16 @@ Bottleneck: writing. Five of the answers asked for more than one option, and
 each had to be turned into work a cold session can start.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — A painted strip is one row of one table
+
+- reading: 10 min. The entry, the three strips' twelve registrations, `raster.ts`, `run.ts`, `spec.ts`.
+- writing: 20 min. `PAINTED_STRIPS`, `strip(name)` in place of three getters,
+  `bindRasterStrips`, `PAINTERS`, `STRIPS` read off the table, the tests and
+  the doc's "A sixth strip".
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. `verify.ts` indexed `STRIPS` by any string.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing. Twelve registrations in ten files had to move at once,
+since each one named the next.

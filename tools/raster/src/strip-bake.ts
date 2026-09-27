@@ -5,9 +5,8 @@ import { renderStrip, type StripPainter, type StripSpec } from "./render-strip.j
  * One painted strip, baked and packed: the atlas the field fetches
  * (`<name>-strip.webp`), the lossless APNG master (`<name>.apng`), and the
  * manifest its assets test holds against the renderer's sheet
- * (`<name>.json`). `run.ts` writes what this returns. THE VISE's crack and
- * THE RIME's clearing go through here; the burst has extras of its own
- * (`render.ts`).
+ * (`<name>.json`). `run.ts` writes what this returns, for every row of
+ * `PAINTED_STRIPS`; the burst has extras of its own (`render.ts`).
  */
 export async function bakeStrip(
   name: string,

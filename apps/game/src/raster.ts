@@ -1,4 +1,4 @@
-import { loadAtlas } from "@neon-spore/render";
+import { loadAtlas, STRIP_NAMES, type StripName } from "@neon-spore/render";
 import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
 import plumbSettleStripUrl from "../../../assets/raster/plumb-settle-strip.webp";
@@ -24,7 +24,7 @@ import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
  * Failure is silent by design (`loadAtlas` resolves to `null`): a phone on a
  * bad connection gets the procedural sparks, which is what it would have had.
  *
- * **Four assets go through here now, and the second one is why the first was
+ * **Every baked asset goes through here now, and the second one is why the first was
  * worth generalising.** THE CLASP's hand-painted shield was baked in the same
  * pass as the burst and then never reached the field at all: `drawClaspShield`
  * takes an image or draws a procedural shell, and nothing anywhere passed an
@@ -79,35 +79,30 @@ export const bindRasterClasp = (host: SpriteHost, href: string): Bound =>
   bindStrip(host, href, claspStripUrl);
 
 /**
- * THE VISE's painted kernel crack (`vise-fx.ts`). The shipped split — the
- * flash and the husk dust — is drawn either way; the crack is laid over it,
- * never in its place.
+ * The painted strips' files, by the row's name in `PAINTED_STRIPS`. Typed on
+ * every name, so a row the table gains without a file here is a type error
+ * rather than a strip that never reaches the field. Each is laid over the
+ * shipped picture — the split, the bare core, the thud — never in its place.
  */
-export const bindRasterViseCrack = (host: SpriteHost, href: string): Bound =>
-  bindStrip(host, href, viseCrackStripUrl);
+const STRIP_URLS: Record<StripName, string> = {
+  "vise-crack": viseCrackStripUrl,
+  "rime-clear": rimeClearStripUrl,
+  "trivet-plant": trivetPlantStripUrl,
+  "plumb-settle": plumbSettleStripUrl,
+};
 
 /**
- * THE RIME's painted clearing (`rime-fx.ts`), the frost shattering off the
- * pane as the core lies bare. The shipped picture — the patches wiped clear,
- * the core lit — is drawn either way; the clearing is laid over it.
+ * Every painted strip, in one loop: each is fetched and fails on its own, and
+ * the answer says which strip it was about.
  */
-export const bindRasterRimeClear = (host: SpriteHost, href: string): Bound =>
-  bindStrip(host, href, rimeClearStripUrl);
-
-/**
- * THE TRIVET's painted plant (`trivet-fx.ts`), a foot slammed onto its plate:
- * the one strip, mirrored for the navigator's foot. The shipped thud — the
- * stand pressed down, the grit, the shudder — is drawn either way; the slam
- * is laid over it.
- */
-export const bindRasterTrivetPlant = (host: SpriteHost, href: string): Bound =>
-  bindStrip(host, href, trivetPlantStripUrl);
-
-/**
- * THE PLUMB's painted settle (`plumb-fx.ts`), a weight's swing dying away as
- * it comes true: the one strip, mirrored for the navigator's weight. The
- * shipped settle — the glass's ring, the ball easing still — is drawn either
- * way; the swing is laid over it.
- */
-export const bindRasterPlumbSettle = (host: SpriteHost, href: string): Bound =>
-  bindStrip(host, href, plumbSettleStripUrl);
+export async function bindRasterStrips(
+  host: { strip(name: StripName): SpriteHost },
+  href: string,
+): Promise<Record<StripName, "off" | "installed" | "unavailable">> {
+  const bound = await Promise.all(
+    STRIP_NAMES.map(
+      async (name) => [name, await bindStrip(host.strip(name), href, STRIP_URLS[name])] as const,
+    ),
+  );
+  return Object.fromEntries(bound) as Record<StripName, "off" | "installed" | "unavailable">;
+}

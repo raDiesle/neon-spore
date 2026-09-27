@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG, midCol, type SimEvent } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
-import { VISE_CRACK_SHEET } from "../src/sprite-burst.js";
+import { PAINTED_STRIPS } from "../src/painted-strips.js";
 import { ViseFx } from "../src/vise-fx.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -21,7 +21,8 @@ const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, DEFAULT_CONFIG, "t
 const MID = midCol(DEFAULT_CONFIG);
 const ATLAS = {} as CanvasImageSource;
 const SPLIT: SimEvent[] = [{ type: "viseSplit", col: MID }];
-const LIFE = (VISE_CRACK_SHEET.frames * VISE_CRACK_SHEET.frameMs) / 1000;
+const SHEET = PAINTED_STRIPS["vise-crack"];
+const LIFE = (SHEET.frames * SHEET.frameMs) / 1000;
 
 function drawn(fx: ViseFx): number {
   const { ctx } = stubCanvas();

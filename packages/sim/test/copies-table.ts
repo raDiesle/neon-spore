@@ -5,6 +5,14 @@
  * the next file that copies it.
  */
 
+import { readdirSync } from "node:fs";
+
+/** Every painter `bun run raster` bakes from, read off the directory (`stream`'s row). */
+const RASTER_PAINTERS = readdirSync(new URL("../../../tools/raster/src/", import.meta.url))
+  .filter((file) => file.endsWith("-art.ts"))
+  .sort()
+  .map((file) => `tools/raster/src/${file}`);
+
 export interface Copy {
   /** What to call instead. */
   call: string;
@@ -538,19 +546,12 @@ export const COPIES: Copy[] = [
     // rather than `(n >>> 8) % 10000`, and every number it answers is already
     // in a shipped PNG. Adopting the render stream would redraw those files,
     // which is a look rather than a refactor — so it owns its own sequence,
-    // and its header already says why it may not use `Math.random`. THE
-    // VISE's crack is the second painter, THE RIME's clearing the third,
-    // THE TRIVET's plant the fourth and THE PLUMB's settle the fifth, and
-    // none could call `stream` if it wanted to: `render-strip.ts`
-    // ships each into a headless page as source text, where an import is a
-    // crash.
-    also: [
-      "tools/raster/src/burst-art.ts",
-      "tools/raster/src/vise-crack-art.ts",
-      "tools/raster/src/rime-clear-art.ts",
-      "tools/raster/src/trivet-plant-art.ts",
-      "tools/raster/src/plumb-settle-art.ts",
-    ],
+    // and its header already says why it may not use `Math.random`. Every
+    // painted strip's painter is the same, read off the directory so a new
+    // one needs no line here, and none could call `stream` if it wanted to:
+    // `render-strip.ts` ships each into a headless page as source text, where
+    // an import is a crash.
+    also: RASTER_PAINTERS,
   },
   {
     // How near the poles a mark may sit. Three skins declared it privately —

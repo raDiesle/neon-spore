@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, midCol, type SimEvent } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
+import { PAINTED_STRIPS } from "../src/painted-strips.js";
 import { PlumbFx } from "../src/plumb-fx.js";
-import { PLUMB_SETTLE_SHEET } from "../src/sprite-burst.js";
 
 /**
  * THE PLUMB's painted settle (`plumb-fx.ts`), behind `?raster=1`: a weight
@@ -17,7 +17,8 @@ import { PLUMB_SETTLE_SHEET } from "../src/sprite-burst.js";
 const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, DEFAULT_CONFIG, "test");
 const MID = midCol(DEFAULT_CONFIG);
 const ATLAS = {} as CanvasImageSource;
-const LIFE = (PLUMB_SETTLE_SHEET.frames * PLUMB_SETTLE_SHEET.frameMs) / 1000;
+const SHEET = PAINTED_STRIPS["plumb-settle"];
+const LIFE = (SHEET.frames * SHEET.frameMs) / 1000;
 const settle = (side: 0 | 1): SimEvent => ({ type: "plumbSettle", side, level: 1, col: MID });
 
 /** A context that writes down the calls a sprite burst makes, and nothing else. */

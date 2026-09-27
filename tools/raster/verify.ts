@@ -144,7 +144,7 @@ const checks: [string, boolean, string][] = [
     String(result.webpProbeSize),
   ],
   ...result.strips.flatMap(({ name, size: got, frames }): [string, boolean, string][] => {
-    const spec = STRIPS[name];
+    const spec = (STRIPS as Record<string, (typeof STRIPS)[keyof typeof STRIPS] | undefined>)[name];
     if (!spec) return [[`${name} has a spec`, false, ""]];
     return [
       [

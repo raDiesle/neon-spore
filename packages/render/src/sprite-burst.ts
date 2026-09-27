@@ -34,29 +34,8 @@ export interface SpriteSheet {
  */
 export const BURST_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 40 };
 
-/**
- * THE VISE's kernel crack in `assets/raster/`, checked against its manifest
- * the same way (`vise-fx.ts` plays it on the split).
- */
-export const VISE_CRACK_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 45 };
-
-/**
- * THE RIME's frost clearing off the pane, the same way again (`rime-fx.ts`
- * plays it as the core lies bare).
- */
-export const RIME_CLEAR_SHEET: SpriteSheet = { frames: 16, frameSize: 128, frameMs: 50 };
-
-/**
- * THE TRIVET's foot planting home, the same way again (`trivet-fx.ts` plays
- * it on a plant, mirrored for the navigator's foot).
- */
-export const TRIVET_PLANT_SHEET: SpriteSheet = { frames: 12, frameSize: 96, frameMs: 45 };
-
-/**
- * THE PLUMB's weight settling true, the same way again (`plumb-fx.ts` plays
- * it on a settle, hung from the beam's end and mirrored for the navigator's).
- */
-export const PLUMB_SETTLE_SHEET: SpriteSheet = { frames: 16, frameSize: 128, frameMs: 50 };
+/* The painted strips an effect throws are sliced the same way, from
+ * `painted-strips.ts`'s table. */
 
 interface LiveBurst {
   x: number;

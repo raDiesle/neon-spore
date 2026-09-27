@@ -12,6 +12,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import { LanceFlash } from "./lance-flash.js";
 import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
+import type { StripName } from "./painted-strips.js";
 import type { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -130,24 +131,20 @@ export class RenderState {
     return this.effects.claspFrames;
   }
 
-  /** THE VISE's painted kernel crack, for `claspShield`'s reason (`vise-fx.ts`). */
-  get viseCrack(): SpriteBursts {
-    return this.effects.boss.vise.crack;
-  }
-
-  /** THE RIME's painted clearing, the same (`rime-fx.ts`). */
-  get rimeClear(): SpriteBursts {
-    return this.effects.boss.rime.clear;
-  }
-
-  /** THE TRIVET's painted plant, the same (`trivet-fx.ts`). */
-  get trivetPlant(): SpriteBursts {
-    return this.effects.boss.trivet.plant;
-  }
-
-  /** THE PLUMB's painted settle, the same (`plumb-fx.ts`). */
-  get plumbSettle(): SpriteBursts {
-    return this.effects.boss.plumb.swing;
+  /**
+   * A painted strip's player, by its asset's name, for `claspShield`'s reason
+   * (`painted-strips.ts`). The record is typed on every name, so a row the
+   * table gains that no effect plays is a type error here.
+   */
+  strip(name: StripName): SpriteBursts {
+    const boss = this.effects.boss;
+    const players: Record<StripName, SpriteBursts> = {
+      "vise-crack": boss.vise.crack,
+      "rime-clear": boss.rime.clear,
+      "trivet-plant": boss.trivet.plant,
+      "plumb-settle": boss.plumb.swing,
+    };
+    return players[name];
   }
 
   /**

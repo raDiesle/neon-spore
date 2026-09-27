@@ -2,8 +2,8 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG, midCol, type SimEvent } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
+import { PAINTED_STRIPS } from "../src/painted-strips.js";
 import { RimeFx } from "../src/rime-fx.js";
-import { RIME_CLEAR_SHEET } from "../src/sprite-burst.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -21,7 +21,8 @@ const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, DEFAULT_CONFIG, "t
 const MID = midCol(DEFAULT_CONFIG);
 const ATLAS = {} as CanvasImageSource;
 const BARE: SimEvent[] = [{ type: "rimeBare", col: MID }];
-const LIFE = (RIME_CLEAR_SHEET.frames * RIME_CLEAR_SHEET.frameMs) / 1000;
+const SHEET = PAINTED_STRIPS["rime-clear"];
+const LIFE = (SHEET.frames * SHEET.frameMs) / 1000;
 
 function drawn(fx: RimeFx): number {
   const { ctx } = stubCanvas();

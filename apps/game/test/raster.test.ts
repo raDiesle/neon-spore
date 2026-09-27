@@ -1,11 +1,9 @@
 import { describe, expect, it } from "bun:test";
+import { STRIP_NAMES, type StripName } from "@neon-spore/render";
 import {
   bindRasterBurst,
   bindRasterClasp,
-  bindRasterPlumbSettle,
-  bindRasterRimeClear,
-  bindRasterTrivetPlant,
-  bindRasterViseCrack,
+  bindRasterStrips,
   rasterRequested,
 } from "../src/raster.js";
 
@@ -62,51 +60,29 @@ describe("the raster flag", () => {
     expect(installs).toBe(0);
   });
 
-  it("leaves THE VISE's split as it ships unless the flag is set", async () => {
+  /**
+   * Every painted strip goes through one loop over `PAINTED_STRIPS`, so the
+   * assertion is over the table: THE VISE's split, THE RIME's bare core, THE
+   * TRIVET's plant, THE PLUMB's settle and whatever row comes next stay as they ship unflagged.
+   */
+  it("leaves every painted strip's moment as it ships unless the flag is set", async () => {
+    const asked: StripName[] = [];
     let installs = 0;
     const host = {
-      install(): void {
-        installs++;
+      strip(name: StripName) {
+        asked.push(name);
+        return {
+          install(): void {
+            installs++;
+          },
+        };
       },
     };
-    expect(await bindRasterViseCrack(host, "http://game.invalid/")).toBe("off");
-    expect(await bindRasterViseCrack(host, "http://game.invalid/?raster=0")).toBe("off");
-    expect(installs).toBe(0);
-  });
-
-  it("leaves THE RIME's bare core as it ships unless the flag is set", async () => {
-    let installs = 0;
-    const host = {
-      install(): void {
-        installs++;
-      },
-    };
-    expect(await bindRasterRimeClear(host, "http://game.invalid/")).toBe("off");
-    expect(await bindRasterRimeClear(host, "http://game.invalid/?raster=0")).toBe("off");
-    expect(installs).toBe(0);
-  });
-
-  it("leaves THE TRIVET's plant as it ships unless the flag is set", async () => {
-    let installs = 0;
-    const host = {
-      install(): void {
-        installs++;
-      },
-    };
-    expect(await bindRasterTrivetPlant(host, "http://game.invalid/")).toBe("off");
-    expect(await bindRasterTrivetPlant(host, "http://game.invalid/?raster=0")).toBe("off");
-    expect(installs).toBe(0);
-  });
-
-  it("leaves THE PLUMB's settle as it ships unless the flag is set", async () => {
-    let installs = 0;
-    const host = {
-      install(): void {
-        installs++;
-      },
-    };
-    expect(await bindRasterPlumbSettle(host, "http://game.invalid/")).toBe("off");
-    expect(await bindRasterPlumbSettle(host, "http://game.invalid/?raster=0")).toBe("off");
+    for (const href of ["http://game.invalid/", "http://game.invalid/?raster=0"]) {
+      const bound = await bindRasterStrips(host, href);
+      for (const name of STRIP_NAMES) expect(bound[name]).toBe("off");
+    }
+    expect(asked).toEqual([...STRIP_NAMES, ...STRIP_NAMES]);
     expect(installs).toBe(0);
   });
 });

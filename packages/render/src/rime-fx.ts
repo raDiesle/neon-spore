@@ -1,7 +1,8 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
+import { PAINTED_STRIPS } from "./painted-strips.js";
 import { rimeCentre, rimeRadius } from "./rime-shape.js";
-import { RIME_CLEAR_SHEET, SpriteBursts } from "./sprite-burst.js";
+import { SpriteBursts } from "./sprite-burst.js";
 
 /**
  * What THE RIME leaves behind a frame: so far only, behind `?raster=1`, the
@@ -19,7 +20,7 @@ const CLEAR_WIDTH = 2.3;
 
 export class RimeFx {
   /** The painted clearing `rimeBare` throws over the pane: an offered look, off until installed. */
-  readonly clear = new SpriteBursts(RIME_CLEAR_SHEET);
+  readonly clear = new SpriteBursts(PAINTED_STRIPS["rime-clear"]);
 
   ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig): void {
     for (const e of events) {

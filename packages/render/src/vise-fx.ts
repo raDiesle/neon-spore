@@ -3,8 +3,9 @@ import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
+import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
-import { SpriteBursts, VISE_CRACK_SHEET } from "./sprite-burst.js";
+import { SpriteBursts } from "./sprite-burst.js";
 import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
 
 /**
@@ -63,7 +64,7 @@ export class ViseFx {
   /** The blow a crack and a kernel hit deal the case. */
   readonly hurt = new BossHurt();
   /** The painted crack the split throws off the kernel: an offered look, off until installed. */
-  readonly crack = new SpriteBursts(VISE_CRACK_SHEET);
+  readonly crack = new SpriteBursts(PAINTED_STRIPS["vise-crack"]);
 
   /** How far the whole case is pressed down right now, in tiles. */
   get thud(): number {
