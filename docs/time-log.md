@@ -27708,3 +27708,15 @@ Bottleneck: looking. Both halves had been answered by later lanes, and the
 only way to know was to watch it through.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE WINCH put to the owner: THE DAVIT already asks its question
+
+- reading: 10 min. The entry, §41, THE DAVIT's §35 and §11.52, the new-boss
+  skill and its registrations.
+- writing: 5 min. The `Asks:` line and its three options.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. The duplicate only shows when THE DAVIT's built
+behaviour is read against §41's rule, not its design text.

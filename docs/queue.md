@@ -847,8 +847,8 @@ what the rest of this file holds.
 ## §41 THE WINCH — the simulation lane
 
 - **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-41-the-winch-the-simulation-lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/gesture-unbuilt-b.ts`
+- **Asks:** THE DAVIT already ships this question — its draw "counts its beats only while the other seat's lean holds … and lands only if it lifts while the lean still holds" (`docs/spec/bosses.md` §11.52) — so THE WINCH plays as THE DAVIT with THE TRIVET's chord where the lean is. Build it anyway as designed (two lanes, sim then look); cut §41 as a duplicate and drop both WINCH entries; or redesign it first so a lifted brake also unwinds a draw already banked, which DAVIT's lean never does?
 
 No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
 with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first time —
