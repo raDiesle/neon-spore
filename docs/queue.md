@@ -787,6 +787,7 @@ what the rest of this file holds.
 ## §40 THE FLUE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 No new gesture, no new primitive: `SENDING NOTHING` (THE HALTER's) paired
