@@ -2495,6 +2495,7 @@ count and is refused. `bun run check` proves it.
 ## THE NETTLE's row in THE SLOW's aim, once it is drawn
 
 - **Found:** 2026-09-27, claude/queue-the-slows-aim-has-no-row-for-six-bosses-so-their
+- **Taken:** 2026-09-27, claude/queue-queue-status-counts-a-spent-claim-as-busy (claim: claude/queue-the-nettles-row-in-the-slows-aim-once-it-is-draw)
 - **Needs:** THE NETTLE — the look
 - **Files:** `packages/render/src/slow-intake-aim.ts`, `packages/render/src/slow-boss-aim-d.ts`, `packages/render/test/slow-boss-aim-d.test.ts`, `tools/director/test/fuse-place.test.ts`
 
