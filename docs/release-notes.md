@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 57df6b6e7 — THE WINCH waits on the owner: THE DAVIT already asks its question
+
+THE DAVIT's built draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds, which is §41's whole rule with THE TRIVET's chord in the lean's place. The new-boss skill stops a boss that asks a shipped boss's question, so the simulation lane's entry now asks: build it as designed, cut it, or redesign it first so a lifted brake also unwinds a banked draw. Nothing built.
+
 ## 2026-09-27 · d93869441 — THE SLING watched at tempo: drawn, answered by touch, played to the end
 
 AUTO plays THE SLING from its first lit draw to the fork coming free, with every shot taken; the draw, the yoke, the hit and the release read at tempo, and the fork clips nothing at 390×844. The touch sender the entry said was missing is there, with its test (`sling-grip.test.ts`). Nothing changed.

@@ -27720,3 +27720,5 @@ only way to know was to watch it through.
 
 Bottleneck: reading. The duplicate only shows when THE DAVIT's built
 behaviour is read against §41's rule, not its design text.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
