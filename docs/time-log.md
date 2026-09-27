@@ -27558,3 +27558,5 @@ twelve bursts went on a page of their own.
 
 Bottleneck: looking. Without `--auto both` the frames run keeps the lobes
 down, and `--events` was the way to find a tick with one standing.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
