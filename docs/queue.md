@@ -1904,6 +1904,7 @@ what the rest of this file holds.
 ## `bun run push` leaves release-note shas that are not in the history
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-tasks-4e52d3 (claim: claude/queue-bun-run-push-leaves-release-note-shas-that-are-n)
 - **Files:** `tools/land/push.ts`, `tools/land/notes-merge.ts`, `docs/release-notes.md`
 
 When `bun run push` finds `origin/main` ahead, it rebases the trunk onto it
