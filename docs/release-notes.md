@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7389addec — THE VISE's kernel crack is painted, behind ?raster=1
+
+THE VISE's split now has a painted crack offered over it. It is sixteen 96 px frames in husk colours: a white seam down the spine, then shards, the dust they drag, an ember and grit. It spawns on `viseSplit` over the kernel, and only when `bindRasterViseCrack` has installed it behind `?raster=1`. Without the flag nothing is fetched and the split draws as it ships. This is an offered look, not a replacement: the procedural flash and dust are drawn either way, and whether the crack reads better is the owner's eye, unverified. The atlas is 43 238 B against the 90 kB budget, at the full 16 frames; before this lane `bun run raster` printed the burst strip at 77.6 kB (79 414 B, 80 406 B committed). The APNG master is 108 177 B. `bun run raster:verify` decodes both in Chromium. The generator now takes an asset's name, because a bare run re-encoded the burst to other bytes on this browser.
+
 ## 2026-09-27 · 223156451 — THE INSTAR's one head is modelled on the rig, with its own sheet
 
 The face-on head is now built from rig parts: skull, muzzle, two mandibles on one hinge, four horns, two brows, fangs and a cheek. It can be drawn from any side with `drawRigHead`, and `bun run solid --instar` sets it beside the shipped head at five yaws, with the jaw shut and open. Face-on, its eyes and both lips land within 2 px of the shipped marks, because it calls `frontEyeAt` and `frontLipsAt`. Side-on it shows one full eye, a blunt muzzle and horns swept back. A rig may now carry a `mark`, drawn by its own hand in the painter's order; the eyes, nostrils and fire use it. Nothing on the field changes. The patchable record, the VERSUS candidate and the op budget stay parked as half (B).

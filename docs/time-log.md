@@ -27843,3 +27843,5 @@ three files before one number of the head could be placed.
 
 Bottleneck: writing. A second atlas had no generic path through the
 generator, the verifier or the renderer, and each one took its own cut.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
