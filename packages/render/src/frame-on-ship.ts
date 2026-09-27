@@ -49,33 +49,33 @@ export function drawOnShip(
   held.fenceStrike.draw(ctx, l, at, surfaceY, view.time);
   // And THE SINEW's snap-back running down the same plating: the mass is
   // whipped and the ship feels it, for a beat (`sinew-fx.ts`).
-  held.effects.boss.sinew.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.sinew.shock.draw(ctx, l, surfaceY, view.time);
   // And THE LEDGER's, on the same plating and for the design's own reason: the
   // presentation of that fight is the hull reacting rather than the frame
   // moving, on the beat the cord roots in the ship and on every return the
   // pair did not answer (`ledger-fx.ts`).
-  held.effects.boss.ledger.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.ledger.shock.draw(ctx, l, surfaceY, view.time);
   // And THE HASP's, for its design's: an opened hasp is one shudder through
   // the plating rather than a camera moving (`hasp-fx.ts`, §20).
-  held.effects.boss.hasp.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.hasp.shock.draw(ctx, l, surfaceY, view.time);
   // And THE RATCHET's: every clean tooth is one shudder through the plating
   // and a burnt one none (`ratchet-fx.ts`, §22).
-  held.effects.boss.ratchet.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.ratchet.shock.draw(ctx, l, surfaceY, view.time);
   // And THE MANTLE's: each shearing pair is one shudder through the plating,
   // and the core going out one more (`mantle-fx.ts`, §23).
-  held.effects.boss.mantle.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.mantle.shock.draw(ctx, l, surfaceY, view.time);
   // And THE KEEL's: the open socket and the tail's rock each hit the hull
   // once, and the plating shudders for it (`keel-fx.ts`, §24).
-  held.effects.boss.keel.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.keel.shock.draw(ctx, l, surfaceY, view.time);
   // And THE OCULUS's: each pair held shut is a soft thud through the plating,
   // a reseal a quieter one (`oculus-fx.ts`, §27).
-  held.effects.boss.oculus.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.oculus.shock.draw(ctx, l, surfaceY, view.time);
   // And THE VISE's: each seam cracking is a dry thud through the plating
   // (`vise-fx.ts`, §28).
-  held.effects.boss.vise.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.vise.shock.draw(ctx, l, surfaceY, view.time);
   // And THE TRIVET's: each foot driven home is a thud through the plating,
   // the collapse a harder one (`trivet-fx.ts`, §30).
-  held.effects.boss.trivet.drawShock(ctx, l, surfaceY, view.time);
+  held.effects.boss.trivet.shock.draw(ctx, l, surfaceY, view.time);
   // And THE GRINDSTONE's: the caliper biting is a thud through the plating,
   // the snap free a harder one (`grindstone-fx.ts`, §33).
   held.effects.boss.grindstone.shock.draw(ctx, l, surfaceY, view.time);

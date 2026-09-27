@@ -2823,23 +2823,6 @@ four cases, or narrow the glob, as "The rock ratchet reads only the files
 that name the rock" did for its test; then time it alone and set the figures
 from that.
 
-## Nine fx files still keep the hull shock's clock by hand
-
-- **Found:** 2026-09-26, claude/queue-33-the-grindstone-effects-and-cue-words
-- **Taken:** 2026-09-27, claude/queue-auto-miss-cannot-make-the-cysts-or-the-slings-sh (claim: claude/queue-nine-fx-files-still-keep-the-hull-shocks-clock-b)
-- **Files:** `packages/render/src/hull-shock.ts`, `packages/render/src/hasp-fx.ts`, `packages/render/src/keel-fx.ts`, `packages/render/src/ledger-fx.ts`, `packages/render/src/mantle-fx.ts`, `packages/render/src/oculus-fx.ts`, `packages/render/src/ratchet-fx.ts`, `packages/render/src/sinew-fx.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/src/vise-fx.ts`
-
-Each of these carries `shockLeft`, `shockLife` and `shockForce`, a private
-`shock(life, force)`, the same two lines in `update`, three in `clear` and a
-`drawShock` that calls `drawHullShock` — the same clock re-derived nine times.
-`HullShock` in `hull-shock.ts` is that clock, and `grindstone-fx.ts` is the
-first to hold one (`readonly shock = new HullShock()`, drawn from
-`frame-on-ship.ts` as `shock.draw`). Move the nine onto it, one per file,
-keeping each file's own strengths and lives; `frame-on-ship.ts`' calls change
-with them, and the fx tests that read a shock read `shock.now`. Then add a row
-to `packages/sim/test/purity.test.ts`' called-not-re-derived table for
-`shockLeft`, so a tenth copy is caught.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

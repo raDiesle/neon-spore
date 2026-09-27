@@ -783,4 +783,15 @@ export const COPIES: Copy[] = [
       /"either"\s*\)\s*return\s*\{\s*body:\s*PALETTE\.hullRim|PALETTE\.cyanRim\s*:\s*PALETTE\.hullRim/,
     strip: false,
   },
+  {
+    // **A hull shock's clock** — struck, fading linearly, drawn along the
+    // plating. THE GRINDSTONE's fx kept it in three fields and four lines, and
+    // nine more fx files had pasted the same fields before `HullShock` took
+    // them all (27 September 2026). The field names are the copy: a file that
+    // declares its own `shockLeft` is keeping the clock by hand again; the
+    // second spelling is the fade itself, as the owner writes it.
+    call: "HullShock",
+    owner: "packages/render/src/hull-shock.ts",
+    pattern: /\bshock(?:Left|Force)\b|\bforce\s*\*\s*\(this\.left\s*\/\s*this\.life\)/,
+  },
 ];

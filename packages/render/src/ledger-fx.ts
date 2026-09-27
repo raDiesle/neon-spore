@@ -1,8 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -54,8 +53,8 @@ export class LedgerFx {
   private whipLife = 1;
   private flashLeft = 0;
   private flashLife = 1;
-  private shockLeft = 0;
-  private shockLife = 1;
+  /** The shock down the plating, on the finished ship (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   /** The blow a widened seam deals the halves. */
   readonly hurt = new BossHurt();
 
@@ -91,8 +90,7 @@ export class LedgerFx {
             3 * Math.max(1, Math.min(e.cols, cfg.cols)),
             PALETTE.hull,
           );
-          this.shockLife = SHOCK_BEATS * spb;
-          this.shockLeft = this.shockLife;
+          this.shock.strike(SHOCK_BEATS * spb, 1);
           break;
         case "ledgerSeam":
           this.hurt.hit();
@@ -120,8 +118,7 @@ export class LedgerFx {
           // The one the pair did not answer. The hull's own `breach` bursts
           // beside this on the same tick, so what is added here is the ship
           // taking it — the design's presentation, said in plating.
-          this.shockLife = SHOCK_BEATS * spb;
-          this.shockLeft = this.shockLife;
+          this.shock.strike(SHOCK_BEATS * spb, 1);
           break;
         case "ledgerSocket":
           burst(tileCX(l, e.col), l.hullY, 3, PALETTE.dim);
@@ -137,8 +134,7 @@ export class LedgerFx {
           burst(tileCX(l, e.col), l.hullY, 24, PALETTE.hullRim);
           this.flashLife = FLASH_BEATS * spb;
           this.flashLeft = this.flashLife;
-          this.shockLife = TEAR_SHOCK_BEATS * spb;
-          this.shockLeft = this.shockLife;
+          this.shock.strike(TEAR_SHOCK_BEATS * spb, 1);
           break;
         default:
           break;
@@ -149,7 +145,7 @@ export class LedgerFx {
   update(dt: number): void {
     this.whipLeft = Math.max(0, this.whipLeft - dt);
     this.flashLeft = Math.max(0, this.flashLeft - dt);
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.shock.update(dt);
     this.hurt.update(dt);
   }
 
@@ -163,19 +159,12 @@ export class LedgerFx {
     ctx.restore();
   }
 
-  /** The shock down the plating, on the finished ship (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockLeft / this.shockLife);
-  }
-
   clear(): void {
     this.whipLeft = 0;
     this.flashLeft = 0;
-    this.shockLeft = 0;
+    this.shock.clear();
     this.whipLife = 1;
     this.flashLife = 1;
-    this.shockLife = 1;
     this.hurt.clear();
   }
 }

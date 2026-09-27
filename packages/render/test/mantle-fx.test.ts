@@ -59,9 +59,11 @@ describe("THE MANTLE's transients", () => {
     said(fx, [shear(3)]);
     expect(fx.kick).toBeGreaterThan(0);
     expect(fx.hurt.value).toBe(1);
+    expect(fx.shock.now).toBeGreaterThan(0);
     for (let i = 0; i < 120; i++) fx.update(1 / 60);
     expect(fx.kick).toBe(0);
     expect(fx.hurt.value).toBe(0);
+    expect(fx.shock.now).toBe(0);
     said(fx, [shear(2)]);
     fx.clear();
     expect(fx).toEqual(new MantleFx());

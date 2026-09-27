@@ -2,8 +2,7 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { ratchetBarAt, ratchetLock, ratchetPawl, ratchetPawlY, ratchetX } from "./ratchet-shape.js";
@@ -44,8 +43,8 @@ const SHOCK_BEATS = 1;
 export class RatchetFx {
   private joltNow = 0;
   private clickNow = 0;
-  private shockLeft = 0;
-  private shockLife = 1;
+  /** The shudder down the plating as a clean tooth lands, on the finished ship (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   /** The blow a clean tooth deals the rack. */
   readonly hurt = new BossHurt();
 
@@ -100,7 +99,7 @@ export class RatchetFx {
           burst(ratchetX(l, cfg), ratchetPawlY(l), 12, PALETTE.rock);
           this.joltNow = JOLT_TILES;
           this.clickNow = 1;
-          this.shock(beatSeconds);
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           this.hurt.hit();
           break;
         case "ratchetBolt": {
@@ -118,14 +117,14 @@ export class RatchetFx {
         case "ratchetOpen": {
           const lock = ratchetLock(l, cfg);
           burst(lock.x, lock.y, 30, PALETTE.rock);
-          this.shock(beatSeconds);
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           this.hurt.hit();
           break;
         }
         case "ratchetJam":
           burst(ratchetX(l, cfg), tileCY(l, cfg.rows - 1), 26, PALETTE.red);
           this.joltNow = JOLT_TILES * 2;
-          this.shock(beatSeconds);
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           break;
         case "ratchetOut": {
           const lock = ratchetLock(l, cfg);
@@ -138,32 +137,20 @@ export class RatchetFx {
     }
   }
 
-  private shock(beatSeconds: number): void {
-    this.shockLife = SHOCK_BEATS * beatSeconds;
-    this.shockLeft = this.shockLife;
-  }
-
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.clickNow = Math.max(0, this.clickNow - this.clickNow * CLICK_DECAY * step);
     if (this.clickNow < 0.002) this.clickNow = 0;
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.shock.update(dt);
     this.hurt.update(dt);
-  }
-
-  /** The shudder down the plating as a clean tooth lands, on the finished ship (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockLeft / this.shockLife);
   }
 
   clear(): void {
     this.joltNow = 0;
     this.clickNow = 0;
-    this.shockLeft = 0;
-    this.shockLife = 1;
+    this.shock.clear();
     this.hurt.clear();
   }
 }

@@ -1,8 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { oculusCentre, oculusLift, oculusRadius } from "./oculus-shape.js";
 import { PALETTE } from "./palette.js";
@@ -52,9 +51,8 @@ export class OculusFx {
   private flashNow = 0;
   private flashHits = 0;
   private shatterNow = 0;
-  private shockLeft = 0;
-  private shockLife = 1;
-  private shockForce = 0;
+  /** The shudder down the plating as a pair thuds shut or reseals (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   private coreHex: string = PALETTE.hullRim;
   /** The blow a shut pair and a core hit deal the lens. */
   readonly hurt = new BossHurt();
@@ -103,13 +101,13 @@ export class OculusFx {
         case "oculusShut":
           burst(mid.x, mid.y, 10, PALETTE.hullRim);
           this.thudNow = Math.max(this.thudNow, THUD_TILES);
-          this.shock(beatSeconds * THUD_BEATS, THUD_FORCE);
+          this.shock.strike(beatSeconds * THUD_BEATS, THUD_FORCE);
           this.hurt.hit();
           break;
         case "oculusReseal":
           burst(mid.x, mid.y, 6, PALETTE.hullRim);
           this.thudNow = Math.max(this.thudNow, RESEAL_TILES);
-          this.shock(beatSeconds * THUD_BEATS, RESEAL_FORCE);
+          this.shock.strike(beatSeconds * THUD_BEATS, RESEAL_FORCE);
           break;
         case "oculusSpring":
           burst(mid.x, mid.y - rim * 0.5, 6, PALETTE.rock);
@@ -137,12 +135,6 @@ export class OculusFx {
     }
   }
 
-  private shock(life: number, force: number): void {
-    this.shockLife = Math.max(1e-6, life);
-    this.shockLeft = this.shockLife;
-    this.shockForce = force;
-  }
-
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.thudNow = Math.max(0, this.thudNow - this.thudNow * THUD_DECAY * step);
@@ -150,15 +142,8 @@ export class OculusFx {
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
     this.shatterNow = Math.max(0, this.shatterNow - FLASH_DECAY * step);
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
-    if (this.shockLeft === 0) this.shockForce = 0;
+    this.shock.update(dt);
     this.hurt.update(dt);
-  }
-
-  /** The shudder down the plating as a pair thuds shut or reseals (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockForce * (this.shockLeft / this.shockLife));
   }
 
   clear(): void {
@@ -166,9 +151,7 @@ export class OculusFx {
     this.flashNow = 0;
     this.flashHits = 0;
     this.shatterNow = 0;
-    this.shockLeft = 0;
-    this.shockLife = 1;
-    this.shockForce = 0;
+    this.shock.clear();
     this.coreHex = PALETTE.hullRim;
     this.hurt.clear();
   }

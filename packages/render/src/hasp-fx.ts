@@ -3,8 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { haspBarAt, haspCentre } from "./hasp-shape.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
@@ -50,8 +49,8 @@ export class HaspFx {
   private flareNow = 0;
   private dimLeft = 0;
   private dimLife = 1;
-  private shockLeft = 0;
-  private shockLife = 1;
+  /** The shudder down the plating as a hasp gives, on the finished ship (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   /** The clasp the latest receipt was about, counted from the ship. */
   private at = 0;
   /** The blow a hasp wound open deals the row. */
@@ -128,8 +127,7 @@ export class HaspFx {
           const gave = haspCentre(l, cfg, HASP_COUNT - e.hasps - 1);
           burst(gave.x, gave.y, 18, PALETTE.rock);
           this.joltNow = JOLT_TILES;
-          this.shockLife = SHOCK_BEATS * beatSeconds;
-          this.shockLeft = this.shockLife;
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           this.hurt.hit();
           break;
         }
@@ -162,14 +160,8 @@ export class HaspFx {
     this.flareNow = Math.max(0, this.flareNow - this.flareNow * FLARE_DECAY * step);
     if (this.flareNow < 0.002) this.flareNow = 0;
     this.dimLeft = Math.max(0, this.dimLeft - dt);
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.shock.update(dt);
     this.hurt.update(step);
-  }
-
-  /** The shudder down the plating as a hasp gives, on the finished ship (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockLeft / this.shockLife);
   }
 
   clear(): void {
@@ -177,8 +169,7 @@ export class HaspFx {
     this.flareNow = 0;
     this.dimLeft = 0;
     this.dimLife = 1;
-    this.shockLeft = 0;
-    this.shockLife = 1;
+    this.shock.clear();
     this.at = 0;
     this.hurt.clear();
   }

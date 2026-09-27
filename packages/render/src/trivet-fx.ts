@@ -2,8 +2,7 @@ import { type SimConfig, type SimEvent, TRIVET_PLANTS_PER_FOOT } from "@neon-spo
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { trivetCentre, trivetFoot, trivetHubR } from "./trivet-shape.js";
@@ -57,9 +56,8 @@ export class TrivetFx {
   private flashNow = 0;
   private flashHits = 0;
   private collapseNow = 0;
-  private shockLeft = 0;
-  private shockLife = 1;
-  private shockForce = 0;
+  /** The shudder down the plating as a foot plants or the stand collapses (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   private hubHex: string = PALETTE.hullRim;
   /** The blow a plant and a hub hit deal the stand. */
   readonly hurt = new BossHurt();
@@ -114,7 +112,7 @@ export class TrivetFx {
           // Grit off the plate as it bites, the stand pressed down, the plating thudding.
           burst(...footAt(l, mid, e.side), 10, PALETTE.trivetMetal);
           this.thudNow = Math.max(this.thudNow, THUD_TILES);
-          this.shock(beatSeconds * THUD_BEATS, THUD_FORCE);
+          this.shock.strike(beatSeconds * THUD_BEATS, THUD_FORCE);
           if (e.level >= TRIVET_PLANTS_PER_FOOT) this.snapNow[e.side] = 1;
           this.hurt.hit();
           break;
@@ -143,18 +141,12 @@ export class TrivetFx {
         case "trivetCollapse":
           burst(mid.x, mid.y, 24, PALETTE.trivetMetal);
           this.collapseNow = 1;
-          this.shock(beatSeconds * COLLAPSE_BEATS, COLLAPSE_FORCE);
+          this.shock.strike(beatSeconds * COLLAPSE_BEATS, COLLAPSE_FORCE);
           break;
         default:
           break;
       }
     }
-  }
-
-  private shock(life: number, force: number): void {
-    this.shockLife = Math.max(1e-6, life);
-    this.shockLeft = this.shockLife;
-    this.shockForce = force;
   }
 
   update(dt: number): void {
@@ -167,15 +159,8 @@ export class TrivetFx {
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
     this.collapseNow = Math.max(0, this.collapseNow - FLASH_DECAY * step);
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
-    if (this.shockLeft === 0) this.shockForce = 0;
+    this.shock.update(dt);
     this.hurt.update(dt);
-  }
-
-  /** The shudder down the plating as a foot plants or the stand collapses (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockForce * (this.shockLeft / this.shockLife));
   }
 
   clear(): void {
@@ -185,9 +170,7 @@ export class TrivetFx {
     this.flashNow = 0;
     this.flashHits = 0;
     this.collapseNow = 0;
-    this.shockLeft = 0;
-    this.shockLife = 1;
-    this.shockForce = 0;
+    this.shock.clear();
     this.hubHex = PALETTE.hullRim;
     this.hurt.clear();
   }

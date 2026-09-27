@@ -1,8 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -50,8 +49,8 @@ export class SinewFx {
   private whipLife = 1;
   private flashLeft = 0;
   private flashLife = 1;
-  private shockLeft = 0;
-  private shockLife = 1;
+  /** The shock down the plating, on the finished ship (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   private massX = 0;
   private massY = 0;
   private noted = false;
@@ -150,14 +149,13 @@ export class SinewFx {
     this.whipLeft = this.whipLife;
     this.flashLife = FLASH_BEATS * spb;
     this.flashLeft = this.flashLife;
-    this.shockLife = SHOCK_BEATS * spb;
-    this.shockLeft = this.shockLife;
+    this.shock.strike(SHOCK_BEATS * spb, 1);
   }
 
   update(dt: number): void {
     this.whipLeft = Math.max(0, this.whipLeft - dt);
     this.flashLeft = Math.max(0, this.flashLeft - dt);
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.shock.update(dt);
     this.hurt.update(dt);
   }
 
@@ -171,19 +169,12 @@ export class SinewFx {
     ctx.restore();
   }
 
-  /** The shock down the plating, on the finished ship (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockLeft / this.shockLife);
-  }
-
   clear(): void {
     this.whipLeft = 0;
     this.flashLeft = 0;
-    this.shockLeft = 0;
+    this.shock.clear();
     this.whipLife = 1;
     this.flashLife = 1;
-    this.shockLife = 1;
     this.massX = 0;
     this.massY = 0;
     this.noted = false;

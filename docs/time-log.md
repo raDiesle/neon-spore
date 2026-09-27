@@ -25560,3 +25560,16 @@ Bottleneck: writing — the new test refused three recipes on its first run,
 and each had to be traced to what it once meant.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — nine fx files keep the hull shock's clock in `HullShock`
+
+- reading: 5 min. The nine files, in three shapes of the same clock.
+- writing: 5 min. One script over all nine, the callers in
+  `frame-on-ship.ts`, a copies-table row.
+- looking: 0 min.
+- friction: 5 min. The row's pattern had to match its own owner, whose fields
+  are not called `shockLeft`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a copies row naming the copy's fields needs a second
+spelling the owner itself writes.

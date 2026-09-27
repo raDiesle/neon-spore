@@ -2,8 +2,7 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import { keelRockPoint, keelSegCentre, type Point, RISE } from "./keel-shape.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -45,8 +44,8 @@ const SHOCK_BEATS = 1;
 export class KeelFx {
   private joltNow = 0;
   private snaps: number[] = [];
-  private shockLeft = 0;
-  private shockLife = 1;
+  /** The shudder down the plating as the socket or the rock hits the hull (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   private rockAge = 0;
   private rockFall = 0;
   private socketHex: string = PALETTE.hullRim;
@@ -120,7 +119,7 @@ export class KeelFx {
         case "keelSocketHit":
         case "keelRockHit":
           burst(fieldX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);
-          this.shock(beatSeconds);
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           if (e.type === "keelRockHit") this.rockFall = 0;
           break;
         case "keelRigid":
@@ -156,33 +155,21 @@ export class KeelFx {
     this.snaps[k] = v;
   }
 
-  private shock(beatSeconds: number): void {
-    this.shockLife = SHOCK_BEATS * beatSeconds;
-    this.shockLeft = this.shockLife;
-  }
-
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.snaps = this.snaps.map((v) => Math.max(0, v - SNAP_DECAY * step));
     if (this.snaps.every((v) => v === 0)) this.snaps = [];
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.shock.update(dt);
     if (this.rockFall > 0) this.rockAge += dt;
     this.hurt.update(dt);
-  }
-
-  /** The shudder down the plating as the socket or the rock hits the hull (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockLeft / this.shockLife);
   }
 
   clear(): void {
     this.joltNow = 0;
     this.snaps = [];
-    this.shockLeft = 0;
-    this.shockLife = 1;
+    this.shock.clear();
     this.rockAge = 0;
     this.rockFall = 0;
     this.socketHex = PALETTE.hullRim;

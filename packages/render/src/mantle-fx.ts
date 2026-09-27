@@ -3,8 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY } from "./layout.js";
 import {
   mantleCentre,
@@ -59,8 +58,8 @@ const REST: ValvePose = { bow: 0, drop: 0, open: 0 };
 export class MantleFx {
   private kickNow = 0;
   private flareNow = 0;
-  private shockLeft = 0;
-  private shockLife = 1;
+  /** The shudder down the plating as a pair shears and as the core goes out (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   private sparkAge = 0;
   private sparkFuse = 0;
   /** The blow a shear deals the shell. */
@@ -102,7 +101,7 @@ export class MantleFx {
         case "mantleShear":
           for (const p of shedPlates(l, at, e.left)) burst(p.x, p.y, 10, PALETTE.rock);
           this.kickNow = KICK_TILES;
-          this.shock(beatSeconds);
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           this.hurt.hit();
           break;
         case "mantleSplit":
@@ -135,7 +134,7 @@ export class MantleFx {
         case "mantleDark":
           burst(at.x, at.y + ry * 0.12, 24, PALETTE.red);
           this.flareNow = 1;
-          this.shock(beatSeconds);
+          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           this.hurt.hit();
           break;
         case "mantleOut":
@@ -147,33 +146,21 @@ export class MantleFx {
     }
   }
 
-  private shock(beatSeconds: number): void {
-    this.shockLife = SHOCK_BEATS * beatSeconds;
-    this.shockLeft = this.shockLife;
-  }
-
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.kickNow = Math.max(0, this.kickNow - this.kickNow * KICK_DECAY * step);
     if (this.kickNow < 0.002) this.kickNow = 0;
     this.flareNow = Math.max(0, this.flareNow - this.flareNow * FLARE_DECAY * step);
     if (this.flareNow < 0.002) this.flareNow = 0;
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
+    this.shock.update(dt);
     if (this.sparkFuse > 0) this.sparkAge += dt;
     this.hurt.update(dt);
-  }
-
-  /** The shudder down the plating as a pair shears and as the core goes out (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockLeft / this.shockLife);
   }
 
   clear(): void {
     this.kickNow = 0;
     this.flareNow = 0;
-    this.shockLeft = 0;
-    this.shockLife = 1;
+    this.shock.clear();
     this.sparkAge = 0;
     this.sparkFuse = 0;
     this.hurt.clear();

@@ -1,8 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
-import type { SurfaceY } from "./hull-frame.js";
-import { drawHullShock } from "./hull-shock.js";
+import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
@@ -53,9 +52,8 @@ export class ViseFx {
   private flashNow = 0;
   private flashHits = 0;
   private splitNow = 0;
-  private shockLeft = 0;
-  private shockLife = 1;
-  private shockForce = 0;
+  /** The shudder down the plating as a seam cracks (`frame-on-ship.ts`). */
+  readonly shock = new HullShock();
   private kernelHex: string = PALETTE.hullRim;
   /** The blow a crack and a kernel hit deal the case. */
   readonly hurt = new BossHurt();
@@ -116,7 +114,7 @@ export class ViseFx {
           // Dry husk dust off the seam that gave, the case pressed down, the plating thudding.
           burst(mid.x + lobeX(e.side, rx), mid.y, 10, PALETTE.viseCrack);
           this.thudNow = Math.max(this.thudNow, THUD_TILES);
-          this.shock(beatSeconds * THUD_BEATS, THUD_FORCE);
+          this.shock.strike(beatSeconds * THUD_BEATS, THUD_FORCE);
           this.hurt.hit();
           break;
         case "viseSpring":
@@ -149,12 +147,6 @@ export class ViseFx {
     }
   }
 
-  private shock(life: number, force: number): void {
-    this.shockLife = Math.max(1e-6, life);
-    this.shockLeft = this.shockLife;
-    this.shockForce = force;
-  }
-
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.thudNow = Math.max(0, this.thudNow - this.thudNow * THUD_DECAY * step);
@@ -165,15 +157,8 @@ export class ViseFx {
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
     this.splitNow = Math.max(0, this.splitNow - FLASH_DECAY * step);
-    this.shockLeft = Math.max(0, this.shockLeft - dt);
-    if (this.shockLeft === 0) this.shockForce = 0;
+    this.shock.update(dt);
     this.hurt.update(dt);
-  }
-
-  /** The shudder down the plating as a seam cracks (`frame-on-ship.ts`). */
-  drawShock(ctx: CanvasRenderingContext2D, l: Layout, surfaceY: SurfaceY, time: number): void {
-    if (this.shockLeft <= 0) return;
-    drawHullShock(ctx, l, surfaceY, time, this.shockForce * (this.shockLeft / this.shockLife));
   }
 
   clear(): void {
@@ -183,9 +168,7 @@ export class ViseFx {
     this.flashNow = 0;
     this.flashHits = 0;
     this.splitNow = 0;
-    this.shockLeft = 0;
-    this.shockLife = 1;
-    this.shockForce = 0;
+    this.shock.clear();
     this.kernelHex = PALETTE.hullRim;
     this.hurt.clear();
   }
