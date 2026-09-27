@@ -25982,3 +25982,18 @@ Bottleneck: reading — the lids were already two paths, and it was the
 creases that were shared, which is why they stay shared.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — The owner's boss notes, queued as nineteen entries
+
+- reading: 15 min. The fuse's and CRAWL's headers, the anticipation ring in
+  `instar-marks.ts`, the scripts' `morphBeats`, the shoot marks, the VERSUS
+  candidates and `versus-pose.ts`.
+- writing: 15 min. Nineteen entries, and two numbers in the Living-bosses ones.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min. One missing workspace link, fixed by `bun install --force`
+  as the check said.
+- landing: 5 min. `bun run sprite` for the cost figures, `check:fast`, the
+  commit, `land`.
+
+Bottleneck: reading — each note had to be matched to the code that draws it
+before an entry could name its files and say what exactly to change.

@@ -2314,7 +2314,7 @@ their own). Add `partDrift(time, seed, part, parent, hush)` as section 1's
 part's joint, the ranges and periods of its table by part row, the child
 following its parent through `chainAt` plus its own noise, a settle function
 of the time since a step began, a gesture let-go that eases a part's drift to
-nothing over a quarter beat, a live-mark hush to a sixth, and a `life`
+nothing over a quarter beat, a live-mark hush to a tenth (the owner, 27 September 2026 — "THE INSTAR — holds still while its marks are live"; it was a sixth), and a `life`
 multiplier from 0 to 1. The same test file also proves: every part row stays
 in its range; no part's own step exceeds 20° a second and no part plus its
 parents exceeds 30° a second; a child lags its parent; two parts that are
@@ -2374,8 +2374,8 @@ sent to the owner; op count within 10%. `bun run check` proves the tests.
 
 The owner: the full body should keep turning — look left, then right, the
 body too — so it reads 3D. Draw the side-on body through `view(SIDE + yaw)`
-with the idle drift's angles, head leading, and hush it to a third over
-windows with live marks. The mark hit test goes through the same projection
+with the idle drift's angles, head leading, and hush it to a tenth over
+windows with live marks (it was a third; the owner, 27 September 2026). The mark hit test goes through the same projection
 (`instarMarkUnder`), so a drifted mark is found where it is drawn. Give every
 part its own `partDrift` on its anchor, as section 1's part map lists them:
 head, jaw, eyes, horns, both wings and their claws, the tail links and the
@@ -2571,3 +2571,384 @@ shows red. Every other fx file with a `hurt` has one, or a case of its own
 THE CYST's land on `cystCrack` and `cystHit`, part on `cystStill`,
 `cystSlip` and `cystSpring`; THE PLUMB's from what `plumb-fx.ts` hits on —
 and `bun run check` proves them.
+
+## THE SLOW — the fuse moves under the boss, and is taller
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/slow-fuse.ts`, `packages/render/src/slow-intake.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/test/slow-fuse.test.ts`, `packages/render/test/frame.test.ts`
+
+The owner, 27 September 2026: *make the remaining time in slow state of
+bosses below the boss and between the ship hull, and more visible (e.g. more
+height)*. Today the fuse runs along the top of the field at `FUSE_TOP_PX`. The
+history is in the header of `slow-fuse.ts`: on 24 September he took out a
+notched bar under the boss, and on 25 September he kept the fuse at the top.
+This asks for the place again and not for the notches, so keep everything
+else the fuse does: it burns in from both ends, it has no notches, it turns
+orange then red, and it stays at full strength.
+
+Stand it level, centred on the boss's column, halfway between the bottom of
+the body (`slow-intake-aim.ts` already says where the body stands and how
+wide it is) and the top of the hull. Make it at least twice as thick
+(`THICK` 0.2 → 0.45 tiles or more), with the glow widened to match. It must
+never lie over a live mark: THE INSTAR's tail marks sit low, at `yMilli` 600.
+Where there is no gap, it drops to just above the hull. THE REPRISE's fuse
+(commit 0a6610e96) moves with it. Rewrite the header's *where* paragraph.
+This is a look the owner asked for by name.
+
+Done when: a test walks every boss wave's slow windows and finds the fuse's
+box under the boss's box, above the hull and clear of every live mark's
+ring; the thickness is pinned; one PNG of THE INSTAR's window is sent.
+`bun run check` proves the tests.
+
+## THE SLOW — CRAWL's light is quieter
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/slow-crawl.ts`, `packages/render/test/slow-look.test.ts`
+
+The owner, 27 September 2026: *make the slow animation visual around the
+boss (the light towards boss middle) less visible, so it is more subtle*.
+That light is CRAWL (`slow-crawl.ts`, since 26 September): rays round the
+boss, with sparks along each that brake and bank up against its skin. Bring
+its strength down to about half: the rays' and sparks' alpha, and fewer
+sparks banked on the skin. Keep what it says — the light runs in and stops
+before the body. PRISM and the fuse are not touched. This is a look the owner
+asked for by name.
+
+Done when: the constants that set CRAWL's strength are named, and a test pins
+them at no more than 55% of today's (read today's values first and write them
+in the test's comment); one PNG of a window is sent. `bun run check` proves
+the test.
+
+## THE INSTAR — its marks show only while THE SLOW is open
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-marks.ts`, `packages/sim/src/slow.ts`, `packages/render/test/instar-frame.test.ts`
+
+The owner, 27 September 2026: *the red circles for an upcoming action before
+slow should only be visible when they are receiving actions already and when
+the slow animation happens. So remove the visual before the slow animation.*
+The visual he means is the anticipation ring: `drawInstarMarks` draws a red
+ring at each of the next step's marks from `ANTICIPATE_FROM` of the morph
+onward, while the body is still coming into the pose. Delete it. Then check
+whether a step's window can be open while THE SLOW is shut (`instarSlowBeats`
+is 4). If it can, draw a mark only while both are open, and note in the
+commit what a pair loses in the beats outside the slow. This fixes something
+wrong: a ring on a part that cannot be answered yet.
+
+Done when: a test steps THE INSTAR through every step of its wave and finds
+no mark ring drawn on any frame where its window is shut or THE SLOW is shut.
+`bun run check` proves it.
+
+## Every other boss — no mark before its window opens, six per lane
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Needs:** THE INSTAR — its marks show only while THE SLOW is open
+- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/trivet-marks.ts`, `packages/render/src/keel-marks.ts`, `packages/render/src/valve-marks.ts`, `packages/render/src/seam-marks.ts`
+
+The owner's rule from THE INSTAR entry above, given *e.g. in boss waves*,
+so it applies to every boss. Go through each `*-marks.ts` in
+`packages/render/src/`, six per lane. Wherever a ring, halo or glyph is
+drawn before its window is open — an announce, a faint early ring, a ring
+that fades in during a lift — remove it, and add the boss to one shared test
+that finds no mark drawn while the window is shut. THE QUEEN's faint rings
+from the announcement onward are her mechanic (`docs/spec/controls.md`: P1
+is shown both marks), so leave them and say so in the test. Keep this entry
+open with the remaining bosses listed; the last lane removes it.
+
+Done when, per boss: the shared test has its row and it passes. `bun run
+check` proves it.
+
+## THE INSTAR — holds still while its marks are live
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-sway.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/test/instar-sway.test.ts`
+
+The owner, 27 September 2026: *when there is slow mode, the body of the boss
+and especially the circle of action must have very slow movement — circles
+should almost stay where they are and not move because of the boss's natural
+body movement, otherwise it's hard to hit. Especially if a cannon shot must be
+fired, a suck, or a shield on a specific position.* `instarSway` moves every
+mark with the body through a window. While THE SLOW is open, ease the sway
+down to a tenth of its size over half a beat, and ease it back after the
+window closes. The hit test already goes through the same sway
+(`instarMarkUnder`), so a mark is found where it is drawn. A swept mark's
+travel along its track is the gesture, not natural movement, so it stays.
+
+The Living-bosses entries above had the live-mark hush at a sixth (the idle
+drift) and a third (the turn); both now say a tenth, to match.
+
+Done when: a test finds every mark of every step moving less than 0.1 tile
+a second while THE SLOW is open, and still hit where it is drawn. `bun run
+check` proves it.
+
+## Every other boss — holds still while its marks are live, six per lane
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Needs:** THE INSTAR — holds still while its marks are live
+- **Files:** `packages/render/src/slow-boss-aim-b.ts`, `packages/render/src/caption-anchor-box.ts`, `packages/render/src/boss-cue.ts`
+
+The same rule as THE INSTAR's, for every boss: in an open slow window with a
+live mark, the body's *natural* motion eases to a tenth. That covers a
+breath, a bob, a sway and an outline drift. Motion that *is* the rule stays:
+THE SINEW's mass falls a row a beat, THE FILAMENT's heart shrinks as each
+filament is pulled (`slow-boss-aim-b.ts` names both). Six per lane: find what
+moves each boss's marks during a window, hush the natural part, and add the
+boss to one shared test that walks its wave with AUTO and measures each live
+mark's drawn point at under 0.1 tile a second. Keep this entry open with the
+remaining bosses listed.
+
+Done when, per boss: the shared test has its row and it passes. `bun run
+check` proves it.
+
+## THE INSTAR — the fire in its mouth is a soft glow that grows
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-fire.ts`, `packages/render/src/instar-head.ts`, `packages/render/test/instar-fire.test.ts`
+
+The owner, 27 September 2026: *the fire in the middle of the mouth must look
+more subtle (maybe just some fire blur), otherwise players think it's some
+action to perform on. Also it should start small and then grow bigger, so
+there is more excitement.* Today it is a ball of flame turning on itself
+with a defined edge, and at a glance that reads as a mark. Make it a blur of
+ember light: radial gradients only, with no stroke, no rim and no turning
+shape. It flickers in brightness. It starts as a speck, a tenth of the lip
+gap, when the window opens, and grows with `instarThreat`, eased in so that
+the last beats swell the most. It stays squeezed by the lips as it is today.
+This is a look the owner asked for by name.
+
+Done when: a test finds no stroke call in the fire, its radius at threat 0
+at most 0.15 of its radius at threat 1, and the radius rising monotonically;
+a strip of four PNG frames across one window is sent. `bun run check` proves
+the tests.
+
+## THE INSTAR — longer to arrive, and much slower between poses
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/content/src/instar-script-first.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/content/src/instar-script-breath.ts`, `packages/render/src/instar-flight.ts`
+
+The owner, 27 September 2026: *the introduction flying of THE INSTAR before
+the first action must last longer, so it can introduce itself to the players
+before they need to interact with it. The same between the state changes (its
+flying around): this must be much, much slower, otherwise it is too fast for
+players to recognise.* This is the simulation half; the depth of the flight
+is the entry after this one. Raise the first step's `morphBeats` (12, arrive
+`passes`) to at least 24. Raise every other step whose `arrive` is not `stay`
+(6 to 10 today) to at least 2.5 times its value. Check that
+`INSTAR_FLIGHT_ENDS` still gives the flight most of the longer morph. The
+wave grows longer: run the timing check in `.claude/skills/new-wave`, and give
+the new length in the commit. Replay hashes that move are the change itself;
+re-record them by the replay test's own command.
+
+Done when: the first morph is at least twice today's; every flying arrival
+is at least 2.5 times; `instar-flight.test.ts` and `instar-seams.test.ts`
+pass; the wave passes its timing check. `bun run check` proves it.
+
+## THE INSTAR — flies round in depth, not across
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Needs:** THE INSTAR — longer to arrive, and much slower between poses
+- **Files:** `packages/render/src/instar-flight.ts`, `packages/render/src/instar-place.ts`, `packages/render/test/instar-flight.test.ts`, `docs/spec/living-bosses.md`
+
+The owner, 27 September 2026: *it would be nice if the flying looks 3D: not
+just left to right out of the screen, but around, e.g. in the path of a
+circle, and more important to the back and again to the front, and so on, to
+create some depth feeling.* Today `passes` and `cross` leave the frame
+sideways. Replace them with an orbit in x and depth. The head flies an ellipse
+that goes far behind the field (small, dimmer, at `1 / z` as `approach`
+already scales) and sweeps back to the front (larger than at rest), one and
+a half to two laps before it settles into the pose. The body follows the
+head's path. It is always drawn under the ship and the hull.
+
+The serpentine candidate ("Living bosses — THE INSTAR's serpentine flight")
+travels along this path: whichever lands second composes with the other.
+This is a look the owner asked for by name.
+
+Done when: a test finds each flying arrival's scale below 0.5 and above
+1.1 of rest at least once, x staying within the field plus one head; `instar-seams.test.ts` finds no jump at the landing; a
+strip of one arrival is sent. `bun run check` proves the tests.
+
+## THE INSTAR — a shoot mark asks for one colour, or none
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-hash.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/render/src/instar-marks.ts`
+- **Asks:** Should each of THE INSTAR's shoot marks ask for one cannon colour and be drawn in it, or keep taking either colour?
+
+The owner, 27 September 2026, on the fourth act's tail (both seats, two
+marks, two bolts each): *it should have not just a red circle but a
+crosshair, and then also in the colour of the shot to take.* But every shoot
+mark takes either colour today (`instar-words.ts`: *bolts out of the top of
+the mark's column, either colour*), so there is no colour to draw. The
+options:
+**(a) one colour per mark.** The script names a colour, the simulation
+counts only bolts of it, and a wrong colour is refused the way a wrong seat
+is. The tail's two marks get one colour each, so both players fire. This is a
+rule change: a new field in the hash, the autopilot hand and the guide's
+words.
+**(b) either colour, drawn in both.** The crosshair is split into the two
+cannon colours.
+**(c) either colour, drawn in the ship's violet.** No rule changes.
+
+Wire the one he picks. For (a), a test proves that the wrong colour does not
+count and is refused. `bun run check` proves it.
+
+## THE INSTAR — a shoot mark is a crosshair
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-marks.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/test/instar-frame.test.ts`
+
+The owner, 27 September 2026: *is it correct I have to hit the tail? It's
+not clear. It should have not just a red circle, but a crosshair.* On a
+`shoot` mark, replace the ring with a crosshair: a ring with four ticks
+pointing in, and a gap at the centre so the part stays visible. The window
+ring still closes and the progress arc still fills. It is drawn in the
+ship's violet until the colour entry above is answered, then in whatever
+that answer says. `shield` and `suck` marks keep their rings. This is a look
+the owner asked for by name.
+
+Done when: the frame test finds the crosshair on the eye, egg, heart and
+tail shoot marks, and none on any other gesture. `bun run check` proves it.
+
+## THE INSTAR — the part to shoot glows red
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-heart.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/test/instar-budget.test.ts`
+
+The owner, 27 September 2026: *the element of the body to shoot must glow
+very red, so it can be understood as the fragile part of the boss to
+damage.* While a shoot mark's window is open, the part it names — the tail,
+the eyes, the eggs or the heart — glows a strong red along its own outline,
+pulsing on the beat, and the glow stops when that mark is done. Only that
+part glows. The whole-body red belongs to the hurt, and the two must not be
+confused. This is a look the owner asked for by name.
+
+Done when: a test finds, on each shoot step, the red glow drawn on that part
+and on no other; op count within the budget test's tolerance, or moved with
+a sentence. `bun run check` proves it.
+
+## THE INSTAR — every bolt that counts shows the hurt
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/boss-hurt.ts`, `packages/render/test/boss-hurt.test.ts`
+
+The owner, 27 September 2026: *when correctly hit, there must be a clear
+visual every time — the generic thing I asked for, that every time any boss
+takes damage it should shake and have the typical red damage lighting for a
+brief moment.* `BossHurt` (24 September) fires on *a sequence landed*: in
+`instar-fx.ts`, `hurt.hit()` is called on a landed step. A single bolt that
+counts (`instarAnswer` on a shoot mark) shows only the progress arc. Give
+`hit` a strength. On every `instarAnswer` of a shoot mark, call a lighter
+hit: half the shake, with the red at full strength on the part hit. A landed
+step keeps the full hit.
+
+Done when: a test finds each counted bolt starting a hurt, and a refused
+bolt or a miss starting none; `restart.test.ts` still passes. `bun run
+check` proves it.
+
+## Every other boss — every counted hit shows the hurt
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Needs:** THE INSTAR — every bolt that counts shows the hurt
+- **Files:** `packages/render/src/boss-hurt.ts`, `packages/render/test/boss-hurt-rows.ts`, `packages/render/test/boss-hurt-rows-b.ts`, `packages/render/test/boss-hurt.test.ts`
+
+The owner's rule from the entry above, given for *any boss*. The rows in
+`boss-hurt-rows*.ts` name the event on which each boss's hurt fires, and
+every one of them is a sequence landed. Add a column for the per-hit event.
+Where a boss's sequence counts several hits — a need above one, a crack, a
+chip, a turn — fire the lighter hit on each one. Where it counts only one,
+say so in the row. Table-driven, so this should fit one lane; split at the
+page if it does not.
+
+Done when: every row names its per-hit event or says it has none, and the
+test proves each of them fires. `bun run check` proves it.
+
+## VERSUS — adopt five: THE INSTAR's spit, eye, nest and hide, and COUNTDOWN's eye
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `tools/versus/candidates/registry.ts`, `tools/versus/DECIDED.md`, `packages/render/src/instar-spit.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/countdown-look.ts`
+
+The owner, 27 September 2026, picked five. `instar:spit baked` (*I prefer
+it more, bring it into the game*), `instar:eye baked` (*looks better, build it
+into the game*), `instar:nest baked`, `instar:hide baked` (*this effect is
+cooler and better*) and `countdown:eye drift` (*hard to see, but looks
+better, we can use it*). Take each with `bun run versus adopt <slot> <name>
+"<his words>"`. He took the nest on the condition that it costs no more, and
+`bun run sprite` on 27 September gave: nest +2.6 kB gzipped, 0.7 ms baked
+once, 74 µs a draw against the shipped 110 µs; eye +1.4 kB, 0.6 ms, 1.7 µs
+against 1.3 µs. Copy those figures into DECIDED.md. Update the frame and
+budget tests the adoptions move, with a sentence each.
+
+Done when: none of the five is left in the registry, and the frame and
+budget tests are green. `bun run check` proves it.
+
+## VERSUS — drop four the owner could not tell apart
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `tools/versus/candidates/registry.ts`, `tools/versus/DECIDED.md`, `tools/versus/candidates/ratchet-plate/sway/index.ts`, `tools/versus/candidates/instar-seam/baked/index.ts`, `tools/versus/candidates/creature-skin/drift/index.ts`, `tools/versus/candidates/creature-body-interior/drift/index.ts`
+
+The owner, 27 September 2026, on `ratchet-plate sway`, `instar:seam baked`,
+`creature:skin drift` and `creature:body-interior drift`: *I see no
+difference, you decide.* Decided: drop all four with `bun run versus drop`.
+A difference he cannot see at play size is code in the bundle for nothing.
+The rack is a machine on purpose (the plate sway's own header). The seam is
++1.0 kB for a joint drawn under the brood. The interior drift reaches only
+a box and a dart, which are too small to read. The reason for each goes in
+DECIDED.md.
+
+Done when: none of the four is left in the registry; `bun run check` is
+green.
+
+## VERSUS — THE INSTAR's wing is shown in a pose that hides it
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `tools/director/src/versus-pose.ts`, `tools/versus/candidates/instar-wing/baked/index.ts`
+
+The owner, 27 September 2026, on `instar:wing baked`: *I do not see a
+difference, maybe it needs to pull so I see the difference — so it's the
+wrong state showing to me?* It is: `SLOT_POSE` shows the slot at `INSTAR ·
+THE JAW HALF PULLED`, a face-on pose where the wings are folded or
+foreshortened, so the membrane the candidate paints is a few pixels. Point
+it at a pose with a wing spread across the field (the brood side-on, or the
+spread pose of the second act), check with `bun run versus:shot instar:wing
+baked` that the veins show, and send that one PNG so he can choose again.
+
+Done when: the slot opens on a pose with the membrane at full spread, and
+the PNG is sent. `bun run check` is green.
+
+## VERSUS — THE INSTAR's moult as a wound, then adopted
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-moult-baked.ts`, `packages/render/src/instar-moult.ts`, `tools/versus/candidates/instar-moult/baked/index.ts`, `tools/versus/DECIDED.md`
+
+The owner, 27 September 2026, on `instar:moult baked`: *this version is
+better but not so recognisable — can we make it more visible, then build it
+into the game? Maybe more like wounds and flesh and blood.* Repaint the tile
+so the split reads as raw flesh: deep reds, wet highlights, the old hide's
+torn edges curled back along the split, veins, and beads and runs of blood
+at the edges. Keep it under about 2 kB gzipped (`bun run sprite
+instar-moult`). Send one PNG at `INSTAR · BARE`. He asked for it to go into
+the game after that, so adopt it in the same lane with `bun run versus
+adopt`.
+
+Done when: the moult slot is adopted and out of the registry; the costs are
+in DECIDED.md; the frame test is green. `bun run check` proves it.
+
+## THE INSTAR — the bare pose bigger, and its heart seen round the mark
+
+- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Files:** `packages/render/src/instar-poses-second.ts`, `packages/render/src/instar-heart.ts`, `packages/render/src/instar-heart-baked.ts`, `packages/content/src/instar-script-second.ts`, `tools/versus/candidates/instar-heart/baked/index.ts`
+
+The owner, 27 September 2026, on `instar:heart baked`: *I do not see a
+difference, probably because the action circle is above the heart. I suggest
+making the body in this pose bigger and looking better, then we should also
+increase the heart, so we can see it although it sits behind the action
+circle.* The second act ends in the `bare` pose, with one shoot mark on the
+heart at 500/395. Scale the bare body up (about 1.25 times, whatever still
+leaves the hull and the fuse clear). Size the heart so it stands out at
+least a third of a mark radius beyond the ring on every side. Move the mark
+with the heart. The bigger body and heart are a look the owner asked for by
+name, so they go on the field. The baked heart stays a candidate, and is
+shown again at the new size with one PNG so he can choose.
+
+Done when: a test finds the heart's radius at least 1.33 times the mark
+ring's; the mark is still hit where it is drawn; the PNG is sent. `bun run
+check` proves the tests.
