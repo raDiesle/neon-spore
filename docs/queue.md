@@ -2877,6 +2877,7 @@ in DECIDED.md; the frame test is green. `bun run check` proves it.
 ## THE INSTAR — the bare pose bigger, and its heart seen round the mark
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-living-bosses-the-idle-drift-a-helper-that-draws (claim: claude/queue-the-instar-the-bare-pose-bigger-and-its-heart-se)
 - **Files:** `packages/render/src/instar-poses-second.ts`, `packages/render/src/instar-heart.ts`, `packages/render/src/instar-heart-baked.ts`, `packages/content/src/instar-script-second.ts`, `tools/versus/candidates/instar-heart/baked/index.ts`
 
 The owner, 27 September 2026, on `instar:heart baked`: *I do not see a
