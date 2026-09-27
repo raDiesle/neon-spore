@@ -2737,6 +2737,7 @@ tail shoot marks, and none on any other gesture. `bun run check` proves it.
 ## THE INSTAR — the part to shoot glows red
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-every-other-boss-every-counted-hit-shows-the-hur (claim: claude/queue-the-instar-the-part-to-shoot-glows-red)
 - **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-heart.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/test/instar-budget.test.ts`
 
 The owner, 27 September 2026: *the element of the body to shoot must glow
