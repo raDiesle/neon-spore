@@ -2404,6 +2404,7 @@ check` proves it.
 ## Every other boss — holds still while its marks are live, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-nettles-row-in-the-slows-aim-once-it-is-draw (claim: claude/queue-every-other-boss-holds-still-while-its-marks-are)
 - **Files:** `tools/director/test/boss-hush.test.ts`, `packages/render/src/slow-hush.ts`, `packages/render/src/boss-cue.ts`
 
 The same rule as THE INSTAR's, for every boss: in an open slow window with a
