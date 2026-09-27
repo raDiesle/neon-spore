@@ -27036,3 +27036,5 @@ step of these bosses opens THE SLOW.
 - landing: 5 min. `check:fast`, the index, the commit, `land`.
 
 Bottleneck: writing — the draw has to be held from the step's light so its beat is counted before the freeze runs out, and that is the one ordering that had to be got right.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

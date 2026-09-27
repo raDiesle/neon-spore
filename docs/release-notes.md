@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f14b19caa — AUTO plays THE BURGEE to the end
+
+THE BURGEE has an autopilot hand: the step's freezer taps the flag still the tick it swings over the lit column (the pilot on a recatch), and the other seat, its finger down on the draw since the step lit, swipes toward that column once the draw is counted and the flag is frozen; with the spindle lit, the cannon goes to the middle and fires the step's colour. BOTH plays the wave through with no flap, flutter or window run out.
+
 ## 2026-09-27 · cd5c1dd1e — THE DAVIT's hook, THE PLUMB's bob and THE SLING's tines swing, offered in VERSUS
 
 Three candidates, davit:hook, plumb:bob and sling:tine, each named swing, swing what hangs or hinges on the three machine bosses about its joint: the davit's chain and hook about the boom's tip, the plumb's bob on its hook, the sling's two tines on the crotch, out of step. The part drift's hand and arm rows, at their whole range: half is under three pixels, which is what THE TRIVET's dangle showed. Every step of these bosses opens THE SLOW, so the swing eases to a tenth on the part the window's mark is on and a third elsewhere. A look offered through VERSUS; nothing the game draws changes.
