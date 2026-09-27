@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ff5c0f1ea — The two cores inside a box and a dart drift, as a VERSUS candidate
+
+`creature:body-interior` / `drift` patches `BODY_LOOK`: the two dots every blob without an interior of its own draws now circle each other slowly and swell out of step, on rates none of the contour's terms use. It is judged on a new pose, `BODIES · THE TWO CORES`, a box and a dart. The entry named a count and a throb too, but both draw over their middle, and a frame of each was the same pixels shipped and patched; that is queued as its own entry. A look, offered through VERSUS and not landed on the field.
+
 ## 2026-09-27 · 59a47ecef — A docs/INDEX.md that names one file twice is refused by the replay and by push
 
 In `48ad4d936`, two rows for `boss-cue-read-zg.ts` reached `origin/main`. The INDEX.md resolver already refused the two sides that commit had, so the second row was let in by hand or by a clean git merge. Nothing asked afterwards. Now `namedTwice` is asked of the resolver's output, of the result of every replay (which puts the branch back where it was and stops), and of the trunk before `bun run push` sends it. The drift test asks it of the tree too. When the guard was first run, main still named three files twice, one of them with a row for THE PULSE's arrows that its file no longer draws. Those rows are gone.

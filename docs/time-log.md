@@ -25638,3 +25638,5 @@ the row had come in by hand, and every other gate had to be found.
 
 Bottleneck: looking — only a pair of pictures could show that two of the
 entry's three bodies cover the interior it proposed to move.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
