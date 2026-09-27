@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 3d054d425 — THE QUEEN, THE CAIRN and THE REPRISE lean on the idle drift, offered in VERSUS
+
+Three candidates, queen:shell, cairn:pile and reprise:sac, each named drift, give each body the outline tier's pose: the idle drift's roll as a lean about its root, the turn as a squash across it and a slide towards it, the pitch as a stretch up it. It is capped by reach, so no point of a body moves more than a fifth of a tile and every hit test keeps reading the rest pose; the queen, 3.7 tiles out to her torches, leans under 2 degrees. The reprise's tear, the field's own edge, stays put. It hushes to a tenth while THE SLOW is open. A look offered through VERSUS; nothing the game draws changes.
+
 ## 2026-09-27 · b473759a6 — The other six machine bosses have nothing left to swing
 
 THE VALVE's pins and THE HASP's spent half-shells already sway on their hinges; THE SCUTTLE's parts hang on threads too short for a swing to move them two pixels; THE RATCHET's pawl is sprung onto its teeth, and a loose one would say the lock is broken; THE SPOOL's line is taut and THE RIME is glass. Written into docs/spec/living-bosses.md §1; the queue entry is done.

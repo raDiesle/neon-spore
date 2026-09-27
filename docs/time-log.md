@@ -27065,3 +27065,5 @@ its swing could be measured as too small to see.
 
 Bottleneck: reading — every body past the first three had something pinned
 to the field under it, which is what split the six into three and six more.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
