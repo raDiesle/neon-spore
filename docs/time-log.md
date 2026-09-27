@@ -27212,3 +27212,5 @@ may move, which turned a finished look into a question for the owner.
 
 Bottleneck: writing — a body is four files and nine registrations, split
 here from its receipts and blow as THE GRINDSTONE's was.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

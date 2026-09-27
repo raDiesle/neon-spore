@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 4eba5beeb — THE FLUE is drawn: a slotted flue whose ember glides until it stops dead
+
+THE FLUE's body, the look's first part. THE CAIRN · PULLED laid in a row: seven soot units across the middle of the field with a slot cut along them. The ember is a warm-white glow that glides the slot with a smear, and the smear is gone the instant the ember steadies. A ring round the steadied ember is full for the tapper and faint for the still seat. Three studs light as a vent's taps land, and an end unit's notch lights as each vent is spent. The damper, the middle unit, drops clear of a core that is lit in a shot's colour. The receipts and its own blow at the hull are queued. Exemption: a look with no shipped alternative.
+
 ## 2026-09-27 · 67be62c1b — The bosses' parts can turn on their own joints; THE BULB QUEEN's are built and held still
 
 A part of an outline boss now turns about its own joint (`outline-parts.ts`), its tip half a tile at the widest, pairs drawn as exact mirrors. THE BULB QUEEN's wings swing on their hinges and her arms on their shoulders, the arm still once it straightens to let go (`queen-parts.ts`, `craneElbow`). They ship at 0: on a phone her parts at that size cannot be seen, because her torches hide the wings' ends and her claws are the drop's cue, so how far she moves is on the queue as a question for the owner. Nothing the game draws changes.
