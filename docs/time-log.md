@@ -27466,3 +27466,5 @@ transients it draws went into the fx file rather than beside the rest.
 Bottleneck: writing. Every place that reads the eye (grip, cues, rope,
 snap-back) had to be found and posed, or a thumb would land beside the eye
 the canvas drew.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

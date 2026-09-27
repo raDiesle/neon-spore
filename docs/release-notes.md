@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · e0af3ed2b — THE WARDEN rocks on its foot, and its eye is found where it is drawn
+
+The ring leans about the bottom, where the throat is cut for the shot and the rope: the foot stays within a fifth of a tile while the top of the ring leans more than half a tile either way. The grip on the eye, the cues written on it and the rope's anchor all follow the pose, so a thumb lands on the eye the canvas drew. The pose runs off the beat because a hit test has no frame time. Shipped straight onto the field under the exemption *a look with no shipped alternative*: the ring stood still before. The other five bosses from the same entry are queued as their own entry.
+
 ## 2026-09-27 · fc96bbc26 — THE VALVE's fx: the wheel clamps as it freezes, a pulled pin's slot flares, a wheel thrown off its mark kicks the drum, and the hull shudders as the spark lands
 
 `render/valve-fx.ts`, in `Effects` and cleared in `reset()`: a freeze and a pull are steps landed and deal the drum the blow every boss takes; a slip, a lapse or a thaw kicks it round; the spark landing and the face falling open shudder the plating, the second harder. The thirteen events get their bursts, and the spark is shot out where it had fallen to. Exemption: a look with no shipped alternative — the drum had no transients at all.
