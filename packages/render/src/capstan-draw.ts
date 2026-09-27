@@ -31,6 +31,7 @@ import {
   capstanFaceAt,
   capstanFaceWidth,
   capstanPivot,
+  capstanRoll,
   capstanSize,
   capstanSqueeze,
 } from "./capstan-shape.js";
@@ -41,8 +42,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
-// How far the cradle rolls at a full turn, in radians; the rattle's reach at a rattle of one, in tiles.
-const ROLL = 0.2;
+// The rattle's reach at a rattle of one, in tiles.
 const RATTLE = 0.03;
 // How faint the lean's mark is on a hold, which either horn answers.
 const EITHER = 0.5;
@@ -92,7 +92,7 @@ export function drawCapstan(
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - gone);
   // Spent, the drum lifts off its cradle as it goes.
   ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + pivot - gone * l.tile);
-  ctx.rotate(turn * ROLL);
+  ctx.rotate(capstanRoll(turn));
   ctx.translate(0, -pivot + fx.thud * l.tile);
   drawCradle(ctx, l);
   for (const side of SIDES) {

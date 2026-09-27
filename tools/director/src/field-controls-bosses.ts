@@ -2,6 +2,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
+import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { CYST_CONTROLS } from "./field-controls-cyst.js";
 import { DAVIT_CONTROLS } from "./field-controls-davit.js";
@@ -165,6 +166,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // order they land in (`field-controls-trivet.ts`).
   ...TRIVET_CONTROLS,
   ...HALTER_CONTROLS,
+  ...CAPSTAN_CONTROLS,
   // THE GRINDSTONE's flats and jaws, the first boss here that is **two spent
   // primitives on one body** — THE RIME's rub and THE TRIVET's chord
   // (`field-controls-grindstone.ts`).

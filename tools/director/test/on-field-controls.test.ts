@@ -434,9 +434,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
   halterChordLeft: "field",
   halterChordRight: "field",
-  // THE CAPSTAN: simulation lane only, no look yet.
+  // THE CAPSTAN's lean is the phone tilted, never a hand on the glass; its rub
+  // is either end of the drum, either seat's (`render/capstan-grip.ts`, §11.54).
   capstanLean: "unbuilt",
-  capstanRub: "unbuilt",
+  capstanRub: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

@@ -45,6 +45,8 @@ const POST = 0.45;
 /** The cap over the core, and the core, in tiles. */
 const CAP = 0.46;
 const CORE = 0.34;
+/** How far the cradle rolls at a full turn, in radians. */
+const ROLL = 0.2;
 /** How far the drum drops in from arriving, in tiles. */
 const DROP = 2;
 /** Points round one outline. */
@@ -70,6 +72,27 @@ export function capstanSize(l: Layout): { rx: number; ry: number } {
 /** How far below the drum's middle the cradle pivots: the foot of its post, in pixels. */
 export function capstanPivot(l: Layout): number {
   return (SADDLE + POST) * l.tile;
+}
+
+/** How far the cradle is rolled about its post's foot at a turn of `turn`, in radians. */
+export function capstanRoll(turn: number): number {
+  return turn * ROLL;
+}
+
+/**
+ * Point `p` of the drum, laid round its middle, where the canvas has it: the
+ * drum's middle at `at`, lifted `gone` of a tile as it goes, and rolled about
+ * the post's foot by the turn — the draw's own transforms, for a hit test
+ * and a word to stand where the drum is drawn. The rattle is left out; it is
+ * a hair and never still.
+ */
+export function capstanOnScreen(l: Layout, at: Point, gone: number, turn: number, p: Point): Point {
+  const pivot = capstanPivot(l);
+  const a = capstanRoll(turn);
+  const c = Math.cos(a);
+  const s = Math.sin(a);
+  const y = p.y - pivot;
+  return { x: at.x + c * p.x - s * y, y: at.y + pivot - gone * l.tile + s * p.x + c * y };
 }
 
 /** How much of its length the bar shows, turned `turn` of the way (either way round). */

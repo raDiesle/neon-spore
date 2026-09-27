@@ -20,6 +20,7 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
+import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
 import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
 import { DARK_LIGHT } from "./poses-field-controls-dark.js";
 import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
@@ -195,6 +196,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...VISE_GRIPS,
     ...TRIVET_GRIPS,
     ...HALTER_GRIPS,
+    ...CAPSTAN_GRIPS,
     ...GRINDSTONE_GRIPS,
     ...CYST_GRIPS,
     ...DAVIT_GRIPS,

@@ -10062,9 +10062,21 @@ the cap. A band worn bright, a hold made and a core hit are each a step
 landed, so each deals the drum the blow every boss takes — the shake and
 the red over the body (`boss-hurt.ts`); a reversal alone does not.
 
-**What is not built.** No touch sends `capstanRub` yet, and the field says
-no word; both can now be laid on the drawn face. The fourteen sounds are
-bound (`packages/audio/src/bind-capstan.ts`).
+**The rub's touch and the cue** (`render/src/capstan-grip.ts`,
+`boss-cue-read-zl.ts`, 27 September 2026). A press on either end of the
+drum, on either seat's screen, takes a rub on `capstanRub` — THE
+GRINDSTONE's flat, its reversals counted by the host (`rub.ts`) — and the
+hit test reads the drum where `capstan-draw.ts` puts it: dropped in, lifted
+away and rolled in its cradle by the lean (`capstanOnScreen`). Either end,
+because which seat wears is the step's and which face is bared is the other
+seat's lean: a thumb on the end not yet round rubs nothing until the lean
+brings it there. The field says **`LEAN`** at the horn the band asks toward,
+to the seat that steers, until that face is round; then **`RUB`** on it, to
+the other seat. On a hold `LEAN` stands on the drum's middle for both until
+somebody leans, then `RUB` goes to the seat that is not leaning; and
+**`FIRE`** under the middle column on a bared core. The ON THE FIELD tab
+has THE CAPSTAN'S RUB, and the lean no row: nothing on the glass answers
+it. The fourteen sounds are bound (`packages/audio/src/bind-capstan.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/capstan.test.ts`): the drum comes in rusted with the core

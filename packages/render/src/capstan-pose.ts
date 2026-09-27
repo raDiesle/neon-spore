@@ -72,7 +72,7 @@ export function capstanLeft(s: CapstanState, beat: number, beatPhase: number): n
  * right, one at the mark and past it — the steering seat's lean, or with
  * nobody steering, whichever phone is leaning further.
  */
-export function capstanTurn(world: World, s: CapstanState): number {
+export function capstanTurn(world: Pick<World, "cfg">, s: CapstanState): number {
   if (s.phase === "open") return 0;
   const lean = Math.max(1, world.cfg.capstanLeanMilli);
   const steer = capstanSteerer(world, s);

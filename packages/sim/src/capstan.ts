@@ -127,7 +127,7 @@ export function capstanLeanFace(tiltMilli: number, leanMilli: number): 0 | 1 | n
  * the navigator on the right; on a hold, whichever seat leans past the mark,
  * the pilot first. Null on a shot, between steps, or on a hold nobody leans.
  */
-export function capstanSteerer(world: World, s: CapstanState): 1 | 2 | null {
+export function capstanSteerer(world: Pick<World, "cfg">, s: CapstanState): 1 | 2 | null {
   const ask = capstanLitStep(s)?.ask;
   if (ask === "left") return 1;
   if (ask === "right") return 2;
@@ -140,13 +140,13 @@ export function capstanSteerer(world: World, s: CapstanState): 1 | 2 | null {
 }
 
 /** The seat whose thumb the lit step wears with: never the one steering. */
-export function capstanWearer(world: World, s: CapstanState): 1 | 2 | null {
+export function capstanWearer(world: Pick<World, "cfg">, s: CapstanState): 1 | 2 | null {
   const steer = capstanSteerer(world, s);
   return steer === null ? null : steer === 1 ? 2 : 1;
 }
 
 /** The face the cradle bares this instant, by the steering seat's lean; null when centred. */
-export function capstanFace(world: World, s: CapstanState): 0 | 1 | null {
+export function capstanFace(world: Pick<World, "cfg">, s: CapstanState): 0 | 1 | null {
   const steer = capstanSteerer(world, s);
   if (steer === null) return null;
   return capstanLeanFace(s.tiltMilli[capstanSeatIndex(steer)], world.cfg.capstanLeanMilli);

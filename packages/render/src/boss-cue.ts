@@ -33,6 +33,7 @@ import { trivetCues } from "./boss-cue-read-zh.js";
 import { cystCues } from "./boss-cue-read-zi.js";
 import { grindstoneCues } from "./boss-cue-read-zj.js";
 import { halterCues } from "./boss-cue-read-zk.js";
+import { capstanCues } from "./boss-cue-read-zl.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -193,6 +194,9 @@ function bossCues(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): 
     // And THE HALTER's, a word between the lit grips to the seat that grips, gone once it is held, nothing to the rester, and one under the bared centre (`boss-cue-read-zk.ts`).
     case "halter":
       return halterCues(l, world, boss, beatPhase);
+    // And THE CAPSTAN's, a lean to the seat that steers until the band is round, a rub to the other on the bared face, and one under the bared core (`boss-cue-read-zl.ts`).
+    case "capstan":
+      return capstanCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

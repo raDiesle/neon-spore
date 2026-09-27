@@ -895,24 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §37 THE CAPSTAN — the rub's touch and the cue
-
-- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the
-- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-blow-and-the-receipts (claim: claude/queue-37-the-capstan-the-rubs-touch-and-the-cue)
-- **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/on-field-controls.test.ts`
-
-The lean goes out and AUTO plays the wave (§11.54, *The lean, and AUTO*);
-the drum is on the screen (§11.54, *The look*). A press on the bared face's
-band, on either seat's screen, takes a rub (`rubFinger`, `rub.ts`, THE
-GRINDSTONE's flat) on `capstanRub` — the hit test reading the drum and the
-cradle's rock where `capstan-draw.ts` draws them (`capstanFaceAt`, `capstanFaceWidth`, `capstanPivot`), in a new capstan-grip.ts, the way `grindstone-grip.ts` reads
-the wheel. The cue says `LEAN` to the seat the step steers with and `RUB`
-to the other (on a hold, to whichever seat is leaning, then the other), and
-`FIRE` under a bared core; its own `boss-cue-read-*.ts` page, as THE
-HALTER's is. `on-field-controls.test.ts` marks `capstanRub` on the field.
-`bun run check` proves it; how a rub under a rocking drum feels stays
-unverified until the owner holds two phones.
-
 ## §38 THE GALL — the simulation lane
 
 - **Found:** 2026-09-26, this session

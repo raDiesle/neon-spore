@@ -7,6 +7,7 @@ import {
   OUTER,
   type World,
 } from "@neon-spore/sim";
+import { capstanRubStanding, capstanTakesHand } from "./capstan-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { cystStanding } from "./cyst-grip.js";
 import { davitLooseCircle } from "./davit-grip.js";
@@ -208,6 +209,13 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "davit" ? world.boss : null;
     if (b === null) return null;
     return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);
+  }
+  if (target === "capstanRub") {
+    // THE CAPSTAN's bared face, or the one the lit band asks for, where the
+    // cradle rocks it this frame. Null once the drum is spent (`capstan-grip.ts`).
+    const b = world.boss?.kind === "capstan" ? world.boss : null;
+    if (b === null || !capstanTakesHand(b)) return null;
+    return capstanRubStanding(l, cfg, b, world.beat, beatPhase);
   }
   return undefined;
 }

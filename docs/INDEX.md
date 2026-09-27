@@ -1057,6 +1057,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zi.ts` | **What THE CYST is asking for** — page thirty-five of the readings |
 | `packages/render/src/boss-cue-read-zj.ts` | **What THE GRINDSTONE is asking for** — page thirty-six of the readings |
 | `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
+| `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1505,6 +1506,7 @@ by hand never moves.
 | `packages/render/src/capstan-shape.ts` | **THE CAPSTAN's geometry**: GATE's bar and BEARING RING's faces, the yaw, the cradle |
 | `packages/render/src/capstan-blow.ts` | **THE CAPSTAN's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/capstan-fx.ts` | What THE CAPSTAN leaves behind a frame (§11.54): the **scrub** of a reversal worn into a band |
+| `packages/render/src/capstan-grip.ts` | **The bands on THE CAPSTAN** — the hands lane that makes the drum answer a thumb at all (§11.54 |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-boss-hand.ts` | The ghost hand on a clock boss's own handle, on either seat |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
@@ -2567,6 +2569,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
+| `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's phone tipped over so its face is round |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -3042,6 +3045,7 @@ by hand never moves.
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-cyst.ts` | THE CYST's freeze marks and flanks, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-capstan.ts` | THE CAPSTAN's rub, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |

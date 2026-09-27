@@ -26014,3 +26014,19 @@ Bottleneck: looking — the fill was equal from the first run and only the
 stroke's closing join told the two rings apart.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CAPSTAN's drum takes a rub on either end, and the field says LEAN, RUB and FIRE
+
+- reading: 5 min. THE GRINDSTONE's and THE HALTER's grips and cue pages,
+  and the capstan's hand rules, re-read after a compaction.
+- writing: 10 min. `capstan-grip.ts`, the drum's point on the screen,
+  `boss-cue-read-zl.ts`, the director's row and pose, the two tests, the
+  controls table, §11.54 and the ledger.
+- looking: 0 min. Nothing drawn changed; the word and the hit test are
+  proved by the tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the director's ON THE FIELD tab wanted a row, a pose and a line
+in `controls.md` that the queue entry never named — three files found by the
+test failing, not by reading.
