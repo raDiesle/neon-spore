@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · c4769bfec — An unverified item read on two phones is queued PHONE ONLY too
+
+`bun run land --unverified` wrote `- **Where:** phone` for "real phone", "real thumbs" and "on glass", but not for words read "on two phones", "on a phone" or "on real phones". Six such entries sat unmarked, and `next` kept handing them to lanes that could only give them back. The pattern now knows those words, and the six entries are marked. "At tempo" on its own is still anybody's, as the queue's preamble keeps it. So is an item saying what a phone cannot do yet, such as a missing touch sender, because that is code to write.
+
 ## 2026-09-27 · d9382f6df — THE CYST and THE FILAMENT put no mark up before its window opens
 
 THE CYST no longer keeps a dim ring and dot beside each flank at rest; a freeze mark stands only by the flank its lit step names. THE FILAMENT no longer pulses a ring up on the free end while it arms, when nothing touched there is heard; its READY or NEXT word still names the round, and the ring appears when the trace opens. THE BURGEE, THE CAPSTAN, THE DAVIT and THE FLEET were read and put up nothing early; THE FLEET's row is its grip on the wound, since its marks file asks nothing. All six have rows in the shared marks-window test, now split into a kit and two row files. THE BURGEE's and THE CYST's fire marks are held to their windows but cannot yet be required to be seen, because AUTO has no hand for either; the hand entries in the queue say to drop that exception. Six bosses are left.
