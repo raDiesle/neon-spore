@@ -2628,6 +2628,7 @@ stopping. A look: offered through VERSUS.
 ## THE GRINDSTONE's wheel has no secondary motion of its own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-27, claude/queue-the-ratchets-spent-plates-have-no-secondary-moti (claim: claude/queue-the-grindstones-wheel-has-no-secondary-motion-of)
 - **Files:** `packages/render/src/grindstone-draw.ts`, `packages/render/src/grindstone-shape.ts`
 
 From the secondary-motion audit. Outside the beat pulses in
