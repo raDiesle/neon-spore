@@ -117,7 +117,12 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   stones rock, each on the ones under it (`cairn-rock.ts`): its top half a
   tile from its seat, what stands on it riding along, so the apex wanders
   four fifths of a tile; every mark on a stone reads `cairnUnits` and follows.
-  THE REPRISE's parts and the surface marks are their own entry.
+  THE REPRISE's two cords swing about their roots on the sac as a mirror
+  pair, their ends walking half a tile along the top of the screen, and its
+  eye — the lens and its ring of eggs — glances half a tile about inside the
+  sac, home in the middle whenever an echo plays, where the navigator's word
+  and the beam stand (`reprise-parts.ts`). The surface marks wait for an
+  outline body that turns (`docs/queue.md`).
 
 ### Every part moves on its own
 

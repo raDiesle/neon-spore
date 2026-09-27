@@ -1,8 +1,10 @@
 import { blobRadiusMul, type Point } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
+import type { PartAngles } from "./idle-drift-parts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { swungCord } from "./reprise-parts.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -18,7 +20,7 @@ import { splinePath } from "./spline.js";
  * narrow at the top* — pushed down through THE BREACH's tear, which is the
  * shape it had and which it keeps, so the silhouette still says *the wave
  * went up there and comes back out of it*. Two cords hang it from the top of
- * the screen; the eye and the count are drawn into it by `reprise-lens.ts` and
+ * the screen, and swing (`reprise-parts.ts`); the eye and the count are drawn into it by `reprise-lens.ts` and
  * `reprise-brood.ts`.
  *
  * **Focus is a halo and, while it plays, a beam.** A soft light stands behind
@@ -104,19 +106,20 @@ function sacPoints(f: RepriseFrame, clench: number, t: number): Point[] {
   return pts;
 }
 
-/** The two cords it hangs from, up to the top of the screen. */
-function drawCords(ctx: CanvasRenderingContext2D, f: RepriseFrame, t: number): void {
-  for (const side of [-1, 1]) {
-    const root = { x: f.x + side * f.rx * 0.42, y: f.cy - f.ry * 0.8 };
-    const sway = Math.sin(t * 0.7 + side) * f.u * 0.08;
+/** The two cords it hangs from, up to the top of the screen, each swung
+ * about its root by `swing` and the left mirrored (`reprise-parts.ts`). */
+function drawCords(
+  ctx: CanvasRenderingContext2D,
+  f: RepriseFrame,
+  t: number,
+  swing: PartAngles,
+): void {
+  for (const side of [-1, 1] as const) {
+    const [root, bend, end, past] = swungCord(f, side, t, swing) as [Point, Point, Point, Point];
     const cord = new Path2D();
     cord.moveTo(root.x, root.y);
-    cord.quadraticCurveTo(
-      root.x + side * f.u * 0.5 + sway,
-      root.y - f.u,
-      root.x + side * f.u * 0.9,
-      0,
-    );
+    cord.quadraticCurveTo(bend.x, bend.y, end.x, end.y);
+    cord.lineTo(past.x, past.y);
     ctx.lineCap = "round";
     ctx.lineWidth = f.u * 0.16;
     ctx.strokeStyle = rgba(PALETTE.rockDark, 0.95);
@@ -132,8 +135,9 @@ export function drawSac(
   playing: boolean,
   clench: number,
   t: number,
+  swing: PartAngles,
 ): Path2D {
-  drawCords(ctx, f, t);
+  drawCords(ctx, f, t, swing);
   const sac = splinePath(sacPoints(f, clench, t), true);
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;

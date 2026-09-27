@@ -40,6 +40,9 @@ export class RepriseFx {
   /** The phase and count this pass last saw. `undefined` until the first
    * frame, so the first frame of a wave flips without laying anything. */
   private phase: ReprisePhase | undefined = undefined;
+  /** The phase before the last flip, for the eye's way back out of an echo
+   * (`eyeFreedom`). */
+  private from: ReprisePhase | undefined = undefined;
   private eggs = 0;
   private left = 0;
   private flipped = Number.NEGATIVE_INFINITY;
@@ -59,6 +62,11 @@ export class RepriseFx {
     return time - this.flipped;
   }
 
+  /** The phase before the last flip; `undefined` before any. */
+  get before(): ReprisePhase | undefined {
+    return this.from;
+  }
+
   /** Seconds since a body was last recorded, at `time`. */
   sinceTake(time: number): number {
     return time - this.took;
@@ -75,6 +83,7 @@ export class RepriseFx {
     const was = this.phase;
     if (was !== phase) {
       if (was !== undefined) this.flipped = time;
+      this.from = was;
       if (phase === "play" || was === "play") this.left = SWALLOW;
     } else if (phase === "play" && eggs < this.eggs) this.left = SWALLOW;
     else if (phase === "rec" && eggs > this.eggs) this.took = time;
@@ -88,6 +97,7 @@ export class RepriseFx {
 
   clear(): void {
     this.phase = undefined;
+    this.from = undefined;
     this.eggs = 0;
     this.left = 0;
     this.flipped = Number.NEGATIVE_INFINITY;

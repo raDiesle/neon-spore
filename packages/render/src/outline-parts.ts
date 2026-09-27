@@ -40,7 +40,7 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * moving them further runs into her drop cue (`docs/queue.md`, "THE BULB
  * QUEEN's parts: how far").
  */
-export const OUTLINE_PARTS: Record<OutlineBoss, number> = { queen: 0, cairn: 1, reprise: 0 };
+export const OUTLINE_PARTS: Record<OutlineBoss, number> = { queen: 0, cairn: 1, reprise: 1 };
 
 export const PART = {
   /** How far a part's own wander moves its tip at its widest, in tiles: more than twice the body's fifth, which the owner could not see. */

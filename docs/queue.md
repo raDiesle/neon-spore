@@ -2294,24 +2294,23 @@ beat, beatPhase)` in its own small file, called from each, and a row in
 `copies-table.ts` so the twelfth boss calls it rather than writing it,
 as `coreHurt` was gathered. `bun run check` proves it.
 
-## Living bosses — THE REPRISE's parts, and the surface marks
+## Living bosses — the surface marks by longitude, once an outline body turns
 
-- **Found:** 2026-09-27, claude/queue-cairn-reprise-parts
-- **Taken:** 2026-09-27, claude/queue-frames-time (claim: claude/queue-living-bosses-the-reprises-parts-and-the-surface)
-- **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-lens.ts`, `packages/content/src/surface.ts`
+- **Found:** 2026-09-27, claude/queue-reprise-parts
+- **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
+- **Needs:** Living bosses — the outline drift for the next six, the warden to the taster
 
-What is left of the outline tier's parts once THE CAIRN's stones rock
-(`cairn-rock.ts`, the worked example for a body made of parts). The helper is
-on `main`: `partOn` gives a part's angles scaled so its tip moves `PART.tip`
-(half a tile), `partMatrix`/`partPoint` turn a point about its joint, and
-`OUTLINE_PARTS` holds each boss's share. THE REPRISE's two cords and its lens
-eye move far enough to be seen (`docs/looks.md`, *Big enough to be seen*),
-the cords an exact mirror, with any mark on a moving part taking its place
-from the same function the drawer does, the way the cairn's settle ring does.
-Then the surface marks, by longitude through `pin`/`facet`, the same size
-rule. At most eight moving parts a boss.
+Split off "THE REPRISE's parts, and the surface marks" when its parts
+landed. A surface mark placed with `pin`/`facet` moves only when its body
+turns, and no outline body turns today: `OUTLINE_DRIFT` is 0 for all three
+slots, dropped as too small to see. So there is nothing for a mark to follow
+until an outline pose large enough to see ships with its hit tests following
+it, which the entry this needs is the first to do. Then place the marks that
+sit on an outline body's skin — THE REPRISE's veins and gloss, the queen's
+marks on her shell — by longitude through `pin`/`facet`, so a turn carries
+them round and one goes behind the rim; the same size rule, and a hit test
+on a mark follows it.
 
-Done when: the parts test's out-of-step and speed checks run on THE REPRISE's
-parts, a mark on a moving part follows it, two stills at the widest moment
-tell apart on a phone, and the op-count rows stay within 10%.
-`bun run check` proves it.
+Done when: a test turns one body and shows each of its surface marks moving
+by its longitude and hidden past the rim, the op-count rows stay within 10%,
+and `bun run check` is green.

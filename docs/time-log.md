@@ -27308,3 +27308,18 @@ Bottleneck: friction — a mark that moves by jumps only shows as one once a
 hand plays the whole wave.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE REPRISE's cords swing and its eye glances about
+
+- reading: 10 min. The sac, the lens, the egg ring and the navigator's word
+  on the lens, to find what a moving eye would leave behind.
+- writing: 15 min. `reprise-parts.ts`, the phase before a flip in the
+  effects, the drawers' two calls, the test.
+- looking: 10 min. The widest moment found by a probe, then `bun run frames
+  --time` at it.
+- friction: 5 min. An import sort and the index row.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the eye carries the count and stands under the
+navigator's word, and both had to be traced before it could move at all.
+

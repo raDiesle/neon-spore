@@ -1878,6 +1878,7 @@ by hand never moves.
 | `packages/render/src/reprise-body.ts` | THE REPRISE's body: THE WEIGHT's sac hung through the tear on two cords, a halo that pulses on the beat, and the beam while an echo plays |
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
+| `packages/render/src/reprise-parts.ts` | THE REPRISE's parts — the outline tier's (`outline-parts.ts`) on the sac |
 | `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the third gesture a host has to keep count of |
 | `packages/render/src/rub-turns.ts` | Where it went down, and the way it is rubbing once it has gone far enough to say |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |

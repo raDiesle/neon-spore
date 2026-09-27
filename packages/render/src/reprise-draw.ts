@@ -9,6 +9,7 @@ import { drawBrood } from "./reprise-brood.js";
 import { drawTearLip } from "./reprise-flesh.js";
 import type { RepriseFx, ReprisePhase } from "./reprise-fx.js";
 import { drawLens } from "./reprise-lens.js";
+import { cordSwing, eyeFreedom, repriseEye } from "./reprise-parts.js";
 import type { Box } from "./slow-fuse-place.js";
 import { splinePath } from "./spline.js";
 
@@ -29,6 +30,8 @@ import { splinePath } from "./spline.js";
  *   hardest to hold. The one red is the camera's dot, lit for every body alike.
  * - **No column.** It hangs dead centre and does not move sideways for
  *   anything, and the beam it plays back through is the whole field wide.
+ *   Its eye glances about inside it (`reprise-parts.ts`), and is home in the
+ *   middle whenever an echo plays.
  *
  * The shape is THE WEIGHT (`tools/shape-sheet/src/drafts/bosses.ts`, *a sac
  * hung heavy*) pushed through THE BREACH's tear, which is what this boss was
@@ -84,8 +87,9 @@ export function repriseBox(l: Layout, cfg: SimConfig): Box {
  * `vane-grip.ts`'s arrangement for `vaneBearingY` and for its reason: a mark
  * worked out twice is a mark standing where the picture is not. The place is
  * the *rest* pose deliberately and does not take the swallow, because a cue is
- * a reading of `World` and never of `Effects`. It does not move sideways for
- * anything, which is the whole reason a word may stand here at all. The name
+ * a reading of `World` and never of `Effects`. The eye glances about between
+ * echoes, and is back here before the word appears, which only an echo shows
+ * (`eyeFreedom`): that is the whole reason a word may stand here at all. The name
  * is the tear's still, since the lens hangs in it.
  */
 export function repriseTearCenter(l: Layout, cfg: SimConfig): { x: number; y: number } {
@@ -154,10 +158,14 @@ export function drawReprise(
   // the field's own edge, does not (`outline-drift.ts`).
   const root = { x: f.x, y: f.y0 };
   const pose = outlinePose("reprise", d.time, d.hush, repriseReach(f), l.tile);
+  // The cords swing and the eye looks about, and every mark on the eye is
+  // drawn where it has looked to (`reprise-parts.ts`).
+  const eye = repriseEye(f, l.tile, d.time, d.hush, eyeFreedom(d.phase, d.fx.before, flip));
+  const looked = { ...f, x: eye.x, cy: eye.y };
   withOutlinePose(ctx, pose, root, () => {
-    drawSac(ctx, f, playing, swallow, d.time);
-    drawLens(ctx, f, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
-    drawBrood(ctx, f, {
+    drawSac(ctx, f, playing, swallow, d.time, cordSwing(f, l.tile, d.time, d.hush));
+    drawLens(ctx, looked, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
+    drawBrood(ctx, looked, {
       phase: d.phase,
       eggs: d.eggs,
       standing: d.standing,
