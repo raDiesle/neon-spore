@@ -808,6 +808,7 @@ unverified at tempo until the owner has looked.
 ## §43 THE GOVERNOR — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-42-the-sluice-the-simulation-lane (claim: claude/queue-43-the-governor-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
 
 No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
