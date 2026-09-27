@@ -41,7 +41,7 @@ function rubbing(side: 0 | 1): () => World {
     const target = side === 0 ? "grindFlatLeft" : "grindFlatRight";
     const player = side === 0 ? 1 : 2;
     const turns: TimedCommand[] = [1, 2, 3, 4, 5].map((id) => ({
-      tick: t + ((id - 1) * TPB) / RUBS_PER_BEAT,
+      tick: t + Math.round(((id - 1) * TPB) / RUBS_PER_BEAT),
       player,
       command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id },
     }));

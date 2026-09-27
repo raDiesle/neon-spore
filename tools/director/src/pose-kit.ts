@@ -143,10 +143,21 @@ export function fresh(
   return world;
 }
 
-/** Run `ticks` ticks, sending each command on the tick it is listed for. */
+/**
+ * Run `ticks` ticks, sending each command on the tick it is listed for.
+ *
+ * **A tick that is not a whole number is refused.** `POSE_TPB` is 75, so a
+ * quarter-beat is 18.75, and a command listed there was never sent — silently:
+ * THE CYST's tap lift did not happen and THE GRINDSTONE's rubs only looked
+ * right because a reversal count that jumps shaves the same (27 September 2026).
+ */
 export function run(world: World, ticks: number, cmds: TimedCommand[] = []): void {
   const byTick = new Map<number, TimedCommand[]>();
-  for (const c of cmds) byTick.set(c.tick, [...(byTick.get(c.tick) ?? []), c]);
+  for (const c of cmds) {
+    if (!Number.isInteger(c.tick))
+      throw new Error(`a pose command on tick ${c.tick} is never sent`);
+    byTick.set(c.tick, [...(byTick.get(c.tick) ?? []), c]);
+  }
   const stop = world.tick + ticks;
   while (world.tick < stop) step(world, byTick.get(world.tick) ?? []);
 }
