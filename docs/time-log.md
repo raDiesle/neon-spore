@@ -25933,3 +25933,5 @@ prism, so a clean picture of the body had to wait for a fire step.
 
 Bottleneck: reading — whether a lobe of a translucent mass can be filled on
 its own without a seam, and it cannot, so the piece is laid into one outline.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
