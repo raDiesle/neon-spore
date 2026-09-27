@@ -1,29 +1,11 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  createWorld,
-  type InstarState,
-  instarBoss,
-  NO_BEARING,
-  NOT_DONE,
-  type SimEvent,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { type InstarState, instarBoss, type SimEvent, step, type World } from "@neon-spore/sim";
 import { GripVerdicts, VERDICT_SECONDS } from "../src/grip-verdict.js";
 import { rgba } from "../src/hex.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  ROLES,
-  runFrames,
-  waveWith,
-} from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
+import { asking, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -39,24 +21,11 @@ beforeAll(() => {
   installCanvasGlobals();
 });
 
-const TPB = ticksPerBeat(CFG);
-
 /** The gape's marks up — one of each seat's — the window just opened; or
  * step `at`'s. */
 function acting(at = 0): World {
-  const world = createWorld(CFG, 3);
-  const index = waveWith("instar");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  const s = instarBoss(world) as InstarState;
-  s.cursor = at;
-  s.phase = "act";
-  s.phaseBeat = world.beat;
-  const n = s.steps[at]?.marks.length ?? 0;
-  s.progress = Array.from({ length: n }, () => 0);
-  s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
-  s.ref = Array.from({ length: n }, () => NO_BEARING);
-  s.thumbs = Array.from({ length: n }, () => 0);
+  const world = hung();
+  asking(world, at);
   return world;
 }
 

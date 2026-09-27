@@ -26509,3 +26509,16 @@ Bottleneck: reading — finding that the cue is a word's anchor and not always
 the ring's place took longer than writing the test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's marks are up only while the window and THE SLOW are open
+
+- reading: 5 min. `instar-marks.ts`, where `instar-step.ts` opens and shuts
+  the slow, and a probe to see what a strike leaves behind.
+- writing: 5 min. The morph's ring out, `instarMarksUp`, `asking` in the
+  kit, and the test that plays every step.
+- looking: 0 min. A mark taken away before its window; nothing new drawn.
+- friction: 0 min.
+- landing: 5 min. The gate broken twice to see the test bite, `check:fast`.
+
+Bottleneck: reading — whether a window can be open with the slow shut
+needed a probe: after a strike the step stays `act` on the frozen field.

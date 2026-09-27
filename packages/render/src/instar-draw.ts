@@ -10,7 +10,7 @@ import { instarAt, instarFarEnd, instarHeadAt } from "./instar-place.js";
 import type { Look } from "./instar-plate.js";
 import { drawProfile } from "./instar-profile.js";
 import { frontReach, onField, profileReach } from "./instar-reach.js";
-import { instarFade, instarMorphAt, instarThreat } from "./instar-shape.js";
+import { instarFade, instarThreat } from "./instar-shape.js";
 import { drawInstarSpit } from "./instar-spit.js";
 import { instarBody } from "./instar-sway.js";
 import { instarHandover, instarNeck, instarTurn } from "./instar-turn.js";
@@ -39,9 +39,10 @@ import { tubesAt } from "./solid-tube-screen.js";
  * eyes and fades over `instarOutBeats`.
  *
  * **The flight is a transform, and it is over before the marks are.** The
- * marks are drawn at the script's places outside it, and they only grow in
- * over the last of the morph, after the flight ends (`INSTAR_FLIGHT_ENDS`),
- * so the thumb never meets a mark the body is somewhere else than.
+ * marks are drawn at the script's places outside it, and only once the
+ * window has opened (`instar-marks.ts` `instarMarksUp`), long after the
+ * flight ends (`INSTAR_FLIGHT_ENDS`), so the thumb never meets a mark the
+ * body is somewhere else than.
  *
  * **Both screens see the same body.** This is the one boss whose split is
  * not in the eyes but in the hands: what a seat is told is which of the
@@ -62,7 +63,6 @@ export function drawInstar(
   const fade = instarFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
   const { f, sway } = instarBody(s, cfg, world, beat, beatPhase, fx.held);
-  const morph = instarMorphAt(s, beat, beatPhase);
   const threat = instarThreat(s, beat, beatPhase);
   // What the body shows of it ebbs over a landing from where the window left it.
   const shown = s.phase === "land" ? fx.held * instarEbb(s, beat, beatPhase) : threat;
@@ -125,5 +125,5 @@ export function drawInstar(
   drawInstarHeart(ctx, l, cfg, s, f, sway, beatPhase, fade, weak.heart);
   drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
-  drawInstarMarks(ctx, l, s, cfg, sway, beat, beatPhase, time, morph, l.role, fx.verdicts);
+  drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, fx.verdicts);
 }

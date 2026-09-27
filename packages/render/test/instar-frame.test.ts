@@ -14,7 +14,7 @@ import {
   runFrames,
   VIEWPORT,
 } from "./frame-harness.js";
-import { acting, hung } from "./instar-kit.js";
+import { acting, asking, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -56,7 +56,7 @@ function morphing(world: World, cursor = 0): InstarState {
 
 /** The first step's first mark half pulled under the pilot's thumb. */
 function pulled(world: World): InstarState {
-  const s = acting(world, 0);
+  const s = asking(world, 0);
   const need = s.steps[0]?.marks[0]?.need ?? 2;
   s.progress[0] = Math.floor(need / 2);
   s.thumbs[0] = 1;
@@ -65,7 +65,7 @@ function pulled(world: World): InstarState {
 
 /** The first step's first mark done, its partner not. */
 function halfDone(world: World): InstarState {
-  const s = acting(world, 0);
+  const s = asking(world, 0);
   s.progress[0] = s.steps[0]?.marks[0]?.need ?? 1;
   s.doneBeat[0] = world.beat;
   return s;
@@ -117,7 +117,7 @@ describe("THE INSTAR's body", () => {
   it.each(ROLES)("draws every pose mid-morph and acting on %s", (role) => {
     for (const cursor of STEPS) {
       const morph = frame(role, (w) => morphing(w, cursor));
-      const act = frame(role, (w) => acting(w, cursor));
+      const act = frame(role, (w) => asking(w, cursor));
       expect(morph.calls).toBeGreaterThan(200);
       // Mid-turn both views are drawn, each at its share of the turn, so the
       // hide is counted in the sheen at any opacity.
@@ -128,14 +128,14 @@ describe("THE INSTAR's body", () => {
   });
 
   it.each(ROLES)("puts the marks up only while the window is open, on %s", (role) => {
-    const act = frame(role, (w) => acting(w, 0));
+    const act = frame(role, (w) => asking(w, 0));
     const morph = frame(role, (w) => {
       const s = morphing(w, 0);
-      // Early in the morph, before the anticipation glows up.
-      s.phaseBeat = w.beat;
+      // The last of the morph, where a faint ring used to glow up.
+      s.phaseBeat = w.beat - Math.floor((s.steps[0]?.morphBeats ?? 1) * 0.9);
     });
     const gone = frame(role, (w) => {
-      const s = acting(w, 0);
+      const s = asking(w, 0);
       s.phase = "land";
     });
     expect(count(act.text, PALETTE.red)).toBeGreaterThan(count(morph.text, PALETTE.red));
@@ -153,7 +153,7 @@ describe("THE INSTAR's body", () => {
     // seat for more — the fire tapped out between the bites, the third bite's
     // tap and pull — is brighter on that seat's screen.
     for (const cursor of STEPS) {
-      const at = (role: ViewRole) => frame(role, (w) => acting(w, cursor));
+      const at = (role: ViewRole) => frame(role, (w) => asking(w, cursor));
       const marks = INSTAR_SCRIPT[cursor]?.marks ?? [];
       const ask = (seat: string) => marks.filter((m) => m.seat === seat).length;
       const bright = (role: ViewRole) => count(at(role).text, PALETTE.text);
@@ -172,7 +172,7 @@ describe("THE INSTAR's body", () => {
     (part) => {
       const run = (strike: boolean): number => {
         const world = hung();
-        acting(
+        asking(
           world,
           INSTAR_SCRIPT.findIndex((s) => s.marks.some((m) => m.part === part)),
         );
@@ -190,7 +190,7 @@ describe("THE INSTAR's body", () => {
   );
 
   it.each(ROLES)("fills a mark's arc under a thumb and dots it when done, on %s", (role) => {
-    const bare = frame(role, (w) => acting(w, 0));
+    const bare = frame(role, (w) => asking(w, 0));
     const half = frame(role, pulled);
     const done = frame(role, halfDone);
     expect(half.text).not.toBe(bare.text);
@@ -201,7 +201,7 @@ describe("THE INSTAR's body", () => {
 
   it.each(ROLES)("sags the body and fades it once the last step lands, on %s", (role) => {
     const going = frame(role, down);
-    const stood = frame(role, (w) => acting(w, 0));
+    const stood = frame(role, (w) => asking(w, 0));
     expect(count(going.text, PLATE)).toBeLessThan(count(stood.text, PLATE));
     expect(count(going.text, PALETTE.red)).toBeLessThan(count(stood.text, PALETTE.red));
     const gone = frame(role, (w) => {

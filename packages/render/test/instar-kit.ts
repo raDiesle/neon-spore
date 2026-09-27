@@ -33,8 +33,9 @@ export function hung(): World {
 }
 
 /**
- * The body acting on a step, its marks up and untouched — or `put` in that
- * step's place, for a shape of step the shipped script does not have.
+ * The body acting on a step, its marks untouched — or `put` in that step's
+ * place, for a shape of step the shipped script does not have. THE SLOW is
+ * left shut, so no mark is drawn: `asking` is the step as the game plays it.
  */
 export function acting(world: World, cursor: number, put?: BossSequenceStep): InstarState {
   const s = instarBoss(world);
@@ -48,6 +49,19 @@ export function acting(world: World, cursor: number, put?: BossSequenceStep): In
   s.doneBeat = Array.from({ length: n }, () => NOT_DONE);
   s.ref = Array.from({ length: n }, () => NO_BEARING);
   s.thumbs = Array.from({ length: n }, () => 0);
+  return s;
+}
+
+/**
+ * `acting` with THE SLOW open over the step's window, as `sim/instar-step.ts`
+ * opens it: the only state a mark is drawn in (`instar-marks.ts`
+ * `instarMarksUp`).
+ */
+export function asking(world: World, cursor: number, put?: BossSequenceStep): InstarState {
+  const s = acting(world, cursor, put);
+  world.slowFromBeat = world.beat;
+  world.slowToBeat = world.beat + (s.steps[cursor]?.windowBeats ?? 1);
+  world.slowAsks = true;
   return s;
 }
 

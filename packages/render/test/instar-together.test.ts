@@ -9,7 +9,7 @@ import {
 import { instarAwaited, instarTogetherLeft } from "../src/instar-together.js";
 import type { TextBox } from "./canvas-stub.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
-import { acting, hung } from "./instar-kit.js";
+import { asking, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -38,7 +38,7 @@ beforeAll(installCanvasGlobals);
 describe("the together window, read", () => {
   it("runs from whole to nothing over the beats a partner is given", () => {
     const world = hung();
-    const s = acting(world, counted(world));
+    const s = asking(world, counted(world));
     s.doneBeat[0] = world.beat;
     const span = CFG.instarTogetherBeats + 1;
     expect(instarTogetherLeft(s, CFG, 0, world.beat, 0)).toBe(1);
@@ -50,7 +50,7 @@ describe("the together window, read", () => {
 
   it("is no question for a mark nobody has answered", () => {
     const world = hung();
-    const s = acting(world, counted(world));
+    const s = asking(world, counted(world));
     expect(instarTogetherLeft(s, CFG, 0, world.beat, 0)).toBeNull();
     expect(instarAwaited(s, CFG, world.beat, 0)).toBe(false);
   });
@@ -59,7 +59,7 @@ describe("the together window, read", () => {
     const world = hung();
     // One mark, the navigator's, and no partner to wait for. The shipped
     // script has no such step since 25 September 2026, so the test gives it one.
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     s.steps[0] = { ...(s.steps[0] ?? SOLO), marks: SOLO.marks };
     s.progress = [0];
     s.doneBeat = [NOT_DONE];
@@ -69,7 +69,7 @@ describe("the together window, read", () => {
 
   it("is no question for a pull, which slips by being let go of and not by being early", () => {
     const world = hung();
-    const s = acting(world, 0);
+    const s = asking(world, 0);
     const first = s.steps[0]?.marks[0];
     expect(first !== undefined && instarHeld(first.gesture)).toBe(true);
     s.doneBeat[0] = world.beat;
@@ -78,7 +78,7 @@ describe("the together window, read", () => {
 
   it("says the step is waiting the moment one of its marks lands", () => {
     const world = hung();
-    const s = acting(world, counted(world));
+    const s = asking(world, counted(world));
     s.doneBeat[1] = world.beat;
     expect(instarAwaited(s, CFG, world.beat, 0)).toBe(true);
   });
@@ -121,11 +121,11 @@ describe("the together window, drawn", () => {
       return texts.map((t) => t.text);
     };
     const open = words((w) => {
-      acting(w, counted(w));
+      asking(w, counted(w));
     });
     const waiting = words((w) => {
       const at = counted(w);
-      const s = acting(w, at);
+      const s = asking(w, at);
       s.progress[0] = s.steps[at]?.marks[0]?.need ?? 1;
       s.doneBeat[0] = w.beat;
     });

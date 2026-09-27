@@ -2,7 +2,7 @@ import { afterEach, beforeAll, describe, expect, it, setDefaultTimeout } from "b
 import { INSTAR_SCRIPT } from "@neon-spore/content";
 import { CROSSHAIR_LOOK } from "../src/instar-crosshair.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
-import { acting, hung } from "./instar-kit.js";
+import { asking, hung } from "./instar-kit.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -22,7 +22,7 @@ afterEach(() => {
 /** How many crosshairs one frame of step `cursor` draws, with `done` marks already finished. */
 function crosshairs(cursor: number, role: (typeof ROLES)[number], done: number[] = []): number {
   const world = hung();
-  const s = acting(world, cursor);
+  const s = asking(world, cursor);
   for (const i of done) s.doneBeat[i] = world.beat;
   let n = 0;
   CROSSHAIR_LOOK.paint = () => {

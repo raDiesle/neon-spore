@@ -6456,7 +6456,7 @@ briefing*. Both are in the picture.
   spined tail (`instar-tail.ts`). Every part is drawn **at its mark's place
   in thousandths** (`instar-shape.ts`), so a mark on a lip sits on the lip.
 - **It flies** (`instar-flight.ts`), a transform over the first
-  `INSTAR_FLIGHT_ENDS` of each morph and over before the marks glow up:
+  `INSTAR_FLIGHT_ENDS` of each morph and over before the marks come up:
   the **approach** in from far and small, growing at the screen; the
   **passes** — up and out, a far pass across, a near pass back, in from
   the side; the **cross** — out one side and in from the other.
@@ -6491,9 +6491,10 @@ briefing*. Both are in the picture.
   eyes: **both screens see the same body**, and the only thing a seat is
   told is which marks are its own.
 - **The window is shown, not said**: a second ring outside each mark
-  **closes on it** over `windowBeats`, brightening as it shrinks, and the
-  marks **grow out of their parts** over the last two fifths of the morph,
-  faint, so the eye is already on the place when the window opens.
+  **closes on it** over `windowBeats`, brightening as it shrinks. **No mark
+  is up before the window, or after THE SLOW shuts** — the owner, 27
+  September 2026, took out the faint rings that grew in over the last two
+  fifths of the morph: a ring on a part that cannot be answered yet.
 - **Every window is THE SLOW** (`decisions.md` #33): the field runs at a
   third from the tick the marks come up until the tick the step is
   answered or missed, on both screens together — the asking slowed rather

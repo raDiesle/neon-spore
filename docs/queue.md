@@ -2518,27 +2518,6 @@ them at no more than 55% of today's (read today's values first and write them
 in the test's comment); one PNG of a window is sent. `bun run check` proves
 the test.
 
-## THE INSTAR — its marks show only while THE SLOW is open
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-instar-its-marks-show-only-while-the-slow-is
-- **Files:** `packages/render/src/instar-marks.ts`, `packages/sim/src/slow.ts`, `packages/render/test/instar-frame.test.ts`
-
-The owner, 27 September 2026: *the red circles for an upcoming action before
-slow should only be visible when they are receiving actions already and when
-the slow animation happens. So remove the visual before the slow animation.*
-The visual he means is the anticipation ring: `drawInstarMarks` draws a red
-ring at each of the next step's marks from `ANTICIPATE_FROM` of the morph
-onward, while the body is still coming into the pose. Delete it. Then check
-whether a step's window can be open while THE SLOW is shut (`instarSlowBeats`
-is 4). If it can, draw a mark only while both are open, and note in the
-commit what a pair loses in the beats outside the slow. This fixes something
-wrong: a ring on a part that cannot be answered yet.
-
-Done when: a test steps THE INSTAR through every step of its wave and finds
-no mark ring drawn on any frame where its window is shut or THE SLOW is shut.
-`bun run check` proves it.
-
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

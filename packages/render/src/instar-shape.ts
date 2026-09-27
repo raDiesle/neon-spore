@@ -29,7 +29,7 @@ import { BEATEN, ENTER, onNest, placed } from "./instar-poses.js";
  * is one `Figure` (`instar-poses.ts`); the body between two of them is keyed
  * in-between motion (`instar-between.ts`) over the part of the step's `morphBeats` the flight
  * takes (`instar-flight.ts`), so the body has its new pose by the time it
- * comes to rest and the marks glow up on it. While the marks are up the
+ * comes to rest and its window opens on it. While the marks are up the
  * figure is the pose's, **deformed by how far each mark has got** — each jaw
  * pushed shut as far as the thumb has pushed it, one egg fewer per tap and
  * per swipe, the fork pushed back with every tap, a strip of the hide per swipe. A morph starts from the

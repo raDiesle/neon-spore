@@ -31,8 +31,8 @@ import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
  *   the pose comes back — the second and third bite of the breath.
  *
  * **It is the picture's alone.** The flight is a transform round the body's
- * middle, and it is over by `INSTAR_FLIGHT_ENDS` of the morph — the moment
- * the marks start to glow up on their parts (`instar-marks.ts`) — so no mark
+ * middle, and it is over by `INSTAR_FLIGHT_ENDS` of the morph, well before
+ * the window opens and the marks come up (`instar-marks.ts`) — so no mark
  * is ever drawn or pressed on a body that is not where the mark is. The
  * simulation does not know the body left: `hashWorld` cannot see this file.
  */

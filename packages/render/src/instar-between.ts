@@ -23,7 +23,7 @@ import type { Figure } from "./instar-shape.js";
  *   close through the middle of it.
  *
  * At 0 it is exactly the pose it came from and at 1 exactly the new one, so
- * the marks glow up on their parts where they always did (`instar-marks.ts`).
+ * the marks come up on their parts where they always did (`instar-marks.ts`).
  * Nothing here keeps state.
  */
 

@@ -1,4 +1,3 @@
-import { circleSubpath } from "@neon-spore/content";
 import {
   type InstarGesture,
   type InstarMark,
@@ -8,14 +7,15 @@ import {
   instarStep,
   instarSwipeAlong,
   type SimConfig,
+  slowing,
+  type World,
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
-import { strokeGlow } from "./glow.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarRing } from "./instar-ring.js";
-import { INSTAR_FLIGHT_ENDS, instarThreat } from "./instar-shape.js";
+import { instarThreat } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
 import {
   drawInstarDone,
@@ -26,7 +26,6 @@ import {
 import { drawInstarSwipe, instarTrack } from "./instar-track.js";
 import { drawInstarWord, type MarkRoom } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
 /**
@@ -46,10 +45,14 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * *P2'S*, because that seat's job is to watch it and say when it is
  * done.
  *
- * Nothing is drawn but in the `act` phase, save the **anticipation**: over
- * the last part of a morph the marks glow up faintly on the parts they are
- * about to ask for, so the pair's thumbs are already there when the window
- * opens.
+ * **A mark is up only while it can be answered**: in the `act` phase and
+ * while THE SLOW is open (`instarMarksUp`). The owner, 27 September 2026:
+ * *the red circles for an upcoming action before slow should only be visible
+ * when they are receiving actions already and when the slow animation
+ * happens.* So the faint ring that used to glow up over the last of a morph
+ * is gone — a ring on a part that cannot be answered yet — and so is the
+ * ring left standing on the frozen field under the fail screen, where the
+ * step is still `act` but its window struck and shut the slow.
  *
  * **No line is written for the step as a whole.** Two rings up at once are
  * the pose saying *either order*, and the owner took the sentence that said
@@ -60,9 +63,9 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * the together window closing into it, and every ring still open goes urgent,
  * because those are the ones the pair is late on.
  *
- * The hit test is here too, next to the ring it answers (`handles.ts`'s
- * rule). It hands *every* seat's press through: the simulation is what
- * refuses the wrong thumb and says so (`sim/instar-hand.ts`).
+ * The hit test is next door, over the same rings (`instar-mark-grip.ts`).
+ * It hands *every* seat's press through: the simulation is what refuses the
+ * wrong thumb and says so (`sim/instar-hand.ts`).
  */
 
 /**
@@ -92,37 +95,33 @@ export function instarMarkWord(mark: InstarMark, role: ViewRole): { kind?: CueKi
   return { word: mark.seat === "p1" ? "P1'S" : "P2'S" };
 }
 
-/** The morph's last stretch over which the marks glow up on their parts:
- * from the moment the body's flight is over (`instar-flight.ts`). */
-const ANTICIPATE_FROM = INSTAR_FLIGHT_ENDS;
+/**
+ * Whether the step's marks are up this frame: it is acting and THE SLOW is
+ * open. The step opens the slow for exactly its window and shuts it on the
+ * landing and on the strike (`sim/instar-step.ts`), so outside a failed
+ * wave the two agree; after a strike they do not, and the slow is the one
+ * that has it right.
+ */
+export function instarMarksUp(world: World, s: InstarState): boolean {
+  return instarActing(s) && slowing(world);
+}
 
 export function drawInstarMarks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  world: World,
   s: InstarState,
-  cfg: SimConfig,
   sway: Sway,
   beat: number,
   beatPhase: number,
   time: number,
-  morph: number,
   role: ViewRole,
   verdicts: { at(key: number): GripVerdict | null },
 ): void {
   const step = instarStep(s);
-  if (step === null) return;
+  if (step === null || !instarMarksUp(world, s)) return;
+  const cfg = world.cfg;
   const r = instarMarkRadius(l, cfg);
-  if (s.phase === "morph") {
-    if (morph < ANTICIPATE_FROM) return;
-    const glow = ((morph - ANTICIPATE_FROM) / (1 - ANTICIPATE_FROM)) * 0.5;
-    for (const mark of step.marks) {
-      const at = instarMarkPoint(l, mark, sway, 0);
-      const p = new Path2D(circleSubpath(at.x, at.y, r * (1.6 - 0.6 * glow)));
-      strokeGlow(ctx, p, PALETTE.red, STROKE.inner, glow);
-    }
-    return;
-  }
-  if (!instarActing(s)) return;
   const awaited = instarAwaited(s, cfg, beat, beatPhase);
   // How far the window has run moves a swept mark; what is left of it closes the ring.
   const along = instarThreat(s, beat, beatPhase);
