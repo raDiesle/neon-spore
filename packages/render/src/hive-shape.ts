@@ -59,10 +59,58 @@ export function hiveBox(
   };
 }
 
+/** The mass's middle and its half-width, `open` of the way in from nothing. */
+function span(l: Layout, cfg: SimConfig, open: number): { mid: number; hw: number } {
+  const box = hiveBox(l, cfg);
+  return { mid: (box.left + box.right) * 0.5, hw: (box.right - box.left) * 0.5 * open };
+}
+
+/** How far a scallop dips below the underside and rises above it, in pixels. */
+const lobeDepth = (l: Layout): number => l.tile * 0.14;
+
+/**
+ * **One of the mass's hanging lobes, as its own piece**: the scallop of the
+ * underside under one site, a curve from where the lobe to its right ended,
+ * through `bend`, to `to` — and the `joint` it hangs from, the middle of its
+ * top on the line the scallops meet at (`docs/spec/living-bosses.md`, the
+ * part map).
+ *
+ * **A piece of the contour, not a shape of its own.** The mass is filled
+ * translucent and stroked, so a lobe filled apart would double the wax where
+ * it overlaps and draw a seam where it meets; `hiveMassPath` lays each lobe's
+ * curve into the one outline instead, so the join is the contour itself.
+ * Right to left in column order rather than opening order, so the scallops
+ * sit still while the sites open under them.
+ */
+export interface HiveLobe {
+  joint: Point;
+  bend: Point;
+  to: Point;
+}
+
+/** The mass's hanging lobes, right to left, `open` of the way in. */
+export function hiveLobes(l: Layout, cfg: SimConfig, s: HiveState, open: number): HiveLobe[] {
+  const { mid, hw } = span(l, cfg, open);
+  const bottom = hiveBox(l, cfg).bottom;
+  const lobe = lobeDepth(l);
+  const xs = [...s.cols].sort((a, b) => a - b).map((c) => mid + (tileCX(l, c) - mid) * open);
+  const lobes: HiveLobe[] = [];
+  for (let i = xs.length - 1; i >= 0; i--) {
+    const cx = xs[i] ?? mid;
+    const x0 = i > 0 ? (cx + (xs[i - 1] ?? mid)) * 0.5 : mid - hw;
+    lobes.push({
+      joint: { x: cx, y: bottom - lobe },
+      bend: { x: cx, y: bottom + lobe },
+      to: { x: x0, y: bottom - lobe },
+    });
+  }
+  return lobes;
+}
+
 /**
  * The mass as a closed contour: a low dome of a top, flanks that sag out and
- * breathe, and an underside scalloped once a site — a row of hanging lobes
- * with a site in the belly of each, since a box across the field is a panel
+ * breathe, and an underside of hanging lobes, one a site (`hiveLobes`), with
+ * a site in the belly of each, since a box across the field is a panel
  * and a lobed mass is a body (`CLAUDE.md`). `open` closes it in on the
  * middle, for the body on its way out.
  */
@@ -74,26 +122,19 @@ export function hiveMassPath(
   time: number,
 ): Path2D {
   const box = hiveBox(l, cfg);
-  const mid = (box.left + box.right) * 0.5;
-  const hw = (box.right - box.left) * 0.5 * open;
+  const { mid, hw } = span(l, cfg, open);
   const top = box.top;
   const bottom = box.bottom;
   const flank = l.tile * (0.12 + 0.03 * Math.sin(time * 1.1));
   const dome = l.tile * 0.35;
-  const lobe = l.tile * 0.14;
+  const lobe = lobeDepth(l);
   const p = new Path2D();
   p.moveTo(mid - hw, top + dome);
   p.quadraticCurveTo(mid, top - dome * 0.6, mid + hw, top + dome);
   p.quadraticCurveTo(mid + hw + flank, (top + bottom) * 0.5, mid + hw, bottom - lobe);
-  // One lobe a site, right to left in column order rather than opening
-  // order, so the scallops sit still while the sites open under them.
-  const xs = [...s.cols].sort((a, b) => a - b).map((c) => mid + (tileCX(l, c) - mid) * open);
-  for (let i = xs.length - 1; i >= 0; i--) {
-    const cx = xs[i] ?? mid;
-    const x0 = i > 0 ? (cx + (xs[i - 1] ?? mid)) * 0.5 : mid - hw;
-    p.quadraticCurveTo(cx, bottom + lobe, x0, bottom - lobe);
-  }
-  if (xs.length === 0) p.lineTo(mid - hw, bottom - lobe);
+  const lobes = hiveLobes(l, cfg, s, open);
+  for (const b of lobes) p.quadraticCurveTo(b.bend.x, b.bend.y, b.to.x, b.to.y);
+  if (lobes.length === 0) p.lineTo(mid - hw, bottom - lobe);
   p.quadraticCurveTo(mid - hw - flank, (top + bottom) * 0.5, mid - hw, top + dome);
   p.closePath();
   return p;

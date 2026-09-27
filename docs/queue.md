@@ -2520,15 +2520,15 @@ Done when: a test draws the warden with the hatch shut, half and open,
 before and after, and finds the pixels equal within 1 in 255; each lid has a
 hinge point; `bun run check` proves it.
 
-## Living bosses — split the lobes of THE HIVE, THE CURTAIN and THE CYST
+## Living bosses — split the lobes of THE CURTAIN and THE CYST
 
 - **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-the-valves-pins-have-no-secondary-motion-of-thei (claim: claude/queue-living-bosses-split-the-lobes-of-the-hive-the-cu)
-- **Files:** `packages/render/src/hive-shape.ts`, `packages/render/src/hive-draw.ts`, `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-draw.ts`, `packages/render/src/cyst-shape.ts`, `packages/render/src/cyst-draw.ts`, `docs/spec/living-bosses.md`
+- **Files:** `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-draw.ts`, `packages/render/src/cyst-shape.ts`, `packages/render/src/cyst-draw.ts`, `docs/spec/living-bosses.md`
 
 Section 1's part map: each of these draws its lobes inside the body's one
-path — THE HIVE's hanging lobes in the wax mass, THE CURTAIN's hem in the
-membrane, THE CYST's four lobes in the sac. Draw each lobe as its own piece
+path — THE CURTAIN's hem in the membrane, THE CYST's four lobes in the sac.
+THE HIVE landed first (`hiveLobes`, `packages/render/test/hive-lobes.test.ts`
+is the pattern: the old contour kept in the test as the *before*). Draw each lobe as its own piece
 over a body that is the rest, joined where it meets the body so the seam
 does not show, about a joint where it hangs. One boss at a time, landed
 separately if the sitting runs short; leave the rest named here. No frame

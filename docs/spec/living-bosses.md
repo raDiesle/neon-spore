@@ -217,7 +217,7 @@ with a joint, before it can move.
 | THE LEDGER | both halves, cord, whip | ready |
 | THE SURGE | bulb, both grips | ready |
 | THE STARE | cowl, eye, lid | ready |
-| THE HIVE | mass, each hanging lobe | **split first**: the lobes are inside the mass's path |
+| THE HIVE | mass, each hanging lobe | ready — each lobe is a piece with its joint (`hiveLobes`), laid into the mass's one outline so the translucent wax has no seam; a lobe swings by moving its piece before it is laid |
 | THE CYST | sac, each of its four lobes, core | **split first**: the lobes are one path |
 | THE VISE | both lobes, kernel | ready |
 | THE MANTLE | core, both valves | ready |

@@ -25921,3 +25921,15 @@ Bottleneck: the frame under THE SLOW — every band step is drawn through its
 prism, so a clean picture of the body had to wait for a fire step.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE HIVE's hanging lobes are pieces with joints
+
+- reading: 5 min. The entry, the part map, and `hiveMassPath`'s loop.
+- writing: 10 min. `hiveLobes`, the mass rebuilt from it, and the pixel
+  test that keeps the old contour as its *before*.
+- looking: 0 min. No frame changes, and the test is what says so.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — whether a lobe of a translucent mass can be filled on
+its own without a seam, and it cannot, so the piece is laid into one outline.
