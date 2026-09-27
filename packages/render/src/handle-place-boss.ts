@@ -7,6 +7,7 @@ import {
   OUTER,
   type World,
 } from "@neon-spore/sim";
+import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
 import { capstanRubStanding, capstanTakesHand } from "./capstan-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { cystStanding } from "./cyst-grip.js";
@@ -210,6 +211,13 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "davit" ? world.boss : null;
     if (b === null) return null;
     return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);
+  }
+  if (target === "burgeeFreeze" || target === "burgeeDraw") {
+    // THE BURGEE's ring over the lit column and the tail of its track, where
+    // the fixture hangs still to be caught. Null between catches (`burgee-grip.ts`).
+    const b = world.boss?.kind === "burgee" ? world.boss : null;
+    if (b === null) return null;
+    return target === "burgeeFreeze" ? burgeeFreezeCircle(l, cfg, b) : burgeeDrawCircle(l, cfg, b);
   }
   if (target === "capstanRub") {
     // THE CAPSTAN's bared face, or the one the lit band asks for, where the

@@ -1,8 +1,8 @@
-import type { Color } from "@neon-spore/sim";
-import type { Point } from "./burgee-shape.js";
+import type { BurgeeStep, Color, SimConfig } from "@neon-spore/sim";
+import { burgeePivot, burgeeTip, type Point } from "./burgee-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
@@ -26,8 +26,28 @@ import { stepColour } from "./step-colour.js";
 const OTHER = 0.3;
 /** The freeze ring's radius, in tiles. */
 const RING = 0.46;
+/** How far below the boom's tip the draw's track runs, in tiles: under a flag hanging limp. */
+const TRACK_BELOW = 1.75;
 /** Studs up the spindle, top to bottom, as shares of its half-height. */
 const STUDS = [-0.62, 0, 0.62] as const;
+
+/**
+ * Where a catching step's two marks stand: the ring over the lit column,
+ * where the boom's tip would be, and the track from under the pivot to under
+ * the ring. **One answer for the drawing and the thumb** (`burgee-grip.ts`),
+ * so a mark is never drawn in one place and pressed in another. The fixture
+ * is still only while it is catching, so no swing-in is folded in here.
+ */
+export function burgeeMarks(
+  l: Layout,
+  cfg: SimConfig,
+  step: BurgeeStep,
+): { ring: Circle; from: Point; to: Point } {
+  const at = burgeeTip(l, cfg, step.offset * 1000);
+  const y = at.y + TRACK_BELOW * l.tile;
+  const ring = { x: at.x, y: at.y, r: RING * l.tile };
+  return { ring, from: { x: burgeePivot(l, cfg).x, y }, to: { x: at.x, y } };
+}
 
 /**
  * The freeze ring at `at`. On its seat's screen (`full`) it breathes on the
@@ -36,14 +56,13 @@ const STUDS = [-0.62, 0, 0.62] as const;
  */
 export function drawBurgeeRing(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
-  at: Point,
+  at: Circle,
   left: number,
   frozen: boolean,
   full: boolean,
   beatPhase: number,
 ): void {
-  const r = RING * l.tile;
+  const r = at.r;
   const ring = new Path2D();
   ring.arc(at.x, at.y, r, 0, Math.PI * 2);
   if (!full) {

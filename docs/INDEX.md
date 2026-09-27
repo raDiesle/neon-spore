@@ -1109,6 +1109,7 @@ by hand never moves.
 | `packages/render/src/burgee-shape.ts` | **THE BURGEE's geometry**: where the spindle stands, where the boom hangs and the paths the three are made of |
 | `packages/render/src/burgee-blow.ts` | **THE BURGEE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/burgee-receipts.ts` | **What THE BURGEE's receipts are drawn as**, off the numbers `burgee-fx.ts` keeps: a freeze's snap |
+| `packages/render/src/burgee-grip.ts` | **THE BURGEE's two hands as controls**: the freeze ring `burgeeFreeze` and the draw's track `burgeeDraw` |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |
@@ -2629,6 +2630,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's phone tipped over so its face is round |
+| `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -3074,6 +3076,7 @@ by hand never moves.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-bosses.ts` | **Every boss's own rows** on the ON THE FIELD tab, in the order they were built |
+| `tools/director/src/field-controls-burgee.ts` | THE BURGEE's two hands, as rows of the ON THE FIELD tab: the freeze ring and the draw's track |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |

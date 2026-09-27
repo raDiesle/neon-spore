@@ -2,6 +2,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
+import { BURGEE_CONTROLS } from "./field-controls-burgee.js";
 import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { CYST_CONTROLS } from "./field-controls-cyst.js";
@@ -180,4 +181,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE DAVIT's two looses, the only pair here **judged against a lean** the
   // partner holds with the phone rather than a hand (`field-controls-davit.ts`).
   ...DAVIT_CONTROLS,
+  // THE BURGEE's ring and track, the only pair here **one seat's tap answered
+  // by the other's swipe** on one swinging flag (`field-controls-burgee.ts`).
+  ...BURGEE_CONTROLS,
 ];

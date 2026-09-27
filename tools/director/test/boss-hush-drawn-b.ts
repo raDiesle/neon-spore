@@ -7,8 +7,9 @@ import {
   scuttlePartCol,
 } from "@neon-spore/sim";
 import { antiphonOrganCircle, antiphonPerch } from "../../../packages/render/src/antiphon-shape.js";
+import { burgeeMarks } from "../../../packages/render/src/burgee-marks.js";
 import { burgeeArrived } from "../../../packages/render/src/burgee-pose.js";
-import { burgeeSpindleAt, burgeeTip } from "../../../packages/render/src/burgee-shape.js";
+import { burgeeSpindleAt } from "../../../packages/render/src/burgee-shape.js";
 import { davitAngle } from "../../../packages/render/src/davit-pose.js";
 import { DAVIT_SAG, davitHook, davitMast } from "../../../packages/render/src/davit-shape.js";
 import { tileCX } from "../../../packages/render/src/layout.js";
@@ -34,8 +35,6 @@ import type { Drawn, Mark } from "./boss-hush-drawn.js";
 const ORGAN_GRIP_DOWN = 0.45;
 /** How far the body drops in from above on arrival, in tiles (`burgee-draw.ts`'s `ARRIVE`). */
 const BURGEE_ARRIVE = 3;
-/** How far under the ring the track's head stands (`burgee-draw.ts`'s `TRACK_BELOW`). */
-const BURGEE_TRACK_BELOW = 1.75;
 
 export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
   // The live part over the column it hangs in, on the screen shown it, and
@@ -108,9 +107,9 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
       marks.push({ id: -3, x: at.x, y: at.y + dy });
     }
     if (burgeeCatching(s)) {
-      const mark = burgeeTip(l, cfg, step.offset * 1000);
-      marks.push({ id: -1, x: mark.x, y: mark.y + dy });
-      marks.push({ id: -2, x: mark.x, y: mark.y + BURGEE_TRACK_BELOW * l.tile + dy });
+      const { ring, to } = burgeeMarks(l, cfg, step);
+      marks.push({ id: -1, x: ring.x, y: ring.y + dy });
+      marks.push({ id: -2, x: to.x, y: to.y + dy });
     }
     return marks;
   },

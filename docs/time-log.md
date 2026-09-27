@@ -26981,3 +26981,15 @@ Bottleneck: THE PLUMB's glass says it is asked by no argument, so its row
 had to read the state the call was handed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE BURGEE's ring and track answer a thumb
+
+- reading: 5 min. The sim's hand rules, `burgee-draw.ts`'s placement, THE
+  DAVIT's and THE KEEL's grips and their director rows.
+- writing: 5 min. `burgee-grip.ts`, the shared `burgeeMarks`, the four
+  registrations, two director rows and poses, the spec rows, the test.
+- looking: 0 min.
+- friction: 0 min. `tap` is not a gesture the director's rows know: `press`.
+- landing: 5 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: reading — five files to learn where a mark stands and how a swipe's sign reaches the sim.

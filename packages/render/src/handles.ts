@@ -1,6 +1,7 @@
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { antiphonRailUnder } from "./antiphon-rail-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
+import { burgeeDrawUnder, burgeeFreezeUnder } from "./burgee-grip.js";
 import { capstanRubUnder } from "./capstan-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
 import { cystUnder } from "./cyst-grip.js";
@@ -146,7 +147,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).
     gallPinchUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).
-    davitLooseUnder(l, x, y, field) // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
+    davitLooseUnder(l, x, y, field) ?? // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
+    burgeeFreezeUnder(l, x, y, field) ?? // THE BURGEE's freeze ring, the lit step's freezer's tap (`burgee-grip.ts`).
+    burgeeDrawUnder(l, x, y, field) // And its track, the other seat's, held then swiped toward the ring (`burgee-grip.ts`).
   );
 }
 

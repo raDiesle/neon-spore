@@ -11,7 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import type { BurgeeFx } from "./burgee-fx.js";
-import { drawBurgeeRing, drawBurgeeStuds, drawBurgeeTrack } from "./burgee-marks.js";
+import { burgeeMarks, drawBurgeeRing, drawBurgeeStuds, drawBurgeeTrack } from "./burgee-marks.js";
 import {
   burgeeArrived,
   burgeeAsked,
@@ -41,8 +41,6 @@ import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 import { showsBurgeeHand } from "./view-role-clocks-c.js";
 
-/** How far below the boom's tip the draw's track runs, in tiles: under a flag hanging limp. */
-const TRACK_BELOW = 1.75;
 /** How far above its place the whole fixture starts as it swings in, in tiles. */
 const ARRIVE = 3;
 /** Each seat, and its index into the state's per-seat pairs. */
@@ -91,7 +89,7 @@ export function drawBurgee(
   ctx.globalAlpha = 1 - 0.5 * burgeeSpent(s, cfg, beat, beatPhase);
   const shake = fx.hurt.shakeX(time, l.tile);
   ctx.translate(shake, -(1 - burgeeArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile);
-  if (burgeeCatching(s)) drawHands(ctx, l, world, s, beat, beatPhase, pivot);
+  if (burgeeCatching(s)) drawHands(ctx, l, world, s, beat, beatPhase);
   const snap = fx.snap;
   drawBurgeeSnap(ctx, l, burgeeTip(l, cfg, (snap.col - midCol(cfg)) * 1000), snap.now);
 
@@ -137,25 +135,22 @@ function drawHands(
   s: BurgeeState,
   beat: number,
   beatPhase: number,
-  pivot: Point,
 ): void {
   const step = burgeeLitStep(s);
   if (step === null) return;
   const cfg = world.cfg;
-  const mark = burgeeTip(l, cfg, step.offset * 1000);
+  const marks = burgeeMarks(l, cfg, step);
   const freezer = SEATS.some((k) => burgeeFreezes(s, k.side) && showsBurgeeHand(l.role, k.seat));
   const aimers = SEATS.filter((k) => burgeeAims(s, k.side) && showsBurgeeHand(l.role, k.seat));
   const left = burgeeLeft(s, beat, beatPhase);
-  drawBurgeeRing(ctx, l, mark, left, burgeeFrozen(s), freezer, beatPhase);
-  const y = mark.y + TRACK_BELOW * l.tile;
+  drawBurgeeRing(ctx, marks.ring, left, burgeeFrozen(s), freezer, beatPhase);
   const drawn = Math.max(
     0,
     ...aimers.map((k) =>
       s.holding[k.side] ? Math.min(1, s.drawnBeats[k.side] / Math.max(1, cfg.burgeeDrawBeats)) : 0,
     ),
   );
-  const to = { x: mark.x, y };
-  drawBurgeeTrack(ctx, l, { x: pivot.x, y }, to, drawn, aimers.length > 0);
+  drawBurgeeTrack(ctx, l, marks.from, marks.to, drawn, aimers.length > 0);
 }
 
 /** REVERB on end over the middle column, its studs, its glow while lit, and its receipts. */
