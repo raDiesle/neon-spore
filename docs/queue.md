@@ -1401,6 +1401,7 @@ what the rest of this file holds.
 ## THE CYST's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-27, claude/queue-bun-run-push-sends-a-merge-commit-to-main (claim: claude/queue-the-cysts-own-blow-at-the-hull)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
 - **Waits on:** nothing since 26 September 2026: THE CYST's look has landed (`packages/render/src/cyst-*.ts`), so a flank lobe or the spore's tip is there to make the blow from.
 
