@@ -26160,3 +26160,5 @@ find one where the veins still show through.
 
 Bottleneck: writing — the edges only a frame knows had to be drawn per
 frame, in five paths, to keep the cost flat.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · e914343b4 — THE INSTAR's moult is a wound, and in the game
+
+The split along THE INSTAR's back after the moult is raw flesh now, not a pale skin. Deep red muscle runs along the back, creased dark and veined, with beads of blood that catch a wet glint. The hide is torn back along its edge, blood runs down into the wound, and beads hang off the lip onto the hide below. As the hide sets over the wound, the blood goes with it. The flesh is painted once at load; the edges are five paths a frame. It adds 1.8 kB gzipped beside the baker the game already ships (2.6 kB counting the baker).
+
 ## 2026-09-27 · 43f7ef1ef — VERSUS shows THE INSTAR's wing at full spread
 
 The owner could not see the baked wing's veins at INSTAR · THE JAW HALF PULLED, where the wings are half folded. instar:wing now opens on INSTAR · THE EMBERS FALLING, the spread pose of the second act, with both membranes at their widest. The reason for the choice is in that pose's docstring. The game's own drawing is unchanged.
