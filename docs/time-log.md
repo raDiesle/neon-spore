@@ -25259,3 +25259,14 @@ Bottleneck: friction — the interrupted lane's worktree belonged to another
 session, and the work had to move before a line could be written.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — three boss status rows had already lost THE OCULUS's sentence
+
+- reading: 5 min. The four status rows in `docs/spec/bosses-choreographed.md`.
+- writing: 0 min. Nothing to change: later landings had rewritten each row.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry was already done by the lanes that drew the
+three bosses, and only reading the rows showed it.

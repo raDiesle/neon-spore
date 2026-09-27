@@ -1478,21 +1478,6 @@ the pose from a world already in the third arena, or grow the body directly
 rather than playing it there — until the pair builds in well under half its
 cap. `bun run check` proves it, and the test's own time says by how much.
 
-## Stale: three boss status rows carry THE OCULUS's body sentence
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-tasks-3c2f5e (claim: claude/queue-stale-three-boss-status-rows-carry-the-oculuss-b)
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-The status table's rows for §30 THE TRIVET, §29 THE RIME and §28 THE VISE
-each end in the same sentence as §27 THE OCULUS's row: "Half one, the body,
-landed 26 September 2026: THE SLATER — SHUT's lapped plates … (`render/oculus-shape.ts`
-…). Half two, the hands, is queued …". None of those three bosses has a
-look yet; the sentence was pasted from THE OCULUS's row. Cut it from the
-three rows and say instead that lane two, the look, is queued (`docs/queue.md`
-§28 THE VISE — the look, and its siblings). `bun run check` proves the
-links still resolve.
-
 ## Unverified at e72d91c4b: THE OCULUS's lens watched at tempo: the pair sliding s…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
