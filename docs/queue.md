@@ -2618,6 +2618,7 @@ VERSUS.
 ## THE TRIVET's stand has no secondary motion of its own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-27, claude/queue-grindstone-cyst-and-davit-handles-still-unbuilt (claim: claude/queue-the-trivets-stand-has-no-secondary-motion-of-its)
 - **Files:** `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-shape.ts`
 
 From the secondary-motion audit. `trivetHubSwing` (`trivet-story.ts`
