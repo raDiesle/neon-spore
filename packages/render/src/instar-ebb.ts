@@ -1,5 +1,6 @@
 import { type InstarState, instarStep } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { FIRE_SPECK, fireGrown } from "./instar-fire.js";
 import { type Figure, instarMorphAt, instarPhaseAt, instarThreat } from "./instar-shape.js";
 
 /**
@@ -16,8 +17,9 @@ export function instarEbb(s: InstarState, beat: number, beatPhase: number): numb
 }
 
 /**
- * How bright the fire in the mouth burns, 0..1: lit a little as the morph
- * into a pose that breathes it comes on, growing with the window, and ebbing
+ * How bright the fire in the mouth burns, 0..1: lit to a speck as the morph
+ * into a pose that breathes it comes on, swelling with the window
+ * (`fireGrown`), and ebbing
  * over the landing from where the window left it (`held`). The rear and the
  * roar light the same fire: their globs are spat out of it.
  */
@@ -30,9 +32,9 @@ export function instarFire(
 ): number {
   const pose = instarStep(s)?.pose;
   if (pose !== "breath" && pose !== "rear" && pose !== "roar") return 0;
-  if (s.phase === "morph") return f.flame * 0.3 * instarMorphAt(s, beat, beatPhase);
-  if (s.phase === "act") return f.flame * (0.3 + 0.7 * instarThreat(s, beat, beatPhase));
+  if (s.phase === "morph") return f.flame * FIRE_SPECK * instarMorphAt(s, beat, beatPhase);
+  if (s.phase === "act") return f.flame * fireGrown(instarThreat(s, beat, beatPhase));
   if (s.phase !== "land") return 0;
   const ebb = instarEbb(s, beat, beatPhase);
-  return f.flame * (0.3 + 0.7 * held * ebb) * ebb;
+  return f.flame * fireGrown(held * ebb) * ebb;
 }

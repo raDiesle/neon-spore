@@ -1,5 +1,5 @@
 import { strokeGlow } from "./glow.js";
-import { drawFireball } from "./instar-fire.js";
+import { drawFireball, fireRadius } from "./instar-fire.js";
 import { drawEye, drawHorns, drawSinews, drawTeeth, r2 } from "./instar-head-parts.js";
 import { drawDrip, drawScales } from "./instar-hide.js";
 import type { Point } from "./instar-place.js";
@@ -14,7 +14,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * The upper jaw is the whole top of the head — snout, nostrils, the two slit
  * eyes under their brows, the horns swept back off it — and the lower jaw is
  * the chin; between them the mouth, dark, strung with sinew, fanged on both
- * lips, the fire turning in the middle of it (`instar-fire.ts`). The owner
+ * lips, the fire glowing in the middle of it (`instar-fire.ts`). The owner
  * asked for it on 25 September 2026: *the enemy already has open mouth to
  * spit out fire like a dragon*.
  *
@@ -172,7 +172,7 @@ export function drawFrontHead(
   ctx.restore();
   strokeGlow(ctx, mouth, faded(PALETTE.hullRim, fade), STROKE.inner, 0.5 * fade);
   const middle = (up.y + down.y) / 2;
-  const ball = Math.min(r * (0.12 + 0.42 * fire), ((down.y - up.y) / 2) * 0.8);
+  const ball = fireRadius(fire, r, (down.y - up.y) / 2);
   if (fire > 0) drawFireball(ctx, head.x, middle, ball, time, fade);
   drawSinews(ctx, up, down, r, gap, fade);
   drawTeeth(ctx, up, r, 1, 0.1 + 0.08 * f.jawUp, fade);

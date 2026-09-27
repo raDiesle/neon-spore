@@ -1,13 +1,22 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { INSTAR_SCRIPT } from "@neon-spore/content";
+import { instarFire } from "../src/instar-ebb.js";
+import { drawFireball, fireRadius } from "../src/instar-fire.js";
 import { instarAt, instarHeadAt } from "../src/instar-place.js";
 import { POSES } from "../src/instar-poses.js";
 import { deformed } from "../src/instar-shape.js";
 import { computeLayout } from "../src/layout.js";
-import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+import { acting, hung } from "./instar-kit.js";
 
 /**
- * **A mark on THE INSTAR's fire sits on the fireball the mouth draws**, and
+ * **A mark on THE INSTAR's fire sits on the fire the mouth draws**, and
  * the fire goes out as its taps land. The script places the mark by hand in
  * thousandths (`content/instar-script.ts`) and the head draws the ball
  * between the lips at the middle of the head (`instar-head.ts`); a ring off
@@ -15,6 +24,7 @@ import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
  */
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
+beforeAll(installCanvasGlobals);
 
 const L = computeLayout(VIEWPORT, CFG, "test");
 const FIRE = INSTAR_SCRIPT.flatMap((step) =>
@@ -50,5 +60,52 @@ describe("THE INSTAR's fire in the mouth", () => {
       expect(deformed(POSES[step.pose], step.marks, () => 0).flame).toBe(1);
       expect(deformed(POSES[step.pose], step.marks, () => 1).flame).toBe(0);
     }
+  });
+});
+
+/**
+ * **The fire is a blur that grows** — the owner, 27 September 2026: a ball
+ * with an edge read as a mark to press, and it should *start small and then
+ * grow bigger*. It is drawn with no line at all, and its radius over one
+ * window starts at a speck and rises every beat, the last beats the most.
+ */
+describe("THE INSTAR's fire, drawn", () => {
+  it("is light alone: not one stroke", () => {
+    const { ctx } = stubCanvas();
+    const calls: string[] = [];
+    const recording = new Proxy(ctx, {
+      get(target, key) {
+        const v = Reflect.get(target, key);
+        if (typeof v !== "function") return v;
+        return (...args: unknown[]) => {
+          calls.push(String(key));
+          return v.apply(target, args);
+        };
+      },
+      set: (target, key, v) => Reflect.set(target, key, v),
+    });
+    for (const time of [0, 0.4, 1.3]) {
+      drawFireball(recording as unknown as CanvasRenderingContext2D, 100, 100, 30, time, 1);
+    }
+    expect(calls.length).toBeGreaterThan(0);
+    expect(calls.filter((c) => c.startsWith("stroke"))).toEqual([]);
+  });
+
+  it("starts as a speck and swells through the window, fastest at its end", () => {
+    const breath = INSTAR_SCRIPT.findIndex((step) => step.pose === "breath");
+    const world = hung();
+    const s = acting(world, breath);
+    const step = s.steps[breath];
+    if (step === undefined) throw new Error("no breath step");
+    const f = POSES[step.pose];
+    const radius = (beats: number) =>
+      fireRadius(instarFire(s, f, s.phaseBeat + beats, 0, 0), 60, 40);
+    const n = step.windowBeats * 4;
+    const sizes = Array.from({ length: n + 1 }, (_, i) => radius(i / 4));
+    expect(sizes[0] as number).toBeLessThanOrEqual(0.15 * (sizes[n] as number));
+    for (let i = 1; i <= n; i++) expect(sizes[i] as number).toBeGreaterThan(sizes[i - 1] as number);
+    const firstStep = (sizes[1] as number) - (sizes[0] as number);
+    const lastStep = (sizes[n] as number) - (sizes[n - 1] as number);
+    expect(lastStep).toBeGreaterThan(firstStep);
   });
 });

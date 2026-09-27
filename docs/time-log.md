@@ -26412,3 +26412,16 @@ Bottleneck: looking — facing read off the angle led the screen motion, and
 only the strip showed the edgewise sliver.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR: the fire in its mouth is a soft glow that grows
+
+- reading: 5 min. `instar-fire.ts`, the head's mouth, `instarFire`'s curve,
+  `halo`.
+- writing: 10 min. Three glows for the ball and its arms, the speck and its
+  ease, the radius out of the head, the tests.
+- looking: 5 min. One strip of the first breath window, unanswered.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — AUTO shuts the mouth on the tick the window opens, so
+the strip had to be taken with no pair at all.

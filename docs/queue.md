@@ -2597,28 +2597,6 @@ remaining bosses listed.
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.
 
-## THE INSTAR — the fire in its mouth is a soft glow that grows
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-instar-flies-round-in-depth-not-across (claim: claude/queue-the-instar-the-fire-in-its-mouth-is-a-soft-glow)
-- **Files:** `packages/render/src/instar-fire.ts`, `packages/render/src/instar-head.ts`, `packages/render/test/instar-fire.test.ts`
-
-The owner, 27 September 2026: *the fire in the middle of the mouth must look
-more subtle (maybe just some fire blur), otherwise players think it's some
-action to perform on. Also it should start small and then grow bigger, so
-there is more excitement.* Today it is a ball of flame turning on itself
-with a defined edge, and at a glance that reads as a mark. Make it a blur of
-ember light: radial gradients only, with no stroke, no rim and no turning
-shape. It flickers in brightness. It starts as a speck, a tenth of the lip
-gap, when the window opens, and grows with `instarThreat`, eased in so that
-the last beats swell the most. It stays squeezed by the lips as it is today.
-This is a look the owner asked for by name.
-
-Done when: a test finds no stroke call in the fire, its radius at threat 0
-at most 0.15 of its radius at threat 1, and the radius rising monotonically;
-a strip of four PNG frames across one window is sent. `bun run check` proves
-the tests.
-
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
