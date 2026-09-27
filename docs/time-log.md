@@ -26623,3 +26623,18 @@ Bottleneck: reading. THE NETTLE is named in the entry but has no body to
 aim at, and that only showed once no render file turned out to draw it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CYST and THE PLUMB in the blow's table, and THE PLUMB draws its blow
+
+- reading: 5 min. The blow table's three tests, and which of each boss's
+  events land and which are only parts.
+- writing: 5 min. Two rows in `boss-hurt-rows-c.ts`, and the blow drawn
+  into `plumb-draw.ts` the way `cyst-draw.ts` draws it.
+- looking: 5 min. THE PLUMB's settle before and after. The first `frames`
+  run had no AUTO, so no weight ever settled.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, and the queue entry for THE PLUMB's steady.
+
+Bottleneck: THE PLUMB's frame test. It failed because `plumb-draw.ts` never
+read the blow it was dealt, so the table caught a missing draw that no one
+had seen.
