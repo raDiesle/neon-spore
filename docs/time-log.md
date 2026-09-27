@@ -25640,3 +25640,17 @@ Bottleneck: looking — only a pair of pictures could show that two of the
 entry's three bodies cover the interior it proposed to move.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE WISP's arms keep their light when they sway
+
+- reading: 5 min. The entry and `wisp-arms.ts`.
+- writing: 10 min. The band tilted square to the arm and centred on its
+  middle, and a recording-context test that fails on the old band.
+- looking: 5 min. `bun run frames` at THE WISP — an arm is twenty pixels,
+  so the picture could not show it and the test had to.
+- friction: 5 min. `queue take` refused the entry the last lane filed as
+  "already done" because it was not pushed yet; queued.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a fix inside a twenty-pixel ribbon is proven by where
+its gradient stands, not by a frame.

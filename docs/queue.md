@@ -2730,26 +2730,6 @@ cloud, ghost and fence (the light already follows, or the shape is rigid).
 The field moves too: wash, corner light and ship air breathe in alpha,
 shafts and motes drift (`backdrop.ts`, `light-shafts.ts`).
 
-## THE WISP's arms leave their own light when they sway
-
-- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
-- **Taken:** 2026-09-27, claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th (claim: claude/queue-the-wisps-arms-leave-their-own-light-when-they-s)
-- **Files:** `packages/render/src/wisp-arms.ts`
-
-Each arm is a ribbon lit across its width — lit edge on `KEY`'s side,
-shade on the other — with `createLinearGradient(rootX - width, 0, rootX +
-width, 0)` at `wisp-arms.ts:142`. The band is centred on the *root*, but
-the tip is at `rootX * splay + drag + sway` (`:116`), with
-`sway = sin(t * 1.4 + i * 1.6) * rx * 0.22` (`:115`). Past the band's ends
-a linear gradient is its end colour, so the lower half of a swinging arm
-goes flat all-lit or all-shade as it crosses, and the one-light-across-a-
-sheet reading the comment at `:143` asks for holds only near the root.
-The light should follow the ribbon's own centreline, not the root: build
-the band from the arm's mid-point (`(rootX + tipX) / 2`, widened by half
-their gap), or tilt it along root-to-tip. A fix to something wrong rather
-than unlovely — the file's own comment says what it should look like. Say
-so in the commit; `packages/render/test/frame.test.ts` must still draw it.
-
 ## A count's socket and a throb's far half hide the two cores that would move them
 
 - **Found:** 2026-09-27, claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th
@@ -2794,3 +2774,21 @@ for a misser to let go, and the test's `bossBlow(name, true)` is null for both
 before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
+
+## `queue take` calls an entry a landing filed but did not push "already done"
+
+- **Found:** 2026-09-27, claude/queue-the-wisps-arms-leave-their-own-light-when-they-s
+- **Files:** `tools/queue/origin-check.ts`, `tools/queue/run.ts`
+
+A lane landed with `--keep`, which files its finding on the local `main` and
+pushes nothing, and then asked `bun run queue take` for that finding. It was
+refused with *already done on origin/main — fetch it before claiming*:
+`originRefusal` reads an entry missing from `origin/main` while the trunk has
+it as one somebody removed there, and a fetch changes nothing. The lane took a
+different entry, whose `take` pushed the trunk, and the first one became
+claimable. Tell the two apart before refusing — the entry is *new* when
+`origin/main` is an ancestor of the local trunk and the commit that added the
+title is not on it (`git merge-base --is-ancestor`, and `git log -S` on the
+heading) — and claim it the ordinary way, since `take` pushes the trunk anyway.
+A test beside `origin-check.ts`'s own, with a view that lacks the entry and a
+trunk that is ahead.

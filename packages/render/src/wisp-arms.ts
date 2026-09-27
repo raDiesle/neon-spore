@@ -139,7 +139,16 @@ export function arms(f: WispFringe): void {
       }
 
       ctx.globalAlpha = (near ? 1 : 0.7) * hold * (0.75 + 0.25 * lit);
-      const fill = ctx.createLinearGradient(rootX - width, 0, rootX + width, 0);
+      // Across the arm rather than across the field: centred on the spine's
+      // middle and tilted square to root-to-tip, so a swung arm keeps its lit
+      // edge and its shade down the whole length. A band level with the root
+      // left the lower half past the band's ends, one flat colour.
+      const midX = (rootX + 3 * c1x + 3 * c2x + tipX) / 8;
+      const midY = (rootY + 3 * c1y + 3 * c2y + tipY) / 8;
+      const axis = Math.hypot(tipX - rootX, tipY - rootY) || 1;
+      const nx = ((tipY - rootY) / axis) * width;
+      const ny = (-(tipX - rootX) / axis) * width;
+      const fill = ctx.createLinearGradient(midX - nx, midY - ny, midX + nx, midY + ny);
       // Lit edge on the key's side — the left, where `KEY` stands — dark on the
       // other: one light across a sheet, which is the whole difference from a
       // line.
