@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · b9a204dd9 — AUTO is seen playing THE MANTLE to dark
+
+In frames, P1's screen, AUTO pulls the knobs and the shell shears, the spark leaks under a raised shield and is shot, and the core is tapped dark. The wave clears at 0:11 with no retries and nothing clipped. `autopilot-mantle.test.ts` already proves the four shears, the dark core and no spark struck. How THE MANTLE's effects read at tempo is its own entry, marked for a phone, so this one comes out of the queue.
+
 ## 2026-09-27 · c4769bfec — An unverified item read on two phones is queued PHONE ONLY too
 
 `bun run land --unverified` wrote `- **Where:** phone` for "real phone", "real thumbs" and "on glass", but not for words read "on two phones", "on a phone" or "on real phones". Six such entries sat unmarked, and `next` kept handing them to lanes that could only give them back. The pattern now knows those words, and the six entries are marked. "At tempo" on its own is still anybody's, as the queue's preamble keeps it. So is an item saying what a phone cannot do yet, such as a missing touch sender, because that is code to write.
