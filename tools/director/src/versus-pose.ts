@@ -35,12 +35,8 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "instar:moult": "INSTAR · BARE",
-  "instar:seam": "INSTAR · THE BROOD",
   "instar:heart": "INSTAR · BARE",
   "instar:wing": "INSTAR · THE JAW HALF PULLED",
-  "creature:body-interior": "BODIES · THE TWO CORES",
-  "creature:skin": "BODIES · FOUR KINDS AT ONCE",
-  "ratchet:plate": "THE RATCHET · CLIMB",
   "grindstone:jaw": "THE GRINDSTONE · STILL",
   "trivet:foot": "THE TRIVET · STILL",
   "rime:pane": "THE RIME · STILL",

@@ -1228,3 +1228,32 @@ socket on the body's contour clock, with the candidate's rates and its 0.09
 reach; COUNTDOWN_LOOK is unchanged.
 
 It was the only answer offered; the slot was closed with `drop`.
+
+## `ratchet:plate` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I see no difference, you decide.* A difference
+he cannot see at play size is code for nothing, and the rack is a machine on
+purpose (the sway's own header).
+
+The other answer offered was `sway`; it went with the slot.
+
+## `instar:seam` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I see no difference, you decide.* The baked
+seam is +1.0 kB for a joint drawn under the brood.
+
+The other answer offered was `baked`; it went with the slot.
+
+## `creature:skin` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I see no difference, you decide.* A difference
+he cannot see at play size is code in the bundle for nothing.
+
+The other answer offered was `drift`; it went with the slot.
+
+## `creature:body-interior` — nothing taken, 2026-09-27
+
+The owner, 27 September 2026: *I see no difference, you decide.* The interior
+drift reaches only a box and a dart, which are too small to read.
+
+The other answer offered was `drift`; it went with the slot.

@@ -26111,3 +26111,17 @@ Bottleneck: the registrations — every file a boss is a name in, found one
 failing test at a time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — VERSUS: four slots the owner could not tell apart, dropped
+
+- reading: 5 min. The queue entry, the four candidates, and every reader of
+  the baked seam.
+- writing: 5 min. Four `versus drop`s, DECIDED.md's capital letters, and the
+  dead seam queued.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
+
+Bottleneck: reading — the seam's baked module outlives its slot in four
+tooling files, and those had to be traced before it could be queued rather
+than deleted.

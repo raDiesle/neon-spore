@@ -2792,24 +2792,6 @@ page if it does not.
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
 
-## VERSUS — drop four the owner could not tell apart
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-versus-adopt-five-the-instars-spit-eye-nest-and (claim: claude/queue-versus-drop-four-the-owner-could-not-tell-apart)
-- **Files:** `tools/versus/candidates/registry.ts`, `tools/versus/DECIDED.md`, `tools/versus/candidates/ratchet-plate/sway/index.ts`, `tools/versus/candidates/instar-seam/baked/index.ts`, `tools/versus/candidates/creature-skin/drift/index.ts`, `tools/versus/candidates/creature-body-interior/drift/index.ts`
-
-The owner, 27 September 2026, on `ratchet-plate sway`, `instar:seam baked`,
-`creature:skin drift` and `creature:body-interior drift`: *I see no
-difference, you decide.* Decided: drop all four with `bun run versus drop`.
-A difference he cannot see at play size is code in the bundle for nothing.
-The rack is a machine on purpose (the plate sway's own header). The seam is
-+1.0 kB for a joint drawn under the brood. The interior drift reaches only
-a box and a dart, which are too small to read. The reason for each goes in
-DECIDED.md.
-
-Done when: none of the four is left in the registry; `bun run check` is
-green.
-
 ## VERSUS — THE INSTAR's wing is shown in a pose that hides it
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
@@ -2859,3 +2841,20 @@ longer eighty-nine either. The test holds §1's figure but not §3.2's
 sentence. Rewrite the paragraph to say the number and point at the list,
 and make the test read the number out of §3.2 the way it reads §1's, so
 the next boss lane cannot leave it stale. `bun run check` proves it.
+
+## THE INSTAR's baked seam is dead since its VERSUS slot was dropped
+
+- **Found:** 2026-09-27, claude/queue-versus-drop-four-the-owner-could-not-tell-apart
+- **Files:** `packages/render/src/instar-seam-baked.ts`, `packages/render/src/index-sprite.ts`, `packages/render/test/sprite-bake.test.ts`, `tools/raster/src/sprite-demos.ts`, `tools/raster/src/sprite-bytes.ts`, `.claude/skills/sprite/baked-parts.md`
+
+`instar:seam` was dropped on 27 September 2026 (`tools/versus/DECIDED.md`),
+and nothing in the game draws `drawBakedSeam`. Only the sprite tooling and
+one test still reach it, and its header still says it is offered in VERSUS.
+Delete the module and its export. Remove the `instar-seam` rows from
+`sprite-demos.ts` and `sprite-bytes.ts`, along with the demo's `ring` helper
+and the `RING_LOOK`/`BodyRing` imports if nothing else uses them. Remove the
+seam call from `sprite-bake.test.ts`. In `baked-parts.md`, mark the seam row
+as dropped and fix the "all ten" total. Then run `bun run index`.
+
+Done when: `git grep drawBakedSeam` finds nothing outside the release notes
+and DECIDED.md, and `bun run check` is green.

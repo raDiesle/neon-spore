@@ -6,28 +6,20 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { INTERIOR_DRIFT } from "./creature-body-interior/drift/index.js";
-import { SKIN_DRIFT } from "./creature-skin/drift/index.js";
 import { GRINDSTONE_JAW_TREMBLE } from "./grindstone-jaw/tremble/index.js";
 import { INSTAR_HEART_BAKED } from "./instar-heart/baked/index.js";
 import { INSTAR_MOULT_BAKED } from "./instar-moult/baked/index.js";
-import { INSTAR_SEAM_BAKED } from "./instar-seam/baked/index.js";
 import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
-import { RATCHET_PLATE_SWAY } from "./ratchet-plate/sway/index.js";
 import { RIME_PANE_GLINT } from "./rime-pane/glint/index.js";
 import { TRIVET_FOOT_DANGLE } from "./trivet-foot/dangle/index.js";
 import { VALVE_PIN_SWAY } from "./valve-pin/sway/index.js";
 import { VISE_KERNEL_TURN } from "./vise-kernel/turn/index.js";
 
 export const VARIANTS: Variant[] = [
-  INTERIOR_DRIFT,
-  SKIN_DRIFT,
   GRINDSTONE_JAW_TREMBLE,
   INSTAR_HEART_BAKED,
   INSTAR_MOULT_BAKED,
-  INSTAR_SEAM_BAKED,
   INSTAR_WING_BAKED,
-  RATCHET_PLATE_SWAY,
   RIME_PANE_GLINT,
   TRIVET_FOOT_DANGLE,
   VALVE_PIN_SWAY,
