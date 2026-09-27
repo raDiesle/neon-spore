@@ -2655,6 +2655,7 @@ names the first.
 ## GRINDSTONE, CYST and DAVIT handles still `"unbuilt"` in ON THE FIELD
 
 - **Found:** 2026-09-27, claude/queue-36-the-halter-the-touch-sender-and-its-cue
+- **Taken:** 2026-09-27, claude/queue-the-grindstones-wheel-has-no-secondary-motion-of (claim: claude/queue-grindstone-cyst-and-davit-handles-still-unbuilt)
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `tools/director/src/poses-field-controls.ts`, `docs/spec/controls.md`
 
 `TARGET_PLACE` still calls `grindFlatLeft`/`Right`, `grindJawLeft`/`Right`,
