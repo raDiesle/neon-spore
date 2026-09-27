@@ -3199,6 +3199,7 @@ by hand never moves.
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
 | `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |
 | `tools/frames/drive.ts` | The three verbs a capture drives the page with, and the rule each of them carries |
+| `tools/frames/draw-clock.ts` | The page's draw clock, held and set: the counter `performance.now` becomes for a capture (`freezeClocks`) |
 | `tools/frames/director-serve.ts` | GETTING A DIRECTOR RUNNING SO A PICTURE CAN BE TAKEN OFF IT |
 | `tools/frames/flags.ts` | The whole `frames` command line, read and validated once into a `FrameSpec` |
 | `tools/frames/flag-lists.ts` | Every `--hold` and `--press` on the command line rather than the first, and the one tick line they join |

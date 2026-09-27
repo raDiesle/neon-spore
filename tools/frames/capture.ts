@@ -1,5 +1,6 @@
 import type { Browser, Page } from "playwright-core";
 import { closeBrowser, launchBrowser } from "./browser.js";
+import { clockTo } from "./draw-clock.js";
 import { makeDriver } from "./drive.js";
 import { clearFrames, framePathFor, writeFrame } from "./frame-files.js";
 import { filmHeld, filmTickHz } from "./guide-film.js";
@@ -169,6 +170,12 @@ export async function captureFrames(
         await page.evaluate((n) => {
           for (let k = 0; k < n; k++) window.neonSpore?.paint();
         }, spec.settle);
+      }
+
+      // The picture's clock put where `--time` asked, once, for the first
+      // frame's own paint; a strip carries on from there (`draw-clock.ts`).
+      if (i === 0 && spec.time !== undefined && !(await clockTo(page, spec.time))) {
+        throw new Error("--time: this build keeps its own clock, so there is no draw time to set");
       }
 
       // Worth one film tick on a guide, like every other paint of this capture.

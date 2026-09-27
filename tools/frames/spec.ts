@@ -136,6 +136,13 @@ export interface FrameSpec extends StageSpec {
    */
   settle?: number;
   /**
+   * The draw time the first frame is painted at, in seconds (`draw-clock.ts`):
+   * the moment a movement is widest, asked for rather than found by a strip.
+   * A strip's later frames carry on from it. Undefined is whatever the paints
+   * before it added up to.
+   */
+  time?: number;
+  /**
    * Which round of the installed boss to stand on, counted from 0.
    *
    * `jumpToWave` puts a boss on the field at its opening round and the only

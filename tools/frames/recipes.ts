@@ -73,6 +73,10 @@ export const RECIPES: readonly Recipe[] = [
   },
   { argv: "<sha> --wave 21 --press 60:1:grip=lowest", what: "a hand on the body nearest the hull" },
   { argv: "<sha> --wave 21 --settle 8 --frames 6 --stride 0", what: "a burst, as a strip" },
+  {
+    argv: '<sha> --wave "THE CAIRN" --time 12.5',
+    what: "the picture's clock at a movement's widest",
+  },
   { argv: "<sha> --wave 21 --at 120,400,150,150 --zoom 3", what: "one body, close up" },
   { argv: "<sha> --wave 19 --boss-round 3", what: "a later sheet of THE MAZE" },
   { argv: '. --wave "THE HANDOVER" --fault handover:4,3,6', what: "a fault no wave names" },

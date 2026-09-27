@@ -27261,3 +27261,17 @@ Bottleneck: reading — a touch lane is six files in three packages, and
 the burgee's was the only map to them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `bun run frames --time`: a picture at a chosen draw time
+
+- reading: 10 min. `capture.ts`, `page.ts`'s frozen clock, the flag parser
+  and the game's `paint`, to be sure the clock moves only the picture.
+- writing: 10 min. `draw-clock.ts` cut out of `page.ts`, the flag, the step
+  in the capture, the recipe line.
+- looking: 0 min. A tool change; the stub page is its proof.
+- friction: 5 min. The parser's call shape in the test, an import sort and
+  the index row.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the frozen clock's whole contract lives in one long
+comment, and it had to be read end to end before a second verb could join it.

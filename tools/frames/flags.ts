@@ -126,6 +126,8 @@ export function parseFrameSpec(
     // did: one painted frame per photograph, and nothing that lives in painted
     // seconds ever moving.
     settle: flag("settle", 0),
+    // The picture's clock at the first frame, for a movement's widest moment.
+    ...(argv.includes("--time") ? { time: parseTime(after("time")) } : {}),
     at: atValue === undefined ? undefined : parseAt(atValue),
     zoom: flag("zoom", 1),
     ...(size === undefined ? {} : { viewport: { width: vw!, height: vh! } }),
@@ -185,4 +187,12 @@ export function parseFrameSpec(
   }
 
   return { spec, waveValue };
+}
+
+/** `--time`'s seconds: a number, not below zero — the clock only runs forward. */
+export function parseTime(value: string | undefined): number {
+  const n = Number(value);
+  if (value === undefined || value === "" || !Number.isFinite(n) || n < 0)
+    throw new Error(`--time ${value ?? ""}: seconds of draw time, 0 or more, e.g. 12.5`);
+  return n;
 }

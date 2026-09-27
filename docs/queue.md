@@ -2332,19 +2332,3 @@ Done when: the parts test's out-of-step and speed checks run on THE REPRISE's
 parts, a mark on a moving part follows it, two stills at the widest moment
 tell apart on a phone, and the op-count rows stay within 10%.
 `bun run check` proves it.
-
-## `bun run frames` cannot put a picture at a chosen draw time
-
-- **Found:** 2026-09-27, claude/queue-cairn-reprise-parts
-- **Taken:** 2026-09-27, claude/queue-frames-time (claim: claude/queue-bun-run-frames-cannot-put-a-picture-at-a-chosen)
-- **Files:** `tools/frames/page.ts`, `tools/frames/spec.ts`, `tools/frames/capture.ts`, `tools/frames/recipes.ts`
-
-The *Big enough to be seen* test wants two stills at the moment a movement is
-widest, and every own-motion is drawn on `view.time`, which the tool pins to
-a counter of painted frames (`freezeClocks`). How many paints the opening and
-the settle cost is nobody's number, so the time a frame lands on is found by
-rendering a strip and looking — THE CAIRN's rocking stones took a six-frame
-strip and six crops to find one wide moment. Add `--time <seconds>`, which sets
-the pinned clock to that value before the last paint of each capture, on both
-sides of a pair, and a recipe line for it. Test it with a stub page: the
-clock the paint sees is the value asked for. `bun run check` proves it.
