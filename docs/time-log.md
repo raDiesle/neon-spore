@@ -26162,3 +26162,19 @@ Bottleneck: writing — the edges only a frame knows had to be drawn per
 frame, in five paths, to keep the cost flat.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GALL has a body: a nodule on a raised seam that leans to its pincher
+
+- reading: 5 min. THE CAPSTAN's four look files and its frame test as the
+  template, the two free drafts, `field-flip.ts`.
+- writing: 10 min. Shape, pose, marks and draw, the predicate, the palette,
+  the frame test, §11.55, the ledger and the two queue halves.
+- looking: 5 min. Four frames: THE SLOW's prism over a lit close, a seam
+  drawn as two rings with a break at the middle, and the bared root found
+  only by writing the state with `--boss`.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding a frame to look at — a lit close is under THE SLOW's
+prism and two pinches in one run are one `--hold`, so the bared view needed
+`--boss` to set it.

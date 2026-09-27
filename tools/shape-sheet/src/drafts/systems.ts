@@ -63,11 +63,10 @@ export const SYSTEM_DRAFTS: CatalogueEntry[] = [
   {
     subject: arm("THE NEEDLE", "a straight corridor, barely bending", 130, 0.16),
     motion: DRIFT,
-    status: "draft",
+    status: "taken",
     slot: "field",
-    suggests: "The Needle",
     owner:
-      "a geometric corridor, which is a line and not a creature. Almost no bend, so it reads as drawn rather than grown — and it crosses columns, which is the only thing on this page that does",
+      "THE GALL's seam, taken 27 September 2026 with CREATURES' NOTCH 2 for the nodule on it: the corridor laid the width of the field as a raised ridge with four scars on it, its bend run along it as a ripple, and its two lips peeled back over the middle column to bare the root (`render/gall-shape.ts`). Before that: a geometric corridor, which is a line and not a creature. Almost no bend, so it reads as drawn rather than grown — and it crosses columns, which is the only thing on this page that does",
   },
   {
     subject: arm("LIGHT TRACE", "a trailing line that lags what made it", 90, 1.5),

@@ -414,6 +414,31 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">capstanCore</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#7B5A49 20°</text>
     </g>
+    <g transform="translate(116 2028)">
+      <rect width="66" height="46" rx="4" fill="#6E4A82" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallSeam</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#6E4A82 279°</text>
+    </g>
+    <g transform="translate(192 2028)">
+      <rect width="66" height="46" rx="4" fill="#24172C" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallSeamDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#24172C 277°</text>
+    </g>
+    <g transform="translate(268 2028)">
+      <rect width="66" height="46" rx="4" fill="#B889C9" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallFlesh</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#B889C9 284°</text>
+    </g>
+    <g transform="translate(344 2028)">
+      <rect width="66" height="46" rx="4" fill="#4E3160" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallFleshDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4E3160 277°</text>
+    </g>
+    <g transform="translate(420 2028)">
+      <rect width="66" height="46" rx="4" fill="#8C6A7E" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallRoot</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8C6A7E 325°</text>
+    </g>
 <text x="40" y="2134" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE FILM</text>
 <text x="150" y="2134" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.</text>
     <g transform="translate(40 2150)">

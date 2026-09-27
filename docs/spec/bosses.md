@@ -10179,11 +10179,47 @@ in its colour unless it is `either`.
   letting go early loses no ground, and a window is only an end for THE
   SLOW.
 
-**What is not built.** The body: lane two draws the seam, the nodule, its
-four poses and its root (`docs/queue.md`, *§38 THE GALL — the look*).
-Nothing sends a pinch from a touch yet, the field says no cue, and AUTO
-has no hand for it (`tools/director/test/autopilot.test.ts`, `NO_HAND`).
-The guide is prose.
+**The look** (`render/src/gall-draw.ts`, 27 September 2026 — the body).
+**Two drafts combined**: SYSTEMS' THE NEEDLE
+(`tools/shape-sheet/src/drafts/systems.ts`), the corridor barely bending,
+laid the width of the field three rows under its top as a raised ridge —
+thickest in the middle and thin at the ends, its bend run along it as a
+ripple, more of it in the rest after a jump — and CREATURES' NOTCH 2
+(`drafts/creatures.ts`), the heeled mass at its own numbers, for the
+nodule riding it (`gall-shape.ts`). The seam carries **four scars**, one
+per point, so a place is something the pair can count to; the one under the
+gall is hidden by it. The nodule **heels toward the end of the seam whose
+seat is nearer it**, turned over with the field under THE FLIP, so *whose*
+is read off the whole body. **The jump is not posed**: it stands on its
+point until the close lands and on the next from that frame, §38's single
+frame, and a nodule seen sliding would be one the pair could follow with
+their eyes instead of their words. **The answer deforms the body**
+(`gall-pose.ts`): it rises out of the seam as it settles in, swells on its
+beat while a close is lit, is squeezed narrow and pushed up by the gap
+between the fingers (nought open, one at `gallShutMilli`), pressed down
+into the seam by the beats it is kept shut, and has a lobe fewer and a
+sixth less size for every close. **The perspective changes** after the
+third: the nodule is pulled under, the seam's two lips peel back over the
+middle column through the rest, and the view is into the hull, at the root
+the growth was hiding — soft and dull, three tendrils going down, lit in
+the fire step's colour with a ring closing as its window runs, and smaller
+and brighter per hit (`coreHurt`). Shot, the seam closes over it and
+smooths flat and fades. **The marks say which gesture** (`gall-marks.ts`):
+two chevrons pointing in at the nodule from either side, closing as the
+fingers do, glowing and breathing with a window ring round them **on the
+screen of the seat whose half the gall is on**, and a faint plain line with
+no ring on the other's (`showsGallReach`) — *yours*, and *not yours, look*.
+The seam, its scars and the gall are on both screens: finding it is the
+fight. Hues: the hull's own violet gone dull for the seam and a paler mauve
+for the nodule, `gallSeam` to `gallRoot` (`palette-creatures-late.ts`).
+
+**What is not built.** Its own blow for a shot let run, and the receipts —
+a pinch come shut, a slip, a close and its jump, the swell, the bare, a hit
+— which are still in the two silent lists (`docs/queue.md`, *§38 THE GALL —
+the blow and the receipts*). Nothing sends a pinch from a touch yet, the
+field says no cue, and AUTO has no hand for it
+(`tools/director/test/autopilot.test.ts`, `NO_HAND`; *§38 THE GALL — the
+pinch's touch, the cue and AUTO*). The guide is prose.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/gall.test.ts`): the gall comes in slack on the first point
@@ -10199,7 +10235,9 @@ wants its colour and the middle column, and run out is the wave; shot
 whole, the seam goes flat and the fight ends; and two devices part over a
 single thousandth of gap. Whether any of it *reads* — whether a pair
 notices together which of them the gall is nearer — is the owner's eye,
-on two real phones.
+on two real phones. And of the body: whether the heel reads as
+*whose* at a glance at tempo, and whether the pinch's two chevrons read as a
+pinch before anybody has been told.
 
 ## Retired
 

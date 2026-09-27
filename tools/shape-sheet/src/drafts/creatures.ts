@@ -148,10 +148,9 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
   {
     subject: heeled("NOTCH 2", "no barb — the whole mass leans", 33, 31, 0.42, 5),
     motion: CANT,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Notch",
     owner:
-      "the same commitment on the same beats, said with the whole body instead: fat on the leading side, lean behind, nothing small enough to be lost at creature size. Its risk is the opposite one — the bulb already sways and the slick already tilts, so a lopsided blob may read as one more of those rather than as a claim about the next column",
+      "THE GALL's nodule, taken 27 September 2026 with SYSTEMS' THE NEEDLE for the seam it rides: the mass at its own numbers heeled toward the end of the seam whose seat is nearer it, a lobe fewer for every close, squeezed by the pinch and pressed down into the seam by the beats it is kept shut (`render/gall-shape.ts`). Before that: the same commitment on the same beats, said with the whole body instead: fat on the leading side, lean behind, nothing small enough to be lost at creature size. Its risk is the opposite one — the bulb already sways and the slick already tilts, so a lopsided blob may read as one more of those rather than as a claim about the next column",
   },
 ];

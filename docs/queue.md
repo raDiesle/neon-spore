@@ -895,32 +895,43 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §38 THE GALL — the look
+## §38 THE GALL — the blow and the receipts
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-simulation-lane (claim: claude/queue-38-the-gall-the-look)
-- **Needs:** §38 THE GALL's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-27, claude/queue-38-the-gall-the-look
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/gall-draw.ts`, `packages/render/src/boss-draw-clocks-d.ts`
 
-Lane two, read against `docs/style-guide.md`: a new silhouette (check
-`packages/content/src/silhouettes*.ts` first, then
-`tools/shape-sheet/src/drafts/`) for a soft duller-hulled nodule on a
-raised seam, its jump between the seam's four points a single frame
-rather than a slide — a rolling nodule would read as a target to lead,
-which is a different game. No sprite-atlas experiment queued: the whole
-concept spends its cost on the relocation, and its closing pinch reuses
-THE VISE's own gap-closing frames rather than drawing new ones. Nothing
-here is drawn yet and stays unverified at tempo until the owner has
-looked.
+The body is drawn (§11.55, *The look*); the look's second half is left. A
+shot run out is drawn as the default lash: give it its own blow in a new
+gall-blow.ts, the way `capstan-blow.ts` is THE CAPSTAN's — the growth's own
+thing thrown down the middle column (a seed of the nodule torn off the root,
+say), with its row in `boss-strike-from.ts` and `boss-strike-look.ts` and in
+`boss-strike.test.ts`. Then the receipts, in a gall-fx.ts read above the
+loop and kept in `BossTransients` (`effects-boss.ts`, with the reset proved
+by `restart.test.ts`): a flare on `gallPinch`, a shudder on `gallSlip`, a
+puff of the nodule left behind on the point it leaves on `gallClose`, the
+bulge on `gallSwell`, the lips tearing on `gallBare`, the root's flash on
+`gallHit` — taking those events out of the two silent lists' reason, and
+passing `effects.boss.gall` into `drawGall` from `boss-draw-clocks-d.ts`.
+`bun run check` proves it; how it reads at tempo stays the owner's eye.
 
-The simulation landed on 27 September 2026 (`docs/spec/bosses.md` §11.55)
-with none of its hands: nothing sends `gallPinch` from a touch — two
-fingers on the gall's point, the gap as `fromMilli` and the point as `id`,
-THE VISE's pinch reader — the field says no cue (`PINCH` beside the point
-on the nearer seat, `FIRE` on a bared root), and AUTO has no hand for it
-(`tools/director/test/autopilot.test.ts`, `NO_HAND`). They are this lane's
-second half, the way THE CAPSTAN's were.
+## §38 THE GALL — the pinch's touch, the cue and AUTO
 
+- **Found:** 2026-09-27, claude/queue-38-the-gall-the-look
+- **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
+
+The simulation landed with none of its hands and the body is on the screen
+(§11.55, *The look*). Nothing sends `gallPinch` from a touch: two fingers on
+the gall's point, the gap as `fromMilli` and the point as `id` — THE VISE's
+pinch reader — hit-tested where `gall-draw.ts` draws the nodule
+(`gallPointAt`, `gallSize`), in a new gall-grip.ts the way `capstan-grip.ts`
+reads the drum. The field says no cue: `PINCH` beside the nodule on the
+seat whose half it is on, and `FIRE` on a bared root, on its own
+`boss-cue-read-*.ts` page. AUTO has no hand (`NO_HAND` in
+`autopilot.test.ts`): a boss-hands-gall.ts that pinches shut on the gall's
+point from its seat and shoots the root in its colour, with an
+autopilot-gall.test.ts playing the wave to its end. `bun run check` proves
+it; how a pinch on a jumping gall feels stays unverified until the owner
+holds two phones.
 ## §39 THE BURGEE — the simulation lane
 
 - **Found:** 2026-09-26, this session

@@ -3,6 +3,7 @@ import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
+import { drawGall } from "./gall-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
 import type { Layout } from "./layout.js";
@@ -37,6 +38,7 @@ export const LATE_PAIR_KINDS = [
   "grindstone",
   "halter",
   "capstan",
+  "gall",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -131,5 +133,14 @@ export function drawLatePairBoss(
   // lean so one end face comes round and worn bright by the other's thumb, a
   // core under a cap in its middle both cannons hit (`capstan-draw.ts`); a
   // band's scrub and ring, a window's thud and the core's flash are `capstan-fx.ts`.
-  drawCapstan(ctx, l, world, boss, beat, beatPhase, time, effects.boss.capstan);
+  if (boss.kind === "capstan") {
+    drawCapstan(ctx, l, world, boss, beat, beatPhase, time, effects.boss.capstan);
+    return;
+  }
+
+  // THE GALL: a nodule on a raised seam across the field, pinched shut by
+  // the seat nearer it and jumping to another of four points as a close
+  // lands, the root bared under the peeled seam and shot (`gall-draw.ts`).
+  // Nothing of it outlives a frame yet.
+  drawGall(ctx, l, world, boss, beat, beatPhase, time);
 }

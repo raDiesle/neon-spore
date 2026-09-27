@@ -83,3 +83,16 @@ export const showsHaspWheel = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsRatchetPawl = (role: ViewRole): boolean => role !== "p2";
 export const showsRatchetCatch = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE GALL's pinch mark (§38). This boss splits the hands and not the eyes:
+ * both screens are shown the seam, its four scars and the gall wherever it
+ * sits, because *finding* it after a jump is the fight, and a gall one seat
+ * could not see would be a secret rather than a search. What each seat is
+ * shown full is **the chevrons of its own pinch** — lit when the gall sits
+ * on its half, and only faint when it sits on the other's — so the seat
+ * whose turn it is sees *you*, and the other sees *not you, look*, and has
+ * to say where it went. `test` is both at full.
+ */
+export const showsGallReach = (role: ViewRole, seat: 1 | 2): boolean =>
+  role === "test" || role === `p${seat}`;

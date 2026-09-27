@@ -33,4 +33,20 @@ export const LATE_CREATURE_HUES = {
   capstanWorn: "#E4DACB",
   /** The soft core under the cap, while no shot is owed. */
   capstanCore: "#7B5A49",
+  /**
+   * THE GALL's seam (§38, *Colour*): the hull's own violet gone dull, as if
+   * the growth were the hull's skin raised — it is on the hull, not a thing
+   * landed on it — and the shadow along its underside.
+   */
+  gallSeam: "#6E4A82",
+  gallSeamDark: "#24172C",
+  /**
+   * The nodule: a pale swollen mauve, lighter than the seam it grows out of
+   * so the eye finds it at a glance on either half, and its shadow. Pale and
+   * cool, so it never reads as the red cannon's pink or as a lit mark.
+   */
+  gallFlesh: "#B889C9",
+  gallFleshDark: "#4E3160",
+  /** The root the peeled seam bares, while no shot is owed. */
+  gallRoot: "#8C6A7E",
 } as const;
