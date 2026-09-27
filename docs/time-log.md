@@ -27400,3 +27400,5 @@ and each had to be checked so the sling's said what only it does.
 
 Bottleneck: reading — deciding each seam's fate meant proving nothing in the
 queue or in VERSUS still patched it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

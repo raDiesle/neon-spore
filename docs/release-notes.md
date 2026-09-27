@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d693ba26b — The dropped swing and frame-pass seams leave the renderer
+
+`MECHANISM_SWING` and `FRAME_POST` drew nothing at 0 since `davit:hook`, `plumb:bob`, `sling:tine` and `frame:glow` were dropped, yet THE DAVIT, THE PLUMB and THE SLING asked the swing for an angle every frame and the renderer called the empty pass at the end of every frame. No lane was re-aiming either, so both modules, their test and their calls are gone. `OUTLINE_DRIFT` stays, and its header now says why: the outline drift the queue still owes re-aims it. Nothing drawn changes.
+
 ## 2026-09-27 · ade1a96b7 — THE SLING's two cords are rows of ON THE FIELD, each with a pose card from the drawer's screen
 
 `field-controls-sling.ts` describes the pilot's left cord and the navigator's right cord. A thumb anywhere on the seat's own screen takes a cord while the lit step asks for it, and the lift is loosed by its swipe. `poses-field-controls-sling.ts` runs each draw three beats of five in and photographs it from the drawer's phone. `slingDrawLeft` and `slingDrawRight` move from "unbuilt" to "field", and `docs/spec/controls.md` gains their rows.
