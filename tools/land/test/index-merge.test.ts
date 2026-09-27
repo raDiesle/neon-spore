@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { gitIn, repoTimeout } from "../../test/repo-time.js";
-import { keepLaneRows } from "../index-merge.js";
+import { keepLaneRows, namedTwice, namedTwiceSaid } from "../index-merge.js";
 import { replay } from "../replay.js";
 
 /**
@@ -61,6 +61,34 @@ describe("keeping a lane's own rows", () => {
     const trunk = indexFile("| `tools/one.ts` | The trunk's words |");
     const lane = indexFile("| `tools/one.ts` | The lane's words |");
     expect(keepLaneRows(base, trunk, lane, trunk)).toBeNull();
+  });
+});
+
+/** The two sides `48ad4d936` had: THE RIME's page on the trunk, THE TRIVET's in the lane. */
+const ZF = "| `tools/zf.ts` | **What THE VISE is asking for** |";
+const RIME = "| `tools/zg.ts` | **What THE RIME is asking for** |";
+const TRIVET_ZG = "| `tools/zg.ts` | **What THE TRIVET is asking for** |";
+const TRIVET_ZH = "| `tools/zh.ts` | **What THE TRIVET is asking for** |";
+
+describe("a table that names one file twice", () => {
+  test("is found, each path once", () => {
+    expect(namedTwice(indexFile(ZF, RIME, TRIVET_ZG, TRIVET_ZH, RIME))).toEqual(["tools/zg.ts"]);
+    expect(namedTwice(indexFile(ZF, RIME, TRIVET_ZH))).toEqual([]);
+  });
+
+  test("is refused by the resolver, fed the two sides that commit had", () => {
+    const base = indexFile(ZF);
+    const trunk = indexFile(ZF, RIME);
+    const lane = indexFile(ZF, TRIVET_ZG, TRIVET_ZH);
+    expect(keepLaneRows(base, trunk, lane, indexFile(ZF, RIME, TRIVET_ZH))).toBeNull();
+    // And the table as it reached main, both rows kept, however it was generated.
+    const both = indexFile(ZF, RIME, TRIVET_ZG, TRIVET_ZH);
+    expect(keepLaneRows(base, trunk, indexFile(ZF, TRIVET_ZH), both)).toBeNull();
+  });
+
+  test("says which path, and what to do", () => {
+    expect(namedTwiceSaid(indexFile(ZF, RIME, TRIVET_ZG), "main")).toContain("tools/zg.ts");
+    expect(namedTwiceSaid(indexFile(ZF, RIME), "main")).toBeNull();
   });
 });
 

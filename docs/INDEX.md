@@ -1855,7 +1855,6 @@ by hand never moves.
 | `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
 | `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
 | `packages/render/src/pulse-shape.ts` | What falls down each of THE PULSE's four lanes, and what colour it is |
-| `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 | `packages/render/src/landing.ts` | Where a body's last glide ends: half-sunk in the ship's skin, so the beat it is seen to touch the hull is the beat the hull answers |
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
@@ -2038,7 +2037,6 @@ by hand never moves.
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
-| `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
@@ -2060,7 +2058,6 @@ by hand never moves.
 | `packages/render/src/cyst-pose.ts` | **THE CYST's pose, read off the state every frame** (§34): how far in the sac has dropped |
 | `packages/render/src/cyst-shape.ts` | **THE CYST's geometry**: where the sac stands, and the paths it is made of |
 | `packages/render/src/cyst-story.ts` | **THE CYST's three story steps, drawn** (§34; the rules are `sim/cyst-step.ts` and `sim/cyst-shot.ts`) |
-| `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/spool-brake.ts` | **The pilot's brake**: a rail hanging outside the brake's flange, a knob on it at the depth his thumb has it |
 | `packages/render/src/spool-draw.ts` | **THE SPOOL**: a thread-spool slung sideways across the top of the field |

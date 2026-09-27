@@ -44,6 +44,17 @@ describe("docs/INDEX.md rows still describe their files", () => {
     expect(rows.length).toBeGreaterThan(100);
   });
 
+  // Two rows for one path are two sentences for one file, and the generator
+  // keeps both: three stood on main on 27 September 2026, one of them
+  // a row for THE PULSE's arrows the file no longer drew (`tools/land/index-merge.ts`).
+  test("names every file once", () => {
+    const seen = new Set<string>();
+    const twice = parseRows(committed)
+      .map((r) => r.path)
+      .filter((p) => seen.has(p) || !seen.add(p));
+    expect(twice).toEqual([]);
+  });
+
   /**
    * The failures this is here for are silent ones: a row keeps its wording
    * while the file it describes is renamed out from under it, or grows a

@@ -48,7 +48,7 @@ import { join as joinPath } from "node:path";
 import { regenerate } from "../index/generate.js";
 import { discover, registryText } from "../versus/registry.js";
 import { git } from "./git.js";
-import { keepLaneRows } from "./index-merge.js";
+import { keepLaneRows, namedTwiceSaid } from "./index-merge.js";
 import { LEDGER_FILE, mergeLedger } from "./ledger-merge.js";
 import { mergeNotes, NOTES_FILE } from "./notes-merge.js";
 import { mergePoses, POSE_FILE } from "./pose-merge.js";
@@ -140,6 +140,7 @@ async function run(args: string[], root: string): Promise<{ code: number; err: s
  */
 export async function replay(root: string, trunk: string): Promise<Replay> {
   const resolved: string[] = [];
+  const before = await git(["rev-parse", "HEAD"], root);
   let step = await run(["rebase", trunk], root);
   // One pass per commit that stops the replay; the rebase itself is what ends
   // the loop, and a commit that cannot be settled leaves through a `return`.
@@ -169,6 +170,14 @@ export async function replay(root: string, trunk: string): Promise<Replay> {
       resolved.push(file);
     }
     step = await run(["rebase", "--continue"], root);
+  }
+  // Asked of the result and not only of a conflict: git merges two rows for
+  // one path cleanly when they went in at different places (`index-merge.ts`).
+  // Put back where it started, which is what a stopped replay leaves.
+  const twice = namedTwiceSaid(await git(["show", `HEAD:${INDEX_FILE}`], root), "the replay");
+  if (twice !== null) {
+    await run(["reset", "--hard", "--quiet", before], root);
+    return { ok: false, conflicted: [], resolved, said: twice };
   }
   return { ok: true, conflicted: [], resolved, said: "" };
 }

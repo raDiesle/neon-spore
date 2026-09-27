@@ -29,6 +29,7 @@
  */
 
 import { git, gitOrDie } from "./git.js";
+import { namedTwiceSaid } from "./index-merge.js";
 import { reconcile } from "./reconcile.js";
 import { refusalLines } from "./refusal.js";
 
@@ -86,6 +87,10 @@ if (ahead === 0) {
 }
 
 async function send(): Promise<string> {
+  // The last gate a hand-settled rebase passes, and the one `48ad4d936` went
+  // through with two rows for one file (`index-merge.ts`).
+  const twice = namedTwiceSaid(await git(["show", `${TRUNK}:docs/INDEX.md`], root), TRUNK);
+  if (twice !== null) return twice;
   try {
     await gitOrDie(["push", "origin", `${TRUNK}:${TRUNK}`], root);
     return "";

@@ -25607,3 +25607,18 @@ Bottleneck: looking — the defect was a load at phone width that was then
 widened, which the entry had read as a stacking order.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — a table that names one file twice is refused
+
+- reading: 10 min. `replay.ts`, `index-merge.ts`, `reconcile.ts` and
+  `push.ts`, and `48ad4d936`'s own diff, to find which path let the second
+  row through.
+- writing: 10 min. `namedTwice`, its three call sites, the incident's sides
+  as a test and a clean-merge repository test.
+- looking: 0 min.
+- friction: 5 min. The guard hook refused two heredocs with a doubled
+  backslash; written with the Edit tool instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the resolver already refused the incident's sides, so
+the row had come in by hand, and every other gate had to be found.
