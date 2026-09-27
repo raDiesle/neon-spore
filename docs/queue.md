@@ -2555,30 +2555,6 @@ open with the remaining bosses listed; the last lane removes it.
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.
 
-## THE INSTAR — holds still while its marks are live
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-instar-the-fire-in-its-mouth-is-a-soft-glow (claim: claude/queue-the-instar-holds-still-while-its-marks-are-live)
-- **Files:** `packages/render/src/instar-sway.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/test/instar-sway.test.ts`
-
-The owner, 27 September 2026: *when there is slow mode, the body of the boss
-and especially the circle of action must have very slow movement — circles
-should almost stay where they are and not move because of the boss's natural
-body movement, otherwise it's hard to hit. Especially if a cannon shot must be
-fired, a suck, or a shield on a specific position.* `instarSway` moves every
-mark with the body through a window. While THE SLOW is open, ease the sway
-down to a tenth of its size over half a beat, and ease it back after the
-window closes. The hit test already goes through the same sway
-(`instarMarkUnder`), so a mark is found where it is drawn. A swept mark's
-travel along its track is the gesture, not natural movement, so it stays.
-
-The Living-bosses entries above had the live-mark hush at a sixth (the idle
-drift) and a third (the turn); both now say a tenth, to match.
-
-Done when: a test finds every mark of every step moving less than 0.1 tile
-a second while THE SLOW is open, and still hit where it is drawn. `bun run
-check` proves it.
-
 ## Every other boss — holds still while its marks are live, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
@@ -2593,7 +2569,10 @@ filament is pulled (`slow-boss-aim-b.ts` names both). Six per lane: find what
 moves each boss's marks during a window, hush the natural part, and add the
 boss to one shared test that walks its wave with AUTO and measures each live
 mark's drawn point at under 0.1 tile a second. Keep this entry open with the
-remaining bosses listed.
+remaining bosses listed. The speed is the rule and the tenth is a guess: THE
+INSTAR's weave needed a twentieth to get under it (`instar-sway.ts`
+`HUSHED`), and `instar-sway.test.ts`'s "a window hushes the weave" is the
+shape of the test.
 
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.

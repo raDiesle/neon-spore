@@ -26427,3 +26427,17 @@ Bottleneck: looking — AUTO shuts the mouth on the tick the window opens, so
 the strip had to be taken with no pair at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR holds still while its marks are live
+
+- reading: 10 min. `instar-sway.ts`, every caller of it, `Field`, `slow.ts`'s
+  window and what it keeps after a close.
+- writing: 15 min. `instarHush`, `Field.slow` through the game, the stage and
+  the kit, the marks drawn with the body's own sway, a test per step.
+- looking: 0 min. Nothing to see in a still frame: the change is a speed.
+- friction: 5 min. A tenth failed the entry's own speed rule by arithmetic
+  (0.17 of a tile a second at a quarter rate), so the hush is a twentieth.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the entry's fraction and its done-when disagreed, and
+the done-when is the one that was kept.

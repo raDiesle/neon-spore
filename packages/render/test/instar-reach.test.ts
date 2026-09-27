@@ -101,7 +101,7 @@ describe("THE INSTAR's reach", () => {
           const beat = base + Math.floor(t / TPB);
           const bp = (t % TPB) / TPB;
           const held = phase === "land" ? 1 : 0;
-          const { f } = instarBody(s, world.cfg, beat, bp, held);
+          const { f } = instarBody(s, world.cfg, world, beat, bp, held);
           const { head, r } = instarHeadAt(l, f);
           const threat = phase === "land" ? held : instarThreat(s, beat, bp);
           const fire = instarFire(s, f, beat, bp, held);

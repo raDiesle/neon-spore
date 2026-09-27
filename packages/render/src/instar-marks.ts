@@ -16,7 +16,7 @@ import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarRing } from "./instar-ring.js";
 import { INSTAR_FLIGHT_ENDS, instarThreat } from "./instar-shape.js";
-import { instarSway } from "./instar-sway.js";
+import type { Sway } from "./instar-sway.js";
 import {
   drawInstarDone,
   drawInstarWindow,
@@ -101,6 +101,7 @@ export function drawInstarMarks(
   l: Layout,
   s: InstarState,
   cfg: SimConfig,
+  sway: Sway,
   beat: number,
   beatPhase: number,
   time: number,
@@ -111,7 +112,6 @@ export function drawInstarMarks(
   const step = instarStep(s);
   if (step === null) return;
   const r = instarMarkRadius(l, cfg);
-  const sway = instarSway(s, cfg, beat, beatPhase);
   if (s.phase === "morph") {
     if (morph < ANTICIPATE_FROM) return;
     const glow = ((morph - ANTICIPATE_FROM) / (1 - ANTICIPATE_FROM)) * 0.5;

@@ -170,7 +170,7 @@ choreography; it fills the time between.
 
 **Where a thumb is working, it dies down harder.** The body drift eases to a
 third over a window with marks. The part drift eases with it, and a part that
-**carries a live mark** eases to a sixth. The hit test goes through the part's
+**carries a live mark** eases to a tenth. The hit test goes through the part's
 own transform as well as the body's, so a mark on a turning hand is found
 where it is drawn, the way `instarMarkUnder` in
 `packages/render/src/instar-mark-grip.ts` already adds the weave. A beaten
@@ -277,8 +277,12 @@ where it is drawn. Two rules, both needed:
   `instarMarkUnder` in `packages/render/src/instar-mark-grip.ts` already adds
   the weave. A drifted mark is found where it is drawn.
 - While a window is open over marks, the drift eases to a third of its size
-  over one beat, and back up over one beat after it closes. A thumb aimed at
-  a mark does not chase it.
+  over one beat, and back up over one beat after it closes, and to a tenth
+  over a part carrying a live mark. A thumb aimed at a mark does not chase it.
+  THE INSTAR's weave goes further, to a twentieth over half a beat
+  (`packages/render/src/instar-sway.ts` `instarHush`): the rule is a mark
+  drawn moving under 0.1 of a tile a second, and at THE SLOW's quarter rate a
+  tenth of that weave is still 0.17.
 
 A beaten boss stills its drift over its first beats of `down`, the same way
 the weave does.

@@ -94,7 +94,7 @@ export interface Aim {
 export function aim(world: World, l: Layout, beat: number, beatPhase: number): Aim {
   const instar = instarBoss(world);
   if (instar !== null) {
-    const { f } = instarBody(instar, world.cfg, beat, beatPhase);
+    const { f } = instarBody(instar, world.cfg, world, beat, beatPhase);
     const { x, y } = instarAt(l, f.headX, f.headY);
     // The far end of the body, where its engines burn — the same point the
     // drawers run the body back to, turned as they turn it (`instar-turn.ts`).

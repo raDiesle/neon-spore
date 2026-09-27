@@ -94,7 +94,7 @@ function ringAt(s: InstarState, world: World, id: number): { x: number; y: numbe
   return instarMarkPoint(
     L,
     mark,
-    instarSway(s, CFG, world.beat, 0),
+    instarSway(s, CFG, world, world.beat, 0),
     instarThreat(s, world.beat, 0),
   );
 }

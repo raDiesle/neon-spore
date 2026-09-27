@@ -142,6 +142,8 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // narrows it itself now, where it draws the handle (`render/touch-field.ts`
     // `bossOf`), so one more costs this file nothing.
     boss: () => world.boss,
+    // The world is its own window: it holds the two beats `Field.slow` wants.
+    slow: () => world,
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     faults: () => faultsNow(world),

@@ -65,6 +65,7 @@ export function field(world: World, beat: number, beatPhase: number): Field {
     seat: 1,
     cfg: CFG,
     boss: world.boss,
+    slow: world,
     controls: controlSetForWave(waveWith("instar")),
     faults: [],
     well: false,

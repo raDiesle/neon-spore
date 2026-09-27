@@ -75,6 +75,8 @@ export interface Bindings {
    * test that wants it, a fourteenth boss costs nothing here at all.
    */
   boss: () => BossState | null;
+  /** THE SLOW's window, read fresh: THE INSTAR's rings hold still in one (`Field.slow`). */
+  slow: () => NonNullable<Field["slow"]>;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).
@@ -163,6 +165,7 @@ export function fieldFrom(b: Bindings, seat?: 1 | 2): Field {
     seat: seat ?? b.player(),
     cfg: b.cfg,
     boss: b.boss(),
+    slow: b.slow(),
     controls: b.controls(),
     faults: b.faults(), // in force this beat; the well's clock is one seat's (`render/well.ts`)
     well: b.well(),

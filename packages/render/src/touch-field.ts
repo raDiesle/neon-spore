@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import type { BossState, Creature, PlacedFault, SimConfig } from "@neon-spore/sim";
+import type { BossState, Creature, PlacedFault, SimConfig, World } from "@neon-spore/sim";
 import type { SurfaceY } from "./hull-frame.js";
 
 /**
@@ -163,6 +163,15 @@ export interface Field {
    * one thing `touch.ts` exists to prevent.
    */
   well: boolean;
+  /**
+   * **THE SLOW's window**, the two beats the world holds it between, because
+   * THE INSTAR's weave dies down inside one and its marks with it
+   * (`instar-sway.ts` `instarHush`): a hit test without it would look for a
+   * ring where the weave would have carried it and not where it is drawn.
+   * Absent is no window, which is what a test's field without a boss that
+   * weaves means; the game and the stage both state it.
+   */
+  slow?: Pick<World, "slowFromBeat" | "slowToBeat">;
   /**
    * Whether the hull's two lobes answer a hand at all. `false` is a player who
    * has left SETTINGS' TOUCH THE SHIP off, which is the game's default: the

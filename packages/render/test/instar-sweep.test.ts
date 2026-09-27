@@ -28,7 +28,7 @@ describe("a swept mark", () => {
     const mark = s.steps[cursor]?.marks[id];
     if (mark === undefined) throw new Error("the swept step has no swept mark");
     const beat = world.beat + (s.steps[cursor]?.windowBeats ?? 0) - 1;
-    const { sway } = instarBody(s, CFG, beat, 0);
+    const { sway } = instarBody(s, CFG, world, beat, 0);
     const start = instarMarkPoint(L, mark, sway, 0);
     const now = instarMarkPoint(L, mark, sway, instarThreat(s, beat, 0));
     expect(instarMarkUnder(L, start.x, start.y, field(world, beat, 0))).toBeNull();

@@ -1,4 +1,5 @@
-import type { InstarState, SimConfig } from "@neon-spore/sim";
+import { type InstarState, NO_SLOW, type SimConfig, type World } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
 
 /**
@@ -32,6 +33,13 @@ import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
  * swing is a function of `beat` and `beatPhase`, and a slow window is beats
  * arriving at the slow rate (`sim/slow.ts`). Nothing here
  * reads a clock, so nothing here has to be told.
+ *
+ * **But a slowed weave is still a weave under a thumb**, and the owner, 27
+ * September 2026: *circles should almost stay where they are and not move
+ * because of the boss's natural body movement, otherwise it's hard to hit.*
+ * So while THE SLOW is open the weave also dies down (`instarHush`), and
+ * comes back once it shuts. A swept mark's travel along its track is the
+ * gesture and not the weave (`instar-place.ts`), so it goes on.
  */
 
 export interface Sway {
@@ -68,8 +76,55 @@ const BEATS = 4;
 /** Beats the swing takes to die away once the body is beaten. */
 const STILLING = 2;
 
+/**
+ * THE SLOW's window as the world holds it, which is all the hush reads. A
+ * `World` is one; a hit test's `Field` carries one (`touch-field.ts`).
+ */
+export type SlowSpan = Pick<World, "slowFromBeat" | "slowToBeat">;
+
+/** No window, ever: the weave at its full size. */
+export const NO_SPAN: SlowSpan = { slowFromBeat: NO_SLOW, slowToBeat: NO_SLOW };
+
+/**
+ * What is left of the weave while THE SLOW is open.
+ *
+ * A twentieth, not the tenth the rest of the living-boss hush uses
+ * (`idle-drift.ts` `HUSH.liveMark`), because the test is a speed and a tenth
+ * misses it: the weave's peak is `REACH · 2π / BEATS`, 377 thousandths of an
+ * eleven-column field a beat, and the window plays a beat in 2.5 seconds, so
+ * a tenth of it is still 0.17 of a tile a second. A twentieth is 0.08, under
+ * the 0.1 the owner's *almost stay where they are* was written down as.
+ */
+const HUSHED = 0.05;
+
+/** Beats the weave takes to die down as a window opens, and to come back after it shuts. */
+const HUSH_BEATS = 0.5;
+
+/**
+ * **How much of the weave is left**, 1 with no window and `HUSHED` inside
+ * one. It eases down over the window's first half beat, and back up over the
+ * half beat after it shuts from wherever it had got to, so a window shorter
+ * than the ease never jumps. A pure function of the window's two ends, which
+ * the world keeps after a window shuts (`sim/slow.ts` `closeSlow`).
+ */
+export function instarHush(slow: SlowSpan, beat: number, beatPhase: number): number {
+  if (slow.slowToBeat === NO_SLOW) return 1;
+  const b = beat + beatPhase;
+  if (b < slow.slowFromBeat) return 1;
+  const dying = (since: number) => 1 - (1 - HUSHED) * smoothstep(since / HUSH_BEATS);
+  if (b < slow.slowToBeat) return dying(b - slow.slowFromBeat);
+  const left = dying(slow.slowToBeat - slow.slowFromBeat);
+  return left + (1 - left) * smoothstep((b - slow.slowToBeat) / HUSH_BEATS);
+}
+
 /** Where the body is carried this frame. */
-export function instarSway(s: InstarState, cfg: SimConfig, beat: number, beatPhase: number): Sway {
+export function instarSway(
+  s: InstarState,
+  cfg: SimConfig,
+  slow: SlowSpan,
+  beat: number,
+  beatPhase: number,
+): Sway {
   const swing = (beat + beatPhase) * ((Math.PI * 2) / BEATS);
   // A beaten body hangs still: the swing is damped out over the first beats of
   // `down`, well inside `instarOutBeats`, so it is not still fading when the
@@ -78,12 +133,13 @@ export function instarSway(s: InstarState, cfg: SimConfig, beat: number, beatPha
     s.phase === "down"
       ? Math.max(0, 1 - instarPhaseAt(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
       : 1;
+  const k = alive * instarHush(slow, beat, beatPhase);
   return {
-    xMilli: REACH * alive * Math.sin(swing),
+    xMilli: REACH * k * Math.sin(swing),
     // The weave is highest at the ends of its travel and lowest through the
     // middle, so the rise is the swing at twice the rate, and `yMilli` grows
     // downward: the body is carried *up* by a negative one.
-    yMilli: -RISE * alive * (1 - Math.cos(swing * 2)) * 0.5,
+    yMilli: -RISE * k * (1 - Math.cos(swing * 2)) * 0.5,
   };
 }
 
@@ -100,11 +156,12 @@ export function instarSway(s: InstarState, cfg: SimConfig, beat: number, beatPha
 export function instarBody(
   s: InstarState,
   cfg: SimConfig,
+  slow: SlowSpan,
   beat: number,
   beatPhase: number,
   held = 0,
 ): { f: Figure; sway: Sway } {
-  const sway = instarSway(s, cfg, beat, beatPhase);
+  const sway = instarSway(s, cfg, slow, beat, beatPhase);
   const f = instarFigure(s, beat, beatPhase, held);
   return {
     f: {

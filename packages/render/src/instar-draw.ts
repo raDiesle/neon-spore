@@ -61,7 +61,7 @@ export function drawInstar(
   const cfg = world.cfg;
   const fade = instarFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
-  const { f, sway } = instarBody(s, cfg, beat, beatPhase, fx.held);
+  const { f, sway } = instarBody(s, cfg, world, beat, beatPhase, fx.held);
   const morph = instarMorphAt(s, beat, beatPhase);
   const threat = instarThreat(s, beat, beatPhase);
   // What the body shows of it ebbs over a landing from where the window left it.
@@ -125,5 +125,5 @@ export function drawInstar(
   drawInstarHeart(ctx, l, cfg, s, f, sway, beatPhase, fade, weak.heart);
   drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
-  drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);
+  drawInstarMarks(ctx, l, s, cfg, sway, beat, beatPhase, time, morph, l.role, fx.verdicts);
 }

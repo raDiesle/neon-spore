@@ -48,6 +48,7 @@ export function stageField(
     seat: pointerSeat(role, seatKey),
     cfg,
     boss: world.boss,
+    slow: world,
     controls,
     faults: faultsNow(world),
     well: world.boss?.kind === "well" && showsWell(role),
