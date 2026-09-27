@@ -46,6 +46,7 @@ const SLOT_POSE: Record<string, string> = {
   "countdown:eye": "COUNT · THE NAVIGATOR'S EYE",
   "creature:skin": "BODIES · FOUR KINDS AT ONCE",
   "ratchet:plate": "THE RATCHET · CLIMB",
+  "grindstone:jaw": "THE GRINDSTONE · STILL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

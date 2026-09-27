@@ -2625,20 +2625,6 @@ foot dangles a degree about its root on a slow period of its own, and
 settles dead still once it is planted, so the hold still reads as the swing
 stopping. A look: offered through VERSUS.
 
-## THE GRINDSTONE's wheel has no secondary motion of its own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-27, claude/queue-the-ratchets-spent-plates-have-no-secondary-moti (claim: claude/queue-the-grindstones-wheel-has-no-secondary-motion-of)
-- **Files:** `packages/render/src/grindstone-draw.ts`, `packages/render/src/grindstone-shape.ts`
-
-From the secondary-motion audit. Outside the beat pulses in
-`grindstone-marks.ts` the only clock is the light's drift
-(`grindstone-draw.ts` line 124). Do not turn the wheel — how far it is
-ground is read off its cut faces. Touch: the caliper's two jaws, one to a
-seat, tremble a hair at their tips on periods a fifth of a cycle apart while
-open, and go dead still when they bear on the stone. The effects landed first, 26 September 2026 (`grindstone-fx.ts`), and the
-jaws already flare along their outline as they bite. A look: offered through VERSUS.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

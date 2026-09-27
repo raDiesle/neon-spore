@@ -94,7 +94,18 @@ export function drawGrindstone(
     const out = side === 0 ? -1 : 1;
     ctx.translate(out * FLING * free * l.tile, -FLING * 0.5 * free * l.tile);
     ctx.globalAlpha = alpha * (1 - free);
-    drawJaw(ctx, l, side, shut, pads, s.padsDown[side], beatPhase, free, fx.flare);
+    GRINDSTONE_JAW.paint(
+      ctx,
+      l,
+      side,
+      shut,
+      pads,
+      s.padsDown[side],
+      beatPhase,
+      free,
+      fx.flare,
+      time,
+    );
     ctx.restore();
   }
 
@@ -183,8 +194,26 @@ function drawFlat(
   ctx.restore();
 }
 
+/** How a caliper jaw is drawn, as a record so a second answer can stand
+ * beside it on VERSUS (`docs/versus.md`). `time` is the wall clock, which the
+ * shipped jaw does not read. */
+export const GRINDSTONE_JAW: { paint: GrindstoneJawPaint } = { paint: drawJaw };
+
+export type GrindstoneJawPaint = (
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  side: 0 | 1,
+  shut: number,
+  lit: boolean,
+  down: number,
+  beatPhase: number,
+  free: number,
+  flare: number,
+  time: number,
+) => void;
+
 /** Jaw `side` of THE HOOD, swung out about the crown bolt as far as it is slack, its pads by its tip, flaring as it bites. */
-function drawJaw(
+export function drawJaw(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   side: 0 | 1,

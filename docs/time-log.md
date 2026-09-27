@@ -25734,3 +25734,16 @@ magnified, shipped beside candidate.
 Bottleneck: looking — the swing's size was found off a magnified shot.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GRINDSTONE's caliper trembles while open, as a VERSUS candidate
+
+- reading: 10 min. The entry, `grindstone-draw.ts`, the boss's phases and
+  script, and the owed-states test.
+- writing: 10 min. The jaw behind a record, the candidate, and the four
+  state cards the boss was still owed, struck from `OWED`.
+- looking: 5 min. A `versus:shot` of the still, with the caliper open.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the boss had no pose to judge a jaw on, so its four
+cards came first.

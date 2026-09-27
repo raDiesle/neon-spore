@@ -9,6 +9,7 @@ import type { Variant } from "../variant.js";
 import { COUNTDOWN_EYE_DRIFT } from "./countdown-eye/drift/index.js";
 import { INTERIOR_DRIFT } from "./creature-body-interior/drift/index.js";
 import { SKIN_DRIFT } from "./creature-skin/drift/index.js";
+import { GRINDSTONE_JAW_TREMBLE } from "./grindstone-jaw/tremble/index.js";
 import { INSTAR_EYE_BAKED } from "./instar-eye/baked/index.js";
 import { INSTAR_HEART_BAKED } from "./instar-heart/baked/index.js";
 import { INSTAR_HIDE_BAKED } from "./instar-hide/baked/index.js";
@@ -23,6 +24,7 @@ export const VARIANTS: Variant[] = [
   COUNTDOWN_EYE_DRIFT,
   INTERIOR_DRIFT,
   SKIN_DRIFT,
+  GRINDSTONE_JAW_TREMBLE,
   INSTAR_EYE_BAKED,
   INSTAR_HEART_BAKED,
   INSTAR_HIDE_BAKED,

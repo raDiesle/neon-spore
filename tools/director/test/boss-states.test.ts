@@ -37,7 +37,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   rime: ["still", "lit", "rest", "shattered"],
   plumb: ["still", "lit", "rest", "free"],
   sling: ["still", "lit", "rest", "free"],
-  grindstone: ["still", "lit", "rest", "free"],
   cyst: ["still", "lit", "frozen", "rest", "split"],
   davit: ["still", "lit", "rest", "spent"],
   halter: ["alarmed", "lit", "pause", "spent"],

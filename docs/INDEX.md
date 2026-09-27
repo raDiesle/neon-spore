@@ -2868,6 +2868,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eleven states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |
+| `tools/director/src/poses-bosses-hands-grindstone.ts` | **THE GRINDSTONE's four states**, posed with a hand on the controls (`boss-hands-grindstone.ts`) |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
