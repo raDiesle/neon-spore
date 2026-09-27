@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 4358f84d0 — A boss step's colour is `stepColour`, written once
+
+THE SEAM's step colour — the cannon's fill and rim, the hull's rim for a step either answers — had been pasted beside five other bosses' marks (THE OCULUS, THE VISE, THE CYST, THE SLING, THE DAVIT), and THE CYST's draw kept a rim-only ternary of it as well. It lives in `render/step-colour.ts` now, eighteen callers call it, and a row in the copies table fails on the next file that writes it out again. Nothing drawn changes.
+
 ## 2026-09-27 · d8e5da340 — `bun run frames --auto-miss` lets every other ask run out, so a boss's timeout blow can be photographed
 
 With no hand on them, THE OCULUS, THE VISE, THE TRIVET, THE HASP, THE RATCHET and THE GIMBAL never reach an ask. With AUTO they reach every ask and never miss one. Either way `--until breach` found nothing there. `--auto both --auto-miss` keeps AUTO's hands off the first asking window, answers the next, lets the third go, and so on. A shot ask lands its blow on the first one, and a hold slips and is answered on its retry. THE OCULUS breaches by its own miss at tick 3300. THE CYST and THE SLING cannot be reached this way, because the cannon fires by itself, and that is queued.

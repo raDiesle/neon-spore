@@ -25418,3 +25418,5 @@ ask it is, and that is in eight step files, not in one place.
 
 Bottleneck: reading — the entry counted three copies and there were six; the
 grep for the function's body, not its name, is what found the rest.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
