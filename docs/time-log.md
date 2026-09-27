@@ -25702,3 +25702,5 @@ Bottleneck: friction — the edit had to be written twice.
 
 Bottleneck: reading — a boss that hears every command makes every sender in
 the app part of its rules, and each had to be read to be ruled out.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

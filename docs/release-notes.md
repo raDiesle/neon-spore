@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 9fe92a258 — THE HALTER answers a thumb: its two grips, its HOLD, and AUTO
+
+The two grips THE HALTER draws on the lit segment's seam are now touch targets for either seat on both screens, a finger of a chord each, so two thumbs go out as two drags and a lift as one. The resting seat's phone sends nothing while it rests. The field says HOLD between the grips to the seat that grips, never to the one resting, and FIRE under a bared centre. AUTO plays the wave out with no startle, slip or scar.
+
 ## 2026-09-27 · 03d4fe480 — `queue take` claims an entry the trunk filed and has not pushed
 
 A lane that lands with `--keep` files its finding on the local `main` and pushes nothing. `take` then refused that finding as "already done on origin/main", and a fetch could never change that. Origin's view now says whether `origin/main` is an ancestor of the trunk. When it is, an entry that origin lacks and the trunk has was added on the trunk, so it is claimed the ordinary way.
