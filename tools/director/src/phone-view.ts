@@ -26,8 +26,11 @@ export function isPhoneView(v: string | null | undefined): v is PhoneView {
 /** Whether the screen is narrow enough for the views to be views at all. On a
  * desktop all four columns are on screen and there is nothing to switch. */
 export function onPhone(): boolean {
-  return matchMedia("(max-width: 700px)").matches;
+  return matchMedia(PHONE_QUERY).matches;
 }
+
+/** The breakpoint itself, for a caller that has to hear it being crossed. */
+export const PHONE_QUERY = "(max-width: 700px)";
 
 /** The view last shown, or nothing if this device has not chosen one. */
 export function rememberedView(): PhoneView | null {

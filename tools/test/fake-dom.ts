@@ -43,6 +43,10 @@ export class FakeEl {
   readonly style: Record<string, string> = {};
   readonly children: FakeEl[] = [];
   parent: FakeEl | null = null;
+  /** The browser's name for `parent`, which is what code moving a node reads. */
+  get parentElement(): FakeEl | null {
+    return this.parent;
+  }
   tagName = "";
   textContent = "";
   /** A textarea's or input's own content — the vote box reads one, and so does
@@ -122,8 +126,10 @@ export class FakeEl {
     this.fire("input");
   }
 
+  /** Moved, not copied, as the browser does: a node has one parent. */
   append(...nodes: FakeEl[]): void {
     for (const node of nodes) {
+      node.remove();
       node.parent = this;
       this.children.push(node);
     }

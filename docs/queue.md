@@ -2794,21 +2794,6 @@ VERSUS candidate on `BODY_LOOK`, never landed straight. Keep it inside the
 body at 0.8 tile — the nameability gate (`bun run shapes:report`) must
 still hold them apart.
 
-## The director's AUTO buttons cannot be clicked at desktop widths
-
-- **Found:** 2026-09-26, claude/queue-unverified-at-4a47be3b6-the-oculus-wave-never-wa
-- **Taken:** 2026-09-27, claude/queue-nine-fx-files-still-keep-the-hull-shocks-clock-b (claim: claude/queue-the-directors-auto-buttons-cannot-be-clicked-at)
-- **Files:** `tools/director/src/director-field.css`, `tools/director/index.html`
-
-The TEST panel's AUTO row (OFF/BOTH/P1/P2, `index.html` line 223) sits in
-the header's `.transport`, which is `position: static`. At 1500x950, and
-at 800x600 too, `main` (`position: relative`) paints over it: the element
-at BOTH's centre is the map panel's `.cell-actions` (`#cellDelete`), so a
-pointer never reaches the button. It was worked around with a script's
-`button.click()`. Give the header, or its `.transport`, a stacking context
-above `main` (`position: relative; z-index: 1`), and prove it by
-`document.elementFromPoint` at the button's centre in a preview check.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

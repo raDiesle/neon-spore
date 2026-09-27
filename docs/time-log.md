@@ -25591,3 +25591,17 @@ Bottleneck: friction — a shared machine makes a timing a pair of runs, not
 one.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — RUN goes home when a director loaded narrow is widened
+
+- reading: 5 min. The entry, `mobile-menu.ts`, `phone-view.ts`.
+- writing: 5 min. A media listener, and a fake-DOM test that widens and
+  narrows the window.
+- looking: 10 min. The preview reproduced it only after a narrow load; a load
+  at 1500 wide was fine, so the entry's z-index fix was the wrong one.
+- friction: 5 min. The browser pane fires neither `resize` nor a media
+  `change` when its viewport is set, so the fix had to be proven in a test.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the defect was a load at phone width that was then
+widened, which the entry had read as a stacking order.

@@ -1,6 +1,7 @@
 import {
   isPhoneView,
   onPhone,
+  PHONE_QUERY,
   type PhoneView,
   rememberedView,
   showPhoneView,
@@ -63,6 +64,14 @@ export function initMobileMenu(search: string = location.search): void {
   new MutationObserver(() => holdTransport(document.body.classList.contains("menu-open"))).observe(
     document.body,
     { attributeFilter: ["class"] },
+  );
+  // And when the window crosses the breakpoint, which changes no class: a
+  // page loaded narrow opens on the menu, and widening it left RUN in a
+  // header that was a bar again, under `main` — the AUTO row out of reach at
+  // 1500 wide (27 September 2026). `holdTransport` asks `onPhone` itself, so
+  // the same call sends it home and, narrowed again, back into the menu.
+  matchMedia(PHONE_QUERY).addEventListener("change", () =>
+    holdTransport(document.body.classList.contains("menu-open")),
   );
 
   // `?view=` is a one-load override for a session driving the page with no
