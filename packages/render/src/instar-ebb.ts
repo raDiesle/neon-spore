@@ -1,7 +1,8 @@
 import { type InstarState, instarStep } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { FIRE_SPECK, fireGrown } from "./instar-fire.js";
-import { type Figure, instarMorphAt, instarPhaseAt, instarThreat } from "./instar-shape.js";
+import { type Figure, instarMorphAt, instarThreat } from "./instar-shape.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * What the window built up — the fire in the mouth, the glow on a blade —
@@ -13,7 +14,7 @@ import { type Figure, instarMorphAt, instarPhaseAt, instarThreat } from "./insta
 export function instarEbb(s: InstarState, beat: number, beatPhase: number): number {
   const step = instarStep(s);
   if (s.phase !== "land" || step === null) return 1;
-  return 1 - smoothstep(instarPhaseAt(s, beat, beatPhase) / step.landBeats);
+  return 1 - smoothstep(phaseInto(s, beat, beatPhase) / step.landBeats);
 }
 
 /**

@@ -14,16 +14,9 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { phaseInto } from "./phase-into.js";
 import { drawSeamGrit, drawSeamPoint, drawSeamRock } from "./seam-marks.js";
-import {
-  into,
-  seamArrived,
-  seamGape,
-  seamLeft,
-  seamLitPoint,
-  seamOpen,
-  seamSplit,
-} from "./seam-pose.js";
+import { seamArrived, seamGape, seamLeft, seamLitPoint, seamOpen, seamSplit } from "./seam-pose.js";
 import {
   type Point,
   seamCentre,
@@ -196,7 +189,7 @@ function drawThrown(
   if (step === null) return;
   const mouth = seamMouth(l);
   const from = { x: c.x + mouth.x, y: c.y + mouth.y };
-  const along = Math.min(1, into(s, beat, beatPhase) / Math.max(1, seamStepBeats(world, s)));
+  const along = Math.min(1, phaseInto(s, beat, beatPhase) / Math.max(1, seamStepBeats(world, s)));
   if (seamWantsShield(s)) drawSeamGrit(ctx, l, from, along, time);
   if ((step.ask === "rock" || step.ask === "both") && seamWantsShot(s)) {
     const toX = fieldX(l, seamStepCol(world, step));

@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
+import { phaseInto } from "./phase-into.js";
 import { slowHush } from "./slow-hush.js";
 
 /**
@@ -37,11 +38,6 @@ const CREEP = 0.7;
 /** How far the cap swings past open as the drum is spent: under nought is flipped over its hinge. */
 const SWING = 0.45;
 
-/** How far into its phase the drum is, in beats, the fraction of this one included. */
-export function into(s: CapstanState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 standing. */
 export function capstanArrived(
   s: CapstanState,
@@ -50,7 +46,7 @@ export function capstanArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "rusted" || s.cursor > 0) return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.capstanRustBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.capstanRustBeats));
 }
 
 /** How far the drum has gone, spent: 0 standing, 1 gone. */
@@ -61,14 +57,14 @@ export function capstanGone(
   beatPhase: number,
 ): number {
   if (s.phase !== "open") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.capstanOpenBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.capstanOpenBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function capstanLeft(s: CapstanState, beat: number, beatPhase: number): number {
   const step = capstanLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /**

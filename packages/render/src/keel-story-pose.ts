@@ -1,6 +1,7 @@
 import { type KeelState, keelCooling, keelFlipping, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { RISE } from "./keel-shape.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The numbers THE KEEL's story between is posed off** (`keel-story.ts`
@@ -30,7 +31,7 @@ export function keelFlipRise(
   beat: number,
   beatPhase: number,
 ): number {
-  const t = since(s, beat, beatPhase);
+  const t = phaseInto(s, beat, beatPhase);
   const swing = smoothstep(t / SWING_BEATS);
   const late = smoothstep(t / Math.max(1, cfg.keelFlipBeats));
   const bow = -RISE * (BOW + BOW_LATE * late) * (1 - ARREST * keelChord(s, cfg));
@@ -49,9 +50,5 @@ export function keelHeat(
   if (!keelCooling(s)) return 0;
   const n = s.locked.length;
   const span = (cfg.keelCoolBeats + s.flares) / Math.max(1, n);
-  return 1 - smoothstep((since(s, beat, beatPhase) - k * span) / span);
-}
-
-function since(s: KeelState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
+  return 1 - smoothstep((phaseInto(s, beat, beatPhase) - k * span) / span);
 }

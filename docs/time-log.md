@@ -27340,3 +27340,17 @@ Bottleneck: reading — the four handles sit on crossed seats, and the hand
 follows only once `cystFreezer` and `cystPincher` are read.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `phaseInto`: one clock for twenty choreographed bosses
+
+- reading: 5 min. The eleven the entry named, then a grep that found nine
+  more under other names (`instarPhaseAt`, `since`, `mantleInto`).
+- writing: 10 min. `phase-into.ts`, an edit script for the owners and their
+  importers, the copies-table row.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The guard refused the table row sent through a heredoc
+  with doubled backslashes; the Edit tool took it.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry counted eleven and the pattern found twenty,
+and each extra name had importers of its own to follow.

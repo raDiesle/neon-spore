@@ -4,7 +4,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { into } from "./seam-pose.js";
+import { phaseInto } from "./phase-into.js";
 import { seamLobe } from "./seam-shape.js";
 
 /**
@@ -29,7 +29,7 @@ const RIBS = 7;
  * eased round over the turn's first beat, and back over the rest after it.
  */
 export function seamTurn(s: SeamState, cfg: SimConfig, beat: number, beatPhase: number): number {
-  const t = into(s, beat, beatPhase);
+  const t = phaseInto(s, beat, beatPhase);
   if (s.phase === "lit" && s.steps[s.cursor]?.ask === "blind") return smoothstep(t);
   if (s.phase === "rest" && s.steps[s.cursor - 1]?.ask === "blind") {
     return 1 - smoothstep(t / Math.max(1, cfg.seamRestBeats));

@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE VISE is posed off** (§28, *Animation*): intact; a lobe
@@ -35,26 +36,21 @@ const CREEP = 0.85;
 /** How much further the split throws them. */
 const THROWN = 0.9;
 
-/** How far into its phase the case is, in beats, the fraction of this one included. */
-export function into(s: ViseState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 standing. */
 export function viseArrived(s: ViseState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.viseStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.viseStillBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function viseLeft(s: ViseState, beats: number, beat: number, beatPhase: number): number {
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, beats));
 }
 
 /** How far the case has split: 0 whole, 1 fallen apart. */
 export function viseSplit(s: ViseState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "split") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.viseSplitBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.viseSplitBeats));
 }
 
 /** How much of a lit pinch step has been kept shut, the running beat included while it is. */

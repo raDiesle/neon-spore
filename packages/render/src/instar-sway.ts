@@ -1,5 +1,6 @@
 import type { InstarState, SimConfig } from "@neon-spore/sim";
-import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
+import { type Figure, instarFigure } from "./instar-shape.js";
+import { phaseInto } from "./phase-into.js";
 import { type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
@@ -107,7 +108,7 @@ export function instarSway(
   // shape does.
   const alive =
     s.phase === "down"
-      ? Math.max(0, 1 - instarPhaseAt(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
+      ? Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
       : 1;
   const k = alive * instarHush(slow, beat, beatPhase);
   return {

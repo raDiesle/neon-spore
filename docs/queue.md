@@ -2264,21 +2264,6 @@ THE CAIRN and THE REPRISE.
 Wire the one he picks, with two stills at the widest moment that tell apart
 on a phone. `bun run check` proves it.
 
-## Eleven pose files each write out their own `into`
-
-- **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
-- **Taken:** 2026-09-27, claude/queue-reprise-parts (claim: claude/queue-eleven-pose-files-each-write-out-their-own-into)
-- **Files:** `packages/render/src/burgee-pose.ts`, `packages/render/src/flue-pose.ts`, `packages/render/src/halter-pose.ts`, `packages/render/src/grindstone-pose.ts`, `packages/sim/test/copies-table.ts`
-
-Every choreographed boss's pose file — THE OCULUS's, THE GRINDSTONE's,
-THE HALTER's, THE CYST's, THE GALL's, THE DAVIT's, THE SLING's, THE
-RIME's, THE VALVE's, THE BURGEE's and THE FLUE's — carries the same clock,
-`Math.max(0, beat - s.phaseBeat + beatPhase)`, typed on its own state —
-and THE FLUE's made eleven. One `phaseInto(s: { phaseBeat: number },
-beat, beatPhase)` in its own small file, called from each, and a row in
-`copies-table.ts` so the twelfth boss calls it rather than writing it,
-as `coreHurt` was gathered. `bun run check` proves it.
-
 ## Living bosses — the surface marks by longitude, once an outline body turns
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts

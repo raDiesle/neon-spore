@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import type { CystPose } from "./cyst-shape.js";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **THE CYST's pose, read off the state every frame** (§34): how far in the
@@ -29,21 +30,16 @@ const SHAKE_HZ = 7.5;
 /** How far a swell sinks back once it has been held all its beats. */
 const SINK = 0.85;
 
-/** Beats into the current phase, the beat's fraction counted in. */
-export function into(s: CystState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** How far the sac has dropped into place: 0 as it settles in, 1 from the first step. */
 export function cystArrived(s: CystState, stillBeats: number, beat: number, beatPhase: number) {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, stillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, stillBeats));
 }
 
 /** How far through the split the sac is, 0 to 1. */
 export function cystSplit(s: CystState, splitBeats: number, beat: number, beatPhase: number) {
   if (s.phase !== "split") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, splitBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, splitBeats));
 }
 
 /** How much of the lit step's window is left, 1 as it lights and 0 as it runs out. */
@@ -51,7 +47,7 @@ export function cystLeft(world: World, s: CystState, beat: number, beatPhase: nu
   const step = cystLitStep(s);
   if (step === null) return 0;
   const beats = s.phase === "frozen" ? cystFrozenBeats(world, step) : cystLitBeats(world, step);
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, beats));
 }
 
 /** How far flank `side` is pinched in: its gap between open and shut, 0 to 1. */
@@ -81,7 +77,7 @@ export function cystPosed(
   beat: number,
   beatPhase: number,
 ): number {
-  const t = into(s, beat, beatPhase);
+  const t = phaseInto(s, beat, beatPhase);
   if (s.phase === "lit" && s.steps[s.cursor]?.ask === ask) return smoothstep(Math.min(1, t * 2));
   if (s.phase === "rest" && s.steps[s.cursor - 1]?.ask === ask) {
     return 1 - smoothstep(t / Math.max(1, restBeats));

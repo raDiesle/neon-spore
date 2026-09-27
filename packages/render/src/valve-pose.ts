@@ -1,5 +1,6 @@
 import { type SimConfig, VALVE_PINS, type ValvePhase, type ValveState } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE VALVE is posed off** (§25, *Animation*): four poses —
@@ -18,11 +19,6 @@ const LIST = 0.11;
 /** How much further than its neighbours the pin to be pulled hangs while frozen — THE TITHE's live plate. */
 const LIVE_REACH = 1.55;
 
-/** How far into its phase the drum is, in beats, the fraction of this one included. */
-export function into(s: ValveState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** How many pins are out. */
 export function pulled(s: ValveState): number {
   return VALVE_PINS - s.pins;
@@ -36,7 +32,7 @@ export function valveArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.valveStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.valveStillBeats));
 }
 
 /** The story a pulled pin sets off (`sim/valve-story.ts`), played before its list. */
@@ -58,14 +54,14 @@ export function valveList(s: ValveState, cfg: SimConfig, beat: number, beatPhase
   const beats =
     s.phase === "list" ? cfg.valveListBeats : s.phase === "open" ? cfg.valveOpenBeats : 0;
   if (beats === 0) return LIST * out;
-  const t = smoothstep(into(s, beat, beatPhase) / Math.max(1, beats));
+  const t = smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, beats));
   return LIST * (out - 1 + t);
 }
 
 /** How far the face has fallen open: 0 sealed, 1 split wide. Row 12. */
 export function valveOpen(s: ValveState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "open") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.valveOpenBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.valveOpenBeats));
 }
 
 /** How lit the wheel is: dark while the drum settles, lit from the moment a mark lights (row 2). */
@@ -107,5 +103,5 @@ export function valvePinOut(
   const out = pulled(s);
   if (i >= out) return -1;
   if (s.phase !== "list" || i !== out - 1) return 2;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.valveListBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.valveListBeats));
 }

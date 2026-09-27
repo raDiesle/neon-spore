@@ -1,6 +1,7 @@
 import { type InstarArrival, type InstarState, instarStep } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
+import { INSTAR_FLIGHT_ENDS } from "./instar-shape.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **How THE INSTAR arrives**, step by step: the flight the whole body takes
@@ -61,7 +62,7 @@ const FAR = 8;
 export function instarFlight(s: InstarState, beat: number, beatPhase: number): Flight {
   const step = instarStep(s);
   if (s.phase !== "morph" || step === null) return AT_REST;
-  const t = instarPhaseAt(s, beat, beatPhase) / (step.morphBeats * INSTAR_FLIGHT_ENDS);
+  const t = phaseInto(s, beat, beatPhase) / (step.morphBeats * INSTAR_FLIGHT_ENDS);
   if (t >= 1) return AT_REST;
   return flown(step.arrive, Math.max(0, t), s.cursor > 0);
 }

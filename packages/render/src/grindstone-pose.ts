@@ -9,6 +9,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE GRINDSTONE is posed off** (§33, *Animation*): the wheel
@@ -35,11 +36,6 @@ const CREEP = 0.3;
 const WIND = 1.6;
 const SPIN_FREE = 5;
 
-/** How far into its phase the wheel is, in beats, the fraction of this one included. */
-export function into(s: GrindstoneState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The spin-down into frame: 0 still above the field, 1 standing. */
 export function grindstoneArrived(
   s: GrindstoneState,
@@ -48,7 +44,7 @@ export function grindstoneArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.grindstoneStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.grindstoneStillBeats));
 }
 
 /** How far the wheel has fallen free: 0 held, 1 gone. */
@@ -59,7 +55,7 @@ export function grindstoneFree(
   beatPhase: number,
 ): number {
   if (s.phase !== "free") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.grindstoneFreeBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.grindstoneFreeBeats));
 }
 
 /** The wheel's turn: winding down as it arrives, still while it is fought, spinning up as it falls. */
@@ -77,7 +73,7 @@ export function grindstoneLeft(
   const step = grindstoneLitStep(s);
   if (step === null) return 0;
   const window = Math.max(1, grindstoneWindowBeats(world, step));
-  return Math.max(0, 1 - into(s, beat, beatPhase) / window);
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / window);
 }
 
 /** The share of the lit clamp's beats both jaws have been held, this beat's fraction included while they still are. */

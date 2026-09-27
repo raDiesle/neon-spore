@@ -1,8 +1,8 @@
 import type { NettleState, SimConfig } from "@neon-spore/sim";
-import { instarPhaseAt } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
 import type { Figure } from "./nettle-figure.js";
 import { nettleFigure } from "./nettle-figure.js";
+import { phaseInto } from "./phase-into.js";
 import { type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
@@ -42,7 +42,7 @@ export function nettleSway(
   const swing = (beat + beatPhase) * ((Math.PI * 2) / BEATS);
   const alive =
     s.phase === "down"
-      ? Math.max(0, 1 - instarPhaseAt(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
+      ? Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.min(STILLING, cfg.instarOutBeats))
       : 1;
   const k = alive * slowHush(slow, beat, beatPhase);
   return {

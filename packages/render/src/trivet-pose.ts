@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE TRIVET is posed off** (§30, *Animation*): both feet up;
@@ -33,11 +34,6 @@ const CREEP = 0.3;
 /** How far the lit hub sits pressed down onto its legs, in tiles. */
 const PRESSED = 0.16;
 
-/** How far into its phase the stand is, in beats, the fraction of this one included. */
-export function into(s: TrivetState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 standing. */
 export function trivetArrived(
   s: TrivetState,
@@ -46,7 +42,7 @@ export function trivetArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.trivetStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.trivetStillBeats));
 }
 
 /** How far the stand has buckled: 0 standing, 1 down. */
@@ -57,7 +53,7 @@ export function trivetBuckle(
   beatPhase: number,
 ): number {
   if (s.phase !== "collapse") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.trivetCollapseBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.trivetCollapseBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
@@ -65,7 +61,7 @@ export function trivetLeft(world: World, s: TrivetState, beat: number, beatPhase
   const step = trivetLitStep(s);
   if (step === null) return 0;
   const window = Math.max(1, trivetWindowBeats(world, step));
-  return Math.max(0, 1 - into(s, beat, beatPhase) / window);
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / window);
 }
 
 /** The share of the lit chord step's beats its chord has been held, this beat's fraction included while it still is. */

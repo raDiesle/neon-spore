@@ -1,5 +1,6 @@
 import { type MantleState, mantleBuckling, mantleTurning, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **How far along THE MANTLE's four story beats are** (§23 rows 7 to 12,
@@ -28,11 +29,6 @@ const TURN_ROCK = 0.06;
 /** How far the buckle flattens at the count, as a share of its swell. */
 const FLATTEN = 0.85;
 
-/** How far into its phase the shell is, in beats, the fraction of this one included. */
-export function mantleInto(s: MantleState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** How far the buckled valves bulge: 0 unless buckling, eased up, pressed flatter as the hold counts. */
 export function mantleBulge(
   s: MantleState,
@@ -43,13 +39,13 @@ export function mantleBulge(
   if (!mantleBuckling(s)) return 0;
   const pressed = Math.min(1, s.braceBeats / Math.max(1, cfg.mantleBuckleBeats));
   const throb = 1 + 0.12 * (1 - pressed) * Math.sin(beatPhase * Math.PI * 2);
-  return smoothstep(mantleInto(s, beat, beatPhase)) * (1 - FLATTEN * pressed) * throb;
+  return smoothstep(phaseInto(s, beat, beatPhase)) * (1 - FLATTEN * pressed) * throb;
 }
 
 /** How wide the vent gapes: 0 unless venting, open over half a beat. */
 export function mantleVentOpen(s: MantleState, beat: number, beatPhase: number): number {
   if (s.phase !== "vent") return 0;
-  return smoothstep(mantleInto(s, beat, beatPhase) / 0.5);
+  return smoothstep(phaseInto(s, beat, beatPhase) / 0.5);
 }
 
 /**
@@ -65,7 +61,7 @@ export function mantleCrossCrack(
   const pairs = s.thresholds.length;
   if (pairs < 2) return 0;
   if (s.phase === "cross") {
-    return smoothstep(mantleInto(s, beat, beatPhase) / Math.max(1, cfg.mantleCrossBeats));
+    return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.mantleCrossBeats));
   }
   const last = s.cursor === pairs - 1;
   return last && (s.phase === "brace" || s.phase === "pull") ? 1 : 0;
@@ -85,7 +81,7 @@ export function mantleTurnOpen(
   beat: number,
   beatPhase: number,
 ): number {
-  const into = mantleInto(s, beat, beatPhase);
+  const into = phaseInto(s, beat, beatPhase);
   const guide = mantleTurnGuide(s, cfg);
   const rock = TURN_ROCK * (1 - guide) * Math.sin(into * Math.PI * 2);
   const open = TURN_LOOSE + (MANTLE_TURN_TOP - TURN_LOOSE) * guide + rock;

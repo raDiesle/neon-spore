@@ -7,16 +7,13 @@ import {
   davitSteering,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * THE DAVIT's timing: how far the boom has stood up out of stowed, how far a
  * lit step's window has run, whether the pivot glows, and whether a seat's
  * own loose hand is worth drawing as asking.
  */
-
-function into(s: DavitState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
 
 /** How far the boom stands out of its stowed socket: 0 just settled, 1 fully up. */
 export function davitStood(
@@ -26,7 +23,7 @@ export function davitStood(
   stillBeats: number,
 ): number {
   if (s.phase === "spent") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, stillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, stillBeats));
 }
 
 /**
@@ -70,7 +67,7 @@ export function davitWindowLeft(
   const step = davitLitStep(s);
   if (step === null) return 1;
   const window = step.ask === "fire" ? step.beats : step.beats + world.cfg.davitGraceBeats;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, window));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, window));
 }
 
 /** How lit the hook/pivot is drawn: bright once `pivotLit`, dim otherwise. */

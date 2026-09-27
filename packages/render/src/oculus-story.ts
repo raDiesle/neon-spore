@@ -3,9 +3,9 @@ import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { into } from "./oculus-pose.js";
 import { oculusSocketRadius } from "./oculus-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **THE OCULUS's two story steps, drawn** (§27's story item; the rules are
@@ -31,7 +31,7 @@ const DILATE = 0.35;
 
 /** 0 to 1: how far into the pose `ask` names the eye is — in while lit, back out over the rest after. */
 function posed(s: OculusState, cfg: SimConfig, ask: OculusAsk, beat: number, beatPhase: number) {
-  const t = into(s, beat, beatPhase);
+  const t = phaseInto(s, beat, beatPhase);
   if (s.phase === "lit" && s.steps[s.cursor]?.ask === ask) return smoothstep(Math.min(1, t * 2));
   if (s.phase === "rest" && s.steps[s.cursor - 1]?.ask === ask) {
     return 1 - smoothstep(t / Math.max(1, cfg.oculusRestBeats));

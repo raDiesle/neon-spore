@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE FLUE is posed off** (§40, *Animation*), five poses: the
@@ -23,15 +24,10 @@ import { smoothstep } from "./ease.js";
  * else**: the glide stopping dead is the tell, and it must not ease.
  */
 
-/** How far into its phase the flue is, in beats, the fraction of this one included. */
-export function into(s: FlueState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The flue sliding down into the field as it arrives: 0 above it, 1 in place. */
 export function flueArrived(s: FlueState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "slack" || s.cursor > 0) return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.flueSlackBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.flueSlackBeats));
 }
 
 /** Where the ember is drawn this frame, thousandths of a column off the middle. */
@@ -56,7 +52,7 @@ export function flueSmear(world: World, s: FlueState): number {
 export function flueLeft(s: FlueState, beat: number, beatPhase: number): number {
   const step = flueLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /**
@@ -80,5 +76,5 @@ export function flueDamperOpen(
 /** How far the spent flue has faded, 0 not spent and 1 gone. */
 export function flueSpent(s: FlueState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "spent") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.flueSpentBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.flueSpentBeats));
 }

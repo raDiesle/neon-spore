@@ -9,6 +9,7 @@ import {
 import { smoothstep } from "./ease.js";
 import { instarBetween } from "./instar-between.js";
 import { BEATEN, ENTER, onNest, placed } from "./instar-poses.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **Where THE INSTAR is**, as one figure of numbers: the head and its two
@@ -144,18 +145,13 @@ function lerp(a: Figure, b: Figure, t: number): Figure {
   return out;
 }
 
-/** How far into the phase the frame is, in beats, sub-beat included. */
-export function instarPhaseAt(s: SceneState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /**
  * The figure the body stands in this frame. `held` is how far the window had
  * run when the step landed (`InstarFx`): a swept blade eases back from there
  * over the landing rather than being where it started on the landing tick.
  */
 export function instarFigure(s: InstarState, beat: number, beatPhase: number, held = 0): Figure {
-  const at = instarPhaseAt(s, beat, beatPhase);
+  const at = phaseInto(s, beat, beatPhase);
   const step = instarStep(s);
   const prev = s.steps[s.cursor - 1];
   const from = prev === undefined ? ENTER : landed(prev.pose, prev.marks);
@@ -185,7 +181,7 @@ export function instarFigure(s: InstarState, beat: number, beatPhase: number, he
 export function instarMorphAt(s: SceneState, beat: number, beatPhase: number): number {
   const step = instarStep(s);
   if (s.phase !== "morph" || step === null) return 1;
-  return Math.min(1, instarPhaseAt(s, beat, beatPhase) / step.morphBeats);
+  return Math.min(1, phaseInto(s, beat, beatPhase) / step.morphBeats);
 }
 
 /** How far the window has run, 0..1 — nought outside it. What the pair are
@@ -194,11 +190,11 @@ export function instarMorphAt(s: SceneState, beat: number, beatPhase: number): n
 export function instarThreat(s: SceneState, beat: number, beatPhase: number): number {
   const step = instarStep(s);
   if (s.phase !== "act" || step === null) return 0;
-  return Math.min(1, instarPhaseAt(s, beat, beatPhase) / step.windowBeats);
+  return Math.min(1, phaseInto(s, beat, beatPhase) / step.windowBeats);
 }
 
 /** The body's opacity: whole until the last landing, then gone over `instarOutBeats`. */
 export function instarFade(s: SceneState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "down") return 1;
-  return Math.max(0, 1 - instarPhaseAt(s, beat, beatPhase) / cfg.instarOutBeats);
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / cfg.instarOutBeats);
 }

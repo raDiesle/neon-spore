@@ -5,8 +5,8 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { phaseInto } from "./phase-into.js";
 import { stepColour } from "./step-colour.js";
-import { into } from "./vise-pose.js";
 import { viseKernel, viseKernelPath } from "./vise-shape.js";
 
 /**
@@ -33,7 +33,7 @@ const SEED = 0.55;
 
 /** 0 to 1: how far into the pose `ask` names the case is — in while lit, back out over the rest after. */
 function posed(s: ViseState, cfg: SimConfig, ask: ViseAsk, beat: number, beatPhase: number) {
-  const t = into(s, beat, beatPhase);
+  const t = phaseInto(s, beat, beatPhase);
   if (s.phase === "lit" && s.steps[s.cursor]?.ask === ask) return smoothstep(Math.min(1, t * 2));
   if (s.phase === "rest" && s.steps[s.cursor - 1]?.ask === ask) {
     return 1 - smoothstep(t / Math.max(1, cfg.viseRestBeats));

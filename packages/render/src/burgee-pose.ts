@@ -9,6 +9,7 @@ import {
 import type { BurgeeFx } from "./burgee-fx.js";
 import type { FlagLay } from "./burgee-shape.js";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE BURGEE is posed off** (§39, *Animation*), four poses: the
@@ -33,11 +34,6 @@ const STREAM = 1.3;
 const SWAY = 0.08;
 const SWAY_RATE = 1.1;
 
-/** How far into its phase the burgee is, in beats, the fraction of this one included. */
-export function into(s: BurgeeState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The boom swinging down into the field as it arrives: 0 still above it, 1 hanging. */
 export function burgeeArrived(
   s: BurgeeState,
@@ -46,7 +42,7 @@ export function burgeeArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "slack" || s.cursor > 0) return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.burgeeSlackBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.burgeeSlackBeats));
 }
 
 /** Whether the flag swings this beat: neither frozen nor held on the spindle. */
@@ -95,7 +91,7 @@ export function burgeeCaught(s: BurgeeState): number {
 export function burgeeLeft(s: BurgeeState, beat: number, beatPhase: number): number {
   const step = burgeeLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /**
@@ -111,5 +107,5 @@ export function burgeeSpindleGlow(s: BurgeeState): number {
 /** How far the spent flag has faded, 0 not spent and 1 gone. */
 export function burgeeSpent(s: BurgeeState, cfg: SimConfig, beat: number, beatPhase: number) {
   if (s.phase !== "spent") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.burgeeSpentBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.burgeeSpentBeats));
 }

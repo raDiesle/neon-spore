@@ -7,6 +7,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
@@ -30,28 +31,23 @@ const LOBES = 5;
 /** How much smaller a close leaves the nodule. */
 const SPENT = 0.16;
 
-/** How far into its phase the gall is, in beats, the fraction of this one included. */
-export function into(s: GallState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The rise out of the seam: 0 still under it, 1 standing. */
 export function gallArrived(s: GallState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "slack" || s.cursor > 0) return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.gallSlackBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.gallSlackBeats));
 }
 
 /** How far the seam has smoothed flat, the root shot: 0 standing, 1 gone. */
 export function gallFlat(s: GallState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "flat") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.gallFlatBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.gallFlatBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function gallLeft(s: GallState, beat: number, beatPhase: number): number {
   const step = gallLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /**
@@ -92,7 +88,7 @@ export function gallPart(s: GallState, cfg: SimConfig, beat: number, beatPhase: 
   if (!s.bared) return 0;
   if (s.phase === "flat") return 1 - gallFlat(s, cfg, beat, beatPhase);
   if (s.phase === "rest")
-    return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.gallRestBeats));
+    return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.gallRestBeats));
   return 1;
 }
 

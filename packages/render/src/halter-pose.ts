@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE HALTER is posed off** (§36, *Animation*): the seam dropping
@@ -36,11 +37,6 @@ const CREEP = 0.55;
 /** The segment a step is about: the left, the centre, or the right. */
 export type HalterSegment = 0 | 1 | 2;
 
-/** How far into its phase the seam is, in beats, the fraction of this one included. */
-export function into(s: HalterState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 standing. */
 export function halterArrived(
   s: HalterState,
@@ -49,7 +45,7 @@ export function halterArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "alarmed" || s.cursor > 0) return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.halterAlarmBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.halterAlarmBeats));
 }
 
 /** How far the seam has split spent: 0 whole, 1 gone. */
@@ -60,7 +56,7 @@ export function halterSplit(
   beatPhase: number,
 ): number {
   if (s.phase !== "spent") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.halterSpentBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.halterSpentBeats));
 }
 
 /** The segment the lit step is about, or null between steps. A shot is at the centre. */
@@ -74,7 +70,7 @@ export function halterLitSegment(s: HalterState): HalterSegment | null {
 export function halterLeft(s: HalterState, beat: number, beatPhase: number): number {
   const step = halterLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /** The share of the lit step's beats its pair has held, this beat's fraction included while it still does. */

@@ -794,4 +794,16 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/hull-shock.ts",
     pattern: /\bshock(?:Left|Force)\b|\bforce\s*\*\s*\(this\.left\s*\/\s*this\.life\)/,
   },
+  {
+    // **How far into its phase a choreographed boss is** — the beat, less the
+    // beat the phase began, plus this beat's fraction, never below nought.
+    // Twenty pose files each typed it on their own state before
+    // `phase-into.ts` (27 September 2026); THE FLUE's was the eleventh the
+    // entry counted and the twentieth the gathering found. The unclamped
+    // spellings (`(beat - s.phaseBeat + beatPhase) / beats`) are a ratio of
+    // their own and are not this rule.
+    call: "phaseInto",
+    owner: "packages/render/src/phase-into.ts",
+    pattern: /Math\.max\(\s*0\s*,\s*beat\s*-\s*\w+\.phaseBeat\s*\+\s*beatPhase\s*\)/,
+  },
 ];

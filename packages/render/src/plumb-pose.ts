@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE PLUMB is posed off** (§31, *Animation*): hanging lopsided;
@@ -34,28 +35,23 @@ const CREEP = 0.22;
 /** A phone's lean at the vial's end, thousandths of a degree. */
 export const PLUMB_VIAL_MILLI = 20_000;
 
-/** How far into its phase the bob is, in beats, the fraction of this one included. */
-export function into(s: PlumbState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 hanging. */
 export function plumbArrived(s: PlumbState, world: World, beat: number, bp: number): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, bp) / Math.max(1, world.cfg.plumbStillBeats));
+  return smoothstep(phaseInto(s, beat, bp) / Math.max(1, world.cfg.plumbStillBeats));
 }
 
 /** How far the bob has fallen away: 0 hanging, 1 gone. */
 export function plumbFree(s: PlumbState, world: World, beat: number, bp: number): number {
   if (s.phase !== "free") return 0;
-  return smoothstep(into(s, beat, bp) / Math.max(1, world.cfg.plumbFreeBeats));
+  return smoothstep(phaseInto(s, beat, bp) / Math.max(1, world.cfg.plumbFreeBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function plumbLeft(s: PlumbState, world: World, beat: number, bp: number): number {
   const step = plumbLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, bp) / Math.max(1, plumbWindowBeats(world, step)));
+  return Math.max(0, 1 - phaseInto(s, beat, bp) / Math.max(1, plumbWindowBeats(world, step)));
 }
 
 /**
@@ -126,7 +122,7 @@ export function plumbSwing(
  */
 export function plumbTurn(s: PlumbState, world: World, beat: number, bp: number): number {
   const rest = s.phase === "rest";
-  const ease = smoothstep(into(s, beat, bp) / Math.max(1, world.cfg.plumbRestBeats));
+  const ease = smoothstep(phaseInto(s, beat, bp) / Math.max(1, world.cfg.plumbRestBeats));
   const before = s.steps[s.cursor - 1]?.ask;
   if (s.coreLit) return rest && (before === "left" || before === "right") ? ease : 1;
   if (rest && s.steps[s.cursor]?.ask === "both") return 1 - ease;

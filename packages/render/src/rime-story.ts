@@ -5,7 +5,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { into } from "./rime-pose.js";
+import { phaseInto } from "./phase-into.js";
 import { rimeFacetPath, rimeLensPath, rimeRadius } from "./rime-shape.js";
 
 /**
@@ -33,7 +33,7 @@ const SINK = 0.35;
 /** 0 to 1: how far into the lit step `ask` names the lens is; 0 on any other step. */
 function lit(s: RimeState, ask: "both" | "icicle", beat: number, beatPhase: number): number {
   if (s.phase !== "lit" || rimeLitStep(s)?.ask !== ask) return 0;
-  return smoothstep(Math.min(1, into(s, beat, beatPhase) * 2));
+  return smoothstep(Math.min(1, phaseInto(s, beat, beatPhase) * 2));
 }
 
 /** How thick the whiteout's fog stands: 0 none, 1 rolled over the whole pane. */
@@ -50,7 +50,7 @@ export function rimeIcicle(s: RimeState, beat: number, beatPhase: number): numbe
 export function rimeSink(s: RimeState, beat: number, beatPhase: number): number {
   const step = rimeLitStep(s);
   if (step === null || step.ask !== "icicle") return 0;
-  return Math.min(1, into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.min(1, phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /**

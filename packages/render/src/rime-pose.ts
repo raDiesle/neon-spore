@@ -1,5 +1,6 @@
 import { RIME_FULL_MILLI, type RimeState, rimeLitStep, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE RIME is posed off** (§29, *Animation*): opaque; a half
@@ -12,28 +13,23 @@ import { smoothstep } from "./ease.js";
  * nobody rubbed is seen closing it again.
  */
 
-/** How far into its phase the lens is, in beats, the fraction of this one included. */
-export function into(s: RimeState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 standing. */
 export function rimeArrived(s: RimeState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.rimeStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.rimeStillBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function rimeLeft(s: RimeState, beat: number, beatPhase: number): number {
   const step = rimeLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /** How far the pane has fallen apart: 0 whole, 1 gone. */
 export function rimeShatter(s: RimeState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "shattered") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.rimeShatterBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.rimeShatterBeats));
 }
 
 /** How clear half `side` stands: 0 frosted solid, 1 bare glass. */

@@ -6,8 +6,9 @@ import {
   type SceneMark,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { INSTAR_FLIGHT_ENDS, instarPhaseAt } from "./instar-shape.js";
+import { INSTAR_FLIGHT_ENDS } from "./instar-shape.js";
 import { BEATEN, ENTER, placed } from "./nettle-poses.js";
+import { phaseInto } from "./phase-into.js";
 
 type NettleMark = SceneMark<NettlePart>;
 
@@ -113,7 +114,7 @@ function lerp(a: Figure, b: Figure, t: number): Figure {
 
 /** The figure the body stands in this frame. */
 export function nettleFigure(s: NettleState, beat: number, beatPhase: number): Figure {
-  const at = instarPhaseAt(s, beat, beatPhase);
+  const at = phaseInto(s, beat, beatPhase);
   const step = instarStep(s);
   const prev = s.steps[s.cursor - 1];
   const from = prev === undefined ? ENTER : landed(prev.pose, prev.marks);

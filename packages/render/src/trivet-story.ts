@@ -14,7 +14,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawOculusSight } from "./oculus-story.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { into } from "./trivet-pose.js";
+import { phaseInto } from "./phase-into.js";
 import { type Point, trivetHubR, trivetLegPath } from "./trivet-shape.js";
 
 /**
@@ -49,7 +49,7 @@ const SINK = 0.4;
 /** 0 to 1: how far into the lit story step `ask` the stand is; 0 on any other step. */
 function lit(s: TrivetState, ask: "tip" | "needle", beat: number, beatPhase: number): number {
   if (s.phase !== "lit" || trivetLitStep(s)?.ask !== ask) return 0;
-  return smoothstep(Math.min(1, into(s, beat, beatPhase) * 2));
+  return smoothstep(Math.min(1, phaseInto(s, beat, beatPhase) * 2));
 }
 
 /** How far the lurch has thrown the stand over, 0 to 1. */
@@ -66,7 +66,7 @@ export function trivetNeedle(s: TrivetState, beat: number, beatPhase: number): n
 export function trivetNeedleSink(s: TrivetState, beat: number, beatPhase: number): number {
   const step = trivetLitStep(s);
   if (step === null || step.ask !== "needle") return 0;
-  return Math.min(1, into(s, beat, beatPhase) / Math.max(1, step.beats));
+  return Math.min(1, phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
 }
 
 /** Pixels across from the stand's middle to the lit story step's column; 0 on any other step. */

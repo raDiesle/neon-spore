@@ -3,8 +3,8 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { phaseInto } from "./phase-into.js";
 import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
-import { into } from "./valve-pose.js";
 import { valveFacePath, valveHoleCentre, valveReach, valveSocket } from "./valve-shape.js";
 
 /**
@@ -138,7 +138,7 @@ function drawSeam(
   beatPhase: number,
 ): void {
   const { ry } = valveReach(l);
-  const strain = Math.min(1, into(s, beat, beatPhase) / (cfg.valveStrainBeats + 1));
+  const strain = Math.min(1, phaseInto(s, beat, beatPhase) / (cfg.valveStrainBeats + 1));
   const pulse = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
   const w = l.tile * (0.04 + 0.12 * strain);
   const seam = new Path2D();

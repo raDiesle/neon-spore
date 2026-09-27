@@ -1,7 +1,8 @@
 import { type MantleState, mantleDone, mantleFinale, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Side, ValvePose } from "./mantle-shape.js";
-import { MANTLE_TURN_TOP, mantleBulge, mantleInto, mantleTurnOpen } from "./mantle-story.js";
+import { MANTLE_TURN_TOP, mantleBulge, mantleTurnOpen } from "./mantle-story.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE MANTLE is posed off** (§23, *Animation*): five poses — shut;
@@ -27,8 +28,6 @@ const DRAG = 0.3;
 const SHED_BEATS = 1;
 const SPLIT_BEATS = 1.5;
 
-const into = mantleInto;
-
 /**
  * The drop into frame: row 1 of the beat list, the shell arriving closed with
  * its handles dark. 0 is a shell still above the field, 1 hung in place.
@@ -40,13 +39,13 @@ export function mantleArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "still" || s.cursor > 0) return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.mantleStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.mantleStillBeats));
 }
 
 /** How lit the handles are: coming up over half a beat when a pull or the turn begins, dark otherwise. */
 export function mantleHandlesLit(s: MantleState, beat: number, beatPhase: number): number {
   if (s.phase !== "pull" && s.phase !== "turn") return 0;
-  return smoothstep(into(s, beat, beatPhase) / 0.5);
+  return smoothstep(phaseInto(s, beat, beatPhase) / 0.5);
 }
 
 /**
@@ -70,7 +69,7 @@ export function counted(s: MantleState, cfg: SimConfig, index: 0 | 1): number {
 /** How far through the fall the newest sheared plate is: 1 once it has gone. */
 export function mantleShed(s: MantleState, beat: number, beatPhase: number): number {
   if (s.cursor === 0 || s.phase === "dark") return 1;
-  return smoothstep(into(s, beat, beatPhase) / SHED_BEATS);
+  return smoothstep(phaseInto(s, beat, beatPhase) / SHED_BEATS);
 }
 
 /**
@@ -87,7 +86,7 @@ export function mantleOpen(
   if (mantleDone(s)) return 1;
   if (s.phase === "turn") return mantleTurnOpen(s, cfg, beat, beatPhase);
   if (!mantleFinale(s)) return 0;
-  const swing = smoothstep(into(s, beat, beatPhase) / SPLIT_BEATS);
+  const swing = smoothstep(phaseInto(s, beat, beatPhase) / SPLIT_BEATS);
   return MANTLE_TURN_TOP + (1 - MANTLE_TURN_TOP) * swing;
 }
 
@@ -137,7 +136,7 @@ export function mantleCoreLife(
   const taps = Math.max(1, cfg.mantleHeartbeatTaps);
   if (mantleFinale(s)) return 1 - (0.7 * s.heartbeatDone) / taps;
   if (mantleDone(s)) {
-    return 0.3 * (1 - smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.mantleOpenBeats)));
+    return 0.3 * (1 - smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.mantleOpenBeats)));
   }
   return 1;
 }

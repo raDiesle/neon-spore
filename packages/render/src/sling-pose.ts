@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE SLING is posed off** (§32): folded; a tine splayed out to
@@ -25,11 +26,6 @@ import { smoothstep } from "./ease.js";
 /** How far a `both` step's held cord is let creep back toward slack, unanswered. */
 const CREEP = 0.8;
 
-/** How far into its phase the fork is, in beats, this beat's own fraction included. */
-function into(s: SlingState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** 0 folded to 1 standing: the tines' one-time swing out into frame. */
 export function slingArrived(
   s: SlingState,
@@ -38,13 +34,13 @@ export function slingArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.slingStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.slingStillBeats));
 }
 
 /** 0 standing to 1 gone: the fork snapping forward and away once its script is spent. */
 export function slingGone(s: SlingState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "free") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.slingFreeBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.slingFreeBeats));
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 run out. */
@@ -56,7 +52,10 @@ export function slingWindowLeft(
 ): number {
   const step = slingLitStep(s);
   if (step === null) return 0;
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, slingWindowBeats(world, step)));
+  return Math.max(
+    0,
+    1 - phaseInto(s, beat, beatPhase) / Math.max(1, slingWindowBeats(world, step)),
+  );
 }
 
 /**

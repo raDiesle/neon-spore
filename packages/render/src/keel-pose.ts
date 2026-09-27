@@ -9,6 +9,7 @@ import { smoothstep } from "./ease.js";
 import { keelSegCentre, keelSegSlope, RISE, type Seg, type SegPose } from "./keel-shape.js";
 import { keelFlipRise } from "./keel-story-pose.js";
 import type { Layout } from "./layout.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE KEEL is posed off** (§24, *Animation*): a loose, faintly
@@ -39,15 +40,10 @@ const DIM = 0.3;
 /** How bright a loose segment is before the tempo run: iron, but not the lit iron of a locked one. */
 const LOOSE = 0.55;
 
-/** How far into its phase the spine is, in beats, the fraction of this one included. */
-export function into(s: KeelState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 hung. Row 1 of the beat list. */
 export function keelArrived(s: KeelState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.keelStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.keelStillBeats));
 }
 
 /**
@@ -61,7 +57,7 @@ export function keelRise(s: KeelState, cfg: SimConfig, beat: number, beatPhase: 
   const locked = s.locked.filter(Boolean).length / Math.max(1, s.locked.length);
   const taut = RISE * (0.62 + 0.38 * locked);
   if (s.phase === "rigid") return RISE * 1.06;
-  if (keelDone(s)) return taut * (1 - smoothstep(into(s, beat, beatPhase) / STRAIGHT_BEATS));
+  if (keelDone(s)) return taut * (1 - smoothstep(phaseInto(s, beat, beatPhase) / STRAIGHT_BEATS));
   return taut;
 }
 
@@ -72,7 +68,7 @@ export function keelRise(s: KeelState, cfg: SimConfig, beat: number, beatPhase: 
  */
 export function keelOpen(s: KeelState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase === "split")
-    return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.keelSplitBeats));
+    return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.keelSplitBeats));
   return s.phase === "socket" ? 1 : 0;
 }
 
@@ -109,7 +105,7 @@ export function keelSegPose(
 /** The tail's flick as it throws: out and back once over `WHIP_BEATS`, nothing either side of it. */
 function keelWhip(s: KeelState, beat: number, beatPhase: number): number {
   if (s.phase !== "rock") return 0;
-  const t = into(s, beat, beatPhase) / WHIP_BEATS;
+  const t = phaseInto(s, beat, beatPhase) / WHIP_BEATS;
   return t >= 1 ? 0 : -WHIP * Math.sin(Math.PI * t);
 }
 
@@ -125,7 +121,7 @@ export function keelBright(s: KeelState, k: number, beat: number, beatPhase: num
   if (keelAnswered(s, k)) return 1;
   // The dim comes down over half a beat at the start of the run, not at once.
   const fresh = s.phase === "rest" && s.repriseCursor === 0;
-  const down = fresh ? smoothstep(into(s, beat, beatPhase) / 0.5) : 1;
+  const down = fresh ? smoothstep(phaseInto(s, beat, beatPhase) / 0.5) : 1;
   return 1 - (1 - DIM) * down;
 }
 

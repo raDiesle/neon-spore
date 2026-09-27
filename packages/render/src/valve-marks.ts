@@ -11,7 +11,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { into } from "./valve-pose.js";
+import { phaseInto } from "./phase-into.js";
 import { bearingAngle, onBearing, valveSocket, valveWheel } from "./valve-shape.js";
 
 /**
@@ -108,7 +108,7 @@ export function drawValveSocket(
   if (beats === 0) return;
   // The window counts from the beat after it opened (`valve-step.ts`), so it
   // runs out one beat past its length, and the arc with it.
-  const left = Math.max(0, 1 - into(s, beat, beatPhase) / (beats + 1));
+  const left = Math.max(0, 1 - phaseInto(s, beat, beatPhase) / (beats + 1));
   const arc = new Path2D();
   arc.arc(at.x, at.y, r * 1.7, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
   strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.outline, 1.2);

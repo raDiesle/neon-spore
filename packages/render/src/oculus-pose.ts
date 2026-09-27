@@ -6,6 +6,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **The clock THE OCULUS is posed off** (§27, *Animation*): five poses — open,
@@ -24,11 +25,6 @@ const PAIRS = OCULUS_LEAVES / 2;
 /** How far a cracked pair stands open while a reseal is owed. */
 const CRACK = 0.45;
 
-/** How far into its phase the lens is, in beats, the fraction of this one included. */
-export function into(s: OculusState, beat: number, beatPhase: number): number {
-  return Math.max(0, beat - s.phaseBeat + beatPhase);
-}
-
 /** The drop into frame: 0 still above the field, 1 standing. */
 export function oculusArrived(
   s: OculusState,
@@ -37,7 +33,7 @@ export function oculusArrived(
   beatPhase: number,
 ): number {
   if (s.phase !== "still") return 1;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.oculusStillBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.oculusStillBeats));
 }
 
 /** The pair a lit step works on: the next to shut, or — for a reseal — one of the shut ones, turn about. */
@@ -86,13 +82,14 @@ export function oculusShut(
 /** How far the socket stands open: easing open over a break, open while the sim says so, shut otherwise. */
 export function oculusSocket(s: OculusState, beat: number, beatPhase: number): number {
   const step = oculusLitStep(s);
-  if (step?.ask === "break") return smoothstep(into(s, beat, beatPhase) / Math.max(1, step.beats));
+  if (step?.ask === "break")
+    return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, step.beats));
   return s.socketOpen ? 1 : 0;
 }
 
 /** How much of the lit step's window is left: 1 as it lights, 0 as it runs out. */
 export function oculusLeft(s: OculusState, beats: number, beat: number, beatPhase: number): number {
-  return Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, beats));
+  return Math.max(0, 1 - phaseInto(s, beat, beatPhase) / Math.max(1, beats));
 }
 
 /** How far the lens has shattered: 0 whole, 1 fallen apart. */
@@ -103,5 +100,5 @@ export function oculusShatter(
   beatPhase: number,
 ): number {
   if (s.phase !== "shatter") return 0;
-  return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.oculusShatterBeats));
+  return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.oculusShatterBeats));
 }

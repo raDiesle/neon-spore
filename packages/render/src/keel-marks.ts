@@ -1,7 +1,7 @@
 import { type KeelState, keelWindowBeats, type World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
-import { into, keelMiddle } from "./keel-pose.js";
+import { keelMiddle } from "./keel-pose.js";
 import {
   keelFacePath,
   keelRingCentre,
@@ -12,6 +12,7 @@ import {
 } from "./keel-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **THE KEEL's marks**: the two things on the spine that say a gesture — the
@@ -101,7 +102,10 @@ export function drawKeelRing(
 ): void {
   const c = keelRingCircle(l, at);
   const r = c.r * (1 + 0.05 * Math.cos(beatPhase * Math.PI * 2));
-  const left = Math.max(0, 1 - into(s, beat, beatPhase) / Math.max(1, keelWindowBeats(cfg, s)));
+  const left = Math.max(
+    0,
+    1 - phaseInto(s, beat, beatPhase) / Math.max(1, keelWindowBeats(cfg, s)),
+  );
   const ring = new Path2D();
   ring.arc(c.x, c.y, r, 0, Math.PI * 2);
   ctx.lineWidth = STROKE.inner;
