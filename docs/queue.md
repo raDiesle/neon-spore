@@ -2283,6 +2283,7 @@ part list); op count within 10% for both layers together;
 ## Living bosses — the other six mechanisms swing what hangs or hinges
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-mechanisms-swing-what-hangs-or
+- **Taken:** 2026-09-27, claude/queue-living-bosses-the-mechanisms-swing-what-hangs-or (claim: claude/queue-living-bosses-the-other-six-mechanisms-swing-wha)
 - **Where:** local
 - **Files:** `packages/render/src/mechanism-swing.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/hasp-draw.ts`, `packages/render/src/ratchet-draw.ts`, `packages/render/src/rime-draw.ts`, `docs/spec/living-bosses.md`
 
