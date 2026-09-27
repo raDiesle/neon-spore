@@ -2315,6 +2315,7 @@ as `coreHurt` was gathered. `bun run check` proves it.
 ## Living bosses — THE REPRISE's parts, and the surface marks
 
 - **Found:** 2026-09-27, claude/queue-cairn-reprise-parts
+- **Taken:** 2026-09-27, claude/queue-frames-time (claim: claude/queue-living-bosses-the-reprises-parts-and-the-surface)
 - **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-lens.ts`, `packages/content/src/surface.ts`
 
 What is left of the outline tier's parts once THE CAIRN's stones rock
