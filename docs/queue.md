@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §39 THE BURGEE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto (claim: claude/queue-39-the-burgee-the-simulation-lane)
 - **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
 
 No new primitive: `FREEZE TAP` (THE VALVE's, THE CYST's) paired with
