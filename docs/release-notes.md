@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 6284fb107 — THE TASTER's fan sways like a field of wheat
+
+One gust now runs across THE TASTER's blades, each tip swinging a moment after the one before it, by more than half a tile, with no two neighbours far enough apart to cross, since crossed blades are how the fan says closed. The roots stay in the crest, where the pin and the pry are. The fan is still once it closes and once it is thrown open. On the field under "a look with no shipped alternative".
+
 ## 2026-09-27 · 7e5314efb — THE CURTAIN sways in a draught, its hem swinging under a held rail
 
 THE CURTAIN's rail now stays still while its hem swings across, the whole sheet sheared about its top edge, the leading corner by more than half a tile, while the trailing edge stays over its column so no covered core is uncovered. The beads stay over their columns, since a shot up a column breaks the bead there, and the hem's ring stays on the hem's line. The swing dies as the pilot gathers the hem and stops once the sheet is out. On the field under "a look with no shipped alternative".
