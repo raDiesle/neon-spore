@@ -143,6 +143,18 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   is drawn in the same pose. On the field under *a look with no shipped
   alternative*.
 
+  *THE CURTAIN, as built, 27 September 2026* (`curtain-sway.ts`): the rail
+  is held and the hem swings across, the whole sheet sheared about its top
+  edge the way the shove's trail already shears it. The corners swing by
+  more than half a tile each way. A pose about each scallop's joint would
+  move nothing that is seen, so the curtain moves as a curtain does. The
+  beads stay over their columns, since a shot up a column breaks the bead
+  there, and the hem's ring stands on the hem's line, which a swing across
+  does not move. Only the edge it swings toward reaches out, and the
+  trailing edge stays over its column, so no covered core is uncovered.
+  The swing dies as the hem is gathered and stops in `out`.
+  On the field under *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

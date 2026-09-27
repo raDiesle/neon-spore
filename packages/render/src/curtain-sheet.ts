@@ -39,6 +39,12 @@ export function drawCurtainSheet(
   /** The hem's trail behind the rail, in pixels. */
   lag: number,
   /**
+   * The hem's swing in the draught, in pixels (`curtain-sway.ts`). The cloth
+   * takes it and the beads do not: each stays over the column a shot breaks
+   * it from.
+   */
+  sway: number,
+  /**
    * How far the pilot has gathered the hem off the floor, in pixels
    * (`curtain-grip.ts`). Nought in every state but the jammed one. The whole
    * sheet does not rise: the rail is fixed and the bottom edge comes up to it,
@@ -54,18 +60,19 @@ export function drawCurtainSheet(
   const railY = cy - t * CURTAIN_RAIL_RISE;
   const hemY = cy + t * CURTAIN_HEM_DROP - lift;
   const x1 = x0 + CURTAIN_COLS * t;
-  const path = curtainSheetPath(l, x0, cy, lobes, lag, lift, time);
+  const hang = lag + sway;
+  const path = curtainSheetPath(l, x0, cy, lobes, lag, lift, time, sway);
   // Folds: one a column, swaying, from the rail to the hem's trail — each a
   // lit line and, just to its right, the side of it turned from the light.
   const folds = new Path2D();
   const shadows = new Path2D();
   for (let i = 1; i < CURTAIN_COLS; i++) {
     const x = x0 + i * t;
-    const sway = Math.sin(time * 2.1 + i * 1.3) * t * 0.04;
+    const ripple = Math.sin(time * 2.1 + i * 1.3) * t * 0.04;
     folds.moveTo(x, railY);
-    folds.quadraticCurveTo(x + sway, (railY + hemY) / 2, x + lag, hemY - t * 0.05);
+    folds.quadraticCurveTo(x + ripple, (railY + hemY) / 2, x + hang, hemY - t * 0.05);
     shadows.moveTo(x + t * 0.07, railY);
-    shadows.quadraticCurveTo(x + t * 0.08 + sway, (railY + hemY) / 2, x + t * 0.07 + lag, hemY);
+    shadows.quadraticCurveTo(x + t * 0.08 + ripple, (railY + hemY) / 2, x + t * 0.07 + hang, hemY);
   }
   paintSheet(ctx, path, folds, shadows, { x0, x1, railY, hemY, tile: t });
   drawHurt(ctx, path, hurt);

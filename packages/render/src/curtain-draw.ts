@@ -7,6 +7,7 @@ import {
 } from "@neon-spore/sim";
 import { curtainHemLift, curtainSheetMidX, drawCurtainHem } from "./curtain-grip.js";
 import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
+import { curtainSway } from "./curtain-sway.js";
 import { drawnCol } from "./depth.js";
 import { drawHandAt } from "./grip.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -91,7 +92,9 @@ export function drawCurtain(
   const lag = ((body.fromCol ?? body.col) - at) * l.tile * 0.35;
   const soft = showsCurtainSoft(l.role) ? c.soft : [];
   const lift = curtainHemLift(l, cfg, c);
-  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, lift, time, hurt);
+  // And swings in a draught, held along the rail (`curtain-sway.ts`).
+  const sway = curtainSway(l, cfg, c, beat, beatPhase);
+  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, sway, lift, time, hurt);
 
   // The jam, over the sheet's own rail, and the hem's ring over the sheet: both
   // are the `pinned` state and nothing else, and both draw on both screens —

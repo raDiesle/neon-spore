@@ -27609,3 +27609,19 @@ Bottleneck: looking — a spark falls in two beats, so the still needed a
 freeze before there was anything in it to judge.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CURTAIN sways in a draught, its hem swinging under a held rail
+
+- reading: 10 min. The sheet, the hem's scallops, the grip, and what a
+  shot and a thumb are judged against.
+- writing: 15 min. The sway, the trailing edge held over its column,
+  the tests, the spec note and narrowing the queue entry.
+- looking: 10 min. The first pair caught the sway near nothing; a probe
+  of the swing per beat found beat 17.
+- friction: 5 min. A probe command that read stdin hung for two minutes
+  and had to be stopped.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. The first frame caught the hem at rest, and the
+trailing edge that would have uncovered a core only showed at the widest
+swing.

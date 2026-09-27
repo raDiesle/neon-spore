@@ -2114,7 +2114,7 @@ on a phone. `bun run check` proves it.
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
-- **Needs:** Living bosses — the outline drift for the curtain and the taster
+- **Needs:** Living bosses — the outline drift for the taster
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
@@ -2131,10 +2131,9 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## Living bosses — the outline drift for the curtain and the taster
+## Living bosses — the outline drift for the taster
 
 - **Found:** 2026-09-27, claude/queue-warden-drift
-- **Taken:** 2026-09-27, claude/queue-living-bosses-the-outline-drift-for-the-gorge-th (claim: claude/queue-living-bosses-the-outline-drift-for-the-curtain)
 - **Where:** local
 - **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`
 
@@ -2144,7 +2143,9 @@ The rest of "the next six", split off when THE WARDEN landed on its own
 its gullet from its mouth, and THE UNDERTOW after that (`undertow-drift.ts`),
 each lobe on its own seed about the skin, and THE GORGE after that
 (`gorge-drift.ts`), each lobe about its intake with the pinch and pry
-rings carried on it. THE WARDEN's lane is the worked example:
+rings carried on it, and THE CURTAIN after that (`curtain-sway.ts`), its
+hem swung across under a held rail, the beads left over their columns.
+THE WARDEN's lane is the worked example:
 root the pose where the boss's marks are (the warden's foot), lift its cap
 in `LIFTED` (`outline-drift.ts`), make every hit test, cue and anchor ask for
 the posed point, drive the pose off the beat so the hit test can compute it,
@@ -2152,10 +2153,9 @@ and test that the widest point moves more than half a tile. Each goes
 straight onto the field under *a look with no shipped alternative*
 (`docs/looks.md`), not to VERSUS, and each can be its own lane:
 
-- **THE CURTAIN, THE TASTER**: many tiles wide, so a lean about the
-  middle is small at the root and huge at the ends; pose each hem scallop
-  or blade about its own joint instead, and still the pose on each's "out"
-  phase.
+- **THE TASTER**: many tiles wide, so a lean about the middle is small at
+  the root and huge at the ends; pose each blade about its own joint
+  instead, and still the pose on its "out" phase.
 
 Add each boss to `OutlineBoss`, `OUTLINE_SEED` and `OUTLINE_PARTS`, and its
 test beside `warden-drift.test.ts`. Done when `bun run check` is green.

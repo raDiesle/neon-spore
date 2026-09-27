@@ -25,7 +25,8 @@ import { slowHush } from "./slow-hush.js";
  * and the seam stays for the outline drift the queue still owes the next six
  * bosses, which re-aims it at a movement big enough to be seen. THE THROAT
  * takes the seam and the seed but not the pose: a body held at both ends
- * bows rather than leans (`throat-sway.ts`).
+ * bows rather than leans (`throat-sway.ts`), and THE CURTAIN, held along its
+ * top, swings at its hem (`curtain-sway.ts`).
  */
 
 export type OutlineBoss =
@@ -35,7 +36,8 @@ export type OutlineBoss =
   | "warden"
   | "throat"
   | "undertow"
-  | "gorge";
+  | "gorge"
+  | "curtain";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -46,6 +48,7 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   throat: 1,
   undertow: 1,
   gorge: 1,
+  curtain: 1,
 };
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
@@ -57,6 +60,7 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   throat: 137,
   undertow: 139,
   gorge: 149,
+  curtain: 151,
 };
 
 export const OUTLINE = {

@@ -40,7 +40,13 @@ export interface CurtainScallop {
   to: Point;
 }
 
-/** The hem's scallops, right to left, the sheet's left edge at `x0` and its row's centre at `cy`. */
+/**
+ * The hem's scallops, right to left, the sheet's left edge at `x0` and its
+ * row's centre at `cy`. `sway` is the draught's swing (`curtain-sway.ts`):
+ * every joint takes it, but only the edge it swings toward reaches out — the
+ * trailing edge stays over its column, so a core under the end column is
+ * never uncovered by the wind.
+ */
 export function curtainHem(
   l: Layout,
   x0: number,
@@ -49,14 +55,15 @@ export function curtainHem(
   lag: number,
   lift: number,
   time: number,
+  sway = 0,
 ): CurtainScallop[] {
   const t = l.tile;
   const hemY = cy + t * HEM_DROP - lift;
   const out: CurtainScallop[] = [];
   for (let i = CURTAIN_COLS - 1; i >= 0; i--) {
     const y = hemY - ((lobes[i] ?? false) ? 0 : t * HEM_LIFT) + Math.sin(time * 1.7 + i) * t * 0.02;
-    const xr = x0 + (i + 1) * t + lag;
-    const xl = x0 + i * t + lag;
+    const xr = x0 + (i + 1) * t + lag + (i === CURTAIN_COLS - 1 ? Math.max(0, sway) : sway);
+    const xl = x0 + i * t + lag + (i === 0 ? Math.min(0, sway) : sway);
     const mid = (xl + xr) / 2;
     out.push({ joint: { x: mid, y }, bend: { x: mid, y: y + t * 0.12 }, to: { x: xl, y } });
   }
@@ -75,14 +82,15 @@ export function curtainSheetPath(
   lag: number,
   lift: number,
   time: number,
+  sway = 0,
 ): Path2D {
   const railY = cy - l.tile * RAIL_RISE;
   const x1 = x0 + CURTAIN_COLS * l.tile;
-  const hem = curtainHem(l, x0, cy, lobes, lag, lift, time);
+  const hem = curtainHem(l, x0, cy, lobes, lag, lift, time, sway);
   const path = new Path2D();
   path.moveTo(x0, railY);
   path.lineTo(x1, railY);
-  path.lineTo(x1 + lag, hem[0]?.to.y ?? railY);
+  path.lineTo(x1 + lag + Math.max(0, sway), hem[0]?.to.y ?? railY);
   for (const b of hem) path.quadraticCurveTo(b.bend.x, b.bend.y, b.to.x, b.to.y);
   path.closePath();
   return path;

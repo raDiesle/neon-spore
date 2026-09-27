@@ -2159,6 +2159,7 @@ by hand never moves.
 | `packages/render/src/curtain-fx.ts` | What THE CURTAIN leaves behind a frame: the sheet falling once it is torn off the rail |
 | `packages/render/src/curtain-flesh.ts` | **What THE CURTAIN is made of**: a wet membrane hung from a gathered top edge |
 | `packages/render/src/curtain-sheet.ts` | THE CURTAIN's two shapes: the membrane with its hem, and the core |
+| `packages/render/src/curtain-sway.ts` | **THE CURTAIN sways in a draught** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
 | `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |
