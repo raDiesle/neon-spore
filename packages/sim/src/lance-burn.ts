@@ -1,6 +1,7 @@
 import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
+import { burgeeStruck } from "./burgee-shot.js";
 import { capstanStruck } from "./capstan-shot.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
@@ -209,6 +210,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   capstanStruck(world, b);
   // And THE GALL's bared root (`gall-shot.ts`).
   gallStruck(world, b);
+  // And THE BURGEE's lit spindle (`burgee-shot.ts`).
+  burgeeStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

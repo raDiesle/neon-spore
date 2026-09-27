@@ -1,3 +1,4 @@
+import { CHOREO_FIELD_GROUP_D } from "./ship-fields-choreo-d.js";
 import type { GroupName } from "./ship-groups.js";
 
 /**
@@ -244,4 +245,6 @@ export const CHOREO_FIELD_GROUP_C = {
   gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
   gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
   gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
+  // The fourth page, THE BURGEE on (`ship-fields-choreo-d.ts`).
+  ...CHOREO_FIELD_GROUP_D,
 } satisfies Record<string, GroupName>;

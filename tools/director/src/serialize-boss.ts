@@ -182,6 +182,13 @@ export function serializeBoss(boss: BossEntry): string {
     });
     return `{ kind: "${boss.kind}", steps: [${steps.join(", ")}] }`;
   }
+  // THE BURGEE's say as well who freezes, over which column and how fast, each
+  // field in the order the wave wrote it.
+  if (boss.kind === "burgee") {
+    const field = ([k, v]: [string, unknown]) => `${k}: ${JSON.stringify(v)}`;
+    const steps = boss.steps.map((s) => `{ ${Object.entries(s).map(field).join(", ")} }`);
+    return `{ kind: "burgee", steps: [${steps.join(", ")}] }`;
+  }
   // THE TRIVET's the same, and each step says how many pads its chord is.
   if (boss.kind === "trivet") {
     const steps = boss.steps.map((s) => {

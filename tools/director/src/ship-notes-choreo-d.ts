@@ -69,4 +69,18 @@ export const CHOREO_NOTES_D = {
     "on the phone sends a pinch here yet. Only the simulation lane has " +
     "landed — see sim/gall.ts, sim/gall-step.ts, sim/gall-hand.ts, " +
     "sim/gall-shot.ts, sim/config-gall.ts.",
+  "THE BURGEE — a flag stilled by one seat and caught by the other":
+    "Asked for in docs/spec/bosses-choreographed.md §39: a pennant on a free " +
+    "boom mid-hull that swings across the three middle columns on its own, " +
+    "burgeeSwingMilli, never a player's to move. The step's freezer taps it " +
+    "still over the lit column — THE VALVE's FREEZE TAP, an edge, landing only " +
+    "on the mark — and the other seat holds a draw a beat and lifts toward " +
+    "the column while it is still frozen, THE SLING's HOLD, THEN SWIPE. Two " +
+    "catches, seats swapped, light the spindle; three shots at it, each after " +
+    "the creeping flag is caught back. A catch run out is tried again; a " +
+    "recatch run out dims the spindle; a fire step run out is a hull hit, " +
+    "which is the wave. Nothing on the phone sends a tap or a draw here yet. " +
+    "Only the simulation lane has landed — see sim/burgee.ts, " +
+    "sim/burgee-step.ts, sim/burgee-hand.ts, sim/burgee-shot.ts, " +
+    "sim/config-burgee.ts.",
 } satisfies Partial<Record<GroupName, string>>;

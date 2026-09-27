@@ -1,0 +1,42 @@
+/**
+ * **The clock bosses' half of the surface, the fifth page** — THE BURGEE's
+ * flag, and whatever comes after it.
+ *
+ * Cut on 27 September 2026, when THE BURGEE's block would have taken
+ * `boss-surface-clocks-d.ts` to the 250-line limit. Unlike the cuts before
+ * it, the new boss starts the page rather than the full page's last rows
+ * coming across: the fourth page was not over, only about to be, and a page
+ * that begins with the boss being built needs no row moved to say why.
+ * Page four re-exports this one, so nothing reaching for a name through
+ * `@neon-spore/sim` knows there are five.
+ *
+ * The rule the first page states holds here unchanged: a name on these pages
+ * is one something outside `packages/sim` imports.
+ */
+
+// THE BURGEE's flag: the phase, the lit step, the swing and the freeze, the
+// lit column, whose tap stills it and whose draw looses at it, the catches
+// and the spindle, for the picture, the cue and the director's hand. Straight
+// off `burgee.ts` (§39).
+export {
+  BURGEE_ASKS,
+  BURGEE_CATCHES,
+  BURGEE_PHASES,
+  type BurgeeAsk,
+  type BurgeeEntry,
+  type BurgeePhase,
+  type BurgeeState,
+  type BurgeeStep,
+  burgeeAims,
+  burgeeBoss,
+  burgeeCatching,
+  burgeeDone,
+  burgeeFreezes,
+  burgeeFrozen,
+  burgeeHeld,
+  burgeeLitStep,
+  burgeeMarkCol,
+  burgeeOnMark,
+  burgeeSwipe,
+  freshBurgee,
+} from "./burgee.js";

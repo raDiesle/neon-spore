@@ -2,7 +2,7 @@
  * The handles `--hold` did not know until 23 September 2026: every name on
  * the wire's own list (`DRAG_TARGETS`, `packages/net/src/command-fields.ts`)
  * that `hold-targets.ts` had no row for — seventy-seven of them, from the
- * crank to THE GALL's pinch.
+ * crank to THE BURGEE's draw.
  *
  * A table rather than four more lists, because the four lists next door were
  * written one row at a time and a row here is a handle's whole story on one
@@ -156,6 +156,10 @@ export const ROWS: Record<string, Row> = {
   // `gall-hand.ts`: the pinch's gap on `fromMilli` and the point it went down
   // on as `id`; the seat is the one nearer that point.
   gallPinch: { id: true },
+  // `burgee-hand.ts`: the tap and the draw are both seats'; which is live is
+  // the lit step's, and the draw's lift carries the swipe on `fromMilli`.
+  burgeeFreeze: {},
+  burgeeDraw: {},
   // `instar-hand.ts`: a swipe arms on the carry and counts on the lift. The
   // same wire name as `instarMark`, which holds rather than lets go.
   instarSwipe: { as: "instarMark", id: true, swipe: true },

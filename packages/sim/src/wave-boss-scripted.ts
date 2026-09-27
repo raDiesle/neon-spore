@@ -1,4 +1,5 @@
 import type { BossState } from "./boss-union.js";
+import { installBurgee } from "./burgee-step.js";
 import { installCapstan } from "./capstan-step.js";
 import { installCyst } from "./cyst-step.js";
 import { installDavit } from "./davit-step.js";
@@ -41,6 +42,7 @@ export const SCRIPTED_KINDS = [
   "halter",
   "capstan",
   "gall",
+  "burgee",
 ] as const;
 
 export type ScriptedEntry = Extract<BossEntry, { kind: (typeof SCRIPTED_KINDS)[number] }>;
@@ -62,5 +64,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "davit") return installDavit(world, boss.steps);
   if (boss.kind === "halter") return installHalter(world, boss.steps);
   if (boss.kind === "capstan") return installCapstan(world, boss.steps);
-  return installGall(world, boss.steps);
+  if (boss.kind === "gall") return installGall(world, boss.steps);
+  return installBurgee(world, boss.steps);
 }

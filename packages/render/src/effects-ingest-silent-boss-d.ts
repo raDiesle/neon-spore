@@ -154,6 +154,22 @@ export const INGEST_SILENT_BOSS_D = [
   "gallMiss",
   "gallFlat",
   "gallOut",
+  // THE BURGEE's fifteen: silent until its look lane draws them.
+  "burgeeEnter",
+  "burgeeLight",
+  "burgeeFreeze",
+  "burgeeFlap",
+  "burgeeLapse",
+  "burgeeFlutter",
+  "burgeeCatch",
+  "burgeeSpindle",
+  "burgeeRecatch",
+  "burgeeSway",
+  "burgeeDim",
+  "burgeeHit",
+  "burgeeMiss",
+  "burgeeSpent",
+  "burgeeOut",
   // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
   // what the drum does is read off its phase (`valve-story.ts`), never off these.
   "valveJet",

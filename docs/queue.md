@@ -895,25 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §39 THE BURGEE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto (claim: claude/queue-39-the-burgee-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-No new primitive: `FREEZE TAP` (THE VALVE's, THE CYST's) paired with
-`HOLD, THEN SWIPE` (THE SLING's, THE DAVIT's) for the first time —
-`burgeeSwingMilli` sweeps the field's columns under the simulation's own
-clock, never a player's to move directly; one seat's timed freeze stills
-it, the other seat's held-then-released swipe only lands a catch if the
-release matches the frozen column while the freeze still holds. Nine
-steps, three movements, the freezing half and the aiming half swapping
-seat by catch. The full beat list and primitive table entry are §39 of
-`docs/spec/bosses-choreographed.md`. `FREEZE TAP` and `HOLD, THEN SWIPE`
-each already carry a §39 THE BURGEE entry in their `where` arrays in
-`tools/director/src/gesture-unbuilt.ts` — land it with the rest. THE SLOW
-on every catch window. `bun run check` proves it.
-
 ## §39 THE BURGEE — the look
 
 - **Found:** 2026-09-26, this session
@@ -2684,3 +2665,20 @@ cannon colours.
 
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
+
+## `serialize-boss.ts` is at the 250-line limit
+
+- **Found:** 2026-09-27, claude/queue-39-the-burgee-the-simulation-lane
+- **Files:** `tools/director/src/serialize-boss.ts`, `tools/director/test/wave-save.test.ts`
+
+THE BURGEE's branch took `serialize-boss.ts` to 251 lines. It was brought
+back to exactly 250 by writing THE BURGEE's steps field by field in the
+order the wave wrote them, so the next boss with a script of its own will
+push it over. Cut the scripted bosses' branches (THE SEAM through THE
+BURGEE) into `serialize-boss-b.ts`, with the one dispatcher calling it and
+the file-map line written. Where it is safe, use the same field-by-field
+writer for the other branches whose steps are only strings and numbers.
+
+Done when: `serialize-boss.ts` is well under 250 lines, and the director's
+wave-save round trip still writes every shipped wave back byte for byte.
+`bun run check` proves it.

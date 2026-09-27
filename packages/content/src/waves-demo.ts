@@ -181,6 +181,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   halter: { wave: "theHalter" },
   capstan: { wave: "theCapstan" },
   gall: { wave: "theGall" },
+  burgee: { wave: "theBurgee" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

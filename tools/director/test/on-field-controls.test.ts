@@ -441,6 +441,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE GALL's pinch: a point of this seat's half of the seam, the point sent
   // as its id, on both screens (`render/gall-grip.ts`, §11.55).
   gallPinch: "field",
+  // THE BURGEE's tap and draw: the simulation lane landed first and nothing
+  // on the phone sends them yet (§11.56).
+  burgeeFreeze: "unbuilt",
+  burgeeDraw: "unbuilt",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

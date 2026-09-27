@@ -1,6 +1,7 @@
 import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
+import { stepBurgee } from "./burgee-step.js";
 import { stepCairn } from "./cairn.js";
 import { stepCapstan } from "./capstan-step.js";
 import { stepCyst } from "./cyst-step.js";
@@ -49,6 +50,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE BURGEE: the flag's swing, a freeze run out, draws counted, and the flag spent (`burgee-step.ts`).
+  if (boss.kind === "burgee") {
+    stepBurgee(world, boss);
+    return;
+  }
   // THE GALL: shut beats counted, the jump, and the seam gone flat (`gall-step.ts`).
   if (boss.kind === "gall") {
     stepGall(world, boss);

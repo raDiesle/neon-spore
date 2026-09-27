@@ -36,6 +36,14 @@ import type { Wave } from "../wave-types.js";
  * shut and keeps it shut, and the instant it closes it jumps to another of
  * the seam's four points, for whichever seat is nearer there (§38,
  * `sim/gall.ts`). Three closes bare the root, and one shot in red ends it.
+ *
+ * **THE BURGEE is the first boss the simulation keeps moving for a seat to
+ * still.** A pennant on a free boom mid-hull swings across the three middle
+ * columns on its own: one seat taps it still over the lit column, the other
+ * holds a draw and lets go toward it while it is still held (§39,
+ * `sim/burgee.ts`). Two catches, the seats swapped, light the spindle; three
+ * shots at it, each after the flag has been caught back, the last one white.
+ * Every catch's window outlasts a lap of the flag at its sweep.
  */
 export const WAVES_ACT_13: Wave[] = [
   {
@@ -125,6 +133,43 @@ export const WAVES_ACT_13: Wave[] = [
         { ask: "close", color: "either", beats: 5 },
         { ask: "close", color: "either", beats: 5 },
         { ask: "fire", color: "red", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theBurgee",
+    name: "THE BURGEE",
+    guide: {
+      both: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
+      p1: "1. First, tap the flag still when it swings over the lit column.\n2. Next, hold a draw and swipe toward the column once it stops.\n3. Shoot the spindle. Catch the flag back when it creeps loose.",
+      p2: "1. First, hold a draw and swipe toward the column once it stops.\n2. Next, tap the flag still when it swings over the lit column.\n3. Shoot the spindle. Catch the flag back when it creeps loose.",
+    },
+    entries: [],
+    boss: {
+      kind: "burgee",
+      steps: [
+        { ask: "catch", freezer: 1, offset: -1, sweepMilli: 1000, color: "either", beats: 6 },
+        { ask: "catch", freezer: 2, offset: 1, sweepMilli: 1000, color: "either", beats: 5 },
+        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "red", beats: 3 },
+        {
+          ask: "recatch",
+          freezer: "either",
+          offset: 1,
+          sweepMilli: 500,
+          color: "either",
+          beats: 7,
+        },
+        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "cyan", beats: 3 },
+        {
+          ask: "recatch",
+          freezer: "either",
+          offset: 1,
+          sweepMilli: 1000,
+          color: "either",
+          beats: 5,
+        },
+        { ask: "fire", freezer: "either", offset: 0, sweepMilli: 0, color: "either", beats: 3 },
       ],
     },
     bossType: "normal",

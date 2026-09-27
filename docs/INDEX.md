@@ -269,6 +269,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
 | `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE KEEL's spine to THE VISE's seed-case |
 | `packages/sim/src/boss-surface-clocks-d.ts` | **The clock bosses' half of the surface, the fourth page** — THE WELL's face and the thumb on its seam |
+| `packages/sim/src/boss-surface-clocks-e.ts` | **The clock bosses' half of the surface, the fifth page** — THE BURGEE's flag, and whatever comes after it |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-splice.ts` | **THE SPLICE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 25 September 2026 |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
@@ -532,6 +533,11 @@ by hand never moves.
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/bullet-hit-shut.ts` | **The bodies a bolt never kills**, and what each of them does with one instead |
 | `packages/sim/src/bullet-refused.ts` | **A body the cannon cannot answer still stops the bolt**, and what each of them does with it |
+| `packages/sim/src/burgee-hand.ts` | THE BURGEE's two handles: the freeze mark `burgeeFreeze` and the draw `burgeeDraw` |
+| `packages/sim/src/burgee-hash.ts` | What THE BURGEE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/burgee-shot.ts` | **THE BURGEE's shot**: the lit spindle, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/burgee-step.ts` | THE BURGEE's clock: the flag swinging on its own, a freeze running out |
+| `packages/sim/src/burgee.ts` | THE BURGEE: a pennant on a free-swinging boom mid-hull, swinging across the middle columns on its own |
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
 | `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |
@@ -638,6 +644,7 @@ by hand never moves.
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
+| `packages/sim/src/config-burgee.ts` | THE BURGEE's tuning: the beats around its steps, how far and how fast the flag swings on its own |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
 | `packages/sim/src/creature-state-push.ts` | **The shield's push, as two fields**, and `shield-push.ts` is the whole of what they mean |
@@ -650,6 +657,7 @@ by hand never moves.
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
+| `packages/sim/src/events-burgee.ts` | What THE BURGEE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
 | `packages/sim/src/events-throat.ts` | **What THE THROAT's two hands do that neither screen already says**, as three events (`throat-hand.ts`) |
@@ -2213,6 +2221,7 @@ by hand never moves.
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
+| `packages/audio/src/bind-burgee.ts` | Whether an event is THE BURGEE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
@@ -3088,6 +3097,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE BURGEE and every boss built after it |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

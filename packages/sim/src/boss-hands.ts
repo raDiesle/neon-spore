@@ -1,5 +1,6 @@
 import { antiphonHeard, antiphonPulled, stepAntiphonTurn } from "./antiphon-hand.js";
 import { batonHeard } from "./baton-hand.js";
+import { burgeeHeard } from "./burgee-hand.js";
 import { capstanHeard } from "./capstan-hand.js";
 import { curtainHemHeard } from "./curtain-hand.js";
 import { cystGuarded } from "./cyst-guard.js";
@@ -158,6 +159,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   for (const c of commands) capstanHeard(world, c.player, c.command);
   // THE GALL's pinch: coming shut and widening back are the instant (`gall-hand.ts`).
   for (const c of commands) gallHeard(world, c.player, c.command);
+  // THE BURGEE's tap and draw: a freeze landing and a loose judged are the instant (`burgee-hand.ts`).
+  for (const c of commands) burgeeHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

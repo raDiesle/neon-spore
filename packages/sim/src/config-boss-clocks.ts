@@ -1,5 +1,6 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
+import { BURGEE_DEFAULTS, type BurgeeConfig } from "./config-burgee.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CAPSTAN_DEFAULTS, type CapstanConfig } from "./config-capstan.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
@@ -105,6 +106,7 @@ export interface BossClockConfig
     HalterConfig,
     CapstanConfig,
     GallConfig,
+    BurgeeConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -150,6 +152,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...HALTER_DEFAULTS,
   ...CAPSTAN_DEFAULTS,
   ...GALL_DEFAULTS,
+  ...BURGEE_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

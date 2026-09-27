@@ -10266,6 +10266,127 @@ on two real phones. And of the body: whether the heel reads as
 *whose* at a glance at tempo, and whether the pinch's two chevrons read as a
 pinch before anybody has been told.
 
+## 11.56 THE BURGEE — a flag stilled by one seat and caught by the other
+
+> A pennant on a free boom mid-hull swings across the middle columns on
+> its own. One of you taps it still over the lit column; the other holds a
+> draw and lets go toward it while it is still. Two catches light the
+> spindle: shoot it in its colour, and catch the flag back when it creeps
+> loose.
+
+Designed as §39 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. No new
+primitive: THE VALVE's `FREEZE TAP` and THE SLING's `HOLD, THEN SWIPE`,
+paired for the first time, the freeze stilling **the very thing the swipe
+is aimed at**, which neither seat moves.
+
+**It is two catches and three shots, and they are its health.** The state
+(`sim/burgee.ts`, hashed in `sim/burgee-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the flag's **swing** in
+thousandths of a column off the middle and the way it is going, the beats
+left on a **freeze** and the seat that tapped it, the **catches**, the
+**hits**, whether the **spindle** is lit, and each seat's **thumb** on the
+freeze mark, its **draw** held, and the beats that draw has been counted.
+The script is the wave's (`BurgeeEntry.steps`), copied at install: each
+step asks `catch`, `recatch` or `fire`, names its **freezer** (the pilot,
+the navigator or `either`), the lit column as an **offset** from the
+middle, the flag's **sweep** a beat while it is lit, a colour or `either`,
+and its own beats.
+
+**The rule, in one sentence.** One of you taps the flag still over the lit
+column, the other lets a held draw go toward it while it is still.
+
+**The split.** By the step, not by geometry: both handles are on both
+screens and either seat's to press, THE CYST's and THE DAVIT's
+role-swap-by-movement. The first catch is the pilot's to freeze and the
+navigator's to draw, the second the other way about; a recatch is
+`either`, and the seat that did not freeze it draws. A fire step is the
+ordinary shot — Player 1's cannon under the middle column, Player 2's
+trigger in its colour.
+
+**The clock** (`sim/burgee-step.ts`). The flag swings **every beat, on
+its own**: `burgeeSweepMilli` a beat (the lit step's own sweep while one
+is lit), turned back off either end of `burgeeSpanMilli`. It swings loose
+for `burgeeSlackBeats`, then the first catch lights under THE SLOW
+(`openSlow(…, "ask")`), a fire step without it. A freeze counts down one
+a beat and lets the flag go when it runs out (`burgeeLapse`). A draw held
+by the seat the step asks it of counts a beat each beat, up to
+`burgeeDrawBeats`. A catch or a recatch run out sways the flag off
+(`burgeeSway`) or dims the spindle (`burgeeDim`), THE SLOW closes, the boom
+rests `burgeeRestBeats`, and the same step relights. The second catch
+lights the spindle (`burgeeSpindle`), and while it is lit **the flag is
+held on it** and does not swing, except under a recatch — the flag
+creeping loose. With the script done the flag swings spent, for
+`burgeeSpentBeats` before the wave may end.
+
+**The answers** (`sim/burgee-hand.ts`). The tap is the drag
+`burgeeFreeze`, **an edge**, THE VALVE's pin: a thumb resting on the mark
+has to lift and come down again. From the step's freezer, over the lit
+column (within `burgeeMarkMilli`), it stills the flag for
+`burgeeFreezeBeats` (`burgeeFreeze`); off the column it is a flap
+(`burgeeFlap`) and the flag swings on; from the other seat it does
+nothing. The draw is the drag `burgeeDraw`, THE SLING's: `on: true` the
+finger down, the lift carrying the swipe's sign on `fromMilli`. A lift
+lands the catch only with all three — **a beat drawn, the flag frozen this
+instant, the swipe toward the lit column's half** — and anything else in a
+step that asked for it is a flutter (`burgeeFlutter`), the step still lit.
+A shot is judged where a bolt leaves the top of the field
+(`sim/burgee-shot.ts`): only with the spindle lit, only while a fire step
+is lit, only in the middle column, and only in its colour unless it is
+`either`.
+
+**Where this departs from the design, and why.** Eight places.
+
+- **The flag swings over three columns, the middle and one either side.**
+  §39 says "across the lit columns". A lit column is an offset of one off
+  the middle, so the swipe has a side to go toward; a wider sweep would
+  make the flag's lap longer than any window in the script.
+- **A freeze lands only over the lit column; a tap anywhere else is a
+  flap.** §39's freeze is "timed against a mark exactly as THE VALVE reads
+  it". THE VALVE's pin is judged on its mark too, and a freeze that could
+  land anywhere would leave the swipe's direction nothing to be read off.
+- **The recatch windows are seven and five beats, not three.** At 500 a
+  beat the flag is off a lit column five beats running, at 1000 three, so
+  a three-beat window could light with the flag unable to get there — a
+  step no pair could answer. The rule the script is written to: **every
+  catch's window outlasts a lap of the flag at its sweep**. Row 7's
+  "faster" is still the faster: 1000 against row 5's 500.
+- **A second catch run out is tried again at the second catch**, not "from
+  row 2". The first catch is still landed; asking it again would punish the
+  pair for the second seat's miss, and every choreographed body since THE
+  SEAM keeps what was won.
+- **The draw is counted from the finger going down, frozen or not.** §39's
+  row says "P2 holds, then looses at it once still". Holding before the
+  freeze is how a pair would play it, and the freeze is short enough that
+  a draw started only once it held would rarely have its beat.
+- **A fire step lights without THE SLOW.** §39 opens it "on every catch
+  window", rows 2, 3, 5 and 7, and a fire step is not one. THE GALL's and
+  every choreographed body's shot are the same.
+- **A shot run out is a hull hit, and a hull hit is the wave.** §39's rows
+  4, 6 and 8 say "ordinary hull hit", and row 8 "stays lit". This game has
+  no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+- **The spindle holds the flag still between the steps that do not ask
+  for it caught.** §39's Animation pose three is "both caught, spindle
+  lit". A flag that swung under a fire step would be a second thing to
+  watch while the pair is aiming at the first, and rows 5 and 7 are the
+  flag *creeping loose* — which reads only if it was still.
+
+**What is proven, and what is not.** `sim/test/burgee.test.ts` and
+`burgee-spindle.test.ts` prove the rules: the flag swings its span and
+turns back; a tap over the lit column from the step's seat freezes it, off
+the column flaps, from the other seat does nothing, and resting does not
+tap again; the freeze lets go on its own; a lift lands a catch only drawn,
+frozen and toward the column, and a lift from the freezer does nothing; a
+catch run out sways and relights at the same step; the second catch lights
+the spindle and holds the flag; a shot wants its colour and the middle
+column; either seat may freeze a recatch; a recatch run out dims the
+spindle until it is made; a fire step run out is the wave; and the whole
+script swings the flag spent and out. **Nothing is drawn, nothing on a
+phone sends a tap or a draw, and AUTO has no hand** — the look is queued.
+Whether a freeze on one phone answered by a swipe on the other *reads* at
+tempo is the owner's eye, on two real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

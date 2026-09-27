@@ -67,7 +67,8 @@ type ChoreographedEvent =
           | `davit${string}`
           | `halter${string}`
           | `capstan${string}`
-          | `gall${string}`;
+          | `gall${string}`
+          | `burgee${string}`;
       }
     >
   // And the events added to bosses that had already shipped, which have to be

@@ -115,6 +115,9 @@ const STILL_PROSE = [
   // And THE GALL (§38), a twenty-second time: the seam is undrawn, and the
   // guide says whose half of it each seat pinches on.
   "THE GALL",
+  // And THE BURGEE (§39), a twenty-third time: the flag is undrawn, and the
+  // guide says which seat taps and which draws, and when they swap.
+  "THE BURGEE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);

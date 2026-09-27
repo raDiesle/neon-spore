@@ -1,3 +1,4 @@
+import type { BurgeeEntry } from "./burgee.js";
 import type { CapstanEntry } from "./capstan.js";
 import type { CystEntry } from "./cyst.js";
 import type { DavitEntry } from "./davit.js";
@@ -50,8 +51,11 @@ export type ScriptedBossEntry =
   // The one that authors leans and rubs as well as shots: a drum one seat rocks for the other (`capstan.ts`).
   | CapstanEntry
   // The one that authors closes as well as shots: a nodule pinched where it sits and moved (`gall.ts`).
-  | GallEntry;
+  | GallEntry
+  // The one that authors catches as well as shots: a flag one seat taps still for the other to catch (`burgee.ts`).
+  | BurgeeEntry;
 
+export type { BurgeeEntry, BurgeeStep } from "./burgee.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { CystEntry, CystStep } from "./cyst.js";
 export type { DavitEntry, DavitStep } from "./davit.js";

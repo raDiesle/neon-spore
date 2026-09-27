@@ -1,6 +1,7 @@
 import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
+import { burgeeHashParts } from "./burgee-hash.js";
 import { capstanHashParts } from "./capstan-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
@@ -204,6 +205,11 @@ export function clockHashParts(boss: BossState): number[] {
   // the gap and its count, and the script (`gall-hash.ts`).
   if (boss.kind === "gall") {
     for (const n of gallHashParts(boss)) out.push(n);
+  }
+  // THE BURGEE: the phase, the cursor, the swing, the freeze, the catches, the
+  // hits, the spindle, the thumbs and the draws, and the script (`burgee-hash.ts`).
+  if (boss.kind === "burgee") {
+    for (const n of burgeeHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

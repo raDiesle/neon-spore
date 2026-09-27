@@ -1,5 +1,6 @@
 import type { AntiphonEvent } from "./events-antiphon.js";
 import type { BatonEvent } from "./events-baton.js";
+import type { BurgeeEvent } from "./events-burgee.js";
 import type { CapstanEvent } from "./events-capstan.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { CystEvent } from "./events-cyst.js";
@@ -99,6 +100,7 @@ export type BossEvent =
   | HalterEvent
   | CapstanEvent
   | GallEvent
+  | BurgeeEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -115,6 +117,7 @@ export type BossEvent =
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
+export type { BurgeeEvent } from "./events-burgee.js";
 export type { CapstanEvent } from "./events-capstan.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { CystEvent } from "./events-cyst.js";

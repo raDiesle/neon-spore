@@ -26379,3 +26379,19 @@ Bottleneck: reading — the entry named the first act's pass as the first
 step, and the first step flown is the breath's approach.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE BURGEE: a flag stilled by one seat and caught by the other
+
+- reading: 5 min. THE GALL's registration commit as the template, THE
+  VALVE's pin and THE SLING's draw.
+- writing: 20 min. The eight sim files and two test pages, the wave, the
+  fifteen sounds, the director's rows, §11.56 and the ledger.
+- looking: 0 min. Nothing is drawn.
+- friction: 5 min. The shell guard refused scripts with escaped newlines,
+  and the anchors in the director's tests had moved since THE GALL's commit.
+- landing: 5 min. The words ceiling, the line limit, the hash lengths,
+  `check:fast`.
+
+Bottleneck: writing. The recatch windows in the design could not be
+answered at their sweep, and the script had to be re-argued so that every
+window outlasts a lap of the flag.

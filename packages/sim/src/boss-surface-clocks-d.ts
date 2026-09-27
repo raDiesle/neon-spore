@@ -14,6 +14,8 @@
  * is one something outside `packages/sim` imports.
  */
 
+// THE BURGEE and after, on the fifth page (`boss-surface-clocks-e.ts`).
+export * from "./boss-surface-clocks-e.js";
 // THE CAPSTAN's drum: the phase, the lit step, both bands' wear, which seat
 // steers and which rubs, and the face the cradle bares, for the picture, the
 // cue and the director's hand. Straight off `capstan.ts` (§37).

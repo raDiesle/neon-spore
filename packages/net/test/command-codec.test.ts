@@ -293,6 +293,10 @@ const ACCEPTED: Command[] = [
   // THE GALL's pinch carries the gap on `fromMilli` and the point it went down
   // on as `id` (`sim/gall-hand.ts`).
   { kind: "drag", target: "gallPinch", on: true, fromMilli: 600, id: 2 },
+  // THE BURGEE's tap is an edge from either seat, and its draw's lift carries
+  // the swipe's sign on `fromMilli` (`sim/burgee-hand.ts`).
+  { kind: "drag", target: "burgeeFreeze", on: true, fromMilli: 0 },
+  { kind: "drag", target: "burgeeDraw", on: false, fromMilli: -400 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -474,6 +478,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   capstanLean: true,
   capstanRub: true,
   gallPinch: true,
+  burgeeFreeze: true,
+  burgeeDraw: true,
   crank: true,
 };
 

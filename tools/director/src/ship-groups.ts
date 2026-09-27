@@ -57,6 +57,7 @@ export type GroupName =
   | "THE HALTER — the boss one hand keeps still for the other to open"
   | "THE CAPSTAN — the boss one hand rocks for the other to wear"
   | "THE GALL — the boss that moves the moment it is closed"
+  | "THE BURGEE — a flag stilled by one seat and caught by the other"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -164,6 +165,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE HALTER — the boss one hand keeps still for the other to open",
   "THE CAPSTAN — the boss one hand rocks for the other to wear",
   "THE GALL — the boss that moves the moment it is closed",
+  "THE BURGEE — a flag stilled by one seat and caught by the other",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

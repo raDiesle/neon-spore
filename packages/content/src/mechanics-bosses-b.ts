@@ -1,7 +1,7 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 
 /** The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason. */
-type BossIdB = Extract<MechanicId, "capstan" | "davit" | "gall" | "halter" | "vane">;
+type BossIdB = Extract<MechanicId, "burgee" | "capstan" | "davit" | "gall" | "halter" | "vane">;
 
 /**
  * **The bosses `mechanics-bosses.ts` had no room for**, started on 26
@@ -29,6 +29,10 @@ export const BOSS_MECHANICS_B = {
   },
   gall: {
     what: "Pinch the gall shut where it sits, on your half. It jumps: find it and pinch it there. Three closes bare the root. Shoot it in its colour.",
+    reach: "spawn",
+  },
+  burgee: {
+    what: "One of you taps the flag still over the lit column. The other holds a draw and swipes toward it. Two catches light the spindle. Shoot it in its colour.",
     reach: "spawn",
   },
   vane: {
