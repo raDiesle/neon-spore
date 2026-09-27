@@ -99,6 +99,13 @@ describe("what a landing could not check", () => {
     expect(whereLine(["?lag=1's figures on a real phone, solo and paired"])).toBe(
       "- **Where:** phone",
     );
+    // A thumb or a finger is a hand, and a hand holds a phone.
+    expect(whereLine(["THE MANTLE's knobs under two real thumbs on phones"])).toBe(
+      "- **Where:** phone",
+    );
+    expect(whereLine(["THE VISE's pinch felt with two real fingers on a phone"])).toBe(
+      "- **Where:** phone",
+    );
     // A screen is not a phone: a wave at tempo stays anybody's.
     expect(parseItems(renderUnverified(LANDING), "queue")[0]?.where).toBe("anywhere");
   });

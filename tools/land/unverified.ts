@@ -131,10 +131,14 @@ export function restLine(files: readonly string[]): string {
  * two entries this flag wrote — the svh cap under a real address bar, and
  * `?lag=1`'s figures on a real phone — sat unmarked, and `next` handed the
  * first of them to a lane with nothing on its desk but a Mac and no Xcode.
- * The words are the ones every such item has used, and a false positive
- * costs nothing a caller cannot undo: the entry is still taken by name.
+ * A real thumb or finger is the same hand: five entries that asked for one
+ * on 26 September 2026 sat unmarked, and `next` handed THE MANTLE's knobs
+ * out twice on the 27th. The words are the ones every such item has used,
+ * and a false positive costs nothing a caller cannot undo: the entry is
+ * still taken by name.
  */
-const HARDWARE = /\breal (?:phone|device)\b|\bphone in (?:a|the|somebody's) hand\b|\bon glass\b/i;
+const HARDWARE =
+  /\breal (?:phone|device|thumbs?|fingers?)\b|\bphone in (?:a|the|somebody's) hand\b|\bon glass\b/i;
 
 /** `- **Where:** phone` when any item needs one in a hand, or "" when none does. */
 export function whereLine(items: readonly string[]): string {

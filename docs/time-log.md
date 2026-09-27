@@ -26799,3 +26799,17 @@ Bottleneck: THE DAVIT's wave loops on its first lean under AUTO, which has
 no hand for it, so one of the six could not be walked at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — an entry that asks for a real thumb is a phone's
+
+- reading: 5 min. The entry, the give-back before it, and how `Where:
+  phone` is written and read (`unverified.ts`, `where.ts`).
+- writing: 5 min. The pattern widened to thumbs and fingers, its test, the
+  five entries marked, and `queue help` answering with a usage line.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The guard refused a heredoc with a doubled backslash, and
+  `queue help` threw a stack trace.
+- landing: 5 min. `check:fast`, two commits, `land`.
+
+The bottleneck: an item no agent can finish was handed out twice because
+its words were not the three the flag looked for.

@@ -614,8 +614,8 @@ comparison is the owner's, unverified until he has looked.
 ## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-unverified-at-920f00b11-the-mantles-knobs-under
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`
+- **Where:** phone
 
 *THE MANTLE answers a thumb: each seat pulls its own knob, either taps the core* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
 
@@ -901,6 +901,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`, `packages/render/src/keel-draw.ts`
+- **Where:** phone
 
 *THE KEEL answers a thumb: a tap on the lit joint's ring* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
 
@@ -1307,6 +1308,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 
 - **Found:** 2026-09-26, claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-mantle.ts`, `packages/audio/src/sounds/boss-mantle.ts`
+- **Where:** phone
 
 2 commits landed, ending in *Mark §23 THE MANTLE's revised simulation lane done*, from a session that could not look at it. The commit touched 17 more files. What went unchecked:
 
@@ -1605,6 +1607,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
 - **Files:** `apps/game/src/input.ts`, `packages/render/src/pinch-pair.ts`, `packages/render/test/pinch-pair.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
+- **Where:** phone
 
 *THE VISE answers a pinch: two fingers on your lobe, closed, crack its seam* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
 
@@ -1902,6 +1905,7 @@ builds a scratch repository with a merge on `main` and expects the refusal.
 
 - **Found:** 2026-09-26, tmp-trivet-hands
 - **Files:** `packages/render/src/chord-pads.ts`, `apps/game/src/input.ts`, `packages/render/test/chord-pads.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
+- **Where:** phone
 
 *THE TRIVET's pads answer fingers on the field, a chord counted by order* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
 
