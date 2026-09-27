@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 4624a1cca — THE VALVE's second spark offered wider and hotter on VERSUS
+
+The spec asks THE VALVE's second spark to read at a different severity from the first; the game draws both as one bead. VERSUS `valve:spark · wide` leaves the first as it is and draws the second half as wide again, hotter, glowing harder and trailing three hiss streaks. It is judged on a new pose, VALVE · THE SECOND SPARK FALLING. The spark's drawing moves into its own record in valve-spark.ts, which is told which spark it is.
+
 ## 2026-09-27 · 86e7eec91 — THE GORGE's lobes lean on their intakes, and the pinch and pry follow them
 
 Each of THE GORGE's seven lobes now leans about its own intake, so the intake stays over its column while the top of the lobe leans by more than half a tile, each lobe on its own seed so they sway out of step. The pinch's and the pry's rings stand in the swell of a lobe, so they are hit-tested and drawn where the leaning lobe is, and the navigator's ring round the nearest-full lobe leans with it. On the field under "a look with no shipped alternative".

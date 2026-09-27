@@ -27607,3 +27607,5 @@ every reader of the intake's height.
 
 Bottleneck: looking — a spark falls in two beats, so the still needed a
 freeze before there was anything in it to judge.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
