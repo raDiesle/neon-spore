@@ -1741,6 +1741,7 @@ and `bun run check` is green.
 ## THE KEEL's end plates run off the field's edge
 
 - **Found:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
+- **Taken:** 2026-09-27, claude/queue-keel-plates (claim: claude/queue-the-keels-end-plates-run-off-the-fields-edge)
 - **Files:** `packages/render/src/keel-shape.ts`, `packages/render/src/keel-marks.ts`, `packages/render/test/keel-frame.test.ts`
 
 `keelSegCentre` puts each plate on its segment's column (`sim/keel.ts`
