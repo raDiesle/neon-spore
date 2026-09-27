@@ -2236,6 +2236,7 @@ flat. `bun run check` proves the tests.
 ## Living bosses — every other boss gets the outline drift, six per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-living-bosses-the-other-six-mechanisms-swing-wha (claim: claude/queue-living-bosses-every-other-boss-gets-the-outline)
 - **Where:** local
 - **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
 - **Files:** `packages/render/src/boss-draw.ts`, `packages/content/src/surface.ts`, `docs/spec/living-bosses.md`
