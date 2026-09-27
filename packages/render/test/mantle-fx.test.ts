@@ -10,6 +10,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { JAB_SHAKE } from "../src/boss-hurt.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { MantleFx } from "../src/mantle-fx.js";
 import { mantleCentre, mantleReach } from "../src/mantle-shape.js";
@@ -82,13 +83,13 @@ describe("THE MANTLE's transients", () => {
     expect(tail[0]?.y ?? 0).toBeGreaterThan(nose[0]?.y ?? 0);
   });
 
-  it("deals nothing for the handles lighting or a single finishing tap", () => {
+  it("deals nothing for the handles lighting, and the lighter blow for a finishing tap", () => {
     const fx = new MantleFx();
-    said(fx, [
-      { type: "mantleLight", col: MID },
-      { type: "mantleBeat", left: 3, col: MID },
-    ]);
+    said(fx, [{ type: "mantleLight", col: MID }]);
     expect(fx.hurt.value).toBe(0);
+    said(fx, [{ type: "mantleBeat", left: 3, col: MID }]);
+    expect(fx.hurt.value).toBe(1);
+    expect(fx.hurt.shake).toBe(JAB_SHAKE);
     expect(fx.kick).toBe(0);
     expect(fx.flare).toBeGreaterThan(0);
     expect(fx.flare).toBeLessThan(1);

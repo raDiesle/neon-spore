@@ -102,6 +102,7 @@ export class TasterFx {
         case "tasterPare":
           // Metal off an edge, not colour: the layer the pair bought back.
           burst(tileCX(l, e.col), y - l.tile * 0.5, 5, PALETTE.rock);
+          this.hurt.jab();
           break;
         case "tasterShear":
           burst(tileCX(l, e.col), y - l.tile * 0.5, 12, PALETTE.rockDark);
@@ -127,6 +128,7 @@ export class TasterFx {
         case "tasterPryFill":
           // The payoff's burst, smaller: the fan answered, and one beam owed.
           burst(tileCX(l, e.col), y - l.tile * 0.5, 8, edgeHex(e.color).rim);
+          this.hurt.jab();
           break;
         case "tasterOut":
           burst(tileCX(l, e.col), y - l.tile * 0.5, 20, edgeHex(e.color).rim);

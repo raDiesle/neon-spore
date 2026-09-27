@@ -8,7 +8,7 @@ import type { Row } from "./boss-hurt-rows.js";
 export const HURT_ROWS_C: Row[] = [
   {
     boss: "capstan",
-    // A band worn bright, a hold made and the core hit; a reversal or a rock only works toward one.
+    // A band worn bright, a hold made and the core hit; a rock only works toward one.
     land: [
       { type: "capstanBright", side: 0, col: 3 },
       { type: "capstanKept", col: 3 },
@@ -17,9 +17,10 @@ export const HURT_ROWS_C: Row[] = [
     part: [
       { type: "capstanLight", ask: "left", col: 3 },
       { type: "capstanRock", side: 0, col: 3 },
-      { type: "capstanWear", side: 0, wear: 1, col: 3 },
       { type: "capstanStall", col: 3 },
     ],
+    // A reversal's wear, eight of them to a band.
+    hit: [{ type: "capstanWear", side: 0, wear: 1, col: 3 }],
     hurt: (fx) => fx.boss.capstan.hurt,
   },
   {
@@ -35,6 +36,7 @@ export const HURT_ROWS_C: Row[] = [
       { type: "gallSlip", point: 0, col: 0 },
       { type: "gallSwell", point: 0, col: 0 },
     ],
+    hit: "every close and every root shot is landed",
     hurt: (fx) => fx.boss.gall.hurt,
   },
 ];

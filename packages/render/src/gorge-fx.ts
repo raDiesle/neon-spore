@@ -71,6 +71,7 @@ export class GorgeFx {
       switch (e.type) {
         case "gorgeSwallow":
           burst(tileCX(l, e.col), top, 3, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+          this.hurt.jab();
           break;
         case "gorgeEmptied":
           burst(tileCX(l, e.col), top, 4, PALETTE.sparkDim);
@@ -84,6 +85,7 @@ export class GorgeFx {
           break;
         case "gorgeNick":
           burst(tileCX(l, e.col), top, 6, PALETTE.rock);
+          this.hurt.jab();
           break;
         case "gorgeVent":
           burst(tileCX(l, e.col), top, 6, PALETTE.ember);
@@ -106,6 +108,7 @@ export class GorgeFx {
           break;
         case "gorgePryFill":
           burst(tileCX(l, e.col), top, 10, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
+          this.hurt.jab();
           break;
         case "gorgeClench":
           burst(tileCX(l, e.col), top, 14, PALETTE.rock);

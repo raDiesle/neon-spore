@@ -26,6 +26,13 @@ export interface Row {
   land: SimEvent[];
   /** One part of a sequence, which does not. */
   part: SimEvent[];
+  /**
+   * Each counted hit short of a landing, which deals the lighter blow
+   * (`BossHurt.jab`) — the owner, 27 September 2026: *when correctly hit,
+   * there must be a clear visual every time*. A boss whose landing is one hit
+   * already, or a hold with no hit in it, says so here instead.
+   */
+  hit: SimEvent[] | string;
   hurt: (fx: Effects) => BossHurt;
   /** The world on a frame where the body is up; four beats in if not given. */
   world?: () => World;
@@ -39,6 +46,7 @@ export const HURT_ROWS: Row[] = [
       { type: "instarDown", col: 3 },
     ],
     part: [{ type: "instarDone", mark: 0, part: "jaw", col: 3 }],
+    hit: "an instarAnswer on a shoot mark, which only the placed marks know: instar-hurt.test.ts",
     hurt: (fx) => fx.boss.instar.hurt,
     world: instarMorphing,
   },
@@ -49,6 +57,7 @@ export const HURT_ROWS: Row[] = [
       { type: "wardenDown", col: 3, row: 2 },
     ],
     part: [{ type: "wardenSlam", col: 3 }],
+    hit: "one plate is one bolt, and landed",
     hurt: (fx) => fx.boss.warden.hurt,
   },
   {
@@ -58,12 +67,14 @@ export const HURT_ROWS: Row[] = [
       { type: "spoolSlack", col: 3 },
     ],
     part: [{ type: "spoolLeg", leg: 0, col: 3 }],
+    hit: "a movement is a hold, with no hit in it",
     hurt: (fx) => fx.boss.spool.hurt,
   },
   {
     boss: "hasp",
     land: [{ type: "haspOpen", hasps: 2, col: 3 }],
     part: [{ type: "haspGrip", col: 3 }],
+    hit: "a hasp is a wind, with no hit in it",
     hurt: (fx) => fx.boss.hasp.hurt,
   },
   {
@@ -73,6 +84,7 @@ export const HURT_ROWS: Row[] = [
       { type: "sinewFall", row: 3, col: 3 },
     ],
     part: [{ type: "sinewEnter", col: 3 }],
+    hit: "a fibre is a hold, with no hit in it",
     hurt: (fx) => fx.boss.sinew.hurt,
   },
   {
@@ -82,6 +94,7 @@ export const HURT_ROWS: Row[] = [
       { type: "gimbalHatch", col: 3 },
     ],
     part: [{ type: "gimbalTrue", col: 3 }],
+    hit: "a tooth pair is a hold, with no hit in it",
     hurt: (fx) => fx.boss.gimbal.hurt,
   },
   {
@@ -91,6 +104,7 @@ export const HURT_ROWS: Row[] = [
       { type: "ratchetOpen", col: 5 },
     ],
     part: [{ type: "ratchetSet", col: 5 }],
+    hit: "one tooth is one press, and landed",
     hurt: (fx) => fx.boss.ratchet.hurt,
   },
   {
@@ -100,6 +114,7 @@ export const HURT_ROWS: Row[] = [
       { type: "hiveDown", col: 3 },
     ],
     part: [{ type: "hiveOpen", color: "red", col: 3 }],
+    hit: "one seal is one bolt, and landed",
     hurt: (fx) => fx.boss.hive.hurt,
   },
   {
@@ -108,7 +123,13 @@ export const HURT_ROWS: Row[] = [
       { type: "gorgeRupture", left: 3, col: 3 },
       { type: "gorgeOut", beads: 0, col: 3 },
     ],
-    part: [{ type: "gorgeNick", color: "red", owed: 1, col: 3 }],
+    part: [{ type: "gorgePinch", col: 3 }],
+    // A bead toward a full intake, a shot of the vent's need, a beam of the mouth's.
+    hit: [
+      { type: "gorgeSwallow", color: "red", beads: 1, col: 3 },
+      { type: "gorgeNick", color: "red", owed: 1, col: 3 },
+      { type: "gorgePryFill", color: "red", owed: 1, col: 3 },
+    ],
     hurt: (fx) => fx.boss.gorge.hurt,
   },
   {
@@ -118,6 +139,7 @@ export const HURT_ROWS: Row[] = [
       { type: "surgeEvert", row: 4, col: 5 },
     ],
     part: [{ type: "surgeNear", col: 5 }],
+    hit: "a vent is a charge let go, with no hit in it",
     hurt: (fx) => fx.boss.surge.hurt,
   },
   {
@@ -126,7 +148,13 @@ export const HURT_ROWS: Row[] = [
       { type: "tasterShear", left: 5, col: 3 },
       { type: "tasterOut", color: "red", col: 3 },
     ],
-    part: [{ type: "tasterPare", layers: 1, col: 3 }],
+    part: [{ type: "tasterPin", col: 3 }],
+    // A layer off a thickened blade, a beam of the interlock's need; a cut in
+    // the crest works toward the lift, which is no blow.
+    hit: [
+      { type: "tasterPare", layers: 1, col: 3 },
+      { type: "tasterPryFill", color: "red", owed: 1, col: 3 },
+    ],
     hurt: (fx) => fx.boss.taster.hurt,
   },
 ];

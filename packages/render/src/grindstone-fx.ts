@@ -115,6 +115,7 @@ export class GrindstoneFx {
         case "grindstoneShave":
           // A pinch of grit off the face under the thumb, every reversal.
           burst(...flatAt(l, mid, e.side, 0.5), 3, PALETTE.grindstoneStoneDark);
+          this.hurt.jab();
           break;
         case "grindstoneClear":
           burst(

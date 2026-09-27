@@ -1,6 +1,6 @@
 import { afterEach, beforeAll, describe, expect, it, setDefaultTimeout, spyOn } from "bun:test";
 import { type SimEvent, step } from "@neon-spore/sim";
-import { BossHurt } from "../src/boss-hurt.js";
+import { BossHurt, JAB_SHAKE } from "../src/boss-hurt.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -28,6 +28,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * keeps the blow. The frame case runs the same play twice with the landing
  * pushed both times, once with `hit()` stubbed out, so the red it counts is
  * the blow's and not a burst the same event throws.
+ *
+ * **And every counted hit short of a landing deals a lighter one** — the red
+ * at full and half the shake (`BossHurt.jab`), the owner's rule of 27
+ * September 2026. A row names those hits, or says why its boss has none.
  */
 
 beforeAll(installCanvasGlobals);
@@ -64,6 +68,22 @@ describe("the blow a boss takes", () => {
           expect(row.hurt(fx).value).toBe(0);
           fx.ingest([e], L, 0, () => 0, CFG);
           expect(row.hurt(fx).value).toBe(1);
+          fx.reset();
+          expect(fx).toEqual(new Effects());
+        }
+      });
+
+      it("is dealt lighter by each counted hit, or says why there is none", () => {
+        if (typeof row.hit === "string") {
+          expect(row.hit.length).toBeGreaterThan(0);
+          return;
+        }
+        expect(row.hit.length).toBeGreaterThan(0);
+        for (const e of row.hit) {
+          const fx = new Effects();
+          fx.ingest([e], L, 0, () => 0, CFG);
+          expect(row.hurt(fx).value, e.type).toBe(1);
+          expect(row.hurt(fx).shake, e.type).toBe(JAB_SHAKE);
           fx.reset();
           expect(fx).toEqual(new Effects());
         }

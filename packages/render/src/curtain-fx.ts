@@ -75,6 +75,7 @@ export class CurtainFx {
           break;
         case "curtainLobeOff":
           burst(tileCX(l, e.col), hem, 8, PALETTE.hull);
+          this.hurt.jab();
           break;
         case "curtainCoreHit":
           this.hurt.hit();

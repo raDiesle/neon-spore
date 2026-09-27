@@ -130,6 +130,7 @@ export class MantleFx {
         case "mantleBeat":
           burst(at.x, at.y + ry * 0.12, 6, PALETTE.red);
           this.flareNow = Math.max(this.flareNow, TAP_FLARE);
+          this.hurt.jab();
           break;
         case "mantleDark":
           burst(at.x, at.y + ry * 0.12, 24, PALETTE.red);

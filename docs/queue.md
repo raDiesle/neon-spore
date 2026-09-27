@@ -2756,21 +2756,3 @@ whole-body red to the landing.
 Done when: a test finds, on each shoot step, the red glow drawn on that part
 and on no other; op count within the budget test's tolerance, or moved with
 a sentence. `bun run check` proves it.
-
-## Every other boss — every counted hit shows the hurt
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-instar-fx-ts-is-231-lines-and-its-event-switch-i (claim: claude/queue-every-other-boss-every-counted-hit-shows-the-hur)
-- **Needs:** THE INSTAR — every bolt that counts shows the hurt
-- **Files:** `packages/render/src/boss-hurt.ts`, `packages/render/test/boss-hurt-rows.ts`, `packages/render/test/boss-hurt-rows-b.ts`, `packages/render/test/boss-hurt.test.ts`
-
-The owner's rule from the entry above, given for *any boss*. The rows in
-`boss-hurt-rows*.ts` name the event on which each boss's hurt fires, and
-every one of them is a sequence landed. Add a column for the per-hit event.
-Where a boss's sequence counts several hits — a need above one, a crack, a
-chip, a turn — fire the lighter hit on each one. Where it counts only one,
-say so in the row. Table-driven, so this should fit one lane; split at the
-page if it does not.
-
-Done when: every row names its per-hit event or says it has none, and the
-test proves each of them fires. `bun run check` proves it.

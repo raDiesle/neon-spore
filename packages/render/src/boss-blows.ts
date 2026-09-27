@@ -10,7 +10,8 @@ import { BossHurt } from "./boss-hurt.js";
  * all — their pictures are read straight off the world every frame — so
  * rather than four classes of one field each, their blows are kept here, one
  * field a boss, and dealt off one table of the events that mean *a sequence
- * landed*. A part of a sequence is in no row and deals nothing.
+ * landed*, and a second of the counted hits that deal the lighter one
+ * (`BossHurt.jab`). A part of a sequence is in neither and deals nothing.
  */
 
 /** The bosses kept here, one field each below. */
@@ -29,6 +30,12 @@ const BLOW_OF: Partial<Record<SimEvent["type"], Blowed>> = {
   vaneKnock: "vane",
 };
 
+/** The counted hits short of a landing: only THE BATON's bead is shot on
+ * its way to one. A ring, a unit and a pin are each one hit, and landed. */
+const JAB_OF: Partial<Record<SimEvent["type"], Blowed>> = {
+  batonStruck: "baton",
+};
+
 export class BossBlows {
   /** The blow a choked ring deals THE THROAT (`throat-draw.ts`). */
   readonly throat = new BossHurt();
@@ -43,6 +50,8 @@ export class BossBlows {
     for (const e of events) {
       const kind = BLOW_OF[e.type];
       if (kind !== undefined) this[kind].hit();
+      const jabbed = JAB_OF[e.type];
+      if (jabbed !== undefined) this[jabbed].jab();
     }
   }
 

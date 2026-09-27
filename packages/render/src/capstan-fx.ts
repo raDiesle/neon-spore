@@ -93,6 +93,7 @@ export class CapstanFx {
         case "capstanWear":
           burst(mid.x + capstanFaceAt(l, e.side, 1).x, mid.y, 6, PALETTE.capstanWorn);
           this.scrubNow[e.side] = 1;
+          this.hurt.jab();
           break;
         case "capstanBright":
           burst(mid.x + capstanFaceAt(l, e.side, 1).x, mid.y, 14, PALETTE.capstanWorn);

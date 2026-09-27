@@ -26274,3 +26274,16 @@ Bottleneck: none stood out — the hand is THE VISE's level and THE CAPSTAN's
 shot, and the test is THE CAPSTAN's.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — Every other boss shows the hurt on each counted hit
+
+- reading: 15 min. Thirty bosses' event lists, to tell a counted hit from a
+  hold and from a hit that is already a landing.
+- writing: 10 min. `jab()` in eight fx classes and THE BATON's table, and
+  the `hit` column on every row.
+- looking: 0 min. It is the blow already shipped, lighter.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — which events are counted hits is written in thirty
+event files, one boss at a time.

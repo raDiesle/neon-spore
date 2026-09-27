@@ -66,6 +66,7 @@ export class FleetFx {
   ingest(events: readonly SimEvent[], beatSeconds: number): void {
     for (const e of events) {
       if (e.type === "fleetWreck" || e.type === "fleetSunk") this.hurt.hit();
+      if (e.type === "fleetHit" || e.type === "fleetRake") this.hurt.jab();
       if (e.type !== "fleetSalvo") continue;
       const hit = events.some((o) => o.type === "fleetHit" && o.col === e.col && o.row === e.row);
       const sank = events.some((o) => o.type === "fleetSunk" && o.col === e.col && o.row === e.row);

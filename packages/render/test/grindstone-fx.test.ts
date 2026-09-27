@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { JAB_SHAKE } from "../src/boss-hurt.js";
 import { GrindstoneFx } from "../src/grindstone-fx.js";
 import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -69,7 +70,7 @@ function settle(fx: GrindstoneFx): void {
 }
 
 describe("THE GRINDSTONE's transients", () => {
-  it("throws grit off the flat that was rubbed, on its own side, and deals nothing for it", () => {
+  it("throws grit off the flat that was rubbed, on its own side, and deals the lighter blow for it", () => {
     const fx = new GrindstoneFx();
     const at = grindstoneCentre(L, CFG);
     const [left] = said(fx, [{ type: "grindstoneShave", side: 0, gritMilli: 500, col: MID }]);
@@ -77,7 +78,9 @@ describe("THE GRINDSTONE's transients", () => {
     expect(left?.x ?? at.x).toBeLessThan(at.x);
     expect(right?.x ?? at.x).toBeGreaterThan(at.x);
     expect(left?.hex).toBe(PALETTE.grindstoneStoneDark);
-    expect(fx.hurt.value).toBe(0);
+    // A shave is a counted reversal, eight to a pass (`boss-hurt.test.ts`).
+    expect(fx.hurt.value).toBe(1);
+    expect(fx.hurt.shake).toBe(JAB_SHAKE);
     expect(fx.clean(0)).toBe(0);
   });
 

@@ -14,6 +14,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "undertowSwallowed", col: 5 },
     ],
     part: [{ type: "undertowBow", col: 3 }],
+    hit: "a lobe is one bite, and the swallow a hold",
     hurt: (fx) => fx.boss.undertow.hurt,
     world: undertowStanding,
   },
@@ -24,6 +25,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "antiphonBurst", pits: 4, col: 5 },
     ],
     part: [{ type: "antiphonGrow", shape: 0, organs: 1, col: 3 }],
+    hit: "one pit is one colour arriving, and landed",
     hurt: (fx) => fx.boss.antiphon.hurt,
   },
   {
@@ -37,6 +39,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "ledgerWard", col: 5 },
       { type: "ledgerRefused", col: 5 },
     ],
+    hit: "every widening is one bolt, and landed",
     hurt: (fx) => fx.boss.ledger.hurt,
   },
   {
@@ -49,6 +52,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "leadFlight", dueBeat: 9, col: 5 },
       { type: "leadMiss", col: 5 },
     ],
+    hit: "one segment is one shot, and landed",
     hurt: (fx) => fx.boss.lead.hurt,
   },
   {
@@ -57,10 +61,9 @@ export const HURT_ROWS_B: Row[] = [
       { type: "curtainCoreHit", left: 2, col: 5 },
       { type: "curtainOut", col: 5 },
     ],
-    part: [
-      { type: "curtainLobeOff", left: 6, col: 5 },
-      { type: "curtainShove", dir: 1, stride: 1, col: 3 },
-    ],
+    part: [{ type: "curtainShove", dir: 1, stride: 1, col: 3 }],
+    // A lobe shot off the fabric on the way to the core.
+    hit: [{ type: "curtainLobeOff", left: 6, col: 5 }],
     hurt: (fx) => fx.boss.curtain.hurt,
   },
   {
@@ -70,6 +73,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "scuttleDown", col: 5 },
     ],
     part: [{ type: "scuttleRebuff", col: 4 }],
+    hit: "one part is one shot, and landed",
     hurt: (fx) => fx.boss.scuttle.hurt,
   },
   {
@@ -78,9 +82,11 @@ export const HURT_ROWS_B: Row[] = [
       { type: "fleetWreck", col: 3, row: 2 },
       { type: "fleetSunk", col: 3, row: 2, len: 3, left: 2 },
     ],
-    part: [
-      { type: "fleetRake", col: 3, row: 2 },
+    part: [{ type: "fleetSplash", col: 3, row: 2 }],
+    // A square of a hull found, and a square of the holed one raked.
+    hit: [
       { type: "fleetHit", col: 3, row: 2 },
+      { type: "fleetRake", col: 3, row: 2 },
     ],
     hurt: (fx) => fx.boss.fleet.hurt,
   },
@@ -88,6 +94,7 @@ export const HURT_ROWS_B: Row[] = [
     boss: "queen",
     land: [{ type: "petal", col: 5, row: 2, left: 3 }],
     part: [{ type: "queenFlinch", col: 4, row: 2, side: -1 }],
+    hit: "one petal is one bolt, and landed",
     hurt: (fx) => fx.ship.queenHurt,
   },
   {
@@ -100,6 +107,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "throatCinch", col: 3 },
       { type: "throatHaul", col: 3 },
     ],
+    hit: "one ring is one gum, and landed",
     hurt: (fx) => fx.boss.blows.throat,
   },
   {
@@ -108,16 +116,16 @@ export const HURT_ROWS_B: Row[] = [
       { type: "batonLanded", col: 3, socket: 1 },
       { type: "batonDown", col: 3 },
     ],
-    part: [
-      { type: "batonLaunch", col: 3, socket: 0 },
-      { type: "batonStruck", col: 3, socket: 0 },
-    ],
+    part: [{ type: "batonLaunch", col: 3, socket: 0 }],
+    // The bead shot through in flight, a socket before it lands.
+    hit: [{ type: "batonStruck", col: 3, socket: 0 }],
     hurt: (fx) => fx.boss.blows.baton,
   },
   {
     boss: "cairn",
     land: [{ type: "cairnPulled", player: 1, col: 3, row: 2 }],
     part: [{ type: "cairnHeld", col: 3, row: 2 }],
+    hit: "one unit is one pull, and landed",
     hurt: (fx) => fx.boss.blows.cairn,
   },
   {
@@ -128,6 +136,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "vaneKnock", pins: 0, col: 3 },
     ],
     part: [{ type: "vanePin", col: 3 }],
+    hit: "one pin is one knock, and landed",
     hurt: (fx) => fx.boss.blows.vane,
   },
   {
@@ -137,10 +146,9 @@ export const HURT_ROWS_B: Row[] = [
       { type: "mantleShear", left: 3, col: 3 },
       { type: "mantleDark", col: 3 },
     ],
-    part: [
-      { type: "mantleLight", col: 3 },
-      { type: "mantleBeat", left: 3, col: 3 },
-    ],
+    part: [{ type: "mantleLight", col: 3 }],
+    // A tap of the finish's alternation.
+    hit: [{ type: "mantleBeat", left: 3, col: 3 }],
     hurt: (fx) => fx.boss.mantle.hurt,
   },
   {
@@ -155,6 +163,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "keelMiss", seg: 0, col: 0 },
       { type: "keelSlip", seg: 0, col: 0 },
     ],
+    hit: "one joint is one lock, and landed",
     hurt: (fx) => fx.boss.keel.hurt,
   },
   {
@@ -170,6 +179,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "oculusSpring", col: 3 },
       { type: "oculusReseal", col: 3 },
     ],
+    hit: "every pair and every core shot is landed",
     hurt: (fx) => fx.boss.oculus.hurt,
   },
   {
@@ -185,6 +195,7 @@ export const HURT_ROWS_B: Row[] = [
       { type: "viseSpring", side: 1, col: 3 },
       { type: "viseCover", col: 3 },
     ],
+    hit: "every crack and every kernel shot is landed",
     hurt: (fx) => fx.boss.vise.hurt,
   },
   {
@@ -200,21 +211,23 @@ export const HURT_ROWS_B: Row[] = [
       { type: "trivetSpring", side: 1, col: 3 },
       { type: "trivetRock", col: 3 },
     ],
+    hit: "every plant and every hub shot is landed",
     hurt: (fx) => fx.boss.trivet.hurt,
   },
   {
     boss: "grindstone",
-    // A pass ground clean, and the axle hit; a shave, a bite or a clamp only works toward one.
+    // A pass ground clean, and the axle hit; a bite or a clamp only works toward one.
     land: [
       { type: "grindstoneClear", side: 0, passes: 1, col: 3 },
       { type: "grindstoneHit", hits: 1, col: 3 },
     ],
     part: [
       { type: "grindstoneLight", ask: "left", col: 3 },
-      { type: "grindstoneShave", side: 0, gritMilli: 500, col: 3 },
       { type: "grindstoneBite", col: 3 },
       { type: "grindstoneSlip", side: 1, col: 3 },
     ],
+    // A reversal's shave, eight of them to a pass.
+    hit: [{ type: "grindstoneShave", side: 0, gritMilli: 500, col: 3 }],
     hurt: (fx) => fx.boss.grindstone.hurt,
   },
 ];
