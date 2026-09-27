@@ -2810,6 +2810,7 @@ above `main` (`position: relative; z-index: 1`), and prove it by
 ## `limits.test.ts` runs nine times its figure and times out under load
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
+- **Taken:** 2026-09-27, claude/queue-tools-frames-run-ts-is-at-223-lines (claim: claude/queue-limits-test-ts-runs-nine-times-its-figure-and-ti)
 - **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `tools/test/figure.ts`
 
 Timed alone at a slowdown of 1.8, "keeps source files under the limit"
