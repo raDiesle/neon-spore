@@ -784,25 +784,21 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §39 THE BURGEE — the cue and AUTO
+## §39 THE BURGEE — AUTO
 
 - **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look
-- **Taken:** 2026-09-27, claude/queue-39-the-burgee-the-taps-and-the-draws-touch-the-c (claim: claude/queue-39-the-burgee-the-cue-and-auto)
-- **Files:** `packages/render/src/boss-cue-read-*.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/marks-window-rows-b.ts`
+- **Files:** `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/marks-window-rows-b.ts`
 
-The touch landed on 27 September 2026: `render/burgee-grip.ts` answers the
-freeze ring and the draw's track where `burgeeMarks` puts them, and both
-controls are `field` in `on-field-controls.test.ts`. Two halves are left,
-each landed on its own. **The cue**: the field says nothing yet — `TAP` on
-the ring and `HOLD · SWIPE` on the track on the seat whose hand each is,
-and `FIRE` on a lit spindle, on its own `boss-cue-read-*.ts` page. **AUTO**
-has no hand (`NO_HAND` in `autopilot.test.ts`): a boss-hands-burgee.ts that
-taps the flag still over the mark from the step's freezer, draws and swipes
-from the other and shoots the spindle in its colour, with an
-autopilot-burgee.test.ts playing the wave to its end — `burgee-grip.test.ts`
-already catches the first flag with two thumbs, and is the sequence to copy.
-`bun run check` proves both; how a freeze answered by a swipe feels stays
-unverified until the owner holds two phones.
+The touch and the cue landed on 27 September 2026: `render/burgee-grip.ts`
+answers the freeze ring and the draw's track where `burgeeMarks` puts them,
+and `boss-cue-read-zn.ts` says `TAP`, `HOLD · SWIPE` and `FIRE` on them.
+**AUTO** has no hand (`NO_HAND` in `autopilot.test.ts`): a
+boss-hands-burgee.ts that taps the flag still over the mark from the step's
+freezer, draws and swipes from the other and shoots the spindle in its
+colour, with an autopilot-burgee.test.ts playing the wave to its end —
+`burgee-grip.test.ts` already catches the first flag with two thumbs, and is
+the sequence to copy. `bun run check` proves it; how a freeze answered by a
+swipe feels stays unverified until the owner holds two phones.
 
 Once AUTO plays the fight through, take the `unreached` wrapper off
 THE BURGEE's `drawBurgeeStuds` row in `tools/director/test/marks-window-rows-b.ts`, so the

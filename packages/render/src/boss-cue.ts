@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { choreoCues } from "./boss-cue-choreo.js";
 import { curtainCues, queenCues } from "./boss-cue-read.js";
 import { tasterCues } from "./boss-cue-read-b.js";
 import { leadCues } from "./boss-cue-read-c.js";
@@ -27,18 +28,9 @@ import { ratchetCues } from "./boss-cue-read-zb.js";
 import { mantleCues } from "./boss-cue-read-zc.js";
 import { keelCues } from "./boss-cue-read-zd.js";
 import { oculusCues } from "./boss-cue-read-ze.js";
-import { viseCues } from "./boss-cue-read-zf.js";
-import { rimeCues } from "./boss-cue-read-zg.js";
-import { trivetCues } from "./boss-cue-read-zh.js";
-import { cystCues } from "./boss-cue-read-zi.js";
-import { grindstoneCues } from "./boss-cue-read-zj.js";
-import { halterCues } from "./boss-cue-read-zk.js";
-import { capstanCues } from "./boss-cue-read-zl.js";
-import { gallCues } from "./boss-cue-read-zm.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import { plumbCues } from "./plumb-marks.js";
 
 /**
  * **THE CUE**: the one word the field says at the moment it wants something,
@@ -178,35 +170,19 @@ export function bossCues(
     // And THE OCULUS's, a word to each seat not yet on its half of a lit pair and one under the lit core (`boss-cue-read-ze.ts`).
     case "oculus":
       return oculusCues(l, world, boss, beatPhase);
-    // And THE VISE's, a word on each lobe a lit pinch asks for, gone once it is shut, and one under the lit kernel (`boss-cue-read-zf.ts`).
+    // The choreographed bosses from THE VISE on, each a page of its own,
+    // switched on next door on line count (`boss-cue-choreo.ts`).
     case "vise":
-      return viseCues(l, world, boss, beatPhase);
-    // And THE RIME's, a word under the lit core and one where the shield is wanted (`boss-cue-read-zg.ts`).
     case "rime":
-      return rimeCues(l, world, boss);
-    // And THE TRIVET's, a word on each foot a lit chord asks for, gone once it is held, and one under the lit hub (`boss-cue-read-zh.ts`).
     case "trivet":
-      return trivetCues(l, world, boss, beatPhase);
-    // And THE PLUMB's, `LEVEL` on the glass a seat's phone is asked level,
-    // `BOTH` across the pair once a step asks both, and `FIRE` once the core
-    // is lit (`plumb-marks.ts`).
     case "plumb":
-      return plumbCues(l, world, boss, beatPhase);
-    // And THE CYST's, a tap on the lit mark then a pinch on its flank, a pair on a swell, and one at the hull (`boss-cue-read-zi.ts`).
     case "cyst":
-      return cystCues(l, world, boss, beatPhase);
-    // And THE GRINDSTONE's, a rub on the lit flat, a word on each jaw a clamp asks for, gone once it is held, and one under the lit axle (`boss-cue-read-zj.ts`).
     case "grindstone":
-      return grindstoneCues(l, world, boss, beatPhase);
-    // And THE HALTER's, a word between the lit grips to the seat that grips, gone once it is held, nothing to the rester, and one under the bared centre (`boss-cue-read-zk.ts`).
     case "halter":
-      return halterCues(l, world, boss, beatPhase);
-    // And THE CAPSTAN's, a lean to the seat that steers until the band is round, a rub to the other on the bared face, and one under the bared core (`boss-cue-read-zl.ts`).
     case "capstan":
-      return capstanCues(l, world, boss, beatPhase);
-    // And THE GALL's, a pinch on the nodule to the seat whose half it sits on, jumping with it, gone once it is shut, and one under the bared root (`boss-cue-read-zm.ts`).
     case "gall":
-      return gallCues(l, world, boss);
+    case "burgee":
+      return choreoCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

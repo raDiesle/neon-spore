@@ -1075,10 +1075,12 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
 | `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
+| `packages/render/src/boss-cue-read-zn.ts` | **What THE BURGEE is asking for**: page forty of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
 | `packages/render/src/boss-cue-shape.ts` | what a cue is — `CueKind`, `BossCue`, and which screen is owed one |
+| `packages/render/src/boss-cue-choreo.ts` | **The choreographed bosses' half of `bossCue`'s switch**, from THE VISE on |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/boss-hurt.ts` | The shake and red glow any boss shows for a moment after the pair lands a sequence |
 | `packages/render/src/boss-blows.ts` | The blow for the bosses with no fx class of their own — throat, vane, cairn, baton — dealt off one event table |

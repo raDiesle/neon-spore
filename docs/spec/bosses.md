@@ -10442,9 +10442,13 @@ column; either seat may freeze a recatch; a recatch run out dims the
 spindle until it is made; a fire step run out is the wave; and the whole
 script swings the flag spent and out. `render/test/burgee-frame.test.ts`
 proves the body on every screen, `burgee-receipts.test.ts` the receipts
-and `boss-strike.test.ts` the blow. **Nothing on a phone sends a tap or a
-draw yet, and AUTO has no hand** — a queued lane of its own, so no play
-reaches a catch or the spindle and the receipts are proven only set. Whether a freeze on one phone answered by a swipe
+and `boss-strike.test.ts` the blow. **The touch** (`render/burgee-grip.ts`):
+the ring and the track are pressed where `burgeeMarks` draws them, each only
+by the seat the lit step asks. **The cue** (`boss-cue-read-zn.ts`): `TAP` on
+the ring to the freezer until the flag is still, `HOLD · SWIPE` on the track
+to the seat that draws, and `FIRE` under the middle column once the spindle
+is lit; never *when*, never the side, never the colour. **AUTO has no hand
+yet**, a queued lane of its own, so no unattended play reaches a catch. Whether a freeze on one phone answered by a swipe
 on the other *reads* at tempo is the owner's eye, on two real phones.
 
 **The look** (`render/src/burgee-draw.ts`, 27 September 2026 — the body).

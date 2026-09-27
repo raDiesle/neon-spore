@@ -26995,3 +26995,15 @@ had to read the state the call was handed.
 Bottleneck: reading — five files to learn where a mark stands and how a swipe's sign reaches the sim.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE BURGEE's field says TAP, SWIPE and FIRE
+
+- reading: 0 min. THE GALL's page and the sim's `burgeeAims` rule, already
+  open from the touch half.
+- writing: 5 min. The registry split (`boss-cue-choreo.ts`), the BURGEE's
+  page, its test, the spec note and the queue entry cut down to AUTO.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: writing — `boss-cue.ts` was at 249 lines, so the page could not go in until the choreographed half had a file of its own.
