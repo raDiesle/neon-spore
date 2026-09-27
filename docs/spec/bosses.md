@@ -10619,7 +10619,7 @@ vent is lit, carries the column under the thumb as `id`, from either seat.
 **The field says three words** (`render/boss-cue-read-zo.ts`, the same day):
 `STILL` at the flue's middle to the seats a step asks to keep still, `TAP` on
 the ember to the vent's tapper once it has stopped, `FIRE` under the middle
-column once the core is bared. **AUTO has no hand** — that lane is queued.
+column once the core is bared. **AUTO plays it** (`packages/hands/src/boss-hands-flue.ts`): the tapper taps the steadied ember and lifts, the rester sends nothing, and the cannon comes to the middle column for each shot.
 Whether three beats of doing
 nothing *reads* as a thing one seat is doing, on two real phones at tempo,
 is the owner's eye.

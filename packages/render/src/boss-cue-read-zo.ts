@@ -29,7 +29,7 @@ import type { Layout } from "./layout.js";
  *
  * **`TAP` on the steady ember, to the vent's tapper**, and only once it has
  * stopped: a word over a gliding ember would say *now* when the answer is
- * *wait*. It jumps with the ember to each notch. The count is not said —
+ * *wait*. It jumps with the ember to each notch, a new mark each time. The count is not said —
  * the studs over the slot are counting.
  *
  * **`FIRE` at the hull under the middle column on a fire step, once the core
@@ -58,7 +58,10 @@ export function flueCues(l: Layout, world: World, s: FlueState): readonly BossCu
   const tapper = flueTapper(s);
   if (tapper !== null && flueSteady(world, s)) {
     const at = flueEmberAt(l, world.cfg, s.emberMilli);
-    said.push({ seat: tapper, kind: "PRESS", word: "TAP", x: at.x, y: at.y, ...frame, seed: 169 });
+    // A seed a tap, so the word jumping to the next notch is a new mark and
+    // not a moved one (`boss-hush.test.ts`).
+    const seed = 169 + s.taps;
+    said.push({ seat: tapper, kind: "PRESS", word: "TAP", x: at.x, y: at.y, ...frame, seed });
   }
   return said;
 }

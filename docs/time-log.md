@@ -27292,3 +27292,17 @@ Bottleneck: reading — where `STILL` may stand was decided by a test the
 next lane runs, not this one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §40 THE FLUE — AUTO
+
+- reading: 10 min. THE HALTER's and THE VALVE's hands, `flue-hand.ts`'s
+  edge and lapse rules, the autopilot tests and the marks rows.
+- writing: 15 min. `boss-hands-flue.ts`, its registration, the own-file
+  autopilot test, the hush row, the marks row, the spec lines.
+- looking: 0 min. AUTO is proved by the tests that walk it.
+- friction: 10 min. The hush test caught `TAP` jumping notches under one
+  seed; the cue now takes a new seed per tap.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a mark that moves by jumps only shows as one once a
+hand plays the whole wave.

@@ -768,21 +768,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §40 THE FLUE — AUTO
-
-- **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
-- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-receipts-and-its-own-blow (claim: claude/queue-40-the-flue-the-touch-the-cue-and-auto)
-- **Files:** `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/marks-window-rows-c.ts`, `tools/director/test/boss-hush.test.ts`
-
-The touch and the cue landed (`render/flue-grip.ts`,
-`render/boss-cue-read-zo.ts`). What is left is AUTO: a boss-hands-flue page
-in the hands package that keeps the rester's phone silent, taps the steady
-ember on `flueEmberCol` three times, sends nothing through a damper and
-shoots each fire step in its colour — then `flue` leaves `NO_HAND`. With
-the hand come the tap ring's row in
-`tools/director/test/marks-window-rows-c.ts`, keyed to `flueSteady`, and
-its row in `boss-hush.test.ts`'s `STILL` — both need AUTO's hand. `bun run check` proves it; at tempo is the owner's eye.
-
 ## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
 
 - **Found:** 2026-09-26, this session

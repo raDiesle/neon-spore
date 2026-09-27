@@ -2329,6 +2329,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `packages/hands/src/boss-hands-capstan.ts` | **THE CAPSTAN played right**, for the autopilot: the steering seat leans past the mark, the other rubs, the bared core shot |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
+| `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: on a vent the rester's phone sends nothing at all |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `packages/hands/src/boss-hands-halter.ts` | **THE HALTER played right**, for the STATES sheet and the autopilot |

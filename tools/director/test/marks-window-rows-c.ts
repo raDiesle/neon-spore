@@ -1,4 +1,7 @@
 import {
+  type FlueState,
+  flueLitStep,
+  flueSteady,
   type GallState,
   type GrindstoneState,
   gallClosing,
@@ -17,6 +20,7 @@ import {
   slingLitStep,
   type World,
 } from "@neon-spore/sim";
+import * as flueMarks from "../../../packages/render/src/flue-marks.js";
 import * as gallMarks from "../../../packages/render/src/gall-marks.js";
 import * as grindstoneMarks from "../../../packages/render/src/grindstone-marks.js";
 import * as halterMarks from "../../../packages/render/src/halter-marks.js";
@@ -28,16 +32,18 @@ import * as slingMarks from "../../../packages/render/src/sling-marks.js";
 import { mark, type Row, unreached } from "./marks-window-kit.js";
 
 /**
- * **The third six bosses' rows** of `marks-window.test.ts`. THE GALL's scars
+ * **The rows after the second six bosses'** of `marks-window.test.ts`. THE GALL's scars
  * name the seam's points and ask for nothing, and THE GRINDSTONE's axle is
  * ringed white once the caliper has bitten, before its fire step: that is
  * the bite, and only the step's colour counts as lit. THE PLUMB's glass has
  * no argument that says it is asked, so its call is read off the state it
  * was handed. THE RIME's icicle is drawn from `rime-story.ts`, not its marks
  * file. THE SLING has no hand, so AUTO never gets it to a fire step.
+ * THE FLUE's ring is round the ember only once it has steadied under a rester.
  */
 
 const gall = (w: World) => w.boss as GallState;
+const flue = (w: World) => w.boss as FlueState;
 const grindstone = (w: World) => w.boss as GrindstoneState;
 const halter = (w: World) => w.boss as HalterState;
 const plumb = (w: World) => w.boss as PlumbState;
@@ -152,6 +158,13 @@ export const ROWS_C: readonly Row[] = [
         ),
         SLING_HAND,
       ),
+    ],
+  },
+  {
+    kind: "flue",
+    marks: [
+      mark(flueMarks, "drawFlueSlotGlow", (w) => flueLitStep(flue(w))?.ask === "vent"),
+      mark(flueMarks, "drawFlueTapRing", (w) => flueSteady(w, flue(w))),
     ],
   },
 ];
