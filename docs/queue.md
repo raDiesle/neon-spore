@@ -2215,6 +2215,7 @@ count and is refused. `bun run check` proves it.
 ## The dropped swings, drift and bloom leave three seams at 0
 
 - **Found:** 2026-09-27, claude/versus-page-comparisons-dd7592
+- **Taken:** 2026-09-27, claude/queue-phase-into (claim: claude/queue-the-dropped-swings-drift-and-bloom-leave-three-s)
 - **Files:** `packages/render/src/mechanism-swing.ts`, `packages/render/test/mechanism-swing.test.ts`, `packages/render/src/outline-drift.ts`, `packages/render/test/outline-drift.test.ts`, `packages/render/src/frame-post.ts`, `docs/spec/living-bosses.md`
 
 `davit:hook`, `plumb:bob`, `sling:tine`, `queen:shell`, `cairn:pile`,
