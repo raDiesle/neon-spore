@@ -27432,3 +27432,5 @@ fires by itself, which put its half past one sitting and back in the queue.
 
 Bottleneck: reading — the pin is three gestures by phase, and which hold
 each press hands back had to be read off the simulation before one line.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
