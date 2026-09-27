@@ -2321,6 +2321,7 @@ on a phone. `bun run check` proves it.
 ## Living bosses — THE CAIRN's and THE REPRISE's parts, and the surface marks
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
+- **Taken:** 2026-09-27, claude/queue-cairn-reprise-parts (claim: claude/queue-living-bosses-the-cairns-and-the-reprises-parts)
 - **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/reprise-lens.ts`, `packages/content/src/surface.ts`
 
 The second half of the old "outline tier's parts and surface marks" entry;
