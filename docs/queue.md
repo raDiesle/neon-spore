@@ -763,6 +763,7 @@ drawn yet and stays unverified at tempo until the owner has looked.
 ## §42 THE SLUICE — the simulation lane
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-42-the-sluice-the-simulation-lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
 
 No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
