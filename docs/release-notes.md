@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 53f449a05 — AUTO plays THE FLUE: the tapper taps the steadied ember, the rester sends nothing, the cannon shoots the bared core
+
+`boss-hands-flue.ts` taps the ember's column only once it has stopped under the vent's rester, and lifts before it taps again. It slides the cannon to the middle column for each fire step and sends nothing from a seat that is resting. THE FLUE leaves `NO_HAND`, and it has its own autopilot test, a hush row and a marks-window row. `TAP` takes a new seed for each tap, because the ember jumps notch to notch and one seed read as a mark sliding at 120 tiles a second.
+
 ## 2026-09-27 · ae0b8f144 — THE FLUE's words: STILL to the seats keeping still, TAP on the stopped ember, FIRE on the bared core
 
 The field says `STILL` at the flue's middle to the vent's rester and to both seats through a damper, `TAP` on the ember to the tapper once it has stopped, jumping with it to each notch, and `FIRE` under the middle column once the core is bared. The count and the colour are never said. AUTO is the half left on the queue.

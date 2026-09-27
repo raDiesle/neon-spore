@@ -27306,3 +27306,5 @@ next lane runs, not this one.
 
 Bottleneck: friction — a mark that moves by jumps only shows as one once a
 hand plays the whole wave.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
