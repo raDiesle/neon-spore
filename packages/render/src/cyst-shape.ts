@@ -91,15 +91,49 @@ export function cystRadius(l: Layout, a: number, pose: CystPose): number {
   return cystR(l) * m;
 }
 
-/** The whole sac's outline, bent by `pose`. */
-export function cystSacPath(l: Layout, pose: CystPose): Path2D {
-  const pts: Point[] = [];
-  for (let i = 0; i < N; i++) {
-    const a = (i * Math.PI * 2) / N;
-    const r = cystRadius(l, a, pose);
-    pts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
+/**
+ * **One of the sac's four lobes, as its own piece**: the run of the outline
+ * within an eighth-turn of its tip at angle `at` — right, down, left, up —
+ * and the `joint` it hangs from, on its axis at the waist where it parts
+ * from its neighbours (`docs/spec/living-bosses.md`, the part map).
+ *
+ * **A run of the one outline, not a shape of its own**, for THE HIVE's
+ * reason (`hive-shape.ts`): the sac is filled, lit and stroked once, so a
+ * lobe filled apart would draw its seam across the body. `cystSacPath`
+ * splines the four runs as one ring, the same samples in the same order
+ * begun an eighth-turn earlier.
+ */
+export interface CystLobe {
+  at: number;
+  joint: Point;
+  points: Point[];
+}
+
+/** The sac's four lobes, bent by `pose`, right first and on round. */
+export function cystLobes(l: Layout, pose: CystPose): CystLobe[] {
+  const per = N / LOBES;
+  const lobes: CystLobe[] = [];
+  for (let k = 0; k < LOBES; k++) {
+    const at = (k * Math.PI * 2) / LOBES;
+    const points: Point[] = [];
+    for (let j = 0; j < per; j++) {
+      const a = (((k * per - per / 2 + j + N) % N) * Math.PI * 2) / N;
+      const r = cystRadius(l, a, pose);
+      points.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
+    }
+    const half = Math.PI / LOBES;
+    const waist = (cystRadius(l, at - half, pose) + cystRadius(l, at + half, pose)) / 2;
+    lobes.push({ at, joint: { x: Math.cos(at) * waist, y: Math.sin(at) * waist }, points });
   }
-  return splinePath(pts, true);
+  return lobes;
+}
+
+/** The whole sac's outline, bent by `pose`: its four lobes laid as one ring. */
+export function cystSacPath(l: Layout, pose: CystPose): Path2D {
+  return splinePath(
+    cystLobes(l, pose).flatMap((b) => b.points),
+    true,
+  );
 }
 
 /** The tip of the lobe at angle `a`, bent by `pose`. */

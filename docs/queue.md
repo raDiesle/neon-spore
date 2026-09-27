@@ -2520,25 +2520,6 @@ Done when: a test draws the warden with the hatch shut, half and open,
 before and after, and finds the pixels equal within 1 in 255; each lid has a
 hinge point; `bun run check` proves it.
 
-## Living bosses — split the lobes of THE CURTAIN and THE CYST
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-lobes-of-the-hive-the-cu (claim: claude/queue-living-bosses-split-the-lobes-of-the-curtain-and)
-- **Files:** `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-draw.ts`, `packages/render/src/cyst-shape.ts`, `packages/render/src/cyst-draw.ts`, `docs/spec/living-bosses.md`
-
-Section 1's part map: each of these draws its lobes inside the body's one
-path — THE CURTAIN's hem in the membrane, THE CYST's four lobes in the sac.
-THE HIVE landed first (`hiveLobes`, `packages/render/test/hive-lobes.test.ts`
-is the pattern: the old contour kept in the test as the *before*). Draw each lobe as its own piece
-over a body that is the rest, joined where it meets the body so the seam
-does not show, about a joint where it hangs. One boss at a time, landed
-separately if the sitting runs short; leave the rest named here. No frame
-changes, and the hit tests do not move.
-
-Done when, per boss: a test draws it at every state before and after and
-finds the pixels equal within 1 in 255; each lobe has a joint point; its
-grip tests still pass untouched. `bun run check` proves it.
-
 ## Living bosses — the mechanisms swing what hangs or hinges, six per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec

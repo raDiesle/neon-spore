@@ -25935,3 +25935,16 @@ Bottleneck: reading — whether a lobe of a translucent mass can be filled on
 its own without a seam, and it cannot, so the piece is laid into one outline.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CURTAIN's hem and THE CYST's lobes are pieces with joints
+
+- reading: 5 min. Both sheets, the spline, and whether a closed ring begun
+  an eighth-turn later draws the same.
+- writing: 15 min. `curtainHem` and `cystLobes`, the two outlines rebuilt
+  from them, their pixel tests, and the hem cut off into `curtain-hem.ts`.
+- looking: 0 min. No frame changes, and the tests are what say so.
+- friction: 5 min. The size hook asked for the CURTAIN's seam at 235 lines.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the CURTAIN's file had to be cut before its pieces
+could stay in it.

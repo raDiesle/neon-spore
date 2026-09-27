@@ -2,6 +2,7 @@ import { blobPoints } from "@neon-spore/content";
 import { type Color, CURTAIN_COLS } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { paintBead, paintCoreBody, paintSheet } from "./curtain-flesh.js";
+import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE, curtainSheetPath } from "./curtain-hem.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -19,19 +20,11 @@ import { splinePath } from "./spline.js";
  * way a torch is lit, and nothing else on the sheet is bright.
  */
 
-/** How far below the row's centre the hem hangs, in tiles. */
-const HEM_DROP = 0.42;
-/** How far above it the rail is. */
-const RAIL_RISE = 0.5;
-/** Both of them again for `curtain-grip.ts`, which has to know how far the hem
- * may be carried before it is at the rail: the ring rides the edge this file
- * draws, and a reach worked out from a second copy of these would be a handle
- * that parted company with the cloth under it. */
-export const CURTAIN_HEM_DROP = HEM_DROP;
-export const CURTAIN_RAIL_RISE = RAIL_RISE;
-/** A lobe's radius, in tiles, and how far the hem lifts where one is gone. */
+/** Where the hem and the rail are, now `curtain-hem.ts`'s, and still asked of this file by `curtain-grip.ts`. */
+export { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-hem.js";
+
+/** A lobe's radius, in tiles. */
 const LOBE_R = 0.15;
-const HEM_LIFT = 0.16;
 
 export function drawCurtainSheet(
   ctx: CanvasRenderingContext2D,
@@ -58,25 +51,10 @@ export function drawCurtainSheet(
   hurt = 0,
 ): void {
   const t = l.tile;
-  const railY = cy - t * RAIL_RISE;
-  const hemY = cy + t * HEM_DROP - lift;
+  const railY = cy - t * CURTAIN_RAIL_RISE;
+  const hemY = cy + t * CURTAIN_HEM_DROP - lift;
   const x1 = x0 + CURTAIN_COLS * t;
-  // The membrane: straight along the rail, a scallop between lobes along
-  // the hem, lifted where a lobe has come off and nothing weighs it.
-  const path = new Path2D();
-  path.moveTo(x0, railY);
-  path.lineTo(x1, railY);
-  const hemAt = (i: number): number =>
-    hemY - ((lobes[i] ?? false) ? 0 : t * HEM_LIFT) + Math.sin(time * 1.7 + i) * t * 0.02;
-  // Down the right edge, then back along the hem a scallop at a time.
-  path.lineTo(x1 + lag, hemAt(CURTAIN_COLS - 1));
-  for (let i = CURTAIN_COLS - 1; i >= 0; i--) {
-    const y = hemAt(i);
-    const xr = x0 + (i + 1) * t + lag;
-    const xl = x0 + i * t + lag;
-    path.quadraticCurveTo((xl + xr) / 2, y + t * 0.12, xl, y);
-  }
-  path.closePath();
+  const path = curtainSheetPath(l, x0, cy, lobes, lag, lift, time);
   // Folds: one a column, swaying, from the rail to the hem's trail — each a
   // lit line and, just to its right, the side of it turned from the light.
   const folds = new Path2D();
@@ -123,7 +101,7 @@ export function drawCurtainJam(
 ): void {
   if (left <= 0) return;
   const t = l.tile;
-  const y = cy - t * RAIL_RISE;
+  const y = cy - t * CURTAIN_RAIL_RISE;
   const bar = new Path2D();
   bar.moveTo(x0, y);
   bar.lineTo(x0 + CURTAIN_COLS * t, y);

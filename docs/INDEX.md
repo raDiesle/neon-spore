@@ -2066,6 +2066,7 @@ by hand never moves.
 | `packages/render/src/curtain-flesh.ts` | **What THE CURTAIN is made of**: a wet membrane hung from a gathered top edge |
 | `packages/render/src/curtain-sheet.ts` | THE CURTAIN's two shapes: the membrane with its hem, and the core |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
+| `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
 | `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |
 | `packages/render/src/cyst-fx.ts` | What THE CYST leaves behind a frame (§34): the **thud** of a flank cracking |
 | `packages/render/src/cyst-grip.ts` | **The hands on THE CYST** (§34): a tap on a freeze mark, and a pinch on a flank |

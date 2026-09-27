@@ -211,14 +211,14 @@ with a joint, before it can move.
 | THE THROAT | skin, each muscle ring, mouth | ready |
 | THE UNDERTOW | body, each lobe | ready |
 | THE GORGE | sack, each lobe | ready |
-| THE CURTAIN | membrane, hem weights, core | **split first**: the hem lobes are inside the membrane's path |
+| THE CURTAIN | membrane, hem weights, core | ready — each hem scallop is a piece with its joint (`curtainHem`, `curtain-hem.ts`), laid into the membrane's one outline for THE HIVE's reason |
 | THE TASTER | crest, each blade | ready |
 | THE SINEW | mass, both handles, fibres | ready |
 | THE LEDGER | both halves, cord, whip | ready |
 | THE SURGE | bulb, both grips | ready |
 | THE STARE | cowl, eye, lid | ready |
 | THE HIVE | mass, each hanging lobe | ready — each lobe is a piece with its joint (`hiveLobes`), laid into the mass's one outline so the translucent wax has no seam; a lobe swings by moving its piece before it is laid |
-| THE CYST | sac, each of its four lobes, core | **split first**: the lobes are one path |
+| THE CYST | sac, each of its four lobes, core | ready — each lobe is a run of the outline with its joint at the waist (`cystLobes`), the four splined as one ring |
 | THE VISE | both lobes, kernel | ready |
 | THE MANTLE | core, both valves | ready |
 | THE KEEL | each spine segment | ready |
