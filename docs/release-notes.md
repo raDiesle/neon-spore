@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7e5314efb — THE CURTAIN sways in a draught, its hem swinging under a held rail
+
+THE CURTAIN's rail now stays still while its hem swings across, the whole sheet sheared about its top edge, the leading corner by more than half a tile, while the trailing edge stays over its column so no covered core is uncovered. The beads stay over their columns, since a shot up a column breaks the bead there, and the hem's ring stays on the hem's line. The swing dies as the pilot gathers the hem and stops once the sheet is out. On the field under "a look with no shipped alternative".
+
 ## 2026-09-27 · 4624a1cca — THE VALVE's second spark offered wider and hotter on VERSUS
 
 The spec asks THE VALVE's second spark to read at a different severity from the first; the game draws both as one bead. VERSUS `valve:spark · wide` leaves the first as it is and draws the second half as wide again, hotter, glowing harder and trailing three hiss streaks. It is judged on a new pose, VALVE · THE SECOND SPARK FALLING. The spark's drawing moves into its own record in valve-spark.ts, which is told which spark it is.
