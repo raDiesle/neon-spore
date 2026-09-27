@@ -165,7 +165,8 @@ export function drawInstarMarks(
         drawVerdict(ctx, verdicts, i, at.x, at.y, r);
         return;
       }
-      if (mine) drawInstarHalo(ctx, at.x, at.y, r, time);
+      // A shoot mark's light is the part's own red glow (`instar-weak.ts`), not a halo over it.
+      if (mine && mark.gesture !== "shoot") drawInstarHalo(ctx, at.x, at.y, r, time);
       drawInstarRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
       if (!mine) drawInstarTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);

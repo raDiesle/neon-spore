@@ -26320,3 +26320,16 @@ Bottleneck: writing — each part draws its outline in its own file, and the
 eye and the heart had to hand theirs back before a glow could follow it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR: a shoot mark is a crosshair
+
+- reading: 5 min. The ring, the glyphs, the halo and the window ring.
+- writing: 10 min. `instar-crosshair.ts`, the ring's shoot branch, and the
+  test that counts crosshairs on every step and every screen.
+- looking: 10 min. Two zoomed frames: the first crosshair was lost under
+  the red halo, so the halo went and the ticks reach the window ring.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the first crosshair passed its test and could not be
+seen, and only a zoomed frame said so.

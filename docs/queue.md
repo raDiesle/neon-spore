@@ -2706,20 +2706,17 @@ cannon colours.
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
 
-## THE INSTAR — a shoot mark is a crosshair
+## THE INSTAR — a shield or suck mark draws the hold's two thumbs
 
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-instar-the-part-to-shoot-glows-red (claim: claude/queue-the-instar-a-shoot-mark-is-a-crosshair)
-- **Files:** `packages/render/src/instar-marks.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/test/instar-frame.test.ts`
+- **Found:** 2026-09-27, claude/queue-the-instar-a-shoot-mark-is-a-crosshair
+- **Files:** `packages/render/src/instar-glyphs.ts`, `packages/render/src/instar-ring.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-fourth.ts`
 
-The owner, 27 September 2026: *is it correct I have to hit the tail? It's
-not clear. It should have not just a red circle, but a crosshair.* On a
-`shoot` mark, replace the ring with a crosshair: a ring with four ticks
-pointing in, and a gap at the centre so the part stays visible. The window
-ring still closes and the progress arc still fills. It is drawn in the
-ship's violet until the colour entry above is answered, then in whatever
-that answer says. `shield` and `suck` marks keep their rings. This is a look
-the owner asked for by name.
-
-Done when: the frame test finds the crosshair on the eye, egg, heart and
-tail shoot marks, and none on any other gesture. `bun run check` proves it.
+`drawInstarGlyph` names six gestures and sends every other one to its last
+branch, `hold`, so a `shield` mark (the second act's glob and head) and a
+`suck` mark (the fourth act's ember) draw two thumbprints under the words
+SHIELD and SUCK. `shoot` fell through the same way until the crosshair
+took it out of the glyph. Give each of the two its own glyph, drawn from
+the shield and the suck the player's panel already shows, and make the
+branch exhaustive over `InstarGesture` so a new gesture fails to typecheck
+instead of borrowing one. A test draws every gesture's glyph and finds none
+drawn by another's branch. `bun run check` proves it.

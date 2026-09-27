@@ -1703,6 +1703,7 @@ by hand never moves.
 | `packages/render/src/instar-moult-wound.ts` | **The edges of THE INSTAR's wound**, drawn every frame |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
 | `packages/render/src/instar-between.ts` | **THE INSTAR between two poses**: the in-between motion of a morph, keyed on the pose it comes from |
+| `packages/render/src/instar-crosshair.ts` | **A shoot mark is a crosshair**: a violet ring with four ticks pointing in, and nothing over the part |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |
