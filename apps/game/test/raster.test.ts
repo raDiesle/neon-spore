@@ -1,5 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { bindRasterBurst, bindRasterClasp, rasterRequested } from "../src/raster.js";
+import {
+  bindRasterBurst,
+  bindRasterClasp,
+  bindRasterViseCrack,
+  rasterRequested,
+} from "../src/raster.js";
 
 /**
  * The flag, and what it decides.
@@ -51,6 +56,18 @@ describe("the raster flag", () => {
     };
     expect(await bindRasterClasp(host, "http://game.invalid/")).toBe("off");
     expect(await bindRasterClasp(host, "http://game.invalid/?raster=0")).toBe("off");
+    expect(installs).toBe(0);
+  });
+
+  it("leaves THE VISE's split as it ships unless the flag is set", async () => {
+    let installs = 0;
+    const host = {
+      install(): void {
+        installs++;
+      },
+    };
+    expect(await bindRasterViseCrack(host, "http://game.invalid/")).toBe("off");
+    expect(await bindRasterViseCrack(host, "http://game.invalid/?raster=0")).toBe("off");
     expect(installs).toBe(0);
   });
 });

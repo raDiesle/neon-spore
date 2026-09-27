@@ -17,7 +17,7 @@
  */
 
 import { closeBrowser, launchBrowser } from "@neon-spore/frames/capture.js";
-import { BURST } from "./src/spec.js";
+import { BURST, VISE_CRACK } from "./src/spec.js";
 
 const assets = new URL("../../assets/raster/", import.meta.url);
 const file = (name: string): string => Bun.fileURLToPath(new URL(name, assets));
@@ -42,7 +42,8 @@ const server = Bun.serve({
     if (path === "/")
       return new Response("<!doctype html><meta charset=utf-8><title>verify</title>");
     const name = path.slice(1);
-    if (!name.startsWith("burst")) return new Response("not found", { status: 404 });
+    if (!name.startsWith("burst") && !name.startsWith("vise-crack"))
+      return new Response("not found", { status: 404 });
     const type = TYPES[name.slice(name.lastIndexOf("."))] ?? "application/octet-stream";
     return new Response(Bun.file(file(name)), { headers: { "content-type": type } });
   },
@@ -102,6 +103,8 @@ const result = await page.evaluate(
       webpFrames: await frameCount("burst.webp", "image/webp"),
       apngProbePasses,
       webpProbeSize: await size(input.webpProbe),
+      crackStripSize: await size(`${input.origin}/vise-crack-strip.webp`),
+      crackApngFrames: await frameCount("vise-crack.apng", "image/png"),
     };
   },
   { origin, apngProbe: probeModule.APNG_PROBE, webpProbe: probeModule.ANIMATED_WEBP_PROBE },
@@ -129,6 +132,16 @@ const checks: [string, boolean, string][] = [
     "the animated WebP probe decodes",
     same(result.webpProbeSize, [8, 8]),
     String(result.webpProbeSize),
+  ],
+  [
+    "vise-crack-strip.webp is the whole strip",
+    same(result.crackStripSize, [VISE_CRACK.size * VISE_CRACK.frames, VISE_CRACK.size]),
+    String(result.crackStripSize),
+  ],
+  [
+    "vise-crack.apng carries every frame",
+    result.crackApngFrames === VISE_CRACK.frames,
+    `${result.crackApngFrames}`,
   ],
 ];
 

@@ -280,9 +280,16 @@ well as at 16 — not a smaller file.
 ## Using it
 
 ```bash
-bun run raster          # regenerate assets/raster/ from the generator
-bun run raster:verify   # open them in Chromium; check every frame decodes
+bun run raster              # regenerate every painted asset in assets/raster/
+bun run raster vise-crack   # only THE VISE's crack — leave the burst's bytes alone
+bun run raster:verify       # open them in Chromium; check every frame decodes
 ```
+
+**Name the asset you changed.** The generator is reproducible on one
+browser and not across two: a Chromium of another version encodes the same
+frames to other bytes, and on 27 September 2026 a bare `bun run raster`
+brought the burst's strip back at 79 414 B against the 80 406 B committed,
+a diff in a file nobody meant to touch.
 
 **Restart any running `bun run dev` or `bun run preview` afterwards.** The
 files change in place, at the same path, and a live dev server's asset
@@ -356,3 +363,43 @@ panel's own handle killed a creature and the frame that followed carried the
 burst, 821 near-white pixels against 181 with the switch off. What it cannot
 say is that a violet burst belongs on a red creature. That is the owner's
 call, on the RASTER tab or in the game at `?raster=1`.
+
+### The third strip: THE VISE's kernel crack
+
+The payoff frame of §28 — the spent kernel giving way as the case splits —
+is rule 4's case: a husk breaking is smears and irregular debris, not a
+shape that recolours. `tools/raster/src/vise-crack-art.ts` paints it:
+a white-hot seam down the spine for the first frames, fifteen husk shards of
+four to six jittered corners spinning out mostly sideways and dropping a
+little, the dust each drags behind it, an ember where the kernel was, and a
+grain of grit that flies furthest and thins first. **Husk colours only** —
+`viseCrack`'s bone, `viseCase`'s tan, a warm white — because rule 7 keeps
+the kernel's red or cyan with the procedural flash.
+
+It is sixteen frames of 96 px at 45 ms, 0.72 s, and it ships as
+`vise-crack-strip.webp` (the atlas) and `vise-crack.apng` (the lossless
+master), baked by `tools/raster/src/render-strip.ts` — `render.ts`'s pass
+without the burst's own extras, for every atlas after the first.
+
+| file | bytes |
+|---|---|
+| `burst-strip.webp`, the budget it is held to | 80 406 committed (79 414 regenerated here) |
+| `vise-crack-strip.webp`, the atlas the field fetches | **43 238** — under the 90 kB budget at the full 16 frames and 96 px |
+| `vise-crack.apng`, the master | 108 177 |
+
+`tools/raster/test/vise-crack-assets.test.ts` holds the manifest against
+`VISE_CRACK_SHEET` and the atlas under 90 kB.
+
+**Where it plays.** §28's row 11 — the kernel crackling between the lobes
+until it burns out — was never built (§11.45: *there is no break step*), so
+the frame the shipping game has for the kernel's end is the split. `ViseFx`
+spawns the crack on `viseSplit`, over the kernel, at 2.6 lobe-widths, as a
+second `SpriteBursts` of its own (`crack`, drawn by `vise-draw.ts` after the
+case); `bindRasterViseCrack` installs it behind the same `?raster=1`, and
+without the flag it draws nothing (`packages/render/test/vise-crack.test.ts`).
+The shipped split — its flash and its husk dust — is drawn either way; the
+crack lies over it.
+
+**What is still open** is the owner's eye: whether the painted crack reads
+better than the split's flash and dust alone. Play THE VISE at `?raster=1`
+to the end and compare; the procedural split ships until he says otherwise.

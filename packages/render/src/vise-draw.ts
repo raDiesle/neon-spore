@@ -126,6 +126,8 @@ export function drawVise(
   }
   drawViseFlash(ctx, l, fx.flash, fx.split);
   ctx.restore();
+  // In field pixels, not the case's frame: the crack stays where the kernel broke.
+  fx.crack.draw(ctx);
 }
 
 /**

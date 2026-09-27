@@ -1,6 +1,7 @@
 import { loadAtlas } from "@neon-spore/render";
 import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
+import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
 
 /**
  * The baked assets, in the real game, behind a flag.
@@ -74,6 +75,22 @@ export async function bindRasterClasp(
 ): Promise<"off" | "installed" | "unavailable"> {
   if (!rasterRequested(href)) return "off";
   const strip = await loadAtlas(claspStripUrl);
+  if (!strip) return "unavailable";
+  host.install(strip);
+  return "installed";
+}
+
+/**
+ * The same, for THE VISE's painted kernel crack (`vise-fx.ts`), the third
+ * strip behind the one flag. The shipped split — the flash and the husk dust
+ * — is drawn either way; the crack is laid over it, never in its place.
+ */
+export async function bindRasterViseCrack(
+  host: SpriteHost,
+  href: string,
+): Promise<"off" | "installed" | "unavailable"> {
+  if (!rasterRequested(href)) return "off";
+  const strip = await loadAtlas(viseCrackStripUrl);
   if (!strip) return "unavailable";
   host.install(strip);
   return "installed";

@@ -4,6 +4,7 @@ import type { Burst } from "./effects-boss.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { SpriteBursts, VISE_CRACK_SHEET } from "./sprite-burst.js";
 import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
 
 /**
@@ -12,7 +13,9 @@ import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
  * the plating; the **spring** of a pinch run out, the lobe thrown open past
  * where it rests and settling back; the **flash** of a kernel hit, wider for
  * every hit it has taken; the split's own flash; and the bursts its twelve
- * receipts throw.
+ * receipts throw — and, behind `?raster=1`, the painted kernel crack over
+ * the split (`crack`, `docs/raster.md`), which draws nothing until a host
+ * installs its atlas.
  *
  * Everything else — how far each lobe stands open, how pinched, which seams
  * are cracked, how small the kernel is — is read off the boss every frame
@@ -45,6 +48,8 @@ const SPRING_RADIANS = 0.22;
 const SPRING_DECAY = 3.5;
 /** How fast a kernel flash and the split's fade, per second. */
 const FLASH_DECAY = 3;
+/** How wide the painted crack is drawn, in widths of one lobe off the spine. */
+const CRACK_WIDTH = 2.6;
 
 export class ViseFx {
   private thudNow = 0;
@@ -57,6 +62,8 @@ export class ViseFx {
   private kernelHex: string = PALETTE.hullRim;
   /** The blow a crack and a kernel hit deal the case. */
   readonly hurt = new BossHurt();
+  /** The painted crack the split throws off the kernel: an offered look, off until installed. */
+  readonly crack = new SpriteBursts(VISE_CRACK_SHEET);
 
   /** How far the whole case is pressed down right now, in tiles. */
   get thud(): number {
@@ -139,6 +146,7 @@ export class ViseFx {
           break;
         case "viseSplit":
           burst(mid.x, mid.y, 24, PALETTE.viseCrack);
+          this.crack.spawn(mid.x + k.x, mid.y + k.y, rx * CRACK_WIDTH);
           this.splitNow = 1;
           break;
         default:
@@ -159,6 +167,7 @@ export class ViseFx {
     this.splitNow = Math.max(0, this.splitNow - FLASH_DECAY * step);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.crack.update(dt);
   }
 
   clear(): void {
@@ -171,6 +180,7 @@ export class ViseFx {
     this.shock.clear();
     this.kernelHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.crack.clear();
   }
 }
 

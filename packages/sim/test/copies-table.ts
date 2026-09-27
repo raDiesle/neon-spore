@@ -538,8 +538,11 @@ export const COPIES: Copy[] = [
     // rather than `(n >>> 8) % 10000`, and every number it answers is already
     // in a shipped PNG. Adopting the render stream would redraw those files,
     // which is a look rather than a refactor — so it owns its own sequence,
-    // and its header already says why it may not use `Math.random`.
-    also: ["tools/raster/src/burst-art.ts"],
+    // and its header already says why it may not use `Math.random`. THE
+    // VISE's crack is the second painter, and it could not call `stream` if
+    // it wanted to: `render-strip.ts` ships it into a headless page as source
+    // text, where an import is a crash.
+    also: ["tools/raster/src/burst-art.ts", "tools/raster/src/vise-crack-art.ts"],
   },
   {
     // How near the poles a mark may sit. Three skins declared it privately —

@@ -130,6 +130,11 @@ export class RenderState {
     return this.effects.claspFrames;
   }
 
+  /** THE VISE's painted kernel crack, for `claspShield`'s reason (`vise-fx.ts`). */
+  get viseCrack(): SpriteBursts {
+    return this.effects.boss.vise.crack;
+  }
+
   /**
    * Whether the wave is still arriving — the two rings a crossed gate throws
    * over the field (`opening-fx.ts`).

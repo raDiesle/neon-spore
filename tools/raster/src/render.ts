@@ -43,7 +43,7 @@ export interface RenderedBurst {
   probeWebp: Uint8Array[];
 }
 
-const dataUrlToBytes = (url: string): Uint8Array =>
+export const dataUrlToBytes = (url: string): Uint8Array =>
   Uint8Array.from(atob(url.slice(url.indexOf(",") + 1)), (c) => c.charCodeAt(0));
 
 /** Opens one headless page, draws everything in it, and closes it again. */

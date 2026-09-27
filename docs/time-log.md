@@ -27828,3 +27828,18 @@ Bottleneck: reading. The rig's axes and anchor turns had to be read off
 three files before one number of the head could be placed.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE VISE's kernel crack, a painted atlas behind `?raster=1`
+
+- reading: 15 min. `docs/raster.md`, the burst's generator, verifier and
+  player, THE CLASP's binding, `vise-fx.ts` and §28's beat list.
+- writing: 30 min. The painter, a strip renderer for every atlas after the
+  first, the named-asset run, the crack on `viseSplit`, the game's binding,
+  the tests and the doc.
+- looking: 5 min. The sixteen frames on a dark ground.
+- friction: 5 min. A bare `bun run raster` rewrote the burst's bytes on this
+  Chromium, so the run now takes an asset's name.
+- landing: 10 min. `raster:verify`, `check:fast`, the commit, `land`.
+
+Bottleneck: writing. A second atlas had no generic path through the
+generator, the verifier or the renderer, and each one took its own cut.

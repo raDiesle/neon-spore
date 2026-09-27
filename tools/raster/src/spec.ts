@@ -16,3 +16,18 @@ export const BURST: BurstSpec & { frameMs: number } = {
   seed: 20260831,
   frameMs: 40,
 };
+
+/**
+ * THE VISE's kernel crack (`vise-crack-art.ts`), the second painted atlas.
+ *
+ * The burst's frame and count to start from, because its atlas is the one
+ * that sets the budget: **the strip stays under 90 kB**, and if the painting
+ * does not fit at these numbers it drops frames before the budget rises
+ * (`docs/queue.md`'s entry, `docs/raster.md`).
+ */
+export const VISE_CRACK: { size: number; frames: number; seed: number; frameMs: number } = {
+  size: 96,
+  frames: 16,
+  seed: 20260926,
+  frameMs: 45,
+};

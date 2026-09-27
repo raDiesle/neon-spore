@@ -442,39 +442,6 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## §28 THE VISE — sprite atlas experiment: the kernel crack
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-28-the-vise-sprite-atlas-experiment-the-kernel-c
-- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
-  `assets/raster/`, `docs/raster.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
-cheaper first try.
-
-`docs/raster.md` rule 3/4/5: the kernel finally breaking open (row 11 of the
-beat list, the boss's one payoff frame) is a candidate for a painted
-frame-by-frame burst rather than a procedural one — a shell splitting is
-smears and irregular debris, not a shape that recolours. It is simulation-
-triggered, so rule 5 makes the format a sprite atlas, never an APNG or
-animated WebP: draw it the way `burst-art.ts` draws the existing burst,
-pack it with `bun run raster` into its own `vise-crack-strip.webp` (atlas)
-and `vise-crack.apng` (lossless master), and gate it behind the same
-`?raster=1` flag through a new `bindRasterViseCrack` in `apps/game/src/raster.ts`.
-**Budget: the atlas (the only file the field fetches) stays under 90 kB**,
-the number the existing burst atlas already lands under at 96 px/16 frames —
-if the painted version does not read at 12 frames or 80 px, drop frames
-before raising the budget. Record the exact atlas byte count in the commit
-that lands this, next to the number `bun run raster` printed before this
-lane touched anything, so the before/after is in the history rather than
-asserted. Offered, never replacing: the procedural crack stays the shipping
-look until the owner compares them on the RASTER tab, same as the existing
-burst and THE CLASP's shield. `bun run raster:verify` and `bun run check`
-prove it; the visual comparison is the owner's, unverified until he has
-looked.
-
 ## §29 THE RIME — sprite atlas experiment: the bare-core reveal
 
 - **Found:** 2026-09-26, this session

@@ -34,6 +34,12 @@ export interface SpriteSheet {
  */
 export const BURST_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 40 };
 
+/**
+ * THE VISE's kernel crack in `assets/raster/`, checked against its manifest
+ * the same way (`vise-fx.ts` plays it on the split).
+ */
+export const VISE_CRACK_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 45 };
+
 interface LiveBurst {
   x: number;
   y: number;
@@ -45,7 +51,7 @@ interface LiveBurst {
 
 export class SpriteBursts {
   private image: CanvasImageSource | null = null;
-  private sheet: SpriteSheet = BURST_SHEET;
+  private sheet: SpriteSheet;
   private live: LiveBurst[] = [];
   /**
    * Off turns the baked burst back into what shipped, without unloading the
@@ -57,13 +63,18 @@ export class SpriteBursts {
    */
   private enabled = true;
 
+  /** `sheet` is the strip this player is for, when an `install` names none. */
+  constructor(private readonly defaultSheet: SpriteSheet = BURST_SHEET) {
+    this.sheet = defaultSheet;
+  }
+
   /**
    * Hands the renderer a decoded atlas. Until this is called the class draws
    * nothing and spawns nothing, which is what keeps the shipped field
    * unchanged while the asset is still a proposal — see CLAUDE.md's *A look is
    * offered, never replaced*.
    */
-  install(image: CanvasImageSource, sheet: SpriteSheet = BURST_SHEET): void {
+  install(image: CanvasImageSource, sheet: SpriteSheet = this.defaultSheet): void {
     this.image = image;
     this.sheet = sheet;
   }

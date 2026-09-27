@@ -2823,6 +2823,7 @@ by hand never moves.
 | `tools/raster/src/burst-art.ts` | One frame of the burst, drawn into a 2D context |
 | `tools/raster/src/png.ts` | The parts of the PNG container an animator needs, and nothing else |
 | `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
+| `tools/raster/src/render-strip.ts` | Draws any painted effect into a strip in a real browser, and brings the bytes back |
 | `tools/raster/src/spec.ts` | The one description of the burst — the only place its numbers are written |
 | `tools/raster/src/sprite-demos.ts` | **What `bun run sprite` can show**: each baked sprite beside the drawing it is offered against |
 | `tools/raster/src/sprite-page.ts` | The sprite sheet's page: bundled for the browser by `sprite.ts` and run there, so the bake |
@@ -2833,6 +2834,8 @@ by hand never moves.
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
+| `tools/raster/src/vise-crack-art.ts` | One frame of THE VISE's kernel crack, drawn into a 2D context |
+| `tools/raster/src/vise-crack-bake.ts` | THE VISE's kernel crack, painted and packed: the atlas the field fetches, the lossless APNG master |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/sprite.ts` | `bun run sprite [name] [out.png]` — the sprite sheet |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |

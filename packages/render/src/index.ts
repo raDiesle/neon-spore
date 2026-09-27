@@ -161,7 +161,12 @@ export { drawSnakeRound } from "./snake-round.js";
 export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
 export { SplashTrail } from "./splash-trail.js";
 export { splinters } from "./splinter.js";
-export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
+export {
+  BURST_SHEET,
+  SpriteBursts,
+  type SpriteSheet,
+  VISE_CRACK_SHEET,
+} from "./sprite-burst.js";
 export { clearSurface } from "./surface-clear.js";
 // THE WARDEN's four ropes and the switch between them, for the ON THE FIELD
 // page to draw each as the real thing (`tether-looks.ts`).
