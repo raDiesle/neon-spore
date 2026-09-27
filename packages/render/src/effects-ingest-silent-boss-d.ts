@@ -141,7 +141,8 @@ export const INGEST_SILENT_BOSS_D = [
   "capstanMiss",
   "capstanOpen",
   "capstanOut",
-  // THE GALL's eleven: silent until its look lane draws them.
+  // THE GALL's eleven: what outlives a frame is `gall-fx.ts`', read above the
+  // loop; the point, the gap and the part stay read off the state.
   "gallEnter",
   "gallLight",
   "gallPinch",

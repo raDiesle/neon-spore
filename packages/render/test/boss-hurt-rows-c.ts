@@ -22,4 +22,19 @@ export const HURT_ROWS_C: Row[] = [
     ],
     hurt: (fx) => fx.boss.capstan.hurt,
   },
+  {
+    boss: "gall",
+    // A close landed and the root hit; a pinch come shut, a slip or a swell only works toward one.
+    land: [
+      { type: "gallClose", from: 0, to: 2, closes: 1, col: 3 },
+      { type: "gallHit", hits: 1, col: 3 },
+    ],
+    part: [
+      { type: "gallLight", ask: "close", point: 0, col: 0 },
+      { type: "gallPinch", point: 0, col: 0 },
+      { type: "gallSlip", point: 0, col: 0 },
+      { type: "gallSwell", point: 0, col: 0 },
+    ],
+    hurt: (fx) => fx.boss.gall.hurt,
+  },
 ];

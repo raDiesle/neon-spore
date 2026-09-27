@@ -3,6 +3,7 @@ import type { Point } from "./boss-strike-look.js";
 import { capstanBlowFrom } from "./capstan-blow.js";
 import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
+import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { halterBlowFrom } from "./halter-blow.js";
 import type { Layout } from "./layout.js";
@@ -83,6 +84,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   halter: halterBlowFrom,
   // The cradle's foot, where the cog it throws falls clear (`capstan-blow.ts`).
   capstan: capstanBlowFrom,
+  // The root's underside in the peeled seam, where the seed tears off (`gall-blow.ts`).
+  gall: gallBlowFrom,
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where

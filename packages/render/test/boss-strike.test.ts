@@ -3,9 +3,10 @@ import { type BossKind, DEFAULT_CONFIG, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "../src/arrivals.js";
 import { strikeFrom } from "../src/boss-strike-from.js";
 import { BossStrikeFx } from "../src/boss-strike-fx.js";
-import { lash, strikeLook } from "../src/boss-strike-look.js";
+import { lash, type StrikeFrame, type StrikeLook, strikeLook } from "../src/boss-strike-look.js";
 import { capstanCentre } from "../src/capstan-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
+import { gallRootAt } from "../src/gall-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
@@ -87,7 +88,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      "capstan",
+      ...["capstan", "gall"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -113,62 +114,21 @@ describe("a boss's blow at the hull", () => {
     expect(parts.arrivals.has(4, 3)).toBe(true);
   });
 
-  it("THE HALTER sheds a plate from under its centre that bites the skin at reach 1", () => {
-    const { ctx } = stubCanvas();
-    const at: { x: number; y: number }[] = [];
-    const spy = new Proxy(ctx, {
-      get(t, k) {
-        if (k === "translate")
-          return (x: number, y: number) => {
-            at.push({ x, y });
-            t.translate(x, y);
-          };
-        const v = Reflect.get(t, k);
-        return typeof v === "function" ? v.bind(t) : v;
-      },
-    }) as unknown as CanvasRenderingContext2D;
-    const from = strikeFrom(L, CFG, "halter");
-    const centre = halterCentre(L, CFG);
+  it.each([
+    ["THE HALTER sheds a plate from under its centre", "halter", halterCentre],
+    ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
+    ["THE GALL drops a seed off its root's underside", "gall", gallRootAt],
+  ] as const)("%s that bites the skin at reach 1", (_name, by, centreOf) => {
+    const from = strikeFrom(L, CFG, by);
+    const centre = centreOf(L, CFG);
     expect(from.x).toBe(centre.x);
     expect(from.y).toBeGreaterThan(centre.y);
     const to = { x: from.x, y: L.hullY };
     const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
-    const look = strikeLook("halter");
+    const look = strikeLook(by);
     expect(look).not.toBe(lash);
-    look(spy, { ...frame, reach: 0 });
-    expect(at[0]).toEqual(from);
-    at.length = 0;
-    look(spy, { ...frame, reach: 1 });
-    expect(at[0]).toEqual(to);
-  });
-
-  it("THE CAPSTAN throws a cog off its cradle's foot that bites the skin at reach 1", () => {
-    const { ctx } = stubCanvas();
-    const at: { x: number; y: number }[] = [];
-    const spy = new Proxy(ctx, {
-      get(t, k) {
-        if (k === "translate")
-          return (x: number, y: number) => {
-            at.push({ x, y });
-            t.translate(x, y);
-          };
-        const v = Reflect.get(t, k);
-        return typeof v === "function" ? v.bind(t) : v;
-      },
-    }) as unknown as CanvasRenderingContext2D;
-    const from = strikeFrom(L, CFG, "capstan");
-    const centre = capstanCentre(L, CFG);
-    expect(from.x).toBe(centre.x);
-    expect(from.y).toBeGreaterThan(centre.y);
-    const to = { x: from.x, y: L.hullY };
-    const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
-    const look = strikeLook("capstan");
-    expect(look).not.toBe(lash);
-    look(spy, { ...frame, reach: 0 });
-    expect(at[0]).toEqual(from);
-    at.length = 0;
-    look(spy, { ...frame, reach: 1 });
-    expect(at[0]).toEqual(to);
+    expect(firstTranslate(look, { ...frame, reach: 0 })).toEqual(from);
+    expect(firstTranslate(look, { ...frame, reach: 1 })).toEqual(to);
   });
 
   it("forgets every blow on a restart", () => {
@@ -178,3 +138,25 @@ describe("a boss's blow at the hull", () => {
     expect(fx.active).toBe(0);
   });
 });
+
+/** Where a look first moves the canvas to: the piece it throws, drawn round its own middle. */
+function firstTranslate(
+  look: StrikeLook,
+  frame: StrikeFrame,
+): { x: number; y: number } | undefined {
+  const { ctx } = stubCanvas();
+  const at: { x: number; y: number }[] = [];
+  const spy = new Proxy(ctx, {
+    get(t, k) {
+      if (k === "translate")
+        return (x: number, y: number) => {
+          at.push({ x, y });
+          t.translate(x, y);
+        };
+      const v = Reflect.get(t, k);
+      return typeof v === "function" ? v.bind(t) : v;
+    },
+  }) as unknown as CanvasRenderingContext2D;
+  look(spy, frame);
+  return at[0];
+}

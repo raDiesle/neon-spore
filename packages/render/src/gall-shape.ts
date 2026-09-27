@@ -85,10 +85,15 @@ export function gallSeamPath(l: Layout, time: number, ripple: number, part: numb
     p.addPath(ridge(l, x0, x0 + w, time, ripple));
     return p;
   }
-  const gap = part * ROOT * 1.6 * l.tile;
+  const gap = gallSeamGap(l, part);
   p.addPath(ridge(l, x0, mid - gap, time, ripple));
   p.addPath(ridge(l, mid + gap, x0 + w, time, ripple));
   return p;
+}
+
+/** How far either lip stands back from the middle column with the seam `part` of the way peeled, in pixels. */
+export function gallSeamGap(l: Layout, part: number): number {
+  return part * ROOT * 1.6 * l.tile;
 }
 
 /** One stretch of the ridge from `a` to `b`, closed round its own two edges. */

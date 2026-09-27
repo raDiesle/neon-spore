@@ -895,26 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §38 THE GALL — the blow and the receipts
-
-- **Found:** 2026-09-27, claude/queue-38-the-gall-the-look
-- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-look (claim: claude/queue-38-the-gall-the-blow-and-the-receipts)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/gall-draw.ts`, `packages/render/src/boss-draw-clocks-d.ts`
-
-The body is drawn (§11.55, *The look*); the look's second half is left. A
-shot run out is drawn as the default lash: give it its own blow in a new
-gall-blow.ts, the way `capstan-blow.ts` is THE CAPSTAN's — the growth's own
-thing thrown down the middle column (a seed of the nodule torn off the root,
-say), with its row in `boss-strike-from.ts` and `boss-strike-look.ts` and in
-`boss-strike.test.ts`. Then the receipts, in a gall-fx.ts read above the
-loop and kept in `BossTransients` (`effects-boss.ts`, with the reset proved
-by `restart.test.ts`): a flare on `gallPinch`, a shudder on `gallSlip`, a
-puff of the nodule left behind on the point it leaves on `gallClose`, the
-bulge on `gallSwell`, the lips tearing on `gallBare`, the root's flash on
-`gallHit` — taking those events out of the two silent lists' reason, and
-passing `effects.boss.gall` into `drawGall` from `boss-draw-clocks-d.ts`.
-`bun run check` proves it; how it reads at tempo stays the owner's eye.
-
 ## §38 THE GALL — the pinch's touch, the cue and AUTO
 
 - **Found:** 2026-09-27, claude/queue-38-the-gall-the-look
@@ -932,7 +912,13 @@ seat whose half it is on, and `FIRE` on a bared root, on its own
 point from its seat and shoots the root in its colour, with an
 autopilot-gall.test.ts playing the wave to its end. `bun run check` proves
 it; how a pinch on a jumping gall feels stays unverified until the owner
-holds two phones.
+holds two phones. **Once AUTO closes the gall, look at the blow and the
+receipts in a frame**, which nothing could reach when they landed:
+`bun run frames . --wave "THE GALL" --auto both --until gallClose --until-on 2`
+for a close's ghost, and `--until gallBare` for the lips tearing. The root's
+seed needs a fire step let run with the closes played, which `--auto-miss`
+cannot do (it misses every close, and the root is never bared) — the same
+gap as *`--auto-miss` cannot make THE CYST's or THE SLING's shot run out*.
 ## §39 THE BURGEE — the simulation lane
 
 - **Found:** 2026-09-26, this session

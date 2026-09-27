@@ -1,6 +1,8 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type GallState, gallClosing, gallLitStep, gallPincher, type World } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
+import type { GallFx } from "./gall-fx.js";
 import { drawGallPinch, drawGallRoot, drawGallScar } from "./gall-marks.js";
 import {
   gallArrived,
@@ -16,6 +18,7 @@ import {
   gallSunk,
   gallSwell,
 } from "./gall-pose.js";
+import { drawGallFlash, drawGallPuff, drawGallTear } from "./gall-receipts.js";
 import {
   gallNodulePath,
   gallPointAt,
@@ -23,17 +26,22 @@ import {
   gallRipple,
   gallRootAt,
   gallRootR,
+  gallSeamGap,
   gallSeamPath,
   gallSize,
 } from "./gall-shape.js";
+import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 import { showsGallReach } from "./view-role-clocks-c.js";
 
 // How far a close kept shut presses the nodule down into the seam, at its fullest.
 const PRESSED = 0.45;
+// How much bigger a window run out swells the nodule back, at the swell's height.
+const BULGE = 0.22;
 
 /**
  * **THE GALL**: a soft nodule riding a raised seam the width of the field,
@@ -52,7 +60,10 @@ const PRESSED = 0.45;
  * third close **the view goes into the hull**: the nodule is pulled under,
  * the seam's two lips peel back over the middle column, and what they were
  * hiding is the root, the only part ever shot. Everything is read off
- * `world` each frame; nothing of it outlives one yet.
+ * `world` each frame but what outlives one — a pinch's flare, a slip's
+ * shudder, a swell's bulge, the ghost a close leaves, the lips tearing, the
+ * root's flash and the blow the gall takes — which is `fx` (`gall-fx.ts`),
+ * told the root's colour here.
  */
 export function drawGall(
   ctx: CanvasRenderingContext2D,
@@ -62,8 +73,10 @@ export function drawGall(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: GallFx,
 ): void {
   const cfg = world.cfg;
+  const shake = fx.hurt.shakeX(time, l.tile);
   const arrived = gallArrived(s, cfg, beat, beatPhase);
   const flat = gallFlat(s, cfg, beat, beatPhase);
   const ripple = gallRippling(s, cfg, beat, beatPhase);
@@ -77,6 +90,7 @@ export function drawGall(
     if (p.x === here.x && !s.bared) continue;
     drawGallScar(ctx, l, p.x, p.y + gallRipple(l, p.x, time, ripple));
   }
+  drawGallPuff(ctx, l, cfg, fx.puff, time, ripple);
 
   if (part > 0) {
     const root = gallRootAt(l, cfg);
@@ -84,9 +98,14 @@ export function drawGall(
     const hurt = coreHurt(s.hits);
     const lit =
       step?.ask === "fire" ? { color: step.color, left: gallLeft(s, beat, beatPhase) } : null;
+    if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
     ctx.save();
     ctx.translate(root.x, root.y + gallRipple(l, root.x, time, ripple));
-    drawGallRoot(ctx, gallRootR(l), part * hurt.size, hurt.bright, lit, beatPhase);
+    drawGallTear(ctx, l, gallSeamGap(l, part), fx.tear);
+    ctx.translate(shake, 0);
+    const r = gallRootR(l);
+    drawGallRoot(ctx, r, part * hurt.size, hurt.bright, lit, beatPhase);
+    drawGallFlash(ctx, r * part * hurt.size, fx.flash, fx.hurt.value);
     ctx.restore();
   }
 
@@ -97,8 +116,9 @@ export function drawGall(
   );
   if (sunk < 1) {
     ctx.save();
-    ctx.translate(here.x, here.y + gallRipple(l, here.x, time, ripple));
-    drawNodule(ctx, l, s, world, time, beatPhase, sunk);
+    const x = here.x + shake + fx.shudderX(time, l.tile);
+    ctx.translate(x, here.y + gallRipple(l, here.x, time, ripple));
+    drawNodule(ctx, l, s, world, time, beatPhase, sunk, fx);
     ctx.restore();
   }
   ctx.restore();
@@ -133,10 +153,11 @@ function drawNodule(
   time: number,
   beatPhase: number,
   sunk: number,
+  fx: GallFx,
 ): void {
   const cfg = world.cfg;
   const pinch = gallPinch(s, cfg);
-  const size = gallSpent(s) * gallSwell(s, cfg, beatPhase);
+  const size = gallSpent(s) * gallSwell(s, cfg, beatPhase) * (1 + BULGE * fx.bulge);
   const { rx, ry } = gallSize(l);
   // It rises out of the seam: its middle stands above the seam's top by as much as it is up.
   const lift = -ry * 0.55 * size * (1 - sunk);
@@ -160,6 +181,9 @@ function drawNodule(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.gallFleshDark, 0.95);
   ctx.stroke(body);
+  // A pinch come shut lights its rim; a close or a hit reddens it.
+  if (fx.flare > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.outline, fx.flare);
+  drawHurt(ctx, body, fx.hurt.value);
   ctx.restore();
 
   if (!gallClosing(s)) return;

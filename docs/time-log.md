@@ -26243,3 +26243,17 @@ Bottleneck: writing — the switch wrote five private fields, so the seam
 needed a shape for them before the cut was one move.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GALL seeds the hull, and its receipts flare, puff and tear
+
+- reading: 5 min. The queue entry, THE CAPSTAN's blow and fx as the model,
+  THE GALL's draw, shape, pose and events.
+- writing: 10 min. `gall-blow.ts`, `gall-fx.ts`, `gall-receipts.ts`, the
+  wiring, a shared `gall-harness.ts` for the two frame tests, the specs.
+- looking: 0 min. Nothing can close the gall yet, so no frame reaches it.
+- friction: 5 min. `--auto-miss` misses every close, so the root is never
+  bared and the blow cannot be rendered; queued on THE GALL's AUTO item.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the blow and receipts could not be put in a frame,
+because THE GALL has no AUTO hand and `frames` has no way to set a pose.

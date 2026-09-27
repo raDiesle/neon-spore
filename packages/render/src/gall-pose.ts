@@ -73,12 +73,12 @@ export function gallHeld(s: GallState, cfg: SimConfig, beatPhase: number): numbe
 }
 
 /** The nodule's lobes: NOTCH 2's five, one fewer for every close, never under two. */
-export function gallLobes(s: GallState): number {
+export function gallLobes(s: Pick<GallState, "closes">): number {
   return Math.max(2, LOBES - s.closes);
 }
 
 /** The nodule's size: its fullest, a sixth smaller for every close. */
-export function gallSpent(s: GallState): number {
+export function gallSpent(s: Pick<GallState, "closes">): number {
   return 1 - SPENT * Math.min(GALL_CLOSES, s.closes);
 }
 

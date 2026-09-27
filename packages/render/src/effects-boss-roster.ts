@@ -7,6 +7,7 @@ import { CystFx } from "./cyst-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
+import { GallFx } from "./gall-fx.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
@@ -198,6 +199,11 @@ export class BossRoster {
    * — thrown the same on both screens, and told the core's colour by the
    * drawer (`capstan-fx.ts`, `capstan-draw.ts`). */
   readonly capstan = new CapstanFx();
+  /** THE GALL's flare, shudder and bulge on the nodule, the ghost a close
+   * leaves on the point it jumped off, the seam's lips tearing, the root's
+   * flash, and its receipts' bursts — thrown the same on both screens, and
+   * told the root's colour by the drawer (`gall-fx.ts`, `gall-draw.ts`). */
+  readonly gall = new GallFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

@@ -1163,6 +1163,9 @@ by hand never moves.
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |
 | `packages/render/src/gall-pose.ts` | **The clock THE GALL is posed off** (§38, *Animation*) |
 | `packages/render/src/gall-shape.ts` | **THE GALL's geometry**: where the seam runs, where its four points sit, and what the nodule on it is made of |
+| `packages/render/src/gall-blow.ts` | **THE GALL's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a pinch come shut |
+| `packages/render/src/gall-receipts.ts` | **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts` keeps |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
 | `packages/render/src/gland-fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |

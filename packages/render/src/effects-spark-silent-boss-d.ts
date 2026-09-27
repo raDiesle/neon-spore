@@ -91,7 +91,8 @@ export const SILENT_BOSS_D = [
   "capstanMiss",
   "capstanOpen",
   "capstanOut",
-  // THE GALL's eleven, no burst from this table until its look lane draws them.
+  // THE GALL's eleven, no burst from this table: each is thrown above the
+  // loop by its own fx file (`gall-fx.ts`).
   "gallEnter",
   "gallLight",
   "gallPinch",

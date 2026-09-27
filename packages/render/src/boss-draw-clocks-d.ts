@@ -140,7 +140,7 @@ export function drawLatePairBoss(
 
   // THE GALL: a nodule on a raised seam across the field, pinched shut by
   // the seat nearer it and jumping to another of four points as a close
-  // lands, the root bared under the peeled seam and shot (`gall-draw.ts`).
-  // Nothing of it outlives a frame yet.
-  drawGall(ctx, l, world, boss, beat, beatPhase, time);
+  // lands, the root bared under the peeled seam and shot (`gall-draw.ts`); a
+  // pinch's flare, a close's ghost, the lips' tear and the root's flash are `gall-fx.ts`.
+  drawGall(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gall);
 }

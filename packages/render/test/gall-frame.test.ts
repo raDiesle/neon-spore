@@ -1,15 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import {
-  createWorld,
-  type GallState,
-  type GallStep,
-  gallBoss,
-  startWave,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import {
   gallBearing,
   gallHeld,
@@ -19,18 +9,11 @@ import {
   gallSpent,
 } from "../src/gall-pose.js";
 import { gallPointAt } from "../src/gall-shape.js";
-import { computeLayout, type ViewRole } from "../src/layout.js";
+import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { showsGallReach } from "../src/view-role-clocks-c.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  ROLES,
-  runFrames,
-  VIEWPORT,
-  waveWith,
-} from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
+import { CLOSE, count, FIRE, frame, posed, stood } from "./gall-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -48,56 +31,6 @@ beforeAll(() => {
   installCanvasGlobals();
   for (const role of ROLES) frame(role, () => {});
 });
-
-const TPB = ticksPerBeat(CFG);
-const CLOSE: GallStep = { ask: "close", color: "either", beats: 6 };
-const FIRE: GallStep = { ask: "fire", color: "cyan", beats: 3 };
-
-function stood(): World {
-  const world = createWorld(CFG, 5);
-  const index = waveWith("gall");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  for (let i = 0; i < TPB * 4; i++) step(world, []);
-  return world;
-}
-
-/** The gall standing on `point`, `lit` under the cursor `beats` beats in, unclosed and unpinched. */
-function posed(world: World, lit: GallStep | null, point = 0, beats = 1): GallState {
-  const s = gallBoss(world);
-  if (s === null) throw new Error("the gall wave stood no gall");
-  s.phase = lit === null ? "rest" : "lit";
-  s.phaseBeat = world.beat - beats;
-  s.cursor = 0;
-  s.point = point;
-  s.closes = 0;
-  s.hits = 0;
-  s.bared = false;
-  s.gapMilli = world.cfg.gallOpenMilli;
-  s.heldBeats = 0;
-  if (lit !== null) s.steps[0] = lit;
-  return s;
-}
-
-/** The frames of a pose. */
-function frame(role: ViewRole, arrange: (world: World) => void): string {
-  const world = stood();
-  arrange(world);
-  const log: string[] = [];
-  runFrames(world, role, 9, {
-    every: 3,
-    onCanvas: (c) => {
-      c.log = log;
-    },
-    onTick: (_tick, w) => {
-      step(w, []);
-    },
-  });
-  return log.join("|");
-}
-
-function count(text: string, colour: string): number {
-  return text.split(colour).length - 1;
-}
 
 describe("THE GALL's seam", () => {
   it.each(ROLES)("draws the seam and the nodule on it, on %s", (role) => {
