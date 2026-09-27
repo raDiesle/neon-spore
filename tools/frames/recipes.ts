@@ -31,6 +31,10 @@ export const RECIPES: readonly Recipe[] = [
     argv: ". --wave 1 --until waveFailed --until-on 150",
     what: "the rest after one: the lost screen",
   },
+  {
+    argv: '. --wave "THE INSTAR" --auto both --until instarShow:step=4 --until-on 3',
+    what: "the fifth show, not the first: a firing picked by the fields a miss prints",
+  },
   { argv: ". --wave 21 --events", what: "what fired, and on which tick" },
   {
     argv: '. --wave "THE VISE" --auto both --until viseHit --until-on 2',

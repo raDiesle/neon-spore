@@ -45,10 +45,11 @@ export function parseUntil(
     }
     return undefined;
   }
-  const event = value.trim();
+  const [event = "", fields] = splitOnce(value.trim(), ":");
   if (!event || event.startsWith("--")) {
     throw new Error("--until needs an event to stop on: --until breach, --until waveFailed");
   }
+  const where = fields === undefined ? undefined : whereOf(event, fields);
   if (had.ticks) {
     throw new Error(
       `--until ${event} and --ticks both say when the picture is taken, and they disagree. ` +
@@ -72,6 +73,7 @@ export function parseUntil(
   const on = onTicks(event, cap, had);
   return {
     event,
+    ...(where === undefined ? {} : { where }),
     cap: Math.floor(cap),
     ...(back === undefined ? {} : { back: Math.floor(back) }),
     ...(on === undefined ? {} : { on }),
@@ -104,4 +106,29 @@ function onTicks(event: string, cap: number, had: { back?: string; on?: string }
     );
   }
   return Math.floor(on);
+}
+
+function splitOnce(text: string, by: string): [string, string | undefined] {
+  const at = text.indexOf(by);
+  return at < 0 ? [text, undefined] : [text.slice(0, at), text.slice(at + 1)];
+}
+
+/**
+ * The fields after `--until event:`, each a `key=value` the firing must say
+ * (`until.ts`'s `UntilWant`). Refused when one is not a pair: a field typed
+ * wrong would otherwise match nothing, and come back a miss that names every
+ * event but the one meant.
+ */
+function whereOf(event: string, fields: string): string[] {
+  const where = fields.split(",").map((f) => f.trim());
+  for (const one of where) {
+    const [key, v] = splitOnce(one, "=");
+    if (!key || !v) {
+      throw new Error(
+        `--until ${event}:${fields}: "${one}" is not a field. Write key=value, as a miss ` +
+          "prints them: --until instarShow:step=4",
+      );
+    }
+  }
+  return where;
 }

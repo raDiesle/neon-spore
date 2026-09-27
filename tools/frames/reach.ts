@@ -55,7 +55,7 @@ export async function reachFirstFrame(
   // `--until shieldPush` — once walked past it blind and called it missed.
   let sent = 0;
   for (const step of plan) {
-    if (step.advance > 0) at = await d.advance(step.advance, until?.event);
+    if (step.advance > 0) at = await d.advance(step.advance, until);
     if (at !== null) break;
     if (step.press) await d.press(step.press);
     sent++;

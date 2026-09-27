@@ -39,10 +39,36 @@
  * the same drive stepped N further on from the event, not a second run.
  */
 
-/** A stopping condition: which event, and how far to look for it. */
-export interface UntilSpec {
+/**
+ * **Which firing, when an event fires more than once.** `--until
+ * instarShow:step=4` stops on the show of THE INSTAR's fifth step and not its
+ * first, matched against the same `key=value` scalars a miss prints
+ * (`Fired.detail`). A boss fires one show a step, and a shield window open
+ * for one tick under AUTO was found by eight runs bisecting `--until-back`
+ * (`docs/queue.md`, 27 September 2026) before this.
+ */
+export interface UntilWant {
   /** The `SimEvent.type` to stop on, as a person types it. */
   event: string;
+  /** Every `key=value` the firing must say about itself; absent is any firing. */
+  where?: readonly string[];
+}
+
+/** Whether one firing is the one `want` waits for. The page's own copy of this
+ * test is in `drive.ts`, which cannot import across `page.evaluate`. */
+export function firesUntil(want: UntilWant, type: string, detail: string | undefined): boolean {
+  if (type !== want.event) return false;
+  const said = detail === undefined ? [] : detail.split(" ");
+  return (want.where ?? []).every((w) => said.includes(w));
+}
+
+/** The wait as it was typed: the event, and its fields after a colon. */
+export function untilName(want: UntilWant): string {
+  return want.where?.length ? `${want.event}:${want.where.join(",")}` : want.event;
+}
+
+/** A stopping condition: which event, and how far to look for it. */
+export interface UntilSpec extends UntilWant {
   /** How many ticks to look, counted from wherever the opening left off. */
   cap: number;
   /**
@@ -159,7 +185,7 @@ export function missedNote(
       "write --hold <name>=<distance>@<tick> to hold during it"
     : "";
   return (
-    `--until ${until.event}: nothing of that type fired in ${until.cap} ticks from ` +
+    `--until ${untilName(until)}: nothing of that ${until.where?.length ? "kind" : "type"} fired in ${until.cap} ticks from ` +
     `world.tick ${from}. ${firedNote(log)}. Look further with --until-ticks, or name one of those` +
     holds
   );

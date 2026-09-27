@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import type { Driver } from "../drive.js";
 import { reachFirstFrame } from "../reach.js";
 import type { PressSpec } from "../spec.js";
-import type { Fired } from "../until.js";
+import { type Fired, firesUntil, type UntilWant } from "../until.js";
 
 /**
  * **`--until` with presses that go on past the event.** The wait was handed to
@@ -18,12 +18,12 @@ function scripted(tick: number, event: string): Driver & { at: number } {
   const heard: Fired[] = [];
   const state = {
     at: 0,
-    async advance(n: number, until?: string): Promise<number | null> {
+    async advance(n: number, until?: UntilWant): Promise<number | null> {
       const end = state.at + n;
       let stop: number | null = null;
       if (tick > state.at && tick <= end) {
         heard.push({ tick, type: event });
-        if (until === event) stop = tick;
+        if (until && firesUntil(until, event, undefined)) stop = tick;
       }
       state.at = stop ?? end;
       return stop;

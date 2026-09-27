@@ -26350,3 +26350,16 @@ Bottleneck: looking — `bun run frames` has no way to stop inside the Nth
 step's window, so the tick was found by bisecting `--until-back`.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `bun run frames --until` picks a firing by its fields
+
+- reading: 10 min. `until.ts`, `until-flags.ts`, the driver's page loop and
+  the two fake drivers.
+- writing: 10 min. The colon's fields, the match on both sides of
+  `page.evaluate`, the recipe and the tests.
+- looking: 5 min. One real run to THE INSTAR's fifth show, on the tick.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the match has to be written twice, once in the page
+where nothing can be imported, and finding that took the reading.

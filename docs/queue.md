@@ -2705,18 +2705,3 @@ cannon colours.
 
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
-
-## `bun run frames --until` cannot name which firing of an event
-
-- **Found:** 2026-09-27, claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds
-- **Taken:** 2026-09-27, claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds (claim: claude/queue-bun-run-frames-until-cannot-name-which-firing-of)
-- **Files:** `tools/frames/until.ts`, `tools/frames/until-flags.ts`, `tools/frames/recipes.ts`
-
-Photographing THE INSTAR's fifth step (a shield mark, open for one tick
-under AUTO) took eight runs of `--until fire --until-back N` bisecting for
-the tick. `--until` stops on the event's first firing, and a boss fires
-`instarShow` once a step. Let the flag take the event's own fields after a
-colon, `--until instarShow:step=4`, matched against the `key=value` scalars
-`until.ts` already prints for a miss, so a step, a mark or a column picks
-the firing. Add a recipe line, and a test in `tools/frames/test/` that
-stops on the second of two firings. `bun run check` proves it.

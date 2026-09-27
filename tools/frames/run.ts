@@ -85,7 +85,7 @@ async function main(): Promise<void> {
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
         "[--settle N] [--size WxH] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
         "[--creature key=value,…] [--raster] [--auto both|p1|p2 [--auto-miss]] " +
-        "[--until EVENT] [--until-ticks N] [--until-back N | --until-on N] [--events] " +
+        "[--until EVENT[:key=value,…]] [--until-ticks N] [--until-back N | --until-on N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR] — recipes: --help",
     );
   }

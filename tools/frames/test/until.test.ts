@@ -3,7 +3,14 @@ import type { Driver } from "../drive.js";
 import { parseFrameSpec } from "../flags.js";
 import type { PressSpec } from "../press-spec.js";
 import { reachFirstFrame } from "../reach.js";
-import { backTick, type Fired, firedNote, missedNote } from "../until.js";
+import {
+  backTick,
+  type Fired,
+  firedNote,
+  firesUntil,
+  missedNote,
+  type UntilWant,
+} from "../until.js";
 import { DEFAULT_UNTIL_TICKS, parseUntil } from "../until-flags.js";
 
 /**
@@ -143,12 +150,12 @@ function fakeDriver(fires: { tick: number; type: string }, from = 0): Driver & {
   const heard: Fired[] = [];
   const state = {
     at: from,
-    async advance(n: number, until?: string): Promise<number | null> {
+    async advance(n: number, until?: UntilWant): Promise<number | null> {
       const end = state.at + n;
       let stop: number | null = null;
       if (fires.tick > state.at && fires.tick <= end) {
         heard.push({ tick: fires.tick, type: fires.type });
-        if (until === fires.type) stop = fires.tick;
+        if (until && firesUntil(until, fires.type, undefined)) stop = fires.tick;
       }
       state.at = stop ?? end;
       return stop;

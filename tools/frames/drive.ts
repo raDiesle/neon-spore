@@ -1,7 +1,7 @@
 import type { Page } from "playwright-core";
 import type { Sent } from "./report.js";
 import type { PressSpec } from "./spec.js";
-import type { Fired } from "./until.js";
+import type { Fired, UntilWant } from "./until.js";
 
 /**
  * **The four verbs a capture drives the page with**, and the rules each of
@@ -17,12 +17,13 @@ export interface Driver {
    * `n` steps of whichever clock this capture is on — the world's, or a
    * rehearsal's painted one when `filmDt` was given.
    *
-   * `until` is a `SimEvent.type` to stop early on: the run ends on the tick
-   * that event fires and the tick comes back, or the whole `n` is spent and
-   * `null` does (`until.ts`). Every event of every tick stepped is collected
-   * either way, which is what makes a miss answerable.
+   * `until` is a `SimEvent.type` to stop early on, and the fields that pick
+   * which firing: the run ends on the tick that one fires and the tick comes
+   * back, or the whole `n` is spent and `null` does (`until.ts`). Every event
+   * of every tick stepped is collected either way, which is what makes a
+   * miss answerable.
    */
-  advance(n: number, until?: string): Promise<number | null>;
+  advance(n: number, until?: UntilWant): Promise<number | null>;
   /** One press into the page, with its `pick` resolved where the field can be
    * seen and a tap held back until the beat turns over. */
   press(one: PressSpec): Promise<void>;
@@ -64,7 +65,8 @@ const FRAME_CAP = 0.05;
 export function makeDriver(page: Page, filmDt: number | undefined): Driver {
   const log: Fired[] = [];
   const pressed: Sent[] = [];
-  const advance = async (n: number, until?: string): Promise<number | null> => {
+  const advance = async (n: number, until?: UntilWant): Promise<number | null> => {
+    const want = until === undefined ? undefined : { event: until.event, where: until.where ?? [] };
     const said = await page.evaluate(
       ([count, dt, cap, want]) => {
         const ns = window.neonSpore;
@@ -109,19 +111,26 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
             for (const event of ns.world.events) {
               const type = (event as { type?: unknown }).type;
               if (typeof type !== "string") continue;
-              heard.push({
-                tick: ns.world.tick,
-                type,
-                detail: detailOf(event as Record<string, unknown>),
-              });
-              if (type === want) at = ns.world.tick;
+              const detail = detailOf(event as Record<string, unknown>);
+              heard.push({ tick: ns.world.tick, type, detail });
+              // `until.ts`'s `firesUntil`, which cannot be imported in here.
+              const said = detail === undefined ? [] : detail.split(" ");
+              const aim = want as { event: string; where: string[] } | undefined;
+              if (aim && type === aim.event && aim.where.every((w) => said.includes(w))) {
+                at = ns.world.tick;
+              }
             }
           }
           ns.paint(stepped / tickHz);
         }
         return { heard, at };
       },
-      [n, filmDt, FRAME_CAP, until] as [number, number | undefined, number, string | undefined],
+      [n, filmDt, FRAME_CAP, want] as [
+        number,
+        number | undefined,
+        number,
+        { event: string; where: readonly string[] } | undefined,
+      ],
     );
     log.push(...said.heard);
     return said.at;
