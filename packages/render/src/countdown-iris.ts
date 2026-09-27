@@ -25,9 +25,10 @@ import { rgba } from "./hex.js";
  * The navigator sees an eye that never blinks.
  */
 
-/** The socket's radius as a share of the body's, and the core's. */
-const SOCKET = 0.52;
-const CORE = 0.17;
+/** The socket's radius as a share of the body's, and the core's. Exported
+ * for a candidate that redraws the socket (`tools/versus/`). */
+export const SOCKET = 0.52;
+export const CORE = 0.17;
 const TAU = Math.PI * 2;
 const TOP = -Math.PI / 2;
 

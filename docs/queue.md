@@ -2730,25 +2730,6 @@ cloud, ghost and fence (the light already follows, or the shape is rigid).
 The field moves too: wash, corner light and ship air breathe in alpha,
 shafts and motes drift (`backdrop.ts`, `light-shafts.ts`).
 
-## A count's socket and a throb's far half hide the two cores that would move them
-
-- **Found:** 2026-09-27, claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th
-- **Taken:** 2026-09-27, claude/queue-the-wisps-arms-leave-their-own-light-when-they-s (claim: claude/queue-a-counts-socket-and-a-throbs-far-half-hide-the-t)
-- **Files:** `packages/render/src/countdown-iris.ts`, `packages/render/src/throb-pores.ts`, `packages/render/src/living-draw.ts`
-
-"COUNTDOWN, BEATBOX and THROB have no motion of their own" was answered with
-`creature:body-interior` / `drift` in VERSUS, which moves `BODY_LOOK`'s two
-cores — and a frame of a count and of a throb, shipped against the candidate,
-came out the same pixels. The count's socket (`countdown-iris.ts`) covers the
-middle of the body, and `living-draw.ts` paints the throb's far half
-(`THROB_LOOK.half`, `throb-pores.ts`) over the interior on purpose. So an
-interior can never give those two a motion; only a box, a dart and a falling
-leech or limpet show it. What each needs is a term on its own mark, on `p.t` at
-a rate the contour does not use: the count's socket rim breathing a hair
-between blades, or the throb's pores drifting on a phase of their own rather
-than riding its rule-driven spin. Either is a look — a VERSUS candidate on
-`COUNTDOWN_LOOK`'s or `THROB_LOOK`'s record, never landed straight.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

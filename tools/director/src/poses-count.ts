@@ -41,3 +41,26 @@ export const COUNT_POSE: Pose = {
     return w;
   },
 };
+
+/**
+ * The same count on player 2's screen, which is the one where it never moves:
+ * no blades are drawn for that seat, only the socket and its core, and the
+ * navigator's eye never blinks (`countdown-iris.ts`). `countdown:eye` is
+ * judged here, because a look on that eye is invisible on the pilot's screen
+ * until zero and covered by the blazing core at zero.
+ */
+export const COUNT_EYE_POSE: Pose = {
+  name: "COUNT · THE NAVIGATOR'S EYE",
+  note: "One red count falling down the middle, on player 2's screen. That seat is never shown the count: the body is a socket with a bright core in it, and nothing on it changes as the beats go by.",
+  lookAt:
+    "the core in the socket — whether it reads as an eye that is alive or as a dot painted on",
+  crop: "tile",
+  span: 4,
+  role: "p2",
+  at: firstOfKind("countdown"),
+  build: () => {
+    const w = fresh([{ beat: 0, col: COL, kind: "countdown", color: "red" }]);
+    run(w, TPB * 2);
+    return w;
+  },
+};

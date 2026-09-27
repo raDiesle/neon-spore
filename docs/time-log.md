@@ -25656,3 +25656,17 @@ Bottleneck: looking — a fix inside a twenty-pixel ribbon is proven by where
 its gradient stands, not by a frame.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE COUNT's eye wanders in its socket, as a VERSUS candidate
+
+- reading: 5 min. The entry, `countdown-iris.ts`, `countdown-look.ts` and
+  `throb-pores.ts`.
+- writing: 10 min. The candidate on `COUNTDOWN_LOOK.over`, a navigator's
+  pose of one count, and the throb's reason for having none.
+- looking: 5 min. Four `versus:shot`s; at 0.06 of the radius the move was a
+  pixel, so it was widened to 0.09.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the size of a wander that reads on a phone had to be
+found off a magnified shot.

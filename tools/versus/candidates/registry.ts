@@ -6,6 +6,7 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { COUNTDOWN_EYE_DRIFT } from "./countdown-eye/drift/index.js";
 import { INTERIOR_DRIFT } from "./creature-body-interior/drift/index.js";
 import { INSTAR_EYE_BAKED } from "./instar-eye/baked/index.js";
 import { INSTAR_HEART_BAKED } from "./instar-heart/baked/index.js";
@@ -17,6 +18,7 @@ import { INSTAR_SPIT_BAKED } from "./instar-spit/baked/index.js";
 import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
 
 export const VARIANTS: Variant[] = [
+  COUNTDOWN_EYE_DRIFT,
   INTERIOR_DRIFT,
   INSTAR_EYE_BAKED,
   INSTAR_HEART_BAKED,

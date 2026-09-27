@@ -43,6 +43,7 @@ const SLOT_POSE: Record<string, string> = {
   "instar:spit": "INSTAR · THE GLOBS FALLING",
   "instar:wing": "INSTAR · THE JAW HALF PULLED",
   "creature:body-interior": "BODIES · THE TWO CORES",
+  "countdown:eye": "COUNT · THE NAVIGATOR'S EYE",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
