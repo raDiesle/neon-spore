@@ -26585,3 +26585,21 @@ finding the argument that says "lit" took each file a read of its caller.
 Bottleneck: looking — finding a tick where a window is open took a probe.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLOW: the fuse moves under the boss, and is taller
+
+- reading: 15 min. Where the fuse is drawn and who else draws it (THE
+  REPRISE, the director's lights), the aim, and where each boss's live marks
+  can be read from: THE INSTAR's own rings, every other boss's cues.
+- writing: 20 min. `slow-fuse-place.ts`, the fuse and THE REPRISE's measure
+  moved onto it, the unit test's placement rows and the walk over every boss
+  wave in `fuse-place.test.ts`.
+- looking: 10 min. THE INSTAR's window before and after; the first frame
+  showed the fuse centred between head and engines, and it now stands under
+  the lower end.
+- friction: 5 min. The walk timed out when the checks ran in parallel shards,
+  and the six bosses with no aim row turned up as false failures.
+- landing: 5 min. `imports:sort`, the index row, `check:fast`.
+
+Bottleneck: writing. THE UNDERTOW stands on the hull with its rings, so "no
+gap" needed a rule of its own.
