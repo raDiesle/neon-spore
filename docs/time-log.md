@@ -25903,3 +25903,19 @@ Bottleneck: writing — the pins had no seam and no pose, and both had to be
 made before anything could be seen.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §37 THE CAPSTAN — the look
+
+- reading: 0 min. THE HALTER's look lane, the drafts and the drum's state —
+  all read before the lane began.
+- writing: 10 min. The four `capstan-*.ts` render files, the dispatch arm,
+  the hues, the frame test, the two drafts taken, §11.54's *The look* and
+  the queue's second half.
+- looking: 5 min. Three real frames: the drum at first too small against
+  THE HALTER and scaled up, and the RGB split over it traced to THE SLOW's
+  prism rather than to the draw.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the frame under THE SLOW — every band step is drawn through its
+prism, so a clean picture of the body had to wait for a fire step.

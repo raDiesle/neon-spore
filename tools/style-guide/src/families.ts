@@ -83,6 +83,11 @@ export const FAMILIES: Family[] = [
       "halterPlateDark",
       "halterFlesh",
       "halterFleshDark",
+      "capstanRust",
+      "capstanRustDark",
+      "capstanGrate",
+      "capstanWorn",
+      "capstanCore",
     ],
   },
   {

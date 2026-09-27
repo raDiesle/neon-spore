@@ -22,11 +22,10 @@ export const SYSTEM_DRAFTS: CatalogueEntry[] = [
   {
     subject: glyphed("BEARING RING", "a ring of marks that turns", 40, 40, 12, 0.35),
     motion: TURN,
-    status: "draft",
+    status: "taken",
     slot: "ship",
-    suggests: "Bearing waves",
     owner:
-      "a coordinate grid needs a zero, and a ring that turns has one you can name out loud without a number: the mark at the top. The one draft that is a reference rather than a body",
+      "THE CAPSTAN's two end faces, taken 27 September 2026 with CREATURES' GATE for the drum: a notched rim of twelve teeth round a grated band the pair wears bright, turning a tooth a reversal (`render/capstan-shape.ts`). Before that: a coordinate grid needs a zero, and a ring that turns has one you can name out loud without a number: the mark at the top. The one draft that is a reference rather than a body",
   },
   {
     subject: slab("CODE PLATE", "a plate on the hull, six-sided and flat", 34, 26, 5),

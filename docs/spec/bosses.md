@@ -10019,12 +10019,45 @@ hold, and the bared core is shot in its colour —
 `tools/director/test/autopilot-capstan.test.ts` plays the wave to its end
 with no stall, no cover and no hull hit.
 
-**What is not built.** Nothing of it is drawn: no drum, no cradle, no band,
-no core — the look is lane two. No touch sends `capstanRub` yet, and the
-field says no word: both answer *where the drum is*, which only its drawing
-can say, so they wait on the look. The fourteen sounds are bound
-(`packages/audio/src/bind-capstan.ts`), and the events are on the two silent
-lists until the look reads them.
+**The look** (`render/src/capstan-draw.ts`, 27 September 2026 — the body;
+its blow is the second half). **Two drafts combined**: CREATURES' GATE
+(`tools/shape-sheet/src/drafts/creatures.ts`), the square-shouldered bar at
+its own numbers, laid across the middle column as a winch drum on its side,
+and SYSTEMS' BEARING RING (`drafts/systems.ts`), a notched rim of twelve
+teeth, for each of its two end faces (`capstan-shape.ts`). It stands in a
+rust-dark cradle, a saddle with a horn either side on one post, and **the
+rock is the lean itself** (`capstan-pose.ts`): the cradle rolls about the
+post's foot by the steering seat's reading as a share of the mark, or with
+nobody steering by whichever phone is leaning further, so a phone tilted
+slowly rocks it slowly. **The turn is a yaw**: as it rocks, the bar narrows,
+the face it is turned toward comes round from a sliver to most of a disc and
+the other goes behind — a centred drum shows both as slivers, neither
+bared. Each face carries a band of eight marks (`capstanWearThreshold`),
+scrubbed from grate to bare metal one per reversal worn and its rim turning a
+tooth with each; worn bright the rim goes white for good (`capstan-marks.ts`).
+**The marks say which gesture**, in the hull's rim-white and nothing else: a
+chevron on the horn the lit band asks the lean toward, going dark as its
+face comes round, and on a hold faint on both; the bared face's rim lit on
+the beat while it is the one to rub; the core in the drum's middle, under a
+riveted cap hinged along its top, lit in a fire step's colour with a ring
+closing as its window runs. Through a hold the cap creeps back over the
+bared core as the window runs, and the beats the pair keeps push it open
+again. The drum **rattles** on three sines that keep no time together, twice
+as hard rusted, so a thumb that has stopped is read by the judder carrying
+on under it. Spent, the cap swings past its hinge and the drum lifts off its
+cradle and fades. **Both screens are drawn the same**: which seat steers is
+the step's, and each has to see the cradle go over and the band come round.
+AUTO's lean is a jump well past the mark, so under AUTO the cradle snaps
+over; a real phone's reading is continuous and so is the rock. Nothing of
+it outlives a frame: the events are heard, not drawn.
+
+**What is not built.** A shot run out has no blow of its own yet — it is
+drawn as the default lash — and nothing flashes on a mark worn, a band gone
+bright, a hit or the cap opening: the blow and the receipts are the look's
+second half. No touch sends `capstanRub` yet, and the field says no word;
+both can now be laid on the drawn face. The fourteen sounds are bound
+(`packages/audio/src/bind-capstan.ts`), and the events stay on the two
+silent lists until the receipts read them.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/capstan.test.ts`): the drum comes in rusted with the core

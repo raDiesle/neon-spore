@@ -1499,6 +1499,10 @@ by hand never moves.
 | `packages/render/src/caption-anchor-boss-f.ts` | **Where the fixtures of THE GAUGE, THE MAZE and THE REPRISE are** — the sixth of `caption-anchor-boss.ts` |
 | `packages/render/src/caption-anchor-box.ts` | **The ring round a boss's fixture** — the two shapes every line of `caption-anchor-boss*.ts` answers with |
 | `packages/render/src/caption-hull-room.ts` | A caption on a control stands above THE UNDERTOW's lobes rather than over the plating they come through |
+| `packages/render/src/capstan-draw.ts` | **THE CAPSTAN**: a rusted drum on its side in a rocking cradle, its two end faces and the core under a cap |
+| `packages/render/src/capstan-marks.ts` | **THE CAPSTAN's marks**: the lit horn, band and core, and a band's health as its marks |
+| `packages/render/src/capstan-pose.ts` | **The clock THE CAPSTAN is posed off**: the rock read off the lean, the cap, the rattle |
+| `packages/render/src/capstan-shape.ts` | **THE CAPSTAN's geometry**: GATE's bar and BEARING RING's faces, the yaw, the cradle |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-boss-hand.ts` | The ghost hand on a clock boss's own handle, on either seat |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |

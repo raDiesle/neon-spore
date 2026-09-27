@@ -17,4 +17,20 @@ export const LATE_CREATURE_HUES = {
    */
   halterFlesh: "#E9B08C",
   halterFleshDark: "#6B4536",
+  /**
+   * THE CAPSTAN's drum (§37, *Colour*): a dull corroded rust, orange gone
+   * brown, and its shadow — warm, but far enough from the red cannon's pink
+   * that nothing on the drum reads as a colour asked for.
+   */
+  capstanRust: "#8A5236",
+  capstanRustDark: "#2C1A12",
+  /**
+   * A band's marks: the dull grate while they are unworn, and the bare metal
+   * a reversal wears each one down to — pale and a little warm, so a worn
+   * band reads as scrubbed, not as a lit mark, which is the rim's white.
+   */
+  capstanGrate: "#4B3A30",
+  capstanWorn: "#E4DACB",
+  /** The soft core under the cap, while no shot is owed. */
+  capstanCore: "#7B5A49",
 } as const;

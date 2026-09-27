@@ -123,11 +123,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
   {
     subject: slab("GATE", "a bar across the lane, square-shouldered", 62, 20, 4),
     motion: HEAVE,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Wave gate",
     owner:
-      "flat, made and wider than its column is generous — nothing else on the field looks like an obstruction, which is the whole point of a creature that arrives and refuses to leave",
+      "THE CAPSTAN's drum, taken 27 September 2026 with SYSTEMS' BEARING RING for its two end faces: the bar at its own numbers laid across the middle column as a winch drum on its side, narrowing as its cradle turns it (`render/capstan-shape.ts`). Before that: flat, made and wider than its column is generous — nothing else on the field looks like an obstruction, which is the whole point of a creature that arrives and refuses to leave",
   },
   {
     subject: sac("TENDRIL", "long, hanging, boneless", 0.34, 24, 66),

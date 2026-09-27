@@ -898,14 +898,13 @@ what the rest of this file holds.
 ## §37 THE CAPSTAN — the rub's touch and the cue
 
 - **Found:** 2026-09-27, claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the
-- **Needs:** §37 THE CAPSTAN — the look, below, landed first
 - **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/on-field-controls.test.ts`
 
 The lean goes out and AUTO plays the wave (§11.54, *The lean, and AUTO*);
-what is left needs the drum on the screen. A press on the bared face's
+the drum is on the screen (§11.54, *The look*). A press on the bared face's
 band, on either seat's screen, takes a rub (`rubFinger`, `rub.ts`, THE
 GRINDSTONE's flat) on `capstanRub` — the hit test reading the drum and the
-cradle's rock where the look draws them, in a new capstan-grip.ts, the way `grindstone-grip.ts` reads
+cradle's rock where `capstan-draw.ts` draws them (`capstanFaceAt`, `capstanFaceWidth`, `capstanPivot`), in a new capstan-grip.ts, the way `grindstone-grip.ts` reads
 the wheel. The cue says `LEAN` to the seat the step steers with and `RUB`
 to the other (on a hold, to whichever seat is leaning, then the other), and
 `FIRE` under a bared core; its own `boss-cue-read-*.ts` page, as THE
@@ -913,24 +912,23 @@ HALTER's is. `on-field-controls.test.ts` marks `capstanRub` on the field.
 `bun run check` proves it; how a rub under a rocking drum feels stays
 unverified until the owner holds two phones.
 
-## §37 THE CAPSTAN — the look
+## §37 THE CAPSTAN — the blow and the receipts
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the (claim: claude/queue-37-the-capstan-the-look)
-- **Needs:** §37 THE CAPSTAN's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-look
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/capstan-draw.ts`
 
-Lane two, read against `docs/style-guide.md`: a new silhouette (check
-`packages/content/src/silhouettes*.ts` first, then
-`tools/shape-sheet/src/drafts/`) for a squat rusted drum on a rocking
-cradle, the cradle's lean slow and visible rather than a snap so which
-face is exposed reads at a glance, and a continuous rattle that keeps
-judder under a wiping hand that has paused — the same drawn-as-mechanism
-choice THE PLUMB's own lean already makes. No sprite-atlas experiment
-queued: the cradle is driven by the live tilt reading every tick, not
-resolved once per beat, the same reasoning THE DAVIT's boom was ruled out
-on. Nothing here is drawn yet and stays unverified at tempo until the
-owner has looked.
+The body is drawn (§11.54, *The look*); the look's second half is left. A
+shot run out is drawn as the default lash: give it its own blow in a new
+capstan-blow.ts, the way `halter-blow.ts` is THE HALTER's — the drum's own
+thing thrown down the middle column (a band's torn tooth, or the cap
+itself), with its row in `boss-strike-from.ts` and `boss-strike-look.ts`
+and in `boss-strike.test.ts`. Then the receipts, in a capstan-fx.ts read
+above the loop and kept in `BossTransients` (`effects-boss.ts`, with the
+reset proved by `restart.test.ts`): a flash on the mark `capstanWear`
+scrubs, the rim's ring on `capstanBright`, the core's hurt on
+`capstanHit`, and the cap's burst on `capstanOpen` — taking those events
+out of the two silent lists' reason. `bun run check` proves it; how it
+reads at tempo stays the owner's eye.
 
 ## §38 THE GALL — the simulation lane
 

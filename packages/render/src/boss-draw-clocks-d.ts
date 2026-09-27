@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
@@ -35,6 +36,7 @@ export const LATE_PAIR_KINDS = [
   "cyst",
   "grindstone",
   "halter",
+  "capstan",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -120,5 +122,14 @@ export function drawLatePairBoss(
   // each parted while one seat touches nothing and the other holds both
   // grips, the bared centre shot; its tell is the tremor stopping
   // (`halter-draw.ts`). Nothing of it outlives a frame.
-  drawHalter(ctx, l, world, boss, beat, beatPhase, time);
+  if (boss.kind === "halter") {
+    drawHalter(ctx, l, world, boss, beat, beatPhase, time);
+    return;
+  }
+
+  // THE CAPSTAN: a rusted drum on its side in a cradle, rocked by one seat's
+  // lean so one end face comes round and worn bright by the other's thumb, a
+  // core under a cap in its middle both cannons hit (`capstan-draw.ts`).
+  // Nothing of it outlives a frame yet.
+  drawCapstan(ctx, l, world, boss, beat, beatPhase, time);
 }
