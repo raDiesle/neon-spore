@@ -26032,3 +26032,14 @@ in `controls.md` that the queue entry never named — three files found by the
 test failing, not by reading.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — A boss's face looks at the players, never away
+
+- reading: 5 min. The living-bosses entries and section 1 of the spec.
+- writing: 5 min. The rule in the spec, and a line in three queue entries.
+- looking: 0 min.
+- friction: 5 min. A missing workspace link stopped `check:fast` until
+  `bun install --force`; a wrapped line broke one scripted replacement.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the worktree's install was missing a link.

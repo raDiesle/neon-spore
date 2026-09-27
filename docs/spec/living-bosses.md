@@ -47,6 +47,19 @@ cycle later, at half the size, through `chainAt` in
 moment later by a body that turns a little right, which is what an animal
 does and what makes the turn read as intent rather than as a rotating model.
 
+**A face looks at the players, never away** (the owner, 27 September 2026:
+it should look as though it wants to fight the players' screen — more
+exciting, and better graphics). Every boss with a face turns and tilts its
+head toward the person holding the phone: the face's rest points out of the
+screen, at the viewer, not along the field or off to one side. The head's
+drift wanders *around* that rest and never carries the face past side-on,
+away from the viewer; the tilt leans the face toward the screen, not up over
+it. A body seen from the side — THE INSTAR — keeps its body side-on and turns
+its head toward the viewer, so the eyes and mouth are seen; the "away" half
+of the head yaw is folded back toward the players. The eyes' glance
+(section 1, "Every part moves on its own") looks at the viewer as its rest,
+not straight ahead of the body.
+
 Each angle is `noise1` of time with its own seed, eased so its speed is never
 more than about 12° a second. That is the **never snaps** rule, and it is
 tested, not reviewed: a test samples the drift at every frame of ten minutes
@@ -376,8 +389,9 @@ roll and the undulation of `packages/render/src/instar-profile-life.ts` stay
 as they are, on the thicker body.
 
 **The whole body keeps turning.** The profile goes through `view(yaw)`
-with the idle drift of section 1 on top of `SIDE`: the head looks toward the
-players and away, the body follows a quarter cycle behind, the near wing and
+with the idle drift of section 1 on top of `SIDE`: the head turns toward the
+players and back, never away from them (section 1, "A face looks at the
+players"), the body follows a quarter cycle behind, the near wing and
 the far wing change sizes as it does. At the drift's widest the players see
 a third of the way round the chest; at its narrowest a little of the back.
 

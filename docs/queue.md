@@ -2357,7 +2357,11 @@ sent to the owner; op count within 10%. `bun run check` proves the tests.
 
 The owner: the full body should keep turning — look left, then right, the
 body too — so it reads 3D. Draw the side-on body through `view(SIDE + yaw)`
-with the idle drift's angles, head leading, and hush it to a tenth over
+with the idle drift's angles, head leading — the head turned toward the
+viewer, so its eyes and mouth face the players' screen, and the drift's
+"away" half folded back toward them (the owner, 27 September 2026:
+`docs/spec/living-bosses.md` section 1, "A face looks at the players") —
+and hush it to a tenth over
 windows with live marks (it was a third; the owner, 27 September 2026). The mark hit test goes through the same projection
 (`instarMarkUnder`), so a drifted mark is found where it is drawn. Give every
 part its own `partDrift` on its anchor, as section 1's part map lists them:
@@ -2367,7 +2371,8 @@ the jaw's while the script opens it. A VERSUS candidate beside the
 fixed-angle body.
 
 Done when: a test presses every mark of every step at the drift's widest
-yaw, with every part at its widest too, and finds it; `packages/render/test/baked-growth.test.ts` stays flat
+yaw, with every part at its widest too, and finds it; a test finds the face
+turned toward the viewer, never away, at every sampled frame of ten minutes; `packages/render/test/baked-growth.test.ts` stays flat
 with the drift running; op count within 10%; a strip of eight frames across
 ten seconds is sent to the owner. `bun run check` proves the tests.
 
@@ -2422,7 +2427,10 @@ each part it has on its own anchor, give it the idle drift with its own seed
 and its hush over windows, give each part its `partDrift` (section 1, "Every
 part moves on its own" — at most eight, the head first where it has one, a
 mechanism's parts only where they hang or hinge), and offer it as
-a VERSUS candidate with its five-yaw sheet sent to the owner. Leave this
+a VERSUS candidate with its five-yaw sheet sent to the owner. Where it has a
+face, the head turns and tilts toward the players' screen and its drift never
+carries the face away past side-on (the owner, 27 September 2026:
+`docs/spec/living-bosses.md` section 1, "A face looks at the players"). Leave this
 entry with the rest listed; the last lane removes it and the two DEFERRED
 entries.
 
@@ -2439,7 +2447,10 @@ flat. `bun run check` proves the tests.
 
 Section 1 of `docs/spec/living-bosses.md`, the outline tier: a boss not on
 the rig takes the idle drift as a pose — lean, a small squash across the
-turn, a head offset where it has a head, surface marks moved by longitude
+turn, a head offset where it has a head — toward the players' screen, the
+face turned and tilted at the viewer and never away (the owner, 27 September
+2026: `docs/spec/living-bosses.md` section 1, "A face looks at the
+players") — surface marks moved by longitude
 through `pin`/`facet`. Each part the part map in section 1 marks **ready**
 also takes its `partDrift` inside its own save, translate to its joint,
 rotate and restore, with the turn shown as a squash by its cosine. Take the
