@@ -2805,6 +2805,7 @@ test proves each of them fires. `bun run check` proves it.
 ## VERSUS — drop four the owner could not tell apart
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-versus-adopt-five-the-instars-spit-eye-nest-and (claim: claude/queue-versus-drop-four-the-owner-could-not-tell-apart)
 - **Files:** `tools/versus/candidates/registry.ts`, `tools/versus/DECIDED.md`, `tools/versus/candidates/ratchet-plate/sway/index.ts`, `tools/versus/candidates/instar-seam/baked/index.ts`, `tools/versus/candidates/creature-skin/drift/index.ts`, `tools/versus/candidates/creature-body-interior/drift/index.ts`
 
 The owner, 27 September 2026, on `ratchet-plate sway`, `instar:seam baked`,
