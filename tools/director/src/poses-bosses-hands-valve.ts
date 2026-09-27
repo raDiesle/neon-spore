@@ -1,15 +1,20 @@
+import { valveHand } from "@neon-spore/hands";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **THE VALVE's still**, the one of its ten states posed so far: the drum
- * dropped in and standing, all three pins hung under it, no step lit yet.
- * The other nine are the look lane's and stay on `OWED`
- * (`test/boss-states.test.ts`).
+ * **THE VALVE's ten states**, posed with a hand on the controls
+ * (`boss-hands-valve.ts`): the still and the first lit mark arrive by
+ * themselves, and the rest are earned the way the pair earns them — the
+ * pilot's thumb turning the wheel onto its mark, the navigator's tap on the
+ * socket freezing it, the live pin drawn down, and the story between the
+ * pins answered: the jet capped, the brace and the seal held by both thumbs,
+ * the film rubbed off. The hand sends the grip's own commands, the ones
+ * `poses-field-controls-valve.ts` sends by hand.
  *
- * `valve:pin` is judged here, because every pin is still in and nothing of
- * the story is moving: a pin swinging on its own is only seen where the
- * drum is otherwise still.
+ * `valve:pin` is judged on the still, because every pin is still in and
+ * nothing of the story is moving: a pin swinging on its own is only seen
+ * where the drum is otherwise still.
  */
 export const VALVE_POSES: Pose[] = [
   bossPose(
@@ -20,5 +25,59 @@ export const VALVE_POSES: Pose[] = [
       hold: Math.round(TPB * 1.9),
       lookAt: "the three hung pins — whether they hang from the drum or are bolted to it",
     },
+  ),
+  bossPose(
+    "valve",
+    "turn",
+    "The first mark lit on the drum's face. P1 turns the wheel onto it; P2 waits.",
+    { hold: 6, role: "p1" },
+  ),
+  bossPose(
+    "valve",
+    "hold",
+    "The wheel on its mark, the socket flashing. P1 holds the wheel; P2 taps the socket.",
+    { hand: valveHand, hold: 2, role: "p2" },
+  ),
+  bossPose(
+    "valve",
+    "frozen",
+    "The wheel frozen, the live pin hanging long and lit. P1 lets go; P2 draws the pin down.",
+    { hand: valveHand, hold: 2 },
+  ),
+  bossPose(
+    "valve",
+    "jet",
+    "The first pin out, its socket blowing back. P1 waits; P2 taps the pin to cap it.",
+    { hand: valveHand, hold: 2, budgetBeats: 90 },
+  ),
+  bossPose(
+    "valve",
+    "list",
+    "The jet capped, the drum listing, a spark falling. P1 aims under it; P2 fires.",
+    { hand: valveHand, hold: 6, budgetBeats: 90 },
+  ),
+  bossPose(
+    "valve",
+    "brace",
+    "The second pin out, the drum shuddering. P1 and P2 hold the pin together.",
+    { hand: valveHand, hold: 2, budgetBeats: 160 },
+  ),
+  bossPose(
+    "valve",
+    "wipe",
+    "The last pin out, a film over the face. P1 waits; P2 rubs the pin back and forth.",
+    { hand: valveHand, hold: 6, budgetBeats: 240 },
+  ),
+  bossPose(
+    "valve",
+    "seal",
+    "The face wiped dry, the bare seal straining. P1 and P2 hold the pin together.",
+    { hand: valveHand, hold: 2, budgetBeats: 240 },
+  ),
+  bossPose(
+    "valve",
+    "open",
+    "The seal held, the face falling open in two halves. P1 and P2 are done.",
+    { hand: valveHand, hold: 6, budgetBeats: 240 },
   ),
 ];

@@ -27497,3 +27497,17 @@ Bottleneck: writing — `handle-place-boss.ts` sat at its length, so the
 valve's two handles began with a split along its later bosses.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §25 THE VALVE — its STATES poses
+
+- reading: 5 min. THE KEEL's hand-played poses, `valveHand`, the OWED
+  table and the story's rules for which phase follows which.
+- writing: 5 min. Nine poses on `valveHand`, the OWED row struck, the
+  entry cut down to the story.
+- looking: 0 min. Every pose is proven to arrive by `poses.test.ts`; none
+  was looked at in the director.
+- friction: 5 min. The card form's 120 characters and P1/P2 in each, found
+  one card at a time.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the card form's rules surfaced one failure per run.
