@@ -2288,6 +2288,7 @@ part list); op count within 10% for both layers together;
 ## Living bosses — the mechanisms swing what hangs or hinges, six per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-every-other-boss-no-mark-before-its-window-opens (claim: claude/queue-living-bosses-the-mechanisms-swing-what-hangs-or)
 - **Where:** local
 - **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
 - **Files:** `packages/render/src/vane-draw.ts`, `packages/render/src/davit-draw.ts`, `packages/render/src/plumb-draw.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/src/trivet-draw.ts`, `packages/render/src/sling-draw.ts`, `docs/spec/living-bosses.md`
