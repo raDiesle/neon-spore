@@ -1795,6 +1795,7 @@ window closes, and prove it with a test in `tools/frames/test/`.
 ## A cloud claim does not stop the owner's own session landing the same boss
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
+- **Taken:** 2026-09-27, claude/queue-bun-run-push-leaves-release-note-shas-that-are-n (claim: claude/queue-a-cloud-claim-does-not-stop-the-owners-own-sessi)
 - **Files:** `tools/queue/run.ts`, `docs/cloud-session.md`
 
 A cloud session claimed "§34 THE CYST — the simulation lane" and had it
