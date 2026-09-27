@@ -118,7 +118,7 @@ export function drawInstar(
   ctx.restore();
   // The second act's own things: the heart lit in the bare body, and what the
   // rear and the spread throw at the hull on its way down (§11.32).
-  drawInstarHeart(ctx, l, s, f, sway, beatPhase, fade);
+  drawInstarHeart(ctx, l, cfg, s, f, sway, beatPhase, fade);
   drawInstarSpit(ctx, l, s, sway, threat, { x: head.x, y: head.y + r * 0.9 }, time);
   fx.place(l, s, sway, threat, head, r);
   drawInstarMarks(ctx, l, s, cfg, beat, beatPhase, time, morph, l.role, fx.verdicts);

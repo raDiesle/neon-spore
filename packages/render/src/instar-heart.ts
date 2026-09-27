@@ -1,6 +1,6 @@
-import { type InstarState, instarStep } from "@neon-spore/sim";
+import { type InstarState, instarStep, type SimConfig } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
-import { instarMarkPoint, type Point } from "./instar-place.js";
+import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import type { Figure } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -26,15 +26,67 @@ export const HEART_LOOK: { paint: (ctx: CanvasRenderingContext2D, beat: HeartBea
     ctx.arc(at.x, at.y, r * 2.2, 0, Math.PI * 2);
     ctx.fill();
     // The heart itself: two lobes and a point, the shape the word already is.
-    const h = r * 0.55;
+    const [p0, c1, c2, p1, c3, c4] = heartCurves(at, r);
     ctx.fillStyle = rgba(PALETTE.redRim, 0.85 * a);
     ctx.beginPath();
-    ctx.moveTo(at.x, at.y + h);
-    ctx.bezierCurveTo(at.x - h * 1.4, at.y, at.x - h * 0.6, at.y - h * 1.1, at.x, at.y - h * 0.35);
-    ctx.bezierCurveTo(at.x + h * 0.6, at.y - h * 1.1, at.x + h * 1.4, at.y, at.x, at.y + h);
+    ctx.moveTo(p0.x, p0.y);
+    ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, p1.x, p1.y);
+    ctx.bezierCurveTo(c3.x, c3.y, c4.x, c4.y, p0.x, p0.y);
     ctx.fill();
   },
 };
+
+/** The heart's half-height in its `r`, and how far below its paint point its middle falls, in that half-height. */
+export const HEART_H = 0.55;
+export const HEART_MID = 0.2;
+
+/**
+ * The heart's outline about `at`, `r` its size: the point, two controls, the
+ * cleft, two controls — the second curve closes on the point. Painted this
+ * way by the shipped look, and asked by the test that finds it round the
+ * ring (`instar-heart.test.ts`).
+ */
+export function heartCurves(
+  at: Point,
+  r: number,
+): readonly [Point, Point, Point, Point, Point, Point] {
+  const h = r * HEART_H;
+  const { x, y } = at;
+  return [
+    { x, y: y + h },
+    { x: x - h * 1.4, y },
+    { x: x - h * 0.6, y: y - h * 1.1 },
+    { x, y: y - h * 0.35 },
+    { x: x + h * 0.6, y: y - h * 1.1 },
+    { x: x + h * 1.4, y },
+  ];
+}
+
+/**
+ * The heart's size in mark radii, at rest and added on the thump. The owner,
+ * 27 September 2026: the ring sat over a heart no bigger than itself, so it
+ * could not be seen. Sized off the ring rather than the tile, so it stays a
+ * third of a mark radius clear of it at the ring's widest breath on every
+ * side (`instar-heart.test.ts`) whatever size a mark is set to.
+ */
+export const HEART_SIZE = { rest: 4.6, thump: 1.15 } as const;
+
+/**
+ * The heart as it beats this frame over the mark at `mark`: its paint point
+ * lifted so the middle of the shape, not its paint point, is on the mark.
+ */
+export function heartBeat(
+  l: Layout,
+  cfg: SimConfig,
+  mark: Point,
+  beatPhase: number,
+  a: number,
+): HeartBeat {
+  // A beat is a thump and a slower easing off.
+  const thump = Math.exp(-beatPhase * 5);
+  const r = instarMarkRadius(l, cfg) * (HEART_SIZE.rest + HEART_SIZE.thump * thump);
+  return { at: { x: mark.x, y: mark.y - r * HEART_H * HEART_MID }, r, thump, a };
+}
 
 /**
  * **The bare body's heart**, lit in the split along its back after the moult
@@ -49,6 +101,7 @@ export const HEART_LOOK: { paint: (ctx: CanvasRenderingContext2D, beat: HeartBea
 export function drawInstarHeart(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  cfg: SimConfig,
   s: InstarState,
   f: Figure,
   sway: { xMilli: number; yMilli: number },
@@ -58,12 +111,8 @@ export function drawInstarHeart(
   if (f.heart <= 0.01) return;
   const mark = instarStep(s)?.marks.find((m) => m.part === "heart");
   if (mark === undefined) return;
-  const at = instarMarkPoint(l, mark, sway, 0);
-  // A beat is a thump and a slower easing off.
-  const thump = Math.exp(-beatPhase * 5);
-  const a = f.heart * fade;
-  const r = l.tile * (0.9 + 0.35 * thump);
+  const beat = heartBeat(l, cfg, instarMarkPoint(l, mark, sway, 0), beatPhase, f.heart * fade);
   ctx.save();
-  HEART_LOOK.paint(ctx, { at, r, thump, a });
+  HEART_LOOK.paint(ctx, beat);
   ctx.restore();
 }

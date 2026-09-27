@@ -59,7 +59,8 @@ export function secondAct(breath: Figure): Record<Second & InstarPose, Figure> {
     },
     // After the moult: side-on and still, the old hide gone off both halves,
     // the new body pale and its heart lit through the split along the back.
-    bare: {
+    // Grown about its heart, so the one mark stays on it (`grownAbout`).
+    bare: grownAbout(BARE_HEART, BARE_GROWTH, {
       ...breath,
       headX: 230,
       headY: 310,
@@ -80,6 +81,38 @@ export function secondAct(breath: Figure): Record<Second & InstarPose, Figure> {
       shedNear: 1,
       shedFar: 1,
       heart: 1,
-    },
+    }),
+  };
+}
+
+/**
+ * How much bigger the bare body is than it was drawn at first. The owner, 27
+ * September 2026, on `instar:heart`: *making the body in this pose bigger …
+ * then we should also increase the heart, so we can see it although it sits
+ * behind the action circle.* A quarter bigger still leaves the hull and the
+ * fuse clear, and its heart grows with it (`instar-heart.ts`).
+ */
+export const BARE_GROWTH = 1.25;
+
+/** Where the bare body's heart is, thousandths of the field: the script's one mark on it (`content/instar-script-second.ts`). */
+export const BARE_HEART = { xMilli: 500, yMilli: 395 } as const;
+
+/** `f` grown by `k` about `at`: every place moved away from it, the head's radius — and with it the body's girth — scaled. */
+export function grownAbout(at: { xMilli: number; yMilli: number }, k: number, f: Figure): Figure {
+  const x = (v: number) => at.xMilli + (v - at.xMilli) * k;
+  const y = (v: number) => at.yMilli + (v - at.yMilli) * k;
+  return {
+    ...f,
+    headX: x(f.headX),
+    headY: y(f.headY),
+    headR: f.headR * k,
+    rearX: x(f.rearX),
+    rearY: y(f.rearY),
+    eggsX: x(f.eggsX),
+    eggsY: y(f.eggsY),
+    nestX: x(f.nestX),
+    nestY: y(f.nestY),
+    tailX: x(f.tailX),
+    tailY: y(f.tailY),
   };
 }

@@ -26077,3 +26077,18 @@ imported from `packages/render`, which was all five, so every slot was
 taken by hand.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's bare pose a quarter bigger, its heart seen round the mark
+
+- reading: 10 min. The queue entry, the bare pose, the heart, the ring and
+  how the ring breathes.
+- writing: 20 min. `grownAbout`, the heart sized off the mark radius and
+  centred on it, the test that samples its outline on every side.
+- looking: 10 min. The before and after frames; the head at the frame's edge
+  is the weave's swing, as it was before.
+- friction: 5 min. The new test wanted the frame timeout its harness import
+  asks for.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the ring covered the heart's thin lower flank, not its
+width, and only sampling the outline in every direction found it.

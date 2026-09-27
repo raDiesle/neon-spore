@@ -5,6 +5,9 @@ import { drawInstarGlyph } from "./instar-glyphs.js";
 import { drawInstarWait } from "./instar-mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 
+/** How far past its radius a ring breathes out: harder while its seat is awaited. */
+export const RING_SWELL = { awaited: 0.14, calm: 0.08 } as const;
+
 /**
  * The ring itself: red, brighter for the seat it wants, breathing until a
  * thumb lands, its arc filling as the part gives.
@@ -27,7 +30,7 @@ export function drawInstarRing(
   awaited: boolean,
 ): void {
   const beat = awaited ? 7 : 4;
-  const swell = awaited ? 0.14 : 0.08;
+  const swell = awaited ? RING_SWELL.awaited : RING_SWELL.calm;
   const breathe = held ? 1 : 1 + swell * Math.sin(time * beat);
   const p = new Path2D(circleSubpath(x, y, r * breathe));
   ctx.save();

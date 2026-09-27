@@ -2854,25 +2854,3 @@ adopt`.
 
 Done when: the moult slot is adopted and out of the registry; the costs are
 in DECIDED.md; the frame test is green. `bun run check` proves it.
-
-## THE INSTAR — the bare pose bigger, and its heart seen round the mark
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-living-bosses-the-idle-drift-a-helper-that-draws (claim: claude/queue-the-instar-the-bare-pose-bigger-and-its-heart-se)
-- **Files:** `packages/render/src/instar-poses-second.ts`, `packages/render/src/instar-heart.ts`, `packages/render/src/instar-heart-baked.ts`, `packages/content/src/instar-script-second.ts`, `tools/versus/candidates/instar-heart/baked/index.ts`
-
-The owner, 27 September 2026, on `instar:heart baked`: *I do not see a
-difference, probably because the action circle is above the heart. I suggest
-making the body in this pose bigger and looking better, then we should also
-increase the heart, so we can see it although it sits behind the action
-circle.* The second act ends in the `bare` pose, with one shoot mark on the
-heart at 500/395. Scale the bare body up (about 1.25 times, whatever still
-leaves the hull and the fuse clear). Size the heart so it stands out at
-least a third of a mark radius beyond the ring on every side. Move the mark
-with the heart. The bigger body and heart are a look the owner asked for by
-name, so they go on the field. The baked heart stays a candidate, and is
-shown again at the new size with one PNG so he can choose.
-
-Done when: a test finds the heart's radius at least 1.33 times the mark
-ring's; the mark is still hit where it is drawn; the PNG is sent. `bun run
-check` proves the tests.
