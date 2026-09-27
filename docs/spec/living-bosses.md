@@ -155,6 +155,16 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   The swing dies as the hem is gathered and stops in `out`.
   On the field under *a look with no shipped alternative*.
 
+  *THE TASTER, as built, 27 September 2026* (`taster-sway.ts`): one gust
+  runs across the fan, each blade's tip swinging a moment after the one
+  before it, like wheat. A tip swings by more than half a tile, and two
+  neighbours never differ by a fifth of a tile, so no two cross, since
+  crossed blades are how the fan says *closed*. The sway is the lean each
+  blade already had (`bladePath`), so the root stays in the crest. The
+  pin, the pry and the wipe are at the root or in an empty column, so
+  nothing pressed moves. Still in `closed` and `out`. On the field under
+  *a look with no shipped alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

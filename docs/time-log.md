@@ -27627,3 +27627,18 @@ trailing edge that would have uncovered a core only showed at the widest
 swing.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE TASTER's fan sways like a field of wheat
+
+- reading: 5 min. `taster-draw.ts`'s blade lean, and which of the taster's
+  marks are hit-tested at the root rather than the tip.
+- writing: 10 min. `taster-sway.ts`, the gust lag per blade, its test, the
+  pose tables, the spec note and the surface-marks entry's stale Needs line.
+- looking: 5 min. A probe of the sway per beat found beat 25, where the fan
+  leans widest.
+- friction: 5 min. The session ran out of context mid-lane and resumed
+  from its summary.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. The context ran out between the commit and the
+frame, so the lane had to be picked up again from its summary.

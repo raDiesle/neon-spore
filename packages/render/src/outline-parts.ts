@@ -42,7 +42,8 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * (`warden-drift.ts`); nor THE THROAT, whose rings swing (`throat-sway.ts`),
  * nor THE UNDERTOW, whose every lobe leans whole (`undertow-drift.ts`), nor
  * THE GORGE, whose lobes do the same (`gorge-drift.ts`), nor THE CURTAIN,
- * whose hem swings whole (`curtain-sway.ts`).
+ * whose hem swings whole (`curtain-sway.ts`), nor THE TASTER, whose blades
+ * sway by the lean they already had (`taster-sway.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   queen: 0,
@@ -53,6 +54,7 @@ export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   undertow: 0,
   gorge: 0,
   curtain: 0,
+  taster: 0,
 };
 
 export const PART = {

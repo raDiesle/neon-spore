@@ -2114,14 +2114,15 @@ on a phone. `bun run check` proves it.
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
-- **Needs:** Living bosses — the outline drift for the taster
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
 turns, and no outline body turns today: `OUTLINE_DRIFT` is 0 for all three
 slots, dropped as too small to see. So there is nothing for a mark to follow
 until an outline pose large enough to see ships with its hit tests following
-it, which the entry this needs is the first to do. Then place the marks that
+it. The outline drift for six more bosses landed on 27 September 2026 and
+shows how (`warden-drift.ts` is the worked example), but none of those six
+carries a surface mark, and the three slots here are still 0. Then place the marks that
 sit on an outline body's skin — THE REPRISE's veins and gloss, the queen's
 marks on her shell — by longitude through `pin`/`facet`, so a turn carries
 them round and one goes behind the rim; the same size rule, and a hit test
@@ -2130,33 +2131,3 @@ on a mark follows it.
 Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
-
-## Living bosses — the outline drift for the taster
-
-- **Found:** 2026-09-27, claude/queue-warden-drift
-- **Taken:** 2026-09-27, claude/queue-living-bosses-the-outline-drift-for-the-curtain (claim: claude/queue-living-bosses-the-outline-drift-for-the-taster)
-- **Where:** local
-- **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`
-
-The rest of "the next six", split off when THE WARDEN landed on its own
-(`warden-drift.ts`, `warden-frame.ts`); THE THROAT landed after it
-(`throat-sway.ts`), bowing between two held ends because a lean would part
-its gullet from its mouth, and THE UNDERTOW after that (`undertow-drift.ts`),
-each lobe on its own seed about the skin, and THE GORGE after that
-(`gorge-drift.ts`), each lobe about its intake with the pinch and pry
-rings carried on it, and THE CURTAIN after that (`curtain-sway.ts`), its
-hem swung across under a held rail, the beads left over their columns.
-THE WARDEN's lane is the worked example:
-root the pose where the boss's marks are (the warden's foot), lift its cap
-in `LIFTED` (`outline-drift.ts`), make every hit test, cue and anchor ask for
-the posed point, drive the pose off the beat so the hit test can compute it,
-and test that the widest point moves more than half a tile. Each goes
-straight onto the field under *a look with no shipped alternative*
-(`docs/looks.md`), not to VERSUS, and each can be its own lane:
-
-- **THE TASTER**: many tiles wide, so a lean about the middle is small at
-  the root and huge at the ends; pose each blade about its own joint
-  instead, and still the pose on its "out" phase.
-
-Add each boss to `OutlineBoss`, `OUTLINE_SEED` and `OUTLINE_PARTS`, and its
-test beside `warden-drift.test.ts`. Done when `bun run check` is green.

@@ -5,6 +5,7 @@ import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
 import { crestPath, drawNotch, drawSeam } from "./taster-crest.js";
 import { paintGum } from "./taster-flesh.js";
 import { drawTasterNext, drawTasterTally } from "./taster-read.js";
+import { tasterSway } from "./taster-sway.js";
 
 /**
  * THE TASTER, drawn: a low crest hugging the top of the field with a fan of
@@ -90,11 +91,14 @@ function looks(world: World, t: TasterState, tile: number, beatPhase: number): B
         : phase === "closed" && k.setBeat >= 0
           ? side * LOCK_LEAN
           : 0;
+    const grown = k.setBeat >= 0 ? 1 : grownOf(k.growBeat, beat, beatPhase, cfg);
+    // And the gust across the fan while it is fed, as far as it has grown (`taster-sway.ts`).
+    const sway = tasterSway(cfg, phase, i, beat, beatPhase) * grown;
     fan.push({
       color: k.edge,
-      grown: k.setBeat >= 0 ? 1 : grownOf(k.growBeat, beat, beatPhase, cfg),
+      grown,
       layers: Math.max(1, k.layers),
-      lean: lean * tile,
+      lean: (lean + sway) * tile,
       alpha: phase === "out" ? Math.max(0, 1 - out) : 1,
       ...(phase === "closed" && k.edge !== null ? { both: k.edge === "red" ? "cyan" : "red" } : {}),
     });
