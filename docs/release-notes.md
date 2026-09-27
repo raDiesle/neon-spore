@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 16d7aa4e2 — A lane's worktree on disk no longer stops `bun run push`
+
+`.claude/worktrees/` is ignored by the repository's own `.gitignore`. Only the owner's main checkout had it, in `.git/info/exclude`, which a clone never gets — so after `land --keep` a cloud session's push refused on the untracked worktree directory until it was removed by hand. A real-repo test proves the reconcile's clean-tree check passes with a registered worktree there.
+
 ## 2026-09-27 · fcb267c19 — SNAKE · SHED's pose builds in 0.2 s, and its queue entry is closed
 
 The entry was answered by 34ab4bfd2, which moved SNAKE's hand onto flat arrays the same day it was filed: the pose builds in about 0.2 s, so the fresh-build test's pair is well under half its cap. Nothing else changes.
