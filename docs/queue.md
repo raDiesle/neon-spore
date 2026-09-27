@@ -269,7 +269,8 @@ caller who names it still gets it**: `queue take "<title>"` and `next <n>` hand
 it over to a local session as usual, because the owner has the hardware and
 asks for these by name. A sandbox naming one is refused, with the hardware as
 the reason. `bun run land --unverified` writes the line itself when an item
-says *real phone*, *real device* or *on glass* (`tools/land/unverified.ts`).
+says *real phone*, *real device*, *on glass* or *on two phones* — but never
+for *at tempo* alone, which is a screen's (`tools/land/unverified.ts`).
 
 The value exists because of what happened without it. On 22 September 2026
 `next` picked the phone-chrome entry five times in one sitting and was given it
@@ -772,6 +773,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-mantle.test.ts`
+- **Where:** phone
 
 *THE MANTLE says what it wants: PULL on each knob, TAP on the core, FIRE over the spark* landed from a session that could not look at it. What went unchecked:
 
@@ -956,6 +958,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zd.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-keel.test.ts`
+- **Where:** phone
 
 *THE KEEL says what it wants: TAP on the lit joint, FIRE under the socket and the rock* landed from a session that could not look at it. What went unchecked:
 
@@ -1368,6 +1371,7 @@ sixth pose is a look task, queued separately once this lane lands.
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`
+- **Where:** phone
 
 *THE OCULUS answers a thumb: each seat holds its own half of the lens* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
 
@@ -1605,6 +1609,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/queue-27-oculus-cue
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-ze.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/oculus-marks.ts`
+- **Where:** phone
 
 *THE OCULUS's cue says HOLD on each half of a lit pair and FIRE under the lit core* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
 
@@ -1743,6 +1748,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/vise-cue
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zf.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/vise-marks.ts`
+- **Where:** phone
 
 *THE VISE's cue says SHUT on each lobe a lit pinch asks for and FIRE under the lit kernel* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
 
@@ -1876,6 +1882,7 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-look
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-hurt.ts`
+- **Where:** phone
 
 *THE PLUMB is drawn: a bronze bob on a hook, two weights on chains, a level glass under each* landed from a session that could not look at it. The commit touched 15 more files. What went unchecked:
 
@@ -2436,21 +2443,3 @@ cannon colours.
 
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
-
-## "At tempo" is a phone's word, and `HARDWARE` does not know it
-
-- **Found:** 2026-09-27, claude/queue-unverified-at-81ea644c1-the-rime-wave-never-watc
-- **Taken:** 2026-09-27, claude/queue-at-tempo-is-a-phones-word-and-hardware-does-not
-- **Files:** `tools/land/unverified.ts`, `tools/land/test/unverified.test.ts`, `docs/queue.md`
-
-`docs/queue.md` has 84 lines saying *at tempo* and nine entries marked
-`- **Where:** phone`. An entry asking for a wave "watched at tempo" is one no
-agent can finish: the frames tool shows it frame by frame, and the desktop
-app's browser pane runs a hidden page at about 1.5 frames a second. So
-`next` hands these to lanes that can only write down what the frames showed
-and mark the entry for a phone — THE MANTLE's and THE RIME's, both on 27
-September 2026. Add `\bat tempo\b` to `HARDWARE` in `unverified.ts`, with an
-`expect` in its test and a sentence in the comment above it, and put
-`- **Where:** phone` on every unmarked entry whose only unchecked line is
-about tempo. `bun run check` proves it, and `bun run queue` should then list
-them as needing a phone.

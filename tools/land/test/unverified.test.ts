@@ -106,6 +106,17 @@ describe("what a landing could not check", () => {
     expect(whereLine(["THE VISE's pinch felt with two real fingers on a phone"])).toBe(
       "- **Where:** phone",
     );
+    // Words read on phones: two of them, one of them, or real ones.
+    const read = [
+      "THE MANTLE's PULL, TAP and FIRE words read at tempo on two phones",
+      "THE KEEL's TAP and FIRE words read at tempo on a phone",
+      "THE PLUMB's body and level glass seen at tempo on real phones",
+    ];
+    for (const item of read) expect(whereLine([item])).toBe("- **Where:** phone");
+    // What a phone cannot do yet is code to write, not hardware to hold.
+    const code = "THE GRINDSTONE has no touch sender, so it cannot be answered on a phone";
+    expect(whereLine([code])).toBe("");
+    expect(whereLine(["THE SLING has no touch sender, so no phone can answer it"])).toBe("");
     // A screen is not a phone: a wave at tempo stays anybody's.
     expect(parseItems(renderUnverified(LANDING), "queue")[0]?.where).toBe("anywhere");
   });

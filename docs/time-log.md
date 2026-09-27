@@ -26925,3 +26925,15 @@ Bottleneck: THE BURGEE and THE CYST have no AUTO hand, so their fire marks
 could not be required to be seen, and the test needed a named exception.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `HARDWARE` knows a word read on two phones
+
+- reading: 5 min. `unverified.ts`, its test, the queue preamble that keeps
+  "at tempo" for `local` — which narrowed the finding this lane was given.
+- writing: 5 min. The regex and its guard, five expects, six entries marked.
+- looking: 0 min. Nothing the game draws.
+- friction: 5 min. The guard hook refused a heredoc with doubled backslashes.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the finding as written would have overturned a
+decision the preamble records, and only reading it first caught that.

@@ -133,16 +133,25 @@ export function restLine(files: readonly string[]): string {
  * first of them to a lane with nothing on its desk but a Mac and no Xcode.
  * A real thumb or finger is the same hand: five entries that asked for one
  * on 26 September 2026 sat unmarked, and `next` handed THE MANTLE's knobs
- * out twice on the 27th. The words are the ones every such item has used,
- * and a false positive costs nothing a caller cannot undo: the entry is
- * still taken by name.
+ * out twice on the 27th. So is a word read *on two phones*, or on *real
+ * phones* in the plural: six such entries sat unmarked that day, and `next`
+ * handed one out the moment the lane before it had given the same kind back.
+ * The words are the ones every such item has used, and a false positive
+ * costs nothing a caller cannot undo: the entry is still taken by name.
+ *
+ * **"At tempo" alone is not one of them.** A wave to watch is a screen's work,
+ * not a hand's, and the queue's preamble keeps it for `local`. Neither is an
+ * item saying what a phone *cannot* do yet — *no touch sender, so it cannot
+ * be answered on a phone* is code to write, and `NOT_YET` keeps it free.
  */
 const HARDWARE =
-  /\breal (?:phone|device|thumbs?|fingers?)\b|\bphone in (?:a|the|somebody's) hand\b|\bon glass\b/i;
+  /\breal (?:phones?|devices?|thumbs?|fingers?)\b|\bphone in (?:a|the|somebody's) hand\b|\bon glass\b|\bon (?:a|two|both) phones?\b/i;
+const NOT_YET = /\bcannot\b|\bno phone\b/i;
 
 /** `- **Where:** phone` when any item needs one in a hand, or "" when none does. */
 export function whereLine(items: readonly string[]): string {
-  return items.some((item) => HARDWARE.test(item)) ? "- **Where:** phone" : "";
+  const needs = (item: string) => HARDWARE.test(item) && !NOT_YET.test(item);
+  return items.some(needs) ? "- **Where:** phone" : "";
 }
 
 /** One entry, as it appears in `docs/queue.md`. */
