@@ -26178,3 +26178,5 @@ frame, in five paths, to keep the cost flat.
 Bottleneck: finding a frame to look at — a lit close is under THE SLOW's
 prism and two pinches in one run are one `--hold`, so the bared view needed
 `--boss` to set it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
