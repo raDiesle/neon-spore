@@ -2592,6 +2592,7 @@ count and is refused. `bun run check` proves it.
 ## THE SLOW's aim has no row for six bosses, so their fuse sits under the cannon
 
 - **Found:** 2026-09-27, claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta
+- **Taken:** 2026-09-27, claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta (claim: claude/queue-the-slows-aim-has-no-row-for-six-bosses-so-their)
 - **Files:** `packages/render/src/slow-boss-aim.ts`, `packages/render/src/slow-boss-aim-b.ts`, `packages/render/src/slow-boss-aim-c.ts`, `packages/render/test/slow-boss-aim.test.ts`, `tools/director/test/fuse-place.test.ts`
 
 THE NETTLE, THE SEAM, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE open
