@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 35e84ff7d — THE RIME seen in frames, and tempo left to a phone
+
+AUTO clears the wave in 12.5 s. In the frames, the lit half is rimmed and throws flakes, the rubbed half clears in steps, a hit dims and shrinks the ringed core, and the shield rises on its window. Nothing is clipped or out of place. A first wipe asks for about two reversals a second. Whether the rub reads as a rub in a hand is left to a phone, so the entry now says what was seen and is marked for one. A finding is queued: HARDWARE should know "at tempo", which 84 lines of the queue use and only nine entries mark.
+
 ## 2026-09-27 · 1e8fcc1c1 — THE DAVIT's boom eases back toward hanging instead of jumping each beat
 
 With nobody steering, the simulation swings THE DAVIT's boom back 4° once a beat, and the drawing took each step whole: through every fire step, the hook the cannons are asked for jumped an eighth of a tile each beat of the window. `davitAngle` now eases from the boom's angle toward where the next beat's swing leaves it, so the beat lands where the drawing already is. The hush test holds the hook without keying it on the angle.
