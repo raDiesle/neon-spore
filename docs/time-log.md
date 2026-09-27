@@ -25544,3 +25544,17 @@ Bottleneck: looking — the entry's premise (the cannon answering a withheld
 ask) sat behind a step AUTO cannot play at all yet.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `bun run frames --help` prints the recipes
+
+- reading: 5 min. `run.ts`'s header and `parseFrameSpec`, to know what a
+  recipe must survive.
+- writing: 10 min. `recipes.ts`, the `--help` branch, the parse test, the
+  commands.md line.
+- looking: 0 min.
+- friction: 5 min. The recipe extraction script anchored its match at the
+  start of a line that still had its indent.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the new test refused three recipes on its first run,
+and each had to be traced to what it once meant.

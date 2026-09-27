@@ -44,45 +44,8 @@ import { dirname, join } from "node:path";
  * | `--seat`, `--level`, `--size`, `--raster` | `stage-spec.ts`; the stored two in `page-storage.ts` |
  * | `--wave` | `wave.ts`, which answers it against the right list |
  *
- * What is left here is one **recipe** per flag, which is what somebody reaching
- * for the command needs and not why the flag exists. A next flag costs one more
- * line of them:
- *
- *   bun run frames . --wave 19 --boss-round 3    this tree, once, with no pair
- *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
- *   bun run frames <sha> --wave "THE SHELL"        a wave by name — what a person has in hand
- *   bun run frames <sha> --wave 21 --ticks 240   an absolute world.tick, not a count of steps
- *   bun run frames . --wave 21 --until breach   the tick the hull was holed, whenever that is
- *   bun run frames . --wave 21 --until destroy --frames 4 --stride 0 --settle 3   the break, as a strip
- *   bun run frames . --wave 50 --until needWave --until-back 200   the rest before an event, not the end of it
- *   bun run frames . --wave 1 --until waveFailed --until-on 150     the rest after one: the lost screen
- *   bun run frames . --wave 21 --events   what fired, and on which tick
- *   bun run frames . --wave "THE VISE" --auto both --until viseHit --until-on 2   AUTO plays to a boss's receipt
- *   bun run frames . --wave "THE OCULUS" --auto both --auto-miss --until breach --until-ticks 6000   an ask let run out: the blow
- *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
- *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
- *   bun run frames . --wave 21 --seat p1 --size 390x660   a short phone, its bars out
- *   bun run frames . --wave 3 --level hard   on HARD: its tempo, and the wasted shot's ricochet
- *   bun run frames . --wave "THE CLASP" --raster   the baked looks, which are off by default
- *   bun run frames <sha> --wave 20 --hold wardenTether=0,y=7000  a thumb on a cord
- *   bun run frames <sha> --wave 21 --hold balloonLeft=-1600,id=1 --hold balloonRight=1600,id=1   both hands
- *   bun run frames <sha> --wave 19 --hold mazeString=1400@240 --press 300:2:fire=cyan   turn, then shoot
- *   bun run frames . --wave 0 --seat p1 --hand cannon   this phone's thumb on the lobe, and its ring
- *   bun run frames . --wave 0 --seat p2 --hand muzzle=red --hand-over   the navigator's, carried; or resting
- *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
- *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3 --press 64:2:fire=red   the same, a flag each
- *   bun run frames <sha> --wave 21 --press 60:1:grip=lowest   a hand on the body nearest the hull
- *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
- *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up
- *   bun run frames <sha> --wave 19 --boss-round 3   a later sheet of THE MAZE
- *   bun run frames . --wave "THE HANDOVER" --fault handover:4,3,6   a fault no wave names
- *   bun run frames . --wave 3 --fault cannon:alternating,2   a runaway cannon, twice as slow
- *   bun run frames . --wave "THE THROAT" --boss slack=5,phase=everts,phaseBeat=now   a boss's last phase
- *   bun run frames . --wave "THE BATON" --boss-json '{"sockets":[1,1,0]}'   a list the wave never reaches
- *   bun run frames . --wave "BULB QUEEN" --creature petals=6   a phase read off the boss's own body
- *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
- *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
- *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
+ * What somebody reaching for the command needs is the other half: one
+ * **recipe** per flag, in `recipes.ts`, printed by `bun run frames --help`.
  *
  * **`.` in place of a sha photographs the working tree**, once, with no
  * worktree, no parent and no `identical:` guard. The pair stays the default
@@ -101,6 +64,7 @@ import { parseFrameSpec } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
 import { columnNotes } from "./press-column.js";
 import { standingNotes } from "./press-standing.js";
+import { recipeHelp } from "./recipes.js";
 import { pressNote, say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
@@ -110,6 +74,10 @@ import { waveNamesAt, waveNamesHere } from "./wave.js";
 async function main(): Promise<void> {
   const argv = process.argv.slice(2);
   const sha = argv[0];
+  if (sha === "--help") {
+    console.log(recipeHelp());
+    return;
+  }
   if (!sha || sha.startsWith("--")) {
     throw new Error(
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] [--level easy|medium|hard] ' +
@@ -118,7 +86,7 @@ async function main(): Promise<void> {
         "[--settle N] [--size WxH] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] " +
         "[--creature key=value,…] [--raster] [--auto both|p1|p2 [--auto-miss]] " +
         "[--until EVENT] [--until-ticks N] [--until-back N | --until-on N] [--events] " +
-        "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
+        "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR] — recipes: --help",
     );
   }
   // `.` is the working tree: one picture of what is on disk, with no commit to

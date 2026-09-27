@@ -2865,14 +2865,3 @@ for a misser to let go, and the test's `bossBlow(name, true)` is null for both
 before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
-
-## `tools/frames/run.ts` is at 223 lines
-
-- **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
-- **Taken:** 2026-09-27, claude/queue-the-slows-prism-still-aims-at-the-cannon-for-thi (claim: claude/queue-tools-frames-run-ts-is-at-223-lines)
-- **Files:** `tools/frames/run.ts`
-
-Most of the file is the flag-to-file table and the recipe list in its header
-comment, and every new flag adds a line to both. Move the recipes into
-`docs/commands.md`, or into their own tools/frames/recipes.ts printed by
-`--help`, before the next flag takes the file over the ceiling.
