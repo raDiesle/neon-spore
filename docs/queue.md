@@ -2283,6 +2283,7 @@ on a phone. `bun run check` proves it.
 ## Eleven pose files each write out their own `into`
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
+- **Taken:** 2026-09-27, claude/queue-reprise-parts (claim: claude/queue-eleven-pose-files-each-write-out-their-own-into)
 - **Files:** `packages/render/src/burgee-pose.ts`, `packages/render/src/flue-pose.ts`, `packages/render/src/halter-pose.ts`, `packages/render/src/grindstone-pose.ts`, `packages/sim/test/copies-table.ts`
 
 Every choreographed boss's pose file — THE OCULUS's, THE GRINDSTONE's,
