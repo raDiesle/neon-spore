@@ -49,6 +49,13 @@ export const SWEEPS: readonly string[] = [
   "packages/sim/test/copies.test.ts",
   "packages/sim/test/limits.test.ts",
   "packages/sim/test/purity.test.ts",
+  // The fourth's other half, first only because the list is sorted: a row
+  // that names a word its file no longer mentions. A doc comment rewritten in
+  // `tools/director` changes what the row may say, and no row in `scope.ts`
+  // reaches `tools/index` from there — on 27 September 2026 a row still
+  // saying "swing" was green here and red minutes into `bun run land`. It
+  // reads the tree in about 0.6 s.
+  "tools/index/test/drift.test.ts",
   "tools/index/test/index.test.ts",
   // The fifth reads every document rather than every source file, and belongs
   // here for the same reason the fourth does: a backticked path in a document

@@ -64,6 +64,7 @@ describe("fastScopeFor", () => {
   it("a sim change names sim once — three of the sweeps already live there", () => {
     expect(fastScopeFor(["packages/sim/src/step.ts"])).toEqual([
       "packages/sim",
+      "tools/index/test/drift.test.ts",
       "tools/index/test/index.test.ts",
       // The document sweep is not one of the three, and a rename in sim is
       // exactly what breaks it.

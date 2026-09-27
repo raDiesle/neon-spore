@@ -27468,3 +27468,14 @@ snap-back) had to be found and posed, or a thumb would land beside the eye
 the canvas drew.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `check:fast` runs the INDEX row drift test
+
+- reading: 5 min. `fast-scope.ts` and its test.
+- writing: 5 min. The sweep, its comment, and the test's expected lists.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. The sweep list has to stay sorted, which the first
+  placement missed.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. The list's order is a contract only its tests state.

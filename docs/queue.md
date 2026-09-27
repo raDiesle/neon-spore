@@ -2202,21 +2202,3 @@ straight onto the field under *a look with no shipped alternative*
 
 Add each boss to `OutlineBoss`, `OUTLINE_SEED` and `OUTLINE_PARTS`, and its
 test beside `warden-drift.test.ts`. Done when `bun run check` is green.
-
-## `check:fast` does not run the INDEX row drift test
-
-- **Found:** 2026-09-27, claude/queue-warden-drift
-- **Taken:** 2026-09-27, claude/queue-fast-index-drift (claim: claude/queue-check-fast-does-not-run-the-index-row-drift-test)
-- **Files:** `tools/check/fast-scope.ts`, `tools/check/test/fast-scope.test.ts`, `tools/index/test/drift.test.ts`
-
-`tools/index/test/drift.test.ts` fails when a `docs/INDEX.md` row names a
-word its file no longer mentions. A lane that edits a doc comment in
-`tools/director/src/` changes what a row may say, but `SWEEPS` in
-`fast-scope.ts` names only `tools/index/test/index.test.ts`. On 27 September
-2026 the swing-seam lane was green under `check:fast` and red a few minutes
-into `bun run land`, on a row that still said "swing". Time the drift test.
-If it reads the tree as fast as the other sweeps, add it to `SWEEPS` with a
-comment like theirs, plus the matching row in `fast-scope.test.ts`.
-
-Done when: `fastScopeFor` names `tools/index/test/drift.test.ts` for any
-path, the sweep's comment gives its time, and `bun run check` is green.
