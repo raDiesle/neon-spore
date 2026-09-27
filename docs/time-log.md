@@ -26569,3 +26569,5 @@ only showed once the reader rolled the mark too.
 
 Bottleneck: reading — a marks function mixes the body and the mark, so
 finding the argument that says "lit" took each file a read of its caller.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

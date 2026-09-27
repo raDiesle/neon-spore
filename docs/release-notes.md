@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 3a4060b6a — THE KEEL and THE VALVE put no mark up before its window opens
+
+THE KEEL's coloured socket no longer fades in while the midpoint splits; the cut faces open over the split as before, and the socket appears when its window does. THE VALVE's notch no longer sits dimly on the drum while it settles and between movements; it is up while the wheel turns, holds or stands frozen. THE OCULUS, THE VISE, THE TRIVET and THE SEAM were read and put up nothing early. All six have a row in a new shared test, `tools/director/test/marks-window.test.ts`, which plays each wave on AUTO and catches every call into the boss's marks file that draws a mark lit outside the simulation's own window; THE QUEEN is named there as the exception. Twelve bosses are left in the queue.
+
 ## 2026-09-27 · 1ca426776 — Six more bosses hold their marks still while THE SLOW asks for them
 
 THE CAPSTAN's rattle shook and rolled the face a thumb is rubbing at 1.4 tiles a second. Inside an asking window both the shake and the roll now die down to a twenty-fifth. THE RIME, THE TRIVET, THE PLUMB, THE GRINDSTONE and THE CYST already placed their marks off the boss's state alone, and they and THE CAPSTAN now have rows in the shared test. THE CYST's lit flank still shudders, because that shudder is how the pair see which flank is lit. The queue entry lists the eleven bosses left.
