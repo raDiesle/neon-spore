@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 319c06b90 — Phone checks are the owner's regression pass, not queue entries
+
+`bun run land --unverified` (and `bun run unverified`) no longer queue an item that needs a phone in a hand — a real thumb, a real finger, words read on two phones. They print it as left for the owner's regression pass and queue only what a session with a screen can finish. The fifteen phone entries on the queue are cleared, the owner having tested them, and with them the three stale claims on THE MANTLE's knobs, its shear kick and THE RIME.
+
 ## 2026-09-27 · 57df6b6e7 — THE WINCH waits on the owner: THE DAVIT already asks its question
 
 THE DAVIT's built draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds, which is §41's whole rule with THE TRIVET's chord in the lean's place. The new-boss skill stops a boss that asks a shipped boss's question, so the simulation lane's entry now asks: build it as designed, cut it, or redesign it first so a lifted brake also unwinds a banked draw. Nothing built.
