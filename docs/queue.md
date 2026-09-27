@@ -2134,6 +2134,7 @@ and `bun run check` is green.
 ## Living bosses — the outline drift for the taster
 
 - **Found:** 2026-09-27, claude/queue-warden-drift
+- **Taken:** 2026-09-27, claude/queue-living-bosses-the-outline-drift-for-the-curtain (claim: claude/queue-living-bosses-the-outline-drift-for-the-taster)
 - **Where:** local
 - **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`
 
