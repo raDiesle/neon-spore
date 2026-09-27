@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 055e01399 — Seven VERSUS slots too small to see are dropped, and a new thing is shown alone as NEW
+
+The owner could not tell THE SLING's tines, THE PLUMB's bob or THE DAVIT's hook swinging, or the WebGL bloom, from what the game draws, and said not to improve visuals that are barely seen: the effort goes into the whole body — shape, depth, pose, a visible tilt, pieces turning — for machines as well as creatures. All four are dropped, and so are THE QUEEN's, THE CAIRN's and THE REPRISE's idle drift, which are the same fifth-of-a-tile size. A candidate that adds something the game does not draw at all can now set `brandNew`: its page says NEW in words and shows it alone, with no CURRENT phone and no BLINK. Nothing the game draws changes.
+
 ## 2026-09-27 · f09255ae9 — `bun run push` refuses to send a merge commit to `main`
 
 History on `main` is linear, and `11f25490a` reached `origin/main` anyway. Before it sends, `push` now lists the merge commits `origin/main..main` would add and stops, naming each and saying to land the work again with `bun run land`. A merge `origin` already carries stops nothing. Three tests build a scratch repository with a bare origin to hold it.
