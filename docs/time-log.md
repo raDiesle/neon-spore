@@ -26030,3 +26030,5 @@ stroke's closing join told the two rings apart.
 Bottleneck: the director's ON THE FIELD tab wanted a row, a pose and a line
 in `controls.md` that the queue entry never named — three files found by the
 test failing, not by reading.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

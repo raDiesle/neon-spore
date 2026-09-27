@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · bb196bac6 — THE CAPSTAN's drum takes a rub on either end, and the field says LEAN, RUB and FIRE
+
+A press on either end of the drum, on either seat's screen, takes a rub on `capstanRub`, with the reversals counted by the host the way THE GRINDSTONE's flat is. The hit test reads the drum where `capstan-draw.ts` draws it: dropped in, lifted away and rolled in its cradle by the lean. The field says LEAN at the lit band's horn to the seat that steers until that face comes round, then RUB on the face to the other seat. On a hold it says LEAN to both until one seat leans, then RUB to the seat that is not leaning. It says FIRE under the middle column on a bared core.
+
 ## 2026-09-27 · 49b390373 — THE BULB QUEEN's wings are pieces with joints, and her arms have theirs
 
 THE BULB QUEEN's two wings are now pieces of her shell — each the run of the crystal's vertices about her long axis, with a joint at the middle of its root (`queenShellParts`, in `queen-shell.ts`) — laid back into the one contour her look fills, clips to and strokes. Each crane arm now gives its shoulder, elbow and wrist (`craneJoints`), and the claw hangs from the wrist. A test paints the old contour and the new one in her own look, whole and nearly gone, and finds the pixels equal. Nothing the game draws changes, and no op count moves: the shell is still one path.
