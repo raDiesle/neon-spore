@@ -25827,3 +25827,15 @@ Bottleneck: reading — whose loose is live is the step's, the reverse of
 whose lean steers, and the poses had to be the looser's screen.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE TRIVET's lifted feet dangle, as a VERSUS candidate
+
+- reading: 5 min. The entry, `trivet-draw.ts`, `trivetFoot` and the lift.
+- writing: 10 min. The foot placed through a record, the candidate, the
+  slot's row and a `lookAt` on the still.
+- looking: 5 min. A `versus:shot` of the still, both feet lifted.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the foot had no seam, and the one it needed had to
+turn the plate with the leg.

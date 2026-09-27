@@ -7,13 +7,21 @@ import { bossPose } from "./poses-bosses-kit.js";
  * (`boss-hands-trivet.ts`): the still and the first lit foot arrive by
  * themselves, and the rest and the collapse are earned by each foot's chord
  * held down by its own seat and the lit hub shot in its colour.
+ *
+ * `trivet:foot` is judged on the still, because both outer feet hang lifted
+ * there and the hub is not lurching: a foot that dangles while it is lifted
+ * is only seen where it is.
  */
 export const TRIVET_POSES: Pose[] = [
   bossPose(
     "trivet",
     "still",
     "The stand drops in over the middle of the field, both feet lifted. P1 and P2 wait: no pad is lit yet.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt:
+        "the two lifted outer feet — whether they hang alive from their legs or are bolted in the air",
+    },
   ),
   bossPose(
     "trivet",

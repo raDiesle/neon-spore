@@ -50,6 +50,23 @@ import {
 const SINK = 1.4;
 
 /**
+ * Where an outer foot is drawn, from where it stands: its leg's root, the
+ * foot, which of the two it is, how far it is lifted (0 planted, 1 up) and
+ * the clock. The game draws it where it stands; a VERSUS candidate
+ * (`tools/versus/candidates/trivet-foot/`) swings a lifted one about its root.
+ */
+export type TrivetFootHang = (
+  root: Point,
+  foot: Point & { turn: number },
+  side: 0 | 1,
+  lift: number,
+  time: number,
+) => Point & { turn: number };
+
+/** The seam a candidate patches: the shipped foot is where it stands. */
+export const TRIVET_FOOT: { hang: TrivetFootHang } = { hang: (_root, foot) => foot };
+
+/**
  * **THE TRIVET**: a three-legged stand splayed wide over the middle of the
  * field, its two outer feet planted by each seat's chord and its hub, once
  * both are down, shot three times (§11.47, `bosses-choreographed.md` §30).
@@ -106,8 +123,15 @@ export function drawTrivet(
     const up =
       trivetFootLift(world, s, side, beat, beatPhase) + trivetLurchLift(s, side, beat, beatPhase);
     const lift = Math.min(1, up) * (1 - buckle);
-    const foot = lowered(trivetFoot(l, side, lift, buckle), fall);
-    drawLeg(ctx, l, root(side), foot);
+    const from = root(side);
+    const foot = TRIVET_FOOT.hang(
+      from,
+      lowered(trivetFoot(l, side, lift, buckle), fall),
+      side,
+      lift,
+      time,
+    );
+    drawLeg(ctx, l, from, foot);
     drawPlate(ctx, l, s, step, side, foot, beatPhase, fx.snap(side));
     ctx.globalAlpha = alpha;
   }

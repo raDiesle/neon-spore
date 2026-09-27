@@ -2615,19 +2615,6 @@ glint travelling across the seven ice sheets on its own period, fainter than
 the story's bands so the two stay told apart. A look: offered through
 VERSUS.
 
-## THE TRIVET's stand has no secondary motion of its own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-27, claude/queue-grindstone-cyst-and-davit-handles-still-unbuilt (claim: claude/queue-the-trivets-stand-has-no-secondary-motion-of-its)
-- **Files:** `packages/render/src/trivet-draw.ts`, `packages/render/src/trivet-shape.ts`
-
-From the secondary-motion audit. `trivetHubSwing` (`trivet-story.ts`
-line 81) moves only during a lurch or a fling; outside those the stand is
-still but for the light's drift (`trivet-draw.ts` line 197). Touch: a lifted
-foot dangles a degree about its root on a slow period of its own, and
-settles dead still once it is planted, so the hold still reads as the swing
-stopping. A look: offered through VERSUS.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
