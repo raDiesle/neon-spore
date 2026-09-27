@@ -2594,6 +2594,7 @@ offered through VERSUS.
 ## THE VISE's husk has no secondary motion of its own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-27, claude/queue-the-rimes-pane-has-no-secondary-motion-outside-i (claim: claude/queue-the-vises-husk-has-no-secondary-motion-of-its-ow)
 - **Files:** `packages/render/src/vise-draw.ts`, `packages/render/src/vise-marks.ts`
 
 From the secondary-motion audit. The only clock outside the story steps is
