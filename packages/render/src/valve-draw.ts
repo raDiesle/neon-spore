@@ -7,12 +7,14 @@ import {
   valveTurning,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawValveFx, type ValveFx } from "./valve-fx.js";
 import { drawValveMark, drawValveSocket } from "./valve-marks.js";
 import {
   pulled,
@@ -55,7 +57,8 @@ import { drawValveStory, valveShake } from "./valve-story.js";
  * **Iron grey throughout**, the mark and the socket plain white, and nothing
  * colour-gated. **Its health is the pins**, and the list is how it shows: the
  * drum tilts a step further for each one out (`valve-pose.ts`), and a spent
- * pin is a dark slot in the underside.
+ * pin is a dark slot in the underside. What outlives a frame — the clamp, a
+ * pulled pin's slot, the kick, the blow a landed step deals — is `fx`.
  */
 export function drawValve(
   ctx: CanvasRenderingContext2D,
@@ -65,6 +68,7 @@ export function drawValve(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: ValveFx,
 ): void {
   const cfg = world.cfg;
   const arrived = valveArrived(s, cfg, beat, beatPhase);
@@ -75,10 +79,10 @@ export function drawValve(
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.5 * open);
-  ctx.translate(c.x + shake.x, c.y + shake.y);
-  ctx.rotate(valveList(s, cfg, beat, beatPhase));
+  ctx.translate(c.x + shake.x + fx.hurt.shakeX(time, l.tile), c.y + shake.y);
+  ctx.rotate(valveList(s, cfg, beat, beatPhase) + fx.kick);
   for (let i = 0; i < VALVE_PINS; i++) drawPin(ctx, l, world, s, i, beat, beatPhase, time);
-  if (open <= 0) drawDrum(ctx, l, world, s, beat, beatPhase, time);
+  if (open <= 0) drawDrum(ctx, l, world, s, beat, beatPhase, time, fx);
   else {
     for (const side of [-1, 1] as const) {
       ctx.save();
@@ -88,7 +92,7 @@ export function drawValve(
       const w = valveReach(l).rx * 1.5;
       half.rect(side < 0 ? -w : 0, -w, w, w * 2);
       ctx.clip(half);
-      drawDrum(ctx, l, world, s, beat, beatPhase, time);
+      drawDrum(ctx, l, world, s, beat, beatPhase, time, fx);
       ctx.restore();
     }
   }
@@ -105,6 +109,7 @@ function drawDrum(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: ValveFx,
 ): void {
   const rim = valveRimPath(l, s.wheelMilli, time * 0.4);
   const { rx } = valveReach(l);
@@ -117,6 +122,7 @@ function drawDrum(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(rim);
+  drawHurt(ctx, rim, fx.hurt.value);
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.4);
   ctx.stroke(valveFacePath(l));
@@ -125,6 +131,7 @@ function drawDrum(
     ctx.fill(valveHolePath(l, i, VALVE_PINS));
   }
   drawWheel(ctx, l, s);
+  drawValveFx(ctx, l, fx);
   if (valveTurning(s) || valveFrozen(s)) drawValveMark(ctx, l, world, s);
   drawValveSocket(ctx, l, world, s, valveSocketGlow(s, beatPhase), beat, beatPhase);
   drawValveStory(ctx, l, s, world.cfg, beat, beatPhase);

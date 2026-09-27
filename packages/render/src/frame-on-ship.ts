@@ -67,6 +67,9 @@ export function drawOnShip(
   // And THE KEEL's: the open socket and the tail's rock each hit the hull
   // once, and the plating shudders for it (`keel-fx.ts`, §24).
   held.effects.boss.keel.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE VALVE's: the spark landing is a shudder through the plating, the
+  // face falling open a harder one (`valve-fx.ts`, §25).
+  held.effects.boss.valve.shock.draw(ctx, l, surfaceY, view.time);
   // And THE OCULUS's: each pair held shut is a soft thud through the plating,
   // a reseal a quieter one (`oculus-fx.ts`, §27).
   held.effects.boss.oculus.shock.draw(ctx, l, surfaceY, view.time);

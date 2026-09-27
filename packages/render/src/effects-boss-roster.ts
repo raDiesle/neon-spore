@@ -35,6 +35,7 @@ import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
 import { TrivetFx } from "./trivet-fx.js";
 import { UndertowFx } from "./undertow-fx.js";
+import { ValveFx } from "./valve-fx.js";
 import { ViseFx } from "./vise-fx.js";
 import { WardenFx } from "./warden-fx.js";
 
@@ -173,6 +174,10 @@ export class BossRoster {
    * and its receipts' bursts — thrown the same on both screens, and told the
    * socket's colour by the drawer (`keel-fx.ts`, `keel-draw.ts`). */
   readonly keel = new KeelFx();
+  /** THE VALVE's clamp round the frozen wheel, the flare in a pulled pin's
+   * slot, the kick of a wheel thrown off its mark, the hull shock, and its
+   * receipts' bursts — thrown the same on both screens (`valve-fx.ts`). */
+  readonly valve = new ValveFx();
   /** THE OCULUS's thud, the core's flash and the shatter's, and the hull
    * shock, and its receipts' bursts — thrown the same on both screens, and
    * told the core's colour by the drawer (`oculus-fx.ts`, `oculus-draw.ts`). */

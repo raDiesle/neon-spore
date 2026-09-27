@@ -27434,3 +27434,17 @@ Bottleneck: reading — the pin is three gestures by phase, and which hold
 each press hands back had to be read off the simulation before one line.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE VALVE's fx: the clamp, the slot, the kick and the hull shock
+
+- reading: 5 min. `keel-fx.ts` and `flue-fx.test.ts` as the model, the
+  thirteen events, `valve-draw.ts` for where a transient can be laid in.
+- writing: 5 min. `valve-fx.ts` and its test, the roster, `effects-boss.ts`,
+  the hull shock, the drawer taking `fx`, the silent lists' comments.
+- looking: 0 min. The drawn tests compare frames with and without each
+  event; nobody has watched it at tempo.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — `valve-draw.ts` sits at its length, so the two
+transients it draws went into the fx file rather than beside the rest.

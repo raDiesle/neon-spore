@@ -134,10 +134,11 @@ export function drawPairBoss(
   // THE VALVE: a squat drum over the middle of the field, a wheel in its face
   // the pilot turns onto a mark and a pin the navigator's tap freezes it for.
   // Both screens are drawn the same — each thumb times itself off the other's
-  // half (`valve-draw.ts`). Nothing of it outlives a frame yet: its effects are
-  // the second half of its look.
+  // half (`valve-draw.ts`). What outlives a frame — the clamp of a freeze, a
+  // pulled pin's slot, the kick off a mark, the hull's shudder — is
+  // `effects.boss.valve` (`valve-fx.ts`).
   if (boss.kind === "valve") {
-    drawValve(ctx, l, world, boss, beat, beatPhase, time);
+    drawValve(ctx, l, world, boss, beat, beatPhase, time, effects.boss.valve);
     return;
   }
 

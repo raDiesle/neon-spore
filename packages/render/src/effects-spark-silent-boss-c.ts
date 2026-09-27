@@ -97,7 +97,8 @@ export const SILENT_BOSS_C = [
   "keelRockHit",
   "keelStraight",
   "keelOut",
-  // THE VALVE's thirteen, the same (`packages/audio/src/bind-valve.ts`).
+  // THE VALVE's thirteen: what outlives a frame is `valve-fx.ts`', read above
+  // the loop.
   "valveEnter",
   "valveLight",
   "valveHold",
