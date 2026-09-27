@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 59e1c28ea — The queue's `Where: phone` value is gone, and a stray one is reported
+
+Since a check needing a phone in a hand became the owner's regression pass, nothing wrote `- **Where:** phone` any more. The value, the PHONE ONLY mark, the automatic pick's step over it and the "need a phone in your hand" line in the listing are removed. A `Where: phone` line copied out of an old entry is now reported by `bun run queue`'s problems, as a stray `cloud` already was. The queue's and the cloud session's preambles tell it as history.
+
 ## 2026-09-27 · 57970f3af — THE INSTAR's rig head is offered on VERSUS as instar:head / rig
 
 Both views now draw the head through one record, `INSTAR_HEAD`. The candidate swaps in the rig head: face-on at the turn the wings are seen at, and side-on with its eye on the shipped profile's eye. Side-on, the jaw's hinge stays where the shut jaw has it on the skull and only pitches open; the drop that puts the lower lip on its mark applies face-on only. Across a beat, face-on and side-on, the candidate draws no more than the shipped head (fills and strokes together), and no more gradients or blits. `tools/versus/test/instar-head-budget.test.ts` holds that within 10%. The slot opens on INSTAR · PERCHED. Nothing on the field changes.
