@@ -10382,10 +10382,40 @@ catch run out sways and relights at the same step; the second catch lights
 the spindle and holds the flag; a shot wants its colour and the middle
 column; either seat may freeze a recatch; a recatch run out dims the
 spindle until it is made; a fire step run out is the wave; and the whole
-script swings the flag spent and out. **Nothing is drawn, nothing on a
-phone sends a tap or a draw, and AUTO has no hand** — the look is queued.
-Whether a freeze on one phone answered by a swipe on the other *reads* at
-tempo is the owner's eye, on two real phones.
+script swings the flag spent and out. `render/test/burgee-frame.test.ts`
+proves the body on every screen. **Nothing on a phone sends a tap or a
+draw yet, AUTO has no hand, and the events throw no burst** — each is a
+queued lane of its own. Whether a freeze on one phone answered by a swipe
+on the other *reads* at tempo is the owner's eye, on two real phones.
+
+**The look** (`render/src/burgee-draw.ts`, 27 September 2026 — the body).
+**Two drafts, one each**: SLICK · REVERB (`tools/shape-sheet/src/drafts/offered.ts`)
+stood on end for the **spindle** over the middle column near the field's
+top, three even swells stacked like a masthead truck, and SLICK · COMMA
+(the same file) laid along a bent line for the **flag**, its deep lobe the
+hoist and its tail the fly (`burgee-shape.ts`). Between them a plain steel
+**boom hangs down** from the spindle's foot, a pendulum — THE DAVIT's boom
+stands up and THE VANE's spar tapers on a bearing — and its tip is over
+the flag's column exactly, whatever angle that takes. **The flag is eased,
+not put** (`burgee-fx.ts`): the simulation's place steps once a beat, the
+render spreads each step across its beat and eases toward it, so a freeze
+landing mid-beat slows the flag to a stop; how fast it is going streams it
+out behind, and a still flag falls limp and folds narrow. A swipe that
+caught nothing (`burgeeFlutter`) sets it fluttering long and slow, dying
+away. **The marks say which hand** (`burgee-marks.ts`): a ring over the lit
+column where the tip would be, breathing on the beat with a second ring
+closing as the window runs and filled while frozen, is *tap it still here*;
+a track from the middle toward the lit column with a chevron at its head,
+filled from its tail by the beats the finger has been down, is *hold, then
+swipe this way*. Each is full on the screen of the seat whose hand it is
+and a faint plain line on the other's (`showsBurgeeHand`), so the seat not
+asked can say what its partner is asked for. **Health is read off the
+body**: the canvas brightens from a worn tan to a caught cream with each
+catch, and the spindle has three studs, lit in the shot's colour with a
+ring closing while one is owed, one going dark and the spindle a little
+thinner for every shot (`coreHurt`); a guarded recatch dims the spindle
+until it is made. Hues: steel and a canvas tan, `burgeeSteel` to
+`burgeeCanvasCaught` (`palette-creatures-late.ts`).
 
 ## Retired
 

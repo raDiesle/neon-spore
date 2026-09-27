@@ -895,24 +895,45 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §39 THE BURGEE — the look
+## §39 THE BURGEE — the blow and the receipts
 
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-39-the-burgee-the-simulation-lane (claim: claude/queue-39-the-burgee-the-look)
-- **Needs:** §39 THE BURGEE's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look
+- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/burgee-fx.ts`, `packages/render/src/burgee-draw.ts`
 
-Lane two, read against `docs/style-guide.md`: a new silhouette (check
-`packages/content/src/silhouettes*.ts` first, then
-`tools/shape-sheet/src/drafts/`) for a pennant on a free-swinging boom,
-easing into stillness on a landed freeze rather than snapping to a stop —
-the same drawn-as-mechanism choice THE VALVE's freeze and THE PLUMB's
-lean both make — and a limp flutter with no snap on a mistimed swipe. No
-sprite-atlas experiment queued: the sweep is the simulation's own clock
-running every tick, not a pose resolved once per beat, the same reasoning
-THE CAPSTAN's cradle and THE DAVIT's boom were both ruled out on. Nothing
-here is drawn yet and stays unverified at tempo until the owner has
-looked.
+The body is drawn (§11.56, *The look*); the look's second half is left. A
+shot run out is drawn as the default lash: give it its own blow in a new
+burgee-blow.ts, the way `capstan-blow.ts` is THE CAPSTAN's — the fixture's
+own thing thrown down the middle column (the flag torn off the boom's tip,
+say), with its row in `boss-strike-from.ts` and `boss-strike-look.ts` and
+in `boss-strike.test.ts`. Then the receipts, in `burgee-fx.ts`, which is
+already kept in `BossTransients` and reset (`effects-boss.ts`,
+`restart.test.ts`): a flash on the ring for `burgeeFreeze`, the flag
+snapping taut on `burgeeCatch`, a sway on a catch run out, the spindle
+lighting on `burgeeLit` and its flash on `burgeeHit` — taking those events
+out of the two silent lists' reason. `burgeeFlutter` is already read, for
+the limp. `bun run check` proves it; how it reads at tempo stays the
+owner's eye.
+
+## §39 THE BURGEE — the tap's and the draw's touch, the cue and AUTO
+
+- **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look
+- **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
+
+The simulation landed with none of its hands and the body is on the screen
+(§11.56, *The look*). Nothing sends `burgeeFreeze` from a touch — an edge,
+a tap on the freeze ring, hit-tested where `burgee-draw.ts` draws it
+(`burgeeTip` at the step's offset) — nor `burgeeDraw`: a finger held on
+the track and lifted with a swipe, the swipe's sign on `fromMilli`, in a
+new burgee-grip.ts the way `capstan-grip.ts` reads the drum. Both then go
+from `unbuilt` to `field` in `on-field-controls.test.ts`. The field says no
+cue: `TAP` on the ring and `HOLD · SWIPE` on the track on the seat whose
+hand each is, and `FIRE` on a lit spindle, on its own `boss-cue-read-*.ts`
+page. AUTO has no hand (`NO_HAND` in `autopilot.test.ts`): a
+boss-hands-burgee.ts that taps the flag still over the mark from the step's
+freezer, draws and swipes from the other and shoots the spindle in its
+colour, with an autopilot-burgee.test.ts playing the wave to its end.
+`bun run check` proves it; how a freeze answered by a swipe feels stays
+unverified until the owner holds two phones.
 
 ## §40 THE FLUE — the simulation lane
 

@@ -49,4 +49,18 @@ export const LATE_CREATURE_HUES = {
   gallFleshDark: "#4E3160",
   /** The root the peeled seam bares, while no shot is owed. */
   gallRoot: "#8C6A7E",
+  /**
+   * THE BURGEE's boom and spindle (§39, *Colour*): a scoured steel grey, the
+   * mast of a fixture rather than the hull's violet, and its shadow.
+   */
+  burgeeSteel: "#8E98A3",
+  burgeeSteelDark: "#2B3139",
+  /**
+   * The flag: a dull canvas tan, its shadow, and the tan it brightens to once
+   * both catches are in. Warm and unlit, so it never reads as a cannon's
+   * colour — the spindle is the only lit thing on the body.
+   */
+  burgeeCanvas: "#A28E6C",
+  burgeeCanvasDark: "#43392A",
+  burgeeCanvasCaught: "#E3CC98",
 } as const;

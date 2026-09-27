@@ -439,6 +439,31 @@
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallRoot</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8C6A7E 325°</text>
     </g>
+    <g transform="translate(496 2028)">
+      <rect width="66" height="46" rx="4" fill="#8E98A3" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeSteel</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8E98A3 211°</text>
+    </g>
+    <g transform="translate(572 2028)">
+      <rect width="66" height="46" rx="4" fill="#2B3139" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeSteelDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2B3139 214°</text>
+    </g>
+    <g transform="translate(648 2028)">
+      <rect width="66" height="46" rx="4" fill="#A28E6C" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvas</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#A28E6C 38°</text>
+    </g>
+    <g transform="translate(724 2028)">
+      <rect width="66" height="46" rx="4" fill="#43392A" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvasDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#43392A 36°</text>
+    </g>
+    <g transform="translate(800 2028)">
+      <rect width="66" height="46" rx="4" fill="#E3CC98" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvasCaught</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E3CC98 42°</text>
+    </g>
 <text x="40" y="2134" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE FILM</text>
 <text x="150" y="2134" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">not a colour but a sweep: THE BALLOON's skin runs 245°–290°–320° and back, so no hue on it ever holds still long enough to be named.</text>
     <g transform="translate(40 2150)">

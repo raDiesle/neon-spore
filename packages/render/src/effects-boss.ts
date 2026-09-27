@@ -69,6 +69,7 @@ export class BossTransients extends BossRoster {
     this.cyst.ingest(events, l, cfg, beatSeconds, burst);
     this.capstan.ingest(events, l, cfg, beatSeconds, burst);
     this.gall.ingest(events, l, cfg, beatSeconds, burst);
+    this.burgee.ingest(events);
     this.grindstone.ingest(events, l, cfg, beatSeconds, burst);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
@@ -110,6 +111,7 @@ export class BossTransients extends BossRoster {
     this.cyst.update(dt);
     this.capstan.update(dt);
     this.gall.update(dt);
+    this.burgee.update(dt);
     this.grindstone.update(dt);
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
@@ -168,6 +170,7 @@ export class BossTransients extends BossRoster {
     this.cyst.clear();
     this.capstan.clear();
     this.gall.clear();
+    this.burgee.clear();
     this.grindstone.clear();
     this.blows.clear();
     this.strike.clear();

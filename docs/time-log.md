@@ -26443,3 +26443,18 @@ Bottleneck: friction — the entry's fraction and its done-when disagreed, and
 the done-when is the one that was kept.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE BURGEE has a body: a canvas pennant on a hanging boom that eases still
+
+- reading: 10 min. THE GALL's look commit as the template, the sim's swing
+  and freeze rules, and the two SLICK drafts.
+- writing: 25 min. Five render files, the fx kept in `BossTransients`, a
+  harness and twenty-two frame tests, §11.56's *The look* and the ledger.
+- looking: 10 min. Strips of frames at the first catch and before THE SLOW.
+- friction: 5 min. A negative sample made NaN of the flag's bend, and cyan
+  from the navigator's panel broke a count that expected none.
+- landing: 5 min. `check:fast`, the index, the style guide.
+
+Bottleneck: looking. A single frame shows the flag limp, because the eased
+place snaps on the first paint, so the stream only reads off a strip of
+frames and each strip is a full render.

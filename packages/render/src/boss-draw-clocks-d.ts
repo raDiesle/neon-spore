@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { drawBurgee } from "./burgee-draw.js";
 import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
@@ -39,6 +40,7 @@ export const LATE_PAIR_KINDS = [
   "halter",
   "capstan",
   "gall",
+  "burgee",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -142,5 +144,14 @@ export function drawLatePairBoss(
   // the seat nearer it and jumping to another of four points as a close
   // lands, the root bared under the peeled seam and shot (`gall-draw.ts`); a
   // pinch's flare, a close's ghost, the lips' tear and the root's flash are `gall-fx.ts`.
-  drawGall(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gall);
+  if (boss.kind === "gall") {
+    drawGall(ctx, l, world, boss, beat, beatPhase, time, effects.boss.gall);
+    return;
+  }
+
+  // THE BURGEE: a canvas pennant on a boom hanging from a turned spindle,
+  // tapped still over the lit column by one seat and caught by the other's
+  // swipe, the spindle shot (`burgee-draw.ts`); the flag's eased place and
+  // a mistimed swipe's limp flutter are `burgee-fx.ts`.
+  drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee);
 }

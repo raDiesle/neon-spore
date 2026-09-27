@@ -154,7 +154,9 @@ export const INGEST_SILENT_BOSS_D = [
   "gallMiss",
   "gallFlat",
   "gallOut",
-  // THE BURGEE's fifteen: silent until its look lane draws them.
+  // THE BURGEE's fifteen: silent until its receipts lane throws them — the
+  // body is drawn off the state (`burgee-draw.ts`) and the flutter's ripple
+  // is read by `burgee-fx.ts`, which throws nothing.
   "burgeeEnter",
   "burgeeLight",
   "burgeeFreeze",

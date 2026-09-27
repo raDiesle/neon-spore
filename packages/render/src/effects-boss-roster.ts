@@ -1,6 +1,7 @@
 import { AntiphonFx } from "./antiphon-fx.js";
 import { BossBlows } from "./boss-blows.js";
 import { BossStrikeFx } from "./boss-strike-fx.js";
+import { BurgeeFx } from "./burgee-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { CystFx } from "./cyst-fx.js";
@@ -204,6 +205,10 @@ export class BossRoster {
    * flash, and its receipts' bursts — thrown the same on both screens, and
    * told the root's colour by the drawer (`gall-fx.ts`, `gall-draw.ts`). */
   readonly gall = new GallFx();
+  /** THE BURGEE's flag where it is drawn, eased toward the simulation's
+   * place so a freeze slows it rather than snapping it, and the limp
+   * flutter a swipe that caught nothing leaves (`burgee-fx.ts`). */
+  readonly burgee = new BurgeeFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */
