@@ -27529,3 +27529,16 @@ Bottleneck: looking. The frames run loses THE THROAT's wave by 17 s, so
 the bow's peak had to be found before it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §25 THE VALVE — its story's words and bursts
+
+- reading: 5 min. The story's rules and drawing, the grip's socket, the
+  silent lists' pages and the RUB and TAP words other bosses say.
+- writing: 10 min. The four story words and their test, the twelve bursts
+  on a page of their own, the fx's tests, the lists' comments.
+- looking: 5 min. One frame of the jet with TAP on the socket.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — `valve-fx.ts` was at 205 lines, so the story's
+twelve bursts went on a page of their own.

@@ -1,4 +1,4 @@
-import { type ValveState, valveLeaking, type World } from "@neon-spore/sim";
+import { type ValvePhase, type ValveState, valveLeaking, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
@@ -24,12 +24,27 @@ import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "./valve
  *
  * **`FIRE` at the hull under the spark while it falls, ahead of the rest**,
  * to either seat, since either colour takes it — a spark left alone is the
- * blow this boss lands. The story between the pins says its own words, the
- * second half of this page.
+ * blow this boss lands.
+ *
+ * **The story between the pins says its own words, on the socket and to
+ * either seat**, since every one of its four is either thumb's
+ * (`sim/valve-story.ts`) and the socket is where the pin is pressed outside
+ * the freeze (`valvePinHandle`): `TAP` while the jet blows — an edge, which
+ * caps it — `HOLD` for the brace and for the seal, which count both thumbs
+ * down together, and `RUB` while the film is on, the back and forth THE
+ * GRINDSTONE's flat asks for (`boss-cue-read-zj.ts`).
  */
 
 const HALF_W = 0.9;
 const HALF_H = 0.62;
+
+/** The story's word in each of its phases, on the socket to either seat. */
+const STORY: Partial<Record<ValvePhase, { kind: BossCue["kind"]; word: string; seed: number }>> = {
+  jet: { kind: "PRESS", word: "TAP", seed: 184 },
+  brace: { kind: "HOLD", word: "HOLD", seed: 185 },
+  wipe: { kind: "CARRY", word: "RUB", seed: 186 },
+  seal: { kind: "HOLD", word: "HOLD", seed: 187 },
+};
 
 export function valveCues(
   l: Layout,
@@ -55,6 +70,11 @@ export function valveCues(
   const pin = valveLivePinCircle(l, cfg, s, beat, beatPhase);
   if (pin !== null) {
     out.push({ seat: null, kind: "HOLD", word: "PULL", x: pin.x, y: pin.y, ...frame, seed: 183 });
+  }
+  const story = STORY[s.phase];
+  if (story !== undefined) {
+    const { x, y } = valveSocketCircle(l, cfg, s, beat, beatPhase);
+    out.push({ seat: null, ...story, x, y, ...frame });
   }
   return out;
 }

@@ -30,7 +30,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **THE VALVE, and the four words the field may say about it**
  * (`render/src/boss-cue-read-zp.ts`): `TURN` on the wheel to the pilot,
  * `FREEZE` on the socket to the navigator, `PULL` on the live pin to either,
- * and `FIRE` under the falling spark. What is *not* said matters as much:
+ * and `FIRE` under the falling spark; and the story's `TAP`, `HOLD` and
+ * `RUB` on the socket to either. What is *not* said matters as much:
  * nothing to the pilot while the navigator's tap is wanted, and nothing once
  * the wheel holds but the tap.
  */
@@ -105,6 +106,23 @@ describe("THE VALVE", () => {
       const c = cue(world, role);
       expect(c).toMatchObject({ word: "FIRE", seat: null, y: LAYOUT[role].hullY });
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], 1), 5);
+    }
+  });
+
+  it.each([
+    ["jet", "TAP", "PRESS"],
+    ["brace", "HOLD", "HOLD"],
+    ["wipe", "RUB", "CARRY"],
+    ["seal", "HOLD", "HOLD"],
+  ] as const)("says the story's %s to either seat, on the socket: %s", (phase, word, kind) => {
+    const { world, s } = hung(phase);
+    s.pins = VALVE_PINS - 1;
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c).toMatchObject({ word, kind, seat: null });
+      const socket = valveSocketCircle(LAYOUT[role], CFG, s, world.beat, 0);
+      expect(c?.x).toBeCloseTo(socket.x, 5);
+      expect(c?.y).toBeCloseTo(socket.y, 5);
     }
   });
 

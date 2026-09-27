@@ -13,6 +13,7 @@ import {
   valveMark,
   type World,
 } from "@neon-spore/sim";
+import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { ValveFx } from "../src/valve-fx.js";
@@ -144,11 +145,39 @@ describe("THE VALVE's transients", () => {
     expect(fx.shock.now).toBe(0);
   });
 
-  it("leaves the story's twelve to its phase", () => {
+  it("flares where the story's asks are answered, and each is a step landed", () => {
+    for (const type of ["valveCap", "valveBrace", "valveDry", "valveSeal"] as const) {
+      const fx = new ValveFx();
+      expect(said(fx, [at(type)])).toHaveLength(1);
+      expect(fx.hurt.value).toBe(1);
+      expect(fx.shock.now).toBe(0);
+    }
+  });
+
+  it("lands the story's run-out asks on the hull in red, and shudders it", () => {
+    for (const type of ["valveBlow", "valveShake", "valveSmear", "valveRough"] as const) {
+      const fx = new ValveFx();
+      const [thrown] = said(fx, [at(type)]);
+      expect(thrown?.hex).toBe(PALETTE.red);
+      expect(thrown?.x).toBeCloseTo(fieldX(L, MID), 5);
+      expect(fx.shock.now).toBeGreaterThan(0);
+      expect(fx.hurt.value).toBe(0);
+    }
+  });
+
+  it("puffs as each of the story's asks opens, and deals nothing", () => {
     const fx = new ValveFx();
-    const story = ["valveJet", "valveBrace", "valveFilm", "valveSeal", "valveRough"] as const;
-    expect(said(fx, story.map(at))).toEqual([]);
-    expect(fx).toEqual(new ValveFx());
+    const story = ["valveJet", "valveShudder", "valveFilm", "valveStrain"] as const;
+    expect(said(fx, story.map(at))).toHaveLength(4);
+    expect(fx.hurt.value).toBe(0);
+    expect(fx.shock.now).toBe(0);
+  });
+
+  it("steams the jet's puff out of the first pin's slot", () => {
+    const [puff] = said(new ValveFx(), [at("valveJet")]);
+    const c = valveCentre(L, CFG);
+    const hole = valveHoleCentre(L, 0, VALVE_PINS);
+    expect(puff).toMatchObject({ x: c.x + hole.x, y: c.y + hole.y });
   });
 
   it("forgets everything on a clear", () => {

@@ -1044,22 +1044,6 @@ silhouette collision — do that first. This is a proposal for which look to
 claim next, not a claim itself; the owner or whichever session claims
 THE VALVE's look decides.
 
-## §25 THE VALVE — its story's words and bursts
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-25-the-valve-its-states-poses-and-its-storys-wor (claim: claude/queue-25-the-valve-its-storys-words-and-bursts)
-- **Files:** `packages/render/src/boss-cue-read-zp.ts`, `packages/render/src/valve-fx.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`
-
-The body is drawn, and on 27 September 2026 **the grip**
-(`render/valve-grip.ts`), **the fx** (`render/valve-fx.ts`), **the cue's
-words** (TURN, FREEZE, PULL, FIRE on `boss-cue-read-zp.ts`) and **all ten
-STATES poses** (`poses-bosses-hands-valve.ts`, played by `valveHand`) landed.
-What is left is **the story between the pins** (`sim/valve-story.ts`, drawn
-by `render/valve-story.ts`): its cue words TAP on the jet, HOLD for the
-brace and the seal, RUB for the wipe, on `valveCues`' page, and its twelve
-events off the `-d` silent lists as each gets its burst in `valve-fx.ts`.
-Unverified at tempo until the owner has looked.
-
 ## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e

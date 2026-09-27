@@ -8,6 +8,7 @@ import { rgba } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { valveStoryBurst } from "./valve-fx-story.js";
 import {
   type Point,
   valveCentre,
@@ -22,12 +23,14 @@ import {
  * wheel as the navigator's tap freezes it, the **flare** in the slot a pin
  * has just left, the **kick** that knocks the drum as the wheel is thrown off
  * its mark, the **shock** through the hull as the spark lands or the face
- * falls open, and the bursts its thirteen receipts throw.
+ * falls open, and the bursts its thirteen receipts throw — with its story's
+ * twelve, whose bursts are `valve-fx-story.ts`'.
  *
  * Everything else — where the wheel stands, which pins are out, how far the
  * drum lists — is read off the boss every frame (`valve-draw.ts`,
- * `valve-pose.ts`). The story's twelve are read off its phase
- * (`valve-story.ts`) and never reach this file.
+ * `valve-pose.ts`), and the story's states are read off its phase
+ * (`valve-story.ts`): only their bursts, the blow an answer deals the drum
+ * and the shudder a run-out one sends through the hull come through here.
  *
  * **Both screens are thrown the same**, like the drawing: each thumb times
  * itself off the other's half.
@@ -148,8 +151,12 @@ export class ValveFx {
           burst(c.x, c.y, 20, PALETTE.rock);
           this.shock.strike(OPEN_BEATS * beatSeconds, OPEN_FORCE);
           break;
-        default:
+        default: {
+          const blow = valveStoryBurst(e, l, cfg, c, burst);
+          if (blow === "landed") this.hurt.hit();
+          else if (blow === "struck") this.shock.strike(SPARK_BEATS * beatSeconds, 1);
           break;
+        }
       }
     }
   }

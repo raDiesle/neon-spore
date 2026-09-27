@@ -189,8 +189,9 @@ export const INGEST_SILENT_BOSS_D = [
   "flueMiss",
   "flueSpent",
   "flueOut",
-  // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
-  // what the drum does is read off its phase (`valve-story.ts`), never off these.
+  // THE VALVE's story between the pins: what the drum does is read off its
+  // phase (`valve-story.ts`), and each burst is thrown above the loop by
+  // `valve-fx-story.ts`, through the drum's own fx.
   "valveJet",
   "valveCap",
   "valveBlow",
