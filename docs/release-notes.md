@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f222f863f — THE INSTAR's fx events get a file of their own
+
+`InstarFx.ingest`'s switch over eleven event types moved to `instar-fx-ingest.ts`, which reads where the marks were drawn from one `spots` object the class writes in `place`. The class keeps its state, `place`, `update`, `draw` and `clear`, and is 148 lines where it was 231. Nothing it draws changes.
+
 ## 2026-09-27 · b452bfc77 — THE INSTAR shows the hurt on every counted bolt
 
 Every bolt a shoot mark counts now washes THE INSTAR red for half a second and shakes it half as hard as a landing does; a refused bolt or a miss shows nothing, and a landed step keeps the full blow. `BossHurt` holds the shake apart from the red for it (`jab`). A look the owner asked for by name, 27 September 2026.

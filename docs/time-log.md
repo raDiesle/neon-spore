@@ -26241,3 +26241,5 @@ event, so the fx had to learn it from `place` the way it learns a swipe.
 
 Bottleneck: writing — the switch wrote five private fields, so the seam
 needed a shape for them before the cut was one move.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
