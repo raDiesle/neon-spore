@@ -2390,6 +2390,7 @@ check` proves it.
 ## THE DAVIT's boom swings back a whole step a beat
 
 - **Found:** 2026-09-27, claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus
+- **Taken:** 2026-09-27, claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus (claim: claude/queue-the-davits-boom-swings-back-a-whole-step-a-beat)
 - **Files:** `packages/render/src/davit-pose.ts`, `packages/render/src/davit-draw.ts`, `packages/render/test/frame.test.ts`
 
 With nobody steering, the simulation swings THE DAVIT's boom back toward
