@@ -915,6 +915,7 @@ unverified until the owner holds two phones.
 ## §37 THE CAPSTAN — the blow and the receipts
 
 - **Found:** 2026-09-27, claude/queue-37-the-capstan-the-look
+- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-look (claim: claude/queue-37-the-capstan-the-blow-and-the-receipts)
 - **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/capstan-draw.ts`
 
 The body is drawn (§11.54, *The look*); the look's second half is left. A
