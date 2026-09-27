@@ -2471,24 +2471,6 @@ every part's widest; no two parts move in step (the helper's test, run on its
 part list); op count within 10% for both layers together;
 `baked-growth.test.ts` flat. `bun run check` proves the tests.
 
-## Living bosses — split the queen's wings out of her shell, drawing the same
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-wardens-two-hatch-lids-d (claim: claude/queue-living-bosses-split-the-queens-wings-out-of-her)
-- **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-crane.ts`, `packages/render/test/frame.test.ts`, `docs/spec/living-bosses.md`
-
-Section 1 of `docs/spec/living-bosses.md`, the part map: the queen's two
-wings are inside the shell's one path, so they cannot move on their own.
-Draw the shell and each wing as its own path, each wing about a joint where
-it meets the shell, and give the crane arms and claws a joint too if they
-lack one. The picture does not change: this is a refactor, not a look.
-
-Done when: a test draws the queen at every state before and after and finds
-the pixels equal (or within anti-aliasing, 1 in 255 per channel); each wing
-has a joint point a later lane can rotate about; the op count row moves by
-no more than the extra paths, with a sentence saying so. `bun run check`
-proves it.
-
 ## Living bosses — the mechanisms swing what hangs or hinges, six per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec

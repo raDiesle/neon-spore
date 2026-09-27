@@ -25999,3 +25999,16 @@ Bottleneck: reading — each note had to be matched to the code that draws it
 before an entry could name its files and say what exactly to change.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE BULB QUEEN's wings are pieces with joints, and her arms have theirs
+
+- reading: 5 min. The entry, `drawShell`, `crystalPath` and the crane.
+- writing: 10 min. `queen-shell.ts`, `craneJoints`, and the pixel test that
+  paints the old contour and the new in her own look.
+- looking: 5 min. The stroke differed at one corner: a closed ring's join is
+  drawn where it starts, so the laid ring starts where `crystalPath`'s did.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the fill was equal from the first run and only the
+stroke's closing join told the two rings apart.

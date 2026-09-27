@@ -1586,6 +1586,7 @@ by hand never moves.
 | `packages/render/src/queen-carapace.ts` | CARAPACE — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/queen-crane.ts` | THE CRANE — what holds each flank torch to the queen: an arm of two segments with a claw on the end |
 | `packages/render/src/queen-scutes.ts` | SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September 2026 |
+| `packages/render/src/queen-shell.ts` | **THE BULB QUEEN's shell in pieces**: her two wings, each with its joint, and the back between them |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |

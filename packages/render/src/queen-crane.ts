@@ -64,9 +64,43 @@ export function craneRelease(
   return 0;
 }
 
-/** Where the wrist is for a rock at `rx`,`ry` of radius `r`. */
-function wrist(rx: number, ry: number, r: number): { x: number; y: number } {
+/**
+ * Where the wrist is for a rock at `rx`,`ry` of radius `r` — the joint the
+ * claw hangs from (`docs/spec/living-bosses.md`, the part map).
+ */
+export function craneWrist(rx: number, ry: number, r: number): { x: number; y: number } {
   return { x: rx, y: ry - r * WRIST_OFF };
+}
+
+/** An arm's three joints: where it meets her, where it bends, where the claw hangs. */
+export interface CraneJoints {
+  shoulder: { x: number; y: number };
+  elbow: { x: number; y: number };
+  wrist: { x: number; y: number };
+}
+
+/**
+ * Arm `side`'s joints for her body at `bodyX`,`bodyY` and its rock at
+ * `rx`,`ry` of radius `r`. The elbow lifts less as the arm lets go —
+ * straightening is what letting go looks like in an arm, and a bent arm that
+ * merely opened its fingers would read as dropping something by accident.
+ */
+export function craneJoints(
+  tile: number,
+  bodyX: number,
+  bodyY: number,
+  side: -1 | 1,
+  rx: number,
+  ry: number,
+  r: number,
+  release: number,
+): CraneJoints {
+  const sx = bodyX + side * SHOULDER_X * tile;
+  const sy = bodyY + SHOULDER_Y * tile;
+  const w = craneWrist(rx, ry, r);
+  const ex = sx + (w.x - sx) * ELBOW_ALONG;
+  const ey = sy + (w.y - sy) * ELBOW_ALONG - r * ELBOW_LIFT * (1 - release * 0.7);
+  return { shoulder: { x: sx, y: sy }, elbow: { x: ex, y: ey }, wrist: w };
 }
 
 function joint(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): void {
@@ -79,10 +113,8 @@ function joint(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): 
 
 /**
  * The arm, drawn before the rock so the wrist sits behind it: from the
- * shoulder on her flank, up to the elbow, down to the rock's top. The elbow
- * lifts less as the arm lets go — straightening is what letting go looks like
- * in an arm, and a bent arm that merely opened its fingers would read as
- * dropping something by accident.
+ * shoulder on her flank, up to the elbow, down to the rock's top
+ * (`craneJoints`).
  */
 export function drawCraneArm(
   ctx: CanvasRenderingContext2D,
@@ -95,11 +127,10 @@ export function drawCraneArm(
   r: number,
   release: number,
 ): void {
-  const sx = bodyX + side * SHOULDER_X * tile;
-  const sy = bodyY + SHOULDER_Y * tile;
-  const w = wrist(rx, ry, r);
-  const ex = sx + (w.x - sx) * ELBOW_ALONG;
-  const ey = sy + (w.y - sy) * ELBOW_ALONG - r * ELBOW_LIFT * (1 - release * 0.7);
+  const j = craneJoints(tile, bodyX, bodyY, side, rx, ry, r, release);
+  const { x: sx, y: sy } = j.shoulder;
+  const { x: ex, y: ey } = j.elbow;
+  const w = j.wrist;
 
   ctx.strokeStyle = PALETTE.hull;
   ctx.lineWidth = STROKE.outline * 2.6;
@@ -132,7 +163,7 @@ export function drawCraneClaw(
   r: number,
   release: number,
 ): void {
-  const w = wrist(rx, ry, r);
+  const w = craneWrist(rx, ry, r);
   const grip = r * GRIP;
   ctx.lineCap = "round";
   // The arm's own colour under a lit core: the rock's rim is pale already,

@@ -1,4 +1,3 @@
-import { crystalPath, QUEEN_SHELL } from "@neon-spore/content";
 import type { Creature, QueenState, SimConfig } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { halo } from "./glow.js";
@@ -8,6 +7,7 @@ import { drawEgg, drawSideHint } from "./queen-egg.js";
 import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
 import { drawQueenGrip } from "./queen-grip.js";
 import { QUEEN_LOOK } from "./queen-look.js";
+import { queenShellParts, queenShellPath } from "./queen-shell.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
 
 // The figure itself is next door, with the rest of the measurements a caption
@@ -176,12 +176,11 @@ function drawShell(
   healthShare: number,
   hurt: number,
 ): void {
-  const shape = QUEEN_SHELL;
   const phase = (id % 7) * 0.9;
   const wobbleMult = 1 + (1 - healthShare) * OUTER_WOBBLE_BONUS;
   const t = time * wobbleMult + phase;
-  const d = crystalPath(0, 0, rx, ry, shape.sides, shape.depth, shape.wobble, t, shape.seed);
-  const path = new Path2D(d);
+  // Her wings and her back as pieces of the one contour (`queen-shell.ts`).
+  const path = queenShellPath(queenShellParts(rx, ry, t));
 
   ctx.save();
   ctx.translate(x, y);
