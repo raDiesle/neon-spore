@@ -27780,3 +27780,5 @@ knowing the anchor's rotation order and why the skull may not pitch.
 
 Bottleneck: friction. `next` makes the claim branch without checking it
 out, and the edit went onto the branch already there.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

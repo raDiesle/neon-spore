@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · fcaed628a — THE SLUICE waits on the owner with THE WINCH: THE DAVIT asks its question
+
+THE SLUICE's draw counts only while the other seat's pinch holds its gap shut — THE DAVIT's built rule with THE VISE's pinch where the lean is, as THE WINCH is with a chord. Its simulation lane now asks the same three-way question THE WINCH's does. Nothing built; THE GOVERNOR, whose chord changes a needle's pace rather than gating a tap, is a new question and goes ahead.
+
 ## 2026-09-27 · 71e3ff1f8 — THE INSTAR's face-on lips are asked for, not copied; its rig head is parked
 
 `frontLipsAt` answers where the face-on head draws each lip, beside `frontEyeAt`, so a head drawn on the rig can be fitted to the shipped marks by calling them. The rest of the item — the model, its sheet and the VERSUS candidate — moves to docs/parked.md with the design decided so far and the two halves it lands in; the owner stopped the session.
