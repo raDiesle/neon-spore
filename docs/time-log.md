@@ -26541,3 +26541,16 @@ Bottleneck: reading — the first MANTLE row passed unhushed, because a cue
 goes once the thumb holds, and finding that took the longest.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — Every other boss holds still, six more
+
+- reading: 5 min. Six draws for `time`, down to which parts of THE CAPSTAN
+  are drawn inside its rattle.
+- writing: 5 min. `capstanShake`, THE CAPSTAN's `DRAWN` reader, six rows.
+- looking: 0 min. Nothing measured by eye; the hush is a number.
+- friction: 0 min.
+- landing: 5 min. THE CAPSTAN row made to fail at a tenth, `check:fast`, the
+  commit, `land`.
+
+Bottleneck: reading — the rattle's roll does not scale with its reach, which
+only showed once the reader rolled the mark too.

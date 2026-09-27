@@ -2586,13 +2586,20 @@ Each of their draws was read for `time`, and what else moves is skin: a lit
 highlight's wobble, a spent clasp's slack, the oculus's leaves settling, a
 knob's outline, a hit's shake.
 
+**The third lane, 27 September 2026:** new rows THE RIME, THE TRIVET, THE
+PLUMB, THE GRINDSTONE, THE CYST and THE CAPSTAN. Only THE CAPSTAN's marks
+moved on the clock: its rattle shook and rolled the face being rubbed at 1.4
+tiles a second, and `capstanShake` (`capstan-pose.ts`) now hushes both to a
+twenty-fifth. The roll had to be hushed on its own, because `capstanJudder`
+does not scale it with the reach. The others' clocks move no mark: THE
+PLUMB's weights, THE RIME's fog, THE CYST's covered core (bared, it holds
+still), and THE CYST's lit flank, whose shudder bends the outline under a
+still ring. That shudder is the tap's own picture, so it was left.
+
 Left, with what the first lane's probe found under AUTO:
-- **Cue already still in windows** (read each draw for wall-clock motion,
-  and add a `DRAWN` reader for any mark the cue stops naming, before adding
-  its row): THE RIME, THE TRIVET, THE PLUMB, THE GRINDSTONE, THE CYST (core
-  drift and a shake in `cyst-marks`), THE CAPSTAN (`capstanJudder` carries
-  the marks), THE SCUTTLE (its cue reads the part's row, not its drawn rise
-  and hang: a `DRAWN` reader).
+- **Cue already still in windows** (its cue reads the part's row, not its
+  drawn rise and hang, so it needs a `DRAWN` reader before its row): THE
+  SCUTTLE.
 - **Windows but no cue** (these need a `DRAWN` reader first): THE
   SINEW, THE ANTIPHON, THE NETTLE, THE VALVE, THE SEAM, THE SLING, THE DAVIT,
   THE HALTER (`halterTremor`), THE GALL, THE BURGEE (`burgeeLay`'s sway on

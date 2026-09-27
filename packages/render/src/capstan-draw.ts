@@ -18,9 +18,8 @@ import {
   capstanArrived,
   capstanCover,
   capstanGone,
-  capstanJudder,
   capstanLeft,
-  capstanRattle,
+  capstanShake,
   capstanTurn,
   capstanWorn,
 } from "./capstan-pose.js";
@@ -42,8 +41,6 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
-// The rattle's reach at a rattle of one, in tiles.
-const RATTLE = 0.03;
 // How faint the lean's mark is on a hold, which either horn answers.
 const EITHER = 0.5;
 
@@ -99,7 +96,7 @@ export function drawCapstan(
     drawCapstanHorn(ctx, l, side, hornStrength(world, s, side), beatPhase);
   }
 
-  const shake = capstanJudder(time, capstanRattle(s) * RATTLE * l.tile);
+  const shake = capstanShake(l, world, s, beat, beatPhase, time);
   ctx.translate(shake.x, shake.y);
   ctx.rotate(shake.roll);
   const squeeze = capstanSqueeze(turn);

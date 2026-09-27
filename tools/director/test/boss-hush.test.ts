@@ -11,6 +11,9 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bossCues, cueSeen } from "../../../packages/render/src/boss-cue.js";
+import { capstanCues } from "../../../packages/render/src/boss-cue-read-zl.js";
+import { capstanScreenAt } from "../../../packages/render/src/capstan-grip.js";
+import { capstanShake } from "../../../packages/render/src/capstan-pose.js";
 import { mantleShudder } from "../../../packages/render/src/mantle-brace.js";
 import { mantleKnobCircle } from "../../../packages/render/src/mantle-grip.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
@@ -35,7 +38,8 @@ import { stageField } from "../src/stage-field.js";
  * The cue reads no `time`, and it goes once the thumb is doing what it asks,
  * so a boss whose draw moves a mark the cue no longer names, or moves it on
  * the wall clock, is read in `DRAWN` too, from the functions its draw calls:
- * THE MANTLE's brace shudder carries both knobs while the pair hold them.
+ * THE MANTLE's brace shudder carries both knobs while the pair hold them,
+ * and THE CAPSTAN's rattle shakes and rolls the face a thumb is rubbing.
  * What this still cannot see is a pose the cue stands its word clear of —
  * THE SCUTTLE's cue reads the part's row and not its drawn rise. So a boss is
  * given a row only once its draw has been read and its rings are placed off
@@ -59,6 +63,12 @@ const STILL: readonly BossKind[] = [
   "oculus",
   "vise",
   "baton",
+  "rime",
+  "trivet",
+  "plumb",
+  "grindstone",
+  "cyst",
+  "capstan",
 ];
 
 interface Mark {
@@ -79,6 +89,21 @@ const DRAWN: Partial<Record<BossKind, Drawn>> = {
     return ([-1, 1] as const).map((side, k) => {
       const knob = mantleKnobCircle(l, world.cfg, s, side, world.beat, phase, s.depthMilli[k]);
       return { id: -1 - k, x: knob.x + shudder, y: knob.y };
+    });
+  },
+  // The rub's word stands where the face is before the rattle, which the ends
+  // are drawn inside; the lean's horns are drawn before it and the `FIRE` at the hull.
+  capstan: (l, world, phase, time) => {
+    const s = world.boss;
+    if (s?.kind !== "capstan") return [];
+    const shake = capstanShake(l, world, s, world.beat, phase, time);
+    const at = capstanScreenAt(l, world.cfg, s, { x: 0, y: 0 }, world.beat, phase);
+    const [cos, sin] = [Math.cos(shake.roll), Math.sin(shake.roll)];
+    const rubs = capstanCues(l, world, s, phase).filter((c) => c.word === "RUB");
+    return rubs.map((c) => {
+      const [dx, dy] = [c.x - at.x, c.y - at.y];
+      const x = at.x + shake.x + dx * cos - dy * sin;
+      return { id: -c.seed, x, y: at.y + shake.y + dx * sin + dy * cos };
     });
   },
 };

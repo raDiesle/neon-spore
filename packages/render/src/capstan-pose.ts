@@ -7,6 +7,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import type { Layout } from "./layout.js";
+import { slowHush } from "./slow-hush.js";
 
 /**
  * **The clock THE CAPSTAN is posed off** (§37, *Animation*): the drum
@@ -25,7 +27,9 @@ import { smoothstep } from "./ease.js";
  *
  * **The rattle never stops** while the drum stands (`capstanJudder`): three
  * sines no two of which beat together under a slow swell, so a thumb that
- * has paused mid-wipe is read by the judder carrying on under it.
+ * has paused mid-wipe is read by the judder carrying on under it. Inside an
+ * asking window of THE SLOW it dies down to a twenty-fifth, because it
+ * carries the face a thumb is rubbing (`capstanShake`).
  */
 
 /** How far the bared core's cap creeps back through a hold run out unkept, as a share of shut. */
@@ -117,6 +121,35 @@ export function capstanCover(
 export function capstanRattle(s: CapstanState): number {
   if (s.phase === "open") return 0;
   return s.phase === "rusted" ? 2 : 1;
+}
+
+// The rattle's reach at a rattle of one, in tiles.
+const RATTLE = 0.03;
+
+/**
+ * What is left of the rattle inside a window. Its sines reach about 40
+ * radians a second, so a reach of 0.03 tiles and its roll carry the rubbed
+ * face at 1.4 tiles a second, and a twenty-fifth of that is 0.06, under the
+ * tenth a live mark may move (`tools/director/test/boss-hush.test.ts`).
+ */
+const RATTLE_HUSHED = 0.04;
+
+/**
+ * The drum's rattle as `drawCapstan` shakes it this frame, in pixels, hushed
+ * in a window. The roll is hushed too: `capstanJudder`'s hair of roll does
+ * not scale with its reach, and at the drum's ends it is most of the motion.
+ */
+export function capstanShake(
+  l: Layout,
+  world: World,
+  s: CapstanState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+): { x: number; y: number; roll: number } {
+  const hush = slowHush(world, beat, beatPhase, RATTLE_HUSHED);
+  const shake = capstanJudder(time, capstanRattle(s) * RATTLE * l.tile * hush);
+  return { ...shake, roll: shake.roll * hush };
 }
 
 /**
