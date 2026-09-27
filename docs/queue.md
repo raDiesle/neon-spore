@@ -2709,6 +2709,7 @@ count and is refused. `bun run check` proves it.
 ## THE INSTAR — a shield or suck mark draws the hold's two thumbs
 
 - **Found:** 2026-09-27, claude/queue-the-instar-a-shoot-mark-is-a-crosshair
+- **Taken:** 2026-09-27, claude/queue-the-instar-a-shoot-mark-is-a-crosshair (claim: claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds)
 - **Files:** `packages/render/src/instar-glyphs.ts`, `packages/render/src/instar-ring.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-fourth.ts`
 
 `drawInstarGlyph` names six gestures and sends every other one to its last
