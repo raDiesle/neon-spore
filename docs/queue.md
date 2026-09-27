@@ -2375,7 +2375,7 @@ check` proves it.
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
 - **Taken:** 2026-09-27, claude/queue-the-nettles-row-in-the-slows-aim-once-it-is-draw (claim: claude/queue-every-other-boss-holds-still-while-its-marks-are)
-- **Files:** `tools/director/test/boss-hush.test.ts`, `packages/render/src/slow-hush.ts`, `packages/render/src/boss-cue.ts`
+- **Files:** `tools/director/test/boss-hush.test.ts`, `tools/director/test/boss-hush-drawn.ts`, `packages/render/src/slow-hush.ts`, `packages/render/src/boss-cue.ts`
 
 The same rule as THE INSTAR's, for every boss: in an open slow window with a
 live mark, the body's *natural* motion eases to a tenth. That covers a
@@ -2430,14 +2430,31 @@ PLUMB's weights, THE RIME's fog, THE CYST's covered core (bared, it holds
 still), and THE CYST's lit flank, whose shudder bends the outline under a
 still ring. That shudder is the tap's own picture, so it was left.
 
+**The fourth lane, 27 September 2026:** the readers moved out to
+`boss-hush-drawn.ts`. New rows: THE SEAM, THE SLING, THE HALTER, THE GALL
+and THE VALVE, each with a `DRAWN` reader. THE GALL's ripple carried both
+its rings on the wall clock, and `gallRippling` now takes the world and
+hushes it. THE VALVE's brace shudder is hushed to a twenty-fifth
+(`valve-story.ts` `SHUDDER_HUSHED`). The reader also found a jump that was
+no motion at all: `valveList` counted a pin's list step from the pull, but
+the pull goes straight to the pin's story and `list` comes after. So the
+drum jumped a step as the pin came out, 0.14 tile at the socket, and dropped
+back to ease it in again. The story now plays with the drum where it stood.
+THE HALTER's `halterTremor` moves only the plates, never a grip or the core.
+**THE DAVIT has no row:** AUTO has no hand for it (`autopilot.test.ts`
+`NO_HAND`), so its wave never gets past the first lean, and nothing is ever
+asked of the hook. Its reader is simple (the hook's ring at
+`davitMast + davitHook(l, davitAngle(s), DAVIT_SAG)` while the step asks for
+`fire`, with nothing on the clock), and it goes in with the hand.
+
 Left, with what the first lane's probe found under AUTO:
 - **Cue already still in windows** (its cue reads the part's row, not its
   drawn rise and hang, so it needs a `DRAWN` reader before its row): THE
   SCUTTLE.
 - **Windows but no cue** (these need a `DRAWN` reader first): THE
-  SINEW, THE ANTIPHON, THE NETTLE, THE VALVE, THE SEAM, THE SLING, THE DAVIT,
-  THE HALTER (`halterTremor`), THE GALL, THE BURGEE (`burgeeLay`'s sway on
-  `time`).
+  SINEW, THE ANTIPHON, THE NETTLE (`instarMarkPoint` with `nettleSway`), THE
+  BURGEE (`burgeeLay`'s sway on `time`, through Effects' `BurgeeFx`).
+- **No hand for AUTO:** THE DAVIT, above.
 
 ## THE INSTAR — a shoot mark asks for one colour, or none
 

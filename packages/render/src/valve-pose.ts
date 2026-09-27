@@ -1,4 +1,4 @@
-import { type SimConfig, VALVE_PINS, type ValveState } from "@neon-spore/sim";
+import { type SimConfig, VALVE_PINS, type ValvePhase, type ValveState } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 
 /**
@@ -39,14 +39,26 @@ export function valveArrived(
   return smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.valveStillBeats));
 }
 
+/** The story a pulled pin sets off (`sim/valve-story.ts`), played before its list. */
+const STORY: readonly ValvePhase[] = ["jet", "brace", "wipe", "seal"];
+
 /**
  * The list, in radians clockwise: one step per pin out, the latest eased in
  * over the list's beats — sealed, one, two, and three as the face falls.
+ *
+ * **A pin's story plays with the drum where it stood.** The pull goes
+ * straight to the jet, the brace or the wipe, and `list` only comes after;
+ * until 27 September 2026 the step was counted from the pull, so the drum
+ * jumped a step as the pin came out — the socket a seventh of a tile, under
+ * two thumbs asked to hold it — and dropped back to ease it in afterwards.
  */
 export function valveList(s: ValveState, cfg: SimConfig, beat: number, beatPhase: number): number {
   const out = pulled(s);
-  if (s.phase !== "list") return LIST * out;
-  const t = smoothstep(into(s, beat, beatPhase) / Math.max(1, cfg.valveListBeats));
+  if (STORY.includes(s.phase)) return LIST * (out - 1);
+  const beats =
+    s.phase === "list" ? cfg.valveListBeats : s.phase === "open" ? cfg.valveOpenBeats : 0;
+  if (beats === 0) return LIST * out;
+  const t = smoothstep(into(s, beat, beatPhase) / Math.max(1, beats));
   return LIST * (out - 1 + t);
 }
 

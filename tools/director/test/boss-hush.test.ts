@@ -1,24 +1,12 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { computeLayout, type Layout, type Viewport } from "@neon-spore/render";
-import {
-  type BossKind,
-  beatPhase,
-  mantleBracing,
-  slowing,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { computeLayout, type Viewport } from "@neon-spore/render";
+import { type BossKind, beatPhase, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { bossCues, cueSeen } from "../../../packages/render/src/boss-cue.js";
-import { capstanCues } from "../../../packages/render/src/boss-cue-read-zl.js";
-import { capstanScreenAt } from "../../../packages/render/src/capstan-grip.js";
-import { capstanShake } from "../../../packages/render/src/capstan-pose.js";
-import { mantleShudder } from "../../../packages/render/src/mantle-brace.js";
-import { mantleKnobCircle } from "../../../packages/render/src/mantle-grip.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { DRAWN } from "./boss-hush-drawn.js";
 
 /**
  * **Every boss holds its marks still while a window asks for them** — the
@@ -37,7 +25,8 @@ import { stageField } from "../src/stage-field.js";
  *
  * The cue reads no `time`, and it goes once the thumb is doing what it asks,
  * so a boss whose draw moves a mark the cue no longer names, or moves it on
- * the wall clock, is read in `DRAWN` too, from the functions its draw calls:
+ * the wall clock, is read in `DRAWN` too (`boss-hush-drawn.ts`), from the
+ * functions its draw calls:
  * THE MANTLE's brace shudder carries both knobs while the pair hold them,
  * and THE CAPSTAN's rattle shakes and rolls the face a thumb is rubbing.
  * What this still cannot see is a pose the cue stands its word clear of —
@@ -69,44 +58,12 @@ const STILL: readonly BossKind[] = [
   "grindstone",
   "cyst",
   "capstan",
+  "seam",
+  "sling",
+  "halter",
+  "gall",
+  "valve",
 ];
-
-interface Mark {
-  /** Apart from every cue's seed, which are all positive. */
-  id: number;
-  x: number;
-  y: number;
-}
-
-type Drawn = (l: Layout, world: World, beatPhase: number, time: number) => readonly Mark[];
-
-/** The marks a boss's draw places where its cue does not reach, as the draw places them. */
-const DRAWN: Partial<Record<BossKind, Drawn>> = {
-  mantle: (l, world, phase, time) => {
-    const s = world.boss;
-    if (s?.kind !== "mantle" || !mantleBracing(s)) return [];
-    const shudder = mantleShudder(l, world, s, world.beat, phase, time);
-    return ([-1, 1] as const).map((side, k) => {
-      const knob = mantleKnobCircle(l, world.cfg, s, side, world.beat, phase, s.depthMilli[k]);
-      return { id: -1 - k, x: knob.x + shudder, y: knob.y };
-    });
-  },
-  // The rub's word stands where the face is before the rattle, which the ends
-  // are drawn inside; the lean's horns are drawn before it and the `FIRE` at the hull.
-  capstan: (l, world, phase, time) => {
-    const s = world.boss;
-    if (s?.kind !== "capstan") return [];
-    const shake = capstanShake(l, world, s, world.beat, phase, time);
-    const at = capstanScreenAt(l, world.cfg, s, { x: 0, y: 0 }, world.beat, phase);
-    const [cos, sin] = [Math.cos(shake.roll), Math.sin(shake.roll)];
-    const rubs = capstanCues(l, world, s, phase).filter((c) => c.word === "RUB");
-    return rubs.map((c) => {
-      const [dx, dy] = [c.x - at.x, c.y - at.y];
-      const x = at.x + shake.x + dx * cos - dy * sin;
-      return { id: -c.seed, x, y: at.y + shake.y + dx * sin + dy * cos };
-    });
-  },
-};
 
 interface Reading {
   fastest: number;

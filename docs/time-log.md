@@ -26784,3 +26784,16 @@ The bottleneck: an entry that asked for a run the rules forbid a lane to
 owe, so the work was recognising that, not measuring.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — five more bosses hold still while their marks are live
+
+- reading: 5 min. Two agents traced the halter, gall, valve and davit
+  draws; the seam and sling draws read here.
+- writing: 5 min. `boss-hush-drawn.ts` with five readers, the gall ripple
+  and valve shudder hushed, `valveList` held through a pin's story.
+- looking: 0 min. Held by the boss-hush test; no picture.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE DAVIT's wave loops on its first lean under AUTO, which has
+no hand for it, so one of the six could not be walked at all.

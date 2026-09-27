@@ -79,7 +79,7 @@ export function drawGall(
   const shake = fx.hurt.shakeX(time, l.tile);
   const arrived = gallArrived(s, cfg, beat, beatPhase);
   const flat = gallFlat(s, cfg, beat, beatPhase);
-  const ripple = gallRippling(s, cfg, beat, beatPhase);
+  const ripple = gallRippling(s, cfg, beat, beatPhase, world);
   const part = gallPart(s, cfg, beat, beatPhase);
 
   ctx.save();

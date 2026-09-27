@@ -71,7 +71,7 @@ export function drawValve(
   const home = valveCentre(l, cfg);
   const c = { x: home.x, y: home.y - valveLift(l, arrived) };
   const open = valveOpen(s, cfg, beat, beatPhase);
-  const shake = valveShake(l, s, cfg, beat, beatPhase);
+  const shake = valveShake(l, s, cfg, beat, beatPhase, world);
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.5 * open);

@@ -7,6 +7,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
  * **The clock THE GALL is posed off** (§38, *Animation*): the nodule rising
@@ -109,13 +110,19 @@ export function gallSunk(s: GallState, cfg: SimConfig, beat: number, beatPhase: 
 /**
  * How hard the seam ripples: once standing, more between closes — the rest
  * is the gall shivering on its new point — and dying away as it smooths flat.
+ * It carries both rings, so it dies down under `slow` too (`slow-hush.ts`).
  */
 export function gallRippling(
   s: GallState,
   cfg: SimConfig,
   beat: number,
   beatPhase: number,
+  slow: SlowSpan = NO_SPAN,
 ): number {
+  return rippling(s, cfg, beat, beatPhase) * slowHush(slow, beat, beatPhase);
+}
+
+function rippling(s: GallState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (s.phase === "flat") return 1 - gallFlat(s, cfg, beat, beatPhase);
   if (s.phase === "rest") return 1.8;
   if (s.phase === "slack") return 1.3;

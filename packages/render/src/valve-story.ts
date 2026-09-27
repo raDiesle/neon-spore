@@ -3,6 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { NO_SPAN, type SlowSpan, slowHush } from "./slow-hush.js";
 import { into } from "./valve-pose.js";
 import { valveFacePath, valveHoleCentre, valveReach, valveSocket } from "./valve-shape.js";
 
@@ -27,24 +28,36 @@ import { valveFacePath, valveHoleCentre, valveReach, valveSocket } from "./valve
 /** How far the drum shudders at most, in tiles, and how fast, in cycles per beat. */
 const SHUDDER = 0.07;
 const SHUDDER_RATE = 5;
+/**
+ * What is left of the shudder while THE SLOW asks for the socket under it: a
+ * twenty-fifth, since five shudders a beat carry a tenth of it past a tenth of
+ * a tile a second (`tools/director/test/boss-hush.test.ts`).
+ */
+const SHUDDER_HUSHED = 0.04;
 /** Puffs in the jet, how far they blow, in tiles. */
 const PUFFS = 6;
 const JET = 1.4;
 /** Drips hanging off the film. */
 const DRIPS = 5;
 
-/** The drum's shake this frame, in pixels: the brace's shudder, fading as the chord counts, and the seal's lighter strain. */
+/**
+ * The drum's shake this frame, in pixels: the brace's shudder, fading as the
+ * chord counts, and the seal's lighter strain — both asking windows, so it
+ * dies down under `slow` (`slow-hush.ts`).
+ */
 export function valveShake(
   l: Layout,
   s: ValveState,
   cfg: SimConfig,
   beat: number,
   beatPhase: number,
+  slow: SlowSpan = NO_SPAN,
 ): { x: number; y: number } {
   const t = (beat + beatPhase) * SHUDDER_RATE * Math.PI * 2;
   let amp = 0;
   if (s.phase === "brace") amp = SHUDDER * (1 - s.chordBeats / Math.max(1, cfg.valveBraceBeats));
   else if (s.phase === "seal") amp = SHUDDER * 0.35;
+  amp *= slowHush(slow, beat, beatPhase, SHUDDER_HUSHED);
   return { x: amp * l.tile * Math.sin(t), y: amp * l.tile * 0.4 * Math.sin(t * 1.7) };
 }
 
