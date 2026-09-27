@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1cf4972cd — THE CAIRN's stones rock on one another, and the stones above ride along
+
+Each of the pile's seven stones rocks on the stones under it, out of step with the others, its top half a tile at the widest, and what stands on it rides along, so the apex wanders up to four fifths of a tile (`cairn-rock.ts`). The ring on the next stone to go, the hand's ring and the blow's red all read the same places, so each stays on its stone. Exemption: a look with no shipped alternative, since the stones did not rock before.
+
 ## 2026-09-27 · a5b5731ad — THE FLUE's receipts and its own blow: a tick per tap, and a cinder coughed at the hull
 
 Each tap flashes a short bar through the slot across the ember. A lapse throws a ring off the ember. The notch of a vent just spent flares. The damper thuds as the core is bared, held or shut over. The core flashes white, wider for every hit. A vent spent, a damper held and a hit wash the flue red and shake it. A fire step run out now coughs a soot cinder with a white-hot heart down the middle column, which leaves a scorch and a spray of sparks on the skin. Exemption: a look with no shipped alternative.

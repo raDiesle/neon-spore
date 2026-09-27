@@ -27243,3 +27243,5 @@ other files, each found only by reading the last boss that did it.
 
 Bottleneck: looking — the frames tool cannot aim at a game time, so the
 widest moment was found by a strip rather than asked for.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
