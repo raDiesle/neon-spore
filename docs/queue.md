@@ -2290,6 +2290,7 @@ replays no further than its tick; ◀ at step 1 and ▶ at the last do nothing.
 ## Living bosses — the idle drift, a helper that draws nothing yet
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-queens-wings-out-of-her (claim: claude/queue-living-bosses-the-idle-drift-a-helper-that-draws)
 - **Files:** `packages/render/src/solid-motion.ts`, `packages/content/src/solid.ts`, `docs/spec/living-bosses.md`, `docs/style-guide.md`
 
 Section 1 of `docs/spec/living-bosses.md`. Write idle-drift.ts in
