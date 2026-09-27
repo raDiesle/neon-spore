@@ -1710,6 +1710,7 @@ and `bun run check` is green.
 ## A painted strip is twelve registrations, and only one of them names the others
 
 - **Found:** 2026-09-27, claude/queue-30-the-trivet-sprite-atlas-experiment-the-feet-p
+- **Taken:** 2026-09-27, claude/queue-keel-plates (claim: claude/queue-a-painted-strip-is-twelve-registrations-and-only)
 - **Files:** `tools/raster/src/spec.ts`, `tools/raster/run.ts`, `tools/raster/test/strip-assets.test.ts`, `packages/render/src/sprite-burst.ts`, `packages/render/src/render-state.ts`, `packages/render/src/canvas2d-held.ts`, `packages/render/src/index.ts`, `apps/game/src/raster.ts`, `apps/game/src/main.ts`, `apps/game/test/raster.test.ts`, `packages/sim/test/copies-table.ts`
 
 THE VISE's crack, THE RIME's clearing and THE TRIVET's plant each made the
