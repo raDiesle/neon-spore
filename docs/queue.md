@@ -771,6 +771,7 @@ what the rest of this file holds.
 ## §40 THE FLUE — the touch, the cue and AUTO
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-receipts-and-its-own-blow (claim: claude/queue-40-the-flue-the-touch-the-cue-and-auto)
 - **Files:** `apps/game/src/`, `packages/render/src/boss-cue.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`, `tools/director/src/gesture-unbuilt.ts`
 
 The simulation landed as wave 119 (`docs/spec/bosses.md` §11.57) and
