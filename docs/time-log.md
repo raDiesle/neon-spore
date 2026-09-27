@@ -25449,3 +25449,5 @@ inside their draw files, and had to be found and exported before a row could cal
 
 Bottleneck: writing — the queue guard had to become a function before it could
 guard a second replay, and `run.ts` had eight lines of room to take it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
