@@ -742,6 +742,7 @@ leave behind, same as the four already listed, and it is a look:
 ## Unverified at 81ea644c1: THE RIME wave never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-unverified-at-81ea644c1-the-rime-wave-never-watc
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
 
 *Wave 108 THE RIME: rub each half of the lens clear before it frosts back, then shoot the core* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
