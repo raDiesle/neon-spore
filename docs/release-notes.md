@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · fcb267c19 — SNAKE · SHED's pose builds in 0.2 s, and its queue entry is closed
+
+The entry was answered by 34ab4bfd2, which moved SNAKE's hand onto flat arrays the same day it was filed: the pose builds in about 0.2 s, so the fresh-build test's pair is well under half its cap. Nothing else changes.
+
 ## 2026-09-27 · f9d6f0397 — Three boss status rows no longer carry THE OCULUS's body sentence
 
 The queue entry was already true on main: THE TRIVET's, THE RIME's and THE VISE's rows each describe their own body now, written by the lanes that drew them. The entry is closed with nothing to change.
