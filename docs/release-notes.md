@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7ef6289a6 — THE SLOW's light round the boss is quieter
+
+CRAWL, the light that runs in round a boss while a window is open and banks up against its skin, is about half as strong: each spark is lit at 0.45 where it was 0.85, and three ride each ray where four did, so the rim at the skin carries 40% of the light it did. What it says is unchanged: the light runs in, slows and stops short of the body. PRISM and the fuse are not touched. The two numbers are named, `CRAWL_SPARKS` and `CRAWL_LIT`, and `slow-look.test.ts` pins each at no more than 55% of what it was.
+
 ## 2026-09-27 · 3a4060b6a — THE KEEL and THE VALVE put no mark up before its window opens
 
 THE KEEL's coloured socket no longer fades in while the midpoint splits; the cut faces open over the split as before, and the socket appears when its window does. THE VALVE's notch no longer sits dimly on the drum while it settles and between movements; it is up while the wheel turns, holds or stands frozen. THE OCULUS, THE VISE, THE TRIVET and THE SEAM were read and put up nothing early. All six have a row in a new shared test, `tools/director/test/marks-window.test.ts`, which plays each wave on AUTO and catches every call into the boss's marks file that draws a mark lit outside the simulation's own window; THE QUEEN is named there as the exception. Twelve bosses are left in the queue.

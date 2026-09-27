@@ -26583,3 +26583,5 @@ finding the argument that says "lit" took each file a read of its caller.
 - landing: 5 min. `imports:sort`, `check:fast`.
 
 Bottleneck: looking — finding a tick where a window is open took a probe.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
