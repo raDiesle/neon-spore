@@ -27769,3 +27769,14 @@ Bottleneck: reading. Fitting a rig head to the shipped face-on marks meant
 knowing the anchor's rotation order and why the skull may not pitch.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLUICE put to the owner with THE WINCH
+
+- reading: 5 min. The entry and §42 against THE DAVIT and §43.
+- writing: 5 min. The `Asks:` line.
+- looking: 0 min.
+- friction: 5 min. The edit made on the last lane's branch, redone on the claim.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. `next` makes the claim branch without checking it
+out, and the edit went onto the branch already there.

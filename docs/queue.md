@@ -763,8 +763,8 @@ drawn yet and stays unverified at tempo until the owner has looked.
 ## §42 THE SLUICE — the simulation lane
 
 - **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-42-the-sluice-the-simulation-lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+- **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
 
 No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
 paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
