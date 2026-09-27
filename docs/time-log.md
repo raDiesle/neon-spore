@@ -25286,3 +25286,15 @@ Bottleneck: reading — the entry was filed the same day as the fix that
 answered it, and only timing the build showed it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — a lane's worktree no longer stops `bun run push`
+
+- reading: 5 min. `push.ts`, `reconcile.ts`'s clean-tree check, the main
+  checkout's `.git/info/exclude`.
+- writing: 5 min. The `.gitignore` line, one real-repo test.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. `queue next` handed out the real-device perf run, which
+  cannot run beside another session; it was given back.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the first item the queue offered needed an idle machine.

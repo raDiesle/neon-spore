@@ -1887,20 +1887,6 @@ from the stage, feed it the stage's down/move/up the way `input.ts` does, and
 prove it with a stage test that two pointers on `viseLobeLeft` send a drag
 with the gap.
 
-## `bun run push` refuses while a lane's worktree is still on disk
-
-- **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
-- **Taken:** 2026-09-27, claude/queue-snake-sheds-pose-is-built-at-the-edge-of-its-tim (claim: claude/queue-bun-run-push-refuses-while-a-lanes-worktree-is-s)
-- **Files:** `tools/land/push.ts`
-
-After `bun run land --keep` from inside a cloud session's worktree, `bun run
-push` from the main checkout refused on the untracked `.claude/worktrees/<lane>`
-directory and went through only once the worktree was removed by hand with
-`git worktree remove`. Either have `push` ignore `.claude/worktrees/` (it is a
-working tool, and `.gitignore` could say so), or have `land --keep` print the
-removal command a cloud session needs; prove it with a test that `push`'s
-clean-tree check passes with a registered worktree under `.claude/worktrees/`.
-
 ## Unverified at 8d811b23a: THE VISE's pinch felt with two real fingers on a phone
 
 - **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo

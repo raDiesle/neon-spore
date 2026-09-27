@@ -31,3 +31,10 @@ docs/frames/
 # directory itself stays, by its `.gitkeep`; what a session drops in it does not.
 tools/probe/scratch/*
 !tools/probe/scratch/.gitkeep
+
+# A lane's worktree lives inside the checkout it came from, and git counts a
+# directory with a `.git` file in it as untracked. The main checkout on the
+# owner's machine hid them in `.git/info/exclude`, which a clone never gets —
+# so on 26 September 2026 a cloud session's `bun run push` refused on its own
+# `.claude/worktrees/<lane>` until the tree was removed by hand.
+.claude/worktrees/
