@@ -2555,6 +2555,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
+| `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -3027,6 +3028,7 @@ by hand never moves.
 | `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-cyst.ts` | THE CYST's freeze marks and flanks, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |

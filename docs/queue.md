@@ -2666,15 +2666,15 @@ before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
 
-## CYST and DAVIT handles still `"unbuilt"` in ON THE FIELD
+## THE DAVIT's loose handles still `"unbuilt"` in ON THE FIELD
 
 - **Found:** 2026-09-27, claude/queue-36-the-halter-the-touch-sender-and-its-cue
 - **Taken:** 2026-09-27, claude/queue-the-grindstones-wheel-has-no-secondary-motion-of (claim: claude/queue-grindstone-cyst-and-davit-handles-still-unbuilt)
 - **Files:** `tools/director/test/on-field-controls.test.ts`, `tools/director/src/field-controls-bosses.ts`, `tools/director/src/poses-field-controls.ts`, `docs/spec/controls.md`
 
-`TARGET_PLACE` still calls `cystFreezeLeft`/`Right`, `cystFlankLeft`/`Right` and `davitLooseLeft`/`Right`
+`TARGET_PLACE` still calls `davitLooseLeft`/`Right`
 `"unbuilt"`, but each one has a branch in `handleUnder()`
-(`render/src/handles.ts`: `cystUnder`, `davitLooseUnder`), so a thumb can already reach it on a phone. That is the
+(`render/src/handles.ts`: `davitLooseUnder`), so a thumb can already reach it on a phone. That is the
 one direction the test's own preamble says it cannot catch: a look landed
 and nobody moved the row. Give each a `field-controls-<boss>.ts` page of
 `FIELD_CONTROLS` rows and a `poses-field-controls-<boss>.ts` pair of poses,
@@ -2682,5 +2682,5 @@ THE HALTER's way (`field-controls-halter.ts`, `poses-field-controls-halter.ts`),
 the matching rows in `docs/spec/controls.md`, and move the targets to
 `"field"`. The DAVIT's `davitSteerLeft`/`Right` stay `"unbuilt"`: it is the
 lean, not a hand on the glass. THE SLING's own entry above covers
-`slingDrawLeft`/`Right`. THE GRINDSTONE's four landed first, as
-`field-controls-grindstone.ts` and `poses-field-controls-grindstone.ts`.
+`slingDrawLeft`/`Right`. THE GRINDSTONE's four and THE CYST's four landed first, as
+`field-controls-grindstone.ts` and `field-controls-cyst.ts` with their poses.

@@ -25782,3 +25782,17 @@ outside the simulation, each one small and each one found by the test that
 names it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CYST's marks and flanks have rows in ON THE FIELD
+
+- reading: 5 min. `cyst-grip.ts`, `cyst-hand.ts` and the sac's phases.
+- writing: 10 min. The page of four rows, four poses, the spec's rows and
+  the four targets moved to `"field"`.
+- looking: 5 min. A probe of the poses, which found the tap's lift on a
+  fractional tick that was never sent.
+- friction: 5 min. The same drop in THE GRINDSTONE's poses, fixed and
+  `run()` made to refuse one, as a commit of its own.
+- landing: 5 min. `check:fast`, the commits, `land`.
+
+Bottleneck: friction — a pose command on a quarter-beat tick was dropped
+without a word, and it took a probe of state to see it.
