@@ -4,10 +4,11 @@ import { parseItems } from "../../queue/queue.js";
 import {
   appendEntry,
   filesLine,
+  needsHand,
   parseUnverified,
   renderUnverified,
+  splitUnverified,
   type Unverified,
-  whereLine,
 } from "../unverified.js";
 
 /**
@@ -87,37 +88,32 @@ describe("what a landing could not check", () => {
     expect(renderUnverified(several)).toContain("3 commits landed, ending in *Third*");
   });
 
-  it("keeps an item that needs a real phone from the automatic pick", () => {
-    // The two entries `next` handed out on 24 September 2026, in their own words.
-    const phone = {
-      ...LANDING,
-      items: ["the svh cap on a real phone whose address bar comes back mid-wave"],
-    };
-    const items = parseItems(renderUnverified(phone), "queue");
-    expect(items[0]?.where).toBe("phone");
-    expect(problemsIn(items)).toEqual([]);
-    expect(whereLine(["?lag=1's figures on a real phone, solo and paired"])).toBe(
-      "- **Where:** phone",
-    );
-    // A thumb or a finger is a hand, and a hand holds a phone.
-    expect(whereLine(["THE MANTLE's knobs under two real thumbs on phones"])).toBe(
-      "- **Where:** phone",
-    );
-    expect(whereLine(["THE VISE's pinch felt with two real fingers on a phone"])).toBe(
-      "- **Where:** phone",
-    );
-    // Words read on phones: two of them, one of them, or real ones.
-    const read = [
+  it("leaves an item that needs a real phone to the owner, and queues the rest", () => {
+    // The owner, 27 September 2026: a check only his hands can make is his
+    // regression pass, never a queue entry. Items in their own words.
+    const hand = [
+      "the svh cap on a real phone whose address bar comes back mid-wave",
+      "?lag=1's figures on a real phone, solo and paired",
+      // A thumb or a finger is a hand, and a hand holds a phone.
+      "THE MANTLE's knobs under two real thumbs on phones",
+      "THE VISE's pinch felt with two real fingers on a phone",
+      // Words read on phones: two of them, one of them, or real ones.
       "THE MANTLE's PULL, TAP and FIRE words read at tempo on two phones",
       "THE KEEL's TAP and FIRE words read at tempo on a phone",
       "THE PLUMB's body and level glass seen at tempo on real phones",
     ];
-    for (const item of read) expect(whereLine([item])).toBe("- **Where:** phone");
+    for (const item of hand) expect(needsHand(item)).toBe(true);
     // What a phone cannot do yet is code to write, not hardware to hold.
     const code = "THE GRINDSTONE has no touch sender, so it cannot be answered on a phone";
-    expect(whereLine([code])).toBe("");
-    expect(whereLine(["THE SLING has no touch sender, so no phone can answer it"])).toBe("");
-    // A screen is not a phone: a wave at tempo stays anybody's.
+    expect(needsHand(code)).toBe(false);
+    expect(needsHand("THE SLING has no touch sender, so no phone can answer it")).toBe(false);
+    // A screen is not a phone: a wave at tempo is still queued, for anybody.
+    expect(needsHand("the wave at tempo")).toBe(false);
+    expect(splitUnverified(["the wave at tempo", ...hand])).toEqual({
+      queued: ["the wave at tempo"],
+      owner: hand,
+    });
+    expect(renderUnverified(LANDING)).not.toContain("**Where:**");
     expect(parseItems(renderUnverified(LANDING), "queue")[0]?.where).toBe("anywhere");
   });
 });

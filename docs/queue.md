@@ -268,9 +268,16 @@ passes such an entry over **on every machine**, the listing marks it
 caller who names it still gets it**: `queue take "<title>"` and `next <n>` hand
 it over to a local session as usual, because the owner has the hardware and
 asks for these by name. A sandbox naming one is refused, with the hardware as
-the reason. `bun run land --unverified` writes the line itself when an item
-says *real phone*, *real device*, *on glass* or *on two phones* — but never
-for *at tempo* alone, which is a screen's (`tools/land/unverified.ts`).
+the reason.
+
+**A check that needs a phone in a hand is not queued at all**, since 27
+September 2026. The owner cleared fifteen of them that day: *"i dont want that
+things for me to test are counted towards queue items. i will test any feature
+more altogether with regression testing."* `bun run land --unverified` prints
+an item saying *real phone*, *real thumb*, *on glass* or *on two phones* as
+*left for the owner's regression pass* and queues only the rest — never *at
+tempo* alone, which is a screen's and still queued (`tools/land/unverified.ts`).
+Do not write such an entry by hand either; say it in the report.
 
 The value exists because of what happened without it. On 22 September 2026
 `next` picked the phone-chrome entry five times in one sitting and was given it
@@ -566,21 +573,6 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## Unverified at b8986b62b: READY's lift taking the screen on a real Android phone
-
-- **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
-- **Files:** `apps/game/src/fullscreen.ts`, `apps/game/src/join-room-step.ts`, `apps/game/test/shake-permission.test.ts`, `docs/queue.md`, `docs/time-log.md`
-- **Where:** phone
-
-*The screen is asked for as the thumb lifts off READY, not as it goes down* landed from a session that could not look at it. What went unchecked:
-
-- READY's lift taking the screen on a real Android phone
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## DEFERRED — §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session
@@ -612,21 +604,6 @@ stays the shipping look until the owner compares them on the RASTER tab.
 `bun run raster:verify` and `bun run check` prove it; the visual
 comparison is the owner's, unverified until he has looked.
 
-## Unverified at 920f00b11: THE MANTLE's knobs under two real thumbs on phones: ea…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`
-- **Where:** phone
-
-*THE MANTLE answers a thumb: each seat pulls its own knob, either taps the core* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
-
-- THE MANTLE's knobs under two real thumbs on phones: each seat's knob taken, the other's falling through
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## THE JAM's first runaway shot lands on its first lure
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
@@ -644,31 +621,6 @@ that "the cannon has to *leave*", which it cannot do in time. The options:
 which beat opens on red; the first lure authored in another column; or the
 breach kept on purpose. Whichever is picked, take THE JAM out of
 `HALF_PLAYED` if the test then passes.
-
-## Unverified at d55a95c8a: THE MANTLE's shear kick, core flare and hull shudder a…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
-- **Where:** phone
-
-*THE MANTLE's transients: a shear kicks the shell and shudders the hull* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
-
-- THE MANTLE's shear kick, core flare and hull shudder at tempo, by an eye on a phone
-
-**Seen in frames on 27 September 2026, not at tempo:** `bun run frames .
---wave "THE MANTLE" --auto both --until mantleShear` and `--until
-mantleBeat`, P1's screen. At the first shear the red wash is on the shell,
-the hull ripples out from the struck column and the bursts land on the
-valves; after the finishing tap the core is lit. Nothing is clipped or out of
-place. What is left is the one thing a frame cannot show: whether the kick
-and the shudder read at tempo, in a hand. The desktop app's browser pane
-ran the page at about 1.5 frames a second while hidden, so it could not
-answer that either.
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
 
 ## DEFERRED — CLOUD ONLY — move one boss a lane onto the solid rig, from the roster
 
@@ -724,50 +676,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## Unverified at 81ea644c1: THE RIME wave never watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-29-the-rime-the-simulation-lane
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
-- **Where:** phone
-
-*Wave 108 THE RIME: rub each half of the lens clear before it frosts back, then shoot the core* landed from a session that could not look at it. The commit touched 56 more files. What went unchecked:
-
-- THE RIME wave never watched at tempo
-
-**Seen in frames on 27 September 2026, not at tempo:** `bun run frames .
---wave "THE RIME" --auto both`, P1's screen, and a probe stepping AUTO tick by
-tick. AUTO clears it in 12.5 s: the left half is lit at beat 2 and rubbed
-clear by 3.9 s, the right by 7.9 s, then three hits, three blocks and the
-shatter at beat 18. In the frames the lit half is rimmed and throws flakes,
-the rubbed half clears in steps, a hit dims and shrinks the ringed core, and
-the shield rises on its window. At 96 bpm a first wipe needs about two
-reversals a second and a second wipe about 1.6, which a thumb can do. One
-thing a sheet could not settle: bolts fired after a hit seem to pass through
-the lens and go on up, which is either the overshoot every bolt has or a
-lens that has stopped counting — an eye at tempo tells the two apart. What
-is left is whether the rub reads as a rub in a hand, and nothing an agent
-has can answer it.
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 65443d517: THE MANTLE's PULL, TAP and FIRE words read at tempo on…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-mantle.test.ts`
-- **Where:** phone
-
-*THE MANTLE says what it wants: PULL on each knob, TAP on the core, FIRE over the spark* landed from a session that could not look at it. What went unchecked:
-
-- THE MANTLE's PULL, TAP and FIRE words read at tempo on two phones
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
 
 - **Found:** 2026-09-26, this session
@@ -808,36 +716,6 @@ owner picking it, not on a lane landing it straight to the field.
 *THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
 
 - THE KEEL's body watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at b48c6880a: THE KEEL's joint tapped by a real thumb on a phone
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/handles.ts`, `packages/render/src/keel-draw.ts`
-- **Where:** phone
-
-*THE KEEL answers a thumb: a tap on the lit joint's ring* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
-
-- THE KEEL's joint tapped by a real thumb on a phone
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 3d1c57ed7: THE KEEL's TAP and FIRE words read at tempo on a phone
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zd.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-keel.test.ts`
-- **Where:** phone
-
-*THE KEEL says what it wants: TAP on the lit joint, FIRE under the socket and the rock* landed from a session that could not look at it. What went unchecked:
-
-- THE KEEL's TAP and FIRE words read at tempo on a phone
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1135,21 +1013,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## Unverified at 84ca0c796: THE MANTLE's brace under two real thumbs at tempo, and…
-
-- **Found:** 2026-09-26, claude/queue-23-the-mantle-a-revised-simulation-lane-more-vis
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-mantle.ts`, `packages/audio/src/sounds/boss-mantle.ts`
-- **Where:** phone
-
-2 commits landed, ending in *Mark §23 THE MANTLE's revised simulation lane done*, from a session that could not look at it. The commit touched 17 more files. What went unchecked:
-
-- THE MANTLE's brace under two real thumbs at tempo, and its sounds heard
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## §31 THE PLUMB — a revised simulation lane, a light left to bleed off
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
@@ -1168,21 +1031,6 @@ back up and costs one extra beat. THE SLOW, Presentation, Animation (five
 poses to six), Colour, Payoff and Cost sections are updated to match; one
 new boolean for row 11's hold. `bun run check` proves the sim half; the
 sixth pose is a look task, queued separately once this lane lands.
-
-## Unverified at f1a5426ba: THE OCULUS's ghost thumbs seen on a half at tempo whil…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/render/src/guide-boss-hand.ts`, `packages/render/src/handle-place-boss.ts`
-- **Where:** phone
-
-*THE OCULUS answers a thumb: each seat holds its own half of the lens* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
-
-- THE OCULUS's ghost thumbs seen on a half at tempo while a leaf is held, and two real phones shutting a pair
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
 
 ## §32 THE SLING — a revised simulation lane, a cooling tick left alone
 
@@ -1359,21 +1207,6 @@ what the rest of this file holds.
 
 - THE VISE's body watched at tempo
 
-## Unverified at 3b20854a0: THE OCULUS's HOLD and FIRE words read on two phones at…
-
-- **Found:** 2026-09-26, claude/queue-27-oculus-cue
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-ze.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/oculus-marks.ts`
-- **Where:** phone
-
-*THE OCULUS's cue says HOLD on each half of a lit pair and FIRE under the lit core* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
-
-- THE OCULUS's HOLD and FIRE words read on two phones at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 713d49b1e: THE MANTLE's buckle, vent, crack and turn, played at t…
 
 - **Found:** 2026-09-26, claude/queue-23-the-mantle-a-fuller-story-arc-buckle-vent-tur
@@ -1382,21 +1215,6 @@ what the rest of this file holds.
 *§23 THE MANTLE fights back: a buckle, a vent, a crosswise crack and a turn* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
 
 - THE MANTLE's buckle, vent, crack and turn, played at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 8d811b23a: THE VISE's pinch felt with two real fingers on a phone
-
-- **Found:** 2026-09-26, claude/queue-28-the-vise-its-hands-the-second-half-of-its-loo
-- **Files:** `apps/game/src/input.ts`, `packages/render/src/pinch-pair.ts`, `packages/render/test/pinch-pair.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
-- **Where:** phone
-
-*THE VISE answers a pinch: two fingers on your lobe, closed, crack its seam* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
-
-- THE VISE's pinch felt with two real fingers on a phone
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1467,21 +1285,6 @@ what the rest of this file holds.
 *THE VISE's receipts drawn: a crack thuds, a sprung lobe rings open, a kernel hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
 
 - THE VISE's receipts at tempo: a crack's thud, a sprung lobe ringing, the kernel's flash and the split's, never seen in a real frame
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 58857f734: THE VISE's SHUT and FIRE read at tempo on a phone, nev…
-
-- **Found:** 2026-09-26, claude/vise-cue
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zf.ts`, `packages/render/src/boss-cue.ts`, `packages/render/src/vise-marks.ts`
-- **Where:** phone
-
-*THE VISE's cue says SHUT on each lobe a lit pinch asks for and FIRE under the lit kernel* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
-
-- THE VISE's SHUT and FIRE read at tempo on a phone, never seen in a real frame
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1607,21 +1410,6 @@ what the rest of this file holds.
 
 - THE SEAM's turn and glow at tempo
 
-## Unverified at 89325a27f: THE PLUMB's body and level glass seen at tempo on real…
-
-- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-look
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/core-hurt.ts`
-- **Where:** phone
-
-*THE PLUMB is drawn: a bronze bob on a hook, two weights on chains, a level glass under each* landed from a session that could not look at it. The commit touched 15 more files. What went unchecked:
-
-- THE PLUMB's body and level glass seen at tempo on real phones
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 819111adf: THE SEAM's turn and glow watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-26-the-seam-the-ridge-turns-away-then-glows-from
@@ -1644,21 +1432,6 @@ what the rest of this file holds.
 *The director draws a markdown `---` as a rule, not three dashes* landed from a session that could not look at it. What went unchecked:
 
 - the YouTube thumbnails and video links in docs/spec/transfers-touch.md, opened — the container's proxy refuses YouTube
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 4d7e3fe61: THE TRIVET's chord under real fingers on a phone
-
-- **Found:** 2026-09-26, tmp-trivet-hands
-- **Files:** `packages/render/src/chord-pads.ts`, `apps/game/src/input.ts`, `packages/render/test/chord-pads.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`
-- **Where:** phone
-
-*THE TRIVET's pads answer fingers on the field, a chord counted by order* landed from a session that could not look at it. The commit touched 17 more files. What went unchecked:
-
-- THE TRIVET's chord under real fingers on a phone
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
@@ -1807,22 +1580,6 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## THE CYST watched at tempo on two phones
-
-- **Found:** 2026-09-26, claude/cyst-look
-- **Files:** `packages/render/src/cyst-draw.ts`, `packages/render/src/cyst-pose.ts`, `packages/render/src/cyst-grip.ts`, `packages/render/src/boss-cue-read-zi.ts`
-
-THE CYST's look (wave 113, `docs/spec/bosses.md` §11.51) is proved by
-`cyst-frame.test.ts` and `cyst-grip.test.ts` with its states set, and one
-still frame was seen. Nobody has played it at full speed. Open
-`bun run preview` with `?play=1` on THE CYST's wave, as P1 and P2, and
-play a whole fight by hand: a lit flank, the tap on the partner's mark, the
-pinch held until the crack, a swell, a spore, a bud, the bared core fired
-at, the split. Check that the `TAP`/`SHUT`/`FIRE` words sit on the thing
-they name, that a thumb on a mark is not taken as a pinch, and that THE
-SLOW lands on the lit step. Fix anything wrong, rather than unlovely, and
-queue each look as its own item.
 
 ## Living bosses — the director jumps to any choreography step
 
@@ -2114,3 +1871,18 @@ answered it by reading fewer files. Read the directory once for both tests
 (one `beforeAll`), and give the file a stated timeout of its own. The
 failure message should keep naming the rule. Done when the two tests share
 one read and `bun run check` is green.
+
+## The queue's `Where: phone` value has no writer left
+
+- **Found:** 2026-09-27, claude/phone-only-queue-tasks-57d3ff
+- **Files:** `tools/queue/where.ts`, `tools/queue/problems.ts`, `tools/queue/test/where.test.ts`, `tools/queue/test/skipped.test.ts`, `docs/queue.md`, `docs/cloud-session.md`
+
+Since 27 September 2026 a check that needs a phone in a hand is the owner's
+regression pass and never a queue entry: `bun run land --unverified` leaves it
+out (`splitUnverified`), and the queue's preamble says not to write one by
+hand. The `phone` value in `where.ts` — the `PHONE ONLY` mark, `offered`'s
+skip, the sandbox refusal — now reads a line nothing writes. Make a
+`- **Where:** phone` line a reported problem in `problems.ts`, the way a stray
+`Where: cloud` is, so a hand-written one is caught; then take the value out of
+`where.ts` and its tests, and trim the two documents' passages about it to the
+history. `bun run check` proves it.

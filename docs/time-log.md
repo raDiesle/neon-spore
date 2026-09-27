@@ -27722,3 +27722,17 @@ Bottleneck: reading. The duplicate only shows when THE DAVIT's built
 behaviour is read against §41's rule, not its design text.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — phone checks leave the queue
+
+- reading: 10 min. The queue's PHONE ONLY entries, `where.ts`, `deferred.ts`,
+  `unverified.ts` and its two callers.
+- writing: 10 min. `splitUnverified`, its test, three passages of docs, one
+  queue entry.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 5 min. The guard hook refused a heredoc with doubled
+  backslashes, and the regex edit went through the Edit tool instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. The phone rule lived in three places — the land tool,
+the queue's preamble and the cloud-session doc — and each had to be found.

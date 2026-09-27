@@ -15,7 +15,7 @@ import { git, gitOrDie } from "./git.js";
 import type { LandState } from "./land.js";
 import { type Landed, prepend } from "./notes.js";
 import { minutesBetween, stampInto } from "./stamp.js";
-import { appendEntry, parseUnverified, renderUnverified } from "./unverified.js";
+import { appendEntry, parseUnverified, renderUnverified, splitUnverified } from "./unverified.js";
 
 /**
  * The release note, written where the fact is known.
@@ -142,8 +142,10 @@ async function writeUnverified(
   tree: string,
   state: LandState,
   landed: Landed[],
-  unverified: readonly string[],
+  items: readonly string[],
 ): Promise<boolean> {
+  const { queued: unverified, owner } = splitUnverified(items);
+  for (const item of owner) console.log(`  left     for the owner's regression pass — ${item}`);
   if (unverified.length === 0) return false;
   const oldest = landed[0]?.full ?? "";
   const newest = landed.at(-1);

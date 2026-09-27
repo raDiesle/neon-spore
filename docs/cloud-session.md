@@ -134,6 +134,14 @@ lands and only then remembers what it never watched: `bun run unverified
 <sha> --unverified "<what>"` writes the same entry from an already-landed
 commit, without needing the lane `land` claimed it from.
 
+**An item only a phone in a hand can check is not queued.** A real thumb, a
+real finger, words read on two phones: both doors print it as *left for the
+owner's regression pass* and queue the rest (`splitUnverified` in
+`tools/land/unverified.ts`). The owner, 27 September 2026, clearing fifteen
+such entries: *"i dont want that things for me to test are counted towards
+queue items. i will test any feature more altogether with regression
+testing."* The report still names it, in the word *unverified*.
+
 That is a reversal of what the rest of this section argues, made by the owner on
 9 September 2026, and it is a narrow one. The objection below is to a list the
 *owner* owes answers to, and it stands: `docs/release-notes.md` is still
@@ -205,7 +213,8 @@ work needing hardware rather than a screen, which no session of either kind
 can finish — and it reads the same way here: `PHONE ONLY`, passed over, refused
 by name. On the owner's own machine the two part company, and that is the only
 place they do: he can `take` a `phone` entry by title, because he is the one
-holding the phone.
+holding the phone. Since 27 September 2026 no tool writes one — a check for a
+hand is his regression pass, not an entry (below).
 
 **That is the only reservation, and it only ever points one way.** There was a
 `Where: cloud` beside it from 18 September 2026, when the list was dealt the

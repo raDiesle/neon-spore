@@ -25,7 +25,7 @@
 import { join } from "node:path";
 import { git } from "./git.js";
 import { LOG_FORMAT, parseLanded } from "./notes.js";
-import { appendEntry, parseUnverified, renderUnverified } from "./unverified.js";
+import { appendEntry, parseUnverified, renderUnverified, splitUnverified } from "./unverified.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const [ref, ...rest] = process.argv.slice(2);
@@ -37,11 +37,14 @@ if (!ref || ref.startsWith("--")) {
   process.exit(1);
 }
 
-const unverified = parseUnverified(rest);
-if (unverified.length === 0) {
+const parsed = parseUnverified(rest);
+if (parsed.length === 0) {
   console.log("✗ --unverified needs what went unchecked, in quotes — nothing to queue");
   process.exit(1);
 }
+const { queued: unverified, owner } = splitUnverified(parsed);
+for (const item of owner) console.log(`  left     for the owner's regression pass — ${item}`);
+if (unverified.length === 0) process.exit(0);
 
 const isRange = ref.includes("..");
 let newest = isRange ? (ref.split("..", 2)[1] ?? "") : ref;

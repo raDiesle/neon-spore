@@ -124,34 +124,41 @@ export function restLine(files: readonly string[]): string {
 }
 
 /**
- * An item no agent can finish, because what it names is only on a phone.
+ * An item no agent can finish, because what it names is only on a phone —
+ * and **so it is not queued at all.**
  *
- * `- **Where:** phone` keeps an entry from `bun run queue next`
- * (`tools/queue/where.ts`), and until 24 September 2026 only a hand wrote it:
- * two entries this flag wrote — the svh cap under a real address bar, and
- * `?lag=1`'s figures on a real phone — sat unmarked, and `next` handed the
- * first of them to a lane with nothing on its desk but a Mac and no Xcode.
- * A real thumb or finger is the same hand: five entries that asked for one
- * on 26 September 2026 sat unmarked, and `next` handed THE MANTLE's knobs
- * out twice on the 27th. So is a word read *on two phones*, or on *real
- * phones* in the plural: six such entries sat unmarked that day, and `next`
- * handed one out the moment the lane before it had given the same kind back.
- * The words are the ones every such item has used, and a false positive
- * costs nothing a caller cannot undo: the entry is still taken by name.
+ * Until 27 September 2026 such an item became an entry with
+ * `- **Where:** phone`, which kept it from `bun run queue next`
+ * (`tools/queue/where.ts`) but left it on the list. Fifteen sat there that
+ * day — knobs under real thumbs, words read on two phones — and the owner took
+ * the whole kind out: *"i dont want that things for me to test are counted
+ * towards queue items. i will test any feature more altogether with
+ * regression testing."* A check only his hands can make belongs to his
+ * regression pass, so `splitUnverified` hands it back for the landing's
+ * output and the report, and queues the rest.
+ *
+ * The words are the ones every such item has used: a real thumb, finger,
+ * phone or device, a phone in a hand, on glass, on one or two phones. A false
+ * positive costs an entry nobody writes; say the item without those words if
+ * a screen could check it after all.
  *
  * **"At tempo" alone is not one of them.** A wave to watch is a screen's work,
- * not a hand's, and the queue's preamble keeps it for `local`. Neither is an
- * item saying what a phone *cannot* do yet — *no touch sender, so it cannot
- * be answered on a phone* is code to write, and `NOT_YET` keeps it free.
+ * not a hand's, and it is still queued. Neither is an item saying what a phone
+ * *cannot* do yet — *no touch sender, so it cannot be answered on a phone* is
+ * code to write, and `NOT_YET` keeps it queued.
  */
 const HARDWARE =
   /\breal (?:phones?|devices?|thumbs?|fingers?)\b|\bphone in (?:a|the|somebody's) hand\b|\bon glass\b|\bon (?:a|two|both) phones?\b/i;
 const NOT_YET = /\bcannot\b|\bno phone\b/i;
 
-/** `- **Where:** phone` when any item needs one in a hand, or "" when none does. */
-export function whereLine(items: readonly string[]): string {
-  const needs = (item: string) => HARDWARE.test(item) && !NOT_YET.test(item);
-  return items.some(needs) ? "- **Where:** phone" : "";
+/** Whether an item needs a phone in a hand — the owner's regression pass. */
+export function needsHand(item: string): boolean {
+  return HARDWARE.test(item) && !NOT_YET.test(item);
+}
+
+/** What a session can finish, to queue, and what is left to the owner's hands. */
+export function splitUnverified(items: readonly string[]): { queued: string[]; owner: string[] } {
+  return { queued: items.filter((item) => !needsHand(item)), owner: items.filter(needsHand) };
 }
 
 /** One entry, as it appears in `docs/queue.md`. */
@@ -161,13 +168,11 @@ export function renderUnverified(u: Unverified): string {
       ? `*${u.subjects[0]}* landed`
       : `${u.subjects.length} commits landed, ending in *${u.subjects.at(-1)}*,`;
   const list = u.items.map((item) => `- ${item}`).join("\n");
-  const where = whereLine(u.items);
   return [
     `## ${titleFor(u.sha, u.items)}`,
     "",
     `- **Found:** ${u.date}, ${u.branch}`,
     filesLine(u.files),
-    ...(where ? [where] : []),
     "",
     `${landed} from a session that could not look at it.${restLine(u.files)} What went unchecked:`,
     "",
