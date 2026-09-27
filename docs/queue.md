@@ -2521,6 +2521,7 @@ the test.
 ## THE INSTAR — its marks show only while THE SLOW is open
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-instar-its-marks-show-only-while-the-slow-is
 - **Files:** `packages/render/src/instar-marks.ts`, `packages/sim/src/slow.ts`, `packages/render/test/instar-frame.test.ts`
 
 The owner, 27 September 2026: *the red circles for an upcoming action before
