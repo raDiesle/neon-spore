@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 71bc55c23 — bun run frames --until picks which firing, by the event's fields
+
+`--until instarShow:step=4` stops on THE INSTAR's fifth show rather than its first. The fields after the colon are the same `key=value` pairs a miss prints, and every one of them must match. A field that is not a pair is refused by name. A shield window open for one tick under AUTO took eight bisecting runs to photograph; it now takes one.
+
 ## 2026-09-27 · f3baf18c1 — THE INSTAR: a shield or suck mark wears the panel's button face
 
 A shield mark now shows the panel's own SHIELD face, and a suck mark the SUCK face. Before this, both drew the hold's two thumbprints under their own words. The glyph switch now covers every gesture, so a new gesture fails to typecheck rather than borrowing another's picture. This is a fix to something wrong, not unlovely.

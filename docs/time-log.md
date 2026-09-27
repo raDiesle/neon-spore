@@ -26363,3 +26363,5 @@ step's window, so the tick was found by bisecting `--until-back`.
 
 Bottleneck: reading — the match has to be written twice, once in the page
 where nothing can be imported, and finding that took the reading.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
