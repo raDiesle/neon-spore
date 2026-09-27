@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · cfede88c0 — THE RIME's bare core is painted, behind ?raster=1
+
+THE RIME's bare-core reveal now has a painted clearing offered over it: the last frost shattering off the pane. It is sixteen 128 px frames in frost colours: a cold light over the glass, hairline fractures running out from the middle, thin plates of frost that spin as they fall, and a powder that drifts down after them. `RimeFx` spawns it on `rimeBare`, over the pane, and only once `bindRasterRimeClear` has installed it behind `?raster=1`. Without the flag nothing is fetched and the reveal draws as it ships. It is an offered look under "a look with no shipped alternative"; whether it reads better is the owner's eye, unverified. The atlas is 66 970 B against the 90 kB budget; THE VISE's is 43 238 B beside it, and `bun run raster rime-clear` printed 65.4 kB. The APNG master is 163 975 B, and `bun run raster:verify` decodes both. The first bake cut flakes square at the frame's edge, so anything near the edge now fades out first. The second strip made the first one's path generic: one bake (`strip-bake.ts`), one assets test and one verifier loop cover every strip in `STRIPS`, and the game's four `?raster=1` binders share one body.
+
 ## 2026-09-27 · 59e1c28ea — The queue's `Where: phone` value is gone, and a stray one is reported
 
 Since a check needing a phone in a hand became the owner's regression pass, nothing wrote `- **Where:** phone` any more. The value, the PHONE ONLY mark, the automatic pick's step over it and the "need a phone in your hand" line in the listing are removed. A `Where: phone` line copied out of an old entry is now reported by `bun run queue`'s problems, as a stray `cloud` already was. The queue's and the cloud session's preambles tell it as history.
