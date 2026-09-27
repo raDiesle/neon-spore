@@ -2,16 +2,15 @@ import { waiting } from "./asking.js";
 import { deferred } from "./deferred.js";
 import { blocked } from "./needs.js";
 import type { Item } from "./queue.js";
-import { offered } from "./where.js";
 
 /**
  * **Why `next` stepped past a free entry**, counted for the listing's foot.
  *
- * Four reasons, and they are four files: an unanswered ask is the owner's
+ * Three reasons, and they are three files: an unanswered ask is the owner's
  * (`asking.ts`), an entry waiting on another one comes back by itself when
- * that one lands (`needs.ts`), an entry needing hardware is nobody's until
- * somebody picks up a phone (`where.ts`), and one the owner put on hold is
- * the owner's to lift (`deferred.ts`). Each is counted separately because
+ * that one lands (`needs.ts`), and one the owner put on hold is the owner's
+ * to lift (`deferred.ts`). A fourth, an entry needing a phone in a hand, went
+ * on 27 September 2026 with the `phone` value (`where.ts`). Each is counted separately because
  * each is a different person's move, and the only one addressed to the owner
  * is the first — the others are there so a session reading "96 free" and being
  * handed nothing can see where the ninety-six went.
@@ -29,7 +28,7 @@ import { offered } from "./where.js";
  * these, because a session naming an entry means it.
  */
 export function handedOut(item: Item, items: readonly Item[]): boolean {
-  return offered(item) && !waiting(item) && !deferred(item) && !blocked(item, items);
+  return !waiting(item) && !deferred(item) && !blocked(item, items);
 }
 export function skipLines(free: readonly Item[], items: readonly Item[]): string[] {
   const lines: string[] = [];
@@ -44,13 +43,6 @@ export function skipLines(free: readonly Item[], items: readonly Item[]): string
   const held = free.filter(deferred).length;
   if (held > 0) {
     lines.push(`${held} of the free ones the owner put on hold; \`next\` passes over them.`);
-  }
-  const hardware = free.filter((i) => !offered(i)).length;
-  if (hardware > 0) {
-    lines.push(
-      `${hardware} of the free ones need a phone in your hand; \`next\` passes over them, ` +
-        `\`take "<title>"\` does not.`,
-    );
   }
   return lines;
 }

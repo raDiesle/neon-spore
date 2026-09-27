@@ -17,9 +17,9 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 const SENTENCE_NEED = /(,\s*above\b|\blanded first\s*$)/i;
 
 /** What `queue list` hangs off an entry's fields, and so what a title may not
- * repeat: `ASKS THE OWNER` from `Asks:`, `LOCAL ONLY` and `PHONE ONLY` from
- * `Where:`, and `WAITS ON` from `Needs:`. */
-const MARKERS = ["ASKS THE OWNER", "LOCAL ONLY", "PHONE ONLY", "WAITS ON"];
+ * repeat: `ASKS THE OWNER` from `Asks:`, `LOCAL ONLY` from `Where:`, and
+ * `WAITS ON` from `Needs:`. */
+const MARKERS = ["ASKS THE OWNER", "LOCAL ONLY", "WAITS ON"];
 
 /**
  * What is wrong with an entry, in the words a session would need to fix it.
@@ -98,13 +98,17 @@ export function problemsWith(item: Item): string[] {
     problems.push(`${where} — the Needs: line is a sentence; it is the other entry's title`);
   }
   const reserved = fieldOf(item.body, WHERE);
-  if (reserved && item.where === "anywhere") {
+  if (reserved.trim().toLowerCase() === "phone") {
+    // A check that needs a phone in a hand is the owner's regression pass and
+    // never an entry, since 27 September 2026 (`where.ts`).
+    problems.push(
+      `${where} — Where: is "phone"; a check needing a phone is the owner's regression pass, not an entry`,
+    );
+  } else if (reserved && item.where === "anywhere") {
     // `cloud` reaches here too, and on purpose: forty entries carried it
     // until 21 September 2026, and one copied out of an old entry has to be
     // reported rather than quietly kept from the machine reading it.
-    problems.push(
-      `${where} — Where: is ${JSON.stringify(reserved)}; the values are "local" and "phone"`,
-    );
+    problems.push(`${where} — Where: is ${JSON.stringify(reserved)}; the value is "local"`);
   }
   return problems;
 }

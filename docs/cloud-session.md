@@ -208,13 +208,9 @@ gone from the trunk (`tools/land/done-twice.ts`).
 on the web image, and `bun run queue` reads it: an entry the owner marked
 `- **Where:** local` — a wave to watch at tempo, a frame to measure — is
 listed `LOCAL ONLY`, passed over by `next`, and refused by name to `take`
-(`tools/queue/where.ts`). `- **Where:** phone` is the narrower one beside it —
-work needing hardware rather than a screen, which no session of either kind
-can finish — and it reads the same way here: `PHONE ONLY`, passed over, refused
-by name. On the owner's own machine the two part company, and that is the only
-place they do: he can `take` a `phone` entry by title, because he is the one
-holding the phone. Since 27 September 2026 no tool writes one — a check for a
-hand is his regression pass, not an entry (below).
+(`tools/queue/where.ts`). There was a narrower `- **Where:** phone` beside it
+until 27 September 2026; a check for a hand is now the owner's regression pass,
+not an entry (below), and the line is a reported problem.
 
 **That is the only reservation, and it only ever points one way.** There was a
 `Where: cloud` beside it from 18 September 2026, when the list was dealt the

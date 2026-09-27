@@ -19,15 +19,6 @@ const ASKING = `## A button says two words where a sentence was asked for
 Why the short label is what fits today, and what each of the three costs.
 `;
 
-const PHONE = `## A real phone browser's own chrome eats the foot of the field
-
-- **Found:** 2026-09-19, claude/some-lane
-- **Files:** \`tools/director/src/director-phone.css\`
-- **Where:** phone
-
-Headless has no chrome to test it with.
-`;
-
 const DEFERRED = `## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, claude/some-lane
@@ -37,7 +28,7 @@ const DEFERRED = `## DEFERRED — §28 THE VISE — sprite atlas experiment: the
 The kernel breaking open is a candidate for a painted burst.
 `;
 
-const all = () => parseItems([FREE, ASKING, PHONE].join("\n"), "queue");
+const all = () => parseItems([FREE, ASKING].join("\n"), "queue");
 
 describe("why `next` stepped past a free entry", () => {
   it("says nothing when every free entry is one a session could be handed", () => {
@@ -48,16 +39,8 @@ describe("why `next` stepped past a free entry", () => {
   it("counts the reasons separately, because each is a different person's move", () => {
     const items = all();
     const lines = skipLines(items, items);
-    expect(lines).toHaveLength(2);
+    expect(lines).toHaveLength(1);
     expect(lines[0]).toContain("1 of the free ones wait on your answer");
-    expect(lines[1]).toContain("1 of the free ones need a phone in your hand");
-  });
-
-  it("tells the reader the hardware entry is still theirs to take by name", () => {
-    // The difference between this skip and a refusal, and the reason the
-    // sentence carries the command: `next` passes over it, the owner does not.
-    const items = all();
-    expect(skipLines(items, items).at(-1)).toContain('take "<title>"');
   });
 
   it("counts an answered ask as ordinary work again", () => {
@@ -73,9 +56,9 @@ describe("why `next` stepped past a free entry", () => {
 describe("what `next` with no argument hands out", () => {
   // The pick and the foot are one list: every entry the foot counts as passed
   // over is one the pick passes over, and the other way round.
-  const items = parseItems([ASKING, DEFERRED, PHONE, FREE].join("\n"), "queue");
+  const items = parseItems([ASKING, DEFERRED, FREE].join("\n"), "queue");
 
-  it("passes over an ask, a deferred entry and a phone entry, and takes the next", () => {
+  it("passes over an ask and a deferred entry, and takes the next", () => {
     expect(items.find((i) => handedOut(i, items))?.title).toBe(
       "Split the wave editor's cell panel",
     );

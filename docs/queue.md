@@ -257,19 +257,6 @@ reason. A session knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal
 the web image sets (`tools/queue/where.ts`). Without the line an entry is
 anybody's.
 
-`- **Where:** phone` is the same fact one notch narrower, and it is the third
-value: work that needs **hardware**, not just a screen. A real phone browser's
-own chrome eating the foot of the field is the entry that earned it — the
-address bar and the bottom toolbar are drawn by the shell *around* the page,
-so no frame this repo can render will ever show them, headless or not. An
-agent cannot finish that one wherever it is running. `next` with no argument
-passes such an entry over **on every machine**, the listing marks it
-`PHONE ONLY`, and — this is the whole of the difference from `local` — **a
-caller who names it still gets it**: `queue take "<title>"` and `next <n>` hand
-it over to a local session as usual, because the owner has the hardware and
-asks for these by name. A sandbox naming one is refused, with the hardware as
-the reason.
-
 **A check that needs a phone in a hand is not queued at all**, since 27
 September 2026. The owner cleared fifteen of them that day: *"i dont want that
 things for me to test are counted towards queue items. i will test any feature
@@ -277,15 +264,10 @@ more altogether with regression testing."* `bun run land --unverified` prints
 an item saying *real phone*, *real thumb*, *on glass* or *on two phones* as
 *left for the owner's regression pass* and queues only the rest — never *at
 tempo* alone, which is a screen's and still queued (`tools/land/unverified.ts`).
-Do not write such an entry by hand either; say it in the report.
-
-The value exists because of what happened without it. On 22 September 2026
-`next` picked the phone-chrome entry five times in one sitting and was given it
-back five times, each give-back a commit on the trunk saying nothing, and a
-session told *continue to work on the queue* could not get past it without
-knowing `queue take` exists. That is `asking.ts`'s story repeated with
-different hardware, and it has the same shape of fix: **only the automatic pick
-skips.**
+Do not write such an entry by hand either; say it in the report. A
+`- **Where:** phone` line is a reported problem (`tools/queue/problems.ts`):
+from 22 September 2026 it was a third value, `PHONE ONLY`, that the automatic
+pick stepped over on every machine, and it went when nothing wrote it any more.
 
 **There is no `cloud` half of it any more.** The field had two values for eight
 days: the list was dealt on 18 September 2026, the day he left for two days of
@@ -306,8 +288,8 @@ that `ASKS THE OWNER`: nobody's machine is the thing they are waiting on.
 `- **Needs:** <the title of another entry>` says this one cannot start until
 that one lands, and it is the third and last reason `bun run queue next` steps
 past a free entry. The others say what it is not: a `Where: local` line refuses
-— this machine cannot do that work at all — a `Where: phone` line says no
-machine can, and an unanswered `Asks:` waits on a sentence from the owner. None
+— this machine cannot do that work at all — and an unanswered `Asks:` waits on
+a sentence from the owner. None
 of them can say **this one is fine, but not yet**.
 `next` without an argument passes a blocked entry over; `next <n>` or `take`
 naming it hands it out as before, with the blocker printed above the entry, so
@@ -1814,19 +1796,3 @@ answered it by reading fewer files. Read the directory once for both tests
 (one `beforeAll`), and give the file a stated timeout of its own. The
 failure message should keep naming the rule. Done when the two tests share
 one read and `bun run check` is green.
-
-## The queue's `Where: phone` value has no writer left
-
-- **Found:** 2026-09-27, claude/phone-only-queue-tasks-57d3ff
-- **Taken:** 2026-09-27, claude/queue-where-phone (claim: claude/queue-the-queues-where-phone-value-has-no-writer-left)
-- **Files:** `tools/queue/where.ts`, `tools/queue/problems.ts`, `tools/queue/test/where.test.ts`, `tools/queue/test/skipped.test.ts`, `docs/queue.md`, `docs/cloud-session.md`
-
-Since 27 September 2026 a check that needs a phone in a hand is the owner's
-regression pass and never a queue entry: `bun run land --unverified` leaves it
-out (`splitUnverified`), and the queue's preamble says not to write one by
-hand. The `phone` value in `where.ts` — the `PHONE ONLY` mark, `offered`'s
-skip, the sandbox refusal — now reads a line nothing writes. Make a
-`- **Where:** phone` line a reported problem in `problems.ts`, the way a stray
-`Where: cloud` is, so a hand-written one is caught; then take the value out of
-`where.ts` and its tests, and trim the two documents' passages about it to the
-history. `bun run check` proves it.

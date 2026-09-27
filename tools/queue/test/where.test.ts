@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { problemsIn } from "../problems.js";
 import { parseItems } from "../queue.js";
-import { fits, offered, refuseUnlessFits, reservedTag, sessionKind } from "../where.js";
+import { fits, refuseUnlessFits, reservedTag, sessionKind } from "../where.js";
 
 const ANYONES = `## Split the wave editor's cell panel
 
@@ -41,7 +41,7 @@ describe("an entry kept for a session with a screen", () => {
 
   it("reports a Where: that names no kind rather than offering the item to anybody", () => {
     const md = LOCALS.replace("- **Where:** local", "- **Where:** desk");
-    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain('the values are "local"');
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain('the value is "local"');
   });
 
   it("reports `cloud` too, which was a reservation until 21 September 2026", () => {
@@ -51,7 +51,7 @@ describe("an entry kept for a session with a screen", () => {
     const md = LOCALS.replace("- **Where:** local", "- **Where:** cloud");
     const items = parseItems(md, "queue");
     expect(items[0]?.where).toBe("anywhere");
-    expect(problemsIn(items)[0] ?? "").toContain('the values are "local"');
+    expect(problemsIn(items)[0] ?? "").toContain('the value is "local"');
   });
 
   it("fits a local session, and the kind-less entry fits both", () => {
@@ -95,38 +95,17 @@ describe("which kind of session this is", () => {
   });
 });
 
-describe("an entry that needs hardware", () => {
-  const phone = () => parseItems(PHONES, "queue")[0]!;
+describe("a Where: phone line, which nothing writes since 27 September 2026", () => {
+  // A check needing a phone in a hand is the owner's regression pass, and
+  // `bun run land --unverified` leaves it out; a hand-written line is caught.
+  const items = () => parseItems(PHONES, "queue");
 
-  it("reads the Where: line as its own value, not as `local` and not as a problem", () => {
-    expect(phone().where).toBe("phone");
-    expect(problemsIn(parseItems(PHONES, "queue"))).toEqual([]);
+  it("reads as anybody's, and is reported with the reason", () => {
+    expect(items()[0]?.where).toBe("anywhere");
+    expect(problemsIn(items())[0] ?? "").toContain("the owner's regression pass");
   });
 
-  it("is passed over by the automatic pick on every machine, which is the whole change", () => {
-    // `next` picked this entry five times in one sitting on 22 September 2026
-    // and was given it back five times, because no agent has a phone. The skip
-    // is not about the kind of session: it is about the hardware.
-    expect(offered(phone())).toBe(false);
-    expect(offered(parseItems(LOCALS, "queue")[0]!)).toBe(true);
-    expect(offered(parseItems(ANYONES, "queue")[0]!)).toBe(true);
-  });
-
-  it("is still handed over to a local session that names it", () => {
-    // The owner has the hardware and asks for these by title. `fits` is what
-    // `next <n>` and `take` consult, and it says yes here.
-    expect(fits(phone(), "local")).toBe(true);
-    expect(() => refuseUnlessFits(phone(), "local")).not.toThrow();
-  });
-
-  it("is refused to a sandbox naming it, with the hardware as the reason", () => {
-    expect(fits(phone(), "cloud")).toBe(false);
-    expect(() => refuseUnlessFits(phone(), "cloud")).toThrow(/phone in somebody's hand/);
-  });
-
-  it("is marked on the title line, and the title may not say it as well", () => {
-    expect(reservedTag(phone())).toBe(" — PHONE ONLY");
-    const md = PHONES.replace("chrome eats", "chrome eats — PHONE ONLY —");
-    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("PHONE ONLY");
+  it("carries no mark on the title line", () => {
+    expect(reservedTag(items()[0]!)).toBe("");
   });
 });

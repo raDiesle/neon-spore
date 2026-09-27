@@ -22,13 +22,13 @@ export type Source = "queue" | "parked";
 
 /**
  * Which kind of session may take an item: `local` when it needs a screen,
- * `phone` when it needs hardware no session of either kind has, and
- * `anywhere` — the absence of the line — for everything else.
+ * and `anywhere` — the absence of the line — for everything else.
  *
- * `phone` is narrower than `local` rather than beside it. It says the same
- * thing about the machine — the hardware is beside a checkout — and one thing
- * more: the automatic pick steps over it everywhere, because an agent cannot
- * hold a phone up wherever it is running (`where.ts`).
+ * There was a `phone` value too, from 22 September 2026, for an entry needing
+ * a device in a hand, which the automatic pick stepped over everywhere. On 27
+ * September such a check stopped being a queue entry at all — it is the
+ * owner's regression pass, and `bun run land --unverified` leaves it out — so
+ * a `phone` line is now reported (`problems.ts`) like any other stray value.
  *
  * There was a `cloud` value beside `local` for eight days and the owner took
  * it out on 21 September 2026. The two were never the same kind of fact:
@@ -37,7 +37,7 @@ export type Source = "queue" | "parked";
  * he would rather hand that one to a phone today. A preference spent as a
  * refusal left a local session standing in front of forty entries it could do.
  */
-export type Where = "local" | "phone" | "anywhere";
+export type Where = "local" | "anywhere";
 
 export type Item = {
   readonly source: Source;
@@ -75,8 +75,7 @@ export type Item = {
   readonly asks: string;
   /**
    * The `Where:` line — `local` when only a session with a screen may take the
-   * item, `phone` when it needs hardware in a hand, `anywhere` when the line
-   * is absent. The owner's line, from 13 September 2026: some work needs eyes
+   * item, `anywhere` when the line is absent. The owner's line, from 13 September 2026: some work needs eyes
    * and a real frame budget, and nothing a sandbox runs will prove it.
    * `where.ts` says how `next` and `take` honour each value.
    */
@@ -138,15 +137,13 @@ export function fieldOf(body: string, re: RegExp): string {
  * is reported by `problemsIn`, so a misspelt reservation is a listed problem
  * rather than an item quietly offered to the session it was kept from.
  *
- * `cloud` is one of the things that is now anything else, which is deliberate
- * rather than an oversight: forty entries carried it until 21 September 2026,
- * and an old one copied into a new entry has to come back as a reported
- * problem rather than as a reservation nobody meant to make.
+ * `cloud` and `phone` are among the things that are now anything else, which
+ * is deliberate rather than an oversight: each was a value once, and an old
+ * one copied into a new entry has to come back as a reported problem rather
+ * than as a reservation nobody meant to make.
  */
 function whereOf(value: string): Where {
-  const said = value.trim().toLowerCase();
-  if (said === "local") return "local";
-  return said === "phone" ? "phone" : "anywhere";
+  return value.trim().toLowerCase() === "local" ? "local" : "anywhere";
 }
 
 /** Splits a `Files:` value — a comma-separated list, backticks optional. */

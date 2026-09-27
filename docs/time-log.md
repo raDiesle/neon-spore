@@ -27860,3 +27860,16 @@ Bottleneck: looking. The face-on constraint had put the jaw's hinge where
 only a still of the profile could show it was wrong.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — The queue's `Where: phone` value has no writer left
+
+- reading: 5 min. `where.ts`, `skipped.ts`, `problems.ts`, the two tests,
+  the queue's and the cloud session's preambles.
+- writing: 15 min. `phone` out of the type, `offered` and `PHONE ONLY` out,
+  a stray line reported instead, the tests and both documents to history.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing. The value was read in four files and two documents,
+and each carried its own sentence about the hardware.
