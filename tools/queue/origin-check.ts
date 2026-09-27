@@ -13,7 +13,13 @@
  *
  * So `origin/main` is fetched and asked first. An entry origin marks taken by
  * somebody else is refused with the holder's name; one origin no longer has at
- * all, while this trunk still does, was finished there.
+ * all, while this trunk still does, was finished there — unless origin is
+ * only behind. A lane that lands with `--keep` files its finding on the local
+ * trunk and pushes nothing, and on 27 September 2026 `take` refused that
+ * finding as done on origin, which a fetch could never change. When
+ * `origin/main` is an ancestor of the trunk, every entry origin lacks and the
+ * trunk has was added here, and it is claimed the ordinary way: `take` pushes
+ * the trunk anyway.
  */
 
 import { heldElsewhere } from "./claim.js";
@@ -26,6 +32,8 @@ import { TRUNK } from "./tree.js";
 export interface OriginView {
   queue: string | null;
   parked: string | null;
+  /** `origin/main` is an ancestor of the local trunk: it has nothing the trunk lacks. */
+  behind: boolean;
 }
 
 /**
@@ -46,7 +54,9 @@ export function originRefusal(
   const md = view[item.source];
   if (md === null) return undefined;
   if (!hasEntry(md, item.title)) {
-    return trunkHasIt ? `already done on origin/${TRUNK} — fetch it before claiming` : undefined;
+    return trunkHasIt && !view.behind
+      ? `already done on origin/${TRUNK} — fetch it before claiming`
+      : undefined;
   }
   const mark = takenIn(md, item.title);
   if (mark === "" || mark === known) return undefined;
@@ -56,7 +66,7 @@ export function originRefusal(
 
 /** Fetch `origin/main` and read both files off it. Nothing is read without an origin. */
 export function readOrigin(root: string): OriginView {
-  const none = { queue: null, parked: null };
+  const none = { queue: null, parked: null, behind: false };
   if (!gitIn(root, "remote", "get-url", "origin").ok) return none;
   if (!gitIn(root, "fetch", "-q", "origin", TRUNK).ok) {
     console.log(`  ⚑ origin cannot be reached — its claims were not asked`);
@@ -66,5 +76,6 @@ export function readOrigin(root: string): OriginView {
     const r = gitWith({ cwd: root, raw: true }, "show", `origin/${TRUNK}:docs/${file}.md`);
     return r.ok ? r.out : null;
   };
-  return { queue: show("queue"), parked: show("parked") };
+  const behind = gitIn(root, "merge-base", "--is-ancestor", `origin/${TRUNK}`, TRUNK).ok;
+  return { queue: show("queue"), parked: show("parked"), behind };
 }

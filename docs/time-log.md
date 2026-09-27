@@ -25672,3 +25672,15 @@ Bottleneck: looking — the size of a wander that reads on a phone had to be
 found off a magnified shot.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `queue take` claims an entry the trunk filed and has not pushed
+
+- reading: 5 min. The entry, `origin-check.ts` and its test.
+- writing: 5 min. Origin's view says whether it is only behind the trunk,
+  and an entry it lacks is then new rather than done; a test for it.
+- looking: 0 min.
+- friction: 5 min. A heredoc with a doubled backslash was stopped by the
+  guard, and the edits were made again by hand.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the edit had to be written twice.

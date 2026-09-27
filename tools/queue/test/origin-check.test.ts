@@ -24,7 +24,7 @@ const [item] = parseItems(MD, "queue");
 if (!item) throw new Error("the fixture has no entry");
 const CLOUD = "2026-09-26, claude/cyst-sim-cloud";
 const taken = markTaken(MD, item.title, CLOUD);
-const view = (queue: string | null) => ({ queue, parked: null });
+const view = (queue: string | null, behind = false) => ({ queue, parked: null, behind });
 
 describe("what origin says about an item", () => {
   it("refuses one origin marks taken by another branch, naming it", () => {
@@ -38,6 +38,11 @@ describe("what origin says about an item", () => {
 
   it("lets through an entry only this lane has filed", () => {
     expect(originRefusal(item, view("# Queue\n"), false, "claude/local", "")).toBeUndefined();
+  });
+
+  it("lets through one a landing filed on this trunk and did not push", () => {
+    // `land --keep` put the entry on the trunk, and origin is only behind it.
+    expect(originRefusal(item, view("# Queue\n", true), true, "claude/local", "")).toBeUndefined();
   });
 
   it("lets through a free entry, and one origin could not be read for", () => {

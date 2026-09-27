@@ -2756,22 +2756,3 @@ for a misser to let go, and the test's `bossBlow(name, true)` is null for both
 before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
-
-## `queue take` calls an entry a landing filed but did not push "already done"
-
-- **Found:** 2026-09-27, claude/queue-the-wisps-arms-leave-their-own-light-when-they-s
-- **Taken:** 2026-09-27, claude/queue-a-counts-socket-and-a-throbs-far-half-hide-the-t (claim: claude/queue-queue-take-calls-an-entry-a-landing-filed-but-di)
-- **Files:** `tools/queue/origin-check.ts`, `tools/queue/run.ts`
-
-A lane landed with `--keep`, which files its finding on the local `main` and
-pushes nothing, and then asked `bun run queue take` for that finding. It was
-refused with *already done on origin/main — fetch it before claiming*:
-`originRefusal` reads an entry missing from `origin/main` while the trunk has
-it as one somebody removed there, and a fetch changes nothing. The lane took a
-different entry, whose `take` pushed the trunk, and the first one became
-claimable. Tell the two apart before refusing — the entry is *new* when
-`origin/main` is an ancestor of the local trunk and the commit that added the
-title is not on it (`git merge-base --is-ancestor`, and `git log -S` on the
-heading) — and claim it the ordinary way, since `take` pushes the trunk anyway.
-A test beside `origin-check.ts`'s own, with a view that lacks the entry and a
-trunk that is ahead.
