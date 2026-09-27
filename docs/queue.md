@@ -2891,6 +2891,7 @@ comment, and every new flag adds a line to both. Move the recipes into
 ## Eleven INDEX.md rows are empty, and a row once written empty stays empty
 
 - **Found:** 2026-09-27, claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an
+- **Taken:** 2026-09-27, claude/queue-11-41-11-43-and-11-44-still-say-only-the-simulat (claim: claude/queue-eleven-index-md-rows-are-empty-and-a-row-once-wr)
 - **Files:** `tools/index/`, `docs/INDEX.md`, `packages/sim/src/weight.ts`, `tools/frames/frame-files.ts`
 
 Eleven files (the empty `|  |` rows of `docs/INDEX.md`) open on an import with no header comment, so their rows carry no
