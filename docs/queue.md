@@ -2606,6 +2606,7 @@ column. A look: offered through VERSUS.
 ## THE RIME's pane has no secondary motion outside its story
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-27, claude/queue-the-trivets-stand-has-no-secondary-motion-of-its (claim: claude/queue-the-rimes-pane-has-no-secondary-motion-outside-i)
 - **Files:** `packages/render/src/rime-draw.ts`, `packages/render/src/rime-story.ts`
 
 From the secondary-motion audit. `rime-story.ts` line 77 drifts three frost
