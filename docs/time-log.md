@@ -27338,3 +27338,5 @@ navigator's word, and both had to be traced before it could move at all.
 
 Bottleneck: reading — the four handles sit on crossed seats, and the hand
 follows only once `cystFreezer` and `cystPincher` are read.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

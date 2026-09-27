@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f2027c786 — AUTO plays THE CYST: each flank tapped still by the partner and pinched shut by its own seat, the core shot out
+
+`boss-hands-cyst.ts` taps a lit flank's freeze mark from the partner's seat and lifts before the next tap. Once the flank is still, its own seat pinches it shut and keeps it shut until the step goes. Both seats pinch on a swell, the shield turns the spore, and the cannon shoots the bud and the bared core in their colours. THE CYST leaves `NO_HAND` and has its own autopilot test, and its core's marks row no longer carries `unreached`.
+
 ## 2026-09-27 · 62c21b465 — THE REPRISE's cords swing and its eye glances about
 
 The sac's two cords now swing about where they grow out of it, a mirror pair whose ends walk half a tile along the top of the screen, and its eye — the lens with its ring of eggs — glances half a tile about inside the sac. The eye comes home to the middle over the quarter second the beam comes up in whenever an echo plays, so the beam and the navigator's PRESS FIRE stand on it as before, and goes out again a second after the echo shuts. Every mark on the eye is drawn where it has looked to.
