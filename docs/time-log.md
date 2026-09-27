@@ -25542,3 +25542,5 @@ the files; the eleven headers were there all along.
 
 Bottleneck: looking — the entry's premise (the cannon answering a withheld
 ask) sat behind a step AUTO cannot play at all yet.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

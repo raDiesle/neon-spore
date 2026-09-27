@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f3ce7b564 — `--auto-miss` on THE CYST and THE SLING waits on their AUTO hands
+
+Probed with AUTO on both seats, neither fight gets past its first step: THE CYST's flank and THE SLING's draw are asked and sprung back for the whole look, so no fire step is ever lit for a misser to let go. The queue entry says so and now needs THE CYST's autopilot hand.
+
 ## 2026-09-27 · 8ed08e911 — An INDEX.md row ends a bold first sentence at its closing `**`, and no row is left empty
 
 Eleven rows said nothing. Their files' headers open on a bold sentence ending `.**`, which the derivation read past into the paragraph, cut inside the bold and then dropped entirely. `.** ` now ends a sentence, and a cut that would leave nothing closes the emphasis instead. An empty row always follows its file's header, so a new file indexed before its header was written is filled in on the next `bun run index`, and the drift test refuses an empty row.
