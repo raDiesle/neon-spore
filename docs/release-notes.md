@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 34eecd5c6 — Fourteen of the owner's questions answered, and `queue next` asks the rest first
+
+The owner answered every question the queue was holding for him, and each entry now has an `Answered:` line, so `next` hands them out again. HARD judges each sky boss. THE GAUGE and THE INSTAR's shoot marks each get a colour rule. THE MAZE's lever turns the drum one-to-one. THE JAM's runaway starts once the first lure is at half height. THE WINCH and THE SLUICE are cut as copies of THE DAVIT, in favour of a fresh boss. THE PLUMB's lean becomes two pulls that must weigh the same, and THE DAVIT and THE CAPSTAN lose the lean for a drag too. Three new entries hold that work and THE SCUTTLE's frame, which is drawn above the canvas on the director's stage and on short phones. `bun run queue next` now prints every unanswered question before it hands anything out, and CLAUDE.md says a question is asked in the turn it is queued. The rules the owner gave for bosses are in `.claude/skills/new-boss/owner.md`.
+
 ## 2026-09-27 · e99fd8fad — THE PLUMB's weight settling true is painted, behind ?raster=1
 
 A settle now throws a painted swing under that weight's chain: the ball's rim at its last places along a dying arc, a verdigris sheen sliding across it, flecks shaken off at each turn, and a ring out from the ball as it comes true. It hangs from the beam's end, keyed by side through a new `key` on SpriteBursts, so it follows the beam as it turns; the navigator's is the pilot's strip mirrored. Sixteen frames of 128 px at 50 ms. Without the flag nothing is fetched and the shipped settle is drawn as before.
