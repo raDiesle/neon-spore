@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 27603c58c — THE RATCHET's spent plates sway, as a VERSUS candidate
+
+Nothing on THE RATCHET's rack moves by itself: `time` reaches only the hurt shake. `ratchet:plate` / `sway` hangs each spent plate from its top edge and swings it about three and a half degrees on a slow period of its own, each plate out of step with the next. The teeth still below the pawl stay rigid, so the rack shows which plates are spent by motion as well as by weight. It is judged on THE RATCHET · CLIMB. The plate is now drawn through a record, `RATCHET_PLATE`, and the candidate turns the shipped plate rather than copying it.
+
 ## 2026-09-27 · 4633edb70 — Every living body's light drifts with its wobble, as a VERSUS candidate
 
 Every body `drawLiving` paints wobbles its outline on the contour clock, but its key light and sheen sit still on the flesh. `creature:skin` / `drift` slides the two together, a little toward the key and back, on a rate none of the contour's terms shares. The slide is in the field, so a throb's spin still turns the body under a light that stays put. It is judged on BODIES · FOUR KINDS AT ONCE. `BodyPaint` now carries the contour clock as `t`, and `litSkin` lets a skin move the light without copying the rest of it. The shipped skin passes no offset, so nothing drawn changes.
