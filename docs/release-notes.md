@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 28b069ad4 — THE RIME's frost glints, as a VERSUS candidate
+
+Outside a whiteout THE RIME's frost was dead still. GLINT sends a line of light across the pane on a slant every 6.7 seconds, and the edges of each of the seven ice sheets catch it as it passes. It is fainter than the fog's bands, and it never touches a patch already wiped clear. The pane gains a `RIME_GLINT` record in `rime-draw.ts` for the candidate to patch, and THE RIME gains its first posed state: its still, which is struck off `OWED`.
+
 ## 2026-09-27 · 194f53038 — THE CAPSTAN's lean goes out from both phones, and AUTO plays the drum
 
 THE CAPSTAN is on LEAN_BOSSES: while the drum stands, either seat's gamma goes out as the one capstanLean, and iOS is asked for the sensor on the guide's READY. AUTO has a hand for it (hands/boss-hands-capstan.ts): the steering seat leans past the mark toward the lit band, the other rubs it bright four reversals a beat, the pilot leans on a hold, and the bared core is shot in its colour. The rub's touch and the cue need the drum's drawn geometry and are queued behind the look.
