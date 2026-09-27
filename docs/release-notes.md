@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 49d899fce — THE INSTAR takes three times as long to arrive, 2.5 times as long between poses
+
+The first step flown, the breath's approach, now takes 24 beats of morph instead of 8. Every other step that flies — an approach, a pass or a cross — takes at least 2.5 times its old morph: 6 beats become 15, 7 become 18, 8 become 20, 10 become 25, 12 become 30. The steps that stay put are unchanged. The flight still has the first 60% of each morph (`INSTAR_FLIGHT_ENDS` is a share, not a count), so the marks still glow up on a body at rest.
+
 ## 2026-09-27 · 71bc55c23 — bun run frames --until picks which firing, by the event's fields
 
 `--until instarShow:step=4` stops on THE INSTAR's fifth show rather than its first. The fields after the colon are the same `key=value` pairs a miss prints, and every one of them must match. A field that is not a pair is refused by name. A shield window open for one tick under AUTO took eight bisecting runs to photograph; it now takes one.
