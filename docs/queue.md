@@ -2795,6 +2795,7 @@ test proves each of them fires. `bun run check` proves it.
 ## VERSUS — THE INSTAR's wing is shown in a pose that hides it
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-versus-drop-four-the-owner-could-not-tell-apart (claim: claude/queue-versus-the-instars-wing-is-shown-in-a-pose-that)
 - **Files:** `tools/director/src/versus-pose.ts`, `tools/versus/candidates/instar-wing/baked/index.ts`
 
 The owner, 27 September 2026, on `instar:wing baked`: *I do not see a
