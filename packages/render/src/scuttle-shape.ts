@@ -148,6 +148,24 @@ export function scuttleWindRise(l: Layout, phase: number): number {
   return l.tile * WIND_RISE * phase * phase;
 }
 
+/** The frame's box as it stands this frame, drawn back by the wind-up: its middle and half-sizes. */
+export function scuttleFrameBox(
+  l: Layout,
+  cfg: SimConfig,
+  s: ScuttleState,
+  beat: number,
+  beatPhase: number,
+): { x: number; y: number; rx: number; ry: number } {
+  const b = scuttleBox(l, cfg);
+  const rise = scuttleWindRise(l, scuttleWindPhase(s, cfg, beat, beatPhase));
+  return {
+    x: (b.left + b.right) * 0.5,
+    y: (b.top + b.bottom) * 0.5 - rise,
+    rx: (b.right - b.left) * 0.5,
+    ry: (b.bottom - b.top) * 0.5,
+  };
+}
+
 /** What is left of the frame on its way out, 1 while it stands and 0 when it is gone. */
 export function scuttleFade(
   s: ScuttleState,

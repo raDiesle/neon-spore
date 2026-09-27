@@ -140,6 +140,25 @@ export function mouthY(l: Layout, cfg: SimConfig): number {
   return tileCY(l, throatMouthRow(cfg));
 }
 
+/** How far round the gullet's outline its whole body stands, in tiles. */
+export const GULLET_PAD = 0.3;
+
+/** The whole gullet as points: every ring's two sides, top down, and the mouth. */
+export function throatGullet(
+  l: Layout,
+  cfg: SimConfig,
+  b: ThroatState,
+  beat: number,
+  beatPhase: number,
+): { x: number; y: number }[] {
+  const all = rings(l, cfg, b, beat, beatPhase);
+  return [
+    ...all.map((r) => ({ x: r.x - r.rx, y: r.y })),
+    ...all.map((r) => ({ x: r.x + r.rx, y: r.y })),
+    { x: mouthX(l, cfg, b, beat, beatPhase), y: mouthY(l, cfg) },
+  ];
+}
+
 /**
  * Every ring of the gullet, top down.
  *

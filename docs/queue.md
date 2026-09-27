@@ -1433,17 +1433,17 @@ no row in `render/slow-boss-aim.ts` or its pages two and three is aimed at
 the cannon's column at the hull, so one hung at the top of the field is the
 thing split *widest*
 (`bun run frames . --wave 105 --until seamLight --until-on 30`). Page three
-(`slow-boss-aim-c.ts`, 27 September 2026) runs a capsule the long way of a
-box the boss's shape file names, and has THE BATON, THE CURTAIN, THE GORGE,
-THE HIVE, THE KEEL, THE LEAD and THE LEDGER. Still falling through, each row
-calling its box from the boss's shape or draw file rather than re-deriving
-it: THE RATCHET (`ratchetLock`?), THE SCUTTLE (`scuttleBox`, with the wind's
-rise), THE TASTER (`tasterFanBox`), THE THROAT (`mouthY` on the middle
-column) and THE UNDERTOW — and THE ANTIPHON, a capsule along `antiphonBox`,
-page three's `capsule` as it stands. The caption anchors
-(`caption-anchor-boss*.ts`) already ring each of these and name the call.
-THE SEAM's row rides its hands (*§26 THE SEAM — its hands*). THE DAVIT, THE
-GRINDSTONE and THE SLING have no look yet and take their row with it.
+(`slow-boss-aim-c.ts`, 27 September 2026) runs a capsule the long way of
+the extent each boss's caption already rings, and has THE BATON, THE
+CURTAIN, THE GORGE, THE HIVE, THE KEEL, THE LEAD, THE LEDGER, THE RATCHET,
+THE SCUTTLE, THE TASTER, THE THROAT, THE UNDERTOW and THE ANTIPHON. Still
+falling through: THE GRINDSTONE, THE SLING and THE DAVIT, which have been
+drawn since this was filed — the wheel is `grindstoneAxleAt` and
+`grindstoneR` (a round body, page two's `still`), the yoke `slingCentre`
+with its tines (`slingTip`), and the davit a capsule from `davitMast` to
+`davitHook`, each read at the pose its drawer stands it in
+(its pose file). THE SEAM's row rides its hands (*§26 THE SEAM — its hands*),
+which already names it.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 

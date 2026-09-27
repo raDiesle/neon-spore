@@ -1,4 +1,5 @@
 import {
+  antiphonBoss,
   batonBoss,
   curtainBody,
   curtainBoss,
@@ -7,9 +8,16 @@ import {
   keelBoss,
   leadBoss,
   ledgerBoss,
+  ratchetBoss,
+  scuttleBoss,
+  tasterBoss,
+  throatBoss,
+  undertowBoss,
   type World,
 } from "@neon-spore/sim";
+import { antiphonBox } from "./antiphon-shape.js";
 import { socketPoint, socketReach } from "./baton-socket-draw.js";
+import { type Box, sides, spread } from "./caption-anchor-box.js";
 import { curtainSheetSpan } from "./curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
 import { drawnCol } from "./depth.js";
@@ -20,7 +28,12 @@ import { keelPlateHalf } from "./keel-shape.js";
 import { type Layout, tileCY } from "./layout.js";
 import { leadAlong, leadAskedAngle, leadFoot, leadRidgeY, leadStalkLength } from "./lead-shape.js";
 import { ledgerBodyBox, ledgerGap } from "./ledger-shape.js";
+import { ratchetLock, ratchetRails } from "./ratchet-shape.js";
+import { scuttleFrameBox } from "./scuttle-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
+import { tasterFanBox } from "./taster-draw.js";
+import { GULLET_PAD, throatGullet } from "./throat-shape.js";
+import { undertowEdgeBox } from "./undertow-shape.js";
 
 /**
  * **THE SLOW's aim, page three** — the bosses whose body is longer than it is
@@ -33,6 +46,8 @@ import type { Aim } from "./slow-intake-aim.js";
  * (`capsule`): the axis `Aim` was given for THE INSTAR's chain
  * (`slow-intake-aim.ts`) is the same keep-out, run the long way of a body.
  *
+ * Every extent is the one the boss's caption rings (`caption-anchor-box.ts`'s
+ * `spread` and `sides`), so the light and the ring cannot disagree on a body.
  * Rows may read the beat, as page two's do. A kind none of the three pages
  * has is aimed at the cannon, and the ones left are queued in `docs/queue.md`.
  */
@@ -45,7 +60,7 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const s = batonBoss(world);
       if (s === null) return null;
       const points = s.sockets.map((_, i) => socketPoint(l, cfg, s, i));
-      return capsule(around(points, socketReach(l)));
+      return spreadCapsule(points, socketReach(l));
     }
     // The part of the sheet on the field, rail to hem.
     case "curtain": {
@@ -57,7 +72,7 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const row = tileCY(l, cfg.curtainRow);
       const top = row - l.tile * CURTAIN_RAIL_RISE;
       const bottom = row + l.tile * CURTAIN_HEM_DROP;
-      return capsule(edges(span.left, span.right, top, bottom));
+      return capsule(sides(span.left, span.right, top, bottom));
     }
     // The sack at its fullest breath, so the light clears it all the beat.
     case "gorge": {
@@ -66,18 +81,16 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     }
     case "hive": {
       const b = hiveBox(l, cfg);
-      return hiveBoss(world) === null ? null : capsule(edges(b.left, b.right, b.top, b.bottom));
+      return hiveBoss(world) === null ? null : capsule(sides(b.left, b.right, b.top, b.bottom));
     }
     // The spine along the top, every segment where it stands this frame.
     case "keel": {
       const s = keelBoss(world);
       if (s === null) return null;
       const segs = keelSegs(l, cfg, s, beat, beatPhase);
-      return capsule(
-        around(
-          segs.map((seg) => seg.centre),
-          keelPlateHalf(l),
-        ),
+      return spreadCapsule(
+        segs.map((seg) => seg.centre),
+        keelPlateHalf(l),
       );
     }
     // The stalk from its foot on the ridge to its tip, as thick as the ridge.
@@ -95,41 +108,60 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       if (s === null) return null;
       return capsule(ledgerBodyBox(l, cfg, s, ledgerGap(l, cfg, s, beat, beatPhase)));
     }
+    // The strut down the middle column, from the lock at its top to the foot
+    // of its rails: the rack climbs inside it and never out.
+    case "ratchet": {
+      if (ratchetBoss(world) === null) return null;
+      const lock = ratchetLock(l, cfg);
+      const rails = ratchetRails(l, cfg);
+      return capsule(sides(rails.left, rails.right, lock.y - lock.half, rails.bottom));
+    }
+    // The frame of sockets, drawn back as far as the wind-up has it.
+    case "scuttle": {
+      const s = scuttleBoss(world);
+      return s === null ? null : capsule(scuttleFrameBox(l, cfg, s, beat, beatPhase));
+    }
+    case "taster": {
+      const s = tasterBoss(world);
+      return s === null ? null : capsule(tasterFanBox(l, s));
+    }
+    // The whole gullet, root to mouth, leaning as far as its rings let it.
+    case "throat": {
+      const s = throatBoss(world);
+      if (s === null) return null;
+      return spreadCapsule(throatGullet(l, cfg, s, beat, beatPhase), l.tile * GULLET_PAD);
+    }
+    // The edge along every breach it is pushing at. None open is no body on
+    // the field, and the cannon's column at the hull is the edge it will come at.
+    case "undertow": {
+      const s = undertowBoss(world);
+      const edge = s === null ? null : undertowEdgeBox(l, cfg, s, s.breaches, beat, beatPhase);
+      return edge === null ? null : capsule(edge);
+    }
+    // The body the width of the field: a disc round it would be the whole top
+    // of the screen, which is the case the capsule is for.
+    case "antiphon": {
+      if (antiphonBoss(world) === null) return null;
+      const b = antiphonBox(l, cfg);
+      return capsule(sides(b.left, b.right, b.top, b.bottom));
+    }
     default:
       return null;
   }
 }
 
-/** A body's extent: its middle and its two half-axes. */
-export interface Extent {
-  x: number;
-  y: number;
-  rx: number;
-  ry: number;
-}
-
 /**
- * The capsule round an extent, along its longer side: the shorter half-axis
- * is the radius and the two ends stand that far in from the box's ends, so
- * the capsule holds the whole oval and no more of the field than it must.
+ * The capsule round a box, along its longer side: the shorter half-axis is
+ * the radius and the two ends stand that far in from the box's ends, so the
+ * capsule holds the whole oval and no more of the field than it must.
  */
-export function capsule({ x, y, rx, ry }: Extent): Aim {
+export function capsule({ x, y, rx, ry }: Box): Aim {
   if (rx >= ry) return { x: x - (rx - ry), y, r: ry, ax: x + (rx - ry), ay: y };
   return { x, y: y - (ry - rx), r: rx, ax: x, ay: y + (ry - rx) };
 }
 
-function edges(left: number, right: number, top: number, bottom: number): Extent {
-  return {
-    x: (left + right) / 2,
-    y: (top + bottom) / 2,
-    rx: (right - left) / 2,
-    ry: (bottom - top) / 2,
-  };
-}
-
-/** The extent of a set of points, each `r` round. */
-function around(points: readonly { x: number; y: number }[], r: number): Extent {
-  const xs = points.map((p) => p.x);
-  const ys = points.map((p) => p.y);
-  return edges(Math.min(...xs) - r, Math.max(...xs) + r, Math.min(...ys) - r, Math.max(...ys) + r);
+/** The capsule round a set of points, each `r` round — the extent a caption rings. */
+function spreadCapsule(points: readonly { x: number; y: number }[], r: number): Aim | null {
+  const b = spread(points, r);
+  return b === null ? null : capsule(b);
 }

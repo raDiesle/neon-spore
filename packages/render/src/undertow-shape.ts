@@ -5,6 +5,7 @@ import {
   undertowBowBeats,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { type Layout, tileCX } from "./layout.js";
 
 /**
  * THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands,
@@ -20,7 +21,8 @@ import { smoothstep } from "./ease.js";
  * without a canvas (`undertow-shape.test.ts`).
  *
  * The heights are in tiles and not pixels: the layout hands the tile down at
- * the one place a shape becomes a path.
+ * the one place a shape becomes a path — and at `undertowEdgeBox`, the edge a
+ * ring or a light stands round, which is a box and not a path.
  */
 
 /** How high a fully bowed plate stands off the skin, in tiles: a few tenths. */
@@ -131,4 +133,34 @@ export function bodyPass(
  */
 export function bodyHeight(pass: number): number {
   return pass < 0 ? 0 : BODY_TILES * Math.sin(pass * Math.PI);
+}
+
+/** How much of a tile a breach is worth above and below the edge it is in. */
+const EDGE_R = 0.5;
+
+/**
+ * The edge round `shown` breaches, as wide as they have spread and reaching up
+ * to the tallest lobe standing in them — a standing lobe is above the skin,
+ * so the box does not sit flat on the line. Null with no breach. What the
+ * caption rings (`caption-anchor-boss-e.ts`) and THE SLOW's light stands
+ * round (`slow-boss-aim-c.ts`).
+ */
+export function undertowEdgeBox(
+  l: Layout,
+  cfg: SimConfig,
+  u: UndertowState,
+  shown: readonly UndertowBreach[],
+  beat: number,
+  beatPhase: number,
+): { x: number; y: number; rx: number; ry: number } | null {
+  if (shown.length === 0) return null;
+  const left = Math.min(...shown.map((b) => tileCX(l, b.col) - breachHalf(b) * l.tile));
+  const right = Math.max(...shown.map((b) => tileCX(l, b.col) + breachHalf(b) * l.tile));
+  const rise = Math.max(...shown.map((b) => lobeHeight(cfg, u, b, beat, beatPhase))) * l.tile;
+  return {
+    x: (left + right) * 0.5,
+    y: l.hullY - rise * 0.5,
+    rx: (right - left) * 0.5,
+    ry: l.tile * EDGE_R + rise * 0.5,
+  };
 }

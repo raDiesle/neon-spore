@@ -25466,3 +25466,17 @@ Bottleneck: reading — finding the entry's work already on the trunk, and what
 was left of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLOW's aim, page three: six more bosses off the cannon
+
+- reading: 10 min. The caption anchors for the six, and the ratchet's and the
+  undertow's shape files, which had no caption to copy.
+- writing: 15 min. The six rows; the scuttle's, throat's and undertow's boxes
+  moved out of their captions into their shape files, and `spread` and
+  `sides` out of `around`, so the light and the ring share one extent.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — three of the six boxes existed only inside a caption
+function, and each had to be lifted out before a second caller could share it.

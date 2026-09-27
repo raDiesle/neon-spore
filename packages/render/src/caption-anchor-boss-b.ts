@@ -26,7 +26,7 @@ import type { Layout } from "./layout.js";
 import { leadAlong, leadAskedAngle, leadFoot, leadStalkLength } from "./lead-shape.js";
 import { scoutAt } from "./scout-draw.js";
 import {
-  scuttleBox,
+  scuttleFrameBox,
   scuttleHangDrop,
   scuttleHangPhase,
   scuttleSocket,
@@ -90,20 +90,14 @@ function scuttlePart(
   beat: number,
   beatPhase: number,
 ): AnchorPoint | null {
-  const rise = scuttleWindRise(l, scuttleWindPhase(s, cfg, beat, beatPhase));
   if (part === "live") {
     if (!showsScuttleLive(l.role) || s.live < 0) return null;
+    const rise = scuttleWindRise(l, scuttleWindPhase(s, cfg, beat, beatPhase));
     const c = scuttleSocket(l, cfg, s.live, rise);
     const at = { x: c.x, y: c.y + scuttleHangDrop(l, scuttleHangPhase(s, cfg, beat, beatPhase)) };
     return around([at], l.tile * 0.4);
   }
-  const b = scuttleBox(l, cfg);
-  return box({
-    x: (b.left + b.right) * 0.5,
-    y: (b.top + b.bottom) * 0.5 - rise,
-    rx: (b.right - b.left) * 0.5,
-    ry: (b.bottom - b.top) * 0.5,
-  });
+  return box(scuttleFrameBox(l, cfg, s, beat, beatPhase));
 }
 
 /**

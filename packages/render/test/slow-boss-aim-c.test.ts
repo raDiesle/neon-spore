@@ -1,6 +1,7 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
+  antiphonBoss,
   batonBoss,
   createWorld,
   curtainBody,
@@ -9,10 +10,17 @@ import {
   keelBoss,
   leadBoss,
   ledgerBoss,
+  ratchetBoss,
+  scuttleBoss,
   startWave,
+  tasterBoss,
+  throatBoss,
+  undertowBoss,
   type World,
 } from "@neon-spore/sim";
+import { antiphonBox } from "../src/antiphon-shape.js";
 import { socketPoint, socketReach } from "../src/baton-socket-draw.js";
+import { sides, spread } from "../src/caption-anchor-box.js";
 import { curtainSheetSpan } from "../src/curtain-grip.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "../src/curtain-sheet.js";
 import { drawnCol } from "../src/depth.js";
@@ -29,8 +37,13 @@ import {
   leadStalkLength,
 } from "../src/lead-shape.js";
 import { ledgerBodyBox, ledgerGap } from "../src/ledger-shape.js";
+import { ratchetLock, ratchetRails } from "../src/ratchet-shape.js";
+import { scuttleFrameBox } from "../src/scuttle-shape.js";
 import { capsule } from "../src/slow-boss-aim-c.js";
 import { type Aim, aim } from "../src/slow-intake-aim.js";
+import { tasterFanBox } from "../src/taster-draw.js";
+import { GULLET_PAD, throatGullet } from "../src/throat-shape.js";
+import { undertowEdgeBox } from "../src/undertow-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -56,18 +69,8 @@ function need<T>(s: T | null | undefined, kind: string): T {
   return s;
 }
 
-const edges = (left: number, right: number, top: number, bottom: number) => ({
-  x: (left + right) / 2,
-  y: (top + bottom) / 2,
-  rx: (right - left) / 2,
-  ry: (bottom - top) / 2,
-});
-
-function around(points: readonly { x: number; y: number }[], r: number) {
-  const xs = points.map((p) => p.x);
-  const ys = points.map((p) => p.y);
-  return edges(Math.min(...xs) - r, Math.max(...xs) + r, Math.min(...ys) - r, Math.max(...ys) + r);
-}
+const around = (points: readonly { x: number; y: number }[], r: number) =>
+  need(spread(points, r), "points");
 
 const WANT: Record<string, (w: World) => Aim> = {
   baton: (w) => {
@@ -84,7 +87,7 @@ const WANT: Record<string, (w: World) => Aim> = {
     const span = need(curtainSheetSpan(L, CFG, drawnCol(body, 0)), "curtain");
     const row = tileCY(L, CFG.curtainRow);
     return capsule(
-      edges(
+      sides(
         span.left,
         span.right,
         row - L.tile * CURTAIN_RAIL_RISE,
@@ -95,7 +98,7 @@ const WANT: Record<string, (w: World) => Aim> = {
   gorge: (w) => capsule(gorgeSackBox(L, CFG, need(gorgeBoss(w), "gorge"), 1)),
   hive: () => {
     const b = hiveBox(L, CFG);
-    return capsule(edges(b.left, b.right, b.top, b.bottom));
+    return capsule(sides(b.left, b.right, b.top, b.bottom));
   },
   keel: (w) => {
     const segs = keelSegs(L, CFG, need(keelBoss(w), "keel"), 0, 0);
@@ -117,6 +120,21 @@ const WANT: Record<string, (w: World) => Aim> = {
     const s = need(ledgerBoss(w), "ledger");
     return capsule(ledgerBodyBox(L, CFG, s, ledgerGap(L, CFG, s, 0, 0)));
   },
+  ratchet: (w) => {
+    need(ratchetBoss(w), "ratchet");
+    const lock = ratchetLock(L, CFG);
+    const rails = ratchetRails(L, CFG);
+    return capsule(sides(rails.left, rails.right, lock.y - lock.half, rails.bottom));
+  },
+  scuttle: (w) => capsule(scuttleFrameBox(L, CFG, need(scuttleBoss(w), "scuttle"), 0, 0)),
+  taster: (w) => capsule(tasterFanBox(L, need(tasterBoss(w), "taster"))),
+  throat: (w) =>
+    capsule(around(throatGullet(L, CFG, need(throatBoss(w), "throat"), 0, 0), L.tile * GULLET_PAD)),
+  antiphon: (w) => {
+    need(antiphonBoss(w), "antiphon");
+    const b = antiphonBox(L, CFG);
+    return capsule(sides(b.left, b.right, b.top, b.bottom));
+  },
 };
 
 describe("THE SLOW's aim at a boss, page three", () => {
@@ -125,6 +143,20 @@ describe("THE SLOW's aim at a boss, page three", () => {
     const at = aim(world, L, 0, 0);
     expect(at).toEqual((WANT[kind] as (w: World) => Aim)(world));
     expect(Math.max(at.y, at.ay)).toBeLessThan(L.hullY - 2 * L.tile);
+  });
+
+  it("stands along THE UNDERTOW's open breaches, and at the cannon with none open", () => {
+    const world = stood("undertow");
+    const u = need(undertowBoss(world), "undertow");
+    expect(u.breaches).toEqual([]);
+    const cannon = aim(world, L, 0, 0);
+    expect(cannon.y).toBeGreaterThan(L.hullY - 2 * L.tile);
+    u.breaches.push(
+      { col: 1, stage: "standing", stageBeat: 0, tall: false, widthMilli: 0, widened: false },
+      { col: 4, stage: "bowing", stageBeat: 0, tall: false, widthMilli: 500, widened: false },
+    );
+    const edge = need(undertowEdgeBox(L, CFG, u, u.breaches, 0, 0), "undertow");
+    expect(aim(world, L, 0, 0)).toEqual(capsule(edge));
   });
 
   it("runs a capsule the long way of its box, as thick as the short way", () => {

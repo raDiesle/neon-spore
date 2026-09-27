@@ -13,12 +13,12 @@ import {
 import type { AnchorPoint } from "./caption-anchor.js";
 import { bossAnchorF } from "./caption-anchor-boss-f.js";
 import { around, box } from "./caption-anchor-box.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { ledgerBodyBox, ledgerRootPoint, ledgerSocketPoint } from "./ledger-shape.js";
 import { spliceCurve } from "./splice-straws.js";
 import { throatLockPoint } from "./throat-lock.js";
-import { mouthX, mouthY, rings } from "./throat-shape.js";
-import { breachHalf, lobeHeight } from "./undertow-shape.js";
+import { GULLET_PAD, mouthX, mouthY, rings, throatGullet } from "./throat-shape.js";
+import { undertowEdgeBox } from "./undertow-shape.js";
 import { showsSpliceTangle } from "./view-role.js";
 import { showsLedgerSocket, showsThroatLock, showsUndertowBow } from "./view-role-clocks.js";
 
@@ -132,9 +132,6 @@ function splicePart(
   );
 }
 
-/** How much of a tile a breach is worth above and below the edge it is in. */
-const EDGE_R = 0.5;
-
 /**
  * THE UNDERTOW: every breach it is pushing at, along the edge they are in —
  * and no ring at all while the field is quiet between pushes, which is the one
@@ -165,18 +162,8 @@ function undertowPart(
     return true;
   });
   const shown = wanted.length > 0 ? wanted : u.breaches;
-  if (shown.length === 0) return null;
-  const left = Math.min(...shown.map((b) => tileCX(l, b.col) - breachHalf(b) * l.tile));
-  const right = Math.max(...shown.map((b) => tileCX(l, b.col) + breachHalf(b) * l.tile));
-  // A standing lobe is above the skin, so the ring reaches up to the top of
-  // the tallest of them rather than sitting flat on the line.
-  const rise = Math.max(...shown.map((b) => lobeHeight(cfg, u, b, beat, beatPhase))) * l.tile;
-  return box({
-    x: (left + right) * 0.5,
-    y: l.hullY - rise * 0.5,
-    rx: (right - left) * 0.5,
-    ry: l.tile * EDGE_R + rise * 0.5,
-  });
+  const edge = undertowEdgeBox(l, cfg, u, shown, beat, beatPhase);
+  return edge === null ? null : box(edge);
 }
 
 /** How much of a tile THE THROAT's mouth, gums and lock are worth as a ring. */
@@ -214,12 +201,5 @@ function throatPart(
     if (one === undefined) return null;
     return box({ x: one.x, y: one.y, rx: one.rx, ry: Math.max(one.ry, l.tile * 0.25) });
   }
-  return around(
-    [
-      ...all.map((r) => ({ x: r.x - r.rx, y: r.y })),
-      ...all.map((r) => ({ x: r.x + r.rx, y: r.y })),
-      mouth,
-    ],
-    l.tile * 0.3,
-  );
+  return around(throatGullet(l, cfg, b, beat, beatPhase), l.tile * GULLET_PAD);
 }

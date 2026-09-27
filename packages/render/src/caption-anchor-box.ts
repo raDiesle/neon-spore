@@ -29,6 +29,26 @@ export function box(b: Box): AnchorPoint {
 
 /** A box round a set of points, each with radius `r`; null with no points. */
 export function around(points: readonly { x: number; y: number }[], r: number): AnchorPoint | null {
+  const b = spread(points, r);
+  return b === null ? null : box(b);
+}
+
+/** A box from its four edges. */
+export function sides(left: number, right: number, top: number, bottom: number): Box {
+  return {
+    x: (left + right) * 0.5,
+    y: (top + bottom) * 0.5,
+    rx: (right - left) * 0.5,
+    ry: (bottom - top) * 0.5,
+  };
+}
+
+/**
+ * The extent round a set of points, each with radius `r`, and no air yet;
+ * null with no points. What `around` rings, and what THE SLOW's light stands
+ * round (`slow-boss-aim-c.ts`), so the two cannot disagree on a body.
+ */
+export function spread(points: readonly { x: number; y: number }[], r: number): Box | null {
   if (points.length === 0) return null;
   let left = Number.POSITIVE_INFINITY;
   let right = Number.NEGATIVE_INFINITY;
@@ -40,10 +60,5 @@ export function around(points: readonly { x: number; y: number }[], r: number): 
     top = Math.min(top, p.y - r);
     bottom = Math.max(bottom, p.y + r);
   }
-  return box({
-    x: (left + right) * 0.5,
-    y: (top + bottom) * 0.5,
-    rx: (right - left) * 0.5,
-    ry: (bottom - top) * 0.5,
-  });
+  return sides(left, right, top, bottom);
 }
