@@ -29,6 +29,13 @@ import { PALETTE, STROKE } from "./palette.js";
  * and THE SCOUT are rounds with no boss body and no blow; THE WELL is a
  * projection with nothing to redden; THE SPLICE is a puzzle, and the thing
  * that eats it is a clock.
+ *
+ * **A single hit that counts shows too** (the owner, 27 September 2026:
+ * *when correctly hit, there must be a clear visual every time*). The shake
+ * and the red are held apart for it: a landed sequence is both at full, and
+ * one counted hit inside it is the red at full and half the shake
+ * (`JAB_SHAKE`), so the landing is still the bigger blow. THE INSTAR deals
+ * it on every counted bolt (`instar-fx.ts`).
  */
 
 /** How long the blow shows, in seconds. */
@@ -37,31 +44,49 @@ const HURT_SECONDS = 0.5;
 const SHAKE_TILES = 0.18;
 /** How fast it shakes, in radians a second: quicker than a flinch's shiver. */
 const SHAKE_RATE = 55;
+/** How much of the shake one counted hit carries, against a landing's. */
+export const JAB_SHAKE = 0.5;
 
 export class BossHurt {
   private now = 0;
+  private shaken = 0;
 
   /** A sequence landed: the body takes the blow, at `strength` 0..1. */
   hit(strength = 1): void {
-    this.now = Math.max(this.now, Math.min(1, strength));
+    const k = Math.min(1, strength);
+    this.now = Math.max(this.now, k);
+    this.shaken = Math.max(this.shaken, k);
   }
 
-  /** How hard the blow still shows, 0..1. */
+  /** One hit that counts, inside a sequence: the red at full, half the shake. */
+  jab(): void {
+    this.now = 1;
+    this.shaken = Math.max(this.shaken, JAB_SHAKE);
+  }
+
+  /** How red the blow still shows, 0..1. */
   get value(): number {
     return this.now;
   }
 
+  /** How hard the body still shakes with it, 0..1. */
+  get shake(): number {
+    return this.shaken;
+  }
+
   /** The body's sideways shake this frame, in pixels. */
   shakeX(time: number, tile: number): number {
-    return hurtShake(this.now, time, tile);
+    return hurtShake(this.shaken, time, tile);
   }
 
   update(dt: number): void {
     this.now = Math.max(0, this.now - dt / HURT_SECONDS);
+    this.shaken = Math.max(0, this.shaken - dt / HURT_SECONDS);
   }
 
   clear(): void {
     this.now = 0;
+    this.shaken = 0;
   }
 }
 

@@ -22,7 +22,8 @@ import { PALETTE } from "./palette.js";
  * fire or swarm or tail (`instar-strike.ts`), the **eggs** a swipe takes off
  * its nest falling to the hull and the ones a tap bursts where they lie
  * (`instar-eggs.ts`), the **hurt** of a step the pair landed — a shake and
- * a red glow on the body (`boss-hurt.ts`), the **tremble** of a lip the jaw
+ * a red glow on the body (`boss-hurt.ts`), and a lighter one on every bolt
+ * a shoot mark counts, the **tremble** of a lip the jaw
  * shoved back against its thumb (`instar-shove.ts`) — and the bursts its
  * eleven receipts throw.
  *
@@ -55,6 +56,9 @@ export class InstarFx {
   /** Whether each mark of this step is a swipe, which is what drops an egg:
    * a tap on the brood squashes it where it lies. */
   private swipes: boolean[] = [];
+  /** Whether each mark of this step is a shoot mark, whose every counted
+   * bolt is a hit the body shows (`BossHurt.jab`). */
+  private shoots: boolean[] = [];
   private head: Point | null = null;
   private headR = 0;
   /** Whether the last touch on each mark of this step was right, by index. */
@@ -63,7 +67,7 @@ export class InstarFx {
   readonly eggs = new FallingEggs();
   /** What a part the pair did not stop does to the ship. */
   readonly strike = new InstarStrike();
-  /** The blow a landed step deals the body. */
+  /** The blow a landed step deals the body, and each counted bolt a lighter one. */
   readonly hurt = new BossHurt();
   /** The lips trembling under the jaw's shove. */
   readonly shove = new LipShove();
@@ -100,6 +104,7 @@ export class InstarFx {
     const step = instarStep(s);
     this.marks = step === null ? [] : step.marks.map((m) => instarMarkPoint(l, m, sway, along));
     this.swipes = step === null ? [] : step.marks.map((m) => m.gesture === "swipeDown");
+    this.shoots = step === null ? [] : step.marks.map((m) => m.gesture === "shoot");
     this.shove.place(step);
     this.head = head;
   }
@@ -132,6 +137,7 @@ export class InstarFx {
         case "instarAnswer":
           at(mark(e.mark), 3, PALETTE.redRim);
           this.verdicts.mark(e.mark, true);
+          if (this.shoots[e.mark] === true) this.hurt.jab();
           if (e.part !== "eggs") break;
           if (this.swipes[e.mark] === false) this.eggs.squash(mark(e.mark), this.headR || l.tile);
           else this.eggs.drop(mark(e.mark), l.hullY, this.headR || l.tile);
@@ -209,6 +215,7 @@ export class InstarFx {
     this.heldAlong = 0;
     this.marks = [];
     this.swipes = [];
+    this.shoots = [];
     this.head = null;
     this.strike.clear();
     this.headR = 0;

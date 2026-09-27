@@ -2764,29 +2764,15 @@ pulsing on the beat, and the glow stops when that mark is done. Only that
 part glows. The whole-body red belongs to the hurt, and the two must not be
 confused. This is a look the owner asked for by name.
 
+Since 27 September 2026 each counted bolt also washes the whole body red
+for half a second (`BossHurt.jab`, `instar-fx.ts`), with half a landing's
+shake. Once each part has a red of its own here, narrow that wash to the
+part the bolt hit — `instarAnswer` carries the part — and leave the
+whole-body red to the landing.
+
 Done when: a test finds, on each shoot step, the red glow drawn on that part
 and on no other; op count within the budget test's tolerance, or moved with
 a sentence. `bun run check` proves it.
-
-## THE INSTAR — every bolt that counts shows the hurt
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-docs-spec-briefings-md-3-2-names-five-prose-guid (claim: claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt)
-- **Files:** `packages/render/src/instar-fx.ts`, `packages/render/src/boss-hurt.ts`, `packages/render/test/boss-hurt.test.ts`
-
-The owner, 27 September 2026: *when correctly hit, there must be a clear
-visual every time — the generic thing I asked for, that every time any boss
-takes damage it should shake and have the typical red damage lighting for a
-brief moment.* `BossHurt` (24 September) fires on *a sequence landed*: in
-`instar-fx.ts`, `hurt.hit()` is called on a landed step. A single bolt that
-counts (`instarAnswer` on a shoot mark) shows only the progress arc. Give
-`hit` a strength. On every `instarAnswer` of a shoot mark, call a lighter
-hit: half the shake, with the red at full strength on the part hit. A landed
-step keeps the full hit.
-
-Done when: a test finds each counted bolt starting a hurt, and a refused
-bolt or a miss starting none; `restart.test.ts` still passes. `bun run
-check` proves it.
 
 ## Every other boss — every counted hit shows the hurt
 
@@ -2804,3 +2790,17 @@ page if it does not.
 
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
+
+## `instar-fx.ts` is 231 lines, and its event switch is the seam
+
+- **Found:** 2026-09-27, claude/queue-the-instar-every-bolt-that-counts-shows-the-hurt
+- **Files:** `packages/render/src/instar-fx.ts`, `packages/render/test/instar-hurt.test.ts`, `packages/render/test/instar-eggs.test.ts`
+
+The per-bolt hurt took `InstarFx` to 231 lines, nineteen under the ceiling
+`limits.test.ts` holds. Most of it is `ingest`, a switch over eleven event
+types that each touch one of the class's parts. Move the switch into a
+function of its own file that takes the fx and an event, the way
+`boss-blows.ts` holds the blows of the bosses with no fx class. Leave the
+class holding the state, `place`, `update`, `draw` and `clear`. No
+behaviour changes: `instar-hurt.test.ts`, `instar-eggs.test.ts` and
+`restart.test.ts` stay green unchanged, and `bun run check` proves it.

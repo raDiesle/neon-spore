@@ -26213,3 +26213,17 @@ Bottleneck: friction — the entry's own figure was wrong, and the new test
 was what caught it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR shows the hurt on every counted bolt
+
+- reading: 10 min. `BossHurt`, `InstarFx`, how the sim counts a bolt on a
+  shoot mark (`scene-panel.ts`), and the hurt table's INSTAR row.
+- writing: 10 min. The shake held apart from the red, `jab`, the shoot marks
+  placed beside the swipes, the test.
+- looking: 0 min. The red is the landing's, already shipped; a still frame
+  would show nothing a landing does not.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — "a shoot mark" is a gesture on the step, not on the
+event, so the fx had to learn it from `place` the way it learns a swipe.
