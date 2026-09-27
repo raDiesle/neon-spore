@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 86e7eec91 — THE GORGE's lobes lean on their intakes, and the pinch and pry follow them
+
+Each of THE GORGE's seven lobes now leans about its own intake, so the intake stays over its column while the top of the lobe leans by more than half a tile, each lobe on its own seed so they sway out of step. The pinch's and the pry's rings stand in the swell of a lobe, so they are hit-tested and drawn where the leaning lobe is, and the navigator's ring round the nearest-full lobe leans with it. On the field under "a look with no shipped alternative".
+
 ## 2026-09-27 · 0caba82b9 — THE VALVE leaks a second spark as the second pin's shudder is braced
 
 §25 row 11, off the same leak as the first: the first spark leaks as the jet is capped, the second as the brace stills, and each falls through the list and is shot out in either colour or reaches the hull. The revised lane's held chord on the last seal was already the seal phase. The two sparks' different severity is queued as a VERSUS look. A simulation change; nothing drawn changed, so no look.

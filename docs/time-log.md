@@ -27591,3 +27591,5 @@ had, so the lane was finding the one row (the second spark) left to build.
 Bottleneck: reading. The grip ring half a tile up the lobe was the only
 thing that had to follow the lean, and finding that meant checking
 every reader of the intake's height.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
