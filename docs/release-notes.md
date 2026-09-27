@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f35e5c18b — THE INSTAR: the part to shoot glows red
+
+While a shoot mark's window is open, the part it names (the eyes, the eggs, the tail or the heart) is stroked a strong red along its own outline, pulsing on the beat. The glow goes when the last shoot mark on that part is done. It is an outline and never a fill, so it cannot be mistaken for the whole-body hurt. The owner asked for this look by name.
+
 ## 2026-09-27 · 10cd04121 — THE GALL takes a pinch from two fingers, and the field says PINCH and FIRE
 
 Two fingers of one seat on the seam's row now pinch THE GALL. They use THE VISE's pair and gap. The pinch is taken on the point of that seat's half nearest the first finger, and that point goes out as the pinch's id. It goes on the lift too, so a pinch left where the gall was stays there when the gall jumps. Every point on the seat's half takes a pinch, so finding the gall is still the simulation's to judge. pinchSays now carries a hold's id; before this, a lift had no point and the simulation never heard it. The field says PINCH on the nodule to the seat whose half it sits on, gone once the pinch is shut and moving with the gall when it jumps, and FIRE under the middle column on the bared root. The ON THE FIELD tab has THE GALL'S PINCH and its pose.
