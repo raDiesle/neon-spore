@@ -1,11 +1,20 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
-import { burgeeBoss, capstanBoss, createWorld, startWave, type World } from "@neon-spore/sim";
+import {
+  burgeeBoss,
+  capstanBoss,
+  createWorld,
+  sceneBoss,
+  startWave,
+  type World,
+} from "@neon-spore/sim";
 import { burgeeTip } from "../src/burgee-shape.js";
 import { capstanCentre, capstanPivot, capstanSize } from "../src/capstan-shape.js";
 import { gallSeamY } from "../src/gall-shape.js";
 import { halterCentre, halterSize } from "../src/halter-shape.js";
+import { instarAt, instarLen } from "../src/instar-place.js";
 import { computeLayout } from "../src/layout.js";
+import { nettleBody } from "../src/nettle-sway.js";
 import { seamCentre, seamHalfHeight, seamHalfWidth } from "../src/seam-shape.js";
 import { bodyBox } from "../src/slow-fuse-place.js";
 import { aim } from "../src/slow-intake-aim.js";
@@ -16,7 +25,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **THE SLOW's light stands round the bosses on page four**
  * (`slow-boss-aim-d.ts`): five that opened windows that ask and were aimed at
- * the cannon on the hull until 27 September 2026. Each is held to the body its
+ * the cannon on the hull until 27 September 2026, and THE NETTLE once its body
+ * was drawn. Each is held to the body its
  * own shape file names — its box holds the body, and stands well clear of the
  * hull — rather than to its own arithmetic again.
  */
@@ -39,7 +49,7 @@ function settled(kind: Parameters<typeof waveWith>[0]) {
 }
 
 describe("THE SLOW's aim at the bosses on page four", () => {
-  it.each(["seam", "halter", "capstan", "gall", "burgee"] as const)(
+  it.each(["seam", "halter", "capstan", "gall", "burgee", "nettle"] as const)(
     "stands round THE %s, not the cannon, and leaves the hull a gap",
     (kind) => {
       const box = settled(kind);
@@ -96,5 +106,20 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     s.swingMilli = CFG.burgeeSpanMilli;
     const swung = bodyBox(aim(world, L, world.beat + 1_000, 0));
     expect(swung.right).toBeGreaterThan(box.right);
+  });
+
+  it("holds THE NETTLE's whole bell, where this frame's figure has it", () => {
+    const world = stood("nettle");
+    const s = sceneBoss(world);
+    if (s === null || s.kind !== "nettle") throw new Error("the nettle wave stood no bell");
+    const beat = world.beat + 1_000;
+    const { f } = nettleBody(s, CFG, beat, 0);
+    const c = instarAt(L, f.bellX, f.bellY);
+    const r = instarLen(L, f.bellR);
+    const still = bodyBox(aim(world, L, beat, 0));
+    expect(still.left).toBeLessThan(c.x - r);
+    expect(still.right).toBeGreaterThan(c.x + r);
+    expect(still.top).toBeLessThan(c.y - 0.8 * r);
+    expect(still.bottom).toBeGreaterThan(c.y + 0.8 * r);
   });
 });

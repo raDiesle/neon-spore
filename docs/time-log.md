@@ -26722,3 +26722,16 @@ Bottleneck: none worth the name — the rule already existed in `spent.ts` and
 only needed asking from two more places.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE NETTLE's row in THE SLOW's aim
+
+- reading: 5 min. `slow-intake-aim.ts`, page four, `nettle-body.ts`'s
+  geometry, `fuse-place.test.ts`.
+- writing: 5 min. `nettleReach` off the drawers' own figures, the row on
+  page four, the test rows.
+- looking: 0 min. Held by the fuse walk and the aim test; no picture.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the arm and curtain figures were literals inside the drawers, and
+had to be named before the aim could read them rather than copy them.

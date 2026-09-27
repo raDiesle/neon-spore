@@ -25,6 +25,48 @@ import { splinePath } from "./spline.js";
 
 /** Lobes on the bell's own contour — enough to read as grown, not stamped. */
 const BELL_LOBES = 7;
+/** The bell's height over its width, and how far a lobe stands out of it. */
+const BELL_SQUASH = 0.82;
+const BELL_LOBE_DEPTH = 0.1;
+/** The oral-arm curtain: where its strands hang from and how far, in bell radii. */
+const FRILL_TOP = 0.5;
+const FRILL_LONG = 0.6;
+const FRILL_WIDE = 1.4;
+
+/** Where a stinging arm leaves the rim and where its tip is, drawn out `extend`. */
+function armEnds(cx: number, cy: number, r: number, side: -1 | 1, extend: number) {
+  const start = { x: cx + side * r * 0.85, y: cy + r * 0.4 };
+  const end = { x: cx + side * r * (0.85 + 0.5 * extend), y: cy + r * (0.4 + 0.9 * extend) };
+  return { start, end };
+}
+
+/**
+ * **The points THE NETTLE's body reaches this frame** — the bell's four sides,
+ * lobes and all, both arms' tips and the curtain's foot — for a caller that
+ * must stand clear of the whole body rather than the bell (THE SLOW's aim,
+ * `slow-boss-aim-d.ts`). Read off the same figures the drawers below use.
+ */
+export function nettleReach(
+  cx: number,
+  cy: number,
+  r: number,
+  f: Figure,
+): { x: number; y: number }[] {
+  const w = r * (1 + BELL_LOBE_DEPTH);
+  const h = r * BELL_SQUASH * (1 + BELL_LOBE_DEPTH);
+  const foot = cy + r * (FRILL_TOP + FRILL_LONG * f.frill);
+  const half = (r * FRILL_WIDE) / 2;
+  return [
+    { x: cx - w, y: cy },
+    { x: cx + w, y: cy },
+    { x: cx, y: cy - h },
+    { x: cx, y: cy + h },
+    armEnds(cx, cy, r, -1, f.armL).end,
+    armEnds(cx, cy, r, 1, f.armR).end,
+    { x: cx - half, y: foot },
+    { x: cx + half, y: foot },
+  ];
+}
 
 export function drawNettleBody(
   ctx: CanvasRenderingContext2D,
@@ -52,7 +94,10 @@ function drawBell(
   time: number,
   fade: number,
 ): void {
-  const p = splinePath(blobPoints(cx, cy, r, r * 0.82, BELL_LOBES, 0.1, 0.025, time, 11, 40), true);
+  const p = splinePath(
+    blobPoints(cx, cy, r, r * BELL_SQUASH, BELL_LOBES, BELL_LOBE_DEPTH, 0.025, time, 11, 40),
+    true,
+  );
   ctx.globalAlpha = fade;
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(p);
@@ -122,8 +167,7 @@ function drawArm(
   extend: number,
   alpha: number,
 ): void {
-  const start = { x: cx + side * r * 0.85, y: cy + r * 0.4 };
-  const end = { x: cx + side * r * (0.85 + 0.5 * extend), y: cy + r * (0.4 + 0.9 * extend) };
+  const { start, end } = armEnds(cx, cy, r, side, extend);
   const mid = { x: (start.x + end.x) / 2 + side * r * 0.15 * extend, y: (start.y + end.y) / 2 };
   const p = new Path2D();
   p.moveTo(start.x, start.y);
@@ -167,10 +211,10 @@ function drawUnderside(
     const strands = 6;
     for (let i = 0; i < strands; i++) {
       const t = i / (strands - 1) - 0.5;
-      const x = cx + t * r * 1.4;
+      const x = cx + t * r * FRILL_WIDE;
       const p = new Path2D();
-      p.moveTo(x, cy + r * 0.5);
-      p.lineTo(x, cy + r * (0.5 + 0.6 * f.frill));
+      p.moveTo(x, cy + r * FRILL_TOP);
+      p.lineTo(x, cy + r * (FRILL_TOP + FRILL_LONG * f.frill));
       strokeGlow(ctx, p, PALETTE.dim, STROKE.inner, 0.8, alpha * f.frill);
     }
   }

@@ -3,6 +3,7 @@ import {
   capstanBoss,
   gallBoss,
   halterBoss,
+  sceneBoss,
   seamBoss,
   type World,
 } from "@neon-spore/sim";
@@ -14,7 +15,10 @@ import { type Box, sides, spread } from "./caption-anchor-box.js";
 import { gallSeamY, gallSize } from "./gall-shape.js";
 import { halterArrived } from "./halter-pose.js";
 import { halterAt, halterBend, halterGap, halterSize } from "./halter-shape.js";
+import { instarAt, instarLen } from "./instar-place.js";
 import type { Layout } from "./layout.js";
+import { nettleReach } from "./nettle-body.js";
+import { nettleBody } from "./nettle-sway.js";
 import { seamArrived } from "./seam-pose.js";
 import { seamCentre, seamHalfHeight, seamHalfWidth, seamLift } from "./seam-shape.js";
 import type { Aim } from "./slow-intake-aim.js";
@@ -28,10 +32,10 @@ import type { Aim } from "./slow-intake-aim.js";
  * long way as a capsule, placed where its drawer places it this frame — the
  * drop in, the lift as it goes, the cradle's roll, the flag's swing.
  *
- * **THE NETTLE is not a row.** It shares THE INSTAR's engine and has no look
- * yet: nothing draws a body for the light to stand round, and its row belongs
- * to the lane that draws one (`docs/queue.md`). A kind none of the four pages
- * has is aimed at the cannon.
+ * THE NETTLE joined once its body was drawn: it shares THE INSTAR's engine
+ * but not its body, so it is aimed here off its own bell and arms rather than
+ * beside THE INSTAR in `aim()`. A kind none of the four pages has is aimed at
+ * the cannon.
  */
 export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
   const cfg = world.cfg;
@@ -96,6 +100,15 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const crown = { x: spindle.x, y: spindle.y - burgeeSpindleTall(l) };
       const tip = burgeeTip(l, cfg, burgeeAsked(s, cfg, beatPhase));
       return spreadCapsule([crown, tip], burgeeFlagLong(l));
+    }
+    // The bell, lobes and all, with the arms' tips and the curtain's foot
+    // wherever this frame's figure has them (`nettle-body.ts`).
+    case "nettle": {
+      const s = sceneBoss(world);
+      if (s === null || s.kind !== "nettle") return null;
+      const { f } = nettleBody(s, cfg, beat, beatPhase);
+      const c = instarAt(l, f.bellX, f.bellY);
+      return spreadCapsule(nettleReach(c.x, c.y, instarLen(l, f.bellR), f), 0);
     }
     default:
       return null;
