@@ -26473,3 +26473,5 @@ frames and each strip is a full render.
   `check:fast`, the commit, `land`.
 
 Bottleneck: landing — the full check is most of the lane's wall time.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

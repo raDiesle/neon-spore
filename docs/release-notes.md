@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 4c88b75fb — The director writes every scripted boss back out with one writer
+
+The fourteen bosses that author a script of steps, THE SEAM through THE BURGEE, are now written back out in `serialize-boss-b.ts` by one writer. It writes each step field by field, in the order the wave wrote them, and drops any field the wave left out. This replaces one template per boss, and a template could silently drop a field added to a step. The director learns which bosses are scripted from `isScriptedEntry`, the list the simulation installs them from, so the next scripted boss is written back the day it is installed. `serialize-boss.ts` drops from 250 lines to 179. The wave-save round trip still writes all 118 shipped waves back byte for byte, and it fails if the writer changes the field order.
+
 ## 2026-09-27 · be49c0ac3 — THE BURGEE has a body: a canvas pennant on a hanging boom that eases still
 
 THE BURGEE (wave 118, §11.56) is drawn. SLICK · REVERB stands on end over the middle column as a turned spindle. A plain steel boom hangs from its foot like a pendulum, its tip always over the flag's column. SLICK · COMMA is the canvas flag. The flag is eased rather than put: a freeze landing mid-beat slows it to a stop, its speed streams it out behind, a still flag hangs limp, and a missed swipe sets it fluttering. A ring over the lit column says tap it still, and a track toward it says hold, then swipe. Each is full on its seat's screen and faint on the other's. The canvas brightens with each catch, and the spindle's three studs light in the shot's colour and go dark one per shot. Its blow, receipts, touch, cue and AUTO hand are queued.
