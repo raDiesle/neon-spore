@@ -1783,6 +1783,7 @@ that is why it goes to VERSUS.
 ## `bun run frames` cannot make a boss's window run out
 
 - **Found:** 2026-09-26, claude/timeout-hits
+- **Taken:** 2026-09-27, claude/queue-a-cloud-claim-does-not-stop-the-owners-own-sessi (claim: claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou)
 - **Files:** `tools/frames/until.ts`, `tools/frames/until-flags.ts`
 
 `--until breach` found no breach in 3000 ticks on THE OCULUS, THE VISE,
