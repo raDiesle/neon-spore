@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · bba63b42d — THE TRIVET's lifted feet dangle, as a VERSUS candidate
+
+Outside a lurch or a fling the stand stood still but for the light's drift on its hub. DANGLE swings each lifted outer foot a few degrees about its leg's root on a slow period of its own, the two out of step, scaled by how far the foot is lifted, so a planted foot is dead still and the hold reads as the swing stopping. `trivet-draw.ts` places an outer foot through `TRIVET_FOOT`, which the game leaves where it stands; the slot is judged on THE TRIVET · STILL, which now says where to look.
+
 ## 2026-09-27 · a042f9802 — THE DAVIT's two looses have rows in ON THE FIELD
 
 The pilot's and the navigator's draw-and-loose — a thumb down anywhere on the field while the lit swing wants that seat's loose, judged on the lift against the partner's lean — now have a row each on the tab, a row each in docs/spec/controls.md, and a pose each on the screen the loose is taken on. The on-field test places both "field"; the leans stay "unbuilt", because they are the phone tilted. The last of the three lanes of the queue's entry, which is done.

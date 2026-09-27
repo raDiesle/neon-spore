@@ -25839,3 +25839,5 @@ whose lean steers, and the poses had to be the looser's screen.
 
 Bottleneck: writing — the foot had no seam, and the one it needed had to
 turn the plate with the leg.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
