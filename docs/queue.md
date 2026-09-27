@@ -787,6 +787,7 @@ what the rest of this file holds.
 ## §39 THE BURGEE — AUTO
 
 - **Found:** 2026-09-27, claude/queue-39-the-burgee-the-look
+- **Taken:** 2026-09-27, claude/queue-39-the-burgee-the-cue-and-auto (claim: claude/queue-39-the-burgee-auto)
 - **Files:** `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/marks-window-rows-b.ts`
 
 The touch and the cue landed on 27 September 2026: `render/burgee-grip.ts`
