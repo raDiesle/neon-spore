@@ -2842,6 +2842,7 @@ to `packages/sim/test/purity.test.ts`' called-not-re-derived table for
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`
+- **Needs:** THE CYST's autopilot hand
 
 `--auto both --auto-miss` keeps AUTO's hands off every other asking window,
 and that reaches the timeout blow of THE OCULUS, THE VISE, THE TRIVET, THE
@@ -2853,6 +2854,16 @@ opens no window at all (`cyst-step.ts` `next`), so it is never withheld. The
 fix is a misser that moves the cannon off the aim during a withheld fire
 window, rather than one that only lets go. Add the two bosses to the test's
 list once it lands.
+
+**Tried 27 September 2026, and it cannot be proven yet.** Neither boss has an
+AUTO hand (both are in `autopilot.test.ts`'s `NO_HAND`), so with AUTO on both
+seats neither fight gets past its first step: THE CYST lights a flank and
+shudders it back every 225 ticks for the whole look, and THE SLING lights a
+draw and springs it every 600. No fire step is ever lit, so there is nothing
+for a misser to let go, and the test's `bossBlow(name, true)` is null for both
+before the auto-fire question comes up at all. Work it once THE CYST's hand
+and THE SLING's (the hands half of its look) have landed; the `Needs:` line
+names the first.
 
 ## `tools/frames/run.ts` is at 223 lines
 

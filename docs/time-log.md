@@ -25529,3 +25529,16 @@ Bottleneck: reading — the entry, filed by this session an hour earlier, blamed
 the files; the eleven headers were there all along.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `--auto-miss` on THE CYST and THE SLING waits on their hands
+
+- reading: 10 min. `auto-miss.ts`, the two bosses' steps and shots.
+- writing: 0 min.
+- looking: 5 min. A probe over both waves with AUTO on both seats: neither
+  gets past its first step, so no fire step is ever lit.
+- friction: 0 min.
+- landing: 5 min. The entry rewritten with a `Needs:` line, the claim given
+  back, `land`.
+
+Bottleneck: looking — the entry's premise (the cannon answering a withheld
+ask) sat behind a step AUTO cannot play at all yet.
