@@ -25825,3 +25825,5 @@ Bottleneck: landing — the move is minutes, the check is most of it.
 
 Bottleneck: reading — whose loose is live is the step's, the reverse of
 whose lean steers, and the poses had to be the looser's screen.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

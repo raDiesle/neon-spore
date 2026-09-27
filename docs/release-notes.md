@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · a042f9802 — THE DAVIT's two looses have rows in ON THE FIELD
+
+The pilot's and the navigator's draw-and-loose — a thumb down anywhere on the field while the lit swing wants that seat's loose, judged on the lift against the partner's lean — now have a row each on the tab, a row each in docs/spec/controls.md, and a pose each on the screen the loose is taken on. The on-field test places both "field"; the leans stay "unbuilt", because they are the phone tilted. The last of the three lanes of the queue's entry, which is done.
+
 ## 2026-09-27 · cfd715586 — Split the scripted scenes' entries out of sim/boss-entries.ts
 
 THE SEAM through THE CAPSTAN, the twelve bosses a wave authors as a script of steps, now form one union, `ScriptedBossEntry`, in `boss-entries-scripted.ts`, the same family `wave-boss-scripted.ts` installs. `boss-entries.ts` takes that union whole and re-exports every name, so no import moved. The page drops from 250 lines to 233, and the new-boss registrations table says where the next scene's entry goes.
