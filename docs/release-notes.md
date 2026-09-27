@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 0ea253b29 — THE NETTLE: the strikes, the hurt flash and the death
+
+THE NETTLE now answers the pair the way the other bosses do. A landed step shakes the bell and washes it red, and every bolt a shoot mark counts gives a lighter jolt. A part the pair did not stop strikes with a picture of its own: an arm stings, an eyespot glares, the sac broods its spores onto the hull, the iris and globs drop, the frill lets its curtain down, and the core floods the screen. The last step lands with two rings and the motes the bell was made of drifting out of it.
+
 ## 2026-09-27 · 7607a9406 — THE NETTLE has a row in THE SLOW's aim
 
 THE SLOW's light stands round THE NETTLE's bell, arms and curtain, and its fuse stands under the body with a gap to the hull, instead of both falling back to the cannon on the hull. The row is on page four, off `nettleReach`, which names the figures the drawers in `nettle-body.ts` already used.

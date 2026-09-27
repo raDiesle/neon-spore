@@ -26752,3 +26752,5 @@ had to be named before the aim could read them rather than copy them.
 
 The bottleneck: two bosses on one engine say the same events, and finding
 where the body they belong to could be told apart.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
