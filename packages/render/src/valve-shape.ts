@@ -180,6 +180,18 @@ export function valvePinTop(l: Layout, i: number, pins: number, out: number): Po
   return { x: -PIN_SPAN * l.tile + (i + 0.5) * w, y: PIN_TOP * RY * l.tile + out * 2.4 * l.tile };
 }
 
+/** The middle of pin `i`'s plate at `reach`, still in, and half its height: where a thumb takes hold of it. */
+export function valvePinCentre(
+  l: Layout,
+  i: number,
+  pins: number,
+  reach: number,
+): Point & { r: number } {
+  const top = valvePinTop(l, i, pins, 0);
+  const bottom = RY * l.tile + PIN_DROP * reach * l.tile;
+  return { x: top.x, y: (top.y + bottom) / 2, r: (bottom - top.y) / 2 };
+}
+
 /** The hole a spent pin leaves in the underside: a short dark slot where the plate went in. */
 export function valveHolePath(l: Layout, i: number, pins: number): Path2D {
   const w = (PIN_SPAN * 2 * l.tile) / pins;

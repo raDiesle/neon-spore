@@ -27418,3 +27418,17 @@ Bottleneck: reading — THE GALL's fire step opens no window and the cannon
 fires by itself, which put its half past one sitting and back in the queue.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §25 THE VALVE — the grip
+
+- reading: 5 min. `sim/valve-hand.ts`, `valve-shape.ts`, `valve-draw.ts`'s
+  list, `hasp-grip.ts`, `touch-hold.ts`, `touch-move.ts`, `rub.ts`.
+- writing: 5 min. `valve-grip.ts` and its test, the pin's centre in
+  `valve-shape.ts`, two ON THE FIELD rows with pose cards, two spec rows.
+- looking: 0 min. The poses were run to and read back; no picture moved in
+  the game.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the pin is three gestures by phase, and which hold
+each press hands back had to be read off the simulation before one line.

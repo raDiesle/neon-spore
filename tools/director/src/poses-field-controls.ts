@@ -41,6 +41,7 @@ import { SLING_GRIPS } from "./poses-field-controls-sling.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
+import { VALVE_GRIPS } from "./poses-field-controls-valve.js";
 import { VISE_GRIPS } from "./poses-field-controls-vise.js";
 
 /**
@@ -208,6 +209,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...BURGEE_GRIPS,
     ...FLUE_GRIPS,
     ...SLING_GRIPS,
+    ...VALVE_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

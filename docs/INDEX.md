@@ -1309,6 +1309,7 @@ by hand never moves.
 | `packages/render/src/valve-shape.ts` | **THE VALVE's geometry**: where the drum hangs, and the paths it is made of |
 | `packages/render/src/valve-story.ts` | **THE VALVE's story between the pins, drawn** (§25 rows 5–6, 12–13, 17–19; the rules are `sim/valve-story.ts`) |
 | `packages/render/src/valve-blow.ts` | THE VALVE's timeout blow: its ember burns through the hull and the ship vents a jet of steam up the column |
+| `packages/render/src/valve-grip.ts` | **The two thumbs on THE VALVE** — the grip of its hands lane |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |
@@ -2658,6 +2659,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
+| `tools/director/src/poses-field-controls-valve.ts` | THE VALVE's two hands, **each photographed from the seat whose half it is** |
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's phone tipped over so its face is round |
@@ -3152,6 +3154,7 @@ by hand never moves.
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-vane.ts` | **THE VANE's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-valve.ts` | THE VALVE's two handles, as rows of the ON THE FIELD tab: the wheel, the pilot's |
 | `tools/director/src/field-controls-vise.ts` | THE VISE's two lobe pinches, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |

@@ -43,6 +43,7 @@ import { TASTER_CONTROLS } from "./field-controls-taster.js";
 import { THROAT_CONTROLS } from "./field-controls-throat.js";
 import { TRIVET_CONTROLS } from "./field-controls-trivet.js";
 import { UNDERTOW_CONTROLS } from "./field-controls-undertow.js";
+import { VALVE_CONTROLS } from "./field-controls-valve.js";
 import { VANE_CONTROLS } from "./field-controls-vane.js";
 import { VISE_CONTROLS } from "./field-controls-vise.js";
 import { WARDEN_CONTROLS } from "./field-controls-warden.js";
@@ -192,4 +193,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE SLING's two cords, the only pair here **taken anywhere on the seat's
   // own screen** rather than on a part drawn (`field-controls-sling.ts`).
   ...SLING_CONTROLS,
+  // THE VALVE's wheel and pin, the only pair here **one control that is a
+  // tap, a draw and a rub** by the phase it is pressed in (`field-controls-valve.ts`).
+  ...VALVE_CONTROLS,
 ];

@@ -390,9 +390,10 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // read off where the joint is, so it moves (`render/keel-grip.ts`,
   // `docs/spec/bosses.md` §11.41).
   keelJoint: "field",
-  // THE VALVE: simulation lane only, no look yet.
-  valveWheel: "unbuilt",
-  valvePin: "unbuilt",
+  // THE VALVE's wheel, the pilot's, turned about its hub, and its pin, either
+  // seat's — tapped, drawn and rubbed by phase (`render/valve-grip.ts`, §25).
+  valveWheel: "field",
+  valvePin: "field",
   // THE OCULUS's two halves of the lens, one a seat by geometry though both
   // screens draw both (`render/oculus-grip.ts`, `docs/spec/bosses.md` §11.44).
   oculusLeafLeft: "field",
