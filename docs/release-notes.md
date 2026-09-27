@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 12b8b736f — THE SLOW's prism stands round THE GRINDSTONE, THE SLING and THE DAVIT
+
+The last three drawn bosses that the light still aimed at the cannon now have rows. THE GRINDSTONE is a round body on page two, the wheel as wide as its caliper. THE SLING and THE DAVIT are capsules on page three: the yoke with its tines and cords, and the boom with its hook. Each is read at the pose its drawer stands it in, and the drawers now call `slingHome` and `DAVIT_SAG` instead of keeping them inline. THE SEAM's row stays with its hands.
+
 ## 2026-09-27 · 0fcd9ac53 — §11.41, §11.43 and §11.44 say what of THE KEEL, THE SEAM and THE OCULUS has landed
 
 Each section opened its status with the same pasted paragraph saying only the simulation had landed and nothing was drawn. Each now names what is on the trunk, in its own words: THE KEEL both lanes, THE SEAM its body, story, blow and AUTO's hand with its hands half still queued, THE OCULUS its whole look. The `NO_HAND` comment in the autopilot test named eight bosses for a set of four, and now names the four.
