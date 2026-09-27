@@ -2829,6 +2829,7 @@ test proves each of them fires. `bun run check` proves it.
 ## VERSUS — adopt five: THE INSTAR's spit, eye, nest and hide, and COUNTDOWN's eye
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/versus-decision-queue-ac60fd (claim: claude/queue-versus-adopt-five-the-instars-spit-eye-nest-and)
 - **Files:** `tools/versus/candidates/registry.ts`, `tools/versus/DECIDED.md`, `packages/render/src/instar-spit.ts`, `packages/render/src/instar-head-parts.ts`, `packages/render/src/instar-eggs.ts`, `packages/render/src/instar-hide.ts`, `packages/render/src/countdown-look.ts`
 
 The owner, 27 September 2026, picked five. `instar:spit baked` (*I prefer
