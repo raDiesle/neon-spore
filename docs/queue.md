@@ -2037,6 +2037,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## `--auto-miss` cannot make THE GALL's fire step run out
 
 - **Found:** 2026-09-27, claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto
+- **Taken:** 2026-09-27, claude/queue-surface-marks-waits (claim: claude/queue-auto-miss-cannot-make-the-galls-fire-step-run-ou)
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/gall-step.ts`, `packages/render/src/gall-blow.ts`
 
 THE CYST and THE SLING were the first two of three: with their hands landed
