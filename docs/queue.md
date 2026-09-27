@@ -1911,6 +1911,7 @@ what the rest of this file holds.
 ## THE CYST's autopilot hand
 
 - **Found:** 2026-09-26, claude/cyst-look
+- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-touch-the-cue-and-auto (claim: claude/queue-the-cysts-autopilot-hand)
 - **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`
 
 THE CYST is drawn and can be answered from a touch, but no hand plays it:
