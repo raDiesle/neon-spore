@@ -4,8 +4,9 @@ import type { InputBuffer } from "./input-buffer.js";
 /**
  * **The phone's own lean**, first THE PLUMB's control: each seat holds its
  * phone level to hang its weight true (`docs/spec/bosses-choreographed.md`
- * §31, `sim/plumb-hand.ts`), and now THE DAVIT's too, steering its boom onto
- * a lit column the same way (§35, `sim/davit-hand.ts`). The second input in
+ * §31, `sim/plumb-hand.ts`), THE DAVIT's too, steering its boom onto a lit
+ * column the same way (§35, `sim/davit-hand.ts`), and THE CAPSTAN's, rocking
+ * its drum's cradle to bare a face (§37, `sim/capstan-hand.ts`). The second input in
  * the game that is not a finger on the glass, and it lives beside the first
  * (`shake.ts`).
  *
@@ -13,7 +14,9 @@ import type { InputBuffer } from "./input-buffer.js";
  * thousandths of a degree** — `LevelTilt`, as §31 names it — as a drag on
  * whichever target the boss reading it is asking for: PLUMB's own weight
  * (`plumbLevelLeft`/`Right`) or DAVIT's boom (`davitSteerLeft`/`Right`), the
- * pilot's the left of either pair and the navigator's the right. `on: false`
+ * pilot's the left of either pair and the navigator's the right — or THE
+ * CAPSTAN's one `capstanLean`, the same for both seats, because which of
+ * them steers is the lit step's, not the side's. `on: false`
  * is a phone that has stopped being read.
  *
  * **Not every event is sent.** A browser reports orientation at up to sixty
@@ -36,7 +39,7 @@ export const LEAN_STEP_MILLI = 500;
  * THE HALTER's rest among them, a phone held however it is held sends
  * nothing (`apps/game/test/halter-rest.test.ts`).
  */
-export const LEAN_BOSSES = ["plumb", "davit"] as const;
+export const LEAN_BOSSES = ["plumb", "davit", "capstan"] as const;
 export type LeanBoss = (typeof LEAN_BOSSES)[number];
 
 /** The boss a lean is read for, on the field now, or null: what `leanReader` calls `bob`. */
@@ -44,8 +47,15 @@ export function leanBob(world: World, kind: LeanBoss): object | null {
   return world.boss?.kind === kind ? world.boss : null;
 }
 
+/** Whether the boss on the field reads a phone's lean: what asks iOS for the sensor. */
+export function leanAsked(world: World): boolean {
+  const kind = world.boss?.kind;
+  return kind !== undefined && (LEAN_BOSSES as readonly string[]).includes(kind);
+}
+
 /** The drag a seat's lean goes out as, for the boss reading it. */
 export function leanTarget(kind: LeanBoss, p: 1 | 2): DragTarget {
+  if (kind === "capstan") return "capstanLean";
   if (kind === "davit") return p === 1 ? "davitSteerLeft" : "davitSteerRight";
   return p === 1 ? "plumbLevelLeft" : "plumbLevelRight";
 }
@@ -130,7 +140,8 @@ export function bindLean(
 /**
  * **Ask iOS for the sensor, from inside a press** — `askForMotion`'s
  * reason, for the other half of the same permission. Called from the thumb
- * lifting off the guide's READY on THE PLUMB's own wave (`briefing.ts`), so
+ * lifting off the guide's READY on a wave whose boss reads a lean
+ * (`leanAsked`, `briefing.ts`), so
  * the navigator, whom `askForMotion` never asks, is asked too, and only when
  * there is a lean to read. A browser with no such method is skipped and a
  * refusal ignored.

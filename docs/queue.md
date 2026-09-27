@@ -895,24 +895,22 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §37 THE CAPSTAN — the touch senders, the cue and the autopilot hand
+## §37 THE CAPSTAN — the rub's touch and the cue
 
-- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane
-- **Taken:** 2026-09-27, claude/queue-sim-boss-entries-ts-is-at-the-250-line-ceiling (claim: claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the)
-- **Needs:** §37 THE CAPSTAN's simulation lane, above, landed first
-- **Files:** `apps/game/src/lean.ts`, `apps/game/src/field-input.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
+- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the
+- **Needs:** §37 THE CAPSTAN — the look, below, landed first
+- **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `tools/director/test/on-field-controls.test.ts`
 
-The simulation hears `capstanLean` (the lean on `fromMilli`) and
-`capstanRub` (the thumb's reversal count on `id`, a lower count a fresh
-touch) from **either seat**, and nothing sends either. Put THE CAPSTAN on
-`LEAN_BOSSES` so both phones report their gamma while it stands; send
-`capstanRub` from a wipe anywhere over the drum, counting reversals the
-way THE RIME's rub already does, on both screens. The cue says `LEAN` to
-the seat the step steers with and `RUB` to the other (a hold: to whichever
-seat is leaning, then the other). The autopilot hand leans the steering
-seat past `capstanLeanMilli` toward the lit band and wipes with the other,
-and takes capstan out of `NO_HAND`; `on-field-controls.test.ts` marks both
-targets built. `bun run check` proves it; how the lean *feels* stays
+The lean goes out and AUTO plays the wave (§11.54, *The lean, and AUTO*);
+what is left needs the drum on the screen. A press on the bared face's
+band, on either seat's screen, takes a rub (`rubFinger`, `rub.ts`, THE
+GRINDSTONE's flat) on `capstanRub` — the hit test reading the drum and the
+cradle's rock where the look draws them, in a new capstan-grip.ts, the way `grindstone-grip.ts` reads
+the wheel. The cue says `LEAN` to the seat the step steers with and `RUB`
+to the other (on a hold, to whichever seat is leaning, then the other), and
+`FIRE` under a bared core; its own `boss-cue-read-*.ts` page, as THE
+HALTER's is. `on-field-controls.test.ts` marks `capstanRub` on the field.
+`bun run check` proves it; how a rub under a rocking drum feels stays
 unverified until the owner holds two phones.
 
 ## §37 THE CAPSTAN — the look

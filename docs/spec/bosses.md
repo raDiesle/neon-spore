@@ -10006,12 +10006,25 @@ only in its colour unless it is `either`.
   ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
   choreographed body's since.
 
+**The lean, and AUTO** (27 September 2026). THE CAPSTAN is on
+`LEAN_BOSSES` (`apps/game/src/lean.ts`): while the drum stands, both phones'
+gamma goes out as the one `capstanLean`, whichever seat it comes from, and
+iOS is asked for the sensor on the guide's READY (`leanAsked`,
+`briefing.ts`). `apps/game/test/capstan-lean.test.ts` carries a reading
+past the mark through the reader and into the simulation, and the cradle
+rocks. AUTO plays it out (`packages/hands/src/boss-hands-capstan.ts`): the
+step's steering seat leans well past the mark toward the lit band, the other
+seat is brought level and rubs four reversals a beat, the pilot leans on a
+hold, and the bared core is shot in its colour —
+`tools/director/test/autopilot-capstan.test.ts` plays the wave to its end
+with no stall, no cover and no hull hit.
+
 **What is not built.** Nothing of it is drawn: no drum, no cradle, no band,
-no core — the look is lane two. Nothing on the phone sends a lean or a rub
-here yet: the lean is not on `LEAN_BOSSES` (`apps/game/src/lean.ts`), and
-no touch sends `capstanRub`. There is no cue and no autopilot hand. The
-fourteen sounds are bound (`packages/audio/src/bind-capstan.ts`), and the
-events are on the two silent lists until the look reads them.
+no core — the look is lane two. No touch sends `capstanRub` yet, and the
+field says no word: both answer *where the drum is*, which only its drawing
+can say, so they wait on the look. The fourteen sounds are bound
+(`packages/audio/src/bind-capstan.ts`), and the events are on the two silent
+lists until the look reads them.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/capstan.test.ts`): the drum comes in rusted with the core

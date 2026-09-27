@@ -25841,3 +25841,18 @@ Bottleneck: writing — the foot had no seam, and the one it needed had to
 turn the plate with the leg.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §37 THE CAPSTAN — the lean sender and the autopilot hand
+
+- reading: 0 min. THE PLUMB's and THE RIME's hands, `lean.ts`, the drum's
+  state — all read in the simulation lane an hour before.
+- writing: 5 min. `boss-hands-capstan.ts`, the capstan row in `LEAN_BOSSES`
+  and `leanAsked`, two test files, the spec's paragraph and the queue's
+  second half.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the split — the rub's touch and the cue both need the drum's
+drawn geometry, which nothing has yet, so half the item went back to the
+queue behind the look.
