@@ -442,38 +442,6 @@ sent through `leanReader` so the wire sees the same drag a phone sends;
 range. `bun run check` proves it; `keys.ts` is at 244 lines, so the keys go
 in a file of their own.
 
-## §30 THE TRIVET — sprite atlas experiment: the feet planting home
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-30-the-trivet-sprite-atlas-experiment-the-feet-p
-- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
-  `assets/raster/`, `docs/raster.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
-cheaper first try.
-
-`docs/raster.md` rule 3/4/5: a foot swinging down and locking home (rows 2,
-3, 4 and 5 of the beat list) is a hinge-and-slam motion, not a shape that
-recolours — a candidate for a painted frame-by-frame strip rather than a
-procedural one. It is simulation-triggered, so rule 5 makes the format a
-sprite atlas, never an APNG or animated WebP: draw one foot's swing-and-lock
-the way `burst-art.ts` draws the existing burst, pack it with `bun run
-raster` into its own `trivet-plant-strip.webp` (atlas) and
-`trivet-plant.apng` (lossless master), reused for all three feet by mirror
-and gated behind the same `?raster=1` flag through a new
-`bindRasterTrivetPlant` in `apps/game/src/raster.ts`. **Budget: the atlas
-(the only file the field fetches) stays under 90 kB**, the same ceiling THE
-VISE's and THE RIME's atlas experiments already use — if the painted
-version does not read at 12 frames or 80 px, drop frames before raising the
-budget. Record the exact atlas byte count in the commit that lands this,
-next to the number `bun run raster` printed before this lane touched
-anything. Offered, never replacing: the procedural plant stays the shipping
-look until the owner compares them on the RASTER tab. `bun run
-raster:verify` and `bun run check` prove it; the visual comparison is the
-owner's, unverified until he has looked.
-
 ## §31 THE PLUMB — sprite atlas experiment: the bob settling true
 
 - **Found:** 2026-09-26, this session
@@ -1757,3 +1725,22 @@ circles. This is a fix to a shape clipping its frame, not a look. Check
 first whether the lane on "THE KEEL's body watched at tempo" has already
 done it. Done when a frame test puts every plate's outline inside the field
 at the phone size, and `bun run check` is green.
+
+## A painted strip is twelve registrations, and only one of them names the others
+
+- **Found:** 2026-09-27, claude/queue-30-the-trivet-sprite-atlas-experiment-the-feet-p
+- **Files:** `tools/raster/src/spec.ts`, `tools/raster/run.ts`, `tools/raster/test/strip-assets.test.ts`, `packages/render/src/sprite-burst.ts`, `packages/render/src/render-state.ts`, `packages/render/src/canvas2d-held.ts`, `packages/render/src/index.ts`, `apps/game/src/raster.ts`, `apps/game/src/main.ts`, `apps/game/test/raster.test.ts`, `packages/sim/test/copies-table.ts`
+
+THE VISE's crack, THE RIME's clearing and THE TRIVET's plant each made the
+same edits: a spec in `STRIPS`, an entry in `run.ts`'s `ASSETS`, a
+`*_SHEET` in `sprite-burst.ts` and its export, a getter in both
+`render-state.ts` and `canvas2d-held.ts`, a binder in `raster.ts` and its
+call in `main.ts`, a `SHEETS` row in the assets test, a flag test, and a
+painter in the copies table's `also`. The sheet's numbers are also written
+twice, in `spec.ts` and `sprite-burst.ts`, with nothing but the assets test
+holding them equal. Make a painted strip one entry: one table of strips in
+`render` (name → sheet), `spec.ts` reading its numbers from it, one
+`renderer.strip(name)` in place of a getter per strip, and one loop in
+`main.ts` over the table that binds every strip behind `?raster=1`. Keep the
+burst and THE CLASP's shield as they are; their hosts differ. Done when a
+sixth strip is a painter, one table row and a bake, and `bun run check` is green.

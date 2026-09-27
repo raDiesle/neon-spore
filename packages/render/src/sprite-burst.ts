@@ -46,6 +46,12 @@ export const VISE_CRACK_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameM
  */
 export const RIME_CLEAR_SHEET: SpriteSheet = { frames: 16, frameSize: 128, frameMs: 50 };
 
+/**
+ * THE TRIVET's foot planting home, the same way again (`trivet-fx.ts` plays
+ * it on a plant, mirrored for the navigator's foot).
+ */
+export const TRIVET_PLANT_SHEET: SpriteSheet = { frames: 12, frameSize: 96, frameMs: 45 };
+
 interface LiveBurst {
   x: number;
   y: number;
@@ -53,6 +59,8 @@ interface LiveBurst {
   size: number;
   /** Seconds since it started. */
   age: number;
+  /** Drawn mirrored left to right: one painted strip for a pair of sides. */
+  flip: boolean;
 }
 
 export class SpriteBursts {
@@ -100,10 +108,10 @@ export class SpriteBursts {
     this.live.length = 0;
   }
 
-  /** One burst, centred, at the size it should cover. Ignored with no atlas. */
-  spawn(x: number, y: number, size: number): void {
+  /** One burst, centred, at the size it should cover, `flip`ped left to right if asked. Ignored with no atlas. */
+  spawn(x: number, y: number, size: number, flip = false): void {
     if (!this.image || !this.enabled) return;
-    this.live.push({ x, y, size, age: 0 });
+    this.live.push({ x, y, size, age: 0, flip });
   }
 
   update(dt: number): void {
@@ -130,6 +138,24 @@ export class SpriteBursts {
       const frame = this.frameAt(burst.age);
       if (frame < 0) continue;
       const half = burst.size / 2;
+      if (burst.flip) {
+        ctx.save();
+        ctx.translate(burst.x, burst.y);
+        ctx.scale(-1, 1);
+        ctx.drawImage(
+          image,
+          frame * frameSize,
+          0,
+          frameSize,
+          frameSize,
+          -half,
+          -half,
+          burst.size,
+          burst.size,
+        );
+        ctx.restore();
+        continue;
+      }
       ctx.drawImage(
         image,
         frame * frameSize,

@@ -27903,3 +27903,16 @@ flew past the frame — and only a picture showed it.
 Bottleneck: landing. The fix is ten lines, and the proof is the full check.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE TRIVET's plant, a painted atlas behind `?raster=1`
+
+- reading: 5 min. THE TRIVET's events, `trivet-fx.ts` and where the feet
+  stand, and the RIME lane's path through the generator.
+- writing: 15 min. The painter, a `flip` on `SpriteBursts`, `TrivetFx.plant`,
+  the binder, the tests and the doc.
+- looking: 5 min. The twelve frames once, as a sheet.
+- friction: 0 min.
+- landing: 5 min. `raster:verify`, `check:fast`, the commit, `land`.
+
+Bottleneck: writing. The strip is one of five now, and the wiring is ten
+small edits in ten files, the same ten each time.

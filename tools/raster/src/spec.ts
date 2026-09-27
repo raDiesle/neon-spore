@@ -44,6 +44,18 @@ export const RIME_CLEAR: { size: number; frames: number; seed: number; frameMs: 
   frameMs: 50,
 };
 
+/**
+ * THE TRIVET's foot planting home (§30, rows 2 to 5): one foot's slam, the
+ * pilot's, mirrored for the navigator's. Twelve frames is the entry's own
+ * floor; the slam is over faster than a crack or a clearing.
+ */
+export const TRIVET_PLANT: { size: number; frames: number; seed: number; frameMs: number } = {
+  size: 96,
+  frames: 12,
+  seed: 20260930,
+  frameMs: 45,
+};
+
 /** Every painted strip that goes through `strip-bake.ts`, by its file name. */
 export const STRIPS: Record<
   string,
@@ -51,4 +63,5 @@ export const STRIPS: Record<
 > = {
   "vise-crack": VISE_CRACK,
   "rime-clear": RIME_CLEAR,
+  "trivet-plant": TRIVET_PLANT,
 };

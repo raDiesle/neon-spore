@@ -3,6 +3,7 @@ import {
   bindRasterBurst,
   bindRasterClasp,
   bindRasterRimeClear,
+  bindRasterTrivetPlant,
   bindRasterViseCrack,
   rasterRequested,
 } from "../src/raster.js";
@@ -81,6 +82,18 @@ describe("the raster flag", () => {
     };
     expect(await bindRasterRimeClear(host, "http://game.invalid/")).toBe("off");
     expect(await bindRasterRimeClear(host, "http://game.invalid/?raster=0")).toBe("off");
+    expect(installs).toBe(0);
+  });
+
+  it("leaves THE TRIVET's plant as it ships unless the flag is set", async () => {
+    let installs = 0;
+    const host = {
+      install(): void {
+        installs++;
+      },
+    };
+    expect(await bindRasterTrivetPlant(host, "http://game.invalid/")).toBe("off");
+    expect(await bindRasterTrivetPlant(host, "http://game.invalid/?raster=0")).toBe("off");
     expect(installs).toBe(0);
   });
 });

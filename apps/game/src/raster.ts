@@ -2,6 +2,7 @@ import { loadAtlas } from "@neon-spore/render";
 import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
 import rimeClearStripUrl from "../../../assets/raster/rime-clear-strip.webp";
+import trivetPlantStripUrl from "../../../assets/raster/trivet-plant-strip.webp";
 import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
 
 /**
@@ -91,3 +92,12 @@ export const bindRasterViseCrack = (host: SpriteHost, href: string): Bound =>
  */
 export const bindRasterRimeClear = (host: SpriteHost, href: string): Bound =>
   bindStrip(host, href, rimeClearStripUrl);
+
+/**
+ * THE TRIVET's painted plant (`trivet-fx.ts`), a foot slammed onto its plate:
+ * the one strip, mirrored for the navigator's foot. The shipped thud — the
+ * stand pressed down, the grit, the shudder — is drawn either way; the slam
+ * is laid over it.
+ */
+export const bindRasterTrivetPlant = (host: SpriteHost, href: string): Bound =>
+  bindStrip(host, href, trivetPlantStripUrl);

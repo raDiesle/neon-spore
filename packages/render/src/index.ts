@@ -166,6 +166,7 @@ export {
   RIME_CLEAR_SHEET,
   SpriteBursts,
   type SpriteSheet,
+  TRIVET_PLANT_SHEET,
   VISE_CRACK_SHEET,
 } from "./sprite-burst.js";
 export { clearSurface } from "./surface-clear.js";

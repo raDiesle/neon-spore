@@ -1,5 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { RIME_CLEAR_SHEET, type SpriteSheet, VISE_CRACK_SHEET } from "@neon-spore/render";
+import {
+  RIME_CLEAR_SHEET,
+  type SpriteSheet,
+  TRIVET_PLANT_SHEET,
+  VISE_CRACK_SHEET,
+} from "@neon-spore/render";
 import { readApngInfo } from "../src/apng.js";
 import { STRIPS } from "../src/spec.js";
 import { readWebpSize } from "../src/webp.js";
@@ -23,6 +28,7 @@ const BUDGET_BYTES = 90 * 1024;
 const SHEETS: Record<string, SpriteSheet> = {
   "vise-crack": VISE_CRACK_SHEET,
   "rime-clear": RIME_CLEAR_SHEET,
+  "trivet-plant": TRIVET_PLANT_SHEET,
 };
 
 interface Manifest {

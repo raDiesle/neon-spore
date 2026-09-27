@@ -539,14 +539,16 @@ export const COPIES: Copy[] = [
     // in a shipped PNG. Adopting the render stream would redraw those files,
     // which is a look rather than a refactor — so it owns its own sequence,
     // and its header already says why it may not use `Math.random`. THE
-    // VISE's crack is the second painter and THE RIME's clearing the third,
-    // and neither could call `stream` if it wanted to: `render-strip.ts`
+    // VISE's crack is the second painter, THE RIME's clearing the third and
+    // THE TRIVET's plant the fourth, and none could call `stream` if it
+    // wanted to: `render-strip.ts`
     // ships each into a headless page as source text, where an import is a
     // crash.
     also: [
       "tools/raster/src/burst-art.ts",
       "tools/raster/src/vise-crack-art.ts",
       "tools/raster/src/rime-clear-art.ts",
+      "tools/raster/src/trivet-plant-art.ts",
     ],
   },
   {

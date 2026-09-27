@@ -2839,6 +2839,7 @@ by hand never moves.
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/src/vise-crack-art.ts` | One frame of THE VISE's kernel crack, drawn into a 2D context |
+| `tools/raster/src/trivet-plant-art.ts` | One frame of THE TRIVET's foot planting home, drawn into a 2D context |
 | `tools/raster/solid.ts` | `bun run solid [out.png]` — the solid sheet: a test rig turned from the side to the front |
 | `tools/raster/sprite.ts` | `bun run sprite [name] [out.png]` — the sprite sheet |
 | `tools/raster/verify.ts` | `bun run raster:verify` — opens the generated assets in a real browser and says whether they decode |

@@ -5,6 +5,7 @@ import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { SpriteBursts, TRIVET_PLANT_SHEET } from "./sprite-burst.js";
 import { trivetCentre, trivetFoot, trivetHubR } from "./trivet-shape.js";
 
 /**
@@ -13,7 +14,11 @@ import { trivetCentre, trivetFoot, trivetHubR } from "./trivet-shape.js";
  * plating; the **clamp** snapping shut across an ankle on its second plant, a
  * flare along it; the **flash** of a hub hit, wider for every hit it has
  * taken; the collapse's flash and the harder shudder of three feet buckling
- * at once; and the bursts its twelve receipts throw.
+ * at once; the bursts its twelve receipts throw; and, behind `?raster=1`, the
+ * painted plant — a slam's smear, shock and grit (`plant`, `docs/raster.md`),
+ * which draws nothing until a host installs its atlas. It is painted for the
+ * pilot's foot and mirrored for the navigator's; the middle foot never lifts,
+ * so it never plants.
  *
  * Everything else — how far each foot is swung up, how far clamped, whether
  * the hub is lit, how small its face is — is read off the boss every frame
@@ -49,6 +54,8 @@ const COLLAPSE_BEATS = 1.2;
 /** How fast a clamp's flare, a hub flash and the collapse's fade, per second. */
 const SNAP_DECAY = 4;
 const FLASH_DECAY = 3;
+/** How wide the painted plant is drawn, in tiles: a plate and its grit either side. */
+const PLANT_TILES = 2.6;
 
 export class TrivetFx {
   private thudNow = 0;
@@ -61,6 +68,8 @@ export class TrivetFx {
   private hubHex: string = PALETTE.hullRim;
   /** The blow a plant and a hub hit deal the stand. */
   readonly hurt = new BossHurt();
+  /** The painted slam a plant throws under the foot: an offered look, off until installed. */
+  readonly plant = new SpriteBursts(TRIVET_PLANT_SHEET);
 
   /** How far the whole stand is pressed down right now, in tiles. */
   get thud(): number {
@@ -111,6 +120,7 @@ export class TrivetFx {
         case "trivetPlant":
           // Grit off the plate as it bites, the stand pressed down, the plating thudding.
           burst(...footAt(l, mid, e.side), 10, PALETTE.trivetMetal);
+          this.plant.spawn(...footAt(l, mid, e.side), l.tile * PLANT_TILES, e.side === 1);
           this.thudNow = Math.max(this.thudNow, THUD_TILES);
           this.shock.strike(beatSeconds * THUD_BEATS, THUD_FORCE);
           if (e.level >= TRIVET_PLANTS_PER_FOOT) this.snapNow[e.side] = 1;
@@ -161,6 +171,7 @@ export class TrivetFx {
     this.collapseNow = Math.max(0, this.collapseNow - FLASH_DECAY * step);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.plant.update(dt);
   }
 
   clear(): void {
@@ -173,6 +184,7 @@ export class TrivetFx {
     this.shock.clear();
     this.hubHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.plant.clear();
   }
 }
 
