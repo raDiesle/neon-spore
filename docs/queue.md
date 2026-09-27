@@ -2182,27 +2182,6 @@ cannon colours.
 Wire the one he picks. For (a), a test proves that the wrong colour does not
 count and is refused. `bun run check` proves it.
 
-## The dropped swings, drift and bloom leave three seams at 0
-
-- **Found:** 2026-09-27, claude/versus-page-comparisons-dd7592
-- **Taken:** 2026-09-27, claude/queue-phase-into (claim: claude/queue-the-dropped-swings-drift-and-bloom-leave-three-s)
-- **Files:** `packages/render/src/mechanism-swing.ts`, `packages/render/test/mechanism-swing.test.ts`, `packages/render/src/outline-drift.ts`, `packages/render/test/outline-drift.test.ts`, `packages/render/src/frame-post.ts`, `docs/spec/living-bosses.md`
-
-`davit:hook`, `plumb:bob`, `sling:tine`, `queen:shell`, `cairn:pile`,
-`reprise:sac` and `frame:glow` were dropped on 27 September 2026
-(`tools/versus/DECIDED.md`). What they patched stays in the renderer at 0:
-`MECHANISM_SWING`, `OUTLINE_DRIFT` and `FRAME_POST.after`, each still called
-every frame of its boss or of every frame. `OUTLINE_DRIFT` is kept for the
-re-aimed outline entries above; decide the other two by reading their
-callers: `MECHANISM_SWING` goes unless a machine-boss lane is about to re-aim
-it at a movement that reads, and `FRAME_POST` goes unless something else
-patches it. Remove the calls, the modules and their tests, and the "offered in
-VERSUS" sentences in their headers. Then `bun run index`.
-
-Done when: `git grep MECHANISM_SWING` finds nothing outside the release notes,
-DECIDED.md and the spec's history, or the header says why it stays; `bun run
-check` is green.
-
 ## THE BULB QUEEN's parts: how far
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac

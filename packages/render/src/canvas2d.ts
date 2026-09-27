@@ -14,7 +14,6 @@ import {
   drawShip,
   wellShown,
 } from "./frame-passes.js";
-import { FRAME_POST } from "./frame-post.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeStage, frameLayout } from "./layout.js";
@@ -215,8 +214,6 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     ctx.restore();
 
     drawStageSeam(ctx, this.viewport, stage);
-    // A pass over the finished frame: nothing in the game (`frame-post.ts`).
-    FRAME_POST.after(ctx);
   }
 
   dispose(): void {

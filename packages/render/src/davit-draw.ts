@@ -7,9 +7,8 @@ import {
   drawDavitMast,
 } from "./davit-marks.js";
 import { davitAngle, davitPivotGlow, davitStood, davitWindowLeft } from "./davit-pose.js";
-import { DAVIT_SAG, davitMast, davitTip } from "./davit-shape.js";
+import { DAVIT_SAG, davitMast } from "./davit-shape.js";
 import type { Layout } from "./layout.js";
-import { mechanismSwing, swingHush, windowStep } from "./mechanism-swing.js";
 
 /**
  * **THE DAVIT** (§35): a crane boom on a mast over the middle column, swung
@@ -46,17 +45,6 @@ export function drawDavit(
     drawDavitAsk(ctx, l, angle, beatPhase);
   }
 
-  // The chain and its hook hang off the boom's tip and swing about it
-  // (`mechanism-swing.ts`); the hook is a fire step's mark.
-  const carried = windowStep(s)?.ask === "fire";
-  const swing = mechanismSwing("davit", 0, time, swingHush(world, beat, beatPhase, carried));
-  if (swing !== 0) {
-    const tip = davitTip(l, angle);
-    ctx.save();
-    ctx.translate(tip.x, tip.y);
-    ctx.rotate(swing);
-    ctx.translate(-tip.x, -tip.y);
-  }
   drawDavitChain(ctx, l, angle, sag);
 
   const firing = step !== null && step.ask === "fire";
@@ -64,7 +52,6 @@ export function drawDavit(
     ? { color: step.color, left: davitWindowLeft(world, s, beat, beatPhase) }
     : null;
   drawDavitHook(ctx, l, angle, sag, davitPivotGlow(s), lit, beatPhase);
-  if (swing !== 0) ctx.restore();
 
   ctx.restore();
 }

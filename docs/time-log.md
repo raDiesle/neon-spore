@@ -27387,3 +27387,16 @@ Bottleneck: reading — the rows' wording is shared across four near-twins,
 and each had to be checked so the sling's said what only it does.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — The swing and frame-pass seams go; the drift seam says why it stays
+
+- reading: 5 min. The three drawers, the two modules, and the queue for any
+  lane about to re-aim either.
+- writing: 10 min. The three callers, the renderer's last line, the docs
+  and the drift header.
+- looking: 0 min. Both seams drew nothing at 0.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — deciding each seam's fate meant proving nothing in the
+queue or in VERSUS still patched it.

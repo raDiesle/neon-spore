@@ -20,8 +20,10 @@ import { slowHush } from "./slow-hush.js";
  * The pose is one matrix (`poseMatrix`), which the canvas takes and which
  * `posePoint` applies to a point — the test's way of measuring what the
  * canvas will draw. `OUTLINE_DRIFT` is how much of it each boss takes; the
- * shipped 0 draws no transform at all, and it is the seam a VERSUS candidate
- * patches (`tools/versus/candidates/*-drift/`).
+ * shipped 0 draws no transform at all. `queen:shell`, `cairn:pile` and
+ * `reprise:sac` were dropped on 27 September 2026 (`tools/versus/DECIDED.md`),
+ * and the seam stays for the outline drift the queue still owes the next six
+ * bosses, which re-aims it at a movement big enough to be seen.
  */
 
 export type OutlineBoss = "queen" | "cairn" | "reprise";

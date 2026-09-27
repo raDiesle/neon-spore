@@ -5,10 +5,6 @@ import { bossPose } from "./poses-bosses-kit.js";
  * **THE DAVIT's, THE PLUMB's and THE SLING's stills**: each machine arrived
  * and standing, no step lit yet. Their other states are the look lanes' and
  * stay on `OWED` (`test/boss-states.test.ts`).
- *
- * `davit:hook`, `plumb:bob` and `sling:tine` are judged here, because every
- * step of the three opens THE SLOW and stills the swing: a hung part moving on
- * its own is only seen where nothing asks (`mechanism-swing.ts`).
  */
 export const MECHANISM_POSES: Pose[] = [
   bossPose(

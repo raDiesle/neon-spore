@@ -299,7 +299,7 @@ drift only on what **hangs or hinges** — a boom, a bob, a hook, a jaw on its
 bolt, a tine, a spar's tip — at half the table's range, and nothing rigid
 wobbles. THE MAZE, THE FLEET and THE MIRROR have no body and get none.
 
-*As built, 27 September 2026* (`packages/render/src/mechanism-swing.ts`,
+*As built, 27 September 2026* (`mechanism-swing.ts`, since removed;
 offered through VERSUS as `davit:hook`, `plumb:bob` and `sling:tine`, each
 `swing`): THE DAVIT's chain and hook swing about the boom's tip as a hand,
 THE PLUMB's bob on its hook as an arm, THE SLING's two tines on the crotch as
@@ -316,8 +316,9 @@ and dropped; THE VANE is left out, since its spar already whips as it swings
 
 *Dropped, 27 September 2026:* `davit:hook`, `plumb:bob` and `sling:tine` —
 the owner could not see a difference on any of the three (`DECIDED.md`).
-`MECHANISM_SWING` stays at 0 until it is removed or re-aimed at a movement
-that reads.
+`MECHANISM_SWING` and its module were removed the same day, since no
+machine lane was re-aiming it; a movement that reads would start again from
+the part table (`idle-drift-parts.ts`).
 
 The other six have nothing to add. THE VALVE's pins and THE HASP's spent
 half-shells sway on their hinges already (`valve-draw.ts`, `HASP_SLACK` in

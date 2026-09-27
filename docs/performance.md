@@ -302,9 +302,8 @@ the hardware that matters, and whether the worst of them fits in a frame.
 `tools/versus/candidates/frame-glow/bloom/` is a GPU glow over the whole frame,
 offered against the one the game ships — layered strokes and baked additive
 halos on the 2D canvas (`packages/render/src/glow.ts`). The game never runs it:
-the renderer calls `FRAME_POST.after` at the end of every frame, the shipped
-`after` does nothing, and only the right-hand side of a VERSUS pair patches it
-(`packages/render/src/frame-post.ts`).
+the renderer called `FRAME_POST.after` at the end of every frame, the shipped
+`after` did nothing, and only the right-hand side of a VERSUS pair patched it.
 
 What it costs a frame, in the order it happens: one `drawImage` of the frame
 into a canvas a quarter of its size on each side, one texture upload of that,
@@ -324,8 +323,9 @@ both numbers hold; otherwise the candidate stays as the record of why.
 tell it from the shipped glow in VERSUS, so the phone run was never needed: a
 second context, a quarter-size blur each frame and the battery it drains buy a
 difference nobody saw (`tools/versus/DECIDED.md`, `frame:glow`). The pass left
-with the slot; `git show 1a177d1cc` has it. `FRAME_POST` stays in the renderer
-as a seam that does nothing.
+with the slot; `git show 1a177d1cc` has it. `FRAME_POST`, the seam it
+patched, was taken out of the renderer the same day, since nothing else
+patched it.
 
 ## Comparing two runs
 
