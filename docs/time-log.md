@@ -25856,3 +25856,5 @@ turn the plate with the leg.
 Bottleneck: the split — the rub's touch and the cue both need the drum's
 drawn geometry, which nothing has yet, so half the item went back to the
 queue behind the look.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

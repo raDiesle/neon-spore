@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 194f53038 — THE CAPSTAN's lean goes out from both phones, and AUTO plays the drum
+
+THE CAPSTAN is on LEAN_BOSSES: while the drum stands, either seat's gamma goes out as the one capstanLean, and iOS is asked for the sensor on the guide's READY. AUTO has a hand for it (hands/boss-hands-capstan.ts): the steering seat leans past the mark toward the lit band, the other rubs it bright four reversals a beat, the pilot leans on a hold, and the bared core is shot in its colour. The rub's touch and the cue need the drum's drawn geometry and are queued behind the look.
+
 ## 2026-09-27 · bba63b42d — THE TRIVET's lifted feet dangle, as a VERSUS candidate
 
 Outside a lurch or a fling the stand stood still but for the light's drift on its hub. DANGLE swings each lifted outer foot a few degrees about its leg's root on a slow period of its own, the two out of step, scaled by how far the foot is lifted, so a planted foot is dead still and the hold reads as the swing stopping. `trivet-draw.ts` places an outer foot through `TRIVET_FOOT`, which the game leaves where it stands; the slot is judged on THE TRIVET · STILL, which now says where to look.
