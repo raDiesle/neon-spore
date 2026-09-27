@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · fc96bbc26 — THE VALVE's fx: the wheel clamps as it freezes, a pulled pin's slot flares, a wheel thrown off its mark kicks the drum, and the hull shudders as the spark lands
+
+`render/valve-fx.ts`, in `Effects` and cleared in `reset()`: a freeze and a pull are steps landed and deal the drum the blow every boss takes; a slip, a lapse or a thaw kicks it round; the spark landing and the face falling open shudder the plating, the second harder. The thirteen events get their bursts, and the spark is shot out where it had fallen to. Exemption: a look with no shipped alternative — the drum had no transients at all.
+
 ## 2026-09-27 · 9231228df — THE VALVE answers a hand: the pilot turns the wheel, and either thumb taps, draws or rubs the pin
 
 The wheel is turned about its hub, THE HASP's rim, by the pilot alone while a mark is lit; the pin is one control whose press is a tap on the socket while the wheel holds, a draw down off the socket or the long lit pin while it is frozen, and in the story a tap, a thumb held or a rub. Both are rows of ON THE FIELD with a pose card each. The fx, the cue's words and the STATES poses stay in the queue.

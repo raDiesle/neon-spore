@@ -27448,3 +27448,5 @@ each press hands back had to be read off the simulation before one line.
 
 Bottleneck: writing — `valve-draw.ts` sits at its length, so the two
 transients it draws went into the fx file rather than beside the rest.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
