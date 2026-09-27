@@ -152,10 +152,8 @@ export const MECHANICS = {
   sling: BOSS_MECHANICS.sling,
   grindstone: BOSS_MECHANICS.grindstone,
   cyst: BOSS_MECHANICS.cyst,
-  davit: BOSS_MECHANICS_B.davit,
-  halter: BOSS_MECHANICS_B.halter,
-  capstan: BOSS_MECHANICS_B.capstan,
-  vane: BOSS_MECHANICS_B.vane,
+  // The second boss page, whole and in its own order (`mechanics-bosses-b.ts`).
+  ...BOSS_MECHANICS_B,
   well: {
     what: "Player 1 sees the field as a clock, with the ship in the middle. Column four is four o'clock. The two ends of the field meet at twelve.",
     reach: "spawn",

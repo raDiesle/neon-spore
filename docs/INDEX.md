@@ -139,6 +139,7 @@ by hand never moves.
 | `packages/sim/src/config-boss-clocks.ts` | **The bosses that are a clock**, as one block of `SimConfig` |
 | `packages/sim/src/config-creatures.ts` | how long one creature's own clock runs, and the shapes it moves |
 | `packages/sim/src/config-gauge.ts` | THE GAUGE's numbers — the first of the twelve rounds, and its whole difficulty |
+| `packages/sim/src/config-gall.ts` | THE GALL's tuning: the beats around its steps, how wide a pinch opens and how shut it must be |
 | `packages/sim/src/config-pair.ts` | the switch that exists because the game has two people in front of it |
 | `packages/sim/src/config-shot.ts` | everything about a shot, as numbers: speed, rate, hold value, which moments it may leave on |
 | `packages/sim/src/creature-kinds.ts` | every body that can stand on the field, as a name, in the fixed order the world fingerprint writes it in |
@@ -155,6 +156,11 @@ by hand never moves.
 | `packages/sim/src/gauge-band.ts` | **The band between the two marks**: where it lands, where it walks, and how wide it is at this moment |
 | `packages/sim/src/gauge-hand.ts` | **THE GAUGE's two thumbs on the dial itself** |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
+| `packages/sim/src/gall-hand.ts` | A pinch on THE GALL: `gallPinch`, `fromMilli` the gap between the two touches in thousandths of a tile |
+| `packages/sim/src/gall-hash.ts` | What THE GALL puts into `hashWorld`, and nothing else |
+| `packages/sim/src/gall-shot.ts` | **THE GALL's shot**: the bared root, where a bolt leaves the top of the field in the middle column |
+| `packages/sim/src/gall-step.ts` | THE GALL's clock: the seam rising, each step lighting, the beats a pinch is kept shut being counted |
+| `packages/sim/src/gall.ts` | THE GALL: a soft nodule riding a raised seam the width of the hull |
 | `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
 | `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE BATON, THE THROAT and THE UNDERTOW |
 | `packages/sim/src/hull-types.ts` | what the hull remembers: where it broke, and how the pair have been doing at stopping it breaking |
@@ -426,6 +432,7 @@ by hand never moves.
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it is flung — its landing is a `breach` |
 | `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
 | `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as four events (`gauge.ts`, `gauge-hand.ts`) |
+| `packages/sim/src/events-gall.ts` | What THE GALL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-grindstone.ts` | What THE GRINDSTONE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
@@ -2196,6 +2203,7 @@ by hand never moves.
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's four, in a file of their own for `bind-pulse-hand.ts`'s reason |
+| `packages/audio/src/bind-gall.ts` | Whether an event is THE GALL's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-grindstone.ts` | THE GRINDSTONE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |

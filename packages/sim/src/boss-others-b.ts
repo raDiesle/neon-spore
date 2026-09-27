@@ -5,6 +5,7 @@ import { stepCairn } from "./cairn.js";
 import { stepCapstan } from "./capstan-step.js";
 import { stepCyst } from "./cyst-step.js";
 import { stepFleet } from "./fleet.js";
+import { stepGall } from "./gall-step.js";
 import { stepGrindstone } from "./grindstone-step.js";
 import { stepHalter } from "./halter-step.js";
 import { stepHasp } from "./hasp-step.js";
@@ -48,6 +49,11 @@ import type { World } from "./world.js";
  * stepped somewhere else (`boss-off-beat.ts`).
  */
 export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>): void {
+  // THE GALL: shut beats counted, the jump, and the seam gone flat (`gall-step.ts`).
+  if (boss.kind === "gall") {
+    stepGall(world, boss);
+    return;
+  }
   // THE CAPSTAN: holds counted, windows run out, and the cap swung open (`capstan-step.ts`).
   if (boss.kind === "capstan") {
     stepCapstan(world, boss);

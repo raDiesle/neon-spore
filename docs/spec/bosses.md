@@ -10095,6 +10095,112 @@ the cap and ends the fight; and two devices part over a single reversal.
 Whether any of it *reads* — whether steering for a partner's thumb feels
 like working together — is the owner's eye, on two real phones.
 
+## 11.55 THE GALL — the boss that moves the moment it is closed
+
+> A soft nodule on a raised seam across the hull. The seat nearer it
+> pinches it shut and keeps it shut; the instant it closes it jumps to
+> another point on the seam, for whichever seat is nearer there. Three
+> closes bare its root: shoot it in its colour.
+
+Designed as §38 of [bosses-choreographed](bosses-choreographed.md) — a
+choreographed scene, the third kind in `.claude/skills/new-boss`. No new
+primitive: THE VISE's `SqueezeGap`, read against a mark that **moves on
+the gesture's own completion** — THE RATCHET's anti-camping shape moved
+from a tap to a continuous pinch.
+
+**It is three closes and one shot, and they are its health.** The state
+(`sim/gall.ts`, hashed in `sim/gall-hash.ts`) is the **phase** and the
+beat it began, the **cursor** into the script, the **point** on the seam
+the gall sits on, the **closes** landed, the **hits**, whether the root is
+**bared**, the **gap** of the pinch on its point in thousandths of a tile,
+and the beats of the lit close it has been **kept shut**. The script is
+the wave's (`GallEntry.steps`), copied at install: each step asks `close`
+or `fire`, with a colour or `either` and its own beats.
+
+**The rule, in one sentence.** Pinch the gall shut where it sits, and when
+it jumps, find it and pinch it there.
+
+**The split.** By geometry, THE VISE's rule: the seam's four points stand
+over four columns mirrored about the middle (`gallPointCol`), the two on
+the left the pilot's to pinch and the two on the right the navigator's
+(`gallSeatAt`). Both screens show the gall where it is — finding it is the
+whole difficulty, not a secret — and a jump across the middle hands the
+next close to the other seat, which is the thing the pair has to notice
+together. A fire step is the ordinary shot — Player 1's cannon under the
+middle column, Player 2's trigger in its colour.
+
+**The clock** (`sim/gall-step.ts`). The gall sits slack for
+`gallSlackBeats`, then the first close lights under THE SLOW
+(`openSlow(…, "ask")`), a fire step without it. A close counts one for
+each beat its gap sits at or under `gallShutMilli`; at `gallShutBeats` it
+lands, and the gall **jumps** to one of the other three points, drawn off
+the seeded `Rng` (`gallClose`), its gap back at `gallOpenMilli`. The third close bares
+the root (`gallBare`). An answered step closes THE SLOW and the seam rests
+`gallRestBeats` before the next lights. With the script done the seam goes
+flat, and stands `gallFlatBeats` before the wave may end.
+
+**The answers** (`sim/gall-hand.ts`). A pinch is the drag `gallPinch`,
+`fromMilli` the gap and `id` the point it went down on. It counts only on
+the point the gall is on and only from that point's seat; lifted, the gap
+is open. The gap widening back past shut before the count is done is a
+slip (`gallSlip`) and starts the count again. A shot is judged where a
+bolt leaves the top of the field (`sim/gall-shot.ts`): only with the root
+bared, only while a fire step is lit, only in the middle column, and only
+in its colour unless it is `either`.
+
+**Where this departs from the design, and why.** Six places.
+
+- **The windows are six, five and five beats, not five, five and four.**
+  §38's window only has to be closed in; here a close is kept shut
+  `gallShutBeats` as well, so the finding needs the extra beat. Row 4's
+  "quicker window" is still the shorter one.
+- **The four points are indices, not a position.** §38 names
+  `gallPosMilli`. The gall is only ever on one of four points and a jump
+  is a single frame, never a slide, so the state holds `point`, nought to
+  three, and the column is derived (`gallPointCol`). A `Milli` field that
+  can only take four values would be a position pretending.
+- **One pinch target, with the point as its `id`.** §38 gives the gap one
+  field. The seat changes with the point, so the target is the gesture
+  (`gallPinch`), heard from either seat, and the point the fingers went
+  down on travels as `id`: a pinch left where the gall was is on bare seam
+  and never follows it. That is the anti-camping rule, in the wire.
+- **The shot is a fifth row.** §38's four rows end with the gall spent
+  and the seam flat; the skill's *every boss is shot at the end* and every
+  choreographed body since THE SEAM have a root to hit. One fire step in
+  red, after the third close.
+- **A shot run out is a hull hit, and a hull hit is the wave.** This game
+  has no ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
+  choreographed body's since.
+- **A close window run out is tried again, with the gall where it was.**
+  §38's *Missed* column says "retry in place" for a gap that widens; it
+  says nothing of a window that ends with the gall still open. It swells
+  (`gallSwell`), THE SLOW closes, the seam rests, and the same step
+  relights on the same point. No hull hit: the boss's own rule is that
+  letting go early loses no ground, and a window is only an end for THE
+  SLOW.
+
+**What is not built.** The body: lane two draws the seam, the nodule, its
+four poses and its root (`docs/queue.md`, *§38 THE GALL — the look*).
+Nothing sends a pinch from a touch yet, the field says no cue, and AUTO
+has no hand for it (`tools/director/test/autopilot.test.ts`, `NO_HAND`).
+The guide is prose.
+
+**Never watched at tempo.** What the tests say is the mechanism
+(`sim/test/gall.test.ts`): the gall comes in slack on the first point
+with the root covered and takes no shot, and lights its first close under
+THE SLOW; the four points stand mirrored, two to each seat; a pinch shut
+on the gall's point from its seat counts beats, from the other seat or on
+another point does nothing, widened slips and starts again, and lifted is
+open; a close kept its beats jumps the gall to a point it was not on, off
+the seeded `Rng`, and leaves the pinch that closed it on nothing; the
+third close bares the root; a close window run out swells and relights on
+the same point with no hull hit; a fire step lights without THE SLOW,
+wants its colour and the middle column, and run out is the wave; shot
+whole, the seam goes flat and the fight ends; and two devices part over a
+single thousandth of gap. Whether any of it *reads* — whether a pair
+notices together which of them the gall is nearer — is the owner's eye,
+on two real phones.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

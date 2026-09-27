@@ -20,6 +20,7 @@ import { BOSS_CURTAIN_SOUNDS } from "./sounds/boss-curtain.js";
 import { BOSS_CYST_SOUNDS } from "./sounds/boss-cyst.js";
 import { BOSS_DAVIT_SOUNDS } from "./sounds/boss-davit.js";
 import { BOSS_FILAMENT_SOUNDS } from "./sounds/boss-filament.js";
+import { BOSS_GALL_SOUNDS } from "./sounds/boss-gall.js";
 import { BOSS_GAUGE_SOUNDS } from "./sounds/boss-gauge.js";
 import { BOSS_GIMBAL_SOUNDS } from "./sounds/boss-gimbal.js";
 import { BOSS_GORGE_SOUNDS } from "./sounds/boss-gorge.js";
@@ -118,6 +119,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_DAVIT_SOUNDS,
   ...BOSS_HALTER_SOUNDS,
   ...BOSS_CAPSTAN_SOUNDS,
+  ...BOSS_GALL_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

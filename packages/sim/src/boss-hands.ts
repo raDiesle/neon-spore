@@ -7,6 +7,7 @@ import { cystHeard } from "./cyst-hand.js";
 import { davitHeard } from "./davit-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
+import { gallHeard } from "./gall-hand.js";
 import { gimbalHeard } from "./gimbal-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { grindstoneHeard } from "./grindstone-hand.js";
@@ -155,6 +156,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // THE CAPSTAN's leans and rubs: the cradle rocking and a band cracking are
   // both the instant (`capstan-hand.ts`).
   for (const c of commands) capstanHeard(world, c.player, c.command);
+  // THE GALL's pinch: coming shut and widening back are the instant (`gall-hand.ts`).
+  for (const c of commands) gallHeard(world, c.player, c.command);
   // THE SPOOL's brake, on the tick because where the thumb has it is what the
   // line pays out at on the next beat — nothing about it is judged here and
   // the depth is the whole of what the wire carries (`spool-hand.ts`).

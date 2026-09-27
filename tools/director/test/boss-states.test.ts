@@ -41,6 +41,7 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   davit: ["still", "lit", "rest", "spent"],
   halter: ["alarmed", "lit", "pause", "spent"],
   capstan: ["rusted", "lit", "rest", "open"],
+  gall: ["slack", "lit", "rest", "flat"],
   // THE RATCHET's story between the teeth: the simulation has landed, the
   // four poses are the look lane (§22). Struck the day it lands.
   ratchet: ["slip", "kick", "bind", "wind"],

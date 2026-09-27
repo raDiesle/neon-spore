@@ -6,6 +6,7 @@ import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { cystStruck } from "./cyst-shot.js";
 import { davitStruck } from "./davit-shot.js";
+import { gallStruck } from "./gall-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { grindstoneStruck } from "./grindstone-shot.js";
@@ -206,6 +207,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   halterStruck(world, b);
   // And THE CAPSTAN's bared core (`capstan-shot.ts`).
   capstanStruck(world, b);
+  // And THE GALL's bared root (`gall-shot.ts`).
+  gallStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

@@ -57,4 +57,16 @@ export const CHOREO_NOTES_D = {
     "a rub here yet. Only the simulation lane has landed — see " +
     "sim/capstan.ts, sim/capstan-step.ts, sim/capstan-hand.ts, " +
     "sim/capstan-shot.ts, sim/config-capstan.ts.",
+  "THE GALL — the boss that moves the moment it is closed":
+    "Asked for in docs/spec/bosses-choreographed.md §38: a soft nodule on a " +
+    "seam across the hull, sitting on one of four points. The seat nearer " +
+    "it pinches it — THE VISE's SqueezeGap, the point as the pinch's id — " +
+    "and keeps the gap under gallShutMilli for gallShutBeats; a pinch on " +
+    "any other point is on bare seam. A close landed jumps it to another " +
+    "point, drawn off the seeded Rng. Three closes bare the root, shot in " +
+    "its colour. A close window run out is tried again with the gall where " +
+    "it was; a fire step run out is a hull hit, which is the wave. Nothing " +
+    "on the phone sends a pinch here yet. Only the simulation lane has " +
+    "landed — see sim/gall.ts, sim/gall-step.ts, sim/gall-hand.ts, " +
+    "sim/gall-shot.ts, sim/config-gall.ts.",
 } satisfies Partial<Record<GroupName, string>>;

@@ -4,6 +4,7 @@ import { capstanCue, isCapstanEvent } from "./bind-capstan.js";
 import { laterCue } from "./bind-choreographed-d.js";
 import type { Cue } from "./bind-cue.js";
 import { filamentCue } from "./bind-filament.js";
+import { gallCue, isGallEvent } from "./bind-gall.js";
 import { gimbalCue } from "./bind-gimbal.js";
 import { haspCue } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
@@ -71,14 +72,16 @@ type LateEvent = Extract<
       | `davit${string}`
       | `halter${string}`
       | `capstan${string}`
+      | `gall${string}`
       | `undertow${string}`;
   }
 >;
 
 export function lateCue(e: LateEvent, cols: number): Cue {
-  // THE CAPSTAN is bound here and not on `bind-choreographed-d.ts`, which is
-  // two lines from the limit: handed over whole, before the switch.
+  // THE CAPSTAN and THE GALL are bound here and not on `bind-choreographed-d.ts`,
+  // which is two lines from the limit: handed over whole, before the switch.
   if (isCapstanEvent(e)) return capstanCue(e, cols);
+  if (isGallEvent(e)) return gallCue(e, cols);
   switch (e.type) {
     // The three that came over on 22 September 2026, in the order they stood
     // at the foot of `bind-choreographed.ts`.

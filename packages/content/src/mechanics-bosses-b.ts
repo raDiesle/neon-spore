@@ -1,7 +1,7 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 
 /** The keys of the table below, checked against the roster for `mechanics-bosses.ts`' reason. */
-type BossIdB = Extract<MechanicId, "capstan" | "davit" | "halter" | "vane">;
+type BossIdB = Extract<MechanicId, "capstan" | "davit" | "gall" | "halter" | "vane">;
 
 /**
  * **The bosses `mechanics-bosses.ts` had no room for**, started on 26
@@ -10,20 +10,25 @@ type BossIdB = Extract<MechanicId, "capstan" | "davit" | "halter" | "vane">;
  * simulation and not to a table is a build error on one page or the other.
  *
  * THE VANE's row came here the same day, out of `mechanics-table.ts`, when
- * THE DAVIT's line took that page past 250 as well. The table still names it
- * in the place it has always held, so key order is untouched.
+ * THE DAVIT's line took that page past 250 as well. Since THE GALL the table
+ * spreads this page whole where its rows stood, so the rows here are in the
+ * table's own order and key order is untouched.
  */
 export const BOSS_MECHANICS_B = {
-  capstan: {
-    what: "One of you leans the phone to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
-    reach: "spawn",
-  },
   davit: {
     what: "Your partner leans the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
     reach: "spawn",
   },
   halter: {
     what: "One of you touches nothing while the other holds both grips. Hold it together and the seam opens. Then shoot the bared centre.",
+    reach: "spawn",
+  },
+  capstan: {
+    what: "One of you leans the phone to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+    reach: "spawn",
+  },
+  gall: {
+    what: "Pinch the gall shut where it sits, on your half. It jumps: find it and pinch it there. Three closes bare the root. Shoot it in its colour.",
     reach: "spawn",
   },
   vane: {

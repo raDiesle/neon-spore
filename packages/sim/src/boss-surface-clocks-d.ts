@@ -1,7 +1,7 @@
 /**
  * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
  * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac,
- * THE DAVIT's boom, THE HALTER's seam, THE CAPSTAN's drum, THE VISE's
+ * THE DAVIT's boom, THE HALTER's seam, THE CAPSTAN's drum, THE GALL's seam, THE VISE's
  * seed-case and THE TRIVET's stand.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
@@ -90,6 +90,29 @@ export {
   davitSwipe,
   freshDavit,
 } from "./davit.js";
+// THE GALL's seam: the phase, the lit step, the point it sits on and the
+// column over it, whose pinch closes it and how shut, for the picture, the
+// cue and the director's hand. Straight off `gall.ts` (§38).
+export {
+  freshGall,
+  GALL_ASKS,
+  GALL_CLOSES,
+  GALL_PHASES,
+  GALL_POINTS,
+  type GallAsk,
+  type GallEntry,
+  type GallPhase,
+  type GallState,
+  type GallStep,
+  gallBoss,
+  gallClosing,
+  gallDone,
+  gallLitStep,
+  gallPincher,
+  gallPointCol,
+  gallSeatAt,
+  gallShut,
+} from "./gall.js";
 // THE GRINDSTONE's wheel: the phase, the lit step, the flats' grit, the
 // caliper and both seats' jaws, for the picture, the cue and the director's
 // hand. Straight off `grindstone.ts` (`docs/spec/bosses-choreographed.md` §33).

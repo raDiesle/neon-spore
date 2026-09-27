@@ -236,4 +236,12 @@ export const CHOREO_FIELD_GROUP_C = {
   capstanWearThreshold: "THE CAPSTAN — the boss one hand rocks for the other to wear",
   capstanHoldBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
   capstanOpenBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  // GallConfig — the slack before the first step, the rest between, the beats
+  // a close is kept shut, the open and shut gaps, and the flat seam (`config-gall.ts`).
+  gallSlackBeats: "THE GALL — the boss that moves the moment it is closed",
+  gallRestBeats: "THE GALL — the boss that moves the moment it is closed",
+  gallShutBeats: "THE GALL — the boss that moves the moment it is closed",
+  gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
+  gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
+  gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
 } satisfies Record<string, GroupName>;

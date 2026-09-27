@@ -91,6 +91,18 @@ export const SILENT_BOSS_D = [
   "capstanMiss",
   "capstanOpen",
   "capstanOut",
+  // THE GALL's eleven, no burst from this table until its look lane draws them.
+  "gallEnter",
+  "gallLight",
+  "gallPinch",
+  "gallSlip",
+  "gallClose",
+  "gallSwell",
+  "gallBare",
+  "gallHit",
+  "gallMiss",
+  "gallFlat",
+  "gallOut",
   // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`).
   "valveJet",
   "valveCap",

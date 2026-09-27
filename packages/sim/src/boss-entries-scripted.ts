@@ -1,6 +1,7 @@
 import type { CapstanEntry } from "./capstan.js";
 import type { CystEntry } from "./cyst.js";
 import type { DavitEntry } from "./davit.js";
+import type { GallEntry } from "./gall.js";
 import type { GrindstoneEntry } from "./grindstone.js";
 import type { HalterEntry } from "./halter.js";
 import type { OculusEntry } from "./oculus.js";
@@ -47,11 +48,14 @@ export type ScriptedBossEntry =
   // The one that authors rests and chords as well as shots: a seam one seat stays off while the other grips (`halter.ts`).
   | HalterEntry
   // The one that authors leans and rubs as well as shots: a drum one seat rocks for the other (`capstan.ts`).
-  | CapstanEntry;
+  | CapstanEntry
+  // The one that authors closes as well as shots: a nodule pinched where it sits and moved (`gall.ts`).
+  | GallEntry;
 
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { CystEntry, CystStep } from "./cyst.js";
 export type { DavitEntry, DavitStep } from "./davit.js";
+export type { GallEntry, GallStep } from "./gall.js";
 export type { GrindstoneEntry, GrindstoneStep } from "./grindstone.js";
 export type { HalterEntry, HalterStep } from "./halter.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";

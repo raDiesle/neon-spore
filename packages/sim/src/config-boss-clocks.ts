@@ -6,6 +6,7 @@ import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { CYST_DEFAULTS, type CystConfig } from "./config-cyst.js";
 import { DAVIT_DEFAULTS, type DavitConfig } from "./config-davit.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
+import { GALL_DEFAULTS, type GallConfig } from "./config-gall.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { GRINDSTONE_DEFAULTS, type GrindstoneConfig } from "./config-grindstone.js";
@@ -103,6 +104,7 @@ export interface BossClockConfig
     DavitConfig,
     HalterConfig,
     CapstanConfig,
+    GallConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -147,6 +149,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...DAVIT_DEFAULTS,
   ...HALTER_DEFAULTS,
   ...CAPSTAN_DEFAULTS,
+  ...GALL_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

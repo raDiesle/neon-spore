@@ -26094,3 +26094,18 @@ Bottleneck: looking — the ring covered the heart's thin lower flank, not its
 width, and only sampling the outline in every direction found it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GALL: a pinch that closes the gall moves it
+
+- reading: 5 min. §38, THE CAPSTAN's lane as the template, and THE VISE's
+  pinch.
+- writing: 15 min. Eight sim files, the twenty-odd registrations, the rig
+  and the tests, §11.55, the ledger rows and three stale counts.
+- looking: 0 min. Nothing is drawn.
+- friction: 5 min. The hash fixture's `either` colour, a guard hook
+  refusing a heredoc with an escaped newline, and `mechanics-table.ts`
+  one boss short of its ceiling.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the registrations — every file a boss is a name in, found one
+failing test at a time.

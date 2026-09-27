@@ -41,6 +41,7 @@ const AUTHORS_NOTHING = [
   "davit",
   "halter",
   "capstan",
+  "gall",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -179,7 +180,7 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   `midCol`, and the leaves and the hits are the health (`sim/oculus.ts`).
  *   THE VISE's, THE RIME's, THE TRIVET's, THE PLUMB's, THE SLING's, THE
  *   GRINDSTONE's, THE CYST's, THE DAVIT's, THE HALTER's and THE CAPSTAN's
- *   too: all `midCol`.
+ *   too: all `midCol`. THE GALL's points are the seam's own (`gallPointCol`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

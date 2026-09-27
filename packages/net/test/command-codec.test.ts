@@ -290,6 +290,9 @@ const ACCEPTED: Command[] = [
   // reversal count on `id`, from either seat (`sim/capstan-hand.ts`).
   { kind: "drag", target: "capstanLean", on: true, fromMilli: -15000 },
   { kind: "drag", target: "capstanRub", on: true, fromMilli: 0, id: 3 },
+  // THE GALL's pinch carries the gap on `fromMilli` and the point it went down
+  // on as `id` (`sim/gall-hand.ts`).
+  { kind: "drag", target: "gallPinch", on: true, fromMilli: 600, id: 2 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -470,6 +473,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   halterChordRight: true,
   capstanLean: true,
   capstanRub: true,
+  gallPinch: true,
   crank: true,
 };
 

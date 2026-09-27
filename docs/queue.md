@@ -895,25 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §38 THE GALL — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-rubs-touch-and-the-cue (claim: claude/queue-38-the-gall-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/registrations.md`
-
-No new primitive: `SQUEEZE ONE BODY`'s own closing gap (THE VISE's,
-THE CYST's) paired with THE RATCHET's own anti-camping idea, but against
-a continuous pinch rather than a discrete tap — `gallPosMilli` holds one
-of four fixed points on a seam, jumping to a different one the instant a
-close lands rather than on a touch or a timer, and `gallGapMilli` is
-`SQUEEZE ONE BODY`'s own gap read unchanged. Four steps, one movement,
-nothing hidden from either seat since finding the point is the whole
-difficulty. The full beat list and primitive table entry are §38 of
-`docs/spec/bosses-choreographed.md`. `TAPS ON A MOVING TARGET` and
-`SQUEEZE ONE BODY` each already carry a §38 THE GALL entry in their
-`where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it with
-the rest. THE SLOW on every closing window. `bun run check` proves it.
-
 ## §38 THE GALL — the look
 
 - **Found:** 2026-09-26, this session
@@ -930,6 +911,14 @@ concept spends its cost on the relocation, and its closing pinch reuses
 THE VISE's own gap-closing frames rather than drawing new ones. Nothing
 here is drawn yet and stays unverified at tempo until the owner has
 looked.
+
+The simulation landed on 27 September 2026 (`docs/spec/bosses.md` §11.55)
+with none of its hands: nothing sends `gallPinch` from a touch — two
+fingers on the gall's point, the gap as `fromMilli` and the point as `id`,
+THE VISE's pinch reader — the field says no cue (`PINCH` beside the point
+on the nearer seat, `FIRE` on a bared root), and AUTO has no hand for it
+(`tools/director/test/autopilot.test.ts`, `NO_HAND`). They are this lane's
+second half, the way THE CAPSTAN's were.
 
 ## §39 THE BURGEE — the simulation lane
 
@@ -2855,3 +2844,17 @@ adopt`.
 
 Done when: the moult slot is adopted and out of the registry; the costs are
 in DECIDED.md; the frame test is green. `bun run check` proves it.
+
+## `docs/spec/briefings.md` §3.2 names five prose guides where there are twenty-two
+
+- **Found:** 2026-09-27, claude/queue-38-the-gall-the-simulation-lane
+- **Files:** `docs/spec/briefings.md`, `packages/content/test/scenes-prose.test.ts`
+
+§3.2 says *eighty-nine of them now, one per guided wave bar five* and names
+THE NETTLE, THE MANTLE, THE KEEL, THE VALVE and THE SEAM as the ones still
+prose. `STILL_PROSE` in `scenes-prose.test.ts` holds twenty-two, every boss
+from THE OCULUS to THE GALL added since, and the count of films is no
+longer eighty-nine either. The test holds §1's figure but not §3.2's
+sentence. Rewrite the paragraph to say the number and point at the list,
+and make the test read the number out of §3.2 the way it reads §1's, so
+the next boss lane cannot leave it stale. `bun run check` proves it.

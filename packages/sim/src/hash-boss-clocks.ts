@@ -6,6 +6,7 @@ import { curtainHashParts } from "./curtain-hash.js";
 import { cystHashParts } from "./cyst-hash.js";
 import { davitHashParts } from "./davit-hash.js";
 import { filamentHashParts } from "./filament-hash.js";
+import { gallHashParts } from "./gall-hash.js";
 import { gimbalHashParts } from "./gimbal-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { grindstoneHashParts } from "./grindstone-hash.js";
@@ -198,6 +199,11 @@ export function clockHashParts(boss: BossState): number[] {
   // both seats' leans and reversal counts, the hold's count and the script (`capstan-hash.ts`).
   if (boss.kind === "capstan") {
     for (const n of capstanHashParts(boss)) out.push(n);
+  }
+  // THE GALL: the phase, the cursor, the point, the closes, the hits, the root,
+  // the gap and its count, and the script (`gall-hash.ts`).
+  if (boss.kind === "gall") {
+    for (const n of gallHashParts(boss)) out.push(n);
   }
   // THE FILAMENT: every filament's tiles, the cursor and phase, the head, the tail and the grabs (`filament-hash.ts`).
   if (boss.kind === "filament") {

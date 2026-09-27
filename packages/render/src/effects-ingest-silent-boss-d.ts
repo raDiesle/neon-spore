@@ -141,6 +141,18 @@ export const INGEST_SILENT_BOSS_D = [
   "capstanMiss",
   "capstanOpen",
   "capstanOut",
+  // THE GALL's eleven: silent until its look lane draws them.
+  "gallEnter",
+  "gallLight",
+  "gallPinch",
+  "gallSlip",
+  "gallClose",
+  "gallSwell",
+  "gallBare",
+  "gallHit",
+  "gallMiss",
+  "gallFlat",
+  "gallOut",
   // THE VALVE's story between the pins, the same (`packages/audio/src/bind-valve.ts`):
   // what the drum does is read off its phase (`valve-story.ts`), never off these.
   "valveJet",

@@ -111,6 +111,9 @@ const STILL_PROSE = [
   // And THE CAPSTAN (§37), a twenty-first time: the drum is undrawn, and the
   // guide says which mark each seat leans on and which it rubs.
   "THE CAPSTAN",
+  // And THE GALL (§38), a twenty-second time: the seam is undrawn, and the
+  // guide says whose half of it each seat pinches on.
+  "THE GALL",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -137,9 +140,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix =
-      "update §1 of docs/spec/briefings.md, which says one hundred and five of the hundred and sixteen";
-    expect(guided.length, fix).toBe(105);
-    expect(WAVES.length, fix).toBe(116);
+      "update §1 of docs/spec/briefings.md, which says one hundred and six of the hundred and seventeen";
+    expect(guided.length, fix).toBe(106);
+    expect(WAVES.length, fix).toBe(117);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

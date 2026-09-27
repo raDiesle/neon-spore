@@ -30,6 +30,12 @@ import type { Wave } from "../wave-types.js";
  * wears (§37, `sim/capstan.ts`). The left mark is the pilot's lean and the
  * right the navigator's; after the bare, a hold takes either way round. Three
  * shots at the core, the last one white.
+ *
+ * **THE GALL is the first boss that moves when it is answered.** A soft
+ * nodule on a raised seam across the hull: the seat nearer it pinches it
+ * shut and keeps it shut, and the instant it closes it jumps to another of
+ * the seam's four points, for whichever seat is nearer there (§38,
+ * `sim/gall.ts`). Three closes bare the root, and one shot in red ends it.
  */
 export const WAVES_ACT_13: Wave[] = [
   {
@@ -99,6 +105,26 @@ export const WAVES_ACT_13: Wave[] = [
         { ask: "fire", color: "cyan", beats: 3 },
         { ask: "hold", color: "either", beats: 6 },
         { ask: "fire", color: "either", beats: 3 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theGall",
+    name: "THE GALL",
+    guide: {
+      both: "Pinch the gall shut where it sits, on your half. It jumps: find it and pinch it there. Three closes bare the root. Shoot it in its colour.",
+      p1: "1. When the gall sits on your half, the left, pinch it shut and keep it shut.\n2. When it jumps, say where it went.\n3. After three closes, shoot the root in its colour.",
+      p2: "1. When the gall sits on your half, the right, pinch it shut and keep it shut.\n2. When it jumps, say where it went.\n3. After three closes, shoot the root in its colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "gall",
+      steps: [
+        { ask: "close", color: "either", beats: 6 },
+        { ask: "close", color: "either", beats: 5 },
+        { ask: "close", color: "either", beats: 5 },
+        { ask: "fire", color: "red", beats: 3 },
       ],
     },
     bossType: "normal",

@@ -5,6 +5,7 @@ import { CYST_PHASES } from "./cyst.js";
 import { DAVIT_PHASES } from "./davit.js";
 import { FILAMENT_PHASES } from "./filament.js";
 import { FLEET_PHASES } from "./fleet-state.js";
+import { GALL_PHASES } from "./gall.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { GAUGE_GRIPS } from "./gauge-hand.js";
 import { GIMBAL_PHASES } from "./gimbal.js";
@@ -139,5 +140,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   davit: DAVIT_PHASES,
   halter: HALTER_PHASES,
   capstan: CAPSTAN_PHASES,
+  gall: GALL_PHASES,
   fleet: FLEET_PHASES,
 };

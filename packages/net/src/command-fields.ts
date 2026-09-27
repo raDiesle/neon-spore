@@ -44,6 +44,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "davitSteerLeft", "davitSteerRight", "davitLooseLeft", "davitLooseRight",
   "halterChordLeft", "halterChordRight",
   "capstanLean", "capstanRub",
+  "gallPinch",
 ];
 
 export const isColor = (x: unknown): x is Color =>

@@ -163,6 +163,15 @@ export const BOSS_ENTRIES_D = {
       { ask: "fire", color: "cyan", beats: 3 },
     ],
   },
+  // THE GALL the same, a close and the shot, the colour set off `either`
+  // (`gall-hash.ts`).
+  gall: {
+    kind: "gall",
+    steps: [
+      { ask: "close", color: "red", beats: 6 },
+      { ask: "fire", color: "cyan", beats: 3 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE HASP on's share of `patchBoss`. */
@@ -428,6 +437,20 @@ export function patchBossD(boss: BossState): void {
     boss.tiltMilli = [-15000, 4000];
     boss.rubs = [2, 5];
     boss.rubbed = true;
+    boss.heldBeats = 1;
+  }
+  if (boss.kind === "gall") {
+    // Two closes landed and the gall moved to the navigator's far point, the
+    // root bare and shot once, a pinch half shut on it and a beat counted —
+    // every field given a value (`gall-hash.ts`).
+    boss.phase = "lit";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.point = 3;
+    boss.closes = 2;
+    boss.hits = 1;
+    boss.bared = true;
+    boss.gapMilli = 1300;
     boss.heldBeats = 1;
   }
 }
