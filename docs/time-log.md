@@ -27753,3 +27753,17 @@ Bottleneck: friction. The look was claimed by a pick that should have
 passed it over, and found only by reading its `Needs:` line by eye.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's head: the lip seam, the rest parked
+
+- reading: 5 min. The rig (`solid-rig.ts`, `solid-anchor.ts`, `surface.ts`),
+  both shipped heads, the solid sheet and one VERSUS candidate's patch.
+- writing: 5 min. `frontLipsAt` beside `frontEyeAt`, and the design written
+  into `docs/parked.md` when the owner stopped the session.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, a file named before it exists taken out of
+  backticks, the commit, `land`.
+
+Bottleneck: reading. Fitting a rig head to the shipped face-on marks meant
+knowing the anchor's rotation order and why the skull may not pitch.

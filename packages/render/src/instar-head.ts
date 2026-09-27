@@ -91,13 +91,29 @@ const LOWER: readonly (readonly [number, number])[] = [
 ];
 
 /** The upper lip's middle, which the whole top of the head hangs off. */
-function upperLip(f: Figure, head: Point, r: number): Point {
+function upperLip(f: Pick<Figure, "jawUp">, head: Point, r: number): Point {
   return { x: head.x, y: head.y - r * (LIP_SHUT + LIP_OPEN * f.jawUp) };
+}
+
+/** The lower lip's middle, which the chin hangs off. */
+function lowerLip(f: Pick<Figure, "jawDown">, head: Point, r: number): Point {
+  return { x: head.x, y: head.y + r * (LIP_SHUT + LIP_OPEN * f.jawDown) };
+}
+
+/** Where the face-on head draws the middle of each lip, before a shove
+ * trembles it — the two marks' places (`instar-shape.ts`), and what a head
+ * drawn any other way has to meet face-on. */
+export function frontLipsAt(
+  f: Pick<Figure, "jawUp" | "jawDown">,
+  head: Point,
+  r: number,
+): { up: Point; down: Point } {
+  return { up: upperLip(f, head, r), down: lowerLip(f, head, r) };
 }
 
 /** Where the face-on head draws an eye, `s` -1 for the left and 1 for the
  * right — the place a mark on the eye has to sit (`instar-script.ts`). */
-export function frontEyeAt(f: Figure, head: Point, r: number, s: -1 | 1): Point {
+export function frontEyeAt(f: Pick<Figure, "jawUp">, head: Point, r: number, s: -1 | 1): Point {
   return r2(upperLip(f, head, r), r, s * 0.48, -0.44);
 }
 
@@ -118,10 +134,8 @@ export function drawFrontHead(
   // the skull and the eyes with it.
   const top = { x: head.x, y: head.y - tremble(look.shoveUp, time, r, 0) };
   const up = upperLip(f, top, r);
-  const down = {
-    x: head.x,
-    y: head.y + r * (LIP_SHUT + LIP_OPEN * f.jawDown) + tremble(look.shoveDown, time, r, 1.7),
-  };
+  const lip = lowerLip(f, head, r);
+  const down = { x: lip.x, y: lip.y + tremble(look.shoveDown, time, r, 1.7) };
   const gap = (down.y - up.y) / r;
   // The horns turn with the brow's idle turn, one coming forward as the other goes back.
   const browWobble = BROW_WOBBLE * Math.sin((time * (Math.PI * 2)) / BROW_WOBBLE_PERIOD);

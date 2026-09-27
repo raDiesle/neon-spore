@@ -1596,30 +1596,6 @@ and finds `cursor` right both times; a second jump to a remembered step
 replays no further than its tick; ◀ at step 1 and ▶ at the last do nothing.
 `bun run check` proves it.
 
-## Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-auto-miss-cannot-make-the-galls-fire-step-run-ou (claim: claude/queue-living-bosses-the-instars-one-head-modelled-once)
-- **Where:** local
-- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
-- **Files:** `packages/render/src/instar-head.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `packages/render/src/solid-rig.ts`, `packages/content/src/solid-anchor.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
-
-The owner, 26 September 2026: the side head looks unnatural and does not
-match the front head. Section 2 of `docs/spec/living-bosses.md` names the
-parts: skull ball, short broad muzzle tube, jaw on its own anchor, two horn
-tubes, two brow sheets, eyes and head marks placed by `pin`/`facet`. The
-face-on head is the design; model it on the rig so the side view is the same
-head turned. Build it as a VERSUS candidate beside the shipped two heads,
-never on the field, with a sheet at five yaws from face-on to side, jaw shut
-and open.
-
-Done when: the candidate is in VERSUS; at face-on it matches the shipped
-head's eyes and marks within 2 px at 390 wide; at side-on it has one full
-eye, a blunt muzzle and horns sweeping back; the sheet PNG is sent to the
-owner; its op count is within 10% of the shipped head's in
-`packages/render/test/instar-budget.test.ts`. `bun run check` proves the
-tests; the look is his to pick.
-
 ## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
