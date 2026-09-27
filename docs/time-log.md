@@ -26045,3 +26045,16 @@ test failing, not by reading.
 Bottleneck: friction — the worktree's install was missing a link.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — The idle drift and the part drift, a helper that draws nothing yet
+
+- reading: 5 min. Section 1 of the living-bosses spec, `solid-motion.ts`.
+- writing: 20 min. `idle-drift.ts`, `idle-drift-parts.ts`, two test files
+  and a helper for their statistics, the style-guide rule.
+- looking: 5 min. The glance held where the head had been, and was aimed
+  ahead of the middle of its hold instead.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the spec's head reach and its speed ceilings could not
+both hold, and the numbers had to be worked out before any code.

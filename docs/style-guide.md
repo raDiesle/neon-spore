@@ -653,6 +653,22 @@ run it, look at the PNG — that is the loop.
   `noise1` is a hashed value noise, `breath` a period that wanders by it,
   `chainAt(root, t, i, lag)` is link `i` doing what the root did `lag·i`
   earlier. A tail is a chain; nothing is simulated, so nothing outlives a frame.
+- **A boss is never held still: it drifts, and its parts drift on it**
+  (`idle-drift.ts`, `idle-drift-parts.ts`; `docs/spec/living-bosses.md` §1).
+  `idleDrift(look.time, seed, hush)` gives the body's yaw, pitch and roll and
+  the head's yaw on top, the head leading and the body following it late;
+  `partDrift` gives each part a turn, tilt and rotate about **its joint, never
+  its middle**, late behind what it hangs on and on its own seed, and `glance`
+  moves both pupils together ahead of the head. Every angle is value noise with
+  a cell every half period, so its speed ceiling is `6 · reach / period` and is
+  read off the numbers: under 12° a second for the body, 20° for a part on its
+  own and 30° for anything with all it hangs on — a reach that would break a
+  ceiling is cut, not the ceiling (the head turns 18°, not 28°). `hush` is the
+  multiplier left (`HUSH`: a third over marks, a tenth on a part with a live
+  mark, nothing once beaten), eased over a beat by `easeHush`; a gesture takes
+  its part with `letGo`, a moved parent's children swing back with `settle`,
+  and `life` 0 is the parent exactly. All of it is a function of time, so
+  nothing goes in `Effects` and `hashWorld` never sees it.
 - **A part hangs off an anchor** (`solid-anchor.ts`). A jaw, a wing, an eye is
   authored about its own hinge, and its `Anchor` says where the hinge sits on
   its parent and how far it is turned there — `roll` about the body's length

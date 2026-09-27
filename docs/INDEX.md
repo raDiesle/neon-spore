@@ -1687,6 +1687,8 @@ by hand never moves.
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`) and the examples offered on THE INSTAR beside the drawings they… |
+| `packages/render/src/idle-drift-parts.ts` | THE PART DRIFT: every named part of a boss turns, tilts and rotates a little about its own joint |
+| `packages/render/src/idle-drift.ts` | the idle drift: a boss's body yaw, pitch, roll and head yaw as seeded noise of `look.time`, plus `hush`, `settle` and `letGo` |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |

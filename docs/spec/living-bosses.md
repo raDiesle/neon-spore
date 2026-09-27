@@ -65,6 +65,16 @@ more than about 12° a second. That is the **never snaps** rule, and it is
 tested, not reviewed: a test samples the drift at every frame of ten minutes
 and fails on any step larger than a frame's share of that speed.
 
+**As built (27 September 2026, `packages/render/src/idle-drift.ts`).** The
+head's yaw reaches **18°**, not 28°: a value noise of reach `a` and period
+`p` can climb at `6a/p` degrees a second, so 28° at 4–7 s is up to 42°, over
+the part drift's own 20° for the head and 30° for the head with the body
+under it. The ceilings are the tested rule, so the reach was cut to fit them
+at the slow end of the period, and the body's yaw is half the head's plus 5°
+of its own to keep its ±14°. Every period in both tables is taken at its slow
+end for the same reason. Tests: `packages/render/test/idle-drift.test.ts`
+and `packages/render/test/idle-drift-parts.test.ts`.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four
@@ -250,7 +260,7 @@ wobbles. THE MAZE, THE FLEET and THE MIRROR have no body and get none.
 ### Where it lives
 
 One function in `packages/render`, a new file next to `packages/render/src/solid-motion.ts`
-(call it idle-drift.ts): `idleDrift(time, seed, kind)` returns the four
+(idle-drift.ts, as built): `idleDrift(time, seed, hush)` returns the four
 angles. Nothing in `packages/sim` knows about it and `hashWorld` cannot see
 it: it is the picture's alone, like THE INSTAR's weave
 (`packages/render/src/instar-sway.ts`). Each boss's drawer calls it with its

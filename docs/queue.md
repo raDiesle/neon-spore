@@ -2270,42 +2270,6 @@ and finds `cursor` right both times; a second jump to a remembered step
 replays no further than its tick; ◀ at step 1 and ▶ at the last do nothing.
 `bun run check` proves it.
 
-## Living bosses — the idle drift, a helper that draws nothing yet
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-queens-wings-out-of-her (claim: claude/queue-living-bosses-the-idle-drift-a-helper-that-draws)
-- **Files:** `packages/render/src/solid-motion.ts`, `packages/content/src/solid.ts`, `docs/spec/living-bosses.md`, `docs/style-guide.md`
-
-Section 1 of `docs/spec/living-bosses.md`. Write idle-drift.ts in
-`packages/render/src/`: `idleDrift(time, seed)` returns body yaw, pitch,
-roll and head yaw, each `noise1` of time on its own seed within the ranges
-and periods the table gives, the body following the head through `chainAt`
-a quarter cycle late at half its size. Add a `hush` input from 0 to 1 that
-scales it, for the windows over marks and for a beaten boss, and a helper
-that eases `hush` over one beat from where it was. Add
-`docs/style-guide.md`'s rule for it under "A boss seen from any side".
-
-Done when a new test proves: every angle stays in its range over ten
-minutes; no frame-to-frame step exceeds 12° a second at 60 frames; two seeds
-are not in step (their correlation over ten minutes under 0.2); the head
-leads the body; the same time and seed give the same angles. No drawer calls
-it yet, so no frame changes. `bun run check` proves it.
-
-**The part drift goes in the same file** (the owner, 26 September 2026: the
-head, the body, the hands and limbs each tilt, turn and rotate a little on
-their own). Add `partDrift(time, seed, part, parent, hush)` as section 1's
-"Every part moves on its own" gives it: turn, tilt and rotate about the
-part's joint, the ranges and periods of its table by part row, the child
-following its parent through `chainAt` plus its own noise, a settle function
-of the time since a step began, a gesture let-go that eases a part's drift to
-nothing over a quarter beat, a live-mark hush to a tenth (the owner, 27 September 2026 — "THE INSTAR — holds still while its marks are live"; it was a sixth), and a `life`
-multiplier from 0 to 1. The same test file also proves: every part row stays
-in its range; no part's own step exceeds 20° a second and no part plus its
-parents exceeds 30° a second; a child lags its parent; two parts that are
-not parent and child correlate under 0.3; the two of a pair under 0.5; the
-two eyes move together; the settle overshoots by a fifth and is within 1° of
-rest by half a second; `life` 0 gives exactly the parent's angles.
-
 ## Living bosses — THE INSTAR's one head, modelled once, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
