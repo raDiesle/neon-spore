@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · c79bacf9e — `queue status` and the listing say a spent claim apart
+
+A claim branch this machine made, already on `main`, with no worktree on it, is no longer counted as work in progress: `status` answers IDLE when every claim left is spent, and both it and the listing print `spent — bun run queue release "<title>"` under the entry. Before this only `take` asked `spent.ts`, and on 27 September seven of ten BUSY items were spent claims found by hand.
+
 ## 2026-09-27 · 3335c1fdb — THE NETTLE: the body, drawn
 
 Wave 101's jellyfish now has a body. There is a bell faded by globalAlpha, a pose for each step with an eased morph between poses, a turn from the crown to the underside, a pulse in place of THE INSTAR's weave, and a sag and fade once the last step lands. Its marks are THE INSTAR's rings, which draw only while THE SLOW is open. The grip's hit test now answers both bosses. This is carried from `claude/nettle-look` (seven commits, 867 behind `main`) and squashed onto the trunk's own instar-shape/instar-place split, with the INSTAR helpers widened to `SceneState`. The exemption used: a look with no shipped alternative, since nothing of THE NETTLE was drawn before. The strike of an undone part and the death are still lane three.
