@@ -2733,6 +2733,7 @@ shafts and motes drift (`backdrop.ts`, `light-shafts.ts`).
 ## A count's socket and a throb's far half hide the two cores that would move them
 
 - **Found:** 2026-09-27, claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th
+- **Taken:** 2026-09-27, claude/queue-the-wisps-arms-leave-their-own-light-when-they-s (claim: claude/queue-a-counts-socket-and-a-throbs-far-half-hide-the-t)
 - **Files:** `packages/render/src/countdown-iris.ts`, `packages/render/src/throb-pores.ts`, `packages/render/src/living-draw.ts`
 
 "COUNTDOWN, BEATBOX and THROB have no motion of their own" was answered with
