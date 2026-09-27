@@ -2509,6 +2509,7 @@ proves it.
 ## Living bosses — split the warden's two hatch lids, drawing the same
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-lobes-of-the-curtain-and (claim: claude/queue-living-bosses-split-the-wardens-two-hatch-lids-d)
 - **Files:** `packages/render/src/warden.ts`, `packages/render/src/warden-surface.ts`, `packages/render/test/frame.test.ts`, `docs/spec/living-bosses.md`
 
 Section 1's part map: the warden's two hatch lids share one path. Draw each
