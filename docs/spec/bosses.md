@@ -10236,9 +10236,17 @@ gall sits on pinches it shut, sends the pinch again on the point it jumps
 to, and lets go once the step is answered; the bared root is shot up the
 middle in the step's colour.
 
-**What is not built.** Nothing sends a pinch from a touch yet, and the
-field says no cue (*§38 THE GALL — the pinch's touch, the cue and AUTO*).
-The guide is prose.
+**The pinch's touch** (`render/gall-grip.ts`): two fingers of one seat on
+the seam's row, THE VISE's pair and gap (`pinch-pair.ts`, `pinch.ts`), taken
+on the point of that seat's half nearest the first finger and sent with the
+point as its `id` — on the squeeze and on the lift, so a pinch left where the
+gall was stays there when it jumps. Every point of the seat's half takes one,
+the gall on it or not: *find it* is the simulation's to judge, and a pinch on
+bare seam is heard and does nothing. The seam takes a pinch until the third
+close pulls the nodule under. **The cue** (`boss-cue-read-zm.ts`): `PINCH` on
+the nodule to the seat whose half it sits on, gone once it is shut, jumping
+with it; `FIRE` under the middle column on the bared root. The guide is
+prose.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/gall.test.ts`): the gall comes in slack on the first point

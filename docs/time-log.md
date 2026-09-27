@@ -26289,3 +26289,17 @@ Bottleneck: reading — which events are counted hits is written in thirty
 event files, one boss at a time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GALL takes a pinch from two fingers, and the field says PINCH and FIRE
+
+- reading: 10 min. THE VISE's grip, `pinch.ts` and `pinch-pair.ts`, THE
+  CAPSTAN's grip, cue and director rows, `gall-shape.ts`.
+- writing: 15 min. `gall-grip.ts`, the `id` through `pinchSays`,
+  `boss-cue-read-zm.ts`, the two director files, two test files, the specs.
+- looking: 5 min. The PINCH word on the nodule, in a frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index rows, the import sort, `land`.
+
+Bottleneck: reading — the pinch reader dropped the hold's `id`, which only
+showed once the sim's lift was traced: without the point, a lift was never
+heard.

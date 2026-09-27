@@ -1065,6 +1065,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zj.ts` | **What THE GRINDSTONE is asking for** — page thirty-six of the readings |
 | `packages/render/src/boss-cue-read-zk.ts` | **What THE HALTER is asking for** — page thirty-seven of the readings |
 | `packages/render/src/boss-cue-read-zl.ts` | **What THE CAPSTAN is asking for** — page thirty-eight of the readings |
+| `packages/render/src/boss-cue-read-zm.ts` | **What THE GALL is asking for** — page thirty-nine of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1166,6 +1167,7 @@ by hand never moves.
 | `packages/render/src/gall-blow.ts` | **THE GALL's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a pinch come shut |
 | `packages/render/src/gall-receipts.ts` | **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts` keeps |
+| `packages/render/src/gall-grip.ts` | **The pinch on THE GALL** — the hands lane that makes the nodule answer two fingers at all |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
 | `packages/render/src/gland-fluid.ts` | THE FLUID UNDER THE CONTROLS — the two things the owner picked out of PLASM and EMBEDDED on 11 September 2026… |
@@ -2578,6 +2580,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-grindstone.ts` | THE GRINDSTONE's four hands: a flat part ground, once a seat, and the caliper clamped by both seats |
+| `tools/director/src/poses-field-controls-gall.ts` | THE GALL's pinch: the first close lit with the gall on the seam's first point |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
@@ -3037,6 +3040,7 @@ by hand never moves.
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-gall.ts` | THE GALL's pinch, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-grindstone.ts` | THE GRINDSTONE's flats and jaws, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |

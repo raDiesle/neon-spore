@@ -438,9 +438,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // is either end of the drum, either seat's (`render/capstan-grip.ts`, §11.54).
   capstanLean: "unbuilt",
   capstanRub: "field",
-  // THE GALL's pinch: the simulation lane landed first and nothing on the
-  // phone sends it yet (§11.55).
-  gallPinch: "unbuilt",
+  // THE GALL's pinch: a point of this seat's half of the seam, the point sent
+  // as its id, on both screens (`render/gall-grip.ts`, §11.55).
+  gallPinch: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

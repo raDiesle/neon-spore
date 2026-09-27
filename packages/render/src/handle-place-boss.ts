@@ -11,6 +11,7 @@ import { capstanRubStanding, capstanTakesHand } from "./capstan-grip.js";
 import { curtainHemAt } from "./curtain-grip.js";
 import { cystStanding } from "./cyst-grip.js";
 import { davitLooseCircle } from "./davit-grip.js";
+import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
@@ -216,6 +217,13 @@ export function bossHandleCircle(
     const b = world.boss?.kind === "capstan" ? world.boss : null;
     if (b === null || !capstanTakesHand(b)) return null;
     return capstanRubStanding(l, cfg, b, world.beat, beatPhase);
+  }
+  if (target === "gallPinch") {
+    // THE GALL's nodule on the point it sits on. Null once the third close
+    // pulls it under (`gall-grip.ts`).
+    const b = world.boss?.kind === "gall" ? world.boss : null;
+    if (b === null || !gallTakesPinch(b)) return null;
+    return gallPointCircle(l, cfg, b.point);
   }
   return undefined;
 }

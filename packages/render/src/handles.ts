@@ -7,6 +7,7 @@ import { cystUnder } from "./cyst-grip.js";
 import { davitLooseUnder } from "./davit-grip.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
+import { gallPinchUnder } from "./gall-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
@@ -144,6 +145,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     cystUnder(l, x, y, field) ?? // THE CYST's freeze mark, the partner's flank tapped still, or this seat's pinch zone (`cyst-grip.ts`).
     halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).
+    gallPinchUnder(l, x, y, field) ?? // THE GALL's seam, one finger of this seat's pinch on the point it is nearest (`gall-grip.ts`).
     davitLooseUnder(l, x, y, field) // THE DAVIT's hook, held then loosed toward the lit column (`davit-grip.ts`).
   );
 }

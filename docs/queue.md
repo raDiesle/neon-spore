@@ -895,27 +895,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §38 THE GALL — the pinch's touch, the cue and AUTO
-
-- **Found:** 2026-09-27, claude/queue-38-the-gall-the-look
-- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-blow-and-the-receipts (claim: claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto)
-- **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
-
-The simulation landed with none of its hands and the body is on the screen
-(§11.55, *The look*). Nothing sends `gallPinch` from a touch: two fingers on
-the gall's point, the gap as `fromMilli` and the point as `id` — THE VISE's
-pinch reader — hit-tested where `gall-draw.ts` draws the nodule
-(`gallPointAt`, `gallSize`), in a new gall-grip.ts the way `capstan-grip.ts`
-reads the drum. The field says no cue: `PINCH` beside the nodule on the
-seat whose half it is on, and `FIRE` on a bared root, on its own
-`boss-cue-read-*.ts` page. **AUTO's hand landed first**
-(`hands/boss-hands-gall.ts`, `autopilot-gall.test.ts`), and with it a close's
-ghost and the lips' tear were seen in a frame. `bun run check` proves it; how
-a pinch on a jumping gall feels stays unverified until the owner holds two
-phones. The root's seed needs a fire step let run with the closes played,
-which `--auto-miss` cannot do (it misses every close, and the root is never
-bared) — the same gap as *`--auto-miss` cannot make THE CYST's or THE
-SLING's shot run out*.
 ## §39 THE BURGEE — the simulation lane
 
 - **Found:** 2026-09-26, this session
@@ -2459,7 +2438,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou
-- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`
+- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/cyst-step.ts`, `packages/sim/src/sling-step.ts`, `packages/sim/src/gall-step.ts`
 - **Needs:** THE CYST's autopilot hand
 
 `--auto both --auto-miss` keeps AUTO's hands off every other asking window,
@@ -2482,6 +2461,15 @@ for a misser to let go, and the test's `bossBlow(name, true)` is null for both
 before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
+
+**THE GALL is the third** (27 September 2026, claude/queue-38-the-gall-the-
+pinchs-touch-the-cue-and-auto). It has a hand now (`boss-hands-gall.ts`), but
+its blow is a fire step that runs out on the bared root (`gall-step.ts`
+`miss`), and `--auto-miss` withholds every close as well, so the root is never
+bared and the seed (`render/gall-blow.ts`) has never been in a frame. A
+misser for it has to play the closes and withhold only the fire step, and
+move the cannon off the middle column while it does, because the cannon fires
+by itself.
 
 ## THE CYST and THE PLUMB have no row in the blow's table
 

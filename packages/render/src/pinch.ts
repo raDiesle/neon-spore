@@ -47,10 +47,14 @@ export function pinchGapMilli(
 
 /**
  * What a pinch says: held at this gap, or — with `null` — let go, the body
- * back open. No `fromYMilli` and no `id`: a pinch is one number on one body.
+ * back open. No `fromYMilli`: a pinch is one number on one body. **The `id`
+ * is the hold's**, when it carries one — which of THE GALL's points the first
+ * finger went down on (`gall-grip.ts`) — and goes out on the lift too, so the
+ * point let go is the point that was pinched.
  */
 export function pinchSays(hold: Extract<Hold, { kind: "drag" }>, gapMilli: number | null): Command {
+  const id = hold.id === undefined ? {} : { id: hold.id };
   return gapMilli === null
-    ? { kind: "drag", target: hold.target, on: false, fromMilli: 0 }
-    : { kind: "drag", target: hold.target, on: true, fromMilli: gapMilli };
+    ? { kind: "drag", target: hold.target, on: false, fromMilli: 0, ...id }
+    : { kind: "drag", target: hold.target, on: true, fromMilli: gapMilli, ...id };
 }
