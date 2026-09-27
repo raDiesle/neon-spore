@@ -2593,6 +2593,7 @@ and add `"nettle"` to `WALKED` and `GAPPED` in `fuse-place.test.ts`.
 ## THE PLUMB's steady deals no blow
 
 - **Found:** 2026-09-27, claude/queue-the-cyst-and-the-plumb-have-no-row-in-the-blows
+- **Taken:** 2026-09-27, claude/task-queue-work-e96a1b (claim: claude/queue-the-plumbs-steady-deals-no-blow)
 - **Files:** `packages/render/src/plumb-fx.ts`, `packages/render/test/boss-hurt-rows-c.ts`
 
 A "both" level step held for its beats is THE PLUMB's `plumbSteady`
