@@ -1424,6 +1424,7 @@ Unverified at tempo until the owner has looked.
 ## THE SLOW's prism still aims at the cannon for thirteen drawn bosses
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
+- **Taken:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou (claim: claude/queue-the-slows-prism-still-aims-at-the-cannon-for-thi)
 - **Files:** `packages/render/src/slow-boss-aim-b.ts`, `packages/render/test/slow-boss-aim-b.test.ts`, `packages/render/src/`
 
 PRISM's promise is *the room splits into its colours, and the boss does
