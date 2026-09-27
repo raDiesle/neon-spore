@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d93869441 — THE SLING watched at tempo: drawn, answered by touch, played to the end
+
+AUTO plays THE SLING from its first lit draw to the fork coming free, with every shot taken; the draw, the yoke, the hit and the release read at tempo, and the fork clips nothing at 390×844. The touch sender the entry said was missing is there, with its test (`sling-grip.test.ts`). Nothing changed.
+
 ## 2026-09-27 · 5f9f3c830 — THE KEEL's STRAIGHT card shows the spine straight
 
 Watched THE KEEL's autopilot hand on the STATES sheet: every one of the eleven cards is reached by the hand, with the joint tapped from its seat, the socket and marrow shot from the middle, the flip held on both ends and the rock shot from under the tail. AUTO also plays the whole fight on HARD with no joint missed, no hull hit and no shot wasted. The one wrong card was STRAIGHT, photographed six ticks into a snap that takes three quarters of a beat, so it still showed the arch; it is held a beat now. A director card, not a frame of the game — no look changed.
