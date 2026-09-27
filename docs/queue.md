@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §38 THE GALL — the pinch's touch, the cue and AUTO
 
 - **Found:** 2026-09-27, claude/queue-38-the-gall-the-look
+- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-blow-and-the-receipts (claim: claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto)
 - **Files:** `packages/render/src/handles.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/boss-cue-read-*.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
 
 The simulation landed with none of its hands and the body is on the screen
