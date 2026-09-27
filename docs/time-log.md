@@ -27196,3 +27196,19 @@ Bottleneck: looking — the frames showed her structure hides every part that
 may move, which turned a finished look into a question for the owner.
 
 *Measured: 18 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §40 THE FLUE — the look (the body)
+
+- reading: 15 min. THE BURGEE's draw, pose, harness and test as the model;
+  the flue's state, drift and damper in the simulation; the spec's colour;
+  the free drafts, for a shape nothing draws.
+- writing: 20 min. Shape, pose, marks and draw; the dispatch, the hand, the
+  palette and the sheet; the harness and twenty tests; the spec and queue.
+- looking: 5 min. Two strips; the body reads, and THE SLOW's split paints
+  the lit vent.
+- friction: 5 min. The spec's words for the look sit in two places; they
+  were read out of the choreographed page rather than the queue entry.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a body is four files and nine registrations, split
+here from its receipts and blow as THE GRINDSTONE's was.

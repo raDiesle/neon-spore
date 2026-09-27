@@ -10613,10 +10613,37 @@ is a stir; a vent run out chokes and relights from nought; the second vent,
 seats swapped, bares the core; a shot wants its colour and the middle
 column; a damper is held only with both hands off, shuts while either
 moves, and is held the second time; a fire step run out is the wave; and
-the whole script ends spent and out. **Nothing is drawn, nothing on a phone
-sends a tap, and AUTO has no hand** — the look is queued. Whether three
-beats of doing nothing *reads* as a thing one seat is doing, on two real
-phones at tempo, is the owner's eye.
+the whole script ends spent and out. **Nothing on a phone sends a tap yet,
+and AUTO has no hand** — that lane is queued. Whether three beats of doing
+nothing *reads* as a thing one seat is doing, on two real phones at tempo,
+is the owner's eye.
+
+**The look** (`render/src/flue-draw.ts`, 27 September 2026 — the body).
+**THE CAIRN · PULLED laid in a row** (`tools/shape-sheet/src/drafts/collected.ts`):
+its seven faceted units side by side across the middle of the field, each
+its own polygon so the seams crease and read as a flue's sections, a slot
+cut along the whole row near black, and the card's one unit dragged clear
+as **the damper** — the middle unit, dropped down out of the row to bare
+the core in its place (`flue-shape.ts`). THE RIME's frost is the same unit
+piled over a lens; `rimeFacetPath` is called, not copied. **The ember is a
+small warm-white glow in the slot**, laid over its column with `fieldX` so
+a turned field turns it; while it drifts it is drawn half a beat's drift
+either side of the simulation's place, THE BURGEE's spread, which makes the
+drift an even glide, and **a smear trails it — gone the instant it
+steadies**, drawn dead on its place with nothing eased (`flue-pose.ts`).
+**The marks** (`flue-marks.ts`): the slot glows on a lit vent; a ring round
+the steadied ember, breathing on its beat with a second arc running down
+the window, is *tap it* — full for the tapper, faint for the still seat
+(`showsFlueHand`); three studs over the middle light as a vent's taps land;
+a notch in each end unit lights as a vent is spent. **The damper** is shut
+over a core not bared, clear of the row while it is, creeps back up across
+a damper step's window, and drops further once spent. **The core** is a
+banked coal while no shot is owed, lit in `stepColour`'s colour with a ring
+closing while one is, a little smaller and brighter per hit (`coreHurt`).
+Soot, its shadow, the slot and the coal are four palette entries,
+`flueSoot` … `flueCore`; the ember and the marks are the rim's white.
+Nothing outlives a frame yet: a tap's tick, the vent and hit flares and
+THE FLUE's own blow at the hull are the look's second part, queued.
 
 ## Retired
 

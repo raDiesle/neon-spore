@@ -127,10 +127,11 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
     // IDEAS group, so there is no heading left for this card to be offered to.
     // It is still the shape that was drawn for the encounter, and the encounter
     // is still there to be wanted — a picture waiting for a boss, which is what
-    // `free` means and how THE CODEX's card left the same list.
-    status: "free",
+    // `free` means and how THE CODEX's card left the same list. Taken 27
+    // September 2026 by THE FLUE.
+    status: "taken",
     slot: "boss",
     owner:
-      "the encounter in one picture: a grip drags a unit out and it stops being part of the boss, becoming a second loop and then an ordinary rock to be warded like any other — the notch it leaves is why the pile has to be traced rather than marched, and the whole fight is how many of these the pair can have in the air at once",
+      "THE FLUE, taken 27 September 2026: its seven faceted units laid side by side in a row as the sections of a flue, seams left showing, a slot cut along them for the ember; the unit dragged clear is the damper, the middle one, dropped down out of the row to bare the core in its place rather than pulled aside (`render/flue-shape.ts`). Before that, the encounter in one picture: a grip drags a unit out and it stops being part of the boss, becoming a second loop and then an ordinary rock to be warded like any other — the notch it leaves is why the pile has to be traced rather than marched, and the whole fight is how many of these the pair can have in the air at once",
   },
 ];

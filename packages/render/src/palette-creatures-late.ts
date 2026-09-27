@@ -63,4 +63,14 @@ export const LATE_CREATURE_HUES = {
   burgeeCanvas: "#A28E6C",
   burgeeCanvasDark: "#43392A",
   burgeeCanvasCaught: "#E3CC98",
+  /**
+   * THE FLUE's units (§40, *Colour*): a dull sooted grey, its seams' shadow,
+   * and the slot cut along it, near black, that the ember rides in. The
+   * ember is the rim's white and the core, lit, a cannon's colour; unlit,
+   * the core is a banked coal, dark and warm, so the soot is the only grey.
+   */
+  flueSoot: "#58545B",
+  flueSootDark: "#1E1B20",
+  flueSlot: "#0C0A0E",
+  flueCore: "#4A3530",
 } as const;

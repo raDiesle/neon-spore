@@ -1781,6 +1781,10 @@ by hand never moves.
 | `packages/render/src/fleet-grip.ts` | **THE FLEET's three thumbs on the chart** — the plume, the rake and the wreck |
 | `packages/render/src/flip-seam.ts` | **THE FLIP's fold, drawn** — a pane of glass down the middle of the turned screen, and ⇄ across it |
 | `packages/render/src/flip-reveal.ts` | **THE FLIP's projection breaking up** — two tiles above the hull, the mirrored body tears into strips and the true one arrives in its own column |
+| `packages/render/src/flue-draw.ts` | **THE FLUE**: a slotted exhaust flue across the middle of the field, its ember stopped dead by one seat and tapped by the other |
+| `packages/render/src/flue-marks.ts` | **THE FLUE's marks**: what says what a step asks and what is spent |
+| `packages/render/src/flue-pose.ts` | **The clock THE FLUE is posed off** (§40, *Animation*), five poses: the ember drifting |
+| `packages/render/src/flue-shape.ts` | **THE FLUE's geometry**: where the flue lies, the units it is laid from, the slot the ember rides in |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |

@@ -4,6 +4,7 @@ import { drawCapstan } from "./capstan-draw.js";
 import { drawCyst } from "./cyst-draw.js";
 import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
+import { drawFlue } from "./flue-draw.js";
 import { drawGall } from "./gall-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
@@ -41,6 +42,7 @@ export const LATE_PAIR_KINDS = [
   "capstan",
   "gall",
   "burgee",
+  "flue",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -153,5 +155,14 @@ export function drawLatePairBoss(
   // tapped still over the lit column by one seat and caught by the other's
   // swipe, the spindle shot (`burgee-draw.ts`); the flag's eased place and
   // a mistimed swipe's limp flutter are `burgee-fx.ts`.
-  drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee);
+  if (boss.kind === "burgee") {
+    drawBurgee(ctx, l, world, boss, beat, beatPhase, time, effects.boss.burgee);
+    return;
+  }
+
+  // THE FLUE: a slotted flue across the field, its ember stopped dead by one
+  // seat sending nothing and tapped three times by the other, a core bared
+  // under a damper and shot (`flue-draw.ts`). Nothing of it outlives a frame
+  // yet: a tap's tick and its blow are the second half of its look.
+  drawFlue(ctx, l, world, boss, beat, beatPhase);
 }

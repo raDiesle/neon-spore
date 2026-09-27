@@ -98,6 +98,10 @@ export const FAMILIES: Family[] = [
       "burgeeCanvas",
       "burgeeCanvasDark",
       "burgeeCanvasCaught",
+      "flueSoot",
+      "flueSootDark",
+      "flueSlot",
+      "flueCore",
     ],
   },
   {

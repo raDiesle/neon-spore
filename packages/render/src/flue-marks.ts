@@ -1,0 +1,126 @@
+import { FLUE_TAPS, FLUE_VENTS } from "@neon-spore/sim";
+import { FLUE_UNITS, flueEmberR, type Point } from "./flue-shape.js";
+import { strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
+import type { Layout } from "./layout.js";
+import { PALETTE, STROKE } from "./palette.js";
+
+/**
+ * **THE FLUE's marks**: what says what a step asks and what is spent. The
+ * slot glowing is *a vent is lit*; a ring round the steadied ember is *tap
+ * it*, full for the seat that taps and only faint for the other, so the
+ * still one can see it is working without being handed a mark to look at;
+ * three studs over the damper are the taps landed; and a vent spent is a
+ * notch lit in an end unit. All in the white of the hull's rim, the one light
+ * on a flue that is otherwise soot — the core is the only part in a
+ * cannon's colour (`flue-draw.ts`).
+ *
+ * Nothing marks the seat that rests, THE HALTER's reason
+ * (`halter-marks.ts`): what says it is resting is the ember stopping dead.
+ */
+
+/** How faint the other seat's ring is. */
+const OTHER = 0.3;
+/** The ring's radius round the ember, in ember radii. */
+const RING = 2.6;
+/** The tap studs' radius and spacing, and how far over the flue's middle they sit, in tiles. */
+const STUD = 0.07;
+const STUD_GAP = 0.24;
+const STUD_UP = 0.78;
+
+/** The lit vent's slot, glowing on its beat: *this one*. */
+export function drawFlueSlotGlow(
+  ctx: CanvasRenderingContext2D,
+  slot: Path2D,
+  beatPhase: number,
+): void {
+  const pulse = 0.55 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
+  strokeGlow(ctx, slot, PALETTE.hullRim, STROKE.inner, pulse, 0.8);
+}
+
+/**
+ * The ring round the steadied ember, *tap it*: breathing on its beat for the
+ * tapper's screen, with an arc round it running down as the vent's window
+ * does; a thin faint ring for the other seat's.
+ */
+export function drawFlueTapRing(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  left: number,
+  full: boolean,
+  beatPhase: number,
+): void {
+  const r = flueEmberR(l) * RING;
+  const ring = new Path2D();
+  ring.arc(at.x, at.y, r, 0, Math.PI * 2);
+  if (!full) {
+    ctx.lineWidth = STROKE.inner;
+    ctx.strokeStyle = rgba(PALETTE.hullRim, OTHER);
+    ctx.stroke(ring);
+    return;
+  }
+  const pulse = 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
+  strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
+  const time = new Path2D();
+  time.arc(at.x, at.y, r * 1.35, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
+  strokeGlow(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
+}
+
+/** The three tap studs over the flue's middle, one lit for each tap landed in the vent lit. */
+export function drawFlueTapStuds(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  centre: Point,
+  taps: number,
+): void {
+  const r = STUD * l.tile;
+  for (let i = 0; i < FLUE_TAPS; i++) {
+    const x = centre.x + (i - (FLUE_TAPS - 1) / 2) * STUD_GAP * l.tile;
+    const y = centre.y - STUD_UP * l.tile;
+    const stud = new Path2D();
+    stud.arc(x, y, r, 0, Math.PI * 2);
+    if (i < taps) {
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fill(stud);
+      strokeGlow(ctx, stud, PALETTE.hullRim, STROKE.inner, 1, 0.8);
+    } else {
+      ctx.fillStyle = PALETTE.flueSlot;
+      ctx.fill(stud);
+      ctx.lineWidth = STROKE.inner;
+      ctx.strokeStyle = rgba(PALETTE.hullRim, 0.35);
+      ctx.stroke(stud);
+    }
+  }
+}
+
+/**
+ * The vents spent: a notch in each end unit, dark until its vent is spent
+ * and lit after — the first on the left end, the second on the right.
+ */
+export function drawFlueVents(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  ends: readonly [Point, Point],
+  vents: number,
+): void {
+  const w = 0.09 * l.tile;
+  const h = 0.26 * l.tile;
+  for (let i = 0; i < FLUE_VENTS; i++) {
+    const at = ends[i] ?? ends[0];
+    const notch = new Path2D();
+    for (const dx of [-1, 1])
+      notch.rect(at.x + dx * 1.6 * w - w / 2, at.y - h - 0.3 * l.tile, w, h);
+    if (i < vents) {
+      ctx.fillStyle = PALETTE.hullRim;
+      ctx.fill(notch);
+      strokeGlow(ctx, notch, PALETTE.hullRim, STROKE.inner, 0.9, 0.8);
+    } else {
+      ctx.fillStyle = PALETTE.flueSlot;
+      ctx.fill(notch);
+    }
+  }
+}
+
+/** The end units' indices, left and right. */
+export const FLUE_ENDS = [0, FLUE_UNITS - 1] as const;

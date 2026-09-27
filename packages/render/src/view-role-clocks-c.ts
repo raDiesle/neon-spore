@@ -109,3 +109,15 @@ export const showsGallReach = (role: ViewRole, seat: 1 | 2): boolean =>
  */
 export const showsBurgeeHand = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || role === `p${seat}`;
+
+/**
+ * THE FLUE's tap ring (§40). This boss splits the hands by the step and not
+ * the eyes: both screens are shown the flue, the ember wherever it drifts
+ * and the damper, because the still seat has to watch the ember stop to know
+ * its stillness is counting, and the other has to see it stop to tap it.
+ * What the tapper is shown full is **the ring round the steadied ember**;
+ * the still seat sees it faint, so it can see the taps are its partner's to
+ * spend and keep its hands off. `test` is both at full.
+ */
+export const showsFlueHand = (role: ViewRole, seat: 1 | 2): boolean =>
+  role === "test" || role === `p${seat}`;

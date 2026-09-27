@@ -768,26 +768,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §40 THE FLUE — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-the-slings-own-blow-at-the-hull (claim: claude/queue-40-the-flue-the-look)
-- **Needs:** §40 THE FLUE's simulation lane, above, landed first
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (checked
-this session against `packages/content/src/silhouettes*.ts` and every
-file under `tools/shape-sheet/src/drafts/` — nothing vent- or
-duct-shaped exists to reuse or collide with) for a slotted exhaust flue
-with an ember riding inside it, a short trailing smear while it drifts
-that vanishes the instant it steadies — the tell is the smear's absence,
-not a colour change — and a short bright tick on each landed tap, reused
-from THE RATCHET's own. No sprite-atlas experiment queued: the drift is
-the simulation's own clock running every tick, not a pose resolved once
-per beat, the same reasoning THE BURGEE's sweep and THE CAPSTAN's cradle
-were both ruled out on. Nothing here is drawn yet and stays unverified
-at tempo until the owner has looked.
-
 ## §40 THE FLUE — the touch, the cue and AUTO
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
@@ -805,7 +785,9 @@ phone silent, taps the steady ember on `flueEmberCol` three times, sends
 nothing through a damper and shoots each fire step in its colour — then
 `flue` leaves `NO_HAND`, the control becomes `"field"`, and `SENDING
 NOTHING` / `TAPS ON A MOVING TARGET` can move off `specd` if the touch
-makes them built. `bun run check` proves it; at tempo is the owner's eye.
+makes them built. With the hand come the tap ring's row in
+`tools/director/test/marks-window-rows-c.ts`, keyed to `flueSteady`, and
+its row in `boss-hush.test.ts`'s `STILL` — both need AUTO's hand. `bun run check` proves it; at tempo is the owner's eye.
 
 ## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
 
@@ -2339,3 +2321,37 @@ Done when: the parts test's out-of-step and speed checks run on each boss's
 part list, a hit test on a moving part follows it, two stills at the widest
 moment tell apart on a phone, and the op-count rows stay within 10%.
 `bun run check` proves it.
+
+## §40 THE FLUE — the receipts and its own blow
+
+- **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
+- **Files:** `packages/render/src/flue-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-hurt-rows-c.ts`, `packages/render/test/boss-strike.test.ts`
+
+The look's second part; the body landed (`docs/spec/bosses.md` §11.57,
+*The look*) and nothing of it outlives a frame. A `flue-fx.ts` in
+`effects.boss`, told the events now in the two silent lists: a short
+bright tick on each `flueTick` over the ember, the same weight as THE
+RATCHET's own (`ratchet-fx.ts`); the ember's smear snapping off with a
+small flash on `flueLapse`, the taps' studs emptying; the end unit's
+notch flaring on `flueVent`; the damper's thud on `flueBare`/`flueShut`;
+the core's flash on `flueHit`; and `BossHurt` shaking the flue, its row in
+`boss-hurt-rows-c.ts`. Then THE FLUE's own blow at the hull: a `flue-blow.ts`
+row in `LOOK` and `FROM`, leaving the damper's underside, in soot and the
+rim's white — a cinder coughed out of the bared flue — and a row in
+`boss-strike.test.ts` read off `flueCentre`. `bun run check` proves it;
+at tempo is the owner's eye.
+
+## Eleven pose files each write out their own `into`
+
+- **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
+- **Files:** `packages/render/src/burgee-pose.ts`, `packages/render/src/flue-pose.ts`, `packages/render/src/halter-pose.ts`, `packages/render/src/grindstone-pose.ts`, `packages/sim/test/copies-table.ts`
+
+Every choreographed boss's pose file — THE OCULUS's, THE GRINDSTONE's,
+THE HALTER's, THE CYST's, THE GALL's, THE DAVIT's, THE SLING's, THE
+RIME's, THE VALVE's, THE BURGEE's and THE FLUE's — carries the same clock,
+`Math.max(0, beat - s.phaseBeat + beatPhase)`, typed on its own state —
+and THE FLUE's made eleven. One `phaseInto(s: { phaseBeat: number },
+beat, beatPhase)` in its own small file, called from each, and a row in
+`copies-table.ts` so the twelfth boss calls it rather than writing it,
+as `coreHurt` was gathered. `bun run check` proves it.
+
