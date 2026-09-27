@@ -26686,3 +26686,5 @@ had to move in this lane rather than wait for the look.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: telling a spent claim from a live one, by hand, ten times.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

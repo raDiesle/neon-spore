@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 0709dd2df — THE SLING's and THE DAVIT's looks are out of the queue, and seven stale claims are given back
+
+Both looks landed on 26 September 2026 (their grips are `render/sling-grip.ts` and `render/davit-grip.ts`), but their lanes left the queue done uncommitted in their worktrees. Seven claims whose branches had landed or held nothing are released, so `queue status` shows only THE NETTLE's look as taken. A finding is queued: `status` should tell a spent claim from a live one, the way `take` already does.
+
 ## 2026-09-27 · 9b7134a94 — THE HASP: the story between the hasps, the simulation
 
 Every swing of THE HASP now ends in a state rather than the next latch, each under THE SLOW and none costing a clasp back. After the first comes the rattle, answered by the latch held three beats in a row. After the second comes the backspin, where she winds the wheel alone, and then the rust, where she rocks it while he holds. After the third comes the sway: both hold, the latch gripped and the wheel still, and the row swings clear. A state that runs out is the door's own blow at the hull. The sway run out clears the row anyway. The rehearsal keeps the story off (`haspStory`).
