@@ -26967,3 +26967,15 @@ Bottleneck: none worth the name — a test had already answered most of it.
 Bottleneck: looking — three sheets and a crop to clear one entry.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the last six bosses put no mark up before its window
+
+- reading: 5 min. Two traces in parallel of six bosses' whole draws.
+- writing: 5 min. The third rows file, THE SLING's cup gated on its yoke,
+  the new-boss skill's line.
+- looking: 0 min. Held by the marks-window test; nothing visible moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE PLUMB's glass says it is asked by no argument, so its row
+had to read the state the call was handed.

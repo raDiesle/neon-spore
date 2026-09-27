@@ -50,7 +50,10 @@ export function drawSling(
     drawSlingCord(ctx, l, side, tension, asking, beatPhase);
   }
 
-  const firing = step !== null && step.ask === "fire";
+  // The cup rings only while a shot would land: the fire step, and the yoke
+  // lit (`sling-shot.ts`). The script reaches no fire step with the yoke dark
+  // today, and the ring must not be the one that says otherwise.
+  const firing = step !== null && step.ask === "fire" && s.yokeLit;
   const lit = firing
     ? { color: step.color, left: slingWindowLeft(world, s, beat, beatPhase) }
     : null;

@@ -175,9 +175,12 @@ describe("THE SLING's fork", () => {
 
   it.each(ROLES)("lights the cup in the step's colour once it fires, on %s", (role) => {
     const unlit = frame(role, (w) => posed(w, "rest"));
-    const red = frame(role, (w) => posed(w, "lit", asking("fire", "red")));
-    const cyan = frame(role, (w) => posed(w, "lit", asking("fire", "cyan")));
-    const either = frame(role, (w) => posed(w, "lit", asking("fire", "either")));
+    const fire = (w: World, color: SlingStep["color"]) => {
+      posed(w, "lit", asking("fire", color)).yokeLit = true;
+    };
+    const red = frame(role, (w) => fire(w, "red"));
+    const cyan = frame(role, (w) => fire(w, "cyan"));
+    const either = frame(role, (w) => fire(w, "either"));
     expect(tinted(red.text, PALETTE.red)).toBeGreaterThan(tinted(unlit.text, PALETTE.red));
     expect(tinted(cyan.text, PALETTE.cyan)).toBeGreaterThan(tinted(unlit.text, PALETTE.cyan));
     expect(tinted(either.text, PALETTE.hullRim)).toBeGreaterThan(
@@ -185,7 +188,7 @@ describe("THE SLING's fork", () => {
     );
   });
 
-  it.each(ROLES)("brightens the cup once the yoke has answered, on %s", (role) => {
+  it.each(ROLES)("rings the cup only once the yoke has answered, on %s", (role) => {
     const dim = frame(role, (w) => {
       const s = posed(w, "lit", asking("fire", "red"));
       s.yokeLit = false;
@@ -195,6 +198,9 @@ describe("THE SLING's fork", () => {
       s.yokeLit = true;
     });
     expect(bright.text).not.toBe(dim.text);
+    // A dark yoke takes no shot (`sling-shot.ts`), so the cup asks for none.
+    const unlit = frame(role, (w) => posed(w, "rest"));
+    expect(tinted(dim.text, PALETTE.red)).toBe(tinted(unlit.text, PALETTE.red));
   });
 
   it.each(ROLES)("closes the firing window as its beats run out, on %s", (role) => {

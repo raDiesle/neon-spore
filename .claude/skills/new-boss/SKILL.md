@@ -136,6 +136,11 @@ commit. The shape of it, from THE GORGE and THE CURTAIN:
   (`render/test/pair-order.test.ts`).
 - `render/test/<boss>-frame.test.ts`: every state of the picture on all three
   screens, set rather than waited for, and the split proved both ways.
+- **No mark is up before its window opens** (the owner, 27 September 2026):
+  a row in `tools/director/test/marks-window-rows-c.ts` (or a new rows file)
+  for every ring, halo or glyph that asks, keyed to the simulation's own
+  predicate; and a row in `boss-hush.test.ts`'s `STILL`, which holds each
+  mark still while it asks. Both need AUTO's hand.
 - A window that runs out breaks the hull with `bossStrikesHull`, and the blow
   is drawn as the boss's own (`render/boss-strike-look.ts`), never a rock.
 - `docs/spec/bosses.md` §11.n gets *The look* and loses *What is not built*.

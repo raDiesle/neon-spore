@@ -11,6 +11,7 @@ import { stageField } from "../src/stage-field.js";
 import { type Mark, spies } from "./marks-window-kit.js";
 import { ROWS_A } from "./marks-window-rows-a.js";
 import { ROWS_B } from "./marks-window-rows-b.js";
+import { ROWS_C } from "./marks-window-rows-c.js";
 
 /**
  * **No boss puts a mark up before its window opens** — the owner, 27
@@ -34,8 +35,8 @@ import { ROWS_B } from "./marks-window-rows-b.js";
  * rings from the announcement onward are her mechanic — P1 is shown both
  * marks (`docs/spec/controls.md`).
  *
- * The rows are in `marks-window-rows-a.ts` and `marks-window-rows-b.ts`;
- * the bosses still to read are in `docs/queue.md`.
+ * Every boss but THE QUEEN has a row, in `marks-window-rows-a.ts`, `-b.ts`
+ * and `-c.ts`; a boss added later gets one there too.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -46,7 +47,7 @@ afterAll(() => {
   for (const s of spies) s.mockRestore();
 });
 
-const ROWS = [...ROWS_A, ...ROWS_B];
+const ROWS = [...ROWS_A, ...ROWS_B, ...ROWS_C];
 
 /** AUTO through the wave: every lit call outside its window, and how often each mark was lit. */
 function walk(kind: BossKind, marks: Mark[]): { wrong: string[]; seen: Map<string, number> } {
