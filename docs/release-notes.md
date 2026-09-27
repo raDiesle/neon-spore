@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1e8fcc1c1 — THE DAVIT's boom eases back toward hanging instead of jumping each beat
+
+With nobody steering, the simulation swings THE DAVIT's boom back 4° once a beat, and the drawing took each step whole: through every fire step, the hook the cannons are asked for jumped an eighth of a tile each beat of the window. `davitAngle` now eases from the boom's angle toward where the next beat's swing leaves it, so the beat lands where the drawing already is. The hush test holds the hook without keying it on the angle.
+
 ## 2026-09-27 · 1a177d1cc — A WebGL bloom over the whole frame, offered in VERSUS against the shipped glow
 
 `frame:glow` · `bloom` is a new VERSUS slot, judged on LANCE · BURNING. The frame is shrunk to a quarter of its size on each side, its bright part is pulled out by a threshold and blurred in two separable rounds in one WebGL context, and the result is drawn back over the frame with `lighter`. The game never runs it: `Canvas2DRenderer.draw` now ends by calling `FRAME_POST.after`, whose shipped body does nothing, and only the pair's right-hand side patches it. That hook is a refactor and changes no pixel. The candidate falls back to nothing when there is no real WebGL context.

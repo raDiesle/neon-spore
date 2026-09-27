@@ -26893,3 +26893,5 @@ find a threshold at which the beam blooms at all.
 
 Bottleneck: deciding what the ease should do when a steer lets go mid-beat,
 which no state records the tick of.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
