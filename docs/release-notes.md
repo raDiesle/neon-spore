@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1a957753f — `bun run frames --help` prints the recipes, and every one of them parses
+
+The recipe list moves out of `run.ts`'s header, which was at 223 lines, into `tools/frames/recipes.ts`, and `bun run frames --help` prints it. A new test feeds every recipe to `parseFrameSpec`. On its first run it refused three: both `--hand` recipes asked for `--wave 0`, which the HUD numbering refuses, and the hold-then-shoot recipe pressed after the default `--ticks 120`. Those three are fixed, and `--opening guide|intro` is now one value.
+
 ## 2026-09-27 · f3ce7b564 — `--auto-miss` on THE CYST and THE SLING waits on their AUTO hands
 
 Probed with AUTO on both seats, neither fight gets past its first step: THE CYST's flank and THE SLING's draw are asked and sprung back for the whole look, so no fire step is ever lit for a misser to let go. The queue entry says so and now needs THE CYST's autopilot hand.

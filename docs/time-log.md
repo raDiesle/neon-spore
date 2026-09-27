@@ -25558,3 +25558,5 @@ ask) sat behind a step AUTO cannot play at all yet.
 
 Bottleneck: writing — the new test refused three recipes on its first run,
 and each had to be traced to what it once meant.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
