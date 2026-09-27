@@ -27644,3 +27644,18 @@ Bottleneck: friction. The context ran out between the commit and the
 frame, so the lane had to be picked up again from its summary.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — --auto-miss reaches THE GALL's own blow
+
+- reading: 5 min. `auto-miss.ts`, its test, `gall-step.ts`, `gall-shot.ts`
+  and the gall's hand; this also covers the surface-marks entry before it,
+  read and marked as waiting on THE BULB QUEEN's answer.
+- writing: 10 min. `presses` beside `withholds`, the one windowless ask,
+  both callers, the unit test and THE GALL in the reach list.
+- looking: 5 min. A four-frame strip of the blow from `--until breach`.
+- friction: 5 min. `--ticks` takes one tick, not a list; the strip came
+  from `--until-back` and `--stride` instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. Knowing why a withheld hand still lands the shot
+meant reading the automatic cannon's cadence and the shot's column test.

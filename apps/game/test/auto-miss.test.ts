@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import { createWorld, guideHolds, onReadyPage, step, type World } from "@neon-spore/sim";
+import { createWorld, guideHolds, midCol, onReadyPage, step, type World } from "@neon-spore/sim";
 import type { GameAudio } from "../src/audio.js";
 import { askMisser } from "../src/auto-miss.js";
 import { gameAutopilot } from "../src/autopilot.js";
@@ -51,6 +51,7 @@ function bossBlow(name: string, miss: boolean): { by: string; kind: string } | n
     if (own === "") own = kind;
     else if (kind !== "" && kind !== own) return null;
     if (!(miss && misser.withholds(world))) auto.press(world, buffer);
+    else for (const c of misser.presses(world)) buffer.push(c.player, c.command);
     step(world, buffer.drain(world.tick));
     for (const e of world.events) {
       if (e.type === "breach" && e.by === kind) return { by: e.by, kind };
@@ -68,6 +69,7 @@ describe("--auto-miss", () => {
     "THE RATCHET",
     "THE CYST",
     "THE SLING",
+    "THE GALL",
   ]) {
     it(`reaches ${name}'s timeout blow, which AUTO alone never lands`, () => {
       expect(bossBlow(name, false)).toBeNull();
@@ -78,7 +80,7 @@ describe("--auto-miss", () => {
 
 describe("askMisser", () => {
   const world = (from: number, to: number, asks: boolean, beat: number) =>
-    ({ slowFromBeat: from, slowToBeat: to, slowAsks: asks, beat }) as World;
+    ({ slowFromBeat: from, slowToBeat: to, slowAsks: asks, beat, boss: null }) as World;
 
   it("lets the first ask go, answers the next, and lets the third go", () => {
     const m = askMisser();
@@ -93,6 +95,29 @@ describe("askMisser", () => {
     const m = askMisser();
     expect(m.withholds(world(10, 14, true, 12))).toBe(true);
     expect(m.withholds(world(10, 18, true, 16))).toBe(true);
+  });
+
+  it("holds off THE GALL's lit fire step and slides the cannon off the root", () => {
+    const cfg = playConfig();
+    const mid = midCol(cfg);
+    const gall = (bared: boolean, ask: "fire" | "close") =>
+      ({
+        slowFromBeat: -1,
+        slowToBeat: -1,
+        slowAsks: false,
+        beat: 40,
+        cfg,
+        cannonCol: mid,
+        boss: { kind: "gall", bared, phase: "lit", cursor: 0, steps: [{ ask, beats: 4 }] },
+      }) as unknown as World;
+    const m = askMisser();
+    expect(m.withholds(gall(true, "fire"))).toBe(true);
+    expect(m.presses(gall(true, "fire"))).toEqual([
+      { player: 1, command: { kind: "cannonCol", col: mid - 1 } },
+    ]);
+    expect(m.presses({ ...gall(true, "fire"), cannonCol: mid - 1 } as World)).toEqual([]);
+    expect(m.withholds(gall(false, "fire"))).toBe(false);
+    expect(m.presses(gall(true, "close"))).toEqual([]);
   });
 
   it("never holds off a show, or a field with no window up", () => {

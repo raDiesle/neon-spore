@@ -152,6 +152,7 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
       for (let i = 0; i < ticks; i++) {
         // Where the loop presses it: after the keys, before the tick drains.
         if (!misser?.withholds(world)) parts.auto.press(world, buffer);
+        else for (const c of misser.presses(world)) buffer.push(c.player, c.command);
         step(world, buffer.drain(world.tick));
         if (world.events.length) {
           parts.frames.collect(world.events);

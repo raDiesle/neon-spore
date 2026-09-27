@@ -1,4 +1,4 @@
-import { slowing, type World } from "@neon-spore/sim";
+import { type Command, gallBoss, gallLitStep, midCol, slowing, type World } from "@neon-spore/sim";
 
 /**
  * **AUTO that lets every other ask run out**, so a boss's own blow at the
@@ -22,10 +22,27 @@ import { slowing, type World } from "@neon-spore/sim";
  * A window is named by the beat it opened on: `openSlow` moves only the end of
  * a window already up, so a window extended is the same window, and one opened
  * after another has closed starts on a later beat.
+ *
+ * **THE GALL's fire step is the one ask with no window** (`gall-step.ts`
+ * `next` opens THE SLOW only for a close), and the one a withheld hand does
+ * not let go: the cannon fires by itself every half beat, under the root on
+ * the middle column. So a lit fire step on a bared root is withheld every
+ * time — its miss is the blow, and a run that reached it is done — and the
+ * misser slides the cannon one column off the middle for as long as it is lit
+ * (`presses`). The closes before it alternate like any other window.
  */
 export interface AskMisser {
   /** Whether AUTO keeps its hands off this tick. */
   withholds(w: World): boolean;
+  /** The misser's own presses this tick, pushed in AUTO's place while it withholds. */
+  presses(w: World): readonly { player: 1 | 2; command: Command }[];
+}
+
+/** The column a lit shot with no asking window must leave by, or null. */
+function unwindowedShot(w: World): number | null {
+  const s = gallBoss(w);
+  if (s === null || !s.bared || gallLitStep(s)?.ask !== "fire") return null;
+  return midCol(w.cfg);
 }
 
 export function askMisser(): AskMisser {
@@ -33,12 +50,19 @@ export function askMisser(): AskMisser {
   let seen = 0;
   return {
     withholds(w) {
+      if (unwindowedShot(w) !== null) return true;
       if (!slowing(w) || !w.slowAsks) return false;
       if (w.slowFromBeat !== window) {
         window = w.slowFromBeat;
         seen++;
       }
       return seen % 2 === 1;
+    },
+    presses(w) {
+      const col = unwindowedShot(w);
+      if (col === null || w.cannonCol !== col) return [];
+      const off = col > 0 ? col - 1 : col + 1;
+      return [{ player: 1, command: { kind: "cannonCol", col: off } }];
     },
   };
 }

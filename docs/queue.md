@@ -2034,27 +2034,6 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## `--auto-miss` cannot make THE GALL's fire step run out
-
-- **Found:** 2026-09-27, claude/queue-38-the-gall-the-pinchs-touch-the-cue-and-auto
-- **Taken:** 2026-09-27, claude/queue-surface-marks-waits (claim: claude/queue-auto-miss-cannot-make-the-galls-fire-step-run-ou)
-- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `packages/sim/src/gall-step.ts`, `packages/render/src/gall-blow.ts`
-
-THE CYST and THE SLING were the first two of three: with their hands landed
-(27 September 2026) `--auto-miss` reaches both blows, and both are in
-`auto-miss.test.ts`'s list. THE GALL is left, and `bossBlow("THE GALL", true)`
-is still null, so its seed (`render/gall-blow.ts`) has never been in a frame.
-
-Its blow is a fire step that runs out on the bared root (`gall-step.ts`
-`miss`). Only a close opens an asking window (`next`, `openSlow(…, "ask")`),
-so the fire step is never withheld; and a withheld hand would not stop the
-shot anyway, because the cannon fires by itself every half beat
-(`fireEveryBeats`) and sits under the root on the middle column. A misser for
-it has to play the closes as it does now, withhold the fire step, and slide
-the cannon off `midCol` while it does — so `askMisser` would need to hand
-back presses, not only a yes, and to know a lit fire step without a window.
-Add THE GALL to the test's list once it breaches.
-
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
