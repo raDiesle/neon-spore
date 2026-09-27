@@ -2114,6 +2114,7 @@ on a phone. `bun run check` proves it.
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
+- **Needs:** THE BULB QUEEN's parts: how far
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
@@ -2122,7 +2123,9 @@ slots, dropped as too small to see. So there is nothing for a mark to follow
 until an outline pose large enough to see ships with its hit tests following
 it. The outline drift for six more bosses landed on 27 September 2026 and
 shows how (`warden-drift.ts` is the worked example), but none of those six
-carries a surface mark, and the three slots here are still 0. Then place the marks that
+carries a surface mark, and the three slots here are still 0: which body
+turns, and by how much, is the owner's answer to "THE BULB QUEEN's parts:
+how far", so this waits on it. Then place the marks that
 sit on an outline body's skin — THE REPRISE's veins and gloss, the queen's
 marks on her shell — by longitude through `pin`/`facet`, so a turn carries
 them round and one goes behind the rim; the same size rule, and a hit test
