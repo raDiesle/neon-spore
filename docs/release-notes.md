@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 82f007661 — A brand-new look goes straight into the game, not onto the VERSUS page
+
+The owner asked why something brand new would be on the VERSUS page at all rather than built into the game, and left it to us. It goes into the game: VERSUS is for a second answer to something he already sees, and a part, an effect or a movement where today there is none has nothing to be compared with. It lands under the exemption "a look with no shipped alternative", named in the commit, and still has to be big enough to be seen. The `brandNew` flag and the NEW page added earlier today are taken back out.
+
 ## 2026-09-27 · 014abfd6c — THE CYST's timeout is its own spit, not the lash
 
 When a step runs out, THE CYST's bottom lobe spits a spore in the sac's mauve, ringed in its pale scar, down to the column; it bursts on the skin at `reach = 1` in a ring and five droplets. Exemption: a look the owner asked for by name (the timeout-hit rule of 26 September 2026). Seen in a frame of a one-step spit script let run out.

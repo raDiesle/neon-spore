@@ -27151,3 +27151,5 @@ Bottleneck: looking — getting a breach at all needed a script the entry did no
 
 Bottleneck: friction — `git revert` with a path list reverts everything, so
 the five files were checked out from the parent instead.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
