@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f09255ae9 — `bun run push` refuses to send a merge commit to `main`
+
+History on `main` is linear, and `11f25490a` reached `origin/main` anyway. Before it sends, `push` now lists the merge commits `origin/main..main` would add and stops, naming each and saying to land the work again with `bun run land`. A merge `origin` already carries stops nothing. Three tests build a scratch repository with a bare origin to hold it.
+
 ## 2026-09-27 · ae15bfc21 — The hash fixture's fourth page is cut in two at THE RIME
 
 `hash-fixture-bosses-d.ts` had grown to 483 lines. It now runs THE HASP to THE RIME; THE TRIVET to THE BURGEE are a new `-e.ts`, and THE FLUE's page is renamed `-f.ts`, the last page, where a new boss goes. `BOSS_KINDS` keeps its order and `hash-coverage.test.ts` walks the same fields. The new-boss skill's registration row no longer names `-c.ts` as the last page.

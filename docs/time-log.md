@@ -27107,3 +27107,5 @@ Bottleneck: none worth the name — a mechanical cut whose seam the queue entry 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none worth the name — the INDEX gate already showed where a second one goes.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
