@@ -2591,18 +2591,6 @@ line 46) and never swing: let each still-hung pin sway a degree about its
 top on a slow period, offset per pin, the way a hung plate would. A look:
 offered through VERSUS.
 
-## THE VISE's husk has no secondary motion of its own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-27, claude/queue-the-rimes-pane-has-no-secondary-motion-outside-i (claim: claude/queue-the-vises-husk-has-no-secondary-motion-of-its-ow)
-- **Files:** `packages/render/src/vise-draw.ts`, `packages/render/src/vise-marks.ts`
-
-From the secondary-motion audit. The only clock outside the story steps is
-the light's drift (`vise-draw.ts` line 172). A dry husk should stay still,
-so the touch goes on the kernel: let it turn slowly in the hollow — its
-highlight wandering round it on a period of its own — without leaving its
-column. A look: offered through VERSUS.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

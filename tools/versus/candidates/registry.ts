@@ -21,6 +21,7 @@ import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
 import { RATCHET_PLATE_SWAY } from "./ratchet-plate/sway/index.js";
 import { RIME_PANE_GLINT } from "./rime-pane/glint/index.js";
 import { TRIVET_FOOT_DANGLE } from "./trivet-foot/dangle/index.js";
+import { VISE_KERNEL_TURN } from "./vise-kernel/turn/index.js";
 
 export const VARIANTS: Variant[] = [
   COUNTDOWN_EYE_DRIFT,
@@ -38,4 +39,5 @@ export const VARIANTS: Variant[] = [
   RATCHET_PLATE_SWAY,
   RIME_PANE_GLINT,
   TRIVET_FOOT_DANGLE,
+  VISE_KERNEL_TURN,
 ];

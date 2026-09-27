@@ -38,10 +38,31 @@ export function drawViseLitSeam(
 }
 
 /**
+ * How the kernel turns in its hollow and what its dull face carries, as a
+ * record a VERSUS candidate patches (`tools/versus/candidates/vise-kernel/`).
+ * `turn` is an angle about the kernel's centre at `time` seconds, and the
+ * shipped 0 draws it exactly as it always was, with no transform at all;
+ * `sheen` is drawn over the dull fill between fire steps, in the turned
+ * frame, and the shipped one draws nothing.
+ */
+export interface ViseKernelIdle {
+  turn: (time: number) => number;
+  sheen: (
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    core: Path2D,
+    size: number,
+    bare: boolean,
+    time: number,
+  ) => void;
+}
+export const VISE_KERNEL: ViseKernelIdle = { turn: () => 0, sheen: () => {} };
+
+/**
  * The kernel in its hollow: dull brown between fire steps, in shadow while
  * the lobes are over it and catching the light once they stand open off it;
  * lit in the step's colour while one is owed, brighter for every hit it has taken, with a ring
- * round it closing as the step's beats run out.
+ * round it closing as the step's beats run out. Turned by `VISE_KERNEL`.
  */
 export function drawViseKernel(
   ctx: CanvasRenderingContext2D,
@@ -51,11 +72,37 @@ export function drawViseKernel(
   bare: boolean,
   lit: { color: Color | "either"; left: number } | null,
   beatPhase: number,
+  time: number,
+): void {
+  const turn = VISE_KERNEL.turn(time);
+  if (turn === 0) {
+    paintKernel(ctx, l, size, bright, bare, lit, beatPhase, time);
+    return;
+  }
+  const k = viseKernel(l);
+  ctx.save();
+  ctx.translate(k.x, k.y);
+  ctx.rotate(turn);
+  ctx.translate(-k.x, -k.y);
+  paintKernel(ctx, l, size, bright, bare, lit, beatPhase, time);
+  ctx.restore();
+}
+
+function paintKernel(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  size: number,
+  bright: number,
+  bare: boolean,
+  lit: { color: Color | "either"; left: number } | null,
+  beatPhase: number,
+  time: number,
 ): void {
   const core = viseKernelPath(l, size);
   if (lit === null) {
     ctx.fillStyle = rgba(PALETTE.viseCase, bare ? 0.75 : 0.35);
     ctx.fill(core);
+    VISE_KERNEL.sheen(ctx, l, core, size, bare, time);
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.viseCaseDark, 0.9);
     ctx.stroke(core);

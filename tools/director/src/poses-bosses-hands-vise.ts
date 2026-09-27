@@ -7,6 +7,10 @@ import { bossPose } from "./poses-bosses-kit.js";
  * (`boss-hands-vise.ts`): the still and the first lit lobe arrive by
  * themselves, and the rest and the split are earned by each lobe pinched shut
  * by its own seat and the bared kernel shot in its colour.
+ *
+ * **The rest is the one after both lobes stand cracked open**, not the first:
+ * it is the only frame the kernel is dull and uncovered, so `vise:kernel` is
+ * judged on it — a kernel under closed lobes cannot be seen turning.
  */
 export const VISE_POSES: Pose[] = [
   bossPose(
@@ -24,10 +28,12 @@ export const VISE_POSES: Pose[] = [
   bossPose(
     "vise",
     "rest",
-    "A seam cracked and the case resting. P1 lets go; P2 waits for the right lobe.",
+    "Both lobes cracked open and the case resting, the kernel bare and dull in its hollow. P1 and P2 wait for the fire step.",
     {
       hand: viseHand,
       hold: 6,
+      want: (w) => w.boss?.kind === "vise" && w.boss.phase === "rest" && w.boss.bared,
+      lookAt: "the bare kernel — whether it sits alive in its hollow or is a stone set in it",
     },
   ),
   bossPose(

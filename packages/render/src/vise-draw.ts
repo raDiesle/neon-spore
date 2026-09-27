@@ -90,7 +90,7 @@ export function drawVise(
     ? { color: step.color, left: viseLeft(s, viseWindowBeats(world, step), beat, beatPhase) }
     : null;
   const hurt = coreHurt(s.hits);
-  drawViseKernel(ctx, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase);
+  drawViseKernel(ctx, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase, time);
 
   const held = viseHeldShare(world, s, beatPhase);
   // A pinch lights the seam it will crack; a `both` step lights the tight

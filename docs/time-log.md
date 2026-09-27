@@ -25873,3 +25873,17 @@ Bottleneck: looking — the first glint could not be seen, and only a crop
 against the shipped pane said so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE VISE's kernel turns in its hollow, as a VERSUS candidate
+
+- reading: 5 min. The entry, `vise-marks.ts`, the kernel's shape and when
+  the sim bares it.
+- writing: 10 min. The seam around the kernel's paint, the candidate, and
+  the REST card moved to the rest after both lobes crack.
+- looking: 10 min. Four `versus:shot`s: the rest hid the kernel under its
+  lobes, a late freeze ran into the fire step, and the first spot was hard.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — no pose showed the kernel bare and unlit, so one had
+to be found before anything could be judged.
