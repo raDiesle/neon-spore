@@ -787,6 +787,7 @@ what the rest of this file holds.
 ## Unverified at 1711568bc: AUTO playing THE MANTLE to dark, watched at tempo
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-unverified-at-1711568bc-auto-playing-the-mantle
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/boss-hands-mantle.ts`, `packages/hands/src/index.ts`, `tools/director/src/poses-bosses-hands-mantle.ts`
 
 *THE MANTLE has a hand: AUTO pulls both knobs, shoots the spark and taps the core dark* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
