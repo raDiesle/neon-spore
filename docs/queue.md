@@ -2880,6 +2880,7 @@ still hold them apart.
 ## sheen.ts carries three dead exports, and two comments say what the code does not
 
 - **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
+- **Taken:** 2026-09-27, claude/queue-apps-game-src-input-ts-is-at-250-lines (claim: claude/queue-sheen-ts-carries-three-dead-exports-and-two-comm)
 - **Files:** `packages/render/src/sheen.ts`, `packages/render/src/key-light.ts`, `packages/render/src/body-interior.ts`, `packages/render/src/shell-draw.ts`
 
 `sheen.ts` exports `innerLight` (`:50`), `iridescence` (`:70`) and
