@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 43f7ef1ef — VERSUS shows THE INSTAR's wing at full spread
+
+The owner could not see the baked wing's veins at INSTAR · THE JAW HALF PULLED, where the wings are half folded. instar:wing now opens on INSTAR · THE EMBERS FALLING, the spread pose of the second act, with both membranes at their widest. The reason for the choice is in that pose's docstring. The game's own drawing is unchanged.
+
 ## 2026-09-27 · 04c7b42cb — Four VERSUS slots the owner could not tell apart are dropped
 
 The owner could not tell ratchet:plate sway, instar:seam baked, creature:skin drift or creature:body-interior drift from what the game already draws. All four are dropped, and DECIDED.md records the reason for each: the rack is a machine on purpose, the seam costs +1.0 kB for a joint under the brood, and the interior drift reaches only shapes too small to read. Nothing the game draws changes. The baked seam module is now dead and is queued for removal.
