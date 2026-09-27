@@ -2582,6 +2582,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 ## THE VALVE's pins have no secondary motion of their own
 
 - **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
+- **Taken:** 2026-09-27, claude/queue-the-vises-husk-has-no-secondary-motion-of-its-ow (claim: claude/queue-the-valves-pins-have-no-secondary-motion-of-thei)
 - **Files:** `packages/render/src/valve-draw.ts`, `packages/render/src/valve-shape.ts`
 
 From the secondary-motion audit. `valveRimPath(..., time * 0.4)` is the
