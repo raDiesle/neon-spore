@@ -2487,21 +2487,6 @@ has a joint point a later lane can rotate about; the op count row moves by
 no more than the extra paths, with a sentence saying so. `bun run check`
 proves it.
 
-## Living bosses — split the warden's two hatch lids, drawing the same
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-lobes-of-the-curtain-and (claim: claude/queue-living-bosses-split-the-wardens-two-hatch-lids-d)
-- **Files:** `packages/render/src/warden.ts`, `packages/render/src/warden-surface.ts`, `packages/render/test/frame.test.ts`, `docs/spec/living-bosses.md`
-
-Section 1's part map: the warden's two hatch lids share one path. Draw each
-lid on its own, about its hinge, so each can take its own `partDrift`
-later. The body contour stays one piece — it is the body — and the eye is
-already its own. No frame changes.
-
-Done when: a test draws the warden with the hatch shut, half and open,
-before and after, and finds the pixels equal within 1 in 255; each lid has a
-hinge point; `bun run check` proves it.
-
 ## Living bosses — the mechanisms swing what hangs or hinges, six per lane
 
 - **Found:** 2026-09-26, claude/living-motion-spec

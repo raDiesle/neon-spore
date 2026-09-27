@@ -25967,3 +25967,16 @@ Bottleneck: the blow cannot be framed — `--auto-miss` answers every
 CAPSTAN step, so the cog is proven by `boss-strike.test.ts` and not by eye.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — The warden's hatch lids are pieces with hinges
+
+- reading: 5 min. The entry, and `drawHatch` in `warden-eye.ts` rather than
+  the two files the entry named.
+- writing: 10 min. `hatchLids`, the hatch drawn from it, and the pixel test
+  that keeps the old hatch as its *before*.
+- looking: 0 min. No frame changes, and the test is what says so.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the lids were already two paths, and it was the
+creases that were shared, which is why they stay shared.

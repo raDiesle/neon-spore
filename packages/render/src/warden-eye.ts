@@ -1,3 +1,4 @@
+import type { Point } from "@neon-spore/content";
 import { drawEyeFluid, drawEyeFringe, drawEyeLens, type EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -64,6 +65,45 @@ function seam(x: number, cy: number, r: number): string {
 }
 
 /**
+ * **One lid of the hatch, as its own piece**: its outline, the crease over it
+ * as a cubic's four points, and the `hinge` it hangs from — the middle of its
+ * outer rim, the point it would swing about (`docs/spec/living-bosses.md`, the
+ * part map). `side` is -1 for the left lid and 1 for the right.
+ *
+ * The creases stay one path in `drawHatch`, stroked after both lids, so a lid
+ * is a piece of the drawing rather than a drawing of its own.
+ */
+export interface HatchLid {
+  side: -1 | 1;
+  hinge: Point;
+  path: Path2D;
+  fold: [Point, Point, Point, Point];
+}
+
+/** The hatch's two lids, left then right, `openness` of the way apart. */
+export function hatchLids(cx: number, cy: number, r: number, openness: number): HatchLid[] {
+  const slide = r * 1.15 * openness;
+  return ([-1, 1] as const).map((side) => {
+    const x = cx + side * slide;
+    // The seam down the middle, then the hole's own edge back up this lid's
+    // side of it. Sweep 0 climbs to the right of a chord and 1 to the left, so
+    // each lid keeps the half of the rim it started on however far it has gone.
+    const sweep = side === 1 ? 0 : 1;
+    const path = new Path2D(
+      `M ${x} ${cy - r} ${seam(x, cy, r)} A ${r} ${r} 0 0 ${sweep} ${x} ${cy - r} Z`,
+    );
+    const fx = x + side * r * FOLD;
+    const fold: HatchLid["fold"] = [
+      { x: fx, y: cy - r * FOLD_REACH },
+      { x: fx + r * SEAM * 0.7, y: cy - r * SEAM_AT * 0.7 },
+      { x: fx - r * SEAM * 0.7, y: cy + r * SEAM_AT * 0.7 },
+      { x: fx, y: cy + r * FOLD_REACH },
+    ];
+    return { side, hinge: { x: x + side * r, y: cy }, path, fold };
+  });
+}
+
+/**
  * The trapdoor across the middle of the hole: two lids that meet along one
  * curve when the rope is slack and part along it as it comes taut.
  *
@@ -80,34 +120,18 @@ export function drawHatch(
   r: number,
   openness: number,
 ): void {
-  const slide = r * 1.15 * openness;
   ctx.save();
   ctx.fillStyle = PALETTE.rock;
   // Both folds in one path, stroked once after both lids are down, so neither
   // lid's fill can bury the other's crease — the fringe's argument in `eye.ts`,
   // and the reason this body is a flat count of canvas calls whatever it does.
   const folds = new Path2D();
-  for (const side of [-1, 1] as const) {
-    const x = cx + side * slide;
-    // The seam down the middle, then the hole's own edge back up this lid's
-    // side of it. Sweep 0 climbs to the right of a chord and 1 to the left, so
-    // each lid keeps the half of the rim it started on however far it has gone.
-    const sweep = side === 1 ? 0 : 1;
-    const lid = new Path2D(
-      `M ${x} ${cy - r} ${seam(x, cy, r)} A ${r} ${r} 0 0 ${sweep} ${x} ${cy - r} Z`,
-    );
-    ctx.fill(lid);
-    strokeGlow(ctx, lid, PALETTE.rockDark, STROKE.inner, 0.6);
-    const fx = x + side * r * FOLD;
-    folds.moveTo(fx, cy - r * FOLD_REACH);
-    folds.bezierCurveTo(
-      fx + r * SEAM * 0.7,
-      cy - r * SEAM_AT * 0.7,
-      fx - r * SEAM * 0.7,
-      cy + r * SEAM_AT * 0.7,
-      fx,
-      cy + r * FOLD_REACH,
-    );
+  for (const lid of hatchLids(cx, cy, r, openness)) {
+    ctx.fill(lid.path);
+    strokeGlow(ctx, lid.path, PALETTE.rockDark, STROKE.inner, 0.6);
+    const f = lid.fold;
+    folds.moveTo(f[0].x, f[0].y);
+    folds.bezierCurveTo(f[1].x, f[1].y, f[2].x, f[2].y, f[3].x, f[3].y);
   }
   ctx.globalAlpha = 0.45;
   ctx.strokeStyle = PALETTE.rockDark;

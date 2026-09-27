@@ -205,7 +205,7 @@ with a joint, before it can move.
 |---|---|---|
 | THE INSTAR | head, jaw, eyes, horns, both wings and their claws, tail links, blade | ready (jaw, horns, wings and tail are already anchored) |
 | the queen (a kind, several waves) | shell, both wings, both crane arms, both claws and their fingers | **split first**: wings are inside the shell's one path |
-| the warden (a kind) | body, eye, both hatch lids, cilia | **split first**: the two lids share one path |
+| the warden (a kind) | body, eye, both hatch lids, cilia | ready — each lid is a piece with its hinge on its outer rim (`hatchLids`, `warden-eye.ts`); the two creases stay one path, stroked after both |
 | THE SPLICE (the eater) | head, eyes, jaw, neck, body, rear | ready, but no part rotates yet — add the joint |
 | THE REPRISE | sac, both cords, lens eye | ready |
 | THE THROAT | skin, each muscle ring, mouth | ready |
