@@ -442,15 +442,16 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
+## §28 THE VISE — sprite atlas experiment: the kernel crack
 
 - **Found:** 2026-09-26, this session
-- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
-  new graphics stay on THE INSTAR only, as the one example, until he says
-  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
-  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
+cheaper first try.
 
 `docs/raster.md` rule 3/4/5: the kernel finally breaking open (row 11 of the
 beat list, the boss's one payoff frame) is a candidate for a painted
@@ -473,15 +474,16 @@ burst and THE CLASP's shield. `bun run raster:verify` and `bun run check`
 prove it; the visual comparison is the owner's, unverified until he has
 looked.
 
-## DEFERRED — §29 THE RIME — sprite atlas experiment: the bare-core reveal
+## §29 THE RIME — sprite atlas experiment: the bare-core reveal
 
 - **Found:** 2026-09-26, this session
-- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
-  new graphics stay on THE INSTAR only, as the one example, until he says
-  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
-  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
+cheaper first try.
 
 Same experiment, second body: the moment the last rime half wipes away and
 the bare core is lit (row 6 of the beat list) is frost shattering off glass —
@@ -515,15 +517,16 @@ sent through `leanReader` so the wire sees the same drag a phone sends;
 range. `bun run check` proves it; `keys.ts` is at 244 lines, so the keys go
 in a file of their own.
 
-## DEFERRED — §30 THE TRIVET — sprite atlas experiment: the feet planting home
+## §30 THE TRIVET — sprite atlas experiment: the feet planting home
 
 - **Found:** 2026-09-26, this session
-- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
-  new graphics stay on THE INSTAR only, as the one example, until he says
-  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
-  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
+cheaper first try.
 
 `docs/raster.md` rule 3/4/5: a foot swinging down and locking home (rows 2,
 3, 4 and 5 of the beat list) is a hinge-and-slam motion, not a shape that
@@ -545,15 +548,16 @@ look until the owner compares them on the RASTER tab. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## DEFERRED — §31 THE PLUMB — sprite atlas experiment: the bob settling true
+## §31 THE PLUMB — sprite atlas experiment: the bob settling true
 
 - **Found:** 2026-09-26, this session
-- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
-  new graphics stay on THE INSTAR only, as the one example, until he says
-  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
-  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
+cheaper first try.
 
 Same experiment, third body: a counterweight easing to a stop as it settles
 true (rows 2, 3, 4 and 5 of the beat list) is a damped swing with a
@@ -569,15 +573,16 @@ replacing, same as every other baked look in this file. `bun run
 raster:verify` and `bun run check` prove it; the visual comparison is the
 owner's, unverified until he has looked.
 
-## DEFERRED — §32 THE SLING — sprite atlas experiment: the arm drawing home
+## §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session
-- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope:
-  new graphics stay on THE INSTAR only, as the one example, until he says
-  otherwise. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is
-  the cheaper first try when this is taken up again.
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
+cheaper first try.
 
 `docs/raster.md` rule 3/4/5: an arm bending back under load and locking
 drawn (rows 2, 3, 4 and 5 of the beat list) is a hinge-and-strain motion,
@@ -617,13 +622,16 @@ which beat opens on red; the first lure authored in another column; or the
 breach kept on purpose. Whichever is picked, take THE JAM out of
 `HALF_PLAYED` if the test then passes.
 
-## DEFERRED — CLOUD ONLY — move one boss a lane onto the solid rig, from the roster
+## move one boss a lane onto the solid rig, from the roster
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Deferred:** 2026-09-26, this session. The owner narrowed scope: new
-  depth/graphics work stays on THE INSTAR only, as the one example, until
-  he says otherwise — no other boss moves onto the rig for now.
+- **Needs:** Living bosses — the four rig bosses get the idle drift, one per lane
 - **Files:** `packages/render/src/solid-rig.ts`, `docs/style-guide.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Its work is done through “Living bosses — the four rig bosses
+get the idle drift, one per lane”, whose last lane removes this entry.
 
 `drawRig` draws tubes and balls from any side with a fixed key, haze and
 contact. Bosses whose bodies are tubes and balls already — THE GORGE, THE
@@ -633,26 +641,33 @@ correctly when the fight turns them. **Each one is a look**: it goes to
 `bun run solid`'s pattern for its own sheet. Take one, name it in the entry
 you leave behind, and leave the rest listed.
 
-## DEFERRED — CLOUD ONLY — the rig has no frame.test coverage until a boss uses it
+## the rig has no frame.test coverage until a boss uses it
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Deferred:** 2026-09-26, this session. Follows the roster entry above:
-  only matters once a non-INSTAR boss ships on the rig, which is paused
-  until the owner says so.
+- **Needs:** move one boss a lane onto the solid rig, from the roster
 - **Files:** `packages/render/test/frame.test.ts`, `packages/render/test/solid.test.ts`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone.
 
 `solid.test.ts` draws the rig through the stub from every side; nothing in
 `frame.test.ts` does, because no wave draws one yet. The first boss that ships
 on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
 reaches them.
 
-## DEFERRED — THE GIMBAL, a fifth rig candidate, sharpest for the mirror rule
+## THE GIMBAL, a fifth rig candidate, sharpest for the mirror rule
 
 - **Found:** 2026-09-26, this session
-- **Needs:** "a densified tube costs a gradient per slice, per frame" and "a dragged tail wants a verlet chain in Effects", both above
-- **Deferred:** 2026-09-26, this session. Same scope narrowing as the roster
-  entry above — no boss but THE INSTAR moves onto the rig for now.
+- **Needs:** Living bosses — the four rig bosses get the idle drift, one per lane
 - **Files:** `packages/content/src/gimbal-script.ts`, `packages/render/src/gimbal-draw.ts`, `docs/style-guide.md`, `docs/spec/bosses.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone. Its work is done through “Living bosses — the four rig bosses
+get the idle drift, one per lane”, whose last lane removes this entry. It also
+waited on "a densified tube costs a gradient per slice, per frame" and "a
+dragged tail wants a verlet chain in Effects", both above.
 
 "move one boss a lane onto the solid rig, from the roster" names THE GORGE,
 THE ANTIPHON, THE BATON and THE LEAD. THE GIMBAL is a fifth, and its shape
@@ -671,13 +686,14 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
+## THE STARE's turn is a squash-and-shear, not a placed surface
 
 - **Found:** 2026-09-26, this session
-- **Deferred:** 2026-09-26, this session. The owner narrowed scope: new
-  depth/graphics work stays on THE INSTAR only, as the one example, until
-  he says otherwise — no other boss moves onto placed-surface depth for now.
 - **Files:** `packages/render/src/stare-shape.ts`, `packages/render/src/stare-draw.ts`, `packages/content/src/surface.ts`, `.claude/skills/depth`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone.
 
 THE STARE's whole tell is a turn: the eye is seen edge-on as a sliver
 while it is away, then widens to its full face over the seven-beat
@@ -849,16 +865,16 @@ drawn-as-mechanism choice THE VISE's pinch and THE WINCH's brake both
 make. Nothing here is drawn yet and stays unverified at tempo until the
 owner has looked.
 
-## DEFERRED — §25 THE VALVE's wheel drawn placed-surface, not a flat spin
+## §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session
 - **Needs:** nothing — THE VALVE's simulation lane already landed, and its
   look is queued but not yet claimed
-- **Deferred:** 2026-09-26, this session. The owner narrowed scope: new
-  depth/graphics work stays on THE INSTAR only, as the one example, until
-  he says otherwise — no other boss moves onto placed-surface depth or the
-  rig for now.
 - **Files:** `docs/spec/bosses-choreographed.md`
+
+Released 27 September 2026: the owner moved every deferred entry back onto the
+queue. It had been held since 26 September, when new graphics stayed on THE
+INSTAR alone.
 
 THE VALVE's wheel (§25) is the best-fitting candidate on this page's whole
 unclaimed-look backlog (also carrying THE SEAM, THE OCULUS, THE VISE, THE
@@ -1688,10 +1704,10 @@ built. `frame.test.ts` draws THE INSTAR at side, three-quarter and front.
 - **Files:** `packages/render/src/gimbal-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/lead-draw.ts`, `packages/render/src/solid-rig.ts`, `docs/spec/living-bosses.md`
 
 The owner, 26 September 2026, widened the depth work from THE INSTAR alone
-to every boss with a body; this lifts the scope that deferred "move one boss
-a lane onto the solid rig, from the roster" and "THE GIMBAL, a fifth rig
-candidate". Take the next of THE GIMBAL, THE ANTIPHON, THE BATON and THE
-LEAD, in that order: rebuild it on the rig as those two entries say, with
+to every boss with a body; "move one boss a lane onto the solid rig, from
+the roster" and "THE GIMBAL, a fifth rig candidate" wait on this entry.
+Take the next of THE GIMBAL, THE ANTIPHON, THE BATON and THE LEAD, in that
+order: rebuild it on the rig as those two entries say, with
 each part it has on its own anchor, give it the idle drift with its own seed
 and its hush over windows, give each part its `partDrift` (section 1, "Every
 part moves on its own" — at most eight, the head first where it has one, a
@@ -1700,7 +1716,7 @@ a VERSUS candidate with its five-yaw sheet sent to the owner. Where it has a
 face, the head turns and tilts toward the players' screen and its drift never
 carries the face away past side-on (the owner, 27 September 2026:
 `docs/spec/living-bosses.md` section 1, "A face looks at the players"). Leave this
-entry with the rest listed; the last lane removes it and the two DEFERRED
+entry with the rest listed; the last lane removes it and those two
 entries.
 
 Done when, per boss: the candidate is in VERSUS; its hit tests find every
