@@ -143,6 +143,7 @@ export class RenderState {
       "rime-clear": boss.rime.clear,
       "trivet-plant": boss.trivet.plant,
       "plumb-settle": boss.plumb.swing,
+      "sling-draw": boss.sling.draw,
     };
     return players[name];
   }

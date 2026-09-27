@@ -27978,3 +27978,18 @@ Bottleneck: writing. Twelve registrations in ten files had to move at once,
 since each one named the next.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLING's draw, a painted atlas behind `?raster=1`
+
+- reading: 10 min. THE SLING's events, `sling-shape.ts`'s tip and handle, and
+  then the strip table that landed under the lane.
+- writing: 10 min. The painter, `SlingFx`, the tests and the doc, and the
+  wiring again as one row of `PAINTED_STRIPS`.
+- looking: 5 min. The twelve frames twice: the first bake's catch ring ran to
+  the frame's edge.
+- friction: 10 min. The first `land` did not replay: the strip-table refactor
+  had landed on every file the wiring touched, so the lane was rebuilt on it.
+- landing: 5 min. `raster:verify`, `check:fast`, the commit, `land`.
+
+Bottleneck: friction. A refactor of the strip registrations landed while this
+strip was being registered the old way, and the wiring had to be written twice.

@@ -3,6 +3,7 @@ import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
 import plumbSettleStripUrl from "../../../assets/raster/plumb-settle-strip.webp";
 import rimeClearStripUrl from "../../../assets/raster/rime-clear-strip.webp";
+import slingDrawStripUrl from "../../../assets/raster/sling-draw-strip.webp";
 import trivetPlantStripUrl from "../../../assets/raster/trivet-plant-strip.webp";
 import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
 
@@ -89,6 +90,7 @@ const STRIP_URLS: Record<StripName, string> = {
   "rime-clear": rimeClearStripUrl,
   "trivet-plant": trivetPlantStripUrl,
   "plumb-settle": plumbSettleStripUrl,
+  "sling-draw": slingDrawStripUrl,
 };
 
 /**

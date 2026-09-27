@@ -71,6 +71,7 @@ export class BossTransients extends BossRoster {
     this.oculus.ingest(events, l, cfg, beatSeconds, burst);
     this.vise.ingest(events, l, cfg, beatSeconds, burst);
     this.rime.ingest(events, l, cfg);
+    this.sling.ingest(events, l, cfg);
     this.trivet.ingest(events, l, cfg, beatSeconds, burst);
     this.plumb.ingest(events, l, cfg, burst);
     this.cyst.ingest(events, l, cfg, beatSeconds, burst);
@@ -117,6 +118,7 @@ export class BossTransients extends BossRoster {
     this.oculus.update(dt);
     this.vise.update(dt);
     this.rime.update(dt);
+    this.sling.update(dt);
     this.trivet.update(dt);
     this.plumb.update(dt);
     this.cyst.update(dt);
@@ -181,6 +183,7 @@ export class BossTransients extends BossRoster {
     this.oculus.clear();
     this.vise.clear();
     this.rime.reset();
+    this.sling.reset();
     this.trivet.clear();
     this.plumb.clear();
     this.cyst.clear();

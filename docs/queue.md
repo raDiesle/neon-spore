@@ -452,38 +452,6 @@ match, and move the lean out of THE PLUMB. A drag works the same on a desk, so
 no key is added. A control change on a shipped wave, which the owner asked for
 by name. `bun run check` proves it.
 
-## §32 THE SLING — sprite atlas experiment: the arm drawing home
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-32-the-sling-sprite-atlas-experiment-the-arm-dra
-- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
-  `assets/raster/`, `docs/raster.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
-cheaper first try.
-
-`docs/raster.md` rule 3/4/5: an arm bending back under load and locking
-drawn (rows 2, 3, 4 and 5 of the beat list) is a hinge-and-strain motion,
-not a shape that recolours — a candidate for a painted frame-by-frame strip
-rather than a procedural one. It is simulation-triggered, so rule 5 makes
-the format a sprite atlas, never an APNG or animated WebP: draw one arm's
-draw-and-lock the way `burst-art.ts` draws the existing burst, pack it with
-`bun run raster` into its own `sling-draw-strip.webp` (atlas) and
-`sling-draw.apng` (lossless master), reused for both arms by mirror and
-gated behind the same `?raster=1` flag through a new
-`bindRasterSlingDraw` in `apps/game/src/raster.ts`. **Budget: the atlas
-(the only file the field fetches) stays under 90 kB**, the same ceiling THE
-VISE's, THE RIME's, THE TRIVET's and THE PLUMB's atlas experiments already
-use — if the painted version does not read at 12 frames or 80 px, drop
-frames before raising the budget. Record the exact atlas byte count in the
-commit that lands this, next to the number `bun run raster` printed before
-this lane touched anything. Offered, never replacing: the procedural draw
-stays the shipping look until the owner compares them on the RASTER tab.
-`bun run raster:verify` and `bun run check` prove it; the visual
-comparison is the owner's, unverified until he has looked.
-
 ## THE JAM's first runaway shot lands on its first lure
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9

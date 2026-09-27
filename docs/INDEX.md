@@ -1286,6 +1286,7 @@ by hand never moves.
 | `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
 | `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |
 | `packages/render/src/sling-blow.ts` | **THE SLING's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/sling-fx.ts` | What THE SLING leaves behind a frame: so far only, behind `?raster=1`, the painted draw |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
 | `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |
@@ -2839,6 +2840,7 @@ by hand never moves.
 | `tools/raster/src/solid-page.ts` | The solid sheet's page: bundled for the browser by `solid.ts` and run there |
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
+| `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |
 | `tools/raster/src/webp.ts` | An animated WebP, assembled from still WebPs a browser already encoded |
 | `tools/raster/src/zdog-page.ts` | The Zdog comparison, 26 September 2026: the owner found Zdog promising |
 | `tools/raster/src/vise-crack-art.ts` | One frame of THE VISE's kernel crack, drawn into a 2D context |

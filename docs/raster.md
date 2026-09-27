@@ -514,6 +514,45 @@ either way.
 **Still open**: the owner's eye. Play THE PLUMB at `?raster=1` through a
 settle on each weight and compare.
 
+### The seventh strip: THE SLING's draw
+
+Rows 2 to 5 of §32's beat list — a cord hauled down off its tine under load
+and locked drawn — are a hinge and a strain: rule 4.
+`tools/raster/src/sling-draw-art.ts` paints the cord's after-image swept from
+slack down to drawn, a pulse of light running up the drawn cord to the tine
+and back, a flash and a short ring at the handle as the catch locks, a glint
+at the tine's tip where the load bears, and fibres shaken off the cord,
+falling. Drawn additively over the cord the field draws, so it is **all light
+and no body**. **Cord and steel only** — `slingCord`, `slingSteel`, and a cold
+white for the light (rule 7).
+
+**The fork never moves**, so unlike THE PLUMB's this one is spawned at a point
+on the field: the drawn cord's middle, `slingCentre` plus the mean of the
+tine's tip and the drawn handle (`sling-shape.ts`). The frame is three tiles,
+room for the cord and the catch's ring. Painted for the pilot's cord, off the
+left tine, and mirrored for the navigator's. It is the first strip to go in as
+one row of `PAINTED_STRIPS` (*The next strip*, below).
+
+Twelve frames of 96 px at 45 ms, 0.54 s — the entry's own floor.
+
+| file | bytes |
+|---|---|
+| `sling-draw-strip.webp`, the atlas the field fetches | **11 084** (`bun run raster` printed 10.8 kB) |
+| `sling-draw.apng`, the master | 29 238 |
+
+**One budget for the five painted boss strips: each atlas under 90 kB.** THE
+VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690, THE PLUMB's 42 130, THE
+SLING's 11 084.
+
+`SlingFx.draw` (`sling-fx.ts`, `effects.boss.sling`) spawns it on
+`slingLoose`, and `bindRasterStrips` installs it behind `?raster=1`. Without
+the flag it draws nothing (`packages/render/test/sling-draw.test.ts`), and the
+shipped cord, drawn taut by the pose, is drawn either way. THE SLING's events
+stay in the silent lists: the strip is a picture, not a sound.
+
+**Still open**: the owner's eye. Play THE SLING at `?raster=1` through a draw
+on each cord and compare.
+
 ### The next strip
 
 A strip was twelve registrations once, and only the assets test named the

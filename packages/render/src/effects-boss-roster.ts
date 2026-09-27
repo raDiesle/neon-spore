@@ -30,6 +30,7 @@ import { RimeFx } from "./rime-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
+import { SlingFx } from "./sling-fx.js";
 import { SpoolFx } from "./spool-fx.js";
 import { StareFx } from "./stare-fx.js";
 import { SurgeFx } from "./surge-fx.js";
@@ -190,6 +191,8 @@ export class BossRoster {
   readonly vise = new ViseFx();
   /** THE RIME's painted clearing over the bare core (`rime-fx.ts`). */
   readonly rime = new RimeFx();
+  /** THE SLING's painted draw over a cord loosed true (`sling-fx.ts`). */
+  readonly sling = new SlingFx();
   /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
    * the hull shock, and its receipts' bursts — thrown the same on both
    * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,

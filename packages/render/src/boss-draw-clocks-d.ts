@@ -67,11 +67,13 @@ export function drawLatePairBoss(
   // THE SLING: a fork over the middle column, a cord off each tine drawn by
   // its own seat's thumb, loosed toward whichever column the cup asks for.
   // Both screens are drawn the same — the other seat has to see which cord is
-  // lit and which is already drawn to say so (`sling-draw.ts`). Nothing of it
-  // outlives a frame yet: its hands and effects are the second half of its
-  // look.
+  // lit and which is already drawn to say so (`sling-draw.ts`). All that
+  // outlives a frame is, behind `?raster=1`, the painted draw over a cord
+  // loosed true (`sling-fx.ts`): its hands and effects are the second half of
+  // its look.
   if (boss.kind === "sling") {
     drawSling(ctx, l, world, boss, beat, beatPhase, time);
+    effects.boss.sling.draw.draw(ctx);
     return;
   }
 

@@ -45,6 +45,12 @@ export const PAINTED_STRIPS = {
    * because a swing dies away rather than bursts.
    */
   "plumb-settle": { frames: 16, frameSize: 128, frameMs: 50, seed: 20261001 },
+  /**
+   * THE SLING's cord drawing home (`sling-fx.ts`): one cord hauled down and
+   * locked, the pilot's, mirrored for the navigator's. The entry's own floor,
+   * twelve frames of 96 px, since a draw is over as fast as a plant.
+   */
+  "sling-draw": { frames: 12, frameSize: 96, frameMs: 45, seed: 20261002 },
 } as const satisfies Record<string, PaintedSheet>;
 
 export type StripName = keyof typeof PAINTED_STRIPS;
