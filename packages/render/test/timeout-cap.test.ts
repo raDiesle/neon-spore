@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -26,23 +26,34 @@ import { join } from "node:path";
 const DIR = import.meta.dir;
 const DRAWS = /from "\.\/(frame-harness|canvas-stub)\.js"/;
 
+/**
+ * This file reads every test beside it, and it kept to the rule it checks
+ * only by luck: under `check:fast`'s eight shards on 27 September 2026 the
+ * read timed out at bun's 5000 ms, where alone it takes 0.16 s. So the
+ * directory is read once, for both tests, and the file states its own limit.
+ */
+setDefaultTimeout(30_000);
+
 describe("a test that draws states its own timeout", () => {
-  const files = readdirSync(DIR).filter((f) => f.endsWith(".test.ts"));
+  let drawing: { file: string; src: string }[] = [];
+
+  beforeAll(() => {
+    drawing = readdirSync(DIR)
+      .filter((f) => f.endsWith(".test.ts"))
+      .map((file) => ({ file, src: readFileSync(join(DIR, file), "utf8") }))
+      .filter((t) => DRAWS.test(t.src));
+  });
 
   it("finds the drawing tests at all", () => {
     // A rule that matched nothing would pass for the wrong reason. It was 117
     // on the day this landed.
-    const drawing = files.filter((f) => DRAWS.test(readFileSync(join(DIR, f), "utf8")));
     expect(drawing.length).toBeGreaterThan(80);
   });
 
   it("leaves none of them on bun's five-second default", () => {
-    const bare: string[] = [];
-    for (const f of files) {
-      const src = readFileSync(join(DIR, f), "utf8");
-      if (!DRAWS.test(src)) continue;
-      if (!/setDefaultTimeout\(FRAME_TIMEOUT_MS\)/.test(src)) bare.push(f);
-    }
+    const bare = drawing
+      .filter((t) => !/setDefaultTimeout\(FRAME_TIMEOUT_MS\)/.test(t.src))
+      .map((t) => t.file);
     expect(bare).toEqual([]);
   });
 });

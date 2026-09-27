@@ -1756,19 +1756,3 @@ circles. This is a fix to a shape clipping its frame, not a look. Check
 first whether the lane on "THE KEEL's body watched at tempo" has already
 done it. Done when a frame test puts every plate's outline inside the field
 at the phone size, and `bun run check` is green.
-
-## timeout-cap.test.ts times out under a full check, on bun's own default
-
-- **Found:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
-- **Taken:** 2026-09-27, claude/queue-where-phone (claim: claude/queue-timeout-cap-test-ts-times-out-under-a-full-check)
-- **Files:** `packages/render/test/timeout-cap.test.ts`
-
-The test that says every drawing test states its own timeout reads every
-`*.test.ts` in `packages/render/test` with `readFileSync`, twice, on bun's
-five-second default. Under `check:fast`'s eight shards on 27 September 2026,
-*finds the drawing tests at all* timed out at 5000 ms; alone it passes in
-0.16 s. `sim/test/boss-strike.test.ts` hit the same thing on 26 September and
-answered it by reading fewer files. Read the directory once for both tests
-(one `beforeAll`), and give the file a stated timeout of its own. The
-failure message should keep naming the rule. Done when the two tests share
-one read and `bun run check` is green.

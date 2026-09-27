@@ -27891,3 +27891,13 @@ Bottleneck: looking. The first bake was a fix waiting to be seen — flakes
 flew past the frame — and only a picture showed it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — timeout-cap.test.ts reads its directory once, on its own timeout
+
+- reading: 5 min. The entry and the test.
+- writing: 5 min. One `beforeAll` for both tests, and a stated limit.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`'s full `check`.
+
+Bottleneck: landing. The fix is ten lines, and the proof is the full check.
