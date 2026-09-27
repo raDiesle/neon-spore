@@ -25747,3 +25747,5 @@ Bottleneck: looking — the swing's size was found off a magnified shot.
 
 Bottleneck: writing — the boss had no pose to judge a jaw on, so its four
 cards came first.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
