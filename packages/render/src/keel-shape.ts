@@ -63,6 +63,10 @@ const HH = 0.3;
 /** THE BRISTLE's squareness: the superellipse exponent, and the samples round one plate. */
 const BOXY = 3.4;
 const ROUND = 16;
+/** Half a plate's length, in pixels: how far a segment reaches either side of its middle. */
+export function keelPlateHalf(l: Layout): number {
+  return l.tile * HW;
+}
 /** Ribs under each segment, how long they hang in tiles, and where along the plate they are tied. */
 export const RIB_U = [-0.55, 0, 0.55] as const;
 export const RIB = 0.6;

@@ -82,10 +82,20 @@ export function curtainHemPull(cfg: SimConfig, c: CurtainState): number {
  * boss meet at one place rather than at two that drifted apart.
  */
 export function curtainSheetMidX(l: Layout, cfg: SimConfig, at: number): number | null {
+  const span = curtainSheetSpan(l, cfg, at);
+  return span === null ? null : (span.left + span.right) / 2;
+}
+
+/** The part of the sheet standing on the field, edge to edge, or `null` with none of it on. */
+export function curtainSheetSpan(
+  l: Layout,
+  cfg: SimConfig,
+  at: number,
+): { left: number; right: number } | null {
   const x0 = tileCX(l, at) - l.tile * 0.5;
   const left = Math.max(x0, tileCX(l, 0) - l.tile * 0.5);
   const right = Math.min(x0 + CURTAIN_COLS * l.tile, tileCX(l, cfg.cols - 1) + l.tile * 0.5);
-  return right <= left ? null : (left + right) / 2;
+  return right <= left ? null : { left, right };
 }
 
 /** Where the ring rests, with no thumb on the hem: the hem's own line. */

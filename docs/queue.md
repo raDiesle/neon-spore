@@ -1425,30 +1425,25 @@ Unverified at tempo until the owner has looked.
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (photographing THE SEAM's lit point)
 - **Taken:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou (claim: claude/queue-the-slows-prism-still-aims-at-the-cannon-for-thi)
-- **Files:** `packages/render/src/slow-boss-aim-b.ts`, `packages/render/test/slow-boss-aim-b.test.ts`, `packages/render/src/`
+- **Files:** `packages/render/src/slow-boss-aim-c.ts`, `packages/render/test/slow-boss-aim-c.test.ts`, `packages/render/src/`
 
 PRISM's promise is *the room splits into its colours, and the boss does
 not*: a point's fringe is as wide as it is far from the aim, and a boss with
-no row in `render/slow-boss-aim.ts` or its page two `slow-boss-aim-b.ts` is
-aimed at the cannon's column at the hull, so one hung at the top of the
-field is the thing split *widest*
-(`bun run frames . --wave 105 --until seamLight --until-on 30`). Page one
-has THE OCULUS, THE GIMBAL, THE HASP, THE MANTLE, THE VALVE, THE VISE, THE
-TRIVET, THE PLUMB and THE CYST; page two, which may read the beat, has THE
-RIME, THE SURGE, THE SINEW (the mass, not its root), THE FILAMENT (the heart
-as the strands left size it) and THE SPOOL since 26 September 2026 — each a
-point its own shape file already named. Still falling through, and **none
-has a point to call yet**, so each row starts by exporting one from the
-boss's shape or draw file rather than re-deriving it in the table: THE
-BATON, THE CURTAIN, THE GORGE, THE HIVE (`hiveBox`), THE KEEL (a spine
-along the top), THE LEAD (`leadFoot`), THE LEDGER (`ledgerBodyBox`), THE
-RATCHET (`ratchetLock`?), THE SCUTTLE, THE TASTER, THE THROAT (`mouthY` on
-the middle column) and THE UNDERTOW — and THE ANTIPHON, whose body is the
-width of the field: a disc round it is the whole top of the screen, so its
-row is a capsule along the box (`antiphonBox`) or the pilot's organ, not a
-centre. THE SEAM's row rides its hands (*§26 THE SEAM — its hands*). THE
-DAVIT, THE GRINDSTONE and THE SLING have no look yet and take their row
-with it.
+no row in `render/slow-boss-aim.ts` or its pages two and three is aimed at
+the cannon's column at the hull, so one hung at the top of the field is the
+thing split *widest*
+(`bun run frames . --wave 105 --until seamLight --until-on 30`). Page three
+(`slow-boss-aim-c.ts`, 27 September 2026) runs a capsule the long way of a
+box the boss's shape file names, and has THE BATON, THE CURTAIN, THE GORGE,
+THE HIVE, THE KEEL, THE LEAD and THE LEDGER. Still falling through, each row
+calling its box from the boss's shape or draw file rather than re-deriving
+it: THE RATCHET (`ratchetLock`?), THE SCUTTLE (`scuttleBox`, with the wind's
+rise), THE TASTER (`tasterFanBox`), THE THROAT (`mouthY` on the middle
+column) and THE UNDERTOW — and THE ANTIPHON, a capsule along `antiphonBox`,
+page three's `capsule` as it stands. The caption anchors
+(`caption-anchor-boss*.ts`) already ring each of these and name the call.
+THE SEAM's row rides its hands (*§26 THE SEAM — its hands*). THE DAVIT, THE
+GRINDSTONE and THE SLING have no look yet and take their row with it.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 

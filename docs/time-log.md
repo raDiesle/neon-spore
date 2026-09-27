@@ -25420,3 +25420,16 @@ Bottleneck: reading — the entry counted three copies and there were six; the
 grep for the function's body, not its name, is what found the rest.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLOW's aim, page three: seven long bosses off the cannon
+
+- reading: 15 min. The two aim pages and their test, the caption anchors for
+  the seven bosses, and each boss's shape file for the box it already names.
+- writing: 15 min. `slow-boss-aim-c.ts` and its `capsule`, `curtainSheetSpan`
+  and `keelPlateHalf` exported, the test, the queue entry cut to half B.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — THE CURTAIN's span and THE KEEL's plate width were only
+inside their draw files, and had to be found and exported before a row could call them.

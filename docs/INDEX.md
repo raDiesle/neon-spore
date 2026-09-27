@@ -1230,6 +1230,7 @@ by hand never moves.
 | `packages/render/src/slow-crawl.ts` | Rays round the boss, and sparks of light strung along each one at once |
 | `packages/render/src/slow-boss-aim.ts` | **Where a boss that opens THE SLOW stands, by kind** |
 | `packages/render/src/slow-boss-aim-b.ts` | **THE SLOW's aim, page two** — the rows `slow-boss-aim.ts` hands on when it has none of its own |
+| `packages/render/src/slow-boss-aim-c.ts` | **THE SLOW's aim, page three** — the bosses whose body is longer than it is round |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |

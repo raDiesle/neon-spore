@@ -4,6 +4,7 @@ import { filamentStrands } from "./filament-shape.js";
 import type { Layout } from "./layout.js";
 import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "./sinew-shape.js";
+import { longBossAim } from "./slow-boss-aim-c.js";
 import type { Aim } from "./slow-intake-aim.js";
 import { spoolBarrelHalf, spoolFlangeR, spoolHome } from "./spool-shape.js";
 import { surgeBulbCircle } from "./surge-shape.js";
@@ -17,6 +18,7 @@ import { surgeBulbCircle } from "./surge-shape.js";
  * window; some here move — THE SINEW's mass falls a row a beat, THE
  * FILAMENT's heart shrinks as each filament is pulled — and the light follows
  * the body as its drawer places it, off the same call with the same beat.
+ * A kind with no row here goes on to page three (`slow-boss-aim-c.ts`).
  */
 export function lateBossAim(world: World, l: Layout, beat: number, beatPhase: number): Aim | null {
   const boss = world.boss;
@@ -53,7 +55,7 @@ export function lateBossAim(world: World, l: Layout, beat: number, beatPhase: nu
     case "spool":
       return still(spoolHome(l, cfg), Math.max(spoolBarrelHalf(l, 0), spoolFlangeR(l)));
     default:
-      return null;
+      return longBossAim(world, l, beat, beatPhase);
   }
 }
 
