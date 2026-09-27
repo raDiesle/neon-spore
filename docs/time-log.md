@@ -25387,3 +25387,5 @@ other half was a comment that had drifted from the table it repeated.
 
 Bottleneck: reading — two more comments (`balloon-alive.ts`, `hull.ts`) pointed
 at what was being removed, and each had to be found before it could dangle.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
