@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 04c7b42cb — Four VERSUS slots the owner could not tell apart are dropped
+
+The owner could not tell ratchet:plate sway, instar:seam baked, creature:skin drift or creature:body-interior drift from what the game already draws. All four are dropped, and DECIDED.md records the reason for each: the rack is a machine on purpose, the seam costs +1.0 kB for a joint under the brood, and the interior drift reaches only shapes too small to read. Nothing the game draws changes. The baked seam module is now dead and is queued for removal.
+
 ## 2026-09-27 · 09bba4d86 — THE GALL: a pinch that closes the gall moves it
 
 Wave 117 THE GALL (§11.55): a soft nodule on a raised seam across the hull. The seat nearer it pinches it shut and keeps it shut for two beats; the instant it closes it jumps to another of the seam's four points, for whichever seat is nearer there, and a pinch left where it was is on bare seam. Three closes bare the root, and one shot in red ends it. Every closing window is under THE SLOW. Simulation only: nothing is drawn, no touch sends the pinch yet, and it has never been watched at tempo.
