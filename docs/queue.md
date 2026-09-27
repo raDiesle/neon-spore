@@ -2709,6 +2709,7 @@ count and is refused. `bun run check` proves it.
 ## `bun run frames --until` cannot name which firing of an event
 
 - **Found:** 2026-09-27, claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds
+- **Taken:** 2026-09-27, claude/queue-the-instar-a-shield-or-suck-mark-draws-the-holds (claim: claude/queue-bun-run-frames-until-cannot-name-which-firing-of)
 - **Files:** `tools/frames/until.ts`, `tools/frames/until-flags.ts`, `tools/frames/recipes.ts`
 
 Photographing THE INSTAR's fifth step (a shield mark, open for one tick
