@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7dc56a786 — THE PLUMB's steady deals the blow
+
+A `both` step held for its beats (`plumbSteady`) is a level step landed, two phones at once, as much as a settle is one: plumb-fx.ts now calls hurt.hit() on it, so the bob shakes and its sac goes red, and the blow's row lists it under `land`. Look exemption: a fix to something wrong rather than unlovely — the owner's rule that a correct hit always shows, and this one showed nothing.
+
 ## 2026-09-27 · 3d4b55aa3 — Time log: THE CYST and THE PLUMB in the blow's table
 
 ## 2026-09-27 · ba8539f1c — THE PLUMB shakes and goes red when a weight settles or the core is hit, and THE CYST and THE PLUMB have rows in the blow's table
