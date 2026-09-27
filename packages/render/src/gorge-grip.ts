@@ -6,6 +6,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { gorgeIntakeY } from "./gorge-draw.js";
+import { gorgePose, gorgePosed } from "./gorge-drift.js";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
@@ -36,13 +37,25 @@ import { showsGorgePinch, showsGorgePry } from "./view-role-clocks-b.js";
  * ring below the intake line would sit on the first creature to fall.
  */
 
-/** The ring in intake `i`: centred where the lobe swells, above the intake line. */
-export function gorgeGripCircle(l: Layout, cfg: SimConfig, g: GorgeState, i: number): Circle {
-  return {
-    x: tileCX(l, g.col + i),
-    y: gorgeIntakeY(l, g, cfg) - l.tile * 0.5,
-    r: handleRadius(l, cfg),
-  };
+/**
+ * The ring in intake `i`: centred where the lobe swells, above the intake
+ * line, and carried with the lobe as it leans at `beat` and `beatPhase`
+ * (`gorge-drift.ts`) — the thumb lands on the lobe the canvas drew.
+ */
+export function gorgeGripCircle(
+  l: Layout,
+  cfg: SimConfig,
+  g: GorgeState,
+  i: number,
+  beat: number,
+  beatPhase: number,
+): Circle {
+  const root = { x: tileCX(l, g.col + i), y: gorgeIntakeY(l, g, cfg) };
+  const at = gorgePosed(gorgePose(l, cfg, root, i, beat, beatPhase), {
+    x: root.x,
+    y: root.y - l.tile * 0.5,
+  });
+  return { x: at.x, y: at.y, r: handleRadius(l, cfg) };
 }
 
 /**
@@ -72,7 +85,7 @@ export function gorgeGripUnder(l: Layout, x: number, y: number, field: Field): T
   if (g === null) return null;
   let best: { id: number; d: number } | null = null;
   for (const id of gorgeGripsOf(g, field.cfg, field.seat)) {
-    const c = gorgeGripCircle(l, field.cfg, g, id);
+    const c = gorgeGripCircle(l, field.cfg, g, id, field.beat, field.beatPhase);
     if (!hitCircle(c, x, y)) continue;
     const d = (x - c.x) ** 2 + (y - c.y) ** 2;
     if (best === null || d < best.d) best = { id, d };
@@ -116,13 +129,13 @@ export function drawGorgeGrip(
 ): void {
   if (showsGorgePinch(role)) {
     for (const i of gorgeGripsOf(g, cfg, gorgePinchSeat)) {
-      const c = gorgeGripCircle(l, cfg, g, i);
+      const c = gorgeGripCircle(l, cfg, g, i, beat, beatPhase);
       drawGripRing(ctx, c.x, c.y, c.r, g.pinch === i, time);
     }
   }
   if (showsGorgePry(role)) {
     for (const i of gorgeGripsOf(g, cfg, gorgePrySeat)) {
-      const c = gorgeGripCircle(l, cfg, g, i);
+      const c = gorgeGripCircle(l, cfg, g, i, beat, beatPhase);
       const held = g.pry === i;
       drawGripRing(ctx, c.x, c.y, c.r, held, time);
       if (held) drawGripDial(ctx, c.x, c.y, c.r, gorgePryLeft(g, cfg, beat, beatPhase));

@@ -40,7 +40,8 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * moving them further runs into her drop cue (`docs/queue.md`, "THE BULB
  * QUEEN's parts: how far"). THE WARDEN has none: the whole ring rocks
  * (`warden-drift.ts`); nor THE THROAT, whose rings swing (`throat-sway.ts`),
- * nor THE UNDERTOW, whose every lobe leans whole (`undertow-drift.ts`).
+ * nor THE UNDERTOW, whose every lobe leans whole (`undertow-drift.ts`), nor
+ * THE GORGE, whose lobes do the same (`gorge-drift.ts`).
  */
 export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   queen: 0,
@@ -49,6 +50,7 @@ export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
   warden: 0,
   throat: 0,
   undertow: 0,
+  gorge: 0,
 };
 
 export const PART = {

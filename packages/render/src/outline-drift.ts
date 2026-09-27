@@ -28,7 +28,14 @@ import { slowHush } from "./slow-hush.js";
  * bows rather than leans (`throat-sway.ts`).
  */
 
-export type OutlineBoss = "queen" | "cairn" | "reprise" | "warden" | "throat" | "undertow";
+export type OutlineBoss =
+  | "queen"
+  | "cairn"
+  | "reprise"
+  | "warden"
+  | "throat"
+  | "undertow"
+  | "gorge";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
@@ -38,6 +45,7 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   warden: 1,
   throat: 1,
   undertow: 1,
+  gorge: 1,
 };
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
@@ -48,6 +56,7 @@ export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   warden: 131,
   throat: 137,
   undertow: 139,
+  gorge: 149,
 };
 
 export const OUTLINE = {
@@ -63,9 +72,10 @@ export const OUTLINE = {
  * at its posed point (`warden-drift.ts`), so nothing holds its reach to a
  * hit circle and its rim rocks by most of a tile, which is seen. THE
  * UNDERTOW's lobes carry no mark at all: its two rings belong to the column,
- * not the lobe (`undertow-drift.ts`).
+ * not the lobe (`undertow-drift.ts`). THE GORGE's rings are found on the
+ * lobe as it leans (`gorge-drift.ts`).
  */
-const LIFTED: Partial<Record<OutlineBoss, number>> = { warden: 0.8, undertow: 0.9 };
+const LIFTED: Partial<Record<OutlineBoss, number>> = { warden: 0.8, undertow: 0.9, gorge: 0.9 };
 
 /** How far any point within reach of `boss`'s root moves at most, in tiles. */
 export function outlineShift(boss: OutlineBoss): number {

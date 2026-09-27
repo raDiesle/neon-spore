@@ -27576,3 +27576,18 @@ Bottleneck: reading — the entry asked for a chord the simulation already
 had, so the lane was finding the one row (the second spark) left to build.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GORGE's lobes lean on their intakes, and the pinch and pry follow them
+
+- reading: 10 min. The lobe drawing, the depth lens, and every reader
+  of a lobe's position, to find the one ring a thumb lands on.
+- writing: 10 min. The per-lobe pose, the grip circle on the beat, the
+  test, the spec note and narrowing the queue entry.
+- looking: 5 min. One before-and-after pair of the sack.
+- friction: 5 min. The cap at eight tenths left one lobe's top short
+  of half a tile, as THE UNDERTOW's did, so it went to nine.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. The grip ring half a tile up the lobe was the only
+thing that had to follow the lean, and finding that meant checking
+every reader of the intake's height.

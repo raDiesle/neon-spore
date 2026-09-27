@@ -133,6 +133,16 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   a lobe: the pin's and the free's rings stand over the column. On the
   field under *a look with no shipped alternative*.
 
+  *THE GORGE, as built, 27 September 2026* (`gorge-drift.ts`): each lobe
+  leans about its own intake, the pucker a shot goes in by, so the intake
+  stays over its column. Each lobe takes a seed from its index, so the
+  seven sway out of step. The top of a lobe leans by more than half a
+  tile, with the cap lifted to nine tenths. The pinch's and the pry's rings
+  stand in the swell of a lobe, so `gorgeGripCircle` carries them with the
+  lean on the beat, and the navigator's ring round the nearest-full lobe
+  is drawn in the same pose. On the field under *a look with no shipped
+  alternative*.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

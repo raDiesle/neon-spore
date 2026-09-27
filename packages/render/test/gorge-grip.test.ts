@@ -109,7 +109,7 @@ describe("the thumb", () => {
   it("is answered for player 1 on the full intake, with its index on the hold", () => {
     const l = layout("p1");
     const g = staged();
-    const at = gorgeGripCircle(l, CFG, g, 2);
+    const at = gorgeGripCircle(l, CFG, g, 2, 6, 0.5);
     const touch = gorgeGripUnder(l, at.x, at.y, fieldWith(1, g));
     expect(touch?.player).toBe(1);
     expect(touch?.command).toEqual({
@@ -126,19 +126,19 @@ describe("the thumb", () => {
   it("is answered for player 2 on the mouth, and refused from the other seat each", () => {
     const g = staged({}, true);
     const p2 = layout("p2");
-    const mouth = gorgeGripCircle(p2, CFG, g, 5);
+    const mouth = gorgeGripCircle(p2, CFG, g, 5, 6, 0.5);
     expect(gorgeGripUnder(p2, mouth.x, mouth.y, fieldWith(2, g))?.command).toMatchObject({ id: 5 });
     expect(gorgeGripUnder(p2, mouth.x, mouth.y, fieldWith(1, g))).toBeNull();
-    const full = gorgeGripCircle(p2, CFG, g, 2);
+    const full = gorgeGripCircle(p2, CFG, g, 2, 6, 0.5);
     expect(gorgeGripUnder(p2, full.x, full.y, fieldWith(2, g))).toBeNull();
   });
 
   it("is refused off the rings, on a filling intake, and with no sack up", () => {
     const l = layout("p1");
     const g = staged();
-    const filling = gorgeGripCircle(l, CFG, g, 0);
+    const filling = gorgeGripCircle(l, CFG, g, 0, 6, 0.5);
     expect(gorgeGripUnder(l, filling.x, filling.y, fieldWith(1, g))).toBeNull();
-    const at = gorgeGripCircle(l, CFG, g, 2);
+    const at = gorgeGripCircle(l, CFG, g, 2, 6, 0.5);
     expect(gorgeGripUnder(l, at.x, at.y + l.tile * 3, fieldWith(1, g))).toBeNull();
     expect(gorgeGripUnder(l, at.x, at.y, fieldWith(1, null))).toBeNull();
   });
@@ -146,7 +146,7 @@ describe("the thumb", () => {
   it("is reached through touchDown, over the field", () => {
     const l = layout("p1");
     const g = staged();
-    const at = gorgeGripCircle(l, CFG, g, 2);
+    const at = gorgeGripCircle(l, CFG, g, 2, 6, 0.5);
     expect(touchDown(l, at.x, at.y, fieldWith(1, g))?.command).toMatchObject({
       target: "gorgeLobe",
       id: 2,

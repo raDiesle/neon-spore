@@ -9,9 +9,11 @@ import {
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { lobeDepths } from "./gorge-depth.js";
+import { gorgePose } from "./gorge-drift.js";
 import { paintSack, paintSackGone } from "./gorge-flesh.js";
 import { drawLobe, lobeHex } from "./gorge-lobe.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { withOutlinePose } from "./outline-drift.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { showsGorgeNearest, showsGorgeTally } from "./view-role-clocks.js";
@@ -141,11 +143,19 @@ export function drawGorge(
     if (k === undefined || d === undefined) continue;
     const x = tileCX(l, g.col + i);
     const since = k.fullBeat < 0 ? -1 : beat - k.fullBeat + beatPhase;
-    drawLobe(ctx, l.tile, cfg, k, x, y, breath, since, i === g.mouth, time, i, d);
+    // Each lobe leans on its own intake, which stays over its column (`gorge-drift.ts`).
+    const p = gorgePose(l, cfg, { x, y }, i, beat, beatPhase);
+    withOutlinePose(ctx, p.pose, p.root, () =>
+      drawLobe(ctx, l.tile, cfg, k, x, y, breath, since, i === g.mouth, time, i, d),
+    );
   }
   const nearest = showsGorgeNearest(l.role) ? gorgeNearestFull(g) : -1;
   const k = g.intakes[nearest];
-  if (k !== undefined) drawNearest(ctx, l, k, tileCX(l, g.col + nearest), y, breath);
+  if (k !== undefined) {
+    const x = tileCX(l, g.col + nearest);
+    const p = gorgePose(l, cfg, { x, y }, nearest, beat, beatPhase);
+    withOutlinePose(ctx, p.pose, p.root, () => drawNearest(ctx, l, k, x, y, breath));
+  }
   if (showsGorgeTally(l.role)) drawTally(ctx, l, g, y);
 }
 
