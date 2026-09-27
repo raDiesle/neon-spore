@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { answerTo, asksTag, waiting } from "../asking.js";
+import { answerTo, askFirst, asksTag, waiting } from "../asking.js";
 import { problemsIn } from "../problems.js";
 import { promptFor } from "../prompt.js";
 import { type Item, parseItems } from "../queue.js";
@@ -85,5 +85,16 @@ describe("an answer with no question over it", () => {
   it("is a reported problem rather than a line nobody reads", () => {
     const md = PLAIN.replace("\nIt is 310", `${ANSWER}\n\nIt is 310`);
     expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("Answered:");
+  });
+});
+
+describe("what `next` says first", () => {
+  it("lists every question still waiting, and nothing once it is answered", () => {
+    const lines = askFirst([one(ASKING), one(PLAIN)]);
+    expect(lines[0]).toStartWith("1 question waits on the owner.");
+    expect(lines).toContain(
+      "  - THE THROAT's three hand sounds have never been heard by an ear: Does one of the three want re-voicing?",
+    );
+    expect(askFirst([one(ANSWERED), one(PLAIN)])).toEqual([]);
   });
 });

@@ -123,9 +123,9 @@ renumbers the moment an entry leaves the file, and a lane that filed a finding
 has changed it itself.
 
 **A topic that needs the owner's answer is queued too**, with
-`- **Asks:** <question?>` under `Files:`, when there is decided, sized work in
-named files waiting on it. The body must **name the options the answer picks
-between**.
+`- **Asks:** <question?>` under `Files:` when decided work in named files
+waits on it. The body **names the options**; the question is **asked the
+turn it is queued**.
 
 **An idea for the game is not collected.** A creature, mechanic, control,
 weapon, boss or round the game does not have goes in `docs/spec/` (the

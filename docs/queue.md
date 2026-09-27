@@ -320,6 +320,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Found:** 2026-09-25, claude/hard-wasted-shot
 - **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/test/wasted-shot.test.ts`
 - **Asks:** under a boss that hangs above the field, should a shot that meets nothing up there lose the wave on HARD too, or keep costing nothing, as it does now?
+- **Answered:** 2026-09-27 — judge each sky boss on HARD, over keeping the exemption. The owner: keep the exemption only if judging costs too much, and at about twelve small hooks it does not. On HARD, a shot that meets nothing above a sky boss loses the wave. A shot into armour still costs nothing.
 
 HARD's rule (a shot out of the top that nothing took loses the wave) is off
 while any of the twelve bosses in `SKY_BOSSES` is up. THE VANE lets a shot
@@ -337,6 +338,7 @@ small hook files, and a test per boss in `wasted-shot.test.ts`.
 - **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
 - **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/test/scuttle-frame.test.ts`
 - **Asks:** should the drop grow past 0.32 tiles, or should the part and its socket shrink to make room for the thread?
+- **Answered:** 2026-09-27 — the owner left it to the lane. Chosen: keep the 0.26 drop and shrink the ends, over raising the drop, because the drop is what VERSUS `apart` was picked for. The socket floor gets a smaller half height and the plate one of its own. Fix the guard and the test as the body says.
 
 VERSUS `apart` was taken into the game on 24 September 2026 and set
 `SCUTTLE_ROWS.drop` to 0.26 tiles. `drawThread` runs from the socket's floor
@@ -367,6 +369,7 @@ its ink.
 - **Found:** 2026-09-24, claude/bellows-gameplay-clarity
 - **Files:** `packages/render/src/grip-verdict.ts`, `packages/render/src/instar-mark-feedback.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/warden-grip.ts`, `packages/render/src/spool-grip.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/src/sinew-handles.ts`, `.claude/skills/new-boss/owner.md`
 - **Asks:** THE INSTAR now shows all four parts of your touch rule: a halo on this seat's mark, a turning ring on the partner's, a green or red flash on the touched mark, and a progress arc that goes green while a pull goes the right way. Should it go to (a) every boss with a mark or handle, one lane per boss, (b) the choreographed bosses first (THE WARDEN, THE SPOOL, THE HASP, THE SINEW), then the rest, or (c) nowhere yet, because THE INSTAR's version needs changing first — and if so, what?
+- **Answered:** 2026-09-27 — shared pieces first, then every boss, over (b) and (c). The owner wants the same touch feedback in every wave, built from reusable pieces, and every boss added or extended later to follow the same convention. So the first lane moves the halo and the partner ring out of `instar-mark-feedback.ts` into a shared file beside `grip-verdict.ts`. It writes the convention into `.claude/skills/new-boss` and `.claude/skills/new-boss-state`, and adds a test that goes red for a boss with a mark that does not register a `GripVerdicts`. After that, one lane per boss, choreographed four first (THE WARDEN, THE SPOOL, THE HASP, THE SINEW).
 
 The owner's generic rule of 24 September 2026 is in `owner.md`, in four
 numbered parts. He asked for one worked example before a roll-out, and THE
@@ -393,6 +396,7 @@ Each boss lands as *a look the owner asked for by name*.
 - **Found:** 2026-09-25, claude/gauge-cannon-visual-clarity-82d0c7
 - **Files:** `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-band.ts`, `packages/content/src/controls-round.ts`, `packages/render/src/gauge-load.ts`, `packages/render/src/gauge-button.ts`
 - **Asks:** Should the wound's colour stay a picture, or should P2 get a red and a cyan fire button and a hit need the colour that matches?
+- **Answered:** 2026-09-27 — (b) a rule, over leaving the colour a picture. P2 gets the red and cyan fire buttons in place of CALL. The wound's colour comes from the `Rng` on each `drawBand` and is hashed. A wrong colour is a miss that jams the valve.
 
 The owner asked for the wound to be *mixed up with colour of cannon to hit*.
 What shipped is the picture half: the cannon's loaded colour turns cyan and
@@ -412,6 +416,7 @@ three steps.
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
 - **Files:** `packages/sim/src/config-maze-turn.ts`, `packages/render/src/maze-string.ts`, `packages/sim/test/maze*.test.ts`
 - **Asks:** should one lap of the lever round the drum be one turn of the drum?
+- **Answered:** 2026-09-27 — 1:1, over keeping the lever geared at 45° a tile.
 
 The lever's channel is now the whole ring round the drum (owner, 25
 September 2026), about 21 tiles round, and `mazeDragMilliPerTile` is 45°
@@ -424,23 +429,28 @@ round, and a way in takes about a third of a lap rather than an eighth; or
 geared. 1:1 is a one-number change plus the maze tests that count pulls to
 an alignment.
 
-## §31 THE PLUMB — a desk key that leans
+## §31 THE PLUMB — its weights are brought level by two pulls, not a lean
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader
-- **Files:** `apps/game/src/keys.ts`, `packages/content/src/keys-desk.ts`, `apps/game/src/lean.ts`
+- **Files:** `packages/sim/src/plumb.ts`, `packages/sim/src/plumb-step.ts`, `packages/sim/src/plumb-hand.ts`, `packages/content/src/keys-desk.ts`, `apps/game/src/lean.ts`, `docs/spec/bosses-choreographed.md`
 - **Asks:** Which slot leans a seat's phone at a desk on THE PLUMB — the pilot's I/S with the navigator's J/L (the slots the wave leaves idle, but the two seats on different kinds of key), or the arrows, left/right the pilot's and up/down the navigator's (one pair each, but both seats on the one cluster)?
+- **Answered:** 2026-09-27 — neither slot. The owner will not add keys a player has to learn, and will not have a wave need a tilt sensor that a phone may lack and a desk never has. He asks for the control to change: each seat pulls a long drag left or right, the stones grow or shrink with it, and the pair keep the level by pulling on both sides at the same time, so the two pulls weigh the same in sum. The work is now THE PLUMB's control redesigned around that drag (its `plumbLevel*` steps, its guide), not desk keys.
 
-The phone lean landed (`lean.ts`) and a desk still cannot play wave 110:
-no key sends a `plumbLevel*` drag. The owner's rule in `keys-desk.ts` is
-that no panel adds a letter, and THE PLUMB's fire steps need A/D (the
-cannon to the middle column) and Q/E (the colours), so the lean has to take
-a slot the wave does not use. Once the slot is picked: each key steps the
-seat's lean two degrees either way from a start of ten degrees off level,
-sent through `leanReader` so the wire sees the same drag a phone sends;
-`drag` is already past `panelSends`'s gate. A test in the shape of
-`lean.test.ts` that the two keys walk the reading into the first step's
-range. `bun run check` proves it; `keys.ts` is at 244 lines, so the keys go
-in a file of their own.
+Wave 110 reads each seat's phone lean (`LevelTilt`, `apps/game/src/lean.ts`)
+as the drag that levels its weight, so a desk cannot play it and neither can a
+phone without a gyroscope. The first answer was to be a desk key; the owner
+turned both slots down and changed the control instead.
+
+The new control: each seat's weight is a long drag, left or right. The stones
+grow or shrink as they are pulled, and the bob hangs true only while the two
+pulls, taken together, weigh the same — so both seats pull at once, each
+watching the other's side. `plumbLevelLeft` and `plumbLevelRight` stay the two
+drag targets; what changes is that `fromMilli` is a pull's length rather than a
+lean, and a level step counts the beats the *sum* stays inside its range rather
+than each seat's own reading. Rewrite §31's beat list and the guide's words to
+match, and move the lean out of THE PLUMB. A drag works the same on a desk, so
+no key is added. A control change on a shipped wave, which the owner asked for
+by name. `bun run check` proves it.
 
 ## §32 THE SLING — sprite atlas experiment: the arm drawing home
 
@@ -479,6 +489,7 @@ comparison is the owner's, unverified until he has looked.
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
 - **Files:** `packages/content/src/waves/act-7.ts`, `tools/director/test/autopilot-field.test.ts`
 - **Asks:** Which way should THE JAM open: the fault placed a beat late, the first lure moved off the cannon's column, or the breach kept as the lesson?
+- **Answered:** 2026-09-27 — the fault placed late, over moving the lure or keeping the breach, and later than one beat. The owner: the runaway starts when the first lure has come down to half height, measured from the hull's top, in the centre of the field. Work out the beat that puts it there from the lure's fall speed, and set the fault's `at` to that beat.
 
 THE JAM's beat-0 lure comes on at authored column 3, which is the cannon's
 starting column, on tick 75. The runaway cannon's first shot goes off on that
@@ -608,6 +619,8 @@ what the rest of this file holds.
 - **Found:** 2026-09-26, this session
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/gesture-unbuilt-b.ts`
 - **Asks:** THE DAVIT already ships this question — its draw "counts its beats only while the other seat's lean holds … and lands only if it lifts while the lean still holds" (`docs/spec/bosses.md` §11.52) — so THE WINCH plays as THE DAVIT with THE TRIVET's chord where the lean is. Build it anyway as designed (two lanes, sim then look); cut §41 as a duplicate and drop both WINCH entries; or redesign it first so a lifted brake also unwinds a draw already banked, which DAVIT's lean never does?
+- **Answered:** 2026-09-27 — redesign, over building as designed or cutting. The owner's rule: a mechanic that is most of a boss must not repeat one that ships, but a boss that uses it as one state among others may. Here the gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT. Redesign it so a lifted brake also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more — the owner's floor for any boss.
+- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §41 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt.ts` and `gesture-unbuilt-b.ts`, delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
 
 No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
 with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first time —
@@ -651,6 +664,8 @@ drawn yet and stays unverified at tempo until the owner has looked.
 - **Found:** 2026-09-26, this session
 - **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
 - **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
+- **Answered:** 2026-09-27 — redesign, the same answer as THE WINCH's and for the same reason. The gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT with a pinch. Redesign it so a gap sprung open also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more.
+- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §42 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt.ts`, delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
 
 No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
 paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
@@ -1586,6 +1601,7 @@ flat. `bun run check` proves the tests.
 - **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
 - **Files:** `apps/game/src/settings.ts`, `packages/render/src/renderer.ts`, `docs/spec/living-bosses.md`
 - **Asks:** What should turn the bosses' part motion down: the existing motion setting, a phone's battery saver, a frame running long, or nothing?
+- **Answered:** 2026-09-27 — the owner left it to the lane and asked only what keeps the bosses from looking static. Chosen: the existing motion setting and nothing else, over a long-frame governor or a battery-saver guess. Anybody who has not asked the game to be still sees full life; the setting stills the parts and halves the body drift, as the body says.
 
 Section 1 of `docs/spec/living-bosses.md`: the part drift is multiplied by a
 `life` level from 0 to 1 handed to the drawers with the view, and it is 1
@@ -1606,6 +1622,7 @@ source sets it; a test proves the part angles are the parent's at 0.
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
 - **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-hash.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/render/src/instar-marks.ts`
 - **Asks:** Should each of THE INSTAR's shoot marks ask for one cannon colour and be drawn in it, or keep taking either colour?
+- **Answered:** 2026-09-27 — (a) one colour per mark, over a split or violet crosshair.
 
 The owner, 27 September 2026, on the fourth act's tail (both seats, two
 marks, two bolts each): *it should have not just a red circle but a
@@ -1630,6 +1647,7 @@ count and is refused. `bun run check` proves it.
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac
 - **Files:** `packages/render/src/outline-parts.ts`, `packages/render/src/queen-parts.ts`, `packages/render/src/queen-crane.ts`, `packages/render/src/queen.ts`, `packages/render/test/outline-parts.test.ts`
 - **Asks:** How should THE BULB QUEEN's parts move so the movement is seen: large arms, torches that sway with her wings, her whole body instead, or not at all?
+- **Answered:** 2026-09-27 — the owner left it to the lane on one condition: what falls, and the torches, must barely move sideways, or the shield and the cannon cannot be placed for them. Chosen: (a) large arms, over (b), which moves the torches off their columns, and (c), which moves her marks and drops with her body. Her arm's swing dies as `craneRelease` straightens it; prove the claw is at its still position when the drop leaves.
 
 The part drift is built and tested (`outline-parts.ts`, `queen-parts.ts`,
 `craneElbow`): her wings swing about their hinges and her arms about their
@@ -1701,3 +1719,50 @@ holding them equal. Make a painted strip one entry: one table of strips in
 `main.ts` over the table that binds every strip behind `?raster=1`. Keep the
 burst and THE CLASP's shield as they are; their hosts differ. Done when a
 sixth strip is a painter, one table row and a bake, and `bun run check` is green.
+
+## THE SCUTTLE's frame is drawn above the canvas on a stage wider than 0.53
+
+- **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
+- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/layout.ts`, `packages/render/test/scuttle-frame.test.ts`, `packages/sim/src/config-scuttle.ts`, `packages/render/src/lead-shape.ts`
+
+The owner, 27 September 2026, in the director: only one row of THE SCUTTLE and
+a little of a second show. The three fixed rows sit 0.4, 1.0 and 1.6 tiles
+above `gridTop`, and the frame's top is 1.84 tiles above it, while the room
+above the grid is only `gridTop = playHeight - rows*tile` (`layout.ts`). On
+the director's 0.56 stage `gridTop` is about 0.91 tiles, so the rows land at
+−0.69, −0.09 and +0.51 tiles. A 390×844 phone shows all three rows; a short
+one (390×660) is cut the same way. `scuttle-shape.ts` says the frame is meant
+to sit whole under the HUD pills, so this is a fix to something wrong, not a
+look. Clamp the rows so the frame's top stays at or below 0 at any aspect (or
+reserve that room in `layout.ts`), and add a test at the frame harness's
+900×1600 that the frame's top is on the canvas. THE LEAD's ridge is 1.85 tiles
+tall (`lead-shape.ts`) and is probably cut the same way; check it in the same
+lane. `bun run check` proves it.
+
+## THE DAVIT's lean becomes a drag
+
+- **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
+- **Files:** `packages/sim/src/davit.ts`, `packages/sim/src/davit-step.ts`, `packages/sim/src/davit-hand.ts`, `packages/sim/src/drag-targets-e.ts`, `apps/game/src/lean.ts`, `docs/spec/bosses.md`
+
+The owner, 27 September 2026: no wave may need a tilt sensor, because a phone
+may lack one and a desk never has one — and asked, he chose to replace the
+lean with a drag on THE DAVIT and THE CAPSTAN too, not add a drag beside it.
+THE DAVIT's draw counts only while the other seat's lean holds (§11.52); make
+that hold a drag the steering seat keeps inside the range instead, read
+through the same drag target so the wire carries what it carries now, and
+take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
+redesign lands with, if it lands first. The guide's words change with it. A
+control change the owner asked for by name. `bun run check` proves it.
+
+## THE CAPSTAN's lean becomes a drag
+
+- **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
+- **Files:** `packages/sim/src/capstan.ts`, `packages/sim/src/capstan-step.ts`, `packages/sim/src/capstan-hand.ts`, `apps/game/src/lean.ts`, `apps/game/test/capstan-lean.test.ts`, `docs/spec/bosses.md`
+
+The same answer as THE DAVIT's, for THE CAPSTAN: its cradle is leant left or
+right with the phone (`capstanTiltMilli`, `TILT, AS A LEVEL`), and a lifted
+tilt pauses the hidden face's rub. Replace the lean with a drag that steers
+the cradle and holds it, keep the pause on a drag let go, and take THE CAPSTAN
+out of `lean.ts` — the file goes once no wave reads it. The guide's words
+change with it. A control change the owner asked for by name. `bun run check`
+proves it.

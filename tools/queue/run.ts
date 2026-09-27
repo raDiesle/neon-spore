@@ -28,6 +28,7 @@
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { askFirst } from "./asking.js";
 import { branchFor, claimOn, heldElsewhere, refuseNumbered, unclaimed } from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
 import { printList } from "./list.js";
@@ -90,6 +91,7 @@ if (!command || command === "list") {
   // entry the owner put on hold is passed over on every session
   // (`deferred.ts`) — the list is `skipped.ts`'s `handedOut`, beside the foot
   // that counts it.
+  for (const line of askFirst(items)) console.log(line);
   const mine = free.filter((i) => fits(i, kind));
   const item = arg ? pick(items, arg) : mine.find((i) => handedOut(i, items) && !onOrigin(i));
   if (!item) {

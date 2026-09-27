@@ -210,6 +210,24 @@ item naming the rule, never a fix made in passing.
   (*why brand new should be on versus page and not build all of it directly
   into game?*). The test and the reasoning: `docs/looks.md`, *Big enough to
   be seen*.
+- **A boss keeps the pair busy for 30 seconds or more, and is not a shipped
+  boss again**, 27 September 2026, answering THE WINCH and THE SLUICE, which
+  were THE DAVIT's gated draw with a chord or a pinch in place of the lean. A
+  control step a shipped boss already plays may come back **as one state among
+  several**, in a boss that looks exciting and different from the one that
+  had it first. When that step is most of the boss, *skip it and create
+  something fresh and cool with more states*.
+- **The same touch feedback on every boss**, 27 September 2026: *ultimately i
+  want the consistent visual across all waves … make sure that extending boss
+  waves or adding new will follow the same conventions.* THE INSTAR's four
+  parts — halo on this seat's mark, turning ring on the partner's, green or
+  red flash, progress arc — are reusable pieces (`grip-verdict.ts` and the
+  shared file the roll-out moves them to), and a boss with a mark or handle
+  uses them rather than drawing its own.
+- **No wave needs a tilt sensor or a key a player must learn**, 27 September
+  2026, on THE PLUMB: *what if a phone does not support it or its played on
+  desktop. i do not want to force using new keys.* THE PLUMB's lean became
+  two pulls that must weigh the same in sum.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

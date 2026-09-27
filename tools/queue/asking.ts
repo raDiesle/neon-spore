@@ -67,3 +67,28 @@ export function asksTag(item: Item): string {
   if (!item.asks) return "";
   return waiting(item) ? " — ASKS THE OWNER" : " — ANSWERED";
 }
+
+/**
+ * **What `next` says before anything else**, while any question waits on the
+ * owner: every one of them, by title, and the instruction to put them to him
+ * in one batch before the lane starts. Empty when nothing waits.
+ *
+ * The owner, 27 September 2026, having found fifteen waiting at once: *"next
+ * time better ask them the moment they are added to queue if possible,
+ * otherwise inform me whenever i start a new queue and prompt me."* The first
+ * half is the finder's (`CLAUDE.md`); this is the second. A question listed
+ * under `ASKS THE OWNER` waits for somebody to read the listing, and the
+ * session that runs `next` is the one that reliably does — so `next` is where
+ * the questions are handed to a session that can ask them.
+ */
+export function askFirst(items: readonly Item[]): string[] {
+  const open = items.filter(waiting);
+  if (open.length === 0) return [];
+  return [
+    `${open.length === 1 ? "1 question waits" : `${open.length} questions wait`} on the owner. ` +
+      "Put all of them to him now, in one batch, before starting work — then write each " +
+      "answer back as an `- **Answered:**` line under its `Asks:`:",
+    ...open.map((i) => `  - ${i.title}: ${i.asks}`),
+    "",
+  ];
+}
