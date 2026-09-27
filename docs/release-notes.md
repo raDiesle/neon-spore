@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 5a86e9ba5 — Nine boss fx files keep the hull shock's clock in `HullShock`
+
+THE HASP, THE KEEL, THE LEDGER, THE MANTLE, THE OCULUS, THE RATCHET, THE SINEW, THE TRIVET and THE VISE each carried their own `shockLeft`/`shockLife` (and three a `shockForce`) and a `drawShock` method; they now hold `readonly shock = new HullShock()` as THE GRINDSTONE does, with every strength and life unchanged, and `frame-on-ship.ts` calls `.shock.draw`. A copies-table row stops the next file declaring the fields by hand.
+
 ## 2026-09-27 · 1a957753f — `bun run frames --help` prints the recipes, and every one of them parses
 
 The recipe list moves out of `run.ts`'s header, which was at 223 lines, into `tools/frames/recipes.ts`, and `bun run frames --help` prints it. A new test feeds every recipe to `parseFrameSpec`. On its first run it refused three: both `--hand` recipes asked for `--wave 0`, which the HUD numbering refuses, and the hold-then-shoot recipe pressed after the default `--ticks 120`. Those three are fixed, and `--opening guide|intro` is now one value.
