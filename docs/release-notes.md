@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d5d23004a — THE SLOW's prism stands round six more bosses instead of the cannon
+
+THE RATCHET, THE SCUTTLE, THE TASTER, THE THROAT, THE UNDERTOW and THE ANTIPHON now have a row on page three: a capsule the long way of the same extent each one's caption rings. THE SCUTTLE's, THE THROAT's and THE UNDERTOW's boxes moved out of their caption functions into their shape files, and `around`'s extent is `spread` now, so the light and the ring read one box. THE GRINDSTONE, THE SLING and THE DAVIT are drawn and still queued.
+
 ## 2026-09-27 · 2541fc84c — `queue next`'s pick is one list with the foot that counts what it passed over
 
 The automatic pick's four reasons to pass an entry by — an unanswered ask, an entry waiting on another, one needing a phone, one the owner deferred — are `handedOut` in `skipped.ts`, beside the listing's foot, which now counts the deferred entries too. A test holds the pick and the foot to the same list. `take` and `next <n>` still hand any of them over.
