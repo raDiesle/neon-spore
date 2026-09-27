@@ -2808,22 +2808,6 @@ pointer never reaches the button. It was worked around with a script's
 above `main` (`position: relative; z-index: 1`), and prove it by
 `document.elementFromPoint` at the button's centre in a preview check.
 
-## `limits.test.ts` runs nine times its figure and times out under load
-
-- **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
-- **Taken:** 2026-09-27, claude/queue-tools-frames-run-ts-is-at-223-lines (claim: claude/queue-limits-test-ts-runs-nine-times-its-figure-and-ti)
-- **Files:** `packages/sim/test/limits.test.ts`, `tools/hooks/file-size.ts`, `tools/test/figure.ts`
-
-Timed alone at a slowdown of 1.8, "keeps source files under the limit"
-took 3583 ms against a figure of 400, and "has no control byte" 5001 ms
-against 450. In a full `bun run check` at a load average of 25 the first
-took 28944 ms and failed the 20 s timeout, turning a landing that touched
-two docs files red. Both cases glob and read every source file in the
-repository, which has grown. Read each file once and share it across the
-four cases, or narrow the glob, as "The rock ratchet reads only the files
-that name the rock" did for its test; then time it alone and set the figures
-from that.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

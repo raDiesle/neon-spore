@@ -25575,3 +25575,17 @@ Bottleneck: friction — a copies row naming the copy's fields needs a second
 spelling the owner itself writes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `limits.test.ts` reads the tree once
+
+- reading: 5 min. The test, `file-size.ts` and `figure.ts`.
+- writing: 5 min. One shared batched read; the two figures and their
+  sentences.
+- looking: 0 min.
+- friction: 10 min. The timings swung threefold with another session's load
+  on the machine, so old and new had to be run interleaved to compare at
+  all; and a `git checkout` meant to undo a figure tweak undid the edit.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a shared machine makes a timing a pair of runs, not
+one.

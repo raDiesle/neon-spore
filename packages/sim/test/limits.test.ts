@@ -53,15 +53,47 @@ function docFiles(): string[] {
   return [...new Glob("docs/**/*.md").scanSync(ROOT)].map((f) => join(ROOT, f));
 }
 
+/**
+ * **Every file the four cases look at, read once and in parallel.** Each case
+ * used to read the whole tree for itself, one file at a time: nine times its
+ * figure alone by 26 September 2026, and past the 20 s timeout under a loaded
+ * `bun run check` (`docs/queue.md`). Three thousand files one after another
+ * cost about 400 ms here, and in batches about 70, and the cases then share
+ * one read instead of making three. Batched rather than all at once, so a
+ * machine with a low open-file limit is not handed three thousand at a time.
+ */
+let reading: Promise<Map<string, Uint8Array>> | undefined;
+function contents(): Promise<Map<string, Uint8Array>> {
+  reading ??= readAll([...new Set([...sourceFiles(), ...docFiles()])]);
+  return reading;
+}
+
+const BATCH = 256;
+
+async function readAll(files: readonly string[]): Promise<Map<string, Uint8Array>> {
+  const out = new Map<string, Uint8Array>();
+  for (let i = 0; i < files.length; i += BATCH) {
+    const batch = files.slice(i, i + BATCH);
+    const bytes = await Promise.all(
+      batch.map(async (f) => [f, await Bun.file(f).bytes()] as const),
+    );
+    for (const [f, b] of bytes) out.set(f, b);
+  }
+  return out;
+}
+
+const decoder = new TextDecoder();
+
 /** The file's own count, by the same rule the hook applies to what it is handed. */
 async function linesIn(file: string): Promise<number> {
-  return lineCount(await Bun.file(file).text());
+  const bytes = (await contents()).get(file) ?? (await Bun.file(file).bytes());
+  return lineCount(decoder.decode(bytes));
 }
 
 describe("file size limits", () => {
   const files = sourceFiles();
 
-  itCosts(400, "keeps source files under the limit", async () => {
+  itCosts(200, "keeps source files under the limit", async () => {
     const over: string[] = [];
     for (const file of files) {
       const rel = relative(ROOT, file).replaceAll("\\", "/");
@@ -70,10 +102,10 @@ describe("file size limits", () => {
       if (lines > LIMIT) over.push(`${rel} has ${lines} lines, limit is ${LIMIT}`);
     }
     expect(over).toEqual([]);
-    // Fifteen hundred files read in one case, and what that costs is the
-    // machine rather than the work: 145 ms alone on the cloud image on 18
-    // September 2026, and past five seconds under `bun run check`'s eight
-    // shards on 12 September 2026. So the budget scales with the load
+    // Whichever case runs first pays the shared read (`contents`): 105 ms
+    // alone on a quiet Mac on 27 September 2026, over 3,200 files, where each
+    // case reading for itself had cost 3.6 s at a slowdown of 1.8. What that
+    // costs is the machine rather than the work, so the budget scales with the load
     // (`tools/test/repo-time.ts`) instead of being a flat number that is right
     // for one machine under one load and for no other.
   });
@@ -113,18 +145,18 @@ describe("file size limits", () => {
 describe("source files are text", () => {
   const files = [...sourceFiles(), ...docFiles()];
 
-  itCosts(450, "has no control byte but tab, LF and CR in any of them", async () => {
+  itCosts(200, "has no control byte but tab, LF and CR in any of them", async () => {
     const binary: string[] = [];
+    const read = await contents();
     for (const file of files) {
-      const bytes = new Uint8Array(await Bun.file(file).arrayBuffer());
+      const bytes = read.get(file) ?? (await Bun.file(file).bytes());
       const at = bytes.findIndex((b) => b < 0x20 && b !== 0x09 && b !== 0x0a && b !== 0x0d);
       if (at === -1) continue;
       const rel = relative(ROOT, file).replaceAll(sep, "/");
       binary.push(`${rel} has byte 0x${bytes[at]?.toString(16)} at offset ${at}`);
     }
     expect(binary).toEqual([]);
-    // The same fifteen hundred files, read as bytes rather than as text: 253 ms
-    // alone on the cloud image, 18 September 2026, and on the same load curve
-    // as everything else that walks the tree (`tools/test/repo-time.ts`).
+    // The same read as the size case, and the same figure: a few milliseconds
+    // after it, and the whole read when this case is run alone (`-t`).
   });
 });
