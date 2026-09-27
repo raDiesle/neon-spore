@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 2abe5a403 — The idle drift and the part drift, a helper that draws nothing yet
+
+`idleDrift(time, seed, hush)` gives a boss's body yaw, pitch and roll, and the head's yaw on top. The head leads and the body follows it a quarter cycle late at half its size. `partDrift` gives each part a turn, tilt and rotate about its joint: late behind what it hangs on, on its own seed, eased off by a gesture's `letGo` and scaled by `life`. `glance` moves both pupils together, ahead of the head. `settle` is the damped swing back after a parent moves, and `easeHush` eases the hush over a beat. The speed ceilings are exact by construction and tested over ten minutes at every frame. That cut the head's reach from the table's 28° to 18°, and the spec says so. No drawer calls any of it yet, so no frame changes.
+
 ## 2026-09-27 · ae115979e — A boss's face looks at the players, never away
 
 The owner, 27 September 2026: every boss with a face turns and tilts its head toward the players' screen, as though it wants to fight them, rather than looking off to the side. The rule is in section 1 of docs/spec/living-bosses.md, and the three living-boss entries that give a head its drift — THE INSTAR's turn, the four rig bosses, the outline drift — now carry it, with a test for THE INSTAR that the face never turns away.
