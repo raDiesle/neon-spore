@@ -916,6 +916,7 @@ unverified until the owner holds two phones.
 ## §37 THE CAPSTAN — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-touch-senders-the-cue-and-the (claim: claude/queue-37-the-capstan-the-look)
 - **Needs:** §37 THE CAPSTAN's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
