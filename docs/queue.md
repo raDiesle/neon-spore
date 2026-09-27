@@ -2390,6 +2390,7 @@ check` proves it.
 ## THE DAVIT's autopilot hand, and its row in the hush test
 
 - **Found:** 2026-09-27, claude/queue-every-other-boss-holds-still-while-its-marks-are
+- **Taken:** 2026-09-27, claude/queue-every-other-boss-holds-still-while-its-marks-are (claim: claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus)
 - **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/boss-hush-drawn-b.ts`, `tools/director/test/boss-hush.test.ts`
 
 THE DAVIT is the one boss left out of `boss-hush.test.ts`, the test that
