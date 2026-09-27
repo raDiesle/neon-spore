@@ -36,7 +36,7 @@ const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
  * none when their simulation lanes landed (`docs/spec/bosses.md`). A
  * new boss is a row in `AUTOPILOT_HANDS` or a name here.
  */
-const NO_HAND = new Set(["sling", "cyst", "burgee"]);
+const NO_HAND = new Set(["sling", "cyst"]);
 
 function rig(w: () => World) {
   const l = computeLayout(VIEWPORT, w().cfg, "test");

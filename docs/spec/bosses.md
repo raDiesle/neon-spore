@@ -10447,8 +10447,11 @@ the ring and the track are pressed where `burgeeMarks` draws them, each only
 by the seat the lit step asks. **The cue** (`boss-cue-read-zn.ts`): `TAP` on
 the ring to the freezer until the flag is still, `HOLD · SWIPE` on the track
 to the seat that draws, and `FIRE` under the middle column once the spindle
-is lit; never *when*, never the side, never the colour. **AUTO has no hand
-yet**, a queued lane of its own, so no unattended play reaches a catch. Whether a freeze on one phone answered by a swipe
+is lit; never *when*, never the side, never the colour. **AUTO**
+(`hands/boss-hands-burgee.ts`) taps from the step's freezer, the pilot on a
+recatch, and draws from the other seat from the moment the step lights,
+lifting toward the lit column once the flag is still; it plays the wave to
+its end (`autopilot-burgee.test.ts`). Whether a freeze on one phone answered by a swipe
 on the other *reads* at tempo is the owner's eye, on two real phones.
 
 **The look** (`render/src/burgee-draw.ts`, 27 September 2026 — the body).

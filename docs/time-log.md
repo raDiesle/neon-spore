@@ -27025,3 +27025,14 @@ Bottleneck: writing — the hush had to be worked out per part, since every
 step of these bosses opens THE SLOW.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — AUTO plays THE BURGEE to the end
+
+- reading: 0 min. THE GALL's and THE VALVE's hands, and `sim/burgee-hand.ts`.
+- writing: 5 min. `boss-hands-burgee.ts`, its registration, the playthrough
+  test, the `NO_HAND` and `unreached` exceptions taken off, the spec line.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: writing — the draw has to be held from the step's light so its beat is counted before the freeze runs out, and that is the one ordering that had to be got right.

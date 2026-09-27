@@ -42,7 +42,6 @@ const cyst = (w: World) => w.boss as CystState;
 const davit = (w: World) => w.boss as DavitState;
 const filament = (w: World) => w.boss as FilamentState;
 const fleet = (w: World) => w.boss as FleetState;
-const BURGEE_HAND = "§39 THE BURGEE — the tap's and the draw's touch, the cue and AUTO";
 const CYST_HAND = "THE CYST's autopilot hand";
 
 export const ROWS_B: readonly Row[] = [
@@ -51,14 +50,11 @@ export const ROWS_B: readonly Row[] = [
     marks: [
       mark(burgeeMarks, "drawBurgeeRing", (w) => burgeeCatching(burgee(w))),
       mark(burgeeMarks, "drawBurgeeTrack", (w) => burgeeCatching(burgee(w))),
-      unreached(
-        mark(
-          burgeeMarks,
-          "drawBurgeeStuds",
-          (w) => burgee(w).spindleLit && burgeeLitStep(burgee(w))?.ask === "fire",
-          (a) => a[5] !== null,
-        ),
-        BURGEE_HAND,
+      mark(
+        burgeeMarks,
+        "drawBurgeeStuds",
+        (w) => burgee(w).spindleLit && burgeeLitStep(burgee(w))?.ask === "fire",
+        (a) => a[5] !== null,
       ),
     ],
   },

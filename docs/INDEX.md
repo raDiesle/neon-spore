@@ -2294,6 +2294,7 @@ by hand never moves.
 | Path | One line |
 |---|---|
 | `packages/hands/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
+| `packages/hands/src/boss-hands-burgee.ts` | **THE BURGEE played right**, for the autopilot |
 | `packages/hands/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
 | `packages/hands/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |
 | `packages/hands/src/boss-hands-snake-grid.ts` | SNAKE's arena as the hand's search sees it (`boss-hands-snake.ts`): four headings |
