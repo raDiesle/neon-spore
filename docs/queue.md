@@ -2116,6 +2116,7 @@ what the rest of this file holds.
 ## §11.41, §11.43 and §11.44 still say only the simulation has landed
 
 - **Found:** 2026-09-26, claude/valve-story-misplaced
+- **Taken:** 2026-09-27, claude/queue-queue-next-hands-out-a-deferred-entry (claim: claude/queue-11-41-11-43-and-11-44-still-say-only-the-simulat)
 - **Files:** `docs/spec/bosses.md`
 
 THE KEEL's, THE SEAM's and THE OCULUS's sections in `bosses.md` each still
