@@ -26333,3 +26333,5 @@ eye and the heart had to hand theirs back before a glow could follow it.
 
 Bottleneck: looking — the first crosshair passed its test and could not be
 seen, and only a zoomed frame said so.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

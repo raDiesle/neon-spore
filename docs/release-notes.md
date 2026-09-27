@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7b228534f — THE INSTAR: a shoot mark is a crosshair
+
+A shoot mark is now a crosshair in the ship's violet: a ring with four ticks pointing in and nothing across the middle, so the part to shoot stays visible, glowing red, under it. It has no red halo. The window ring still closes and the progress arc still fills. Before this, a shoot mark drew the hold's two thumbprints. The owner asked for this look by name.
+
 ## 2026-09-27 · f35e5c18b — THE INSTAR: the part to shoot glows red
 
 While a shoot mark's window is open, the part it names (the eyes, the eggs, the tail or the heart) is stroked a strong red along its own outline, pulsing on the beat. The glow goes when the last shoot mark on that part is done. It is an outline and never a fill, so it cannot be mistaken for the whole-body hurt. The owner asked for this look by name.
