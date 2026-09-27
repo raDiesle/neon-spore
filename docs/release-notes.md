@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 00a545867 — A push's replay restamps the shas the release notes name
+
+When `bun run push` replays the trunk onto an `origin/main` that moved, every commit origin had not seen gets a new sha, and the release notes and the `Unverified at` headings went on naming the old ones — five of the twelve newest notes on 26 September named commits no history held. The reconcile now pairs each commit with its replayed self by author, date and subject and restamps `docs/release-notes.md`, `docs/queue.md` and `docs/parked.md` in one more commit before the send. Notes already pushed with a stale sha are left as they are.
+
 ## 2026-09-27 · 1f6e848d4 — `bun run push` no longer refuses on a lane's worktree under .claude/worktrees/
 
 A kept lane's worktree is a directory with a `.git` file inside the checkout that has `main` out, and git lists it as untracked, so the push's clean-tree check refused on it. The owner's machine hid it with `.git/info/exclude`; a cloud clone has no such line. `.gitignore` now carries it, and a repo test reconciles a trunk with a registered worktree there.

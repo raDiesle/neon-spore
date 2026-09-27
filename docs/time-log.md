@@ -25327,3 +25327,5 @@ exclude, so the cause was not in the code the entry named.
 
 Bottleneck: writing — pairing a commit with its replayed self needed a key
 that a rebase keeps, and author, date and subject was the one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
