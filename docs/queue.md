@@ -2861,23 +2861,6 @@ pointer never reaches the button. It was worked around with a script's
 above `main` (`position: relative; z-index: 1`), and prove it by
 `document.elementFromPoint` at the button's centre in a preview check.
 
-## `bun run land` loses the race to the trunk over and over when lanes are busy
-
-- **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
-- **Taken:** 2026-09-27, claude/queue-the-step-colour-is-written-three-times-hoist-it (claim: claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an)
-- **Files:** `tools/land/race.ts`, `tools/land/run.ts`, `tools/land/land.ts`
-
-With eight lanes landing at once, one landing of two docs files was refused
-by `trunkRaced` five times running: each attempt ran the whole of
-`bun run check`, found `main` moved meanwhile, and threw the result away.
-It was worked around by looping `bun run land --keep` in a shell. When the
-commits that moved the trunk touch none of the lane's files, or only the
-records `land` already merges (`docs/queue.md`, `docs/time-log.md`, the
-notes), let `land` replay onto the new trunk and run `check:fast` over the
-union of the two diffs, not the full check again, and retry by itself a
-bounded number of times before refusing. A test in `tools/land/test/` that
-moves the trunk between the check and the move proves it.
-
 ## `limits.test.ts` runs nine times its figure and times out under load
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
@@ -2934,3 +2917,15 @@ Most of the file is the flag-to-file table and the recipe list in its header
 comment, and every new flag adds a line to both. Move the recipes into
 `docs/commands.md`, or into their own tools/frames/recipes.ts printed by
 `--help`, before the next flag takes the file over the ceiling.
+
+## Eleven INDEX.md rows are empty, and a row once written empty stays empty
+
+- **Found:** 2026-09-27, claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an
+- **Files:** `tools/index/`, `docs/INDEX.md`, `packages/sim/src/weight.ts`, `tools/frames/frame-files.ts`
+
+Eleven files (the empty `|  |` rows of `docs/INDEX.md`) open on an import with no header comment, so their rows carry no
+description, and `bun run index` keeps a row that already exists — so a new
+file indexed before its header was written keeps an empty row after it is
+(`tools/land/race-retry.ts` did, until its row was deleted by hand). What to do:
+give the eleven a header; have `bun run index` re-derive a row whose text is
+empty; and have the drift test refuse an empty row.

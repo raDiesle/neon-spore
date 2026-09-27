@@ -57,7 +57,8 @@ import { writeNotes } from "./note-commit.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
 import { everHeldIn, queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkMove, trunkRaced } from "./race.js";
-import { redCheckReport } from "./red-check.js";
+import { rerace } from "./race-retry.js";
+import { checkGreen } from "./red-check.js";
 import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
 import { send } from "./send.js";
@@ -116,40 +117,44 @@ async function moveTrunk(): Promise<Landed[]> {
   // Where the trunk stands before any of this. Asked again just before the ref
   // move, because nothing holds it in between and the check is minutes long
   // (`trunkRaced`).
-  const trunkBefore = await git(["rev-parse", TRUNK], root);
+  let trunkBefore = await git(["rev-parse", TRUNK], root);
 
-  // Read before the replay, asked after it: what the trunk had taken out of
-  // the queue, and what the lane branched from. A rebase that resolves
-  // `docs/queue.md` in the lane's favour puts every removed entry back in one
-  // move, and nothing else notices (`queue-guard.ts`).
-  const mergeBase = (await git(["merge-base", TRUNK, "HEAD"], root)) || TRUNK;
   const show = (rev: string, file: string) => git(["show", `${rev}:${file}`], root);
-  const queueBefore = going.rebase ? await queueSnapshots(TRUNK, show, mergeBase) : [];
-  // The same snapshots asked the other way: an entry both this lane and the
-  // trunk took out was done twice, and is said rather than refused (`done-twice.ts`).
   const run = (args: string[]) => git(args, root);
-  for (const line of await doneTwiceSaid(queueBefore, mergeBase, TRUNK, run)) console.log(line);
-  if (going.rebase) {
+  // The replay and its two guards over the queue, as one call: a trunk that
+  // moved during the check is replayed onto again (`race-retry.ts`).
+  const replayGuarded = async (): Promise<{ ok: boolean; said: string[] }> => {
+    // Read before the replay, asked after it: what the trunk had taken out of
+    // the queue, and what the lane branched from. A rebase that resolves
+    // `docs/queue.md` in the lane's favour puts every removed entry back in
+    // one move, and nothing else notices (`queue-guard.ts`).
+    const mergeBase = (await git(["merge-base", TRUNK, "HEAD"], root)) || TRUNK;
+    const queueBefore = await queueSnapshots(TRUNK, show, mergeBase);
+    // The same snapshots asked the other way: an entry both this lane and the
+    // trunk took out was done twice, and is said rather than refused (`done-twice.ts`).
+    const said = await doneTwiceSaid(queueBefore, mergeBase, TRUNK, run);
     const replayed = await replay(root, TRUNK);
     if (!replayed.ok) {
-      console.log(`✗ ${branch} does not replay onto ${TRUNK}; nothing was moved`);
+      said.push(`✗ ${branch} does not replay onto ${TRUNK}; nothing was moved`);
       if (replayed.conflicted.length > 0)
-        console.log(`  conflicts in ${replayed.conflicted.join(", ")}`);
-      else if (replayed.said) console.log(`  ${replayed.said}`);
-      process.exit(1);
+        said.push(`  conflicts in ${replayed.conflicted.join(", ")}`);
+      else if (replayed.said) said.push(`  ${replayed.said}`);
+      return { ok: false, said };
     }
-    console.log(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
+    said.push(`  rebased  onto ${await git(["rev-parse", "--short", TRUNK], root)}`);
     for (const file of new Set(replayed.resolved)) {
-      console.log(`  merged   ${file} — the trunk's copy, carrying this lane's own edits`);
+      said.push(`  merged   ${file} — the trunk's copy, carrying this lane's own edits`);
     }
     // The second half of the guard: the trunk's whole history, asked only of
     // the entries the three snapshots read as newly filed (`queue-guard.ts`).
-    const asker = everHeldIn((args) => git(args, root), TRUNK);
-    const back = await resurrectedAfter(root, queueBefore, asker);
-    if (back.length > 0) {
-      for (const line of refusal(TRUNK, back)) console.log(line);
-      process.exit(1);
-    }
+    const back = await resurrectedAfter(root, queueBefore, everHeldIn(run, TRUNK));
+    if (back.length > 0) return { ok: false, said: [...said, ...refusal(TRUNK, back)] };
+    return { ok: true, said };
+  };
+  if (going.rebase) {
+    const replayed = await replayGuarded();
+    for (const line of replayed.said) console.log(line);
+    if (!replayed.ok) process.exit(1);
   }
 
   // The install a replay can leave stale, frozen so a lockfile drift is the
@@ -171,17 +176,38 @@ async function moveTrunk(): Promise<Landed[]> {
     process.exit(1);
   }
 
-  const check = Bun.spawn(["bun", "run", "check"], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [checkOut, checkErr, checkCode] = await Promise.all([
-    new Response(check.stdout).text(),
-    new Response(check.stderr).text(),
-    check.exited,
-  ]);
-  if (checkCode !== 0) {
-    for (const line of await redCheckReport(`${checkOut}${checkErr}`, TRUNK)) console.log(line);
-    process.exit(1);
-  }
+  if (!(await checkGreen(root, TRUNK, ["check"]))) process.exit(1);
   console.log("  checked  green");
+
+  // The trunk moved during the check: replayed onto again and checked over
+  // both diffs when what arrived is none of this lane's, a bounded number of
+  // times, rather than refused and the whole check thrown away (`raceRetry`).
+  for (let tries = 0; ; tries++) {
+    const now = await git(["rev-parse", TRUNK], root);
+    const raced = trunkRaced(TRUNK, trunkBefore, now);
+    if (!raced) break;
+    const again = await rerace({
+      root,
+      trunk: TRUNK,
+      before: trunkBefore,
+      now,
+      tries,
+      replay: async () => {
+        const replayed = await replayGuarded();
+        const installErr = replayed.ok ? await installFrozen(root) : null;
+        if (installErr !== null) replayed.said.push(`✗ bun install failed: ${installErr}`);
+        return { ok: replayed.ok && installErr === null, said: replayed.said };
+      },
+      check: (since) => checkGreen(root, TRUNK, ["check:fast", "--since", since]),
+    });
+    for (const line of again.said) console.log(line);
+    if (!again.ok) {
+      console.log(`✗ ${raced}`);
+      process.exit(1);
+    }
+    console.log("  checked  green, over both diffs");
+    trunkBefore = now;
+  }
 
   const head = await git(["rev-parse", "HEAD"], root);
   const landingLog = await git(
@@ -189,11 +215,6 @@ async function moveTrunk(): Promise<Landed[]> {
     root,
   );
   const landed = parseLanded(landingLog);
-  const raced = trunkRaced(TRUNK, trunkBefore, await git(["rev-parse", TRUNK], root));
-  if (raced) {
-    console.log(`✗ ${raced}`);
-    process.exit(1);
-  }
   // The holder read again, and handed on: the note and the sweep after this
   // commit in whichever tree holds the trunk now (`trunkMove`).
   const move = trunkMove(TRUNK, state.trunkTree, await trunkTree(root, TRUNK));

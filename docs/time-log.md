@@ -25435,3 +25435,17 @@ Bottleneck: reading — THE CURTAIN's span and THE KEEL's plate width were only
 inside their draw files, and had to be found and exported before a row could call them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `land` replays onto a trunk that raced it, rather than refusing
+
+- reading: 10 min. `run.ts`, `race.ts`, `replay.ts`, `fast.ts`'s scope, and how
+  `bun run` passes an argument through an `&&` chain.
+- writing: 20 min. `raceRetry` and `rerace`, the replay and its queue guards
+  lifted into one call so they can run twice, `check:fast --since`, a
+  `checkGreen` both checks share, and a test that moves a real trunk mid-landing.
+- looking: 0 min.
+- friction: 5 min. This lane's own previous landing lost the race twice.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the queue guard had to become a function before it could
+guard a second replay, and `run.ts` had eight lines of room to take it.

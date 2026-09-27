@@ -20,12 +20,17 @@ import { reapOnSignal, track } from "./reap.js";
 const ROOT = join(import.meta.dirname, "..", "..");
 const TRUNK = "main";
 
-const changed = changedSince(TRUNK, ROOT);
+// `--since <rev>` widens the diff to everything after that commit: a landing
+// that replayed onto a trunk which moved during its check asks for the lane's
+// diff and the trunk's new commits together (`tools/land/race-retry.ts`).
+const at = process.argv.indexOf("--since");
+const since = at >= 0 ? process.argv[at + 1] : undefined;
+const changed = changedSince(since ?? TRUNK, ROOT);
 const filters = fastScopeFor(changed);
 console.log(
   changed.length === 0
     ? `check:fast — nothing differs from ${TRUNK}; the sweeps only`
-    : `check:fast — ${changed.length} path${changed.length === 1 ? "" : "s"} differ from ${TRUNK}`,
+    : `check:fast — ${changed.length} path${changed.length === 1 ? "" : "s"} differ from ${since?.slice(0, 7) ?? TRUNK}`,
 );
 console.log(`  testing  ${filters.join(" ")}`);
 console.log(`  the full suite is \`bun run land\`'s to run, and its result is the one that counts`);

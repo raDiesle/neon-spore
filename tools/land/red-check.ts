@@ -21,15 +21,36 @@ const TAIL = 25;
 const NAMED = /\(fail\)|^✗ shard|timed out/;
 
 /** The report, as lines to print, with the whole output kept on disk. */
-export async function redCheckReport(output: string, trunk: string): Promise<string[]> {
+export async function redCheckReport(
+  output: string,
+  trunk: string,
+  script = "check",
+): Promise<string[]> {
   const all = output.trim();
   const kept = join(tmpdir(), `neon-spore-check-${process.pid}.log`);
   await Bun.write(kept, `${all}\n`);
   const lines = all.split("\n");
   return [
-    `✗ bun run check is red on the replayed lane; ${trunk} was not moved`,
+    `✗ bun run ${script} is red on the replayed lane; ${trunk} was not moved`,
     ...lines.filter((l) => NAMED.test(l)),
     ...lines.slice(-TAIL),
     `  kept     the whole of it — ${kept}`,
   ];
+}
+
+/**
+ * `bun run <args>` in `root`, said green or not; a red one is reported here,
+ * the same way for the full check and for the narrowed one a race asks for
+ * (`race-retry.ts`).
+ */
+export async function checkGreen(root: string, trunk: string, args: string[]): Promise<boolean> {
+  const check = Bun.spawn(["bun", "run", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
+  const [out, err, code] = await Promise.all([
+    new Response(check.stdout).text(),
+    new Response(check.stderr).text(),
+    check.exited,
+  ]);
+  if (code === 0) return true;
+  for (const line of await redCheckReport(`${out}${err}`, trunk, args[0])) console.log(line);
+  return false;
 }

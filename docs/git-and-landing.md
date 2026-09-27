@@ -147,6 +147,15 @@ The cost is not linear in how long you wait. A rebase over one commit is nothing
 over eleven that touch what you touched, it is a conflict per file and a full
 `bun run check` per mistake.
 
+**A trunk that moves during the check is not a reason to run the check again.**
+When another lane lands in the minutes `bun run check` takes, `land` compares
+what arrived with what this lane changed. If they share no file but the records
+the replay merges by itself (`SETTLED` in `tools/land/replay.ts`), it replays
+onto the new trunk and runs `check:fast --since <the old trunk>` over both diffs,
+up to `RACE_RETRIES` times (`tools/land/race.ts`). Only a shared file sends it
+back for a full run. It used to refuse every time: on 26 September 2026 one
+landing of two docs files threw five full checks away in a row.
+
 **Land each green piece.** The same lane was finished twice: a rule change, then
 a shape change asked for after the first was already green. Landing the first
 would have made the second a fresh branch off a current trunk, and the collision

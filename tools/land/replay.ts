@@ -108,6 +108,9 @@ RESOLVERS[REGISTRY_FILE] = async ({ root }) => {
   }
 };
 
+/** Every file the replay settles on its own — a race over one of these is no race (`raceRetry`). */
+export const SETTLED: ReadonlySet<string> = new Set(Object.keys(RESOLVERS));
+
 /** One stage of a conflicted path — "" when that side has no version of it. */
 async function stage(root: string, n: number, file: string): Promise<string> {
   const proc = Bun.spawn(["git", "show", `:${n}:${file}`], {
