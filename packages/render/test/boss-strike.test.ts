@@ -13,6 +13,7 @@ import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
+import { slingCentre } from "../src/sling-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -91,7 +92,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      ...["capstan", "gall", "burgee", "cyst", "grindstone"],
+      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -124,6 +125,7 @@ describe("a boss's blow at the hull", () => {
     ["THE BURGEE tears a scrap off its flag's fly", "burgee", burgeeSpindleAt],
     ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
+    ["THE SLING flings a ball out of its cup", "sling", slingCentre],
   ] as const)("%s that bites the skin at reach 1", (_name, by, centreOf) => {
     const from = strikeFrom(L, CFG, by);
     const centre = centreOf(L, CFG);

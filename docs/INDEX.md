@@ -1275,6 +1275,7 @@ by hand never moves.
 | `packages/render/src/sling-marks.ts` | One side's cord: cord-brown at rest, glowing white while this side is the one asked to draw it |
 | `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
 | `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |
+| `packages/render/src/sling-blow.ts` | **THE SLING's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/slow-look.ts` | **THE SLOW's window, as a picture** — the record the look is one field on, and the pass that reads it |
 | `packages/render/src/slow-lens.ts` | **What a lens over THE SLOW's window needs and is not about**: the frame's own pixels |
 | `packages/render/src/slow-intake-aim.ts` | Where the body a window is about stands and how wide it is, and how far up the look stands this frame |

@@ -17,6 +17,7 @@ import { plumbHook, plumbSacBottom, plumbSacMiddle } from "./plumb-shape.js";
 import { ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { rimeCentre, rimeRadius } from "./rime-shape.js";
 import { seamCentre, seamHalfHeight } from "./seam-shape.js";
+import { slingBlowFrom } from "./sling-blow.js";
 import { spoolHome } from "./spool-shape.js";
 import { stareEye } from "./stare-shape.js";
 import { trivetCentre, trivetFoot } from "./trivet-shape.js";
@@ -95,6 +96,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   cyst: cystBlowFrom,
   // The bottom of the wheel, where the chip breaks off (`grindstone-blow.ts`).
   grindstone: grindstoneBlowFrom,
+  // The underside of the cup at the crotch, where the ball is flung from (`sling-blow.ts`).
+  sling: slingBlowFrom,
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where

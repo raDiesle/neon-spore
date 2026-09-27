@@ -17,6 +17,7 @@ import { plumbBlow } from "./plumb-blow.js";
 import { ratchetBlow } from "./ratchet-blow.js";
 import { rimeBlow } from "./rime-blow.js";
 import { seamBlow } from "./seam-blow.js";
+import { slingBlow } from "./sling-blow.js";
 import { stareBlow } from "./stare-blow.js";
 import { trivetBlow } from "./trivet-blow.js";
 import { valveBlow } from "./valve-blow.js";
@@ -100,6 +101,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   cyst: cystBlow,
   // A fire step let run: the wheel throws a chip that shatters to grit on the skin.
   grindstone: grindstoneBlow,
+  // A fire step let run: the lit cup flings its steel ball, which dents the skin.
+  sling: slingBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`
