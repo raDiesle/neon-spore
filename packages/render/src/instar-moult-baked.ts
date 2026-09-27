@@ -1,28 +1,34 @@
 import type { PaleSkin } from "./instar-moult.js";
+import { fibres, veins, wrapped } from "./instar-moult-flesh.js";
+import { drawWoundEdges } from "./instar-moult-wound.js";
 import { PALETTE } from "./palette.js";
 import { type Sprite, type SpriteSpec, spritePx, spriteRng, tintedSprite } from "./sprite-bake.js";
 
 /**
- * **THE INSTAR's new body, baked** — the fifth example (`sprite-bake.ts`), and
- * the second laid as a pattern (`instar-hide-baked.ts`): the pale skin in the
- * moult's split, crumpled and wet as it comes out of the old hide.
+ * **THE INSTAR's moult as a wound, baked** — the fifth example
+ * (`sprite-bake.ts`), and the second laid as a pattern
+ * (`instar-hide-baked.ts`): the split along the back is raw flesh.
  *
- * `instar-moult.ts` fills the split with two flat colours. Here the fill keeps
- * them and lays over it a tile of soft folds running along the back, each
- * with its crease dark and its crown catching the light, short wrinkles
- * across them, and beads of wet standing on the skin — none of which a frame
- * could afford to stroke along a split that changes shape with every swipe.
- * The tile turns with the back, so the folds always run along the body.
+ * The owner, 27 September 2026, on `instar:moult baked`: *this version is
+ * better but not so recognisable — can we make it more visible, then build it
+ * into the game? Maybe more like wounds and flesh and blood.* So the tile is
+ * deep red and opaque. Muscle fibres run along the back, with soft folds
+ * creased dark across them and veins branching over them. Blood pools dark
+ * in the hollows. On the light layer are wet crowns, a slick sheen and a
+ * glint on every bead, none of which a frame could afford to stroke along a
+ * split that changes shape with every swipe. The tile turns with the back,
+ * so the fibres always run along the body. The edges are per frame, because
+ * only a frame knows where they are (`instar-moult-wound.ts`).
  *
- * Not drawn by the game: offered in VERSUS on `instar:moult`
- * (`tools/versus/candidates/instar-moult/baked`).
+ * The body layer is grey multiplied by `PALETTE.red`, so its dark greys are
+ * the deep reds; the light layer is added in `PALETTE.redRim`.
  */
 
 /** The tile is `ASPECT` heights wide; `FOLDS` folds run across it, each `WAVES` waves long. */
 const ASPECT = 2;
 const FOLDS = 3;
 const WAVES = 2;
-const BEADS = 16;
+const BEADS = 14;
 /** How tall the tile plays, in head radii. */
 const TILE = 0.42;
 
@@ -81,69 +87,52 @@ function crease(
   g.lineCap = "round";
 }
 
-/** Every mark at each wrap it could reach across, so the tile has no edge. */
-function wrapped(w: number, h: number, draw: (dx: number, dy: number) => void): void {
-  for (const dx of [-w, 0, w]) for (const dy of [-h, 0, h]) draw(dx, dy);
-}
-
 function beads(w: number, h: number): { x: number; y: number; s: number }[] {
   const rnd = spriteRng(37);
   return Array.from({ length: BEADS }, () => ({
     x: rnd() * w,
     y: rnd() * h,
-    s: h * (0.015 + rnd() * 0.025),
+    s: h * (0.018 + rnd() * 0.03),
   }));
 }
 
 function paintBody(g: CanvasRenderingContext2D, w: number, h: number): void {
-  g.lineCap = "round";
+  // The flesh: opaque, so none of the pale skin shows through the wound.
+  g.fillStyle = "rgb(120,120,120)";
+  g.fillRect(0, 0, w, h);
+  fibres(g, w, h, 53, 190);
+  fibres(g, w, h, 59, 70);
   // Each crease: a soft dark trough, then its narrow bottom.
+  g.lineCap = "round";
+  g.strokeStyle = "#000";
   for (const fold of folds())
     for (const dy of [-1, 0, 1]) {
-      g.strokeStyle = "#fff";
       g.lineWidth = h * 0.09;
-      crease(g, fold, w, h, dy, 0.3);
-      g.lineWidth = h * 0.035;
-      crease(g, fold, w, h, dy, 0.4);
-      g.lineWidth = h * 0.01;
+      crease(g, fold, w, h, dy, 0.35);
+      g.lineWidth = h * 0.03;
       crease(g, fold, w, h, dy, 0.6);
     }
-  // Short wrinkles across the folds, where the skin bunched as it came out.
-  const rnd = spriteRng(41);
-  g.strokeStyle = "rgba(255,255,255,0.3)";
-  g.lineWidth = h * 0.006;
-  for (let i = 0; i < 12; i++) {
-    const x = rnd() * w;
-    const y = rnd() * h;
-    const len = h * (0.06 + rnd() * 0.08);
-    const bend = (rnd() - 0.5) * len;
-    wrapped(w, h, (dx, dy) => {
-      g.beginPath();
-      g.moveTo(x + dx, y + dy - len / 2);
-      g.quadraticCurveTo(x + dx + bend, y + dy, x + dx, y + dy + len / 2);
-      g.stroke();
-    });
-  }
-  // A shadow under each bead of wet.
-  g.fillStyle = "rgba(255,255,255,0.5)";
+  veins(g, w, h);
+  // Blood standing in the hollows: dark beads, the deepest red on the tile.
+  g.fillStyle = "rgb(55,55,55)";
   for (const { x, y, s } of beads(w, h))
     wrapped(w, h, (dx, dy) => {
       g.beginPath();
-      g.ellipse(x + dx + s * 0.2, y + dy + s * 0.4, s, s * 0.8, 0, 0, Math.PI * 2);
+      g.ellipse(x + dx, y + dy, s * 1.3, s, 0, 0, Math.PI * 2);
       g.fill();
     });
 }
 
 function paintLight(g: CanvasRenderingContext2D, w: number, h: number): void {
   g.lineCap = "round";
-  // The crown of each fold, just above its crease, catches the key.
+  g.strokeStyle = "#fff";
+  // The crown of each fold, just above its crease, wet under the key.
   for (const fold of folds())
     for (const dy of [-1, 0, 1]) {
-      g.strokeStyle = "#fff";
-      g.lineWidth = h * 0.03;
-      crease(g, fold, w, h, dy - 0.05, 0.5);
+      g.lineWidth = h * 0.025;
+      crease(g, fold, w, h, dy - 0.05, 0.55);
     }
-  // A wet sheen in soft patches, where the skin is still slick.
+  // A slick in soft patches, where the flesh is wettest.
   const rnd = spriteRng(43);
   for (let i = 0; i < 5; i++) {
     const x = rnd() * w;
@@ -151,23 +140,19 @@ function paintLight(g: CanvasRenderingContext2D, w: number, h: number): void {
     const s = h * (0.2 + rnd() * 0.2);
     wrapped(w, h, (dx, dy) => {
       const wet = g.createRadialGradient(x + dx, y + dy, 0, x + dx, y + dy, s);
-      wet.addColorStop(0, "rgba(255,255,255,0.18)");
+      wet.addColorStop(0, "rgba(255,255,255,0.22)");
       wet.addColorStop(1, "rgba(255,255,255,0)");
       g.fillStyle = wet;
       g.fillRect(x + dx - s, y + dy - s, s * 2, s * 2);
     });
   }
-  // The beads: a lit drop with a hard glint.
+  // Every bead of blood catches one hard glint up and to the left.
+  g.fillStyle = "rgba(255,255,255,0.9)";
   for (const { x, y, s } of beads(w, h))
     wrapped(w, h, (dx, dy) => {
-      const cx = x + dx;
-      const cy = y + dy;
-      const drop = g.createRadialGradient(cx - s * 0.3, cy - s * 0.3, 0, cx, cy, s);
-      drop.addColorStop(0, "rgba(255,255,255,0.9)");
-      drop.addColorStop(0.35, "rgba(255,255,255,0.35)");
-      drop.addColorStop(1, "rgba(255,255,255,0)");
-      g.fillStyle = drop;
-      g.fillRect(cx - s, cy - s, s * 2, s * 2);
+      g.beginPath();
+      g.arc(x + dx - s * 0.45, y + dy - s * 0.35, s * 0.35, 0, Math.PI * 2);
+      g.fill();
     });
 }
 
@@ -186,31 +171,43 @@ function patternOf(ctx: CanvasRenderingContext2D, s: Sprite): CanvasPattern | nu
   return patterns.get(s) ?? null;
 }
 
-/** `paint` first — the shipped two fills — then the baked folds over the split, turned along the back: one fill. */
+/**
+ * The flesh laid over the split, turned along the back, then its edges. A
+ * split too small to bake, or a canvas with no patterns, gets `paint`
+ * instead: the pale skin as it was drawn before.
+ */
 export function drawBakedPale(
   ctx: CanvasRenderingContext2D,
   skin: PaleSkin,
   paint: (ctx: CanvasRenderingContext2D, skin: PaleSkin) => void,
   dpr: number,
 ): void {
-  paint(ctx, skin);
-  const { pale, back, crest, r, fade, breath } = skin;
+  const { pale, back, crest, r, fade } = skin;
   const tileH = TILE * r;
-  if (tileH < 2 || fade <= 0) return;
-  const tile = tintedSprite(PALE_SPRITE, spritePx(tileH, dpr), PALETTE.sheenMid, PALETTE.text);
+  if (tileH < 2 || fade <= 0) {
+    paint(ctx, skin);
+    return;
+  }
+  const tile = tintedSprite(PALE_SPRITE, spritePx(tileH, dpr), PALETTE.red, PALETTE.redRim);
   const pattern = patternOf(ctx, tile);
-  if (!pattern) return;
+  if (!pattern) {
+    paint(ctx, skin);
+    return;
+  }
   const a = back[0] ?? crest;
   const b = back[back.length - 1] ?? crest;
   const k = tileH / tile.h;
   ctx.save();
   ctx.clip(pale);
+  ctx.save();
   ctx.translate(crest.x, crest.y);
   ctx.rotate(Math.atan2(b.y - a.y, b.x - a.x));
   ctx.scale(k, k);
-  ctx.globalAlpha *= fade * breath;
+  ctx.globalAlpha *= fade;
   ctx.fillStyle = pattern;
   const reach = (r * 3) / k;
   ctx.fillRect(-reach, -reach, reach * 2, reach * 2);
   ctx.restore();
+  ctx.restore();
+  drawWoundEdges(ctx, skin);
 }

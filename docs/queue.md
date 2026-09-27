@@ -2792,25 +2792,6 @@ page if it does not.
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
 
-## VERSUS — THE INSTAR's moult as a wound, then adopted
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-instar-the-bare-pose-bigger-and-its-heart-se (claim: claude/queue-versus-the-instars-moult-as-a-wound-then-adopted)
-- **Files:** `packages/render/src/instar-moult-baked.ts`, `packages/render/src/instar-moult.ts`, `tools/versus/candidates/instar-moult/baked/index.ts`, `tools/versus/DECIDED.md`
-
-The owner, 27 September 2026, on `instar:moult baked`: *this version is
-better but not so recognisable — can we make it more visible, then build it
-into the game? Maybe more like wounds and flesh and blood.* Repaint the tile
-so the split reads as raw flesh: deep reds, wet highlights, the old hide's
-torn edges curled back along the split, veins, and beads and runs of blood
-at the edges. Keep it under about 2 kB gzipped (`bun run sprite
-instar-moult`). Send one PNG at `INSTAR · BARE`. He asked for it to go into
-the game after that, so adopt it in the same lane with `bun run versus
-adopt`.
-
-Done when: the moult slot is adopted and out of the registry; the costs are
-in DECIDED.md; the frame test is green. `bun run check` proves it.
-
 ## `docs/spec/briefings.md` §3.2 names five prose guides where there are twenty-two
 
 - **Found:** 2026-09-27, claude/queue-38-the-gall-the-simulation-lane

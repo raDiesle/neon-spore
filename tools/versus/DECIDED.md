@@ -1257,3 +1257,17 @@ The owner, 27 September 2026: *I see no difference, you decide.* The interior
 drift reaches only a box and a dart, which are too small to read.
 
 The other answer offered was `drift`; it went with the slot.
+
+## `instar:moult` / `baked` — taken by hand, 2026-09-27
+
+The owner, 27 September 2026: *maybe more like wounds and flesh and blood*
+… *build it into the game*. The tile was repainted as raw flesh before it was
+taken: muscle along the back, dark creases and veins, beads of blood, wet
+glints, and per frame a raw rim, the hide torn back along the back, runs of
+blood into the wound and beads off the lip (instar-moult-wound.ts).
+PALE_LOOK.paint is drawBakedPale (instar-moult-baked.ts); the flat pale fills
+stay as drawnPale for a split too small to bake. Cost, bun run sprite on 27
+September: +2.6 kB gzipped counting the shared baker, +1.8 kB beside the
+baker the game already ships; 5.0 ms baked once.
+
+It was the only answer offered; the slot was closed with `drop`.

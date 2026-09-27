@@ -105,7 +105,16 @@ describe("a sprite baked at load", () => {
       const back = [o, { x: 260, y: 200 + i }, { x: 320, y: 210 }];
       drawBakedPale(
         ctx,
-        { pale: new Path2D(), back, crest: back[1] ?? o, r: 150, fade: 1 - threat, breath: 0.9 },
+        {
+          pale: new Path2D(),
+          back,
+          lip: back.map((p) => ({ x: p.x, y: p.y + 40 })),
+          crest: back[1] ?? o,
+          r: 150,
+          fade: 1 - threat,
+          breath: 0.9,
+          soft: 1,
+        },
         () => {},
         3,
       );

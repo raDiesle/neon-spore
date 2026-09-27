@@ -107,14 +107,15 @@ export function split(x: number, y: number, r: number): PaleSkin {
     const u = i / 12 - 0.5;
     return { x: x + u * r * 1.5, y: y - r * 0.3 + u * r * 0.25 - Math.cos(u * Math.PI) * r * 0.08 };
   });
+  const lip = back.map((p, i) => ({
+    x: p.x,
+    y: p.y + Math.sin((Math.PI * i) / 12) ** 0.6 * r * 0.6,
+  }));
   const pale = new Path2D();
   for (const p of back) pale.lineTo(p.x, p.y);
-  for (let i = back.length - 1; i >= 0; i--) {
-    const p = back[i] ?? { x, y };
-    pale.lineTo(p.x, p.y + Math.sin((Math.PI * i) / 12) ** 0.6 * r * 0.6);
-  }
+  for (let i = lip.length - 1; i >= 0; i--) pale.lineTo(lip[i]?.x ?? x, lip[i]?.y ?? y);
   pale.closePath();
-  return { pale, back, crest: back[6] ?? { x, y }, r, fade: 1, breath: 1 };
+  return { pale, back, lip, crest: back[6] ?? { x, y }, r, fade: 1, breath: 1, soft: 1 };
 }
 
 /** One of the front eyes at a head radius of `r`, the lid half open and the slit turned a little. */

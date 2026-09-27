@@ -1,7 +1,9 @@
 import { strokeGlow } from "./glow.js";
+import { drawBakedPale } from "./instar-moult-baked.js";
 import type { Point } from "./instar-place.js";
 import { faded, type Look, toward } from "./instar-plate.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { screenDpr } from "./sprite-bake.js";
 
 /**
  * **THE INSTAR's moult**: the old hide split open along the back, and the
@@ -54,17 +56,17 @@ export function drawMoult(
   trace(pale, back);
   for (let i = lip.length - 1; i >= 0; i--) pale.lineTo(lip[i]?.x ?? 0, lip[i]?.y ?? 0);
   pale.closePath();
-  // The new body: soft, wet, breathing under the hide it is coming out of.
+  // The wound: raw flesh in the split, the hide torn back off it (`PALE_LOOK`).
   const breath = 0.85 + 0.15 * Math.sin(time * 3);
   const crest = back[STEPS / 2] ?? { x: 0, y: 0 };
+  const soft = 1 - look.harden;
   ctx.save();
-  PALE_LOOK.paint(ctx, { pale, back, crest, r, fade, breath });
+  PALE_LOOK.paint(ctx, { pale, back, lip, crest, r, fade, breath, soft });
   // Not stopped, it sets: the split filled dark as the hide, and the torn
   // lips gone into it, whole again (`InstarStrike.harden`).
   ctx.fillStyle = faded(PALETTE.sheenDeep, fade, look.harden);
   ctx.fill(pale);
   ctx.restore();
-  const soft = 1 - look.harden;
   strokeGlow(ctx, pale, faded(PALETTE.sheenRim, fade, soft), STROKE.inner, 0.8 * fade * breath);
   if (soft > 0.01) drawLip(ctx, lip, r, fade * soft);
 }
@@ -75,16 +77,24 @@ export interface PaleSkin {
   pale: Path2D;
   /** The back line the split runs along, head end first. */
   back: readonly Point[];
+  /** The torn lip across from it, sample for sample. */
+  lip: readonly Point[];
   /** The middle of the back, where the light stands. */
   crest: Point;
   r: number;
   fade: number;
   /** The new body's breath, 0.7..1. */
   breath: number;
+  /** How much of the wound is still open: 0 once the hide has set over it. */
+  soft: number;
 }
 
-/** Soft, wet, and rounded under the key: lit along the back, flushed deeper toward the lip. */
-function paintPale(ctx: CanvasRenderingContext2D, skin: PaleSkin): void {
+/**
+ * The new body as it was drawn before the wound was baked: soft, wet, and
+ * rounded under the key, lit along the back, flushed deeper toward the lip.
+ * Kept for a split too small to bake, and for `bun run sprite` to compare.
+ */
+export function drawnPale(ctx: CanvasRenderingContext2D, skin: PaleSkin): void {
   const { pale, crest, r, fade, breath } = skin;
   ctx.fillStyle = faded(PALETTE.sheenRim, fade, 0.9 * breath);
   ctx.fill(pale);
@@ -95,9 +105,13 @@ function paintPale(ctx: CanvasRenderingContext2D, skin: PaleSkin): void {
   ctx.fill(pale);
 }
 
-/** How the new body's skin is painted: a seam VERSUS offers another through (`tools/versus/candidates/instar-moult`). */
+/**
+ * How the split is painted: raw flesh, baked (`instar-moult-baked.ts`), the
+ * owner's pick on VERSUS, 27 September 2026 — *maybe more like wounds and
+ * flesh and blood*, and *build it into the game*.
+ */
 export const PALE_LOOK: { paint: (ctx: CanvasRenderingContext2D, skin: PaleSkin) => void } = {
-  paint: paintPale,
+  paint: (ctx, skin) => drawBakedPale(ctx, skin, drawnPale, screenDpr()),
 };
 
 /** The torn edge of the old hide: a dark curl with its rim lit, and rags

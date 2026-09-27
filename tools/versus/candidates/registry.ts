@@ -8,7 +8,6 @@
 import type { Variant } from "../variant.js";
 import { GRINDSTONE_JAW_TREMBLE } from "./grindstone-jaw/tremble/index.js";
 import { INSTAR_HEART_BAKED } from "./instar-heart/baked/index.js";
-import { INSTAR_MOULT_BAKED } from "./instar-moult/baked/index.js";
 import { INSTAR_WING_BAKED } from "./instar-wing/baked/index.js";
 import { RIME_PANE_GLINT } from "./rime-pane/glint/index.js";
 import { TRIVET_FOOT_DANGLE } from "./trivet-foot/dangle/index.js";
@@ -18,7 +17,6 @@ import { VISE_KERNEL_TURN } from "./vise-kernel/turn/index.js";
 export const VARIANTS: Variant[] = [
   GRINDSTONE_JAW_TREMBLE,
   INSTAR_HEART_BAKED,
-  INSTAR_MOULT_BAKED,
   INSTAR_WING_BAKED,
   RIME_PANE_GLINT,
   TRIVET_FOOT_DANGLE,

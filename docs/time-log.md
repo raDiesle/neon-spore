@@ -26145,3 +26145,18 @@ chromatic glitch and the ember streaks, so several freezes were taken to
 find one where the veins still show through.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's moult is a wound, and in the game
+
+- reading: 5 min. The moult drawer, the baked tile, how the last four baked
+  looks were taken by hand.
+- writing: 25 min. The flesh tile, its strokes in a file of their own, the
+  wound's edges, the fixtures, the adoption.
+- looking: 10 min. The sprite sheet, then the frame at INSTAR · BARE; the
+  runs were red on red and were darkened.
+- friction: 5 min. `bun run sprite` counts the shared baker, so the real
+  cost had to be weighed beside the looks that already ship it.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the edges only a frame knows had to be drawn per
+frame, in five paths, to keep the cost flat.

@@ -18,7 +18,7 @@ export {
   lightHide,
 } from "./instar-hide.js";
 export { drawBakedScales, HIDE_SPRITE } from "./instar-hide-baked.js";
-export { PALE_LOOK, type PaleSkin } from "./instar-moult.js";
+export { drawnPale, PALE_LOOK, type PaleSkin } from "./instar-moult.js";
 export { drawBakedPale, PALE_SPRITE } from "./instar-moult-baked.js";
 export { drawBakedNests, NEST_SPRITE } from "./instar-nest-baked.js";
 export type { Look } from "./instar-plate.js";

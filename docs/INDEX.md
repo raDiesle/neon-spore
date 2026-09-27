@@ -1688,7 +1688,9 @@ by hand never moves.
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/instar-reach.ts` | **How far each of THE INSTAR's views reaches, and whether any of it is on the field** |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
-| `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's new body, baked** — the fifth example (`sprite-bake.ts`) |
+| `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's moult as a wound, baked** — the fifth example (`sprite-bake.ts`) |
+| `packages/render/src/instar-moult-flesh.ts` | The strokes THE INSTAR's wound tile is painted from, at load (`instar-moult-baked.ts`) |
+| `packages/render/src/instar-moult-wound.ts` | **The edges of THE INSTAR's wound**, drawn every frame |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
 | `packages/render/src/instar-between.ts` | **THE INSTAR between two poses**: the in-between motion of a morph, keyed on the pose it comes from |
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
