@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 67be62c1b — The bosses' parts can turn on their own joints; THE BULB QUEEN's are built and held still
+
+A part of an outline boss now turns about its own joint (`outline-parts.ts`), its tip half a tile at the widest, pairs drawn as exact mirrors. THE BULB QUEEN's wings swing on their hinges and her arms on their shoulders, the arm still once it straightens to let go (`queen-parts.ts`, `craneElbow`). They ship at 0: on a phone her parts at that size cannot be seen, because her torches hide the wings' ends and her claws are the drop's cue, so how far she moves is on the queue as a question for the owner. Nothing the game draws changes.
+
 ## 2026-09-27 · 5bdafd0ea — THE SLING's timeout is a steel ball out of its cup, not the lash
 
 When a fire step runs out, THE SLING's lit cup flings a steel ball in the fork's grey, trailing a streak of the cords' tan, down the middle column; it dents the skin at `reach = 1` — a dark pit and a ring along the plating — and bounces once before it is gone. Exemption: a look the owner asked for by name (the timeout-hit rule of 26 September 2026). Seen in a frame of a one-step fire script let run out.

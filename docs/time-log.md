@@ -27194,3 +27194,5 @@ Bottleneck: none — the third of three blows off one recipe.
 
 Bottleneck: looking — the frames showed her structure hides every part that
 may move, which turned a finished look into a question for the owner.
+
+*Measured: 18 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
