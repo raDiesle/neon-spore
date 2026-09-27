@@ -26507,3 +26507,5 @@ and the flag's ease had to be cut out into a file of its own mid-lane.
 
 Bottleneck: reading — finding that the cue is a word's anchor and not always
 the ring's place took longer than writing the test.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

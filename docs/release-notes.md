@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 2c6a8b037 — Five more bosses hold their marks still while THE SLOW asks for them
+
+A new shared test walks each boss's wave with AUTO playing both seats. On every tick of an asking window after its first half beat, it checks that each screen's mark moves less than a tenth of a tile per wall-clock second. THE UNDERTOW, THE GORGE, THE CURTAIN, THE TASTER and THE LEAD have rows, and all five already pass: their rings are placed off the boss's state alone. The test fails on THE BATON, whose mark reads 30 tiles a second. THE INSTAR's hush curve moves to `slow-hush.ts`, so every boss uses one curve. THE SCUTTLE's wind-up shiver, which carries its live part, now dies down to a twenty-fifth inside a window. The queue entry stays open and lists the remaining bosses.
+
 ## 2026-09-27 · a4295e1a6 — THE BURGEE tears a scrap off its flag, and its receipts snap, crack and flash
 
 A fire step THE BURGEE is let run now tears a scrap off the fly of its held flag. The scrap is COMMA at under half the flag's size, and it falls the way cloth falls, rocking and turning over down the middle column. It lands flat on the skin with its fly still rippling, and fades. Until now it was the default lash. A freeze on the mark throws a white ring off it and deals the lighter jab. A tap off the mark shivers the canvas, and a catch run out leaves it sagging. A catch or a recatch cracks it taut, pulled open and flat with white strokes off the hoist, and deals the blow every boss takes. Both catches in flare the spindle. A hit washes the spindle white, throws a ring wider for every hit, and reddens it. The eased flag moved to burgee-flag.ts so that burgee-fx.ts holds the receipts.
