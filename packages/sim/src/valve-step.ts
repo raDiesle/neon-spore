@@ -48,7 +48,7 @@ export function stepValve(world: World, s: ValveState): void {
   else if (s.phase === "frozen" && since > valvePullBeats(world, s)) kick(world, s, "valveThaw");
   else if (s.phase === "turn") valveCheckMark(world, s);
   else if (s.phase === "jet") stepJet(world, s, since);
-  else if (s.phase === "brace") stepBrace(world, s, since);
+  else if (s.phase === "brace") stepBrace(world, s, since, () => valveLeak(world, s));
   else if (s.phase === "wipe") stepWipe(world, s, since);
   else if (s.phase === "seal") stepSeal(world, s, since);
 }
@@ -99,7 +99,7 @@ function kick(world: World, s: ValveState, type: "valveLapse" | "valveThaw"): vo
   world.events.push({ type, col: midCol(world.cfg) });
 }
 
-/** The first pin's jet capped: a spark leaks down the drum's own column. */
+/** The first pin's jet capped, or the second's shudder braced: a spark leaks down the drum's own column. */
 export function valveLeak(world: World, s: ValveState): void {
   s.sparkCol = midCol(world.cfg);
   s.sparkBeat = world.beat;

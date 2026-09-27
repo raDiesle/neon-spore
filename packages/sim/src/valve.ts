@@ -20,9 +20,11 @@ import type { World } from "./world.js";
  * windows shorter each time, and the third movement's mark only counts once
  * the wheel has gone a full lap (`valveLapMilli`) — row 9's long way round.
  *
- * **One ordinary hazard, once.** The first pin out leaks a spark down the
- * drum's column, shot out in either colour inside `valveSparkBeats`
- * (`valve-shot.ts`), or it reaches the hull, which is the wave.
+ * **One ordinary hazard, twice.** The first pin's jet capped leaks a spark
+ * down the drum's column, and the second's shudder braced leaks another off
+ * the same leak (§25 row 11), each shot out in either colour inside
+ * `valveSparkBeats` (`valve-shot.ts`), or it reaches the hull, which is the
+ * wave. The third pin leaks none: its story is the film and the seal.
  */
 
 /**

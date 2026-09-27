@@ -55,6 +55,7 @@ function brace() {
 function wipe() {
   const world = brace();
   chord(world);
+  valveStruck(world, shot(MID, "red"));
   runUntil(world, (w) => valve(w).phase === "turn");
   turnOnto(world);
   freeze(world);
@@ -107,10 +108,12 @@ describe("the brace", () => {
     expect(slowing(world)).toBe(true);
   });
 
-  it("is stilled by both thumbs held together, and the third movement lights", () => {
+  it("is stilled by both thumbs held together, the second spark leaks, and the third movement lights", () => {
     const world = brace();
     const seen = chord(world);
     expect(seen.has("valveBrace")).toBe(true);
+    expect(seen.has("valveSpark")).toBe(true);
+    valveStruck(world, shot(MID, "cyan"));
     expect(valve(world).movement).toBe(3);
     runUntil(world, (w) => valve(w).phase === "turn");
   });

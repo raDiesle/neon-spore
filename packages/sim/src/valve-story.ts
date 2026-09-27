@@ -14,7 +14,7 @@ import type { World } from "./world.js";
  *   open, it blows against the hull and blows again.
  * - **The brace.** The second pin out and the drum shudders. Both thumbs
  *   hold the pin together for `valveBraceBeats` beats in a row, counted on
- *   the beat, and it stills. Unbraced by `valveShudderBeats`, a plate shakes
+ *   the beat, and it stills, and a second spark leaks. Unbraced by `valveShudderBeats`, a plate shakes
  *   loose against the hull and the shudder starts again.
  * - **The wipe.** The last pin out and a film weeps over the face. Either
  *   thumb rubs the pin back and forth, `valveWipeRubs` reversals between
@@ -82,14 +82,19 @@ export function stepJet(world: World, s: ValveState, since: number): void {
   openJet(world, s);
 }
 
-/** A beat of the brace: the chord counted, then stilled, run out, or neither. */
-export function stepBrace(world: World, s: ValveState, since: number): void {
+/**
+ * A beat of the brace: the chord counted, then stilled, run out, or neither.
+ * Stilled, the second spark leaks down the deeper list (§25 row 11), the
+ * jet's cap's leak again (`leak`, `valve-step.ts`'s).
+ */
+export function stepBrace(world: World, s: ValveState, since: number, leak: () => void): void {
   const cfg = world.cfg;
   const mid = midCol(cfg);
   s.chordBeats = s.held[0] && s.held[1] ? s.chordBeats + 1 : 0;
   if (s.chordBeats >= cfg.valveBraceBeats) {
     closeSlow(world);
     world.events.push({ type: "valveBrace", col: mid });
+    leak();
     enter(world, s, "list");
     return;
   }

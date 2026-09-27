@@ -9,6 +9,7 @@ import {
   answerMovement,
   answerStory,
   CFG,
+  chord,
   freeze,
   install,
   MID,
@@ -22,7 +23,7 @@ import {
 } from "./valve-rig.js";
 
 /**
- * THE VALVE past its first pin: the spark the first pin leaks, the shorter
+ * THE VALVE past its first pin: the sparks the first two pins leak, the shorter
  * windows, the third movement's full lap, and the face falling open.
  */
 
@@ -46,13 +47,19 @@ describe("the spark", () => {
     expect(seen.has("valveSparkHit")).toBe(true);
   });
 
-  it("is not leaked by the second pin", () => {
+  it("is leaked again by the second pin, once its shudder is braced, and not before", () => {
     const world = install();
     answerMovement(world);
     valveStruck(world, shot(MID, "red"));
-    answerMovement(world);
+    runUntil(world, (w) => valve(w).phase === "turn");
+    turnOnto(world);
+    freeze(world);
+    pull(world);
     expect(valve(world).pins).toBe(1);
     expect(valve(world).sparkCol).toBe(NO_SPARK);
+    const seen = chord(world);
+    expect(seen.has("valveSpark")).toBe(true);
+    expect(valve(world).sparkCol).toBe(MID);
   });
 });
 
@@ -123,6 +130,7 @@ describe("the last pin", () => {
     answerMovement(world);
     valveStruck(world, shot(MID, "cyan"));
     answerMovement(world);
+    valveStruck(world, shot(MID, "red"));
     runUntil(world, (w) => valve(w).phase === "turn");
     turnOnto(world);
     freeze(world);

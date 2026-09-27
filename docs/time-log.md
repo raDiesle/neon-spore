@@ -27560,3 +27560,17 @@ Bottleneck: looking. Without `--auto both` the frames run keeps the lobes
 down, and `--events` was the way to find a tick with one standing.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §25 THE VALVE — a revised simulation lane, a held chord to finish it
+
+- reading: 10 min. The entry, §25's beat list, §11.42, the story's rules
+  and the leak — the held chord on the seal was already built.
+- writing: 5 min. The brace's leak, the two tests it moved, the spec's
+  paragraphs, the look half queued.
+- looking: 0 min. A simulation lane; nothing drawn changed.
+- friction: 5 min. The lane started before its claim, and moved onto a
+  fresh branch before landing.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry asked for a chord the simulation already
+had, so the lane was finding the one row (the second spark) left to build.

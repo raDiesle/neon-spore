@@ -8134,7 +8134,8 @@ again under THE SLOW — `valvePullBeats`, then `valvePullFastBeats`. A window
 that runs out kicks the wheel `valveKickMilli` off its mark and the turning
 starts again from nothing. A pin out closes THE SLOW, and the drum lists for
 `valveListBeats` before the next mark lights. The first pin out leaks a spark
-down the drum's column, with `valveSparkBeats` before it reaches the hull. In
+down the drum's column, with `valveSparkBeats` before it reaches the hull,
+and the second leaks another (the story's brace, below). In
 the third movement the mark only counts once the wheel has travelled
 `valveLapMilli` one way round — row 9's long way. The last pin out lets the
 face fall open, and it hangs `valveOpenBeats` before the wave may end.
@@ -8181,7 +8182,8 @@ under THE SLOW, and each run out is the drum's own blow against the hull
   leaks after it. Left open: `valveBlow`.
 - **The brace.** The second pin out and the drum shudders. Both thumbs hold
   the pin together for `valveBraceBeats` beats in a row, counted on the beat,
-  and it stills. Unbraced by `valveShudderBeats`: `valveShake`.
+  and it stills, and the second spark leaks down the deeper list, the
+  cap's leak again. Unbraced by `valveShudderBeats`: `valveShake`.
 - **The wipe.** The last pin out and a film weeps over the face. Either
   thumb rubs the pin back and forth, `valveWipeRubs` reversals between them,
   read as THE RIME reads its rub. Still slick after `valveWipeBeats`:
@@ -8190,9 +8192,15 @@ under THE SLOW, and each run out is the drum's own blow against the hull
   `valveSealBeats` and the face opens clean; run out `valveStrainBeats` and
   it blows open rough, against the hull. The face is open either way.
 
-Two rows of the story are not built: the second spark (row 11), which would
-be the first again, and row 20's fade, which asked the pair to send nothing —
-a closing beat with no action in it, which the story brief rules out.
+Row 20's fade is not built: it asked the pair to send nothing — a closing
+beat with no action in it, which the story brief rules out. **The second
+spark (row 11) landed 27 September 2026** in the revised lane, off the same
+leak as the first: row 11 has it leak before the brace, but the first leaks
+after its jet is capped, so the second leaks after its shudder is braced and
+falls through the list as the first does — a spark and an asking window
+never share a beat. The two sparks are the same in the simulation; their
+different severity is the look's. Row 19's held chord on the bare seal was
+already the seal, above.
 
 **The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid
 over the drum in its own frame, all white and iron so either seat answers.
@@ -8219,7 +8227,7 @@ and only the pilot's hand turns the wheel; standing on the mark opens the
 freeze window under THE SLOW; turning off it slips; the navigator's tap
 freezes and a thumb already resting on the pin does not; a frozen wheel
 ignores the hand; a shallow draw does nothing and a deep one from either seat
-pulls; both windows lapse into a kick; the first pin leaks the spark, shot
+pulls; both windows lapse into a kick; the first two pins leak a spark each, shot
 out in either colour or failing the wave; the later windows are shorter; the
 third movement's mark refuses a hand worked back and forth and takes a full
 lap either way round; and the last pin opens the face and ends the fight.

@@ -4,8 +4,8 @@ import { valveBoss, valveLeaking } from "./valve.js";
 import type { World } from "./world.js";
 
 /**
- * **THE VALVE's one target**: the spark the first pin leaks down the drum's
- * column, where a bolt leaves the top of the field.
+ * **THE VALVE's one target**: the spark the first two pins leak down the
+ * drum's column, one at a time, where a bolt leaves the top of the field.
  *
  * **It wants either colour**, THE MANTLE's spark's and THE KEEL's rock's
  * argument: a spark is not a body with a colour the pair could have got
