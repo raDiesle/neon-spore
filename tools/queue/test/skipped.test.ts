@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { parseItems } from "../queue.js";
-import { skipLines } from "../skipped.js";
+import { handedOut, skipLines } from "../skipped.js";
 
 const FREE = `## Split the wave editor's cell panel
 
@@ -26,6 +26,15 @@ const PHONE = `## A real phone browser's own chrome eats the foot of the field
 - **Where:** phone
 
 Headless has no chrome to test it with.
+`;
+
+const DEFERRED = `## DEFERRED — §28 THE VISE — sprite atlas experiment: the kernel crack
+
+- **Found:** 2026-09-26, claude/some-lane
+- **Files:** \`packages/render/src/sprite-burst.ts\`
+- **Deferred:** 2026-09-26, claude/sprite-detail. The owner narrowed scope.
+
+The kernel breaking open is a candidate for a painted burst.
 `;
 
 const all = () => parseItems([FREE, ASKING, PHONE].join("\n"), "queue");
@@ -58,5 +67,27 @@ describe("why `next` stepped past a free entry", () => {
     );
     const items = parseItems(md, "queue");
     expect(skipLines(items, items)).toEqual([]);
+  });
+});
+
+describe("what `next` with no argument hands out", () => {
+  // The pick and the foot are one list: every entry the foot counts as passed
+  // over is one the pick passes over, and the other way round.
+  const items = parseItems([ASKING, DEFERRED, PHONE, FREE].join("\n"), "queue");
+
+  it("passes over an ask, a deferred entry and a phone entry, and takes the next", () => {
+    expect(items.find((i) => handedOut(i, items))?.title).toBe(
+      "Split the wave editor's cell panel",
+    );
+  });
+
+  it("counts the deferred one in the foot, so the reader sees where it went", () => {
+    expect(skipLines(items, items)).toContainEqual(
+      expect.stringContaining("1 of the free ones the owner put on hold"),
+    );
+  });
+
+  it("passes over nothing the foot does not count", () => {
+    expect(items.filter((i) => !handedOut(i, items))).toHaveLength(skipLines(items, items).length);
   });
 });

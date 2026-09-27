@@ -2062,21 +2062,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `queue next` hands out a DEFERRED entry
-
-- **Found:** 2026-09-26, claude/queue-30-the-trivet-the-look
-- **Taken:** 2026-09-27, claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an (claim: claude/queue-queue-next-hands-out-a-deferred-entry)
-- **Files:** `tools/queue/run.ts`, `tools/queue/asking.ts`
-
-`next` skips an entry still waiting on the owner (`asking.ts`'s `waiting`)
-and nothing else, so an entry whose title starts `DEFERRED —` — work the
-owner narrowed out of scope, `- **Deferred:**` under it — is handed out
-like any other; a session following *continue to work on the queue* has to
-know to pass it by `take`. Skip it in the automatic pick the way `waiting`
-is skipped (a `- **Deferred:**` line, or the title's prefix), keep `take`
-and `next <n>` handing it over, and add the case to
-`tools/queue/test/`. `bun run check` proves it.
-
 ## Unverified at 8a8d7d625: THE TRIVET's body watched at tempo
 
 - **Found:** 2026-09-26, claude/trivet-rebase

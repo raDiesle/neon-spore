@@ -28,12 +28,9 @@
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
-import { waiting } from "./asking.js";
 import { branchFor, claimOn, heldElsewhere, refuseNumbered, unclaimed } from "./claim.js";
-import { deferred } from "./deferred.js";
 import { clearTaken, removeItem } from "./edit.js";
 import { printList } from "./list.js";
-import { blocked } from "./needs.js";
 import { originRefusal, readOrigin } from "./origin-check.js";
 import { refuseUnlessWhole } from "./problems.js";
 import { type Item, match, order, parseItems, pick } from "./queue.js";
@@ -53,9 +50,10 @@ import {
   unmark,
 } from "./repo.js";
 import { briefFor, showItem } from "./show.js";
+import { handedOut } from "./skipped.js";
 import { spentHere } from "./spent.js";
 import { statusLines, statusOf } from "./status.js";
-import { fits, offered, refuseUnlessFits, sessionKind } from "./where.js";
+import { fits, refuseUnlessFits, sessionKind } from "./where.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
@@ -87,13 +85,10 @@ if (!command || command === "list") {
   // another entry is passed over on the same terms, for the same reason — a
   // session may want to start the blocked half early (`needs.ts`). And an
   // entry needing hardware is passed over on every machine (`offered`), and
-  // one the owner put on hold on every session (`deferred.ts`).
+  // one the owner put on hold on every session (`deferred.ts`) — the list is
+  // `skipped.ts`'s `handedOut`, beside the foot that counts it.
   const mine = free.filter((i) => fits(i, kind));
-  const item = arg
-    ? pick(items, arg)
-    : mine.find(
-        (i) => offered(i) && !waiting(i) && !deferred(i) && !blocked(i, items) && !onOrigin(i),
-      );
+  const item = arg ? pick(items, arg) : mine.find((i) => handedOut(i, items) && !onOrigin(i));
   if (!item) {
     console.log(
       items.length === 0

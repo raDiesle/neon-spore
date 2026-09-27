@@ -25451,3 +25451,16 @@ Bottleneck: writing — the queue guard had to become a function before it could
 guard a second replay, and `run.ts` had eight lines of room to take it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `next`'s pick is `handedOut`, and the foot counts a deferred entry
+
+- reading: 5 min. The entry had been half done a day before it was taken:
+  `deferred.ts` already existed, inline in `run.ts`'s pick and nowhere else.
+- writing: 5 min. The pick moved beside the foot that counts it, a fourth
+  count for the deferred, and tests that hold the two to one list.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — finding the entry's work already on the trunk, and what
+was left of it.
