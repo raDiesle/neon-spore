@@ -2089,6 +2089,7 @@ time. A look with no shipped alternative.
 ## §20 THE HASP — the story between the hasps, the simulation
 
 - **Found:** 2026-09-26, claude/older-boss-stories
+- **Taken:** 2026-09-27, claude/task-queue-work-a8d126 (claim: claude/queue-20-the-hasp-the-story-between-the-hasps-the-simu)
 - **Files:** `packages/sim/src/hasp.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/hasp-hand.ts`, `packages/sim/src/hasp-hash.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/events-hasp.ts`
 
 Build §20's four story states — the rattle, the backspin, the rust, the
