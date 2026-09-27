@@ -63,7 +63,7 @@ function posed(world: World, lit: CapstanStep | null, beats = 1): CapstanState {
   s.wear = [0, 0];
   s.hits = 0;
   s.bared = false;
-  s.tiltMilli = [0, 0];
+  s.pullMilli = [0, 0];
   s.rubs = [0, 0];
   s.rubbed = false;
   s.heldBeats = 0;
@@ -74,7 +74,7 @@ function posed(world: World, lit: CapstanStep | null, beats = 1): CapstanState {
 /** The left step with the pilot leaning it all the way over. */
 function leant(world: World): CapstanState {
   const s = posed(world, LEFT);
-  s.tiltMilli = [-world.cfg.capstanLeanMilli, 0];
+  s.pullMilli = [-world.cfg.capstanPullMilli, 0];
   return s;
 }
 
@@ -116,13 +116,13 @@ describe("THE CAPSTAN's cradle", () => {
   it("follows the steering seat's tilt, and the phone leaning further when nobody steers", () => {
     const world = stood();
     const s = posed(world, LEFT);
-    const lean = world.cfg.capstanLeanMilli;
-    s.tiltMilli = [-lean / 2, lean];
+    const lean = world.cfg.capstanPullMilli;
+    s.pullMilli = [-lean / 2, lean];
     expect(capstanTurn(world, s)).toBeCloseTo(-0.5);
-    s.tiltMilli = [-lean * 3, 0];
+    s.pullMilli = [-lean * 3, 0];
     expect(capstanTurn(world, s)).toBe(-1);
     posed(world, FIRE);
-    s.tiltMilli = [lean / 4, -lean / 2];
+    s.pullMilli = [lean / 4, -lean / 2];
     expect(capstanTurn(world, s)).toBeCloseTo(-0.5);
     s.phase = "open";
     expect(capstanTurn(world, s)).toBe(0);
@@ -133,7 +133,7 @@ describe("THE CAPSTAN's bands", () => {
   it.each(ROLES)("lights the bared face's band while it is the one to rub, on %s", (role) => {
     const leaning = frame(role, (w) => {
       const s = posed(w, LEFT);
-      s.tiltMilli = [-w.cfg.capstanLeanMilli / 2, 0];
+      s.pullMilli = [-w.cfg.capstanPullMilli / 2, 0];
     });
     const bared = frame(role, (w) => leant(w));
     // The horn goes dark as the face comes round and the band's rim lights in its place.

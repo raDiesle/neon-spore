@@ -1,4 +1,5 @@
 import {
+  CAPSTAN_UNREAD,
   type CapstanState,
   capstanBoss,
   capstanLitStep,
@@ -11,15 +12,14 @@ import {
 
 /**
  * **THE CAPSTAN played right**, for the autopilot: on a band step the seat
- * the step steers with leans its phone well past the mark toward that band,
- * and the other seat rubs it bright; on a hold the pilot leans and the
+ * the step steers with pulls the drum well past the mark toward that band,
+ * and the other seat rubs it bright; on a hold the pilot pulls and the
  * navigator rubs; on a shot with the core bared, the cannon to the middle and
  * the step's colour up it.
  *
- * **The lean is a level**, THE PLUMB's (`boss-hands-plumb.ts`): sent once
- * when the seat's reading is not what the step wants, and the phone not
- * steering is brought back level the same way, so a seat never steers from
- * where the last step left it. **The rub is THE RIME's**
+ * **The pull is a held drag**: sent once when the seat's reading is not
+ * what the step wants, and the seat not steering lets go of the drum, so a
+ * seat never steers from where the last step left it. **The rub is THE RIME's**
  * (`boss-hands-rime.ts`): one more reversal than the drum last heard from
  * that thumb, four times a beat, and lifted once the step wants none of it.
  *
@@ -32,16 +32,16 @@ type Press = Omit<TimedCommand, "tick">;
 /** Reversals a beat: about what a thumb rubbing back and forth manages. */
 const RUBS_PER_BEAT = 4;
 
-/** How far past the mark the hand leans, in thousandths of a degree. */
-const PAST_MILLI = 6000;
+/** How far past the mark the hand pulls, in thousandths of a tile. */
+const PAST_MILLI = 400;
 
 export const capstanHand = (w: World): Press[] => {
   const s = capstanBoss(w);
   if (s === null) return [];
-  return [...lean(w, s), ...rub(w, s), ...shoot(w, s)];
+  return [...pull(w, s), ...rub(w, s), ...shoot(w, s)];
 };
 
-/** Who the lit step wants steering and toward which face: the pilot on a hold, leaning left. */
+/** Who the lit step wants steering and toward which face: the pilot on a hold, pulling left. */
 function wanted(s: CapstanState): { steer: 1 | 2; face: 0 | 1 } | null {
   const ask = capstanLitStep(s)?.ask;
   if (ask === "left") return { steer: 1, face: 0 };
@@ -50,15 +50,19 @@ function wanted(s: CapstanState): { steer: 1 | 2; face: 0 | 1 } | null {
   return null;
 }
 
-function lean(w: World, s: CapstanState): Press[] {
+function pull(w: World, s: CapstanState): Press[] {
   const want = wanted(s);
   if (want === null) return [];
-  const past = w.cfg.capstanLeanMilli + PAST_MILLI;
+  const past = w.cfg.capstanPullMilli + PAST_MILLI;
   const out: Press[] = [];
   for (const player of [1, 2] as const) {
-    const to = player === want.steer ? (want.face === 0 ? -past : past) : 0;
-    if (s.tiltMilli[capstanSeatIndex(player)] === to) continue;
-    out.push({ player, command: { kind: "drag", target: "capstanLean", on: true, fromMilli: to } });
+    const steers = player === want.steer;
+    const to = steers ? (want.face === 0 ? -past : past) : CAPSTAN_UNREAD;
+    if (s.pullMilli[capstanSeatIndex(player)] === to) continue;
+    out.push({
+      player,
+      command: { kind: "drag", target: "capstanSteer", on: steers, fromMilli: to },
+    });
   }
   return out;
 }

@@ -18,7 +18,7 @@ import {
 import type { Bullet, Color } from "../src/types.js";
 
 /**
- * THE CAPSTAN's test rig: a script installed, a phone leaned or gone quiet
+ * THE CAPSTAN's test rig: a script installed, a drum pulled or let go
  * and a thumb's reversals sent as the pair would send them. Shared by
  * `capstan.test.ts`.
  */
@@ -26,8 +26,8 @@ import type { Bullet, Color } from "../src/types.js";
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
 export const TPB = ticksPerBeat(CFG);
 export const MID = midCol(CFG);
-/** A lean well past the mark, either way. */
-export const OVER = CFG.capstanLeanMilli + 3000;
+/** A pull well past the mark, either way. */
+export const OVER = CFG.capstanPullMilli + 3000;
 
 /** The shipped wave's script, written out: sim tests do not read content. */
 export const SCRIPT: readonly CapstanStep[] = [
@@ -81,13 +81,13 @@ export function beats(world: World, n: number): Set<string> {
   return runUntil(world, (w) => w.beat >= at);
 }
 
-/** A seat's phone leaned `milli` off level, or gone quiet (`on` false). */
-export function lean(world: World, player: 1 | 2, milli: number, on = true): string[] {
+/** A seat's thumb pulling the drum `milli` across, or let go (`on` false). */
+export function pull(world: World, player: 1 | 2, milli: number, on = true): string[] {
   return tick(world, [
     {
       tick: world.tick,
       player,
-      command: { kind: "drag", target: "capstanLean", on, fromMilli: milli },
+      command: { kind: "drag", target: "capstanSteer", on, fromMilli: milli },
     },
   ]);
 }

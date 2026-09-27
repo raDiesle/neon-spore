@@ -149,9 +149,9 @@ export const ROWS: Record<string, Row> = {
   // `halter-hand.ts`: either seat's thumbs on both grips; sent as the pilot's.
   halterChordLeft: {},
   halterChordRight: {},
-  // `capstan-hand.ts`: either seat's lean on `fromMilli` and either seat's
+  // `capstan-hand.ts`: either seat's pull on `fromMilli` and either seat's
   // thumb, `id` the reversal count; which one steers is the lit step's.
-  capstanLean: {},
+  capstanSteer: {},
   capstanRub: { id: true },
   // `gall-hand.ts`: the pinch's gap on `fromMilli` and the point it went down
   // on as `id`; the seat is the one nearer that point.

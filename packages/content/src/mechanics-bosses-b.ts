@@ -27,7 +27,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   capstan: {
-    what: "One of you leans the phone to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+    what: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
     reach: "spawn",
   },
   gall: {

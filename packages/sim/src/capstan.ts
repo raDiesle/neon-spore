@@ -7,23 +7,26 @@ import type { World } from "./world.js";
  * core under its cap that has to be shot in the colour it shows
  * (`docs/spec/bosses-choreographed.md` §37).
  *
- * **The rule is one sentence**: one of you leans the phone to turn a band
+ * **The rule is one sentence**: one of you pulls the drum to turn a band
  * toward the other, who rubs it bright; then shoot the bared core.
  *
- * Two readings already built, paired. The lean is THE PLUMB's `LevelTilt`
- * (`plumb-hand.ts`): `capstanLean`, thousandths of a degree off level, and a
- * lean past `capstanLeanMilli` rocks the cradle to bare that side's face. The
+ * Two readings, paired. The steer is a pull on the drum's middle,
+ * `capstanSteer`: thousandths of a tile the thumb has come from where it
+ * took hold, and a pull past `capstanPullMilli` rocks the cradle to bare
+ * that side's face for as long as it is held. It was the phone's lean until
+ * 27 September 2026, when the owner ruled that no wave may need a tilt
+ * sensor, since a phone may lack one and a desk never has one. The
  * rub is THE RIME's `RubCount` (`rime-hand.ts`): `capstanRub`, the reversals
  * a wiping thumb has made. **Only the bared face takes them** — the hidden
  * face's wear holds exactly where it was, spending nothing and losing
  * nothing, until the cradle rocks back to it: a pause, never a reset.
  *
  * **The seat steering is never the seat rubbing.** A left step is the pilot's
- * lean and the navigator's thumb, a right step the other way round, §37's
+ * pull and the navigator's thumb, a right step the other way round, §37's
  * swap by movement; and a band cracks bright only while its own mark is lit,
  * so a wrong face rubbed is kept one reversal short of cracking, for later.
  * Both bright bare the core. After that a **hold** step has the rust creeping
- * back: either seat leans, the other keeps rubbing, and beats with both
+ * back: either seat pulls, the other keeps rubbing, and beats with both
  * happening keep the core bare; a hold not made covers it, and it is asked
  * again until it is.
  *
@@ -33,9 +36,8 @@ import type { World } from "./world.js";
  */
 
 /**
- * A seat's lean before its phone has said anything, or after it stopped:
- * level, which rocks nothing. THE PLUMB's unread is the far end instead,
- * because there a lean is judged by being *near* level.
+ * A seat's pull before its thumb is on the drum, or after it let go:
+ * centred, which rocks nothing — a pull let go pauses the rub, never resets it.
  */
 export const CAPSTAN_UNREAD = 0;
 
@@ -47,7 +49,7 @@ export const CAPSTAN_PHASES = ["rusted", "lit", "rest", "open"] as const;
 export type CapstanPhase = (typeof CAPSTAN_PHASES)[number];
 
 /**
- * What a step asks: the left band rubbed bright under the pilot's lean, the
+ * What a step asks: the left band rubbed bright under the pilot's pull, the
  * right under the navigator's, a shot at the core, or a hold against the
  * rust creeping back over it.
  */
@@ -84,8 +86,8 @@ export interface CapstanState {
   hits: number;
   /** Whether the core lies bare to be shot. */
   bared: boolean;
-  /** Each seat's lean this instant, the pilot then the navigator, thousandths of a degree. */
-  tiltMilli: [number, number];
+  /** Each seat's pull on the drum this instant, the pilot then the navigator, thousandths of a tile. */
+  pullMilli: [number, number];
   /** The reversal count last heard from each seat's thumb, so only fresh ones wear; nought with none down. */
   rubs: [number, number];
   /** Whether a fresh reversal landed on a bared face since the last beat: what a hold beat counts. */
@@ -115,26 +117,26 @@ export function capstanSeatIndex(seat: 1 | 2): 0 | 1 {
   return seat === 1 ? 0 : 1;
 }
 
-/** The face a lean rocks the cradle to: nought left, one right, null inside `leanMilli` of level. */
-export function capstanLeanFace(tiltMilli: number, leanMilli: number): 0 | 1 | null {
-  if (tiltMilli <= -leanMilli) return 0;
-  if (tiltMilli >= leanMilli) return 1;
+/** The face a pull rocks the cradle to: nought left, one right, null inside `markMilli` of centre. */
+export function capstanPullFace(pullMilli: number, markMilli: number): 0 | 1 | null {
+  if (pullMilli <= -markMilli) return 0;
+  if (pullMilli >= markMilli) return 1;
   return null;
 }
 
 /**
  * The seat steering the cradle for the lit step: the pilot on the left band,
- * the navigator on the right; on a hold, whichever seat leans past the mark,
- * the pilot first. Null on a shot, between steps, or on a hold nobody leans.
+ * the navigator on the right; on a hold, whichever seat pulls past the mark,
+ * the pilot first. Null on a shot, between steps, or on a hold nobody pulls.
  */
 export function capstanSteerer(world: Pick<World, "cfg">, s: CapstanState): 1 | 2 | null {
   const ask = capstanLitStep(s)?.ask;
   if (ask === "left") return 1;
   if (ask === "right") return 2;
   if (ask !== "hold") return null;
-  const lean = world.cfg.capstanLeanMilli;
+  const mark = world.cfg.capstanPullMilli;
   for (const seat of [1, 2] as const) {
-    if (capstanLeanFace(s.tiltMilli[capstanSeatIndex(seat)], lean) !== null) return seat;
+    if (capstanPullFace(s.pullMilli[capstanSeatIndex(seat)], mark) !== null) return seat;
   }
   return null;
 }
@@ -145,11 +147,11 @@ export function capstanWearer(world: Pick<World, "cfg">, s: CapstanState): 1 | 2
   return steer === null ? null : steer === 1 ? 2 : 1;
 }
 
-/** The face the cradle bares this instant, by the steering seat's lean; null when centred. */
+/** The face the cradle bares this instant, by the steering seat's pull; null when centred. */
 export function capstanFace(world: Pick<World, "cfg">, s: CapstanState): 0 | 1 | null {
   const steer = capstanSteerer(world, s);
   if (steer === null) return null;
-  return capstanLeanFace(s.tiltMilli[capstanSeatIndex(steer)], world.cfg.capstanLeanMilli);
+  return capstanPullFace(s.pullMilli[capstanSeatIndex(steer)], world.cfg.capstanPullMilli);
 }
 
 /** Whether a band is worn bright for good. */
@@ -173,7 +175,7 @@ export function freshCapstan(beat: number, steps: readonly CapstanStep[]): Capst
     wear: [0, 0],
     hits: 0,
     bared: false,
-    tiltMilli: [CAPSTAN_UNREAD, CAPSTAN_UNREAD],
+    pullMilli: [CAPSTAN_UNREAD, CAPSTAN_UNREAD],
     rubs: [0, 0],
     rubbed: false,
     heldBeats: 0,

@@ -18,22 +18,29 @@ import { bossOf } from "./touch-field.js";
  *
  * Its own page for `grindstone-grip.ts`' reason: the drum a thumb is answered
  * on is the one `drawCapstan` puts on the screen this frame — dropped in as it
- * arrives, rolled in its cradle by the lean — and all this file adds is
- * *which* end a press is on.
+ * arrives, rolled in its cradle by the pull — and all this file adds is
+ * *which* part of it a press is on.
  *
  * **Either end, on either screen, takes a rub.** Which seat wears is the lit
- * step's and which face is bared is the other seat's lean, so both are the
+ * step's and which face is bared is the other seat's pull, so both are the
  * simulation's to settle (`capstan-hand.ts`): a thumb on the end that has not
  * come round yet rubs nothing until it does, and then its fresh reversals
  * count — a wearer may be down on the band before the steerer has it there.
  * The turns are counted by the host (`rub.ts`, `rub-turns.ts`).
  *
- * **The lean is never a hand on the glass**: `capstanLean` goes out from the
- * phone's own tilt (`apps/game/src/lean.ts`).
+ * **The middle takes the pull**: a press on the drum between its ends, or
+ * on the cradle under it, is a steering thumb, and what it says is how far
+ * across it has carried since it went down (`touch-drag.ts`) — held past the
+ * mark to keep a face bared, let go to let the cradle drift back and pause
+ * the rub. It was the phone's lean until 27 September 2026, when the owner
+ * ruled that no wave may need a tilt sensor.
  */
 
 /** How far past a face's half-height a thumb is still on its band, in tiles. */
 const REACH = 0.35;
+
+/** How far under the drum's half-height the cradle reaches, in tiles: its saddle and a little of the post. */
+const CRADLE = 1.3;
 
 /** Whether the drum is there to be touched: every phase but the spent one. */
 export function capstanTakesHand(s: CapstanState): boolean {
@@ -94,10 +101,50 @@ export function capstanRubUnder(l: Layout, x: number, y: number, field: Field): 
 }
 
 /**
+ * A press on the drum's middle or its cradle, and on neither end: a steering
+ * thumb, held and saying nothing until it moves. Either seat may take it;
+ * which one steers is the lit step's (`capstan-hand.ts`).
+ */
+export function capstanSteerUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  const s = bossOf(field, "capstan");
+  if (s === null || !capstanTakesHand(s)) return null;
+  const { cfg, beat, beatPhase } = field;
+  const ends = ([0, 1] as const).map((side) => endAt(l, cfg, s, side, beat, beatPhase));
+  if (ends.some((e) => Math.hypot(x - e.x, y - e.y) <= e.r)) return null;
+  const c = capstanSteerStanding(l, cfg, s, beat, beatPhase);
+  const { rx, ry } = capstanSize(l);
+  const dy = y - c.y;
+  if (Math.abs(x - c.x) > rx || dy < -(ry + REACH * l.tile) || dy > ry + CRADLE * l.tile) {
+    return null;
+  }
+  const seat = field.seat;
+  return {
+    player: seat,
+    command: null,
+    hold: { kind: "drag", target: "capstanSteer", player: seat, originX: x, originY: y },
+  };
+}
+
+/**
+ * The drum's middle as a circle where it stands this frame — where the ghost
+ * thumb for the pull goes down, and what `handleCircle` answers for it.
+ */
+export function capstanSteerStanding(
+  l: Layout,
+  cfg: SimConfig,
+  s: CapstanState,
+  beat: number,
+  beatPhase: number,
+): Circle {
+  const p = capstanScreenAt(l, cfg, s, { x: 0, y: 0 }, beat, beatPhase);
+  return { x: p.x, y: p.y, r: capstanSize(l).ry };
+}
+
+/**
  * The end a thumb is wanted on, as a circle where it stands this frame —
  * which is where the ghost thumb stands, what `handleCircle` answers and
  * where the word goes: the bared face, or the one the lit band asks for, or
- * the pilot's on a hold nobody has leant into yet.
+ * the pilot's on a hold nobody has pulled yet.
  */
 export function capstanRubStanding(
   l: Layout,

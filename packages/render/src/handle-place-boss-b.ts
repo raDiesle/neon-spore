@@ -1,6 +1,6 @@
 import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
-import { capstanRubStanding, capstanTakesHand } from "./capstan-grip.js";
+import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
 import { davitLooseCircle } from "./davit-grip.js";
 import { flueTapCircle } from "./flue-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
@@ -75,6 +75,13 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "capstan" ? world.boss : null;
     if (b === null || !capstanTakesHand(b)) return null;
     return capstanRubStanding(l, cfg, b, world.beat, beatPhase);
+  }
+  if (target === "capstanSteer") {
+    // THE CAPSTAN's middle, where a steering thumb goes down, rocked with the
+    // cradle. Null once the drum is spent (`capstan-grip.ts`).
+    const b = world.boss?.kind === "capstan" ? world.boss : null;
+    if (b === null || !capstanTakesHand(b)) return null;
+    return capstanSteerStanding(l, cfg, b, world.beat, beatPhase);
   }
   if (target === "gallPinch") {
     // THE GALL's nodule on the point it sits on. Null once the third close

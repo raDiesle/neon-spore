@@ -86,7 +86,7 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     const s = capstanBoss(world);
     if (s === null) throw new Error("the capstan wave stood no drum");
     s.phase = "lit";
-    s.tiltMilli = [CFG.capstanLeanMilli, CFG.capstanLeanMilli];
+    s.pullMilli = [CFG.capstanPullMilli, CFG.capstanPullMilli];
     expect(at().left).not.toBeCloseTo(still.left, 1);
   });
 

@@ -9976,7 +9976,7 @@ a partner feels like helping them — is the owner's eye, on two real phones.
 ## 11.54 THE CAPSTAN — the boss one hand rocks for the other to wear
 
 > A squat rusted drum on a cradle over the hull's middle, a grated band on
-> each face. One of you leans the phone to rock a face toward the other, who
+> each face. One of you drags the drum to rock a face toward the other, who
 > rubs that band bright. Both bands bright bare the core: shoot it in its
 > colour, and between the shots keep it bare the same way, either way round.
 
@@ -9989,17 +9989,17 @@ gate or an aim**, and the band turned away keeps its wear.
 **It is two bands and three hits, and they are its health.** The state
 (`sim/capstan.ts`, hashed in `sim/capstan-hash.ts`) is the **phase** and the
 beat it began, the **cursor** into the script, each band's **wear** in
-reversals, the **hits**, whether the core is **bared**, each seat's **lean**
-in thousandths of a degree, each seat's last **rub** count, whether a fresh
+reversals, the **hits**, whether the core is **bared**, each seat's **pull**
+in thousandths of a tile (a lean in thousandths of a degree until the pull replaced it), each seat's last **rub** count, whether a fresh
 reversal landed since the last beat, and the beats of a hold **kept** so
 far. The script is the wave's (`CapstanEntry.steps`), copied at install:
 each step asks `left`, `right`, `hold` or `fire`, with a colour or `either`
 and its own beats.
 
-**The rule, in one sentence.** One of you leans the phone to turn a band
+**The rule, in one sentence.** One of you pulls the drum to turn a band
 toward the other, who rubs it bright; then shoot the bared core.
 
-**The split.** Not by geometry: both seats send `capstanLean` and
+**The split.** Not by geometry: both seats send `capstanSteer` and
 `capstanRub`, and which seat steers is the step's — the role swap by
 movement §37 asks for. The `left` step is the pilot's lean and the
 navigator's thumb, the `right` step the other way about, and a `hold`
@@ -10018,7 +10018,7 @@ answered step closes THE SLOW and the drum rests `capstanRestBeats` before
 the next lights. With the script done the cap swings open, and the drum
 stands `capstanOpenBeats` before the wave may end.
 
-**The answers** (`sim/capstan-hand.ts`). A lean past `capstanLeanMilli`
+**The answers** (`sim/capstan-hand.ts`). A lean past `capstanPullMilli`
 either way rocks the cradle to bare that side's face (`capstanRock`); back
 inside it, the cradle drifts to centre (`capstanDrift`). A thumb's
 reversals are counted fresh against the last count it sent, and a count
@@ -10066,7 +10066,7 @@ only in its colour unless it is `either`.
 - **The lean and the rub are one target each, heard from either seat.**
   §37 names `capstanTiltMilli` and a wear counter a face. The steering seat
   changes by step, so the targets are the gesture, not the side
-  (`capstanLean`, `capstanRub`), and the wear counters are the state's own.
+  (`capstanSteer`, `capstanRub`), and the wear counters are the state's own.
 - **A fire step run out is a hull hit, and a hull hit is the wave.** Rows
   6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game has no
   ordinary hit (`wave-fail.ts`) — THE SEAM's precedent and every
@@ -10074,9 +10074,9 @@ only in its colour unless it is `either`.
 
 **The lean, and AUTO** (27 September 2026). THE CAPSTAN is on
 `LEAN_BOSSES` (`apps/game/src/lean.ts`): while the drum stands, both phones'
-gamma goes out as the one `capstanLean`, whichever seat it comes from, and
+gamma goes out as the one `capstanSteer`, whichever seat it comes from, and
 iOS is asked for the sensor on the guide's READY (`leanAsked`,
-`briefing.ts`). `apps/game/test/capstan-lean.test.ts` carries a reading
+`briefing.ts`). apps/game/test/capstan-lean.test.ts carried a reading
 past the mark through the reader and into the simulation, and the cradle
 rocks. AUTO plays it out (`packages/hands/src/boss-hands-capstan.ts`): the
 step's steering seat leans well past the mark toward the lit band, the other
@@ -10084,6 +10084,24 @@ seat is brought level and rubs four reversals a beat, the pilot leans on a
 hold, and the bared core is shot in its colour —
 `tools/director/test/autopilot-capstan.test.ts` plays the wave to its end
 with no stall, no cover and no hull hit.
+
+**The pull, in place of the lean** (27 September 2026, later the same day).
+The owner ruled that no wave may need a tilt sensor, because a phone may
+lack one and a desk never has one, and chose to replace the lean rather
+than add a drag beside it. THE CAPSTAN is off `LEAN_BOSSES`, and
+capstan-lean.test.ts is gone. **A press on the drum's middle or its
+cradle, and on neither end, takes the pull** (`capstanSteerUnder`,
+`render/src/capstan-grip.ts`): the same `capstanSteer` target on the wire,
+its `fromMilli` now how far the thumb has carried across since it went
+down, **in thousandths of a tile**. A carry past `capstanPullMilli` —
+600, a little over half a tile — bares that side's face for as long as it
+is held; **a lift is the pull centred**, so the cradle drifts back and the
+rub pauses, never resets, exactly as a phone gone quiet did. The field
+says **`PULL`** where it said `LEAN`, a carry rather than a hold, and
+ON THE FIELD has THE CAPSTAN'S PULL beside THE CAPSTAN'S RUB. AUTO's
+steering seat holds the drum past the mark and the other seat lets go of
+it. Where the paragraphs below and above say *lean*, read the pull; the
+rocked picture reads the same number (`capstan-pose.ts`).
 
 **The look** (`render/src/capstan-draw.ts`, 27 September 2026 — the body,
 then its blow and receipts the same day). **Two drafts combined**: CREATURES' GATE

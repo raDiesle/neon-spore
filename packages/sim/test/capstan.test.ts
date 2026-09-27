@@ -9,8 +9,8 @@ import {
   CFG,
   capstan,
   install,
-  lean,
   OVER,
+  pull,
   rightColor,
   rubCount,
   runUntil,
@@ -21,10 +21,10 @@ import {
 } from "./capstan-rig.js";
 
 /**
- * THE CAPSTAN: one of you leans the phone to turn a band toward the other,
+ * THE CAPSTAN: one of you pulls the drum to turn a band toward the other,
  * who rubs it bright; then shoot the bared core.
  *
- * What these pin is what a phone cannot show: that only the bared face
+ * What these pin is what a picture cannot show: that only the bared face
  * wears, and the hidden one keeps its wear; that the seat steering is never
  * the seat rubbing; that a band not lit stops one short of bright and loses
  * nothing; that a window run out keeps its wear; that a hold counts beats
@@ -43,7 +43,7 @@ function answer(world: World): void {
     return;
   }
   if (step.ask === "hold") {
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     while (capstan(world).phase === "lit") {
       wipe(world, 2, 1);
       beats(world, 1);
@@ -51,7 +51,7 @@ function answer(world: World): void {
     return;
   }
   const steer = step.ask === "left" ? 1 : 2;
-  lean(world, steer, step.ask === "left" ? -OVER : OVER);
+  pull(world, steer, step.ask === "left" ? -OVER : OVER);
   wipe(world, steer === 1 ? 2 : 1, THRESHOLD);
 }
 
@@ -72,7 +72,7 @@ describe("THE CAPSTAN comes in", () => {
     const s = capstan(world);
     expect(s.phase).toBe("rusted");
     expect(s.wear).toEqual([0, 0]);
-    expect(s.tiltMilli).toEqual([0, 0]);
+    expect(s.pullMilli).toEqual([0, 0]);
     expect(s.bared).toBe(false);
     expect(s.steps).toEqual([...SCRIPT]);
     expect(world.events.some((e) => e.type === "capstanEnter")).toBe(true);
@@ -93,37 +93,37 @@ describe("THE CAPSTAN comes in", () => {
   });
 });
 
-describe("the lean", () => {
+describe("the pull", () => {
   it("past the mark rocks the steering seat's face over, and back inside drifts it", () => {
     const world = toStep(0);
-    expect(lean(world, 1, -OVER)).toContain("capstanRock");
-    expect(lean(world, 1, -CFG.capstanLeanMilli + 1000)).toContain("capstanDrift");
+    expect(pull(world, 1, -OVER)).toContain("capstanRock");
+    expect(pull(world, 1, -CFG.capstanPullMilli + 200)).toContain("capstanDrift");
   });
 
   it("from the seat that is not steering rocks nothing", () => {
     const world = toStep(0);
-    expect(lean(world, 2, -OVER)).not.toContain("capstanRock");
+    expect(pull(world, 2, -OVER)).not.toContain("capstanRock");
   });
 
-  it("gone quiet is level", () => {
+  it("let go is centred", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
-    expect(lean(world, 1, -OVER, false)).toContain("capstanDrift");
-    expect(capstan(world).tiltMilli[0]).toBe(0);
+    pull(world, 1, -OVER);
+    expect(pull(world, 1, -OVER, false)).toContain("capstanDrift");
+    expect(capstan(world).pullMilli[0]).toBe(0);
   });
 });
 
 describe("the rub", () => {
   it("from the other seat wears the bared face's band", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     expect(wipe(world, 2, 3)).toContain("capstanWear");
     expect(capstan(world).wear).toEqual([3, 0]);
   });
 
   it("from the steering seat wears nothing", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     wipe(world, 1, 3);
     expect(capstan(world).wear).toEqual([0, 0]);
   });
@@ -136,7 +136,7 @@ describe("the rub", () => {
 
   it("counts only fresh reversals, and a lower count is a fresh touch", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     rubCount(world, 2, 2);
     rubCount(world, 2, 2);
     expect(capstan(world).wear[0]).toBe(2);
@@ -149,7 +149,7 @@ describe("the rub", () => {
 
   it("the lit band worn to the threshold cracks bright and answers the step", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     const types = wipe(world, 2, THRESHOLD);
     expect(types).toContain("capstanBright");
     expect(capstan(world).phase).toBe("rest");
@@ -161,11 +161,11 @@ describe("the rub", () => {
 describe("turning between the faces", () => {
   it("keeps the hidden face's wear exactly where it was", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     wipe(world, 2, 3);
-    lean(world, 1, OVER);
+    pull(world, 1, OVER);
     wipe(world, 2, 2);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     expect(capstan(world).wear).toEqual([3, 2]);
     wipe(world, 2, 1);
     expect(capstan(world).wear).toEqual([4, 2]);
@@ -173,15 +173,15 @@ describe("turning between the faces", () => {
 
   it("stops a band not lit one short of bright, and it cracks once its mark is", () => {
     const world = toStep(0);
-    lean(world, 1, OVER);
+    pull(world, 1, OVER);
     const types = wipe(world, 2, THRESHOLD + 4);
     expect(types).not.toContain("capstanBright");
     expect(capstan(world).wear[1]).toBe(THRESHOLD - 1);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     wipe(world, 2, THRESHOLD);
     expect(capstan(world).wear).toEqual([THRESHOLD, THRESHOLD - 1]);
     toLit(world);
-    lean(world, 2, OVER);
+    pull(world, 2, OVER);
     const last = wipe(world, 1, 1);
     expect(last).toContain("capstanBright");
     expect(last).toContain("capstanBare");
@@ -190,7 +190,7 @@ describe("turning between the faces", () => {
 
   it("swaps the seats on the right band: the navigator steers and the pilot rubs", () => {
     const world = toStep(1);
-    lean(world, 2, OVER);
+    pull(world, 2, OVER);
     wipe(world, 2, 3);
     expect(capstan(world).wear[1]).toBe(0);
     wipe(world, 1, 3);
@@ -201,7 +201,7 @@ describe("turning between the faces", () => {
 describe("a band window run out", () => {
   it("stalls, keeps its wear, and lights the same step again", () => {
     const world = toStep(0);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     wipe(world, 2, 3);
     const seen = runUntil(world, (w) => capstan(w).phase === "rest");
     expect(seen.has("capstanStall")).toBe(true);
@@ -252,7 +252,7 @@ describe("a fire step", () => {
 describe("a hold", () => {
   it("counts a beat with a rub on a bared face, and a beat without is not a reset", () => {
     const world = toStep(3);
-    lean(world, 1, -OVER);
+    pull(world, 1, -OVER);
     wipe(world, 2, 1);
     beats(world, 1);
     expect(capstan(world).heldBeats).toBe(1);
@@ -268,10 +268,10 @@ describe("a hold", () => {
     expect(capstan(world).cursor).toBe(4);
   });
 
-  it("takes either way round: the navigator leaning and the pilot rubbing", () => {
+  it("takes either way round: the navigator pulling and the pilot rubbing", () => {
     const world = toStep(3);
-    lean(world, 1, 0, false);
-    lean(world, 2, OVER);
+    pull(world, 1, 0, false);
+    pull(world, 2, OVER);
     const seen = new Set<string>();
     while (capstan(world).phase === "lit") {
       wipe(world, 1, 1);
@@ -309,8 +309,8 @@ describe("two devices", () => {
   it("agree while their commands do, and part over a single reversal", () => {
     const a = toStep(0);
     const b = toStep(0);
-    lean(a, 1, -OVER);
-    lean(b, 1, -OVER);
+    pull(a, 1, -OVER);
+    pull(b, 1, -OVER);
     expect(hashWorld(a)).toBe(hashWorld(b));
     wipe(a, 2, 1);
     wipe(b, 2, 2);

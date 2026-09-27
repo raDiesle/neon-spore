@@ -5,18 +5,17 @@ import type { InputBuffer } from "./input-buffer.js";
  * **The phone's own lean**, first THE PLUMB's control: each seat holds its
  * phone level to hang its weight true (`docs/spec/bosses-choreographed.md`
  * §31, `sim/plumb-hand.ts`), THE DAVIT's too, steering its boom onto a lit
- * column the same way (§35, `sim/davit-hand.ts`), and THE CAPSTAN's, rocking
- * its drum's cradle to bare a face (§37, `sim/capstan-hand.ts`). The second input in
- * the game that is not a finger on the glass, and it lives beside the first
- * (`shake.ts`).
+ * column the same way (§35, `sim/davit-hand.ts`). The second input in the
+ * game that is not a finger on the glass, and it lives beside the first
+ * (`shake.ts`). THE CAPSTAN read it too until 27 September 2026, when the
+ * owner ruled that no wave may need a tilt sensor; its drum is pulled by a
+ * thumb now (`render/src/capstan-grip.ts`).
  *
  * **What goes on the wire is `gamma`, the phone's roll left or right, in
  * thousandths of a degree** — `LevelTilt`, as §31 names it — as a drag on
  * whichever target the boss reading it is asking for: PLUMB's own weight
  * (`plumbLevelLeft`/`Right`) or DAVIT's boom (`davitSteerLeft`/`Right`), the
- * pilot's the left of either pair and the navigator's the right — or THE
- * CAPSTAN's one `capstanLean`, the same for both seats, because which of
- * them steers is the lit step's, not the side's. `on: false`
+ * pilot's the left of either pair and the navigator's the right. `on: false`
  * is a phone that has stopped being read.
  *
  * **Not every event is sent.** A browser reports orientation at up to sixty
@@ -39,7 +38,7 @@ export const LEAN_STEP_MILLI = 500;
  * THE HALTER's rest among them, a phone held however it is held sends
  * nothing (`apps/game/test/halter-rest.test.ts`).
  */
-export const LEAN_BOSSES = ["plumb", "davit", "capstan"] as const;
+export const LEAN_BOSSES = ["plumb", "davit"] as const;
 export type LeanBoss = (typeof LEAN_BOSSES)[number];
 
 /** The boss a lean is read for, on the field now, or null: what `leanReader` calls `bob`. */
@@ -55,7 +54,6 @@ export function leanAsked(world: World): boolean {
 
 /** The drag a seat's lean goes out as, for the boss reading it. */
 export function leanTarget(kind: LeanBoss, p: 1 | 2): DragTarget {
-  if (kind === "capstan") return "capstanLean";
   if (kind === "davit") return p === 1 ? "davitSteerLeft" : "davitSteerRight";
   return p === 1 ? "plumbLevelLeft" : "plumbLevelRight";
 }

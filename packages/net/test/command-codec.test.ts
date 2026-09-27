@@ -286,9 +286,9 @@ const ACCEPTED: Command[] = [
   // seat (`sim/halter-hand.ts`).
   { kind: "drag", target: "halterChordLeft", on: true, fromMilli: 0 },
   { kind: "drag", target: "halterChordRight", on: false, fromMilli: 0 },
-  // THE CAPSTAN's lean carries the phone's lean on `fromMilli`, its rub the
+  // THE CAPSTAN's pull carries the thumb's carry on `fromMilli`, its rub the
   // reversal count on `id`, from either seat (`sim/capstan-hand.ts`).
-  { kind: "drag", target: "capstanLean", on: true, fromMilli: -15000 },
+  { kind: "drag", target: "capstanSteer", on: true, fromMilli: -1200 },
   { kind: "drag", target: "capstanRub", on: true, fromMilli: 0, id: 3 },
   // THE GALL's pinch carries the gap on `fromMilli` and the point it went down
   // on as `id` (`sim/gall-hand.ts`).
@@ -483,7 +483,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   davitLooseRight: true,
   halterChordLeft: true,
   halterChordRight: true,
-  capstanLean: true,
+  capstanSteer: true,
   capstanRub: true,
   gallPinch: true,
   burgeeFreeze: true,

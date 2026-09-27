@@ -215,7 +215,7 @@ export function patchBossE(boss: BossState): void {
     boss.wear = [8, 3];
     boss.hits = 1;
     boss.bared = true;
-    boss.tiltMilli = [-15000, 4000];
+    boss.pullMilli = [-1500, 400];
     boss.rubs = [2, 5];
     boss.rubbed = true;
     boss.heldBeats = 1;

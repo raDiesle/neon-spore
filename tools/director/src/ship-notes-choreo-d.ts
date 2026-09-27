@@ -64,17 +64,17 @@ export const CHOREO_NOTES_D = {
     "sim/halter-hand.ts, sim/halter-shot.ts, sim/config-halter.ts.",
   "THE CAPSTAN — the boss one hand rocks for the other to wear":
     "Asked for in docs/spec/bosses-choreographed.md §37: a drum over the " +
-    "middle column on a cradle one seat rocks with a lean past " +
-    "capstanLeanMilli — THE PLUMB's LevelTilt — while the other wipes the " +
+    "middle column on a cradle one seat rocks with a pull past " +
+    "capstanPullMilli — a thumb carried across the drum — while the other wipes the " +
     "bared face's band, THE RIME's RubCount. Only the bared face wears; the " +
-    "hidden one keeps its wear. The left mark is the pilot's lean and the " +
+    "hidden one keeps its wear. The left mark is the pilot's pull and the " +
     "navigator's thumb, the right the other way; a band not lit stops one " +
     "short of capstanWearThreshold. Both bright bare the core, shot in its " +
-    "colour. A hold step wants capstanHoldBeats beats of lean and rub, " +
+    "colour. A hold step wants capstanHoldBeats beats of pull and rub, " +
     "either way round; run out, it covers the core and is asked again. A " +
     "band window run out is tried again with its wear; a fire step run out " +
-    "is a hull hit, which is the wave. Nothing on the phone sends a lean or " +
-    "a rub here yet. Only the simulation lane has landed — see " +
+    "is a hull hit, which is the wave. The pull is a thumb on the drum's " +
+    "middle and the rub a thumb on either end (render/capstan-grip.ts) — see " +
     "sim/capstan.ts, sim/capstan-step.ts, sim/capstan-hand.ts, " +
     "sim/capstan-shot.ts, sim/config-capstan.ts.",
   "THE GALL — the boss that moves the moment it is closed":

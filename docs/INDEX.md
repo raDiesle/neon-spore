@@ -311,7 +311,7 @@ by hand never moves.
 | `packages/sim/src/capstan.ts` | THE CAPSTAN: a squat drum over the middle column on a cradle that rocks one face or the other toward the… |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
 | `packages/sim/src/config-cairn.ts` | THE CAIRN's two clocks: the beats the pile stands before it sheds a rock itself, and the beats a still thumb buys back off them |
-| `packages/sim/src/config-capstan.ts` | THE CAPSTAN's tuning: the beats around its steps, how far a lean must go to rock the cradle |
+| `packages/sim/src/config-capstan.ts` | THE CAPSTAN's tuning: the beats around its steps, how far a pull must go to rock the cradle |
 | `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
@@ -2690,7 +2690,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-valve.ts` | THE VALVE's two hands, **each photographed from the seat whose half it is** |
 | `tools/director/src/poses-field-controls-trivet.ts` | THE TRIVET's two hands: a chord of two on each foot, both seats keeping the stand planted together |
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
-| `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's phone tipped over so its face is round |
+| `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-field-controls-flue.ts` | THE FLUE's tap, **photographed from the tapper's seat**, the screen it is pressed on |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
@@ -3184,7 +3184,7 @@ by hand never moves.
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-cyst.ts` | THE CYST's freeze marks and flanks, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-capstan.ts` | THE CAPSTAN's rub, as a row of the ON THE FIELD tab |
+| `tools/director/src/field-controls-capstan.ts` | THE CAPSTAN's pull and rub, as two rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-halter.ts` | THE HALTER's two grips, as rows of the ON THE FIELD tab |

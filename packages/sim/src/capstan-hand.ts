@@ -12,17 +12,18 @@ import { midCol } from "./config.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
-/** The furthest a phone leans either way, in thousandths of a degree: gamma's own range. */
-const MAX_LEAN_MILLI = 90_000;
+/** The furthest a pull is kept either way, in thousandths of a tile: wider than any field. */
+const MAX_PULL_MILLI = 20_000;
 
 /**
- * A lean and a thumb on THE CAPSTAN, from either seat — which one steers and
+ * A pull and a thumb on THE CAPSTAN, from either seat — which one steers and
  * which one rubs is the lit step's, so both readings are kept for both.
  *
- * **The lean is THE PLUMB's reading** (`plumb-hand.ts`): `capstanLean`,
- * `fromMilli` the phone's lean in thousandths of a degree, a lift a phone
- * that stopped reporting — level here, which rocks nothing. What is heard is
- * the cradle **rocking over or drifting back** under the steering lean.
+ * **The pull is a handle's carry**: `capstanSteer`, `fromMilli` how far the
+ * thumb has come across from where it took the drum, thousandths of a tile,
+ * and a lift the thumb up — centred here, which rocks nothing and pauses the
+ * rub. What is heard is the cradle **rocking over or drifting back** under
+ * the steering pull.
  *
  * **The thumb is THE RIME's reading** (`rime-hand.ts`): `capstanRub`, `id` the
  * reversals since the thumb went down, kept so only fresh ones count and a
@@ -36,15 +37,15 @@ export function capstanHeard(world: World, player: 1 | 2, command: Command): voi
   if (command.kind !== "drag") return;
   const s = capstanBoss(world);
   if (s === null) return;
-  if (command.target === "capstanLean") lean(world, s, player, command.on, command.fromMilli);
+  if (command.target === "capstanSteer") pull(world, s, player, command.on, command.fromMilli);
   else if (command.target === "capstanRub") rub(world, s, player, command.on, command.id ?? 0);
 }
 
-function lean(world: World, s: CapstanState, player: 1 | 2, on: boolean, milli: number): void {
+function pull(world: World, s: CapstanState, player: 1 | 2, on: boolean, milli: number): void {
   if (!Number.isInteger(milli)) return;
   const was = capstanFace(world, s);
-  s.tiltMilli[capstanSeatIndex(player)] = on
-    ? Math.max(-MAX_LEAN_MILLI, Math.min(MAX_LEAN_MILLI, milli))
+  s.pullMilli[capstanSeatIndex(player)] = on
+    ? Math.max(-MAX_PULL_MILLI, Math.min(MAX_PULL_MILLI, milli))
     : CAPSTAN_UNREAD;
   const face = capstanFace(world, s);
   if (face === was) return;

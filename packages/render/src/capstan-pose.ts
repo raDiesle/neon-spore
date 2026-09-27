@@ -74,11 +74,11 @@ export function capstanLeft(s: CapstanState, beat: number, beatPhase: number): n
  */
 export function capstanTurn(world: Pick<World, "cfg">, s: CapstanState): number {
   if (s.phase === "open") return 0;
-  const lean = Math.max(1, world.cfg.capstanLeanMilli);
+  const lean = Math.max(1, world.cfg.capstanPullMilli);
   const steer = capstanSteerer(world, s);
-  const [a, b] = s.tiltMilli;
+  const [a, b] = s.pullMilli;
   const tilt =
-    steer !== null ? s.tiltMilli[capstanSeatIndex(steer)] : Math.abs(a) >= Math.abs(b) ? a : b;
+    steer !== null ? s.pullMilli[capstanSeatIndex(steer)] : Math.abs(a) >= Math.abs(b) ? a : b;
   return Math.max(-1, Math.min(1, tilt / lean));
 }
 

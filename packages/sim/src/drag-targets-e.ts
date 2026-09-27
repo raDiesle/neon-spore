@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file;
  * THE PLUMB's levels were written on it, and THE SLING's draws and THE
- * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, THE HALTER's grips, THE CAPSTAN's lean and rub, THE GALL's pinch, and THE BURGEE's tap and draw. `drag-targets.ts` unions the pages
+ * GRINDSTONE's flats and jaws after them, THE CYST's marks and flanks, THE DAVIT's leans and draws, THE HALTER's grips, THE CAPSTAN's steer and rub, THE GALL's pinch, and THE BURGEE's tap and draw. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -32,7 +32,7 @@ export type DragTargetE =
   | "davitLooseRight"
   | "halterChordLeft"
   | "halterChordRight"
-  | "capstanLean"
+  | "capstanSteer"
   | "capstanRub"
   | "gallPinch"
   | "burgeeFreeze"
@@ -136,12 +136,14 @@ export type DragTargetE =
  */
 
 /**
- * `capstanLean` and `capstanRub` are the ninety-ninth and hundredth: THE
+ * `capstanSteer` and `capstanRub` are the ninety-ninth and hundredth: THE
  * CAPSTAN's cradle and its bands, both heard from either seat, since which
  * seat steers and which rubs is the lit step's.
  *
- * No new reading. `capstanLean` is `plumbLevelLeft`'s — `fromMilli` the
- * phone's lean in thousandths of a degree, a lift a phone stopped reporting.
+ * No new reading. `capstanSteer` is a handle's carry — `fromMilli` how far
+ * the thumb has come across from where it took the drum, thousandths of a
+ * tile, and a lift the thumb up. It was the phone's lean, on the same slot,
+ * until 27 September 2026.
  * `capstanRub` is `rimeHalfLeft`'s — `id` the reversals since the thumb went
  * down, a lift the thumb up (`capstan-hand.ts`).
  */

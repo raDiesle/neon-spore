@@ -4,7 +4,7 @@ import { CAPSTAN_ASKS, CAPSTAN_PHASES, type CapstanState } from "./capstan.js";
  * What THE CAPSTAN puts into `hashWorld`, and nothing else.
  *
  * **The authored script goes in whole**, THE SEAM's reason (`seam-hash.ts`),
- * with its length ahead of it. Both seats' leans and reversal counts go in
+ * with its length ahead of it. Both seats' pulls and reversal counts go in
  * too: each is heard on the tick and decides which band the next reversal
  * wears, so two devices that disagree about one of them disagree about a band.
  */
@@ -17,8 +17,8 @@ export function capstanHashParts(s: CapstanState): number[] {
     ...s.wear,
     s.hits,
     s.bared ? 1 : 0,
-    s.tiltMilli.length,
-    ...s.tiltMilli,
+    s.pullMilli.length,
+    ...s.pullMilli,
     s.rubs.length,
     ...s.rubs,
     s.rubbed ? 1 : 0,

@@ -15,7 +15,7 @@ import type { World } from "./world.js";
  * THE CAPSTAN's clock: the drum settling in, each step lighting, a hold's
  * beats counted, a window running out, and the cap swinging open.
  *
- * Every lean and every reversal is heard on the tick (`capstan-hand.ts`), and
+ * Every pull and every reversal is heard on the tick (`capstan-hand.ts`), and
  * a band cracks there — waiting for the beat would hold a finished band back
  * for nothing. The shot is judged where a bolt leaves the top of the field
  * (`capstan-shot.ts`). What is left to the beat is **a hold**: a whole beat

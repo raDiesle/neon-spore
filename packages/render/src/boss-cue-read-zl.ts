@@ -16,21 +16,21 @@ import type { Layout } from "./layout.js";
 
 /**
  * **What THE CAPSTAN is asking for** — page thirty-eight of the readings,
- * THE HALTER's (`boss-cue-read-zk.ts`) with a lean in front of the hands.
+ * THE HALTER's (`boss-cue-read-zk.ts`) with a pull in front of the hands.
  * Both screens draw the whole drum, so the word is what keeps the two jobs
- * apart: one seat tips its phone, the other rubs.
+ * apart: one seat pulls the drum round, the other rubs.
  *
- * **`LEAN` at the horn the band asks toward, to the seat that steers**: the
+ * **`PULL` at the horn the band asks toward, to the seat that steers**: the
  * pilot on a left band, the navigator on a right. It goes once that band's
- * face is bared — a word over a lean held could only say *keep going* — and
- * a lean let go is owed it again. **`RUB` on the bared face, to the other
- * seat**, from the moment it is round: the seat the lean is not asked of is
+ * face is bared — a word over a pull held could only say *keep going* — and
+ * a pull let go is owed it again. **`RUB` on the bared face, to the other
+ * seat**, from the moment it is round: the seat the pull is not asked of is
  * the only one whose reversals wear (`capstan-hand.ts`).
  *
  * **A hold** may be steered by either seat, and which one is the pair's to
- * settle out loud, so until somebody leans past the mark `LEAN` stands on the
- * drum's middle for both; after, `RUB` on whichever face that lean bared, to
- * the seat that is not leaning.
+ * settle out loud, so until somebody pulls past the mark `PULL` stands on the
+ * drum's middle for both; after, `RUB` on whichever face that pull bared, to
+ * the seat that is not pulling.
  *
  * **`FIRE` at the hull under the middle column** on a shot with the core
  * bared, to either seat. The step's colour is never named — the core is lit
@@ -61,7 +61,7 @@ export function capstanCues(
     const horn = band === null ? { x: 0, y: 0 } : capstanHornAt(l, band);
     const at = capstanScreenAt(l, cfg, s, horn, world.beat, beatPhase);
     const seat = band === null ? null : capstanSteerer(world, s);
-    return [{ seat, kind: "HOLD", word: "LEAN", x: at.x, y: at.y, ...frame, seed: 160 }];
+    return [{ seat, kind: "CARRY", word: "PULL", x: at.x, y: at.y, ...frame, seed: 160 }];
   }
   const at = capstanRubStanding(l, cfg, s, world.beat, beatPhase);
   const seat = capstanWearer(world, s);

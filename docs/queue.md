@@ -1701,17 +1701,3 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
-
-## THE CAPSTAN's lean becomes a drag
-
-- **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
-- **Taken:** 2026-09-27, claude/queue-strip-registrations (claim: claude/queue-the-capstans-lean-becomes-a-drag)
-- **Files:** `packages/sim/src/capstan.ts`, `packages/sim/src/capstan-step.ts`, `packages/sim/src/capstan-hand.ts`, `apps/game/src/lean.ts`, `apps/game/test/capstan-lean.test.ts`, `docs/spec/bosses.md`
-
-The same answer as THE DAVIT's, for THE CAPSTAN: its cradle is leant left or
-right with the phone (`capstanTiltMilli`, `TILT, AS A LEVEL`), and a lifted
-tilt pauses the hidden face's rub. Replace the lean with a drag that steers
-the cradle and holds it, keep the pause on a drag let go, and take THE CAPSTAN
-out of `lean.ts` — the file goes once no wave reads it. The guide's words
-change with it. A control change the owner asked for by name. `bun run check`
-proves it.

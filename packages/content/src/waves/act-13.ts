@@ -25,9 +25,9 @@ import type { Wave } from "../wave-types.js";
  * bared centre, the last one white.
  *
  * **THE CAPSTAN is the first boss one seat turns for the other to work.** A
- * rusted drum on a cradle: one seat leans the phone to rock a face toward the
+ * rusted drum on a cradle: one seat drags the drum to rock a face toward the
  * pair, the other wipes that face's band bright, and only the bared face
- * wears (§37, `sim/capstan.ts`). The left mark is the pilot's lean and the
+ * wears (§37, `sim/capstan.ts`). The left mark is the pilot's pull and the
  * right the navigator's; after the bare, a hold takes either way round. Three
  * shots at the core, the last one white.
  *
@@ -115,9 +115,9 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theCapstan",
     name: "THE CAPSTAN",
     guide: {
-      both: "One of you leans the phone to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
-      p1: "1. Left mark: lean your phone left and keep it there.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
-      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: lean your phone right and keep it there.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
+      both: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+      p1: "1. Left mark: drag the drum left and hold it.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
+      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: drag the drum right and hold it.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
     },
     entries: [],
     boss: {

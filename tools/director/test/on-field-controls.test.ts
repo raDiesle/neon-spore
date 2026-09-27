@@ -437,9 +437,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
   halterChordLeft: "field",
   halterChordRight: "field",
-  // THE CAPSTAN's lean is the phone tilted, never a hand on the glass; its rub
-  // is either end of the drum, either seat's (`render/capstan-grip.ts`, §11.54).
-  capstanLean: "unbuilt",
+  // THE CAPSTAN's pull is the drum's middle and its rub either end, either
+  // seat's (`render/capstan-grip.ts`, §11.54).
+  capstanSteer: "field",
   capstanRub: "field",
   // THE GALL's pinch: a point of this seat's half of the seam, the point sent
   // as its id, on both screens (`render/gall-grip.ts`, §11.55).

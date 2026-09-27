@@ -43,7 +43,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "cystFreezeLeft", "cystFreezeRight", "cystFlankLeft", "cystFlankRight",
   "davitSteerLeft", "davitSteerRight", "davitLooseLeft", "davitLooseRight",
   "halterChordLeft", "halterChordRight",
-  "capstanLean", "capstanRub",
+  "capstanSteer", "capstanRub",
   "gallPinch",
   "burgeeFreeze", "burgeeDraw",
   "flueTap",
