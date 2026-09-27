@@ -27767,3 +27767,5 @@ passed it over, and found only by reading its `Needs:` line by eye.
 
 Bottleneck: reading. Fitting a rig head to the shipped face-on marks meant
 knowing the anchor's rotation order and why the skull may not pitch.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
