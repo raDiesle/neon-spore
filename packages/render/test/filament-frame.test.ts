@@ -40,12 +40,13 @@ beforeAll(() => {
 });
 
 describe("THE FILAMENT's body", () => {
-  it.each(ROLES)("hangs the body and pulses the armed free end, on %s", (role) => {
+  it.each(ROLES)("hangs the body and puts no ring on the armed free end, on %s", (role) => {
     const arm = frame(role, (w) => armed(w, 0));
     expect(arm.calls).toBeGreaterThan(100);
     expect(count(arm.text, BODY)).toBeGreaterThan(0);
-    expect(count(arm.text, PALETTE.wispRim)).toBeGreaterThan(0);
-    // No thumb is asked for yet: no ring, no word.
+    // No thumb is heard until the trace opens, so no ring stands there yet
+    // (`marks-window.test.ts`), and no red.
+    expect(count(arm.text, PALETTE.wispRim)).toBe(0);
     expect(count(arm.text, PALETTE.red)).toBe(0);
   });
 

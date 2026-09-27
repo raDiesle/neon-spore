@@ -831,6 +831,10 @@ colour, with an autopilot-burgee.test.ts playing the wave to its end.
 `bun run check` proves it; how a freeze answered by a swipe feels stays
 unverified until the owner holds two phones.
 
+Once AUTO plays the fight through, take the `unreached` wrapper off
+THE BURGEE's `drawBurgeeStuds` row in `tools/director/test/marks-window-rows-b.ts`, so the
+fire mark has to be seen lit in its window.
+
 ## §40 THE FLUE — the simulation lane
 
 - **Found:** 2026-09-26, this session
@@ -2082,6 +2086,10 @@ on a swell both flanks at once; on fire, spit and bud the cannon or the
 shield at `cystStepCol` — then take THE CYST out of `NO_HAND` and prove it
 with `bun run check`.
 
+Once AUTO plays the fight through, take the `unreached` wrapper off
+THE CYST's `drawCystCore` row in `tools/director/test/marks-window-rows-b.ts`, so the
+fire mark has to be seen lit in its window.
+
 ## Unverified at d30a4b113: THE GRINDSTONE's body never watched at tempo
 
 - **Found:** 2026-09-26, tmp-grindstone-look
@@ -2373,15 +2381,16 @@ by itself.
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-the-davits-boom-swings-back-a-whole-step-a-beat (claim: claude/queue-every-other-boss-no-mark-before-its-window-opens)
-- **Files:** `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/filament-turn-marks.ts`, `packages/render/src/fleet-marks.ts`, `tools/director/test/marks-window.test.ts`
+- **Files:** `packages/render/src/gall-marks.ts`, `packages/render/src/grindstone-marks.ts`, `packages/render/src/halter-marks.ts`, `packages/render/src/plumb-marks.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/sling-marks.ts`, `tools/director/test/marks-window-rows-b.ts`
 
 The owner's rule from THE INSTAR entry above, given *e.g. in boss waves*,
 so it applies to every boss. Go through each boss's `*-marks.ts` in
 `packages/render/src/`, six per lane. Wherever a ring, halo or glyph is
 drawn before its window is open — an announce, a faint early ring, a ring
 that fades in during a lift — remove it, and give the boss a row in
-`tools/director/test/marks-window.test.ts`: each marks function spied, what
+`tools/director/test/marks-window.test.ts` (the rows are in
+`marks-window-rows-a.ts` and `marks-window-rows-b.ts`; a third file when
+those fill): each marks function spied, what
 in its call says it is lit, and the window by the boss's own predicate in
 `sim/`. THE QUEEN's faint rings from the announcement onward are her
 mechanic (`docs/spec/controls.md`: P1 is shown both marks); the test says
@@ -2390,10 +2399,16 @@ listed; the last lane removes it.
 
 Done: THE OCULUS, THE VISE, THE TRIVET, THE SEAM (nothing early), THE KEEL
 (its socket faded in over the split) and THE VALVE (its notch sat dim on the
-drum at rest). Left: THE BURGEE, THE CAPSTAN, THE CYST, THE DAVIT, THE
-FILAMENT and THE FLEET in the Files above; then THE GALL, THE GRINDSTONE,
-THE HALTER, THE PLUMB, THE RIME and THE SLING. The other `*-marks.ts` files
-are creatures and rounds, not bosses.
+drum at rest); THE BURGEE, THE CAPSTAN, THE DAVIT (nothing early), THE CYST
+(a dim ring sat by each flank at rest), THE FILAMENT (a ring pulsed up on the
+free end through the arm, outside its marks file) and THE FLEET (its marks
+file asks nothing; the row is its grip, `fleet-grip-draw.ts`). Left: THE
+GALL, THE GRINDSTONE, THE HALTER, THE PLUMB, THE RIME and THE SLING, in the
+Files above. THE SLING has no AUTO hand, so a mark its wave never reaches is
+wrapped in `unreached` naming the hand's entry, as THE BURGEE's and THE
+CYST's fire marks are. Read the boss's whole draw, not only its marks file:
+THE FILAMENT's early ring was in `filament-draw.ts`. The other `*-marks.ts`
+files are creatures and rounds, not bosses.
 
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.

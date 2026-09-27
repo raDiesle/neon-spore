@@ -17,15 +17,16 @@ import { stepColour } from "./step-colour.js";
 const RING = 1.45;
 
 /**
- * Freeze mark `side`, beside its flank: a hollow ring with a dot, dim until
- * its flank's step is lit; then breathing white, a ring round it closing as
- * the tap's window runs out; and, once tapped, filled and still.
+ * Freeze mark `side`, beside its flank, drawn only while its flank's step is
+ * lit: a hollow ring with a dot breathing white, a ring round it closing as
+ * the tap's window runs out; and, once tapped, filled and still. Nothing
+ * stands there between steps (`marks-window.test.ts`).
  */
 export function drawCystMark(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   side: 0 | 1,
-  state: "idle" | "lit" | "stilled",
+  state: "lit" | "stilled",
   left: number,
   beatPhase: number,
 ): void {
@@ -35,14 +36,6 @@ export function drawCystMark(
   ring.arc(m.x, m.y, m.r, 0, Math.PI * 2);
   const dot = new Path2D();
   dot.arc(m.x, m.y, m.r * 0.32, 0, Math.PI * 2);
-  if (state === "idle") {
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.cystSac, 0.45);
-    ctx.stroke(ring);
-    ctx.fillStyle = rgba(PALETTE.cystSac, 0.35);
-    ctx.fill(dot);
-    return;
-  }
   if (state === "stilled") {
     ctx.fillStyle = rgba(PALETTE.hullRim, 0.8);
     ctx.fill(ring);

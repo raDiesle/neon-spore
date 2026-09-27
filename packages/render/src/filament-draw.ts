@@ -1,4 +1,3 @@
-import { circleSubpath } from "@neon-spore/content";
 import { type FilamentState, filamentTiles, filamentTracing, type World } from "@neon-spore/sim";
 import { drawHurt, hurtShake } from "./boss-hurt.js";
 import type { FilamentFx } from "./filament-fx.js";
@@ -120,7 +119,7 @@ export function drawFilament(
     const arm = filamentArmPhase(s, cfg, beat, beatPhase);
     if (ahead) drawAhead(ctx, l, s, heart, fx.dark, arm);
     drawFilamentResting(ctx, l, s, own, time);
-    drawArmed(ctx, l, s, arm, time);
+    drawArmed(ctx, l, s);
   } else {
     if (ahead) drawAhead(ctx, l, s, heart, fx.dark, 1);
     if (filamentTracing(s)) {
@@ -205,19 +204,14 @@ function drawAhead(
   ctx.restore();
 }
 
-/** The arm: the free end pulsing up on both screens, a tile lit and nothing else, before the thumbs count. */
-function drawArmed(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  s: FilamentState,
-  arm: number,
-  time: number,
-): void {
+/**
+ * The arm: the round's word beside the free end on both screens, before the
+ * thumbs count. No ring stands on the end yet — nothing touched there is
+ * heard until the trace opens (`marks-window.test.ts`).
+ */
+function drawArmed(ctx: CanvasRenderingContext2D, l: Layout, s: FilamentState): void {
   const c = filamentGrabCircle(l, s, 1);
   if (c === null) return;
-  const pulse = 0.6 + 0.4 * Math.sin(time * 9) * arm;
-  const p = new Path2D(circleSubpath(c.x, c.y, c.r * (0.5 + 0.5 * arm)));
-  strokeGlow(ctx, p, PALETTE.wispRim, STROKE.outline, pulse);
   // The next filament is a new round, and says so on the end it starts from.
   const side = c.x < l.gridLeft + (l.cols * l.tile) / 2 ? -1 : 1;
   drawInstarWord(ctx, l, s.cursor > 0 ? "NEXT" : "READY", c.x + side * c.r * 1.6, c.y, side, true);

@@ -1,41 +1,16 @@
-import { afterAll, describe, expect, spyOn, test } from "bun:test";
+import { afterAll, describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport } from "@neon-spore/render";
-import {
-  type BossKind,
-  beatPhase,
-  type KeelState,
-  keelLit,
-  type OculusState,
-  oculusLitStep,
-  type SeamState,
-  seamLitStep,
-  step,
-  type TrivetState,
-  trivetLitStep,
-  type ValveState,
-  type ViseState,
-  valveBracing,
-  valveFrozen,
-  valveHolding,
-  valveJetting,
-  valveTurning,
-  valveWiping,
-  viseLitStep,
-  type World,
-} from "@neon-spore/sim";
+import { type BossKind, beatPhase, step, type World } from "@neon-spore/sim";
 import { drawBoss } from "../../../packages/render/src/boss-draw.js";
 import { Effects } from "../../../packages/render/src/effects.js";
-import * as keelMarks from "../../../packages/render/src/keel-marks.js";
-import * as oculusMarks from "../../../packages/render/src/oculus-marks.js";
-import * as seamMarks from "../../../packages/render/src/seam-marks.js";
-import * as trivetMarks from "../../../packages/render/src/trivet-marks.js";
-import * as valveMarks from "../../../packages/render/src/valve-marks.js";
-import * as viseMarks from "../../../packages/render/src/vise-marks.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
+import { type Mark, spies } from "./marks-window-kit.js";
+import { ROWS_A } from "./marks-window-rows-a.js";
+import { ROWS_B } from "./marks-window-rows-b.js";
 
 /**
  * **No boss puts a mark up before its window opens** — the owner, 27
@@ -50,7 +25,8 @@ import { stageField } from "../src/stage-field.js";
  * call is only ever a mark — must fall on a tick the **simulation** says
  * that mark's window is open, by the boss's own predicate in `sim/`, never
  * the render's gate re-read. Every mark must also be seen lit at least once,
- * or the row proves nothing.
+ * or the row proves nothing — unless AUTO has no hand to take the boss that
+ * far, and the row says so (`unreached`, with the queue entry that ends it).
  *
  * A window is the gesture being answered, not THE SLOW: THE VALVE's turn and
  * THE KEEL's third movement are at tempo on purpose, and their marks are up
@@ -58,126 +34,19 @@ import { stageField } from "../src/stage-field.js";
  * rings from the announcement onward are her mechanic — P1 is shown both
  * marks (`docs/spec/controls.md`).
  *
- * The bosses still to read are in `docs/queue.md`.
+ * The rows are in `marks-window-rows-a.ts` and `marks-window-rows-b.ts`;
+ * the bosses still to read are in `docs/queue.md`.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 const EVERY = 1;
 const TICKS = 40_000;
 
-/** One marks function: whether a call draws it lit, and the window it may be lit in. */
-interface Mark {
-  name: string;
-  calls: () => readonly unknown[][];
-  lit: (args: readonly unknown[]) => boolean;
-  open: (world: World) => boolean;
-}
-
-const spies: { mockRestore: () => void }[] = [];
 afterAll(() => {
   for (const s of spies) s.mockRestore();
 });
 
-function mark<T extends object, K extends keyof T & string>(
-  ns: T,
-  name: K,
-  open: (world: World) => boolean,
-  lit: (args: readonly unknown[]) => boolean = () => true,
-): () => Mark {
-  return () => {
-    // biome-ignore lint/suspicious/noExplicitAny: a namespace's export, spied by name
-    const spy = spyOn(ns as any, name);
-    spies.push(spy);
-    return { name, calls: () => spy.mock.calls as unknown[][], lit, open };
-  };
-}
-
-const oculus = (w: World) => w.boss as OculusState;
-const vise = (w: World) => w.boss as ViseState;
-const trivet = (w: World) => w.boss as TrivetState;
-const keel = (w: World) => w.boss as KeelState;
-const valve = (w: World) => w.boss as ValveState;
-const seam = (w: World) => w.boss as SeamState;
-
-const ROWS: readonly { kind: BossKind; marks: (() => Mark)[] }[] = [
-  {
-    kind: "oculus",
-    marks: [
-      mark(oculusMarks, "drawOculusLitPair", (w) => oculusLitStep(oculus(w)) !== null),
-      mark(
-        oculusMarks,
-        "drawOculusCore",
-        (w) => oculusLitStep(oculus(w)) !== null,
-        (a) => a[4] !== null,
-      ),
-    ],
-  },
-  {
-    kind: "vise",
-    marks: [
-      mark(viseMarks, "drawViseLitSeam", (w) => viseLitStep(vise(w)) !== null),
-      mark(
-        viseMarks,
-        "drawViseKernel",
-        (w) => viseLitStep(vise(w)) !== null,
-        (a) => a[5] !== null,
-      ),
-    ],
-  },
-  {
-    kind: "trivet",
-    marks: [
-      mark(
-        trivetMarks,
-        "drawTrivetSockets",
-        (w) => trivetLitStep(trivet(w)) !== null,
-        (a) => (a[4] as number) > 0,
-      ),
-      mark(
-        trivetMarks,
-        "drawTrivetFace",
-        (w) => trivetLitStep(trivet(w)) !== null,
-        (a) => a[5] !== null,
-      ),
-    ],
-  },
-  {
-    kind: "keel",
-    marks: [
-      mark(keelMarks, "drawKeelRing", (w) => keelLit(keel(w))),
-      mark(keelMarks, "drawKeelSocket", (w) => keel(w).phase === "socket"),
-    ],
-  },
-  {
-    kind: "valve",
-    marks: [
-      mark(valveMarks, "drawValveMark", (w) => valveTurning(valve(w)) || valveFrozen(valve(w))),
-      mark(
-        valveMarks,
-        "drawValveSocket",
-        (w) => {
-          const s = valve(w);
-          return (
-            valveHolding(s) ||
-            valveFrozen(s) ||
-            valveJetting(s) ||
-            valveBracing(s) ||
-            valveWiping(s)
-          );
-        },
-        (a) => (a[4] as number) > 0,
-      ),
-    ],
-  },
-  {
-    kind: "seam",
-    marks: [
-      mark(seamMarks, "drawSeamPoint", (w) => seamLitStep(seam(w)) !== null),
-      mark(seamMarks, "drawSeamGrit", (w) => seamLitStep(seam(w)) !== null),
-      mark(seamMarks, "drawSeamRock", (w) => seamLitStep(seam(w)) !== null),
-    ],
-  },
-];
+const ROWS = [...ROWS_A, ...ROWS_B];
 
 /** AUTO through the wave: every lit call outside its window, and how often each mark was lit. */
 function walk(kind: BossKind, marks: Mark[]): { wrong: string[]; seen: Map<string, number> } {
@@ -221,11 +90,12 @@ function phaseName(world: World): string {
 
 describe("no boss puts a mark up before its window opens", () => {
   test.each(ROWS.map((r) => [r.kind, r] as const))("%s", (_, row) => {
-    const { wrong, seen } = walk(
-      row.kind,
-      row.marks.map((m) => m()),
-    );
+    const marks = row.marks.map((m) => m());
+    const { wrong, seen } = walk(row.kind, marks);
     expect(wrong.slice(0, 5)).toEqual([]);
-    for (const [name, n] of seen) expect(n, `${name} was never drawn lit`).toBeGreaterThan(0);
+    for (const m of marks) {
+      if (m.unreached !== undefined) continue;
+      expect(seen.get(m.name) ?? 0, `${m.name} was never drawn lit`).toBeGreaterThan(0);
+    }
   });
 });

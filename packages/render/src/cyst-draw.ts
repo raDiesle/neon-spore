@@ -83,9 +83,8 @@ export function drawCyst(
   ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);
 
   const side = cystSide(s);
-  for (const mark of [0, 1] as const) {
-    const state = side !== mark ? "idle" : s.phase === "frozen" ? "stilled" : "lit";
-    if (split <= 0) drawCystMark(ctx, l, mark, state, left, beatPhase);
+  if (side !== null && split <= 0) {
+    drawCystMark(ctx, l, side, s.phase === "frozen" ? "stilled" : "lit", left, beatPhase);
   }
 
   if (split > 0) {

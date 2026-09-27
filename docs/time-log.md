@@ -26910,3 +26910,16 @@ Bottleneck: looking — an entry that asks for tempo can only be answered in
 frames here, and the frames take the time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the second six bosses put no mark up before its window
+
+- reading: 5 min. Two traces in parallel of six bosses' marks files and
+  their draws, then the cyst and filament draws for what they found.
+- writing: 5 min. The test split into a kit and two row files, six rows,
+  `unreached`, the cyst's idle ring and the filament's arm ring taken out.
+- looking: 0 min. Held by the marks-window test.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE BURGEE and THE CYST have no AUTO hand, so their fire marks
+could not be required to be seen, and the test needed a named exception.
