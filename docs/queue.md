@@ -445,6 +445,7 @@ an alignment.
 ## §29 THE RIME — sprite atlas experiment: the bare-core reveal
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-29-the-rime-sprite-atlas-experiment-the-bare-cor
 - **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
   `assets/raster/`, `docs/raster.md`
 
