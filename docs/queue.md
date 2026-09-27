@@ -898,6 +898,7 @@ what the rest of this file holds.
 ## §38 THE GALL — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-27, claude/queue-38-the-gall-the-simulation-lane (claim: claude/queue-38-the-gall-the-look)
 - **Needs:** §38 THE GALL's simulation lane, above, landed first
 - **Files:** `docs/spec/bosses-choreographed.md`
 
