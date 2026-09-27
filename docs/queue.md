@@ -647,6 +647,7 @@ breach kept on purpose. Whichever is picked, take THE JAM out of
 ## Unverified at d55a95c8a: THE MANTLE's shear kick, core flare and hull shudder a…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-unverified-at-d55a95c8a-the-mantles-shear-kick-c
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
 
 *THE MANTLE's transients: a shear kicks the shell and shudders the hull* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
