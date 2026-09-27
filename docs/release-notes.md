@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · e10510674 — THE VALVE says what it wants: TURN on the wheel to the pilot, FREEZE on the socket to the navigator, PULL on the live pin to either, FIRE under the spark
+
+Each word stands on the circle its grip answers at, and so do the handle a rehearsal rings and the ghost thumbs: the pilot's drawn where his hand has gone round the rim, a seat's on the pin while it is down there. `handle-place-boss.ts` is split along its later bosses to make room. Exemption: a look with no shipped alternative — the drum said nothing before.
+
 ## 2026-09-27 · b1c986891 — `check:fast` runs the INDEX row drift test
 
 `tools/index/test/drift.test.ts` is now one of the sweeps every `check:fast` runs, whatever the diff touched. A doc comment rewritten outside `tools/index` could leave a `docs/INDEX.md` row naming a word its file no longer mentions, and until now only `bun run land`'s full check said so. The test reads the tree in about 0.6 s.
