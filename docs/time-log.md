@@ -26846,3 +26846,5 @@ that out cost a live preview that could not run at tempo.
 Bottleneck: THE ANTIPHON's rings were keyed on their index, and a new cycle
 lays a new rail inside the same window, so the first reading was a false
 13 tiles a second until they were keyed on their column.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

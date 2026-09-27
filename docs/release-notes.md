@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 42a40a295 — THE NETTLE, THE SCUTTLE, THE SINEW, THE ANTIPHON and THE BURGEE hold their marks still in a window
+
+Every boss AUTO can play now has a row in the boss-hush test, which holds each mark a thumb is asked for under a tenth of a tile a second while a slow window asks. THE NETTLE's bell pulse carried its marks at a fifth of a tile a second, and `nettleSway` now dies down under a window. THE SCUTTLE's wind-up shiver, already hushed, moved into `scuttleShiver` so the test reads the same shiver the draw does. THE SINEW, THE ANTIPHON and THE BURGEE move no mark on the clock. THE DAVIT waits on an AUTO hand, filed in the queue.
+
 ## 2026-09-27 · 2ce25115e — THE MANTLE's shear effects are seen in frames, and tempo is left to a phone
 
 Frames at the first shear and at the finishing tap show the red wash on the shell, the hull rippling out from the struck column, the bursts on the valves and the lit core, with nothing clipped or out of place. Whether the kick and the shudder read at tempo in a hand is the one thing a frame cannot show, so the queue entry now says what was seen and is marked for a phone.
