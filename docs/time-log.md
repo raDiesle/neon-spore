@@ -26770,3 +26770,15 @@ Bottleneck: every function-valued take is still by hand, because each
 candidate wrote its paint inline in `index.ts`.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the perf audit's real-device numbers, handed to the weekly run
+
+- reading: 5 min. The entry, the audit's own close, and `docs/performance.md`'s
+  rule that a queue entry naming a run is wrong.
+- writing: 5 min. One paragraph in the audit saying whose run it is.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: an entry that asked for a run the rules forbid a lane to
+owe, so the work was recognising that, not measuring.

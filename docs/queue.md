@@ -580,25 +580,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `docs/perf-audit-2026-09.md` has no real-device numbers yet
-
-- **Found:** 2026-09-26, claude/perf-audit-real-run
-- **Taken:** 2026-09-27, claude/queue-docs-perf-audit-2026-09-md-has-no-real-device-nu
-- **Files:** `docs/perf-audit-2026-09.md`
-- **Where:** local
-
-Everything in `docs/perf-audit-2026-09.md` is either static reading or a
-headless benchmark of `packages/sim`'s `step()` alone (a cloud session cannot
-run `bun run perf`, per CLAUDE.md) — it has no real frame time and no real GC
-numbers off an actual browser. Run `bun run perf` over normal waves and the
-busiest boss fights (start from the worst already-measured frame, "THE GYRE",
-`packages/render/test/wave-budget.test.ts:490`, and add the busiest boss
-waves alongside it), on a machine with nothing else running so no reference
-wave gets flagged, and add a new **measured (real device)** section to the
-doc with the numbers, distinct from the existing read/headless sections. If
-either read finding (`byDepth()`, `gyres(world)`) shows up as real cost,
-promote it out of "read" into its own queued fix.
-
 ## DEFERRED — §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session

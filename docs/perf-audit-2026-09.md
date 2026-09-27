@@ -141,3 +141,11 @@ neither of which this session has. Of the `read` findings above, `byDepth`
 and the shot sweep have since been timed headlessly and are negligible, and
 `gyres` is fixed. Whether THE GYRE's frame (the worst measured one above) shows
 anything else still needs `bun run perf --wave "THE GYRE"` on real hardware.
+
+**That run is the weekly one's, not a lane's** (`docs/performance.md`, *The
+rule*): a queue entry asked for it on 26 September 2026 and was given back
+on the 27th. When the owner next takes the weekly run, on a machine with
+nothing else on it, the numbers for THE GYRE and the busiest boss waves go
+here as a section of their own, **measured (real device)**, kept apart from
+the read and headless ones above. If `byDepth` or `gyres` shows up there as
+real cost, that is the moment to queue a fix for it.
