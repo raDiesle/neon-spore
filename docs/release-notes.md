@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · bf95cc674 — THE GALL seeds the hull, and its receipts flare, puff and tear
+
+A fire step THE GALL is let run now seeds the hull. A seed of the nodule tears off the root's underside on a strand of flesh. The strand snaps halfway down the middle column, and the seed splats on the skin. Three tendrils creep into the plating, and then it withers. Until now it was the default lash. A pinch come shut lights the nodule's rim white. A slip shudders it. A window run out bulges it back. A close leaves a ghost of the nodule on the point it jumped off, rising and fading. The bare tears fibres across the split. A hit flashes the root white. A close and a hit deal the gall the shake and red that every boss takes.
+
 ## 2026-09-27 · f222f863f — THE INSTAR's fx events get a file of their own
 
 `InstarFx.ingest`'s switch over eleven event types moved to `instar-fx-ingest.ts`, which reads where the marks were drawn from one `spots` object the class writes in `place`. The class keeps its state, `place`, `update`, `draw` and `clear`, and is 148 lines where it was 231. Nothing it draws changes.

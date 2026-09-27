@@ -26257,3 +26257,5 @@ needed a shape for them before the cut was one move.
 
 Bottleneck: friction — the blow and receipts could not be put in a frame,
 because THE GALL has no AUTO hand and `frames` has no way to set a pose.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
