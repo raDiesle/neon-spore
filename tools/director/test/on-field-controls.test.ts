@@ -412,10 +412,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   plumbLevelRight: "unbuilt",
   slingDrawLeft: "unbuilt",
   slingDrawRight: "unbuilt",
-  grindFlatLeft: "unbuilt",
-  grindFlatRight: "unbuilt",
-  grindJawLeft: "unbuilt",
-  grindJawRight: "unbuilt",
+  // THE GRINDSTONE's flats rubbed and jaws chorded, one of each a seat by
+  // geometry (`render/grindstone-grip.ts`, `bosses-choreographed.md` §33).
+  grindFlatLeft: "field",
+  grindFlatRight: "field",
+  grindJawLeft: "field",
+  grindJawRight: "field",
   cystFreezeLeft: "unbuilt",
   cystFreezeRight: "unbuilt",
   cystFlankLeft: "unbuilt",

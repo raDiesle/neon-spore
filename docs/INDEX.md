@@ -2536,6 +2536,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
+| `tools/director/src/poses-field-controls-grindstone.ts` | THE GRINDSTONE's four hands: a flat part ground, once a seat, and the caliper clamped by both seats |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
@@ -2991,6 +2992,7 @@ by hand never moves.
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-grindstone.ts` | THE GRINDSTONE's flats and jaws, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-ratchet.ts` | THE RATCHET's catch and pawl, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |

@@ -25749,3 +25749,16 @@ Bottleneck: writing — the boss had no pose to judge a jaw on, so its four
 cards came first.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE GRINDSTONE's flats and jaws have rows in ON THE FIELD
+
+- reading: 10 min. The entry, the on-field test, `grindstone-grip.ts`, the
+  hand and THE TRIVET's page and poses as the pattern.
+- writing: 15 min. The page of four rows, four poses, the spec's four rows
+  and the four targets moved to `"field"`.
+- looking: 5 min. A probe that the poses stand where their notes say.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — four rows and four poses, and the entry split into
+three lanes because each boss is its own page.

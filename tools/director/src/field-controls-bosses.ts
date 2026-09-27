@@ -8,6 +8,7 @@ import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
+import { GRINDSTONE_CONTROLS } from "./field-controls-grindstone.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { HALTER_CONTROLS } from "./field-controls-halter.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
@@ -162,4 +163,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // order they land in (`field-controls-trivet.ts`).
   ...TRIVET_CONTROLS,
   ...HALTER_CONTROLS,
+  // THE GRINDSTONE's flats and jaws, the first boss here that is **two spent
+  // primitives on one body** — THE RIME's rub and THE TRIVET's chord
+  // (`field-controls-grindstone.ts`).
+  ...GRINDSTONE_CONTROLS,
 ];
