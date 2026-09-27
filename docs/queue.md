@@ -2459,6 +2459,7 @@ by itself.
 ## THE CYST and THE PLUMB have no row in the blow's table
 
 - **Found:** 2026-09-27, claude/queue-37-the-capstan-the-blow-and-the-receipts
+- **Taken:** 2026-09-27, claude/queue-the-slows-aim-has-no-row-for-six-bosses-so-their (claim: claude/queue-the-cyst-and-the-plumb-have-no-row-in-the-blows)
 - **Files:** `packages/render/test/boss-hurt-rows-c.ts`, `packages/render/src/cyst-fx.ts`, `packages/render/src/plumb-fx.ts`
 
 `cyst-fx.ts` and `plumb-fx.ts` both carry a `BossHurt` and call `hit()` on
