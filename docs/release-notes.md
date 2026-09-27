@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · ade1a96b7 — THE SLING's two cords are rows of ON THE FIELD, each with a pose card from the drawer's screen
+
+`field-controls-sling.ts` describes the pilot's left cord and the navigator's right cord. A thumb anywhere on the seat's own screen takes a cord while the lit step asks for it, and the lift is loosed by its swipe. `poses-field-controls-sling.ts` runs each draw three beats of five in and photographs it from the drawer's phone. `slingDrawLeft` and `slingDrawRight` move from "unbuilt" to "field", and `docs/spec/controls.md` gains their rows.
+
 ## 2026-09-27 · 04024cda6 — AUTO plays THE SLING: each draw held home and loosed toward the lit side, the yoke shot out
 
 `boss-hands-sling.ts` holds a seat's draw down while the lit step asks for it. Once the step's beats are held, it lifts with the swipe toward the aim. Both seats redraw together, and the cannon shoots the lit yoke in its colour up the middle. THE SLING was the last boss in `NO_HAND`, so every boss now has a hand. Its cup's marks row no longer carries `unreached`. The director's pose cards stay queued as the entry's second half.
