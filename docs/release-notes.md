@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 7770f9c53 — Four bosses move a little when they are idle, and THE INSTAR's heart moves to its chest
+
+THE VISE's kernel turns slowly and a soft sheen crosses it. THE VALVE's pins sway while they are still. THE RIME's panes catch a faint glint. THE GRINDSTONE's jaws tremble. THE INSTAR's heart is now the baked sprite. It sits on the front of the chest, facing the cannon, instead of on the back, and it is still shot four times. TRIVET:FOOT · DANGLE and INSTAR:WING · BAKED were dropped because the owner saw no difference. THE INSTAR's fire as it was drawn before the bake is kept on GRAPHICS → EFFECTS, next to the baked fire the game uses now.
+
 ## 2026-09-27 · 0ea253b29 — THE NETTLE: the strikes, the hurt flash and the death
 
 THE NETTLE now answers the pair the way the other bosses do. A landed step shakes the bell and washes it red, and every bolt a shoot mark counts gives a lighter jolt. A part the pair did not stop strikes with a picture of its own: an arm stings, an eyespot glares, the sac broods its spores onto the hull, the iris and globs drop, the frill lets its curtain down, and the core floods the screen. The last step lands with two rings and the motes the bell was made of drifting out of it.

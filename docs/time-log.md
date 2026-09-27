@@ -26768,3 +26768,5 @@ where the body they belong to could be told apart.
 
 Bottleneck: every function-valued take is still by hand, because each
 candidate wrote its paint inline in `index.ts`.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
