@@ -4,6 +4,7 @@ import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { CYST_CONTROLS } from "./field-controls-cyst.js";
+import { DAVIT_CONTROLS } from "./field-controls-davit.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
@@ -172,4 +173,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // two handles on two seats** — the partner's tap, then its own seat's pinch
   // (`field-controls-cyst.ts`).
   ...CYST_CONTROLS,
+  // THE DAVIT's two looses, the only pair here **judged against a lean** the
+  // partner holds with the phone rather than a hand (`field-controls-davit.ts`).
+  ...DAVIT_CONTROLS,
 ];

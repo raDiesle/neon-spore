@@ -99,7 +99,7 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  *   `source` is a branch of `touch.ts`, and neither exists while the target is
  *   only heard. The first ring made the walk one lane later, `sinewLeft` and
  *   `sinewRight` the lane after that, `curtainHem` in two halves of one lane, `pulseMeter` the fifth, THE VANE's two the sixth —
- *   and the seventeen still sitting here are the backlog, each of them a look before it is a row.
+ *   and the ones still sitting here are the backlog, each of them a look before it is a row.
  *
  * **The `unbuilt` comments say "as every one above it" and not a number.**
  * They carried a running tally until 21 September 2026 and every one of them
@@ -424,10 +424,12 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   cystFreezeRight: "field",
   cystFlankLeft: "field",
   cystFlankRight: "field",
+  // THE DAVIT's leans are the phone tilted, never a hand on the glass; its
+  // looses are a draw anywhere on the field (`render/davit-grip.ts`, §35).
   davitSteerLeft: "unbuilt",
   davitSteerRight: "unbuilt",
-  davitLooseLeft: "unbuilt",
-  davitLooseRight: "unbuilt",
+  davitLooseLeft: "field",
+  davitLooseRight: "field",
   // THE HALTER's two grips on the lit segment's seam, either seat's on both
   // screens (`render/halter-grip.ts`, `docs/spec/bosses.md` §11.53).
   halterChordLeft: "field",

@@ -25811,3 +25811,17 @@ without a word, and it took a probe of state to see it.
 Bottleneck: landing — the move is minutes, the check is most of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE DAVIT's looses have rows in ON THE FIELD
+
+- reading: 5 min. `davit-grip.ts`, `davit-hand.ts`, the boom's state and act
+  13's swings.
+- writing: 10 min. The page of two rows, two poses, the spec's rows and the
+  two looses moved to `"field"`; the leans left `"unbuilt"`.
+- looking: 5 min. A probe that each pose's lean holds the boom on target
+  and the draw counts.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — whose loose is live is the step's, the reverse of
+whose lean steers, and the poses had to be the looser's screen.
