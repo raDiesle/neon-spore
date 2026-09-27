@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 09bba4d86 — THE GALL: a pinch that closes the gall moves it
+
+Wave 117 THE GALL (§11.55): a soft nodule on a raised seam across the hull. The seat nearer it pinches it shut and keeps it shut for two beats; the instant it closes it jumps to another of the seam's four points, for whichever seat is nearer there, and a pinch left where it was is on bare seam. Three closes bare the root, and one shot in red ends it. Every closing window is under THE SLOW. Simulation only: nothing is drawn, no touch sends the pinch yet, and it has never been watched at tempo.
+
 ## 2026-09-27 · 575f92e5c — THE INSTAR's bare pose a quarter bigger, and its heart seen round the mark
 
 The second act's bare body is drawn 1.25 times bigger, grown about its heart so the one shoot mark stays on it at 500/395 and the simulation's column is unchanged. The heart is sized off the mark radius and centred on the mark rather than hung from it, so it stands a third of a mark radius clear of the ring on every side, even at the ring's widest breath, all through the beat. The baked heart stays a VERSUS candidate and is shown at the new size.
