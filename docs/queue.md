@@ -2708,6 +2708,7 @@ count and is refused. `bun run check` proves it.
 ## THE INSTAR — a shoot mark is a crosshair
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-instar-the-part-to-shoot-glows-red (claim: claude/queue-the-instar-a-shoot-mark-is-a-crosshair)
 - **Files:** `packages/render/src/instar-marks.ts`, `packages/render/src/instar-glyphs.ts`, `packages/render/test/instar-frame.test.ts`
 
 The owner, 27 September 2026: *is it correct I have to hit the tail? It's
