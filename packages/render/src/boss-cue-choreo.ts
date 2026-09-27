@@ -8,6 +8,7 @@ import { halterCues } from "./boss-cue-read-zk.js";
 import { capstanCues } from "./boss-cue-read-zl.js";
 import { gallCues } from "./boss-cue-read-zm.js";
 import { burgeeCues } from "./boss-cue-read-zn.js";
+import { flueCues } from "./boss-cue-read-zo.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -58,6 +59,9 @@ export function choreoCues(
     // THE BURGEE's, a tap on the ring to the freezer until the flag is still, a swipe on the track to the seat that draws, and one under the lit spindle (`boss-cue-read-zn.ts`).
     case "burgee":
       return burgeeCues(l, world, boss);
+    // THE FLUE's, a word at its middle to each seat asked to keep still, a tap on the ember to the tapper once it has stopped, and one under the bared core (`boss-cue-read-zo.ts`).
+    case "flue":
+      return flueCues(l, world, boss);
     default:
       return [];
   }

@@ -10613,8 +10613,14 @@ is a stir; a vent run out chokes and relights from nought; the second vent,
 seats swapped, bares the core; a shot wants its colour and the middle
 column; a damper is held only with both hands off, shuts while either
 moves, and is held the second time; a fire step run out is the wave; and
-the whole script ends spent and out. **Nothing on a phone sends a tap yet,
-and AUTO has no hand** — that lane is queued. Whether three beats of doing
+the whole script ends spent and out. **The tap is sent from the glass**
+(`render/flue-grip.ts`, 27 September 2026): the flue's row, pressed while a
+vent is lit, carries the column under the thumb as `id`, from either seat.
+**The field says three words** (`render/boss-cue-read-zo.ts`, the same day):
+`STILL` at the flue's middle to the seats a step asks to keep still, `TAP` on
+the ember to the vent's tapper once it has stopped, `FIRE` under the middle
+column once the core is bared. **AUTO has no hand** — that lane is queued.
+Whether three beats of doing
 nothing *reads* as a thing one seat is doing, on two real phones at tempo,
 is the owner's eye.
 

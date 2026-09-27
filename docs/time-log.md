@@ -27277,3 +27277,16 @@ Bottleneck: reading — the frozen clock's whole contract lives in one long
 comment, and it had to be read end to end before a second verb could join it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §40 THE FLUE — the cue
+
+- reading: 5 min. THE BURGEE's and THE HALTER's pages and their test; THE
+  STARE's `STILL`; the hush test, for where a word may stand.
+- writing: 10 min. `boss-cue-read-zo.ts`, two registrations, five tests,
+  the spec and queue.
+- looking: 5 min. One frame of the tapper's screen with `TAP` up.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — where `STILL` may stand was decided by a test the
+next lane runs, not this one.

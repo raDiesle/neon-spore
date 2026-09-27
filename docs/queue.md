@@ -768,22 +768,18 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §40 THE FLUE — the cue and AUTO
+## §40 THE FLUE — AUTO
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
 - **Taken:** 2026-09-27, claude/queue-40-the-flue-the-receipts-and-its-own-blow (claim: claude/queue-40-the-flue-the-touch-the-cue-and-auto)
-- **Files:** `packages/render/src/boss-cue.ts`, `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/marks-window-rows-c.ts`
+- **Files:** `packages/hands/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/marks-window-rows-c.ts`, `tools/director/test/boss-hush.test.ts`
 
-The touch landed: the flue's row, pressed while a vent is lit, sends
-`flueTap` with the column under the thumb as its `id`, from either seat
-(`render/flue-grip.ts`). Two pieces left, each landed on its own. **The
-cue** says `STILL` to the lit vent's rester and to both seats on a damper,
-`TAP` beside the steady ember to the tapper, `FIRE` on the bared core, on
-a new `boss-cue-read-*` page registered in `boss-cue.ts`. **AUTO**, a
-boss-hands-flue page in the hands package, keeps the rester's phone
-silent, taps the steady ember on `flueEmberCol` three times, sends nothing
-through a damper and shoots each fire step in its colour — then `flue`
-leaves `NO_HAND`. With the hand come the tap ring's row in
+The touch and the cue landed (`render/flue-grip.ts`,
+`render/boss-cue-read-zo.ts`). What is left is AUTO: a boss-hands-flue page
+in the hands package that keeps the rester's phone silent, taps the steady
+ember on `flueEmberCol` three times, sends nothing through a damper and
+shoots each fire step in its colour — then `flue` leaves `NO_HAND`. With
+the hand come the tap ring's row in
 `tools/director/test/marks-window-rows-c.ts`, keyed to `flueSteady`, and
 its row in `boss-hush.test.ts`'s `STILL` — both need AUTO's hand. `bun run check` proves it; at tempo is the owner's eye.
 
