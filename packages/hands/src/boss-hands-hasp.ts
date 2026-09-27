@@ -2,8 +2,8 @@ import {
   type HaspState,
   haspBoss,
   haspHeld,
+  haspLatchUp,
   haspLoose,
-  haspWorking,
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
@@ -34,12 +34,23 @@ import {
  *
  * The bolt is answered on the way past, in either colour, so the wave holds
  * long enough to reach the third clasp.
+ *
+ * **The story between the hasps** is answered state by state
+ * (`sim/hasp-story.ts`): the rattle with the latch alone, the backspin with
+ * the wheel alone and no wait for his hand, the rust with the wheel rocked
+ * `ROCK_TICKS` each way while the latch is down, and the sway with the latch
+ * down and her hand sent to the bearing it already has, which is a wheel held
+ * still.
  */
 type Press = Omit<TimedCommand, "tick">;
 
 /** How far round the wheel goes in a tick. Small enough to be a thumb and
  * large enough that a clasp is wound inside a pose's budget. */
 const STEP_MILLI = 60;
+
+/** Ticks the rust is rocked each way: a sweep of `ROCK_TICKS * STEP_MILLI`,
+ * past `haspRockMilli`, so every turn back counts. */
+const ROCK_TICKS = 3;
 
 const NO_BEARING = -1;
 
@@ -49,11 +60,11 @@ export const haspHand = (w: World): Press[] => {
   return [...bolt(s), ...hands(w, s)];
 };
 
-/** The latch down and the wheel round, both only while a clasp is up. */
+/** The latch down and the wheel round, each only while the door takes it. */
 function hands(w: World, s: HaspState): Press[] {
-  if (!haspWorking(s)) return [];
-  const out: Press[] = [
-    {
+  const out: Press[] = [];
+  if (haspLatchUp(s)) {
+    out.push({
       player: 1,
       command: {
         kind: "drag",
@@ -62,14 +73,28 @@ function hands(w: World, s: HaspState): Press[] {
         fromMilli: 0,
         fromYMilli: w.cfg.haspReachMilli,
       },
-    },
-  ];
-  // Her hand waits for his: a rim turned before the latch is down is the
-  // seize, and what this hand poses is the fight going well.
-  if (!haspHeld(s, w.cfg)) return out;
-  const at = s.handMilli === NO_BEARING ? 0 : (s.handMilli + STEP_MILLI) % 1000;
+    });
+  }
+  const step = wheelStep(w, s);
+  if (step === null) return out;
+  const at = s.handMilli === NO_BEARING ? 0 : (((s.handMilli + step) % 1000) + 1000) % 1000;
   out.push({ player: 2, command: { kind: "drag", target: "haspWheel", on: true, fromMilli: at } });
   return out;
+}
+
+/**
+ * How far her hand goes this tick, or null for no hand. Her hand waits for
+ * his everywhere but the backspin: a rim turned before the latch is down is
+ * the seize, and what this hand poses is the fight going well.
+ */
+function wheelStep(w: World, s: HaspState): number | null {
+  if (s.phase === "backspin") return STEP_MILLI;
+  if (s.phase !== "work" && s.phase !== "rust" && s.phase !== "sway") return null;
+  if (!haspHeld(s, w.cfg)) return null;
+  if (s.phase === "sway") return 0;
+  if (s.phase === "rust")
+    return Math.floor(w.tick / ROCK_TICKS) % 2 === 0 ? STEP_MILLI : -STEP_MILLI;
+  return STEP_MILLI;
 }
 
 /** The loose bolt shot out of the middle column before it reaches the hull. */

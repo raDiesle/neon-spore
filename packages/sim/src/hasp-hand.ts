@@ -1,8 +1,18 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import { midCol, type SimConfig } from "./config.js";
 import { ticksPerBeat } from "./config-derived.js";
-import { haspBoss, haspBurning, haspHeld, haspNeedMilli, haspWorking, NO_LATCH } from "./hasp.js";
-import { haspSlow, openHasp } from "./hasp-step.js";
+import {
+  haspBoss,
+  haspBurning,
+  haspHeld,
+  haspInStory,
+  haspLatchUp,
+  haspNeedMilli,
+  haspWheelUp,
+  NO_LATCH,
+} from "./hasp.js";
+import { haspSlow, lightLatch, openHasp } from "./hasp-step.js";
+import { haspStoryTurned } from "./hasp-story.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -65,13 +75,16 @@ function latchHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
     const was = haspHeld(s, cfg);
     s.latchMilli = NO_LATCH;
     if (!was) return;
+    // A hold in a row is broken on the tick, not at the next beat's count.
+    s.runBeats = 0;
     world.events.push({ type: "haspLet", col: mid });
     haspSlow(world, s);
     return;
   }
   // A latch still cooling takes no hand at all, and neither does one on a
-  // hasp that is already swinging open.
-  if (!haspWorking(s) || haspBurning(s)) return;
+  // hasp that is already swinging open, nor through the backspin, which is
+  // hers alone (`hasp-story.ts`).
+  if (!haspLatchUp(s) || haspBurning(s)) return;
   const was = haspHeld(s, cfg);
   s.latchMilli = Math.max(0, Math.min(cfg.haspReachMilli, Math.round(command.fromYMilli ?? 0)));
   const now = haspHeld(s, cfg);
@@ -79,7 +92,10 @@ function latchHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
   if (now) {
     s.gripBeat = world.beat;
     world.events.push({ type: "haspGrip", col: mid });
-  } else world.events.push({ type: "haspLet", col: mid });
+  } else {
+    s.runBeats = 0;
+    world.events.push({ type: "haspLet", col: mid });
+  }
   haspSlow(world, s);
 }
 
@@ -104,7 +120,7 @@ function wheelHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
     s.handMilli = NO_BEARING;
     return;
   }
-  if (!haspWorking(s)) return;
+  if (!haspWheelUp(s)) return;
   const at = ((command.fromMilli % TURN) + TURN) % TURN;
   const was = s.handMilli;
   s.handMilli = at;
@@ -114,6 +130,15 @@ function wheelHeard(world: World, command: Extract<Command, { kind: "drag" }>): 
   // Signed: past half a turn between two samples the shorter way round is
   // the way the finger actually went.
   const turned = step <= MAX_BEARING_STEP ? step : step - TURN;
+  if (haspInStory(s)) {
+    // The story's gate is the rust's alone: the backspin is hers without
+    // him, and the sway is a wheel that is meant not to move at all.
+    if (s.phase !== "rust" || haspHeld(s, world.cfg)) {
+      s.wheelMilli = (((s.wheelMilli + turned) % TURN) + TURN) % TURN;
+    }
+    haspStoryTurned(world, s, turned, () => lightLatch(world, s));
+    return;
+  }
   // **The gate.** Her hand has already been recorded, so the seize costs her
   // the turning and not her place on the rim.
   if (!haspHeld(s, world.cfg)) return;

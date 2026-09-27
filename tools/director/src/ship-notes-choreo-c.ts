@@ -11,7 +11,8 @@ import type { GroupName } from "./ship-groups.js";
  * depends on. Spread into `CHOREO_NOTES` in place, so the totality guard is
  * unchanged: a card added to `GroupName` and left without a paragraph on
  * *any* page is the same compile error it always was. THE DAVIT's would
- * have put it past 250, so it and every boss after it go on the next page
+ * have put it past 250, so it and every boss after it go on the next page,
+ * and THE CYST followed when THE HASP's story grew
  * (`ship-notes-choreo-d.ts`).
  */
 export const CHOREO_NOTES_C = {
@@ -34,8 +35,16 @@ export const CHOREO_NOTES_C = {
     "clasp given swings off over haspSwingBeats. From the second clasp a " +
     "bolt works loose over the middle column: a shot of either colour takes " +
     "it, and haspBoltBeats unanswered is one strike on the hull, which is " +
-    "the wave. The last clasp opens the door for haspClearBeats and the " +
-    "fight is over. See sim/hasp.ts, sim/hasp-hand.ts, sim/config-hasp.ts.",
+    "the wave. Between the hasps is the story, each state under THE SLOW " +
+    "and none costing a clasp back: after the first, the rattle — the " +
+    "latch kept haspRattleBeats in a row; after the second, the backspin — " +
+    "the wheel wound haspWindTravelMilli with no gate — then the rust — " +
+    "haspRustRocks reversals of at least haspRockMilli with the latch held; " +
+    "after the third, the sway — both held, the wheel moving no more than " +
+    "haspStillMilli a beat, for haspSwayBeats. A state run out is a hull " +
+    "strike and starts again; the sway run out clears the row anyway. The " +
+    "last clasp opens the door for haspClearBeats and the fight is over. " +
+    "See sim/hasp.ts, sim/hasp-story.ts, sim/hasp-hand.ts, sim/config-hasp.ts.",
   "THE RATCHET — the boss where every step you take stays taken":
     "Built on 23 September 2026 from docs/spec/bosses-choreographed.md §22 " +
     "and written up in docs/spec/bosses.md §11.38: the boss where a step, " +
@@ -231,20 +240,4 @@ export const CHOREO_NOTES_C = {
     "yet. Only the simulation lane has landed — see sim/grindstone.ts, " +
     "sim/grindstone-step.ts, sim/grindstone-hand.ts, " +
     "sim/grindstone-shot.ts, sim/config-grindstone.ts.",
-  "THE CYST — the boss one hand stills for the other to crack":
-    "Asked for in docs/spec/bosses-choreographed.md §34: a sac over the " +
-    "middle column whose lit flank shudders until the other seat taps its " +
-    "mark, read as THE VALVE reads its pin, within cystTapBeats. A stilled " +
-    "flank is pinched by its own seat, read as THE VISE reads a lobe: kept " +
-    "under cystShutMilli for the step's beats it cracks, and a pinch that " +
-    "widens starts the count again. The stilled flank is given the beats " +
-    "and cystGraceBeats, then springs wide. The pilot pinches the left and " +
-    "taps the right, the navigator the other way. Both flanks cracked bare " +
-    "the core; a fire step wants a shot in its colour; a flank step on a " +
-    "cracked flank holds it off the core, and one run out reseals the core " +
-    "and is asked again. A fire step run out is a hull hit, which is the " +
-    "wave. Story steps under THE SLOW, each run out a hull hit: a swell " +
-    "pinched shut on both flanks at once, a spore off the middle turned by " +
-    "the shield, a bud off the middle shot in its colour. THE SLOW never " +
-    "holds a shot. The picture is render/cyst*.ts, the lit flank white.",
 } satisfies Partial<Record<GroupName, string>>;

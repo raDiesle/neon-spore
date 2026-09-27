@@ -6,6 +6,7 @@ import {
   type HaspState,
   haspFuseBeats,
   haspHeld,
+  haspInStory,
   haspLoose,
   haspTurning,
   haspWorking,
@@ -13,6 +14,7 @@ import {
   NO_BURN,
   NO_LATCH,
 } from "./hasp.js";
+import { haspStoryAfter, openStory, stepStory } from "./hasp-story.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -50,6 +52,11 @@ export function installHasp(world: World): HaspState {
     seized: false,
     boltCol: NO_BOLT,
     boltBeat: 0,
+    runBeats: 0,
+    travelMilli: 0,
+    rocks: 0,
+    rockDir: 0,
+    sweepMilli: 0,
   };
   world.events.push({ type: "haspEnter", col: midCol(world.cfg) });
   return s;
@@ -74,8 +81,20 @@ export function stepHasp(world: World, s: HaspState): void {
   }
   if (s.phase === "swing") {
     if (world.beat - s.phaseBeat < cfg.haspSwingBeats) return;
-    if (s.hasps > 0) lightLatch(world, s);
+    // Every swing ends in the story's next state (`hasp-story.ts`), unless
+    // the rehearsal has it off.
+    if (cfg.haspStory) openStory(world, s, haspStoryAfter(s.hasps));
+    else if (s.hasps > 0) lightLatch(world, s);
     else clearRow(world, s);
+    return;
+  }
+  if (haspInStory(s)) {
+    stepStory(
+      world,
+      s,
+      () => lightLatch(world, s),
+      () => clearRow(world, s),
+    );
     return;
   }
   if (haspBurnt(world, s)) return;
@@ -84,12 +103,19 @@ export function stepHasp(world: World, s: HaspState): void {
 }
 
 /** The next hasp's latch up, cool, with the wheel behind it standing where
- * the last one left it. Nothing about it is shown to the navigator. */
-function lightLatch(world: World, s: HaspState): void {
+ * the last one left it. Nothing about it is shown to the navigator.
+ *
+ * A hand the story left on the latch stays on it as a **fresh grip**: its
+ * fuse counts from here, and THE SLOW spans it, so the rattle's answer is
+ * not a burn a moment later. */
+export function lightLatch(world: World, s: HaspState): void {
   s.phase = "work";
   s.phaseBeat = world.beat;
   s.burnBeat = NO_BURN;
   world.events.push({ type: "haspLit", hasps: s.hasps, col: midCol(world.cfg) });
+  if (!haspHeld(s, world.cfg)) return;
+  s.gripBeat = world.beat;
+  haspSlow(world, s);
 }
 
 /** A latch that has burned, cooling: nothing may take it until it has. True
@@ -124,8 +150,10 @@ function burnHand(world: World, s: HaspState): void {
  * ask, because it starts the only clock in the fight and the wind has to fit
  * inside it; a latch with no hand on it asks nothing and is played at speed.
  * Read off the state, so a grip taken again after a let is a window again.
+ * The story's windows are its own, and a grip inside one leaves them be.
  */
 export function haspSlow(world: World, s: HaspState): void {
+  if (haspInStory(s)) return;
   if (haspWorking(s) && haspHeld(s, world.cfg)) {
     openSlow(world, s.gripBeat + haspFuseBeats(s, world.cfg) - world.beat, "ask");
   } else closeSlow(world);

@@ -1,7 +1,8 @@
 /**
  * THE HASP's tuning: how long a grip lasts before it burns the hand off,
  * how long the burn holds, how far a wheel has to be wound to open a hasp,
- * and how long the bolt has before it reaches the hull.
+ * how long the bolt has before it reaches the hull, and the story's four
+ * states between the hasps.
  *
  * What is **not** here is the number of hasps: three sealed clasps down the
  * centre line is the silhouette and not a tuning, and it lives with the
@@ -61,6 +62,39 @@ export interface HaspConfig {
   haspBoltBeats: number;
   /** Beats the open row hangs across the field before the wave may end. */
   haspClearBeats: number;
+  /**
+   * **The story between the hasps** (`hasp-story.ts`). Beats the rattle and
+   * the sway each wait for their hold before the door strikes the hull and
+   * the state starts again.
+   */
+  haspStoryBeats: number;
+  /** The rattle: beats in a row the latch is kept gripped to quiet the hinge. */
+  haspRattleBeats: number;
+  /** The backspin: beats she has to wind the spring back against it. */
+  haspBackspinBeats: number;
+  /** The backspin: wheel travel that catches the spring, in thousandths of a turn, either way round. */
+  haspWindTravelMilli: number;
+  /** The rust: beats to rock it loose before it bursts against the hull. */
+  haspRustBeats: number;
+  /** The rust: reversals rocked into the wheel, with the latch held, that break it. */
+  haspRustRocks: number;
+  /**
+   * The rust: how far a sweep has to go, in thousandths of a turn, before
+   * turning back counts as a rock — so a thumb's tremble is not one.
+   */
+  haspRockMilli: number;
+  /**
+   * The sway: beats in a row both hold — the latch gripped and her hand still
+   * on the wheel — to settle the doors. Not `haspSwingBeats`, which is §20's
+   * name for it and was already the beats a hasp takes swinging open.
+   */
+  haspSwayBeats: number;
+  /** The sway: travel inside one beat, in thousandths of a turn, that still counts as a hand held still. */
+  haspStillMilli: number;
+  /** Whether the story opens between the hasps at all. Off only in the
+   * rehearsal, which stops at the first hasp: the story is met in the wave
+   * (`content/scene-script.ts`), THE RATCHET's rule. */
+  haspStory: boolean;
 }
 
 export const HASP_DEFAULTS: HaspConfig = {
@@ -75,4 +109,14 @@ export const HASP_DEFAULTS: HaspConfig = {
   haspSwingBeats: 3,
   haspBoltBeats: 4,
   haspClearBeats: 3,
+  haspStoryBeats: 12,
+  haspRattleBeats: 3,
+  haspBackspinBeats: 8,
+  haspWindTravelMilli: 1600,
+  haspRustBeats: 10,
+  haspRustRocks: 4,
+  haspRockMilli: 120,
+  haspSwayBeats: 3,
+  haspStillMilli: 40,
+  haspStory: true,
 };

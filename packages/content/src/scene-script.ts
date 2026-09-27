@@ -170,6 +170,9 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // THE RATCHET's story between the teeth is met in the wave, as its bolt
     // is: the film teaches the tooth, and stops before either.
     ratchetStory: false,
+    // THE HASP's story between the hasps, the same: the film teaches the
+    // clasp, and stops before the door answers back.
+    haspStory: false,
   };
   return {
     cfg: sceneCfg,

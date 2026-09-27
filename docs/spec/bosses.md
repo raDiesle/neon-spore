@@ -7431,6 +7431,41 @@ and shut on all three of its ends (`haspSlow`, `sim/test/hasp-doubled.test.ts`),
 and `haspSlowBeats` went with the moment it timed. The guide says no count and
 did not change.
 
+**The story between the hasps** (`sim/hasp-story.ts`, 27 September 2026,
+`bosses-choreographed.md` §20). Every swing now ends in a state rather than
+the next latch, each its own SLOW window, answered with the latch and the
+wheel, and none costing a clasp back. The **rattle**, after the first: his
+latch held `haspRattleBeats` in a row — a let-go breaks the row on the tick —
+and the next latch lights under the hand still on it, as a fresh grip. The
+**backspin**, after the second: she winds `haspWindTravelMilli` inside
+`haspBackspinBeats`, and the latch is dark. The **rust**, straight after it,
+on the last clasp: `haspRustRocks` reversals of her wheel, each after a sweep
+of at least `haspRockMilli`, counted only while he holds, inside
+`haspRustBeats`. The **sway**, after the third: both hold — the latch gripped
+and her hand on the rim moving no more than `haspStillMilli` a beat — for
+`haspSwayBeats` in a row, and the row swings clear. Each state but the
+backspin and the rust runs out after `haspStoryBeats`. A state run out is
+the door's own blow at the hull (`bossStrikesHull`, its `blow` named for the
+state) and the state runs again, except the sway, which clears the row
+anyway: the end is not taken away, only its price. The loose bolt keeps its
+own clock through all of it. The rehearsal turns `haspStory` off, so the
+film teaches the clasp and stops before the door answers back. The existing
+latch and wheel are drawn and take hands in every state (`haspLatchUp`,
+`haspWheelUp`, `haspHandHasp`); the four poses are the look lane. The
+autopilot answers each (`hands/boss-hands-hasp.ts`), and
+`sim/test/hasp-story.test.ts` pins the answers, the run-outs and the gate.
+
+**Where the story departs from §20, and why.** Four places. *The backspin
+counts travel either way round*, the way the wheel is wound everywhere else
+in this fight: a direction would be a second rule for the same wheel.
+*No grip in the story burns*: the fuse is the working clasp's clock, and the
+rattle *is* keeping hold, so a burn inside it would be the fight refusing its
+own answer — the heat reads nought. *S4's window is `haspSwayBeats`*, because
+`haspSwingBeats` already names how long a clasp swings. *Every window closes
+once past its beats, with THE SLOW opened one beat longer*: the rust opens
+mid-beat, on the tick the spring caught, and THE VALVE's rule kept for all
+four means no state is a beat shorter than another.
+
 ## 11.38 THE RATCHET — the boss where every step you take stays taken
 
 > The one where nothing is taken back. A rack of seven teeth hangs over the

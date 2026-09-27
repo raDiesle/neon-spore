@@ -15,6 +15,10 @@ import { HASP_PHASES, type HaspState } from "./hasp.js";
  * whether the dim has already been said, so a device that had it wrong would
  * say it a second time or not at all.
  *
+ * **The story's counts go in** (`hasp-story.ts`): the run of a hold, the
+ * travel wound or stirred, and the rock's count, direction and sweep are
+ * each what the next beat or the next step is judged against.
+ *
  * Which movement the fight is in is not here — it is `s.hasps`, read off the
  * health, so there is nothing beside the count that could drift from it.
  */
@@ -32,5 +36,10 @@ export function haspHashParts(s: HaspState): number[] {
     s.seized ? 1 : 0,
     s.boltCol,
     s.boltBeat,
+    s.runBeats,
+    s.travelMilli,
+    s.rocks,
+    s.rockDir,
+    s.sweepMilli,
   ];
 }

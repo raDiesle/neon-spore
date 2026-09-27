@@ -7,7 +7,7 @@ import type { Cue } from "./bind-cue.js";
 import { filamentCue } from "./bind-filament.js";
 import { gallCue, isGallEvent } from "./bind-gall.js";
 import { gimbalCue } from "./bind-gimbal.js";
-import { haspCue } from "./bind-hasp.js";
+import { haspCue, isHaspEvent } from "./bind-hasp.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
 import { mantleCue } from "./bind-mantle.js";
@@ -82,6 +82,8 @@ type LateEvent = Extract<
 export function lateCue(e: LateEvent, cols: number): Cue {
   // THE CAPSTAN, THE GALL and THE BURGEE are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
+  // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`).
+  if (isHaspEvent(e)) return haspCue(e, cols);
   if (isCapstanEvent(e)) return capstanCue(e, cols);
   if (isGallEvent(e)) return gallCue(e, cols);
   if (isBurgeeEvent(e)) return burgeeCue(e, cols);
@@ -179,21 +181,6 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "spoolDrift":
     case "spoolOut":
       return spoolCue(e, cols);
-    case "haspEnter":
-    case "haspLit":
-    case "haspGrip":
-    case "haspLet":
-    case "haspBurn":
-    case "haspCool":
-    case "haspSeize":
-    case "haspFree":
-    case "haspOpen":
-    case "haspBolt":
-    case "haspBoltOut":
-    case "haspBoltHit":
-    case "haspClear":
-    case "haspOut":
-      return haspCue(e, cols);
     case "ratchetEnter":
     case "ratchetLit":
     case "ratchetSet":

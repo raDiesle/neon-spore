@@ -148,4 +148,18 @@ export const SILENT_BOSS_D = [
   "ratchetWind",
   "ratchetWound",
   "ratchetUnwind",
+  // THE HASP's story between the hasps: no burst until the look lane draws
+  // the four states (`sim/hasp-story.ts`); the door's phase says them.
+  "haspRattle",
+  "haspHush",
+  "haspSlam",
+  "haspBackspin",
+  "haspCatch",
+  "haspSpoke",
+  "haspRust",
+  "haspCrack",
+  "haspBurst",
+  "haspSway",
+  "haspSteady",
+  "haspRough",
 ] as const satisfies readonly SimEvent["type"][];

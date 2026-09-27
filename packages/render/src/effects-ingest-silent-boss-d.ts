@@ -200,4 +200,18 @@ export const INGEST_SILENT_BOSS_D = [
   "ratchetWind",
   "ratchetWound",
   "ratchetUnwind",
+  // THE HASP's story between the hasps (`packages/audio/src/bind-hasp.ts`):
+  // what the door does is read off its phase (`hasp-story.ts`), never off these.
+  "haspRattle",
+  "haspHush",
+  "haspSlam",
+  "haspBackspin",
+  "haspCatch",
+  "haspSpoke",
+  "haspRust",
+  "haspCrack",
+  "haspBurst",
+  "haspSway",
+  "haspSteady",
+  "haspRough",
 ] as const satisfies readonly SimEvent["type"][];

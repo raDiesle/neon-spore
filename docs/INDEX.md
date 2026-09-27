@@ -556,6 +556,7 @@ by hand never moves.
 | `packages/sim/src/hasp-hash.ts` | What THE HASP puts into `hashWorld`, and nothing else |
 | `packages/sim/src/hasp-shot.ts` | **THE HASP's one target**: the bolt the second hasp's spring throws loose (§20, row 7) |
 | `packages/sim/src/hasp-step.ts` | THE HASP's clock: the latches lighting, the heat burning a hand off, the wheel seizing and coming free |
+| `packages/sim/src/hasp-story.ts` | **THE HASP's story between the hasps** (§20, S1–S4): the rattle, the backspin, the rust and the sway, each under THE SLOW and answered with the latch and the wheel |
 | `packages/sim/src/hasp.ts` | THE HASP: three sealed clasps down the middle of the field, each a lobed cover over a wheel-hub |
 | `packages/sim/src/fence-crack.ts` | **A crack in THE FENCE: the one column a bolt can open, and the colour it has to arrive in** |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
@@ -2242,7 +2243,7 @@ by hand never moves.
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
-| `packages/audio/src/bind-hasp.ts` | THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-hasp.ts` | Whether an event is THE HASP's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-halter.ts` | THE HALTER's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
@@ -3109,7 +3110,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
-| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE BURGEE and every boss built after it |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CAPSTAN and every boss built after it |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

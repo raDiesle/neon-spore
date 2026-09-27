@@ -2,13 +2,15 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import {
   type HaspState,
   haspBurning,
+  haspHandHasp,
   haspHeld,
-  haspWorking,
+  haspLatchUp,
+  haspWheelUp,
   NO_LATCH,
   type SimConfig,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { haspFree, haspLatchHex, haspSpokeTurns, haspWorkIndex } from "./hasp-pose.js";
+import { haspFree, haspLatchHex, haspSpokeTurns } from "./hasp-pose.js";
 import { haspBarAt, haspCentre, haspHubRadius, haspRail, haspStapleFoot } from "./hasp-shape.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
@@ -45,7 +47,7 @@ export function drawHaspWheel(
 ): void {
   const at = haspCentre(l, cfg, i);
   const r = haspHubRadius(l);
-  const working = haspWorking(s) && i === haspWorkIndex(s);
+  const working = haspWheelUp(s) && i === haspHandHasp(s);
   const free = working && haspFree(s, cfg);
   const clearing = s.phase === "clear";
   const disc = new Path2D();
@@ -137,8 +139,8 @@ export function drawHaspLatch(
   beatPhase: number,
   flare: number,
 ): void {
-  if (!haspWorking(s)) return;
-  const i = haspWorkIndex(s);
+  if (!haspLatchUp(s)) return;
+  const i = haspHandHasp(s);
   const rail = haspRail(l, cfg, i);
   const depth = s.latchMilli === NO_LATCH ? 0 : s.latchMilli;
   const bar = haspBarAt(l, cfg, i, depth);

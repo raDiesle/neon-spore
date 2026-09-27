@@ -1,13 +1,14 @@
 import {
   type HaspState,
   haspBurning,
-  haspWorking,
+  haspHandHasp,
+  haspLatchUp,
+  haspWheelUp,
   NO_BEARING,
   NO_LATCH,
   type SimConfig,
 } from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
-import { haspWorkIndex } from "./hasp-pose.js";
 import { haspBarAt, haspCentre, haspHubRadius } from "./hasp-shape.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
@@ -48,7 +49,7 @@ const RIM_REACH = 1.35;
 
 /** Whether the latch will take a hand at all: `latchHeard`'s two refusals. */
 export function haspLatchTakes(s: HaspState): boolean {
-  return haspWorking(s) && !haspBurning(s);
+  return haspLatchUp(s) && !haspBurning(s);
 }
 
 /**
@@ -59,13 +60,13 @@ export function haspLatchTakes(s: HaspState): boolean {
  */
 export function haspLatchCircle(l: Layout, cfg: SimConfig, s: HaspState): Circle {
   const depth = s.latchMilli === NO_LATCH ? 0 : s.latchMilli;
-  const bar = haspBarAt(l, cfg, haspWorkIndex(s), depth);
+  const bar = haspBarAt(l, cfg, haspHandHasp(s), depth);
   return { x: bar.x, y: bar.y, r: handleRadius(l, cfg) };
 }
 
 /** The working wheel, as far out as a thumb still has it. */
 export function haspWheelCircle(l: Layout, cfg: SimConfig, s: HaspState): Circle {
-  const at = haspCentre(l, cfg, haspWorkIndex(s));
+  const at = haspCentre(l, cfg, haspHandHasp(s));
   return { x: at.x, y: at.y, r: haspHubRadius(l) * RIM_REACH };
 }
 
@@ -96,7 +97,7 @@ export function haspHandleUnder(l: Layout, x: number, y: number, field: Field): 
  */
 export function haspRimUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "hasp");
-  if (s === null || field.seat !== 2 || !showsHaspWheel(l.role) || !haspWorking(s)) return null;
+  if (s === null || field.seat !== 2 || !showsHaspWheel(l.role) || !haspWheelUp(s)) return null;
   const wheel = haspWheelCircle(l, field.cfg, s);
   if (!hitCircle(wheel, x, y)) return null;
   return {
@@ -123,8 +124,8 @@ export function haspRimUnder(l: Layout, x: number, y: number, field: Field): Tou
  * Null with no hand on it.
  */
 export function haspWheelHand(l: Layout, cfg: SimConfig, s: HaspState): Circle | null {
-  if (!haspWorking(s) || s.handMilli === NO_BEARING) return null;
-  const at = haspCentre(l, cfg, haspWorkIndex(s));
+  if (!haspWheelUp(s) || s.handMilli === NO_BEARING) return null;
+  const at = haspCentre(l, cfg, haspHandHasp(s));
   const r = haspHubRadius(l) * 1.12;
   const a = (s.handMilli / 1000) * Math.PI * 2;
   return { x: at.x + Math.cos(a) * r, y: at.y + Math.sin(a) * r, r: haspHubRadius(l) * 0.3 };

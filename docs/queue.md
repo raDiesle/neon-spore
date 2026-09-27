@@ -2086,17 +2086,6 @@ Draw §22's four new poses: the rack sagging a tooth, the pawl sprung out of
 its seat, teeth grinding with sparks, the spring coiling tighter a turn at a
 time. A look with no shipped alternative.
 
-## §20 THE HASP — the story between the hasps, the simulation
-
-- **Found:** 2026-09-26, claude/older-boss-stories
-- **Taken:** 2026-09-27, claude/task-queue-work-a8d126 (claim: claude/queue-20-the-hasp-the-story-between-the-hasps-the-simu)
-- **Files:** `packages/sim/src/hasp.ts`, `packages/sim/src/hasp-step.ts`, `packages/sim/src/hasp-hand.ts`, `packages/sim/src/hasp-hash.ts`, `packages/sim/src/config-hasp.ts`, `packages/sim/src/events-hasp.ts`
-
-Build §20's four story states — the rattle, the backspin, the rust, the
-swing — as phases between the hasps on the latch and the wheel the boss
-already has, THE VALVE's `valve-story.ts` the pattern. No hasp given back;
-a state run out is a `bossStrikesHull` and the state again.
-
 ## §20 THE HASP — the story between the hasps, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories
@@ -2105,7 +2094,12 @@ a state run out is a `bossStrikesHull` and the state again.
 
 Draw §20's four new poses: a door shaking on its hinge, a wheel spinning
 backward with its mark smeared, a hasp furred with rust, three doors swaying
-half-shut. A look with no shipped alternative.
+half-shut. A look with no shipped alternative. The simulation landed
+27 September 2026 (`sim/hasp-story.ts`), and the existing latch and wheel are
+already drawn and take hands in every state (`haspLatchUp`, `haspWheelUp`,
+`haspHandHasp`), so what is left is the four poses, their cue words, a sound
+of their own for any of the twelve events (`bind-hasp.ts` borrows the door's
+now), and striking `hasp` from `OWED` in `tools/director/test/boss-states.test.ts`.
 
 ## §21 THE SPOOL — the story between the ribs, the simulation
 

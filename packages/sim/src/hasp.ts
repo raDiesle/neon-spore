@@ -55,9 +55,21 @@ export const HASP_COUNT = 3;
 
 /**
  * Where the scene is: the row sealed and the wheels dark, a latch lit and a
- * wheel to be wound, a hasp swinging open, or the whole row swung clear.
+ * wheel to be wound, a hasp swinging open, or the whole row swung clear —
+ * and, between the hasps, the story's four (`hasp-story.ts`): the first
+ * door's hinge rattling, the second wheel spinning back, the last hasp
+ * rusted in its seat, and all three swaying shut.
  */
-export const HASP_PHASES = ["still", "work", "swing", "clear"] as const;
+export const HASP_PHASES = [
+  "still",
+  "work",
+  "swing",
+  "clear",
+  "rattle",
+  "backspin",
+  "rust",
+  "sway",
+] as const;
 export type HaspPhase = (typeof HASP_PHASES)[number];
 
 export interface HaspState {
@@ -85,6 +97,19 @@ export interface HaspState {
   boltCol: number;
   /** `world.beat` the bolt came loose. */
   boltBeat: number;
+  /** Beats in a row the story's hold has been kept — the rattle's grip, the sway's chord. */
+  runBeats: number;
+  /**
+   * Wheel travel the story is counting, in thousandths of a turn: the
+   * backspin's whole wind, or the sway's stir since the last beat.
+   */
+  travelMilli: number;
+  /** Reversals rocked into the rust so far. */
+  rocks: number;
+  /** Which way the wheel is being rocked: 1, -1, or nought before the first step. */
+  rockDir: number;
+  /** How far this sweep of the rock has gone, in thousandths of a turn. */
+  sweepMilli: number;
 }
 
 export function haspBoss(world: World): HaspState | null {
@@ -95,6 +120,33 @@ export function haspBoss(world: World): HaspState | null {
 /** Whether the hands count at all: a latch is lit and a hasp is waiting. */
 export function haspWorking(s: HaspState): boolean {
   return s.phase === "work";
+}
+
+/** Whether the story between the hasps has the door (`hasp-story.ts`). */
+export function haspInStory(s: HaspState): boolean {
+  return s.phase === "rattle" || s.phase === "backspin" || s.phase === "rust" || s.phase === "sway";
+}
+
+/** Whether the latch takes a hand: a hasp at work, and the three states he holds in. */
+export function haspLatchUp(s: HaspState): boolean {
+  return s.phase === "work" || s.phase === "rattle" || s.phase === "rust" || s.phase === "sway";
+}
+
+/** Whether the wheel takes a hand: a hasp at work, and the three states she turns in. */
+export function haspWheelUp(s: HaspState): boolean {
+  return s.phase === "work" || s.phase === "backspin" || s.phase === "rust" || s.phase === "sway";
+}
+
+/**
+ * **Which clasp the hands are on**, counted from the ship: the one being
+ * worked, or, in the story, the door the state is about — the opened one
+ * that rattles or spins back, the sealed last one that is rusted, and the
+ * last of the three swaying. Always a clasp that exists, never `HASP_COUNT`.
+ */
+export function haspHandHasp(s: HaspState): number {
+  const next = HASP_COUNT - s.hasps;
+  const at = s.phase === "work" || s.phase === "rust" ? next : next - 1;
+  return Math.max(0, Math.min(HASP_COUNT - 1, at));
 }
 
 /**
@@ -135,7 +187,8 @@ export function haspFuseBeats(s: HaspState, cfg: SimConfig): number {
  * mark itself, never a number, never a bar*. Nought with no hand on it.
  */
 export function haspHeatMilli(s: HaspState, cfg: SimConfig, beat: number): number {
-  if (s.latchMilli === NO_LATCH) return 0;
+  // The story's grips carry no fuse (`hasp-story.ts`), so no heat either.
+  if (s.latchMilli === NO_LATCH || s.phase !== "work") return 0;
   const fuse = Math.max(1, haspFuseBeats(s, cfg));
   return Math.max(0, Math.min(1000, Math.round(((beat - s.gripBeat) * 1000) / fuse)));
 }

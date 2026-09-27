@@ -1,7 +1,7 @@
 import type { GroupName } from "./ship-groups.js";
 
 /**
- * **The choreographed bosses' dials, the fourth page** — THE BURGEE and every
+ * **The choreographed bosses' dials, the fourth page** — THE CAPSTAN and every
  * boss built after it.
  *
  * Cut on 27 September 2026, when THE BURGEE's eight numbers would have taken
@@ -9,8 +9,29 @@ import type { GroupName } from "./ship-groups.js";
  * **the order they were built in**. Spread into `CHOREO_FIELD_GROUP_C` in
  * place, so the exhaustiveness check over `ROUND_FIELD_GROUP` is unchanged
  * (`ship-fields.ts`).
+ *
+ * THE CAPSTAN and THE GALL came over the same day, when THE HASP's story
+ * brought ten more to page three: the last bosses on the page go, never the
+ * boss being worked on.
  */
 export const CHOREO_FIELD_GROUP_D = {
+  // CapstanConfig — the rust before the first step, the rest between steps,
+  // how far a lean rocks the cradle, the reversals that wear a band bright,
+  // the beats a hold needs, and the spent drum (`config-capstan.ts`).
+  capstanRustBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanRestBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanLeanMilli: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanWearThreshold: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanHoldBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  capstanOpenBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
+  // GallConfig — the slack before the first step, the rest between, the beats
+  // a close is kept shut, the open and shut gaps, and the flat seam (`config-gall.ts`).
+  gallSlackBeats: "THE GALL — the boss that moves the moment it is closed",
+  gallRestBeats: "THE GALL — the boss that moves the moment it is closed",
+  gallShutBeats: "THE GALL — the boss that moves the moment it is closed",
+  gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
+  gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
+  gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
   // BurgeeConfig — the slack before the first step, the rest between, the
   // spent flag, the span and the default sweep, how near the column a tap
   // lands, and how long a freeze and a draw last (`config-burgee.ts`).

@@ -47,4 +47,30 @@ export type HaspEvent =
   /** All three: the row swings clear together and the passage behind it lights. */
   | ({ type: "haspClear" } & HaspColEvent)
   /** The row has hung open `haspClearBeats`; the wave may end. */
-  | ({ type: "haspOut" } & HaspColEvent);
+  | ({ type: "haspOut" } & HaspColEvent)
+  // The story between the hasps (`hasp-story.ts`): each state opens, is
+  // answered, or runs out against the hull and opens again.
+  /** The first door's hinge rattles loose and the door shakes in its frame. */
+  | ({ type: "haspRattle" } & HaspColEvent)
+  /** The latch kept gripped long enough: the hinge quiets. */
+  | ({ type: "haspHush" } & HaspColEvent)
+  /** The rattle run out: the door slams against the hull. */
+  | ({ type: "haspSlam" } & HaspColEvent)
+  /** The second wheel, freed, spins back on its own spring. */
+  | ({ type: "haspBackspin" } & HaspColEvent)
+  /** Wound back far enough: the spring catches and the wheel stays wound. */
+  | ({ type: "haspCatch" } & HaspColEvent)
+  /** The backspin run out: the wheel spins off its mark and a spoke strikes the hull. */
+  | ({ type: "haspSpoke" } & HaspColEvent)
+  /** The last hasp is rusted in its seat. */
+  | ({ type: "haspRust" } & HaspColEvent)
+  /** Rocked loose with the latch held: the rust breaks with a crack. */
+  | ({ type: "haspCrack" } & HaspColEvent)
+  /** The rust run out: it bursts in a cloud against the hull. */
+  | ({ type: "haspBurst" } & HaspColEvent)
+  /** All three open, the doors sway on their hinges and start to fall shut. */
+  | ({ type: "haspSway" } & HaspColEvent)
+  /** Both held still long enough: the doors settle and the row swings clear. */
+  | ({ type: "haspSteady" } & HaspColEvent)
+  /** The sway run out: a door slams on the hull, and the row swings clear rough. */
+  | ({ type: "haspRough" } & HaspColEvent);

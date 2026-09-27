@@ -1,7 +1,7 @@
 import {
   curtainBody,
   type DragTarget,
-  haspWorking,
+  haspWheelUp,
   hiveClenched,
   INNER,
   OUTER,
@@ -111,8 +111,8 @@ export function bossHandleCircle(
     // the answer is the hub it is turned about (`hasp-grip.ts`). Null where
     // the simulation would refuse the hand.
     const b = world.boss?.kind === "hasp" ? world.boss : null;
-    if (b === null || !haspWorking(b)) return null;
-    if (target === "haspWheel") return haspWheelCircle(l, cfg, b);
+    if (b === null) return null;
+    if (target === "haspWheel") return haspWheelUp(b) ? haspWheelCircle(l, cfg, b) : null;
     return haspLatchTakes(b) ? haspLatchCircle(l, cfg, b) : null;
   }
   if (target === "spoolBrake") {

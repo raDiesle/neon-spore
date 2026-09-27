@@ -52,6 +52,20 @@ export const CHOREO_FIELD_GROUP_C = {
   haspSwingBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspBoltBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
   haspClearBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  // The story between the hasps (`hasp-story.ts`): each state's window, the
+  // holds the rattle and the sway need, the backspin's wind, the rust's rocks
+  // and how far a rock must sweep, the stillness the sway allows, and the
+  // switch the rehearsal turns it off with.
+  haspStoryBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspRattleBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspBackspinBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspWindTravelMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspRustBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspRustRocks: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspRockMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspSwayBeats: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspStillMilli: "THE HASP — the boss where one of you only has to hold on, and cannot",
+  haspStory: "THE HASP — the boss where one of you only has to hold on, and cannot",
   // RatchetConfig — how far the catch travels and the depth it counts as
   // set at, the still, each window and how much shorter the next one is,
   // the climb, the loose bolt's patience and the open rack's hang
@@ -228,23 +242,6 @@ export const CHOREO_FIELD_GROUP_C = {
   halterRestThreshold: "THE HALTER — the boss one hand keeps still for the other to open",
   halterHoldBeats: "THE HALTER — the boss one hand keeps still for the other to open",
   halterSpentBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  // CapstanConfig — the rust before the first step, the rest between steps,
-  // how far a lean rocks the cradle, the reversals that wear a band bright,
-  // the beats a hold needs, and the spent drum (`config-capstan.ts`).
-  capstanRustBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  capstanRestBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  capstanLeanMilli: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  capstanWearThreshold: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  capstanHoldBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  capstanOpenBeats: "THE CAPSTAN — the boss one hand rocks for the other to wear",
-  // GallConfig — the slack before the first step, the rest between, the beats
-  // a close is kept shut, the open and shut gaps, and the flat seam (`config-gall.ts`).
-  gallSlackBeats: "THE GALL — the boss that moves the moment it is closed",
-  gallRestBeats: "THE GALL — the boss that moves the moment it is closed",
-  gallShutBeats: "THE GALL — the boss that moves the moment it is closed",
-  gallOpenMilli: "THE GALL — the boss that moves the moment it is closed",
-  gallShutMilli: "THE GALL — the boss that moves the moment it is closed",
-  gallFlatBeats: "THE GALL — the boss that moves the moment it is closed",
-  // The fourth page, THE BURGEE on (`ship-fields-choreo-d.ts`).
+  // The fourth page, THE CAPSTAN on (`ship-fields-choreo-d.ts`).
   ...CHOREO_FIELD_GROUP_D,
 } satisfies Record<string, GroupName>;

@@ -1,8 +1,15 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
+type HaspSimEvent = Extract<SimEvent, { type: `hasp${string}` }>;
+
+/** Whether an event is THE HASP's, so a page of the chain can hand it over whole. */
+export function isHaspEvent(e: SimEvent): e is HaspSimEvent {
+  return e.type.startsWith("hasp");
+}
+
 /**
- * THE HASP's fourteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE HASP's twenty-six, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Everything in this fight comes from the middle**, and that is the point
  * rather than a shortcut: the door stands over `midCol` and both hands are on
@@ -16,30 +23,16 @@ import { type Cue, panForCol } from "./bind.js";
  * **The open is pitched up per hasp**, so how far through the door is can be
  * heard rather than counted — the three clasps are drawn on it, but by the
  * last one the pilot is watching his own heat and nothing else.
+ *
+ * **The story between the hasps borrows the door's own voice** (`sim/hasp-story.ts`):
+ * each of its twelve is a sound this fight already makes, pitched down so it
+ * is heard as the same door answering rather than a new one arriving — the
+ * rattle and the sway open on the latch lighting, the backspin on the rim
+ * coming free, the rust on the seize, and every state run out is the bolt's
+ * blow at the hull, lower the later it comes. The look lane may give them
+ * sounds of their own.
  */
-export function haspCue(
-  e: Extract<
-    SimEvent,
-    {
-      type:
-        | "haspEnter"
-        | "haspLit"
-        | "haspGrip"
-        | "haspLet"
-        | "haspBurn"
-        | "haspCool"
-        | "haspSeize"
-        | "haspFree"
-        | "haspOpen"
-        | "haspBolt"
-        | "haspBoltOut"
-        | "haspBoltHit"
-        | "haspClear"
-        | "haspOut";
-    }
-  >,
-  cols: number,
-): Cue {
+export function haspCue(e: HaspSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "haspEnter":
@@ -71,5 +64,29 @@ export function haspCue(
       return { id: "boss.haspClear", pan };
     case "haspOut":
       return { id: "boss.haspOut", pan };
+    case "haspRattle":
+      return { id: "boss.haspLit", pan, pitch: 0.8 };
+    case "haspHush":
+      return { id: "boss.haspCool", pan, pitch: 0.9 };
+    case "haspSlam":
+      return { id: "boss.haspBoltHit", pan, pitch: 0.9 };
+    case "haspBackspin":
+      return { id: "boss.haspFree", pan, pitch: 0.7 };
+    case "haspCatch":
+      return { id: "boss.haspGrip", pan, pitch: 1.2 };
+    case "haspSpoke":
+      return { id: "boss.haspBoltHit", pan, pitch: 0.8 };
+    case "haspRust":
+      return { id: "boss.haspSeize", pan, pitch: 0.7 };
+    case "haspCrack":
+      return { id: "boss.haspOpen", pan, pitch: 0.8 };
+    case "haspBurst":
+      return { id: "boss.haspBoltHit", pan, pitch: 0.7 };
+    case "haspSway":
+      return { id: "boss.haspLit", pan, pitch: 0.6 };
+    case "haspSteady":
+      return { id: "boss.haspGrip", pan, pitch: 0.8 };
+    case "haspRough":
+      return { id: "boss.haspBoltHit", pan, pitch: 0.6 };
   }
 }

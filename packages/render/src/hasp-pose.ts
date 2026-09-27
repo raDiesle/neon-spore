@@ -4,6 +4,7 @@ import {
   haspBurning,
   haspHeatMilli,
   haspHeld,
+  haspWheelUp,
   haspWorking,
   haspWoundMilli,
   type SimConfig,
@@ -110,7 +111,9 @@ export function haspGape(
  * hand. A level, like the gate it draws (`sim/hasp.ts`, `haspHeld`).
  */
 export function haspFree(s: HaspState, cfg: SimConfig): boolean {
-  return haspWorking(s) && !haspBurning(s) && haspHeld(s, cfg);
+  // The backspin is the one wheel his hand has no say in (`sim/hasp-story.ts`).
+  if (s.phase === "backspin") return true;
+  return haspWheelUp(s) && !haspBurning(s) && haspHeld(s, cfg);
 }
 
 /**

@@ -2698,6 +2698,14 @@ target's motion permitted only while another is held) is a single per-tick
 read the sim already performs for every hand on the field. Nothing new in the
 engine.
 
+**The story's simulation landed 27 September 2026** (`sim/hasp-story.ts`,
+[bosses](bosses.md) §11.37 *The story between the hasps*), with four
+departures argued there: the backspin's travel counts either way round, no
+grip in the story burns, S4's window is `haspSwayBeats` because
+`haspSwingBeats` already names the clasp's swing, and every window closes
+once *past* its beats. The existing latch and wheel take the hands in every
+state; **not built:** the four poses — the story's look lane.
+
 **Reusable.** Nothing named — the finding is that a gate between two hands
 needs no primitive of its own, only a rule in the boss's own step function
 that reads both.

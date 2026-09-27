@@ -2,8 +2,6 @@ import { describe, expect, it } from "bun:test";
 import { NO_BEARING } from "../src/bearing.js";
 import {
   HASP_COUNT,
-  type HaspState,
-  haspBoss,
   haspHeatMilli,
   haspHeld,
   haspWoundMilli,
@@ -12,20 +10,24 @@ import {
   NO_LATCH,
 } from "../src/hasp.js";
 import { haspStruck } from "../src/hasp-shot.js";
-import {
-  type Bullet,
-  createWorld,
-  DEFAULT_CONFIG,
-  hashWorld,
-  midCol,
-  type SimConfig,
-  startWave,
-  step,
-  type TimedCommand,
-  ticksPerBeat,
-  type World,
-} from "../src/index.js";
+import { type Bullet, hashWorld, midCol } from "../src/index.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
+import {
+  beat,
+  between,
+  CFG,
+  DOWN,
+  door,
+  grip,
+  install,
+  latch,
+  letGo,
+  lit,
+  rim,
+  runTo,
+  wind,
+  windOff,
+} from "./hasp-rig.js";
 
 /**
  * THE HASP: the one boss whose question is whether a grip nobody can see is
@@ -39,103 +41,12 @@ import { NOT_FAILED } from "../src/wave-fail.js";
  * the last hasp. That her reference survives a seize, so the wind resumes
  * where it stopped rather than jumping to wherever her thumb went. That the
  * second opening throws one bolt and that nobody shooting it is the wave.
- * And that three openings swing the row clear.
+ * And that three openings swing the row clear. The story between them is
+ * answered on the way past (`between`) and pinned in `hasp-story.test.ts`.
  *
  * The fingerprint is compared between two runs in one process rather than
  * pinned (`docs/decisions.md` #19).
  */
-
-const CFG: SimConfig = { ...DEFAULT_CONFIG };
-const TPB = ticksPerBeat(CFG);
-const DOWN = CFG.haspReachMilli;
-
-function install(over: Partial<SimConfig> = {}): World {
-  const world = createWorld({ ...CFG, ...over }, 0);
-  startWave(world, 0, [], [], { kind: "hasp" });
-  return world;
-}
-
-function door(world: World): HaspState {
-  const s = haspBoss(world);
-  if (s === null) throw new Error("the wave installed no hasp");
-  return s;
-}
-
-/** The pilot's thumb on the latch, carried `to` thousandths down the reach. */
-const latch = (tick: number, to: number, on = true): TimedCommand => ({
-  tick,
-  player: 1,
-  command: { kind: "drag", target: "haspLatch", on, fromMilli: 0, fromYMilli: to },
-});
-
-/** The navigator's finger reporting where it stands on the rim. */
-const rim = (tick: number, at: number, on = true): TimedCommand => ({
-  tick,
-  player: 2,
-  command: { kind: "drag", target: "haspWheel", on, fromMilli: at },
-});
-
-/** Step to a tick, feeding commands on their stamp, and say what went by. */
-function runTo(world: World, tick: number, cmds: TimedCommand[] = []): Set<string> {
-  const seen = new Set<string>();
-  while (world.tick < tick) {
-    const before = world.tick;
-    step(
-      world,
-      cmds.filter((c) => c.tick === world.tick),
-    );
-    for (const e of world.events) seen.add(e.type);
-    if (world.tick === before) throw new Error("the tick stopped advancing");
-  }
-  return seen;
-}
-
-/** A beat on, with nothing sent. */
-function beat(world: World, n = 1): Set<string> {
-  return runTo(world, world.tick + TPB * n);
-}
-
-/** Past the still: the first latch is lit and the hands count. */
-function lit(world: World): Set<string> {
-  return runTo(world, world.tick + TPB * (CFG.haspStillBeats + 1));
-}
-
-/** His hand down on the latch, and left there. */
-function grip(world: World, to = DOWN): Set<string> {
-  const t = world.tick;
-  return runTo(world, t + 1, [latch(t, to)]);
-}
-
-/** His hand off it. */
-function letGo(world: World): Set<string> {
-  const t = world.tick;
-  return runTo(world, t + 1, [latch(t, 0, false)]);
-}
-
-/**
- * Her finger going round the rim, `by` thousandths a tick for `ticks` ticks,
- * taking hold of it first — which is what `NO_BEARING` on the wire means.
- */
-function wind(world: World, ticks: number, by = 200): Set<string> {
-  const t = world.tick;
-  const cmds: TimedCommand[] = [rim(t, -1), rim(t + 1, 0)];
-  for (let i = 1; i <= ticks; i += 1) cmds.push(rim(t + 1 + i, (i * by) % 1000));
-  return runTo(world, t + ticks + 2, cmds);
-}
-
-/** One whole hasp wound off, with a hand on the latch the whole way — the
- * third's need at two hundred a tick, which is more than the first two ask. */
-function windOff(world: World): Set<string> {
-  grip(world);
-  const seen = wind(world, (CFG.haspWindMilli + 2 * CFG.haspWindStepMilli) / 200);
-  for (const type of letGo(world)) seen.add(type);
-  return seen;
-}
-
-/** The swing after an opening, up to the next latch lighting. */
-function settle(world: World): Set<string> {
-  return beat(world, CFG.haspSwingBeats + 1);
-}
 
 describe("THE HASP comes in", () => {
   it("over the middle, every clasp sealed and neither hand on it", () => {
@@ -291,9 +202,9 @@ describe("the heat", () => {
     const world = install({ haspBoltBeats: 99 });
     lit(world);
     windOff(world);
-    settle(world);
+    between(world);
     windOff(world);
-    settle(world);
+    between(world);
     expect(door(world).hasps).toBe(1);
     grip(world);
     expect(beat(world, CFG.haspLastHoldBeats + 1).has("haspBurn")).toBe(true);
@@ -315,7 +226,7 @@ describe("the wheel", () => {
     const world = install({ haspBoltBeats: 99 });
     lit(world);
     windOff(world);
-    settle(world);
+    between(world);
     grip(world);
     // The first hasp's whole winding, turned again: on this one it is short.
     expect(wind(world, CFG.haspWindMilli / 200).has("haspOpen")).toBe(false);
@@ -340,7 +251,7 @@ describe("the one bolt", () => {
     const world = install({ haspBoltBeats: 99 });
     lit(world);
     windOff(world);
-    settle(world);
+    between(world);
     expect(door(world).boltCol).toBe(NO_BOLT);
     expect(windOff(world).has("haspBolt")).toBe(true);
     expect(door(world).boltCol).toBe(midCol(world.cfg));
@@ -350,7 +261,7 @@ describe("the one bolt", () => {
     const world = install({ haspBoltBeats: 99 });
     lit(world);
     windOff(world);
-    settle(world);
+    between(world);
     windOff(world);
     const bolt: Bullet = {
       id: world.nextId++,
@@ -371,7 +282,7 @@ describe("the one bolt", () => {
     const world = install();
     lit(world);
     windOff(world);
-    settle(world);
+    between(world);
     windOff(world);
     expect(beat(world, CFG.haspBoltBeats + 1).has("haspBoltHit")).toBe(true);
     expect(world.failTick).not.toBe(NOT_FAILED);
@@ -383,12 +294,12 @@ describe("the row swings clear", () => {
     const world = install({ haspBoltBeats: 99 });
     lit(world);
     windOff(world);
-    settle(world);
+    between(world);
     windOff(world);
-    settle(world);
+    between(world);
     windOff(world);
     expect(door(world).hasps).toBe(0);
-    expect(settle(world).has("haspClear")).toBe(true);
+    expect(between(world).has("haspClear")).toBe(true);
     expect(beat(world, CFG.haspClearBeats + 1).has("haspOut")).toBe(true);
     expect(world.boss).toBeNull();
   });
