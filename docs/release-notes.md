@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 5f9f3c830 — THE KEEL's STRAIGHT card shows the spine straight
+
+Watched THE KEEL's autopilot hand on the STATES sheet: every one of the eleven cards is reached by the hand, with the joint tapped from its seat, the socket and marrow shot from the middle, the flip held on both ends and the rock shot from under the tail. AUTO also plays the whole fight on HARD with no joint missed, no hull hit and no shot wasted. The one wrong card was STRAIGHT, photographed six ticks into a snap that takes three quarters of a beat, so it still showed the arch; it is held a beat now. A director card, not a frame of the game — no look changed.
+
 ## 2026-09-27 · 5978f809c — THE KEEL's hull hits land when what hits the hull does
 
 The tail's rock, left unanswered, fell down its column to the hull and then a second, flaming one fell again from the top of the field: the sim broke the hull from row 0. It now breaks it from the hull row the rock reached, so the rock lands once and the hole, sparks and crack show as it touches. The socket's hit is the boss's own blow, a quarter-second on its way; its red burst and the hull's shudder now wait for it to land instead of shaking the ship before anything reaches it. The lock snap and the socket shut were watched at tempo and read as written.
