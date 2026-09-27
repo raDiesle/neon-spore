@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 76b65b392 — AUTO pinches THE GALL wherever it jumps, and shoots the root
+
+AUTO has a hand for THE GALL. The seat whose half the gall sits on pinches it shut where it is and keeps it shut. When the gall jumps, that seat, or the other one, pinches it again on the point it went to, and lets go once the step is answered. With the root bared, the hand slides the cannon to the middle and fires the step's colour. autopilot-gall.test.ts plays the wave to its end: three closes, one hit, no window run out, no slip, no scar. Playing P1 alone, it only ever closes the gall on the pilot's own half.
+
 ## 2026-09-27 · bf95cc674 — THE GALL seeds the hull, and its receipts flare, puff and tear
 
 A fire step THE GALL is let run now seeds the hull. A seed of the nodule tears off the root's underside on a strand of flesh. The strand snaps halfway down the middle column, and the seed splats on the skin. Three tendrils creep into the plating, and then it withers. Until now it was the default lash. A pinch come shut lights the nodule's rim white. A slip shudders it. A window run out bulges it back. A close leaves a ghost of the nodule on the point it jumped off, rising and fading. The bare tears fibres across the split. A hit flashes the root white. A close and a hit deal the gall the shake and red that every boss takes.

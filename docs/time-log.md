@@ -26272,3 +26272,5 @@ because THE GALL has no AUTO hand and `frames` has no way to set a pose.
 
 Bottleneck: none stood out — the hand is THE VISE's level and THE CAPSTAN's
 shot, and the test is THE CAPSTAN's.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
