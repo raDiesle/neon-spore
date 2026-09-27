@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · a03ec36bd — The director's stage pairs a pinch, and counts a chord's pads and a rub's turns
+
+Two fingers on THE VISE's lobe on the director's stage now send the gap between them, as they do on a phone. The pairing, with THE TRIVET's chord pads and THE GRINDSTONE's rub turns, moved from apps/game into packages/render as `Fingers`, and the game's field and the stage both keep one. A stage test that is red without the wiring proves it.
+
+## 2026-09-27 · 520e1625c — The director's stage pairs a pinch, and counts a chord's pads and a rub's turns
+
+Two fingers on THE VISE's lobe on the director's stage now send the gap between them, as they do on a phone. The pairing, with THE TRIVET's chord pads and THE GRINDSTONE's rub turns, moved from apps/game into packages/render as `Fingers`, and the game's field and the stage both keep one. A stage test that is red without the wiring proves it.
+
 ## 2026-09-27 · 00a545867 — A push's replay restamps the shas the release notes name
 
 When `bun run push` replays the trunk onto an `origin/main` that moved, every commit origin had not seen gets a new sha, and the release notes and the `Unverified at` headings went on naming the old ones — five of the twelve newest notes on 26 September named commits no history held. The reconcile now pairs each commit with its replayed self by author, date and subject and restamps `docs/release-notes.md`, `docs/queue.md` and `docs/parked.md` in one more commit before the send. Notes already pushed with a stale sha are left as they are.

@@ -25343,3 +25343,5 @@ that a rebase keeps, and author, date and subject was the one.
 
 Bottleneck: writing — moving four files meant rewriting every path to them in
 the specs, the queue and the director's control sources.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
