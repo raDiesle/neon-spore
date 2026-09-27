@@ -105,6 +105,16 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   stays at 0 until the cap is lifted: the next pose for an outline boss is
   one large enough to see, with the hit tests following it.
 
+  *THE WARDEN, as built, 27 September 2026* (`warden-drift.ts`,
+  `warden-frame.ts`): the first with the cap lifted, on the field under *a
+  look with no shipped alternative*. The ring rocks about its foot, where
+  the throat is cut for the shot and the rope, so the foot stays within a
+  fifth of a tile and the top of the ring leans by more than half a tile, up
+  to four fifths (`outlineShift`). The eye's grip, the cues written on it
+  and the rope's anchor all read `wardenPosed`, so a thumb lands on the eye
+  the canvas drew. The clock is the beat, because a hit test has the beat
+  and no frame time. The other five are their own entry on the queue.
+
   *The parts, as built, 27 September 2026* (`outline-parts.ts`,
   `queen-parts.ts`): a part turns about its own joint by a matrix
   (`partMatrix`), its angles scaled so its tip moves half a tile, a pair

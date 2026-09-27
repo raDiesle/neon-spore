@@ -12,6 +12,7 @@ import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
 import { wardenEyeCircle } from "./warden.js";
+import { wardenPose, wardenPosedCircle } from "./warden-drift.js";
 
 /**
  * **THE WARDEN's eye as a control**, for the two gestures that ask a thumb for
@@ -68,7 +69,10 @@ export function wardenGripUnder(l: Layout, x: number, y: number, field: Field): 
   const target = wardenGripTarget(b, field.seat);
   if (target === null) return null;
   const body = field.creatures.find((c) => c.id === b.creatureId);
-  if (body === undefined || !hitCircle(wardenGripCircle(l, body, b), x, y)) return null;
+  if (body === undefined) return null;
+  // Where the eye is drawn this beat, rocked with the ring (`warden-drift.ts`).
+  const pose = wardenPose(l, field.cfg, body, field.beat, field.beatPhase);
+  if (!hitCircle(wardenPosedCircle(pose, wardenGripCircle(l, body, b)), x, y)) return null;
   return {
     player: field.seat,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },

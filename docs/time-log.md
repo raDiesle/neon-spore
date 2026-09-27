@@ -27450,3 +27450,19 @@ Bottleneck: writing — `valve-draw.ts` sits at its length, so the two
 transients it draws went into the fx file rather than beside the rest.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE WARDEN rocks on its foot, and its eye is found where it is drawn
+
+- reading: 15 min. The warden's draw, grip, cues and rope, and where each
+  finds the eye.
+- writing: 25 min. The pose about the foot, the frame's own file, the hit
+  test, the cues, the three tests, and the entry for the next five.
+- looking: 10 min. A probe for the widest lean, and the frames pair at
+  31.5 s.
+- friction: 5 min. The entry was claimed after work began, and the
+  timeout-cap and lint gates each needed another round.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing. Every place that reads the eye (grip, cues, rope,
+snap-back) had to be found and posed, or a thumb would land beside the eye
+the canvas drew.

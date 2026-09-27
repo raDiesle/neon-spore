@@ -2057,42 +2057,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## Living bosses — the outline drift for the next six, the warden to the taster
-
-- **Found:** 2026-09-27, claude/queue-living-bosses-every-other-boss-gets-the-outline
-- **Taken:** 2026-09-27, claude/queue-warden-drift (claim: claude/queue-living-bosses-the-outline-drift-for-the-next-six)
-- **Where:** local
-- **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/tether.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
-
-**Re-aimed, 27 September 2026.** The owner could not see the outline drift on
-the queen, the cairn or the reprise (all three dropped, `DECIDED.md`) and said
-not to improve what is barely seen (`docs/looks.md`, *Big enough to be seen*).
-Do not offer the next six at the same fifth-of-a-tile cap: first make the
-boss's hit tests follow the pose, the way `instarMarkUnder` does, then lift the
-cap until the two stills of the pair can be told apart at a glance. The notes
-below on where each boss is rooted still hold.
-
-The outline tier's pose shipped as a helper and a seam at 0 for the queen,
-the cairn and the reprise (`outline-drift.ts`, VERSUS `*:*/drift`). The next
-six in `boss-draw.ts`'s order each need more than one wrapped call, which is
-why they were not in that lane:
-
-- **THE WARDEN**: its rope runs from the eye's underside to the hull. Pose
-  `drawWarden` and the grip about the eye, and hand `drawTether` the anchor
-  through `posePoint`, or the rope stands a few pixels off the eye it is tied to.
-- **THE THROAT**: most of `drawThroat` is pinned to field columns (eversion,
-  mouth, grips, lock); pose only the rings and skin (`throat-draw.ts`), rooted
-  at the top over the middle column.
-- **THE UNDERTOW**: each lobe leans about its own base at the skin
-  (`drawLobe`), the body about its breach, each its own seed.
-- **THE GORGE, THE CURTAIN, THE TASTER**: 7–11 tiles wide, so a lean about the
-  middle is capped to nothing; pose each lobe, hem scallop or blade about its
-  own joint instead, and still the pose on each's "out" phase.
-
-Add each boss to `OutlineBoss` and `SEED`, a candidate per slot, and its row
-to `outline-drift.test.ts`. Done when `bun run check` is green and each
-candidate's pose builds (`versus-pose.test.ts`).
-
 ## Living bosses — what turns the bosses' life down
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -2194,7 +2158,7 @@ on a phone. `bun run check` proves it.
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
-- **Needs:** Living bosses — the outline drift for the next six, the warden to the taster
+- **Needs:** Living bosses — the outline drift for the next five, the throat to the taster
 
 Split off "THE REPRISE's parts, and the surface marks" when its parts
 landed. A surface mark placed with `pin`/`facet` moves only when its body
@@ -2210,3 +2174,48 @@ on a mark follows it.
 Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
+
+## Living bosses — the outline drift for the next five, the throat to the taster
+
+- **Found:** 2026-09-27, claude/queue-warden-drift
+- **Where:** local
+- **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
+
+The rest of "the next six", split off when THE WARDEN landed on its own
+(`warden-drift.ts`, `warden-frame.ts`). That lane is the worked example:
+root the pose where the boss's marks are (the warden's foot), lift its cap
+in `LIFTED` (`outline-drift.ts`), make every hit test, cue and anchor ask for
+the posed point, drive the pose off the beat so the hit test can compute it,
+and test that the widest point moves more than half a tile. Each goes
+straight onto the field under *a look with no shipped alternative*
+(`docs/looks.md`), not to VERSUS, and each can be its own lane:
+
+- **THE THROAT**: most of `drawThroat` is pinned to field columns (eversion,
+  mouth, grips, lock); pose only the rings and skin (`throat-draw.ts`), rooted
+  at the top over the middle column.
+- **THE UNDERTOW**: each lobe leans about its own base at the skin
+  (`drawLobe`), the body about its breach, each its own seed.
+- **THE GORGE, THE CURTAIN, THE TASTER**: 7–11 tiles wide, so a lean about the
+  middle is small at the root and huge at the ends; pose each lobe, hem
+  scallop or blade about its own joint instead, and still the pose on each's
+  "out" phase.
+
+Add each boss to `OutlineBoss`, `OUTLINE_SEED` and `OUTLINE_PARTS`, and its
+test beside `warden-drift.test.ts`. Done when `bun run check` is green.
+
+## `check:fast` does not run the INDEX row drift test
+
+- **Found:** 2026-09-27, claude/queue-warden-drift
+- **Files:** `tools/check/fast-scope.ts`, `tools/check/test/fast-scope.test.ts`, `tools/index/test/drift.test.ts`
+
+`tools/index/test/drift.test.ts` fails when a `docs/INDEX.md` row names a
+word its file no longer mentions. A lane that edits a doc comment in
+`tools/director/src/` changes what a row may say, but `SWEEPS` in
+`fast-scope.ts` names only `tools/index/test/index.test.ts`. On 27 September
+2026 the swing-seam lane was green under `check:fast` and red a few minutes
+into `bun run land`, on a row that still said "swing". Time the drift test.
+If it reads the tree as fast as the other sweeps, add it to `SWEEPS` with a
+comment like theirs, plus the matching row in `fast-scope.test.ts`.
+
+Done when: `fastScopeFor` names `tools/index/test/drift.test.ts` for any
+path, the sweep's comment gives its time, and `bun run check` is green.

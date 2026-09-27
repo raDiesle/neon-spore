@@ -38,9 +38,15 @@ import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outli
  * `PART.tip`. The queen's are held at 0: at half a tile her wings' ends are
  * behind her torches and her arms still read as nearly still on a phone, and
  * moving them further runs into her drop cue (`docs/queue.md`, "THE BULB
- * QUEEN's parts: how far").
+ * QUEEN's parts: how far"). THE WARDEN has none: the whole ring rocks
+ * (`warden-drift.ts`).
  */
-export const OUTLINE_PARTS: Record<OutlineBoss, number> = { queen: 0, cairn: 1, reprise: 1 };
+export const OUTLINE_PARTS: Record<OutlineBoss, number> = {
+  queen: 0,
+  cairn: 1,
+  reprise: 1,
+  warden: 0,
+};
 
 export const PART = {
   /** How far a part's own wander moves its tip at its widest, in tiles: more than twice the body's fifth, which the owner could not see. */

@@ -26,16 +26,22 @@ import { slowHush } from "./slow-hush.js";
  * bosses, which re-aims it at a movement big enough to be seen.
  */
 
-export type OutlineBoss = "queen" | "cairn" | "reprise";
+export type OutlineBoss = "queen" | "cairn" | "reprise" | "warden";
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
-export const OUTLINE_DRIFT: Record<OutlineBoss, number> = { queen: 0, cairn: 0, reprise: 0 };
+export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
+  queen: 0,
+  cairn: 0,
+  reprise: 0,
+  warden: 1,
+};
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
 export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
   queen: 101,
   cairn: 113,
   reprise: 127,
+  warden: 131,
 };
 
 export const OUTLINE = {
@@ -44,6 +50,19 @@ export const OUTLINE = {
   /** Each channel's share of that, at the body's reach: they add to under one. */
   share: { roll: 0.6, squash: 0.15, stretch: 0.1, slide: 0.15 },
 } as const;
+
+/**
+ * **The cap of a boss whose marks are found where they are drawn**, in tiles,
+ * in place of `OUTLINE.shift`. THE WARDEN's eye is hit-tested, cued and roped
+ * at its posed point (`warden-drift.ts`), so nothing holds its reach to a
+ * hit circle and its rim rocks by most of a tile, which is seen.
+ */
+const LIFTED: Partial<Record<OutlineBoss, number>> = { warden: 0.8 };
+
+/** How far any point within reach of `boss`'s root moves at most, in tiles. */
+export function outlineShift(boss: OutlineBoss): number {
+  return LIFTED[boss] ?? OUTLINE.shift;
+}
 
 /** The body drift's widest angles, in degrees: the roll's, the pitch's and the turn's. */
 const ROLL_MAX = IDLE_DRIFT.roll.amp;
@@ -81,14 +100,15 @@ export function outlinePose(
   if (k <= 0 || reach <= 0) return null;
   const d = idleDrift(time, OUTLINE_SEED[boss], k);
   // Each channel's share of the cap, as a fraction of the reach.
-  const at = (share: number) => (share * OUTLINE.shift * tile) / reach;
+  const shift = outlineShift(boss);
+  const at = (share: number) => (share * shift * tile) / reach;
   const { roll, squash, stretch, slide } = OUTLINE.share;
   const yaw = Math.max(-1, Math.min(1, d.yaw / (YAW_MAX * DEG)));
   return {
     roll: (d.roll / (ROLL_MAX * DEG)) * at(roll),
     sx: 1 - yaw * yaw * at(squash),
     sy: 1 + (d.pitch / (PITCH_MAX * DEG)) * at(stretch),
-    dx: yaw * slide * OUTLINE.shift * tile,
+    dx: yaw * slide * shift * tile,
   };
 }
 

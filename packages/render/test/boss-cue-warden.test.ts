@@ -14,6 +14,7 @@ import {
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { wardenEyeCircle } from "../src/warden.js";
+import { wardenPose, wardenPosed } from "../src/warden-drift.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -116,7 +117,10 @@ describe("THE WARDEN", () => {
     expect(hers?.seat).toBe(2);
     const body = world.creatures.find((c) => c.id === b.creatureId);
     if (body === undefined) throw new Error("the warden has no body on the field");
-    const eye = wardenEyeCircle(LAYOUT.p2, body, b, wardenPullMilli(world, b) / 1000);
+    // On the pupil where it is drawn: rocked with the ring (`warden-drift.ts`).
+    const pose = wardenPose(LAYOUT.p2, world.cfg, body, world.beat, 0);
+    const rest = wardenEyeCircle(LAYOUT.p2, body, b, wardenPullMilli(world, b) / 1000);
+    const eye = wardenPosed(pose, rest);
     expect(hers?.x).toBeCloseTo(eye.x, 6);
     expect(hers?.y).toBeCloseTo(eye.y, 6);
   });

@@ -1324,6 +1324,7 @@ by hand never moves.
 | `packages/render/src/warden-eye.ts` | THE WARDEN's door, and the eye behind it |
 | `packages/render/src/eye.ts` | you are drawing an eye — the wet film round it and the lashes and cilia off it, shared by THE LID and THE WARDEN; the lens itself is `eye-lens.ts` |
 | `packages/render/src/warden-fx.ts` | The one thing about THE WARDEN that outlives a frame |
+| `packages/render/src/warden-frame.ts` | **THE WARDEN, with its rope and its grip**, as `drawBoss` draws it |
 | `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
 | `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, `TRY n` on a retry, its name and its sentence |
 | `packages/render/src/wrap-text.ts` | Greedy wrap against the measured width |
@@ -1632,6 +1633,7 @@ by hand never moves.
 | `packages/render/src/warden-whorl.ts` | WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/warden-grip-fx.ts` | THE WARDEN's thumb landing, hatch thrown and hatch slamming, each a ring off the eye |
 | `packages/render/src/warden-grip.ts` | THE WARDEN's eye as a control: player 2's thumb under NARROW, player 1's swipe under GLARE |
+| `packages/render/src/warden-drift.ts` | **THE WARDEN rocks on its open foot** |
 | `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
 | `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |

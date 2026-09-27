@@ -136,7 +136,7 @@ export function bossCues(
     case "gauge":
       return gaugeCues(l, world, boss);
     case "warden":
-      return wardenCues(l, world, boss, skinY);
+      return wardenCues(l, world, boss, skinY, beatPhase);
     case "fleet":
       return fleetCues(l, world, boss);
     case "vane":

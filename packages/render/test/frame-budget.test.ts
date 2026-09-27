@@ -412,7 +412,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       clip: 8,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
-      save: 48,
+      // **Two more on 27 September 2026, when the ring began to rock**: the
+      // body and the grip are each drawn in the pose, a frame apiece, and the
+      // rope between them is not (`warden-frame.ts`).
+      save: 50,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
@@ -433,7 +436,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       stroke: 144,
       fill: 79,
       clip: 8,
-      save: 48,
+      save: 50,
       drawImage: 29,
       createLinearGradient: 12,
       createRadialGradient: 8,

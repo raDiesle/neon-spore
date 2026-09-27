@@ -13,6 +13,7 @@ import { fieldPoint } from "./handle-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { wardenEyeCircle } from "./warden.js";
+import { wardenPose, wardenPosed } from "./warden-drift.js";
 import { wardenGripCircle } from "./warden-grip.js";
 
 /**
@@ -83,6 +84,7 @@ export function wardenCues(
   world: World,
   b: WardenState,
   skinY: SurfaceY,
+  beatPhase: number,
 ): readonly BossCue[] {
   if (b.eyeSpent) return [];
   const out: BossCue[] = [];
@@ -90,11 +92,13 @@ export function wardenCues(
   const body = world.creatures.find((c) => c.id === b.creatureId);
   const asks = wardenPhase(b.plates).asks;
 
-  if (open && body !== undefined) {
-    const eye = wardenEyeCircle(l, body, b, wardenHatchMilli(world, b) / 1000);
+  // Written on the eye where it is drawn, rocked with the ring (`warden-drift.ts`).
+  const pose = body && wardenPose(l, world.cfg, body, world.beat, beatPhase);
+  if (open && body !== undefined && pose !== undefined) {
+    const eye = wardenPosed(pose, wardenEyeCircle(l, body, b, wardenHatchMilli(world, b) / 1000));
     out.push(markAt(2, "PRESS", "FIRE", eye.x, eye.y, l, 69));
-  } else if (body !== undefined) {
-    const eye = wardenGripCircle(l, body, b);
+  } else if (body !== undefined && pose !== undefined) {
+    const eye = wardenPosed(pose, wardenGripCircle(l, body, b));
     if (asks === "hold" && !b.eyeHeld && wardenTether(world) !== null) {
       out.push(markAt(2, "HOLD", "HOLD", eye.x, eye.y, l, 82));
     }

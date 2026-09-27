@@ -67,7 +67,7 @@ function loop(
 }
 
 /** How far the ring reaches from its own centre, in screen pixels. */
-function wardenRadius(l: Layout): number {
+export function wardenRadius(l: Layout): number {
   return (l.tile * WARDEN_COLS) / 2;
 }
 

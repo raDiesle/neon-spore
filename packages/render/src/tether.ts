@@ -1,5 +1,4 @@
 import {
-  type Creature,
   type SimConfig,
   type WardenState,
   type World,
@@ -17,7 +16,6 @@ import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
 import { drawPullTrack } from "./pull-track.js";
 import { TETHER_LOOK } from "./tether-looks.js";
 import { wardenRopeTrack } from "./tether-track.js";
-import { wardenRopeAnchor } from "./warden.js";
 
 /**
  * THE WARDEN's rope, and the handle on it: the one thing on this field either
@@ -91,8 +89,8 @@ export function drawTether(
   l: Layout,
   world: World,
   b: WardenState,
-  body: Creature,
-  openness: number,
+  /** Where it leaves the eye, posed (`wardenRopeAnchor`, `warden-drift.ts`). */
+  anchor: { readonly x: number; readonly y: number },
   time: number,
 ): void {
   const cfg: SimConfig = world.cfg;
@@ -100,9 +98,6 @@ export function drawTether(
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
   const rest = tetherHandleCircle(l, cfg, b.pupilCol);
-  // Tied to the eye itself, and travelling with it: the thing the rope holds
-  // open is the thing the rope comes out of (`warden.ts`).
-  const anchor = wardenRopeAnchor(l, body, b, openness);
   // One to one with the hand, in both axes: the handle stands exactly where the
   // finger carried it, so the distance on the screen *is* the distance being
   // asked for. The simulation has already kept it on the field, so nothing here
