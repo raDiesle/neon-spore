@@ -2523,6 +2523,7 @@ hinge point; `bun run check` proves it.
 ## Living bosses — split the lobes of THE CURTAIN and THE CYST
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-lobes-of-the-hive-the-cu (claim: claude/queue-living-bosses-split-the-lobes-of-the-curtain-and)
 - **Files:** `packages/render/src/curtain-sheet.ts`, `packages/render/src/curtain-draw.ts`, `packages/render/src/cyst-shape.ts`, `packages/render/src/cyst-draw.ts`, `docs/spec/living-bosses.md`
 
 Section 1's part map: each of these draws its lobes inside the body's one
