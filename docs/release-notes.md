@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 575f92e5c — THE INSTAR's bare pose a quarter bigger, and its heart seen round the mark
+
+The second act's bare body is drawn 1.25 times bigger, grown about its heart so the one shoot mark stays on it at 500/395 and the simulation's column is unchanged. The heart is sized off the mark radius and centred on the mark rather than hung from it, so it stands a third of a mark radius clear of the ring on every side, even at the ring's widest breath, all through the beat. The baked heart stays a VERSUS candidate and is shown at the new size.
+
 ## 2026-09-27 · ef9a7a7e7 — THE INSTAR's fire, eyes, nests and hide are baked, and THE COUNT's core wanders
 
 The owner's five picks on VERSUS of 27 September 2026 are in the game. THE INSTAR's globs and embers, the irises of its front eyes, its nests and eggs and the scales on its plates are the baked paintings, blitted from a sprite painted once at load; the drawn versions stay as the fallback for anything too small to bake. On the navigator's screen THE COUNT's core wanders a hair in its socket and still says nothing of the count. The nest costs +2.6 kB gzipped and draws in 74 µs against the old 110 µs; the eye +1.4 kB. Exemption used: a look the owner asked for by name.
