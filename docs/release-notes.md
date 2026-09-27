@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 94e9c46a9 — `queue next` and `take` ask origin before claiming, and `land` says when an item was done twice
+
+`next` and `take` fetch `origin/main` and refuse an item origin marks taken by somebody else or no longer lists, so a session whose trunk was not fetched can no longer start a boss a cloud session already holds — THE CYST was built twice that way on 26 September. `next` passes such an item over rather than handing it out. `bun run land` prints a warning, with the commit, when the queue entry the lane took out was already gone from the trunk.
+
 ## 2026-09-27 · a03ec36bd — The director's stage pairs a pinch, and counts a chord's pads and a rub's turns
 
 Two fingers on THE VISE's lobe on the director's stage now send the gap between them, as they do on a phone. The pairing, with THE TRIVET's chord pads and THE GRINDSTONE's rub turns, moved from apps/game into packages/render as `Fingers`, and the game's field and the stage both keep one. A stage test that is red without the wiring proves it.

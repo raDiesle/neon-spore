@@ -25359,3 +25359,5 @@ the specs, the queue and the director's control sources.
 
 Bottleneck: reading — who counts as the caller on a `Taken:` line has three
 answers already, and origin's check had to reuse them rather than add a fourth.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
