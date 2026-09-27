@@ -2178,6 +2178,7 @@ and `bun run check` is green.
 ## Living bosses — the outline drift for the next five, the throat to the taster
 
 - **Found:** 2026-09-27, claude/queue-warden-drift
+- **Taken:** 2026-09-27, claude/queue-check-fast-does-not-run-the-index-row-drift-test (claim: claude/queue-living-bosses-the-outline-drift-for-the-next-fiv)
 - **Where:** local
 - **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
 
