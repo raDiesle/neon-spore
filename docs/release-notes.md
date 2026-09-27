@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 5bdafd0ea — THE SLING's timeout is a steel ball out of its cup, not the lash
+
+When a fire step runs out, THE SLING's lit cup flings a steel ball in the fork's grey, trailing a streak of the cords' tan, down the middle column; it dents the skin at `reach = 1` — a dark pit and a ring along the plating — and bounces once before it is gone. Exemption: a look the owner asked for by name (the timeout-hit rule of 26 September 2026). Seen in a frame of a one-step fire script let run out.
+
 ## 2026-09-27 · c6eb830e5 — THE GRINDSTONE's timeout is a chip off its wheel, not the lash
 
 When a fire step runs out, THE GRINDSTONE throws a chip off the bottom of its wheel, grey outside and tan on the face it broke along; it tumbles down the middle column and shatters on the skin at `reach = 1` into grit that skids out low, leaving a dark scuff. Exemption: a look the owner asked for by name (the timeout-hit rule of 26 September 2026). Seen in a frame of a one-step fire script let run out.
