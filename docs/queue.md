@@ -1818,6 +1818,7 @@ one read and `bun run check` is green.
 ## The queue's `Where: phone` value has no writer left
 
 - **Found:** 2026-09-27, claude/phone-only-queue-tasks-57d3ff
+- **Taken:** 2026-09-27, claude/queue-where-phone (claim: claude/queue-the-queues-where-phone-value-has-no-writer-left)
 - **Files:** `tools/queue/where.ts`, `tools/queue/problems.ts`, `tools/queue/test/where.test.ts`, `tools/queue/test/skipped.test.ts`, `docs/queue.md`, `docs/cloud-session.md`
 
 Since 27 September 2026 a check that needs a phone in a hand is the owner's
