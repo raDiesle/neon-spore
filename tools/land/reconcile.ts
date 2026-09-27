@@ -29,6 +29,7 @@
 
 import { git, gitOrDie } from "./git.js";
 import { replay } from "./replay.js";
+import { readCommits, restamp, rewrites } from "./restamp.js";
 import { trunkTree, uncommittedOf } from "./state.js";
 
 export interface Reconciled {
@@ -58,9 +59,27 @@ function tooDirty(what: string, dirty: readonly string[]): Reconciled {
   };
 }
 
+/**
+ * The replay, then the records' stamps moved onto the shas it made.
+ *
+ * Run with the trunk checked out in `cwd`, so the restamp commit lands on it.
+ * `restamp.ts` says why a replay leaves the release notes naming commits no
+ * history holds.
+ */
+async function replayed(
+  cwd: string,
+  trunk: string,
+): Promise<{ out: Awaited<ReturnType<typeof replay>>; stamped: string[] }> {
+  const before = await readCommits(`origin/${trunk}..HEAD`, cwd);
+  const out = await replay(cwd, `origin/${trunk}`);
+  if (!out.ok) return { out, stamped: [] };
+  const after = await readCommits(`origin/${trunk}..HEAD`, cwd);
+  return { out, stamped: await restamp(cwd, rewrites(before, after)) };
+}
+
 /** The replay itself, reported the same way wherever it was run. */
 function reported(
-  out: Awaited<ReturnType<typeof replay>>,
+  { out, stamped }: Awaited<ReturnType<typeof replayed>>,
   head: string,
   trunk: string,
 ): Reconciled {
@@ -75,7 +94,9 @@ function reported(
         : `  ✗ the replay stopped: ${out.said || "git said nothing about why"}`;
     return { ok: false, lines: [...settled, stopped, `    ${trunk} is where it was`] };
   }
-  return { ok: true, lines: [head, ...settled] };
+  const restamped =
+    stamped.length > 0 ? [`  restamped ${stamped.join(", ")} — the shas the replay rewrote`] : [];
+  return { ok: true, lines: [head, ...settled, ...restamped] };
 }
 
 /**
@@ -116,8 +137,8 @@ async function inPlace(root: string, trunk: string): Promise<Reconciled> {
     return { ok: false, lines: [`  ✗ could not check ${trunk} out here: ${String(why)}`] };
   }
   try {
-    const out = await replay(root, `origin/${trunk}`);
-    if (out.ok) await gitOrDie(["branch", "--force", trunk, "HEAD"], root);
+    const out = await replayed(root, trunk);
+    if (out.out.ok) await gitOrDie(["branch", "--force", trunk, "HEAD"], root);
     return reported(out, `  rebased  ${trunk} onto origin/${trunk} in this checkout`, trunk);
   } finally {
     // Always, and before anything is printed: a session left detached on the
@@ -140,6 +161,6 @@ export async function reconcile(root: string, trunk: string): Promise<Reconciled
   const dirty = await uncommitted(tree);
   if (dirty.length > 0) return tooDirty(tree, dirty);
 
-  const out = await replay(tree, `origin/${trunk}`);
+  const out = await replayed(tree, trunk);
   return reported(out, `  rebased  ${trunk} onto origin/${trunk} in ${tree}`, trunk);
 }

@@ -25314,3 +25314,16 @@ Bottleneck: reading — the refusal only happens on a clone without the local
 exclude, so the cause was not in the code the entry named.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — a push's replay restamps the shas the records name
+
+- reading: 10 min. `reconcile.ts`, `replay.ts`, `notes-merge.ts`, how a note
+  and an `Unverified at` heading are stamped.
+- writing: 15 min. `restamp.ts`, its wiring into both reconcile paths, a pure
+  test and a real-repo test that the pushed stamp is an ancestor of `main`.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — pairing a commit with its replayed self needed a key
+that a rebase keeps, and author, date and subject was the one.

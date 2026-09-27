@@ -2786,6 +2786,7 @@ by hand never moves.
 | `tools/land/reconcile.ts` | **The other rebase: the trunk against `origin/main`.** `land`'s replay covers a lane landing onto the trunk |
 | `tools/land/reconcile-run.ts` | `bun run reconcile` — bring the local trunk up to `origin/main` by itself |
 | `tools/land/record-merge.ts` | Merging a **record**: a file of `##` entries that one tool appends to and nobody ever edits |
+| `tools/land/restamp.ts` | The shas a push's replay rewrote, stamped again in the release notes and the queue |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
 | `tools/frames/crop-png.ts` | you have a screenshot and want to look closer — `bun run crop` cuts a rectangle out and magnifies it by whole pixels |

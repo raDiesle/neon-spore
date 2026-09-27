@@ -1902,23 +1902,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `bun run push` leaves release-note shas that are not in the history
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-tasks-4e52d3 (claim: claude/queue-bun-run-push-leaves-release-note-shas-that-are-n)
-- **Files:** `tools/land/push.ts`, `tools/land/notes-merge.ts`, `docs/release-notes.md`
-
-When `bun run push` finds `origin/main` ahead, it rebases the trunk onto it
-and *settles* `docs/release-notes.md`, but the sha each note was stamped with
-at `land` is the pre-rebase commit's, so it names a commit no history holds:
-of the twelve newest notes on 26 September 2026, five (`3b20854a0`,
-`13c34088d`, `d4eafbf4c`, `4c7090ce0`, `881f776df`) are not ancestors of
-`main`. The same holds for the `## Unverified at <sha>:` headings in this
-file. After the rebase, map each rewritten commit to its new sha (the
-subject is unique per landing; or `git rebase`'s own rewritten list) and
-restamp both files before the push, with a test in `tools/land/test/` that a
-pushed note's sha is an ancestor of the pushed head.
-
 ## Unverified at cce1f5176: THE SLOW's light round THE OCULUS's lens watched at te…
 
 - **Found:** 2026-09-26, claude/queue-27-oculus-aim

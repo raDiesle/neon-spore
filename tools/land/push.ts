@@ -19,7 +19,9 @@
  * resolve four records that one tool wrote both sides of. That is `land`'s
  * replay pointed at the other pair of branches, so it is now the same code:
  * `reconcile.ts`. It refuses on anything that is a real disagreement, and the
- * trunk is left where it was when it does.
+ * trunk is left where it was when it does. **The replay rewrites the shas the
+ * release notes and `Unverified at` headings were stamped with**, so it
+ * restamps them in one more commit before the send (`restamp.ts`).
  *
  * **A refusal is printed in full**, along with how the trunk stands, because
  * the alternative is running the push again by hand to find out — and the
