@@ -1466,6 +1466,7 @@ what the rest of this file holds.
 ## SNAKE · SHED's pose is built at the edge of its timeout
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-stale-three-boss-status-rows-carry-the-oculuss-b (claim: claude/queue-snake-sheds-pose-is-built-at-the-edge-of-its-tim)
 - **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/poses.test.ts`
 
 `poses.test.ts`'s "is built fresh" test builds each pose twice, and SNAKE ·
