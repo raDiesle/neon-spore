@@ -1737,6 +1737,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## THE CAPSTAN's lean becomes a drag
 
 - **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
+- **Taken:** 2026-09-27, claude/queue-strip-registrations (claim: claude/queue-the-capstans-lean-becomes-a-drag)
 - **Files:** `packages/sim/src/capstan.ts`, `packages/sim/src/capstan-step.ts`, `packages/sim/src/capstan-hand.ts`, `apps/game/src/lean.ts`, `apps/game/test/capstan-lean.test.ts`, `docs/spec/bosses.md`
 
 The same answer as THE DAVIT's, for THE CAPSTAN: its cradle is leant left or
