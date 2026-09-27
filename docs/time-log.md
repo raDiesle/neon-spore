@@ -26939,3 +26939,15 @@ Bottleneck: reading — the finding as written would have overturned a
 decision the preamble records, and only reading it first caught that.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — AUTO seen playing THE MANTLE to dark
+
+- reading: 5 min. The entry, and `autopilot-mantle.test.ts`, which already
+  proves the four shears, the dark core and no spark struck.
+- writing: 0 min.
+- looking: 5 min. Two sheets out of `bun run frames`: the first shear, and
+  the dark core through the clear card at 0:11.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — a test had already answered most of it.
