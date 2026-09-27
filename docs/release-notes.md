@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 456638883 — --auto-miss reaches THE GALL's own blow
+
+THE GALL's fire step is the one ask with no window, and the cannon fires by itself under the bared root, so a withheld hand never let it run out. The misser now withholds a lit fire step every time and slides the cannon one column off the middle while it is lit, so `bun run frames --auto both --auto-miss --until breach` reaches the seed `gall-blow.ts` draws, which no frame had shown. THE GALL joins the reach list in `auto-miss.test.ts`.
+
 ## 2026-09-27 · 99d7594d0 — The surface marks wait on THE BULB QUEEN's answer
 
 No outline body turns, so a mark placed by longitude has nothing to follow; which body turns and by how much is the owner's answer to "THE BULB QUEEN's parts: how far", and the entry now says it waits on that.

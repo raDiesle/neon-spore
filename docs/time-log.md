@@ -27659,3 +27659,5 @@ frame, so the lane had to be picked up again from its summary.
 
 Bottleneck: reading. Knowing why a withheld hand still lands the shot
 meant reading the automatic cannon's cadence and the shot's column test.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
