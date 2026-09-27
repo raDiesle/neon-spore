@@ -167,12 +167,14 @@ function throwRock(world: World, s: KeelState): void {
   world.events.push({ type: "keelThrow", col: s.rockCol });
 }
 
-/** The rock, unanswered for `keelRockBeats`: the hull. */
+/** The rock, unanswered for `keelRockBeats`: the hull — broken from the hull
+ * row, because the pair watched the rock fall all the way there, and a breach
+ * from row 0 had render/ drop a second one from the top (`rock-impact.ts`). */
 function spendRock(world: World, s: KeelState): void {
   if (!keelThrown(s)) return;
   if (world.beat - s.rockBeat < world.cfg.keelRockBeats) return;
   const col = s.rockCol;
   s.rockCol = NO_ROCK;
   world.events.push({ type: "keelRockHit", col });
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  breachHull(world, col, "meteorFastest", world.cfg.rows - 1, "heavy");
 }

@@ -77,6 +77,21 @@ describe("the tail's rock", () => {
     const seen = runUntil(world, (w) => w.failTick !== NOT_FAILED, CFG.keelRockBeats + 2);
     expect(seen.has("keelRockHit")).toBe(true);
   });
+
+  it("breaks the hull from the hull row, where the pair watched it fall to", () => {
+    const world = install();
+    toRock(world);
+    const rows: number[] = [];
+    runUntil(
+      world,
+      (w) => {
+        for (const e of w.events) if (e.type === "breach") rows.push(e.fromRow);
+        return w.failTick !== NOT_FAILED;
+      },
+      CFG.keelRockBeats + 2,
+    );
+    expect(rows).toEqual([CFG.rows - 1]);
+  });
 });
 
 describe("the fingerprint", () => {

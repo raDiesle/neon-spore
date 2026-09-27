@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { strikeOut } from "../src/boss-strike-fx.js";
 import { KeelFx } from "../src/keel-fx.js";
 import { keelSegCentre, RISE } from "../src/keel-shape.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -107,12 +108,32 @@ describe("THE KEEL's transients", () => {
     expect(fx.snap(1)).toBe(0);
   });
 
-  it("bursts red on the hull where the socket or the rock hit it", () => {
-    for (const type of ["keelSocketHit", "keelRockHit"] as const) {
-      const [b] = said(new KeelFx(), [{ type, col: 1 }]);
-      expect(b?.hex).toBe(PALETTE.red);
-      expect(b?.y ?? 0).toBeGreaterThan(L.hullY - L.tile * 2);
-    }
+  it("bursts red on the hull where the rock hit it, the moment it hits", () => {
+    const fx = new KeelFx();
+    const [b] = said(fx, [{ type: "keelRockHit", col: 1 }]);
+    expect(b?.hex).toBe(PALETTE.red);
+    expect(b?.y ?? 0).toBeGreaterThan(L.hullY - L.tile * 2);
+    fx.update(1 / 60);
+    expect(fx.shock.now).toBeGreaterThan(0);
+  });
+
+  it("holds the socket's hit until the boss's blow reaches the hull", () => {
+    const fx = new KeelFx();
+    const out: Thrown[] = [];
+    fx.ingest([{ type: "keelSocketHit", col: MID }], L, CFG, BEAT, (x, y, n, hex) =>
+      out.push({ x, y, n, hex }),
+    );
+    expect(out).toEqual([]);
+    fx.update(strikeOut(BEAT) / 2);
+    expect(out).toEqual([]);
+    expect(fx.shock.now).toBe(0);
+    fx.update(strikeOut(BEAT) / 2 + 1e-3);
+    expect(out.map((t) => t.hex)).toEqual([PALETTE.red]);
+    fx.update(1 / 60);
+    expect(fx.shock.now).toBeGreaterThan(0);
+    said(fx, [{ type: "keelSocketHit", col: MID }]);
+    fx.clear();
+    expect(fx).toEqual(new KeelFx());
   });
 
   it("shoots the rock out where it had fallen to, not where it was thrown", () => {

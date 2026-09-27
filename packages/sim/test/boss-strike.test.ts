@@ -39,8 +39,11 @@ describe("bossStrikesHull", () => {
 const STILL_A_ROCK = new Set([
   // The blow itself, which keeps the rock's kind for the scar and the sound.
   "boss-strike.ts",
-  // A rock or a line that may really be in the picture: each is looked at.
+  // THE KEEL's tail rock, which the pair watch fall down its column and which
+  // breaks the hull from the hull row it reached: a rock really in the
+  // picture. Its socket's hit is the boss's own blow (`bossStrikesHull`).
   "keel-step.ts",
+  // A line that may really be in the picture: looked at on its own item.
   "filament-step.ts",
   // The rounds and interludes, which have no boss body to strike from.
   "fleet.ts",

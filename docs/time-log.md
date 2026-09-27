@@ -27661,3 +27661,19 @@ Bottleneck: reading. Knowing why a withheld hand still lands the shot
 meant reading the automatic cannon's cadence and the shot's column test.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE KEEL's hull hits land when what hits the hull does
+
+- reading: 10 min. `keel-fx.ts`, `boss-strike-fx.ts`, `arrivals.ts`,
+  `rock-impact.ts`'s replay row, `keel-step.ts`'s two hits and the ratchet.
+- writing: 10 min. The held socket hit, `strikeOut`, the rock's hull row,
+  two render tests and one sim test, the ratchet's comment, two queue edits.
+- looking: 20 min. Strips of the lock, the shut, the socket hit and the
+  rock hit, before and after; the rock hit needed `--boss-json` to reach.
+- friction: 5 min. `timeout` is not on this Mac; `--until-on 0` wrote no
+  frames and `--until-back 1` did.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. The rock hit is never reached under `--auto-miss`,
+because the socket's hit fails the wave first, so the state had to be
+forced into the rigid beat to see it.

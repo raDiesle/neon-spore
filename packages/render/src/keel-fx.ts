@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
+import { strikeOut } from "./boss-strike-fx.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
@@ -29,6 +30,13 @@ import { PALETTE } from "./palette.js";
  * every frame (`tell`). The rock is shot out wherever it had fallen to and the
  * event says only the column, so its fall is timed from the throw on this
  * side too and the burst thrown where the drawing had it (`keelRockPoint`).
+ *
+ * **A hit on the hull shows when the thing that hit it gets there.** The
+ * socket's hit is a blow out of the boss (`boss-strike-fx.ts`), still on its
+ * way for a fraction of a second after the rule has counted it, so its burst
+ * and the shudder are held until it lands (`arrivals.ts` says why). The rock
+ * is already at the hull when it hits — the sim breaks it from the hull row —
+ * so its burst and shudder are thrown at once.
  * Everything is cleared in `Effects.reset()` (`restart.test.ts`).
  */
 
@@ -49,6 +57,8 @@ export class KeelFx {
   private rockAge = 0;
   private rockFall = 0;
   private socketHex: string = PALETTE.hullRim;
+  /** The socket's hits still on their way to the hull: seconds left, and what they throw on landing. */
+  private held: { left: number; land: () => void }[] = [];
   /** The blow a lock and a shut socket deal the spine. */
   readonly hurt = new BossHurt();
 
@@ -117,11 +127,20 @@ export class KeelFx {
           this.hurt.hit();
           break;
         case "keelSocketHit":
-        case "keelRockHit":
-          burst(fieldX(l, e.col), tileCY(l, cfg.rows - 1), 20, PALETTE.red);
-          this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
-          if (e.type === "keelRockHit") this.rockFall = 0;
+        case "keelRockHit": {
+          const x = fieldX(l, e.col);
+          const y = tileCY(l, cfg.rows - 1);
+          const land = (): void => {
+            burst(x, y, 20, PALETTE.red);
+            this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
+          };
+          if (e.type === "keelSocketHit") this.held.push({ left: strikeOut(beatSeconds), land });
+          else {
+            land();
+            this.rockFall = 0;
+          }
           break;
+        }
         case "keelRigid":
           for (let k = 0; k < n; k++) this.setSnap(k, 1);
           this.joltNow = SHUT_JOLT;
@@ -161,6 +180,10 @@ export class KeelFx {
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.snaps = this.snaps.map((v) => Math.max(0, v - SNAP_DECAY * step));
     if (this.snaps.every((v) => v === 0)) this.snaps = [];
+    for (const h of this.held) h.left -= dt;
+    const landed = this.held.filter((h) => h.left <= 0);
+    this.held = this.held.filter((h) => h.left > 0);
+    for (const h of landed) h.land();
     this.shock.update(dt);
     if (this.rockFall > 0) this.rockAge += dt;
     this.hurt.update(dt);
@@ -173,6 +196,7 @@ export class KeelFx {
     this.rockAge = 0;
     this.rockFall = 0;
     this.socketHex = PALETTE.hullRim;
+    this.held = [];
     this.hurt.clear();
   }
 }

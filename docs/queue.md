@@ -829,21 +829,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at fc7070475: THE KEEL's lock snap, socket shut and hull shock watch…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
-
-*THE KEEL snaps as it locks: a seam flares, the spine jolts, the hull shudders* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
-
-- THE KEEL's lock snap, socket shut and hull shock watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 3d1c57ed7: THE KEEL's TAP and FIRE words read at tempo on a phone
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
@@ -1295,18 +1280,20 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE KEEL's and THE FILAMENT's timeout hits are looked at
+## THE FILAMENT's timeout hit is looked at
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Files:** `packages/sim/src/keel-step.ts`, `packages/sim/src/filament-step.ts`, `packages/sim/test/boss-strike.test.ts`
+- **Files:** `packages/sim/src/filament-step.ts`, `packages/sim/test/boss-strike.test.ts`
 
-Both still drop a rock through `breachHull(..., "meteorFastest")`, and the
-ratchet test in `sim/test/boss-strike.test.ts` allows them. THE KEEL's
-`socketHit` and `spendRock` may be a rock that really is in the picture,
-and THE FILAMENT starts its hit from the line's row. Watch each timeout.
-Where no rock was on screen before the hit, switch it to `bossStrikesHull`
-with a `LOOK` row, and take the file out of `STILL_A_ROCK`. Where the rock
-was really there, say so in the test's comment.
+THE FILAMENT still drops a rock through `breachHull(..., "meteorFastest")`,
+starting its hit from the line's row, and the ratchet test in
+`sim/test/boss-strike.test.ts` allows it. Watch the timeout
+(`bun run frames . --wave "THE FILAMENT" --auto both --auto-miss --until breach`).
+If no rock was on screen before the hit, switch it to `bossStrikesHull`
+with a `LOOK` row, and take the file out of `STILL_A_ROCK`. If the line
+really was there, say so in the test's comment. THE KEEL's half was looked at
+on 27 September 2026: its socket already struck with its own blow, and its
+tail rock really is in the picture, now broken from the hull row.
 
 ## The rounds' own timeout hit, offered on VERSUS beside the rock
 
@@ -2116,3 +2103,37 @@ on a mark follows it.
 Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
+
+## THE KEEL's end plates run off the field's edge
+
+- **Found:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
+- **Files:** `packages/render/src/keel-shape.ts`, `packages/render/src/keel-marks.ts`, `packages/render/test/keel-frame.test.ts`
+
+`keelSegCentre` puts each plate on its segment's column (`sim/keel.ts`
+`keelSegCol`), and the two end segments fall on column 0 and the last one.
+A plate is wider than a tile, so at 390×844 the left plate's outer third is
+cut by the screen edge and the right plate's tip is too
+(`bun run frames . --wave "THE KEEL" --auto both --until keelLock`). The
+lit ring round an end joint is already moved in off the edge
+(`keelRingCircle`); the plates are not. Pull the end plates' drawn centres
+in by as much as their half-width and outline need — in the picture only,
+since the column is the rule's — and have the ring follow the plate it
+circles. This is a fix to a shape clipping its frame, not a look. Check
+first whether the lane on "THE KEEL's body watched at tempo" has already
+done it. Done when a frame test puts every plate's outline inside the field
+at the phone size, and `bun run check` is green.
+
+## timeout-cap.test.ts times out under a full check, on bun's own default
+
+- **Found:** 2026-09-27, claude/queue-unverified-at-fc7070475-the-keels-lock-snap-sock
+- **Files:** `packages/render/test/timeout-cap.test.ts`
+
+The test that says every drawing test states its own timeout reads every
+`*.test.ts` in `packages/render/test` with `readFileSync`, twice, on bun's
+five-second default. Under `check:fast`'s eight shards on 27 September 2026,
+*finds the drawing tests at all* timed out at 5000 ms; alone it passes in
+0.16 s. `sim/test/boss-strike.test.ts` hit the same thing on 26 September and
+answered it by reading fewer files. Read the directory once for both tests
+(one `beforeAll`), and give the file a stated timeout of its own. The
+failure message should keep naming the rule. Done when the two tests share
+one read and `bun run check` is green.

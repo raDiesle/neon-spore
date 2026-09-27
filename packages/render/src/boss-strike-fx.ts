@@ -34,6 +34,12 @@ const OUT_MAX = 0.24;
 /** And withdraws over this long once it has. */
 const BACK = 0.4;
 
+/** How long a boss's blow takes to reach the hull at this tempo, in seconds —
+ * for a boss's own receipt of the same hit, which has to wait for it too. */
+export function strikeOut(beatSeconds: number): number {
+  return Math.min(OUT_MAX, beatSeconds * 0.5);
+}
+
 export class BossStrikeFx {
   private strikes: Strike[] = [];
 
@@ -44,7 +50,7 @@ export class BossStrikeFx {
     arrive: (x: number, y: number) => void,
     blow?: string,
   ): void {
-    const out = Math.min(OUT_MAX, beatSeconds * 0.5);
+    const out = strikeOut(beatSeconds);
     this.strikes.push({ by, blow, col, age: 0, out, back: BACK, arrive });
   }
 
