@@ -2869,6 +2869,7 @@ above `main` (`position: relative; z-index: 1`), and prove it by
 ## `bun run land` loses the race to the trunk over and over when lanes are busy
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-b66adf07c-the-mantles-pull-read-at
+- **Taken:** 2026-09-27, claude/queue-the-step-colour-is-written-three-times-hoist-it (claim: claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an)
 - **Files:** `tools/land/race.ts`, `tools/land/run.ts`, `tools/land/land.ts`
 
 With eight lanes landing at once, one landing of two docs files was refused
