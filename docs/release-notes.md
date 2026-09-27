@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · f9d6f0397 — Three boss status rows no longer carry THE OCULUS's body sentence
+
+The queue entry was already true on main: THE TRIVET's, THE RIME's and THE VISE's rows each describe their own body now, written by the lanes that drew them. The entry is closed with nothing to change.
+
 ## 2026-09-26 · 6e608a215 — THE HALTER has a body: a hunched plated seam whose tell is the tremor stopping
 
 THE HALTER (wave 115, §11.53) is drawn: THE TITHE · EDGE's plated slab cut along one spinal seam into three segments, bent over a hunched spine. A segment cracks by its two plates parting on a peach body; the centre bared shows a core lit in the shot's colour with a closing ring. The asked segment's seam glows and its two grips are lit, a held grip pressed. Every plate chatters unevenly and stops dead the instant the pair holds; spent, the slab tips edge-on. A shot run out is its own blow: a hanging plate shed down the middle column that bites the skin. The touch sender and the cue word stay queued.
