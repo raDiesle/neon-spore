@@ -26605,3 +26605,19 @@ Bottleneck: writing. THE UNDERTOW stands on the hull with its rings, so "no
 gap" needed a rule of its own.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLOW's aim for THE SEAM, THE HALTER, THE CAPSTAN, THE GALL and THE BURGEE
+
+- reading: 5 min. The three aim pages, each boss's shape and draw files for
+  where the drawer places its body, and finding that THE NETTLE is not drawn
+  at all yet.
+- writing: 5 min. Page four with its five rows, its test page, and the walk
+  in `fuse-place.test.ts` made to find each of the five with a gap.
+- looking: 5 min. THE HALTER's window before and after; the first `frames`
+  run was given the parent sha and compared two trees without the change.
+- friction: 0 min.
+- landing: 5 min. `format`, `imports:sort`, `check:fast`, the queue entry for
+  THE NETTLE.
+
+Bottleneck: reading. THE NETTLE is named in the entry but has no body to
+aim at, and that only showed once no render file turned out to draw it.
