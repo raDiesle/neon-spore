@@ -1047,6 +1047,7 @@ THE VALVE's look decides.
 ## §25 THE VALVE — its fx, cue words and poses, the rest of its hands
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-25-the-valve-its-hands-the-second-half-of-its-lo (claim: claude/queue-25-the-valve-its-fx-cue-words-and-poses-the-rest)
 - **Files:** `packages/render/src/valve-marks.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/src/poses-bosses-hands-valve.ts`
 
 The body is drawn, and **the grip landed 27 September 2026**
