@@ -2474,6 +2474,7 @@ part list); op count within 10% for both layers together;
 ## Living bosses — split the queen's wings out of her shell, drawing the same
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-27, claude/queue-living-bosses-split-the-wardens-two-hatch-lids-d (claim: claude/queue-living-bosses-split-the-queens-wings-out-of-her)
 - **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-crane.ts`, `packages/render/test/frame.test.ts`, `docs/spec/living-bosses.md`
 
 Section 1 of `docs/spec/living-bosses.md`, the part map: the queen's two
