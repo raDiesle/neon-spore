@@ -34,6 +34,7 @@ import { deferred } from "./deferred.js";
 import { clearTaken, removeItem } from "./edit.js";
 import { printList } from "./list.js";
 import { blocked } from "./needs.js";
+import { originRefusal, readOrigin } from "./origin-check.js";
 import { refuseUnlessWhole } from "./problems.js";
 import { type Item, match, order, parseItems, pick } from "./queue.js";
 import {
@@ -46,6 +47,7 @@ import {
   PATHS,
   ROOT,
   refs,
+  trunkHas,
   trunkRef,
   trunkTaken,
   unmark,
@@ -73,6 +75,12 @@ if (!command || command === "list") {
 } else if (command === "status") {
   for (const line of statusLines(statusOf(items, known, today, trunkRef()))) console.log(line);
 } else if (command === "next") {
+  // Origin is fetched before anything is picked, so a free-looking item another
+  // clone already holds is passed over rather than handed out; asked last in
+  // the pick, because each question is two `git show`s (`origin-check.ts`).
+  const origin = readOrigin(ROOT);
+  const onOrigin = (i: Item) =>
+    originRefusal(i, origin, trunkHas(i), headBranch(), i.taken || trunkTaken(i));
   const free = unclaimed(items, known);
   // An unanswered ask is passed over rather than refused: `next <n>` naming one
   // still hands it out, and so does `take` (`asking.ts`). An entry waiting on
@@ -83,7 +91,9 @@ if (!command || command === "list") {
   const mine = free.filter((i) => fits(i, kind));
   const item = arg
     ? pick(items, arg)
-    : mine.find((i) => offered(i) && !waiting(i) && !deferred(i) && !blocked(i, items));
+    : mine.find(
+        (i) => offered(i) && !waiting(i) && !deferred(i) && !blocked(i, items) && !onOrigin(i),
+      );
   if (!item) {
     console.log(
       items.length === 0
@@ -96,7 +106,7 @@ if (!command || command === "list") {
               'answer or on another entry. `bun run queue` says which, and `take "<title>"` takes one anyway.',
     );
   } else {
-    const held = claimOn(item, known);
+    const held = claimOn(item, known) || onOrigin(item);
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
     refuseUnlessFits(item, kind);
     refuseUnlessWhole(item);
@@ -125,6 +135,9 @@ if (!command || command === "list") {
   // line and its claim branch behind, and that is not a holder (`spent.ts`).
   const spent = held ? spentHere(item, item.taken || trunkTaken(item)) : null;
   if (held && !spent) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
+  const judged = item.taken || trunkTaken(item);
+  const there = originRefusal(item, readOrigin(ROOT), trunkHas(item), headBranch(), judged);
+  if (there) throw new Error(`${JSON.stringify(item.title)}: ${there}`);
   refuseUnlessFits(item, kind);
   refuseUnlessWhole(item);
   // This lane's own stale line comes off before the fresh one goes on, because

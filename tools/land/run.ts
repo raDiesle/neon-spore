@@ -50,6 +50,7 @@
  */
 
 import { crlfOnDisk, crlfRefusal } from "./crlf.js";
+import { doneTwiceSaid } from "./done-twice.js";
 import { git, gitOrDie } from "./git.js";
 import { type Landing, plan, SWEPT_NOTHING } from "./land.js";
 import { writeNotes } from "./note-commit.js";
@@ -121,13 +122,13 @@ async function moveTrunk(): Promise<Landed[]> {
   // the queue, and what the lane branched from. A rebase that resolves
   // `docs/queue.md` in the lane's favour puts every removed entry back in one
   // move, and nothing else notices (`queue-guard.ts`).
-  const queueBefore = going.rebase
-    ? await queueSnapshots(
-        TRUNK,
-        (rev, file) => git(["show", `${rev}:${file}`], root),
-        (await git(["merge-base", TRUNK, "HEAD"], root)) || TRUNK,
-      )
-    : [];
+  const mergeBase = (await git(["merge-base", TRUNK, "HEAD"], root)) || TRUNK;
+  const show = (rev: string, file: string) => git(["show", `${rev}:${file}`], root);
+  const queueBefore = going.rebase ? await queueSnapshots(TRUNK, show, mergeBase) : [];
+  // The same snapshots asked the other way: an entry both this lane and the
+  // trunk took out was done twice, and is said rather than refused (`done-twice.ts`).
+  const run = (args: string[]) => git(args, root);
+  for (const line of await doneTwiceSaid(queueBefore, mergeBase, TRUNK, run)) console.log(line);
   if (going.rebase) {
     const replayed = await replay(root, TRUNK);
     if (!replayed.ok) {

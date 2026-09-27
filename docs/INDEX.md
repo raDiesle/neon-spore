@@ -2814,6 +2814,7 @@ by hand never moves.
 | `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
 | `tools/land/unverified-run.ts` | `bun run unverified <sha> --unverified "<what>" [--unverified "<what>" ...]` |
 | `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |
+| `tools/land/done-twice.ts` | An entry the lane and the trunk both took out, said at landing with the commit that got there first |
 | `tools/director/src/cell-config-gaps.ts` | THE FENCE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |
@@ -2904,6 +2905,7 @@ by hand never moves.
 | `tools/queue/lapsed.ts` | A claim with nothing left holding it up |
 | `tools/queue/list.ts` | `bun run queue` with no command: every entry, who holds it, and what the owner is asked |
 | `tools/queue/deferred.ts` | whether the owner has put an entry on hold: a Deferred field line under it, which `next` passes over |
+| `tools/queue/origin-check.ts` | What `origin/main` says about an item, asked before `next` or `take` claims it |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |

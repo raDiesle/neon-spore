@@ -1792,20 +1792,6 @@ cannot be photographed there. THE SEAM misses on its own at tick 375 and
 was used instead. Add a way to reach a boss's timeout, for example
 `--until-on bossTimeout` that holds the controls off the ask until the
 window closes, and prove it with a test in `tools/frames/test/`.
-## A cloud claim does not stop the owner's own session landing the same boss
-
-- **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
-- **Taken:** 2026-09-27, claude/queue-bun-run-push-leaves-release-note-shas-that-are-n (claim: claude/queue-a-cloud-claim-does-not-stop-the-owners-own-sessi)
-- **Files:** `tools/queue/run.ts`, `docs/cloud-session.md`
-
-A cloud session claimed "§34 THE CYST — the simulation lane" and had it
-half built when a local session landed THE CYST from `main`; the cloud
-lane was abandoned whole. The claim is a commit on `origin/main`, and a
-session working from a tree not yet fetched never sees it. Have `bun run
-queue next` and `take` fetch `origin/main` first and refuse an item taken
-there, and have `bun run land` warn when the lane's queue item was marked
-done by a commit it does not carry. `bun run check` proves the refusal.
-
 ## Unverified at 881f776df: THE DAVIT: no touch sends a lean or draw
 
 - **Found:** 2026-09-26, claude/davit-sim

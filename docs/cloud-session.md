@@ -188,6 +188,14 @@ two agree, and only then the next `take`. A push that reports a real
 disagreement is resolved on `main` (`git rebase origin/main`, `bunx tsc
 --noEmit`, `bun run check`) and pushed again before the next claim.
 
+**Origin is asked before a claim, on either kind of machine.** On 26 September
+2026 a cloud session had THE CYST half built when a session on the owner's
+machine, whose `main` had not been fetched, landed the same boss. `next` and
+`take` now fetch `origin/main` first and refuse an item it marks taken by
+somebody else or no longer lists (`tools/queue/origin-check.ts`), and `bun run
+land` says so, with the commit, when the entry the lane took out was already
+gone from the trunk (`tools/land/done-twice.ts`).
+
 **And the queue knows this is a cloud session.** `CLAUDE_CODE_REMOTE` is set
 on the web image, and `bun run queue` reads it: an entry the owner marked
 `- **Where:** local` — a wave to watch at tempo, a frame to measure — is

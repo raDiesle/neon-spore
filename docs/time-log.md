@@ -25345,3 +25345,17 @@ Bottleneck: writing — moving four files meant rewriting every path to them in
 the specs, the queue and the director's control sources.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — a claim asks origin first, and a landing says when it was done twice
+
+- reading: 10 min. `tools/queue/run.ts`, `repo.ts`, `claim-push.ts`, `claim.ts`,
+  `tools/land/run.ts` and `queue-guard.ts`.
+- writing: 15 min. `origin-check.ts` wired into `next` and `take`,
+  `done-twice.ts` wired into the landing, two test files, a paragraph in
+  `docs/cloud-session.md`.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — who counts as the caller on a `Taken:` line has three
+answers already, and origin's check had to reuse them rather than add a fourth.
