@@ -2561,9 +2561,7 @@ check` proves it.
 ## Every other boss — holds still while its marks are live, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-serialize-boss-ts-is-at-the-250-line-limit (claim: claude/queue-every-other-boss-holds-still-while-its-marks-are)
-- **Needs:** THE INSTAR — holds still while its marks are live
-- **Files:** `packages/render/src/slow-boss-aim-b.ts`, `packages/render/src/caption-anchor-box.ts`, `packages/render/src/boss-cue.ts`
+- **Files:** `tools/director/test/boss-hush.test.ts`, `packages/render/src/slow-hush.ts`, `packages/render/src/boss-cue.ts`
 
 The same rule as THE INSTAR's, for every boss: in an open slow window with a
 live mark, the body's *natural* motion eases to a tenth. That covers a
@@ -2580,6 +2578,33 @@ shape of the test.
 
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.
+
+**The first lane, 27 September 2026:** the shared test is
+`tools/director/test/boss-hush.test.ts`, and the curve is `slow-hush.ts`
+(`slowHush`, which THE INSTAR's hush is now a depth of). Rows: THE UNDERTOW,
+THE GORGE, THE CURTAIN, THE TASTER, THE LEAD. Their rings are placed off
+state alone, and their wall-clock motion is skin, a breathing radius or a
+hit's shake. THE SCUTTLE's wind-up shiver is hushed to a twenty-fifth
+(`scuttle-draw.ts` `SHIVER_HUSHED`), but it has no row: its cue reads the
+part's row and not its drawn rise and hang, so the test would pass whatever
+the part did. **The test reads `bossCue`, which is blind to the wall clock
+and to any pose the cue stands its word clear of.** The next lane should add
+a drawn-mark reader per boss, where the cue is not the ring's place, before
+it adds a row.
+
+Left, with what the probe of that lane found under AUTO:
+- **Cue already still in windows** (read each draw for wall-clock motion
+  before adding its row): THE HASP, THE RATCHET, THE MANTLE (`mantleShudder`
+  shakes the whole shell on `time`), THE KEEL, THE OCULUS, THE VISE, THE
+  RIME, THE TRIVET, THE PLUMB, THE GRINDSTONE, THE CYST (core drift and a
+  shake in `cyst-marks`), THE CAPSTAN (`capstanJudder` carries the marks),
+  THE SCUTTLE.
+- **Cue moves:** THE BATON, 30 tiles a second at its worst. Probably its
+  cue jumping between marks or the arm's gesture, and not yet read.
+- **Windows but no cue** (these need the drawn-mark reader first): THE
+  SINEW, THE ANTIPHON, THE NETTLE, THE VALVE, THE SEAM, THE SLING, THE DAVIT,
+  THE HALTER (`halterTremor`), THE GALL, THE BURGEE (`burgeeLay`'s sway on
+  `time`).
 
 ## THE INSTAR — a shoot mark asks for one colour, or none
 

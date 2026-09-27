@@ -166,7 +166,7 @@ export interface Field {
   /**
    * **THE SLOW's window**, the two beats the world holds it between, because
    * THE INSTAR's weave dies down inside one and its marks with it
-   * (`instar-sway.ts` `instarHush`): a hit test without it would look for a
+   * (`slow-hush.ts`): a hit test without it would look for a
    * ring where the weave would have carried it and not where it is drawn.
    * Absent is no window, which is what a test's field without a boss that
    * weaves means; the game and the stage both state it.

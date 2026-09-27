@@ -26492,3 +26492,18 @@ Bottleneck: writing. `burgee-fx.ts` reached 220 lines with the receipts in,
 and the flag's ease had to be cut out into a file of its own mid-lane.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — Every other boss holds still, the first five
+
+- reading: 5 min. Each boss's cue reader against its grip draw, and which
+  of the wall-clock motions carry a mark.
+- writing: 5 min. `boss-hush.test.ts`, `slow-hush.ts` cut out of
+  `instar-sway.ts`, THE SCUTTLE's shiver hushed.
+- looking: 0 min. Nothing measured by eye; the shiver's hush is a number.
+- friction: 0 min. `queue done` removed an entry that stays open, put back
+  by hand.
+- landing: 5 min. The test made to fail on THE BATON once, `check:fast`, the
+  commit, `land`.
+
+Bottleneck: reading — finding that the cue is a word's anchor and not always
+the ring's place took longer than writing the test.

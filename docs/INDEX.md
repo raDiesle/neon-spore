@@ -1226,7 +1226,7 @@ by hand never moves.
 | `packages/render/src/rock-impact.ts` | How long a missed rock sits sunk into the hull before it starts to drift off |
 | `packages/render/src/rock-impact-state.ts` | One rock on its way into, or off, the hull — the record `rock-impact.ts` keeps per impact |
 | `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
-| `packages/render/src/scuttle-draw.ts` | **THE SCUTTLE**: a dark slab of a frame hung over the top of the field above row 0, plated with its parts |
+| `packages/render/src/scuttle-draw.ts` | What is left of the wind-up's shiver in an open window |
 | `packages/render/src/scuttle-fx.ts` | What THE SCUTTLE leaves behind a frame: the **jolt** a throw puts through the frame |
 | `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
 | `packages/render/src/scuttle-grip.ts` | **THE SCUTTLE's hanging parts as controls**: a ring on each one a thumb may still carry |
@@ -1274,6 +1274,7 @@ by hand never moves.
 | `packages/render/src/slow-boss-aim.ts` | **Where a boss that opens THE SLOW stands, by kind** |
 | `packages/render/src/slow-boss-aim-b.ts` | **THE SLOW's aim, page two** — the rows `slow-boss-aim.ts` hands on when it has none of its own |
 | `packages/render/src/slow-boss-aim-c.ts` | **THE SLOW's aim, page three** — the bosses whose body is longer than it is round |
+| `packages/render/src/slow-hush.ts` | **A boss's natural motion dies down while THE SLOW is open** — the owner, 27 September 2026 |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |

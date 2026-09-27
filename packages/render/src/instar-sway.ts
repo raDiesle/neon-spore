@@ -1,6 +1,6 @@
-import { type InstarState, NO_SLOW, type SimConfig, type World } from "@neon-spore/sim";
-import { smoothstep } from "./ease.js";
+import type { InstarState, SimConfig } from "@neon-spore/sim";
 import { type Figure, instarFigure, instarPhaseAt } from "./instar-shape.js";
+import { type SlowSpan, slowHush } from "./slow-hush.js";
 
 /**
  * **THE INSTAR weaves**, and everything of it weaves together.
@@ -77,44 +77,20 @@ const BEATS = 4;
 const STILLING = 2;
 
 /**
- * THE SLOW's window as the world holds it, which is all the hush reads. A
- * `World` is one; a hit test's `Field` carries one (`touch-field.ts`).
- */
-export type SlowSpan = Pick<World, "slowFromBeat" | "slowToBeat">;
-
-/** No window, ever: the weave at its full size. */
-export const NO_SPAN: SlowSpan = { slowFromBeat: NO_SLOW, slowToBeat: NO_SLOW };
-
-/**
  * What is left of the weave while THE SLOW is open.
  *
- * A twentieth, not the tenth the rest of the living-boss hush uses
- * (`idle-drift.ts` `HUSH.liveMark`), because the test is a speed and a tenth
- * misses it: the weave's peak is `REACH · 2π / BEATS`, 377 thousandths of an
- * eleven-column field a beat, and the window plays a beat in 2.5 seconds, so
- * a tenth of it is still 0.17 of a tile a second. A twentieth is 0.08, under
- * the 0.1 the owner's *almost stay where they are* was written down as.
+ * A twentieth, not the tenth the rest of the bosses use (`slow-hush.ts`
+ * `HUSHED`), because the test is a speed and a tenth misses it: the weave's
+ * peak is `REACH · 2π / BEATS`, 377 thousandths of an eleven-column field a
+ * beat, and the window plays a beat in 2.5 seconds, so a tenth of it is still
+ * 0.17 of a tile a second. A twentieth is 0.08, under the 0.1 the owner's
+ * *almost stay where they are* was written down as.
  */
 const HUSHED = 0.05;
 
-/** Beats the weave takes to die down as a window opens, and to come back after it shuts. */
-const HUSH_BEATS = 0.5;
-
-/**
- * **How much of the weave is left**, 1 with no window and `HUSHED` inside
- * one. It eases down over the window's first half beat, and back up over the
- * half beat after it shuts from wherever it had got to, so a window shorter
- * than the ease never jumps. A pure function of the window's two ends, which
- * the world keeps after a window shuts (`sim/slow.ts` `closeSlow`).
- */
+/** **How much of the weave is left**: the shared curve, at this boss's depth. */
 export function instarHush(slow: SlowSpan, beat: number, beatPhase: number): number {
-  if (slow.slowToBeat === NO_SLOW) return 1;
-  const b = beat + beatPhase;
-  if (b < slow.slowFromBeat) return 1;
-  const dying = (since: number) => 1 - (1 - HUSHED) * smoothstep(since / HUSH_BEATS);
-  if (b < slow.slowToBeat) return dying(b - slow.slowFromBeat);
-  const left = dying(slow.slowToBeat - slow.slowFromBeat);
-  return left + (1 - left) * smoothstep((b - slow.slowToBeat) / HUSH_BEATS);
+  return slowHush(slow, beat, beatPhase, HUSHED);
 }
 
 /** Where the body is carried this frame. */

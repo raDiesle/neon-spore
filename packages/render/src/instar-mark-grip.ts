@@ -7,8 +7,9 @@ import {
 } from "@neon-spore/sim";
 import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import { instarThreat } from "./instar-shape.js";
-import { instarSway, NO_SPAN } from "./instar-sway.js";
+import { instarSway } from "./instar-sway.js";
 import { hitCircle, type Layout } from "./layout.js";
+import { NO_SPAN } from "./slow-hush.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 

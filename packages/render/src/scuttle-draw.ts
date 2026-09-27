@@ -28,8 +28,16 @@ import {
   scuttleWindPhase,
   scuttleWindRise,
 } from "./scuttle-shape.js";
+import { slowHush } from "./slow-hush.js";
 import { drawTargetLock } from "./target-lock.js";
 import { showsScuttleCount, showsScuttleLive } from "./view-role-clocks-b.js";
+
+/**
+ * What is left of the wind-up's shiver in an open window: 0.05 of a tile at
+ * 40 radians a second is 2 tiles a second, and a twenty-fifth of it is 0.08,
+ * under the tenth a live mark may move (`tools/director/test/boss-hush.test.ts`).
+ */
+const SHIVER_HUSHED = 0.04;
 
 /**
  * **THE SCUTTLE**: a dark slab of a frame hung over the top of the field
@@ -68,6 +76,7 @@ export function drawScuttle(
   const fade = scuttleFade(s, cfg, beat, beatPhase);
   if (fade <= 0) return;
   const wind = scuttleWindPhase(s, cfg, beat, beatPhase);
+  const hush = slowHush(world, beat, beatPhase, SHIVER_HUSHED);
   const rise = scuttleWindRise(l, wind) + fx.jolt * l.tile;
   const hang = scuttleHangDrop(l, scuttleHangPhase(s, cfg, beat, beatPhase));
   const counted = showsScuttleCount(l.role);
@@ -80,7 +89,10 @@ export function drawScuttle(
     const part = s.parts[i] ?? null;
     const loose = s.loose.includes(i);
     const c = scuttleSocket(l, cfg, i, rise);
-    if (loose && wind > 0) c.x += Math.sin(time * 40) * l.tile * 0.05 * wind;
+    // The wind-up's shiver is the part's own and not the throw's clock, so an
+    // open window hushes it (`slow-hush.ts`): the live part is a mark. The
+    // rise and the hang are the throw's clock and go on.
+    if (loose && wind > 0) c.x += Math.sin(time * 40) * l.tile * 0.05 * wind * hush;
     if (loose) drawOpen(ctx, l, c, fade);
     else if (counted) {
       if (part !== null) drawPlate(ctx, l, c, fade);
