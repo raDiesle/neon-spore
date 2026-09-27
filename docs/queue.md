@@ -1382,23 +1382,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE CYST's own blow at the hull
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-27, claude/queue-bun-run-push-sends-a-merge-commit-to-main (claim: claude/queue-the-cysts-own-blow-at-the-hull)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/test/boss-strike.test.ts`
-- **Waits on:** nothing since 26 September 2026: THE CYST's look has landed (`packages/render/src/cyst-*.ts`), so a flank lobe or the spore's tip is there to make the blow from.
-
-THE CYST's timeout already calls `bossStrikesHull` (`packages/sim/src/cyst-step.ts`)
-and draws the default lash, a red tendril out of the body to the column and
-back. That lash is a floor, not the picture. Give THE CYST a `LOOK` row in
-`boss-strike-look.ts` made from its own body, the part of it that acts, in
-its own hue, keeping the current style and adding no 3D rig. It has no `FROM` row yet, so the lash leaves the middle column three rows down: give it one off the function its drawer places the body with.
-The blow must reach the hull at `reach = 1`, when the crack and the sparks
-start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
-blind: send a PNG of the timeout (`bun run frames . --wave "THE CYST" --until breach`
-when the wave misses unattended), or land it `--unverified` if it does not.
-
 ## THE GRINDSTONE's own blow at the hull
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
@@ -1414,6 +1397,10 @@ The blow must reach the hull at `reach = 1`, when the crack and the sparks
 start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
 blind: send a PNG of the timeout (`bun run frames . --wave "THE GRINDSTONE" --until breach`
 when the wave misses unattended), or land it `--unverified` if it does not.
+If the wave never misses alone (THE CYST's did not: its first step is
+retried forever), install a one-step script that runs out and take a strip:
+`--boss-json '{"steps":[<one fire step>]}' --until breach --frames 6
+--stride 0 --settle 3` — how THE CYST's was seen, 27 September 2026.
 
 ## THE SLING's own blow at the hull
 
@@ -1430,6 +1417,10 @@ The blow must reach the hull at `reach = 1`, when the crack and the sparks
 start. Prove it in `render/test/boss-strike.test.ts`. Anyone can build it
 blind: send a PNG of the timeout (`bun run frames . --wave "THE SLING" --until breach`
 when the wave misses unattended), or land it `--unverified` if it does not.
+If the wave never misses alone (THE CYST's did not: its first step is
+retried forever), install a one-step script that runs out and take a strip:
+`--boss-json '{"steps":[<one fire step>]}' --until breach --frames 6
+--stride 0 --settle 3` — how THE CYST's was seen, 27 September 2026.
 
 
 

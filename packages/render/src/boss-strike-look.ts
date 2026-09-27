@@ -1,6 +1,7 @@
 import type { BossKind } from "@neon-spore/sim";
 import { burgeeBlow } from "./burgee-blow.js";
 import { capstanBlow } from "./capstan-blow.js";
+import { cystBlow } from "./cyst-blow.js";
 import { davitBlow } from "./davit-blow.js";
 import { gallBlow } from "./gall-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
@@ -94,6 +95,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   gall: gallBlow,
   // A spindle left unshot: a scrap of the flag's fly tears away and falls flat on the skin.
   burgee: burgeeBlow,
+  // A step let run: the bottom lobe spits a spore that bursts on the skin.
+  cyst: cystBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

@@ -27124,3 +27124,16 @@ Bottleneck: friction — the first batch of shots hung on a quoting mistake
 and had to be killed and run one by one.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE CYST's own blow at the hull
+
+- reading: 5 min. `boss-strike-look.ts`, `-from.ts`, THE GALL's and THE VISE's
+  blows, the sac's shape and its spit step's spore.
+- writing: 5 min. `cyst-blow.ts`, its two rows, the test's row.
+- looking: 10 min. `bun run frames` — the wave never misses unattended, so a
+  one-step `--boss-json` spit script let run out, then a `--settle` strip.
+- friction: 5 min. The entry's own command found no breach in 3000 ticks: a
+  flank step that runs out is retried forever, so the wave cannot miss alone.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — getting a breach at all needed a script the entry did not name.

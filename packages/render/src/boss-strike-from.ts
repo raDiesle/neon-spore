@@ -2,6 +2,7 @@ import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import type { Point } from "./boss-strike-look.js";
 import { burgeeBlowFrom } from "./burgee-blow.js";
 import { capstanBlowFrom } from "./capstan-blow.js";
+import { cystBlowFrom } from "./cyst-blow.js";
 import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
 import { gallBlowFrom } from "./gall-blow.js";
@@ -89,6 +90,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   gall: gallBlowFrom,
   // The fly of the flag held over the middle, where the scrap tears off (`burgee-blow.ts`).
   burgee: burgeeBlowFrom,
+  // The bottom lobe's tip, the one that spits (`cyst-blow.ts`).
+  cyst: cystBlowFrom,
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where

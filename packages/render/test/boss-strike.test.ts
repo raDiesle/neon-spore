@@ -6,6 +6,7 @@ import { BossStrikeFx } from "../src/boss-strike-fx.js";
 import { lash, type StrikeFrame, type StrikeLook, strikeLook } from "../src/boss-strike-look.js";
 import { burgeeSpindleAt } from "../src/burgee-shape.js";
 import { capstanCentre } from "../src/capstan-shape.js";
+import { cystCentre } from "../src/cyst-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
 import { gallRootAt } from "../src/gall-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
@@ -89,7 +90,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      ...["capstan", "gall", "burgee"],
+      ...["capstan", "gall", "burgee", "cyst"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -120,6 +121,7 @@ describe("a boss's blow at the hull", () => {
     ["THE CAPSTAN throws a cog off its cradle's foot", "capstan", capstanCentre],
     ["THE GALL drops a seed off its root's underside", "gall", gallRootAt],
     ["THE BURGEE tears a scrap off its flag's fly", "burgee", burgeeSpindleAt],
+    ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
   ] as const)("%s that bites the skin at reach 1", (_name, by, centreOf) => {
     const from = strikeFrom(L, CFG, by);
     const centre = centreOf(L, CFG);
