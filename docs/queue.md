@@ -2474,6 +2474,7 @@ and `bun run check` proves them.
 ## THE SLOW — the fuse moves under the boss, and is taller
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-slow-crawls-light-is-quieter (claim: claude/queue-the-slow-the-fuse-moves-under-the-boss-and-is-ta)
 - **Files:** `packages/render/src/slow-fuse.ts`, `packages/render/src/slow-intake.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/test/slow-fuse.test.ts`, `packages/render/test/frame.test.ts`
 
 The owner, 27 September 2026: *make the remaining time in slow state of
