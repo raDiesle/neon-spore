@@ -27845,3 +27845,16 @@ Bottleneck: writing. A second atlas had no generic path through the
 generator, the verifier or the renderer, and each one took its own cut.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's rig head, half (B): the record, the candidate, the cost
+
+- reading: 5 min. VERSUS's README, the two head call sites, the budget test.
+- writing: 10 min. `INSTAR_HEAD`, the candidate, the side-on alignment, the
+  budget test beside the candidate.
+- looking: 15 min. Four stills: the profile head half a radius high, its jaw
+  dropped off the skull, then gaping 43°, then right; one face-on.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. The face-on constraint had put the jaw's hinge where
+only a still of the profile could show it was wrong.

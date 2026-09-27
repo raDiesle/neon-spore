@@ -1,10 +1,10 @@
 import { FRONT, view } from "@neon-spore/content";
 import { halo } from "./glow.js";
 import { drawFrontBody, seeFrontBody } from "./instar-front-body.js";
-import { drawFrontHead } from "./instar-head.js";
+import { INSTAR_HEAD } from "./instar-head-look.js";
 import { instarFarEnd } from "./instar-place.js";
 import { faded, type Look } from "./instar-plate.js";
-import { drawTurnedHead, instarNeck, instarTurn } from "./instar-turn.js";
+import { instarNeck, instarTurn } from "./instar-turn.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -41,7 +41,7 @@ export function drawFront(ctx: CanvasRenderingContext2D, l: Layout, look: Look):
   wing(-1, FAR_WING);
   drawFrontBody(ctx, look, neck, seen);
   wing(1, 0);
-  drawTurnedHead(ctx, head, r, { fade, side: f.side }, (half) => drawFrontHead(ctx, look, half));
+  INSTAR_HEAD.front(ctx, look);
 }
 
 /** The two engines at the far end: a steady burn, flickering. */

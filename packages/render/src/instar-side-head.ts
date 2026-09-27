@@ -34,6 +34,9 @@ const CROWN_WOBBLE_PERIOD = 5.5;
 const JAW_BREATH = 0.035;
 const JAW_BREATH_PERIOD = 3.3;
 
+/** Where the eye sits, in head radii about `look.head`: what another head in profile lines up on. */
+export const SIDE_EYE = { x: -0.12, y: -0.27 } as const;
+
 /** The head in profile, snout to the left: the skull and its horns, the eye,
  * the lower jaw hinged open under it. */
 export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
@@ -150,7 +153,7 @@ export function drawSideHead(ctx: CanvasRenderingContext2D, look: Look): void {
   ctx.restore();
   drawSeam(ctx, at(-0.9, -0.16), at(-0.4, -0.3), at(0.1, -0.42), fade, 0.5);
   drawLamp(ctx, at(-1.02, -0.06), r * 0.03, fade, 0.5 + 0.5 * Math.sin(time * 3));
-  const eye = at(-0.12, -0.27);
+  const eye = at(SIDE_EYE.x, SIDE_EYE.y);
   ctx.save();
   ctx.fillStyle = faded(PALETTE.background, fade, 0.75);
   ctx.beginPath();

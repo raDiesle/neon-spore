@@ -44,8 +44,12 @@ const MUZZLE = { back: 0.3, front: -0.75, rBack: 0.33, rFront: 0.25 } as const;
 /** The jaw's hinge along `x`, and the mandibles in its frame: hinge end to chin. */
 const HINGE_X = 0.75;
 const JAW = { back: 0.1, front: -1.3, zBack: 0.5, zFront: 0.12, rBack: 0.24, rFront: 0.18 };
-/** How far the jaw pitches open at the widest, radians. */
-const JAW_OPEN = 0.75;
+/**
+ * How far the jaw pitches open at the widest, radians: about the profile's
+ * own gape (`instar-side-head.ts`). Face-on the pitch barely shows — the
+ * hinge's height puts the lip — so it is side-on that sets it.
+ */
+const JAW_OPEN = 0.45;
 const RINGS = 6;
 
 export const HIDE: Skin = { base: "#2A1B4A", lift: "#C05CFF", sheen: "#F3DEFF" };
@@ -99,13 +103,28 @@ function mandible(s: -1 | 1, r: number): Ring[] {
 }
 
 /**
- * The jaw's hinge for this pose: pitched open by `jawDown`, and as high as
+ * The jaw's hinge for this pose: pitched open by both jaws, as the profile
+ * opens, and as high as
  * puts the mandibles' top, face-on at the middle, on the lower lip. The top
  * there is the highest point of the discs the rings project to (`tubePath`
  * outlines a tube by them), sampled along the jaw.
+ *
+ * `drop` is how much of that the hinge takes: 1 face-on, where the lip is
+ * what a thumb is on, and 0 side-on, where a hinge that slid down would read
+ * as the jaw coming off — there it stays where the shut jaw has it on the
+ * skull and only pitches. `drawRigHead` passes the sine of the yaw.
  */
-export function jawAnchor(f: HeadPose, r: number): Anchor {
-  const pitch = -JAW_OPEN * f.jawDown;
+export function jawAnchor(f: HeadPose, r: number, drop = 1): Anchor {
+  const pitch = (-JAW_OPEN * (f.jawUp + f.jawDown)) / 2;
+  const y = hingeY(f, r, pitch);
+  // Where the shut jaw's hinge is on the skull, carried with it as the upper lip rises.
+  const shut = { jawUp: 0, jawDown: 0 };
+  const rest = hingeY(shut, r, 0) + upperAnchor(f, r).at.y - upperAnchor(shut, r).at.y;
+  return { at: { x: HINGE_X * r, y: rest + drop * (y - rest), z: 0 }, pitch };
+}
+
+/** The hinge's height that puts the jaw's top on the lower lip at `pitch`. */
+function hingeY(f: HeadPose, r: number, pitch: number): number {
   const level = poseOf({ at: { x: HINGE_X * r, y: 0, z: 0 }, pitch });
   const rings = mandible(1, r).map((g) => ({ c: hang(level, g.c), r: g.r }));
   let top = Number.POSITIVE_INFINITY;
@@ -119,8 +138,7 @@ export function jawAnchor(f: HeadPose, r: number): Anchor {
       if (Math.abs(z) < rr)
         top = Math.min(top, a.c.y + (b.c.y - a.c.y) * u - Math.sqrt(rr * rr - z * z));
     }
-  const down = frontLipsAt(f, { x: 0, y: 0 }, r).down.y;
-  return { at: { x: HINGE_X * r, y: down - top, z: 0 }, pitch };
+  return frontLipsAt(f, { x: 0, y: 0 }, r).down.y - top;
 }
 
 /** The upper head's frame: the upper lip, translated and never turned. */
@@ -162,12 +180,12 @@ function brow(s: -1 | 1): Vec3[] {
 
 /**
  * The head's parts for this pose, in pixels about the middle of the mouth,
- * without its marks (`instar-rig-head-draw.ts` adds the eyes, the nostrils
+ * the jaw's hinge dropped by `drop` (`jawAnchor`), without its marks (`instar-rig-head-draw.ts` adds the eyes, the nostrils
  * and the fire).
  */
-export function headParts(f: HeadPose, r: number): Part[] {
+export function headParts(f: HeadPose, r: number, drop = 1): Part[] {
   const upper = upperAnchor(f, r);
-  const jaw = jawAnchor(f, r);
+  const jaw = jawAnchor(f, r, drop);
   const upLen = (0.1 + 0.08 * f.jawUp) * 1.9;
   const downLen = (0.08 + 0.07 * f.jawDown) * 1.9;
   const muzzle = line(

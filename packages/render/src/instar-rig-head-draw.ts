@@ -1,9 +1,10 @@
-import { FRONT, facet, type Pin, pin, type Seen, view } from "@neon-spore/content";
+import { FRONT, facet, type Pin, pin, type Seen, SIDE, view } from "@neon-spore/content";
 import { drawFireball, fireRadius } from "./instar-fire.js";
 import { frontLipsAt } from "./instar-head.js";
 import { drawEye } from "./instar-head-parts.js";
 import { faded, type Look } from "./instar-plate.js";
 import { eyePin, headParts, onSkull, upperAnchor } from "./instar-rig-head.js";
+import { SIDE_EYE } from "./instar-side-head.js";
 import { drawWeak } from "./instar-weak.js";
 import { PALETTE } from "./palette.js";
 import { drawRig, type Part, type RigLook } from "./solid-rig.js";
@@ -98,8 +99,24 @@ function marks(look: RigHeadLook, yaw: number): Part[] {
   return out;
 }
 
-/** THE INSTAR's rig head at `yaw`, about `look.head`: `FRONT` face-on, `SIDE` in profile. */
+/**
+ * THE INSTAR's rig head at `yaw`, about `look.head`: `FRONT` face-on, `SIDE`
+ * in profile. The jaw's hinge drops by the sine of the yaw (`jawAnchor`).
+ */
 export function drawRigHead(ctx: CanvasRenderingContext2D, look: RigHeadLook, yaw: number): void {
-  const parts = [...headParts(look.f, look.r), ...marks(look, yaw)];
+  const parts = [...headParts(look.f, look.r, Math.max(0, Math.sin(yaw))), ...marks(look, yaw)];
   drawRig(ctx, parts, view(yaw), look.head.x, look.head.y, LOOK, look.fade);
+}
+
+/**
+ * The rig head in profile, where the profile's own head would be: `look.head`
+ * is that head's middle rather than the mouth's, so the rig is moved to put
+ * its eye on the profile's (`SIDE_EYE`). Side-on the view is `(x, y)`.
+ */
+export function drawRigSideHead(ctx: CanvasRenderingContext2D, look: RigHeadLook): void {
+  const { f, r, head } = look;
+  const eye = onSkull(eyePin(1).lon, eyePin(1).lat);
+  const y = upperAnchor(f, r).at.y + eye.y * r;
+  const at = { x: head.x + SIDE_EYE.x * r - eye.x * r, y: head.y + SIDE_EYE.y * r - y };
+  drawRigHead(ctx, { ...look, head: at }, SIDE);
 }

@@ -3,13 +3,13 @@ import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { drawNests } from "./instar-eggs.js";
+import { INSTAR_HEAD } from "./instar-head-look.js";
 import { drawMoult } from "./instar-moult.js";
 import { instarAt, instarFarEnd, type Point } from "./instar-place.js";
 import { drawSeam, faded, type Look } from "./instar-plate.js";
 import { BREATH_PERIOD, breathAt, headBob, rollAt, undulate } from "./instar-profile-life.js";
 import { bodyOf, drawLamps, drawRidge, drawScales } from "./instar-profile-surface.js";
 import { drawScutes } from "./instar-scutes.js";
-import { drawSideHead } from "./instar-side-head.js";
 import { drawTail } from "./instar-tail.js";
 import { drawWing } from "./instar-wings.js";
 import type { Layout } from "./layout.js";
@@ -144,7 +144,7 @@ export function drawProfile(ctx: CanvasRenderingContext2D, l: Layout, look: Look
   drawTail(ctx, l, look, rear);
   drawWing(ctx, look, back(0.42), W, { x: 0, y: 0, z: r * 0.3 }, 1);
   drawNests(ctx, l, look);
-  drawSideHead(ctx, { ...look, head: headBob(head, r, time) });
+  INSTAR_HEAD.side(ctx, { ...look, head: headBob(head, r, time) });
 }
 
 /** A point `u` of the way along a Catmull-Rom spline through `k`. */
