@@ -26556,3 +26556,16 @@ Bottleneck: reading — the rattle's roll does not scale with its reach, which
 only showed once the reader rolled the mark too.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — No mark before its window, the first six bosses
+
+- reading: 10 min. Six marks files against their draw gates and the sims'
+  windows; which argument of each call says it is lit.
+- writing: 5 min. THE KEEL's socket split from its cut faces, THE VALVE's
+  notch gated on its window, and `marks-window.test.ts`.
+- looking: 0 min. Two marks taken away before their windows; nothing new drawn.
+- friction: 0 min.
+- landing: 5 min. The fixes reverted once to see the test bite, `check:fast`.
+
+Bottleneck: reading — a marks function mixes the body and the mark, so
+finding the argument that says "lit" took each file a read of its caller.

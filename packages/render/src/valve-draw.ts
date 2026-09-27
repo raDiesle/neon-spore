@@ -1,5 +1,12 @@
 import { LIGHT_HALF } from "@neon-spore/content";
-import { VALVE_PINS, type ValveState, valveLeaking, type World } from "@neon-spore/sim";
+import {
+  VALVE_PINS,
+  type ValveState,
+  valveFrozen,
+  valveLeaking,
+  valveTurning,
+  type World,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -15,6 +22,7 @@ import {
   valveOpen,
   valvePinOut,
   valvePinReach,
+  valveSocketGlow,
 } from "./valve-pose.js";
 import {
   type Point,
@@ -117,8 +125,8 @@ function drawDrum(
     ctx.fill(valveHolePath(l, i, VALVE_PINS));
   }
   drawWheel(ctx, l, s);
-  drawValveMark(ctx, l, world, s, valveLit(s));
-  drawValveSocket(ctx, l, world, s, beat, beatPhase);
+  if (valveTurning(s) || valveFrozen(s)) drawValveMark(ctx, l, world, s);
+  drawValveSocket(ctx, l, world, s, valveSocketGlow(s, beatPhase), beat, beatPhase);
   drawValveStory(ctx, l, s, world.cfg, beat, beatPhase);
 }
 

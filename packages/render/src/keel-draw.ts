@@ -4,7 +4,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { KeelFx } from "./keel-fx.js";
-import { drawKeelRing, drawKeelSocket } from "./keel-marks.js";
+import { drawKeelFaces, drawKeelRing, drawKeelSocket } from "./keel-marks.js";
 import {
   keelArrived,
   keelBright,
@@ -83,7 +83,8 @@ export function drawKeel(
     ctx.stroke(keelRibsPath(l, g.centre, g.slope, g.pose, inward, lag));
   });
   const open = keelOpen(s, cfg, beat, beatPhase);
-  if (open > 0) drawKeelSocket(ctx, l, s, segs, open, beatPhase);
+  const socket = open > 0 ? drawKeelFaces(ctx, l, s, segs, open) : null;
+  if (socket !== null && s.phase === "socket") drawKeelSocket(ctx, l, s, socket, beatPhase);
   segs.forEach((g, k) => {
     const heat = keelHeat(s, cfg, k, beat, beatPhase);
     drawSegment(ctx, l, s, k, g, heat, beat, beatPhase, time, fx);

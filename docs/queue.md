@@ -2521,19 +2521,26 @@ the test.
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-every-other-boss-no-mark-before-its-window-opens
-- **Needs:** THE INSTAR — its marks show only while THE SLOW is open
-- **Files:** `packages/render/src/oculus-marks.ts`, `packages/render/src/vise-marks.ts`, `packages/render/src/trivet-marks.ts`, `packages/render/src/keel-marks.ts`, `packages/render/src/valve-marks.ts`, `packages/render/src/seam-marks.ts`
+- **Files:** `packages/render/src/burgee-marks.ts`, `packages/render/src/capstan-marks.ts`, `packages/render/src/cyst-marks.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/filament-turn-marks.ts`, `packages/render/src/fleet-marks.ts`, `tools/director/test/marks-window.test.ts`
 
 The owner's rule from THE INSTAR entry above, given *e.g. in boss waves*,
-so it applies to every boss. Go through each `*-marks.ts` in
+so it applies to every boss. Go through each boss's `*-marks.ts` in
 `packages/render/src/`, six per lane. Wherever a ring, halo or glyph is
 drawn before its window is open — an announce, a faint early ring, a ring
-that fades in during a lift — remove it, and add the boss to one shared test
-that finds no mark drawn while the window is shut. THE QUEEN's faint rings
-from the announcement onward are her mechanic (`docs/spec/controls.md`: P1
-is shown both marks), so leave them and say so in the test. Keep this entry
-open with the remaining bosses listed; the last lane removes it.
+that fades in during a lift — remove it, and give the boss a row in
+`tools/director/test/marks-window.test.ts`: each marks function spied, what
+in its call says it is lit, and the window by the boss's own predicate in
+`sim/`. THE QUEEN's faint rings from the announcement onward are her
+mechanic (`docs/spec/controls.md`: P1 is shown both marks); the test says
+so and she gets no row. Keep this entry open with the remaining bosses
+listed; the last lane removes it.
+
+Done: THE OCULUS, THE VISE, THE TRIVET, THE SEAM (nothing early), THE KEEL
+(its socket faded in over the split) and THE VALVE (its notch sat dim on the
+drum at rest). Left: THE BURGEE, THE CAPSTAN, THE CYST, THE DAVIT, THE
+FILAMENT and THE FLEET in the Files above; then THE GALL, THE GRINDSTONE,
+THE HALTER, THE PLUMB, THE RIME and THE SLING. The other `*-marks.ts` files
+are creatures and rounds, not bosses.
 
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.

@@ -23,17 +23,18 @@ import { PALETTE, STROKE } from "./palette.js";
 
 /**
  * The midpoint hinged apart: each of the middle two shows the face of its cut
- * end, and between them the socket flashes the wave's colour on the beat. The
- * face is the one place the spine is seen from another side.
+ * end, the one place the spine is seen from another side. The body, not a
+ * mark — it opens over the split, before the socket asks for anything — so it
+ * returns where the socket is to be drawn, and `drawKeelSocket` draws it once
+ * the window is open.
  */
-export function drawKeelSocket(
+export function drawKeelFaces(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   s: KeelState,
   segs: Seg[],
   open: number,
-  beatPhase: number,
-): void {
+): Point | null {
   const ends: Point[] = [];
   segs.forEach((g, k) => {
     const side = keelMiddle(s, k);
@@ -48,12 +49,28 @@ export function drawKeelSocket(
     ends.push(keelSegEnd(l, g.centre, g.slope, g.pose, end));
   });
   const [a, b] = ends;
-  if (a === undefined || b === undefined) return;
+  if (a === undefined || b === undefined) return null;
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+/**
+ * The socket between the cut faces, flashing the wave's colour on the beat —
+ * drawn only while the socket's window is open, never faded in over the
+ * split (the owner, 27 September 2026: a mark is up only while it can be
+ * answered).
+ */
+export function drawKeelSocket(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  s: KeelState,
+  at: Point,
+  beatPhase: number,
+): void {
   const colour = PALETTE[s.socket];
-  const flash = s.phase === "socket" ? 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2) : 0;
+  const flash = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
   const socket = new Path2D();
-  socket.arc((a.x + b.x) / 2, (a.y + b.y) / 2, l.tile * 0.24 * open, 0, Math.PI * 2);
-  ctx.fillStyle = rgba(colour, 0.35 + 0.5 * open);
+  socket.arc(at.x, at.y, l.tile * 0.24, 0, Math.PI * 2);
+  ctx.fillStyle = rgba(colour, 0.85);
   ctx.fill(socket);
   strokeGlow(ctx, socket, colour, STROKE.inner, 0.6 + 1.2 * flash);
 }

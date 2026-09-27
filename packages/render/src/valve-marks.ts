@@ -11,7 +11,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { into, valveSocketGlow } from "./valve-pose.js";
+import { into } from "./valve-pose.js";
 import { bearingAngle, onBearing, valveSocket, valveWheel } from "./valve-shape.js";
 
 /**
@@ -26,16 +26,18 @@ import { bearingAngle, onBearing, valveSocket, valveWheel } from "./valve-shape.
 
 /**
  * The mark: a white notch outside the wheel's rim at the bearing the wave
- * authored, lit while a mark is lit. In the third movement, until the lap is
- * made, it is hollow, and a thin arc round the wheel fills with the lap —
- * row 9's long way round, shown as far as it has gone.
+ * authored, drawn only while the wheel answers the hand or stands frozen on
+ * it — never dimly on the drum at rest (the owner, 27 September 2026: a mark
+ * is up only while it can be answered). The turn is at tempo on purpose: the
+ * notch is where it is going, and it has no slow. In the third movement,
+ * until the lap is made, it is hollow, and a thin arc round the wheel fills
+ * with the lap — row 9's long way round, shown as far as it has gone.
  */
 export function drawValveMark(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
   s: ValveState,
-  lit: number,
 ): void {
   const cfg = world.cfg;
   const { at, r } = valveWheel(l);
@@ -58,14 +60,14 @@ export function drawValveMark(
   );
   notch.closePath();
   if (!owed) {
-    ctx.fillStyle = rgba(PALETTE.hullRim, 0.25 + 0.65 * lit);
+    ctx.fillStyle = rgba(PALETTE.hullRim, 0.9);
     ctx.fill(notch);
   }
   ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.3 + 0.6 * lit);
+  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.9);
   ctx.stroke(notch);
-  if (valveOnMark(s, cfg) && lit >= 1) strokeGlow(ctx, notch, PALETTE.hullRim, STROKE.inner, 1.2);
-  if (need <= 0 || lit < 1) return;
+  if (valveOnMark(s, cfg)) strokeGlow(ctx, notch, PALETTE.hullRim, STROKE.inner, 1.2);
+  if (need <= 0) return;
   const share = Math.min(1, Math.abs(s.travelMilli) / need);
   if (share <= 0) return;
   const lap = new Path2D();
@@ -79,8 +81,9 @@ export function drawValveMark(
 
 /**
  * The pin socket beside the wheel: a white ring, dim at rest, flashing on the
- * beat while the wheel holds and steady once it is frozen; round it, the arc
- * of whichever window is open closing as its beats run — the freeze while
+ * beat while the wheel holds and steady once it is frozen, by `glow`
+ * (`valve-pose.ts` `valveSocketGlow`, nought outside a window); round it, the
+ * arc of whichever window is open closing as its beats run — the freeze while
  * the wheel holds, the pull while it is frozen.
  */
 export function drawValveSocket(
@@ -88,11 +91,11 @@ export function drawValveSocket(
   l: Layout,
   world: World,
   s: ValveState,
+  glow: number,
   beat: number,
   beatPhase: number,
 ): void {
   const { at, r } = valveSocket(l);
-  const glow = valveSocketGlow(s, beatPhase);
   const socket = new Path2D();
   socket.arc(at.x, at.y, r, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
