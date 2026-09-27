@@ -1519,6 +1519,7 @@ what the rest of this file holds.
 ## §32 THE SLING — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-32-the-sling-the-look
+- **Taken:** 2026-09-27, claude/queue-the-cysts-autopilot-hand (claim: claude/queue-32-the-sling-its-hands-the-second-half-of-its-lo)
 - **Needs:** §32 THE SLING — the look, half one (the body), landed first
 - **Files:** `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
 
