@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · cfd715586 — Split the scripted scenes' entries out of sim/boss-entries.ts
+
+THE SEAM through THE CAPSTAN, the twelve bosses a wave authors as a script of steps, now form one union, `ScriptedBossEntry`, in `boss-entries-scripted.ts`, the same family `wave-boss-scripted.ts` installs. `boss-entries.ts` takes that union whole and re-exports every name, so no import moved. The page drops from 250 lines to 233, and the new-boss registrations table says where the next scene's entry goes.
+
 ## 2026-09-27 · 52f149693 — THE CYST's freeze marks and flanks have rows in ON THE FIELD
 
 The four handles a thumb has been able to reach since the sac's hands landed — each flank's freeze mark, tapped by the partner, and the flank itself, pinched by its own seat — now have a row each on the tab, a row each in docs/spec/controls.md, and four poses: each flank tapped still and pinched shut, photographed from the seat that tapped and the seat that pinches. The on-field test places the four targets "field". The second of three lanes of the queue's entry; THE DAVIT's loose is left on it.
