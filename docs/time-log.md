@@ -27795,3 +27795,5 @@ out, and the edit went onto the branch already there.
 
 Bottleneck: reading. Two of the entries overlapped work another entry had
 already taken over, and had to wait on it rather than be offered twice.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
