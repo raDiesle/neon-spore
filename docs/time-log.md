@@ -26863,3 +26863,18 @@ Bottleneck: the hook read 4 tiles a second, and telling the boom's drift
 back (the rule, stepped once a beat) from a wall-clock motion took a probe.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — A WebGL bloom, offered in VERSUS; its phone numbers queued
+
+- reading: 10 min. The VERSUS README and variant API, the renderer's
+  `draw()`, the frame tests' canvas stub, and the poses to judge a glow on.
+- writing: 25 min. `FRAME_POST` in the renderer, the bloom pass and its
+  program, the pose row, the performance note, and the entry rewritten.
+- looking: 15 min. Four `versus:shot` pairs to get the bloom onto the beam
+  rather than onto the text alone.
+- friction: 5 min. The size hook asked for a split at 230 lines, and the
+  first sentence was refused for having no dash.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: a threshold a stub cannot judge. It took four real pairs to
+find a threshold at which the beam blooms at all.

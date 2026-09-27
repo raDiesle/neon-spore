@@ -698,26 +698,21 @@ you leave behind, and leave the rest listed.
 on a rig adds its wave there, at SIDE, THREE_QUARTER and FRONT if the fight
 reaches them.
 
-## A WebGL glow pass, tried as a candidate with its battery cost measured
+## The WebGL bloom candidate, measured on a phone against the shipped glow
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side
-- **Taken:** 2026-09-27, claude/queue-a-webgl-glow-pass-tried-as-a-candidate-with-its
-- **Files:** `packages/render/src/glow.ts`, `tools/versus/candidates/registry.ts`, `docs/performance.md`
-- **Where:** local
+- **Files:** `tools/versus/candidates/frame-glow/bloom/bloom-gl.ts`, `packages/render/src/frame-post.ts`, `docs/performance.md`
+- **Where:** phone
 
-The owner, 26 September 2026: a GPU glow is worth trying if it is best
-practice, and battery and performance matter to him. Glow today is layered
-strokes plus baked additive halos (`glow.ts`), all on the 2D canvas. Build the
-alternative as a VERSUS candidate, never on the field: draw the bright layer
-(halos, rims, lamps) to its own canvas at half or quarter resolution, run a
-two-pass blur in one WebGL context, composite it additively over the frame,
-and put the whole pass behind a switch so it is off by default. Then measure
-it on a real phone against the shipped glow, over the busiest boss wave:
-frame time from `bun run perf --wave "<wave>"` on the owner's weekly run, and
-battery drain over ten minutes of play with the pass on and off. Write both
-numbers into `docs/performance.md`. It ships only if the owner picks it in
-VERSUS and the phone numbers hold; otherwise the candidate stays as the
-record of why.
+The candidate is built (27 September 2026): `frame:glow` · `bloom` in VERSUS,
+a bright-pass and a two-round separable blur at a quarter of the frame's size
+in one WebGL context, laid back over the frame with `lighter`. The game never
+runs it. What is left is the half that needs a real phone in a hand: over the
+busiest boss wave, the frame time from the owner's weekly `bun run perf --wave
+"<wave>"` with the pass on and off, and the battery drained over ten minutes of
+play each way. Write both numbers into `docs/performance.md`, under "The WebGL
+bloom candidate". It ships only if the owner picks it in VERSUS and the numbers
+hold; otherwise the candidate stays as the record of why.
 
 ## DEFERRED — THE GIMBAL, a fifth rig candidate, sharpest for the mirror rule
 

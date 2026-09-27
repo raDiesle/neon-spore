@@ -6,5 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { FRAME_BLOOM } from "./frame-glow/bloom/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [FRAME_BLOOM];

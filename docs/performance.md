@@ -297,6 +297,29 @@ is a desktop file and nothing from the phone goes into it. What a phone run is
 for is the shape of the table — which waves are dear relative to each other on
 the hardware that matters, and whether the worst of them fits in a frame.
 
+### The WebGL bloom candidate, and what it has not been measured at
+
+`tools/versus/candidates/frame-glow/bloom/` is a GPU glow over the whole frame,
+offered against the one the game ships — layered strokes and baked additive
+halos on the 2D canvas (`packages/render/src/glow.ts`). The game never runs it:
+the renderer calls `FRAME_POST.after` at the end of every frame, the shipped
+`after` does nothing, and only the right-hand side of a VERSUS pair patches it
+(`packages/render/src/frame-post.ts`).
+
+What it costs a frame, in the order it happens: one `drawImage` of the frame
+into a canvas a quarter of its size on each side, one texture upload of that,
+four full-screen draws at that size in one WebGL context, and one `drawImage` of
+the result back over the frame, stretched and `lighter`. The two copies between
+contexts are the part to watch; the draws themselves are a sixteenth of the
+screen's pixels each.
+
+**It has not been measured, and no lane can measure it.** The numbers that
+decide it are two, both on a real phone: the frame time over the busiest boss
+wave from the owner's weekly `bun run perf --wave "<wave>"`, with the pass on
+and off, and the battery drained over ten minutes of play each way. They are
+written here when they exist. It ships only if the owner picks it in VERSUS and
+both numbers hold; otherwise the candidate stays as the record of why.
+
 ## Comparing two runs
 
 `tools/perf/baseline.json` is the last run somebody meant to keep. A later run

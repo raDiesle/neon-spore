@@ -113,9 +113,14 @@ const MECHANICS: Pose[] = [
       return w;
     },
   },
+  // `frame:glow` is judged here: the beam is the brightest thing the game
+  // draws that stands still, white at its core against the dark field, so a
+  // bloom over the frame shows on it first and a threshold that also catches
+  // the pale hull shows beside it.
   {
     name: "LANCE · BURNING",
     note: "The beam standing in the column it has just burnt, in the ammunition's own colour with white at its core. Nothing travels: every body of that colour in the column went on the tick it lit, and it stops where a rock or a wrong colour stopped it.",
+    lookAt: "the beam's white core and the light either side of it, and the hull's rim below",
     crop: "full",
     build: () => {
       const w = fresh();

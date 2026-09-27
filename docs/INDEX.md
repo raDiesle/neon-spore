@@ -1167,6 +1167,7 @@ by hand never moves.
 | `packages/render/src/egg-contour.ts` | The cloaca's own shape, for one frame — split out of `cannon-maw.ts` so that file's `LAY_LOOK.draw` stays a |
 | `packages/render/src/egg-curve.ts` | The cannon's wind-up, as pure arithmetic — no canvas anywhere near it |
 | `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
+| `packages/render/src/frame-post.ts` | **What runs over a finished frame, after everything else is drawn** |
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name, the one sentence that teaches this seat its half, and where the other half is |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
