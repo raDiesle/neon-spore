@@ -2,6 +2,7 @@ import { midCol, type SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
+import { outlinePose, withOutlinePose } from "./outline-drift.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawBeam, drawHalo, drawSac, type RepriseFrame } from "./reprise-body.js";
 import { drawBrood } from "./reprise-brood.js";
@@ -106,6 +107,8 @@ export function repriseTearBox(
 }
 
 export interface RepriseDraw {
+  /** How much of the sac's lean is left (`outlineHush`): 1 with no window. */
+  hush: number;
   phase: ReprisePhase;
   /** Bodies recorded so far, or still owed. */
   eggs: number;
@@ -147,18 +150,29 @@ export function drawReprise(
   drawTearLip(ctx, rim, f.x, l.tile, open);
   strokeGlow(ctx, splinePath(rim, false), PALETTE.rock, STROKE.outline * 1.4, open ? 0.9 : 0.55);
 
-  drawSac(ctx, f, playing, swallow, d.time);
-  drawLens(ctx, f, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
-  drawBrood(ctx, f, {
-    phase: d.phase,
-    eggs: d.eggs,
-    standing: d.standing,
-    swallow,
-    take: d.fx.sinceTake(d.time),
-    beatPhase: d.beatPhase,
-    time: d.time,
+  // The sac leans where it hangs through the tear, and the tear, which is
+  // the field's own edge, does not (`outline-drift.ts`).
+  const root = { x: f.x, y: f.y0 };
+  const pose = outlinePose("reprise", d.time, d.hush, repriseReach(f), l.tile);
+  withOutlinePose(ctx, pose, root, () => {
+    drawSac(ctx, f, playing, swallow, d.time);
+    drawLens(ctx, f, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
+    drawBrood(ctx, f, {
+      phase: d.phase,
+      eggs: d.eggs,
+      standing: d.standing,
+      swallow,
+      take: d.fx.sinceTake(d.time),
+      beatPhase: d.beatPhase,
+      time: d.time,
+    });
+    drawLabel(ctx, f, d.phase, d.beatPhase);
   });
-  drawLabel(ctx, f, d.phase, d.beatPhase);
+}
+
+/** How far from the tear the sac's farthest reaches: its top corner, or the label past it. */
+function repriseReach(f: RepriseFrame): number {
+  return Math.hypot(f.rx * 1.15, f.y0 - (f.cy - f.ry * 1.1));
 }
 
 /** "● REC" or "▶ PLAY" on the sac's left lobe, a camera's own words. */

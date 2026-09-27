@@ -38,6 +38,9 @@ const SLOT_POSE: Record<string, string> = {
   "davit:hook": "THE DAVIT · STILL",
   "plumb:bob": "THE PLUMB · STILL",
   "sling:tine": "THE SLING · STILL",
+  "queen:shell": "BULB QUEEN · SHUT",
+  "cairn:pile": "CAIRN · THE PILE",
+  "reprise:sac": "THE REPRISE · RUNNING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

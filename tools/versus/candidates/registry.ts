@@ -6,14 +6,20 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { CAIRN_PILE_DRIFT } from "./cairn-pile/drift/index.js";
 import { DAVIT_HOOK_SWING } from "./davit-hook/swing/index.js";
 import { FRAME_BLOOM } from "./frame-glow/bloom/index.js";
 import { PLUMB_BOB_SWING } from "./plumb-bob/swing/index.js";
+import { QUEEN_SHELL_DRIFT } from "./queen-shell/drift/index.js";
+import { REPRISE_SAC_DRIFT } from "./reprise-sac/drift/index.js";
 import { SLING_TINE_SWING } from "./sling-tine/swing/index.js";
 
 export const VARIANTS: Variant[] = [
+  CAIRN_PILE_DRIFT,
   DAVIT_HOOK_SWING,
   FRAME_BLOOM,
   PLUMB_BOB_SWING,
+  QUEEN_SHELL_DRIFT,
+  REPRISE_SAC_DRIFT,
   SLING_TINE_SWING,
 ];

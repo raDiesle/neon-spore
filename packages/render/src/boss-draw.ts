@@ -11,7 +11,9 @@ import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
 import { drawMirrorGrip, mirrorHandPlace } from "./mirror-grip.js";
+import { outlineHush, outlinePose, withOutlinePose } from "./outline-drift.js";
 import { drawQueen } from "./queen.js";
+import { queenRoot } from "./queen-figure.js";
 import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
 import { drawRepriseFuse } from "./reprise-fuse.js";
@@ -46,19 +48,25 @@ export function drawBoss(
   if (boss.kind === "queen") {
     const queen = world.creatures.find((c) => c.id === boss.creatureId);
     if (!queen) return;
-    drawQueen(
-      ctx,
-      l,
-      world.cfg,
-      queen,
-      boss,
-      world.beat,
-      world.waveBeat,
-      view.time,
-      view.beatPhase,
-      effects.queenShake,
-      world.cfg.queenEggGrowShare,
-      effects.ship.queenHurt.value,
+    // Her lean, about the middle of her shell (`outline-drift.ts`).
+    const root = queenRoot(l, queen);
+    const hush = outlineHush(world, world.beat, view.beatPhase);
+    const pose = outlinePose("queen", view.time, hush, root.reach, l.tile);
+    withOutlinePose(ctx, pose, root, () =>
+      drawQueen(
+        ctx,
+        l,
+        world.cfg,
+        queen,
+        boss,
+        world.beat,
+        world.waveBeat,
+        view.time,
+        view.beatPhase,
+        effects.queenShake,
+        world.cfg.queenEggGrowShare,
+        effects.ship.queenHurt.value,
+      ),
     );
     return;
   }
@@ -129,6 +137,7 @@ export function drawBoss(
     const fx = effects.boss.reprise;
     fx.note(phase, eggs, view.time);
     drawReprise(ctx, l, world.cfg, {
+      hush: outlineHush(world, world.beat, view.beatPhase),
       phase,
       eggs,
       standing: view.unseen ?? 0,

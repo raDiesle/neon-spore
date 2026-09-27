@@ -116,3 +116,20 @@ function unitInto(path: Path2D, u: CairnUnit): void {
   }
   path.closePath();
 }
+
+/**
+ * The foot of the pile, the middle of its bottom course, where its lean
+ * turns about (`outline-drift.ts`), and how far its apex reaches from it — the
+ * corner of the bottom course's end stone is nearer — which caps the lean.
+ */
+export function cairnRoot(l: Layout, body: Creature): { x: number; y: number; reach: number } {
+  const r = rockRadius(l, 2);
+  const step = 2 * r * INNER * (1 - BITE_UP);
+  const across = 2 * r * INNER * (1 - BITE_ACROSS);
+  const lift = ((COURSES.length - 1) * step) / 2;
+  const x = tileCX(l, body.col + (CAIRN_COLS - 1) / 2);
+  const foot = tileCY(l, body.row) + lift + r;
+  const apex = (COURSES.length - 1) * step + 2 * r;
+  const wide = ((COURSES[0] as number) - 1) * across * 0.5 + r;
+  return { x, y: foot, reach: Math.max(apex, Math.hypot(wide, 2 * r)) };
+}

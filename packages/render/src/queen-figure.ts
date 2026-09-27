@@ -1,4 +1,4 @@
-import { type Creature, queenMarkCol } from "@neon-spore/sim";
+import { type Creature, QUEEN_FLANK_TILES, queenMarkCol } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 
 /**
@@ -80,5 +80,18 @@ export function queenMarksBox(
     y: left.y,
     rx: (right.x - left.x) / 2 + left.r,
     ry: left.r,
+  };
+}
+
+/**
+ * Where her lean turns about, the middle of her shell, and how far from it the
+ * farthest of her reaches — a torch on a wing tip, `QUEEN_FLANK_TILES` out and
+ * most of a tile across — for `outline-drift.ts`, which caps the lean by it.
+ */
+export function queenRoot(l: Layout, queen: Creature): { x: number; y: number; reach: number } {
+  return {
+    x: tileCX(l, queen.col),
+    y: tileCY(l, queen.row) + QUEEN_FIGURE.bodyCy * l.tile,
+    reach: Math.hypot(QUEEN_FLANK_TILES + 0.9, 1.4) * l.tile,
   };
 }

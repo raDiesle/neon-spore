@@ -3,8 +3,9 @@ import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { CAIRN_LOOK } from "./cairn-look.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
-import { cairnUnits, pilePath } from "./cairn-units.js";
+import { cairnRoot, cairnUnits, pilePath } from "./cairn-units.js";
 import type { Layout } from "./layout.js";
+import { outlineHush, outlinePose, poseMatrix } from "./outline-drift.js";
 import type { ViewState } from "./renderer.js";
 
 /**
@@ -43,6 +44,12 @@ export function drawCairn(
   if (!body) return; // The last unit came away; there is no pile left.
   ctx.save();
   ctx.translate(hurt.shakeX(time, l.tile), 0);
+  // The whole pile leans a little on its foot, hand and lane mark with it
+  // (`outline-drift.ts`); the stones' own settle is inside it.
+  const root = cairnRoot(l, body);
+  const hush = outlineHush(world, world.beat, view.beatPhase);
+  const pose = outlinePose("cairn", time, hush, root.reach, l.tile);
+  if (pose !== null) ctx.transform(...poseMatrix(pose, root));
   const alpha = ctx.globalAlpha;
   CAIRN_LOOK.pile(ctx, l, body, boss, time);
   if (hurt.value > 0) drawHurt(ctx, pilePath(cairnUnits(l, body, boss.units, time)), hurt.value);

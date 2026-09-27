@@ -89,6 +89,16 @@ and `packages/render/test/idle-drift-parts.test.ts`.
   `packages/content/src/surface.ts`. It reads as alive, not as turning. Such a
   boss gets its real turn only when it moves onto the rig.
 
+  *As built, 27 September 2026* (`packages/render/src/outline-drift.ts`,
+  offered in VERSUS as `queen:shell`, `cairn:pile` and `reprise:sac`, each
+  `drift`): the roll a lean about the body's root, the turn a squash across it
+  and a slide towards it, the pitch a stretch up it — **capped by reach**, so
+  no point of the body moves more than a fifth of a tile and every hit test
+  keeps reading the rest pose. A wide body leans less than a narrow one by
+  that rule: the queen, 3.7 tiles to her torches, under 2°. It hushes to a
+  tenth in THE SLOW. THE WARDEN waits for its rope to be tied through the
+  pose, and the parts and the surface marks are their own entries on the queue.
+
 ### Every part moves on its own
 
 The owner, 26 September 2026, after the drift above was written: the body

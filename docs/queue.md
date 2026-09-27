@@ -2233,33 +2233,48 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## Living bosses — every other boss gets the outline drift, six per lane
+## Living bosses — the outline drift for the next six, the warden to the taster
 
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-27, claude/queue-living-bosses-the-other-six-mechanisms-swing-wha (claim: claude/queue-living-bosses-every-other-boss-gets-the-outline)
+- **Found:** 2026-09-27, claude/queue-living-bosses-every-other-boss-gets-the-outline
 - **Where:** local
-- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
-- **Files:** `packages/render/src/boss-draw.ts`, `packages/content/src/surface.ts`, `docs/spec/living-bosses.md`
+- **Files:** `packages/render/src/outline-drift.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/tether.ts`, `packages/render/src/throat-draw.ts`, `packages/render/src/undertow-lobe.ts`
 
-Section 1 of `docs/spec/living-bosses.md`, the outline tier: a boss not on
-the rig takes the idle drift as a pose — lean, a small squash across the
-turn, a head offset where it has a head — toward the players' screen, the
-face turned and tilted at the viewer and never away (the owner, 27 September
-2026: `docs/spec/living-bosses.md` section 1, "A face looks at the
-players") — surface marks moved by longitude
-through `pin`/`facet`. Each part the part map in section 1 marks **ready**
-also takes its `partDrift` inside its own save, translate to its joint,
-rotate and restore, with the turn shown as a squash by its cosine. Take the
-six creatures that come first in `packages/render/src/boss-draw.ts`'s
-order, are neither THE INSTAR nor one of the four rig bosses nor a
-mechanism, and are not waiting on a **split first** entry; give each its own
-seed, and offer the six as one VERSUS candidate with a strip of each. Write the next six into this
-entry's body as you leave it; the lane that finds none left removes it.
+The outline tier's pose shipped as a helper and a seam at 0 for the queen,
+the cairn and the reprise (`outline-drift.ts`, VERSUS `*:*/drift`). The next
+six in `boss-draw.ts`'s order each need more than one wrapped call, which is
+why they were not in that lane:
 
-Done when, per boss: its hit tests find every target at the body's and
-every part's widest; no two parts move in step (the helper's test, run on its
-part list); op count within 10% for both layers together;
-`baked-growth.test.ts` flat. `bun run check` proves the tests.
+- **THE WARDEN**: its rope runs from the eye's underside to the hull. Pose
+  `drawWarden` and the grip about the eye, and hand `drawTether` the anchor
+  through `posePoint`, or the rope stands a few pixels off the eye it is tied to.
+- **THE THROAT**: most of `drawThroat` is pinned to field columns (eversion,
+  mouth, grips, lock); pose only the rings and skin (`throat-draw.ts`), rooted
+  at the top over the middle column.
+- **THE UNDERTOW**: each lobe leans about its own base at the skin
+  (`drawLobe`), the body about its breach, each its own seed.
+- **THE GORGE, THE CURTAIN, THE TASTER**: 7–11 tiles wide, so a lean about the
+  middle is capped to nothing; pose each lobe, hem scallop or blade about its
+  own joint instead, and still the pose on each's "out" phase.
+
+Add each boss to `OutlineBoss` and `SEED`, a candidate per slot, and its row
+to `outline-drift.test.ts`. Done when `bun run check` is green and each
+candidate's pose builds (`versus-pose.test.ts`).
+
+## Living bosses — the outline tier's parts and surface marks
+
+- **Found:** 2026-09-27, claude/queue-living-bosses-every-other-boss-gets-the-outline
+- **Where:** local
+- **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-shell.ts`, `packages/render/src/queen-egg.ts`, `packages/render/src/cairn-units.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/idle-drift-parts.ts`, `packages/content/src/surface.ts`
+
+The body pose landed without the part drift the spec's part map marks
+**ready**: the queen's wings (`queenShellParts`), crane arms and claws
+(`craneJoints`), each stone of THE CAIRN, THE REPRISE's cords and lens eye.
+Each takes `partDrift` inside its own save, translate to its joint, rotate
+and restore, the turn a squash by its cosine, at most eight moving parts a
+boss; and the surface marks move by longitude through `pin`/`facet`. The same
+cap by reach holds a part's tip (a claw, a torch) inside its hit circle. Done
+when the part test's never-in-step check runs on each boss's part list, the
+op-count rows stay within 10% and `baked-growth.test.ts` is flat.
 
 ## Living bosses — what turns the bosses' life down
 

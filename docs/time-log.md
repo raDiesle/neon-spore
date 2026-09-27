@@ -27052,3 +27052,16 @@ Bottleneck: reading — THE SCUTTLE's thread length had to be found before
 its swing could be measured as too small to see.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the outline drift: helper, queen, cairn, reprise
+
+- reading: 5 min. Six bosses' roots, reaches, field-pinned draws and hit
+  tests, which of them hang a rope to the hull.
+- writing: 10 min. `outline-drift.ts`, three roots, the test, three
+  candidates, the two queue entries for what is left.
+- looking: 5 min. One VERSUS pair of the queen at her widest lean.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — every body past the first three had something pinned
+to the field under it, which is what split the six into three and six more.

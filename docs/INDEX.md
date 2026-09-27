@@ -1503,6 +1503,7 @@ by hand never moves.
 | `packages/render/src/oculus-grip.ts` | **The thumbs on THE OCULUS** — the first of its hands lanes |
 | `packages/render/src/oculus-fx.ts` | What THE OCULUS leaves behind a frame (§27, *Presentation*) |
 | `packages/render/src/oculus-blow.ts` | **THE OCULUS's own blow at the hull** (`boss-strike-look.ts`): the lens does what a lens does |
+| `packages/render/src/outline-drift.ts` | **The outline tier** (`docs/spec/living-bosses.md` §1, "How far it reaches, by kind of body") |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the press into its hole, the waiting and the rolling |
