@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · c1350ad20 — THE SLING's cord drawing home is painted, behind ?raster=1
+
+A draw loosed true now throws a painted strip over the cord that took it: the cord's after-image swept from slack to drawn, a strain running up it to the tine, the catch flashing shut, and fibres shaken off. One strip, painted for the pilot's cord and mirrored for the navigator's, spawned at the drawn cord's middle because the fork never moves. Without ?raster=1 nothing changes. Exemption: a look offered behind the flag, not shipped. The fifth row of `PAINTED_STRIPS`, the first strip to go in through the table.
+
 ## 2026-09-27 · fdfa1e3fb — A painted strip is one row of one table
 
 Every painted strip's numbers now live in `PAINTED_STRIPS` (`packages/render/src/painted-strips.ts`). The renderer slices with that row, `tools/raster`'s `STRIPS` reads its numbers off it, the assets test checks the baked manifest against it, and `bindRasterStrips` binds every row behind `?raster=1` in one loop. `renderer.strip(name)` replaces the getter each strip had. THE VISE's crack, THE RIME's clearing, THE TRIVET's plant and THE PLUMB's settle are its four rows. The painters sit in one record typed on every name, and the copies table reads them off the directory. The next strip is a painter, a table row, its effect and a bake; `docs/raster.md` has the steps. The burst and THE CLASP's shield stay outside the table.
