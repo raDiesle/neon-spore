@@ -64,6 +64,12 @@ export interface BodyPaint {
    * candidate to guess, because guessing it is the defect.
    */
   readonly rot: number;
+  /**
+   * The contour clock the outline was walked on (`contourClock`), in seconds.
+   * The shipped skin does not read it; a skin whose light should move with
+   * the wobble under it has to have the wobble's own clock to do it.
+   */
+  readonly t: number;
 }
 
 export interface LivingSkin {
@@ -113,6 +119,22 @@ function lit(
   rule: CanvasFillRule,
   p: BodyPaint,
 ): void {
+  litSkin(ctx, path, rule, p, 0, 0);
+}
+
+/**
+ * `lit` with its light moved by `(lx, ly)` in body units: the key light and
+ * the sheen together, the flesh, bevel and edge where they were. Exported for
+ * a candidate that moves it and would otherwise copy the rest of the skin.
+ */
+export function litSkin(
+  ctx: CanvasRenderingContext2D,
+  path: Path2D,
+  rule: CanvasFillRule,
+  p: BodyPaint,
+  lx: number,
+  ly: number,
+): void {
   const reach = Math.max(p.rx, p.ry);
 
   // The flesh. A body has to have a body before it can have a terminator on
@@ -131,7 +153,7 @@ function lit(
   // The key light, undone by the rotation the transform already carries, so a
   // throb's turn and a dart's lean move the body under a light that stays
   // where it is.
-  litRound(ctx, 0, 0, reach, "value", p.rot);
+  litRound(ctx, lx, ly, reach, "value", p.rot);
 
   // The sheen goes on after the ramp: it is light *coming off* the surface,
   // and a ramp over it would be the surface shading its own highlight. Still
@@ -139,7 +161,7 @@ function lit(
   const sprite = haloSprite(p.hex, Math.max(2, Math.round(reach * SHEEN_WIDE)));
   ctx.globalAlpha = SHEEN_ALPHA;
   ctx.globalCompositeOperation = "lighter";
-  ctx.drawImage(sprite, -sprite.width / 2, -reach * SHEEN_UP - sprite.height / 2);
+  ctx.drawImage(sprite, lx - sprite.width / 2, ly - reach * SHEEN_UP - sprite.height / 2);
   ctx.restore();
 
   // The neon edge. The line weight is a tenth of the body radius with a

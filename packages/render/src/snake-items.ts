@@ -121,6 +121,7 @@ export function drawSnakeEnemy(
     rx: shape.rx,
     ry: shape.ry,
     rot: spin,
+    t,
   });
   ctx.restore();
 }

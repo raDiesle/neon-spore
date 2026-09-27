@@ -25704,3 +25704,16 @@ Bottleneck: reading — a boss that hears every command makes every sender in
 the app part of its rules, and each had to be read to be ruled out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — Every living body's light drifts with its wobble, as a VERSUS candidate
+
+- reading: 5 min. The entry, `living-skin.ts`, `key-light.ts` and the two
+  call sites.
+- writing: 10 min. `BodyPaint` carries the contour clock, the skin's light
+  can be moved without copying the skin, and the candidate.
+- looking: 5 min. Two `versus:shot`s of a slick, magnified.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a light moved by six hundredths of a body is only seen
+magnified, shipped beside candidate.

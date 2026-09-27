@@ -175,6 +175,7 @@ export function drawLiving(
       rx: shape.rx,
       ry: shape.ry,
       rot,
+      t,
     });
     // Clipped to the body-minus-hole when there is a hole: an interior detail
     // painted across the opening would fill in the one thing the opening says.
