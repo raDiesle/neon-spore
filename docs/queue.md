@@ -2840,6 +2840,7 @@ the PNG is sent. `bun run check` is green.
 ## VERSUS — THE INSTAR's moult as a wound, then adopted
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-the-instar-the-bare-pose-bigger-and-its-heart-se (claim: claude/queue-versus-the-instars-moult-as-a-wound-then-adopted)
 - **Files:** `packages/render/src/instar-moult-baked.ts`, `packages/render/src/instar-moult.ts`, `tools/versus/candidates/instar-moult/baked/index.ts`, `tools/versus/DECIDED.md`
 
 The owner, 27 September 2026, on `instar:moult baked`: *this version is
