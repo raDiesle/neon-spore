@@ -2580,6 +2580,7 @@ check` proves it.
 ## Every other boss — holds still while its marks are live, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-27, claude/queue-serialize-boss-ts-is-at-the-250-line-limit (claim: claude/queue-every-other-boss-holds-still-while-its-marks-are)
 - **Needs:** THE INSTAR — holds still while its marks are live
 - **Files:** `packages/render/src/slow-boss-aim-b.ts`, `packages/render/src/caption-anchor-box.ts`, `packages/render/src/boss-cue.ts`
 
