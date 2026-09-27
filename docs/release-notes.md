@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · be49c0ac3 — THE BURGEE has a body: a canvas pennant on a hanging boom that eases still
+
+THE BURGEE (wave 118, §11.56) is drawn. SLICK · REVERB stands on end over the middle column as a turned spindle. A plain steel boom hangs from its foot like a pendulum, its tip always over the flag's column. SLICK · COMMA is the canvas flag. The flag is eased rather than put: a freeze landing mid-beat slows it to a stop, its speed streams it out behind, a still flag hangs limp, and a missed swipe sets it fluttering. A ring over the lit column says tap it still, and a track toward it says hold, then swipe. Each is full on its seat's screen and faint on the other's. The canvas brightens with each catch, and the spindle's three studs light in the shot's colour and go dark one per shot. Its blow, receipts, touch, cue and AUTO hand are queued.
+
 ## 2026-09-27 · 2228b4ae9 — THE INSTAR holds still while its marks are live
 
 While THE SLOW is open, THE INSTAR's weave dies down to a twentieth of its size over half a beat, then comes back over half a beat after the window shuts, starting from wherever it had got to. Its marks go with it, so a ring is almost where it was while a thumb is aiming at it. A swept mark still travels along its track, because that travel is the gesture. The hit test reads the same window, carried on the new `Field.slow`, so a ring is still found where it is drawn. The marks are now drawn with the body's own sway rather than a second reading of it.

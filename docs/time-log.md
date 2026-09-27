@@ -26458,3 +26458,5 @@ the done-when is the one that was kept.
 Bottleneck: looking. A single frame shows the flag limp, because the eased
 place snaps on the first paint, so the stream only reads off a strip of
 frames and each strip is a full render.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
