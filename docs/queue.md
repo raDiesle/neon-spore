@@ -914,19 +914,6 @@ and takes capstan out of `NO_HAND`; `on-field-controls.test.ts` marks both
 targets built. `bun run check` proves it; how the lean *feels* stays
 unverified until the owner holds two phones.
 
-## `sim/boss-entries.ts` is at the 250-line ceiling
-
-- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane
-- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-simulation-lane (claim: claude/queue-sim-boss-entries-ts-is-at-the-250-line-ceiling)
-- **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-entries-*.ts`
-
-THE CAPSTAN's `CapstanEntry` took it from 246 lines to exactly 250, so the
-next boss has nowhere to put its entry. Split the choreographed-scene
-entries (seam through capstan) into a `boss-entries-scripted.ts` beside
-`boss-entries-clocks.ts`, the way `wave-boss-scripted.ts` already holds
-their install, and re-export from the index as before. A move, not a
-change: `bun run check` proves it.
-
 ## §37 THE CAPSTAN — the look
 
 - **Found:** 2026-09-26, this session

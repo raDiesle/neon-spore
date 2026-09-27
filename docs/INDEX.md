@@ -406,6 +406,7 @@ by hand never moves.
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
 | `packages/sim/src/boss-entries-clocks-b.ts` | **The tail of `boss-entries-clocks.ts`** |
 | `packages/sim/src/boss-entries-b.ts` | **The entries `boss-entries.ts` had no room for**: THE MAZE, THE WELL and THE REPRISE, and THE VANE after them |
+| `packages/sim/src/boss-entries-scripted.ts` | **The bosses a wave authors as a script of steps** — THE SEAM and every one after it |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/boss-others-b.ts` | **The tail of `boss-others.ts`**, cut off it on 22 September 2026 when THE GIMBAL's branch took that page… |

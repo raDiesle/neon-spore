@@ -25798,3 +25798,14 @@ Bottleneck: friction — a pose command on a quarter-beat tick was dropped
 without a word, and it took a probe of state to see it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `sim/boss-entries.ts` is at the 250-line ceiling
+
+- reading: 0 min. The file and `wave-boss-scripted.ts`, both just written.
+- writing: 5 min. `boss-entries-scripted.ts`, the union's tail and the
+  re-exports moved, the registrations table's row.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the move is minutes, the check is most of it.
