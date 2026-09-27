@@ -7,7 +7,10 @@ import { bossWorld, runHand } from "./poses-bosses-kit.js";
  * THE INSTAR's fire on its way down, three beats into the window, while
  * nobody answers: the globs out of the mouth in the rear, the embers off the
  * wings in the spread — the poses `instar:spit` is judged on, because the
- * first flash of the window shows the fire still in the mouth.
+ * first flash of the window shows the fire still in the mouth. The spread is
+ * `instar:wing`'s pose too: both membranes at full spread, the widest the
+ * wing is ever drawn. The owner could not see the baked veins at `INSTAR ·
+ * THE JAW HALF PULLED`, where the wings are half folded (27 September 2026).
  *
  * Any pose of the script can be opened this way: the hand answers every step
  * before it, so `poses-instar-acts.ts` uses it for the third and fourth acts.

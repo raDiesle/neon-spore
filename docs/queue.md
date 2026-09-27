@@ -2792,24 +2792,6 @@ page if it does not.
 Done when: every row names its per-hit event or says it has none, and the
 test proves each of them fires. `bun run check` proves it.
 
-## VERSUS — THE INSTAR's wing is shown in a pose that hides it
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-versus-drop-four-the-owner-could-not-tell-apart (claim: claude/queue-versus-the-instars-wing-is-shown-in-a-pose-that)
-- **Files:** `tools/director/src/versus-pose.ts`, `tools/versus/candidates/instar-wing/baked/index.ts`
-
-The owner, 27 September 2026, on `instar:wing baked`: *I do not see a
-difference, maybe it needs to pull so I see the difference — so it's the
-wrong state showing to me?* It is: `SLOT_POSE` shows the slot at `INSTAR ·
-THE JAW HALF PULLED`, a face-on pose where the wings are folded or
-foreshortened, so the membrane the candidate paints is a few pixels. Point
-it at a pose with a wing spread across the field (the brood side-on, or the
-spread pose of the second act), check with `bun run versus:shot instar:wing
-baked` that the veins show, and send that one PNG so he can choose again.
-
-Done when: the slot opens on a pose with the membrane at full spread, and
-the PNG is sent. `bun run check` is green.
-
 ## VERSUS — THE INSTAR's moult as a wound, then adopted
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

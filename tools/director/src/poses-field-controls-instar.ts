@@ -15,8 +15,7 @@ import { fresh, type Pose, run, runUntil } from "./pose-kit.js";
  * arc empty, because she has not pulled yet (`render/instar-marks.ts`).
  *
  * VERSUS judges `instar:hide` here: head-down and face-on, the skull, the
- * chin and the body's bands all carry the scales `drawScales` lays. And
- * `instar:wing`: both wings hang spread either side of the head, face to us.
+ * chin and the body's bands all carry the scales `drawScales` lays.
  */
 export const INSTAR_PULL: Pose = {
   name: "INSTAR · THE JAW HALF PULLED",

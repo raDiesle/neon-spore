@@ -26127,3 +26127,19 @@ tooling files, and those had to be traced before it could be queued rather
 than deleted.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — VERSUS: THE INSTAR's wing judged at full spread
+
+- reading: 5 min. The slot's pose map, and which of THE INSTAR's poses
+  hold the wing at 1.
+- writing: 5 min. One row, and the reason moved onto the spread pose's
+  docstring.
+- looking: 15 min. Five poses and five freeze times shot, to find the one
+  where the membrane is widest.
+- friction: 5 min. A stray `cat` in the last lane's commit command waited on
+  stdin, and the landing had to be killed and rerun.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — every frame of the spread carries the window's
+chromatic glitch and the ember streaks, so several freezes were taken to
+find one where the veins still show through.
