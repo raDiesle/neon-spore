@@ -2903,6 +2903,7 @@ by hand never moves.
 | `tools/perf/shape.ts` | PUTTING TWO RUNS ON THE SAME FOOTING, and one row from one of them into the other |
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
+| `tools/director/src/serialize-boss-b.ts` | **The scripted bosses, written back out**: THE SEAM and every scene after it |
 | `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
 | `tools/director/src/serialize-fault.ts` | **A `Malfunction` as its own source, arm by arm**, and every field of the arm is written |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |

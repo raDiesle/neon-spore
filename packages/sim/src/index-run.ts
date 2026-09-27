@@ -79,6 +79,9 @@ export { NO_SLOW, type SlowKind, slowing, slowRateMilli } from "./slow.js";
 // carries — what the picture shows is the two counts, and the reading of them
 // is the pair's.
 export { spentOver } from "./spend.js";
+// Which bosses author a script of steps, for the director that writes one back
+// out (`tools/director/src/serialize-boss-b.ts`) — the list the installer keeps.
+export { isScriptedEntry, type ScriptedEntry } from "./wave-boss-scripted.js";
 export { clearHolds, restSeconds, roundSpent } from "./wave-end.js";
 export {
   clockText,

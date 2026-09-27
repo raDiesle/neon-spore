@@ -1,4 +1,5 @@
-import type { BossEntry } from "@neon-spore/sim";
+import { type BossEntry, isScriptedEntry } from "@neon-spore/sim";
+import { serializeScripted } from "./serialize-boss-b.js";
 
 /**
  * **A wave's boss, written back out**, and the nine shapes it can take.
@@ -159,81 +160,9 @@ export function serializeBoss(boss: BossEntry): string {
   }
   // THE VALVE's marks are three bearings, the same reason.
   if (boss.kind === "valve") return `{ kind: "valve", marks: [${boss.marks.join(", ")}] }`;
-  // THE SEAM's script, a step to a line's worth each.
-  if (boss.kind === "seam") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", color: "${s.color}", offset: ${s.offset}, seals: ${s.seals} }`,
-    );
-    return `{ kind: "seam", steps: [${steps.join(", ")}] }`;
-  }
-  // THE OCULUS's the same, and THE VISE's, THE RIME's, THE GRINDSTONE's and
-  // THE CYST's, which author the same three fields a step — and a fourth,
-  // where a step has one: THE OCULUS's look says the column it looks down.
-  if (
-    boss.kind === "oculus" ||
-    boss.kind === "vise" ||
-    boss.kind === "rime" ||
-    boss.kind === "grindstone" ||
-    boss.kind === "cyst"
-  ) {
-    const steps = boss.steps.map((s) => {
-      const offset = "offset" in s && s.offset !== undefined ? `, offset: ${s.offset}` : "";
-      return `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats}${offset} }`;
-    });
-    return `{ kind: "${boss.kind}", steps: [${steps.join(", ")}] }`;
-  }
-  // THE BURGEE's say as well who freezes, over which column and how fast, each
-  // field in the order the wave wrote it.
-  if (boss.kind === "burgee") {
-    const field = ([k, v]: [string, unknown]) => `${k}: ${JSON.stringify(v)}`;
-    const steps = boss.steps.map((s) => `{ ${Object.entries(s).map(field).join(", ")} }`);
-    return `{ kind: "burgee", steps: [${steps.join(", ")}] }`;
-  }
-  // THE TRIVET's the same, and each step says how many pads its chord is.
-  if (boss.kind === "trivet") {
-    const steps = boss.steps.map((s) => {
-      const offset = s.offset !== undefined ? `, offset: ${s.offset}` : "";
-      return `{ ask: "${s.ask}", pads: ${s.pads}, color: "${s.color}", beats: ${s.beats}${offset} }`;
-    });
-    return `{ kind: "trivet", steps: [${steps.join(", ")}] }`;
-  }
-  // THE PLUMB's the same, and each step says how far off level still counts.
-  if (boss.kind === "plumb") {
-    const steps = boss.steps.map(
-      (s) =>
-        `{ ask: "${s.ask}", rangeMilli: ${s.rangeMilli}, color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "plumb", steps: [${steps.join(", ")}] }`;
-  }
-  // THE SLING's the same, and each step says which side a draw is loosed toward.
-  if (boss.kind === "sling") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", aim: "${s.aim}", color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "sling", steps: [${steps.join(", ")}] }`;
-  }
-  // THE DAVIT's the same, and each step says where the boom is steered.
-  if (boss.kind === "davit") {
-    const steps = boss.steps.map(
-      (s) =>
-        `{ ask: "${s.ask}", leanMilli: ${s.leanMilli}, rangeMilli: ${s.rangeMilli}, color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "davit", steps: [${steps.join(", ")}] }`;
-  }
-  // THE HALTER's the same, and a step says only what it asks and its colour.
-  if (boss.kind === "halter") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "halter", steps: [${steps.join(", ")}] }`;
-  }
-  // THE CAPSTAN's steps are the same three words, and THE GALL's.
-  if (boss.kind === "capstan" || boss.kind === "gall") {
-    const steps = boss.steps.map(
-      (s) => `{ ask: "${s.ask}", color: "${s.color}", beats: ${s.beats} }`,
-    );
-    return `{ kind: "${boss.kind}", steps: [${steps.join(", ")}] }`;
-  }
+  // THE SEAM through THE BURGEE: a script of steps, each a line's worth
+  // (`serialize-boss-b.ts`).
+  if (isScriptedEntry(boss)) return serializeScripted(boss);
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named
