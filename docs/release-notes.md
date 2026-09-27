@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · d062e1b40 — The warden's hatch lids are pieces with hinges
+
+Each of the warden's two hatch lids is now a piece of its own — `hatchLids` gives its outline, the crease over it, and a hinge at the middle of its outer rim — and `drawHatch` lays both from it, with the two creases still stroked as one path after both lids. A test paints the old hatch and the new one shut, half and open, and finds the pixels equal. Nothing the game draws changes.
+
 ## 2026-09-27 · 1c82de73f — THE CAPSTAN throws a cog at the hull, and its receipts flare, ring and flash
 
 A step THE CAPSTAN is let run now throws a tooth off the drum. A small cog, BEARING RING at a quarter of the size, spins down the middle column from the cradle's foot, bites the skin and rusts away. Until now it was the default lash. Each worn reversal flares its face bare metal. A band worn bright throws a ring off its rim. A window run out knocks the drum down in its cradle. A hit flashes the core white. A band gone bright, a hold kept and a hit each deal the drum the shake and red that every boss takes.

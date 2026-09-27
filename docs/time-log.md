@@ -25980,3 +25980,5 @@ CAPSTAN step, so the cog is proven by `boss-strike.test.ts` and not by eye.
 
 Bottleneck: reading — the lids were already two paths, and it was the
 creases that were shared, which is why they stay shared.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
