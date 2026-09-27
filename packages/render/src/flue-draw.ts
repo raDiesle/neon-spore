@@ -7,11 +7,16 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
+import type { FlueFx } from "./flue-fx.js";
 import {
+  drawFlueFlash,
+  drawFlueLapse,
   drawFlueSlotGlow,
   drawFlueTapRing,
   drawFlueTapStuds,
+  drawFlueTick,
   drawFlueVents,
   FLUE_ENDS,
 } from "./flue-marks.js";
@@ -65,8 +70,9 @@ const ARRIVE = 3;
  * spent, the damper drops clear once both are, and the core is smaller and
  * brighter for every shot. **The tell is the ember's smear**, gone the
  * instant it steadies (`flue-pose.ts`). Everything here is read off `world`
- * each frame; the events are heard, not drawn, and nothing outlives a frame
- * yet — a tap's tick and the blow are the look's second part.
+ * each frame but what outlives one — a tap's tick, a lapse's flash, a notch's flare, the
+ * damper's thud, the core's flash, the red of a blow landed and its shake —
+ * which is `fx` (`flue-fx.ts`); the blow at the hull is `flue-blow.ts`.
  */
 export function drawFlue(
   ctx: CanvasRenderingContext2D,
@@ -75,19 +81,24 @@ export function drawFlue(
   s: FlueState,
   beat: number,
   beatPhase: number,
+  time: number,
+  fx: FlueFx,
 ): void {
   const cfg = world.cfg;
   const centre = flueCentre(l, cfg);
   ctx.save();
   ctx.globalAlpha = 1 - 0.5 * flueSpent(s, cfg, beat, beatPhase);
-  ctx.translate(0, -(1 - flueArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile);
+  const arrive = -(1 - flueArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile;
+  ctx.translate(fx.hurt.shakeX(time, l.tile), arrive);
 
   const open = flueDamperOpen(s, cfg, beat, beatPhase);
+  const hurt = fx.hurt.value;
   for (let k = 0; k < FLUE_UNITS; k++) {
-    if (k !== FLUE_DAMPER) drawUnit(ctx, l, k, flueUnitAt(l, cfg, k));
+    if (k !== FLUE_DAMPER) drawUnit(ctx, l, k, flueUnitAt(l, cfg, k), hurt);
   }
-  drawCore(ctx, l, cfg, s, beat, beatPhase, open);
-  drawUnit(ctx, l, FLUE_DAMPER, flueDamperAt(l, cfg, open));
+  drawCore(ctx, l, cfg, s, beat, beatPhase, open, fx);
+  const damper = flueDamperAt(l, cfg, open);
+  drawUnit(ctx, l, FLUE_DAMPER, { x: damper.x, y: damper.y + fx.thud * l.tile }, hurt);
 
   const slot = flueSlotPath(l, cfg);
   ctx.fillStyle = PALETTE.flueSlot;
@@ -99,20 +110,28 @@ export function drawFlue(
   if (step?.ask === "vent") drawFlueSlotGlow(ctx, slot, beatPhase);
 
   drawEmber(ctx, l, world, s, beatPhase);
+  drawFlueLapse(ctx, l, flueEmberAt(l, cfg, flueEmberDrawn(world, s, beatPhase)), fx.lapse);
   if (flueSteady(world, s)) {
     const tapper = flueTapper(s);
     const full = tapper !== null && showsFlueHand(l.role, tapper);
     const at = flueEmberAt(l, cfg, s.emberMilli);
     drawFlueTapRing(ctx, l, at, flueLeft(s, beat, beatPhase), full, beatPhase);
+    drawFlueTick(ctx, l, at, fx.tick);
   }
   if (step?.ask === "vent") drawFlueTapStuds(ctx, l, centre, s.taps);
   const ends = [flueUnitAt(l, cfg, FLUE_ENDS[0]), flueUnitAt(l, cfg, FLUE_ENDS[1])] as const;
-  drawFlueVents(ctx, l, ends, s.vents);
+  drawFlueVents(ctx, l, ends, s.vents, (i) => fx.flare(i));
   ctx.restore();
 }
 
-/** Unit `k` at `at`: soot, lit from the key, its seams in the dark soot. */
-function drawUnit(ctx: CanvasRenderingContext2D, l: Layout, k: number, at: Point): void {
+/** Unit `k` at `at`: soot, lit from the key, its seams in the dark soot, red with a blow landed. */
+function drawUnit(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  k: number,
+  at: Point,
+  hurt: number,
+): void {
   ctx.save();
   ctx.translate(at.x, at.y);
   const unit = flueUnitPath(l, k);
@@ -123,6 +142,7 @@ function drawUnit(ctx: CanvasRenderingContext2D, l: Layout, k: number, at: Point
   const r = flueUnitR(l);
   litRound(ctx, -0.15 * r, -0.25 * r, r, LIGHT_HALF.creature);
   ctx.restore();
+  drawHurt(ctx, unit, hurt);
   ctx.lineWidth = STROKE.outline;
   ctx.lineJoin = "round";
   ctx.strokeStyle = rgba(PALETTE.flueSootDark, 0.95);
@@ -171,8 +191,8 @@ function drawEmber(
 /**
  * The core in the damper's place in the row: dull while no shot is owed and lit in the
  * step's colour while one is, smaller and brighter for every hit, with a
- * ring closing as the fire step's beats run out. Drawn only while the damper
- * is some way open — shut, it is not there to see.
+ * ring closing as the fire step's beats run out, and a hit's flash over it.
+ * Drawn only while the damper is some way open — shut, it is not there to see.
  */
 function drawCore(
   ctx: CanvasRenderingContext2D,
@@ -182,9 +202,23 @@ function drawCore(
   beat: number,
   beatPhase: number,
   open: number,
+  fx: FlueFx,
 ): void {
   if (open <= 0) return;
   const at = flueUnitAt(l, cfg, FLUE_DAMPER);
+  drawCoreFace(ctx, l, s, beat, beatPhase, at, fx);
+  drawFlueFlash(ctx, l, at, fx.flash);
+}
+
+function drawCoreFace(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  s: FlueState,
+  beat: number,
+  beatPhase: number,
+  at: Point,
+  fx: FlueFx,
+): void {
   const hurt = coreHurt(s.hits);
   const r = flueCoreR(l) * hurt.size;
   const face = new Path2D();
@@ -199,6 +233,7 @@ function drawCore(
     return;
   }
   const { body, rim } = stepColour(step.color);
+  fx.tell(rim);
   ctx.fillStyle = rgba(body, hurt.bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(face);
   strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright);

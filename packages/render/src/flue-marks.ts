@@ -1,5 +1,5 @@
 import { FLUE_TAPS, FLUE_VENTS } from "@neon-spore/sim";
-import { FLUE_UNITS, flueEmberR, type Point } from "./flue-shape.js";
+import { FLUE_UNITS, flueCoreR, flueEmberR, type Point } from "./flue-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -96,13 +96,15 @@ export function drawFlueTapStuds(
 
 /**
  * The vents spent: a notch in each end unit, dark until its vent is spent
- * and lit after — the first on the left end, the second on the right.
+ * and lit after — the first on the left end, the second on the right — and
+ * flaring past lit the moment it is (`flue-fx.ts`).
  */
 export function drawFlueVents(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   ends: readonly [Point, Point],
   vents: number,
+  flare: (i: 0 | 1) => number,
 ): void {
   const w = 0.09 * l.tile;
   const h = 0.26 * l.tile;
@@ -114,12 +116,67 @@ export function drawFlueVents(
     if (i < vents) {
       ctx.fillStyle = PALETTE.hullRim;
       ctx.fill(notch);
-      strokeGlow(ctx, notch, PALETTE.hullRim, STROKE.inner, 0.9, 0.8);
+      strokeGlow(
+        ctx,
+        notch,
+        PALETTE.hullRim,
+        STROKE.inner,
+        0.9 + 1.6 * flare(i === 0 ? 0 : 1),
+        0.8,
+      );
     } else {
       ctx.fillStyle = PALETTE.flueSlot;
       ctx.fill(notch);
     }
   }
+}
+
+/**
+ * A tap's tick: a short bright bar through the slot across the ember, the
+ * weight of THE RATCHET's click, gone in a sixth of a second.
+ */
+export function drawFlueTick(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  tick: number,
+): void {
+  if (tick <= 0) return;
+  const h = flueEmberR(l) * (2.2 + 1.2 * (1 - tick));
+  const bar = new Path2D();
+  bar.moveTo(at.x, at.y - h);
+  bar.lineTo(at.x, at.y + h);
+  strokeGlow(ctx, bar, PALETTE.hullRim, STROKE.outline, 1.6 * tick, 1);
+}
+
+/** A lapse's flash off the ember at `at`: a ring thrown out from it, fading as it widens. */
+export function drawFlueLapse(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  lapse: number,
+): void {
+  if (lapse <= 0) return;
+  const ring = new Path2D();
+  ring.arc(at.x, at.y, flueEmberR(l) * (1.2 + 2 * (1 - lapse)), 0, Math.PI * 2);
+  strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.inner, lapse, 0.9);
+}
+
+/** A core hit's flash over the core at `at`: white, and wider for every hit. */
+export function drawFlueFlash(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  at: Point,
+  flash: { now: number; hits: number },
+): void {
+  if (flash.now <= 0 || flash.hits <= 0) return;
+  const hits = Math.min(3, flash.hits);
+  const r = flueCoreR(l) * (0.6 + 0.5 * hits) * (1.4 - 0.4 * flash.now);
+  const p = new Path2D();
+  p.arc(at.x, at.y, Math.max(0.5, r), 0, Math.PI * 2);
+  ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
+  ctx.fill(p);
+  strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
 }
 
 /** The end units' indices, left and right. */

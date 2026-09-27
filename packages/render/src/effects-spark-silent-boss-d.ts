@@ -121,7 +121,8 @@ export const SILENT_BOSS_D = [
   "burgeeMiss",
   "burgeeSpent",
   "burgeeOut",
-  // THE FLUE's sixteen, no burst from this table until its look lane draws them.
+  // THE FLUE's sixteen, no burst from this table: each is thrown above the
+  // loop by its own fx file (`flue-fx.ts`).
   "flueEnter",
   "flueLight",
   "flueSteady",

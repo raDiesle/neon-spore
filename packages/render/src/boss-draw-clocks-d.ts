@@ -162,7 +162,7 @@ export function drawLatePairBoss(
 
   // THE FLUE: a slotted flue across the field, its ember stopped dead by one
   // seat sending nothing and tapped three times by the other, a core bared
-  // under a damper and shot (`flue-draw.ts`). Nothing of it outlives a frame
-  // yet: a tap's tick and its blow are the second half of its look.
-  drawFlue(ctx, l, world, boss, beat, beatPhase);
+  // under a damper and shot (`flue-draw.ts`); a tap's tick, a notch's flare,
+  // the damper's thud and the core's flash are `flue-fx.ts`.
+  drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue);
 }

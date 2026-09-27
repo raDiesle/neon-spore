@@ -27214,3 +27214,16 @@ Bottleneck: writing — a body is four files and nine registrations, split
 here from its receipts and blow as THE GRINDSTONE's was.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §40 THE FLUE — the receipts and its own blow
+
+- reading: 10 min. THE GRINDSTONE's fx, blow and registrations as the model;
+  the flue's sixteen events and the columns they carry.
+- writing: 20 min. `flue-fx.ts`, `flue-blow.ts`, the tick, lapse and flash
+  marks, seven registrations, the hurt row and eleven tests.
+- looking: 5 min. The timeout strip; the cinder falls trailing smoke.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — an fx lane is one class and seven registrations in
+other files, each found only by reading the last boss that did it.

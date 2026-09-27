@@ -172,7 +172,7 @@ export const INGEST_SILENT_BOSS_D = [
   "burgeeMiss",
   "burgeeSpent",
   "burgeeOut",
-  // THE FLUE's sixteen: silent until its look lane draws them.
+  // THE FLUE's sixteen: what outlives a frame is `flue-fx.ts`', read above the loop.
   "flueEnter",
   "flueLight",
   "flueSteady",

@@ -8,6 +8,7 @@ import { burgeeSpindleAt } from "../src/burgee-shape.js";
 import { capstanCentre } from "../src/capstan-shape.js";
 import { cystCentre } from "../src/cyst-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
+import { flueCentre } from "../src/flue-shape.js";
 import { gallRootAt } from "../src/gall-shape.js";
 import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
@@ -92,7 +93,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling"],
+      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -126,6 +127,7 @@ describe("a boss's blow at the hull", () => {
     ["THE CYST spits a spore out of its bottom lobe", "cyst", cystCentre],
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
     ["THE SLING flings a ball out of its cup", "sling", slingCentre],
+    ["THE FLUE coughs a cinder out of its flue", "flue", flueCentre],
   ] as const)("%s that bites the skin at reach 1", (_name, by, centreOf) => {
     const from = strikeFrom(L, CFG, by);
     const centre = centreOf(L, CFG);

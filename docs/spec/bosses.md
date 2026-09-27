@@ -10642,8 +10642,21 @@ banked coal while no shot is owed, lit in `stepColour`'s colour with a ring
 closing while one is, a little smaller and brighter per hit (`coreHurt`).
 Soot, its shadow, the slot and the coal are four palette entries,
 `flueSoot` … `flueCore`; the ember and the marks are the rim's white.
-Nothing outlives a frame yet: a tap's tick, the vent and hit flares and
-THE FLUE's own blow at the hull are the look's second part, queued.
+**What outlives a frame** (`flue-fx.ts`, 27 September 2026 — the receipts)
+is thrown the same on both screens: a short bright bar through the slot
+across the ember for every tap, THE RATCHET's click's weight; a ring thrown
+off the ember as a lapse costs the taps; the notch of the vent just spent
+flaring past lit; the damper knocked down a hair as the core is bared, held
+or shut over; the core's white flash, wider per hit, in the colour the
+drawer tells it; and a thud through the plating as the core is bared, a
+harder one as the flue swings open for good. A vent spent, a damper held
+and a hit deal the flue the blow every boss takes, red over every unit and
+a shake; a tap deals the lighter one (`boss-hurt-rows-c.ts`). **Its own
+blow at the hull** (`flue-blow.ts`): a fire step run out coughs a soot
+cinder with a white-hot heart from the damper's underside, trailing smoke
+down the middle column, slow off the flue and hard at the end; it leaves a
+scorch on the skin and a spray of the rim's white sparks. Whether a tick
+that small reads at tempo on a phone is the owner's eye.
 
 ## Retired
 

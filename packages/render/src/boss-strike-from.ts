@@ -5,6 +5,7 @@ import { capstanBlowFrom } from "./capstan-blow.js";
 import { cystBlowFrom } from "./cyst-blow.js";
 import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
+import { flueBlowFrom } from "./flue-blow.js";
 import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { grindstoneBlowFrom } from "./grindstone-blow.js";
@@ -98,6 +99,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   grindstone: grindstoneBlowFrom,
   // The underside of the cup at the crotch, where the ball is flung from (`sling-blow.ts`).
   sling: slingBlowFrom,
+  // The damper's underside, where the cinder is coughed out (`flue-blow.ts`).
+  flue: flueBlowFrom,
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where

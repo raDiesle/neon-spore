@@ -2322,26 +2322,6 @@ part list, a hit test on a moving part follows it, two stills at the widest
 moment tell apart on a phone, and the op-count rows stay within 10%.
 `bun run check` proves it.
 
-## §40 THE FLUE — the receipts and its own blow
-
-- **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
-- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-look (claim: claude/queue-40-the-flue-the-receipts-and-its-own-blow)
-- **Files:** `packages/render/src/flue-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-hurt-rows-c.ts`, `packages/render/test/boss-strike.test.ts`
-
-The look's second part; the body landed (`docs/spec/bosses.md` §11.57,
-*The look*) and nothing of it outlives a frame. A `flue-fx.ts` in
-`effects.boss`, told the events now in the two silent lists: a short
-bright tick on each `flueTick` over the ember, the same weight as THE
-RATCHET's own (`ratchet-fx.ts`); the ember's smear snapping off with a
-small flash on `flueLapse`, the taps' studs emptying; the end unit's
-notch flaring on `flueVent`; the damper's thud on `flueBare`/`flueShut`;
-the core's flash on `flueHit`; and `BossHurt` shaking the flue, its row in
-`boss-hurt-rows-c.ts`. Then THE FLUE's own blow at the hull: a `flue-blow.ts`
-row in `LOOK` and `FROM`, leaving the damper's underside, in soot and the
-rim's white — a cinder coughed out of the bared flue — and a row in
-`boss-strike.test.ts` read off `flueCentre`. `bun run check` proves it;
-at tempo is the owner's eye.
-
 ## Eleven pose files each write out their own `into`
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
@@ -2355,4 +2335,3 @@ and THE FLUE's made eleven. One `phaseInto(s: { phaseBeat: number },
 beat, beatPhase)` in its own small file, called from each, and a row in
 `copies-table.ts` so the twelfth boss calls it rather than writing it,
 as `coreHurt` was gathered. `bun run check` proves it.
-

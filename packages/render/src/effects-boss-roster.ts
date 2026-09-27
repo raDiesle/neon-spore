@@ -8,6 +8,7 @@ import { CystFx } from "./cyst-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
+import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
@@ -214,6 +215,11 @@ export class BossRoster {
    * place so a freeze slows it rather than snapping it, and the limp
    * flutter a swipe that caught nothing leaves (`burgee-fx.ts`). */
   readonly burgee = new BurgeeFx();
+  /** THE FLUE's tick through the slot for every tap, a vent notch's flare,
+   * the damper's thud, the core's flash, the hull shock, and its receipts'
+   * bursts — thrown the same on both screens, and told the core's colour by
+   * the drawer (`flue-fx.ts`, `flue-draw.ts`). */
+  readonly flue = new FlueFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */
