@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
+  PLUMB_SETTLE_SHEET,
   RIME_CLEAR_SHEET,
   type SpriteSheet,
   TRIVET_PLANT_SHEET,
@@ -29,6 +30,7 @@ const SHEETS: Record<string, SpriteSheet> = {
   "vise-crack": VISE_CRACK_SHEET,
   "rime-clear": RIME_CLEAR_SHEET,
   "trivet-plant": TRIVET_PLANT_SHEET,
+  "plumb-settle": PLUMB_SETTLE_SHEET,
 };
 
 interface Manifest {

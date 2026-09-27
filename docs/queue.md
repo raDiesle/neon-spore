@@ -442,32 +442,6 @@ sent through `leanReader` so the wire sees the same drag a phone sends;
 range. `bun run check` proves it; `keys.ts` is at 244 lines, so the keys go
 in a file of their own.
 
-## §31 THE PLUMB — sprite atlas experiment: the bob settling true
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-27, claude/queue-31-the-plumb-sprite-atlas-experiment-the-bob-set
-- **Files:** `tools/raster/src/`, `packages/render/src/sprite-burst.ts`,
-  `assets/raster/`, `docs/raster.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone. Baked detail (`bun run sprite`, `.claude/skills/sprite`) is the
-cheaper first try.
-
-Same experiment, third body: a counterweight easing to a stop as it settles
-true (rows 2, 3, 4 and 5 of the beat list) is a damped swing with a
-verdigris sheen, painterly by `docs/raster.md`'s own test, and
-simulation-triggered, so rule 5 again makes it an atlas rather than an APNG
-or WebP. Pack `plumb-settle-strip.webp` the same way, through the same `bun
-run raster` pipeline, behind `?raster=1`. **Budget: under 90 kB for the
-atlas**, same ceiling and same reasoning as THE VISE's, THE RIME's and THE
-TRIVET's entries above — all four share one budget line in the commit that
-lands them, not four separately-justified numbers. Record the exact atlas
-byte count next to what `bun run raster` printed beforehand. Offered, never
-replacing, same as every other baked look in this file. `bun run
-raster:verify` and `bun run check` prove it; the visual comparison is the
-owner's, unverified until he has looked.
-
 ## §32 THE SLING — sprite atlas experiment: the arm drawing home
 
 - **Found:** 2026-09-26, this session

@@ -15,7 +15,7 @@ export class HeldHost {
    * when a wave starts over (`render-state.ts`). */
   protected readonly held = new RenderState();
 
-  /** What a host may reach: the five atlases a baked look is installed into,
+  /** What a host may reach: the six atlases a baked look is installed into,
    * the film REPLAY plays again and whether it has played out, and whether the
    * wave is still arriving. State rather than drawing, so every one is
    * `held`'s. */
@@ -33,6 +33,9 @@ export class HeldHost {
   }
   get trivetPlant(): SpriteBursts {
     return this.held.trivetPlant;
+  }
+  get plumbSettle(): SpriteBursts {
+    return this.held.plumbSettle;
   }
   get launching(): boolean {
     return this.held.launching;

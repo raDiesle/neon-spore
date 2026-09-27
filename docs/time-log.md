@@ -27932,3 +27932,17 @@ Bottleneck: writing. Keeping the plate in by its own corner left the ring
 3.6 px off it, so the margin had to be the ring's.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE PLUMB's settle, a painted atlas behind `?raster=1`
+
+- reading: 5 min. THE PLUMB's events, `plumb-fx.ts`, and where the drawer
+  hangs each ball from the turned beam.
+- writing: 10 min. The painter, a `key` on `SpriteBursts` so a burst can be
+  drawn in a moving frame, `PlumbFx.swing`, the binder, the tests and the doc.
+- looking: 5 min. The sixteen frames twice: the first bake's after-images
+  were filled discs that painted the whole ball green.
+- friction: 0 min.
+- landing: 5 min. `raster:verify`, `check:fast`, the commit, `land`.
+
+Bottleneck: looking. An additive layer over a body the field already draws
+has to be outlines and sheen, and only the sheet showed the discs burying it.

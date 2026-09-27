@@ -163,6 +163,7 @@ export { SplashTrail } from "./splash-trail.js";
 export { splinters } from "./splinter.js";
 export {
   BURST_SHEET,
+  PLUMB_SETTLE_SHEET,
   RIME_CLEAR_SHEET,
   SpriteBursts,
   type SpriteSheet,

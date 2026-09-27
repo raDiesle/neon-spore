@@ -52,6 +52,12 @@ export const RIME_CLEAR_SHEET: SpriteSheet = { frames: 16, frameSize: 128, frame
  */
 export const TRIVET_PLANT_SHEET: SpriteSheet = { frames: 12, frameSize: 96, frameMs: 45 };
 
+/**
+ * THE PLUMB's weight settling true, the same way again (`plumb-fx.ts` plays
+ * it on a settle, hung from the beam's end and mirrored for the navigator's).
+ */
+export const PLUMB_SETTLE_SHEET: SpriteSheet = { frames: 16, frameSize: 128, frameMs: 50 };
+
 interface LiveBurst {
   x: number;
   y: number;
@@ -61,6 +67,8 @@ interface LiveBurst {
   age: number;
   /** Drawn mirrored left to right: one painted strip for a pair of sides. */
   flip: boolean;
+  /** Which of a drawer's anchors it hangs from, for a burst drawn in a moving frame (`draw`'s `key`). */
+  key: number;
 }
 
 export class SpriteBursts {
@@ -108,10 +116,14 @@ export class SpriteBursts {
     this.live.length = 0;
   }
 
-  /** One burst, centred, at the size it should cover, `flip`ped left to right if asked. Ignored with no atlas. */
-  spawn(x: number, y: number, size: number, flip = false): void {
+  /**
+   * One burst, centred, at the size it should cover, `flip`ped left to right
+   * if asked, and tagged `key` for a drawer that draws each anchor's bursts in
+   * that anchor's own frame. Ignored with no atlas.
+   */
+  spawn(x: number, y: number, size: number, flip = false, key = 0): void {
     if (!this.image || !this.enabled) return;
-    this.live.push({ x, y, size, age: 0, flip });
+    this.live.push({ x, y, size, age: 0, flip, key });
   }
 
   update(dt: number): void {
@@ -126,7 +138,8 @@ export class SpriteBursts {
     return frame >= 0 && frame < this.sheet.frames ? frame : -1;
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  /** Every burst in flight, or only those spawned with `key` when one is named. */
+  draw(ctx: CanvasRenderingContext2D, key?: number): void {
     const image = this.image;
     if (!image) return;
     const { frameSize } = this.sheet;
@@ -135,6 +148,7 @@ export class SpriteBursts {
     // behind it rather than punching a hole in it.
     ctx.globalCompositeOperation = "lighter";
     for (const burst of this.live) {
+      if (key !== undefined && burst.key !== key) continue;
       const frame = this.frameAt(burst.age);
       if (frame < 0) continue;
       const half = burst.size / 2;

@@ -98,6 +98,11 @@ export function drawPlumb(
       y: end.y + Math.cos(swing) * reach + fall,
     };
     drawWeight(ctx, l, side, end, ball, s.weights[side] >= PLUMB_SETTLES_PER_WEIGHT, free > 0);
+    // The painted settle, behind `?raster=1`, hung from where this chain is.
+    ctx.save();
+    ctx.translate(end.x, end.y);
+    fx.swing.draw(ctx, side);
+    ctx.restore();
   }
   ctx.restore();
 }

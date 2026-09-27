@@ -145,6 +145,11 @@ export class RenderState {
     return this.effects.boss.trivet.plant;
   }
 
+  /** THE PLUMB's painted settle, the same (`plumb-fx.ts`). */
+  get plumbSettle(): SpriteBursts {
+    return this.effects.boss.plumb.swing;
+  }
+
   /**
    * Whether the wave is still arriving — the two rings a crossed gate throws
    * over the field (`opening-fx.ts`).

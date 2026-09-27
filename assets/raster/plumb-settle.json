@@ -1,0 +1,10 @@
+{
+  "frames": 16,
+  "frameSize": 128,
+  "frameMs": 50,
+  "seed": 20261001,
+  "bytes": {
+    "strip": 42130,
+    "apng": 107102
+  }
+}

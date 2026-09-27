@@ -2824,6 +2824,7 @@ by hand never moves.
 | `tools/raster/src/apng.ts` | An APNG, assembled from still PNGs a browser already encoded |
 | `tools/raster/src/burst-art.ts` | One frame of the burst, drawn into a 2D context |
 | `tools/raster/src/png.ts` | The parts of the PNG container an animator needs, and nothing else |
+| `tools/raster/src/plumb-settle-art.ts` | One frame of THE PLUMB's weight settling true, drawn into a 2D context |
 | `tools/raster/src/render.ts` | Draws the burst in a real browser and brings the bytes back |
 | `tools/raster/src/render-strip.ts` | Draws any painted effect into a strip in a real browser, and brings the bytes back |
 | `tools/raster/src/rime-clear-art.ts` | One frame of THE RIME's bare-core reveal, drawn into a 2D context |

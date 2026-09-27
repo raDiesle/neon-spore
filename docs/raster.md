@@ -471,3 +471,44 @@ the grey dust brightens the field behind it rather than darkening it.
 
 **Still open**: the owner's eye. Play THE TRIVET at `?raster=1` through a
 plant on each foot and compare.
+
+### The sixth strip: THE PLUMB's settle
+
+Rows 2 to 5 of §31's beat list — a counterweight easing to a stop as its
+level settles true — are a damped swing with a verdigris sheen: rule 4.
+`tools/raster/src/plumb-settle-art.ts` paints the ball's rim at its last few
+places along the arc, the chain's after-image, a crescent of light that
+slides across the ball against its lean, verdigris flecks shaken off at each
+turn of the swing, and, as the swing dies, a ring out from the ball at rest.
+It is drawn additively over the ball the field already draws, so it is **all
+light and no body** — outlines and a sheen, never a disc that would bury the
+bronze. **Bronze and verdigris only** — `plumbBronze`, `plumbGlass`, and a
+verdigris between them (rule 7).
+
+**It hangs from the beam's end, not the ball.** The ball swings and the beam
+turns as it comes true, so a strip spawned at a point on the field would be
+off by the skew. The frame's pivot is a tenth of the way down its middle; the
+bursts are spawned in beam-end coordinates and keyed by side
+(`SpriteBursts.spawn`'s `key`), and `plumb-draw.ts` draws each side's from
+where that chain is hooked this frame. Painted for the pilot's weight, and
+mirrored for the navigator's; both are drawn at the same three tiles, so the
+navigator's lighter ball is ringed a touch wide.
+
+Sixteen frames of 128 px at 50 ms, 0.8 s.
+
+| file | bytes |
+|---|---|
+| `plumb-settle-strip.webp`, the atlas the field fetches | **42 130** (`bun run raster` printed 41.1 kB) |
+| `plumb-settle.apng`, the master | 107 102 |
+
+**One budget for the four painted boss strips: each atlas under 90 kB.** THE
+VISE's 43 238, THE RIME's 66 970, THE TRIVET's 15 690, THE PLUMB's 42 130.
+
+`PlumbFx.swing` (`plumb-fx.ts`, `effects.boss.plumb`) spawns it on
+`plumbSettle`, and `bindRasterPlumbSettle` installs it behind `?raster=1`.
+Without the flag it draws nothing (`packages/render/test/plumb-settle.test.ts`),
+and the shipped settle — the glass's ring, the ball easing still — is drawn
+either way.
+
+**Still open**: the owner's eye. Play THE PLUMB at `?raster=1` through a
+settle on each weight and compare.

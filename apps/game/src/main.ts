@@ -21,6 +21,7 @@ import { pressQuit } from "./quit.js";
 import {
   bindRasterBurst,
   bindRasterClasp,
+  bindRasterPlumbSettle,
   bindRasterRimeClear,
   bindRasterTrivetPlant,
   bindRasterViseCrack,
@@ -156,8 +157,8 @@ const link = bindShell(
 );
 
 // The baked burst, THE CLASP's hand-painted shield, THE VISE's painted
-// crack, THE RIME's painted clearing and THE TRIVET's painted plant, all
-// behind `?raster=1` — `raster.ts` and `docs/raster.md`. None is
+// crack, THE RIME's painted clearing, THE TRIVET's painted plant and THE
+// PLUMB's painted settle, all behind `?raster=1` — `raster.ts` and `docs/raster.md`. None is
 // fetched at all without the flag, so the shipped field is byte for byte the
 // shipped field.
 void bindRasterBurst(renderer.sprites, location.href);
@@ -165,6 +166,7 @@ void bindRasterClasp(renderer.claspShield, location.href);
 void bindRasterViseCrack(renderer.viseCrack, location.href);
 void bindRasterRimeClear(renderer.rimeClear, location.href);
 void bindRasterTrivetPlant(renderer.trivetPlant, location.href);
+void bindRasterPlumbSettle(renderer.plumbSettle, location.href);
 // Ink off the end of a mouse, and nothing at all on a phone (`trail.ts`).
 // Full size while a sheet is up and much smaller on the field: the "menu" hold
 // is exactly "something is covering the game", which is the question asked.

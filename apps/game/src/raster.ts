@@ -1,6 +1,7 @@
 import { loadAtlas } from "@neon-spore/render";
 import burstStripUrl from "../../../assets/raster/burst-strip.webp";
 import claspStripUrl from "../../../assets/raster/green-shield-strip.webp";
+import plumbSettleStripUrl from "../../../assets/raster/plumb-settle-strip.webp";
 import rimeClearStripUrl from "../../../assets/raster/rime-clear-strip.webp";
 import trivetPlantStripUrl from "../../../assets/raster/trivet-plant-strip.webp";
 import viseCrackStripUrl from "../../../assets/raster/vise-crack-strip.webp";
@@ -101,3 +102,12 @@ export const bindRasterRimeClear = (host: SpriteHost, href: string): Bound =>
  */
 export const bindRasterTrivetPlant = (host: SpriteHost, href: string): Bound =>
   bindStrip(host, href, trivetPlantStripUrl);
+
+/**
+ * THE PLUMB's painted settle (`plumb-fx.ts`), a weight's swing dying away as
+ * it comes true: the one strip, mirrored for the navigator's weight. The
+ * shipped settle — the glass's ring, the ball easing still — is drawn either
+ * way; the swing is laid over it.
+ */
+export const bindRasterPlumbSettle = (host: SpriteHost, href: string): Bound =>
+  bindStrip(host, href, plumbSettleStripUrl);

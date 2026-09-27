@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   bindRasterBurst,
   bindRasterClasp,
+  bindRasterPlumbSettle,
   bindRasterRimeClear,
   bindRasterTrivetPlant,
   bindRasterViseCrack,
@@ -94,6 +95,18 @@ describe("the raster flag", () => {
     };
     expect(await bindRasterTrivetPlant(host, "http://game.invalid/")).toBe("off");
     expect(await bindRasterTrivetPlant(host, "http://game.invalid/?raster=0")).toBe("off");
+    expect(installs).toBe(0);
+  });
+
+  it("leaves THE PLUMB's settle as it ships unless the flag is set", async () => {
+    let installs = 0;
+    const host = {
+      install(): void {
+        installs++;
+      },
+    };
+    expect(await bindRasterPlumbSettle(host, "http://game.invalid/")).toBe("off");
+    expect(await bindRasterPlumbSettle(host, "http://game.invalid/?raster=0")).toBe("off");
     expect(installs).toBe(0);
   });
 });

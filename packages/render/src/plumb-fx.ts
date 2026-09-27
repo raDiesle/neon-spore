@@ -4,11 +4,15 @@ import type { Burst } from "./effects-boss.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { plumbCoreAt, plumbGlass, plumbHook } from "./plumb-shape.js";
+import { PLUMB_SETTLE_SHEET, SpriteBursts } from "./sprite-burst.js";
 
 /**
  * What THE PLUMB leaves behind a frame: a weight's **settle** ringing its
  * glass, a **drift**'s jolt through it, the core's **hit** flash and the
- * **free** swing's release, and the bursts its four silent receipts throw.
+ * **free** swing's release, the bursts its four silent receipts throw, and,
+ * behind `?raster=1`, the painted settle — the weight's swing dying away with
+ * a verdigris sheen (`swing`, `docs/raster.md`), which draws nothing until a
+ * host installs its atlas.
  *
  * Everything else — the beam's skew, each ball's rest, the sac's turn and the
  * core's own size and brightness — is read off the boss every frame
@@ -32,6 +36,12 @@ const SETTLE_DECAY = 3;
 const DRIFT_DECAY = 7;
 const HIT_DECAY = 3;
 const FREE_DECAY = 1.5;
+/**
+ * The painted settle's frame, in tiles, and how far below the beam's end its
+ * middle is: it is painted hanging from a pivot a tenth of the way down.
+ */
+const SWING_TILES = 3;
+const SWING_DROP = 0.4;
 
 export class PlumbFx {
   private readonly settleNow: [number, number] = [0, 0];
@@ -41,6 +51,12 @@ export class PlumbFx {
   private coreHex: string = PALETTE.plumbGlass;
   /** The blow a weight settling true, a steady or a shot landing deals the bob. */
   readonly hurt = new BossHurt();
+  /**
+   * The painted settle: an offered look, off until installed. Its bursts sit
+   * in beam-end coordinates, keyed by side, because the beam turns as it
+   * comes true — `plumb-draw.ts` draws each side's from where its chain hangs.
+   */
+  readonly swing = new SpriteBursts(PLUMB_SETTLE_SHEET);
 
   /** How bright glass `side`'s settle ring still is, 0..1. */
   settle(side: 0 | 1): number {
@@ -77,6 +93,8 @@ export class PlumbFx {
           const g = plumbGlass(l, e.side);
           burst(hook.x + g.x, hook.y + g.y, 6 + 3 * e.level, PALETTE.plumbGlass);
           this.settleNow[e.side] = 1;
+          const size = l.tile * SWING_TILES;
+          this.swing.spawn(0, size * SWING_DROP, size, e.side === 1, e.side);
           this.hurt.hit();
           break;
         }
@@ -113,6 +131,7 @@ export class PlumbFx {
     this.hitNow = Math.max(0, this.hitNow - HIT_DECAY * step);
     this.freeNow = Math.max(0, this.freeNow - FREE_DECAY * step);
     this.hurt.update(dt);
+    this.swing.update(dt);
   }
 
   clear(): void {
@@ -124,5 +143,6 @@ export class PlumbFx {
     this.freeNow = 0;
     this.coreHex = PALETTE.plumbGlass;
     this.hurt.clear();
+    this.swing.clear();
   }
 }

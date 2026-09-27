@@ -56,6 +56,19 @@ export const TRIVET_PLANT: { size: number; frames: number; seed: number; frameMs
   frameMs: 45,
 };
 
+/**
+ * THE PLUMB's weight settling true (§31, rows 2 to 5): a damped swing hung
+ * from the beam's end, the pilot's, mirrored for the navigator's. As wide as
+ * THE RIME's, because a chain and a ball under it are three tiles tall, and
+ * as slow, because a swing dies away rather than bursts.
+ */
+export const PLUMB_SETTLE: { size: number; frames: number; seed: number; frameMs: number } = {
+  size: 128,
+  frames: 16,
+  seed: 20261001,
+  frameMs: 50,
+};
+
 /** Every painted strip that goes through `strip-bake.ts`, by its file name. */
 export const STRIPS: Record<
   string,
@@ -64,4 +77,5 @@ export const STRIPS: Record<
   "vise-crack": VISE_CRACK,
   "rime-clear": RIME_CLEAR,
   "trivet-plant": TRIVET_PLANT,
+  "plumb-settle": PLUMB_SETTLE,
 };
