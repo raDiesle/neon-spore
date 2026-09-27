@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · c3782ff28 — Queue the owner's boss notes of 27 September as nineteen entries
+
+THE SLOW's fuse moves under the boss and grows taller, CRAWL's light gets quieter, marks show only while THE SLOW is open, and bosses hold still while their marks are live. For THE INSTAR: a softer mouth fire, longer and slower flights with a depth orbit, crosshair shoot marks, a red glow on the part to shoot, and a hurt on every bolt that counts. For VERSUS: five candidates to adopt, four to drop, the wing shown in a pose where it can be seen, the moult repainted as a wound, and a bigger heart in the bare pose.
+
 ## 2026-09-27 · d062e1b40 — The warden's hatch lids are pieces with hinges
 
 Each of the warden's two hatch lids is now a piece of its own — `hatchLids` gives its outline, the crease over it, and a hinge at the middle of its outer rim — and `drawHatch` lays both from it, with the two creases still stroked as one path after both lids. A test paints the old hatch and the new one shut, half and open, and finds the pixels equal. Nothing the game draws changes.

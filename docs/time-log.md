@@ -25997,3 +25997,5 @@ creases that were shared, which is why they stay shared.
 
 Bottleneck: reading — each note had to be matched to the code that draws it
 before an entry could name its files and say what exactly to change.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
