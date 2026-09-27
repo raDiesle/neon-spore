@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 1abc415c8 — THE SEAM, THE SLING, THE HALTER, THE GALL and THE VALVE hold their marks still in a window
+
+Five more bosses have rows in the shared hush test, each with a reader for the marks its draw places, now kept in boss-hush-drawn.ts. THE GALL's ripple carried both its rings on the wall clock, and THE VALVE's brace shudder carried the socket both thumbs hold; both now die down while THE SLOW asks. THE VALVE's drum also no longer jumps a list step as a pin comes out: the step now waits for the pin's story to end and eases in after it.
+
 ## 2026-09-27 · b9b940f19 — The perf audit's real-device numbers are the weekly run's, not a lane's
 
 The September audit still has no frame time or GC numbers from a real browser, and a queue entry asked a lane to go and take them. The rules say no lane owes a `bun run perf` and a queue entry naming one is wrong, so the entry is given back and the audit now says where those numbers come from: the owner's next weekly run, on an idle machine, over THE GYRE and the busiest boss waves, in a section of their own.

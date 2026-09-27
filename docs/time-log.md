@@ -26797,3 +26797,5 @@ owe, so the work was recognising that, not measuring.
 
 Bottleneck: THE DAVIT's wave loops on its first lean under AUTO, which has
 no hand for it, so one of the six could not be walked at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
