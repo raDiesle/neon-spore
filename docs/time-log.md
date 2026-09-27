@@ -25513,3 +25513,17 @@ Bottleneck: reading — the queue said these three had no look, and they had
 been drawn since; finding that out was the first ten minutes.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — an INDEX.md row ends a bold first sentence, and an empty one follows its header
+
+- reading: 5 min. `sentence.ts`, `refresh.ts` and `base.ts` — the eleven files
+  all had headers, so the fault was the derivation, not the files.
+- writing: 10 min. `.** ` as a sentence end, a cut inside the bold closed
+  rather than dropped, an empty row always re-derived, the drift test refusing
+  one, and the tests for each.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry, filed by this session an hour earlier, blamed
+the files; the eleven headers were there all along.

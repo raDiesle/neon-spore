@@ -301,7 +301,7 @@ by hand never moves.
 | `packages/sim/src/events-volley.ts` | **What THE VOLLEY does**, as events: a ward that sends it back |
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
-| `packages/sim/src/weight.ts` |  |
+| `packages/sim/src/weight.ts` | **THE WEIGHT: the body two thumbs crush, and neither thumb can see the other** |
 | `packages/sim/src/well.ts` | THE WELL: the field turned inside out, and then turned — the face's three phases and the thumb on the seam |
 | `packages/sim/src/well-hand.ts` | **The pilot's thumb on the seam**, off the wire, on the tick |
 | `packages/sim/src/well-hash.ts` | What THE WELL puts into `hashWorld`, and nothing else |
@@ -408,7 +408,7 @@ by hand never moves.
 | `packages/sim/src/boss-hands.ts` | **The choreographed bosses' hands, read on the tick** |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
-| `packages/sim/src/crawler-round.ts` |  |
+| `packages/sim/src/crawler-round.ts` | **How a worm comes on, how its body closes up, and what a shot into one does** |
 | `packages/sim/src/crawler.ts` | THE CRAWLER: a maggot that walks the ship's own surface, and the first body |
 | `packages/sim/src/creature-state-crawler.ts` | **THE CRAWLER's three fields**, and the whole of what one link remembers |
 | `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |
@@ -535,7 +535,7 @@ by hand never moves.
 | `packages/sim/src/hasp-shot.ts` | **THE HASP's one target**: the bolt the second hasp's spring throws loose (§20, row 7) |
 | `packages/sim/src/hasp-step.ts` | THE HASP's clock: the latches lighting, the heat burning a hand off, the wheel seizing and coming free |
 | `packages/sim/src/hasp.ts` | THE HASP: three sealed clasps down the middle of the field, each a lobed cover over a wheel-hub |
-| `packages/sim/src/fence-crack.ts` |  |
+| `packages/sim/src/fence-crack.ts` | **A crack in THE FENCE: the one column a bolt can open, and the colour it has to arrive in** |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
 | `packages/sim/src/harpoon.ts` | **THE LEECH and THE LIMPET as malfunctions** |
@@ -797,7 +797,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-hand.ts` | THE HAND's rehearsal: the one verb neither seat owns |
 | `packages/content/src/scenes/the-handover.ts` | THE HANDOVER's rehearsal: the panels trade while the pair is watching |
 | `packages/content/src/scenes/the-husk.ts` | THE HUSK's rehearsal: a mark drawn on one seat's screen and not the other's, and a thumb that must not land |
-| `packages/content/src/scenes/the-hive.ts` |  |
+| `packages/content/src/scenes/the-hive.ts` | **THE HIVE's rehearsal — the colour is his, the warning is hers** |
 | `packages/content/src/scenes/the-rock.ts` | THE ROCK's rehearsal: the first thing in the game neither of them can do alone |
 | `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
 | `packages/content/src/scenes/the-dart.ts` | THE DART's rehearsal: the column you were given is the column it has already left |
@@ -1562,7 +1562,7 @@ by hand never moves.
 | `packages/render/src/well-roll.ts` | THE WELL's roll, as a screen sees it — the angle on the layout, so a frame and a finger cannot disagree |
 | `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/wet-socket.ts` | **A wet hollow in whatever surface a body stands on**: darker than the water round it, darkest at the bottom |
-| `packages/render/src/world-layout.ts` |  |
+| `packages/render/src/world-layout.ts` | **The three things a world does to a layout, in one order, for both callers** |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/queen-facet.ts` | FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
@@ -1660,7 +1660,7 @@ by hand never moves.
 | `packages/render/src/instar-hide-baked.ts` | **THE INSTAR's hide, baked** — the third example (`sprite-bake.ts`) |
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
-| `packages/render/src/instar-reach.ts` |  |
+| `packages/render/src/instar-reach.ts` | **How far each of THE INSTAR's views reaches, and whether any of it is on the field** |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
 | `packages/render/src/instar-moult-baked.ts` | **THE INSTAR's new body, baked** — the fifth example (`sprite-bake.ts`) |
 | `packages/render/src/instar-nest-baked.ts` | **THE INSTAR's nests, baked** — the second example (`sprite-bake.ts`) |
@@ -1909,7 +1909,7 @@ by hand never moves.
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
 | `packages/render/src/antiphon-flesh.ts` | **What THE ANTIPHON is made of**: a long mantle of membrane |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
-| `packages/render/src/antiphon-grip.ts` |  |
+| `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's one handle: the organ, on the screen it is shown on** |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
@@ -2025,7 +2025,7 @@ by hand never moves.
 | `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
 | `packages/render/src/hull-outline.ts` | The hull's contour and the body it closes, as paths — `drawHull`'s, and THE MIRROR's blow laid over the same outline |
 | `packages/render/src/husk-deflate.ts` | **A husk refused: a balloon let go.** The owner asked for this by name on 15 September 2026 |
-| `packages/render/src/husk-mark.ts` |  |
+| `packages/render/src/husk-mark.ts` | **The frame player 2 sees around a husk, and player 1 never does** |
 | `packages/render/src/husk-look.ts` | How a husk is told from a pod — the one record VERSUS can offer a second answer through |
 | `packages/render/src/hive-draw.ts` | **THE HIVE**: the waxen mass over row 0 with a site in every lobe of its underside — the breach's colour on the pilot's screen, the swell on the navigator's |
 | `packages/render/src/hive-fx.ts` | What THE HIVE leaves behind a frame: the clench of a wrong colour, the jolt of a seal, and its receipts' bursts |
@@ -2375,7 +2375,7 @@ by hand never moves.
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
 | `apps/game/src/safe-area.ts` | The strips of the screen the phone keeps for itself, in numbers |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
-| `apps/game/src/tick-rate.ts` |  |
+| `apps/game/src/tick-rate.ts` | **How long one tick is worth in the hand, right now** |
 | `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
 
 ### apps/server
@@ -2916,7 +2916,7 @@ by hand never moves.
 | `tools/perf/peak.ts` | STANDING A WAVE WHERE IT IS MEASURED |
 | `tools/perf/unmeasured.ts` | A BASELINE ROW FOR A WAVE NOBODY HAS MEASURED |
 | `tools/perf/blank.ts` | `bun run baseline:blank` — brings the baseline up to the waves the game ships today; opens no browser and measures nothing, so it is not spelled `perf` and any session may run it |
-| `tools/director/src/cell-config-rows.ts` |  |
+| `tools/director/src/cell-config-rows.ts` | **How a row under the selected cell is drawn, and what each of its values is called** |
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
@@ -3073,7 +3073,7 @@ by hand never moves.
 | `tools/frames/flags.ts` | The whole `frames` command line, read and validated once into a `FrameSpec` |
 | `tools/frames/flag-lists.ts` | Every `--hold` and `--press` on the command line rather than the first, and the one tick line they join |
 | `tools/frames/fault.ts` | `--fault <kind>[:<numbers>]` — the wave's fault, written on the world from outside it |
-| `tools/frames/frame-files.ts` |  |
+| `tools/frames/frame-files.ts` | **The files a capture writes: their names, the write, and the clearing of the last run's** |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
 | `tools/frames/page-said.ts` | What the page said while `shot.ts` waited for it — its throws and console errors, printed above *is the tab right?* |
 | `tools/frames/pixels.ts` | **A screenshot read back as the picture it is**, rather than as the file it arrived in |

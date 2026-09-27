@@ -2864,16 +2864,3 @@ Most of the file is the flag-to-file table and the recipe list in its header
 comment, and every new flag adds a line to both. Move the recipes into
 `docs/commands.md`, or into their own tools/frames/recipes.ts printed by
 `--help`, before the next flag takes the file over the ceiling.
-
-## Eleven INDEX.md rows are empty, and a row once written empty stays empty
-
-- **Found:** 2026-09-27, claude/queue-bun-run-land-loses-the-race-to-the-trunk-over-an
-- **Taken:** 2026-09-27, claude/queue-11-41-11-43-and-11-44-still-say-only-the-simulat (claim: claude/queue-eleven-index-md-rows-are-empty-and-a-row-once-wr)
-- **Files:** `tools/index/`, `docs/INDEX.md`, `packages/sim/src/weight.ts`, `tools/frames/frame-files.ts`
-
-Eleven files (the empty `|  |` rows of `docs/INDEX.md`) open on an import with no header comment, so their rows carry no
-description, and `bun run index` keeps a row that already exists — so a new
-file indexed before its header was written keeps an empty row after it is
-(`tools/land/race-retry.ts` did, until its row was deleted by hand). What to do:
-give the eleven a header; have `bun run index` re-derive a row whose text is
-empty; and have the drift test refuse an empty row.

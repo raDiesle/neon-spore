@@ -213,6 +213,8 @@ export interface DriftContext {
 export function driftInRow(rowText: string, context: DriftContext): string[] {
   const complaints: string[] = [];
   const { source, resolvesFile } = context;
+  // A row that says nothing is a file with no header sentence (`refresh.ts`).
+  if (rowText.trim() === "") return ["says nothing — give the file a header comment"];
 
   for (const m of rowText.matchAll(/`([^`]+)`/g)) {
     const name = m[1] ?? "";

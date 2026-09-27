@@ -92,6 +92,11 @@ describe("driftInRow", () => {
     );
   });
 
+  test("refuses a row that says nothing", () => {
+    const source = "export const r = 3;";
+    expect(driftInRow(" ", { source, resolvesFile })[0]).toContain("says nothing");
+  });
+
   test("says nothing about a number the header never mentions", () => {
     const source = "/** How far a torch's radius reaches, in tiles. */\nexport const r = 3;";
     expect(

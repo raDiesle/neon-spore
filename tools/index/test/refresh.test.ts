@@ -79,4 +79,11 @@ describe("a row whose file's header changed", () => {
     );
     expect(lineOf(generateIndex(text, tree()), SHUT)).toContain("vertical slot");
   });
+
+  // `tools/land/race-retry.ts`, 27 September 2026: new and uncommitted, so no
+  // earlier source said the empty row was the generator's own.
+  test("fills an empty row from the header, with nothing to say what the file was", () => {
+    const out = generateIndex(doc("", "The lost screen's colours"), tree());
+    expect(lineOf(out, SHUT)).toBe(`| \`${SHUT}\` | The field shuts from both sides at once |`);
+  });
 });

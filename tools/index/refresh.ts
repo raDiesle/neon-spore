@@ -18,6 +18,12 @@
  * anything else was written on purpose, and stays; `drift.ts` is what catches
  * that kind going wrong. Which earlier sources, and the one case they miss, is
  * `base.ts`'s to say.
+ *
+ * **An empty row always follows.** Nobody writes a row that says nothing on
+ * purpose; it is what a file indexed before its header had one gets, and a
+ * file new in an uncommitted tree has no earlier source to measure against,
+ * so the rule above left `tools/land/race-retry.ts` empty after its header was
+ * written (27 September 2026), and eleven more rows the same way before it.
  */
 
 import { formatRow, type Row } from "./index.js";
@@ -36,7 +42,8 @@ export function rowText(line: string): string {
  */
 export function refreshRow(row: Row, now: () => string, before: readonly string[]): Row {
   const text = rowText(row.line);
-  if (!before.some((source) => deriveHeaderSentence(source) === text)) return row;
+  const generated = text === "" || before.some((source) => deriveHeaderSentence(source) === text);
+  if (!generated) return row;
   const next = deriveHeaderSentence(now());
   return next === text ? row : { path: row.path, line: formatRow(row.path, next) };
 }

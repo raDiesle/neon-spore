@@ -32,9 +32,17 @@ export function deriveHeaderSentence(source: string): string {
 
 const LIMIT = 110;
 
+/**
+ * A sentence ends at ". ", or at ".** " when the header's first sentence is set
+ * in bold — which most are, and which `indexOf(". ")` read straight past into
+ * the paragraph, cut mid-emphasis and left nothing of (eleven empty rows,
+ * 27 September 2026).
+ */
+const SENTENCE_END = /\.(\*\*)? /;
+
 function truncateSentence(raw: string): string {
-  const stopAt = raw.indexOf(". ");
-  let cut = stopAt === -1 ? raw : raw.slice(0, stopAt);
+  const stop = SENTENCE_END.exec(raw);
+  let cut = stop ? raw.slice(0, stop.index) + (stop[1] ?? "") : raw;
   let elided = false;
   if (cut.length > LIMIT) {
     // A clause boundary reads as a finished thought; a bare word boundary does
@@ -55,9 +63,15 @@ function truncateSentence(raw: string): string {
   }
   cut = cut.trim();
   if (cut.endsWith(".")) cut = cut.slice(0, -1);
-  // A cut mid-emphasis leaves an unmatched "**" — drop it rather than ship broken markdown.
+  // A cut mid-emphasis leaves an unmatched "**" — drop it rather than ship
+  // broken markdown, or close it when dropping it would leave nothing.
   if ((cut.match(/\*\*/g)?.length ?? 0) % 2 === 1) {
-    cut = cut.replace(/\*\*[^*]*$/, "").trimEnd();
+    const dropped = cut.replace(/\*\*[^*]*$/, "").trimEnd();
+    if (dropped !== "") cut = dropped;
+    else {
+      cut = `${cut.replace(/[,;:—-]+$/, "").trimEnd()}${elided ? "…" : ""}**`;
+      elided = false;
+    }
   }
   if (elided) cut = `${cut.replace(/[,;:—-]+$/, "").trimEnd()}…`;
   return cut;

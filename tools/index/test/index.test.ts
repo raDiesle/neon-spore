@@ -272,4 +272,20 @@ describe("deriveHeaderSentence", () => {
     const source = `/** ${head}, ${"and a long tail ".repeat(8)} */\nexport const x = 1;`;
     expect(deriveHeaderSentence(source)).toBe(head);
   });
+
+  // Eleven rows were empty on 27 September 2026: ".**" was read past, and the
+  // cut inside the bold dropped all of it.
+  test("ends a bold first sentence at its closing emphasis", () => {
+    const source = `/**\n * **How long one tick is worth in the hand, right now.**\n *\n * The seam this sits on is written down. More.\n */\n`;
+    expect(deriveHeaderSentence(source)).toBe(
+      "**How long one tick is worth in the hand, right now**",
+    );
+  });
+
+  test("closes the emphasis of a bold sentence too long to end, rather than drop it", () => {
+    const head = `**The frame ${"and the long bold clause ".repeat(6)}`;
+    const result = deriveHeaderSentence(`/**\n * ${head}goes on.** Then more.\n */\n`);
+    expect(result.startsWith("**The frame")).toBe(true);
+    expect(result.endsWith("…**")).toBe(true);
+  });
 });
