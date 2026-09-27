@@ -48,6 +48,7 @@ const SLOT_POSE: Record<string, string> = {
   "ratchet:plate": "THE RATCHET · CLIMB",
   "grindstone:jaw": "THE GRINDSTONE · STILL",
   "trivet:foot": "THE TRIVET · STILL",
+  "rime:pane": "THE RIME · STILL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

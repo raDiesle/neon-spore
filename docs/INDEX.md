@@ -2877,6 +2877,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's four states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
+| `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eleven states**, posed with a hand on the controls (`boss-hands-keel.ts`) |

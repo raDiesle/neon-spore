@@ -82,7 +82,7 @@ export function drawRime(
     // The half a wipe asks for stands out by the other going dull; the whiteout lights both.
     const rubbing = rimeRubbing(s, side);
     const film = !asked || rubbing ? 0.88 : 0.6;
-    drawFrost(ctx, l, side, rimeClear(s, side), film);
+    drawFrost(ctx, l, side, rimeClear(s, side), film, time);
     if (rubbing) drawRimeLitHalf(ctx, l, side, beatPhase);
     ctx.globalAlpha = alpha;
   }
@@ -128,9 +128,24 @@ function drawGlass(ctx: CanvasRenderingContext2D, l: Layout, time: number): void
 }
 
 /**
+ * What a frosted sheet carries beyond its seam, drawn with the context at the
+ * sheet's centre and clipped to what is still frosted: `sheet` is where it
+ * stands on the pane, `facet` its outline. The shipped pane draws nothing
+ * here — the seam a VERSUS candidate patches (`tools/versus/candidates/rime-pane/`).
+ */
+export type RimeGlint = (
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  facet: Path2D,
+  sheet: { x: number; y: number; r: number },
+  time: number,
+) => void;
+export const RIME_GLINT: { paint: RimeGlint } = { paint: () => {} };
+
+/**
  * Half `side`'s frost, `clear` of it wiped away and `film` opaque: the pale film over the whole
  * half with the clear patch cut out of it, and THE CAIRN's seven seams left
- * showing on what is still frosted.
+ * showing on what is still frosted, each with whatever `RIME_GLINT` lays on it.
  */
 function drawFrost(
   ctx: CanvasRenderingContext2D,
@@ -138,6 +153,7 @@ function drawFrost(
   side: 0 | 1,
   clear: number,
   film: number,
+  time: number,
 ): void {
   if (clear >= 1) return;
   const half = rimeHalfPath(l, side);
@@ -156,7 +172,9 @@ function drawFrost(
     const sheet = rimeSheet(l, k);
     ctx.save();
     ctx.translate(sheet.x, sheet.y);
-    ctx.stroke(rimeFacetPath(sheet.r, sheet.spin, k));
+    const facet = rimeFacetPath(sheet.r, sheet.spin, k);
+    ctx.stroke(facet);
+    RIME_GLINT.paint(ctx, l, facet, sheet, time);
     ctx.restore();
   }
   ctx.restore();

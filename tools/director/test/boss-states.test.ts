@@ -33,8 +33,8 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   valve: ["still", "turn", "hold", "frozen", "list", "jet", "brace", "wipe", "seal", "open"],
   // THE SEAM the same, §26: its four.
   seam: ["still", "lit", "rest", "split"],
-  // THE RIME the same, §29: its four.
-  rime: ["still", "lit", "rest", "shattered"],
+  // THE RIME the same, §29: its four, less the still posed for `rime:pane`.
+  rime: ["lit", "rest", "shattered"],
   plumb: ["still", "lit", "rest", "free"],
   sling: ["still", "lit", "rest", "free"],
   cyst: ["still", "lit", "frozen", "rest", "split"],

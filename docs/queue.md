@@ -2602,19 +2602,6 @@ so the touch goes on the kernel: let it turn slowly in the hollow — its
 highlight wandering round it on a period of its own — without leaving its
 column. A look: offered through VERSUS.
 
-## THE RIME's pane has no secondary motion outside its story
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-27, claude/queue-the-trivets-stand-has-no-secondary-motion-of-its (claim: claude/queue-the-rimes-pane-has-no-secondary-motion-outside-i)
-- **Files:** `packages/render/src/rime-draw.ts`, `packages/render/src/rime-story.ts`
-
-From the secondary-motion audit. `rime-story.ts` line 77 drifts three frost
-bands on `time * 0.4`, but only inside a story step; the pane itself has
-the light's drift (`rime-draw.ts` line 123) and nothing else. Touch: a slow
-glint travelling across the seven ice sheets on its own period, fainter than
-the story's bands so the two stay told apart. A look: offered through
-VERSUS.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

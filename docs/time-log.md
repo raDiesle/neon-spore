@@ -25858,3 +25858,16 @@ drawn geometry, which nothing has yet, so half the item went back to the
 queue behind the look.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE RIME's frost glints, as a VERSUS candidate
+
+- reading: 5 min. The entry, `rime-draw.ts`, the fog's bands and the sheets.
+- writing: 10 min. The seam in the frost's sheet loop, the candidate, and
+  THE RIME's first pose — its still, struck off `OWED`.
+- looking: 10 min. Two `versus:shot`s and crops: a pale fill alone was
+  invisible on pale frost, so the glint lights the sheets' edges.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the first glint could not be seen, and only a crop
+against the shipped pane said so.
