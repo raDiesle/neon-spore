@@ -25717,3 +25717,5 @@ the app part of its rules, and each had to be read to be ruled out.
 
 Bottleneck: looking — a light moved by six hundredths of a body is only seen
 magnified, shipped beside candidate.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
