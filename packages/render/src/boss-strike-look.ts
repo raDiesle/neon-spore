@@ -1,4 +1,5 @@
 import type { BossKind } from "@neon-spore/sim";
+import { capstanBlow } from "./capstan-blow.js";
 import { davitBlow } from "./davit-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
 import { halterBlow } from "./halter-blow.js";
@@ -85,6 +86,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   davit: davitBlow,
   // A centre left unshot: the plating sheds a hanging plate that bites into the skin.
   halter: halterBlow,
+  // A step let run: the rusted drum throws a cog that spins down and bites the skin.
+  capstan: capstanBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

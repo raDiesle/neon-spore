@@ -912,25 +912,6 @@ HALTER's is. `on-field-controls.test.ts` marks `capstanRub` on the field.
 `bun run check` proves it; how a rub under a rocking drum feels stays
 unverified until the owner holds two phones.
 
-## §37 THE CAPSTAN — the blow and the receipts
-
-- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-look
-- **Taken:** 2026-09-27, claude/queue-37-the-capstan-the-look (claim: claude/queue-37-the-capstan-the-blow-and-the-receipts)
-- **Files:** `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-strike.test.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/capstan-draw.ts`
-
-The body is drawn (§11.54, *The look*); the look's second half is left. A
-shot run out is drawn as the default lash: give it its own blow in a new
-capstan-blow.ts, the way `halter-blow.ts` is THE HALTER's — the drum's own
-thing thrown down the middle column (a band's torn tooth, or the cap
-itself), with its row in `boss-strike-from.ts` and `boss-strike-look.ts`
-and in `boss-strike.test.ts`. Then the receipts, in a capstan-fx.ts read
-above the loop and kept in `BossTransients` (`effects-boss.ts`, with the
-reset proved by `restart.test.ts`): a flash on the mark `capstanWear`
-scrubs, the rim's ring on `capstanBright`, the core's hurt on
-`capstanHit`, and the cap's burst on `capstanOpen` — taking those events
-out of the two silent lists' reason. `bun run check` proves it; how it
-reads at tempo stays the owner's eye.
-
 ## §38 THE GALL — the simulation lane
 
 - **Found:** 2026-09-26, this session
@@ -2588,3 +2569,18 @@ for a misser to let go, and the test's `bossBlow(name, true)` is null for both
 before the auto-fire question comes up at all. Work it once THE CYST's hand
 and THE SLING's (the hands half of its look) have landed; the `Needs:` line
 names the first.
+
+## THE CYST and THE PLUMB have no row in the blow's table
+
+- **Found:** 2026-09-27, claude/queue-37-the-capstan-the-blow-and-the-receipts
+- **Files:** `packages/render/test/boss-hurt-rows-c.ts`, `packages/render/src/cyst-fx.ts`, `packages/render/src/plumb-fx.ts`
+
+`cyst-fx.ts` and `plumb-fx.ts` both carry a `BossHurt` and call `hit()` on
+the events that mean a sequence landed, but neither has a row in the blow's
+table (`boss-hurt.test.ts`, reading `boss-hurt-rows*.ts`), so nothing proves
+the blow is dealt by a landing and not by a part of one, or that the frame
+shows red. Every other fx file with a `hurt` has one, or a case of its own
+(`filament-frame.test.ts`). Add the two rows to `boss-hurt-rows-c.ts` —
+THE CYST's land on `cystCrack` and `cystHit`, part on `cystStill`,
+`cystSlip` and `cystSpring`; THE PLUMB's from what `plumb-fx.ts` hits on —
+and `bun run check` proves them.

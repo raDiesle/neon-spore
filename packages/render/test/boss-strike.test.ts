@@ -4,6 +4,7 @@ import { Arrivals } from "../src/arrivals.js";
 import { strikeFrom } from "../src/boss-strike-from.js";
 import { BossStrikeFx } from "../src/boss-strike-fx.js";
 import { lash, strikeLook } from "../src/boss-strike-look.js";
+import { capstanCentre } from "../src/capstan-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
 import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout } from "../src/layout.js";
@@ -86,6 +87,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
+      "capstan",
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -132,6 +134,35 @@ describe("a boss's blow at the hull", () => {
     const to = { x: from.x, y: L.hullY };
     const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
     const look = strikeLook("halter");
+    expect(look).not.toBe(lash);
+    look(spy, { ...frame, reach: 0 });
+    expect(at[0]).toEqual(from);
+    at.length = 0;
+    look(spy, { ...frame, reach: 1 });
+    expect(at[0]).toEqual(to);
+  });
+
+  it("THE CAPSTAN throws a cog off its cradle's foot that bites the skin at reach 1", () => {
+    const { ctx } = stubCanvas();
+    const at: { x: number; y: number }[] = [];
+    const spy = new Proxy(ctx, {
+      get(t, k) {
+        if (k === "translate")
+          return (x: number, y: number) => {
+            at.push({ x, y });
+            t.translate(x, y);
+          };
+        const v = Reflect.get(t, k);
+        return typeof v === "function" ? v.bind(t) : v;
+      },
+    }) as unknown as CanvasRenderingContext2D;
+    const from = strikeFrom(L, CFG, "capstan");
+    const centre = capstanCentre(L, CFG);
+    expect(from.x).toBe(centre.x);
+    expect(from.y).toBeGreaterThan(centre.y);
+    const to = { x: from.x, y: L.hullY };
+    const frame = { l: L, blow: undefined, from, to, tile: L.tile, time: 0, after: 0 };
+    const look = strikeLook("capstan");
     expect(look).not.toBe(lash);
     look(spy, { ...frame, reach: 0 });
     expect(at[0]).toEqual(from);

@@ -116,8 +116,11 @@ export function capstanFaceAt(l: Layout, side: 0 | 1, squeeze: number): Point {
  * worn, so the band is seen to go round under the thumb.
  */
 export function capstanFacePath(l: Layout, w: number, spin: number): Path2D {
-  const { ry } = capstanSize(l);
-  const h = ry * 0.96;
+  return capstanRingPath(w, capstanSize(l).ry * 0.96, spin);
+}
+
+/** BEARING RING's notched rim, `w` by `h` pixels round the origin, its teeth turned `spin` radians. */
+export function capstanRingPath(w: number, h: number, spin: number): Path2D {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;

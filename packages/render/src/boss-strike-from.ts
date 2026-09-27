@@ -1,5 +1,6 @@
 import { type BossKind, midCol, type SimConfig } from "@neon-spore/sim";
 import type { Point } from "./boss-strike-look.js";
+import { capstanBlowFrom } from "./capstan-blow.js";
 import { davitHook, davitMast } from "./davit-shape.js";
 import { fieldX } from "./field-flip.js";
 import { gimbalCentre } from "./gimbal-shape.js";
@@ -80,6 +81,8 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   },
   // The foot of the centre's hanging plates, the one it sheds (`halter-blow.ts`).
   halter: halterBlowFrom,
+  // The cradle's foot, where the cog it throws falls clear (`capstan-blow.ts`).
+  capstan: capstanBlowFrom,
 };
 
 /** Where the blow leaves the body. A boss with no row in `FROM` sits where

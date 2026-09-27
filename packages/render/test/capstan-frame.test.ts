@@ -5,6 +5,7 @@ import {
   type CapstanStep,
   capstanBoss,
   createWorld,
+  type SimEvent,
   startWave,
   step,
   ticksPerBeat,
@@ -29,7 +30,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * with a horn lit for the lean, the cradle rocked by the steering seat's
  * tilt, the bared face's band lit and worn bright mark by mark, the core lit
  * in a shot's colour under a cap that creeps back through a hold, and the
- * drum spent — on all three screens, set rather than played to;
+ * drum spent, and what a receipt leaves for a moment after — on all three
+ * screens, set rather than played to;
  * `sim/test/capstan.test.ts` proves the rules.
  */
 
@@ -76,7 +78,8 @@ function leant(world: World): CapstanState {
   return s;
 }
 
-function frame(role: ViewRole, arrange: (world: World) => void): string {
+/** The frames of a pose, with `thrown` pushed onto the first tick's events. */
+function frame(role: ViewRole, arrange: (world: World) => void, thrown?: SimEvent): string {
   const world = stood();
   arrange(world);
   const log: string[] = [];
@@ -84,6 +87,10 @@ function frame(role: ViewRole, arrange: (world: World) => void): string {
     every: 3,
     onCanvas: (c) => {
       c.log = log;
+    },
+    onTick: (tick, w) => {
+      step(w, []);
+      if (tick === 0 && thrown) w.events.push(thrown);
     },
   });
   return log.join("|");
@@ -203,5 +210,31 @@ describe("THE CAPSTAN's rattle", () => {
     expect(a).not.toEqual(b);
     expect(Math.abs(a.x) + Math.abs(a.y)).toBeGreaterThan(0);
     expect(capstanJudder(1.7, 0)).toEqual({ x: 0, y: 0, roll: 0 });
+  });
+});
+
+describe("THE CAPSTAN's receipts", () => {
+  it.each(ROLES)(
+    "flares a face bare metal for a reversal and rings it once bright, on %s",
+    (role) => {
+      const col = 3;
+      const plain = frame(role, (w) => leant(w));
+      const scrubbed = frame(role, (w) => leant(w), { type: "capstanWear", side: 0, wear: 1, col });
+      const rung = frame(role, (w) => leant(w), { type: "capstanBright", side: 0, col });
+      expect(count(scrubbed, PALETTE.capstanWorn)).toBeGreaterThan(
+        count(plain, PALETTE.capstanWorn),
+      );
+      expect(count(rung, PALETTE.capstanWorn)).toBeGreaterThan(count(plain, PALETTE.capstanWorn));
+    },
+  );
+
+  it.each(ROLES)("flashes the core white on a hit, and reddens the drum, on %s", (role) => {
+    const bared = (w: World) => {
+      posed(w, FIRE).bared = true;
+    };
+    const plain = frame(role, bared);
+    const hit = frame(role, bared, { type: "capstanHit", hits: 1, col: 3 });
+    expect(count(hit, PALETTE.hullRim)).toBeGreaterThan(count(plain, PALETTE.hullRim));
+    expect(count(hit, PALETTE.redRim)).toBeGreaterThan(count(plain, PALETTE.redRim));
   });
 });

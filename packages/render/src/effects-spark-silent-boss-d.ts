@@ -75,7 +75,8 @@ export const SILENT_BOSS_D = [
   "halterMiss",
   "halterSplit",
   "halterOut",
-  // THE CAPSTAN's fourteen, the same (`packages/audio/src/bind-capstan.ts`).
+  // THE CAPSTAN's fourteen, no burst from this table: each is thrown above the
+  // loop by its own fx file (`capstan-fx.ts`).
   "capstanEnter",
   "capstanLight",
   "capstanRock",

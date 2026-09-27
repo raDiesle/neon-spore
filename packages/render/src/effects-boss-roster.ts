@@ -1,6 +1,7 @@
 import { AntiphonFx } from "./antiphon-fx.js";
 import { BossBlows } from "./boss-blows.js";
 import { BossStrikeFx } from "./boss-strike-fx.js";
+import { CapstanFx } from "./capstan-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { CystFx } from "./cyst-fx.js";
 import { FilamentFx } from "./filament-fx.js";
@@ -192,6 +193,11 @@ export class BossRoster {
    * receipts' bursts — thrown the same on both screens, and told the axle's
    * colour by the drawer (`grindstone-fx.ts`, `grindstone-draw.ts`). */
   readonly grindstone = new GrindstoneFx();
+  /** THE CAPSTAN's scrub and bright ring off a band, the thud of a window
+   * let run, the core's flash and the spent drum's, and its receipts' bursts
+   * — thrown the same on both screens, and told the core's colour by the
+   * drawer (`capstan-fx.ts`, `capstan-draw.ts`). */
+  readonly capstan = new CapstanFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

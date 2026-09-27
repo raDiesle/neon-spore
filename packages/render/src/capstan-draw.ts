@@ -6,7 +6,14 @@ import {
   capstanLitStep,
   type World,
 } from "@neon-spore/sim";
-import { drawCapstanCore, drawCapstanFace, drawCapstanHorn } from "./capstan-marks.js";
+import { drawHurt } from "./boss-hurt.js";
+import type { CapstanFx } from "./capstan-fx.js";
+import {
+  drawCapstanCore,
+  drawCapstanFace,
+  drawCapstanFlash,
+  drawCapstanHorn,
+} from "./capstan-marks.js";
 import {
   capstanArrived,
   capstanCover,
@@ -32,6 +39,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 // How far the cradle rolls at a full turn, in radians; the rattle's reach at a rattle of one, in tiles.
 const ROLL = 0.2;
@@ -56,8 +64,10 @@ const SIDES = [0, 1] as const;
  * with each, and the core smaller and brighter for every shot. **The turn is
  * the lean**: the drum yaws with the cradle's roll, so the face the pair has
  * been rubbing goes behind the drum and the other comes round
- * (`capstan-shape.ts`). Everything here is read off `world` each frame; the
- * events are heard, not drawn.
+ * (`capstan-shape.ts`). Everything here is read off `world` each frame but
+ * what outlives one — a reversal's scrub, a bright band's ring, a window's
+ * thud, the core's flash and the blow the drum takes — which is `fx`
+ * (`capstan-fx.ts`), told the core's colour here.
  */
 export function drawCapstan(
   ctx: CanvasRenderingContext2D,
@@ -67,6 +77,7 @@ export function drawCapstan(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: CapstanFx,
 ): void {
   const cfg = world.cfg;
   const arrived = capstanArrived(s, cfg, beat, beatPhase);
@@ -75,13 +86,14 @@ export function drawCapstan(
   const pivot = capstanPivot(l);
   const turn = capstanTurn(world, s);
   const step = capstanLitStep(s);
+  if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - gone);
   // Spent, the drum lifts off its cradle as it goes.
-  ctx.translate(at.x, at.y + pivot - gone * l.tile);
+  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y + pivot - gone * l.tile);
   ctx.rotate(turn * ROLL);
-  ctx.translate(0, -pivot);
+  ctx.translate(0, -pivot + fx.thud * l.tile);
   drawCradle(ctx, l);
   for (const side of SIDES) {
     drawCapstanHorn(ctx, l, side, hornStrength(world, s, side), beatPhase);
@@ -92,9 +104,12 @@ export function drawCapstan(
   ctx.rotate(shake.roll);
   const squeeze = capstanSqueeze(turn);
   // The end turned away is behind the drum; the one coming round, and a sliver centred, over it.
-  for (const side of SIDES) if (away(side, turn)) drawEnd(ctx, l, world, s, side, turn, beatPhase);
-  drawBody(ctx, l, squeeze, turn);
-  for (const side of SIDES) if (!away(side, turn)) drawEnd(ctx, l, world, s, side, turn, beatPhase);
+  for (const side of SIDES)
+    if (away(side, turn)) drawEnd(ctx, l, world, s, side, turn, beatPhase, fx);
+  drawBody(ctx, l, squeeze, turn, fx.hurt.value);
+  for (const side of SIDES) {
+    if (!away(side, turn)) drawEnd(ctx, l, world, s, side, turn, beatPhase, fx);
+  }
 
   const hurt = coreHurt(s.hits);
   const shot =
@@ -110,6 +125,7 @@ export function drawCapstan(
     shot,
     beatPhase,
   );
+  drawCapstanFlash(ctx, l, fx.flash, fx.open);
   ctx.restore();
 }
 
@@ -142,7 +158,13 @@ function drawCradle(ctx: CanvasRenderingContext2D, l: Layout): void {
 }
 
 /** GATE's bar, the drum seen from the side: the key light sliding the way it turns. */
-function drawBody(ctx: CanvasRenderingContext2D, l: Layout, squeeze: number, turn: number): void {
+function drawBody(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  squeeze: number,
+  turn: number,
+  hurt: number,
+): void {
   const { rx, ry } = capstanSize(l);
   const body = capstanBodyPath(l, squeeze);
   ctx.fillStyle = PALETTE.capstanRust;
@@ -163,9 +185,13 @@ function drawBody(ctx: CanvasRenderingContext2D, l: Layout, squeeze: number, tur
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.capstanRustDark, 0.95);
   ctx.stroke(body);
+  drawHurt(ctx, body, hurt);
 }
 
-/** End face `side`, as wide as the turn has brought it round, lit while it is the face to rub. */
+/**
+ * End face `side`, as wide as the turn has brought it round, lit while it is
+ * the face to rub, flaring with its last reversal and ringing once bright.
+ */
 function drawEnd(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -174,6 +200,7 @@ function drawEnd(
   side: 0 | 1,
   turn: number,
   beatPhase: number,
+  fx: CapstanFx,
 ): void {
   const w = capstanFaceWidth(l, side, turn);
   if (w <= 0.5) return;
@@ -191,6 +218,7 @@ function drawEnd(
     world.cfg.capstanWearThreshold,
     lit,
     beatPhase,
+    { scrub: fx.scrub(side), ring: fx.ring(side) },
   );
   ctx.restore();
 }

@@ -10019,8 +10019,8 @@ hold, and the bared core is shot in its colour —
 `tools/director/test/autopilot-capstan.test.ts` plays the wave to its end
 with no stall, no cover and no hull hit.
 
-**The look** (`render/src/capstan-draw.ts`, 27 September 2026 — the body;
-its blow is the second half). **Two drafts combined**: CREATURES' GATE
+**The look** (`render/src/capstan-draw.ts`, 27 September 2026 — the body,
+then its blow and receipts the same day). **Two drafts combined**: CREATURES' GATE
 (`tools/shape-sheet/src/drafts/creatures.ts`), the square-shouldered bar at
 its own numbers, laid across the middle column as a winch drum on its side,
 and SYSTEMS' BEARING RING (`drafts/systems.ts`), a notched rim of twelve
@@ -10048,16 +10048,23 @@ on under it. Spent, the cap swings past its hinge and the drum lifts off its
 cradle and fades. **Both screens are drawn the same**: which seat steers is
 the step's, and each has to see the cradle go over and the band come round.
 AUTO's lean is a jump well past the mark, so under AUTO the cradle snaps
-over; a real phone's reading is continuous and so is the rock. Nothing of
-it outlives a frame: the events are heard, not drawn.
+over; a real phone's reading is continuous and so is the rock.
 
-**What is not built.** A shot run out has no blow of its own yet — it is
-drawn as the default lash — and nothing flashes on a mark worn, a band gone
-bright, a hit or the cap opening: the blow and the receipts are the look's
-second half. No touch sends `capstanRub` yet, and the field says no word;
-both can now be laid on the drawn face. The fourteen sounds are bound
-(`packages/audio/src/bind-capstan.ts`), and the events stay on the two
-silent lists until the receipts read them.
+**Its blow and its receipts** (`capstan-blow.ts`, `capstan-fx.ts`). A step
+let run throws a tooth: a small cog, the end faces' BEARING RING at a
+quarter of the size with an axle hole, is shaken loose off the cradle's foot
+and spins down the middle column, bites the skin, and rusts away to grit
+with its teeth's gouges either side. A reversal worn flares its face bare
+metal for a moment; a band worn bright throws a ring off its rim; a band
+window or a hold run out knocks the drum down in its cradle; a hit flashes
+the core white, wider for every hit; and spent, a wash of rust goes out from
+the cap. A band worn bright, a hold made and a core hit are each a step
+landed, so each deals the drum the blow every boss takes — the shake and
+the red over the body (`boss-hurt.ts`); a reversal alone does not.
+
+**What is not built.** No touch sends `capstanRub` yet, and the field says
+no word; both can now be laid on the drawn face. The fourteen sounds are
+bound (`packages/audio/src/bind-capstan.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/capstan.test.ts`): the drum comes in rusted with the core

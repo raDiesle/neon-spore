@@ -125,7 +125,8 @@ export const INGEST_SILENT_BOSS_D = [
   "halterMiss",
   "halterSplit",
   "halterOut",
-  // THE CAPSTAN's fourteen, the same (`packages/audio/src/bind-capstan.ts`).
+  // THE CAPSTAN's fourteen: what outlives a frame is `capstan-fx.ts`', read above
+  // the loop; the lean, the wear and the cap's creep stay read off the state.
   "capstanEnter",
   "capstanLight",
   "capstanRock",

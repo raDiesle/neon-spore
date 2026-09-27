@@ -1503,6 +1503,8 @@ by hand never moves.
 | `packages/render/src/capstan-marks.ts` | **THE CAPSTAN's marks**: the lit horn, band and core, and a band's health as its marks |
 | `packages/render/src/capstan-pose.ts` | **The clock THE CAPSTAN is posed off**: the rock read off the lean, the cap, the rattle |
 | `packages/render/src/capstan-shape.ts` | **THE CAPSTAN's geometry**: GATE's bar and BEARING RING's faces, the yaw, the cradle |
+| `packages/render/src/capstan-blow.ts` | **THE CAPSTAN's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/capstan-fx.ts` | What THE CAPSTAN leaves behind a frame (§11.54): the **scrub** of a reversal worn into a band |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-boss-hand.ts` | The ghost hand on a clock boss's own handle, on either seat |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |

@@ -3,8 +3,8 @@ import { fourBeatsIn, type Row } from "./boss-hurt-rows.js";
 
 /**
  * **The blow's rows from THE UNDERTOW on** — the second page of
- * `boss-hurt-rows.ts`, cut on build order, and the page a new boss's row is
- * added to.
+ * `boss-hurt-rows.ts`, cut on build order. It is full: a new boss's row goes
+ * on `boss-hurt-rows-c.ts`.
  */
 export const HURT_ROWS_B: Row[] = [
   {

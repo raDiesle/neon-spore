@@ -6,6 +6,7 @@ import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { fourBeatsIn, HURT_ROWS, type Row } from "./boss-hurt-rows.js";
 import { HURT_ROWS_B } from "./boss-hurt-rows-b.js";
+import { HURT_ROWS_C } from "./boss-hurt-rows-c.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -39,7 +40,7 @@ let hitOff: ReturnType<typeof spyOn> | null = null;
 
 const L = computeLayout(VIEWPORT, CFG, "test");
 
-const ROWS: Row[] = [...HURT_ROWS, ...HURT_ROWS_B];
+const ROWS: Row[] = [...HURT_ROWS, ...HURT_ROWS_B, ...HURT_ROWS_C];
 
 describe("the blow a boss takes", () => {
   it("shows at once and is over within half a second", () => {

@@ -30,7 +30,8 @@ import { stepColour } from "./step-colour.js";
 /**
  * Face `side` of the drum, `w` pixels wide, round its own middle: the notched
  * rim turned a tooth a reversal, its band's marks worn `worn` of the way, and
- * the rim glowing on its beat while `lit`.
+ * the rim glowing on its beat while `lit`, flaring bare metal `scrub` bright
+ * for the last reversal, and a ring thrown off it `ring` of the way from gone.
  */
 export function drawCapstanFace(
   ctx: CanvasRenderingContext2D,
@@ -40,6 +41,7 @@ export function drawCapstanFace(
   marks: number,
   lit: boolean,
   beatPhase: number,
+  thrown: { scrub: number; ring: number },
 ): void {
   const bright = worn >= 1;
   const spin = worn * marks * ((Math.PI * 2) / 12);
@@ -66,6 +68,15 @@ export function drawCapstanFace(
   if (lit && !bright) {
     const pulse = 0.7 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
     strokeGlow(ctx, face, PALETTE.hullRim, STROKE.outline, pulse, 0.9);
+  }
+  if (thrown.scrub > 0) {
+    ctx.fillStyle = rgba(PALETTE.capstanWorn, 0.45 * thrown.scrub);
+    ctx.fill(face);
+  }
+  if (thrown.ring > 0) {
+    const grow = 1 + 0.9 * (1 - thrown.ring);
+    const ring = capstanFacePath(l, w * grow, spin);
+    strokeGlow(ctx, ring, PALETTE.capstanWorn, STROKE.outline, thrown.ring, thrown.ring);
   }
 }
 
@@ -132,6 +143,34 @@ export function drawCapstanCore(
     }
   }
   drawCap(ctx, l, cover);
+}
+
+/**
+ * What a hit leaves on the core, and the spent drum's: a flash of the hull's
+ * white wider for every hit, and a wash of rust over the whole drum as the
+ * cap swings wide — both fading as `capstan-fx.ts` lets them.
+ */
+export function drawCapstanFlash(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  flash: { now: number; hits: number },
+  open: number,
+): void {
+  if (flash.now > 0 && flash.hits > 0) {
+    const hits = Math.min(3, flash.hits);
+    const r = capstanCoreR(l) * (0.6 + 0.5 * hits) * (1.4 - 0.4 * flash.now);
+    const p = new Path2D();
+    p.arc(0, 0, Math.max(0.5, r), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
+    ctx.fill(p);
+    strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  }
+  if (open > 0) {
+    const p = new Path2D();
+    p.arc(0, 0, capstanCapR(l) * (2.6 - 0.8 * open), 0, Math.PI * 2);
+    ctx.fillStyle = rgba(PALETTE.capstanWorn, 0.4 * open);
+    ctx.fill(p);
+  }
 }
 
 /**

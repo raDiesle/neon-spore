@@ -25950,3 +25950,18 @@ Bottleneck: writing — the CURTAIN's file had to be cut before its pieces
 could stay in it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — §37 THE CAPSTAN — the blow and the receipts
+
+- reading: 5 min. THE HALTER's blow, THE CYST's fx, the roster and the
+  blow's table, re-read after a compaction.
+- writing: 10 min. `capstan-blow.ts`, `capstan-fx.ts`, the draw's fx arm,
+  the strike rows and test, the hurt table's third page, the receipts'
+  frame cases, §11.54 and the ledger.
+- looking: 5 min. One real frame, at the tick a band goes bright; AUTO
+  never lets a step run, so the blow itself was not seen in a frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the blow cannot be framed — `--auto-miss` answers every
+CAPSTAN step, so the cog is proven by `boss-strike.test.ts` and not by eye.

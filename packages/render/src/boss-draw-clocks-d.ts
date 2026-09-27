@@ -129,7 +129,7 @@ export function drawLatePairBoss(
 
   // THE CAPSTAN: a rusted drum on its side in a cradle, rocked by one seat's
   // lean so one end face comes round and worn bright by the other's thumb, a
-  // core under a cap in its middle both cannons hit (`capstan-draw.ts`).
-  // Nothing of it outlives a frame yet.
-  drawCapstan(ctx, l, world, boss, beat, beatPhase, time);
+  // core under a cap in its middle both cannons hit (`capstan-draw.ts`); a
+  // band's scrub and ring, a window's thud and the core's flash are `capstan-fx.ts`.
+  drawCapstan(ctx, l, world, boss, beat, beatPhase, time, effects.boss.capstan);
 }
