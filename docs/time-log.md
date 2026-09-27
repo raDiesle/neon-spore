@@ -26490,3 +26490,5 @@ Bottleneck: landing — the full check is most of the lane's wall time.
 
 Bottleneck: writing. `burgee-fx.ts` reached 220 lines with the receipts in,
 and the flag's ease had to be cut out into a file of its own mid-lane.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

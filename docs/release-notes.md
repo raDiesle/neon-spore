@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · a4295e1a6 — THE BURGEE tears a scrap off its flag, and its receipts snap, crack and flash
+
+A fire step THE BURGEE is let run now tears a scrap off the fly of its held flag. The scrap is COMMA at under half the flag's size, and it falls the way cloth falls, rocking and turning over down the middle column. It lands flat on the skin with its fly still rippling, and fades. Until now it was the default lash. A freeze on the mark throws a white ring off it and deals the lighter jab. A tap off the mark shivers the canvas, and a catch run out leaves it sagging. A catch or a recatch cracks it taut, pulled open and flat with white strokes off the hoist, and deals the blow every boss takes. Both catches in flare the spindle. A hit washes the spindle white, throws a ring wider for every hit, and reddens it. The eased flag moved to burgee-flag.ts so that burgee-fx.ts holds the receipts.
+
 ## 2026-09-27 · 4c88b75fb — The director writes every scripted boss back out with one writer
 
 The fourteen bosses that author a script of steps, THE SEAM through THE BURGEE, are now written back out in `serialize-boss-b.ts` by one writer. It writes each step field by field, in the order the wave wrote them, and drops any field the wave left out. This replaces one template per boss, and a template could silently drop a field added to a step. The director learns which bosses are scripted from `isScriptedEntry`, the list the simulation installs them from, so the next scripted boss is written back the day it is installed. `serialize-boss.ts` drops from 250 lines to 179. The wave-save round trip still writes all 118 shipped waves back byte for byte, and it fails if the writer changes the field order.
