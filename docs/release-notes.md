@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 62c21b465 — THE REPRISE's cords swing and its eye glances about
+
+The sac's two cords now swing about where they grow out of it, a mirror pair whose ends walk half a tile along the top of the screen, and its eye — the lens with its ring of eggs — glances half a tile about inside the sac. The eye comes home to the middle over the quarter second the beam comes up in whenever an echo plays, so the beam and the navigator's PRESS FIRE stand on it as before, and goes out again a second after the echo shuts. Every mark on the eye is drawn where it has looked to.
+
 ## 2026-09-27 · 53f449a05 — AUTO plays THE FLUE: the tapper taps the steadied ember, the rester sends nothing, the cannon shoots the bared core
 
 `boss-hands-flue.ts` taps the ember's column only once it has stopped under the vent's rester, and lifts before it taps again. It slides the cannon to the middle column for each fire step and sends nothing from a seat that is resting. THE FLUE leaves `NO_HAND`, and it has its own autopilot test, a hush row and a marks-window row. `TAP` takes a new seed for each tap, because the ember jumps notch to notch and one seed read as a mark sliding at 120 tiles a second.
