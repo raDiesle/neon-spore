@@ -25624,3 +25624,17 @@ Bottleneck: reading — the resolver already refused the incident's sides, so
 the row had come in by hand, and every other gate had to be found.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the two cores drift, as a VERSUS candidate
+
+- reading: 5 min. The entry, `body-interior.ts`, the VERSUS README and the
+  pose map.
+- writing: 5 min. The candidate, a pose of a box and a dart, a row in the
+  test's list of slots that are not one body.
+- looking: 5 min. Three `versus:shot`s; the count's and the throb's frames
+  came out identical to the shipped ones, so the pose lost them.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — only a pair of pictures could show that two of the
+entry's three bodies cover the interior it proposed to move.

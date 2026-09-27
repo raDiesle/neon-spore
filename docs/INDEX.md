@@ -2870,6 +2870,7 @@ by hand never moves.
 | `tools/director/src/poses-cairn.ts` | THE CAIRN standing whole, before the pair has pulled anything off it |
 | `tools/director/src/poses-crossing.ts` | The two states a candidate for a body that **goes somewhere** is judged on |
 | `tools/director/src/poses-count.ts` | COUNT · THREE BLADES LEFT — the pose THE COUNT's looks were judged on, player 1's screen |
+| `tools/director/src/poses-cores.ts` | BODIES · THE TWO CORES — a box and a dart, the pose `creature:body-interior` is judged on |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |

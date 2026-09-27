@@ -2749,37 +2749,23 @@ their gap), or tilt it along root-to-tip. A fix to something wrong rather
 than unlovely — the file's own comment says what it should look like. Say
 so in the commit; `packages/render/test/frame.test.ts` must still draw it.
 
-## COUNTDOWN, BEATBOX and THROB have no motion of their own
+## A count's socket and a throb's far half hide the two cores that would move them
 
-- **Found:** 2026-09-26, claude/queue-the-wider-graphics-improvement-pass-has-no-singl
-- **Taken:** 2026-09-27, claude/queue-the-directors-auto-buttons-cannot-be-clicked-at (claim: claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th)
-- **Files:** `packages/render/src/body-interior.ts`, `packages/render/src/creature-detail.ts`, `packages/render/src/beatbox-air.ts`, `packages/render/src/throb-pores.ts`
+- **Found:** 2026-09-27, claude/queue-countdown-beatbox-and-throb-have-no-motion-of-th
+- **Files:** `packages/render/src/countdown-iris.ts`, `packages/render/src/throb-pores.ts`, `packages/render/src/living-draw.ts`
 
-The creature half of "Living secondary motion is uneven across the boss
-roster". Every other creature kind has at least one part on a rate of its
-own — a slick's vein bead (`body-bloom.ts:134`, 1.1), a bulb's spores
-(`body-spores.ts:80`, 0.42), a limpet's hooklets (`cling.ts:88`), a
-mine's fuse pip, a mount's roots, a leech's or rind's studs breathing
-(`content/src/studded.ts:71`). Three have nothing but the smoke puffs every
-living body shares (`creature-detail.ts:71`, `t * 0.9`):
-
-- **countdown** — interior is `twoCores` (`body-interior.ts:59`), two dots
-  at a fixed place; its iris blade moves on the beat.
-- **beatbox** — the swell, the air rings (`beatbox-air.ts:163`) and the
-  wash are all locked to `beatPhase`; interior is `twoCores`.
-- **throb** — its pores are carried by its rule-driven spin
-  (`throb-pores.ts`, `facet(p, turn)`), not on a phase of their own;
-  interior is `twoCores`.
-
-`twoCores` is the seam: `body-interior.ts:87-96` says it exists to stop
-being identical and that *what else it might draw* is the next question it
-will be asked. One cheap term on `p.t` at a rate the contour does not use
-(the two cores drifting round each other, or pulsing out of step) answers
-all three — and dart and a falling leech/limpet, which draw it too. **This
-changes a frame** of every wave these five are on: a look, offered as a
-VERSUS candidate on `BODY_LOOK`, never landed straight. Keep it inside the
-body at 0.8 tile — the nameability gate (`bun run shapes:report`) must
-still hold them apart.
+"COUNTDOWN, BEATBOX and THROB have no motion of their own" was answered with
+`creature:body-interior` / `drift` in VERSUS, which moves `BODY_LOOK`'s two
+cores — and a frame of a count and of a throb, shipped against the candidate,
+came out the same pixels. The count's socket (`countdown-iris.ts`) covers the
+middle of the body, and `living-draw.ts` paints the throb's far half
+(`THROB_LOOK.half`, `throb-pores.ts`) over the interior on purpose. So an
+interior can never give those two a motion; only a box, a dart and a falling
+leech or limpet show it. What each needs is a term on its own mark, on `p.t` at
+a rate the contour does not use: the count's socket rim breathing a hair
+between blades, or the throb's pores drifting on a phase of their own rather
+than riding its rule-driven spin. Either is a look — a VERSUS candidate on
+`COUNTDOWN_LOOK`'s or `THROB_LOOK`'s record, never landed straight.
 
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 

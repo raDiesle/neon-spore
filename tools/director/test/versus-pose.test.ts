@@ -76,6 +76,9 @@ const NOT_ONE_BODY: Record<string, null> = {
   // It is judged on `METEOR · CRATERED`, because the rock is the only body in
   // the game that survives a hit and is still on the field to show one.
   "creature:bite": null,
+  // And the interior every blob without one of its own draws — a count, a
+  // box, a throb, a dart — which is a record shared by kinds, not a kind.
+  "creature:body-interior": null,
 };
 
 function isKind(name: string): boolean {
