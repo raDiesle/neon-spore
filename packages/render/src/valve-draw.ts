@@ -23,6 +23,7 @@ import {
   valveHolePath,
   valveLift,
   valvePinPath,
+  valvePinTop,
   valvePointerPath,
   valveReach,
   valveRimPath,
@@ -68,7 +69,7 @@ export function drawValve(
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.5 * open);
   ctx.translate(c.x + shake.x, c.y + shake.y);
   ctx.rotate(valveList(s, cfg, beat, beatPhase));
-  for (let i = 0; i < VALVE_PINS; i++) drawPin(ctx, l, world, s, i, beat, beatPhase);
+  for (let i = 0; i < VALVE_PINS; i++) drawPin(ctx, l, world, s, i, beat, beatPhase, time);
   if (open <= 0) drawDrum(ctx, l, world, s, beat, beatPhase, time);
   else {
     for (const side of [-1, 1] as const) {
@@ -150,6 +151,16 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, s: ValveState): voi
 }
 
 /**
+ * How a hung pin swings about the top of its plate: an angle for pin `i`,
+ * `going` of the way free, at `time` seconds. The shipped 0 hangs it dead
+ * still with no transform at all — the seam a VERSUS candidate patches
+ * (`tools/versus/candidates/valve-pin/`).
+ */
+export const VALVE_PIN: { sway: (i: number, going: number, time: number) => number } = {
+  sway: () => 0,
+};
+
+/**
  * Pin `i`: hung under the drum while it is in, reaching and edged in white
  * while it is the one to pull, sliding down and fading as it comes free,
  * and gone — a slot in the drum — after.
@@ -162,12 +173,20 @@ function drawPin(
   i: number,
   beat: number,
   beatPhase: number,
+  time: number,
 ): void {
   const out = valvePinOut(s, world.cfg, i, beat, beatPhase);
   if (out > 1) return;
   const going = Math.max(0, out);
   const plate = valvePinPath(l, i, VALVE_PINS, valvePinReach(s, i, beatPhase), going);
   ctx.save();
+  const sway = VALVE_PIN.sway(i, going, time);
+  if (sway !== 0) {
+    const top = valvePinTop(l, i, VALVE_PINS, going);
+    ctx.translate(top.x, top.y);
+    ctx.rotate(sway);
+    ctx.translate(-top.x, -top.y);
+  }
   ctx.globalAlpha *= 1 - going;
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(plate);

@@ -2579,19 +2579,6 @@ Done when: `life` reaches every drawer that calls `partDrift`; the chosen
 source sets it; a test proves the part angles are the parent's at 0.
 `bun run check` proves it.
 
-## THE VALVE's pins have no secondary motion of their own
-
-- **Found:** 2026-09-26, claude/queue-living-secondary-motion-is-uneven-across-the-bos
-- **Taken:** 2026-09-27, claude/queue-the-vises-husk-has-no-secondary-motion-of-its-ow (claim: claude/queue-the-valves-pins-have-no-secondary-motion-of-thei)
-- **Files:** `packages/render/src/valve-draw.ts`, `packages/render/src/valve-shape.ts`
-
-From the secondary-motion audit. `valveRimPath(..., time * 0.4)` is the
-drum's outline, `valve-story.ts` moves only in a story step, and the rest is
-light and state. The three pins *hang* under the drum (`valve-shape.ts`
-line 46) and never swing: let each still-hung pin sway a degree about its
-top on a slow period, offset per pin, the way a hung plate would. A look:
-offered through VERSUS.
-
 ## `--auto-miss` cannot make THE CYST's or THE SLING's shot run out
 
 - **Found:** 2026-09-27, claude/queue-bun-run-frames-cannot-make-a-bosss-window-run-ou

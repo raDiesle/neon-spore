@@ -50,6 +50,7 @@ const SLOT_POSE: Record<string, string> = {
   "trivet:foot": "THE TRIVET · STILL",
   "rime:pane": "THE RIME · STILL",
   "vise:kernel": "THE VISE · REST",
+  "valve:pin": "THE VALVE · STILL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

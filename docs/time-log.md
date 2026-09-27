@@ -25889,3 +25889,15 @@ Bottleneck: looking — no pose showed the kernel bare and unlit, so one had
 to be found before anything could be judged.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE VALVE's hung pins sway, as a VERSUS candidate
+
+- reading: 5 min. The entry, `drawPin`, `valvePinPath` and how a pin frees.
+- writing: 10 min. The seam around a pin's plate, its top point, the
+  candidate, and THE VALVE's first pose — its still, struck off `OWED`.
+- looking: 5 min. One `versus:shot` of the still, the three pins tilted.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the pins had no seam and no pose, and both had to be
+made before anything could be seen.

@@ -174,6 +174,12 @@ export function valvePinPath(
   return p;
 }
 
+/** Where pin `i`'s plate hangs from, `out` of the way free: the middle of its top edge, inside the drum. */
+export function valvePinTop(l: Layout, i: number, pins: number, out: number): Point {
+  const w = (PIN_SPAN * 2 * l.tile) / pins;
+  return { x: -PIN_SPAN * l.tile + (i + 0.5) * w, y: PIN_TOP * RY * l.tile + out * 2.4 * l.tile };
+}
+
 /** The hole a spent pin leaves in the underside: a short dark slot where the plate went in. */
 export function valveHolePath(l: Layout, i: number, pins: number): Path2D {
   const w = (PIN_SPAN * 2 * l.tile) / pins;
