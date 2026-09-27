@@ -3,11 +3,14 @@ import {
   type BossKind,
   burgeeCatching,
   burgeeLitStep,
+  davitLitStep,
   scuttlePartCol,
 } from "@neon-spore/sim";
 import { antiphonOrganCircle, antiphonPerch } from "../../../packages/render/src/antiphon-shape.js";
 import { burgeeArrived } from "../../../packages/render/src/burgee-pose.js";
 import { burgeeSpindleAt, burgeeTip } from "../../../packages/render/src/burgee-shape.js";
+import { davitAngle } from "../../../packages/render/src/davit-pose.js";
+import { DAVIT_SAG, davitHook, davitMast } from "../../../packages/render/src/davit-shape.js";
 import { tileCX } from "../../../packages/render/src/layout.js";
 import { scuttleLockBox } from "../../../packages/render/src/scuttle-draw.js";
 import { scuttleRowY, scuttleShiver } from "../../../packages/render/src/scuttle-shape.js";
@@ -110,5 +113,16 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
       marks.push({ id: -2, x: mark.x, y: mark.y + BURGEE_TRACK_BELOW * l.tile + dy });
     }
     return marks;
+  },
+  // The hook while a fire step asks for it, at the end of its chain off the
+  // boom's angle; both screens draw it the same. With nobody steering, the
+  // boom swings back toward hanging `davitDriftMilli` a beat, which is the
+  // rule and a whole step a beat, so the hook is keyed on the angle.
+  davit: (l, world) => {
+    const s = world.boss;
+    if (s?.kind !== "davit" || davitLitStep(s)?.ask !== "fire") return [];
+    const mast = davitMast(l, world.cfg);
+    const hook = davitHook(l, davitAngle(s), DAVIT_SAG);
+    return [{ id: -200_000 - s.aimMilli, x: mast.x + hook.x, y: mast.y + hook.y }];
   },
 };

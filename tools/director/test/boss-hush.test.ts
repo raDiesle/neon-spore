@@ -32,8 +32,9 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * What the cue cannot see is a pose it stands its word clear of — THE
  * SCUTTLE's reads the part's row and not its drawn shiver. So a boss is
  * given a row only once its draw has been read and its rings are placed off
- * the same state the cue is, and by the motions `DRAWN` names. Every boss
- * AUTO has a hand for has one; THE DAVIT waits on its hand (`docs/queue.md`).
+ * the same state the cue is, and by the motions `DRAWN` names. THE DAVIT
+ * was the last of the queue's list, once AUTO had a hand for it
+ * (`boss-hands-davit.ts`).
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -69,6 +70,7 @@ const STILL: readonly BossKind[] = [
   "sinew",
   "antiphon",
   "burgee",
+  "davit",
 ];
 
 interface Reading {

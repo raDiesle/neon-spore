@@ -2387,26 +2387,22 @@ are creatures and rounds, not bosses.
 Done when, per boss: the shared test has its row and it passes. `bun run
 check` proves it.
 
-## THE DAVIT's autopilot hand, and its row in the hush test
+## THE DAVIT's boom swings back a whole step a beat
 
-- **Found:** 2026-09-27, claude/queue-every-other-boss-holds-still-while-its-marks-are
-- **Taken:** 2026-09-27, claude/queue-every-other-boss-holds-still-while-its-marks-are (claim: claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus)
-- **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/index.ts`, `tools/director/test/autopilot.test.ts`, `tools/director/test/boss-hush-drawn-b.ts`, `tools/director/test/boss-hush.test.ts`
+- **Found:** 2026-09-27, claude/queue-the-davits-autopilot-hand-and-its-row-in-the-hus
+- **Files:** `packages/render/src/davit-pose.ts`, `packages/render/src/davit-draw.ts`, `packages/render/test/frame.test.ts`
 
-THE DAVIT is the one boss left out of `boss-hush.test.ts`, the test that
-holds every boss's marks under a tenth of a tile a second in a window. It is
-out because AUTO has no hand for it (`autopilot.test.ts` `NO_HAND`): its
-wave never gets past the first lean, so nothing is ever asked of the hook.
-Write the hand, a new packages/hands/src/boss-hands-davit.ts, from the lit
-step's ask (`davit.ts` `DAVIT_ASKS`): on `left` or `right`, the lean the
-step names (`leanMilli`); on `reland`, both seats; on `fire`, the cannon at
-`midCol` (`davit-shot.ts`). Then take THE DAVIT out of `NO_HAND`, add a
-`davit` reader to `DRAWN_B`, and add `"davit"` to `STILL`. The reader is
-the hook's ring at `davitMast + davitHook(l, davitAngle(s), DAVIT_SAG)`
-while the step asks for `fire`, with nothing on the clock. Mind the
-unverified entry *THE DAVIT: no touch sends a lean or draw*: the hand sends
-commands, not touches, so it does not wait on that one. `bun run check`
-proves it.
+With nobody steering, the simulation swings THE DAVIT's boom back toward
+hanging by `davitDriftMilli` (4°) once a beat (`davit-step.ts` `swing`), and
+`davitAngle` draws `aimMilli` as it is. So through every fire step, which is
+a slow window asking for the hook, the hook jumps about 0.13 tile once a
+beat, at 4 tiles a second for the tick it moves. The boss-hush test keys the
+hook on the angle for that reason (`boss-hush-drawn-b.ts`). Ease the drawn
+angle between beats toward the next beat's, the way `sinewMassRowNow` eases
+THE SINEW's fall a row a beat, and then key the hush reader's id on nothing.
+It changes a frame, so the exemption to name is a fix to something wrong,
+stepped motion where every other stepped rule is eased, or it goes to
+VERSUS.
 
 ## THE INSTAR — a shoot mark asks for one colour, or none
 

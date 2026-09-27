@@ -26848,3 +26848,16 @@ lays a new rail inside the same window, so the first reading was a false
 13 tiles a second until they were keyed on their column.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE DAVIT played by AUTO, and its row in the hush test
+
+- reading: 10 min. THE DAVIT's lean and draw in `davit-hand.ts`, THE
+  MANTLE's hand for the shape, the draw for where the hook stands.
+- writing: 10 min. `boss-hands-davit.ts`, its row in `AUTOPILOT_HANDS`, the
+  hook's reader.
+- looking: 0 min. A probe printed the fight step by step; no picture.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the hook read 4 tiles a second, and telling the boom's drift
+back (the rule, stepped once a beat) from a wall-clock motion took a probe.
