@@ -27081,3 +27081,15 @@ to the field under it, which is what split the six into three and six more.
 Bottleneck: writing — the registrations, some thirty files each needing one line, are most of the lane, and the typecheck only names the next few that are missing.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — the hash fixture's fourth page, cut in two
+
+- reading: 5 min. The five pages, `BOSS_KINDS`' order, the one skill row that
+  named the last page.
+- writing: 5 min. `-d.ts` cut at THE RIME, the new `-e.ts`, THE FLUE's page
+  renamed `-f.ts`, the composer and three headers.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — a mechanical cut whose seam the queue entry had already chosen.

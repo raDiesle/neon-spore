@@ -822,19 +822,6 @@ nothing through a damper and shoots each fire step in its colour — then
 NOTHING` / `TAPS ON A MOVING TARGET` can move off `specd` if the touch
 makes them built. `bun run check` proves it; at tempo is the owner's eye.
 
-## `hash-fixture-bosses-d.ts` is at 483 lines
-
-- **Found:** 2026-09-27, claude/queue-40-the-flue-the-simulation-lane
-- **Taken:** 2026-09-27, claude/task-queue-work-64c68c (claim: claude/queue-hash-fixture-bosses-d-ts-is-at-483-lines)
-- **Files:** `packages/sim/test/hash-fixture-bosses-d.ts`, `packages/sim/test/hash-fixture.ts`
-
-The fourth page of the hash fixture grew past the ~250 a file is held to,
-one boss at a time, before THE FLUE opened `-e.ts`. Split it into two
-pages at a boss boundary, keeping `BOSS_KINDS`' order (appended to, never
-inserted into) and each page's header naming the next; `hash-fixture.ts`
-composes one more spread and one more patch call. `bun run check` proves
-it — `hash-coverage.test.ts` walks the same fields either way.
-
 ## DEFERRED — THE STARE's turn is a squash-and-shear, not a placed surface
 
 - **Found:** 2026-09-26, this session
