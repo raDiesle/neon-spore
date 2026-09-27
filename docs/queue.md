@@ -2499,26 +2499,6 @@ box under the boss's box, above the hull and clear of every live mark's
 ring; the thickness is pinned; one PNG of THE INSTAR's window is sent.
 `bun run check` proves the tests.
 
-## THE SLOW — CRAWL's light is quieter
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-27, claude/queue-every-other-boss-no-mark-before-its-window-opens (claim: claude/queue-the-slow-crawls-light-is-quieter)
-- **Files:** `packages/render/src/slow-crawl.ts`, `packages/render/test/slow-look.test.ts`
-
-The owner, 27 September 2026: *make the slow animation visual around the
-boss (the light towards boss middle) less visible, so it is more subtle*.
-That light is CRAWL (`slow-crawl.ts`, since 26 September): rays round the
-boss, with sparks along each that brake and bank up against its skin. Bring
-its strength down to about half: the rays' and sparks' alpha, and fewer
-sparks banked on the skin. Keep what it says — the light runs in and stops
-before the body. PRISM and the fuse are not touched. This is a look the owner
-asked for by name.
-
-Done when: the constants that set CRAWL's strength are named, and a test pins
-them at no more than 55% of today's (read today's values first and write them
-in the test's comment); one PNG of a window is sent. `bun run check` proves
-the test.
-
 ## Every other boss — no mark before its window opens, six per lane
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

@@ -7,9 +7,18 @@ import type { Aim } from "./slow-intake-aim.js";
 import { clearOf, clipRoundBody } from "./slow-keep-out.js";
 import type { SlowWindow } from "./slow-look.js";
 
-/** Rays round the boss, and sparks of light strung along each one at once. */
+/** Rays round the boss. */
 const RAYS = 28;
-const SPARKS = 4;
+
+/**
+ * **How strong CRAWL is**: the sparks strung along each ray at once — the
+ * more there are, the brighter the rim they bank into at the skin — and how
+ * bright each one is at its brightest. Halved from four and 0.85 on 27
+ * September 2026, the owner: *less visible, so it is more subtle*
+ * (`slow-look.test.ts` pins both).
+ */
+export const CRAWL_SPARKS = 3;
+export const CRAWL_LIT = 0.45;
 
 /** Beats a spark takes from the edge of the screen to its stop at the skin. */
 const TRIP = 1.6;
@@ -24,8 +33,7 @@ const NEAR = 1.12;
 const STREAK = 1.8;
 const WIDTH = 0.06;
 
-/** How bright a spark is, and how far out of the keep-out it takes to reach that, in body radii. */
-const LIT = 0.85;
+/** How far out of the keep-out a spark takes to reach its brightness, in body radii. */
 const FEATHER = 0.35;
 
 /** From the boss to the furthest corner of the field above the hull, in layout pixels. */
@@ -98,10 +106,10 @@ export function drawCrawl(
     const angle = (r / RAYS) * Math.PI * 2 + sinHash(r) * 0.2;
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
-    for (let s = 0; s < SPARKS; s++) {
+    for (let s = 0; s < CRAWL_SPARKS; s++) {
       // How far through its trip this spark stands; each one on a ray starts
       // a share of a trip after the last, so light keeps arriving.
-      const t = (now / TRIP + s / SPARKS + sinHash(r, s)) % 1;
+      const t = (now / TRIP + s / CRAWL_SPARKS + sinHash(r, s)) % 1;
       // The distance still to go falls away as an exponential: fast out at
       // the edge, a crawl at the skin, and never quite nothing.
       const speed = Math.exp(-BRAKE * t);
@@ -119,7 +127,7 @@ export function drawCrawl(
       // Up out of nothing at the screen's edge and gone at the end of the
       // trip, so no spark is seen to appear or vanish.
       const life = smoothstep(t / 0.08) * smoothstep((1 - t) / 0.25);
-      const lit = LIT * up * clear * life;
+      const lit = CRAWL_LIT * up * clear * life;
       if (lit <= 0) continue;
       const g = ctx.createLinearGradient(bx, by, x, y);
       g.addColorStop(0, rgba(colour, 0));

@@ -3,6 +3,7 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, NO_SLOW, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { computeLayout, type Layout } from "../src/layout.js";
 import type { ViewState } from "../src/renderer.js";
+import { CRAWL_LIT, CRAWL_SPARKS } from "../src/slow-crawl.js";
 import { drawFieldSlow, SLOW_LOOK, type SlowWindow, slowWindow } from "../src/slow-look.js";
 import {
   CFG,
@@ -194,5 +195,25 @@ describe("the pass", () => {
       drawFieldSlow(ctx as unknown as CanvasRenderingContext2D, LAYOUT, world, viewOf(world, 0));
     }
     expect(calls).toBe(2);
+  });
+});
+
+describe("CRAWL's strength", () => {
+  // Before the owner asked for it quieter, 27 September 2026: four sparks a
+  // ray, each at 0.85 at its brightest. Each stays at no more than 55% of
+  // that, and so does the light a ray banks against the skin, the two
+  // multiplied.
+  const SPARKS_WAS = 4;
+  const LIT_WAS = 0.85;
+
+  it("lights each spark at no more than 55% of what it was", () => {
+    expect(CRAWL_LIT).toBeLessThanOrEqual(LIT_WAS * 0.55);
+    expect(CRAWL_LIT).toBeGreaterThan(0);
+  });
+
+  it("banks fewer sparks on the skin, and no more than 55% of the light", () => {
+    expect(CRAWL_SPARKS).toBeLessThan(SPARKS_WAS);
+    expect(CRAWL_SPARKS).toBeGreaterThan(0);
+    expect(CRAWL_SPARKS * CRAWL_LIT).toBeLessThanOrEqual(SPARKS_WAS * LIT_WAS * 0.55);
   });
 });

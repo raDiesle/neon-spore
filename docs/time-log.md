@@ -26571,3 +26571,15 @@ Bottleneck: reading — a marks function mixes the body and the mark, so
 finding the argument that says "lit" took each file a read of its caller.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE SLOW: CRAWL's light is quieter
+
+- reading: 5 min. `slow-crawl.ts`, and which of its numbers are strength
+  rather than shape.
+- writing: 5 min. `CRAWL_SPARKS` and `CRAWL_LIT` named and lowered, the pins
+  in `slow-look.test.ts`.
+- looking: 5 min. A frame of THE OCULUS's window before and after.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `check:fast`.
+
+Bottleneck: looking — finding a tick where a window is open took a probe.
