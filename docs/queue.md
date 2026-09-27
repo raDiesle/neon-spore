@@ -1871,6 +1871,7 @@ what the rest of this file holds.
 ## `bun run push` sends a merge commit to `main`
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-27, claude/queue-hash-fixture-bosses-d-ts-is-at-483-lines (claim: claude/queue-bun-run-push-sends-a-merge-commit-to-main)
 - **Files:** `tools/land/push.ts`, `tools/land/test/`
 
 `origin/main` carries `11f25490a` (*Merge branch 'main' into
