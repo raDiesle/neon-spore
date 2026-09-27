@@ -26670,3 +26670,5 @@ THE CAPSTAN's row had already made it.
 Bottleneck: the render gates. Every story state would have been unanswerable
 by touch, because the grips and the drawing all asked `haspWorking`, so they
 had to move in this lane rather than wait for the look.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

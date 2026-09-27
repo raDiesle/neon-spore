@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 9b7134a94 — THE HASP: the story between the hasps, the simulation
+
+Every swing of THE HASP now ends in a state rather than the next latch, each under THE SLOW and none costing a clasp back. After the first comes the rattle, answered by the latch held three beats in a row. After the second comes the backspin, where she winds the wheel alone, and then the rust, where she rocks it while he holds. After the third comes the sway: both hold, the latch gripped and the wheel still, and the row swings clear. A state that runs out is the door's own blow at the hull. The sway run out clears the row anyway. The rehearsal keeps the story off (`haspStory`).
+
 ## 2026-09-27 · 7dc56a786 — THE PLUMB's steady deals the blow
 
 A `both` step held for its beats (`plumbSteady`) is a level step landed, two phones at once, as much as a settle is one: plumb-fx.ts now calls hurt.hit() on it, so the bob shakes and its sac goes red, and the blow's row lists it under `land`. Look exemption: a fix to something wrong rather than unlovely — the owner's rule that a correct hit always shows, and this one showed nothing.
