@@ -2919,6 +2919,7 @@ by hand never moves.
 | `tools/land/unverified-run.ts` | `bun run unverified <sha> --unverified "<what>" [--unverified "<what>" ...]` |
 | `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |
 | `tools/land/done-twice.ts` | An entry the lane and the trunk both took out, said at landing with the commit that got there first |
+| `tools/land/merges.ts` | **A merge commit on the trunk is refused before `bun run push` sends it** |
 | `tools/director/src/cell-config-gaps.ts` | THE FENCE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |

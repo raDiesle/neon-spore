@@ -249,7 +249,9 @@ Two things push anyway:
   owner saying so. `push` fetches `origin/main` before counting, because a
   count against a stale remote-tracking ref reports work as unpushed that
   somebody already sent — a number wrong in the reassuring direction is worse
-  than no number.
+  than no number. It refuses to send a merge commit `origin` has not got
+  (`tools/land/merges.ts`): `11f25490a` reached `origin/main` on 26 September
+  2026 by hand, and only a force-push could take it out again.
 - **A clone with no worktree on the trunk.** There is nothing there to sweep,
   so waiting for a cleanup would mean waiting forever, and it is the one place
   where the push is the entire output: a cloud session's work exists only where

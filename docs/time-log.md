@@ -27095,3 +27095,15 @@ Bottleneck: writing — the registrations, some thirty files each needing one li
 Bottleneck: none worth the name — a mechanical cut whose seam the queue entry had already chosen.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — `bun run push` refuses a merge commit
+
+- reading: 5 min. `push.ts`, its INDEX gate, `refusal.ts`, the repo-backed
+  test that already builds a bare origin.
+- writing: 10 min. `merges.ts`, the gate in `send`, three scratch-repo tests,
+  a paragraph in `git-and-landing.md`.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the INDEX gate already showed where a second one goes.

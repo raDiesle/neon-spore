@@ -1868,20 +1868,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `bun run push` sends a merge commit to `main`
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-27, claude/queue-hash-fixture-bosses-d-ts-is-at-483-lines (claim: claude/queue-bun-run-push-sends-a-merge-commit-to-main)
-- **Files:** `tools/land/push.ts`, `tools/land/test/`
-
-`origin/main` carries `11f25490a` (*Merge branch 'main' into
-claude/queue-the-ratchets-picture-has-never-been-drawn*), against the rule
-that history on `main` is linear. It cannot be taken back out without a
-force-push, but the next one can be refused: have `push.ts` list
-`origin/main..main --merges` before it sends and stop, naming the commit
-and saying to rebase it with `bun run land`, when there is any. A test
-builds a scratch repository with a merge on `main` and expects the refusal.
-
 ## Unverified at 4d7e3fe61: THE TRIVET's chord under real fingers on a phone
 
 - **Found:** 2026-09-26, tmp-trivet-hands

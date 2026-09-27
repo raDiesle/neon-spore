@@ -23,6 +23,10 @@
  * release notes and `Unverified at` headings were stamped with**, so it
  * restamps them in one more commit before the send (`restamp.ts`).
  *
+ * **Two gates stand before the send**: a `docs/INDEX.md` that names one file
+ * twice (`index-merge.ts`) and a merge commit the trunk would add to
+ * `origin` (`merges.ts`). Either is refused rather than sent.
+ *
  * **A refusal is printed in full**, along with how the trunk stands, because
  * the alternative is running the push again by hand to find out — and the
  * repository's own guard hook refuses that. `refusal.ts` has the wording.
@@ -30,6 +34,7 @@
 
 import { git, gitOrDie } from "./git.js";
 import { namedTwiceSaid } from "./index-merge.js";
+import { mergesSaid } from "./merges.js";
 import { reconcile } from "./reconcile.js";
 import { refusalLines } from "./refusal.js";
 
@@ -91,6 +96,9 @@ async function send(): Promise<string> {
   // through with two rows for one file (`index-merge.ts`).
   const twice = namedTwiceSaid(await git(["show", `${TRUNK}:docs/INDEX.md`], root), TRUNK);
   if (twice !== null) return twice;
+  // And the one `11f25490a` went through: a merge commit on a linear trunk.
+  const merges = await mergesSaid(root, TRUNK);
+  if (merges !== null) return merges;
   try {
     await gitOrDie(["push", "origin", `${TRUNK}:${TRUNK}`], root);
     return "";
