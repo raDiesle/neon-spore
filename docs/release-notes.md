@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-27 · 59a47ecef — A docs/INDEX.md that names one file twice is refused by the replay and by push
+
+In `48ad4d936`, two rows for `boss-cue-read-zg.ts` reached `origin/main`. The INDEX.md resolver already refused the two sides that commit had, so the second row was let in by hand or by a clean git merge. Nothing asked afterwards. Now `namedTwice` is asked of the resolver's output, of the result of every replay (which puts the branch back where it was and stops), and of the trunk before `bun run push` sends it. The drift test asks it of the tree too. When the guard was first run, main still named three files twice, one of them with a row for THE PULSE's arrows that its file no longer draws. Those rows are gone.
+
 ## 2026-09-27 · fe847c4f5 — The director's RUN column goes home when a narrow window is widened
 
 A director loaded at phone width opens on the menu with RUN (the transport, and AUTO's four buttons in it) moved into the header. Widening the window changed no class, so RUN stayed in a header that was a bar again, painted over by `main`, and AUTO could not be clicked at 1500 wide. `mobile-menu.ts` now listens to the breakpoint itself (`PHONE_QUERY`, from `phone-view.ts`), and sends RUN home on widening and back into an open menu on narrowing. The queue entry blamed stacking order; a load at desktop width was never broken. `FakeEl` gains `parentElement` and moves a node on `append`, as a browser does.
