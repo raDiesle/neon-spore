@@ -40,10 +40,6 @@ export const BYTES: Record<string, { shipped: [string, string]; baked: [string, 
     shipped: ["instar-moult.ts", "drawnPale"],
     baked: ["instar-moult-baked.ts", "drawBakedPale"],
   },
-  "instar-seam": {
-    shipped: ["instar-profile.ts", "drawProfile"],
-    baked: ["instar-seam-baked.ts", "drawBakedSeam"],
-  },
   "instar-spark": {
     shipped: ["instar-spit.ts", "drawnSpark"],
     baked: ["instar-spit-baked.ts", "drawBakedSpark"],

@@ -7,7 +7,6 @@ import {
   drawBakedNests,
   drawBakedPale,
   drawBakedScales,
-  drawBakedSeam,
   drawBakedSpark,
   drawEgg,
   drawEggCrack,
@@ -26,25 +25,12 @@ import {
   PALE_LOOK,
   PALE_SPRITE,
   PALETTE,
-  RING_LOOK,
-  SEAM_SPRITE,
   SPARK_SPRITE,
   type SpriteSpec,
   WING_LOOK,
   WING_SPRITE,
 } from "@neon-spore/render";
-import {
-  beat,
-  flat,
-  glob,
-  iris,
-  look,
-  plate,
-  ring,
-  spark,
-  split,
-  wing,
-} from "./sprite-fixtures.js";
+import { beat, flat, glob, iris, look, plate, spark, split, wing } from "./sprite-fixtures.js";
 
 /**
  * **What `bun run sprite` can show**: each baked sprite beside the drawing it
@@ -190,21 +176,6 @@ export const DEMOS: readonly SpriteDemo[] = [
     },
     baked(ctx, x, y, r, _threat, _time, dpr) {
       drawBakedPale(ctx, split(x, y, r), PALE_LOOK.paint, dpr);
-    },
-  },
-  {
-    name: "instar-seam",
-    spec: SEAM_SPRITE,
-    base: PALETTE.hull,
-    glow: PALETTE.hullRim,
-    playH: (r) => r,
-    threats: [0],
-    box: [-0.4, -0.55, 0.4, 0.55],
-    shipped(ctx, x, y, r) {
-      RING_LOOK.paint(ctx, ring(ctx, x, y, r));
-    },
-    baked(ctx, x, y, r, _threat, _time, dpr) {
-      drawBakedSeam(ctx, ring(ctx, x, y, r), dpr);
     },
   },
   {

@@ -1,8 +1,10 @@
 # THE INSTAR's baked parts, before and after
 
-Every sprite baked for THE INSTAR so far. Each one is offered in VERSUS, and
-the game still draws the shipped drawing. The figures are from `bun run sprite`
-on 26 September 2026. Rerun it to refresh them.
+Every sprite baked for THE INSTAR so far. The spit, the eye, the nest, the
+hide and the moult were taken into the game on 27 September 2026; the heart and
+the wing are still offered in VERSUS; the seam was dropped the same day and
+deleted (`tools/versus/DECIDED.md`). The figures are from `bun run sprite` on
+27 September 2026. Rerun it to refresh them.
 
 - **Code** is what the baked drawing adds to the bundle, gzipped. It is
   weighed beside the shipped drawing, so each row includes the shared baker
@@ -13,20 +15,20 @@ on 26 September 2026. Rerun it to refresh them.
 
 | Part | VERSUS slot | Code, gzipped | Calls, shipped → baked | µs, shipped → baked | Bake once |
 |---|---|---|---|---|---|
-| Egg | `instar:nest` | +2.2 kB | 34 → 18 | 7.0 → 3.2 | 1.6 ms |
-| Nest (the whole brood) | `instar:nest` | +2.6 kB | 559 → 299 | 106.7 → 70.0 | 0.6 ms |
-| Eye iris | `instar:eye` | +1.4 kB | 4 → 5 | 1.8 → 1.5 | 0.6 ms |
-| Fire glob with its trail | `instar:spit` | +1.2 kB | 19 → 6 | 3.5 → 3.8 | 0.5 ms |
-| Heart | `instar:heart` | +1.1 kB | 9 → 1 | 3.0 → 0.7 | 0.3 ms |
-| Hide scales | `instar:hide` | +1.4 kB | 162 → 20 | 11.3 → 6.0 | 0.9 ms |
-| Moult (the pale body) | `instar:moult` | +1.6 kB | 3 → 10 | 3.8 → 4.2 | 1.1 ms |
-| Body ring seam | `instar:seam` | +1.0 kB | 6 → 6 | 2.3 → 2.0 | 0.8 ms |
-| Ember | `instar:spit` | +0.9 kB | 6 → 1 | 0.8 → 0.5 | 0.2 ms |
-| Wing membrane | `instar:wing` | +1.3 kB | 42 → 6 | 4.3 → 2.3 | 1.2 ms |
-| **All ten together** | | **+6.8 kB** (22.2 kB minified) | | | **7.8 ms** |
+| Egg | `instar:nest`, in the game | +1.0 kB | 34 → 18 | 7.3 → 3.5 | 1.9 ms |
+| Nest (the whole brood) | `instar:nest`, in the game | +0.8 kB | 559 → 299 | 107.5 → 74.3 | 0.7 ms |
+| Eye iris | `instar:eye`, in the game | +1.4 kB | 4 → 5 | 1.5 → 1.7 | 0.6 ms |
+| Fire glob with its trail | `instar:spit`, in the game | +1.2 kB | 19 → 6 | 4.0 → 3.0 | 0.5 ms |
+| Heart | `instar:heart` | +1.1 kB | 9 → 1 | 2.3 → 0.5 | 0.3 ms |
+| Hide scales | `instar:hide`, in the game | +0.6 kB | 162 → 20 | 10.5 → 5.5 | 1.0 ms |
+| Moult (the wound) | `instar:moult`, in the game | +2.6 kB | 19 → 19 | 13.0 → 10.5 | 1.2 ms |
+| ~~Body ring seam~~ | `instar:seam`, dropped and deleted | — | — | — | — |
+| Ember | `instar:spit`, in the game | +0.9 kB | 6 → 1 | 1.0 → 0.8 | 0.2 ms |
+| Wing membrane | `instar:wing` | +1.3 kB | 42 → 6 | 3.3 → 2.3 | 0.8 ms |
+| **All nine together** | | **+4.9 kB** (15.6 kB minified) | | | **7.2 ms** |
 
-The rows add up to 14.9 kB. The real total is 6.8 kB, because the rows count
-the shared baker ten times and together it is counted once. Nothing here ships
+The rows add up to 10.9 kB. The real total is 4.9 kB, because the rows count
+the shared baker nine times and together it is counted once. Nothing here ships
 a picture: each part is painted by our own code at load. `bun run sprite`
 prints what each sprite would weigh as PNG and WebP.
 
@@ -34,7 +36,7 @@ prints what each sprite would weigh as PNG and WebP.
 small marks: the hide goes from 162 calls to 20, the wing from 42 to 6, and the
 nest from 559 to 299. It pays off least where the shipped drawing is already
 one gradient fill. There the baked version costs the same or a few calls more,
-as with the eye, the moult and the seam, and what it buys is detail rather than
+as with the eye and the moult, and what it buys is detail rather than
 speed.
 
 Checked in the five third-act poses (crouch, perch, roar, sprawl, twist) and

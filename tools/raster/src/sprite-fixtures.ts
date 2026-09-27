@@ -1,5 +1,4 @@
 import {
-  type BodyRing,
   type EyeIris,
   type Form,
   type GlobBall,
@@ -56,18 +55,6 @@ export function plate(
   ctx.fill(p);
   lightHide(ctx, p, form, 1);
   return [p, form];
-}
-
-/** A ring of the long body, back to belly across a head radius, on a strip of hide. */
-export function ring(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): BodyRing {
-  const hide = new Path2D();
-  hide.rect(x - r * 0.35, y - r * 0.5, r * 0.7, r);
-  const g = ctx.createLinearGradient(x, y - r * 0.5, x, y + r * 0.5);
-  g.addColorStop(0, PALETTE.hull);
-  g.addColorStop(1, PALETTE.sheenDeep);
-  ctx.fillStyle = g;
-  ctx.fill(hide);
-  return { top: { x, y: y - r * 0.5 }, bottom: { x, y: y + r * 0.5 }, r, fade: 1, hide };
 }
 
 /** A flat wing half a head radius to the unit, its membrane laid in the membrane's own colour. */

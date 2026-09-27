@@ -26180,3 +26180,17 @@ prism and two pinches in one run are one `--hold`, so the bared view needed
 `--boss` to set it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-27 — THE INSTAR's baked seam is deleted
+
+- reading: 5 min. The queue entry, the seam's callers, DECIDED.md for which
+  baked parts had since gone into the game.
+- writing: 5 min. The deletions, and the baked-parts table rewritten from
+  today's run.
+- looking: 0 min. Nothing the game draws moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the table's own framing ("each one is offered in
+VERSUS") was five slots out of date, so every row had to be checked against
+DECIDED.md before its total could be fixed.

@@ -8,7 +8,6 @@ import { drawBakedScales } from "../src/instar-hide-baked.js";
 import { drawBakedPale } from "../src/instar-moult-baked.js";
 import { drawBakedNests } from "../src/instar-nest-baked.js";
 import type { Look } from "../src/instar-plate.js";
-import { drawBakedSeam } from "../src/instar-seam-baked.js";
 import { drawnGlob, drawnSpark } from "../src/instar-spit.js";
 import { drawBakedGlob, drawBakedSpark } from "../src/instar-spit-baked.js";
 import { drawBakedMembrane } from "../src/instar-wing-baked.js";
@@ -116,11 +115,6 @@ describe("a sprite baked at load", () => {
           soft: 1,
         },
         () => {},
-        3,
-      );
-      drawBakedSeam(
-        ctx,
-        { top: o, bottom: { x: 210, y: 300 + i }, r: 150, fade: 1 - threat, hide: new Path2D() },
         3,
       );
       drawBakedIris(
