@@ -2325,6 +2325,7 @@ moment tell apart on a phone, and the op-count rows stay within 10%.
 ## §40 THE FLUE — the receipts and its own blow
 
 - **Found:** 2026-09-27, claude/queue-40-the-flue-the-look
+- **Taken:** 2026-09-27, claude/queue-40-the-flue-the-look (claim: claude/queue-40-the-flue-the-receipts-and-its-own-blow)
 - **Files:** `packages/render/src/flue-draw.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/boss-strike-look.ts`, `packages/render/src/boss-strike-from.ts`, `packages/render/test/boss-hurt-rows-c.ts`, `packages/render/test/boss-strike.test.ts`
 
 The look's second part; the body landed (`docs/spec/bosses.md` §11.57,
