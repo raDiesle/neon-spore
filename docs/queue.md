@@ -2760,6 +2760,7 @@ names the first.
 ## `queue take` calls an entry a landing filed but did not push "already done"
 
 - **Found:** 2026-09-27, claude/queue-the-wisps-arms-leave-their-own-light-when-they-s
+- **Taken:** 2026-09-27, claude/queue-a-counts-socket-and-a-throbs-far-half-hide-the-t (claim: claude/queue-queue-take-calls-an-entry-a-landing-filed-but-di)
 - **Files:** `tools/queue/origin-check.ts`, `tools/queue/run.ts`
 
 A lane landed with `--keep`, which files its finding on the local `main` and
