@@ -2806,6 +2806,7 @@ test proves each of them fires. `bun run check` proves it.
 ## `docs/spec/briefings.md` §3.2 names five prose guides where there are twenty-two
 
 - **Found:** 2026-09-27, claude/queue-38-the-gall-the-simulation-lane
+- **Taken:** 2026-09-27, claude/queue-the-instars-baked-seam-is-dead-since-its-versus (claim: claude/queue-docs-spec-briefings-md-3-2-names-five-prose-guid)
 - **Files:** `docs/spec/briefings.md`, `packages/content/test/scenes-prose.test.ts`
 
 §3.2 says *eighty-nine of them now, one per guided wave bar five* and names
