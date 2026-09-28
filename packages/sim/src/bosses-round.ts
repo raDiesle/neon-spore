@@ -112,7 +112,7 @@ export {
   pulseVeiled,
 } from "./pulse-chart.js";
 // What the shared meter has become — read, never re-derived (`pulse-hand.ts`).
-export { pulseBraced, pulseHeart } from "./pulse-hand.js";
+export { pulseBarAsks, pulseBraced, pulseHeart } from "./pulse-hand.js";
 
 export { pulseCurrent } from "./pulse-open.js";
 

@@ -30,7 +30,11 @@ export const PULSE_CONTROLS: readonly FieldControlDef[] = [
       "has dropped under pulseFlutterMilli — the bar grows a dashed box a " +
       "handle's height round it, and the end nearest each seat lights while " +
       "that seat is holding",
-    seat: "either, and one at a time — whichever of them can best afford to stop playing",
+    seat:
+      "either, and one at a time — whichever of them can best afford to stop " +
+      "playing. Each seat's end of the bar is haloed on its screen until its " +
+      "thumb is down, and the thumb landing washes that end green " +
+      "(render/pulse-marks.ts)",
     gesture: "hold",
     does:
       "Takes this seat out of the song and puts it behind the other one. " +
@@ -55,7 +59,10 @@ export const PULSE_CONTROLS: readonly FieldControlDef[] = [
       "the same box on the same bar, gone red, once the meter is under " +
       "pulseArrestMilli — with one thumb on it the word under the bar reads " +
       "BOTH, and with two it reads HELD",
-    seat: "both at once, and nothing at all from one",
+    seat:
+      "both at once, and nothing at all from one. The seat holding sees the " +
+      "partner's end ringed with the clock until the second thumb lands, and " +
+      "both ends wash green when it does (render/pulse-marks.ts)",
     gesture: "hold",
     does:
       "Puts pulseArrestGainMilli a beat back into the meter, on the beat and " +

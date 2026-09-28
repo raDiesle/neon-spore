@@ -834,6 +834,18 @@ whether a thumb can be got onto the bar and off it inside a bar of the song,
 and whether a seat that has stopped playing can tell that the other one is
 still going.
 
+**The bar answers a touch the way THE INSTAR's marks do, 28 September
+2026** (`render/pulse-marks.ts`; the owner, 27 September: *the consistent
+visual across all waves*). Each seat's mark is its own end of the bar — the
+pilot's the left, the navigator's the right — and whether it is asked is the
+simulation's, `pulseBarAsks`: the count or the play, a bar not steady, and that
+seat's thumb not on it yet. The halo stands under this seat's end until its
+thumb is down. The partner's end wears their turning ring and the clock only
+under `arrest` and only once this seat is holding, the one moment the round
+waits on the other thumb. A brace washes that end green and the arrest both.
+There is no red: either seat may take the bar, so no thumb is the wrong one.
+The takeover feeds the verdicts (`effects-round-marks.ts`).
+
 **Three loads, three hands** (18 September 2026, `.claude/skills/new-boss`
 §6.2; the simulation is `packages/sim/src/scout-hand.ts`). The round asked the
 same four things of the pair from the first mote to the last, and the seat that

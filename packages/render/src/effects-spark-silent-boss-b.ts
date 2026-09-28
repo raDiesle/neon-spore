@@ -173,7 +173,7 @@ export const SILENT_BOSS_B = [
   "scoutReel",
   "scoutSlip",
   "scoutPrime",
-  // THE PULSE's hand on the bar, no burst until the look lane draws it.
+  // THE PULSE's hand on the bar, no burst: the green is `pulse-marks.ts`'.
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",

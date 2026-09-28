@@ -48,6 +48,19 @@ export function pulseHandHeard(
   if (state.brace1 && state.brace2) world.events.push({ type: "pulseArrest" });
 }
 
+/**
+ * Whether the bar asks this seat for its thumb this tick: the round in its
+ * count or its play, a bar that is not steady, and this seat's thumb not on it
+ * yet (`render/pulse-marks.ts` haloes that seat's end). Either seat may be
+ * asked, and under `flutter` and `arrest` both are at once — the bar is the
+ * one handle in the game that is both of theirs.
+ */
+export function pulseBarAsks(cfg: PulseHeartBounds, state: PulseState, player: 1 | 2): boolean {
+  if (state.phase !== "play" && state.phase !== "count") return false;
+  if (pulseHeart(cfg, state) === "steady") return false;
+  return !(player === 1 ? state.brace1 : state.brace2);
+}
+
 /** The two figures `pulseHeart` reads, as little of `SimConfig` as it needs. */
 export interface PulseHeartBounds {
   pulseFlutterMilli: number;

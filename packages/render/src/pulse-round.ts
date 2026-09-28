@@ -1,6 +1,7 @@
 import { controlSetForWave } from "@neon-spore/content";
 import { PULSE_COUNT_BEATS, type PulseState, pulseCurrent } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
+import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
@@ -10,6 +11,7 @@ import { PALETTE } from "./palette.js";
 import { drawPulseDrops } from "./pulse-drop.js";
 import { drawArrivals, drawSockets } from "./pulse-fall.js";
 import { type PulseField, pulseField } from "./pulse-lane.js";
+import { drawPulseHalo, drawPulseVerdicts, drawPulseWaiting } from "./pulse-marks.js";
 import { drawPulseMeter, drawPulseTally, drawPulseVerdict } from "./pulse-meter.js";
 import { drawPulseWash, pulseWash } from "./pulse-wash.js";
 import type { ViewState } from "./renderer.js";
@@ -104,7 +106,12 @@ function stillPose(view: ViewState) {
   };
 }
 
-export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
+export function drawPulseRound(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  view: ViewState,
+  effects: Effects,
+): void {
   const boss = view.world.boss;
   if (boss === null || boss.kind !== "pulse") return;
   const world = view.world;
@@ -136,7 +143,10 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
 
   ctx.textAlign = "center";
   drawTitle(ctx, l, boss, l.playHeight * 0.07);
+  // Each end's asking: the halo under the vessel, the clock over (`pulse-marks.ts`).
+  drawPulseHalo(ctx, l, cfg, boss, view.time);
   drawPulseMeter(ctx, l, boss, cfg, view.time);
+  drawPulseWaiting(ctx, l, cfg, boss, view.time);
   drawPulseTally(ctx, l, boss, seat, l.playHeight * 0.185);
 
   if (boss.phase === "count") drawCount(ctx, l, view, boss);
@@ -170,6 +180,7 @@ export function drawPulseRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   ctx.textAlign = "center";
   if (boss.phase === "verdict" || boss.phase === "spent") drawPulseVerdict(ctx, l, boss);
   ctx.textAlign = "left";
+  drawPulseVerdicts(ctx, l, cfg, boss, effects.boss.pulse.verdicts);
 }
 
 /** The name, and the stage under it, from the baseline the caller gives. */

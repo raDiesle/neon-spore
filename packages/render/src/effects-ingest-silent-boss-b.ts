@@ -183,9 +183,10 @@ export const INGEST_SILENT_BOSS_B = [
   "scoutReel",
   "scoutSlip",
   "scoutPrime",
-  // THE PULSE's hand on the bar, silent until the look lane draws it: which
-  // seats are holding it is state, read off `brace1` and `brace2` every
-  // frame (`sim/pulse-hand.ts`).
+  // THE PULSE's hand on the bar: which seats are holding it is state, read
+  // off `brace1` and `brace2` every frame (`sim/pulse-hand.ts`), and the
+  // green a brace throws is the round's own, fed by the takeover
+  // (`pulse-marks.ts`).
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",

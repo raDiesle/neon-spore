@@ -28316,3 +28316,13 @@ marks had to be split out into their own base class before SNAKE's could go in.
 The bottleneck: a queue-entry rewrite that matched on a line break, which failed its assert and had to be redone on the flattened text.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE PULSE's bar answers a touch like THE INSTAR's marks
+
+- reading: 15 min. The hand, the grip, the meter, FLEET's both-seats marks, PINBALL's lane.
+- writing: 15 min. `pulseBarAsks` in the sim, `pulse-marks.ts` in the round marks, two tests.
+- looking: 5 min. One frame, under arrest with the pilot holding.
+- friction: 5 min. `pulse-round.ts` at its ceiling, and a missing INDEX row.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the bar is both seats' and a rectangle, so where each seat's mark stands had to be decided before anything could be drawn.

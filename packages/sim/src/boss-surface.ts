@@ -128,6 +128,8 @@ export {
   type PulsePhase,
   type PulseStage,
   type PulseState,
+  // Whether the bar asks a seat for its thumb (`render/pulse-marks.ts`).
+  pulseBarAsks,
   pulseCalls,
   pulseCurrent,
   pulseEndTick,

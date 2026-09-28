@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { GaugeMarks } from "./gauge-marks.js";
 import { PinballMarks } from "./pinball-marks.js";
+import { PulseMarks } from "./pulse-marks.js";
 import { SnakeMarks } from "./snake-marks.js";
 
 /**
@@ -26,22 +27,27 @@ export class RoundMarks {
   readonly snake = new SnakeMarks();
   /** PINBALL's plunger's and table's (`pinball-marks.ts`). */
   readonly pinball = new PinballMarks();
+  /** THE PULSE's bar's two ends (`pulse-marks.ts`). */
+  readonly pulse = new PulseMarks();
 
   ingestRounds(events: readonly SimEvent[]): void {
     this.gauge.ingest(events);
     this.snake.ingest(events);
     this.pinball.ingest(events);
+    this.pulse.ingest(events);
   }
 
   updateRounds(dt: number): void {
     this.gauge.update(dt);
     this.snake.update(dt);
     this.pinball.update(dt);
+    this.pulse.update(dt);
   }
 
   clearRounds(): void {
     this.gauge.clear();
     this.snake.clear();
     this.pinball.clear();
+    this.pulse.clear();
   }
 }

@@ -1985,6 +1985,7 @@ by hand never moves.
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
+| `packages/render/src/pulse-marks.ts` | THE PULSE's bar ends haloed while each seat is asked, the partner's clock under arrest, green on a brace and on the arrest |
 | `packages/render/src/pulse-round.ts` | THE PULSE over the whole stage |
 | `packages/render/src/pulse-button.ts` | THE PULSE's four lanes, as a face on one of the band's own lobes |
 | `packages/render/src/pulse-drop.ts` | An arrow nobody answered falls into the ship |
