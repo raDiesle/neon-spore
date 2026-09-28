@@ -3257,6 +3257,24 @@ handover is not an ask and plays at speed. The film teaches only the handover,
 reaches none of the doubled windows and was not re-timed; the guide says no
 count and did not change.
 
+**Its arm answers a touch the way every mark does** (28 September 2026, the
+owner's consistent visual; `render/baton-marks.ts`). The ring that asks this
+seat for a thumb wears the halo: the shell on the locked seat's screen while
+its thumb is off it, since every strip is a fresh press, and each bead on its
+own seat's screen until that thumb is down (`sim/baton-hand.ts`
+`batonStripAsks`, `batonDrawAsks`). There is no partner's clock. The strip
+belongs to one seat and nobody else waits on it. The draw does wait on the
+other thumb, but whether that thumb is down is the sentence the pair have to
+say to each other. A strip, a thumb landing on its bead and the merge wash
+their socket green (`batonStripped`, `batonHeld`, `batonMerged`).
+`batonRefused` washes it red, which it can now reach: the picture hands
+through the unlocked seat's press on the shell and a thumb on the partner's
+bead, where it used to drop them. The strip press keeps its hold, because the
+strip counts a thumb only after it lifts; the bead press has none, because a
+held drag repeats its press on every move. At a desk the press is signed with
+the ring's own seat (`baton-grip.ts` `batonGripSeat`). One `GripVerdicts` in
+`BossBlows`, keyed by socket.
+
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
 *Built 16–17 September 2026 in three pieces: the simulation, the gullet, then

@@ -1,3 +1,4 @@
+import { batonGripSeat } from "./baton-grip.js";
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
 import { mazeGripSeat } from "./maze-grip.js";
@@ -42,7 +43,9 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    heart the eighth (`maze-grip.ts` `mazeGripSeat`), and SNAKE's jaws and
  *    tail the ninth (`snake-grip.ts` `snakeGripSeat`), and PINBALL's plunger
  *    and table the tenth (`pinball-grip.ts` `pinballGripSeat`), and THE
- *    SCOUT's line and prime the eleventh (`scout-grip.ts` `scoutGripSeat`).
+ *    SCOUT's line and prime the eleventh (`scout-grip.ts` `scoutGripSeat`),
+ *    and THE BATON's shell and beads the twelfth (`baton-grip.ts`
+ *    `batonGripSeat`).
  *    One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
@@ -159,6 +162,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     mazeGripSeat(l, x, y, field) ??
     snakeGripSeat(l, x, y, field) ??
     pinballGripSeat(l, x, y, field) ??
-    scoutGripSeat(l, x, y, field)
+    scoutGripSeat(l, x, y, field) ??
+    batonGripSeat(l, x, y, field)
   );
 }

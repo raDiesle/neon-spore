@@ -1,6 +1,7 @@
 import { throatHolds, type World } from "@neon-spore/sim";
 import { drawBaton } from "./baton-draw.js";
 import { drawBatonGrip } from "./baton-grip.js";
+import { drawBatonAsked, drawBatonVerdicts } from "./baton-marks.js";
 import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
 import { drawPairBoss, isPairBoss, PAIR_KINDS } from "./boss-draw-clocks-c.js";
 import { drawLatePairBoss, isLatePairBoss, LATE_PAIR_KINDS } from "./boss-draw-clocks-d.js";
@@ -90,8 +91,11 @@ export function drawClockBoss(
     ctx.translate(hurt.shakeX(time, l.tile), 0);
     drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, beatPhase, time, hurt.value);
     // And the two rings the arm itself asks for, after it, so they stand on
-    // the sockets and nothing stands on them (`baton-grip.ts`).
+    // the sockets and nothing stands on them (`baton-grip.ts`) — haloed under
+    // while they ask, and the verdict of a touch over (`baton-marks.ts`).
+    drawBatonAsked(ctx, l, world.cfg, boss, world.beat, time);
     drawBatonGrip(ctx, l, world.cfg, boss, l.role, world.beat, beatPhase, time);
+    drawBatonVerdicts(ctx, l, world.cfg, boss, effects.boss.blows.batonMarks.verdicts);
     ctx.restore();
     return;
   }

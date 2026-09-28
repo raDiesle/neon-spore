@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { BatonMarks } from "./baton-marks.js";
 import { BossHurt } from "./boss-hurt.js";
 import { CairnMarks } from "./cairn-marks.js";
 
@@ -15,7 +16,7 @@ import { CairnMarks } from "./cairn-marks.js";
  * (`BossHurt.jab`). A part of a sequence is in neither and deals nothing.
  *
  * And, for the same reason, the verdicts round a thumb of those among them
- * whose mark has nowhere else to keep one (`cairn-marks.ts`).
+ * whose mark has nowhere else to keep one (`cairn-marks.ts`, `baton-marks.ts`).
  */
 
 /** The bosses kept here, one field each below. */
@@ -51,6 +52,8 @@ export class BossBlows {
   readonly baton = new BossHurt();
   /** THE CAIRN's verdicts round the hand on its pile (`cairn-marks.ts`). */
   readonly cairnMarks = new CairnMarks();
+  /** THE BATON's verdicts round the rings on its arm (`baton-marks.ts`). */
+  readonly batonMarks = new BatonMarks();
 
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
@@ -60,6 +63,7 @@ export class BossBlows {
       if (jabbed !== undefined) this[jabbed].jab();
     }
     this.cairnMarks.ingest(events);
+    this.batonMarks.ingest(events);
   }
 
   update(dt: number): void {
@@ -68,6 +72,7 @@ export class BossBlows {
     this.cairn.update(dt);
     this.baton.update(dt);
     this.cairnMarks.update(dt);
+    this.batonMarks.update(dt);
   }
 
   clear(): void {
@@ -76,5 +81,6 @@ export class BossBlows {
     this.cairn.clear();
     this.baton.clear();
     this.cairnMarks.clear();
+    this.batonMarks.clear();
   }
 }

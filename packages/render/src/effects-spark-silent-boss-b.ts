@@ -182,7 +182,8 @@ export const SILENT_BOSS_B = [
   "pulseSlip",
   "pulseArrest",
   // THE BATON's arm under a thumb: no burst, for the same reason its eleven
-  // next door throw none — the arm is read off the boss every frame.
+  // next door throw none — the arm is read off the boss every frame, and the
+  // verdict of a touch is `baton-marks.ts`'.
   "batonSwell",
   "batonStripped",
   "batonRefused",

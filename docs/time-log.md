@@ -28352,3 +28352,13 @@ The bottleneck: the pile's ring exists only under a thumb, so the lane was decid
 The bottleneck: deciding where the partner's clock belongs — on the prime her burn waits on, not on the line nobody waits on.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE BATON's arm answers a touch like THE INSTAR's marks
+
+- reading: 10 min. The hand, the grip, the arm's draw, the existing grip test.
+- writing: 20 min. The two asks in the sim, `baton-marks.ts`, the wrong seat's press handed through, the desk seat, two tests.
+- looking: 5 min. One frame, the shell swelling, on the locked seat's screen.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the wrong seat's press had to keep its hold on the shell but lose it on the partner's bead — the strip counts a thumb only after it lifts, and a held drag repeats its press on every move.

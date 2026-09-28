@@ -49,10 +49,12 @@ export {
   antiphonWindow,
 } from "./antiphon.js";
 export {
+  batonDrawAsks,
   batonDrawing,
   batonDrawn,
   batonMayStrip,
   batonMergeSocket,
+  batonStripAsks,
   batonSwelling,
 } from "./baton-hand.js";
 // THE INSTAR's clock is the script's: a morph, a window, a landing, per step

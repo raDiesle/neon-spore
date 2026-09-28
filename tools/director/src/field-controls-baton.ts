@@ -20,7 +20,11 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
       "middle of the field, on the screen of whichever seat the beat has " +
       "locked out of the ship — and on neither, on a beat neither of them " +
       "acted in; on the test screen",
-    seat: "whichever seat is locked this beat — the one whose panel is grey",
+    seat:
+      "whichever seat is locked this beat — the one whose panel is grey. The " +
+      "ring is haloed on that screen while its thumb is off it, a strip washes " +
+      "it green, and the other seat's press is refused red " +
+      "(render/baton-marks.ts, sim/baton-hand.ts batonRefused)",
     gesture: "press",
     does:
       "batonSwellStrips fresh presses strip the shell off clean — a thumb " +
@@ -44,7 +48,11 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
       "a ring on each of the two beads at rest in the last two sockets, one " +
       "per screen — the upper on player 1's, the one that waited on player " +
       "2's — from the beat they are both there; both on the test screen",
-    seat: "both, one bead each — P1 the upper, P2 the one that waited",
+    seat:
+      "both, one bead each — P1 the upper, P2 the one that waited. Each bead " +
+      "is haloed on its own screen until that thumb is down, the thumb and " +
+      "the merge wash it green, a thumb on the partner's bead is refused red, " +
+      "and no clock says whether the other is down (render/baton-marks.ts)",
     gesture: "hold",
     does:
       "Draws the two beads into one. The count runs only while both thumbs are " +

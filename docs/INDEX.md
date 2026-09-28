@@ -2136,6 +2136,7 @@ by hand never moves.
 | `packages/render/src/baton-socket-draw.ts` | **One socket of THE BATON's arm**, drawn |
 | `packages/render/src/baton-flesh.ts` | **What THE BATON's arm is made of**: a tendon hung from above the field |
 | `packages/render/src/baton-tube.ts` | **THE BATON's arm, as a tube of the rig** (`solid-tube.ts`): the tendon is a cord of flesh with a round back |
+| `packages/render/src/baton-marks.ts` | THE BATON's shell and beads haloed while they ask a seat, green on a strip, a hold and the merge, red on a refused press — no partner's clock |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |

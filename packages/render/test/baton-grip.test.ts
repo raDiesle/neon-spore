@@ -13,7 +13,12 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { batonDrawRest, batonSocketUnder, batonSwellRest } from "../src/baton-grip.js";
+import {
+  batonDrawRest,
+  batonGripSeat,
+  batonSocketUnder,
+  batonSwellRest,
+} from "../src/baton-grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import type { Field } from "../src/touch.js";
 import {
@@ -33,9 +38,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * answers, and that the answer to the strip changes seats with the beat.
  *
  * The rule is the simulation's (`sim/test/baton-hand.test.ts`); this file
- * proves the picture hands it a thumb with the socket's index on it — and that
- * it hands it to the seat the lock is on and to no other, which is the one
- * thing about this handle that is unlike every other one in the game.
+ * proves the picture hands it a thumb with the socket's index on it — the
+ * wrong seat's too, since 28 September 2026, so the refusal can wash red
+ * (`baton-marks.ts`) — and that a desk pointer is signed with the seat the
+ * lock is on, which is the one thing about this handle unlike every other.
  */
 
 beforeAll(installCanvasGlobals);
@@ -137,7 +143,7 @@ describe("the strip's ring", () => {
     expect(touch?.hold).toMatchObject({ kind: "drag", target: "batonSocket", player: 1, id: 1 });
   });
 
-  it("changes seats with the lock, and answers neither on a beat nobody acted in", () => {
+  it("hands the unlocked seat's press through, hold and all, for the simulation to refuse", () => {
     const world = opened();
     const l = layout("p2");
     const b = swelling(world, 2);
@@ -146,9 +152,24 @@ describe("the strip's ring", () => {
     expect(batonSocketUnder(l, at.x, at.y, fieldWith(2, world, b))?.command).toMatchObject({
       id: 1,
     });
-    expect(batonSocketUnder(l, at.x, at.y, fieldWith(1, world, b))).toBeNull();
+    // The strip counts a thumb once it is lifted (`sim/baton-hand.ts`
+    // `stripThumbs`), so the refused press keeps its hold to say the lift.
+    const theirs = batonSocketUnder(l, at.x, at.y, fieldWith(1, world, b));
+    expect(theirs?.command).toMatchObject({ id: 1 });
+    expect(theirs?.hold).toMatchObject({ player: 1, id: 1 });
     b.lockUntil = [-1, -1];
-    expect(batonSocketUnder(l, at.x, at.y, fieldWith(2, world, b))).toBeNull();
+    expect(batonSocketUnder(l, at.x, at.y, fieldWith(2, world, b))?.player).toBe(2);
+  });
+
+  it("names the locked seat to a desk pointer, and nobody on a beat nobody acted in", () => {
+    const world = opened();
+    const l = layout("test");
+    const b = swelling(world, 2);
+    const at = batonSwellRest(l, CFG, b);
+    if (at === null) throw new Error("no ring on the swelling socket");
+    expect(batonGripSeat(l, at.x, at.y, fieldWith(1, world, b))).toBe(2);
+    b.lockUntil = [-1, -1];
+    expect(batonGripSeat(l, at.x, at.y, fieldWith(1, world, b))).toBeUndefined();
   });
 });
 
@@ -166,7 +187,7 @@ describe("the draw's two rings", () => {
     expect(batonDrawRest(l, CFG, b, 1)).toBeNull();
   });
 
-  it("answer their own seat and refuse the other's, socket and all", () => {
+  it("answer their own seat and hand the other's through, socket and all", () => {
     const world = opened();
     const l = layout("p2");
     const b = merging(world);
@@ -177,8 +198,12 @@ describe("the draw's two rings", () => {
     });
     // Player 1's thumb there is not his ring: his own is a socket higher, and
     // the simulation refuses a thumb on the other seat's bead out loud
-    // (`sim/baton-hand.ts`). What the picture does is send his own socket.
-    expect(batonSocketUnder(l, mine.x, mine.y, fieldWith(1, world, b))).toBeNull();
+    // (`sim/baton-hand.ts`). The picture sends her socket with no hold, since
+    // a held drag repeats its press and would be refused on every move.
+    const theirs = batonSocketUnder(l, mine.x, mine.y, fieldWith(1, world, b));
+    expect(theirs?.command).toMatchObject({ id: batonMergeSocket(CFG, 2) });
+    expect(theirs?.hold).toBeNull();
+    expect(batonGripSeat(l, mine.x, mine.y, fieldWith(1, world, b))).toBe(2);
   });
 });
 

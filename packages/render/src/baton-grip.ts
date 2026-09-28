@@ -65,36 +65,69 @@ function seatShows(role: ViewRole, player: 1 | 2): boolean {
 }
 
 /**
- * A press on the arm: the swelling socket while one is coming away, or this
- * seat's own bead while the two are being drawn together. `id` is the socket,
- * which is the whole of what the hand says — the simulation decides whether
- * this seat was the one who could say it, and refuses out loud if not
- * (`sim/baton-hand.ts`).
+ * A press on the arm: the swelling socket while one is coming away, or either
+ * bead while the two are being drawn together. `id` is the socket, which is
+ * the whole of what the hand says — the simulation decides whether this seat
+ * was the one who could say it, and refuses out loud if not
+ * (`sim/baton-hand.ts`), which `baton-marks.ts` washes red. So the wrong seat's
+ * press is handed through rather than dropped: the unlocked seat's on the
+ * shell with its hold, since the strip counts a thumb only once it is lifted,
+ * and a thumb on the partner's bead with none, since a held drag repeats its
+ * press every move and would be refused on every one.
  */
 export function batonSocketUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const b = bossOf(field, "baton");
   if (b === null) return null;
-  const socket = socketAt(l, field, b, x, y);
-  if (socket === null) return null;
+  const hit = socketAt(l, field, b, x, y, field.seat);
+  if (hit === null) return null;
+  const { socket, held } = hit;
   const target = "batonSocket";
   return {
     player: field.seat,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: socket },
-    hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: socket },
+    hold: held
+      ? { kind: "drag", target, player: field.seat, originX: x, originY: y, id: socket }
+      : null,
   };
 }
 
-/** The socket under the thumb, of the ones this seat is being shown. */
-function socketAt(l: Layout, field: Field, b: BatonState, x: number, y: number): number | null {
+/**
+ * Which seat a desk pointer on the arm is — the locked seat on the shell, the
+ * bead's own on a bead — so the test screen signs the press with the seat the
+ * ring is asking, and a seat key still pins it to the other (`desk-grab.ts`).
+ */
+export function batonGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const b = bossOf(field, "baton");
+  if (b === null) return undefined;
+  const hit = socketAt(l, field, b, x, y, 1);
+  if (hit === null) return undefined;
+  if (b.stage === "merging") return hit.socket === batonMergeSocket(field.cfg, 1) ? 1 : 2;
+  if (batonMayStrip(b, 1, field.beat)) return 1;
+  return batonMayStrip(b, 2, field.beat) ? 2 : undefined;
+}
+
+/** The socket under the thumb, `first`'s own bead tried before the other's
+ * where the two rings meet; `held` is whether the press keeps its hold. */
+function socketAt(
+  l: Layout,
+  field: Field,
+  b: BatonState,
+  x: number,
+  y: number,
+  first: 1 | 2,
+): { socket: number; held: boolean } | null {
   if (b.stage === "merging") {
-    const rest = batonDrawRest(l, field.cfg, b, field.seat);
-    if (rest === null || !hitCircle(rest, x, y)) return null;
-    return batonMergeSocket(field.cfg, field.seat);
+    for (const seat of first === 1 ? ([1, 2] as const) : ([2, 1] as const)) {
+      const rest = batonDrawRest(l, field.cfg, b, seat);
+      if (rest === null || !hitCircle(rest, x, y)) continue;
+      return { socket: batonMergeSocket(field.cfg, seat), held: seat === field.seat };
+    }
+    return null;
   }
-  if (!batonMayStrip(b, field.seat, field.beat)) return null;
+  if (b.stage !== "passing") return null;
   const rest = batonSwellRest(l, field.cfg, b);
   if (rest === null || !hitCircle(rest, x, y)) return null;
-  return b.swellSocket;
+  return { socket: b.swellSocket, held: true };
 }
 
 /** How much of a window is left, one down to nought. */

@@ -72,6 +72,21 @@ export function batonMayStrip(b: BatonState, player: 1 | 2, beat: number): boole
   return b.stage === "passing" && b.swellSocket >= 0 && batonLocked(b, player, beat);
 }
 
+/**
+ * Whether the strip asks this seat for a thumb: it may strip, and its thumb is
+ * not already down — every strip is a fresh press, so a thumb resting on the
+ * shell is asking nothing of it (`render/baton-marks.ts`).
+ */
+export function batonStripAsks(b: BatonState, player: 1 | 2, beat: number): boolean {
+  return batonMayStrip(b, player, beat) && (b.stripThumbs & bit(player)) === 0;
+}
+
+/** Whether the draw asks this seat for its thumb: the arm is merging and this
+ * seat's is not down on its bead. */
+export function batonDrawAsks(b: BatonState, player: 1 | 2): boolean {
+  return b.stage === "merging" && !batonDrawing(b, player);
+}
+
 function refuse(world: World, b: BatonState, socket: number): void {
   world.events.push({ type: "batonRefused", col: b.col, socket });
 }

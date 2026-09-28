@@ -64,9 +64,12 @@ export {
   antiphonTwins,
   antiphonWindow,
   BATON_SOCKET_SWELL,
+  // Whether each ring on the arm asks a seat for a thumb (`render/baton-marks.ts`).
+  batonDrawAsks,
   batonDrawing,
   batonMayStrip,
   batonMergeSocket,
+  batonStripAsks,
   batonSwelling,
   // THE SINEW's whole surface (19 September 2026), out of order and on this
   // page for THE BATON's reason three lines up: a new reading arrived and
