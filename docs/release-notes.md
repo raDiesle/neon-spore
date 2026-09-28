@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 6578d7016 — THE VALVE's sparks are both drawn wide, as a threat
+
+Both of THE VALVE's sparks are now drawn as VERSUS `valve:spark`'s `wide`: a wide hot bead, glowing twice as hard and trailing three hiss streaks up the way it came. The owner took the look on 28 September 2026 and turned down the spec's reason for it — the hull takes one hit and the wave is played again, so a second spark is not worse than the first, only a threat to shoot — so the `which` argument that told the two apart is gone and the slot is closed.
+
 ## 2026-09-27 · 7a3ecdf03 — THE CAPSTAN's lean becomes a drag
 
 THE CAPSTAN's cradle is steered by a thumb now, not the phone's tilt: a press on the drum's middle or its cradle, carried left or right past capstanPullMilli (600 thousandths of a tile), bares that side's face for as long as it is held, and a lift centres the pull, so the cradle drifts back and the rub pauses without resetting. The wire keeps the one capstanSteer target, and fromMilli is now the thumb's carry. The field says PULL where it said LEAN, the guide says "drag the drum left and hold it", ON THE FIELD gains THE CAPSTAN'S PULL, AUTO's non-steering seat lets go of the drum, and THE CAPSTAN is off LEAN_BOSSES. A control change the owner asked for by name, 27 September 2026: no wave may need a tilt sensor.
