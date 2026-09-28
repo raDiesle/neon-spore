@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · b905f0ccd — THE KEEL's joints answer a touch the way every mark does
+
+The lit joint wears the halo on the screen of the seat whose half it sits over and the partner's ring and waiting clock on the other's; in the flip each end joint asks its own seat while that thumb is off. A lock greens the joint, a miss or a tempo-run segment working loose reddens it, and the flip arrested or snapped back greens or reddens both ends.
+
 ## 2026-09-28 · 3b02863e2 — THE MANTLE's knobs, core and vent answer a touch the way every mark does
 
 A knob the shell wants and nobody holds wears the halo on its owner's screen and the partner's ring and waiting clock on the other's; the core's ring haloes the half whose tap is next; the vent haloes on both while it hisses. A shear, a brace held, a buckle flat and a turn guided green both knobs, a window run out reddens both, and a slip reddens the knob whose thumb lifted — `mantleSlip` now says whose.

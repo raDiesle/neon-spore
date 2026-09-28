@@ -28578,3 +28578,5 @@ The bottleneck: the full convention on four marks, one of them a half-ring whose
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: `keel-marks.ts` was already the ring's drawer, so the verdicts needed a name of their own.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
