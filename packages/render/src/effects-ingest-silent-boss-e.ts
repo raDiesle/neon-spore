@@ -42,4 +42,7 @@ export const INGEST_SILENT_BOSS_E = [
   // THE VANE's press from the wrong seat, the same: a ring round the arm or
   // the housing, `effects.boss.vane`'s (`vane-marks.ts`).
   "vaneRefuse",
+  // And THE MAZE's, on the heart or the string: a ring round the part,
+  // `effects.boss.maze`'s (`maze-grip-fx.ts`, `maze-marks.ts`).
+  "mazeRefuse",
 ] as const satisfies readonly SimEvent["type"][];

@@ -58,4 +58,7 @@ export type RoundEvent =
   | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
   | { type: "mazeDown"; col: number }
   // The navigator's thumb landing on the heart (`on`) or leaving it (`maze-hand.ts`).
-  | { type: "mazeGrip"; col: number; on: boolean };
+  | { type: "mazeGrip"; col: number; on: boolean }
+  // A press on the heart or the string from the seat the round does not ask
+  // it of, refused (`maze-controls.ts` `mazeRefuse`); `player` pressed.
+  | { type: "mazeRefuse"; col: number; part: "heart" | "string"; player: 1 | 2 };

@@ -6,6 +6,7 @@ import { mazeCrash, mazeFall } from "./maze-fall.js";
 import { drawMazeGrip, mazeHeartPull } from "./maze-grip.js";
 import { drawMazeHeart } from "./maze-heart.js";
 import { MAZE_LOOK } from "./maze-look.js";
+import { drawMazeAsked } from "./maze-marks.js";
 import { heartPulse, mazeHeartBlood } from "./maze-pulse.js";
 import { drawMazeShot } from "./maze-shot.js";
 import { drawMazeSpill, mazeSpillAge } from "./maze-spill.js";
@@ -98,6 +99,9 @@ export function drawMaze(
   );
   // The lever before the doors: the thumb brings the knob to the bottom just
   // as a gap arrives there, and the lit lips have to read over it.
+  // The asking under both hands' marks, and the verdicts over everything
+  // (`maze-marks.ts`, drawn by `maze-grip-fx.ts` after the boss pass).
+  drawMazeAsked(ctx, l, cfg, m, time);
   drawMazeString(ctx, l, cfg, m, role, time);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);

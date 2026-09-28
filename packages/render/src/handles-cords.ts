@@ -1,4 +1,4 @@
-import { NO_TETHER } from "@neon-spore/sim";
+import { type Command, mazeStringAsks, NO_TETHER } from "@neon-spore/sim";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringGrab, mazeStringRim } from "./maze-string.js";
@@ -18,18 +18,27 @@ import { bossOf } from "./touch-field.js";
 
 /**
  * THE MAZE's string, and only the pilot's: the wheel is the half of the round
- * player 2 cannot reach (`mazeStringHeard`), so a press from her seat falls
- * through to whatever is behind the handle. The grab reports zero — it *is* the
- * origin — and the origin stays here, on the device whose finger it is
- * (`Command` in `packages/sim/src/types.ts` has why).
+ * player 2 cannot reach (`mazeStringHeard`), so a press from her seat is the
+ * press alone, with no hold, for the sim to refuse once and the knob to wash
+ * red (`maze-marks.ts`). The grab reports zero — it *is* the origin — and the
+ * origin stays here, on the device whose finger it is (`Command` in
+ * `packages/sim/src/types.ts` has why).
  */
 export function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const phase = bossOf(field, "maze")?.phase; // under `grip` the hand is the brace (`maze-grip.ts`)
-  if ((phase !== "read" && phase !== "grip") || field.seat !== 1) return null;
+  const m = bossOf(field, "maze"); // under `grip` the hand is the brace (`maze-grip.ts`)
+  if (m === null || !mazeStringAsks(m)) return null;
   if (!hitCircle(mazeStringGrab(l, field.cfg), x, y)) return null;
+  const command: Command = {
+    kind: "drag",
+    target: "mazeString",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: 0,
+  };
+  if (field.seat !== 1) return { player: field.seat, command, hold: null };
   return {
     player: 1,
-    command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0, fromYMilli: 0 },
+    command,
     hold: {
       kind: "drag",
       target: "mazeString",

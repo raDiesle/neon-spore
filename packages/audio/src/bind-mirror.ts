@@ -27,7 +27,8 @@ export function mirrorCue(
         | "mazeProbe"
         | "mazeVerdict"
         | "mazeDown"
-        | "mazeGrip";
+        | "mazeGrip"
+        | "mazeRefuse";
     }
   >,
   cols: number,
@@ -89,5 +90,8 @@ export function mirrorCue(
       // late echo when it lets go — the heart springing back is a hand off.
       if (e.on) return { id: "mirror.echo", pitch: 1.3, pan: panForCol(e.col, cols) };
       return { id: "mirror.echoLate", pan: panForCol(e.col, cols) };
+    case "mazeRefuse":
+      // The wrong seat's hand on the heart or the string, told the same way.
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
   }
 }

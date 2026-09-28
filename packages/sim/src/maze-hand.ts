@@ -1,5 +1,5 @@
 import { mazeBottomCol } from "./maze.js";
-import { mazeRound } from "./maze-controls.js";
+import { mazeRefuse, mazeRound } from "./maze-controls.js";
 import type { MazeState } from "./maze-state.js";
 import { mazeRight } from "./maze-verdict.js";
 import type { Command } from "./types.js";
@@ -29,7 +29,13 @@ import type { World } from "./world.js";
 export function mazeHeartHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "mazeHeart") return;
   const m = mazeRound(world);
-  if (m === null || player !== 2) return;
+  if (m === null) return;
+  if (player !== 2) {
+    // The pilot's thumb on a heart the round asks of the navigator: refused
+    // and said, once, and the heart does not stretch (`mazeRefuse`).
+    if (command.on && mazeHeartAsks(m)) mazeRefuse(world, "heart", player);
+    return;
+  }
   if (!command.on) {
     lift(world, m);
     return;
@@ -43,6 +49,15 @@ export function mazeHeartHeard(world: World, player: 1 | 2, command: Command): v
   }
   m.gripPullMilli = pull;
   if (pull >= reach && m.dragging) mazeRight(world, m);
+}
+
+/**
+ * Whether the round asks a thumb of the heart — the navigator's, and only
+ * hers: while it holds the shot. What THE MAZE's rings read rather than
+ * re-derive (`render/maze-marks.ts`).
+ */
+export function mazeHeartAsks(m: MazeState): boolean {
+  return m.phase === "grip";
 }
 
 /**

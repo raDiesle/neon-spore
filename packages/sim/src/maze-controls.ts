@@ -1,4 +1,4 @@
-import { mazeClickAngle, mazeEntranceCol, mazeWrap } from "./maze.js";
+import { mazeBottomCol, mazeClickAngle, mazeEntranceCol, mazeWrap } from "./maze.js";
 import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-state.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { Color, Command } from "./types.js";
@@ -40,11 +40,36 @@ export function mazeRound(world: World): MazeState | null {
  */
 export function mazeStringHeard(world: World, player: 1 | 2, command: Command): void {
   const m = mazeRound(world);
-  if (m === null || player !== 1) return;
+  if (m === null) return;
+  if (player !== 1) {
+    // The navigator's hand on the string while the round asks the pilot's is
+    // refused and said, once — the press, never its lift (`mazeRefuse`).
+    const press = command.kind === "drag" && command.target === "mazeString" && command.on;
+    if (press && mazeStringAsks(m)) mazeRefuse(world, "string", player);
+    return;
+  }
   if (command.kind === "valve") valveHeard(m, command.on, command.dir);
   else if (command.kind === "drag" && command.target === "mazeString") {
     dragHeard(world, m, command.on, command.fromMilli);
   }
+}
+
+/**
+ * Whether the round asks a hand of the string — the pilot's, and only his:
+ * while the wheel can be turned, and under `grip` as the brace. What THE
+ * MAZE's rings read rather than re-derive (`render/maze-marks.ts`).
+ */
+export function mazeStringAsks(m: MazeState): boolean {
+  return m.phase === "read" || m.phase === "grip";
+}
+
+/**
+ * A press on a part the round asks of the other seat, said so the mark can
+ * wash red and the wrong seat hear it — and nothing else: the wheel does not
+ * turn and the heart does not stretch. `player` is the seat that pressed.
+ */
+export function mazeRefuse(world: World, part: "heart" | "string", player: 1 | 2): void {
+  world.events.push({ type: "mazeRefuse", col: mazeBottomCol(world.cfg), part, player });
 }
 
 /** The thumb, unchanged. */

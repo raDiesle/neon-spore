@@ -226,6 +226,9 @@ export {
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";
+// Which parts THE MAZE asks a hand for, which its rings read (`maze-marks.ts`).
+export { mazeStringAsks } from "./maze-controls.js";
+export { mazeHeartAsks } from "./maze-hand.js";
 // Which marks THE MIRROR and THE BULB QUEEN ask a thumb for, which their
 // rings read rather than re-derive (`render/mirror-grip.ts`, `queen-marks.ts`).
 export { mirrorAsks, mirrorLobesOf } from "./mirror-hand.js";

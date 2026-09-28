@@ -57,7 +57,7 @@ export const BOSS_INSTAR_SOUNDS: SoundDef[] = [
     family: "boss",
     blurb: "A dry knock, flat: not yours.",
     status: "bound",
-    use: "A thumb from the wrong seat on one of THE INSTAR's marks, a press THE WARDEN's eye refuses, the navigator's on THE SPOOL's brake, a thumb on THE BULB QUEEN's marks that is not his or not on the real one, a press on THE MIRROR's lobe the round asks of the other seat, or on THE VANE's arm or housing from the seat it is not.",
+    use: "A thumb from the wrong seat on one of THE INSTAR's marks, a press THE WARDEN's eye refuses, the navigator's on THE SPOOL's brake, a thumb on THE BULB QUEEN's marks that is not his or not on the real one, a press on THE MIRROR's lobe the round asks of the other seat, on THE VANE's arm or housing from the seat it is not, or on THE MAZE's heart or string from the seat it is not asked of.",
     level: 0.28,
     layers: [thud(260, 140, 0.06, 0.3), after(0.02, soft(0.3, tick(0.1, 0, 2400)))],
   },

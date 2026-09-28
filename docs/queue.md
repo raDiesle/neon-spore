@@ -321,13 +321,15 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE
-MIRROR and THE VANE: **one boss a lane**, the first on `TO_COME` in the
-roll-out test — THE MAZE next — worked exactly as `.claude/skills/new-boss`
-§5 says and THE MIRROR's and THE VANE's lanes did it (`mirror-marks.ts`,
-`vane-marks.ts`; which mark is asked of which seat moved into the
-simulation, `sim/mirror-hand.ts` `mirrorAsks`, `sim/vane-open.ts`
-`vaneArmAsks` and `vaneHousingAsks`, and the refusal said there,
-`mirrorRefuse`, `vaneRefuse`). A lane that lands one boss and leaves others
+MIRROR, THE VANE and THE MAZE: **one boss a lane**, the first on `TO_COME`
+in the roll-out test — THE GAUGE next — worked exactly as
+`.claude/skills/new-boss` §5 says and THE VANE's and THE MAZE's lanes did it
+(`vane-marks.ts`, `maze-marks.ts`; which part is asked of which seat moved
+into the simulation, `sim/vane-open.ts` `vaneArmAsks` and `vaneHousingAsks`,
+`sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts` `mazeHeartAsks`,
+and the refusal said there, `vaneRefuse`, `mazeRefuse`; a boss whose grip
+already has an fx class may keep its verdicts in it, as `maze-grip-fx.ts`
+does, rather than growing the effects roster). A lane that lands one boss and leaves others
 on the list keeps this entry, rewritten to name the next; the lane that
 empties the list removes it and the list with it.
 

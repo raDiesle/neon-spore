@@ -1,7 +1,15 @@
-import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@neon-spore/sim";
+import {
+  type MazeState,
+  mazeCircleMilli,
+  mazeCurrent,
+  mazeHeartAsks,
+  mazeStringAsks,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { mazeStringGrab } from "./maze-string.js";
 import { mazeDrum } from "./maze-walls.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -19,11 +27,10 @@ import type { ViewRole } from "./view-role.js";
  * number `maze-draw.ts` sizes the muscle from — rather than the muscle, which
  * swells with every thump and moves as it is pulled: a control answered where
  * it is drawn *this frame* would be one you could only grab between beats.
- * Which seat it answers is the simulation's rule and is asked for here only
- * to refuse a press the sim would drop anyway, so nothing is drawn taking
- * hold of a heart that will not answer: the navigator's, under `grip`, and no
- * other. A press from the pilot's seat falls through, the way hers does on
- * the string.
+ * Which seat it answers is the simulation's rule (`mazeHeartAsks`): the
+ * navigator's, under `grip`, and no other. A press from the pilot's seat is
+ * handed through with no hold, so the sim can refuse it and the heart wash
+ * red (`maze-marks.ts`), the way hers is on the string.
  *
  * What is drawn is read off the world every frame: a ring in the room on the
  * navigator's screen, breathing until her thumb lands and filled while the
@@ -53,6 +60,12 @@ export function mazeHeartCircle(l: Layout, cfg: SimConfig, m: MazeState): Circle
   return { x: d.cx, y: d.cy, r: d.r * inner };
 }
 
+/** The ring she pulls: inside the room, carried down with the muscle. */
+export function mazeHeartRing(l: Layout, cfg: SimConfig, m: MazeState): Circle {
+  const c = mazeHeartCircle(l, cfg, m);
+  return { x: c.x, y: c.y + mazeHeartPull(l, m), r: c.r * RING_MUL };
+}
+
 /** How far down the muscle is being pulled, in pixels, for this frame's picture. */
 export function mazeHeartPull(l: Layout, m: MazeState): number {
   return m.phase === "grip" ? (m.gripPullMilli * l.tile) / 1000 : 0;
@@ -61,17 +74,33 @@ export function mazeHeartPull(l: Layout, m: MazeState): number {
 /**
  * A press on the heart while it is holding the shot: a `drag` on `mazeHeart`
  * whose moves report how far down the thumb has come (`touch.ts` reads the
- * displacement off the hold's origin), and whose lift lets go.
+ * displacement off the hold's origin), and whose lift lets go. The pilot's
+ * press is the press alone, with no hold, for the sim to refuse once.
  */
 export function mazeHeartUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const m = bossOf(field, "maze");
-  if (m === null || m.phase !== "grip" || field.seat !== 2) return null;
+  if (m === null || !mazeHeartAsks(m)) return null;
   if (!hitCircle(mazeHeartCircle(l, field.cfg, m), x, y)) return null;
+  const player = field.seat;
   return {
-    player: 2,
+    player,
     command: { kind: "drag", target: "mazeHeart", on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target: "mazeHeart", player: 2, originX: x, originY: y },
+    hold:
+      player === 2 ? { kind: "drag", target: "mazeHeart", player, originX: x, originY: y } : null,
   };
+}
+
+/**
+ * The seat a press on an asked part belongs to, so one mouse at a desk takes
+ * the navigator's heart rather than having it refused as the pilot's
+ * (`desk-grab.ts` `markSeat`): the string is always his and the heart hers.
+ */
+export function mazeGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const m = bossOf(field, "maze");
+  if (m === null) return undefined;
+  if (mazeStringAsks(m) && hitCircle(mazeStringGrab(l, field.cfg), x, y)) return 1;
+  if (mazeHeartAsks(m) && hitCircle(mazeHeartCircle(l, field.cfg, m), x, y)) return 2;
+  return undefined;
 }
 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
@@ -94,9 +123,9 @@ export function drawMazeGrip(
   if (m.phase !== "grip") return;
   const c = mazeHeartCircle(l, cfg, m);
   if (c.r <= 0) return;
-  const pull = mazeHeartPull(l, m);
   if (role !== "p1") {
-    drawGripRing(ctx, c.x, c.y + pull, c.r * RING_MUL, m.gripThumb, time);
+    const ring = mazeHeartRing(l, cfg, m);
+    drawGripRing(ctx, ring.x, ring.y, ring.r, m.gripThumb, time);
   }
   // The word goes as soon as her thumb lands, the way the string's does.
   if (!m.gripThumb) drawHandleHint(ctx, l, role, c.x, c.y + c.r * 1.25, HINT_LOUD, HEART_WORDS);

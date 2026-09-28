@@ -2,6 +2,7 @@ import type { MazeState, SimConfig, SimEvent } from "@neon-spore/sim";
 import { drawThrownRing } from "./grip-rings.js";
 import type { Layout } from "./layout.js";
 import { mazeHeartCircle, mazeHeartPull } from "./maze-grip.js";
+import { drawMazeVerdicts, MazeMarks } from "./maze-marks.js";
 import { mazeHeartBlood } from "./maze-pulse.js";
 import { PALETTE } from "./palette.js";
 
@@ -16,6 +17,9 @@ import { PALETTE } from "./palette.js";
  * the pilot is shown her thumb at all. Read above the loop, the way THE
  * MIRROR's is (`mirror-grip-fx.ts`), rather than as a row in a spark table
  * at its limit.
+ *
+ * It keeps the string's and the heart's verdicts too (`maze-marks.ts`), and
+ * draws them last of everything, which is where the boss pass calls it.
  */
 
 /** How long a thrown ring runs, in seconds. */
@@ -25,8 +29,11 @@ export class MazeGripFx {
   /** Seconds left of the last throw, and whether it was the thumb landing. */
   private left = 0;
   private landed = false;
+  /** The string's and the heart's verdicts on a touch. */
+  readonly marks = new MazeMarks();
 
   ingest(events: readonly SimEvent[]): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (e.type !== "mazeGrip") continue;
       this.left = THROW_LIFE;
@@ -36,19 +43,22 @@ export class MazeGripFx {
 
   update(dt: number): void {
     this.left = Math.max(0, this.left - dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
     this.left = 0;
     this.landed = false;
+    this.marks.clear();
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout, cfg: SimConfig, m: MazeState): void {
-    if (this.left <= 0) return;
     const c = mazeHeartCircle(l, cfg, m);
-    if (c.r <= 0) return;
-    const k = 1 - this.left / THROW_LIFE;
-    const color = this.landed ? mazeHeartBlood(m.round).rim : PALETTE.dim;
-    drawThrownRing(ctx, c.x, c.y + mazeHeartPull(l, m), c.r * (0.7 + 1.2 * k), 1 - k, color);
+    if (this.left > 0 && c.r > 0) {
+      const k = 1 - this.left / THROW_LIFE;
+      const color = this.landed ? mazeHeartBlood(m.round).rim : PALETTE.dim;
+      drawThrownRing(ctx, c.x, c.y + mazeHeartPull(l, m), c.r * (0.7 + 1.2 * k), 1 - k, color);
+    }
+    drawMazeVerdicts(ctx, l, cfg, m, this.marks.verdicts);
   }
 }

@@ -1814,7 +1814,7 @@ tears nothing; his brace without her pull holds a wheel going nowhere; and a
 heart held past `mazeGripBeats` (eight) lets go — `slip`, the fourth reason —
 and the shot comes back down the column as the heart's blood, the same breach
 the wrong colour throws, and the wave lost with it. The seat check is the
-simulation's: the pilot's thumb on the heart is dropped, because a pilot who
+simulation's: the pilot's thumb on the heart is refused (`mazeRefuse`), because a pilot who
 could tear would be playing both halves of the one beat that needs two. The
 gesture is `drag` at `mazeHeart`, `fromYMilli` down, a twenty-first
 `DragTarget`; the thumb landing and leaving is `mazeGrip`. States and
@@ -1841,7 +1841,7 @@ His string keeps its handle under `grip` with `HOLD` over it in place of
 is a press on a thing already drawn and not a second control. The press on
 the heart is answered at the room's circle, resting, by `mazeHeartUnder`
 under `handleUnder`, with `fromYMilli` how far down the thumb has come; the
-pilot's thumb there falls through. `mazeGrip` throws a ring off the heart in
+pilot's thumb there is handed through holding nothing, to be refused. `mazeGrip` throws a ring off the heart in
 its blood's rim on the landing and in the dim on the leaving
 (`effects.boss.maze`, `BossTransients`' four verbs). Two rows on the
 director's CONTROLS tab, the string's moved out beside the heart's
@@ -1851,6 +1851,23 @@ seat and phase, the move reporting its drop and the lift letting go, the
 string still the pilot's as the brace, the ring on her screen and the count
 on both, and all three screens drawn with a braced string and a pulled
 heart. A look with no shipped alternative. *Never watched at tempo.*
+
+**Its string and heart answer a touch the way every mark does** (28 September
+2026, `maze-marks.ts`; `mark-feedback.ts`, `grip-verdict.ts`). Whether each is
+asked is the simulation's (`mazeStringAsks`, `sim/maze-controls.ts`;
+`mazeHeartAsks`, `sim/maze-hand.ts`), and whose each is never changes: the
+string is the pilot's, under `read` to turn and under `grip` to brace, and the
+heart the navigator's while it holds the shot. The part asked of this seat
+wears the halo until the sim has this hand on it (`dragging`, `gripThumb`);
+the part asked of the partner wears their turning ring and the clock, which is
+the navigator's whole view of the string. Each verdict washes the part it was
+on: **green** on the heart for her thumb landing (`mazeGrip`) and on both for
+the tear (`mazeVerdict` right, which only the tear says); **red** for a press
+from the seat the part is not asked of (`mazeRefuse`), which is handed through
+holding nothing, refused once and moves nothing — `boss.instarRefuse`, the
+knock every mark's refusal makes. A desk press on either is signed with its
+owner (`mazeGripSeat`). The verdicts are kept in `effects.boss.maze`
+(`maze-grip-fx.ts`) and drawn last, after its thrown ring.
 
 **The look of the drum** (18 September 2026, `render/maze-plate.ts`). The
 owner's brief for a boss that *looks like something real*

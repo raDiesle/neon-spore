@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMaze } from "../src/maze-draw.js";
+import { drawMazeAsked } from "../src/maze-marks.js";
 import { PALETTE } from "../src/palette.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -107,7 +108,7 @@ function clicked(): { angleMilli: number; col: number } {
 
 /** Draws counted by shape: one line per `moveTo`, one dot per `arc`. Colours
  * are read straight off the two setters the draw actually writes through. */
-function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
+function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0, askedOnly = false) {
   const l = layoutFor(role);
   const { ctx } = stubCanvas();
   let lines = 0;
@@ -141,7 +142,8 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
       return Reflect.set(target, prop, value);
     },
   }) as unknown as CanvasRenderingContext2D;
-  drawMaze(spy, l, CFG, m, role, beat, beatPhase, 0);
+  if (askedOnly) drawMazeAsked(spy, l, CFG, m, 0);
+  else drawMaze(spy, l, CFG, m, role, beat, beatPhase, 0);
   return { lines, arcs, segments, colours, points, l };
 }
 
@@ -150,21 +152,33 @@ describe("THE MAZE's wheel", () => {
    * The round itself is on both screens — the light, the shot, the middle —
    * so the two seats see the same drum in the same places. The one thing that
    * is not shared is the word under the string's handle, because only the
-   * pilot may turn the wheel: he is told PULL and she is told whose it is.
-   * That is a colour and nothing else, which is what these three assertions
-   * separate.
+   * pilot may turn the wheel: he is told PULL and she is told whose it is,
+   * and the knob asks it of him with the halo and of her with his ring and
+   * the clock (`maze-marks.ts`). With the asking taken out, the word is a
+   * colour and nothing else, which is what these assertions separate.
    */
-  it("draws the same frame for both seats, bar the word on the string", () => {
+  it("draws the same frame for both seats, bar the word on the string and the asking", () => {
     const m = bossState({ phase: "read", ...clicked(), lockedWay: 0 });
     const one = watch("p1", m, 3);
     const two = watch("p2", m, 3);
-    expect(one.arcs).toBe(two.arcs);
-    expect(one.lines).toBe(two.lines);
-    expect(one.points).toEqual(two.points);
-    expect(one.colours).not.toEqual(two.colours);
-    expect(one.colours.length).toBe(two.colours.length);
+    const askedOne = watch("p1", m, 3, 0, true);
+    const askedTwo = watch("p2", m, 3, 0, true);
+    expect(one.arcs - askedOne.arcs).toBe(two.arcs - askedTwo.arcs);
+    expect(one.lines - askedOne.lines).toBe(two.lines - askedTwo.lines);
+    // The asking is one run of draws in the middle of the frame; take it out.
+    const without = <T>(all: readonly T[], run: readonly T[]): T[] => {
+      const same = (p: T, q: T) => JSON.stringify(p) === JSON.stringify(q);
+      const at = all.findIndex((_, i) => run.every((q, k) => same(all[i + k] as T, q)));
+      expect(at).toBeGreaterThanOrEqual(0);
+      return [...all.slice(0, at), ...all.slice(at + run.length)];
+    };
+    expect(without(one.points, askedOne.points)).toEqual(without(two.points, askedTwo.points));
+    const mine = without(one.colours, askedOne.colours);
+    const hers = without(two.colours, askedTwo.colours);
+    expect(mine).not.toEqual(hers);
+    expect(mine.length).toBe(hers.length);
     // Exactly one of them differs, and it is the one the word is written in.
-    const apart = one.colours.filter((c, i) => c !== two.colours[i]);
+    const apart = mine.filter((c, i) => c !== hers[i]);
     expect(apart.length).toBe(1);
   });
 

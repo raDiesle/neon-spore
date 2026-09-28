@@ -28252,3 +28252,14 @@ The bottleneck: the reading — its two gates were re-derived in render and
 had to be found and moved before anything could be drawn off them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE MAZE's string and heart answer a touch like THE INSTAR's marks
+
+- reading: 5 min. Its two hands, the grip and its fx, the string's hit test, the bind.
+- writing: 10 min. The asks into the sim, one event, the marks, two hand-throughs, two tests.
+- looking: 0 min. One frame, right the first time.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the draw test that held both screens to one frame bar a word,
+which the asking now breaks on purpose and had to learn to take out.

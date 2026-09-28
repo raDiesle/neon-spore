@@ -14,7 +14,9 @@ export const MAZE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "on the drum's resting circle, while the wheel is being read; and again " +
       "under grip, with HOLD over it, while the right shot sits in the heart",
-    seat: "player 1 — the pilot's half of the round; player 2's press falls through",
+    seat:
+      "player 1 — the pilot's half of the round; player 2's press is refused, " +
+      "washing the knob red, and she sees his ring and the clock on it",
     gesture: "grab and drag",
     does:
       "Turns the wheel by how far the hand has come from where it grabbed. " +
@@ -31,7 +33,9 @@ export const MAZE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "a ring on the heart in the middle of the drum, on player 2's screen " +
       "once the right shot is in it; nowhere on player 1's; on the test screen",
-    seat: "player 2 only — the navigator, whose colour the shot was",
+    seat:
+      "player 2 only — the navigator, whose colour the shot was; player 1's " +
+      "press is refused, washing the heart red, and he sees her ring and the clock",
     gesture: "grab and drag",
     does:
       "Tears the heart out: with P1 braced on the string, the thumb drags it " +

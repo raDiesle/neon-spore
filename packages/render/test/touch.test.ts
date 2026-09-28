@@ -402,9 +402,10 @@ describe("a hand on THE MAZE's string", () => {
     });
   });
 
-  /** Only the pilot turns the wheel, so only the pilot's seat may grab it. */
-  it("answers nothing from the navigator's seat", () => {
-    expect(grab(mazeField(2))?.command?.kind).not.toBe("drag");
+  /** Only the pilot turns the wheel, so the navigator's press holds nothing,
+   * and goes to the sim only to be refused (`maze-marks.ts`). */
+  it("holds nothing from the navigator's seat", () => {
+    expect(grab(mazeField(2))).toMatchObject({ player: 2, hold: null });
   });
 
   it("answers nothing on a wave with no wheel, and none while a shot walks", () => {

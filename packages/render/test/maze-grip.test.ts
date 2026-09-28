@@ -29,7 +29,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE MAZE's heart as a control (`maze-grip.ts`): that only the navigator's
- * thumb takes it and only under `grip`, that a move reports how far down the
+ * thumb takes hold of it and only under `grip`, that a move reports how far down the
  * thumb has come so the sim can read the tear off it, that the string still
  * answers the pilot as the brace, and that the ring, the word and the count
  * reach the canvas on the screen they belong to and no other. The rule is the
@@ -112,7 +112,7 @@ function fieldWith(seat: 1 | 2, boss: MazeState | null): Field {
 const heart = (l: ReturnType<typeof layout>, m: MazeState) => mazeHeartCircle(l, DEFAULT_CONFIG, m);
 
 describe("a thumb on the heart", () => {
-  it("is the navigator's, under grip, and nobody else's", () => {
+  it("is the navigator's, under grip, and the pilot's press is handed through to be refused", () => {
     const l = layout("p2");
     const at = heart(l, grip());
     const touch = mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip()));
@@ -124,7 +124,11 @@ describe("a thumb on the heart", () => {
       fromYMilli: 0,
     });
     expect(touch?.hold).toMatchObject({ kind: "drag", target: "mazeHeart", player: 2 });
-    expect(mazeHeartUnder(layout("p1"), at.x, at.y, fieldWith(1, grip()))).toBeNull();
+    expect(mazeHeartUnder(layout("p1"), at.x, at.y, fieldWith(1, grip()))).toMatchObject({
+      player: 1,
+      command: { target: "mazeHeart", on: true },
+      hold: null,
+    });
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip({ phase: "read" })))).toBeNull();
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip({ phase: "travel" })))).toBeNull();
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, null))).toBeNull();
@@ -152,14 +156,15 @@ describe("a thumb on the heart", () => {
 });
 
 describe("the string under grip", () => {
-  it("still answers the pilot, as the brace, and not the navigator", () => {
+  it("still answers the pilot, as the brace, and hands the navigator's press through", () => {
     const l = layout("p1");
     const at = mazeStringCircle(l, DEFAULT_CONFIG);
     expect(touchDown(l, at.x, at.y, fieldWith(1, grip()))?.command).toMatchObject({
       target: "mazeString",
     });
+    // Hers is the press alone, with no hold, for the sim to refuse once.
     const hers = touchDown(layout("p2"), at.x, at.y, fieldWith(2, grip()));
-    expect(hers?.command?.kind === "drag" && hers.command.target).not.toBe("mazeString");
+    expect(hers).toMatchObject({ player: 2, command: { target: "mazeString" }, hold: null });
   });
 });
 
