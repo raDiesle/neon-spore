@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 6f4f22326 — THE ANTIPHON's organ and rail answer a touch as far as its split lets them
+
+The organs wear the halo while the body asks for a thumb and none is on it, the rail's uncrossed candidates wear it on the screen shown the rail while the first organ stands grown, and a pull washes its column green. The turn and the harden are not judged: the harden is the same event a bolt into a decoy says.
+
 ## 2026-09-28 · b501af4eb — THE SCUTTLE's hanging parts answer a touch as far as its split lets them
 
 While a carry may still be made, every part offered and not under the pilot's thumb wears the halo every asked mark wears, on his screen alone, and the carry washes the part green in the column it went to. The navigator is shown nothing: a ring on hers would name the live part beside her own lock, and her press is dropped without a sound.
