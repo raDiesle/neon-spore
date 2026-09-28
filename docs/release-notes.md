@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · d536736ba — THE GORGE's pinch and pry answer a touch the way THE INSTAR's marks do
+
+Every full intake wears the halo on the pilot's screen while none is pinched, and the mouth wears it on the navigator's until her thumb is on it. A pinch and a pry wash their ring green, and a pry held past its window washes the mouth red as the clench throws it off. There is no partner's clock and no refusal, for THE GAUGE's reason: each ring is drawn on one screen alone. Which rings are on offer and which ask is the simulation's (`gorgeOffers`, `gorgeAsks`), the press is gated on it, and the grip reads it rather than re-deriving it.
+
 ## 2026-09-28 · 38e5ff5b2 — THE UNDERTOW's pin and free answer a touch the way THE INSTAR's marks do
 
 Each pin on a standing lobe wears the halo on the navigator's screen until her thumb is on it, and the free wears it while the floor has the pilot. The free is the one ring both screens draw, and the one wait one seat has on the other, so the pilot's screen shows her clock on it, and his own press there is now refused out loud (`undertowRefuse`, the refusal sound) instead of dropped. A pin going down and the pilot let go wash green; his refused press washes red. The exemption used: a look with no shipped alternative.
