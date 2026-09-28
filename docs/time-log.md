@@ -28175,3 +28175,14 @@ The bottleneck: none worth the name; the fix was already written next door
 in `spool-grip.ts`.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE INSTAR refuses the partner's ring once
+
+- reading: 5 min. `instar-mark-grip.ts`, `instar-hand.ts`, `instar-kit.ts`.
+- writing: 5 min. The early return on `instarSeatHears`, the new test.
+- looking: 0 min. Nothing drawn changed but how often a red ring comes.
+- friction: 0 min.
+- landing: 5 min. The test against the old file, the sweep split off.
+
+The bottleneck: none; the sweep of every other grip was cut off and queued
+so this could land at the owner's stop.

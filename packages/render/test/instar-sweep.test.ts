@@ -32,8 +32,8 @@ describe("a swept mark", () => {
     const start = instarMarkPoint(L, mark, sway, 0);
     const now = instarMarkPoint(L, mark, sway, instarThreat(s, beat, 0));
     expect(instarMarkUnder(L, start.x, start.y, field(world, beat, 0))).toBeNull();
-    const hold = instarMarkUnder(L, now.x, now.y, field(world, beat, 0))?.hold ?? null;
-    expect(hold !== null && "id" in hold ? hold.id : null).toBe(id);
+    const pressed = instarMarkUnder(L, now.x, now.y, field(world, beat, 0))?.command ?? null;
+    expect(pressed !== null && "id" in pressed ? pressed.id : null).toBe(id);
   });
 
   it("carries the fork along the same line as its blades", () => {

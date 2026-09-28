@@ -315,22 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE INSTAR refuses the wrong seat again on every move of its press
-
-- **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
-- **Taken:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every (claim: claude/queue-the-instar-refuses-the-wrong-seat-again-on-every)
-- **Files:** `packages/render/src/instar-mark-grip.ts`, `packages/sim/src/instar-hand.ts`
-
-THE WARDEN's bug, on the boss the convention was drawn from.
-`instarMarkUnder` hands the wrong seat's press through with a hold, so
-`touchMove` sends an `on: true` drag at `instarMark` for every move, and
-`instar-hand.ts` pushes `instarRefuse` for each one. Hand it through with
-`hold: null` when `instarMarkSeat` is not the field's seat (a `both` mark
-takes either), as `warden-grip.ts` now does, and prove it the way
-`warden-grip.test.ts` does: a press and three moves from the wrong seat give
-one `instarRefuse`. Then look through the other `*-grip.ts` that sign a
-press with the field's seat whosever it is, and give each the same test.
-
 ## pointer-conversion.test.ts times out under `bun run check`'s load
 
 - **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
@@ -342,6 +326,19 @@ rerun unchanged. Find what in it is slow under contention (the glob, the
 reads, `stripNonCode` over every file) and make it cheap, or give it the
 source-scan tests' own timeout if they have one; prove it with two `bun run
 check` runs green back to back.
+
+## Every other grip refuses the wrong seat's press once, not per move
+
+- **Found:** 2026-09-28, claude/queue-the-instar-refuses-the-wrong-seat-again-on-every
+- **Files:** `packages/render/src/warden-grip.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/test/instar-refuse.test.ts`
+
+THE WARDEN's eye and THE INSTAR's marks handed the wrong seat's press
+through with a hold, so every move of the resting thumb was refused again;
+both now hand it through holding nothing, with a test each. Go through the
+other `packages/render/src/*-grip.ts` that sign a press with `field.seat`
+whosever the control is (`grep -l "player: field.seat"`), find any that
+still give the wrong seat a hold, fix them the same way, and give each the
+test `instar-refuse.test.ts` is: a press and three moves, one refusal.
 
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 

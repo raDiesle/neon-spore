@@ -77,8 +77,9 @@ describe("a thumb finds a mark where it is drawn", () => {
     const at = instarMarkPoint(L, mark, sway, 0);
     const t = instarMarkUnder(L, at.x, at.y, field(world, beat, phase));
     expect(t?.command?.kind).toBe("drag");
-    const hold = t?.hold ?? null;
-    expect(hold !== null && "id" in hold ? hold.id : null).toBe(0);
+    // The command names the mark on either seat; only its own seat gets a hold.
+    const pressed = t?.command ?? null;
+    expect(pressed !== null && "id" in pressed ? pressed.id : null).toBe(0);
   });
 
   it("finds nothing where the body would have hung", () => {
@@ -161,8 +162,12 @@ describe("a window hushes the weave", () => {
         const beat = Math.floor(b);
         for (let id = 0; id < marks.length; id++) {
           const p = at(b, id, instarThreat(s, beat, b - beat));
-          const hold = instarMarkUnder(L, p.x, p.y, field(world, beat, b - beat))?.hold ?? null;
-          expect(hold !== null && "id" in hold ? hold.id : null, `mark ${id} at ${b}`).toBe(id);
+          const t = instarMarkUnder(L, p.x, p.y, field(world, beat, b - beat));
+          const pressed = t?.command ?? null;
+          expect(
+            pressed !== null && "id" in pressed ? pressed.id : null,
+            `mark ${id} at ${b}`,
+          ).toBe(id);
         }
       }
     });

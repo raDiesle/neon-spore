@@ -1,4 +1,11 @@
-import { instarActing, instarStep, instarWound, NO_BEARING, type SceneMark } from "@neon-spore/sim";
+import {
+  instarActing,
+  instarSeatHears,
+  instarStep,
+  instarWound,
+  NO_BEARING,
+  type SceneMark,
+} from "@neon-spore/sim";
 import { instarMarkPoint, instarMarkRadius, type Point } from "./instar-place.js";
 import { instarThreat } from "./instar-shape.js";
 import { instarSway } from "./instar-sway.js";
@@ -94,23 +101,27 @@ export function instarMarkBoth(l: Layout, x: number, y: number, field: Field): b
  * pressed its partner's ring is told so and counts nothing
  * (`sim/instar-hand.ts`), which is the one thing this boss says about whose
  * mark is whose; the desk picks the seat before the press instead
- * (`instarMarkSeat`).
+ * (`instarMarkSeat`). That press holds nothing, so a thumb resting on the
+ * partner's ring and moving is refused once and not on every move — THE
+ * SPOOL's knob and THE WARDEN's eye the same (`spool-grip.ts`, `warden-grip.ts`).
  */
 export function instarMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const found = markUnder(l, x, y, field);
   if (found === null) return null;
   const { id, mark, at } = found;
   const turns = instarWound(mark.gesture);
+  const command = {
+    kind: "drag",
+    target: "instarMark",
+    on: true,
+    fromMilli: turns ? NO_BEARING : 0,
+    fromYMilli: 0,
+    id,
+  } as const;
+  if (!instarSeatHears(mark.seat, field.seat)) return { player: field.seat, command, hold: null };
   return {
     player: field.seat,
-    command: {
-      kind: "drag",
-      target: "instarMark",
-      on: true,
-      fromMilli: turns ? NO_BEARING : 0,
-      fromYMilli: 0,
-      id,
-    },
+    command,
     hold: {
       kind: "drag",
       target: "instarMark",
