@@ -1,6 +1,8 @@
 import {
   type HiveState,
   hiveClenched,
+  hiveHaulAsks,
+  hiveLobeAsks,
   hiveNext,
   hivePinched,
   hiveSwellingAt,
@@ -11,10 +13,13 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
+import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hiveClenchLeft, hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
+import { HIVE_HAUL } from "./hive-marks.js";
 import { hiveSite, hiveUnderY, type Point } from "./hive-shape.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsHiveColor, showsHiveSwell } from "./view-role-clocks-b.js";
@@ -156,6 +161,10 @@ function swellingLobes(s: HiveState, cfg: SimConfig, beat: number): number[] {
  * pilot's empties as the clench runs out, because what he is racing is the
  * backlog the relax beat drops (`hive-step.ts`), and hers fills as her hold
  * goes on, because what she is waiting for is the end of it.
+ *
+ * Under a ring that asks, the halo; over the mass hauled home or a lobe
+ * wrung, the verdict, on the screen that ring was drawn on
+ * (`hive-marks.ts`).
  */
 export function drawHiveGrip(
   ctx: CanvasRenderingContext2D,
@@ -165,22 +174,34 @@ export function drawHiveGrip(
   beat: number,
   beatPhase: number,
   time: number,
+  verdicts: GripVerdicts,
 ): void {
   if (s.downBeat >= 0) return;
-  if (hiveClenched(s)) {
-    if (!showsHiveColor(l.role)) return;
+  if (showsHiveColor(l.role)) {
     const c = hiveHaulCircle(l, cfg, s, beat, beatPhase);
-    const hauled = s.haulMilli > 0;
-    drawGripRing(ctx, c.x, c.y, c.r, hauled, time);
-    drawGripDial(ctx, c.x, c.y, c.r, hiveClenchLeft(s, cfg, beat, beatPhase));
-    return;
+    if (hiveClenched(s)) {
+      if (hiveHaulAsks(s)) drawMarkHalo(ctx, c.x, c.y, c.r, time);
+      drawGripRing(ctx, c.x, c.y, c.r, s.haulMilli > 0, time);
+      drawGripDial(ctx, c.x, c.y, c.r, hiveClenchLeft(s, cfg, beat, beatPhase));
+    }
+    const v = verdicts.at(HIVE_HAUL);
+    if (v !== null) drawVerdictRing(ctx, c.x, c.y, c.r, v);
   }
   if (!showsHiveSwell(l.role)) return;
+  // No lobe swells while the mass is clenched, so on the one screen shown
+  // both, the two kinds of ring are still never up at once.
   const phase = hivePinchPhase(s, cfg, beat, beatPhase);
   for (const i of swellingLobes(s, cfg, beat)) {
     const c = hiveLobeCircle(l, cfg, s, i, beat, beatPhase);
     const held = i === s.pinch;
+    if (hiveLobeAsks(s, cfg, beat, i)) drawMarkHalo(ctx, c.x, c.y, c.r, time);
     drawGripRing(ctx, c.x, c.y, c.r, held, time);
     if (held) drawGripDial(ctx, c.x, c.y, c.r, phase);
   }
+  s.cols.forEach((col, i) => {
+    const v = verdicts.at(col);
+    if (v === null) return;
+    const c = hiveLobeCircle(l, cfg, s, i, beat, beatPhase);
+    drawVerdictRing(ctx, c.x, c.y, c.r, v);
+  });
 }

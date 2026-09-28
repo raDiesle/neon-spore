@@ -35,7 +35,8 @@ export const HIVE_CONTROLS: readonly FieldControlDef[] = [
       "not where the thumb rests: the mass is heavy enough that it does not " +
       "follow a hand home. It is the only answer there is to a state that " +
       "puts every breach out of a bolt's reach too, so the sentence is his: " +
-      "it is clenched.",
+      "it is clenched. The halo stands under the ring until his carry " +
+      "begins, and a haul home washes the mass green (render/hive-marks.ts).",
     source: "touch.ts — hiveLobeUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "hiveLobe",
@@ -60,7 +61,8 @@ export const HIVE_CONTROLS: readonly FieldControlDef[] = [
       "arrives late is worth nothing and one that drifts to another lobe " +
       "starts again there. A thumb on a lobe that is not swelling is not " +
       "refused with a sound; it is a hand on a part of the picture that is " +
-      "not doing anything.",
+      "not doing anything. Every swelling lobe but the one under her thumb " +
+      "wears the halo, and a lobe wrung washes green (render/hive-marks.ts).",
     source: "touch.ts — hiveLobeUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "hiveLobe",

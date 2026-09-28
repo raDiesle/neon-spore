@@ -2647,6 +2647,18 @@ value by `sceneScript` exactly as the film's own tempo is. It is the first film
 to carry one; the same question is owed to the other sixteen
 (`docs/queue.md`, 21 September 2026).
 
+**Its one handle answers a touch as far as a split fight lets it**
+(`render/hive-marks.ts`; the owner, 27 September 2026: *the consistent
+visual across all waves*). THE GAUGE's case: the clenched underside wears
+the halo on the pilot's screen until his carry begins (`hiveHaulAsks`), and
+every swelling lobe wears it on the navigator's but the one under her thumb
+(`hiveLobeAsks`) — the twin beside a held lobe still asks, since it has its
+own colour to be wrung out of. A haul home washes the mass green, and a lobe
+wrung washes that lobe green (`hiveHaul`, `hiveWrung`). No partner's ring and
+clock and no refusal, since each ring is one seat's alone and a hand on the
+other is dropped without a sound. A thumb lifted early has no verdict: the
+lobe opens coloured, which the pilot's screen already says.
+
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 
 > The one where the wave you have just beaten comes back with nothing to see.

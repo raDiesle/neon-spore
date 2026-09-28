@@ -165,7 +165,7 @@ export function drawFxBoss(
     drawHive(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hive);
     // The ring after the body, over the wax it is on: the clenched underside
     // on his screen, a swelling lobe on hers (`hive-grip.ts`).
-    drawHiveGrip(ctx, l, world.cfg, boss, beat, beatPhase, time);
+    drawHiveGrip(ctx, l, world.cfg, boss, beat, beatPhase, time, effects.boss.hive.marks.verdicts);
     return;
   }
 

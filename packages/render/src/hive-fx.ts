@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
+import { HiveMarks } from "./hive-marks.js";
 import { hiveUnderY, type Point } from "./hive-shape.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -56,6 +57,8 @@ export class HiveFx {
   private joltNow = 0;
   /** The blow a breach sealed deals the mass. */
   readonly hurt = new BossHurt();
+  /** The verdicts on a haul and a wring (`hive-marks.ts`). */
+  readonly marks = new HiveMarks();
 
   /** How far the mass is drawn in right now, as a share of its width. */
   get clench(): number {
@@ -73,6 +76,7 @@ export class HiveFx {
     role: ViewRole,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const at = (p: Point, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const site = (col: number, dy = 0): Point => ({
       x: tileCX(l, col),
@@ -145,11 +149,13 @@ export class HiveFx {
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
     this.clenchNow = 0;
     this.joltNow = 0;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

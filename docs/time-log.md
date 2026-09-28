@@ -28508,3 +28508,13 @@ The bottleneck: placing the carry's verdict on the column the part was carried t
 The bottleneck: working out that a pull of the organ and a bolt into a decoy say the same event, so the pull's wrong answer can carry no verdict of its own.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE HIVE's haul and wring answer a touch as far as its split lets them
+
+- reading: 5 min. The one handle read two ways, who is shown which state, the pinch and haul in the sim, the frame test's arrangements.
+- writing: 10 min. `hiveHaulAsks` and `hiveLobeAsks` in the sim, `hive-marks.ts`, the halos and verdicts in `drawHiveGrip`, the verdicts in `HiveFx`, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: deciding that the haul's verdict must be drawn after the clench is over, which meant taking the drawer's early return apart without letting the two rings up at once.

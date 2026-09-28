@@ -92,3 +92,21 @@ export function hiveLobeAt(s: HiveState, cfg: SimConfig, beat: number, i: number
   if (i < s.opened) return hiveWrungAt(s, i) ? "wrung" : "open";
   return hiveSwellingAt(s, cfg, beat, i) ? "swelling" : null;
 }
+
+/**
+ * Whether the clenched underside asks the pilot's thumb: the mass standing,
+ * clenched, and not yet carried down at all — the halo under his ring
+ * (`render/hive-marks.ts`). A carry begun is the ring's own `held`.
+ */
+export function hiveHaulAsks(s: HiveState): boolean {
+  return s.downBeat < 0 && hiveClenched(s) && s.haulMilli === 0;
+}
+
+/**
+ * Whether lobe `i` asks the navigator's thumb: swelling, the mass standing,
+ * and not the lobe already under it. The twin beside a held lobe still asks,
+ * since it has its own colour to be wrung out of.
+ */
+export function hiveLobeAsks(s: HiveState, cfg: SimConfig, beat: number, i: number): boolean {
+  return s.downBeat < 0 && hiveSwellingAt(s, cfg, beat, i) && s.pinch !== i;
+}

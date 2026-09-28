@@ -128,6 +128,8 @@ export {
   type HiveLobe,
   hiveClenched,
   hiveClenchUntil,
+  hiveHaulAsks,
+  hiveLobeAsks,
   hiveLobeAt,
   hivePinched,
   hiveSealedBy,
