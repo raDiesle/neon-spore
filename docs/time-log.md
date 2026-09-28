@@ -28542,3 +28542,5 @@ The bottleneck: the ring's open-or-wait reading lived in render as `filamentGo`,
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: `gimbalSlip` did not say which ring slipped, so the event had to grow two fields before the red could land on the right rim.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

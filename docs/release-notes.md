@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 121a4ead5 — THE GIMBAL's two rings answer a touch the way every mark does
+
+While the rings are being turned, a ring with no hand on it wears the halo where the rim is met. Both rings wash green when they come true together. A slip now says which ring left its mark and washes only that one red. Each ring is still drawn on its own seat's screen alone, so there is no partner's clock and no refusal: THE GAUGE's case.
+
 ## 2026-09-28 · 28c59cfa5 — THE FILAMENT's two thumbs answer a touch the way every mark does
 
 An open ring with no thumb on it now wears the halo, and each of the line's words lands on the thumb whose mistake it names: a tile lit or followed washes that ring green, a snap is the pilot's red, a recoil the navigator's, a dark both, and a line left standing is red on the thumb it waited on.
