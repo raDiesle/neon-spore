@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 3b02863e2 — THE MANTLE's knobs, core and vent answer a touch the way every mark does
+
+A knob the shell wants and nobody holds wears the halo on its owner's screen and the partner's ring and waiting clock on the other's; the core's ring haloes the half whose tap is next; the vent haloes on both while it hisses. A shear, a brace held, a buckle flat and a turn guided green both knobs, a window run out reddens both, and a slip reddens the knob whose thumb lifted — `mantleSlip` now says whose.
+
 ## 2026-09-28 · d8465b0cc — THE RATCHET's catch and pawl answer a touch the way every mark does
 
 Her unset catch wears the halo on her screen. His lifted pawl wears it on his while a tooth waits, or while the kick or the bind wants it down. SET washes the catch green and a clean tooth washes the pawl green. A burnt tooth is red on both, because neither screen shows which half was missing; that is the burn's only mark, and its click, jolt and shudder are still a clean tooth's alone. Each story state greens or reddens the hand it asked for.

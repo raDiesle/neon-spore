@@ -28566,3 +28566,5 @@ The bottleneck: deciding whose mark a burnt tooth reddens when neither screen sh
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: the full convention on four marks, one of them a half-ring whose owner changes every tap.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
