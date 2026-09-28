@@ -7,6 +7,5 @@
 
 import type { Variant } from "../variant.js";
 import { INSTAR_HEAD_RIG } from "./instar-head/rig/index.js";
-import { VALVE_SPARK_WIDE } from "./valve-spark/wide/index.js";
 
-export const VARIANTS: Variant[] = [INSTAR_HEAD_RIG, VALVE_SPARK_WIDE];
+export const VARIANTS: Variant[] = [INSTAR_HEAD_RIG];

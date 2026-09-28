@@ -87,8 +87,8 @@ export const VALVE_POSES: Pose[] = [
  * The fight played to the second pin's brace, and the spark it leaks let fall
  * a beat with nobody shooting it — the hand would shoot it at once — and
  * replayed each beat, as long as it has left to fall. VERSUS
- * `valve:spark` is judged here: the spec asks the second spark read at a
- * different severity from the first, and this is the only frame it is on.
+ * `valve:spark` was judged here, 28 September 2026: both sparks are drawn
+ * alike, as a threat, because the hull takes one hit whichever spark it is.
  */
 function secondSpark(): World {
   const w = bossWorld("valve");
@@ -106,7 +106,7 @@ function secondSpark(): World {
 export const VALVE_SECOND_SPARK_POSE: Pose = {
   name: "VALVE · THE SECOND SPARK FALLING",
   note: "THE VALVE over the middle column, two of its three pins out and the shudder braced: a second ember falls from under the drum down its column. Player 1 has not aimed under it yet.",
-  lookAt: "whether the second spark reads as worse than the first, and as a thing to shoot",
+  lookAt: "whether the spark reads as a threat, a thing to shoot before it reaches the hull",
   crop: "field",
   role: "p1",
   build: secondSpark,

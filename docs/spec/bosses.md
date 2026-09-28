@@ -8198,8 +8198,9 @@ spark (row 11) landed 27 September 2026** in the revised lane, off the same
 leak as the first: row 11 has it leak before the brace, but the first leaks
 after its jet is capped, so the second leaks after its shudder is braced and
 falls through the list as the first does — a spark and an asking window
-never share a beat. The two sparks are the same in the simulation; their
-different severity is the look's. Row 19's held chord on the bare seal was
+never share a beat. The two sparks are the same in the simulation and on
+the field too: the owner, 28 September 2026, turned down a second spark drawn
+worse than the first, since the hull takes one hit either way. Row 19's held chord on the bare seal was
 already the seal, above.
 
 **The story is drawn** (`render/valve-story.ts`, 26 September 2026), laid

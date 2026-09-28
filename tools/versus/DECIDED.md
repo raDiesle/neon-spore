@@ -1400,3 +1400,18 @@ size as `creature:skin` and `creature:body-interior`'s drift, which he could
 not see either. See `docs/looks.md`, "Big enough to be seen".
 
 The other answer offered was `drift`; it went with the slot.
+
+## `valve:spark` — `wide` taken by hand, for both sparks, 2026-09-28
+
+The slot asked whether THE VALVE's second spark should read *worse* than the
+first, as the spec's row 11 wanted. The owner, 28 September 2026, took the look
+and turned down the question: *why it should look "worse"? ship hull of players
+can only hold one damage type and then needs to repeat wave. i prefer new
+version, because its easier to recognize by players.* A spark that reaches the
+hull costs the wave whichever spark it is, so there is no severity to draw —
+only a threat to shoot. `wide`'s bead, hiss streaks and doubled glow are now
+what `packages/render/src/valve-spark.ts` draws for **both** sparks, and the
+`which` argument that told them apart went with the question.
+
+Taken by hand because the candidate's `paint` was inline in its `index.ts`,
+which `adopt` refuses; the slot was then closed with `drop`.

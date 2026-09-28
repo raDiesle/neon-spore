@@ -3304,7 +3304,7 @@ this page lets a gesture go to whichever hand is free.
 | 8 | The wheel lights again, a longer turn to its mark | P1 | steer (`TURN`) | 5 beats, seen | holds, freeze window opens | drifts off |
 | 9 | Freeze window, shorter than movement 1's | P2 | tap (`FREEZE`) | 1 beat, seen | wheel stops | wheel resumes |
 | 10 | Frozen pin | P1 or P2 | pull (`PULL`) | 2 beats, frozen | second pin free, drum lists further | freeze runs out, repeat from row 8 |
-| 11 | A second spark, wider and hissing louder than the first, leaks from the drum's deeper list | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
+| 11 | A second spark, drawn as the first, leaks from the drum's deeper list | P1 or P2 | fire it, own colour | 2 beats, seen | spark out | ordinary hull hit |
 | **Movement 4 — the drum shudders, braced together** ||||||
 | 12 | The two freed sockets ring hollow and the whole drum shudders, plates chattering against each other | — | — | — | — | — |
 | 13 | The chatter peaks, threatening to shake a plate loose before the last pin is even reached | P1 and P2, together | hold to steady it (`CHORD`) | 3 beats, seen | shudder stills, drum settles square | a plate shakes loose, one hull hit, the shudder continues |
@@ -3346,10 +3346,12 @@ chord; long way round on the last wheel; face wiped bare; face open, its
 light fading to dark. The wheel's turn is drawn continuously rather than as
 a snap between marks, and a frozen wheel visibly stops mid-turn rather than
 resetting to the mark — the stillness is the tell that the freeze landed.
-The two sparks read at visibly different severity off the same leak —
-thinner and lower after the first pin, wider and louder after the second —
-so the drum's own distress escalates in three different registers (a jet, a
-shudder, a film) before the brace and the chord ever ask for a hold.
+The two sparks are drawn alike, as a threat: a wide hot bead trailing hiss
+streaks. The spec asked them to read at different severity; the owner turned
+that down on 28 September 2026 — the hull takes one hit and the wave is played
+again, so no spark is worse than another — and the drum's distress escalates in
+its three other registers (a jet, a shudder, a film) before the brace and the
+chord ever ask for a hold.
 
 **Colour.** Drum iron grey; the wheel's mark and the pin's socket both plain
 white — nothing here is colour-gated, since either seat may take the pull,

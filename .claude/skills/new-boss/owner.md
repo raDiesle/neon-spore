@@ -228,6 +228,11 @@ item naming the rule, never a fix made in passing.
   2026, on THE PLUMB: *what if a phone does not support it or its played on
   desktop. i do not want to force using new keys.* THE PLUMB's lean became
   two pulls that must weigh the same in sum.
+- **A hazard reads as a threat, never as a severity**, 28 September 2026,
+  on THE VALVE's two sparks: *why it should look "worse"? ship hull of
+  players can only hold one damage type and then needs to repeat wave.* A
+  hit costs the wave whichever hazard lands it, so a second of anything is
+  drawn as recognisable as the first, not worse than it.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss
