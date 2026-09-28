@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## On HARD, whether a shot into a sky boss's armour is a wasted shot
 
 - **Found:** 2026-09-25, claude/hard-wasted-shot
+- **Taken:** 2026-09-28, claude/queue-on-hard-whether-a-shot-into-a-sky-bosss-armour-i
 - **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/test/wasted-shot.test.ts`
 - **Asks:** under a boss that hangs above the field, should a shot that meets nothing up there lose the wave on HARD too, or keep costing nothing, as it does now?
 - **Answered:** 2026-09-27 — judge each sky boss on HARD, over keeping the exemption. The owner: keep the exemption only if judging costs too much, and at about twelve small hooks it does not. On HARD, a shot that meets nothing above a sky boss loses the wave. A shot into armour still costs nothing.
