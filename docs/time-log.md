@@ -28039,3 +28039,5 @@ The bottleneck was `adopt` refusing an inline `paint`, so the take went by hand 
 - landing: 5 min. `check:fast`, the index row, the commit, `land`.
 
 The bottleneck was deciding, per boss, which of its silent paths were armour, before any hook could be edited.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

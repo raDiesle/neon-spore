@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · f2d6b3347 — On HARD, a bolt that meets nothing above a sky boss loses the wave
+
+Until now HARD's wasted-shot rule was off whenever a boss hung above the field. Now each of the thirty-three sky bosses says whether a bolt out of the top met it. A hit, a wrong colour, or armour costs nothing. Armour is a part standing in that column with its window shut, such as a core in the middle column before it is bared, a blade, an intake, THE VANE's housing or THE HIVE's skin. A bolt into a column with none of the boss in it loses the wave, as it does with no boss up. So does a spark, seam or loose bolt that is not out yet, a SHOOT mark that did not hear it, or THE LEAD's flight when it comes down where the body is not. EASY and MEDIUM are unchanged.
+
 ## 2026-09-28 · 6578d7016 — THE VALVE's sparks are both drawn wide, as a threat
 
 Both of THE VALVE's sparks are now drawn as VERSUS `valve:spark`'s `wide`: a wide hot bead, glowing twice as hard and trailing three hiss streaks up the way it came. The owner took the look on 28 September 2026 and turned down the spec's reason for it — the hull takes one hit and the wave is played again, so a second spark is not worse than the first, only a threat to shoot — so the `which` argument that told the two apart is gone and the slot is closed.
