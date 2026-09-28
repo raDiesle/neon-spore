@@ -1,6 +1,8 @@
 import {
   type SimConfig,
   type VaneState,
+  vaneArmAsks,
+  vaneHousingAsks,
   vanePhase,
   vanePinnedAt,
   vanePivotCol,
@@ -110,50 +112,62 @@ export function vaneHousingCircle(l: Layout, cfg: SimConfig): Circle {
 }
 
 /**
- * Whether the arm is offering the pilot a hand: the rule's gate said once
- * (`sim/vane-hand.ts`'s `armHeard`). SWING asks for a shot and nothing else,
- * and an arm already pinned refuses a second thumb.
- */
-export function vaneArmGrippable(cfg: SimConfig, b: VaneState, beat: number): boolean {
-  if (vanePhase(b.pins).asks === "shoot") return false;
-  return !vanePinnedAt(cfg, b, beat);
-}
-
-/**
- * Whether the housing is offering the navigator one, which is the whole of
- * `housingHeard`: only SEIZE jams it, only a standing arm can be hauled, and
- * one haul is all an opening gets.
- */
-export function vaneHousingGrippable(cfg: SimConfig, b: VaneState, beat: number): boolean {
-  if (vanePhase(b.pins).asks !== "haul" || b.hauled) return false;
-  return vanePinnedAt(cfg, b, beat);
-}
-
-/**
- * The press, answered for whichever of the two this seat owns. A press from
- * the wrong seat falls through to whatever is behind it, exactly as if no ring
- * were there — the arm is the pilot's half of VEER and the housing is the
- * navigator's half of SEIZE, and neither can do the other's.
+ * The press, answered for whichever of the two is asked under it. Whether each
+ * is asked is the simulation's (`sim/vane-open.ts` `vaneArmAsks`,
+ * `vaneHousingAsks`), read and never re-derived. The arm is the pilot's half
+ * of VEER and the housing the navigator's half of SEIZE, and neither can do
+ * the other's: a press from the other seat is handed to the sim with no hold,
+ * so it is refused once and said (`vaneRefuse`), and the part is washed red
+ * on both screens the way every mark answers a wrong thumb
+ * (`.claude/skills/new-boss` §5).
  */
 export function vaneGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const b = bossOf(field, "vane");
-  if (b === null) return null;
-  const { cfg, seat } = field;
-  if (seat === 1 && vaneArmGrippable(cfg, b, field.beat)) {
-    const arm = vaneArmCircle(l, cfg, b, field.beat, field.waveBeat, field.beatPhase);
-    if (hitCircle(arm, x, y)) return grab("vaneArm", 1, x, y);
-  }
-  if (seat === 2 && vaneHousingGrippable(cfg, b, field.beat)) {
-    if (hitCircle(vaneHousingCircle(l, cfg), x, y)) return grab("vaneHousing", 2, x, y);
-  }
-  return null;
+  const part = partUnder(l, x, y, field);
+  if (part === null) return null;
+  const owner = part === "vaneArm" ? 1 : 2;
+  return grab(part, field.seat, x, y, field.seat === owner);
 }
 
-function grab(target: "vaneArm" | "vaneHousing", player: 1 | 2, x: number, y: number): Touch {
+/**
+ * Whose the part under a desk press is, so one mouse is signed with that seat
+ * rather than refused as the other's (`desk-grab.ts` `markSeat`): the arm is
+ * always the pilot's and the housing the navigator's.
+ */
+export function vaneGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const part = partUnder(l, x, y, field);
+  return part === null ? undefined : part === "vaneArm" ? 1 : 2;
+}
+
+/** The asked part under a point. Never both: the housing is asked only while
+ * a pin stands, and the arm only while none does. */
+function partUnder(
+  l: Layout,
+  x: number,
+  y: number,
+  field: Field,
+): "vaneArm" | "vaneHousing" | null {
+  const b = bossOf(field, "vane");
+  if (b === null) return null;
+  const { cfg, beat } = field;
+  if (vaneHousingAsks(cfg, b, beat) && hitCircle(vaneHousingCircle(l, cfg), x, y)) {
+    return "vaneHousing";
+  }
+  if (!vaneArmAsks(cfg, b, beat)) return null;
+  const arm = vaneArmCircle(l, cfg, b, beat, field.waveBeat, field.beatPhase);
+  return hitCircle(arm, x, y) ? "vaneArm" : null;
+}
+
+function grab(
+  target: "vaneArm" | "vaneHousing",
+  player: 1 | 2,
+  x: number,
+  y: number,
+  own: boolean,
+): Touch {
   return {
     player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target, player, originX: x, originY: y },
+    hold: own ? { kind: "drag", target, player, originX: x, originY: y } : null,
   };
 }
 
@@ -177,7 +191,7 @@ function grab(target: "vaneArm" | "vaneHousing", player: 1 | 2, x: number, y: nu
  * **The arm's ring stays up while the pin stands, drawn `held`** — which is
  * the ordinary convention and not an exception to it: the pin *is* his thumb,
  * held until he lifts it or the sweep tears it out `vanePinBeats` later
- * (`stepVanePin`). It is `vaneArmGrippable` that says no there, because a
+ * (`stepVanePin`). It is `vaneArmAsks` that says no there, because a
  * second press cannot start a pin that has already started, and the ring is
  * showing the one it did. A ring that vanished on the press would take the
  * fold line off both screens on the beat it began to matter, and the housing's

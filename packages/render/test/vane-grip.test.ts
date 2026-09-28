@@ -145,13 +145,18 @@ describe("the pilot's thumb on THE VANE's arm", () => {
     expect(target(touchDown(l, at.x, at.y, f))).not.toBe("vaneArm");
   });
 
-  it("is the pilot's alone", () => {
+  it("is the pilot's alone: the navigator's press is handed through with no hold, for the sim to refuse", () => {
     const l = layout("p2");
     const { world, boss } = fighting();
     boss.pins = pinsFor("VEER");
     const f = field(world, 2);
     const at = arm(l, f, boss);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("vaneArm");
+    const touch = touchDown(l, at.x, at.y, f);
+    expect(touch).toMatchObject({
+      player: 2,
+      command: { target: "vaneArm", on: true },
+      hold: null,
+    });
   });
 });
 
@@ -198,11 +203,16 @@ describe("the navigator's haul on THE VANE's housing", () => {
     expect(target(touchDown(l, at.x, at.y, field(world, 2)))).not.toBe("vaneHousing");
   });
 
-  it("is the navigator's alone", () => {
+  it("is the navigator's alone: the pilot's press is handed through with no hold, for the sim to refuse", () => {
     const l = layout("p1");
     const { world } = seized();
     const at = vaneHousingCircle(l, CFG);
-    expect(target(touchDown(l, at.x, at.y, field(world, 1)))).not.toBe("vaneHousing");
+    const touch = touchDown(l, at.x, at.y, field(world, 1));
+    expect(touch).toMatchObject({
+      player: 1,
+      command: { target: "vaneHousing", on: true },
+      hold: null,
+    });
   });
 
   it("clears the hub, so the ring never sits on the pins being counted", () => {

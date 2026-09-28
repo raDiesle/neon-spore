@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { BossHurt } from "../src/boss-hurt.js";
+import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, tileCX } from "../src/layout.js";
 import { drawVane } from "../src/vane-draw.js";
 
@@ -88,7 +89,16 @@ function tipPathOf(world: World, b: VaneState): string {
   };
   // `beatPhase = 0` so the drawn column is exactly `vaneTipNow`'s answer, with
   // no interpolation towards the next beat's to read past.
-  drawVane(ctx as unknown as CanvasRenderingContext2D, layout, world, b, 0, 0, new BossHurt());
+  drawVane(
+    ctx as unknown as CanvasRenderingContext2D,
+    layout,
+    world,
+    b,
+    0,
+    0,
+    new BossHurt(),
+    new GripVerdicts(),
+  );
   if (last === undefined) throw new Error("drawVane filled nothing");
   return last;
 }

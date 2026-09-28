@@ -2,10 +2,12 @@ import { circleSubpath } from "@neon-spore/content";
 import { type VaneState, vaneColor, vaneOpen, vaneOpeningNow, type World } from "@neon-spore/sim";
 import type { BossHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawBearing } from "./vane-bearing.js";
 import { drawVaneGrips, vaneHubAt, vaneTipPoint } from "./vane-grip.js";
+import { drawVaneAsked, drawVaneVerdicts } from "./vane-marks.js";
 import { drawArm } from "./vane-spar.js";
 
 /**
@@ -47,10 +49,12 @@ export function drawVane(
   beatPhase: number,
   time: number,
   hurt: BossHurt,
+  /** Its two parts' verdicts on a touch (`vane-marks.ts`). */
+  verdicts: GripVerdicts,
 ): void {
   ctx.save();
   ctx.translate(hurt.shakeX(time, l.tile), 0);
-  drawMechanism(ctx, l, world, b, beatPhase, time, hurt.value);
+  drawMechanism(ctx, l, world, b, beatPhase, time, hurt.value, verdicts);
   ctx.restore();
 }
 
@@ -62,6 +66,7 @@ function drawMechanism(
   beatPhase: number,
   time: number,
   hurt: number,
+  verdicts: GripVerdicts,
 ): void {
   const cfg = world.cfg;
   const { x: px, y: py, r: hub } = vaneHubAt(l, cfg);
@@ -92,7 +97,8 @@ function drawMechanism(
   drawArm(ctx, l, px, py, hub, tx, ty, whip, hurt);
   // The two hands, under the tip so the ring circles it rather than covering
   // it, and over the spar so a thumb is never behind the thing it is on
-  // (`vane-grip.ts`).
+  // (`vane-grip.ts`) — and the asking under the rings (`vane-marks.ts`).
+  drawVaneAsked(ctx, l, cfg, b, world.beat, tip, time);
   drawVaneGrips(ctx, l, cfg, b, world.beat, tip, time);
 
   // The tip, which is the fold line and the only column anybody has to watch.
@@ -106,6 +112,8 @@ function drawMechanism(
   strokeGlow(ctx, dot, PALETTE.rock, STROKE.inner, 0.9);
 
   drawThrow(ctx, l, b, world.beat, beatPhase, tx, ty);
+  // The verdict on a touch, last of all.
+  drawVaneVerdicts(ctx, l, cfg, tip, verdicts);
 }
 
 /**

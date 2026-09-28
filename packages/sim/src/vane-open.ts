@@ -45,6 +45,25 @@ export function vanePinnedAt(cfg: SimConfig, b: VaneState, beat: number): boolea
   return b.pinBeat >= 0 && beat < b.pinBeat + cfg.vanePinBeats;
 }
 
+/**
+ * **Whether the arm asks the pilot for his thumb**: in every phase but SWING,
+ * which asks for a shot and nothing else, and not while a pin already stands —
+ * a second press cannot start a pin that has started. `vane-hand.ts` gates the
+ * press on it, and the rings read it rather than re-derive it
+ * (`render/vane-grip.ts`, `vane-marks.ts`).
+ */
+export function vaneArmAsks(cfg: SimConfig, b: VaneState, beat: number): boolean {
+  return vanePhase(b.pins).asks !== "shoot" && !vanePinnedAt(cfg, b, beat);
+}
+
+/**
+ * **Whether the housing asks the navigator for a haul**: only SEIZE jams it,
+ * only a standing arm can be hauled, and one haul is all an opening gets.
+ */
+export function vaneHousingAsks(cfg: SimConfig, b: VaneState, beat: number): boolean {
+  return vanePhase(b.pins).asks === "haul" && !b.hauled && vanePinnedAt(cfg, b, beat);
+}
+
 /** The same question said about a world, which is how the simulation asks it. */
 export function vanePinned(world: World, b: VaneState): boolean {
   return vanePinnedAt(world.cfg, b, world.beat);

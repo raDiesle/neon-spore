@@ -25,7 +25,9 @@ export const VANE_CONTROLS: readonly FieldControlDef[] = [
       "from VEER on — the ring travels with the arm rather than waiting at a " +
       "rest position, because where the arm is when the thumb lands is the " +
       "whole of what the press decides (render/vane-grip.ts)",
-    seat: "player 1 only — the pilot, and nothing at all from the navigator",
+    seat:
+      "player 1 only — the pilot; the navigator's press is refused, once, and " +
+      "washes the arm red on both screens (vaneRefuse)",
     gesture: "hold",
     does:
       "Stops the arm in the column it was in and holds it there while the " +
@@ -38,7 +40,9 @@ export const VANE_CONTROLS: readonly FieldControlDef[] = [
       "he buys is the one he pays for with the hand he carries the cannon " +
       "with. Refused under SWING, where the cycle is still opening the " +
       "housing on its own clock and a pinned arm would take the fight's one " +
-      "window away.",
+      "window away. The arm asked wears the halo on the pilot's screen and " +
+      "the partner's turning ring and clock on the navigator's, and the pin " +
+      "landing washes it green (render/vane-marks.ts).",
     source: "touch.ts — vaneGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "vaneArm",
@@ -52,7 +56,9 @@ export const VANE_CONTROLS: readonly FieldControlDef[] = [
       "with a pin standing and nothing hauled yet — below the hub rather " +
       "than on it, so the ring never covers the pins the pair are counting " +
       "the fight by (render/vane-grip.ts)",
-    seat: "player 2 only — the navigator, and nothing at all from the pilot",
+    seat:
+      "player 2 only — the navigator; the pilot's press is refused, once, and " +
+      "washes the housing red on both screens (vaneRefuse)",
     gesture: "grab and drag",
     does:
       "Hauls the seized housing off the bearing — a pull of at least " +
@@ -61,7 +67,9 @@ export const VANE_CONTROLS: readonly FieldControlDef[] = [
       "anything away on its own, so this is the only opening left in the " +
       "fight and the pair have a pin's worth of beats to spend it " +
       "(sim/vane-hand.ts). A tap does nothing: the distance is the gesture, " +
-      "which is why it is drawn as a ring to carry and not a button.",
+      "which is why it is drawn as a ring to carry and not a button. Asked, " +
+      "it wears the halo on her screen and the partner's clock on his, and " +
+      "the haul washes it green (render/vane-marks.ts).",
     source: "touch.ts — vaneGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "vaneHousing",

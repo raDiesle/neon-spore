@@ -320,14 +320,16 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
-After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN and THE
-MIRROR: **one boss a lane**, the first on `TO_COME` in the roll-out test —
-THE VANE next — worked exactly as `.claude/skills/new-boss` §5 says and THE
-MIRROR's lane did it (`mirror-marks.ts`; which mark is asked of which seat
-moved into the simulation, `sim/mirror-hand.ts` `mirrorAsks`, and the
-refusal and the touched mark said there, `mirrorRefuse`, `mirrorTouch`). A lane that lands one boss and
-leaves others on the list keeps this entry, rewritten to name the next;
-the lane that empties the list removes it and the list with it.
+After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE
+MIRROR and THE VANE: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE MAZE next — worked exactly as `.claude/skills/new-boss`
+§5 says and THE MIRROR's and THE VANE's lanes did it (`mirror-marks.ts`,
+`vane-marks.ts`; which mark is asked of which seat moved into the
+simulation, `sim/mirror-hand.ts` `mirrorAsks`, `sim/vane-open.ts`
+`vaneArmAsks` and `vaneHousingAsks`, and the refusal said there,
+`mirrorRefuse`, `vaneRefuse`). A lane that lands one boss and leaves others
+on the list keeps this entry, rewritten to name the next; the lane that
+empties the list removes it and the list with it.
 
 ## `queue take` cannot take again an entry this session keeps
 

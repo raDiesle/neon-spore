@@ -39,6 +39,7 @@ import { TasterFx } from "./taster-fx.js";
 import { TrivetFx } from "./trivet-fx.js";
 import { UndertowFx } from "./undertow-fx.js";
 import { ValveFx } from "./valve-fx.js";
+import { VaneMarks } from "./vane-marks.js";
 import { ViseFx } from "./vise-fx.js";
 import { WardenFx } from "./warden-fx.js";
 
@@ -235,6 +236,8 @@ export class BossRoster {
   /** THE BULB QUEEN's two marks' verdicts, green or red round the one the
    * thumb was on (`queen-fx.ts`). */
   readonly queen = new QueenFx();
+  /** THE VANE's arm's and housing's verdicts on a touch (`vane-marks.ts`). */
+  readonly vane = new VaneMarks();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

@@ -28239,3 +28239,14 @@ The bottleneck: its two lobes stand one inside the other when its cannon is
 over the pair's shield, which only a frame showed — no test had them stacked.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE VANE's arm and housing answer a touch like THE INSTAR's marks
+
+- reading: 5 min. Its hand, its grip, the draw, the bind, the fx roster.
+- writing: 5 min. The asks into the sim, one event, the marks, the hand-through, two tests.
+- looking: 0 min. One frame, right the first time.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the reading — its two gates were re-derived in render and
+had to be found and moved before anything could be drawn off them.

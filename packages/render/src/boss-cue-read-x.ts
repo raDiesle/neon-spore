@@ -1,13 +1,14 @@
-import { type VaneState, vaneOpen, vaneSplitCol, type World } from "@neon-spore/sim";
+import {
+  type VaneState,
+  vaneArmAsks,
+  vaneHousingAsks,
+  vaneOpen,
+  vaneSplitCol,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
-import {
-  vaneArmCircle,
-  vaneArmGrippable,
-  vaneBearingY,
-  vaneHousingCircle,
-  vaneHousingGrippable,
-} from "./vane-grip.js";
+import { vaneArmCircle, vaneBearingY, vaneHousingCircle } from "./vane-grip.js";
 
 /**
  * **What THE VANE is asking for** — page twenty-four, and its own, because
@@ -117,11 +118,11 @@ export function vaneCues(l: Layout, world: World): readonly BossCue[] {
 function handCues(l: Layout, world: World, b: VaneState): BossCue[] {
   const { cfg, beat, waveBeat } = world;
   const out: BossCue[] = [];
-  if (vaneArmGrippable(cfg, b, beat)) {
+  if (vaneArmAsks(cfg, b, beat)) {
     const arm = vaneArmCircle(l, cfg, b, beat, waveBeat, 0);
     out.push(markAt(1, "HOLD", "PIN", arm.x, arm.y, l, 75));
   }
-  if (vaneHousingGrippable(cfg, b, beat)) {
+  if (vaneHousingAsks(cfg, b, beat)) {
     const h = vaneHousingCircle(l, cfg);
     out.push(markAt(2, "CARRY", "HAUL", h.x, h.y, l, 76));
   }

@@ -125,7 +125,16 @@ export function drawBoss(
     // No body among the creatures: the arm hangs off the top edge, so there is
     // nothing of it on the grid to find. The blow is a pin knocked out
     // (`vaneKnock`, `boss-blows.ts`).
-    drawVane(ctx, l, world, boss, view.beatPhase, view.time, effects.boss.blows.vane);
+    drawVane(
+      ctx,
+      l,
+      world,
+      boss,
+      view.beatPhase,
+      view.time,
+      effects.boss.blows.vane,
+      effects.boss.vane.verdicts,
+    );
     return;
   }
 

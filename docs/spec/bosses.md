@@ -1069,6 +1069,20 @@ the pair can hold the arm still. Nothing standing on the field ever moves.
 arm, a shot after the arm tore free — each is a window lost and nothing more.
 THE VANE is still the boss that attacks nobody.
 
+**Its arm and housing answer a touch the way every mark does** (28 September
+2026, `vane-marks.ts`; `mark-feedback.ts`, `grip-verdict.ts`). Whether each is
+asked is the simulation's (`vaneArmAsks`, `vaneHousingAsks`,
+`sim/vane-open.ts`), and whose each is never changes: the arm is the pilot's,
+the housing the navigator's, and the two are never asked at once. The part
+asked of this seat wears the halo under its ring; the part asked of the partner
+wears their turning ring and the clock, which is the navigator's whole view of
+VEER until the pin lands. Each verdict washes the part it was on: **green** for
+the pin landing on the arm (`vanePin`) and for the haul carrying the housing
+off (`vaneHaul`); **red** for a press from the seat the part is not asked of
+(`vaneRefuse`), which is handed through holding nothing, refused once and
+moves nothing. A desk press on either is signed with its owner
+(`vaneGripSeat`).
+
 **Where the hands live.** `vane-hand.ts` hears both, on the tick (`step.ts`,
 beside THE WARDEN's): a thumb on a sweeping arm has to stop it where the pair
 saw it stop. `VaneState` gained `pinBeat`, `pinCol`, `pinSide`, `hauled` and

@@ -1318,6 +1318,7 @@ by hand never moves.
 | `packages/render/src/vane-spar.ts` | THE VANE's lever, as metal — the spar, its bracing, the counterweight and the fork |
 | `packages/render/src/vane-bearing.ts` | THE VANE's bearing — the mount, the hub and the bolt circle the pair is spending |
 | `packages/render/src/vane-grip.ts` | **THE VANE's two hands**, and the geometry the drawing and the hit test share |
+| `packages/render/src/vane-marks.ts` | THE VANE's arm and housing asking a seat and answering a touch green or red, the way every mark does |
 | `packages/render/src/valve-draw.ts` | **THE VALVE**: a squat iron drum standing over the middle of the field, one wheel in its face |
 | `packages/render/src/valve-marks.ts` | **THE VALVE's marks**: the three things on the drum that say a gesture — the wheel's mark |
 | `packages/render/src/valve-pose.ts` | **The clock THE VALVE is posed off** (§25, *Animation*): four poses — sealed and upright, listing one pin |

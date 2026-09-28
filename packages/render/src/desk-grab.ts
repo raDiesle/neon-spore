@@ -5,6 +5,7 @@ import { queenGripSeat } from "./queen-grip.js";
 import { sinewGripSeat } from "./sinew-handles.js";
 import { spoolGripSeat } from "./spool-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
+import { vaneGripSeat } from "./vane-grip.js";
 import { wardenGripSeat } from "./warden-grip.js";
 
 /**
@@ -32,7 +33,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    `spoolGripSeat`), and THE SINEW's two handles the fourth (`sinew-handles.ts`
  *    `sinewGripSeat`), and THE BULB QUEEN's two marks the fifth
  *    (`queen-grip.ts` `queenGripSeat`), and THE MIRROR's lobes the sixth
- *    (`mirror-grip.ts` `mirrorGripSeat`). One question for all of them, `markSeat`.
+ *    (`mirror-grip.ts` `mirrorGripSeat`), and THE VANE's arm and housing the
+ *    seventh (`vane-grip.ts` `vaneGripSeat`). One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
  *    pilot's thumb — so the same hit test run for the second seat finds what
@@ -143,6 +145,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     spoolGripSeat(l, x, y, field) ??
     sinewGripSeat(l, x, y, field) ??
     queenGripSeat(l, x, y, field) ??
-    mirrorGripSeat(l, x, y, field)
+    mirrorGripSeat(l, x, y, field) ??
+    vaneGripSeat(l, x, y, field)
   );
 }

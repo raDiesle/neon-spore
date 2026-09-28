@@ -1,7 +1,14 @@
 import type { VaneState } from "./boss-state.js";
 import type { Command } from "./types.js";
 import { vanePhase } from "./vane-cycle.js";
-import { vanePinned, vanePinSide, vaneSplitCol, vaneTipNow } from "./vane-open.js";
+import {
+  vaneArmAsks,
+  vaneHousingAsks,
+  vanePinned,
+  vanePinSide,
+  vaneSplitCol,
+  vaneTipNow,
+} from "./vane-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -38,12 +45,16 @@ export function vaneHeard(world: World, player: 1 | 2, command: Command): void {
 }
 
 function armHeard(world: World, b: VaneState, player: 1 | 2, on: boolean): void {
-  if (player !== 1 || vanePhase(b.pins).asks === "shoot") return;
+  if (player !== 1) {
+    if (on && vaneArmAsks(world.cfg, b, world.beat)) refuse(world, "arm", vaneTipNow(world, b));
+    return;
+  }
+  if (vanePhase(b.pins).asks === "shoot") return;
   if (!on) {
     releasePin(world, b);
     return;
   }
-  if (vanePinned(world, b)) return;
+  if (!vaneArmAsks(world.cfg, b, world.beat)) return;
   // The column first, and then the beat. `vaneTipNow` answers `pinCol` as soon
   // as there is a pin, so a `pinBeat` written before it would hand the arm its
   // own uninitialised column and fold every arrival about -1.
@@ -60,12 +71,28 @@ function housingHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 2 || vanePhase(b.pins).asks !== "haul") return;
+  const asked = vaneHousingAsks(world.cfg, b, world.beat);
+  if (player !== 2) {
+    if (command.on && asked) refuse(world, "housing", vaneSplitCol(world, b));
+    return;
+  }
   // The press says nothing; the haul is the lift, and only one that travelled.
-  if (command.on || b.hauled || !vanePinned(world, b)) return;
+  if (command.on || !asked) return;
   if (Math.abs(command.fromYMilli ?? 0) < world.cfg.vaneHaulMilli) return;
   b.hauled = true;
   world.events.push({ type: "vaneHaul", col: vaneSplitCol(world, b) });
+}
+
+/**
+ * A press from the seat the part is not asked of, while it is asked of the
+ * other: refused, once — the lift of a press refused is never sent — and said
+ * (`vaneRefuse`), so the part is washed red on both screens the way every
+ * mark answers a wrong thumb (`.claude/skills/new-boss` §5). The arm is the
+ * pilot's and the housing the navigator's, so the seat refused is always the
+ * other one.
+ */
+function refuse(world: World, part: "arm" | "housing", col: number): void {
+  world.events.push({ type: "vaneRefuse", col, part, player: part === "arm" ? 2 : 1 });
 }
 
 /**

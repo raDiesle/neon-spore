@@ -208,4 +208,7 @@ export const SILENT_BOSS_D = [
   // the seat the lobe is not asked of, each a ring round it (`mirror-grip.ts`).
   "mirrorTouch",
   "mirrorRefuse",
+  // THE VANE's press from the wrong seat, the same: a ring round the arm or
+  // the housing, `effects.boss.vane`'s (`vane-marks.ts`).
+  "vaneRefuse",
 ] as const satisfies readonly SimEvent["type"][];

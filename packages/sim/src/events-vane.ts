@@ -1,7 +1,8 @@
 /**
  * **What THE VANE's second and third hands do that neither screen already
  * says**, as three events (`vane-hand.ts`) — and a fourth, the pin a shot
- * knocks out (`vane.ts` `vaneStruck`).
+ * knocks out (`vane.ts` `vaneStruck`), and a fifth, the press from the wrong
+ * seat a mark answers red.
  *
  * Its own file on `events-warden.ts`' terms: one boss, one arm of `SimEvent`,
  * and a file `packages/audio/test/bind.test.ts` has to be told the name of.
@@ -22,6 +23,9 @@ export type VaneEvent =
   | { type: "vaneSlip"; col: number }
   /** The navigator hauled the seized housing open, in the split's column. */
   | { type: "vaneHaul"; col: number }
+  /** A press on the part asked of the other seat — the arm is the pilot's,
+   * the housing the navigator's — refused, and nothing moved. */
+  | { type: "vaneRefuse"; col: number; part: "arm" | "housing"; player: 1 | 2 }
   /**
    * A shot of the right colour through the split knocked a pin out of the
    * bearing, and `pins` are what is left — 0 on the last, which ends the

@@ -234,3 +234,5 @@ export { queenAsks } from "./queen-hand.js";
 // measure along the top of the screen read (`reprise-plan.ts`).
 export { type RepriseEcho, reprisePlan } from "./reprise-plan.js";
 export { type RepriseClock, repriseClock, repriseEvery } from "./reprise-state.js";
+// And THE VANE's two parts, which its rings read the same way (`vane-marks.ts`).
+export { vaneArmAsks, vaneHousingAsks } from "./vane-open.js";

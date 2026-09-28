@@ -154,10 +154,10 @@ export const INGEST_SILENT_BOSS_B = [
   "fleetRake",
   "fleetPlug",
   "fleetWreck",
-  // THE VANE's two hands on the picture, silent until the look lane draws
-  // them: where the arm is pinned and whether the housing is hauled are world
-  // state, read off `pinBeat` and `hauled` every frame (`sim/vane-open.ts`);
-  // the slip will be a burst and nothing kept.
+  // THE VANE's two hands on the picture: where the arm is pinned and whether
+  // the housing is hauled are world state, read off `pinBeat` and `hauled`
+  // every frame (`sim/vane-open.ts`), and the pin and the haul are a ring
+  // round the part, `effects.boss.vane`'s (`vane-marks.ts`).
   "vanePin",
   "vaneSlip",
   "vaneHaul",

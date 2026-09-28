@@ -39,4 +39,7 @@ export const INGEST_SILENT_BOSS_E = [
   // `effects.boss.mirror.grip`'s (`mirror-grip.ts`).
   "mirrorTouch",
   "mirrorRefuse",
+  // THE VANE's press from the wrong seat, the same: a ring round the arm or
+  // the housing, `effects.boss.vane`'s (`vane-marks.ts`).
+  "vaneRefuse",
 ] as const satisfies readonly SimEvent["type"][];

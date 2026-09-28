@@ -13,11 +13,12 @@ import { type Cue, panForCol } from "./bind.js";
  * gone — heavier, with nothing rising in it, so a lift and a tear are heard as
  * the same loss whichever it was (`sim/vane-hand.ts`). The haul is the seized
  * housing coming off the bearing: the pilot's cue that the shot he is standing
- * under is now worth taking. The knock is a pin gone out of the bearing under
+ * under is now worth taking. A press on the part asked of the other seat is
+ * the refuse every mark says. The knock is a pin gone out of the bearing under
  * a shot: the one moment the pair beat the boss, and heard as that.
  */
 export function vaneCue(
-  e: Extract<SimEvent, { type: "vanePin" | "vaneSlip" | "vaneHaul" | "vaneKnock" }>,
+  e: Extract<SimEvent, { type: "vanePin" | "vaneSlip" | "vaneHaul" | "vaneRefuse" | "vaneKnock" }>,
   cols: number,
 ): Cue {
   switch (e.type) {
@@ -27,6 +28,10 @@ export function vaneCue(
       return { id: "boss.vaneSlip", pan: panForCol(e.col, cols) };
     case "vaneHaul":
       return { id: "boss.vaneHaul", pan: panForCol(e.col, cols) };
+    case "vaneRefuse":
+      // The wrong seat's thumb on the part asked of the other: every mark's
+      // *not yours*, one sound for all of them (`boss-instar.ts`).
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
     case "vaneKnock":
       return { id: "boss.vaneKnock", pan: panForCol(e.col, cols) };
   }
