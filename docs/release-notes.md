@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 99ccaa156 — PINBALL's plunger and table answer a touch the way THE INSTAR's marks do
+
+The part asked of this seat wears the halo while it is asked, and the part asked of the partner wears their turning ring and the clock. The wind and the shove wash the ring green. The tilt washes the table red, and so does a press from the other seat on an asked part, which is refused once as `pinRefuse`. Whether each part is asked is now the simulation's (`pinPlungerAsks`, `pinTableAsks`), and a desk press is signed with the part's seat. The marks live in the rounds' `RoundMarks`, fed by the takeover.
+
 ## 2026-09-28 · 25df5e802 — SNAKE's jaws and tail answer a touch the way THE INSTAR's marks do
 
 The part asked of this seat wears the halo until it is taken, the prise or her thumb on the tail, and the part asked of the partner wears their turning ring and the clock. The prise and the lift wash the ring green. A press from the other seat on an asked part is refused once, as `snakeRefuse`, and washes it red. SNAKE is the one round whose rings are drawn on both screens. Whether each part is asked is now the simulation's (`snakeJawsAsks`, `snakeTailAsks`), and a desk press is signed with the part's seat. The rounds' marks moved out of the effects roster into `effects-round-marks.ts`, which the takeover feeds.
