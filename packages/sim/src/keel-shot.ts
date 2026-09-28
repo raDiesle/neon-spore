@@ -22,19 +22,22 @@ import type { World } from "./world.js";
  * not a body with a colour the pair could have got wrong, and what it costs to
  * miss is the column.
  */
-export function keelStruck(world: World, bullet: Bullet): void {
+export function keelStruck(world: World, bullet: Bullet): boolean {
   const s = keelBoss(world);
-  if (s === null) return;
+  if (s === null) return false;
   if (keelThrown(s) && bullet.col === s.rockCol) {
     s.rockCol = NO_ROCK;
     world.events.push({ type: "keelRockOut", col: bullet.col });
-    return;
+    return true;
   }
-  if (keelMarrowStruck(world, s, bullet)) return;
-  if (s.phase !== "socket" || bullet.col !== midCol(world.cfg)) return;
+  if (keelMarrowStruck(world, s, bullet)) return true;
+  // The socket is in the middle column, open or shut: a bolt there met the
+  // spine, and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (s.phase !== "socket" || !core) return core;
   if (bullet.color !== s.socket) {
     missedColor(world);
-    return;
+    return true;
   }
   metColor(world);
   const seg = s.locked.indexOf(false);
@@ -44,4 +47,5 @@ export function keelStruck(world: World, bullet: Bullet): void {
   s.joint = NO_JOINT;
   closeSlow(world);
   world.events.push({ type: "keelShut", col: bullet.col });
+  return true;
 }

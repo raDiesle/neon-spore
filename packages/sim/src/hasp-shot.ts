@@ -17,10 +17,11 @@ import type { World } from "./world.js";
  * wrong, so nothing here is billed to the colour balance. What it costs to
  * miss is a hull strike, which is the wave.
  */
-export function haspStruck(world: World, bullet: Bullet): void {
+export function haspStruck(world: World, bullet: Bullet): boolean {
   const s = haspBoss(world);
-  if (s === null || !haspLoose(s)) return;
-  if (bullet.col !== s.boltCol) return;
+  if (s === null || !haspLoose(s)) return false;
+  if (bullet.col !== s.boltCol) return false;
   s.boltCol = NO_BOLT;
   world.events.push({ type: "haspBoltOut", col: bullet.col });
+  return true;
 }

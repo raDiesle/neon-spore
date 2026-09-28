@@ -11,8 +11,9 @@ import { createWorld, type World } from "../src/world.js";
 
 /**
  * **On HARD a shot that meets nothing loses the wave** (`shot-out.ts`), and
- * nowhere else does: not on EASY or MEDIUM, not under a boss that hangs above
- * the field, not in the rest after a clear.
+ * nowhere else does: not on EASY or MEDIUM, not into a boss that hangs above
+ * the field, not in the rest after a clear. What each boss up there counts as
+ * meeting a bolt is `wasted-shot-sky.test.ts`.
  */
 
 function hard(): SimConfig {
@@ -69,7 +70,7 @@ describe("a wasted shot on HARD", () => {
     }
   });
 
-  it("costs nothing while a boss hangs above the field: the bolt went into it", () => {
+  it("costs nothing when a boss above the field met the bolt", () => {
     const world = createWorld(hard(), 1);
     startWave(world, 9, [], [], { kind: "gorge" });
     const out = outOf(climbOut(world));
@@ -87,9 +88,11 @@ describe("a wasted shot on HARD", () => {
 
   it("knows every boss `shotLeaves` hands a bolt to", () => {
     // A boss given a call there and not a place in the list would be a boss
-    // whose every hit on HARD also lost the wave.
+    // whose bolts, met or not, were drawn flying on past it.
     const src = readFileSync(new URL("../src/shot-out.ts", import.meta.url), "utf8");
-    const called = [...src.matchAll(/^\s+(\w+)Struck\(world/gm)].map((m) => m[1]);
+    const called = [...src.matchAll(/^\s+met = (\w+)Struck\(world, b\) \|\| met;$/gm)].map(
+      (m) => m[1],
+    );
     expect(called.length).toBe(SKY_BOSSES.size);
     for (const kind of called) expect(SKY_BOSSES.has(kind ?? "")).toBe(true);
   });

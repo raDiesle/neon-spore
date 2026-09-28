@@ -25,6 +25,7 @@ import { rimeStruck } from "./rime-shot.js";
 import { instarStruck, nettleStruck } from "./scene-panel.js";
 import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
+import { shotWasted } from "./shot-wasted.js";
 import { slingStruck } from "./sling-shot.js";
 import { tasterStruck } from "./taster-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
@@ -55,86 +56,100 @@ import type { World } from "./world.js";
  * window is open. The bosses that hang above the field — THE VANE's bearing,
  * THE GORGE's sack, THE CURTAIN's fabric and the rest — are the things in
  * the game that are not on the grid at all (docs/spec/bosses.md §11.5).
+ *
+ * **Each call says whether the bolt met anything up there**, which is what
+ * HARD asks of it (`shot-wasted.ts`). The owner, 27 September 2026: *on HARD,
+ * a shot that meets nothing above a sky boss loses the wave; a shot into
+ * armour still costs nothing.* So a call answers true for anything its boss
+ * did with the bolt — a hit, a colour billed, a bolt swallowed, rebuffed or
+ * put in flight — and for a part of the boss that stands in the bolt's column
+ * with its window shut: THE VANE's housing, a core in the middle column
+ * before it is bared, a blade, an intake, the scuttle's frame. That is the
+ * armour. It answers false for a column with none of the boss in it, or with
+ * a part that is only there while it is open: a spark, a seam, a loose bolt,
+ * a mark. THE LEAD's flight is judged a beat later, and a flight that comes
+ * down where the body is not is the same question then (`lead-step.ts`).
  */
 export function shotLeaves(world: World, b: Bullet, to: number): void {
   // Asked before the calls, because the last pin out of THE VANE takes the
   // boss off the world in the same breath as the shot that pulled it.
   const taken = skyTaken(world);
-  vaneStruck(world, b);
+  let met = false;
+  met = vaneStruck(world, b) || met;
   // THE GORGE's sack, which swallows the shot as a bead (`gorge-step.ts`).
-  gorgeStruck(world, b);
+  met = gorgeStruck(world, b) || met;
   // THE CURTAIN's core, if the fabric is shoved clear of it (`curtain-shot.ts`).
-  curtainStruck(world, b);
+  met = curtainStruck(world, b) || met;
   // THE TASTER's fan, where the colour that breaks a blade is the one it is
   // not (`taster-shot.ts`).
-  tasterStruck(world, b);
+  met = tasterStruck(world, b) || met;
   // THE LEDGER's seam, which only the middle column of it is, and only in the
   // colour it is showing (`ledger-shot.ts`).
-  ledgerStruck(world, b);
+  met = ledgerStruck(world, b) || met;
   // THE LEAD's air: a bolt out of the top is put in flight above the field,
   // to be judged against the body on a later beat (`lead-shot.ts`).
-  leadStruck(world, b);
+  met = leadStruck(world, b) || met;
   // THE SCUTTLE's live part, struck off its socket while it hangs if the bolt
   // is in its column and its colour (`scuttle-shot.ts`).
-  scuttleStruck(world, b);
+  met = scuttleStruck(world, b) || met;
   // THE ANTIPHON's rail: a bolt out of the top is a colour in a column, which
   // is one candidate or none (`antiphon-shot.ts`).
-  antiphonStruck(world, b);
+  met = antiphonStruck(world, b) || met;
   // THE GIMBAL's leaking seam, the one thing in that whole fight a cannon has
   // to do, and either colour does it (`gimbal-shot.ts`).
-  gimbalStruck(world, b);
+  met = gimbalStruck(world, b) || met;
   // THE MANTLE's bared-core spark, the same shape and the same either colour
   // (`mantle-shot.ts`).
-  mantleStruck(world, b);
+  met = mantleStruck(world, b) || met;
   // THE KEEL's socket, in its own colour, and its tail's rock, in either
   // (`keel-shot.ts`).
-  keelStruck(world, b);
+  met = keelStruck(world, b) || met;
   // THE VALVE's spark, in either colour (`valve-shot.ts`).
-  valveStruck(world, b);
+  met = valveStruck(world, b) || met;
   // THE SEAM's lit point, in its colour, or its rock (`seam-shot.ts`).
-  seamStruck(world, b);
+  met = seamStruck(world, b) || met;
   // THE OCULUS's open socket, in its colour (`oculus-shot.ts`).
-  oculusStruck(world, b);
+  met = oculusStruck(world, b) || met;
   // THE VISE's bared kernel, in its colour (`vise-shot.ts`).
-  viseStruck(world, b);
+  met = viseStruck(world, b) || met;
   // THE RIME's bared core, in its colour (`rime-shot.ts`).
-  rimeStruck(world, b);
+  met = rimeStruck(world, b) || met;
   // THE TRIVET's lit hub, in its colour (`trivet-shot.ts`).
-  trivetStruck(world, b);
+  met = trivetStruck(world, b) || met;
   // THE PLUMB's lit core, in its colour (`plumb-shot.ts`).
-  plumbStruck(world, b);
+  met = plumbStruck(world, b) || met;
   // THE SLING's lit yoke, in its colour (`sling-shot.ts`).
-  slingStruck(world, b);
+  met = slingStruck(world, b) || met;
   // THE GRINDSTONE's lit axle, in its colour (`grindstone-shot.ts`).
-  grindstoneStruck(world, b);
+  met = grindstoneStruck(world, b) || met;
   // THE CYST's bared core, in its colour (`cyst-shot.ts`).
-  cystStruck(world, b);
+  met = cystStruck(world, b) || met;
   // THE DAVIT's lit pivot, in its colour (`davit-shot.ts`).
-  davitStruck(world, b);
+  met = davitStruck(world, b) || met;
   // THE HALTER's bared centre, in its colour (`halter-shot.ts`).
-  halterStruck(world, b);
+  met = halterStruck(world, b) || met;
   // THE CAPSTAN's bared core, in its colour (`capstan-shot.ts`).
-  capstanStruck(world, b);
+  met = capstanStruck(world, b) || met;
   // THE GALL's bared root, in its colour (`gall-shot.ts`).
-  gallStruck(world, b);
+  met = gallStruck(world, b) || met;
   // THE BURGEE's lit spindle, in its colour (`burgee-shot.ts`).
-  burgeeStruck(world, b);
+  met = burgeeStruck(world, b) || met;
   // THE FLUE's bared core, in its colour (`flue-shot.ts`).
-  flueStruck(world, b);
+  met = flueStruck(world, b) || met;
   // THE GOVERNOR's lit hub, in its colour (`governor-shot.ts`).
-  governorStruck(world, b);
+  met = governorStruck(world, b) || met;
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
-  haspStruck(world, b);
+  met = haspStruck(world, b) || met;
   // THE RATCHET's, the same again (`ratchet-shot.ts`).
-  ratchetStruck(world, b);
+  met = ratchetStruck(world, b) || met;
   // THE HIVE's underside: an open breach in the bolt's column and colour is
   // sealed, the wrong colour provokes it (`hive-shot.ts`).
-  hiveStruck(world, b);
+  met = hiveStruck(world, b) || met;
   // A SHOOT mark on a scene's body over the bolt's column (`scene-panel.ts`).
-  nettleStruck(world, b);
-  instarStruck(world, b);
-  const wasted = wastes(world, taken);
+  met = nettleStruck(world, b) || met;
+  met = instarStruck(world, b) || met;
+  const wasted = !met && shotWasted(world);
   world.events.push({
     type: "shotOut",
     col: b.col,
@@ -151,12 +166,10 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
 
 /**
  * The bosses that hang above the field, each with a call above. While one of
- * them is up the sky is its own: a bolt out of the top has gone into it, and
- * whatever it did there is that boss's answer — including, on purpose, no
- * answer at all. THE VANE's shut housing is
- * armour a shot goes into for nothing (`vane.ts`), and a shot a boss swallows
- * says nothing in an event either, so no count of what the calls
- * said could tell a bolt that met one from a bolt that met the sky.
+ * them is up the sky is its own, and a bolt out of the top is drawn going
+ * into it (`taken`) whatever it met there: the boss draws its own answer, and
+ * a wasted bolt on HARD is drawn coming back (`render/ricochet.ts`). Whether
+ * it met anything is the calls' to say, not this list's.
  */
 export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "vane",
@@ -197,20 +210,4 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
 /** Whether a boss is hanging above the field to take a bolt out of the top. */
 function skyTaken(world: World): boolean {
   return world.boss !== null && SKY_BOSSES.has(world.boss.kind);
-}
-
-/**
- * **HARD's rule: a shot that met nothing loses the wave.** The owner, 25
- * September 2026 — *wave is lost, if a shot is hitting nothing, basically
- * wasted and hitting the top line of game screen.* A shot is only ever here if
- * nothing on the grid stopped it, so what is left to ask is whether anything
- * above the grid did, and whether the wave is still being played: a bolt still
- * climbing when the last body went is not a shot at nothing, it is a shot the
- * rest after a clear caught in the air (`clearHolds`). THE WELL is out of it
- * as well: its field is a disc, and a disc has no top line to hit.
- */
-function wastes(world: World, taken: boolean): boolean {
-  if (!world.cfg.wastedShotFails || taken) return false;
-  if (world.boss?.kind === "well") return false;
-  return world.restBeat === 0;
 }

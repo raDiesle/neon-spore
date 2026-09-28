@@ -636,6 +636,7 @@ by hand never moves.
 | `packages/sim/src/lead.ts` | THE LEAD: where it will be |
 | `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
 | `packages/sim/src/shot-out.ts` | A shot past the top row: every boss hook up there, then the `shotOut` event |
+| `packages/sim/src/shot-wasted.ts` | **HARD's rule: a shot that met nothing loses the wave** |
 | `packages/sim/src/ship-verbs.ts` | **Which commands are a seat talking to the ship**, as against the host talking to the run |
 | `packages/sim/src/shield-push.ts` | **The shield pushes a creature back up the field, once** — the allow-list, the climb and the push |
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |

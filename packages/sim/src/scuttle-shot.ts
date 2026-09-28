@@ -37,22 +37,27 @@ import type { World } from "./world.js";
  * simulation disagreeing. The beam is read off the socket instead, and may
  * be: nothing is ever swung while the frame winds up (`scuttleSwingable`).
  */
-export function scuttleStruck(world: World, b: Bullet): void {
+export function scuttleStruck(world: World, b: Bullet): boolean {
   const s = scuttleBoss(world);
-  if (s === null) return;
+  if (s === null) return false;
   const cfg = world.cfg;
+  // The frame hangs over its own columns whatever its parts are doing, so a
+  // bolt into one of them met it: armour, if nothing more (`shot-out.ts`).
+  const frame =
+    b.col >= scuttleSocketCol(cfg, 0) && b.col <= scuttleSocketCol(cfg, cfg.scuttleCols - 1);
   if (b.lance) {
-    if (scuttleWinding(s) && b.col === scuttleSocketCol(cfg, s.live)) scuttleDown(world, s);
-    return;
+    if (!scuttleWinding(s) || b.col !== scuttleSocketCol(cfg, s.live)) return frame;
+    scuttleDown(world, s);
+    return true;
   }
-  if (!scuttleShootable(s)) return;
+  if (!scuttleShootable(s)) return frame;
   const socket = s.live;
   const col = scuttlePartCol(s, cfg, socket);
   const p = s.parts[socket];
-  if (b.col !== col || p === null || p === undefined) return;
+  if (b.col !== col || p === null || p === undefined) return frame;
   if (b.color !== p.color) {
     world.events.push({ type: "scuttleRebuff", col });
-    return;
+    return true;
   }
   s.parts[socket] = null;
   s.loose = s.loose.filter((i) => i !== socket);
@@ -61,4 +66,5 @@ export function scuttleStruck(world: World, b: Bullet): void {
   // until the next detachment, so a strike is not a second swing in a cycle.
   if (s.held === socket) s.held = -1;
   world.events.push({ type: "scuttleStruck", col, socket, left: scuttleLeft(s) });
+  return true;
 }

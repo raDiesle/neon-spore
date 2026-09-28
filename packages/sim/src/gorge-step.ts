@@ -76,21 +76,24 @@ function standing(g: GorgeState): number {
  * (`gorge-hand.ts`). Whatever it answered, THE SLOW is put where the asks
  * still standing say (`gorge-slow.ts`).
  */
-export function gorgeStruck(world: World, bullet: Bullet): void {
+export function gorgeStruck(world: World, bullet: Bullet): boolean {
   const g = gorgeBoss(world);
-  if (g === null || g.outBeat >= 0) return;
-  struck(world, g, bullet);
+  if (g === null || g.outBeat >= 0) return false;
+  const met = struck(world, g, bullet);
   gorgeSlow(world, g);
+  return met;
 }
 
-function struck(world: World, g: GorgeState, bullet: Bullet): void {
+function struck(world: World, g: GorgeState, bullet: Bullet): boolean {
   const i = gorgeIntakeAt(g, bullet.col);
   const k = g.intakes[i];
-  if (k === undefined || k.ruptured) return;
+  // No intake, or one burst open: the bolt went up through the hole and met
+  // nothing, which HARD asks about (`shot-out.ts`).
+  if (k === undefined || k.ruptured) return false;
   const cfg = world.cfg;
   if (i === g.mouth) {
     mouthStruck(world, g, i, bullet);
-    return;
+    return true;
   }
   const col = g.col + i;
   if (gorgeFull(k, cfg)) {
@@ -99,7 +102,7 @@ function struck(world: World, g: GorgeState, bullet: Bullet): void {
     if (k.pierced < cfg.gorgeVentShots) {
       const owed = cfg.gorgeVentShots - k.pierced;
       world.events.push({ type: "gorgeNick", col, color: k.color ?? bullet.color, owed });
-      return;
+      return true;
     }
     k.ruptured = true;
     k.beads = 0;
@@ -112,15 +115,16 @@ function struck(world: World, g: GorgeState, bullet: Bullet): void {
     if (g.mouth < 0 && (g.ruptures >= cfg.gorgeMouthRuptures || standing(g) <= 1)) {
       openMouth(world, g);
     }
-    return;
+    return true;
   }
   if (k.color === null || k.color === bullet.color) {
     metColor(world);
     swallow(world, g, i, k, bullet.color);
-    return;
+    return true;
   }
   missedColor(world);
   empty(world, g, i, k);
+  return true;
 }
 
 /**

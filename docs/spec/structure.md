@@ -36,9 +36,14 @@
 > wave. A shot out of the top that nothing took fails it the way a hull hit
 > does (`wastedShotFails`, `sim/shot-out.ts`), set with HARD's tempo by
 > `playDifficulty` (`sim/difficulty.ts`). EASY and MEDIUM keep every rule they
-> had. It does not apply while a boss hangs above the field (its sky takes
-> every bolt, armour included), in the rest after a clear, on THE WELL, or
-> in a film.
+> had. It does not apply in the rest after a clear, on THE WELL, or in a
+> film. **Under a boss that hangs above the field, the boss judges** (the
+> owner, 27 September 2026): each boss's hook says whether the bolt met it —
+> a hit, a colour billed, or armour, which is a part standing in that column
+> with its window shut, such as a core in the middle column. A bolt into a
+> column with none of the boss in it loses the wave, and so does THE LEAD's
+> flight when it comes down where the body is not (`sim/shot-out.ts`,
+> `sim/shot-wasted.ts`).
 
 - Waves come **all at once as a closed set**, then a short rest, then the next
 - Wave length 30–60 s; the rests shrink as the wave number rises

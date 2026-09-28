@@ -19,17 +19,21 @@ import type { World } from "./world.js";
  * is not a hit — the kernel was not struck — so the three hits stay the
  * fight's health.
  */
-export function viseStruck(world: World, bullet: Bullet): void {
+export function viseStruck(world: World, bullet: Bullet): boolean {
   const s = viseBoss(world);
-  if (s === null || !s.bared) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.bared) return core;
   const step = viseLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "spit")) return;
+  if (step === null || (step.ask !== "fire" && step.ask !== "spit")) return core;
   const col = step.ask === "spit" ? viseSeedCol(midCol(world.cfg), step) : midCol(world.cfg);
-  if (bullet.col !== col) return;
+  if (bullet.col !== col) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
@@ -39,4 +43,5 @@ export function viseStruck(world: World, bullet: Bullet): void {
     world.events.push({ type: "viseHit", hits: s.hits, col });
   }
   viseAnswered(world, s);
+  return true;
 }

@@ -14,19 +14,24 @@ import type { World } from "./world.js";
  * missed on the balance sheet and the step stays lit. The last step is
  * authored `"either"`, the white hub, and takes both.
  */
-export function governorStruck(world: World, bullet: Bullet): void {
+export function governorStruck(world: World, bullet: Bullet): boolean {
   const s = governorBoss(world);
-  if (s === null || !governorFiring(s) || bullet.col !== midCol(world.cfg)) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!governorFiring(s) || !core) return core;
   const step = governorLitStep(s);
-  if (step === null) return;
+  if (step === null) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   s.hits += 1;
   world.events.push({ type: "governorHit", hits: s.hits, col: bullet.col });
   governorAnswered(world, s);
+  return true;
 }

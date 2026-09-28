@@ -14,19 +14,24 @@ import type { World } from "./world.js";
  * missed on the balance sheet and the step stays lit. The last step is
  * authored `"either"`, the white core, and takes both.
  */
-export function rimeStruck(world: World, bullet: Bullet): void {
+export function rimeStruck(world: World, bullet: Bullet): boolean {
   const s = rimeBoss(world);
-  if (s === null || !s.bared) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.bared) return core;
   const step = rimeLitStep(s);
-  if (step === null || step.ask !== "fire" || bullet.col !== midCol(world.cfg)) return;
+  if (step === null || step.ask !== "fire" || !core) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   s.hits += 1;
   world.events.push({ type: "rimeHit", hits: s.hits, col: bullet.col });
   rimeAnswered(world, s);
+  return true;
 }

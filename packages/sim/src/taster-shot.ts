@@ -94,36 +94,39 @@ export function tasterCut(world: World, t: TasterState, i: number): void {
  * shot at one that has not decided yet is simply spent, the way a shot past the
  * top of any other field is.
  */
-export function tasterStruck(world: World, bullet: Bullet): void {
+export function tasterStruck(world: World, bullet: Bullet): boolean {
   const t = tasterBoss(world);
-  if (t === null || t.outBeat >= 0) return;
+  if (t === null || t.outBeat >= 0) return false;
   const i = tasterBladeAt(t, bullet.col);
   const k = t.blades[i];
-  if (k === undefined) return;
+  // A column with a blade over it met the fan, whatever the blade did with
+  // the bolt — an edge with no colour is armour (`shot-out.ts`).
+  if (k === undefined) return false;
   const cfg = world.cfg;
   const col = t.col + i;
   if (tasterPhase(t, cfg) === "closed") {
     interlock(world, t, bullet, col);
-    return;
+    return true;
   }
   if (k.shorn) {
     tasterCut(world, t, i);
-    return;
+    return true;
   }
-  if (k.edge === null) return;
+  if (k.edge === null) return true;
   if (bullet.color === k.edge) {
     missedColor(world);
     if (k.layers < cfg.tasterThickMax) k.layers += 1;
     world.events.push({ type: "tasterThick", col, layers: k.layers });
-    return;
+    return true;
   }
   metColor(world);
   k.layers -= 1;
   if (k.layers > 0) {
     world.events.push({ type: "tasterPare", col, layers: k.layers });
-    return;
+    return true;
   }
   shear(world, t, i, k);
+  return true;
 }
 
 /**

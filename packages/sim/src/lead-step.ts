@@ -16,6 +16,7 @@ import {
   leadTorn,
   leadWalk,
 } from "./lead.js";
+import { wasteShot } from "./shot-wasted.js";
 import { closeSlow } from "./slow.js";
 import { spawnOne } from "./spawn.js";
 import type { World } from "./world.js";
@@ -110,6 +111,8 @@ function judge(world: World, s: LeadState): void {
     if (f.col === s.col) hit = true;
     else world.events.push({ type: "leadMiss", col: f.col });
   }
+  // A flight down where the body is not met nothing: HARD's question, late.
+  if (due.some((f) => f.col !== s.col)) wasteShot(world);
   if (!hit) {
     s.dir = s.dir === 1 ? -1 : 1;
     settleLean(world, s);

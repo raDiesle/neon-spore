@@ -38,32 +38,35 @@ function refuse(world: World, col: number): void {
  * ruling about the soft crest arrived at from the other end — and the wrong
  * colour up the right column is the colour miss it plainly is.
  */
-export function ledgerStruck(world: World, bullet: Bullet): void {
+export function ledgerStruck(world: World, bullet: Bullet): boolean {
   const t = ledgerBoss(world);
-  if (t === null || t.outBeat >= 0) return;
+  if (t === null || t.outBeat >= 0) return false;
   const cfg = world.cfg;
-  if (!ledgerCovers(t, cfg, bullet.col)) return;
+  // Under the body, the bolt met it: the plating's refusal is armour
+  // (`shot-out.ts`).
+  if (!ledgerCovers(t, cfg, bullet.col)) return false;
   // A cord still paying out has nothing rooted to bill down, so the body
   // cannot be hurt yet: the design's step 1, which is a picture and not a
   // window (`ledgerPhase`).
   if (ledgerPhase(t, cfg, world.beat) === "rooting") {
     refuse(world, bullet.col);
-    return;
+    return true;
   }
   if (bullet.col !== ledgerSeamCol(t, cfg)) {
     refuse(world, bullet.col);
-    return;
+    return true;
   }
   if (bullet.color !== t.want) {
     missedColor(world);
     refuse(world, bullet.col);
-    return;
+    return true;
   }
   metColor(world);
   // The bill is the muzzle's once the cord whips, so a hit that reaches
   // the body does not put a second return on the cord for the same bolt
   // (`ledgerBills`).
   widenSeam(world, t, !ledgerWhips(t, cfg, world.beat));
+  return true;
 }
 
 /**

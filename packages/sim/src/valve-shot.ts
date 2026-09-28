@@ -12,9 +12,10 @@ import type { World } from "./world.js";
  * wrong, and what it costs to miss is the hull. The drum itself takes no
  * shot at all — every pin comes out by hand.
  */
-export function valveStruck(world: World, bullet: Bullet): void {
+export function valveStruck(world: World, bullet: Bullet): boolean {
   const s = valveBoss(world);
-  if (s === null || !valveLeaking(s) || bullet.col !== s.sparkCol) return;
+  if (s === null || !valveLeaking(s) || bullet.col !== s.sparkCol) return false;
   s.sparkCol = NO_SPARK;
   world.events.push({ type: "valveSparkOut", col: bullet.col });
+  return true;
 }

@@ -315,25 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## On HARD, whether a shot into a sky boss's armour is a wasted shot
-
-- **Found:** 2026-09-25, claude/hard-wasted-shot
-- **Taken:** 2026-09-28, claude/queue-on-hard-whether-a-shot-into-a-sky-bosss-armour-i
-- **Files:** `packages/sim/src/shot-out.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/lead-step.ts`, `packages/sim/test/wasted-shot.test.ts`
-- **Asks:** under a boss that hangs above the field, should a shot that meets nothing up there lose the wave on HARD too, or keep costing nothing, as it does now?
-- **Answered:** 2026-09-27 — judge each sky boss on HARD, over keeping the exemption. The owner: keep the exemption only if judging costs too much, and at about twelve small hooks it does not. On HARD, a shot that meets nothing above a sky boss loses the wave. A shot into armour still costs nothing.
-
-HARD's rule (a shot out of the top that nothing took loses the wave) is off
-while any of the twelve bosses in `SKY_BOSSES` is up. THE VANE lets a shot
-into its shut housing cost nothing, by design, and a right-colour hit on a sky
-boss pushes no event either, so the calls in `shotLeaves` cannot tell a bolt that met armour from one that met the sky. Two answers:
-**keep the exemption** (nothing to do; delete this entry), or **judge each sky
-boss on HARD**. That means each `*Struck` hook returns whether the bolt met
-anything, the silent armour paths return true, the rest false, and
-`shotLeaves` asks the hooks rather than `SKY_BOSSES`. THE LEAD's later
-`leadMiss` (`lead-step.ts`) is the same question a beat late. About twelve
-small hook files, and a test per boss in `wasted-shot.test.ts`.
-
 ## THE SCUTTLE's thread is drawn backwards and never leaves its socket
 
 - **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
@@ -1530,6 +1511,7 @@ is sent to the owner. `bun run check` proves the tests.
 - **Needs:** Living bosses — THE INSTAR's serpentine flight, as a VERSUS candidate
 - **Files:** `packages/render/src/instar-draw.ts`, `packages/render/src/instar-side-head.ts`, `packages/render/src/instar-turn.ts`, `tools/versus/candidates/registry.ts`, `docs/spec/living-bosses.md`
 - **Asks:** Of the four THE INSTAR candidates in VERSUS (one head, body with weight, turning, serpentine flight), which ship?
+- **Answered:** 2026-09-28, in part — not the one head as it stands. The owner: `INSTAR:HEAD · RIG` looks weird and has no good skin, but its facing toward the player is good and stays. Before this entry ships anything, the rig head needs a skin; the other three are judged once they are on VERSUS.
 
 Put the ones the owner picks on the field and retire what they replace:
 with the one head picked, `instar-side-head.ts` and the handover in

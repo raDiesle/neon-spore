@@ -24,16 +24,23 @@ import type { World } from "./world.js";
  * and touches nothing, because the design's beam is the answer to the last
  * segment alone, and a beam that took one earlier would make the last pass
  * a formality.
+ *
+ * **What it says to HARD** (`shot-out.ts`): a bolt put in flight met
+ * something for now, and is asked again when it comes due (`lead-step.ts`).
+ * Anything else meets the body only in the body's own column — the plating,
+ * which is armour — and nothing anywhere else.
  */
-export function leadStruck(world: World, b: Bullet): void {
+export function leadStruck(world: World, b: Bullet): boolean {
   const s = leadBoss(world);
-  if (s === null) return;
+  if (s === null) return false;
+  const body = b.col === s.col;
   if (b.lance) {
-    if (leadPassing(s) && b.col === s.col) leadMet(world, s, b.col);
-    return;
+    if (leadPassing(s) && body) leadMet(world, s, b.col);
+    return body;
   }
-  if (!leadShootable(s) || leadStill(s)) return;
+  if (!leadShootable(s) || leadStill(s)) return body;
   const dueBeat = world.beat + world.cfg.leadFlightBeats;
   s.flights.push({ col: b.col, dueBeat });
   world.events.push({ type: "leadFlight", col: b.col, dueBeat });
+  return true;
 }

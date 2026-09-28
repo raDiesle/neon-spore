@@ -11,10 +11,11 @@ import type { World } from "./world.js";
  * rule THE GIMBAL's seam already uses. What it costs to miss is the column,
  * and the column is the middle.
  */
-export function mantleStruck(world: World, bullet: Bullet): void {
+export function mantleStruck(world: World, bullet: Bullet): boolean {
   const s = mantleBoss(world);
-  if (s === null || !mantleLeaking(s)) return;
-  if (bullet.col !== s.sparkCol) return;
+  if (s === null || !mantleLeaking(s)) return false;
+  if (bullet.col !== s.sparkCol) return false;
   s.sparkCol = NO_SPARK;
   world.events.push({ type: "mantleSparkOut", col: bullet.col });
+  return true;
 }

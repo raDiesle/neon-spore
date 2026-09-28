@@ -43,15 +43,17 @@ function panelHeard(world: World, verb: InstarGesture, col: number): boolean {
  * A bolt gone out of the top of the field, from `shotLeaves`, heard by THE
  * NETTLE's SHOOT marks. One call per boss, named for it, because
  * `wasted-shot.test.ts` reads the boss off the name of every call there.
+ * A bolt a mark did not hear met nothing: the mark is the only thing up there
+ * a shot is for (`shot-out.ts`).
  */
-export function nettleStruck(world: World, b: Bullet): void {
-  if (world.boss?.kind === "nettle") panelHeard(world, "shoot", b.col);
+export function nettleStruck(world: World, b: Bullet): boolean {
+  return world.boss?.kind === "nettle" && panelHeard(world, "shoot", b.col);
 }
 
 /** The same, for THE INSTAR's SHOOT marks since its second act (§11.32). Two
  * calls rather than one so a bolt is heard once, by the boss that is up. */
-export function instarStruck(world: World, b: Bullet): void {
-  if (world.boss?.kind === "instar") panelHeard(world, "shoot", b.col);
+export function instarStruck(world: World, b: Bullet): boolean {
+  return world.boss?.kind === "instar" && panelHeard(world, "shoot", b.col);
 }
 
 /** The dome coming up, from the `guard` press. */

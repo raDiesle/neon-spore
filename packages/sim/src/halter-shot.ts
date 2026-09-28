@@ -14,19 +14,24 @@ import type { World } from "./world.js";
  * a colour missed on the balance sheet and the step stays lit. The last step
  * is authored `"either"`, the white centre, and takes both.
  */
-export function halterStruck(world: World, bullet: Bullet): void {
+export function halterStruck(world: World, bullet: Bullet): boolean {
   const s = halterBoss(world);
-  if (s === null || !s.bared) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.bared) return core;
   const step = halterLitStep(s);
-  if (step === null || step.ask !== "fire" || bullet.col !== midCol(world.cfg)) return;
+  if (step === null || step.ask !== "fire" || !core) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   s.hits += 1;
   world.events.push({ type: "halterHit", hits: s.hits, col: bullet.col });
   halterAnswered(world, s);
+  return true;
 }

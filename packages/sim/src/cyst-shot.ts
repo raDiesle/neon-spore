@@ -17,27 +17,31 @@ import type { World } from "./world.js";
  * **A bud** takes its shot up the column it swells over, in its colour, bared
  * core or not: it is a growth out of the flank, not the core.
  */
-export function cystStruck(world: World, bullet: Bullet): void {
+export function cystStruck(world: World, bullet: Bullet): boolean {
   const s = cystBoss(world);
-  if (s === null) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
   const step = cystLitStep(s);
-  if (step === null) return;
+  if (step === null) return core;
   const bud = step.ask === "bud";
-  if (!bud && (step.ask !== "fire" || !s.bared)) return;
-  if (bullet.col !== cystStepCol(midCol(world.cfg), step)) return;
+  if (!bud && (step.ask !== "fire" || !s.bared)) return core;
+  if (bullet.col !== cystStepCol(midCol(world.cfg), step)) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   if (bud) {
     world.events.push({ type: "cystPop", col: bullet.col });
     cystAnswered(world, s);
-    return;
+    return true;
   }
   s.hits += 1;
   world.events.push({ type: "cystHit", hits: s.hits, col: bullet.col });
   cystAnswered(world, s);
+  return true;
 }

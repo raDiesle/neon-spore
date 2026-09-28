@@ -109,12 +109,16 @@ export function stepVane(world: World, b: VaneState): void {
  * The column also has to be *clear*, and that is not a rule, it is the field:
  * a shot stops at the first body in its way, so the pair are firing up a lane
  * they have kept empty. The boss defends itself with what it throws.
+ *
+ * **Every bolt meets the housing**, split or shut, so the answer to HARD's
+ * question is always yes while the boss is up: a shot into the shut housing
+ * is armour and costs nothing, by design (`shot-out.ts`).
  */
-export function vaneStruck(world: World, bullet: Bullet): void {
+export function vaneStruck(world: World, bullet: Bullet): boolean {
   const b = world.boss;
-  if (b === null || b.kind !== "vane") return;
-  if (!vaneBearingOpen(world, b) || vaneOpeningSpent(world, b)) return;
-  if (bullet.col !== vaneSplitCol(world, b)) return;
+  if (b === null || b.kind !== "vane") return false;
+  if (!vaneBearingOpen(world, b) || vaneOpeningSpent(world, b)) return true;
+  if (bullet.col !== vaneSplitCol(world, b)) return true;
   // The colour is the cycle's in every phase: the housing has worn it since
   // the arm stopped, and a pinned arm is an arm that has stopped. Under VEER
   // and SEIZE the opening number is the one the cycle would have been on, so
@@ -123,16 +127,17 @@ export function vaneStruck(world: World, bullet: Bullet): void {
   if (bullet.color !== vaneColor(vaneOpeningNow(world.waveBeat))) {
     missedColor(world);
     world.events.push({ type: "reject", col: bullet.col, row: 0 });
-    return;
+    return true;
   }
 
   metColor(world);
   spendOpening(world, b);
   b.pins -= 1;
   world.events.push({ type: "vaneKnock", pins: b.pins, col: bullet.col });
-  if (b.pins > 0) return;
+  if (b.pins > 0) return true;
 
   world.boss = null;
+  return true;
 }
 
 /** One hit per opening, whichever kind of opening this phase has. */

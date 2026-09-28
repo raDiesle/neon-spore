@@ -32,14 +32,16 @@ import type { World } from "./world.js";
  * laid the beat the growth begins, for the screens, but a bolt into a
  * contour still resolving is a guess.
  */
-export function antiphonStruck(world: World, b: Bullet): void {
+export function antiphonStruck(world: World, b: Bullet): boolean {
   const s = antiphonBoss(world);
-  if (s === null || b.lance || s.downBeat >= 0) return;
-  if (!standing(s, world)) return;
+  if (s === null || b.lance || s.downBeat >= 0) return false;
+  if (!standing(s, world)) return false;
   const o = antiphonOrganAt(s, b.col);
+  // An organ over the column met the bolt in either colour: the wrong one is
+  // armour (`shot-out.ts`).
   if (o !== null) {
     if (b.color === o.color) antiphonPit(world, s, o);
-    return;
+    return true;
   }
   // A candidate she has pulled off the rail is no longer a candidate: a bolt
   // into its column and colour is nothing, unsaid, as a bolt into an empty
@@ -48,7 +50,9 @@ export function antiphonStruck(world: World, b: Bullet): void {
   const decoy = s.rail.findIndex(
     (c, i) => c.col === b.col && c.color === b.color && !antiphonCrossed(s, i),
   );
-  if (decoy >= 0) antiphonHarden(world, s, b.col);
+  if (decoy < 0) return false;
+  antiphonHarden(world, s, b.col);
+  return true;
 }
 
 /** Whether an organ stands, grown all the way out. */

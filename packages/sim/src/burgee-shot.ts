@@ -14,19 +14,24 @@ import type { World } from "./world.js";
  * a colour missed on the balance sheet and the step stays lit. The last step
  * is authored `"either"`, the white spindle, and takes both.
  */
-export function burgeeStruck(world: World, bullet: Bullet): void {
+export function burgeeStruck(world: World, bullet: Bullet): boolean {
   const s = burgeeBoss(world);
-  if (s === null || !s.spindleLit) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.spindleLit) return core;
   const step = burgeeLitStep(s);
-  if (step === null || step.ask !== "fire" || bullet.col !== midCol(world.cfg)) return;
+  if (step === null || step.ask !== "fire" || !core) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   s.hits += 1;
   world.events.push({ type: "burgeeHit", hits: s.hits, col: bullet.col });
   burgeeAnswered(world, s);
+  return true;
 }

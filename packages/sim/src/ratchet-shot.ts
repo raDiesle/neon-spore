@@ -8,10 +8,11 @@ import type { World } from "./world.js";
  * grey and never shot, and **either colour** takes the bolt, because a loose
  * bolt is not a body whose colour the pair could have got wrong.
  */
-export function ratchetStruck(world: World, bullet: Bullet): void {
+export function ratchetStruck(world: World, bullet: Bullet): boolean {
   const s = ratchetBoss(world);
-  if (s === null || !ratchetLoose(s)) return;
-  if (bullet.col !== s.boltCol) return;
+  if (s === null || !ratchetLoose(s)) return false;
+  if (bullet.col !== s.boltCol) return false;
   s.boltCol = NO_BOLT;
   world.events.push({ type: "ratchetBoltOut", col: bullet.col });
+  return true;
 }

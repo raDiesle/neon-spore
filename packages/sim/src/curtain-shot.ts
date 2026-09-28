@@ -37,14 +37,16 @@ export function curtainHemStruck(world: World, b: Bullet, hit: Creature): void {
  * lobe nearest it drops, it drifts, and the rail jams behind it. The other
  * colour is answered with a rock down the column at once.
  */
-export function curtainStruck(world: World, b: Bullet): void {
+export function curtainStruck(world: World, b: Bullet): boolean {
   const c = curtainBoss(world);
-  if (c === null || c.phase === "out" || b.col !== c.coreCol) return;
-  if (!curtainCoreBare(world, c)) return;
+  // The fabric is a body on the field and stops a bolt there, so the core is
+  // the one thing up here: covered, it is armour (`shot-out.ts`).
+  if (c === null || c.phase === "out" || b.col !== c.coreCol) return false;
+  if (!curtainCoreBare(world, c)) return true;
   if (b.color !== c.coreColor) {
     missedColor(world);
     curtainFire(world, c);
-    return;
+    return true;
   }
   metColor(world);
   // The jam's ask answered, or the fight's last: either way the slow over
@@ -57,7 +59,7 @@ export function curtainStruck(world: World, b: Bullet): void {
   if (left <= 0) {
     enterCurtain(world, c, "out");
     world.events.push({ type: "curtainOut", col: c.coreCol });
-    return;
+    return true;
   }
   const body = curtainBody(world, c);
   if (body !== undefined) {
@@ -89,4 +91,5 @@ export function curtainStruck(world: World, b: Bullet): void {
     openSlow(world, world.cfg.curtainPinBeats, "ask");
     world.events.push({ type: "curtainPin", col: c.coreCol, beats: world.cfg.curtainPinBeats });
   }
+  return true;
 }

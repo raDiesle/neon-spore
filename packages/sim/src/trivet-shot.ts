@@ -24,21 +24,27 @@ import type { World } from "./world.js";
  * foot it leans on is held down by its own seat's chord: a hub shot off a
  * stand going over is a bolt into the dark.
  */
-export function trivetStruck(world: World, bullet: Bullet): void {
+export function trivetStruck(world: World, bullet: Bullet): boolean {
   const s = trivetBoss(world);
-  if (s === null || !s.hubLit) return;
+  if (s === null) return false;
+  // The hub is in the middle column, lit or not: a bolt there met it, and
+  // while it is dark that is armour (`shot-out.ts`). So is a tipped leg's
+  // column with the chord not held.
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.hubLit) return core;
   const step = trivetLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "tip")) return;
-  if (bullet.col !== trivetStepCol(midCol(world.cfg), step)) return;
-  if (step.ask === "tip" && !trivetChordHeld(s, trivetTipSide(step), step.pads)) return;
+  if (step === null || (step.ask !== "fire" && step.ask !== "tip")) return core;
+  if (bullet.col !== trivetStepCol(midCol(world.cfg), step)) return core;
+  if (step.ask === "tip" && !trivetChordHeld(s, trivetTipSide(step), step.pads)) return true;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   s.hits += 1;
   world.events.push({ type: "trivetHit", hits: s.hits, col: bullet.col });
   trivetAnswered(world, s);
+  return true;
 }

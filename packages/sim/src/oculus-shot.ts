@@ -19,17 +19,21 @@ import type { World } from "./world.js";
  * it. It is not a hit — the core was not struck, only met — so the three
  * hits stay the fight's health.
  */
-export function oculusStruck(world: World, bullet: Bullet): void {
+export function oculusStruck(world: World, bullet: Bullet): boolean {
   const s = oculusBoss(world);
-  if (s === null || !s.socketOpen) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.socketOpen) return core;
   const step = oculusLitStep(s);
-  if (step === null || (step.ask !== "fire" && step.ask !== "look")) return;
+  if (step === null || (step.ask !== "fire" && step.ask !== "look")) return core;
   const col = step.ask === "look" ? oculusLookCol(midCol(world.cfg), step) : midCol(world.cfg);
-  if (bullet.col !== col) return;
+  if (bullet.col !== col) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
@@ -39,4 +43,5 @@ export function oculusStruck(world: World, bullet: Bullet): void {
     world.events.push({ type: "oculusHit", hits: s.hits, col });
   }
   oculusAnswered(world, s);
+  return true;
 }

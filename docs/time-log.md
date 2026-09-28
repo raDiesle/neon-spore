@@ -28025,3 +28025,17 @@ The bottleneck was the lean's name spread over twenty-six files, so the renames 
 The bottleneck was `adopt` refusing an inline `paint`, so the take went by hand and the slot closed with `drop`.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — On HARD, each sky boss judges a bolt out of the top
+
+- reading: 5 min. `shot-out.ts` and all thirty-three `*Struck` hooks, the
+  rigs, THE LEAD's judge.
+- writing: 10 min. The hooks return whether the bolt met anything, by script
+  for the sixteen cored bosses and by hand for the rest; `shot-wasted.ts`,
+  the per-boss test, the two spec paragraphs.
+- looking: 0 min. Nothing drawn changed; a wasted bolt was already drawn.
+- friction: 5 min. `lead-step.ts` went two lines past the limit, and the
+  guard refused a heredoc with a doubled backslash.
+- landing: 5 min. `check:fast`, the index row, the commit, `land`.
+
+The bottleneck was deciding, per boss, which of its silent paths were armour, before any hook could be edited.

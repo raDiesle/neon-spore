@@ -36,18 +36,20 @@ import type { World } from "./world.js";
  * beam standing in an open breach's column in its colour is a bolt held
  * there, and it is judged once, on the tick it burns the column.
  */
-export function hiveStruck(world: World, b: Bullet): void {
+export function hiveStruck(world: World, b: Bullet): boolean {
   const s = hiveBoss(world);
-  if (s === null || hiveDown(s)) return;
+  if (s === null || hiveDown(s)) return false;
   const i = hiveClenched(s) ? -1 : hiveOpenAt(s, b.col);
+  // The underside spans the field, so every bolt meets it: the skin is
+  // armour (`shot-out.ts`).
   if (i < 0) {
     world.events.push({ type: "hiveSkin", col: b.col });
-    return;
+    return true;
   }
   if (!hiveSealedBy(s, i, b.color)) {
     s.spillBeat -= world.cfg.hiveProvokeBeats;
     world.events.push({ type: "hiveWrong", col: b.col });
-    return;
+    return true;
   }
   s.sealed[i] = true;
   const left = hiveLeft(s);
@@ -56,15 +58,16 @@ export function hiveStruck(world: World, b: Bullet): void {
     // Hurt on a count rather than on a clock: the underside draws up out of
     // reach on every `hiveClenchEvery`-th scar, and the openings go on
     // arriving behind it (`hive-step.ts`).
-    if (hiveSealedCount(s) % world.cfg.hiveClenchEvery !== 0) return;
+    if (hiveSealedCount(s) % world.cfg.hiveClenchEvery !== 0) return true;
     s.haulMilli = 0;
     enterHivePhase(s, "clench", world.beat);
     world.events.push({ type: "hiveClench", col: midCol(world.cfg) });
-    return;
+    return true;
   }
   // The last seal is the drama, and it is watched at the slow rate.
   s.downBeat = world.beat;
   enterHivePhase(s, "down", world.beat);
   openSlow(world, world.cfg.hiveSlowBeats, "show");
   world.events.push({ type: "hiveDown", col: b.col });
+  return true;
 }

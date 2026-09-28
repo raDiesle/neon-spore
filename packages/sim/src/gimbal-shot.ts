@@ -17,10 +17,11 @@ import type { World } from "./world.js";
  * nothing here is billed to the colour balance. What it costs to miss is the
  * column, and the column is the middle.
  */
-export function gimbalStruck(world: World, bullet: Bullet): void {
+export function gimbalStruck(world: World, bullet: Bullet): boolean {
   const s = gimbalBoss(world);
-  if (s === null || !gimbalLeaking(s)) return;
-  if (bullet.col !== s.seamCol) return;
+  if (s === null || !gimbalLeaking(s)) return false;
+  if (bullet.col !== s.seamCol) return false;
   s.seamCol = NO_SEAM;
   world.events.push({ type: "gimbalSeamOut", col: bullet.col });
+  return true;
 }

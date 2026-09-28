@@ -14,19 +14,24 @@ import type { World } from "./world.js";
  * colour missed on the balance sheet and the step stays lit. The last step is
  * authored `"either"`, the white pivot, and takes both.
  */
-export function davitStruck(world: World, bullet: Bullet): void {
+export function davitStruck(world: World, bullet: Bullet): boolean {
   const s = davitBoss(world);
-  if (s === null || !s.pivotLit) return;
+  if (s === null) return false;
+  // The core is in the middle column, bared or not: a bolt there met it,
+  // and while it is shut that is armour (`shot-out.ts`).
+  const core = bullet.col === midCol(world.cfg);
+  if (!s.pivotLit) return core;
   const step = davitLitStep(s);
-  if (step === null || step.ask !== "fire" || bullet.col !== midCol(world.cfg)) return;
+  if (step === null || step.ask !== "fire" || !core) return core;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
   s.hits += 1;
   world.events.push({ type: "davitHit", hits: s.hits, col: bullet.col });
   davitAnswered(world, s);
+  return true;
 }

@@ -17,15 +17,17 @@ import type { World } from "./world.js";
  * **The glow** takes either colour and more than one shot: it is answered
  * once `seamGlowShots` have landed, each a `seamQuench` with what is left.
  */
-export function seamStruck(world: World, bullet: Bullet): void {
+export function seamStruck(world: World, bullet: Bullet): boolean {
   const s = seamBoss(world);
-  if (s === null || !seamWantsShot(s)) return;
+  // Only a lit step stands in a column: a bolt anywhere else met nothing
+  // (`shot-out.ts`).
+  if (s === null || !seamWantsShot(s)) return false;
   const step = seamLitStep(s);
-  if (step === null || bullet.col !== seamStepCol(world, step)) return;
+  if (step === null || bullet.col !== seamStepCol(world, step)) return false;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);
-      return;
+      return true;
     }
     metColor(world);
   }
@@ -35,7 +37,7 @@ export function seamStruck(world: World, bullet: Bullet): void {
     s.quenched += 1;
     const left = Math.max(0, world.cfg.seamGlowShots - s.quenched);
     world.events.push({ type: "seamQuench", left, col: bullet.col });
-    if (left > 0) return;
+    if (left > 0) return true;
   }
   s.shot = true;
   if (step.ask === "point") {
@@ -49,4 +51,5 @@ export function seamStruck(world: World, bullet: Bullet): void {
     world.events.push({ type: "seamRockOut", col: bullet.col });
   }
   if (!seamWantsShield(s)) seamAnswered(world, s);
+  return true;
 }

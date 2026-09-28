@@ -6614,8 +6614,9 @@ the engine changes: a pose is a name the picture keys a `Figure` on, and a
 part is a name the strike keys its picture on.
 
 **The shot out of the top is THE INSTAR's** while it is up, the way it is
-every other sky boss's (`shot-out.ts`, `SKY_BOSSES`): a bolt fired at the
-body is not a shot at nothing on HARD.
+every other sky boss's (`shot-out.ts`, `SKY_BOSSES`). Since 28 September
+2026 HARD asks each sky boss whether a bolt met it, and a scene's answer is
+its SHOOT marks: a bolt no mark heard met nothing, and loses the wave there.
 
 **The in-between motion is not the script's.** The morph is still
 `morphBeats` with the marks hidden, and the simulation says nothing about how
@@ -7657,7 +7658,8 @@ Each press counts one on the first undone mark of that word in that column,
 so two globs in one column are two presses. The mark stands on a column's
 centre, `(col + ½)` elevenths of the field, so the column it names is the
 column it is drawn in (`instarMarkCol`). THE NETTLE is a sky boss
-(`SKY_BOSSES`), so no shot at it is ever wasted on HARD.
+(`SKY_BOSSES`), and on HARD a bolt no SHOOT mark heard is a wasted shot
+(`scene-panel.ts`).
 
 **A panel mark never slips.** Nobody can hold a press, so `instarHeld` answers
 true for one, and a thumb's mark finished alone slips only while another
