@@ -28626,3 +28626,5 @@ The bottleneck: a slip carried no seat, so the event had to be widened, with eve
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: the launch entry pointed at another worktree, so the first page measured was not this tree's.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

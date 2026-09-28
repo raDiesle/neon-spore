@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 4e86042e6 — A wave in the director's list is dragged to a new place
+
+Drag a row in the wave list and let it go on another: the wave takes that row's place, after it when dragged down and before it when dragged up, and a gold line on the row's edge says which before the drop. The wave that was open stays open. ↑ and ↓ are the same move with a neighbour now (`rail-drag.ts`).
+
 ## 2026-09-28 · 9c4aae95d — THE OCULUS's marks answer a touch the way every mark does
 
 Each half of the lens wears the halo on its own seat's screen and the partner's ring and clock on the other's while a pair to hold is lit, so a thumb already down sees the one still missing; the core and the hull under the eye halo on both screens while a shot or the shield is asked. A pair shut greens both halves, a slip reddens the slipping seat's half — the slip now says whose thumb it was — and a step let run out reddens only what it asked.
