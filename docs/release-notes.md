@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · e9cc75fe1 — THE LEDGER's rings answer a touch as far as its split lets them
+
+Each of THE LEDGER's rings stands on one screen only, so it follows THE GAUGE's case. The ring being offered wears a halo on its owner's screen while the thumb is off it: the root on the navigator's screen for the foot and the plug, and the soonest return and the taut cord on the pilot's. A step of the foot and a thumb into the socket wash the root green. A pull washes the return it moved. The partner gets no ring and no clock, and nothing is refused, because the other seat has nothing to press.
+
 ## 2026-09-28 · de4771b32 — A kept claim's re-stamp keeps its `Taken:` line in this tree
 
 `bun run queue take` on a claim branch this tree kept takes the old mark off both copies of the file, then writes the same line back onto the trunk. The fast-forward then had nothing in the file to change, so the line stayed off in this tree's copy, and every roll-out lane started with a stray `docs/queue.md` diff. The mark is now written back here too.
