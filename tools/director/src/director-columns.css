@@ -173,6 +173,17 @@ section.collapsed .column-body {
   gap: 2px;
   min-width: 0;
 }
+/* Dragged to a new place (`rail-drag.ts`): the row travelling is dimmed, and
+   the row under it shows on which edge the wave will land. */
+.wave-row.dragging {
+  opacity: 0.4;
+}
+.wave-row.drop-before {
+  box-shadow: 0 -2px 0 var(--gold);
+}
+.wave-row.drop-after {
+  box-shadow: 0 2px 0 var(--gold);
+}
 .wave-row > button:first-child {
   flex: 1;
   min-width: 0;

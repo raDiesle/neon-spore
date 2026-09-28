@@ -28616,3 +28616,13 @@ The bottleneck: a boss answered with the cannon and the shield has no thumb mark
 The bottleneck: a slip carried no seat, so the event had to be widened, with every place that builds it, before the red could land on the right half.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — a wave in the director's list is dragged to a new place
+
+- reading: 5 min. `rail.ts`, `rail-list.ts`, the ↑ ↓ `move`, how a save cuts the list across the acts.
+- writing: 5 min. `rail-drag.ts`, the row wiring, the drop line in the stylesheet, seven tests.
+- looking: 5 min. The director in the browser pane, a drag fired through real `DragEvent`s, one PNG.
+- friction: 5 min. `director-here` first served another worktree until `bun run here` was run; a scripted mouse drag starts no native drag.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the launch entry pointed at another worktree, so the first page measured was not this tree's.

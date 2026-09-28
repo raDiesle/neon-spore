@@ -6,6 +6,7 @@ import {
 } from "@neon-spore/content";
 import { bindBossTypeField } from "./boss-type-field.js";
 import { renderControlSetNote } from "./control-set-note.js";
+import { moveWave, rowDrag } from "./rail-drag.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
@@ -70,11 +71,20 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     onSelect();
   };
 
+  // A row let go on another carries its wave there, and the stage is rebuilt
+  // for the same reason it is after ↑ and ↓ (`rail-drag.ts`).
+  const drag = rowDrag((from, to) => {
+    moveWave(store, from, to);
+    store.dirty = true;
+    onSelect();
+  });
+
   const renderList = (): void => {
     if (!list) return;
     const passes = (waves: Store["waves"], i: number): boolean =>
       filter.passes(waves, i) && symbols.passes(waves, i);
-    filter.report(renderRows(list, store, passes, select), store.waves.length, symbols.active());
+    const matched = renderRows(list, store, passes, select, drag);
+    filter.report(matched, store.waves.length, symbols.active());
   };
 
   const renderFields = (): void => {
@@ -189,10 +199,5 @@ function setBossGuard(btn: HTMLButtonElement | null, hasBoss: boolean, why: stri
 
 /** The stage is rebuilt after a move to reflect the wave's new position. */
 function move(store: Store, delta: number): void {
-  const to = store.index + delta;
-  if (to < 0 || to >= store.waves.length) return;
-  const [wave] = store.waves.splice(store.index, 1);
-  if (!wave) return;
-  store.waves.splice(to, 0, wave);
-  store.index = to;
+  moveWave(store, store.index, store.index + delta);
 }

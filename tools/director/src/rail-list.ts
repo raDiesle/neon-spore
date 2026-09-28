@@ -1,3 +1,4 @@
+import type { RowDrag } from "./rail-drag.js";
 import { waveMarks } from "./rail-marks.js";
 import { openButtons } from "./rail-open.js";
 import type { Store } from "./state.js";
@@ -18,6 +19,7 @@ export function renderRows(
   store: Store,
   passes: (waves: Store["waves"], i: number) => boolean,
   select: (i: number) => void,
+  drag?: RowDrag,
 ): number {
   list.replaceChildren();
   let matched = 0;
@@ -48,6 +50,8 @@ export function renderRows(
     const row = document.createElement("div");
     row.className = ["wave-row", ...marks].join(" ");
     row.append(button, ...openButtons(i, select));
+    // Carried to a new place by dragging it (`rail-drag.ts`).
+    drag?.bind(row, i);
     list.appendChild(row);
   }
   return matched;
