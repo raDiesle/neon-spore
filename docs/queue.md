@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SPOOL answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Taken:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do (claim: claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe)
 - **Files:** `packages/render/src/spool-grip.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
 
 The owner's rule of 24 September 2026, and his answer of the 27th: the same
