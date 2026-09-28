@@ -41,6 +41,12 @@ export type FleetEvent =
   | { type: "fleetFlood"; col: number; row: number }
   /** The navigator's thumb landing on the plume (`on`) or leaving it. */
   | { type: "fleetBreach"; col: number; row: number; on: boolean }
+  /**
+   * The pilot's thumb landing on the holed hull, or the navigator's pull on
+   * the wreck taking: the green round that seat's ring (`fleet-hand.ts`).
+   * Her thumb landing on the plume is `fleetBreach`, which already says so.
+   */
+  | { type: "fleetHold"; col: number; row: number; part: "rake" | "wreck" }
   /** A square of the holed hull struck by the pilot's rake. */
   | { type: "fleetRake"; col: number; row: number }
   /**

@@ -29,7 +29,7 @@ export function isFleetEvent(e: SimEvent): e is FleetEvent {
   return e.type.startsWith("fleet");
 }
 
-export function fleetCue(e: FleetEvent, cols: number, rows: number): Cue {
+export function fleetCue(e: FleetEvent, cols: number, rows: number): Cue | null {
   const pan = panForCol(e.col, cols);
   if (e.type === "fleetSalvo") return { id: "boss.fleetLaunch", pan };
   // The second and third states, sounding where they are: the plume stands
@@ -40,6 +40,10 @@ export function fleetCue(e: FleetEvent, cols: number, rows: number): Cue {
   // is what a hull healed back to water sounds like.
   if (e.type === "fleetFlood") return { id: "ship.gripStrain", pan };
   if (e.type === "fleetBreach") return { id: e.on ? "ship.gripTake" : "ship.gripSlip", pan };
+  // Silent by design: a thumb landing on the hull, or a pull on the wreck
+  // taking, is the green round that seat's own ring, and the take her thumb
+  // on the plume already makes is the one sound this moment has.
+  if (e.type === "fleetHold") return null;
   if (e.type === "fleetRake") return { id: "boss.fleetHit", pan, pitch: pitchForRow(e.row, rows) };
   if (e.type === "fleetPlug")
     return { id: "boss.fleetSplash", pan, pitch: pitchForRow(e.row, rows) };

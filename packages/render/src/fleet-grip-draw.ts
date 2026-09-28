@@ -1,10 +1,17 @@
-import { type FleetState, fleetWindowLeft, type SimConfig, type World } from "@neon-spore/sim";
+import {
+  type FleetState,
+  fleetWindowLeft,
+  fleetWoundAsks,
+  type SimConfig,
+  type World,
+} from "@neon-spore/sim";
 import { type Chart, chartOf } from "./fleet-chart.js";
 import { drawDrainBar, FLEET_LATE } from "./fleet-clock.js";
-import { FLEET_RING_MUL, fleetHoleCircle, fleetRingCentre, fleetWreckPull } from "./fleet-grip.js";
+import { fleetHoleCircle, fleetSeatRing } from "./fleet-grip.js";
 import { drawGripRing } from "./grip-rings.js";
 import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { seatOf } from "./view-role.js";
 
@@ -99,9 +106,11 @@ export function drawFleetGrip(
 
   const seat = seatOf(l.role);
   const grip = gripOf(b, seat);
-  const pull = seat === 2 ? fleetWreckPull(c, b) : 0;
-  const at = fleetRingCentre(c, b, seat);
-  drawGripRing(ctx, at.x, at.y + pull, hole.r * FLEET_RING_MUL, grip.held, time);
+  const ring = fleetSeatRing(c, b, seat);
+  // Asked of both thumbs while the wound is open, so the halo is under this
+  // seat's ring until its thumb is down (`fleet-grip-marks.ts`).
+  if (fleetWoundAsks(b) && !grip.held) drawMarkHalo(ctx, ring.x, ring.y, ring.r, time);
+  drawGripRing(ctx, ring.x, ring.y, ring.r, grip.held, time);
   // The word goes as soon as the thumb lands, the way THE MAZE's heart's does.
   if (!grip.held) {
     drawHandleHint(ctx, l, l.role, hole.x, hole.y + c.tile * 1.05, HINT_LOUD, grip.words);

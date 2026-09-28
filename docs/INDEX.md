@@ -1808,6 +1808,7 @@ by hand never moves.
 | `packages/render/src/fleet-water.ts` | The water THE FLEET's chart stands on, and what closes over a hull that has gone down in it |
 | `packages/render/src/fleet-grip-draw.ts` | **What the wound looks like while it is being worked** — the plume out of it, the state's own clock under it |
 | `packages/render/src/fleet-grip-fx.ts` | **The five moments of THE FLEET's wound** — the water coming in, the thumb that keeps it coming |
+| `packages/render/src/fleet-grip-marks.ts` | THE FLEET's two rings haloed while the wound is open and answering a touch green, each on its own seat's screen |
 | `packages/render/src/fleet-grip.ts` | **THE FLEET's three thumbs on the chart** — the plume, the rake and the wreck |
 | `packages/render/src/flip-seam.ts` | **THE FLIP's fold, drawn** — a pane of glass down the middle of the turned screen, and ⇄ across it |
 | `packages/render/src/flip-reveal.ts` | **THE FLIP's projection breaking up** — two tiles above the hull, the mirrored body tears into strips and the true one arrives in its own column |

@@ -1359,6 +1359,19 @@ cleared with everything else in `Effects.reset` (`restart.test.ts` checks);
 the five events stay on both silent lists, read above the loop as one family
 the way THE WARDEN's three are.
 
+**Its two rings answer a touch the way every mark does** (28 September 2026,
+the owner's consistent visual; `packages/render/src/fleet-grip-marks.ts`).
+Both thumbs are asked while the wound is open, in the flood and in the wreck
+(`fleetWoundAsks`), so this seat's ring wears the halo until its thumb is
+down, and the thumb landing washes that ring green — `fleetBreach` for hers on
+the plume, `fleetHold` for his on the hull and for her pull on the wreck
+taking, the one new event, silent because her take is already heard. **No
+partner's ring, clock or red**: both rings stand on the one circle of the
+wound, so the partner's would sit inside this seat's own, and neither screen
+draws the other seat's ring, so there is nothing a wrong thumb could land on.
+The green lives in `FleetGripFx` beside the thrown rings and is drawn last of
+everything the fleet draws.
+
 *What is not built:* the sound. *Never watched at tempo*: whether ten beats
 is a flood a pair can rake a five-long hull in while talking, and what the
 five rings look like going past at that speed.

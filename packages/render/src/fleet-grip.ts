@@ -78,6 +78,16 @@ export function fleetWreckPull(c: Chart, b: FleetState): number {
   return b.phase === "wreck" ? (b.wreckPullMilli * c.tile) / 1000 : 0;
 }
 
+/**
+ * A seat's whole ring, where it stands this frame and how wide: the halo, the
+ * ring and the verdict round it are all drawn on this one circle.
+ */
+export function fleetSeatRing(c: Chart, b: FleetState, seat: 1 | 2): Circle {
+  const at = fleetRingCentre(c, b, seat);
+  const pull = seat === 2 ? fleetWreckPull(c, b) : 0;
+  return { x: at.x, y: at.y + pull, r: fleetHoleCircle(c, b).r * FLEET_RING_MUL };
+}
+
 /** The holed hull's own rectangle, which is what the pilot's thumb may land on. */
 function hullBox(c: Chart, ship: FleetShip): { x: number; y: number; w: number; h: number } {
   const last = ship.len - 1;

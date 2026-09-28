@@ -226,6 +226,8 @@ export {
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";
+// Whether THE FLEET's wound asks for both thumbs, which its rings read (`fleet-grip-marks.ts`).
+export { fleetWoundAsks } from "./fleet-hand.js";
 // Which parts THE GAUGE asks a hand for, which its rings read (`gauge-marks.ts`).
 export { gaugeBandAsks, gaugeNeedleAsks } from "./gauge-hand.js";
 // Which parts THE MAZE asks a hand for, which its rings read (`maze-marks.ts`).

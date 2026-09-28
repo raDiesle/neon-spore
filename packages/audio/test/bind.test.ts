@@ -761,6 +761,7 @@ const SAMPLES: Record<string, SimEvent> = {
   fleetDown: { type: "fleetDown", col: 4, row: 6 },
   fleetFlood: { type: "fleetFlood", col: 4, row: 6 },
   fleetBreach: { type: "fleetBreach", col: 4, row: 6, on: true },
+  fleetHold: { type: "fleetHold", col: 4, row: 6, part: "rake" },
   fleetRake: { type: "fleetRake", col: 5, row: 6 },
   fleetPlug: { type: "fleetPlug", col: 4, row: 6 },
   fleetWreck: { type: "fleetWreck", col: 4, row: 6 },
@@ -796,12 +797,15 @@ describe("bindings", () => {
   // `gaugeHold` is the fifth: a thumb landing on THE GAUGE's needle or band is
   // the ring filling on the one screen that shows it, and a sound would tell
   // the other seat what the round keeps from it (`sim/gauge-hand.ts`).
+  // `fleetHold` is the sixth: a thumb landing on THE FLEET's wound is the green
+  // round that seat's ring, and her take on the plume is already heard.
   const SILENT_BY_DESIGN = new Set([
     "needWave",
     "choirMerge",
     "shotOut",
     "mirrorTouch",
     "gaugeHold",
+    "fleetHold",
   ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {

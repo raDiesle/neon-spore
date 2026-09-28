@@ -4,6 +4,7 @@ import { drawCairn } from "./cairn.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetGrip } from "./fleet-grip-draw.js";
+import { drawFleetVerdict } from "./fleet-grip-marks.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -182,6 +183,9 @@ export function drawBoss(
     effects.boss.fleetGrip.draw(ctx, chart);
     fleet.drawFlight(ctx, l, chart, world.cannonCol);
     fleet.drawBursts(ctx, chart);
+    // The green round this seat's ring when its thumb landed, over everything
+    // the way every verdict is (`fleet-grip-marks.ts`).
+    drawFleetVerdict(ctx, l, world, boss, effects.boss.fleetGrip.marks.verdicts);
     return;
   }
 

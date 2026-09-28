@@ -19,6 +19,13 @@ import type { World } from "./world.js";
  * wreck is hers again. A seat's thumb on the other's handle is dropped
  * without a sound — the same silence THE GORGE keeps on a wrong intake.
  *
+ * **Both thumbs are asked while the wound is open** (`fleetWoundAsks`), and
+ * each landing is said once — `fleetBreach` for hers on the plume, `fleetHold`
+ * for his on the hull and for her pull on the wreck taking — so each ring
+ * answers a touch the way every mark does (`render/fleet-grip-marks.ts`). A
+ * wrong seat is not refused: neither screen ever draws the other's ring, so
+ * there is nothing on it a wrong thumb could land on.
+ *
  * - `fleetBreach` — the navigator's thumb held on the plume. Carries only
  *   `on`; where on the plume it landed says nothing the round wants to know.
  * - `fleetRake` — the pilot's thumb carried along the hull from the hole.
@@ -31,6 +38,11 @@ import type { World } from "./world.js";
  *   upward is no pull, and reaching `fleetWreckPullMilli` while the pilot's
  *   thumb is still on the hull sinks it on this tick.
  */
+/** Whether the wound asks for both thumbs: in the flood and in the wreck, never in the hunt. */
+export function fleetWoundAsks(b: FleetState): boolean {
+  return b.phase === "flood" || b.phase === "wreck";
+}
+
 export function fleetHandsHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
   const b = fleetRound(world);
@@ -40,7 +52,7 @@ export function fleetHandsHeard(world: World, player: 1 | 2, command: Command): 
       if (player === 2) breach(world, b, command.on);
       return;
     case "fleetRake":
-      if (player === 1) rake(b, command.on, command.fromMilli, command.fromYMilli ?? 0);
+      if (player === 1) rake(world, b, command.on, command.fromMilli, command.fromYMilli ?? 0);
       return;
     case "fleetWreck":
       if (player === 2) wreck(world, b, command.on, command.fromYMilli ?? 0);
@@ -58,7 +70,13 @@ function breach(world: World, b: FleetState, on: boolean): void {
   world.events.push({ type: "fleetBreach", col: b.holeCol, row: b.holeRow, on });
 }
 
-function rake(b: FleetState, on: boolean, acrossMilli: number, downMilli: number): void {
+function rake(
+  world: World,
+  b: FleetState,
+  on: boolean,
+  acrossMilli: number,
+  downMilli: number,
+): void {
   if (!on || b.phase === "hunt") {
     b.rakeOn = false;
     b.rakeCol = -1;
@@ -67,6 +85,7 @@ function rake(b: FleetState, on: boolean, acrossMilli: number, downMilli: number
   }
   const ship = b.ships[b.holed];
   if (ship === undefined) return;
+  if (!b.rakeOn) world.events.push(hold(b, "rake"));
   b.rakeOn = true;
   b.rakeCol = b.holeCol + (ship.dir === "h" ? Math.round(acrossMilli / 1000) : 0);
   b.rakeRow = b.holeRow + (ship.dir === "v" ? Math.round(downMilli / 1000) : 0);
@@ -78,6 +97,13 @@ function wreck(world: World, b: FleetState, on: boolean, downMilli: number): voi
     return;
   }
   const reach = world.cfg.fleetWreckPullMilli;
+  const was = b.wreckPullMilli;
   b.wreckPullMilli = Math.max(0, Math.min(reach, Math.round(downMilli)));
+  // The pull taking is the thumb landing, as `fleet-grip-draw.ts` reads it.
+  if (was === 0 && b.wreckPullMilli > 0) world.events.push(hold(b, "wreck"));
   if (b.wreckPullMilli >= reach && b.rakeOn) sinkFleetWreck(world, b);
+}
+
+function hold(b: FleetState, part: "rake" | "wreck") {
+  return { type: "fleetHold", col: b.holeCol, row: b.holeRow, part } as const;
 }

@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Chart, chartX, chartY } from "./fleet-chart.js";
+import { FleetGripMarks } from "./fleet-grip-marks.js";
 import { drawThrownRing } from "./grip-rings.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -66,6 +67,8 @@ export function fleetRingRadius(tile: number, kind: FleetRingKind, k: number): n
 
 export class FleetGripFx {
   private rings: Ring[] = [];
+  /** The green round each seat's ring when its thumb lands (`fleet-grip-marks.ts`). */
+  readonly marks = new FleetGripMarks();
 
   /**
    * The five events, each a ring and four of them a burst as well.
@@ -79,6 +82,7 @@ export class FleetGripFx {
     l: Layout,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       switch (e.type) {
         case "fleetFlood":
@@ -113,10 +117,12 @@ export class FleetGripFx {
   update(dt: number): void {
     for (const r of this.rings) r.left -= dt;
     this.rings = this.rings.filter((r) => r.left > 0);
+    this.marks.update(dt);
   }
 
   clear(): void {
     this.rings = [];
+    this.marks.clear();
   }
 
   /**

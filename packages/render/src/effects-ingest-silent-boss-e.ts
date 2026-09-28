@@ -48,4 +48,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE GAUGE's thumb landing on its needle or band: a green ring round
   // the part, `effects.boss.gauge`'s (`gauge-marks.ts`).
   "gaugeHold",
+  // And THE FLEET's thumb landing on its wound: a green ring round that seat's
+  // own ring, `effects.boss.fleetGrip.marks`' (`fleet-grip-marks.ts`).
+  "fleetHold",
 ] as const satisfies readonly SimEvent["type"][];

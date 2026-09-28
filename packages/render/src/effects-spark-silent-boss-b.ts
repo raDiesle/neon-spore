@@ -145,6 +145,8 @@ export const SILENT_BOSS_B = [
   "fleetFlood",
   "fleetBreach",
   "fleetRake",
+  // And a thumb landing on the wound: the green is `fleet-grip-marks.ts`'.
+  "fleetHold",
   "fleetPlug",
   "fleetWreck",
   // THE VANE's two hands, no burst until the look lane draws them.

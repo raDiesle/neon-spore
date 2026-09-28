@@ -23,7 +23,8 @@ export const FLEET_CONTROLS: readonly FieldControlDef[] = [
     where:
       "a ring on the holed square, on player 2's screen, and only for the " +
       "fleetFloodBeats the flood lasts — the water standing out of the hole " +
-      "is drawn on both screens, the ring on hers",
+      "is drawn on both screens, the ring on hers. The ring wears the halo " +
+      "until her thumb is down and goes green when it lands (fleet-grip-marks.ts)",
     seat: "player 2 only — the navigator, who cannot see a hull and can see this one",
     gesture: "hold",
     does:
@@ -42,7 +43,9 @@ export const FLEET_CONTROLS: readonly FieldControlDef[] = [
     name: "THE FLEET'S RAKE",
     where:
       "anywhere along the holed hull, on player 1's screen — the seat that " +
-      "sees hulls at all — from the beat it is holed until the wreck is under",
+      "sees hulls at all — from the beat it is holed until the wreck is under. " +
+      "His ring wears the halo until his thumb is down and goes green when it " +
+      "lands; nothing is refused, since neither screen draws the other's ring",
     seat: "player 1 only — the pilot, who is looking at the ship",
     gesture: "grab and drag",
     does:
@@ -60,7 +63,9 @@ export const FLEET_CONTROLS: readonly FieldControlDef[] = [
   },
   {
     name: "THE FLEET'S WRECK",
-    where: "the raked hull's wound, on player 2's screen, for the fleetWreckBeats it floats",
+    where:
+      "the raked hull's wound, on player 2's screen, for the fleetWreckBeats it " +
+      "floats — haloed until her pull takes, green when it does",
     seat: "player 2 only — the navigator again, and the hand-over is the point",
     gesture: "grab and drag",
     does:
