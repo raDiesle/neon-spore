@@ -11,6 +11,7 @@ import {
   wardenColor,
   wardenCycle,
   wardenEyeOpen,
+  wardenLeadCol,
   wardenPhase,
   wardenTether,
   wardenThrown,
@@ -58,14 +59,14 @@ const swipe = (milli: number): Press => ({
   command: { kind: "drag", target: "wardenHatch", on: false, fromMilli: milli, fromYMilli: 0 },
 });
 
-/** The cannon is free: nothing of the pair's is on its way up. */
-const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
+/** The cannon is free: nothing of the pair's is on its way up or in the muzzle. */
+const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null && w.charge === null;
 
 /**
  * THE WARDEN: the pilot grabs the rope the moment it hangs and hauls it
  * taut (two presses, the grab and the pull — `wardenTetherHeard`), and the
- * navigator puts the rim's colour up the pupil's column while the eye is
- * open. The rope snaps back with the plate, and the next cycle lowers
+ * navigator puts the rim's colour up the column the pupil will be on when
+ * the bolt arrives, while the eye is open. The rope snaps back with the plate, and the next cycle lowers
  * another. From NARROW the navigator's thumb goes on the eye as well, and
  * under GLARE there is no rope: the pilot swipes the hatch open and the
  * shot goes in the window (`warden-hand.ts`).
@@ -82,9 +83,13 @@ export const wardenHand: Hand = (w) => {
     if (asks === "hold" && !b.eyeHeld) out.push(thumb);
     if (!wardenEyeOpen(w, b)) return [...out, drag(b.pulling ? w.cfg.wardenTautMilli : 0)];
   }
-  out.push(aim(b.pupilCol));
-  if (free(w) && w.cannonCol === b.pupilCol)
-    out.push(fire(wardenColor(wardenCycle(w.cfg, w.waveBeat))));
+  // Where the pupil will be when the bolt gets there, not where it is: it
+  // walks a step a beat and the bolt is most of one on the way (`warden-lead.ts`).
+  // A landing too near its next step waits a tick for one that is not.
+  const at = wardenLeadCol(w, b);
+  if (at === null) return out;
+  out.push(aim(at));
+  if (free(w) && w.cannonCol === at) out.push(fire(wardenColor(wardenCycle(w.cfg, w.waveBeat))));
   return out;
 };
 

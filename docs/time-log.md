@@ -28146,3 +28146,17 @@ The bottleneck: the verdict test counted the halo as a radial gradient, and a
 track's halo is a bar, so the test had to learn the second shape.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — AUTO leads THE WARDEN's pupil, and takes every plate
+
+- reading: 5 min. A headless probe that won, the page's own world that did
+  not, and its config beside the default: `shotChargeBeats` 0.5 against 0.
+- writing: 5 min. `wardenPupilStep` out of `drift`, `warden-lead.ts`, the
+  hand, the first test in `packages/hands`.
+- looking: 0 min. Nothing the game draws moved; `frames --until plate` was
+  the proof.
+- friction: 0 min.
+- landing: 5 min. The export sort, the INDEX row, `check:fast`, `land`.
+
+The bottleneck: the headless hand and the page's hand differed only by the
+game's half-beat grid, which nothing a probe builds by default turns on.

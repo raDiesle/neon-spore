@@ -315,22 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO never takes a plate off THE WARDEN in `bun run frames`
-
-- **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
-- **Taken:** 2026-09-28, claude/queue-the-wardens-hatch-swipe-is-a-ring-and-says-nothi (claim: claude/queue-auto-never-takes-a-plate-off-the-warden-in-bun-r)
-- **Files:** `packages/hands/src/boss-hands-shots.ts`, `tools/frames/auto.ts`
-
-`bun run frames . --wave "THE WARDEN" --auto both --until plate` finds no
-`plate` in 3000 ticks, on this lane and on its parent 7bfc2544c alike: the
-rope comes down and the eye opens four times (`eyeOpen`), and all 39 shots
-are `reject`ed at row 2, column 6. So no picture of NARROW or GLARE can be
-played to, only set with `--boss plates=3` — which is how this lane took
-its PNG, and which skips the fight the frame is meant to show. Find whether
-the hand fires at a pupil that has walked on by the time the bolt climbs,
-or the page's AUTO drops the rope's hold, and prove it with a test in
-`packages/hands` that plays THE WARDEN to `wardenDown`.
-
 ## THE WARDEN refuses the navigator again on every move of her press
 
 - **Found:** 2026-09-28, claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe

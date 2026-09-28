@@ -293,6 +293,7 @@ by hand never moves.
 | `packages/sim/src/warden-start.ts` | THE WARDEN takes the field where it stands and never leaves it: dead centre, at `wardenRow`, five columns wide |
 | `packages/sim/src/warden-hand.ts` | THE WARDEN's three hands on the tick: the rope, player 2's thumb on the eye under NARROW, player 1's swipe across the hatch under GLARE, and the slam that ends the window |
 | `packages/sim/src/warden-open.ts` | Whether THE WARDEN's eye shows, and how far the hatch and the lids stand open — one place that reads the phase's gesture, for the shot and the picture |
+| `packages/sim/src/warden-lead.ts` | **Where THE WARDEN's pupil will be when a shot pressed now reaches it** — the lead a pair gives a walking eye |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
 | `packages/sim/src/ready-gate.ts` | you are changing the two circles a guide ends on — what fills one, what empties it, and how long the hold is |

@@ -68,16 +68,31 @@ export function stepWarden(world: World, b: WardenState): void {
  * what the pair has to name.
  */
 function drift(b: WardenState, body: Creature, step: number): void {
-  const lo = body.col;
-  const hi = body.col + WARDEN_COLS - 1;
-  if (step === 0) {
-    b.pupilCol = body.col + Math.floor(WARDEN_COLS / 2);
-    return;
+  const [col, dir] = wardenPupilStep(body.col, b.pupilCol, b.pupilDir, step);
+  b.pupilCol = col;
+  b.pupilDir = dir;
+}
+
+/**
+ * One beat of the pupil's walk from `col` going `dir`, inside the rim of a
+ * body standing at `bodyCol`: the column and the direction it leaves with.
+ * The beat's own step and `wardenPupilAt`'s look ahead both take it from here,
+ * so the walk a hand leads is the walk the eye takes.
+ */
+export function wardenPupilStep(
+  bodyCol: number,
+  col: number,
+  dir: 1 | -1,
+  step: number,
+): [number, 1 | -1] {
+  const lo = bodyCol;
+  const hi = bodyCol + WARDEN_COLS - 1;
+  if (step === 0) return [bodyCol + Math.floor(WARDEN_COLS / 2), dir];
+  let next = col + dir * step;
+  let turned = dir;
+  if (next < lo || next > hi) {
+    turned = dir === 1 ? -1 : 1;
+    next = col + turned * step;
   }
-  let col = b.pupilCol + b.pupilDir * step;
-  if (col < lo || col > hi) {
-    b.pupilDir = b.pupilDir === 1 ? -1 : 1;
-    col = b.pupilCol + b.pupilDir * step;
-  }
-  b.pupilCol = Math.max(lo, Math.min(hi, col));
+  return [Math.max(lo, Math.min(hi, next)), turned];
 }
