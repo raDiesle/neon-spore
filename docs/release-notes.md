@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 6575fa346 — Queue the pointer-conversion scan's timeout under load
+
+## 2026-09-28 · fb5e472dd — THE WARDEN refuses the wrong seat's press on her eye once, not on every move
+
+A press on the eye from the seat it is not asking was handed through with a hold, so every move of the resting thumb sent the drag again and the eye knocked and washed red over and over. It is handed through holding nothing now, as THE SPOOL's knob and THE SINEW's handles are: one press, one refusal. THE INSTAR's marks have the same bug, and it is queued.
+
 ## 2026-09-28 · 785b7ec58 — AUTO leads THE WARDEN's pupil, and takes every plate in `bun run frames`
 
 The game lays a shot on the half beat, so AUTO's bolt, aimed where the pupil stood, arrived after it had walked on and every shot was rejected on the rim. The hand now aims where the pupil will be when the bolt lands (`sim/warden-lead.ts`, the walk's own step), waits a tick when the landing is too near a step to call, and fires once per shot. `--auto both --until plate` takes a plate at tick 179 and plays on to `wardenDown`; a test in `packages/hands` plays the fight to its fall on either grid with no reject.

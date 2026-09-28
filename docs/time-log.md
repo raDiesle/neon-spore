@@ -28173,3 +28173,5 @@ game's half-beat grid, which nothing a probe builds by default turns on.
 
 The bottleneck: none worth the name; the fix was already written next door
 in `spool-grip.ts`.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
