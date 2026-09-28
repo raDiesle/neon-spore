@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 466be25f3 — THE FLEET's wound answers a touch the way THE INSTAR's marks do
+
+While the wound is open, in the flood and in the wreck, both thumbs are asked. Each seat's ring wears the halo until its thumb is down, and turns green when it lands: her thumb on the plume, his on the hull, and her pull on the wreck taking. No partner's ring, clock or red: both rings stand on the one circle of the wound, and neither screen draws the other seat's ring.
+
 ## 2026-09-28 · 2922bf2bb — THE GAUGE's needle and band answer a touch the way THE INSTAR's marks do
 
 On the screen that shows it, the part the round asks for wears the halo under its ring until the thumb is down, and the thumb landing washes it green. The asks are the simulation's (`gaugeNeedleAsks`, `gaugeBandAsks`), and the landing is a new silent event, `gaugeHold`. There is no partner's clock and no red refusal: the band is never drawn on the pilot's screen and the jam never shown on the navigator's, so either would tell a seat what the round keeps from it. A round's frame never reached `Effects.ingest`, so the takeover now feeds these verdicts and the round draws get the seat's effects.

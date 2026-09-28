@@ -28289,3 +28289,5 @@ so the verdicts had no way onto the game's screen until the takeover fed them.
 
 The bottleneck: the render silent list the fleet's events already sat in was
 eight lines from its ceiling, so the new event went to the list with room.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
