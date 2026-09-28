@@ -4,6 +4,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { bladePath, edgeHex } from "./taster-blade.js";
 import { tasterCrestY } from "./taster-draw.js";
+import { TasterMarks } from "./taster-marks.js";
 
 /**
  * What THE TASTER leaves behind a frame: a blade coming off the crest, and the
@@ -72,6 +73,8 @@ export class TasterFx {
   private span: { col: number; width: number } | null = null;
   /** The blow a blade struck off deals the crest. */
   readonly hurt = new BossHurt();
+  /** The verdict on each of the three thumbs' rings (`taster-marks.ts`). */
+  readonly marks = new TasterMarks();
 
   ingest(
     events: readonly SimEvent[],
@@ -81,6 +84,7 @@ export class TasterFx {
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     const y = tasterCrestY(l);
+    this.marks.ingest(events);
     for (const e of events) {
       switch (e.type) {
         case "tasterRise":
@@ -189,6 +193,7 @@ export class TasterFx {
     this.shards = this.shards.filter((s) => s.left > 0);
     this.shivers = this.shivers.filter((s) => s.left > 0);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -228,5 +233,6 @@ export class TasterFx {
     this.edges.clear();
     this.span = null;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

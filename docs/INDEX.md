@@ -1417,6 +1417,7 @@ by hand never moves.
 | `packages/render/src/taster-read.ts` | **What is written about THE TASTER's fan, and which seat is shown it.** Its own file beside `taster-draw.ts` |
 | `packages/render/src/taster-grip.ts` | **THE TASTER's three thumbs on its own fan**: the pilot's pin on a blade that has not decided |
 | `packages/render/src/taster-sway.ts` | **THE TASTER's fan sways like a field of wheat** (`docs/spec/living-bosses.md` §1, the outline tier) |
+| `packages/render/src/taster-marks.ts` | **THE TASTER's three thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |
 | `packages/render/src/wisp-ground.ts` | you are drawing what a jumping wisp leaves on the field — its pool of light, its dotted arc, the tile it will land on |
 | `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |

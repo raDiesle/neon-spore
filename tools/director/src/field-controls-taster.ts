@@ -33,7 +33,10 @@ export const TASTER_CONTROLS: readonly FieldControlDef[] = [
       "its lit edge standing, because that edge is the one thing both seats " +
       "read off this boss. Only while the fan is fanning, which is when three " +
       "blades grow at once (render/taster-grip.ts)",
-    seat: "player 1 only — his spare thumb, while his hands are the cannon",
+    seat:
+      "player 1 only — his spare thumb, while his hands are the cannon; haloed on his screen, his clock on " +
+      "the other screen, and a press from the other seat is refused out " +
+      "loud and washes it red (render/taster-marks.ts)",
     gesture: "grab and drag",
     does:
       "Pins that blade out of its decision: the press alone does it, and it " +
@@ -59,7 +62,10 @@ export const TASTER_CONTROLS: readonly FieldControlDef[] = [
       "covers how wet the gaps are, which is the fight's own progress bar. " +
       "Only while the fan is hurrying, and only until the crest is cut " +
       "through for good (render/taster-grip.ts)",
-    seat: "player 2 only — the seat whose colours the boss is tasting",
+    seat:
+      "player 2 only — the seat whose colours the boss is tasting; haloed on her screen, her clock on " +
+      "the other screen, and a press from the other seat is refused out " +
+      "loud and washes it red (render/taster-marks.ts)",
     gesture: "grab and drag",
     does:
       "Cuts that soft column by hand: a carry of at least tasterWipeMilli " +
@@ -83,7 +89,10 @@ export const TASTER_CONTROLS: readonly FieldControlDef[] = [
       "across each other — the column the fight's own event names. Only while " +
       "the interlock is closed, and it goes out the instant the interlock " +
       "stands open (render/taster-grip.ts)",
-    seat: "player 1 only — one seat hauls, the other has to be free to fire",
+    seat:
+      "player 1 only — one seat hauls, the other has to be free to fire; haloed on his screen, his clock on " +
+      "the other screen, and a press from the other seat is refused out " +
+      "loud and washes it red (render/taster-marks.ts)",
     gesture: "grab and drag",
     does:
       "Hauls the interlock apart: a carry of tasterPryMilli **downward** from " +

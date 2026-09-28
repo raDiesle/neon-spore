@@ -1,6 +1,7 @@
 import {
   type SimConfig,
   type TasterState,
+  tasterLockCol,
   tasterPinnable,
   tasterPryable,
   tasterWipable,
@@ -72,17 +73,14 @@ export function tasterGapCircle(l: Layout, cfg: SimConfig, col: number): Circle 
  * is downward out of it, so the ring is under the crossing rather than on it.
  */
 export function tasterLockCircle(l: Layout, cfg: SimConfig, t: TasterState): Circle {
-  return ringAt(l, cfg, lockCol(t), 0);
-}
-
-function lockCol(t: TasterState): number {
-  return t.col + Math.floor(t.blades.length / 2);
+  return ringAt(l, cfg, tasterLockCol(t), 0);
 }
 
 /**
- * The press, answered for whichever of the three this seat owns. A press from
- * the wrong seat falls through to whatever is behind it exactly as if no ring
- * were there, which is what `tasterHandsHeard` does with the command anyway.
+ * The press, answered for whichever of the three is offered under it. Every
+ * ring is drawn on both screens, so a press from the wrong seat is handed
+ * through with no hold, for `tasterHandsHeard` to refuse once and out loud
+ * (`tasterHandRefuse`), the way every mark answers a wrong thumb.
  *
  * The `id` both per-column handles report is the **column**, not the index
  * into the fan: that is what `tasterHandsHeard` takes and what it puts through
@@ -90,48 +88,56 @@ function lockCol(t: TasterState): number {
  * that is re-seated where an index would not.
  */
 export function tasterGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  const part = partUnder(l, x, y, field);
+  if (part === null) return null;
+  const { target } = part;
+  // The pry names no column: the interlock is the crest's one.
+  const id = part.id === undefined ? {} : { id: part.id };
+  const command = { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, ...id } as const;
+  if (field.seat !== seatOf(target)) return { player: field.seat, command, hold: null };
+  return {
+    player: field.seat,
+    command,
+    hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, ...id },
+  };
+}
+
+/** Whose handle is offered under a point, for a desk's press (`desk-grab.ts`). */
+export function tasterGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const part = partUnder(l, x, y, field);
+  return part === null ? undefined : seatOf(part.target);
+}
+
+type Target = "tasterBlade" | "tasterGap" | "tasterLock";
+
+/** The pin and the pry are the pilot's, the wipe the navigator's. */
+function seatOf(target: Target): 1 | 2 {
+  return target === "tasterGap" ? 2 : 1;
+}
+
+/** The offered handle under a point, whichever seat is asking. */
+function partUnder(
+  l: Layout,
+  x: number,
+  y: number,
+  field: Field,
+): { target: Target; id: number | undefined } | null {
   const t = bossOf(field, "taster");
   if (t === null) return null;
-  const { cfg, seat, beat } = field;
-  if (seat === 1 && tasterPryable(t, beat, cfg) && hitCircle(tasterLockCircle(l, cfg, t), x, y)) {
-    return grabLock(x, y);
+  const { cfg, beat } = field;
+  if (tasterPryable(t, beat, cfg) && hitCircle(tasterLockCircle(l, cfg, t), x, y)) {
+    return { target: "tasterLock", id: undefined };
   }
   for (let i = 0; i < t.blades.length; i++) {
     const col = t.col + i;
-    if (
-      seat === 1 &&
-      tasterPinnable(t, cfg, i) &&
-      hitCircle(tasterBladeCircle(l, cfg, col), x, y)
-    ) {
-      return grabCol("tasterBlade", 1, x, y, col);
+    if (tasterPinnable(t, cfg, i) && hitCircle(tasterBladeCircle(l, cfg, col), x, y)) {
+      return { target: "tasterBlade", id: col };
     }
-    if (seat === 2 && tasterWipable(t, cfg, i) && hitCircle(tasterGapCircle(l, cfg, col), x, y)) {
-      return grabCol("tasterGap", 2, x, y, col);
+    if (tasterWipable(t, cfg, i) && hitCircle(tasterGapCircle(l, cfg, col), x, y)) {
+      return { target: "tasterGap", id: col };
     }
   }
   return null;
-}
-
-function grabCol(
-  target: "tasterBlade" | "tasterGap",
-  player: 1 | 2,
-  x: number,
-  y: number,
-  id: number,
-): Touch {
-  return {
-    player,
-    command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id },
-    hold: { kind: "drag", target, player, originX: x, originY: y, id },
-  };
-}
-
-function grabLock(x: number, y: number): Touch {
-  return {
-    player: 1,
-    command: { kind: "drag", target: "tasterLock", on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target: "tasterLock", player: 1, originX: x, originY: y },
-  };
 }
 
 /**

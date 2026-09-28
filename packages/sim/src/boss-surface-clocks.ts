@@ -161,10 +161,11 @@ export {
   tasterBoss,
   tasterGrowing,
   tasterLifted,
-  tasterOrder,
-  tasterPhase,
   // Whether the pin, the wipe and the pry are being offered at all — asked by
   // the rings drawn on them, never restated (`taster-hand.ts`).
+  tasterLockCol,
+  tasterOrder,
+  tasterPhase,
   tasterPinnable,
   tasterPried,
   tasterPryable,

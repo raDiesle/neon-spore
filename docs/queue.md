@@ -338,8 +338,8 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
 THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE, THE
-CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE and THE CURTAIN: **one boss a lane**, the first on `TO_COME` in the
-roll-out test — THE TASTER next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
+CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE, THE CURTAIN and THE TASTER: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE LEDGER next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
 THE MAZE's lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
 seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 `vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`
@@ -358,7 +358,8 @@ one seat's screen never shows gets no partner's clock and no refusal
 (`fleet-grip-marks.ts`); a mark drawn only under a thumb gets the verdict
 alone (`cairn-marks.ts`, kept in `BossBlows`); a partner's thumb whose state
 is the pair's sentence gets no clock (`baton-marks.ts`); a press that was dropped
-silently is refused out loud once its mark asks (`curtain-marks.ts`, `curtainRefuse`). A lane that lands one boss and leaves others on the
+silently is refused out loud once its mark asks (`curtain-marks.ts`, `curtainRefuse`;
+`taster-marks.ts`, `tasterHandRefuse`, where the boss already had a `tasterRefused`). A lane that lands one boss and leaves others on the
 list keeps this entry, rewritten to name the next; the lane that empties the
 list removes it and the list with it.
 
@@ -1704,3 +1705,17 @@ Find out whether the ring is drawn under the lobe's body (the pin sits
 `PIN_UP` tiles above the hull line), gated by something the unit tests do not
 reach, or missing from the page `frames` loads; fix whichever it is, and pin it
 with a frame test that counts the ring on p2's full frame with a lobe standing.
+
+## `bind-choreographed-b.ts` stands at 249 of its 250 lines
+
+- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Files:** `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-choreographed.ts`
+
+THE TASTER's `tasterHandRefuse` took the page of events added to shipped bosses
+to 253 lines; its comments were cut to 249 to land. The mark-feedback roll-out
+still has THE LEDGER, THE LEAD and THE GAUGE on this page to come, and each new
+refusal adds three lines (union member, set entry, case). Split it along a seam
+of its own — the §6.2 hands of the bosses already bound in their own
+`bind-<boss>.ts` (`tasterCue`, `ledgerCue`, `leadCue`, `gaugeCue`) routed by
+prefix as `throat${string}` already is — so each of those bosses brings its
+names with its page, and prove it with `packages/audio/test/bind.test.ts`.

@@ -143,6 +143,7 @@ export const SILENT_BOSS = [
   "tasterPin",
   "tasterWipe",
   "tasterPry",
+  "tasterHandRefuse",
   "tasterOut",
   // THE SINEW's fifteen are one family read above the loop by
   // `sinew-fx.ts`, never rows here (`docs/spec/bosses.md` §11.26).

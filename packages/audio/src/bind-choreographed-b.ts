@@ -25,11 +25,9 @@ import { wellCue } from "./bind-well.js";
  * bound in `bind.ts` years of commits earlier. One page per kind of arrival,
  * and this one grows by a handful of names per boss the briefs reach.
  *
- * Mostly those are the §6.2 hands — a gesture the owner's standing brief gave
- * a boss that did not have one (`.claude/skills/new-boss` §6.2) — which is why
- * this page was called the hands until THE THROAT's clock arrived here too:
- * four moments that were always in that boss and were always silent, added on
- * exactly the same terms and for exactly the same reason the hands are here.
+ * Mostly those are the §6.2 hands (`.claude/skills/new-boss` §6.2), and this
+ * page was called the hands until THE THROAT's four silent clock moments
+ * arrived here too, on exactly the same terms.
  */
 export type AddedEvent = Extract<
   SimEvent,
@@ -66,12 +64,12 @@ export type AddedEvent = Extract<
       // And THE THROAT's two, the gullet handing out a control as it loses one,
       // with the four of its own clock that shipped silent beside them.
       | `throat${string}`
-      // And THE TASTER's three, one per movement of its fight — the first boss
-      // to arrive here three at a time, and the reason the brief is worth
-      // answering in one lane rather than three (`sim/taster-hand.ts`).
+      // And THE TASTER's three, one per movement of its fight, and the refusal
+      // of a thumb on the other seat's ring (`sim/taster-hand.ts`).
       | "tasterPin"
       | "tasterWipe"
       | "tasterPry"
+      | "tasterHandRefuse"
       // And THE LEDGER's five, which are four hands: the foot, the plug, the
       // bill the plug rolls over, the return hauled down and the cord hauled
       // out (`sim/ledger-hand.ts`). The first boss to arrive here with a
@@ -146,6 +144,7 @@ const ADDED_EVENTS = new Set<string>([
   "tasterPin",
   "tasterWipe",
   "tasterPry",
+  "tasterHandRefuse",
   "ledgerFoot",
   "ledgerPlug",
   "ledgerRoll",
@@ -171,12 +170,12 @@ export function isAddedEvent(e: { type: string }): e is AddedEvent {
 
 export function addedCue(e: AddedEvent, cols: number): Cue {
   switch (e.type) {
-    // THE TASTER's three go back to its own page: the other twelve are bound
-    // there and a second file panning this boss would be two answers to which
-    // column a blade stands over (`bind-taster.ts`).
+    // THE TASTER's go back to its own page: a second file panning this boss
+    // would be two answers to which column a blade stands over (`bind-taster.ts`).
     case "tasterPin":
     case "tasterWipe":
     case "tasterPry":
+    case "tasterHandRefuse":
       return tasterCue(e, cols);
     // And THE LEDGER's five, for that reason said about a socket: the eleven
     // next door are all panned to the column they happened in, and a second

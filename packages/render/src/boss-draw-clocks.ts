@@ -15,6 +15,7 @@ import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 import { drawTaster } from "./taster-draw.js";
 import { drawTasterGrips } from "./taster-grip.js";
+import { drawTasterAsked, drawTasterVerdicts } from "./taster-marks.js";
 import { drawThroat } from "./throat-draw.js";
 import { drawThroatVerdicts } from "./throat-marks.js";
 import { drawUndertowLobes } from "./undertow-lobe.js";
@@ -181,10 +182,13 @@ export function drawClockBoss(
     ctx.save();
     ctx.translate(hurt.shakeX(view.time, l.tile), 0);
     drawTaster(ctx, l, world, boss, view.beatPhase, view.time, hurt.value);
+    drawTasterAsked(ctx, l, world.cfg, boss, world.beat, view.time);
     // And its three thumbs, over the fan for THE GORGE's reason eight branches
     // up: a ring is drawn on the thing it takes hold of, and one under a blade
     // would be a handle the boss paints over (`taster-grip.ts`).
     drawTasterGrips(ctx, l, world.cfg, boss, view.beatPhase, world.beat, view.time);
+    const { verdicts } = effects.boss.taster.marks;
+    drawTasterVerdicts(ctx, l, world.cfg, boss, world.beat, verdicts);
     ctx.restore();
     return;
   }

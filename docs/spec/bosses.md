@@ -4593,6 +4593,22 @@ nothing of the kind. Theirs is its rim and its wash now (`theirs`,
 `handle-draw.ts`), and the counts in `render/test/taster-grip-frame.test.ts`
 are each seat's own rings for the same reason.
 
+**All three rings answer a touch the way every mark does** (28 September
+2026, the owner's consistent visual; `render/taster-marks.ts`). Every ring is on
+both screens, so it is THE VANE's case: the one offered to this seat wears the
+halo under it, and the one offered to the partner their ring and the clock —
+the pin and the pry on his screen and their clock on hers, every gap on hers
+and the clock on his. Which is offered is still `tasterPinnable`,
+`tasterWipable` and `tasterPryable`, read and never restated. A pin, a wipe that
+spends its cut and an interlock carried apart wash their ring green
+(`tasterPin`, `tasterWipe`, `tasterPry`); a press on the other seat's ring,
+which until this day was dropped without a sound, is refused out loud
+(`tasterHandRefuse`, `boss.instarRefuse`) and washes it red. A desk press is
+signed with the seat the ring under it is offered to (`desk-grab.ts`
+`tasterGripSeat`). The verdicts are kept in `TasterFx`, keyed by part and
+column. `render/test/taster-verdict.test.ts` and `sim/test/taster-hand.test.ts`
+hold it.
+
 **Where this departs from the design, and why.** Four places, each argued by
 name. *The rock throw is dropped*: the design's step 7 has a blade sweeping
 down to throw a rock, and a boss that fed the field would be feeding the

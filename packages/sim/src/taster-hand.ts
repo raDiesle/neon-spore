@@ -52,8 +52,9 @@ import type { World } from "./world.js";
  *   the window is a beat count and not a hold — because his hands are the
  *   cannon and she still needs him under the crest.
  *
- * **A seat's thumb on the other's handle is dropped without a sound**, as it
- * is on THE FLEET's chart. On the tick rather than the
+ * **A seat's thumb on the other's handle is refused out loud**
+ * (`tasterHandRefuse`), since both screens draw all three: until 28 September
+ * 2026 it was dropped without a sound, as on THE FLEET's chart. On the tick rather than the
  * beat (`step.ts`): a pin is down when it lands, the cut a carry makes is
  * where the thumb is now, and the tick the interlock comes apart is the tick
  * her beam starts being worth something.
@@ -104,13 +105,28 @@ export function tasterHandsHeard(world: World, player: 1 | 2, command: Command):
   if (command.kind !== "drag") return;
   const t = tasterBoss(world);
   if (t === null || t.outBeat >= 0) return;
-  if (command.target === "tasterBlade" && player === 1) {
-    pin(world, t, command.on, command.id ?? -1);
-  } else if (command.target === "tasterGap" && player === 2) {
-    wipe(world, t, command.on, command.id ?? -1, command.fromMilli);
-  } else if (command.target === "tasterLock" && player === 1) {
-    pry(world, t, command.on, command.fromYMilli ?? 0);
+  const col = command.id ?? -1;
+  if (command.target === "tasterBlade") {
+    if (player === 1) pin(world, t, command.on, col);
+    else if (command.on && tasterPinnable(t, world.cfg, tasterBladeAt(t, col))) {
+      world.events.push({ type: "tasterHandRefuse", col, part: "blade" });
+    }
+  } else if (command.target === "tasterGap") {
+    if (player === 2) wipe(world, t, command.on, col, command.fromMilli);
+    else if (command.on && tasterWipable(t, world.cfg, tasterBladeAt(t, col))) {
+      world.events.push({ type: "tasterHandRefuse", col, part: "gap" });
+    }
+  } else if (command.target === "tasterLock") {
+    if (player === 1) pry(world, t, command.on, command.fromYMilli ?? 0);
+    else if (command.on && tasterPryable(t, world.beat, world.cfg)) {
+      world.events.push({ type: "tasterHandRefuse", col: tasterLockCol(t), part: "lock" });
+    }
   }
+}
+
+/** The interlock's column: the middle of the crest, where the last blades cross. */
+export function tasterLockCol(t: TasterState): number {
+  return t.col + Math.floor(t.blades.length / 2);
 }
 
 /**
@@ -198,5 +214,5 @@ function pry(world: World, t: TasterState, on: boolean, fromYMilli: number): voi
   t.pryBeat = world.beat;
   t.pryFills = 0;
   openSlow(world, cfg.tasterPryBeats, "ask");
-  world.events.push({ type: "tasterPry", col: t.col + Math.floor(t.blades.length / 2) });
+  world.events.push({ type: "tasterPry", col: tasterLockCol(t) });
 }

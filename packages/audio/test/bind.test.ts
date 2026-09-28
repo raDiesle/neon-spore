@@ -225,6 +225,7 @@ const SAMPLES: Record<string, SimEvent> = {
   tasterPin: { type: "tasterPin", col: 2 },
   tasterWipe: { type: "tasterWipe", col: 2 },
   tasterPry: { type: "tasterPry", col: 2 },
+  tasterHandRefuse: { type: "tasterHandRefuse", col: 2, part: "blade" },
   tasterOut: { type: "tasterOut", col: 2, color: "cyan" },
   tasterPryFill: { type: "tasterPryFill", col: 2, color: "cyan", owed: 1 },
   sinewSettle: { type: "sinewSettle", col: 5, fibres: 6, row: 5 },

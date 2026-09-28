@@ -2,9 +2,9 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE TASTER's sixteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE TASTER's seventeen, in a file of their own for `bind-gorge.ts`' reason.
  *
- * Fourteen of them name a column and are panned to it, because a column is a
+ * Fifteen of them name a column and are panned to it, because a column is a
  * blade: which one just grew, set, thickened or came off is the whole of what
  * the pair has to say to each other, and player 2's screen does not carry the
  * ledger that says why.
@@ -44,6 +44,7 @@ export function tasterCue(
         | "tasterPin"
         | "tasterWipe"
         | "tasterPry"
+        | "tasterHandRefuse"
         | "tasterPryFill"
         | "tasterOut";
     }
@@ -89,6 +90,9 @@ export function tasterCue(
       return { id: "boss.tasterWipe", pan: panForCol(e.col, cols) };
     case "tasterPry":
       return { id: "boss.tasterPry", pan: panForCol(e.col, cols) };
+    case "tasterHandRefuse":
+      // A thumb on the other seat's handle: every mark's one refusal sound.
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
     case "tasterPryFill":
       return { id: "boss.tasterPryFill", pan: panForCol(e.col, cols) };
     case "tasterOut":

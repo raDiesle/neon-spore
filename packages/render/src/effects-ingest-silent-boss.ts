@@ -141,6 +141,7 @@ export const INGEST_SILENT_BOSS = [
   "tasterPin",
   "tasterWipe",
   "tasterPry",
+  "tasterHandRefuse",
   "tasterOut",
   // THE LEDGER's eleven, read above the loop by `ledger-fx.ts` the way THE
   // TASTER's are. The body, the seam's width, where the cord is rooted and how

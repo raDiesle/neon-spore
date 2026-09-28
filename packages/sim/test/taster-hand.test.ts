@@ -153,11 +153,14 @@ describe("the pin", () => {
     expect(t.pinBeats).toBe(0);
   });
 
-  it("is the pilot's, and hers is dropped without a sound", () => {
+  it("is the pilot's, and hers is refused out loud", () => {
     const { world, t, i } = fanning();
     press(world, t, i, true, 2);
     expect(t.pin).toBe(-1);
     expect(world.events.some((e) => e.type === "tasterPin")).toBe(false);
+    expect(world.events.filter((e) => e.type === "tasterHandRefuse")).toEqual([
+      { type: "tasterHandRefuse", col: t.col + i, part: "blade" },
+    ]);
   });
 
   it("is refused outside `fanning`, and on a blade that has nothing to hold", () => {
@@ -244,6 +247,7 @@ describe("the wipe", () => {
     const { world, t } = hurrying();
     carry(world, t, 0, CFG.tasterWipeMilli, 1);
     expect(t.crest).toBe(0);
+    expect(world.events.some((e) => e.type === "tasterHandRefuse" && e.part === "gap")).toBe(true);
     // A column with a blade still in it is not a gap.
     carry(world, t, t.blades.length - 1, CFG.tasterWipeMilli);
     expect(t.crest).toBe(0);
@@ -329,6 +333,7 @@ describe("the pry", () => {
     const { world, t } = closed();
     haul(world, CFG.tasterPryMilli, 2);
     expect(tasterPried(t, world.beat, CFG)).toBe(false);
+    expect(world.events.some((e) => e.type === "tasterHandRefuse" && e.part === "lock")).toBe(true);
     const fresh = open();
     haul(fresh.world, CFG.tasterPryMilli);
     expect(tasterPried(fresh.t, fresh.world.beat, CFG)).toBe(false);
