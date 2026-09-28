@@ -28198,3 +28198,5 @@ so this could land at the owner's stop.
 - landing: 10 min. Two full `check` runs back to back, as the entry asked.
 
 The bottleneck: the second full `check`, which is the proof and nothing else.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
