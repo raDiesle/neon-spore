@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 0f2c2c42d — A session draining the queue takes a set of items when one reading pays for it
+
+The owner asked that a session not take one queue item at a time when several can be worked more cheaply together. `docs/queue.md` now says when: items whose files overlap, a finding filed by the lane about to work its item, the named steps of one roll-out, a few findings in one tool. The set is said in the report as it is taken. It is a claim and a reading, never a commit: each item is still committed, removed and landed on its own before the next starts. Three is the ordinary size.
+
 ## 2026-09-28 · d536736ba — THE GORGE's pinch and pry answer a touch the way THE INSTAR's marks do
 
 Every full intake wears the halo on the pilot's screen while none is pinched, and the mouth wears it on the navigator's until her thumb is on it. A pinch and a pry wash their ring green, and a pry held past its window washes the mouth red as the clench throws it off. There is no partner's clock and no refusal, for THE GAUGE's reason: each ring is drawn on one screen alone. Which rings are on offer and which ask is the simulation's (`gorgeOffers`, `gorgeAsks`), the press is gated on it, and the grip reads it rather than re-deriving it.
