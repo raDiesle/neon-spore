@@ -1,4 +1,11 @@
-import { type SimConfig, type SnakeState, snakeCrashed, snakeGrip } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type SnakeState,
+  snakeCrashed,
+  snakeGrip,
+  snakeJawsAsks,
+  snakeTailAsks,
+} from "@neon-spore/sim";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -90,55 +97,61 @@ export function snakeTailCircle(
  * (`snakeHeard`), and a ring on a body being drawn crumpling would be a handle
  * on a picture of a mistake.
  */
-function afoot(snake: SnakeState): boolean {
+export function snakeAfoot(snake: SnakeState): boolean {
   return snake.phase === "play" && !snakeCrashed(snake);
 }
 
 /**
- * Whether the jaws are offering the pilot a pull: `dragHeard`'s own gate read
- * back rather than restated — past `crawl`, and the mouth's rest run out, which
- * is the same rest the press it replaces was held to.
- */
-export function snakeJawsGrippable(cfg: SimConfig, snake: SnakeState, tick: number): boolean {
-  if (!afoot(snake) || snakeGrip(cfg, snake) === "crawl") return false;
-  return tick - snake.mawTick >= cfg.snakeMawRestTicks;
-}
-
-/**
- * Whether the tail is offering the driver a lift: `shed` alone, which is the
- * whole of `dragHeard`'s second gate. A thumb already on it is not refused —
- * the hold *is* the control, and letting go is how it ends.
- */
-export function snakeTailGrippable(cfg: SimConfig, snake: SnakeState): boolean {
-  return afoot(snake) && snakeGrip(cfg, snake) === "shed";
-}
-
-/**
- * The press, answered for whichever of the two this seat owns. A press from
- * the wrong seat falls through to whatever is behind it, exactly as if no ring
- * were there: the prise is the pilot's and the lift is the driver's, and the
- * split is the round's whole content.
+ * The press on whichever of the two is asked, from either seat. Which seat
+ * each is asked of is the simulation's (`snakeJawsAsks`, `snakeTailAsks`): the
+ * prise is the pilot's and the lift is the driver's, and the split is the
+ * round's whole content. **A press from the other seat is handed through with
+ * no hold**, so the sim can refuse it once and the ring wash red
+ * (`snake-marks.ts`) — both rings are drawn on both screens, so a thumb can
+ * land on the wrong one.
  */
 export function snakeGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const snake = bossOf(field, "snake");
   if (snake === null) return null;
   const { cfg, seat, tick } = field;
-  if (seat === 1 && snakeJawsGrippable(cfg, snake, tick)) {
+  if (snakeJawsAsks(cfg, snake, tick)) {
     const at = snakeJawsCircle(l, cfg, snake, tick);
-    if (at !== null && hitCircle(at, x, y)) return grab("snakeJaws", 1, x, y);
+    if (at !== null && hitCircle(at, x, y)) return grab("snakeJaws", seat, seat === 1, x, y);
   }
-  if (seat === 2 && snakeTailGrippable(cfg, snake)) {
+  if (snakeTailAsks(cfg, snake)) {
     const at = snakeTailCircle(l, cfg, snake, tick);
-    if (at !== null && hitCircle(at, x, y)) return grab("snakeTail", 2, x, y);
+    if (at !== null && hitCircle(at, x, y)) return grab("snakeTail", seat, seat === 2, x, y);
   }
   return null;
 }
 
-function grab(target: "snakeJaws" | "snakeTail", player: 1 | 2, x: number, y: number): Touch {
+/**
+ * The seat a press on an asked part belongs to, so one mouse at a desk takes
+ * the driver's tail rather than having it refused as the pilot's
+ * (`desk-grab.ts` `markSeat`): the jaws are always his and the tail hers.
+ */
+export function snakeGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const snake = bossOf(field, "snake");
+  if (snake === null) return undefined;
+  const { cfg, tick } = field;
+  const jaws = snakeJawsAsks(cfg, snake, tick) ? snakeJawsCircle(l, cfg, snake, tick) : null;
+  if (jaws !== null && hitCircle(jaws, x, y)) return 1;
+  const tail = snakeTailAsks(cfg, snake) ? snakeTailCircle(l, cfg, snake, tick) : null;
+  if (tail !== null && hitCircle(tail, x, y)) return 2;
+  return undefined;
+}
+
+function grab(
+  target: "snakeJaws" | "snakeTail",
+  player: 1 | 2,
+  owns: boolean,
+  x: number,
+  y: number,
+): Touch {
   return {
     player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target, player, originX: x, originY: y },
+    hold: owns ? { kind: "drag", target, player, originX: x, originY: y } : null,
   };
 }
 
@@ -160,7 +173,7 @@ function grab(target: "snakeJaws" | "snakeTail", player: 1 | 2, x: number, y: nu
  *
  * **The pilot's stays up through the mouth's rest**, drawn `held` for as long
  * as the jaws are actually open (`snake-clock.ts`'s own window, so the ring and
- * the gape agree). `snakeJawsGrippable` says no there and the ring is showing
+ * the gape agree). `snakeJawsAsks` says no there and the ring is showing
  * the pull that *is* running — one that vanished on the prise would take the
  * mark off both screens on the tick it began to matter, and come back a moment
  * later as if the round had changed its mind.
@@ -173,7 +186,7 @@ export function drawSnakeGrips(
   tick: number,
   time: number,
 ): void {
-  if (!afoot(snake)) return;
+  if (!snakeAfoot(snake)) return;
   const grip = snakeGrip(cfg, snake);
   if (grip !== "crawl") {
     const at = snakeJawsCircle(l, cfg, snake, tick);

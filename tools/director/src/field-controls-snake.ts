@@ -29,7 +29,10 @@ export const SNAKE_CONTROLS: readonly FieldControlDef[] = [
       "behind the jaws rather than over them, so the ring never covers the " +
       "muzzle, the mouth and the heading, which are one thing on this arena " +
       "and the only thing either seat aims with (render/snake-grip.ts)",
-    seat: "player 1 only — the seat that shoots and swallows, never the driver",
+    seat:
+      "player 1 only — the seat that shoots and swallows. Haloed on his screen " +
+      "while asked, the clock on hers; the prise washes it green, and her " +
+      "press on it is refused once and washes it red (render/snake-marks.ts)",
     gesture: "grab and drag",
     does:
       "Prises the stuck jaws apart: a carry of at least snakeJawsMilli, " +
@@ -52,7 +55,10 @@ export const SNAKE_CONTROLS: readonly FieldControlDef[] = [
       "on the last joint of the tail, sliding with it, from the moment the " +
       "body is past snakeShedTiles — the one place on the arena with nothing " +
       "else drawn on it (render/snake-grip.ts)",
-    seat: "player 2 only — the driver, and nothing at all from the pilot",
+    seat:
+      "player 2 only — the driver. Haloed on her screen until her thumb is " +
+      "down, the clock on his; the lift washes it green, and his press on it " +
+      "is refused once and washes it red (render/snake-marks.ts)",
     gesture: "hold",
     does:
       "Lifts the last snakeTailTiles of the body clear of the board for as " +

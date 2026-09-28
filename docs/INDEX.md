@@ -1459,6 +1459,7 @@ by hand never moves.
 | `packages/render/src/pinball-piece.ts` | you are drawing what stands on PINBALL's table — a peg as a living cell, a block as a slab of the same tissue |
 | `packages/render/src/snake-skin.ts` | What the body is made of: its contour, its light and its scales |
 | `packages/render/src/snake-mouth.ts` | What is in the mouth: the space itself, the fangs hung in it, and the tongue |
+| `packages/render/src/snake-marks.ts` | SNAKE's jaws and tail haloed while asked, the partner's clock on the other, green on the prise and lift, red on the other seat's press |
 | `packages/render/src/rind-shed.ts` | the event of a layer coming off a rind — which body, how big it was and is — handed to `RIND_LOOK` to draw |
 | `packages/render/src/rind-skin.ts` | the shipped picture of a rind losing a layer — the outline crushed onto the smaller body, the skin thrown out as a ring |
 | `packages/render/src/rind-slough.ts` | SLOUGH — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
@@ -1959,6 +1960,7 @@ by hand never moves.
 | `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it, what a turn of it says |
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
+| `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
 | `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |
 | `packages/render/src/strand-fuse.ts` | THE STRAND's thread going, drawn as a fuse |

@@ -609,6 +609,20 @@ this body could mean. It fills nothing now (`theirs`, `handle-draw.ts`), and
 `render/test/handle-hole-bosses.test.ts` counts the discs punched on each
 screen.
 
+**Both answer a touch the way THE INSTAR's marks do, 28 September 2026**
+(`render/snake-marks.ts`; the owner, 27 September: *the consistent visual
+across all waves*). Whether each is asked is the simulation's —
+`snakeJawsAsks` past `crawl` with the mouth's rest run out, `snakeTailAsks`
+under `shed` — and whose it is never changes. The part asked of this seat
+wears the halo until it is taken (the prise, which starts the rest; her thumb,
+`tailHeld`); the part asked of the partner wears their turning ring and the
+clock. The prise and the lift wash the ring green, and a press from the other
+seat on an asked part is refused once (`snakeRefuse`, the press and never its
+lift) and washes it red — the one round whose rings are drawn on both screens,
+so the one where a thumb can land on the wrong one. A desk press is signed
+with the part's seat (`snakeGripSeat`). A round frame skips `Effects.ingest`,
+so the takeover feeds the verdicts (`effects-round-marks.ts`).
+
 **The look, rebuilt 18 September 2026.** SNAKE was the last round but THE
 GAUGE still drawn as a slab panel over a dark plate with an ember box round
 the arena, and the owner asked for it to follow the others: the ship shown,

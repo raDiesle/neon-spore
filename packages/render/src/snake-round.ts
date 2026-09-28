@@ -1,5 +1,6 @@
 import type { SnakeState, World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
+import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
@@ -23,6 +24,7 @@ import {
 import { clipAboveHull, drawEmergeSlime, emergeOffset } from "./snake-emerge.js";
 import { drawSnakeGrips } from "./snake-grip.js";
 import { drawSnakeGate, snakeIntake } from "./snake-home.js";
+import { drawSnakeAsked, drawSnakeVerdicts } from "./snake-marks.js";
 import { drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
 import { drawSnakeShot } from "./snake-shot.js";
 
@@ -70,7 +72,12 @@ function stillPose(world: World, round: SnakeState, beatPhase: number) {
   };
 }
 
-export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
+export function drawSnakeRound(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  view: ViewState,
+  effects: Effects,
+): void {
   const boss = view.world.boss;
   if (boss === null || boss.kind !== "snake") return;
   const world = view.world;
@@ -112,9 +119,11 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   ctx.restore();
   if (emerging !== null) drawEmergeSlime(ctx, l, arena, boss, emerging);
   // The two hands the body grows: over it and outside the clip, because a ring
-  // is a thing to reach for and not a part of the animal (`snake-grip.ts`).
+  // is a thing to reach for and not a part of the animal (`snake-grip.ts`),
+  // each over its asking — the halo, or the partner's clock (`snake-marks.ts`).
   // Nothing is drawn under `morph` or after a crash, which is the gate the
   // controls themselves are held to.
+  drawSnakeAsked(ctx, l, world.cfg, boss, world.tick, view.time);
   drawSnakeGrips(ctx, l, world.cfg, boss, world.tick, view.time);
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
@@ -123,6 +132,8 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
   ctx.textAlign = "left";
+  // The green or red round a ring a thumb just landed on, last of all (`snake-marks.ts`).
+  drawSnakeVerdicts(ctx, l, world.cfg, boss, world.tick, effects.boss.snake.verdicts);
 }
 
 /**

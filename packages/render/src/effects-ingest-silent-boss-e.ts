@@ -51,4 +51,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE FLEET's thumb landing on its wound: a green ring round that seat's
   // own ring, `effects.boss.fleetGrip.marks`' (`fleet-grip-marks.ts`).
   "fleetHold",
+  // And SNAKE's refused press on the jaws or the tail: a red ring round the
+  // part, `effects.boss.snake`'s (`snake-marks.ts`).
+  "snakeRefuse",
 ] as const satisfies readonly SimEvent["type"][];

@@ -41,3 +41,6 @@ export {
   snakeShotStop,
   snakeStepTicks,
 } from "./bosses.js";
+// Which of the body's two parts is asked of a hand, which its rings read
+// (`render/snake-marks.ts`).
+export { snakeJawsAsks, snakeTailAsks } from "./snake-controls.js";

@@ -4,6 +4,7 @@ import { mazeGripSeat } from "./maze-grip.js";
 import { mirrorGripSeat } from "./mirror-grip.js";
 import { queenGripSeat } from "./queen-grip.js";
 import { sinewGripSeat } from "./sinew-handles.js";
+import { snakeGripSeat } from "./snake-grip.js";
 import { spoolGripSeat } from "./spool-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
 import { vaneGripSeat } from "./vane-grip.js";
@@ -36,7 +37,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    (`queen-grip.ts` `queenGripSeat`), and THE MIRROR's lobes the sixth
  *    (`mirror-grip.ts` `mirrorGripSeat`), and THE VANE's arm and housing the
  *    seventh (`vane-grip.ts` `vaneGripSeat`), and THE MAZE's string and
- *    heart the eighth (`maze-grip.ts` `mazeGripSeat`). One question for all of them, `markSeat`.
+ *    heart the eighth (`maze-grip.ts` `mazeGripSeat`), and SNAKE's jaws and
+ *    tail the ninth (`snake-grip.ts` `snakeGripSeat`). One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
  *    pilot's thumb — so the same hit test run for the second seat finds what
@@ -149,6 +151,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     queenGripSeat(l, x, y, field) ??
     mirrorGripSeat(l, x, y, field) ??
     vaneGripSeat(l, x, y, field) ??
-    mazeGripSeat(l, x, y, field)
+    mazeGripSeat(l, x, y, field) ??
+    snakeGripSeat(l, x, y, field)
   );
 }

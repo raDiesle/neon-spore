@@ -28291,3 +28291,14 @@ The bottleneck: the render silent list the fleet's events already sat in was
 eight lines from its ceiling, so the new event went to the list with room.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — SNAKE's jaws and tail answer a touch like THE INSTAR's marks
+
+- reading: 5 min. The controls, the grips, the round's drawing and the takeover.
+- writing: 5 min. Two asks and a refusal in the sim, `snake-marks.ts`, the round marks split out of the roster, two tests.
+- looking: 0 min. One frame.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the effects roster sat at its 250-line ceiling, so the rounds'
+marks had to be split out into their own base class before SNAKE's could go in.

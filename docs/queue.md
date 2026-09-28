@@ -321,22 +321,22 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE
-MIRROR, THE VANE, THE MAZE, THE GAUGE and THE FLEET: **one boss a lane**,
-the first on `TO_COME` in the roll-out test — SNAKE next — worked exactly as
-`.claude/skills/new-boss` §5 says and THE VANE's and THE MAZE's lanes did it
-(`vane-marks.ts`, `maze-marks.ts`; which part is asked of which seat moved
-into the simulation, `sim/vane-open.ts` `vaneArmAsks` and `vaneHousingAsks`,
-`sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts` `mazeHeartAsks`,
-and the refusal said there, `vaneRefuse`, `mazeRefuse`; a boss whose grip
-already has an fx class may keep its verdicts in it, as `maze-grip-fx.ts`
-and `FleetGripFx` does with `fleet-grip-marks.ts`, rather than growing the
-effects roster — which stands at its 250-line
-ceiling, so the next boss with no fx class of its own splits it first). A
-**round** (SNAKE, PINBALL, THE PULSE, THE SCOUT) ingests no effects on the
-game's screen, and `canvas2d-takeover.ts` feeds its marks the way it feeds
-THE GAUGE's; a part one seat's screen never shows gets no partner's clock and
-no refusal (`gauge-marks.ts`), and two seats' rings on one circle get none
-either (`fleet-grip-marks.ts`). A lane that lands one boss and leaves others
+MIRROR, THE VANE, THE MAZE, THE GAUGE, THE FLEET and SNAKE: **one boss a
+lane**, the first on `TO_COME` in the roll-out test — PINBALL next — worked
+exactly as `.claude/skills/new-boss` §5 says and THE VANE's and THE MAZE's
+lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
+seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
+`vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`
+`mazeHeartAsks`, and the refusal said there, `vaneRefuse`, `mazeRefuse`; a
+boss whose grip already has an fx class may keep its verdicts in it, as
+`maze-grip-fx.ts` and `FleetGripFx` does with `fleet-grip-marks.ts`, rather
+than growing the effects roster, which stands at its 250-line ceiling). A
+**round** (PINBALL, THE PULSE, THE SCOUT) ingests no effects on the game's
+screen: its marks go in `effects-round-marks.ts` `RoundMarks`, the roster's
+base, which `canvas2d-takeover.ts` feeds (`gauge-marks.ts`, `snake-marks.ts`).
+A part one seat's screen never shows gets no partner's clock and no refusal
+(`gauge-marks.ts`), and two seats' rings on one circle get none either
+(`fleet-grip-marks.ts`). A lane that lands one boss and leaves others
 on the list keeps this entry, rewritten to name the next; the lane that
 empties the list removes it and the list with it.
 

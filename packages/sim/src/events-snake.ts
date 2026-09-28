@@ -1,6 +1,6 @@
 /**
  * **What SNAKE's two hands on the body do that neither screen already says**,
- * as three events (`snake-controls.ts`).
+ * as four events (`snake-controls.ts`).
  *
  * Its own file on `events-vane.ts`' terms: one round, one arm of `SimEvent`,
  * and a file `packages/audio/test/bind.test.ts` has to be told the name of.
@@ -21,4 +21,10 @@ export type SnakeEvent =
   /** Player 2's thumb landed on the tail: its last tiles are off the arena. */
   | { type: "snakeLift"; col: number; row: number }
   /** And came off it: the tail is back down and in the way again. */
-  | { type: "snakeDrop"; col: number; row: number };
+  | { type: "snakeDrop"; col: number; row: number }
+  /**
+   * A press on the part asked of the other seat — the pilot's jaws or the
+   * driver's tail — refused once, at that part's tile: every mark's *not
+   * yours* (`snake-controls.ts`).
+   */
+  | { type: "snakeRefuse"; col: number; row: number; part: "jaws" | "tail"; player: 1 | 2 };

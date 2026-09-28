@@ -44,8 +44,8 @@ export const ROUND_DRAWS: Record<
  * pass calls `drawBossCue` at the same point for the same reason
  * (`frame-field.ts`) — over the boss, under nothing.
  *
- * `effects` is the seat's own, for the one transient a round keeps — THE
- * GAUGE's verdicts round a thumb (`gauge-marks.ts`).
+ * `effects` is the seat's own, for the one transient a round keeps — its
+ * verdicts round a thumb (`effects-round-marks.ts`).
  *
  * `skinY` is the flat hull: a round has no plating for a lobe to come up
  * through, which is the one thing that argument is for (`undertow-lobe.ts`).

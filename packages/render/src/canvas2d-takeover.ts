@@ -3,7 +3,7 @@ import type { Layout, Stage } from "./layout.js";
 import { openingKey } from "./opening-key.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
-import { drawRound } from "./round-draw.js";
+import { drawRound, ROUND_DRAWS } from "./round-draw.js";
 
 /**
  * **The two frames that are not the field**, and the clocks that run whether or
@@ -64,11 +64,11 @@ export function drawTakeover(
   // wave's opening itself, last — without it the pair get a picture standing
   // still with nothing saying why.
   // `canvas2d.ts` ingests nothing until after this returns, so the one
-  // transient a round keeps is fed here: THE GAUGE's verdicts round a thumb
-  // (`gauge-marks.ts`). The rehearsal's seat feeds its own (`guide-seat.ts`).
-  if (world.boss?.kind === "gauge") {
-    held.effects.boss.gauge.ingest(view.events);
-    held.effects.boss.gauge.update(view.dt);
+  // transient a round keeps is fed here: its verdicts round a thumb
+  // (`effects-round-marks.ts`). The rehearsal's seat feeds its own (`guide-seat.ts`).
+  if (ROUND_DRAWS[world.boss?.kind ?? ""] !== undefined) {
+    held.effects.boss.ingestRounds(view.events);
+    held.effects.boss.updateRounds(view.dt);
   }
   if (drawRound(ctx, l, view, held.effects)) {
     drawWaveOpening(ctx, l, world, {

@@ -1,4 +1,6 @@
+import type { SimConfig } from "./config.js";
 import { type SnakeState, snakeGrip } from "./snake.js";
+import { snakeCrashed } from "./snake-arena.js";
 import { fireSnake } from "./snake-move.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -81,6 +83,25 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
   snake.mawTick = world.tick;
 }
 
+/** Whether there is a body to take hold of: playing, and not folded up against a crash. */
+function afoot(snake: SnakeState): boolean {
+  return snake.phase === "play" && !snakeCrashed(snake);
+}
+
+/**
+ * Whether the jaws ask the pilot for a prise: past `crawl`, and the mouth's
+ * rest run out — the same rest the press it replaces was held to.
+ */
+export function snakeJawsAsks(cfg: SimConfig, snake: SnakeState, tick: number): boolean {
+  if (!afoot(snake) || snakeGrip(cfg, snake) === "crawl") return false;
+  return tick - snake.mawTick >= cfg.snakeMawRestTicks;
+}
+
+/** Whether the tail asks the driver for a lift: `shed`, and a body to lift. */
+export function snakeTailAsks(cfg: SimConfig, snake: SnakeState): boolean {
+  return afoot(snake) && snakeGrip(cfg, snake) === "shed";
+}
+
 /**
  * The two hands on the body itself: player 1 prising the jaws and player 2
  * holding the tail off the arena.
@@ -89,7 +110,11 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
  * other seat — the same rule of the simulation the four verbs above are held
  * to, and for the same reason: two devices have to agree exactly which presses
  * counted, and a driver who could also open the mouth would be playing both
- * halves of a round whose whole content is that she cannot.
+ * halves of a round whose whole content is that she cannot. **The other
+ * seat's press on a part that is asked is said, once** — the press, never
+ * its lift (`snakeRefuse`) — which is every mark's *not yours*: both rings
+ * are drawn on both screens (`render/snake-grip.ts`), so a thumb can land on
+ * the wrong one.
  */
 function dragHeard(
   world: World,
@@ -99,7 +124,12 @@ function dragHeard(
 ): void {
   const grip = snakeGrip(world.cfg, snake);
   if (command.target === "snakeJaws") {
-    if (player !== 1 || grip === "crawl") return;
+    if (player !== 1) {
+      if (command.on && snakeJawsAsks(world.cfg, snake, world.tick))
+        refuse(world, snake, "jaws", player);
+      return;
+    }
+    if (grip === "crawl") return;
     // The press says nothing; the prise is the lift, and only one that
     // travelled — a thumb resting on the head is not a mouth being opened.
     if (command.on) return;
@@ -113,7 +143,12 @@ function dragHeard(
     world.events.push({ type: "snakePrise", col: head?.col ?? 0, row: head?.row ?? 0 });
     return;
   }
-  if (command.target !== "snakeTail" || player !== 2 || grip !== "shed") return;
+  if (command.target !== "snakeTail") return;
+  if (player !== 2) {
+    if (command.on && snakeTailAsks(world.cfg, snake)) refuse(world, snake, "tail", player);
+    return;
+  }
+  if (grip !== "shed") return;
   if (snake.tailHeld === command.on) return;
   snake.tailHeld = command.on;
   const tail = snake.body[snake.body.length - 1];
@@ -122,4 +157,10 @@ function dragHeard(
     col: tail?.col ?? 0,
     row: tail?.row ?? 0,
   });
+}
+
+/** A press from the seat the part is not asked of, at the part's own tile. */
+function refuse(world: World, snake: SnakeState, part: "jaws" | "tail", player: 1 | 2): void {
+  const at = part === "jaws" ? snake.body[0] : snake.body[snake.body.length - 1];
+  world.events.push({ type: "snakeRefuse", col: at?.col ?? 0, row: at?.row ?? 0, part, player });
 }

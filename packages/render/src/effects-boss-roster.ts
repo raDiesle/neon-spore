@@ -5,12 +5,12 @@ import { BurgeeFx } from "./burgee-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { CystFx } from "./cyst-fx.js";
+import { RoundMarks } from "./effects-round-marks.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
-import { GaugeMarks } from "./gauge-marks.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
@@ -61,10 +61,11 @@ import { WardenFx } from "./warden-fx.js";
  * render/ and the tests, none of which had to move — and so `restart.test.ts`
  * still compares one `Effects` to another field by field.
  *
- * The reasoning for the fields themselves is on each field. What the whole
+ * The rounds' verdicts are a base class of this one, for the same reason
+ * (`effects-round-marks.ts`). The reasoning for the fields themselves is on each field. What the whole
  * arrangement is for is still stated next door, over `BossTransients`.
  */
-export class BossRoster {
+export class BossRoster extends RoundMarks {
   /**
    * THE MIRROR's own transients. Public: the boss is drawn as a whole ship
    * rather than as particles, and `canvas2d` reads `armed` and `intake` off
@@ -238,8 +239,6 @@ export class BossRoster {
   readonly queen = new QueenFx();
   /** THE VANE's arm's and housing's verdicts on a touch (`vane-marks.ts`). */
   readonly vane = new VaneMarks();
-  /** THE GAUGE's needle's and band's, fed by the takeover on a round (`gauge-marks.ts`). */
-  readonly gauge = new GaugeMarks();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

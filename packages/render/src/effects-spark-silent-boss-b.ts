@@ -159,6 +159,8 @@ export const SILENT_BOSS_B = [
   "snakePrise",
   "snakeLift",
   "snakeDrop",
+  // And a refused press on either: the red is `snake-marks.ts`'.
+  "snakeRefuse",
   // PINBALL's two hands, drawn since 22 September 2026 and still no burst:
   // the ring is already saying both, and a tilt takes it away (`pinball-grip.ts`).
   "pinWind",
