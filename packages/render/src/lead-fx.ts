@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
+import { LeadMarks } from "./lead-marks.js";
 import { leadRidgeY } from "./lead-shape.js";
 import { PALETTE } from "./palette.js";
 import { showsLeadLean } from "./view-role-clocks.js";
@@ -62,6 +63,8 @@ export class LeadFx {
   private tumbleR = 0;
   /** The blow a hit deals the stalk. */
   readonly hurt = new BossHurt();
+  /** The ring's verdict on a touch (`lead-marks.ts`). */
+  readonly marks = new LeadMarks();
 
   /** Where the stalk stood this frame, for the receipts with no column of their own on this screen. */
   note(footX: number, footY: number, tipX: number, tipY: number): void {
@@ -90,6 +93,7 @@ export class LeadFx {
     role: ViewRole,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const ridge = leadRidgeY(l);
     const atFoot = (n: number, hex: string) => {
       if (this.noted) burst(this.footX, this.footY, n, hex);
@@ -164,6 +168,7 @@ export class LeadFx {
     this.angleNow = Math.max(-ANGLE_MAX, Math.min(ANGLE_MAX, this.angleNow + this.vel * step));
     this.tumbleLeft = Math.max(0, this.tumbleLeft - dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   /** The segment that came off: a bead falling from where the tip was, fading as it goes. */
@@ -195,5 +200,6 @@ export class LeadFx {
     this.tumbleY = 0;
     this.tumbleR = 0;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

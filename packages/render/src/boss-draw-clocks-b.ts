@@ -117,7 +117,7 @@ export function drawFxBoss(
     // The ring on the stalk's organ, over the body rather than inside it: the
     // one movement of this fight a thumb may reach into, and the navigator's
     // alone (`lead-grip.ts`). It draws nothing outside the still.
-    drawLeadGrip(ctx, l, world.cfg, boss, beat, beatPhase, time);
+    drawLeadGrip(ctx, l, world.cfg, boss, beat, beatPhase, time, effects.boss.lead.marks.verdicts);
     return;
   }
 

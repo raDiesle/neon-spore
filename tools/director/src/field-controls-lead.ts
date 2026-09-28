@@ -38,7 +38,9 @@ export const LEAD_CONTROLS: readonly FieldControlDef[] = [
       "anyway — the ring fills with a dial running that fuse down, and the " +
       "fight still ends on the pilot's cannon standing where the pass comes " +
       "through (render/lead-grip.ts). Let go of once, the still cannot be " +
-      "taken again.",
+      "taken again. While it is on offer the ring wears the halo every " +
+      "asked mark wears, and her thumb landing washes it green " +
+      "(render/lead-marks.ts); the tear is not judged.",
     source: "touch.ts — leadStalkUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "leadStalk",

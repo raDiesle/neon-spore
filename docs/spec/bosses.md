@@ -5897,6 +5897,16 @@ THE SLOW moved from the beat a shot is judged, which asks for nothing, to
 the still and its pass; `leadSlowBeats` is gone. The first beam's sign is the
 body stopping dead again, with the still's own event.
 
+**Its ring answers a touch as far as a split fight lets it**
+(`render/lead-marks.ts`; the owner, 27 September 2026: *the consistent visual
+across all waves*). THE GAUGE's case: the ring stands on the navigator's
+screen alone, so while the still may be taken (`leadGrippable`) it wears the
+halo under it there, and her thumb landing washes it green (`leadGrip`). No
+partner's ring and clock, since the pilot's stalk is a readout and has no
+place to put one, and no refusal, since his press is dropped without a
+sound. The tear has no verdict: holding to the fuse is the most time a hand
+can buy, not a wrong touch, and the still passes in the same tick.
+
 ## 11.30 THE SCUTTLE — the boss racing you to its own death
 
 > The one that is killing itself, and if it finishes first, you lose.

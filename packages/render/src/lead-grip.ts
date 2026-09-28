@@ -6,9 +6,12 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
+import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
+import { LEAD_STALK } from "./lead-marks.js";
 import { leadAlong, leadFoot, leadStalkLength } from "./lead-shape.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsLeadCol } from "./view-role-clocks.js";
@@ -33,6 +36,10 @@ import { showsLeadCol } from "./view-role-clocks.js";
  * `heldBeat`, which is the fuse she is holding and the one readout the pilot
  * has no copy of. Once the stalk has been let go of or has torn free, the ring
  * is gone for the rest of the still: this still cannot be taken twice.
+ *
+ * Over those two, the convention every mark answers a touch with
+ * (`lead-marks.ts`): the halo under the ring while it is asked, and the
+ * verdict round it last.
  */
 
 /** How far out from the organ the ring stands, in tiles: clear of the tip's own bloom. */
@@ -85,14 +92,20 @@ export function drawLeadGrip(
   beat: number,
   beatPhase: number,
   time: number,
+  verdicts: GripVerdicts,
 ): void {
   if (!leadStill(s) || !showsLeadCol(l.role)) return;
   const held = leadHolding(s);
-  if (!held && !leadGrippable(s)) return;
   const at = leadOrgan(l, cfg, s);
   const r = l.tile * RING_TILES;
-  drawGripRing(ctx, at.x, at.y, r, held, time);
-  if (!held) return;
-  const left = 1 - clamp01((beat - s.heldBeat + beatPhase) / Math.max(1, cfg.leadHoldBeats));
-  drawGripDial(ctx, at.x, at.y, r, left);
+  if (held || leadGrippable(s)) {
+    if (!held) drawMarkHalo(ctx, at.x, at.y, r, time);
+    drawGripRing(ctx, at.x, at.y, r, held, time);
+    if (held) {
+      const left = 1 - clamp01((beat - s.heldBeat + beatPhase) / Math.max(1, cfg.leadHoldBeats));
+      drawGripDial(ctx, at.x, at.y, r, left);
+    }
+  }
+  const v = verdicts.at(LEAD_STALK);
+  if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);
 }
