@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 78390cd8a — THE MIRROR's lobes answer a touch the way THE INSTAR's marks do
+
+A lobe the round asks of this seat wears the halo; one asked only of the partner wears their turning ring and the clock. A step made right on a lobe, or the pin landing, washes it green; a wrong step on it, or a press on a lobe asked of the other seat, washes it red. That press is refused once by the simulation (mirrorRefuse) and moves nothing. Which lobe is asked of which seat moved into the sim (mirrorAsks), and where its cannon stands over the pair's shield a thumb gets its own lobe and no clock covers it. A desk press is signed with the seat the lobe is asked of (mirrorGripSeat).
+
 ## 2026-09-28 · 8d0652953 — THE BULB QUEEN's marks answer a touch the way THE INSTAR's do
 
 Her two marks, while BROOD's pry or SCREAM's hold asks for them, wear the halo on player 1's screen and the partner's turning ring and clock on player 2's, and each touch is judged on the mark it landed on: green for a pry that landed or a thumb on the real mark, red for a flinch, a thumb on the other one, or player 2's press, which the simulation now refuses and says (`queenRefuse`) instead of dropping in silence. Each verdict is said once per press, never once per move of the thumb, and a desk press on a mark is player 1's. A look the owner asked for by name.

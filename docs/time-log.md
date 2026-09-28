@@ -28237,3 +28237,5 @@ found one at a time from the typecheck's errors.
 
 The bottleneck: its two lobes stand one inside the other when its cannon is
 over the pair's shield, which only a frame showed — no test had them stacked.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
