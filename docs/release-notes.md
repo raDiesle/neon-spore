@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 28c59cfa5 — THE FILAMENT's two thumbs answer a touch the way every mark does
+
+An open ring with no thumb on it now wears the halo, and each of the line's words lands on the thumb whose mistake it names: a tile lit or followed washes that ring green, a snap is the pilot's red, a recoil the navigator's, a dark both, and a line left standing is red on the thumb it waited on.
+
 ## 2026-09-28 · 75d0c00c2 — THE HIVE's haul and wring answer a touch as far as its split lets them
 
 The clenched underside wears the halo on the pilot's screen until his carry begins, every swelling lobe but the one under her thumb wears it on the navigator's, and a haul home or a lobe wrung washes green. Each ring is one seat's alone, so there is no partner's clock and no refusal.
