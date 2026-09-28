@@ -10,6 +10,7 @@ import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
+import { GaugeMarks } from "./gauge-marks.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
@@ -233,11 +234,12 @@ export class BossRoster {
    * bursts — thrown the same on both screens, and told the core's colour by
    * the drawer (`flue-fx.ts`, `flue-draw.ts`). */
   readonly flue = new FlueFx();
-  /** THE BULB QUEEN's two marks' verdicts, green or red round the one the
-   * thumb was on (`queen-fx.ts`). */
+  /** THE BULB QUEEN's two marks' verdicts on a touch (`queen-fx.ts`). */
   readonly queen = new QueenFx();
   /** THE VANE's arm's and housing's verdicts on a touch (`vane-marks.ts`). */
   readonly vane = new VaneMarks();
+  /** THE GAUGE's needle's and band's, fed by the takeover on a round (`gauge-marks.ts`). */
+  readonly gauge = new GaugeMarks();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

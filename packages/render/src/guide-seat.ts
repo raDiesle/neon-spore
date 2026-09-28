@@ -69,7 +69,7 @@ export class SeatView {
     // the same reason `canvas2d.ts` does: the cheapest way to be sure the
     // field is gone is for none of the passes below to run. Without this,
     // SNAKE's film was an empty field with a caption over it.
-    if (drawRound(ctx, l, view)) return;
+    if (drawRound(ctx, l, view, this.effects)) return;
 
     const isArmed = guardArmed(world);
     const isOpen = mawOpen(world);

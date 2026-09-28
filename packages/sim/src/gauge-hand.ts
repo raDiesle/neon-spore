@@ -34,7 +34,11 @@ import type { World } from "./world.js";
  * on the half of the picture its own seat is shown: the needle is on both
  * screens, the band on the navigator's alone (`render/gauge.ts`). A thumb from
  * the wrong seat is ignored rather than refused loudly — there is nothing
- * drawn on that seat's screen to have pressed.
+ * drawn on that seat's screen to have pressed, and a red ring or a refusal's
+ * sound would tell the navigator the valve is dead and the pilot where the
+ * band is, the two things the round keeps from each (28 September 2026).
+ * A thumb that lands is said, `gaugeHold`, so the ring it lands on can wash
+ * green the way every mark's does (`render/gauge-marks.ts`).
  */
 
 /**
@@ -55,6 +59,17 @@ export type GaugeGrip = (typeof GAUGE_GRIPS)[number];
 /** Whether the valve is dead and the needle is the pilot's to swing by hand. */
 export function gaugeJammed(gauge: GaugeState): boolean {
   return gauge.jamBeat !== -1;
+}
+
+/** Whether the needle is asked of the pilot's hand: the round is live and the
+ * valve is dead. The rings and the halo read it (`render/gauge-grip.ts`). */
+export function gaugeNeedleAsks(gauge: GaugeState): boolean {
+  return gauge.phase === "play" && gaugeJammed(gauge);
+}
+
+/** Whether the band is asked of the navigator's thumb: live, and wound tight. */
+export function gaugeBandAsks(gauge: GaugeState): boolean {
+  return gauge.phase === "play" && gaugeBound(gauge);
 }
 
 /**
@@ -99,7 +114,7 @@ export function gaugeHandHeard(
 ): void {
   if (command.kind !== "drag") return;
   if (command.target === "gaugeNeedle") needle(world, gauge, player, command.on, command.fromMilli);
-  else if (command.target === "gaugeBand") band(gauge, player, command.on);
+  else if (command.target === "gaugeBand") band(world, gauge, player, command.on);
 }
 
 /**
@@ -123,6 +138,7 @@ function needle(
     gauge.liftBeat = world.beat;
     return;
   }
+  if (!gauge.handOn) world.events.push({ type: "gaugeHold", part: "needle" });
   gauge.handOn = true;
   // A press with no bearing yet is a hand that has landed and not yet said
   // where — the same `NO_BEARING` the crank and the rings answer (`bearing.ts`).
@@ -131,8 +147,9 @@ function needle(
 }
 
 /** Her thumb holding the wound band open, and only while it is wound. */
-function band(gauge: GaugeState, player: 1 | 2, on: boolean): void {
+function band(world: World, gauge: GaugeState, player: 1 | 2, on: boolean): void {
   if (player !== 2 || !gaugeBound(gauge)) return;
+  if (on && !gauge.openThumb) world.events.push({ type: "gaugeHold", part: "band" });
   gauge.openThumb = on;
 }
 

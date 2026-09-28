@@ -1,7 +1,7 @@
 import {
   type GaugeState,
-  gaugeBound,
-  gaugeJammed,
+  gaugeBandAsks,
+  gaugeNeedleAsks,
   NO_BEARING,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -34,8 +34,9 @@ import type { ViewRole } from "./view-role.js";
  *
  * **Neither ring is ever standing when nothing would answer it.** The
  * simulation refuses a needle that is not jammed and a band that is not wound
- * (`sim/gauge-hand.ts`), and the same two questions are asked here rather than
- * a second opinion written down beside them — a ring on a needle that still
+ * (`sim/gauge-hand.ts`), and the same two questions are asked here —
+ * `gaugeNeedleAsks` and `gaugeBandAsks` — rather than a second opinion
+ * written down beside them — a ring on a needle that still
  * answers its valve would be a control drawn where it is not answered, which
  * is the thing `handles.ts` exists to prevent.
  *
@@ -70,9 +71,13 @@ export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): T
   const g = bossOf(field, "gauge");
   if (g === null || g.phase !== "play") return null;
   const dial = gaugeDial(l);
-  if (field.seat === 1 && gaugeJammed(g) && hitCircle(gaugeNeedleGrip(l, field.cfg, dial, g), x, y))
+  if (
+    field.seat === 1 &&
+    gaugeNeedleAsks(g) &&
+    hitCircle(gaugeNeedleGrip(l, field.cfg, dial, g), x, y)
+  )
     return needleTouch(dial);
-  if (field.seat === 2 && gaugeBound(g) && hitCircle(gaugeBandGrip(l, field.cfg, dial, g), x, y))
+  if (field.seat === 2 && gaugeBandAsks(g) && hitCircle(gaugeBandGrip(l, field.cfg, dial, g), x, y))
     return bandTouch(x, y);
   return null;
 }
@@ -127,11 +132,11 @@ export function drawGaugeGrip(
   time: number,
 ): void {
   if (g.phase !== "play") return;
-  if (showsGaugeValve(role) && gaugeJammed(g)) {
+  if (showsGaugeValve(role) && gaugeNeedleAsks(g)) {
     const c = gaugeNeedleGrip(l, cfg, dial, g);
     drawGripRing(ctx, c.x, c.y, c.r, g.handOn, time);
   }
-  if (showsGaugeMarks(role) && gaugeBound(g)) {
+  if (showsGaugeMarks(role) && gaugeBandAsks(g)) {
     const c = gaugeBandGrip(l, cfg, dial, g);
     drawGripRing(ctx, c.x, c.y, c.r, g.openThumb, time);
   }

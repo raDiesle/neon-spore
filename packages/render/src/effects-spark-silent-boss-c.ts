@@ -23,6 +23,9 @@ export const SILENT_BOSS_C = [
   "gaugeMiss",
   "gaugeJam",
   "gaugeBind",
+  // And the thumb landing: no burst, the green round its ring is
+  // `effects.boss.gauge`'s (`gauge-marks.ts`).
+  "gaugeHold",
   // THE WELL's four, no burst: the face, its seam and its numerals are redrawn
   // from the boss every frame, and a shower over a clock whose whole job is to
   // agree with the thumb on it would be a look (`docs/looks.md`). Sound is

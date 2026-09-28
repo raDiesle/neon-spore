@@ -129,6 +129,7 @@ const SAMPLES: Record<string, SimEvent> = {
   gaugeMiss: { type: "gaugeMiss" },
   gaugeJam: { type: "gaugeJam" },
   gaugeBind: { type: "gaugeBind" },
+  gaugeHold: { type: "gaugeHold", part: "needle" },
   wellRoll: { type: "wellRoll" },
   wellHeld: { type: "wellHeld", left: 2 },
   wellWound: { type: "wellWound", sectors: 3 },
@@ -792,7 +793,16 @@ describe("bindings", () => {
   // there that took it has its own event, and its own sound. `mirrorTouch`
   // is the fourth: it names the lobe a step was made on, and the step itself
   // is `mirrorEcho` or `mirrorVerdict` on the same tick, each with its sound.
-  const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge", "shotOut", "mirrorTouch"]);
+  // `gaugeHold` is the fifth: a thumb landing on THE GAUGE's needle or band is
+  // the ring filling on the one screen that shows it, and a sound would tell
+  // the other seat what the round keeps from it (`sim/gauge-hand.ts`).
+  const SILENT_BY_DESIGN = new Set([
+    "needWave",
+    "choirMerge",
+    "shotOut",
+    "mirrorTouch",
+    "gaugeHold",
+  ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {
     for (const [type, e] of Object.entries(SAMPLES)) {

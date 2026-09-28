@@ -1,4 +1,5 @@
 import { drawBossCue } from "./boss-cue-draw.js";
+import type { Effects } from "./effects.js";
 import { drawGaugeRound } from "./gauge-round.js";
 import type { Layout } from "./layout.js";
 import { drawPinballRound } from "./pinball-round.js";
@@ -22,7 +23,7 @@ import { drawSnakeRound } from "./snake-round.js";
  */
 export const ROUND_DRAWS: Record<
   string,
-  (ctx: CanvasRenderingContext2D, l: Layout, view: ViewState) => void
+  (ctx: CanvasRenderingContext2D, l: Layout, view: ViewState, effects: Effects) => void
 > = {
   gauge: drawGaugeRound,
   snake: drawSnakeRound,
@@ -43,13 +44,21 @@ export const ROUND_DRAWS: Record<
  * pass calls `drawBossCue` at the same point for the same reason
  * (`frame-field.ts`) — over the boss, under nothing.
  *
+ * `effects` is the seat's own, for the one transient a round keeps — THE
+ * GAUGE's verdicts round a thumb (`gauge-marks.ts`).
+ *
  * `skinY` is the flat hull: a round has no plating for a lobe to come up
  * through, which is the one thing that argument is for (`undertow-lobe.ts`).
  */
-export function drawRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): boolean {
+export function drawRound(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  view: ViewState,
+  effects: Effects,
+): boolean {
   const round = ROUND_DRAWS[view.world.boss?.kind ?? ""];
   if (round === undefined) return false;
-  round(ctx, l, view);
+  round(ctx, l, view, effects);
   drawBossCue(ctx, l, view.world, view.beatPhase, view.time, () => l.hullY);
   return true;
 }

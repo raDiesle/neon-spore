@@ -1,7 +1,9 @@
 import { GAUGE_LEAD_BEATS, type GaugeState, gaugeBeatsLeft } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
+import type { Effects } from "./effects.js";
 import { type Dial, type DialView, drawGauge, drawGaugeFoe, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
+import { drawGaugeAsked, drawGaugeVerdicts } from "./gauge-marks.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import { drawHull } from "./hull.js";
 import { frame, type HullFrame, type HullMood, type LobePositions, surface } from "./hull-frame.js";
@@ -83,7 +85,12 @@ export function gaugeDial(l: Layout): Dial {
  * and control set visuals*.
  */
 
-export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
+export function drawGaugeRound(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  view: ViewState,
+  effects: Effects,
+): void {
   const boss = view.world.boss;
   if (boss === null || boss.kind !== "gauge") return;
 
@@ -130,6 +137,8 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // this one asks it back for the rings: the pair is `handles.ts` and
   // `touch.ts`'s, one direction at runtime, and the circle a thumb is
   // answered at is the circle the ring is drawn from.
+  // The halo under the rings on a part asked and not yet held (`gauge-marks.ts`).
+  drawGaugeAsked(ctx, l, view.world.cfg, dial, boss, view.role, view.time);
   drawGaugeGrip(ctx, l, view.world.cfg, dial, boss, view.role, view.time);
   // The ship's own panel, with the round's three in its sockets
   // (`gauge-button.ts`) — which is also where the machine stops and the dark
@@ -139,6 +148,8 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // The verdict stands through `spent` too: the round is over and holding
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, view, boss);
+  // A thumb's green, last of all, on the screen that shows its part.
+  drawGaugeVerdicts(ctx, l, view.world.cfg, dial, boss, view.role, effects.boss.gauge.verdicts);
   ctx.textAlign = "left";
 }
 

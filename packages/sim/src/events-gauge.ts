@@ -1,5 +1,5 @@
 /**
- * **What THE GAUGE's dial does that neither screen already says**, as four
+ * **What THE GAUGE's dial does that neither screen already says**, as five
  * events (`gauge.ts`, `gauge-hand.ts`).
  *
  * Its own file on `events-pulse.ts`'s terms: one round, one arm of `SimEvent`,
@@ -14,7 +14,8 @@
  * miss and a mark can cost, and each lands on the seat whose own screen never
  * says so: the pilot's valve going dead is a fact of his own half, and the
  * navigator's band winding tight is a fact of hers — the exact asymmetry
- * `gauge-hand.ts` is about.
+ * `gauge-hand.ts` is about. The fifth, `gaugeHold`, is no sound at all: it
+ * is for the ring a thumb lands on (28 September 2026).
  */
 export type GaugeEvent =
   /** A call landed between the marks. */
@@ -27,4 +28,8 @@ export type GaugeEvent =
   | { type: "gaugeJam" }
   /** The mark beside this one wound the band tight: she cannot call while her
    * thumb is not holding it open. */
-  | { type: "gaugeBind" };
+  | { type: "gaugeBind" }
+  /** His hand landed on the jammed needle, or her thumb on the wound band —
+   * said once, on the landing, for the green round the ring
+   * (`render/gauge-marks.ts`). Silent: the ring filling says it. */
+  | { type: "gaugeHold"; part: "band" | "needle" };

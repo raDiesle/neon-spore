@@ -226,6 +226,8 @@ export {
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";
+// Which parts THE GAUGE asks a hand for, which its rings read (`gauge-marks.ts`).
+export { gaugeBandAsks, gaugeNeedleAsks } from "./gauge-hand.js";
 // Which parts THE MAZE asks a hand for, which its rings read (`maze-marks.ts`).
 export { mazeStringAsks } from "./maze-controls.js";
 export { mazeHeartAsks } from "./maze-hand.js";

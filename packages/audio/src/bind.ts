@@ -63,6 +63,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "ui.waveOpen" };
     case "needWave":
       return null;
+    case "gaugeHold":
+      // Silent by design: the ring filling says it on the one screen that shows
+      // it, and a sound would tell the other seat what the round keeps from it.
+      return null;
     case "waveFailed":
       // The alarm that used to repeat while the hull was low. A hit is the
       // wave lost now (`sim/wave-fail.ts`), and that is what it says.

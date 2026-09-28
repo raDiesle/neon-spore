@@ -63,7 +63,14 @@ export function drawTakeover(
   // `ROUND_DRAWS` is the list and says why it is a list. Each draws the
   // wave's opening itself, last — without it the pair get a picture standing
   // still with nothing saying why.
-  if (drawRound(ctx, l, view)) {
+  // `canvas2d.ts` ingests nothing until after this returns, so the one
+  // transient a round keeps is fed here: THE GAUGE's verdicts round a thumb
+  // (`gauge-marks.ts`). The rehearsal's seat feeds its own (`guide-seat.ts`).
+  if (world.boss?.kind === "gauge") {
+    held.effects.boss.gauge.ingest(view.events);
+    held.effects.boss.gauge.update(view.dt);
+  }
+  if (drawRound(ctx, l, view, held.effects)) {
     drawWaveOpening(ctx, l, world, {
       role: view.role,
       time: view.time,

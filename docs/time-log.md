@@ -28265,3 +28265,14 @@ The bottleneck: the draw test that held both screens to one frame bar a word,
 which the asking now breaks on purpose and had to learn to take out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE GAUGE's needle and band answer a touch like THE INSTAR's marks
+
+- reading: 5 min. The two hands, the grip, the round's draw, and the takeover that ends a round's frame.
+- writing: 10 min. The asks and one silent event in the sim, the marks, the takeover's feed, two tests.
+- looking: 0 min. One frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: finding that a round's frame never reaches `Effects.ingest`,
+so the verdicts had no way onto the game's screen until the takeover fed them.

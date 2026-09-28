@@ -45,4 +45,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE MAZE's, on the heart or the string: a ring round the part,
   // `effects.boss.maze`'s (`maze-grip-fx.ts`, `maze-marks.ts`).
   "mazeRefuse",
+  // And THE GAUGE's thumb landing on its needle or band: a green ring round
+  // the part, `effects.boss.gauge`'s (`gauge-marks.ts`).
+  "gaugeHold",
 ] as const satisfies readonly SimEvent["type"][];

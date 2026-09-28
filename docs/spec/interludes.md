@@ -249,6 +249,20 @@ screen the band is drawn on. The circle a thumb is answered at is the circle
 the ring is drawn from, which is the one thing a control on a picture has to
 get right.
 
+**Its needle and band answer a touch the way every mark does, as far as the
+split lets them** (28 September 2026, `render/gauge-marks.ts`;
+`mark-feedback.ts`, `grip-verdict.ts`). Whether each is asked is the
+simulation's (`gaugeNeedleAsks`, `gaugeBandAsks`, `sim/gauge-hand.ts`). On the
+screen that shows it, the part asked wears the halo under its ring until the
+thumb is down, and the thumb landing washes it **green** (`gaugeHold`, silent:
+the ring filling already says it). **Half the convention is missing on
+purpose.** Every other mark wears the partner's turning ring and clock on the
+other screen, and a press from the wrong seat is refused red; here the band is
+never drawn on his screen and the jam never shown on hers, so either would tell
+a seat the one thing the round keeps from it. A wrong seat's thumb still falls
+through, and nothing is refused. A round ingests no effects of its own, so the
+takeover feeds these verdicts (`canvas2d-takeover.ts`).
+
 **And a button goes faint where the round would refuse it**, asked the way
 the simulation asks it and never guessed at (`gaugeLobeArmed`): the two turns
 under a jam, the call under her own thumb or over a settling needle. The rest

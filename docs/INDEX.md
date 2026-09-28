@@ -441,7 +441,7 @@ by hand never moves.
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it is flung — its landing is a `breach` |
 | `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
 | `packages/sim/src/events-governor.ts` | What THE GOVERNOR says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as four events (`gauge.ts`, `gauge-hand.ts`) |
+| `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as five events (`gauge.ts`, `gauge-hand.ts`) |
 | `packages/sim/src/events-gall.ts` | What THE GALL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-grindstone.ts` | What THE GRINDSTONE says as it happens, one line per thing the picture and the sound answer |
@@ -1200,6 +1200,7 @@ by hand never moves.
 | `packages/render/src/gauge-load.ts` | **Which colour THE GAUGE's cannon is loaded with** — cyan, then red, turn about with every hit |
 | `packages/render/src/gauge-shot.ts` | What a call looks like: the cannon fires, the bolt crosses the mouth |
 | `packages/render/src/gauge-wound.ts` | THE GAUGE's wound: where the band is, drawn as a place the alien's armour is torn open and the flesh under it… |
+| `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |

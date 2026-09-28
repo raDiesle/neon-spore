@@ -21,8 +21,12 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     name: "THE GAUGE'S NEEDLE",
     where:
       "a ring on the end of the needle, on player 1's screen only, and only " +
-      "while the valve is jammed — nowhere at all while the valve answers",
-    seat: "player 1 only — the pilot, whose valve it is; player 2's press falls through",
+      "while the valve is jammed — nowhere at all while the valve answers — " +
+      "haloed until his hand is down, and green the moment it lands; nothing " +
+      "on player 2's screen, which never shows the jam",
+    seat:
+      "player 1 only — the pilot, whose valve it is; player 2's press falls " +
+      "through, never refused red: a refusal would tell her the valve is dead",
     gesture: "grab and drag",
     does:
       "Swings the needle by hand while the valve is dead. A miss jams it " +
@@ -42,8 +46,11 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     name: "THE GAUGE'S BAND",
     where:
       "a ring in the middle of the band, out at the rim, on player 2's " +
-      "screen only — where the band is drawn at all — and only while it is wound tight",
-    seat: "player 2 only — the navigator, whose marks they are",
+      "screen only — where the band is drawn at all — and only while it is " +
+      "wound tight; haloed until her thumb is down, and green the moment it lands",
+    seat:
+      "player 2 only — the navigator, whose marks they are; player 1's press " +
+      "falls through, never refused: a refusal would tell him where the band is",
     gesture: "hold",
     does:
       "Holds the wound band open: every gaugeBindMarks marks it winds to " +
