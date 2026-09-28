@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO never takes a plate off THE WARDEN in `bun run frames`
 
 - **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
+- **Taken:** 2026-09-28, claude/queue-the-wardens-hatch-swipe-is-a-ring-and-says-nothi (claim: claude/queue-auto-never-takes-a-plate-off-the-warden-in-bun-r)
 - **Files:** `packages/hands/src/boss-hands-shots.ts`, `tools/frames/auto.ts`
 
 `bun run frames . --wave "THE WARDEN" --auto both --until plate` finds no
