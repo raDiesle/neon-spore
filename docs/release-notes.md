@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · de4771b32 — A kept claim's re-stamp keeps its `Taken:` line in this tree
+
+`bun run queue take` on a claim branch this tree kept takes the old mark off both copies of the file, then writes the same line back onto the trunk. The fast-forward then had nothing in the file to change, so the line stayed off in this tree's copy, and every roll-out lane started with a stray `docs/queue.md` diff. The mark is now written back here too.
+
 ## 2026-09-28 · 60c6aa753 — Queue: a kept claim's re-stamp leaves this tree's Taken: line off
 
 ## 2026-09-28 · c6c1611f6 — THE TASTER's pin, wipe and pry answer a touch like THE INSTAR's marks
