@@ -18,8 +18,8 @@ export type OculusEvent =
   | ({ type: "oculusEnter" } & OculusColEvent)
   /** A step lit: a pair to shut, a shot at the core, the socket to hold open, a glare or a look. */
   | ({ type: "oculusLight"; ask: OculusAsk } & OculusColEvent)
-  /** A thumb lifted while both leaves were down: the count starts over. */
-  | ({ type: "oculusSlip" } & OculusColEvent)
+  /** A thumb lifted while both leaves were down: the count starts over; `seat` is whose. */
+  | ({ type: "oculusSlip"; seat: 1 | 2 } & OculusColEvent)
   /** A pair of leaves held shut; `shut` is how many are shut now. */
   | ({ type: "oculusShut"; shut: number } & OculusColEvent)
   /** A shut step ran out: the pair springs open, to be tried again. */

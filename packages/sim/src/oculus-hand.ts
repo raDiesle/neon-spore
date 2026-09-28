@@ -29,5 +29,5 @@ export function oculusHeard(world: World, player: 1 | 2, command: Command): void
   s.held[side] = command.on;
   if (command.on || !wasBoth || !oculusHolding(s)) return;
   s.heldBeats = 0;
-  world.events.push({ type: "oculusSlip", col: midCol(world.cfg) });
+  world.events.push({ type: "oculusSlip", seat: player, col: midCol(world.cfg) });
 }

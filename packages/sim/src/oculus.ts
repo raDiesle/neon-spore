@@ -115,6 +115,22 @@ export function oculusLookCol(mid: number, step: OculusStep): number {
 }
 
 /** The lens shattered: the fight is over and it is only falling. */
+/** Whether a seat's leaf is asked for: a pair to hold lit, and that seat's thumb not down. */
+export function oculusLeafAsks(s: OculusState, seat: 1 | 2): boolean {
+  return oculusHolding(s) && !s.held[seat - 1];
+}
+
+/** Whether the core is asked for a shot: a fire step lit, the socket open. */
+export function oculusCoreAsks(s: OculusState): boolean {
+  return s.socketOpen && oculusLitStep(s)?.ask === "fire";
+}
+
+/** Whether the hull is asked: the shield under the eye for the glare, the cannon up the look's column. */
+export function oculusHullAsks(s: OculusState): boolean {
+  const ask = oculusLitStep(s)?.ask;
+  return ask === "glare" || (ask === "look" && s.socketOpen);
+}
+
 export function oculusDone(s: OculusState): boolean {
   return s.phase === "shatter";
 }

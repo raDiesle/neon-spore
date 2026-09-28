@@ -101,7 +101,7 @@ describe("THE OCULUS's transients", () => {
     const fx = new OculusFx();
     said(fx, [
       { type: "oculusLight", ask: "shut", col: MID },
-      { type: "oculusSlip", col: MID },
+      { type: "oculusSlip", seat: 1, col: MID },
       { type: "oculusSpring", col: MID },
       { type: "oculusSwallow", col: MID },
     ]);

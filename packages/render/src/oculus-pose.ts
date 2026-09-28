@@ -52,6 +52,25 @@ export function oculusHeldShare(s: OculusState, beatPhase: number): number {
 }
 
 /**
+ * How far an open leaf settles about its pin on its own, as a share of the
+ * leaf's whole swing (a degree and a half), and how fast in radians a second.
+ * The part of this mechanism that hangs: the lens's outline wobble is its
+ * silhouette and the rest is the beat, so without it the open iris is a
+ * picture of one (`docs/style-guide.md`, *Motion*).
+ */
+const LEAF_SETTLE = 0.02;
+const LEAF_SETTLE_RATE = 0.9;
+
+/**
+ * Leaf `k` at `shut`, settling. Scaled by how open it is, so a shut leaf is
+ * held exactly where the iris is read, and phased by the leaf, so the six do
+ * not settle together.
+ */
+export function oculusHung(shut: number, k: number, time: number): number {
+  return shut - LEAF_SETTLE * (1 - shut) * Math.sin(time * LEAF_SETTLE_RATE + k * 1.1);
+}
+
+/**
  * How shut each leaf is, 0 open to 1 shut: every leaf of a shut pair closed,
  * the lit pair sliding across as it is held, a cracked pair standing part
  * open until it is held shut again, and all of them springing open as the

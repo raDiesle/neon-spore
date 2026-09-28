@@ -9004,6 +9004,21 @@ down to the hull at the column it looks down and a notch there. Each eases
 back over the rest after. The cue says `SHIELD` under the beam and `FIRE`
 under the notch (`render/boss-cue-read-ze.ts`).
 
+**Its marks answer a touch the way every mark does** (`render/oculus-verdicts.ts`,
+`test/oculus-verdict.test.ts`). Four marks: each half of the lens, the core
+and the hull under the eye. While a pair to hold is lit, a half whose thumb
+is not down wears the halo on its own seat's screen and the partner's ring
+and clock on the other's, so a thumb already down sees the one still
+missing. The core asks for its shot while a fire step stands open, and the
+hull asks for the shield through the glare and for the cannon up the look's
+column. Either seat answers those two, so they halo on both screens with
+nobody's clock. A pair shut or resealed greens both halves, and a thumb
+slipping reddens its own seat's half: `oculusSlip` now says whose thumb it
+was. A core hit greens the core, and a blocked glare or a landed look greens
+the hull. A step let run out reddens only what it asked. A leaf pressed by
+the wrong seat, and a shot of the wrong colour, stay silent, as the
+simulation is.
+
 ## 11.45 THE VISE — the boss two pinches crack, then shoot into
 
 > A dry seed-case over the middle of the field, two lobes clamped on a

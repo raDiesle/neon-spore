@@ -175,7 +175,7 @@ export const HURT_ROWS_B: Row[] = [
     ],
     part: [
       { type: "oculusLight", ask: "shut", col: 3 },
-      { type: "oculusSlip", col: 3 },
+      { type: "oculusSlip", seat: 1, col: 3 },
       { type: "oculusSpring", col: 3 },
       { type: "oculusReseal", col: 3 },
     ],

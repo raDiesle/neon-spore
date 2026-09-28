@@ -338,8 +338,8 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
 THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE, THE
-CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE, THE CURTAIN, THE TASTER, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE, THE FILAMENT, THE GIMBAL, THE RATCHET, THE MANTLE, THE KEEL, THE VALVE and THE SEAM: **one boss a lane**, the first on `TO_COME` in the
-roll-out test — THE OCULUS next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
+CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE, THE CURTAIN, THE TASTER, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE, THE FILAMENT, THE GIMBAL, THE RATCHET, THE MANTLE, THE KEEL, THE VALVE, THE SEAM and THE OCULUS: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE VISE next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
 THE MAZE's lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
 seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 `vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`

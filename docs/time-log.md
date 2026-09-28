@@ -28604,3 +28604,13 @@ The bottleneck: the drum is drawn turned by its list, so every mark had to be pl
 The bottleneck: a boss answered with the cannon and the shield has no thumb mark, so which three places are its marks had to be decided before anything was written.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE OCULUS's marks answer a touch the way every mark does
+
+- reading: 10 min. The hold, the story steps, the drawer's frame, which events carry a seat.
+- writing: 20 min. `oculusSlip` told whose thumb slipped, three asking predicates in the sim, `oculus-verdicts.ts`, the leaf settle moved into `oculus-pose.ts` for size, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: a slip carried no seat, so the event had to be widened, with every place that builds it, before the red could land on the right half.

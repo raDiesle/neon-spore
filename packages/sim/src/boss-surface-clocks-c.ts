@@ -95,9 +95,12 @@ export {
   type OculusStep,
   oculusBoss,
   oculusBothHeld,
+  oculusCoreAsks,
   oculusDone,
   oculusGlaring,
   oculusHolding,
+  oculusHullAsks,
+  oculusLeafAsks,
   oculusLitStep,
   oculusLookCol,
 } from "./oculus.js";

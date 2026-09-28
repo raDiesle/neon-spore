@@ -16,7 +16,11 @@ const LEAF_DOES =
   "pair** and the count starts again from nought. A thumb laid on before " +
   "a pair lights is counted from its first beat — the lens takes a hold " +
   "whenever it stands, until it shatters (sim/oculus-hand.ts). Where the " +
-  "thumb wanders to after the press means nothing.";
+  "thumb wanders to after the press means nothing. While a pair is lit, " +
+  "a half whose thumb is not down wears the halo on its seat's screen and " +
+  "the partner's ring and clock on the other's; a pair shut greens both " +
+  "halves, a slip reddens the slipping seat's, and a pair sprung open " +
+  "reddens both (render/oculus-verdicts.ts).";
 
 export const OCULUS_CONTROLS: readonly FieldControlDef[] = [
   {

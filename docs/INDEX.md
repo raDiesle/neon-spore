@@ -1543,6 +1543,7 @@ by hand never moves.
 | `packages/render/src/oculus-grip.ts` | **The thumbs on THE OCULUS** — the first of its hands lanes |
 | `packages/render/src/oculus-fx.ts` | What THE OCULUS leaves behind a frame (§27, *Presentation*) |
 | `packages/render/src/oculus-blow.ts` | **THE OCULUS's own blow at the hull** (`boss-strike-look.ts`): the lens does what a lens does |
+| `packages/render/src/oculus-verdicts.ts` | **THE OCULUS's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/outline-drift.ts` | **The outline tier** (`docs/spec/living-bosses.md` §1, "How far it reaches, by kind of body") |
 | `packages/render/src/outline-parts.ts` | **The outline tier's parts** (`docs/spec/living-bosses.md` §1, "How an outline boss gets it") |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |

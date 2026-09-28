@@ -489,7 +489,7 @@ const SAMPLES: Record<string, SimEvent> = {
   seamOut: { type: "seamOut", col: 5 },
   oculusEnter: { type: "oculusEnter", col: 5 },
   oculusLight: { type: "oculusLight", col: 5, ask: "shut" },
-  oculusSlip: { type: "oculusSlip", col: 5 },
+  oculusSlip: { type: "oculusSlip", seat: 1, col: 5 },
   oculusShut: { type: "oculusShut", col: 5, shut: 4 },
   oculusSpring: { type: "oculusSpring", col: 5 },
   oculusBreak: { type: "oculusBreak", col: 5 },

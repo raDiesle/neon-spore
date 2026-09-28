@@ -4,6 +4,7 @@ import type { Burst } from "./effects-boss.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { oculusCentre, oculusLift, oculusRadius } from "./oculus-shape.js";
+import { OculusVerdicts } from "./oculus-verdicts.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -30,7 +31,8 @@ import { PALETTE } from "./palette.js";
  * blow, drawn by `boss-strike-fx.ts` for every boss that strikes.
  *
  * The core's colour is the lit step's and not in `oculusHit`, so the drawer
- * tells it every frame (`tell`), THE KEEL's way. Everything is cleared in
+ * tells it every frame (`tell`), THE KEEL's way. What each mark said back to
+ * a touch is `marks` (`oculus-verdicts.ts`). Everything is cleared in
  * `Effects.reset()` (`restart.test.ts`).
  */
 
@@ -56,6 +58,8 @@ export class OculusFx {
   private coreHex: string = PALETTE.hullRim;
   /** The blow a shut pair and a core hit deal the lens. */
   readonly hurt = new BossHurt();
+  /** Whether the last touch on each of the lens's marks was right. */
+  readonly marks = new OculusVerdicts();
 
   /** How far the whole lens is pressed down right now, in tiles. */
   get thud(): number {
@@ -84,6 +88,7 @@ export class OculusFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("oculus")) continue;
       const mid = oculusCentre(l, cfg);
@@ -144,6 +149,7 @@ export class OculusFx {
     this.shatterNow = Math.max(0, this.shatterNow - FLASH_DECAY * step);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -154,5 +160,6 @@ export class OculusFx {
     this.shock.clear();
     this.coreHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

@@ -17,6 +17,7 @@ import type { OculusFx } from "./oculus-fx.js";
 import { drawOculusCore, drawOculusFlash, drawOculusLitPair } from "./oculus-marks.js";
 import {
   oculusArrived,
+  oculusHung,
   oculusLeft,
   oculusLitPair,
   oculusShatter,
@@ -41,6 +42,7 @@ import {
   oculusGaze,
   oculusGlare,
 } from "./oculus-story.js";
+import { drawOculusMarkFeedback } from "./oculus-verdicts.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 
@@ -55,7 +57,7 @@ interface Aim {
  * time by both thumbs holding together, and a core in the socket behind them
  * (§11.44, `bosses-choreographed.md` §27).
  *
- * **Both screens are drawn the same.** Nothing here reads `l.role`: a hold
+ * **Both screens are drawn the same.** Nothing here reads `l.role` but the marks' feedback: a hold
  * asks both seats at once, and a fire step's colour says which cannon answers,
  * so both have to see all of it.
  *
@@ -68,7 +70,8 @@ interface Aim {
  *
  * What outlives a frame — the thud of a shut pair, a core hit's flash, the
  * shatter's, the blow — is `fx` (`oculus-fx.ts`), told the core's colour here
- * because the event that hits it does not carry one.
+ * because the event that hits it does not carry one. Over it all, what each
+ * mark asks and said back (`oculus-verdicts.ts`).
  */
 export function drawOculus(
   ctx: CanvasRenderingContext2D,
@@ -114,27 +117,10 @@ export function drawOculus(
       ctx.restore();
     }
   }
+  const hull = { x: aim.lookX, y: aim.toHull };
+  drawOculusMarkFeedback(ctx, l, cfg, s, beat, beatPhase, time, hull, fx.marks.verdicts);
   drawOculusFlash(ctx, l, fx.flash, fx.shatter);
   ctx.restore();
-}
-
-/**
- * How far an open leaf settles about its pin on its own, as a share of the
- * leaf's whole swing (a degree and a half), and how fast in radians a second.
- * The part of this mechanism that hangs: the lens's outline wobble is its
- * silhouette and the rest is the beat, so without it the open iris is a
- * picture of one (`docs/style-guide.md`, *Motion*).
- */
-const LEAF_SETTLE = 0.02;
-const LEAF_SETTLE_RATE = 0.9;
-
-/**
- * Leaf `k` at `shut`, settling. Scaled by how open it is, so a shut leaf is
- * held exactly where the iris is read, and phased by the leaf, so the six do
- * not settle together.
- */
-function hung(shut: number, k: number, time: number): number {
-  return shut - LEAF_SETTLE * (1 - shut) * Math.sin(time * LEAF_SETTLE_RATE + k * 1.1);
 }
 
 /** The lens whole: glass face, the leaves across it, the socket and core behind, the rim over their roots, the blow over the rim. */
@@ -153,7 +139,7 @@ function drawLens(
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
   ctx.fill(face);
 
-  const shut = oculusShut(s, world.cfg, beat, beatPhase).map((v, k) => hung(v, k, time));
+  const shut = oculusShut(s, world.cfg, beat, beatPhase).map((v, k) => oculusHung(v, k, time));
   ctx.save();
   ctx.clip(face);
   for (let k = 0; k < OCULUS_LEAVES; k++) {
