@@ -10,12 +10,13 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
-import { drawSeamGrit, drawSeamPoint, drawSeamRock } from "./seam-marks.js";
+import { drawSeamGrit, drawSeamPoint, drawSeamRock, seamRockAt } from "./seam-marks.js";
 import { seamArrived, seamGape, seamLeft, seamLitPoint, seamOpen, seamSplit } from "./seam-pose.js";
 import {
   type Point,
@@ -28,6 +29,14 @@ import {
   seamRidgePath,
 } from "./seam-shape.js";
 import { drawSeamBack, drawSeamGlow, seamTurn, seamTurnWidth } from "./seam-story.js";
+import {
+  drawSeamHalo,
+  drawSeamVerdicts,
+  seamCrackAsks,
+  seamCrackCircle,
+  seamGritCircle,
+  seamRockCircle,
+} from "./seam-verdicts.js";
 
 /**
  * **THE SEAM**: a shelled ridge standing down the middle column with one
@@ -43,6 +52,10 @@ import { drawSeamBack, drawSeamGlow, seamTurn, seamTurnWidth } from "./seam-stor
  * breaks it, white where either will. **Its health is the three points**:
  * each seals to a thin closed line and its lobe sheds its teeth, so a ridge
  * two points down is smoother as well as quieter.
+ *
+ * **Each mark answers the way every mark does** (`seam-verdicts.ts`): the
+ * halo under what the lit step asks for, on both screens, and the verdict
+ * round it once it is answered — `verdicts`, kept in `BossBlows`.
  */
 export function drawSeam(
   ctx: CanvasRenderingContext2D,
@@ -52,6 +65,7 @@ export function drawSeam(
   beat: number,
   beatPhase: number,
   time: number,
+  verdicts: GripVerdicts,
 ): void {
   const cfg = world.cfg;
   const arrived = seamArrived(s, cfg, beat, beatPhase);
@@ -80,6 +94,7 @@ export function drawSeam(
   }
   ctx.restore();
   drawThrown(ctx, l, world, s, c, beat, beatPhase, time);
+  drawSeamVerdicts(ctx, l, world, s, c, verdicts);
 }
 
 /**
@@ -139,6 +154,7 @@ function drawFace(
   const step = seamLitStep(s);
   if (step === null || !seamWantsShot(s)) return;
   const left = seamLeft(s, seamStepBeats(world, s), beat, beatPhase);
+  if (seamCrackAsks(s)) drawSeamHalo(ctx, seamCrackCircle(l, s, { x: 0, y: 0 }), time);
   if (step.ask === "glow") {
     drawSeamGlow(ctx, l, ridge, crack, s.quenched, world.cfg.seamGlowShots, left, beatPhase);
   }
@@ -190,9 +206,13 @@ function drawThrown(
   const mouth = seamMouth(l);
   const from = { x: c.x + mouth.x, y: c.y + mouth.y };
   const along = Math.min(1, phaseInto(s, beat, beatPhase) / Math.max(1, seamStepBeats(world, s)));
-  if (seamWantsShield(s)) drawSeamGrit(ctx, l, from, along, time);
+  if (seamWantsShield(s)) {
+    drawSeamHalo(ctx, seamGritCircle(l, world.cfg), time);
+    drawSeamGrit(ctx, l, from, along, time);
+  }
   if ((step.ask === "rock" || step.ask === "both") && seamWantsShot(s)) {
     const toX = fieldX(l, seamStepCol(world, step));
+    drawSeamHalo(ctx, seamRockCircle(l, seamRockAt(l, from, toX, along)), time);
     drawSeamRock(ctx, l, from, toX, step, along, time);
   }
 }

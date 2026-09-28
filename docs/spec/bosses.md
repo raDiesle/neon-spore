@@ -8800,6 +8800,23 @@ colour that breaks it. The sealed ridge splits in two halves down the crack
 the nine events off the silent lists, hurt, the cue's words, THE SLOW's aim
 on the lit point, and the autopilot hand.
 
+**Its marks answer a touch the way every mark does**
+(`render/src/seam-verdicts.ts`; the owner, 27 September 2026), for a boss
+answered with nothing but the cannon and the shield: its marks are what
+those are asked for — the lit point on the crack, the spat rock, and the
+hull under the ridge where the shield takes the grit. **Every mark is both
+seats'**, THE PULSE's case, since a point wants one seat's cannon and the
+other's colour and grit one seat's shield and the other's guard: an asked
+mark wears the halo on both screens, and no partner's ring and clock. The
+crack asks while a point or the glow wants its shot, the rock while it falls,
+and the shield's place while the grit is thrown (`sim/seam.ts`
+`seamWantsShot`, `seamWantsShield`). The verdicts are the ridge's words: a
+point dimmed or sealed and each quench green the crack, a rock shot out
+greens its column on the hull, grit taken greens the shield's place, and a
+step run out reddens every mark it still owed. The wrong colour stays
+silent, as the shot says. Held in `BossBlows`, the boss having no fx class
+yet. Its test: `render/test/seam-verdict.test.ts`.
+
 ## 11.44 THE OCULUS — the boss both hands hold shut, then shoot into
 
 > A great lens over the middle of the field, six leaves open across its face.

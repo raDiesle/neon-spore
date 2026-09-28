@@ -139,7 +139,10 @@ export const CHOREO_NOTES_C = {
     "throws grit blind (seamBlindBeats), and a glow gathers on the crack until " +
     "seamGlowShots shots of either colour quench it (seamGlowBeats). A step run " +
     "out is a hull hit, which is the wave. Three sealing points are the health, " +
-    "and THE SLOW spans every step — sim/seam*.ts, sim/config-seam.ts.",
+    "and THE SLOW spans every step — sim/seam*.ts, sim/config-seam.ts. What a " +
+    "step asks — the point, the rock, the shield's place under the ridge — wears " +
+    "the halo on both screens, both seats' at once, and greens when answered or " +
+    "reddens when run out (render/seam-verdicts.ts).",
   "THE OCULUS — the boss both hands hold shut, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §27: two seats holding at " +
     "once, for as long as the count runs. An eye over the middle column behind " +

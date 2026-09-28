@@ -28592,3 +28592,13 @@ The bottleneck: `keel-marks.ts` was already the ring's drawer, so the verdicts n
 The bottleneck: the drum is drawn turned by its list, so every mark had to be placed in the drum's own frame, and the frozen pin's halo drawn under the pins rather than with the rest.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE SEAM's marks answer a touch the way every mark does
+
+- reading: 10 min. The shot, the shield, the story's turn, the drawer, where a boss with no fx class keeps its verdicts.
+- writing: 15 min. `seam-verdicts.ts` held in `BossBlows`, `seamClosing` and `seamRockAt` cut out to be called, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 5 min. The turned ridge drops the crack's ember gradient, so the halo test counted against the step answered rather than the ridge at rest.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: a boss answered with the cannon and the shield has no thumb mark, so which three places are its marks had to be decided before anything was written.

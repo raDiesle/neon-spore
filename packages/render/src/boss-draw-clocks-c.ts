@@ -145,10 +145,11 @@ export function drawPairBoss(
   // THE SEAM: a shelled ridge down the middle column, a crack along its spine
   // widening at the three points that are its health. Both screens are drawn
   // the same — which seat answers a step is the colour it asks for
-  // (`seam-draw.ts`). Nothing of it outlives a frame yet: its effects are the
-  // second half of its look.
+  // (`seam-draw.ts`). All that outlives a frame is its marks' verdicts, kept
+  // in `effects.boss.blows` (`seam-verdicts.ts`); its effects are the second
+  // half of its look.
   if (boss.kind === "seam") {
-    drawSeam(ctx, l, world, boss, beat, beatPhase, time);
+    drawSeam(ctx, l, world, boss, beat, beatPhase, time, effects.boss.blows.seamMarks.verdicts);
     return;
   }
 

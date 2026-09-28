@@ -20,7 +20,7 @@ export function seamArrived(s: SeamState, cfg: SimConfig, beat: number, beatPhas
  * sealed by the step just answered closing over the rest that follows it.
  */
 export function seamOpen(s: SeamState, cfg: SimConfig, beat: number, beatPhase: number): number[] {
-  const closing = s.phase === "rest" && s.steps[s.cursor - 1]?.seals === true ? s.sealed - 1 : -1;
+  const closing = seamClosing(s);
   const shut = smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.seamRestBeats));
   const open: number[] = [];
   for (let k = 0; k < SEAM_POINTS; k++) {
@@ -28,6 +28,11 @@ export function seamOpen(s: SeamState, cfg: SimConfig, beat: number, beatPhase: 
     else open.push(k < s.sealed ? 0 : 1);
   }
   return open;
+}
+
+/** The point sealed by the step just answered, closing over the rest that follows it, or -1. */
+export function seamClosing(s: SeamState): number {
+  return s.phase === "rest" && s.steps[s.cursor - 1]?.seals === true ? s.sealed - 1 : -1;
 }
 
 /** The point a lit point step asks for: the next unsealed one, down the crack. */

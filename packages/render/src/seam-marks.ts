@@ -89,10 +89,7 @@ export function drawSeamRock(
   time: number,
 ): void {
   const { body, rim } = stepColour(step.color);
-  const across = Math.min(1, along * 3);
-  const x = from.x + (toX - from.x) * across;
-  const arc = -Math.sin(across * Math.PI) * 0.6 * l.tile;
-  const y = from.y + (l.hullY - from.y) * along + arc;
+  const { x, y } = seamRockAt(l, from, toX, along);
   const r = l.tile * 0.3;
   const pts = 7;
   const lump = new Path2D();
@@ -109,4 +106,11 @@ export function drawSeamRock(
   ctx.strokeStyle = rgba(body, 0.9);
   ctx.stroke(lump);
   strokeGlow(ctx, lump, rim, STROKE.inner, 1);
+}
+
+/** Where the rock is, `along` of the way through its step: across to its column in the first third, arcing, then down. */
+export function seamRockAt(l: Layout, from: Point, toX: number, along: number): Point {
+  const across = Math.min(1, along * 3);
+  const arc = -Math.sin(across * Math.PI) * 0.6 * l.tile;
+  return { x: from.x + (toX - from.x) * across, y: from.y + (l.hullY - from.y) * along + arc };
 }
