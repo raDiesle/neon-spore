@@ -196,3 +196,19 @@ export function keelNextJoint(s: KeelState): number {
   const even = (s.locked.length - loose.length) % 2 === 0;
   return (even ? loose[0] : loose[loose.length - 1]) ?? NO_JOINT;
 }
+
+/**
+ * Whether the lit joint is asking `seat` for its tap: lit, and over that
+ * seat's half or over the middle column, where either thumb may take it
+ * (`keel-hand.ts`). What the picture haloes (`render/keel-verdicts.ts`).
+ */
+export function keelJointAsks(s: KeelState, cols: number, seat: 1 | 2): boolean {
+  if (!keelLit(s)) return false;
+  const wants = keelSeat(s, cols);
+  return wants === null || wants === seat;
+}
+
+/** Whether the flip is asking `seat` to put its thumb down on its end joint: bowed, and that thumb off. */
+export function keelEndAsks(s: KeelState, seat: 1 | 2): boolean {
+  return keelFlipping(s) && !s.held[seat - 1];
+}

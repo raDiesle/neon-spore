@@ -5,6 +5,7 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { keelRockPoint, keelSegCentre, type Point, RISE } from "./keel-shape.js";
+import { KeelVerdicts } from "./keel-verdicts.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -61,6 +62,8 @@ export class KeelFx {
   private held: { left: number; land: () => void }[] = [];
   /** The blow a lock and a shut socket deal the spine. */
   readonly hurt = new BossHurt();
+  /** The verdict on each joint (`keel-verdicts.ts`). */
+  readonly marks = new KeelVerdicts();
 
   /** How far the whole spine is jolted up right now, in tiles. */
   get jolt(): number {
@@ -84,6 +87,7 @@ export class KeelFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events, cfg.keelSegments);
     for (const e of events) {
       if (!e.type.startsWith("keel")) continue;
       const n = cfg.keelSegments;
@@ -187,6 +191,7 @@ export class KeelFx {
     this.shock.update(dt);
     if (this.rockFall > 0) this.rockAge += dt;
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -198,6 +203,7 @@ export class KeelFx {
     this.socketHex = PALETTE.hullRim;
     this.held = [];
     this.hurt.clear();
+    this.marks.clear();
   }
 }
 

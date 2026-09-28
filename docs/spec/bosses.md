@@ -8460,6 +8460,20 @@ lengthens the bank, so a segment that had cooled glows again. A tap on any
 segment is taken while it cools, and the field says nothing.
 `render/test/keel-story-frame.test.ts` draws all three on every screen.
 
+**Its joints answer a touch the way every mark does** (`render/src/keel-verdicts.ts`;
+the owner, 27 September 2026), the whole convention, because both screens draw
+the one spine. The lit joint wears the halo on the screen of the seat whose
+half it sits over, and the partner's turning ring and waiting clock on the
+other's — the question this boss asks, *whose is it*, answered on the glass
+before a thumb moves; over the middle column it would halo on both. In the
+flip each end joint asks its own seat while that thumb is off (`sim/keel.ts`
+`keelJointAsks`, `keelEndAsks`). The verdicts are keyed by segment and drawn
+round the plate they name: a lock greens that joint, a window run out or a
+tempo-run segment working loose reddens it, and the flip arrested greens both
+end joints and snapped back reddens both. A wrong-seat tap stays silent, as
+the hand says. The socket and the marrow are the cannon's, not a touch's. Its
+test: `render/test/keel-verdict.test.ts`.
+
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 
 > A drum stands over the field with a wheel in its face and a pin beside it.

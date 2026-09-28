@@ -17,7 +17,10 @@ export const KEEL_CONTROLS: readonly FieldControlDef[] = [
       "and THE SLOW shut on the spot. The other seat's tap is refused by " +
       "the simulation, **silently**, and taken here rather than falling " +
       "through to the cannon behind the ring. A window let run out is a " +
-      "miss, and the next joint lights on the next beat (sim/keel-hand.ts).",
+      "miss, and the next joint lights on the next beat (sim/keel-hand.ts). " +
+      "The lit ring wears the halo on its seat's screen and the partner's " +
+      "ring and clock on the other's; a lock greens it and a miss reddens it " +
+      "(render/keel-verdicts.ts).",
     source: "handles.ts — keelJointUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "keelJoint",

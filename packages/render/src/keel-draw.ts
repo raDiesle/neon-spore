@@ -24,6 +24,7 @@ import {
 } from "./keel-shape.js";
 import { drawKeelEnds, drawKeelMarrow } from "./keel-story.js";
 import { keelHeat } from "./keel-story-pose.js";
+import { drawKeelHalos, drawKeelVerdicts } from "./keel-verdicts.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -34,9 +35,10 @@ import { splinePath } from "./spline.js";
  * the field like a stripped ribcage, locked rigid one joint at a time
  * (§11.41, `bosses-choreographed.md` §24).
  *
- * **Both screens are drawn the same.** Nothing here reads `l.role`: whose
- * thumb a joint wants is where it sits, left half or right, and both players
- * have to see where that is to say it.
+ * **Both screens are drawn alike.** Whose thumb a joint wants is where it
+ * sits, left half or right, and both players have to see where that is to
+ * say it; `l.role` decides only whose mark wears the halo and whose the
+ * partner's clock (`keel-verdicts.ts`).
  *
  * **Iron grey throughout.** A locked segment carries a thin white seam and is
  * lit iron; a loose one is duller, sags and sways on its own count. No
@@ -90,11 +92,13 @@ export function drawKeel(
     drawSegment(ctx, l, s, k, g, heat, beat, beatPhase, time, fx);
   });
   drawKeelMarrow(ctx, l, s, segs, beatPhase);
+  drawKeelHalos(ctx, l, cfg, s, segs, time);
   drawKeelEnds(ctx, l, s, cfg, segs, beatPhase);
   if (keelLit(s) && s.joint !== NO_JOINT) {
     const g = segs[s.joint];
     if (g !== undefined) drawKeelRing(ctx, l, s, cfg, g.centre, beat, beatPhase);
   }
+  drawKeelVerdicts(ctx, l, cfg, s, segs, time, fx.marks.verdicts);
   const along = keelRockAlong(s, cfg, beat, beatPhase);
   const tail = segs[n - 1];
   if (along >= 0 && tail !== undefined) {

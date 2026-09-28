@@ -1231,6 +1231,7 @@ by hand never moves.
 | `packages/render/src/keel-story.ts` | **THE KEEL's story between, drawn** (§24 rows 9, 10 and 15): the marks on the three states |
 | `packages/render/src/keel-grip.ts` | **The thumb on THE KEEL** — the first of its hands lanes |
 | `packages/render/src/keel-fx.ts` | What THE KEEL leaves behind a frame: the **snap** of a segment as it locks |
+| `packages/render/src/keel-verdicts.ts` | **THE KEEL's joints answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/light-shafts.ts` | SUN FALLING INTO DEEP WATER |
 | `packages/render/src/lobe.ts` | One lobe of the membrane, as a bump on the contour |
 | `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |
