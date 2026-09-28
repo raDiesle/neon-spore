@@ -5,12 +5,13 @@ import {
   DEFAULT_CONFIG,
   type GorgeState,
   gorgeBoss,
+  gorgeOffers,
   startWave,
   step,
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { drawGorgeGrip, gorgeGripCircle, gorgeGripsOf, gorgeGripUnder } from "../src/gorge-grip.js";
+import { drawGorgeGrip, gorgeGripCircle, gorgeGripUnder } from "../src/gorge-grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown } from "../src/touch.js";
 import {
@@ -89,19 +90,19 @@ function fieldWith(seat: 1 | 2, boss: GorgeState | null): Field {
 
 describe("which intakes ring", () => {
   it("the full ones for the pinch, and never the mouth, the torn or the empty", () => {
-    expect(gorgeGripsOf(staged(), CFG, 1)).toEqual([2]);
-    expect(gorgeGripsOf(staged({}, true), CFG, 1)).toEqual([2]);
-    expect(gorgeGripsOf(staged(), CFG, 2)).toEqual([]);
+    expect(gorgeOffers(staged(), CFG, 1)).toEqual([2]);
+    expect(gorgeOffers(staged({}, true), CFG, 1)).toEqual([2]);
+    expect(gorgeOffers(staged(), CFG, 2)).toEqual([]);
   });
 
   it("the mouth alone for the pry, once there is one", () => {
-    expect(gorgeGripsOf(staged({}, true), CFG, 2)).toEqual([5]);
+    expect(gorgeOffers(staged({}, true), CFG, 2)).toEqual([5]);
   });
 
   it("none once the sack is out", () => {
     const out = staged({ outBeat: 9 }, true);
-    expect(gorgeGripsOf(out, CFG, 1)).toEqual([]);
-    expect(gorgeGripsOf(out, CFG, 2)).toEqual([]);
+    expect(gorgeOffers(out, CFG, 1)).toEqual([]);
+    expect(gorgeOffers(out, CFG, 2)).toEqual([]);
   });
 });
 

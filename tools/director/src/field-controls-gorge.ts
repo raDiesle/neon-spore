@@ -16,7 +16,10 @@ export const GORGE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "a ring in every full intake that is not the mouth, over the top of the " +
       "field on player 1's screen; nowhere on player 2's; on the test screen",
-    seat: "player 1 only — the seat shown the count and holding the cannon on the column",
+    seat:
+      "player 1 only — the seat shown the count and holding the cannon on the " +
+      "column. Each ring is haloed while no intake is pinched, and a pinch " +
+      "washes it green (render/gorge-marks.ts, sim/gorge-hand.ts gorgeAsks)",
     gesture: "hold",
     does:
       "Holds the intake's vent off for as long as the thumb stays, so P2 can " +
@@ -33,7 +36,10 @@ export const GORGE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "a ring in the mouth, over the top of the field on player 2's screen " +
       "once the sack is gorged; nowhere on player 1's; on the test screen",
-    seat: "player 2 only — the seat shown the mouth's colour and loading the beam",
+    seat:
+      "player 2 only — the seat shown the mouth's colour and loading the beam. " +
+      "The ring is haloed until her thumb is on it, a pry washes it green and " +
+      "a clench red (render/gorge-marks.ts, sim/gorge-hand.ts gorgeAsks)",
     gesture: "hold",
     does:
       "Pries the mouth open for gorgePryBeats, a dial round the ring running " +

@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
 import { BossHurt } from "./boss-hurt.js";
 import { halo } from "./glow.js";
+import { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -33,7 +34,8 @@ import { PALETTE } from "./palette.js";
  * colour — so a shot that landed and left a count owing is never silent.
  * The two thumbs' bursts are small and white — a thumb landing is the
  * handle's colour, not the sack's — and the clench is the sack's rock, a
- * mouth shutting on something.
+ * mouth shutting on something. The same three are the rings' verdicts,
+ * green for a thumb taken and red for the clench (`gorge-marks.ts`).
  *
  * **An intake ruptured is a sequence landed** — filled in one colour, then
  * pierced for the count — and so is the beam that ends it, so both deal the
@@ -60,6 +62,8 @@ export class GorgeFx {
   private seed = 0;
   /** The blow an intake ruptured deals the sack. */
   readonly hurt = new BossHurt();
+  /** Was the last thumb on each ring right, keyed by column (`gorge-marks.ts`). */
+  readonly verdicts = new GripVerdicts();
 
   ingest(
     events: readonly SimEvent[],
@@ -102,9 +106,11 @@ export class GorgeFx {
           break;
         case "gorgePinch":
           burst(tileCX(l, e.col), top - l.tile * 0.5, 6, PALETTE.text);
+          this.verdicts.mark(e.col, true);
           break;
         case "gorgePry":
           burst(tileCX(l, e.col), top - l.tile * 0.5, 8, PALETTE.text);
+          this.verdicts.mark(e.col, true);
           break;
         case "gorgePryFill":
           burst(tileCX(l, e.col), top, 10, e.color === "red" ? PALETTE.redRim : PALETTE.cyanRim);
@@ -112,6 +118,7 @@ export class GorgeFx {
           break;
         case "gorgeClench":
           burst(tileCX(l, e.col), top, 14, PALETTE.rock);
+          this.verdicts.mark(e.col, false);
           break;
         default:
           break;
@@ -145,6 +152,7 @@ export class GorgeFx {
     }
     this.risers = this.risers.filter((r) => r.left > 0);
     this.hurt.update(dt);
+    this.verdicts.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -166,5 +174,6 @@ export class GorgeFx {
     this.risers = [];
     this.seed = 0;
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }

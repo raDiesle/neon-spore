@@ -4120,6 +4120,20 @@ intakes ring for which seat, the thumb answered and refused, the held ring
 heavier and the dial emptying, and all three screens drawn with a pinch and
 a pry on them. A look with no shipped alternative.
 
+**Both rings answer a touch the way every mark does** (28 September 2026, the
+owner's consistent visual; `render/gorge-marks.ts`). A ring that asks its seat
+for a thumb wears the halo on that seat's screen: every full intake on the
+pilot's while none is pinched, the mouth on the navigator's until her thumb is
+on it (`sim/gorge-hand.ts` `gorgeAsks`, which the press is gated on; the rings
+drawn are `gorgeOffers`, which the grip reads rather than re-deriving). A
+pinch and a pry wash their ring green (`gorgePinch`, `gorgePry`), and a pry
+held past its window washes the mouth red as the clench throws it off
+(`gorgeClench`). There is no partner's clock and no refusal, for THE GAUGE's
+reason: each ring is drawn on one screen alone, so the other seat's press
+finds no ring to be refused on. The verdicts are kept in `GorgeFx`, keyed by
+column, and drawn last inside the sack's shake. `render/test/gorge-verdict.test.ts`
+and `sim/test/gorge-asks.test.ts` hold it.
+
 **What the field says** (`render/src/boss-cue-read-n.ts`, 19 September 2026,
 [decisions](../decisions.md) #34). It shipped with every gesture the fight has
 and **no word at all about the column any of them is taken in**: `PIERCE` and

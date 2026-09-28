@@ -9,6 +9,7 @@ import { drawCurtain } from "./curtain-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
 import { drawGorgeGrip } from "./gorge-grip.js";
+import { drawGorgeAsked, drawGorgeVerdicts } from "./gorge-marks.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
@@ -145,8 +146,13 @@ export function drawClockBoss(
     ctx.save();
     ctx.translate(hurt.shakeX(view.time, l.tile), 0);
     drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, hurt.value);
-    // And its two thumbs' rings, on the seat's screen each is (`gorge-grip.ts`).
-    drawGorgeGrip(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
+    // And its two thumbs' rings, on the seat's screen each is (`gorge-grip.ts`),
+    // haloed under while they ask and the verdicts over (`gorge-marks.ts`).
+    const { beatPhase, time } = view;
+    drawGorgeAsked(ctx, l, world.cfg, boss, world.beat, beatPhase, time);
+    drawGorgeGrip(ctx, l, world.cfg, boss, l.role, world.beat, beatPhase, time);
+    const verdicts = effects.boss.gorge.verdicts;
+    drawGorgeVerdicts(ctx, l, world.cfg, boss, world.beat, beatPhase, verdicts);
     ctx.restore();
     return;
   }

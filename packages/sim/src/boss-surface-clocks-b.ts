@@ -134,7 +134,10 @@ export {
   filamentTiles,
   filamentTracing,
   filamentWalkable,
-  // THE GORGE's two thumbs: whose ring goes on the full intake, whose on the mouth.
+  // THE GORGE's two thumbs: whose ring goes on the full intake, whose on the
+  // mouth, and which of them are on offer and asking.
+  gorgeAsks,
+  gorgeOffers,
   gorgePinchSeat,
   gorgePrySeat,
   // The underside the screens read different halves of: what colour each open

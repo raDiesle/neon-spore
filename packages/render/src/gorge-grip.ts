@@ -1,6 +1,6 @@
 import {
   type GorgeState,
-  gorgeFull,
+  gorgeOffers,
   gorgePinchSeat,
   gorgePrySeat,
   type SimConfig,
@@ -23,8 +23,9 @@ import { showsGorgePinch, showsGorgePry } from "./view-role-clocks-b.js";
  * A ring stands in every lobe a seat's thumb could take this beat, on that
  * seat's screen alone (`showsGorgePinch`, `showsGorgePry`): the pilot's over
  * every full intake that is not the mouth, the navigator's over the mouth
- * once there is one. Which seat is which is the simulation's
- * (`gorgePinchSeat`, `gorgePrySeat`, `sim/gorge-hand.ts`), and the ring is
+ * once there is one. Which seat is which, and which intakes are on offer,
+ * is the simulation's (`gorgePinchSeat`, `gorgePrySeat`, `gorgeOffers`,
+ * `sim/gorge-hand.ts`), and the ring is
  * `queen-grip.ts`' — breathing until a thumb lands, filled once one has —
  * so a held intake and a held mark read as one gesture. The pry's ring
  * carries the dial as well: `gorgePryBeats` running out from the beat the
@@ -59,21 +60,6 @@ export function gorgeGripCircle(
 }
 
 /**
- * The intakes a seat's thumb has a ring in this beat. Nobody's once the sack
- * is out; the pinch's on every full, unruptured intake that is not the mouth;
- * the pry's on the mouth alone, once the sack is gorged (`sim/gorge-hand.ts`).
- */
-export function gorgeGripsOf(g: GorgeState, cfg: SimConfig, seat: 1 | 2): number[] {
-  if (g.outBeat >= 0) return [];
-  if (seat === gorgePrySeat) return g.mouth >= 0 ? [g.mouth] : [];
-  const out: number[] = [];
-  g.intakes.forEach((k, i) => {
-    if (i !== g.mouth && gorgeFull(k, cfg)) out.push(i);
-  });
-  return out;
-}
-
-/**
  * The press, answered for whichever seat's ring it landed in, nearest first
  * when two overlap (`mirrorLobeUnder`'s rule). `bossOf(field, "gorge")` is `null` on
  * every wave without the sack, and a press then falls through to whatever
@@ -84,7 +70,7 @@ export function gorgeGripUnder(l: Layout, x: number, y: number, field: Field): T
   const g = bossOf(field, "gorge");
   if (g === null) return null;
   let best: { id: number; d: number } | null = null;
-  for (const id of gorgeGripsOf(g, field.cfg, field.seat)) {
+  for (const id of gorgeOffers(g, field.cfg, field.seat)) {
     const c = gorgeGripCircle(l, field.cfg, g, id, field.beat, field.beatPhase);
     if (!hitCircle(c, x, y)) continue;
     const d = (x - c.x) ** 2 + (y - c.y) ** 2;
@@ -115,7 +101,8 @@ export function gorgePryLeft(
 
 /**
  * The rings, for the seats this screen is. Called after the sack is drawn,
- * so a ring stands on its lobe and nothing stands on the ring.
+ * so a ring stands on its lobe and nothing stands on the ring; the halo under
+ * each and the verdict over it are `gorge-marks.ts`'.
  */
 export function drawGorgeGrip(
   ctx: CanvasRenderingContext2D,
@@ -128,13 +115,13 @@ export function drawGorgeGrip(
   time: number,
 ): void {
   if (showsGorgePinch(role)) {
-    for (const i of gorgeGripsOf(g, cfg, gorgePinchSeat)) {
+    for (const i of gorgeOffers(g, cfg, gorgePinchSeat)) {
       const c = gorgeGripCircle(l, cfg, g, i, beat, beatPhase);
       drawGripRing(ctx, c.x, c.y, c.r, g.pinch === i, time);
     }
   }
   if (showsGorgePry(role)) {
-    for (const i of gorgeGripsOf(g, cfg, gorgePrySeat)) {
+    for (const i of gorgeOffers(g, cfg, gorgePrySeat)) {
       const c = gorgeGripCircle(l, cfg, g, i, beat, beatPhase);
       const held = g.pry === i;
       drawGripRing(ctx, c.x, c.y, c.r, held, time);

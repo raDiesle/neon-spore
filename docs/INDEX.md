@@ -1953,6 +1953,7 @@ by hand never moves.
 | `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
 | `packages/render/src/gorge-lobe-skin.ts` | **One lobe of THE GORGE's skin**: the wash over an empty one, the light across its top |
 | `packages/render/src/gorge-grip.ts` | **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the mouth |
+| `packages/render/src/gorge-marks.ts` | **THE GORGE's pinch and pry answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-depth.ts` | **THE GIMBAL in depth**: a ring is not a line drawn round the drum but a hoop of metal with a body |

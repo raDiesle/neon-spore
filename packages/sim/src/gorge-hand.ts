@@ -1,3 +1,4 @@
+import type { SimConfig } from "./config.js";
 import { type GorgeState, gorgeBoss, gorgeFull } from "./gorge.js";
 import { gorgeSlow } from "./gorge-slow.js";
 import type { Command } from "./types.js";
@@ -37,15 +38,43 @@ import type { World } from "./world.js";
  *   (`gorgeNearestFull`), and the pry is the seat that knows the colour
  *   committing to it under his thumb while the pilot fires.
  *
- * Every other press on the name is dropped without a sound, `queen-hand.ts`'
- * way: the other seat's screen never draws that ring, so there is nothing to
- * refuse. Nothing here charges the hull or the balance: the cost of a pry
+ * Every other press on the name is dropped without a sound, as THE GAUGE's
+ * hidden half is (`gauge-hand.ts`): the other seat's screen never draws that
+ * ring, so there is nothing to refuse. Nothing here charges the hull or the balance: the cost of a pry
  * taken too soon is a bead back on the field and a lift, and the cost of a
  * pinch forgotten is the torch it was holding off.
  */
 
 export const gorgePinchSeat = 1;
 export const gorgePrySeat = 2;
+
+/**
+ * **The intakes a seat's thumb has a ring in** — nobody's once the sack is
+ * out; the pinch's on every full, unruptured intake that is not the mouth;
+ * the pry's on the mouth alone, once there is one. The ring stays up while
+ * the thumb is on it, so this is what the picture draws
+ * (`render/gorge-grip.ts`).
+ */
+export function gorgeOffers(g: GorgeState, cfg: SimConfig, seat: 1 | 2): number[] {
+  if (g.outBeat >= 0) return [];
+  if (seat === gorgePrySeat) return g.mouth >= 0 ? [g.mouth] : [];
+  const out: number[] = [];
+  g.intakes.forEach((k, i) => {
+    if (i !== g.mouth && gorgeFull(k, cfg)) out.push(i);
+  });
+  return out;
+}
+
+/**
+ * **The intakes that ask a seat for a thumb**: those on offer while that
+ * seat's thumb is on none of them, since one pinch and one pry is all the
+ * sack hears. What the press is gated on here, and what the halo reads
+ * (`render/gorge-marks.ts`).
+ */
+export function gorgeAsks(g: GorgeState, cfg: SimConfig, seat: 1 | 2): number[] {
+  const held = seat === gorgePinchSeat ? g.pinch : g.pry;
+  return held >= 0 ? [] : gorgeOffers(g, cfg, seat);
+}
 
 export function gorgeHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "gorgeLobe") return;
@@ -65,9 +94,7 @@ function pinch(world: World, g: GorgeState, i: number, on: boolean): void {
     g.pinch = -1;
     return;
   }
-  if (g.pinch >= 0 || i === g.mouth) return;
-  const k = g.intakes[i];
-  if (k === undefined || !gorgeFull(k, world.cfg)) return;
+  if (!gorgeAsks(g, world.cfg, gorgePinchSeat).includes(i)) return;
   g.pinch = i;
   world.events.push({ type: "gorgePinch", col: g.col + i });
 }
@@ -79,7 +106,7 @@ function pry(world: World, g: GorgeState, i: number, on: boolean): void {
     g.pryFills = 0;
     return;
   }
-  if (g.pry >= 0 || g.mouth < 0 || i !== g.mouth) return;
+  if (!gorgeAsks(g, world.cfg, gorgePrySeat).includes(i)) return;
   g.pry = i;
   g.pryBeat = world.beat;
   g.pryFills = 0;
