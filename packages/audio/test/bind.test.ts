@@ -417,7 +417,7 @@ const SAMPLES: Record<string, SimEvent> = {
   mantleDark: { type: "mantleDark", col: 5 },
   mantleOut: { type: "mantleOut", col: 5 },
   mantleGlow: { type: "mantleGlow", col: 5 },
-  mantleSlip: { type: "mantleSlip", col: 5 },
+  mantleSlip: { type: "mantleSlip", seat: 1, col: 5 },
   mantleSteady: { type: "mantleSteady", col: 5 },
   mantleLapse: { type: "mantleLapse", col: 5 },
   mantleBuckle: { type: "mantleBuckle", col: 5 },

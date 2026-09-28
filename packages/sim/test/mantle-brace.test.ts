@@ -77,6 +77,8 @@ describe("the brace", () => {
     const t = world.tick;
     const seen = runTo(world, t + 1, [pull(t, 1, 0, false)]);
     expect(seen.has("mantleSlip")).toBe(true);
+    // The slip names the hand that lifted, so its verdict lands on that knob.
+    expect(world.events).toContainEqual({ type: "mantleSlip", seat: 1, col: expect.any(Number) });
     expect(mantle(world).braceBeats).toBe(0);
     expect(mantle(world).phase).toBe("brace");
     expect(slowing(world)).toBe(true);

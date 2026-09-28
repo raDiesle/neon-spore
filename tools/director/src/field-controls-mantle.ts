@@ -17,7 +17,11 @@ const KNOB_DOES =
   "the other at nought shears nothing. **Letting go costs the whole pull**, " +
   "at once: the depth is the thumb's, never banked. A press before the " +
   "handles light is held here and counts from the tick they do " +
-  "(sim/mantle-hand.ts). No desk key: the groove is a carry, not a turn.";
+  "(sim/mantle-hand.ts). No desk key: the groove is a carry, not a turn. " +
+  "While the shell wants it and it is free it wears the halo on its " +
+  "owner's screen and the partner's ring and clock on the other's; a " +
+  "shear greens it, a slip of its own thumb or a window run out reddens " +
+  "it (render/mantle-marks.ts).";
 
 export const MANTLE_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -58,7 +62,9 @@ export const MANTLE_CONTROLS: readonly FieldControlDef[] = [
       "the seat the core is not waiting on is refused by the simulation, " +
       "silently, and taken here rather than falling through to the cannon " +
       "behind the ring. Every landed tap dims the core a step; the last " +
-      "puts it out and ends the fight.",
+      "puts it out and ends the fight. The half the core waits on wears " +
+      "the halo on that seat's screen and the clock on the other's; a " +
+      "landed tap greens the ring (render/mantle-marks.ts).",
     source: "handles.ts — mantleCoreUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "mantleCore",

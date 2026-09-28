@@ -25,8 +25,8 @@ export type MantleEvent =
   /** The last pair is next: the seam glows and the shell shudders, asking
    * for both handles held still. */
   | ({ type: "mantleGlow" } & MantleColEvent)
-  /** A hand lifted mid-brace: the shudder worsens and the hold starts over. */
-  | ({ type: "mantleSlip" } & MantleColEvent)
+  /** `seat`'s hand lifted mid-brace: the shudder worsens and the hold starts over. */
+  | ({ type: "mantleSlip"; seat: 1 | 2 } & MantleColEvent)
   /** The brace held `mantleBraceBeats`: the shudder settles. */
   | ({ type: "mantleSteady" } & MantleColEvent)
   /** The last pair's window ran out unsheared: it resets, and asks again. */

@@ -28556,3 +28556,13 @@ The bottleneck: `gimbalSlip` did not say which ring slipped, so the event had to
 The bottleneck: deciding whose mark a burnt tooth reddens when neither screen shows the other half; both, like THE FILAMENT's dark line.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE MANTLE's knobs, core and vent answer a touch the way every mark does
+
+- reading: 5 min. The hand, the story states, the drawer, the handles and the ring, the grip geometry.
+- writing: 15 min. `mantleSlip` names its seat, `mantleKnobAsks` and `mantleCoreAsks` in the sim, `mantle-marks.ts` with the whole convention, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the full convention on four marks, one of them a half-ring whose owner changes every tap.

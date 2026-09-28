@@ -1,8 +1,10 @@
 import { blobPoints } from "@neon-spore/content";
 import type { MantleState, World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawMantleKnobHalo, drawMantleKnobMarks, mantleMine } from "./mantle-marks.js";
 import { counted, mantleCoreBeat } from "./mantle-pose.js";
 import {
   mantleHandleRest,
@@ -24,7 +26,8 @@ import { splinePath } from "./spline.js";
  *
  * **A handle says its gesture.** It hangs on a strap in a groove that runs
  * straight down, with a chevron under it while it is lit and nobody is on it
- * — pull this down — and two notches in the groove: the floor a thumb must
+ * — pull this down, on its owner's screen; the partner's has their clock
+ * instead (`mantle-marks.ts`) — and two notches in the groove: the floor a thumb must
  * clear before it counts, and half this movement's threshold, which is where
  * both thumbs meet when they pull alike. The half-way notch sinks a little
  * with every movement, which is the threshold "a notch higher" drawn.
@@ -50,6 +53,7 @@ export function drawMantleHandles(
   poses: Record<Side, ValvePose>,
   lit: number,
   time: number,
+  verdicts: GripVerdicts,
 ): void {
   const cfg = world.cfg;
   const need = s.thresholds[s.cursor] ?? 0;
@@ -64,8 +68,11 @@ export function drawMantleHandles(
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.7);
     ctx.stroke(mantleStrapPath(l, at, side, poses[side], knob));
+    drawMantleKnobHalo(ctx, l, cfg, s, index, knob, time);
     drawKnob(ctx, l, knob, counted(s, cfg, index) > 0, lit, time);
-    if (lit > 0 && depth === 0) drawChevron(ctx, l, knob, lit, time);
+    const mine = mantleMine(l.role, index === 0 ? 1 : 2);
+    if (mine && lit > 0 && depth === 0) drawChevron(ctx, l, knob, lit, time);
+    drawMantleKnobMarks(ctx, l, cfg, s, index, knob, time, verdicts);
   }
   const [left, right] = knobs;
   if (left === undefined || right === undefined || need <= 0) return;

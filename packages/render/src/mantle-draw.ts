@@ -9,6 +9,7 @@ import type { Layout } from "./layout.js";
 import { drawMantleBraceRings, drawMantleSeam, mantleShudder } from "./mantle-brace.js";
 import type { MantleFx } from "./mantle-fx.js";
 import { drawMantleHandles, drawMantleRing } from "./mantle-handle.js";
+import { drawMantleHalos, drawMantleMarks } from "./mantle-marks.js";
 import {
   mantleArrived,
   mantleCoreBeat,
@@ -48,9 +49,10 @@ const PLATES = PLATE_BOUNDS.length - 1;
  * closed over a soft core, pried open a plate-pair at a time by two thumbs
  * pulling **together** (§11.40, `bosses-choreographed.md` §23).
  *
- * **Both screens are drawn the same.** Nothing here reads `l.role`: the whole
- * point of the boss is one number both seats can see, so each is shown both
- * valves, both handles and the one cord between them.
+ * **Both screens are drawn alike.** The whole point of the boss is one number
+ * both seats can see, so each is shown both valves, both handles and the one
+ * cord between them; `l.role` decides only whose mark wears the halo and
+ * whose the partner's clock (`mantle-marks.ts`).
  *
  * **Its health is the plates.** Four to a valve, laid in laps, shed one off
  * each valve together, tail first — and a shed one leaves the core's light
@@ -95,8 +97,11 @@ export function drawMantle(
   drawMantleVent(ctx, l, world, s, beat, beatPhase, time);
   drawMantleBraceRings(ctx, l, world, s, beatPhase);
   const lit = mantleHandlesLit(s, beat, beatPhase);
+  drawMantleHalos(ctx, l, cfg, s, at, time);
   if (mantleFinale(s)) drawMantleRing(ctx, l, s, at, beatPhase);
-  else if (s.phase !== "dark") drawMantleHandles(ctx, l, world, s, at, poses, lit, time);
+  else if (s.phase !== "dark")
+    drawMantleHandles(ctx, l, world, s, at, poses, lit, time, fx.marks.verdicts);
+  drawMantleMarks(ctx, l, cfg, s, at, time, fx.marks.verdicts);
   if (mantleLeaking(s)) drawSpark(ctx, l, world, s, at, beat, beatPhase);
   ctx.restore();
 }

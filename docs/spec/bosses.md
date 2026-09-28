@@ -8253,6 +8253,21 @@ other's; the last tap darkens the core and ends the wave after
 `mantleOpenBeats`; and the fingerprint is deterministic and diverges on any
 differing input. Whether any of it *reads* is the owner's eye, after lane two.
 
+**Its marks answer a touch the way every mark does** (`render/src/mantle-marks.ts`;
+the owner, 27 September 2026), the whole convention, because both screens draw
+every mark. A knob the shell wants — pulling, bracing, buckling or turning —
+with no thumb on it wears the halo on its owner's screen and the partner's
+turning ring and waiting clock on the other's, where the chevron gives way to
+the clock; the core's ring haloes the half whose tap is next on that seat's
+screen and shows the other the clock; the vent haloes on both while it hisses
+(`sim/mantle.ts` `mantleKnobAsks`, `mantleCoreAsks`). The verdicts are the
+shell's words: a shear, a brace held, a buckle flat and a turn guided green
+both knobs; a window run out, or a swing, reddens both; **a slip reddens the
+knob whose thumb lifted**, which is why `mantleSlip` now says whose
+(`sim/mantle-story.ts`); a landed tap greens the core, a vent shut the vent. A
+wrong-seat tap stays silent — the simulation refuses it without a word. Its
+test: `render/test/mantle-verdict.test.ts`.
+
 ## 11.41 THE KEEL — the boss whose next joint is whichever thumb is nearer
 
 > A spine of six joints arches over the field, every one of them loose. When

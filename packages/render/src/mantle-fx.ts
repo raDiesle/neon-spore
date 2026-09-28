@@ -5,6 +5,7 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY } from "./layout.js";
+import { MantleMarks } from "./mantle-marks.js";
 import {
   mantleCentre,
   mantleHandleRest,
@@ -64,6 +65,8 @@ export class MantleFx {
   private sparkFuse = 0;
   /** The blow a shear deals the shell. */
   readonly hurt = new BossHurt();
+  /** The verdict on each of the shell's marks (`mantle-marks.ts`). */
+  readonly marks = new MantleMarks();
 
   /** How far the shell is thrown down on its hinge right now, in tiles. */
   get kick(): number {
@@ -82,6 +85,7 @@ export class MantleFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("mantle")) continue;
       const at = mantleCentre(l, cfg);
@@ -156,6 +160,7 @@ export class MantleFx {
     this.shock.update(dt);
     if (this.sparkFuse > 0) this.sparkAge += dt;
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -165,6 +170,7 @@ export class MantleFx {
     this.sparkAge = 0;
     this.sparkFuse = 0;
     this.hurt.clear();
+    this.marks.clear();
   }
 }
 

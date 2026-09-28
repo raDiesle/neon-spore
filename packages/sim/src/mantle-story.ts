@@ -87,15 +87,14 @@ export function stepCross(world: World, s: MantleState): void {
 }
 
 /** The seam glows and the shell shudders: hold both handles, from nought.
- * `mantleSlip` when a lift mid-brace sent it back here. */
-export function glowMantle(
-  world: World,
-  s: MantleState,
-  why: "mantleGlow" | "mantleSlip" = "mantleGlow",
-): void {
+ * `mantleSlip` when `slipped`'s lift mid-brace sent it back here. */
+export function glowMantle(world: World, s: MantleState, slipped: 1 | 2 | null = null): void {
   enter(world, s, "brace");
   openSlow(world, world.cfg.mantleBraceBeats + 1, "ask");
-  world.events.push({ type: why, col: midCol(world.cfg) });
+  const col = midCol(world.cfg);
+  world.events.push(
+    slipped === null ? { type: "mantleGlow", col } : { type: "mantleSlip", seat: slipped, col },
+  );
 }
 
 /** The last shear: the halves swing on their hinges, waiting to be guided. */

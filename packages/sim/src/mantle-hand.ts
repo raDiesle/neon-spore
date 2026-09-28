@@ -65,7 +65,7 @@ function pull(world: World, s: MantleState, player: 1 | 2, command: Command): vo
   if (player !== wants) return;
   const lifted = s.held[side] && !command.on;
   s.held[side] = command.on;
-  if (mantleBracing(s) && lifted) glowMantle(world, s, "mantleSlip");
+  if (mantleBracing(s) && lifted) glowMantle(world, s, player);
   if (!mantlePulling(s) && !mantleBuckling(s) && !mantleTurning(s)) return;
   s.depthMilli[side] = command.on ? Math.max(0, command.fromYMilli ?? 0) : 0;
 }

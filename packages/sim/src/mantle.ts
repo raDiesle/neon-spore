@@ -167,3 +167,19 @@ export function mantleCharged(s: MantleState, floorMilli: number): boolean {
   if (left < floorMilli || right < floorMilli) return false;
   return left + right >= need;
 }
+
+/**
+ * **Whether a knob is asking for its thumb**: the shell wants both hands on
+ * it — pulled, braced, eased off on the buckle or guided on the turn — and
+ * this side's is off. Index as `depthMilli`. The halo is drawn under it
+ * (`render/mantle-marks.ts`).
+ */
+export function mantleKnobAsks(s: MantleState, side: 0 | 1): boolean {
+  if (s.held[side]) return false;
+  return mantlePulling(s) || mantleBracing(s) || mantleBuckling(s) || mantleTurning(s);
+}
+
+/** Whether the bared core's ring is asking `seat` for the next tap of the finish. */
+export function mantleCoreAsks(s: MantleState, seat: 1 | 2): boolean {
+  return mantleFinale(s) && s.heartbeatNext === seat - 1;
+}

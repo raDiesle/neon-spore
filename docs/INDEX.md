@@ -2129,6 +2129,7 @@ by hand never moves.
 | `packages/render/src/mantle-brace.ts` | **THE MANTLE's brace, drawn**: the seam's crack and glow, the shudder, and each knob's hold ring |
 | `packages/render/src/mantle-blow.ts` | **THE MANTLE's own blow at the hull**: the leaked spark bursting on the plating |
 | `packages/render/src/mantle-vent.ts` | **THE MANTLE's vent and its crosswise crack, drawn** — the red slot with its hiss, and the crack across the seam |
+| `packages/render/src/mantle-marks.ts` | **THE MANTLE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/mark-feedback.ts` | **Which mark is wanted, and by whom**, on every boss with a mark: the halo on this seat's open mark, the turning ring and the waiting clock on the partner's |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
