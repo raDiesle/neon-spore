@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## pointer-conversion.test.ts times out under `bun run check`'s load
 
 - **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
+- **Taken:** 2026-09-28, claude/queue-the-instar-refuses-the-wrong-seat-again-on-every (claim: claude/queue-pointer-conversion-test-ts-times-out-under-bun-r)
 - **Files:** `apps/game/test/pointer-conversion.test.ts`
 
 A source scan over `apps/game/src` that runs in 35 ms alone took 5137 ms in
