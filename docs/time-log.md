@@ -28460,3 +28460,13 @@ The bottleneck: seeing why a fast-forward left the file alone — the new mark w
 The bottleneck: deciding that every ring stands on one screen, which made it THE GAUGE's case and left the full sound page untouched.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE SURGE's grip marks answer a touch like THE INSTAR's marks
+
+- reading: 10 min. The hands, the grip marks and their words, the lift's judgement, the desk chain.
+- writing: 20 min. `surgeAsks` in the sim, the grip mark's circle and desk seat, `surge-marks.ts`, the verdicts in `SurgeFx`, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 5 min. The field had no creature to stand for the bulb's rock.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the first boss where both seats may press the same thing, so deciding what a verdict on a *shared* lift is — both marks, both colours — before any code.

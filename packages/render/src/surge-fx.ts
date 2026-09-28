@@ -4,6 +4,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { SurgeMarks } from "./surge-marks.js";
 
 /**
  * What THE SURGE leaves behind a frame: the row the bulb sinks through
@@ -56,6 +57,8 @@ export class SurgeFx {
   private noted = false;
   /** The blow a vent deals the bulb. */
   readonly hurt = new BossHurt();
+  /** Whether each grip mark's last touch took (`surge-marks.ts`). */
+  readonly marks = new SurgeMarks();
 
   /** Where the bulb was drawn this frame, for the receipts with no row of their own. */
   note(x: number, y: number): void {
@@ -86,6 +89,7 @@ export class SurgeFx {
     spb: number,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const span = Math.max(1, Math.min(cfg.surgeBulbCols, cfg.cols));
     const atBulb = (n: number, hex: string) => {
       if (this.noted) burst(this.bulbX, this.bulbY, n, hex);
@@ -156,6 +160,7 @@ export class SurgeFx {
     this.joltLeft = Math.max(0, this.joltLeft - dt);
     this.jetLeft = Math.max(0, this.jetLeft - dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   /** The jet: a violet streak up out of the seam, thinning as it goes. */
@@ -187,5 +192,6 @@ export class SurgeFx {
     this.bulbY = 0;
     this.noted = false;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

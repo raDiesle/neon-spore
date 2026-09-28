@@ -5607,6 +5607,20 @@ next; and the same run fingerprints the same way twice and differently for
 another seed (`sim/test/surge.test.ts`). Nothing of it has been seen in a
 frame.
 
+**Its grip marks answer a touch the way every mark does** (28 September 2026,
+the owner's rule of the 24th and his answer of the 27th;
+`render/surge-marks.ts`). Both marks are drawn on both screens, so it is THE
+VANE's case. A seat is asked to hold (`surgeAsks`, `sim/surge.ts`) when its
+mark's word says `HOLD`: the bulb takes a thumb, that seat's is off, the
+charge is short of the band, and — the pilot's — no rock of the bulb's is
+falling. While asked, its owner sees a halo under the mark and the partner
+sees a turning ring and a clock. **Nothing is refused**, the first boss of the
+roll-out that can say so: the bulb is one target and answers either thumb
+anywhere. A thumb landing washes its own mark green (`surgeGrip`). The lift is
+judged on both marks, because it takes both thumbs: green for a vent or the
+eversion, red for a charge lost or a burst. A desk press on a mark is signed
+with the mark's seat (`surgeMarkSeat`, `desk-grab.ts`).
+
 ## 11.29 THE LEAD — the boss you shoot where it will be
 
 > The one where you fire at where it is going, and only one of you knows

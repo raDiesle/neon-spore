@@ -133,6 +133,7 @@ export {
   stareTellLeft,
   stareTurning,
   stareWatches,
+  surgeAsks,
   surgeBand,
   surgeBoss,
   surgeBulbLeft,

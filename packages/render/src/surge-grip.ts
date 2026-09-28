@@ -9,9 +9,15 @@ import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText, WORD_FONT } from "./boss-cue-text.js";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
-import { hitCircle, type Layout, tileCX } from "./layout.js";
+import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { type Point, surgeBulbCircle } from "./surge-shape.js";
+import {
+  type Point,
+  surgeBulbCentre,
+  surgeBulbCircle,
+  surgeBulbRx,
+  surgeBulbRy,
+} from "./surge-shape.js";
 import { SHIELD, surgeWord } from "./surge-word.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -94,6 +100,37 @@ export function surgeGripSeat(side: -1 | 1): 1 | 2 {
   return side === -1 ? 1 : 2;
 }
 
+/** Where one seat's grip mark sits on a bulb drawn at `c`, `rx`, `ry`. */
+export function surgeGripCircle(
+  l: Layout,
+  cfg: SimConfig,
+  c: Point,
+  rx: number,
+  ry: number,
+  side: -1 | 1,
+): Circle {
+  const r = handleRadius(l, cfg) * GRIP_R;
+  return { x: c.x + side * rx * GRIP_OUT, y: c.y + ry * GRIP_DOWN, r };
+}
+
+/**
+ * **Whose grip mark a desk press is on**, on the bulb at rest, or `undefined`
+ * off both (`desk-grab.ts` `markSeat`). The bulb answers either thumb
+ * anywhere, so this only settles which seat a mouse on one seat's mark is:
+ * the seat the mark belongs to, whichever seat the desk would ask first.
+ */
+export function surgeMarkSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "surge");
+  if (s === null) return undefined;
+  const c = surgeBulbCentre(l, field.cfg, s);
+  const rx = surgeBulbRx(l, field.cfg);
+  const ry = surgeBulbRy(l);
+  for (const side of [-1, 1] as const) {
+    if (hitCircle(surgeGripCircle(l, field.cfg, c, rx, ry, side), x, y)) return surgeGripSeat(side);
+  }
+  return undefined;
+}
+
 /**
  * The press: anywhere on the bulb, from either seat. `bossOf(field, "surge")` is `null`
  * on every wave without the boss, and a press then falls through to
@@ -125,13 +162,11 @@ export function drawSurgeGrips(
   /** Whether a rock the bulb spat is still falling: the word that outranks the rest. */
   warding: boolean,
 ): void {
-  const r = handleRadius(l, cfg) * GRIP_R;
   for (const side of [-1, 1] as const) {
     const player = surgeGripSeat(side);
     const held = surgeHeld(s, player);
     const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-    const x = c.x + side * rx * GRIP_OUT;
-    const y = c.y + ry * GRIP_DOWN;
+    const { x, y, r } = surgeGripCircle(l, cfg, c, rx, ry, side);
     drawHandleRing(ctx, {
       x,
       y,

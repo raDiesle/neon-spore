@@ -16,6 +16,7 @@ import { paintSac } from "./surge-flesh.js";
 import type { SurgeFx } from "./surge-fx.js";
 import { drawSurgeGauge } from "./surge-gauge.js";
 import { drawSurgeGrips } from "./surge-grip.js";
+import { drawSurgeAsked, drawSurgeVerdicts } from "./surge-marks.js";
 import {
   type Point,
   surgeBulbCentre,
@@ -105,7 +106,11 @@ export function drawSurge(
     fx.hurt.value,
   );
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
-  if (!everting) drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing, surgeWarding(s, world));
+  if (!everting) {
+    drawSurgeAsked(ctx, l, world, s, c, rx, ry, time);
+    drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing, surgeWarding(s, world));
+    drawSurgeVerdicts(ctx, l, world, c, rx, ry, fx.marks.verdicts);
+  }
   ctx.restore();
 }
 

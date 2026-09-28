@@ -10,6 +10,7 @@ import { scoutGripSeat } from "./scout-grip.js";
 import { sinewGripSeat } from "./sinew-handles.js";
 import { snakeGripSeat } from "./snake-grip.js";
 import { spoolGripSeat } from "./spool-grip.js";
+import { surgeMarkSeat } from "./surge-grip.js";
 import { tasterGripSeat } from "./taster-grip.js";
 import { throatGripSeat } from "./throat-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
@@ -54,7 +55,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    the fourteenth (`undertow-grip.ts` `undertowGripSeat`), and THE
  *    CURTAIN's hem the fifteenth (`curtain-grip.ts` `curtainHemSeat`), and
  *    THE TASTER's pin, wipe and pry the sixteenth (`taster-grip.ts`
- *    `tasterGripSeat`).
+ *    `tasterGripSeat`), and THE SURGE's two grip marks the seventeenth
+ *    (`surge-grip.ts` `surgeMarkSeat`).
  *    One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
@@ -176,6 +178,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     throatGripSeat(l, x, y, field) ??
     undertowGripSeat(l, x, y, field) ??
     curtainHemSeat(l, x, y, field) ??
-    tasterGripSeat(l, x, y, field)
+    tasterGripSeat(l, x, y, field) ??
+    surgeMarkSeat(l, x, y, field)
   );
 }

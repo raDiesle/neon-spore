@@ -32,7 +32,12 @@ export const SURGE_CONTROLS: readonly FieldControlDef[] = [
       "thumb alone, the charge is lost. Player 1's screen shows the notches " +
       "and the band and never the pressure; player 2's shows the pressure " +
       "and never the notches; the pressure coming into the band opens THE " +
-      "SLOW for both. The last notch everts the bulb and ends it.",
+      "SLOW for both. The last notch everts the bulb and ends it. While a " +
+      "seat is asked to hold, its grip mark wears a halo on its own screen " +
+      "and the partner's ring and clock on the other; a thumb landing " +
+      "washes its mark green, a lift together both green, a lift apart, " +
+      "short or over both red — and nothing is refused, since either seat " +
+      "may press anywhere (render/surge-marks.ts).",
     source: "touch.ts — surgeBulbUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "surgeBulb",

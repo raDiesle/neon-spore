@@ -108,6 +108,7 @@ export { stareBoss } from "./stare-step.js";
 // and the two numbers the seats are shown are the pressure and the notches.
 export {
   type SurgeState,
+  surgeAsks,
   surgeBand,
   surgeBoss,
   surgeBulbLeft,

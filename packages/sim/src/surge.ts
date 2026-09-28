@@ -156,6 +156,19 @@ export function surgeEverting(s: SurgeState): boolean {
   return s.evertBeat >= 0;
 }
 
+/**
+ * Whether this seat's thumb is asked for on the bulb: the bulb takes one, this
+ * seat's is off, the charge is short of the band, and — the pilot's — no rock
+ * of the bulb's is falling, which his other thumb is for. What the `HOLD` word
+ * says, and what the halo under the grip mark says (`render/surge-word.ts`,
+ * `render/surge-marks.ts`).
+ */
+export function surgeAsks(s: SurgeState, world: World, player: 1 | 2): boolean {
+  if (s.outBeat >= 0 || surgeEverting(s) || surgeSealing(s, world)) return false;
+  if (surgeHeld(s, player) || surgeInBand(s, world.cfg)) return false;
+  return !(player === 1 && surgeWarding(s, world));
+}
+
 /** The row the bulb hangs at: a row lower per notch open, and never the hull's. */
 export function surgeBulbRow(s: SurgeState, cfg: SimConfig): number {
   return Math.min(hullRow(cfg) - 1, cfg.surgeBulbRow + s.notches);

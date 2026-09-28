@@ -338,8 +338,8 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
 THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE, THE
-CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE, THE CURTAIN, THE TASTER and THE LEDGER: **one boss a lane**, the first on `TO_COME` in the
-roll-out test — THE SURGE next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
+CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE, THE CURTAIN, THE TASTER, THE LEDGER and THE SURGE: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE LEAD next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
 THE MAZE's lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
 seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 `vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`
@@ -1719,3 +1719,17 @@ of its own — the §6.2 hands of the bosses already bound in their own
 `bind-<boss>.ts` (`tasterCue`, `ledgerCue`, `leadCue`, `gaugeCue`) routed by
 prefix as `throat${string}` already is — so each of those bosses brings its
 names with its page, and prove it with `packages/audio/test/bind.test.ts`.
+
+## `surgeWord`'s `HOLD` re-derives `surgeAsks`
+
+- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Files:** `packages/render/src/surge-word.ts`, `packages/render/src/surge-grip.ts`, `packages/sim/src/surge.ts`
+
+THE SURGE's roll-out lane put *is this seat asked to hold* into the simulation
+as `surgeAsks(s, world, player)`, and the halo reads it. The word `HOLD` is the
+same condition written out a second time in `surgeWord` — `refusing`, the band,
+`warding` for the pilot — because `drawSurgeGrips` hands it booleans rather
+than the world. Pass the world down, let the `CHARGE` branch call `surgeAsks`,
+and add the pair to the called-not-re-derived table in
+`packages/sim/test/purity.test.ts`. `render/test/boss-cue-surge.test.ts` and
+`surge-verdict.test.ts` hold the behaviour.

@@ -2227,6 +2227,7 @@ by hand never moves.
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
 | `packages/render/src/surge-word.ts` | **What THE SURGE is asking of one thumb**, and the three silences beside the one that shipped |
+| `packages/render/src/surge-marks.ts` | **THE SURGE's two grip marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/solid-ball.ts` | A ROUND PART OF A RIG — a head, a knuckle, an eye, a nest — lit once and stamped |
 | `packages/render/src/solid-haze.ts` | DEPTH ACROSS A RIG: what makes the far wing read as further than the near one when both are the same size on… |
 | `packages/render/src/solid-motion.ts` | MOTION THAT A RIG HAS WITHOUT BEING TOLD: the always-on life of a body, as pure functions of time |
