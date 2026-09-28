@@ -28470,3 +28470,5 @@ The bottleneck: deciding that every ring stands on one screen, which made it THE
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: the first boss where both seats may press the same thing, so deciding what a verdict on a *shared* lift is — both marks, both colours — before any code.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

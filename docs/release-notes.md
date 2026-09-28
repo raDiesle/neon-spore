@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 2dd7c2907 — THE SURGE's grip marks answer a touch like THE INSTAR's marks
+
+A grip mark whose seat is asked to hold wears the halo on that seat's screen and the partner's ring and clock on the other; nothing asks inside the band, while the bulb re-seals, or of the pilot under its rock (`surgeAsks`, in the simulation). A thumb landing washes its mark green, a lift together both green and a lift apart or out of the band both red. A desk press on a mark is signed with its seat.
+
 ## 2026-09-28 · e9cc75fe1 — THE LEDGER's rings answer a touch as far as its split lets them
 
 Each of THE LEDGER's rings stands on one screen only, so it follows THE GAUGE's case. The ring being offered wears a halo on its owner's screen while the thumb is off it: the root on the navigator's screen for the foot and the plug, and the soonest return and the taut cord on the pilot's. A step of the foot and a thumb into the socket wash the root green. A pull washes the return it moved. The partner gets no ring and no clock, and nothing is refused, because the other seat has nothing to press.
