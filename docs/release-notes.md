@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 785b7ec58 — AUTO leads THE WARDEN's pupil, and takes every plate in `bun run frames`
+
+The game lays a shot on the half beat, so AUTO's bolt, aimed where the pupil stood, arrived after it had walked on and every shot was rejected on the rim. The hand now aims where the pupil will be when the bolt lands (`sim/warden-lead.ts`, the walk's own step), waits a tick when the landing is too near a step to call, and fires once per shot. `--auto both --until plate` takes a plate at tick 179 and plays on to `wardenDown`; a test in `packages/hands` plays the fight to its fall on either grid with no reject.
+
 ## 2026-09-28 · f6f4efca2 — THE WARDEN's hatch swipe is a track that fills before the lift
 
 Under GLARE the pilot's swipe across the hatch is drawn as a bar through the eye, a throw's length out each side, with chevrons, filling green toward the side the thumb carries it and turning its rim green once the lift would throw. The navigator sees the same fill in the partner's dashed bar and clock. The simulation now keeps the furthest carry (`hatchCarryMilli`, hashed) and judges the lift on it. The owner asked for this look by name (a swipe is a track, never a ring, 24 September 2026).
