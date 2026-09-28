@@ -28188,3 +28188,13 @@ The bottleneck: none; the sweep of every other grip was cut off and queued
 so this could land at the owner's stop.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — the pointer scan is one test per file
+
+- reading: 5 min. The test, `source-scan.ts`, how `purity.test.ts` splits.
+- writing: 5 min. The per-file tests, the `stripNonCode` finding.
+- looking: 0 min. A test, nothing drawn.
+- friction: 0 min.
+- landing: 10 min. Two full `check` runs back to back, as the entry asked.
+
+The bottleneck: the second full `check`, which is the proof and nothing else.

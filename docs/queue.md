@@ -315,19 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## pointer-conversion.test.ts times out under `bun run check`'s load
-
-- **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
-- **Taken:** 2026-09-28, claude/queue-the-instar-refuses-the-wrong-seat-again-on-every (claim: claude/queue-pointer-conversion-test-ts-times-out-under-bun-r)
-- **Files:** `apps/game/test/pointer-conversion.test.ts`
-
-A source scan over `apps/game/src` that runs in 35 ms alone took 5137 ms in
-shard 6 of a `land` and failed on bun's 5 s default, so the landing was
-rerun unchanged. Find what in it is slow under contention (the glob, the
-reads, `stripNonCode` over every file) and make it cheap, or give it the
-source-scan tests' own timeout if they have one; prove it with two `bun run
-check` runs green back to back.
-
 ## Every other grip refuses the wrong seat's press once, not per move
 
 - **Found:** 2026-09-28, claude/queue-the-instar-refuses-the-wrong-seat-again-on-every
@@ -1663,3 +1650,19 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
+
+## `stripNonCode` never strips a template literal with anything in it
+
+- **Found:** 2026-09-28, claude/queue-pointer-conversion-test-ts-times-out-under-bun-r
+- **Files:** `packages/sim/test/source-scan.ts`, `packages/sim/test/purity.test.ts`, `packages/sim/test/copies.test.ts`, `apps/game/test/pointer-conversion.test.ts`
+
+The template-literal line in `stripNonCode` puts the escape inside its
+character class, so the class is negated over everything and matches no
+character: the pattern strips an empty pair of backticks and nothing else.
+`` `Math.random ${x}` `` comes back unchanged, so every guard that calls it
+reads template text as code. Write the class as "anything but a backtick or
+a backslash, or a backslash-escaped pair", keep the `${…}` holes as code
+(they are code, and stripping them would hide a ban inside one), add a test
+of `stripNonCode` itself beside `source-scan.ts`, and run the three guards:
+one that newly passes or newly fails is the finding worth a sentence.
+`bun run check` proves it.

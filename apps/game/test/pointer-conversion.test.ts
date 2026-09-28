@@ -1,5 +1,4 @@
 import { describe, expect, it } from "bun:test";
-import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Glob } from "bun";
 import { stripNonCode } from "../../../packages/sim/test/source-scan.js";
@@ -25,11 +24,17 @@ const SRC = Bun.fileURLToPath(new URL("../src/", import.meta.url));
 const FILES = [...new Glob("**/*.ts").scanSync(SRC)];
 
 describe("where a pointer landed", () => {
-  it("is asked of one function rather than written out in each listener", () => {
+  it("is asked of more than a handful of files", () => {
     expect(FILES.length).toBeGreaterThan(10);
-    for (const file of FILES) {
-      const code = stripNonCode(readFileSync(join(SRC, file), "utf8"));
-      expect(code, `${file} does the stage conversion itself`).not.toMatch(/client[XY]\s*-/);
-    }
   });
+
+  // One test per file, as `purity.test.ts` does it: the whole tree read in one
+  // test took 35 ms alone and 5137 ms in a loaded shard of `land`, past bun's
+  // 5 s default, and no single file comes near that.
+  for (const file of FILES) {
+    it(`${file} asks one function rather than converting the pointer itself`, async () => {
+      const code = stripNonCode(await Bun.file(join(SRC, file)).text());
+      expect(code, `${file} does the stage conversion itself`).not.toMatch(/client[XY]\s*-/);
+    });
+  }
 });
