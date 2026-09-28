@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · d8465b0cc — THE RATCHET's catch and pawl answer a touch the way every mark does
+
+Her unset catch wears the halo on her screen. His lifted pawl wears it on his while a tooth waits, or while the kick or the bind wants it down. SET washes the catch green and a clean tooth washes the pawl green. A burnt tooth is red on both, because neither screen shows which half was missing; that is the burn's only mark, and its click, jolt and shudder are still a clean tooth's alone. Each story state greens or reddens the hand it asked for.
+
 ## 2026-09-28 · 121a4ead5 — THE GIMBAL's two rings answer a touch the way every mark does
 
 While the rings are being turned, a ring with no hand on it wears the halo where the rim is met. Both rings wash green when they come true together. A slip now says which ring left its mark and washes only that one red. Each ring is still drawn on its own seat's screen alone, so there is no partner's clock and no refusal: THE GAUGE's case.
