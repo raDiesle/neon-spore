@@ -28200,3 +28200,14 @@ so this could land at the owner's stop.
 The bottleneck: the second full `check`, which is the proof and nothing else.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — the sweep of every other grip for a refusal per move
+
+- reading: 15 min. Ten grips and the sim hand each one reaches.
+- writing: 0 min. Nothing needed fixing.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. The commit, `land`.
+
+The bottleneck: reading ten hands to prove a negative; only the sims that
+push a `*Refuse` event could have had the bug, and a grep finds those first.

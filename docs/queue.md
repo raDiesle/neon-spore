@@ -315,20 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Every other grip refuses the wrong seat's press once, not per move
-
-- **Found:** 2026-09-28, claude/queue-the-instar-refuses-the-wrong-seat-again-on-every
-- **Taken:** 2026-09-28, claude/queue-pointer-conversion-test-ts-times-out-under-bun-r (claim: claude/queue-every-other-grip-refuses-the-wrong-seats-press-o)
-- **Files:** `packages/render/src/warden-grip.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/test/instar-refuse.test.ts`
-
-THE WARDEN's eye and THE INSTAR's marks handed the wrong seat's press
-through with a hold, so every move of the resting thumb was refused again;
-both now hand it through holding nothing, with a test each. Go through the
-other `packages/render/src/*-grip.ts` that sign a press with `field.seat`
-whosever the control is (`grep -l "player: field.seat"`), find any that
-still give the wrong seat a hold, fix them the same way, and give each the
-test `instar-refuse.test.ts` is: a press and three moves, one refusal.
-
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
