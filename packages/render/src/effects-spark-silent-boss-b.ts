@@ -170,10 +170,13 @@ export const SILENT_BOSS_B = [
   // And a refused press on either: the red is `pinball-marks.ts`'.
   "pinRefuse",
   // THE SCOUT's two hands, drawn since 22 September 2026 and still no burst:
-  // each stands on a ring that is already saying it (`scout-grip.ts`).
+  // each stands on a ring that is already saying it (`scout-grip.ts`), and
+  // the green of the reel and the prime and the red of a refused press are
+  // `scout-marks.ts`'.
   "scoutReel",
   "scoutSlip",
   "scoutPrime",
+  "scoutRefuse",
   // THE PULSE's hand on the bar, no burst: the green is `pulse-marks.ts`'.
   "pulseBrace",
   "pulseSlip",

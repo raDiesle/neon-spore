@@ -167,15 +167,18 @@ export {
   scoutHolds,
   scoutHome,
   scoutLeft,
-  // What the motes aboard have made of the little ship (`scout-hand.ts`).
+  // Whether each hand is on offer and asks, and the load its motes make
+  // (`scout-hand.ts`, `render/scout-grip.ts`, `render/scout-marks.ts`).
+  scoutLineAsks,
+  scoutLineOffered,
   scoutLoad,
   scoutMawOpen,
   scoutNose,
   scoutOpenRound,
-  // Whether a burn takes this tick, which the flight and the picture must not
-  // disagree about — the wake and the prime's dial both ask it
-  // (`scout-hand.ts`, `render/scout-grip.ts`).
+  // Whether a burn takes this tick: the wake and the prime's dial both ask.
+  scoutPrimeAsks,
   scoutPrimed,
+  scoutPrimeOffered,
   scoutRound,
   shipCol,
   shipCovers,

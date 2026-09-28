@@ -182,6 +182,8 @@ export const INGEST_SILENT_BOSS_B = [
   // a line and a primed thruster are state, read off `reeling` and
   // `primeTick` every frame and put on the rings themselves — hers goes
   // `held`, his is a dial draining (`sim/scout-hand.ts`, `scout-grip.ts`).
+  // The green the reel and the prime throw is the round's own, fed by the
+  // takeover (`scout-marks.ts`).
   "scoutReel",
   "scoutSlip",
   "scoutPrime",

@@ -28340,3 +28340,13 @@ The bottleneck: the bar is both seats' and a rectangle, so where each seat's mar
 The bottleneck: the pile's ring exists only under a thumb, so the lane was deciding that it has a verdict and nothing else.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE SCOUT's line and prime answer a touch like THE INSTAR's marks
+
+- reading: 10 min. The hand, the grip, the round's draw, PINBALL's lane as the pattern.
+- writing: 20 min. The asks and the refusal in the sim, `scout-marks.ts`, the desk seat, two tests.
+- looking: 5 min. One frame, heavy, on the navigator's screen.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: deciding where the partner's clock belongs — on the prime her burn waits on, not on the line nobody waits on.

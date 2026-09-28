@@ -36,6 +36,37 @@ export function scoutPrimed(
 }
 
 /**
+ * Whether each hand is on offer: the round in its play and the load past the
+ * gate — `laden` for the line, `heavy` for the prime. `render/scout-grip.ts`
+ * hits the rings on these, and a press from the other seat on one on offer
+ * is refused (`scoutRefuse`).
+ */
+export function scoutLineOffered(cfg: ScoutLoadBounds, scout: ScoutState): boolean {
+  return scout.phase === "play" && scoutLoad(cfg, scout) !== "light";
+}
+
+export function scoutPrimeOffered(cfg: ScoutLoadBounds, scout: ScoutState): boolean {
+  return scout.phase === "play" && scoutLoad(cfg, scout) === "heavy";
+}
+
+/**
+ * And whether each **asks** its seat for a hand this tick
+ * (`render/scout-marks.ts` haloes the one asked): the line on offer with no
+ * thumb on it yet, the prime on offer with no window running.
+ */
+export function scoutLineAsks(cfg: ScoutLoadBounds, scout: ScoutState): boolean {
+  return scoutLineOffered(cfg, scout) && !scout.reeling;
+}
+
+export function scoutPrimeAsks(
+  cfg: ScoutLoadBounds & { scoutPrimeTicks: number },
+  scout: ScoutState,
+  tick: number,
+): boolean {
+  return scoutPrimeOffered(cfg, scout) && !scoutPrimed(cfg, scout, tick);
+}
+
+/**
  * **THE SCOUT's two hands on its own picture**: player 2's line on the little
  * ship and player 1's prime on its thruster (`docs/spec/interludes.md`, THE
  * SCOUT's *Three loads, three hands*).
@@ -73,13 +104,21 @@ export function scoutHandHeard(
 ): void {
   if (command.kind !== "drag") return;
   if (command.target === "scoutLine") {
-    if (player !== 2 || scoutLoad(world.cfg, scout) === "light") return;
+    if (player !== 2) {
+      if (command.on && scoutLineOffered(world.cfg, scout)) refuse(world, "line", player);
+      return;
+    }
+    if (scoutLoad(world.cfg, scout) === "light") return;
     if (scout.reeling === command.on) return;
     scout.reeling = command.on;
     world.events.push({ type: command.on ? "scoutReel" : "scoutSlip" });
     return;
   }
-  if (command.target !== "scoutPrime" || player !== 1) return;
+  if (command.target !== "scoutPrime") return;
+  if (player !== 1) {
+    if (command.on && scoutPrimeOffered(world.cfg, scout)) refuse(world, "prime", player);
+    return;
+  }
   if (scoutLoad(world.cfg, scout) !== "heavy") return;
   // The press says nothing; the prime is the lift, and only one that
   // travelled — a thumb resting on the ship is not a thruster being lit.
@@ -87,6 +126,14 @@ export function scoutHandHeard(
   if (Math.abs(command.fromYMilli ?? 0) < world.cfg.scoutPrimeMilli) return;
   scout.primeTick = world.tick;
   world.events.push({ type: "scoutPrime" });
+}
+
+/**
+ * A press on the other seat's ring, said once so it washes red
+ * (`render/scout-marks.ts`) and knocks *not yours*. Nothing else changes.
+ */
+function refuse(world: World, part: "line" | "prime", player: 1 | 2): void {
+  world.events.push({ type: "scoutRefuse", part, player });
 }
 
 /**

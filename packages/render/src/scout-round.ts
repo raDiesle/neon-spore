@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
+import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
@@ -15,6 +16,7 @@ import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
 import { drawScoutHazards, drawScoutHome, drawScoutMotes, drawScoutWalls } from "./scout-draw.js";
 import { drawScoutGrips } from "./scout-grip.js";
+import { drawScoutAsked, drawScoutVerdicts } from "./scout-marks.js";
 import { drawScout } from "./scout-ship.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawShipAir } from "./ship-air.js";
@@ -65,7 +67,12 @@ function stillPose(world: World, round: ScoutState) {
   };
 }
 
-export function drawScoutRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
+export function drawScoutRound(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  view: ViewState,
+  effects: Effects,
+): void {
   const boss = view.world.boss;
   if (boss === null || boss.kind !== "scout") return;
   const world = view.world;
@@ -111,6 +118,7 @@ export function drawScoutRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // on the hull's own surface, so a ring off the stern of a ship flown down
   // there would be painted over by the plating it is hanging in front of
   // (`scout-grip.ts`).
+  drawScoutAsked(ctx, l, cfg, boss, world.tick, view.time);
   drawScoutGrips(ctx, l, cfg, boss, world.tick, view.time);
   drawBand(ctx, l, world, false, false, view.time, view.controls);
   drawHud(ctx, l, view);
@@ -119,6 +127,7 @@ export function drawScoutRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
   // until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
   ctx.textAlign = "left";
+  drawScoutVerdicts(ctx, l, cfg, boss, effects.boss.scout.verdicts);
 }
 
 /** The name and which seat is doing what, in the clear air above the arena. */

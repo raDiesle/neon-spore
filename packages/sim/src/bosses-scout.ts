@@ -28,6 +28,13 @@ export { scoutAtHome } from "./scout-arena.js";
 export { scoutNose } from "./scout-fly.js";
 // The load its motes put the little ship in, and whether a heavy one's burn
 // takes — read, never re-derived from `carrying.length` (`scout-hand.ts`).
-export { scoutLoad, scoutPrimed } from "./scout-hand.js";
+export {
+  scoutLineAsks,
+  scoutLineOffered,
+  scoutLoad,
+  scoutPrimeAsks,
+  scoutPrimed,
+  scoutPrimeOffered,
+} from "./scout-hand.js";
 export { scoutHome, scoutStand } from "./scout-open.js"; // home, and one arena set out.
 export { enterScoutPhase, scoutHolds, scoutOpenRound, scoutRound } from "./scout-round.js";

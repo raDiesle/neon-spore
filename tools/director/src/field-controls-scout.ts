@@ -30,7 +30,11 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "nose and none of the motes it carries, so the middle of it is a place " +
       "and nothing else and the ring covers nothing she reads " +
       "(render/scout-grip.ts)",
-    seat: "player 2 only — the seat that can see the arena and can move nothing in it",
+    seat:
+      "player 2 only — the seat that can see the arena and can move nothing " +
+      "in it. The ring is haloed on her screen until her thumb is down, the " +
+      "line going on washes it green, and the pilot's press on it is refused " +
+      "red (render/scout-marks.ts, sim/scout-hand.ts scoutRefuse)",
     gesture: "hold",
     does:
       "Puts a line on the ship and reels it straight home at scoutReelMilli " +
@@ -55,7 +59,12 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "beads that ride the rim, from the moment it is past scoutHeavyMotes — " +
       "in the air the wake takes up when the thruster answers, which is empty " +
       "exactly while the ring is offered (render/scout-grip.ts)",
-    seat: "player 1 only — the ship is the one thing his screen shows him",
+    seat:
+      "player 1 only — the ship is the one thing his screen shows him. The " +
+      "ring is haloed on his screen while no window runs, and on hers it " +
+      "wears his turning ring and a clock, since her burn waits on it; the " +
+      "prime washes it green and her press on it is refused red " +
+      "(render/scout-marks.ts, sim/scout-hand.ts scoutRefuse)",
     gesture: "grab and drag",
     does:
       "Primes the labouring thruster: a carry of at least scoutPrimeMilli, " +

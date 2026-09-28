@@ -321,9 +321,9 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
-THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE and THE
-CAIRN: **one boss a lane**, the first on `TO_COME` in the roll-out test — THE
-SCOUT next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
+THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE, THE
+CAIRN and THE SCOUT: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE BATON next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
 THE MAZE's lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
 seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 `vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`
@@ -331,10 +331,11 @@ seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 boss whose grip already has an fx class may keep its verdicts in it, as
 `maze-grip-fx.ts` and `FleetGripFx` does with `fleet-grip-marks.ts`, rather
 than growing the effects roster, which stands at its 250-line ceiling). A
-**round** (THE SCOUT) ingests no effects on the game's screen: its marks go
+**round** ingests no effects on the game's screen: its marks go
 in `effects-round-marks.ts` `RoundMarks`, the roster's base, which
 `canvas2d-takeover.ts` feeds (`snake-marks.ts`, `pinball-marks.ts`,
-`pulse-marks.ts`, the last for a mark both seats own). A part
+`pulse-marks.ts`, the last for a mark both seats own, `scout-marks.ts`, a
+partner's clock only where the round waits on it). A part
 one seat's screen never shows gets no partner's clock and no refusal
 (`gauge-marks.ts`), and two seats' rings on one circle get none either
 (`fleet-grip-marks.ts`); a mark drawn only under a thumb gets the verdict

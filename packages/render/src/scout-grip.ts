@@ -2,9 +2,10 @@ import {
   type ScoutState,
   type SimConfig,
   scoutHome,
-  scoutLoad,
+  scoutLineOffered,
   scoutNose,
   scoutPrimed,
+  scoutPrimeOffered,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
@@ -86,44 +87,78 @@ export function scoutPrimeCircle(l: Layout, cfg: SimConfig, scout: ScoutState): 
 }
 
 /**
- * Whether the line is being offered: `scoutHandHeard`'s own gate read back
- * rather than restated — the ship is past `scoutLadenMotes`. A thumb already
+ * Whether the line is being offered: the simulation's own gate
+ * (`scoutLineOffered`) — the ship is past `scoutLadenMotes`. A thumb already
  * on it is not refused, because the hold *is* the control and letting go is
  * how it ends.
  */
 export function scoutLineGrippable(cfg: SimConfig, scout: ScoutState): boolean {
-  return afoot(scout) && scoutLoad(cfg, scout) !== "light";
+  return scoutLineOffered(cfg, scout);
 }
 
 /** And whether the prime is: past `scoutHeavyMotes`, where the burn stops answering. */
 export function scoutPrimeGrippable(cfg: SimConfig, scout: ScoutState): boolean {
-  return afoot(scout) && scoutLoad(cfg, scout) === "heavy";
+  return scoutPrimeOffered(cfg, scout);
+}
+
+interface Hand {
+  target: "scoutLine" | "scoutPrime";
+  seat: 1 | 2;
+  c: Circle;
+}
+
+/** The rings on offer under a point, this seat's own first where they overlap. */
+function handsUnder(l: Layout, x: number, y: number, field: Field, scout: ScoutState): Hand[] {
+  const { cfg } = field;
+  const hands: Hand[] = [];
+  if (scoutLineGrippable(cfg, scout)) {
+    hands.push({ target: "scoutLine", seat: 2, c: scoutLineCircle(l, cfg, scout) });
+  }
+  if (scoutPrimeGrippable(cfg, scout)) {
+    hands.push({ target: "scoutPrime", seat: 1, c: scoutPrimeCircle(l, cfg, scout) });
+  }
+  return hands
+    .filter((h) => hitCircle(h.c, x, y))
+    .sort((a, b) => Number(b.seat === field.seat) - Number(a.seat === field.seat));
 }
 
 /**
- * The press, answered for whichever of the two this seat owns. A press from
- * the wrong seat falls through to whatever is behind it, exactly as if no ring
- * were there — which for this round is the arena, and the arena takes no
- * presses at all.
+ * The press on whichever ring is on offer, from either seat. The line is the
+ * navigator's and the prime the pilot's (`sim/scout-hand.ts`). **A press from
+ * the other seat is handed through with no hold**, so the simulation can
+ * refuse it once and the ring wash red (`scout-marks.ts`) — both rings are
+ * drawn on both screens.
  */
 export function scoutGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const scout = bossOf(field, "scout");
   if (scout === null) return null;
-  const { cfg, seat } = field;
-  if (seat === 2 && scoutLineGrippable(cfg, scout)) {
-    if (hitCircle(scoutLineCircle(l, cfg, scout), x, y)) return grab("scoutLine", 2, x, y);
-  }
-  if (seat === 1 && scoutPrimeGrippable(cfg, scout)) {
-    if (hitCircle(scoutPrimeCircle(l, cfg, scout), x, y)) return grab("scoutPrime", 1, x, y);
-  }
-  return null;
+  const hand = handsUnder(l, x, y, field, scout)[0];
+  if (hand === undefined) return null;
+  return grab(hand.target, field.seat, hand.seat === field.seat, x, y);
 }
 
-function grab(target: "scoutLine" | "scoutPrime", player: 1 | 2, x: number, y: number): Touch {
+/**
+ * The seat a press on a ring on offer belongs to, so one mouse at a desk
+ * takes the navigator's line rather than having it refused as the pilot's
+ * (`desk-grab.ts` `markSeat`).
+ */
+export function scoutGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const scout = bossOf(field, "scout");
+  if (scout === null) return undefined;
+  return handsUnder(l, x, y, field, scout)[0]?.seat;
+}
+
+function grab(
+  target: "scoutLine" | "scoutPrime",
+  player: 1 | 2,
+  owns: boolean,
+  x: number,
+  y: number,
+): Touch {
   return {
     player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target, player, originX: x, originY: y },
+    hold: owns ? { kind: "drag", target, player, originX: x, originY: y } : null,
   };
 }
 

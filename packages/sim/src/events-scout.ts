@@ -1,6 +1,6 @@
 /**
  * **What THE SCOUT's two hands on its picture do that neither screen already
- * says**, as three events (`scout-hand.ts`).
+ * says**, as four events (`scout-hand.ts`).
  *
  * Its own file on `events-pinball.ts`' terms: one round, one arm of
  * `SimEvent`, and a file `packages/audio/test/bind.test.ts` has to be told the
@@ -19,4 +19,6 @@ export type ScoutEvent =
   /** And took it off: the ship is player 1's again, wherever it has got to. */
   | { type: "scoutSlip" }
   /** Player 1 primed a labouring thruster: a burn takes for `scoutPrimeTicks`. */
-  | { type: "scoutPrime" };
+  | { type: "scoutPrime" }
+  /** A press on the other seat's ring while it is on offer, refused. */
+  | { type: "scoutRefuse"; part: "line" | "prime"; player: 1 | 2 };

@@ -923,6 +923,20 @@ not be **photographed** — `bun run frames` knows no verb that flies the round
 took a picture for; `render/test/handle-hole-rulings.test.ts` counts the discs,
 which needs no verb.
 
+**The rings answer a touch the way THE INSTAR's marks do, 28 September
+2026** (`render/scout-marks.ts`; the owner, 27 September: *the consistent
+visual across all waves*). Whether each is asked is the simulation's,
+`scoutLineAsks` and `scoutPrimeAsks`: the line on offer with no thumb on it,
+the prime on offer with no window running. The halo stands under this seat's
+ring while it is asked. **The partner's clock stands on the prime alone**:
+her burn waits on his prime, and nobody waits on the line, which is hers to put
+on when she chooses — a clock over the middle of the pilot's own ship would be
+the hole the paragraph above took out of it. The reel and the prime wash their
+ring green. A press from the other seat on a ring on offer is handed through
+with no hold and refused once as `scoutRefuse`, which washes it red and knocks
+*not yours*; at a desk the press is signed with the ring's seat
+(`scoutGripSeat`). The takeover feeds the verdicts (`effects-round-marks.ts`).
+
 **What is not built** (18 September 2026 for the sim, and the events since):
 the three events are still on both silent lists — each stands on a ring that
 is already saying it. The director's STATES sheet has a card for `light` and

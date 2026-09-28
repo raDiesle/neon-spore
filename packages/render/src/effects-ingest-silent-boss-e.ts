@@ -57,4 +57,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And PINBALL's, on the plunger or the table: a red ring round the part,
   // `effects.boss.pinball`'s (`pinball-marks.ts`).
   "pinRefuse",
+  // And THE SCOUT's, on the line or the prime: a red ring round the part,
+  // `effects.boss.scout`'s (`scout-marks.ts`).
+  "scoutRefuse",
 ] as const satisfies readonly SimEvent["type"][];

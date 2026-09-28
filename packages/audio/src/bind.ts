@@ -67,6 +67,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // The wrong seat's thumb on PINBALL's plunger or table, panned to the
       // end of the band the ring stands at (`pinball-grip.ts`).
       return { id: "boss.instarRefuse", pan: panForCol(e.part === "plunger" ? cols - 1 : 0, cols) };
+    case "scoutRefuse":
+      // The wrong seat's thumb on THE SCOUT's line or prime, with no pan for
+      // `bind-scout-hand.ts`' reason: the ship is a point, not a lane.
+      return { id: "boss.instarRefuse", pan: 0 };
     case "snakeRefuse":
       // The wrong seat's thumb on SNAKE's jaws or tail: every mark's *not
       // yours*, one sound for all of them (`boss-instar.ts`).
