@@ -28113,3 +28113,5 @@ The bottleneck was keeping the brake's rail hidden from the navigator while stil
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck was the convention against the boss: the partner's ring would draw each seat the other's secret, so it had to be left out and the reason written down rather than drawn.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

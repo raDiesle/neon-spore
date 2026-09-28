@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · f8b29efe8 — THE HASP's latch and wheel answer a touch the way THE INSTAR does
+
+Each seat's open mark has the halo: the pilot's latch while it asks for a hand, and the navigator's wheel while her hand is off the rim. The latch washes green on the grip and red on the burn. The wheel washes green when it comes free under her hand and red when it seizes. The wheel no longer says it came free when she lets go of a seized rim. Neither seat is shown the partner's ring or clock, because each seat is shown only its own half. Lands as a look the owner asked for by name.
+
 ## 2026-09-28 · 41efef6c8 — THE SPOOL's brake answers a touch the way THE INSTAR does
 
 The knob washes green when the pilot takes the brake and red when the navigator's press is refused, which the simulation now says with `spoolRefuse` and THE INSTAR's knock. While the line runs and nobody holds it, the pilot sees a halo under the knob and the navigator sees the partner's turning ring and a clock where it rests, with no rail or depth shown. On the test screen the desk mouse is told whose knob it is before the press. Lands as a look the owner asked for by name.
