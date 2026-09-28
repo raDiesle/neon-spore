@@ -1723,6 +1723,7 @@ names with its page, and prove it with `packages/audio/test/bind.test.ts`.
 ## A kept claim's re-stamp leaves this tree's `Taken:` line off
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Taken:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the (claim: claude/queue-a-kept-claims-re-stamp-leaves-this-trees-taken-l)
 - **Files:** `tools/queue/repo.ts`, `tools/queue/test/claim-kept.test.ts`
 
 `bun run queue take` on the roll-out's kept branch runs `unmark` first, which
