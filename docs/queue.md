@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE WARDEN refuses the navigator again on every move of her press
 
 - **Found:** 2026-09-28, claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe
+- **Taken:** 2026-09-28, claude/queue-auto-never-takes-a-plate-off-the-warden-in-bun-r (claim: claude/queue-the-warden-refuses-the-navigator-again-on-every)
 - **Files:** `packages/render/src/warden-grip.ts`, `packages/sim/src/warden-hand.ts`
 
 The wrong seat's press on THE WARDEN's eye is handed through as a drag with
