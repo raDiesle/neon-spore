@@ -1838,6 +1838,7 @@ by hand never moves.
 | `packages/render/src/throb-pores.ts` | THE THROB's surface, PORES — a middle with no ammunition colour, black and white pores pinned round the ball, the two colours on the rim |
 | `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles hanging from the top of the frame |
 | `packages/render/src/throat-mouth.ts` | The mouth, the lip, and the column of field the inhale is holding |
+| `packages/render/src/throat-marks.ts` | THE THROAT's ring and tube answering a touch: the halo under this seat's ring while it asks, and the verdict of a cinch, a haul or a refused press |
 | `packages/render/src/throat-shape.ts` | Where every part of THE THROAT is, as numbers — no canvas in this file |
 | `packages/render/src/throat-say.ts` | The reason under each of THE THROAT's cue verbs (`BossCue.why`), and the receipt words |
 | `packages/render/src/throat-sway.ts` | **THE THROAT sways where it hangs free** (`docs/spec/living-bosses.md` §1, the outline tier) |

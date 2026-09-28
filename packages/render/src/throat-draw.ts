@@ -7,6 +7,7 @@ import { drawEversion, evertedRings } from "./throat-evert.js";
 import { paintBand, paintLimp, paintTube } from "./throat-flesh.js";
 import { drawThroatGrips } from "./throat-grip.js";
 import { drawThroatLock } from "./throat-lock.js";
+import { drawThroatAsked } from "./throat-marks.js";
 import { drawMouth } from "./throat-mouth.js";
 import { drawThroatReceipt } from "./throat-receipt.js";
 import { type Ring, rings } from "./throat-shape.js";
@@ -87,8 +88,12 @@ export function drawThroat(
   drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
   // The two hands the gullet hands out as it loses, over the tube and the
   // lip they are taken on and under the readout, which is words
-  // (`throat-grip.ts`).
-  if (b.phase !== "everts") drawThroatGrips(ctx, l, cfg, b, beat, beatPhase, time);
+  // (`throat-grip.ts`), haloed under while each asks this seat
+  // (`throat-marks.ts`); the verdicts are the caller's, drawn last.
+  if (b.phase !== "everts") {
+    drawThroatAsked(ctx, l, cfg, b, beat, beatPhase, time);
+    drawThroatGrips(ctx, l, cfg, b, beat, beatPhase, time);
+  }
   drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time, crowded);
   // What the last thing into the mouth did, on both screens (`throat-receipt.ts`).
   drawThroatReceipt(ctx, l, cfg, b, beat, beatPhase);

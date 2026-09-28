@@ -8,17 +8,14 @@ import {
   type ThroatState,
   throatHolds,
   throatMouthRow,
+  throatRingAsks,
+  throatTubeAsks,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { creatureCenter } from "./creature-place.js";
 import { type Layout, tileCX } from "./layout.js";
-import {
-  throatRingCircle,
-  throatRingGrippable,
-  throatTubeCircle,
-  throatTubeGrippable,
-} from "./throat-grip.js";
+import { throatRingCircle, throatTubeCircle } from "./throat-grip.js";
 import { THROAT_WHY } from "./throat-say.js";
 
 /**
@@ -146,11 +143,11 @@ function shot(
 function wardedCue(l: Layout, world: World, b: ThroatState, beatPhase: number): BossCue | null {
   const cfg = world.cfg;
   if (b.phase === "open") {
-    if (!throatTubeGrippable(b)) return null;
+    if (!throatTubeAsks(b)) return null;
     const at = throatTubeCircle(l, cfg, b, world.beat, beatPhase);
     return markAt(1, "CARRY", "HAUL", at.x, at.y, l, 54);
   }
-  if (!throatRingGrippable(b)) return null;
+  if (!throatRingAsks(b)) return null;
   const at = throatRingCircle(l, cfg, b, world.beat, beatPhase);
   return at === null ? null : markAt(2, "HOLD", "CINCH", at.x, at.y, l, 55);
 }

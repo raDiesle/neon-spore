@@ -28364,3 +28364,13 @@ The bottleneck: deciding where the partner's clock belongs — on the prime her 
 The bottleneck: the wrong seat's press had to keep its hold on the shell but lose it on the partner's bead — the strip counts a thumb only after it lifts, and a held drag repeats its press on every move.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE THROAT's ring and tube answer a touch like THE INSTAR's marks
+
+- reading: 10 min. The hand, the grip, the draw, the cue's gates, the events and their sound.
+- writing: 25 min. The two asks and `throatRefuse` in the sim, `throat-marks.ts`, the wrong seat's press handed through, the cue reading the asks, the desk seat, two tests.
+- looking: 5 min. One frame, the navigator's slack ring haloed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the context ran out mid-lane, and the summary had to carry the plan across.

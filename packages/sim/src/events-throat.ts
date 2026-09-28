@@ -1,5 +1,5 @@
 /**
- * **What THE THROAT does that neither screen already says**, as seven events:
+ * **What THE THROAT does that neither screen already says**, as eight events:
  * the pair's two hands on the gullet (`throat-hand.ts`), and the gullet's own
  * clock.
  *
@@ -29,7 +29,11 @@
  * eversion is the ending. A thing you are punished for not seeing, in a game
  * whose control scheme is talking, has to have a sound.
  *
- * All seven carry the column the tube stands in, because the pan is the whole
+ * The refusal came last (28 September 2026): a press on the other seat's ring,
+ * said so the ring can wash red where the seat can see it refused, for THE
+ * INSTAR's reason (`instar-hand.ts`) — both screens draw both rings.
+ *
+ * All eight carry the column the tube stands in, because the pan is the whole
  * of what a fixture can say about *where* — nothing of the gullet is among
  * `world.creatures` and there is no body to point at.
  */
@@ -47,4 +51,6 @@ export type ThroatEvent =
   /** The mouth took what stood in it, and every mouthful re-tightens a ring. */
   | { type: "throatSwallow"; col: number }
   /** The last ring went slack: the tube turns through its own mouth. */
-  | { type: "throatEvert"; col: number };
+  | { type: "throatEvert"; col: number }
+  /** A press on the other seat's ring while it was on offer, refused. */
+  | { type: "throatRefuse"; col: number; part: "ring" | "tube"; player: 1 | 2 };

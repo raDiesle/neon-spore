@@ -15,6 +15,7 @@ import type { ViewState } from "./renderer.js";
 import { drawTaster } from "./taster-draw.js";
 import { drawTasterGrips } from "./taster-grip.js";
 import { drawThroat } from "./throat-draw.js";
+import { drawThroatVerdicts } from "./throat-marks.js";
 import { drawUndertowLobes } from "./undertow-lobe.js";
 
 /**
@@ -114,6 +115,9 @@ export function drawClockBoss(
     ctx.save();
     ctx.translate(hurt.shakeX(time, l.tile), 0);
     drawThroat(ctx, l, world.cfg, boss, world.beat, beatPhase, time, crowded, hurt.value);
+    // The verdict of a touch on either ring, over everything (`throat-marks.ts`).
+    const verdicts = effects.boss.blows.throatMarks.verdicts;
+    drawThroatVerdicts(ctx, l, world.cfg, boss, world.beat, beatPhase, verdicts);
     ctx.restore();
     return;
   }

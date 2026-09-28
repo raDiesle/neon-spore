@@ -124,6 +124,7 @@ const SAMPLES: Record<string, SimEvent> = {
   throatChoke: { type: "throatChoke", col: 2 },
   throatSwallow: { type: "throatSwallow", col: 2 },
   throatEvert: { type: "throatEvert", col: 5 },
+  throatRefuse: { type: "throatRefuse", col: 3, part: "ring", player: 1 },
   pulseBrace: { type: "pulseBrace", player: 1 },
   pulseSlip: { type: "pulseSlip", player: 2 },
   pulseArrest: { type: "pulseArrest" },

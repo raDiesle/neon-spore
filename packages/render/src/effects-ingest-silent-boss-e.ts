@@ -60,4 +60,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE SCOUT's, on the line or the prime: a red ring round the part,
   // `effects.boss.scout`'s (`scout-marks.ts`).
   "scoutRefuse",
+  // And THE THROAT's, on the ring or the tube: a red ring round the part,
+  // `effects.boss.blows.throatMarks`' (`throat-marks.ts`).
+  "throatRefuse",
 ] as const satisfies readonly SimEvent["type"][];

@@ -24,8 +24,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * field's own cue has been printing `CINCH` and `HOLD` over bare tube ever
  * since (`boss-cue-read-k.ts`). What this file asks is the half a simulation
  * cannot: that a press on the ring the picture draws is the press
- * `throat-hand.ts` would accept, and that each seat can reach its own handle
- * and neither can reach the other's.
+ * `throat-hand.ts` would accept, that each seat can take hold of its own
+ * handle, and that a press on the other's is handed through with no hold, for
+ * the simulation to refuse (`throatRefuse`, `throat-marks.ts`).
  *
  * The load-bearing cases are the two the gullet **grows**: there is no ring to
  * pinch on a whole tube and no tube to haul outside `open`, so a thumb that
@@ -101,13 +102,15 @@ describe("the navigator's thumb on a slack ring", () => {
     expect(target(touchDown(l, at.x, at.y, f))).toBe("throatRing");
   });
 
-  it("is the navigator's and nothing at all from the pilot", () => {
+  it("is the navigator's: the pilot's press is handed through with no hold, to be refused", () => {
     const l = layout("p1");
     const { world, boss } = fighting();
     choked(boss);
     const f = field(world, 1);
     const at = ring(l, f, boss);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatRing");
+    const touch = touchDown(l, at.x, at.y, f);
+    expect(touch?.hold).toBeNull();
+    expect(touch?.command).toMatchObject({ target: "throatRing", on: true });
   });
 
   it("offers nothing on a whole gullet: there is no slack ring to pinch", () => {
@@ -161,13 +164,15 @@ describe("the pilot's carry on the tube", () => {
     expect(target(touchDown(l, at.x, at.y, f))).toBe("throatTube");
   });
 
-  it("is the pilot's and nothing at all from the navigator", () => {
+  it("is the pilot's: the navigator's press is handed through with no hold, to be refused", () => {
     const l = layout("p2");
     const { world, boss } = fighting();
     boss.phase = "open";
     const f = field(world, 2);
     const at = tube(l, f, boss);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("throatTube");
+    const touch = touchDown(l, at.x, at.y, f);
+    expect(touch?.hold).toBeNull();
+    expect(touch?.command).toMatchObject({ target: "throatTube", on: true });
   });
 
   it("offers nothing in the phases where the mouth still travels", () => {

@@ -3618,6 +3618,23 @@ nothing now (`theirs`, `handle-draw.ts`), and
 `render/test/handle-hole-bosses.test.ts` counts the discs punched on each
 screen.
 
+**Both rings answer a touch the way every mark does** (28 September 2026, the
+owner's consistent visual; `render/throat-marks.ts`). The ring that asks this
+seat for a thumb wears the halo: the slack ring on the navigator's screen until
+her thumb is on it, the tube on the pilot's until a carry has been given
+(`sim/throat-hand.ts` `throatRingAsks`, `throatTubeAsks`, which the grip, the
+cue and the halo all read). There is no partner's clock: both are one seat's
+bargain, taken when that seat chooses, and the gullet goes on breathing and
+inhaling whether or not either is taken. A cinch and a haul wash their ring
+green (`throatCinch`, `throatHaul`); a press from the other seat washes it red
+(`throatRefuse`, the eighth event, which sounds `boss.instarRefuse`). The
+picture used to let that press fall through; it hands it through now with no
+hold, so the refusal is said once rather than on every move of a held thumb.
+At a desk the press is signed with the ring's own seat (`throat-grip.ts`
+`throatGripSeat`). The verdicts are kept in `BossBlows` and drawn last, inside
+the gullet's shake. `render/test/throat-verdict.test.ts` and
+`sim/test/throat-asks.test.ts` hold it.
+
 **The two hands have sounds.** The cinch, the slip and the haul are
 `events-throat.ts`, bound in `audio/bind-throat.ts` and panned to the mouth's
 own column, because a fixture has no body to point at and the column is the one
@@ -3628,7 +3645,7 @@ to. A lift and a tear are one `throatSlip`, because they cost the pair the same
 thing.
 
 **And so does the gullet's own clock, since 19 September 2026** — the inhale,
-the choke, the swallow and the eversion, on the same seven-name union and the
+the choke, the swallow and the eversion, on the same union and the
 same pan. The hands are receipts for what the pair did; these four are what the
 boss did, which is the half of the fight neither screen spells out while both
 players are looking at the other half of their own. The breath is the count

@@ -242,6 +242,7 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "throatChoke":
     case "throatSwallow":
     case "throatEvert":
+    case "throatRefuse":
       return throatCue(e, cols);
     default:
       return pulseHandCue(e);

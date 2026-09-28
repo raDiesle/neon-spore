@@ -72,6 +72,26 @@ export function throatHauling(b: ThroatState): boolean {
 }
 
 /**
+ * **Whether each ring asks its seat for a thumb** — the ring hers while it is
+ * on offer and no thumb is on it yet, the tube his while `open` has it on
+ * offer and no carry is still to land. The picture's hit test and its halo
+ * both read these (`render/throat-grip.ts`, `render/throat-marks.ts`).
+ */
+export function throatRingAsks(b: ThroatState): boolean {
+  return throatCinchable(b) && !throatCinched(b);
+}
+
+export function throatTubeAsks(b: ThroatState): boolean {
+  return b.phase === "open" && !throatHauling(b);
+}
+
+/** A press on the other seat's ring while it was asking, said out loud. */
+function refuse(world: World, b: ThroatState, part: "ring" | "tube", player: 1 | 2): void {
+  const col = throatMouthCol(world.cfg, b, world.beat);
+  world.events.push({ type: "throatRefuse", col, part, player });
+}
+
+/**
  * Both hands, heard on the tick from `bossHandsHeard`.
  *
  * On the tick and not the beat because a thumb is down when it lands and the
@@ -89,7 +109,10 @@ export function throatHeard(world: World, player: 1 | 2, command: Command): void
 }
 
 function ringHeard(world: World, b: ThroatState, player: 1 | 2, on: boolean): void {
-  if (player !== 2) return;
+  if (player !== 2) {
+    if (on && throatRingAsks(b)) refuse(world, b, "ring", player);
+    return;
+  }
   if (!on) {
     throatRelease(world, b);
     return;
@@ -109,7 +132,11 @@ function tubeHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 1 || b.phase !== "open") return;
+  if (player !== 1) {
+    if (command.on && throatTubeAsks(b)) refuse(world, b, "tube", player);
+    return;
+  }
+  if (b.phase !== "open") return;
   // The press says nothing; the carry is the lift, and only one that travelled
   // (`vaneHeard`). A tap on the tube would move the mouth by the width of a
   // fingertip's jitter, and the mouth's column is the one thing in this fight

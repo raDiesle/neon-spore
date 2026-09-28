@@ -4,6 +4,8 @@ import {
   throatCinchable,
   throatCinched,
   throatHauling,
+  throatRingAsks,
+  throatTubeAsks,
 } from "@neon-spore/sim";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
@@ -73,53 +75,69 @@ export function throatTubeCircle(
   };
 }
 
-/**
- * Whether the gullet is offering the navigator a ring: `ringHeard`'s own gate
- * read back rather than restated. A slack ring, a tube that is not everting,
- * the last cinch paid for — and no thumb on it already, because there is one
- * cinch however many rings are slack.
- */
-export function throatRingGrippable(b: ThroatState): boolean {
-  return throatCinchable(b) && !throatCinched(b);
+interface Hand {
+  target: "throatRing" | "throatTube";
+  seat: 1 | 2;
+  c: Circle;
 }
 
 /**
- * Whether it is offering the pilot the tube, which is the whole of
- * `tubeHeard`: only `open`, where the mouth has stopped travelling and inhales
- * every beat, and not while a carry it has already been given is still to
- * land.
+ * The rings on offer under a point, this seat's own first where they overlap.
+ * Whether each is on offer is the simulation's (`sim/throat-hand.ts`
+ * `throatRingAsks`, `throatTubeAsks`): a slack ring with the last cinch paid
+ * for and no thumb on it yet, and the tube only in `open` with no carry still
+ * to land.
  */
-export function throatTubeGrippable(b: ThroatState): boolean {
-  return b.phase === "open" && !throatHauling(b);
+function handsUnder(l: Layout, x: number, y: number, field: Field, b: ThroatState): Hand[] {
+  const { cfg, beat, beatPhase } = field;
+  const hands: Hand[] = [];
+  const ring = throatRingAsks(b) ? throatRingCircle(l, cfg, b, beat, beatPhase) : null;
+  if (ring !== null) hands.push({ target: "throatRing", seat: 2, c: ring });
+  if (throatTubeAsks(b)) {
+    hands.push({ target: "throatTube", seat: 1, c: throatTubeCircle(l, cfg, b, beat, beatPhase) });
+  }
+  return hands
+    .filter((h) => hitCircle(h.c, x, y))
+    .sort((a, c) => Number(c.seat === field.seat) - Number(a.seat === field.seat));
 }
 
 /**
- * The press, answered for whichever of the two this seat owns. A press from
- * the wrong seat falls through to whatever is behind it, exactly as if no ring
- * were there — the cinch is hers and the haul is his, and neither can do the
- * other's.
+ * The press on whichever ring is on offer, from either seat. The cinch is hers
+ * and the haul is his, and neither can do the other's: **a press from the other
+ * seat is handed through with no hold**, so the simulation refuses it once and
+ * the ring washes red (`throat-marks.ts`) — both rings are drawn on both
+ * screens.
  */
 export function throatGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const b = bossOf(field, "throat");
   if (b === null) return null;
-  const { cfg, seat, beat, beatPhase } = field;
-  if (seat === 2 && throatRingGrippable(b)) {
-    const ring = throatRingCircle(l, cfg, b, beat, beatPhase);
-    if (ring !== null && hitCircle(ring, x, y)) return grab("throatRing", 2, x, y);
-  }
-  if (seat === 1 && throatTubeGrippable(b)) {
-    if (hitCircle(throatTubeCircle(l, cfg, b, beat, beatPhase), x, y)) {
-      return grab("throatTube", 1, x, y);
-    }
-  }
-  return null;
+  const hand = handsUnder(l, x, y, field, b)[0];
+  if (hand === undefined) return null;
+  return grab(hand.target, field.seat, hand.seat === field.seat, x, y);
 }
 
-function grab(target: "throatRing" | "throatTube", player: 1 | 2, x: number, y: number): Touch {
+/**
+ * The seat a press on a ring on offer belongs to, so one mouse at a desk
+ * takes the navigator's cinch rather than having it refused as the pilot's
+ * (`desk-grab.ts` `markSeat`).
+ */
+export function throatGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const b = bossOf(field, "throat");
+  if (b === null) return undefined;
+  return handsUnder(l, x, y, field, b)[0]?.seat;
+}
+
+function grab(
+  target: "throatRing" | "throatTube",
+  player: 1 | 2,
+  owns: boolean,
+  x: number,
+  y: number,
+): Touch {
   return {
     player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target, player, originX: x, originY: y },
+    hold: owns ? { kind: "drag", target, player, originX: x, originY: y } : null,
   };
 }
 
@@ -142,9 +160,12 @@ function grab(target: "throatRing" | "throatTube", player: 1 | 2, x: number, y: 
  *
  * **Each stays up while its gesture is standing, drawn `held`.** A cinched
  * ring refuses a second thumb and a spent haul refuses a second carry, so
- * `throatRingGrippable` and `throatTubeGrippable` both say no there — but the
+ * `throatRingAsks` and `throatTubeAsks` both say no there — but the
  * ring is showing the hold that *is* running, and one that vanished on the
  * press would take the freeze off both screens on the beat it began to matter.
+ *
+ * The halo and the verdicts are `throat-marks.ts`', drawn round these two:
+ * `drawThroat` passes the verdicts in so they land over the rings.
  */
 export function drawThroatGrips(
   ctx: CanvasRenderingContext2D,

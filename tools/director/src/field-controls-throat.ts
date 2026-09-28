@@ -25,7 +25,10 @@ export const THROAT_CONTROLS: readonly FieldControlDef[] = [
       "on the lowest ring muscle of the gullet, which is always a slack one " +
       "— the damage climbs from the mouth upward, so the bottom of the tube " +
       "is the one place a ring is certain to have gone (render/throat-grip.ts)",
-    seat: "player 2 only — the navigator, and nothing at all from the pilot",
+    seat:
+      "player 2 only — the navigator. The ring is haloed on her screen until " +
+      "her thumb is on it, a cinch washes it green, and the pilot's press is " +
+      "refused red (render/throat-marks.ts, sim/throat-hand.ts throatRefuse)",
     gesture: "hold",
     does:
       "Pinches a ring that has already gone slack, and while her thumb is on " +
@@ -50,7 +53,11 @@ export const THROAT_CONTROLS: readonly FieldControlDef[] = [
       "while the gullet is open — below the lip rather than over it, so the " +
       "handle never covers the body standing in the mouth on the beat it is " +
       "about to be swallowed (render/throat-grip.ts)",
-    seat: "player 1 only — the pilot, and nothing at all from the navigator",
+    seat:
+      "player 1 only — the pilot. The ring is haloed on his screen until a " +
+      "carry has been given, a haul washes it green, and the navigator's " +
+      "press is refused red (render/throat-marks.ts, sim/throat-hand.ts " +
+      "throatRefuse)",
     gesture: "grab and drag",
     does:
       "Drags the tube itself a column sideways — a carry of at least " +

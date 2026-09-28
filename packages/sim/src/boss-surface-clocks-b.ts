@@ -113,6 +113,9 @@ export {
   // the swallow and the fall's refusal are one rule (`throat-pull.ts`). On
   // this page because page one is exactly at its limit.
   throatHolds,
+  // Whether each ring asks its seat for a thumb (`render/throat-marks.ts`).
+  throatRingAsks,
+  throatTubeAsks,
 } from "./bosses.js";
 export {
   FILAMENT_PHASES,

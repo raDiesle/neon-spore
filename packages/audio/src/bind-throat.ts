@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE THROAT's seven, in a file of their own for `bind-vane.ts`' reason —
+ * THE THROAT's eight, in a file of their own for `bind-vane.ts`' reason —
  * `bind.ts` is full — and every one of them panned to the column the mouth is
  * standing in, because the tube is a fixture and its column is the one thing
  * in the fight the pair says out loud.
@@ -37,5 +37,9 @@ export function throatCue(e: Extract<SimEvent, { type: `throat${string}` }>, col
       return { id: "boss.throatSwallow", pan };
     case "throatEvert":
       return { id: "boss.throatEvert", pan };
+    // A press on the other seat's ring: THE INSTAR's refusal, the one sound
+    // every refused mark makes.
+    case "throatRefuse":
+      return { id: "boss.instarRefuse", pan };
   }
 }
