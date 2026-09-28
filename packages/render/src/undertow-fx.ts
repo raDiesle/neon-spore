@@ -6,6 +6,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
+import { UndertowMarks } from "./undertow-marks.js";
 import { drawPlateBow, lifted } from "./undertow-seam.js";
 import { PLATE_HALF } from "./undertow-shape.js";
 import type { ViewRole } from "./view-role.js";
@@ -53,6 +54,8 @@ export class UndertowFx {
   private closing: Closing[] = [];
   /** The blow a lobe taken deals the boss. */
   readonly hurt = new BossHurt();
+  /** The verdicts round her two rings, on both screens (`undertow-marks.ts`). */
+  readonly marks = new UndertowMarks();
 
   ingest(
     events: readonly SimEvent[],
@@ -65,6 +68,7 @@ export class UndertowFx {
     for (const e of events) {
       if (e.type === "undertowTaken" || e.type === "undertowSwallowed") this.hurt.hit();
     }
+    this.marks.ingest(events);
     if (!showsUndertowBow(role)) return;
     for (const e of events) {
       if (e.type !== "undertowClosed") continue;
@@ -77,6 +81,7 @@ export class UndertowFx {
     for (const c of this.closing) c.left -= dt;
     this.closing = this.closing.filter((c) => c.left > 0);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   /** On the finished ship, over the rim, where the bow itself is drawn. */
@@ -99,5 +104,6 @@ export class UndertowFx {
   clear(): void {
     this.closing = [];
     this.hurt.clear();
+    this.marks.clear();
   }
 }

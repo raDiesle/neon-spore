@@ -96,3 +96,9 @@ export {
   governorTapper,
   governorTapping,
 } from "./governor.js";
+// Whether each of THE UNDERTOW's rings asks her for a thumb
+// (`render/undertow-marks.ts`). Here rather than beside its boss's other names
+// because that page was within twenty lines of its limit; the rest of the
+// roll-out's asks (`render/test/mark-feedback-roll-out.test.ts`) belong here
+// too, for the same reason.
+export { undertowFreeAsks, undertowPinAsks } from "./undertow-hand.js";

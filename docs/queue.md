@@ -322,8 +322,8 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
 THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE, THE
-CAIRN, THE SCOUT, THE BATON and THE THROAT: **one boss a lane**, the first on `TO_COME` in the
-roll-out test — THE UNDERTOW next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
+CAIRN, THE SCOUT, THE BATON, THE THROAT and THE UNDERTOW: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE GORGE next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
 THE MAZE's lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
 seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 `vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`
@@ -335,7 +335,8 @@ than growing the effects roster, which stands at its 250-line ceiling). A
 in `effects-round-marks.ts` `RoundMarks`, the roster's base, which
 `canvas2d-takeover.ts` feeds (`snake-marks.ts`, `pinball-marks.ts`,
 `pulse-marks.ts`, the last for a mark both seats own, `scout-marks.ts`, a
-partner's clock only where the round waits on it). A part
+partner's clock only where the round waits on it; a clock on THE UNDERTOW's free, the
+one wait one seat has on the other, `undertow-marks.ts`). A part
 one seat's screen never shows gets no partner's clock and no refusal
 (`gauge-marks.ts`), and two seats' rings on one circle get none either
 (`fleet-grip-marks.ts`); a mark drawn only under a thumb gets the verdict
@@ -1688,3 +1689,18 @@ a backslash, or a backslash-escaped pair", keep the `${…}` holes as code
 of `stripNonCode` itself beside `source-scan.ts`, and run the three guards:
 one that newly passes or newly fails is the finding worth a sentence.
 `bun run check` proves it.
+
+## THE UNDERTOW's pin ring does not show in `bun run frames` while a lobe stands
+
+- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Files:** `packages/render/src/undertow-grip.ts`, `packages/render/src/undertow-grip-place.ts`, `tools/frames/`
+
+`bun run frames . --wave "THE UNDERTOW" --ticks 470 --seat p2` shows a lobe standing
+at column 2 — the harness's own world has `phase: one` and that breach `standing`
+at the same tick — but no pin ring over it, on p2 or on the desk, and neither
+with `--boss-json '{"breaches":[{"col":6,"stage":"standing","stageBeat":"now",…}]}'`.
+The free ring and its clock do show (`--boss-json '{"phase":"seat","unseatedUntil":40}'`).
+Find out whether the ring is drawn under the lobe's body (the pin sits
+`PIN_UP` tiles above the hull line), gated by something the unit tests do not
+reach, or missing from the page `frames` loads; fix whichever it is, and pin it
+with a frame test that counts the ring on p2's full frame with a lobe standing.

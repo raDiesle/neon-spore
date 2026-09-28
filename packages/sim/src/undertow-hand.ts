@@ -30,18 +30,41 @@ import type { World } from "./world.js";
  * - `undertowFree` — her thumb on the column the floor has the cannon stuck
  *   in. Carries only `on`; the beat counts how long it stayed.
  *
- * **A seat's thumb on the other's handle is dropped without a sound**, as it
- * is on THE FLEET's chart and THE GORGE's sack.
+ * **The pilot's thumb on her free is refused out loud** (`undertowRefuse`,
+ * 28 September 2026): that ring is drawn on his screen too, over his own
+ * stuck cannon, and a press on it is the one wrong press either screen
+ * invites. The pins are drawn on hers alone, so his thumb on a lobe is still
+ * dropped without a sound, as it is on THE FLEET's chart and THE GORGE's sack.
  */
 /** Both hands at rest, for the floor's own install — their fields, in their file. */
 export function undertowHandsFresh(): Pick<UndertowState, "pinCol" | "freeHeld" | "freed"> {
   return { pinCol: -1, freeHeld: false, freed: 0 };
 }
 
+/**
+ * **Whether each of her rings asks her for a thumb** — a lobe she may pin and
+ * is not pinning, and his column while he is unseated and her thumb is off it.
+ * The picture's hit test and its halo both read these
+ * (`render/undertow-grip-place.ts`, `render/undertow-marks.ts`).
+ */
+export function undertowPinAsks(u: UndertowState, col: number): boolean {
+  return u.phase !== "last" && undertowLobeAt(u, col) !== null && u.pinCol !== col;
+}
+
+export function undertowFreeAsks(u: UndertowState, beat: number): boolean {
+  return undertowUnseated(u, beat) && !u.freeHeld;
+}
+
 export function undertowHandsHeard(world: World, player: 1 | 2, command: Command): void {
-  if (command.kind !== "drag" || player !== 2) return;
+  if (command.kind !== "drag") return;
   const u = undertowBoss(world);
   if (u === null) return;
+  if (player !== 2) {
+    if (command.target === "undertowFree" && command.on && undertowUnseated(u, world.beat)) {
+      world.events.push({ type: "undertowRefuse", col: world.cannonCol });
+    }
+    return;
+  }
   if (command.target === "undertowPin") pin(world, u, command.on, command.id ?? -1);
   else if (command.target === "undertowFree") free(world, u, command.on);
 }

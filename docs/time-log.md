@@ -28376,3 +28376,13 @@ The bottleneck: the wrong seat's press had to keep its hold on the shell but los
 The bottleneck: the context ran out mid-lane, and the summary had to carry the plan across.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE UNDERTOW's pin and free answer a touch like THE INSTAR's marks
+
+- reading: 10 min. The hand, the grip, the grip test, which ring each screen draws.
+- writing: 25 min. The two asks and `undertowRefuse` in the sim, `undertow-marks.ts`, the pilot's press on the free handed through, the desk seat, two tests.
+- looking: 5 min. One frame, a standing lobe's pin haloed on her screen.
+- friction: 5 min. The sim surface's pages sit at their ceiling; the asks went on `boss-surface-clocks-e.ts`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: deciding which ring carries a partner's clock — the free, the one ring drawn on both screens and waited on by the seat that cannot press it.

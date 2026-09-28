@@ -30,7 +30,9 @@ export const UNDERTOW_CONTROLS: readonly FieldControlDef[] = [
       "so the cyan on a tall one's top third, which is the whole of how the " +
       "pilot is told to prime the beam rather than open the maw, is never " +
       "under her thumb (render/undertow-grip.ts)",
-    seat: "player 2 only — a press from the pilot falls through as if no ring were there",
+    seat:
+      "player 2 only — a press from the pilot falls through as if no ring were there; " +
+      "the ring asking her wears the halo on her screen, and a pin washes green (render/undertow-marks.ts)",
     gesture: "grab and drag",
     does:
       "Pins that breach shut for as long as her thumb is down: it stops " +
@@ -57,7 +59,9 @@ export const UNDERTOW_CONTROLS: readonly FieldControlDef[] = [
       "cannon and the bow rising off the skin, in air nothing else of this " +
       "fight is drawn in. Its dial is the count itself, so what fills is the " +
       "number the simulation acts on (render/undertow-grip.ts).",
-    seat: "player 2 only — it is the pilot's seat she is hauling the plate off",
+    seat:
+      "player 2 only — it is the pilot's seat she is hauling the plate off; his press is " +
+      "refused out loud and washes red, and his screen wears the clock he waits on (render/undertow-marks.ts)",
     gesture: "hold",
     does:
       "Gives him his seat back. A bow under the cannon he did not slide off " +

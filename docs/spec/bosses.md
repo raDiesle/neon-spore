@@ -3915,6 +3915,17 @@ beat the last one is answered (`sim/undertow-slow.ts`); a lobe through the
 hull shuts it, the body swallowed keeps its own. The rehearsal is 300 ticks
 longer and its takings five beats later.
 
+**Both rings answer a touch the way every mark does** (`render/undertow-marks.ts`,
+the owner, 27 September 2026). Each pin a standing lobe offers wears the halo
+on her screen until her thumb is on it, and the free wears it while the floor
+has him (`sim/undertow-hand.ts` `undertowPinAsks`, `undertowFreeAsks`). The
+pins are hers alone and drawn on her screen alone, so they carry no clock and
+nothing is refused out loud. The free is drawn on both, and it is the one wait
+this fight gives one seat on the other: on the pilot's screen it wears the
+partner's clock, and his own press on it is refused with `undertowRefuse`
+rather than dropped. A pin going down and the pilot let go wash their ring
+green; his refused press washes the free red.
+
 ## 11.23 THE GORGE — the boss you hurt by not shooting
 
 > The one that eats your shots, and the only way to hurt it is to overfeed

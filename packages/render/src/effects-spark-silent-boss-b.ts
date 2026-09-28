@@ -191,9 +191,11 @@ export const SILENT_BOSS_B = [
   "batonParted",
   // THE UNDERTOW's two thumbs, drawn since 22 September 2026 and still no
   // burst: each stands on a ring that is already saying it (`undertow-grip.ts`
-  // draws a pinned lobe `held`, and the free's dial *is* the count).
+  // draws a pinned lobe `held`, and the free's dial *is* the count); the green
+  // and the red of a touch are `undertow-marks.ts`'.
   "undertowPinned",
   "undertowFreed",
+  "undertowRefuse",
   // THE THROAT's two hands, drawn since 21 September 2026 and still no burst:
   // both stand on the tube, which is a fixture the field draws every frame,
   // and on a ring of their own (`throat-grip.ts`); the green of a cinch and a

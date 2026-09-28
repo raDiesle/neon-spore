@@ -12,7 +12,7 @@ import { type Cue, panForCol } from "./bind.js";
  * before the lobe stands. `undertowRise` is the whole edge at once and has no
  * column to be in — no pan, like `boss.stareCaught`.
  *
- * Twelve events on those nine sounds: the plate closing is the take quieter,
+ * Thirteen events on those nine sounds and the refusal: the plate closing is the take quieter,
  * and **her two hands are the ship's grip** rather than the floor's — a thumb
  * on a lobe is a hand landing on something falling, which is the sound the
  * game already has for exactly that (`sounds/grip.ts`, `bind-fleet.ts`).
@@ -33,7 +33,8 @@ export function undertowCue(
         | "undertowSwallowed"
         | "undertowThrough"
         | "undertowPinned"
-        | "undertowFreed";
+        | "undertowFreed"
+        | "undertowRefuse";
     }
   >,
   cols: number,
@@ -71,5 +72,9 @@ export function undertowCue(
       // The plate hauled off the cannon: weight dragged by a hand, which is
       // what `ship.gripCarry` is, here in his lane rather than hers.
       return { id: "ship.gripCarry", pan: panForCol(e.col, cols) };
+    case "undertowRefuse":
+      // The pilot's thumb on her free: THE INSTAR's refusal, the one sound
+      // every refused mark makes.
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
   }
 }

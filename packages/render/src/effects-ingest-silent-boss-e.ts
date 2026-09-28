@@ -63,4 +63,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE THROAT's, on the ring or the tube: a red ring round the part,
   // `effects.boss.blows.throatMarks`' (`throat-marks.ts`).
   "throatRefuse",
+  // And THE UNDERTOW's, the pilot on her free: a red ring round it,
+  // `effects.boss.undertow.marks`' (`undertow-marks.ts`).
+  "undertowRefuse",
 ] as const satisfies readonly SimEvent["type"][];

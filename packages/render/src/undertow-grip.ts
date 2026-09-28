@@ -1,4 +1,5 @@
 import { undertowBoss, undertowPinned, type World } from "@neon-spore/sim";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { drawHandleRing } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -10,6 +11,7 @@ import {
   undertowPinCircle,
   undertowPinnable,
 } from "./undertow-grip-place.js";
+import { drawUndertowAsked, drawUndertowVerdicts } from "./undertow-marks.js";
 
 /**
  * **THE UNDERTOW's two hands**, taken hold of and drawn: the navigator's thumb
@@ -26,9 +28,12 @@ import {
 
 /**
  * The press, answered for whichever of the two it landed on. **Both are
- * player 2's**, so a press from the pilot falls through to whatever is behind
- * it exactly as if no ring were there — he has the cannon and the maw, and a
- * seat that could pin its own breach would be one phone playing this fight.
+ * player 2's** — he has the cannon and the maw, and a seat that could pin its
+ * own breach would be one phone playing this fight. His press on the free,
+ * which his screen draws over his own stuck cannon, is **handed through with
+ * no hold**, so the simulation refuses it once and the ring washes red
+ * (`undertow-marks.ts`); his screen draws no pin she could make, so a press
+ * there falls through to whatever is behind it.
  *
  * The free is asked **first**: his column is a column like any other, so a
  * push that unseats him in a column that already has a lobe standing in it
@@ -37,11 +42,12 @@ import {
  */
 export function undertowGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const u = bossOf(field, "undertow");
-  if (u === null || field.seat !== 2) return null;
+  if (u === null) return null;
   const { cfg, beat } = field;
   if (undertowFreeable(u, beat) && hitCircle(undertowFreeCircle(l, cfg, field.cannonCol), x, y)) {
-    return grabFree(x, y);
+    return grabFree(x, y, field.seat);
   }
+  if (field.seat !== 2) return null;
   // The nearest standing lobe wins a thumb that covers two, which is
   // `lidCordUnder`'s rule and for its reason: the body a player meant is the
   // one they put their thumb closest to. Two lobes are four columns apart
@@ -63,14 +69,35 @@ export function undertowGripUnder(l: Layout, x: number, y: number, field: Field)
 }
 
 /**
+ * The seat a press on one of her rings belongs to — always hers — so one mouse
+ * at a desk takes the free rather than having it refused as the pilot's
+ * (`desk-grab.ts` `markSeat`).
+ */
+export function undertowGripSeat(l: Layout, x: number, y: number, field: Field): 2 | undefined {
+  const u = bossOf(field, "undertow");
+  if (u === null) return undefined;
+  const { cfg, beat } = field;
+  if (undertowFreeable(u, beat) && hitCircle(undertowFreeCircle(l, cfg, field.cannonCol), x, y)) {
+    return 2;
+  }
+  const on = u.breaches.some(
+    (b) => undertowPinnable(u, b.col) && hitCircle(undertowPinCircle(l, cfg, b.col), x, y),
+  );
+  return on ? 2 : undefined;
+}
+
+/**
  * Her free: a plain drag on a target that carries no number, because there is
  * only one seat to haul off and the world knows which column he is in.
  */
-function grabFree(x: number, y: number): Touch {
+function grabFree(x: number, y: number, seat: 1 | 2): Touch {
   return {
-    player: 2,
+    player: seat,
     command: { kind: "drag", target: "undertowFree", on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target: "undertowFree", player: 2, originX: x, originY: y },
+    hold:
+      seat === 2
+        ? { kind: "drag", target: "undertowFree", player: 2, originX: x, originY: y }
+        : null,
   };
 }
 
@@ -135,6 +162,9 @@ function grabPin(x: number, y: number, col: number): Touch {
  * the same number here — a pilot is unseated exactly while his verbs are
  * refused, so the lobe stands still for every frame this ring is drawn in —
  * and reading the world is what keeps the ring and the hit test in one place.
+ *
+ * Haloed under while each asks her, with his clock on the free while he waits
+ * on it, and the verdict of a touch over both (`undertow-marks.ts`).
  */
 export function drawUndertowGrips(
   ctx: CanvasRenderingContext2D,
@@ -142,10 +172,13 @@ export function drawUndertowGrips(
   world: World,
   beatPhase: number,
   time: number,
+  /** The verdict of each touch, drawn over the rings (`undertow-marks.ts`). */
+  verdicts: GripVerdicts,
 ): void {
   const u = undertowBoss(world);
   if (u === null) return;
   const { cfg } = world;
+  drawUndertowAsked(ctx, l, cfg, u, world.beat, world.cannonCol, time);
   const offers = l.role !== "p1";
   for (const b of u.breaches) {
     if (!undertowPinnable(u, b.col)) continue;
@@ -153,11 +186,13 @@ export function drawUndertowGrips(
     if (!pinned && !offers) continue;
     ring(ctx, undertowPinCircle(l, cfg, b.col), l, pinned, pinned ? 1 : 0, time);
   }
-  if (!undertowFreeable(u, world.beat)) return;
-  const held = u.freeHeld;
-  const beats = u.freed + (held ? beatPhase : 0);
-  const pull = Math.max(0, Math.min(1, beats / cfg.undertowFreeBeats));
-  ring(ctx, undertowFreeCircle(l, cfg, world.cannonCol), l, held, pull, time);
+  if (undertowFreeable(u, world.beat)) {
+    const held = u.freeHeld;
+    const beats = u.freed + (held ? beatPhase : 0);
+    const pull = Math.max(0, Math.min(1, beats / cfg.undertowFreeBeats));
+    ring(ctx, undertowFreeCircle(l, cfg, world.cannonCol), l, held, pull, time);
+  }
+  drawUndertowVerdicts(ctx, l, cfg, world.cannonCol, verdicts);
 }
 
 /**

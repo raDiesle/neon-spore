@@ -26,8 +26,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * Both rules shipped with nothing on either screen to take hold of. What this
  * file asks is the half a simulation cannot: that a press on the ring the
  * picture draws is the press `undertow-hand.ts` would accept, that each is
- * the navigator's alone, and that a thumb landing where a ring is *not* falls
- * straight through to whatever is behind it.
+ * the navigator's alone — the pilot's press on the free handed through with no
+ * hold, for the simulation to refuse (`undertowRefuse`) — and that a thumb
+ * landing where a ring is *not* falls straight through to whatever is behind
+ * it.
  *
  * **Nothing here is posed by hand.** The floor is stepped until it offers the
  * handle — a lobe standing, a pilot unseated — the way `undertow-hands.test.ts`
@@ -196,13 +198,15 @@ describe("the navigator's haul on the unseated pilot's column", () => {
     expect(target(touchDown(l, at.x, at.y, f))).toBe("undertowFree");
   });
 
-  it("is the navigator's and nothing at all from the pilot", () => {
+  it("is the navigator's: the pilot's press is handed through with no hold, to be refused", () => {
     const l = layout("p1");
     const world = fighting();
     untilUnseated(world);
     const f = field(world, 1);
     const at = undertowFreeCircle(l, CFG, world.cannonCol);
-    expect(target(touchDown(l, at.x, at.y, f))).not.toBe("undertowFree");
+    const touch = touchDown(l, at.x, at.y, f);
+    expect(touch?.hold).toBeNull();
+    expect(touch?.command).toMatchObject({ target: "undertowFree", on: true });
   });
 
   it("offers nothing before the floor takes him: that is a thumb on the hull", () => {

@@ -182,6 +182,7 @@ const SAMPLES: Record<string, SimEvent> = {
   undertowThrough: { type: "undertowThrough", col: 5 },
   undertowPinned: { type: "undertowPinned", col: 3, on: true },
   undertowFreed: { type: "undertowFreed", col: 3 },
+  undertowRefuse: { type: "undertowRefuse", col: 3 },
   gorgeSettle: { type: "gorgeSettle", col: 2, width: 7 },
   gorgeSwallow: { type: "gorgeSwallow", col: 5, color: "red", beads: 2 },
   gorgeEmptied: { type: "gorgeEmptied", col: 5, beads: 1 },

@@ -139,5 +139,6 @@ export function drawOnShip(
   // on a standing lobe and her haul on the column the floor has the pilot
   // stuck in. Last of all, over every seam and flap, because a ring is a thing
   // to reach for and not a part of the ship (`undertow-grip.ts`).
-  drawUndertowGrips(ctx, l, world, view.beatPhase, view.time);
+  const verdicts = held.effects.boss.undertow.marks.verdicts;
+  drawUndertowGrips(ctx, l, world, view.beatPhase, view.time, verdicts);
 }

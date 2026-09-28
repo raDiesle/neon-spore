@@ -43,4 +43,6 @@ export type UndertowEvent =
   /** Player 2's thumb landed on a standing lobe, or left it: her second plate, on or off (`undertow-hand.ts`). */
   | ({ type: "undertowPinned"; on: boolean } & UndertowColEvent)
   /** She held his column long enough: the plate comes off the cannon and the pilot has his seat back. */
-  | ({ type: "undertowFreed" } & UndertowColEvent);
+  | ({ type: "undertowFreed" } & UndertowColEvent)
+  /** The pilot pressed the free over his own column, which is hers: refused (`undertow-hand.ts`). */
+  | ({ type: "undertowRefuse" } & UndertowColEvent);
