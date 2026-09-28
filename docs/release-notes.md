@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 1cacb3b96 — THE LEAD's stalk ring answers a touch as far as its split lets it
+
+While the still may be taken, the ring on the stalk's organ wears the halo every asked mark wears, on the navigator's screen alone, and her thumb landing washes it green. The pilot is shown nothing: his stalk is a readout with no place to put the partner's clock, and his press is dropped without a sound. The tear is not judged.
+
 ## 2026-09-28 · 2dd7c2907 — THE SURGE's grip marks answer a touch like THE INSTAR's marks
 
 A grip mark whose seat is asked to hold wears the halo on that seat's screen and the partner's ring and clock on the other; nothing asks inside the band, while the bulb re-seals, or of the pilot under its rock (`surgeAsks`, in the simulation). A thumb landing washes its mark green, a lift together both green and a lift apart or out of the band both red. A desk press on a mark is signed with its seat.
