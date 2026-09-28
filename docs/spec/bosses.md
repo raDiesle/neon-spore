@@ -6842,7 +6842,7 @@ the pilot's screen, up the lit run on the navigator's. **The window** is
 `filamentGapTiles` pips under the own ring, one lit per tile between the
 thumbs and red when full, and a red bar across the pilot's path on the last
 tile he may light. **The partner the line waits on** wears the waiting clock
-and a *P1* or *P2* box (`drawInstarWait`), and **the line's clock** is an arc
+and a *P1* or *P2* box (`drawMarkWait`), and **the line's clock** is an arc
 round every ring it waits on, emptying to the strike in the fuse's colours:
 white, orange from half, red for the last two beats. **The pull** is the
 owner's *both weapons are applied … and it spits them out and a new vene is

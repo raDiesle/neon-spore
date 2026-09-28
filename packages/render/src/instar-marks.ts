@@ -12,7 +12,6 @@ import {
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
-import { drawInstarHalo, drawInstarTheirs } from "./instar-mark-feedback.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarRing } from "./instar-ring.js";
 import { instarThreat } from "./instar-shape.js";
@@ -26,6 +25,7 @@ import {
 import { drawInstarSwipe, instarTrack } from "./instar-track.js";
 import { drawInstarWord, type MarkRoom } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { drawMarkHalo, drawMarkTheirs } from "./mark-feedback.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
 /**
@@ -165,9 +165,9 @@ export function drawInstarMarks(
         return;
       }
       // A shoot mark's light is the part's own red glow (`instar-weak.ts`), not a halo over it.
-      if (mine && mark.gesture !== "shoot") drawInstarHalo(ctx, at.x, at.y, r, time);
+      if (mine && mark.gesture !== "shoot") drawMarkHalo(ctx, at.x, at.y, r, time);
       drawInstarRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
-      if (!mine) drawInstarTheirs(ctx, at.x, at.y, r, time);
+      if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);
       drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
     }

@@ -74,7 +74,7 @@ describe("THE INSTAR's verdict on a touch", () => {
 
   it("shows a waiting clock on the partner's mark, ring or track, and none on this seat's", () => {
     // The owner, 24 September 2026: a gesture drawn on the partner's mark
-    // read as *your next move*, so it is a clock there (`instar-mark-feedback.ts`).
+    // read as *your next move*, so it is a clock there (`mark-feedback.ts`).
     const clock = rgba(PALETTE.text, 0.85);
     const s = instarBoss(acting()) as InstarState;
     const swipe = s.steps.findIndex((st) => st.marks.some((m) => m.gesture === "swipeDown"));

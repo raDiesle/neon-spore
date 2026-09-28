@@ -141,6 +141,18 @@ commit. The shape of it, from THE GORGE and THE CURTAIN:
   for every ring, halo or glyph that asks, keyed to the simulation's own
   predicate; and a row in `boss-hush.test.ts`'s `STILL`, which holds each
   mark still while it asks. Both need AUTO's hand.
+- **Every mark answers a touch the same way** (the owner, 27 September 2026:
+  *the consistent visual across all waves*), from the shared pieces and never
+  a drawing of its own: the mark's page is `<boss>-grip.ts`, `-handles.ts`,
+  `-hand.ts` or `-marks.ts`; the fx holds one `GripVerdicts`, marked from the
+  events that mean *right* and *refused*, updated and cleared with the rest,
+  and the drawer calls `drawVerdictRing` after each mark (`grip-verdict.ts`);
+  this seat's open mark wears `drawMarkHalo`, the partner's `drawMarkTheirs`
+  and `drawMarkWait` in place of the gesture (`mark-feedback.ts`); and a
+  gesture begun the right way fills from the simulation's own word for it
+  (`instarSwipeAlong`), or the shared `pull-track.ts` for a pull. A test
+  beside `render/test/instar-verdict.test.ts`; without the verdicts,
+  `render/test/mark-feedback-roll-out.test.ts` is red.
 - A window that runs out breaks the hull with `bossStrikesHull`, and the blow
   is drawn as the boss's own (`render/boss-strike-look.ts`), never a rock.
 - `docs/spec/bosses.md` §11.n gets *The look* and loses *What is not built*.

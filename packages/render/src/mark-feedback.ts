@@ -7,7 +7,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * of 24 September 2026 that are not the verdict (`.claude/skills/new-boss/
  * owner.md`, `grip-verdict.ts` for the third): *more visible the action
  * player has to do right now … then also more visible when other player has
- * now to take action and where.*
+ * now to take action and where.* Shared by every boss with a mark, 27
+ * September 2026 (*the consistent visual across all waves*); THE INSTAR was
+ * the worked example they were written for.
  *
  * - **This seat's open mark wears a halo**: a soft red light breathing out
  *   past the ring, under it, so the one thing this thumb is being asked for
@@ -22,21 +24,25 @@ import { PALETTE, STROKE } from "./palette.js";
  *   touch it, he might think he has to wait and then he has to use it next*).
  *   A gesture drawn on a mark reads as *your next move*, so on the partner's
  *   it is replaced by a clock face whose hand goes round: *waiting on the
- *   other seat*. The box beside it still names whose it is (`P1'S`).
+ *   other seat*. A box beside it may still name whose it is (`P1'S`).
  *
- * The fourth half — a gesture begun the right way says so — is the progress
- * arc going green as the part gives (`instar-marks.ts`), which is the
- * simulation's own word that the carry is in the right direction: a pull the
- * wrong way stands at nought (`sim/instar-hand.ts`). A swipe's arc is the
- * carry under the thumb on its way to the length that counts it, filling
- * before the lift (`sim/instar.ts` `instarSwipeAlong`).
+ * The fourth half — a gesture begun the right way says so — is the boss's
+ * own, because it is the simulation's word and not the drawer's: THE
+ * INSTAR's progress arc goes green as the part gives (`instar-marks.ts`), and
+ * a pull the wrong way stands at nought (`sim/instar-hand.ts`); a swipe's arc
+ * is the carry under the thumb on its way to the length that counts it,
+ * filling before the lift (`sim/instar.ts` `instarSwipeAlong`). A pull handle
+ * has the shared channel for it (`pull-track.ts`).
+ *
+ * Which bosses draw these yet, and which are still to: `render/test/
+ * mark-feedback-roll-out.test.ts`.
  */
 
 /** How far past the ring the halo reaches, in radii. */
 const HALO = 2.6;
 
 /** This seat's open mark: a breathing light under the ring. */
-export function drawInstarHalo(
+export function drawMarkHalo(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
@@ -55,7 +61,7 @@ export function drawInstarHalo(
 }
 
 /** The partner's open mark: a dim dashed ring turning round it. */
-export function drawInstarTheirs(
+export function drawMarkTheirs(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
@@ -77,7 +83,7 @@ export function drawInstarTheirs(
 const CLOCK_TURN_SECONDS = 1.6;
 
 /** The partner's open mark, inside: a clock face, its hand going round. */
-export function drawInstarWait(
+export function drawMarkWait(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,

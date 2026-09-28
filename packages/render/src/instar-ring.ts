@@ -3,7 +3,7 @@ import type { InstarGesture } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
-import { drawInstarWait } from "./instar-mark-feedback.js";
+import { drawMarkWait } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /** How far past its radius a ring breathes out: harder while its seat is awaited. */
@@ -38,7 +38,7 @@ export function drawInstarRing(
   if (gesture === "shoot") {
     // A crosshair and not a ring, and nothing over the part (`instar-crosshair.ts`).
     drawInstarCrosshair(ctx, x, y, r * breathe, held || awaited, glow);
-    if (!mine) drawInstarWait(ctx, x, y, r, time);
+    if (!mine) drawMarkWait(ctx, x, y, r, time);
     drawProgress(ctx, x, y, r, along);
     return;
   }
@@ -56,7 +56,7 @@ export function drawInstarRing(
   ctx.globalAlpha = mine ? 0.95 : 0.5;
   if (mine) drawInstarGlyph(ctx, gesture, x, y, r, time);
   ctx.restore();
-  if (!mine) drawInstarWait(ctx, x, y, r, time);
+  if (!mine) drawMarkWait(ctx, x, y, r, time);
   drawProgress(ctx, x, y, r, along);
 }
 
@@ -71,7 +71,7 @@ function drawProgress(
   if (along <= 0) return;
   // Green: the part is giving, so the carry is going the right way — the
   // simulation holds a pull the wrong way at nought, so an arc at all is
-  // already the answer to *am I doing it right* (`instar-mark-feedback.ts`).
+  // already the answer to *am I doing it right* (`mark-feedback.ts`).
   ctx.save();
   ctx.strokeStyle = PALETTE.good;
   ctx.lineWidth = STROKE.outline * 1.6;

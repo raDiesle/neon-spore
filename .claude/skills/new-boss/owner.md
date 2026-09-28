@@ -125,7 +125,7 @@ item naming the rule, never a fix made in passing.
      time: *not clear enough that other player has not to touch it*): a
      gesture on a mark reads as *your next move*, so the partner's wears a
      waiting clock whose hand goes round, and its box names whose it is —
-     `drawInstarWait` in `render/src/instar-mark-feedback.ts`.
+     `drawMarkWait` in `render/src/mark-feedback.ts`.
   3. **A touch is judged on the mark it touched, at once**: green for right,
      red for wrong, animated, and never a sound or a burst somewhere else.
   4. **A gesture started the right way says so while it is still going** —
@@ -221,9 +221,10 @@ item naming the rule, never a fix made in passing.
   want the consistent visual across all waves … make sure that extending boss
   waves or adding new will follow the same conventions.* THE INSTAR's four
   parts — halo on this seat's mark, turning ring on the partner's, green or
-  red flash, progress arc — are reusable pieces (`grip-verdict.ts` and the
-  shared file the roll-out moves them to), and a boss with a mark or handle
-  uses them rather than drawing its own.
+  red flash, progress arc — are reusable pieces (`grip-verdict.ts`,
+  `mark-feedback.ts`), and a boss with a mark or handle uses them rather
+  than drawing its own. How: `new-boss` §5; what goes red without them:
+  `render/test/mark-feedback-roll-out.test.ts`.
 - **No wave needs a tilt sensor or a key a player must learn**, 27 September
   2026, on THE PLUMB: *what if a phone does not support it or its played on
   desktop. i do not want to force using new keys.* THE PLUMB's lean became

@@ -28055,3 +28055,16 @@ The bottleneck was deciding, per boss, which of its silent paths were armour, be
 The bottleneck was choosing the two sizes so the thread shows for most of a fall that could not grow.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — The touch feedback's shared pieces, and the roll-out's test
+
+- reading: 10 min. `grip-verdict.ts`, `instar-mark-feedback.ts` and its four
+  callers, the two skills, the owner's rule, which bosses have a mark page.
+- writing: 15 min. `mark-feedback.ts`, the roll-out test and its list, the
+  convention in `new-boss` §5 and `new-boss-state`, five queue entries.
+- looking: 0 min. Nothing drawn changed; the pieces moved and were renamed.
+- friction: 5 min. The guard refused a probe heredoc with a doubled
+  backslash; it went through the Write tool.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was deciding what makes a boss one *with a mark*, since nothing in the tree says it but the names of the renderer's pages.

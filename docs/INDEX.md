@@ -1720,7 +1720,6 @@ by hand never moves.
 | `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |
 | `packages/render/src/instar-marks.ts` | **THE INSTAR's marks: the only control on the screen.** A red ring on the part the script wants moved |
 | `packages/render/src/instar-mark-grip.ts` | THE INSTAR's marks under a thumb — the hit test alone |
-| `packages/render/src/instar-mark-feedback.ts` | **Which mark is wanted, and by whom**: the halo on this seat's open mark, the turning ring on the partner's |
 | `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the dragon as it comes in, the three the script names |
 | `packages/render/src/instar-poses-second.ts` | **THE INSTAR's second act, as figures** |
 | `packages/render/src/instar-poses-third.ts` | **THE INSTAR's third act, as figures** |
@@ -2105,6 +2104,7 @@ by hand never moves.
 | `packages/render/src/mantle-brace.ts` | **THE MANTLE's brace, drawn**: the seam's crack and glow, the shudder, and each knob's hold ring |
 | `packages/render/src/mantle-blow.ts` | **THE MANTLE's own blow at the hull**: the leaked spark bursting on the plating |
 | `packages/render/src/mantle-vent.ts` | **THE MANTLE's vent and its crosswise crack, drawn** — the red slot with its hiss, and the crack across the seam |
+| `packages/render/src/mark-feedback.ts` | **Which mark is wanted, and by whom**, on every boss with a mark: the halo on this seat's open mark, the turning ring and the waiting clock on the partner's |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |

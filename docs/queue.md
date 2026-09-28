@@ -315,33 +315,108 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Every boss with a mark answers a touch the way THE INSTAR does
+## THE WARDEN answers a touch the way THE INSTAR does
 
-- **Found:** 2026-09-24, claude/bellows-gameplay-clarity
-- **Taken:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
-- **Files:** `packages/render/src/grip-verdict.ts`, `packages/render/src/instar-mark-feedback.ts`, `packages/render/src/instar-marks.ts`, `packages/render/src/warden-grip.ts`, `packages/render/src/spool-grip.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/src/sinew-handles.ts`, `.claude/skills/new-boss/owner.md`
-- **Asks:** THE INSTAR now shows all four parts of your touch rule: a halo on this seat's mark, a turning ring on the partner's, a green or red flash on the touched mark, and a progress arc that goes green while a pull goes the right way. Should it go to (a) every boss with a mark or handle, one lane per boss, (b) the choreographed bosses first (THE WARDEN, THE SPOOL, THE HASP, THE SINEW), then the rest, or (c) nowhere yet, because THE INSTAR's version needs changing first — and if so, what?
-- **Answered:** 2026-09-27 — shared pieces first, then every boss, over (b) and (c). The owner wants the same touch feedback in every wave, built from reusable pieces, and every boss added or extended later to follow the same convention. So the first lane moves the halo and the partner ring out of `instar-mark-feedback.ts` into a shared file beside `grip-verdict.ts`. It writes the convention into `.claude/skills/new-boss` and `.claude/skills/new-boss-state`, and adds a test that goes red for a boss with a mark that does not register a `GripVerdicts`. After that, one lane per boss, choreographed four first (THE WARDEN, THE SPOOL, THE HASP, THE SINEW).
+- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Files:** `packages/render/src/warden-grip.ts`, `packages/render/src/warden-grip-fx.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
 
-The owner's generic rule of 24 September 2026 is in `owner.md`, in four
-numbered parts. He asked for one worked example before a roll-out, and THE
-INSTAR is it. `GripVerdicts` and `drawVerdictRing` are already written for any
-boss: a boss's fx class holds one `GripVerdicts`, marks it from the events
-that mean *right* and *wrong* for that boss, clears it wherever its scene
-resets, and the drawer calls `drawVerdictRing` after each mark. Halo and
-partner ring are INSTAR-shaped for now. The first boss to take them moves
-them out of `instar-mark-feedback.ts` into a shared file.
+The owner's rule of 24 September 2026, and his answer of the 27th: the same
+touch feedback on every boss, from the shared pieces. They are shared now —
+`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
+`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
+`.claude/skills/new-boss` §5 has the convention. The first of the choreographed four the owner put first; The work:
 
-Per boss, the work is:
-- find the events that mean *this touch was right* and *this touch was refused*;
-- mark this seat's wanted mark and the partner's;
-- make the in-progress signal the simulation's own word for "right direction",
-  never a guess the drawer makes — a swipe fills on its way to the length that
-  counts, not only on the lift (`instarSwipeAlong` in `sim/src/instar.ts` is
-  the pattern, the owner's 24 September);
-- add a test beside `packages/render/test/instar-verdict.test.ts`.
+- find the events that mean *this touch was right* and *this touch was
+  refused*, and mark `warden`'s `GripVerdicts` from them in its fx, updated
+  and cleared with the rest; `drawVerdictRing` after each mark;
+- the halo on this seat's open mark, the turning ring and the waiting clock on
+  the partner's;
+- the in-progress signal is the simulation's own word for *right direction*
+  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
+- a test beside `packages/render/test/instar-verdict.test.ts`, and `"warden"`
+  off `TO_COME` in the roll-out test, which goes red otherwise.
 
-Each boss lands as *a look the owner asked for by name*.
+Lands as *a look the owner asked for by name*; send the PNG.
+
+## THE SPOOL answers a touch the way THE INSTAR does
+
+- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Files:** `packages/render/src/spool-grip.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
+
+The owner's rule of 24 September 2026, and his answer of the 27th: the same
+touch feedback on every boss, from the shared pieces. They are shared now —
+`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
+`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
+`.claude/skills/new-boss` §5 has the convention. The second of the choreographed four; The work:
+
+- find the events that mean *this touch was right* and *this touch was
+  refused*, and mark `spool`'s `GripVerdicts` from them in its fx, updated
+  and cleared with the rest; `drawVerdictRing` after each mark;
+- the halo on this seat's open mark, the turning ring and the waiting clock on
+  the partner's;
+- the in-progress signal is the simulation's own word for *right direction*
+  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
+- a test beside `packages/render/test/instar-verdict.test.ts`, and `"spool"`
+  off `TO_COME` in the roll-out test, which goes red otherwise.
+
+Lands as *a look the owner asked for by name*; send the PNG.
+
+## THE HASP answers a touch the way THE INSTAR does
+
+- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Files:** `packages/render/src/hasp-grip.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
+
+The owner's rule of 24 September 2026, and his answer of the 27th: the same
+touch feedback on every boss, from the shared pieces. They are shared now —
+`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
+`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
+`.claude/skills/new-boss` §5 has the convention. The third of the choreographed four; The work:
+
+- find the events that mean *this touch was right* and *this touch was
+  refused*, and mark `hasp`'s `GripVerdicts` from them in its fx, updated
+  and cleared with the rest; `drawVerdictRing` after each mark;
+- the halo on this seat's open mark, the turning ring and the waiting clock on
+  the partner's;
+- the in-progress signal is the simulation's own word for *right direction*
+  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
+- a test beside `packages/render/test/instar-verdict.test.ts`, and `"hasp"`
+  off `TO_COME` in the roll-out test, which goes red otherwise.
+
+Lands as *a look the owner asked for by name*; send the PNG.
+
+## THE SINEW answers a touch the way THE INSTAR does
+
+- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Files:** `packages/render/src/sinew-handles.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
+
+The owner's rule of 24 September 2026, and his answer of the 27th: the same
+touch feedback on every boss, from the shared pieces. They are shared now —
+`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
+`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
+`.claude/skills/new-boss` §5 has the convention. The last of the choreographed four; The work:
+
+- find the events that mean *this touch was right* and *this touch was
+  refused*, and mark `sinew`'s `GripVerdicts` from them in its fx, updated
+  and cleared with the rest; `drawVerdictRing` after each mark;
+- the halo on this seat's open mark, the turning ring and the waiting clock on
+  the partner's;
+- the in-progress signal is the simulation's own word for *right direction*
+  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
+- a test beside `packages/render/test/instar-verdict.test.ts`, and `"sinew"`
+  off `TO_COME` in the roll-out test, which goes red otherwise.
+
+Lands as *a look the owner asked for by name*; send the PNG.
+
+## Every other boss with a mark answers a touch the way THE INSTAR does
+
+- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
+
+After THE WARDEN, THE SPOOL, THE HASP and THE SINEW, which have entries of
+their own: **one boss a lane**, the first on `TO_COME` in the roll-out test,
+worked exactly as those four entries say. A lane that lands one boss and
+leaves others on the list keeps this entry, rewritten to name the next;
+the lane that empties the list removes it and the list with it.
 
 ## THE GAUGE's cannon colour is a picture, not a rule
 

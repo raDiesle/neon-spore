@@ -78,6 +78,17 @@ page all carry that rule in their own headers.
 Bash as well as through the edit tools, so the seam can be chosen while the
 diff is still about the file. Take it when it speaks.
 
+## A new gesture is a new mark, and a mark answers the same way
+
+A state that puts a mark up for a thumb or a bolt — a new handle, a new
+ring, a new swipe — is judged on the mark like every other in the game (the
+owner, 27 September 2026: *make sure that extending boss waves … will follow
+the same conventions*). The events that mean *right* and *refused* mark the
+boss's `GripVerdicts`, and the mark wears the shared halo, partner ring and
+waiting clock (`mark-feedback.ts`) — the list is `new-boss` §5. A boss still
+on the roll-out (`render/test/mark-feedback-roll-out.test.ts`'s `TO_COME`)
+takes the whole convention in the lane that extends it, and comes off the list.
+
 ## Then
 
 The look is a second lane that lands separately — the picture of the new

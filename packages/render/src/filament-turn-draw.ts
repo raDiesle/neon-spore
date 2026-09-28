@@ -17,9 +17,9 @@ import {
 import { filamentGrabCircle, filamentPoint } from "./filament-shape.js";
 import { drawFilamentArrows, drawFilamentMax, drawFilamentPips } from "./filament-turn-marks.js";
 import { strokeGlow } from "./glow.js";
-import { drawInstarWait } from "./instar-mark-feedback.js";
 import { drawInstarWord } from "./instar-word.js";
 import type { Layout } from "./layout.js";
+import { drawMarkWait } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -43,7 +43,7 @@ import { PALETTE, STROKE } from "./palette.js";
  *   on the last tile he may light.
  * - **The partner's thumb is on this screen too**, dim, and wears the
  *   waiting clock with its name when the line is waiting on them
- *   (`drawInstarWait`, the owner's rule of 24 September).
+ *   (`drawMarkWait`, the owner's rule of 24 September).
  * - **The line's clock** is an arc round every ring the line waits on,
  *   emptying to the strike: white, orange from half, red for the last two
  *   beats — the fuse's colours (`slow-fuse.ts`).
@@ -118,7 +118,7 @@ export function drawFilamentTheirs(
   const p = new Path2D(circleSubpath(c.x, c.y, c.r * 0.75));
   strokeGlow(ctx, p, PALETTE.dim, STROKE.inner, 0.8);
   if ((filamentWaitingOn(s, cfg) & bitOf(seat)) === 0) return;
-  drawInstarWait(ctx, c.x, c.y, c.r, time);
+  drawMarkWait(ctx, c.x, c.y, c.r, time);
   const side = awayFromMiddle(l, c.x);
   drawInstarWord(ctx, l, seat === 1 ? "P1" : "P2", c.x + side * c.r * 1.6, c.y, side, false);
 }
