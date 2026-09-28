@@ -28400,3 +28400,13 @@ The bottleneck: deciding which ring carries a partner's clock — the free, the 
 The bottleneck: deciding whether a red belonged anywhere — no refusal is possible where each ring is on one screen, so the clench is the one wrong touch.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — `queue take` hands back a claim branch this session kept
+
+- reading: 10 min. `run.ts`'s take, `claim`, `spent.ts`, `origin-check.ts`, the claim-here test.
+- writing: 15 min. `kept.ts`, the reuse in `claim`, four repository cases in `claim-kept.test.ts`.
+- looking: 0 min. A tool, nothing drawn.
+- friction: 5 min. The context ran out between the plan and the code.
+- landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
+
+The bottleneck: finding why the kept claim had no `Taken:` line to begin with — each roll-out landing takes it off with the entry's rewritten words, so every next lane is a fresh claim on a standing branch.

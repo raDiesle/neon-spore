@@ -3097,6 +3097,7 @@ by hand never moves.
 | `tools/queue/list.ts` | `bun run queue` with no command: every entry, who holds it, and what the owner is asked |
 | `tools/queue/deferred.ts` | whether the owner has put an entry on hold: a Deferred field line under it, which `next` passes over |
 | `tools/queue/origin-check.ts` | What `origin/main` says about an item, asked before `next` or `take` claims it |
+| `tools/queue/kept.ts` | A claim branch that is already standing when `claim` goes to make it |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |

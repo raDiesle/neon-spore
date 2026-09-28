@@ -360,24 +360,6 @@ is the pair's sentence gets no clock (`baton-marks.ts`). A lane that lands one b
 list keeps this entry, rewritten to name the next; the lane that empties the
 list removes it and the list with it.
 
-## `queue take` cannot take again an entry this session keeps
-
-- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
-- **Taken:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the (claim: claude/queue-queue-take-cannot-take-again-an-entry-this-sessi)
-- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`
-
-An entry that is worked one lane at a time and kept between them (the
-mark-feedback roll-out, one boss a lane) cannot be taken for its next lane
-by the session that landed the last one. `bun run land --keep` leaves the
-claim branch standing, checked out, so `claim` fails on `git branch`
-(*a branch named … already exists*); and once that branch is deleted by
-hand, `take` refuses on the `Taken:` line still on `origin/main`, which is
-this session's own, because a landing does not push. Worked around by
-`git checkout --detach main`, `git branch -d`, and `git checkout -b` the
-same name from `main`. `take` should recognise a claim whose branch is the
-one it would make and which is merged into `main`, and hand it back,
-proved by a test in `tools/queue/test/`.
-
 ## THE GAUGE's cannon colour is a picture, not a rule
 
 - **Found:** 2026-09-25, claude/gauge-cannon-visual-clarity-82d0c7

@@ -16,6 +16,7 @@ import { branchFor } from "./claim.js";
 import { pushTrunk, type Sent, settleRefused } from "./claim-push.js";
 import { clearTaken, hasEntry, markTaken, takenIn } from "./edit.js";
 import { commitOnRef, gitIn, gitWith } from "./git.js";
+import { keptClaim, moveKept } from "./kept.js";
 import { takenMark } from "./mark.js";
 import type { Item } from "./queue.js";
 import { git, ROOT, TRUNK, trunkTree, workedOn } from "./tree.js";
@@ -166,10 +167,19 @@ export function unmark(item: Item, root = ROOT): void {
  * **And a claim that fails to mark is not a claim.** Whatever throws between
  * the branch and the line, the branch goes before the error does, so the next
  * attempt starts from nothing rather than from a ghost.
+ *
+ * **A branch this tree kept is handed back** rather than refused — merged into
+ * the trunk, and nobody else standing on it (`kept.ts`) — and it is never the
+ * one taken down: it was here before this claim, and it is not this claim's to
+ * delete.
  */
 export function claim(item: Item, root = ROOT, dealt = false): string {
   const branch = branchFor(item);
-  const made = gitIn(root, "branch", branch, TRUNK);
+  const kept = keptClaim(branch, root);
+  if (typeof kept === "object" && kept !== null) {
+    throw new Error(`could not claim ${JSON.stringify(item.title)}: ${kept.refused}`);
+  }
+  const made = kept ? { ok: true, err: "" } : gitIn(root, "branch", branch, TRUNK);
   if (!made.ok) throw new Error(`could not claim ${JSON.stringify(item.title)}: ${made.err}`);
   const mark = takenMark(
     branch,
@@ -189,12 +199,13 @@ export function claim(item: Item, root = ROOT, dealt = false): string {
     const put = () => onTrunk(item, edit, `Mark ${JSON.stringify(item.title)} taken`, root);
     const marked = put();
     if (marked === "refused") settleRefused(item, put, root, trunkTree(root));
-    if (marked) {
+    if (marked && kept) moveKept(branch, kept, root);
+    else if (marked) {
       const moved = gitIn(root, "branch", "--force", branch, TRUNK);
       if (!moved.ok) throw new Error(`could not move the claim onto ${TRUNK}: ${moved.err}`);
     }
   } catch (e) {
-    gitIn(root, "branch", "-D", branch);
+    if (!kept) gitIn(root, "branch", "-D", branch);
     throw e;
   }
   return branch;
