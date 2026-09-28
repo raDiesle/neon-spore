@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE WARDEN's hatch swipe is a ring, and says nothing before the lift
 
 - **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
+- **Taken:** 2026-09-28, claude/queue-the-sinew-answers-a-touch-the-way-the-instar-doe (claim: claude/queue-the-wardens-hatch-swipe-is-a-ring-and-says-nothi)
 - **Files:** `packages/render/src/warden-grip.ts`, `packages/sim/src/warden-hand.ts`, `packages/render/src/touch.ts`
 
 The owner's generic rule (`.claude/skills/new-boss/owner.md`, `new-boss` §5
