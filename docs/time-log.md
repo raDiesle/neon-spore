@@ -28518,3 +28518,5 @@ The bottleneck: working out that a pull of the organ and a bolt into a decoy say
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: deciding that the haul's verdict must be drawn after the clench is over, which meant taking the drawer's early return apart without letting the two rings up at once.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

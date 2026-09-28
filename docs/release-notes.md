@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 75d0c00c2 — THE HIVE's haul and wring answer a touch as far as its split lets them
+
+The clenched underside wears the halo on the pilot's screen until his carry begins, every swelling lobe but the one under her thumb wears it on the navigator's, and a haul home or a lobe wrung washes green. Each ring is one seat's alone, so there is no partner's clock and no refusal.
+
 ## 2026-09-28 · 6f4f22326 — THE ANTIPHON's organ and rail answer a touch as far as its split lets them
 
 The organs wear the halo while the body asks for a thumb and none is on it, the rail's uncrossed candidates wear it on the screen shown the rail while the first organ stands grown, and a pull washes its column green. The turn and the harden are not judged: the harden is the same event a bolt into a decoy says.
