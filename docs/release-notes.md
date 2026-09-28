@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 60c6aa753 — Queue: a kept claim's re-stamp leaves this tree's Taken: line off
+
 ## 2026-09-28 · c6c1611f6 — THE TASTER's pin, wipe and pry answer a touch like THE INSTAR's marks
 
 Each of the three rings wears a halo on the screen of the seat it is offered to, and shows the partner's ring and clock on the other. A pin, a wipe that spends its cut, and an interlock carried apart wash their ring green. A press on the other seat's ring, which used to be dropped without a sound, is now refused out loud (`tasterHandRefuse`) and washes it red. A desk press is signed with the seat the ring is offered to.
