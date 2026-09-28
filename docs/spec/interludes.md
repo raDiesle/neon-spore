@@ -516,6 +516,19 @@ thumb on the way down — the bar starting to run is the answer. The two gates
 are `pinWindable` and `pinNudgeable`, called by the rule and by the picture
 alike, so the ring cannot outlive the gesture.
 
+**Both answer a touch the way THE INSTAR's marks do, 28 September 2026**
+(`render/pinball-marks.ts`; the owner, 27 September: *the consistent visual
+across all waves*). Whether each is asked is the simulation's —
+`pinPlungerAsks` and `pinTableAsks`, the two gates and the play. The part
+asked of this seat wears the halo for as long as it is asked, since both
+gestures are lifts and nothing says a thumb is down; the part asked of the
+partner wears their turning ring and the clock. The wind and the shove wash
+the ring green, and the tilt washes the table red — her own thumb, and the
+wrong one. A press from the other seat on an asked part is refused once
+(`pinRefuse`, the press and never its lift) and washes it red too. A desk
+press is signed with the part's seat (`pinballGripSeat`), and the takeover
+feeds the verdicts (`effects-round-marks.ts`).
+
 **And the dim copy punches no hole, 22 September 2026.** The first frame ever
 taken of the shove on the *pilot's* screen came back with a flat black disc in
 the board — `drawHandleRing` fills its circle in `PALETTE.background` before

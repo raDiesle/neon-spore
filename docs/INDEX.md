@@ -1960,7 +1960,7 @@ by hand never moves.
 | `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it, what a turn of it says |
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
-| `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
+| `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE, PINBALL), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
 | `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |
 | `packages/render/src/strand-fuse.ts` | THE STRAND's thread going, drawn as a fuse |
@@ -2143,6 +2143,7 @@ by hand never moves.
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
+| `packages/render/src/pinball-marks.ts` | PINBALL's plunger and table haloed while asked, the partner's clock on the other, green on the wind and shove, red on the tilt and the other seat's press |
 | `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
 | `packages/render/src/pinch-pair.ts` | A pinch's answer, and the seat it is from |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |

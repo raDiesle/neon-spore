@@ -112,6 +112,7 @@ const SAMPLES: Record<string, SimEvent> = {
   pinWind: { type: "pinWind" },
   pinNudge: { type: "pinNudge", way: 1 },
   pinTilt: { type: "pinTilt" },
+  pinRefuse: { type: "pinRefuse", part: "table", player: 1 },
   scoutReel: { type: "scoutReel" },
   scoutSlip: { type: "scoutSlip" },
   scoutPrime: { type: "scoutPrime" },

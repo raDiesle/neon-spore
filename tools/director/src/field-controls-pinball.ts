@@ -30,7 +30,11 @@ export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
       "in the muzzle below it. Only while the spring is slack, which is only " +
       "on the shot after a launch above pinballHardMilli " +
       "(render/pinball-grip.ts)",
-    seat: "player 1 only — the seat that owns where from, and the seat that wound it",
+    seat:
+      "player 1 only — the seat that owns where from, and the seat that wound " +
+      "it. Haloed on his screen while asked, the clock on hers; the wind washes " +
+      "it green, and her press on it is refused once and washes it red " +
+      "(render/pinball-marks.ts)",
     gesture: "grab and drag",
     does:
       "Winds the spring back: a carry of at least pinballWindMilli, measured " +
@@ -58,7 +62,11 @@ export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
       "so that a pair never learns that the handle is over on the right. Only " +
       "through a flight, and only until the table is tilted " +
       "(render/pinball-grip.ts)",
-    seat: "player 2 only — the seat that has nothing else while a ball falls",
+    seat:
+      "player 2 only — the seat that has nothing else while a ball falls. " +
+      "Haloed on her screen while asked, the clock on his; the shove washes it " +
+      "green, the tilt red, and his press on it is refused once and washes it " +
+      "red (render/pinball-marks.ts)",
     gesture: "grab and drag",
     does:
       "Shoves the whole table sideways: a carry of at least pinballNudgeMilli, " +

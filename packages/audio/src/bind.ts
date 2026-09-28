@@ -63,6 +63,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "ui.waveOpen" };
     case "needWave":
       return null;
+    case "pinRefuse":
+      // The wrong seat's thumb on PINBALL's plunger or table, panned to the
+      // end of the band the ring stands at (`pinball-grip.ts`).
+      return { id: "boss.instarRefuse", pan: panForCol(e.part === "plunger" ? cols - 1 : 0, cols) };
     case "snakeRefuse":
       // The wrong seat's thumb on SNAKE's jaws or tail: every mark's *not
       // yours*, one sound for all of them (`boss-instar.ts`).

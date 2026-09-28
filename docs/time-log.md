@@ -28304,3 +28304,13 @@ The bottleneck: the effects roster sat at its 250-line ceiling, so the rounds'
 marks had to be split out into their own base class before SNAKE's could go in.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — PINBALL's plunger and table answer a touch like THE INSTAR's marks
+
+- reading: 5 min. The hand, the grip, the round's drawing.
+- writing: 10 min. Two asks and a refusal in the sim, `pinball-marks.ts` in the round marks, two tests.
+- looking: 0 min. One frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: a queue-entry rewrite that matched on a line break, which failed its assert and had to be redone on the flattened text.

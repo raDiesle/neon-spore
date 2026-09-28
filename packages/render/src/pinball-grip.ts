@@ -1,4 +1,11 @@
-import { type PinballState, pinNudgeable, pinWindable, type SimConfig } from "@neon-spore/sim";
+import {
+  type PinballState,
+  pinNudgeable,
+  pinPlungerAsks,
+  pinTableAsks,
+  pinWindable,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -101,43 +108,59 @@ function handY(t: Table): number {
 /**
  * Whether the round is playing, which is the gate every hand of this round is
  * already behind: `pinballRoundHeard` hears nothing at all in any other phase
- * (`sim/pinball-round.ts`), and it is asked here rather than left to the two
- * predicates because neither of them says anything about the clock.
- *
- * It matters. `pinWindable` is true through a verdict reached on a slack
- * spring — the shot is still `power` and nothing resets it — so without this a
- * ring would stand on a picture of an ending, offering a gesture the round has
- * already stopped listening for.
+ * (`sim/pinball-round.ts`). `pinPlungerAsks` and `pinTableAsks` ask it with
+ * their gates, because `pinWindable` is true through a verdict reached on a
+ * slack spring and a ring would otherwise stand on a picture of an ending.
  */
-function afoot(state: PinballState): boolean {
+export function pinAfoot(state: PinballState): boolean {
   return state.phase === "play";
 }
 
 /**
- * The press, answered for whichever of the two this seat owns. A press from
- * the wrong seat falls through to whatever is behind it exactly as if no ring
- * were there — the wind is the pilot's because he is the seat that owns *where
- * from*, and the shove is hers because it is the one thing she has while a
- * ball falls (`pinball-hand.ts`).
+ * The press on whichever of the two is asked, from either seat. The wind is
+ * the pilot's because he is the seat that owns *where from*, and the shove is
+ * hers because it is the one thing she has while a ball falls
+ * (`pinball-hand.ts`). **A press from the other seat is handed through with no
+ * hold**, so the simulation can refuse it once and the ring wash red
+ * (`pinball-marks.ts`) — both rings are drawn on both screens.
  */
 export function pinballGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const pin = bossOf(field, "pinball");
-  if (pin === null || !afoot(pin)) return null;
+  if (pin === null) return null;
   const { cfg, seat } = field;
-  if (seat === 1 && pinWindable(pin) && hitCircle(pinPlungerCircle(l, cfg), x, y)) {
-    return grab("pinPlunger", 1, x, y);
+  if (pinPlungerAsks(pin) && hitCircle(pinPlungerCircle(l, cfg), x, y)) {
+    return grab("pinPlunger", seat, seat === 1, x, y);
   }
-  if (seat === 2 && pinNudgeable(pin) && hitCircle(pinTableCircle(l, cfg), x, y)) {
-    return grab("pinTable", 2, x, y);
+  if (pinTableAsks(pin) && hitCircle(pinTableCircle(l, cfg), x, y)) {
+    return grab("pinTable", seat, seat === 2, x, y);
   }
   return null;
 }
 
-function grab(target: "pinPlunger" | "pinTable", player: 1 | 2, x: number, y: number): Touch {
+/**
+ * The seat a press on an asked ring belongs to, so one mouse at a desk takes
+ * the driver's table rather than having it refused as the pilot's
+ * (`desk-grab.ts` `markSeat`).
+ */
+export function pinballGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const pin = bossOf(field, "pinball");
+  if (pin === null) return undefined;
+  if (pinPlungerAsks(pin) && hitCircle(pinPlungerCircle(l, field.cfg), x, y)) return 1;
+  if (pinTableAsks(pin) && hitCircle(pinTableCircle(l, field.cfg), x, y)) return 2;
+  return undefined;
+}
+
+function grab(
+  target: "pinPlunger" | "pinTable",
+  player: 1 | 2,
+  owns: boolean,
+  x: number,
+  y: number,
+): Touch {
   return {
     player,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target, player, originX: x, originY: y },
+    hold: owns ? { kind: "drag", target, player, originX: x, originY: y } : null,
   };
 }
 
@@ -174,7 +197,7 @@ export function drawPinballGrips(
   state: PinballState,
   time: number,
 ): void {
-  if (!afoot(state)) return;
+  if (!pinAfoot(state)) return;
   if (pinWindable(state)) ring(ctx, pinPlungerCircle(l, cfg), l, 1, 0, time);
   if (!pinNudgeable(state)) return;
   const spent = Math.max(0, Math.min(1, state.nudges / Math.max(1, cfg.pinballNudges)));

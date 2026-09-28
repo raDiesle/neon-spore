@@ -54,4 +54,7 @@ export const INGEST_SILENT_BOSS_E = [
   // And SNAKE's refused press on the jaws or the tail: a red ring round the
   // part, `effects.boss.snake`'s (`snake-marks.ts`).
   "snakeRefuse",
+  // And PINBALL's, on the plunger or the table: a red ring round the part,
+  // `effects.boss.pinball`'s (`pinball-marks.ts`).
+  "pinRefuse",
 ] as const satisfies readonly SimEvent["type"][];

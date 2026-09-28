@@ -1,5 +1,6 @@
 import { type PinballState, pinCannonMilli, pinTargetsLeft } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
+import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
@@ -9,6 +10,7 @@ import { PALETTE } from "./palette.js";
 import { drawAim, drawPowerBar } from "./pinball-aim.js";
 import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 import { drawPinballGrips } from "./pinball-grip.js";
+import { drawPinballAsked, drawPinballVerdicts } from "./pinball-marks.js";
 import { drawPinPieces } from "./pinball-piece.js";
 import { drawPinSockets } from "./pinball-socket.js";
 import { drawPinBall, drawPinResting, drawPinWalls, pinTable } from "./pinball-table.js";
@@ -81,7 +83,12 @@ function stillPose(view: ViewState) {
   };
 }
 
-export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
+export function drawPinballRound(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  view: ViewState,
+  effects: Effects,
+): void {
   const boss = view.world.boss;
   if (boss === null || boss.kind !== "pinball") return;
   const world = view.world;
@@ -145,6 +152,7 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
   // The two hands on the table, after the ship: both stand a tile and a half
   // above the floor, and the floor is the skin the hull pass bows and lights
   // (`pinball-grip.ts`).
+  drawPinballAsked(ctx, l, cfg, boss, view.time);
   drawPinballGrips(ctx, l, cfg, boss, view.time);
 
   drawBand(ctx, l, world, false, false, view.time, view.controls);
@@ -154,6 +162,7 @@ export function drawPinballRound(ctx: CanvasRenderingContext2D, l: Layout, view:
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
   ctx.textAlign = "left";
+  drawPinballVerdicts(ctx, l, cfg, boss, effects.boss.pinball.verdicts);
 }
 
 /**

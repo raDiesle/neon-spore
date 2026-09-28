@@ -58,6 +58,20 @@ export function pinNudgeable(state: PinballState): boolean {
   return state.shot === "flight" && !state.tilted;
 }
 
+/**
+ * Whether each ring asks its seat for a hand this tick: the round in its play,
+ * and the part offering (`render/pinball-marks.ts` haloes the one asked).
+ * `pinWindable` is true through a verdict reached on a slack spring, so the
+ * play is asked here too.
+ */
+export function pinPlungerAsks(state: PinballState): boolean {
+  return state.phase === "play" && pinWindable(state);
+}
+
+export function pinTableAsks(state: PinballState): boolean {
+  return state.phase === "play" && pinNudgeable(state);
+}
+
 export function pinballDragHeard(
   world: World,
   state: PinballState,
@@ -77,7 +91,11 @@ function windHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 1 || !pinWindable(state)) return;
+  if (player !== 1) {
+    if (command.on && pinPlungerAsks(state)) refuse(world, "plunger", player);
+    return;
+  }
+  if (!pinWindable(state)) return;
   // The press says nothing; the wind is the lift, and only one that travelled.
   if (command.on) return;
   if (Math.abs(command.fromYMilli ?? 0) < world.cfg.pinballWindMilli) return;
@@ -91,7 +109,11 @@ function nudgeHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 2 || !pinNudgeable(state)) return;
+  if (player !== 2) {
+    if (command.on && pinTableAsks(state)) refuse(world, "table", player);
+    return;
+  }
+  if (!pinNudgeable(state)) return;
   if (command.on) return;
   const carried = command.fromMilli;
   if (Math.abs(carried) < world.cfg.pinballNudgeMilli) return;
@@ -106,4 +128,13 @@ function nudgeHeard(
   const way = Math.sign(carried);
   state.ball.vxMilli += way * world.cfg.pinballNudgeShoveMilli;
   world.events.push({ type: "pinNudge", way });
+}
+
+/**
+ * A press from the seat the part is not asked of, said once — the press and
+ * never its lift. Both rings are drawn on both screens (`render/pinball-grip.ts`),
+ * so a thumb can land on the wrong one, and every mark's *not yours* is said.
+ */
+function refuse(world: World, part: "plunger" | "table", player: 1 | 2): void {
+  world.events.push({ type: "pinRefuse", part, player });
 }

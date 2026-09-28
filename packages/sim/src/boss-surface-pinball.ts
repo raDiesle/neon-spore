@@ -33,7 +33,11 @@ export {
   // them, so the picture and the rule cannot drift (`pinball-hand.ts`).
   pinNudgeable,
   pinPhysics,
+  // And whether each is asked this tick, which is those two and the play
+  // (`render/pinball-marks.ts`).
+  pinPlungerAsks,
   pinRestingBall,
+  pinTableAsks,
   pinTargetsLeft,
   pinWindable,
 } from "./bosses.js";
