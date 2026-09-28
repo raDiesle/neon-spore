@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 38e5ff5b2 — THE UNDERTOW's pin and free answer a touch the way THE INSTAR's marks do
+
+Each pin on a standing lobe wears the halo on the navigator's screen until her thumb is on it, and the free wears it while the floor has the pilot. The free is the one ring both screens draw, and the one wait one seat has on the other, so the pilot's screen shows her clock on it, and his own press there is now refused out loud (`undertowRefuse`, the refusal sound) instead of dropped. A pin going down and the pilot let go wash green; his refused press washes red. The exemption used: a look with no shipped alternative.
+
 ## 2026-09-28 · 12ca0a06a — THE THROAT's ring and tube answer a touch the way THE INSTAR's marks do
 
 The slack ring wears the halo on the navigator's screen until her thumb is on it, and the tube wears it on the pilot's until a carry has been given. A cinch and a haul wash their ring green, and a press from the other seat is refused red. That press used to fall through; it is now handed through with no hold, so the refusal is said once. There is no partner's clock, because nobody waits on either ring. Which ring asks is the simulation's (`throatRingAsks`, `throatTubeAsks`), and the grip and the cue now read it rather than re-deriving it.
