@@ -1,7 +1,7 @@
-import { type HaspState, haspHeld, haspLoose, type World } from "@neon-spore/sim";
+import { type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { fieldX } from "./field-flip.js";
-import { haspLatchCircle, haspLatchTakes, haspWheelCircle } from "./hasp-grip.js";
+import { haspLatchAsks, haspLatchCircle, haspWheelCircle } from "./hasp-grip.js";
 import { haspFree } from "./hasp-pose.js";
 import type { Layout } from "./layout.js";
 
@@ -43,7 +43,7 @@ export function haspCues(l: Layout, world: World, s: HaspState): readonly BossCu
     const x = fieldX(l, s.boltCol);
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 101 });
   }
-  if (haspLatchTakes(s) && !haspHeld(s, cfg)) {
+  if (haspLatchAsks(s, cfg)) {
     const bar = haspLatchCircle(l, cfg, s);
     out.push({ seat: 1, kind: "CARRY", word: "HOLD", x: bar.x, y: bar.y, ...frame, seed: 102 });
   }

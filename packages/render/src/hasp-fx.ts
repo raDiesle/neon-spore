@@ -2,6 +2,7 @@ import { HASP_COUNT, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
+import { GripVerdicts } from "./grip-verdict.js";
 import { haspBarAt, haspCentre } from "./hasp-shape.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
@@ -35,7 +36,17 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * **A hasp wound open is a sequence landed** — latch held, wheel wound — so
  * it deals the row the blow every boss takes (`boss-hurt.ts`), on both
  * screens. A grip is only half of one, and deals nothing.
+ *
+ * **Each mark's verdict is its own seat's receipt** (`grip-verdict.ts`): the
+ * latch washes green on the grip and red on the burn, the wheel green when it
+ * comes free under her hand and red when it seizes there. Marked on every
+ * screen and drawn only where the mark is (`hasp-marks.ts`), so the split
+ * holds without asking the role here.
  */
+
+/** The verdicts' keys: his latch and her working wheel. */
+export const HASP_LATCH_MARK = 0;
+export const HASP_WHEEL_MARK = 1;
 
 const JOLT_TILES = 0.2;
 const JOLT_DECAY = 8;
@@ -55,6 +66,8 @@ export class HaspFx {
   private at = 0;
   /** The blow a hasp wound open deals the row. */
   readonly hurt = new BossHurt();
+  /** Green or red on the mark a touch was answered at. */
+  readonly verdicts = new GripVerdicts();
 
   /** How far the row is thrown down in its mounting right now, in tiles. */
   get jolt(): number {
@@ -94,12 +107,14 @@ export class HaspFx {
           if (latch) burst(bar.x, bar.y, 5, PALETTE.rock);
           break;
         case "haspGrip":
+          this.verdicts.mark(HASP_LATCH_MARK, true);
           if (latch) burst(bar.x, bar.y, 4, PALETTE.pod);
           break;
         case "haspLet":
           if (latch) burst(bar.x, bar.y, 3, PALETTE.rockDark);
           break;
         case "haspBurn":
+          this.verdicts.mark(HASP_LATCH_MARK, false);
           if (latch) {
             burst(bar.x, bar.y, 14, PALETTE.ember);
             this.flareNow = 1;
@@ -110,6 +125,7 @@ export class HaspFx {
           break;
         // Her two: the wheel going dead under her hand, and coming back.
         case "haspSeize":
+          this.verdicts.mark(HASP_WHEEL_MARK, false);
           if (wheel) {
             burst(hub.x, hub.y, 6, PALETTE.rockDark);
             this.dimLife = DIM_BEATS * beatSeconds;
@@ -117,6 +133,7 @@ export class HaspFx {
           }
           break;
         case "haspFree":
+          this.verdicts.mark(HASP_WHEEL_MARK, true);
           if (wheel) {
             burst(hub.x, hub.y, 5, PALETTE.rock);
             this.dimLeft = 0;
@@ -162,6 +179,7 @@ export class HaspFx {
     this.dimLeft = Math.max(0, this.dimLeft - dt);
     this.shock.update(dt);
     this.hurt.update(step);
+    this.verdicts.update(dt);
   }
 
   clear(): void {
@@ -172,5 +190,6 @@ export class HaspFx {
     this.shock.clear();
     this.at = 0;
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }

@@ -4,6 +4,8 @@ import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
+import type { GripVerdict } from "./grip-verdict.js";
+import { drawHaspHalos, drawHaspVerdicts } from "./hasp-marks.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
 import { haspCentre, haspHubRadius, haspShellPath, haspShellRadius } from "./hasp-shape.js";
@@ -79,10 +81,15 @@ export function drawHasp(
   for (let i = 0; i < HASP_COUNT; i++) {
     const gape = haspGape(s, cfg, i, beat, beatPhase, wheel);
     drawClasp(ctx, l, world, s, i, gape, fx.hurt.value, time);
+  }
+  // The halos go on the shells and under the marks they ask for.
+  drawHaspHalos(ctx, l, cfg, s, time);
+  for (let i = 0; i < HASP_COUNT; i++) {
     if (wheel) drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase);
     else drawHaspCap(ctx, l, cfg, i);
   }
   if (showsHaspLatch(l.role)) drawHaspLatch(ctx, l, cfg, s, beat, beatPhase, fx.flare);
+  drawHaspVerdicts(ctx, l, cfg, s, fx.verdicts);
   if (haspLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
 
@@ -103,6 +110,7 @@ interface HaspFx {
   readonly jolt: number;
   readonly flare: number;
   readonly dim: number;
+  readonly verdicts: { at(key: number): GripVerdict | null };
 }
 
 /**

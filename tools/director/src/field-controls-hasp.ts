@@ -40,6 +40,8 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
       "put back is a fresh hold, which is the whole of what he can do about " +
       "it. **THE SLOW spans every grip**, for its fuse, and shuts the tick " +
       "the grip ends, so the two seats play the ask at the same slow rate. " +
+      "The bar has the halo under it while it asks, washes green on the " +
+      "grip and red on the burn (hasp-marks.ts). " +
       "No desk key: the bar is a carry, not a turn.",
     source: "handles.ts — haspHandleUnder() under handleUnder(); hasp-grip.ts on the move",
     holdKind: "drag",
@@ -65,7 +67,11 @@ export const HASP_CONTROLS: readonly FieldControlDef[] = [
       "latch **seizes**, and the turning is lost rather than banked. Her " +
       "place on the rim is not: the hand is still read, so the instant he " +
       "takes hold again the wheel picks up exactly where it stopped and her " +
-      "thumb does not have to go back for it (sim/hasp-hand.ts). From the " +
+      "thumb does not have to go back for it (sim/hasp-hand.ts). The rim " +
+      "has the halo round it while her hand is off it, and washes green as " +
+      "it comes free under her hand and red as it seizes (hasp-marks.ts). " +
+      "Neither seat is shown the other's mark, not even as a partner's " +
+      "ring. From the " +
       "second clasp a bolt works loose in the middle column and is shot with " +
       "either colour like anything else; haspBoltBeats unanswered is the " +
       "hull, which is the wave.",

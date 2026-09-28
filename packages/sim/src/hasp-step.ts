@@ -163,7 +163,7 @@ export function haspSlow(world: World, s: HaspState): void {
  * **The gate, said once.** Whether her wheel is seized is an ordinary read
  * of both hands, and it is true for as long as it is true; what is announced
  * is the *change*, so the frame dims when the wheel goes dead under her and
- * lifts when it comes back.
+ * lifts when it comes back under her hand.
  *
  * Nothing about why is announced, here or anywhere: the seize is hers and
  * the heat is his, and the sentence that joins them is the pair's to say.
@@ -172,6 +172,9 @@ function sayGate(world: World, s: HaspState): void {
   const stuck = haspTurning(s) && !haspHeld(s, world.cfg);
   if (stuck === s.seized) return;
   s.seized = stuck;
+  // Her hand off a seized rim ends the seize and frees nothing: `haspFree` is
+  // the wheel answering her hand again, which is her verdict's green.
+  if (!stuck && !haspTurning(s)) return;
   world.events.push({ type: stuck ? "haspSeize" : "haspFree", col: midCol(world.cfg) });
 }
 

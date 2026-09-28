@@ -7439,6 +7439,21 @@ for the wheel alone would turn nothing, since it moves only under the latch.
 `render/test/hasp-grip.test.ts` proves the hits, the split, the refusals and
 the words.
 
+**The marks answer a touch the way every mark does** (28 September 2026, the
+owner's rule of the 24th; `render/hasp-marks.ts`), with one piece left out.
+Each seat's open mark wears the halo: his bar while it asks for a hand (when
+`HOLD` stands on it), and her working wheel while her hand is off the rim,
+seized or not. Each mark has its verdict (`hasp-fx.ts`): the latch green on
+the grip and red on the burn, the wheel green when it comes free under her
+hand and red when it seizes there. So `haspFree` is said only while her hand
+is on the rim; taking it off a seized wheel ends the seize without a word
+(`sim/hasp-step.ts` `sayGate`). **No partner's ring and no waiting clock**,
+which every other boss draws. A ring on her screen where his latch is would
+be the latch drawn for her, and a ring that went out when he gripped would
+say the gate aloud. So the wrong seat has no mark to press and nothing to be
+refused on. `render/test/hasp-verdict.test.ts` proves the verdicts, the
+halos and that no partner's ring or clock is drawn on any screen.
+
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/hasp.test.ts`): the door comes in sealed and lights its first latch;
 the wheel is dead under her hand while the latch is up and says so once; it

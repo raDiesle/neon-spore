@@ -28101,3 +28101,15 @@ The bottleneck was the desk: a mark the wrong seat can press has to name its sea
 The bottleneck was keeping the brake's rail hidden from the navigator while still giving her a mark to press and a verdict to see, which put both at the knob's rest position.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE HASP's marks answer a touch the way THE INSTAR does
+
+- reading: 5 min. `hasp-grip.ts`, `hasp-hand.ts`, `hasp-fx.ts`,
+  `hasp-parts.ts` and §11.37's split, which decided what could be drawn.
+- writing: 5 min. The verdicts, `hasp-marks.ts`, the halos and the draw
+  order, `sayGate`'s silent lift, two test files, the docs.
+- looking: 0 min. Both seats' frames at the first latch lit, paired.
+- friction: 0 min. The index wanted a row for the new page.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the convention against the boss: the partner's ring would draw each seat the other's secret, so it had to be left out and the reason written down rather than drawn.

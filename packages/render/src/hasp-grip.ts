@@ -2,7 +2,9 @@ import {
   type HaspState,
   haspBurning,
   haspHandHasp,
+  haspHeld,
   haspLatchUp,
+  haspTurning,
   haspWheelUp,
   NO_BEARING,
   NO_LATCH,
@@ -50,6 +52,20 @@ const RIM_REACH = 1.35;
 /** Whether the latch will take a hand at all: `latchHeard`'s two refusals. */
 export function haspLatchTakes(s: HaspState): boolean {
   return haspLatchUp(s) && !haspBurning(s);
+}
+
+/**
+ * Whether his latch is **asking** for a hand: it will take one, and he is not
+ * past the grip — the moment `HOLD` stands on it (`boss-cue-read-z.ts`) and
+ * the halo is drawn under it (`hasp-marks.ts`).
+ */
+export function haspLatchAsks(s: HaspState, cfg: SimConfig): boolean {
+  return haspLatchTakes(s) && !haspHeld(s, cfg);
+}
+
+/** Whether her wheel is asking for a hand: it is up, and hers is off the rim, seized or not. */
+export function haspWheelAsks(s: HaspState): boolean {
+  return haspWheelUp(s) && !haspTurning(s);
 }
 
 /**

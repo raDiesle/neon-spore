@@ -315,34 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE HASP answers a touch the way THE INSTAR does
-
-- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
-- **Taken:** 2026-09-28, claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe (claim: claude/queue-the-hasp-answers-a-touch-the-way-the-instar-does)
-- **Files:** `packages/render/src/hasp-grip.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
-
-The owner's rule of 24 September 2026, and his answer of the 27th: the same
-touch feedback on every boss, from the shared pieces. They are shared now —
-`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
-`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
-`.claude/skills/new-boss` §5 has the convention. The third of the choreographed four. The work:
-
-- find the events that mean *this touch was right* and *this touch was
-  refused*, and mark `hasp`'s `GripVerdicts` from them in its fx, updated
-  and cleared with the rest; `drawVerdictRing` after each mark;
-- the halo on this seat's open mark, the turning ring and the waiting clock on
-  the partner's;
-- a mark that is *not there* for the wrong seat cannot be refused in red:
-  hand its press through for the simulation to refuse with an event of its
-  own, and give the desk the mark's seat before the press (`desk-grab.ts`;
-  THE WARDEN's `wardenGripSeat` is the worked example);
-- the in-progress signal is the simulation's own word for *right direction*
-  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
-- a test beside `packages/render/test/instar-verdict.test.ts`, and `"hasp"`
-  off `TO_COME` in the roll-out test, which goes red otherwise.
-
-Lands as *a look the owner asked for by name*; send the PNG.
-
 ## THE SINEW answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
