@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 32d50badd — THE SINEW's handles answer a touch the way THE INSTAR does
+
+Both handles are drawn on both screens, so the whole convention applies. While a handle waits for its hand, its owner sees a halo under it and the partner sees a turning ring and a clock on it. A press on the other seat's handle is refused (`sinewRefuse`, with THE INSTAR's knock) and washes it red. The grip washes it green, and the snap washes both handles red. The desk now asks the handle whose it is before a press. The look exemption used is the owner's request by name (the mark-feedback roll-out).
+
 ## 2026-09-28 · f8b29efe8 — THE HASP's latch and wheel answer a touch the way THE INSTAR does
 
 Each seat's open mark has the halo: the pilot's latch while it asks for a hand, and the navigator's wheel while her hand is off the rim. The latch washes green on the grip and red on the burn. The wheel washes green when it comes free under her hand and red when it seizes. The wheel no longer says it came free when she lets go of a seized rim. Neither seat is shown the partner's ring or clock, because each seat is shown only its own half. Lands as a look the owner asked for by name.

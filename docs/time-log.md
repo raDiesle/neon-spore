@@ -28129,3 +28129,5 @@ The bottleneck was the convention against the boss: the partner's ring would dra
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck was the event's registrations: a new receipt is five lists in three packages, found only by searching for the last boss that added one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
