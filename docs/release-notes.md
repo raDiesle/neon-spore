@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · c6c1611f6 — THE TASTER's pin, wipe and pry answer a touch like THE INSTAR's marks
+
+Each of the three rings wears a halo on the screen of the seat it is offered to, and shows the partner's ring and clock on the other. A pin, a wipe that spends its cut, and an interlock carried apart wash their ring green. A press on the other seat's ring, which used to be dropped without a sound, is now refused out loud (`tasterHandRefuse`) and washes it red. A desk press is signed with the seat the ring is offered to.
+
 ## 2026-09-28 · dbd99eb17 — THE CURTAIN's hem and sheet answer a touch like THE INSTAR's marks
 
 While a hit has jammed the rail and the hem is at rest, the hem asks the pilot: a halo under it on his screen, and on hers his ring with the clock of her shot waiting on his lift. A lift to the top washes the hem green. Her press on it, which used to be dropped without a sound, is now refused out loud (`curtainRefuse`) and washes it red. A shove that carries the sheet shows green on it, and a shove into the jammed rail shows red. A desk press on the hem is signed with the pilot.
