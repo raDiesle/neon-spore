@@ -26,8 +26,10 @@ export const RATCHET_CONTROLS: readonly FieldControlDef[] = [
       "pawl asks that one question on the tick it is pressed. **A clean " +
       "tooth spends the catch**: a hand still down holds nothing until it " +
       "has come back up past the notch, or let go, and been carried down " +
-      "again (sim/ratchet-hand.ts). She says SET when she holds. No desk " +
-      "key: the rail is a carry, not a turn.",
+      "again (sim/ratchet-hand.ts). She says SET when she holds. The halo " +
+      "stands under the bar while it is not set, SET washes it green and a " +
+      "burnt tooth red (render/ratchet-marks.ts). No desk key: the rail is " +
+      "a carry, not a turn.",
     source: "handles.ts — ratchetCatchUnder() under handleUnder(); ratchet-grip.ts on the move",
     holdKind: "drag",
     dragTarget: "ratchetCatch",
@@ -49,7 +51,9 @@ export const RATCHET_CONTROLS: readonly FieldControlDef[] = [
       "a window a press does nothing, and it is taken here rather than " +
       "falling through to the cannon behind the pad. A loose bolt in the " +
       "middle column is shot with either colour; ratchetBoltBeats unanswered " +
-      "is the hull.",
+      "is the hull. The halo stands under the pad while a tooth waits and " +
+      "his thumb is off it; a clean tooth washes it green and a burnt one " +
+      "red (render/ratchet-marks.ts).",
     source: "handles.ts — ratchetPawlUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "ratchetPawl",

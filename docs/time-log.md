@@ -28544,3 +28544,13 @@ The bottleneck: the ring's open-or-wait reading lived in render as `filamentGo`,
 The bottleneck: `gimbalSlip` did not say which ring slipped, so the event had to grow two fields before the red could land on the right rim.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE RATCHET's catch and pawl answer a touch the way every mark does
+
+- reading: 5 min. The two hands, the story states' words, THE HASP's marks it is built on, the drawer.
+- writing: 10 min. `ratchetCatchAsks` and `ratchetPawlAsks` in the sim, `ratchet-marks.ts` with the rack's words as a table, the halos and verdicts in the drawer, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: deciding whose mark a burnt tooth reddens when neither screen shows the other half; both, like THE FILAMENT's dark line.

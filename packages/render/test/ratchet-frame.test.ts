@@ -12,14 +12,16 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { RatchetFx } from "../src/ratchet-fx.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
+  VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
 
@@ -185,11 +187,18 @@ describe("THE RATCHET's rack", () => {
       const rack = (w: World) => {
         phased(w, "climb", { teeth: 6, clean: 1 });
       };
-      const quiet = frame(role, rack);
       const click: SimEvent = { type: "ratchetClick", teeth: 6, clean: 1, col: 5 };
+      expect(frame(role, rack, click)).not.toBe(frame(role, rack));
+      // The burn's one mark is the verdict's red (`ratchet-marks.ts`,
+      // `ratchet-verdict.test.ts`): no jolt, no click, no blow, no shudder and
+      // no burst.
       const burn: SimEvent = { type: "ratchetBurn", teeth: 6, late: false, col: 5 };
-      expect(frame(role, rack, click)).not.toBe(quiet);
-      expect(frame(role, rack, burn)).toBe(quiet);
+      const fx = new RatchetFx();
+      let thrown = 0;
+      fx.ingest([burn], computeLayout(VIEWPORT, CFG, role), CFG, 0.5, role, () => {
+        thrown++;
+      });
+      expect([fx.jolt, fx.click, fx.hurt.value, fx.shock.now, thrown]).toEqual([0, 0, 0, 0, 0]);
     },
   );
 

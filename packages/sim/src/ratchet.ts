@@ -151,3 +151,20 @@ export function ratchetOpen(s: RatchetState): boolean {
 export function ratchetJammed(s: RatchetState): boolean {
   return s.phase === "jam";
 }
+
+/**
+ * **Whether her catch is asking for a hand**: the rack will take one, the
+ * state is not the kick (his pawl alone), and it is not set — spent included,
+ * because a spent catch is one she has to lift and set again. The halo is
+ * drawn under it (`render/ratchet-marks.ts`).
+ */
+export function ratchetCatchAsks(s: RatchetState, cfg: SimConfig): boolean {
+  if (s.phase === "open" || s.phase === "jam" || s.phase === "kick") return false;
+  return !ratchetHeld(s, cfg);
+}
+
+/** Whether his pawl is asking for a press: a tooth is lit, or the kick or the bind wants it down, and his thumb is not. */
+export function ratchetPawlAsks(s: RatchetState): boolean {
+  if (s.pawlDown) return false;
+  return s.phase === "work" || s.phase === "kick" || s.phase === "bind";
+}

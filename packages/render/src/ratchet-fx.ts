@@ -5,6 +5,7 @@ import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { RatchetMarks } from "./ratchet-marks.js";
 import { ratchetBarAt, ratchetLock, ratchetPawl, ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
 
@@ -19,7 +20,8 @@ import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
  * (§22, *Presentation*): every clean advance is one shudder through
  * `hull-shock.ts`, and a burnt tooth is a flat, unlit non-event — **a burn
  * throws nothing**, on any screen, because nothing should reward a mistake
- * with a picture.
+ * with a picture. Its one mark is the verdict's red round both hands, which
+ * is a verdict and no reward (`ratchet-marks.ts`).
  *
  * **The hands' receipts are split between the seats**, THE HASP's rule: a
  * catch set or let go is thrown on the catch's screens alone — a spark over
@@ -47,6 +49,8 @@ export class RatchetFx {
   readonly shock = new HullShock();
   /** The blow a clean tooth deals the rack. */
   readonly hurt = new BossHurt();
+  /** The catch's and the pawl's verdicts (`ratchet-marks.ts`). */
+  readonly marks = new RatchetMarks();
 
   /** How far the strut is thrown down in its mounting right now, in tiles. */
   get jolt(): number {
@@ -66,6 +70,7 @@ export class RatchetFx {
     role: ViewRole,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     const hand = showsRatchetCatch(role);
     const pad = showsRatchetPawl(role);
     for (const e of events) {
@@ -145,6 +150,7 @@ export class RatchetFx {
     if (this.clickNow < 0.002) this.clickNow = 0;
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -152,5 +158,6 @@ export class RatchetFx {
     this.clickNow = 0;
     this.shock.clear();
     this.hurt.clear();
+    this.marks.clear();
   }
 }

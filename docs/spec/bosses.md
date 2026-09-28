@@ -7962,6 +7962,19 @@ colour and strikes the hull if nobody answers it; five clean opens the rack
 and takes it out of the wave; and the third burn jams it into the hull. Whether
 any of it *reads* is the owner's eye, after lane two.
 
+**The catch and the pawl answer a touch the way every mark does**
+(`render/ratchet-marks.ts`, the owner, 27 September 2026). This is THE HASP's
+case. Her catch wears the halo on her screen while the rack takes a hand, it is
+not set and the state is not the kick (`sim/ratchet.ts` `ratchetCatchAsks`).
+His pawl wears it on his while a tooth is lit, or the kick or the bind wants it
+down, and his thumb is off it (`ratchetPawlAsks`). `SET` greens the catch and a
+clean tooth greens the pawl. **A burnt tooth is red on both**, because neither
+screen shows which half of the sequence was missing. That ring is the only mark
+a burn leaves: the click, the jolt and the shudder are still a clean tooth's
+alone. Each story state greens or
+reddens the hand it asked for. There is no partner's clock and no refusal:
+neither seat is shown the other's half.
+
 ## 11.39 THE NETTLE — a jellyfish marked for thumbs and for the panel
 
 > The one where the panel answers the body. A jellyfish the size of the field

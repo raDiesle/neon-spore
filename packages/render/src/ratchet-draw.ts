@@ -4,10 +4,12 @@ import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import { litBox } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawRatchetHalos, drawRatchetVerdicts } from "./ratchet-marks.js";
 import {
   drawRatchetCatch,
   drawRatchetLock,
@@ -96,10 +98,12 @@ export function drawRatchet(
   }
   const bears = Math.max(0, Math.min(RATCHET_TEETH - 1, Math.round(rise) - 1));
   const lift = ratchetPawlLift(s, cfg, beat, beatPhase);
+  drawRatchetHalos(ctx, l, cfg, s, time);
   drawRatchetPawl(ctx, l, cfg, s, bears, lift, showsRatchetPawl(l.role));
   if (fx.click > 0) drawClick(ctx, l, world, fx.click);
   drawRatchetLock(ctx, l, cfg, s, fold);
   if (showsRatchetCatch(l.role)) drawRatchetCatch(ctx, l, cfg, s);
+  drawRatchetVerdicts(ctx, l, cfg, s, fx.marks.verdicts);
   ctx.restore();
 
   if (ratchetLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
@@ -111,6 +115,7 @@ interface RatchetFx {
   readonly jolt: number;
   readonly click: number;
   readonly hurt: BossHurt;
+  readonly marks: { readonly verdicts: GripVerdicts };
 }
 
 /** The strut: two rails from the lock down past the rack's lowest reach, and the seam the pawl bears on. */
