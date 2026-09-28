@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 37f6d2c7e — THE MAZE's string and heart answer a touch the way THE INSTAR's marks do
+
+The part asked of this seat wears the halo until this hand is on it, and the part asked of the partner wears their ring and the clock. Her thumb landing on the heart washes it green, the tear washes both green, and a press from the wrong seat washes the part red and knocks. The sim now refuses that press and says so with `mazeRefuse`; before, it dropped the press silently. Whether each part is asked is also the sim's now (`mazeStringAsks`, `mazeHeartAsks`), and a desk press is signed with the part's owner (`mazeGripSeat`).
+
 ## 2026-09-28 · a07213164 — THE VANE's arm and housing answer a touch the way THE INSTAR's marks do
 
 The part asked of this seat wears the halo, the part asked of the partner their turning ring and the clock; a pin landing washes the arm green and a haul the housing, and a press from the seat the part is not asked of is handed through holding nothing, refused once by the simulation (`vaneRefuse`) and washed red on both screens. Whether each part is asked moved into the simulation (`vaneArmAsks`, `vaneHousingAsks`), which the rings, the hit test and the cue now read rather than re-derive; a desk press is signed with the part's owner (`vaneGripSeat`).

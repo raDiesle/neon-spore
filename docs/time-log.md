@@ -28263,3 +28263,5 @@ had to be found and moved before anything could be drawn off them.
 
 The bottleneck: the draw test that held both screens to one frame bar a word,
 which the asking now breaks on purpose and had to learn to take out.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
