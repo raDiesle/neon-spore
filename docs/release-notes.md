@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · dbd99eb17 — THE CURTAIN's hem and sheet answer a touch like THE INSTAR's marks
+
+While a hit has jammed the rail and the hem is at rest, the hem asks the pilot: a halo under it on his screen, and on hers his ring with the clock of her shot waiting on his lift. A lift to the top washes the hem green. Her press on it, which used to be dropped without a sound, is now refused out loud (`curtainRefuse`) and washes it red. A shove that carries the sheet shows green on it, and a shove into the jammed rail shows red. A desk press on the hem is signed with the pilot.
+
 ## 2026-09-28 · 1f612714a — `queue take` hands back a claim branch this session kept
 
 A lane worked one at a time and landed with `bun run land --keep` leaves its claim branch checked out and equal to `main`, and the landing takes the entry's `Taken:` line off with its rewritten words. So the next lane's `take` used to fail on `git branch` (the branch already exists). `claim` now reuses a standing branch that is merged into `main` and has no other worktree on it (`tools/queue/kept.ts`). It marks the trunk and brings the branch up onto the mark: by a fast-forward when this tree stands on it, and by `branch --force` when nobody does. A branch holding commits `main` has not got, or one another worktree stands on, is refused as before and never deleted.
