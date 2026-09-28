@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 1f612714a — `queue take` hands back a claim branch this session kept
+
+A lane worked one at a time and landed with `bun run land --keep` leaves its claim branch checked out and equal to `main`, and the landing takes the entry's `Taken:` line off with its rewritten words. So the next lane's `take` used to fail on `git branch` (the branch already exists). `claim` now reuses a standing branch that is merged into `main` and has no other worktree on it (`tools/queue/kept.ts`). It marks the trunk and brings the branch up onto the mark: by a fast-forward when this tree stands on it, and by `branch --force` when nobody does. A branch holding commits `main` has not got, or one another worktree stands on, is refused as before and never deleted.
+
 ## 2026-09-28 · 0f2c2c42d — A session draining the queue takes a set of items when one reading pays for it
 
 The owner asked that a session not take one queue item at a time when several can be worked more cheaply together. `docs/queue.md` now says when: items whose files overlap, a finding filed by the lane about to work its item, the named steps of one roll-out, a few findings in one tool. The set is said in the report as it is taken. It is a claim and a reading, never a commit: each item is still committed, removed and landed on its own before the next starts. Three is the ordinary size.

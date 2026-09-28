@@ -28410,3 +28410,5 @@ The bottleneck: deciding whether a red belonged anywhere — no refusal is possi
 - landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
 
 The bottleneck: finding why the kept claim had no `Taken:` line to begin with — each roll-out landing takes it off with the entry's rewritten words, so every next lane is a fresh claim on a standing branch.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
