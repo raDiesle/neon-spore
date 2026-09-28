@@ -14,7 +14,7 @@ import {
 import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { type Field, type Hold, touchDown, touchUp } from "../src/touch.js";
+import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 import {
   drawWardenGrip,
   wardenGripCircle,
@@ -133,6 +133,32 @@ describe("a thumb on the eye", () => {
     expect(wardenGripUnder(l, at.x, at.y + at.r * 3, fieldOf(world, 2))).toBeNull();
     expect(wardenGripUnder(l, at.x, at.y, { ...fieldOf(world, 2), boss: null })).toBeNull();
   });
+
+  // The wrong seat's press holds nothing, so the thumb resting there and
+  // moving is refused once, not on every move (`spool-grip.ts`'s rule).
+  for (const [phase, plates, seat] of [
+    ["NARROW", NARROW, 1],
+    ["GLARE", GLARE, 2],
+  ] as const) {
+    it(`refuses seat ${seat}'s press under ${phase} once, however the thumb moves`, () => {
+      const { world, b } = opened(plates);
+      const role = seat === 1 ? "p1" : "p2";
+      const l = layout(role);
+      const at = wardenGripCircle(l, body(world, b), b);
+      const down = touchDown(l, at.x, at.y, fieldOf(world, seat));
+      expect(down?.hold).toBeNull();
+      const touches = [down];
+      const hold = down?.hold;
+      for (let i = 1; i <= 3 && hold; i++) touches.push(touchMove(l, hold, at.x + i * 4, at.y));
+      let refused = 0;
+      for (const t of touches) {
+        const command = t?.command;
+        step(world, command ? [{ tick: world.tick, player: seat, command }] : []);
+        refused += world.events.filter((e) => e.type === "wardenRefuse").length;
+      }
+      expect(refused).toBe(1);
+    });
+  }
 
   it("is reached through touchDown, over the field", () => {
     const { world, b } = opened(NARROW);

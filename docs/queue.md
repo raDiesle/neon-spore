@@ -315,20 +315,20 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE WARDEN refuses the navigator again on every move of her press
+## THE INSTAR refuses the wrong seat again on every move of its press
 
-- **Found:** 2026-09-28, claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe
-- **Taken:** 2026-09-28, claude/queue-auto-never-takes-a-plate-off-the-warden-in-bun-r (claim: claude/queue-the-warden-refuses-the-navigator-again-on-every)
-- **Files:** `packages/render/src/warden-grip.ts`, `packages/sim/src/warden-hand.ts`
+- **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
+- **Files:** `packages/render/src/instar-mark-grip.ts`, `packages/sim/src/instar-hand.ts`
 
-The wrong seat's press on THE WARDEN's eye is handed through as a drag with
-a hold, so `touchMove` sends an `on: true` drag for every move of that hold,
-and `warden-hand.ts` refuses each one: the knock sounds and the ring washes
-red again and again while her thumb rests there. THE SPOOL's knob hands the
-wrong seat's press through with `hold: null` (`spool-grip.ts`
-`spoolBrakeUnder`), a one-shot press, so no move or lift follows it. Do the
-same for the eye, and prove it with a test in `warden-grip.test.ts` that a
-press and three moves from seat 2 give one `wardenRefuse`.
+THE WARDEN's bug, on the boss the convention was drawn from.
+`instarMarkUnder` hands the wrong seat's press through with a hold, so
+`touchMove` sends an `on: true` drag at `instarMark` for every move, and
+`instar-hand.ts` pushes `instarRefuse` for each one. Hand it through with
+`hold: null` when `instarMarkSeat` is not the field's seat (a `both` mark
+takes either), as `warden-grip.ts` now does, and prove it the way
+`warden-grip.test.ts` does: a press and three moves from the wrong seat give
+one `instarRefuse`. Then look through the other `*-grip.ts` that sign a
+press with the field's seat whosever it is, and give each the same test.
 
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 

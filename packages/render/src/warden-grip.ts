@@ -54,7 +54,7 @@ import { drawWardenTrack } from "./warden-track.js";
  * verdict — green for a thumb landed or a hatch thrown, red for a press this
  * phase refused (`sim/warden-hand.ts`, `warden-fx.ts`). So either seat's
  * press is handed through while the eye asks, and the simulation is what
- * says no.
+ * says no — the wrong seat's as a press holding nothing, refused once.
  */
 
 /** The ring, inside the hatch: on the eye, not round the hole. */
@@ -108,13 +108,18 @@ export function wardenGripSeat(l: Layout, x: number, y: number, field: Field): 1
  * (`touch.ts` reads the travel off the hold's origin, as THE MIRROR's does).
  */
 export function wardenGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const target = eyeUnder(l, x, y, field)?.target;
-  if (target === undefined) return null;
+  const asks = eyeUnder(l, x, y, field);
+  if (asks === null) return null;
+  const { target } = asks;
+  const command = { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 } as const;
   // Signed with this field's seat, whosever the eye is: the wrong one is
-  // refused by the simulation, and told so in red on the eye.
+  // refused by the simulation, and told so in red on the eye — a press and
+  // no more, holding nothing, so no move of the thumb is refused a second
+  // time (`spool-grip.ts`'s knob, `sinew-handles.ts`'s handles).
+  if (asks.seat !== field.seat) return { player: field.seat, command, hold: null };
   return {
     player: field.seat,
-    command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
+    command,
     hold: { kind: "drag", target, player: field.seat, originX: x, originY: y },
   };
 }

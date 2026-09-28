@@ -28162,3 +28162,14 @@ The bottleneck: the headless hand and the page's hand differed only by the
 game's half-beat grid, which nothing a probe builds by default turns on.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE WARDEN refuses the wrong seat's press once
+
+- reading: 5 min. `warden-grip.ts`, THE SPOOL's and THE SINEW's `hold: null`.
+- writing: 5 min. The early return and the test, both seats and phases.
+- looking: 0 min. Nothing drawn changed but how often a red ring comes.
+- friction: 0 min.
+- landing: 5 min. The test run against the old file, the INSTAR finding.
+
+The bottleneck: none worth the name; the fix was already written next door
+in `spool-grip.ts`.
