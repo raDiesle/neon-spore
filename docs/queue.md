@@ -363,6 +363,7 @@ list removes it and the list with it.
 ## `queue take` cannot take again an entry this session keeps
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Taken:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the (claim: claude/queue-queue-take-cannot-take-again-an-entry-this-sessi)
 - **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`
 
 An entry that is worked one lane at a time and kept between them (the
