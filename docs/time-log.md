@@ -28186,3 +28186,5 @@ in `spool-grip.ts`.
 
 The bottleneck: none; the sweep of every other grip was cut off and queued
 so this could land at the owner's stop.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

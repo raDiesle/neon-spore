@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 77b442fec — THE INSTAR refuses a press on the partner's ring once, not on every move
+
+A press on a mark for the other seat was handed through with a hold, so every move of the resting thumb sent the drag again and the ring was refused over and over. It is handed through holding nothing now, as THE WARDEN's eye is: one press, one refusal. The sweep of every other grip for the same bug is queued.
+
 ## 2026-09-28 · 6575fa346 — Queue the pointer-conversion scan's timeout under load
 
 ## 2026-09-28 · fb5e472dd — THE WARDEN refuses the wrong seat's press on her eye once, not on every move
