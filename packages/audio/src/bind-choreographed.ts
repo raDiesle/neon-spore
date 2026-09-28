@@ -157,6 +157,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
       return ledgerCue(e, cols);
     case "sinewSettle":
     case "sinewGrip":
+    case "sinewRefuse":
     case "sinewRelease":
     case "sinewEnter":
     case "sinewLoose":

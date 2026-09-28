@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SINEW's fourteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SINEW's fifteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, and here the pan is the one thing the ear
  * can add to the picture: the mass hangs in one column and the two handles
@@ -18,6 +18,7 @@ export function sinewCue(
       type:
         | "sinewSettle"
         | "sinewGrip"
+        | "sinewRefuse"
         | "sinewRelease"
         | "sinewEnter"
         | "sinewLoose"
@@ -40,6 +41,10 @@ export function sinewCue(
       return { id: "boss.sinewSettle", pan };
     case "sinewGrip":
       return { id: "boss.sinewGrip", pan };
+    // THE INSTAR's own knock, *not yours*: a refused thumb sounds the same on
+    // every boss, as its mark looks the same (`render/mark-feedback.ts`).
+    case "sinewRefuse":
+      return { id: "boss.instarRefuse", pan };
     case "sinewRelease":
       return { id: "boss.sinewRelease", pan };
     case "sinewEnter":

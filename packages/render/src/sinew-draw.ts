@@ -75,7 +75,8 @@ export function drawSinew(
     drawSinewBand(ctx, l, cfg, s, root, mass, beat, beatPhase, time);
   }
   drawMass(ctx, l, cfg, mass, rx, time, sinewSum01(s, cfg), sinewCrushed(s, cfg), fx.hurt.value);
-  if (!landed) drawSinewHandles(ctx, l, cfg, s, mass, beat, beatPhase, time, swing, swinging);
+  if (!landed)
+    drawSinewHandles(ctx, l, cfg, s, mass, beat, beatPhase, time, swing, swinging, fx.verdicts);
   ctx.restore();
 }
 

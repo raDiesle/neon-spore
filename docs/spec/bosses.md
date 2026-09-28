@@ -4839,6 +4839,22 @@ eight beats, and the beat the mass is walked clear or lands shuts it
 part keeps its own `sinewPartSlowBeats`, a moment that asks nothing. The film
 ends before the fall and replays unchanged; the guide says no count.
 
+**The handles answer a touch the way every mark does** (28 September 2026,
+the owner's rule of the 24th and his answer of the 27th; `mark-feedback.ts`).
+Both handles are drawn on both screens, so all of the convention applies. A
+handle asks while its owner's hand is off it and the field has a word for
+that hand — `PULL`, `APART`, `SWAY`, and not the slack tendon's silence
+(`sinew-word.ts`). While it asks, its owner sees a halo breathing under it
+and the partner sees a turning ring and a clock on it. A press on the other
+seat's handle is handed through holding nothing, and the simulation refuses
+it: `sinewRefuse` (`sinew-hand.ts`), voiced with THE INSTAR's *not yours*
+knock. The grip washes the handle green, a refusal red, and the snap both
+handles red — one `GripVerdicts` in `SinewFx`, keyed by the handle's owner
+and drawn wherever the whip has the handle this frame (`sinew-marks.ts`).
+The desk asks the handle whose it is before a press (`sinewGripSeat`,
+`desk-grab.ts`). The pull fill was already there: the cord and the ring
+are drawn at the pull (`handle-draw.ts`).
+
 ## 11.27 THE LEDGER — the boss that bills your own hull for every shot
 
 > The one where every hit you land comes back at your own hull.

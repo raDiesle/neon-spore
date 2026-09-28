@@ -24,6 +24,8 @@ export type SinewEvent =
   | ({ type: "sinewSettle"; fibres: number; row: number } & SinewColEvent)
   /** A hand took hold of its handle. */
   | ({ type: "sinewGrip"; player: 1 | 2 } & SinewColEvent)
+  /** `player` pressed the other seat's handle, which is not theirs to take: refused. */
+  | ({ type: "sinewRefuse"; player: 1 | 2 } & SinewColEvent)
   /** A hand let go — lifted, or thrown off by a snap. */
   | ({ type: "sinewRelease"; player: 1 | 2 } & SinewColEvent)
   /** The sum came into the zone: the hold is counting. */

@@ -1280,6 +1280,7 @@ by hand never moves.
 | `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/sinew-word.ts` | **What THE SINEW is asking of one hand**, and the three silences that are the fight |
+| `packages/render/src/sinew-marks.ts` | THE SINEW's handles answering a touch: the halo, the partner's ring and clock, the verdict |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |

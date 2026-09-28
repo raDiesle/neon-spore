@@ -49,6 +49,12 @@ export function releaseSinew(world: World, s: SinewState, player: 1 | 2): void {
  * and `fromMilli` how far sideways, both cut to `sinewReachMilli`; a pull
  * upward is no pull.
  *
+ * **The other seat's handle refuses the press, and says so** (`sinewRefuse`,
+ * on that handle's side): both handles are drawn on both screens, so a thumb
+ * can land on the partner's, and the red on it is what tells that thumb whose
+ * it was. Only a press is ever sent for it — the hit test hands it through
+ * holding nothing (`render/sinew-handles.ts`) — so it is said once a press.
+ *
  * **A swinging handle is taken hold of sideways only.** A hand may land on one
  * while the snap-back is still whipping it, but its pull is pinned to nought
  * for as long as that lasts: nobody hauls on a rope that is not there yet.
@@ -57,9 +63,15 @@ export function releaseSinew(world: World, s: SinewState, player: 1 | 2): void {
 export function sinewHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
   const side = command.target === "sinewLeft" ? 1 : command.target === "sinewRight" ? 2 : null;
-  if (side === null || side !== player) return;
+  if (side === null) return;
   const s = sinewBoss(world);
   if (s === null) return;
+  if (side !== player) {
+    if (command.on && s.outBeat < 0) {
+      world.events.push({ type: "sinewRefuse", player, col: handCol(world, s, side) });
+    }
+    return;
+  }
   if (!command.on) {
     releaseSinew(world, s, player);
     return;

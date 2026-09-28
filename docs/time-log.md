@@ -28115,3 +28115,17 @@ The bottleneck was keeping the brake's rail hidden from the navigator while stil
 The bottleneck was the convention against the boss: the partner's ring would draw each seat the other's secret, so it had to be left out and the reason written down rather than drawn.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE SINEW's handles answer a touch the way THE INSTAR does
+
+- reading: 5 min. `sinew-handles.ts`, `sinew-hand.ts`, `sinew-word.ts`,
+  `sinew-fx.ts` and the event's registration sites.
+- writing: 5 min. `sinewRefuse` and its five registrations, the verdicts,
+  `sinew-marks.ts`, the hit test's hand-through, the desk's seat, two test
+  files, the docs.
+- looking: 0 min. Both seats' frames with the tendon hung, paired.
+- friction: 0 min. An import cycle between the marks and the handles, broken
+  by keeping the desk's question beside the hit test.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the event's registrations: a new receipt is five lists in three packages, found only by searching for the last boss that added one.

@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
+import { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -8,7 +9,7 @@ import { PALETTE } from "./palette.js";
 /**
  * What THE SINEW leaves behind a frame: the whip a snap-back puts through
  * the mass and its handles, the flash of it, the shock it runs down the
- * hull, and the bursts its fourteen receipts throw.
+ * hull, the bursts its fifteen receipts throw, and each handle's verdict on a touch.
  *
  * Everything else about the boss is drawn off the world every frame
  * (`sinew-draw.ts`). The snap is the exception three times over: the
@@ -31,6 +32,12 @@ import { PALETTE } from "./palette.js";
  * **A fibre parted is a sequence landed** — the sum held in its zone for the
  * count — and so is the last, so both deal the mass the blow every boss
  * takes (`boss-hurt.ts`). Coming into the zone deals nothing.
+ *
+ * **Each handle's verdict is keyed by the seat that owns it** (`sinewHandleSeat`,
+ * `sinew-marks.ts`): green on the grip, red on the other seat's refused press
+ * (`sinewRefuse` carries the presser, so the handle is the other one), and red
+ * on both at the snap, which is the one moment the pull itself was wrong and
+ * threw both hands off.
  */
 
 /** The whip: how far the mass swings at the instant of the snap, in tiles,
@@ -56,6 +63,8 @@ export class SinewFx {
   private noted = false;
   /** The blow a fibre parted deals the mass. */
   readonly hurt = new BossHurt();
+  /** Each handle's verdict, keyed by its owner's seat. */
+  readonly verdicts = new GripVerdicts();
 
   /** Where the mass was drawn this frame, for the receipts with no row of their own. */
   note(x: number, y: number): void {
@@ -95,6 +104,10 @@ export class SinewFx {
           break;
         case "sinewGrip":
           handle(e.player, e.col, 3, PALETTE.text);
+          this.verdicts.mark(e.player, true);
+          break;
+        case "sinewRefuse":
+          this.verdicts.mark(e.player === 1 ? 2 : 1, false);
           break;
         case "sinewRelease":
           handle(e.player, e.col, 2, PALETTE.dim);
@@ -112,6 +125,8 @@ export class SinewFx {
         case "sinewSnap":
           atMass(16, PALETTE.ember);
           this.snap(spb);
+          this.verdicts.mark(1, false);
+          this.verdicts.mark(2, false);
           break;
         case "sinewRock":
           burst(tileCX(l, e.col), tileCY(l, e.row), 4, PALETTE.rock);
@@ -157,6 +172,7 @@ export class SinewFx {
     this.flashLeft = Math.max(0, this.flashLeft - dt);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.verdicts.update(dt);
   }
 
   /** The flash: the whole field lit for a beat, dying away. */
@@ -179,5 +195,6 @@ export class SinewFx {
     this.massY = 0;
     this.noted = false;
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }

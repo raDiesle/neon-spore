@@ -53,7 +53,10 @@ export const SINEW_CONTROLS: readonly FieldControlDef[] = [
       "Player 2's screen shows the sum on the band and never the zone; her " +
       "job is to say *that is where we are*. Both handles are drawn on both " +
       "screens so each seat can see the other's hand arrive, but only your " +
-      "own answers your thumb, and the cord under each hand is drawn at the " +
+      "own takes your thumb: a press on the partner's is refused in red " +
+      "(sinewRefuse) and the grip goes green. While a handle waits for its " +
+      "hand, its owner sees a halo under it and the partner a turning ring " +
+      "and a clock on it. The cord under each hand is drawn at the " +
       "pull so the depth is visible to the one who cannot feel it. From " +
       "sinewDecayFibres parted the tendon goes slack under any hand — the sum " +
       "creeps down while either is holding — and only both letting go " +

@@ -19,10 +19,11 @@ import { type Field, touchDown, touchMove } from "../src/touch.js";
  * the half a simulation may not have — a point in pixels becoming a pull. So
  * this file asks what only a hit test can answer: that each handle is
  * answered where it is drawn (`sinewHandleCircle` is the one place the circle
- * is written down), that each answers **its own seat only** — the left is
- * the pilot's and the right the navigator's, and the wrong seat's press
- * falls through to the field — and that a hand carried down reports the
- * depth the simulation reads (`fromYMilli`).
+ * is written down), that each is taken hold of by **its own seat only** —
+ * the left is the pilot's and the right the navigator's, and the wrong seat's
+ * press is handed through holding nothing, for the simulation to refuse —
+ * and that a hand carried down reports the depth the simulation reads
+ * (`fromYMilli`).
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -90,14 +91,19 @@ describe("a thumb on THE SINEW's handles", () => {
     expect(target(touchDown(l, rest.x, rest.y, field(world, 2)))).toBe("sinewRight");
   });
 
-  it("answers its own seat only: the other side's handle falls through", () => {
+  it("takes hold for its own seat only: the other side's handle is a press to be refused", () => {
     const world = hung();
     const l1 = layout("p1");
     const right = sinewHandleCircle(l1, CFG, tendon(world), world.beat, 0, 1);
-    expect(target(touchDown(l1, right.x, right.y, field(world, 1)))).not.toBe("sinewRight");
+    const his = touchDown(l1, right.x, right.y, field(world, 1));
+    expect(his?.hold).toBeNull();
+    expect(his?.player).toBe(1);
+    expect(his?.command).toMatchObject({ kind: "drag", target: "sinewRight", on: true });
     const l2 = layout("p2");
     const left = sinewHandleCircle(l2, CFG, tendon(world), world.beat, 0, -1);
-    expect(target(touchDown(l2, left.x, left.y, field(world, 2)))).not.toBe("sinewLeft");
+    const hers = touchDown(l2, left.x, left.y, field(world, 2));
+    expect(hers?.hold).toBeNull();
+    expect(hers?.command).toMatchObject({ kind: "drag", target: "sinewLeft", on: true });
   });
 
   it("is nothing on a wave without the boss", () => {

@@ -2,10 +2,12 @@ import { type SimConfig, type SinewState, sinewHeld, sinewPull } from "@neon-spo
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
+import type { GripVerdict } from "./grip-verdict.js";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { type Point, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
+import { drawSinewHandleHalo, drawSinewHandleMarks, sinewHandleAsks } from "./sinew-marks.js";
+import { type Point, sinewLanded, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
 import { sinewWord } from "./sinew-word.js";
 import { sinew } from "./tether-sinew.js";
 import type { Field, Touch } from "./touch.js";
@@ -103,23 +105,45 @@ export function sinewHandleAt(
 }
 
 /**
- * The press, answered for this seat's side only. `bossOf(field, "sinew")` is `null` on
- * every wave without the boss, and a press then falls through to whatever
- * is behind it exactly as if no ring were there.
+ * The press. `bossOf(field, "sinew")` is `null` on every wave without the
+ * boss, and a press then falls through to whatever is behind it exactly as if
+ * no ring were there. This seat's own handle is taken hold of; the partner's
+ * is handed through holding nothing, for the simulation to refuse in red
+ * (`sim/sinew-hand.ts`, `sinew-marks.ts`) — a press and no more, so no move of
+ * the thumb is refused a second time. Once the mass has landed no handle is
+ * drawn, and neither answers.
  */
 export function sinewHandleUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "sinew");
-  if (s === null) return null;
-  const side = field.seat === 1 ? -1 : 1;
-  if (sinewHandleSeat(side) !== field.seat) return null;
-  const rest = sinewHandleCircle(l, field.cfg, s, field.beat, field.beatPhase, side);
-  if (!hitCircle(rest, x, y)) return null;
-  const target = side === -1 ? "sinewLeft" : "sinewRight";
-  return {
-    player: field.seat,
-    command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: { kind: "drag", target, player: field.seat, originX: x, originY: y },
-  };
+  if (s === null || sinewLanded(s)) return null;
+  for (const side of [-1, 1] as const) {
+    const rest = sinewHandleCircle(l, field.cfg, s, field.beat, field.beatPhase, side);
+    if (!hitCircle(rest, x, y)) continue;
+    const target = side === -1 ? "sinewLeft" : "sinewRight";
+    const command = { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 } as const;
+    if (sinewHandleSeat(side) !== field.seat) return { player: field.seat, command, hold: null };
+    return {
+      player: field.seat,
+      command,
+      hold: { kind: "drag", target, player: field.seat, originX: x, originY: y },
+    };
+  }
+  return null;
+}
+
+/**
+ * **Whose thumb the handle under this point is for** — the desk's question
+ * before a press (`desk-grab.ts`, as `spoolGripSeat`), because both handles
+ * are there for either seat and each refuses the one it is not.
+ */
+export function sinewGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  const s = bossOf(field, "sinew");
+  if (s === null || sinewLanded(s)) return undefined;
+  for (const side of [-1, 1] as const) {
+    const rest = sinewHandleCircle(l, field.cfg, s, field.beat, field.beatPhase, side);
+    if (hitCircle(rest, x, y)) return sinewHandleSeat(side);
+  }
+  return undefined;
 }
 
 export function drawSinewHandles(
@@ -134,6 +158,8 @@ export function drawSinewHandles(
   /** The snap-back's whip, in tiles, and whether the handles are swinging. */
   swingTiles: number,
   swinging: boolean,
+  /** Each handle's verdict, keyed by its owner's seat (`sinew-fx.ts`). */
+  verdicts: { at(key: number): GripVerdict | null },
 ): void {
   const falling = s.fallBeat >= 0 && s.outBeat < 0;
   for (const side of [-1, 1] as const) {
@@ -142,6 +168,7 @@ export function drawSinewHandles(
     const held = sinewHeld(s, player);
     const pull = Math.min(1, sinewPull(s, player) / Math.max(1, cfg.sinewReachMilli));
     const mine = l.role === "test" || (l.role === "p1") === (player === 1);
+    const asks = sinewHandleAsks(cfg, s, player, falling, swinging);
     // The cord, from the mass's own flank out to the ring: the shipped sinew
     // look, in the boss's colour for the hand that is yours.
     sinew({
@@ -155,6 +182,7 @@ export function drawSinewHandles(
       hex: mine ? PALETTE.hull : PALETTE.dim,
       rim: mine ? PALETTE.hullRim : PALETTE.rock,
     });
+    drawSinewHandleHalo(ctx, head, mine, asks, time);
     drawHandleRing(ctx, {
       x: head.x,
       y: head.y,
@@ -166,6 +194,7 @@ export function drawSinewHandles(
       time,
       theirs: !mine,
     });
+    drawSinewHandleMarks(ctx, head, mine, asks, time, verdicts.at(player));
     // **The cue, and not a word of this file's own** (`decisions.md` #34,
     // `boss-cue-text.ts`). Which word, and the three silences, are
     // `sinew-word.ts`'s — the argument is long and the one thing it must not do

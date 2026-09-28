@@ -218,6 +218,7 @@ const SAMPLES: Record<string, SimEvent> = {
   tasterPryFill: { type: "tasterPryFill", col: 2, color: "cyan", owed: 1 },
   sinewSettle: { type: "sinewSettle", col: 5, fibres: 6, row: 5 },
   sinewGrip: { type: "sinewGrip", col: 4, player: 1 },
+  sinewRefuse: { type: "sinewRefuse", col: 6, player: 1 },
   sinewRelease: { type: "sinewRelease", col: 6, player: 2 },
   sinewEnter: { type: "sinewEnter", col: 5 },
   sinewLoose: { type: "sinewLoose", col: 5 },
