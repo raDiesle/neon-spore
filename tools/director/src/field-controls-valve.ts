@@ -19,7 +19,10 @@ export const VALVE_CONTROLS: readonly FieldControlDef[] = [
       "the thumb has gone, signed, so the third movement's lap has to be made " +
       "one way round. On its mark the freeze window opens under THE SLOW; " +
       "turned off it again the wheel has slipped and the window shuts " +
-      "(sim/valve-hand.ts).",
+      "(sim/valve-hand.ts). While it turns it wears the halo on the " +
+      "pilot's screen and the partner's ring and clock on the navigator's; " +
+      "onto its mark greens it and slipped off reddens it " +
+      "(render/valve-verdicts.ts).",
     source:
       "handles.ts — valveWheelUnder() under handleUnder(); touch-move.ts turnAbout() on the move",
     holdKind: "drag",
@@ -40,7 +43,10 @@ export const VALVE_CONTROLS: readonly FieldControlDef[] = [
       "live pin, pulls the pin. Between the pins it is the story: a tap caps " +
       "the jet, both thumbs held ride out the brace and the seal, and a " +
       "rubbing thumb wipes the film, its turns counted by its host " +
-      "(sim/valve-hand.ts, render/rub.ts).",
+      "(sim/valve-hand.ts, render/rub.ts). It wears the halo on each " +
+      "screen it asks and the partner's ring and clock on the other; every " +
+      "step answered greens it and every window run out reddens it " +
+      "(render/valve-verdicts.ts).",
     source: "handles.ts — valvePinUnder() under handleUnder(); a rub hold in the wipe",
     holdKind: "drag",
     dragTarget: "valvePin",

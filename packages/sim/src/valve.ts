@@ -179,3 +179,25 @@ export function freshValve(beat: number, marks: readonly number[]): ValveState {
     sparkBeat: 0,
   };
 }
+
+/**
+ * Whether the wheel is asking the pilot to turn it: a mark lit and the wheel
+ * not yet on it. Once it holds, the question is the navigator's tap. What the
+ * picture haloes (`render/valve-verdicts.ts`).
+ */
+export function valveWheelAsks(s: ValveState): boolean {
+  return s.phase === "turn";
+}
+
+/**
+ * Whether the pin is asking `seat`: the navigator's tap while the wheel
+ * holds; anybody's pull while frozen, cap on the jet and rub on the film; and
+ * through the brace and the seal each thumb that is not yet on it
+ * (`valve-hand.ts`).
+ */
+export function valvePinAsks(s: ValveState, seat: 1 | 2): boolean {
+  if (s.phase === "hold") return seat === 2;
+  if (s.phase === "frozen" || s.phase === "jet" || s.phase === "wipe") return true;
+  if (valveBracing(s)) return !s.held[seat - 1];
+  return false;
+}

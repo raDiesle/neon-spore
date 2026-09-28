@@ -17,6 +17,7 @@ import {
   valveSparkPoint,
   valveWheel,
 } from "./valve-shape.js";
+import { ValveVerdicts } from "./valve-verdicts.js";
 
 /**
  * What THE VALVE leaves behind a frame: the **clamp** that flares round the
@@ -69,6 +70,8 @@ export class ValveFx {
   readonly shock = new HullShock();
   /** The blow a freeze and a pull deal the drum. */
   readonly hurt = new BossHurt();
+  /** The verdict on the wheel and the pin (`valve-verdicts.ts`). */
+  readonly marks = new ValveVerdicts();
 
   /** How far the drum is knocked round right now, in radians — a slip, a lapse or a thaw. */
   get kick(): number {
@@ -92,6 +95,7 @@ export class ValveFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("valve")) continue;
       const c = valveCentre(l, cfg);
@@ -170,6 +174,7 @@ export class ValveFx {
     this.shock.update(dt);
     if (this.sparkFall > 0) this.sparkAge += dt;
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -181,6 +186,7 @@ export class ValveFx {
     this.sparkFall = 0;
     this.shock.clear();
     this.hurt.clear();
+    this.marks.clear();
   }
 }
 

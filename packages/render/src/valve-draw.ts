@@ -41,16 +41,18 @@ import {
 } from "./valve-shape.js";
 import { drawValveSpark } from "./valve-spark.js";
 import { drawValveStory, valveShake } from "./valve-story.js";
+import { drawValveHalos, drawValvePinHalo, drawValveVerdicts } from "./valve-verdicts.js";
 
 /**
  * **THE VALVE**: a squat iron drum standing over the middle of the field,
  * one wheel in its face, a pin socket beside it and three pins hung under it
  * (§11.42, `bosses-choreographed.md` §25).
  *
- * **Both screens are drawn the same.** Nothing here reads `l.role`: the wheel
- * is the pilot's and the tap the navigator's, but each has to watch the
- * other's half to time their own — the freeze is one thumb stopping what the
- * other is moving.
+ * **Both screens are drawn alike.** The wheel is the pilot's and the tap the
+ * navigator's, but each has to watch the other's half to time their own —
+ * the freeze is one thumb stopping what the other is moving; `l.role` decides
+ * only whose mark wears the halo and whose the partner's clock
+ * (`valve-verdicts.ts`).
  *
  * **Iron grey throughout**, the mark and the socket plain white, and nothing
  * colour-gated. **Its health is the pins**, and the list is how it shows: the
@@ -79,6 +81,7 @@ export function drawValve(
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.5 * open);
   ctx.translate(c.x + shake.x + fx.hurt.shakeX(time, l.tile), c.y + shake.y);
   ctx.rotate(valveList(s, cfg, beat, beatPhase) + fx.kick);
+  drawValvePinHalo(ctx, l, s, beatPhase, time);
   for (let i = 0; i < VALVE_PINS; i++) drawPin(ctx, l, world, s, i, beat, beatPhase, time);
   if (open <= 0) drawDrum(ctx, l, world, s, beat, beatPhase, time, fx);
   else {
@@ -128,11 +131,13 @@ function drawDrum(
     ctx.fillStyle = rgba(PALETTE.rockDark, 1);
     ctx.fill(valveHolePath(l, i, VALVE_PINS));
   }
+  drawValveHalos(ctx, l, s, beatPhase, time);
   drawWheel(ctx, l, s);
   drawValveFx(ctx, l, fx);
   if (valveTurning(s) || valveFrozen(s)) drawValveMark(ctx, l, world, s);
   drawValveSocket(ctx, l, world, s, valveSocketGlow(s, beatPhase), beat, beatPhase);
   drawValveStory(ctx, l, s, world.cfg, beat, beatPhase);
+  drawValveVerdicts(ctx, l, s, beatPhase, time, fx.marks.verdicts);
 }
 
 /**

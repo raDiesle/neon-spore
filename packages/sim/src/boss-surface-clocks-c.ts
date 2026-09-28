@@ -224,7 +224,9 @@ export {
   valveMark,
   valveNeedMilli,
   valveOnMark,
+  valvePinAsks,
   valveTurning,
+  valveWheelAsks,
   valveWiping,
 } from "./valve.js";
 // And both windows' lengths, so the rings the picture closes read the same

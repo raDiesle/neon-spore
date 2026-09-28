@@ -1333,6 +1333,7 @@ by hand never moves.
 | `packages/render/src/valve-grip.ts` | **The two thumbs on THE VALVE** — the grip of its hands lane |
 | `packages/render/src/valve-fx.ts` | What THE VALVE leaves behind a frame: the **clamp** round a frozen wheel, a pulled pin's slot, the kick, the hull shock |
 | `packages/render/src/valve-fx-story.ts` | **What THE VALVE's story throws** (`sim/valve-story.ts`): the burst each of its twelve events leaves |
+| `packages/render/src/valve-verdicts.ts` | **THE VALVE's wheel and pin answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/veil-bolt.ts` | THE VEIL's lightning: small bolts that break out of the cloud's own border, scattered round it, each in its |
 | `packages/render/src/veil-marks.ts` | What stands over a cloud, and it is a different thing in each seat |
 | `packages/render/src/veil-mass.ts` | THE VEIL's cloud, filled: what a thunderhead is made of between its rim and its lightning |

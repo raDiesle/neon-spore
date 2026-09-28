@@ -28580,3 +28580,13 @@ The bottleneck: the full convention on four marks, one of them a half-ring whose
 The bottleneck: `keel-marks.ts` was already the ring's drawer, so the verdicts needed a name of their own.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE VALVE's wheel and pin answer a touch the way every mark does
+
+- reading: 5 min. The hand, the drum's words, the drawer's frame, the story's phases.
+- writing: 15 min. `valveWheelAsks` and `valvePinAsks` in the sim, `valve-verdicts.ts`, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the drum is drawn turned by its list, so every mark had to be placed in the drum's own frame, and the frozen pin's halo drawn under the pins rather than with the rest.

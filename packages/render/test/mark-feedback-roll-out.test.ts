@@ -22,7 +22,6 @@ import { BOSS_KINDS } from "@neon-spore/sim";
  * a boss built after 27 September 2026 is never put on it.
  */
 const TO_COME: readonly string[] = [
-  "valve",
   "seam",
   "oculus",
   "vise",

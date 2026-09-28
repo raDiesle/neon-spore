@@ -8643,6 +8643,23 @@ the face open in two halves. The spark is an ember falling down its column
 `valveWheel` and `valvePin`, the fx and the events off the silent lists,
 hurt, the cue's words and the autopilot hand.
 
+**Its wheel and pin answer a touch the way every mark does**
+(`render/src/valve-verdicts.ts`; the owner, 27 September 2026), the whole
+convention, because both screens draw the one drum. The wheel asks the pilot
+while it turns (`sim/valve.ts` `valveWheelAsks`); the pin asks the navigator
+while the wheel holds, anybody through the freeze, the jet and the wipe, and
+each thumb not yet on it through the brace and the seal (`valvePinAsks`). A
+mark wears the halo on the screen it asks and the partner's turning ring and
+waiting clock on the other's — so while the wheel holds the pilot sees the
+navigator's tap waited on, and through the brace a thumb already down sees
+the one still missing. While frozen the halo sits under the live pin, the
+plate the pull is drawn from; otherwise on the socket. The verdicts are the
+drum's words: onto the mark greens the wheel and slipped off it reddens it;
+the freeze, the pull, the cap, the brace, the dry face and the clean seal
+green the pin, and each window let run out reddens it. The pilot's tap on the
+socket stays silent, as the hand says. Its test:
+`render/test/valve-verdict.test.ts`.
+
 ## 11.43 THE SEAM — the boss answered with the cannon and the shield, in order
 
 > A shelled ridge down the middle of the field, one crack along its spine.
