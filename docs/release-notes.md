@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 2922bf2bb — THE GAUGE's needle and band answer a touch the way THE INSTAR's marks do
+
+On the screen that shows it, the part the round asks for wears the halo under its ring until the thumb is down, and the thumb landing washes it green. The asks are the simulation's (`gaugeNeedleAsks`, `gaugeBandAsks`), and the landing is a new silent event, `gaugeHold`. There is no partner's clock and no red refusal: the band is never drawn on the pilot's screen and the jam never shown on the navigator's, so either would tell a seat what the round keeps from it. A round's frame never reached `Effects.ingest`, so the takeover now feeds these verdicts and the round draws get the seat's effects.
+
 ## 2026-09-28 · 37f6d2c7e — THE MAZE's string and heart answer a touch the way THE INSTAR's marks do
 
 The part asked of this seat wears the halo until this hand is on it, and the part asked of the partner wears their ring and the clock. Her thumb landing on the heart washes it green, the tear washes both green, and a press from the wrong seat washes the part red and knocks. The sim now refuses that press and says so with `mazeRefuse`; before, it dropped the press silently. Whether each part is asked is also the sim's now (`mazeStringAsks`, `mazeHeartAsks`), and a desk press is signed with the part's owner (`mazeGripSeat`).

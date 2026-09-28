@@ -28276,3 +28276,5 @@ which the asking now breaks on purpose and had to learn to take out.
 
 The bottleneck: finding that a round's frame never reaches `Effects.ingest`,
 so the verdicts had no way onto the game's screen until the takeover fed them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
