@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SCUTTLE's thread is drawn backwards and never leaves its socket
 
 - **Found:** 2026-09-24, claude/scuttle-hang-versus-swap
+- **Taken:** 2026-09-28, claude/queue-the-scuttles-thread-is-drawn-backwards-and-never
 - **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/scuttle-draw.ts`, `packages/render/test/scuttle-frame.test.ts`
 - **Asks:** should the drop grow past 0.32 tiles, or should the part and its socket shrink to make room for the thread?
 - **Answered:** 2026-09-27 — the owner left it to the lane. Chosen: keep the 0.26 drop and shrink the ends, over raising the drop, because the drop is what VERSUS `apart` was picked for. The socket floor gets a smaller half height and the plate one of its own. Fix the guard and the test as the body says.
