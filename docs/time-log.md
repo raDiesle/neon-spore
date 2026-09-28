@@ -28211,3 +28211,5 @@ The bottleneck: the second full `check`, which is the proof and nothing else.
 
 The bottleneck: reading ten hands to prove a negative; only the sims that
 push a `*Refuse` event could have had the bug, and a grep finds those first.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

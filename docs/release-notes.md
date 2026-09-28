@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 187f8adda — No other grip refuses the wrong seat's press on every move
+
+After THE WARDEN's eye and THE INSTAR's marks, the ten other grips that sign a press with `field.seat` were read against the hand each reaches. None has the bug. Baton, burgee, davit, sling, gimbal and filament hand the wrong seat nothing at all; the antiphon organ, pulse meter and surge bulb are either seat's; THE FLUE's tap from the wrong seat is edge-gated and silent; and THE BATON's one refusal is already counted once in the sim.
+
 ## 2026-09-28 · dd488be17 — The pointer-conversion scan is one test per file, not one over the tree
 
 The scan of apps/game/src for a hand-written stage conversion read every file inside one test, which took 35 ms alone and 5137 ms in a loaded shard of `land`, past bun's 5 s default. It is now one test per file, as `purity.test.ts` does it, so no single test comes near the limit. Queued alongside: `stripNonCode` never strips a template literal with anything in it.
