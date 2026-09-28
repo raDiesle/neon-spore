@@ -28085,3 +28085,17 @@ The bottleneck was deciding what makes a boss one *with a mark*, since nothing i
 The bottleneck was the desk: a mark the wrong seat can press has to name its seat before the press, or the test screen's mouse only ever reaches the pilot.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE SPOOL's brake answers a touch the way THE INSTAR does
+
+- reading: 5 min. `spool-hand.ts`, `spool-grip.ts`, `spool-brake.ts`, and
+  how THE WARDEN's lane had just done the same.
+- writing: 5 min. `spoolRefuse` and its registrations, the verdicts, the
+  halo and the partner's ring at the rest knob, `spoolGripSeat`, two test
+  files, the docs.
+- looking: 5 min. Both seats' frames of THE SPOOL at its first zone, paired.
+- friction: 0 min. The size hook and lint asked for a condensed comment, a
+  format and a sort, each one command.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was keeping the brake's rail hidden from the navigator while still giving her a mark to press and a verdict to see, which put both at the knob's rest position.

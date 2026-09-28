@@ -1,5 +1,6 @@
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
+import { spoolGripSeat } from "./spool-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
 import { wardenGripSeat } from "./warden-grip.js";
 
@@ -24,7 +25,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    would never reach the second, so the ring is asked whose it is first
  *    (`instar-mark-grip.ts` `instarMarkSeat`). THE WARDEN's eye is the
  *    second, since it answered a touch the same way (`warden-grip.ts`
- *    `wardenGripSeat`).
+ *    `wardenGripSeat`), and THE SPOOL's knob the third (`spool-grip.ts`
+ *    `spoolGripSeat`). One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
  *    pilot's thumb — so the same hit test run for the second seat finds what
@@ -51,8 +53,7 @@ export function deskDown(
 ): Touch | null {
   const first = seats[0] ?? 1;
   if (seats.length < 2) return touchDown(l, x, y, fieldFor(first));
-  const named =
-    instarMarkSeat(l, x, y, fieldFor(first)) ?? wardenGripSeat(l, x, y, fieldFor(first));
+  const named = markSeat(l, x, y, fieldFor(first));
   if (named !== undefined) return touchDown(l, x, y, fieldFor(named));
   for (const seat of seats) {
     const t = touchDown(l, x, y, fieldFor(seat));
@@ -96,8 +97,7 @@ export function deskDownAll(
   const other = first.player === 1 ? 2 : 1;
   if (!seats.includes(other)) return [first];
   const field = fieldFor(first.player);
-  const wants =
-    instarMarkBoth(l, x, y, field) || (both && instarMarkSeat(l, x, y, field) === undefined);
+  const wants = instarMarkBoth(l, x, y, field) || (both && markSeat(l, x, y, field) === undefined);
   if (!wants) return [first];
   const second = touchDown(l, x, y, fieldFor(other));
   return second !== null && second.player === other ? [first, second] : [first];
@@ -127,4 +127,13 @@ export function pressSeat(
   device: 1 | 2,
 ): 1 | 2 {
   return handed && pressY >= l.bandTop ? device : t.player;
+}
+
+/** Whose thumb the mark under this point names, on every boss whose mark answers either seat. */
+function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  return (
+    instarMarkSeat(l, x, y, field) ??
+    wardenGripSeat(l, x, y, field) ??
+    spoolGripSeat(l, x, y, field)
+  );
 }

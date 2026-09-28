@@ -6,7 +6,7 @@ import { rgba } from "./hex.js";
 import { litBox, litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawSpoolBrake } from "./spool-brake.js";
+import { drawSpoolBrakeMark } from "./spool-brake.js";
 import type { SpoolFx } from "./spool-fx.js";
 import { drawSpoolGauge } from "./spool-gauge.js";
 import { drawSpoolLine } from "./spool-line.js";
@@ -22,7 +22,7 @@ import {
   spoolSocketPath,
   spoolWindR,
 } from "./spool-shape.js";
-import { showsSpoolBrake, showsSpoolZone } from "./view-role-clocks-c.js";
+import { showsSpoolZone } from "./view-role-clocks-c.js";
 
 /**
  * **THE SPOOL**: a thread-spool slung sideways across the top of the field, a
@@ -77,7 +77,7 @@ export function drawSpool(
   drawBarrel(ctx, l, pose, run, drift, hurt);
   drawRibs(ctx, l, world, s, pose, side, beat, beatPhase);
   drawFlange(ctx, l, pose, -side as -1 | 1, true, time, hurt);
-  if (s.phase !== "slack" && showsSpoolBrake(l.role)) drawSpoolBrake(ctx, l, cfg, s, pose, time);
+  if (s.phase !== "slack") drawSpoolBrakeMark(ctx, l, cfg, s, pose, time, fx.verdicts);
   if (s.phase !== "slack" && showsSpoolZone(l.role)) {
     drawSpoolGauge(ctx, l, cfg, s, pose, beat, beatPhase, time);
   }

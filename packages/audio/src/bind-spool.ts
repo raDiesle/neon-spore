@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SPOOL's eleven, in a file of their own so the page that routes them
+ * THE SPOOL's twelve, in a file of their own so the page that routes them
  * stays a switch.
  *
  * **The pan says nothing about whose fault anything is, and that is on
@@ -30,6 +30,7 @@ export function spoolCue(
         | "spoolLeg"
         | "spoolGrip"
         | "spoolLet"
+        | "spoolRefuse"
         | "spoolSlip"
         | "spoolRock"
         | "spoolRib"
@@ -53,6 +54,10 @@ export function spoolCue(
       return { id: "boss.spoolGrip", pan };
     case "spoolLet":
       return { id: "boss.spoolLet", pan };
+    // THE INSTAR's own knock, *not yours*: a refused thumb sounds the same on
+    // every boss, as its mark looks the same (`render/mark-feedback.ts`).
+    case "spoolRefuse":
+      return { id: "boss.instarRefuse", pan };
     case "spoolSlip":
       return { id: "boss.spoolSlip", pan };
     case "spoolRock":

@@ -6,8 +6,8 @@ import type { FieldControlDef } from "./field-control-def.js";
  * **One row where every other boss on this tab has two**, and that is the
  * boss: there is a single control in the fight, one seat has it, and the other
  * seat's whole half is a reading and a sentence. THE GIMBAL's pair are
- * offered together and THE HASP's are worked at once; this one is never
- * offered to player 2 at all (`sim/spool-hand.ts`).
+ * offered together and THE HASP's are worked at once; this one only ever
+ * refuses player 2 (`sim/spool-hand.ts`).
  *
  * **It is the only row here whose value is the whole of it.** Every other drag
  * on the field is answered by where it ends or by the edge it crosses — a
@@ -20,8 +20,8 @@ export const SPOOL_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE SPOOL'S BRAKE",
     where:
-      "on the knob of the rail down the near side of the spool slung across the top of the field, on player 1's screen, from the beat it swings in until the casing goes slack",
-    seat: "player 1 — the brake is the pilot's, fixed by the target's name and never negotiated, and his screen is the only one it is drawn on",
+      "on the knob of the rail down the near side of the spool slung across the top of the field, on player 1's screen, from the beat it swings in until the casing goes slack, with a halo under it while the line runs and nobody holds it; on player 2's, the partner's turning ring and clock where the knob rests, then; on the test screen",
+    seat: "player 1 — the brake is the pilot's, fixed by the target's name and never negotiated, and his screen is the only one the rail is drawn on",
     gesture: "grab and drag",
     does:
       "Carries the lever **down** its travel, and the line pays out slower " +
@@ -34,7 +34,8 @@ export const SPOOL_CONTROLS: readonly FieldControlDef[] = [
       "carried until the thumb moves it, and what it is worth is decided a " +
       "beat at a time against a zone he is never shown (sim/spool-step.ts). " +
       "He is drawn his own grip alone; how much line should be out by now is " +
-      "on her screen, and the sentence between them is the fight. No desk " +
+      "on her screen, and the sentence between them is the fight. The grip " +
+      "is green on the knob; player 2's press is refused, red. No desk " +
       "key: the travel is a carry, not a turn.",
     source: "handles.ts — spoolBrakeUnder() under handleUnder(); spool-grip.ts on the move",
     holdKind: "drag",

@@ -46,15 +46,15 @@ export const INGEST_SILENT_BOSS_C = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
-  // THE SPOOL's eleven: the line's length, the zone under it, the brake's
-  // depth and the four ribs are all read off the boss every frame, and what
-  // outlives a frame — the slip, the rib easing, the loosing — is one family
-  // read above the loop by spool-fx.ts (`docs/spec/bosses.md` §11.36).
+  // THE SPOOL's twelve: the line, the zone, the brake's depth and the ribs are
+  // read off the boss every frame, and what outlives one — the slip, a rib, the
+  // loosing, a verdict — is one family read above the loop by spool-fx.ts.
   "spoolEnter",
   "spoolZone",
   "spoolLeg",
   "spoolGrip",
   "spoolLet",
+  "spoolRefuse",
   "spoolSlip",
   "spoolRock",
   "spoolRib",

@@ -17,6 +17,11 @@ import type { World } from "./world.js";
  * it, because there is one brake on one spool and the navigator's half of the
  * fight is a zone she reads and a word she says.
  *
+ * **Her press is refused, and said** (`spoolRefuse`), so the knob she touched
+ * can answer it in red the way every mark does (`render/mark-feedback.ts`).
+ * Only the press, and only while the brake takes a hand: it changes nothing,
+ * and a slack casing has no brake to refuse her on.
+ *
  * **Letting go is not neutral.** A brake with no hand on it reads as fully
  * shallow and the line runs at its fastest (`spoolDepthMilli`), which is what
  * makes the one gesture in this fight a hold rather than a press — and why a
@@ -24,9 +29,14 @@ import type { World } from "./world.js";
  */
 export function spoolHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "spoolBrake") return;
-  if (player !== 1) return;
   const s = spoolBoss(world);
   if (s === null) return;
+  if (player !== 1) {
+    if (command.on && s.phase !== "slack") {
+      world.events.push({ type: "spoolRefuse", col: spoolCol(world.cfg), player });
+    }
+    return;
+  }
   if (!command.on) {
     if (!spoolHeld(s)) return;
     s.brakeMilli = NO_BRAKE;

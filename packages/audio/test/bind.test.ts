@@ -336,6 +336,7 @@ const SAMPLES: Record<string, SimEvent> = {
   spoolLeg: { type: "spoolLeg", col: 3, leg: 1 },
   spoolGrip: { type: "spoolGrip", col: 3 },
   spoolLet: { type: "spoolLet", col: 3 },
+  spoolRefuse: { type: "spoolRefuse", col: 3, player: 2 },
   spoolSlip: { type: "spoolSlip", col: 3 },
   spoolRock: { type: "spoolRock", col: 3 },
   spoolRib: { type: "spoolRib", col: 3, ribs: 2 },

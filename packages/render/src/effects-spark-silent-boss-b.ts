@@ -89,13 +89,14 @@ export const SILENT_BOSS_B = [
   "gimbalSeamHit",
   "gimbalHatch",
   "gimbalOut",
-  // THE SPOOL's eleven: what sparks is one family read above the loop by
+  // THE SPOOL's twelve: what sparks is one family read above the loop by
   // `spool-fx.ts`, never rows here (`docs/spec/bosses.md` §11.36).
   "spoolEnter",
   "spoolZone",
   "spoolLeg",
   "spoolGrip",
   "spoolLet",
+  "spoolRefuse",
   "spoolSlip",
   "spoolRock",
   "spoolRib",

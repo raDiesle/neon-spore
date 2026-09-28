@@ -1,7 +1,7 @@
-import { type SpoolState, spoolHeld, spoolPaying, type World } from "@neon-spore/sim";
+import type { SpoolState, World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import type { Layout } from "./layout.js";
-import { spoolKnobCircle } from "./spool-grip.js";
+import { spoolBrakeAsks, spoolKnobCircle } from "./spool-grip.js";
 
 /**
  * **What THE SPOOL is asking for** — page twenty-seven of the readings, and
@@ -30,7 +30,7 @@ export function spoolCues(
   s: SpoolState,
   beatPhase: number,
 ): readonly BossCue[] {
-  if (!spoolPaying(s) || spoolHeld(s)) return [];
+  if (!spoolBrakeAsks(s)) return [];
   const knob = spoolKnobCircle(l, world.cfg, s, world.beat, beatPhase);
   const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
   return [{ seat: 1, kind: "CARRY", word: "HOLD", x: knob.x, y: knob.y, ...frame, seed: 111 }];

@@ -7236,6 +7236,20 @@ hold, because what is left is *how deep*, and that is hers to say. No desk key.
 `render/test/spool-grip.test.ts` proves the hit, the split, the refusal, the
 knob under the thumb and the word.
 
+**The knob answers a touch the way every mark does** (28 September 2026, the
+owner's rule of the 24th and his answer of the 27th; `mark-feedback.ts`).
+While a movement pays out and nobody holds the brake, the pilot's knob has a
+halo breathing under its ring, and the navigator — shown no rail and no
+depth — sees the partner's turning ring and a clock where the knob rests.
+Her press there is handed through as a press and nothing more, and the
+simulation refuses it: `spoolRefuse` (`spool-hand.ts`), voiced with THE
+INSTAR's *not yours* knock. The grip washes the knob green and a refusal red
+— one `GripVerdicts` in `SpoolFx`, hers drawn at the rest so it says no
+depth — and the desk asks the knob whose it is before a press
+(`spoolGripSeat`, `desk-grab.ts`). Nothing fills while he carries it: a brake
+is a level, and how far along it is is the knob down the rail.
+`render/test/spool-verdict.test.ts`, `sim/test/spool-refuse.test.ts`.
+
 **The film** (`content/scenes/the-spool.ts`, 24 September 2026) is the one
 exchange the fight is made of, played wrong and then right: the brake taken at
 the top, the first movement slipping on it, *slower* on her page and the knob

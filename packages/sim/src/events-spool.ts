@@ -29,6 +29,8 @@ export type SpoolEvent =
   | ({ type: "spoolGrip" } & SpoolColEvent)
   /** The pilot came off the brake, and the line runs at its fastest again. */
   | ({ type: "spoolLet" } & SpoolColEvent)
+  /** A press on the brake from the navigator, whose it is not: refused, and nothing moved. */
+  | ({ type: "spoolRefuse"; player: 1 | 2 } & SpoolColEvent)
   /** The line left the zone: the movement resets and runs from its head again. */
   | ({ type: "spoolSlip" } & SpoolColEvent)
   /** The slack threw a rock down the pilot's column — the fight's one hazard. */

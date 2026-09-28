@@ -12,6 +12,7 @@ import {
 } from "@neon-spore/sim";
 import { bossCue } from "../src/boss-cue.js";
 import { spoolCues } from "../src/boss-cue-read-za.js";
+import { deskDown } from "../src/desk-grab.js";
 import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { spoolKnobCircle, spoolKnobStanding } from "../src/spool-grip.js";
@@ -90,11 +91,39 @@ describe("a thumb on THE SPOOL's brake", () => {
     expect(press(world, s, "test", 1)).toBe("spoolBrake");
   });
 
-  it("shows the navigator no knob to press", () => {
-    // The knob's place, pressed on her screen: the drawing keeps the brake
-    // from her (`showsSpoolBrake`), so the hit test must too.
+  it("hands the navigator's press on the knob through to be refused, and holds nothing", () => {
+    // While the line runs and nobody holds the brake, her screen shows the
+    // partner's ring where the knob rests (`spool-brake.ts`): her press there
+    // goes to the simulation to be refused, once, and takes no hold.
     const { world, s } = paying();
+    const l = layout("p2");
+    const at = spoolKnobCircle(l, CFG, s, world.beat, PHASE);
+    const t = touchDown(l, at.x, at.y, field(world, 2));
+    expect(t?.player).toBe(2);
+    expect(t?.command).toMatchObject({ kind: "drag", target: "spoolBrake", on: true });
+    expect(t?.hold).toBeNull();
+  });
+
+  it("shows the navigator no knob to press once he holds it, or while nothing runs", () => {
+    const { world, s } = paying();
+    s.brakeMilli = 300;
     expect(press(world, s, "p2", 2)).toBeNull();
+    s.brakeMilli = NO_BRAKE;
+    for (const phase of ["taut", "slip", "ease", "slack"] as const) {
+      s.phase = phase;
+      const l = layout("p2");
+      const at = spoolKnobCircle(l, CFG, s, world.beat, PHASE);
+      expect(touchDown(l, at.x, at.y, field(world, 2))?.command?.kind ?? null).not.toBe("drag");
+    }
+  });
+
+  it("tells the desk the knob is the pilot's, whichever seat the mouse would try first", () => {
+    const { world, s } = paying();
+    const l = layout("test");
+    const at = spoolKnobCircle(l, CFG, s, world.beat, PHASE);
+    const t = deskDown(l, at.x, at.y, [2, 1], (seat) => field(world, seat));
+    expect(t?.player).toBe(1);
+    expect(t?.hold?.kind).toBe("drag");
   });
 
   it("takes a hand in every phase the rail is drawn in, and none once the casing is slack", () => {

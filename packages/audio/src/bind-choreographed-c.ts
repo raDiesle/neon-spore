@@ -180,6 +180,7 @@ export function lateCue(e: LateEvent, cols: number): Cue {
     case "spoolLeg":
     case "spoolGrip":
     case "spoolLet":
+    case "spoolRefuse":
     case "spoolSlip":
     case "spoolRock":
     case "spoolRib":

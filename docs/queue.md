@@ -315,34 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SPOOL answers a touch the way THE INSTAR does
-
-- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
-- **Taken:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do (claim: claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe)
-- **Files:** `packages/render/src/spool-grip.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
-
-The owner's rule of 24 September 2026, and his answer of the 27th: the same
-touch feedback on every boss, from the shared pieces. They are shared now —
-`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
-`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
-`.claude/skills/new-boss` §5 has the convention. The second of the choreographed four. The work:
-
-- find the events that mean *this touch was right* and *this touch was
-  refused*, and mark `spool`'s `GripVerdicts` from them in its fx, updated
-  and cleared with the rest; `drawVerdictRing` after each mark;
-- the halo on this seat's open mark, the turning ring and the waiting clock on
-  the partner's;
-- a mark that is *not there* for the wrong seat cannot be refused in red:
-  hand its press through for the simulation to refuse with an event of its
-  own, and give the desk the mark's seat before the press (`desk-grab.ts`;
-  THE WARDEN's `wardenGripSeat` is the worked example);
-- the in-progress signal is the simulation's own word for *right direction*
-  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
-- a test beside `packages/render/test/instar-verdict.test.ts`, and `"spool"`
-  off `TO_COME` in the roll-out test, which goes red otherwise.
-
-Lands as *a look the owner asked for by name*; send the PNG.
-
 ## THE HASP answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
@@ -428,6 +400,20 @@ its PNG, and which skips the fight the frame is meant to show. Find whether
 the hand fires at a pupil that has walked on by the time the bolt climbs,
 or the page's AUTO drops the rope's hold, and prove it with a test in
 `packages/hands` that plays THE WARDEN to `wardenDown`.
+
+## THE WARDEN refuses the navigator again on every move of her press
+
+- **Found:** 2026-09-28, claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe
+- **Files:** `packages/render/src/warden-grip.ts`, `packages/sim/src/warden-hand.ts`
+
+The wrong seat's press on THE WARDEN's eye is handed through as a drag with
+a hold, so `touchMove` sends an `on: true` drag for every move of that hold,
+and `warden-hand.ts` refuses each one: the knock sounds and the ring washes
+red again and again while her thumb rests there. THE SPOOL's knob hands the
+wrong seat's press through with `hold: null` (`spool-grip.ts`
+`spoolBrakeUnder`), a one-shot press, so no move or lift follows it. Do the
+same for the eye, and prove it with a test in `warden-grip.test.ts` that a
+press and three moves from seat 2 give one `wardenRefuse`.
 
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 

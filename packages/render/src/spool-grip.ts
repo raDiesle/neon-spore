@@ -1,4 +1,10 @@
-import { type SimConfig, type SpoolState, spoolDepthMilli } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type SpoolState,
+  spoolDepthMilli,
+  spoolHeld,
+  spoolPaying,
+} from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { spoolPlaced } from "./spool-pose.js";
@@ -17,9 +23,14 @@ import { showsSpoolBrake } from "./view-role-clocks-c.js";
  * *whether* the press counts.
  *
  * **One seat, one handle.** The brake is the pilot's by the target's name
- * (`sim/spool-hand.ts`) and his screen is the only one it is drawn on
- * (`showsSpoolBrake`), so a thumb on the navigator's screen where the rail
- * would be finds whatever is behind it.
+ * (`sim/spool-hand.ts`) and his screen is the only one the rail is drawn on
+ * (`showsSpoolBrake`). While it asks for his hand, the navigator is shown
+ * the partner's turning ring and clock where the knob rests, as every mark
+ * is shown to the seat it is not asking (`spool-brake.ts`) — and a thumb of
+ * hers there is handed through for the simulation to refuse, in red on the
+ * knob. It is a press and nothing more: it holds nothing, so no move of hers
+ * is refused a second time. Anywhere else, or once his hand is on the brake,
+ * a thumb of hers where the rail would be finds whatever is behind it.
  *
  * **What it refuses is what the drawing refuses**: the slack spool, which has
  * no rail drawn on it and drifts off the top with nothing left to brake. The
@@ -35,6 +46,15 @@ import { showsSpoolBrake } from "./view-role-clocks-c.js";
 /** Whether the brake is there to take hold of: every phase but the slack. */
 export function spoolTakesHand(s: SpoolState): boolean {
   return s.phase !== "slack";
+}
+
+/**
+ * Whether the brake is **asking** for a hand: the line running and nobody on
+ * it — the moment the HOLD cue stands on the knob (`boss-cue-read-za.ts`), and
+ * the one the halo and the partner's ring are drawn in.
+ */
+export function spoolBrakeAsks(s: SpoolState): boolean {
+  return spoolPaying(s) && !spoolHeld(s);
 }
 
 /** The knob where it rests with no hand on it, on this frame's spool. */
@@ -70,14 +90,37 @@ export function spoolKnobStanding(
  */
 export function spoolBrakeUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "spool");
-  if (s === null || field.seat !== 1 || !showsSpoolBrake(l.role) || !spoolTakesHand(s)) {
-    return null;
-  }
+  if (s === null || !spoolTakesHand(s)) return null;
   const rest = spoolKnobCircle(l, field.cfg, s, field.beat, field.beatPhase);
   if (!hitCircle(rest, x, y)) return null;
+  const press = {
+    kind: "drag",
+    target: "spoolBrake",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: 0,
+  } as const;
+  if (field.seat === 2) {
+    // Hers to be refused on only where a mark of the brake is drawn for her.
+    const shown = showsSpoolBrake(l.role) || spoolBrakeAsks(s);
+    return shown ? { player: 2, command: press, hold: null } : null;
+  }
+  if (!showsSpoolBrake(l.role)) return null;
   return {
     player: 1,
-    command: { kind: "drag", target: "spoolBrake", on: true, fromMilli: 0, fromYMilli: 0 },
+    command: press,
     hold: { kind: "drag", target: "spoolBrake", player: 1, originX: x, originY: y },
   };
+}
+
+/**
+ * **Whose thumb the knob under this point is for** — always the pilot's, and
+ * the desk's question before a press, because the knob is there for the
+ * navigator too and only refuses her (`desk-grab.ts`, as `wardenGripSeat`).
+ */
+export function spoolGripSeat(l: Layout, x: number, y: number, field: Field): 1 | undefined {
+  const s = bossOf(field, "spool");
+  if (s === null || !spoolTakesHand(s)) return undefined;
+  const rest = spoolKnobCircle(l, field.cfg, s, field.beat, field.beatPhase);
+  return hitCircle(rest, x, y) ? 1 : undefined;
 }

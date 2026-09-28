@@ -1,6 +1,7 @@
 import { type SimConfig, type SimEvent, SPOOL_RIBS } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
+import { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type SpoolPose, spoolHome, spoolRibX, spoolSide } from "./spool-shape.js";
@@ -9,7 +10,7 @@ import { type SpoolPose, spoolHome, spoolRibX, spoolSide } from "./spool-shape.j
  * What THE SPOOL leaves behind a frame: the **shudder** of the casing when the
  * line slips its zone, the **jolt** of the axle dropping as a rib lets its
  * band go, the **glare** of the whole winding coming loose at once, and the
- * bursts its eleven receipts throw.
+ * bursts its receipts throw.
  *
  * Everything else — how fast the line runs, how deep the thumb has the brake,
  * where the line is against its zone, how many ribs are left — is read off
@@ -21,10 +22,13 @@ import { type SpoolPose, spoolHome, spoolRibX, spoolSide } from "./spool-shape.j
  * **The events of this family are read here, above the loop**, the way THE
  * GIMBAL's are, rather than as rows in a spark table at its limit
  * (`effects-spark-silent-boss-b.ts` keeps the rows, for the reason written
- * over them). The grip and the let-go throw nothing: the brake's own knob
- * lights under the thumb, and only the pilot is shown it — a burst would tell
- * the navigator what her screen is built not to. Everything is cleared in
- * `Effects.reset()` (`restart.test.ts`).
+ * over them). The grip and the let-go throw no burst: the brake's own knob
+ * lights under the thumb, and a burst over the casing would say more than a
+ * hand. Everything is cleared in `Effects.reset()` (`restart.test.ts`).
+ *
+ * **The knob is judged like every mark** (`grip-verdict.ts`): the grip washes
+ * it green, the navigator's refused press red (`spoolRefuse`). One mark, so one
+ * key (`spool-brake.ts`).
  *
  * **A rib eased is a sequence landed** — a whole movement held in its zone —
  * and so is the last, so both deal the body the blow every boss takes
@@ -35,6 +39,9 @@ const SHUDDER_DECAY = 6;
 const JOLT_TILES = 0.2;
 const JOLT_DECAY = 8;
 const GLARE_DECAY = 3;
+
+/** The one key the brake's verdict is kept under. */
+export const SPOOL_BRAKE_MARK = 0;
 
 /** The spool at rest, for placing a burst: where it hangs, side on. */
 function rest(l: Layout, cfg: SimConfig): SpoolPose {
@@ -47,6 +54,8 @@ export class SpoolFx {
   private glareNow = 0;
   /** The blow a rib eased deals the casing. */
   readonly hurt = new BossHurt();
+  /** Was the last touch on the brake right. */
+  readonly verdicts = new GripVerdicts();
 
   /** How hard the casing is shaking after a slip, 0..1. */
   get shudder(): number {
@@ -68,10 +77,16 @@ export class SpoolFx {
     const at = pose.at;
     for (const e of events) {
       switch (e.type) {
+        case "spoolGrip":
+          this.verdicts.mark(SPOOL_BRAKE_MARK, true);
+          break;
+        case "spoolRefuse":
+          this.verdicts.mark(SPOOL_BRAKE_MARK, false);
+          break;
         case "spoolEnter":
           burst(at.x, at.y, 14, PALETTE.rock);
           break;
-        // A new movement and a new leg are the quietest of the eleven: both
+        // A new movement and a new leg are the quietest of them all: both
         // are the navigator's to call, and a burst is on both screens.
         case "spoolZone":
         case "spoolLeg":
@@ -123,6 +138,7 @@ export class SpoolFx {
     this.glareNow = Math.max(0, this.glareNow - this.glareNow * GLARE_DECAY * step);
     if (this.glareNow < 0.002) this.glareNow = 0;
     this.hurt.update(step);
+    this.verdicts.update(dt);
   }
 
   clear(): void {
@@ -130,5 +146,6 @@ export class SpoolFx {
     this.joltNow = 0;
     this.glareNow = 0;
     this.hurt.clear();
+    this.verdicts.clear();
   }
 }
