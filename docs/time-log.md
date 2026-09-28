@@ -28144,3 +28144,5 @@ The bottleneck was the event's registrations: a new receipt is five lists in thr
 
 The bottleneck: the verdict test counted the halo as a radial gradient, and a
 track's halo is a bar, so the test had to learn the second shape.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

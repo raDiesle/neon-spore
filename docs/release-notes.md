@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · f6f4efca2 — THE WARDEN's hatch swipe is a track that fills before the lift
+
+Under GLARE the pilot's swipe across the hatch is drawn as a bar through the eye, a throw's length out each side, with chevrons, filling green toward the side the thumb carries it and turning its rim green once the lift would throw. The navigator sees the same fill in the partner's dashed bar and clock. The simulation now keeps the furthest carry (`hatchCarryMilli`, hashed) and judges the lift on it. The owner asked for this look by name (a swipe is a track, never a ring, 24 September 2026).
+
 ## 2026-09-28 · 32d50badd — THE SINEW's handles answer a touch the way THE INSTAR does
 
 Both handles are drawn on both screens, so the whole convention applies. While a handle waits for its hand, its owner sees a halo under it and the partner sees a turning ring and a clock on it. A press on the other seat's handle is refused (`sinewRefuse`, with THE INSTAR's knock) and washes it red. The grip washes it green, and the snap washes both handles red. The desk now asks the handle whose it is before a press. The look exemption used is the owner's request by name (the mark-feedback roll-out).
