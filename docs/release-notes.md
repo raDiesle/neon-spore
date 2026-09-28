@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 911aa30cb — THE SCUTTLE's thread runs down from its socket to the part
+
+A loose part's thread was tied a socket's half height under the socket and a socket's half height over the plate, 0.32 tiles between them over a fall of 0.26, so every frame drew it upward and only its round cap reached the screen. It is now tied just under the socket's centre, at the floor of the recess, and to the top of a hanging plate slimmer than its socket: a line for the back three quarters of the cadence, with the plate clear of the lip by the throw. The drop VERSUS `apart` picked is kept. The guard is the thread's own ends (`scuttleThread`), and a test asks its direction.
+
 ## 2026-09-28 · f2d6b3347 — On HARD, a bolt that meets nothing above a sky boss loses the wave
 
 Until now HARD's wasted-shot rule was off whenever a boss hung above the field. Now each of the thirty-three sky bosses says whether a bolt out of the top met it. A hit, a wrong colour, or armour costs nothing. Armour is a part standing in that column with its window shut, such as a core in the middle column before it is bared, a blade, an intake, THE VANE's housing or THE HIVE's skin. A bolt into a column with none of the boss in it loses the wave, as it does with no boss up. So does a spark, seam or loose bolt that is not out yet, a SHOOT mark that did not hear it, or THE LEAD's flight when it comes down where the body is not. EASY and MEDIUM are unchanged.
