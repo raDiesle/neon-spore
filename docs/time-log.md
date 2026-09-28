@@ -28328,3 +28328,13 @@ The bottleneck: a queue-entry rewrite that matched on a line break, which failed
 The bottleneck: the bar is both seats' and a rectangle, so where each seat's mark stands had to be decided before anything could be drawn.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE CAIRN's pile answers a touch like THE INSTAR's marks
+
+- reading: 10 min. The hand on the pile, the hold, `BossBlows`, the silent lists.
+- writing: 10 min. `pileRing` out of `cairn-hand.ts`, `cairn-marks.ts`, one test.
+- looking: 5 min. One frame, the pilot's thumb on the pile as a beat is held.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the pile's ring exists only under a thumb, so the lane was deciding that it has a verdict and nothing else.

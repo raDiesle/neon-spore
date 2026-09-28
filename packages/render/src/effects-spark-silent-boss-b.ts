@@ -120,7 +120,8 @@ export const SILENT_BOSS_B = [
   // nothing left the body, so there is nothing on the field to remember.
   // What says it is the settle mark that stopped filling (`cairn-settle.ts`),
   // read off the state every frame — a transient would be a second copy of a
-  // gauge that is already right.
+  // gauge that is already right. The green on the ring of the hand that
+  // bought it is `cairn-marks.ts`'.
   "cairnHeld",
   // THE MIRROR's pin throws a ring off both lobes, not a burst: `mirror-grip-fx.ts`.
   "mirrorGrip",

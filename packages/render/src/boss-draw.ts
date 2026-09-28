@@ -85,7 +85,7 @@ export function drawBoss(
   // THE CAIRN: the pile, the hand on it and the lane it drops into next, and
   // the blow of a pulled unit through all three (`cairn.ts`).
   if (boss.kind === "cairn") {
-    drawCairn(ctx, l, view, boss, effects.boss.blows.cairn);
+    drawCairn(ctx, l, view, boss, effects.boss.blows.cairn, effects.boss.blows.cairnMarks.verdicts);
     return;
   }
 

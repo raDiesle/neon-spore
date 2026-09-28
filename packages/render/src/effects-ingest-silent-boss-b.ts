@@ -48,14 +48,16 @@ export const INGEST_SILENT_BOSS_B = [
   // **is still on the field**. It is a rock now, with a column and a row of its
   // own, drawn every frame by the same code that draws every other rock — so a
   // transient remembering it would be the same stone painted twice. The burst
-  // next door is the dust off the seam and the whole of the transient.
+  // next door is the dust off the seam and the whole of the transient. The
+  // green on the pile's ring is `cairn-marks.ts`', fed from `boss-blows.ts`.
   "cairnPulled",
   "cairnShed",
   // THE CAIRN held: a hand on the pile bought a beat off its clock and
   // nothing left the body, so there is nothing on the field to remember.
   // What says it is the settle mark that stopped filling (`cairn-settle.ts`),
   // read off the state every frame — a transient would be a second copy of a
-  // gauge that is already right.
+  // gauge that is already right. The green on the ring of the hand that
+  // bought it is `cairn-marks.ts`'.
   "cairnHeld",
   // THE ANTIPHON's eleven leave nothing behind for the next frame here: the
   // body, the organs, the rail and the pits are read off the state every

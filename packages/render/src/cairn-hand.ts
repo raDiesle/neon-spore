@@ -1,7 +1,7 @@
 import { type Creature, gripsCreature, type World } from "@neon-spore/sim";
 import { cairnUnits } from "./cairn-units.js";
 import { drawHandAt } from "./grip.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 
 /** How far outside the outermost stone the ring sits — a hand closed on the
@@ -31,15 +31,31 @@ export function drawPileHand(
   const p1 = gripsCreature(world, 1, body.id);
   const p2 = gripsCreature(world, 2, body.id);
   if (!p1 && !p2) return;
-  // The ring closes on the stack, not on the one tile the body is booked at:
-  // `creatureRadius` answers a tile for this kind and the pile is five wide,
-  // so the ring is drawn round every stone still standing (`cairn.ts`).
+  const ring = pileRing(l, body, units, time, hush);
+  if (ring === null) return;
+  drawHandAt(ctx, l, world, body, "pull", p1, p2, ring.x, ring.y, ring.r, time, names);
+}
+
+/**
+ * Where the ring round the pile stands this frame, or nothing once no stone
+ * is. **The ring closes on the stack, not on the one tile the body is booked
+ * at**: `creatureRadius` answers a tile for this kind and the pile is five
+ * wide, so the ring is drawn round every stone still standing (`cairn.ts`).
+ * The verdict stands on the same circle (`cairn-marks.ts`).
+ */
+export function pileRing(
+  l: Layout,
+  body: Creature,
+  units: number,
+  time: number,
+  hush: number,
+): Circle | null {
   const stack = cairnUnits(l, body, units, time, hush);
-  if (stack.length === 0) return;
+  if (stack.length === 0) return null;
   const xs = stack.map((u) => u.x);
   const ys = stack.map((u) => u.y);
   const x = (Math.min(...xs) + Math.max(...xs)) / 2;
   const y = (Math.min(...ys) + Math.max(...ys)) / 2;
   const r = Math.max(...stack.map((u) => Math.hypot(u.x - x, u.y - y) + u.r));
-  drawHandAt(ctx, l, world, body, "pull", p1, p2, x, y, r * RING_OUT, time, names);
+  return { x, y, r: r * RING_OUT };
 }

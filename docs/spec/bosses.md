@@ -2042,6 +2042,16 @@ control fires reaches the pile, and that the side the thumb goes is the lane the
 rock comes down. The dome page kept its verb, because the ward is one of the
 reading's own silences.
 
+**The pile answers a touch the way every mark does** (28 September 2026, the
+owner's consistent visual; `render/cairn-marks.ts`). Its mark is the ring a
+hand closes on it, and that ring is drawn only while a thumb is down, so there
+is no open mark to halo and nobody is waited on. Either seat may take the pile
+and one is as good as two, so nothing is refused and there is no red. A unit
+hauled out (`cairnPulled`) washes the ring green, and so does every beat the
+hold buys off the clock (`cairnHeld`), so a resting thumb goes green once a
+beat while it is buying and stops the beat the hold runs out. One
+`GripVerdicts` in `BossBlows`, one key.
+
 ## 11.12 THE WELL — the field turned inside out, on one phone
 
 > The one where the lane beside it is the other end of the field.

@@ -2,8 +2,10 @@ import type { CairnState, Creature, World } from "@neon-spore/sim";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { CAIRN_LOOK } from "./cairn-look.js";
+import { drawCairnVerdict } from "./cairn-marks.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
 import { cairnRoot, cairnUnits, pilePath } from "./cairn-units.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import type { Layout } from "./layout.js";
 import { outlineHush, outlinePose, poseMatrix } from "./outline-drift.js";
 import type { ViewState } from "./renderer.js";
@@ -38,6 +40,8 @@ export function drawCairn(
   view: ViewState,
   boss: CairnState,
   hurt: BossHurt,
+  /** Whether the last touch on the pile was right (`cairn-marks.ts`). */
+  verdicts: GripVerdicts,
 ): void {
   const { world, time } = view;
   const body = cairnBody(world, boss);
@@ -65,6 +69,8 @@ export function drawCairn(
   // into. After the pile, because it stands on the stone that is going and
   // has to be read over it (`cairn-settle.ts`).
   if (showsCairnSettle(l)) drawCairnSettle(ctx, l, world, boss, body, view.beatPhase, time, hush);
+  // Last, over the lane mark: the verdict round the hand (`cairn-marks.ts`).
+  drawCairnVerdict(ctx, l, world, body, boss.units, time, hush, verdicts);
   ctx.restore();
 }
 
