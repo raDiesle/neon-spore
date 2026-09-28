@@ -142,26 +142,30 @@ export type MirrorStepFrom = "panel" | "picture";
  * on the picture is nothing, since no ring is drawn there; under `reflect` a
  * step on the panel is the wrong answer, and `panel` is what the verdict
  * says, so the pair is told where rather than what.
+ *
+ * Returns whether the step was right, or `null` when it was not heard at all
+ * — the verdict a thumb on the mirror's lobe is washed in (`mirror-hand.ts`).
  */
-export function mirrorHeard(world: World, step: MirrorStep, from: MirrorStepFrom): void {
+export function mirrorHeard(world: World, step: MirrorStep, from: MirrorStepFrom): boolean | null {
   const m = world.boss;
-  if (m === null || m.kind !== "mirror" || m.phase !== "listen") return;
+  if (m === null || m.kind !== "mirror" || m.phase !== "listen") return null;
   const gesture: MirrorGesture = mirrorGesture(m);
-  if (gesture === "answer" && from === "picture") return;
+  if (gesture === "answer" && from === "picture") return null;
   const steps = currentSteps(m);
   const want = steps[m.matched];
-  if (want === undefined) return;
+  if (want === undefined) return null;
   if (gesture === "reflect" && from === "panel") {
     wrong(world, m, "panel");
-    return;
+    return false;
   }
   if (step !== want) {
     wrong(world, m, "step");
-    return;
+    return false;
   }
   m.matched += 1;
   world.events.push({ type: "mirrorEcho", step, index: m.matched, of: steps.length });
   if (m.matched >= steps.length) right(world, m);
+  return true;
 }
 
 /** A fresh mirror, at full hull, on the round it is authored to open with. */

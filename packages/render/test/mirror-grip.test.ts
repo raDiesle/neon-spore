@@ -111,7 +111,9 @@ describe("a thumb on a lobe", () => {
     const cannon = lobe(p2, 0);
     const shield = lobe(p2, 1);
     expect(mirrorLobeUnder(p2, cannon.x, cannon.y, fieldWith(2, mirror()))?.player).toBe(2);
-    expect(mirrorLobeUnder(p2, shield.x, shield.y, fieldWith(2, mirror()))).toBeNull();
+    // Player 1's shield is handed through with no hold, for the sim to refuse.
+    const theirs = mirrorLobeUnder(p2, shield.x, shield.y, fieldWith(2, mirror()));
+    expect(theirs).toMatchObject({ player: 2, command: { id: 1, on: true }, hold: null });
   });
 
   it("under hold: one lobe each, and the hold is a pin", () => {
@@ -122,12 +124,12 @@ describe("a thumb on a lobe", () => {
       pin: true,
       id: 0,
     });
-    expect(mirrorLobeUnder(l, shield.x, shield.y, fieldWith(1, hold()))).toBeNull();
+    expect(mirrorLobeUnder(l, shield.x, shield.y, fieldWith(1, hold()))?.hold).toBeNull();
     expect(mirrorLobeUnder(l, shield.x, shield.y, fieldWith(2, hold()))?.hold).toMatchObject({
       pin: true,
       id: 1,
     });
-    expect(mirrorLobeUnder(l, cannon.x, cannon.y, fieldWith(2, hold()))).toBeNull();
+    expect(mirrorLobeUnder(l, cannon.x, cannon.y, fieldWith(2, hold()))?.hold).toBeNull();
   });
 
   it("is refused under an ordinary round, while it demonstrates, and with no mirror up", () => {

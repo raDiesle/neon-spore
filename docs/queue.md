@@ -320,13 +320,31 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
-After THE WARDEN, THE SPOOL, THE HASP, THE SINEW and THE BULB QUEEN: **one
-boss a lane**, the first on `TO_COME` in the roll-out test — THE MIRROR
-next — worked exactly as `.claude/skills/new-boss` §5 says and THE BULB
-QUEEN's lane did it (`queen-fx.ts`, `queen-marks.ts`, the refusal said by
-the simulation in `sim/queen-hand.ts`). A lane that lands one boss and
+After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN and THE
+MIRROR: **one boss a lane**, the first on `TO_COME` in the roll-out test —
+THE VANE next — worked exactly as `.claude/skills/new-boss` §5 says and THE
+MIRROR's lane did it (`mirror-marks.ts`; which mark is asked of which seat
+moved into the simulation, `sim/mirror-hand.ts` `mirrorAsks`, and the
+refusal and the touched mark said there, `mirrorRefuse`, `mirrorTouch`). A lane that lands one boss and
 leaves others on the list keeps this entry, rewritten to name the next;
 the lane that empties the list removes it and the list with it.
+
+## `queue take` cannot take again an entry this session keeps
+
+- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`
+
+An entry that is worked one lane at a time and kept between them (the
+mark-feedback roll-out, one boss a lane) cannot be taken for its next lane
+by the session that landed the last one. `bun run land --keep` leaves the
+claim branch standing, checked out, so `claim` fails on `git branch`
+(*a branch named … already exists*); and once that branch is deleted by
+hand, `take` refuses on the `Taken:` line still on `origin/main`, which is
+this session's own, because a landing does not push. Worked around by
+`git checkout --detach main`, `git branch -d`, and `git checkout -b` the
+same name from `main`. `take` should recognise a claim whose branch is the
+one it would make and which is merged into `main`, and hand it back,
+proved by a test in `tools/queue/test/`.
 
 ## THE GAUGE's cannon colour is a picture, not a rule
 

@@ -226,8 +226,11 @@ export {
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";
+// Which marks THE MIRROR and THE BULB QUEEN ask a thumb for, which their
+// rings read rather than re-derive (`render/mirror-grip.ts`, `queen-marks.ts`).
+export { mirrorAsks, mirrorLobesOf } from "./mirror-hand.js";
+export { queenAsks } from "./queen-hand.js";
 // And THE REPRISE's schedule and its clock, which the director and the
 // measure along the top of the screen read (`reprise-plan.ts`).
-export { queenAsks } from "./queen-hand.js";
 export { type RepriseEcho, reprisePlan } from "./reprise-plan.js";
 export { type RepriseClock, repriseClock, repriseEvery } from "./reprise-state.js";

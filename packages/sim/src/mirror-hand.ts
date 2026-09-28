@@ -1,6 +1,6 @@
 import type { SimConfig } from "./config.js";
 import { mirrorHeard } from "./mirror.js";
-import { type MirrorState, type MirrorStep, mirrorGesture } from "./simon.js";
+import { type MirrorGesture, type MirrorState, type MirrorStep, mirrorGesture } from "./simon.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -22,12 +22,35 @@ import type { World } from "./world.js";
  *   the picture, and the round judges it as it judges the panel.
  * - **`hold`**: where the thumbs are. Player 1's on its cannon and player
  *   2's on its shield, together, start the count `mirror.ts` reads; a lift
- *   clears it. The other seat's thumb on a lobe is ignored — the pin is
- *   both seats or nothing, and that is the split.
+ *   clears it. The pin is both seats or nothing, and that is the split.
+ *
+ * **A press on a lobe the round asks of the other seat is refused**, and
+ * said (`mirrorRefuse`): nothing moves, and the lobe is washed red on both
+ * screens, the way every mark answers the wrong thumb (`render/grip-verdict.ts`).
+ * A step on a lobe is said as well (`mirrorTouch`), right or wrong, so the
+ * lobe it was made on is the one washed.
  */
 const P1_CANNON = 1;
 const P2_SHIELD = 2;
 const BOTH = P1_CANNON | P2_SHIELD;
+
+/** Which lobes a seat answers under a gesture, as `mirrorLobe` ids: 0 its cannon, 1 its shield. */
+export function mirrorLobesOf(gesture: MirrorGesture, player: 1 | 2): readonly (0 | 1)[] {
+  if (gesture === "answer") return [];
+  if (gesture === "hold") return player === 1 ? [0] : [1];
+  return player === 1 ? [0, 1] : [0];
+}
+
+/**
+ * The lobes the mirror asks of a seat *now*: none while the last round is
+ * still being performed, since `mirrorHeard` drops a step made outside
+ * `listen` — the same lock the panel is under.
+ */
+export function mirrorAsks(m: MirrorState, player: 1 | 2): readonly (0 | 1)[] {
+  const gesture = mirrorGesture(m);
+  if (gesture === "reflect" && m.phase !== "listen") return [];
+  return mirrorLobesOf(gesture, player);
+}
 
 export function mirrorLobeHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "mirrorLobe") return;
@@ -35,11 +58,20 @@ export function mirrorLobeHeard(world: World, player: 1 | 2, command: Command): 
   if (m === null || m.kind !== "mirror") return;
   const id = command.id === 0 ? 0 : command.id === 1 ? 1 : -1;
   if (id === -1) return;
+  const col = id === 0 ? m.cannonCol : world.shieldCol;
+  if (command.on && !mirrorAsks(m, player).includes(id)) {
+    if (mirrorAsks(m, player === 1 ? 2 : 1).includes(id)) {
+      world.events.push({ type: "mirrorRefuse", col, id, player });
+    }
+    return;
+  }
   const gesture = mirrorGesture(m);
   if (gesture === "hold") pin(world, m, player, id, command.on);
   else if (gesture === "reflect") {
     const step = lobeStep(world.cfg, player, id, command.on, command.fromMilli);
-    if (step !== null) mirrorHeard(world, step, "picture");
+    if (step === null) return;
+    const right = mirrorHeard(world, step, "picture");
+    if (right !== null) world.events.push({ type: "mirrorTouch", col, id, right });
   }
 }
 
@@ -64,7 +96,10 @@ export function lobeStep(
   return null;
 }
 
-/** A thumb landing on, or leaving, one of the two lobes under `hold`. */
+/**
+ * A thumb landing on, or leaving, one of the two lobes under `hold`. The
+ * wrong seat's press was refused before it, and its lift is nothing.
+ */
 function pin(world: World, m: MirrorState, player: 1 | 2, id: 0 | 1, on: boolean): void {
   const bit = player === 1 && id === 0 ? P1_CANNON : player === 2 && id === 1 ? P2_SHIELD : 0;
   if (bit === 0) return;

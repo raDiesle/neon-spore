@@ -21,6 +21,8 @@ export function mirrorCue(
         | "mirrorVerdict"
         | "mirrorDown"
         | "mirrorGrip"
+        | "mirrorTouch"
+        | "mirrorRefuse"
         | "mazeCommit"
         | "mazeProbe"
         | "mazeVerdict"
@@ -57,6 +59,13 @@ export function mirrorCue(
       // to the one thing in the fight that *is* off the beat.
       if (e.on) return { id: "mirror.echo", pitch: 1.3, pan: panForCol(e.col, cols) };
       return { id: "mirror.echoLate", pan: panForCol(e.col, cols) };
+    case "mirrorTouch":
+      // Silent by design: the step it judged is `mirrorEcho` or
+      // `mirrorVerdict` on the same tick, and each of those has its sound.
+      return null;
+    case "mirrorRefuse":
+      // The wrong seat's thumb, told so the way every mark tells it.
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
     case "mazeCommit":
       // The shot going into a mouth. `mirror.handover` is the cue written for
       // "your turn is over, the answer is out of your hands now", which is

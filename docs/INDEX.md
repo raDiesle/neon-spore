@@ -694,7 +694,7 @@ by hand never moves.
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
 | `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/events-plumb.ts` | What THE PLUMB says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-rounds.ts` | **THE MIRROR's five and THE MAZE's five** |
+| `packages/sim/src/events-rounds.ts` | **THE MIRROR's seven and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-rime.ts` | What THE RIME says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
@@ -1043,6 +1043,7 @@ by hand never moves.
 | `packages/render/src/mirror-grip-fx.ts` | The pin landing and the pin lost: a ring thrown off both of THE MIRROR's lobes, cleared with `MirrorFx` |
 | `packages/render/src/mirror-grip.ts` | THE MIRROR's two lobes as a control: the pair's grab circles upside down, rings per seat, the pin and its count |
 | `packages/render/src/mirror-chamber.ts` | THE MIRROR'S INSIDES — the chamber under its hull, the way the pair's own ship has one under theirs |
+| `packages/render/src/mirror-marks.ts` | THE MIRROR's lobes answering a touch like every mark: halo, the partner's ring and clock, the green or red verdict |
 | `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |
 | `packages/render/src/mine.ts` | THE MINE, drawn: the body on one seat, the **count** on both |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |

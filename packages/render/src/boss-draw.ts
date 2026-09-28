@@ -11,6 +11,7 @@ import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
 import { drawMirrorGrip, mirrorHandPlace } from "./mirror-grip.js";
+import { drawMirrorAsked } from "./mirror-marks.js";
 import { outlineHush, outlinePose, withOutlinePose } from "./outline-drift.js";
 import { drawQueen } from "./queen.js";
 import { queenRoot } from "./queen-figure.js";
@@ -185,9 +186,11 @@ export function drawBoss(
   ctx.translate(fx.hurt.shakeX(view.time, l.tile), 0);
   drawMirror(ctx, l, world.cfg, boss, world.shieldCol, view.time, mood, fx.hurt.value);
   fx.drawGhosts(ctx, l, world.cfg);
-  // Its lobes as a control, over its rim: the rings the world says, the
-  // thrown ring of a pin landing or leaving, and this device's own hand on
-  // one of them, upside down (`mirror-grip.ts`).
+  // Its lobes as a control, over its rim: whose each is (`mirror-marks.ts`),
+  // the rings the world says, the thrown ring of a pin landing or leaving and
+  // the verdict of a touch, and this device's own hand on one of them, upside
+  // down (`mirror-grip.ts`).
+  drawMirrorAsked(ctx, l, world.cfg, boss, world.shieldCol, view.time);
   drawMirrorGrip(ctx, l, world.cfg, boss, world.shieldCol, world.beat, view.beatPhase, view.time);
   fx.grip.draw(ctx, l, world.cfg, boss, world.shieldCol);
   ctx.restore();

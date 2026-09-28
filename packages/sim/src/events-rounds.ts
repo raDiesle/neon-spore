@@ -2,7 +2,7 @@ import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
 
 /**
- * **THE MIRROR's five and THE MAZE's five**, cut off the tail of `events.ts`
+ * **THE MIRROR's seven and THE MAZE's five**, cut off the tail of `events.ts`
  * on 22 September 2026 when that page was at 247 of its 250 lines with a
  * choreographed boss still to come.
  *
@@ -33,6 +33,15 @@ export type RoundEvent =
   | { type: "mirrorDown"; col: number }
   /** Both thumbs landed on the mirror's lobes (`on`), or one left (`mirror-hand.ts`). */
   | { type: "mirrorGrip"; col: number; on: boolean }
+  /**
+   * A thumb's step on one of the mirror's lobes under `reflect`, judged:
+   * `id` 0 its cannon, 1 its shield, `col` the column the lobe stands in.
+   * The step itself is `mirrorEcho` or `mirrorVerdict` on the same tick; this
+   * is which lobe it was made on, so that lobe is washed green or red.
+   */
+  | { type: "mirrorTouch"; col: number; id: 0 | 1; right: boolean }
+  /** A press on a lobe the round asks of the other seat (`mirror-hand.ts`). Nothing moves. */
+  | { type: "mirrorRefuse"; col: number; id: 0 | 1; player: 1 | 2 }
   /**
    * The pair fired into one of THE MAZE's three mouths. `col` is the column
    * that mouth hangs over, which is where the shot went in and — if the strand

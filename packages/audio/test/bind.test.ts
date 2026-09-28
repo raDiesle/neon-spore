@@ -689,6 +689,8 @@ const SAMPLES: Record<string, SimEvent> = {
   mirrorVerdict: { type: "mirrorVerdict", right: false, col: 3, reason: "bait" },
   mirrorDown: { type: "mirrorDown", col: 3 },
   mirrorGrip: { type: "mirrorGrip", col: 3, on: true },
+  mirrorTouch: { type: "mirrorTouch", col: 3, id: 0, right: true },
+  mirrorRefuse: { type: "mirrorRefuse", col: 3, id: 1, player: 2 },
   mazeCommit: { type: "mazeCommit", mouth: 1, col: 5 },
   mazeProbe: { type: "mazeProbe", ring: 1, angleMilli: 2000, of: 3 },
   mazeVerdict: { type: "mazeVerdict", right: false, col: 5, reason: "silence" },
@@ -785,8 +787,10 @@ describe("bindings", () => {
   // sound on top would say the same thing three ways (`bind-choir.ts`).
   // `shotOut` is the third: the bolt was heard leaving the muzzle, and where
   // it goes out of the top there is nothing but sky to hear — anything up
-  // there that took it has its own event, and its own sound.
-  const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge", "shotOut"]);
+  // there that took it has its own event, and its own sound. `mirrorTouch`
+  // is the fourth: it names the lobe a step was made on, and the step itself
+  // is `mirrorEcho` or `mirrorVerdict` on the same tick, each with its sound.
+  const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge", "shotOut", "mirrorTouch"]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {
     for (const [type, e] of Object.entries(SAMPLES)) {

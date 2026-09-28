@@ -204,4 +204,8 @@ export const SILENT_BOSS_D = [
   "queenPry",
   "queenHold",
   "queenRefuse",
+  // THE MIRROR's lobe verdicts, the same: a step on a lobe, and a press from
+  // the seat the lobe is not asked of, each a ring round it (`mirror-grip.ts`).
+  "mirrorTouch",
+  "mirrorRefuse",
 ] as const satisfies readonly SimEvent["type"][];

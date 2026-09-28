@@ -34,4 +34,9 @@ export const INGEST_SILENT_BOSS_E = [
   "queenPry",
   "queenHold",
   "queenRefuse",
+  // THE MIRROR's two, the same: a step on one of its lobes judged, and a press
+  // on a lobe the round asks of the other seat. Each is a ring round the lobe,
+  // `effects.boss.mirror.grip`'s (`mirror-grip.ts`).
+  "mirrorTouch",
+  "mirrorRefuse",
 ] as const satisfies readonly SimEvent["type"][];

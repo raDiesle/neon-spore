@@ -28226,3 +28226,14 @@ The bottleneck: the registrations a new event is owed across three packages,
 found one at a time from the typecheck's errors.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE MIRROR's lobes answer a touch like THE INSTAR's marks
+
+- reading: 5 min. Its hand, its grip, the fx, `mirrorHeard`, the bind.
+- writing: 5 min. The seat rule into the sim, two events, the marks, the hand-through, two tests.
+- looking: 5 min. Three frames; the first showed the partner's clock over this seat's own lobe.
+- friction: 0 min. `queue take` could not take the entry again; worked around in a minute and queued.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: its two lobes stand one inside the other when its cannon is
+over the pair's shield, which only a frame showed — no test had them stacked.

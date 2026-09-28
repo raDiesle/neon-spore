@@ -18,13 +18,16 @@ export const MIRROR_CONTROLS: readonly FieldControlDef[] = [
       "a ring round each lobe of the mirror's ship this seat answers, while " +
       "it listens on its last round and under the pin: both lobes on player " +
       "1's screen, the cannon on player 2's; the count round both on every " +
-      "screen once both thumbs are down",
+      "screen once both thumbs are down; the halo on a lobe this seat is " +
+      "asked for, the partner's ring and clock on one asked only of theirs, " +
+      "and green or red round the lobe a touch was judged on",
     seat: "both — P1 its cannon and its shield, P2 its cannon; under the pin one lobe each",
     gesture: "grab and drag",
     does:
       "LAST ROUND: P1 slides its cannon, taps it, presses its shield. P2 swipes " +
       "its cannon left for red, right for cyan. PIN: P1 holds its cannon, P2 " +
-      "holds its shield; both, for mirrorHoldBeats.",
+      "holds its shield; both, for mirrorHoldBeats. A press on the other " +
+      "seat's lobe is refused (mirrorRefuse).",
     source: "touch.ts — mirrorLobeUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "mirrorLobe",

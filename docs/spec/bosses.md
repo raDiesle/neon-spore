@@ -455,6 +455,21 @@ to one gesture on the panel the whole way down — `.claude/skills/new-boss`
 A wave with one round reflects it and holds: `reflect` is *the last round*,
 not *the second*. The three numbers are `packages/sim/src/config-mirror.ts`.
 
+**Its lobes answer a touch the way every mark does** (28 September 2026,
+`mirror-marks.ts`; `mark-feedback.ts`, `grip-verdict.ts`). Which lobe the
+round asks of which seat is the simulation's (`mirrorAsks`,
+`sim/mirror-hand.ts`). A lobe asked of this seat wears the halo, but not
+under `hold` once the sim has this thumb on it; a lobe asked only of the
+partner wears their turning ring and the clock, the same whether their
+thumb is on it or not — the other thumb is still never drawn. Each verdict
+washes the lobe it was on: **green** for a step made right on it
+(`mirrorTouch`, `right`) and for the pin landing, on both; **red** for a
+wrong step made on it and for a press on a lobe asked of the other seat
+(`mirrorRefuse`), which is handed through holding nothing, refused once and
+moves nothing. A desk press on a lobe only one seat is asked for is signed
+with that seat (`mirrorGripSeat`); its cannon under `reflect` answers
+either, and the desk's first seat takes it.
+
 **What the field says.** One word, `REPEAT`, over the mirror's cannon for the
 whole of `listen`, on both screens (`render/src/boss-cue-read-e.ts`,
 `docs/decisions.md` #34) — a flat `PRESS` under `answer` and a `CARRY` under

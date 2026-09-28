@@ -2,6 +2,7 @@ import type { MirrorState, SimConfig, SimEvent } from "@neon-spore/sim";
 import { drawThrownRing } from "./grip-rings.js";
 import type { Layout } from "./layout.js";
 import { mirrorLobeCircle } from "./mirror-grip.js";
+import { drawMirrorVerdicts, MirrorMarks } from "./mirror-marks.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -12,6 +13,9 @@ import { PALETTE } from "./palette.js";
  * own rim colour outward when the pin lands, the dim one when it is lost —
  * on every screen, because the count starting and stopping is on every
  * screen, and it is the one moment the other seat's thumb is shown at all.
+ *
+ * It keeps the lobes' verdicts too, the green or red a touch on one is
+ * washed in, drawn over the thrown ring (`mirror-marks.ts`).
  */
 
 /** How long a thrown ring runs, in seconds. */
@@ -21,8 +25,11 @@ export class MirrorGripFx {
   /** Seconds left of the last throw, and whether it was the pin landing. */
   private left = 0;
   private landed = false;
+  /** Was the last touch on each lobe right (`mirror-marks.ts`). */
+  readonly marks = new MirrorMarks();
 
   ingest(events: readonly SimEvent[]): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (e.type !== "mirrorGrip") continue;
       this.left = THROW_LIFE;
@@ -32,14 +39,27 @@ export class MirrorGripFx {
 
   update(dt: number): void {
     this.left = Math.max(0, this.left - dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
     this.left = 0;
     this.landed = false;
+    this.marks.clear();
   }
 
   draw(
+    ctx: CanvasRenderingContext2D,
+    l: Layout,
+    cfg: SimConfig,
+    m: MirrorState,
+    shieldCol: number,
+  ): void {
+    this.drawThrow(ctx, l, cfg, m, shieldCol);
+    drawMirrorVerdicts(ctx, l, cfg, m, shieldCol, this.marks.verdicts);
+  }
+
+  private drawThrow(
     ctx: CanvasRenderingContext2D,
     l: Layout,
     cfg: SimConfig,
