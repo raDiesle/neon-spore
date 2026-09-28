@@ -153,6 +153,21 @@ claim `next` would have made, branch and `Taken:` line both, and stops there: no
 prompt, no worktree. `bun run queue done` drops the claim along with the entry,
 so an item stops reading as ongoing at the moment it stops being in the file.
 
+**Take a set when one reading pays for it.** The owner, 28 September 2026:
+*not just pick a single task from queue, but if it is reasonable for claude
+and efficient create a set of items — you decide.* A session draining the
+queue reads the whole listing before it claims, and `take`s together the
+items that share a reading: entries whose `Files:` overlap; a finding filed by
+the lane about to work the item it was found in; the named steps of one
+roll-out entry that follow one precedent; two or three findings in one tool.
+It says the set in the report as it takes it, a sentence each, and why they
+go together in one more. **The set is a claim and a reading, never a commit**:
+each item is still its own commit, removed by its own `queue done`, and landed
+before the next is started, so a set cut short leaves nothing half-done. Three
+items is the ordinary size, and one is right when nothing else shares its
+files. What stays out: an item that `WAITS ON` one not in the set, an
+`Asks:` not yet answered, and on a cloud session anything `LOCAL ONLY`.
+
 **Is anything still being worked on.** `bun run queue status` answers in one
 word — `DONE` when nothing is left at all, `IDLE` when items are waiting and
 nobody is on one, `BUSY` when somebody is, naming the items and the branches
