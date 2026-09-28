@@ -199,11 +199,12 @@ describe("the hem carried up", () => {
     expect(seen.has("curtainLift")).toBe(false);
   });
 
-  it("is the pilot's alone: the navigator's thumb is dropped without a sound", () => {
+  it("is the pilot's alone: the navigator's thumb lifts nothing and is refused", () => {
     const { world, c } = jammed();
     step(world, [hem(world.tick, CFG.curtainLiftMilli, 2)]);
     expect(c.liftMilli).toBe(0);
     expect(curtainCoreBare(world, c)).toBe(false);
+    expect(world.events.filter((e) => e.type === "curtainRefuse")).toHaveLength(1);
   });
 
   it("is not answered while the sheet hangs free", () => {

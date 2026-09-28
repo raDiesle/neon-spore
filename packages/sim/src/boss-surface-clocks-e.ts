@@ -40,6 +40,9 @@ export {
   burgeeSwipe,
   freshBurgee,
 } from "./burgee.js";
+// Whether THE CURTAIN's hem asks the pilot for his thumb
+// (`render/curtain-marks.ts`), for the reason THE UNDERTOW's asks are below.
+export { curtainHemAsks } from "./curtain-hand.js";
 
 // THE FLUE's ember: the phase, the lit step, the drift and the steadying,
 // whose rest is counted and whose tap is heard, the taps, the vents and the

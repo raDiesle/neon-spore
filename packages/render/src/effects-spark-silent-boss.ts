@@ -118,6 +118,7 @@ export const SILENT_BOSS = [
   "curtainPin",
   "curtainJam",
   "curtainLift",
+  "curtainRefuse",
   "curtainTear",
   "curtainOut",
   // THE TASTER's fifteen, read above the loop by `taster-fx.ts` the way THE

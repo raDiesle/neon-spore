@@ -1,4 +1,5 @@
 import { batonGripSeat } from "./baton-grip.js";
+import { curtainHemSeat } from "./curtain-grip.js";
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
 import { mazeGripSeat } from "./maze-grip.js";
@@ -49,7 +50,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    and THE BATON's shell and beads the twelfth (`baton-grip.ts`
  *    `batonGripSeat`), and THE THROAT's ring and tube the thirteenth
  *    (`throat-grip.ts` `throatGripSeat`), and THE UNDERTOW's pins and free
- *    the fourteenth (`undertow-grip.ts` `undertowGripSeat`).
+ *    the fourteenth (`undertow-grip.ts` `undertowGripSeat`), and THE
+ *    CURTAIN's hem the fifteenth (`curtain-grip.ts` `curtainHemSeat`).
  *    One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
@@ -169,6 +171,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     scoutGripSeat(l, x, y, field) ??
     batonGripSeat(l, x, y, field) ??
     throatGripSeat(l, x, y, field) ??
-    undertowGripSeat(l, x, y, field)
+    undertowGripSeat(l, x, y, field) ??
+    curtainHemSeat(l, x, y, field)
   );
 }

@@ -4333,6 +4333,23 @@ the transient's reset. THE SLOW on the shove (`decisions.md` #33) is not
 wired: the shove is a glide over one beat and nothing in it has a beat worth
 slowing yet; the owner's eye decides.
 
+**Both rings answer a touch the way every mark does** (28 September 2026, the
+owner's consistent visual; `render/curtain-marks.ts`). The hem is the pilot's
+and both screens draw it, so it is THE INSTAR's case whole: while the rail is
+jammed and the hem at rest it asks him (`sim/curtain-hand.ts`
+`curtainHemAsks`) — the halo under it on his screen, and on hers his ring and
+the clock of her shot waiting on his lift. A lift to the top washes it green
+(`curtainLift`); her press on it, which until this day was dropped without a
+sound, is now refused out loud (`curtainRefuse`, `boss.instarRefuse`, thrown in
+the sheet's middle and never the core's column) and washes it red. A desk
+press on the hem is signed with the pilot (`desk-grab.ts`
+`curtainHemSeat`). The sheet has no open mark — its hand ring is drawn only
+while a thumb is on it, THE CAIRN's case — so it has the verdict alone: a shove
+that carried it green (`curtainShove`), a shove into the jammed rail red
+(`curtainJam`). The verdicts are kept in `CurtainFx`, keyed hem and sheet.
+`render/test/curtain-verdict.test.ts` and `sim/test/curtain-hem.test.ts` hold
+it.
+
 **What the field says** (`render/src/boss-cue-read.ts`, 19 September 2026,
 [decisions](../decisions.md) #34). It shipped with `CARRY` / `SHOVE` on the
 membrane and `PRESS` / `FIRE` on the bared core, two words that name a gesture
@@ -4367,7 +4384,7 @@ nothing in `out`.
 **pinned** no shove moves the sheet, so `SHOVE` would be a word for a gesture
 the simulation refuses — the cue's arm for that state puts `LIFT` on the
 sheet's middle instead, the pilot's alone because the hem is his thumb
-(`curtainHemHeard` takes nothing from seat two), and says nothing to her until
+(`curtainHemHeard` lifts nothing for seat two and refuses her press), and says nothing to her until
 the hem is high enough to bare the core, when the fight is the bare core's
 again and `FIRE` stands where it always does. The middle rather than the
 core's column, so the word does not hand him her half of the fight. Three

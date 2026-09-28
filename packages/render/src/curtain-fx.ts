@@ -1,6 +1,7 @@
 import { CURTAIN_COLS, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
 import { BossHurt } from "./boss-hurt.js";
+import { CurtainMarks } from "./curtain-marks.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -44,6 +45,8 @@ export class CurtainFx {
   private sheets: Sheet[] = [];
   /** The blow a core hit deals the boss. */
   readonly hurt = new BossHurt();
+  /** The verdicts round the hem and the sheet, on both screens (`curtain-marks.ts`). */
+  readonly marks = new CurtainMarks();
 
   ingest(
     events: readonly SimEvent[],
@@ -53,6 +56,7 @@ export class CurtainFx {
     spb: number,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const cy = tileCY(l, cfg.curtainRow);
     const hem = cy + l.tile * 0.45;
     for (const e of events) {
@@ -114,6 +118,7 @@ export class CurtainFx {
     for (const s of this.sheets) s.left -= dt;
     this.sheets = this.sheets.filter((s) => s.left > 0);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
@@ -146,5 +151,6 @@ export class CurtainFx {
   clear(): void {
     this.sheets = [];
     this.hurt.clear();
+    this.marks.clear();
   }
 }

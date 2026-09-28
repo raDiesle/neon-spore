@@ -28412,3 +28412,13 @@ The bottleneck: deciding whether a red belonged anywhere — no refusal is possi
 The bottleneck: finding why the kept claim had no `Taken:` line to begin with — each roll-out landing takes it off with the entry's rewritten words, so every next lane is a fresh claim on a standing branch.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE CURTAIN's hem and sheet answer a touch like THE INSTAR's marks
+
+- reading: 10 min. The hem's hand, its grip on both screens, the sheet's ring, THE CAIRN's precedent.
+- writing: 25 min. `curtainHemAsks`, the refusal `curtainRefuse` registered in the audio and effects rosters, `curtainHemSeat` in the desk chain, `curtain-marks.ts`, the verdicts in `CurtainFx`, one new test.
+- looking: 0 min. Covered by the frame tests.
+- friction: 5 min. The context ran out mid-lane.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: her press on the hem was dropped without a sound, so the red needed a new event registered in six places before it had anything to answer.

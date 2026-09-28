@@ -123,28 +123,44 @@ export function curtainHemAt(
 }
 
 /**
- * The grab, and the pilot's alone: a lift sent from her seat is dropped
- * without a sound in the rule itself (`sim/curtain-hand.ts`), so a ring she
- * could take hold of would be a control that did nothing. Only while the rail
- * is `pinned`, for the same reason the rule is: a sheet free to slide gives
- * sideways, and a hem liftable from `hung` would be a quieter way to do the
- * shove's job with one hand instead of two.
+ * The grab, and the pilot's alone. Her press on the ring, which her screen
+ * draws too, is **handed through with no hold**, so the simulation refuses it
+ * once and the ring washes red (`sim/curtain-hand.ts`, `curtain-marks.ts`).
+ * Only while the rail is `pinned`, for the same reason the rule is: a sheet
+ * free to slide gives sideways, and a hem liftable from `hung` would be a
+ * quieter way to do the shove's job with one hand instead of two.
  *
  * Answered at the **rest** and never where the hem has got to, which is the
  * rule for every handle on this field (`handles.ts`).
  */
 export function curtainHemUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const c = bossOf(field, "curtain");
-  if (c === null || c.phase !== "pinned" || field.seat !== 1) return null;
-  const body = field.creatures.find((b) => b.id === c.creatureId);
-  if (body === undefined) return null;
-  const rest = curtainHemRest(l, field.cfg, body, field.beatPhase);
-  if (rest === null || !hitCircle({ ...rest, r: rest.r * PULL_GRAB }, x, y)) return null;
+  if (curtainHemSeat(l, x, y, field) === undefined) return null;
+  const command = {
+    kind: "drag",
+    target: "curtainHem",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: 0,
+  } as const;
+  if (field.seat !== 1) return { player: field.seat, command, hold: null };
   return {
     player: 1,
-    command: { kind: "drag", target: "curtainHem", on: true, fromMilli: 0, fromYMilli: 0 },
+    command,
     hold: { kind: "drag", target: "curtainHem", player: 1, originX: x, originY: y },
   };
+}
+
+/**
+ * The seat a press on the hem belongs to — always his — so one mouse at a desk
+ * lifts it rather than having it refused as hers (`desk-grab.ts` `markSeat`).
+ */
+export function curtainHemSeat(l: Layout, x: number, y: number, field: Field): 1 | undefined {
+  const c = bossOf(field, "curtain");
+  if (c === null || c.phase !== "pinned") return undefined;
+  const body = field.creatures.find((b) => b.id === c.creatureId);
+  if (body === undefined) return undefined;
+  const rest = curtainHemRest(l, field.cfg, body, field.beatPhase);
+  return rest !== null && hitCircle({ ...rest, r: rest.r * PULL_GRAB }, x, y) ? 1 : undefined;
 }
 
 /**

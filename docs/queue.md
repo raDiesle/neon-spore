@@ -338,8 +338,8 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
 THE VANE, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL, THE PULSE, THE
-CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW and THE GORGE: **one boss a lane**, the first on `TO_COME` in the
-roll-out test — THE CURTAIN next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
+CAIRN, THE SCOUT, THE BATON, THE THROAT, THE UNDERTOW, THE GORGE and THE CURTAIN: **one boss a lane**, the first on `TO_COME` in the
+roll-out test — THE TASTER next — worked exactly as `.claude/skills/new-boss` §5 says and THE VANE's and
 THE MAZE's lanes did it (`vane-marks.ts`, `maze-marks.ts`; which part is asked of which
 seat moved into the simulation, `sim/vane-open.ts` `vaneArmAsks` and
 `vaneHousingAsks`, `sim/maze-controls.ts` `mazeStringAsks`, `sim/maze-hand.ts`
@@ -357,7 +357,8 @@ one seat's screen never shows gets no partner's clock and no refusal
 (`gauge-marks.ts`, `gorge-marks.ts`), and two seats' rings on one circle get none either
 (`fleet-grip-marks.ts`); a mark drawn only under a thumb gets the verdict
 alone (`cairn-marks.ts`, kept in `BossBlows`); a partner's thumb whose state
-is the pair's sentence gets no clock (`baton-marks.ts`). A lane that lands one boss and leaves others on the
+is the pair's sentence gets no clock (`baton-marks.ts`); a press that was dropped
+silently is refused out loud once its mark asks (`curtain-marks.ts`, `curtainRefuse`). A lane that lands one boss and leaves others on the
 list keeps this entry, rewritten to name the next; the lane that empties the
 list removes it and the list with it.
 

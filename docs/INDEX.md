@@ -2199,6 +2199,7 @@ by hand never moves.
 | `packages/render/src/curtain-sway.ts` | **THE CURTAIN sways in a draught** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
+| `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |
 | `packages/render/src/cyst-fx.ts` | What THE CYST leaves behind a frame (§34): the **thud** of a flank cracking |
 | `packages/render/src/cyst-grip.ts` | **The hands on THE CYST** (§34): a tap on a freeze mark, and a pinch on a flank |
@@ -2305,7 +2306,7 @@ by hand never moves.
 | `packages/audio/src/bind-pulse-hand.ts` | THE PULSE's hand on the bar, in a file of their own for `bind-scout-hand.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
-| `packages/audio/src/bind-curtain.ts` | THE CURTAIN's thirteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-curtain.ts` | THE CURTAIN's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
 | `packages/audio/src/bind-valve.ts` | THE VALVE's twenty-five, in a file of their own for `bind-gorge.ts`' reason |

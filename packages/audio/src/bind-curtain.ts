@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE CURTAIN's thirteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE CURTAIN's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, because every one of them names a column —
  * and here the column is the whole sentence: which lobe is soft, which
@@ -27,6 +27,7 @@ export function curtainCue(
         | "curtainPin"
         | "curtainJam"
         | "curtainLift"
+        | "curtainRefuse"
         | "curtainTear"
         | "curtainOut";
     }
@@ -61,6 +62,10 @@ export function curtainCue(
       return { id: "boss.curtainJam", pan };
     case "curtainLift":
       return { id: "boss.curtainLift", pan };
+    case "curtainRefuse":
+      // The navigator's thumb on his hem: THE INSTAR's refusal, the one sound
+      // every refused mark makes.
+      return { id: "boss.instarRefuse", pan };
     case "curtainTear":
       return { id: "boss.curtainTear", pan };
     case "curtainOut":

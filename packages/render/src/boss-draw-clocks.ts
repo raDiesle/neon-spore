@@ -165,7 +165,8 @@ export function drawClockBoss(
     ctx.save();
     ctx.translate(hurt.shakeX(view.time, l.tile), 0);
     const { beatPhase, time, names } = view;
-    drawCurtain(ctx, l, world, boss, world.beat, beatPhase, time, names, hurt.value);
+    const { verdicts } = effects.boss.curtain.marks;
+    drawCurtain(ctx, l, world, boss, world.beat, beatPhase, time, names, hurt.value, verdicts);
     ctx.restore();
     return;
   }

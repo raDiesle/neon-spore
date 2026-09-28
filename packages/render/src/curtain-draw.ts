@@ -6,10 +6,12 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { curtainHemLift, curtainSheetMidX, drawCurtainHem } from "./curtain-grip.js";
+import { drawCurtainAsked, drawCurtainVerdicts } from "./curtain-marks.js";
 import { drawCurtainCore, drawCurtainJam, drawCurtainSheet } from "./curtain-sheet.js";
 import { curtainSway } from "./curtain-sway.js";
 import { drawnCol } from "./depth.js";
 import { drawHandAt } from "./grip.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { showsCurtainShadow, showsCurtainSoft } from "./view-role-clocks.js";
@@ -67,6 +69,8 @@ export function drawCurtain(
   names?: SeatNames,
   /** How hard the blow of a core hit still shows (`curtain-fx.ts`). */
   hurt = 0,
+  /** The verdict of each touch, drawn over everything (`curtain-marks.ts`). */
+  verdicts?: GripVerdicts,
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
@@ -104,13 +108,16 @@ export function drawCurtain(
     const gone = (beat - c.phaseBeat + beatPhase) / Math.max(1, cfg.curtainPinBeats);
     drawCurtainJam(ctx, l, x0, cy, Math.max(0, Math.min(1, 1 - gone)));
   }
+  // Haloed under while it asks the pilot, with his clock on her screen.
+  drawCurtainAsked(ctx, l, cfg, c, body, beatPhase, time);
   drawCurtainHem(ctx, l, cfg, c, body, beatPhase, time);
 
   const p1 = gripsCreature(world, 1, body.id);
   const p2 = gripsCreature(world, 2, body.id);
-  if (!p1 && !p2) return;
   // The ring closes on the part of the sheet that is on the field.
   const mid = curtainSheetMidX(l, cfg, at);
-  if (mid === null) return;
-  drawHandAt(ctx, l, world, body, "pull", p1, p2, mid, cy, l.tile * 0.8, time, names);
+  if ((p1 || p2) && mid !== null) {
+    drawHandAt(ctx, l, world, body, "pull", p1, p2, mid, cy, l.tile * 0.8, time, names);
+  }
+  if (verdicts) drawCurtainVerdicts(ctx, l, world, c, body, beatPhase, verdicts);
 }

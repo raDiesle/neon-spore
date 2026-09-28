@@ -208,6 +208,7 @@ const SAMPLES: Record<string, SimEvent> = {
   curtainPin: { type: "curtainPin", col: 5, beats: 6 },
   curtainJam: { type: "curtainJam", col: 3, dir: 1 },
   curtainLift: { type: "curtainLift", col: 5 },
+  curtainRefuse: { type: "curtainRefuse", col: 5 },
   curtainTear: { type: "curtainTear", col: 5 },
   curtainOut: { type: "curtainOut", col: 5 },
   tasterRise: { type: "tasterRise", col: 0, width: 7 },

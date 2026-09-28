@@ -26,7 +26,11 @@ export const CURTAIN_CONTROLS: readonly FieldControlDef[] = [
       "screens, and only while a hit has jammed the rail — a ring on the " +
       "fabric's bottom edge, under the bar laid along the rail that runs " +
       "down as the jam does",
-    seat: "player 1 only — the shadow's column is hers to read, so the hand goes to the seat not already being asked for it",
+    seat:
+      "player 1 only — the shadow's column is hers to read, so the hand goes " +
+      "to the seat not already being asked for it; the hem wears the halo on " +
+      "his screen while it asks, his clock on hers, and her press on it is " +
+      "refused out loud and washes it red",
     gesture: "grab and drag",
     does:
       "Gathers the hem up off the floor and holds it there. While the rail " +
@@ -42,7 +46,9 @@ export const CURTAIN_CONTROLS: readonly FieldControlDef[] = [
       "is drawn on both screens because the gauge closing is her cue; it " +
       "hangs in the middle of the sheet and never over the core, because the " +
       "core is hers to see and a handle in its column would tell him where " +
-      "it is (render/curtain-grip.ts).",
+      "it is (render/curtain-grip.ts). A lift to the top washes it green, " +
+      "and a shove into the jammed rail washes the sheet red " +
+      "(render/curtain-marks.ts).",
     source: "touch.ts — curtainHemUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "curtainHem",

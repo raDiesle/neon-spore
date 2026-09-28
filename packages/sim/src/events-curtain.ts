@@ -51,6 +51,8 @@ export type CurtainEvent =
   | ({ type: "curtainJam"; dir: -1 | 1 } & CurtainColEvent)
   /** The hem came all the way up and the gap over the core in `col` is open. */
   | ({ type: "curtainLift" } & CurtainColEvent)
+  /** The navigator pressed the hem, which is the pilot's: refused; `col` is the sheet's middle (`curtain-hand.ts`). */
+  | ({ type: "curtainRefuse" } & CurtainColEvent)
   /** The hem was bare and the shove tore the sheet off the rail: the core hangs naked in `col`. */
   | ({ type: "curtainTear" } & CurtainColEvent)
   /** The last hit: the core is out in `col`, and the fight is over. */
