@@ -28224,3 +28224,5 @@ push a `*Refuse` event could have had the bug, and a grep finds those first.
 
 The bottleneck: the registrations a new event is owed across three packages,
 found one at a time from the typecheck's errors.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

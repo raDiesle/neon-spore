@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 8d0652953 — THE BULB QUEEN's marks answer a touch the way THE INSTAR's do
+
+Her two marks, while BROOD's pry or SCREAM's hold asks for them, wear the halo on player 1's screen and the partner's turning ring and clock on player 2's, and each touch is judged on the mark it landed on: green for a pry that landed or a thumb on the real mark, red for a flinch, a thumb on the other one, or player 2's press, which the simulation now refuses and says (`queenRefuse`) instead of dropping in silence. Each verdict is said once per press, never once per move of the thumb, and a desk press on a mark is player 1's. A look the owner asked for by name.
+
 ## 2026-09-28 · 187f8adda — No other grip refuses the wrong seat's press on every move
 
 After THE WARDEN's eye and THE INSTAR's marks, the ten other grips that sign a press with `field.seat` were read against the hand each reaches. None has the bug. Baton, burgee, davit, sling, gimbal and filament hand the wrong seat nothing at all; the antiphon organ, pulse meter and surge bulb are either seat's; THE FLUE's tap from the wrong seat is edge-gated and silent; and THE BATON's one refusal is already counted once in the sim.
