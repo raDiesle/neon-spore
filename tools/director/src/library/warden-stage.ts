@@ -64,6 +64,7 @@ const STATE: WardenState = {
   pullAnchorX: 0,
   pullAnchorY: 0,
   eyeHeld: false,
+  hatchCarryMilli: 0,
   throwBeat: -1,
 };
 

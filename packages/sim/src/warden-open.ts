@@ -27,6 +27,19 @@ export function wardenThrown(world: World, b: WardenState): boolean {
   return b.throwBeat >= 0 && world.beat < b.throwBeat + world.cfg.wardenThrowBeats;
 }
 
+/**
+ * **How far the swipe under the pilot's thumb is to throwing the hatch**, in
+ * thousandths, signed the way it is going — nought with no thumb on it, a
+ * thousand either way once the lift would throw it. The simulation's own
+ * word, so the fill on both phones is the carry the lift is judged on
+ * (`warden-hand.ts`), THE INSTAR's `instarSwipeAlong`.
+ */
+export function wardenSwipeAlong(world: World, b: WardenState): number {
+  const need = world.cfg.wardenThrowMilli;
+  if (need <= 0) return 0;
+  return Math.max(-1000, Math.min(1000, Math.trunc((b.hatchCarryMilli * 1000) / need)));
+}
+
 /** Whether the core is exposed this instant: the only window a shot counts in. */
 export function wardenEyeOpen(world: World, b: WardenState): boolean {
   switch (wardenPhase(b.plates).asks) {

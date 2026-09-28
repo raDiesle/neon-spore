@@ -37,10 +37,12 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE WARDEN'S SWIPE",
     where:
-      "a ring on the hatch on player 1's screen under GLARE — the last " +
-      "plate, with no rope coming down, with a halo under it; on player 2's, " +
-      "the partner's turning ring and clock; on the test screen; a dial " +
-      "round the eye on both while it is thrown",
+      "a track across the eye on player 1's screen under GLARE — the last " +
+      "plate, with no rope coming down — wardenThrowMilli out each side, " +
+      "chevrons on it and a halo under it, filling green as the thumb " +
+      "carries it; on player 2's, the partner's dashed bar and clock, and " +
+      "the fill; on the test screen; a dial round the eye on both while " +
+      "it is thrown",
     seat: "player 1 only — the seat whose rope is gone, given the door instead",
     gesture: "grab and drag",
     does:
@@ -49,7 +51,9 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
       "running out — then slams. A lift short of the swipe throws nothing " +
       "and is refused, red on the eye, as is player 2's press; the throw is " +
       "green (sim/warden-hand.ts).",
-    source: "touch.ts — wardenGripUnder() under handleUnder(); the lift carries the travel",
+    source:
+      "touch.ts — wardenGripUnder() under handleUnder(); each move carries the travel " +
+      "(hatchCarryMilli), warden-track.ts draws it",
     holdKind: "drag",
     dragTarget: "wardenHatch",
     sends: ["drag"],

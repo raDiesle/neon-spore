@@ -1652,6 +1652,7 @@ by hand never moves.
 | `packages/render/src/warden-grip-fx.ts` | THE WARDEN's thumb landing, hatch thrown and hatch slamming, each a ring off the eye |
 | `packages/render/src/warden-grip.ts` | THE WARDEN's eye as a control: player 2's thumb under NARROW, player 1's swipe under GLARE |
 | `packages/render/src/warden-drift.ts` | **THE WARDEN rocks on its open foot** |
+| `packages/render/src/warden-track.ts` | THE WARDEN's hatch under GLARE drawn as a swipe track through the eye, filling green with the carry |
 | `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
 | `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |

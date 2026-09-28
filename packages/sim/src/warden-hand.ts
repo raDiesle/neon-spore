@@ -25,7 +25,9 @@ import type { World } from "./world.js";
  * which it slams of its own weight. Player 2 fires inside the window. The
  * seat throwing cannot fire and the seat firing cannot throw, as with the
  * rope, but where the rope was *held* this is *timed*: the throw is said, and
- * the shot has three beats to answer.
+ * the shot has three beats to answer. Every move on the way is heard too, and
+ * kept as the furthest the thumb has carried it (`hatchCarryMilli`), so the
+ * track fills before the lift and the lift is judged on what it showed.
  *
  * Nothing here charges the hull. A thumb lifted early, a swipe too short, a
  * shot after the slam — each is a window lost and nothing more, because a
@@ -73,9 +75,18 @@ function hatchHeard(
     if (command.on) refuse(world, b, player);
     return;
   }
-  // The press says nothing; the throw is the lift, and only one that travelled.
-  if (command.on) return;
-  if (Math.abs(command.fromMilli) < world.cfg.wardenThrowMilli) {
+  // The press and the moves only carry; the throw is the lift, and only one
+  // that travelled — as far as the furthest the thumb went, which is what the
+  // track filled to (`wardenSwipeAlong`).
+  const need = world.cfg.wardenThrowMilli;
+  const at = Math.max(-need, Math.min(need, command.fromMilli));
+  const carried = Math.abs(at) > Math.abs(b.hatchCarryMilli) ? at : b.hatchCarryMilli;
+  if (command.on) {
+    b.hatchCarryMilli = carried;
+    return;
+  }
+  b.hatchCarryMilli = 0;
+  if (Math.abs(carried) < need) {
     refuse(world, b, player);
     return;
   }

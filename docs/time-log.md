@@ -28131,3 +28131,16 @@ The bottleneck was the convention against the boss: the partner's ring would dra
 The bottleneck was the event's registrations: a new receipt is five lists in three packages, found only by searching for the last boss that added one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE WARDEN's hatch swipe is a track that fills before the lift
+
+- reading: 5 min. `warden-hand.ts`, `warden-grip.ts`, `instar-track.ts`, the
+  verdict test's halo count.
+- writing: 5 min. `hatchCarryMilli` and `wardenSwipeAlong`, `warden-track.ts`,
+  two test files, the spec paragraph and the director row.
+- looking: 5 min. The GLARE pair from both seats with a carry.
+- friction: 0 min.
+- landing: 5 min. The import sort, the INDEX row, `check:fast`, `land`.
+
+The bottleneck: the verdict test counted the halo as a radial gradient, and a
+track's halo is a bar, so the test had to learn the second shape.

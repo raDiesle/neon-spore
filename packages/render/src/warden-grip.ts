@@ -4,6 +4,7 @@ import {
   type WardenState,
   type World,
   wardenPhase,
+  wardenSwipeAlong,
   wardenThrown,
 } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
@@ -16,6 +17,7 @@ import type { ViewRole } from "./view-role.js";
 import { wardenEyeCircle } from "./warden.js";
 import { wardenPose, wardenPosedCircle } from "./warden-drift.js";
 import { WARDEN_EYE_MARK } from "./warden-fx.js";
+import { drawWardenTrack } from "./warden-track.js";
 
 /**
  * **THE WARDEN's eye as a control**, for the two gestures that ask a thumb for
@@ -35,10 +37,11 @@ import { WARDEN_EYE_MARK } from "./warden-fx.js";
  *
  * What is drawn is read off the world every frame and nothing is kept: under
  * NARROW a ring on the eye on the navigator's screen, breathing until her
- * thumb lands and filled while the sim has it (`eyeHeld`); under GLARE a ring
- * on the hatch on the pilot's screen until his swipe throws it, and then the
- * window's dial round the eye on **both** screens, because three beats is
- * *our* count — the shot has to go inside it. The other seat's thumb is never
+ * thumb lands and filled while the sim has it (`eyeHeld`); under GLARE a track
+ * through the hatch, because a swipe is drawn as the way the thumb goes and
+ * never as a ring, filling as his thumb carries it (`warden-track.ts`), until
+ * the lift throws it, and then the window's dial round the eye on **both**
+ * screens, because three beats is *our* count — the shot has to go inside it. The other seat's thumb is never
  * drawn as a thumb: the pilot sees the lids part, the navigator sees the
  * hatch fly open, and each is what the partner's hand *does*. That is the
  * split. The word for each is the cue's (`boss-cue-read-f.ts`), never a
@@ -143,7 +146,9 @@ export function drawWardenGrip(
   if (asks === "hold") {
     drawEyeMark(ctx, c, r, role !== "p1", b.eyeHeld, time);
   } else if (!wardenThrown(world, b)) {
-    drawEyeMark(ctx, c, r, role !== "p2", false, time);
+    const reach = (l.tile * cfg.wardenThrowMilli) / 1000;
+    const along = wardenSwipeAlong(world, b) / 1000;
+    drawWardenTrack(ctx, { x: c.x, y: c.y, r }, reach, along, role !== "p2", time);
   } else {
     // The window, off the same beat `wardenThrown` read: the dial and the door agree.
     const gone = (world.beat - b.throwBeat + beatPhase) / cfg.wardenThrowBeats;

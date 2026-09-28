@@ -315,24 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE WARDEN's hatch swipe is a ring, and says nothing before the lift
-
-- **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
-- **Taken:** 2026-09-28, claude/queue-the-sinew-answers-a-touch-the-way-the-instar-doe (claim: claude/queue-the-wardens-hatch-swipe-is-a-ring-and-says-nothi)
-- **Files:** `packages/render/src/warden-grip.ts`, `packages/sim/src/warden-hand.ts`, `packages/render/src/touch.ts`
-
-The owner's generic rule (`.claude/skills/new-boss/owner.md`, `new-boss` §5
-item 5): *a swipe is a track the length of the swipe, never a ring*, and a
-swipe begun the right way fills before the lift (`instarSwipeAlong`). THE
-WARDEN's hatch under GLARE is a swipe drawn as the same breathing ring as
-the thumb under NARROW, and the simulation hears only its press and its lift
-(`hatchHeard`), so nothing can fill while the thumb travels. The work: send
-the carry on the move as THE INSTAR's swipe does, keep it in `WardenState`
-(hashed), a `wardenSwipeAlong` for the renderer, and draw the hatch as an
-`instar-track.ts`-style track `wardenThrowMilli` long, filling green. A
-frame test, and the PNG — it is a look, landed under the owner's rule by
-name.
-
 ## AUTO never takes a plate off THE WARDEN in `bun run frames`
 
 - **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do

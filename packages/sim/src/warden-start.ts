@@ -46,5 +46,6 @@ export function installWarden(world: World, entry: WardenEntry): void {
     pullAnchorY: 0,
     eyeHeld: false,
     throwBeat: -1,
+    hatchCarryMilli: 0,
   };
 }

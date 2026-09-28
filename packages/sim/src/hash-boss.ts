@@ -99,6 +99,7 @@ export function bossHashParts(boss: BossState | null): number[] {
     // under GLARE — each is whether the next shot counts.
     push(boss.eyeHeld ? 1 : 0);
     push(boss.throwBeat);
+    push(boss.hatchCarryMilli);
   }
   if (boss !== null && boss.kind === "cairn") {
     push(boss.creatureId);

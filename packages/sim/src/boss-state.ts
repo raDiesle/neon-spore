@@ -145,6 +145,13 @@ export interface WardenState {
    * There is no line under GLARE, so this is the only way the eye shows.
    */
   throwBeat: number;
+  /**
+   * How far player 1's thumb has carried the hatch this swipe under GLARE, in
+   * thousandths of a tile, signed the way it went and capped at
+   * `wardenThrowMilli` either way: the furthest it has been, so the track can
+   * fill before the lift (`wardenSwipeAlong`). Nought with no thumb on it.
+   */
+  hatchCarryMilli: number;
 }
 
 /**
