@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 2d2026adf — THE CAIRN's pile answers a touch the way THE INSTAR's marks do
+
+The pile's mark is the ring a hand closes on it, and that ring is drawn only while a thumb is down, so the pile gets the verdict and nothing else: no halo, no partner's clock, no red, since either seat may take it. A unit hauled out washes the ring green, and so does every beat the hold buys off the clock. The verdicts are kept in `BossBlows` (`cairn-marks.ts`), and `pileRing` is now the one place that says where the ring stands.
+
 ## 2026-09-28 · 036434a54 — THE PULSE's bar answers a touch the way THE INSTAR's marks do
 
 Each seat's mark is its own end of the bar, the pilot's the left and the navigator's the right. The halo stands under this seat's end while the bar asks for its thumb, and goes when the thumb is down. Under arrest, the seat holding sees the partner's end ringed with the clock until the second thumb lands. A brace washes that end green, and the arrest washes both. There is no red, because either seat may take the bar. Whether an end is asked is now the simulation's (`pulseBarAsks`), and the marks live in the rounds' `RoundMarks`, fed by the takeover.
