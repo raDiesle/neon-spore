@@ -97,6 +97,7 @@ const SAMPLES: Record<string, SimEvent> = {
   wardenHold: { type: "wardenHold", col: 4 },
   wardenThrow: { type: "wardenThrow", col: 4 },
   wardenSlam: { type: "wardenSlam", col: 4 },
+  wardenRefuse: { type: "wardenRefuse", col: 4, player: 1 },
   vanePin: { type: "vanePin", col: 3 },
   vaneSlip: { type: "vaneSlip", col: 3 },
   vaneHaul: { type: "vaneHaul", col: 2 },

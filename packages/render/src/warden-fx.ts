@@ -2,6 +2,7 @@ import type { Point } from "@neon-spore/content";
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
+import { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -29,7 +30,14 @@ import { WardenGripFx } from "./warden-grip-fx.js";
  * **A plate off is a sequence landed** — the rope held, the hatch open, the
  * shot through — so it deals the body the blow every boss takes
  * (`boss-hurt.ts`), and so does the last one.
+ *
+ * **The eye is judged like every mark** (`grip-verdict.ts`): the thumb landing
+ * and the hatch thrown wash it green, a refused press red. One mark, so one
+ * key — the eye is the thumb's and the swipe's circle both (`warden-grip.ts`).
  */
+
+/** The one key the eye's verdict is kept under. */
+export const WARDEN_EYE_MARK = 0;
 
 /** Seconds a cut rope takes to whip back up into the rim and go out. */
 const SNAP_LIFE = 0.45;
@@ -43,6 +51,8 @@ export class WardenFx {
   readonly grip = new WardenGripFx();
   /** The blow a plate off deals the body. */
   readonly hurt = new BossHurt();
+  /** Was the last touch on the eye right. */
+  readonly verdicts = new GripVerdicts();
 
   ingest(events: readonly SimEvent[]): void {
     // `plate` is THE WARDEN's alone — the queen sheds `petal` — and a plate is
@@ -50,6 +60,10 @@ export class WardenFx {
     for (const e of events) {
       if (e.type === "plate") this.snaps.push({ left: SNAP_LIFE });
       if (e.type === "plate" || e.type === "wardenDown") this.hurt.hit();
+      if (e.type === "wardenHold" || e.type === "wardenThrow") {
+        this.verdicts.mark(WARDEN_EYE_MARK, true);
+      }
+      if (e.type === "wardenRefuse") this.verdicts.mark(WARDEN_EYE_MARK, false);
     }
     this.grip.ingest(events);
   }
@@ -59,12 +73,14 @@ export class WardenFx {
     this.snaps = this.snaps.filter((s) => s.left > 0);
     this.grip.update(dt);
     this.hurt.update(dt);
+    this.verdicts.update(dt);
   }
 
   reset(): void {
     this.snaps = [];
     this.grip.clear();
     this.hurt.clear();
+    this.verdicts.clear();
   }
 
   /**

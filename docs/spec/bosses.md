@@ -659,8 +659,8 @@ out.
 `warden-rope.ts` and answers the eye and the hatch itself. `WardenState`
 gained `eyeHeld` and `throwBeat`, both hashed. `config-warden.ts` holds the
 two new numbers, in `BossClockConfig` with the other counts a pair says out
-loud. The three events — `wardenHold`, `wardenThrow`, `wardenSlam` — are
-`events-warden.ts`, cued by `bind-warden-hand.ts` and voiced by
+loud. The four events — `wardenHold`, `wardenThrow`, `wardenSlam` and
+`wardenRefuse` — are `events-warden.ts`, cued by `bind-warden-hand.ts` and voiced by
 `sounds/boss-warden.ts`; the rope's four stay where they were.
 
 **The look** (18 September 2026, a look with no shipped alternative). The
@@ -685,6 +685,20 @@ one for the thumb landing, a wide one for the throw, a dark one falling
 inward for the slam — on every screen, since each is the one moment the
 other seat's hand is shown at all. `field-controls-warden.ts` is the
 director's two rows.
+
+**The eye answers a touch the way every mark does** (28 September 2026, the
+owner's rule of the 24th and his answer of the 27th; `mark-feedback.ts`).
+The seat the eye asks for sees a halo breathing under its ring; the other
+sees a dashed ring turning round it and a clock in place of it, until her
+thumb is down. Either seat's press is handed through while the eye asks,
+and the simulation says no: the pilot's thumb under NARROW, the navigator's
+under GLARE and a swipe that lifted short each push `wardenRefuse`
+(`warden-hand.ts`), voiced with THE INSTAR's own *not yours* knock. The
+thumb landing and the throw wash the eye green, a refusal red — one
+`GripVerdicts` in `WardenFx`, one key, since the eye is both gestures'
+circle — and the desk asks the eye whose it is before a press
+(`wardenGripSeat`, `desk-grab.ts`), as it asks THE INSTAR's rings. The
+rope keeps the shared pull track it already had (`tether.ts`).
 
 **What is not built**: nothing of the design. *Never watched at tempo*:
 whether three beats is a window a pair can hit across a voice delay, whether

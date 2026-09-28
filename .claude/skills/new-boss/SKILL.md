@@ -148,7 +148,10 @@ commit. The shape of it, from THE GORGE and THE CURTAIN:
   events that mean *right* and *refused*, updated and cleared with the rest,
   and the drawer calls `drawVerdictRing` after each mark (`grip-verdict.ts`);
   this seat's open mark wears `drawMarkHalo`, the partner's `drawMarkTheirs`
-  and `drawMarkWait` in place of the gesture (`mark-feedback.ts`); and a
+  and `drawMarkWait` in place of the gesture (`mark-feedback.ts`); a mark
+  the wrong seat cannot reach cannot be refused, so its press is handed
+  through for the simulation to refuse, and the desk is told whose the mark
+  is before the press (`desk-grab.ts`, `wardenGripSeat`); and a
   gesture begun the right way fills from the simulation's own word for it
   (`instarSwipeAlong`), or the shared `pull-track.ts` for a pull. A test
   beside `render/test/instar-verdict.test.ts`; without the verdicts,

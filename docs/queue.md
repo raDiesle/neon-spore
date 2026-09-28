@@ -315,30 +315,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE WARDEN answers a touch the way THE INSTAR does
-
-- **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
-- **Taken:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
-- **Files:** `packages/render/src/warden-grip.ts`, `packages/render/src/warden-grip-fx.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
-
-The owner's rule of 24 September 2026, and his answer of the 27th: the same
-touch feedback on every boss, from the shared pieces. They are shared now —
-`GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
-`drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
-`.claude/skills/new-boss` §5 has the convention. The first of the choreographed four the owner put first; The work:
-
-- find the events that mean *this touch was right* and *this touch was
-  refused*, and mark `warden`'s `GripVerdicts` from them in its fx, updated
-  and cleared with the rest; `drawVerdictRing` after each mark;
-- the halo on this seat's open mark, the turning ring and the waiting clock on
-  the partner's;
-- the in-progress signal is the simulation's own word for *right direction*
-  (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
-- a test beside `packages/render/test/instar-verdict.test.ts`, and `"warden"`
-  off `TO_COME` in the roll-out test, which goes red otherwise.
-
-Lands as *a look the owner asked for by name*; send the PNG.
-
 ## THE SPOOL answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
@@ -348,13 +324,17 @@ The owner's rule of 24 September 2026, and his answer of the 27th: the same
 touch feedback on every boss, from the shared pieces. They are shared now —
 `GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
 `drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
-`.claude/skills/new-boss` §5 has the convention. The second of the choreographed four; The work:
+`.claude/skills/new-boss` §5 has the convention. The second of the choreographed four. The work:
 
 - find the events that mean *this touch was right* and *this touch was
   refused*, and mark `spool`'s `GripVerdicts` from them in its fx, updated
   and cleared with the rest; `drawVerdictRing` after each mark;
 - the halo on this seat's open mark, the turning ring and the waiting clock on
   the partner's;
+- a mark that is *not there* for the wrong seat cannot be refused in red:
+  hand its press through for the simulation to refuse with an event of its
+  own, and give the desk the mark's seat before the press (`desk-grab.ts`;
+  THE WARDEN's `wardenGripSeat` is the worked example);
 - the in-progress signal is the simulation's own word for *right direction*
   (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
 - a test beside `packages/render/test/instar-verdict.test.ts`, and `"spool"`
@@ -371,13 +351,17 @@ The owner's rule of 24 September 2026, and his answer of the 27th: the same
 touch feedback on every boss, from the shared pieces. They are shared now —
 `GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
 `drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
-`.claude/skills/new-boss` §5 has the convention. The third of the choreographed four; The work:
+`.claude/skills/new-boss` §5 has the convention. The third of the choreographed four. The work:
 
 - find the events that mean *this touch was right* and *this touch was
   refused*, and mark `hasp`'s `GripVerdicts` from them in its fx, updated
   and cleared with the rest; `drawVerdictRing` after each mark;
 - the halo on this seat's open mark, the turning ring and the waiting clock on
   the partner's;
+- a mark that is *not there* for the wrong seat cannot be refused in red:
+  hand its press through for the simulation to refuse with an event of its
+  own, and give the desk the mark's seat before the press (`desk-grab.ts`;
+  THE WARDEN's `wardenGripSeat` is the worked example);
 - the in-progress signal is the simulation's own word for *right direction*
   (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
 - a test beside `packages/render/test/instar-verdict.test.ts`, and `"hasp"`
@@ -394,19 +378,55 @@ The owner's rule of 24 September 2026, and his answer of the 27th: the same
 touch feedback on every boss, from the shared pieces. They are shared now —
 `GripVerdicts` and `drawVerdictRing` in `grip-verdict.ts`, and `drawMarkHalo`,
 `drawMarkTheirs` and `drawMarkWait` in `mark-feedback.ts` — and
-`.claude/skills/new-boss` §5 has the convention. The last of the choreographed four; The work:
+`.claude/skills/new-boss` §5 has the convention. The last of the choreographed four. The work:
 
 - find the events that mean *this touch was right* and *this touch was
   refused*, and mark `sinew`'s `GripVerdicts` from them in its fx, updated
   and cleared with the rest; `drawVerdictRing` after each mark;
 - the halo on this seat's open mark, the turning ring and the waiting clock on
   the partner's;
+- a mark that is *not there* for the wrong seat cannot be refused in red:
+  hand its press through for the simulation to refuse with an event of its
+  own, and give the desk the mark's seat before the press (`desk-grab.ts`;
+  THE WARDEN's `wardenGripSeat` is the worked example);
 - the in-progress signal is the simulation's own word for *right direction*
   (`instarSwipeAlong`), or the shared `pull-track.ts` channel for a pull;
 - a test beside `packages/render/test/instar-verdict.test.ts`, and `"sinew"`
   off `TO_COME` in the roll-out test, which goes red otherwise.
 
 Lands as *a look the owner asked for by name*; send the PNG.
+
+## THE WARDEN's hatch swipe is a ring, and says nothing before the lift
+
+- **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
+- **Files:** `packages/render/src/warden-grip.ts`, `packages/sim/src/warden-hand.ts`, `packages/render/src/touch.ts`
+
+The owner's generic rule (`.claude/skills/new-boss/owner.md`, `new-boss` §5
+item 5): *a swipe is a track the length of the swipe, never a ring*, and a
+swipe begun the right way fills before the lift (`instarSwipeAlong`). THE
+WARDEN's hatch under GLARE is a swipe drawn as the same breathing ring as
+the thumb under NARROW, and the simulation hears only its press and its lift
+(`hatchHeard`), so nothing can fill while the thumb travels. The work: send
+the carry on the move as THE INSTAR's swipe does, keep it in `WardenState`
+(hashed), a `wardenSwipeAlong` for the renderer, and draw the hatch as an
+`instar-track.ts`-style track `wardenThrowMilli` long, filling green. A
+frame test, and the PNG — it is a look, landed under the owner's rule by
+name.
+
+## AUTO never takes a plate off THE WARDEN in `bun run frames`
+
+- **Found:** 2026-09-28, claude/queue-the-warden-answers-a-touch-the-way-the-instar-do
+- **Files:** `packages/hands/src/boss-hands-shots.ts`, `tools/frames/auto.ts`
+
+`bun run frames . --wave "THE WARDEN" --auto both --until plate` finds no
+`plate` in 3000 ticks, on this lane and on its parent 7bfc2544c alike: the
+rope comes down and the eye opens four times (`eyeOpen`), and all 39 shots
+are `reject`ed at row 2, column 6. So no picture of NARROW or GLARE can be
+played to, only set with `--boss plates=3` — which is how this lane took
+its PNG, and which skips the fight the frame is meant to show. Find whether
+the hand fires at a pupil that has walked on by the time the bolt climbs,
+or the page's AUTO drops the rope's hold, and prove it with a test in
+`packages/hands` that plays THE WARDEN to `wardenDown`.
 
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 

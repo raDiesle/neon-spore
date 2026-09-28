@@ -28070,3 +28070,16 @@ The bottleneck was choosing the two sizes so the thread shows for most of a fall
 The bottleneck was deciding what makes a boss one *with a mark*, since nothing in the tree says it but the names of the renderer's pages.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE WARDEN's eye answers a touch the way THE INSTAR does
+
+- reading: 5 min. `warden-hand.ts`, `warden-grip.ts`, `warden-fx.ts`, the
+  rope's touch, and how THE INSTAR's marks, refusal and desk seat work.
+- writing: 5 min. `wardenRefuse` and its registrations, the verdicts, the
+  halo and partner's ring, `wardenGripSeat`, two test files, the docs.
+- looking: 5 min. Two seats' frames of NARROW, set with `--boss plates=3`.
+- friction: 0 min. AUTO never beat THE WARDEN's first phase, so the frame
+  was set rather than played to; queued.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was the desk: a mark the wrong seat can press has to name its seat before the press, or the test screen's mouse only ever reaches the pilot.

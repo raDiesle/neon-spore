@@ -11,10 +11,16 @@ import {
   type WardenState,
   type World,
 } from "@neon-spore/sim";
+import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { type Field, type Hold, touchDown, touchUp } from "../src/touch.js";
-import { drawWardenGrip, wardenGripCircle, wardenGripUnder } from "../src/warden-grip.js";
+import {
+  drawWardenGrip,
+  wardenGripCircle,
+  wardenGripSeat,
+  wardenGripUnder,
+} from "../src/warden-grip.js";
 import { WardenGripFx } from "../src/warden-grip-fx.js";
 import {
   CFG,
@@ -98,7 +104,12 @@ describe("a thumb on the eye", () => {
       fromYMilli: 0,
     });
     expect(touch?.hold).toMatchObject({ kind: "drag", target: "wardenEye", player: 2 });
-    expect(wardenGripUnder(layout("p1"), at.x, at.y, fieldOf(world, 1))).toBeNull();
+    // Player 1's press is handed through, signed as theirs, for the
+    // simulation to refuse (`sim/warden-hand.ts`), and the desk is told whose.
+    const wrong = wardenGripUnder(layout("p1"), at.x, at.y, fieldOf(world, 1));
+    expect(wrong?.player).toBe(1);
+    expect(wrong?.command).toMatchObject({ target: "wardenEye", on: true });
+    expect(wardenGripSeat(layout("p1"), at.x, at.y, fieldOf(world, 1))).toBe(2);
   });
 
   it("is player 1's under GLARE, on the hatch", () => {
@@ -107,7 +118,8 @@ describe("a thumb on the eye", () => {
     const at = wardenGripCircle(l, body(world, b), b);
     const touch = wardenGripUnder(l, at.x, at.y, fieldOf(world, 1));
     expect(touch?.command).toMatchObject({ target: "wardenHatch", on: true });
-    expect(wardenGripUnder(layout("p2"), at.x, at.y, fieldOf(world, 2))).toBeNull();
+    expect(wardenGripUnder(layout("p2"), at.x, at.y, fieldOf(world, 2))?.player).toBe(2);
+    expect(wardenGripSeat(layout("p2"), at.x, at.y, fieldOf(world, 2))).toBe(1);
   });
 
   it("is nobody's under WATCH, off the eye, and with no boss", () => {
@@ -116,6 +128,7 @@ describe("a thumb on the eye", () => {
     const at = wardenGripCircle(l, body(world, b), b);
     expect(wardenGripUnder(l, at.x, at.y, fieldOf(world, 2))).toBeNull();
     expect(wardenGripUnder(l, at.x, at.y, fieldOf(world, 1))).toBeNull();
+    expect(wardenGripSeat(l, at.x, at.y, fieldOf(world, 1))).toBeUndefined();
     b.plates = NARROW;
     expect(wardenGripUnder(l, at.x, at.y + at.r * 3, fieldOf(world, 2))).toBeNull();
     expect(wardenGripUnder(l, at.x, at.y, { ...fieldOf(world, 2), boss: null })).toBeNull();
@@ -158,7 +171,18 @@ describe("the swipe's lift", () => {
 function strokes(role: ViewRole, world: World, b: WardenState): number {
   const { ctx } = stubCanvas();
   const spy = ctx as unknown as CanvasRenderingContext2D;
-  drawWardenGrip(spy, layout(role), CFG, world, body(world, b), b, role, 0.5, 1.2);
+  drawWardenGrip(
+    spy,
+    layout(role),
+    CFG,
+    world,
+    body(world, b),
+    b,
+    role,
+    0.5,
+    1.2,
+    new GripVerdicts(),
+  );
   return ctx.calls;
 }
 
@@ -170,17 +194,21 @@ describe("the ring", () => {
 
   it("is the navigator's under NARROW, and fills under her thumb", () => {
     const { world, b } = opened(NARROW);
-    expect(strokes("p1", world, b)).toBe(0);
+    // The pilot is shown the partner's ring and clock, and nothing once the
+    // thumb is down: the lids parting are his readout of it.
+    expect(strokes("p1", world, b)).toBeGreaterThan(0);
     const asked = strokes("p2", world, b);
     expect(asked).toBeGreaterThan(0);
     expect(strokes("test", world, b)).toBe(asked);
     b.eyeHeld = true;
     expect(strokes("p2", world, b)).toBeGreaterThan(asked);
+    expect(strokes("p1", world, b)).toBe(0);
   });
 
   it("is the pilot's under GLARE until the throw, then a dial on both", () => {
     const { world, b } = opened(GLARE);
-    expect(strokes("p2", world, b)).toBe(0);
+    const theirs = strokes("p2", world, b);
+    expect(theirs).toBeGreaterThan(0);
     const asked = strokes("p1", world, b);
     expect(asked).toBeGreaterThan(0);
     b.throwBeat = world.beat;
@@ -188,7 +216,7 @@ describe("the ring", () => {
     // The window shut: the dial is gone and the ring is back.
     world.beat += CFG.wardenThrowBeats;
     expect(strokes("p1", world, b)).toBe(asked);
-    expect(strokes("p2", world, b)).toBe(0);
+    expect(strokes("p2", world, b)).toBe(theirs);
   });
 });
 

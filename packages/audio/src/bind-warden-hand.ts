@@ -12,10 +12,12 @@ import { type Cue, panForCol } from "./bind.js";
  * throw is the hatch swinging to its stop: the moment player 2's three beats
  * start, and the one they cannot see the hand for. The slam is the window
  * gone — heavier than the throw and with nothing rising in it, so a late
- * shot is heard as late from the first beat (`sim/warden-hand.ts`).
+ * shot is heard as late from the first beat (`sim/warden-hand.ts`). The
+ * refusal is THE INSTAR's own knock, *not yours*: a refused thumb sounds the
+ * same on every boss, as its mark looks the same (`render/mark-feedback.ts`).
  */
 export function wardenHandCue(
-  e: Extract<SimEvent, { type: "wardenHold" | "wardenThrow" | "wardenSlam" }>,
+  e: Extract<SimEvent, { type: "wardenHold" | "wardenThrow" | "wardenSlam" | "wardenRefuse" }>,
   cols: number,
 ): Cue {
   switch (e.type) {
@@ -25,5 +27,7 @@ export function wardenHandCue(
       return { id: "boss.wardenThrow", pan: panForCol(e.col, cols) };
     case "wardenSlam":
       return { id: "boss.wardenSlam", pan: panForCol(e.col, cols) };
+    case "wardenRefuse":
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
   }
 }

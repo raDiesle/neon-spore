@@ -17,15 +17,17 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
     name: "THE WARDEN'S THUMB",
     where:
       "a ring on the shut eye, where the pupil stands, on player 2's screen " +
-      "under NARROW — from the second plate off; nowhere on player 1's; on " +
-      "the test screen",
+      "under NARROW — from the second plate off, with a halo under it; on " +
+      "player 1's, the partner's turning ring and clock until her thumb is " +
+      "down; on the test screen",
     seat: "player 2 only — the seat firing into an eye that will not show until she holds it",
     gesture: "hold",
     does:
       "Parts the lids behind the hatch and pins the pupil where it is for as " +
       "long as the thumb stays. The eye shows only while P1's rope is taut " +
       "and this thumb is down — both hands, then the shot, from the same " +
-      "seat as the thumb (sim/warden-hand.ts).",
+      "seat as the thumb (sim/warden-hand.ts). Player 1's press is refused, " +
+      "red on the eye; her thumb landing is green.",
     source: "touch.ts — wardenGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "wardenEye",
@@ -36,15 +38,17 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
     name: "THE WARDEN'S SWIPE",
     where:
       "a ring on the hatch on player 1's screen under GLARE — the last " +
-      "plate, with no rope coming down; nowhere on player 2's; on the test " +
-      "screen; a dial round the eye on both while it is thrown",
+      "plate, with no rope coming down, with a halo under it; on player 2's, " +
+      "the partner's turning ring and clock; on the test screen; a dial " +
+      "round the eye on both while it is thrown",
     seat: "player 1 only — the seat whose rope is gone, given the door instead",
     gesture: "grab and drag",
     does:
       "Carried wardenThrowMilli of a tile and let go, the hatch is thrown " +
       "open for wardenThrowBeats — the dial on both screens is that count " +
       "running out — then slams. A lift short of the swipe throws nothing " +
-      "(sim/warden-hand.ts).",
+      "and is refused, red on the eye, as is player 2's press; the throw is " +
+      "green (sim/warden-hand.ts).",
     source: "touch.ts — wardenGripUnder() under handleUnder(); the lift carries the travel",
     holdKind: "drag",
     dragTarget: "wardenHatch",

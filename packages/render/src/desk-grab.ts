@@ -1,6 +1,7 @@
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
+import { wardenGripSeat } from "./warden-grip.js";
 
 /**
  * **A press on the screen that shows both seats**, where the desk's one mouse
@@ -21,7 +22,9 @@ import { type Field, type Touch, touchDown } from "./touch.js";
  *    marks, which are *there* for the wrong seat and refused by the
  *    simulation (`sim/instar-hand.ts`). Trying one seat and then the other
  *    would never reach the second, so the ring is asked whose it is first
- *    (`instar-mark-grip.ts` `instarMarkSeat`).
+ *    (`instar-mark-grip.ts` `instarMarkSeat`). THE WARDEN's eye is the
+ *    second, since it answered a touch the same way (`warden-grip.ts`
+ *    `wardenGripSeat`).
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
  *    pilot's thumb — so the same hit test run for the second seat finds what
@@ -48,7 +51,8 @@ export function deskDown(
 ): Touch | null {
   const first = seats[0] ?? 1;
   if (seats.length < 2) return touchDown(l, x, y, fieldFor(first));
-  const named = instarMarkSeat(l, x, y, fieldFor(first));
+  const named =
+    instarMarkSeat(l, x, y, fieldFor(first)) ?? wardenGripSeat(l, x, y, fieldFor(first));
   if (named !== undefined) return touchDown(l, x, y, fieldFor(named));
   for (const seat of seats) {
     const t = touchDown(l, x, y, fieldFor(seat));

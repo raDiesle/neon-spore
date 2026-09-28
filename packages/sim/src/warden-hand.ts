@@ -30,6 +30,12 @@ import type { World } from "./world.js";
  * Nothing here charges the hull. A thumb lifted early, a swipe too short, a
  * shot after the slam — each is a window lost and nothing more, because a
  * fight that can hurt nobody is what THE WARDEN is (§11.4).
+ *
+ * **A press this phase does not take is refused, and said** — the other
+ * seat's thumb on the eye or the hatch, and a swipe that lifted short — as
+ * `wardenRefuse`, so the mark the thumb touched can answer it in red the way
+ * every mark does (`render/mark-feedback.ts`). It changes nothing else: the
+ * eye stays shut, the hatch stays where it was.
  */
 export function wardenHeard(world: World, player: 1 | 2, command: Command): void {
   wardenTetherHeard(world, player, command);
@@ -40,7 +46,11 @@ export function wardenHeard(world: World, player: 1 | 2, command: Command): void
 }
 
 function eyeHeard(world: World, b: WardenState, player: 1 | 2, on: boolean): void {
-  if (player !== 2 || wardenPhase(b.plates).asks !== "hold") return;
+  if (wardenPhase(b.plates).asks !== "hold") return;
+  if (player !== 2) {
+    if (on) refuse(world, b, player);
+    return;
+  }
   if (!on) {
     b.eyeHeld = false;
     return;
@@ -58,10 +68,17 @@ function hatchHeard(
   player: 1 | 2,
   command: Extract<Command, { kind: "drag" }>,
 ): void {
-  if (player !== 1 || wardenPhase(b.plates).asks !== "throw") return;
+  if (wardenPhase(b.plates).asks !== "throw" || wardenThrown(world, b)) return;
+  if (player !== 1) {
+    if (command.on) refuse(world, b, player);
+    return;
+  }
   // The press says nothing; the throw is the lift, and only one that travelled.
-  if (command.on || wardenThrown(world, b)) return;
-  if (Math.abs(command.fromMilli) < world.cfg.wardenThrowMilli) return;
+  if (command.on) return;
+  if (Math.abs(command.fromMilli) < world.cfg.wardenThrowMilli) {
+    refuse(world, b, player);
+    return;
+  }
   const was = wardenEyeOpen(world, b);
   b.throwBeat = world.beat;
   // A thrown hatch is a fresh opening: the hit that took the last-but-one
@@ -69,6 +86,10 @@ function hatchHeard(
   b.eyeSpent = false;
   world.events.push({ type: "wardenThrow", col: b.pupilCol });
   noteEyeOpened(world, b, was);
+}
+
+function refuse(world: World, b: WardenState, player: 1 | 2): void {
+  world.events.push({ type: "wardenRefuse", col: b.pupilCol, player });
 }
 
 /**

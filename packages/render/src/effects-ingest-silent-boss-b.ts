@@ -138,10 +138,12 @@ export const INGEST_SILENT_BOSS_B = [
   // THE WARDEN's second and third hands: the thumb on the eye and the thrown
   // hatch are world state, read off `eyeHeld` and `throwBeat` every frame
   // (`warden-grip.ts`), and each moment throws a ring from
-  // `warden-grip-fx.ts`, read above the loop with the rope's snap-back.
+  // `warden-grip-fx.ts`, read above the loop with the rope's snap-back. A
+  // refused press marks the eye's verdict there too (`warden-fx.ts`).
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
+  "wardenRefuse",
   // THE FLEET's five: the wound itself is world state, read off `phase`,
   // `holeCol`, `rakeCol` and `wreckPullMilli` every frame by
   // `fleet-grip-draw.ts`, and the ring each of the five moments throws off it

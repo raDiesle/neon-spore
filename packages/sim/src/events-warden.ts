@@ -11,7 +11,10 @@
  * eye, which player 1 has to hear because it is the thumb their pull is
  * waiting on; the hatch thrown, which player 2 has to hear because it is the
  * three beats they have to fire in; and the slam, which both have to hear
- * because it is a window gone.
+ * because it is a window gone. And the refusal: a press on the eye or the
+ * hatch in its phase that was not the phase's to give — the other seat's
+ * thumb, or a swipe too short to throw — which is how the thumb that made it
+ * is told so on the mark (`render/warden-fx.ts`).
  */
 export type WardenEvent =
   /** Player 2's thumb landed on the eye under NARROW: the lids behind the hatch part. */
@@ -19,4 +22,6 @@ export type WardenEvent =
   /** Player 1 threw the hatch under GLARE: it stands open for `wardenThrowBeats`. */
   | { type: "wardenThrow"; col: number }
   /** The thrown hatch's window ran out: it slammed shut. */
-  | { type: "wardenSlam"; col: number };
+  | { type: "wardenSlam"; col: number }
+  /** A press on the eye or the hatch this phase does not take from `player`: refused. */
+  | { type: "wardenRefuse"; col: number; player: 1 | 2 };

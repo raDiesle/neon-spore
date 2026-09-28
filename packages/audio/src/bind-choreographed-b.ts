@@ -39,6 +39,7 @@ export type AddedEvent = Extract<
       | "wardenHold"
       | "wardenThrow"
       | "wardenSlam"
+      | "wardenRefuse"
       // THE VANE's two hands, which are the boss's only events at all.
       | "vanePin"
       | "vaneSlip"
@@ -123,6 +124,7 @@ const ADDED_EVENTS = new Set<string>([
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
+  "wardenRefuse",
   "vanePin",
   "vaneSlip",
   "vaneHaul",
@@ -207,6 +209,7 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "wardenHold":
     case "wardenThrow":
     case "wardenSlam":
+    case "wardenRefuse":
       return wardenHandCue(e, cols);
     case "vanePin":
     case "vaneSlip":

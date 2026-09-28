@@ -130,10 +130,12 @@ export const SILENT_BOSS_B = [
   "gorgeClench",
   // THE MAZE's thumb on its heart throws a ring, not a burst: `maze-grip-fx.ts`.
   "mazeGrip",
-  // THE WARDEN's thumb, throw and slam throw a ring off the eye, not a burst: `warden-grip-fx.ts`.
+  // THE WARDEN's thumb, throw and slam throw a ring off the eye, not a burst:
+  // `warden-grip-fx.ts`; a refusal is the eye's red verdict (`warden-fx.ts`).
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
+  "wardenRefuse",
   // THE FLEET's five throw no burst from this table: they are one family read
   // above the loop, the way THE WARDEN's three are, and the particles the
   // flood, the rake, the plug and the wreck throw — the thumb on the plume

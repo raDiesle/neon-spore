@@ -69,7 +69,7 @@ export function drawWardenFrame(
   // snap-back (`warden-grip.ts`); and the rings the thumb, the throw and
   // the slam leave behind them, which the picture remembers for itself.
   withWardenPose(ctx, pose, () => {
-    drawWardenGrip(ctx, l, world.cfg, world, body, boss, role, beatPhase, time);
+    drawWardenGrip(ctx, l, world.cfg, world, body, boss, role, beatPhase, time, fx.verdicts);
     fx.grip.draw(ctx, wardenGripCircle(l, body, boss));
   });
   ctx.restore();
