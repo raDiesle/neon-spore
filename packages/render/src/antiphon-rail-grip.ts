@@ -1,12 +1,19 @@
-import { type AntiphonState, antiphonCrossed, type SimConfig } from "@neon-spore/sim";
+import {
+  type AntiphonState,
+  antiphonCrossed,
+  antiphonRailAsks,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { antiphonCentre, antiphonPerch } from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
 import { strokeGlow } from "./glow.js";
 import { drawGripRing } from "./grip-rings.js";
+import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -45,6 +52,10 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * is the simulation's to refuse; a thumb may rest on a candidate while the
  * organ is still growing and the ring fills under it, which is the picture
  * of a hand held ready.
+ *
+ * Over the rings, the convention every mark answers a touch with
+ * (`antiphon-marks.ts`): the halo under each candidate a pull would take on
+ * (`antiphonRailAsks`), and the verdict round one pulled off, last.
  */
 
 /** How far below the perch the word sits, in tiles — clear of the candidates and of the window gauge. */
@@ -92,8 +103,10 @@ export function drawAntiphonRailGrip(
   l: Layout,
   cfg: SimConfig,
   s: AntiphonState,
+  beat: number,
   time: number,
   fade: number,
+  verdicts: GripVerdicts,
 ): void {
   if (fade < 1 || s.downBeat >= 0 || s.rail.length === 0) return;
   const r = handleRadius(l, cfg);
@@ -101,11 +114,13 @@ export function drawAntiphonRailGrip(
     const c = s.rail[i];
     if (c === undefined) continue;
     const at = antiphonPerch(l, c.col);
-    if (antiphonCrossed(s, i)) {
-      drawCross(ctx, at.x, at.y, r * CROSS_R);
-      continue;
+    if (antiphonCrossed(s, i)) drawCross(ctx, at.x, at.y, r * CROSS_R);
+    else {
+      if (antiphonRailAsks(s, cfg, beat, i)) drawMarkHalo(ctx, at.x, at.y, r, time);
+      drawGripRing(ctx, at.x, at.y, r, s.heldRail === i, time);
     }
-    drawGripRing(ctx, at.x, at.y, r, s.heldRail === i, time);
+    const v = verdicts.at(c.col);
+    if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);
   }
   if (s.heldRail >= 0) return;
   // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). It says the verb and

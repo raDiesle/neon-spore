@@ -123,7 +123,7 @@ export function drawAntiphon(
     drawWindow(ctx, l, cfg, antiphonWindowLeft(s, cfg, beat, beatPhase), fade);
     // Her rings on the rail, over the candidates so each stands on its own
     // (`antiphon-rail-grip.ts`).
-    drawAntiphonRailGrip(ctx, l, cfg, s, time, fade);
+    drawAntiphonRailGrip(ctx, l, cfg, s, beat, time, fade, fx.marks.verdicts);
   }
   ctx.restore();
 }

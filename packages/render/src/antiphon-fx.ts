@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
+import { AntiphonMarks } from "./antiphon-marks.js";
 import {
   antiphonCentre,
   antiphonContourPath,
@@ -56,6 +57,8 @@ export class AntiphonFx {
   private eruptions: Eruption[] = [];
   /** The blow a pit or the burst deals the body. */
   readonly hurt = new BossHurt();
+  /** The rail's verdicts on a pull (`antiphon-marks.ts`). */
+  readonly marks = new AntiphonMarks();
 
   /** The pits on the body this frame, by shape, for the eruption. */
   note(pits: readonly number[]): void {
@@ -72,6 +75,7 @@ export class AntiphonFx {
     role: ViewRole,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const at = (p: { x: number; y: number }, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const centre = antiphonCentre(l, cfg);
     const perch = (col: number) => antiphonPerch(l, col);
@@ -138,6 +142,7 @@ export class AntiphonFx {
     for (const e of this.eruptions) e.left = Math.max(0, e.left - dt);
     if (this.eruptions.length > 0 && this.eruptions.every((e) => e.left <= 0)) this.eruptions = [];
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   /** Each erupting pit: its contour pushing out from pit size to `ERUPT_TILES`, thinning as it goes. */
@@ -166,5 +171,6 @@ export class AntiphonFx {
     this.pits = [];
     this.eruptions = [];
     this.hurt.clear();
+    this.marks.clear();
   }
 }

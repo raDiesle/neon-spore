@@ -6528,6 +6528,19 @@ told; and *six pits, it goes still* is drawn on both screens, so his page
 says the length instead. The film still never turns the organ, which is a
 queue entry rather than a page here.
 
+**Its two handles answer a touch as far as a split fight lets them**
+(`render/antiphon-marks.ts`; the owner, 27 September 2026: *the consistent
+visual across all waves*). THE GAUGE's case: the organ's grip mark wears the
+halo on the pilot's screen while one stands and no thumb rests on it
+(`antiphonOrganAsks`), and every candidate a pull would take on wears it on
+the navigator's once the organ stands grown (`antiphonRailAsks`, which reads
+the same `antiphonStanding` the pull does). A pull washes the candidate
+green over its cross (`antiphonPull`). No partner's ring and clock and no
+refusal, since each handle is on one screen. The turn has no verdict, since
+it answers nothing, and neither has a pull of the organ itself: it hardens
+the cycle in the same tick, and the hardening is the same event a bolt into
+a decoy says.
+
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
 
 > The one with no buttons. Its body is marked in red where it is about to

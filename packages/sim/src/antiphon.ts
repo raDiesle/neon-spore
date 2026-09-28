@@ -184,3 +184,29 @@ export function antiphonCrossed(s: AntiphonState, i: number): boolean {
 export function antiphonDown(s: AntiphonState): boolean {
   return s.downBeat >= 0;
 }
+
+/** Whether the organ asks a thumb to turn it: one stands, the body is up, and no thumb rests on it yet (`render/antiphon-marks.ts`). */
+export function antiphonOrganAsks(s: AntiphonState): boolean {
+  return !antiphonDown(s) && s.organs.length > 0 && !s.heldP1 && !s.heldP2;
+}
+
+/**
+ * Whether candidate `i` asks for her pull: the organ stands grown, so a pull
+ * would take rather than be dropped (`antiphon-hand.ts`), and the candidate
+ * is still on the rail and not under her thumb.
+ */
+export function antiphonRailAsks(
+  s: AntiphonState,
+  cfg: SimConfig,
+  beat: number,
+  i: number,
+): boolean {
+  if (antiphonDown(s) || !antiphonStanding(s, cfg, beat)) return false;
+  return i >= 0 && i < s.rail.length && !antiphonCrossed(s, i) && s.heldRail !== i;
+}
+
+/** Whether an organ stands grown all the way out, so a pull is an answer and not a guess. */
+export function antiphonStanding(s: AntiphonState, cfg: SimConfig, beat: number): boolean {
+  const o = s.organs[0];
+  return o !== undefined && antiphonGrown(o, cfg, beat);
+}

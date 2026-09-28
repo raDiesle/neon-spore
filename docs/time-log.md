@@ -28496,3 +28496,13 @@ The bottleneck: deciding the tear is not a wrong touch, so the ring carries one 
 The bottleneck: placing the carry's verdict on the column the part was carried to, since the ring it answers is gone by then.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE ANTIPHON's organ and rail answer a touch as far as its split lets them
+
+- reading: 10 min. Both handles, the pull's gates, the hardening and who says it, the frame harness.
+- writing: 20 min. `antiphonOrganAsks`, `antiphonRailAsks` and the shared `antiphonStanding` in the sim, `antiphon-marks.ts`, the halos and verdict in both grips, the verdicts in `AntiphonFx`, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 5 min. The rail's drawer leaves the screen check to its caller, so the test's "not on his screen" moved to the frame.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: working out that a pull of the organ and a bolt into a decoy say the same event, so the pull's wrong answer can carry no verdict of its own.

@@ -30,7 +30,9 @@ export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
       "The turn is the pilot's way of looking — a lobe the organ hides " +
       "upright it shows turned — and it scores nothing: it changes no " +
       "window, sinks no organ and names no shape (sim/antiphon-hand.ts). " +
-      "The rail on player 2's screen never turns.",
+      "The rail on player 2's screen never turns. While no thumb rests on " +
+      "it the grip mark wears the halo every asked mark wears " +
+      "(render/antiphon-marks.ts); the turn is not judged.",
     source: "touch.ts — antiphonOrganUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "antiphonOrgan",
@@ -52,7 +54,9 @@ export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
       "firing at a decoy does, so each crossing is a risk of its own " +
       "(sim/antiphon-hand.ts). Nothing may be pulled before the organ has " +
       "grown all the way out, and a crossed candidate takes a stroke " +
-      "through it instead of a ring.",
+      "through it instead of a ring. Once the organ stands, every candidate " +
+      "still in wears the halo every asked mark wears, and a pull washes " +
+      "the crossed one green (render/antiphon-marks.ts).",
     source: "touch.ts — antiphonRailUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "antiphonRail",

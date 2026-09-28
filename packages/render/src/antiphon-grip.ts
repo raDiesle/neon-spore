@@ -1,10 +1,16 @@
-import { type AntiphonState, antiphonHeld, type SimConfig } from "@neon-spore/sim";
+import {
+  type AntiphonState,
+  antiphonHeld,
+  antiphonOrganAsks,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { antiphonOrganCircle } from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -31,7 +37,9 @@ import { showsAntiphonOrgan } from "./view-role-clocks-b.js";
  * not once the body is down — is the simulation's to refuse.
  *
  * What is drawn is a **grip mark** on the organ's lower flank, held while
- * either thumb is on, and the word under it while none is.
+ * either thumb is on, and the word under it while none is — and, while it
+ * is asked (`antiphonOrganAsks`), the halo every asked mark wears under it
+ * (`antiphon-marks.ts`). The turn has no verdict: it answers nothing.
  */
 
 /** Where the mark sits, as a share of the organ's radius down from its middle. */
@@ -69,11 +77,13 @@ export function drawAntiphonGrip(
 ): void {
   if (fade < 1) return;
   const held = antiphonHeld(s, 1) || antiphonHeld(s, 2);
+  const asked = antiphonOrganAsks(s);
   const r = handleRadius(l, cfg) * GRIP_R;
   const n = s.organs.length;
   for (let i = 0; i < n; i++) {
     const c = antiphonOrganCircle(l, cfg, i, n);
     const y = c.y + c.r * GRIP_DOWN;
+    if (asked) drawMarkHalo(ctx, c.x, y, r, time);
     drawHandleRing(ctx, {
       x: c.x,
       y,

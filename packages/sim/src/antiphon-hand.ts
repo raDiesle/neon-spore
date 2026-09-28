@@ -1,11 +1,10 @@
 import {
-  type AntiphonState,
   antiphonBoss,
   antiphonCrossed,
   antiphonDown,
-  antiphonGrown,
   antiphonHeld,
   antiphonIsOrgan,
+  antiphonStanding,
 } from "./antiphon.js";
 import { antiphonHarden } from "./antiphon-step.js";
 import type { Command } from "./types.js";
@@ -88,7 +87,7 @@ export function antiphonPulled(world: World, player: 1 | 2, command: Command): v
   const c = s.rail[i];
   if (c === undefined || antiphonCrossed(s, i)) return;
   s.heldRail = i;
-  if (!standing(world, s)) return;
+  if (!antiphonStanding(s, world.cfg, world.beat)) return;
   if (command.fromYMilli === undefined || command.fromYMilli < world.cfg.antiphonPullMilli) return;
   if (antiphonIsOrgan(s, c)) {
     antiphonHarden(world, s, c.col);
@@ -100,10 +99,4 @@ export function antiphonPulled(world: World, player: 1 | 2, command: Command): v
     col: c.col,
     left: s.rail.length - s.crossed.length,
   });
-}
-
-/** Whether an organ stands grown all the way out, so an answer is an answer and not a guess. */
-function standing(world: World, s: AntiphonState): boolean {
-  const o = s.organs[0];
-  return o !== undefined && antiphonGrown(o, world.cfg, world.beat);
 }
