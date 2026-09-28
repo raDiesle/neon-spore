@@ -28362,3 +28362,5 @@ The bottleneck: deciding where the partner's clock belongs — on the prime her 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: the wrong seat's press had to keep its hold on the shell but lose it on the partner's bead — the strip counts a thumb only after it lifts, and a held drag repeats its press on every move.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

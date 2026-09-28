@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · d268ed2c7 — THE BATON's arm answers a touch the way THE INSTAR's marks do
+
+The ring that asks this seat for a thumb is haloed on its screen — the swelling shell on the locked seat's while its thumb is off it, each bead on its own seat's until that thumb is down. A strip, a thumb landing on its bead and the merge wash the socket green; the unlocked seat's press on the shell and a thumb on the partner's bead are now handed through, refused by the simulation and washed red. No partner's clock: whether the other thumb is down is the sentence the pair has to say.
+
 ## 2026-09-28 · 2838b49d0 — THE SCOUT's line and prime answer a touch the way THE INSTAR's marks do
 
 Each seat's ring is haloed on its own screen while the round asks for it — the navigator's line on the laden ship, the pilot's prime off the stern of a heavy one — and the navigator sees the prime wear his turning ring and a clock, since her burn requests wait on it. A reel and a prime wash their ring green; a press on the other seat's ring is now refused by the simulation (`scoutRefuse`) and washes red. No clock on the line: it is optional, and nobody waits on it.
