@@ -1,10 +1,4 @@
-import {
-  type Creature,
-  type QueenGesture,
-  type QueenState,
-  queenGesture,
-  type SimConfig,
-} from "@neon-spore/sim";
+import { type Creature, type QueenState, queenAsks, type SimConfig } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing, drawThrownRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, showsQueenShape } from "./layout.js";
@@ -18,9 +12,10 @@ import { bossOf } from "./touch-field.js";
  * SCREAM's hold. A ring round **both** marks on player 1's screen, because
  * player 1 is the seat that is not shown which of the two is real — the
  * ring says *one of these*, and which one is player 2's to say out loud
- * (`queen-weakpoint.ts`). Player 2 is never drawn the ring, and his thumb on
- * it is refused without a sound (`sim/queen-hand.ts`), so there is nothing
- * to draw him refusing.
+ * (`queen-weakpoint.ts`). Player 2 is never drawn the ring. Her marks are
+ * waited on there the way every partner's mark is, and her thumb on one is
+ * handed through as a press holding nothing, for the simulation to refuse
+ * once and the mark to answer in red (`queen-marks.ts`, `sim/queen-hand.ts`).
  *
  * The ring is drawn **outside** the mark and never fills it: the mark is the
  * creature that is coming, which is the other half of what player 1 has to
@@ -39,15 +34,6 @@ import { bossOf } from "./touch-field.js";
 /** Which mark to ring, relative to the mark's own radius: outside it, clear of the shell's lip. */
 const RING_MUL = 1.55;
 
-/** What her picture is asking of player 1's thumb this frame, or `null` between windows. */
-export function queenAsks(boss: QueenState, queen: Creature): QueenGesture | null {
-  const gesture = queenGesture(boss);
-  if (boss.openBeat === -1) return null;
-  if (gesture === "pry") return boss.pryBeat === -1 && queen.color === null ? "pry" : null;
-  if (gesture === "hold") return "hold";
-  return null;
-}
-
 /** The queen's body on the field, if she is the boss up. */
 function queenOf(field: Field): Creature | null {
   const boss = bossOf(field, "queen");
@@ -63,10 +49,34 @@ function queenOf(field: Field): Creature | null {
  * thumb.
  */
 export function queenMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
+  const id = markIdUnder(l, x, y, field);
+  if (id === null) return null;
+  const command = {
+    kind: "drag",
+    target: "queenMark",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: 0,
+    id,
+  } as const;
+  // Player 2's is a press and no more, holding nothing, so no move of her
+  // thumb is refused a second time (`warden-grip.ts`'s eye, `spool-grip.ts`'s knob).
+  if (field.seat !== QUEEN_SEAT) return { player: field.seat, command, hold: null };
+  return {
+    player: QUEEN_SEAT,
+    command,
+    hold: { kind: "drag", target: "queenMark", player: QUEEN_SEAT, originX: x, originY: y, id },
+  };
+}
+
+/** Whose her marks are — player 1's, the seat not shown which is real (`sim/queen-hand.ts`). */
+const QUEEN_SEAT = 1;
+
+/** The mark under the thumb while one is asking, 0 left and 1 right, whoever's thumb it is. */
+function markIdUnder(l: Layout, x: number, y: number, field: Field): number | null {
   const boss = bossOf(field, "queen");
   const queen = queenOf(field);
-  if (boss === null || queen === null || field.seat !== 1) return null;
-  if (queenAsks(boss, queen) === null) return null;
+  if (boss === null || queen === null || queenAsks(boss, queen) === null) return null;
   const r = handleRadius(l, field.cfg);
   let best: { id: number; d: number } | null = null;
   for (const side of [-1, 1] as const) {
@@ -75,13 +85,15 @@ export function queenMarkUnder(l: Layout, x: number, y: number, field: Field): T
     const d = (x - at.x) ** 2 + (y - at.y) ** 2;
     if (best === null || d < best.d) best = { id: side === -1 ? 0 : 1, d };
   }
-  if (best === null) return null;
-  const id = (best as { id: number }).id;
-  return {
-    player: 1,
-    command: { kind: "drag", target: "queenMark", on: true, fromMilli: 0, fromYMilli: 0, id },
-    hold: { kind: "drag", target: "queenMark", player: 1, originX: x, originY: y, id },
-  };
+  return best === null ? null : (best as { id: number }).id;
+}
+
+/**
+ * Whose the mark under a desk press is, so one mouse is signed player 1's on
+ * it rather than refused as player 2's (`desk-grab.ts` `markSeat`).
+ */
+export function queenGripSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefined {
+  return markIdUnder(l, x, y, field) === null ? undefined : QUEEN_SEAT;
 }
 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));

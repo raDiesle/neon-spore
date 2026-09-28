@@ -1,12 +1,14 @@
 import type { Creature, QueenState, SimConfig } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { halo } from "./glow.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawEgg, drawSideHint } from "./queen-egg.js";
 import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
 import { drawQueenGrip } from "./queen-grip.js";
 import { QUEEN_LOOK } from "./queen-look.js";
+import { drawQueenAsked, drawQueenVerdicts } from "./queen-marks.js";
 import { pairSide, type QueenPair, type QueenParts, swingWings } from "./queen-parts.js";
 import { queenShellParts, queenShellPath } from "./queen-shell.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
@@ -57,6 +59,8 @@ export function drawQueen(
   hurt: number,
   /** Her wings and crane arms on the idle drift (`queen-parts.ts`), or `null` still. */
   parts: QueenParts | null = null,
+  /** The marks' verdicts (`queen-fx.ts`), or `null` where nothing has been judged. */
+  verdicts: GripVerdicts | null = null,
 ): void {
   const f = QUEEN_FIGURE;
   const tile = l.tile;
@@ -104,8 +108,11 @@ export function drawQueen(
     parts?.wing ?? null,
   );
   // The rings player 1's thumb answers with, over the shell's lip, and the
-  // pry and the hold read off the beat (`queen-grip.ts`).
+  // pry and the hold read off the beat (`queen-grip.ts`) — over the asking
+  // and under the verdicts, as every mark is (`queen-marks.ts`).
+  drawQueenAsked(ctx, l, queen, boss, time, ox, oy);
   drawQueenGrip(ctx, l, cfg, queen, boss, beat, beatPhase, time, ox, oy);
+  if (verdicts !== null) drawQueenVerdicts(ctx, l, queen, verdicts, ox, oy);
 
   // One offset, read by both calls below — never one seeded per side. The two
   // torches must move as a single tremor, or the eye reads whichever one

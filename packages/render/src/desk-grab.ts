@@ -1,5 +1,6 @@
 import { instarMarkBoth, instarMarkSeat } from "./instar-mark-grip.js";
 import type { Layout } from "./layout.js";
+import { queenGripSeat } from "./queen-grip.js";
 import { sinewGripSeat } from "./sinew-handles.js";
 import { spoolGripSeat } from "./spool-grip.js";
 import { type Field, type Touch, touchDown } from "./touch.js";
@@ -28,7 +29,8 @@ import { wardenGripSeat } from "./warden-grip.js";
  *    second, since it answered a touch the same way (`warden-grip.ts`
  *    `wardenGripSeat`), and THE SPOOL's knob the third (`spool-grip.ts`
  *    `spoolGripSeat`), and THE SINEW's two handles the fourth (`sinew-handles.ts`
- *    `sinewGripSeat`). One question for all of them, `markSeat`.
+ *    `sinewGripSeat`), and THE BULB QUEEN's two marks the fifth
+ *    (`queen-grip.ts` `queenGripSeat`). One question for all of them, `markSeat`.
  * 2. **Every other handle a seat does not own is simply not there for it** —
  *    THE GAUGE's band, THE GIMBAL's inner rim, THE HASP's wheel under the
  *    pilot's thumb — so the same hit test run for the second seat finds what
@@ -137,6 +139,7 @@ function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 | undefi
     instarMarkSeat(l, x, y, field) ??
     wardenGripSeat(l, x, y, field) ??
     spoolGripSeat(l, x, y, field) ??
-    sinewGripSeat(l, x, y, field)
+    sinewGripSeat(l, x, y, field) ??
+    queenGripSeat(l, x, y, field)
   );
 }

@@ -6,6 +6,7 @@ import {
   DEFAULT_CONFIG,
   NO_SHELL,
   type QueenState,
+  queenAsks,
   startWave,
   step,
   ticksPerBeat,
@@ -13,7 +14,7 @@ import {
 } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { queenMarkCenter } from "../src/queen-figure.js";
-import { drawQueenGrip, queenAsks, queenMarkUnder } from "../src/queen-grip.js";
+import { drawQueenGrip, queenGripSeat, queenMarkUnder } from "../src/queen-grip.js";
 import type { Field } from "../src/touch.js";
 import {
   CFG,
@@ -130,10 +131,20 @@ describe("a thumb on a mark", () => {
     }
   });
 
-  it("is refused from player 2, in CROWN, between windows and with no queen up", () => {
+  it("is handed through from player 2 as a press holding nothing, for the sim to refuse once", () => {
     const l = layout("p2");
     const at = queenMarkCenter(l, queenAt(), 1);
-    expect(queenMarkUnder(l, at.x, at.y, fieldWith(2, brood()))).toBeNull();
+    const touch = queenMarkUnder(l, at.x, at.y, fieldWith(2, brood()));
+    expect(touch?.player).toBe(2);
+    expect(touch?.command).toMatchObject({ kind: "drag", target: "queenMark", on: true, id: 1 });
+    expect(touch?.hold).toBeNull();
+    expect(queenGripSeat(l, at.x, at.y, fieldWith(2, brood()))).toBe(1);
+  });
+
+  it("is nobody's in CROWN, between windows and with no queen up", () => {
+    const l = layout("p2");
+    const at = queenMarkCenter(l, queenAt(), 1);
+    expect(queenGripSeat(l, at.x, at.y, fieldWith(2, brood({ phase: 0 })))).toBeUndefined();
     const p1 = layout("p1");
     const on = queenMarkCenter(p1, queenAt(), 1);
     expect(queenMarkUnder(p1, on.x, on.y, fieldWith(1, brood({ phase: 0 })))).toBeNull();

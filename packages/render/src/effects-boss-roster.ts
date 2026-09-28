@@ -24,6 +24,7 @@ import { MazeGripFx } from "./maze-grip-fx.js";
 import { NettleFx } from "./nettle-fx.js";
 import { OculusFx } from "./oculus-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
+import { QueenFx } from "./queen-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { RimeFx } from "./rime-fx.js";
@@ -231,6 +232,9 @@ export class BossRoster {
    * bursts — thrown the same on both screens, and told the core's colour by
    * the drawer (`flue-fx.ts`, `flue-draw.ts`). */
   readonly flue = new FlueFx();
+  /** THE BULB QUEEN's two marks' verdicts, green or red round the one the
+   * thumb was on (`queen-fx.ts`). */
+  readonly queen = new QueenFx();
   /** The blow for the bosses with no fx class of their own — THE THROAT,
    * THE VANE, THE CAIRN and THE BATON — asked for by each drawer
    * (`boss-blows.ts`). */

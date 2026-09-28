@@ -318,12 +318,13 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
-- **Taken:** 2026-09-28, claude/queue-every-other-grip-refuses-the-wrong-seats-press-o (claim: claude/queue-every-other-boss-with-a-mark-answers-a-touch-the)
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
-After THE WARDEN, THE SPOOL, THE HASP and THE SINEW, which have entries of
-their own: **one boss a lane**, the first on `TO_COME` in the roll-out test,
-worked exactly as those four entries say. A lane that lands one boss and
+After THE WARDEN, THE SPOOL, THE HASP, THE SINEW and THE BULB QUEEN: **one
+boss a lane**, the first on `TO_COME` in the roll-out test — THE MIRROR
+next — worked exactly as `.claude/skills/new-boss` §5 says and THE BULB
+QUEEN's lane did it (`queen-fx.ts`, `queen-marks.ts`, the refusal said by
+the simulation in `sim/queen-hand.ts`). A lane that lands one boss and
 leaves others on the list keeps this entry, rewritten to name the next;
 the lane that empties the list removes it and the list with it.
 

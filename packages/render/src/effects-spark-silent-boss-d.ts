@@ -198,4 +198,10 @@ export const SILENT_BOSS_D = [
   "governorMiss",
   "governorSpent",
   "governorOut",
+  // THE BULB QUEEN's three verdicts throw no burst: the mark answers under
+  // the thumb in a ring (`queen-fx.ts`), and a burst over her is on both
+  // screens where the ring is not.
+  "queenPry",
+  "queenHold",
+  "queenRefuse",
 ] as const satisfies readonly SimEvent["type"][];

@@ -7,11 +7,26 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * plate, and the last plate. Moved whole; every comment is the one that stood
  * beside its case before. THE BULB QUEEN's two joined them when her flinch
  * took `bind.ts` past the limit again: the two bosses already share a sound.
+ * Her thumb's other three came after, the verdicts her marks are washed in
+ * (`sim/queen-hand.ts`): a pry that landed and a hold on the real mark are
+ * THE INSTAR's answer, and a hold on the other or a press from player 2 is
+ * its knock — every mark sounds its verdict the same (`render/mark-feedback.ts`).
  */
 export function wardenCue(
   e: Extract<
     SimEvent,
-    { type: "tether" | "eyeOpen" | "plate" | "wardenDown" | "queenDown" | "queenFlinch" }
+    {
+      type:
+        | "tether"
+        | "eyeOpen"
+        | "plate"
+        | "wardenDown"
+        | "queenDown"
+        | "queenFlinch"
+        | "queenPry"
+        | "queenHold"
+        | "queenRefuse";
+    }
   >,
   cols: number,
   rows: number,
@@ -40,5 +55,14 @@ export function wardenCue(
       // sound the mixer plays when a bloom closes (`mixer-boss.ts`), because
       // what happened is that it closed.
       return { id: "boss.queenShut", pan: panForCol(e.col, cols) };
+    case "queenPry":
+      return { id: "boss.instarAnswer", pan: panForCol(e.col, cols) };
+    case "queenHold":
+      return {
+        id: e.real ? "boss.instarAnswer" : "boss.instarRefuse",
+        pan: panForCol(e.col, cols),
+      };
+    case "queenRefuse":
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
   }
 }

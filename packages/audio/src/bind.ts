@@ -117,9 +117,12 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "stareShut":
     case "stareOpen":
       return stareCue(e);
-    // THE BULB QUEEN's two, with THE WARDEN's in `bind-warden.ts`.
+    // THE BULB QUEEN's five, with THE WARDEN's in `bind-warden.ts`.
     case "queenDown":
     case "queenFlinch":
+    case "queenPry":
+    case "queenHold":
+    case "queenRefuse":
       return wardenCue(e, cols, rows);
     // THE MIRROR's five and THE MAZE's five, in `bind-mirror.ts`: the two rounds that are a call and an answer rather than a body meeting a shot.
     case "mirrorShow":

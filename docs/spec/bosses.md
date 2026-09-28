@@ -295,8 +295,8 @@ her shell in `queen.ts`; the hit test is `queenMarkUnder` under
 `tools/director/src/field-controls-queen.ts` and the row is in
 `docs/spec/controls.md`). While a BROOD or SCREAM window is up, **both marks
 wear a faint breathing ring** on player 1's screen and on the test screen —
-never on player 2's, who is shown the real one bare and has no thumb to
-answer with. The ring is where the handle is, not which one is real: that is
+never on player 2's, who is shown the real one bare and whose thumb is
+refused on it. The ring is where the handle is, not which one is real: that is
 still the other seat's to say. **A pried mark throws its ring off** — a
 rock-coloured ring flung out from the mark over a beat, on every screen, the
 moment `pryBeat` is set — so the opening reads as done by a hand rather than
@@ -310,6 +310,21 @@ the hull's reaction, because it is the one that was wrong. The wrong mark
 under BROOD is also what `isAnnounced` in `queen-weakpoint.ts` keeps
 armoured until the press: under `pry` she is *announced* and not *open* for
 the whole window, so the tell's picture stands until the thumb takes it.
+
+**Her marks answer a touch the way every mark does** (28 September 2026,
+`queen-marks.ts`, `queen-fx.ts`; `mark-feedback.ts`, `grip-verdict.ts`).
+While a mark asks, player 1's screen lays the halo under both rings, but
+not under the one his thumb holds; player 2's lays the partner's turning
+ring and the clock on both, with her pulsing ring on the real one still
+hers to call. Each verdict is said once by the simulation
+(`sim/queen-hand.ts`) and washes the mark it was on: **green** for a pry
+that landed (`queenPry`) or a thumb come down on the real mark under `hold`
+(`queenHold`, `real`); **red** for a flinch, a thumb on the other mark
+under `hold`, and player 2's press (`queenRefuse`). Her press is handed
+through holding nothing, so it is refused once and not on every move of
+the thumb, and a desk press on a mark is signed player 1's
+(`queenGripSeat`). A flinch is said once as well: a second press inside the
+beat before the window shuts is not a second one. *Never watched at tempo.*
 
 **Her torches are on their own clock, not tied to the bloom or her health.**
 Every 8 beats, from her first beat to her last, the torch riding one of her

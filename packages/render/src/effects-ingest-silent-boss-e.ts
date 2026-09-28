@@ -27,4 +27,11 @@ export const INGEST_SILENT_BOSS_E = [
   "governorMiss",
   "governorSpent",
   "governorOut",
+  // THE BULB QUEEN's thumb's three verdicts: a pry landed, a thumb come down
+  // under `hold`, a press from the wrong seat. Each is a ring round the mark
+  // it was on, `effects.boss.queen`'s (`queen-fx.ts`); what the mark does
+  // next is her colour, read off the boss every frame.
+  "queenPry",
+  "queenHold",
+  "queenRefuse",
 ] as const satisfies readonly SimEvent["type"][];

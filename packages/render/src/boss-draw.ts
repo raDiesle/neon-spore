@@ -67,6 +67,7 @@ export function drawBoss(
         world.cfg.queenEggGrowShare,
         effects.ship.queenHurt.value,
         parts,
+        effects.boss.queen.verdicts,
       ),
     );
     return;

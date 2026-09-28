@@ -8,8 +8,8 @@ import type { FieldControlDef } from "./field-control-def.js";
  * right, and two gestures on it read off `on` the way THE INSTAR's are:
  * pressed under BROOD, held under SCREAM. It is the first field control
  * whose seat is the one **not** shown the answer — player 1 presses a mark
- * without being told which is real, and player 2, who sees it, cannot
- * press (`sim/queen-hand.ts`, `render/queen-grip.ts`,
+ * without being told which is real, and player 2, who sees it, is refused
+ * in red on the mark she pressed (`sim/queen-hand.ts`, `render/queen-grip.ts`,
  * `docs/spec/bosses.md` §11.0).
  */
 export const QUEEN_CONTROLS: readonly FieldControlDef[] = [
@@ -17,10 +17,10 @@ export const QUEEN_CONTROLS: readonly FieldControlDef[] = [
     name: "THE QUEEN'S MARKS",
     where:
       "a faint ring round each of her two marks on player 1's screen, from " +
-      "the announcement to the close, under BROOD and under SCREAM; nowhere " +
-      "on player 2's, where the real one is shown bare instead; both on the " +
-      "test screen",
-    seat: "player 1 only — the seat that is not shown which mark is real",
+      "the announcement to the close, under BROOD and under SCREAM, with a " +
+      "halo under it; on player 2's a turning ring and a clock instead, the " +
+      "real one shown bare; the ring on the test screen",
+    seat: "player 1 only — the seat that is not shown which mark is real; P2's press is refused",
     gesture: "press",
     does:
       "BROOD: P1 presses the real mark to open it — the other flinches shut. " +
