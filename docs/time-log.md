@@ -28068,3 +28068,5 @@ The bottleneck was choosing the two sizes so the thread shows for most of a fall
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck was deciding what makes a boss one *with a mark*, since nothing in the tree says it but the names of the renderer's pages.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

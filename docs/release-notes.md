@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · b80f54e4f — The touch feedback's halo, partner ring and clock are every boss's to use
+
+THE INSTAR's halo on this seat's mark, turning ring on the partner's and waiting clock moved out of its own file into `mark-feedback.ts`, beside `grip-verdict.ts`, as `drawMarkHalo`, `drawMarkTheirs` and `drawMarkWait`. The convention for a boss with a mark is written into `new-boss` §5 and `new-boss-state`, and a roll-out test goes red for a boss with a mark page and no `GripVerdicts` unless it is on the list still to come — the choreographed four first, then the rest, one boss a lane, each queued. Nothing drawn changed.
+
 ## 2026-09-28 · 911aa30cb — THE SCUTTLE's thread runs down from its socket to the part
 
 A loose part's thread was tied a socket's half height under the socket and a socket's half height over the plate, 0.32 tiles between them over a fall of 0.26, so every frame drew it upward and only its round cap reached the screen. It is now tied just under the socket's centre, at the floor of the recess, and to the top of a hanging plate slimmer than its socket: a line for the back three quarters of the cadence, with the plate clear of the lip by the throw. The drop VERSUS `apart` picked is kept. The guard is the thread's own ends (`scuttleThread`), and a test asks its direction.
