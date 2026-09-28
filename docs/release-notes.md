@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · b501af4eb — THE SCUTTLE's hanging parts answer a touch as far as its split lets them
+
+While a carry may still be made, every part offered and not under the pilot's thumb wears the halo every asked mark wears, on his screen alone, and the carry washes the part green in the column it went to. The navigator is shown nothing: a ring on hers would name the live part beside her own lock, and her press is dropped without a sound.
+
 ## 2026-09-28 · 1cacb3b96 — THE LEAD's stalk ring answers a touch as far as its split lets it
 
 While the still may be taken, the ring on the stalk's organ wears the halo every asked mark wears, on the navigator's screen alone, and her thumb landing washes it green. The pilot is shown nothing: his stalk is a readout with no place to put the partner's clock, and his press is dropped without a sound. The tear is not judged.
