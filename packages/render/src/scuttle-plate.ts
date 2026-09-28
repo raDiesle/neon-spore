@@ -1,6 +1,7 @@
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { faded, glint } from "./scuttle-metal.js";
+import type { Point } from "./scuttle-shape.js";
 
 /**
  * **THE SCUTTLE's parts** (`scuttle-metal.ts` has the slab they are seated
@@ -12,20 +13,22 @@ import { faded, glint } from "./scuttle-metal.js";
  */
 
 /**
- * A plate of `hex`, seated or hanging: shaded top to foot, a lip of light
- * along its top, a glint. `a` how solid it is.
+ * A plate of `hex`, seated or hanging, centred on `c` and `half` tiles to its
+ * top: shaded top to foot, a lip of light along its top, a glint. `a` how
+ * solid it is.
  */
 export function paintPlate(
   ctx: CanvasRenderingContext2D,
   body: Path2D,
-  x: number,
-  y: number,
+  c: Point,
   tile: number,
+  half: number,
   hex: string,
   a: number,
   fade: number,
 ): void {
-  const hh = tile * 0.16;
+  const { x, y } = c;
+  const hh = tile * half;
   ctx.save();
   ctx.globalAlpha = a;
   ctx.fillStyle = faded(hex, fade);

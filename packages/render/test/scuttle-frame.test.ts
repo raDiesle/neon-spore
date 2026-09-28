@@ -187,13 +187,12 @@ describe("THE SCUTTLE's frame", () => {
   });
 
   it.each(ROLES)("hangs a loose part under its socket on a thread, on %s", (role) => {
-    // At the end of the cadence, not a beat into it: the thread is drawn only
-    // once the part has fallen past its socket's own half height, and since
-    // VERSUS `apart` shortened the drop to 0.26 tiles that is most of the way
-    // through the fall rather than the start of it (`scuttle-shape.ts`).
+    // Two beats of the three into the fall, where the thread is a line; its
+    // direction is `scuttle-thread.test.ts`'s, since a canvas takes a segment
+    // drawn upward as happily as down.
     const bare = frame(role, () => {});
     const hanging = frame(role, (w) => {
-      loose(w).cycleBeat = w.beat - 3;
+      loose(w).cycleBeat = w.beat - 2;
     });
     expect(count(hanging.text, PALETTE.dim)).toBeGreaterThan(count(bare.text, PALETTE.dim));
     expect(hanging.text).not.toBe(bare.text);

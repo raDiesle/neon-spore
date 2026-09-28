@@ -53,6 +53,17 @@ export const SCUTTLE_ROWS: ScuttleRows = { rise: 0.4, pitch: 0.6, drop: 0.26 };
 /** A socket's half width and half height, in tiles. */
 export const SOCKET_HALF_W = 0.36;
 export const SOCKET_HALF_H = 0.16;
+/**
+ * **Where a loose part's thread is tied**, in tiles: this far under its
+ * socket's centre, to the floor of the recess the eye sees head-on, and to
+ * the top of a hanging plate this much slimmer than its socket. The two
+ * together are well under the 0.26 the part falls, so the thread is a line
+ * for the back three quarters of the cadence, and at the throw the plate has
+ * come clear of its socket's lip — kept over a longer drop, which would bring
+ * a part off an upper row back over the socket below it (VERSUS `apart`).
+ */
+export const SOCKET_FLOOR_H = 0.03;
+export const PLATE_HALF_H = 0.1;
 /** How far the frame draws back up on the wind-up, in tiles. */
 const WIND_RISE = 0.3;
 
@@ -130,6 +141,17 @@ export function scuttleHangPhase(
 /** How far a loose part hangs below its socket, in pixels, at `phase` of the cadence. */
 export function scuttleHangDrop(l: Layout, phase: number): number {
   return l.tile * SCUTTLE_ROWS.drop * Math.sqrt(phase);
+}
+
+/**
+ * The thread from a socket at `from` to the part hanging at `to`, or null
+ * while the plate still covers the knot. What is returned runs downward:
+ * the test the drawing is spared by is the length the drawing spends.
+ */
+export function scuttleThread(l: Layout, from: Point, to: Point): [Point, Point] | null {
+  const a = { x: from.x, y: from.y + l.tile * SOCKET_FLOOR_H };
+  const b = { x: to.x, y: to.y - l.tile * PLATE_HALF_H };
+  return b.y > a.y ? [a, b] : null;
 }
 
 /** How far through the wind-up it is, 0 before and 1 at the throw; 0 while it is not winding. */
@@ -211,11 +233,11 @@ export function scuttleFade(
  * tall, with its lower corners rounded off — a rock's outline squashed into
  * a slot, so that a row of them reads as plating and one hanging alone reads
  * as a thing that was plating a moment ago. `open` closes it inward, for the
- * frame on its way out.
+ * frame on its way out; `half` is a hanging plate's slimmer half height.
  */
-export function scuttlePlatePath(l: Layout, c: Point, open = 1): Path2D {
+export function scuttlePlatePath(l: Layout, c: Point, open = 1, half = SOCKET_HALF_H): Path2D {
   const hw = l.tile * SOCKET_HALF_W * open;
-  const hh = l.tile * SOCKET_HALF_H;
+  const hh = l.tile * half;
   const p = new Path2D();
   p.moveTo(c.x - hw, c.y - hh);
   p.lineTo(c.x + hw, c.y - hh);

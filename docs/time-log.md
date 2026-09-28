@@ -28041,3 +28041,15 @@ The bottleneck was `adopt` refusing an inline `paint`, so the take went by hand 
 The bottleneck was deciding, per boss, which of its silent paths were armour, before any hook could be edited.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE SCUTTLE's thread runs down from its socket
+
+- reading: 5 min. `scuttle-shape.ts`, `scuttle-draw.ts`, `scuttle-plate.ts`,
+  the frame test and the entry's answer.
+- writing: 10 min. The knot and the slim plate, `scuttleThread`, the plate's
+  half height through the painter and the tumble, the direction test.
+- looking: 5 min. `bun run frames` of a part two beats into its fall.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck was choosing the two sizes so the thread shows for most of a fall that could not grow.

@@ -3,7 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { type Point, scuttlePlatePath, scuttleSocket } from "./scuttle-shape.js";
+import { PLATE_HALF_H, type Point, scuttlePlatePath, scuttleSocket } from "./scuttle-shape.js";
 import { showsScuttleLive } from "./view-role-clocks-b.js";
 
 /**
@@ -149,7 +149,7 @@ export class ScuttleFx {
     ctx.translate(x, y);
     ctx.rotate(gone * TUMBLE_SPIN);
     ctx.fillStyle = rgba(this.tumbleHex, 0.8 * (1 - gone));
-    ctx.fill(scuttlePlatePath(l, { x: 0, y: 0 }, 1 - gone * 0.4));
+    ctx.fill(scuttlePlatePath(l, { x: 0, y: 0 }, 1 - gone * 0.4, PLATE_HALF_H));
     ctx.restore();
   }
 

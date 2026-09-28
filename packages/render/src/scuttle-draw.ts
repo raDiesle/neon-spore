@@ -16,6 +16,7 @@ import type { ScuttleFx } from "./scuttle-fx.js";
 import { faded, paintSlab } from "./scuttle-metal.js";
 import { paintLiveRim, paintPlate, paintSocket, paintThread } from "./scuttle-plate.js";
 import {
+  PLATE_HALF_H,
   type Point,
   SOCKET_HALF_H,
   scuttleBox,
@@ -26,6 +27,7 @@ import {
   scuttleShiver,
   scuttleSlabPath,
   scuttleSocket,
+  scuttleThread,
   scuttleWindPhase,
   scuttleWindRise,
 } from "./scuttle-shape.js";
@@ -100,7 +102,7 @@ export function drawScuttle(
       if (live) {
         fx.note(at.x, at.y);
         drawLivePart(ctx, l, at, part.color, time, fade);
-      } else drawPlate(ctx, l, at, fade);
+      } else drawPlate(ctx, l, at, fade, PLATE_HALF_H);
     }
   }
   if (lively) drawLock(ctx, l, cfg, s, time, fade);
@@ -136,9 +138,16 @@ function drawSlab(
   drawHurt(ctx, path, hurt * fade);
 }
 
-/** A part in its socket, or hanging under it: a plate of rock. */
-function drawPlate(ctx: CanvasRenderingContext2D, l: Layout, c: Point, fade: number): void {
-  paintPlate(ctx, scuttlePlatePath(l, c, fade), c.x, c.y, l.tile, PALETTE.rock, 0.55, fade);
+/** A part in its socket, or hanging under it, slimmer: a plate of rock. */
+function drawPlate(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  c: Point,
+  fade: number,
+  half = SOCKET_HALF_H,
+): void {
+  const p = scuttlePlatePath(l, c, fade, half);
+  paintPlate(ctx, p, c, l.tile, half, PALETTE.rock, 0.55, fade);
 }
 
 /** A socket with nothing in it: the violet inside showing at the bottom of a recess. */
@@ -154,10 +163,11 @@ function drawThread(
   to: Point,
   fade: number,
 ): void {
-  if (to.y - from.y <= l.tile * SOCKET_HALF_H) return;
+  const ends = scuttleThread(l, from, to);
+  if (ends === null) return;
   const p = new Path2D();
-  p.moveTo(from.x, from.y + l.tile * SOCKET_HALF_H);
-  p.lineTo(to.x, to.y - l.tile * SOCKET_HALF_H);
+  p.moveTo(ends[0].x, ends[0].y);
+  p.lineTo(ends[1].x, ends[1].y);
   paintThread(ctx, p, l.tile, fade);
 }
 
@@ -174,8 +184,8 @@ function drawLivePart(
   fade: number,
 ): void {
   const breath = Math.sin(time * 6);
-  const p = scuttlePlatePath(l, at, fade * (1 + 0.06 * breath));
-  paintPlate(ctx, p, at.x, at.y, l.tile, PALETTE[color], 0.85, fade);
+  const p = scuttlePlatePath(l, at, fade * (1 + 0.06 * breath), PLATE_HALF_H);
+  paintPlate(ctx, p, at, l.tile, PLATE_HALF_H, PALETTE[color], 0.85, fade);
   const rim = color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   paintLiveRim(ctx, p, at.x, at.y, l.tile, faded(rim, fade), 0.6 + 0.3 * breath);
 }
