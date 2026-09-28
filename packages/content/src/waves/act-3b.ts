@@ -29,8 +29,6 @@ export const WAVES_ACT_3B: Wave[] = [
     entries: [
       { beat: 0, col: 1, kind: "meteor", color: null },
       { beat: 3, col: 5, color: "red" },
-      { beat: 6, col: 0, kind: "meteor", color: null },
-      { beat: 9, col: 4, color: "cyan" },
     ],
     boss: { kind: "vane" },
     bossType: "normal",
