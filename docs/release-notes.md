@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 9c4aae95d — THE OCULUS's marks answer a touch the way every mark does
+
+Each half of the lens wears the halo on its own seat's screen and the partner's ring and clock on the other's while a pair to hold is lit, so a thumb already down sees the one still missing; the core and the hull under the eye halo on both screens while a shot or the shield is asked. A pair shut greens both halves, a slip reddens the slipping seat's half — the slip now says whose thumb it was — and a step let run out reddens only what it asked.
+
 ## 2026-09-28 · 2ed9f06fe — THE SEAM's marks answer a touch the way every mark does
 
 What the lit step asks for — the point on the crack, the spat rock, the hull under the ridge where the shield takes the grit — wears the halo on both screens, since every step wants both seats at once, and greens when answered or reddens when the step runs out with it still owed. The verdicts live in `render/seam-verdicts.ts`, held in `BossBlows` for a boss with no fx class yet.

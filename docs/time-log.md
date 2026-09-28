@@ -28614,3 +28614,5 @@ The bottleneck: a boss answered with the cannon and the shield has no thumb mark
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: a slip carried no seat, so the event had to be widened, with every place that builds it, before the red could land on the right half.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
