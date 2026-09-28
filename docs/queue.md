@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE INSTAR refuses the wrong seat again on every move of its press
 
 - **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
+- **Taken:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every (claim: claude/queue-the-instar-refuses-the-wrong-seat-again-on-every)
 - **Files:** `packages/render/src/instar-mark-grip.ts`, `packages/sim/src/instar-hand.ts`
 
 THE WARDEN's bug, on the boss the convention was drawn from.
