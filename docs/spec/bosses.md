@@ -7205,6 +7205,18 @@ and every root above its free end (`content/test/filament-script.test.ts`).
 Whether a tile a beat is a pace or a crawl, and whether three tiles is a
 window or a leash, is the owner's eye.
 
+**Its two thumbs answer a touch the way every mark does**
+(`render/filament-marks.ts`; the owner, 27 September 2026: *the consistent
+visual across all waves*). The whole convention, since both screens draw
+both rings: this seat's ring wears the halo while its move is open and no
+thumb is on it (`filamentAsks`, over the same `filamentMayMove` the ring is
+coloured by), and the partner's dim ring already wore the waiting clock.
+Each of the line's words lands on the thumb whose mistake it names: a tile
+lit or followed washes that ring green, a snap is his red, a recoil hers, a
+dark is both, and a line left standing is red on the thumb it waited on. The
+verdict is drawn where the ring is now, which after a strike is the free end
+both thumbs have to grab again.
+
 ## 11.34 THE GIMBAL — the boss where the same turn is not the same turn
 
 > The one that divides the geometry. One wheel, gripped from its two opposite

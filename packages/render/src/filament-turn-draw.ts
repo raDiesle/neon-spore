@@ -3,13 +3,12 @@ import {
   FILAMENT_NAVIGATOR,
   FILAMENT_PILOT,
   type FilamentState,
+  filamentAsks,
   filamentLateBeat,
-  filamentNavigatorMay,
-  filamentPilotMay,
+  filamentMayMove,
   filamentStallBeats,
   filamentTileAt,
   filamentTiles,
-  filamentTooSoon,
   filamentWaitingOn,
   NO_GRAB,
   type SimConfig,
@@ -19,7 +18,7 @@ import { drawFilamentArrows, drawFilamentMax, drawFilamentPips } from "./filamen
 import { strokeGlow } from "./glow.js";
 import { drawInstarWord } from "./instar-word.js";
 import type { Layout } from "./layout.js";
-import { drawMarkWait } from "./mark-feedback.js";
+import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -44,6 +43,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * - **The partner's thumb is on this screen too**, dim, and wears the
  *   waiting clock with its name when the line is waiting on them
  *   (`drawMarkWait`, the owner's rule of 24 September).
+ * - **An open ring with no thumb on it wears the halo** under it
+ *   (`filamentAsks`), every mark's ask (`filament-marks.ts`).
  * - **The line's clock** is an arc round every ring the line waits on,
  *   emptying to the strike: white, orange from half, red for the last two
  *   beats — the fuse's colours (`slow-fuse.ts`).
@@ -55,12 +56,6 @@ const ARROW_TILES = 3;
 const CLOCK_R = 1.35;
 /** The last beats of the clock drawn red. */
 const CLOCK_RED_BEATS = 2;
-
-/** Whether this seat's move is open now: green, or red and `WAIT`. */
-export function filamentGo(s: FilamentState, cfg: SimConfig, seat: 1 | 2, beat: number): boolean {
-  if (seat === 2) return filamentNavigatorMay(s);
-  return filamentPilotMay(s, cfg) && !filamentTooSoon(s, beat);
-}
 
 /** A seat's own ring, the tile it goes to, its arrows and its pips. */
 export function drawFilamentOwn(
@@ -74,7 +69,7 @@ export function drawFilamentOwn(
 ): void {
   const c = filamentGrabCircle(l, s, seat);
   if (c === null) return;
-  const go = filamentGo(s, cfg, seat, beat);
+  const go = filamentMayMove(s, cfg, seat, beat);
   const hex = go ? PALETTE.good : PALETTE.red;
   const rim = go ? PALETTE.goodRim : PALETTE.redRim;
   const from = seat === 1 ? s.head : s.tail;
@@ -89,6 +84,7 @@ export function drawFilamentOwn(
   }
   const held = s.grab[seat - 1] !== NO_GRAB;
   const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
+  if (filamentAsks(s, cfg, seat, beat)) drawMarkHalo(ctx, c.x, c.y, c.r * breathe, time);
   const p = new Path2D(circleSubpath(c.x, c.y, c.r * breathe));
   ctx.save();
   ctx.fillStyle = PALETTE.background;

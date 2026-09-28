@@ -1,6 +1,7 @@
 import type { FilamentState, SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { filamentBodyPoint } from "./filament-heart.js";
+import { FilamentMarks } from "./filament-marks.js";
 import { filamentPoint, type Point } from "./filament-shape.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -41,6 +42,8 @@ export class FilamentFx {
   private joltNow = 0;
   /** The last vein out: the heart shakes and glows red. */
   readonly hurt = new BossHurt();
+  /** The verdicts on each seat's thumb (`filament-marks.ts`). */
+  readonly marks = new FilamentMarks();
   private head: Point | null = null;
   private end: Point | null = null;
 
@@ -74,6 +77,7 @@ export class FilamentFx {
     cfg: SimConfig,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const at = (p: Point, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const body = filamentBodyPoint(l, cfg);
     const tile = (col: number, row: number): Point => ({ x: tileCX(l, col), y: tileCY(l, row) });
@@ -135,6 +139,7 @@ export class FilamentFx {
     this.joltNow = Math.max(0, this.joltNow - this.joltNow * JOLT_DECAY * step);
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -142,6 +147,7 @@ export class FilamentFx {
     this.darkNow = 0;
     this.joltNow = 0;
     this.hurt.clear();
+    this.marks.clear();
     this.head = null;
     this.end = null;
   }

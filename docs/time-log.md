@@ -28520,3 +28520,13 @@ The bottleneck: working out that a pull of the organ and a bolt into a decoy say
 The bottleneck: deciding that the haul's verdict must be drawn after the clench is over, which meant taking the drawer's early return apart without letting the two rings up at once.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE FILAMENT's two thumbs answer a touch the way every mark does
+
+- reading: 5 min. Both rings and the partner's clock already drawn, the line's four fault words, the states harness.
+- writing: 10 min. `filamentMayMove` and `filamentAsks` in the sim, the render's own `filamentGo` retired onto the first, `filament-marks.ts`, the halo in the own ring, the verdicts in `FilamentFx` and the drawer, one new test, the spec and the director.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the ring's open-or-wait reading lived in render as `filamentGo`, so the ask had to move it into the sim before the halo could call it.

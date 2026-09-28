@@ -7,6 +7,7 @@ import {
   filamentHeartVessel,
   type Heart,
 } from "./filament-heart.js";
+import { drawFilamentVerdicts } from "./filament-marks.js";
 import {
   filamentArmPhase,
   filamentFade,
@@ -133,6 +134,7 @@ export function drawFilament(
       drawFilamentClock(ctx, l, cfg, s, [1, 2], beat, beatPhase);
     }
   }
+  drawFilamentVerdicts(ctx, l, s, fx.marks.verdicts);
   ctx.restore();
 }
 

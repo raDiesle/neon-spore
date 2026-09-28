@@ -1,5 +1,11 @@
 import type { SimConfig } from "./config.js";
-import { type FilamentState, filamentGap, filamentTiles, filamentTracing } from "./filament.js";
+import {
+  type FilamentState,
+  filamentGap,
+  filamentTiles,
+  filamentTracing,
+  NO_GRAB,
+} from "./filament.js";
 
 /**
  * **Whose move THE FILAMENT is waiting on, and for how long.**
@@ -71,4 +77,28 @@ export function filamentStallBeats(s: FilamentState, cfg: SimConfig): number {
 /** The beat the line strikes on if nobody moves it before then. */
 export function filamentLateBeat(s: FilamentState, cfg: SimConfig): number {
   return s.stillBeat + filamentStallBeats(s, cfg);
+}
+
+/**
+ * Whether `seat`'s move is open now: the pilot's while a tile would light
+ * and not snap, the navigator's while the next lit tile is hers. What the
+ * ring is coloured by (`render/filament-turn-draw.ts`).
+ */
+export function filamentMayMove(
+  s: FilamentState,
+  cfg: SimConfig,
+  seat: 1 | 2,
+  beat: number,
+): boolean {
+  if (seat === 2) return filamentNavigatorMay(s);
+  return filamentPilotMay(s, cfg) && !filamentTooSoon(s, beat);
+}
+
+/**
+ * Whether `seat`'s ring asks for a thumb: its move open and no thumb on it —
+ * the halo under the ring (`render/filament-marks.ts`). A thumb resting on
+ * an open move is the ring's own `held`.
+ */
+export function filamentAsks(s: FilamentState, cfg: SimConfig, seat: 1 | 2, beat: number): boolean {
+  return filamentMayMove(s, cfg, seat, beat) && s.grab[seat - 1] === NO_GRAB;
 }

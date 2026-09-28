@@ -33,7 +33,9 @@ export const FILAMENT_CONTROLS: readonly FieldControlDef[] = [
       "recoil — and never more than filamentGapTiles behind, or the filament " +
       "goes dark. Every fault, and a line standing past its clock, strikes the hull. Her thumb arriving on the root with his " +
       "pulls the filament out of the body, in THE SLOW, and the body is a " +
-      "strand narrower; the seventh is the last (sim/filament-hand.ts).",
+      "strand narrower; the seventh is the last (sim/filament-hand.ts). " +
+      "An open ring with no thumb on it wears the halo, and each move or " +
+      "fault washes the thumb it names green or red (render/filament-marks.ts).",
     source: "touch.ts — filamentGrabUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "filament",
