@@ -199,8 +199,13 @@ export function claim(item: Item, root = ROOT, dealt = false): string {
     const put = () => onTrunk(item, edit, `Mark ${JSON.stringify(item.title)} taken`, root);
     const marked = put();
     if (marked === "refused") settleRefused(item, put, root, trunkTree(root));
-    if (marked && kept) moveKept(branch, kept, root);
-    else if (marked) {
+    if (marked && kept) {
+      moveKept(branch, kept, root);
+      // A re-stamp took the line off this tree's copy too (`unmark`), and the
+      // new mark is the old one letter for letter, so the fast-forward changed
+      // nothing in the file to put it back with.
+      if (kept === "here") alsoHere(item, (md) => (takenIn(md, item.title) ? md : edit(md)), root);
+    } else if (marked) {
       const moved = gitIn(root, "branch", "--force", branch, TRUNK);
       if (!moved.ok) throw new Error(`could not move the claim onto ${TRUNK}: ${moved.err}`);
     }

@@ -28436,3 +28436,13 @@ The bottleneck: her press on the hem was dropped without a sound, so the red nee
 The bottleneck: all three rings were already on both screens, so the work was a refusal nobody had ever heard, registered in six places.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — A kept claim's re-stamp puts the `Taken:` line back in this tree too
+
+- reading: 5 min. `unmark`, `alsoHere`, `claim` and `moveKept`, side by side.
+- writing: 5 min. One `alsoHere` after a `"here"` move, and one repository case.
+- looking: 0 min. A tool, nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `queue done`, the commit, `land`.
+
+The bottleneck: seeing why a fast-forward left the file alone — the new mark was the old one letter for letter, so nothing in the file changed between the two heads.

@@ -1719,19 +1719,3 @@ of its own — the §6.2 hands of the bosses already bound in their own
 `bind-<boss>.ts` (`tasterCue`, `ledgerCue`, `leadCue`, `gaugeCue`) routed by
 prefix as `throat${string}` already is — so each of those bosses brings its
 names with its page, and prove it with `packages/audio/test/bind.test.ts`.
-
-## A kept claim's re-stamp leaves this tree's `Taken:` line off
-
-- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
-- **Taken:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the (claim: claude/queue-a-kept-claims-re-stamp-leaves-this-trees-taken-l)
-- **Files:** `tools/queue/repo.ts`, `tools/queue/test/claim-kept.test.ts`
-
-`bun run queue take` on the roll-out's kept branch runs `unmark` first, which
-takes the line off the trunk *and* this checkout's copy (`alsoHere`), then
-`claim` marks the trunk again and `moveKept` fast-forwards. The new mark is
-the old one letter for letter, so the fast-forward leaves the file alone and
-the working copy keeps its line removed: every roll-out lane began with a
-`docs/queue.md` diff that had to be checked out by hand. After a `"here"`
-move, write the mark into this tree's copy too (`alsoHere` with the same
-edit), and hold it with a repository case in `claim-kept.test.ts` whose tree
-starts with the line taken off.

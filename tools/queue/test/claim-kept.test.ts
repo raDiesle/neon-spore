@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor } from "../claim.js";
 import { type Item, parseItems } from "../queue.js";
-import { claim, headBranch, trunkTaken } from "../repo.js";
+import { claim, headBranch, trunkTaken, unmark } from "../repo.js";
 
 /**
  * A claim on a branch this session kept (`kept.ts`).
@@ -87,6 +87,31 @@ describe("a claim on the branch this tree kept and stands on", () => {
       expect(await run(["status", "--porcelain"])).toBe("");
     },
     repoTimeout(4),
+  );
+});
+
+describe("a re-stamp of the claim this tree kept and stands on", () => {
+  it(
+    "leaves the line in this tree's copy as well as on the trunk",
+    async () => {
+      // What `take` does with a mark of its own already standing: `unmark`
+      // takes it off both copies, and `claim` writes the same line back.
+      const { root, run } = await repo();
+      const today = new Date().toISOString().slice(0, 10);
+      const marked = ON_MAIN.replace(
+        "- **Files:**",
+        `- **Taken:** ${today}, ${BRANCH}\n- **Files:**`,
+      );
+      await writeFile(join(root, "docs", "queue.md"), marked);
+      await run(["commit", "-q", "-am", "marked"]);
+      await run(["checkout", "-q", "-b", BRANCH]);
+      unmark(item, root);
+      claim(item, root);
+      const md = await readFile(join(root, "docs", "queue.md"), "utf8");
+      expect(parseItems(md, "queue")[0]?.taken).toBe(`${today}, ${BRANCH}`);
+      expect(await run(["status", "--porcelain"])).toBe("");
+    },
+    repoTimeout(12),
   );
 });
 
