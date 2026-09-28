@@ -333,6 +333,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Taken:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
 - **Files:** `packages/render/test/mark-feedback-roll-out.test.ts`
 
 After THE WARDEN, THE SPOOL, THE HASP, THE SINEW, THE BULB QUEEN, THE MIRROR,
