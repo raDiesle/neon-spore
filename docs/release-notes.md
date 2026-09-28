@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 41efef6c8 — THE SPOOL's brake answers a touch the way THE INSTAR does
+
+The knob washes green when the pilot takes the brake and red when the navigator's press is refused, which the simulation now says with `spoolRefuse` and THE INSTAR's knock. While the line runs and nobody holds it, the pilot sees a halo under the knob and the navigator sees the partner's turning ring and a clock where it rests, with no rail or depth shown. On the test screen the desk mouse is told whose knob it is before the press. Lands as a look the owner asked for by name.
+
 ## 2026-09-28 · d4f9bff00 — THE WARDEN's eye answers a touch the way THE INSTAR does
 
 The seat the eye asks for sees a halo under its ring; the other sees the partner's turning ring and a waiting clock until the thumb is down. A thumb landed or a hatch thrown washes the eye green, and a refused press washes it red: the wrong seat's press on the eye or the hatch, or a swipe that lifted short, is now `wardenRefuse` in the simulation, voiced with THE INSTAR's "not yours" knock. The desk asks the eye whose it is before a press (`wardenGripSeat`), so the test screen's mouse still reaches both seats.

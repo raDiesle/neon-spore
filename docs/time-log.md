@@ -28099,3 +28099,5 @@ The bottleneck was the desk: a mark the wrong seat can press has to name its sea
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck was keeping the brake's rail hidden from the navigator while still giving her a mark to press and a verdict to see, which put both at the knob's rest position.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
