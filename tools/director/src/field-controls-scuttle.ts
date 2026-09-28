@@ -37,7 +37,9 @@ export const SCUTTLE_CONTROLS: readonly FieldControlDef[] = [
       "off the end of the frame is not spent, so a thumb that shoved the " +
       "wrong way may still carry it the other. What it costs is the thumb: " +
       "it is off the cannon and the shield while it is on the frame, and " +
-      "this boss throws every cadence.",
+      "this boss throws every cadence. Every ring offered and not held " +
+      "wears the halo every asked mark wears, and a carry washes the part " +
+      "green in the column it went to (render/scuttle-marks.ts).",
     source: "touch.ts — scuttlePartUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "scuttlePart",

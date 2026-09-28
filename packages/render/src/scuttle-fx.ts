@@ -3,6 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { ScuttleMarks } from "./scuttle-marks.js";
 import { PLATE_HALF_H, type Point, scuttlePlatePath, scuttleSocket } from "./scuttle-shape.js";
 import { showsScuttleLive } from "./view-role-clocks-b.js";
 
@@ -54,6 +55,8 @@ export class ScuttleFx {
   private tumbleHex = PALETTE.rock;
   /** The blow a part struck off deals the slab. */
   readonly hurt = new BossHurt();
+  /** The parts' verdicts on a touch (`scuttle-marks.ts`). */
+  readonly marks = new ScuttleMarks();
 
   /** Where the live part hung this frame, for the strike that takes it. */
   note(x: number, y: number): void {
@@ -76,6 +79,7 @@ export class ScuttleFx {
     role: ViewRole,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
+    this.marks.ingest(events);
     const at = (p: Point, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const socket = (i: number) => scuttleSocket(l, cfg, i);
     const col = (c: number, dy: number) => ({ x: tileCX(l, c), y: l.gridTop + dy * l.tile });
@@ -137,6 +141,7 @@ export class ScuttleFx {
     if (this.joltNow < 0.002) this.joltNow = 0;
     this.tumbleLeft = Math.max(0, this.tumbleLeft - dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   /** The plate that came off: turning as it falls from where the part hung, fading as it goes. */
@@ -164,5 +169,6 @@ export class ScuttleFx {
     this.tumbleY = 0;
     this.tumbleHex = PALETTE.rock;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

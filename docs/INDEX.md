@@ -1257,6 +1257,7 @@ by hand never moves.
 | `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
 | `packages/render/src/scuttle-grip.ts` | **THE SCUTTLE's hanging parts as controls**: a ring on each one a thumb may still carry |
 | `packages/render/src/scuttle-metal.ts` | **What THE SCUTTLE is made of**: a slab of dark rock |
+| `packages/render/src/scuttle-marks.ts` | **THE SCUTTLE's hanging parts answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/scuttle-plate.ts` | **THE SCUTTLE's parts** (`scuttle-metal.ts` has the slab they are seated in): a plate of rock |
 | `packages/render/src/scout-button.ts` | THE SCOUT's four presses, as faces on the band's own lobes |
 | `packages/render/src/scout-draw.ts` | THE SCOUT's arena, drawn: the little ship, what it is there to collect, what would end it |

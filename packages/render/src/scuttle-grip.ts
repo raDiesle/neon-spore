@@ -1,12 +1,15 @@
 import {
   type ScuttleState,
   type SimConfig,
+  scuttlePartCol,
   scuttleSocketCol,
   scuttleSwingable,
 } from "@neon-spore/sim";
 import { drawGripRing } from "./grip-rings.js";
+import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, tileCX } from "./layout.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import type { Point } from "./scuttle-shape.js";
 import { scuttleHangDrop, scuttleHangPhase, scuttleRowY } from "./scuttle-shape.js";
 import type { Field, Touch } from "./touch.js";
@@ -39,6 +42,10 @@ import { showsScuttleCount } from "./view-role-clocks-b.js";
  * `handles.ts` asks for is the sliding one, as THE LID's cord is
  * (`lidCordCircle`). What it must never follow is the **carry** — by then the
  * pointer is captured and nothing is hit-tested again.
+ *
+ * Over the rings, the convention every mark answers a touch with
+ * (`scuttle-marks.ts`): the halo under each ring offered and not held, and
+ * the verdict round a carried part last, in the column it was carried to.
  */
 
 /** Where hanging part `i` is drawn this frame: its socket's column, and how far it has slid. */
@@ -102,12 +109,19 @@ export function drawScuttleGrip(
   beat: number,
   beatPhase: number,
   time: number,
+  verdicts: GripVerdicts,
 ): void {
-  if (!showsScuttleCount(l.role) || !scuttleSwingable(s)) return;
+  if (!showsScuttleCount(l.role)) return;
   const r = handleRadius(l, cfg);
   for (const i of s.loose) {
     if (s.parts[i] === null || s.parts[i] === undefined) continue;
     const at = scuttleHangAt(l, cfg, s, i, beat, beatPhase);
-    drawGripRing(ctx, at.x, at.y, r, s.held === i, time);
+    if (scuttleSwingable(s)) {
+      if (s.held !== i) drawMarkHalo(ctx, at.x, at.y, r, time);
+      drawGripRing(ctx, at.x, at.y, r, s.held === i, time);
+    }
+    const v = verdicts.at(i);
+    const shift = l.tile * (scuttlePartCol(s, cfg, i) - scuttleSocketCol(cfg, i));
+    if (v !== null) drawVerdictRing(ctx, at.x + shift, at.y, r, v);
   }
 }

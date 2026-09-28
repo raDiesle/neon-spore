@@ -133,7 +133,16 @@ export function drawFxBoss(
     // The rings on the hanging parts, the pilot's alone: he is the seat shown
     // every one of them uncoloured, so a ring on each says which may still be
     // carried and nothing about which is live (`scuttle-grip.ts`).
-    drawScuttleGrip(ctx, l, world.cfg, boss, beat, beatPhase, time);
+    drawScuttleGrip(
+      ctx,
+      l,
+      world.cfg,
+      boss,
+      beat,
+      beatPhase,
+      time,
+      effects.boss.scuttle.marks.verdicts,
+    );
     return;
   }
 

@@ -6178,6 +6178,17 @@ The picture was drawn on both seats at a tick and never watched at tempo,
 and whether three beats of a part hanging reads as a window or as a
 decoration is the owner's.
 
+**Its hanging parts answer a touch as far as a split fight lets them**
+(`render/scuttle-marks.ts`; the owner, 27 September 2026: *the consistent
+visual across all waves*). THE GAUGE's case: the rings stand on the pilot's
+screen alone, so while a carry may still be made (`scuttleSwingable`) every
+part offered and not under his thumb wears the halo there, and the carry
+washes the part green in the column it went to (`scuttleSwing`). No
+partner's ring and clock, since on the navigator's screen a ring would name
+the live part beside her own lock, and no refusal, since her press is
+dropped without a sound. A thumb landing is not judged, and neither is a
+shove off the end of the frame, which is not spent.
+
 ## 11.31 THE ANTIPHON — the boss that grows a thing nobody has a word for
 
 > The one that grows an organ nobody has ever seen, so there is no word for
