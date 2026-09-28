@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 12ca0a06a — THE THROAT's ring and tube answer a touch the way THE INSTAR's marks do
+
+The slack ring wears the halo on the navigator's screen until her thumb is on it, and the tube wears it on the pilot's until a carry has been given. A cinch and a haul wash their ring green, and a press from the other seat is refused red. That press used to fall through; it is now handed through with no hold, so the refusal is said once. There is no partner's clock, because nobody waits on either ring. Which ring asks is the simulation's (`throatRingAsks`, `throatTubeAsks`), and the grip and the cue now read it rather than re-deriving it.
+
 ## 2026-09-28 · d268ed2c7 — THE BATON's arm answers a touch the way THE INSTAR's marks do
 
 The ring that asks this seat for a thumb is haloed on its screen — the swelling shell on the locked seat's while its thumb is off it, each bead on its own seat's until that thumb is down. A strip, a thumb landing on its bead and the merge wash the socket green; the unlocked seat's press on the shell and a thumb on the partner's bead are now handed through, refused by the simulation and washed red. No partner's clock: whether the other thumb is down is the sentence the pair has to say.
