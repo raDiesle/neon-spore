@@ -28350,3 +28350,5 @@ The bottleneck: the pile's ring exists only under a thumb, so the lane was decid
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: deciding where the partner's clock belongs — on the prime her burn waits on, not on the line nobody waits on.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

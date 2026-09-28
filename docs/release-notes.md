@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 2838b49d0 — THE SCOUT's line and prime answer a touch the way THE INSTAR's marks do
+
+Each seat's ring is haloed on its own screen while the round asks for it — the navigator's line on the laden ship, the pilot's prime off the stern of a heavy one — and the navigator sees the prime wear his turning ring and a clock, since her burn requests wait on it. A reel and a prime wash their ring green; a press on the other seat's ring is now refused by the simulation (`scoutRefuse`) and washes red. No clock on the line: it is optional, and nobody waits on it.
+
 ## 2026-09-28 · 2d2026adf — THE CAIRN's pile answers a touch the way THE INSTAR's marks do
 
 The pile's mark is the ring a hand closes on it, and that ring is drawn only while a thumb is down, so the pile gets the verdict and nothing else: no halo, no partner's clock, no red, since either seat may take it. A unit hauled out washes the ring green, and so does every beat the hold buys off the clock. The verdicts are kept in `BossBlows` (`cairn-marks.ts`), and `pileRing` is now the one place that says where the ring stands.
