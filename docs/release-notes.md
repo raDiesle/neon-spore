@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 25df5e802 — SNAKE's jaws and tail answer a touch the way THE INSTAR's marks do
+
+The part asked of this seat wears the halo until it is taken, the prise or her thumb on the tail, and the part asked of the partner wears their turning ring and the clock. The prise and the lift wash the ring green. A press from the other seat on an asked part is refused once, as `snakeRefuse`, and washes it red. SNAKE is the one round whose rings are drawn on both screens. Whether each part is asked is now the simulation's (`snakeJawsAsks`, `snakeTailAsks`), and a desk press is signed with the part's seat. The rounds' marks moved out of the effects roster into `effects-round-marks.ts`, which the takeover feeds.
+
 ## 2026-09-28 · 466be25f3 — THE FLEET's wound answers a touch the way THE INSTAR's marks do
 
 While the wound is open, in the flood and in the wreck, both thumbs are asked. Each seat's ring wears the halo until its thumb is down, and turns green when it lands: her thumb on the plume, his on the hull, and her pull on the wreck taking. No partner's ring, clock or red: both rings stand on the one circle of the wound, and neither screen draws the other seat's ring.

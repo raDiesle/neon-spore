@@ -28302,3 +28302,5 @@ eight lines from its ceiling, so the new event went to the list with room.
 
 The bottleneck: the effects roster sat at its 250-line ceiling, so the rounds'
 marks had to be split out into their own base class before SNAKE's could go in.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
