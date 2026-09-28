@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · 837d86352 — THE VALVE's wheel and pin answer a touch the way every mark does
+
+The wheel wears the halo on the pilot's screen while it turns, and the pin on each screen it asks — the navigator's while the wheel holds, anybody's through the freeze, the jet and the wipe, each thumb not yet down through the brace and the seal — with the partner's ring and waiting clock on the other. Every word of the drum's that is a verdict greens or reddens the mark it names. The sim says whether each mark asks (`valveWheelAsks`, `valvePinAsks`); `render/valve-verdicts.ts` draws it in the drum's frame.
+
 ## 2026-09-28 · b905f0ccd — THE KEEL's joints answer a touch the way every mark does
 
 The lit joint wears the halo on the screen of the seat whose half it sits over and the partner's ring and waiting clock on the other's; in the flip each end joint asks its own seat while that thumb is off. A lock greens the joint, a miss or a tempo-run segment working loose reddens it, and the flip arrested or snapped back greens or reddens both ends.
