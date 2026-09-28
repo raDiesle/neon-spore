@@ -1,6 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
+import { GimbalMarks } from "./gimbal-marks.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -39,6 +40,8 @@ export class GimbalFx {
   private glareNow = 0;
   /** The blow a tooth pair sheared deals the drum. */
   readonly hurt = new BossHurt();
+  /** The verdicts on each ring (`gimbal-marks.ts`). */
+  readonly marks = new GimbalMarks();
 
   /** How far the cradle is thrown right now, in tiles. */
   get kick(): number {
@@ -56,6 +59,7 @@ export class GimbalFx {
   }
 
   ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig, burst: Burst): void {
+    this.marks.ingest(events);
     const at = gimbalCentre(l, cfg);
     for (const e of events) {
       switch (e.type) {
@@ -116,6 +120,7 @@ export class GimbalFx {
     this.glareNow = Math.max(0, this.glareNow - this.glareNow * GLARE_DECAY * step);
     if (this.glareNow < 0.002) this.glareNow = 0;
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -123,5 +128,6 @@ export class GimbalFx {
     this.shakeNow = 0;
     this.glareNow = 0;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

@@ -207,7 +207,7 @@ export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";
 // two lines because `bosses-clocks-b.ts` is within a handful of its own.
 // biome-ignore format: one line, so a reading added to the rings does not cost a row
 // biome-ignore format: and the readings, for the same reason
-export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
+export { GIMBAL_PHASES, GIMBAL_RINGS, type GimbalEntry, type GimbalMark, type GimbalPhase, type GimbalRing, type GimbalState, gimbalAligned, gimbalBoss, gimbalLeaking, gimbalMarkMilli, gimbalOpen, gimbalRingAsks, gimbalRingTrue, gimbalShownMilli, gimbalTeeth, gimbalTurning, INNER, NO_SEAM, OUTER } from "./gimbal.js";
 // And the one figure off its hand: how far a desk key turns a ring in a tick,
 // asked for rather than chosen, THE CLAW's crank's arrangement exactly
 // (`gimbal-hand.ts`, `apps/game/src/keys-turn.ts`).

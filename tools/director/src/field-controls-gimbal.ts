@@ -29,8 +29,11 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
       "gimbalHoldBeats. Letting go is what costs: a ring with no hand on it " +
       "drifts gimbalDriftMilli a beat back to the top, which is the price of " +
       "taking a thumb off to talk (sim/gimbal-hand.ts, sim/gimbal-step.ts). " +
-      "The knurl across the rim lights while it is held. At a desk it is T, " +
-      "with shift for the other way round (gimbalTurnPerTickMilli).",
+      "The knurl across the rim lights while it is held, and the halo stands " +
+      "where the rim is met while it is not; both rims wash green at true, " +
+      "and a slip goes red on his only if his ring left its mark " +
+      "(render/gimbal-marks.ts). At a desk it is T, with shift for the other " +
+      "way round (gimbalTurnPerTickMilli).",
     source: "handles.ts — gimbalRingUnder() under handleUnder(); gimbal-grip.ts on the move",
     holdKind: "drag",
     dragTarget: "gimbalOuter",
@@ -51,7 +54,8 @@ export const GIMBAL_CONTROLS: readonly FieldControlDef[] = [
       "so — she finds it out by turning, and neither seat is ever shown the " +
       "other's rim (sim/gimbal.ts gimbalShownMilli, render/gimbal-shape.ts " +
       "gimbalFaceMilli). Everything else is his row exactly: the mark, the " +
-      "glow at true, the shear that needs both, the drift back to rest. At a " +
+      "glow at true, the shear that needs both, the drift back to rest, the " +
+      "halo while no hand is on it and the verdict of the last. At a " +
       "desk it is Y, with shift for the other way round — and the key is not " +
       "mirrored to be helpful (apps/game/src/keys-turn.ts).",
     source: "handles.ts — gimbalRingUnder() under handleUnder(); gimbal-grip.ts on the move",

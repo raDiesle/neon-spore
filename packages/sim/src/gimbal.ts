@@ -188,3 +188,12 @@ export function gimbalLeaking(s: GimbalState): boolean {
 export function gimbalOpen(s: GimbalState): boolean {
   return s.phase === "open";
 }
+
+/**
+ * Whether ring `ring` asks its seat's thumb: the rings are being turned and
+ * no hand is on this one — the halo on its rim (`render/gimbal-marks.ts`).
+ * A ring left alone drifts back to rest, so it asks whether or not it is true.
+ */
+export function gimbalRingAsks(s: GimbalState, ring: GimbalRing): boolean {
+  return gimbalTurning(s) && s.handMilli[ring] === NO_BEARING;
+}

@@ -1,6 +1,7 @@
 import {
   type GimbalRing,
   type GimbalState,
+  gimbalRingAsks,
   gimbalRingTrue,
   gimbalTeeth,
   gimbalTurning,
@@ -9,7 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { paintHoop } from "./gimbal-depth.js";
 import { gimbalOpenPhase, gimbalShearPhase, gimbalSpinMilli } from "./gimbal-drum.js";
-import { drawGimbalKnurl, gimbalHeld } from "./gimbal-grip.js";
+import { drawGimbalKnurl, gimbalHeld, gimbalRingCircle } from "./gimbal-grip.js";
 import {
   gimbalMarkFace,
   gimbalPinPath,
@@ -21,8 +22,10 @@ import {
   type Point,
 } from "./gimbal-shape.js";
 import { strokeGlow } from "./glow.js";
+import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
@@ -54,6 +57,7 @@ export function drawGimbalRing(
   beat: number,
   beatPhase: number,
   time: number,
+  verdicts: GripVerdicts,
 ): void {
   const cfg = world.cfg;
   const r = gimbalRingR(l, ring);
@@ -96,8 +100,15 @@ export function drawGimbalRing(
   // (`gimbal-grip.ts`, where the hit test this is the visible half of lives).
   if (gimbalTurning(s)) drawGimbalKnurl(ctx, l, at, ring, face, gimbalHeld(s, ring));
 
+  // Where the ring is met: the halo while it asks for a hand, and the verdict
+  // of the last one (`gimbal-marks.ts`).
+  const grip = gimbalRingCircle(l, cfg, s, ring);
+  if (grip !== null && gimbalRingAsks(s, ring)) drawMarkHalo(ctx, grip.x, grip.y, grip.r, time);
+
   const mark = gimbalTurning(s) ? gimbalMarkFace(l, s, beat, ring) : NO_BEARING;
   if (mark !== NO_BEARING) drawMark(ctx, l, at, r, mark, at_true, time);
+  const v = verdicts.at(ring);
+  if (grip !== null && v !== null) drawVerdictRing(ctx, grip.x, grip.y, grip.r, v);
 }
 
 /** The tooth coming off, at the place on the rim it is coming off — a white flare that grows and goes. */

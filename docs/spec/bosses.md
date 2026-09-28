@@ -7394,6 +7394,15 @@ nobody answers it; and the last pair takes the drum through the hatch and out.
 screens rather than playing to it. Whether any of it *reads* is the owner's
 eye.
 
+**The rings answer a touch the way every mark does** (`render/gimbal-marks.ts`,
+the owner, 27 September 2026), as far as THE GAUGE's case lets them: while the
+rings are being turned, a ring with no hand on it wears the halo where it is met
+on the rim (`sim/gimbal.ts` `gimbalRingAsks`), true or not, because a ring let go
+drifts back to rest. Both come true together, so `gimbalTrue` washes both green;
+`gimbalSlip` now says which ring left its mark (`outer`, `inner`), and only that
+ring goes red. There is no partner's clock and no refusal: each ring is drawn on
+its own seat's screen alone.
+
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 
 > The one where doing less is the right amount. A wooden spool hangs across the

@@ -14,6 +14,7 @@ import {
   NO_SEAM,
   OUTER,
   type SimConfig,
+  type SimEvent,
   startWave,
   step,
   type TimedCommand,
@@ -196,7 +197,15 @@ describe("the hold", () => {
     expect(beat(world).has("gimbalTrue")).toBe(true);
     const t = world.tick;
     runTo(world, t + 1, [grip(t, 1, 600)]);
-    expect(beat(world).has("gimbalSlip")).toBe(true);
+    const slips: SimEvent[] = [];
+    while (world.tick < t + 1 + TPB) {
+      step(world, []);
+      slips.push(...world.events.filter((e) => e.type === "gimbalSlip"));
+    }
+    // The ring he moved is the one that slipped; hers still stands on its mark.
+    expect(slips).toEqual([
+      { type: "gimbalSlip", col: expect.any(Number), outer: true, inner: false },
+    ]);
     expect(gimbal(world).heldBeats).toBe(0);
     expect(gimbalTeeth(gimbal(world))).toBe(2);
   });

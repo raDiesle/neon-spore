@@ -98,8 +98,10 @@ export function drawGimbal(
   drawYoke(ctx, l, at, lit);
   drawDrum(ctx, l, at, open, time, fx.hurt.value);
   if (gimbalLeaking(s)) drawLeak(ctx, l, world, s, at, beat, beatPhase, open);
-  if (showsGimbalOuter(l.role)) drawGimbalRing(ctx, l, world, s, OUTER, at, beat, beatPhase, time);
-  if (showsGimbalInner(l.role)) drawGimbalRing(ctx, l, world, s, INNER, at, beat, beatPhase, time);
+  if (showsGimbalOuter(l.role))
+    drawGimbalRing(ctx, l, world, s, OUTER, at, beat, beatPhase, time, fx.marks.verdicts);
+  if (showsGimbalInner(l.role))
+    drawGimbalRing(ctx, l, world, s, INNER, at, beat, beatPhase, time, fx.marks.verdicts);
   ctx.restore();
 }
 

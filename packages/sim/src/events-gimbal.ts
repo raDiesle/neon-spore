@@ -24,8 +24,9 @@ export type GimbalEvent =
   | ({ type: "gimbalMarks"; index: number } & GimbalColEvent)
   /** Both rings came true together: the hold has begun and both rings glow. */
   | ({ type: "gimbalTrue" } & GimbalColEvent)
-  /** A ring left its mark before the hold was up, and the alignment is lost. */
-  | ({ type: "gimbalSlip" } & GimbalColEvent)
+  /** A ring left its mark before the hold was up, and the alignment is lost.
+   * `outer` and `inner` say which of the two is off it now — one, or both. */
+  | ({ type: "gimbalSlip"; outer: boolean; inner: boolean } & GimbalColEvent)
   /** A tooth pair shears, one off each ring; `teeth` is what is left on each. */
   | ({ type: "gimbalShear"; teeth: number } & GimbalColEvent)
   /** The drum swings loose and a spark leaks from its seam. */

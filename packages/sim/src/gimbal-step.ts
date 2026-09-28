@@ -7,8 +7,11 @@ import {
   type GimbalState,
   gimbalAligned,
   gimbalLeaking,
+  gimbalRingTrue,
   gimbalTeeth,
+  INNER,
   NO_SEAM,
+  OUTER,
 } from "./gimbal.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
@@ -84,7 +87,12 @@ export function stepGimbal(world: World, s: GimbalState): void {
   }
   if (s.heldBeats === 0) return;
   s.heldBeats = 0;
-  world.events.push({ type: "gimbalSlip", col: mid });
+  world.events.push({
+    type: "gimbalSlip",
+    col: mid,
+    outer: !gimbalRingTrue(s, cfg, world.beat, OUTER),
+    inner: !gimbalRingTrue(s, cfg, world.beat, INNER),
+  });
 }
 
 /** The next alignment's marks up, and the creep counted from this beat. */
