@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE HASP answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
+- **Taken:** 2026-09-28, claude/queue-the-spool-answers-a-touch-the-way-the-instar-doe (claim: claude/queue-the-hasp-answers-a-touch-the-way-the-instar-does)
 - **Files:** `packages/render/src/hasp-grip.ts`, `packages/render/test/mark-feedback-roll-out.test.ts`
 
 The owner's rule of 24 September 2026, and his answer of the 27th: the same
