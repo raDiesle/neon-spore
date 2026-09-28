@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · a07213164 — THE VANE's arm and housing answer a touch the way THE INSTAR's marks do
+
+The part asked of this seat wears the halo, the part asked of the partner their turning ring and the clock; a pin landing washes the arm green and a haul the housing, and a press from the seat the part is not asked of is handed through holding nothing, refused once by the simulation (`vaneRefuse`) and washed red on both screens. Whether each part is asked moved into the simulation (`vaneArmAsks`, `vaneHousingAsks`), which the rings, the hit test and the cue now read rather than re-derive; a desk press is signed with the part's owner (`vaneGripSeat`).
+
 ## 2026-09-28 · 78390cd8a — THE MIRROR's lobes answer a touch the way THE INSTAR's marks do
 
 A lobe the round asks of this seat wears the halo; one asked only of the partner wears their turning ring and the clock. A step made right on a lobe, or the pin landing, washes it green; a wrong step on it, or a press on a lobe asked of the other seat, washes it red. That press is refused once by the simulation (mirrorRefuse) and moves nothing. Which lobe is asked of which seat moved into the sim (mirrorAsks), and where its cannon stands over the pair's shield a thumb gets its own lobe and no clock covers it. A desk press is signed with the seat the lobe is asked of (mirrorGripSeat).
