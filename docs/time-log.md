@@ -28083,3 +28083,5 @@ The bottleneck was deciding what makes a boss one *with a mark*, since nothing i
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck was the desk: a mark the wrong seat can press has to name its seat before the press, or the test screen's mouse only ever reaches the pilot.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

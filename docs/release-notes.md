@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-28 · d4f9bff00 — THE WARDEN's eye answers a touch the way THE INSTAR does
+
+The seat the eye asks for sees a halo under its ring; the other sees the partner's turning ring and a waiting clock until the thumb is down. A thumb landed or a hatch thrown washes the eye green, and a refused press washes it red: the wrong seat's press on the eye or the hatch, or a swipe that lifted short, is now `wardenRefuse` in the simulation, voiced with THE INSTAR's "not yours" knock. The desk asks the eye whose it is before a press (`wardenGripSeat`), so the test screen's mouse still reaches both seats.
+
 ## 2026-09-28 · b80f54e4f — The touch feedback's halo, partner ring and clock are every boss's to use
 
 THE INSTAR's halo on this seat's mark, turning ring on the partner's and waiting clock moved out of its own file into `mark-feedback.ts`, beside `grip-verdict.ts`, as `drawMarkHalo`, `drawMarkTheirs` and `drawMarkWait`. The convention for a boss with a mark is written into `new-boss` §5 and `new-boss-state`, and a roll-out test goes red for a boss with a mark page and no `GripVerdicts` unless it is on the list still to come — the choreographed four first, then the rest, one boss a lane, each queued. Nothing drawn changed.
