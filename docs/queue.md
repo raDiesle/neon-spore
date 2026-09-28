@@ -330,6 +330,18 @@ takes either), as `warden-grip.ts` now does, and prove it the way
 one `instarRefuse`. Then look through the other `*-grip.ts` that sign a
 press with the field's seat whosever it is, and give each the same test.
 
+## pointer-conversion.test.ts times out under `bun run check`'s load
+
+- **Found:** 2026-09-28, claude/queue-the-warden-refuses-the-navigator-again-on-every
+- **Files:** `apps/game/test/pointer-conversion.test.ts`
+
+A source scan over `apps/game/src` that runs in 35 ms alone took 5137 ms in
+shard 6 of a `land` and failed on bun's 5 s default, so the landing was
+rerun unchanged. Find what in it is slow under contention (the glob, the
+reads, `stripNonCode` over every file) and make it cheap, or give it the
+source-scan tests' own timeout if they have one; prove it with two `bun run
+check` runs green back to back.
+
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t
