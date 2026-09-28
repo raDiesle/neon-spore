@@ -3,6 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCX } from "./layout.js";
+import { LedgerMarks } from "./ledger-marks.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -57,6 +58,8 @@ export class LedgerFx {
   readonly shock = new HullShock();
   /** The blow a widened seam deals the halves. */
   readonly hurt = new BossHurt();
+  /** Whether each ring's last touch took (`ledger-marks.ts`). */
+  readonly marks = new LedgerMarks();
 
   /**
    * How far up the cord the whip has got: 1 at the socket, 0 at the body, and
@@ -77,6 +80,7 @@ export class LedgerFx {
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     const above = l.gridTop + l.tile * 0.4;
+    this.marks.ingest(events);
     for (const e of events) {
       switch (e.type) {
         case "ledgerRoot":
@@ -147,6 +151,7 @@ export class LedgerFx {
     this.flashLeft = Math.max(0, this.flashLeft - dt);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   /** The tear: the field lit violet for a beat, dying away. */
@@ -166,5 +171,6 @@ export class LedgerFx {
     this.whipLife = 1;
     this.flashLife = 1;
     this.hurt.clear();
+    this.marks.clear();
   }
 }

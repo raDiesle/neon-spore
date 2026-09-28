@@ -5344,6 +5344,20 @@ whether the plate reaches a socket a column away in the beats the cadence
 leaves, once it is down to `ledgerCadenceMinBeats` — the fight's whole
 difficulty, and a thing an eye sees at tempo. One frame has been sent.
 
+**Its rings answer a touch as far as a split fight lets them** (28 September
+2026, the owner's rule of the 24th and his answer of the 27th;
+`render/ledger-marks.ts`). THE GAUGE's case: every ring stands on one screen
+only, because each would read out the half of the cord the other seat is not
+shown. So the ring offered wears a halo on its owner's screen while the thumb is
+off it — the root on hers, for the foot while `rooting` and the plug from
+`paying` through `whipping`; the soonest return and the taut cord on his — and
+the partner is shown no ring and no clock. No press from the wrong seat is
+refused, because the other seat has nothing to press. A step of the foot and a
+thumb into the socket wash the root green (`ledgerFoot`, `ledgerPlug`), and a
+pull washes the return it moved, riding the bead because its ring has gone
+(`ledgerPull`). The haul has no verdict of its own: it lands in the tick the
+cord tears, and the tear is its answer (`ledger-fx.ts`).
+
 ## 11.28 THE SURGE — the boss beaten by letting go
 
 > The one where holding is free and letting go is the entire skill, and

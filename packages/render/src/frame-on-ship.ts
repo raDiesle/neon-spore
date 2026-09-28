@@ -126,7 +126,8 @@ export function drawOnShip(
   // And THE LEDGER's other half: the grommet the cord is rooted in and the
   // white lock around that column, which is the navigator's whole job and was
   // painted over while it was drawn with the body (`ledger-root.ts`).
-  drawLedgerRoot(ctx, l, world, view.beatPhase, view.time, surfaceY);
+  const ledgerVerdicts = held.effects.boss.ledger.marks.verdicts;
+  drawLedgerRoot(ctx, l, world, view.beatPhase, view.time, surfaceY, ledgerVerdicts);
   // And THE UNDERTOW's plating: the plate bowing, the seams lit, the breach
   // parted round its lobe and the whole edge rising — the hull's own skin
   // doing something, over the rim the ship pass just lit (`undertow-draw.ts`).

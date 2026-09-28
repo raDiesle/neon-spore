@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { Effects } from "../src/effects.js";
+import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { LedgerFx } from "../src/ledger-fx.js";
 import { drawLedgerRoot } from "../src/ledger-root.js";
@@ -293,7 +294,8 @@ describe("THE LEDGER's cord", () => {
     const log: string[] = [];
     const { ctx } = stubCanvas();
     ctx.log = log;
-    drawLedgerRoot(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => plate);
+    const none = new GripVerdicts();
+    drawLedgerRoot(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => plate, none);
     expect(log.join("|")).toContain(PALETTE.text);
     const ys = log.flatMap((one) => {
       const args = /^Path2D[.](?:moveTo|lineTo|ellipse|arc)\(([^)]*)\)$/.exec(one);

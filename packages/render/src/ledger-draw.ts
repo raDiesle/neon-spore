@@ -5,6 +5,7 @@ import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { drawLedgerCord } from "./ledger-cord.js";
 import type { LedgerFx } from "./ledger-fx.js";
+import { drawLedgerPilotAsked, drawLedgerPilotVerdict } from "./ledger-marks.js";
 import { paintPlate } from "./ledger-metal.js";
 import { drawLedgerPulls } from "./ledger-pull.js";
 import { drawLedgerBeads } from "./ledger-read.js";
@@ -168,8 +169,10 @@ export function drawLedger(
   // `drawHandleRing` fills opaquely, so the other order would leave him
   // holding a disc with no return in it (`ledger-pull.ts`).
   if (!out) {
+    drawLedgerPilotAsked(ctx, l, world, t, beatPhase, time);
     drawLedgerPulls(ctx, l, world, t, beatPhase, time);
     drawLedgerBeads(ctx, l, t, root, socket, taut, time, beat, beatPhase);
+    drawLedgerPilotVerdict(ctx, l, world, t, beatPhase, time, fx.marks.verdicts);
   }
   ctx.restore();
 }

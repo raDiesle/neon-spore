@@ -28448,3 +28448,13 @@ The bottleneck: all three rings were already on both screens, so the work was a 
 The bottleneck: seeing why a fast-forward left the file alone — the new mark was the old one letter for letter, so nothing in the file changed between the two heads.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-28 — THE LEDGER's rings answer a touch as far as its split lets them
+
+- reading: 10 min. The four hands and their gates, both grip files, which screen draws which ring, THE GAUGE's marks as the precedent.
+- writing: 15 min. `ledger-marks.ts`, its halo and verdict calls in both passes, the verdicts in `LedgerFx`, one new test, the spec and the director's four texts.
+- looking: 0 min. Covered by the frame tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: deciding that every ring stands on one screen, which made it THE GAUGE's case and left the full sound page untouched.

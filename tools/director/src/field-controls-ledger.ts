@@ -55,7 +55,9 @@ export const LEDGER_CONTROLS: readonly FieldControlDef[] = [
       "beats** — a root against a wall walks one way for the rest of the " +
       "encounter and a root in the middle turns — and it is the only gesture " +
       "here made before the first bill. Its dial is what is left of " +
-      "ledgerRootBeats, draining: what empties is her chance to choose.",
+      "ledgerRootBeats, draining: what empties is her chance to choose. " +
+      "A halo breathes under the ring until her thumb is on it, and every " +
+      "column the foot takes washes it green (render/ledger-marks.ts).",
     source: "touch.ts — ledgerGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "ledgerFoot",
@@ -82,7 +84,9 @@ export const LEDGER_CONTROLS: readonly FieldControlDef[] = [
       "whole encounter, charged on the beat, so a thumb that landed and " +
       "lifted between two beats costs nothing — and that count is the dial, " +
       "draining, drawn whether or not her thumb is down. Refused on the taut " +
-      "cord: the last return is the one return nobody is meant to answer.",
+      "cord: the last return is the one return nobody is meant to answer. " +
+      "A halo breathes under the ring until her thumb is in, and the plug " +
+      "going in washes it green (render/ledger-marks.ts).",
     source: "touch.ts — ledgerGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "ledgerSocket",
@@ -112,7 +116,9 @@ export const LEDGER_CONTROLS: readonly FieldControlDef[] = [
       "plate has just been walked out of. Its dial is how far down the cord " +
       "that return has got — what fills is the chance to haul it — and it is " +
       "never drawn held, because the pull is over in the tick it is made and " +
-      "the answer is the bead jumping down the cord with its count dropping.",
+      "the answer is the bead jumping down the cord with its count dropping, " +
+      "washed green on the bead itself. A halo breathes under the ring while " +
+      "the return can be pulled (render/ledger-marks.ts).",
     source: "touch.ts — ledgerPullUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "ledgerBead",
@@ -141,8 +147,10 @@ export const LEDGER_CONTROLS: readonly FieldControlDef[] = [
       "with a hand instead of with a wait — and that refusal is silent: the " +
       "handle stands for the whole of taut and what he gets back for pulling " +
       "on a covered socket is a dial that will not fill. He cannot see the " +
-      "column he is being refused for. She can, and her dim ring is where " +
-      "she reads it (sim/ledger-gates.ts).",
+      "column he is being refused for. She can, and says so: her screen " +
+      "draws no ring for it (sim/ledger-gates.ts). A halo breathes under " +
+      "his while no carry is in it, and the tear is its only verdict " +
+      "(render/ledger-marks.ts).",
     source: "touch.ts — ledgerPullUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "ledgerCord",
