@@ -318,6 +318,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Every other grip refuses the wrong seat's press once, not per move
 
 - **Found:** 2026-09-28, claude/queue-the-instar-refuses-the-wrong-seat-again-on-every
+- **Taken:** 2026-09-28, claude/queue-pointer-conversion-test-ts-times-out-under-bun-r (claim: claude/queue-every-other-grip-refuses-the-wrong-seats-press-o)
 - **Files:** `packages/render/src/warden-grip.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/test/instar-refuse.test.ts`
 
 THE WARDEN's eye and THE INSTAR's marks handed the wrong seat's press
