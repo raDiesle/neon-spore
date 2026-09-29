@@ -7,7 +7,7 @@ import {
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { keelSegCentre, keelSegSlope, RISE, type Seg, type SegPose } from "./keel-shape.js";
-import { keelFlipRise } from "./keel-story-pose.js";
+import { keelBreathSwell, keelFlipRise } from "./keel-story-pose.js";
 import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -39,6 +39,9 @@ const STRAIGHT_BEATS = 0.75;
 const DIM = 0.3;
 /** How bright a loose segment is before the tempo run: iron, but not the lit iron of a locked one. */
 const LOOSE = 0.55;
+/** How much higher the arch stands at the top of the held breath, and how much of its light goes. */
+const BREATH_RISE = 0.4;
+const BREATH_DIM = 0.6;
 
 /** The drop into frame: 0 still above the field, 1 hung. Row 1 of the beat list. */
 export function keelArrived(s: KeelState, cfg: SimConfig, beat: number, beatPhase: number): number {
@@ -49,8 +52,9 @@ export function keelArrived(s: KeelState, cfg: SimConfig, beat: number, beatPhas
 /**
  * How high the arch's middle stands over its ends, in tiles. Slack while it is
  * loose, taut in proportion to what has locked, tautest in the rigid hold,
- * bowed the wrong way through the flip (`keel-story-pose.ts`) — and flattened
- * to nothing as the spine snaps straight.
+ * bowed the wrong way through the flip, swelling with the held breath
+ * (`keel-story-pose.ts`) — and flattened to nothing as the spine snaps
+ * straight.
  */
 export function keelRise(s: KeelState, cfg: SimConfig, beat: number, beatPhase: number): number {
   if (keelFlipping(s)) return keelFlipRise(s, cfg, beat, beatPhase);
@@ -58,7 +62,7 @@ export function keelRise(s: KeelState, cfg: SimConfig, beat: number, beatPhase: 
   const taut = RISE * (0.62 + 0.38 * locked);
   if (s.phase === "rigid") return RISE * 1.06;
   if (keelDone(s)) return taut * (1 - smoothstep(phaseInto(s, beat, beatPhase) / STRAIGHT_BEATS));
-  return taut;
+  return taut * (1 + BREATH_RISE * keelBreathSwell(s, cfg, beat, beatPhase));
 }
 
 /**
@@ -112,12 +116,20 @@ function keelWhip(s: KeelState, beat: number, beatPhase: number): number {
 /**
  * How lit segment `k` is, 0 to 1. Before the tempo run a locked one is lit
  * iron and a loose one duller; in it every joint is dimmed and a joint the
- * wave's order has answered comes back up, pulsing on the beat. The rigid
- * hold and after are lit whole.
+ * wave's order has answered comes back up, pulsing on the beat. The held
+ * breath dims the whole spine as it swells. The rigid hold and after are lit
+ * whole.
  */
-export function keelBright(s: KeelState, k: number, beat: number, beatPhase: number): number {
+export function keelBright(
+  s: KeelState,
+  cfg: SimConfig,
+  k: number,
+  beat: number,
+  beatPhase: number,
+): number {
   if (s.phase === "rigid" || s.phase === "rock" || keelDone(s)) return 1;
-  if (s.movement !== 3) return s.locked[k] ? 1 : LOOSE;
+  const held = 1 - BREATH_DIM * keelBreathSwell(s, cfg, beat, beatPhase);
+  if (s.movement !== 3) return (s.locked[k] ? 1 : LOOSE) * held;
   if (keelAnswered(s, k)) return 1;
   // The dim comes down over half a beat at the start of the run, not at once.
   const fresh = s.phase === "rest" && s.repriseCursor === 0;

@@ -81,7 +81,7 @@ export function drawKeel(
       ? 0
       : 0.25 * Math.sin((beat + beatPhase) * Math.PI * 0.5 + k * 1.7 - 0.8);
     ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.rock, 0.3 + 0.4 * keelBright(s, k, beat, beatPhase));
+    ctx.strokeStyle = rgba(PALETTE.rock, 0.3 + 0.4 * keelBright(s, cfg, k, beat, beatPhase));
     ctx.stroke(keelRibsPath(l, g.centre, g.slope, g.pose, inward, lag));
   });
   const open = keelOpen(s, cfg, beat, beatPhase);
@@ -89,7 +89,8 @@ export function drawKeel(
   if (socket !== null && s.phase === "socket") drawKeelSocket(ctx, l, s, socket, beatPhase);
   segs.forEach((g, k) => {
     const heat = keelHeat(s, cfg, k, beat, beatPhase);
-    drawSegment(ctx, l, s, k, g, heat, beat, beatPhase, time, fx);
+    const bright = keelBright(s, cfg, k, beat, beatPhase);
+    drawSegment(ctx, l, s, k, g, heat, bright, beatPhase, time, fx);
   });
   drawKeelMarrow(ctx, l, s, segs, beatPhase);
   drawKeelHalos(ctx, l, cfg, s, segs, time);
@@ -137,12 +138,11 @@ function drawSegment(
   k: number,
   g: Seg,
   heat: number,
-  beat: number,
+  bright: number,
   beatPhase: number,
   time: number,
   fx: KeelFx,
 ): void {
-  const bright = keelBright(s, k, beat, beatPhase);
   const plate = keelPlatePath(l, g.centre, g.slope, g.pose);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(plate);

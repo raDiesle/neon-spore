@@ -49,9 +49,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   ratchet: ["slip", "kick", "bind", "wind"],
   // THE HASP's story between the hasps, the same (§20).
   hasp: ["rattle", "backspin", "rust", "sway"],
-  // THE KEEL's held breath, §24 row 11: the simulation has landed, the pose
-  // is the look lane. Struck the day it lands.
-  keel: ["breath"],
 };
 
 describe("the BOSSES category", () => {

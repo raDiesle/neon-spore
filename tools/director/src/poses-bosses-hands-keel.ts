@@ -3,11 +3,11 @@ import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
- * **THE KEEL's eleven states**, posed with a hand on the controls
+ * **THE KEEL's twelve states**, posed with a hand on the controls
  * (`boss-hands-keel.ts`): the still and the first lit joint arrive by
  * themselves, and the rest are earned by each joint tapped by the seat whose
  * half it sits over, the socket shot in its colour, the flip held by both,
- * the marrow shot in both colours, and the rock shot out.
+ * the marrow shot in both colours, the breath let be, and the rock shot out.
  */
 export const KEEL_POSES: Pose[] = [
   bossPose(
@@ -48,6 +48,13 @@ export const KEEL_POSES: Pose[] = [
     "marrow",
     "A seam lit down the middle. P1 aims the middle; P2 fires red, then cyan.",
     { hand: keelHand, hold: 1, budgetBeats: 160 },
+  ),
+  bossPose(
+    "keel",
+    "breath",
+    "The whole spine swells and dims, holding its breath. P1 and P2 keep their hands off.",
+    // Half way through, where the swell stands highest (`render/keel-story-pose.ts`).
+    { hand: keelHand, hold: Math.round(TPB * 1.5), budgetBeats: 180 },
   ),
   bossPose(
     "keel",

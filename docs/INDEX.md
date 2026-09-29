@@ -3082,7 +3082,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
 | `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE DAVIT's, THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
-| `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's eleven states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
+| `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's twelve states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |
 | `tools/director/src/poses-bosses-hands-valve.ts` | **THE VALVE's ten states**, posed with a hand on the controls (`boss-hands-valve.ts`) |

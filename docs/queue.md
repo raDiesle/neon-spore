@@ -1355,23 +1355,16 @@ control change the owner asked for by name. `bun run check` proves it.
 ## §24 THE KEEL — row 11's held breath and the seam's three brightnesses, the look
 
 - **Found:** 2026-09-29, claude/queue-24-keel-held-breath
-- **Taken:** 2026-09-29, claude/queue-26-the-seam-the-false-points-flicker-and-the-hel (claim: claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th)
-- **Files:** `packages/render/src/keel-story.ts`, `packages/render/src/keel-story-pose.ts`, `packages/render/src/keel-marks.ts`, `tools/director/src/poses-bosses-hands-keel.ts`, `tools/director/test/boss-states.test.ts`
+- **Files:** `packages/render/src/keel-draw.ts`, `packages/render/src/keel-pose.ts`, `tools/versus/candidates/`
 
-Row 11's simulation landed (`sim/keel-story.ts`, the `breath` phase, bosses
-§11.41): three beats hands-off between the marrow and the tempo run, a touch
-stirring it and loosening one segment (`stirred`, `keelStir`), held
-flaring every seam once (`keelHeld`). The spine stands through it as it does
-in a rest. §24 *Animation* asks for two things: the hold's pose, the whole
-arch swelling and dimming on a slow period over the segments' own sway, the
-hum dropping flat the moment it is stirred; and a locked seam's brightness
-in three states across the fight — hairline white through movement one, a
-fuller pulsing seam once the socket frees its segment, a held flare then full
-white on the breath — read off `locked` and the phase, no new state. Pose
-`keel:breath` on the STATES sheet with `keelHand` and strike `keel` off
-`OWED`. A look with no shipped alternative for the breath; the seam's
-brightness replaces a shipped look, so it goes to VERSUS unless the owner
-asks for it by name.
+**Half one, the breath, landed 29 September 2026** (`render/keel-story-pose.ts`
+`keelBreathSwell`, the `keel:breath` pose, off `OWED`). **Half two is left**:
+a locked seam's brightness in three states across the fight — hairline white
+through movement one, a fuller pulsing seam once the socket frees its
+segment, a held flare then full white on the breath — read off `locked` and
+the phase, no new state. It replaces the shipped seam (`drawSegment`'s
+`keelSeamPath` stroke), so it goes to VERSUS as a candidate against it
+unless the owner asks for it by name.
 
 ## THE SEAM under the game's AUTO is baited by its own false point
 
@@ -1390,3 +1383,15 @@ held step lights, or have the AUTO path look that far ahead. Prove it with a
 test that runs the seam wave through `gameAutopilot` and the `InputBuffer`
 past step 12 with no `seamBaited`; `--until seamLight:ask=dark --auto both`
 then gives the dark's frame without a scratch script.
+
+## `render/keel-fx.ts` is at 220 lines — cut the story's receipts out
+
+- **Found:** 2026-09-29, claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th
+- **Files:** `packages/render/src/keel-fx.ts`
+
+The held breath's flare took `KeelFx` to 220 lines, and its `ingest` switch
+is one case per event across the whole fight. The story between — the flip,
+the marrow, the breath and the cooldown — will want receipts of its own as
+its looks land. Cut the switch along the fight's line, the story's cases
+into a `keel-story-fx.ts` the class calls, keeping `KeelFx`'s surface and
+`keel-fx.test.ts` unchanged.

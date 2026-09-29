@@ -1,4 +1,10 @@
-import { type KeelState, keelCooling, keelFlipping, type SimConfig } from "@neon-spore/sim";
+import {
+  type KeelState,
+  keelBreathing,
+  keelCooling,
+  keelFlipping,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { RISE } from "./keel-shape.js";
 import { phaseInto } from "./phase-into.js";
@@ -51,4 +57,21 @@ export function keelHeat(
   const n = s.locked.length;
   const span = (cfg.keelCoolBeats + s.flares) / Math.max(1, n);
   return 1 - smoothstep((phaseInto(s, beat, beatPhase) - k * span) / span);
+}
+
+/**
+ * How far the held breath has swollen, 0 to 1 and back: one slow breath in
+ * and out over the phase's beats, the whole arch rising and dimming with it
+ * over the segments' own sway (§24 row 11). A touch stirs it and it drops
+ * flat at once — the loosened segment is what sways on after.
+ */
+export function keelBreathSwell(
+  s: KeelState,
+  cfg: SimConfig,
+  beat: number,
+  beatPhase: number,
+): number {
+  if (!keelBreathing(s) || s.stirred) return 0;
+  const t = phaseInto(s, beat, beatPhase) / Math.max(1, cfg.keelBreathBeats);
+  return Math.sin(Math.PI * Math.min(1, Math.max(0, t)));
 }

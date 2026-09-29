@@ -29093,3 +29093,17 @@ Bottleneck: reading — the state says the ridge was held but not when, so the
 flash needed a home, and THE SEAM has no fx class in the roster.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE KEEL holds its breath in a swell
+
+- reading: 5 min. §24 row 11, `keel-pose.ts`, `keel-story-pose.ts` and
+  `keel-fx.ts`.
+- writing: 5 min. `keelBreathSwell`, the dim through `keelBright`, the held
+  flare, the `keel:breath` pose, one frame test file and the docs.
+- looking: 5 min. Three frames; the first swell was too small to see and was
+  raised.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the swell first drawn moved the arch by a few pixels,
+and only a real frame said so.

@@ -8495,8 +8495,15 @@ so the spec's movements 3 and 4 sit inside its second. Three events
 (`keelBreath`, `keelStir`, `keelHeld`) are the rigid hold's drone dropped low,
 a slip pitched down and a lock rung high (`audio/src/bind-keel.ts`); a touch
 on any segment is taken while it breathes, as while it cools
-(`render/keel-grip.ts`). **Its picture is queued**: until it lands the spine
-stands through the breath as it does in a rest.
+(`render/keel-grip.ts`). **Its picture landed the same day**
+(`render/keel-story-pose.ts` `keelBreathSwell`): one slow breath in and out
+over the phase's beats, the whole arch standing up to 0.4 of its rise higher
+and losing up to 0.6 of its light at the top, over the segments' own sway;
+stirred, it drops flat at once and the loosened segment sways on after. Held,
+every seam flares as a lock's does (`keel-fx.ts`). The director poses it at
+its top (`keel:breath`); `render/test/keel-breath-frame.test.ts` draws it on
+every screen. The seam's three brightnesses across the fight are queued, for
+VERSUS.
 
 **Its joints answer a touch the way every mark does** (`render/src/keel-verdicts.ts`;
 the owner, 27 September 2026), the whole convention, because both screens draw

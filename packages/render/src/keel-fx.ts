@@ -11,7 +11,8 @@ import { PALETTE } from "./palette.js";
 
 /**
  * What THE KEEL leaves behind a frame: the **snap** of a segment as it locks,
- * the **jolt** of the whole spine as a joint or the socket takes, the **shock**
+ * the **jolt** of the whole spine as a joint or the socket takes, the flare
+ * down every seam as the breath is held untouched (§24 row 11), the **shock**
  * a hit sends through the hull, and the bursts its sixteen receipts throw.
  *
  * Everything else — which segments are locked, how far the midpoint is
@@ -148,6 +149,9 @@ export class KeelFx {
         case "keelRigid":
           for (let k = 0; k < n; k++) this.setSnap(k, 1);
           this.joltNow = SHUT_JOLT;
+          break;
+        case "keelHeld":
+          for (let k = 0; k < n; k++) this.setSnap(k, 1);
           break;
         case "keelThrow":
           this.rockAge = 0;

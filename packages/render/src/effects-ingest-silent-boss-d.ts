@@ -27,8 +27,9 @@ export const INGEST_SILENT_BOSS_D = [
   "mantleSwing",
   "mantleTurned",
   // THE KEEL's story beats, landed after page three filled: the flip, the
-  // marrow, the breath and the cooldown are read off the state each frame,
-  // and nothing of them outlives one (`render/src/keel-story.ts`).
+  // marrow, the breath and the cooldown are read off the state each frame
+  // (`render/src/keel-story.ts`); the held breath's flare down every seam is
+  // `keel-fx.ts`', read above the loop.
   "keelFlip",
   "keelArrest",
   "keelSnap",
