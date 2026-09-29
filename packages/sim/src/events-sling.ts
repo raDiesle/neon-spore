@@ -35,7 +35,11 @@ export type SlingEvent =
   | ({ type: "slingDim" } & SlingColEvent)
   /** A fire step ran out with the yoke unshot: the hull takes it. */
   | ({ type: "slingMiss" } & SlingColEvent)
-  /** The script is done and the fork snaps forward, spent. */
+  /** The script is done: the spent yoke ticks as it cools, both draws to be left alone. */
+  | ({ type: "slingCool" } & SlingColEvent)
+  /** A reflex draw while the yoke cools snaps the catch loose early: the cool takes a beat longer. */
+  | ({ type: "slingSnap"; side: 0 | 1 } & SlingColEvent)
+  /** The yoke has cooled and the fork snaps forward, spent. */
   | ({ type: "slingFree" } & SlingColEvent)
   /** The spent fork has fallen away `slingFreeBeats`; the wave may end. */
   | ({ type: "slingOut" } & SlingColEvent);

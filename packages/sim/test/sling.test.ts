@@ -1,22 +1,22 @@
 import { describe, expect, it } from "bun:test";
-import type { World } from "../src/index.js";
-import { SLING_DRAWS_PER_ARM, slingLitStep } from "../src/sling.js";
+import { SLING_DRAWS_PER_ARM } from "../src/sling.js";
 import { slingStruck } from "../src/sling-shot.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import {
+  answer,
   beats,
   CFG,
   drawHome,
   hold,
   install,
   lift,
-  rightColor,
   runUntil,
   SCRIPT,
   shot,
   sling,
   toLit,
+  toStep,
   toward,
 } from "./sling-rig.js";
 
@@ -33,31 +33,6 @@ import {
  * again rather than lost, that a shot outside its step or in the wrong colour
  * does nothing, and that a shot run out is the wave.
  */
-
-/** The lit step answered: its arm or arms drawn home and loosed toward the aim, or shot in its colour. */
-function answer(world: World): void {
-  const step = slingLitStep(sling(world));
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") {
-    slingStruck(world, shot(rightColor(step)));
-    return;
-  }
-  const sides: (0 | 1)[] = step.ask === "both" ? [0, 1] : [step.ask === "left" ? 0 : 1];
-  for (const side of sides) hold(world, side);
-  drawHome(world, sides);
-  for (const side of sides) lift(world, side, toward(step.aim));
-}
-
-/** A fork with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (sling(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("THE SLING comes in", () => {
   it("still, both arms slack, the yoke dark, no finger down", () => {
@@ -288,11 +263,13 @@ describe("a both", () => {
 });
 
 describe("the end", () => {
-  it("answered whole, the fork snaps free and the fight ends", () => {
+  it("answered whole, the yoke cools, the fork snaps free and the fight ends", () => {
     const world = toStep(8);
     slingStruck(world, shot("red"));
     expect(sling(world).hits).toBe(3);
     const seen = runUntil(world, (w) => w.boss === null);
+    expect(seen.has("slingCool")).toBe(true);
+    expect(seen.has("slingSnap")).toBe(false);
     expect(seen.has("slingFree")).toBe(true);
     expect(seen.has("slingOut")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);

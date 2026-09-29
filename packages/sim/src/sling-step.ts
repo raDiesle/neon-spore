@@ -7,12 +7,14 @@ import {
   type SlingStep,
   slingAsks,
 } from "./sling.js";
+import { openCool, stepCool } from "./sling-cool.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
  * THE SLING's clock: the fork settling, each step lighting, the beats a draw
- * is held being counted, a window running out, and the fork snapping free.
+ * is held being counted, a window running out, the spent yoke cooling
+ * (`sling-cool.ts`), and the fork snapping free.
  *
  * The shot is judged where a bolt leaves the top of the field
  * (`sling-shot.ts`) and calls `slingAnswered` here; the draws are heard on
@@ -44,6 +46,7 @@ export function stepSling(world: World, s: SlingState): void {
   if (s.phase === "still" && since >= cfg.slingStillBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.slingRestBeats) next(world, s);
   else if (s.phase === "lit") lit(world, s, since);
+  else if (s.phase === "cool" && stepCool(world, s, since)) free(world, s);
 }
 
 /** How long the lit step stays lit: a draw's own beats and the grace, or a shot's beats. */
@@ -108,14 +111,12 @@ export function slingAnswered(world: World, s: SlingState): void {
   rest(world, s, true);
 }
 
-/** The next step lights under THE SLOW; or, with the script done, the fork snaps free. */
+/** The next step lights under THE SLOW; or, with the script done, the spent yoke cools. */
 function next(world: World, s: SlingState): void {
   const step = s.steps[s.cursor];
   const col = midCol(world.cfg);
   if (step === undefined) {
-    s.phase = "free";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "slingFree", col });
+    openCool(world, s);
     return;
   }
   s.phase = "lit";
@@ -133,6 +134,14 @@ function miss(world: World, s: SlingState): void {
   closeSlow(world);
   rest(world, s, true);
   bossStrikesHull(world, "sling", col);
+}
+
+/** The yoke has cooled: THE SLOW lets go and the fork snaps forward, spent. */
+function free(world: World, s: SlingState): void {
+  closeSlow(world);
+  s.phase = "free";
+  s.phaseBeat = world.beat;
+  world.events.push({ type: "slingFree", col: midCol(world.cfg) });
 }
 
 function rest(world: World, s: SlingState, advance: boolean): void {

@@ -756,25 +756,21 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §32 THE SLING — a revised simulation lane, a cooling tick left alone
+## §32 THE SLING — row 11's cooling tick, the look
 
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-29, claude/queue-31-the-plumb-row-11s-bleed-the-look (claim: claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-29, claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling
+- **Files:** `packages/render/src/sling-pose.ts`, `packages/render/src/sling-draw.ts`, `packages/render/test/sling-frame.test.ts`, `tools/director/src/`
 
-THE SLING's fight ran ten beats deep on `HOLD, THEN SWIPE` — draw an arm,
-guard a fire step, never once ask the pair to stop holding and stop
-drawing. Row 11 is new: the spent yoke ticks as it cools for three beats,
-and the pair passes it by sending nothing — no hold, no draw (`SENDING
-NOTHING`, a reuse, already built for THE KEEL, THE SEAM, THE OCULUS, THE
-VISE, THE RIME, THE TRIVET, THE PLUMB, THE HALTER and THE FLUE — no
-`gesture-unbuilt.ts` edit needed). A reflex draw snaps the catch loose
-early and costs one extra beat. THE SLOW, Presentation, Animation (five
-poses to six), Colour, Payoff and Cost sections are updated to match; one
-new boolean for row 11's hold. `bun run check` proves the sim half; the
-sixth pose is a look task, queued separately once this lane lands.
+The cool is in the simulation (`sim/sling-cool.ts`): after the last shot
+the fork is in phase `cool` for `slingCoolBeats`, a beat more per `snaps`,
+and `slingCool` / `slingSnap` are on the silent lists, read off the state.
+Nothing draws it yet — the fork stands as it did after the third hit. Draw
+§32's sixth pose: the spent yoke ticking as it cools, fading from white to
+the fork's own scoured grey across the phase, no cannon colour, the catch
+straining faintly untouched; a snap jolting the catch on that side. A look
+with no shipped alternative. Add the pose to the STATES sheet (sling OWED
+in `tools/director/test/boss-states.test.ts` loses `cool`) and draw it
+again in `sling-frame.test.ts`.
 
 ## §33 THE GRINDSTONE — a revised simulation lane, a grind left to die out
 

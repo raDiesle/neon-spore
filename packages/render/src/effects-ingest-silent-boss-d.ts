@@ -64,6 +64,8 @@ export const INGEST_SILENT_BOSS_D = [
   "slingSteady",
   "slingDim",
   "slingMiss",
+  "slingCool",
+  "slingSnap",
   "slingFree",
   "slingOut",
   // THE GRINDSTONE's thirteen: what outlives a frame is `grindstone-fx.ts`', read above the loop.

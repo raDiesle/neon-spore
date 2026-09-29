@@ -9,13 +9,20 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { type SlingAim, type SlingState, type SlingStep, slingBoss } from "../src/sling.js";
+import {
+  type SlingAim,
+  type SlingState,
+  type SlingStep,
+  slingBoss,
+  slingLitStep,
+} from "../src/sling.js";
+import { slingStruck } from "../src/sling-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
  * THE SLING's test rig: a script installed, a seat's finger put down on its
  * arm and lifted with a swipe as the pair would, and a step driven to its
- * answer. Shared by `sling.test.ts`.
+ * answer. Shared by `sling.test.ts` and `sling-cool.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -112,4 +119,29 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: SlingStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** The lit step answered: its arm or arms drawn home and loosed toward the aim, or shot in its colour. */
+export function answer(world: World): void {
+  const step = slingLitStep(sling(world));
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") {
+    slingStruck(world, shot(rightColor(step)));
+    return;
+  }
+  const sides: (0 | 1)[] = step.ask === "both" ? [0, 1] : [step.ask === "left" ? 0 : 1];
+  for (const side of sides) hold(world, side);
+  drawHome(world, sides);
+  for (const side of sides) lift(world, side, toward(step.aim));
+}
+
+/** A fork with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number): World {
+  const world = install();
+  toLit(world);
+  while (sling(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }

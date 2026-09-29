@@ -202,12 +202,14 @@ export const CHOREO_FIELD_GROUP_C = {
   plumbBleedBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
   plumbBleedFlares: "THE PLUMB — the boss two pulls hold level, then shoot into",
   plumbFreeBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
-  // SlingConfig — the rests around the steps, the grace a draw is given on
-  // top of its count, and the snap free (`config-sling.ts`). The script is
-  // the wave's own, aims and all.
+  // SlingConfig — the rests, a draw's grace on top of its count, the spent
+  // yoke's cool and the snap free (`config-sling.ts`). The script is the
+  // wave's own, aims and all.
   slingStillBeats: "THE SLING — the boss two draws loose, then shoot into",
   slingRestBeats: "THE SLING — the boss two draws loose, then shoot into",
   slingGraceBeats: "THE SLING — the boss two draws loose, then shoot into",
+  slingCoolBeats: "THE SLING — the boss two draws loose, then shoot into",
+  slingCoolSnaps: "THE SLING — the boss two draws loose, then shoot into",
   slingFreeBeats: "THE SLING — the boss two draws loose, then shoot into",
   // GrindstoneConfig — the rests around the steps, the grit a reversal
   // shaves and a beat regrows, the film a second pass starts from, the grace
@@ -237,14 +239,6 @@ export const CHOREO_FIELD_GROUP_C = {
   davitGraceBeats: "THE DAVIT — the boss one hand steers for the other to loose",
   davitSpentBeats: "THE DAVIT — the boss one hand steers for the other to loose",
   davitDriftMilli: "THE DAVIT — the boss one hand steers for the other to loose",
-  // HalterConfig — the alarm before the first step, the pause between steps,
-  // how long a seat must send nothing, how long the pair must hold, and the
-  // spent seam (`config-halter.ts`).
-  halterAlarmBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterPauseBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterRestThreshold: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterHoldBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  halterSpentBeats: "THE HALTER — the boss one hand keeps still for the other to open",
-  // The fourth page, THE CAPSTAN on (`ship-fields-choreo-d.ts`).
+  // The fourth page, THE HALTER on (`ship-fields-choreo-d.ts`).
   ...CHOREO_FIELD_GROUP_D,
 } satisfies Record<string, GroupName>;

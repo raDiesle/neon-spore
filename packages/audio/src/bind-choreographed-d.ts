@@ -9,7 +9,7 @@ import { oculusCue } from "./bind-oculus.js";
 import { isPlumbEvent, plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
-import { slingCue } from "./bind-sling.js";
+import { isSlingEvent, slingCue } from "./bind-sling.js";
 import { trivetCue } from "./bind-trivet.js";
 import { undertowCue } from "./bind-undertow.js";
 import { valveCue } from "./bind-valve.js";
@@ -52,6 +52,7 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
   // THE PLUMB the same, the day its bleed brought two more.
   if (isHalterEvent(e)) return halterCue(e, cols);
   if (isPlumbEvent(e)) return plumbCue(e, cols);
+  if (isSlingEvent(e)) return slingCue(e, cols);
   switch (e.type) {
     case "keelEnter":
     case "keelLight":
@@ -172,19 +173,6 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "trivetCollapse":
     case "trivetOut":
       return trivetCue(e, cols);
-    case "slingEnter":
-    case "slingLight":
-    case "slingSlack":
-    case "slingLoose":
-    case "slingSpring":
-    case "slingYoke":
-    case "slingHit":
-    case "slingSteady":
-    case "slingDim":
-    case "slingMiss":
-    case "slingFree":
-    case "slingOut":
-      return slingCue(e, cols);
     case "grindstoneEnter":
     case "grindstoneLight":
     case "grindstoneShave":

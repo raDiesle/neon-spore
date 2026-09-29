@@ -1,5 +1,6 @@
 import { midCol } from "./config.js";
 import { slingAsks, slingBoss, slingLitStep, slingSwipe } from "./sling.js";
+import { slingStirred } from "./sling-cool.js";
 import { slingLoosed } from "./sling-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -23,7 +24,9 @@ import type { World } from "./world.js";
  * In a step that asks this seat, a lift that has held the step's beats and
  * swipes toward its aim is a true loose; any other lift springs the arm
  * slack, the count gone and the step still lit to be drawn again. A lift
- * outside such a step only lets go.
+ * outside such a step only lets go. **A finger put down while the spent
+ * yoke cools** is the reflex the cool asks the pair not to make
+ * (`sling-cool.ts`); its lift costs nothing.
  */
 export function slingHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -35,6 +38,7 @@ export function slingHeard(world: World, player: 1 | 2, command: Command): void 
   if (player !== wants) return;
   if (command.on) {
     s.holding[side] = true;
+    slingStirred(world, s, side);
     return;
   }
   if (!s.holding[side] || !Number.isInteger(command.fromMilli)) return;

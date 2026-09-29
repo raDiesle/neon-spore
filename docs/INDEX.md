@@ -371,7 +371,7 @@ by hand never moves.
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
 | `packages/sim/src/config-scuttle.ts` | THE SCUTTLE's numbers — how many sockets the frame has and how many of the parts in them are pods |
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
-| `packages/sim/src/config-sling.ts` | THE SLING's tuning: the rests around its steps, the grace a draw is given |
+| `packages/sim/src/config-sling.ts` | THE SLING's tuning: the rests around its steps, the grace a draw is given, the spent yoke's cool |
 | `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
 | `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
 | `packages/sim/src/config-spool.ts` | THE SPOOL's tuning: how far the brake travels, how fast and how slow the line runs at either end of it |
@@ -397,6 +397,7 @@ by hand never moves.
 | `packages/sim/src/sling-hash.ts` | What THE SLING puts into `hashWorld`, and nothing else |
 | `packages/sim/src/sling-shot.ts` | **THE SLING's shot**: the lit yoke, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/sling-step.ts` | THE SLING's clock: the fork settling, each step lighting, the beats a draw is held being counted |
+| `packages/sim/src/sling-cool.ts` | **THE SLING's cool** (§32 row 11): the last shot is in |
 | `packages/sim/src/sling.ts` | THE SLING: a forked arm bolted mid-hull |
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
@@ -2373,7 +2374,7 @@ by hand never moves.
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-sling.ts` | THE SLING's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-sling.ts` | Whether an event is THE SLING's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
@@ -3257,7 +3258,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
-| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CAPSTAN and every boss built after it |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE HALTER, THE CAPSTAN and every boss built after them |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

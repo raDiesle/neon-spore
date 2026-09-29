@@ -211,6 +211,8 @@ export const SILENT_BOSS_C = [
   "slingSteady",
   "slingDim",
   "slingMiss",
+  "slingCool",
+  "slingSnap",
   "slingFree",
   "slingOut",
   // THE GRINDSTONE's thirteen, no burst from this table: each is thrown above

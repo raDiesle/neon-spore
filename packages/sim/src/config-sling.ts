@@ -1,6 +1,6 @@
 /**
  * THE SLING's tuning: the rests around its steps, the grace a draw is given,
- * and the snap free (`docs/spec/bosses-choreographed.md` §32).
+ * the spent yoke's cool, and the snap free (`docs/spec/bosses-choreographed.md` §32).
  *
  * What is **not** here is the script — which step asks what, toward which
  * side, in which colour, for how many beats: that is the wave's, authored on
@@ -15,6 +15,10 @@ export interface SlingConfig {
   slingGraceBeats: number;
   /** Beats the spent fork falls away before the wave may end. */
   slingFreeBeats: number;
+  /** Beats the spent yoke ticks as it cools, both draws left alone, before the fork snaps free (§32 row 11). */
+  slingCoolBeats: number;
+  /** Beats a reflex draw may add to the cool, one a beat, before it stops costing any. */
+  slingCoolSnaps: number;
 }
 
 export const SLING_DEFAULTS: SlingConfig = {
@@ -22,4 +26,6 @@ export const SLING_DEFAULTS: SlingConfig = {
   slingRestBeats: 1,
   slingGraceBeats: 2,
   slingFreeBeats: 2,
+  slingCoolBeats: 3,
+  slingCoolSnaps: 2,
 };

@@ -23,6 +23,8 @@ export function slingHashParts(s: SlingState): number[] {
     ...s.drawnBeats,
     s.loosed.length,
     ...s.loosed.map((l) => (l ? 1 : 0)),
+    s.snaps,
+    s.stirred ? 1 : 0,
     s.steps.length,
   ];
   for (const step of s.steps) {

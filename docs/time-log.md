@@ -28982,3 +28982,16 @@ Bottleneck: looking — a run as long as the chain alone was a dot, and only
 the rendered frame showed it.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SLING's spent yoke cools while both draws are left alone
+
+- reading: 5 min. THE SLING's sim, hand, hash, audio and rig, beside the
+  PLUMB bleed that was the template.
+- writing: 5 min. `sling-cool.ts` and its wiring, the rig's `answer` and
+  `toStep`, seven cool tests, the autopilot row, §11.49 and the status row.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the twelve registrations outside the sim are only
+found from one another, and the PLUMB lane's diff was the map.

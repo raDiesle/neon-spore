@@ -29,9 +29,11 @@ export const SLING_DRAWS_PER_ARM = 2;
 
 /**
  * Where the scene is: settling, a step lit and waiting, the fork resting
- * between steps, and the fork snapped forward, spent.
+ * between steps, the fork snapped forward, spent, and the spent yoke ticking
+ * as it cools before that (`sling-cool.ts`) — appended last, so the hash's
+ * indices keep their places.
  */
-export const SLING_PHASES = ["still", "lit", "rest", "free"] as const;
+export const SLING_PHASES = ["still", "lit", "rest", "free", "cool"] as const;
 export type SlingPhase = (typeof SLING_PHASES)[number];
 
 /**
@@ -83,6 +85,10 @@ export interface SlingState {
   drawnBeats: [number, number];
   /** In a `both` step, whether each seat has already loosed true. */
   loosed: [boolean, boolean];
+  /** Beats a reflex draw has added to the cool, up to `slingCoolSnaps`. */
+  snaps: number;
+  /** Whether this beat of the cool has already been stirred by a draw. */
+  stirred: boolean;
 }
 
 export function slingBoss(world: World): SlingState | null {
@@ -128,5 +134,7 @@ export function freshSling(beat: number, steps: readonly SlingStep[]): SlingStat
     holding: [false, false],
     drawnBeats: [0, 0],
     loosed: [false, false],
+    snaps: 0,
+    stirred: false,
   };
 }

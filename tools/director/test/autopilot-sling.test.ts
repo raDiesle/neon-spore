@@ -9,14 +9,15 @@ import { stageField } from "../src/stage-field.js";
 /**
  * **AUTO plays THE SLING to the end** (`hands/boss-hands-sling.ts`): each
  * arm drawn home twice and loosed toward the lit side, the yoke lit, both
- * redraws held together and every shot at the yoke in its colour — with no
- * arm sprung slack or run out, no yoke let go, no shot run out and the hull
- * never struck.
+ * redraws held together and every shot at the yoke in its colour, then both
+ * arms left alone while the spent yoke cools (§32 row 11) — with no arm
+ * sprung slack or run out, no yoke let go, no shot run out, no catch snapped
+ * loose and the hull never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 
-const WRONG = ["slingSlack", "slingSpring", "slingDim", "slingMiss"];
+const WRONG = ["slingSlack", "slingSpring", "slingDim", "slingMiss", "slingSnap"];
 
 describe("AUTO on THE SLING", () => {
   test("BOTH looses all four draws, lights the yoke, redraws it and shoots it out", () => {
@@ -31,6 +32,7 @@ describe("AUTO on THE SLING", () => {
     const wrong: string[] = [];
     let yoke = 0;
     let steady = 0;
+    let cool = 0;
     let out = false;
     for (let i = 0; i < 30_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
@@ -39,6 +41,7 @@ describe("AUTO on THE SLING", () => {
         if (e.type === "slingYoke") yoke++;
         if (e.type === "slingSteady") steady++;
         if (e.type === "slingHit") hits.push(e.hits);
+        if (e.type === "slingCool") cool++;
         if (e.type === "slingOut") out = true;
         if (WRONG.includes(e.type)) wrong.push(e.type);
       }
@@ -47,6 +50,7 @@ describe("AUTO on THE SLING", () => {
     expect(yoke).toBe(1);
     expect(steady).toBe(2);
     expect(hits).toEqual([1, 2, 3]);
+    expect(cool).toBe(1);
     expect(wrong).toEqual([]);
     expect(world.scars).toEqual([]);
     expect(out).toBe(true);

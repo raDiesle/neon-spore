@@ -9760,8 +9760,11 @@ then the first step lights under THE SLOW (`openSlow(…, "ask")`). Each beat
 the asked seat's finger is down counts one, up to the step's own beats. A
 draw step stays lit `slingGraceBeats` past its count. The fourth loosed
 draw lights the yoke. An answered step closes THE SLOW and the fork rests
-`slingRestBeats` before the next lights. With the script done the fork
-snaps forward, and falls away `slingFreeBeats` before the wave may end.
+`slingRestBeats` before the next lights. With the script done the spent
+yoke ticks as it cools for `slingCoolBeats` under THE SLOW, asking both
+seats to leave their draws alone (§32 row 11, `sim/sling-cool.ts`); then
+the fork snaps forward, and falls away `slingFreeBeats` before the wave may
+end.
 
 **The answers.** A finger down and a lift are heard on the tick
 (`sim/sling-hand.ts`). A draw is counted on the beat, because what it asks
@@ -9774,9 +9777,11 @@ shot is judged where a bolt leaves the top of the field
 (`sim/sling-shot.ts`): only with the yoke lit, only while a fire step is
 lit, only in the middle column, and only in its colour unless it is
 `either`. The wrong colour is a colour missed on the balance sheet and
-nothing else, THE SEAM's rule.
+nothing else, THE SEAM's rule. A finger put down while the yoke cools
+snaps the catch loose early: the first in a beat costs the cool a beat, and
+so does a finger still down as a beat turns.
 
-**Where this departs from the design, and why.** Nine places.
+**Where this departs from the design, and why.** Ten places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §32's
   rows 6 and 8 say "ordinary hull hit" and row 10 says the yoke "stays lit".
@@ -9820,6 +9825,11 @@ nothing else, THE SEAM's rule.
   run out already has: the yoke dims, the same `both` lights again, and no
   fire step lights until both seats have loosed true. A seat that has
   loosed in a `both` is not asked again until its partner has.
+- **Row 11's reflex draw costs a beat, at most `slingCoolSnaps`.** §32 has
+  a draw "snap the catch loose early"; a finger left down would keep it
+  forever, so it is THE PLUMB's bleed rule (§11.48): a beat anyone put a
+  finger down is a beat more, capped, and a lift costs nothing. Nothing is
+  lost — the yoke is spent and the wave is won either way.
 
 **The look.** Steel tines fork out of the hull at rest, folded flat before
 the fork arrives and swung out as it drops
@@ -9834,9 +9844,14 @@ its arm is asked, not only on the rest handle's circle — the sim's own rule
 (`render/sling-grip.ts`); the lift carries the swipe's side the way THE
 WARDEN's hatch does. `render/test/sling-frame.test.ts` and
 `render/test/sling-grip.test.ts` cover every pose on all three screens and
-the thumb's own hit test. The twelve sounds are bound
-(`audio/src/bind-sling.ts`), heard where they happen, the loose pitched up
-per draw and the hit per hit. **Not yet built**: the director's pose cards
+the thumb's own hit test. The sounds are bound
+(`audio/src/bind-sling.ts`), thirteen of the fourteen events, heard where
+they happen, the loose pitched up per draw and the hit per hit: the cool is
+silent by design, the one quiet beat on the fork, and the draw that breaks
+it is the slack's twang pitched up. **Row 11's cool is in the simulation
+only** (29 September 2026): the fork stands as it did after the last shot
+until its picture, the sixth pose, lands; the autopilot hand sends nothing
+through it (`tools/director/test/autopilot-sling.test.ts`). **Not yet built**: the director's pose cards
 and its autopilot hand (`tools/director/test/autopilot.test.ts`'s
 `NO_HAND`), queued separately.
 
@@ -9852,7 +9867,12 @@ step's first beat; a draw run out springs the arm and lights the same step
 again; the fourth draw lights the yoke; a fire step wants its colour and the
 middle column, and run out is the wave; a `both` is not answered by one arm,
 does not ask that arm twice, and run out dims the yoke until both redraw;
-and a script answered whole snaps the fork free and ends the fight. Whether
+and a script answered whole cools the yoke, snaps the fork free and ends
+the fight. The cool (`sim/test/sling-cool.test.ts`) opens under THE SLOW,
+lasts its beats left alone, takes a beat longer for a draw on either arm,
+one beat for both draws in one beat, nothing for a lift or the wrong seat,
+a beat for every beat a finger is left down up to the cap, and counts a
+finger still down from the last shot from its first beat. Whether
 any of it *reads* — whether a swipe at the lift under a voice is a flick or
 a fumble — is the owner's eye, after lane two and the touch sender, on two
 real phones.

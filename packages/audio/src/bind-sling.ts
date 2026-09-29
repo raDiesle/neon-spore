@@ -1,16 +1,27 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
+type SlingSimEvent = Extract<SimEvent, { type: `sling${string}` }>;
+
+/** Whether an event is THE SLING's, so a page of the chain can hand it over whole. */
+export function isSlingEvent(e: SimEvent): e is SlingSimEvent {
+  return e.type.startsWith("sling");
+}
+
 /**
- * THE SLING's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SLING's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the fork is bolted over `midCol`, so every one
  * of them is in the middle.
  *
  * **A loose and a hit are pitched up as they add up**, so how far the pair
  * are along can be heard without either of them counting.
+ *
+ * **The cool is silent by design** (§32, *Presentation*): the one quiet beat
+ * on the whole fork, and what breaks it is a draw — the slack's twang,
+ * pitched up, as the catch snaps loose.
  */
-export function slingCue(e: Extract<SimEvent, { type: `sling${string}` }>, cols: number): Cue {
+export function slingCue(e: SlingSimEvent, cols: number): Cue | null {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "slingEnter":
@@ -34,6 +45,10 @@ export function slingCue(e: Extract<SimEvent, { type: `sling${string}` }>, cols:
       return { id: "boss.slingDim", pan };
     case "slingMiss":
       return { id: "boss.slingMiss", pan };
+    case "slingCool":
+      return null;
+    case "slingSnap":
+      return { id: "boss.slingSlack", pan, pitch: 1.25 };
     case "slingFree":
       return { id: "boss.slingFree", pan };
     case "slingOut":
