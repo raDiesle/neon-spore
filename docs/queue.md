@@ -1191,6 +1191,7 @@ what the rest of this file holds.
 ## Unverified at 8ed29868d: the whole solid sheet (bun run solid) seen by an eye a…
 
 - **Found:** 2026-09-26, claude/queue-cloud-only-a-densified-tube-costs-a-gradient-per
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-unverified-at-8ed29868d-the-whole-solid-sheet-bu)
 - **Files:** `docs/queue.md`, `docs/time-log.md`, `packages/render/src/solid-tube-draw.ts`, `packages/render/test/solid-budget.test.ts`
 
 *A thin tube of a rig is sliced more coarsely along its length* landed from a session that could not look at it. What went unchecked:
