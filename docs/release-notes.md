@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 9c707f4d6 — THE SURGE's HOLD word asks the simulation whether the seat is asked
+
+`surgeWord` wrote out again what `surgeAsks` already answers for the halo under the grip mark (the thumb off, the band not reached, the bulb taking one, and for the pilot no rock of its own falling) from booleans `drawSurgeGrips` handed it. It now takes the world, and its charge branch calls `surgeAsks`. A row in the called-not-re-derived table stops a third copy. The words each seat is shown are unchanged.
+
 ## 2026-09-29 · cf643769d — Lane speed re-read over 1 087 lanes: splitting worked from 23 September, and the stamp measures only the landing
 
 From 23 September the median lane fell from 70 estimated minutes to 25, and lanes over ninety from a third to one in twenty-two. Friction fell where a hook was built for it: the line ceiling, ports and shell quoting. Three findings are queued: the time-log stamp starts at a lane's single commit, so its median is one minute; `land` re-runs the full suite on a tree `check:fast` may already have covered; and the time log has no script that reads it.
