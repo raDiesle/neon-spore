@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 285260044 — THE PUSH's arrows stay, as the standard set's one exception
+
+The standard set wears no helper, with one exception: THE PUSH's two arrows beside a held rock. They appear only once a player's thumb is on the rock, so they answer a touch rather than invite one. The owner's answer is written in the catalogue of marks and controls, in his rules for new bosses and in the assists spec, and the queued question is closed. Nothing drawn changed.
+
 ## 2026-09-29 · 20e41c8e9 — The automatic compaction window goes from 200k to 120k
 
 With an automatic compaction now held back until the item lands (up to 320k), the window no longer decides where a big task is cut, only how much of the items already landed is carried into the next one. Over 338 landings an item lands at a median 133k and adds 42k; a rough model of re-read tokens against a compaction's minute or two puts the window at 100k-120k, about 2.0 minutes of overhead per item against 3.7 at 200k.
