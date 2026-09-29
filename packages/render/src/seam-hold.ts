@@ -59,10 +59,12 @@ export function drawSeamFalse(
   const flicker = 0.85 + 0.15 * Math.sin(time * 29) * Math.sin(time * 13);
   const k = light * flicker;
   const lens = seamFalsePath(l);
-  // Half a real point's fill, which runs 0.2 to 0.7 on its beat (`seam-marks.ts`).
+  // Half a real point's fill, which runs 0.2 to 0.7 on its beat, and half its
+  // glow (`seam-marks.ts`); the rim's core stays drawn, or grey on the grey
+  // shell is not seen at all.
   ctx.fillStyle = rgba(PALETTE.rock, (0.1 + 0.25 * pulse) * k);
   ctx.fill(lens);
-  strokeGlow(ctx, lens, PALETTE.rock, STROKE.inner, 0.65, (0.35 + 0.3 * pulse) * k);
+  strokeGlow(ctx, lens, PALETTE.rock, STROKE.inner, 0.65, (0.6 + 0.4 * pulse) * k);
 }
 
 /**

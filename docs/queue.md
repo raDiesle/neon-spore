@@ -1371,3 +1371,21 @@ white on the breath — read off `locked` and the phase, no new state. Pose
 `OWED`. A look with no shipped alternative for the breath; the seam's
 brightness replaces a shipped look, so it goes to VERSUS unless the owner
 asks for it by name.
+
+## THE SEAM under the game's AUTO is baited by its own false point
+
+- **Found:** 2026-09-29, claude/queue-26-the-seam-the-false-points-flicker-and-the-hel
+- **Files:** `apps/game/src/autopilot.ts`, `apps/game/src/input-buffer.ts`, `packages/hands/src/boss-hands-seam.ts`, `tools/frames/auto.ts`
+
+`bun run frames . --wave "THE SEAM" --auto both` loses the wave at the false
+point: the decoy lights at tick 975 and `seamBaited` fires at 982, seven ticks
+later — the input delay. The hand itself sends nothing on a decoy
+(`seamHoldsFire`), and stepping `autopilotHand` directly against a world in a
+probe never baits it, so the press is one made for the step before and
+landing late through the game's buffer (`inputDelayTicks`). Find which press
+trails into the decoy — likely the last shot of the point before it, sent on
+its final ticks — and make the hand stop pressing `inputDelayTicks` before a
+held step lights, or have the AUTO path look that far ahead. Prove it with a
+test that runs the seam wave through `gameAutopilot` and the `InputBuffer`
+past step 12 with no `seamBaited`; `--until seamLight:ask=dark --auto both`
+then gives the dark's frame without a scratch script.
