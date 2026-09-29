@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 4088ba853 — Reusing `check:fast`'s green result in `land` waits on the owner: it needs the check after the commit
+
+The queued finding said `check:fast` sometimes runs the whole suite and `land` repeats it; `fast-scope.ts` never runs everything, so there is no repeat. What is left — `land` leaving out the test files `check:fast` ran green on the same tree — is only sound if `check:fast` runs after the commit, because some tests read the git index rather than the files. The entry now names that option and dropping it, and asks which.
+
 ## 2026-09-29 · 3b40e6711 — THE MAZE's lever turns the drum one turn a lap of its ring
 
 A hand that goes once round the lever's ring now turns the drum once, so the knob stays on the gap it was put on all the way round — the owner's answer of 27 September 2026, 1:1 over the forty-five degrees a tile the lever was geared to, which turned the drum about four times a lap. The gearing is no longer a tuned number: `mazeDragTurn` works it out from the ring's radius, and the ring's reach past the rim moved from the renderer into `mazeLeverOutMilli`, so the knob is drawn on the ring the wheel is geared to at any field width.

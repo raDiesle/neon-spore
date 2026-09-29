@@ -28732,3 +28732,5 @@ Bottleneck: the guide's film pulled a measured 3.9 tiles against the old gearing
 
 Bottleneck: reading — the finding's premise, that `check:fast` sometimes runs
 the whole suite, was only disproved by opening `fast-scope.ts`.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
