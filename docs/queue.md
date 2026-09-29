@@ -710,6 +710,7 @@ what the rest of this file holds.
 ## §26 THE SEAM — a revised simulation lane, two beats of holding fire
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-29, claude/queue-26-seam-holding-fire (claim: claude/queue-26-the-seam-a-revised-simulation-lane-two-beats)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
