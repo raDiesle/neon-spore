@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · b8cffbe20 — THE KEEL holds its breath in a swell
+
+Through the held breath the whole arch rises and dims over one slow breath in and out, over the segments' own sway, and drops flat the moment a touch stirs it; held untouched, every seam flares as a lock's does. The director poses it at its top as keel:breath, off OWED. A look with no shipped alternative: until now the spine stood through the breath as in a rest. The seam's three brightnesses are the item's second half, left queued for VERSUS.
+
 ## 2026-09-29 · a48d5b0ee — THE SEAM's false point keeps its grey rim drawn
 
 Grey on the grey shell was not seen at the first frame's alpha, so the lens's rim stays drawn at most of its brightness through the pulse. Queues the finding that the game's AUTO is baited by the false point through the input delay.

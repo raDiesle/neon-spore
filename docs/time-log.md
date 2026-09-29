@@ -29107,3 +29107,5 @@ flash needed a home, and THE SEAM has no fx class in the roster.
 
 Bottleneck: looking — the swell first drawn moved the arch by a few pixels,
 and only a real frame said so.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
