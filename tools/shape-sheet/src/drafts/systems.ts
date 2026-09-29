@@ -45,11 +45,10 @@ export const SYSTEM_DRAFTS: CatalogueEntry[] = [
       floor: 0.9,
     }),
     motion: TWITCH,
-    status: "draft",
+    status: "taken",
     slot: "ship",
-    suggests: "Interference",
     owner:
-      "one player's colours are swapped and they do not know it, so the tell must be visible to the *other* player: two equal bodies that lean and never resolve into one, drawn where the partner is looking",
+      "THE GOVERNOR, taken 29 September 2026, combined with THE VANE: the two equal bodies that lean and never merge are the flyweights, opposite one another on the spindle and swung out by the needle's speed (`render/governor-works.ts`). The swapped colours are not used. Before that, one player's colours are swapped and they do not know it, so the tell must be visible to the *other* player: two equal bodies that lean and never resolve into one, drawn where the partner is looking",
   },
   {
     subject: hullArc("SWAP ARC", "a span of hull with the sides traded", 0.3),

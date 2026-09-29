@@ -11428,11 +11428,43 @@ left down counts once; a tap at twice the speed still lands; a tap run out
 sways and relights; the sixth tap lights the hub; a shot wants its colour
 and the middle column; a fire step run out is the wave; a retap landed keeps
 the hub lit, and one run out dims it until it is made; and the whole script
-ends spent and out, the same twice from one seed. **Nothing is drawn,
-nothing on the phone sends a pad or a tap yet, and AUTO has no hand** — the
-look, the touch and the hand are the next lane. Whether a pair notices that
-the chord changes the needle's pace rather than whether a tap counts — §43's
-payoff — is the owner's eye.
+ends spent and out, the same twice from one seed.
+`render/test/governor-frame.test.ts` proves the body as it is below. **Nothing
+on the phone sends a pad or a tap yet, and AUTO has no hand** — the touch,
+the cue words and the hand are the look's second half. Whether a pair notices
+that the chord changes the needle's pace rather than whether a tap counts —
+§43's payoff — is the owner's eye.
+
+**The look** (`render/src/governor-draw.ts`, 29 September 2026 — the body).
+**THE VANE and INTERFERENCE, combined** (`tools/shape-sheet/src/drafts/`):
+THE VANE's arm on the bearing it turns on is the needle and the hub, laid on
+a brass flywheel over the middle column, and INTERFERENCE's two equal bodies
+that never merge are **the flyweights of a Watt governor** standing on a
+spindle just behind the far rim. The dial is a disc seen from above
+(`governor-shape.ts`): graduations round a dark face, the needle's tip
+lagging its root as it runs hot, and the lit mark **a piece of the track
+itself**, breathing with a window arc on the tapper's screen and faint on
+the braking seat's (`showsGovernorHand`). **The needle's speed is drawn as
+the flyweights and nothing else** (`governor-pose.ts`): their swing is read
+straight off `speedMilli`, so they fly out and the collar climbs the spindle
+the instant a pad lifts, and sink as the chord is whole; their place round
+the spindle is the needle's, three turns to its one, so they stop when it
+stalls. **The yoke is the chord** (`governor-works.ts`): the brake drum at
+the spindle's foot has a jaw each side, the first pad the left, shut on the
+drum while its pad is down and swung off while it is up, edged in the rim's
+white while a chord is asked. Six studs on the face are the two runs, lit as
+taps land. **The hub** is a dull brass boss until both runs are spent, lit
+softly between shots, and in `stepColour`'s colour with a ring closing while
+one is owed, smaller and brighter per hit (`coreHurt`, `governor-hub.ts`);
+**the dial tips up to face the pair** across a fire step's first beat and
+back across the rest after it. It is lowered in over the slack, and spent,
+the flyweights fly flat out and it dims. **Its three marks answer a touch
+the way every mark does** (`governor-verdicts.ts`): the lit mark haloed for
+the tapper, the yoke for the braking seat, each wearing the partner's ring
+and clock on the other screen, the hub on both while a shot is owed; a tap
+landed or a chord made whole greens its mark, a skid, a slip or a window run
+out reddens it. A tap's flash, a skid's scrape and its own blow at the hull
+are the second half.
 
 ## Retired
 

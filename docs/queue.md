@@ -461,94 +461,26 @@ draw the brake is covering. `bun run check` proves it.
 - **Needs:** §41 THE WINCH — the simulation lane
 - **Files:** `docs/spec/bosses-choreographed.md`
 
-Lane two, read against `docs/style-guide.md`: a new silhouette (checked
-this session against `packages/content/src/silhouettes*.ts` and every
-file under `tools/shape-sheet/src/drafts/` — nothing winch-, drum- or
-brake-shaped exists to reuse or collide with) for a drum and cable under
-tension, the cable paying out smoothly while the brake holds and snapping
-taut with a visible shudder the instant the brake breaks — the tell is
-the shudder, not a colour change, the same drawn-as-mechanism choice
-THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
-drawn yet and stays unverified at tempo until the owner has looked.
+**The body landed 29 September 2026** (`render/src/governor-*.ts`,
+`docs/spec/bosses.md` §11.58 *The look*): THE VANE and INTERFERENCE combined,
+the flywheel, the needle, the Watt governor's flyweights swung by
+`speedMilli`, the yoke's jaws, the studs and the hub, and the three marks'
+halos and verdicts (`governor-verdicts.ts`). What is left is its hands, and
+the receipts:
 
-## §42 THE SLUICE — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
-- **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
-- **Answered:** 2026-09-27 — redesign, the same answer as THE WINCH's and for the same reason. The gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT with a pinch. Redesign it so a gap sprung open also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more.
-- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §42 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt.ts`, delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
-
-No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
-paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
-time — the seam, as with THE WINCH, is which seat governs which, but the
-governing gesture is a continuously-read pinch rather than a flat chord.
-One seat pinches a gap shut and must actively re-shut it against its own
-regrowth (the same widen-back THE VISE's own gap already has); the other
-draws and releases toward a lit column exactly as THE SLING already
-resolves it, but the draw only counts while the sealing seat's gap is
-currently at or under its shut threshold. The gate opening at any point
-mid-draw springs the draw back slack, the same "spring back rather than
-lose the step outright" `DrawRelease` already uses for an early or
-wrong-direction release. This is a finer-grained version of THE WINCH's
-coupling: a chord is either held or not, but a pinch drifts, so the
-sealing seat is fighting the gap the whole span the draw is open rather
-than simply holding two controls flat. The full beat list and primitive
-table entry are §42 of `docs/spec/bosses-choreographed.md`. `SQUEEZE ONE
-BODY` and `HOLD, THEN SWIPE` each already carry a §42 THE SLUICE entry in
-their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it
-with the rest. THE SLOW on every seal-and-draw window. `bun run check`
-proves it.
-
-## §42 THE SLUICE — the look
-
-- **Found:** 2026-09-26, this session
-- **Needs:** §42 THE SLUICE — the simulation lane
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (checked
-this session against `packages/content/src/silhouettes*.ts` and every
-file under `tools/shape-sheet/src/drafts/` — nothing sluice- or
-jaw-pinch-shaped exists to reuse or collide with; a `GATE` draft is a bar
-across a lane, an unrelated shape) for two lobed jaws over a spillway,
-the seal visibly straining and creeping open the instant a thumb eases
-rather than snapping between two fixed states, and a bolt that pays out
-smoothly while the seal holds and snaps taut with a shudder the instant
-the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
-and THE WINCH's brake both make. Nothing here is drawn yet and stays
-unverified at tempo until the owner has looked.
-
-## §43 THE GOVERNOR — the look
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-29, claude/queue-the-stares-turn-is-a-squash-and-shear-not-a-plac (claim: claude/queue-43-the-governor-the-look)
-- **Needs:** §43 THE GOVERNOR — the simulation lane
-- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `packages/render/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (checked
-this session against `packages/content/src/silhouettes*.ts` and every
-file under `tools/shape-sheet/src/drafts/` — nothing governor-, flywheel-,
-needle- or gauge-track-shaped exists to reuse or collide with; the
-"needle" hits in `silhouettes-cling.ts` and `silhouettes-mine.ts` are
-CALTROP's and the mine's unrelated spikes, not a gauge needle) for a
-flywheel governor with two orbiting flyweights, a brake yoke a seat chords
-shut, and a needle sweeping a graduated rim track whose speed itself must
-read as changing — drawn as the flyweights themselves climbing or
-dropping on the spindle rather than as a number or a trail, the same
-drawn-as-mechanism choice THE VISE's pinch and THE WINCH's brake both
-make. Nothing here is drawn yet and stays unverified at tempo until the
-owner has looked.
-
-The simulation landed 27 September 2026 (`docs/spec/bosses.md` §11.58) with
-three things this lane owes besides the body: **the touch** — the braking
-seat's two pads as `governorChordLeft`/`governorChordRight` with the pad as
-`id` (THE TRIVET's `render/trivet-grip.ts` and `chord-pads.ts`), and the
-tap as `governorTap`, an edge, from the lit step's tapper — with the three
-rows in `tools/director/test/on-field-controls.test.ts` moved off
-`unbuilt`; **the cue** — a word for the braking seat and one for the
-tapper, and `FIRE` on the lit hub (`render/boss-cue.ts`); and **AUTO's
-hand**, which takes `governor` out of `NO_HAND` in
-`tools/director/test/autopilot.test.ts`.
+- **The touch** — the braking seat's two pads as `governorChordLeft` and
+  `governorChordRight` with the pad as `id` (THE TRIVET's
+  `render/trivet-grip.ts` and `chord-pads.ts`), and the tap as
+  `governorTap`, an edge, from the lit step's tapper — with the three rows
+  in `tools/director/test/on-field-controls.test.ts` moved off `unbuilt`.
+- **The cue** — a word for the braking seat and one for the tapper, and
+  `FIRE` on the lit hub (`render/boss-cue.ts`).
+- **AUTO's hand**, which takes `governor` out of `NO_HAND` in
+  `tools/director/test/autopilot.test.ts`.
+- **The receipts and the blow** — a tap's flash on the rim, a skid's scrape,
+  the hub's flash on a hit, and the governor's own blow at the hull when a
+  fire step runs out (a `governor-fx.ts` in `Effects`, cleared in `reset()`),
+  as THE FLUE's `flue-fx.ts` and `flue-blow.ts`.
 
 ## §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
@@ -1338,3 +1270,16 @@ depth, the depth itself — on one page. Cut the zone's readings
 `spool-zone.ts` re-exported where the others are, keeping every caller and
 `copies-table.ts` row pointing at the same names, and `spool.test.ts`
 unchanged.
+
+## `strokeGlow` leaves `globalAlpha` at 1, undoing a boss's fade
+
+- **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
+- **Files:** `packages/render/src/glow.ts`, `packages/render/src/flue-draw.ts`, `packages/render/src/governor-draw.ts`
+
+`strokeGlow` ends with `ctx.globalAlpha = 1` and sets its passes' alphas
+absolutely, so a boss that fades itself by setting `globalAlpha` (THE FLUE
+while spent, `flue-draw.ts:90`) is drawn at full alpha from its first glow on.
+THE GOVERNOR sets its fade again after each part that glows. Make
+`strokeGlow` multiply by the alpha it found and restore it, drop the
+re-settings in `governor-draw.ts`, and add a render test that a glow inside
+a `globalAlpha = 0.5` leaves 0.5 behind. Check the glow budget tests still hold.

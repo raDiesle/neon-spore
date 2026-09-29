@@ -75,4 +75,17 @@ export const LATE_CREATURE_HUES = {
   flueCore: "#4A3530",
   /** THE GRINDSTONE's spent axle as row 11's fade opens: a white with no cannon's in it. */
   grindstoneHeat: "#F6F3EC",
+  /**
+   * THE GOVERNOR (§43, *Colour*): a scoured brass for the flywheel, the
+   * spindle, the flyweights and the yoke, its shadow, and the dark face the
+   * needle is read off. The needle runs a hot pale amber while it crosses a
+   * lit mark — paler than a pod's, so it never reads as one — and the hub,
+   * unlit, is a dull boss of the same brass gone brown: the hub lit is the
+   * only cannon's colour on the body.
+   */
+  governorBrass: "#A88B4E",
+  governorBrassDark: "#33291A",
+  governorFace: "#15110C",
+  governorHot: "#FFE0A8",
+  governorHub: "#5C4B31",
 } as const;

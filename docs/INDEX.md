@@ -1192,6 +1192,7 @@ by hand never moves.
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
 | `packages/render/src/effects-boss-roster.ts` | **The roster**: one field per boss that keeps something between frames |
+| `packages/render/src/effects-boss-roster-late.ts` | **The roster's late pairs**: the fields of the bosses `boss-draw-clocks-d.ts` draws, from THE SLING on |
 | `packages/render/src/effects-breach.ts` | What a breach looks like — the one event whose answer is not a burst at a point, because the thing that |
 | `packages/render/src/effects-break.ts` | Turning a `destroy` into a body coming apart |
 | `packages/render/src/effects-spark.ts` | The events whose whole visible answer is a handful of particles |
@@ -1975,6 +1976,13 @@ by hand never moves.
 | `packages/render/src/gorge-lobe-skin.ts` | **One lobe of THE GORGE's skin**: the wash over an empty one, the light across its top |
 | `packages/render/src/gorge-grip.ts` | **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the mouth |
 | `packages/render/src/gorge-marks.ts` | **THE GORGE's pinch and pry answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/governor-draw.ts` | **THE GOVERNOR**: a flywheel whose needle sweeps on its own under a flyball governor, braked by one seat and tapped by the other |
+| `packages/render/src/governor-hub.ts` | **The hub the needle turns on**, THE VANE's bearing: dull until both runs are spent, lit in a shot's colour while one is owed |
+| `packages/render/src/governor-marks.ts` | **THE GOVERNOR's marks**: what says what a step asks and what is spent |
+| `packages/render/src/governor-pose.ts` | **The clock THE GOVERNOR is posed off** (§43, *Animation*), five poses |
+| `packages/render/src/governor-shape.ts` | **THE GOVERNOR's geometry**: the dial as a disc seen from above, and the spindle, flyweights, drum and yoke over it |
+| `packages/render/src/governor-works.ts` | **THE GOVERNOR's works**: the spindle, the brake drum and the yoke's jaws, the collar and the two flyweights |
+| `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-depth.ts` | **THE GIMBAL in depth**: a ring is not a line drawn round the drum but a hoop of metal with a body |

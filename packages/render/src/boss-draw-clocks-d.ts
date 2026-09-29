@@ -6,6 +6,7 @@ import { drawDavit } from "./davit-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
 import { drawGall } from "./gall-draw.js";
+import { drawGovernor } from "./governor-draw.js";
 import { drawGrindstone } from "./grindstone-draw.js";
 import { drawHalter } from "./halter-draw.js";
 import type { Layout } from "./layout.js";
@@ -43,6 +44,7 @@ export const LATE_PAIR_KINDS = [
   "gall",
   "burgee",
   "flue",
+  "governor",
 ] as const;
 
 export type LatePairBoss = Extract<Installed, { kind: (typeof LATE_PAIR_KINDS)[number] }>;
@@ -167,5 +169,14 @@ export function drawLatePairBoss(
   // seat sending nothing and tapped three times by the other, a core bared
   // under a damper and shot (`flue-draw.ts`); a tap's tick, a notch's flare,
   // the damper's thud and the core's flash are `flue-fx.ts`.
-  drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue);
+  if (boss.kind === "flue") {
+    drawFlue(ctx, l, world, boss, beat, beatPhase, time, effects.boss.flue);
+    return;
+  }
+
+  // THE GOVERNOR: a flywheel's needle sweeping on its own under a flyball
+  // governor, braked by one seat's chord on the yoke and tapped by the other
+  // on the lit mark, the hub it turns on shot (`governor-draw.ts`); its
+  // marks' verdicts on a touch are `governor-verdicts.ts`.
+  drawGovernor(ctx, l, world, boss, beat, beatPhase, time, effects.boss.governor);
 }

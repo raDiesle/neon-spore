@@ -1,19 +1,13 @@
 import { AntiphonFx } from "./antiphon-fx.js";
 import { BossBlows } from "./boss-blows.js";
 import { BossStrikeFx } from "./boss-strike-fx.js";
-import { BurgeeFx } from "./burgee-fx.js";
-import { CapstanFx } from "./capstan-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
-import { CystFx } from "./cyst-fx.js";
-import { RoundMarks } from "./effects-round-marks.js";
+import { LateRoster } from "./effects-boss-roster-late.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { FleetGripFx } from "./fleet-grip-fx.js";
-import { FlueFx } from "./flue-fx.js";
-import { GallFx } from "./gall-fx.js";
 import { GimbalFx } from "./gimbal-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
-import { GrindstoneFx } from "./grindstone-fx.js";
 import { HaspFx } from "./hasp-fx.js";
 import { HiveFx } from "./hive-fx.js";
 import { InstarFx } from "./instar-fx.js";
@@ -24,7 +18,6 @@ import { MantleFx } from "./mantle-fx.js";
 import { MazeGripFx } from "./maze-grip-fx.js";
 import { NettleFx } from "./nettle-fx.js";
 import { OculusFx } from "./oculus-fx.js";
-import { PlumbFx } from "./plumb-fx.js";
 import { QueenFx } from "./queen-fx.js";
 import { RatchetFx } from "./ratchet-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
@@ -32,12 +25,10 @@ import { RimeFx } from "./rime-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
-import { SlingFx } from "./sling-fx.js";
 import { SpoolFx } from "./spool-fx.js";
 import { StareFx } from "./stare-fx.js";
 import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
-import { TrivetFx } from "./trivet-fx.js";
 import { UndertowFx } from "./undertow-fx.js";
 import { ValveFx } from "./valve-fx.js";
 import { VaneMarks } from "./vane-marks.js";
@@ -61,11 +52,12 @@ import { WardenFx } from "./warden-fx.js";
  * render/ and the tests, none of which had to move — and so `restart.test.ts`
  * still compares one `Effects` to another field by field.
  *
- * The rounds' verdicts are a base class of this one, for the same reason
- * (`effects-round-marks.ts`). The reasoning for the fields themselves is on each field. What the whole
+ * The late pairs' fields are a base class of this one, and the rounds'
+ * verdicts a base class of that, for the same reason
+ * (`effects-boss-roster-late.ts`, `effects-round-marks.ts`). The reasoning for the fields themselves is on each field. What the whole
  * arrangement is for is still stated next door, over `BossTransients`.
  */
-export class BossRoster extends RoundMarks {
+export class BossRoster extends LateRoster {
   /**
    * THE MIRROR's own transients. Public: the boss is drawn as a whole ship
    * rather than as particles, and `canvas2d` reads `armed` and `intake` off
@@ -195,46 +187,6 @@ export class BossRoster extends RoundMarks {
   readonly vise = new ViseFx();
   /** THE RIME's painted clearing over the bare core (`rime-fx.ts`). */
   readonly rime = new RimeFx();
-  /** THE SLING's painted draw over a cord loosed true (`sling-fx.ts`). */
-  readonly sling = new SlingFx();
-  /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
-   * the hull shock, and its receipts' bursts — thrown the same on both
-   * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,
-   * `trivet-draw.ts`). */
-  readonly trivet = new TrivetFx();
-  /** THE PLUMB's settle ringing a glass, a drift's jolt, the core's hit and
-   * the free swing's release, and its receipts' bursts — thrown the same on
-   * both screens, and told the core's colour by the drawer (`plumb-fx.ts`,
-   * `plumb-draw.ts`). */
-  readonly plumb = new PlumbFx();
-  /** THE CYST's thud, the sprung flanks, the core's flash and the split's,
-   * and its receipts' bursts — thrown the same on both screens, and told the
-   * core's colour by the drawer (`cyst-fx.ts`, `cyst-draw.ts`). */
-  readonly cyst = new CystFx();
-  /** THE GRINDSTONE's grit, a flat's clean flash, the caliper's flare and
-   * thud, the axle's flash and the snap free's, the hull shock, and its
-   * receipts' bursts — thrown the same on both screens, and told the axle's
-   * colour by the drawer (`grindstone-fx.ts`, `grindstone-draw.ts`). */
-  readonly grindstone = new GrindstoneFx();
-  /** THE CAPSTAN's scrub and bright ring off a band, the thud of a window
-   * let run, the core's flash and the spent drum's, and its receipts' bursts
-   * — thrown the same on both screens, and told the core's colour by the
-   * drawer (`capstan-fx.ts`, `capstan-draw.ts`). */
-  readonly capstan = new CapstanFx();
-  /** THE GALL's flare, shudder and bulge on the nodule, the ghost a close
-   * leaves on the point it jumped off, the seam's lips tearing, the root's
-   * flash, and its receipts' bursts — thrown the same on both screens, and
-   * told the root's colour by the drawer (`gall-fx.ts`, `gall-draw.ts`). */
-  readonly gall = new GallFx();
-  /** THE BURGEE's flag where it is drawn, eased toward the simulation's
-   * place so a freeze slows it rather than snapping it, and the limp
-   * flutter a swipe that caught nothing leaves (`burgee-fx.ts`). */
-  readonly burgee = new BurgeeFx();
-  /** THE FLUE's tick through the slot for every tap, a vent notch's flare,
-   * the damper's thud, the core's flash, the hull shock, and its receipts'
-   * bursts — thrown the same on both screens, and told the core's colour by
-   * the drawer (`flue-fx.ts`, `flue-draw.ts`). */
-  readonly flue = new FlueFx();
   /** THE BULB QUEEN's two marks' verdicts on a touch (`queen-fx.ts`). */
   readonly queen = new QueenFx();
   /** THE VANE's arm's and housing's verdicts on a touch (`vane-marks.ts`). */

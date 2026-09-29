@@ -63,11 +63,10 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
       phase: FAR_END,
     }),
     motion: TOLL,
-    status: "draft",
+    status: "taken",
     slot: "boss",
-    suggests: "THE VANE",
     owner:
-      "the pendulum drawn for THE CONDUCTOR with the thing it turns on finally in the picture: the pivot is the only part that can be hit and it is exposed at one end of the sweep, the end belonging to the player whose columns were just reversed — so the one who has to shoot is the one whose numbers stopped matching, and a card without the bearing on it was a picture of the part you cannot hit",
+      "THE GOVERNOR, taken 29 September 2026, combined with INTERFERENCE: the arm is the needle laid on a flywheel's face and the bearing it turns on is the hub, still the only part that can be hit (`render/governor-shape.ts`). The sweep's exposed end is not used. Before that, the pendulum drawn for THE CONDUCTOR with the thing it turns on finally in the picture: the pivot is the only part that can be hit and it is exposed at one end of the sweep, the end belonging to the player whose columns were just reversed — so the one who has to shoot is the one whose numbers stopped matching, and a card without the bearing on it was a picture of the part you cannot hit",
   },
   {
     subject: plated("THE TITHE", "a slab of seven columns; one plate reaches", {

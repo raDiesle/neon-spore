@@ -83,6 +83,7 @@ export class BossTransients extends BossRoster {
     this.burgee.ingest(events, l, cfg, beatSeconds, burst);
     this.grindstone.ingest(events, l, cfg, beatSeconds, burst);
     this.flue.ingest(events, l, cfg, beatSeconds, burst);
+    this.governor.ingest(events);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
     this.blows.ingest(events);
@@ -133,6 +134,7 @@ export class BossTransients extends BossRoster {
     this.burgee.update(dt);
     this.grindstone.update(dt);
     this.flue.update(dt);
+    this.governor.update(dt);
     this.fleet.update(dt, l, burst);
     this.fleetGrip.update(dt);
     this.blows.update(dt);
@@ -201,6 +203,7 @@ export class BossTransients extends BossRoster {
     this.burgee.clear();
     this.grindstone.clear();
     this.flue.clear();
+    this.governor.clear();
     this.blows.clear();
     this.strike.clear();
   }

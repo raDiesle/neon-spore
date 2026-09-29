@@ -76,8 +76,10 @@ function wordsToNumber(words: string): number | null {
 }
 
 describe("the shape catalogue", () => {
+  // "At all": the floor was twelve while the pool was being filled, and every
+  // card a boss takes drains it (THE GOVERNOR took two on 29 September 2026).
   it("has drafts in it at all", () => {
-    expect(CATALOGUE.filter((e) => e.status === "draft").length).toBeGreaterThan(12);
+    expect(CATALOGUE.filter((e) => e.status === "draft").length).toBeGreaterThan(0);
   });
 
   it("says how many drafts it has, and is right about it", async () => {

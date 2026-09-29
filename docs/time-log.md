@@ -29157,3 +29157,19 @@ Bottleneck: looking — each `versus:shot` starts its own director, about half a
 minute a picture, and a turn needs four of them to be seen.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GOVERNOR's body: a flywheel under a flyball governor
+
+- reading: 5 min. The queue entry, THE FLUE's look lane as the pattern, the
+  governor's state and helpers in `sim/governor.ts`, the two draft cards.
+- writing: 10 min. Seven render files, the dispatch, the roster cut, two
+  tests and a harness, the drafts, the spec and the ledger.
+- looking: 5 min. Four `bun run frames` with `--boss` poses; the lit hub
+  showed the needle through it, and was backed with the face.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice: the roll-out test asked for the
+  verdicts a `-marks.ts` page owes, and the roster was at its ceiling.
+
+Bottleneck: landing — `mark-feedback-roll-out.test.ts` holds a new boss's
+marks to the touch convention before its touch exists, which pulled the
+verdicts and a roster cut into the body's half.
