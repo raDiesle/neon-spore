@@ -759,6 +759,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §31 THE PLUMB — row 11's bleed, the look
 
 - **Found:** 2026-09-29, claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l
+- **Taken:** 2026-09-29, claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l (claim: claude/queue-31-the-plumb-row-11s-bleed-the-look)
 - **Files:** `packages/render/src/plumb-pose.ts`, `packages/render/src/plumb-draw.ts`, `packages/render/test/plumb-frame.test.ts`, `tools/director/src/`
 
 The bleed is in the simulation (`sim/plumb-bleed.ts`): after the last shot
