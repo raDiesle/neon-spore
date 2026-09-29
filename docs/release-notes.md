@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 20e41c8e9 — The automatic compaction window goes from 200k to 120k
+
+With an automatic compaction now held back until the item lands (up to 320k), the window no longer decides where a big task is cut, only how much of the items already landed is carried into the next one. Over 338 landings an item lands at a median 133k and adds 42k; a rough model of re-read tokens against a compaction's minute or two puts the window at 100k-120k, about 2.0 minutes of overhead per item against 3.7 at 200k.
+
 ## 2026-09-29 · 3bdc2ff87 — One cue frame and one markAt for every cue reading
 
 How far a cue's frame reaches is now written once, in `boss-cue-frame.ts`: THE CHOIR's frame and the wider one used from THE GIMBAL on, a `cueFrame` that turns either into pixels, and the `markAt` that seventeen readings had each written for themselves. The thirty-nine readings and THE PLUMB's marks call it, so resizing a frame is one edit. A copies-table row stops the sizes being typed again, and the file is in the catalogue of marks and controls. No number changed, so no frame of the game moved.
