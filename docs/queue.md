@@ -1725,6 +1725,7 @@ names with its page, and prove it with `packages/audio/test/bind.test.ts`.
 ## `surgeWord`'s `HOLD` re-derives `surgeAsks`
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-surgeword-s-hold-re-derives-surgeasks)
 - **Files:** `packages/render/src/surge-word.ts`, `packages/render/src/surge-grip.ts`, `packages/sim/src/surge.ts`
 
 THE SURGE's roll-out lane put *is this seat asked to hold* into the simulation
