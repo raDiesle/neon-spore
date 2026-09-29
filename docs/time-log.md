@@ -29692,3 +29692,5 @@ the stamps that time an item from its claim only began today.
 
 Bottleneck: reading — the report called a boundary cut mid-item, and only
 the hook's log showed the hook had been right and the parser wrong.
+
+*Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

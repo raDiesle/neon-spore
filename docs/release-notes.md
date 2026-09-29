@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 25330727a — The compaction trial sees a landing inside a compound command
+
+`bun run compaction` only knew `bun run land` at the start of a command, so a `git commit …; bun run land` went uncounted and the cut after it read as mid-item. A landing is now `bun run land` anywhere in the command, proven by land's own banner rather than the exit code a `| tail` hides. The baseline moves from 179 items and 57% of cuts mid-item to 466 items and 31%.
+
 ## 2026-09-29 · 8d3210ad4 — bun run compaction: the compaction trial, before against after
 
 Reads this checkout's transcripts and its worktrees' (never another project's), and the decisions defer-compact.ts now logs to claude-compaction.log in the common git dir, and prints the ten days before the 29 September cutover against everything since: cuts that fell mid-item, ceiling hits, "Prompt is too long", checkpoints read, context and seconds per call, minutes per item. Each row says what it is expected to do. Reviewed on 6 October 2026.
