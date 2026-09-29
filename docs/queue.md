@@ -1352,20 +1352,6 @@ take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
 
-## §24 THE KEEL — row 11's held breath and the seam's three brightnesses, the look
-
-- **Found:** 2026-09-29, claude/queue-24-keel-held-breath
-- **Files:** `packages/render/src/keel-draw.ts`, `packages/render/src/keel-pose.ts`, `tools/versus/candidates/`
-
-**Half one, the breath, landed 29 September 2026** (`render/keel-story-pose.ts`
-`keelBreathSwell`, the `keel:breath` pose, off `OWED`). **Half two is left**:
-a locked seam's brightness in three states across the fight — hairline white
-through movement one, a fuller pulsing seam once the socket frees its
-segment, a held flare then full white on the breath — read off `locked` and
-the phase, no new state. It replaces the shipped seam (`drawSegment`'s
-`keelSeamPath` stroke), so it goes to VERSUS as a candidate against it
-unless the owner asks for it by name.
-
 ## THE SEAM under the game's AUTO is baited by its own false point
 
 - **Found:** 2026-09-29, claude/queue-26-the-seam-the-false-points-flicker-and-the-hel

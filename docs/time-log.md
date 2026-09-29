@@ -29109,3 +29109,16 @@ Bottleneck: looking — the swell first drawn moved the arch by a few pixels,
 and only a real frame said so.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE KEEL's seam in three brightnesses, offered in VERSUS
+
+- reading: 10 min. `docs/versus.md`, the README's rules for a function
+  candidate, the INSTAR head's slot as the pattern, and where `movement` turns.
+- writing: 10 min. `KEEL_SEAM` lifted out of `drawSegment`, the candidate's
+  `paint.ts`, the slot's pose row and `lookAt`, and the docs.
+- looking: 5 min. One `versus:shot` of the pair.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a candidate needs a record the draw path reads every
+frame, and the seam was a stroke inline in `drawSegment`.

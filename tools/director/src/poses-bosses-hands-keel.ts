@@ -54,7 +54,13 @@ export const KEEL_POSES: Pose[] = [
     "breath",
     "The whole spine swells and dims, holding its breath. P1 and P2 keep their hands off.",
     // Half way through, where the swell stands highest (`render/keel-story-pose.ts`).
-    { hand: keelHand, hold: Math.round(TPB * 1.5), budgetBeats: 180 },
+    // VERSUS judges `keel:seam` here: the plates dim and the seams differ most.
+    {
+      hand: keelHand,
+      hold: Math.round(TPB * 1.5),
+      budgetBeats: 180,
+      lookAt: "the white seam across each of the six plates, while the plates dim round it",
+    },
   ),
   bossPose(
     "keel",

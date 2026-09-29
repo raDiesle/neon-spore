@@ -8502,8 +8502,11 @@ and losing up to 0.6 of its light at the top, over the segments' own sway;
 stirred, it drops flat at once and the loosened segment sways on after. Held,
 every seam flares as a lock's does (`keel-fx.ts`). The director poses it at
 its top (`keel:breath`); `render/test/keel-breath-frame.test.ts` draws it on
-every screen. The seam's three brightnesses across the fight are queued, for
-VERSUS.
+every screen. The seam's three brightnesses across the fight — a hairline
+through movement one, a fuller seam pulsing from the socket on, full white
+from the breath — replace the shipped seam, so they are offered in VERSUS as
+`keel:seam` · `three`, against the seam lifted into `render/keel-seam-look.ts`
+`KEEL_SEAM` the same day.
 
 **Its joints answer a touch the way every mark does** (`render/src/keel-verdicts.ts`;
 the owner, 27 September 2026), the whole convention, because both screens draw

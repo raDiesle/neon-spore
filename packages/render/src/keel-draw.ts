@@ -1,7 +1,6 @@
 import { blobPoints, LIGHT_HALF } from "@neon-spore/content";
 import { type KeelState, keelLit, NO_JOINT, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
-import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { KeelFx } from "./keel-fx.js";
 import { drawKeelFaces, drawKeelRing, drawKeelSocket } from "./keel-marks.js";
@@ -13,6 +12,7 @@ import {
   keelRockAlong,
   keelSegs,
 } from "./keel-pose.js";
+import { KEEL_SEAM } from "./keel-seam-look.js";
 import {
   keelPlatePath,
   keelRibsPath,
@@ -129,7 +129,8 @@ function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[]): voi
 /**
  * One segment: the iron plate, lit by the one key light, its outline as
  * bright as the pose says, the blow over it, and a seam if locked — flaring
- * as it snaps, and white-hot while the cooldown has it hot.
+ * as it snaps, and white-hot while the cooldown has it hot
+ * (`keel-seam-look.ts`).
  */
 function drawSegment(
   ctx: CanvasRenderingContext2D,
@@ -168,11 +169,8 @@ function drawSegment(
   drawHurt(ctx, plate, fx.hurt.value);
   if (!s.locked[k]) return;
   const seam = keelSeamPath(l, g.centre, g.slope, g.pose);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.4 + 0.5 * bright);
-  ctx.stroke(seam);
-  const glow = Math.max(0.6 * keelPulse(s, k, beatPhase), 1.4 * fx.snap(k), 1.8 * heat);
-  if (glow > 0) strokeGlow(ctx, seam, PALETTE.hullRim, STROKE.inner, glow);
+  const pulse = keelPulse(s, k, beatPhase);
+  KEEL_SEAM.paint(ctx, seam, { s, k, bright, pulse, snap: fx.snap(k), heat, beatPhase });
 }
 
 /** The tail's rock, a lump of the same iron, falling. */
