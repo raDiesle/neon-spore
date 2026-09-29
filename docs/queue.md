@@ -1578,6 +1578,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## `tools/director/src/stage.ts` is at 240 lines, one feature from the ceiling
 
 - **Found:** 2026-09-29, claude/queue-tasks-efa837
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-tools-director-src-stage-ts-is-at-240-lines-one)
 - **Files:** `tools/director/src/stage.ts`
 
 The jump row took it from ~225 to 240. Its paint bindings (`paintStep`,
