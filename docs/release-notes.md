@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 039899622 — THE SCOUT looks like an alien pacman, throws rings when let go, and burns a fuse instead of words
+
+The little ship is a lobed violet pacman with a chomping mouth, a green slit eye and two feelers; the mouth is its heading, so only the pilot sees it open. Two rings come off it each time it is let go. The mouth's two-tile reach is dashed round home while a mote is aboard, and amber streams into the mouth while it sucks. The pilot's glimpse of the arena tears in and out like THE FLIP's projection, the hazard that caught the ship is shown on both screens, and the words over the arena are gone: its clock is the boss fuse across the top. A look the owner asked for by name.
+
 ## 2026-09-29 · eb121ee13 — THE STARE: five levels of a beat pattern, taught in blue, one hit each
 
 The eye now opens on the beats of an authored pattern, eight beats a level, five levels in the one boss wave. Each level is played once in blue, where nothing costs, then for real: on an open beat both seats touch nothing, and the laser strikes the column the cannon was sent to; on a shut beat a bolt up the middle hits it, and one hit ends the level. After each pass without a hit the shut eye charges a beam. Either seat pulls the lid in time and it vents to the sides; otherwise the beam comes down the middle onto the hull. Three passes with no hit and the level is taught again. The rocks, the rolled seat, the guide and its film are gone. Each beat is heard, a key per level, and a score of pips under the eye shows the pattern for players with the sound off. Exemption: a look the owner asked for by name (the score, the blue pass, the vent and the beam).
