@@ -28760,3 +28760,13 @@ filing it, not writing it.
 Bottleneck: `scuttle-shape.ts` stood at 250 lines, so the drop could only go in once the plate's path moved out.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE UNDERTOW's pin ring was drawn all along
+
+- reading: 0 min. `undertow-grip.ts`, its place file, `drawOnShip`, `handle-draw.ts`, the frame test that already counts the ring.
+- writing: 0 min. One case added to `undertow-grip-frame.test.ts`: the ring with the shield standing in its column.
+- looking: 5 min. `bun run frames` at tick 470 and at column 7, cropped, and once more with the grips switched off to tell the ring from the shield.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the entry's premise — the ring stands in the shield's own spot, so the frame it was filed from shows a black disc in the plate, and it takes a run with the rings switched off to see which is which.

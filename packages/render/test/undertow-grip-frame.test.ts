@@ -114,6 +114,16 @@ describe("the navigator's pin, on a standing lobe", () => {
     expect(rings(world, role)).toBe(2);
   });
 
+  it.each(HERS)("is still drawn with the shield standing in that column, on %s", (role) => {
+    // What `bun run frames` showed at tick 470 and was read as no ring at all
+    // (28 September 2026): the pin stands where the plate stands, so with the
+    // plate in the lobe's column the ring is in the middle of it.
+    const world = opened();
+    breach(world, 3, "standing");
+    world.shieldCol = 3;
+    expect(rings(world, role)).toBe(1);
+  });
+
   it.each(ROLES)("is not offered over a plate that is only bowing, on %s", (role) => {
     const world = opened();
     breach(world, 3, "bowing");

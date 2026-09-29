@@ -1618,22 +1618,6 @@ take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
 
-## THE UNDERTOW's pin ring does not show in `bun run frames` while a lobe stands
-
-- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-undertows-pin-ring-does-not-show-in-bun-run)
-- **Files:** `packages/render/src/undertow-grip.ts`, `packages/render/src/undertow-grip-place.ts`, `tools/frames/`
-
-`bun run frames . --wave "THE UNDERTOW" --ticks 470 --seat p2` shows a lobe standing
-at column 2 — the harness's own world has `phase: one` and that breach `standing`
-at the same tick — but no pin ring over it, on p2 or on the desk, and neither
-with `--boss-json '{"breaches":[{"col":6,"stage":"standing","stageBeat":"now",…}]}'`.
-The free ring and its clock do show (`--boss-json '{"phase":"seat","unseatedUntil":40}'`).
-Find out whether the ring is drawn under the lobe's body (the pin sits
-`PIN_UP` tiles above the hull line), gated by something the unit tests do not
-reach, or missing from the page `frames` loads; fix whichever it is, and pin it
-with a frame test that counts the ring on p2's full frame with a lobe standing.
-
 ## `land` could skip the tests `check:fast` already ran green on the same tree
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
