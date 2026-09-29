@@ -1375,6 +1375,7 @@ asks for it by name.
 ## §26 THE SEAM — the false point's flicker and the held dark, the look
 
 - **Found:** 2026-09-29, claude/queue-26-seam-holding-fire
+- **Taken:** 2026-09-29, claude/queue-26-seam-look (claim: claude/queue-26-the-seam-the-false-points-flicker-and-the-hel)
 - **Files:** `packages/render/src/seam-draw.ts`, `packages/render/src/seam-marks.ts`, `packages/render/src/seam-story.ts`, `packages/render/test/seam-frame.test.ts`
 
 Rows 10 and 16's simulation landed (`sim/seam-step.ts` `seamFiredInto`,
