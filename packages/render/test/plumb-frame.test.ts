@@ -28,7 +28,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE PLUMB's poses — dropping in, hanging lopsided, a weight coming true
  * under a level glass, the bob turned to show its core, the core lit in each
- * colour, smaller per hit, and the bob swinging free — on all three screens.
+ * colour, smaller per hit, the spent light bleeding down the chains, and the
+ * bob swinging free — on all three screens.
  *
  * The states are **set** rather than played to, `rime-frame.test.ts`'s
  * arrangement: `sim/test/plumb*.test.ts` proves the script, the settles and
@@ -117,6 +118,11 @@ function count(text: string, colour: string): number {
 function tinted(text: string, hex: string): number {
   const v = Number.parseInt(hex.slice(1), 16);
   return count(text, hex) + count(text, `rgba(${(v >> 16) & 255},${(v >> 8) & 255},${v & 255},`);
+}
+
+/** Fills and strokes in a warm white — `plumbBleed` and the first of its mix down to bronze. */
+function warmWhite(text: string): number {
+  return text.match(/rgba\(2[3-5]\d,2[3-5]\d,2[0-3]\d,/g)?.length ?? 0;
 }
 
 describe("THE PLUMB's bob", () => {
@@ -214,6 +220,31 @@ describe("THE PLUMB's bob", () => {
       s.phaseBeat = w.beat - 3;
     });
     expect(late.text).not.toBe(early.text);
+  });
+
+  it.each(ROLES)("bleeds the spent light down both chains, white to bronze, on %s", (role) => {
+    const bleeding = (into: number, pull: [number, number] = [0, 0]) =>
+      frame(role, (w) => {
+        const s = posed(w, "bleed", [2, 2]);
+        s.coreLit = true;
+        s.hits = 3;
+        s.phaseBeat = w.beat - into;
+        s.pullMilli = pull;
+      });
+    const spent = frame(role, (w) => {
+      const s = posed(w, "rest", [2, 2]);
+      s.coreLit = true;
+      s.hits = 3;
+    });
+    const opening = bleeding(0);
+    const late = bleeding(2);
+    expect(warmWhite(opening.text)).toBeGreaterThan(warmWhite(spent.text));
+    expect(warmWhite(late.text)).toBeLessThan(warmWhite(opening.text));
+    for (const cannon of [PALETTE.red, PALETTE.cyan, PALETTE.hullRim]) {
+      expect(tinted(opening.text, cannon)).toBe(tinted(spent.text, cannon));
+    }
+    // A thumb back on one stone draws the light back up that chain.
+    expect(bleeding(2, [1500, 0]).text).not.toBe(late.text);
   });
 
   it.each(ROLES)("swings free once the core is spent, on %s", (role) => {

@@ -28967,3 +28967,16 @@ Bottleneck: friction — the silent-by-design bleed had no way through a
 binding chain typed to always return a sound.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE PLUMB's spent light runs down its chains
+
+- reading: 5 min. The bleed's state, the pose clock, the frame test and
+  how a STATES card plays to a late phase with its hand.
+- writing: 5 min. `plumbBled`, the light's run, the frame test, the card.
+- looking: 5 min. The first run was chain-only and too short to see on a
+  phone; it now starts in the core and runs the whole way.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — a run as long as the chain alone was a dot, and only
+the rendered frame showed it.

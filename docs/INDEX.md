@@ -2177,8 +2177,10 @@ by hand never moves.
 | `packages/render/src/plumb-pose.ts` | **The clock THE PLUMB is posed off** (§31, *Animation*) |
 | `packages/render/src/plumb-shape.ts` | **THE PLUMB's geometry**: where the bob hangs, and the paths it is made of |
 | `packages/render/src/plumb-blow.ts` | THE PLUMB's own blow at the hull: a small bob drops down its plumb line and strikes point first |
+| `packages/render/src/plumb-bleed-light.ts` | How much of the way the running light covers, as a share of it |
 | `packages/render/src/plumb-fx.ts` | What THE PLUMB leaves behind a frame: a weight's **settle** ringing its glass, a **drift**'s jolt through it |
 | `packages/render/src/plumb-grip.ts` | **The stones on THE PLUMB** — the hands lane that makes the bob answer a thumb (§11.48 |
+| `packages/render/src/plumb-weight.ts` | THE PLUMB's two weights, one at a time |
 | `packages/render/src/phase-into.ts` | **How far into its phase a choreographed boss is**, in beats, this beat's own fraction counted in |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |

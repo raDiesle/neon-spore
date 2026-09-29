@@ -9692,8 +9692,12 @@ fourteen events: the bleed is silent by design, the one quiet beat on the
 bob, and the pull that breaks it is the drift's jolt pitched up. The
 autopilot hand pulls each stone half the skew, and lets go of both the
 moment no level is lit (`hands/src/boss-hands-plumb.ts`). **Row 11's bleed
-is in the simulation only** (29 September 2026): the bob hangs as it did
-after the last shot until its picture, the sixth pose, lands.
+is drawn** (29 September 2026, `render/plumb-bleed-light.ts`): the core
+goes dark and its light runs out of it, up the neck, along the beam and down
+each chain into its stone, warm white turning to the bob's own bronze on the
+way, the stone's rim taking the last of it. A pulled stone holds its own
+side's light back up by as far as it is pulled, and a flare's extra beat is
+seen drawing both back.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/plumb.test.ts`): the bob comes in still with both weights loose,

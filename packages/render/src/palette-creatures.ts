@@ -224,6 +224,8 @@ export const CREATURE_HUES = {
   plumbBronze: "#8F8660",
   plumbBronzeDark: "#2A2A1E",
   plumbGlass: "#E3EEC4",
+  /** The spent core's light as it leaves the beam in row 11's bleed: a warm white, no cannon's. */
+  plumbBleed: "#F8F4E6",
   /** THE DAVIT's boom: dull yardarm steel, its shadow, and the slack chain off its tip. */
   davitSteel: "#7C8797",
   davitSteelDark: "#2C323B",

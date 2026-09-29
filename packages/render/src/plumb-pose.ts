@@ -146,3 +146,26 @@ export function plumbTurn(s: PlumbState, world: World, beat: number, bp: number)
   if (plumbLitStep(s)?.ask === "both") return plumbHeld(s, bp);
   return 0;
 }
+
+/**
+ * How far the spent core's light has run down side `side`'s chain (§31 row
+ * 11): null outside the bleed, 0 at the beam as it opens, 1 in the stone as
+ * the phase ends. A flare is a beat more on the phase, so the light is seen
+ * drawn back up both chains; and a stone still pulled holds its own side's
+ * further up by as far as it is pulled, so the seat whose thumb is on sees
+ * its own chain light again.
+ */
+export function plumbBled(
+  s: PlumbState,
+  world: Pick<World, "cfg">,
+  side: 0 | 1,
+  beat: number,
+  bp: number,
+): number | null {
+  if (s.phase !== "bleed") return null;
+  const beats = Math.max(1, world.cfg.plumbBleedBeats + s.flares);
+  const run = Math.min(1, phaseInto(s, beat, bp) / beats);
+  const reach = Math.max(1, world.cfg.plumbPullReachMilli);
+  const pulled = Math.min(1, Math.abs(s.pullMilli[side]) / reach);
+  return Math.max(0, run - pulled);
+}

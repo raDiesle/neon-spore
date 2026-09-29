@@ -11,10 +11,12 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPlumbBleed } from "./plumb-bleed-light.js";
 import type { PlumbFx } from "./plumb-fx.js";
 import { drawPlumbCore, drawPlumbGlass } from "./plumb-marks.js";
 import {
   plumbArrived,
+  plumbBled,
   plumbFree,
   plumbLeft,
   plumbSkew,
@@ -23,12 +25,10 @@ import {
   plumbTurn,
 } from "./plumb-pose.js";
 import {
-  plumbBallPath,
   plumbBallR,
   plumbBeamEnd,
   plumbBeamPath,
   plumbChain,
-  plumbChainPath,
   plumbHook,
   plumbHookPath,
   plumbLift,
@@ -37,6 +37,7 @@ import {
   plumbSacPath,
   plumbSacRadius,
 } from "./plumb-shape.js";
+import { drawPlumbWeight } from "./plumb-weight.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -99,7 +100,7 @@ export function drawPlumb(
       y: end.y + Math.cos(swing) * reach + fall,
     };
     const size = plumbStoneSize(s, world, side);
-    drawWeight(
+    drawPlumbWeight(
       ctx,
       l,
       side,
@@ -109,6 +110,9 @@ export function drawPlumb(
       s.weights[side] >= PLUMB_SETTLES_PER_WEIGHT,
       free > 0,
     );
+    const bled = plumbBled(s, world, side, beat, beatPhase);
+    const stone = { ...ball, r: plumbBallR(l, side) * size };
+    if (bled !== null) drawPlumbBleed(ctx, l, skew, side, stone, bled);
     // The painted settle, behind `?raster=1`, hung from where this chain is.
     ctx.save();
     ctx.translate(end.x, end.y);
@@ -189,39 +193,8 @@ function drawBob(
       ? { color: step.color, left: plumbLeft(s, world, beat, beatPhase) }
       : null;
   if (fire !== null) fx.tell(stepColour(fire.color).rim);
-  drawPlumbCore(ctx, l, turn, coreHurt(s.hits), s.coreLit, fire, beatPhase);
-  ctx.restore();
-}
-
-/** One chain and its ball, `size` times its own. A locked ball's rim is lit glass; a loosed one's chain is gone. */
-function drawWeight(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  side: 0 | 1,
-  end: { x: number; y: number },
-  at: { x: number; y: number },
-  size: number,
-  locked: boolean,
-  loosed: boolean,
-): void {
-  if (!loosed) {
-    ctx.lineWidth = STROKE.inner * 0.8;
-    ctx.strokeStyle = rgba(PALETTE.plumbBronze, 0.85);
-    ctx.stroke(plumbChainPath(l, end, at));
-  }
-  const r = plumbBallR(l, side);
-  const ball = plumbBallPath(l, side);
-  ctx.save();
-  ctx.translate(at.x, at.y);
-  ctx.scale(size, size);
-  ctx.fillStyle = rgba(PALETTE.plumbBronzeDark, 0.95);
-  ctx.fill(ball);
-  ctx.save();
-  ctx.clip(ball);
-  litRound(ctx, 0, 0, r, LIGHT_HALF.rock);
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline / size;
-  ctx.strokeStyle = rgba(locked ? PALETTE.plumbGlass : PALETTE.plumbBronze, 0.95);
-  ctx.stroke(ball);
+  // Once the last shot is in, the core's light has left it for the chains.
+  const glowing = s.coreLit && s.phase !== "bleed" && s.phase !== "free";
+  drawPlumbCore(ctx, l, turn, coreHurt(s.hits), glowing, fire, beatPhase);
   ctx.restore();
 }

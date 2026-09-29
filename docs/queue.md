@@ -756,22 +756,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §31 THE PLUMB — row 11's bleed, the look
-
-- **Found:** 2026-09-29, claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l
-- **Taken:** 2026-09-29, claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l (claim: claude/queue-31-the-plumb-row-11s-bleed-the-look)
-- **Files:** `packages/render/src/plumb-pose.ts`, `packages/render/src/plumb-draw.ts`, `packages/render/test/plumb-frame.test.ts`, `tools/director/src/`
-
-The bleed is in the simulation (`sim/plumb-bleed.ts`): after the last shot
-the bob is in phase `bleed` for `plumbBleedBeats`, a beat more per `flares`,
-and `plumbBleed` / `plumbFlare` are on the silent lists, read off the state.
-Nothing draws it yet — the bob hangs as it did after the third hit. Draw
-§31's sixth pose: the spent core's light running down both chains from
-white to the bob's own bronze across the phase, no cannon colour, the
-stones still; a flare drawing it back up the chain on that side. A look with
-no shipped alternative. Add the pose to the STATES sheet and draw it again in
-`plumb-frame.test.ts`.
-
 ## §32 THE SLING — a revised simulation lane, a cooling tick left alone
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
