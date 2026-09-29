@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · a48d5b0ee — THE SEAM's false point keeps its grey rim drawn
+
+Grey on the grey shell was not seen at the first frame's alpha, so the lens's rim stays drawn at most of its brightness through the pulse. Queues the finding that the game's AUTO is baited by the false point through the input delay.
+
+## 2026-09-29 · 5765668f6 — THE SEAM's false point flickers grey and its dark lies still
+
+The false point now shows at the middle of the crack: a grey lens, no cannon's colour, half as bright as a real point and pulsing half as fast, fading after its step. The dark before the split is drawn as a black, still crack with the last point's sealed white on it, and a bolt fired into the dark flashes the whole crack white as it reseals.
+
 ## 2026-09-29 · 531de7c74 — THE SEAM asks the pair to hold fire twice
 
 A false point now flickers on the crack between the second grit and the rock, and a bolt at it is a hull hit. After the last step, the crack lies dark for two beats before it splits, and a bolt fired into it holds the ridge shut one beat longer. Each step passes when its beats run out untouched. The script is now thirteen steps. THE SLOW opens on the false point but not on the dark, which is the ridge's one quiet beat.

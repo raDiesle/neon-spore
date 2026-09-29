@@ -29091,3 +29091,5 @@ limits test ran after the edit.
 
 Bottleneck: reading — the state says the ridge was held but not when, so the
 flash needed a home, and THE SEAM has no fx class in the roster.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
