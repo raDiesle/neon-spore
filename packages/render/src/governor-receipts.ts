@@ -1,4 +1,4 @@
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { type Dial, dialAt, hubR, TRACK_IN, TRACK_OUT, trackBand } from "./governor-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -36,7 +36,7 @@ export function drawGovernorTap(
   const to = dialAt(d, tap.milli, 1 + TAP_THROW * (1.5 - tap.now));
   spike.moveTo(from.x, from.y);
   spike.lineTo(to.x, to.y);
-  strokeGlow(ctx, spike, PALETTE.hullRim, STROKE.outline, 1.6 * tap.now, 1);
+  strokeGlowFaded(ctx, spike, PALETTE.hullRim, STROKE.outline, 1.6 * tap.now, 1);
 }
 
 /**
@@ -87,5 +87,5 @@ export function drawGovernorFlash(
   p.ellipse(d.cx, d.cy, r, r * (0.5 + 0.5 * d.tilt), 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
   ctx.fill(p);
-  strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
 }

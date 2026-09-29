@@ -61,6 +61,28 @@ export function strokeGlow(
   ctx.globalAlpha = 1;
 }
 
+/**
+ * `strokeGlow` inside a body that fades itself as a whole by
+ * `ctx.globalAlpha` — THE FLUE and THE GOVERNOR while spent. It scales its
+ * `alpha` by the alpha it finds and leaves that alpha as it found it, so a
+ * part drawn after a glow is still faded. `strokeGlow` itself keeps ignoring
+ * the caller's alpha: two dozen callers reach it with one left over from a
+ * draw before, and are drawn as they are because it does.
+ */
+export function strokeGlowFaded(
+  ctx: CanvasRenderingContext2D,
+  path: Path2D,
+  color: string,
+  width: number = STROKE.outline,
+  intensity = 1,
+  alpha = 1,
+  spread: number = STROKE.glowSpread,
+): void {
+  const fade = ctx.globalAlpha;
+  strokeGlow(ctx, path, color, width, intensity, alpha * fade, spread);
+  ctx.globalAlpha = fade;
+}
+
 /** What the glow passes' alphas add up to, over `0.1 * intensity * alpha`. */
 const PASS_SUM = Array.from({ length: STROKE.glowPasses }, (_, i) => 1 / (i + 1)).reduce(
   (a, b) => a + b,

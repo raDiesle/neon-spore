@@ -1,7 +1,7 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type GovernorState, governorLitStep } from "@neon-spore/sim";
 import { coreHurt } from "./core-hurt.js";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { governorLeft } from "./governor-pose.js";
 import { type Dial, hubR } from "./governor-shape.js";
 import { rgba } from "./hex.js";
@@ -48,13 +48,13 @@ export function drawGovernorHub(
   if (step?.ask !== "fire") {
     ctx.fillStyle = rgba(PALETTE.hullRim, 0.25 + 0.3 * hurt.bright);
     ctx.fill(face);
-    strokeGlow(ctx, face, PALETTE.hullRim, STROKE.inner, 0.5, 0.8);
+    strokeGlowFaded(ctx, face, PALETTE.hullRim, STROKE.inner, 0.5, 0.8);
     return;
   }
   const { body, rim } = stepColour(step.color);
   ctx.fillStyle = rgba(body, hurt.bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(face);
-  strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright);
+  strokeGlowFaded(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright);
   const ring = new Path2D();
   const left = governorLeft(s, beat, beatPhase);
   const n = 28;
@@ -65,5 +65,5 @@ export function drawGovernorHub(
     if (i === 0) ring.moveTo(x, y);
     else ring.lineTo(x, y);
   }
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  strokeGlowFaded(ctx, ring, body, STROKE.outline, 1);
 }

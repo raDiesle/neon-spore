@@ -1,6 +1,6 @@
 import { FLUE_TAPS, FLUE_VENTS } from "@neon-spore/sim";
 import { FLUE_UNITS, flueCoreR, flueEmberR, type Point } from "./flue-shape.js";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -35,7 +35,7 @@ export function drawFlueSlotGlow(
   beatPhase: number,
 ): void {
   const pulse = 0.55 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
-  strokeGlow(ctx, slot, PALETTE.hullRim, STROKE.inner, pulse, 0.8);
+  strokeGlowFaded(ctx, slot, PALETTE.hullRim, STROKE.inner, pulse, 0.8);
 }
 
 /**
@@ -61,10 +61,10 @@ export function drawFlueTapRing(
     return;
   }
   const pulse = 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
-  strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
+  strokeGlowFaded(ctx, ring, PALETTE.hullRim, STROKE.outline, pulse, 1);
   const time = new Path2D();
   time.arc(at.x, at.y, r * 1.35, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
-  strokeGlow(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
+  strokeGlowFaded(ctx, time, PALETTE.hullRim, STROKE.inner, 0.6, 1);
 }
 
 /** The three tap studs over the flue's middle, one lit for each tap landed in the vent lit. */
@@ -83,7 +83,7 @@ export function drawFlueTapStuds(
     if (i < taps) {
       ctx.fillStyle = PALETTE.hullRim;
       ctx.fill(stud);
-      strokeGlow(ctx, stud, PALETTE.hullRim, STROKE.inner, 1, 0.8);
+      strokeGlowFaded(ctx, stud, PALETTE.hullRim, STROKE.inner, 1, 0.8);
     } else {
       ctx.fillStyle = PALETTE.flueSlot;
       ctx.fill(stud);
@@ -116,7 +116,7 @@ export function drawFlueVents(
     if (i < vents) {
       ctx.fillStyle = PALETTE.hullRim;
       ctx.fill(notch);
-      strokeGlow(
+      strokeGlowFaded(
         ctx,
         notch,
         PALETTE.hullRim,
@@ -146,7 +146,7 @@ export function drawFlueTick(
   const bar = new Path2D();
   bar.moveTo(at.x, at.y - h);
   bar.lineTo(at.x, at.y + h);
-  strokeGlow(ctx, bar, PALETTE.hullRim, STROKE.outline, 1.6 * tick, 1);
+  strokeGlowFaded(ctx, bar, PALETTE.hullRim, STROKE.outline, 1.6 * tick, 1);
 }
 
 /** A lapse's flash off the ember at `at`: a ring thrown out from it, fading as it widens. */
@@ -159,7 +159,7 @@ export function drawFlueLapse(
   if (lapse <= 0) return;
   const ring = new Path2D();
   ring.arc(at.x, at.y, flueEmberR(l) * (1.2 + 2 * (1 - lapse)), 0, Math.PI * 2);
-  strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.inner, lapse, 0.9);
+  strokeGlowFaded(ctx, ring, PALETTE.hullRim, STROKE.inner, lapse, 0.9);
 }
 
 /** A core hit's flash over the core at `at`: white, and wider for every hit. */
@@ -176,7 +176,7 @@ export function drawFlueFlash(
   p.arc(at.x, at.y, Math.max(0.5, r), 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.hullRim, flash.now * (0.35 + 0.2 * hits));
   ctx.fill(p);
-  strokeGlow(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
+  strokeGlowFaded(ctx, p, PALETTE.hullRim, STROKE.inner, flash.now * (0.6 + 0.4 * hits));
 }
 
 /** The end units' indices, left and right. */

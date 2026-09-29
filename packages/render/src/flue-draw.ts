@@ -42,7 +42,7 @@ import {
   flueUnitR,
   type Point,
 } from "./flue-shape.js";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -185,7 +185,7 @@ function drawEmber(
   ember.arc(at.x, at.y, r, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.hullRim, dim);
   ctx.fill(ember);
-  strokeGlow(ctx, ember, PALETTE.hullRim, STROKE.inner, dim, 0.9);
+  strokeGlowFaded(ctx, ember, PALETTE.hullRim, STROKE.inner, dim, 0.9);
 }
 
 /**
@@ -236,9 +236,9 @@ function drawCoreFace(
   fx.tell(rim);
   ctx.fillStyle = rgba(body, hurt.bright * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(face);
-  strokeGlow(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright);
+  strokeGlowFaded(ctx, face, rim, STROKE.inner, 0.8 + hurt.bright);
   const ring = new Path2D();
   const left = flueLeft(s, beat, beatPhase);
   ring.arc(at.x, at.y, r * 1.6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  strokeGlowFaded(ctx, ring, body, STROKE.outline, 1);
 }

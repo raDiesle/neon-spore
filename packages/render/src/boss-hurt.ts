@@ -1,4 +1,4 @@
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -99,12 +99,16 @@ export function hurtShake(value: number, time: number, tile: number): number {
   return value * tile * SHAKE_TILES * Math.sin(time * SHAKE_RATE);
 }
 
-/** The red over one plate of a body that took the blow: a wash and a hot rim. */
+/**
+ * The red over one plate of a body that took the blow: a wash and a hot rim,
+ * both under the alpha the body is drawn at — THE FLUE's and THE GOVERNOR's
+ * spent fade — and leaving it there for the plate's outline after.
+ */
 export function drawHurt(ctx: CanvasRenderingContext2D, p: Path2D, hurt: number): void {
   if (hurt <= 0) return;
   ctx.save();
   ctx.fillStyle = rgba(PALETTE.red, 0.35 * hurt);
   ctx.fill(p);
   ctx.restore();
-  strokeGlow(ctx, p, PALETTE.redRim, STROKE.inner, 1.6 * hurt);
+  strokeGlowFaded(ctx, p, PALETTE.redRim, STROKE.inner, 1.6 * hurt);
 }

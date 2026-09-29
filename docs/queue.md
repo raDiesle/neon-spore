@@ -1306,19 +1306,24 @@ depth, the depth itself — on one page. Cut the zone's readings
 `copies-table.ts` row pointing at the same names, and `spool.test.ts`
 unchanged.
 
-## `strokeGlow` leaves `globalAlpha` at 1, undoing a boss's fade
+## Two dozen `strokeGlow` callers reach it with an alpha left over
 
-- **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
-- **Taken:** 2026-09-29, claude/queue-tasks-b9e006 (claim: claude/queue-strokeglow-leaves-globalalpha-at-1-undoing-a-bos)
-- **Files:** `packages/render/src/glow.ts`, `packages/render/src/flue-draw.ts`, `packages/render/src/governor-draw.ts`
+- **Found:** 2026-09-29, claude/queue-tasks-b9e006
+- **Files:** `packages/render/src/fence-skull.ts`, `packages/render/src/eye-iris.ts`, `packages/render/src/body-mark.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/spool-line.ts`, `packages/render/src/spool-brake.ts`, `packages/render/src/spool-gauge.ts`, `packages/render/src/gyre-wheel.ts`, `packages/render/src/pods.ts`, `packages/render/src/recoil-globe.ts`, `packages/render/src/reprise-brood.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/ratchet-parts.ts`, `packages/render/src/ledger-draw.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/grip-verdict.ts`
 
-`strokeGlow` ends with `ctx.globalAlpha = 1` and sets its passes' alphas
-absolutely, so a boss that fades itself by setting `globalAlpha` (THE FLUE
-while spent, `flue-draw.ts:90`) is drawn at full alpha from its first glow on.
-THE GOVERNOR sets its fade again after each part that glows. Make
-`strokeGlow` multiply by the alpha it found and restore it, drop the
-re-settings in `governor-draw.ts`, and add a render test that a glow inside
-a `globalAlpha = 0.5` leaves 0.5 behind. Check the glow budget tests still hold.
+`strokeGlow` ignores the caller's `globalAlpha` and leaves it at 1
+(`glow.ts`), and a probe over the render tests found these reach it with
+an alpha other than 1 — set for a fill or a stroke just before and never
+put back: fence-skull.ts:154, eye-iris.ts:125/141, body-mark.ts:77,
+spool-draw.ts:117/134/177/216, gyre-wheel.ts:121/150, pods.ts:116,
+recoil-globe.ts:131, reprise-brood.ts:103, living-skin.ts:170,
+spool-line.ts:49, spool-brake.ts:85/93/106, davit-marks.ts:59/98,
+ratchet-parts.ts:72, ledger-draw.ts:104, mantle-draw.ts:148,
+grip-verdict.ts:87, spool-gauge.ts:67/76. Each is either a leak (the
+alpha was meant for the mark before) or a glow meant to fade with its
+part, which is `strokeGlowFaded`. Judge them one by one; a switch that
+changes a frame is a look and goes to VERSUS. To find more, log
+`ctx.globalAlpha` on entry to `strokeGlow` and run `bun test packages/render`.
 
 ## Unverified at bb0c78c65: THE GOVERNOR's body watched at tempo: the flyweights r…
 

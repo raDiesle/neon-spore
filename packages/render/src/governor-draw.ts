@@ -10,7 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import type { GovernorFx } from "./governor-fx.js";
 import { drawGovernorHub } from "./governor-hub.js";
 import { drawGovernorMark, drawGovernorStuds, drawGovernorYokeAsk } from "./governor-marks.js";
@@ -86,12 +86,10 @@ export function drawGovernor(
   fx.note(s.needleMilli, step?.ask === "fire" ? stepColour(step.color).rim : PALETTE.hullRim);
   ctx.save();
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
-  // `strokeGlow` leaves the alpha at 1, so the fade is set again after each part that glows.
-  const fade = 1 - 0.5 * governorSpent(s, cfg, beat, beatPhase);
-  ctx.globalAlpha = fade;
+  // Every glow under the fade is `strokeGlowFaded`, which leaves it standing.
+  ctx.globalAlpha = 1 - 0.5 * governorSpent(s, cfg, beat, beatPhase);
 
   drawWheel(ctx, l, d, fx.hurt.value);
-  ctx.globalAlpha = fade;
   drawGovernorScrape(ctx, d, fx.scrape);
   drawGovernorHalos(ctx, l, d, s, time);
   const tapper = governorTapper(s);
@@ -101,14 +99,10 @@ export function drawGovernor(
     drawGovernorMark(ctx, d, step.markMilli, cfg.governorMarkMilli, left, full, beatPhase);
   }
   drawGovernorTap(ctx, d, fx.tap);
-  ctx.globalAlpha = fade;
   drawGovernorStuds(ctx, l, d, s.taps);
-  ctx.globalAlpha = fade;
   drawNeedle(ctx, d, s.needleMilli, governorHeat(s, cfg), governorOnMark(world, s));
-  ctx.globalAlpha = fade;
   drawGovernorHub(ctx, l, d, s, beat, beatPhase);
   drawGovernorFlash(ctx, l, d, fx.flash);
-  ctx.globalAlpha = fade;
 
   const governor = governorGovernor(s);
   const jaws = drawGovernorWorks(ctx, l, d, {
@@ -120,7 +114,6 @@ export function drawGovernor(
     const whole = governorChordWhole(s, governor === 1 ? 0 : 1);
     drawGovernorYokeAsk(ctx, jaws, whole, showsGovernorHand(l.role, governor), beatPhase);
   }
-  ctx.globalAlpha = fade;
   drawGovernorVerdicts(ctx, l, d, s, time, fx.verdicts);
   ctx.restore();
 }
@@ -193,7 +186,7 @@ function drawNeedle(
   ctx.strokeStyle = PALETTE.governorBrassDark;
   ctx.stroke(arm);
   ctx.restore();
-  if (hot) strokeGlow(ctx, arm, PALETTE.governorHot, STROKE.outline, 1.2, 1);
+  if (hot) strokeGlowFaded(ctx, arm, PALETTE.governorHot, STROKE.outline, 1.2, 1);
   else {
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = PALETTE.governorBrass;

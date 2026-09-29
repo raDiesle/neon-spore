@@ -29525,3 +29525,18 @@ the turn, only a real session could answer.
 Bottleneck: finding every reader of "player 1 is the pilot" — it was written as a literal `1` or `2` in eleven files rather than asked of one rule.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — a glow and a blow's red inside a fading boss stay faded
+
+- reading: 10 min. `strokeGlow`'s contract and its alpha test, THE FLUE's
+  and THE GOVERNOR's fades, who reaches a glow with an alpha left over.
+- writing: 10 min. `strokeGlowFaded`, the swap in six files and in
+  `drawHurt`, the six re-settings out of `governor-draw.ts`, the test.
+- looking: 0 min. A fix to something wrong; the test reads the alphas.
+- friction: 15 min. The spent draws with a blow up still hit 1, and a
+  stack at each full-alpha mark was what found `drawHurt`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the queue entry asked for `strokeGlow` itself to read the
+caller's alpha, and a probe found two dozen callers that reach it with one
+left over — so the fix became a second function and a finding.

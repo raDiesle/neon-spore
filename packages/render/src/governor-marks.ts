@@ -1,5 +1,5 @@
 import { GOVERNOR_RUN } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { type Dial, dialAt, TRACK_IN, TRACK_OUT, trackBand } from "./governor-shape.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -52,7 +52,7 @@ export function drawGovernorMark(
   const pulse = 0.65 + 0.35 * Math.cos(beatPhase * Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.hullRim, 0.35 * pulse);
   ctx.fill(band);
-  strokeGlow(ctx, band, PALETTE.hullRim, STROKE.inner, pulse, 1);
+  strokeGlowFaded(ctx, band, PALETTE.hullRim, STROKE.inner, pulse, 1);
   const arc = new Path2D();
   const n = 32;
   for (let i = 0; i <= n; i++) {
@@ -60,7 +60,7 @@ export function drawGovernorMark(
     if (i === 0) arc.moveTo(at.x, at.y);
     else arc.lineTo(at.x, at.y);
   }
-  strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.inner, 0.55, 1);
+  strokeGlowFaded(ctx, arc, PALETTE.hullRim, STROKE.inner, 0.55, 1);
 }
 
 /** The two runs' studs on the face, one lit for each tap its seat has landed. */
@@ -80,7 +80,7 @@ export function drawGovernorStuds(
       if (i < (taps[side] ?? 0)) {
         ctx.fillStyle = PALETTE.hullRim;
         ctx.fill(stud);
-        strokeGlow(ctx, stud, PALETTE.hullRim, STROKE.inner, 1, 0.8);
+        strokeGlowFaded(ctx, stud, PALETTE.hullRim, STROKE.inner, 1, 0.8);
       } else {
         ctx.fillStyle = PALETTE.governorFace;
         ctx.fill(stud);
@@ -106,7 +106,7 @@ export function drawGovernorYokeAsk(
 ): void {
   const pulse = whole ? 0.9 : 0.55 + 0.4 * Math.cos(beatPhase * Math.PI * 2);
   for (const jaw of jaws) {
-    if (full) strokeGlow(ctx, jaw, PALETTE.hullRim, STROKE.inner, pulse, 1);
+    if (full) strokeGlowFaded(ctx, jaw, PALETTE.hullRim, STROKE.inner, pulse, 1);
     else {
       ctx.lineWidth = STROKE.inner;
       ctx.strokeStyle = rgba(PALETTE.hullRim, OTHER);
