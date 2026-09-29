@@ -28828,3 +28828,5 @@ beside the stage's own, which forgets everything.
 
 Bottleneck: none worth the name — a split along a seam the queue entry had
 already named.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 199296018 — The director's play button, veil and transport are one file
+
+The ⏸/▶ button, the after-run screen, the REPEAT WAVE? veil and the transport row all read and write `running` through the same two calls, so they now stand in `stage-play.ts`, and `stage.ts` is down from 240 lines to 223 — room for the next row in RUN. Nothing the director shows changes.
+
 ## 2026-09-29 · 7bfd880d9 — The director jumps to any step of a boss's choreography
 
 Under the step readout in RUN: ◀ and ▶ for the step before and after, and a list of every step by number and pose name. A jump rebuilds the world and replays it headless with AUTO on both seats until the boss's cursor reaches the step, then pauses there, drawn. Each step reached is remembered with its tick, so a later jump replays straight to it; a restart, a wave change or an edit forgets them. A step out of reach says how far AUTO got. A tool, not a look.
