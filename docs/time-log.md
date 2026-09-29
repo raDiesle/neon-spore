@@ -28845,3 +28845,5 @@ already named.
 
 Bottleneck: friction — a hand that pressed every tick had never had to
 count the bolts it already had in the air.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

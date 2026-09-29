@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 0d0fc733f — THE INSTAR's shoot marks each ask for one colour
+
+Every SHOOT mark on THE INSTAR now names red or cyan, as the owner answered. The eyes, the eggs and the tail's blades ask for one of each, and the heart asks for cyan. A bolt of the other colour counts nothing, and player 2 is told with the same refusal a thumb from the wrong seat gets. That is THE NETTLE's rule, now `panelHeard`'s for both scenes. The mark reads SHOOT RED or SHOOT CYAN, and its crosshair is drawn in that colour.
+
 ## 2026-09-29 · 199296018 — The director's play button, veil and transport are one file
 
 The ⏸/▶ button, the after-run screen, the REPEAT WAVE? veil and the transport row all read and write `running` through the same two calls, so they now stand in `stage-play.ts`, and `stage.ts` is down from 240 lines to 223 — room for the next row in RUN. Nothing the director shows changes.
