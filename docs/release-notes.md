@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 52f87d8de — THE SEAM's receipts: the seal's click, the grit's spark on the shield, its blow
+
+A point shot shut throws shell grit off the crack and clicks down the plating, and grit taken on the shield goes off as a deflected hit does. A rock shot out bursts where it was drawn, and the split shudders the plating harder. A sealed point, one of the three that are its health, deals the ridge the whole blow: it flushes red and shakes. A point that dims, a rock shot out and the glow quenched deal the lighter blow.
+
 ## 2026-09-29 · 349b3df72 — Both wave lists open on the wave last played on this device
 
 TESTING → JUMP TO WAVE scrolls to the wave this device last opened, lights it and says LAST PLAYED under its name. The director does the same with its wave list: an address with no ?wave= opens the wave last opened here, and whenever the list comes into view — first load, a phone switching to WAVES — the open row is brought to the middle of the column and pulses once. A ?wave= in the address still wins.
