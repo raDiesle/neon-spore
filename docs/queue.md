@@ -1621,6 +1621,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## THE UNDERTOW's pin ring does not show in `bun run frames` while a lobe stands
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-undertows-pin-ring-does-not-show-in-bun-run)
 - **Files:** `packages/render/src/undertow-grip.ts`, `packages/render/src/undertow-grip-place.ts`, `tools/frames/`
 
 `bun run frames . --wave "THE UNDERTOW" --ticks 470 --seat p2` shows a lobe standing
