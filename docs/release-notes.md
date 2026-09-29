@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 020881a1e — Director on a phone: the wave list and the wave's settings are two views
+
+On a phone the director's WAVES list now has the whole screen to itself, and WAVE shows only the open wave's settings. The menu has a WAVES entry, a row's WAVE button opens the settings, and a phone opens on the list. A desk is unchanged. Not a look: the director is a tool.
+
 ## 2026-09-29 · 1fd1292c0 — Director header: drop the read-only note, build stamp small in the corner
 
 The shipped director no longer says "shows what was built, not what is on disk — read only" in its header, and the BUILT stamp is smaller; on a phone it sits in the header's top-right corner instead of taking a row, so the header is one line and the view below gets the space. A look the owner asked for by name.
