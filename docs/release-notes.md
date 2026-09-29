@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 08e2091a9 — THE STARE's eye as a turning globe, offered in VERSUS
+
+THE STARE's eye as a lit ball in the cowl, its opening, iris and lashes placed on the surface and carried round by the turn, is offered as stare:eye globe against the flat eye squashed to a sliver and sheared, judged on THE STARE · TURNING. The shipped eye is lifted into render/stare-eye-look.ts STARE_EYE so the pair can patch it; the game draws exactly what it did.
+
 ## 2026-09-29 · de94ffcc4 — THE SPOOL tells a story between its ribs: a snag, a whip and a fray
 
 After each of the first three ribs eases, the line now snags, whips or frays, each under THE SLOW and answered on the one brake: let it right off and grip again, hold it deep, hold it featherlight. A state run out is the spool's own blow at the hull and the same state again; none costs a rib back (sim/spool-story.ts, bosses §11.36, three departures argued there). The rehearsal turns `spoolStory` off, so the film still eases one rib and lets go.

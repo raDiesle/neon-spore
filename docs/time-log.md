@@ -29155,3 +29155,5 @@ rule by three to one, and two of their pages were already full.
 
 Bottleneck: looking — each `versus:shot` starts its own director, about half a
 minute a picture, and a turn needs four of them to be seen.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
