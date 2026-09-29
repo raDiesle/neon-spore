@@ -29415,3 +29415,5 @@ Bottleneck: landing — the check is most of a two-line change.
 
 Bottleneck: writing — the roll-out is thirty-odd boss files, and the cut
 between what one sitting could do and what the queue holds took the most thought.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

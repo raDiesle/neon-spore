@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 04e8dc7d2 — Every boss's marks show the gesture: a pull knob its way, a shot its aim, SHIELD and SUCK their button
+
+Every pull knob now carries THE INSTAR's arrow pointing the way the pull goes, on the seat whose handle it is: THE WARDEN's rope, THE LID's string, THE STARE's lid, THE CURTAIN's hem and THE MAZE's string. The maze string has two heads until it is pulled one way. A shot cue now draws THE INSTAR's crosshair on what the bolt must reach. A cue standing on its target is its own aim; THE SEAM's FIRE, at the hull, aims at the lit point or the falling rock. SHIELD and SUCK wear the panel's own button face inside their scan box, on every boss.
+
 ## 2026-09-29 · 02c80cda9 — THE MAZE's refusal names no part, since only the string is ever refused
 
 Since the shake either seat may hold the heart, so the only `mazeRefuse` the simulation sends is the navigator's hand on the string. The event drops its `part`, `mazeRefuse(world, player)` takes none, and the marks wash the string red without asking. Nothing drawn or heard changes.
