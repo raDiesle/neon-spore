@@ -29648,3 +29648,5 @@ Bottleneck: landing — the check is longer than the edit.
 
 Bottleneck: reading — the siren only knew field creatures, and finding where
 its drawing could be called from without the roster took the longest.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

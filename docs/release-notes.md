@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · e4346035e — THE GAUGE: the siren and the fuse over it, and gashes where the pips were
+
+The title and the pips over the alien are gone. The level's clock is the field's fuse, over the alien's head. The siren lights the navigator's chip while a wound is open, with AIM POSITION under it on her screen. Every mark landed tears an ember gash in the alien that stays for the round. Her cue says CALL / POSITION on the wound until the cannon is over it, then SHOOT. Look exemption: a look the owner asked for by name.
+
+## 2026-09-29 · e32b5e468 — THE GAUGE: LEVEL N and the count-in stand centred over the dial
+
+The words drawn over the dial set their own alignment. What the dial draws before them left it at "left", so LEVEL 2 started at the middle of the screen instead of standing on it. A fix to something wrong rather than unlovely.
+
 ## 2026-09-29 · 285260044 — THE PUSH's arrows stay, as the standard set's one exception
 
 The standard set wears no helper, with one exception: THE PUSH's two arrows beside a held rock. They appear only once a player's thumb is on the rock, so they answer a touch rather than invite one. The owner's answer is written in the catalogue of marks and controls, in his rules for new bosses and in the assists spec, and the queued question is closed. Nothing drawn changed.
