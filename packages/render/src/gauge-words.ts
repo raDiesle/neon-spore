@@ -7,7 +7,8 @@ import type { ViewState } from "./renderer.js";
  * THE GAUGE's big words over the dial: the count-in, the level that is coming,
  * and the verdict. Out of `gauge-round.ts` when the round gained its levels and
  * that file reached its limit; the three are one kind of thing, a line of text
- * that stands over the picture for a few beats and then goes.
+ * that stands over the picture for a few beats and then goes. Each sets its own
+ * alignment: what the dial draws before them leaves it wherever it last was.
  */
 
 /** The count-in, so the round does not begin on a beat nobody was watching. */
@@ -18,6 +19,7 @@ export function drawGaugeLead(
   round: GaugeState,
 ): void {
   const left = GAUGE_LEAD_BEATS - (view.world.beat - round.phaseBeat);
+  ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.hullRim;
   ctx.font = '600 34px "Courier New",monospace';
   ctx.fillText(String(Math.max(1, left)), l.width / 2, l.playHeight * 0.42);
@@ -37,6 +39,7 @@ export function drawGaugeLevel(
 ): void {
   if (round.phase !== "play" || !gaugeBetweenLevels(view.world, round)) return;
   const y = l.playHeight * 0.42;
+  ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.hullRim;
   ctx.font = '600 28px "Courier New",monospace';
   ctx.fillText(`LEVEL ${round.level + 1}`, l.width / 2, y);
@@ -62,6 +65,7 @@ export function drawGaugeVerdict(
 ): void {
   const cfg = view.world.cfg;
   const y = l.playHeight * 0.42;
+  ctx.textAlign = "center";
   ctx.fillStyle = "rgba(5,4,11,.78)";
   ctx.fillRect(0, y - 46, l.width, 96);
   ctx.fillStyle = round.passed ? PALETTE.good : PALETTE.ember;
