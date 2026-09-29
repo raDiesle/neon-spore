@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · c7e52dd45 — Before a compaction, the owner's words go to a checkpoint file verbatim
+
+A PreCompact hook, tools/hooks/before-compact.ts, copies the owner's first and latest three messages out of the transcript, the claimed queue entry and the diff against main into claude-checkpoint.md in the worktree's git dir, and after-compact.ts tells the session to read it first when it was written by the same session. About half of all landed items had a compaction fall inside them, and the summary paraphrases the one thing the tree does not hold.
+
 ## 2026-09-29 · e07528e4f — THE GAUGE: the shot flies to the wound and is judged where it lands
 
 A call no longer answers itself. The bolt flies for `gaugeShotTicks`, and it is judged when it reaches the rim, against the wound it was fired at. The band stands still while the bolt is in the air. A hit shoots the wound out: it caves in, and the rim stays bare for `gaugeRegrowBeats`. Then the next wound tears open somewhere else, from the beat it opened on. A call made while a bolt is out, or while the rim is bare, is refused rather than missed.
