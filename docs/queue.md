@@ -1472,24 +1472,6 @@ The trip's tests (launch, 45° steps, one at a time, the suck) took it past the
 ~250-line line. Move them into a `scout-trip.test.ts` beside it, with the
 helpers they share in a small `scout-harness.ts`.
 
-## THE PUSH's arrows are a helper on the standard set
-
-- **Found:** 2026-09-29, claude/controls-catalogue
-- **Files:** `packages/render/src/grip-arrows.ts`, `packages/render/src/grip.ts`, `docs/controls-catalogue.md`, `docs/spec/assists.md`
-- **Asks:** THE PUSH's two arrows beside a held rock — take them off, since the guide teaches the carry, or keep them because they also draw the pause after a carry?
-
-The owner, 29 September 2026, generic: *pulling enemies such as meteors to
-move or slow them, does not require a visual … once told in guide, players
-know it* (`docs/controls-catalogue.md`, *Two sets*). `drawCarryArrows` is
-exactly that visual: two white chevrons beside every held rock, saying it
-may be carried a lane. They are also the only picture of the
-`gripPushPauseBeats` wait after a carry (they leave on the carry and come
-back when the hand may carry again), so removing them removes that too. The
-options are to remove them and the pause's picture with them; to keep them
-as the one exception; or to keep only the pause, by drawing them just while
-a carry is refused. Taking them off changes a frame, so it is a look, and
-it is done only once the owner answers.
-
 ## Three files the seat swap took near the size line
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480

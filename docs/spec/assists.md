@@ -166,6 +166,10 @@ not offered at all (`render/grip-arrows.ts`). White, because amber is the hand
 and red and cyan are ammunition — an arrow here is an instruction to a player
 rather than a force on a body.
 
+**They are the standard set's one helper, and they stay** — the owner, 29
+September 2026, asked whether the guide's teaching of the carry made them
+redundant: *keep visual as it is for “the push” of enemies one tile to left or right … it only appears when one of the players clicks/touches it, so this makes it exception* (`docs/controls-catalogue.md`, *Two sets*).
+
 **What it buys is a lane, never a beat.** A carried rock is still a falling
 rock: the carry composes with the fall into one diagonal, and how *fast* a body
 comes down is 6.4's job and nothing to do with this one. Before it, a rock in

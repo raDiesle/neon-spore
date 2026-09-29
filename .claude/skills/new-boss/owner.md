@@ -250,7 +250,8 @@ item naming the rule, never a fix made in passing.
   across many waves and enemies — so once told in guide, players know it.* A
   helper — arrow, crosshair, face, word — is for a gesture that is new, or
   crucial to defeating that one enemy or boss. Which is which, and every
-  piece to choose from: `docs/controls-catalogue.md`.
+  piece to choose from: `docs/controls-catalogue.md`. **The one exception is
+  THE PUSH's arrows**, the same day: *keep visual as it is for “the push” of enemies one tile to left or right … it only appears when one of the players clicks/touches it, so this makes it exception*.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

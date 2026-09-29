@@ -29620,3 +29620,15 @@ Bottleneck: writing — the simulation, whose latency slope comes from
 item-level figures that bigger items confound.
 
 *Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE PUSH's arrows stay, as the standard set's one exception
+
+- reading: 5 min. The queued question and the three places the rule is
+  written.
+- writing: 5 min. The owner's answer into the catalogue, his rules and the
+  assists spec; the queue item closed.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the check is longer than the edit.
