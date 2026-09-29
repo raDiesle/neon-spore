@@ -28894,3 +28894,16 @@ Bottleneck: reading — the strike's picture is three files that only name
 one another, and the one that decides where it leaves had no way to hear the row.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — the solid sheet seen whole, after thin tubes were sliced coarser
+
+- reading: 5 min. The landing's commit and `densify`'s one new constant.
+- writing: 0 min.
+- looking: 10 min. The sheet whole; the tails and fins at three times,
+  beside the same sheet sliced finely everywhere — the same to the eye; one
+  older band on the body found and queued.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — "the same" needed a second sheet to be said, and a
+constant set to zero for one render was the cheapest way to have it.
