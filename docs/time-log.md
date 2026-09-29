@@ -28746,3 +28746,5 @@ the whole suite, was only disproved by opening `fast-scope.ts`.
 
 Bottleneck: none; the parse existed in scratch before the claim, so the lane was
 filing it, not writing it.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

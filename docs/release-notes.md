@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 24ea837a8 — `bun run lane-speed` reads the time log in all four of its row formats
+
+`docs/lane-speed.md` is a reading of `docs/time-log.md`, and the reading of 29 September came from a scratch parse whose first version read a third of the ledger. `tools/ledger/` parses every dated entry — table rows, `- reading: N min`, `- reading — N min` and bold row names, the bottleneck line and the stamp `land` writes — and prints the distribution, the rows' shares, the tail, friction by cause and the stamps by where their clock started, for the whole ledger, a `--from`/`--to` period or a `--split <day>`.
+
 ## 2026-09-29 · 4088ba853 — Reusing `check:fast`'s green result in `land` waits on the owner: it needs the check after the commit
 
 The queued finding said `check:fast` sometimes runs the whole suite and `land` repeats it; `fast-scope.ts` never runs everything, so there is no repeat. What is left — `land` leaving out the test files `check:fast` ran green on the same tree — is only sound if `check:fast` runs after the commit, because some tests read the git index rather than the files. The entry now names that option and dropping it, and asks which.
