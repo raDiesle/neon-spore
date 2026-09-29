@@ -451,11 +451,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE FLUE's tap: the flue's row while a vent is lit, the column under the
   // thumb sent as its id, from either seat (`render/flue-grip.ts`, §11.57).
   flueTap: "field",
-  // THE GOVERNOR's pads and tap: the simulation lane landed first and
-  // nothing on the phone sends them yet (§11.58).
-  governorChordLeft: "unbuilt",
-  governorChordRight: "unbuilt",
-  governorTap: "unbuilt",
+  // THE GOVERNOR's pads on the works round the dial, a finger of this seat's
+  // chord each, and the tapper's tap on the dial's face (`render/governor-grip.ts`, §11.58).
+  governorChordLeft: "field",
+  governorChordRight: "field",
+  governorTap: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

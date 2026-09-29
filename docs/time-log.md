@@ -29175,3 +29175,17 @@ marks to the touch convention before its touch exists, which pulled the
 verdicts and a roster cut into the body's half.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GOVERNOR's hands: the tap on the dial, the chord on the works
+
+- reading: 10 min. THE FLUE's and THE TRIVET's hands lanes as the pattern:
+  the grip, the cue page, AUTO's hand, the director's rows and poses.
+- writing: 20 min. The grip, `governorStanding` shared with the drawer, the
+  cue page, AUTO's hand, the director's rows and poses, three tests, the spec.
+- looking: 0 min. Nothing new is drawn; the hands are proved by tests.
+- friction: 10 min. The body lane's queue edit had deleted three entries,
+  restored and landed on their own before this lane went on.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a replace anchored on the wrong queue entry cost a
+restore lane in the middle of this one.

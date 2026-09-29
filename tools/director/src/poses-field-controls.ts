@@ -28,6 +28,7 @@ import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
 import { FLUE_GRIPS } from "./poses-field-controls-flue.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
+import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
 import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
 import { HALTER_GRIPS } from "./poses-field-controls-halter.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
@@ -210,6 +211,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...DAVIT_GRIPS,
     ...BURGEE_GRIPS,
     ...FLUE_GRIPS,
+    ...GOVERNOR_GRIPS,
     ...SLING_GRIPS,
     ...VALVE_GRIPS,
     DARK_LIGHT,

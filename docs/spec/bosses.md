@@ -11429,9 +11429,8 @@ sways and relights; the sixth tap lights the hub; a shot wants its colour
 and the middle column; a fire step run out is the wave; a retap landed keeps
 the hub lit, and one run out dims it until it is made; and the whole script
 ends spent and out, the same twice from one seed.
-`render/test/governor-frame.test.ts` proves the body as it is below. **Nothing
-on the phone sends a pad or a tap yet, and AUTO has no hand** — the touch,
-the cue words and the hand are the look's second half. Whether a pair notices
+`render/test/governor-frame.test.ts` proves the body as it is below, and
+`render/test/governor-grip.test.ts` its hands. Whether a pair notices
 that the chord changes the needle's pace rather than whether a tap counts —
 §43's payoff — is the owner's eye.
 
@@ -11464,7 +11463,25 @@ the tapper, the yoke for the braking seat, each wearing the partner's ring
 and clock on the other screen, the hub on both while a shot is owed; a tap
 landed or a chord made whole greens its mark, a skid, a slip or a window run
 out reddens it. A tap's flash, a skid's scrape and its own blow at the hull
-are the second half.
+are still to come.
+
+**The hands** (`render/src/governor-grip.ts`, 29 September 2026). **The tap
+is anywhere on the dial's face**, a quarter tile past its rim, and only the
+lit step's tapper's: the simulation judges the needle, never the thumb, so
+the whole face answers and an early tap is a skid rather than nothing. It is
+an edge, THE VALVE's pin. **The chord is laid on the works, not a jaw**: the
+jaws are a sixth of a tile wide and a finger apart, so the zone is THE
+TRIVET's — the field's width from over the spindle's head to a tile under
+the dial, outside its face — each finger a pad by the order it landed
+(`chord-pads.ts`), the target naming this phone's seat. **While a tap is
+lit only the braking seat's works answer**, so the desk's one mouse falls
+through to the seat that can use it; otherwise either seat's do. The words
+(`boss-cue-read-zq.ts`): `HOLD` on the drum to the braking seat while its
+chord is not whole, `TAP` on the lit mark to the tapper for the whole step,
+and `FIRE` under the middle column while the hub is lit. AUTO's hand
+(`hands/src/boss-hands-governor.ts`) holds both pads for the braking seat
+and never lifts, taps when the needle is on the mark, and shoots the step's
+colour; it plays the script through (`tools/director/test/autopilot-governor.test.ts`).
 
 ## Retired
 

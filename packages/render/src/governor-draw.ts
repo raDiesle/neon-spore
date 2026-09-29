@@ -13,20 +13,18 @@ import { strokeGlow } from "./glow.js";
 import { drawGovernorHub } from "./governor-hub.js";
 import { drawGovernorMark, drawGovernorStuds, drawGovernorYokeAsk } from "./governor-marks.js";
 import {
-  governorArrived,
   governorHeat,
   governorJaws,
   governorLeft,
   governorOrbit,
   governorSpent,
+  governorStanding,
   governorSwing,
-  governorTilt,
 } from "./governor-pose.js";
 import {
   type Dial,
   dialAt,
   dialRing,
-  governorDial,
   NEEDLE_REACH,
   rimDepth,
   TRACK_IN,
@@ -44,8 +42,6 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { showsGovernorHand } from "./view-role-clocks-c.js";
 
-/** How far above its place the governor starts as it is lowered in, in tiles. */
-const ARRIVE = 3;
 /** The graduations round the track: a long one every other. */
 const GRADUATIONS = 16;
 /** How far the needle's tip lags its root at the hottest, in thousandths of a lap. */
@@ -84,12 +80,11 @@ export function drawGovernor(
   fx: GovernorVerdicts,
 ): void {
   const cfg = world.cfg;
-  const d = governorDial(l, cfg, governorTilt(s, beat, beatPhase));
+  const d = governorStanding(l, cfg, s, beat, beatPhase);
   ctx.save();
   // `strokeGlow` leaves the alpha at 1, so the fade is set again after each part that glows.
   const fade = 1 - 0.5 * governorSpent(s, cfg, beat, beatPhase);
   ctx.globalAlpha = fade;
-  ctx.translate(0, -(1 - governorArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile);
 
   drawWheel(ctx, l, d);
   drawGovernorHalos(ctx, l, d, s, time);

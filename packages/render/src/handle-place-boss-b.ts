@@ -4,6 +4,7 @@ import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./ca
 import { davitLooseCircle } from "./davit-grip.js";
 import { flueTapCircle } from "./flue-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
+import { governorChordsFor, governorTapCircle, governorYokeCircle } from "./governor-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
 import type { Circle, Layout } from "./layout.js";
@@ -105,6 +106,20 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "flue" ? world.boss : null;
     if (b === null) return null;
     return flueTapCircle(l, cfg, b);
+  }
+  if (
+    target === "governorChordLeft" ||
+    target === "governorChordRight" ||
+    target === "governorTap"
+  ) {
+    // THE GOVERNOR's drum for a chord, while this seat may brake, and the lit
+    // mark for the tap while one is asked (`governor-grip.ts`).
+    const b = world.boss?.kind === "governor" ? world.boss : null;
+    if (b === null) return null;
+    if (target === "governorTap") return governorTapCircle(l, cfg, b, world.beat, beatPhase);
+    const seat = target === "governorChordLeft" ? 1 : 2;
+    if (!governorChordsFor(b, seat)) return null;
+    return governorYokeCircle(l, cfg, b, world.beat, beatPhase);
   }
   if (target === "valveWheel" || target === "valvePin") {
     // THE VALVE's wheel while it answers the pilot, and its pin — the live

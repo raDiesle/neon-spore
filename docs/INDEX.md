@@ -1104,6 +1104,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zn.ts` | **What THE BURGEE is asking for**: page forty of the readings |
 | `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings |
 | `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
+| `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1983,6 +1984,7 @@ by hand never moves.
 | `packages/render/src/governor-shape.ts` | **THE GOVERNOR's geometry**: the dial as a disc seen from above, and the spindle, flyweights, drum and yoke over it |
 | `packages/render/src/governor-works.ts` | **THE GOVERNOR's works**: the spindle, the brake drum and the yoke's jaws, the collar and the two flyweights |
 | `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
+| `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hands**: the brake's chord on the works and the tap on the dial (`sim/governor-hand.ts` |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-depth.ts` | **THE GIMBAL in depth**: a ring is not a line drawn round the drum but a hoop of metal with a body |
@@ -2439,6 +2441,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-gall.ts` | **THE GALL played right**, for the autopilot |
 | `packages/hands/src/boss-hands-gimbal.ts` | **THE GIMBAL played right**, for the STATES sheet: both rings carried onto their own marks and held there |
 | `packages/hands/src/boss-hands-grindstone.ts` | **THE GRINDSTONE played right**, for the autopilot: the lit flat rubbed clean by its own seat |
+| `packages/hands/src/boss-hands-governor.ts` | **THE GOVERNOR played right**, for the autopilot |
 | `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
 | `packages/hands/src/boss-hands-mantle.ts` | **THE MANTLE played right**, for the STATES sheet and the autopilot: both handles pulled together |
 | `packages/hands/src/boss-hands-keel.ts` | **THE KEEL played right**, for the STATES sheet and the autopilot |
@@ -2744,6 +2747,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-grindstone.ts` | THE GRINDSTONE's four hands: a flat part ground, once a seat, and the caliper clamped by both seats |
 | `tools/director/src/poses-field-controls-gall.ts` | THE GALL's pinch: the first close lit with the gall on the seam's first point |
+| `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's two hands, **each photographed from the seat that presses it** |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
@@ -3222,6 +3226,7 @@ by hand never moves.
 | `tools/director/src/field-controls-burgee.ts` | THE BURGEE's two hands, as rows of the ON THE FIELD tab: the freeze ring and the draw's track |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-governor.ts` | THE GOVERNOR's brake and tap, as rows of the ON THE FIELD tab: a seat's chord on the works around the dial |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gall.ts` | THE GALL's pinch, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |

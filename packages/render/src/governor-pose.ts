@@ -6,6 +6,8 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
+import { type Dial, governorDial } from "./governor-shape.js";
+import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
 
 /**
@@ -44,6 +46,26 @@ export function governorArrived(
 ): number {
   if (s.phase !== "slack" || s.cursor > 0) return 1;
   return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.governorSlackBeats));
+}
+
+/** How far above its place the governor starts as it is lowered in, in tiles. */
+const ARRIVE = 3;
+
+/**
+ * The dial where it stands this frame: tipped to this frame's eye and
+ * lowered by the arrival, so what a thumb is answered on and what a word
+ * stands on are the dial `drawGovernor` draws.
+ */
+export function governorStanding(
+  l: Layout,
+  cfg: SimConfig,
+  s: GovernorState,
+  beat: number,
+  beatPhase: number,
+): Dial {
+  const d = governorDial(l, cfg, governorTilt(s, beat, beatPhase));
+  const lowered = (1 - governorArrived(s, cfg, beat, beatPhase)) * ARRIVE * l.tile;
+  return { ...d, cy: d.cy - lowered };
 }
 
 /** How hot the needle runs, 0 at 1× and 1 at `governorHotMilli`. */

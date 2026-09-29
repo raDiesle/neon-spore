@@ -14,6 +14,7 @@ import { GALL_CONTROLS } from "./field-controls-gall.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
+import { GOVERNOR_CONTROLS } from "./field-controls-governor.js";
 import { GRINDSTONE_CONTROLS } from "./field-controls-grindstone.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { HALTER_CONTROLS } from "./field-controls-halter.js";
@@ -192,6 +193,9 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE FLUE's ember, the only control here **pressed while the partner sends
   // nothing at all** — the column carried on the press (`field-controls-flue.ts`).
   ...FLUE_CONTROLS,
+  // THE GOVERNOR's brake and needle, the only pair here where **the chord
+  // never gates the tap**, only how fast the needle runs (`field-controls-governor.ts`).
+  ...GOVERNOR_CONTROLS,
   // THE SLING's two cords, the only pair here **taken anywhere on the seat's
   // own screen** rather than on a part drawn (`field-controls-sling.ts`).
   ...SLING_CONTROLS,

@@ -10,6 +10,7 @@ import { gallCues } from "./boss-cue-read-zm.js";
 import { burgeeCues } from "./boss-cue-read-zn.js";
 import { flueCues } from "./boss-cue-read-zo.js";
 import { valveCues } from "./boss-cue-read-zp.js";
+import { governorCues } from "./boss-cue-read-zq.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -66,6 +67,9 @@ export function choreoCues(
     // THE VALVE's, a turn on the wheel to the pilot, a freeze on the socket to the navigator, a pull on the live pin to either, and one under the spark (`boss-cue-read-zp.ts`).
     case "valve":
       return valveCues(l, world, boss, beatPhase);
+    // THE GOVERNOR's, a hold on the drum to the braking seat until its chord is whole, a tap on the lit mark to the tapper, and one under the lit hub (`boss-cue-read-zq.ts`).
+    case "governor":
+      return governorCues(l, world, boss, beatPhase);
     default:
       return [];
   }

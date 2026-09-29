@@ -521,26 +521,14 @@ unverified at tempo until the owner has looked.
 ## §43 THE GOVERNOR — the look
 
 - **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-29, claude/queue-the-stares-turn-is-a-squash-and-shear-not-a-plac (claim: claude/queue-43-the-governor-the-look)
 - **Needs:** §43 THE GOVERNOR — the simulation lane
-- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `packages/render/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
+- **Files:** `packages/render/src/`, `packages/render/src/effects.ts`, `docs/spec/bosses.md`
 
-**The body landed 29 September 2026** (`render/src/governor-*.ts`,
-`docs/spec/bosses.md` §11.58 *The look*): THE VANE and INTERFERENCE combined,
-the flywheel, the needle, the Watt governor's flyweights swung by
-`speedMilli`, the yoke's jaws, the studs and the hub, and the three marks'
-halos and verdicts (`governor-verdicts.ts`). What is left is its hands, and
-the receipts:
+**The body landed 29 September 2026, and its hands the same day**
+(`render/src/governor-*.ts`, `governor-grip.ts`, `boss-cue-read-zq.ts`,
+`hands/src/boss-hands-governor.ts`, `docs/spec/bosses.md` §11.58 *The look*
+and *The hands*). What is left is the receipts:
 
-- **The touch** — the braking seat's two pads as `governorChordLeft` and
-  `governorChordRight` with the pad as `id` (THE TRIVET's
-  `render/trivet-grip.ts` and `chord-pads.ts`), and the tap as
-  `governorTap`, an edge, from the lit step's tapper — with the three rows
-  in `tools/director/test/on-field-controls.test.ts` moved off `unbuilt`.
-- **The cue** — a word for the braking seat and one for the tapper, and
-  `FIRE` on the lit hub (`render/boss-cue.ts`).
-- **AUTO's hand**, which takes `governor` out of `NO_HAND` in
-  `tools/director/test/autopilot.test.ts`.
 - **The receipts and the blow** — a tap's flash on the rim, a skid's scrape,
   the hub's flash on a hit, and the governor's own blow at the hull when a
   fire step runs out (a `governor-fx.ts` in `Effects`, cleared in `reset()`),
