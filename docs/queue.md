@@ -759,6 +759,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §33 THE GRINDSTONE — row 11's fading grind, the look
 
 - **Found:** 2026-09-29, claude/queue-33-the-grindstone-a-revised-simulation-lane-a-gr
+- **Taken:** 2026-09-29, claude/queue-33-grindstone-fade-look (claim: claude/queue-33-the-grindstone-row-11s-fading-grind-the-look)
 - **Files:** `packages/render/src/grindstone-pose.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/test/grindstone-frame.test.ts`, `tools/director/src/`
 
 The fade is in the simulation (`sim/grindstone-fade.ts`): after the last
