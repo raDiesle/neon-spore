@@ -756,23 +756,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §32 THE SLING — row 11's cooling tick, the look
-
-- **Found:** 2026-09-29, claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling
-- **Taken:** 2026-09-29, claude/queue-32-sling-cool-look (claim: claude/queue-32-the-sling-row-11s-cooling-tick-the-look)
-- **Files:** `packages/render/src/sling-pose.ts`, `packages/render/src/sling-draw.ts`, `packages/render/test/sling-frame.test.ts`, `tools/director/src/`
-
-The cool is in the simulation (`sim/sling-cool.ts`): after the last shot
-the fork is in phase `cool` for `slingCoolBeats`, a beat more per `snaps`,
-and `slingCool` / `slingSnap` are on the silent lists, read off the state.
-Nothing draws it yet — the fork stands as it did after the third hit. Draw
-§32's sixth pose: the spent yoke ticking as it cools, fading from white to
-the fork's own scoured grey across the phase, no cannon colour, the catch
-straining faintly untouched; a snap jolting the catch on that side. A look
-with no shipped alternative. Add the pose to the STATES sheet (sling OWED
-in `tools/director/test/boss-states.test.ts` loses `cool`) and draw it
-again in `sling-frame.test.ts`.
-
 ## §33 THE GRINDSTONE — row 11's fading grind, the look
 
 - **Found:** 2026-09-29, claude/queue-33-the-grindstone-a-revised-simulation-lane-a-gr

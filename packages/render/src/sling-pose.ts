@@ -94,3 +94,41 @@ export function slingCupGlow(world: World, s: SlingState, beat: number, beatPhas
   if (step?.ask === "fire") return 0.55 + 0.45 * slingWindowLeft(world, s, beat, beatPhase);
   return 1;
 }
+
+/**
+ * How far the spent yoke has cooled (§32 row 11): null outside the cool, 0
+ * white-hot as it opens, 1 back to the fork's own grey as the phase ends. A
+ * snap is a beat more on the phase, so the heat is seen coming back up.
+ */
+export function slingCooled(
+  s: SlingState,
+  cfg: Pick<SimConfig, "slingCoolBeats">,
+  beat: number,
+  beatPhase: number,
+): number | null {
+  if (s.phase !== "cool") return null;
+  const beats = Math.max(1, cfg.slingCoolBeats + s.snaps);
+  return Math.min(1, phaseInto(s, beat, beatPhase) / beats);
+}
+
+/** How far a catch is jolted back off home while its seat's finger is down, at the jolt's peak. */
+const JOLT = 0.35;
+/** How far an untouched catch strains off home, at the cool's opening. */
+const STRAIN = 0.05;
+
+/**
+ * Cord `side`'s tension while the yoke cools: home, straining faintly
+ * against its catch on every beat's tick as the heat dies, and jolted back
+ * off it while that seat's finger is down — the snap, beat by beat, which is
+ * what the simulation charges it (`sim/sling-cool.ts`).
+ */
+export function slingCoolTension(
+  s: SlingState,
+  side: 0 | 1,
+  cooled: number,
+  beatPhase: number,
+): number {
+  const tick = Math.max(0, 1 - beatPhase * 3);
+  if (s.holding[side]) return 1 - JOLT * (0.4 + 0.6 * tick);
+  return 1 - STRAIN * (1 - cooled) * (0.5 + 0.5 * Math.sin(beatPhase * Math.PI * 6));
+}

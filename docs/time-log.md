@@ -29014,3 +29014,16 @@ Bottleneck: friction — the silent-event lists are cut by boss, so every
 boss that grows two events pushes a page over 250 lines.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SLING's spent yoke ticks white-hot and cools back to steel
+
+- reading: 5 min. THE SLING's pose, marks and frame test, beside THE PLUMB's
+  bleed look that was the template.
+- writing: 5 min. `slingCooled` and `slingCoolTension`, `drawSlingHeat`, the
+  palette's `slingHeat`, the frame test, the COOL pose card and §11.49.
+- looking: 5 min. The COOL card rendered to PNG and read.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — THE PLUMB's bleed had already cut every
+step of this lane.

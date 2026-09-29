@@ -201,10 +201,11 @@ export const CREATURE_HUES = {
    */
   rimeFrost: "#CDD6E0",
   rimeFrostDeep: "#6D7885",
-  /** THE SLING's fork: scoured steel, its shadow, and the cord drawn off each tine. */
+  /** THE SLING's fork: scoured steel, its shadow, the cord off each tine, row 11's white heat. */
   slingSteel: "#8B95A3",
   slingSteelDark: "#333A44",
   slingCord: "#C9BFA8",
+  slingHeat: "#F7F5EF",
   /**
    * THE TRIVET's stand (§30, *Colour*): a dull gunmetal and its shadow, the
    * rock's cold blue-grey taken darker so the stand reads as worked metal

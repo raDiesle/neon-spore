@@ -31,8 +31,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * slack, a cord glowing while its own seat is asked to draw it and further
  * drawn as the pull holds, the cup dark until a fire step lights it in the
  * step's colour and brighter once the yoke answers, the window closing as
- * the beats run out, and the fork snapping free once it is spent — on all
- * three screens.
+ * the beats run out, the spent yoke ticking as it cools, white to steel,
+ * and the fork snapping free once it is spent — on all three screens.
  *
  * The states are **set** rather than played to, `vise-frame.test.ts`'s
  * arrangement: `sim/test/sling.test.ts` proves the script and the draws.
@@ -115,6 +115,11 @@ function count(text: string, colour: string): number {
 function tinted(text: string, hex: string): number {
   const v = Number.parseInt(hex.slice(1), 16);
   return count(text, hex) + count(text, `rgba(${(v >> 16) & 255},${(v >> 8) & 255},${v & 255},`);
+}
+
+/** Fills and strokes in a hot white — `slingHeat` and the first of its mix down to steel. */
+function hotWhite(text: string): number {
+  return text.match(/rgba\(2[3-5]\d,2[3-5]\d,2[2-5]\d,/g)?.length ?? 0;
 }
 
 describe("THE SLING's fork", () => {
@@ -215,6 +220,32 @@ describe("THE SLING's fork", () => {
       s.phaseBeat = w.beat - 3;
     });
     expect(late.text).not.toBe(early.text);
+  });
+
+  it.each(ROLES)("cools the spent yoke from white to steel, ticking, on %s", (role) => {
+    const cooling = (into: number, holding: [boolean, boolean] = [false, false]) =>
+      frame(role, (w) => {
+        const s = posed(w, "cool");
+        s.arms = [2, 2];
+        s.hits = 3;
+        s.yokeLit = true;
+        s.phaseBeat = w.beat - into;
+        s.holding = holding;
+      });
+    const spent = frame(role, (w) => {
+      const s = posed(w, "rest");
+      s.arms = [2, 2];
+      s.hits = 3;
+    });
+    const opening = cooling(0);
+    const late = cooling(2);
+    expect(hotWhite(opening.text)).toBeGreaterThan(hotWhite(spent.text));
+    expect(hotWhite(late.text)).toBeLessThan(hotWhite(opening.text));
+    for (const cannon of [PALETTE.red, PALETTE.cyan, PALETTE.hullRim]) {
+      expect(tinted(opening.text, cannon)).toBe(tinted(spent.text, cannon));
+    }
+    // A finger down on one draw jolts that catch back off home.
+    expect(cooling(2, [true, false]).text).not.toBe(late.text);
   });
 
   it.each(ROLES)("goes translucent and lifts away once the fork is spent, on %s", (role) => {

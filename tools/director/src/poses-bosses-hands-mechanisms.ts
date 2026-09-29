@@ -1,13 +1,13 @@
-import { plumbHand } from "@neon-spore/hands";
+import { plumbHand, slingHand } from "@neon-spore/hands";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
  * **THE DAVIT's, THE PLUMB's and THE SLING's stills**: each machine arrived
  * and standing, no step lit yet. Their other states are the look lanes' and
- * stay on `OWED` (`test/boss-states.test.ts`) — but for THE PLUMB's bleed,
- * row 11's look, played to by its own hand: every step answered, both
- * thumbs up after the last shot.
+ * stay on `OWED` (`test/boss-states.test.ts`) — but for THE PLUMB's bleed
+ * and THE SLING's cool, each row 11's look, played to by its own hand: every
+ * step answered, both thumbs up after the last shot.
  */
 export const MECHANISM_POSES: Pose[] = [
   bossPose(
@@ -46,6 +46,17 @@ export const MECHANISM_POSES: Pose[] = [
     {
       hold: Math.round(TPB * 1.9),
       lookAt: "the two tines — whether they spring or are one casting",
+    },
+  ),
+  bossPose(
+    "sling",
+    "cool",
+    "The yoke is spent; the cup ticks as it cools, white to steel. P1 and P2 leave both draws alone.",
+    {
+      hand: slingHand,
+      hold: Math.round(TPB * 1.4),
+      budgetBeats: 160,
+      lookAt: "the cup cooling — whether it reads as heat dying, or as a lamp dimming",
     },
   ),
 ];

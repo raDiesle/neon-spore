@@ -9848,12 +9848,16 @@ the thumb's own hit test. The sounds are bound
 (`audio/src/bind-sling.ts`), thirteen of the fourteen events, heard where
 they happen, the loose pitched up per draw and the hit per hit: the cool is
 silent by design, the one quiet beat on the fork, and the draw that breaks
-it is the slack's twang pitched up. **Row 11's cool is in the simulation
-only** (29 September 2026): the fork stands as it did after the last shot
-until its picture, the sixth pose, lands; the autopilot hand sends nothing
-through it (`tools/director/test/autopilot-sling.test.ts`). **Not yet built**: the director's pose cards
-and its autopilot hand (`tools/director/test/autopilot.test.ts`'s
-`NO_HAND`), queued separately.
+it is the slack's twang pitched up. **Row 11's cool is drawn** (29
+September 2026, `render/sling-marks.ts`'s `drawSlingHeat`): the cup goes
+white-hot as the last shot lands and cools back to the fork's own scoured
+grey across the phase, a halo dying with it and a ring ticked off it on
+every beat, no cannon colour; both cords strain faintly against their
+catches, a finger down jolts its own side's catch back off home beat by
+beat, and a snap's extra beat is seen as the heat coming back up. The
+autopilot hand sends nothing through it
+(`tools/director/test/autopilot-sling.test.ts`), and the STATES sheet has
+THE SLING · COOL, played to by AUTO.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/sling.test.ts`): the fork comes in still with both arms slack,

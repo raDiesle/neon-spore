@@ -4,9 +4,11 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawSlingCord, drawSlingCup } from "./sling-marks.js";
+import { drawSlingCord, drawSlingCup, drawSlingHeat } from "./sling-marks.js";
 import {
   slingArrived,
+  slingCooled,
+  slingCoolTension,
   slingCupGlow,
   slingGone,
   slingTension,
@@ -43,11 +45,21 @@ export function drawSling(
   ctx.translate(home.x, home.y);
 
   const step = slingLitStep(s);
+  const cooled = slingCooled(s, cfg, beat, beatPhase);
   for (const side of [0, 1] as const) {
     drawTine(ctx, l, side, arrived, time);
-    const tension = slingTension(world, s, side, beat, beatPhase);
+    const tension =
+      cooled === null
+        ? slingTension(world, s, side, beat, beatPhase)
+        : slingCoolTension(s, side, cooled, beatPhase);
     const asking = step !== null && step.ask !== "fire" && slingAsks(s, side);
     drawSlingCord(ctx, l, side, tension, asking, beatPhase);
+  }
+
+  if (cooled !== null) {
+    drawSlingHeat(ctx, l, cooled, beatPhase);
+    ctx.restore();
+    return;
   }
 
   // The cup rings only while a shot would land: the fire step, and the yoke
