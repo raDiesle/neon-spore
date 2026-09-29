@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 18330f924 — THE PLUMB's spent core bleeds off while both stones are left alone
+
+After the last shot, the spent core's light now runs down the chains for three beats under THE SLOW, and the fight's final beat asks the pair to let go instead of holding on. A pull on either stone draws the light back up and costs the bleed a beat, at most two, with nothing lost either way. This is §31 row 11, in the simulation only. The bob looks as it did after the third hit until the queued look lane draws the sixth pose. The bleed is silent by design; the pull that breaks it is heard as the drift's jolt, pitched up.
+
 ## 2026-09-29 · 1791448f5 — THE PLUMB's lean becomes two pulls
 
 Each seat now drags its own stone. Every level step hangs the bob skewed further than one pull can bring back, so it only comes true while the two pulls together cancel the skew. The stones swing the way they are pulled and grow or shrink with it, and both glasses show the shared off-true, so each seat sees the other's pull. No wave needs a tilt sensor for THE PLUMB any more; the phone's lean is left to THE DAVIT alone. Look exemption: a look the owner asked for by name, 27 September 2026.

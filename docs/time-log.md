@@ -28965,3 +28965,5 @@ and only the test asking that no seat can level it alone caught it.
 
 Bottleneck: friction — the silent-by-design bleed had no way through a
 binding chain typed to always return a sound.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
