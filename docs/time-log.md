@@ -29588,3 +29588,19 @@ and only the doc-drift and briefing-count tests found it.
 Bottleneck: the look at phone size — the first pacman was fourteen pixels across and its mouth was invisible until it was drawn a third larger than it touches.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — One cue frame and one `markAt` for every cue reading
+
+- reading: 5 min. The thirty-nine readings' `HALF_W`/`HALF_H` and their
+  seventeen `markAt`s, sorted into the two sizes and the three variants.
+- writing: 10 min. `boss-cue-frame.ts`, one script across the readings and
+  THE PLUMB's marks, the copies-table row, the catalogue's row.
+- looking: 0 min. No number of any frame changed.
+- friction: 5 min. The row's first pattern would have caught THE HASP's and
+  THE LEDGER's own `tile * HALF_W`; it holds the two sizes' values instead.
+- landing: 15 min. `check:fast`, the commit, and four `land`s: main moved
+  under each check, the third time through THE STARE's `boss-cue-read-d.ts`,
+  whose conflict was taken from main and the frame edit made again.
+
+Bottleneck: landing — a trunk moving faster than a full check, and one
+of its moves rewriting a file this lane had edited.

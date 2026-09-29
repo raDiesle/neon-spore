@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import type { Layout } from "./layout.js";
@@ -43,9 +44,6 @@ import type { Layout } from "./layout.js";
  * screens get it — the one moment the pair is being asked for the same thing.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 function markAt(
   seat: 1 | 2 | null,
   word: string,
@@ -55,7 +53,7 @@ function markAt(
   seed: number,
   kind: BossCue["kind"] = "TURN",
 ): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+  return { seat, kind, word, x, y, ...cueFrame(l, CUE_FRAME_WIDE), seed };
 }
 
 export function gimbalCues(l: Layout, world: World, s: GimbalState): readonly BossCue[] {

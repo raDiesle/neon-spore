@@ -1439,19 +1439,6 @@ ends as rub zones. Confirm it with a test that presses where the cue
 stands. If the press is refused, move the cue onto the grab zone, or widen the
 grab to the horn, whichever the boss's spec says is the control.
 
-## `markAt` is written again in nine cue readings
-
-- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
-- **Taken:** 2026-09-29, claude/cue-frame (claim: claude/queue-markat-is-written-again-in-nine-cue-readings)
-- **Files:** `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/boss-cue-read-n.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-w.ts`, `packages/render/src/boss-cue-read-x.ts`, `packages/render/src/boss-cue-read-y.ts`, `packages/render/src/boss-cue-shape.ts`
-
-Each file has its own private `markAt(seat, kind, word, x, y, l, seed)`
-returning the same `BossCue` with the scan frame's `HALF_W`/`HALF_H`. THE
-REPRISE's takes a `wide`, THE THROAT's adds a `why`, and THE GIMBAL's orders
-its arguments differently. Put one in `boss-cue-shape.ts`, with optional `wide` and
-`extra`, call it from all nine, and add a row to the purity test's
-called-not-re-derived table.
-
 ## THE SCOUT's loads are unreachable
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480

@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { gaugeBandMid, gaugeNeedleTip } from "./gauge.js";
 import { gaugeDial } from "./gauge-round.js";
 import type { Layout } from "./layout.js";
@@ -81,24 +82,8 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   return out;
 }
 
-/** THE CHOIR's frame, in tiles: the one shipped frame of this shape. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 /** The same builder the pages before this one carry, for the same
  * reason: a frame's size is a fact about the mark and not about the boss. */
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
-
 /** Every way a call can be refused, asked as `stepGauge` asks it. */
 function callReady(world: World, g: GaugeState): boolean {
   if (world.beat - g.calledBeat < world.cfg.gaugeCallRestBeats) return false;

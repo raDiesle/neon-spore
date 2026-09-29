@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { mazeDoorMouth } from "./maze-door.js";
 import { mazeStringHandle } from "./maze-string.js";
@@ -30,24 +31,8 @@ import { mirrorHullY } from "./mirror.js";
  * the round is waiting for.
  */
 
-/** THE CHOIR's frame, in tiles: the one shipped frame of this shape. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 /** The same builder the pages before this one carry, for the same
  * reason: a frame's size is a fact about the mark and not about the boss. */
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
-
 /**
  * THE MIRROR. It performs a sequence of the pair's own moves and wants the
  * whole of it back, in order — on the panel, then on its own ship, then

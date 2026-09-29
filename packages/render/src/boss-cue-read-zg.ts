@@ -1,5 +1,6 @@
 import { midCol, type RimeState, rimeIcicleCol, rimeLitStep, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -23,13 +24,10 @@ import type { Layout } from "./layout.js";
  * halves, one or both, glow white on both screens meanwhile.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function rimeCues(l: Layout, world: World, s: RimeState): readonly BossCue[] {
   const step = rimeLitStep(s);
   if (s.phase !== "lit" || step === null) return [];
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const mid = midCol(world.cfg);
   if (step.ask === "fire" && s.bared) {
     const x = fieldX(l, mid);

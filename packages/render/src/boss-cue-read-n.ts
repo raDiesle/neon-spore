@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { gorgeIntakeY } from "./gorge-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 
@@ -81,22 +82,6 @@ import { type Layout, tileCX } from "./layout.js";
  * Nothing at all in `out`: every bead it held is leaving and the boss stands
  * `gorgeOutBeats` only so the wave cannot end on the same beat.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * THE GORGE. Four moments, ordered per seat by what expires first.

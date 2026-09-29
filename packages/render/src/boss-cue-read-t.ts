@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { scuttleLockBox } from "./scuttle-draw.js";
 import { scuttleRowY } from "./scuttle-shape.js";
@@ -27,22 +28,6 @@ import { scuttleRowY } from "./scuttle-shape.js";
  * picture already shows her, but the beat the wind-up ends and the throw
  * goes: `scuttleCues`' own doc comment below has the rest of it.
  */
-
-/** THE CHOIR's frame, in tiles, and the lift a mark takes over a hull line. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * **The one word of this boss that is his to spend**, and the reason it does

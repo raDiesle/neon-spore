@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { mantleCoreCircle, mantleKnobCircle, mantleSide, mantleVentCircle } from "./mantle-grip.js";
@@ -54,9 +55,6 @@ import { mantleCoreCircle, mantleKnobCircle, mantleSide, mantleVentCircle } from
  * seat — THE RATCHET's loose bolt, again (`boss-cue-read-zb.ts`).
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function mantleCues(
   l: Layout,
   world: World,
@@ -65,7 +63,7 @@ export function mantleCues(
 ): readonly BossCue[] {
   const out: BossCue[] = [];
   const cfg = world.cfg;
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (mantleLeaking(s)) {
     const x = fieldX(l, s.sparkCol);
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 115 });

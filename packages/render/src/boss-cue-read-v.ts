@@ -1,5 +1,6 @@
 import { type HiveState, hiveDown, hiveOpen, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { hiveSite } from "./hive-shape.js";
 import { type Layout, tileCX } from "./layout.js";
 
@@ -54,22 +55,6 @@ import { type Layout, tileCX } from "./layout.js";
  * anywhere else, and a word over it would be the field narrating the wave
  * rather than the boss (`boss-cue-read-t.ts`'s own line about a thrown part).
  */
-
-/** THE CHOIR's frame, in tiles: the size of every mark on this page. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
 
 export function hiveCues(l: Layout, world: World, s: HiveState): readonly BossCue[] {
   if (hiveDown(s)) return [];

@@ -7,6 +7,7 @@ import {
   seamWantsShot,
   type World,
 } from "@neon-spore/sim";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Circle, Layout } from "./layout.js";
@@ -44,9 +45,6 @@ import { seamCrackAsks, seamCrackCircle, seamRockCircle } from "./seam-verdicts.
  * Nothing between steps either.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function seamCues(
   l: Layout,
   world: World,
@@ -55,7 +53,7 @@ export function seamCues(
 ): readonly BossCue[] {
   const step = seamLitStep(s);
   if (step === null) return [];
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const out: BossCue[] = [];
   if (seamWantsShield(s)) {
     const x = fieldX(l, midCol(world.cfg));

@@ -1,5 +1,6 @@
 import { type RepriseState, repriseEchoing, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { repriseTearCenter } from "./reprise-draw.js";
 
@@ -31,23 +32,6 @@ import { repriseTearCenter } from "./reprise-draw.js";
  * the wave, so `cuesOf` never sees another kind and no other boss's word can
  * ever be said here. What comes back is seven meteoric bodies and a flag.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark, doubled for the tear. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-  wide = 1,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W * wide, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * THE REPRISE. **Two words, one per seat, and they stand for exactly as long

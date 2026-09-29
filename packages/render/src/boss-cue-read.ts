@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { creatureCenter } from "./creature-place.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
@@ -33,34 +34,7 @@ import { queenMarkCenter } from "./queen-figure.js";
  * every number it reads is one the simulation already keeps.
  */
 
-/** How far a cue's frame reaches, in tiles: THE CHOIR's, which is the one
- * shipped frame of this shape and the size a pair has already met. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 /** A frame around one tile's worth of a thing. */
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-  wide = 1,
-): BossCue {
-  return {
-    seat,
-    kind,
-    word,
-    x,
-    y,
-    halfW: l.tile * HALF_W * wide,
-    halfH: l.tile * HALF_H,
-    seed,
-  };
-}
-
 /**
  * THE CURTAIN. Three words, and the third is the column the other two are
  * spent in.

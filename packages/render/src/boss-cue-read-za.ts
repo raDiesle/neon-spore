@@ -1,5 +1,6 @@
 import type { SpoolState, World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
 import { spoolBrakeAsks, spoolKnobCircle } from "./spool-grip.js";
 
@@ -21,9 +22,6 @@ import { spoolBrakeAsks, spoolKnobCircle } from "./spool-grip.js";
  * and the brake is asked for nothing.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function spoolCues(
   l: Layout,
   world: World,
@@ -32,6 +30,6 @@ export function spoolCues(
 ): readonly BossCue[] {
   if (!spoolBrakeAsks(s)) return [];
   const knob = spoolKnobCircle(l, world.cfg, s, world.beat, beatPhase);
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   return [{ seat: 1, kind: "CARRY", word: "HOLD", x: knob.x, y: knob.y, ...frame, seed: 111 }];
 }

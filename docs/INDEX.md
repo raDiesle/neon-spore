@@ -1120,6 +1120,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
+| `packages/render/src/boss-cue-frame.ts` | **How far a cue's frame reaches**, and the one way a reading builds a cue |
 | `packages/render/src/boss-cue-shape.ts` | what a cue is — `CueKind`, `BossCue`, and which screen is owed one |
 | `packages/render/src/boss-cue-choreo.ts` | **The choreographed bosses' half of `bossCue`'s switch**, from THE VISE on |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

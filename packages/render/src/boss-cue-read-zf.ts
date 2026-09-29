@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { viseLobeStanding } from "./vise-grip.js";
@@ -38,9 +39,6 @@ import { viseLobeStanding } from "./vise-grip.js";
  * the hull under the middle, where its bar is lit.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function viseCues(
   l: Layout,
   world: World,
@@ -48,7 +46,7 @@ export function viseCues(
   beatPhase: number,
 ): readonly BossCue[] {
   const out: BossCue[] = [];
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const step = viseLitStep(s);
   const ask = step?.ask;
   if (step !== null && (ask === "fire" || ask === "spit")) {

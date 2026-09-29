@@ -1,5 +1,6 @@
 import { type Color, type PlumbState, plumbLitStep, plumbOff, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -116,9 +117,6 @@ export function drawPlumbGlass(
   ctx.restore();
 }
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 /**
  * The lit step's word: `PULL` on each seat's own stone through every level
  * step, since one pull is never enough, and `FIRE` on the core once it is lit
@@ -133,7 +131,7 @@ export function plumbCues(
 ): readonly BossCue[] {
   const step = plumbLitStep(s);
   if (step === null) return [];
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const hook = plumbHook(l, world.cfg);
   const arrived = plumbArrived(s, world, world.beat, beatPhase);
   const anchor = { x: hook.x, y: hook.y - plumbLift(l, arrived) };

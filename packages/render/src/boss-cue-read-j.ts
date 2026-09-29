@@ -5,6 +5,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 
@@ -33,22 +34,6 @@ import { type Layout, tileCX } from "./layout.js";
  * said `OPEN` and `BURN`, the machine's words for what happens rather than
  * the player's for what the thumb does.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * **`MOVE`, on the cannon where it stands** — the pilot's, and the only thing

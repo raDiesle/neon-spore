@@ -10,6 +10,7 @@ import {
 import { beadPoint } from "./baton-bead-draw.js";
 import { socketPoint, socketRoomBelow } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
+import { cueFrame } from "./boss-cue-frame.js";
 import { batonPassingCues } from "./boss-cue-read-i-b.js";
 import { type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
@@ -49,10 +50,6 @@ import { podCenter } from "./pods.js";
  * screen, for one beat at a time (`sim/baton-hand.ts`).
  */
 
-/** THE CHOIR's frame, in tiles — the same as the eight pages before. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 function markAt(
   seat: BossCue["seat"],
   kind: BossCue["kind"],
@@ -63,8 +60,7 @@ function markAt(
   seed: number,
   roomBelow?: number,
 ): BossCue {
-  const halfW = l.tile * HALF_W;
-  return { seat, kind, word, x, y, halfW, halfH: l.tile * HALF_H, seed, roomBelow };
+  return { seat, kind, word, x, y, ...cueFrame(l), seed, roomBelow };
 }
 
 /**

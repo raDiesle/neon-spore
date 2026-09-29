@@ -156,6 +156,7 @@ Taught once, by the guide; **no helper on the field** (above).
 |---|---|---|---|
 | `BossCue`, `CueKind`, `cueSeen`, `saysKind` | `boss-cue-shape.ts` | one thing to do, where, for which seat, and its kind line — `PRESS`, `HOLD`, `TURN`, `STILL`; never `CARRY` | every boss's cue reading |
 | `bossCues`, `bossCue` | `boss-cue.ts` | the cues, read off `World` | every boss with a cue |
+| `cueFrame`, `CUE_FRAME`, `CUE_FRAME_WIDE`, `markAt` | `boss-cue-frame.ts` | how far a cue's frame reaches — THE CHOIR's, or the wider one from THE GIMBAL on — and a cue at a point in it | every cue reading, and THE PLUMB's marks; `copies-table.ts` holds the sizes |
 | `drawCueText`, `cueWordY`, `WORD_FONT` | `boss-cue-text.ts` | the verb under the mark and the kind over it, in THE CHOIR's courier, rock grey | every cue, and THE SINEW, THE SURGE, THE ANTIPHON which build their own `BossCue` |
 | `drawInstarWord` | `instar-word.ts` | the scanner box beside a mark: the verb bright on the seat it wants, the owner's name dim on the other | THE INSTAR, THE FILAMENT, THE STARE |
 
@@ -188,5 +189,3 @@ The pieces some bosses call and others still draw for themselves. Each is a
   `render/test/cue-aim.test.ts`.
 - **Thirteen bosses' verdicts** — *Every other boss with a mark answers a touch
   the way THE INSTAR does*, held by `render/test/mark-feedback-roll-out.test.ts`.
-- **`markAt`, the cue at a mark**, written again in nine cue readings — *`markAt`
-  is written again in nine cue readings*.

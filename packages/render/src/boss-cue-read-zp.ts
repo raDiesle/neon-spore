@@ -1,4 +1,5 @@
 import { type ValvePhase, type ValveState, valveLeaking, type World } from "@neon-spore/sim";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
@@ -35,9 +36,6 @@ import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "./valve
  * GRINDSTONE's flat asks for (`boss-cue-read-zj.ts`).
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 /** The story's word in each of its phases, on the socket to either seat. */
 const STORY: Partial<Record<ValvePhase, { kind: BossCue["kind"]; word: string; seed: number }>> = {
   jet: { kind: "PRESS", word: "TAP", seed: 184 },
@@ -52,7 +50,7 @@ export function valveCues(
   s: ValveState,
   beatPhase: number,
 ): readonly BossCue[] {
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const { cfg, beat } = world;
   const out: BossCue[] = [];
   if (valveLeaking(s)) {

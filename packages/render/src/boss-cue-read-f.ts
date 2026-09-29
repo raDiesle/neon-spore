@@ -9,6 +9,7 @@ import {
   wardenThrown,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { fieldPoint } from "./handle-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -28,22 +29,6 @@ import { wardenGripCircle } from "./warden-grip.js";
  * records the owner ending. What the picture does *not* say is what happens
  * after the grab, and that is the whole of this page.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * THE WARDEN. One hand that must not let go and one shot through what it

@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { cueFrame } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
 import { stareLidRest } from "./stare-lid.js";
 import { stareEye, stareGazeFootY } from "./stare-shape.js";
@@ -29,10 +30,6 @@ import { stareEye, stareGazeFootY } from "./stare-shape.js";
  * beat and the other the charge after the pass (`sim/stare.ts`).
  */
 
-/** THE CHOIR's frame, in tiles — the same as the three pages before. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 /**
  * THE STARE. `STILL` at the foot of the gaze — the lowest row its red
  * reaches — on an open beat of a live pass, and nowhere else: the teaching
@@ -51,8 +48,7 @@ export function stareCues(l: Layout, world: World, s: StareState): readonly Boss
         word: "STILL",
         x: eye.cx,
         y: stareGazeFootY(l),
-        halfW: l.tile * HALF_W,
-        halfH: l.tile * HALF_H,
+        ...cueFrame(l),
         seed: 61,
       },
     ];

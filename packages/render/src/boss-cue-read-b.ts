@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { tasterCrestY } from "./taster-draw.js";
 
@@ -32,23 +33,6 @@ import { tasterCrestY } from "./taster-draw.js";
  * and has gone the same way**, to page ten (`boss-cue-read-j.ts`), on the day
  * it learnt to say a word in each of its five phases.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-  wide = 1,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W * wide, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * THE TASTER. **The cannon's column is the question, and the answer is which

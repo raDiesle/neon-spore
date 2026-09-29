@@ -831,4 +831,16 @@ export const COPIES: Copy[] = [
     pattern:
       /surgeHeld\([^)]*\)\s*(?:\|\||!==)\s*surgeInBand\(|\bheld\s*!==\s*band\b|!surgeHeld\([^)]*\)\s*&&\s*!surgeInBand\(/,
   },
+  {
+    // **How far a cue's frame reaches** — THE CHOIR's 0.72 by 0.66 tiles, or
+    // the 0.9 by 0.62 of every reading from THE GIMBAL on. Thirty-nine cue
+    // readings and THE PLUMB's marks each kept their own pair of constants,
+    // and seventeen their own `markAt`, before `boss-cue-frame.ts` (29
+    // September 2026): the owner's *make all those controls reusable*. A copy
+    // is a frame that is resized on one page and not the next.
+    call: "cueFrame",
+    owner: "packages/render/src/boss-cue-frame.ts",
+    pattern:
+      /\bHALF_W\s*=\s*0\.(?:72|9)\b|\bHALF_H\s*=\s*0\.(?:66|62)\b|\bw:\s*0\.(?:72|9),\s*h:\s*0\.(?:66|62)\b/,
+  },
 ];

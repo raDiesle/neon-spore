@@ -8,6 +8,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { trivetFootStanding } from "./trivet-grip.js";
@@ -39,9 +40,6 @@ import { trivetFootStanding } from "./trivet-grip.js";
  * column to say, both screens drawing the same needle.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function trivetCues(
   l: Layout,
   world: World,
@@ -49,7 +47,7 @@ export function trivetCues(
   beatPhase: number,
 ): readonly BossCue[] {
   const out: BossCue[] = [];
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const step = trivetLitStep(s);
   if (step === null) return out;
   const col = trivetStepCol(midCol(world.cfg), step);

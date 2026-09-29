@@ -1,5 +1,6 @@
 import { type LeadState, leadPassing, leadStill, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { leadRidgeY } from "./lead-shape.js";
 import { leadWord } from "./lead-word.js";
@@ -22,23 +23,6 @@ import { leadWord } from "./lead-word.js";
  * quietest boss in the game for it, silent for the whole of the fight it is
  * named for — `leadCues`' own doc comment has the rest.
  */
-
-/** THE CHOIR's frame, in tiles, and the lift a mark takes over a hull line. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-  wide = 1,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W * wide, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * THE LEAD. **Silent for the whole of the fight it is named for**, and both of

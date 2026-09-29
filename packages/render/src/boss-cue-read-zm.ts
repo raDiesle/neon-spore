@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { gallPointCircle } from "./gall-grip.js";
 import type { Layout } from "./layout.js";
@@ -32,11 +33,8 @@ import type { Layout } from "./layout.js";
  * screens. Nothing is said between steps.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function gallCues(l: Layout, world: World, s: GallState): readonly BossCue[] {
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const step = gallLitStep(s);
   if (step === null) return [];
   if (step.ask === "fire") {

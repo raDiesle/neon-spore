@@ -1,5 +1,6 @@
 import { CAIRN_COLS, type CairnState, carryIsReady, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME, cueFrame } from "./boss-cue-frame.js";
 import { cairnBody } from "./cairn.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 
@@ -16,10 +17,6 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  * four: three fights answered by a thumb on the picture rather than by anything
  * on the band, and three words that mark no control.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark, doubled for a whole body. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
 
 /**
  * THE CAIRN. **One word, either seat's, and it never moves, brightens or
@@ -100,8 +97,7 @@ export function cairnCues(l: Layout, world: World, s: CairnState): readonly Boss
       word: "PULL",
       x: tileCX(l, body.col + (CAIRN_COLS - 1) / 2),
       y: tileCY(l, body.row),
-      halfW: l.tile * HALF_W * 2,
-      halfH: l.tile * HALF_H,
+      ...cueFrame(l, CUE_FRAME, 2),
       seed: 85,
     },
   ];

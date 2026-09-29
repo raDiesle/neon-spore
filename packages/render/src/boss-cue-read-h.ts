@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { cueFrame } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
 import { pinTable } from "./pinball-table.js";
 import { scoutAt } from "./scout-draw.js";
@@ -35,13 +36,9 @@ import { scoutAt } from "./scout-draw.js";
  * one word is still only the moment the round cannot show on its own.
  */
 
-/** THE CHOIR's frame, in tiles: the size of this mark, as on every page. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 /**
  * **How far above the plating the mark on the cannon stops**, in tiles —
- * frame, gap and word together, which is why it is more than `HALF_H`.
+ * frame, gap and word together, which is why it is more than `CUE_FRAME.h`.
  *
  * The cannon *is* the floor of the table, so a mark left on it would hang its
  * verb over the hull and the band (`boss-cue-text.ts` puts the word under the
@@ -108,8 +105,7 @@ export function pinballCues(l: Layout, world: World, b: PinballState): readonly 
       word: "MOVE",
       x,
       y: l.hullY - l.tile * HULL_LIFT,
-      halfW: l.tile * HALF_W,
-      halfH: l.tile * HALF_H,
+      ...cueFrame(l),
       seed: 77,
     },
   ];
@@ -177,8 +173,7 @@ export function scoutCues(l: Layout, world: World, s: ScoutState): readonly Boss
       word: "OPEN",
       x: home.x,
       y: home.y - l.tile * HOME_LIFT,
-      halfW: l.tile * HALF_W,
-      halfH: l.tile * HALF_H,
+      ...cueFrame(l),
       seed: 78,
     },
   ];

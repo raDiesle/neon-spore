@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { vaneArmCircle, vaneBearingY, vaneHousingCircle } from "./vane-grip.js";
 
@@ -22,22 +23,6 @@ import { vaneArmCircle, vaneBearingY, vaneHousingCircle } from "./vane-grip.js";
  * pilot to do the navigator's job on the one beat she is waiting to be told to
  * do it.
  */
-
-/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * THE VANE. Two words in the window at each end of the sweep, one per seat,

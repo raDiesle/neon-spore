@@ -9,6 +9,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { keelJointCircle } from "./keel-grip.js";
 import { keelSegs } from "./keel-pose.js";
@@ -46,9 +47,6 @@ import type { Layout } from "./layout.js";
  * cooldown says nothing: it wants the hands off.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function keelCues(
   l: Layout,
   world: World,
@@ -57,7 +55,7 @@ export function keelCues(
 ): readonly BossCue[] {
   const out: BossCue[] = [];
   const cfg = world.cfg;
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (keelThrown(s)) {
     const x = fieldX(l, s.rockCol);
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 119 });

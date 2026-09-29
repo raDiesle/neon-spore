@@ -11,6 +11,7 @@ import {
 import { beadPoint } from "./baton-bead-draw.js";
 import { socketPoint } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
+import { markAt } from "./boss-cue-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 
 /**
@@ -25,23 +26,6 @@ import { type Layout, tileCX } from "./layout.js";
  * against this boss without going over the ceiling; the switch and the other
  * three stages stayed (`boss-cue-read-i.ts`).
  */
-
-/** THE CHOIR's frame, in tiles — the same as on every page of the reading. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
-function markAt(
-  seat: BossCue["seat"],
-  kind: BossCue["kind"],
-  word: string,
-  x: number,
-  y: number,
-  l: Layout,
-  seed: number,
-): BossCue {
-  const halfW = l.tile * HALF_W;
-  return { seat, kind, word, x, y, halfW, halfH: l.tile * HALF_H, seed };
-}
 
 /**
  * The bead a shot is about: the lowest one in the air that has not been

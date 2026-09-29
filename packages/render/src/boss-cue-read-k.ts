@@ -13,6 +13,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { cueFrame } from "./boss-cue-frame.js";
 import { creatureCenter } from "./creature-place.js";
 import { type Layout, tileCX } from "./layout.js";
 import { throatRingCircle, throatTubeCircle } from "./throat-grip.js";
@@ -58,10 +59,6 @@ import { THROAT_WHY } from "./throat-say.js";
  * exactly, one gesture across two seats (`boss-cue-read-j.ts`).
  */
 
-/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
-const HALF_W = 0.72;
-const HALF_H = 0.66;
-
 function markAt(
   seat: BossCue["seat"],
   kind: BossCue["kind"],
@@ -72,7 +69,7 @@ function markAt(
   seed: number,
 ): BossCue {
   const why = THROAT_WHY[word];
-  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed, why };
+  return { seat, kind, word, x, y, ...cueFrame(l), seed, why };
 }
 
 /**

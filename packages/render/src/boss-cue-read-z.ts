@@ -1,5 +1,6 @@
 import { type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { haspLatchAsks, haspLatchCircle, haspWheelCircle } from "./hasp-grip.js";
 import { haspFree } from "./hasp-pose.js";
@@ -32,13 +33,10 @@ import type { Layout } from "./layout.js";
  * seat — THE GIMBAL's seam, and for its reason.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function haspCues(l: Layout, world: World, s: HaspState): readonly BossCue[] {
   const out: BossCue[] = [];
   const cfg = world.cfg;
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (haspLoose(s)) {
     const x = fieldX(l, s.boltCol);
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 101 });

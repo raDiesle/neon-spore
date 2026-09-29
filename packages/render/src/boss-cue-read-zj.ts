@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { grindstoneStanding } from "./grindstone-grip.js";
 import type { Layout } from "./layout.js";
@@ -36,16 +37,13 @@ import type { Layout } from "./layout.js";
  * names one — THE VISE's kernel, again.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function grindstoneCues(
   l: Layout,
   world: World,
   s: GrindstoneState,
   beatPhase: number,
 ): readonly BossCue[] {
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const step = grindstoneLitStep(s);
   if (step === null) return [];
   const at = (target: Parameters<typeof grindstoneStanding>[3]) =>

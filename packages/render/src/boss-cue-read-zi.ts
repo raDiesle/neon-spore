@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { cystStanding } from "./cyst-grip.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
@@ -36,9 +37,6 @@ import type { Layout } from "./layout.js";
  * under its**, as THE VISE's spit and THE RIME's icicle are.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function cystCues(
   l: Layout,
   world: World,
@@ -47,7 +45,7 @@ export function cystCues(
 ): readonly BossCue[] {
   const step = cystLitStep(s);
   if (step === null) return [];
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   const mid = midCol(world.cfg);
   const hull = (word: "FIRE" | "SHIELD", col: number, seed: number): BossCue => ({
     seat: null,

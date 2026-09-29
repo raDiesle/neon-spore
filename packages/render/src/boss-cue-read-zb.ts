@@ -6,6 +6,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
@@ -36,13 +37,10 @@ import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratche
  * (`sim/ratchet-shot.ts`), so it carries no seat.
  */
 
-const HALF_W = 0.9;
-const HALF_H = 0.62;
-
 export function ratchetCues(l: Layout, world: World, s: RatchetState): readonly BossCue[] {
   const out: BossCue[] = [];
   const cfg = world.cfg;
-  const frame = { halfW: l.tile * HALF_W, halfH: l.tile * HALF_H };
+  const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (ratchetLoose(s)) {
     const x = fieldX(l, s.boltCol);
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 112 });
