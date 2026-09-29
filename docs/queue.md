@@ -1192,6 +1192,7 @@ what the rest of this file holds.
 ## Unverified at 143917958: the YouTube thumbnails and video links in docs/spec/tr…
 
 - **Found:** 2026-09-26, claude/queue-unverified-at-8e6e6e71-research-tab-on-the-direc
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-unverified-at-143917958-the-youtube-thumbnails-a)
 - **Files:** `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-markdown.css`, `tools/director/src/markdown.ts`, `tools/director/test/markdown.test.ts`
 
 *The director draws a markdown `---` as a rule, not three dashes* landed from a session that could not look at it. What went unchecked:
