@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · eb20c8907 — JUMP TO WAVE filters by the director's marks: boss, panel, guide, fault
+
+Under the text field on TESTING › JUMP TO WAVE there is now the director's row of marks as four toggles — ✦ BOSS, ⎈ PANEL, ✎ GUIDE, ⚠ FAULT — ORed with each other and ANDed with what is typed, as in the director. The field also finds a boss by its type (`special`, `normal`) and a wave by its panel's name.
+
 ## 2026-09-29 · 020881a1e — Director on a phone: the wave list and the wave's settings are two views
 
 On a phone the director's WAVES list now has the whole screen to itself, and WAVE shows only the open wave's settings. The menu has a WAVES entry, a row's WAVE button opens the settings, and a phone opens on the list. A desk is unchanged. Not a look: the director is a tool.
