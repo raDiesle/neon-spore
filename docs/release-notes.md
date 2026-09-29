@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 996c5285a — THE MAZE: two fifths less time, a dealt spin, the drum falls on a dead end, and the boss fuse
+
+The reading clock is 40% shorter on every sheet (fourteen beats on the first, thirty-eight on the fifth), and both it and the heart's hold now burn down on the fuse the other bosses wear, between the drum and the hull. Every time a wheel comes up — each wave try and each round — it is turned to an angle off the seeded rng, never with a way in near the ship, so a pair cannot repeat last try's clicks from memory; the rehearsal keeps its drum upright. A dead end no longer drops a meteor: the drum breaks and falls onto the ship, and the hull is hit where it lands, as a timeout already did.
+
 ## 2026-09-29 · 19f5f3888 — The back button opens the question, then the menu, and no longer leaves the game
 
 Pressing back during a run now opens the YOU PRESSED BACK card, and pressing back again opens the game menu. Before, the second back always left the site, and on Chrome the first often did too: the guard entry was pushed at page load and again inside every back, and Chrome skips any entry a page pushes without the player's own tap. The entries are now added right after a tap (two of them, their depth kept in history.state), so both backs stay in the game, and a back from the menu stays on the menu.
