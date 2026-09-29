@@ -29309,3 +29309,16 @@ had to be lifted out of the drawer into `seamThrow` before the fx could be
 told it.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — Back walks out to the menu, and Chrome no longer skips it
+
+- reading: 5 min. `back-ask.ts`, its test, the shell and the menu.
+- writing: 5 min. Pushes from a press rather than a pop, a depth kept in
+  `history.state`, the new question-then-menu order, the test rewritten.
+- looking: 5 min. The browser pane: a tap, back, back, a tap on the menu,
+  back — `history.state` and the screens read at each step.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — `check:fast` reached 54 shards for a change to one
+file of the app.

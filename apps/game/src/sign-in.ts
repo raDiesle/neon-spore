@@ -184,7 +184,7 @@ export async function finishEmailLink(a: Auth | null = ready(), email = ""): Pro
   if (to === "") return "Type the email the link was sent to.";
   try {
     await signInWithEmailLink(a, to, location.href);
-    history.replaceState(null, "", location.pathname);
+    history.replaceState(history.state, "", location.pathname);
     return "";
   } catch {
     return "That link did not sign you in — it may be spent. Send another.";

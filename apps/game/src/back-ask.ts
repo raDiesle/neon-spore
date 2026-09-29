@@ -16,24 +16,36 @@
  * a live wave and not only on the lost screen (`sim/commands.ts`), and the
  * screen after it is the one a quit always led to (`quit.ts`, `shell.ts`).
  *
- * **The objection, and the answer to it.** `confirm.ts`: *"A dialog is an
- * overlay to dismiss, it steals the back gesture"* — a question the gesture
- * opened cannot also be a question the gesture closes without a second entry
- * to burn. So there is no second entry: **every pop pushes the guard straight
- * back**, and the player is parked on it for as long as the page is open. The
- * stack is two entries deep and stays two deep — a pop truncates whatever was
- * forward of it and the push puts one back — so the gesture works the second
- * time, and the hundredth.
+ * **Back walks out one screen at a time: the question, then the menu.** The
+ * owner, 29 September 2026: *"when i click back browser button in game
+ * playing it, it first should open ideally the overlay menu, then again back
+ * the game menu, not leave the game completely."* So a pop over the field
+ * asks, a pop over the question is BACK TO MENU, and a pop over the menu stays
+ * on the menu — it is the game's front door. Every other screen over the
+ * field (the room screen, the intro, the bad-line card) gets the question.
  *
- * **What a pop means is one step out**, which is why the menu is asked first:
- * back with the menu up closes the menu, the way its own ✕ does, rather than
- * standing a question behind it. Every other screen over the field — the room
- * screen, the intro, the bad-line card — gets the question over it, and
- * CONTINUE PLAYING puts it away with nothing lost.
+ * **The entries are pushed from inside a press, never from a pop.** This file
+ * used to push one at load and push it straight back on every pop, and Chrome
+ * reads both as a page trapping its visitor: an entry added without the
+ * player's own press marks the one under it to be skipped by the back button
+ * (the "history manipulation intervention"). So the first back could leave,
+ * and the second always did. Now each press the browser counts as the
+ * player's tops the stack up to `GUARD_DEPTH` entries above the page's own,
+ * and a pop only spends one: the question and the menu are two presses of
+ * back that stay in the game. The player taps the glass all run long, so the
+ * stack is full again long before the next back.
  *
- * `sign-in.ts`'s `history.replaceState` stays a replace: pushing there would
- * put a sign-in nobody can return to in the stack.
+ * **Which entry the page is on is written in it** (`history.state`), not
+ * counted here: a reload keeps the stack, and a count kept in memory would
+ * push a second set on top of the first.
+ *
+ * `sign-in.ts`'s `history.replaceState` stays a replace and keeps the state it
+ * replaces: pushing there would put a sign-in nobody can return to in the
+ * stack, and dropping the state would lose the count.
  */
+
+/** Two backs stay in the game — the question, then the menu. */
+export const GUARD_DEPTH = 2;
 
 /**
  * The browser's history, behind a seam — the way `confirm.ts` puts one in
@@ -41,26 +53,49 @@
  * and this file never touches a global.
  */
 export interface BackStack {
-  /** Put the entry the gesture pops back on top of the stack. */
-  push: () => void;
+  /** How many of this page's entries are under the one it is on. */
+  depth: () => number;
+  /** Put one more entry on top, the `depth`-th. */
+  push: (depth: number) => void;
   /** Told whenever the gesture popped one. */
   onPop: (fn: () => void) => void;
+  /** Told after every press the browser counts as the player's own — the only
+   * moment a push is not one the back button skips. */
+  onPress: (fn: () => void) => void;
 }
+
+/** The events that give a page user activation in Chrome: a touch counts at
+ * its end, not its start, and Escape never counts. */
+const PRESSES = ["pointerup", "click", "keydown"] as const;
 
 /** The real one. `location.href` and no title: the address does not change —
  * what is pushed is somewhere to go back *from*. */
 export function browserStack(): BackStack {
   return {
-    push: () => history.pushState({ neonBack: 1 }, "", location.href),
+    depth: () => {
+      const at = (history.state as { neonBack?: unknown } | null)?.neonBack;
+      return typeof at === "number" ? at : 0;
+    },
+    push: (depth) => history.pushState({ neonBack: depth }, "", location.href),
     onPop: (fn) => window.addEventListener("popstate", fn),
+    onPress: (fn) => {
+      for (const type of PRESSES) {
+        window.addEventListener(
+          type,
+          (e) => {
+            if (e instanceof KeyboardEvent && e.key === "Escape") return;
+            fn();
+          },
+          { capture: true, passive: true },
+        );
+      }
+    },
   };
 }
 
 export interface BackAskParts {
-  /** Whether the menu is up, and the way to put it down: a pop with the menu
-   * open is the menu's own ✕ rather than a question behind it. */
+  /** Whether the menu is up: a pop over it stays on it. */
   menuOpen: () => boolean;
-  closeMenu: () => void;
   openMenu: () => void;
   /** End the run on both seats — the same command the lost screen's QUIT
    * gives (`lost.ts`), which the simulation now reads mid-wave too. */
@@ -83,11 +118,11 @@ export interface BackAsk {
 
 /** What a pop means, given what is already on the screen. Pure, so the rule
  * can be read and tested without a history to pop. */
-export type BackAnswer = "continue" | "closeMenu" | "ask";
+export type BackAnswer = "ask" | "menu" | "stay";
 
 export function backAnswer(asking: boolean, menuOpen: boolean): BackAnswer {
-  if (asking) return "continue";
-  if (menuOpen) return "closeMenu";
+  if (asking) return "menu";
+  if (menuOpen) return "stay";
   return "ask";
 }
 
@@ -118,16 +153,16 @@ export function bindBackAsk(p: BackAskParts): BackAsk {
   document.getElementById("backMenu")?.addEventListener("click", () => answer(p.openMenu));
   document.getElementById("backQuit")?.addEventListener("click", () => answer(p.quit));
 
-  stack.onPop(() => {
-    // The entry goes back before anything is decided, so the gesture is live
-    // again whatever this press turns out to have meant.
-    stack.push();
-    const what = backAnswer(asking, p.menuOpen());
-    if (what === "continue") close();
-    else if (what === "closeMenu") p.closeMenu();
-    else ask();
+  stack.onPress(() => {
+    for (let at = stack.depth(); at < GUARD_DEPTH; at++) stack.push(at + 1);
   });
-  stack.push();
+  stack.onPop(() => {
+    // Nothing is pushed back here: a push from a pop is the one the back
+    // button skips. The next press puts it back.
+    const what = backAnswer(asking, p.menuOpen());
+    if (what === "menu") answer(p.openMenu);
+    else if (what === "ask") ask();
+  });
 
   return { isOpen: () => asking, close };
 }

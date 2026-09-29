@@ -221,7 +221,6 @@ export function bindShell(p: ShellParts): Link {
   // `?play` is still a field an edge swipe would walk out of mid-run.
   bindBackAsk({
     menuOpen: () => menu?.isOpen() ?? false,
-    closeMenu: () => menu?.close(),
     openMenu: () => menu?.open(),
     quit: p.quit,
     hold: (on) => p.run.hold("ask", on),
