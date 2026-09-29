@@ -99,6 +99,7 @@ bun run queue done "<title>"  # take an entry out once it has landed — never <
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run index          # regenerate the file map in docs/INDEX.md
 bun run lane-speed     # the time log's reading: shares, tail, friction causes — --from, --to, --split <day>
+bun run compaction     # the compaction trial of 29 Sep: cuts mid-item, ceiling hits, context, before vs after — --days N
 ```
 
 ## Pictures

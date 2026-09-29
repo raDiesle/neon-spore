@@ -38,6 +38,7 @@
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
     "lane-speed": "bun run tools/ledger/run.ts",
+    "compaction": "bun run tools/compaction/run.ts",
     "words": "bun run tools/words/run.ts",
     "imports": "bun run tools/imports/run.ts",
     "imports:sort": "biome check --write --only=assist/source/organizeImports .",

@@ -19,7 +19,9 @@
  * happening here; `docs/token-budget.md` has the price.
  */
 
-import { readPayload, transcriptPath } from "./payload";
+import { appendFile } from "node:fs/promises";
+import { join } from "node:path";
+import { readPayload, sessionId, transcriptPath } from "./payload";
 
 /**
  * Past this, the compaction goes ahead mid-item after all. The model's own
@@ -74,6 +76,34 @@ export function shouldDefer(facts: {
   return facts.contextTokens > 0 && facts.contextTokens < CEILING;
 }
 
+/** The log's name in the checkout's common git dir, shared by every worktree. */
+export const LOG = "claude-compaction.log";
+
+/**
+ * One decision, as the line `bun run compaction` reads back. A refused
+ * compaction leaves no trace in the transcript, so without this the trial could
+ * count the compactions that happened and never the ones this held back.
+ */
+export function logLine(decision: {
+  session: string;
+  contextTokens: number;
+  dirty: boolean;
+  ahead: boolean;
+  deferred: boolean;
+}): string {
+  return `${JSON.stringify({ at: new Date().toISOString(), ...decision })}\n`;
+}
+
+async function note(line: string): Promise<void> {
+  const common = run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"]).trim();
+  if (common === "") return;
+  try {
+    await appendFile(join(common, LOG), line);
+  } catch {
+    // A log that cannot be written is a trial with a gap, not a blocked session.
+  }
+}
+
 function run(cmd: string[]): string {
   try {
     return Bun.spawnSync(cmd, { stdout: "pipe", stderr: "pipe" }).stdout.toString();
@@ -97,7 +127,9 @@ async function main(): Promise<void> {
   const contextTokens = lastContextTokens(await tail(transcriptPath(payload)));
   const dirty = run(["git", "status", "--porcelain"]).trim() !== "";
   const ahead = Number(run(["git", "rev-list", "--count", "main..HEAD"]).trim() || "0") > 0;
-  if (!shouldDefer({ trigger: payload?.trigger, contextTokens, dirty, ahead })) return;
+  const deferred = shouldDefer({ trigger: payload?.trigger, contextTokens, dirty, ahead });
+  await note(logLine({ session: sessionId(payload), contextTokens, dirty, ahead, deferred }));
+  if (!deferred) return;
   const k = Math.round(contextTokens / 1000);
   process.stderr.write(
     `Compaction deferred until this item lands (${k}k of ${CEILING / 1000}k): tools/hooks/defer-compact.ts\n`,

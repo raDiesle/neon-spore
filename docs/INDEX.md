@@ -3473,5 +3473,8 @@ by hand never moves.
 | `tools/ledger/parse.ts` | `docs/time-log.md` read as records: one per dated `##` entry, with its five rows |
 | `tools/ledger/read.ts` | The reading `docs/lane-speed.md` makes of the ledger, as numbers: the distribution, the rows' shares |
 | `tools/ledger/run.ts` | `bun run lane-speed` — the time log's reading, printed |
+| `tools/compaction/report.ts` | The compaction trial's figures for one period, and the two periods side by side |
+| `tools/compaction/run.ts` | `bun run compaction` — is the compaction trial of 29 September 2026 working? bun run compaction… |
+| `tools/compaction/transcript.ts` | One Claude Code transcript read as the events the compaction trial is judged on |
 
 <!-- index:code:end -->

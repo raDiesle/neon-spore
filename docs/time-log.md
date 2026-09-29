@@ -29662,3 +29662,18 @@ its drawing could be called from without the roster took the longest.
 Bottleneck: making a save that changed nothing write the arena file byte for byte — Biome breaks a list of two places however short it is, and the serializer had to learn that.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — `bun run compaction`: the compaction trial, before against after
+
+- reading: 5 min. The ledger parser's stamps, and whether a refused
+  compaction leaves anything in a transcript (it does not).
+- writing: 20 min. `tools/compaction/` (transcript, report, run, a test),
+  the decision log in `defer-compact.ts`, docs.
+- looking: 5 min. The report on the real transcripts: 57% of cuts fell
+  mid-item in the ten days before.
+- friction: 5 min. One checkpoint read was credited to two cuts, and the
+  first-commit stamps read as a median of one minute.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — deciding which figures a verdict can rest on, when
+the stamps that time an item from its claim only began today.

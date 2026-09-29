@@ -90,6 +90,10 @@
         "@neon-spore/render": "workspace:*",
       },
     },
+    "tools/compaction": {
+      "name": "@neon-spore/compaction",
+      "version": "0.0.0",
+    },
     "tools/delegate": {
       "name": "@neon-spore/delegate",
       "version": "0.0.0",
@@ -418,6 +422,8 @@
     "@neon-spore/audio": ["@neon-spore/audio@workspace:packages/audio"],
 
     "@neon-spore/breaks": ["@neon-spore/breaks@workspace:tools/breaks"],
+
+    "@neon-spore/compaction": ["@neon-spore/compaction@workspace:tools/compaction"],
 
     "@neon-spore/content": ["@neon-spore/content@workspace:packages/content"],
 

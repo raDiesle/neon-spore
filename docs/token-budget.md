@@ -109,6 +109,15 @@ for one kind of work goes in that work's skill, a fact that changes goes in
   a scratch session on Claude Code 2.1.278 with a hook that always refused
   went on quietly past its window, as hoped, and then died with "Prompt is
   too long" at the model's own limit.
+- **All three are a trial, reviewed on 6 October 2026.** `bun run compaction`
+  prints the ten days before the cutover against everything since — from
+  this checkout's transcripts and its worktrees', never another project's,
+  and from the decisions `defer-compact.ts` logs to `claude-compaction.log`
+  in the common git dir, because a refused compaction leaves no trace in a
+  transcript — with what each figure is expected to do beside it. The
+  owner asked on 29 September 2026 for it to be watched and adjusted; the
+  knobs are the window in `.claude/settings.json` and `CEILING` in
+  `defer-compact.ts`, and the table says which way each one turns.
 - **Do the thinking and the typing in the same session, in as few turns as the
   work allows.** Handing the typing to a worker model adds turns rather than
   removing them — `delegation-cost.md` measured it at 6.8 times the cost, and
