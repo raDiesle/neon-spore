@@ -1682,6 +1682,7 @@ about the committed tree. The options:
 ## The time log has no script that reads it
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
+- **Taken:** 2026-09-29, claude/lane-speed-fixes (claim: claude/queue-the-time-log-has-no-script-that-reads-it)
 - **Files:** `docs/lane-speed.md`, `docs/time-log.md`
 
 `docs/lane-speed.md` says to re-read it "by running the parse again", and no
