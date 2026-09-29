@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 490a5d690 — An automatic compaction waits for the item to land, up to 320k
+
+A PreCompact hook, tools/hooks/defer-compact.ts, refuses an automatic compaction while the tree is dirty or the branch is ahead of main, until the last turn's context reaches 320k; the harness asks again before every turn, so the first turn after a landing compacts on the boundary. A manual /compact always goes through. Proven in a scratch Claude Code 2.1.278 session: a refused compaction lets the turn go on, and without a ceiling the session dies at the model's limit.
+
 ## 2026-09-29 · 9d8caeb31 — The catalogue of marks and controls: every shared piece to build a boss or an enemy from
 
 `docs/controls-catalogue.md` lists every drawn piece the game asks a thumb or a bolt with. That covers the mark, whose it is, the gesture's picture (knob and arrow, track, crosshair, button face), the verdict, the window and the blow. Each piece is given with its file, what it says, who calls it, the owner's dated "not allowed" rules, and the roll-outs still open. It also records the owner's generic rule of 29 September: the standard set (band, cannon, shield, grip) wears no helper, and a gesture of an enemy's or a boss's own wears them all. `render/test/controls-catalogue.test.ts` holds the page to the code: every export of a listed file is named, and every file three bosses or creatures share is listed or given a reason it is not a mark. The THE PUSH arrows question is queued.

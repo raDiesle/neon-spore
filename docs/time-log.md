@@ -29511,3 +29511,5 @@ each piece is for.
 
 Bottleneck: looking — the one unknown, whether a refused compaction stops
 the turn, only a real session could answer.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
