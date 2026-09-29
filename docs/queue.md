@@ -579,6 +579,7 @@ what the rest of this file holds.
 ## §26 THE SEAM — the cue's words and the poses, the rest of its hands
 
 - **Found:** 2026-09-29, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo
+- **Taken:** 2026-09-29, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo (claim: claude/queue-26-the-seam-the-cues-words-and-the-poses-the-res)
 - **Files:** `packages/render/src/`, `apps/game/src/`, `packages/render/src/valve-story.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
 
 The receipts are in (`render/seam-fx.ts`, `test/seam-fx.test.ts`): the
