@@ -32,13 +32,10 @@
       <h1>NEON SPORE — DIRECTOR</h1>
       <button type="button" id="save" class="primary">SAVE waves.ts</button>
       <span id="status">loading…</span>
-      <!-- Set once, from `/__director`'s own `shipped` flag — see build.ts.
-           A shipped build reads the waves it was built with, not the disk,
-           so this says so once rather than letting a stale field pass for a
-           live one. -->
-      <span id="shippedNote" class="note" hidden>shows what was built, not what is on disk — read only</span>
       <!-- Which bundle this is — see tools/build-stamp.ts. A date under a
-           dev server would be noise, so it says DEV BUILD there instead. -->
+           dev server would be noise, so it says DEV BUILD there instead.
+           Small, and on a phone pinned in the header's top corner, so it
+           takes no row of its own (29 September 2026). -->
       <span id="buildStamp"></span>
       <span class="spacer"></span>
       <!-- The three columns, as three phone-sized views. `menu-item` on all

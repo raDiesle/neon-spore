@@ -438,8 +438,9 @@ control that looks live and fails on a press. It knows which build it is
 from `dist/__director`, a static file at the same path `server.ts`'s own
 `/__director` answers, carrying `shipped: true` where the live route always
 says `false` — one flag, one route, read the same way regardless of which of
-the two is running underneath it. The header says once, next to the status
-line, that a shipped build shows what was built rather than what is on disk.
+the two is running underneath it. The header no longer spells out that a
+shipped build shows what was built rather than what is on disk; the build
+stamp in its corner says which build it is.
 
 Everything else that only ever reads — the wave list, DOCUMENTATION,
 CONTROLS, SOUND, the shape catalogue, the whole of NOT BUILT YET including

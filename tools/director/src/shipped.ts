@@ -25,6 +25,5 @@ export function bindShipped(): void {
       if (!shipped) return;
       for (const id of ["save", "checksOpen", "mainMenuLink"])
         document.getElementById(id)?.setAttribute("hidden", "");
-      document.getElementById("shippedNote")?.removeAttribute("hidden");
     });
 }

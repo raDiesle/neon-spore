@@ -29191,3 +29191,13 @@ Bottleneck: friction — a replace anchored on the wrong queue entry cost a
 restore lane in the middle of this one.
 
 *Measured: 38 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — director header: note gone, build stamp small in the corner
+
+- reading: 5 min. The header in `index.html`, `shipped.ts`, the two sheets.
+- writing: 5 min. The note and its unhide gone, the stamp shrunk, pinned on a phone.
+- looking: 5 min. The browser pane at 375px, the menu open on first load.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the pane's phone size reset once mid-check.

@@ -95,7 +95,7 @@ header button[data-view] {
   color: var(--red);
 }
 #buildStamp {
-  font-size: 0.875rem;
+  font-size: 0.6875rem;
   letter-spacing: 1px;
   color: #3c3468;
 }
