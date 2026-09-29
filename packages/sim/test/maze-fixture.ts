@@ -140,24 +140,23 @@ export function drag(world: World, ...fromMilli: number[]): void {
 }
 
 /**
- * Tear the held shot out of the heart: the pilot's hand on the string, the
- * navigator's thumb on the heart, carried down the whole pull. The round has
- * to be in `grip` already; what comes back is everything the two gestures
- * raised, so a test can find the verdict in it.
+ * Shake the held shot out of the heart: both thumbs on it, then each seat in
+ * turn carrying it across to the far wall of its room, until the round moves
+ * on or `swings` run out. The round has to be in `grip` already; what comes
+ * back is everything the gestures raised, so a test can find the verdict in it.
  */
-export function tear(world: World): SimEvent[] {
-  const seen = send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 0 });
-  seen.push(
-    ...send(world, 2, { kind: "drag", target: "mazeHeart", on: true, fromMilli: 0, fromYMilli: 0 }),
-  );
-  seen.push(
-    ...send(world, 2, {
-      kind: "drag",
-      target: "mazeHeart",
-      on: true,
-      fromMilli: 0,
-      fromYMilli: CFG.mazeHeartPullMilli,
-    }),
-  );
+export function tear(world: World, swings = 200): SimEvent[] {
+  const from = [0, 0];
+  const seen = [...send(world, 1, shake(0)), ...send(world, 2, shake(0))];
+  for (let i = 0; i < swings && mazeOf(world).phase === "grip"; i++) {
+    const seat = i % 2;
+    from[seat] = (from[seat] ?? 0) + (mazeOf(world).gripXMilli > 0 ? -5000 : 5000);
+    seen.push(...send(world, seat === 0 ? 1 : 2, shake(from[seat] ?? 0)));
+  }
   return seen;
+}
+
+/** A thumb on the heart, at a displacement from where it grabbed. */
+export function shake(fromMilli: number, fromYMilli = 0, on = true): Command {
+  return { kind: "drag", target: "mazeHeart", on, fromMilli, fromYMilli };
 }

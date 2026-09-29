@@ -90,8 +90,11 @@ function bossState(overrides: Partial<MazeState> = {}): MazeState {
     verdict: 0,
     verdictCol: -1,
     lost: null,
-    gripThumb: false,
-    gripPullMilli: 0,
+    gripSeats: 0,
+    gripFromMilli: [0, 0, 0, 0],
+    gripXMilli: 0,
+    gripYMilli: 0,
+    gripShookMilli: [0, 0],
   };
   return { ...base, ...overrides };
 }

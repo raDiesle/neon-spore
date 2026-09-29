@@ -203,10 +203,10 @@ export type DragTarget =
 /**
  * `mazeHeart` is the twenty-second, THE MAZE's second — the first round given
  * a second handle on its picture, for the §6.2 ask. The string is the pilot's
- * and turns the wheel; the heart is the navigator's and finishes it: under
- * `grip` her thumb carries it *down* (`fromYMilli`, as THE SINEW's is read)
- * and the held shot tears out when the pull reaches `mazeHeartPullMilli`
- * while his hand is on the string (`maze-hand.ts`). No `id`: one heart.
+ * and turns the wheel; the heart is both seats' and finishes it: under `grip`
+ * either thumb carries it any way (`fromMilli` and `fromYMilli`), and the held
+ * shot tears out once both have shaken it their half of `mazeShakeWidths`
+ * room widths (`maze-hand.ts`, `maze-shake.ts`). No `id`: one heart.
  * `wardenEye` and `wardenHatch` are the twenty-fifth and -sixth: a gesture per
  * phase — player 2's thumb on the eye, player 1's swipe (`warden-hand.ts`).
  * THE FLEET's three and THE VANE's two: `drag-targets-b.ts`.

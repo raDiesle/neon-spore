@@ -50,5 +50,8 @@ export { mazeLeverRadiusMilli } from "./maze.js";
 // Which parts THE MAZE asks a hand for, which its rings read (`maze-marks.ts`).
 export { mazeStringAsks } from "./maze-controls.js";
 export { mazeHeartAsks } from "./maze-hand.js";
+// The heart's room and how far through the shake the pair is, which the
+// picture draws the heart and its green count from (`maze-grip.ts`).
+export { mazeShakeFreeMilli, mazeShakeThrough } from "./maze-shake.js";
 // Which losses bring the drum down on the ship, which `maze-fall.ts` drops.
 export { mazeFalls } from "./maze-verdict.js";

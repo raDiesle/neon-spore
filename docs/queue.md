@@ -1373,3 +1373,29 @@ has to: in `waves.ts`, the intro clock (`tickOpening`, `left`, `sentAtTick`,
 `RETRY_TICKS`) is one subject apart from opening a wave; in `main.ts`,
 `refreshAll` and `jumpToBrushWave` with the panels they call could stand in a
 `main-refresh.ts` the way `main-tempo.ts` already does.
+
+## `mazeRefuse` still has a "heart" part the maze no longer sends
+
+- **Found:** 2026-09-29, claude/the-maze-level-adjustments-85d033
+- **Files:** `packages/sim/src/events-rounds.ts`, `packages/sim/src/maze-controls.ts`, `packages/render/src/maze-marks.ts`, `packages/render/test/maze-verdict.test.ts`, `packages/audio/test/bind.test.ts`
+
+Since the shake, either seat may hold the heart (`maze-hand.ts`), so the only
+`mazeRefuse` the simulation sends has `part: "string"`. Narrow the event's
+`part` to `"string"` (or drop the field), make `mazeRefuse(world, player)` take
+no part, and let `maze-marks.ts` mark the string without asking. Rewrite the
+two tests that build a heart refusal by hand
+(`render/test/maze-verdict.test.ts` `refused`, `audio/test/bind.test.ts`'s row)
+so they use the string.
+
+## Three maze test files are past the line ceiling
+
+- **Found:** 2026-09-29, claude/the-maze-level-adjustments-85d033
+- **Files:** `packages/render/test/maze-grip.test.ts`, `packages/render/test/maze-draw.test.ts`, `packages/sim/test/hash-fixture-bosses-a.ts`
+
+`maze-grip.test.ts` is 294 lines, `maze-draw.test.ts` 304 and
+`hash-fixture-bosses-a.ts` 269. All three were already over before the shake
+added a few lines to each. Split `maze-grip.test.ts` along its `describe`s:
+the thumb and the string in one file, the ring, the landing and the field in
+another. Move `maze-draw.test.ts`'s fall and funnel cases into a file of
+their own. Take THE MAZE's fixture out of `hash-fixture-bosses-a.ts` into a
+`-b` file, the way the other boss fixtures are split.

@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { type MazeState, mazeLeverRadiusMilli, type SimConfig } from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
-import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
+import { drawHandleHint, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { drawMazeLever } from "./maze-lever.js";
 import { mazeDrum } from "./maze-walls.js";
@@ -141,13 +141,10 @@ function mazeStringTrack(l: Layout, cfg: SimConfig, w: number): PullTrack {
  * may ever turn it (`mazeStringHeard`), so player 1 reads PULL and player 2 is
  * told whose hand it is rather than waiting for a turn that never comes.
  *
- * Drawn only while the wheel can actually be turned, and again under `grip`,
- * when the hand on it is the pilot's brace (`sim/maze-hand.ts`): the tear only
- * counts while his hand is on the lever, so the lever stays, lit while it is
- * held, and its word is HOLD rather than PULL — but the channel does not,
- * because nothing turns now and a way to pull would say otherwise. A handle
- * standing under a drum that is watching a shot walk is an invitation to press
- * something that does nothing.
+ * Drawn only while the wheel can actually be turned. Under `grip` the pilot's
+ * hand is on the heart with the navigator's (`sim/maze-hand.ts`), and a
+ * handle standing under a drum that is watching a shot walk, or a heart being
+ * shaken, is an invitation to press something that does nothing.
  */
 export function drawMazeString(
   ctx: CanvasRenderingContext2D,
@@ -157,28 +154,22 @@ export function drawMazeString(
   role: ViewRole,
   time: number,
 ): void {
-  if (m.phase !== "read" && m.phase !== "grip") return;
+  if (m.phase !== "read") return;
   const rest = mazeStringCircle(l, cfg);
   const knob = mazeStringHandle(l, cfg, m);
   const held = m.dragging;
-  if (m.phase === "read") {
-    const ring = knobRing(l, cfg);
-    const track = mazeStringTrack(l, cfg, rest.r * PULL_TRACK_W);
-    const at = knob.off / (2 * Math.PI * ring.r);
-    drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time });
-  }
+  const ring = knobRing(l, cfg);
+  const track = mazeStringTrack(l, cfg, rest.r * PULL_TRACK_W);
+  const at = knob.off / (2 * Math.PI * ring.r);
+  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time });
   drawMazeLever(ctx, mazeDrum(l, cfg), knob, rest.r, held);
   drawPullKnob(ctx, knob, rest.r, { ...LOOK, held, time });
 
   // The word goes as soon as a hand lands, the way the tether's does: from
   // then on the knob's own place on the ring says it.
   if (held) return;
-  const words = m.phase === "grip" ? BRACE_WORDS : undefined;
-  drawHandleHint(ctx, l, role, knob.x, knob.y + l.tile * 0.75, HINT_LOUD, words);
+  drawHandleHint(ctx, l, role, knob.x, knob.y + l.tile * 0.75, HINT_LOUD);
 }
 
 /** The handle's colours: the hull's rim, lit to the text colour while held. */
 const LOOK = { hex: PALETTE.hullRim, rim: PALETTE.text } as const;
-
-/** The pilot's, still — but under `grip` the hand holds rather than pulls. */
-const BRACE_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "P1'S" };

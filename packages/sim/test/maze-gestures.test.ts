@@ -2,17 +2,22 @@ import { describe, expect, test } from "bun:test";
 import { failHolds, hashWorld, step } from "../src/index.js";
 import { mazeBottomCol } from "../src/maze.js";
 import { mazeHeartColor } from "../src/maze-round.js";
+import {
+  mazeRoomMilli,
+  mazeShakeFreeMilli,
+  mazeShakeSeatMilli,
+  mazeShakeThrough,
+} from "../src/maze-shake.js";
 import { mazeCoreEntrance } from "../src/maze-wheel.js";
-import type { Command } from "../src/types.js";
 import type { World } from "../src/world.js";
 import {
   CFG,
-  clickOnto,
   fireInto,
   install,
   mazeOf,
   past,
   send,
+  shake,
   TPB,
   tear,
   untilReading,
@@ -21,13 +26,12 @@ import {
 
 /**
  * THE MAZE's third state, played headlessly: the heart holding the shot, and
- * the two hands that tear it out (`maze-hand.ts`, `.claude/skills/new-boss`
- * §6.2). The right shot arriving is not the verdict; the navigator's pull on
- * the picture while the pilot braces the string is; either alone is not; and
- * a heart held past its patience gives the shot back as blood.
+ * the two thumbs that shake it loose (`maze-hand.ts`, `maze-shake.ts`,
+ * `.claude/skills/new-boss` §6.2). The right shot arriving is not the
+ * verdict; both seats carrying the heart back and forth inside its room is;
+ * one seat alone is not; and a heart held past its patience gives the shot
+ * back as blood.
  */
-
-const PULL = CFG.mazeHeartPullMilli;
 
 /** The first wheel, right shot in the middle: `grip`. */
 function held(): World {
@@ -39,26 +43,17 @@ function held(): World {
   return world;
 }
 
-const heart = (on: boolean, fromYMilli: number): Command => ({
-  kind: "drag",
-  target: "mazeHeart",
-  on,
-  fromMilli: 0,
-  fromYMilli,
-});
-const string = (on: boolean): Command => ({ kind: "drag", target: "mazeString", on, fromMilli: 0 });
-
 describe("the heart holding the shot", () => {
   test("is entered on the right colour, and nothing is decided yet", () => {
     const world = held();
     const m = mazeOf(world);
     expect(m.hullMilli).toBe(100_000);
-    expect(m.gripThumb).toBe(false);
-    expect(m.gripPullMilli).toBe(0);
+    expect(m.gripSeats).toBe(0);
+    expect(m.gripShookMilli).toEqual([0, 0]);
     expect(failHolds(world)).toBe(false);
   });
 
-  test("gives the shot back as blood when nobody tears it out", () => {
+  test("gives the shot back as blood when nobody shakes it loose", () => {
     const world = held();
     const seen = past(world, "grip", TPB * (CFG.mazeGripBeats + 2));
     const verdict = seen.filter((e) => e.type === "mazeVerdict");
@@ -68,61 +63,64 @@ describe("the heart holding the shot", () => {
     expect(breach).toHaveLength(1);
     expect(breach[0]).toMatchObject({ col: mazeBottomCol(CFG), color: mazeHeartColor(0) });
     expect(mazeOf(world).lost).toBe("slip");
-    expect(mazeOf(world).hullMilli).toBe(100_000);
     expect(failHolds(world)).toBe(true);
   });
 });
 
-describe("the navigator's thumb", () => {
-  test("lands with a report, stretches the heart, and springs back on the lift", () => {
+describe("a thumb on the heart", () => {
+  test("lands with a report, carries the heart any way, and springs back on the last lift", () => {
     const world = held();
-    let seen = send(world, 2, heart(true, 0));
+    let seen = send(world, 2, shake(300, -200));
     expect(seen).toContainEqual({ type: "mazeGrip", col: mazeBottomCol(CFG), on: true });
-    expect(mazeOf(world).gripThumb).toBe(true);
-    send(world, 2, heart(true, PULL / 2));
-    expect(mazeOf(world).gripPullMilli).toBe(PULL / 2);
-    // Clamped to the pull, and never upward.
-    send(world, 2, heart(true, PULL * 3));
-    expect(mazeOf(world).gripPullMilli).toBe(PULL);
-    send(world, 2, heart(true, -400));
-    expect(mazeOf(world).gripPullMilli).toBe(0);
-    seen = send(world, 2, heart(false, PULL));
+    // Where it grabbed is its zero: nothing moved yet.
+    expect(mazeOf(world).gripXMilli).toBe(0);
+    send(world, 2, shake(400, -300));
+    expect(mazeOf(world).gripXMilli).toBe(100);
+    expect(mazeOf(world).gripYMilli).toBe(-100);
+    expect(mazeOf(world).gripShookMilli[1]).toBe(141);
+    seen = send(world, 2, shake(0, 0, false));
     expect(seen).toContainEqual({ type: "mazeGrip", col: mazeBottomCol(CFG), on: false });
-    expect(mazeOf(world).gripThumb).toBe(false);
-    expect(mazeOf(world).gripPullMilli).toBe(0);
-    // A second lift says nothing twice.
-    expect(send(world, 2, heart(false, 0)).filter((e) => e.type === "mazeGrip")).toHaveLength(0);
+    expect(mazeOf(world).gripSeats).toBe(0);
+    expect(mazeOf(world).gripXMilli).toBe(0);
+    // What it shook stays shaken, and a second lift says nothing twice.
+    expect(mazeOf(world).gripShookMilli[1]).toBe(141);
+    expect(send(world, 2, shake(0, 0, false)).filter((e) => e.type === "mazeGrip")).toHaveLength(0);
   });
 
-  test("tears nothing without the pilot's hand on the string", () => {
+  test("stops at the wall of the room, and a push into it earns nothing", () => {
     const world = held();
-    send(world, 2, heart(true, 0));
-    const seen = send(world, 2, heart(true, PULL));
-    expect(seen.filter((e) => e.type === "mazeVerdict")).toHaveLength(0);
-    expect(mazeOf(world).phase).toBe("grip");
-    expect(mazeOf(world).gripPullMilli).toBe(PULL);
-  });
-
-  test("is the pilot's thumb never: his pull on the heart is dropped", () => {
-    const world = held();
-    send(world, 1, string(true));
-    const seen = send(world, 1, heart(true, PULL));
-    expect(seen.filter((e) => e.type === "mazeGrip")).toHaveLength(0);
-    expect(mazeOf(world).gripThumb).toBe(false);
-    expect(mazeOf(world).phase).toBe("grip");
+    const free = mazeShakeFreeMilli(CFG, mazeOf(world));
+    expect(free).toBeGreaterThan(0);
+    send(world, 1, shake(0));
+    send(world, 1, shake(0, 9_000));
+    expect(mazeOf(world).gripYMilli).toBe(free);
+    const shook = mazeOf(world).gripShookMilli[0];
+    expect(shook).toBe(free);
+    send(world, 1, shake(0, 15_000));
+    expect(mazeOf(world).gripShookMilli[0]).toBe(shook);
+    // Back the other way moves at once: the hand's zero is where it stopped.
+    send(world, 1, shake(0, 14_900));
+    expect(mazeOf(world).gripYMilli).toBe(free - 100);
+    // A diagonal is held to the circle, not to a square round it.
+    send(world, 1, shake(20_000, 20_000));
+    const m = mazeOf(world);
+    expect(m.gripXMilli * m.gripXMilli + m.gripYMilli * m.gripYMilli).toBeLessThanOrEqual(
+      free * free,
+    );
   });
 
   test("is heard only while the heart is holding", () => {
     const world = install();
     untilReading(world);
-    send(world, 2, heart(true, PULL));
-    expect(mazeOf(world).gripThumb).toBe(false);
+    send(world, 2, shake(0));
+    send(world, 2, shake(900));
+    expect(mazeOf(world).gripSeats).toBe(0);
     expect(mazeOf(world).phase).toBe("read");
   });
 });
 
-describe("the tear", () => {
-  test("is both hands at once: the wheel is finished and the boss takes a share", () => {
+describe("the shake", () => {
+  test("is both seats: the wheel is finished and the boss takes a share", () => {
     const world = held();
     const seen = tear(world);
     const verdict = seen.filter((e) => e.type === "mazeVerdict");
@@ -135,63 +133,51 @@ describe("the tear", () => {
     past(world, "verdict", TPB * 8);
     untilReading(world);
     expect(mazeOf(world).round).toBe(1);
-    expect(mazeOf(world).gripThumb).toBe(false);
-    expect(mazeOf(world).gripPullMilli).toBe(0);
+    expect(mazeOf(world).gripSeats).toBe(0);
+    expect(mazeOf(world).gripShookMilli).toEqual([0, 0]);
   });
 
-  test("counts the brace whichever order the two hands land in", () => {
+  test("is eight widths of the room in all, half from each seat", () => {
     const world = held();
-    send(world, 2, heart(true, 0));
-    send(world, 2, heart(true, PULL));
-    expect(mazeOf(world).phase).toBe("grip");
-    // The pull is already at its reach; the brace landing does not by itself
-    // tear — the thumb has to be carried, so the next report of it does.
-    send(world, 1, string(true));
-    expect(mazeOf(world).phase).toBe("grip");
-    send(world, 2, heart(true, PULL));
-    expect(mazeOf(world).phase).toBe("verdict");
-    expect(mazeOf(world).verdict).toBe(1);
+    const m = mazeOf(world);
+    const need = mazeShakeSeatMilli(CFG, m);
+    expect(2 * need).toBe(8 * 2 * mazeRoomMilli(CFG, m));
+    tear(world);
+    // Both halves reached, and the tear on the swing that reached the last.
+    const free = mazeShakeFreeMilli(CFG, m);
+    for (const shook of m.gripShookMilli) {
+      expect(shook).toBeGreaterThanOrEqual(need);
+      expect(shook).toBeLessThan(need + 2 * free + 1);
+    }
+    expect(m.verdict).toBe(1);
   });
 
-  test("is refused once the pilot lets go", () => {
+  test("one seat alone never finishes it, however long it shakes", () => {
     const world = held();
-    send(world, 1, string(true));
-    send(world, 1, string(false));
-    send(world, 2, heart(true, 0));
-    send(world, 2, heart(true, PULL));
-    expect(mazeOf(world).phase).toBe("grip");
-  });
-
-  test("a hand kept on the string since the read is the brace already", () => {
-    const world = install();
-    untilReading(world);
-    const col = clickOnto(world, mazeCoreEntrance(WHEELS[0]!));
-    send(world, 1, { kind: "cannonCol", col });
-    // The hand goes on before the shot and stays there through the walk;
-    // under `grip` the brace turns nothing, and the string's pull is dropped
-    // rather than read.
-    send(world, 1, string(true));
-    send(world, 2, { kind: "fire", color: mazeHeartColor(0) });
-    past(world, "travel", TPB * 200);
-    expect(mazeOf(world).phase).toBe("grip");
-    expect(mazeOf(world).dragging).toBe(true);
-    const angle = mazeOf(world).angleMilli;
-    send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 9_000 });
-    expect(mazeOf(world).angleMilli).toBe(angle);
-    send(world, 2, heart(true, 0));
-    send(world, 2, heart(true, PULL));
-    expect(mazeOf(world).phase).toBe("verdict");
+    send(world, 2, shake(0));
+    let from = 0;
+    for (let i = 0; i < 200; i++) {
+      from += mazeOf(world).gripXMilli > 0 ? -5000 : 5000;
+      send(world, 2, shake(from));
+    }
+    const m = mazeOf(world);
+    expect(m.phase).toBe("grip");
+    expect(mazeShakeThrough(CFG, m)).toBe(500);
   });
 });
 
-test("the thumb is in the hash", () => {
+test("the thumbs and the shake are in the hash", () => {
   const a = held();
   const b = held();
   expect(hashWorld(a)).toBe(hashWorld(b));
-  send(a, 2, heart(true, 0));
-  send(b, 2, heart(true, 0));
+  send(a, 2, shake(0));
+  send(b, 2, shake(0));
   expect(hashWorld(a)).toBe(hashWorld(b));
-  send(a, 2, heart(true, 120));
+  send(a, 1, shake(0));
+  expect(hashWorld(a)).not.toBe(hashWorld(b));
+  send(b, 1, shake(0));
+  expect(hashWorld(a)).toBe(hashWorld(b));
+  send(a, 2, shake(120, 40));
   expect(hashWorld(a)).not.toBe(hashWorld(b));
   step(a, []);
   step(b, []);

@@ -60,7 +60,7 @@ export interface FleetConfig {
   fleetWreckBeats: number;
   /**
    * How far down the navigator drags the wreck to sink it, in thousandths of
-   * a tile — the same reach THE MAZE's heart asks (`mazeHeartPullMilli`), so
+   * a tile — the reach THE MAZE's heart asked before it became a shake, so
    * one pull is one pull on every picture that asks for one.
    */
   fleetWreckPullMilli: number;

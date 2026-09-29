@@ -337,8 +337,9 @@ by hand never moves.
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-state.ts` | what THE MAZE remembers between ticks — `MazeState`, a paragraph per field — and the two ways it is set: fresh for a wave, wiped for a phase |
 | `packages/sim/src/maze-spin.ts` | **Where a drum stands when it comes up: somewhere the pair has not seen it** |
+| `packages/sim/src/maze-shake.ts` | **THE MAZE's heart, shaken loose: where it may go and how far it has been** |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/maze-hand.ts` | **A thumb on THE MAZE's heart**, off the wire, on the tick |
+| `packages/sim/src/maze-hand.ts` | **Thumbs on THE MAZE's heart**, off the wire, on the tick |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
 | `packages/sim/src/hull-guard.ts` | **The shield's own arithmetic**: where it stands, how long its window is open |
 | `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how far apart the rows it changes lane on are, and the widest a single change can reach |
@@ -472,7 +473,7 @@ by hand never moves.
 | `packages/sim/src/events-filament.ts` | What THE FILAMENT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
-| `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until it is torn out by hand (`maze-hand.ts` |
+| `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until the pair shakes it loose (`maze-hand.ts` |
 | `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
 | `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
@@ -1709,6 +1710,7 @@ by hand never moves.
 | `packages/render/src/queen-marks.ts` | THE BULB QUEEN's marks asking (halo, or the partner's ring and clock) and their verdict rings |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
+| `packages/render/src/maze-shake-arrows.ts` | **THE MAZE's heart, told it may go any way**: eight chevrons round the room, pointing out |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
 | `packages/render/src/volley-core.ts` | THE VOLLEY's core: a smaller glossy ball of the body's colour, wearing the shell's seams, drawn inside the shell once a ward has opened it |
@@ -2023,7 +2025,7 @@ by hand never moves.
 | `packages/render/src/maze-pulse.ts` | the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, how long a wound lasts — beside `maze-heart.ts` |
 | `packages/render/src/maze-plate.ts` | THE MAZE's drum as a made thing: a bezel and bolts round the rim, gloss over the plate, and the socket the heart sits in |
 | `packages/render/src/maze-grip-fx.ts` | **The thumb landing on the heart, and the thumb leaving it** |
-| `packages/render/src/maze-grip.ts` | **THE MAZE's heart as a control**, for the one gesture that asks a thumb for it: the tear (`grip` |
+| `packages/render/src/maze-grip.ts` | **THE MAZE's heart as a control**, for the one gesture that asks thumbs of it: the shake (`grip` |
 | `packages/render/src/maze-marks.ts` | THE MAZE's string and heart asking a seat and answering a touch green or red, the way every mark does |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |

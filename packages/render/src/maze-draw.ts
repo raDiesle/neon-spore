@@ -3,7 +3,7 @@ import { hurtShake } from "./boss-hurt.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
 import { mazeCrash, mazeFall } from "./maze-fall.js";
-import { drawMazeGrip, mazeHeartPull } from "./maze-grip.js";
+import { drawMazeGrip, mazeHeartAt } from "./maze-grip.js";
 import { drawMazeHeart } from "./maze-heart.js";
 import { MAZE_LOOK } from "./maze-look.js";
 import { drawMazeAsked } from "./maze-marks.js";
@@ -52,12 +52,11 @@ import { mazeDrum } from "./maze-walls.js";
  * it is broken (`sim/maze-verdict.ts`). The heart stays where it is either
  * way: the maze is what fell, and the boss is not the maze.
  *
- * **The right shot is held, and the heart is torn out by hand.** Under `grip`
- * the shot stops in the middle and the muscle is pulled down by however far
- * the navigator's thumb has come (`gripPullMilli`), its veins stretching to
- * the wall of the room; the ring she pulls, the count, and the string's
- * handle kept lit as the pilot's brace are `maze-grip.ts` and
- * `maze-string.ts`. `role` decides a second word here — whose the heart is.
+ * **The right shot is held, and the heart is shaken loose by hand.** Under
+ * `grip` the shot stops in the middle and the muscle stands wherever both
+ * thumbs have carried it (`gripXMilli`, `gripYMilli`), its veins stretching
+ * to the wall of the room; the ring, the arrows and the green count are
+ * `maze-grip.ts`.
  *
  * Where the wheel stands, which column the gap has taken, how wide the drum is
  * and which way the shot turns are all read out of `sim` rather than worked
@@ -86,6 +85,7 @@ export function drawMaze(
   // both of them arrive *on* it rather than behind it. A right verdict is the
   // blow, shaking it for as long as the wound shows (`maze-heart.ts`).
   const struck = heartPulse(m, beat, beatPhase).struck;
+  const held = mazeHeartAt(l, m);
   drawMazeHeart(
     ctx,
     drum.cx,
@@ -94,8 +94,8 @@ export function drawMaze(
     m,
     beat,
     beatPhase,
-    mazeHeartPull(l, m),
-    hurtShake(struck, time, l.tile),
+    held.y,
+    held.x + hurtShake(struck, time, l.tile),
   );
   // The lever before the doors: the thumb brings the knob to the bottom just
   // as a gap arrives there, and the lit lips have to read over it.
@@ -105,7 +105,7 @@ export function drawMaze(
   drawMazeString(ctx, l, cfg, m, role, time);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
-  drawMazeGrip(ctx, l, cfg, m, role, beat, beatPhase, time);
+  drawMazeGrip(ctx, l, cfg, m, role, time);
   // A shot the heart refused for its colour, thrown back out across the whole
   // drum. Over the walls and the corridors rather than under them, because it
   // went *through* them (`maze-spill.ts`); the rest of it lands on the ship

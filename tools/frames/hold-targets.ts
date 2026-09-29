@@ -46,7 +46,8 @@ export const SEAT: Record<string, 1 | 2> = {
   filament2: 2,
   /** THE STARE's lid is whichever seat is free, so it has a name each. */
   stareLid2: 2,
-  /** THE MAZE's heart returns on any seat but the navigator's (`maze-hand.ts`). */
+  /** THE MAZE's heart takes either seat's thumb (`maze-hand.ts`); a capture
+   * holds the navigator's, one thumb of the two the shake needs. */
   mazeHeart: 2,
   /** THE THROAT's cinch is hers; the haul next door is his (`throat-hand.ts`). */
   throatRing: 2,

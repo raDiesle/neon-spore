@@ -1,5 +1,6 @@
 import {
   type Color,
+  type MazeState,
   type MirrorStep,
   mazeCoreEntrance,
   mazeCurrent,
@@ -40,23 +41,10 @@ const valve = (dir: -1 | 1): Press => ({ player: 1, command: { kind: "valve", on
 export const mazeHand: Hand = (w) => {
   const m = mazeRound(w);
   if (m === null) return [];
-  // The heart holding the shot: his hand on the string, her thumb carried
-  // down the whole pull, on one tick (`sim/maze-hand.ts`).
-  if (m.phase === "grip") {
-    return [
-      { player: 1, command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 } },
-      {
-        player: 2,
-        command: {
-          kind: "drag",
-          target: "mazeHeart",
-          on: true,
-          fromMilli: 0,
-          fromYMilli: w.cfg.mazeHeartPullMilli,
-        },
-      },
-    ];
-  }
+  // The heart holding the shot: both thumbs on it, then one seat a tick
+  // carrying it across to the far wall of its room and back, so each tick's
+  // swing is a whole one and both seats' counts fill (`sim/maze-shake.ts`).
+  if (m.phase === "grip") return mazeShake(w.tick, m);
   if (m.phase !== "read") return [];
   const wheel = mazeCurrent(m);
   if (wheel === null) return [];
@@ -67,6 +55,20 @@ export const mazeHand: Hand = (w) => {
   }
   return m.turn === 0 ? [valve(1)] : [];
 };
+
+/** Both seats' thumbs on the heart, and the one whose tick it is swinging it. */
+function mazeShake(tick: number, m: MazeState): Press[] {
+  return ([1, 2] as const).map((player) => {
+    const at = (player - 1) * 2;
+    const on = (m.gripSeats & player) !== 0;
+    const swing = on && tick % 2 === player - 1 ? (m.gripXMilli > 0 ? -5000 : 5000) : 0;
+    const fromMilli = (on ? (m.gripFromMilli[at] ?? 0) : 0) + swing;
+    return {
+      player,
+      command: { kind: "drag", target: "mazeHeart", on: true, fromMilli, fromYMilli: 0 },
+    };
+  });
+}
 
 /**
  * THE MIRROR: the step it is waiting for, one a tick, on the panel under an

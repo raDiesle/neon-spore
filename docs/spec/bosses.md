@@ -1903,6 +1903,37 @@ new shape. `render/test/maze-plate.test.ts` proves the cut, the bolts kept
 out of it and the bezel gone with the rim. A look the owner asked for by
 name. *Never watched at tempo.*
 
+**Faster, dealt, and shaken rather than torn** (29 September 2026, the
+owner, in one message; two landings). It supersedes the tear and the brace
+in the three paragraphs above wherever they disagree. *The clock*: every
+sheet's reading beats are three fifths of what they were, and both the read
+and the hold burn down on the fuse the choreographed bosses wear, between
+the drum and the hull (`render/maze-fuse.ts`), in place of the dial round
+the heart. *The spin*: every wheel that comes up — each try of the wave and
+each round after the first — is hung at an angle off the seeded rng, never
+with a way in within an eighth of the ship, so last try's clicks cannot be
+replayed from memory (`sim/maze-spin.ts`); a rehearsal's hangs upright. *The
+dead end*: the drum breaks and falls onto the ship where the meteor used to
+drop, the fall a wrong colour already had (`render/maze-fall.ts`). *The
+shake*: under `grip` the heart is **both seats'** — no string brace, no
+refusal — and each thumb carries the same heart any way, held to a disc
+`mazeHeartFreeMilli` of the room's radius, so a hand has to go back and
+forth inside the room rather than drag once. Only distance the heart
+actually moves counts, a push into the wall earns nothing, and the heart
+comes loose after `mazeShakeWidths` (eight) room widths in all, half from
+each seat, so one seat alone stops at half (`sim/maze-shake.ts`,
+`maze-hand.ts`). `mazeGripBeats` went from eight to twelve rather than
+down: the shake is the one step that got longer. The picture says "any way"
+with eight chevrons round the room, white until this seat's thumb is on and
+green after, a green count filling round the room for the pair's progress,
+`SHAKE` under the heart until a thumb lands and `P2 TOO` / `P1 TOO` while
+the partner's has not, and the cue's `CARRY` / `SHAKE` on each seat still
+off it (`render/maze-grip.ts`, `maze-shake-arrows.ts`,
+`boss-cue-read-e.ts`). *The room*: every sheet's `coreMilli` went from 177
+to 300, so there is room inside to shake in (`content/maze-rounds.ts`,
+`maze-drawn.ts`). Looks the owner asked for by name. *Never watched at
+tempo.*
+
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 
 **Nothing either control does reaches it.** The pile is seven of the field's own

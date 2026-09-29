@@ -132,13 +132,11 @@ export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly Bo
  * beating in front of them both — the film says so in its one remaining page
  * about her half, and the field never will.
  *
- * **Under `grip`, the heart holding the shot** (`sim/maze-hand.ts`):
- * - `CARRY` / `HOLD` on the string handle, the pilot's, until his hand is on
- *   it. His half of the tear is a brace and not a pull, and the word says so;
- *   once the hand is there the field has nothing to add.
- * - `CARRY` / `PULL` on the heart, the navigator's, for as long as the heart
- *   holds. Not *once he is braced*: the string is his and whether his hand is
- *   on it is the one thing she has to be told.
+ * **Under `grip`, the heart holding the shot** (`sim/maze-hand.ts`,
+ * `maze-shake.ts`): `CARRY` / `SHAKE` on the heart, on each seat's screen
+ * until that seat's thumb is on it. Both seats shake it loose, so both are
+ * asked, and neither is told how far the other has come — the green count
+ * round the room says that to both at once (`maze-grip.ts`).
  */
 export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
   if (m.phase === "grip") return mazeGripCues(l, world, m);
@@ -162,12 +160,9 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
 }
 
 function mazeGripCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
-  const out: BossCue[] = [];
-  if (!m.dragging) {
-    const handle = mazeStringHandle(l, world.cfg, m);
-    out.push(markAt(1, "CARRY", "HOLD", handle.x, handle.y, l, 75));
-  }
   const d = mazeDrum(l, world.cfg);
-  out.push(markAt(2, "CARRY", "PULL", d.cx, d.cy, l, 76));
+  const out: BossCue[] = [];
+  if ((m.gripSeats & 1) === 0) out.push(markAt(1, "CARRY", "SHAKE", d.cx, d.cy, l, 75));
+  if ((m.gripSeats & 2) === 0) out.push(markAt(2, "CARRY", "SHAKE", d.cx, d.cy, l, 76));
   return out;
 }

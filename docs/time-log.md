@@ -29354,3 +29354,18 @@ Bottleneck: reading — "STATES poses" meant a director page, which only
 turned up by listing `tools/director/src`.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE MAZE: the heart shaken loose by both seats, a bigger room
+
+- reading: 5 min. The heart's hand, the string's brace, the touch path for a
+  drag on both axes, the ring and the marks.
+- writing: 20 min. `maze-shake.ts`, the two-seat hand and its state and hash,
+  the arrows, the green count and the words, the cue, AUTO's shake, the core
+  at 300 on every sheet, the tests and the two specs.
+- looking: 10 min. Five frames: the arrows first read as more of the drum's
+  spokes, then ran into the count, and moved out twice.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — replacing a one-seat pull with a two-seat shake
+reached twenty files, from the state to the director's rows.

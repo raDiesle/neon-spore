@@ -85,15 +85,21 @@ export interface MazeState {
   /** The column that verdict landed in — the one the shot went up. */
   verdictCol: number;
   /**
-   * The navigator's thumb on the heart under `grip`, and how far down it has
-   * carried it, in thousandths of a tile, 0..`mazeHeartPullMilli`. Two fields
-   * rather than one because the picture needs both: a thumb resting on the
-   * heart is a heart under a hand on **both** screens, which is how the pilot
-   * sees the pull coming, and the distance is how far the heart is stretched
-   * (`maze-hand.ts`). Wiped on `lead` and on entering `grip`.
+   * The heart under `grip`, shaken loose by both seats (`maze-shake.ts`).
+   * `gripSeats` is which thumbs are on it — bit 1 the pilot's, bit 2 the
+   * navigator's — so each screen can show whose hand is missing.
+   * `gripFromMilli` is the last displacement each thumb reported, x then y,
+   * the pilot's pair first: a thumb carries the heart by the change in it,
+   * the way the string turns the wheel. `gripXMilli`/`gripYMilli` is where the
+   * heart stands from the room's middle, in thousandths of a tile, and
+   * `gripShookMilli` how far each seat has carried it in all. Wiped on `lead`
+   * and on entering `grip`.
    */
-  gripThumb: boolean;
-  gripPullMilli: number;
+  gripSeats: number;
+  gripFromMilli: number[];
+  gripXMilli: number;
+  gripYMilli: number;
+  gripShookMilli: number[];
 }
 
 /** The wheel of the round being played, or nothing past the last one. */
@@ -106,8 +112,11 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
   m.phaseBeat = beat;
   // The heart's hold begins with no thumb on it, and a wheel wiped has none.
   if (phase === "grip" || phase === "lead") {
-    m.gripThumb = false;
-    m.gripPullMilli = 0;
+    m.gripSeats = 0;
+    m.gripFromMilli = [0, 0, 0, 0];
+    m.gripXMilli = 0;
+    m.gripYMilli = 0;
+    m.gripShookMilli = [0, 0];
   }
   if (phase !== "lead") return;
   m.angleMilli = mazeWrap(mazeCurrent(m)?.startMilli ?? 0);
@@ -152,7 +161,10 @@ export function installMaze(world: World, rounds: MazeWheel[], upright = false):
     verdict: 0,
     verdictCol: -1,
     lost: null,
-    gripThumb: false,
-    gripPullMilli: 0,
+    gripSeats: 0,
+    gripFromMilli: [0, 0, 0, 0],
+    gripXMilli: 0,
+    gripYMilli: 0,
+    gripShookMilli: [0, 0],
   };
 }

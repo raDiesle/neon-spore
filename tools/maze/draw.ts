@@ -102,5 +102,5 @@ export function drawSheet(rings: number, ways: number, seed: number): Sheet {
   const rim = rimSectors.map((sector) => sector * SECTOR + SECTOR / 2);
   openings.push([...new Set(rim)].sort((a, b) => a - b));
 
-  return { rings, coreMilli: 177, openMilli: 55, walls, openings };
+  return { rings, coreMilli: 300, openMilli: 55, walls, openings };
 }

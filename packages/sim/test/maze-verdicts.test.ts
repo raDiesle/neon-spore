@@ -44,26 +44,23 @@ const heart = (on: boolean, fromYMilli = 0): Command => ({
 const string = (on: boolean): Command => ({ kind: "drag", target: "mazeString", on, fromMilli: 0 });
 const said = (seen: SimEvent[]) => seen.filter((e) => e.type === "mazeRefuse");
 
-test("the string is asked while the wheel turns and as the brace; the heart only while it holds", () => {
+test("the string is asked while the wheel turns; the heart only while it holds", () => {
   const world = install();
   expect(mazeStringAsks(mazeOf(world))).toBe(false);
   untilReading(world);
   expect(mazeStringAsks(mazeOf(world))).toBe(true);
   expect(mazeHeartAsks(mazeOf(world))).toBe(false);
   const grip = held();
-  expect(mazeStringAsks(mazeOf(grip))).toBe(true);
+  expect(mazeStringAsks(mazeOf(grip))).toBe(false);
   expect(mazeHeartAsks(mazeOf(grip))).toBe(true);
 });
 
-test("the pilot's thumb on the heart is refused, once, and the heart does not stretch", () => {
+test("the pilot's thumb on the heart is taken like the navigator's, and refused nothing", () => {
   const world = held();
-  const seen = send(world, 1, heart(true, CFG.mazeHeartPullMilli));
-  expect(said(seen)).toEqual([
-    { type: "mazeRefuse", col: mazeBottomCol(CFG), part: "heart", player: 1 },
-  ]);
-  expect(mazeOf(world).gripThumb).toBe(false);
-  expect(mazeOf(world).gripPullMilli).toBe(0);
-  expect(said(send(world, 1, heart(false)))).toEqual([]);
+  const seen = send(world, 1, heart(true));
+  expect(said(seen)).toEqual([]);
+  expect(seen).toContainEqual({ type: "mazeGrip", col: mazeBottomCol(CFG), on: true });
+  expect(mazeOf(world).gripSeats).toBe(1);
 });
 
 test("the navigator's hand on the string is refused, once, and turns and braces nothing", () => {
@@ -77,8 +74,9 @@ test("the navigator's hand on the string is refused, once, and turns and braces 
   expect(mazeOf(world).dragging).toBe(false);
   expect(mazeOf(world).angleMilli).toBe(angle);
   expect(said(send(world, 2, string(false)))).toEqual([]);
+  // Under `grip` the string is asked of nobody, so a press on it says nothing.
   const grip = held();
-  expect(said(send(grip, 2, string(true)))).toHaveLength(1);
+  expect(said(send(grip, 2, string(true)))).toEqual([]);
   expect(mazeOf(grip).dragging).toBe(false);
 });
 

@@ -14,6 +14,7 @@ import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMazeGrip, mazeHeartCircle, mazeHeartUnder } from "../src/maze-grip.js";
 import { MazeGripFx } from "../src/maze-grip-fx.js";
 import { mazeStringCircle } from "../src/maze-string.js";
+import { PALETTE } from "../src/palette.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 import {
   CFG,
@@ -28,13 +29,13 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE MAZE's heart as a control (`maze-grip.ts`): that only the navigator's
- * thumb takes hold of it and only under `grip`, that a move reports how far down the
- * thumb has come so the sim can read the tear off it, that the string still
- * answers the pilot as the brace, and that the ring, the word and the count
- * reach the canvas on the screen they belong to and no other. The rule is the
- * simulation's (`sim/test/maze-gestures.test.ts`); this file proves the
- * picture hands it a thumb.
+ * THE MAZE's heart as a control (`maze-grip.ts`): that either seat's thumb
+ * takes hold of it and only under `grip`, that a move reports the thumb's
+ * displacement on both axes so the sim can shake the heart by it, that the
+ * string asks nothing meanwhile, and that the ring, the arrows, the word and
+ * the green count reach the canvas. The rule is the simulation's
+ * (`sim/test/maze-gestures.test.ts`); this file proves the picture hands it a
+ * thumb.
  */
 
 beforeAll(installCanvasGlobals);
@@ -60,7 +61,7 @@ function wheel() {
   );
 }
 
-/** The right shot held in the heart: `grip`, with the pilot braced. */
+/** The right shot held in the heart: `grip`, no thumb on it yet. */
 function grip(overrides: Partial<MazeState> = {}): MazeState {
   return {
     kind: "maze",
@@ -70,7 +71,7 @@ function grip(overrides: Partial<MazeState> = {}): MazeState {
     phaseBeat: 4,
     angleMilli: 15_000,
     turn: 0,
-    dragging: true,
+    dragging: false,
     dragFromMilli: 0,
     armed: true,
     lockedCol: -1,
@@ -84,8 +85,11 @@ function grip(overrides: Partial<MazeState> = {}): MazeState {
     verdict: 0,
     verdictCol: -1,
     lost: null,
-    gripThumb: false,
-    gripPullMilli: 0,
+    gripSeats: 0,
+    gripFromMilli: [0, 0, 0, 0],
+    gripXMilli: 0,
+    gripYMilli: 0,
+    gripShookMilli: [0, 0],
     ...overrides,
   };
 }
@@ -112,7 +116,7 @@ function fieldWith(seat: 1 | 2, boss: MazeState | null): Field {
 const heart = (l: ReturnType<typeof layout>, m: MazeState) => mazeHeartCircle(l, DEFAULT_CONFIG, m);
 
 describe("a thumb on the heart", () => {
-  it("is the navigator's, under grip, and the pilot's press is handed through to be refused", () => {
+  it("is either seat's, under grip, and takes a hold on both", () => {
     const l = layout("p2");
     const at = heart(l, grip());
     const touch = mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip()));
@@ -127,7 +131,7 @@ describe("a thumb on the heart", () => {
     expect(mazeHeartUnder(layout("p1"), at.x, at.y, fieldWith(1, grip()))).toMatchObject({
       player: 1,
       command: { target: "mazeHeart", on: true },
-      hold: null,
+      hold: { kind: "drag", target: "mazeHeart", player: 1 },
     });
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip({ phase: "read" })))).toBeNull();
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip({ phase: "travel" })))).toBeNull();
@@ -143,36 +147,37 @@ describe("a thumb on the heart", () => {
     });
   });
 
-  it("reports how far down it has come, and lets go on the lift", () => {
-    const l = layout("p2");
-    const field = fieldWith(2, grip());
+  it("reports where it has come on both axes, and lets go on the lift", () => {
+    const l = layout("p1");
+    const field = fieldWith(1, grip());
     const at = heart(l, grip());
     const hold = touchDown(l, at.x, at.y, field)?.hold as Hold;
-    const pulled = touchMove(l, hold, at.x, at.y + l.tile * 0.6)?.command;
-    expect(pulled).toMatchObject({ target: "mazeHeart", on: true, fromYMilli: 600 });
+    const pulled = touchMove(l, hold, at.x - l.tile * 0.4, at.y + l.tile * 0.6)?.command;
+    expect(pulled).toMatchObject({
+      target: "mazeHeart",
+      on: true,
+      fromMilli: -400,
+      fromYMilli: 600,
+    });
     const lifted = touchUp(l, hold, { x: at.x, y: at.y + l.tile })?.command;
     expect(lifted).toMatchObject({ target: "mazeHeart", on: false });
   });
 });
 
 describe("the string under grip", () => {
-  it("still answers the pilot, as the brace, and hands the navigator's press through", () => {
+  it("asks nobody: both hands belong on the heart", () => {
     const l = layout("p1");
     const at = mazeStringCircle(l, DEFAULT_CONFIG);
-    expect(touchDown(l, at.x, at.y, fieldWith(1, grip()))?.command).toMatchObject({
-      target: "mazeString",
-    });
-    // Hers is the press alone, with no hold, for the sim to refuse once.
-    const hers = touchDown(layout("p2"), at.x, at.y, fieldWith(2, grip()));
-    expect(hers).toMatchObject({ player: 2, command: { target: "mazeString" }, hold: null });
+    const command = touchDown(l, at.x, at.y, fieldWith(1, grip()))?.command;
+    expect(command?.kind === "drag" && command.target === "mazeString").toBe(false);
   });
 });
 
 /** Strokes the grip makes on a role's screen, for one state. */
-function strokes(role: ViewRole, m: MazeState, beat = 6): number {
+function strokes(role: ViewRole, m: MazeState): number {
   const { ctx } = stubCanvas();
   const spy = ctx as unknown as CanvasRenderingContext2D;
-  drawMazeGrip(spy, layout(role), DEFAULT_CONFIG, m, role, beat, 0.5, 1.2);
+  drawMazeGrip(spy, layout(role), DEFAULT_CONFIG, m, role, 1.2);
   return ctx.calls;
 }
 
@@ -185,24 +190,39 @@ describe("the ring", () => {
     }
   });
 
-  it("is the navigator's, with the count on both screens", () => {
-    expect(strokes("p2", grip())).toBeGreaterThan(strokes("p1", grip()));
+  it("is on every screen, the same picture for the same state", () => {
     expect(strokes("p1", grip())).toBeGreaterThan(0);
+    expect(strokes("p1", grip())).toBe(strokes("p2", grip()));
     expect(strokes("test", grip())).toBe(strokes("p2", grip()));
   });
 
-  it("fills under her thumb, and the word goes with it", () => {
-    const held = grip({ gripThumb: true, gripPullMilli: 300 });
-    // The pilot's screen has no ring, so what it loses is the word alone…
-    const word = strokes("p1", grip()) - strokes("p1", held);
-    expect(word).toBeGreaterThan(0);
-    // …and the navigator's loses the same word and gains the fill.
-    expect(strokes("p2", grip()) - strokes("p2", held)).toBeLessThan(word);
+  it("goes green under this seat's thumb, and the word names the partner's", () => {
+    const green = (m: MazeState) => {
+      const { ctx } = stubCanvas();
+      const log: string[] = [];
+      ctx.log = log;
+      ctx.texts = [];
+      drawMazeGrip(
+        ctx as unknown as CanvasRenderingContext2D,
+        layout("p1"),
+        DEFAULT_CONFIG,
+        m,
+        "p1",
+        1.2,
+      );
+      const good = log.filter((line) => line.includes(PALETTE.good)).length;
+      return { good, words: ctx.texts.map((t) => t.text) };
+    };
+    expect(green(grip()).words).toEqual(["SHAKE"]);
+    const held = green(grip({ gripSeats: 1 }));
+    expect(held.words).toEqual(["P2 TOO"]);
+    expect(held.good).toBeGreaterThan(green(grip()).good);
+    expect(green(grip({ gripSeats: 3 })).words).toEqual([]);
   });
 
-  it("runs the count down over mazeGripBeats", () => {
-    const out = 4 + DEFAULT_CONFIG.mazeGripBeats + 1;
-    expect(strokes("p1", grip(), out)).toBeLessThan(strokes("p1", grip(), 4));
+  it("fills the green count as the pair shakes", () => {
+    const some = grip({ gripShookMilli: [3_000, 1_000] });
+    expect(strokes("p1", some)).toBeGreaterThan(strokes("p1", grip()));
   });
 });
 
@@ -249,28 +269,23 @@ describe("on the field", () => {
             });
           }
           if (tick === tpb * 5) {
-            step(w, [
-              {
-                tick,
-                player: 1,
-                command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 },
-              },
-              {
-                tick,
-                player: 2,
-                command: {
-                  kind: "drag",
-                  target: "mazeHeart",
-                  on: true,
-                  fromMilli: 0,
-                  fromYMilli: 300,
-                },
-              },
-            ]);
+            const heart = (player: 1 | 2, fromMilli: number) => ({
+              tick,
+              player,
+              command: {
+                kind: "drag",
+                target: "mazeHeart",
+                on: true,
+                fromMilli,
+                fromYMilli: 0,
+              } as const,
+            });
+            step(w, [heart(1, 0), heart(2, 0)]);
+            step(w, [heart(1, 300), heart(2, 500)]);
           }
         },
       });
-      expect(after.boss?.kind === "maze" && after.boss.gripThumb).toBe(true);
+      expect(after.boss?.kind === "maze" && after.boss.gripSeats).toBe(3);
       expect(ctx.calls).toBeGreaterThan(1000);
     });
   }

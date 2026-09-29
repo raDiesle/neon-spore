@@ -26,7 +26,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE MAZE, and the three words the field may say about it**
+ * **THE MAZE, and the words the field may say about it**
  * (`render/src/boss-cue-read-e.ts`).
  *
  * The round has no secret — the lit door, the shot's walk and the heart's
@@ -95,26 +95,29 @@ describe("THE MAZE", () => {
     }
   });
 
-  it("under the grip: HOLD on the string for him until he has it, PULL on the heart for her", () => {
+  it("under the grip: SHAKE on the heart, for each seat until its thumb is on", () => {
     const { world, m } = opened();
     m.phase = "grip";
-    m.dragging = false;
-    const his = cue(world, "p1");
-    expect(his?.word).toBe("HOLD");
-    expect(his?.kind).toBe("CARRY");
-    expect(his?.seat).toBe(1);
-    expect(his?.y).toBe(mazeStringCircle(LAYOUT.p1, CFG).y);
-    const hers = cue(world, "p2");
-    expect(hers?.word).toBe("PULL");
-    expect(hers?.seat).toBe(2);
-    const d = mazeDrum(LAYOUT.p2, CFG);
-    expect(hers?.x).toBe(d.cx);
-    expect(hers?.y).toBe(d.cy);
-    // His hand on it: the field has nothing more to say to him, and still
-    // asks her — whether he is braced is the one thing she cannot see.
-    m.dragging = true;
+    m.gripSeats = 0;
+    for (const [role, seat] of [
+      ["p1", 1],
+      ["p2", 2],
+    ] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("SHAKE");
+      expect(c?.kind).toBe("CARRY");
+      expect(c?.seat).toBe(seat);
+      const d = mazeDrum(LAYOUT[role], CFG);
+      expect(c?.x).toBe(d.cx);
+      expect(c?.y).toBe(d.cy);
+    }
+    // His thumb on: the field has nothing more to say to him, and still
+    // asks her — the tear is both seats or nothing.
+    m.gripSeats = 1;
     expect(cue(world, "p1")).toBeNull();
-    expect(cue(world, "p2")?.word).toBe("PULL");
+    expect(cue(world, "p2")?.word).toBe("SHAKE");
+    m.gripSeats = 3;
+    expect(cue(world, "p2")).toBeNull();
   });
 
   it("asks the pilot to TURN, on the handle, while nothing has clicked", () => {

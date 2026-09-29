@@ -133,9 +133,9 @@ export const INGEST_SILENT_BOSS_B = [
   "gorgePinch",
   "gorgePry",
   "gorgeClench",
-  // THE MAZE's heart under the navigator's thumb, landing or leaving: the
-  // ring it throws is `maze-grip-fx.ts`, read above the loop, and the
-  // filled ring under her thumb is read off `gripThumb` every frame.
+  // THE MAZE's heart under a thumb, landing or leaving: the ring it throws
+  // is `maze-grip-fx.ts`, read above the loop, and the filled ring under
+  // each seat's thumb is read off `gripSeats` every frame.
   "mazeGrip",
   // THE WARDEN's second and third hands: the thumb on the eye and the thrown
   // hatch are world state, read off `eyeHeld` and `throwBeat` every frame

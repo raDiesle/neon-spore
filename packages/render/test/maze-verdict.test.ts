@@ -87,8 +87,11 @@ function maze(overrides: Partial<MazeState> = {}): MazeState {
     verdict: 0,
     verdictCol: -1,
     lost: null,
-    gripThumb: false,
-    gripPullMilli: 0,
+    gripSeats: 0,
+    gripFromMilli: [0, 0, 0, 0],
+    gripXMilli: 0,
+    gripYMilli: 0,
+    gripShookMilli: [0, 0],
     ...overrides,
   };
 }
@@ -119,15 +122,15 @@ describe("THE MAZE's parts asking", () => {
     expect(count(asked("p2", maze()), CLOCK)).toBe(1);
   });
 
-  it("under grip: one part each, and the halo leaves the part this hand holds", () => {
+  it("under grip: the heart is both seats', and the halo leaves it under this seat's thumb", () => {
     for (const role of ["p1", "p2"] as const) {
       expect(count(asked(role, grip()), HALO)).toBe(1);
-      expect(count(asked(role, grip()), CLOCK)).toBe(1);
+      expect(count(asked(role, grip()), THEIRS)).toBe(0);
     }
-    expect(count(asked("p1", grip({ dragging: true })), HALO)).toBe(0);
-    expect(count(asked("p2", grip({ gripThumb: true })), HALO)).toBe(0);
-    // The partner's hand on its part is not drawn: the clock is the same.
-    expect(count(asked("p1", grip({ gripThumb: true })), CLOCK)).toBe(1);
+    expect(count(asked("p1", grip({ gripSeats: 1 })), HALO)).toBe(0);
+    expect(count(asked("p2", grip({ gripSeats: 2 })), HALO)).toBe(0);
+    // The partner's thumb on the heart leaves this seat still asked.
+    expect(count(asked("p1", grip({ gripSeats: 2 })), HALO)).toBe(1);
   });
 
   it("asks nothing while the shot walks or the verdict stands", () => {
@@ -162,11 +165,15 @@ describe("a desk press on a part", () => {
     const heart = mazeHeartCircle(l, CFG, grip());
     const string = mazeStringCircle(l, CFG);
     expect(mazeGripSeat(l, heart.x, heart.y, field(1, grip()))).toBe(2);
-    expect(mazeGripSeat(l, string.x, string.y, field(1, grip()))).toBe(1);
+    // The heart is both seats', so one mouse takes whichever half is behind.
+    const behind = grip({ gripShookMilli: [0, 500] });
+    expect(mazeGripSeat(l, heart.x, heart.y, field(1, behind))).toBe(1);
+    expect(mazeGripSeat(l, string.x, string.y, field(1, maze()))).toBe(1);
+    expect(mazeGripSeat(l, string.x, string.y, field(1, grip()))).toBeUndefined();
     expect(mazeGripSeat(l, heart.x, heart.y, field(1, maze()))).toBeUndefined();
   });
 
-  it("is signed with that seat, so one mouse takes the navigator's heart", () => {
+  it("is signed with that seat, so one mouse takes the heart's half that is behind", () => {
     const heart = mazeHeartCircle(l, CFG, grip());
     const touch = deskDown(l, heart.x, heart.y, [1, 2], (seat) => field(seat, grip()));
     expect(touch?.player).toBe(2);

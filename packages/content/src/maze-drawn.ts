@@ -40,7 +40,7 @@ const RINGS = 7;
  * `bun run maze 7 2 31`. */
 const TWO_WAYS: MazeGeometry = {
   rings: RINGS,
-  coreMilli: 177,
+  coreMilli: 300,
   openMilli: 55,
   walls: [
     [],
@@ -69,7 +69,7 @@ const TWO_WAYS: MazeGeometry = {
  * `bun run maze 7 3 132`. */
 const THREE_WAYS: MazeGeometry = {
   rings: RINGS,
-  coreMilli: 177,
+  coreMilli: 300,
   openMilli: 55,
   walls: [
     [],
@@ -96,7 +96,7 @@ const THREE_WAYS: MazeGeometry = {
 /** Four gaps on the quarters, one of them the way. `bun run maze 7 4 21`. */
 const FOUR_WAYS: MazeGeometry = {
   rings: RINGS,
-  coreMilli: 177,
+  coreMilli: 300,
   openMilli: 55,
   walls: [
     [],
@@ -125,7 +125,7 @@ const FOUR_WAYS: MazeGeometry = {
  * last round earning its place. `bun run maze 7 5 187`. */
 const FIVE_WAYS: MazeGeometry = {
   rings: RINGS,
-  coreMilli: 177,
+  coreMilli: 300,
   openMilli: 55,
   walls: [
     [],

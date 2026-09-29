@@ -1,7 +1,7 @@
 import type { MazeState, SimConfig, SimEvent } from "@neon-spore/sim";
 import { drawThrownRing } from "./grip-rings.js";
 import type { Layout } from "./layout.js";
-import { mazeHeartCircle, mazeHeartPull } from "./maze-grip.js";
+import { mazeHeartAt, mazeHeartCircle } from "./maze-grip.js";
 import { drawMazeVerdicts, MazeMarks } from "./maze-marks.js";
 import { mazeHeartBlood } from "./maze-pulse.js";
 import { PALETTE } from "./palette.js";
@@ -57,7 +57,8 @@ export class MazeGripFx {
     if (this.left > 0 && c.r > 0) {
       const k = 1 - this.left / THROW_LIFE;
       const color = this.landed ? mazeHeartBlood(m.round).rim : PALETTE.dim;
-      drawThrownRing(ctx, c.x, c.y + mazeHeartPull(l, m), c.r * (0.7 + 1.2 * k), 1 - k, color);
+      const at = mazeHeartAt(l, m);
+      drawThrownRing(ctx, c.x + at.x, c.y + at.y, c.r * (0.7 + 1.2 * k), 1 - k, color);
     }
     drawMazeVerdicts(ctx, l, cfg, m, this.marks.verdicts);
   }

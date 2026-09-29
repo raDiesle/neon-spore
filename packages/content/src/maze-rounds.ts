@@ -61,9 +61,11 @@ const RINGS = 7;
  */
 const SENT: MazeGeometry = {
   rings: RINGS,
-  // The middle is half again as wide as a corridor, which is what leaves room
-  // for the shot to arrive somewhere rather than merely stop.
-  coreMilli: 177,
+  // The middle is three corridors across, on every sheet: room for the shot to
+  // arrive somewhere, and for the heart to be shaken back and forth inside it
+  // (the owner, 29 September 2026: *can we make more space of all maze levels
+  // to have more space inside?*). It was 177, the sheet's own, until then.
+  coreMilli: 300,
   // Every gap on the sheet is the same width, and it is about half a corridor.
   openMilli: 55,
   walls: [

@@ -25,7 +25,7 @@ import { bossOf } from "./touch-field.js";
  * `packages/sim/src/types.ts` has why).
  */
 export function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const m = bossOf(field, "maze"); // under `grip` the hand is the brace (`maze-grip.ts`)
+  const m = bossOf(field, "maze"); // under `grip` the hands are on the heart (`maze-grip.ts`)
   if (m === null || !mazeStringAsks(m)) return null;
   if (!hitCircle(mazeStringGrab(l, field.cfg), x, y)) return null;
   const command: Command = {
