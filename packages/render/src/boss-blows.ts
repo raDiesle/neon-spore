@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { BatonMarks } from "./baton-marks.js";
 import { BossHurt } from "./boss-hurt.js";
 import { CairnMarks } from "./cairn-marks.js";
+import { SeamFx } from "./seam-fx.js";
 import { SeamMarks } from "./seam-verdicts.js";
 import { ThroatMarks } from "./throat-marks.js";
 
@@ -19,8 +20,9 @@ import { ThroatMarks } from "./throat-marks.js";
  *
  * And, for the same reason, the verdicts round a thumb of those among them
  * whose mark has nowhere else to keep one (`cairn-marks.ts`, `baton-marks.ts`,
- * `throat-marks.ts`) — and THE SEAM's, which has no fx class yet and no blow
- * here either, its hurt being the second half of its look (`seam-verdicts.ts`).
+ * `throat-marks.ts`) — and THE SEAM's, which has no fx class in the roster and
+ * no blow here either, its hurt being the second half of its look
+ * (`seam-verdicts.ts`); its one flash so far is kept here too (`seam-fx.ts`).
  */
 
 /** The bosses kept here, one field each below. */
@@ -62,6 +64,8 @@ export class BossBlows {
   readonly throatMarks = new ThroatMarks();
   /** THE SEAM's verdicts round its crack, its rock and the shield's place (`seam-verdicts.ts`). */
   readonly seamMarks = new SeamMarks();
+  /** THE SEAM's reseal flash down its crack (`seam-fx.ts`). */
+  readonly seam = new SeamFx();
 
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
@@ -74,6 +78,7 @@ export class BossBlows {
     this.batonMarks.ingest(events);
     this.throatMarks.ingest(events);
     this.seamMarks.ingest(events);
+    this.seam.ingest(events);
   }
 
   update(dt: number): void {
@@ -85,6 +90,7 @@ export class BossBlows {
     this.batonMarks.update(dt);
     this.throatMarks.update(dt);
     this.seamMarks.update(dt);
+    this.seam.update(dt);
   }
 
   clear(): void {
@@ -96,5 +102,6 @@ export class BossBlows {
     this.batonMarks.clear();
     this.throatMarks.clear();
     this.seamMarks.clear();
+    this.seam.clear();
   }
 }

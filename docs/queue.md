@@ -1371,22 +1371,3 @@ white on the breath — read off `locked` and the phase, no new state. Pose
 `OWED`. A look with no shipped alternative for the breath; the seam's
 brightness replaces a shipped look, so it goes to VERSUS unless the owner
 asks for it by name.
-
-## §26 THE SEAM — the false point's flicker and the held dark, the look
-
-- **Found:** 2026-09-29, claude/queue-26-seam-holding-fire
-- **Taken:** 2026-09-29, claude/queue-26-seam-look (claim: claude/queue-26-the-seam-the-false-points-flicker-and-the-hel)
-- **Files:** `packages/render/src/seam-draw.ts`, `packages/render/src/seam-marks.ts`, `packages/render/src/seam-story.ts`, `packages/render/test/seam-frame.test.ts`
-
-Rows 10 and 16's simulation landed (`sim/seam-step.ts` `seamFiredInto`,
-bosses §11.43): a `decoy` step, a false point where a bolt is the wave, and a
-`dark` step after the last one, held one beat longer by a bolt (`held`,
-`seamReseal`). Nothing is drawn for either yet: the lit-step marks in
-`seam-draw.ts` return for any ask but a point or a glow. §26 asks for the
-false point at the crack's midpoint, dim white-grey with no cannon colour, at
-half a real point's brightness on its own slower period, fading out on
-`seamFade`; and for the crack dark and still through the dark, the sealed
-white of the last point read off `sealed`, resealing with a flash on
-`seamReseal`. Both are looks with no shipped alternative — nothing is drawn
-there now. THE SEAM has no poses on the STATES sheet (`OWED` names all four
-phases); the two are asks, not phases, so they are cards with that lane.

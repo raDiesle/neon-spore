@@ -16,6 +16,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
+import { drawSeamDark, drawSeamFalse, seamDark, seamFalseLight } from "./seam-hold.js";
 import { drawSeamGrit, drawSeamPoint, drawSeamRock, seamRockAt } from "./seam-marks.js";
 import { seamArrived, seamGape, seamLeft, seamLitPoint, seamOpen, seamSplit } from "./seam-pose.js";
 import {
@@ -55,7 +56,8 @@ import {
  *
  * **Each mark answers the way every mark does** (`seam-verdicts.ts`): the
  * halo under what the lit step asks for, on both screens, and the verdict
- * round it once it is answered — `verdicts`, kept in `BossBlows`.
+ * round it once it is answered — `verdicts`, kept in `BossBlows`, as is the
+ * `reseal` flash of a bolt fired into the dark (`seam-hold.ts`).
  */
 export function drawSeam(
   ctx: CanvasRenderingContext2D,
@@ -66,6 +68,7 @@ export function drawSeam(
   beatPhase: number,
   time: number,
   verdicts: GripVerdicts,
+  reseal: number,
 ): void {
   const cfg = world.cfg;
   const arrived = seamArrived(s, cfg, beat, beatPhase);
@@ -76,7 +79,7 @@ export function drawSeam(
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.6 * split);
   ctx.translate(c.x, c.y);
-  if (split <= 0) drawRidge(ctx, l, world, s, beat, beatPhase, time);
+  if (split <= 0) drawRidge(ctx, l, world, s, beat, beatPhase, time, reseal);
   else {
     // The sealed ridge splits down its crack: two halves, clipped along the
     // spine, parting and tipping away from each other.
@@ -88,7 +91,7 @@ export function drawSeam(
       const h = seamHalfHeight(l) * 1.2;
       half.rect(side < 0 ? -2 * l.tile : 0, -h, 2 * l.tile, 2 * h);
       ctx.clip(half);
-      drawRidge(ctx, l, world, s, beat, beatPhase, time);
+      drawRidge(ctx, l, world, s, beat, beatPhase, time, reseal);
       ctx.restore();
     }
   }
@@ -109,6 +112,7 @@ function drawRidge(
   beat: number,
   beatPhase: number,
   time: number,
+  reseal: number,
 ): void {
   const open = seamOpen(s, world.cfg, beat, beatPhase);
   const ridge = seamRidgePath(l, open, time * 0.6);
@@ -126,11 +130,12 @@ function drawRidge(
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(ridge);
   if (turn >= 0.5) drawSeamBack(ctx, l, ridge, half);
-  else drawFace(ctx, l, world, s, ridge, open, beat, beatPhase, time);
+  else drawFace(ctx, l, world, s, ridge, open, beat, beatPhase, time, reseal);
   ctx.restore();
 }
 
-/** The face the pair reads: the crack, and the lit point or the glow on it. */
+/** The face the pair reads: the crack, and the lit point, the glow or the false point on it
+ * — or, the script done, the crack lying dark. */
 function drawFace(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -141,15 +146,22 @@ function drawFace(
   beat: number,
   beatPhase: number,
   time: number,
+  reseal: number,
 ): void {
   const gritting = seamWantsShield(s);
   const crack = seamCrackPath(l, open, seamGape(s, gritting, beat, beatPhase));
-  ctx.fillStyle = rgba(PALETTE.background, 0.9);
+  const dark = seamDark(s);
+  ctx.fillStyle = rgba(PALETTE.background, dark ? 1 : 0.9);
   ctx.fill(crack);
-  drawEmber(ctx, l, crack, time);
+  if (!dark) drawEmber(ctx, l, crack, time);
   ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.rock, s.phase === "lit" ? 0.7 : 0.35);
+  ctx.strokeStyle = rgba(PALETTE.rock, dark ? 0.12 : s.phase === "lit" ? 0.7 : 0.35);
   ctx.stroke(crack);
+  if (dark) {
+    drawSeamDark(ctx, l, s, crack, reseal);
+    return;
+  }
+  drawSeamFalse(ctx, l, seamFalseLight(s, world.cfg, beat, beatPhase), beat, beatPhase, time);
 
   const step = seamLitStep(s);
   if (step === null || !seamWantsShot(s)) return;

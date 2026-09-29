@@ -42,7 +42,8 @@ export const INGEST_SILENT_BOSS_D = [
   "keelHeld",
   // THE SEAM's two steps that ask for nothing, landed after page three
   // filled: the false point and the dark are read off the lit step each
-  // frame, and nothing of them outlives one (`sim/seam-step.ts`).
+  // frame (`seam-hold.ts`); the reseal's flash is `seam-fx.ts`', read above
+  // the loop.
   "seamBaited",
   "seamFade",
   "seamReseal",

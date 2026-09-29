@@ -29078,3 +29078,16 @@ Bottleneck: friction — two pages at their 250-line limit, found only when the
 limits test ran after the edit.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SEAM's false point flickers grey and its dark lies still
+
+- reading: 10 min. §26's rows 10 and 16, *Presentation* and *Colour*,
+  `seam-draw.ts`, `seam-shape.ts` and where THE SEAM keeps what outlives a frame.
+- writing: 15 min. `seam-hold.ts`, `seam-fx.ts` for the reseal flash, the
+  false point's lens, one frame test file and the docs.
+- looking: 5 min. One frame of each, rendered from the sha.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the state says the ridge was held but not when, so the
+flash needed a home, and THE SEAM has no fx class in the roster.

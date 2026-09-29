@@ -158,3 +158,12 @@ export function seamPointPath(l: Layout, k: number, scale = 1): Path2D {
 export function seamMouth(l: Layout): Point {
   return { x: 0, y: seamLobe(l, SEAM_POINTS - 1).y };
 }
+
+/** The false point's lens (§26 row 10): at the crack's midpoint, on the
+ * hairline between two points, where no real point ever opens — a little
+ * smaller than one. */
+export function seamFalsePath(l: Layout): Path2D {
+  const p = new Path2D();
+  p.ellipse(0, 0, OPEN * l.tile * 1.1, 0.28 * l.tile, 0, 0, Math.PI * 2);
+  return p;
+}

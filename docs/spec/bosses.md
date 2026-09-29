@@ -8853,6 +8853,15 @@ departures, argued:
   exists to reuse: *SENDING NOTHING* is a gesture of the spec, and here it is
   the step's beats running out.
 
+**Both are drawn** (29 September 2026, `render/seam-hold.ts`): the false
+point a lens in the shell's grey on the hairline at the crack's midpoint, at
+half a real point's brightness on a two-beat period with a flicker over it,
+fading over the rest after its step; the dark the crack black with no ember
+and its rim all but gone, the last point's sealed white the one mark left,
+and a bolt fired into it flashing the whole crack white (`seamReseal`, kept
+in `render/seam-fx.ts` since `held` says only *that* it was held).
+`render/test/seam-hold-frame.test.ts` draws both.
+
 **Half the look has landed** (26 September 2026): the body. THE RIND's three
 sizes stood on end down the middle column in shell grey, one lobe to a point,
 each lobe's rim toothed while its point is open and shedding its teeth as it
