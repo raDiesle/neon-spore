@@ -330,6 +330,55 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
+## A compaction mid-item leaves the owner's words and the plan in a file
+
+- **Found:** 2026-09-29, claude/queue-performance-analysis-55a3ec
+- **Files:** `tools/hooks/after-compact.ts`, `tools/hooks/test/after-compact.test.ts`, `tools/hooks/payload.ts`, `.claude/settings.json`, `docs/token-budget.md`
+
+Measured over 62 local sessions on 29 September 2026: about half of all landed
+items had an automatic compaction fall inside them (median 168k tokens at the
+cut, 40–60 s each). The tree keeps every edit; what is lost is what was only in
+the chat — the owner's own words for the item, which the summary paraphrases,
+what was tried and ruled out, and what was already checked. Anthropic's own
+guidance for long-running agents is a progress file written outside the context
+and read back on resume (engineering posts *Effective harnesses for
+long-running agents* and *Effective context engineering for AI agents*).
+
+Do it deterministically, with no cooperation from the model: a `PreCompact`
+hook (a new script beside `after-compact.ts`, both matchers) reads the hook
+payload's `transcript_path` and writes a checkpoint into the worktree's own git
+dir (`git rev-parse --git-dir`, so it is untracked and dies with the worktree):
+the owner's last few messages **verbatim**, the claimed queue entry's title
+and body if the branch holds a `Taken:` claim, and `git diff --stat main` plus
+`git status --short`. `after-compact.ts` then adds one line pointing at it
+("read <path> before you continue"), and its test holds that line. Keep the
+checkpoint under ~2k tokens: messages trimmed, tool output never copied.
+`docs/token-budget.md` gets a sentence in "Practical habits". No change to
+`CLAUDE.md`.
+
+## An automatic compaction waits for the item to land, up to a ceiling
+
+- **Found:** 2026-09-29, claude/queue-performance-analysis-55a3ec
+- **Files:** `.claude/settings.json`, `tools/hooks/after-compact.ts`, `docs/token-budget.md`
+
+The common advice on compaction is to compact at a task boundary, never
+mid-task, and `autoCompactWindow` (200k) cannot see a boundary. A `PreCompact`
+hook can block with `decision: "block"` or exit 2, and the model's own window
+is ~967k, so there is room to defer: on `trigger == "auto"`, block while the
+lane is mid-item (tree dirty, or branch ahead of `main` with a `Taken:` claim)
+**and** the last assistant turn in `transcript_path` used under a ceiling
+(start at 320k); allow otherwise, and always allow `manual`. The next automatic
+attempt after `land` then falls on the boundary. Price: turns between 200k and
+the ceiling re-read up to 60% more context.
+
+Prove the one unknown first, with a small window
+(`CLAUDE_CODE_AUTO_COMPACT_WINDOW=100000`) and a scratch session: on 2.1.278,
+does a blocked automatic compaction let the turn go on quietly and try again
+next turn, or does it stop with an error? A MemPalace issue (#906) shows a
+blocking hook leaving a session stuck at the *hard* limit, which the ceiling is
+there to prevent. If it stops the turn, write down what was seen in
+`docs/token-budget.md` and drop the entry rather than ship it.
+
 ## Every other boss with a mark answers a touch the way THE INSTAR does
 
 - **Found:** 2026-09-28, claude/queue-every-boss-with-a-mark-answers-a-touch-the-way-t

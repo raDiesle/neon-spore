@@ -29371,3 +29371,17 @@ Bottleneck: writing — replacing a one-seat pull with a two-seat shake
 reached twenty files, from the state to the director's rows.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — Two queue entries for a compaction that falls mid-item
+
+- reading: 10 min. `docs/lane-speed.md`, `docs/token-budget.md`, the queue's
+  draining rules, `after-compact.ts`, and Anthropic's pages on hooks and
+  long-running agents.
+- writing: 10 min. Two transcript parsers in the scratchpad, two entries.
+- looking: 0 min.
+- friction: 5 min. The first parser cut items at the wrong markers and
+  timed them at three minutes each.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the hook docs page truncates before its PreCompact
+section, so the input fields had to be pieced together from transcripts.
