@@ -203,20 +203,20 @@ describe("the lobes", () => {
   it("go faint exactly where the round would refuse the press", () => {
     const { world, g } = round();
     expect(gaugeLobeArmed(world, g, "left")).toBe(true);
-    expect(gaugeLobeArmed(world, g, "call")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "red")).toBe(true);
     // A jam is his alone: his two buttons go and her call is untouched.
     g.jamBeat = world.beat;
     expect(gaugeLobeArmed(world, g, "left")).toBe(false);
     expect(gaugeLobeArmed(world, g, "right")).toBe(false);
-    expect(gaugeLobeArmed(world, g, "call")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "red")).toBe(true);
     // Her own thumb on the band is, and so is a needle still settling.
     g.openThumb = true;
-    expect(gaugeLobeArmed(world, g, "call")).toBe(false);
+    expect(gaugeLobeArmed(world, g, "red")).toBe(false);
     g.openThumb = false;
     g.liftBeat = world.beat;
-    expect(gaugeLobeArmed(world, g, "call")).toBe(false);
+    expect(gaugeLobeArmed(world, g, "red")).toBe(false);
     g.liftBeat = world.beat - DEFAULT_CONFIG.gaugeSettleBeats;
-    expect(gaugeLobeArmed(world, g, "call")).toBe(true);
+    expect(gaugeLobeArmed(world, g, "red")).toBe(true);
   });
 });
 

@@ -49,6 +49,11 @@ function playing(seed = 5): { world: World; g: GaugeState } {
   return { world, g };
 }
 
+/** Her call, in the wound's colour: the colour is `gauge-call.ts`'s to test. */
+function call(world: World): Command {
+  return { kind: "call", color: gaugeRound(world)?.woundColor ?? "red" };
+}
+
 function heard(world: World, player: 1 | 2, command: Command): void {
   gaugeRoundHeard(world, player, command);
 }
@@ -95,7 +100,7 @@ describe("the jam", () => {
     callable(world, g);
     offBand(g);
     heard(world, 1, { kind: "valve", on: true, dir: 1 });
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(g.misses).toBe(1);
     expect(gaugeJammed(g)).toBe(true);
     // The valve is still held — what a seat is holding is a fact about the
@@ -112,7 +117,7 @@ describe("the jam", () => {
     expect(g.handOn).toBe(false);
     callable(world, g);
     offBand(g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     // Hers is ignored rather than refused: there is no needle drawn under her
     // thumb to have taken hold of.
     heard(world, 2, needle(true, 250));
@@ -126,7 +131,7 @@ describe("the jam", () => {
     const { world, g } = playing();
     callable(world, g);
     offBand(g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     heard(world, 1, needle(true, 750));
     expect(g.needleMilli).toBe(0);
     heard(world, 1, needle(true, 0));
@@ -138,11 +143,11 @@ describe("the jam", () => {
     callable(world, g);
     offBand(g);
     heard(world, 1, { kind: "valve", on: true, dir: -1 });
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(gaugeJammed(g)).toBe(true);
     g.needleMilli = g.markMilli;
     callable(world, g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(g.marks).toBe(1);
     expect(gaugeJammed(g)).toBe(false);
     const was = g.needleMilli;
@@ -156,7 +161,7 @@ describe("the settle", () => {
     const { world, g } = playing();
     callable(world, g);
     offBand(g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     const missed = g.misses;
     heard(world, 1, needle(true, 0));
     heard(world, 1, needle(false, 0));
@@ -164,13 +169,13 @@ describe("the settle", () => {
     expect(gaugeSettling(CFG, g, world.beat)).toBe(true);
     g.needleMilli = g.markMilli;
     callable(world, g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(g.marks).toBe(0);
     expect(g.misses).toBe(missed);
     // And it lands the moment the needle has stood still long enough.
     g.liftBeat = world.beat - CFG.gaugeSettleBeats;
     expect(gaugeSettling(CFG, g, world.beat)).toBe(false);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(g.marks).toBe(1);
   });
 
@@ -178,7 +183,7 @@ describe("the settle", () => {
     const { world, g } = playing();
     callable(world, g);
     offBand(g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     const was = g.needleMilli;
     // `NO_BEARING`: a hand that has landed and not yet said where.
     heard(world, 1, needle(true, -1));
@@ -195,7 +200,7 @@ describe("the bind", () => {
     for (let n = 1; n <= 3; n++) {
       g.needleMilli = g.markMilli;
       callable(world, g);
-      heard(world, 2, { kind: "call" });
+      heard(world, 2, call(world));
       expect(g.marks).toBe(n);
       expect(gaugeBound(g)).toBe(n % CFG.gaugeBindMarks === 0);
     }
@@ -230,11 +235,11 @@ describe("the bind", () => {
     g.needleMilli = g.markMilli;
     heard(world, 2, band(true));
     callable(world, g);
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(g.marks).toBe(0);
     expect(g.misses).toBe(0);
     heard(world, 2, band(false));
-    heard(world, 2, { kind: "call" });
+    heard(world, 2, call(world));
     expect(g.marks).toBe(1);
   });
 

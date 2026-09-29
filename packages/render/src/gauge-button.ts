@@ -8,7 +8,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawFireButton } from "./controls.js";
-import { gaugeLoaded } from "./gauge-load.js";
 import { halo } from "./glow.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
@@ -17,7 +16,7 @@ import { drawNose, drawSwing } from "./scout-button.js";
 import type { SeatSkin } from "./seat-skin.js";
 
 /**
- * THE GAUGE's three presses, as faces on the band's own lobes.
+ * THE GAUGE's four presses, as faces on the band's own lobes.
  *
  * The round used to draw three bare rectangles of its own in the band's place,
  * and the owner asked for them to fit the ship's hull and its controls (20
@@ -31,24 +30,31 @@ import type { SeatSkin } from "./seat-skin.js";
  * because it is the same act: a thing on the field pointing somewhere, and a
  * thumb swinging it. A turn lights while its thumb is on it.
  *
- * **The navigator's one is the ship's own fire button**, in the colour the
- * cannon is loaded with (`gauge-load.ts`), because a call *is* the cannon
- * firing (`gauge-shot.ts`) — the owner, 25 September 2026: *the regular
- * cannon, cyan or red*. It turns colour with the cannon on every hit.
+ * **The navigator's two are the ship's own fire buttons**, red and cyan,
+ * because a call *is* the cannon firing (`gauge-shot.ts`) — the owner, 25
+ * September 2026: *the regular cannon, cyan or red*. Since 27 September the
+ * colour is a rule: only a shot in the wound's colour lands
+ * (`sim/gauge-call.ts`), and she is the one who can see the wound.
  *
  * A button the round would refuse right now is drawn faint rather than
  * hidden: the turns while the valve is jammed, the call while her thumb holds
  * the band open or his needle is settling (`gaugeLobeArmed`).
  */
 
-export type GaugeLobe = "left" | "right" | "call";
+export type GaugeLobe = "left" | "right" | "red" | "cyan";
 
-/** Which of THE GAUGE's three this control is, if any. */
+/** Which of THE GAUGE's four this control is, if any. */
 export function gaugeLobeOf(id: ControlId): GaugeLobe | null {
   if (id === "gaugeLeft") return "left";
   if (id === "gaugeRight") return "right";
-  if (id === "gaugeCall") return "call";
+  if (id === "gaugeRed") return "red";
+  if (id === "gaugeCyan") return "cyan";
   return null;
+}
+
+/** Whether this lobe is one of her two calls rather than one of his turns. */
+function isCall(which: GaugeLobe): which is "red" | "cyan" {
+  return which === "red" || which === "cyan";
 }
 
 /** How much of a refused button still shows. */
@@ -67,8 +73,8 @@ export function drawGaugeLobe(
   const armed = !live || gaugeLobeArmed(world, round, which);
   ctx.save();
   if (!armed) ctx.globalAlpha = REFUSED;
-  if (which === "call") {
-    drawFireButton(ctx, x, y, r, round === null ? "cyan" : gaugeLoaded(round), skin);
+  if (isCall(which)) {
+    drawFireButton(ctx, x, y, r, which, skin);
     ctx.restore();
     return;
   }
@@ -101,6 +107,6 @@ export function drawGaugeLobe(
  * the shot in the air already says it.
  */
 export function gaugeLobeArmed(world: World, round: GaugeState, which: GaugeLobe): boolean {
-  if (which !== "call") return !gaugeJammed(round);
+  if (!isCall(which)) return !gaugeJammed(round);
   return !round.openThumb && !gaugeSettling(world.cfg, round, world.beat);
 }

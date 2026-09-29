@@ -72,6 +72,15 @@ export function commandFor(
       }
       return { kind, color };
     }
+    case "call": {
+      // THE GAUGE's call names the wound's colour: the navigator's two
+      // buttons are red and cyan (`sim/gauge-call.ts`).
+      const color = needs();
+      if (color !== "red" && color !== "cyan") {
+        throw new Error(`--press ${whole}: "${one}" — a call is red or cyan`);
+      }
+      return { kind, color };
+    }
     case "grip":
     case "tap": {
       const id = Number(needs());

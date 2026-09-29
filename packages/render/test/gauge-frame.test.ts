@@ -81,7 +81,7 @@ function gaugeFrames(role: ViewRole, ticks: number) {
         // that says a call went wrong.
         const seated = Math.abs(away) <= CFG.gaugeSpanMilli;
         if (seated || w.beat - g.openBeat === GAUGE_LEAD_BEATS + 1) {
-          commands.push({ tick, player: 2, command: { kind: "call" } });
+          commands.push({ tick, player: 2, command: { kind: "call", color: g.woundColor } });
         }
       }
       step(w, commands);

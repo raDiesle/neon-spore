@@ -362,27 +362,6 @@ silently is refused out loud once its mark asks (`curtain-marks.ts`, `curtainRef
 list keeps this entry, rewritten to name the next; the lane that empties the
 list removes it and the list with it.
 
-## THE GAUGE's cannon colour is a picture, not a rule
-
-- **Found:** 2026-09-25, claude/gauge-cannon-visual-clarity-82d0c7
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-gauges-cannon-colour-is-a-picture-not-a-rule)
-- **Files:** `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-band.ts`, `packages/content/src/controls-round.ts`, `packages/render/src/gauge-load.ts`, `packages/render/src/gauge-button.ts`
-- **Asks:** Should the wound's colour stay a picture, or should P2 get a red and a cyan fire button and a hit need the colour that matches?
-- **Answered:** 2026-09-27 — (b) a rule, over leaving the colour a picture. P2 gets the red and cyan fire buttons in place of CALL. The wound's colour comes from the `Rng` on each `drawBand` and is hashed. A wrong colour is a miss that jams the valve.
-
-The owner asked for the wound to be *mixed up with colour of cannon to hit*.
-What shipped is the picture half: the cannon's loaded colour turns cyan and
-red with every hit (`loadedAfter(marks)`), and the wound and P2's one call
-button wear it. The call is still one comparison of two angles, so nothing
-can be fired in the wrong colour. The two options: (a) leave it as it is,
-where the colour only ties the wound to the gun and says *new wound*; (b) a
-rule, where the call becomes two commands (`call` with a colour), the wound's
-colour is drawn by the sim's `Rng` on each `drawBand` and hashed, a wrong
-colour is a miss that jams the valve, and P2's panel gets the two regular
-fire buttons in place of CALL. (b) is a sim change with a new `GaugeState`
-field, the codec, the director's `field-controls-gauge.ts`, and the guide's
-three steps.
-
 ## §31 THE PLUMB — its weights are brought level by two pulls, not a lean
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader

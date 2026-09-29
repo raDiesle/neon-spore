@@ -87,10 +87,12 @@ describe("THE GAUGE's wound", () => {
     }
   });
 
-  it("is in the loaded colour, on the navigator's screen and nowhere on the pilot's", () => {
-    expect(watch(gauge(), true).fills).toContain(PALETTE.cyanDark);
-    expect(watch(gauge({ marks: 1 }), true).fills).toContain(PALETTE.redDark);
-    expect(watch(gauge(), false).fills).not.toContain(PALETTE.cyanDark);
-    expect(watch(gauge({ marks: 1 }), false).fills).not.toContain(PALETTE.redDark);
+  it("is in its own colour, on the navigator's screen and nowhere on the pilot's", () => {
+    const cyan = gauge({ woundColor: "cyan" });
+    const red = gauge({ woundColor: "red" });
+    expect(watch(cyan, true).fills).toContain(PALETTE.cyanDark);
+    expect(watch(red, true).fills).toContain(PALETTE.redDark);
+    expect(watch(cyan, false).fills).not.toContain(PALETTE.cyanDark);
+    expect(watch(red, false).fills).not.toContain(PALETTE.redDark);
   });
 });

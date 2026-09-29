@@ -70,7 +70,8 @@ export function driftBand(world: World, gauge: GaugeState): void {
  * A fresh band, drawn from the seeded rng — and never within reach of where the
  * needle already is. A draw that landed on the needle would be a mark the pair
  * got without saying anything, which is the one outcome this round must not
- * have.
+ * have. Its colour is drawn with it, last, so the place and the heading are
+ * the draws they always were (`gauge-call.ts`).
  */
 export function drawBand(world: World, gauge: GaugeState): void {
   const span = world.cfg.gaugeSpanMilli;
@@ -84,4 +85,5 @@ export function drawBand(world: World, gauge: GaugeState): void {
   }
   gauge.markMilli = mark;
   gauge.driftDir = nextInt(world.rng, 2) === 0 ? -1 : 1;
+  gauge.woundColor = nextInt(world.rng, 2) === 0 ? "red" : "cyan";
 }

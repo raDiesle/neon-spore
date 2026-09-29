@@ -74,7 +74,7 @@ function talking(world: World): TimedCommand[] {
   const out: TimedCommand[] = [];
   const want = gauge.needleMilli < gauge.markMilli ? 1 : -1;
   if (gauge.valve !== want) out.push(cmd(world, 1, { kind: "valve", on: true, dir: want }));
-  if (gaugeSeated(world, gauge)) out.push(cmd(world, 2, { kind: "call" }));
+  if (gaugeSeated(world, gauge)) out.push(cmd(world, 2, { kind: "call", color: gauge.woundColor }));
   return out;
 }
 
@@ -180,7 +180,7 @@ describe("the two halves", () => {
       if (gauge === null || gauge.phase !== "play") return [];
       const want = gauge.needleMilli < gauge.markMilli ? 1 : -1;
       const out = [cmd(w, 1, { kind: "valve", on: true, dir: want })];
-      if (gaugeSeated(w, gauge)) out.push(cmd(w, 1, { kind: "call" }));
+      if (gaugeSeated(w, gauge)) out.push(cmd(w, 1, { kind: "call", color: gauge.woundColor }));
       return out;
     });
     expect(round(world).marks).toBe(0);
@@ -194,9 +194,12 @@ describe("the two halves", () => {
     expect(gauge.phase).toBe("play");
     // Two calls on the same beat, both wide of a band the pilot never moved
     // towards: the second is not heard at all, so it is not even a miss.
-    step(world, [cmd(world, 2, { kind: "call" }), cmd(world, 2, { kind: "call" })]);
+    step(world, [
+      cmd(world, 2, { kind: "call", color: gauge.woundColor }),
+      cmd(world, 2, { kind: "call", color: gauge.woundColor }),
+    ]);
     expect(gauge.misses).toBe(1);
-    step(world, [cmd(world, 2, { kind: "call" })]);
+    step(world, [cmd(world, 2, { kind: "call", color: gauge.woundColor })]);
     expect(gauge.misses).toBe(1);
   });
 });

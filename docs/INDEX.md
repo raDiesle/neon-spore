@@ -155,6 +155,8 @@ by hand never moves.
 | `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
 | `packages/sim/src/gauge-band.ts` | **The band between the two marks**: where it lands, where it walks, and how wide it is at this moment |
 | `packages/sim/src/gauge-hand.ts` | **THE GAUGE's two thumbs on the dial itself** |
+| `packages/sim/src/gauge-hash.ts` | THE GAUGE's half of the boss fingerprint (`hash-boss.ts`), in the shape `mazeHashParts` set |
+| `packages/sim/src/gauge-call.ts` | **The navigator's call**: the one thing in THE GAUGE that can be wrong |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/gall-hand.ts` | A pinch on THE GALL: `gallPinch`, `fromMilli` the gap between the two touches in thousandths of a tile |
 | `packages/sim/src/gall-hash.ts` | What THE GALL puts into `hashWorld`, and nothing else |
@@ -1195,10 +1197,10 @@ by hand never moves.
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name, the one sentence that teaches this seat its half, and where the other half is |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
-| `packages/render/src/gauge-button.ts` | THE GAUGE's three presses, as faces on the band's own lobes |
+| `packages/render/src/gauge-button.ts` | THE GAUGE's four presses, as faces on the band's own lobes |
 | `packages/render/src/gauge-alien.ts` | THE GAUGE's enemy: a big alien ship hung over ours with its mouth open round it — the owner |
 | `packages/render/src/gauge-cannon.ts` | THE GAUGE's cannon: the ship's own, standing on the crown where it always stands and **turning** through the… |
-| `packages/render/src/gauge-load.ts` | **Which colour THE GAUGE's cannon is loaded with** — cyan, then red, turn about with every hit |
+| `packages/render/src/gauge-load.ts` | **THE GAUGE's two colours**: the one the wound wants and the one the cannon last fired |
 | `packages/render/src/gauge-shot.ts` | What a call looks like: the cannon fires, the bolt crosses the mouth |
 | `packages/render/src/gauge-wound.ts` | THE GAUGE's wound: where the band is, drawn as a place the alien's armour is torn open and the flesh under it… |
 | `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |

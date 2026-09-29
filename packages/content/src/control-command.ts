@@ -101,7 +101,8 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
         up: { kind: "drag", target: "crank", on: false, fromMilli: NO_BEARING },
       };
     // THE GAUGE. The two valve slabs are held — the needle travels for as long
-    // as the thumb stays — and the call is one press by the other seat.
+    // as the thumb stays — and the call is one press by the other seat, in
+    // the colour of the button it was made on.
     case "gaugeLeft":
       return {
         down: { kind: "valve", on: true, dir: -1 },
@@ -112,8 +113,10 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
         down: { kind: "valve", on: true, dir: 1 },
         up: { kind: "valve", on: false, dir: 1 },
       };
-    case "gaugeCall":
-      return { down: { kind: "call" } };
+    case "gaugeRed":
+      return { down: { kind: "call", color: "red" } };
+    case "gaugeCyan":
+      return { down: { kind: "call", color: "cyan" } };
     // THE FLEET. Every one of these is over the moment it happens: an arrow is
     // one square and the salvo is one shot, and a thumb resting on an arrow
     // that walked the sights would take the counting out of the fight.

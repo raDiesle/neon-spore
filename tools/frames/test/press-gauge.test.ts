@@ -28,8 +28,10 @@ describe("--press, THE GAUGE's valve and call", () => {
     });
   });
 
-  it("calls, and refuses a valve that names no way", () => {
-    expect(parsePress("400:2:call", GAUGE)[0]?.command).toEqual({ kind: "call" });
+  it("calls in a colour, and refuses a valve that names no way", () => {
+    expect(parsePress("400:2:call=red", GAUGE)[0]?.command).toEqual({ kind: "call", color: "red" });
+    expect(() => parsePress("400:2:call=purple", GAUGE)).toThrow(/red or cyan/);
+    expect(() => parsePress("400:2:call", GAUGE)).toThrow(/takes a value/);
     expect(() => parsePress("300:1:valve=up", GAUGE)).toThrow(/left or right/);
     expect(() => parsePress("300:1:valve", GAUGE)).toThrow(/takes a value/);
   });

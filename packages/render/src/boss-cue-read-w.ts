@@ -41,7 +41,8 @@ import type { Layout } from "./layout.js";
  * long enough that the word would still be there when he had finished.
  *
  * **Her two are her own verbs, at the moment each will land.** `PRESS` /
- * `CALL` on the end of the needle while it stands between the marks — both of
+ * `RED` or `CYAN` — the wound's colour, the button that lands — on the end of
+ * the needle while it stands between the marks — both of
  * which are drawn on her screen, so the mark stands on something she is
  * already shown, and the word says what her thumb does rather than where the
  * needle has to go. `HOLD` / `OPEN` on the middle of the band while it is
@@ -67,7 +68,7 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   const out: BossCue[] = [];
   if (callReady(world, g)) {
     const tip = gaugeNeedleTip(dial, g);
-    out.push(markAt(2, "PRESS", "CALL", tip.x, tip.y, l, 68));
+    out.push(markAt(2, "PRESS", g.woundColor === "red" ? "RED" : "CYAN", tip.x, tip.y, l, 68));
   }
   if (gaugeBound(g) && !g.openThumb) {
     const mid = gaugeBandMid(dial, g);

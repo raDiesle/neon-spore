@@ -28847,3 +28847,17 @@ Bottleneck: friction — a hand that pressed every tick had never had to
 count the bolts it already had in the air.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GAUGE's wound has a colour, and her call has to match it
+
+- reading: 5 min. The call's path from button to `gaugeHeard`, the load
+  painter, the cue, the codec and every test that sent a bare `call`.
+- writing: 10 min. `gauge-call.ts`, the colour drawn with the band and
+  hashed, RED and CYAN in place of CALL, the guide's colour page.
+- looking: 5 min. P2's screen a few ticks before the first mark.
+- friction: 5 min. `hash-boss.ts` went four lines past its limit with the two
+  new numbers; THE GAUGE's block moved to `gauge-hash.ts`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — one verb's shape changed, and twenty-six files carried
+it, from the wire codec to a film's act.

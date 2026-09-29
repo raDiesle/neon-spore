@@ -27,7 +27,7 @@ const valve = (dir: -1 | 1): Press => ({ player: 1, command: { kind: "valve", on
 /**
  * THE GAUGE: the pilot turns the valve toward the mark he cannot see, and
  * the navigator calls whenever the needle is seated between her marks
- * (`gaugeSeated`). A call wide of the band costs a rest and nothing else.
+ * (`gaugeSeated`), in the wound's colour (`sim/gauge-call.ts`).
  */
 export const gaugeHand: Hand = (w) => {
   const g = gaugeRound(w);
@@ -35,7 +35,7 @@ export const gaugeHand: Hand = (w) => {
   const out: Press[] = [];
   const want = g.needleMilli < g.markMilli ? 1 : -1;
   if (g.valve !== want) out.push(valve(want));
-  if (gaugeSeated(w, g)) out.push({ player: 2, command: { kind: "call" } });
+  if (gaugeSeated(w, g)) out.push({ player: 2, command: { kind: "call", color: g.woundColor } });
   return out;
 };
 
@@ -52,7 +52,7 @@ export const gaugeHand: Hand = (w) => {
 export const gaugeJamHand: Hand = (w) => {
   const g = gaugeRound(w);
   if (g === null || g.phase !== "play") return [];
-  if (!gaugeSeated(w, g)) return [{ player: 2, command: { kind: "call" } }];
+  if (!gaugeSeated(w, g)) return [{ player: 2, command: { kind: "call", color: g.woundColor } }];
   const away = g.needleMilli < g.markMilli ? -1 : 1;
   return g.valve === away ? [] : [valve(away)];
 };

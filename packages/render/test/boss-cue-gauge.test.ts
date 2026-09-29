@@ -65,21 +65,29 @@ function cue(world: World, role: ViewRole): BossCue | null {
 function seat(world: World, g: GaugeState): void {
   g.phase = "play";
   g.needleMilli = g.markMilli;
+  g.woundColor = "red";
   g.calledBeat = world.beat - world.cfg.gaugeCallRestBeats;
   if (!gaugeSeated(world, g)) throw new Error("the needle on the mark is not seated");
 }
 
 describe("THE GAUGE", () => {
-  it("asks her to CALL, on the end of the needle, when it is standing between the marks", () => {
+  it("asks her for the wound's colour, on the end of the needle, when it is between the marks", () => {
     const { world, g } = opened();
     seat(world, g);
     const c = cue(world, "p2");
-    expect(c?.word).toBe("CALL");
+    expect(c?.word).toBe("RED");
     expect(c?.kind).toBe("PRESS");
     expect(c?.seat).toBe(2);
     const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p2), g);
     expect(c?.x).toBeCloseTo(tip.x, 6);
     expect(c?.y).toBeCloseTo(tip.y, 6);
+  });
+
+  it("names the button that lands: a cyan wound asks for CYAN", () => {
+    const { world, g } = opened();
+    seat(world, g);
+    g.woundColor = "cyan";
+    expect(cue(world, "p2")?.word).toBe("CYAN");
   });
 
   it("says nothing to the pilot while the valve answers, on any beat of any phase", () => {
@@ -100,7 +108,7 @@ describe("THE GAUGE", () => {
   it("is silent off the band: the needle's place is her read and never the field's", () => {
     const { world, g } = opened();
     seat(world, g);
-    expect(cue(world, "p2")?.word).toBe("CALL");
+    expect(cue(world, "p2")?.word).toBe("RED");
     g.needleMilli = 0;
     expect(gaugeSeated(world, g)).toBe(false);
     expect(cue(world, "p2")).toBeNull();
@@ -112,7 +120,7 @@ describe("THE GAUGE", () => {
     g.calledBeat = world.beat;
     expect(cue(world, "p2")).toBeNull();
     g.calledBeat = world.beat - world.cfg.gaugeCallRestBeats;
-    expect(cue(world, "p2")?.word).toBe("CALL");
+    expect(cue(world, "p2")?.word).toBe("RED");
   });
 
   it("says nothing outside the play", () => {
@@ -161,7 +169,7 @@ describe("THE GAUGE", () => {
     seat(world, g);
     g.boundBeat = world.beat;
     expect(gaugeSeated(world, g)).toBe(true);
-    expect(cue(world, "p2")?.word).toBe("CALL");
+    expect(cue(world, "p2")?.word).toBe("RED");
   });
 
   it("holds the call while it would be refused: under her own thumb, and under a settling needle", () => {
@@ -169,15 +177,15 @@ describe("THE GAUGE", () => {
     seat(world, g);
     g.boundBeat = world.beat;
     g.openThumb = true;
-    expect(cue(world, "p2")?.word).not.toBe("CALL");
+    expect(cue(world, "p2")?.word).not.toBe("RED");
     g.openThumb = false;
     g.boundBeat = -1;
-    expect(cue(world, "p2")?.word).toBe("CALL");
+    expect(cue(world, "p2")?.word).toBe("RED");
     // The settle a hand-swung needle costs, from the beat it was lifted.
     g.liftBeat = world.beat;
     expect(cue(world, "p2")).toBeNull();
     g.liftBeat = world.beat - world.cfg.gaugeSettleBeats;
-    expect(cue(world, "p2")?.word).toBe("CALL");
+    expect(cue(world, "p2")?.word).toBe("RED");
   });
 
   it("reaches the play by being played, and the round has a word in it", () => {
@@ -186,6 +194,6 @@ describe("THE GAUGE", () => {
     while (g.phase === "lead" && guard++ < 60 * TPB) step(world, []);
     expect(g.phase).toBe("play");
     seat(world, g);
-    expect(cue(world, "p2")?.word).toBe("CALL");
+    expect(cue(world, "p2")?.word).toBe("RED");
   });
 });

@@ -217,8 +217,9 @@ the marks and be told it was not.
 **What the field says** (`render/src/boss-cue-read-w.ts`, 18 September 2026,
 `docs/decisions.md` #34). Three words now, two hers and one his.
 
-Hers are her own verbs at the moment each will land: `PRESS` / `CALL` on the
-end of the needle while it stands between the marks, and `HOLD` / `OPEN` on the
+Hers are her own verbs at the moment each will land: `PRESS` / `RED` or
+`PRESS` / `CYAN` on the end of the needle while it stands between the marks,
+in the wound's colour, and `HOLD` / `OPEN` on the
 middle of the band while it is wound and her thumb is off. Both the marks and
 the band are drawn on her screen, so each mark stands on something she is
 already shown, and each word says what her thumb does rather than where the
@@ -334,13 +335,20 @@ alone a **wound** is torn in it (`render/gauge-wound.ts`): its two ends are
 cut square along the rays at `mark ± gaugeSpanNow`, so a shot lands in the
 flesh on exactly the calls that land. A band wound tight is the wound sewn
 shut from both ends. On the crown the ship's own cannon turns through the
-half-round (`render/gauge-cannon.ts`), loaded cyan or red — the colour turns
-over on every hit, and the wound and the call button wear the same one
+half-round (`render/gauge-cannon.ts`), in the colour of her last call
 (`render/gauge-load.ts`). The aim ring lights on her screen while the needle
 is seated (`gaugeSeatedBy`). A call is a shot: a burst and a green ring in
 the wound, or grey sparks off the armour and a rattling cannon
-(`render/gauge-shot.ts`). The colour is a picture and not a rule: whether it
-should become one is in [the queue](../queue.md).
+(`render/gauge-shot.ts`).
+
+**The colour is a rule** (the owner, 27 September 2026; built 29 September).
+The wound is red or cyan, drawn from the `Rng` with every band (`drawBand`)
+and hashed, and only she sees it. Her CALL is gone: she has a RED and a CYAN
+fire button in its place, and a shot lands only in the wound and in the
+wound's colour. A shot in the other colour, on a seated needle, is a miss like
+one on the armour — it jams the valve (`sim/gauge-call.ts`). He cannot see the
+colour at all, so it adds nothing to say; it is one more thing she must not
+get wrong while she is saying *left, left, stop*.
 
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live

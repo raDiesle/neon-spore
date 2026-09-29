@@ -99,8 +99,8 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   {
     id: "gauge",
     name: "THE GAUGE",
-    why: "The pilot swings the claw with two held turns; the navigator, who sees the pod, sends it out with one call.",
-    controls: ["gaugeLeft", "gaugeRight", "gaugeCall"],
+    why: "The pilot swings the cannon with two held turns; the navigator, who sees the wound and its colour, fires it red or cyan.",
+    controls: ["gaugeLeft", "gaugeRight", "gaugeRed", "gaugeCyan"],
   },
   {
     id: "fleet",

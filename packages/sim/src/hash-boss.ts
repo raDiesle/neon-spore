@@ -2,7 +2,7 @@ import type { BossState } from "./boss-union.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { hashFleetPhase } from "./fleet-hash.js";
-import { GAUGE_PHASES } from "./gauge.js";
+import { gaugeHashParts } from "./gauge-hash.js";
 import { clockHashParts } from "./hash-boss-clocks.js";
 import { scarHashParts } from "./hull-types.js";
 import { mazeHashParts } from "./maze-hash.js";
@@ -126,31 +126,7 @@ export function bossHashParts(boss: BossState | null): number[] {
   // pair is at a dial is a device that is not running the field the other one
   // is running — and that is exactly what the boss tag a few lines up already
   // says, so what is left here is the dial itself.
-  if (boss !== null && boss.kind === "gauge") {
-    push(GAUGE_PHASES.indexOf(boss.phase));
-    push(boss.phaseBeat);
-    push(boss.openBeat);
-    push(boss.passed ? 1 : 0);
-    push(boss.needleMilli);
-    push(boss.valve);
-    push(boss.markMilli);
-    push(boss.driftDir);
-    push(boss.marks);
-    push(boss.misses);
-    push(boss.calledBeat);
-    push(boss.calledMilli);
-    push(boss.calledGood ? 1 : 0);
-    push(boss.calledTick);
-    // And the two states the pair's own calls put it in: a jammed valve, a
-    // wound band, and the two thumbs on the dial (`gauge-hand.ts`). A device
-    // that thinks the valve still answers is a device moving a needle the
-    // other one is not.
-    push(boss.jamBeat);
-    push(boss.handOn ? 1 : 0);
-    push(boss.liftBeat);
-    push(boss.boundBeat);
-    push(boss.openThumb ? 1 : 0);
-  }
+  if (boss !== null && boss.kind === "gauge") for (const n of gaugeHashParts(boss)) push(n);
   // THE FLEET. The placement is authored and hashed for the reason THE
   // MIRROR's rounds are: two phones on two builds of `content` would be
   // shooting at charts with the ships in different squares, and nothing else

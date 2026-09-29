@@ -1,7 +1,7 @@
 import { type GaugeState, gaugeSeatedBy, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
 import { drawGaugeAlien, rimPoint } from "./gauge-alien.js";
 import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
-import { gaugeLoaded, gaugeShotLoad } from "./gauge-load.js";
+import { gaugeShotLoad, gaugeWoundColor } from "./gauge-load.js";
 import {
   callAge,
   cannonPose,
@@ -91,7 +91,7 @@ export function drawGaugeFoe(
     gauge.markMilli,
     gaugeSpanNow(cfg, gauge),
     cfg.gaugeSpanMilli,
-    gaugeLoaded(gauge),
+    gaugeWoundColor(gauge),
     glow,
     gaugeWoundGrown(gauge, age),
   );
@@ -106,7 +106,7 @@ export function drawGauge(
   view: DialView,
 ): void {
   const age = callAge(cfg, gauge, view.tick);
-  const load = gaugeLoaded(gauge);
+  const load = gaugeShotLoad(gauge);
   // Only her screen lights the ring for a shot that would land: his own screen
   // telling him he had arrived would be the band, drawn a second way.
   const hot = view.showMarks && gaugeSeatedBy(cfg, gauge) && gaugeWoundGrown(gauge, age) >= 1;

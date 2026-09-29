@@ -42,8 +42,8 @@ export const GAUGE_TITLE_DEPTH = 42;
 /** What this screen does, in the round's own two things: the cannon and the wound. */
 function taught(role: ViewRole): string {
   if (role === "p1") return "turn the cannon where they tell you";
-  if (role === "p2") return "tell them where the wound is, then call";
-  return "one of you turns the cannon, the other calls it";
+  if (role === "p2") return "tell them where the wound is, fire its colour";
+  return "one of you turns the cannon, the other fires it";
 }
 
 /**

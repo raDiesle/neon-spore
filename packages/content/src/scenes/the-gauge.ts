@@ -8,9 +8,9 @@ import type { GuideScene } from "../scene-types.js";
  * the cannon has to point, player 2 can see exactly where and cannot turn anything. Five calls
  * landed between the marks and the field comes back.
  *
- * Three pages since the field learned to say her verb. The first two are the
+ * Four pages since the wound took a colour. The first two are the
  * same dial on the two phones, which is the whole of it — the marks are on hers
- * and not on his — and the last is what a call costs. He keeps a page of his
+ * and not on his — then the colour her call has to be, and what a hit costs. He keeps a page of his
  * own because the field can tell him nothing true: the only word it could put
  * over his valve is a direction, and the direction is hers to say.
  *
@@ -32,7 +32,7 @@ export const THE_GAUGE: GuideScene = {
     // A hold rather than a press: the needle travels for as long as the thumb
     // is on the lobe, and `until` is the tick it lifts (`ControlPress.up`).
     { tick: 450, control: "gaugeRight", until: 550 },
-    { tick: 680, control: "gaugeCall" },
+    { tick: 680, control: "gaugeRed" },
   ],
   steps: [
     // On the dial (`render/caption-anchor-boss-f.ts`, 21 September 2026). It
@@ -56,11 +56,22 @@ export const THE_GAUGE: GuideScene = {
     // a mark spends the band it was made on, the next one is somewhere else,
     // and the pair has to find it again from words alone. That is the round,
     // and this is now the page that says it.
+    //
+    // And since 29 September 2026 the wound has a colour, and only a shot in
+    // it lands (`sim/gauge-call.ts`). That is hers alone to read — his screen
+    // has no wound — so it is said on her page and on the button that lands:
+    // the film's first wound is red.
     {
-      tick: 590,
+      tick: 500,
+      seat: 2,
+      text: "SHOOT IT IN ITS COLOUR",
+      anchor: { at: "control", control: "gaugeRed" },
+    },
+    {
+      tick: 700,
       seat: 2,
       text: "EACH HIT MOVES THE WOUND",
-      anchor: { at: "control", control: "gaugeCall" },
+      anchor: { at: "boss" },
     },
   ],
 };

@@ -1,6 +1,7 @@
 import { drawBand, driftBand, gaugeSeatedBy } from "./gauge-band.js";
-import { gaugeJammed, gaugeSettling } from "./gauge-hand.js";
-import type { Command } from "./types.js";
+import { gaugeCalled } from "./gauge-call.js";
+import { gaugeJammed } from "./gauge-hand.js";
+import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -26,8 +27,8 @@ import type { World } from "./world.js";
  * needs no wall clock — which is what makes a round like this possible here at
  * all (`docs/spec/interludes.md`).
  *
- * **What is drawn from the rng, and why it is allowed.** Where the band lands
- * and which way it sets off. That is exactly the randomness rule
+ * **What is drawn from the rng, and why it is allowed.** Where the band lands,
+ * which way it sets off, and which colour the wound wants (`gauge-call.ts`). That is exactly the randomness rule
  * (`docs/spec/structure.md` 7.3): the only thing that stays random is what one
  * player knows and the other does not. A fixed band would be a band the pilot
  * memorised on the third playthrough, and then nobody has to say anything.
@@ -86,6 +87,10 @@ export interface GaugeState {
   calledMilli: number;
   /** Whether that call landed. */
   calledGood: boolean;
+  /** The colour the wound wants, drawn with it (`drawBand`). Only she sees it. */
+  woundColor: Color;
+  /** The colour that call went out in, which the shot and the scar wear. */
+  calledColor: Color;
   /**
    * `world.tick` of the most recent call. The beat is what the rest between
    * calls is counted in; this is what the shot's flight is timed from, because
@@ -128,6 +133,8 @@ export function openGauge(world: World): GaugeState {
     calledBeat: NEVER_CALLED,
     calledMilli: -1,
     calledGood: false,
+    woundColor: "cyan",
+    calledColor: "cyan",
     calledTick: NEVER_CALLED,
     jamBeat: -1,
     handOn: false,
@@ -185,12 +192,7 @@ export function gaugeSeated(world: World, gauge: GaugeState): boolean {
  * the picture, for the reason the rest of the split is: a pilot who could call
  * would be playing both halves of a round whose only content is that he cannot
  * see the marks, and both devices have to agree exactly which presses counted.
- *
- * A call also reports itself, in `events-gauge.ts`: `gaugeMark` or
- * `gaugeMiss`, and `gaugeJam` or `gaugeBind` beside it when the same call
- * sticks the valve or winds the band. Both of the second pair are facts about
- * the *other* seat's half, which is exactly why an ear says them faster than
- * an eye finding the other screen could (`docs/queue.md`, 19 September 2026).
+ * The call itself is next door (`gauge-call.ts`).
  */
 export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, command: Command): void {
   if (command.kind === "valve") {
@@ -200,41 +202,5 @@ export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, comma
     gauge.valve = command.on ? command.dir : 0;
     return;
   }
-  if (command.kind !== "call" || player !== 2) return;
-  // Two calls in a row cost the rest between them whether the first landed or
-  // not, so a thumb held on the button is slower than a pair who talk.
-  if (world.beat - gauge.calledBeat < world.cfg.gaugeCallRestBeats) return;
-  // **Refused rather than missed**, twice: while her own thumb is holding the
-  // band open, and while his needle is still settling from his hand. Both are
-  // the round asking for something else at that moment, and a miss would
-  // charge her for a state one of them is in the middle of leaving — the
-  // rest between calls would run as well, so a pair doing exactly what the
-  // round asked would be slowed for it.
-  if (gauge.openThumb || gaugeSettling(world.cfg, gauge, world.beat)) return;
-
-  const good = gaugeSeated(world, gauge);
-  gauge.calledBeat = world.beat;
-  gauge.calledMilli = gauge.needleMilli;
-  gauge.calledGood = good;
-  gauge.calledTick = world.tick;
-  if (!good) {
-    gauge.misses += 1;
-    // And the valve sticks. A miss is the one thing in this round that was
-    // free — time, and the pair was going to spend that anyway — so what it
-    // costs now is the control itself, until the next call lands.
-    gauge.jamBeat = world.beat;
-    world.events.push({ type: "gaugeMiss" });
-    world.events.push({ type: "gaugeJam" });
-    return;
-  }
-  gauge.marks += 1;
-  gauge.jamBeat = -1;
-  world.events.push({ type: "gaugeMark" });
-  // Every other mark winds the band tight, and the one after it lets it go:
-  // the round alternates between the two states rather than ending in one.
-  gauge.boundBeat = gauge.marks % world.cfg.gaugeBindMarks === 0 ? world.beat : -1;
-  if (gauge.boundBeat !== -1) world.events.push({ type: "gaugeBind" });
-  // A mark spends the band it was made on: the next one is somewhere else and
-  // the pair has to find it again from words alone.
-  drawBand(world, gauge);
+  if (command.kind === "call" && player === 2) gaugeCalled(world, gauge, command.color);
 }

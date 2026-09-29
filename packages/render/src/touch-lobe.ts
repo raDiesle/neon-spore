@@ -124,7 +124,8 @@ export function lobeMeans(
     case "gaugeLeft":
     case "gaugeRight":
       return { command: controlPress(id).down, hold: { kind: "held", control: id, player: 1 } };
-    case "gaugeCall":
+    case "gaugeRed":
+    case "gaugeCyan":
       return { command: controlPress(id).down, hold: null };
     case "cannon":
     case "shield":

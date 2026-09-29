@@ -1,35 +1,28 @@
-import type { GaugeState } from "@neon-spore/sim";
+import type { Color, GaugeState } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
 
 /**
- * **Which colour THE GAUGE's cannon is loaded with** — cyan, then red, turn
- * about with every hit. The owner, 25 September 2026: *the regular cannon,
- * cyan or red … the wounds … mixed up with colour of cannon to hit*.
+ * **THE GAUGE's two colours**: the one the wound wants and the one the cannon
+ * last fired. The owner, 25 September 2026: *the regular cannon, cyan or red
+ * … the wounds … mixed up with colour of cannon to hit* — and on 27
+ * September, asked whether that should stay a picture, *a rule*.
  *
- * A picture and not a rule. The call is still one comparison of two angles
- * (`sim/gauge.ts`); the colour is what ties the wound to the gun that opens
- * it, the way a red rock on the field is the one a red shot answers. It turns
- * over on each hit because a hit spends the wound and a fresh one tears open
- * somewhere else — the new colour says *new wound* on both screens at once.
- *
- * Read off `marks` alone, so both devices agree on it without being told and
- * nothing here outlives a frame.
+ * So both are the simulation's and this file only reads them. The wound's is
+ * drawn with the band (`sim/gauge-band.ts`) and only her screen shows the
+ * wound; the cannon, its line and the shot wear the colour of the last call
+ * (`sim/gauge-call.ts`), because that is the one both screens saw go out.
+ * Before the first call the cannon is cyan, the colour the state opens with.
  */
-export type Loaded = "cyan" | "red";
+export type Loaded = Color;
 
-/** The colour loaded after `marks` hits. */
-export function loadedAfter(marks: number): Loaded {
-  return marks % 2 === 0 ? "cyan" : "red";
+/** The colour the wound wants — hers to read, and the only rule it is. */
+export function gaugeWoundColor(gauge: GaugeState): Loaded {
+  return gauge.woundColor;
 }
 
-/** What the cannon has in it now. */
-export function gaugeLoaded(gauge: GaugeState): Loaded {
-  return loadedAfter(gauge.marks);
-}
-
-/** The colour the last shot went out in: a hit has already counted itself. */
+/** The colour the last shot went out in, which the cannon still wears. */
 export function gaugeShotLoad(gauge: GaugeState): Loaded {
-  return loadedAfter(gauge.calledGood ? gauge.marks - 1 : gauge.marks);
+  return gauge.calledColor;
 }
 
 export interface LoadedLook {

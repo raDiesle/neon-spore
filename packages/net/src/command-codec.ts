@@ -81,7 +81,7 @@ export function decodeCommand(x: unknown): Command | null {
         ? { kind: "valve", on: c.on, dir: c.dir }
         : null;
     case "call":
-      return { kind: "call" };
+      return isColor(c.color) ? { kind: "call", color: c.color } : null;
     /**
      * **THE CLAW's arm and PINBALL's three, which this codec did not know
      * about at all** until an exhaustiveness guard was put on its own test

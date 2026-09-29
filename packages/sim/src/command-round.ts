@@ -1,4 +1,5 @@
 import type { PulseLane } from "./pulse.js";
+import type { Color } from "./types.js";
 
 /**
  * **The rounds' own verbs**, as their half of the `Command` union.
@@ -23,12 +24,14 @@ export type RoundCommand =
    *
    * `valve` is player 1's, held rather than pressed — `dir` is which way it
    * pushes and `on` ends it, the same contract `prime` has. `call` is player
-   * 2's, and it is the only thing in THE GAUGE that can be wrong. Which seat
+   * 2's, and it is the only thing in THE GAUGE that can be wrong — in where
+   * the needle stands, and since 29 September 2026 in its `color`: the wound
+   * is red or cyan and only a call in its colour lands (`gauge-call.ts`). Which seat
    * may send which is checked in `gauge.ts`, not here: the command is what was
    * pressed, and whose press counts is the round's rule.
    */
   | { kind: "valve"; on: boolean; dir: -1 | 1 }
-  | { kind: "call" }
+  | { kind: "call"; color: Color }
   /**
    * THE FLEET's two verbs, and the same argument `valve` and `call` make one
    * more time: a round that is not the ordinary field has its own words, and a

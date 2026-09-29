@@ -35,11 +35,13 @@ import type { ControlDef } from "./controls.js";
  * sockets the design named, with the ship on the screen under them, which is
  * the same request the owner made of the two rounds above.
  *
- * **THE GAUGE's three are lobes, and they were the last slabs.** The owner,
+ * **THE GAUGE's four are lobes, and they were the last slabs.** The owner,
  * 20 September 2026: *improve the buttons a lot so they fit the regular ship
  * hull and control set visuals* — the request the four rounds above had
  * already had granted. The two turns stand in the pilot's sockets and the call
- * in the navigator's, faced with the cannon they turn (`gauge-button.ts`).
+ * in the navigator's, faced with the cannon they turn (`gauge-button.ts`). The
+ * call became the ship's two fire buttons on 29 September 2026, when the
+ * wound's colour became a rule (`sim/gauge-call.ts`): four, not three.
  *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
@@ -67,11 +69,18 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
     does: "Held. Turns THE GAUGE's cannon right for as long as a thumb is on it.",
   },
   {
-    id: "gaugeCall",
+    id: "gaugeRed",
     player: 2,
     form: "lobe",
-    label: "CALL",
-    does: "Fires the cannon along its line. A shot in the wound counts. A shot on the armour jams the valve.",
+    label: "RED",
+    does: "Fires the cannon red along its line. A red shot in a red wound counts. A shot on the armour, or in the wrong colour, jams the valve.",
+  },
+  {
+    id: "gaugeCyan",
+    player: 2,
+    form: "lobe",
+    label: "CYAN",
+    does: "Fires the cannon cyan along its line. A cyan shot in a cyan wound counts. A shot on the armour, or in the wrong colour, jams the valve.",
   },
   {
     id: "salvo",

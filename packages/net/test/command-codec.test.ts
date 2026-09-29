@@ -16,7 +16,7 @@ const ACCEPTED: Command[] = [
   { kind: "brief" },
   { kind: "brief", on: false },
   { kind: "valve", on: true, dir: 1 },
-  { kind: "call" },
+  { kind: "call", color: "red" },
   { kind: "snakeTurn", dir: "left" },
   { kind: "snakeFire" },
   { kind: "snakeMaw" },
@@ -533,6 +533,9 @@ describe("decodeCommand: rejections", () => {
   it("refuses a missing required field", () => {
     expect(decodeCommand({ kind: "fire" })).toBeNull();
     expect(decodeCommand({ kind: "valve", on: true })).toBeNull();
+    // THE GAUGE's call names the wound's colour since 29 September 2026.
+    expect(decodeCommand({ kind: "call" })).toBeNull();
+    expect(decodeCommand({ kind: "call", color: "purple" })).toBeNull();
   });
 
   it("refuses a wrong-typed optional field", () => {
@@ -603,12 +606,16 @@ describe("decodeCommands", () => {
   });
 
   it("drops the whole frame when one command among good ones is bad", () => {
-    const commands = [{ kind: "guard" }, { kind: "fire", color: "purple" }, { kind: "call" }];
+    const commands = [
+      { kind: "guard" },
+      { kind: "fire", color: "purple" },
+      { kind: "call", color: "red" },
+    ];
     expect(decodeCommands(commands)).toBeNull();
   });
 
   it("passes through a frame where every command is good", () => {
-    const commands: Command[] = [{ kind: "guard" }, { kind: "call" }];
+    const commands: Command[] = [{ kind: "guard" }, { kind: "call", color: "red" }];
     expect(decodeCommands(commands)).toEqual(commands);
   });
 });
