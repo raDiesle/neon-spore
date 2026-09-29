@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 86a4407de — THE GOVERNOR takes a hand: the tap on the dial, the brake on the works
+
+The lit step's tapper taps anywhere on the dial's face. The braking seat lays its chord on the works around the dial, one finger per pad. While a tap is lit, the tapper's finger on the works is not answered. HOLD appears on the drum, TAP on the mark and FIRE under the middle column. AUTO holds the brake, taps on the mark and shoots the step's colour, and it plays the script through.
+
 ## 2026-09-29 · a8333beb1 — Put back the queue entries the governor's body lane deleted by mistake
 
 When THE GOVERNOR's body landed, its queue edit matched the entry above its own and took out THE WINCH look's text, both THE SLUICE entries and THE GOVERNOR's own header. All four are back as they were. A finding is queued: `land` does not refuse a landing that deletes entries nobody closed.
