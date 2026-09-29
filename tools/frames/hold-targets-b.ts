@@ -122,7 +122,7 @@ export const ROWS: Record<string, Row> = {
   // `trivet-hand.ts`: a foot each, its pads held down together; the pilot's is the front.
   trivetPadFront: { id: true },
   trivetPadRear: { seat: 2, id: true },
-  // `plumb-hand.ts`: a weight each, the lean on `fromMilli`; the pilot's is the left.
+  // `plumb-hand.ts`: a stone each, the pull on `fromMilli`; the pilot's is the left.
   plumbLevelLeft: {},
   plumbLevelRight: { seat: 2 },
   // `sling-hand.ts`: an arm each, the lift's swipe on `fromMilli`; the pilot's is the left.

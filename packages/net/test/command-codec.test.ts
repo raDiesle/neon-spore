@@ -256,8 +256,8 @@ const ACCEPTED: Command[] = [
   // (`sim/trivet-hand.ts`).
   { kind: "drag", target: "trivetPadFront", id: 2, on: true, fromMilli: 0 },
   { kind: "drag", target: "trivetPadRear", id: 0, on: false, fromMilli: 0 },
-  // THE PLUMB's levels are leant, one weight a seat, the lean on `fromMilli`
-  // in thousandths of a degree either way (`sim/plumb-hand.ts`).
+  // THE PLUMB's stones are pulled, one a seat, the pull on `fromMilli`
+  // in thousandths of a tile either way (`sim/plumb-hand.ts`).
   { kind: "drag", target: "plumbLevelLeft", on: true, fromMilli: -4500 },
   { kind: "drag", target: "plumbLevelRight", on: false, fromMilli: 90000 },
   // THE SLING's draws are held, one arm a seat, the lift's swipe on

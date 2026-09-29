@@ -179,9 +179,8 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
   // shake can be reported, so the game offers this *and* the two arrows on the
   // field and lets the pilot use whichever their phone answers (`shake.ts`).
   bindShake(buffer);
-  // And the phone's own lean, THE PLUMB's weight, THE DAVIT's boom and THE
-  // CAPSTAN's cradle, sent as this device's seat as a hand on the field is
-  // (`lean.ts`).
+  // And the phone's own lean, THE DAVIT's boom, sent as this device's seat
+  // as a hand on the field is (`lean.ts`).
   for (const kind of LEAN_BOSSES) {
     bindLean(
       buffer,

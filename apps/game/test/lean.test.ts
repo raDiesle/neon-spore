@@ -3,12 +3,10 @@ import type { Command, DragTarget } from "@neon-spore/sim";
 import { askForLean, LEAN_STEP_MILLI, leanMilli, leanReader } from "../src/lean.js";
 
 /**
- * **THE PLUMB's and THE DAVIT's lean on the wire** (`lean.ts`): one reading
- * per half degree moved, never one per event; only while a bob is on the
- * field; the seat's own weight; and `on: false` once when the page loses the
- * sensor. Both bosses share the same reader — only the target it sends
- * differs, PLUMB's the default and DAVIT's passed explicitly. The reader is
- * tested without a page — the listener around it is two lines.
+ * **THE DAVIT's lean on the wire** (`lean.ts`): one reading per half degree
+ * moved, never one per event; only while a boom is on the field; the seat's
+ * own side; and `on: false` once when the page loses the sensor. The reader
+ * is tested without a page — the listener around it is two lines.
  */
 
 type Sent = { player: 1 | 2; command: Command };
@@ -47,7 +45,7 @@ describe("leanReader", () => {
     expect(sent).toHaveLength(1);
     expect(sent[0]?.command).toEqual({
       kind: "drag",
-      target: "plumbLevelLeft",
+      target: "davitSteerLeft",
       on: true,
       fromMilli: 2000,
     });
@@ -65,14 +63,14 @@ describe("leanReader", () => {
     ]);
   });
 
-  it("is the pilot's left weight and the navigator's right", () => {
+  it("is the pilot's left boom and the navigator's right", () => {
     const left = reader({ seat: 1 });
     const right = reader({ seat: 2 });
     left.r.read(1);
     right.r.read(1);
     expect(left.sent[0]?.player).toBe(1);
     expect(right.sent[0]?.player).toBe(2);
-    expect(right.sent[0]?.command).toMatchObject({ target: "plumbLevelRight" });
+    expect(right.sent[0]?.command).toMatchObject({ target: "davitSteerRight" });
   });
 
   it("sends nothing with no bob on the field", () => {
@@ -103,9 +101,9 @@ describe("leanReader", () => {
     r.lose();
     r.read(3);
     expect(sent.map((s) => s.command)).toEqual([
-      { kind: "drag", target: "plumbLevelRight", on: true, fromMilli: 3000 },
-      { kind: "drag", target: "plumbLevelRight", on: false, fromMilli: 0 },
-      { kind: "drag", target: "plumbLevelRight", on: true, fromMilli: 3000 },
+      { kind: "drag", target: "davitSteerRight", on: true, fromMilli: 3000 },
+      { kind: "drag", target: "davitSteerRight", on: false, fromMilli: 0 },
+      { kind: "drag", target: "davitSteerRight", on: true, fromMilli: 3000 },
     ]);
   });
 
@@ -115,15 +113,11 @@ describe("leanReader", () => {
     expect(sent).toHaveLength(0);
   });
 
-  it("sends THE DAVIT's own targets when told to, not PLUMB's", () => {
-    const target: (p: 1 | 2) => DragTarget = (p) =>
-      p === 1 ? "davitSteerLeft" : "davitSteerRight";
+  it("sends the target it is told to", () => {
+    const target: (p: 1 | 2) => DragTarget = () => "capstanSteer";
     const left = reader({ seat: 1, target });
-    const right = reader({ seat: 2, target });
     left.r.read(2);
-    right.r.read(2);
-    expect(left.sent[0]?.command).toMatchObject({ target: "davitSteerLeft" });
-    expect(right.sent[0]?.command).toMatchObject({ target: "davitSteerRight" });
+    expect(left.sent[0]?.command).toMatchObject({ target: "capstanSteer" });
   });
 });
 

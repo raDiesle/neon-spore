@@ -28936,3 +28936,16 @@ Bottleneck: reading — finding that the sim's filament helpers are exported
 through `boss-surface-clocks-b.ts` rather than a file named for them.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE PLUMB's weights are brought level by two pulls, not a lean
+
+- reading: 5 min. THE CAPSTAN's lean-to-drag commit as the template, and
+  every file that named `tiltMilli` or `PLUMB_UNREAD`.
+- writing: 10 min. The skew and the pulls in the simulation, the grip, the
+  glasses and the stones' sizes, AUTO, the director's rows, §31 and §11.48.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the first script's skews sat inside one seat's reach,
+and only the test asking that no seat can level it alone caught it.

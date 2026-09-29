@@ -114,7 +114,6 @@ export {
   PLUMB_ASKS,
   PLUMB_PHASES,
   PLUMB_SETTLES_PER_WEIGHT,
-  PLUMB_UNREAD,
   type PlumbAsk,
   type PlumbEntry,
   type PlumbPhase,
@@ -122,8 +121,8 @@ export {
   type PlumbStep,
   plumbBoss,
   plumbDone,
-  plumbLevel,
   plumbLitStep,
+  plumbOff,
   plumbTrue,
 } from "./plumb.js";
 export {

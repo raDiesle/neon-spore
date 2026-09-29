@@ -362,30 +362,6 @@ silently is refused out loud once its mark asks (`curtain-marks.ts`, `curtainRef
 list keeps this entry, rewritten to name the next; the lane that empties the
 list removes it and the list with it.
 
-## §31 THE PLUMB — its weights are brought level by two pulls, not a lean
-
-- **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-31-the-plumb-its-weights-are-brought-level-by-tw)
-- **Files:** `packages/sim/src/plumb.ts`, `packages/sim/src/plumb-step.ts`, `packages/sim/src/plumb-hand.ts`, `packages/content/src/keys-desk.ts`, `apps/game/src/lean.ts`, `docs/spec/bosses-choreographed.md`
-- **Asks:** Which slot leans a seat's phone at a desk on THE PLUMB — the pilot's I/S with the navigator's J/L (the slots the wave leaves idle, but the two seats on different kinds of key), or the arrows, left/right the pilot's and up/down the navigator's (one pair each, but both seats on the one cluster)?
-- **Answered:** 2026-09-27 — neither slot. The owner will not add keys a player has to learn, and will not have a wave need a tilt sensor that a phone may lack and a desk never has. He asks for the control to change: each seat pulls a long drag left or right, the stones grow or shrink with it, and the pair keep the level by pulling on both sides at the same time, so the two pulls weigh the same in sum. The work is now THE PLUMB's control redesigned around that drag (its `plumbLevel*` steps, its guide), not desk keys.
-
-Wave 110 reads each seat's phone lean (`LevelTilt`, `apps/game/src/lean.ts`)
-as the drag that levels its weight, so a desk cannot play it and neither can a
-phone without a gyroscope. The first answer was to be a desk key; the owner
-turned both slots down and changed the control instead.
-
-The new control: each seat's weight is a long drag, left or right. The stones
-grow or shrink as they are pulled, and the bob hangs true only while the two
-pulls, taken together, weigh the same — so both seats pull at once, each
-watching the other's side. `plumbLevelLeft` and `plumbLevelRight` stay the two
-drag targets; what changes is that `fromMilli` is a pull's length rather than a
-lean, and a level step counts the beats the *sum* stays inside its range rather
-than each seat's own reading. Rewrite §31's beat list and the guide's words to
-match, and move the lean out of THE PLUMB. A drag works the same on a desk, so
-no key is added. A control change on a shipped wave, which the owner asked for
-by name. `bun run check` proves it.
-
 ## move one boss a lane onto the solid rig, from the roster
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side

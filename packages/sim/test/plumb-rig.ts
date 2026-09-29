@@ -9,12 +9,12 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
-import { type PlumbState, type PlumbStep, plumbBoss } from "../src/plumb.js";
+import { type PlumbState, type PlumbStep, plumbBoss, plumbLitStep } from "../src/plumb.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
- * THE PLUMB's test rig: a script installed, a seat's phone leant as the pair
- * would lean it, and a step driven to its answer. Shared by `plumb.test.ts`.
+ * THE PLUMB's test rig: a script installed, a seat's stone pulled as the pair
+ * would pull it, and a step driven to its answer. Shared by `plumb.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -23,15 +23,15 @@ export const MID = midCol(CFG);
 
 /** The shipped wave's script, written out: sim tests do not read content. */
 export const SCRIPT: readonly PlumbStep[] = [
-  { ask: "left", rangeMilli: 8000, color: "either", beats: 5 },
-  { ask: "left", rangeMilli: 4000, color: "either", beats: 4 },
-  { ask: "right", rangeMilli: 8000, color: "either", beats: 5 },
-  { ask: "right", rangeMilli: 4000, color: "either", beats: 4 },
-  { ask: "fire", rangeMilli: 0, color: "red", beats: 3 },
-  { ask: "both", rangeMilli: 6000, color: "either", beats: 3 },
-  { ask: "fire", rangeMilli: 0, color: "cyan", beats: 3 },
-  { ask: "both", rangeMilli: 5000, color: "either", beats: 3 },
-  { ask: "fire", rangeMilli: 0, color: "either", beats: 3 },
+  { ask: "left", skewMilli: -3000, rangeMilli: 600, color: "either", beats: 5 },
+  { ask: "left", skewMilli: 2800, rangeMilli: 400, color: "either", beats: 4 },
+  { ask: "right", skewMilli: 3200, rangeMilli: 600, color: "either", beats: 5 },
+  { ask: "right", skewMilli: -2800, rangeMilli: 400, color: "either", beats: 4 },
+  { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "red", beats: 3 },
+  { ask: "both", skewMilli: -2800, rangeMilli: 500, color: "either", beats: 3 },
+  { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "cyan", beats: 3 },
+  { ask: "both", skewMilli: 3000, rangeMilli: 450, color: "either", beats: 3 },
+  { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "either", beats: 3 },
 ];
 
 export function install(steps: readonly PlumbStep[] = SCRIPT): World {
@@ -76,32 +76,34 @@ export function beats(world: World, n: number): Set<string> {
 }
 
 /**
- * One seat's phone read at `leanMilli` off level, or put down (`on` false);
- * the seat is the weight's own unless said.
+ * One seat's stone pulled `pullMilli` across, right above nought, or let go
+ * (`on` false); the seat is the stone's own unless said.
  */
-export function lean(
+export function pull(
   world: World,
   side: "left" | "right",
-  leanMilli: number,
+  pullMilli: number,
   on = true,
   player: 1 | 2 = side === "left" ? 1 : 2,
 ): string[] {
   const target = side === "left" ? "plumbLevelLeft" : "plumbLevelRight";
   return tick(world, [
-    { tick: world.tick, player, command: { kind: "drag", target, on, fromMilli: leanMilli } },
+    { tick: world.tick, player, command: { kind: "drag", target, on, fromMilli: pullMilli } },
   ]);
 }
 
-/** Both phones held dead level. */
-export function levelBoth(world: World): void {
-  lean(world, "left", 0);
-  lean(world, "right", 0);
+/** Both stones pulled half the lit step's skew each, the other way: the bob dead true. */
+export function balance(world: World): void {
+  const skew = plumbLitStep(plumb(world))?.skewMilli ?? 0;
+  const half = Math.trunc(skew / 2);
+  pull(world, "left", -half);
+  pull(world, "right", half - skew);
 }
 
-/** Both phones put down. */
-export function putDownBoth(world: World): void {
-  lean(world, "left", 0, false);
-  lean(world, "right", 0, false);
+/** Both thumbs up. */
+export function letGoBoth(world: World): void {
+  pull(world, "left", 0, false);
+  pull(world, "right", 0, false);
 }
 
 export function shot(color: Color, col = MID): Bullet {

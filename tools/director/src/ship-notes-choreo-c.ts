@@ -196,20 +196,22 @@ export const CHOREO_NOTES_C = {
     "grace (trivetGraceBeats) is how long a chord step stays lit past its count. See " +
     "sim/trivet.ts, sim/trivet-step.ts, sim/trivet-hand.ts, " +
     "sim/trivet-shot.ts, sim/trivet-guard.ts, sim/config-trivet.ts.",
-  "THE PLUMB — the boss two phones hold level, then shoot into":
-    "Asked for in docs/spec/bosses-choreographed.md §31: a lean, each seat " +
-    "holding its own phone level to hang its weight true under a bob over " +
-    "the middle column, and a script the wave authors, ranges and all. A left " +
-    "or right step settles that weight once its phone has read inside the " +
-    "step's range for its beats; a lean drifting out starts the count again, " +
-    "and a step run out swings the weight loose and relights it. Two settles " +
-    "a weight light the core; a fire step wants a shot in its colour; a both " +
-    "step is both phones held level at once, and one run out dims the core " +
-    "until it is held again. A fire step run out is a hull hit, which is the " +
-    "wave. The grace (plumbGraceBeats) is how long a level step stays lit " +
-    "past its count. Nothing reads a phone's lean yet. Only the simulation " +
-    "lane has landed — see sim/plumb.ts, sim/plumb-step.ts, " +
-    "sim/plumb-hand.ts, sim/plumb-shot.ts, sim/config-plumb.ts.",
+  "THE PLUMB — the boss two pulls hold level, then shoot into":
+    "Asked for in docs/spec/bosses-choreographed.md §31: a pull, each seat " +
+    "dragging its own stone left or right under a bob over the middle column, " +
+    "and a script the wave authors, skews and ranges and all. Each level step " +
+    "hangs the bob further off true than one pull reaches " +
+    "(plumbPullReachMilli), so it hangs true only while both pulls together " +
+    "cancel the skew. A left or right step settles that weight once the bob " +
+    "has hung inside the step's range for its beats; a pull drifting out, or " +
+    "a thumb let go, starts the count again, and a step run out swings the " +
+    "weight loose and relights it. Two settles a weight light the core; a " +
+    "fire step wants a shot in its colour; a both step is the same pull held " +
+    "with the core lit, and one run out dims the core until it is held again. " +
+    "A fire step run out is a hull hit, which is the wave. The grace " +
+    "(plumbGraceBeats) is how long a level step stays lit past its count. See " +
+    "sim/plumb.ts, sim/plumb-step.ts, sim/plumb-hand.ts, sim/plumb-shot.ts, " +
+    "sim/config-plumb.ts, render/plumb-grip.ts.",
   "THE SLING — the boss two draws loose, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §32: a draw, each seat " +
     "holding a finger down to pull its own arm of a fork over the middle " +

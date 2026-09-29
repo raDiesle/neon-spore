@@ -9571,59 +9571,64 @@ script answered whole collapses the stand and ends the fight. Whether any
 of it *reads* — whether three thumbs on one phone is a stance or a
 cramp — is the owner's eye, after lane two.
 
-## 11.48 THE PLUMB — the boss two phones hold level, then shoot into
+## 11.48 THE PLUMB — the boss two pulls hold level, then shoot into
 
 > A bob hung skewed over the middle of the field, both weights swinging
-> loose. Your weight's level lights: hold your phone flat and still until
-> the weight hangs true. Two settles a weight and the core lights. Shoot it
-> in its colour, and when the weights creep off true, both of you hold level
-> again.
+> loose. A weight's level lights: each of you drags your own stone away from
+> the low side, together, until the bob hangs true. Two settles a weight and
+> the core lights. Shoot it in its colour, and when the weights creep off
+> true, both of you pull again.
 
 Designed as §31 of [bosses-choreographed](bosses-choreographed.md), the
 fourth of the concepts written to spend a gesture nobody had claimed — a
-choreographed scene, the third kind in `.claude/skills/new-boss`. Where THE
-TRIVET asks one seat for **several thumbs at once**, this asks for **no
-thumb at all**: progress is the beats the phone itself has been held inside
-a range of level, and drifting out of it starts the count again.
+choreographed scene, the third kind in `.claude/skills/new-boss`. It was
+built on the phone's own lean, `LevelTilt`, and **became two pulls on 29
+September 2026**, at the owner's word of 27 September that no wave may need
+a tilt sensor: each seat drags its own stone, and the bob hangs true only
+while the two pulls together cancel the step's skew.
 
 **It is four settles and three hits, and they are its health.** The state
 (`sim/plumb.ts`, hashed in `sim/plumb-hash.ts`) is the **phase** and the
 beat it began, the **cursor** into the script, the **settles** on each
-weight, the **hits** landed, whether the **core** is lit, each seat's last
-**lean** in thousandths of a degree, and the beats the lit level has been
+weight, the **hits** landed, whether the **core** is lit, each seat's
+**pull** in thousandths of a tile, and the beats the lit level has been
 held. The script is the wave's (`PlumbEntry.steps`), copied at install: each
-step asks `left`, `right`, `fire` or `both`, inside a range of level, in a
-colour or `either`, for its own beats.
+step asks `left`, `right`, `fire` or `both`, with a **skew** and a range
+either side of true, in a colour or `either`, for its own beats.
 
-**The rule, in one sentence.** Hold your phone level inside the lit range
-for the count, and shoot the lit core in its colour.
+**The rule, in one sentence.** Pull both stones together until the bob
+hangs true for the count, and shoot the lit core in its colour.
 
 **The split.** Geometry, THE MANTLE's rule: `plumbLevelLeft` is Player 1's
-and `plumbLevelRight` Player 2's, and the wrong seat's reading is not heard
-(`sim/plumb-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
-under the middle column, Player 2's trigger in its colour. A `both` step is
-both phones level at once, each seat on its own weight.
+stone and `plumbLevelRight` Player 2's, and the wrong seat's pull is not
+heard (`sim/plumb-hand.ts`, `render/plumb-grip.ts`). **Every level step is
+both seats'**: the script skews each further than one pull reaches
+(`plumbPullReachMilli`) and less far than two, so neither can bring it true
+alone. `left`, `right` and `both` say only which weight the step settles. A
+fire step is the ordinary shot — Player 1's cannon under the middle column,
+Player 2's trigger in its colour.
 
 **The clock** (`sim/plumb-step.ts`). The bob settles for `plumbStillBeats`,
 then the first step lights under THE SLOW (`openSlow(…, "ask")`). Each beat
-the lit lean is in range counts one; at the step's own beats the weight
-settles, or under the core the weights are held true. A level step stays
-lit `plumbGraceBeats` past its count. The fourth settle lights the core. An
+the bob hangs true counts one; at the step's own beats the weight settles,
+or under the core the weights are held true. A level step stays lit
+`plumbGraceBeats` past its count. The fourth settle lights the core. An
 answered step closes THE SLOW and the bob rests `plumbRestBeats` before the
 next lights. With the script done both weights snap loose, and the bob
 swings free `plumbFreeBeats` before the wave may end.
 
-**The answers.** A lean is heard on the tick (`sim/plumb-hand.ts`), and a
-lean leaving the range while the level was held starts its count from
-nought. A level is counted on the beat, because what it asks is a number of
-beats. A lean either way counts the same: the range is how far off level,
-not which way. A shot is judged where a bolt leaves the top of the field
-(`sim/plumb-shot.ts`): only with the core lit, only while a fire step is
-lit, only in the middle column, and only in its colour unless it is
-`either`. The wrong colour is a colour missed on the balance sheet and
-nothing else, THE SEAM's rule.
+**The answers.** A pull is heard on the tick (`sim/plumb-hand.ts`): how far
+the thumb has carried since it went down, held to the reach either way, and
+a lift a pull of nought. The bob's off-true is the step's skew plus both
+pulls (`plumbOff`), and a pull taking it out of the range while the level
+was held starts its count from nought. A level is counted on the beat,
+because what it asks is a number of beats. A shot is judged where a bolt
+leaves the top of the field (`sim/plumb-shot.ts`): only with the core lit,
+only while a fire step is lit, only in the middle column, and only in its
+colour unless it is `either`. The wrong colour is a colour missed on the
+balance sheet and nothing else, THE SEAM's rule.
 
-**Where this departs from the design, and why.** Nine places.
+**Where this departs from the design, and why.** Eight places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §31's
   rows 6 and 8 say "ordinary hull hit" and row 10 says the core "stays lit".
@@ -9633,21 +9638,17 @@ nothing else, THE SEAM's rule.
 - **A level is given grace.** §31's windows are "6 beats, held" and
   "4 beats, held"; a window exactly its count long could only be met by a
   phone already level on its first beat. The step stays lit
-  `plumbGraceBeats` longer, and more so here than for a pinch: a phone has
-  to be picked up and found level.
-- **The lean is recorded whenever the bob is present.** A phone held level
-  in the rest before its step lights is counted from that step's first
-  beat; only a drift *during* the lit level resets.
-- **`LevelTilt` rides the drag.** §31 names `plumbLeftTiltMilli` and
-  `plumbRightTiltMilli`; on the wire a reading is a drag on `plumbLevelLeft`
-  or `plumbLevelRight` whose `fromMilli` is the lean, and `on` whether the
-  phone is being read at all. A phone that stops reporting is `PLUMB_UNREAD`,
-  as far off level as a lean can be, so putting it down is a drift. The
-  state keeps both as `tiltMilli`.
-- **The range is the step's.** §31 says "a tighter level" without a number;
-  the script carries each step's `rangeMilli` — eight degrees, then four,
-  then six and five under the core — so the narrowing is authored, not a
-  constant.
+  `plumbGraceBeats` longer, and more so here than for a pinch: two thumbs
+  have to find a sum neither can see alone.
+- **A pull is recorded whenever the bob is present.** Stones already
+  pulled true in the rest before a step lights are counted from that step's
+  first beat; only a drift *during* the lit level resets.
+- **The skew and the range are the step's.** §31 says "a tighter level"
+  without a number; the script carries each step's `skewMilli` and
+  `rangeMilli` — three tiles left within six tenths, then 2.8 right within
+  four tenths, and so on — so the narrowing and the side to pull from are
+  authored, not a constant. `sim/test/plumb.test.ts` holds every level step
+  past one reach and inside two.
 - **"Retry from row 2" is the same step relit.** Rows 3 and 5 have a second
   level run out go back to the first. A settle already made stays made — the
   weight swings loose out of the second, tighter level, not out of the
@@ -9664,51 +9665,39 @@ nothing else, THE SEAM's rule.
   step run out already has: the core dims, the same `both` lights again, and
   no fire step lights until it is held.
 
-A reading is clamped to ninety degrees either way, gamma's own range, so a
-lie on the wire is only ever a phone held on its edge.
-
-**The simulation lane, the lean reader and half one of the look have
-landed.** The body is drawn (`render/plumb-draw.ts`, 26 September 2026):
-THE WEIGHT's sac as a bob of old bronze hung off a hook over the middle
-column, a beam across it with THE POMMEL's balls on chains at its ends, the
-pilot's heavier, so it hangs lopsided and comes level a quarter per settle
-as a steady phone brings its weight true; a spirit level under each ball,
-lit while its step asks, the bubble at the lean the phone reports and
-bright inside the range; the sac seen edge-on until both weights are true
-and turned face-on to show the core, lit in its colour with its ring
-closing, smaller and brighter per hit; the weights swaying off true as a
-`both` step runs out unheld; and the bob swinging free. A phone's gamma
-goes out as its seat's own drag (`apps/game/src/lean.ts`): one reading each
-time the lean has moved half a degree from the last one sent, never one per
-event, and only while a bob is on the field — a new bob, the wave started
-again, is told the lean afresh; a page hidden sends `on: false` once. iOS is
-asked for the sensor from the lift off THE PLUMB's own READY (`briefing.ts`),
-which is the navigator's first ask — `askForMotion` asks only the pilot. No
-desk key leans yet (`docs/queue.md`). Half two of the look, the hands, is
-not in: the render package's silent-event lists and
-`tools/director/src/sound-link-none-d.ts` still carry all twelve of its
-events. The twelve sounds *are* bound (`audio/src/bind-plumb.ts`),
-heard where they happen, the settle pitched up per level and the hit per
-hit. The autopilot hand plays it to the end
-(`tools/director/test/autopilot-grindstone.test.ts`).
+**The simulation, both halves of the look and the pull have landed.** The
+body is drawn (`render/plumb-draw.ts`): THE WEIGHT's sac as a bob of old
+bronze hung off a hook over the middle column, a beam across it with THE
+POMMEL's stones on chains at its ends, the pilot's heavier, so it hangs
+lopsided and comes level a quarter per settle; each stone swings the way
+its thumb carries it and grows or shrinks with the pull; a spirit level
+under each, lit while its step asks, the bubble at the bob's own off-true
+and bright inside the range, the same on both glasses; the sac seen edge-on
+until both weights are true and turned face-on to show the core, lit in its
+colour with its ring closing, smaller and brighter per hit; the weights
+swaying off true as a `both` step runs out unheld; and the bob swinging
+free. The field says PULL on each seat's own stone through every level step
+(`render/plumb-marks.ts`). A drag works the same on a desk, so no key was
+added. The twelve sounds are bound (`audio/src/bind-plumb.ts`). The
+autopilot hand pulls each stone half the skew
+(`hands/src/boss-hands-plumb.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/plumb.test.ts`): the bob comes in still with both weights loose,
-the core dark and neither phone read, and lights its first level under THE
-SLOW; no shot is taken while the core is dark; a level counts only with the
-lean inside the step's range, either way alike — not outside it, not inside
-the first step's range once the second narrows it, not on the other weight;
-a lean leaving the range or a phone put down starts the count again, one
-that stays in range does not; the wrong seat is not heard; a lean past a
-phone's range is held to the furthest a phone leans; a phone already level
-counts from the step's first beat; a level run out swings the weight loose
-and lights the same step again; the fourth settle lights the core; a fire
-step wants its colour and the middle column, and run out is the wave; a
-`both` wants both phones, drifts on either, and run out dims the core until
-it is held; and a script answered whole snaps both weights free and ends
-the fight. Whether any of it *reads* — whether a phone held flat under a
-voice is a stillness or a wobble — is the owner's eye, after lane two, on two real
-phones.
+the core dark and neither stone pulled, and lights its first level under
+THE SLOW; no shot is taken while the core is dark; a level counts only with
+the two pulls summing inside the step's range, at either edge alike — not
+outside it, not for one seat alone pulled as far as a pull goes, not for
+pulls the wrong way; a pull taking the bob out or a thumb let go starts the
+count again, pulls that move and keep the sum in range do not; the wrong
+seat is not heard; pulls already true count from the step's first beat; a
+level run out swings the weight loose and lights the same step again; the
+fourth settle lights the core; a fire step wants its colour and the middle
+column, and run out is the wave; a `both` wants both stones, drifts on
+either, and run out dims the core until it is held; and a script answered
+whole snaps both weights free and ends the fight. Whether any of it
+*reads* — whether two thumbs find the sum by talking — is the owner's eye,
+on two real phones.
 
 ## 11.49 THE SLING — the boss two draws loose, then shoot into
 

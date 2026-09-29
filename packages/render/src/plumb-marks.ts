@@ -1,15 +1,10 @@
-import {
-  type Color,
-  PLUMB_UNREAD,
-  type PlumbState,
-  plumbLitStep,
-  type World,
-} from "@neon-spore/sim";
+import { type Color, type PlumbState, plumbLitStep, plumbOff, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { plumbStoneStanding } from "./plumb-grip.js";
 import { PLUMB_VIAL_MILLI, plumbArrived, plumbAsked, plumbSkew } from "./plumb-pose.js";
 import {
   plumbCore,
@@ -23,7 +18,7 @@ import { stepColour } from "./step-colour.js";
 
 /**
  * **THE PLUMB's marks**: the two things that say what a step asks — a level's
- * glass, which is *hold your phone like this*, and the lit core, which is
+ * glass, which is *where the bob hangs now*, and the lit core, which is
  * *shoot here, in this colour*. Cut from `plumb-draw.ts` the day it was
  * written, along the line its second half grows on: the cue words and the
  * sparks come here.
@@ -71,11 +66,11 @@ export function drawPlumbCore(
 }
 
 /**
- * Glass `side`: a spirit level under its ball, the bubble at the lean the
- * seat's phone reports. Lit pale green-white while the step asks that phone
- * level, with the range it must hold inside marked on the vial; the bubble
- * brightens once it is inside. A phone not yet read has its bubble dim and
- * pinned at the vial's end, which is what *hold it up* looks like.
+ * Glass `side`: a spirit level under its ball, the bubble at how far off true
+ * the bob hangs — the step's skew and both pulls together, so the two glasses
+ * agree and each seat sees what the other's pull is doing. Lit pale
+ * green-white while the step asks that weight true, with the range the bob
+ * must hang inside marked on the vial; the bubble brightens once it is inside.
  */
 export function drawPlumbGlass(
   ctx: CanvasRenderingContext2D,
@@ -110,13 +105,12 @@ export function drawPlumbGlass(
   ctx.strokeStyle = rgba(asked ? PALETTE.plumbGlass : PALETTE.plumbBronze, asked ? 0.95 : 0.5);
   ctx.stroke(vial);
 
-  const tilt = s.tiltMilli[side];
-  const unread = tilt === PLUMB_UNREAD;
-  const x = unread ? track : track * Math.max(-1, Math.min(1, tilt / PLUMB_VIAL_MILLI));
-  const inside = asked && !unread && Math.abs(tilt) <= range;
+  const off = plumbOff(s);
+  const x = track * Math.max(-1, Math.min(1, off / PLUMB_VIAL_MILLI));
+  const inside = asked && Math.abs(off) <= range;
   const bubble = new Path2D();
   bubble.ellipse(x, 0, g.hh * 1.3, g.hh * 0.7, 0, 0, Math.PI * 2);
-  ctx.fillStyle = rgba(PALETTE.plumbGlass, unread ? 0.2 : inside ? 0.95 : 0.55);
+  ctx.fillStyle = rgba(PALETTE.plumbGlass, inside ? 0.95 : 0.55);
   ctx.fill(bubble);
   if (inside) strokeGlow(ctx, bubble, PALETTE.plumbGlass, STROKE.inner, 1.2);
   ctx.restore();
@@ -126,10 +120,10 @@ const HALF_W = 0.9;
 const HALF_H = 0.62;
 
 /**
- * The lit step's word: `LEVEL` on the glass a seat's phone is asked to bring
- * true, `BOTH` across the pair once a step asks it of both at once, and
- * `FIRE` on the core once it is lit — the anchor is the hook already carrying
- * the drop-in lift (`plumbLift`), matching `drawPlumb`'s own translate.
+ * The lit step's word: `PULL` on each seat's own stone through every level
+ * step, since one pull is never enough, and `FIRE` on the core once it is lit
+ * — the anchor is the hook already carrying the drop-in lift (`plumbLift`),
+ * matching `drawPlumb`'s own translate.
  */
 export function plumbCues(
   l: Layout,
@@ -148,26 +142,9 @@ export function plumbCues(
     const core = plumbCoreAt(l, anchor, plumbSkew(s, beatPhase));
     return [{ seat: null, kind: "PRESS", word: "FIRE", x: core.x, y: core.y, ...frame, seed: 147 }];
   }
-  if (step.ask === "both") {
-    const g0 = plumbGlass(l, 0);
-    const g1 = plumbGlass(l, 1);
-    const x = anchor.x + (g0.x + g1.x) / 2;
-    const y = anchor.y + g0.y;
-    const halfW = (g1.x - g0.x) / 2 + g0.hw;
-    return [{ seat: null, kind: "HOLD", word: "BOTH", x, y, halfW, halfH: g0.hh, seed: 146 }];
-  }
-  const side: 0 | 1 = step.ask === "left" ? 0 : 1;
-  const seat: 1 | 2 = side === 0 ? 1 : 2;
-  const g = plumbGlass(l, side);
-  return [
-    {
-      seat,
-      kind: "HOLD",
-      word: "LEVEL",
-      x: anchor.x + g.x,
-      y: anchor.y + g.y,
-      ...frame,
-      seed: side === 0 ? 144 : 145,
-    },
-  ];
+  return ([0, 1] as const).map((side) => {
+    const c = plumbStoneStanding(l, world.cfg, s, side, world.beat, beatPhase);
+    const seat: 1 | 2 = side === 0 ? 1 : 2;
+    return { seat, kind: "CARRY", word: "PULL", x: c.x, y: c.y, ...frame, seed: 144 + side };
+  });
 }

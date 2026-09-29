@@ -7,6 +7,7 @@ import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
 import type { Circle, Layout } from "./layout.js";
+import { plumbStoneStanding, plumbTakesHand } from "./plumb-grip.js";
 import { slingDrawCircle } from "./sling-grip.js";
 import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { valvePinHandle, valveWheelCircle } from "./valve-grip.js";
@@ -68,6 +69,14 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "burgee" ? world.boss : null;
     if (b === null) return null;
     return target === "burgeeFreeze" ? burgeeFreezeCircle(l, cfg, b) : burgeeDrawCircle(l, cfg, b);
+  }
+  if (target === "plumbLevelLeft" || target === "plumbLevelRight") {
+    // THE PLUMB's two stones, each hanging where the beam holds it this
+    // frame. Null once the bob falls away (`plumb-grip.ts`).
+    const b = world.boss?.kind === "plumb" ? world.boss : null;
+    if (b === null || !plumbTakesHand(b)) return null;
+    const side = target === "plumbLevelLeft" ? 0 : 1;
+    return plumbStoneStanding(l, cfg, b, side, world.beat, beatPhase);
   }
   if (target === "capstanRub") {
     // THE CAPSTAN's bared face, or the one the lit band asks for, where the

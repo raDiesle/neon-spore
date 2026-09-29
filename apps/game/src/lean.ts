@@ -2,20 +2,18 @@ import type { Command, DragTarget, World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
- * **The phone's own lean**, first THE PLUMB's control: each seat holds its
- * phone level to hang its weight true (`docs/spec/bosses-choreographed.md`
- * §31, `sim/plumb-hand.ts`), THE DAVIT's too, steering its boom onto a lit
- * column the same way (§35, `sim/davit-hand.ts`). The second input in the
- * game that is not a finger on the glass, and it lives beside the first
- * (`shake.ts`). THE CAPSTAN read it too until 27 September 2026, when the
- * owner ruled that no wave may need a tilt sensor; its drum is pulled by a
- * thumb now (`render/src/capstan-grip.ts`).
+ * **The phone's own lean**, THE DAVIT's control: each seat steers its boom
+ * onto a lit column by tilting its phone (§35, `sim/davit-hand.ts`). The
+ * second input in the game that is not a finger on the glass, and it lives
+ * beside the first (`shake.ts`). THE PLUMB's weights and THE CAPSTAN's drum
+ * read it too until the owner ruled on 27 September 2026 that no wave may
+ * need a tilt sensor; both are pulled by a thumb now
+ * (`render/src/plumb-grip.ts`, `render/src/capstan-grip.ts`).
  *
  * **What goes on the wire is `gamma`, the phone's roll left or right, in
- * thousandths of a degree** — `LevelTilt`, as §31 names it — as a drag on
- * whichever target the boss reading it is asking for: PLUMB's own weight
- * (`plumbLevelLeft`/`Right`) or DAVIT's boom (`davitSteerLeft`/`Right`), the
- * pilot's the left of either pair and the navigator's the right. `on: false`
+ * thousandths of a degree** — `LevelTilt`, as §31 first named it — as a drag
+ * on DAVIT's boom (`davitSteerLeft`/`Right`), the pilot's the left and the
+ * navigator's the right. `on: false`
  * is a phone that has stopped being read.
  *
  * **Not every event is sent.** A browser reports orientation at up to sixty
@@ -38,7 +36,7 @@ export const LEAN_STEP_MILLI = 500;
  * THE HALTER's rest among them, a phone held however it is held sends
  * nothing (`apps/game/test/halter-rest.test.ts`).
  */
-export const LEAN_BOSSES = ["plumb", "davit"] as const;
+export const LEAN_BOSSES = ["davit"] as const;
 export type LeanBoss = (typeof LEAN_BOSSES)[number];
 
 /** The boss a lean is read for, on the field now, or null: what `leanReader` calls `bob`. */
@@ -53,9 +51,8 @@ export function leanAsked(world: World): boolean {
 }
 
 /** The drag a seat's lean goes out as, for the boss reading it. */
-export function leanTarget(kind: LeanBoss, p: 1 | 2): DragTarget {
-  if (kind === "davit") return p === 1 ? "davitSteerLeft" : "davitSteerRight";
-  return p === 1 ? "plumbLevelLeft" : "plumbLevelRight";
+export function leanTarget(_kind: LeanBoss, p: 1 | 2): DragTarget {
+  return p === 1 ? "davitSteerLeft" : "davitSteerRight";
 }
 
 /** The furthest a phone rolls either way, gamma's own range, and the simulation's clamp. */
@@ -83,7 +80,7 @@ export function leanReader(
   push: (player: 1 | 2, command: Command) => void,
   seat: () => 1 | 2,
   bob: () => object | null,
-  target: (p: 1 | 2) => DragTarget = (p) => (p === 1 ? "plumbLevelLeft" : "plumbLevelRight"),
+  target: (p: 1 | 2) => DragTarget = (p) => leanTarget("davit", p),
 ): LeanReader {
   let sent: number | null = null;
   let heard: object | null = null;

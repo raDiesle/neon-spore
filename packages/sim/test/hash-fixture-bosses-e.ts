@@ -26,8 +26,8 @@ export const BOSS_ENTRIES_E = {
   plumb: {
     kind: "plumb",
     steps: [
-      { ask: "left", rangeMilli: 4000, color: "cyan", beats: 4 },
-      { ask: "fire", rangeMilli: 0, color: "red", beats: 3 },
+      { ask: "left", skewMilli: -2600, rangeMilli: 400, color: "cyan", beats: 4 },
+      { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "red", beats: 3 },
     ],
   },
   // THE SLING authors its script; two steps rather than the shipped nine
@@ -120,14 +120,14 @@ export function patchBossE(boss: BossState): void {
   }
   if (boss.kind === "plumb") {
     // The left weight settled once and the right true, the core lit, both
-    // phones leaning — every field given a value (`plumb-hash.ts`).
+    // stones pulled — every field given a value (`plumb-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
     boss.cursor = 1;
     boss.weights = [1, 2];
     boss.hits = 1;
     boss.coreLit = true;
-    boss.tiltMilli = [300, -700];
+    boss.pullMilli = [300, -700];
     boss.heldBeats = 2;
   }
   if (boss.kind === "sling") {

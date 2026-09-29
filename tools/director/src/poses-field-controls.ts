@@ -35,6 +35,7 @@ import { INSTAR_PULL } from "./poses-field-controls-instar.js";
 import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
 import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
 import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
+import { PLUMB_GRIPS } from "./poses-field-controls-plumb.js";
 import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
 import { SLING_GRIPS } from "./poses-field-controls-sling.js";
@@ -200,6 +201,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     ...OCULUS_GRIPS,
     ...VISE_GRIPS,
     ...TRIVET_GRIPS,
+    ...PLUMB_GRIPS,
     ...HALTER_GRIPS,
     ...CAPSTAN_GRIPS,
     ...GALL_GRIPS,

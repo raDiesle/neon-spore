@@ -18,6 +18,7 @@ import {
   plumbFree,
   plumbLeft,
   plumbSkew,
+  plumbStoneSize,
   plumbSwing,
   plumbTurn,
 } from "./plumb-pose.js";
@@ -97,7 +98,17 @@ export function drawPlumb(
       x: end.x + Math.sin(swing) * reach,
       y: end.y + Math.cos(swing) * reach + fall,
     };
-    drawWeight(ctx, l, side, end, ball, s.weights[side] >= PLUMB_SETTLES_PER_WEIGHT, free > 0);
+    const size = plumbStoneSize(s, world, side);
+    drawWeight(
+      ctx,
+      l,
+      side,
+      end,
+      ball,
+      size,
+      s.weights[side] >= PLUMB_SETTLES_PER_WEIGHT,
+      free > 0,
+    );
     // The painted settle, behind `?raster=1`, hung from where this chain is.
     ctx.save();
     ctx.translate(end.x, end.y);
@@ -182,13 +193,14 @@ function drawBob(
   ctx.restore();
 }
 
-/** One chain and its ball. A locked ball's rim is lit glass; a loosed one's chain is gone. */
+/** One chain and its ball, `size` times its own. A locked ball's rim is lit glass; a loosed one's chain is gone. */
 function drawWeight(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   side: 0 | 1,
   end: { x: number; y: number },
   at: { x: number; y: number },
+  size: number,
   locked: boolean,
   loosed: boolean,
 ): void {
@@ -201,13 +213,14 @@ function drawWeight(
   const ball = plumbBallPath(l, side);
   ctx.save();
   ctx.translate(at.x, at.y);
+  ctx.scale(size, size);
   ctx.fillStyle = rgba(PALETTE.plumbBronzeDark, 0.95);
   ctx.fill(ball);
   ctx.save();
   ctx.clip(ball);
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock);
   ctx.restore();
-  ctx.lineWidth = STROKE.outline;
+  ctx.lineWidth = STROKE.outline / size;
   ctx.strokeStyle = rgba(locked ? PALETTE.plumbGlass : PALETTE.plumbBronze, 0.95);
   ctx.stroke(ball);
   ctx.restore();

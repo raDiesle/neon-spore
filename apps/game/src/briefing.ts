@@ -193,7 +193,7 @@ export function bindBriefing({
     if (!down) return;
     down = false;
     hold(false);
-    // THE PLUMB, THE DAVIT and THE CAPSTAN are played by the phone's lean,
+    // THE DAVIT is played by the phone's lean,
     // and iOS reads none until it is asked from a press; this lift is the
     // navigator's first (`lean.ts`).
     if (leanAsked(world)) askForLean();

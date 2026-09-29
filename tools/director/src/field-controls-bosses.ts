@@ -28,6 +28,7 @@ import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { OCULUS_CONTROLS } from "./field-controls-oculus.js";
 import { PINBALL_CONTROLS } from "./field-controls-pinball.js";
+import { PLUMB_CONTROLS } from "./field-controls-plumb.js";
 import { PULSE_CONTROLS } from "./field-controls-pulse.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
 import { RATCHET_CONTROLS } from "./field-controls-ratchet.js";
@@ -170,6 +171,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE TRIVET's two feet, the first chord: a finger a pad, counted by the
   // order they land in (`field-controls-trivet.ts`).
   ...TRIVET_CONTROLS,
+  ...PLUMB_CONTROLS,
   ...HALTER_CONTROLS,
   ...CAPSTAN_CONTROLS,
   ...GALL_CONTROLS,

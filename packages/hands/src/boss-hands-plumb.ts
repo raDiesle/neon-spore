@@ -10,8 +10,9 @@ import {
 type Press = Omit<TimedCommand, "tick">;
 
 /**
- * **THE PLUMB, on AUTO**: a lean held dead level on the asked seat's phone,
- * then a shot at the core once both weights are true.
+ * **THE PLUMB, on AUTO**: both stones pulled half the lit step's skew each,
+ * the other way, so the bob hangs dead true; then a shot at the core once
+ * both weights are true.
  */
 export const plumbHand = (w: World): Press[] => {
   const s = plumbBoss(w);
@@ -19,15 +20,18 @@ export const plumbHand = (w: World): Press[] => {
   return [...level(s), ...shoot(w, s)];
 };
 
-/** Both seats' leans, held at nought whenever their side is the lit ask. */
+/** Both seats' pulls while a level step is lit, and both thumbs up otherwise. */
 function level(s: PlumbState): Press[] {
-  const ask = plumbLitStep(s)?.ask;
+  const step = plumbLitStep(s);
+  const on = step !== null && step.ask !== "fire";
+  const skew = on ? step.skewMilli : 0;
+  const half = Math.trunc(skew / 2);
+  const pulls = [-half, half - skew] as const;
   const out: Press[] = [];
   for (const side of [0, 1] as const) {
-    const want = ask === "both" || ask === (side === 0 ? "left" : "right");
     const target = side === 0 ? "plumbLevelLeft" : "plumbLevelRight";
     const player: 1 | 2 = side === 0 ? 1 : 2;
-    out.push({ player, command: { kind: "drag", target, on: want, fromMilli: 0 } });
+    out.push({ player, command: { kind: "drag", target, on, fromMilli: on ? pulls[side] : 0 } });
   }
   return out;
 }

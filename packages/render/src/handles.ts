@@ -30,6 +30,7 @@ import { mazeHeartUnder } from "./maze-grip.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
 import { oculusLeafUnder } from "./oculus-grip.js";
 import { pinballGripUnder } from "./pinball-grip.js";
+import { plumbPullUnder } from "./plumb-grip.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
 import { ratchetCatchUnder, ratchetPawlUnder } from "./ratchet-grip.js";
@@ -146,6 +147,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     viseLobeUnder(l, x, y, field) ?? // THE VISE's case, one finger of this seat's pinch in its zone (`vise-grip.ts`).
     slingDrawUnder(l, x, y, field) ?? // THE SLING's own cord, held then loosed toward the lit column (`sling-grip.ts`).
     trivetPadUnder(l, x, y, field) ?? // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
+    plumbPullUnder(l, x, y, field) ?? // THE PLUMB's stone on this seat's side, pulled left or right (`plumb-grip.ts`).
     grindstoneGripUnder(l, x, y, field) ?? // THE GRINDSTONE's flat rubbed, or a finger of its jaw's chord (`grindstone-grip.ts`).
     cystUnder(l, x, y, field) ?? // THE CYST's freeze mark, the partner's flank tapped still, or this seat's pinch zone (`cyst-grip.ts`).
     halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).

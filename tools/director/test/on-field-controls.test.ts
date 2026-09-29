@@ -409,8 +409,8 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // draw both (`render/trivet-grip.ts`, `bosses-choreographed.md` §30).
   trivetPadFront: "field",
   trivetPadRear: "field",
-  plumbLevelLeft: "unbuilt",
-  plumbLevelRight: "unbuilt",
+  plumbLevelLeft: "field",
+  plumbLevelRight: "field",
   // THE SLING's two cords, one a seat by geometry, taken anywhere on the
   // seat's own screen (`render/sling-grip.ts`, `bosses-choreographed.md` §32).
   slingDrawLeft: "field",

@@ -231,7 +231,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   plumb: {
-    what: "Hold your phone level until your weight hangs true. Both weights true light the core. Shoot it in its colour. When both levels light, hold both phones level.",
+    what: "Each drags a stone. Pull away from the low side, together, until the bob hangs true. Both weights true light the core. Shoot it in its colour.",
     reach: "spawn",
   },
   sling: {

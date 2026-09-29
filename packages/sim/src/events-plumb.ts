@@ -20,7 +20,7 @@ export type PlumbEvent =
   | ({ type: "plumbEnter" } & PlumbColEvent)
   /** A step lit: a weight's level, a shot at the core, or both levels to hold it. */
   | ({ type: "plumbLight"; ask: PlumbAsk } & PlumbColEvent)
-  /** A lean drifted out of range in a lit level step: the count starts over. */
+  /** A pull took the bob off true in a lit level step: the count starts over. */
   | ({ type: "plumbDrift"; side: 0 | 1 } & PlumbColEvent)
   /** A weight settled true; `level` is how many times it has now. */
   | ({ type: "plumbSettle"; side: 0 | 1; level: number } & PlumbColEvent)

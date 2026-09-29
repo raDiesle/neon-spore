@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
-  PLUMB_UNREAD,
   type PlumbAsk,
   type PlumbPhase,
   type PlumbState,
@@ -75,13 +74,13 @@ function posed(
   s.coreLit = false;
   s.cursor = 0;
   s.heldBeats = 0;
-  s.tiltMilli = [PLUMB_UNREAD, PLUMB_UNREAD];
+  s.pullMilli = [0, 0];
   if (lit !== undefined) s.steps[0] = lit;
   return s;
 }
 
 function asking(ask: PlumbAsk, color: PlumbStep["color"] = "either", beats = 4): PlumbStep {
-  return { ask, color, beats, rangeMilli: 4000 };
+  return { ask, color, beats, skewMilli: ask === "fire" ? 0 : -3000, rangeMilli: 600 };
 }
 
 /** The core owed a shot: both weights true, the core lit, a fire step lit. */
@@ -153,18 +152,18 @@ describe("THE PLUMB's bob", () => {
     expect(right.text).not.toBe(left.text);
   });
 
-  it.each(ROLES)("moves the bubble with the phone and brightens it inside, on %s", (role) => {
-    const leaning = (tilt: number, held = 0) =>
+  it.each(ROLES)("moves the bubble with both pulls and brightens it inside, on %s", (role) => {
+    const pulling = (left: number, right: number, held = 0) =>
       frame(role, (w) => {
         const s = posed(w, "lit", undefined, asking("left"));
-        s.tiltMilli = [tilt, PLUMB_UNREAD];
+        s.pullMilli = [left, right];
         s.heldBeats = held;
       });
-    const unread = leaning(PLUMB_UNREAD);
-    const off = leaning(15_000);
-    const inside = leaning(1000);
-    const held = leaning(1000, 2);
-    expect(off.text).not.toBe(unread.text);
+    const none = pulling(0, 0);
+    const off = pulling(2000, 0);
+    const inside = pulling(1500, 1500);
+    const held = pulling(1500, 1500, 2);
+    expect(off.text).not.toBe(none.text);
     expect(inside.text).not.toBe(off.text);
     expect(tinted(inside.text, PALETTE.plumbGlass)).toBeGreaterThan(
       tinted(off.text, PALETTE.plumbGlass),

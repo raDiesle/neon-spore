@@ -617,7 +617,7 @@ by hand never moves.
 | `packages/sim/src/command-leave.ts` | **The two presses that leave a run**, read above every lock a boss or a fault puts on a press |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
 | `packages/sim/src/config-push.ts` | **How far the shield pushes a creature back up the field** (`shield-push.ts`) |
-| `packages/sim/src/config-plumb.ts` | THE PLUMB's tuning: the rests around its steps, the grace a level is given |
+| `packages/sim/src/config-plumb.ts` | THE PLUMB's tuning: the rests around its steps, the grace a level is given, how far one seat can pull |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
 | `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
 | `packages/sim/src/pulse-hash.ts` | What THE PULSE puts into `hashWorld`, and nothing else |
@@ -765,10 +765,10 @@ by hand never moves.
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/sim/src/pinball-hash.ts` | What PINBALL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/pinball-open.ts` | **Standing PINBALL up**: one round opened, the board loaded onto the table |
-| `packages/sim/src/plumb-hand.ts` | The furthest a phone leans either way, in thousandths of a degree: gamma's own range |
+| `packages/sim/src/plumb-hand.ts` | Two pulls on THE PLUMB, one stone each |
 | `packages/sim/src/plumb-hash.ts` | What THE PLUMB puts into `hashWorld`, and nothing else |
 | `packages/sim/src/plumb-shot.ts` | **THE PLUMB's shot**: the lit core, where a bolt leaves the top of the field in the middle column |
-| `packages/sim/src/plumb-step.ts` | THE PLUMB's clock: the bob settling, each step lighting, the beats a lean is held being counted |
+| `packages/sim/src/plumb-step.ts` | THE PLUMB's clock: the bob settling, each step lighting, the beats the pulls hold it true being counted |
 | `packages/sim/src/plumb.ts` | THE PLUMB: a lopsided bob hung off the hull over the middle column |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
@@ -2177,6 +2177,7 @@ by hand never moves.
 | `packages/render/src/plumb-shape.ts` | **THE PLUMB's geometry**: where the bob hangs, and the paths it is made of |
 | `packages/render/src/plumb-blow.ts` | THE PLUMB's own blow at the hull: a small bob drops down its plumb line and strikes point first |
 | `packages/render/src/plumb-fx.ts` | What THE PLUMB leaves behind a frame: a weight's **settle** ringing its glass, a **drift**'s jolt through it |
+| `packages/render/src/plumb-grip.ts` | **The stones on THE PLUMB** — the hands lane that makes the bob answer a thumb (§11.48 |
 | `packages/render/src/phase-into.ts` | **How far into its phase a choreographed boss is**, in beats, this beat's own fraction counted in |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
@@ -2426,7 +2427,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-oculus.ts` | **THE OCULUS played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-vise.ts` | **THE VISE played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-valve.ts` | **THE VALVE played right**, for the autopilot: the wheel turned onto each mark by the pilot |
-| `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: a lean held dead level on the asked seat's phone |
+| `packages/hands/src/boss-hands-plumb.ts` | **THE PLUMB, on AUTO**: both stones pulled half the lit step's skew each, the other way |
 | `packages/hands/src/boss-hands-davit.ts` | **THE DAVIT played right**, for the autopilot: one seat leans to the target, the other draws and looses, the pivot shot |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
@@ -2512,7 +2513,7 @@ by hand never moves.
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
-| `apps/game/src/lean.ts` | **The phone's own lean**, first THE PLUMB's control |
+| `apps/game/src/lean.ts` | **The phone's own lean**, THE DAVIT's control |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
 | `apps/game/src/join-step-view.ts` | the chrome around whichever of the room screen's four steps is up — the blocks, the heading, the one way back |
@@ -2676,6 +2677,7 @@ by hand never moves.
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
 | `tools/director/src/field-controls-pulse.ts` | **THE PULSE's bar**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-pinball.ts` | **PINBALL's two hands on its own table**, in a file of its own, the split every boss since THE INSTAR has made |
+| `tools/director/src/field-controls-plumb.ts` | THE PLUMB's two stones, as two rows of the ON THE FIELD tab |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |
 | `tools/director/src/glows/bloom.ts` | Optical glare: bright pixels bleeding softly into what is around them |
@@ -2739,6 +2741,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
 | `tools/director/src/poses-field-controls-flue.ts` | THE FLUE's tap, **photographed from the tapper's seat**, the screen it is pressed on |
+| `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |

@@ -11,11 +11,11 @@ import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
- * THE PLUMB's clock: the bob settling, each step lighting, the beats a lean
- * is held being counted, a window running out, and the bob swinging free.
+ * THE PLUMB's clock: the bob settling, each step lighting, the beats the
+ * pulls hold it true being counted, a window running out, and the bob swinging free.
  *
  * The shot is judged where a bolt leaves the top of the field
- * (`plumb-shot.ts`) and calls `plumbAnswered` here; the leans are heard on
+ * (`plumb-shot.ts`) and calls `plumbAnswered` here; the pulls are heard on
  * the tick (`plumb-hand.ts`) and only *counted* here, on the beat, because
  * what a level step asks is a number of beats.
  *
