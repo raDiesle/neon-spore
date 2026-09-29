@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 19f5f3888 — The back button opens the question, then the menu, and no longer leaves the game
+
+Pressing back during a run now opens the YOU PRESSED BACK card, and pressing back again opens the game menu. Before, the second back always left the site, and on Chrome the first often did too: the guard entry was pushed at page load and again inside every back, and Chrome skips any entry a page pushes without the player's own tap. The entries are now added right after a tap (two of them, their depth kept in history.state), so both backs stay in the game, and a back from the menu stays on the menu.
+
 ## 2026-09-29 · 52f87d8de — THE SEAM's receipts: the seal's click, the grit's spark on the shield, its blow
 
 A point shot shut throws shell grit off the crack and clicks down the plating, and grit taken on the shield goes off as a deflected hit does. A rock shot out bursts where it was drawn, and the split shudders the plating harder. A sealed point, one of the three that are its health, deals the ridge the whole blow: it flushes red and shakes. A point that dims, a rock shot out and the glow quenched deal the lighter blow.
