@@ -28678,3 +28678,5 @@ The bottleneck: finding a seam that kept the typecheck's guard, which turned on 
 
 Bottleneck: reading — the ledger has four row formats and no script, so the
 first parse read a third of it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

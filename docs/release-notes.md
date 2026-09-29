@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · cf643769d — Lane speed re-read over 1 087 lanes: splitting worked from 23 September, and the stamp measures only the landing
+
+From 23 September the median lane fell from 70 estimated minutes to 25, and lanes over ninety from a third to one in twenty-two. Friction fell where a hook was built for it: the line ceiling, ports and shell quoting. Three findings are queued: the time-log stamp starts at a lane's single commit, so its median is one minute; `land` re-runs the full suite on a tree `check:fast` may already have covered; and the time log has no script that reads it.
+
 ## 2026-09-29 · 40a72f95b — Five bosses' sounds are routed by their events' prefix, each from its own page
 
 THE TASTER, THE LEDGER, THE LEAD, THE GAUGE and THE THROAT each had a cue that took every event they raise, and their names were still written out again in `bind-choreographed-b.ts`, which stood a line under its limit, and in `bind-choreographed.ts`. `bind-prefixed.ts` now routes each by prefix, and each cue takes its whole prefix, so an event a boss gains is one `case` on its own page, and a missing one is a type error there. `gaugeHold`'s silence moved from `bind.ts` to THE GAUGE's page. The page of events added to shipped bosses is 148 lines, and no sound changed.
