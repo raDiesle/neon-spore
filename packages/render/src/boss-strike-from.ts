@@ -10,7 +10,7 @@ import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
 import { grindstoneBlowFrom } from "./grindstone-blow.js";
 import { halterBlowFrom } from "./halter-blow.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 import { ledgerBodyY } from "./ledger-shape.js";
 import { mantleCentre } from "./mantle-shape.js";
 import { oculusCentre } from "./oculus-shape.js";
@@ -34,8 +34,13 @@ import { viseCentre, viseRadius } from "./vise-shape.js";
  * put that file past its ceiling.
  */
 
-const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
+const FROM: Partial<
+  Record<BossKind, (l: Layout, cfg: SimConfig, col: number, row: number) => Point>
+> = {
   oculus: oculusCentre,
+  // The tile the line stood still at, or faulted on: the vein snaps there
+  // (`filament-blow.ts`), so the blow leaves wherever the sim struck from.
+  filament: (l, _cfg, col, row) => ({ x: tileCX(l, col), y: tileCY(l, row) }),
   gimbal: gimbalCentre,
   // Out of the bottom lobe, where the ridge's crack ends (`seam-blow.ts`).
   seam: (l, cfg) => {
@@ -103,10 +108,17 @@ const FROM: Partial<Record<BossKind, (l: Layout, cfg: SimConfig) => Point>> = {
   flue: flueBlowFrom,
 };
 
-/** Where the blow leaves the body. A boss with no row in `FROM` sits where
- * most of them do, over the middle column three rows down the field. */
-export function strikeFrom(l: Layout, cfg: SimConfig, by: BossKind): Point {
+/** Where the blow leaves the body — for THE FILAMENT, the tile it struck from
+ * (`col`, `row`, the `breach` event's). A boss with no row in `FROM` sits
+ * where most of them do, over the middle column three rows down the field. */
+export function strikeFrom(
+  l: Layout,
+  cfg: SimConfig,
+  by: BossKind,
+  col = midCol(cfg),
+  row = 0,
+): Point {
   const at = FROM[by];
-  if (at) return at(l, cfg);
+  if (at) return at(l, cfg, col, row);
   return { x: fieldX(l, midCol(cfg)), y: l.gridTop + 3 * l.tile };
 }

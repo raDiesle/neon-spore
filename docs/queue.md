@@ -871,22 +871,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE FILAMENT's timeout hit is looked at
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-filaments-timeout-hit-is-looked-at)
-- **Files:** `packages/sim/src/filament-step.ts`, `packages/sim/test/boss-strike.test.ts`
-
-THE FILAMENT still drops a rock through `breachHull(..., "meteorFastest")`,
-starting its hit from the line's row, and the ratchet test in
-`sim/test/boss-strike.test.ts` allows it. Watch the timeout
-(`bun run frames . --wave "THE FILAMENT" --auto both --auto-miss --until breach`).
-If no rock was on screen before the hit, switch it to `bossStrikesHull`
-with a `LOOK` row, and take the file out of `STILL_A_ROCK`. If the line
-really was there, say so in the test's comment. THE KEEL's half was looked at
-on 27 September 2026: its socket already struck with its own blow, and its
-tail rock really is in the picture, now broken from the hull row.
-
 ## The rounds' own timeout hit, offered on VERSUS beside the rock
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
@@ -1516,3 +1500,17 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
+
+## `--auto-miss` never lets THE FILAMENT's line run out
+
+- **Found:** 2026-09-29, claude/queue-tasks-efa837
+- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `tools/frames/auto.ts`
+
+`bun run frames . --wave "THE FILAMENT" --auto both --auto-miss --until breach`
+traces every filament and finds no breach in 3000 ticks: the misser only
+withholds inside an asking window (`openSlow(…, "ask")`), and THE FILAMENT's
+trace opens none — its SLOW is the pause between filaments. The timeout is
+reached with no hands at all (`--until breach`, tick 1050), which is how its
+blow was looked at. Either teach the misser the trace, as it was taught THE
+GALL's windowless fire step, or say in `auto-miss.ts`'s header and the frames
+recipe that THE FILAMENT's blow is reached bare. `bun run check` proves it.

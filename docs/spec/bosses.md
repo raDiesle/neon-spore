@@ -7064,7 +7064,10 @@ going **dark** (`filamentDark`) — he drew what she could not keep up with,
 the slip §11.32 already has; and the line left standing past its clock is
 **late** (`filamentLate`, with the seat it waited on). A thumb still down
 after any of them has to lift and grab again, because its grab was at a tile
-no longer lit.
+no longer lit. The strike is THE FILAMENT's own blow (`bossStrikesHull`,
+the owner's rule of 26 September 2026): the vein snaps at the tile the line
+stood on and whips its torn end down to the column (`filament-blow.ts`),
+never a rock nobody saw fall.
 
 **The clock** (`sim/filament-turn.ts`) is the owner's, 25 September 2026:
 *not infinite, and the ship takes damage*. It is one clock, because the line

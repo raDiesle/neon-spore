@@ -28877,3 +28877,18 @@ it, from the wire codec to a film's act.
 Bottleneck: landing — the check was two HTTP sweeps; the rest was ceremony.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE FILAMENT's timeout hit is its own blow
+
+- reading: 10 min. `filament-step.ts`, the ratchet in `boss-strike.test.ts`,
+  the strike's table, where it leaves from and how a breach reaches it.
+- writing: 15 min. `filament-blow.ts`, the row threaded from the `breach`
+  event to `strikeFrom`, a test that the blow leaves the tile it struck.
+- looking: 10 min. The timeout before and after: a rock out of the lit ring,
+  then the vein whipping down from it and withdrawing.
+- friction: 5 min. `--auto both --auto-miss` traced the line and never timed
+  out; the timeout is the wave with no hands on it.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the strike's picture is three files that only name
+one another, and the one that decides where it leaves had no way to hear the row.

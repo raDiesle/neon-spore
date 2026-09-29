@@ -1511,6 +1511,7 @@ by hand never moves.
 | `packages/render/src/filament-heart.ts` | **Where THE FILAMENT's heart is**, in field pixels — the owner, 25 September 2026 |
 | `packages/render/src/filament-vein.ts` | **The lit run as a vein** — the owner, 25 September 2026: *the vene to travel with some weapon* |
 | `packages/render/src/filament-marks.ts` | **THE FILAMENT's two thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/filament-blow.ts` | **THE FILAMENT's own blow at the hull**: the vein snaps where the line stood and whips down to the column |
 | `packages/render/src/fire-vein.ts` | **A shot, running from the thumb to the cannon**: the button's flash, a pulse up its cord in the shot's colour, the release at the top of the cannon |
 | `packages/render/src/fingers.ts` | **The gestures one sample cannot answer**, kept together: two fingers on one pinch body (`pinch.ts`) |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the state — which page, which seat, whether it has finished — beside the slide and the page it draws |

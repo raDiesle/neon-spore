@@ -22,6 +22,9 @@ interface Strike {
   /** Which of the boss's blows, when it has more than one. */
   blow: string | undefined;
   col: number;
+  /** The row the sim says the blow starts from (`bossStrikesHull`), for a
+   * boss whose blow leaves from wherever it struck rather than one place. */
+  fromRow: number;
   age: number;
   /** Seconds out to the hull, then seconds pulling back. */
   out: number;
@@ -49,9 +52,10 @@ export class BossStrikeFx {
     beatSeconds: number,
     arrive: (x: number, y: number) => void,
     blow?: string,
+    fromRow = 0,
   ): void {
     const out = strikeOut(beatSeconds);
-    this.strikes.push({ by, blow, col, age: 0, out, back: BACK, arrive });
+    this.strikes.push({ by, blow, col, fromRow, age: 0, out, back: BACK, arrive });
   }
 
   update(dt: number, l: Layout): void {
@@ -77,7 +81,7 @@ export class BossStrikeFx {
       strikeLook(s.by)(ctx, {
         l,
         blow: s.blow,
-        from: strikeFrom(l, cfg, s.by),
+        from: strikeFrom(l, cfg, s.by, s.col, s.fromRow),
         to: { x, y: surfaceY(x) },
         reach: Math.min(1, s.age / s.out),
         after: Math.max(0, Math.min(1, (s.age - s.out) / s.back)),

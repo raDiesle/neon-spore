@@ -107,7 +107,7 @@ export function ingestBreach(
   // **A boss's window ran out**: the boss struck, and no rock fell. The same
   // landing, thrown when its own blow reaches the hull (`sim/boss-strike.ts`).
   if (e.by !== undefined && parts.bossStrike) {
-    parts.bossStrike.spawn(e.by, e.col, beatSeconds, arrive, e.blow);
+    parts.bossStrike.spawn(e.by, e.col, beatSeconds, arrive, e.blow, e.fromRow);
     return;
   }
   parts.rockImpactFx.spawn(

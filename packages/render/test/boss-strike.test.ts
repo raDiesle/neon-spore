@@ -12,7 +12,7 @@ import { flueCentre } from "../src/flue-shape.js";
 import { gallRootAt } from "../src/gall-shape.js";
 import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
-import { computeLayout } from "../src/layout.js";
+import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { slingCentre } from "../src/sling-shape.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -93,7 +93,7 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue"],
+      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue", "filament"],
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -105,6 +105,27 @@ describe("a boss's blow at the hull", () => {
       }
       expect(ctx.calls).toBeGreaterThan(before);
     }
+  });
+
+  it("THE FILAMENT's blow leaves the line at the tile it struck from", () => {
+    const from = strikeFrom(L, CFG, "filament", 4, 6);
+    expect(from).toEqual({ x: tileCX(L, 4), y: tileCY(L, 6) });
+    expect(strikeLook("filament")).not.toBe(lash);
+    // And the row rides the event through to the blow, not row 0.
+    const { ctx } = stubCanvas();
+    const fx = new BossStrikeFx();
+    fx.spawn("filament", 4, BEAT_SECONDS, () => {}, undefined, 6);
+    const moves: number[] = [];
+    const spy = new Proxy(ctx, {
+      get(t, k) {
+        if (k === "moveTo") return (x: number, y: number) => moves.push(y) && t.moveTo(x, y);
+        const v = Reflect.get(t, k);
+        return typeof v === "function" ? v.bind(t) : v;
+      },
+    }) as unknown as CanvasRenderingContext2D;
+    fx.update(0.05, L);
+    fx.draw(spy, L, CFG, () => L.hullY, 0);
+    expect(moves[0]).toBe(tileCY(L, 6));
   });
 
   it("THE INSTAR's blow is its own part's picture, and still lands its crack", () => {

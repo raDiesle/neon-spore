@@ -43,8 +43,6 @@ const STILL_A_ROCK = new Set([
   // breaks the hull from the hull row it reached: a rock really in the
   // picture. Its socket's hit is the boss's own blow (`bossStrikesHull`).
   "keel-step.ts",
-  // A line that may really be in the picture: looked at on its own item.
-  "filament-step.ts",
   // The rounds and interludes, which have no boss body to strike from.
   "fleet.ts",
   "gauge-round.ts",

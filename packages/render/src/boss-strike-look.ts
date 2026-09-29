@@ -3,6 +3,7 @@ import { burgeeBlow } from "./burgee-blow.js";
 import { capstanBlow } from "./capstan-blow.js";
 import { cystBlow } from "./cyst-blow.js";
 import { davitBlow } from "./davit-blow.js";
+import { filamentBlow } from "./filament-blow.js";
 import { flueBlow } from "./flue-blow.js";
 import { gallBlow } from "./gall-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
@@ -106,6 +107,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   sling: slingBlow,
   // A fire step let run: the bared flue coughs a cinder that scorches the skin.
   flue: flueBlow,
+  // A fault on the line, or a line let stand: the vein snaps where it stood
+  // and whips its torn end down to the column.
+  filament: filamentBlow,
   // THE INSTAR's blow is already in the picture: the part the pair let
   // through — the fire, the swarm, the blades, the glob — is drawn coming
   // down on the hull by `instar-strike.ts` off the same step's `instarStrike`

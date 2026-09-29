@@ -1,3 +1,4 @@
+import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   type FilamentPath,
@@ -9,7 +10,6 @@ import {
   walkFilament,
 } from "./filament.js";
 import { FILAMENT_PILOT, filamentLateBeat, filamentWaitingOn } from "./filament-turn.js";
-import { breachHull } from "./hull-damage.js";
 import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -64,13 +64,15 @@ export function restartFilament(s: FilamentState, beat: number): void {
 
 /**
  * A fault on the line: one strike on the hull in the column it happened
- * over, and the filament back to its free end. The strike is the wave
- * (`wave-fail.ts`), so the restart only matters to a hull that cannot be
- * struck — there, the pair gets the filament again rather than a line
- * frozen half drawn.
+ * over, and the filament back to its free end. The strike is THE FILAMENT's
+ * own blow from the tile the line stood at (`bossStrikesHull`) — the vein
+ * snapping there and whipping down to the hull — never a rock nobody saw
+ * fall. The strike is the wave (`wave-fail.ts`), so the restart only matters
+ * to a hull that cannot be struck — there, the pair gets the filament again
+ * rather than a line frozen half drawn.
  */
 export function strikeFilament(world: World, s: FilamentState, col: number, row: number): void {
-  breachHull(world, col, "meteorFastest", row, "heavy");
+  bossStrikesHull(world, "filament", col, row);
   restartFilament(s, world.beat);
 }
 
