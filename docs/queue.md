@@ -576,22 +576,28 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §26 THE SEAM — the cue's words and the poses, the rest of its hands
+## §26 THE SEAM — its STATES poses, the last of its hands
 
-- **Found:** 2026-09-29, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo
-- **Taken:** 2026-09-29, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo (claim: claude/queue-26-the-seam-the-cues-words-and-the-poses-the-res)
-- **Files:** `packages/render/src/`, `apps/game/src/`, `packages/render/src/valve-story.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
+- **Found:** 2026-09-29, claude/queue-26-the-seam-the-cues-words-and-the-poses-the-res
+- **Files:** `tools/director/src/poses-bosses-hands-valve.ts`, `tools/director/src/poses-bosses-hands-vise.ts`, `tools/director/src/`
 
-The receipts are in (`render/seam-fx.ts`, `test/seam-fx.test.ts`): the
-seal's click, the grit's spark on the shield, the split's shudder, the
-bursts and the blow. THE SLOW's aim and the autopilot hand were already
-done. What is left: **the cue's words**, which are FIRE on the lit point
-and the rock and SHIELD on the grit, and **the STATES poses**.
-**The story between the pins** (`sim/valve-story.ts`, drawn by
-`render/valve-story.ts`) needs the same work. Its cue words are TAP on the
-jet, HOLD for the brace and the seal, and RUB for the wipe. The grip's
-reversal and hold reports must reach `valveRubbed` and `held`. Its twelve
-events come off the silent lists as each one gets its burst.
+The receipts are in (`render/seam-fx.ts`) and so are the cue's words
+(`render/boss-cue-read-zr.ts`). What is left is the director's STATES
+gallery: a `poses-bosses-hands-seam.ts` page, run to and never set, that
+shows a lit point, grit on the shield, a rock in flight, grit and a rock at
+once, the false point and the dark. Model it on THE VISE's and THE VALVE's
+pages.
+
+## §25 THE VALVE — the story between the pins, its hands
+
+- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (cut off THE SEAM's hands entry on 2026-09-29)
+- **Files:** `packages/sim/src/valve-story.ts`, `packages/render/src/valve-story.ts`, `packages/render/src/boss-cue-read-zp.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
+
+The story between the pins is drawn, and none of its hands are. It needs
+its cue words: TAP on the jet, HOLD for the brace and the seal, and RUB for
+the wipe. The grip's reversal and hold reports must reach `valveRubbed` and
+`held`. Its twelve events come off the silent lists as each one gets its
+burst.
 Unverified at tempo until the owner has looked.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…

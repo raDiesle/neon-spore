@@ -1107,6 +1107,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zo.ts` | **What THE FLUE is asking for**: page forty-one of the readings |
 | `packages/render/src/boss-cue-read-zp.ts` | **What THE VALVE is asking for**: page forty-two of the readings |
 | `packages/render/src/boss-cue-read-zq.ts` | **What THE GOVERNOR is asking for**, page forty-three of the readings |
+| `packages/render/src/boss-cue-read-zr.ts` | **What THE SEAM is asking for**, page forty-four of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |

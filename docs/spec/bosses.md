@@ -8849,8 +8849,9 @@ within (`seam-story.ts`), the lit point's light creeping along the crack
 (`seam-line.ts`) — and its own blow at the hull when a step runs out
 (`seam-blow.ts`). AUTO plays it (`hands/src/boss-hands-seam.ts`), THE
 SLOW's aim finds the lit point (`slow-boss-aim-d.ts`), and its receipts and
-its hurt are drawn (`seam-fx.ts`, below). What is still missing is the cue's
-words and the STATES poses, queued as their own entry. The ten sounds are bound (`audio/src/bind-seam.ts`), heard where they
+its hurt are drawn (`seam-fx.ts`, below). So are its cue's words
+(`boss-cue-read-zr.ts`). What is still missing is the STATES poses, queued
+as their own entry. The ten sounds are bound (`audio/src/bind-seam.ts`), heard where they
 happen, the seal pitched up per point closed.
 
 **Never watched at tempo.** What the tests say is the mechanism
@@ -8935,8 +8936,14 @@ that are its health, deals the ridge the whole blow every boss takes — the
 ridge flushed red and shaking — and a point that dims, a rock shot out and
 the glow quenched, steps answered that seal nothing, the lighter one. The
 reseal's flash and the marks' verdicts moved with it out of `BossBlows` into
-the roster (`effects.boss.seam`). **Still queued**: the cue's words — FIRE
-on the lit point and the rock, SHIELD on the grit — and the STATES poses.
+the roster (`effects.boss.seam`). **The cue's words landed the same day**
+(`boss-cue-read-zr.ts`, `test/boss-cue-seam.test.ts`): `FIRE` at the hull
+under the column the lit step's shot is wanted in — the ridge's for a point
+or the glow, the rock's own for a rock — and `SHIELD` under the ridge while
+grit falls, the blind throw included, both to either seat and never naming
+the colour; a step of grit and a rock says both, each gone once its half is
+answered; the false point and the dark say nothing, since a word there
+would ask for the press that loses. **Still queued**: the STATES poses.
 
 **Its marks answer a touch the way every mark does**
 (`render/src/seam-verdicts.ts`; the owner, 27 September 2026), for a boss

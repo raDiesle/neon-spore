@@ -11,6 +11,7 @@ import { burgeeCues } from "./boss-cue-read-zn.js";
 import { flueCues } from "./boss-cue-read-zo.js";
 import { valveCues } from "./boss-cue-read-zp.js";
 import { governorCues } from "./boss-cue-read-zq.js";
+import { seamCues } from "./boss-cue-read-zr.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -70,6 +71,9 @@ export function choreoCues(
     // THE GOVERNOR's, a hold on the drum to the braking seat until its chord is whole, a tap on the lit mark to the tapper, and one under the lit hub (`boss-cue-read-zq.ts`).
     case "governor":
       return governorCues(l, world, boss, beatPhase);
+    // THE SEAM's, a shield under the ridge while grit falls and a fire under the lit point or the rock, and nothing on the false point or the dark (`boss-cue-read-zr.ts`).
+    case "seam":
+      return seamCues(l, world, boss);
     default:
       return [];
   }

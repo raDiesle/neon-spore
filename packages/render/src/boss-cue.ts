@@ -185,6 +185,7 @@ export function bossCues(
     case "flue":
     case "valve":
     case "governor":
+    case "seam":
       return choreoCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of

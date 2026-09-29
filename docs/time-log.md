@@ -29338,3 +29338,17 @@ file of the app.
 Bottleneck: reading — five maze files to learn which loss was paid for where.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SEAM's cue words: FIRE under the lit point and the rock, SHIELD under the grit
+
+- reading: 10 min. THE RIME's, THE KEEL's and THE GOVERNOR's cue pages,
+  `cueSeen`, the §26 beat list's words.
+- writing: 15 min. `boss-cue-read-zr.ts`, the two switches, a test file,
+  the spec, and the rest re-queued as two entries.
+- looking: 5 min. A frame twenty ticks after the first point lights.
+- friction: 5 min. Settling which seat a word goes to: the beat list names
+  a colour's seat, and the neighbouring pages send the word to either seat.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — "STATES poses" meant a director page, which only
+turned up by listing `tools/director/src`.
