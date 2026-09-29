@@ -12,7 +12,7 @@
  * whether the line-ceiling hook took its 375 minutes off.
  *
  * `bun run land` is already holding both ends of the measurement at the moment
- * it writes the release note — the lane's first commit and the trunk moving —
+ * it writes the release note — the lane's start and the trunk moving —
  * so it stamps one line into the entry the session just wrote. The five rows
  * stay exactly as they are beside it: **an estimate next to a measurement is
  * how the estimate gets better rather than replaced.**
@@ -20,11 +20,19 @@
  * Pure, for `notes.ts`'s reason: the wording and the arithmetic are the part
  * worth testing and neither needs a repository behind it.
  *
- * **What it does not measure, said in the line itself.** The span is first
- * commit to trunk, so it holds no reading, no thinking and no writing before
- * the first commit, and it holds every minute a lane spent waiting on
- * something else. It is a floor with a known shape, which is worth more than
- * an estimate with an unknown one.
+ * **Where the clock starts.** The lane's first commit was the first answer,
+ * and it measured nothing: a lane commits once, when it is done, so 655 stamps
+ * dated 17 to 29 September 2026 had a median of one minute
+ * (`docs/lane-speed.md`, *Re-read on 29 September 2026*). The start is now the
+ * earliest thing the tree remembers that is still this lane's own — its queue
+ * claim, then its branch being made, then its first commit — and the line
+ * says which.
+ *
+ * **What it does not measure, said in the line itself.** It holds nothing
+ * before its start — the reading a session did before it claimed or branched —
+ * and it holds every minute a lane spent waiting on something else. It is a
+ * floor with a known shape, which is worth more than an estimate with an
+ * unknown one.
  *
  * **And it does not prefill the entry's skeleton**, which the queue entry
  * offered as the other half of the same minute. `land` runs at the end: a
@@ -40,6 +48,39 @@ export function minutesBetween(from: number, to: number): number {
   return Math.max(0, Math.round((to - from) / 60));
 }
 
+/** What the clock started at: the queue claim, the branch, or the first commit. */
+export type StartedAt = "claim" | "branch" | "first commit";
+
+/** How the line names each start: where the span runs from, and what it holds nothing before. */
+const START_WORDS: Record<StartedAt, readonly [string, string]> = {
+  claim: ["this lane's queue claim", "the claim"],
+  branch: ["this lane's branch being made", "the branch"],
+  "first commit": ["this lane's first commit", "the first commit"],
+};
+
+/**
+ * Where the lane's clock starts, of what the tree remembers.
+ *
+ * The **latest** claim no later than the first commit, because a session that
+ * drains several items on one branch claims each after the last one landed,
+ * and an earlier claim is an earlier lane. A branch made after the first
+ * commit is a branch renamed or recreated, and a claim after it is a claim
+ * made late; neither is a start, and the first commit is used rather than a
+ * figure that would read as negative.
+ */
+export function laneStart(
+  firstCommit: number,
+  claims: readonly number[],
+  branchMade?: number,
+): { at: number; from: StartedAt } {
+  const before = claims.filter((at) => Number.isFinite(at) && at <= firstCommit);
+  if (before.length > 0) return { at: Math.max(...before), from: "claim" };
+  if (branchMade !== undefined && Number.isFinite(branchMade) && branchMade <= firstCommit) {
+    return { at: branchMade, from: "branch" };
+  }
+  return { at: firstCommit, from: "first commit" };
+}
+
 /**
  * The one line stamped under the entry.
  *
@@ -48,9 +89,10 @@ export function minutesBetween(from: number, to: number): number {
  * them apart from the shape. Under a minute is said in words rather than as
  * `0 min`, which reads as a failed measurement.
  */
-export function stampLine(minutes: number): string {
+export function stampLine(minutes: number, from: StartedAt = "first commit"): string {
   const said = minutes < 1 ? "under a minute" : `${minutes} min`;
-  return `*Measured: ${said} from this lane's first commit to the trunk moving, by \`bun run land\`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*`;
+  const [start, before] = START_WORDS[from];
+  return `*Measured: ${said} from ${start} to the trunk moving, by \`bun run land\`. The rows above are the session's own estimate; this holds nothing before ${before} and every minute the lane spent waiting.*`;
 }
 
 /** Whether this text already carries a stamp, so a second landing adds none. */
@@ -73,7 +115,11 @@ function lastEntry(markdown: string): string {
  * "this lane's". A file with no entry at all, or one already stamped, comes
  * back exactly as it went in, so a landing can never rewrite the record.
  */
-export function stampInto(markdown: string, minutes: number): string {
+export function stampInto(
+  markdown: string,
+  minutes: number,
+  from: StartedAt = "first commit",
+): string {
   if (markdown.lastIndexOf("\n## ") < 0 || stamped(markdown)) return markdown;
-  return `${markdown.trimEnd()}\n\n${stampLine(minutes)}\n`;
+  return `${markdown.trimEnd()}\n\n${stampLine(minutes, from)}\n`;
 }

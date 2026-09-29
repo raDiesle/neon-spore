@@ -1671,21 +1671,6 @@ Find out whether the ring is drawn under the lobe's body (the pin sits
 reach, or missing from the page `frames` loads; fix whichever it is, and pin it
 with a frame test that counts the ring on p2's full frame with a lobe standing.
 
-## The time-log stamp starts at the lane's first commit, which is its last
-
-- **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
-- **Taken:** 2026-09-29, claude/lane-speed-fixes (claim: claude/queue-the-time-log-stamp-starts-at-the-lanes-first-com)
-- **Files:** `tools/land/note-commit.ts`, `tools/land/stamp.ts`
-
-`stampTimeLog` measures from the author date of the lane's oldest landed
-commit. A lane commits once, when it is done, so 655 stamped entries dated 17
-to 29 September have a median of one minute and a p90 of five — the stamp is
-the landing, not the lane (`docs/lane-speed.md`, *Re-read on 29 September
-2026*). Start the clock at the earliest of the queue claim commit on `main`
-naming this branch, and the branch's creation in its reflog, falling back to
-the first commit; say in the line which one it used. `stamp.ts` is pure, so the
-choice of start is tested there with fixed timestamps.
-
 ## `land` runs the full suite again on a tree `check:fast` already ran it on
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a

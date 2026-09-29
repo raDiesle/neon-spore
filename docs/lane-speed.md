@@ -308,7 +308,9 @@ rebases and the landing races `land` now replays through.
 median is **one minute**, p90 five: a lane commits once, at the end, so the
 first commit and the trunk moving are the same minute. The comparison this
 file said it was waiting for — the stamp beside the estimate — cannot be made
-from it. Queued: start the clock at the claim or the branch.
+from it. Fixed the same day: the stamp now starts at the lane's queue claim,
+then its branch being made, and says which (`tools/land/lane-start.ts`), so
+the comparison can begin with the lanes stamped from 29 September.
 
 **Tests are not the lever and not free either.** `bun run check` runs in about
 150 s on this machine, and a `check:fast` that the diff scoped to most of the

@@ -28692,3 +28692,16 @@ first parse read a third of it.
 The bottleneck: the word's tests set the transients as booleans, so moving the word onto the world meant rewriting how each case puts a burst and a rock on the field.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — the stamp starts at the claim, not the lane's last commit
+
+- reading: 5 min. `stamp.ts`, `stampTimeLog`, the `Taken:` line `take` writes.
+- writing: 15 min. `laneStart`, `lane-start.ts`'s two git questions, the
+  wording per start, a repo test and three pure ones.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. A heredoc refused for backslashes; git refused a
+  seven-digit epoch as an author date in the test.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the choice between two claims on one branch had to be
+argued before it was coded.
