@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## §43 THE GOVERNOR — the look
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-29, claude/queue-the-stares-turn-is-a-squash-and-shear-not-a-plac (claim: claude/queue-43-the-governor-the-look)
 - **Needs:** §43 THE GOVERNOR — the simulation lane
 - **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `packages/render/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
 
