@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 3b40e6711 — THE MAZE's lever turns the drum one turn a lap of its ring
+
+A hand that goes once round the lever's ring now turns the drum once, so the knob stays on the gap it was put on all the way round — the owner's answer of 27 September 2026, 1:1 over the forty-five degrees a tile the lever was geared to, which turned the drum about four times a lap. The gearing is no longer a tuned number: `mazeDragTurn` works it out from the ring's radius, and the ring's reach past the rim moved from the renderer into `mazeLeverOutMilli`, so the knob is drawn on the ring the wheel is geared to at any field width.
+
 ## 2026-09-29 · 96c085498 — The time-log stamp starts at the lane's queue claim, then its branch, and says which
 
 A lane commits once, when it is done, so a stamp from its first commit measured only the landing: 655 of them had a median of one minute. `bun run land` now starts the clock at the latest `Mark "…" taken` commit on the trunk that names the lane's branch, or failing that the branch's creation in its reflog, and the first commit only when neither is there; the line says which one it used.

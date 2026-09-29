@@ -28717,3 +28717,5 @@ argued before it was coded.
 - landing: 5 min. `check:fast`, the index row, the commit, `land`.
 
 Bottleneck: the guide's film pulled a measured 3.9 tiles against the old gearing and nothing tested it, so it went silently wrong until a probe showed it clicking nothing.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
