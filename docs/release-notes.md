@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 9d8caeb31 — The catalogue of marks and controls: every shared piece to build a boss or an enemy from
+
+`docs/controls-catalogue.md` lists every drawn piece the game asks a thumb or a bolt with. That covers the mark, whose it is, the gesture's picture (knob and arrow, track, crosshair, button face), the verdict, the window and the blow. Each piece is given with its file, what it says, who calls it, the owner's dated "not allowed" rules, and the roll-outs still open. It also records the owner's generic rule of 29 September: the standard set (band, cannon, shield, grip) wears no helper, and a gesture of an enemy's or a boss's own wears them all. `render/test/controls-catalogue.test.ts` holds the page to the code: every export of a listed file is named, and every file three bosses or creatures share is listed or given a reason it is not a mark. The THE PUSH arrows question is queued.
+
 ## 2026-09-29 · c7e52dd45 — Before a compaction, the owner's words go to a checkpoint file verbatim
 
 A PreCompact hook, tools/hooks/before-compact.ts, copies the owner's first and latest three messages out of the transcript, the claimed queue entry and the diff against main into claude-checkpoint.md in the worktree's git dir, and after-compact.ts tells the session to read it first when it was written by the same session. About half of all landed items had a compaction fall inside them, and the summary paraphrases the one thing the tree does not hold.

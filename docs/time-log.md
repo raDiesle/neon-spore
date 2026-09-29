@@ -29493,3 +29493,5 @@ results and slash-command echoes, all of which are user lines too.
 
 Bottleneck: reading — thirty-odd files' headers to say in one line what
 each piece is for.
+
+*Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
