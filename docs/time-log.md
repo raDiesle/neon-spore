@@ -28705,3 +28705,5 @@ The bottleneck: the word's tests set the transients as booleans, so moving the w
 
 Bottleneck: writing — the choice between two claims on one branch had to be
 argued before it was coded.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

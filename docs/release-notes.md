@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 96c085498 — The time-log stamp starts at the lane's queue claim, then its branch, and says which
+
+A lane commits once, when it is done, so a stamp from its first commit measured only the landing: 655 of them had a median of one minute. `bun run land` now starts the clock at the latest `Mark "…" taken` commit on the trunk that names the lane's branch, or failing that the branch's creation in its reflog, and the first commit only when neither is there; the line says which one it used.
+
 ## 2026-09-29 · 9c707f4d6 — THE SURGE's HOLD word asks the simulation whether the seat is asked
 
 `surgeWord` wrote out again what `surgeAsks` already answers for the halo under the grip mark (the thumb off, the band not reached, the bulb taking one, and for the pilot no rock of its own falling) from booleans `drawSurgeGrips` handed it. It now takes the world, and its charge branch calls `surgeAsks`. A row in the called-not-re-derived table stops a third copy. The words each seat is shown are unchanged.
