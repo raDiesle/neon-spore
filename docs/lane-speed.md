@@ -312,11 +312,12 @@ from it. Fixed the same day: the stamp now starts at the lane's queue claim,
 then its branch being made, and says which (`tools/land/lane-start.ts`), so
 the comparison can begin with the lanes stamped from 29 September.
 
-**Tests are not the lever and not free either.** `bun run check` runs in about
-150 s on this machine, and a `check:fast` that the diff scoped to most of the
-tree has been logged at 140–160 s — the same suite twice in one lane when the
-trunk has not moved between them. Queued: a green full run keyed by the tree
-it ran on, so `land` skips a second run of an identical tree.
+**Tests are not the lever.** `bun run check` runs in about 150 s on this
+machine, and a `check:fast` with a wide scope has been logged at 140–160 s. It
+never runs the whole suite (`tools/check/fast-scope.ts`), so the landing's
+check is not a repeat of it; the one saving left — `land` leaving out what
+`check:fast` already ran green on the same tree — waits on the owner in
+`docs/queue.md`, because it needs `check:fast` to run after the commit.
 
 **Thinking and fast mode, unchanged.** Writing is still 38–40% of every
 period and the largest row; no figure here separates thinking from typing, and

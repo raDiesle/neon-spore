@@ -28719,3 +28719,16 @@ argued before it was coded.
 Bottleneck: the guide's film pulled a measured 3.9 tiles against the old gearing and nothing tested it, so it went silently wrong until a probe showed it clicking nothing.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — reusing `check:fast`'s green result goes back to the owner
+
+- reading: 10 min. `fast.ts`, `fast-scope.ts`, `shard.ts`, `red-check.ts`,
+  the tests that ask git about the tree rather than its files.
+- writing: 5 min. The queue entry rewritten with its two options and a
+  question; the paragraph in `lane-speed.md` corrected.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the finding's premise, that `check:fast` sometimes runs
+the whole suite, was only disproved by opening `fast-scope.ts`.

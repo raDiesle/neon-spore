@@ -1653,18 +1653,31 @@ Find out whether the ring is drawn under the lobe's body (the pin sits
 reach, or missing from the page `frames` loads; fix whichever it is, and pin it
 with a frame test that counts the ring on p2's full frame with a lobe standing.
 
-## `land` runs the full suite again on a tree `check:fast` already ran it on
+## `land` could skip the tests `check:fast` already ran green on the same tree
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
-- **Files:** `tools/check/fast.ts`, `tools/land/run.ts`
+- **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`, `tools/land/red-check.ts`
+- **Asks:** Run `check:fast` after the commit rather than before it, so its green result can be reused by `land`, or drop the idea?
 
-A `check:fast` whose scope reached most of the tree has been logged at 140–160
-s, and `bun run land` then runs `bun run check`, about 150 s, on the rebased
-tree — the identical tree whenever the trunk did not move in between. Record a
-green run that covered every test file under the tree's `git write-tree` hash
-and the lockfile's hash, and let `land` skip its check when the rebased tree
-matches one. A partial `check:fast` records nothing, so the landing's check
-stays the one that counts for every other lane.
+The entry first said `check:fast` sometimes runs the whole suite and `land`
+repeats it. It does not: `fast-scope.ts` runs the changed member's tests and
+the sweeps, never everything, so the 140–160 s runs in the time log were wide
+scopes rather than a full suite twice. What is left is smaller — `land` could
+leave out the test files `check:fast` ran green, when the rebased tree is the
+tree they ran on — and it has a catch. `check:fast` runs before the commit, on
+a working tree whose git index is not yet the commit's, and some tests read
+the index rather than the files (`tools/test/line-endings.test.ts` asks `git
+ls-files --eol`), so a result keyed on the uncommitted content is not a result
+about the committed tree. The options:
+
+1. **Commit, then `check:fast`**, a change to the commit rule in `CLAUDE.md`:
+   the green result is keyed on `HEAD^{tree}` and the bun version, recorded by
+   `shard.ts` per test file, and `land` leaves those files out when its
+   rebased tree matches. It saves what `check:fast` ran — typically 15–80 s of
+   the landing's ~150 s — only when the trunk did not move between the two,
+   which with three to five sessions landing at once is not the usual case.
+2. **Drop it.** The landing's check stays whole, and the saving above is the
+   price of not changing a rule every lane follows.
 
 ## The time log has no script that reads it
 
