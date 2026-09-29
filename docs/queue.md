@@ -1369,6 +1369,7 @@ what the rest of this file holds.
 ## Living bosses — the director jumps to any choreography step
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-living-bosses-the-director-jumps-to-any-choreogr)
 - **Needs:** Living bosses — the director shows which choreography step is playing
 - **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-step.ts`, `tools/director/src/stage-autopilot.ts`, `tools/director/test/stage-step.test.ts`, `docs/spec/living-bosses.md`
 
