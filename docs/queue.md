@@ -1574,14 +1574,3 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
-
-## `tools/director/src/stage.ts` is at 240 lines, one feature from the ceiling
-
-- **Found:** 2026-09-29, claude/queue-tasks-efa837
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-tools-director-src-stage-ts-is-at-240-lines-one)
-- **Files:** `tools/director/src/stage.ts`
-
-The jump row took it from ~225 to 240. Its paint bindings (`paintStep`,
-`paintJump`, `paintPlay`) and the transport wiring are one seam: move them
-into a `stage-paint.ts` the way `stage-jump-row.ts` stands, so the next row
-in RUN does not push it past 250. `bun run check` proves it.

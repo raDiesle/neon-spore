@@ -8,7 +8,6 @@ import {
 import { createWorld, type SimConfig, type World } from "@neon-spore/sim";
 import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
-import { bindStageAfterRun } from "./stage-afterrun.js";
 import { stageAutopilot } from "./stage-autopilot.js";
 import { draftControlSet, draftGuide } from "./stage-draft.js";
 import { stageField } from "./stage-field.js";
@@ -17,13 +16,12 @@ import { stageJump } from "./stage-jump.js";
 import { bindStageJumpRow } from "./stage-jump-row.js";
 import { runStageLoopWhileSeen, stageTickHz } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
+import { bindStagePlay } from "./stage-play.js";
 import { stageGeometry } from "./stage-point.js";
-import { bindStageRepeat } from "./stage-repeat.js";
 import { stageStep } from "./stage-step.js";
 import { bindStageStepReadout } from "./stage-step-readout.js";
 import { bindStageTouch } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
-import { bindStageTransport } from "./stage-transport.js";
 import { buildStageWorld } from "./stage-world.js";
 import type { Store } from "./state.js";
 
@@ -159,29 +157,14 @@ export function bindStage(
     paint: stepper.paint,
   });
 
-  const playBtn = document.getElementById("play");
-  const paintPlay = (): void => {
-    if (playBtn) playBtn.textContent = running ? "⏸" : "▶";
-  };
-  const setRunning = (r: boolean): void => {
-    running = r;
-  };
-  const afterRun = bindStageAfterRun({
+  // ⏸/▶, the after-run screen, REPEAT WAVE? and the transport row (`stage-play.ts`).
+  const { paintPlay, afterRun, repeat } = bindStagePlay({
     canvas,
     world: () => world,
     rebuild,
-    setRunning,
-    paintPlay,
-  });
-  const veil = document.getElementById("repeatWave");
-  if (!veil) throw new Error("#repeatWave missing");
-  const repeat = bindStageRepeat({ veil, doc: document, rebuild, setRunning, paintPlay });
-  bindStageTransport({
-    rebuild,
-    onPlayToggle: () => {
-      if (repeat.asking()) return repeat.answer(); // P is yes, while it asks
-      running = !running;
-      paintPlay();
+    running: () => running,
+    setRunning: (r) => {
+      running = r;
     },
     setRole: (r) => {
       role = r;

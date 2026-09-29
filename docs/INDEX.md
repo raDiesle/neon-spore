@@ -3171,6 +3171,7 @@ by hand never moves.
 | `tools/probe/run.ts` | `bun run probe [file]` — run a script that needs a live world |
 | `tools/probe/world.ts` | A world, stood up and stepped, for a question that only a running one answers |
 | `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
+| `tools/director/src/stage-play.ts` | Everything that starts, stops and restarts the stage: the `⏸`/`▶` button and the label it wears |
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |
 | `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |

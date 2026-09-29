@@ -28816,3 +28816,15 @@ Bottleneck: writing — the jump needed a rebuild that forgets nothing
 beside the stage's own, which forgets everything.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — the stage's play wiring is its own file
+
+- reading: 5 min. `stage.ts`, and the three modules the play button shares
+  `running` with.
+- writing: 5 min. `stage-play.ts`, and `stage.ts` down to 223 lines.
+- looking: 5 min. The director in the browser pane: ⏸ and ▶ still toggle.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — a split along a seam the queue entry had
+already named.
