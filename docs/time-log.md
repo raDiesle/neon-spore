@@ -28772,3 +28772,13 @@ Bottleneck: `scuttle-shape.ts` stood at 250 lines, so the drop could only go in 
 Bottleneck: the entry's premise — the ring stands in the shield's own spot, so the frame it was filed from shows a black disc in the plate, and it takes a run with the rings switched off to see which is which.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — `land` keeps its whole check; the reuse idea is dropped
+
+- reading: 5 min. The queue entry and its two options.
+- writing: 0 min. The owner answered "drop it"; the entry is removed.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — a one-entry removal still pays the full landing check.
