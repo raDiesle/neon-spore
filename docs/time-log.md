@@ -29556,3 +29556,5 @@ left over — so the fix became a second function and a finding.
 
 Bottleneck: writing — the rename touched eleven files, and every test that
 counted a round's marks had to learn it is three levels of them.
+
+*Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

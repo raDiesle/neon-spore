@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 178e5c986 — THE GAUGE: three levels, each quicker and narrower
+
+The round is three levels of three marks, each against a clock of its own. Each level up walks the band faster and cuts it narrower, and between two the rim stands bare for four beats under LEVEL N with the next clock held full. The verdict says how far the pair got. Look exemption: a look the owner asked for by name.
+
 ## 2026-09-29 · 49d7e9f2d — A spent FLUE and GOVERNOR stay faded through their glows and a blow's red
 
 `strokeGlowFaded` scales a glow by the alpha it finds and leaves that alpha standing. THE FLUE's and THE GOVERNOR's parts use it, and so does `drawHurt`. Until now THE FLUE was drawn whole from its first glow on while it faded out, a blow's red put a plate's outline back at full, and THE GOVERNOR had to re-set its fade after every glowing part. `strokeGlow` itself is left as it was: two dozen callers reach it with a leftover alpha, and they are queued to be judged one by one. Exemption: a fix to something wrong.
