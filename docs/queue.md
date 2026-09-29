@@ -426,6 +426,7 @@ by name. `bun run check` proves it.
 ## THE JAM's first runaway shot lands on its first lure
 
 - **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-jams-first-runaway-shot-lands-on-its-first-l)
 - **Files:** `packages/content/src/waves/act-7.ts`, `tools/director/test/autopilot-field.test.ts`
 - **Asks:** Which way should THE JAM open: the fault placed a beat late, the first lure moved off the cannon's column, or the breach kept as the lesson?
 - **Answered:** 2026-09-27 — the fault placed late, over moving the lure or keeping the breach, and later than one beat. The owner: the runaway starts when the first lure has come down to half height, measured from the hull's top, in the centre of the field. Work out the beat that puts it there from the lure's fall speed, and set the fault's `at` to that beat.
