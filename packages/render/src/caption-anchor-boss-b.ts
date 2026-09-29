@@ -8,6 +8,7 @@ import {
   type ScuttleState,
   type SimConfig,
   scoutHome,
+  scoutPilot,
   scoutRound,
   scuttleBoss,
   type World,
@@ -147,7 +148,7 @@ function scoutPart(
   part: BossPart | undefined,
 ): AnchorPoint | null {
   if (part === "hazard") {
-    if (!showsScoutArena(l.role)) return null;
+    if (!showsScoutArena(l.role, scoutPilot(s))) return null;
     const r = (cfg.scoutHazardRadiusMilli * l.tile) / 1000;
     return around(
       s.hazards.map((h) => scoutAt(l, h)),

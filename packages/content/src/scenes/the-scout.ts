@@ -10,7 +10,8 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
  * little ship let go over the cannon, one mote fetched and sucked home, then
  * the second level's two, **one after another** — the owner's *small released
  * ship must collect powerups and then bring them back one after another*, 29
- * September 2026.
+ * September 2026. The second level is flown from the other seat, because the
+ * seats swap on every level (`control-seats.ts`), and its acts say so.
  *
  * **The flight was generated, not reasoned about.** A burn is a push that keeps
  * going, and a turn does nothing to the drift, so where the little one is at
@@ -26,8 +27,8 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
  * suck brings the ship the rest of the way and it is let go again over the
  * cannon.
  *
- * Player 1 has three controls and cannot see where any of it is; player 2 has
- * one and cannot fly. The captions say which seat does what and never where the
+ * The pilot has three controls and cannot see where any of it is; the other
+ * seat has one and cannot fly. The captions say which seat does what and never where the
  * motes are — that is the sentence the pair has to say to each other.
  */
 export const THE_SCOUT: GuideScene = {
@@ -46,45 +47,46 @@ export const THE_SCOUT: GuideScene = {
     { tick: 335, control: "scoutBurn", until: 352 },
     { tick: 398, control: "scoutBurn", until: 415 },
     { tick: 452, control: "scoutMaw" },
-    { tick: 484, control: "scoutBurn", until: 556 },
-    { tick: 488, control: "scoutTurnRight", until: 627 },
-    { tick: 556, control: "scoutBurn", until: 580 },
-    // Level two: the left one, home; the right one, home.
-    { tick: 627, control: "scoutTurnLeft", until: 628 },
-    { tick: 628, control: "scoutBurn", until: 647 },
-    { tick: 699, control: "scoutBurn", until: 715 },
-    { tick: 715, control: "scoutTurnRight", until: 716 },
-    { tick: 758, control: "scoutBurn", until: 777 },
-    { tick: 777, control: "scoutTurnRight", until: 778 },
-    { tick: 781, control: "scoutTurnRight", until: 811 },
-    { tick: 824, control: "scoutBurn", until: 844 },
-    { tick: 844, control: "scoutTurnRight", until: 845 },
-    { tick: 878, control: "scoutBurn", until: 898 },
-    { tick: 945, control: "scoutBurn", until: 962 },
-    { tick: 1008, control: "scoutBurn", until: 1025 },
-    { tick: 1033, control: "scoutTurnLeft", until: 1034 },
-    { tick: 1071, control: "scoutBurn", until: 1087 },
-    { tick: 1085, control: "scoutMaw" },
-    { tick: 1113, control: "scoutBurn", until: 1117 },
-    { tick: 1117, control: "scoutBurn", until: 1141 },
-    { tick: 1188, control: "scoutTurnRight", until: 1189 },
-    { tick: 1189, control: "scoutBurn", until: 1208 },
-    { tick: 1254, control: "scoutBurn", until: 1271 },
-    { tick: 1271, control: "scoutTurnLeft", until: 1272 },
-    { tick: 1317, control: "scoutBurn", until: 1332 },
-    { tick: 1332, control: "scoutTurnLeft", until: 1333 },
-    { tick: 1343, control: "scoutTurnLeft", until: 1373 },
-    { tick: 1373, control: "scoutBurn", until: 1401 },
-    { tick: 1401, control: "scoutTurnLeft", until: 1402 },
-    { tick: 1447, control: "scoutBurn", until: 1466 },
-    { tick: 1512, control: "scoutBurn", until: 1529 },
-    { tick: 1575, control: "scoutBurn", until: 1592 },
-    { tick: 1604, control: "scoutTurnRight", until: 1605 },
-    { tick: 1605, control: "scoutMaw" },
+    // Level two, and the seats have swapped: player 2 flies, player 1 has the
+    // mouth. The left one, home; the right one, home.
+    { tick: 484, control: "scoutBurn", until: 556, seat: 2 },
+    { tick: 488, control: "scoutTurnRight", until: 627, seat: 2 },
+    { tick: 556, control: "scoutBurn", until: 580, seat: 2 },
+    { tick: 627, control: "scoutTurnLeft", until: 628, seat: 2 },
+    { tick: 628, control: "scoutBurn", until: 647, seat: 2 },
+    { tick: 699, control: "scoutBurn", until: 715, seat: 2 },
+    { tick: 715, control: "scoutTurnRight", until: 716, seat: 2 },
+    { tick: 758, control: "scoutBurn", until: 777, seat: 2 },
+    { tick: 777, control: "scoutTurnRight", until: 778, seat: 2 },
+    { tick: 781, control: "scoutTurnRight", until: 811, seat: 2 },
+    { tick: 824, control: "scoutBurn", until: 844, seat: 2 },
+    { tick: 844, control: "scoutTurnRight", until: 845, seat: 2 },
+    { tick: 878, control: "scoutBurn", until: 898, seat: 2 },
+    { tick: 945, control: "scoutBurn", until: 962, seat: 2 },
+    { tick: 1008, control: "scoutBurn", until: 1025, seat: 2 },
+    { tick: 1033, control: "scoutTurnLeft", until: 1034, seat: 2 },
+    { tick: 1071, control: "scoutBurn", until: 1087, seat: 2 },
+    { tick: 1085, control: "scoutMaw", seat: 1 },
+    { tick: 1113, control: "scoutBurn", until: 1117, seat: 2 },
+    { tick: 1117, control: "scoutBurn", until: 1141, seat: 2 },
+    { tick: 1188, control: "scoutTurnRight", until: 1189, seat: 2 },
+    { tick: 1189, control: "scoutBurn", until: 1208, seat: 2 },
+    { tick: 1254, control: "scoutBurn", until: 1271, seat: 2 },
+    { tick: 1271, control: "scoutTurnLeft", until: 1272, seat: 2 },
+    { tick: 1317, control: "scoutBurn", until: 1332, seat: 2 },
+    { tick: 1332, control: "scoutTurnLeft", until: 1333, seat: 2 },
+    { tick: 1343, control: "scoutTurnLeft", until: 1373, seat: 2 },
+    { tick: 1373, control: "scoutBurn", until: 1401, seat: 2 },
+    { tick: 1401, control: "scoutTurnLeft", until: 1402, seat: 2 },
+    { tick: 1447, control: "scoutBurn", until: 1466, seat: 2 },
+    { tick: 1512, control: "scoutBurn", until: 1529, seat: 2 },
+    { tick: 1575, control: "scoutBurn", until: 1592, seat: 2 },
+    { tick: 1604, control: "scoutTurnRight", until: 1605, seat: 2 },
+    { tick: 1605, control: "scoutMaw", seat: 1 },
   ],
   steps: [
-    // A page stands a second and a half at least, so five of them: the first
-    // level is three, the second two.
+    // A page stands a second and a half at least, so six of them: three on
+    // each level.
     {
       tick: 0,
       seat: 1,
@@ -103,11 +105,17 @@ export const THE_SCOUT: GuideScene = {
       text: "PLAYER 2 SUCKS IT IN",
       anchor: { at: "control", control: "scoutMaw" },
     },
-    { tick: 620, seat: 1, text: "ONE AFTER ANOTHER", anchor: { at: "boss" } },
     {
-      tick: 1000,
+      tick: 620,
       seat: 2,
-      text: "PLAYER 2 SEES WHAT CROSSES",
+      text: "NEXT LEVEL, THE PLAYERS SWAP",
+      anchor: { at: "control", control: "scoutBurn" },
+    },
+    { tick: 900, seat: 2, text: "ONE AFTER ANOTHER", anchor: { at: "boss" } },
+    {
+      tick: 1180,
+      seat: 1,
+      text: "PLAYER 1 SEES WHAT CROSSES",
       anchor: { at: "boss", part: "hazard" },
     },
   ],

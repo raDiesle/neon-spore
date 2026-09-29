@@ -3,7 +3,9 @@ import {
   type SimConfig,
   scoutHome,
   scoutLineOffered,
+  scoutNavigator,
   scoutNose,
+  scoutPilot,
   scoutPrimed,
   scoutPrimeOffered,
 } from "@neon-spore/sim";
@@ -111,11 +113,13 @@ interface Hand {
 function handsUnder(l: Layout, x: number, y: number, field: Field, scout: ScoutState): Hand[] {
   const { cfg } = field;
   const hands: Hand[] = [];
+  const hers = scoutNavigator(scout);
+  const his = scoutPilot(scout);
   if (scoutLineGrippable(cfg, scout)) {
-    hands.push({ target: "scoutLine", seat: 2, c: scoutLineCircle(l, cfg, scout) });
+    hands.push({ target: "scoutLine", seat: hers, c: scoutLineCircle(l, cfg, scout) });
   }
   if (scoutPrimeGrippable(cfg, scout)) {
-    hands.push({ target: "scoutPrime", seat: 1, c: scoutPrimeCircle(l, cfg, scout) });
+    hands.push({ target: "scoutPrime", seat: his, c: scoutPrimeCircle(l, cfg, scout) });
   }
   return hands
     .filter((h) => hitCircle(h.c, x, y))
@@ -182,13 +186,15 @@ export function drawScoutGrips(
   if (!afoot(scout)) return;
   if (scoutLineGrippable(cfg, scout)) {
     if (scout.reeling) drawLineHome(ctx, l, cfg, scout);
-    ring(ctx, scoutLineCircle(l, cfg, scout), l, 2, scout.reeling, scout.reeling ? 1 : 0, time);
+    const hers = scoutNavigator(scout);
+    ring(ctx, scoutLineCircle(l, cfg, scout), l, hers, scout.reeling, scout.reeling ? 1 : 0, time);
   }
   if (!scoutPrimeGrippable(cfg, scout)) return;
   // The dial is the window, so what fills is the number the flight acts on.
   const left = scout.primeTick < 0 ? 0 : cfg.scoutPrimeTicks - (tick - scout.primeTick);
   const pull = Math.max(0, Math.min(1, left / cfg.scoutPrimeTicks));
-  ring(ctx, scoutPrimeCircle(l, cfg, scout), l, 1, scoutPrimed(cfg, scout, tick), pull, time);
+  const his = scoutPilot(scout);
+  ring(ctx, scoutPrimeCircle(l, cfg, scout), l, his, scoutPrimed(cfg, scout, tick), pull, time);
 }
 
 /**

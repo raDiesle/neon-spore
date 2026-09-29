@@ -22,7 +22,14 @@ export {
 // the bank, the field's cue asks every tick (`scout-arena.ts`).
 export { scoutAtHome } from "./scout-arena.js";
 // What is read off the round, never re-derived from its fields (`scout-ask.ts`).
-export { scoutCleared, scoutCurrent, scoutLeft, scoutMawOpen } from "./scout-ask.js";
+export {
+  scoutCleared,
+  scoutCurrent,
+  scoutLeft,
+  scoutMawOpen,
+  scoutNavigator,
+  scoutPilot,
+} from "./scout-ask.js";
 export { scoutNose } from "./scout-fly.js";
 // The load its motes put the little ship in, and whether a heavy one's burn
 // takes — read, never re-derived from `carrying.length` (`scout-hand.ts`).

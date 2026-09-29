@@ -240,4 +240,10 @@ export interface SceneAct {
    * played by since it existed.
    */
   onField?: true;
+  /**
+   * **The seat that presses it**, when the panel has swapped since the film
+   * began — THE SCOUT's second level is flown by player 2 (`control-seats.ts`).
+   * Absent, the control's own seat.
+   */
+  seat?: 1 | 2;
 }

@@ -31,7 +31,7 @@ import { seatSkin } from "./seat-skin.js";
 export function drawControlHover(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
   const p = view.pointer;
   if (!p) return;
-  const set = bandControlSet(view.controls, view.world.wave);
+  const set = bandControlSet(view.controls, view.world);
   const skin = seatSkin(l.role);
   // The nearest reach under the pointer, which is the one a press takes
   // (`touch-lobe.ts` `lobeUnder`).

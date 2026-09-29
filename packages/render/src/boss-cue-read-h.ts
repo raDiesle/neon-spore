@@ -5,6 +5,7 @@ import {
   type ScoutState,
   scoutHome,
   scoutMawOpen,
+  scoutNavigator,
   scoutSuckWanted,
   type World,
 } from "@neon-spore/sim";
@@ -171,7 +172,7 @@ export function scoutCues(l: Layout, world: World, s: ScoutState): readonly Boss
   const home = scoutAt(l, scoutHome(world.cfg.cols, world.cfg.rows));
   return [
     {
-      seat: 2,
+      seat: scoutNavigator(s),
       kind: "PRESS",
       word: "OPEN",
       x: home.x,

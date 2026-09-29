@@ -343,7 +343,8 @@ describe("the rehearsals a guide can show", () => {
                 ? 2
                 : // A tile's is authored, because which seat is blind to a
                   // mine is the arrival's (`SpawnEntry.sees`).
-                  (act.tile ?? control(act.control!).player));
+                  // And a press on a panel THE SCOUT has swapped (`SceneAct.seat`).
+                  (act.tile ?? act.seat ?? control(act.control!).player));
         const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
         expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
           0,

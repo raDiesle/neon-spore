@@ -80,7 +80,7 @@ export function drawShip(
   // arm at all — and it is asked once here for the two passes that need it:
   // the hull leaves the gun's own mouth undrawn, and the arm is drawn folded
   // on the crown where that mouth used to sit (`reach-arm.ts`).
-  const arm = setHas(bandControlSet(view.controls, world.wave), "reach");
+  const arm = setHas(bandControlSet(view.controls, world), "reach");
   // Queen boss only: the ship's own render-only echo of her torch tremor
   // (queen.ts's `hullShake`); undefined everywhere else, so `drawHull` falls
   // back to its own no-shake default.
@@ -229,7 +229,7 @@ function drawFaultBeams(
   view: ViewState,
 ): void {
   if (faultsNow(world).length === 0) return;
-  const set = bandControlSet(view.controls, world.wave);
+  const set = bandControlSet(view.controls, world);
   const lobes = [...bandLobes(l, set, 1), ...bandLobes(l, set, 2)].map((b) => ({
     id: b.control.id,
     x: b.circle.x,

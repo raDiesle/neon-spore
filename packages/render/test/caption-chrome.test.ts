@@ -62,8 +62,8 @@ function pagesOf(name: string, role: ViewRole): Page[] {
   const scene = guideScene(id);
   const { ctx } = stubCanvas();
   const { l } = filmLayout(computeLayout(PHONE, CFG, role), CFG, role === "p1" ? 1 : 2);
-  const set = bandControlSet(undefined, index);
   const run = new SceneRun(sceneScript(id, index, CFG));
+  const set = bandControlSet(undefined, run.world);
   const out: Page[] = [];
   scene.steps.forEach((step: SceneStep, i: number) => {
     run.restart(stepSpan(scene, i).from);

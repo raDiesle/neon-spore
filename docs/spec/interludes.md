@@ -773,6 +773,12 @@ the little ship is back at the mother ship with that mouth open, which is THE
 CLAW's own rule that nothing is caught by one person alone. The seat that can
 see the arena therefore has a thumb in the round as well as a voice.
 
+**The seats swap on every level** — the owner, 29 September 2026: *every level
+next, the controls swap with other player*. Player 1 flies the first arena,
+player 2 the second, player 1 the third (`scoutPilot`); the panel, the split
+picture, the hands and a rehearsal's thumbs all follow the same rule
+(`content/src/control-seats.ts`).
+
 **The split is the round.** Player 1 is shown the ship and its heading and not
 the arena; player 2 is shown every mote and every hazard and cannot move the
 ship by a thousandth of a tile. So the flying is done on somebody's word — an

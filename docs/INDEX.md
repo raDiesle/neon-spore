@@ -358,7 +358,7 @@ by hand never moves.
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
-| `packages/sim/src/scout-ask.ts` | **The four questions every THE SCOUT file asks of the round** |
+| `packages/sim/src/scout-ask.ts` | **The questions every THE SCOUT file asks of the round** |
 | `packages/sim/src/scout-fly.ts` | One tick of the flight, and the four things that decide how it feels |
 | `packages/sim/src/scout-hash.ts` | What THE SCOUT puts into `hashWorld`, and nothing else |
 | `packages/sim/src/scout-hand.ts` | The two counts `scoutLoad` reads, as little of `SimConfig` as it needs |
@@ -966,6 +966,7 @@ by hand never moves.
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
 | `packages/content/src/control-sender.ts` | **Which control sent this command** — the table next door read backwards |
+| `packages/content/src/control-seats.ts` | **The panel as it is seated on this tick**: the wave's own set, or that set with the seats exchanged |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
 | `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |

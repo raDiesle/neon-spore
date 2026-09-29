@@ -29513,3 +29513,13 @@ Bottleneck: looking — the one unknown, whether a refused compaction stops
 the turn, only a real session could answer.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SCOUT's seats swap every level: player 2 flies the second, and the panel, the split and the hands follow
+
+- reading: 5 min. Every place that assumed player 1 flies: the hear, the panel, the split, the grips, the cue, the hands.
+- writing: 10 min. `scoutPilot`, the seated set and its callers, the rehearsal's seats, the tests.
+- looking: 0 min. Nothing new is drawn; the same pictures move to the other screen.
+- friction: 5 min. A formatter-lengthened file over the size line, a queue title over 80 characters.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding every reader of "player 1 is the pilot" — it was written as a literal `1` or `2` in eleven files rather than asked of one rule.

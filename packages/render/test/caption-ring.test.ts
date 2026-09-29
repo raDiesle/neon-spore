@@ -48,7 +48,7 @@ function pageAt(name: string, role: ViewRole, stepIndex: number) {
     l,
     run,
     step,
-    set: bandControlSet(undefined, index),
+    set: bandControlSet(undefined, run.world),
     phase: beatPhase(CFG, run.world.tick),
   };
 }

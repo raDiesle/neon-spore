@@ -7,6 +7,7 @@ import {
   scoutCurrent,
   scoutHome,
   scoutOpenRound,
+  scoutPilot,
   scoutRound,
   startWave,
   step,
@@ -68,17 +69,18 @@ function fly(w: World, look: boolean): Press[] {
     bearing(want.colMilli - s.colMilli, want.rowMilli - s.rowMilli),
   );
   const out: Press[] = [];
+  const pilot = scoutPilot(s);
   const aimed = Math.abs(off) <= SLACK;
   const speedSq = s.vColMilli * s.vColMilli + s.vRowMilli * s.vRowMilli;
   const cruising = speedSq >= (w.cfg.scoutMaxSpeedMilli / 2) * (w.cfg.scoutMaxSpeedMilli / 2);
   const dir = off > 0 ? 1 : -1;
   if (!aimed && s.turn !== dir)
-    out.push({ player: 1, command: { kind: "scoutTurn", dir, on: true } });
+    out.push({ player: pilot, command: { kind: "scoutTurn", dir, on: true } });
   else if (aimed && s.turn !== 0)
-    out.push({ player: 1, command: { kind: "scoutTurn", dir: 1, on: false } });
+    out.push({ player: pilot, command: { kind: "scoutTurn", dir: 1, on: false } });
   const burn = aimed && !cruising && !(look && caughtFlyingOn(w));
-  if (burn !== s.burning) out.push({ player: 1, command: { kind: "scoutBurn", on: burn } });
-  out.push({ player: 2, command: { kind: "scoutMaw" } });
+  if (burn !== s.burning) out.push({ player: pilot, command: { kind: "scoutBurn", on: burn } });
+  out.push({ player: pilot === 1 ? 2 : 1, command: { kind: "scoutMaw" } });
   return out;
 }
 

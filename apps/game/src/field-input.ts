@@ -1,4 +1,4 @@
-import { controlSetForWave } from "@neon-spore/content";
+import { controlSetForWave, seatedSet } from "@neon-spore/content";
 import {
   type Circle,
   cannonGrab,
@@ -144,8 +144,9 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     boss: () => world.boss,
     // The world is its own window: it holds the two beats `Field.slow` wants.
     slow: () => world,
-    // Which panel is up follows from the wave (`content/control-sets.ts`).
-    controls: () => controlSetForWave(world.wave),
+    // Which panel is up follows from the wave (`content/control-sets.ts`),
+    // seated as the round seats it (`content/control-seats.ts`).
+    controls: () => seatedSet(controlSetForWave(world.wave), world),
     faults: () => faultsNow(world),
     // And whether this screen is drawn as THE WELL, which is a fact about the
     // boss *and* about the seat: the clock is the pilot's picture and the

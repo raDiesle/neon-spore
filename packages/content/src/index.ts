@@ -12,11 +12,13 @@ export {
   controlTurns,
 } from "./control-command.js";
 export { controlBroken, panelSlots } from "./control-fault.js";
+export { seatedSet } from "./control-seats.js";
 export { controlSays } from "./control-sender.js";
 export {
   CONTROL_SETS,
   type ControlSet,
   type ControlSetId,
+  controlSeat,
   controlSet,
   controlSetForWave,
   DEFAULT_CONTROL_SET_ID,
@@ -28,6 +30,8 @@ export {
   setControls,
   setHas,
   setLance,
+  setSeating,
+  swapSeats,
   wavesUsingSet,
 } from "./control-sets.js";
 export {

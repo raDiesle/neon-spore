@@ -1,5 +1,6 @@
 import type { SimConfig } from "./config.js";
 import type { ScoutLoad, ScoutState } from "./scout.js";
+import { scoutNavigator, scoutPilot } from "./scout-ask.js";
 import { scoutHome } from "./scout-open.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -104,7 +105,7 @@ export function scoutHandHeard(
 ): void {
   if (command.kind !== "drag") return;
   if (command.target === "scoutLine") {
-    if (player !== 2) {
+    if (player !== scoutNavigator(scout)) {
       if (command.on && scoutLineOffered(world.cfg, scout)) refuse(world, "line", player);
       return;
     }
@@ -115,7 +116,7 @@ export function scoutHandHeard(
     return;
   }
   if (command.target !== "scoutPrime") return;
-  if (player !== 1) {
+  if (player !== scoutPilot(scout)) {
     if (command.on && scoutPrimeOffered(world.cfg, scout)) refuse(world, "prime", player);
     return;
   }

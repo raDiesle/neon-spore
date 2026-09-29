@@ -145,8 +145,10 @@ export {
   scoutLineOffered,
   scoutLoad,
   scoutMawOpen,
+  scoutNavigator,
   scoutNose,
   scoutOpenRound,
+  scoutPilot,
   // Whether a burn takes this tick: the wake and the prime's dial both ask.
   scoutPrimeAsks,
   scoutPrimed,

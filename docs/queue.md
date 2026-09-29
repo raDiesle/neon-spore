@@ -1497,3 +1497,15 @@ options are to remove them and the pause's picture with them; to keep them
 as the one exception; or to keep only the pause, by drawing them just while
 a carry is refused. Taking them off changes a frame, so it is a look, and
 it is done only once the owner answers.
+
+## Three files the seat swap took near the size line
+
+- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Files:** `packages/render/src/band.ts`, `tools/director/src/stage.ts`,
+  `packages/content/src/control-sets.ts`
+
+THE SCOUT's seat swap took them to 228, 225 and 233 lines. Split before the next
+addition: `band.ts`'s lobe-sizing helpers into a file of their own;
+`stage.ts`'s control-set and keyboard wiring into `stage-controls.ts`;
+`control-sets.ts`'s seating (`controlSeat`, `swapSeats`, `setSeating` and the
+two caches) into `control-seats.ts`, which already holds `seatedSet`.

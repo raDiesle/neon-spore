@@ -3,6 +3,8 @@ import {
   type SimConfig,
   type SimEvent,
   scoutLineAsks,
+  scoutNavigator,
+  scoutPilot,
   scoutPrimeAsks,
 } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
@@ -69,10 +71,11 @@ export function drawScoutAsked(
   tick: number,
   time: number,
 ): void {
-  if (scoutLineAsks(cfg, scout) && mine(l, 2)) halo(ctx, scoutLineCircle(l, cfg, scout), time);
+  if (scoutLineAsks(cfg, scout) && mine(l, scoutNavigator(scout)))
+    halo(ctx, scoutLineCircle(l, cfg, scout), time);
   if (!scoutPrimeAsks(cfg, scout, tick)) return;
   const c = scoutPrimeCircle(l, cfg, scout);
-  if (mine(l, 1)) {
+  if (mine(l, scoutPilot(scout))) {
     halo(ctx, c, time);
   } else {
     drawMarkTheirs(ctx, c.x, c.y, c.r, time);

@@ -150,7 +150,7 @@ describe("the band draws the panel it is handed", () => {
       world.cfg,
       "test",
     );
-    const set = bandControlSet(controls, world.wave);
+    const set = bandControlSet(controls, world);
     const seats: (1 | 2)[] = player ? [player] : [1, 2];
     return seats.flatMap((p) => bandLobes(layout, set, p).map((lobe) => lobe.control.id));
   }

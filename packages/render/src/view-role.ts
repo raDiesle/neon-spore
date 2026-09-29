@@ -111,16 +111,23 @@ export const showsSpliceTangle = (role: ViewRole): boolean => role !== "p1";
  * thousandth of a tile is the seat shown where everything in the dark is, so
  * the flying is done on their word — an o'clock, and how long to burn
  * (`docs/spec/interludes.md`, `scout-draw.ts`).
+ *
+ * **It takes the pilot**, as `flipsField` takes its seat, because which seat
+ * flies is the round's to say: player 1 on the first arena, player 2 on the
+ * second, and swapping after (`sim` `scoutPilot`). The test screen is both
+ * halves and shows both.
  */
-export const showsScoutArena = (role: ViewRole): boolean => role !== "p1";
+export const showsScoutArena = (role: ViewRole, pilot: 1 | 2): boolean =>
+  role === "test" || role !== (pilot === 1 ? "p1" : "p2");
 /**
  * THE SCOUT's nose, and the motes it is carrying. The pilot's, the same half
  * as the three controls that fly it: a heading is the one thing the seat that
  * holds the turns has to know and the one thing the other seat can only be
- * told. Both seats are shown *where* the ship is — player 2 has to say which
- * way to point it, and cannot from a picture with no ship on it.
+ * told. Both seats are shown *where* the ship is — the navigator has to say
+ * which way to point it, and cannot from a picture with no ship on it.
  */
-export const showsScoutNose = (role: ViewRole): boolean => role !== "p2";
+export const showsScoutNose = (role: ViewRole, pilot: 1 | 2): boolean =>
+  role === "test" || role === (pilot === 1 ? "p1" : "p2");
 /**
  * *Which way round the field is drawn* — THE FLIP, and the one entry here that
  * takes an argument, because which seat is turned is the wave's to say and not

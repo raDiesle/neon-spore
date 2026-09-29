@@ -203,7 +203,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
       ctx,
       l,
       view.role,
-      bandControlSet(view.controls, world.wave),
+      bandControlSet(view.controls, world),
     );
     this.held.lanceFlash.draw(ctx, l);
     // Last, over everything: the wave arriving, once the pair has crossed the

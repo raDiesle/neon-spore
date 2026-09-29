@@ -1,5 +1,6 @@
 import type { ScoutArena, ScoutPhase, ScoutState } from "./scout.js";
 import { stepScoutArena } from "./scout-arena.js";
+import { scoutPilot } from "./scout-ask.js";
 import { scoutTurnStep } from "./scout-fly.js";
 import { scoutHandHeard } from "./scout-hand.js";
 import { scoutStand } from "./scout-open.js";
@@ -15,12 +16,11 @@ import type { World } from "./world.js";
  * nothing anywhere has an opinion about when a round is reached
  * (`docs/decisions.md` #20). So this header says only what is different.
  *
- * **The lead is the mother ship opening.** The scout is not thrown out on the
- * first frame: the ship opens, the little one drifts clear, and the beats that
- * takes are beats the pair spends reading two screens that have just stopped
- * being the field — one of them holding the motes and the hazards, the other
- * holding a ship and a nose. A round that started moving immediately would be
- * a round whose first repeat was nobody's fault.
+ * **The lead is no beats at all now.** It was the mother ship opening, a few
+ * beats of reading before the little one was let go; the owner's pass of 29
+ * September 2026 put the ship out *immediately when wave starts*, one tile over
+ * the cannon (`scoutLeadBeats`, `scout-open.ts`). The phase stays so a host can
+ * still give it beats.
  *
  * **The field is gone, and the hull is not.** `step` returns before a rule of
  * the field runs, so nothing spawns, falls or reaches the ship; `world.beat`
@@ -146,11 +146,13 @@ export function closeScout(world: World): void {
  * One control, as the round heard it, and **whose press counts is this round's
  * rule** rather than the command union's.
  *
- * Player 1 flies: the two turns swing the nose and the burn pushes it. Player
- * 2 has the mother ship's mouth and nothing else — they can see every mote and
- * every hazard and cannot move the ship a thousandth of a tile, so the flying
- * is done on their word and the *catch* is done with their thumb. That is THE
- * CLAW's own arrangement, which is why this round is on that panel.
+ * The pilot flies — player 1 on the first arena, player 2 on the second, and
+ * swapping on every one after (`scoutPilot`): the two turns swing the nose and
+ * the burn pushes it. The other seat has the mother ship's mouth and nothing
+ * else — they can see every mote and every hazard and cannot move the ship a
+ * thousandth of a tile, so the flying is done on their word and the *catch* is
+ * done with their thumb. That is THE CLAW's own arrangement, which is why this
+ * round is on that panel.
  *
  * Nothing reaches it outside `play`: the lead is for reading two screens and
  * the verdict for looking at one, and a press that counted during either would
@@ -163,7 +165,7 @@ export function scoutRoundHeard(world: World, player: 1 | 2, command: Command): 
   // first (`scout-hand.ts`). Heard before the seat split below, because each
   // of them is already refused to the seat it does not belong to.
   scoutHandHeard(world, round, player, command);
-  if (player === 2) {
+  if (player !== scoutPilot(round)) {
     scoutMawHeard(round, world, command);
     return;
   }

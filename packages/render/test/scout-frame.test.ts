@@ -115,9 +115,12 @@ describe("THE SCOUT draws on all three screens", () => {
   });
 
   it("shows the navigator the motes and hazards, and not the pilot", () => {
-    expect(showsScoutArena("p1")).toBe(false);
-    expect(showsScoutArena("p2")).toBe(true);
-    expect(showsScoutArena("test")).toBe(true);
+    expect(showsScoutArena("p1", 1)).toBe(false);
+    expect(showsScoutArena("p2", 1)).toBe(true);
+    expect(showsScoutArena("test", 1)).toBe(true);
+    // And the other way round on a level player 2 flies.
+    expect(showsScoutArena("p1", 2)).toBe(true);
+    expect(showsScoutArena("p2", 2)).toBe(false);
     // Neither piece has a colour of its own on this screen — a pod's core is
     // the maw button's too — so each is proved by what taking it off the
     // round costs the frame on each seat: nothing on the pilot's.
@@ -137,9 +140,11 @@ describe("THE SCOUT draws on all three screens", () => {
   });
 
   it("shows the pilot the nose and what rides behind it, and not the navigator", () => {
-    expect(showsScoutNose("p1")).toBe(true);
-    expect(showsScoutNose("p2")).toBe(false);
-    expect(showsScoutNose("test")).toBe(true);
+    expect(showsScoutNose("p1", 1)).toBe(true);
+    expect(showsScoutNose("p2", 1)).toBe(false);
+    expect(showsScoutNose("test", 1)).toBe(true);
+    expect(showsScoutNose("p1", 2)).toBe(false);
+    expect(showsScoutNose("p2", 2)).toBe(true);
     // The context's own `moveTo` is not in the log, so the nose is proved by
     // what is drawn on the same half of the split: a carried mote is one
     // amber disc on the ship's rim, and a screen that shows the nose shows

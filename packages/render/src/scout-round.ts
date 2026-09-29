@@ -3,6 +3,7 @@ import {
   scoutCurrent,
   scoutLeft,
   scoutMawOpen,
+  scoutPilot,
   type World,
 } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
@@ -91,14 +92,15 @@ export function drawScoutRound(
   drawTally(ctx, l, view, boss, top + l.tile * 0.92);
 
   drawScoutHome(ctx, l, cfg, mood.intake, view.time);
-  if (showsScoutArena(view.role)) {
+  const pilot = scoutPilot(boss);
+  if (showsScoutArena(view.role, pilot)) {
     drawScoutMotes(ctx, l, cfg, boss, view.time);
     drawScoutHazards(ctx, l, cfg, boss, view.time);
   }
   // The little ship is out only once the lead has let it go: in the lead it
   // is still inside the mother ship, and the picture is the mouth opening.
   if (boss.phase !== "lead") {
-    drawScout(ctx, l, cfg, boss, world.tick, view.time, showsScoutNose(view.role));
+    drawScout(ctx, l, cfg, boss, world.tick, view.time, showsScoutNose(view.role, pilot));
   }
 
   drawHull(
@@ -155,9 +157,9 @@ function drawTitle(
 function job(role: ViewRole, boss: ScoutState): string {
   if (boss.phase === "lead") return "the ship is opening";
   if (boss.phase !== "play") return boss.passed ? "every mote is home" : "the scout is lost";
-  if (role === "p1") return "you fly it — they can see the arena";
-  if (role === "p2") return "you see the arena — they fly it";
-  return "one flies, one sees";
+  if (role === "test") return "one flies, one sees";
+  if (role === (scoutPilot(boss) === 1 ? "p1" : "p2")) return "you fly it — they can see the arena";
+  return "you see the arena — they fly it";
 }
 
 /**

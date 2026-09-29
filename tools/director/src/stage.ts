@@ -1,3 +1,4 @@
+import { seatedSet } from "@neon-spore/content";
 import {
   Canvas2DRenderer,
   DeskSeat,
@@ -49,8 +50,9 @@ export function bindStage(
     (v) => renderer.resize(v),
   );
 
-  // What the wave being edited says, read fresh (`stage-draft.ts`).
-  const currentControlSet = () => draftControlSet(store);
+  // What the wave being edited says, read fresh (`stage-draft.ts`), and
+  // seated as the round seats it on this tick (`content/control-seats.ts`).
+  const currentControlSet = () => seatedSet(draftControlSet(store), world);
   const currentGuide = () => draftGuide(store);
   // The keyboard is that panel too: a key is a seat and a slot on it, and the
   // stage is the one panel that knows which wave it is standing on

@@ -4,6 +4,7 @@ import {
   control,
   type GuideScene,
   type SceneAct,
+  setSeating,
 } from "@neon-spore/content";
 import { arrivingFirst, atBodyCol, bossAnswerCol, type World } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
@@ -78,7 +79,7 @@ export function thumbAnchors(
     if (!point) continue;
     out.push({
       tick: act.tick,
-      seat: def.player,
+      seat: act.seat ?? def.player,
       x: point.x,
       y: point.y,
       press: def.form === "lobe",
@@ -96,7 +97,12 @@ function pointOn(
   if (!act.control) return null;
   const def = control(act.control);
   if (def.form === "lobe") {
-    const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === act.control);
+    // On the half of the panel the act's own seat holds it on, which is not
+    // the control's own once THE SCOUT has swapped the seats.
+    const seat = act.seat ?? def.player;
+    const lobe = bandLobes(l, setSeating(set, def, seat), seat).find(
+      (b) => b.control.id === act.control,
+    );
     return lobe ? { x: lobe.circle.x, y: lobe.circle.y } : null;
   }
   if (def.form !== "strip") return null;

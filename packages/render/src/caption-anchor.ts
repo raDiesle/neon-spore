@@ -1,4 +1,10 @@
-import { type ControlSet, control, type SceneAnchor } from "@neon-spore/content";
+import {
+  type ControlSet,
+  control,
+  controlSeat,
+  type SceneAnchor,
+  seatedSet,
+} from "@neon-spore/content";
 import { type Creature, gripCount, type World } from "@neon-spore/sim";
 import { bossAnchor } from "./caption-anchor-boss.js";
 import { clearOfHull } from "./caption-hull-room.js";
@@ -141,7 +147,11 @@ export function anchorPoint(
   if (anchor.at === "control") {
     const def = control(anchor.control);
     if (def.form === "lobe") {
-      const lobe = bandLobes(l, set, def.player).find((b) => b.control.id === anchor.control);
+      // On the half this tick's seating puts it on (`content/control-seats.ts`).
+      const seated = seatedSet(set, world);
+      const lobe = bandLobes(l, seated, controlSeat(seated, def)).find(
+        (b) => b.control.id === anchor.control,
+      );
       if (!lobe) return null;
       const at = { x: lobe.circle.x, y: lobe.circle.y, r: lobe.circle.r, clear: CLEAR };
       return clearOfHull(l, world, at);

@@ -66,15 +66,16 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   if (act.shake) return [{ tick: act.tick, player: 1, command: { kind: "shake" } }];
   const id = controlOf(act);
   const def = control(id);
+  const seat = act.seat ?? def.player;
   // A control that is **turned** — the crank, and nothing else. It is an
   // ordinary act on an ordinary control, so the ghost hand finds it where it
   // finds every other press; what it says is a stream rather than a press and
   // a release, because the rope comes in on the bearings in between
   // (`scene-drag.ts`).
-  if (controlTurns(id)) return crankCommands(act, def.player, cfg);
+  if (controlTurns(id)) return crankCommands(act, seat, cfg);
   const down: SceneCommand = {
     tick: act.tick,
-    player: def.player,
+    player: seat,
     command: commandFor(act, cfg.cols),
     // A strip answering a body rather than a column. The command still carries
     // the authored column, which is what it falls back to on an empty field;
@@ -95,7 +96,7 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   // in the middle of a rehearsal about something else.
   if (!controlPress(id).up) return [down];
   const lift = act.until ?? act.tick + TAP_TICKS;
-  return [down, { tick: lift, player: def.player, command: controlHold(id).up }];
+  return [down, { tick: lift, player: seat, command: controlHold(id).up }];
 }
 
 /**

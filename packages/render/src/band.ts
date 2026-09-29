@@ -2,6 +2,7 @@ import {
   type ControlSet,
   controlBroken,
   controlSetForWave,
+  seatedSet,
   setControls,
 } from "@neon-spore/content";
 import { faultsNow, mirrorHoldsControls, type World } from "@neon-spore/sim";
@@ -57,8 +58,10 @@ import { BAND_SLIME } from "./slime-look.js";
  * a second copy of the fallback is exactly the kind of re-derivation CLAUDE.md
  * bans: a rule is called, never spelled out again.
  */
-export function bandControlSet(controls: ControlSet | undefined, wave: number): ControlSet {
-  return controls === undefined ? controlSetForWave(wave) : controls;
+export function bandControlSet(controls: ControlSet | undefined, world: World): ControlSet {
+  // Seated as the round seats it this tick — THE SCOUT exchanges the halves
+  // on every other arena (`content/control-seats.ts`).
+  return seatedSet(controls === undefined ? controlSetForWave(world.wave) : controls, world);
 }
 
 export function drawBand(
@@ -92,7 +95,7 @@ export function drawBand(
   // the game's behaviour today. Not `??`: that spelling is the pattern
   // `purity.test.ts` reserves for a *re-derivation* of `controlSetForWave`'s
   // own default, and this is a call to it, not a copy of it.
-  const set = bandControlSet(controls, world.wave);
+  const set = bandControlSet(controls, world);
   const skin = seatSkin(l.role);
   // Where every control on this screen stands, asked once and handed to both
   // halves of the join: a roof that swells over a button and the thing that

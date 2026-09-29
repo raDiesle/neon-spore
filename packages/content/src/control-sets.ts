@@ -125,6 +125,13 @@ export interface ControlSet {
    * aim somewhere harmless rather than a thing one has never had.
    */
   lance?: false;
+  /**
+   * **Seated the other way round**: every control on player 2's half and every
+   * one of player 2's on player 1's. Never authored — `swapSeats` makes it,
+   * for THE SCOUT's even levels (`control-seats.ts`) — and read only by
+   * `controlSeat`, so every picture and every key of a panel follows it.
+   */
+  swapped?: true;
 }
 
 /** What a wave gets when it names nothing at all. */
@@ -139,7 +146,37 @@ export function controlSet(id: ControlSetId | undefined): ControlSet {
 
 /** One seat's half of a panel, in order. Enumerable — never a switch in a drawing. */
 export function setControls(set: ControlSet, player: 1 | 2): readonly ControlDef[] {
-  return set.controls.map(control).filter((c) => c.player === player);
+  return set.controls.map(control).filter((c) => controlSeat(set, c) === player);
+}
+
+/** The seat a control is on **on this panel** — its own, unless the set is swapped. */
+export function controlSeat(set: ControlSet, def: ControlDef): 1 | 2 {
+  if (set.swapped !== true) return def.player;
+  return def.player === 1 ? 2 : 1;
+}
+
+const SWAPPED = new Map<ControlSetId, ControlSet>();
+const UNSWAPPED = new WeakMap<ControlSet, ControlSet>();
+
+/**
+ * The same panel with the seats exchanged, one object per set so a caller
+ * holding it twice holds the same thing twice.
+ */
+export function swapSeats(set: ControlSet): ControlSet {
+  if (set.swapped === true) return set;
+  let out = SWAPPED.get(set.id);
+  if (out === undefined) {
+    out = { ...set, swapped: true };
+    SWAPPED.set(set.id, out);
+    UNSWAPPED.set(out, set);
+  }
+  return out;
+}
+
+/** The panel this control is on `seat` in: `set` itself, or `set` swapped either way. */
+export function setSeating(set: ControlSet, def: ControlDef, seat: 1 | 2): ControlSet {
+  if (controlSeat(set, def) === seat) return set;
+  return set.swapped === true ? (UNSWAPPED.get(set) ?? set) : swapSeats(set);
 }
 
 export function setHas(set: ControlSet, id: ControlId): boolean {
@@ -173,7 +210,10 @@ export function setLance(set: ControlSet): boolean {
  * seat and nothing would say so.
  */
 export function layoutSet(set: ControlSet): ControlSet {
-  return set.reduces === undefined ? set : controlSet(set.reduces);
+  if (set.reduces === undefined) return set;
+  // A swapped rung is laid out against the swapped panel it is a picture of.
+  const base = controlSet(set.reduces);
+  return set.swapped === true ? swapSeats(base) : base;
 }
 
 /**
