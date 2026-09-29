@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · e07528e4f — THE GAUGE: the shot flies to the wound and is judged where it lands
+
+A call no longer answers itself. The bolt flies for `gaugeShotTicks`, and it is judged when it reaches the rim, against the wound it was fired at. The band stands still while the bolt is in the air. A hit shoots the wound out: it caves in, and the rim stays bare for `gaugeRegrowBeats`. Then the next wound tears open somewhere else, from the beat it opened on. A call made while a bolt is out, or while the rim is bare, is refused rather than missed.
+
 ## 2026-09-29 · 1842a7017 — THE MAZE's render tests share one harness, and none is past the line ceiling
 
 `maze-harness.ts` holds the drum, the state round it and the counting spy that `maze-draw`, `maze-grip` and `maze-verdict` each kept a copy of. The shot and the drum's fall move to `maze-draw-shot.test.ts`, the grip's ring, landing and field to `maze-grip-ring.test.ts`, and THE MAZE's hash fixture from `hash-fixture-bosses-a.ts` to `-b.ts`. The same 27 cases run.
