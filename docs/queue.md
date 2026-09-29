@@ -1504,6 +1504,7 @@ recipe that THE FILAMENT's blow is reached bare. `bun run check` proves it.
 ## One slice of the solid rig's body is drawn without its highlight
 
 - **Found:** 2026-09-29, claude/queue-tasks-efa837
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-one-slice-of-the-solid-rigs-body-is-drawn-withou)
 - **Files:** `packages/render/src/solid-tube-draw.ts`, `packages/render/src/solid-tube-light.ts`, `tools/raster/src/solid-page.ts`
 
 On `bun run solid`, the cell at yaw 23°, pitch 0° shows a band one slice
