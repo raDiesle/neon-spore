@@ -29141,3 +29141,17 @@ Bottleneck: friction — the registrations outside the simulation outnumber the
 rule by three to one, and two of their pages were already full.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE STARE's eye as a turning globe, offered in VERSUS
+
+- reading: 5 min. The queue entry, `.claude/skills/depth`, `surface.ts`,
+  the eye's four files, and THE KEEL's seam slot as the pattern.
+- writing: 5 min. `STARE_EYE` lifted out of `stare-draw.ts`, the candidate's
+  `globe.ts` and `paint.ts`, the slot's pose row and `lookAt`, the spec line.
+- looking: 5 min. Seven `versus:shot`s across the tell; the ball covered the
+  pips and read flat, then washed out, before it read as a ball.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — each `versus:shot` starts its own director, about half a
+minute a picture, and a turn needs four of them to be seen.

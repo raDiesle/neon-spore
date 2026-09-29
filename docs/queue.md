@@ -426,54 +426,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## THE STARE's turn is a squash-and-shear, not a placed surface
-
-- **Found:** 2026-09-26, this session
-- **Files:** `packages/render/src/stare-shape.ts`, `packages/render/src/stare-draw.ts`, `packages/content/src/surface.ts`, `.claude/skills/depth`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone.
-
-THE STARE's whole tell is a turn: the eye is seen edge-on as a sliver
-while it is away, then widens to its full face over the seven-beat
-warning (`stare-shape.ts`'s `face`, `0..1`). It is drawn today by
-squashing the almond's width and adding a manual shear so the sliver
-"reads as turned rather than squeezed" — the file's own comment says so.
-That is exactly the failure `.claude/skills/depth` names: *"an `sx`
-cosine with no shading is a coin being flipped... a beautifully lit ball
-that does not move is a still life"* — a pose can carry a silhouette but
-cannot place a feature (a pupil, a lash, a highlight) by longitude and
-latitude, so nothing on the eye can ever be foreshortened or lit
-differently between edge-on and face-on; the shear is a hand-built
-workaround for the one thing a pose cannot do.
-
-The candidate: replace the squash-and-shear with `surface.ts`'s
-`pin`/`facet` projection on the almond socket — the iris, the lashes and
-the highlight placed on the surface rather than squashed with it — so
-the turn gets a real asymmetric cue and shading instead of a width
-number. THE STARE's socket is big enough on screen (`stareShape`'s tile
-math) to afford it, and the boss already has nothing else moving that a
-placed surface would fight. This is a look and ships only through
-`tools/versus/candidates/` (`docs/looks.md`) beside the shipped
-squash-and-shear — none of CLAUDE.md's three exemptions apply on their
-own (not asked for by name, a shipped alternative already exists, and
-the current version is unlovely rather than wrong), so it waits on the
-owner picking it, not on a lane landing it straight to the field.
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-29, claude/queue-21-the-spool-the-story-between-the-ribs-the-simu (claim: claude/queue-the-stares-turn-is-a-squash-and-shear-not-a-plac)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/keel-draw.ts`, `packages/render/src/keel-marks.ts`
-
-*THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
-
-- THE KEEL's body watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## §41 THE WINCH — the simulation lane
 
 - **Found:** 2026-09-26, this session

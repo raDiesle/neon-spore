@@ -2945,7 +2945,11 @@ turned edge-on while the boss is away, a grey sliver in the cowl, and **the
 warning is the turn**: over the seven beats it swings to face the pair — the
 almond widening from a sliver to its full width and the lids opening with it,
 which is the one animation the owner asked for — while its ink warms from the
-hull's grey to red. Seven pips under the cowl count the tell down, on both
+hull's grey to red. The eye is painted through one record, `STARE_EYE`
+(`render/stare-eye-look.ts`), and since 29 September 2026 VERSUS offers
+`stare:eye` / `globe` against it on THE STARE · TURNING: the eye as a lit ball
+whose opening, iris and lashes are placed on its surface and carried round by
+the turn, rather than a flat eye squashed to a sliver and sheared. Seven pips under the cowl count the tell down, on both
 screens, because the tell is public and only the seat is not. **Which seat**
 is the split, drawn both ways: the *other* seat's screen carries the watched
 seat's name in THE INSTAR's scanner frame beside the eye, from the first beat

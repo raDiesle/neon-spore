@@ -1,10 +1,11 @@
 import { type SimConfig, type StareState, stareTellLeft, type World } from "@neon-spore/sim";
-import { drawEyeFluid, drawEyeFringe, drawEyeLens, type EyeInk } from "./eye.js";
+import type { EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import { drawInstarWord } from "./instar-word.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { STARE_EYE } from "./stare-eye-look.js";
 import type { StareFx } from "./stare-fx.js";
 import { drawStareLid } from "./stare-lid.js";
 import {
@@ -89,7 +90,16 @@ export function drawStare(
   strokeGlow(ctx, cowl, mixHex(PALETTE.dim, ink.rim, 0.5 * heat), STROKE.outline, 0.6);
   ctx.restore();
 
-  drawEye(ctx, eye, f.face, f.lean, f.open, ink, time, beat + beatPhase);
+  // The eye at its angle, through the record VERSUS patches (`stare-eye-look.ts`).
+  STARE_EYE.paint(ctx, {
+    e: eye,
+    face: f.face,
+    lean: f.lean,
+    open: f.open,
+    ink,
+    time,
+    beats: beat + beatPhase,
+  });
   // The lid over it, and its ring for the seat whose thumb it is (`stare-lid.ts`).
   drawStareLid(ctx, l, cfg, boss, l.role, beat, beatPhase, time, ink.rim);
 
@@ -102,35 +112,6 @@ export function drawStare(
     const word = boss.watching === 1 ? "P1" : "P2";
     drawInstarWord(ctx, l, word, eye.cx + eye.rx * 1.2, eye.cy, 1, true);
   }
-}
-
-/**
- * The eye at its angle: the whole thing scaled across by `face` and sheared
- * by `lean` about its own middle, so the sliver and the square eye are one
- * picture at two angles rather than two pictures.
- */
-function drawEye(
-  ctx: CanvasRenderingContext2D,
-  e: StareEye,
-  face: number,
-  lean: number,
-  open: number,
-  ink: EyeInk,
-  time: number,
-  beats: number,
-): void {
-  ctx.save();
-  ctx.translate(e.cx, e.cy);
-  ctx.transform(face, 0, lean, 1, 0, 0);
-  drawEyeFluid(ctx, 0, 0, e.rx, e.ry, open, time);
-  drawEyeLens(ctx, 0, 0, e.rx, e.ry, ink, open, beats);
-  drawEyeFringe(ctx, 0, 0, e.rx, e.ry, ink, open, time);
-  // The socket's own rim, the one line there at every angle.
-  const rim = new Path2D(
-    `M ${-e.rx} 0 Q ${-e.rx * 0.4} ${-e.ry * 1.7} ${e.rx} 0 Q ${e.rx * 0.4} ${e.ry * 1.3} ${-e.rx} 0 Z`,
-  );
-  strokeGlow(ctx, rim, ink.rim, STROKE.outline, 0.5 + 0.6 * open);
-  ctx.restore();
 }
 
 /**

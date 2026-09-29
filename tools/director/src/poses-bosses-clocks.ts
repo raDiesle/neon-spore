@@ -42,7 +42,8 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "stare",
     "turning",
     "The eye names who it will watch. Only the seat it is not watching is told, so P1 or P2 must say it.",
-    { hold: 6 },
+    // VERSUS judges `stare:eye` here: the turn is the whole of what differs.
+    { hold: 6, lookAt: "the eye in the cowl coming round from edge-on to face the pair" },
   ),
   bossPose(
     "stare",
