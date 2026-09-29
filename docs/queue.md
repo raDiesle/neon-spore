@@ -576,30 +576,21 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §26 THE SEAM — its hands, the second half of its look
+## §26 THE SEAM — the cue's words and the poses, the rest of its hands
 
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-29, claude/queue-43-the-governor-the-look (claim: claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo)
-- **Files:** `packages/render/src/seam-marks.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
+- **Found:** 2026-09-29, claude/queue-26-the-seam-its-hands-the-second-half-of-its-loo
+- **Files:** `packages/render/src/`, `apps/game/src/`, `packages/render/src/valve-story.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
 
-The body is drawn: the ridge, the crack, the lit point, the grit, the rock
-and the split. What is left is everything an event or a hand touches. There
-is no grip to write — every answer is the standard shot or shield. **The
-fx**, in `Effects` and cleared in `reset()`: a sealed point's hull-shock
-click, the grit's ordinary deflected-hit spark on the shield (§26,
-*Presentation*), a rock shot out, a miss and the split; the nine `seam*`
-events come off the two silent lists as each gets its burst. **THE SLOW's
-aim** (`slow-intake-aim.ts`) on the lit point, or the rock while one flies:
-today it falls back to the cannon, so the prism splits the ridge widest
-exactly where the step is being read. **Hurt**, **the cue's words** (FIRE
-on the lit point and the rock, SHIELD on the grit), and the STATES poses.
-The autopilot hand is done (`hands/boss-hands-seam.ts`,
-`director/test/autopilot-seam.test.ts`).
+The receipts are in (`render/seam-fx.ts`, `test/seam-fx.test.ts`): the
+seal's click, the grit's spark on the shield, the split's shudder, the
+bursts and the blow. THE SLOW's aim and the autopilot hand were already
+done. What is left: **the cue's words**, which are FIRE on the lit point
+and the rock and SHIELD on the grit, and **the STATES poses**.
 **The story between the pins** (`sim/valve-story.ts`, drawn by
-`render/valve-story.ts`) wants the same: its cue words TAP on the jet, HOLD
-for the brace and the seal, RUB for the wipe; the grip's reversal and hold
-reports reaching `valveRubbed` and `held`; and its twelve events off the
-silent lists as each gets its burst.
+`render/valve-story.ts`) needs the same work. Its cue words are TAP on the
+jet, HOLD for the brace and the seal, and RUB for the wipe. The grip's
+reversal and hold reports must reach `valveRubbed` and `held`. Its twelve
+events come off the silent lists as each one gets its burst.
 Unverified at tempo until the owner has looked.
 
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…

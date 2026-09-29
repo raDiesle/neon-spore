@@ -1,9 +1,19 @@
-import type { SeamStep } from "@neon-spore/sim";
+import {
+  type SeamState,
+  type SeamStep,
+  seamLitStep,
+  seamStepBeats,
+  seamStepCol,
+  seamWantsShot,
+  type World,
+} from "@neon-spore/sim";
+import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { type Point, seamLobe, seamPointPath } from "./seam-shape.js";
+import { phaseInto } from "./phase-into.js";
+import { type Point, seamLobe, seamMouth, seamPointPath } from "./seam-shape.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -11,7 +21,9 @@ import { stepColour } from "./step-colour.js";
  * point, which is *shoot here, in this colour*; the grit, which is *shield
  * under the ridge*; and the rock, which is *shoot it out, in its column*.
  * Cut from `seam-draw.ts` the day it was written, along the line its second
- * half will grow on — the cue words and the grit's spark come here.
+ * half will grow on — the cue words come here. Where the lit step's throw
+ * stands is here too (`seamThrow`), read by the drawer and told to the fx
+ * (`seam-fx.ts`), which bursts a rock shot out where it was.
  */
 
 /**
@@ -113,4 +125,38 @@ export function seamRockAt(l: Layout, from: Point, toX: number, along: number): 
   const across = Math.min(1, along * 3);
   const arc = -Math.sin(across * Math.PI) * 0.6 * l.tile;
   return { x: from.x + (toX - from.x) * across, y: from.y + (l.hullY - from.y) * along + arc };
+}
+
+/**
+ * What the lit step throws, off the ridge standing at `c`: the mouth it leaves,
+ * how far down it has fallen, and the column the rock falls to — `null` while
+ * no rock is owed.
+ */
+export interface SeamThrow {
+  step: SeamStep;
+  from: Point;
+  along: number;
+  toX: number | null;
+}
+
+export function seamThrow(
+  l: Layout,
+  world: World,
+  s: SeamState,
+  c: Point,
+  beat: number,
+  beatPhase: number,
+): SeamThrow | null {
+  const step = seamLitStep(s);
+  if (step === null) return null;
+  const mouth = seamMouth(l);
+  const from = { x: c.x + mouth.x, y: c.y + mouth.y };
+  const along = Math.min(1, phaseInto(s, beat, beatPhase) / Math.max(1, seamStepBeats(world, s)));
+  const rocks = (step.ask === "rock" || step.ask === "both") && seamWantsShot(s);
+  return { step, from, along, toX: rocks ? fieldX(l, seamStepCol(world, step)) : null };
+}
+
+/** Where the thrown rock is, or `null` with none in flight. */
+export function seamRockNow(l: Layout, t: SeamThrow | null): Point | null {
+  return t === null || t.toX === null ? null : seamRockAt(l, t.from, t.toX, t.along);
 }

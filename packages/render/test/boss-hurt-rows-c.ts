@@ -136,4 +136,23 @@ export const HURT_ROWS_C: Row[] = [
     hit: [{ type: "governorTick", side: 0, taps: 1, col: 3 }],
     hurt: (fx) => fx.boss.governor.hurt,
   },
+  {
+    boss: "seam",
+    // A point shot shut, one of the three that are its health.
+    land: [{ type: "seamSeal", sealed: 1, col: 3 }],
+    // A step lighting, a shot into a glow that wants more, grit on the shield and the split.
+    part: [
+      { type: "seamLight", ask: "point", col: 3 },
+      { type: "seamQuench", left: 2, col: 3 },
+      { type: "seamBlock", col: 3 },
+      { type: "seamSplit", col: 3 },
+    ],
+    // The steps answered that seal nothing: a point that dims, a rock out, the glow quenched.
+    hit: [
+      { type: "seamDim", col: 3 },
+      { type: "seamRockOut", col: 3 },
+      { type: "seamQuench", left: 0, col: 3 },
+    ],
+    hurt: (fx) => fx.boss.seam.hurt,
+  },
 ];

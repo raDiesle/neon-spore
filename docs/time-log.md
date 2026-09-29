@@ -29292,3 +29292,18 @@ Bottleneck: looking — the game's list and the director are two servers, each
 reached through its own menu.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SEAM's hands, the receipts: its fx, the blow, the split's shudder
+
+- reading: 15 min. THE GOVERNOR's fx, just landed, as the pattern; the
+  seam's events, marks and throw; where `BossBlows` held its verdicts.
+- writing: 35 min. `seam-fx.ts` into the roster, the drawer telling it the
+  crack and the rock, the hurt and the shake, the hurt row, a test file,
+  the ember cut to `seam-hold.ts`, the spec and the queue's remainder.
+- looking: 5 min. A frame one tick after a seal.
+- friction: 5 min. The size hook on `seam-draw.ts` asked for the cut.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the events carry only a column, so the rock's place
+had to be lifted out of the drawer into `seamThrow` before the fx could be
+told it.

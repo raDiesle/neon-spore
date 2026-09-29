@@ -115,7 +115,8 @@ export const SILENT_BOSS_C = [
   "valveSparkHit",
   "valveOpen",
   "valveOut",
-  // THE SEAM's ten, the same (`packages/audio/src/bind-seam.ts`).
+  // THE SEAM's ten, no burst from this table: each is thrown above the loop
+  // by its own fx file (`seam-fx.ts`).
   "seamEnter",
   "seamLight",
   "seamDim",

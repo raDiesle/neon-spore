@@ -7,13 +7,15 @@ import { GallFx } from "./gall-fx.js";
 import { GovernorFx } from "./governor-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
+import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
 import { TrivetFx } from "./trivet-fx.js";
 
 /**
  * **The roster's late pairs**: the fields of the bosses `boss-draw-clocks-d.ts`
  * draws, from THE SLING on — cut off `effects-boss-roster.ts` on 29 September
- * 2026, when that page stood at 249 lines and THE GOVERNOR had a field to add.
+ * 2026, when that page stood at 249 lines and THE GOVERNOR had a field to add
+ * — and THE SEAM's, drawn a page earlier, whose fx came with its hands after.
  *
  * The seam is the drawer's own page: every boss here is drawn next door to
  * the others, and the next pair appends here. A base class of the roster for
@@ -67,4 +69,10 @@ export class LateRoster extends RoundMarks {
    * on a touch — thrown the same on both screens, and told the needle and the
    * hub's colour by the drawer (`governor-fx.ts`, `governor-draw.ts`). */
   readonly governor = new GovernorFx();
+  /** THE SEAM's click down the plating as a point seals, the grit's spark
+   * on the shield, the reseal's flash, the split's shudder, its receipts'
+   * bursts and its marks' verdicts on a touch — thrown the same on both
+   * screens, and told where the crack's mark and the rock stand by the
+   * drawer (`seam-fx.ts`, `seam-draw.ts`). */
+  readonly seam = new SeamFx();
 }

@@ -8847,10 +8847,10 @@ ridge's body is drawn (`render/seam-shape.ts`, `seam-pose.ts`, `seam-draw.ts`,
 `seam-marks.ts`), with its story — the ridge turned away and the glow from
 within (`seam-story.ts`), the lit point's light creeping along the crack
 (`seam-line.ts`) — and its own blow at the hull when a step runs out
-(`seam-blow.ts`). AUTO plays it (`hands/src/boss-hands-seam.ts`). What is
-still missing is the look's second half, the hands, queued as its own entry:
-the seal's click and the grit's spark, hurt, the cue's words and THE SLOW's
-aim. The ten sounds are bound (`audio/src/bind-seam.ts`), heard where they
+(`seam-blow.ts`). AUTO plays it (`hands/src/boss-hands-seam.ts`), THE
+SLOW's aim finds the lit point (`slow-boss-aim-d.ts`), and its receipts and
+its hurt are drawn (`seam-fx.ts`, below). What is still missing is the cue's
+words and the STATES poses, queued as their own entry. The ten sounds are bound (`audio/src/bind-seam.ts`), heard where they
 happen, the seal pitched up per point closed.
 
 **Never watched at tempo.** What the tests say is the mechanism
@@ -8922,9 +8922,21 @@ mouth down the middle column while the shield is owed, the whole crack
 gaping; a rock is spat from the mouth to its own column and falls in the
 colour that breaks it. The sealed ridge splits in two halves down the crack
 (`render/seam-shape.ts`, `seam-pose.ts`, `seam-draw.ts`, `seam-marks.ts`).
-**Half two, the hands, is queued**: the seal's click and the grit's spark,
-the nine events off the silent lists, hurt, the cue's words, THE SLOW's aim
-on the lit point, and the autopilot hand.
+**Half two, the hands, is landing in parts.** THE SLOW's aim on the lit
+point and the autopilot hand came first. **The receipts landed 29 September
+2026** (`render/seam-fx.ts`, `test/seam-fx.test.ts`): a point shot shut
+throws shell grit off the crack and clicks down the plating — the
+hull-shock click *Presentation* asks for — and grit taken on the shield goes
+off there as a deflected hit does; a rock shot out bursts where it was
+drawn, the drawer telling the fx where the crack's mark and the rock stand
+each frame, since the events carry only a column; the split bursts and
+shudders the plating harder. **The blow**: a sealed point, one of the three
+that are its health, deals the ridge the whole blow every boss takes — the
+ridge flushed red and shaking — and a point that dims, a rock shot out and
+the glow quenched, steps answered that seal nothing, the lighter one. The
+reseal's flash and the marks' verdicts moved with it out of `BossBlows` into
+the roster (`effects.boss.seam`). **Still queued**: the cue's words — FIRE
+on the lit point and the rock, SHIELD on the grit — and the STATES poses.
 
 **Its marks answer a touch the way every mark does**
 (`render/src/seam-verdicts.ts`; the owner, 27 September 2026), for a boss

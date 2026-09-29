@@ -38,7 +38,8 @@ import { type Point, seamLobe } from "./seam-shape.js";
  * **The wrong colour is not refused red**: the simulation says nothing of it
  * but the balance sheet (`sim/seam-shot.ts`), and the step stays lit.
  *
- * Held in `BossBlows` (`boss-blows.ts`), for a boss with no fx class.
+ * Held in `SeamFx` (`seam-fx.ts`), with the rest of what the ridge leaves
+ * behind a frame.
  */
 export const SEAM_CRACK_MARK = 0;
 export const SEAM_ROCK_MARK = 1;

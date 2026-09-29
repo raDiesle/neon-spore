@@ -88,6 +88,9 @@ export function drawOnShip(
   // And THE GOVERNOR's: the hub lighting is a thud through the plating, the
   // governor flying apart for good a harder one (`governor-fx.ts`, §43).
   held.effects.boss.governor.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE SEAM's: a click for every point shot shut, and the ridge splitting
+  // a harder shudder (`seam-fx.ts`, §26).
+  held.effects.boss.seam.shock.draw(ctx, l, surfaceY, view.time);
   // And any boss's own blow when a window ran out, instead of a rock nobody
   // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
   held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);

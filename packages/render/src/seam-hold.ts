@@ -5,7 +5,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { phaseInto } from "./phase-into.js";
-import { seamFalsePath, seamPointPath } from "./seam-shape.js";
+import { seamFalsePath, seamLobe, seamPointPath } from "./seam-shape.js";
 
 /**
  * **THE SEAM's two steps answered by sending nothing** (§26 rows 10 and 16,
@@ -83,4 +83,34 @@ export function drawSeamDark(
     strokeGlow(ctx, last, PALETTE.hullRim, STROKE.inner, 0.6, 0.55);
   }
   if (reseal > 0) strokeGlow(ctx, crack, PALETTE.hullRim, STROKE.outline, 1.6, reseal);
+}
+
+/**
+ * The light inside the crack, creeping up and down the spine on a clock of its
+ * own: where along it the light sits, from the first widening point to the
+ * last, how fast it wanders in radians a second, and how bright it gets. Shell
+ * grey, never a step's colour, so it is not read as one; the glow step's white
+ * is laid over it. The ridge's outline wobble is its silhouette and the rest
+ * is the beat, so this is the one part alive on its own (`docs/style-guide.md`,
+ * *Motion*). Cut from `seam-draw.ts` beside the dark it goes out in, when
+ * THE SEAM's receipts brought that page to its ceiling.
+ */
+const EMBER_RATE = 0.35;
+const EMBER_ALPHA = 0.3;
+
+export function drawSeamEmber(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  crack: Path2D,
+  time: number,
+): void {
+  const top = seamLobe(l, 0).y;
+  const bottom = seamLobe(l, SEAM_POINTS - 1).y;
+  const y = top + (bottom - top) * (0.5 + 0.5 * Math.sin(time * EMBER_RATE));
+  const r = l.tile * 0.6;
+  const ember = ctx.createRadialGradient(0, y, 0, 0, y, r);
+  ember.addColorStop(0, rgba(PALETTE.rock, EMBER_ALPHA));
+  ember.addColorStop(1, rgba(PALETTE.rock, 0));
+  ctx.fillStyle = ember;
+  ctx.fill(crack);
 }

@@ -1587,7 +1587,7 @@ by hand never moves.
 | `packages/render/src/seam-story.ts` | **THE SEAM's two story steps, drawn** (§26's story item; the rules are `sim/seam.ts`'s `blind` and `glow`) |
 | `packages/render/src/seam-blow.ts` | **THE SEAM's own blow at the hull** (`boss-strike-look.ts`): its crack does not stop at the ridge |
 | `packages/render/src/seam-verdicts.ts` | **THE SEAM's marks answering a touch the way every mark does** (`mark-feedback.ts` |
-| `packages/render/src/seam-fx.ts` | What THE SEAM leaves behind a frame: so far only the **reseal** |
+| `packages/render/src/seam-fx.ts` | What THE SEAM leaves behind a frame (§26, *Presentation*) |
 | `packages/render/src/seam-hold.ts` | **THE SEAM's two steps answered by sending nothing** (§26 rows 10 and 16, `sim/seam-step.ts`) |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |

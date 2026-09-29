@@ -160,7 +160,7 @@ export const INGEST_SILENT_BOSS_C = [
   "valveSparkHit",
   "valveOpen",
   "valveOut",
-  // THE SEAM's nine, for the same reason (`packages/audio/src/bind-seam.ts`).
+  // THE SEAM's nine: what outlives a frame is `seam-fx.ts`', read above the loop.
   "seamEnter",
   "seamLight",
   "seamDim",
