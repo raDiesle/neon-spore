@@ -313,7 +313,12 @@ by side with *identical* input. The agent produces variants; you pick.
 
 ## Model choice
 
-There is none: the owner works on Opus 5 only. Delegation to the worker model
+There is none: the owner works on **Opus 5.5 at high effort**, and never on the
+older Opus 5 (the owner, 29 September 2026). `.claude/settings.json` sets both
+as the default for every session on this repository — `"model":
+"claude-opus-5-5"` and `"effortLevel": "high"` — so a session that opens on
+anything else was switched by hand in the picker, and is switched back.
+Delegation to the worker model
 is measured, not assumed: building the same module twice found delegating cost
 6.8 times as much. See `docs/delegation-cost.md` for the figures and when
 delegation still pays for itself.

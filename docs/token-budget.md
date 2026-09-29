@@ -7,7 +7,7 @@ to change the wrong thing.
 
 ## How the work is actually done
 
-One session at a time, on Opus 5, tasks one after another in it, with the
+One session at a time, on Opus 5.5 at high effort, tasks one after another in it, with the
 conversation compacted automatically at about 200k tokens. There is no model
 choice to make and no parallel lane to schedule. So the bill has two parts
 and only two levers:

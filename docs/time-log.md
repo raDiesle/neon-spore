@@ -29248,3 +29248,14 @@ throws several things; it had to be narrowed until switching one receipt off
 failed it.
 
 *Measured: 192 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — Opus 5.5 at high effort is the default, never Opus 5
+
+- reading: 5 min. The model-choice passages in `working-with-claude.md`,
+  `teaching.md`, `lane-speed.md`, `token-budget.md`; the settings keys.
+- writing: 5 min. `model` and `effortLevel` in `.claude/settings.json`, two docs.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the settings keys had to be looked up, not remembered.
