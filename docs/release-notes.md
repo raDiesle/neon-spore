@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 8d3210ad4 — bun run compaction: the compaction trial, before against after
+
+Reads this checkout's transcripts and its worktrees' (never another project's), and the decisions defer-compact.ts now logs to claude-compaction.log in the common git dir, and prints the ten days before the 29 September cutover against everything since: cuts that fell mid-item, ceiling hits, "Prompt is too long", checkpoints read, context and seconds per call, minutes per item. Each row says what it is expected to do. Reviewed on 6 October 2026.
+
 ## 2026-09-29 · 5eca62420 — The director edits THE SCOUT's levels: motes and hazards on the grid, a clock and speeds per level
 
 THE SCOUT's panel is an editor now, the owner's "I would like to create my own in director". There is a tab for each level, plus + and REMOVE. A press walks a cell through empty, mote, hazard going right and hazard going left. Each hazard has a speed with − and +, each level has a clock, and a note says when a level cannot be won. A save writes the levels back into packages/content/src/scout-arenas.ts. The comment over each level is kept, and a save that changed nothing writes the file byte for byte. PINBALL's table tabs never moved off the first; they do now.
