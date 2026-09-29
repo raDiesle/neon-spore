@@ -29604,3 +29604,5 @@ Bottleneck: the look at phone size — the first pacman was fourteen pixels acro
 
 Bottleneck: landing — a trunk moving faster than a full check, and one
 of its moves rewriting a file this lane had edited.
+
+*Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

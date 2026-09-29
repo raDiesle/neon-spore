@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 3bdc2ff87 — One cue frame and one markAt for every cue reading
+
+How far a cue's frame reaches is now written once, in `boss-cue-frame.ts`: THE CHOIR's frame and the wider one used from THE GIMBAL on, a `cueFrame` that turns either into pixels, and the `markAt` that seventeen readings had each written for themselves. The thirty-nine readings and THE PLUMB's marks call it, so resizing a frame is one edit. A copies-table row stops the sizes being typed again, and the file is in the catalogue of marks and controls. No number changed, so no frame of the game moved.
+
 ## 2026-09-29 · 039899622 — THE SCOUT looks like an alien pacman, throws rings when let go, and burns a fuse instead of words
 
 The little ship is a lobed violet pacman with a chomping mouth, a green slit eye and two feelers; the mouth is its heading, so only the pilot sees it open. Two rings come off it each time it is let go. The mouth's two-tile reach is dashed round home while a mote is aboard, and amber streams into the mouth while it sucks. The pilot's glimpse of the arena tears in and out like THE FLIP's projection, the hazard that caught the ship is shown on both screens, and the words over the arena are gone: its clock is the boss fuse across the top. A look the owner asked for by name.
