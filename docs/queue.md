@@ -462,6 +462,7 @@ the current version is unlovely rather than wrong), so it waits on the
 owner picking it, not on a lane landing it straight to the field.
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-29, claude/queue-21-the-spool-the-story-between-the-ribs-the-simu (claim: claude/queue-the-stares-turn-is-a-squash-and-shear-not-a-plac)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/keel-draw.ts`, `packages/render/src/keel-marks.ts`
 
 *THE KEEL has a body: six iron segments arched over the field, locking rigid one joint at a time* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
