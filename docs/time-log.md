@@ -28997,3 +28997,18 @@ Bottleneck: reading — the twelve registrations outside the sim are only
 found from one another, and the PLUMB lane's diff was the map.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GRINDSTONE's spent axle grinds on while both hands are left off it
+
+- reading: 5 min. THE GRINDSTONE's sim, hand, hash, audio and rig, beside
+  THE SLING's cool that was the template.
+- writing: 10 min. `grindstone-fade.ts` and its wiring, the rig's `answer`
+  and `toStep`, eight fade tests, the autopilot row, the OWED entry, §11.50
+  and the status row.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. Two silent-list pages and the director's field page
+  stood at the size limit; THE HASP's story rows moved to page e.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the silent-event lists are cut by boss, so every
+boss that grows two events pushes a page over 250 lines.

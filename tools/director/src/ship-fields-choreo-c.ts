@@ -213,7 +213,8 @@ export const CHOREO_FIELD_GROUP_C = {
   slingFreeBeats: "THE SLING — the boss two draws loose, then shoot into",
   // GrindstoneConfig — the rests around the steps, the grit a reversal
   // shaves and a beat regrows, the film a second pass starts from, the grace
-  // a clamp is given, and the snap free (`config-grindstone.ts`).
+  // a clamp is given, the spent axle's fade and the snap free
+  // (`config-grindstone.ts`).
   grindstoneStillBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneRestBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFreeBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
@@ -221,6 +222,8 @@ export const CHOREO_FIELD_GROUP_C = {
   grindstoneRegrowMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFilmMilli: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneGraceBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneFadeBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
+  grindstoneFadeJars: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   // CystConfig — the rests around the steps, the tap's window, the grace a
   // stilled flank is given, the split, and the gaps a flank rests at and
   // counts as shut below (`config-cyst.ts`).

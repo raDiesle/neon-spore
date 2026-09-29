@@ -772,31 +772,22 @@ with no shipped alternative. Add the pose to the STATES sheet (sling OWED
 in `tools/director/test/boss-states.test.ts` loses `cool`) and draw it
 again in `sling-frame.test.ts`.
 
-## §33 THE GRINDSTONE — a revised simulation lane, a grind left to die out
+## §33 THE GRINDSTONE — row 11's fading grind, the look
 
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-29, claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling (claim: claude/queue-33-the-grindstone-a-revised-simulation-lane-a-gr)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-29, claude/queue-33-the-grindstone-a-revised-simulation-lane-a-gr
+- **Files:** `packages/render/src/grindstone-pose.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/test/grindstone-frame.test.ts`, `tools/director/src/`
 
-THE GRINDSTONE's fight ran ten beats deep on `RUB` and `CHORD` — grind a
-flat, clamp the caliper, guard a fire step, never once ask the pair to do
-neither. Row 11 is new: the spent axle grinds faintly against the locked
-caliper for three beats, and the pair passes it by sending nothing — no
-grind, no chord (`SENDING NOTHING`, a reuse, already built for THE KEEL,
-THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE
-SLING, THE HALTER and THE FLUE — no `gesture-unbuilt.ts` edit needed). A
-reflex grind or chord jars the caliper loose and costs one extra beat. THE
-SLOW, Presentation, Animation (five poses to six), Colour, Payoff and Cost
-sections are updated to match; one new boolean for row 11's hold. `bun run
-check` proves the sim half; the sixth pose is a look task, queued
-separately once this lane lands.
-
-The autopilot has a hand for it now (`hands/boss-hands-grindstone.ts`,
-`tools/director/test/autopilot-grindstone.test.ts`): it rubs and clamps
-only on a lit `left`/`right`/`clamp` step, so row 11 should need nothing of
-it — add the row to that test's expectations and prove it sends nothing.
+The fade is in the simulation (`sim/grindstone-fade.ts`): after the last
+shot the wheel is in phase `fade` for `grindstoneFadeBeats`, a beat more
+per `jars`, and `grindstoneFade` / `grindstoneJar` are on the silent lists,
+read off the state. Nothing draws it yet — the wheel stands as it did after
+the third hit. Draw §33's sixth pose: the spent axle's grind dying out,
+fading from white to the wheel's own grey across the phase, no cannon
+colour, the caliper straining faintly untouched; a jar jolting the caliper
+on that side. A look with no shipped alternative. Add the pose to the
+STATES sheet (grindstone OWED in `tools/director/test/boss-states.test.ts`
+loses `fade`, and the entry goes) and draw it again in
+`grindstone-frame.test.ts`.
 
 ## Unverified at 4b5e7e87c: GRAPHICS → EFFECTS: the five buttons, and each page op…
 

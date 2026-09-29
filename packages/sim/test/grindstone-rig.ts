@@ -4,7 +4,9 @@ import {
   type GrindstoneState,
   type GrindstoneStep,
   grindstoneBoss,
+  grindstoneLitStep,
 } from "../src/grindstone.js";
+import { grindstoneStruck } from "../src/grindstone-shot.js";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -20,7 +22,7 @@ import type { Bullet, Color, DragTarget } from "../src/types.js";
 /**
  * THE GRINDSTONE's test rig: a script installed, a seat's thumb rubbing its
  * flat or its pads put down on its jaw as the pair would, and a step driven
- * to its answer. Shared by `grindstone.test.ts`.
+ * to its answer. Shared by `grindstone.test.ts` and `grindstone-fade.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -155,4 +157,33 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: GrindstoneStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** The lit step answered: its flat ground clean, its clamp held home, or its axle shot in colour. */
+export function answer(world: World): void {
+  const step = grindstoneLitStep(grindstone(world));
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") {
+    grindstoneStruck(world, shot(rightColor(step)));
+    return;
+  }
+  if (step.ask === "clamp") {
+    clampAll(world);
+    runUntil(world, (w) => grindstone(w).phase !== "lit");
+    for (const side of [0, 1] as const)
+      for (let p = 0; p < GRINDSTONE_PADS; p++) pad(world, side, p, false);
+    return;
+  }
+  grindClean(world, step.ask === "left" ? 0 : 1);
+}
+
+/** A wheel with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number): World {
+  const world = install();
+  toLit(world);
+  while (grindstone(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }

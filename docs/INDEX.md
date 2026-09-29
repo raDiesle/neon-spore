@@ -499,6 +499,7 @@ by hand never moves.
 | `packages/sim/src/grindstone-hash.ts` | What THE GRINDSTONE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/grindstone-shot.ts` | **THE GRINDSTONE's shot**: the lit axle, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/grindstone-step.ts` | THE GRINDSTONE's clock: the wheel settling, each step lighting |
+| `packages/sim/src/grindstone-fade.ts` | **THE GRINDSTONE's fade** (§33 row 11): the last shot is in |
 | `packages/sim/src/grindstone.ts` | THE GRINDSTONE: a gritted wheel on a fixed axle mid-hull, each of its two flats ground clean by its own seat |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/gorge-hand.ts` | **The two hands on THE GORGE**: player 1's pinch on a full intake and player 2's pry on the mouth |
@@ -1893,7 +1894,7 @@ by hand never moves.
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |
 | `packages/render/src/effects-ingest-silent-boss-c.ts` | **The bosses' half of the silent list, the third page** — THE WELL's four and THE GIMBAL's ten |
 | `packages/render/src/effects-ingest-silent-boss-d.ts` | **The bosses' half of the silent list, the fourth page** — THE SLING's twelve, and the bosses after it |
-| `packages/render/src/effects-ingest-silent-boss-e.ts` | **The bosses' half of the silent list, the fifth page** — THE GOVERNOR's fourteen, and the bosses after it |
+| `packages/render/src/effects-ingest-silent-boss-e.ts` | **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE GOVERNOR's fourteen |
 | `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
@@ -2357,7 +2358,7 @@ by hand never moves.
 | `packages/audio/src/bind-gauge.ts` | THE GAUGE's five, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gall.ts` | Whether an event is THE GALL's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-grindstone.ts` | THE GRINDSTONE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-grindstone.ts` | Whether an event is THE GRINDSTONE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |

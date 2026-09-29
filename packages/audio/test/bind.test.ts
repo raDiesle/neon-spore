@@ -579,6 +579,8 @@ const SAMPLES: Record<string, SimEvent> = {
   grindstoneLoose: { type: "grindstoneLoose", col: 5 },
   grindstoneHit: { type: "grindstoneHit", col: 5, hits: 2 },
   grindstoneMiss: { type: "grindstoneMiss", col: 5 },
+  grindstoneFade: { type: "grindstoneFade", col: 5 },
+  grindstoneJar: { type: "grindstoneJar", col: 5, side: 1 },
   grindstoneFree: { type: "grindstoneFree", col: 5 },
   grindstoneOut: { type: "grindstoneOut", col: 5 },
   cystEnter: { type: "cystEnter", col: 5 },
@@ -814,6 +816,7 @@ describe("bindings", () => {
   // one quiet beat on the bob (§31, *Presentation*), and the pull that
   // breaks it is `plumbFlare`, which is heard. `slingCool` is the eighth, and
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
+  // `grindstoneFade` is the ninth, THE GRINDSTONE's: `grindstoneJar` is heard.
   const SILENT_BY_DESIGN = new Set([
     "needWave",
     "choirMerge",
@@ -823,6 +826,7 @@ describe("bindings", () => {
     "fleetHold",
     "plumbBleed",
     "slingCool",
+    "grindstoneFade",
   ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {

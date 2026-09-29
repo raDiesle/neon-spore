@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { cystCue } from "./bind-cyst.js";
 import { davitCue } from "./bind-davit.js";
-import { grindstoneCue } from "./bind-grindstone.js";
+import { grindstoneCue, isGrindstoneEvent } from "./bind-grindstone.js";
 import { halterCue, isHalterEvent } from "./bind-halter.js";
 import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
@@ -49,10 +49,12 @@ type LaterEvent = Extract<
 
 export function laterCue(e: LaterEvent, cols: number): Cue | null {
   // THE HALTER whole, by its prefix: this page had no room for fourteen cases.
-  // THE PLUMB the same, the day its bleed brought two more.
+  // THE PLUMB the same, the day its bleed brought two more, and THE SLING and
+  // THE GRINDSTONE the days their cool and their fade did.
   if (isHalterEvent(e)) return halterCue(e, cols);
   if (isPlumbEvent(e)) return plumbCue(e, cols);
   if (isSlingEvent(e)) return slingCue(e, cols);
+  if (isGrindstoneEvent(e)) return grindstoneCue(e, cols);
   switch (e.type) {
     case "keelEnter":
     case "keelLight":
@@ -173,20 +175,6 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "trivetCollapse":
     case "trivetOut":
       return trivetCue(e, cols);
-    case "grindstoneEnter":
-    case "grindstoneLight":
-    case "grindstoneShave":
-    case "grindstoneClear":
-    case "grindstoneRegrit":
-    case "grindstoneBite":
-    case "grindstoneSlip":
-    case "grindstoneClamp":
-    case "grindstoneLoose":
-    case "grindstoneHit":
-    case "grindstoneMiss":
-    case "grindstoneFree":
-    case "grindstoneOut":
-      return grindstoneCue(e, cols);
     case "cystEnter":
     case "cystLight":
     case "cystStill":

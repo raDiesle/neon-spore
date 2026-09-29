@@ -33,9 +33,11 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   rime: ["lit", "rest", "shattered"],
   // THE PLUMB, THE SLING and THE DAVIT: less the stills posed for their
   // swing's slots (`poses-bosses-hands-mechanisms.ts`), and THE PLUMB's bleed,
-  // posed with row 11's look. THE SLING's cool is owed until its own lands.
+  // posed with row 11's look. THE SLING's cool is owed until its own lands,
+  // and THE GRINDSTONE's fade the same, its other states all posed.
   plumb: ["lit", "rest", "free"],
   sling: ["lit", "rest", "free", "cool"],
+  grindstone: ["fade"],
   cyst: ["still", "lit", "frozen", "rest", "split"],
   davit: ["lit", "rest", "spent"],
   halter: ["alarmed", "lit", "pause", "spent"],

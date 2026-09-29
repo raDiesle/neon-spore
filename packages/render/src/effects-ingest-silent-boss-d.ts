@@ -52,7 +52,7 @@ export const INGEST_SILENT_BOSS_D = [
   // they draw is read off the state (`sim/vise-guard.ts`, `sim/vise-shot.ts`).
   "viseBlock",
   "viseSeedBurst",
-  // THE SLING's twelve: nothing is drawn yet, so nothing outlives a frame
+  // THE SLING's fourteen: nothing is drawn yet, so nothing outlives a frame
   // (`packages/audio/src/bind-sling.ts`).
   "slingEnter",
   "slingLight",
@@ -68,7 +68,7 @@ export const INGEST_SILENT_BOSS_D = [
   "slingSnap",
   "slingFree",
   "slingOut",
-  // THE GRINDSTONE's thirteen: what outlives a frame is `grindstone-fx.ts`', read above the loop.
+  // THE GRINDSTONE's fifteen: what outlives a frame is `grindstone-fx.ts`', read above the loop.
   "grindstoneEnter",
   "grindstoneLight",
   "grindstoneShave",
@@ -80,6 +80,8 @@ export const INGEST_SILENT_BOSS_D = [
   "grindstoneLoose",
   "grindstoneHit",
   "grindstoneMiss",
+  "grindstoneFade",
+  "grindstoneJar",
   "grindstoneFree",
   "grindstoneOut",
   // THE CYST's seventeen: what outlives a frame is `cyst-fx.ts`', read above
@@ -224,18 +226,4 @@ export const INGEST_SILENT_BOSS_D = [
   "ratchetWind",
   "ratchetWound",
   "ratchetUnwind",
-  // THE HASP's story between the hasps (`packages/audio/src/bind-hasp.ts`):
-  // what the door does is read off its phase (`hasp-story.ts`), never off these.
-  "haspRattle",
-  "haspHush",
-  "haspSlam",
-  "haspBackspin",
-  "haspCatch",
-  "haspSpoke",
-  "haspRust",
-  "haspCrack",
-  "haspBurst",
-  "haspSway",
-  "haspSteady",
-  "haspRough",
 ] as const satisfies readonly SimEvent["type"][];

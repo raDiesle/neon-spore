@@ -6,6 +6,7 @@ import {
   grindstoneBoss,
   grindstoneClamped,
 } from "./grindstone.js";
+import { grindstoneStirred } from "./grindstone-fade.js";
 import { grindstoneCleared } from "./grindstone-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -26,6 +27,10 @@ import type { World } from "./world.js";
  * a pad, its `id` naming which, kept as a mask whenever the wheel is present
  * so a clamp already down counts from the step's first beat; a pad lifting
  * in a lit clamp that was held starts its count again.
+ *
+ * **A fresh reversal or a pad put down while the spent axle's grind dies
+ * out** is the reflex the fade asks the pair not to make
+ * (`grindstone-fade.ts`); a lift costs nothing.
  */
 export function grindstoneHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -50,6 +55,7 @@ function ground(world: World, s: GrindstoneState, side: 0 | 1, id: number | null
   const count = Math.max(0, id);
   const fresh = count >= s.rubs[side] ? count - s.rubs[side] : count;
   s.rubs[side] = count;
+  if (fresh > 0) grindstoneStirred(world, s, side);
   if (fresh === 0 || grinding(s) !== side) return;
   s.rubbed[side] = true;
   s.gritMilli[side] = Math.max(0, s.gritMilli[side] - fresh * world.cfg.grindstoneShaveMilli);
@@ -64,6 +70,7 @@ function jaw(world: World, s: GrindstoneState, side: 0 | 1, pad: number, on: boo
   const was = grindstoneClamped(s);
   const bit = 1 << pad;
   s.padsDown[side] = on ? s.padsDown[side] | bit : s.padsDown[side] & ~bit;
+  if (on) grindstoneStirred(world, s, side);
   if (!was || grindstoneClamped(s)) return;
   s.heldBeats = 0;
   world.events.push({ type: "grindstoneSlip", side, col: midCol(world.cfg) });

@@ -200,7 +200,7 @@ export const SILENT_BOSS_C = [
   "plumbMiss",
   "plumbFree",
   "plumbOut",
-  // THE SLING's twelve, the same (`packages/audio/src/bind-sling.ts`).
+  // THE SLING's fourteen, the same (`packages/audio/src/bind-sling.ts`).
   "slingEnter",
   "slingLight",
   "slingSlack",
@@ -215,7 +215,7 @@ export const SILENT_BOSS_C = [
   "slingSnap",
   "slingFree",
   "slingOut",
-  // THE GRINDSTONE's thirteen, no burst from this table: each is thrown above
+  // THE GRINDSTONE's fifteen, no burst from this table: each is thrown above
   // the loop by its own fx file (`grindstone-fx.ts`).
   "grindstoneEnter",
   "grindstoneLight",
@@ -228,6 +228,8 @@ export const SILENT_BOSS_C = [
   "grindstoneLoose",
   "grindstoneHit",
   "grindstoneMiss",
+  "grindstoneFade",
+  "grindstoneJar",
   "grindstoneFree",
   "grindstoneOut",
 ] as const satisfies readonly SimEvent["type"][];

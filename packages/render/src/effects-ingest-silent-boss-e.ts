@@ -1,7 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 
 /**
- * **The bosses' half of the silent list, the fifth page** — THE GOVERNOR's
+ * **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE GOVERNOR's
  * fourteen, and the bosses after it.
  *
  * Opened on 27 September 2026 because page four stood at 235 lines and
@@ -9,8 +9,26 @@ import type { SimEvent } from "@neon-spore/sim";
  * is cut on, the order the bosses were built in; `INGEST_SILENT` spreads it in
  * place, so every row still means *this event leaves nothing behind for the
  * next frame*.
+ *
+ * THE HASP's story came over on 29 September 2026, when THE SLING's cool
+ * and THE GRINDSTONE's fade took page four within a line of the wall: the
+ * last rows on the page go, never the boss being worked on.
  */
 export const INGEST_SILENT_BOSS_E = [
+  // THE HASP's story between the hasps (`packages/audio/src/bind-hasp.ts`):
+  // what the door does is read off its phase (`hasp-story.ts`), never off these.
+  "haspRattle",
+  "haspHush",
+  "haspSlam",
+  "haspBackspin",
+  "haspCatch",
+  "haspSpoke",
+  "haspRust",
+  "haspCrack",
+  "haspBurst",
+  "haspSway",
+  "haspSteady",
+  "haspRough",
   // THE GOVERNOR's fourteen, silent until its look lane draws them: the
   // needle, the pads and the hub are read off the state every frame.
   "governorEnter",

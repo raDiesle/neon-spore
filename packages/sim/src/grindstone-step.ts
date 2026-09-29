@@ -9,13 +9,15 @@ import {
   grinding,
   grindstoneClamped,
 } from "./grindstone.js";
+import { openFade, stepFade } from "./grindstone-fade.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
  * THE GRINDSTONE's clock: the wheel settling, each step lighting, the lit
  * flat regritting through a beat nobody ground it, the beats a clamp is held
- * being counted, a window running out, and the snap free.
+ * being counted, a window running out, the spent axle's grind dying out
+ * (`grindstone-fade.ts`), and the snap free.
  *
  * A pass is heard and answered on the tick (`grindstone-hand.ts`), and the
  * shot where a bolt leaves the top of the field (`grindstone-shot.ts`); each
@@ -48,6 +50,7 @@ export function stepGrindstone(world: World, s: GrindstoneState): void {
   if (s.phase === "still" && since >= cfg.grindstoneStillBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.grindstoneRestBeats) next(world, s);
   else if (s.phase === "lit") lit(world, s, since);
+  else if (s.phase === "fade" && stepFade(world, s, since)) free(world, s);
 }
 
 /** How long the lit step stays lit: a clamp's own beats and the grace, or a pass's or a shot's beats.
@@ -133,14 +136,12 @@ export function grindstoneAnswered(world: World, s: GrindstoneState): void {
   rest(world, s, true);
 }
 
-/** The next step lights under THE SLOW; or, with the script done, the wheel spins free. */
+/** The next step lights under THE SLOW; or, with the script done, the spent axle's grind dies out. */
 function next(world: World, s: GrindstoneState): void {
   const step = s.steps[s.cursor];
   const col = midCol(world.cfg);
   if (step === undefined) {
-    s.phase = "free";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "grindstoneFree", col });
+    openFade(world, s);
     return;
   }
   s.phase = "lit";
@@ -162,6 +163,14 @@ function miss(world: World, s: GrindstoneState): void {
   closeSlow(world);
   rest(world, s, true);
   bossStrikesHull(world, "grindstone", col);
+}
+
+/** The grind has died out: THE SLOW lets go, the caliper snaps off and the wheel spins free. */
+function free(world: World, s: GrindstoneState): void {
+  closeSlow(world);
+  s.phase = "free";
+  s.phaseBeat = world.beat;
+  world.events.push({ type: "grindstoneFree", col: midCol(world.cfg) });
 }
 
 function rest(world: World, s: GrindstoneState, advance: boolean): void {

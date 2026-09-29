@@ -9919,8 +9919,10 @@ each on its own jaw.
 counts one, up to its step's beats; a clamp stays lit
 `grindstoneGraceBeats` past its count. An answered step closes THE SLOW and
 the wheel rests `grindstoneRestBeats` before the next lights. With the
-script done the wheel spins free, and rolls away `grindstoneFreeBeats`
-before the wave may end.
+script done the spent axle grinds faintly on for `grindstoneFadeBeats`
+under THE SLOW, asking both seats to leave the flats and jaws alone (§33
+row 11, `sim/grindstone-fade.ts`); then the wheel spins free, and rolls
+away `grindstoneFreeBeats` before the wave may end.
 
 **The answers.** A flat is heard as THE RIME hears a half: the drag's `id`
 is the thumb's reversals since it went down, only the ones since the last
@@ -9933,9 +9935,11 @@ wheel is present, and a pad lifting from a held clamp slips it
 (`grindstoneSlip`) and starts its count again. A shot is judged where a
 bolt leaves the top of the field (`sim/grindstone-shot.ts`): only with the
 caliper locked, only while a fire step is lit, only in the middle column,
-and only in its colour unless it is `either`.
+and only in its colour unless it is `either`. A fresh reversal or a pad put
+down while the grind dies out jars the caliper loose: the first in a beat
+costs the fade a beat, and so does a pad still down as a beat turns.
 
-**Where this departs from the design, and why.** Eight places.
+**Where this departs from the design, and why.** Nine places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §33's
   rows 6 and 8 say "ordinary hull hit" and row 10 "stays lit". This game
@@ -9968,18 +9972,28 @@ and only in its colour unless it is `either`.
 - **The passes and the hits are the health together.** §33 names two flats
   plus an axle of three hits; the script is nine steps, and the wheel
   spins free when the last is answered, which is the third hit.
+- **Row 11's reflex grind costs a beat, at most `grindstoneFadeJars`.**
+  §33 has a grind or a chord "jar the caliper loose"; a pad left down would
+  keep it forever, so it is THE PLUMB's bleed rule (§11.48): a beat anyone
+  ground or put a pad down is a beat more, capped, and a lift or a thumb
+  resting without turning back costs nothing. Nothing is lost — the axle is
+  spent and the wave is won either way.
 
 **The simulation lane has landed.** **The touch sender has too**
 (`render/src/grindstone-grip.ts`, `render/src/rub.ts`, `packages/render/src/rub-turns.ts`):
 a thumb on a seat's own flat is a rub whose turns its host counts, and a
-finger on its jaw one pad of THE TRIVET's chord. Its thirteen events stay on the render package's silent-event lists, as
+finger on its jaw one pad of THE TRIVET's chord. Its fifteen events stay on the render package's silent-event lists, as
 every boss with its own fx file's do — they are thrown above the loop
 (`grindstone-fx.ts`) — and on `tools/director/src/sound-link-none-d.ts`, a
-fixture and no body on a grid. The thirteen sounds *are* bound
-(`audio/src/bind-grindstone.ts`), heard where they happen, the shave
-pitched up as the flat comes clean, the clear per pass and the hit per
-hit. The autopilot hand plays it to the end
-(`tools/director/test/autopilot-grindstone.test.ts`).
+fixture and no body on a grid. The sounds *are* bound
+(`audio/src/bind-grindstone.ts`), fourteen of the fifteen events, heard
+where they happen, the shave pitched up as the flat comes clean, the clear
+per pass and the hit per hit: the fade is silent by design, and the jar
+that breaks it is the slip's scrape pitched up. The autopilot hand plays it
+to the end and sends nothing through the fade
+(`tools/director/test/autopilot-grindstone.test.ts`). **Row 11's fade is in
+the simulation only** (29 September 2026): the wheel stands as it did after
+the last shot until its picture, the sixth pose, lands.
 
 **The look** (`render/src/grindstone-draw.ts`, `grindstone-shape.ts`,
 `grindstone-pose.ts`, `grindstone-marks.ts`, half one of lane two). The
@@ -10026,7 +10040,13 @@ does nothing, and one in its colour is a hit; a fire step run out is the
 wave; a clamp is counted only with every pad of both jaws down by their own
 seats, slips when a pad lifts, counts pads already down, is given its
 grace, and run out springs the caliper and is asked again; and a script
-answered whole spins the wheel free and ends the fight. Whether any of it
+answered whole lets the grind die out, spins the wheel free and ends the
+fight. The fade (`sim/test/grindstone-fade.test.ts`) opens under THE SLOW,
+lasts its beats left alone, takes a beat longer for a grind on either flat
+or a pad on either jaw, one beat for a whole rub and a chord in one beat,
+nothing for a lift, a resting thumb or the wrong seat, a beat for every
+beat a pad is left down up to the cap, and counts a pad still down from the
+last shot from its first beat. Whether any of it
 *reads* — whether rubbing a flat under a voice feels like grinding — is the
 owner's eye, after lane two and the touch sender, on two real phones.
 

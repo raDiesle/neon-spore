@@ -38,9 +38,11 @@ export const GRINDSTONE_FULL_MILLI = 1000;
 
 /**
  * Where the scene is: settling, a step lit and waiting, the wheel resting
- * between steps, and the caliper snapped off with the wheel spinning free.
+ * between steps, the caliper snapped off with the wheel spinning free, and
+ * the spent axle's grind dying out before that (`grindstone-fade.ts`) —
+ * appended last, so the hash's indices keep their places.
  */
-export const GRINDSTONE_PHASES = ["still", "lit", "rest", "free"] as const;
+export const GRINDSTONE_PHASES = ["still", "lit", "rest", "free", "fade"] as const;
 export type GrindstonePhase = (typeof GRINDSTONE_PHASES)[number];
 
 /**
@@ -90,6 +92,10 @@ export interface GrindstoneState {
   padsDown: [number, number];
   /** Beats of the lit clamp step both jaws have been held. */
   heldBeats: number;
+  /** Beats a reflex grind or chord has added to the fade, up to `grindstoneFadeJars`. */
+  jars: number;
+  /** Whether this beat of the fade has already been stirred by a grind or a chord. */
+  stirred: boolean;
 }
 
 export function grindstoneBoss(world: World): GrindstoneState | null {
@@ -143,5 +149,7 @@ export function freshGrindstone(beat: number, steps: readonly GrindstoneStep[]):
     rubbed: [false, false],
     padsDown: [0, 0],
     heldBeats: 0,
+    jars: 0,
+    stirred: false,
   };
 }

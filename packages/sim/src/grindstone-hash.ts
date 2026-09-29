@@ -26,6 +26,8 @@ export function grindstoneHashParts(s: GrindstoneState): number[] {
     s.padsDown.length,
     ...s.padsDown,
     s.heldBeats,
+    s.jars,
+    s.stirred ? 1 : 0,
     s.steps.length,
   ];
   for (const step of s.steps) {

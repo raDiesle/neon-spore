@@ -1,10 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import { GRINDSTONE_FULL_MILLI, GRINDSTONE_PADS, grindstoneLitStep } from "../src/grindstone.js";
 import { grindstoneStruck } from "../src/grindstone-shot.js";
-import type { World } from "../src/index.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import {
+  answer,
   beats,
   CFG,
   clampAll,
@@ -14,12 +14,12 @@ import {
   liftFlat,
   MID,
   pad,
-  rightColor,
   rub,
   runUntil,
   SCRIPT,
   shot,
   toLit,
+  toStep,
 } from "./grindstone-rig.js";
 
 /**
@@ -37,35 +37,6 @@ import {
  * that a shot outside its step, off the axle, unlocked or in the wrong colour
  * does nothing, and that a shot run out is the wave.
  */
-
-/** The lit step answered: its flat ground clean, its clamp held home, or its axle shot in colour. */
-function answer(world: World): void {
-  const step = grindstoneLitStep(grindstone(world));
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") {
-    grindstoneStruck(world, shot(rightColor(step)));
-    return;
-  }
-  if (step.ask === "clamp") {
-    clampAll(world);
-    runUntil(world, (w) => grindstone(w).phase !== "lit");
-    for (const side of [0, 1] as const)
-      for (let p = 0; p < GRINDSTONE_PADS; p++) pad(world, side, p, false);
-    return;
-  }
-  grindClean(world, step.ask === "left" ? 0 : 1);
-}
-
-/** A wheel with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (grindstone(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("the wheel arriving", () => {
   it("comes in gritted and dark, then lights the left flat under THE SLOW", () => {
@@ -241,11 +212,13 @@ describe("a clamp", () => {
 });
 
 describe("the end", () => {
-  it("answered whole, the wheel spins free and the fight ends", () => {
+  it("answered whole, the grind dies out, the wheel spins free and the fight ends", () => {
     const world = toStep(8);
     grindstoneStruck(world, shot("red"));
     expect(grindstone(world).hits).toBe(3);
     const seen = runUntil(world, (w) => w.boss === null);
+    expect(seen.has("grindstoneFade")).toBe(true);
+    expect(seen.has("grindstoneJar")).toBe(false);
     expect(seen.has("grindstoneFree")).toBe(true);
     expect(seen.has("grindstoneOut")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);

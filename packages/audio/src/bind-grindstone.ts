@@ -1,8 +1,15 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
+type GrindstoneSimEvent = Extract<SimEvent, { type: `grindstone${string}` }>;
+
+/** Whether an event is THE GRINDSTONE's, so a page of the chain can hand it over whole. */
+export function isGrindstoneEvent(e: SimEvent): e is GrindstoneSimEvent {
+  return e.type.startsWith("grindstone");
+}
+
 /**
- * THE GRINDSTONE's thirteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE GRINDSTONE's fifteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the wheel turns over `midCol`, so every one of
  * them is in the middle.
@@ -10,11 +17,12 @@ import { type Cue, panForCol } from "./bind.js";
  * **A shave rises as the flat comes clean, and a clear and a hit rise as they
  * add up**, so how far the pair are along can be heard without either of them
  * looking.
+ *
+ * **The fade is silent by design** (§33, *Presentation*): the one quiet beat
+ * on the whole wheel, and what breaks it is a grind or a chord — the jaw's
+ * slip, pitched up, as the caliper jars loose.
  */
-export function grindstoneCue(
-  e: Extract<SimEvent, { type: `grindstone${string}` }>,
-  cols: number,
-): Cue {
+export function grindstoneCue(e: GrindstoneSimEvent, cols: number): Cue | null {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "grindstoneEnter":
@@ -40,6 +48,10 @@ export function grindstoneCue(
       return { id: "boss.grindstoneHit", pan, pitch: 1 + Math.max(0, e.hits - 1) * 0.08 };
     case "grindstoneMiss":
       return { id: "boss.grindstoneMiss", pan };
+    case "grindstoneFade":
+      return null;
+    case "grindstoneJar":
+      return { id: "boss.grindstoneSlip", pan, pitch: 1.25 };
     case "grindstoneFree":
       return { id: "boss.grindstoneFree", pan };
     case "grindstoneOut":

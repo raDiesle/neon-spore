@@ -38,7 +38,11 @@ export type GrindstoneEvent =
   | ({ type: "grindstoneHit"; hits: number } & GrindstoneColEvent)
   /** A fire step ran out with the axle unshot: the hull takes it. */
   | ({ type: "grindstoneMiss" } & GrindstoneColEvent)
-  /** The script is done: the caliper snaps off and the wheel spins free. */
+  /** The script is done: the spent axle grinds faintly as it dies out, both hands to be left off it. */
+  | ({ type: "grindstoneFade" } & GrindstoneColEvent)
+  /** A reflex grind or chord while the grind dies out jars the caliper loose: the fade takes a beat longer. */
+  | ({ type: "grindstoneJar"; side: 0 | 1 } & GrindstoneColEvent)
+  /** The grind has died out: the caliper snaps off and the wheel spins free. */
   | ({ type: "grindstoneFree" } & GrindstoneColEvent)
   /** The freed wheel has spun away `grindstoneFreeBeats`; the wave may end. */
   | ({ type: "grindstoneOut" } & GrindstoneColEvent);
