@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 02c80cda9 — THE MAZE's refusal names no part, since only the string is ever refused
+
+Since the shake either seat may hold the heart, so the only `mazeRefuse` the simulation sends is the navigator's hand on the string. The event drops its `part`, `mazeRefuse(world, player)` takes none, and the marks wash the string red without asking. Nothing drawn or heard changes.
+
 ## 2026-09-29 · a06226ee7 — Queue: keep a compaction from losing an item's intent, and move it to the item's end
 
 About half of all landed items had an automatic compaction fall inside them. Two entries: a PreCompact hook that writes the owner's words, the claimed entry and the diff stat to a checkpoint that after-compact.ts points at; and a PreCompact block that defers an automatic compaction until the item lands, up to a 320k ceiling, once it is proven that a blocked compaction does not stop the turn.
