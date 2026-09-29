@@ -1222,6 +1222,7 @@ by hand never moves.
 | `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE CHOIR's arrows against the two walls |
 | `packages/render/src/handles-cords.ts` | **The three cords**: THE MAZE's string, THE WARDEN's rope and THE LID's cord |
 | `packages/render/src/hex.ts` | Two `#rrggbb` colours mixed, as a `#rrggbb` colour |
+| `packages/render/src/headroom.ts` | **How far a body standing `tiles` above the grid has to come down to be whole on the canvas**, in pixels |
 | `packages/render/src/hull-frame.ts` | The hull's shape for one frame — split out of `hull.ts` so the geometry model (this file) and the drawing |
 | `packages/render/src/key-light.ts` | THE KEY LIGHT, ON A CANVAS |
 | `packages/render/src/keel-draw.ts` | **THE KEEL**: an exoskeletal spine of six segments arched along the top of the field like a stripped ribcage |

@@ -7,6 +7,7 @@ import {
   scuttleWindBeats,
   scuttleWinding,
 } from "@neon-spore/sim";
+import { headroomDrop } from "./headroom.js";
 import { type Layout, tileCX } from "./layout.js";
 import { type SlowSpan, slowHush } from "./slow-hush.js";
 
@@ -66,11 +67,29 @@ export const SOCKET_FLOOR_H = 0.03;
 export const PLATE_HALF_H = 0.1;
 /** How far the frame draws back up on the wind-up, in tiles. */
 const WIND_RISE = 0.3;
+/** The frame's pad above its top row's plates and below its bottom row's, in tiles. */
+const BOX_PAD_Y = 0.08;
+
+/**
+ * How far the frame stands above row 0 at its highest, in tiles: its top row,
+ * that row's plate and pad, and the whole wind-up — so on a stage short of room
+ * the frame comes down by what it is short (`headroomDrop`), and even drawn back
+ * it is never off the top of the canvas.
+ */
+function scuttleHeadroom(cfg: SimConfig): number {
+  const rows = SCUTTLE_ROWS.rise + (cfg.scuttleRows - 1) * SCUTTLE_ROWS.pitch;
+  return rows + SOCKET_HALF_H + BOX_PAD_Y + WIND_RISE;
+}
+
+/** Where row 0's top edge stands for the frame: the grid's, or lower where the stage is short of room. */
+export function scuttleTop(l: Layout, cfg: SimConfig): number {
+  return l.gridTop + headroomDrop(l, scuttleHeadroom(cfg));
+}
 
 /** The centre of socket `i`'s row, before any wind-up. */
 export function scuttleRowY(l: Layout, cfg: SimConfig, i: number): number {
   const fromBottom = cfg.scuttleRows - 1 - scuttleSocketRow(cfg, i);
-  return l.gridTop - l.tile * (SCUTTLE_ROWS.rise + fromBottom * SCUTTLE_ROWS.pitch);
+  return scuttleTop(l, cfg) - l.tile * (SCUTTLE_ROWS.rise + fromBottom * SCUTTLE_ROWS.pitch);
 }
 
 /** The centre of socket `i`, with the frame drawn back by `rise` pixels. */
@@ -86,7 +105,7 @@ export function scuttleBox(
   const first = scuttleSocket(l, cfg, 0);
   const last = scuttleSocket(l, cfg, cfg.scuttleRows * cfg.scuttleCols - 1);
   const padX = l.tile * (SOCKET_HALF_W + 0.1);
-  const padY = l.tile * (SOCKET_HALF_H + 0.08);
+  const padY = l.tile * (SOCKET_HALF_H + BOX_PAD_Y);
   return { left: first.x - padX, right: last.x + padX, top: first.y - padY, bottom: last.y + padY };
 }
 
@@ -226,25 +245,4 @@ export function scuttleFade(
   if (s.downBeat < 0) return 1;
   const beats = Math.max(1, cfg.scuttleOutBeats);
   return Math.max(0, 1 - (beat - s.downBeat + beatPhase) / beats);
-}
-
-/**
- * A socket's plate as a closed shape: a flat-topped lobe, wider than it is
- * tall, with its lower corners rounded off — a rock's outline squashed into
- * a slot, so that a row of them reads as plating and one hanging alone reads
- * as a thing that was plating a moment ago. `open` closes it inward, for the
- * frame on its way out; `half` is a hanging plate's slimmer half height.
- */
-export function scuttlePlatePath(l: Layout, c: Point, open = 1, half = SOCKET_HALF_H): Path2D {
-  const hw = l.tile * SOCKET_HALF_W * open;
-  const hh = l.tile * half;
-  const p = new Path2D();
-  p.moveTo(c.x - hw, c.y - hh);
-  p.lineTo(c.x + hw, c.y - hh);
-  p.lineTo(c.x + hw, c.y + hh * 0.2);
-  p.quadraticCurveTo(c.x + hw, c.y + hh, c.x + hw * 0.6, c.y + hh);
-  p.lineTo(c.x - hw * 0.6, c.y + hh);
-  p.quadraticCurveTo(c.x - hw, c.y + hh, c.x - hw, c.y + hh * 0.2);
-  p.closePath();
-  return p;
 }

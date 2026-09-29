@@ -50,7 +50,7 @@ export class BossTransients extends BossRoster {
     this.sinew.ingest(events, l, cfg, beatSeconds, burst);
     this.ledger.ingest(events, l, cfg, beatSeconds, burst);
     this.surge.ingest(events, l, cfg, beatSeconds, burst);
-    this.lead.ingest(events, l, beatSeconds, role, burst);
+    this.lead.ingest(events, l, cfg, beatSeconds, role, burst);
     this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
     this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
     this.hive.ingest(events, l, role, burst);

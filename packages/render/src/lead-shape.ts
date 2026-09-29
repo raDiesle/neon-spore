@@ -1,4 +1,5 @@
 import { type LeadState, leadPassing, midCol, type SimConfig } from "@neon-spore/sim";
+import { headroomDrop } from "./headroom.js";
 import { type Layout, tileCX } from "./layout.js";
 import { showsLeadCol, showsLeadLean } from "./view-role-clocks.js";
 
@@ -40,9 +41,17 @@ const SEG_TILES = 0.24;
 const LEAN_ANGLE = 0.55;
 const PASS_ANGLE = 1.2;
 
-/** The ridge's line: its top, its underside and the middle between them. */
-export function leadRidgeY(l: Layout): { top: number; bottom: number; mid: number } {
-  const top = l.gridTop - l.tile * RIDGE_RISE;
+/**
+ * The ridge's line: its top, its underside and the middle between them. On a
+ * stage short of room above the grid it comes down until a full stalk's tip is
+ * on the canvas (`headroomDrop`), and everything stood on it comes with it.
+ */
+export function leadRidgeY(
+  l: Layout,
+  cfg: SimConfig,
+): { top: number; bottom: number; mid: number } {
+  const full = RIDGE_RISE + cfg.leadSegments * SEG_TILES;
+  const top = l.gridTop + headroomDrop(l, full) - l.tile * RIDGE_RISE;
   const bottom = top + l.tile * RIDGE_THICK;
   return { top, bottom, mid: (top + bottom) * 0.5 };
 }
@@ -54,7 +63,7 @@ export function leadFootCol(cfg: SimConfig, s: LeadState, role: Layout["role"]):
 
 /** The foot of the stalk: on the ridge's top, in this screen's column. */
 export function leadFoot(l: Layout, cfg: SimConfig, s: LeadState): Point {
-  return { x: tileCX(l, leadFootCol(cfg, s, l.role)), y: leadRidgeY(l).top };
+  return { x: tileCX(l, leadFootCol(cfg, s, l.role)), y: leadRidgeY(l, cfg).top };
 }
 
 /** How long the stalk is, in pixels: one segment's length per segment left. */
@@ -91,8 +100,8 @@ export function leadAlong(foot: Point, angle: number, along: number): Point {
 }
 
 /** The ridge, left to right, as a closed shape: a flat top the stalk stands on and a slow swell along its underside. */
-export function leadRidgePath(l: Layout, time: number): Path2D {
-  const { top, bottom } = leadRidgeY(l);
+export function leadRidgePath(l: Layout, cfg: SimConfig, time: number): Path2D {
+  const { top, bottom } = leadRidgeY(l, cfg);
   const left = l.gridLeft;
   const right = l.gridLeft + l.cols * l.tile;
   const p = new Path2D();

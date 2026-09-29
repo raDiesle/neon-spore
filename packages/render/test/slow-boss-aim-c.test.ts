@@ -119,7 +119,7 @@ const WANT: Record<string, (w: World) => Aim> = {
     const s = need(leadBoss(w), "lead");
     const foot = leadFoot(L, CFG, s);
     const tip = leadAlong(foot, leadAskedAngle(s, L.role), leadStalkLength(L, s));
-    const ridge = leadRidgeY(L);
+    const ridge = leadRidgeY(L, CFG);
     return { x: tip.x, y: tip.y, r: ridge.bottom - ridge.top, ax: foot.x, ay: foot.y };
   },
   ledger: (w) => {

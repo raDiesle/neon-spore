@@ -106,7 +106,7 @@ export function longBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       if (s === null) return null;
       const foot = leadFoot(l, cfg, s);
       const tip = leadAlong(foot, leadAskedAngle(s, l.role), leadStalkLength(l, s));
-      const ridge = leadRidgeY(l);
+      const ridge = leadRidgeY(l, cfg);
       return { x: tip.x, y: tip.y, r: ridge.bottom - ridge.top, ax: foot.x, ay: foot.y };
     }
     // Both halves and the seam between them, as far open as it is.

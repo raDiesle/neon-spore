@@ -14,7 +14,13 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ScuttleFx } from "./scuttle-fx.js";
 import { faded, paintSlab } from "./scuttle-metal.js";
-import { paintLiveRim, paintPlate, paintSocket, paintThread } from "./scuttle-plate.js";
+import {
+  paintLiveRim,
+  paintPlate,
+  paintSocket,
+  paintThread,
+  scuttlePlatePath,
+} from "./scuttle-plate.js";
 import {
   PLATE_HALF_H,
   type Point,
@@ -23,11 +29,11 @@ import {
   scuttleFade,
   scuttleHangDrop,
   scuttleHangPhase,
-  scuttlePlatePath,
   scuttleShiver,
   scuttleSlabPath,
   scuttleSocket,
   scuttleThread,
+  scuttleTop,
   scuttleWindPhase,
   scuttleWindRise,
 } from "./scuttle-shape.js";
@@ -209,7 +215,7 @@ export function scuttleLockBox(
   if (col < 0) return null;
   return {
     x: tileCX(l, col),
-    y: l.gridTop - l.tile * 0.12,
+    y: scuttleTop(l, cfg) - l.tile * 0.12,
     halfW: l.tile * 0.46,
     halfH: l.tile * 0.22,
   };

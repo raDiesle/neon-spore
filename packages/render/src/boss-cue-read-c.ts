@@ -81,12 +81,12 @@ function markAt(
  * the pass will go, from the beat she takes it and on the last beat of a still
  * nobody took (`settleLean`, `leadPassDir`, `lead-shape.ts`).
  */
-export function leadCues(l: Layout, _world: World, s: LeadState): readonly BossCue[] {
+export function leadCues(l: Layout, world: World, s: LeadState): readonly BossCue[] {
   if (leadPassing(s)) {
-    return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l).mid, l, 54)];
+    return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 54)];
   }
   if (!leadStill(s)) return [];
   const say = leadWord(s);
   if (say === null) return [];
-  return [markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l).mid, l, 95)];
+  return [markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 95)];
 }

@@ -4,7 +4,8 @@ import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { ScuttleMarks } from "./scuttle-marks.js";
-import { PLATE_HALF_H, type Point, scuttlePlatePath, scuttleSocket } from "./scuttle-shape.js";
+import { scuttlePlatePath } from "./scuttle-plate.js";
+import { PLATE_HALF_H, type Point, scuttleSocket, scuttleTop } from "./scuttle-shape.js";
 import { showsScuttleLive } from "./view-role-clocks-b.js";
 
 /**
@@ -82,7 +83,13 @@ export class ScuttleFx {
     this.marks.ingest(events);
     const at = (p: Point, n: number, hex: string) => burst(p.x, p.y, n, hex);
     const socket = (i: number) => scuttleSocket(l, cfg, i);
-    const col = (c: number, dy: number) => ({ x: tileCX(l, c), y: l.gridTop + dy * l.tile });
+    // Off the frame's own top edge, which comes down on a stage short of room
+    // (`scuttleTop`); a pod's row is the field's, and stays on the grid.
+    const col = (c: number, dy: number) => ({
+      x: tileCX(l, c),
+      y: scuttleTop(l, cfg) + dy * l.tile,
+    });
+    const pod = (c: number) => ({ x: tileCX(l, c), y: l.gridTop + cfg.scuttlePodRow * l.tile });
     for (const e of events) {
       switch (e.type) {
         case "scuttleEnter":
@@ -112,7 +119,7 @@ export class ScuttleFx {
           at(col(e.col, -0.6), 4, PALETTE.dim);
           break;
         case "scuttleSlack":
-          at(col(e.col, cfg.scuttlePodRow), 8, PALETTE.podRim);
+          at(pod(e.col), 8, PALETTE.podRim);
           break;
         case "scuttleWind":
           at(socket(e.socket), 8, PALETTE.hullRim);

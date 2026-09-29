@@ -1603,26 +1603,6 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## THE SCUTTLE's frame is drawn above the canvas on a stage wider than 0.53
-
-- **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-scuttles-frame-is-drawn-above-the-canvas-on)
-- **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/layout.ts`, `packages/render/test/scuttle-frame.test.ts`, `packages/sim/src/config-scuttle.ts`, `packages/render/src/lead-shape.ts`
-
-The owner, 27 September 2026, in the director: only one row of THE SCUTTLE and
-a little of a second show. The three fixed rows sit 0.4, 1.0 and 1.6 tiles
-above `gridTop`, and the frame's top is 1.84 tiles above it, while the room
-above the grid is only `gridTop = playHeight - rows*tile` (`layout.ts`). On
-the director's 0.56 stage `gridTop` is about 0.91 tiles, so the rows land at
-−0.69, −0.09 and +0.51 tiles. A 390×844 phone shows all three rows; a short
-one (390×660) is cut the same way. `scuttle-shape.ts` says the frame is meant
-to sit whole under the HUD pills, so this is a fix to something wrong, not a
-look. Clamp the rows so the frame's top stays at or below 0 at any aspect (or
-reserve that room in `layout.ts`), and add a test at the frame harness's
-900×1600 that the frame's top is on the canvas. THE LEAD's ridge is 1.85 tiles
-tall (`lead-shape.ts`) and is probably cut the same way; check it in the same
-lane. `bun run check` proves it.
-
 ## THE DAVIT's lean becomes a drag
 
 - **Found:** 2026-09-27, claude/queue-task-questions-1c19ed

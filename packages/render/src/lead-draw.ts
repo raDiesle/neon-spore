@@ -68,7 +68,7 @@ export function drawLead(
   fx.note(foot.x, foot.y, tip.x, tip.y);
 
   ctx.save();
-  const ridge = drawRidge(ctx, l, time, fade);
+  const ridge = drawRidge(ctx, l, cfg, time, fade);
   if (placed) moundContact(ctx, ridge, foot.x, foot.y, l.tile * 0.5, fade);
   drawFlights(ctx, l, cfg, s, beat, beatPhase, time, fade);
   // The blow of a hit shakes the body and not the ridge it stands on.
@@ -94,10 +94,16 @@ export function drawLead(
 }
 
 /** The ridge: rock, dark, lit along its top (`lead-rock.ts`), a ledge seen from above (`lead-depth.ts`). */
-function drawRidge(ctx: CanvasRenderingContext2D, l: Layout, time: number, fade: number): Path2D {
-  const { top, bottom } = leadRidgeY(l);
+function drawRidge(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  time: number,
+  fade: number,
+): Path2D {
+  const { top, bottom } = leadRidgeY(l, cfg);
   const right = l.gridLeft + l.cols * l.tile;
-  const body = leadRidgePath(l, time);
+  const body = leadRidgePath(l, cfg, time);
   const ridge = { left: l.gridLeft, right, top, bottom, tile: l.tile };
   paintRidge(ctx, body, ridge, fade);
   paintLedge(ctx, body, ridge, fade);
@@ -125,7 +131,7 @@ function drawFlights(
   time: number,
   fade: number,
 ): void {
-  const ridge = leadRidgeY(l);
+  const ridge = leadRidgeY(l, cfg);
   const beats = Math.max(1, cfg.leadFlightBeats);
   for (const f of s.flights) {
     const spent = Math.min(1, Math.max(0, (beat - (f.dueBeat - beats) + beatPhase) / beats));

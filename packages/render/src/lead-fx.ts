@@ -1,4 +1,4 @@
-import type { SimEvent } from "@neon-spore/sim";
+import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, type ViewRole } from "./layout.js";
@@ -88,13 +88,14 @@ export class LeadFx {
   ingest(
     events: readonly SimEvent[],
     l: Layout,
+    cfg: SimConfig,
     /** Seconds a beat lasts. */
     spb: number,
     role: ViewRole,
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     this.marks.ingest(events);
-    const ridge = leadRidgeY(l);
+    const ridge = leadRidgeY(l, cfg);
     const atFoot = (n: number, hex: string) => {
       if (this.noted) burst(this.footX, this.footY, n, hex);
     };

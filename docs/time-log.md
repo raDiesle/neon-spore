@@ -28748,3 +28748,13 @@ Bottleneck: none; the parse existed in scratch before the claim, so the lane was
 filing it, not writing it.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SCUTTLE's frame and THE LEAD's ridge come down onto a wide stage
+
+- reading: 5 min. `computeLayout`'s tile and grid top, `scuttle-shape.ts`, everything that stands off the frame's edge, THE LEAD's ridge and its callers.
+- writing: 5 min. `headroom.ts`, the frame's and the ridge's drop, `cfg` threaded to five callers, the on-canvas test.
+- looking: 0 min. A probe printed the frame's top at four viewports; no frame taken.
+- friction: 5 min. A new file written over an existing `scuttle-plate.ts` of the same name, restored and appended to instead.
+- landing: 5 min. `check:fast`, the index row, the commit, `land`.
+
+Bottleneck: `scuttle-shape.ts` stood at 250 lines, so the drop could only go in once the plate's path moved out.
