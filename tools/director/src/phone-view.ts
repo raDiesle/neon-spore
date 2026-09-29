@@ -1,7 +1,7 @@
 /**
  * WHICH OF THE THREE VIEWS THE PHONE IS SHOWING, AS ONE OWNER.
  *
- * Below 700px the director is three views — WAVE, GAME, MAP — and switching
+ * Below 700px the director is four views — WAVES, WAVE, GAME, MAP — and switching
  * between them was a closure inside `initMobileMenu`, reachable only from the
  * header's own buttons. That was enough while the menu was the only way to
  * move, and it stopped being enough the moment a row in the wave list needed
@@ -12,9 +12,15 @@
  * So the switch lives here, with the two things that have to travel with it —
  * the header buttons' own lit state, and the remembered view — and the menu
  * calls it like any other caller.
+ *
+ * **WAVES AND WAVE ARE TWO VIEWS, NOT ONE** (29 September 2026). The owner:
+ * *"in director on mobile, I want to not see wave details at the same time I
+ * see the wave list, so there is more space available."* The list and the
+ * open wave's settings shared a view and stacked, so the list was a scroll
+ * above a form. WAVES is the list alone; a row's WAVE opens the settings.
  */
 
-export const PHONE_VIEWS = ["wave", "game", "map"] as const;
+export const PHONE_VIEWS = ["waves", "wave", "game", "map"] as const;
 export type PhoneView = (typeof PHONE_VIEWS)[number];
 
 const REMEMBERED = "neon-spore-director-view";

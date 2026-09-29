@@ -85,6 +85,10 @@
   main > section.brush-col {
     display: none;
   }
+  /* WAVES is the list alone and WAVE the open wave's settings alone
+     (phone-view.ts, 29 September 2026): stacked in one view, the list was a
+     scroll above a form and had half the screen. */
+  main[data-view="waves"] > section[data-view="waves"],
   main[data-view="wave"] > section[data-view="wave"] {
     display: block;
   }

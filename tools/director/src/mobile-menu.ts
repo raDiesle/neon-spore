@@ -9,7 +9,7 @@ import {
 
 /**
  * On a phone the director opens on a menu, not on a wave. Every reachable
- * thing — the three views (WAVE, GAME, MAP) and the five pages the header has
+ * thing — the four views (WAVES, WAVE, GAME, MAP) and the five pages the header has
  * always opened (≡ RELEASE NOTES, ☠ ORPHANS, ◇ NOT BUILT YET, ▣ DOCUMENTATION,
  * ♪ SOUND) — is one `.menu-item` button in `<header>`, marked in
  * the markup rather than assembled here; `body.menu-open` is what turns that
@@ -41,7 +41,7 @@ export function initMobileMenu(search: string = location.search): void {
   // Remembered only when it was chosen, which is what `showPhoneView`'s second
   // argument is for: a `?view=` in the address is this load's alone.
   if (isPhoneView(forced)) showPhoneView(forced, false);
-  else showPhoneView(rememberedView() ?? "wave", false);
+  else showPhoneView(rememberedView() ?? "waves", false);
 
   for (const b of viewButtons)
     b.addEventListener("click", () => showPhoneView(b.dataset.view as PhoneView));

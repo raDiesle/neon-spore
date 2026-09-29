@@ -42,6 +42,9 @@
            nine buttons in this header is what makes them the phone's menu —
            see mobile-menu.ts. A wide screen never sees this row: media query
            only, no JS gate. -->
+      <!-- WAVES is the list and WAVE is the one open in it: two views on a
+           phone, so the list has the whole screen (29 September 2026). -->
+      <button type="button" class="menu-item" data-view="waves">WAVES</button>
       <button type="button" class="menu-item" data-view="wave">WAVE</button>
       <!-- RUN and GAME are one view on a phone: the strip of buttons is what
            acts on the field, and a phone that showed one without the other
@@ -68,8 +71,8 @@
       >
     </header>
 
-    <main data-view="wave">
-      <section data-view="wave" data-column="waves" data-column-title="WAVES">
+    <main data-view="waves">
+      <section data-view="waves" data-column="waves" data-column-title="WAVES">
         <!-- No <h2>WAVES</h2> here — the column-head columns.ts inserts
              already carries the title; a second one under it would repeat
              itself on every load. -->
