@@ -22,6 +22,7 @@ import {
 } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
+import { writeLastWave } from "./last-wave.js";
 import { reachedWith } from "./pairing.js";
 import { reached, timed, updateProgress } from "./progress.js";
 import { clearQuit, sayQuit } from "./quit.js";
@@ -135,6 +136,8 @@ export function createWaveProgression({
       // Nothing at all off the wire: a solo run is this device's own.
       reachedWith(wave);
     }
+    // And the wave last opened, which JUMP TO WAVE scrolls to (`last-wave.ts`).
+    writeLastWave(wave);
     startWave(
       world,
       wave,

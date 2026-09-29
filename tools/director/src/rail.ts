@@ -6,6 +6,7 @@ import {
 } from "@neon-spore/content";
 import { bindBossTypeField } from "./boss-type-field.js";
 import { renderControlSetNote } from "./control-set-note.js";
+import { bindRailArrival } from "./rail-arrive.js";
 import { moveWave, rowDrag } from "./rail-drag.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { renderRows } from "./rail-list.js";
@@ -50,6 +51,8 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   // The four marks as presses, ORed with each other and ANDed with the field
   // above — the owner's *either or is enough* (`rail-symbols.ts`).
   const symbols = bindRailSymbols(document.getElementById("waveMarksFilter"), () => renderList());
+  // The open row brought into view whenever the list is (`rail-arrive.ts`).
+  const arrival = bindRailArrival(list);
 
   // Over the control set, for the reason it is over it in the markup: which
   // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
@@ -84,6 +87,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     const passes = (waves: Store["waves"], i: number): boolean =>
       filter.passes(waves, i) && symbols.passes(waves, i);
     const matched = renderRows(list, store, passes, select, drag);
+    arrival.mark();
     filter.report(matched, store.waves.length, symbols.active());
   };
 

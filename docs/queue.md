@@ -1363,3 +1363,15 @@ twice, once in the director's `rail-marks.ts` and once, copied, in the game's
 `menu-wave-filter.ts`, because the game must not import a dev tool. Move the
 pure question into `packages/content` beside `firstOnPanel`, call it from both,
 and add a row to the purity test's called-not-re-derived table.
+
+## `waves.ts` and the director's `main.ts` are both near the line ceiling
+
+- **Found:** 2026-09-29, claude/scroll-previous-wave-director-bb6576
+- **Files:** `apps/game/src/waves.ts`, `tools/director/src/main.ts`
+
+`waves.ts` is 228 lines and `main.ts` 238 after the last-played wave went into
+each (`last-wave.ts`, `rail-arrive.ts`). Choose the seam before the next lane
+has to: in `waves.ts`, the intro clock (`tickOpening`, `left`, `sentAtTick`,
+`RETRY_TICKS`) is one subject apart from opening a wave; in `main.ts`,
+`refreshAll` and `jumpToBrushWave` with the panels they call could stand in a
+`main-refresh.ts` the way `main-tempo.ts` already does.

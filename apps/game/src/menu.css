@@ -616,6 +616,19 @@
   line-height: 1.55;
   color: var(--ink-faint);
 }
+/* The wave this device last opened (`last-wave.ts`): lit, and saying so under
+   its name, so the row the list opens on is plainly the one it was scrolled to. */
+#menu .wave .last-note {
+  display: none;
+}
+#menu .wave.last {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+#menu .wave.last .last-note {
+  display: block;
+  color: var(--accent);
+}
 /* A DEMOS row: its first span is a mechanic id, up to thirteen letters, not a
    two-digit number, and in the WAVES row's 26px column it ran over the name.
    So the name leads, the id sits to its right, and the sentence takes the

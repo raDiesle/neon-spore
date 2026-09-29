@@ -2538,6 +2538,7 @@ by hand never moves.
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
+| `apps/game/src/last-wave.ts` | The wave this device last opened, so JUMP TO WAVE can open on it |
 | `apps/game/src/lean.ts` | **The phone's own lean**, THE DAVIT's control |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
@@ -3165,6 +3166,7 @@ by hand never moves.
 | `tools/director/src/rail-list.ts` | ONE ROW OF THE WAVE LIST, AND WHAT IS ON IT |
 | `tools/director/src/rail-open.ts` | THE THREE WAYS OUT OF A ROW IN THE WAVE LIST |
 | `tools/director/src/rail-drag.ts` | A WAVE DRAGGED TO A NEW PLACE IN THE LIST |
+| `tools/director/src/rail-arrive.ts` | THE WAVE THIS DEVICE LAST OPENED, AND THE LIST OPENING ON IT |
 | `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/remembered.ts` | The wave filter, its pressed marks and the sounds status, kept in localStorage across a reload |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |

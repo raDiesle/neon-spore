@@ -29277,3 +29277,16 @@ Bottleneck: reading — the lag was the picture leading the rule by a tile,
 which only showed once the slide and the step were read side by side.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — Both wave lists open on the wave last played on this device
+
+- reading: 10 min. `menu-pages.ts`, `menu-view.ts`, `progress.ts`, the director's
+  `rail.ts`, `rail-list.ts`, `session.ts`, `remembered.ts`, `phone-view.ts`.
+- writing: 10 min. `last-wave.ts`, `rail-arrive.ts`, the two highlights, a test.
+- looking: 10 min. The browser pane: JUMP TO WAVE at phone size before and after
+  a wave played; the director on a phone, with `?wave=`, and on a desktop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the game's list and the director are two servers, each
+reached through its own menu.

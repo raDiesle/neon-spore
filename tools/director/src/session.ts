@@ -84,9 +84,14 @@ export interface PlaceSession {
  * (`place.ts`), so there is nothing to wire and nothing to restore; what is
  * left is the wave, and `persist` is how it is kept in step.
  */
-export function bindPlace(waveCount: number): PlaceSession {
+export function bindPlace(waveCount: number, fallback: number | null = null): PlaceSession {
   const place = readPlace();
-  current = { ...place, wave: Math.min(Math.max(place.wave ?? 0, 0), Math.max(waveCount - 1, 0)) };
+  // A URL that names no wave opens on `fallback`, the wave this device last
+  // opened (`rail-arrive.ts`). That is the one thing here not read off the
+  // address, and it is navigation, not a setting: it chooses what is looked
+  // at and changes nothing about it.
+  const wave = place.wave ?? fallback ?? 0;
+  current = { ...place, wave: Math.min(Math.max(wave, 0), Math.max(waveCount - 1, 0)) };
 
   return {
     initialWave: current.wave ?? 0,

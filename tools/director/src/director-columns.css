@@ -203,6 +203,19 @@ section.collapsed .column-body {
 #waveList button.on {
   border-color: var(--gold);
 }
+/* The open row as the list comes into view (`rail-arrive.ts`): it pulses once
+   in the middle of the column, so the eye finds it. 1.6 s, which is
+   `ARRIVED_MS` there. No closing keyframe: it fades to the row's own look. */
+#waveList .wave-row.arrived > button:first-child {
+  animation: wave-arrived 1.6s ease-out;
+}
+@keyframes wave-arrived {
+  0%,
+  40% {
+    background: rgba(255, 194, 75, 0.35);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+}
 /* The selected wave, kept in a filtered list because the column beside it is
    showing that wave's fields (`rail.ts`). Dimmed, so it reads as "and this is
    what you are editing" rather than as a match. */

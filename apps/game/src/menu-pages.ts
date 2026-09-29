@@ -1,5 +1,6 @@
 import { type MechanicId, WAVES } from "@neon-spore/content";
 import type { DemoRow } from "./demo-menu.js";
+import { readLastWave } from "./last-wave.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
 import { MARKS, type MarkId, marksMatch, waveMatches } from "./menu-wave-filter.js";
 
@@ -25,11 +26,19 @@ import { MARKS, type MarkId, marksMatch, waveMatches } from "./menu-wave-filter.
  * now, on the room screen while the game is being made (`join-room-step.ts`).
  */
 
+/** The waves page, and what to do each time it is shown: find the wave this
+ * device last opened, mark it and bring it to the middle of `box`, the menu's
+ * scrolling element. */
+export interface WavesPage {
+  page: HTMLElement;
+  arrive: (box: HTMLElement) => void;
+}
+
 export function buildWaves(
   show: (page: MenuPage) => void,
   onWave: (wave: number) => void,
   back: MenuPage,
-): HTMLElement {
+): WavesPage {
   const page = el("div", "page");
   page.append(backButton(show, back), el("h2", undefined, "JUMP TO WAVE"));
 
@@ -67,7 +76,7 @@ export function buildWaves(
     button.append(el("span", "n", String(i + 1).padStart(2, "0")));
     const name = el("span", "label", wave.name);
     if (wave.boss) name.append(el("span", "boss", " ✦"));
-    button.append(name);
+    button.append(name, el("span", "s last-note", "LAST PLAYED"));
     button.addEventListener("click", () => onWave(i));
     page.append(button);
     return button;
@@ -95,7 +104,18 @@ export function buildWaves(
     refresh();
   });
 
-  return page;
+  // The wave this device last opened (`last-wave.ts`), read on every showing
+  // rather than once: it changes each time a wave is played from here.
+  const arrive = (box: HTMLElement): void => {
+    const last = readLastWave(rows.length);
+    for (const [i, row] of rows.entries()) row.classList.toggle("last", i === last);
+    const row = last === null ? undefined : rows[last];
+    if (!row || row.hidden) return;
+    const offset = row.getBoundingClientRect().top - box.getBoundingClientRect().top;
+    box.scrollTop += offset - (box.clientHeight - row.offsetHeight) / 2;
+  };
+
+  return { page, arrive };
 }
 
 export function buildDemos(

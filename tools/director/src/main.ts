@@ -17,6 +17,7 @@ import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { onPhone } from "./phone-view.js";
 import { bindRail } from "./rail.js";
+import { rememberedWave, rememberWave } from "./rail-arrive.js";
 import { makeSelection } from "./selection.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
@@ -63,7 +64,8 @@ bindShipped();
 // The bundled waves are the fallback — the server reads the file from disk.
 const store: Store = { waves: structuredClone(WAVES), index: 0, dirty: false };
 
-const place: PlaceSession = bindPlace(store.waves.length);
+// A bare address opens on the wave last opened here (`rail-arrive.ts`).
+const place: PlaceSession = bindPlace(store.waves.length, rememberedWave());
 store.index = place.initialWave;
 
 const saveButton = document.getElementById("save");
@@ -190,6 +192,7 @@ function onProse(): void {
 
 function refreshAll(): void {
   place.persist(store.index);
+  rememberWave(store.index);
   // A different wave: beat 4 column 2 is a different cell now, and pointing the
   // panel at whatever happens to be there would be a selection nobody made.
   selection.set(null);

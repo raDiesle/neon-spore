@@ -56,6 +56,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
     expect([...DEVICE_KEYS].sort()).toEqual([
       "neon-spore.email",
       "neon-spore.intro",
+      "neon-spore.last-wave",
       "neon-spore.name",
       "neon-spore.pairs",
       "neon-spore.progress",

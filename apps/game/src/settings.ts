@@ -171,6 +171,7 @@ export const DEVICE_KEYS = [
   "neon-spore.email",
   "neon-spore.pairs",
   "neon-spore.progress",
+  "neon-spore.last-wave",
   "neon-spore.room",
   "neon-spore.view",
   "neon-spore.intro",

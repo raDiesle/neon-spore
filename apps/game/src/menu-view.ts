@@ -134,12 +134,13 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   const rootPage = el("div", "page on");
   const playPage = el("div", "page");
   const testingPage = el("div", "page");
+  const waves = buildWaves((p) => show(p), h.onWave, "testing");
   const pages: Record<MenuPage, HTMLElement> = {
     root: rootPage,
     play: playPage,
     testing: testingPage,
     // Both jump lists are opened from TESTING now, so both go back to it.
-    waves: buildWaves((p) => show(p), h.onWave, "testing"),
+    waves: waves.page,
     demos: buildDemos((p) => show(p), h.demos, h.onDemo, "testing"),
     keys: buildControls((p) => show(p), "settings"),
     settings: buildSettings((p) => show(p), h.settings),
@@ -147,6 +148,8 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   const show = (page: MenuPage): void => {
     for (const [name, node] of Object.entries(pages)) node.classList.toggle("on", name === page);
     scroll.scrollTop = 0;
+    // Except JUMP TO WAVE, which opens on the wave last played here.
+    if (page === "waves") waves.arrive(scroll);
   };
 
   // Above the rows and looking nothing like them (`menu-rejoin.ts`).
