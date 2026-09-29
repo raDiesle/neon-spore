@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · cc0cf9605 — The research page's YouTube links are all opened, and one dead one is gone
+
+Each of the 47 video links in docs/spec/transfers-touch.md was matched against its video's own title, and every one of the 22 thumbnails answered with a real picture. Hi-Fi Rush's first *Kale* link is no longer on YouTube; its S-rank link stays.
+
 ## 2026-09-29 · 04e276dbe — THE GAUGE's wound has a colour, and only a shot in it lands
 
 The navigator's CALL is now two fire buttons, RED and CYAN. The wound is red or cyan, drawn from the Rng with every band and hashed, and only she sees it; a shot in the other colour on a seated needle is a miss that jams the valve, like one on the armour. The cannon wears the colour of her last call, the cue says PRESS / RED or PRESS / CYAN, and the guide has a page for it: SHOOT IT IN ITS COLOUR.
