@@ -333,6 +333,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## An automatic compaction waits for the item to land, up to a ceiling
 
 - **Found:** 2026-09-29, claude/queue-performance-analysis-55a3ec
+- **Taken:** 2026-09-29, claude/queue-performance-analysis-55a3ec (claim: claude/queue-an-automatic-compaction-waits-for-the-item-to-la)
 - **Files:** `.claude/settings.json`, `tools/hooks/after-compact.ts`, `docs/token-budget.md`
 
 The common advice on compaction is to compact at a task boundary, never
