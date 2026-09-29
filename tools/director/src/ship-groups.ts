@@ -20,7 +20,7 @@ import { WAVE_ONLY_GROUPS } from "./ship-groups-wave.js";
 export type GroupName =
   | "THE CAIRN — a pile of rocks taken apart by hand"
   | "THE SCOUT — a little ship one of you flies"
-  | "THE STARE — an eye that freezes whoever it looks at"
+  | "THE STARE — an eye that opens on the beat"
   | "THE BATON — a bead passed down an arm, one seat a beat"
   | "THE THROAT — the boss you answer by feeding it"
   | "THE UNDERTOW — the boss under the floor, answered downward"
@@ -130,7 +130,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
   "THE SCOUT — a little ship one of you flies",
-  "THE STARE — an eye that freezes whoever it looks at",
+  "THE STARE — an eye that opens on the beat",
   "THE BATON — a bead passed down an arm, one seat a beat",
   "THE THROAT — the boss you answer by feeding it",
   "THE UNDERTOW — the boss under the floor, answered downward",

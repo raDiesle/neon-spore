@@ -29,10 +29,10 @@ import type { BossEntry } from "./boss-entries.js";
  * again (`reprise.ts`).
  */
 export function bossFillsWave(kind: BossEntry["kind"]): boolean {
-  // THE STARE is the fourth of them and the plainest: nothing to shoot,
-  // nothing to place, and no clock of its own that ends anything. What it does
-  // is make the wave its author wrote cost more to play (`stare.ts`), so a
-  // stare wave with no arrivals is an eye watching an empty field.
+  // THE STARE was the fourth of them until 29 September 2026, when it became
+  // a fight of its own — levels of beat patterns and a closed eye to shoot —
+  // and the owner took the rocks off its wave: *rocks falling is stupid
+  // because it doesn't relate to the boss* (`stare.ts`).
   // THE BATON is the fifth: an arm hanging in one column that falls nothing
   // but its own dead segments, whose whole behaviour is whose turn it is
   // (`baton.ts`). The arrivals around it are the wave's own.
@@ -92,7 +92,6 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "vane" &&
     kind !== "well" &&
     kind !== "reprise" &&
-    kind !== "stare" &&
     kind !== "baton" &&
     kind !== "throat" &&
     kind !== "undertow" &&

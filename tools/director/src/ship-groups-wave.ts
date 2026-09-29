@@ -37,7 +37,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
   "THE SCOUT — a little ship one of you flies",
-  "THE STARE — an eye that freezes whoever it looks at",
+  "THE STARE — an eye that opens on the beat",
   "THE BATON — a bead passed down an arm, one seat a beat",
   "THE THROAT — the boss you answer by feeding it",
   "THE UNDERTOW — the boss under the floor, answered downward",

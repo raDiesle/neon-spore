@@ -28,15 +28,12 @@ export const CHOREO_FIELD_GROUP = {
   // StareConfig — the eye is not a round and its dials live here anyway: it
   // takes the panel away in the one sense that matters, and every number in it
   // is a count of beats a pair says something in (`config-stare.ts`).
-  stareAwayBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareTellBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareLookBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareLookGrowBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareLookMaxBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareTurnBackBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareLidPullMilli: "THE STARE — an eye that freezes whoever it looks at",
-  stareLidHoldBeats: "THE STARE — an eye that freezes whoever it looks at",
-  stareReopenBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareRestBeats: "THE STARE — an eye that opens on the beat",
+  starePasses: "THE STARE — an eye that opens on the beat",
+  stareChargeBeats: "THE STARE — an eye that opens on the beat",
+  stareLidPullMilli: "THE STARE — an eye that opens on the beat",
+  stareHurtBeats: "THE STARE — an eye that opens on the beat",
+  stareDyingBeats: "THE STARE — an eye that opens on the beat",
   // BatonConfig — the arm's length and every beat a handover takes. All of
   // them are the pair's cadence: a flight is a word and a press, a turn is a
   // look and a word, and a lock is *not you, not this beat* (`config-baton.ts`).

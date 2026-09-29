@@ -1,52 +1,39 @@
-import { type SimConfig, type StareState, stareTellLeft, type World } from "@neon-spore/sim";
+import {
+  type StareState,
+  stareLevelPattern,
+  stareOpenLive,
+  stareStepAt,
+  stareTeaching,
+  type World,
+} from "@neon-spore/sim";
 import type { EyeInk } from "./eye.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
-import { drawInstarWord } from "./instar-word.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { STARE_EYE } from "./stare-eye-look.js";
 import type { StareFx } from "./stare-fx.js";
 import { drawStareLid } from "./stare-lid.js";
-import {
-  cowlPath,
-  type StareEye,
-  stareEye,
-  stareFace,
-  stareGazeFootY,
-  stareHeat,
-} from "./stare-shape.js";
-import { showsStareTarget, showsStareWatched } from "./view-role-clocks-b.js";
+import { cowlPath, type StareEye, stareEye, stareFace, stareGazeFootY } from "./stare-shape.js";
 
 /**
- * THE STARE, drawn: the cowled eye over the top of the field, turned away,
- * coming round, looking, and turning back — read off the world every frame,
- * with nothing kept (`stare-shape.ts` for where it is and how far it has
- * turned, `stare-fx.ts` for the one thing that outlives a frame).
+ * THE STARE, drawn: the cowled eye over the top of the field, opening on the
+ * beats of its pattern — read off the world every frame, with nothing kept
+ * (`stare-shape.ts` for where it is and how far the lids stand, `stare-fx.ts`
+ * for what outlives a frame).
  *
- * **What every screen sees**: the cowl, the eye at its angle, and while it
- * turns the count — one pip a beat of the tell, going out from the left, so
- * *three beats* is a thing either seat can read off the picture and say.
- * The count is no secret: the whole fairness of the boss is that everybody
- * knows a look is coming (`docs/spec/bosses.md` §11.16).
+ * **Every screen sees the same eye**, since 29 September 2026: both seats
+ * freeze on an open beat, so the gaze, the score and the lid are on both
+ * phones. The **score** is the level's pattern under the eye, one pip a beat,
+ * the open beats full and the shut ones hollow, with the beat the eye is on
+ * ringed — the rhythm for a player with the sound off (`sim/stare.ts`).
  *
- * **What one screen sees**: the seat's name beside the eye, on the screen of
- * the seat that is *not* about to be frozen — P1 on the navigator's,
- * P2 on the pilot's — from the beat the turn begins to the beat the
- * look ends; and, once the look has landed, the gaze itself falling on the
- * watched seat's field, red from the eye down over the first rows, which is
- * the picture's *hands off* to the one pair of hands it is about
- * (`view-role-clocks-b.ts`). **And the lid**, since 18 September 2026, on
- * every screen, with its ring on the screen of the seat that may pull it
- * (`stare-lid.ts`). The word is `instar-word.ts`'s scanner box,
- * because it is the same kind of mark — the body's own label on a part,
- * bright when it is a job — and a second box would be a second vocabulary.
- *
- * **The ink warms with the turn**: grey while the eye looks elsewhere, the
- * hull's red by the time it is square, and white for the frames after it
- * catches a thumb. The lens is drawn on the beat clock, so the pupil is the
- * same on both phones; the fluid and the lashes on the wall clock, since
- * nobody reads a number off a lash (`content/own-motion.ts`).
+ * **The ink says what an open eye costs**: cyan on the teaching pass, where
+ * nothing is caught; the hull's red on a live one; grey while it is shut; and
+ * white for the frames after it catches a thumb. The lens is drawn on the
+ * beat clock, so the pupil is the same on both phones; the fluid and the
+ * lashes on the wall clock, since nobody reads a number off a lash
+ * (`content/own-motion.ts`).
  */
 
 /** The pip row: how far under the eye's middle, and how far apart, in socket heights. */
@@ -66,31 +53,21 @@ export function drawStare(
   const cfg = world.cfg;
   const eye = stareEye(l, cfg);
   const f = stareFace(boss, cfg, beat, beatPhase);
-  const heat = stareHeat(f);
-  const flash = fx.flash;
-  const ink: EyeInk = {
-    hex: mixHex(mixHex(PALETTE.dim, PALETTE.red, heat), PALETTE.text, flash),
-    rim: mixHex(mixHex(PALETTE.hullRim, PALETTE.redRim, heat), PALETTE.text, flash),
-  };
-  // Told from the turn to the end of the look, and under the lid too: whose
-  // look the lid shut is still the name beside the eye.
-  const told = boss.watching !== 0 && boss.phase !== "away" && boss.phase !== "back";
+  const ink = stareInk(boss, fx.flash);
 
   // The gaze first, under everything else of the boss: it is light on the
   // field and the eye stands in front of its own light.
-  if (boss.phase === "looking" && boss.watching !== 0 && showsStareWatched(l.role, boss.watching)) {
-    drawGaze(ctx, l, eye, beatPhase);
-  }
+  if (boss.open) drawGaze(ctx, l, eye, beatPhase, ink.hex);
 
   // The cowl, in the field's own rock, with its rim lit a little by the eye.
   const cowl = cowlPath(eye, time);
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(cowl);
-  strokeGlow(ctx, cowl, mixHex(PALETTE.dim, ink.rim, 0.5 * heat), STROKE.outline, 0.6);
+  strokeGlow(ctx, cowl, mixHex(PALETTE.dim, ink.rim, 0.5), STROKE.outline, 0.6);
   ctx.restore();
 
-  // The eye at its angle, through the record VERSUS patches (`stare-eye-look.ts`).
+  // The eye, through the record VERSUS patches (`stare-eye-look.ts`).
   STARE_EYE.paint(ctx, {
     e: eye,
     face: f.face,
@@ -100,32 +77,46 @@ export function drawStare(
     time,
     beats: beat + beatPhase,
   });
-  // The lid over it, and its ring for the seat whose thumb it is (`stare-lid.ts`).
-  drawStareLid(ctx, l, cfg, boss, l.role, beat, beatPhase, time, ink.rim);
+  // The lid over it while it charges, and its ring (`stare-lid.ts`).
+  drawStareLid(ctx, l, cfg, boss, time, ink.rim);
 
-  // The count, while the eye is turning: one pip a beat of the tell.
-  const left = stareTellLeft(boss, beat, cfg.stareTellBeats);
-  if (left >= 0) drawPips(ctx, eye, cfg, left, ink);
-
-  // And the name, on the screen that is told.
-  if (told && boss.watching !== 0 && showsStareTarget(l.role, boss.watching)) {
-    const word = boss.watching === 1 ? "P1" : "P2";
-    drawInstarWord(ctx, l, word, eye.cx + eye.rx * 1.2, eye.cy, 1, true);
+  // The score, from the lead-in to the end of the charge.
+  if (boss.phase !== "hurt" && boss.phase !== "dying") {
+    drawScore(ctx, eye, stareLevelPattern(boss), stareStepAt(boss, beat), ink);
   }
 }
 
+/** The eye's ink for each thing an open beat can cost: the hull, nothing, or it is shut. */
+const INK = {
+  live: { hex: PALETTE.red, rim: PALETTE.redRim },
+  teach: { hex: PALETTE.cyan, rim: PALETTE.cyanRim },
+  shut: { hex: PALETTE.dim, rim: PALETTE.hullRim },
+} as const;
+
+/** The eye's ink for what an open beat would cost now, whitened by a flash. */
+function stareInk(s: StareState, flash: number): EyeInk {
+  const ink = stareOpenLive(s) ? INK.live : stareTeaching(s) ? INK.teach : INK.shut;
+  return { hex: mixHex(ink.hex, PALETTE.text, flash), rim: mixHex(ink.rim, PALETTE.text, flash) };
+}
+
 /**
- * The gaze: the eye's red falling down the first rows of the watched seat's
- * field, as a beam — the eye's own width where it leaves the socket, the
+ * The gaze: the eye's light falling down the first rows of the field while
+ * it is open, as a beam — the eye's own width where it leaves the socket, the
  * field's where it fades out — so it is light *from* the eye rather than a
  * band across the sky.
  */
-function drawGaze(ctx: CanvasRenderingContext2D, l: Layout, e: StareEye, beatPhase: number): void {
+function drawGaze(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  e: StareEye,
+  beatPhase: number,
+  hex: string,
+): void {
   const top = e.cy + e.ry * 0.4;
   const bottom = stareGazeFootY(l);
   const g = ctx.createLinearGradient(0, top, 0, bottom);
-  g.addColorStop(0, rgba(PALETTE.red, 0.3 + 0.12 * (1 - beatPhase)));
-  g.addColorStop(1, rgba(PALETTE.red, 0));
+  g.addColorStop(0, rgba(hex, 0.3 + 0.12 * (1 - beatPhase)));
+  g.addColorStop(1, rgba(hex, 0));
   ctx.save();
   ctx.fillStyle = g;
   ctx.beginPath();
@@ -138,15 +129,15 @@ function drawGaze(ctx: CanvasRenderingContext2D, l: Layout, e: StareEye, beatPha
   ctx.restore();
 }
 
-/** The tell's count under the eye: the beats left lit, the beats spent hollow. */
-function drawPips(
+/** The score under the eye: open beats full, shut ones hollow, the beat it is on ringed. */
+function drawScore(
   ctx: CanvasRenderingContext2D,
   e: StareEye,
-  cfg: SimConfig,
-  left: number,
+  pattern: string,
+  at: number,
   ink: EyeInk,
 ): void {
-  const n = cfg.stareTellBeats;
+  const n = pattern.length;
   const gap = e.ry * PIP_GAP;
   const r = e.ry * 0.11;
   const y = e.cy + e.ry * PIP_DROP;
@@ -154,17 +145,23 @@ function drawPips(
   ctx.save();
   ctx.lineWidth = STROKE.inner;
   for (let i = 0; i < n; i++) {
-    const lit = i >= n - left;
     const x = x0 + i * gap;
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    if (lit) {
+    ctx.arc(x, y, pattern[i] === "x" ? r * 1.4 : r, 0, Math.PI * 2);
+    if (pattern[i] === "x") {
       ctx.fillStyle = ink.rim;
       ctx.globalAlpha = 0.95;
       ctx.fill();
     } else {
       ctx.strokeStyle = PALETTE.dim;
-      ctx.globalAlpha = 0.5;
+      ctx.globalAlpha = 0.6;
+      ctx.stroke();
+    }
+    if (i === at) {
+      ctx.beginPath();
+      ctx.arc(x, y, r * 2.2, 0, Math.PI * 2);
+      ctx.strokeStyle = PALETTE.text;
+      ctx.globalAlpha = 0.9;
       ctx.stroke();
     }
   }

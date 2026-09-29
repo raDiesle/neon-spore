@@ -119,7 +119,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   stare: {
-    what: "An eye looks at one of you at a time. Only the other player sees who is next. While it watches you, touch nothing, or the wave starts again.",
+    what: "An eye opens on the beat. Learn its rhythm on the blue pass. Open: nobody touches anything. Shut: shoot it. Charging: pull the lid.",
     reach: "spawn",
   },
   baton: {

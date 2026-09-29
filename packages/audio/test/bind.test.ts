@@ -90,9 +90,19 @@ const SAMPLES: Record<string, SimEvent> = {
   eyeOpen: { type: "eyeOpen", col: 5, color: "red" },
   plate: { type: "plate", col: 5, row: 2, left: 3, color: "red" },
   wardenDown: { type: "wardenDown", col: 5, row: 2 },
-  stareCaught: { type: "stareCaught", player: 1, command: { kind: "fire", color: "red" } },
-  stareShut: { type: "stareShut", player: 2 },
-  stareOpen: { type: "stareOpen", player: 2, forced: true },
+  stareBeat: { type: "stareBeat", open: true, teach: false, step: 3, level: 1 },
+  stareCaught: {
+    type: "stareCaught",
+    player: 1,
+    command: { kind: "fire", color: "red" },
+    col: 3,
+  },
+  stareHit: { type: "stareHit", level: 0, last: false },
+  stareCharge: { type: "stareCharge", pass: 1 },
+  stareVent: { type: "stareVent", player: 2 },
+  stareBlast: { type: "stareBlast", col: 3 },
+  stareAgain: { type: "stareAgain", level: 2 },
+  stareOut: { type: "stareOut" },
   queenFlinch: { type: "queenFlinch", col: 3, row: 2, side: -1 },
   queenPry: { type: "queenPry", col: 5, row: 2, side: 1 },
   queenHold: { type: "queenHold", col: 3, row: 2, side: -1, real: true },
@@ -832,6 +842,8 @@ describe("bindings", () => {
   // breaks it is `plumbFlare`, which is heard. `slingCool` is the eighth, and
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
   // `grindstoneFade` is the ninth, THE GRINDSTONE's: `grindstoneJar` is heard.
+  // `stareAgain` is the tenth: THE STARE's level starting over is heard as
+  // the blue pass that follows it (`bind-stare.ts`).
   const SILENT_BY_DESIGN = new Set([
     "needWave",
     "choirMerge",
@@ -842,6 +854,7 @@ describe("bindings", () => {
     "plumbBleed",
     "slingCool",
     "grindstoneFade",
+    "stareAgain",
   ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {

@@ -2,27 +2,35 @@ import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind.js";
 
 /**
- * THE STARE's three, in a file of their own for `bind-gorge.ts`' reason,
- * and with one thing the others do not have: **no pan on any of them.** The
- * eye is in the sky rather than in a lane, and a sound placed in a column
- * would be telling the pair to look somewhere — the one thing that is never
- * what went wrong.
+ * THE STARE's, in a file of their own for `bind-gorge.ts`' reason, and with
+ * **no pan on any of them**: the eye is over the middle, and the beam and the
+ * laser are heard through the hull's own breach, which is placed.
  *
- * The catch is the one sound in the game that means *that was you*. The lid's
- * two are the moments of it: the shut is the bottom reached, which is the
- * watched seat freed; the open is the lid starting back up, pitched down when
- * the eye forced it, so the ear can tell a thumb letting go from a thumb that
- * lost (`sim/stare-hand.ts`).
+ * **A beat is the music** (`sounds/boss-stare.ts`): a knock on a shut beat, a
+ * blink on an open one, the downbeat of the pattern a touch louder so the bar
+ * can be counted, and each level a step higher — a level is also a key.
+ * `stareAgain` is silent by design: the blue pass that follows it is heard.
  */
-export function stareCue(
-  e: Extract<SimEvent, { type: "stareCaught" | "stareShut" | "stareOpen" }>,
-): Cue {
+export function stareCue(e: Extract<SimEvent, { type: `stare${string}` }>): Cue | null {
   switch (e.type) {
+    case "stareBeat": {
+      const pitch = 1 + e.level * 0.06;
+      const gain = e.step === 0 ? 1.15 : 1;
+      return { id: e.open ? "boss.stareBlink" : "boss.stareBeat", pitch, gain };
+    }
     case "stareCaught":
       return { id: "boss.stareCaught" };
-    case "stareShut":
-      return { id: "boss.stareShut" };
-    case "stareOpen":
-      return { id: "boss.stareOpen", pitch: e.forced ? 0.85 : 1 };
+    case "stareHit":
+      return { id: "boss.stareHit", pitch: 1 + e.level * 0.06 };
+    case "stareCharge":
+      return { id: "boss.stareCharge", pitch: 1 + e.pass * 0.05 };
+    case "stareVent":
+      return { id: "boss.stareVent" };
+    case "stareBlast":
+      return { id: "boss.stareBlast" };
+    case "stareAgain":
+      return null;
+    case "stareOut":
+      return { id: "boss.stareOut" };
   }
 }

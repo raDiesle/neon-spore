@@ -2884,167 +2884,83 @@ looks at you, you are not allowed to shoot or move or use shield. It's
 indicated when he will look next with some nice animation. When enemies do
 actions during he looks, it damages hull and wave must be repeated.*
 
-**It is not the whole wave.** THE VANE, THE WELL and THE REPRISE bend what a
-wave sends without being the encounter, and this is the fourth of them
-(`bossFillsWave`). There is nothing to shoot: the eye takes no damage, has no
-plates and cannot be answered. The arrivals underneath are the ones the wave's
-author wrote, and the wave is won the ordinary way — by answering all of them.
+**Rebuilt on 29 September 2026**, on his second word: *every level should have
+a predefined beats kind of music which players need to learn, and for a brief
+moment of beat in the music it quickly opens the eye and closes again* — with
+a blue pass first that *explains the beat sequence*, the sequence *repeating 3
+times to give players time to shoot and hit once*, and the rocks gone because
+they *don't relate to the boss visuals*. What this section said before that
+day — a rolled seat, a seven-beat turn, a look that grew, a lid that moved the
+look onto whoever shut it, a film — is in git history and nowhere else.
 
-**The cycle is four phases and a number apiece, and two more for the lid** (`sim/config-stare.ts`):
+**It is the whole wave** (`bossFillsWave`): nothing else falls. The fight is
+**levels**, each an authored pattern of beats (`content/src/stare-levels.ts`,
+five of them, eight beats each: `x` the eye opens, `.` it stays shut), and each
+level is played the same way (`sim/stare.ts`, `sim/stare-step.ts`):
 
 | phase | beats | what it is |
 |---|---|---|
-| away | `stareAwayBeats` (12) | the working window. Nothing is forbidden and nobody is chosen |
-| turning | `stareTellBeats` (7) | the warning, and the whole fairness of the boss |
-| looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (3) each time, to `stareLookMaxBeats` (12) — so a wave's three looks are 6, 9 and 12, and the third is the ceiling | one seat may press nothing at all |
-| back | `stareTurnBackBeats` (2) | the eye turning away again, which is the picture's and not the rule's |
-| shut | to `stareLidHoldBeats` (4) | the lid is down over the eye and both seats are free |
-| opening | `stareReopenBeats` (2) | the lid rising, and the eye about to look at whoever pulled it |
+| rest | `stareRestBeats` (2) | a shut, harmless eye: *here it comes* |
+| teach | the pattern's length | the eye glows **blue** and plays the pattern once. It opens on the `x` beats and nothing it sees costs anything; a bolt at it does nothing |
+| live | the pattern's length | the same pattern for real, in red. On an open beat **both** seats sit still; on a shut beat a bolt up the middle column hits it |
+| charge | `stareChargeBeats` (5), under THE SLOW | after every live pass with no hit, the shut eye swells with a beam, and the lid is the pair's to pull |
+| hurt | `stareHurtBeats` (3) | a hit: the level is over, and the next one starts from its rest |
+| dying | `stareDyingBeats` (4) | the last level hit; the eye goes out and the wave is won |
 
-**Seven beats of warning is one spoken sentence with room to finish it** —
-4.38 seconds at 96 bpm. It was four, which is 2.50s: inside
-`docs/spec/latency.md`'s 2.1–3.6s band for a spoken exchange but under the same
-page's rule that anything needing an announcement gets at least four seconds,
-better five or six. The tell needs one by construction, because only the other
-seat is told who, so a pair at the slow end of their own band had not finished
-saying YOU or THEM when the look landed. Seven is the first value that clears
-the floor; six would have been 3.75s and one bar of the game's own counting,
-and would have needed an exemption written down instead. Shorter and the pair
-is being asked to react rather than to talk, which is the one thing this game
-is not.
+**One hit a level, and three passes to land it.** A charge vented is a pass
+spent; `starePasses` (3) of them with no hit and the level starts again from
+its blue pass (`stareAgain`), so a pair that lost the rhythm hears it taught
+again rather than guessing. The rhythm is authored and never rolled: both
+seats freeze on an open beat, so there is nothing for one phone to know that
+the other does not, and what the pair shares is what they have learnt.
 
-**The cycle is deliberately not a whole number of bars.** Twelve, seven, six
-and two is twenty-seven beats, where it used to be twenty-four; and only the
-first is twenty-seven, because the look grows. The eye turns on beats 12, 39
-and 68, and a wave's arrivals are authored against those measured windows
-rather than against a fixed step — `packages/content/test/stare-windows.test.ts`
-measures the eye and holds every row of the wave inside the right phase, which
-is a thing that was a comment until 17 September 2026 and drifted the moment
-these two numbers moved.
+**A press on an open live beat is refused and charged for**, which is what
+separates this boss from a malfunction: the button works and the pair was
+told. Everything a seat sends to the ship counts (`stareForbids`, which is
+`reachesShip` from `sim/ship-verbs.ts`); the host talking to the run —
+leaving, retrying — does not. **The laser strikes the column the cannon was
+sent to**, the owner's *hits where one of the players moved*: a slide names
+its column, and any other press is struck where the cannon stands
+(`caughtCol`). Any damage fails the wave, and the retry is the game's own.
 
-**It looks at one of you, and the other one is told which.** The seat is rolled
-from the seeded rng at the top of the turn — the only roll in the boss — and
-the picture shows it on the screen of the seat that is *not* about to be
-frozen. That is the randomness rule from [structure](structure.md) kept
-exactly: what is random is what one player knows and the other does not. A pair
-that says nothing has a fifty-fifty chance and a hull that pays for it.
+**The lid** (`sim/stare-hand.ts`) is the one thing on the boss a hand may take
+hold of, and only while the eye charges. Either seat drags it down; at
+`stareLidPullMilli` (600) the charge vents out to the sides of the eye and the
+next pass follows its rest. Nobody does, and the beam comes straight down the
+middle column onto the hull (`stareBlast`). A lid pulled outside a charge is
+nothing, and a thumb on it is never a catch.
 
-**A watched press is refused and charged for**, which is what separates this
-boss from a malfunction. `faultSwallows` eats a press because the button is
-broken and nothing happens; here the button works, the pair was warned, and the
-press does not move the ship *and* breaks the hull — which is the wave lost
-(`sim/wave-fail.ts`, `sim/stare-step.ts`). Everything a seat sends to the ship
-counts: the strip, the trigger, the fill, the dome, the maw, the arm, a hand on
-the field. What does not count is the host talking to the run — leaving,
-retrying, the guide's own steps — because a pair frozen out of `restart` would
-be a pair who could not put the phone down.
+**The music is the pattern** (`audio/src/bind-stare.ts`,
+`audio/src/sounds/boss-stare.ts`): a knock on a shut beat, a blink on an open
+one, the pattern's downbeat a touch louder so the bar can be counted, and each
+level a step higher, so a level is also a key.
 
-**The seat that is not watched plays on, alone.** That is the difference
-between this boss and a cutscene, and it is what the wave is authored around:
-a rock is answered by the dome, which is player 1's, and a colour by the
-trigger, which is player 2's, so the seven beats of warning are seven beats for
-*parking* both controls as well as for saying whose hands come off.
+**The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-fx.ts`,
+`stare-lid.ts`): the cowled eye over the middle column, its ink blue while it
+teaches, red while it plays for real and grey between. It opens on an open
+beat and falls shut as the beat passes; the gaze is drawn down the field on
+both screens while it is open. **The score** under the cowl is the pattern
+itself — a filled pip for an open beat, a hollow one for a shut beat, and a
+ring on the beat the eye is on — so a pair with the sound off can read the
+rhythm they would otherwise hear. While it charges the lid's flap and ring are
+drawn on every screen. A catch, a blast and a hit flash the eye; a vent throws
+two cyan bursts out of its sides. The eye is painted through one record,
+`STARE_EYE` (`render/stare-eye-look.ts`), and VERSUS offers `stare:eye` /
+`globe` against it on THE STARE · LIVE. Proved in
+`render/test/stare-frame.test.ts`.
 
-**And there is a lid** (`sim/stare-hand.ts`, 18 September 2026), the one
-thing on this boss a hand may take hold of, and the second gesture the boss
-asks for after the thumb kept still: it was on `docs/queue.md` as *changes
-state more than once, and asks for more than one gesture*, and this is the
-answer. While the eye is looking, the seat that is *not* watched may drag
-the lid down over it — a `stareLid` drag, `fromYMilli` clamped to
-`stareLidPullMilli` (600, a little over half a tile of thumb) — and the
-moment it reaches the bottom the phase is `shut` and the watched seat is
-free: the look is over, and `stareShut` says who. The two phases after
-`back` are the cost, and it is exactly what it looks like. The eye strains
-against a held lid and forces it up after `stareLidHoldBeats` (4, two and a
-half seconds — one sentence, *I have it, play*), or the thumb lets go first;
-either way `stareOpen` names the seat and whether it was forced, the eye
-spends `stareReopenBeats` (2) opening — shorter than the tell, since there
-is nothing to announce: the seat about to be watched is the one whose thumb
-was on the lid — and then **it looks at whoever shut it**, for the whole of
-the look it was in. The interrupted look does not count and the next does
-not grow, so the lid is not a way out of the boss: it is a way of taking the
-other seat's look onto yourself. A half-pull released springs back and the
-watched seat's own thumb on the lid is nothing, not a catch and not a pull
-(`stareForbids`), so a seat that shut the lid cannot be caught by the eye
-opening under a thumb that had not yet let go. Eight tests hold every branch
-of it in `sim/test/stare.test.ts`.
+**The cue** (`render/boss-cue-read-d.ts`) is `STILL`, on both seats, at the
+foot of the gaze on an open live beat — the fifth kind of cue and the only one
+that is not a gesture ([decisions](../decisions.md) #34), its own word rather
+than `HOLD` because a player told to hold would hold the trigger — and `PULL`,
+a `CARRY` on the lid's ring while the eye charges and nobody has it. Silent on
+the blue pass, on a shut beat and at rest: `render/test/boss-cue-stare.test.ts`.
 
-**The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-fx.ts`): a
-**cowled eye** — THE LID's almond eye set into a mound of rock the size of THE
-CAIRN's, standing on the top edge of the field over the middle column. A new
-shape by the rule (`docs/looks.md`), named for what it combines. The eye is
-turned edge-on while the boss is away, a grey sliver in the cowl, and **the
-warning is the turn**: over the seven beats it swings to face the pair — the
-almond widening from a sliver to its full width and the lids opening with it,
-which is the one animation the owner asked for — while its ink warms from the
-hull's grey to red. The eye is painted through one record, `STARE_EYE`
-(`render/stare-eye-look.ts`), and since 29 September 2026 VERSUS offers
-`stare:eye` / `globe` against it on THE STARE · TURNING: the eye as a lit ball
-whose opening, iris and lashes are placed on its surface and carried round by
-the turn, rather than a flat eye squashed to a sliver and sheared. Seven pips under the cowl count the tell down, on both
-screens, because the tell is public and only the seat is not. **Which seat**
-is the split, drawn both ways: the *other* seat's screen carries the watched
-seat's name in THE INSTAR's scanner frame beside the eye, from the first beat
-of the turn until the eye looks away; the watched seat's screen carries the
-**gaze** instead — a red beam from the eye's corners widening down the field,
-breathing with the beat — so the frozen player sees that they are looked at
-and never who else could have been. A catch flares the eye white, throws a
-burst of red out of it on both screens, and washes the caught seat's panel
-red from the band's top down, over everything (`canvas2d.ts`): the flash is
-the *panel's* and not the button's, because the event names the command's
-kind and not a lobe, and a kind-to-lobe map would be a second copy of the
-band's plan (`docs/queue.md`). Every angle on all three screens, the seat
-word and the gaze proved both ways, and the flash proved a transient the
-next run does not inherit: `render/test/stare-frame.test.ts`.
-
-**The cue** (`render/boss-cue-read-d.ts`, 18 September 2026) is `STILL`, on
-the watched seat alone, at the foot of the gaze, from the beat the look lands
-until it lifts — and nothing during the tell, on any screen. The tell is the
-fight: who the eye chose is the answer, the other seat's to say, and a cue
-on the watched seat while the eye turned would say it for them
-([decisions](../decisions.md) #34). It is the fifth kind of cue and the only
-one that is not a gesture, because the simulation refuses and charges the
-press that ignores it, which makes a thumb kept off the glass something the
-fight can tell was done. It is its own word rather than `HOLD`: a player told
-to hold would hold the trigger. Proved on all three screens, and the silences
-with it: `render/test/boss-cue-stare.test.ts`.
-
-**The lid's look** (`render/stare-lid.ts`, 18 September 2026) is a flap of
-the cowl's own rock coming down over the socket from its brow, its edge lit
-in the eye's ink at that beat's heat, so what the lid covers is seen to be
-covered; it follows the thumb's depth straight off `lidMilli`, sits at the
-bottom while shut, and rises eased over `stareReopenBeats` while the eye
-forces it. **The flap is on every screen and the ring on one**: a watched
-seat has to see the lid come down to know the look is over, and the ring —
-the shipped handle look (`handle-draw.ts`), resting at the brow, riding the
-edge down under a thumb with its gauge closing round it — is drawn only for
-the seat the eye is *not* looking at (`showsStareLid`), which is the one seat
-the simulation hears. It is not drawn at all while the lid is rising: the eye
-has it then, not a thumb. The cue on that seat is `SHUT`, a `CARRY` on the
-ring, until a thumb takes it; the watched seat is never told there is a lid.
-The lid landing is a puff of rock off the brow and the eye forcing it up a
-lesser white with no panel under it (`stare-fx.ts`), both on both screens.
-The first handle on a boss that is not the boss's body
-(`docs/spec/controls.md`, THE STARE'S LID). Proved on all three screens, the
-ring both ways and the two events transients: `render/test/stare-frame.test.ts`,
-`boss-cue-stare.test.ts`. *Never watched at tempo*: the lid's feel under a
-thumb — whether 600 thousandths reads as a decision — is the owner's eye.
-
-**The rehearsal** (`content/src/scenes/the-stare.ts`) is shaped around the
-seat that is *not* watched, because the film's machinery is a thumb landing
-on a named control and this boss's whole lesson is a thumb that must not
-land. Two looks, mirrored: the pilot is watched first and the navigator
-fires up a column parked under the tell; then the navigator is watched and
-the pilot guards a rock with the dome. The cost is the last page — the
-navigator's trigger under the eye, the wash on their panel and the retries
-row — because a caught press stops the world and a page after it would hold
-on nothing. The seed decides who is watched, so the film's seed is held by
-`content/test/scene-stare.test.ts`, which runs it and expects the two looks,
-the deflect and the catch on their beats ([briefings](briefings.md) §3.2).
-Two pages that were the cue's word alone came out when the cue arrived, and
-the guide halves lost *hands off* for what the field cannot say — that the
-watched screen gets no warning, and what a touch costs (briefings, *A page
-the fight now speaks for loses its verb*).
+**There is no guide.** The owner, 29 September 2026: *the guide is not
+required for this wave* — the blue pass is the lesson, drawn on the field it
+is about. Every branch of the clock is held in `sim/test/stare.test.ts`.
+*Never watched at tempo*: whether eight beats at 96 bpm can be learnt from one
+blue pass, and how the lid feels under a thumb, are the owner's ear and eye.
 
 ## 11.18 THE BATON — a bead passed down an arm, one seat a beat
 

@@ -18,17 +18,13 @@ import { splinePath } from "./spline.js";
  * `tools/shape-sheet/src/drafts/`, and the rule for a shape the sheet has no
  * draft of is to combine two the game has and name it (`CLAUDE.md`).
  *
- * **The turn is a turn, not a growth.** An eye that is looking elsewhere is
- * seen edge-on — a sliver as wide as `FACE_AWAY` of its face — and the seven
- * beats of the tell are the face coming round to square, `face` running from
- * that sliver to one while the lids open from `OPEN_AWAY` to wide. The whole
- * picture under `stare-draw.ts` is scaled by that one number, so the lens,
- * the pupil and the lashes turn together as one thing rather than a lid
- * opening on a disc that was always facing the pair. That is what the owner
- * asked for by name — *indicated when he will look next with some nice
- * animation* — and it is read off the phase and the beat, never eased in
- * the renderer: both phones draw the same angle on the same beat, and the
- * seat that is not told who has the angle to count by (`sim/stare.ts`).
+ * **The lids are the fight.** Until 29 September 2026 the eye turned from
+ * edge-on to square over a tell; since then it faces the pair the whole
+ * fight and opens on the beats of its pattern (`sim/stare.ts`). The picture
+ * under `stare-draw.ts` is still scaled by one `face` number, and only the
+ * dying eye turns away with it. Everything here is read off the phase and
+ * the beat, never eased in the renderer: both phones draw the same eye on
+ * the same beat.
  */
 
 /** Tiles from the top of row 0 up to the middle of the eye. */
@@ -38,8 +34,6 @@ const EYE_RX = 1.25;
 const EYE_RY = 0.5;
 /** How much of the eye's width shows while it looks elsewhere — the sliver. */
 export const FACE_AWAY = 0.2;
-/** How far the lids stand open while it looks elsewhere — a slit, not shut. */
-export const OPEN_AWAY = 0.3;
 /**
  * How far the sliver leans, as a shear of its width, so an eye seen edge-on
  * reads as turned rather than squeezed. It comes off with the turn.
@@ -82,49 +76,40 @@ export interface StareFace {
   lean: number;
 }
 
-/** How far the eye has come round, read off the phase and the beat. */
+/** How far the lids stand while the eye is shut: a seam, not nothing. */
+export const OPEN_SHUT = 0.08;
+
+/**
+ * How the eye stands, read off the phase and the beat. Since 29 September
+ * 2026 it faces the pair the whole fight and the lids are the picture: wide
+ * on an open beat of the pattern, a seam on a shut one, a seam through the
+ * charge. Only dying turns it away, over `stareDyingBeats`. An open beat
+ * snaps open and eases shut across the beat, so the opening is on the beat
+ * and the closing is not a second beat of its own.
+ */
 export function stareFace(
   s: StareState,
   cfg: SimConfig,
   beat: number,
   beatPhase: number,
 ): StareFace {
-  const into = beat - s.phaseBeat + beatPhase;
-  let p: number;
-  if (s.phase === "away") p = 0;
-  else if (s.phase === "turning") p = smoothstep(into / cfg.stareTellBeats);
-  // Square under the lid and square as it rises: a shut eye is still facing
-  // the pair, and the lid is the whole of what says it cannot see them.
-  else if (s.phase === "looking" || s.phase === "shut" || s.phase === "opening") p = 1;
-  else p = 1 - smoothstep(into / cfg.stareTurnBackBeats);
-  return {
-    face: FACE_AWAY + (1 - FACE_AWAY) * p,
-    open: OPEN_AWAY + (1 - OPEN_AWAY) * p,
-    lean: LEAN * (1 - p),
-  };
+  if (s.phase === "dying") {
+    const p = 1 - smoothstep((beat - s.phaseBeat + beatPhase) / cfg.stareDyingBeats);
+    return { face: FACE_AWAY + (1 - FACE_AWAY) * p, open: OPEN_SHUT, lean: LEAN * (1 - p) };
+  }
+  const open = s.open ? 1 - (1 - OPEN_SHUT) * smoothstep(beatPhase) ** 2 : OPEN_SHUT;
+  return { face: 1, open, lean: 0 };
 }
 
 /**
  * How far down the lid is, zero to one — what the lid's picture and its
- * handle are placed by (`stare-lid.ts`).
- *
- * While the eye is looking it is the thumb's depth, straight off `lidMilli`
- * over `stareLidPullMilli`; shut it is the bottom, whatever the thumb does;
- * opening it rises over `stareReopenBeats`, eased, because the eye forcing
- * a lid up is a strain and a strain is not linear. Any other phase and there
- * is no lid to see.
+ * handle are placed by (`stare-lid.ts`). The thumb's depth over
+ * `stareLidPullMilli` while the eye charges, and no lid at any other time:
+ * a pulled lid vents the charge and the eye is back on its pattern.
  */
-export function stareLidDrop(
-  s: StareState,
-  cfg: SimConfig,
-  beat: number,
-  beatPhase: number,
-): number {
-  if (s.phase === "looking") return Math.min(1, s.lidMilli / Math.max(1, cfg.stareLidPullMilli));
-  if (s.phase === "shut") return 1;
-  if (s.phase !== "opening") return 0;
-  const into = beat - s.phaseBeat + beatPhase;
-  return 1 - smoothstep(into / cfg.stareReopenBeats);
+export function stareLidDrop(s: StareState, cfg: SimConfig): number {
+  if (s.phase !== "charge") return 0;
+  return Math.min(1, s.lidMilli / Math.max(1, cfg.stareLidPullMilli));
 }
 
 /** How far the eye has come round, zero to one — what the ink warms on. */

@@ -35,9 +35,15 @@ export const SILENT_BOSS = [
   // (`stare-draw.ts` for the rest of that boss, which is read off its state
   // every frame). The hull's own `breach` lands in the same tick.
   "stareCaught",
-  // And the lid's two, read above the loop by the same file (`stare-fx.ts`).
-  "stareShut",
-  "stareOpen",
+  // And the rest of its family, read above the loop by the same file or off
+  // the state every frame (`stare-draw.ts`).
+  "stareBeat",
+  "stareHit",
+  "stareCharge",
+  "stareVent",
+  "stareBlast",
+  "stareAgain",
+  "stareOut",
   // THE BATON's eleven: the arm, the bead and the locked seat's grey are drawn
   // from the boss's state every frame (`baton-draw.ts`, `band-lock.ts`), and
   // a spark on a landing would be a look on top of a shipped one. A shed

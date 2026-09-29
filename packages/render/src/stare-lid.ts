@@ -1,4 +1,4 @@
-import { type SimConfig, type StareState, stareLidFree } from "@neon-spore/sim";
+import { type SimConfig, type StareState, stareCharging } from "@neon-spore/sim";
 import { rimBox, rimPoint } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
 import { handleRadius } from "./handle-draw.js";
@@ -10,8 +10,6 @@ import { drawPullTrack } from "./pull-track.js";
 import { type StareEye, stareEye, stareLidDrop } from "./stare-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
-import type { ViewRole } from "./view-role.js";
-import { showsStareLid } from "./view-role-clocks-b.js";
 
 /**
  * **THE STARE's lid**: the one thing on the eye a hand takes hold of, drawn
@@ -21,16 +19,15 @@ import { showsStareLid } from "./view-role-clocks-b.js";
  * The lid is a flap of the cowl's own rock, and it comes down over the
  * socket from its top edge: a filled band from the socket's brow to the
  * lid's edge, with the edge lit in the eye's ink, so what the lid covers is
- * seen to be covered. **The lid is on every screen** and the ring is on
- * one: a watched seat has to see the lid come down to know the look is
- * over, and the seat that may pull it is the other one
- * (`showsStareLid`, `sim/stare.ts` `stareLidFree`). The ring rests at the
+ * seen to be covered. **The lid and its ring are on every screen**, and only
+ * while the eye charges its beam: since 29 September 2026 either seat may
+ * pull it, and pulled to the bottom in time it vents the charge
+ * (`sim/stare-hand.ts`). The ring rests at the
  * brow while there is no hand on it and rides the edge down with the pull,
  * in a channel from the brow to where a shut lid's edge stops that fills
  * green behind it — the owner's rule for every handle you pull
- * (`pull-track.ts`, `pull-knob.ts`); it breathes while it is free, is lit
- * while it is held, and is not drawn while the eye is forcing the lid back
- * up — the eye has it then, not a thumb.
+ * (`pull-track.ts`, `pull-knob.ts`); it breathes while it is free and is lit
+ * while it is held.
  *
  * The **rest** is the one place the circle is written down, and the hit
  * test answers there, widened by `PULL_GRAB`, whatever the lid is doing: a
@@ -85,15 +82,14 @@ function coverPath(e: StareEye): Path2D {
 }
 
 /**
- * The press, answered for the seat the eye is not looking at, while it is
- * looking. `bossOf(field, "stare")` is `null` on every wave without the eye, and a press
+ * The press, answered for either seat while the eye charges. `bossOf(field, "stare")` is `null` on every wave without the eye, and a press
  * then falls through to whatever is behind it as if no ring were there. The
  * hold's origin is the finger: how far *down* it has come from where it
  * landed is the pull (`sim/stare-hand.ts`).
  */
 export function stareLidUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
   const s = bossOf(field, "stare");
-  if (s === null || !stareLidFree(s, field.seat)) return null;
+  if (s === null || !stareCharging(s)) return null;
   const rest = stareLidRest(l, field.cfg);
   if (!hitCircle({ ...rest, r: rest.r * PULL_GRAB }, x, y)) return null;
   return {
@@ -104,8 +100,8 @@ export function stareLidUnder(l: Layout, x: number, y: number, field: Field): To
 }
 
 /**
- * The lid over the eye, and the ring on it for the seat whose thumb it is.
- * Called after the eye is drawn and before the count, so the lid covers the
+ * The lid over the eye, and the ring on it, while the eye charges.
+ * Called after the eye is drawn and before the score, so the lid covers the
  * eye and nothing covers the lid. `rim` is the eye's ink at this heat, so
  * the lit edge is the eye's colour and not a colour of its own.
  */
@@ -114,14 +110,11 @@ export function drawStareLid(
   l: Layout,
   cfg: SimConfig,
   s: StareState,
-  role: ViewRole,
-  beat: number,
-  beatPhase: number,
   time: number,
   rim: string,
 ): void {
-  if (s.watching === 0) return;
-  const drop = stareLidDrop(s, cfg, beat, beatPhase);
+  if (!stareCharging(s)) return;
+  const drop = stareLidDrop(s, cfg);
   const e = stareEye(l, cfg);
   const rest = stareLidRest(l, cfg);
   const edge = lidEdgeY(e, rest.y, drop);
@@ -139,8 +132,6 @@ export function drawStareLid(
     );
     strokeGlow(ctx, lip, rim, STROKE.outline, 0.9);
   }
-  if (!showsStareLid(role, s.watching)) return;
-  if (s.phase === "opening") return;
   const held = s.lidSeat !== 0;
   const head = { x: rest.x, y: edge };
   // Down only, and the whole of the edge's travel: the knob rides the edge,

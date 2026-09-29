@@ -375,7 +375,7 @@ by hand never moves.
 | `packages/sim/src/scuttle.ts` | THE SCUTTLE: a boss racing you to its own death |
 | `packages/sim/src/boss-round.ts` | Stand the boss on a numbered round, through that fight's own way into one |
 | `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
-| `packages/sim/src/config-stare.ts` | THE STARE's numbers — how long the eye is turned away, how much warning a turn gives |
+| `packages/sim/src/config-stare.ts` | THE STARE's numbers — the lead-in, how many live passes a level gets, how long the charge gives the lid |
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
 | `packages/sim/src/config-scout-trip.ts` | **THE SCOUT's trip**: how the little ship is put out, how much it may carry |
 | `packages/sim/src/config-scuttle.ts` | THE SCUTTLE's numbers — how many sockets the frame has and how many of the parts in them are pods |
@@ -387,7 +387,7 @@ by hand never moves.
 | `packages/sim/src/config-seam.ts` | THE SEAM's tuning: the beats each kind of step stays lit |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
-| `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one event |
+| `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one arm of `SimEvent` |
 | `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
 | `packages/sim/src/events-spool.ts` | What THE SPOOL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
@@ -759,9 +759,10 @@ by hand never moves.
 | `packages/sim/src/cyst.ts` | THE CYST: a sac of two flanks over the middle column |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
-| `packages/sim/src/stare-hand.ts` | **The one hand on THE STARE**: the lid, pulled down over the eye by the seat it is not looking at |
-| `packages/sim/src/stare-step.ts` | THE STARE's clock, and the one press that costs the hull |
-| `packages/sim/src/stare.ts` | THE STARE: a thing in the sky that looks at one of you, and whatever it catches the hull pays for |
+| `packages/sim/src/stare-hand.ts` | **The one hand on THE STARE**: the lid, pulled down over the charging eye so the beam vents out to the sides |
+| `packages/sim/src/stare-step.ts` | THE STARE's clock: the lead-in, a pattern played beat by beat, the charge after a pass, the hit and the end |
+| `packages/sim/src/stare-shot.ts` | **THE STARE's shot**: the eye in the middle column, where a bolt leaves the top of the field |
+| `packages/sim/src/stare.ts` | THE STARE: an eye in the sky that opens on the beat, and whatever it catches moving the hull pays for |
 | `packages/sim/src/surge-hand.ts` | **The two thumbs on THE SURGE**, off the wire, on the tick |
 | `packages/sim/src/surge-hash.ts` | What THE SURGE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/surge-seam.ts` | **The three ends of a charge**: the vent, the burst and the loss |
@@ -983,7 +984,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-crossing.ts` | THE CROSSING's rehearsal: the lane you are aiming up is only yours until something walks across it |
 | `packages/content/src/scenes/the-crystal.ts` | THE CRYSTAL's rehearsal: a lane, a light, and four thumbs at once |
 | `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
-| `packages/content/src/scenes/the-stare.ts` | THE STARE's rehearsal: two looks played right, and a thumb landing under the third |
 | `packages/content/src/scenes/the-splice.ts` | THE SPLICE's rehearsal: the number is at the other end of the straw, and only one of you can see it |
 | `packages/content/src/scenes/the-spool.ts` | THE SPOOL's rehearsal: a brake held at the wrong depth, a word from the other screen, and the right depth |
 | `packages/content/src/scenes/the-sinew.ts` | THE SINEW's rehearsal: two hands pulling one tendon, and a number only one of them can see |
@@ -1033,6 +1033,7 @@ by hand never moves.
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
+| `packages/content/src/stare-levels.ts` | THE STARE's levels: five beat patterns, and the pattern is the level |
 | `packages/content/src/solid-tube.ts` | A LONG PART OF A RIG: a body, a neck, a tail — a spine of rings |
 | `packages/content/src/solid-anchor.ts` | A PART THAT HANGS OFF ANOTHER: a jaw hinged on the skull, a wing on the shoulder, a claw on the wing |
 | `packages/content/src/solid.ts` | A BOSS SEEN FROM ANY SIDE |
@@ -1637,7 +1638,7 @@ by hand never moves.
 | `packages/render/src/gum-splash.ts` | **A gum landing on the ship, remembered.** One event — a `breach` carrying the gum's own kind |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
-| `packages/render/src/stare-draw.ts` | THE STARE, drawn: the cowled eye over the top of the field, turned away, coming round, looking |
+| `packages/render/src/stare-draw.ts` | THE STARE, drawn: the cowled eye over the top of the field, opening on the beats of its pattern |
 | `packages/render/src/stare-fx.ts` | What THE STARE leaves behind a frame: the **flash** of a press it caught |
 | `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
 | `packages/render/src/stare-lid.ts` | **THE STARE's lid**: the one thing on the eye a hand takes hold of |
@@ -2406,7 +2407,7 @@ by hand never moves.
 | `packages/audio/src/bind-surge.ts` | THE SURGE's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scout-hand.ts` | THE SCOUT's two hands on its picture, in a file of their own for `bind-pinball-hand.ts`' reason |
-| `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-stare.ts` | THE STARE's, in a file of their own for `bind-gorge.ts`' reason, and with **no pan on any of them** |
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
@@ -2439,7 +2440,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-spool.ts` | **THE SPOOL played right**, for the STATES sheet: the brake held at the depth this leg's rate asks for |
 | `packages/hands/src/boss-hands-scout.ts` | **THE SCOUT's own hand** — the flight test's stupid autopilot, holding any burn that two beats of flying on would be caught after |
 | `packages/hands/src/boss-hands-scene.ts` | **A scene's hands**, THE NETTLE's and THE INSTAR's: the thumbs and the panel |
-| `packages/hands/src/boss-hands-stare.ts` | The free seat's thumb on THE STARE's lid: pulled to the bottom the tick the eye looks at the other seat |
+| `packages/hands/src/boss-hands-stare.ts` | **THE STARE played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-seam.ts` | **THE SEAM played right**, for the autopilot: every answer is the standard shot or shield (§26) |
 | `packages/hands/src/boss-hands-sling.ts` | **THE SLING played right**, for the autopilot: each seat holds its own draw down while the lit step asks it |
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |

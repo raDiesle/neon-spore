@@ -64,10 +64,9 @@ export const BOSS_ENTRIES_B = {
       },
     ],
   },
-  // THE STARE authors nothing at all: the eye's whole state is its own clock
-  // and the seat it rolled, both of which the fixture's world will have moved
-  // by the time it is fingerprinted (`stare-hash.ts`).
-  stare: { kind: "stare" },
+  // THE STARE authors its patterns, one a level, and two of different
+  // lengths so the fingerprint is seen to take each whole (`stare-hash.ts`).
+  stare: { kind: "stare", levels: ["x.x.", "..x..x"] },
   // THE BATON authors nothing either: the arm's length and every beat it
   // keeps are tuning (`config-baton.ts`), and what it remembers — which socket
   // the bead is in, whose turn it is — is what the fixture's world has moved

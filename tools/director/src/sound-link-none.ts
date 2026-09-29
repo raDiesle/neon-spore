@@ -70,7 +70,7 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.spliceDown":
     "the last tangle coming apart. What this marks is a field with no straws left over it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.stareCaught":
-    "a thumb landing while the eye was watching that seat. What it is attached to is not a body at all — it is a *button*, on a panel, pressed by the wrong person at the wrong moment — and the eye itself is a thing in the sky the sheet has no card for yet (`sim/stare.ts`).",
+    "a thumb landing on an open beat of the eye. What it is attached to is not a body at all — it is a *button*, on a panel, pressed by the wrong person at the wrong moment — and the eye itself is a thing in the sky the sheet has no card for yet (`sim/stare.ts`).",
   // THE BATON's seven. Every one of them happens to a *bead* in a socket of an
   // arm that hangs from the top of the field, and neither the arm nor the bead
   // is drawn yet (`docs/spec/bosses.md`) — the sheet has cards for bodies that

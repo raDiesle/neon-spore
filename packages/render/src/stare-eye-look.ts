@@ -11,7 +11,7 @@ export interface StareEyeLook {
   face: number;
   /** The sliver's shear, gone once the eye is square (`stareFace`). */
   lean: number;
-  /** How far the lids stand open, `OPEN_AWAY..1` (`stareFace`). */
+  /** How far the lids stand open, `OPEN_SHUT..1` (`stareFace`). */
   open: number;
   ink: EyeInk;
   /** The wall clock, for the fluid and the lashes. */

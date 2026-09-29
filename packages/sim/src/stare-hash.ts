@@ -6,31 +6,33 @@ import { STARE_PHASES, type StareState } from "./stare.js";
  * Its own file for the reason `snake-hash.ts` and `scout-hash.ts` are ones:
  * `hash-boss.ts` grows by a whole boss at a time.
  *
- * **The rolled seat is the field that matters most.** It is the one number in
- * this boss that comes out of the rng, and it decides which of two people is
- * about to be punished for touching their own phone — so two devices
- * disagreeing about it is the worst desync this game could have: one pair
- * member would be frozen on their screen and playing on the other's. Nothing
- * else here could be got wrong without this being wrong first.
+ * **`open` is the field that matters most.** It decides whether a press on
+ * this tick breaks the hull, so two devices disagreeing about it is one pair
+ * member frozen on their screen and playing on the other's. The patterns are
+ * hashed as their open beats, one number a level, so a device built from a
+ * different wave file fingerprints as the different boss it is.
  */
 export function stareHashParts(b: StareState): number[] {
-  return [
+  const out = [
     STARE_PHASES.indexOf(b.phase),
     b.phaseBeat,
-    b.watching,
-    b.lookBeats,
-    b.looks,
-    // The catch, and which seat earned it. Nothing but the picture reads
-    // either, and both are in here anyway: rule 4 has no clause for a field
-    // only the drawing wants, because a device that disagrees about one is a
-    // device drawing a different boss.
+    b.level,
+    b.pass,
+    b.open ? 1 : 0,
     b.caughtTick,
     b.caughtPlayer,
-    // The lid: whose thumb, and how far. The seat is the one the eye reopens
-    // on, so two devices disagreeing about it is the desync above with a
-    // different door in; the depth is a thumb's position, which a device
-    // that dropped one drag message would already be wrong about.
+    b.caughtCol,
     b.lidSeat,
     b.lidMilli,
+    b.levels.length,
   ];
+  for (const p of b.levels) out.push(patternBits(p), p.length);
+  return out;
+}
+
+/** A pattern's open beats as bits, beat 0 the lowest. */
+function patternBits(p: string): number {
+  let bits = 0;
+  for (let i = 0; i < p.length && i < 30; i++) if (p[i] === "x") bits |= 1 << i;
+  return bits;
 }

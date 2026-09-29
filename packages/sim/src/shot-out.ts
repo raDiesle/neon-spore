@@ -27,6 +27,7 @@ import { scuttleStruck } from "./scuttle-shot.js";
 import { seamStruck } from "./seam-shot.js";
 import { shotWasted } from "./shot-wasted.js";
 import { slingStruck } from "./sling-shot.js";
+import { stareStruck } from "./stare-shot.js";
 import { tasterStruck } from "./taster-shot.js";
 import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet } from "./types.js";
@@ -143,6 +144,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = haspStruck(world, b) || met;
   // THE RATCHET's, the same again (`ratchet-shot.ts`).
   met = ratchetStruck(world, b) || met;
+  // THE STARE's shut eye, on a live pass, in either colour (`stare-shot.ts`).
+  met = stareStruck(world, b) || met;
   // THE HIVE's underside: an open breach in the bolt's column and colour is
   // sealed, the wrong colour provokes it (`hive-shot.ts`).
   met = hiveStruck(world, b) || met;
@@ -205,6 +208,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "hive",
   "nettle",
   "instar",
+  "stare",
 ]);
 
 /** Whether a boss is hanging above the field to take a bolt out of the top. */

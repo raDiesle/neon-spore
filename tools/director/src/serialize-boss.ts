@@ -85,9 +85,9 @@ export function serializeBoss(boss: BossEntry): string {
   // list of those read back into the wave file is a picture nobody could see
   // again (`packages/content/src/scout-arenas.ts`).
   if (boss.kind === "scout") return '{ kind: "scout", arenas: SCOUT_ARENAS }';
-  // THE STARE has nothing to write out at all — the shortest of the fourteen,
-  // with THE WELL's and for the same reason: the entry is the name.
-  if (boss.kind === "stare") return '{ kind: "stare" }';
+  // THE STARE's levels are named rather than written out, for THE SCOUT's
+  // reason: a rhythm is read in its own file (`content/src/stare-levels.ts`).
+  if (boss.kind === "stare") return '{ kind: "stare", levels: STARE_LEVELS }';
   // And THE BATON, the third: no column, no health and no cadence, because
   // the arm's length and every beat it keeps are tuning (`sim/config-baton.ts`).
   if (boss.kind === "baton") return '{ kind: "baton" }';

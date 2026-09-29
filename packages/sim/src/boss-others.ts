@@ -60,10 +60,10 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
     stepWarden(world, boss);
     return;
   }
-  // THE STARE is the eye's own cycle and nothing else: away, turning,
-  // looking, back. It touches no body and answers no press here — what a press
-  // costs while it is looking is decided where presses arrive, above the
-  // switch in `commands.ts` (`stare-step.ts`).
+  // THE STARE is the eye's own clock: a pattern beat by beat, the charge,
+  // the hit. It answers no press here — what a press costs on an open beat is
+  // decided where presses arrive, above the switch in `commands.ts`
+  // (`stare-step.ts`).
   if (boss.kind === "stare") {
     stepStare(world, boss);
     return;

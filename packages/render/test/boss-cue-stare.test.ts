@@ -24,21 +24,12 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE STARE, and the one word the field may say about it**
- * (`render/src/boss-cue-read-d.ts`).
+ * **THE STARE, and the two words the field may say about it**
+ * (`render/src/boss-cue-read-d.ts`), since 29 September 2026 on both seats.
  *
- * Most of this file is silence, the way `boss-cue-clocks.test.ts` is: the
- * eye's tell is the fight, and the seat about to be frozen is the one seat
- * that must not be told. So the cases that matter are the ones asserting
- * **nothing** — on the watched seat while the eye turns, on the other seat
- * ever, on both while it looks away — and the one case that lights is the
- * word on the watched seat once the look has landed, where the gaze already
- * is (`decisions.md` #34, `view-role-clocks-b.ts`).
- *
- * **And since the lid, the other seat is told one thing**: SHUT, on the lid's
- * ring, while the look is on and no thumb has it yet. It is the one cue this
- * boss shows the seat that is free to move, and it goes the moment the lid is
- * taken, so a hand already on it is not told to take it.
+ * `STILL` at the foot of the gaze on an open beat of a live pass — never on
+ * the blue teaching pass, which costs nothing — and `PULL` on the lid's ring
+ * while the eye charges and no thumb has it yet. Everything else is silence.
  */
 
 beforeAll(installCanvasGlobals);
@@ -49,6 +40,7 @@ const LAYOUT: Record<ViewRole, Layout> = {
   p2: computeLayout(VIEWPORT, CFG, "p2"),
   test: computeLayout(VIEWPORT, CFG, "test"),
 };
+const ROLES: ViewRole[] = ["p1", "p2", "test"];
 
 function hung(): World {
   const world = createWorld(CFG, 5);
@@ -64,12 +56,11 @@ function eye(world: World): StareState {
   return s;
 }
 
-function set(world: World, phase: StareState["phase"], watching: 0 | 1 | 2): void {
+function set(world: World, phase: StareState["phase"], open: boolean): void {
   const s = eye(world);
   s.phase = phase;
   s.phaseBeat = world.beat - 1;
-  s.watching = watching;
-  s.lookBeats = CFG.stareLookBeats;
+  s.open = open;
 }
 
 function cue(world: World, role: ViewRole): BossCue | null {
@@ -78,78 +69,45 @@ function cue(world: World, role: ViewRole): BossCue | null {
 }
 
 describe("THE STARE's cue", () => {
-  it.each([1, 2] as const)("says STILL on seat %d alone, once the look is on it", (who) => {
+  it.each(ROLES)("says STILL on %s on an open live beat, at the foot of the gaze", (role) => {
     const world = hung();
-    set(world, "looking", who);
-    const mine = cue(world, `p${who}`);
+    set(world, "live", true);
+    const mine = cue(world, role);
     expect(mine?.word).toBe("STILL");
     // The word is the kind: the frame carries one line, not a verb over a verb.
     expect(mine?.kind).toBe("STILL");
-    expect(mine?.seat).toBe(who);
-    // The mark stands at the foot of the gaze, which is the one thing on the
-    // watched seat's field the eye has already drawn.
-    expect(mine?.y).toBe(stareGazeFootY(LAYOUT[`p${who}`]));
-    // The other seat is playing on, and is told nothing of the look itself.
-    expect(cue(world, who === 1 ? "p2" : "p1")?.word).not.toBe("STILL");
-    // One person holding both seats is the watched one too.
-    expect(cue(world, "test")?.word).toBe("STILL");
+    expect(mine?.seat).toBeNull();
+    expect(mine?.y).toBe(stareGazeFootY(LAYOUT[role]));
   });
 
-  it.each([1, 2] as const)(
-    "says SHUT on the lid's ring on the seat the eye is not on, %d",
-    (who) => {
-      const world = hung();
-      const other = who === 1 ? 2 : 1;
-      set(world, "looking", other);
-      const role = `p${who}` as const;
-      const mine = cue(world, role);
-      expect(mine?.word).toBe("SHUT");
-      expect(mine?.kind).toBe("CARRY");
-      expect(mine?.seat).toBe(who);
-      // It stands on the ring, which is where the thumb has to go.
-      const rest = stareLidRest(LAYOUT[role], CFG);
-      expect(mine?.x).toBe(rest.x);
-      expect(mine?.y).toBe(rest.y);
-      // Once a thumb has the lid there is nothing left to say to it.
-      eye(world).lidSeat = who;
-      expect(cue(world, role)).toBeNull();
-      // And the watched seat is never told there is a lid to pull.
-      expect(cue(world, `p${other}`)?.word).toBe("STILL");
-    },
-  );
-
-  it.each(["p1", "p2", "test"] as const)(
-    "says nothing on %s while the lid is shut or rising",
-    (role) => {
-      // Shut, both seats are free and the lid is the whole of the picture;
-      // opening, the seat about to be looked at has known since it pulled.
-      const world = hung();
-      set(world, "shut", 1);
-      eye(world).lidSeat = 2;
-      expect(cue(world, role)).toBeNull();
-      set(world, "opening", 1);
-      expect(cue(world, role)).toBeNull();
-    },
-  );
-
-  it.each(["p1", "p2", "test"] as const)("says nothing on %s while the eye turns", (role) => {
-    // The tell is the fight: a cue on the watched seat during the turn would
-    // say *it is you* for the partner whose job that is.
+  it.each(ROLES)("says PULL on the lid's ring on %s while the eye charges", (role) => {
     const world = hung();
-    set(world, "turning", 1);
-    expect(cue(world, role)).toBeNull();
-    set(world, "turning", 2);
+    set(world, "charge", false);
+    const mine = cue(world, role);
+    expect(mine?.word).toBe("PULL");
+    expect(mine?.kind).toBe("CARRY");
+    // It stands on the ring, which is where the thumb has to go.
+    const rest = stareLidRest(LAYOUT[role], CFG);
+    expect(mine?.x).toBe(rest.x);
+    expect(mine?.y).toBe(rest.y);
+    // Once a thumb has the lid there is nothing left to say to it.
+    eye(world).lidSeat = 1;
     expect(cue(world, role)).toBeNull();
   });
 
-  it.each(["p1", "p2", "test"] as const)(
-    "says nothing on %s while the eye is away or turning back",
-    (role) => {
-      const world = hung();
-      set(world, "away", 0);
-      expect(cue(world, role)).toBeNull();
-      set(world, "back", 0);
-      expect(cue(world, role)).toBeNull();
-    },
-  );
+  it.each(ROLES)("says nothing on %s on the blue pass, open or shut", (role) => {
+    const world = hung();
+    set(world, "teach", true);
+    expect(cue(world, role)).toBeNull();
+    set(world, "teach", false);
+    expect(cue(world, role)).toBeNull();
+  });
+
+  it.each(ROLES)("says nothing on %s on a shut live beat, or at rest", (role) => {
+    const world = hung();
+    set(world, "live", false);
+    expect(cue(world, role)).toBeNull();
+    set(world, "rest", false);
+    expect(cue(world, role)).toBeNull();
+  });
 });

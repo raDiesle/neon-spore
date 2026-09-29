@@ -73,11 +73,9 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   `packages/content/src/scout-arenas.ts` as places in thousandths of a tile,
  *   which is a picture rather than a form — the same answer SNAKE's rounds and
  *   PINBALL's boards get, one card along.
- * - **THE STARE** asks for less than any of them: no column, no health, no
- *   rounds and no length, because the wave underneath is the wave its author
- *   wrote. Its whole rhythm is `config-stare.ts`, and the length of its
- *   warning is the boss's fairness rather than a per-wave decision
- *   (`sim/stare.ts`).
+ * - **THE STARE**'s levels are authored in
+ *   `packages/content/src/stare-levels.ts` as beat patterns, which is a rhythm
+ *   rather than a form — THE SCOUT's answer, one card along (`sim/stare.ts`).
  *
  * - **THE BATON** asks for nothing for THE STARE's reason and one more: the
  *   arm hangs in `midCol` so there is no column, the sockets are the health so

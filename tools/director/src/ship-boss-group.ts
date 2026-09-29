@@ -29,7 +29,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   fleet: "THE FLEET — a chart only one of you can read",
   snake: "SNAKE — a round the ship is the body of",
   scout: "THE SCOUT — a little ship one of you flies",
-  stare: "THE STARE — an eye that freezes whoever it looks at",
+  stare: "THE STARE — an eye that opens on the beat",
   baton: "THE BATON — a bead passed down an arm, one seat a beat",
   throat: "THE THROAT — the boss you answer by feeding it",
   undertow: "THE UNDERTOW — the boss under the floor, answered downward",

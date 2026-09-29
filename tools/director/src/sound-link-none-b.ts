@@ -152,12 +152,16 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.filamentDown": "the last filament out under THE SLOW. Same argument.",
   "boss.filamentOut":
     "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
-  // THE STARE's lid, the two moments of it. The eye is a thing in the sky the
-  // sheet has no card for (`sound-link-none.ts`, boss.stareCaught).
-  "boss.stareShut":
-    "the lid pulled down to the bottom over the eye, by the seat it was not looking at. The eye's, and the sheet has no card for the eye (`sim/stare-hand.ts`).",
-  "boss.stareOpen":
-    "the lid starting back up — the thumb lifted, or the eye forced it — and the eye about to look at whoever pulled it. Same argument.",
+  // THE STARE's beats and moments. The eye is a thing in the sky the sheet
+  // has no card for (`sound-link-none.ts`, boss.stareCaught).
+  "boss.stareBeat":
+    "a shut beat of the eye's pattern — the music the pair learns. The eye's, and the sheet has no card for the eye (`sim/stare-step.ts`).",
+  "boss.stareBlink": "an open beat of the same pattern. Same argument.",
+  "boss.stareHit": "a bolt into the shut eye, ending a level. Same argument.",
+  "boss.stareCharge": "the eye charging its beam after a pass with no hit. Same argument.",
+  "boss.stareVent": "the lid pulled in time and the charge let out to the sides. Same argument.",
+  "boss.stareBlast": "the beam coming down onto the hull. Same argument.",
+  "boss.stareOut": "the eye going out. An absence like ui.waveClear.",
   // THE GORGE's two thumbs and the clench. The sack is the fixture the first
   // page has no card for (`sound-link-none.ts`, boss.gorgeSettle).
   "boss.gorgePinch":

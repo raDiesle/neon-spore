@@ -24,22 +24,18 @@
  */
 
 /**
- * What a wave authors when it wants THE STARE, which is nothing at all — THE
- * WELL's entry one boss along, and for a related reason.
+ * What a wave authors when it wants THE STARE: its levels, one beat pattern
+ * each — `x` an open beat, `.` a shut one, read aloud the way a drummer
+ * counts. The owner, 29 September 2026: *every level should have a predefined
+ * beats kind of music which players need to learn* — so the rhythm is the
+ * author's, and only the lengths around it are tuning (`config-stare.ts`).
  *
- * No column: the eye is in the sky rather than in a lane, and one placed over
- * a column would be a boss the pair could answer by standing somewhere else.
- * No health and no rounds: there is nothing to shoot. And no length either,
- * because the wave underneath is the wave its author wrote — the eye bends
- * what that wave costs rather than being the encounter (`bossFillsWave`), so
- * how long it runs is how long the entries take.
- *
- * Everything about its rhythm is tuning (`config-stare.ts`): a wave whose
- * warning was authored per encounter would be several different bosses
- * wearing one name, and the length of the warning is the whole fairness of it.
+ * No column: the eye hangs over the middle, where the cannon is the same
+ * distance from it either way.
  */
 export interface StareEntry {
   kind: "stare";
+  levels: readonly string[];
 }
 
 /**

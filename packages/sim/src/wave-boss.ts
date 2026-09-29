@@ -111,10 +111,9 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // fall loop, the hull or a hand to find (`scout.ts`).
     world.boss = installScout(world, boss.arenas);
   } else if (boss?.kind === "stare") {
-    // No creature and no row: the eye is in the sky and takes no damage, so
-    // there is nothing of it for the fall loop, the hull or a hand to find.
-    // The wave underneath is the wave its author wrote (`stare.ts`).
-    world.boss = installStare(world);
+    // No creature and no row: the eye is in the sky over the middle column,
+    // and what it is is the patterns its author wrote (`stare.ts`).
+    world.boss = installStare(world, boss.levels);
   } else if (boss && isClockEntry(boss)) {
     // A boss from the choreographed page: every one of them says what it
     // leaves on the field in its own branch next door (`wave-boss-clocks.ts`).

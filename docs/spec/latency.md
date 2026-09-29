@@ -33,7 +33,10 @@ announcement chain as a falling creature, and it does not get the 14 beats the
 field gives for free — it gets whatever its own tell is authored at. That was
 missed once: THE STARE's `stareTellBeats` was 4, which is 2.50 s, so a pair at
 the slow end of the 2.1–3.6 s band had not finished saying YOU or THEM when the
-freeze landed. It is 7 now, which is 4.38 s (`packages/sim/src/config-stare.ts`).
+freeze landed. It was 7, 4.38 s, until the fight was rebuilt on 29 September
+2026 with no tell for one seat to say to the other: the rhythm is taught to
+both on a blue pass, and the one thing left to say, *pull*, gets
+`stareChargeBeats` (5) under THE SLOW (`packages/sim/src/config-stare.ts`).
 
 So the rule reads, in full: **anything a pair has to say out loud before they
 can answer it needs four seconds from the moment the first of them can see it**

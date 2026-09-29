@@ -4,13 +4,13 @@ import { bandLobes } from "./band-lobes.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { stareEye } from "./stare-shape.js";
-import { showsStareWatched } from "./view-role-clocks-b.js";
+import { showsStareCaught } from "./view-role-clocks-b.js";
 
 /**
  * What THE STARE leaves behind a frame: the **flash** of a press it caught.
  *
  * Everything else about the boss is drawn off the world every frame — the
- * cowl, the eye, how far it has turned, the count, the seat's name
+ * cowl, the eye, how far the lids stand, the score, the lid
  * (`stare-draw.ts`). The catch is one tick in the simulation and the only
  * thing in the fight that *happens* rather than turns, so it is kept here
  * for THE HIVE's reason: a flash that was up for one frame would be a
@@ -33,16 +33,14 @@ import { showsStareWatched } from "./view-role-clocks-b.js";
  *
  * On the other seat's screen there is no flash: that seat did nothing, and the
  * eye going white and the hull's own breach (`breach-strike.ts`) are what it
- * sees. Both are told by the same seat predicate the look itself is drawn by.
+ * sees (`showsStareCaught`).
  *
  * The burst goes out of the eye rather than the hull, on both screens: it is
  * the eye that caught the thumb.
  *
- * **The lid's two are read here as well** (18 September 2026): the lid
- * landing is a puff of rock off the brow, and the eye forcing it up is a
- * lesser flash with no seat — both transients, both on both screens, since
- * the lid itself is. A lid let go is no event of the picture's at all: the
- * ring empties and the flap rises, and that is read off the state.
+ * **Three more are read here** (29 September 2026): the charge venting is a
+ * burst off both corners of the eye, and the beam let go and a bolt home are
+ * a lesser flash with no seat — transients, on both screens.
  */
 
 /** How fast the flash falls away — a beat and a bit at the game's tempo. */
@@ -81,14 +79,15 @@ export class StareFx {
         this.verb = e.command;
         const eye = stareEye(l, cfg);
         burst(eye.cx, eye.cy, 18, PALETTE.red);
-      } else if (e.type === "stareShut") {
-        // The lid landing: a puff of the cowl's own rock off the brow, on
-        // both screens, and no seat — nothing was caught.
+      } else if (e.type === "stareVent") {
+        // The charge let out to the sides: a burst off each corner of the
+        // eye, on both screens, and no seat — nothing was caught.
         const eye = stareEye(l, cfg);
-        burst(eye.cx, eye.cy - eye.ry, 8, PALETTE.rock);
-      } else if (e.type === "stareOpen" && e.forced) {
-        // The eye forcing the lid up goes white, half as hard as a catch and
-        // with no panel under it: the strain is the eye's, not a seat's.
+        burst(eye.cx - eye.rx, eye.cy, 10, PALETTE.cyan);
+        burst(eye.cx + eye.rx, eye.cy, 10, PALETTE.cyan);
+      } else if (e.type === "stareBlast" || e.type === "stareHit") {
+        // The beam let go, or a bolt home: the eye goes white, half as hard
+        // as a catch and with no panel under it.
         this.flashNow = Math.max(this.flashNow, 0.5);
       }
     }
@@ -110,7 +109,7 @@ export class StareFx {
     const seat = this.seat;
     const verb = this.verb;
     if (this.flashNow <= 0 || seat === 0) return;
-    if (!showsStareWatched(role, seat)) return;
+    if (!showsStareCaught(role, seat)) return;
     const lobe =
       verb === null
         ? undefined

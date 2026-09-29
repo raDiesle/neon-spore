@@ -89,10 +89,9 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // read back out of the queue — which `mapCol` has already put on this
   // field's columns by the time they are sent (`reprise.ts`).
   if (boss.kind === "reprise") return { ...boss };
-  // THE STARE has no column and nothing else to remap: the eye is in the sky,
-  // and what it does is decided by the clock rather than by a place
-  // (`sim/stare.ts`). The shortest entry of the fourteen, with THE WELL's.
-  if (boss.kind === "stare") return { ...boss };
+  // THE STARE has no column and nothing else to remap: the eye hangs over
+  // the middle, and its levels are rhythms rather than places (`sim/stare.ts`).
+  if (boss.kind === "stare") return { ...boss, levels: [...boss.levels] };
   // THE BATON has nothing to remap either, and that is a *geometric* claim
   // rather than an absence: the arm hangs
   // in `midCol` of the field being played and swings a column either side of

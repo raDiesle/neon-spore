@@ -1,4 +1,4 @@
-import { lidHand } from "@neon-spore/hands";
+import { stareHand } from "@neon-spore/hands";
 import { vanePhase, wardenPhase } from "@neon-spore/sim";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
@@ -8,7 +8,8 @@ import { bossPose } from "./poses-bosses-kit.js";
  * field, with a beat count the pair has to say out loud (`docs/spec/
  * bosses.md` §11), posed at every phase its clock reaches on its own.
  *
- * What arrives unattended is what is here: THE STARE's whole cycle, THE
+ * What arrives unattended is what is here: THE STARE's rest, blue pass,
+ * live pass and charge (its hit and its end are earned, by `stareHand`), THE
  * UNDERTOW's five of six, the first phase of each boss whose next phase is
  * something the pair has to *earn*, such as a plate off THE WARDEN. Those
  * are owed, named in each
@@ -34,41 +35,39 @@ export const CLOCK_BOSS_POSES: Pose[] = [
   ),
   bossPose(
     "stare",
-    "away",
-    "The eye is turned away and nothing costs. P1 aims; P2 fires — the wave plays as written.",
+    "rest",
+    "The eye is shut and nothing costs. P1 and P2 get ready: its rhythm is next.",
+    { hold: 1 },
+  ),
+  bossPose(
+    "stare",
+    "teach",
+    "The eye glows blue and plays its rhythm once. Nothing costs: P1 and P2 count the open beats.",
+    { hold: 6, lookAt: "the blue eye opening on its beats, and the score under it" },
+  ),
+  bossPose(
+    "stare",
+    "live",
+    "The rhythm for real. On an open beat P1 and P2 both touch nothing; on a shut one P2 fires up the middle.",
+    { hold: 6, lookAt: "the red eye in the cowl, open or shut on this beat" },
+  ),
+  bossPose(
+    "stare",
+    "charge",
+    "No hit this pass: the eye charges a beam. P1 or P2 pulls the lid down before it fires.",
     { hold: 6 },
   ),
   bossPose(
     "stare",
-    "turning",
-    "The eye names who it will watch. Only the seat it is not watching is told, so P1 or P2 must say it.",
-    // VERSUS judges `stare:eye` here: the turn is the whole of what differs.
-    { hold: 6, lookAt: "the eye in the cowl coming round from edge-on to face the pair" },
+    "hurt",
+    "A bolt hit the shut eye and the level is over. P1 and P2 get ready for the next rhythm.",
+    { hand: stareHand, hold: 1, budgetBeats: 90 },
   ),
-  bossPose(
-    "stare",
-    "looking",
-    "The eye is on one seat. That seat keeps its thumbs off; the other plays on. P1 and P2 swap as it turns.",
-    { hold: 6 },
-  ),
-  bossPose(
-    "stare",
-    "back",
-    "The eye turns away again. The watched seat is free, and P1 and P2 both press once more.",
-    { hold: 3 },
-  ),
-  bossPose(
-    "stare",
-    "shut",
-    "P2 pulls the lid down over the eye and P1 is free — or the other way round. It strains under the thumb.",
-    { hand: lidHand(false), hold: 2 },
-  ),
-  bossPose(
-    "stare",
-    "opening",
-    "The thumb lifts and the lid rises. The eye watches whoever pulled it, so P1 or P2 gets off the glass.",
-    { hand: lidHand(true), hold: 1 },
-  ),
+  bossPose("stare", "dying", "The last level hit: the eye goes out. P1 and P2 have won the wave.", {
+    hand: stareHand,
+    hold: 1,
+    budgetBeats: 400,
+  }),
   bossPose(
     "baton",
     "unfolding",

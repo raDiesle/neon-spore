@@ -115,7 +115,7 @@ describe("a caption pointed at THE MIRROR", () => {
 
 describe("a caption pointed at THE STARE", () => {
   it("rings the eye in its socket, on both screens", () => {
-    const world = withBoss({ kind: "stare" });
+    const world = withBoss({ kind: "stare", levels: ["..x.."] });
     for (const l of BOTH) {
       const eye = stareEye(l, CFG);
       const at = anchorPoint(l, world, SET, { at: "boss" }, 0);

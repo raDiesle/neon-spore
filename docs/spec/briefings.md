@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and nine of the hundred and twenty waves today, and a wave
+   new carries one — one hundred and eight of the hundred and twenty waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-nine of them now**, one per guided wave bar twenty,
+**There are eighty-eight of them now**, one per guided wave bar twenty,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The twenty that are still the
 three strings and the two circles are the bosses from THE NETTLE on, each
@@ -440,9 +440,12 @@ the hardest to choreograph: a rehearsal is a thumb on a named control, so
 the film is shaped around what the *other* seat does while one is frozen,
 and the frozen seat's page carries no act — the pilot watched and the
 navigator firing up the column the pilot parked under, then the navigator
-watched and the pilot guarding a rock alone. Which look is whose is the
-rng's, so the seed is chosen and held by a test (`scene-stare.test.ts`);
-the cost is the last page, because a caught press stops the world.
+watched and the pilot guarding a rock alone. Which look is whose was the
+rng's, so the seed was chosen and held by a test; the cost was the last
+page, because a caught press stops the world. That film left on 29
+September 2026 with the guide itself, on the owner's word — *the guide is
+not required for this wave* — when the eye was rebuilt as a rhythm taught
+on its own blue pass (`bosses.md` §11.16).
 THE REPRISE's, the same day, is the film of a stretch the pair can no longer
 see: three bodies fall seen and are taken, the field goes dark with the tear
 counting them, and two of the three come back down the same columns at the
@@ -849,7 +852,8 @@ flies along. The fight's own two numbers, the mouth's column and the beats to
 the inhale, stay on the four pages that were already about them.
 
 THE STARE's cue came on 18 September 2026 and is the one the four kinds did
-not cover: `STILL`, the non-gesture the fight charges for (`decisions.md`
+not cover (its film and its guide are gone since 29 September 2026; the cue
+stays, on both seats, at the foot of the gaze on an open beat): `STILL`, the non-gesture the fight charges for (`decisions.md`
 #34, *a fifth kind*). Three of its twelve pages were the verb alone. Two came
 out whole — each next to a page of its own seat, so the hand still draws — and
 the one in the second tell, between two of the pilot's, was rewritten to the

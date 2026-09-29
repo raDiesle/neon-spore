@@ -1,4 +1,10 @@
-import type { SpliceState, StareState, World } from "@neon-spore/sim";
+import {
+  type SpliceState,
+  type StareState,
+  stareCharging,
+  stareOpenLive,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import type { Layout } from "./layout.js";
 import { stareLidRest } from "./stare-lid.js";
@@ -10,29 +16,17 @@ import { stareEye, stareGazeFootY } from "./stare-shape.js";
  * with a `WAIT` and left it silent on 25 September (below).
  *
  * The three pages before this one each mark the place a thumb goes; THE
- * STARE's word marks a place a thumb must **not**. What it wants from the
- * watched seat is that no thumb goes anywhere for as long as the look lasts,
- * so it is the fifth kind (`boss-cue.ts`, `CueKind`), the one the simulation
- * can tell was *not* done — and here the stillness is the rule itself, which
- * the picture alone does not say. Its gesture is the lid, below.
+ * STARE's word marks a place a thumb must **not**. What it wants on an open
+ * beat is that no thumb goes anywhere, so it is the fifth kind
+ * (`boss-cue.ts`, `CueKind`), the one the simulation can tell was *not*
+ * done — and here the stillness is the rule itself, which the picture alone
+ * does not say. Its gesture is the lid, below.
  *
- * **When THE STARE's may be said, and when it may not.** The eye's tell — the seven
- * beats of `turning` — is the fight: the seat about to be frozen is *not*
- * shown that it is (`view-role-clocks-b.ts`, `showsStareTarget`), and the
- * other seat has that long to say so. A cue on the watched seat during the
- * tell would say it for them, which is the one thing #34 forbids — the
- * field says the verb, never the answer, and here *who* is the answer. The
- * cue comes out only once the look has landed and the gaze is on the
- * watched seat's own field; by then the telling is over, and the word is
- * what the gaze already means, said in letters for the seat that did not
- * hear it (`docs/spec/bosses.md` §11.16).
- *
- * **And the lid, since 18 September 2026**, which is the boss's one gesture:
- * `SHUT` over the ring on the eye's brow, on the seat the eye is *not*
- * looking at, for as long as the look lasts and no thumb is on it yet. The
- * two cues are on two screens by construction — the watched seat is told to
- * be still, the other is offered the lid — so a screen never carries both,
- * and the order below is only which one the test screen reads first.
+ * **Both seats, since 29 September 2026.** The eye no longer picks a seat:
+ * an open beat of a live pass freezes the pair, so `STILL` is either seat's,
+ * and the lid is either seat's to pull while the eye charges — `PULL` on its
+ * ring until a thumb is on it. The two never stand together: one is an open
+ * beat and the other the charge after the pass (`sim/stare.ts`).
  */
 
 /** THE CHOIR's frame, in tiles — the same as the three pages before. */
@@ -40,50 +34,44 @@ const HALF_W = 0.72;
 const HALF_H = 0.66;
 
 /**
- * THE STARE. `STILL`, on the watched seat, at the foot of the gaze — the
- * lowest row the red reaches — while the eye is `looking` and nowhere else.
- *
- * On the watched seat's screen the gaze is drawn (`showsStareWatched`), so
- * the mark stands on something that seat is already shown; on the other seat
- * nothing is drawn there and nothing is marked. The word is the kind and the
- * kind is the word: `boss-cue-text.ts` skips the line over the frame when
- * the two are the same, so the screen says one thing. The cannon's own
- * cues, if the wave had any, would be after this one, which is what
- * *most urgent first* means for a boss whose ask is a stop.
+ * THE STARE. `STILL` at the foot of the gaze — the lowest row its red
+ * reaches — on an open beat of a live pass, and nowhere else: the teaching
+ * pass's cyan costs nothing and asks nothing. `PULL` on the lid's ring while
+ * the eye charges and no thumb is on it yet; the ring filling is the
+ * picture's own answer, and a word under a hand already doing it would be
+ * the second prompt.
  */
 export function stareCues(l: Layout, world: World, s: StareState): readonly BossCue[] {
-  if (s.phase !== "looking" || s.watching === 0) return [];
-  const eye = stareEye(l, world.cfg);
-  const cues: BossCue[] = [
+  if (stareOpenLive(s)) {
+    const eye = stareEye(l, world.cfg);
+    return [
+      {
+        seat: null,
+        kind: "STILL",
+        word: "STILL",
+        x: eye.cx,
+        y: stareGazeFootY(l),
+        halfW: l.tile * HALF_W,
+        halfH: l.tile * HALF_H,
+        seed: 61,
+      },
+    ];
+  }
+  if (!stareCharging(s) || s.lidSeat !== 0) return [];
+  const rest = stareLidRest(l, world.cfg);
+  return [
     {
-      seat: s.watching,
-      kind: "STILL",
-      word: "STILL",
-      x: eye.cx,
-      y: stareGazeFootY(l),
-      halfW: l.tile * HALF_W,
-      halfH: l.tile * HALF_H,
-      seed: 61,
-    },
-  ];
-  // The lid's word goes out the moment a thumb is on the ring, the way the
-  // sinew's does: the ring filling is the picture's own answer, and a word
-  // under a hand already doing it would be the second prompt.
-  if (s.lidSeat === 0) {
-    const rest = stareLidRest(l, world.cfg);
-    cues.push({
-      seat: s.watching === 1 ? 2 : 1,
+      seat: null,
       kind: "CARRY",
-      word: "SHUT",
+      word: "PULL",
       x: rest.x,
       y: rest.y,
       halfW: rest.r,
       halfH: rest.r,
       seed: 62,
       framed: false,
-    });
-  }
-  return cues;
+    },
+  ];
 }
 
 /**

@@ -29558,3 +29558,19 @@ Bottleneck: writing — the rename touched eleven files, and every test that
 counted a round's marks had to learn it is three levels of them.
 
 *Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE STARE rebuilt as levels of a beat pattern
+
+- reading: 10 min. The old clock, the hand, the cue, the lid, the guide and
+  the film, and every doc that described the look.
+- writing: 30 min. The level/pass/charge clock, the laser on the moved column,
+  the vent and the beam, the five patterns, the score, the music, the tests
+  and the §11.16 rewrite.
+- looking: 0 min. The look is the next lane.
+- friction: 5 min. The hash fixture's shared levels array beat the coverage
+  test, and the charge's air sat in the speech band.
+- landing: 10 min. Three `check:fast` runs, each one finding a doc that
+  still described the film or the old phases.
+
+Bottleneck: landing. Deleting a guide and its film left prose in five docs,
+and only the doc-drift and briefing-count tests found it.

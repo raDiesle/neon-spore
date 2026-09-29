@@ -175,6 +175,7 @@ export {
   type Point,
 } from "./shapes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
+export { STARE_LEVELS } from "./stare-levels.js";
 export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { freshWaveId } from "./wave-types.js";
 export {

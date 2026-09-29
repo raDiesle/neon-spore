@@ -1514,3 +1514,28 @@ addition: `band.ts`'s lobe-sizing helpers into a file of their own;
 `stage.ts`'s control-set and keyboard wiring into `stage-controls.ts`;
 `control-sets.ts`'s seating (`controlSeat`, `swapSeats`, `setSeating` and the
 two caches) into `control-seats.ts`, which already holds `seatedSet`.
+
+## THE STARE's open eye lags on the owner's phone, and the desktop cannot see it
+
+- **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70
+- **Files:** `packages/render/src/stare-draw.ts`
+
+The owner, 29 September 2026: *when eye opens game seems to lag on my
+mobile*. Measured on the desktop the open frame costs about 0.5 ms more CPU
+paint than the shut one, and the op counts barely move. What does change is
+fill: the gaze (`drawGaze`) is a gradient-filled trapezoid the width of the
+field and a third of its height, drawn on every open beat. Add an op-count
+budget test for THE STARE open against shut, as a new stare-budget test in
+render/test, the way the other `*-budget.test.ts` files do. Then try a gaze that fills less area, such as a
+narrower beam or a cached gradient bitmap, and check that its frame test
+still passes. Whether it cured the phone is the owner's to say.
+
+## `mechanics-bosses.ts` is at 249 lines
+
+- **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70
+- **Files:** `packages/content/src/mechanics-bosses.ts`, `packages/content/src/mechanics-bosses-b.ts`
+
+The next boss's sentence takes it past the line ceiling. Move the bosses
+from THE NETTLE on into `mechanics-bosses-b.ts`, which is already spread into
+`MECHANICS`. Keep `MECHANIC_IDS` in the same key order: the bestiary walks
+it, so check that `MECHANICS` still names each id one by one.

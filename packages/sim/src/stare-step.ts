@@ -1,40 +1,39 @@
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { nextInt } from "./rng.js";
+import { closeSlow, openSlow } from "./slow.js";
 import type { StarePhase, StareState } from "./stare.js";
-import { stareForbids, stareWatches } from "./stare.js";
+import { stareForbids, stareLevelPattern, stareOpenLive } from "./stare.js";
 import type { Command, TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * THE STARE's clock, and the one press that costs the hull.
+ * THE STARE's clock: the lead-in, a pattern played beat by beat, the charge
+ * after a pass, the hit and the end — and the one press that costs the hull.
  *
- * The cycle is four phases and no state beyond the beat each began on: away,
- * turning, looking, back — and two more the lid adds off the side of
- * `looking`, shut and opening, which go back into it (`stare-hand.ts` is the
- * thumb that opens that door). It runs on the **beat** and from `stepBoss`, because
- * every number in it is a count of beats a pair says something in — there is
- * nothing here that a finer clock would make fairer, and a tell that landed
- * between two beats would be a tell nobody could count out loud.
+ * It runs on the **beat** and from `stepBoss`, because every number in it is
+ * a beat of the pattern the pair is learning: an eye that opened between two
+ * beats would be an eye nobody could count. The bolt is judged where it
+ * leaves the top of the field (`stare-shot.ts`) and the lid on the tick
+ * (`stare-hand.ts`); both come back here to move the fight on.
  *
- * **The roll happens when the turn begins, not when the look lands.** The
- * whole of the warning is knowing *who*, so the seat is chosen at the top of
- * the tell and stands for the look that follows — and it goes into the
- * fingerprint from that moment (`stare-hash.ts`), so two devices are warning
- * their pair about the same seat.
+ * There is no roll. The rhythm is authored, and both seats sit still on an
+ * open beat, so there is nothing for one device to know that the other does
+ * not — which is the whole of what the pair learns.
  */
 
-/** Install it from the wave's own `boss:` entry. There is nothing to author. */
-export function installStare(world: World): StareState {
+/** Install it from the wave's own `boss:` entry: the patterns, one a level. */
+export function installStare(world: World, levels: readonly string[]): StareState {
   return {
     kind: "stare",
-    phase: "away",
+    phase: "rest",
     phaseBeat: world.beat,
-    watching: 0,
-    lookBeats: world.cfg.stareLookBeats,
-    looks: 0,
+    levels: [...levels],
+    level: 0,
+    pass: 0,
+    open: false,
     caughtTick: -1,
     caughtPlayer: 0,
+    caughtCol: -1,
     lidSeat: 0,
     lidMilli: 0,
   };
@@ -49,125 +48,142 @@ export function stareBoss(world: World): StareState | null {
 export function enterStare(stare: StareState, phase: StarePhase, beat: number): void {
   stare.phase = phase;
   stare.phaseBeat = beat;
+  stare.open = false;
 }
 
-/**
- * One beat of the eye.
- *
- * The look's length is read off `lookBeats` and grown *after* the look ends,
- * so the number the pair has been living with all through a look is the number
- * it was told about — a span that grew underneath them would make the last
- * beat of every look a beat nobody could have counted.
- */
-export function stepStare(world: World, stare: StareState): void {
+/** One beat of the eye. */
+export function stepStare(world: World, s: StareState): void {
   const cfg = world.cfg;
-  const since = world.beat - stare.phaseBeat;
+  const since = world.beat - s.phaseBeat;
 
-  if (stare.phase === "away") {
-    if (since < cfg.stareAwayBeats) return;
-    // The seat is rolled here, at the top of the turn, and this is the only
-    // roll in the boss. `docs/spec/structure.md`: what is random is what one
-    // player knows and the other does not — the picture shows it to the seat
-    // that is *not* watched (`docs/spec/bosses.md`), so the roll is the reason
-    // there is something to say.
-    stare.watching = nextInt(world.rng, 2) === 0 ? 1 : 2;
-    enterStare(stare, "turning", world.beat);
+  if (s.phase === "rest") {
+    if (since < cfg.stareRestBeats) return;
+    // A pass is 0 only at the top of a level, which is where the blue pass is.
+    enterStare(s, s.pass === 0 ? "teach" : "live", world.beat);
+    play(world, s);
     return;
   }
 
-  if (stare.phase === "turning") {
-    if (since < cfg.stareTellBeats) return;
-    enterStare(stare, "looking", world.beat);
+  if (s.phase === "teach" || s.phase === "live") {
+    play(world, s);
     return;
   }
 
-  if (stare.phase === "looking") {
-    if (since < stare.lookBeats) return;
-    stare.looks += 1;
-    // Longer every time, to a ceiling: a pair that has learned the rhythm has
-    // learned one that is getting harder, which is what keeps the last window
-    // of a wave worth as much as the first.
-    stare.lookBeats = Math.min(cfg.stareLookMaxBeats, stare.lookBeats + cfg.stareLookGrowBeats);
-    stare.watching = 0;
-    // A look that ran its length is done with the lid too: a thumb still on
-    // it is a thumb on nothing until the next look.
-    stare.lidSeat = 0;
-    stare.lidMilli = 0;
-    enterStare(stare, "back", world.beat);
+  if (s.phase === "charge") {
+    if (since < cfg.stareChargeBeats) return;
+    blast(world, s);
     return;
   }
 
-  // The lid is down and the eye is straining against it. A thumb that lets
-  // go opens it sooner (`stare-hand.ts`); this is the eye winning.
-  if (stare.phase === "shut") {
-    if (since < cfg.stareLidHoldBeats) return;
-    openStare(world, stare, true);
+  if (s.phase === "hurt") {
+    if (since < cfg.stareHurtBeats) return;
+    if (s.level >= s.levels.length) {
+      enterStare(s, "dying", world.beat);
+      return;
+    }
+    s.pass = 0;
+    enterStare(s, "rest", world.beat);
     return;
   }
 
-  // The lid is up and the eye looks at the seat that pulled it, for a whole
-  // look — the same `lookBeats` the shut one would have run, not grown,
-  // because a look the lid ended never landed (`looks` did not count it).
-  if (stare.phase === "opening") {
-    if (since < cfg.stareReopenBeats) return;
-    stare.lidMilli = 0;
-    enterStare(stare, "looking", world.beat);
-    return;
-  }
-
-  if (since >= cfg.stareTurnBackBeats) enterStare(stare, "away", world.beat);
+  // Dying: the eye goes out, and a wave with nothing else in it is won.
+  if (since < cfg.stareDyingBeats) return;
+  world.events.push({ type: "stareOut" });
+  world.boss = null;
 }
 
 /**
- * The lid starts back up, from `shut`, and the eye takes the puller.
- *
- * `watching` is set here rather than when the look lands, for the tell's
- * reason: the picture shows the seat about to be frozen on the *other*
- * screen from the moment the lid moves, so both seats know who for the whole
- * of the rise. It is `lidSeat`, never a roll — the lid remembers who pulled
- * it, and that is the whole cost.
+ * The beat the pattern is on: open or shut, and a sound either way. At the
+ * pattern's end, the blue pass becomes the first live one and a live pass
+ * becomes a charge.
  */
-export function openStare(world: World, stare: StareState, forced: boolean): void {
-  const player = stare.lidSeat === 0 ? null : stare.lidSeat;
-  if (player === null) return;
-  stare.watching = player;
-  enterStare(stare, "opening", world.beat);
-  world.events.push({ type: "stareOpen", player, forced });
+function play(world: World, s: StareState): void {
+  const pattern = stareLevelPattern(s);
+  const step = world.beat - s.phaseBeat;
+  if (step < pattern.length) {
+    s.open = pattern[step] === "x";
+    world.events.push({
+      type: "stareBeat",
+      open: s.open,
+      teach: s.phase === "teach",
+      step,
+      level: s.level,
+    });
+    return;
+  }
+  if (s.phase === "teach") {
+    enterStare(s, "live", world.beat);
+    play(world, s);
+    return;
+  }
+  enterStare(s, "charge", world.beat);
+  openSlow(world, world.cfg.stareChargeBeats, "ask");
+  world.events.push({ type: "stareCharge", pass: s.pass });
+}
+
+/** The charge ran out with the lid up: the beam comes down the middle. */
+function blast(world: World, s: StareState): void {
+  const col = midCol(world.cfg);
+  closeSlow(world);
+  s.lidSeat = 0;
+  s.lidMilli = 0;
+  enterStare(s, "rest", world.beat);
+  world.events.push({ type: "stareBlast", col });
+  bossStrikesHull(world, "stare", col, 0, "beam");
+}
+
+/**
+ * The lid reached the bottom in time and the charge vents to the sides. The
+ * next pass follows a lead-in; the third without a hit starts the level again
+ * from its blue pass (`stareAgain`).
+ */
+export function stareVented(world: World, s: StareState, player: 1 | 2): void {
+  closeSlow(world);
+  world.events.push({ type: "stareVent", player });
+  s.pass += 1;
+  if (s.pass >= world.cfg.starePasses) {
+    s.pass = 0;
+    world.events.push({ type: "stareAgain", level: s.level });
+  }
+  enterStare(s, "rest", world.beat);
+}
+
+/** A bolt hit the shut eye on a live pass: the level is over. */
+export function stareHitHome(world: World, s: StareState): void {
+  const level = s.level;
+  s.level += 1;
+  s.pass = 0;
+  enterStare(s, "hurt", world.beat);
+  world.events.push({ type: "stareHit", level, last: s.level >= s.levels.length });
 }
 
 /**
  * **Whether this press is the one that costs the hull**, asked in
  * `applyCommand` above the switch and below `restart`.
  *
- * It refuses and punishes in the same breath, which is the difference between
- * this boss and a malfunction: `faultSwallows` eats a press because the button
- * is broken, and nothing happens. Here the button works perfectly and the
- * pair was told not to touch it — so the press is not applied *and* the hull
- * is broken, which is the wave lost (`wave-fail.ts`).
- *
- * The other seat is untouched. A look is one player sitting on their hands
- * while the other holds the field alone, and a rule that froze both would be a
- * pause rather than a boss.
+ * Either seat, on an open beat of a live pass. The press is refused *and* the
+ * hull is broken, which is the wave lost (`wave-fail.ts`): the button worked
+ * and the pair was told not to touch it.
  */
 export function stareBreaks(world: World, timed: TimedCommand): boolean {
-  const stare = stareBoss(world);
-  if (stare === null) return false;
-  if (!stareWatches(stare, timed.player)) return false;
+  const s = stareBoss(world);
+  if (s === null) return false;
+  if (!stareOpenLive(s)) return false;
   if (!stareForbids(timed.command)) return false;
-  caught(world, stare, timed.player, timed.command);
+  caught(world, s, timed.player, timed.command);
   return true;
 }
 
 /**
- * The hull pays and the wave is lost.
- *
- * The middle column, because the eye is in the sky rather than in a lane and
- * there is no column to blame — the same argument SNAKE's crash and THE
- * SCOUT's touch both make. `heavy`, because being looked at is not a graze.
+ * The laser strikes **where the cannon was sent**. The owner, 29 September
+ * 2026: *the damaging laser hits where one of the players moved.* A slide
+ * names its column; any other press is struck where the cannon stands.
  */
-function caught(world: World, stare: StareState, player: 1 | 2, command: Command): void {
-  stare.caughtTick = world.tick;
-  stare.caughtPlayer = player;
-  world.events.push({ type: "stareCaught", player, command });
-  bossStrikesHull(world, "stare", midCol(world.cfg));
+function caught(world: World, s: StareState, player: 1 | 2, command: Command): void {
+  const col = command.kind === "cannonCol" ? command.col : world.cannonCol;
+  s.caughtTick = world.tick;
+  s.caughtPlayer = player;
+  s.caughtCol = col;
+  world.events.push({ type: "stareCaught", player, command, col });
+  bossStrikesHull(world, "stare", col, 0, "laser");
 }

@@ -154,21 +154,19 @@ export const CHOREO_NOTES = {
   ...CHOREO_NOTES_B,
   ...CHOREO_NOTES_C,
   ...CHOREO_NOTES_D,
-  "THE STARE — an eye that freezes whoever it looks at":
-    "The owner asked for this on 16 September 2026: when the boss looks at " +
-    "you, you may not shoot, move or use the shield. The eye is away for " +
-    "stareAwayBeats, turns for stareTellBeats — that turn is the whole " +
-    "fairness of it, and it is one spoken sentence long — then watches one " +
-    "seat, rolled from the wave's own rng and shown only to the *other* " +
-    "screen. A watched seat that presses anything breaks the hull, which is " +
-    "the wave lost. Every look is stareLookGrowBeats longer than the last, to " +
-    "stareLookMaxBeats. It is not the whole wave: the arrivals underneath are " +
-    "the ones its author wrote, and the seat that is not watched plays on " +
-    "alone. Since 18 September 2026 the eye has a lid, and the free seat may " +
-    "pull it down stareLidPullMilli to shut it, which frees the watched seat " +
-    "at once; the eye forces it up after stareLidHoldBeats or when the thumb " +
-    "lifts, rises for stareReopenBeats, and then looks at whoever pulled it " +
-    "for a whole look. Nothing about it is authored per wave.",
+  "THE STARE — an eye that opens on the beat":
+    "Rebuilt on the owner's word on 29 September 2026: every level is a beat " +
+    "pattern the pair learns, authored in content/src/stare-levels.ts. A " +
+    "level opens after stareRestBeats with a blue pass that plays the pattern " +
+    "once and costs nothing, then plays it for real up to starePasses times. " +
+    "On an open beat both seats touch nothing, or the laser strikes the " +
+    "column the cannon was sent to and the wave is lost; on a shut beat a " +
+    "bolt up the middle hits the eye, and one hit ends the level after " +
+    "stareHurtBeats. After a pass with no hit the eye charges for " +
+    "stareChargeBeats under THE SLOW: either seat pulls the lid down " +
+    "stareLidPullMilli to vent it, or the beam comes down the middle. The " +
+    "last level hit, the eye goes out after stareDyingBeats and the wave is " +
+    "won. Nothing else falls in its wave.",
   "THE SPOOL — the boss where the line runs out at the speed one of you reads":
     "A thread-spool slung sideways across the top of the field, its line run " +
     "to the hull and taut. The pilot holds the brake at a depth: shallow pays " +

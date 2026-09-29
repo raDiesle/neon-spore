@@ -97,12 +97,6 @@ export {
   sinewWalked,
   sinewZone,
   sinewZoneWidth,
-  // THE STARE's lid (18 September 2026): three questions the first page had
-  // no room for. The lid's own picture reads them the way the eye's reads
-  // `stareLooking`, and the director's STATES sheet reads them too.
-  stareLidFree,
-  stareOpening,
-  stareShut,
   // And the two hands it gained the day after (19 September 2026): the cue
   // over a body in the mouth asks the simulation whether a ring may be pinched
   // and whether the tube may be hauled, rather than re-deriving either from

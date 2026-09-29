@@ -88,31 +88,13 @@ export const instarMarkIsMine = (role: ViewRole, seat: InstarSeat): boolean =>
   role === "test" || seat === "both" || (role === "p1") === (seat === "p1");
 
 /**
- * THE STARE's two, and the split is the eyes, **one way and then the
- * other**: while the eye turns and while it looks, the seat it has chosen
- * is named on the *other* seat's screen alone — the one that is not about to
- * be frozen — because what is random in this boss is what one player knows
- * and the other does not (`docs/spec/structure.md`), and seven beats of
- * warning are seven beats in which somebody has to say *it is you*. Once the
- * look has landed, the seat under it is shown that it is: the gaze falling on
- * its own field, and the flash on its own panel if it pressed anyway. By then
- * the telling is over and nothing is given away; what the gaze says is *hands
- * off*, to the one pair of hands it is about (`stare-draw.ts`, `stare-fx.ts`,
- * `sim/stare.ts`). `test` is both.
+ * THE STARE's one, since 29 September 2026: the eye freezes **both** seats on
+ * an open beat, so the gaze, the lid and its ring are on every screen, and
+ * the only split left is the flash of a caught press, which lights the
+ * panel of the seat that pressed (`stare-fx.ts`). `test` is both.
  */
-export const showsStareTarget = (role: ViewRole, watching: 1 | 2): boolean =>
-  role === "test" || role !== `p${watching}`;
-export const showsStareWatched = (role: ViewRole, watching: 1 | 2): boolean =>
-  role === "test" || role === `p${watching}`;
-/**
- * And the lid's handle, on the screen of the seat whose thumb it is: the one
- * the eye is *not* looking at, which is the screen already told who. The lid
- * itself — how far down it is — is on every screen, since a watched seat has
- * to see the lid come down to know it is free; only the ring and its word
- * are the puller's (`stare-lid.ts`, `sim/stare.ts` `stareLidFree`).
- */
-export const showsStareLid = (role: ViewRole, watching: 1 | 2): boolean =>
-  showsStareTarget(role, watching);
+export const showsStareCaught = (role: ViewRole, seat: 1 | 2): boolean =>
+  role === "test" || role === `p${seat}`;
 
 /**
  * THE FILAMENT's two. Since 25 September 2026 both thumbs and the lit run are

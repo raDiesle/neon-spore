@@ -2,7 +2,6 @@ import type { GuideScene } from "./scene-types.js";
 import { THE_COUNT } from "./scenes/the-count.js";
 import { THE_HUSK } from "./scenes/the-husk.js";
 import { THE_REPRISE } from "./scenes/the-reprise.js";
-import { THE_STARE } from "./scenes/the-stare.js";
 
 /**
  * The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2
@@ -18,12 +17,14 @@ import { THE_STARE } from "./scenes/the-stare.js";
  * folds, a mark drawn on one seat's screen and not the other's). A film for
  * one of the guides still on that list is added here; `scenes.ts` spreads
  * this table into `SCENES` and widens `SceneId` by the id.
+ *
+ * THE STARE's left on 29 September 2026 with its guide: the owner — *the
+ * guide is not required for this wave*.
  */
-export type OwedSceneId = "theReprise" | "theStare" | "theHusk" | "theCount";
+export type OwedSceneId = "theReprise" | "theHusk" | "theCount";
 
 export const SCENES_OWED: Record<OwedSceneId, GuideScene> = {
   theReprise: THE_REPRISE,
-  theStare: THE_STARE,
   theHusk: THE_HUSK,
   theCount: THE_COUNT,
 };

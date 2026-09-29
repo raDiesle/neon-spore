@@ -50,8 +50,15 @@ export const INGEST_SILENT_BOSS = [
   // ever sees it, the way THE MIRROR's four are. The hull's own `breach` goes
   // up in the same tick.
   "stareCaught",
-  "stareShut", // And the lid's two, read above the loop by the same file.
-  "stareOpen",
+  // And the rest of its family, read above the loop by the same file or off
+  // the state every frame (`stare-draw.ts`).
+  "stareBeat",
+  "stareHit",
+  "stareCharge",
+  "stareVent",
+  "stareBlast",
+  "stareAgain",
+  "stareOut",
   // THE BATON's eleven, silent because its picture is read off its state
   // every frame rather than off an event: the arm, a socket going dark, the
   // bead in flight and the grey panel under the seat whose turn it is not are

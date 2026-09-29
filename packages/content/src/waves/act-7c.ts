@@ -1,5 +1,6 @@
 import { PULSE_STAGES } from "../pulse-stages.js";
 import { SCOUT_ARENAS } from "../scout-arenas.js";
+import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -31,24 +32,11 @@ import type { Wave } from "../wave-types.js";
  * same move `act-7e.ts` (as `act-7d.ts`, the day before) made for THE TASTER
  * and THE SINEW.
  *
- * **THE STARE's arrivals are placed against the eye's own cycle**, which is
- * twenty-seven beats at the opening rhythm: twelve to play in, seven of
- * warning, six watched, two turning back. The rocks are deliberately *inside*
- * the looks — a rock is answered by the dome, which is player 1's, and a colour
- * by the trigger, which is player 2's — so a look that takes one seat is a look
- * the pair can still play through if the other control was parked before it
- * landed. The colours sit in the windows, where both seats are free. The looks
- * grow (`stareLookGrowBeats`), so the last window is the short one and the
- * last rock falls with the eye already open.
- *
- * **Windows 0-12, 27-39, 57-69; looks 19-25, 46-55, 76-88**, measured off the
- * eye rather than derived — and written up here because the director
- * round-trips `entries` and a comment inside that array does not survive a save.
- * Every beat below was re-authored on 17 September 2026, when the tell went
- * from 4 beats to 7 and the growth from 2 to 3: both moved every window and
- * every look, and the old rows would have left all six rocks outside theirs.
- * `stare-windows.test.ts` exists to catch exactly that, because until then the
- * placement was a sentence in this comment and nothing checked it. */
+ * **THE STARE's wave has no arrivals** since 29 September 2026, when the
+ * eye became a fight of its own — levels of beat patterns
+ * (`stare-levels.ts`) and a shut eye to shoot — and the owner took the rocks
+ * off: *rocks falling is stupid because it doesn't relate to the boss*. Its
+ * guide went the same day: *the guide is not required for this wave*. */
 export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theScout",
@@ -64,27 +52,8 @@ export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theStare",
     name: "THE STARE",
-    guide: {
-      scene: "theStare",
-    },
-    entries: [
-      { beat: 3, col: 2, color: "red" },
-      { beat: 6, col: 4, color: "cyan" },
-      { beat: 9, col: 1, color: "cyan" },
-      { beat: 20, col: 3, kind: "meteor", color: null },
-      { beat: 23, col: 3, kind: "meteor", color: null },
-      { beat: 29, col: 5, color: "red" },
-      { beat: 32, col: 0, color: "red" },
-      { beat: 35, col: 6, color: "cyan" },
-      { beat: 47, col: 2, kind: "meteor", color: null },
-      { beat: 51, col: 4, kind: "meteor", color: null },
-      { beat: 59, col: 3, color: "red" },
-      { beat: 62, col: 1, color: "cyan" },
-      { beat: 65, col: 5, color: "red" },
-      { beat: 80, col: 3, kind: "meteor", color: null },
-      { beat: 85, col: 3, kind: "meteor", color: null },
-    ],
-    boss: { kind: "stare" },
+    entries: [],
+    boss: { kind: "stare", levels: STARE_LEVELS },
     bossType: "normal",
   },
   {
