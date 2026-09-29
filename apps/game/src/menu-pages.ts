@@ -1,7 +1,7 @@
 import { type MechanicId, WAVES } from "@neon-spore/content";
 import type { DemoRow } from "./demo-menu.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
-import { waveMatches } from "./menu-wave-filter.js";
+import { MARKS, type MarkId, marksMatch, waveMatches } from "./menu-wave-filter.js";
 
 /**
  * The menu's two jump lists.
@@ -40,9 +40,26 @@ export function buildWaves(
   filter.placeholder = "a name, a boss, a word from its guide";
   filter.autocomplete = "off";
   filter.spellcheck = false;
+  // The director's row of marks with it, pressed to narrow: ORed with each
+  // other, ANDed with the field, so `✦` and `queen` is the boss waves that
+  // say queen.
+  const pressed = new Set<MarkId>();
+  const marks = el("div", "wave-marks");
+  for (const [id, glyph, word] of MARKS) {
+    const toggle = el("button", "wave-mark", `${glyph} ${word}`);
+    toggle.type = "button";
+    toggle.setAttribute("aria-pressed", "false");
+    toggle.addEventListener("click", () => {
+      if (pressed.has(id)) pressed.delete(id);
+      else pressed.add(id);
+      toggle.setAttribute("aria-pressed", String(pressed.has(id)));
+      refresh();
+    });
+    marks.append(toggle);
+  }
   const note = el("p", "wave-filter-note");
   note.hidden = true;
-  page.append(filter, note);
+  page.append(filter, marks, note);
 
   const rows = WAVES.map((wave, i) => {
     const button = el("button", "wave");
@@ -60,11 +77,11 @@ export function buildWaves(
     const query = filter.value;
     let matched = 0;
     rows.forEach((row, i) => {
-      const on = waveMatches(i, query);
+      const on = waveMatches(i, query) && marksMatch(i, pressed);
       row.hidden = !on;
       if (on) matched += 1;
     });
-    note.hidden = query.trim() === "";
+    note.hidden = query.trim() === "" && pressed.size === 0;
     note.textContent = matched === 0 ? "nothing matches" : `${matched} of ${rows.length}`;
   };
   filter.addEventListener("input", refresh);

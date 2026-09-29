@@ -543,6 +543,30 @@
   outline: none;
   border-color: var(--accent);
 }
+/* The director's row of marks, as words: four toggles in one wrapping line
+   under the field, lit while pressed. */
+#menu .wave-marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+#menu .wave-mark {
+  padding: 7px 10px;
+  border: 1px solid var(--line-quiet);
+  border-radius: 9px;
+  background: rgba(10, 7, 26, 0.55);
+  color: var(--ink-faint);
+  font:
+    10px "Courier New",
+    monospace;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+#menu .wave-mark[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--ink);
+}
 #menu .wave-filter-note {
   margin: -2px 0 8px;
   font-size: 9px;

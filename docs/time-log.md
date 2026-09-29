@@ -29216,3 +29216,14 @@ Bottleneck: looking — the pane's phone size reset once mid-check.
 Bottleneck: looking — the phone picture needed a second tool to arrive as a PNG.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — JUMP TO WAVE takes the director's four mark filters
+
+- reading: 10 min. The game's filter, the director's `rail-filter.ts`,
+  `rail-symbols.ts`, `rail-marks.ts`, the boss type field.
+- writing: 10 min. The four toggles, `marksOn`, boss type in the haystack, four tests.
+- looking: 10 min. The browser pane: the name step, the spore's three taps, TESTING.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — reaching TESTING in the pane took three screens first.

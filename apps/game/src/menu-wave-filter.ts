@@ -1,4 +1,4 @@
-import { WAVES } from "@neon-spore/content";
+import { controlSet, DEFAULT_CONTROL_SET_ID, firstOnPanel, WAVES } from "@neon-spore/content";
 
 /**
  * The filter over the JUMP TO WAVE list.
@@ -10,7 +10,8 @@ import { WAVES } from "@neon-spore/content";
  * that editor, and the game bundle has no business depending on a dev tool's
  * code for a runtime feature. So this is the same algorithm — a term matches
  * if it starts a word anywhere in what a wave *is* — over a smaller
- * vocabulary: a wave's number, its name, its guide, and its boss.
+ * vocabulary: a wave's number, its name, its guide, its panel, its boss and
+ * the boss's type (`normal`, `special`), and its faults.
  *
  * `ward` finds THE WARD and THE WARDEN and not a wave whose guide happens
  * to say *toward*, because a term has to start a word rather than
@@ -27,7 +28,10 @@ function waveHaystack(index: number): string {
     const g = wave.guide;
     parts.push(...(g.scene === undefined ? [g.both, g.p1, g.p2] : [g.scene]));
   }
-  if (wave.boss) parts.push("boss", wave.boss.kind);
+  const set = controlSet(wave.controls);
+  parts.push(set.name, set.id);
+  if (set.id !== DEFAULT_CONTROL_SET_ID) parts.push("panel");
+  if (wave.boss) parts.push("boss", wave.boss.kind, wave.bossType ?? "");
   for (const fault of wave.faults ?? []) parts.push("fault", "malfunction", fault.kind);
   return parts.join(" ").toLowerCase();
 }
@@ -53,4 +57,44 @@ export function waveMatches(index: number, query: string): boolean {
   if (terms.length === 0) return true;
   const hay = waveHaystack(index);
   return terms.every((term) => startsAWord(hay, term));
+}
+
+/**
+ * The director's row of marks over its filter (`tools/director/src/rail-
+ * symbols.ts`), asked for here on 29 September 2026 with the boss first. The
+ * same four questions `rail-marks.ts` asks, copied for the reason above.
+ *
+ * Here they are words as well as glyphs: a phone's page is not a 210 px
+ * track, and a pressable glyph with no word on it is a legend to learn.
+ */
+export const MARKS = [
+  ["boss", "✦", "BOSS"],
+  ["control", "⎈", "PANEL"],
+  ["card", "✎", "GUIDE"],
+  ["fault", "⚠", "FAULT"],
+] as const;
+
+export type MarkId = (typeof MARKS)[number][0];
+
+/** Which marks a wave carries. A panel mark is a panel that is not the
+ * ordinary one, or the first wave played on any panel at all. */
+export function marksOn(index: number): MarkId[] {
+  const wave = WAVES[index];
+  if (!wave) return [];
+  const out: MarkId[] = [];
+  if (wave.boss) out.push("boss");
+  if (firstOnPanel(WAVES, index) || controlSet(wave.controls).id !== DEFAULT_CONTROL_SET_ID) {
+    out.push("control");
+  }
+  if (wave.guide) out.push("card");
+  if (wave.faults?.length) out.push("fault");
+  return out;
+}
+
+/** Whether a wave carries at least one pressed mark — ORed with each other,
+ * as in the director, and ANDed with the field by the caller. No marks
+ * pressed is not a filter. */
+export function marksMatch(index: number, pressed: ReadonlySet<MarkId>): boolean {
+  if (pressed.size === 0) return true;
+  return marksOn(index).some((id) => pressed.has(id));
 }

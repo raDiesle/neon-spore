@@ -1367,3 +1367,14 @@ Add that to the guard. Read the lane's own `queue done` / `queue release`
 commits for the titles it closed. If an entry the trunk had is gone and its
 title is not among them, refuse the landing and name the entry. Test it in
 `tools/land/test/` the way the re-add case is tested.
+
+## The wave marks are asked in two places: the director's rail and JUMP TO WAVE
+
+- **Found:** 2026-09-29, claude/jump-wave-boss-filters-135b87
+- **Files:** `apps/game/src/menu-wave-filter.ts`, `tools/director/src/rail-marks.ts`, `packages/content/src/`
+
+`marksOn` — which of boss, panel, guide and fault a wave carries — is written
+twice, once in the director's `rail-marks.ts` and once, copied, in the game's
+`menu-wave-filter.ts`, because the game must not import a dev tool. Move the
+pure question into `packages/content` beside `firstOnPanel`, call it from both,
+and add a row to the purity test's called-not-re-derived table.

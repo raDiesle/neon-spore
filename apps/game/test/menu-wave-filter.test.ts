@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import { filterTerms, waveMatches } from "../src/menu-wave-filter.js";
+import { filterTerms, marksMatch, marksOn, waveMatches } from "../src/menu-wave-filter.js";
 
 /**
  * The JUMP TO WAVE filter, tested against the shipped campaign rather than
@@ -59,5 +59,30 @@ describe("waveMatches", () => {
   test("terms are ANDed: more of them narrows rather than widens", () => {
     const i = indexOf(WAVES[0]!.name);
     expect(waveMatches(i, `${WAVES[0]!.name} nonsenseterm`)).toBe(false);
+  });
+});
+
+describe("marks", () => {
+  test("no mark pressed is not a filter", () => {
+    for (let i = 0; i < WAVES.length; i++) expect(marksMatch(i, new Set())).toBe(true);
+  });
+
+  test("the boss mark is exactly the boss waves", () => {
+    for (const [i, wave] of WAVES.entries()) {
+      expect(marksMatch(i, new Set(["boss"]))).toBe(wave.boss !== undefined);
+    }
+  });
+
+  test("marks are ORed: a second press widens", () => {
+    const boss = new Set(WAVES.flatMap((_, i) => (marksOn(i).includes("boss") ? [i] : [])));
+    const either = WAVES.filter((_, i) => marksMatch(i, new Set(["boss", "fault"]))).length;
+    expect(either).toBeGreaterThan(boss.size);
+  });
+
+  test("a boss's type is a word the field finds", () => {
+    const special = WAVES.findIndex((w) => w.bossType === "special");
+    expect(special, "no special boss").toBeGreaterThan(-1);
+    expect(waveMatches(special, "special")).toBe(true);
+    expect(waveMatches(indexOf(WAVES[0]!.name), "special")).toBe(false);
   });
 });
