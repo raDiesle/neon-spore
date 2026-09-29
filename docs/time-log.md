@@ -28680,3 +28680,13 @@ Bottleneck: reading — the ledger has four row formats and no script, so the
 first parse read a third of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SURGE's `HOLD` calls `surgeAsks`
+
+- reading: 5 min. `surge-word.ts`, `surge-grip.ts`, `surgeAsks` and its neighbours, the word's tests.
+- writing: 10 min. The word on the world, the grips handed the world, the test's helper, the table's row.
+- looking: 0 min. Nothing drawn changed; the frame case in `boss-cue-surge.test.ts` still draws both words.
+- friction: 5 min. A stand-in rock put on every world broke the real-frames case, and the guard hook refused a heredoc with a doubled backslash.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: the word's tests set the transients as booleans, so moving the word onto the world meant rewriting how each case puts a burst and a rock on the field.

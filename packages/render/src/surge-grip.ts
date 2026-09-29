@@ -4,6 +4,7 @@ import {
   surgeBulbLeft,
   surgeBulbSpan,
   surgeHeld,
+  type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
@@ -151,17 +152,16 @@ export function surgeBulbUnder(l: Layout, x: number, y: number, field: Field): T
 export function drawSurgeGrips(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: SimConfig,
+  world: World,
   s: SurgeState,
   c: Point,
   rx: number,
   ry: number,
   time: number,
-  /** Whether the bulb takes no thumb now — sealing or everting: no word. */
+  /** Whether the bulb takes no thumb now — sealing or everting: a dimmed ring. */
   refusing: boolean,
-  /** Whether a rock the bulb spat is still falling: the word that outranks the rest. */
-  warding: boolean,
 ): void {
+  const cfg = world.cfg;
   for (const side of [-1, 1] as const) {
     const player = surgeGripSeat(side);
     const held = surgeHeld(s, player);
@@ -186,7 +186,7 @@ export function drawSurgeGrips(
     //
     // On the seat whose mark it is and not on the other's — what the pair must
     // see of each other here is the *thumb*, and the ring says that by filling.
-    const say = surgeWord(cfg, s, player, refusing, warding);
+    const say = surgeWord(world, s, player);
     if (say === null) continue;
     const cue: BossCue = {
       seat: player,

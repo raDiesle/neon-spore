@@ -818,4 +818,16 @@ export const COPIES: Copy[] = [
     owner: "packages/render/src/phase-into.ts",
     pattern: /Math\.max\(\s*0\s*,\s*beat\s*-\s*\w+\.phaseBeat\s*\+\s*beatPhase\s*\)/,
   },
+  {
+    // **Whether THE SURGE asks this seat's thumb onto the bulb** — off, short
+    // of the band, the bulb taking one, and for the pilot no rock of its own
+    // falling. The halo under the grip mark called it, and the `HOLD` word
+    // wrote it out again from booleans the drawing handed down, `held !==
+    // band` once the lift and the rock were ruled out (29 September 2026). A
+    // copy is a word and a halo that disagree about the same thumb.
+    call: "surgeAsks",
+    owner: "packages/sim/src/surge.ts",
+    pattern:
+      /surgeHeld\([^)]*\)\s*(?:\|\||!==)\s*surgeInBand\(|\bheld\s*!==\s*band\b|!surgeHeld\([^)]*\)\s*&&\s*!surgeInBand\(/,
+  },
 ];

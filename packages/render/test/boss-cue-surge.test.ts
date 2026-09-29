@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
+  type Creature,
   createWorld,
   type SurgeState,
   startWave,
@@ -63,6 +64,13 @@ beforeAll(installCanvasGlobals);
 
 const TPB = ticksPerBeat(CFG);
 
+/** The world each bulb hangs in, so a case can ask of the bulb alone. */
+const worlds = new WeakMap<SurgeState, World>();
+
+/** A stand-in for the bulb's rock, with the one field `surgeWarding` reads —
+ * put on the field only by a case that asks for it, since a frame draws it. */
+const ROCK = 9999;
+
 function hung(): { world: World; s: SurgeState } {
   const world = createWorld(CFG, 5);
   const index = waveWith("surge");
@@ -70,13 +78,22 @@ function hung(): { world: World; s: SurgeState } {
   for (let i = 0; i < TPB; i++) step(world, []);
   const s = surgeBoss(world);
   if (s === null) throw new Error("the surge wave hung no bulb");
+  worlds.set(s, world);
   return { world, s };
 }
 
-/** What this seat's mark would carry, with the drawing's one transient passed
- * as the drawing passes it. */
+/** What this seat's mark would carry with the bulb re-sealing from a burst, or
+ * with a rock of its own still falling — each put on the world as the
+ * simulation would leave it, since the word reads the world. */
 function say(s: SurgeState, player: 1 | 2, refusing = false, warding = false): SurgeWord | null {
-  return surgeWord(CFG, s, player, refusing, warding);
+  const world = worlds.get(s);
+  if (world === undefined) throw new Error("a bulb this suite did not hang");
+  s.burstBeat = refusing ? world.beat : -1;
+  s.rockId = warding ? ROCK : -1;
+  if (warding && !world.creatures.some((c) => c.id === ROCK)) {
+    world.creatures.push({ id: ROCK } as Creature);
+  }
+  return surgeWord(world, s, player);
 }
 
 /** The pressure put in the middle of the notch's band. */

@@ -5,7 +5,6 @@ import {
   surgeHands,
   surgeHoldsCharge,
   surgeSealing,
-  surgeWarding,
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
@@ -108,7 +107,7 @@ export function drawSurge(
   drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
   if (!everting) {
     drawSurgeAsked(ctx, l, world, s, c, rx, ry, time);
-    drawSurgeGrips(ctx, l, cfg, s, c, rx, ry, time, sealing, surgeWarding(s, world));
+    drawSurgeGrips(ctx, l, world, s, c, rx, ry, time, sealing);
     drawSurgeVerdicts(ctx, l, world, c, rx, ry, fx.marks.verdicts);
   }
   ctx.restore();

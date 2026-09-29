@@ -1,4 +1,13 @@
-import { type SimConfig, type SurgeState, surgeHeld, surgeInBand } from "@neon-spore/sim";
+import {
+  type SurgeState,
+  surgeAsks,
+  surgeEverting,
+  surgeHeld,
+  surgeInBand,
+  surgeSealing,
+  surgeWarding,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 
 /**
@@ -116,19 +125,16 @@ export const SHIELD: SurgeWord = { kind: "PRESS", word: "SHIELD" };
  * thumb on inside the band is the lift, a thumb off outside it is the charge,
  * and the other pair is a seat already doing its half or with no half left to
  * do.
+ *
+ * **The charge is `surgeAsks`, called rather than spelled out again**: the halo
+ * under the mark reads the same question (`surge-marks.ts`), and until 29
+ * September 2026 this wrote it a second time from booleans the drawing handed
+ * down — the refusal, the band, the rock — because it was given those and not
+ * the world.
  */
-export function surgeWord(
-  cfg: SimConfig,
-  s: SurgeState,
-  player: 1 | 2,
-  refusing: boolean,
-  warding: boolean,
-): SurgeWord | null {
-  if (refusing || s.outBeat >= 0) return null;
-  const held = surgeHeld(s, player);
-  const band = surgeInBand(s, cfg);
-  if (held && band) return LIFT;
-  if (warding && player === 1) return SHIELD;
-  if (held !== band) return null;
-  return CHARGE;
+export function surgeWord(world: World, s: SurgeState, player: 1 | 2): SurgeWord | null {
+  if (s.outBeat >= 0 || surgeSealing(s, world) || surgeEverting(s)) return null;
+  if (surgeHeld(s, player) && surgeInBand(s, world.cfg)) return LIFT;
+  if (player === 1 && surgeWarding(s, world)) return SHIELD;
+  return surgeAsks(s, world, player) ? CHARGE : null;
 }

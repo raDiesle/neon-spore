@@ -1670,21 +1670,6 @@ Find out whether the ring is drawn under the lobe's body (the pin sits
 reach, or missing from the page `frames` loads; fix whichever it is, and pin it
 with a frame test that counts the ring on p2's full frame with a lobe standing.
 
-## `surgeWord`'s `HOLD` re-derives `surgeAsks`
-
-- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-surgeword-s-hold-re-derives-surgeasks)
-- **Files:** `packages/render/src/surge-word.ts`, `packages/render/src/surge-grip.ts`, `packages/sim/src/surge.ts`
-
-THE SURGE's roll-out lane put *is this seat asked to hold* into the simulation
-as `surgeAsks(s, world, player)`, and the halo reads it. The word `HOLD` is the
-same condition written out a second time in `surgeWord` — `refusing`, the band,
-`warding` for the pilot — because `drawSurgeGrips` hands it booleans rather
-than the world. Pass the world down, let the `CHARGE` branch call `surgeAsks`,
-and add the pair to the called-not-re-derived table in
-`packages/sim/test/purity.test.ts`. `render/test/boss-cue-surge.test.ts` and
-`surge-verdict.test.ts` hold the behaviour.
-
 ## The time-log stamp starts at the lane's first commit, which is its last
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
