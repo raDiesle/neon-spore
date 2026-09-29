@@ -775,6 +775,7 @@ again in `sling-frame.test.ts`.
 ## §33 THE GRINDSTONE — a revised simulation lane, a grind left to die out
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-29, claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling (claim: claude/queue-33-the-grindstone-a-revised-simulation-lane-a-gr)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
