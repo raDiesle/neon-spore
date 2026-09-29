@@ -29139,3 +29139,5 @@ frame, and the seam was a stroke inline in `drawSegment`.
 
 Bottleneck: friction — the registrations outside the simulation outnumber the
 rule by three to one, and two of their pages were already full.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · de94ffcc4 — THE SPOOL tells a story between its ribs: a snag, a whip and a fray
+
+After each of the first three ribs eases, the line now snags, whips or frays, each under THE SLOW and answered on the one brake: let it right off and grip again, hold it deep, hold it featherlight. A state run out is the spool's own blow at the hull and the same state again; none costs a rib back (sim/spool-story.ts, bosses §11.36, three departures argued there). The rehearsal turns `spoolStory` off, so the film still eases one rib and lets go.
+
 ## 2026-09-29 · e0392059d — THE KEEL's seam in three brightnesses, offered in VERSUS
 
 A locked seam as a hairline through movement one, a fuller seam pulsing on the beat from the socket on, and full white from the held breath, read off movement and the phase, is offered as keel:seam three against the seam the game draws today, judged on THE KEEL · BREATH. The shipped seam is lifted into render/keel-seam-look.ts KEEL_SEAM so the pair can patch it; the game draws exactly what it did.
