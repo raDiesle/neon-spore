@@ -1309,6 +1309,7 @@ unchanged.
 ## `strokeGlow` leaves `globalAlpha` at 1, undoing a boss's fade
 
 - **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
+- **Taken:** 2026-09-29, claude/queue-tasks-b9e006 (claim: claude/queue-strokeglow-leaves-globalalpha-at-1-undoing-a-bos)
 - **Files:** `packages/render/src/glow.ts`, `packages/render/src/flue-draw.ts`, `packages/render/src/governor-draw.ts`
 
 `strokeGlow` ends with `ctx.globalAlpha = 1` and sets its passes' alphas
