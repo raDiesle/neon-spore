@@ -225,7 +225,7 @@ export { haspTurnPerTickMilli } from "./hasp-hand.js";
 // and every reading either screen takes. Straight off `spool.ts` and on one
 // line for THE GIMBAL's reason.
 // biome-ignore format: one line, so a reading added to the spool does not cost a row
-export { NO_BRAKE, SPOOL_LEGS, SPOOL_PHASES, SPOOL_RIBS, type SpoolPhase, type SpoolState, spoolBoss, spoolBrakeForRateMilli, spoolCol, spoolDepthMilli, spoolEasing, spoolGone, spoolGrace, spoolHeld, spoolInZone, spoolLegLeft, spoolLegs, spoolPaying, spoolPayRateMilli, spoolSlack, spoolSlipped, spoolZone, spoolZoneMilli } from "./spool.js";
+export { NO_BRAKE, SPOOL_LEGS, SPOOL_PHASES, SPOOL_RIBS, SPOOL_STORY, type SpoolPhase, type SpoolState, type SpoolStoryPhase, spoolBoss, spoolBrakeForRateMilli, spoolCol, spoolDepthMilli, spoolEasing, spoolGone, spoolGrace, spoolHeld, spoolInStory, spoolInZone, spoolLegLeft, spoolLegs, spoolPaying, spoolPayRateMilli, spoolSlack, spoolSlipped, spoolZone, spoolZoneMilli } from "./spool.js";
 export {
   shotLandsTick,
   WARDEN_LEAD_MARGIN_TICKS,

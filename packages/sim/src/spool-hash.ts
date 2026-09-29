@@ -16,6 +16,10 @@ import { SPOOL_PHASES, type SpoolState } from "./spool.js";
  *
  * `wantRateMilli` goes in because it is rolled off `world.rng`: it is the one
  * field here that a device could not recompute from the rest.
+ *
+ * **The story's run goes in** (`spool-story.ts`): how many beats in a row the
+ * brake has been held the way the state asks is what the next beat is judged
+ * against.
  */
 export function spoolHashParts(s: SpoolState): number[] {
   return [
@@ -28,5 +32,6 @@ export function spoolHashParts(s: SpoolState): number[] {
     s.leg,
     s.legBeat,
     s.wantRateMilli,
+    s.runBeats,
   ];
 }

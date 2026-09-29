@@ -37,6 +37,20 @@ export const CHOREO_FIELD_GROUP_C = {
   spoolEaseBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   spoolSlowBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   spoolSlackBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  // The story between the ribs (`spool-story.ts`): each state's run and its
+  // window, the depths the whip and the fray read, and the rehearsal's switch.
+  spoolSnagBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolSnagWindowBeats:
+    "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolWhipBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolWhipWindowBeats:
+    "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolWhipDeepMilli: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolFrayBeats: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolFrayWindowBeats:
+    "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolFrayLightMilli: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
+  spoolStory: "THE SPOOL — the boss where the line runs out at the speed one of you reads",
   // HaspConfig — how far the latch travels and the depth it counts as held
   // at, how long each phase holds, the fuse and the shorter last one, the
   // cooling, how far the wheel has to be wound and how much further each
@@ -227,24 +241,6 @@ export const CHOREO_FIELD_GROUP_C = {
   grindstoneGraceBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFadeBeats: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
   grindstoneFadeJars: "THE GRINDSTONE — the boss two thumbs grind true, then shoot into",
-  // CystConfig — the rests around the steps, the tap's window, the grace a
-  // stilled flank is given, the split, and the gaps a flank rests at and
-  // counts as shut below (`config-cyst.ts`).
-  cystStillBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystRestBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystTapBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystGraceBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystSplitBeats: "THE CYST — the boss one hand stills for the other to crack",
-  cystOpenMilli: "THE CYST — the boss one hand stills for the other to crack",
-  cystShutMilli: "THE CYST — the boss one hand stills for the other to crack",
-  // DavitConfig — the rests around the steps, the grace a swing is given
-  // past its beats, the spent boom, and how fast an unsteered boom swings
-  // back (`config-davit.ts`).
-  davitStillBeats: "THE DAVIT — the boss one hand steers for the other to loose",
-  davitRestBeats: "THE DAVIT — the boss one hand steers for the other to loose",
-  davitGraceBeats: "THE DAVIT — the boss one hand steers for the other to loose",
-  davitSpentBeats: "THE DAVIT — the boss one hand steers for the other to loose",
-  davitDriftMilli: "THE DAVIT — the boss one hand steers for the other to loose",
-  // The fourth page, THE HALTER on (`ship-fields-choreo-d.ts`).
+  // The fourth page, THE CYST on (`ship-fields-choreo-d.ts`).
   ...CHOREO_FIELD_GROUP_D,
 } satisfies Record<string, GroupName>;

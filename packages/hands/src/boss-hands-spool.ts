@@ -1,5 +1,6 @@
 import {
   isMeteorKind,
+  type SpoolState,
   spoolBoss,
   spoolBrakeForRateMilli,
   spoolPaying,
@@ -26,6 +27,11 @@ import {
  * re-derived** for this boss (`packages/sim/test/purity.test.ts`) — a hand
  * that did the division itself would drift from the rate the line actually
  * pays out at the moment either end of the reach is retuned.
+ *
+ * **The story between the ribs is answered on the same brake** (§21 S1–S3,
+ * `sim/spool-story.ts`): let right off through the snag until its count is
+ * made and gripped again, held at the whole reach through the whip, and held
+ * at nought — a hand on it, as light as it goes — through the fray.
  */
 type Press = Omit<TimedCommand, "tick">;
 
@@ -34,13 +40,28 @@ const brake = (fromYMilli: number): Press => ({
   command: { kind: "drag", target: "spoolBrake", on: true, fromMilli: 0, fromYMilli },
 });
 
+const letGo: Press = {
+  player: 1,
+  command: { kind: "drag", target: "spoolBrake", on: false, fromMilli: 0 },
+};
+
 export const spoolHand = (w: World): Press[] => {
   const s = spoolBoss(w);
   if (s === null) return [];
   const out: Press[] = [...rock(w)];
   if (spoolPaying(s)) out.push(brake(spoolBrakeForRateMilli(w.cfg, s.wantRateMilli)));
+  const story = storyPress(w, s);
+  if (story !== null) out.push(story);
   return out;
 };
+
+/** The one press a story state wants this tick, or none. */
+function storyPress(w: World, s: SpoolState): Press | null {
+  if (s.phase === "snag") return s.runBeats >= w.cfg.spoolSnagBeats ? brake(0) : letGo;
+  if (s.phase === "whip") return brake(w.cfg.spoolReachMilli);
+  if (s.phase === "fray") return brake(0);
+  return null;
+}
 
 /**
  * **THE SPOOL played wrong**, and the only way to pose the slip: the brake

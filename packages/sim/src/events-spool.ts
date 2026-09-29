@@ -37,6 +37,24 @@ export type SpoolEvent =
   | ({ type: "spoolRock" } & SpoolColEvent)
   /** A whole movement held inside the zone: a rib eases, and `ribs` is what is left. */
   | ({ type: "spoolRib"; ribs: number } & SpoolColEvent)
+  /** The snag (§21 S1): the line caught on the casing and stopped dead, the spool shuddering. */
+  | ({ type: "spoolSnag" } & SpoolColEvent)
+  /** Let right off and gripped again: the snag slips free and the line runs. */
+  | ({ type: "spoolFree" } & SpoolColEvent)
+  /** The snag run out: the snagged line snaps taut against the hull, and snags again. */
+  | ({ type: "spoolSnap" } & SpoolColEvent)
+  /** The whip (§21 S2): the freed line thrown in a loop across the field. */
+  | ({ type: "spoolWhip" } & SpoolColEvent)
+  /** Held full deep long enough: the loop damps flat. */
+  | ({ type: "spoolDamp" } & SpoolColEvent)
+  /** The whip run out: the loop lashes the hull, and is thrown again. */
+  | ({ type: "spoolLash" } & SpoolColEvent)
+  /** The fray (§21 S3): the line frays, fibres standing off it. */
+  | ({ type: "spoolFray" } & SpoolColEvent)
+  /** Held featherlight long enough: the fray holds, and the last rib can ease. */
+  | ({ type: "spoolFeather" } & SpoolColEvent)
+  /** The fray run out: a strand snaps and whips the hull, and the line frays again. */
+  | ({ type: "spoolStrand" } & SpoolColEvent)
   /** The fourth rib: every tension gone and the line loose, under THE SLOW. */
   | ({ type: "spoolSlack" } & SpoolColEvent)
   /** The unspooled casing drifting off the top of the field, line trailing. */

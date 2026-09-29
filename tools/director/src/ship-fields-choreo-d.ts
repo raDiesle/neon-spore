@@ -1,8 +1,8 @@
 import type { GroupName } from "./ship-groups.js";
 
 /**
- * **The choreographed bosses' dials, the fourth page** — THE HALTER, THE
- * CAPSTAN and every boss built after them.
+ * **The choreographed bosses' dials, the fourth page** — THE CYST, THE
+ * DAVIT, THE HALTER, THE CAPSTAN and every boss built after them.
  *
  * Cut on 27 September 2026, when THE BURGEE's eight numbers would have taken
  * `ship-fields-choreo-c.ts` past the 250-line wall. The seam is page three's:
@@ -13,9 +13,28 @@ import type { GroupName } from "./ship-groups.js";
  * THE CAPSTAN and THE GALL came over the same day, when THE HASP's story
  * brought ten more to page three: the last bosses on the page go, never the
  * boss being worked on. THE HALTER came over on 29 September 2026, when THE
- * SLING's cool took page three past the wall again.
+ * SLING's cool took page three past the wall again, and THE CYST and THE
+ * DAVIT on the same day, when THE SPOOL's story brought nine.
  */
 export const CHOREO_FIELD_GROUP_D = {
+  // CystConfig — the rests around the steps, the tap's window, the grace a
+  // stilled flank is given, the split, and the gaps a flank rests at and
+  // counts as shut below (`config-cyst.ts`).
+  cystStillBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystRestBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystTapBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystGraceBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystSplitBeats: "THE CYST — the boss one hand stills for the other to crack",
+  cystOpenMilli: "THE CYST — the boss one hand stills for the other to crack",
+  cystShutMilli: "THE CYST — the boss one hand stills for the other to crack",
+  // DavitConfig — the rests around the steps, the grace a swing is given
+  // past its beats, the spent boom, and how fast an unsteered boom swings
+  // back (`config-davit.ts`).
+  davitStillBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitRestBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitGraceBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitSpentBeats: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitDriftMilli: "THE DAVIT — the boss one hand steers for the other to loose",
   // HalterConfig — the alarm before the first step, the pause between steps,
   // how long a seat must send nothing, how long the pair must hold, and the
   // spent seam (`config-halter.ts`).

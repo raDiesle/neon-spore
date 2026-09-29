@@ -1,7 +1,8 @@
 /**
  * THE SPOOL's tuning: how far the brake travels, how fast and how slow the
  * line runs at either end of it, how wide the zone opens and how much it
- * narrows a rib, and how long each leg, each grace and each pause holds.
+ * narrows a rib, how long each leg, each grace and each pause holds, and the
+ * story's three states between the ribs.
  *
  * What is **not** here is the number of ribs, nor how many legs a movement
  * runs: four ribs is the silhouette and one-two-three-one is the beat list,
@@ -58,6 +59,33 @@ export interface SpoolConfig {
   spoolSlowBeats: number;
   /** Beats the slack spool drifts for before the wave may end. */
   spoolSlackBeats: number;
+  /**
+   * **The story between the ribs** (`spool-story.ts`). The snag: beats in a
+   * row the brake has to be let right off before a grip frees the line.
+   */
+  spoolSnagBeats: number;
+  /** The snag: beats it waits for the let-go and the grip before the line snaps taut against the hull. */
+  spoolSnagWindowBeats: number;
+  /** The whip: beats in a row the brake is held at full depth to damp the loop. */
+  spoolWhipBeats: number;
+  /** The whip: beats before the loop lashes the hull and is thrown again. */
+  spoolWhipWindowBeats: number;
+  /** The whip: how deep counts as full depth, in thousandths of the reach. */
+  spoolWhipDeepMilli: number;
+  /** The fray: beats in a row the brake is held featherlight to hold the fray. */
+  spoolFrayBeats: number;
+  /** The fray: beats before a strand snaps and whips the hull, and the fray again. */
+  spoolFrayWindowBeats: number;
+  /**
+   * The fray: how deep a hold may go and still be featherlight, in
+   * thousandths of the reach. A hand is on the brake — no hand at all is the
+   * snag's answer, not this one.
+   */
+  spoolFrayLightMilli: number;
+  /** Whether the story opens between the ribs at all. Off only in the
+   * rehearsal, which stops before the second rib: the story is met in the
+   * wave (`content/scene-script.ts`), THE RATCHET's rule. */
+  spoolStory: boolean;
 }
 
 export const SPOOL_DEFAULTS: SpoolConfig = {
@@ -73,4 +101,13 @@ export const SPOOL_DEFAULTS: SpoolConfig = {
   spoolEaseBeats: 3,
   spoolSlowBeats: 2,
   spoolSlackBeats: 3,
+  spoolSnagBeats: 2,
+  spoolSnagWindowBeats: 8,
+  spoolWhipBeats: 3,
+  spoolWhipWindowBeats: 10,
+  spoolWhipDeepMilli: 850,
+  spoolFrayBeats: 4,
+  spoolFrayWindowBeats: 12,
+  spoolFrayLightMilli: 150,
+  spoolStory: true,
 };

@@ -7587,6 +7587,39 @@ a movement played wrong slips with no rib and throws no rock the first time and
 one down the cannon's own column after that; and the fourth rib leaves the
 spool slack, drifting under THE SLOW and out of the wave. Whether any of it
 *reads* is the owner's eye.
+
+**The story between the ribs** (`sim/spool-story.ts`, 29 September 2026,
+`bosses-choreographed.md` §21). The ease of each of the first three ribs now
+ends in a state rather than the next movement, each its own SLOW window,
+answered on the one brake and read off its depth as a level a beat at a
+time, and none costing a rib back. The **snag**, after the first: the line
+stops dead, and the pilot lets the brake right off for `spoolSnagBeats` in a
+row and grips it again — the first beat held once the count is made frees it
+(`spoolFree`); a grip too soon starts the count again. The **whip**, after
+the second: the brake held at least `spoolWhipDeepMilli` deep for
+`spoolWhipBeats` in a row damps it (`spoolDamp`). The **fray**, after the
+third: a hand on the brake no deeper than `spoolFrayLightMilli` for
+`spoolFrayBeats` in a row holds it (`spoolFeather`), and the last movement
+opens. Each runs out once `spoolSnagWindowBeats`, `spoolWhipWindowBeats` or
+`spoolFrayWindowBeats` have passed since it opened (`spoolSnap`, `spoolLash`,
+`spoolStrand`): the spool's own blow at the hull (`bossStrikesHull`, its
+`blow` named for the state), and the same state from its head. The run is
+`runBeats` on the state, in the hash. The rehearsal turns `spoolStory` off,
+so the film eases one rib and lets go before the snag. The nine sounds are
+the fight's own, pitched down (`audio/bind-spool.ts`); the autopilot answers
+each (`hands/boss-hands-spool.ts`), and `sim/test/spool-story.test.ts` pins
+the answers, the run-outs and the switch. The three poses are the look lane;
+until then the line is drawn as it is between movements.
+
+**Where the story departs from §21, and why.** Three places. *The whip and
+the fray have windows of their own*, `spoolWhipWindowBeats` and
+`spoolFrayWindowBeats`, where §21 names only the snag's: a state with no
+clock is one the pair can stand in for ever. *The fray wants a hand on the
+brake*: a brake nobody holds pays out at the fast end, so *featherlight*
+with no hand would be letting go, which is the snag's answer and not this
+one. *Every window closes once it is reached* rather than past: each state
+opens on the beat the ease ends, so THE SLOW spans exactly the window, where
+THE VALVE's open mid-beat and add one.
 ## 11.37 THE HASP — the boss where one hand holds what the other cannot see
 
 > The one that asks for faith. A door of three iron clasps hangs over the

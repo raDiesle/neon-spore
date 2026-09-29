@@ -183,8 +183,15 @@ export const CHOREO_NOTES = {
     "from the second rib on it also throws a rock down the column the cannon " +
     "is standing in, which is the fight's one hull cost. The rate each leg " +
     "asks for is rolled off the wave's own rng between the two ends, so a " +
-    "pair cannot learn a wave by heart. Four ribs, and the line then goes " +
-    "slack and the spool drifts free under THE SLOW — the only boss whose " +
-    "finish is calm. Nothing about it is authored per wave. See sim/spool.ts, " +
-    "sim/spool-step.ts, sim/spool-hand.ts, sim/config-spool.ts.",
+    "pair cannot learn a wave by heart. Between the ribs, a story under THE " +
+    "SLOW, each state answered on the same brake: after the first the line " +
+    "snags, freed by letting the brake right off spoolSnagBeats and gripping " +
+    "again; after the second it whips, damped by holding it past " +
+    "spoolWhipDeepMilli for spoolWhipBeats; after the third it frays, held " +
+    "by a grip no deeper than spoolFrayLightMilli for spoolFrayBeats. A state " +
+    "run out is the spool's blow at the hull, which is the wave. Four ribs, " +
+    "and the line then goes slack and the spool drifts free under THE SLOW — " +
+    "the only boss whose finish is calm. Nothing about it is authored per " +
+    "wave. See sim/spool.ts, sim/spool-step.ts, sim/spool-story.ts, " +
+    "sim/spool-hand.ts, sim/config-spool.ts.",
 } satisfies Partial<Record<GroupName, string>>;

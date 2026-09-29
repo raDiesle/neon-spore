@@ -1,7 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 
 /**
- * **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE GOVERNOR's
+ * **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE SPOOL's, THE GOVERNOR's
  * fourteen, and the bosses after it.
  *
  * Opened on 27 September 2026 because page four stood at 235 lines and
@@ -29,6 +29,18 @@ export const INGEST_SILENT_BOSS_E = [
   "haspSway",
   "haspSteady",
   "haspRough",
+  // THE SPOOL's story between the ribs (`sim/spool-story.ts`), here because
+  // page three, where its twelve are, is full: silent until its look lane
+  // draws the snag, the whip and the fray off the phase.
+  "spoolSnag",
+  "spoolFree",
+  "spoolSnap",
+  "spoolWhip",
+  "spoolDamp",
+  "spoolLash",
+  "spoolFray",
+  "spoolFeather",
+  "spoolStrand",
   // THE GOVERNOR's fourteen, silent until its look lane draws them: the
   // needle, the pads and the hub are read off the state every frame.
   "governorEnter",

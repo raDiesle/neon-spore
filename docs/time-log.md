@@ -29124,3 +29124,18 @@ Bottleneck: reading — a candidate needs a record the draw path reads every
 frame, and the seam was a stroke inline in `drawSegment`.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SPOOL's story between the ribs, the simulation
+
+- reading: 5 min. §21's story table, THE VALVE's and THE HASP's story files
+  as the pattern, and the new-boss-state skill's registrations.
+- writing: 5 min. `sim/spool-story.ts`, the three phases and `runBeats`,
+  nine config fields and nine events, the sounds, the silent rows, the hand,
+  the director's rows and the spec.
+- looking: 0 min. Simulation only; nothing is drawn differently.
+- friction: 5 min. Full director and render pages, and the story on by
+  default breaking two of `spool.test.ts`'s movement tests.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the registrations outside the simulation outnumber the
+rule by three to one, and two of their pages were already full.

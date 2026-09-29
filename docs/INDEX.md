@@ -251,6 +251,7 @@ by hand never moves.
 | `packages/sim/src/spool-hand.ts` | **The brake on THE SPOOL**, off the wire, on the tick |
 | `packages/sim/src/spool-hash.ts` | What THE SPOOL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/spool-step.ts` | THE SPOOL's clock: the line running out under the brake, the zone moving under a correction |
+| `packages/sim/src/spool-story.ts` | **THE SPOOL's story between the ribs** (§21 rows S1–S3) |
 | `packages/sim/src/spool.ts` | THE SPOOL: the one boss answered by holding back exactly enough |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
@@ -1897,7 +1898,7 @@ by hand never moves.
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |
 | `packages/render/src/effects-ingest-silent-boss-c.ts` | **The bosses' half of the silent list, the third page** — THE WELL's four and THE GIMBAL's ten |
 | `packages/render/src/effects-ingest-silent-boss-d.ts` | **The bosses' half of the silent list, the fourth page** — THE SLING's twelve, and the bosses after it |
-| `packages/render/src/effects-ingest-silent-boss-e.ts` | **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE GOVERNOR's fourteen |
+| `packages/render/src/effects-ingest-silent-boss-e.ts` | **The bosses' half of the silent list, the fifth page** — THE HASP's story, THE SPOOL's |
 | `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
@@ -3262,7 +3263,7 @@ by hand never moves.
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |
-| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE HALTER, THE CAPSTAN and every boss built after them |
+| `tools/director/src/ship-fields-choreo-d.ts` | **The choreographed bosses' dials, the fourth page** — THE CYST, THE DAVIT, THE HALTER |
 | `tools/director/src/ship-fields-cannon.ts` | The cannon's numbers — the shot it fires and the arm THE CLAW puts in its place — sorted into their cards |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

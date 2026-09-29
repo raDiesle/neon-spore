@@ -173,6 +173,9 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // THE HASP's story between the hasps, the same: the film teaches the
     // clasp, and stops before the door answers back.
     haspStory: false,
+    // THE SPOOL's story between the ribs, the same: the film eases one rib
+    // and lets go before the snag would catch the line.
+    spoolStory: false,
   };
   return {
     cfg: sceneCfg,

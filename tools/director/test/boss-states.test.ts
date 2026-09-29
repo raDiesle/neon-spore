@@ -49,6 +49,8 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   ratchet: ["slip", "kick", "bind", "wind"],
   // THE HASP's story between the hasps, the same (§20).
   hasp: ["rattle", "backspin", "rust", "sway"],
+  // THE SPOOL's story between the ribs, the same (§21).
+  spool: ["snag", "whip", "fray"],
 };
 
 describe("the BOSSES category", () => {

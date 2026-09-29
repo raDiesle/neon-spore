@@ -1106,17 +1106,6 @@ already drawn and take hands in every state (`haspLatchUp`, `haspWheelUp`,
 of their own for any of the twelve events (`bind-hasp.ts` borrows the door's
 now), and striking `hasp` from `OWED` in `tools/director/test/boss-states.test.ts`.
 
-## §21 THE SPOOL — the story between the ribs, the simulation
-
-- **Found:** 2026-09-26, claude/older-boss-stories
-- **Taken:** 2026-09-29, claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th (claim: claude/queue-21-the-spool-the-story-between-the-ribs-the-simu)
-- **Files:** `packages/sim/src/spool.ts`, `packages/sim/src/spool-step.ts`, `packages/sim/src/spool-hand.ts`, `packages/sim/src/spool-hash.ts`, `packages/sim/src/config-spool.ts`, `packages/sim/src/events-spool.ts`
-
-Build §21's three story states — the snag, the whip, the fray — as phases
-between the ribs, each read off the one brake's depth as a level, THE
-VALVE's `valve-story.ts` the pattern. No rib given back; a state run out is
-a `bossStrikesHull` and the state again.
-
 ## §21 THE SPOOL — the story between the ribs, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories
@@ -1382,3 +1371,16 @@ the marrow, the breath and the cooldown — will want receipts of its own as
 its looks land. Cut the switch along the fight's line, the story's cases
 into a `keel-story-fx.ts` the class calls, keeping `KeelFx`'s surface and
 `keel-fx.test.ts` unchanged.
+
+## `sim/spool.ts` is at 242 lines — cut the zone's readings out
+
+- **Found:** 2026-09-29, claude/queue-21-the-spool-the-story-between-the-ribs-the-simu
+- **Files:** `packages/sim/src/spool.ts`, `packages/sim/src/spool-step.ts`, `packages/sim/src/spool-story.ts`
+
+The story between the ribs took `spool.ts` to 242 lines, with the state, its
+phases and every reading of it — the zone's width and centre, the rate for a
+depth, the depth itself — on one page. Cut the zone's readings
+(`spoolZone*`, `spoolBrakeForRateMilli` and what only they call) into a
+`spool-zone.ts` re-exported where the others are, keeping every caller and
+`copies-table.ts` row pointing at the same names, and `spool.test.ts`
+unchanged.

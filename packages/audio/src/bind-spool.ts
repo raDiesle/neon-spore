@@ -1,8 +1,15 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
+type SpoolSimEvent = Extract<SimEvent, { type: `spool${string}` }>;
+
+/** Whether an event is THE SPOOL's, so a page of the chain can hand it over whole. */
+export function isSpoolEvent(e: SimEvent): e is SpoolSimEvent {
+  return e.type.startsWith("spool");
+}
+
 /**
- * THE SPOOL's twelve, in a file of their own so the page that routes them
+ * THE SPOOL's twenty-one, in a file of their own so the page that routes them
  * stays a switch.
  *
  * **The pan says nothing about whose fault anything is, and that is on
@@ -19,28 +26,13 @@ import { type Cue, panForCol } from "./bind.js";
  * the end is can be heard without either seat looking at the spool — and on
  * this boss neither of them is looking at it, because one is on his own thumb
  * and the other is on her own gauge.
+ *
+ * **The story's nine borrow the spool's own twelve**, pitched down (§21 rows
+ * S1–S3): each state opens on the slip's jerk, is answered on a sound the
+ * line already makes when it runs right, and runs out on the rock's — the
+ * hull hit itself is the breach's own heavy sound on top.
  */
-export function spoolCue(
-  e: Extract<
-    SimEvent,
-    {
-      type:
-        | "spoolEnter"
-        | "spoolZone"
-        | "spoolLeg"
-        | "spoolGrip"
-        | "spoolLet"
-        | "spoolRefuse"
-        | "spoolSlip"
-        | "spoolRock"
-        | "spoolRib"
-        | "spoolSlack"
-        | "spoolDrift"
-        | "spoolOut";
-    }
-  >,
-  cols: number,
-): Cue {
+export function spoolCue(e: SpoolSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "spoolEnter":
@@ -71,5 +63,23 @@ export function spoolCue(
       return { id: "boss.spoolDrift", pan };
     case "spoolOut":
       return { id: "boss.spoolOut", pan };
+    case "spoolSnag":
+      return { id: "boss.spoolSlip", pan, pitch: 0.8 };
+    case "spoolFree":
+      return { id: "boss.spoolLet", pan, pitch: 0.9 };
+    case "spoolSnap":
+      return { id: "boss.spoolRock", pan, pitch: 0.8 };
+    case "spoolWhip":
+      return { id: "boss.spoolSlip", pan, pitch: 0.7 };
+    case "spoolDamp":
+      return { id: "boss.spoolGrip", pan, pitch: 0.85 };
+    case "spoolLash":
+      return { id: "boss.spoolRock", pan, pitch: 0.7 };
+    case "spoolFray":
+      return { id: "boss.spoolLeg", pan, pitch: 0.8 };
+    case "spoolFeather":
+      return { id: "boss.spoolRib", pan, pitch: 0.9 };
+    case "spoolStrand":
+      return { id: "boss.spoolRock", pan, pitch: 0.9 };
   }
 }

@@ -44,7 +44,9 @@ import {
  * pinned (`docs/decisions.md` #19).
  */
 
-const CFG: SimConfig = { ...DEFAULT_CONFIG };
+/** The story between the ribs off: these pin the movements, and the three
+ * states between them are `spool-story.test.ts`'s. */
+const CFG: SimConfig = { ...DEFAULT_CONFIG, spoolStory: false };
 const TPB = ticksPerBeat(CFG);
 
 function install(over: Partial<SimConfig> = {}): World {

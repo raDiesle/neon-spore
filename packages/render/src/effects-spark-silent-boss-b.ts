@@ -103,6 +103,17 @@ export const SILENT_BOSS_B = [
   "spoolSlack",
   "spoolDrift",
   "spoolOut",
+  // And its story between the ribs, silent until its look lane draws the
+  // snag, the whip and the fray off the phase (`sim/spool-story.ts`).
+  "spoolSnag",
+  "spoolFree",
+  "spoolSnap",
+  "spoolWhip",
+  "spoolDamp",
+  "spoolLash",
+  "spoolFray",
+  "spoolFeather",
+  "spoolStrand",
   // THE ANTIPHON's eleven: what sparks is one family read above the loop by
   // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",

@@ -8,10 +8,12 @@ import {
   spoolCol,
   spoolGone,
   spoolGrace,
+  spoolInStory,
   spoolInZone,
   spoolLegs,
   spoolPayRateMilli,
 } from "./spool.js";
+import { openSpoolStory, spoolStoryAfter, stepSpoolStory } from "./spool-story.js";
 import type { World } from "./world.js";
 
 /**
@@ -46,6 +48,7 @@ export function installSpool(world: World): SpoolState {
     leg: 0,
     legBeat: world.beat,
     wantRateMilli: world.cfg.spoolRateSlowMilli,
+    runBeats: 0,
   };
   world.events.push({ type: "spoolEnter", col: spoolCol(world.cfg) });
   return s;
@@ -69,7 +72,16 @@ export function stepSpool(world: World, s: SpoolState): void {
     return;
   }
   if (s.phase === "ease") {
-    if (world.beat - s.phaseBeat >= cfg.spoolEaseBeats) openMovement(world, s);
+    if (world.beat - s.phaseBeat < cfg.spoolEaseBeats) return;
+    // Every rib but the last eases into the story's next state
+    // (`spool-story.ts`), unless the rehearsal has it off.
+    const next = cfg.spoolStory ? spoolStoryAfter(spoolGone(s)) : null;
+    if (next === null) openMovement(world, s);
+    else openSpoolStory(world, s, next);
+    return;
+  }
+  if (spoolInStory(s)) {
+    stepSpoolStory(world, s, () => openMovement(world, s));
     return;
   }
   payOut(world, s);

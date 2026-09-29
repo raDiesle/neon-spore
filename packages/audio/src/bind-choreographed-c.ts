@@ -15,7 +15,7 @@ import { instarCue } from "./bind-instar.js";
 import { mantleCue } from "./bind-mantle.js";
 import { ratchetCue } from "./bind-ratchet.js";
 import { scuttleCue } from "./bind-scuttle.js";
-import { spoolCue } from "./bind-spool.js";
+import { isSpoolEvent, spoolCue } from "./bind-spool.js";
 
 /**
  * **The tail of `bind-choreographed.ts`**, cut off it the day THE SCUTTLE's
@@ -86,8 +86,10 @@ type LateEvent = Extract<
 export function lateCue(e: LateEvent, cols: number): Cue | null {
   // THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE and THE GOVERNOR are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
-  // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`).
+  // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`),
+  // and THE SPOOL when its story brought nine (`bind-spool.ts`).
   if (isHaspEvent(e)) return haspCue(e, cols);
+  if (isSpoolEvent(e)) return spoolCue(e, cols);
   if (isCapstanEvent(e)) return capstanCue(e, cols);
   if (isGallEvent(e)) return gallCue(e, cols);
   if (isBurgeeEvent(e)) return burgeeCue(e, cols);
@@ -172,22 +174,6 @@ export function lateCue(e: LateEvent, cols: number): Cue | null {
     case "gimbalHatch":
     case "gimbalOut":
       return gimbalCue(e, cols);
-    // THE SPOOL's eleven, bound on this page rather than next door because
-    // next door was seventeen lines from its limit when THE SPOOL landed and
-    // has not moved since (`bind-spool.ts`).
-    case "spoolEnter":
-    case "spoolZone":
-    case "spoolLeg":
-    case "spoolGrip":
-    case "spoolLet":
-    case "spoolRefuse":
-    case "spoolSlip":
-    case "spoolRock":
-    case "spoolRib":
-    case "spoolSlack":
-    case "spoolDrift":
-    case "spoolOut":
-      return spoolCue(e, cols);
     case "ratchetEnter":
     case "ratchetLit":
     case "ratchetSet":

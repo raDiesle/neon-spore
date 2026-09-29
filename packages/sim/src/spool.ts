@@ -36,7 +36,8 @@ import type { World } from "./world.js";
  * and, from the second on, throws a rock down the pilot's own column; the
  * rock is the fight's one hazard and the shield is its answer.
  *
- * The clock is `spool-step.ts`, the brake `spool-hand.ts`, the fingerprint
+ * The clock is `spool-step.ts`, the story between the ribs `spool-story.ts`,
+ * the brake `spool-hand.ts`, the fingerprint
  * `spool-hash.ts`, the numbers `config-spool.ts`. This file is the shape and
  * the readings taken off it.
  */
@@ -63,10 +64,28 @@ export const SPOOL_LEGS = [1, 2, 3, 1] as const;
 /**
  * Where the scene is: the line taut and nothing running, a movement paying
  * out, the line slipped outside its zone and the movement going again, a rib
- * easing open, and the spool slack and drifting free.
+ * easing open, the story's three states between the ribs, and the spool slack
+ * and drifting free.
  */
-export const SPOOL_PHASES = ["taut", "pay", "slip", "ease", "slack"] as const;
+export const SPOOL_PHASES = [
+  "taut",
+  "pay",
+  "slip",
+  "ease",
+  "snag",
+  "whip",
+  "fray",
+  "slack",
+] as const;
 export type SpoolPhase = (typeof SPOOL_PHASES)[number];
+
+/**
+ * **The story between the ribs** (§21, rows S1–S3), in the order it is met:
+ * the snag after the first rib, the whip after the second, the fray after the
+ * third. The last rib goes straight to the slack. `spool-story.ts`.
+ */
+export const SPOOL_STORY = ["snag", "whip", "fray"] as const;
+export type SpoolStoryPhase = (typeof SPOOL_STORY)[number];
 
 export interface SpoolState {
   kind: "spool";
@@ -87,6 +106,8 @@ export interface SpoolState {
   legBeat: number;
   /** This leg's target rate, in thousandths a beat — what `wantMilli` climbs by. */
   wantRateMilli: number;
+  /** Beats in a row the brake has been held the way the story's state asks (`spool-story.ts`). */
+  runBeats: number;
 }
 
 export function spoolBoss(world: World): SpoolState | null {
@@ -199,6 +220,11 @@ export function spoolEasing(s: SpoolState): boolean {
 /** Whether the line slipped its zone and the movement is about to run again. */
 export function spoolSlipped(s: SpoolState): boolean {
   return s.phase === "slip";
+}
+
+/** Whether one of the story's three states is up between the ribs. */
+export function spoolInStory(s: SpoolState): boolean {
+  return s.phase === "snag" || s.phase === "whip" || s.phase === "fray";
 }
 
 /** All four ribs gone, the tension out of it, and the spool drifting off the top. */
