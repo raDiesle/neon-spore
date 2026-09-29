@@ -28770,3 +28770,5 @@ Bottleneck: `scuttle-shape.ts` stood at 250 lines, so the drop could only go in 
 - landing: 0 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the entry's premise — the ring stands in the shield's own spot, so the frame it was filed from shows a black disc in the plate, and it takes a run with the rings switched off to see which is which.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
