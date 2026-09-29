@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 0f29a49d0 — Every session opens on Opus 5.5 at high effort, never the older Opus 5
+
+`.claude/settings.json` now sets `"model": "claude-opus-5-5"` and `"effortLevel": "high"` as the default for every session on this repository, as the owner asked. `docs/working-with-claude.md` and `docs/token-budget.md` say the same: the owner works on Opus 5.5 at high effort, and a session found on anything else was switched by hand in the picker and is switched back. The setting is a default, not a lock — the app's picker still overrides it for one session.
+
 ## 2026-09-29 · f67c4b22a — THE GOVERNOR's receipts: the tap's flash, the skid's scrape, its blow at the hull
 
 A tap or a retap flashes the rim white at the lit mark and throws a spike past it; a skid drags a dull brass scrape along the track behind the needle; a hub hit flashes the hub, wider for every hit. The flywheel flinches and shakes on every blow it takes — a run's third tap, a retap and a hub hit the whole blow, the taps inside a run the lighter one — the plating shudders as the hub lights and again as the governor is spent, and a fire step run out sheds a brass shard off the rim that tumbles down the middle column and bites a notch in the hull.

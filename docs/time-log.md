@@ -29259,3 +29259,5 @@ failed it.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading — the settings keys had to be looked up, not remembered.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
