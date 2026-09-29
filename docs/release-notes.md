@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 6333e2daa — THE MAZE: the heart is shaken loose by both seats, in a bigger room
+
+Stage three is no longer a pull down with the pilot braced on the string. Both players put a thumb on the heart and shake it any way. It can only travel inside its room, so a hand has to go back and forth, and it comes loose after eight room widths in all, half from each seat. Eight arrows round the room say "any direction" and turn green under your thumb. A green count fills round the room as the pair shakes, and SHAKE, then P1 TOO or P2 TOO, says whose hand is missing. The room in the middle of every wheel is wider (core 300, from 177), and the heart's hold is twelve beats, from eight.
+
 ## 2026-09-29 · 0542ce393 — THE SEAM's cue words: FIRE under the lit point and the rock, SHIELD under the grit
 
 THE SEAM now says what the lit step wants. It says `FIRE` at the hull under the column where the shot is wanted: the ridge's column for a point or the glow, the rock's own column for a rock. While grit falls, including a blind throw, it says `SHIELD` under the ridge. Both words go to either seat and never name the colour. A step of grit and a rock at once says both, and each word goes once its half is answered. The false point and the dark say nothing, because the answer there is to send nothing.
