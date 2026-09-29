@@ -1480,6 +1480,7 @@ flat. `bun run check` proves the tests.
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-instar-a-shoot-mark-asks-for-one-colour-or-n)
 - **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-hash.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/render/src/instar-marks.ts`
 - **Asks:** Should each of THE INSTAR's shoot marks ask for one cannon colour and be drawn in it, or keep taking either colour?
 - **Answered:** 2026-09-27 — (a) one colour per mark, over a split or violet crosshair.
