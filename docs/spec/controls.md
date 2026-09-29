@@ -100,6 +100,10 @@ to notice by hand.
 
 ## The in-screen controls, as of this entry
 
+What each control is **drawn** with — the knob, the arrow, the crosshair, the
+halo, the verdict — and which ones a standard control never wears, is
+`docs/controls-catalogue.md`.
+
 **Every handle that is pulled looks and answers the same**, whichever boss or
 wave it belongs to (the owner, 25 September 2026, generic): a thin channel the
 whole of its travel that fills green behind the hand (`pull-track.ts`), a big

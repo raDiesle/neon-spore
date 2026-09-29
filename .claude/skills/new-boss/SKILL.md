@@ -141,6 +141,8 @@ commit. The shape of it, from THE GORGE and THE CURTAIN:
   for every ring, halo or glyph that asks, keyed to the simulation's own
   predicate; and a row in `boss-hush.test.ts`'s `STILL`, which holds each
   mark still while it asks. Both need AUTO's hand.
+- **Every piece a mark is drawn with is in `docs/controls-catalogue.md`**;
+  choose from it, and a new piece gets a row there.
 - **Every mark answers a touch the same way** (the owner, 27 September 2026:
   *the consistent visual across all waves*), from the shared pieces and never
   a drawing of its own: the mark's page is `<boss>-grip.ts`, `-handles.ts`,

@@ -29478,3 +29478,18 @@ Bottleneck: writing — telling the owner's lines apart from reminders, tool
 results and slash-command echoes, all of which are user lines too.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — The catalogue of marks and controls
+
+- reading: 15 min. Every shared piece's header and signature, who imports
+  each, and which non-boss files three bodies share.
+- writing: 15 min. The page, the owner's second message folded in (the
+  standard set wears no helper), the test that holds the page to the code,
+  the pointers from both skills and the controls spec.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. `CREATURE_KINDS` is not exported from `@neon-spore/sim`,
+  so the test reads `CREATURES` from content; the formatter's line.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — thirty-odd files' headers to say in one line what
+each piece is for.

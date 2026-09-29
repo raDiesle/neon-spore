@@ -242,6 +242,15 @@ item naming the rule, never a fix made in passing.
   have a specific helper symbol scanner box for shield and suck.* A pull mark
   that is only a circle is not allowed. The pieces: `way-arrow.ts` inside
   `pull-knob.ts`, and `cue-helper.ts` under every `BossCue`.
+- **The standard set wears no helper; a gesture of its own wears them all**,
+  generic, 29 September 2026: *regular enemies players learn how to approach
+  them by standard control set and do not need repeating help guidance on
+  them as it doesnt introduce something new … pulling enemies such as meteors
+  to move or slow them, does not require a visual as well, as its common
+  across many waves and enemies — so once told in guide, players know it.* A
+  helper — arrow, crosshair, face, word — is for a gesture that is new, or
+  crucial to defeating that one enemy or boss. Which is which, and every
+  piece to choose from: `docs/controls-catalogue.md`.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

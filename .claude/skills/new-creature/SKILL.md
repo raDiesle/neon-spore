@@ -86,6 +86,11 @@ builder beside `tether-track.ts` is all a new one writes), a big circle to start
 radius times `PULL_GRAB`. A turn with no end gets a closed ring round what it
 turns. A handle *held* rather than pulled keeps its ring.
 
+**Which pieces a creature wears is `docs/controls-catalogue.md`.** One answered
+by the standard set — the band, the cannon, the shield, the grip — wears **no
+helper**: the guide taught it once (the owner, 29 September 2026, generic).
+One destroyed by a gesture of its own wears the full set a boss's mark does.
+
 ## 4. Timing
 
 If beating the creature needs a spoken exchange, it needs **at least 4 seconds**

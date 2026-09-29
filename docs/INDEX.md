@@ -47,6 +47,7 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/tower-defence.md` | you want a slick, a bulb or a meteor to be played differently, or a weapon or helping system — read off 2D tower defence, with pictures |
 | `docs/party-games.md` | you are looking for the next round that is not the field — Mario Party and Rayman Raving Rabbids, read for the shape of sixty seconds rather than for a minigame |
 | `docs/asset-catalogue.md` | you are looking for a shape to spend, or adding one |
+| `docs/controls-catalogue.md` | you are drawing a mark or a control for a boss or an enemy — every shared piece to choose from, which the standard set never wears, and what is not allowed |
 | `tools/delegate/WORKER-CONVENTIONS.md` | you change what the worker model is allowed to do or must know |
 
 ## Specification
