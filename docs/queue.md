@@ -1109,6 +1109,7 @@ now), and striking `hasp` from `OWED` in `tools/director/test/boss-states.test.t
 ## §21 THE SPOOL — the story between the ribs, the simulation
 
 - **Found:** 2026-09-26, claude/older-boss-stories
+- **Taken:** 2026-09-29, claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th (claim: claude/queue-21-the-spool-the-story-between-the-ribs-the-simu)
 - **Files:** `packages/sim/src/spool.ts`, `packages/sim/src/spool-step.ts`, `packages/sim/src/spool-hand.ts`, `packages/sim/src/spool-hash.ts`, `packages/sim/src/config-spool.ts`, `packages/sim/src/events-spool.ts`
 
 Build §21's three story states — the snag, the whip, the fray — as phases
