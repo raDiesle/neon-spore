@@ -333,6 +333,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A compaction mid-item leaves the owner's words and the plan in a file
 
 - **Found:** 2026-09-29, claude/queue-performance-analysis-55a3ec
+- **Taken:** 2026-09-29, claude/queue-performance-analysis-55a3ec (claim: claude/queue-a-compaction-mid-item-leaves-the-owners-words-an)
 - **Files:** `tools/hooks/after-compact.ts`, `tools/hooks/test/after-compact.test.ts`, `tools/hooks/payload.ts`, `.claude/settings.json`, `docs/token-budget.md`
 
 Measured over 62 local sessions on 29 September 2026: about half of all landed
