@@ -28921,3 +28921,5 @@ constant set to zero for one render was the cheapest way to have it.
 
 Bottleneck: reading — the band was a tie between two stops a thousandth
 apart, and only printing every section's peak showed which one won.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 63a23013b — A turning body's highlight no longer drops out of one slice
+
+The specular on a solid rig's tube was put on the one brightest stop across its section. Where two stops were lit within a thousandth of each other, it jumped whole to whichever won, and on the solid sheet's yaw 23° cell one slice of the body lost its stripe under the rim. It is now a weight: stops lit near the brightest share it, and it fades in over a band of light rather than at a cut, so neighbouring slices differ by at most a fifth of what they could before (`sectionStops`, `solid-tube-light.test.ts`).
+
 ## 2026-09-29 · 2bca10fab — The solid sheet is seen whole after thin tubes were sliced more coarsely
 
 `bun run solid` was looked at by an eye, all fifteen cells, and its tails and fins magnified beside the same sheet sliced finely everywhere: they read the same. One band across the body at yaw 23° is older than that change and is queued on its own.
