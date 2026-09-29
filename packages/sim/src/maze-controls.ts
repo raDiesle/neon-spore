@@ -45,7 +45,7 @@ export function mazeStringHeard(world: World, player: 1 | 2, command: Command): 
     // The navigator's hand on the string while the round asks the pilot's is
     // refused and said, once — the press, never its lift (`mazeRefuse`).
     const press = command.kind === "drag" && command.target === "mazeString" && command.on;
-    if (press && mazeStringAsks(m)) mazeRefuse(world, "string", player);
+    if (press && mazeStringAsks(m)) mazeRefuse(world, player);
     return;
   }
   if (command.kind === "valve") valveHeard(m, command.on, command.dir);
@@ -65,12 +65,13 @@ export function mazeStringAsks(m: MazeState): boolean {
 }
 
 /**
- * A press on a part the round asks of the other seat, said so the mark can
- * wash red and the wrong seat hear it — and nothing else: the wheel does not
- * turn and the heart does not stretch. `player` is the seat that pressed.
+ * A press on the string the round asks of the other seat, said so the mark
+ * can wash red and the wrong seat hear it — and nothing else: the wheel does
+ * not turn. `player` is the seat that pressed. Only the string is ever
+ * refused; the heart is both seats' (`maze-hand.ts`).
  */
-export function mazeRefuse(world: World, part: "heart" | "string", player: 1 | 2): void {
-  world.events.push({ type: "mazeRefuse", col: mazeBottomCol(world.cfg), part, player });
+export function mazeRefuse(world: World, player: 1 | 2): void {
+  world.events.push({ type: "mazeRefuse", col: mazeBottomCol(world.cfg), player });
 }
 
 /** The thumb, unchanged. */

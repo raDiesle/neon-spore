@@ -91,7 +91,7 @@ export function mirrorCue(
       if (e.on) return { id: "mirror.echo", pitch: 1.3, pan: panForCol(e.col, cols) };
       return { id: "mirror.echoLate", pan: panForCol(e.col, cols) };
     case "mazeRefuse":
-      // The wrong seat's hand on the heart or the string, told the same way.
+      // The navigator's hand on the string the pilot's round asks, refused.
       return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
   }
 }

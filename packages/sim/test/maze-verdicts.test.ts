@@ -68,9 +68,7 @@ test("the navigator's hand on the string is refused, once, and turns and braces 
   untilReading(world);
   const angle = mazeOf(world).angleMilli;
   const seen = send(world, 2, string(true));
-  expect(said(seen)).toEqual([
-    { type: "mazeRefuse", col: mazeBottomCol(CFG), part: "string", player: 2 },
-  ]);
+  expect(said(seen)).toEqual([{ type: "mazeRefuse", col: mazeBottomCol(CFG), player: 2 }]);
   expect(mazeOf(world).dragging).toBe(false);
   expect(mazeOf(world).angleMilli).toBe(angle);
   expect(said(send(world, 2, string(false)))).toEqual([]);

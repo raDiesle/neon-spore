@@ -183,7 +183,7 @@ describe("a desk press on a part", () => {
 
 const landed: SimEvent = { type: "mazeGrip", col: 4, on: true };
 const torn: SimEvent = { type: "mazeVerdict", right: true, col: 4, reason: "mouth" };
-const refused: SimEvent = { type: "mazeRefuse", col: 4, part: "heart", player: 1 };
+const refused: SimEvent = { type: "mazeRefuse", col: 4, player: 2 };
 
 describe("THE MAZE's verdict on a touch", () => {
   it("keeps each part's verdict under its key, fades it and forgets it on reset", () => {
@@ -191,12 +191,14 @@ describe("THE MAZE's verdict on a touch", () => {
     marks.ingest([landed]);
     expect(marks.verdicts.at(1)?.good).toBe(true);
     expect(marks.verdicts.at(0)).toBeNull();
-    marks.ingest([{ type: "mazeRefuse", col: 4, part: "string", player: 2 }]);
+    marks.ingest([refused]);
     expect(marks.verdicts.at(0)?.good).toBe(false);
+    expect(marks.verdicts.at(1)?.good).toBe(true);
     marks.ingest([torn]);
     expect(marks.verdicts.at(0)?.good).toBe(true);
     marks.ingest([refused]);
-    expect(marks.verdicts.at(1)?.good).toBe(false);
+    expect(marks.verdicts.at(0)?.good).toBe(false);
+    expect(marks.verdicts.at(1)?.good).toBe(true);
     marks.update(1);
     expect(marks.verdicts.at(1)).toBeNull();
     marks.ingest([landed]);
@@ -245,8 +247,7 @@ describe("THE MAZE's verdict on a touch", () => {
   }
 
   it.each(ROLES)("reaches the field from the effects, on %s", (role) => {
-    const string: SimEvent = { type: "mazeRefuse", col: 4, part: "string", player: 2 };
-    expect(count(drawn(role, [string]), PALETTE.red)).toBeGreaterThan(
+    expect(count(drawn(role, [refused]), PALETTE.red)).toBeGreaterThan(
       count(drawn(role, []), PALETTE.red),
     );
   });

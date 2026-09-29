@@ -59,6 +59,7 @@ export type RoundEvent =
   | { type: "mazeDown"; col: number }
   // The navigator's thumb landing on the heart (`on`) or leaving it (`maze-hand.ts`).
   | { type: "mazeGrip"; col: number; on: boolean }
-  // A press on the heart or the string from the seat the round does not ask
-  // it of, refused (`maze-controls.ts` `mazeRefuse`); `player` pressed.
-  | { type: "mazeRefuse"; col: number; part: "heart" | "string"; player: 1 | 2 };
+  // A press on the string from the navigator's seat while the round asks the
+  // pilot's, refused (`maze-controls.ts` `mazeRefuse`); `player` pressed. The
+  // heart is both seats' since the shake, so no press on it is refused.
+  | { type: "mazeRefuse"; col: number; player: 1 | 2 };

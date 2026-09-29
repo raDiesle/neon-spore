@@ -1878,7 +1878,8 @@ the part asked of the partner wears their turning ring and the clock, which is
 the navigator's whole view of the string. Each verdict washes the part it was
 on: **green** on the heart for her thumb landing (`mazeGrip`) and on both for
 the tear (`mazeVerdict` right, which only the tear says); **red** for a press
-from the seat the part is not asked of (`mazeRefuse`), which is handed through
+from the seat the part is not asked of (`mazeRefuse`; since the shake only
+the string is ever refused, and the event names no part), which is handed through
 holding nothing, refused once and moves nothing — `boss.instarRefuse`, the
 knock every mark's refusal makes. A desk press on either is signed with its
 owner (`mazeGripSeat`). The verdicts are kept in `effects.boss.maze`

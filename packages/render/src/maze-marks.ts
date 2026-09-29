@@ -27,7 +27,7 @@ import { seatOf } from "./view-role.js";
  *
  * The verdicts come last, over everything, on every screen: the green of a
  * thumb landing on the heart and of the tear, which is both hands at once,
- * and the red of a press from the seat the part is not asked of (`mazeGrip`,
+ * and the red of a press on the string from the seat it is not asked of (`mazeGrip`,
  * `mazeVerdict`, `mazeRefuse`). Keys are 0 for the string and 1 for the heart.
  * Kept in `MazeGripFx` (`maze-grip-fx.ts`), which is `BossTransients.maze`.
  */
@@ -43,7 +43,8 @@ export class MazeMarks {
         this.verdicts.mark(STRING, true);
         this.verdicts.mark(HEART, true);
       }
-      if (e.type === "mazeRefuse") this.verdicts.mark(e.part === "string" ? STRING : HEART, false);
+      // Only the string is ever refused: the heart is both seats'.
+      if (e.type === "mazeRefuse") this.verdicts.mark(STRING, false);
     }
   }
 

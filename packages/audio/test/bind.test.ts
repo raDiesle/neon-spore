@@ -726,7 +726,7 @@ const SAMPLES: Record<string, SimEvent> = {
   mazeVerdict: { type: "mazeVerdict", right: false, col: 5, reason: "silence" },
   mazeDown: { type: "mazeDown", col: 5 },
   mazeGrip: { type: "mazeGrip", col: 5, on: true },
-  mazeRefuse: { type: "mazeRefuse", col: 5, part: "heart", player: 1 },
+  mazeRefuse: { type: "mazeRefuse", col: 5, player: 2 },
   lureHit: { type: "lureHit", col: 3, row: 4, color: "cyan" },
   lureSeen: { type: "lureSeen", col: 3 },
   strandBead: { type: "strandBead", id: 6, col: 2, row: 3, color: "red", left: 2 },
