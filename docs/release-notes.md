@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 67506b8fb — THE SLING's spent yoke ticks white-hot and cools back to steel
+
+Row 11's cool, the sixth pose: once the last shot is in, the cup goes white-hot and cools back to the fork's own scoured grey across the phase. A halo dies with it and a ring ticks off it on every beat, with no cannon colour. Both cords strain faintly against their catches, a finger down jolts its own side's catch back off home, and a snap's extra beat shows as the heat coming back up. A look with no shipped alternative: before this the fork stood unchanged. The STATES sheet has THE SLING · COOL, played to by AUTO.
+
 ## 2026-09-29 · 99089789d — THE GRINDSTONE's spent axle grinds on while both hands are left off it
 
 After the last shot, the spent axle now grinds faintly against the locked caliper for three beats under THE SLOW, and the fight's final beat asks the pair to do neither instead of grinding and clamping. A fresh grind or a pad put down on either side jars the caliper loose and costs the fade a beat, at most two, with nothing lost either way. This is §33 row 11, in the simulation only. The wheel looks as it did after the third hit until the queued look lane draws the sixth pose. The fade is silent by design; the jar that breaks it is heard as the slip's scrape, pitched up.

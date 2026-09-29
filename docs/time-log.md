@@ -29027,3 +29027,5 @@ boss that grows two events pushes a page over 250 lines.
 
 Bottleneck: none worth the name — THE PLUMB's bleed had already cut every
 step of this lane.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
