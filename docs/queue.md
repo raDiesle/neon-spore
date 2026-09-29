@@ -1501,6 +1501,7 @@ flat. `bun run check` proves the tests.
 ## Living bosses — what turns the bosses' life down
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-living-bosses-what-turns-the-bosses-life-down)
 - **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
 - **Files:** `apps/game/src/settings.ts`, `packages/render/src/renderer.ts`, `docs/spec/living-bosses.md`
 - **Asks:** What should turn the bosses' part motion down: the existing motion setting, a phone's battery saver, a frame running long, or nothing?
