@@ -27,8 +27,8 @@ export const INGEST_SILENT_BOSS_D = [
   "mantleSwing",
   "mantleTurned",
   // THE KEEL's story beats, landed after page three filled: the flip, the
-  // marrow and the cooldown are read off the state each frame, and nothing of
-  // them outlives one (`render/src/keel-story.ts`).
+  // marrow, the breath and the cooldown are read off the state each frame,
+  // and nothing of them outlives one (`render/src/keel-story.ts`).
   "keelFlip",
   "keelArrest",
   "keelSnap",
@@ -37,6 +37,9 @@ export const INGEST_SILENT_BOSS_D = [
   "keelBurn",
   "keelCool",
   "keelFlare",
+  "keelBreath",
+  "keelStir",
+  "keelHeld",
   // THE PLUMB's bleed, landed after page three filled: how far the light has
   // bled is read off the state each frame (`sim/plumb-bleed.ts`).
   "plumbBleed",

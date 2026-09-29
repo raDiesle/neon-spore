@@ -17,8 +17,9 @@ import type { SimEvent } from "@neon-spore/sim";
  * neither.
  */
 export const SILENT_BOSS_D = [
-  // THE KEEL's story beats, no burst from this table: the flip, the marrow
-  // and the cooldown are read off the state each frame (`render/src/keel-story.ts`).
+  // THE KEEL's story beats, no burst from this table: the flip, the marrow,
+  // the breath and the cooldown are read off the state each frame
+  // (`render/src/keel-story.ts`).
   "keelFlip",
   "keelArrest",
   "keelSnap",
@@ -27,6 +28,9 @@ export const SILENT_BOSS_D = [
   "keelBurn",
   "keelCool",
   "keelFlare",
+  "keelBreath",
+  "keelStir",
+  "keelHeld",
   // THE PLUMB's bleed, landed after page three filled: how far the light has
   // bled is read off the state each frame (`sim/plumb-bleed.ts`).
   "plumbBleed",

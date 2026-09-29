@@ -38,6 +38,7 @@ export {
   type KeelPhase,
   type KeelState,
   keelBoss,
+  keelBreathing,
   keelCooling,
   keelDone,
   keelEndAsks,

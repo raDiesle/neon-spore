@@ -113,7 +113,8 @@ export const CHOREO_NOTES_C = {
     "wave's colour, which only that shot shuts. Then it flips: both seats hold " +
     "their end joint keelChordBeats together inside keelFlipBeats, or it snaps " +
     "at the hull and flips again. A marrow lights the middle column for a bolt " +
-    "of each colour in keelMarrowBeats, or it burns a segment loose. Movement " +
+    "of each colour in keelMarrowBeats, or it burns a segment loose. It holds " +
+    "its breath keelBreathBeats hands-off, a touch loosening a segment. Movement " +
     "three relights it at keelTempoBeats, no SLOW, and a miss slips a segment. " +
     "The rock that follows answers to either colour, and the spine cools " +
     "keelCoolBeats hands-off, a tap flaring it (keelCoolFlares). Only the " +

@@ -1,5 +1,6 @@
 import {
   type KeelState,
+  keelBreathing,
   keelCooling,
   keelFlipping,
   keelLit,
@@ -30,8 +31,9 @@ import { bossOf } from "./touch-field.js";
  *
  * **Only a lit joint has a ring**, with two more: **in the flip**, each seat's
  * own end joint (`keelEndSeg`), held down rather than tapped — the lift sends
- * `on: false`, which is the thumb coming up; and **in the cooldown**, every
- * segment, since any tap on the cooling spine is the reflex that flares it.
+ * `on: false`, which is the thumb coming up; and **in the breath and the
+ * cooldown**, every segment, since any tap on the held spine is the reflex
+ * that stirs or flares it.
  * Everywhere else a tap there is the cannon's.
  */
 
@@ -81,7 +83,7 @@ function keelTakes(
     const end = keelEndCircle(keelSegs(l, cfg, s, beat, beatPhase), l, s, seat);
     return end !== null && hitCircle(end, x, y);
   }
-  if (keelCooling(s)) {
+  if (keelBreathing(s) || keelCooling(s)) {
     const segs = keelSegs(l, cfg, s, beat, beatPhase);
     return segs.some((g) => hitCircle(keelRingCircle(l, g.centre), x, y));
   }

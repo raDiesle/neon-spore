@@ -27,6 +27,7 @@ export function keelHashParts(s: KeelState): number[] {
     s.marrow[0] ? 1 : 0,
     s.marrow[1] ? 1 : 0,
     s.flares,
+    s.stirred ? 1 : 0,
     s.locked.length,
   ];
   for (const l of s.locked) out.push(l ? 1 : 0);

@@ -707,35 +707,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §24 THE KEEL — a revised simulation lane, a held breath before the tempo run
-
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-29, claude/queue-24-keel-held-breath (claim: claude/queue-24-the-keel-a-revised-simulation-lane-a-held-bre)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
-
-THE KEEL already ships (wave 103, `docs/spec/bosses.md` §11.41). The spec
-now asks for a new row between the spine going fully rigid and the fast
-tempo run: every seam flares, then the whole spine hums and quivers, and
-both seats must send nothing — hands off both marks — for three beats
-(`SENDING NOTHING`, already built for THE HALTER and THE FLUE, first use on
-THE KEEL, so its `where` array in `tools/director/src/gesture-unbuilt.ts`
-already carries a §24 THE KEEL entry, land it with the rest) before the hum
-settles and the tempo run opens at full brightness; touching either mark
-during the hold loosens one segment, which costs one extra tap once the
-tempo run starts rather than ending the fight. This is one new field, a
-boolean read off the restraint window, plus one new movement dividing the
-beat list where the old movement 3 became movement 4. The locked seam's
-brightness is now three visibly distinct states across the fight (hairline
-after movement 1, a fuller pulsing seam once the socket frees a segment in
-movement 2, a held flare then full white on the new row) rather than one
-texture throughout — a draw-time read of the existing per-segment locked
-booleans and how many are set, no new simulation state beyond the hold's own
-boolean. `bun run check` proves the sim half; the new pose (the arch
-swelling and dimming through the hold) and the three seam-brightness states
-are a look task, queued separately once this lane lands.
-
 ## §26 THE SEAM — a revised simulation lane, two beats of holding fire
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
@@ -1401,3 +1372,23 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
+
+## §24 THE KEEL — row 11's held breath and the seam's three brightnesses, the look
+
+- **Found:** 2026-09-29, claude/queue-24-keel-held-breath
+- **Files:** `packages/render/src/keel-story.ts`, `packages/render/src/keel-story-pose.ts`, `packages/render/src/keel-marks.ts`, `tools/director/src/poses-bosses-hands-keel.ts`, `tools/director/test/boss-states.test.ts`
+
+Row 11's simulation landed (`sim/keel-story.ts`, the `breath` phase, bosses
+§11.41): three beats hands-off between the marrow and the tempo run, a touch
+stirring it and loosening one segment (`stirred`, `keelStir`), held
+flaring every seam once (`keelHeld`). The spine stands through it as it does
+in a rest. §24 *Animation* asks for two things: the hold's pose, the whole
+arch swelling and dimming on a slow period over the segments' own sway, the
+hum dropping flat the moment it is stirred; and a locked seam's brightness
+in three states across the fight — hairline white through movement one, a
+fuller pulsing seam once the socket frees its segment, a held flare then full
+white on the breath — read off `locked` and the phase, no new state. Pose
+`keel:breath` on the STATES sheet with `keelHand` and strike `keel` off
+`OWED`. A look with no shipped alternative for the breath; the seam's
+brightness replaces a shipped look, so it goes to VERSUS unless the owner
+asks for it by name.

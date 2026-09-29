@@ -16,6 +16,7 @@ import {
   keelEnter as enter,
   openCool,
   openFlip,
+  stepBreath,
   stepCool,
   stepFlip,
   stepMarrow,
@@ -55,6 +56,7 @@ export function installKeel(
     chordBeats: 0,
     marrow: [false, false],
     flares: 0,
+    stirred: false,
   };
   world.events.push({ type: "keelEnter", col: midCol(world.cfg) });
   return s;
@@ -81,6 +83,7 @@ export function stepKeel(world: World, s: KeelState): void {
   else if (s.phase === "rigid" && since >= cfg.keelRigidBeats) throwRock(world, s);
   else if (s.phase === "flip") stepFlip(world, s, since);
   else if (s.phase === "marrow") stepMarrow(world, s, since);
+  else if (s.phase === "breath") stepBreath(world, s, since);
   else if (s.phase === "rock" && !keelThrown(s)) openCool(world, s);
   else if (s.phase === "cool") stepCool(world, s, since);
 }

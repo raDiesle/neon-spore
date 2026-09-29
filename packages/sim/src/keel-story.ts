@@ -7,9 +7,9 @@ import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
 
 /**
- * **THE KEEL's story between the last lock and the end** (§24 rows 9, 10
- * and 15): the three states that turn the fight from nine taps into a spine
- * that fights back, shows what it kept, and cools.
+ * **THE KEEL's story between the last lock and the end** (§24 rows 9, 10,
+ * 11 and 15): the four states that turn the fight from nine taps into a spine
+ * that fights back, shows what it kept, gathers itself, and cools.
  *
  * - **The flip.** The moment the second movement locks the last segment the
  *   arch bows the wrong way, under THE SLOW. Both thumbs hold the spine's two
@@ -21,7 +21,14 @@ import type { World } from "./world.js";
  *   THE SLOW. A bolt of each colour up the middle column seals it. Unsealed
  *   when the window runs out, it burns through and the left-middle segment
  *   works loose — re-earned in the tempo run, which reads any loose segment
- *   after the wave's order. Either way the tempo run is next.
+ *   after the wave's order. Either way the breath is next.
+ * - **The breath.** The whole spine hums and quivers for `keelBreathBeats`
+ *   under THE SLOW, and the pair must send nothing: after eight beats of
+ *   reaching for whatever lit, reaching is now the wrong answer. A press on
+ *   the spine stirs it and one locked segment works loose, to be re-earned in
+ *   the tempo run like the burn's — one extra tap and never the fight. Held,
+ *   every seam flares once. Either way the tempo run opens when the beats are
+ *   spent.
  * - **The cooldown.** After the rock, the locked segments bank from white to
  *   iron one after another while both hands stay off. A tap on the spine
  *   flares it, and the bank takes a beat longer, at most `keelCoolFlares`.
@@ -77,7 +84,7 @@ export function stepMarrow(world: World, s: KeelState, since: number): void {
     seg,
     col: keelSegCol(seg, s.locked.length, world.cfg.cols),
   });
-  toTempo(world, s);
+  openBreath(world, s);
 }
 
 /**
@@ -93,8 +100,50 @@ export function keelMarrowStruck(world: World, s: KeelState, bullet: Bullet): bo
   if (!s.marrow[0] || !s.marrow[1]) return true;
   closeSlow(world);
   world.events.push({ type: "keelSeal", col: bullet.col });
-  toTempo(world, s);
+  openBreath(world, s);
   return true;
+}
+
+/** The marrow is done with: the spine holds its breath, hands off. */
+function openBreath(world: World, s: KeelState): void {
+  keelEnter(world, s, "breath");
+  s.stirred = false;
+  openSlow(world, world.cfg.keelBreathBeats, "ask");
+  world.events.push({ type: "keelBreath", col: midCol(world.cfg) });
+}
+
+/** A beat of the breath: once its beats are spent, held or stirred, the tempo run. */
+export function stepBreath(world: World, s: KeelState, since: number): void {
+  if (since < world.cfg.keelBreathBeats) return;
+  if (!s.stirred) world.events.push({ type: "keelHeld", col: midCol(world.cfg) });
+  toTempo(world, s);
+}
+
+/** A press on the spine while it holds its breath: the first loosens a segment. */
+export function keelStirred(world: World, s: KeelState): void {
+  if (s.stirred) return;
+  s.stirred = true;
+  const seg = stirSeg(s);
+  if (seg === NO_JOINT) return;
+  s.locked[seg] = false;
+  const col = keelSegCol(seg, s.locked.length, world.cfg.cols);
+  world.events.push({ type: "keelStir", seg, col });
+}
+
+/**
+ * The segment a stir works loose: the rightmost still locked that the wave's
+ * own order does not re-light, so the stir costs a tap of its own rather than
+ * one the run was asking for anyway — or, if the order re-lights them all,
+ * the rightmost locked.
+ */
+function stirSeg(s: KeelState): number {
+  let fallback = NO_JOINT;
+  for (let i = s.locked.length - 1; i >= 0; i--) {
+    if (!s.locked[i]) continue;
+    if (!s.reprise.includes(i)) return i;
+    if (fallback === NO_JOINT) fallback = i;
+  }
+  return fallback;
 }
 
 /** Every joint dims at once, before the tempo run. */

@@ -1,5 +1,6 @@
 import {
   keelBoss,
+  keelBreathing,
   keelCooling,
   keelLit,
   keelLoose,
@@ -7,7 +8,7 @@ import {
   keelSegCol,
   NO_JOINT,
 } from "./keel.js";
-import { keelFlared } from "./keel-story.js";
+import { keelFlared, keelStirred } from "./keel-story.js";
 import { closeSlow } from "./slow.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -29,8 +30,9 @@ import type { World } from "./world.js";
  *
  * **Every press and lift is also a thumb down or up** on the seat's end joint,
  * kept in `held` in every phase: the flip counts the chord off it on the beat
- * (`keel-story.ts`). And a press while the spine cools is a reflex tap, which
- * flares it.
+ * (`keel-story.ts`). And a press while the spine holds its breath or cools
+ * is a reflex tap: the first stirs it, the second flares it. Only a press
+ * counts — a thumb still down from the flip sends nothing.
  */
 export function keelHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "keelJoint") return;
@@ -38,6 +40,7 @@ export function keelHeard(world: World, player: 1 | 2, command: Command): void {
   if (s === null) return;
   s.held[player - 1] = command.on;
   if (!command.on) return;
+  if (keelBreathing(s)) keelStirred(world, s);
   if (keelCooling(s)) keelFlared(world, s);
   if (!keelLit(s)) return;
   const cols = world.cfg.cols;

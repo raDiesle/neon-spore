@@ -28,7 +28,7 @@ import {
  * **The story between** (`sim/keel-story.ts`): through the flip both seats
  * hold their end joint down, which is the chord; through the marrow P1 aims
  * the middle and P2 fires whichever colour it has not had yet; and through the
- * cooldown both hands stay off, which is sending nothing.
+ * breath and the cooldown both hands stay off, which is sending nothing.
  */
 type Press = Omit<TimedCommand, "tick">;
 

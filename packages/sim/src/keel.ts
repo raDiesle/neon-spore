@@ -28,12 +28,15 @@ import type { World } from "./world.js";
  * loosens that segment again until it is answered. Then the spine holds one
  * beat, the tail throws a rock the cannon must shoot, and the fight ends.
  *
- * **The story between** (§24 rows 9, 10 and 15, `keel-story.ts`): with the
- * spine first rigid, at the end of the second movement, it bows the wrong way
- * — the flip, arrested by both thumbs holding its two end joints down at once;
- * then a marrow seam lights down its middle, sealed by both colours up the
- * middle column; and after the rock the locked segments bank one by one while
- * both hands stay off.
+ * **The story between** (§24 rows 9, 10, 11 and 15, `keel-story.ts`): with
+ * the spine first rigid, at the end of the second movement, it bows the wrong
+ * way — the flip, arrested by both thumbs holding its two end joints down at
+ * once; then a marrow seam lights down its middle, sealed by both colours up
+ * the middle column; then the whole spine holds its breath while both hands
+ * stay off; and after the rock the locked segments bank one by one while both
+ * hands stay off again. `movement` counts the three the joints are lit in, so
+ * the spec's movements 3 and 4, the story, sit inside the sim's second, and
+ * its fifth, the tempo run, is the sim's third.
  */
 
 export const KEEL_PHASES = [
@@ -44,6 +47,7 @@ export const KEEL_PHASES = [
   "socket",
   "flip",
   "marrow",
+  "breath",
   "rigid",
   "rock",
   "cool",
@@ -97,6 +101,9 @@ export interface KeelState {
   marrow: [boolean, boolean];
   /** Beats reflex taps have added to the cooldown. */
   flares: number;
+  /** Whether a thumb touched the spine while it held its breath, which
+   * loosened a segment — once, however many touches followed. */
+  stirred: boolean;
 }
 
 export function keelBoss(world: World): KeelState | null {
@@ -159,6 +166,11 @@ export function keelFlipping(s: KeelState): boolean {
 /** The marrow seam lit down the spine's middle, waiting for both colours. */
 export function keelMarrowLit(s: KeelState): boolean {
   return s.phase === "marrow";
+}
+
+/** The whole spine holding its breath before the tempo run, hands off. */
+export function keelBreathing(s: KeelState): boolean {
+  return s.phase === "breath";
 }
 
 /** The locked segments banking after the rock, hands off. */

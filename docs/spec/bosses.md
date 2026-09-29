@@ -8478,6 +8478,26 @@ lengthens the bank, so a segment that had cooled glows again. A tap on any
 segment is taken while it cools, and the field says nothing.
 `render/test/keel-story-frame.test.ts` draws all three on every screen.
 
+**The held breath** (29 September 2026, §24 row 11, `sim/keel-story.ts`,
+queued as §24 *a held breath before the tempo run*). Between the marrow,
+sealed or burned, and the tempo run, the whole spine holds its breath for
+`keelBreathBeats` under THE SLOW, and both hands stay off (`SENDING NOTHING`,
+its first use on THE KEEL before the last hit). After eight beats of reaching
+for whatever lit, reaching is the one mistake left. A press on the spine
+stirs it — once, whatever follows (`stirred`, the one new field, hashed) —
+and one locked segment works loose: the rightmost the wave's own order does
+not re-light, so the stir costs a tap of its own at the end of the tempo run
+rather than one the run was asking for anyway, and never the wave. Only a
+press counts; a thumb still down from the flip sends nothing. Held, every
+seam flares once (`keelHeld`). Either way the tempo run opens when the beats
+are spent. The sim's `movement` counts only the three the joints are lit in,
+so the spec's movements 3 and 4 sit inside its second. Three events
+(`keelBreath`, `keelStir`, `keelHeld`) are the rigid hold's drone dropped low,
+a slip pitched down and a lock rung high (`audio/src/bind-keel.ts`); a touch
+on any segment is taken while it breathes, as while it cools
+(`render/keel-grip.ts`). **Its picture is queued**: until it lands the spine
+stands through the breath as it does in a rest.
+
 **Its joints answer a touch the way every mark does** (`render/src/keel-verdicts.ts`;
 the owner, 27 September 2026), the whole convention, because both screens draw
 the one spine. The lit joint wears the halo on the screen of the seat whose

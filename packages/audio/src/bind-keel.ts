@@ -16,7 +16,9 @@ import { type Cue, panForCol } from "./bind.js";
  * voices, bent**: the flip is the split's creak dropped low, the arrest a lock
  * knocked high, the snap the socket's blow; the marrow is the socket's call
  * pitched warm and its seal the shut rung high; the burn is a slip; the
- * cooldown the dim, and a flare a joint lighting.
+ * cooldown the dim, and a flare a joint lighting. The breath (row 11) is the
+ * rigid hold's drone dropped low; a stir drops it flat, a slip pitched down;
+ * and held, it cuts to a lock's knock, rung high and long.
  */
 export function keelCue(e: Extract<SimEvent, { type: `keel${string}` }>, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -71,5 +73,11 @@ export function keelCue(e: Extract<SimEvent, { type: `keel${string}` }>, cols: n
       return { id: "boss.keelDim", pan };
     case "keelFlare":
       return { id: "boss.keelLight", pan };
+    case "keelBreath":
+      return { id: "boss.keelRigid", pan, pitch: 0.75 };
+    case "keelStir":
+      return { id: "boss.keelSlip", pan, pitch: 0.8 };
+    case "keelHeld":
+      return { id: "boss.keelLock", pan, pitch: 1.4 };
   }
 }

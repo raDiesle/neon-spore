@@ -107,8 +107,8 @@ export const CHOREO_FIELD_GROUP_C = {
   mantleTurnBeats: "THE MANTLE — the boss both hands have to pull at once, or neither counts",
   // KeelConfig — how many segments, and the patience of every row of the
   // beat list: the joint's window per movement, the rest, the split, the
-  // socket, the flip, the marrow, the rigid hold, the rock's fall, the
-  // cooldown and the end (`config-keel.ts`).
+  // socket, the flip, the marrow, the breath, the rigid hold, the rock's
+  // fall, the cooldown and the end (`config-keel.ts`).
   // The socket's colour and the fast run's order are the wave's own.
   keelSegments: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelStillBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
@@ -124,6 +124,7 @@ export const CHOREO_FIELD_GROUP_C = {
   keelFlipBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelChordBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelMarrowBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
+  keelBreathBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelCoolBeats: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   keelCoolFlares: "THE KEEL — the boss whose next joint is whichever thumb is nearer",
   // ValveConfig — how near the mark counts, the lap, the depth of a pull,

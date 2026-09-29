@@ -39,6 +39,9 @@ export interface KeelConfig {
   keelChordBeats: number;
   /** The marrow's window, in beats, under THE SLOW: both colours up the middle. */
   keelMarrowBeats: number;
+  /** Beats the whole spine holds its breath before the tempo run, hands off,
+   * under THE SLOW. */
+  keelBreathBeats: number;
   /** Beats the locked segments take to bank, one after another, hands off. */
   keelCoolBeats: number;
   /** The most beats reflex taps may add to the cooldown, one a tap. */
@@ -60,6 +63,7 @@ export const KEEL_DEFAULTS: KeelConfig = {
   keelFlipBeats: 4,
   keelChordBeats: 2,
   keelMarrowBeats: 3,
+  keelBreathBeats: 3,
   keelCoolBeats: 3,
   keelCoolFlares: 2,
 };

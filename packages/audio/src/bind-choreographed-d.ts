@@ -80,6 +80,9 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "keelBurn":
     case "keelCool":
     case "keelFlare":
+    case "keelBreath":
+    case "keelStir":
+    case "keelHeld":
       return keelCue(e, cols);
     case "valveEnter":
     case "valveLight":

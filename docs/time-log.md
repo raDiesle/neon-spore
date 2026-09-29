@@ -29045,3 +29045,18 @@ Bottleneck: writing — the pattern was fresh from THE SLING, and what was new
 was only how a grind reads as dying without a cannon's colour.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE KEEL holds its breath before the tempo run
+
+- reading: 10 min. The §24 beat list, `keel-story.ts`, the hand, the grip and
+  every page an event of THE KEEL's is registered on.
+- writing: 20 min. The `breath` phase and `stirred`, three events bound and
+  silenced, the grip taking a touch, five tests, the docs and the look queued.
+- looking: 0 min. Nothing the spine draws changed; it stands through the
+  breath as in a rest.
+- friction: 5 min. The wave's order already re-lights the right-middle
+  segment, so a stir there cost nothing and the test said so.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — a new phase is registered on seven pages outside the
+simulation, found only by letting the typecheck name them.

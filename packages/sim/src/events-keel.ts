@@ -47,6 +47,12 @@ export type KeelEvent =
   | ({ type: "keelSeal" } & KeelColEvent)
   /** The marrow burned through unsealed: segment `seg` works loose. */
   | ({ type: "keelBurn"; seg: number } & KeelColEvent)
+  /** The whole spine hums and quivers, holding its breath: hands off. */
+  | ({ type: "keelBreath" } & KeelColEvent)
+  /** A thumb touched the spine through its breath: segment `seg` works loose. */
+  | ({ type: "keelStir"; seg: number } & KeelColEvent)
+  /** The breath held untouched: every seam flares once, and the tempo run opens. */
+  | ({ type: "keelHeld" } & KeelColEvent)
   /** The rock is gone: the locked segments begin to bank, hands off. */
   | ({ type: "keelCool" } & KeelColEvent)
   /** A tap on the cooling spine: it flares, and banks a beat later. */
