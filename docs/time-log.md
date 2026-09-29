@@ -28814,3 +28814,5 @@ view, which decided a page-wide level over a field of the view.
 
 Bottleneck: writing — the jump needed a rebuild that forgets nothing
 beside the stage's own, which forgets everything.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
