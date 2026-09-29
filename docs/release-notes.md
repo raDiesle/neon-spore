@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · a06226ee7 — Queue: keep a compaction from losing an item's intent, and move it to the item's end
+
+About half of all landed items had an automatic compaction fall inside them. Two entries: a PreCompact hook that writes the owner's words, the claimed entry and the diff stat to a checkpoint that after-compact.ts points at; and a PreCompact block that defers an automatic compaction until the item lands, up to a 320k ceiling, once it is proven that a blocked compaction does not stop the turn.
+
 ## 2026-09-29 · 6333e2daa — THE MAZE: the heart is shaken loose by both seats, in a bigger room
 
 Stage three is no longer a pull down with the pilot braced on the string. Both players put a thumb on the heart and shake it any way. It can only travel inside its room, so a hand has to go back and forth, and it comes loose after eight room widths in all, half from each seat. Eight arrows round the room say "any direction" and turn green under your thumb. A green count fills round the room as the pair shakes, and SHAKE, then P1 TOO or P2 TOO, says whose hand is missing. The room in the middle of every wheel is wider (core 300, from 177), and the heart's hold is twelve beats, from eight.

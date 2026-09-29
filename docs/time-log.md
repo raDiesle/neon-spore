@@ -29385,3 +29385,5 @@ reached twenty files, from the state to the director's rows.
 
 Bottleneck: reading — the hook docs page truncates before its PreCompact
 section, so the input fields had to be pieced together from transcripts.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
