@@ -385,6 +385,7 @@ three steps.
 ## THE MAZE's lever turns the drum 2.6 times per lap of its ring
 
 - **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-mazes-lever-turns-the-drum-2-6-times-per-lap)
 - **Files:** `packages/sim/src/config-maze-turn.ts`, `packages/render/src/maze-string.ts`, `packages/sim/test/maze*.test.ts`
 - **Asks:** should one lap of the lever round the drum be one turn of the drum?
 - **Answered:** 2026-09-27 — 1:1, over keeping the lever geared at 45° a tile.
