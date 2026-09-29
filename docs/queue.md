@@ -1500,20 +1500,3 @@ reached with no hands at all (`--until breach`, tick 1050), which is how its
 blow was looked at. Either teach the misser the trace, as it was taught THE
 GALL's windowless fire step, or say in `auto-miss.ts`'s header and the frames
 recipe that THE FILAMENT's blow is reached bare. `bun run check` proves it.
-
-## One slice of the solid rig's body is drawn without its highlight
-
-- **Found:** 2026-09-29, claude/queue-tasks-efa837
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-one-slice-of-the-solid-rigs-body-is-drawn-withou)
-- **Files:** `packages/render/src/solid-tube-draw.ts`, `packages/render/src/solid-tube-light.ts`, `tools/raster/src/solid-page.ts`
-
-On `bun run solid`, the cell at yaw 23°, pitch 0° shows a band one slice
-wide across the top of the body, just ahead of the far fin's root: the
-specular stripe that runs the body's length stops for that slice and starts
-again after it (`bun run crop <sheet> <out> 500,95,120,80 6`). It is there
-with the length sliced finely everywhere (`FINE_R_PX = 0`), so it is older
-than the coarse slicing of thin tubes; the sharing of one gradient between
-slices whose light keys match (`sectionGradient`) is the first suspect — a
-slice handed a gradient sized or keyed for another. Find it, fix it, and pin
-it in a test that draws that pose and reads the slice's gradient stops.
-`bun run check` proves it.

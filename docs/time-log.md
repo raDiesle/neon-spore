@@ -28909,3 +28909,15 @@ Bottleneck: looking — "the same" needed a second sheet to be said, and a
 constant set to zero for one render was the cheapest way to have it.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — the solid rig's lost stripe: the specular is a weight, not a pick
+
+- reading: 5 min. `sectionGradient`, `seeTube`, and a probe printing the
+  body's thirteen sections in the 23° cell.
+- writing: 5 min. `sectionStops` and its test.
+- looking: 5 min. The cell before and after at 6×, and the sheet whole.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the band was a tie between two stops a thousandth
+apart, and only printing every section's peak showed which one won.
