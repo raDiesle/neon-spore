@@ -759,6 +759,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §32 THE SLING — row 11's cooling tick, the look
 
 - **Found:** 2026-09-29, claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling
+- **Taken:** 2026-09-29, claude/queue-32-sling-cool-look (claim: claude/queue-32-the-sling-row-11s-cooling-tick-the-look)
 - **Files:** `packages/render/src/sling-pose.ts`, `packages/render/src/sling-draw.ts`, `packages/render/test/sling-frame.test.ts`, `tools/director/src/`
 
 The cool is in the simulation (`sim/sling-cool.ts`): after the last shot
