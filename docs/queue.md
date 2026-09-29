@@ -1678,6 +1678,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## `stripNonCode` never strips a template literal with anything in it
 
 - **Found:** 2026-09-28, claude/queue-pointer-conversion-test-ts-times-out-under-bun-r
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-stripnoncode-never-strips-a-template-literal-wit)
 - **Files:** `packages/sim/test/source-scan.ts`, `packages/sim/test/purity.test.ts`, `packages/sim/test/copies.test.ts`, `apps/game/test/pointer-conversion.test.ts`
 
 The template-literal line in `stripNonCode` puts the escape inside its
