@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 40a72f95b — Five bosses' sounds are routed by their events' prefix, each from its own page
+
+THE TASTER, THE LEDGER, THE LEAD, THE GAUGE and THE THROAT each had a cue that took every event they raise, and their names were still written out again in `bind-choreographed-b.ts`, which stood a line under its limit, and in `bind-choreographed.ts`. `bind-prefixed.ts` now routes each by prefix, and each cue takes its whole prefix, so an event a boss gains is one `case` on its own page, and a missing one is a type error there. `gaugeHold`'s silence moved from `bind.ts` to THE GAUGE's page. The page of events added to shipped bosses is 148 lines, and no sound changed.
+
 ## 2026-09-29 · 60a64e231 — The guards' comment-and-string stripper reads a source in one pass
 
 `stripNonCode` was five regex passes, and its template one matched nothing: the escape sat inside its character class, so only an empty pair of backticks was ever stripped, and the purity, copies and pointer guards all read template text as code. It is now one left-to-right scanner, so a quote inside a template or a backtick inside a string no longer opens anything, and a template's `${…}` holes stay code, nested or not. It has tests of its own. No guard moved: every file that passed still passes, and none newly fails.

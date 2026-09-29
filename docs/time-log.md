@@ -28662,3 +28662,5 @@ The bottleneck: the regex passes could not be fixed one at a time, because each 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 The bottleneck: finding a seam that kept the typecheck's guard, which turned on each cue's own switch being exhaustive over its prefix.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
