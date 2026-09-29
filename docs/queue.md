@@ -1391,6 +1391,7 @@ so they use the string.
 ## Three maze test files are past the line ceiling
 
 - **Found:** 2026-09-29, claude/the-maze-level-adjustments-85d033
+- **Taken:** 2026-09-29, claude/queue-tasks-b9e006 (claim: claude/queue-three-maze-test-files-are-past-the-line-ceiling)
 - **Files:** `packages/render/test/maze-grip.test.ts`, `packages/render/test/maze-draw.test.ts`, `packages/sim/test/hash-fixture-bosses-a.ts`
 
 `maze-grip.test.ts` is 294 lines, `maze-draw.test.ts` 304 and
