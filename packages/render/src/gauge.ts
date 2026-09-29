@@ -1,4 +1,10 @@
-import { type GaugeState, gaugeSeatedBy, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
+import {
+  type GaugeState,
+  gaugeLevelSpan,
+  gaugeSeatedBy,
+  gaugeSpanNow,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { drawGaugeAlien, rimPoint } from "./gauge-alien.js";
 import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
 import { gaugeShotLoad, gaugeWoundColor } from "./gauge-load.js";
@@ -92,7 +98,7 @@ export function drawGaugeFoe(
     dial,
     gauge.markMilli,
     gaugeSpanNow(cfg, gauge),
-    cfg.gaugeSpanMilli,
+    gaugeLevelSpan(cfg, gauge),
     gaugeWoundColor(gauge),
     glow,
     gaugeWoundGrown(gauge, c),

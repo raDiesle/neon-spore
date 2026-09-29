@@ -211,7 +211,7 @@ describe("leaving the round", () => {
   it("is passed by talking, and the wave then clears like any other", () => {
     const world = open();
     const { result } = runToEnd(world, TPB * 200, talking);
-    expect(result.marks).toBe(CFG.gaugeMarks);
+    expect(result.marks).toBe(CFG.gaugeLevels * CFG.gaugeLevelMarks);
     expect(result.passed).toBe(true);
     expect(world.retries).toBe(0);
     expect(world.scars.length).toBe(0);
@@ -225,7 +225,7 @@ describe("leaving the round", () => {
 
   it("is failed by saying nothing, and that breaks the hull", () => {
     const world = open();
-    const { result, events } = runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
+    const { result, events } = runToEnd(world, TPB * (CFG.gaugeLevelBeats + 20));
     expect(result.passed).toBe(false);
     expect(result.marks).toBe(0);
     // Time is still what a *call* costs; the round costs the hull — which is
@@ -245,7 +245,7 @@ describe("leaving the round", () => {
 
   it("cannot end the run: a hit is the round again, never the sheet", () => {
     const world = open();
-    runToEnd(world, TPB * (CFG.gaugeRoundBeats + 20));
+    runToEnd(world, TPB * (CFG.gaugeLevelBeats + 20));
     expect(failHolds(world)).toBe(true);
     expect(world.over).toBe(false);
   });
@@ -288,7 +288,7 @@ describe("the fingerprint", () => {
     // Assert what the round did before asserting that two of them agree — a
     // pinned constant would pass on a round that never started
     // (`docs/decisions.md` #19).
-    expect(seen).toBe(CFG.gaugeMarks);
+    expect(seen).toBe(CFG.gaugeLevels * CFG.gaugeLevelMarks);
     expect(hashWorld(a)).toBe(hashWorld(b));
   });
 });

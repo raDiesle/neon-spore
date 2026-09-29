@@ -54,7 +54,7 @@ const VALUE: Partial<Record<string, (cfg: SimConfig) => string>> = {
   "THE BEAT": (cfg) => `${cfg.bpm} BPM`,
   "OPENING — the introduction, the guide and the ready gate": (cfg) =>
     cfg.briefings ? "ON" : "off",
-  "THE GAUGE — a round with no field in it": (cfg) => `${cfg.gaugeMarks} marks`,
+  "THE GAUGE — a round with no field in it": (cfg) => `${cfg.gaugeLevelMarks} marks`,
   "SNAKE — a round the ship is the body of": (cfg) => `${cfg.snakeCols}x${cfg.snakeRows} arena`,
 };
 

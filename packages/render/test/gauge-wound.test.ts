@@ -39,6 +39,8 @@ function gauge(over: Partial<GaugeState> = {}): GaugeState {
     shotTick: -1,
     regrowBeat: -1,
     woundBeat: 0,
+    level: 0,
+    levelBeat: 0,
     ...over,
   } as unknown as GaugeState;
 }

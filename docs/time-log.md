@@ -29542,3 +29542,17 @@ caller's alpha, and a probe found two dozen callers that reach it with one
 left over — so the fix became a second function and a finding.
 
 *Measured: 43 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GAUGE: three levels, each quicker and narrower
+
+- reading: 5 min. The clock, the band's drift, the copies table's patterns,
+  and the frame test's bot.
+- writing: 15 min. The rename from round to level, `gauge-level.ts` and its
+  tests, the words moved out of `gauge-round.ts` into `gauge-words.ts`.
+- looking: 0 min. The frame comes after the landing.
+- friction: 5 min. The copies table wants the clock on one statement, and the
+  rename's `sed` would not split `$files` in zsh.
+- landing: 5 min. `check:fast` twice, for the spec's new fields and the index.
+
+Bottleneck: writing — the rename touched eleven files, and every test that
+counted a round's marks had to learn it is three levels of them.

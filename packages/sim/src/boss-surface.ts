@@ -62,12 +62,15 @@ export {
   type GaugeEntry,
   type GaugeState,
   gaugeBeatsLeft,
+  gaugeBetweenLevels,
   // The two states the round gained, and the width one of them changes: the
   // cue reads all three, and the dial draws the band at the width the
   // judgement uses rather than at the one in the config.
   gaugeBound,
   gaugeHolds,
   gaugeJammed,
+  gaugeLevelMarksMade,
+  gaugeLevelSpan,
   gaugeRound,
   gaugeSeated,
   gaugeSeatedBy,

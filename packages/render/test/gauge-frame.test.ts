@@ -3,6 +3,7 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   GAUGE_LEAD_BEATS,
+  gaugeSpanNow,
   startWave,
   step,
   type TimedCommand,
@@ -67,7 +68,9 @@ function gaugeFrames(role: ViewRole, ticks: number) {
       const commands: TimedCommand[] = [];
       if (g !== null && g.phase === "play") {
         const away = g.markMilli - g.needleMilli;
-        const dir = Math.abs(away) <= CFG.gaugeSpanMilli ? 0 : away > 0 ? 1 : -1;
+        // The width *now*: each level narrows it (`sim/gauge-level.ts`).
+        const span = gaugeSpanNow(CFG, g);
+        const dir = Math.abs(away) <= span ? 0 : away > 0 ? 1 : -1;
         if (dir !== g.valve) {
           commands.push({
             tick,
@@ -79,7 +82,7 @@ function gaugeFrames(role: ViewRole, ticks: number) {
         // The first call is made blind and early, before the needle has gone
         // anywhere: a round drawn without a miss in it never shows the mark
         // that says a call went wrong.
-        const seated = Math.abs(away) <= CFG.gaugeSpanMilli;
+        const seated = Math.abs(away) <= span;
         if (seated || w.beat - g.openBeat === GAUGE_LEAD_BEATS + 1) {
           commands.push({ tick, player: 2, command: { kind: "call", color: g.woundColor } });
         }
@@ -94,7 +97,9 @@ describe("THE GAUGE draws on all three screens", () => {
   // The lead-in, the whole of the play, a verdict standing at the end of it
   // and the spent round holding that picture afterwards: every phase this
   // round has, through a canvas that refuses what a real one refuses.
-  const TICKS = ticksPerBeat(CFG) * (GAUGE_LEAD_BEATS + CFG.gaugeRoundBeats + 2);
+  const TICKS =
+    ticksPerBeat(CFG) *
+    (GAUGE_LEAD_BEATS + CFG.gaugeLevels * (CFG.gaugeLevelBeats + CFG.gaugeLevelRestBeats) + 2);
 
   for (const role of ROLES) {
     it(`draws the dial, the band and the verdict on ${role}`, () => {

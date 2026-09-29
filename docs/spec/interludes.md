@@ -166,9 +166,15 @@ scar is still there when the field comes back. A run can end in a round.
 What failure costs is a number in `SimConfig` and it is the owner's to turn.
 
 THE GAUGE's own dials are in `packages/sim/src/config-gauge.ts`.
-`gaugeRoundBeats` is how many beats the round lasts before time runs out.
-`gaugeMarks` is how many marks pass the round — four or five repetitions of one
-rule. `gaugeSpanMilli` is half the distance between the two marks, in
+The round is **`gaugeLevels` levels**, each harder (the owner, 29 September
+2026: *add more levels (at least 3 and it should become harder)*).
+`gaugeLevelBeats` is how many beats one level lasts before time runs out, and
+`gaugeLevelMarks` is how many marks finish it — three repetitions of one rule.
+Each level up walks the band `gaugeLevelDriftMilli` further a beat and cuts
+its half-width by `gaugeLevelSpanMilli`, and between two levels the rim stands
+bare for `gaugeLevelRestBeats` with the next level's clock held full, under
+the words `LEVEL N`. The rule never changes from one level to the next; how
+long "now" lasts does (`packages/sim/src/gauge-level.ts`). `gaugeSpanMilli` is half the distance between the two marks, in
 thousandths. `gaugeDriftMilli` is how far the band walks each beat, which is the
 whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or

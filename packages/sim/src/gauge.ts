@@ -1,6 +1,7 @@
 import { drawBand, driftBand, gaugeSeatedBy, gaugeWoundOpen } from "./gauge-band.js";
 import { gaugeCalled, gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
 import { gaugeJammed } from "./gauge-hand.js";
+import { gaugeAllLevels } from "./gauge-level.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -65,8 +66,12 @@ export interface GaugeState {
   phase: GaugePhase;
   /** `world.beat` the current phase began on. */
   phaseBeat: number;
-  /** `world.beat` the round opened on — the round's own clock. */
+  /** `world.beat` the round opened on. */
   openBeat: number;
+  /** Levels behind the pair, 0 on the first (`gauge-level.ts`). */
+  level: number;
+  /** `world.beat` this level's clock starts from — later than now during a rest. */
+  levelBeat: number;
   /** How it went. Only meaningful once the phase is `verdict`. */
   passed: boolean;
   /** Where the needle stands, 0..`GAUGE_FULL`. */
@@ -77,7 +82,7 @@ export interface GaugeState {
   markMilli: number;
   /** Which way the band is walking on the beat: -1 or 1. */
   driftDir: number;
-  /** Calls that landed between the marks. */
+  /** Calls that landed between the marks, over the whole round. */
   marks: number;
   /** Calls that did not. They cost time and nothing else. */
   misses: number;
@@ -132,6 +137,8 @@ export function openGauge(world: World): GaugeState {
     phase: "lead",
     phaseBeat: world.beat,
     openBeat: world.beat,
+    level: 0,
+    levelBeat: world.beat,
     passed: false,
     needleMilli: Math.floor(GAUGE_FULL / 2),
     valve: 0,
@@ -158,9 +165,12 @@ export function openGauge(world: World): GaugeState {
   return gauge;
 }
 
-/** Beats left on the clock. Never below zero; display and the round both ask. */
+/**
+ * Beats left on this level's clock. Never below zero, and full while the rest
+ * before a level runs; display and the round both ask.
+ */
 export function gaugeBeatsLeft(world: World, gauge: GaugeState): number {
-  return Math.max(0, world.cfg.gaugeRoundBeats - (world.beat - gauge.openBeat));
+  return Math.max(0, world.cfg.gaugeLevelBeats - Math.max(0, world.beat - gauge.levelBeat));
 }
 
 /**
@@ -194,7 +204,7 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
   const still = gauge.openThumb || gauge.shotTick !== -1 || !gaugeWoundOpen(gauge);
   if (onBeat && !still) driftBand(world, gauge);
 
-  if (gauge.marks >= cfg.gaugeMarks) return true;
+  if (gaugeAllLevels(cfg, gauge)) return true;
   if (gaugeBeatsLeft(world, gauge) <= 0) return false;
   return null;
 }

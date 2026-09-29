@@ -1,10 +1,11 @@
-import { GAUGE_LEAD_BEATS, type GaugeState, gaugeBeatsLeft } from "@neon-spore/sim";
+import { type GaugeState, gaugeBeatsLeft, gaugeLevelMarksMade } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import type { Effects } from "./effects.js";
 import { type Dial, type DialView, drawGauge, drawGaugeFoe, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeAsked, drawGaugeVerdicts } from "./gauge-marks.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
+import { drawGaugeLead, drawGaugeLevel, drawGaugeVerdict } from "./gauge-words.js";
 import { drawHull } from "./hull.js";
 import { frame, type HullFrame, type HullMood, type LobePositions, surface } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -145,17 +146,18 @@ export function drawGaugeRound(
   // (`gauge-button.ts`) — which is also where the machine stops and the dark
   // begins, the job an inset rectangle round the stage used to do.
   drawBand(ctx, l, view.world, false, false, view.time, view.controls);
-  if (boss.phase === "lead") drawLead(ctx, l, view, boss);
+  if (boss.phase === "lead") drawGaugeLead(ctx, l, view, boss);
+  drawGaugeLevel(ctx, l, view, boss);
   // The verdict stands through `spent` too: the round is over and holding
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
-  if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, view, boss);
+  if (boss.phase === "verdict" || boss.phase === "spent") drawGaugeVerdict(ctx, l, view, boss);
   // A thumb's green, last of all, on the screen that shows its part.
   drawGaugeVerdicts(ctx, l, view.world.cfg, dial, boss, view.role, effects.boss.gauge.verdicts);
   ctx.textAlign = "left";
 }
 
 /**
- * Marks made, as pips, and the time left as a bar that empties.
+ * Marks made on this level, as pips, and the time left as a bar that empties.
  *
  * A wave's ready gate has a bar because there is something to count to; a
  * pause has none, for the opposite reason. Here
@@ -174,15 +176,15 @@ function drawTally(
   // Under the title, as SNAKE's is: the hull holds the foot of the screen now,
   // and the tally is the title's footnote rather than a second thing to watch.
   const gap = 15;
-  const left = l.width / 2 - ((cfg.gaugeMarks - 1) * gap) / 2;
-  for (let i = 0; i < cfg.gaugeMarks; i++) {
+  const left = l.width / 2 - ((cfg.gaugeLevelMarks - 1) * gap) / 2;
+  for (let i = 0; i < cfg.gaugeLevelMarks; i++) {
     ctx.beginPath();
     ctx.arc(left + i * gap, y, 4.5, 0, Math.PI * 2);
-    ctx.fillStyle = i < round.marks ? PALETTE.good : "#3B3163";
+    ctx.fillStyle = i < gaugeLevelMarksMade(cfg, round) ? PALETTE.good : "#3B3163";
     ctx.fill();
   }
 
-  const left01 = Math.min(1, gaugeBeatsLeft(view.world, round) / cfg.gaugeRoundBeats);
+  const left01 = Math.min(1, gaugeBeatsLeft(view.world, round) / cfg.gaugeLevelBeats);
   const barW = l.width * 0.5;
   const barX = (l.width - barW) / 2;
   ctx.fillStyle = "#241B4F";
@@ -191,50 +193,4 @@ function drawTally(
     ctx.fillStyle = left01 < 0.25 ? PALETTE.ember : PALETTE.hull;
     ctx.fillRect(barX, y + 18, Math.max(1, barW * left01), 4);
   }
-}
-
-/** The count-in, so the round does not begin on a beat nobody was watching. */
-function drawLead(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  view: ViewState,
-  round: GaugeState,
-): void {
-  const left = GAUGE_LEAD_BEATS - (view.world.beat - round.phaseBeat);
-  ctx.fillStyle = PALETTE.hullRim;
-  ctx.font = '600 34px "Courier New",monospace';
-  ctx.fillText(String(Math.max(1, left)), l.width / 2, l.playHeight * 0.42);
-}
-
-/**
- * How it went, over the dial for a few beats.
- *
- * The line under it used to read "costs you nothing — the field is next", and
- * it was the whole category's promise. The promise is retired: running out of
- * time breaks the hull, so the screen that announces it says what it took. A
- * verdict that still claimed nothing was lost would be the game lying about
- * damage the pair is about to see on the field.
- */
-function drawVerdict(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  view: ViewState,
-  round: GaugeState,
-): void {
-  const y = l.playHeight * 0.42;
-  ctx.fillStyle = "rgba(5,4,11,.78)";
-  ctx.fillRect(0, y - 46, l.width, 96);
-  ctx.fillStyle = round.passed ? PALETTE.good : PALETTE.ember;
-  ctx.font = '600 20px "Courier New",monospace';
-  ctx.fillText(round.passed ? "HELD" : "OUT OF TIME", l.width / 2, y);
-  ctx.fillStyle = PALETTE.text;
-  ctx.font = '11px "Courier New",monospace';
-  ctx.fillText(`${round.marks} of ${view.world.cfg.gaugeMarks}`, l.width / 2, y + 20);
-  ctx.fillStyle = round.passed ? PALETTE.dim : PALETTE.ember;
-  ctx.font = '9px "Courier New",monospace';
-  ctx.fillText(
-    round.passed ? "the hull is whole — the field is next" : "THE HULL PAID FOR IT",
-    l.width / 2,
-    y + 38,
-  );
 }

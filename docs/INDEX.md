@@ -158,6 +158,7 @@ by hand never moves.
 | `packages/sim/src/gauge-hand.ts` | **THE GAUGE's two thumbs on the dial itself** |
 | `packages/sim/src/gauge-hash.ts` | THE GAUGE's half of the boss fingerprint (`hash-boss.ts`), in the shape `mazeHashParts` set |
 | `packages/sim/src/gauge-call.ts` | **The navigator's call**: the one thing in THE GAUGE that can be wrong |
+| `packages/sim/src/gauge-level.ts` | **THE GAUGE's levels**: three rounds of the same rule, each harder |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/gall-hand.ts` | A pinch on THE GALL: `gallPinch`, `fromMilli` the gap between the two touches in thousandths of a tile |
 | `packages/sim/src/gall-hash.ts` | What THE GALL puts into `hashWorld`, and nothing else |
@@ -1219,6 +1220,7 @@ by hand never moves.
 | `packages/render/src/gauge-load.ts` | **THE GAUGE's two colours**: the one the wound wants and the one the cannon last fired |
 | `packages/render/src/gauge-shot.ts` | What a call looks like: the cannon fires, the bolt crosses the mouth |
 | `packages/render/src/gauge-wound.ts` | THE GAUGE's wound: where the band is, drawn as a place the alien's armour is torn open and the flesh under it… |
+| `packages/render/src/gauge-words.ts` | THE GAUGE's big words over the dial: the count-in, the level that is coming, and the verdict |
 | `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |

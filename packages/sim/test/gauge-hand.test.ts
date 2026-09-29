@@ -269,7 +269,7 @@ describe("both hands", () => {
     heard(world, 2, band(true));
     expect(g.handOn).toBe(true);
     expect(g.openThumb).toBe(true);
-    g.marks = CFG.gaugeMarks;
+    g.marks = CFG.gaugeLevels * CFG.gaugeLevelMarks;
     step(world, []);
     expect(g.phase).toBe("verdict");
     expect(g.handOn).toBe(false);

@@ -4,7 +4,7 @@
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-boss.ts` and `config-pair.ts` already give: every call site still
- * reads `cfg.gaugeMarks`, and the split is about how much of one file a reader
+ * reads `cfg.gaugeLevelMarks`, and the split is about how much of one file a reader
  * has to hold at once. `config.ts` had eight lines left under the size limit
  * and this needed twenty, which is the immediate reason; the better one is
  * that a round is a subject of its own, and the next eleven will each want a
@@ -28,10 +28,18 @@ export interface GaugeConfig {
   gaugeDriftMilli: number;
   /** Half the distance between the two marks, in thousandths. */
   gaugeSpanMilli: number;
-  /** Marks that pass the round — four or five repetitions of one rule. */
-  gaugeMarks: number;
-  /** Beats the round lasts before time runs out. Failing costs exactly this. */
-  gaugeRoundBeats: number;
+  /** Marks that pass one level of the round. */
+  gaugeLevelMarks: number;
+  /** Beats one level lasts before time runs out. Failing costs exactly this. */
+  gaugeLevelBeats: number;
+  /** Levels in the round, each harder than the one before (`gauge-level.ts`). */
+  gaugeLevels: number;
+  /** How much faster the band walks each level up, in thousandths a beat. */
+  gaugeLevelDriftMilli: number;
+  /** How much narrower the band's half-width is each level up, in thousandths. */
+  gaugeLevelSpanMilli: number;
+  /** Beats of bare rim between two levels, the level's clock held full. */
+  gaugeLevelRestBeats: number;
   /** Beats between two calls, landed or not, so a held thumb is slower than talking. */
   gaugeCallRestBeats: number;
   /**
@@ -58,8 +66,17 @@ export interface GaugeConfig {
 
 /**
  * The defaults, spread into `DEFAULT_CONFIG`. At 96 BPM a beat is 0.625 s, so
- * `gaugeRoundBeats` is eighty seconds and the round with its lead-in and its
- * verdict is the ninety the category is written around.
+ * `gaugeLevelBeats` is thirty seconds a level.
+ *
+ * **Three levels, each harder** (the owner, 29 September 2026: *add more
+ * levels (at least 3 and it should become harder, maybe the mouth moves faster
+ * … or becomes bigger every level)*). Each level up walks the band
+ * `gaugeLevelDriftMilli` faster — 18, 26, 34 — and cuts its half-width
+ * `gaugeLevelSpanMilli` narrower — 60, 52, 44 — so the third is a band nearly
+ * twice as quick and a quarter slimmer. Three marks a level keeps the whole
+ * round near the ninety seconds it was, plus the rests between. The bound
+ * width stays 18 on every level: it is the bind's own number, and 18 is still
+ * well under the narrowest level's 44.
  *
  * `gaugeTurnMilli` at 3 takes the needle end to end in about 2.8 seconds — the
  * pilot's valve is meant to be the strong one, and a dial that took longer to
@@ -88,8 +105,12 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeTurnMilli: 3,
   gaugeDriftMilli: 18,
   gaugeSpanMilli: 60,
-  gaugeMarks: 5,
-  gaugeRoundBeats: 128,
+  gaugeLevelMarks: 3,
+  gaugeLevelBeats: 48,
+  gaugeLevels: 3,
+  gaugeLevelDriftMilli: 8,
+  gaugeLevelSpanMilli: 8,
+  gaugeLevelRestBeats: 4,
   gaugeCallRestBeats: 2,
   gaugeSettleBeats: 2,
   gaugeBindMarks: 2,

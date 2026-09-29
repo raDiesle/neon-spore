@@ -663,9 +663,10 @@ export const COPIES: Copy[] = [
     // Beats left on THE GAUGE's clock. The bar under the dial worked it out
     // from `openBeat` again, the way THE FLEET's clock does not — it asks
     // `fleetBeatsLeft`, and this is the same function for the same reason.
+    // A level's clock starts at `levelBeat` now, which is one more reason.
     call: "gaugeBeatsLeft",
     owner: "packages/sim/src/gauge.ts",
-    pattern: /openBeat[^;\n]*gaugeRoundBeats|gaugeRoundBeats[^;\n]*openBeat/,
+    pattern: /levelBeat[^;\n]*gaugeLevelBeats|gaugeLevelBeats[^;\n]*levelBeat/,
   },
   {
     // How many marks a count is made of. Four dials each clamped

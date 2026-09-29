@@ -1,6 +1,7 @@
 import type { GaugeState } from "./gauge.js";
 import { drawBand, gaugeHits, gaugeWoundOpen } from "./gauge-band.js";
 import { gaugeSettling } from "./gauge-hand.js";
+import { gaugeLevelUp } from "./gauge-level.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
@@ -67,6 +68,9 @@ export function gaugeShotLands(world: World, gauge: GaugeState): void {
   gauge.marks += 1;
   gauge.jamBeat = -1;
   world.events.push({ type: "gaugeMark" });
+  // The mark that finishes a level opens the next after a longer rest, free of
+  // the bind (`gauge-level.ts`).
+  if (gaugeLevelUp(world, gauge)) return;
   // Every other mark winds the band tight, and the one after it lets it go:
   // the round alternates between the two states rather than ending in one.
   gauge.boundBeat = gauge.marks % world.cfg.gaugeBindMarks === 0 ? world.beat : -1;

@@ -14,6 +14,8 @@ export function gaugeHashParts(g: GaugeState): number[] {
   push(GAUGE_PHASES.indexOf(g.phase));
   push(g.phaseBeat);
   push(g.openBeat);
+  push(g.level);
+  push(g.levelBeat);
   push(g.passed ? 1 : 0);
   push(g.needleMilli);
   push(g.valve);
