@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 48bf9c96a — SNAKE turns on the tick it is pressed, and the mouth stands open twice as long
+
+The wheel no longer waits for the next step. A turn is taken on the tile the head is nearer to: the one it stands on in the first half of a step, or the one ahead in the second half, where that step is taken at once. The body slides into the tile ahead all through a step, so a queued turn looked like the snake carrying on and then snapping round, up to a whole step late. The mouth now stands open 168 ticks instead of 84 (1.4 s), with the rest after it doubled to match. Both asked for by the owner by name.
+
 ## 2026-09-29 · 0f29a49d0 — Every session opens on Opus 5.5 at high effort, never the older Opus 5
 
 `.claude/settings.json` now sets `"model": "claude-opus-5-5"` and `"effortLevel": "high"` as the default for every session on this repository, as the owner asked. `docs/working-with-claude.md` and `docs/token-budget.md` say the same: the owner works on Opus 5.5 at high effort, and a session found on anything else was switched by hand in the picker and is switched back. The setting is a default, not a lock — the app's picker still overrides it for one session.
