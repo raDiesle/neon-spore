@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · bc36aa196 — `--auto-miss` reaches THE FILAMENT's own blow
+
+`bun run frames --wave "THE FILAMENT" --auto both --auto-miss --until breach` traced every line and never breached: the misser only let go inside an asking window, and THE FILAMENT's SLOW is the pause between lines, not an ask. It now lets the first line it is on stand past its clock, so the vein's strike lands at tick 1050, as it does with no hands, and the test that every other misser-reached boss is held to holds THE FILAMENT too.
+
 ## 2026-09-29 · 63a23013b — A turning body's highlight no longer drops out of one slice
 
 The specular on a solid rig's tube was put on the one brightest stop across its section. Where two stops were lit within a thousandth of each other, it jumped whole to whichever won, and on the solid sheet's yaw 23° cell one slice of the body lost its stripe under the rim. It is now a weight: stops lit near the brightest share it, and it fades in over a band of light rather than at a cut, so neighbouring slices differ by at most a fifth of what they could before (`sectionStops`, `solid-tube-light.test.ts`).

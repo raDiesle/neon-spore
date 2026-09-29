@@ -28934,3 +28934,5 @@ apart, and only printing every section's peak showed which one won.
 
 Bottleneck: reading — finding that the sim's filament helpers are exported
 through `boss-surface-clocks-b.ts` rather than a file named for them.
+
+*Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
