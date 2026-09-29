@@ -1214,16 +1214,17 @@ by hand never moves.
 | `packages/render/src/egg-curve.ts` | The cannon's wind-up, as pure arithmetic — no canvas anywhere near it |
 | `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
-| `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name, the one sentence that teaches this seat its half, and where the other half is |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
 | `packages/render/src/gauge-button.ts` | THE GAUGE's four presses, as faces on the band's own lobes |
 | `packages/render/src/gauge-alien.ts` | THE GAUGE's enemy: a big alien ship hung over ours with its mouth open round it — the owner |
 | `packages/render/src/gauge-cannon.ts` | THE GAUGE's cannon: the ship's own, standing on the crown where it always stands and **turning** through the… |
+| `packages/render/src/gauge-crown.ts` | **THE GAUGE's crown: the siren over the screen and the fuse over the alien's head** |
 | `packages/render/src/gauge-load.ts` | **THE GAUGE's two colours**: the one the wound wants and the one the cannon last fired |
 | `packages/render/src/gauge-shot.ts` | What a call looks like: the cannon fires, the bolt crosses the mouth |
 | `packages/render/src/gauge-wound.ts` | THE GAUGE's wound: where the band is, drawn as a place the alien's armour is torn open and the flesh under it… |
 | `packages/render/src/gauge-words.ts` | THE GAUGE's big words over the dial: the count-in, the level that is coming, and the verdict |
 | `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |
+| `packages/render/src/gauge-hurt.ts` | **What the alien has taken**: one torn gash in its flesh for every mark the pair has landed |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |

@@ -180,6 +180,18 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
+**The crown and the gashes** (29 September 2026). The owner: *remove the
+permanent text … show the default bosses time remaining bar top of boss …
+add some siren which tells that p2 needs to inform p1 about position … the
+dotted lives … show big wounds on the boss instead, so no exact number
+visible*. So the title and the pips are gone. The level's clock is THE
+SLOW's fuse over the alien's head, held full between levels, and the siren
+lights the navigator's chip while a wound is open, with AIM POSITION under
+it on her screen (`render/gauge-crown.ts`). Every mark landed tears an ember
+gash in the alien's shoulders and it stays for the round
+(`render/gauge-hurt.ts`); the later ones tear into the earlier, so a pair
+sees it getting worse and counts nothing.
+
 A call is judged **where the bolt lands**, not where it left (the owner, 29
 September 2026: *first shot must reach the coloured area, and then destroyed if
 correct colour*). `gaugeShotTicks` is the bolt's flight, and the band stands
@@ -229,12 +241,17 @@ judgement uses, so the pair can never call a needle the screen shows between
 the marks and be told it was not.
 
 **What the field says** (`render/src/boss-cue-read-w.ts`, 18 September 2026,
-`docs/decisions.md` #34). Three words now, two hers and one his.
+`docs/decisions.md` #34). Four words now, three hers and one his.
 
-Hers are her own verbs at the moment each will land: `PRESS` / `RED` or
-`PRESS` / `CYAN` on the end of the needle while it stands between the marks,
-in the wound's colour, and `HOLD` / `OPEN` on the
-middle of the band while it is wound and her thumb is off. Both the marks and
+Hers are her own verbs at the moment each will land: `CALL` / `POSITION` on
+the wound while it is open and the cannon is not yet over it, `PRESS` /
+`SHOOT` on the end of the needle once it stands between the marks, and
+`HOLD` / `OPEN` on the middle of the band while it is wound and her thumb is
+off. The first two were `PRESS` / `RED` or `CYAN` alone, on a seated needle,
+until the owner, 29 September 2026: *it does not make sense how it is right
+now … this help can just be "Shoot", and before it should say "call
+position"*. `CALL` is the one kind line that is not a thumb: talking is her
+half of the round, and the field says so at the moment it is due. Both the marks and
 the band are drawn on her screen, so each mark stands on something she is
 already shown, and each word says what her thumb does rather than where the
 needle has to go. The call outranks the band: a needle already seated in the
@@ -327,8 +344,9 @@ the rest between two calls.
 hull and control set visuals.* The header said YOU CANNOT SEE THE MARKS and
 YOU CANNOT TURN IT — a dial nobody draws any more, and what a seat lacks
 rather than what it does. It says *swing the claw where they tell you* and
-THE POD IS ON THEIR SCREEN now, and the navigator's mirror of it
-(`render/gauge-title.ts`). The three bare rectangles are gone: THE GAUGE's
+THE POD IS ON THEIR SCREEN now, and the navigator's mirror of it. The
+header is gone since 29 September 2026, at the owner's word, with the pips
+under it: the siren and the fuse stand there now (`render/gauge-crown.ts`). The three bare rectangles are gone: THE GAUGE's
 three are lobes in the band's own sockets, the fifth round to move there
 after THE PULSE, PINBALL, THE SCOUT and SNAKE. The pilot's two turns carry
 the claw's heading and the arc a turn swings it through, SNAKE's wheel on

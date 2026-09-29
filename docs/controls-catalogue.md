@@ -158,7 +158,7 @@ Taught once, by the guide; **no helper on the field** (above).
 
 | Piece | Shared | Says | Who |
 |---|---|---|---|
-| `BossCue`, `CueKind`, `cueSeen`, `saysKind` | `boss-cue-shape.ts` | one thing to do, where, for which seat, and its kind line — `PRESS`, `HOLD`, `TURN`, `STILL`; never `CARRY` | every boss's cue reading |
+| `BossCue`, `CueKind`, `cueSeen`, `saysKind` | `boss-cue-shape.ts` | one thing to do, where, for which seat, and its kind line — `PRESS`, `HOLD`, `TURN`, `STILL`, `CALL`; never `CARRY` | every boss's cue reading |
 | `bossCues`, `bossCue` | `boss-cue.ts` | the cues, read off `World` | every boss with a cue |
 | `cueFrame`, `CUE_FRAME`, `CUE_FRAME_WIDE`, `markAt` | `boss-cue-frame.ts` | how far a cue's frame reaches — THE CHOIR's, or the wider one from THE GIMBAL on — and a cue at a point in it | every cue reading, and THE PLUMB's marks; `copies-table.ts` holds the sizes |
 | `drawCueText`, `cueWordY`, `WORD_FONT` | `boss-cue-text.ts` | the verb under the mark and the kind over it, in THE CHOIR's courier, rock grey | every cue, and THE SINEW, THE SURGE, THE ANTIPHON which build their own `BossCue` |

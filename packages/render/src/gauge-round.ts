@@ -1,10 +1,9 @@
-import { type GaugeState, gaugeBeatsLeft, gaugeLevelMarksMade } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import type { Effects } from "./effects.js";
 import { type Dial, type DialView, drawGauge, drawGaugeFoe, showsGaugeMarks } from "./gauge.js";
+import { drawGaugeFuse, drawGaugeSiren } from "./gauge-crown.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeAsked, drawGaugeVerdicts } from "./gauge-marks.js";
-import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import { drawGaugeLead, drawGaugeLevel, drawGaugeVerdict } from "./gauge-words.js";
 import { drawHull } from "./hull.js";
 import { frame, type HullFrame, type HullMood, type LobePositions, surface } from "./hull-frame.js";
@@ -16,9 +15,6 @@ import { seatSkin } from "./seat-skin.js";
 /** Room above the half-circle for the rim's armour and the wound's glow, as a
  * share of the radius. */
 const HEADROOM = 0.16;
-/** The tally's pips and bar, under the title: from the title's last row to
- * the bar's foot. */
-const TALLY_DEPTH = 36;
 
 /** The ship at rest: nothing armed, nothing swallowed, the cannon lobe in the
  * middle column and no shield — the round has none to raise. */
@@ -42,9 +38,11 @@ function restHull(l: Layout, time: number): HullFrame {
  * measured at time zero, so a finger and a frame agree on it; the skin's
  * breathing under the cannon's lobe is a pixel or two the lobe covers.
  *
- * The rim's armour stops a breath under the tally, which stands under the
- * title's last row; the alien's arms reach on behind the words
- * (`gauge-alien.ts`).
+ * The rim's armour stops a breath under the top of the stage, where the siren
+ * and the fuse are (`gauge-crown.ts`); the alien's arms reach on behind them
+ * (`gauge-alien.ts`). The title and the pips that stood there are gone — the
+ * owner, 29 September 2026 — and the width is what sizes the dial on every
+ * phone measured, so the circle did not move when they went.
  */
 export function gaugeDial(l: Layout): Dial {
   const top = l.playHeight * 0.14;
@@ -53,15 +51,11 @@ export function gaugeDial(l: Layout): Dial {
   return {
     cx,
     cy,
-    // And never below a tenth of the screen: a phone too small for the words
-    // to fit is a phone where the dial overlaps the title rather than vanishes.
+    // And never below a tenth of the screen: a phone too short for the room
+    // over it is a phone where the alien's arms reach behind the siren.
     r: Math.max(
       l.playHeight * 0.1,
-      Math.min(
-        l.width * 0.42,
-        l.playHeight * 0.3,
-        (cy - top - GAUGE_TITLE_DEPTH - TALLY_DEPTH - 8) / (1 + HEADROOM),
-      ),
+      Math.min(l.width * 0.42, l.playHeight * 0.3, (cy - top - 8) / (1 + HEADROOM)),
     ),
   };
 }
@@ -130,9 +124,9 @@ export function drawGaugeRound(
   );
 
   ctx.textAlign = "center";
-  const top = l.playHeight * 0.14;
-  drawGaugeTitle(ctx, l, view.role, top);
-  drawTally(ctx, l, view, boss, top + GAUGE_TITLE_DEPTH + 14);
+  // The level's clock over the alien's head, and the siren over everything.
+  drawGaugeFuse(ctx, l, view.world, boss, dial, view.beatPhase);
+  drawGaugeSiren(ctx, l, boss, view.time, view.names);
   drawGauge(ctx, dial, view.world.cfg, boss, dialView);
   // The two thumbs the round can be taken hold of by, after the dial they
   // stand on (`gauge-grip.ts`). That file asks this one for `gaugeDial` and
@@ -154,43 +148,4 @@ export function drawGaugeRound(
   // A thumb's green, last of all, on the screen that shows its part.
   drawGaugeVerdicts(ctx, l, view.world.cfg, dial, boss, view.role, effects.boss.gauge.verdicts);
   ctx.textAlign = "left";
-}
-
-/**
- * Marks made on this level, as pips, and the time left as a bar that empties.
- *
- * A wave's ready gate has a bar because there is something to count to; a
- * pause has none, for the opposite reason. Here
- * there is, and the bar now costs something: the beats running out break the
- * hull, so a pair who cannot see them spending are being charged for a thing
- * nobody showed them.
- */
-function drawTally(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  view: ViewState,
-  round: GaugeState,
-  y: number,
-): void {
-  const cfg = view.world.cfg;
-  // Under the title, as SNAKE's is: the hull holds the foot of the screen now,
-  // and the tally is the title's footnote rather than a second thing to watch.
-  const gap = 15;
-  const left = l.width / 2 - ((cfg.gaugeLevelMarks - 1) * gap) / 2;
-  for (let i = 0; i < cfg.gaugeLevelMarks; i++) {
-    ctx.beginPath();
-    ctx.arc(left + i * gap, y, 4.5, 0, Math.PI * 2);
-    ctx.fillStyle = i < gaugeLevelMarksMade(cfg, round) ? PALETTE.good : "#3B3163";
-    ctx.fill();
-  }
-
-  const left01 = Math.min(1, gaugeBeatsLeft(view.world, round) / cfg.gaugeLevelBeats);
-  const barW = l.width * 0.5;
-  const barX = (l.width - barW) / 2;
-  ctx.fillStyle = "#241B4F";
-  ctx.fillRect(barX, y + 18, barW, 4);
-  if (left01 > 0) {
-    ctx.fillStyle = left01 < 0.25 ? PALETTE.ember : PALETTE.hull;
-    ctx.fillRect(barX, y + 18, Math.max(1, barW * left01), 4);
-  }
 }

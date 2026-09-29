@@ -27,7 +27,7 @@ import { showsCannon, showsShield } from "./view-role.js";
  * rather than `HOLD` over `STILL` because a player told to hold would hold
  * the trigger, which is the one press the eye is waiting for.
  */
-export type CueKind = "PRESS" | "HOLD" | "CARRY" | "TURN" | "STILL";
+export type CueKind = "PRESS" | "HOLD" | "CARRY" | "TURN" | "STILL" | "CALL";
 
 /** One thing to do, where it is wanted. */
 export interface BossCue {

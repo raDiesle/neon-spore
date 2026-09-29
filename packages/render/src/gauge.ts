@@ -7,6 +7,7 @@ import {
 } from "@neon-spore/sim";
 import { drawGaugeAlien, rimPoint } from "./gauge-alien.js";
 import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
+import { drawGaugeHurt } from "./gauge-hurt.js";
 import { gaugeShotLoad, gaugeWoundColor } from "./gauge-load.js";
 import {
   cannonPose,
@@ -85,6 +86,8 @@ export function drawGaugeFoe(
 ): void {
   const c = shotClock(cfg, gauge, view.tick, view.beat, view.beatPhase);
   drawGaugeAlien(ctx, dial, view.time, gaugeFlinch(gauge, c));
+  // Every mark landed, torn into its flesh: the count, never as a number.
+  drawGaugeHurt(ctx, dial, gauge.marks, view.time);
   // The scar of a hit is on both screens: it is where *he* stopped.
   drawGaugeScar(ctx, dial, gauge.calledMilli, gaugeShotLoad(gauge), gaugeScarLeft(gauge, c));
   if (!view.showMarks) return;

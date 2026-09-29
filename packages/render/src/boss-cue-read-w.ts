@@ -4,6 +4,7 @@ import {
   gaugeJammed,
   gaugeSeated,
   gaugeSettling,
+  gaugeWoundOpen,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -41,12 +42,15 @@ import type { Layout } from "./layout.js";
  * already swinging is the field narrating him, and the settle it costs is
  * long enough that the word would still be there when he had finished.
  *
- * **Her two are her own verbs, at the moment each will land.** `PRESS` /
- * `RED` or `CYAN` — the wound's colour, the button that lands — on the end of
- * the needle while it stands between the marks — both of
- * which are drawn on her screen, so the mark stands on something she is
- * already shown, and the word says what her thumb does rather than where the
- * needle has to go. `HOLD` / `OPEN` on the middle of the band while it is
+ * **Her words are her own verbs, at the moment each will land.** `CALL` /
+ * `POSITION` on the wound while the cannon is not yet over it, and `PRESS` /
+ * `SHOOT` on the end of the needle once it is — the owner, 29 September 2026:
+ * *it does not make sense how it is right now: p2 sees "call" only when the
+ * cannon is above the color - this help can just be "Shoot", and before it
+ * should say "call position"*. The first is the talking, which is her half of
+ * the round; the second is the thumb, once there is nothing left to say. Both
+ * stand on things drawn on her screen alone, so the mark stands on something
+ * she is already shown, and neither says where the needle has to go. `HOLD` / `OPEN` on the middle of the band while it is
  * wound tight and her thumb is off it: the bind is hers, it is drawn on her
  * screen alone, and the verb is a hold on a thing she can see is narrow. The
  * call outranks it, because a needle already seated in the tight band is a
@@ -69,11 +73,15 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   const out: BossCue[] = [];
   if (callReady(world, g)) {
     const tip = gaugeNeedleTip(dial, g);
-    out.push(markAt(2, "PRESS", g.woundColor === "red" ? "RED" : "CYAN", tip.x, tip.y, l, 68));
+    out.push(markAt(2, "PRESS", "SHOOT", tip.x, tip.y, l, 68));
   }
   if (gaugeBound(g) && !g.openThumb) {
     const mid = gaugeBandMid(dial, g);
     out.push(markAt(2, "HOLD", "OPEN", mid.x, mid.y, l, 80));
+  }
+  if (callDue(g) && !gaugeSeated(world, g)) {
+    const mid = gaugeBandMid(dial, g);
+    out.push(markAt(2, "CALL", "POSITION", mid.x, mid.y, l, 69));
   }
   if (gaugeJammed(g) && !g.handOn) {
     const tip = gaugeNeedleTip(dial, g);
@@ -82,12 +90,15 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   return out;
 }
 
-/** The same builder the pages before this one carry, for the same
- * reason: a frame's size is a fact about the mark and not about the boss. */
+/** A wound is up for her to talk him onto: open, with no bolt still out at it. */
+function callDue(g: GaugeState): boolean {
+  return g.shotTick === -1 && gaugeWoundOpen(g);
+}
+
 /** Every way a call can be refused, asked as `stepGauge` asks it. */
 function callReady(world: World, g: GaugeState): boolean {
   if (world.beat - g.calledBeat < world.cfg.gaugeCallRestBeats) return false;
-  if (g.shotTick !== -1) return false;
+  if (!callDue(g)) return false;
   if (g.openThumb || gaugeSettling(world.cfg, g, world.beat)) return false;
   return gaugeSeated(world, g);
 }

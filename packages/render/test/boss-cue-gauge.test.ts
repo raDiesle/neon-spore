@@ -24,7 +24,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE GAUGE, and the three words the field may say about it**
+ * **THE GAUGE, and the four words the field may say about it**
  * (`render/src/boss-cue-read-w.ts`).
  *
  * The round is the sharpest knowledge split in the game — she has the marks
@@ -71,11 +71,11 @@ function seat(world: World, g: GaugeState): void {
 }
 
 describe("THE GAUGE", () => {
-  it("asks her for the wound's colour, on the end of the needle, when it is between the marks", () => {
+  it("tells her to SHOOT, on the end of the needle, when it is between the marks", () => {
     const { world, g } = opened();
     seat(world, g);
     const c = cue(world, "p2");
-    expect(c?.word).toBe("RED");
+    expect(c?.word).toBe("SHOOT");
     expect(c?.kind).toBe("PRESS");
     expect(c?.seat).toBe(2);
     const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p2), g);
@@ -83,11 +83,11 @@ describe("THE GAUGE", () => {
     expect(c?.y).toBeCloseTo(tip.y, 6);
   });
 
-  it("names the button that lands: a cyan wound asks for CYAN", () => {
+  it("says SHOOT whichever colour the wound is: the wound itself is drawn in it", () => {
     const { world, g } = opened();
     seat(world, g);
     g.woundColor = "cyan";
-    expect(cue(world, "p2")?.word).toBe("CYAN");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 
   it("says nothing to the pilot while the valve answers, on any beat of any phase", () => {
@@ -105,12 +105,31 @@ describe("THE GAUGE", () => {
     }
   });
 
-  it("is silent off the band: the needle's place is her read and never the field's", () => {
+  it("off the band, asks her to CALL the POSITION, on the wound and never on the needle", () => {
     const { world, g } = opened();
     seat(world, g);
-    expect(cue(world, "p2")?.word).toBe("RED");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
     g.needleMilli = 0;
     expect(gaugeSeated(world, g)).toBe(false);
+    const c = cue(world, "p2");
+    expect(c?.word).toBe("POSITION");
+    expect(c?.kind).toBe("CALL");
+    expect(c?.seat).toBe(2);
+    const mid = gaugeBandMid(gaugeDial(LAYOUT.p2), g);
+    expect(c?.x).toBeCloseTo(mid.x, 6);
+    expect(c?.y).toBeCloseTo(mid.y, 6);
+    // Which way and how far is still hers to say: nothing goes over his valve.
+    expect(cue(world, "p1")).toBeNull();
+  });
+
+  it("says nothing to call while the rim is bare or a bolt is out", () => {
+    const { world, g } = opened();
+    seat(world, g);
+    g.needleMilli = 0;
+    g.regrowBeat = world.beat + 1;
+    expect(cue(world, "p2")).toBeNull();
+    g.regrowBeat = -1;
+    g.shotTick = world.tick;
     expect(cue(world, "p2")).toBeNull();
   });
 
@@ -118,9 +137,9 @@ describe("THE GAUGE", () => {
     const { world, g } = opened();
     seat(world, g);
     g.calledBeat = world.beat;
-    expect(cue(world, "p2")).toBeNull();
+    expect(cue(world, "p2")?.word).not.toBe("SHOOT");
     g.calledBeat = world.beat - world.cfg.gaugeCallRestBeats;
-    expect(cue(world, "p2")?.word).toBe("RED");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 
   it("says nothing outside the play", () => {
@@ -169,7 +188,7 @@ describe("THE GAUGE", () => {
     seat(world, g);
     g.boundBeat = world.beat;
     expect(gaugeSeated(world, g)).toBe(true);
-    expect(cue(world, "p2")?.word).toBe("RED");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 
   it("holds the call while it would be refused: under her own thumb, and under a settling needle", () => {
@@ -177,15 +196,15 @@ describe("THE GAUGE", () => {
     seat(world, g);
     g.boundBeat = world.beat;
     g.openThumb = true;
-    expect(cue(world, "p2")?.word).not.toBe("RED");
+    expect(cue(world, "p2")?.word).not.toBe("SHOOT");
     g.openThumb = false;
     g.boundBeat = -1;
-    expect(cue(world, "p2")?.word).toBe("RED");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
     // The settle a hand-swung needle costs, from the beat it was lifted.
     g.liftBeat = world.beat;
-    expect(cue(world, "p2")).toBeNull();
+    expect(cue(world, "p2")?.word).not.toBe("SHOOT");
     g.liftBeat = world.beat - world.cfg.gaugeSettleBeats;
-    expect(cue(world, "p2")?.word).toBe("RED");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 
   it("reaches the play by being played, and the round has a word in it", () => {
@@ -194,6 +213,6 @@ describe("THE GAUGE", () => {
     while (g.phase === "lead" && guard++ < 60 * TPB) step(world, []);
     expect(g.phase).toBe("play");
     seat(world, g);
-    expect(cue(world, "p2")?.word).toBe("RED");
+    expect(cue(world, "p2")?.word).toBe("SHOOT");
   });
 });

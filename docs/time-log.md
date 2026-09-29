@@ -29634,3 +29634,17 @@ item-level figures that bigger items confound.
 Bottleneck: landing — the check is longer than the edit.
 
 *Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GAUGE: the siren and the fuse over it, gashes for pips
+
+- reading: 5 min. The field's siren and its roster, THE SLOW's fuse, THE
+  MAZE's use of it, the alien's reach, and the cue's tests.
+- writing: 10 min. `gauge-crown.ts`, `gauge-hurt.ts`, the siren's drawing
+  split from its roster, the cue's CALL / POSITION and SHOOT, the docs.
+- looking: 5 min. Two frames: the banner off centre, then the gashes near a
+  narrow phone's edge.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, two commits.
+
+Bottleneck: reading — the siren only knew field creatures, and finding where
+its drawing could be called from without the roster took the longest.

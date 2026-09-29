@@ -1,5 +1,5 @@
 import type { World } from "@neon-spore/sim";
-import { commsCall } from "./comms.js";
+import { type CommsCall, commsCall } from "./comms.js";
 import { dutyWord } from "./duty.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
@@ -80,6 +80,11 @@ export function sirenFoot(l: Layout, world: World): number | null {
   // (`ship-top-rows.ts`). The siren lighting at all is the visible event; the
   // rows under it move once, with that.
   //
+  return sirenBottom(l);
+}
+
+/** The lowest row the cluster claims whenever it is drawn, call or none. */
+export function sirenBottom(l: Layout): number {
   // The word is drawn on its middle, so half of it hangs under its baseline.
   return sirenCentre(l).y + DIAL_R + DUTY_DROP + DUTY_HALF;
 }
@@ -96,6 +101,26 @@ export function drawCommsSiren(
 ): void {
   const call = commsCall(world);
   if (!call) return;
+  // And, under it, the word or words this seat owes the other about whatever
+  // split body is on the field. Nothing else on the field writes a word here
+  // (`duty.ts`).
+  drawSiren(ctx, l, call, dutyWord(l.role, world), time, names);
+}
+
+/**
+ * **The instrument itself, for a call somebody else has worked out** — the
+ * field's is `commsCall`'s, and a round that draws its own stage (THE GAUGE,
+ * `gauge-crown.ts`) says its own, so the one thing that means *talk* is the
+ * same picture on both.
+ */
+export function drawSiren(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  call: CommsCall,
+  word: string | null,
+  time: number,
+  names?: SeatNames,
+): void {
   // P1 on the left of the dial and P2 on its right, which is the order the
   // band already reads in — the cannon strip above the shield strip, player 1
   // before player 2 everywhere else on the screen. Stacking both chips under
@@ -112,10 +137,7 @@ export function drawCommsSiren(
   drawDial(ctx, cx, cy, time);
   drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
   drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
-  // And, under it, the word or words this seat owes the other about whatever
-  // split body is on the field. Nothing else in the game writes a word here
-  // (`duty.ts`).
-  drawDuty(ctx, l, world, cx, cy + DIAL_R + DUTY_DROP);
+  if (word !== null) drawDuty(ctx, l, word, cx, cy + DIAL_R + DUTY_DROP);
   ctx.restore();
 }
 
@@ -123,12 +145,10 @@ export function drawCommsSiren(
 function drawDuty(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  world: World,
+  word: string,
   cx: number,
   y: number,
 ): void {
-  const word = dutyWord(l.role, world);
-  if (word === null) return;
   ctx.font = DUTY_FONT;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
