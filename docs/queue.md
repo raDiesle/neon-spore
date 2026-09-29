@@ -874,6 +874,7 @@ what the rest of this file holds.
 ## THE FILAMENT's timeout hit is looked at
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-filaments-timeout-hit-is-looked-at)
 - **Files:** `packages/sim/src/filament-step.ts`, `packages/sim/test/boss-strike.test.ts`
 
 THE FILAMENT still drops a rock through `breachHull(..., "meteorFastest")`,
