@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · d1328113f — THE SLING's spent yoke cools while both draws are left alone
+
+After the last shot, the spent yoke now ticks as it cools for three beats under THE SLOW, and the fight's final beat asks the pair to send nothing instead of holding and drawing. A finger put down on either arm snaps the catch loose early and costs the cool a beat, at most two, with nothing lost either way. This is §32 row 11, in the simulation only. The fork looks as it did after the third hit until the queued look lane draws the sixth pose. The cool is silent by design; the draw that breaks it is heard as the slack's twang, pitched up.
+
 ## 2026-09-29 · 5eaa69278 — THE PLUMB's spent light runs out of the core and down both chains
 
 Row 11's bleed, the sixth pose: once the last shot is in the core goes dark and its light runs up the neck, along the beam and down each chain into its stone, warm white turning to the bob's own bronze on the way, the stone's rim taking the last of it. A stone pulled during the bleed holds its own side's light back up, and a flare's extra beat draws both back. A look with no shipped alternative: the bob hung unchanged before. The STATES sheet has THE PLUMB · BLEED, played to by AUTO.

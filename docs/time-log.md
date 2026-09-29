@@ -28995,3 +28995,5 @@ the rendered frame showed it.
 
 Bottleneck: reading — the twelve registrations outside the sim are only
 found from one another, and the PLUMB lane's diff was the map.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
