@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 5eca62420 — The director edits THE SCOUT's levels: motes and hazards on the grid, a clock and speeds per level
+
+THE SCOUT's panel is an editor now, the owner's "I would like to create my own in director". There is a tab for each level, plus + and REMOVE. A press walks a cell through empty, mote, hazard going right and hazard going left. Each hazard has a speed with − and +, each level has a clock, and a note says when a level cannot be won. A save writes the levels back into packages/content/src/scout-arenas.ts. The comment over each level is kept, and a save that changed nothing writes the file byte for byte. PINBALL's table tabs never moved off the first; they do now.
+
 ## 2026-09-29 · e4346035e — THE GAUGE: the siren and the fuse over it, and gashes where the pips were
 
 The title and the pips over the alien are gone. The level's clock is the field's fuse, over the alien's head. The siren lights the navigator's chip while a wound is open, with AIM POSITION under it on her screen. Every mark landed tears an ember gash in the alien that stays for the round. Her cue says CALL / POSITION on the wound until the cannon is over it, then SHOOT. Look exemption: a look the owner asked for by name.

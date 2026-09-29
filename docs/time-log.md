@@ -29660,3 +29660,5 @@ its drawing could be called from without the roster took the longest.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: making a save that changed nothing write the arena file byte for byte — Biome breaks a list of two places however short it is, and the serializer had to learn that.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
