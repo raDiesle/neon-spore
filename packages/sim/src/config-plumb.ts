@@ -1,6 +1,6 @@
 /**
  * THE PLUMB's tuning: the rests around its steps, the grace a level is given,
- * how far one seat can pull, and the swing free
+ * how far one seat can pull, the spent core's bleed and the swing free
  * (`docs/spec/bosses-choreographed.md` §31).
  *
  * What is **not** here is the script — which step asks what, skewed how far,
@@ -20,6 +20,10 @@ export interface PlumbConfig {
    * both seats pulling at once.
    */
   plumbPullReachMilli: number;
+  /** Beats the spent core's light bleeds down the chains with both stones left alone (§31 row 11). */
+  plumbBleedBeats: number;
+  /** The most beats pulls can add to the bleed, one a beat, so a held thumb cannot keep it forever. */
+  plumbBleedFlares: number;
   /** Beats the spent bob swings free before the wave may end. */
   plumbFreeBeats: number;
 }
@@ -29,5 +33,7 @@ export const PLUMB_DEFAULTS: PlumbConfig = {
   plumbRestBeats: 1,
   plumbGraceBeats: 2,
   plumbPullReachMilli: 2000,
+  plumbBleedBeats: 3,
+  plumbBleedFlares: 2,
   plumbFreeBeats: 2,
 };

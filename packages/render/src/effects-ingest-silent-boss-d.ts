@@ -37,6 +37,10 @@ export const INGEST_SILENT_BOSS_D = [
   "keelBurn",
   "keelCool",
   "keelFlare",
+  // THE PLUMB's bleed, landed after page three filled: how far the light has
+  // bled is read off the state each frame (`sim/plumb-bleed.ts`).
+  "plumbBleed",
+  "plumbFlare",
   // THE SEAM's glow, landed after page three filled: how much of it is
   // left is read off the state each frame (`sim/seam-shot.ts`).
   "seamQuench",

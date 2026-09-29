@@ -28951,3 +28951,17 @@ Bottleneck: writing — the first script's skews sat inside one seat's reach,
 and only the test asking that no seat can level it alone caught it.
 
 *Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE PLUMB's spent core bleeds off, both stones left alone
+
+- reading: 5 min. §31 row 11, THE KEEL's cooldown as the template, and
+  where a plumb event is bound.
+- writing: 5 min. `plumb-bleed.ts`, the two events, the hash, the tests,
+  §11.48 and the status row.
+- looking: 0 min.
+- friction: 5 min. Two pages went past 250 lines by a line or two, and the
+  audio chain had to learn that a boss's event may be silent.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the silent-by-design bleed had no way through a
+binding chain typed to always return a sound.

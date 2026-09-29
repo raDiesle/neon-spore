@@ -756,25 +756,20 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §31 THE PLUMB — a revised simulation lane, a light left to bleed off
+## §31 THE PLUMB — row 11's bleed, the look
 
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-29, claude/queue-31-the-plumb-its-weights-are-brought-level-by-tw (claim: claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
+- **Found:** 2026-09-29, claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l
+- **Files:** `packages/render/src/plumb-pose.ts`, `packages/render/src/plumb-draw.ts`, `packages/render/test/plumb-frame.test.ts`, `tools/director/src/`
 
-THE PLUMB's fight ran ten beats deep on `TILT, AS A LEVEL` — level a weight,
-guard a fire step, never once ask the pair to put the phones down. Row 11
-is new: the spent core's light bleeds down the chains for three beats, and
-the pair passes it by sending nothing — leaving both phones flat and
-untouched (`SENDING NOTHING`, a reuse, already built for THE KEEL, THE
-SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE HALTER and THE
-FLUE — no `gesture-unbuilt.ts` edit needed). A reflex tilt draws the light
-back up and costs one extra beat. THE SLOW, Presentation, Animation (five
-poses to six), Colour, Payoff and Cost sections are updated to match; one
-new boolean for row 11's hold. `bun run check` proves the sim half; the
-sixth pose is a look task, queued separately once this lane lands.
+The bleed is in the simulation (`sim/plumb-bleed.ts`): after the last shot
+the bob is in phase `bleed` for `plumbBleedBeats`, a beat more per `flares`,
+and `plumbBleed` / `plumbFlare` are on the silent lists, read off the state.
+Nothing draws it yet — the bob hangs as it did after the third hit. Draw
+§31's sixth pose: the spent core's light running down both chains from
+white to the bob's own bronze across the phase, no cannon colour, the
+stones still; a flare drawing it back up the chain on that side. A look with
+no shipped alternative. Add the pose to the STATES sheet and draw it again in
+`plumb-frame.test.ts`.
 
 ## §32 THE SLING — a revised simulation lane, a cooling tick left alone
 

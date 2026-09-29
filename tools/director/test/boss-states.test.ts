@@ -32,8 +32,9 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // THE RIME the same, §29: its four, less the still posed for `rime:pane`.
   rime: ["lit", "rest", "shattered"],
   // THE PLUMB, THE SLING and THE DAVIT: less the stills posed for their
-  // swing's slots (`poses-bosses-hands-mechanisms.ts`).
-  plumb: ["lit", "rest", "free"],
+  // swing's slots (`poses-bosses-hands-mechanisms.ts`). THE PLUMB's bleed is
+  // the queued look lane for its row 11.
+  plumb: ["lit", "rest", "free", "bleed"],
   sling: ["lit", "rest", "free"],
   cyst: ["still", "lit", "frozen", "rest", "split"],
   davit: ["lit", "rest", "spent"],

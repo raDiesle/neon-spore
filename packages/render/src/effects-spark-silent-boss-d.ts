@@ -27,6 +27,10 @@ export const SILENT_BOSS_D = [
   "keelBurn",
   "keelCool",
   "keelFlare",
+  // THE PLUMB's bleed, landed after page three filled: how far the light has
+  // bled is read off the state each frame (`sim/plumb-bleed.ts`).
+  "plumbBleed",
+  "plumbFlare",
   // THE CYST's seventeen, no burst from this table: each is thrown above the
   // loop by its own fx file (`cyst-fx.ts`).
   "cystEnter",

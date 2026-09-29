@@ -9614,8 +9614,10 @@ the bob hangs true counts one; at the step's own beats the weight settles,
 or under the core the weights are held true. A level step stays lit
 `plumbGraceBeats` past its count. The fourth settle lights the core. An
 answered step closes THE SLOW and the bob rests `plumbRestBeats` before the
-next lights. With the script done both weights snap loose, and the bob
-swings free `plumbFreeBeats` before the wave may end.
+next lights. With the script done the spent core's light bleeds down the
+chains for `plumbBleedBeats` under THE SLOW, asking both seats to leave the
+stones alone (§31 row 11, `sim/plumb-bleed.ts`); then both weights snap
+loose, and the bob swings free `plumbFreeBeats` before the wave may end.
 
 **The answers.** A pull is heard on the tick (`sim/plumb-hand.ts`): how far
 the thumb has carried since it went down, held to the reach either way, and
@@ -9626,9 +9628,11 @@ because what it asks is a number of beats. A shot is judged where a bolt
 leaves the top of the field (`sim/plumb-shot.ts`): only with the core lit,
 only while a fire step is lit, only in the middle column, and only in its
 colour unless it is `either`. The wrong colour is a colour missed on the
-balance sheet and nothing else, THE SEAM's rule.
+balance sheet and nothing else, THE SEAM's rule. A pull while the core
+bleeds draws its light back up: the first in a beat costs the bleed a beat,
+and so does a stone still held pulled as a beat turns.
 
-**Where this departs from the design, and why.** Eight places.
+**Where this departs from the design, and why.** Nine places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §31's
   rows 6 and 8 say "ordinary hull hit" and row 10 says the core "stays lit".
@@ -9664,6 +9668,11 @@ balance sheet and nothing else, THE SEAM's rule.
   lost until both weights settle true again" is written as the rule a `both`
   step run out already has: the core dims, the same `both` lights again, and
   no fire step lights until it is held.
+- **Row 11's reflex pull costs a beat, at most `plumbBleedFlares`.** §31 has
+  a pull "reset" the bleed; a thumb dragging sends a command every frame and
+  a thumb left on would keep it forever, so it is THE KEEL's cooldown rule
+  (§11.41): a beat anyone pulled is a beat more, capped. Nothing is lost —
+  the core is spent and the wave is won either way.
 
 **The simulation, both halves of the look and the pull have landed.** The
 body is drawn (`render/plumb-draw.ts`): THE WEIGHT's sac as a bob of old
@@ -9678,9 +9687,13 @@ colour with its ring closing, smaller and brighter per hit; the weights
 swaying off true as a `both` step runs out unheld; and the bob swinging
 free. The field says PULL on each seat's own stone through every level step
 (`render/plumb-marks.ts`). A drag works the same on a desk, so no key was
-added. The twelve sounds are bound (`audio/src/bind-plumb.ts`). The
-autopilot hand pulls each stone half the skew
-(`hands/src/boss-hands-plumb.ts`).
+added. The sounds are bound (`audio/src/bind-plumb.ts`), thirteen of the
+fourteen events: the bleed is silent by design, the one quiet beat on the
+bob, and the pull that breaks it is the drift's jolt pitched up. The
+autopilot hand pulls each stone half the skew, and lets go of both the
+moment no level is lit (`hands/src/boss-hands-plumb.ts`). **Row 11's bleed
+is in the simulation only** (29 September 2026): the bob hangs as it did
+after the last shot until its picture, the sixth pose, lands.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/plumb.test.ts`): the bob comes in still with both weights loose,
@@ -9695,7 +9708,12 @@ level run out swings the weight loose and lights the same step again; the
 fourth settle lights the core; a fire step wants its colour and the middle
 column, and run out is the wave; a `both` wants both stones, drifts on
 either, and run out dims the core until it is held; and a script answered
-whole snaps both weights free and ends the fight. Whether any of it
+whole bleeds its light off, snaps both weights free and ends the fight. The
+bleed (`sim/test/plumb-bleed.test.ts`) opens under THE SLOW, lasts its beats
+left alone, takes a beat longer for a pull on either stone, one beat for a
+whole beat of dragging, nothing for a lift or the wrong seat, a beat for
+every beat a stone is left pulled up to the cap, and counts a stone still
+pulled from the last shot from its first beat. Whether any of it
 *reads* — whether two thumbs find the sum by talking — is the owner's eye,
 on two real phones.
 

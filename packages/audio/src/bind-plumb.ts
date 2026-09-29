@@ -1,16 +1,27 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
+type PlumbSimEvent = Extract<SimEvent, { type: `plumb${string}` }>;
+
+/** Whether an event is THE PLUMB's, so a page of the chain can hand it over whole. */
+export function isPlumbEvent(e: SimEvent): e is PlumbSimEvent {
+  return e.type.startsWith("plumb");
+}
+
 /**
- * THE PLUMB's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE PLUMB's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the bob hangs over `midCol`, so every one of
  * them is in the middle.
  *
  * **A settle and a hit are pitched up as they add up**, so how far the pair
  * are along can be heard without either of them counting.
+ *
+ * **The bleed is silent by design** (§31, *Presentation*): the one quiet beat
+ * on the whole bob, and what breaks it is a pull — the drift's jolt, pitched
+ * up, as the light is drawn back up the chains.
  */
-export function plumbCue(e: Extract<SimEvent, { type: `plumb${string}` }>, cols: number): Cue {
+export function plumbCue(e: PlumbSimEvent, cols: number): Cue | null {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "plumbEnter":
@@ -34,6 +45,10 @@ export function plumbCue(e: Extract<SimEvent, { type: `plumb${string}` }>, cols:
       return { id: "boss.plumbDim", pan };
     case "plumbMiss":
       return { id: "boss.plumbMiss", pan };
+    case "plumbBleed":
+      return null;
+    case "plumbFlare":
+      return { id: "boss.plumbDrift", pan, pitch: 1.25 };
     case "plumbFree":
       return { id: "boss.plumbFree", pan };
     case "plumbOut":

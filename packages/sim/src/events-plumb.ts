@@ -36,7 +36,11 @@ export type PlumbEvent =
   | ({ type: "plumbDim" } & PlumbColEvent)
   /** A fire step ran out with the core unshot: the hull takes it. */
   | ({ type: "plumbMiss" } & PlumbColEvent)
-  /** The script is done and both weights snap loose at once. */
+  /** The last shot is in: the spent core's light starts down the chains, stones to be left alone. */
+  | ({ type: "plumbBleed" } & PlumbColEvent)
+  /** A pull on a bleeding bob drew the light back up: the bleed takes a beat longer. */
+  | ({ type: "plumbFlare"; side: 0 | 1 } & PlumbColEvent)
+  /** The light has bled off and both weights snap loose at once. */
   | ({ type: "plumbFree" } & PlumbColEvent)
   /** The spent bob has swung free `plumbFreeBeats`; the wave may end. */
   | ({ type: "plumbOut" } & PlumbColEvent);

@@ -1,6 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { World } from "../src/index.js";
-import { PLUMB_SETTLES_PER_WEIGHT, plumbLitStep } from "../src/plumb.js";
+import { PLUMB_SETTLES_PER_WEIGHT } from "../src/plumb.js";
 import { plumbStruck } from "../src/plumb-shot.js";
 import { slowing } from "../src/slow.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
@@ -9,14 +8,13 @@ import {
   beats,
   CFG,
   install,
-  letGoBoth,
   plumb,
   pull,
-  rightColor,
   runUntil,
   SCRIPT,
   shot,
   toLit,
+  toStep,
 } from "./plumb-rig.js";
 
 /**
@@ -33,30 +31,6 @@ import {
  * rather than lost, that a shot outside its step or in the wrong colour does
  * nothing, and that a shot run out is the wave.
  */
-
-/** The lit step answered: both stones pulled true until it rests, or shot in its colour. */
-function answer(world: World): void {
-  const s = plumb(world);
-  const step = plumbLitStep(s);
-  if (step === null) throw new Error("nothing is lit");
-  if (step.ask === "fire") plumbStruck(world, shot(rightColor(step)));
-  else {
-    balance(world);
-    runUntil(world, (w) => plumb(w).phase === "rest");
-    letGoBoth(world);
-  }
-}
-
-/** A bob with the steps before `n` answered and step `n` lit. */
-function toStep(n: number): World {
-  const world = install();
-  toLit(world);
-  while (plumb(world).cursor < n) {
-    answer(world);
-    toLit(world);
-  }
-  return world;
-}
 
 describe("THE PLUMB comes in", () => {
   it("still, both weights loose, the core dark, neither stone pulled", () => {
@@ -318,11 +292,13 @@ describe("a both", () => {
 });
 
 describe("the end", () => {
-  it("answered whole, both weights snap free and the fight ends", () => {
+  it("answered whole, the light bleeds off, both weights snap free and the fight ends", () => {
     const world = toStep(8);
     plumbStruck(world, shot("red"));
     expect(plumb(world).hits).toBe(3);
     const seen = runUntil(world, (w) => w.boss === null);
+    expect(seen.has("plumbBleed")).toBe(true);
+    expect(seen.has("plumbFlare")).toBe(false);
     expect(seen.has("plumbFree")).toBe(true);
     expect(seen.has("plumbOut")).toBe(true);
     expect(world.failTick).toBe(NOT_FAILED);

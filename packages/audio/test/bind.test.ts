@@ -550,6 +550,8 @@ const SAMPLES: Record<string, SimEvent> = {
   plumbSteady: { type: "plumbSteady", col: 5 },
   plumbDim: { type: "plumbDim", col: 5 },
   plumbMiss: { type: "plumbMiss", col: 5 },
+  plumbBleed: { type: "plumbBleed", col: 5 },
+  plumbFlare: { type: "plumbFlare", col: 5, side: 1 },
   plumbFree: { type: "plumbFree", col: 5 },
   plumbOut: { type: "plumbOut", col: 5 },
   slingEnter: { type: "slingEnter", col: 5 },
@@ -806,6 +808,9 @@ describe("bindings", () => {
   // the other seat what the round keeps from it (`sim/gauge-hand.ts`).
   // `fleetHold` is the sixth: a thumb landing on THE FLEET's wound is the green
   // round that seat's ring, and her take on the plume is already heard.
+  // `plumbBleed` is the seventh: THE PLUMB's spent core bleeding off is the
+  // one quiet beat on the bob (§31, *Presentation*), and the pull that
+  // breaks it is `plumbFlare`, which is heard.
   const SILENT_BY_DESIGN = new Set([
     "needWave",
     "choirMerge",
@@ -813,6 +818,7 @@ describe("bindings", () => {
     "mirrorTouch",
     "gaugeHold",
     "fleetHold",
+    "plumbBleed",
   ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {

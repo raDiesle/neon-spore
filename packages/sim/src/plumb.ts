@@ -27,6 +27,10 @@ import type { World } from "./world.js";
  *
  * **Its health is the four settles and the three shots.** A level that runs
  * out is tried again; a shot that runs out is a hull hit, which is the wave.
+ *
+ * **The spent core bleeds its light down the chains** before the bob swings
+ * free (§31 row 11, `plumb-bleed.ts`): the one stretch of the fight that asks
+ * both seats to leave the stones alone, and a pull costs it a beat.
  */
 
 /** Settles that lock a weight plumb — rows 2 and 3 of §31, and 4 and 5. */
@@ -34,9 +38,11 @@ export const PLUMB_SETTLES_PER_WEIGHT = 2;
 
 /**
  * Where the scene is: settling, a step lit and waiting, the bob resting
- * between steps, and the bob swinging free.
+ * between steps, the bob swinging free, and — between the last shot and the
+ * swing, though last in the list so the others keep their places in the
+ * hash — the spent core's light bleeding off.
  */
-export const PLUMB_PHASES = ["still", "lit", "rest", "free"] as const;
+export const PLUMB_PHASES = ["still", "lit", "rest", "free", "bleed"] as const;
 export type PlumbPhase = (typeof PLUMB_PHASES)[number];
 
 /**
@@ -96,6 +102,10 @@ export interface PlumbState {
   pullMilli: [number, number];
   /** Beats of the lit level step the pulls have held the bob true. */
   heldBeats: number;
+  /** Beats a pull has added to the bleed, up to `plumbBleedFlares`. */
+  flares: number;
+  /** Whether this beat of the bleed has already cost its beat: one pull or twenty, it is one. */
+  stirred: boolean;
 }
 
 export function plumbBoss(world: World): PlumbState | null {
@@ -150,5 +160,7 @@ export function freshPlumb(beat: number, steps: readonly PlumbStep[]): PlumbStat
     coreLit: false,
     pullMilli: [0, 0],
     heldBeats: 0,
+    flares: 0,
+    stirred: false,
   };
 }

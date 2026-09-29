@@ -20,6 +20,8 @@ export function plumbHashParts(s: PlumbState): number[] {
     s.pullMilli.length,
     ...s.pullMilli,
     s.heldBeats,
+    s.flares,
+    s.stirred ? 1 : 0,
     s.steps.length,
   ];
   for (const step of s.steps) {

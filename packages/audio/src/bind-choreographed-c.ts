@@ -83,7 +83,7 @@ type LateEvent = Extract<
   }
 >;
 
-export function lateCue(e: LateEvent, cols: number): Cue {
+export function lateCue(e: LateEvent, cols: number): Cue | null {
   // THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE and THE GOVERNOR are bound here and not on `bind-choreographed-d.ts`,
   // which is two lines from the limit: handed over whole, before the switch.
   // THE HASP joined them when its story brought twelve more (`bind-hasp.ts`).

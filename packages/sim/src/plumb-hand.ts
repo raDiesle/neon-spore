@@ -1,5 +1,6 @@
 import { midCol } from "./config.js";
 import { levelling, plumbBoss, plumbTrue } from "./plumb.js";
+import { plumbStirred } from "./plumb-bleed.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -22,7 +23,9 @@ import type { World } from "./world.js";
  * What the pulls are worth is counted on the beat (`plumb-step.ts`); what is
  * heard here is the one instant the beat cannot see — **the bob drifting off
  * true** while the lit level step was counting, which starts its count again
- * from nought. It was each phone's lean until 27 September 2026.
+ * from nought; and **a pull while the spent core bleeds**, which draws its
+ * light back up (`plumb-bleed.ts`). It was each phone's lean until 27
+ * September 2026.
  */
 export function plumbHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -37,6 +40,7 @@ export function plumbHeard(world: World, player: 1 | 2, command: Command): void 
   const reach = world.cfg.plumbPullReachMilli;
   const was = plumbTrue(s);
   s.pullMilli[side] = command.on ? Math.max(-reach, Math.min(reach, pull)) : 0;
+  if (s.pullMilli[side] !== 0) plumbStirred(world, s, side);
   if (!was || plumbTrue(s) || !levelling(s)) return;
   s.heldBeats = 0;
   world.events.push({ type: "plumbDrift", side, col: midCol(world.cfg) });

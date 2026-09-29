@@ -6,7 +6,7 @@ import { grindstoneCue } from "./bind-grindstone.js";
 import { halterCue, isHalterEvent } from "./bind-halter.js";
 import { keelCue } from "./bind-keel.js";
 import { oculusCue } from "./bind-oculus.js";
-import { plumbCue } from "./bind-plumb.js";
+import { isPlumbEvent, plumbCue } from "./bind-plumb.js";
 import { rimeCue } from "./bind-rime.js";
 import { seamCue } from "./bind-seam.js";
 import { slingCue } from "./bind-sling.js";
@@ -47,9 +47,11 @@ type LaterEvent = Extract<
   }
 >;
 
-export function laterCue(e: LaterEvent, cols: number): Cue {
+export function laterCue(e: LaterEvent, cols: number): Cue | null {
   // THE HALTER whole, by its prefix: this page had no room for fourteen cases.
+  // THE PLUMB the same, the day its bleed brought two more.
   if (isHalterEvent(e)) return halterCue(e, cols);
+  if (isPlumbEvent(e)) return plumbCue(e, cols);
   switch (e.type) {
     case "keelEnter":
     case "keelLight":
@@ -170,19 +172,6 @@ export function laterCue(e: LaterEvent, cols: number): Cue {
     case "trivetCollapse":
     case "trivetOut":
       return trivetCue(e, cols);
-    case "plumbEnter":
-    case "plumbLight":
-    case "plumbDrift":
-    case "plumbSettle":
-    case "plumbSwing":
-    case "plumbCore":
-    case "plumbHit":
-    case "plumbSteady":
-    case "plumbDim":
-    case "plumbMiss":
-    case "plumbFree":
-    case "plumbOut":
-      return plumbCue(e, cols);
     case "slingEnter":
     case "slingLight":
     case "slingSlack":

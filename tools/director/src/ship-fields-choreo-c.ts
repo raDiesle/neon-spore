@@ -192,13 +192,15 @@ export const CHOREO_FIELD_GROUP_C = {
   trivetRestBeats: "THE TRIVET — the boss two chords plant, then shoot into",
   trivetGraceBeats: "THE TRIVET — the boss two chords plant, then shoot into",
   trivetCollapseBeats: "THE TRIVET — the boss two chords plant, then shoot into",
-  // PlumbConfig — the rests around the steps, the grace a level is given on
-  // top of its count, and the swing free (`config-plumb.ts`). The script is
+  // PlumbConfig — the rests, a level's grace, one seat's reach, the spent
+  // core's bleed and the swing free (`config-plumb.ts`). The script is
   // the wave's own, ranges and all.
   plumbStillBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
   plumbRestBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
   plumbGraceBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
   plumbPullReachMilli: "THE PLUMB — the boss two pulls hold level, then shoot into",
+  plumbBleedBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
+  plumbBleedFlares: "THE PLUMB — the boss two pulls hold level, then shoot into",
   plumbFreeBeats: "THE PLUMB — the boss two pulls hold level, then shoot into",
   // SlingConfig — the rests around the steps, the grace a draw is given on
   // top of its count, and the snap free (`config-sling.ts`). The script is

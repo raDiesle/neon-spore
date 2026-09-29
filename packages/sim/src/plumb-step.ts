@@ -7,12 +7,14 @@ import {
   type PlumbStep,
   plumbTrue,
 } from "./plumb.js";
+import { openBleed, stepBleed } from "./plumb-bleed.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
  * THE PLUMB's clock: the bob settling, each step lighting, the beats the
- * pulls hold it true being counted, a window running out, and the bob swinging free.
+ * pulls hold it true being counted, a window running out, the spent core
+ * bleeding off (`plumb-bleed.ts`), and the bob swinging free.
  *
  * The shot is judged where a bolt leaves the top of the field
  * (`plumb-shot.ts`) and calls `plumbAnswered` here; the pulls are heard on
@@ -44,6 +46,7 @@ export function stepPlumb(world: World, s: PlumbState): void {
   if (s.phase === "still" && since >= cfg.plumbStillBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.plumbRestBeats) next(world, s);
   else if (s.phase === "lit") lit(world, s, since);
+  else if (s.phase === "bleed" && stepBleed(world, s, since)) free(world, s);
 }
 
 /** How long the lit step stays lit: a level's own beats and the grace, or a shot's beats. */
@@ -106,14 +109,12 @@ export function plumbAnswered(world: World, s: PlumbState): void {
   rest(world, s, true);
 }
 
-/** The next step lights under THE SLOW; or, with the script done, the bob swings free. */
+/** The next step lights under THE SLOW; or, with the script done, the spent core bleeds off. */
 function next(world: World, s: PlumbState): void {
   const step = s.steps[s.cursor];
   const col = midCol(world.cfg);
   if (step === undefined) {
-    s.phase = "free";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "plumbFree", col });
+    openBleed(world, s);
     return;
   }
   s.phase = "lit";
@@ -130,6 +131,14 @@ function miss(world: World, s: PlumbState): void {
   closeSlow(world);
   rest(world, s, true);
   bossStrikesHull(world, "plumb", col);
+}
+
+/** The light has bled off: THE SLOW lets go and both weights snap loose. */
+function free(world: World, s: PlumbState): void {
+  closeSlow(world);
+  s.phase = "free";
+  s.phaseBeat = world.beat;
+  world.events.push({ type: "plumbFree", col: midCol(world.cfg) });
 }
 
 function rest(world: World, s: PlumbState, advance: boolean): void {

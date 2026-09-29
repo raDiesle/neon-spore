@@ -10,11 +10,13 @@ import {
   type World,
 } from "../src/index.js";
 import { type PlumbState, type PlumbStep, plumbBoss, plumbLitStep } from "../src/plumb.js";
+import { plumbStruck } from "../src/plumb-shot.js";
 import type { Bullet, Color } from "../src/types.js";
 
 /**
  * THE PLUMB's test rig: a script installed, a seat's stone pulled as the pair
- * would pull it, and a step driven to its answer. Shared by `plumb.test.ts`.
+ * would pull it, and a step driven to its answer. Shared by `plumb.test.ts`
+ * and `plumb-bleed.test.ts`.
  */
 
 export const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -113,4 +115,28 @@ export function shot(color: Color, col = MID): Bullet {
 /** A colour the step takes. */
 export function rightColor(step: PlumbStep): Color {
   return step.color === "either" ? "cyan" : step.color;
+}
+
+/** The lit step answered: both stones pulled true until it rests, or shot in its colour. */
+export function answer(world: World): void {
+  const s = plumb(world);
+  const step = plumbLitStep(s);
+  if (step === null) throw new Error("nothing is lit");
+  if (step.ask === "fire") plumbStruck(world, shot(rightColor(step)));
+  else {
+    balance(world);
+    runUntil(world, (w) => plumb(w).phase === "rest");
+    letGoBoth(world);
+  }
+}
+
+/** A bob with the steps before `n` answered and step `n` lit. */
+export function toStep(n: number): World {
+  const world = install();
+  toLit(world);
+  while (plumb(world).cursor < n) {
+    answer(world);
+    toLit(world);
+  }
+  return world;
 }

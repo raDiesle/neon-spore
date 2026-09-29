@@ -769,6 +769,7 @@ by hand never moves.
 | `packages/sim/src/plumb-hash.ts` | What THE PLUMB puts into `hashWorld`, and nothing else |
 | `packages/sim/src/plumb-shot.ts` | **THE PLUMB's shot**: the lit core, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/plumb-step.ts` | THE PLUMB's clock: the bob settling, each step lighting, the beats the pulls hold it true being counted |
+| `packages/sim/src/plumb-bleed.ts` | **THE PLUMB's bleed** (§31 row 11): the spent core's light run off with both stones left alone, a beat more for every beat one is pulled |
 | `packages/sim/src/plumb.ts` | THE PLUMB: a lopsided bob hung off the hull over the middle column |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
@@ -2322,7 +2323,7 @@ by hand never moves.
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-filament.ts` | THE FILAMENT's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
-| `packages/audio/src/bind-plumb.ts` | THE PLUMB's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-plumb.ts` | Whether an event is THE PLUMB's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-snake-body.ts`' reason |
 | `packages/audio/src/bind-pulse-hand.ts` | THE PULSE's hand on the bar, in a file of their own for `bind-scout-hand.ts`' reason — `bind.ts` is full |
