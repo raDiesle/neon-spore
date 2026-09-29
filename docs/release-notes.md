@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 49d7e9f2d — A spent FLUE and GOVERNOR stay faded through their glows and a blow's red
+
+`strokeGlowFaded` scales a glow by the alpha it finds and leaves that alpha standing. THE FLUE's and THE GOVERNOR's parts use it, and so does `drawHurt`. Until now THE FLUE was drawn whole from its first glow on while it faded out, a blow's red put a plate's outline back at full, and THE GOVERNOR had to re-set its fade after every glowing part. `strokeGlow` itself is left as it was: two dozen callers reach it with a leftover alpha, and they are queued to be judged one by one. Exemption: a fix to something wrong.
+
 ## 2026-09-29 · dbaec1d26 — THE SCOUT's seats swap every level: player 2 flies the second, and the panel, the split and the hands follow
 
 Player 1 flies the first arena and player 2 has the mouth; on the second arena it is the other way round, and on the third back again. The simulation hears the turns and the burn only from the pilot and the mouth only from the other seat (`scoutPilot`), and each phone's panel, the half of the picture it is shown, the line and prime grips and the OPEN cue all follow the same rule. The rehearsal flies its second level from player 2's seat.

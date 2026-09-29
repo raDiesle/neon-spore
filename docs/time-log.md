@@ -29540,3 +29540,5 @@ Bottleneck: finding every reader of "player 1 is the pilot" — it was written a
 Bottleneck: the queue entry asked for `strokeGlow` itself to read the
 caller's alpha, and a probe found two dozen callers that reach it with one
 left over — so the fix became a second function and a finding.
+
+*Measured: 43 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
