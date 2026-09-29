@@ -28640,3 +28640,13 @@ The bottleneck: the launch entry pointed at another worktree, so the first page 
 The bottleneck: which beat is "half height" turned on how a fault's beat and an arrival's are counted, which is one subtraction in `fault-clock.ts` found by reading.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — `stripNonCode` reads a source in one pass
+
+- reading: 5 min. `source-scan.ts`, its three callers, `serialize.ts`'s own comment scanner.
+- writing: 10 min. The scanner that replaces the five `replace` passes, eight tests of it.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. A heredoc with a doubled backslash was refused by the guard hook; the file went through the Edit tool instead.
+- landing: 5 min. The three guards, `check:fast`, the commit, `land`.
+
+The bottleneck: the regex passes could not be fixed one at a time, because each read what the last left behind, so the fix was a rewrite rather than one character class.

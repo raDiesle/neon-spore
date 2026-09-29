@@ -1655,23 +1655,6 @@ take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
 
-## `stripNonCode` never strips a template literal with anything in it
-
-- **Found:** 2026-09-28, claude/queue-pointer-conversion-test-ts-times-out-under-bun-r
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-stripnoncode-never-strips-a-template-literal-wit)
-- **Files:** `packages/sim/test/source-scan.ts`, `packages/sim/test/purity.test.ts`, `packages/sim/test/copies.test.ts`, `apps/game/test/pointer-conversion.test.ts`
-
-The template-literal line in `stripNonCode` puts the escape inside its
-character class, so the class is negated over everything and matches no
-character: the pattern strips an empty pair of backticks and nothing else.
-`` `Math.random ${x}` `` comes back unchanged, so every guard that calls it
-reads template text as code. Write the class as "anything but a backtick or
-a backslash, or a backslash-escaped pair", keep the `${…}` holes as code
-(they are code, and stripping them would hide a ban inside one), add a test
-of `stripNonCode` itself beside `source-scan.ts`, and run the three guards:
-one that newly passes or newly fails is the finding worth a sentence.
-`bun run check` proves it.
-
 ## THE UNDERTOW's pin ring does not show in `bun run frames` while a lobe stands
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the

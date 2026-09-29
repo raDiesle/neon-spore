@@ -48,20 +48,81 @@ export function read(rel: string): boolean {
  * Comments and string literals are not code. Stripping them keeps the guards
  * honest: `purity.test.ts` names `Math.random` in a ban and must not fail
  * itself, and a message that explains a rule may quote it.
+ *
+ * **One pass, left to right, rather than a regex per kind.** Until 29
+ * September 2026 it was five `replace` calls, each run over what the last had
+ * left, so a quote inside a template or a backtick inside a string was read by
+ * a later pass as the start of one. The template pass was broken outright: its
+ * escape sat inside its character class, the class matched nothing, and only
+ * an empty pair of backticks was ever stripped — every guard read template
+ * text as code. A template's `${…}` holes are kept, nested or not: they are
+ * code, and blanking them would hide a ban inside one. A regex literal is
+ * still read as code, as it was by the passes.
  */
 export function stripNonCode(source: string): string {
-  return (
-    source
-      .replace(/\/\*[\s\S]*?\*\//g, " ")
-      .replace(/(^|[^:])\/\/[^\n]*/g, "$1 ")
-      .replace(/`(?:[^`\]|[\s\S])*`/g, '""')
-      // A quoted string's own body is anything but its closing quote or a
-      // literal backslash, or a backslash-escaped pair — never "any letter
-      // except n": `[^"\\n]` used to exclude the letter n itself, so a hint
-      // string with an ordinary word like "navigator" in it was never
-      // stripped and read as real code. `bosses.md` 11.0's own hint text is
-      // what caught it.
-      .replace(/"(?:[^"\\]|\\.)*"/g, '""')
-      .replace(/'(?:[^'\\]|\\.)*'/g, '""')
-  );
+  let out = "";
+  // The brace depth each open `${` was opened at, innermost last: the `}`
+  // that brings the depth back to it closes the hole and resumes the text.
+  const holes: number[] = [];
+  let depth = 0;
+  let i = 0;
+  while (i < source.length) {
+    const c = source[i];
+    const next = source[i + 1];
+    if (c === "/" && next === "*") {
+      const end = source.indexOf("*/", i + 2);
+      i = end < 0 ? source.length : end + 2;
+      out += " ";
+    } else if (c === "/" && next === "/") {
+      const end = source.indexOf("\n", i);
+      i = end < 0 ? source.length : end;
+      out += " ";
+    } else if ((c === '"' || c === "'") && quotedEnd(source, i) > 0) {
+      i = quotedEnd(source, i);
+      out += '""';
+    } else if (c === "`" || (c === "}" && holes.at(-1) === depth)) {
+      if (c === "}") holes.pop();
+      const text = templateText(source, i + 1);
+      if (text.hole) holes.push(depth);
+      out += c === "`" ? '"" ' : " ";
+      i = text.end;
+    } else {
+      if (c === "{") depth++;
+      if (c === "}") depth--;
+      out += c;
+      i++;
+    }
+  }
+  return out;
+}
+
+/**
+ * One past the closing quote of the string opening at `start`, or -1 when its
+ * line ends first. A body is anything but its closing quote or a backslash, or
+ * a backslash-escaped pair — never "any letter except n": `[^"\\n]` once
+ * excluded the letter n itself, so a hint with "navigator" in it was read as
+ * code (`bosses.md` 11.0 caught it). A quote with no close on its line is an
+ * apostrophe in something this does not parse, and is left as code rather
+ * than let it swallow the lines after it.
+ */
+function quotedEnd(source: string, start: number): number {
+  const q = source[start];
+  for (let j = start + 1; j < source.length; j++) {
+    const c = source[j];
+    if (c === "\\") j++;
+    else if (c === q) return j + 1;
+    else if (c === "\n") return -1;
+  }
+  return -1;
+}
+
+/** A template's text from `start`: where it stops, and whether at a `${`. */
+function templateText(source: string, start: number): { end: number; hole: boolean } {
+  for (let j = start; j < source.length; j++) {
+    const c = source[j];
+    if (c === "\\") j++;
+    else if (c === "`") return { end: j + 1, hole: false };
+    else if (c === "$" && source[j + 1] === "{") return { end: j + 2, hole: true };
+  }
+  return { end: source.length, hole: false };
 }
