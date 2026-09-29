@@ -29427,3 +29427,5 @@ between what one sitting could do and what the queue holds took the most thought
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the recorded rehearsal — a burn is a push that keeps going, so every level change moved every leg after it, and the replay had to be re-recorded rather than edited.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

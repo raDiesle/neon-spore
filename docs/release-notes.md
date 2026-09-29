@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 3360c940a — THE SCOUT: out at once over the cannon, 45° steps, one mote a trip sucked home from two tiles, four levels
+
+The little ship is let go one tile above the cannon on the first tick of the round; there is no lead any more. A turn steps the nose 45° at once, and a turn held down steps again every quarter second. The ship carries one mote at a time, and an open mouth takes a carrying ship from anywhere within two tiles of the cannon and sucks it home. The four levels have one, two, three and four motes, each on four times the clock a clean flight takes. The simulation now keeps the pilot's glimpse of the arena on its own clock: a beat in, then every five seconds. The rehearsal was re-recorded to show the new trip.
+
 ## 2026-09-29 · 04e8dc7d2 — Every boss's marks show the gesture: a pull knob its way, a shot its aim, SHIELD and SUCK their button
 
 Every pull knob now carries THE INSTAR's arrow pointing the way the pull goes, on the seat whose handle it is: THE WARDEN's rope, THE LID's string, THE STARE's lid, THE CURTAIN's hem and THE MAZE's string. The maze string has two heads until it is pulled one way. A shot cue now draws THE INSTAR's crosshair on what the bolt must reach. A cue standing on its target is its own aim; THE SEAM's FIRE, at the hull, aims at the lit point or the falling rock. SHIELD and SUCK wear the panel's own button face inside their scan box, on every boss.
