@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 1842a7017 — THE MAZE's render tests share one harness, and none is past the line ceiling
+
+`maze-harness.ts` holds the drum, the state round it and the counting spy that `maze-draw`, `maze-grip` and `maze-verdict` each kept a copy of. The shot and the drum's fall move to `maze-draw-shot.test.ts`, the grip's ring, landing and field to `maze-grip-ring.test.ts`, and THE MAZE's hash fixture from `hash-fixture-bosses-a.ts` to `-b.ts`. The same 27 cases run.
+
 ## 2026-09-29 · 3360c940a — THE SCOUT: out at once over the cannon, 45° steps, one mote a trip sucked home from two tiles, four levels
 
 The little ship is let go one tile above the cannon on the first tick of the round; there is no lead any more. A turn steps the nose 45° at once, and a turn held down steps again every quarter second. The ship carries one mote at a time, and an open mouth takes a carrying ship from anywhere within two tiles of the cannon and sucks it home. The four levels have one, two, three and four motes, each on four times the clock a clean flight takes. The simulation now keeps the pilot's glimpse of the arena on its own clock: a beat in, then every five seconds. The rehearsal was re-recorded to show the new trip.

@@ -29443,3 +29443,5 @@ Bottleneck: the recorded rehearsal — a burn is a push that keeps going, so eve
 
 Bottleneck: writing — cutting by line ranges, then reading the imports each
 half still needed.
+
+*Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
