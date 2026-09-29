@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · cc099e651 — THE JAM's runaway cannon wakes at beat 7, when its first lure is halfway down
+
+The fault used to start with the wave, so its first shot met the beat-0 lure on the tick the lure came on over the cannon, and three breaches landed before either seat had seen it. The owner placed it on 27 September 2026: the gun runs away when the first lure has come down to half height above the hull. The lure falls a row a beat from row 0 and the hull is row 14, so that is beat 7, and the fault now carries `at: 7`. AUTO clears THE JAM with no breach, so it leaves the field test's list of waves played only halfway.
+
 ## 2026-09-28 · 4e86042e6 — A wave in the director's list is dragged to a new place
 
 Drag a row in the wave list and let it go on another: the wave takes that row's place, after it when dragged down and before it when dragged up, and a gold line on the row's edge says which before the drop. The wave that was open stays open. ↑ and ↓ are the same move with a neighbour now (`rail-drag.ts`).
