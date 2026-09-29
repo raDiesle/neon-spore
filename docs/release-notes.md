@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 1791448f5 — THE PLUMB's lean becomes two pulls
+
+Each seat now drags its own stone. Every level step hangs the bob skewed further than one pull can bring back, so it only comes true while the two pulls together cancel the skew. The stones swing the way they are pulled and grow or shrink with it, and both glasses show the shared off-true, so each seat sees the other's pull. No wave needs a tilt sensor for THE PLUMB any more; the phone's lean is left to THE DAVIT alone. Look exemption: a look the owner asked for by name, 27 September 2026.
+
 ## 2026-09-29 · bc36aa196 — `--auto-miss` reaches THE FILAMENT's own blow
 
 `bun run frames --wave "THE FILAMENT" --auto both --auto-miss --until breach` traced every line and never breached: the misser only let go inside an asking window, and THE FILAMENT's SLOW is the pause between lines, not an ask. It now lets the first line it is on stand past its clock, so the vein's strike lands at tick 1050, as it does with no hands, and the test that every other misser-reached boss is held to holds THE FILAMENT too.
