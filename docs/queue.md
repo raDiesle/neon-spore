@@ -461,6 +461,70 @@ draw the brake is covering. `bun run check` proves it.
 - **Needs:** §41 THE WINCH — the simulation lane
 - **Files:** `docs/spec/bosses-choreographed.md`
 
+Lane two, read against `docs/style-guide.md`: a new silhouette (checked
+this session against `packages/content/src/silhouettes*.ts` and every
+file under `tools/shape-sheet/src/drafts/` — nothing winch-, drum- or
+brake-shaped exists to reuse or collide with) for a drum and cable under
+tension, the cable paying out smoothly while the brake holds and snapping
+taut with a visible shudder the instant the brake breaks — the tell is
+the shudder, not a colour change, the same drawn-as-mechanism choice
+THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
+drawn yet and stays unverified at tempo until the owner has looked.
+
+## §42 THE SLUICE — the simulation lane
+
+- **Found:** 2026-09-26, this session
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+- **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
+- **Answered:** 2026-09-27 — redesign, the same answer as THE WINCH's and for the same reason. The gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT with a pinch. Redesign it so a gap sprung open also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more.
+- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §42 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt.ts`, delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
+
+No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
+paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
+time — the seam, as with THE WINCH, is which seat governs which, but the
+governing gesture is a continuously-read pinch rather than a flat chord.
+One seat pinches a gap shut and must actively re-shut it against its own
+regrowth (the same widen-back THE VISE's own gap already has); the other
+draws and releases toward a lit column exactly as THE SLING already
+resolves it, but the draw only counts while the sealing seat's gap is
+currently at or under its shut threshold. The gate opening at any point
+mid-draw springs the draw back slack, the same "spring back rather than
+lose the step outright" `DrawRelease` already uses for an early or
+wrong-direction release. This is a finer-grained version of THE WINCH's
+coupling: a chord is either held or not, but a pinch drifts, so the
+sealing seat is fighting the gap the whole span the draw is open rather
+than simply holding two controls flat. The full beat list and primitive
+table entry are §42 of `docs/spec/bosses-choreographed.md`. `SQUEEZE ONE
+BODY` and `HOLD, THEN SWIPE` each already carry a §42 THE SLUICE entry in
+their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it
+with the rest. THE SLOW on every seal-and-draw window. `bun run check`
+proves it.
+
+## §42 THE SLUICE — the look
+
+- **Found:** 2026-09-26, this session
+- **Needs:** §42 THE SLUICE — the simulation lane
+- **Files:** `docs/spec/bosses-choreographed.md`
+
+Lane two, read against `docs/style-guide.md`: a new silhouette (checked
+this session against `packages/content/src/silhouettes*.ts` and every
+file under `tools/shape-sheet/src/drafts/` — nothing sluice- or
+jaw-pinch-shaped exists to reuse or collide with; a `GATE` draft is a bar
+across a lane, an unrelated shape) for two lobed jaws over a spillway,
+the seal visibly straining and creeping open the instant a thumb eases
+rather than snapping between two fixed states, and a bolt that pays out
+smoothly while the seal holds and snaps taut with a shudder the instant
+the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
+and THE WINCH's brake both make. Nothing here is drawn yet and stays
+unverified at tempo until the owner has looked.
+
+## §43 THE GOVERNOR — the look
+
+- **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-29, claude/queue-the-stares-turn-is-a-squash-and-shear-not-a-plac (claim: claude/queue-43-the-governor-the-look)
+- **Needs:** §43 THE GOVERNOR — the simulation lane
+- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `packages/render/src/`, `tools/director/test/autopilot.test.ts`, `tools/director/test/on-field-controls.test.ts`
+
 **The body landed 29 September 2026** (`render/src/governor-*.ts`,
 `docs/spec/bosses.md` §11.58 *The look*): THE VANE and INTERFERENCE combined,
 the flywheel, the needle, the Watt governor's flyweights swung by
@@ -1297,3 +1361,21 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `land` lets a lane delete queue entries it never closed
+
+- **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
+- **Files:** `tools/land/queue-guard.ts`, `tools/land/land.ts`
+
+The governor's body lane rewrote its own entry's body with one Python
+replace whose start anchor matched the entry *above* it. The replace took
+out three whole entries: the text of §41 THE WINCH — the look, both §42 THE
+SLUICE entries, and the §43 header. `bun run land` put that on the trunk
+without a word. The only thing that caught it was a later `grep` for the
+header, and `claude/restore-queue-entries-lost-in-governor` put them back.
+`queue-guard.ts` refuses a landing that puts back an entry the trunk took
+out, but not its mirror: a landing that takes out an entry nobody closed.
+Add that to the guard. Read the lane's own `queue done` / `queue release`
+commits for the titles it closed. If an entry the trunk had is gone and its
+title is not among them, refuse the landing and name the entry. Test it in
+`tools/land/test/` the way the re-add case is tested.
