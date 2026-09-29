@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 1fd1292c0 — Director header: drop the read-only note, build stamp small in the corner
+
+The shipped director no longer says "shows what was built, not what is on disk — read only" in its header, and the BUILT stamp is smaller; on a phone it sits in the header's top-right corner instead of taking a row, so the header is one line and the view below gets the space. A look the owner asked for by name.
+
 ## 2026-09-29 · 86a4407de — THE GOVERNOR takes a hand: the tap on the dial, the brake on the works
 
 The lit step's tapper taps anywhere on the dial's face. The braking seat lays its chord on the works around the dial, one finger per pad. While a tap is lit, the tapper's finger on the works is not answered. HOLD appears on the drum, TAP on the mark and FIRE under the middle column. AUTO holds the brake, taps on the mark and shoots the step's colour, and it plays the script through.
