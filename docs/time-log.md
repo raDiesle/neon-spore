@@ -29012,3 +29012,5 @@ found from one another, and the PLUMB lane's diff was the map.
 
 Bottleneck: friction — the silent-event lists are cut by boss, so every
 boss that grows two events pushes a page over 250 lines.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

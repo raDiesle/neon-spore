@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 99089789d — THE GRINDSTONE's spent axle grinds on while both hands are left off it
+
+After the last shot, the spent axle now grinds faintly against the locked caliper for three beats under THE SLOW, and the fight's final beat asks the pair to do neither instead of grinding and clamping. A fresh grind or a pad put down on either side jars the caliper loose and costs the fade a beat, at most two, with nothing lost either way. This is §33 row 11, in the simulation only. The wheel looks as it did after the third hit until the queued look lane draws the sixth pose. The fade is silent by design; the jar that breaks it is heard as the slip's scrape, pitched up.
+
 ## 2026-09-29 · d1328113f — THE SLING's spent yoke cools while both draws are left alone
 
 After the last shot, the spent yoke now ticks as it cools for three beats under THE SLOW, and the fight's final beat asks the pair to send nothing instead of holding and drawing. A finger put down on either arm snaps the catch loose early and costs the cool a beat, at most two, with nothing lost either way. This is §32 row 11, in the simulation only. The fork looks as it did after the third hit until the queued look lane draws the sixth pose. The cool is silent by design; the draw that breaks it is heard as the slack's twang, pitched up.
