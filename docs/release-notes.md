@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 6ab739591 — THE SCUTTLE's frame and THE LEAD's ridge come down onto a wide stage
+
+On a stage wider than about 0.53 the tile is set by the height, and only the radar's strip is left above the grid, so THE SCUTTLE's frame was cut off at the top of the canvas and THE LEAD's full stalk with it. Both now come down by exactly what they are short of (`headroom.ts`), the wind-up and the whole stalk included; on a phone held upright nothing moves.
+
 ## 2026-09-29 · 24ea837a8 — `bun run lane-speed` reads the time log in all four of its row formats
 
 `docs/lane-speed.md` is a reading of `docs/time-log.md`, and the reading of 29 September came from a scratch parse whose first version read a third of the ledger. `tools/ledger/` parses every dated entry — table rows, `- reading: N min`, `- reading — N min` and bold row names, the bottleneck line and the stamp `land` writes — and prints the distribution, the rows' shares, the tail, friction by cause and the stamps by where their clock started, for the whole ledger, a `--from`/`--to` period or a `--split <day>`.

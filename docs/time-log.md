@@ -28758,3 +28758,5 @@ filing it, not writing it.
 - landing: 5 min. `check:fast`, the index row, the commit, `land`.
 
 Bottleneck: `scuttle-shape.ts` stood at 250 lines, so the drop could only go in once the plate's path moved out.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
