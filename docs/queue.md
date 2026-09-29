@@ -1461,6 +1461,7 @@ grab to the horn, whichever the boss's spec says is the control.
 ## `markAt` is written again in nine cue readings
 
 - **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Taken:** 2026-09-29, claude/cue-frame (claim: claude/queue-markat-is-written-again-in-nine-cue-readings)
 - **Files:** `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/boss-cue-read-n.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-w.ts`, `packages/render/src/boss-cue-read-x.ts`, `packages/render/src/boss-cue-read-y.ts`, `packages/render/src/boss-cue-shape.ts`
 
 Each file has its own private `markAt(seat, kind, word, x, y, l, seed)`
