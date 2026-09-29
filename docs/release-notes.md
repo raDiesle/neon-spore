@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · dbaec1d26 — THE SCOUT's seats swap every level: player 2 flies the second, and the panel, the split and the hands follow
+
+Player 1 flies the first arena and player 2 has the mouth; on the second arena it is the other way round, and on the third back again. The simulation hears the turns and the burn only from the pilot and the mouth only from the other seat (`scoutPilot`), and each phone's panel, the half of the picture it is shown, the line and prime grips and the OPEN cue all follow the same rule. The rehearsal flies its second level from player 2's seat.
+
 ## 2026-09-29 · 490a5d690 — An automatic compaction waits for the item to land, up to 320k
 
 A PreCompact hook, tools/hooks/defer-compact.ts, refuses an automatic compaction while the tree is dirty or the branch is ahead of main, until the last turn's context reaches 320k; the harness asks again before every turn, so the first turn after a landing compacts on the boundary. A manual /compact always goes through. Proven in a scratch Claude Code 2.1.278 session: a refused compaction lets the turn go on, and without a ceiling the session dies at the model's limit.

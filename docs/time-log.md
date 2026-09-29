@@ -29523,3 +29523,5 @@ the turn, only a real session could answer.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: finding every reader of "player 1 is the pilot" — it was written as a literal `1` or `2` in eleven files rather than asked of one rule.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
