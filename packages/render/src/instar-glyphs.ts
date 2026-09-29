@@ -1,6 +1,7 @@
 import type { InstarGesture } from "@neon-spore/sim";
 import { emblem } from "./action-face.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawWayArrow } from "./way-arrow.js";
 
 /**
  * **The gesture, drawn inside the ring** — one glyph per member of
@@ -30,7 +31,7 @@ export function drawInstarGlyph(
   switch (gesture) {
     case "pullDown":
     case "pullUp":
-      arrow(ctx, x, y, r, gesture === "pullDown" ? 1 : -1, time);
+      drawWayArrow(ctx, x, y, r, 0, gesture === "pullDown" ? 1 : -1, time);
       break;
     case "tap":
       tap(ctx, x, y, r, time);
@@ -80,27 +81,6 @@ function panelFace(
 ): void {
   const ink = typeof ctx.strokeStyle === "string" ? ctx.strokeStyle : PALETTE.text;
   emblem(ctx, x, y, r * FACE, ink, kind);
-}
-
-/** A shaft with a head, sliding a little in its own direction. */
-function arrow(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  dir: 1 | -1,
-  time: number,
-): void {
-  const slide = dir * r * 0.12 * Math.sin(time * 5);
-  const top = y - dir * r * 0.5 + slide;
-  const tip = y + dir * r * 0.5 + slide;
-  ctx.beginPath();
-  ctx.moveTo(x, top);
-  ctx.lineTo(x, tip);
-  ctx.moveTo(x - r * 0.3, tip - dir * r * 0.3);
-  ctx.lineTo(x, tip);
-  ctx.lineTo(x + r * 0.3, tip - dir * r * 0.3);
-  ctx.stroke();
 }
 
 /** A dot with rings flaring out of it, the way a tap lands. */

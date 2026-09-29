@@ -315,26 +315,32 @@ const SCENES: readonly Scene[] = [
     // more sprite for the pod and its tether, and three fewer rectangles, five
     // fewer fills and one fewer word because the beat this tick falls on is
     // not the beat the old one did.
+    //
+    // Remeasured on 29 September 2026, when every cue started wearing its
+    // helper (`cue-helper.ts`; the owner, for all bosses): the pilot's cue at
+    // this tick draws its picture in the scan box, five more strokes, two
+    // paths and two saves round them, in both frames. The
+    // navigator's row does not move, which says the cost is the helper.
     rows: {
       p1: [
         {
           fillRect: 65,
-          stroke: 142,
+          stroke: 147,
           fill: 90,
           clip: 7,
-          save: 54,
+          save: 56,
           drawImage: 113,
           createLinearGradient: 28,
           createRadialGradient: 13,
-          "new Path2D": 77,
+          "new Path2D": 79,
           fillText: 6,
         },
         {
           fillRect: 65,
-          stroke: 144,
+          stroke: 149,
           fill: 90,
           clip: 7,
-          save: 54,
+          save: 56,
           drawImage: 113,
           createLinearGradient: 21,
           createRadialGradient: 8,

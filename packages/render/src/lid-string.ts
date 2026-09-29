@@ -10,12 +10,12 @@ import {
 import { creatureCenter, flatCenter } from "./creature-place.js";
 import { strokeGlow } from "./glow.js";
 import { handleRadius, handleSag } from "./handle-draw.js";
-import { drawHandleHint, HINT_SOFT } from "./handle-word.js";
+import { drawHandleHint, HINT_SOFT, handleIsMine } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { lidCordTrack } from "./lid-track.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
-import { drawPullTrack } from "./pull-track.js";
+import { drawPullTrack, pullWay } from "./pull-track.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -148,6 +148,7 @@ function drawOne(
   const track = lidCordTrack(l, cfg, c, rest, head, held);
   drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
-  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time });
+  const way = handleIsMine(l.role) ? pullWay(track, pull, 1) : null;
+  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.62, HINT_SOFT);
 }

@@ -73,7 +73,7 @@ export function choreoCues(
       return governorCues(l, world, boss, beatPhase);
     // THE SEAM's, a shield under the ridge while grit falls and a fire under the lit point or the rock, and nothing on the false point or the dark (`boss-cue-read-zr.ts`).
     case "seam":
-      return seamCues(l, world, boss);
+      return seamCues(l, world, boss, beatPhase);
     default:
       return [];
   }

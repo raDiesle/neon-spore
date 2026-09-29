@@ -1,6 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import { bossCue } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
+import { aimIsHere, drawCueHelper } from "./cue-helper.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -31,9 +32,11 @@ export function drawBossCue(
 ): void {
   const cue = bossCue(l, world, beatPhase, skinY);
   if (cue === null) return;
-  // Only where nothing already marks the place: `BossCue.framed`.
-  if (cue.framed !== false) {
+  // Only where nothing already marks the place: `BossCue.framed` — and not
+  // where the crosshair stands on it, which is the frame there (`cue-helper.ts`).
+  if (cue.framed !== false && !aimIsHere(cue, l.hullY)) {
     drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
   }
+  drawCueHelper(ctx, cue, l.hullY, time);
   drawCueText(ctx, cue, time, l.width);
 }

@@ -8,12 +8,12 @@ import {
   wardenPullMilli,
 } from "@neon-spore/sim";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
-import { drawHandleHint, HINT_LOUD } from "./handle-word.js";
+import { drawHandleHint, HINT_LOUD, handleIsMine } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
-import { drawPullTrack } from "./pull-track.js";
+import { drawPullTrack, pullWay } from "./pull-track.js";
 import { TETHER_LOOK } from "./tether-looks.js";
 import { wardenRopeTrack } from "./tether-track.js";
 
@@ -120,6 +120,8 @@ export function drawTether(
   drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
   TETHER_LOOK.rope(d);
   TETHER_LOOK.root(d);
-  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time });
+  // The arrow in it points the way the rope comes, on the seat that pulls it.
+  const way = handleIsMine(l.role) ? pullWay(track, pull, 1) : null;
+  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.75, HINT_LOUD);
 }

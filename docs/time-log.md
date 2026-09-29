@@ -29400,3 +29400,18 @@ section, so the input fields had to be pieced together from transcripts.
 Bottleneck: landing — the check is most of a two-line change.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — Every boss's marks show the gesture: a pull's way, a shot's aim, a shield's and a suck's face
+
+- reading: 10 min. THE INSTAR's glyphs and crosshair, the five pull-knob
+  callers, THE SEAM's marks, and a survey of every cue word (delegated to a
+  read-only search).
+- writing: 20 min. `way-arrow.ts`, `cue-helper.ts`, the knob's required
+  `way`, THE SEAM's aim, three test files, and four queue entries.
+- looking: 5 min. THE WARDEN's knob crop and THE SEAM's sheet.
+- friction: 5 min. The budget tests stop at the first key over, so the
+  remeasure needed a copy of each test that logged every overage.
+- landing: 10 min. `check:fast` twice (format, then the index), the commit, `land`.
+
+Bottleneck: writing — the roll-out is thirty-odd boss files, and the cut
+between what one sitting could do and what the queue holds took the most thought.

@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, STROKE } from "./palette.js";
+import type { PullWay } from "./pull-line.js";
 
 /**
  * **A pull is drawn as the way the hand goes, and a big circle where it
@@ -86,6 +87,17 @@ export function pullTrackPoint(
     dx: (b.x - a.x) / len,
     dy: (b.y - a.y) / len,
   };
+}
+
+/**
+ * **Which way the hand goes from `at`**, for the arrow in the knob
+ * (`drawPullKnob`): along the spine, towards the end the pull is full at —
+ * `1` for a pull that fills as `at` grows, `0` for one that fills as it falls.
+ */
+export function pullWay(t: PullTrack, at: number, toward: 0 | 1): PullWay {
+  const q = pullTrackPoint(t, at);
+  const sign = toward === 1 ? 1 : -1;
+  return { dx: q.dx * sign, dy: q.dy * sign };
 }
 
 /** The piece of the spine between two fractions, as one open path. */

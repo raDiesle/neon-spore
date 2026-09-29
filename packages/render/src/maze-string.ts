@@ -1,13 +1,14 @@
 import type { Point } from "@neon-spore/content";
 import { type MazeState, mazeLeverRadiusMilli, type SimConfig } from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
-import { drawHandleHint, HINT_LOUD } from "./handle-word.js";
+import { drawHandleHint, HINT_LOUD, handleIsMine } from "./handle-word.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { drawMazeLever } from "./maze-lever.js";
 import { mazeDrum } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
-import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
+import type { PullWay } from "./pull-line.js";
+import { drawPullTrack, PULL_TRACK_W, type PullTrack, pullWay } from "./pull-track.js";
 
 /**
  * THE MAZE's lever, and the way it goes: the one thing in this round either
@@ -162,8 +163,13 @@ export function drawMazeString(
   const track = mazeStringTrack(l, cfg, rest.r * PULL_TRACK_W);
   const at = knob.off / (2 * Math.PI * ring.r);
   drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time });
+  // The arrow in the knob: round the rim, either way until the hand picks
+  // one, and only on the seat that turns it.
+  const mine = handleIsMine(role);
+  const way: PullWay | null = mine ? pullWay(track, at, at < 0 ? 0 : 1) : null;
+  const either = mine && at === 0;
   drawMazeLever(ctx, mazeDrum(l, cfg), knob, rest.r, held);
-  drawPullKnob(ctx, knob, rest.r, { ...LOOK, held, time });
+  drawPullKnob(ctx, knob, rest.r, { ...LOOK, held, time, way, either });
 
   // The word goes as soon as a hand lands, the way the tether's does: from
   // then on the knob's own place on the ring says it.

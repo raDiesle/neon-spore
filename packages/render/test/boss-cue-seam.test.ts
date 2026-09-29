@@ -105,6 +105,24 @@ describe("THE SEAM", () => {
     expect(all(world)).toEqual([]);
   });
 
+  // The owner, 29 September 2026, every boss: a shot cue carries a clear aim
+  // target (`cue-helper.ts`). The word stays at the hull, where the cannon goes.
+  it("aims the FIRE on the lit point, up on the ridge", () => {
+    const { world } = lit("point");
+    const [fire] = all(world);
+    expect(fire?.aim?.x).toBeCloseTo(fieldX(LAYOUT.test, MID));
+    expect(fire?.aim?.y).toBeLessThan(LAYOUT.test.hullY - LAYOUT.test.tile);
+  });
+
+  it("aims the FIRE on the rock in flight, between the crack and its column", () => {
+    const { world } = lit("rock", 2);
+    const aim = all(world)[0]?.aim;
+    expect(aim).toBeDefined();
+    expect(aim?.x).toBeGreaterThanOrEqual(fieldX(LAYOUT.test, MID) - 1);
+    expect(aim?.x).toBeLessThanOrEqual(fieldX(LAYOUT.test, MID + 2) + 1);
+    expect(aim?.y).toBeLessThan(LAYOUT.test.hullY);
+  });
+
   it("goes quiet once the lit point has been shot", () => {
     const { world, s } = lit("point");
     s.shot = true;

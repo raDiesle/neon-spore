@@ -2,6 +2,7 @@ import { type Creature, CURTAIN_COLS, type CurtainState, type SimConfig } from "
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE } from "./curtain-sheet.js";
 import { drawnCol } from "./depth.js";
 import { handleRadius } from "./handle-draw.js";
+import { handleIsMine } from "./handle-word.js";
 import { type Circle, hitCircle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob, PULL_GRAB } from "./pull-knob.js";
@@ -199,7 +200,9 @@ export function drawCurtainHem(
     follow: false,
   });
   drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: curtainHemPull(cfg, c), time });
-  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time });
+  // The hem is always his (`curtainHemSeat`): on her screen it carries no arrow.
+  const way = handleIsMine(l.role) ? PULL_UP : null;
+  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time, way });
 }
 
 /** The handle's colours: the sheet's hull violet, and its lit rim. */

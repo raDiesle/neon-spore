@@ -234,6 +234,14 @@ item naming the rule, never a fix made in passing.
   players can only hold one damage type and then needs to repeat wave.* A
   hit costs the wave whichever hazard lands it, so a second of anything is
   drawn as recognisable as the first, not worse than it.
+- **Every mark shows its gesture: a pull its way, a shot its target, a
+  shield or a suck its button**, 29 September 2026, for all bosses: *we use
+  always the visualization we have of the direction, not just rounded red
+  circle (e.g. in "the warden") which looks like a slider … shooting with
+  cannon should have clear aim target (check "the instar") … and also good to
+  have a specific helper symbol scanner box for shield and suck.* A pull mark
+  that is only a circle is not allowed. The pieces: `way-arrow.ts` inside
+  `pull-knob.ts`, and `cue-helper.ts` under every `BossCue`.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

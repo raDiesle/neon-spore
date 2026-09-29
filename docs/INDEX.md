@@ -1686,6 +1686,7 @@ by hand never moves.
 | `packages/render/src/warden-grip.ts` | THE WARDEN's eye as a control: player 2's thumb under NARROW, player 1's swipe under GLARE |
 | `packages/render/src/warden-drift.ts` | **THE WARDEN rocks on its open foot** |
 | `packages/render/src/warden-track.ts` | THE WARDEN's hatch under GLARE drawn as a swipe track through the eye, filling green with the carry |
+| `packages/render/src/way-arrow.ts` | **The way a pull goes, as an arrow**: THE INSTAR's pull glyph turned to any direction, drawn inside every pull knob |
 | `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
 | `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
@@ -2251,6 +2252,7 @@ by hand never moves.
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
 | `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/cue-helper.ts` | **The helper a cue's word wears on the field**: a crosshair on a shot's aim, the panel's face for SHIELD and SUCK |
 | `packages/render/src/cyst-draw.ts` | **THE CYST**: a four-lobed sac over the middle column (BULB · CLOVER) |
 | `packages/render/src/cyst-fx.ts` | What THE CYST leaves behind a frame (§34): the **thud** of a flank cracking |
 | `packages/render/src/cyst-grip.ts` | **The hands on THE CYST** (§34): a tap on a freeze mark, and a pinch on a flank |

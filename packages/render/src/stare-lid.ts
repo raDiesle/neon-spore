@@ -156,7 +156,8 @@ export function drawStareLid(
     follow: false,
   });
   drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: drop, time });
-  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time });
+  // Only this seat's screen gets here (`showsStareLid`), so the arrow is always its own.
+  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time, way: PULL_DOWN });
 }
 
 /** The handle's colours: the cowl's rock, lit to the text colour while held. */

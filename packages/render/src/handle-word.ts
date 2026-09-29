@@ -57,6 +57,11 @@ export interface HandleWords {
  * say it. Named so a fourth one of the same kind does not spell it out again. */
 export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "P1'S" };
 
+/** Whether this screen's thumb is the one the handle is for: the rig's always is. */
+export function handleIsMine(role: ViewRole, words: HandleWords = PILOT_HANDLE): boolean {
+  return role === "test" || (role === "p1") === (words.seat === 1);
+}
+
 export function drawHandleHint(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -66,7 +71,7 @@ export function drawHandleHint(
   style: HintStyle,
   words: HandleWords = PILOT_HANDLE,
 ): void {
-  const mine = role === "test" || (role === "p1") === (words.seat === 1);
+  const mine = handleIsMine(role, words);
   ctx.save();
   ctx.font = `600 ${Math.round(l.tile * style.fontTiles)}px system-ui, sans-serif`;
   ctx.textAlign = "center";

@@ -1,5 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, STROKE } from "./palette.js";
+import type { PullWay } from "./pull-line.js";
+import { drawWayArrow } from "./way-arrow.js";
 
 /**
  * **Where a pull starts**: the circle a thumb goes on, and how far round it a
@@ -17,16 +19,36 @@ import { PALETTE, STROKE } from "./palette.js";
  */
 export const PULL_GRAB = 2.2;
 
+/** The arrow's reach inside the knob, in knob radii: THE INSTAR's glyph fills
+ * its ring at 1.1 of the mark's radius, and the knob is the ring. */
+const ARROW = 1.1;
+
 /**
  * **The circle to start**: where the thumb goes, drawn at the handle's full
  * radius over the thin channel so there is no doubt where a pull begins. It
  * breathes a ring round itself until it is taken, and is lit while held.
+ *
+ * **It carries the way the pull goes**, THE INSTAR's arrow (`way-arrow.ts`):
+ * the owner, 29 September 2026, on THE WARDEN's rope, *not just rounded red
+ * circle … which looks like a slider*. `way` is required so no pull handle
+ * can be drawn without being asked which way it goes; `null` is the one
+ * answer that draws none — the partner's handle, because a gesture on a mark
+ * reads as *your next move* (`mark-feedback.ts`) and the word under it
+ * already says whose it is (`handle-word.ts`).
  */
 export function drawPullKnob(
   ctx: CanvasRenderingContext2D,
   at: Point,
   r: number,
-  o: { hex: string; rim: string; held: boolean; time: number },
+  o: {
+    hex: string;
+    rim: string;
+    held: boolean;
+    time: number;
+    way: PullWay | null;
+    /** A pull that may go either way and has not gone one yet: an arrow with two heads. */
+    either?: boolean;
+  },
 ): void {
   ctx.save();
   if (!o.held) {
@@ -49,6 +71,13 @@ export function drawPullKnob(
   ctx.strokeStyle = o.held ? PALETTE.text : o.rim;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(disc);
+  if (o.way !== null) {
+    ctx.strokeStyle = PALETTE.text;
+    ctx.globalAlpha = o.held ? 0.7 : 0.95;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    drawWayArrow(ctx, at.x, at.y, r * ARROW, o.way.dx, o.way.dy, o.time, o.either ? 2 : 1);
+  }
   ctx.restore();
 }
 

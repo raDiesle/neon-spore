@@ -119,6 +119,16 @@ export interface BossCue {
    * kind stays on the cue as data, as `CARRY`'s does.
    */
   soon?: boolean;
+  /**
+   * **What a `FIRE` is aimed at**: the middle of the part the bolt must
+   * reach, and how big a crosshair it wants — THE INSTAR's crosshair, drawn
+   * there by `cue-helper.ts`. The owner, 29 September 2026: *shooting with
+   * cannon should have clear aim target*. The cue's own place is where the
+   * thumb goes, often the cannon's column at the hull; this is where the
+   * eye goes. A crosshair inside the cue's frame replaces the frame.
+   * `render/test/cue-aim.test.ts` holds every boss's `FIRE` to having one.
+   */
+  aim?: { x: number; y: number; r?: number };
 }
 
 /** Whether this screen is the one being asked. */

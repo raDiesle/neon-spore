@@ -1437,3 +1437,74 @@ the thumb and the string in one file, the ring, the landing and the field in
 another. Move `maze-draw.test.ts`'s fall and funnel cases into a file of
 their own. Take THE MAZE's fixture out of `hash-fixture-bosses-a.ts` into a
 `-b` file, the way the other boss fixtures are split.
+
+## Eighteen bosses' FIRE cues stand at the hull and aim at nothing
+
+- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Files:** `packages/render/test/cue-aim.test.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue-read-zr.ts`
+
+The owner, 29 September 2026, for every boss: *shooting with cannon should
+have clear aim target (check "the instar")*. A shot cue's crosshair is drawn
+by `cue-helper.ts` from `BossCue.aim`, and a word standing off the hull is its
+own aim. The eighteen in `cue-aim.test.ts`'s `TO_COME` — THE GIMBAL, HASP,
+RATCHET, MANTLE, KEEL, OCULUS, VISE, RIME, TRIVET, CYST, GRINDSTONE, HALTER,
+CAPSTAN, GALL, BURGEE, FLUE, VALVE and GOVERNOR — stand FIRE at the hull
+under the column and set no `aim`, so they draw no crosshair. For each, set
+`aim` on the circle its halo or verdict already stands on: the bared core,
+the lit spindle, the spark, the bolt, the thrown rock. THE SEAM's
+`seamAim` (`boss-cue-read-zr.ts`) is the pattern. Strike the row from
+`TO_COME`, extend that boss's `boss-cue-*.test.ts`, and send one PNG.
+Several bosses may go in one lane. The owner asked for this look by name.
+
+## Ten pull handles are drawn without the shared knob, and show no way
+
+- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Files:** `packages/render/src/pull-knob.ts`, `packages/render/src/way-arrow.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/antiphon-rail-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/cairn-hand.ts`, `packages/render/src/plumb-weight.ts`, `packages/render/src/ledger-haul.ts`, `packages/render/src/valve-draw.ts`, `packages/render/src/mantle-handle.ts`, `packages/render/src/capstan-marks.ts`
+
+The owner, 29 September 2026: *we basically disallow "pull \*" circle only
+visual helper*. Every `drawPullKnob` caller now draws its way as THE
+INSTAR's arrow (`way-arrow.ts`), and `way` is required. The pulls drawn some
+other way show a bare ring, or a chevron of their own:
+- THE SINEW: `drawHandleRing`, pulled down.
+- THE BALLOON: `drawHandleRing`, left or right. The way is only in the
+  word's ◀ ▶.
+- THE ANTIPHON rail: `drawGripRing`, pulled down.
+- THE FLEET's wreck: `drawGripRing`, pulled down.
+- THE CAIRN's pile hand: `grip.ts`'s four arcs, carried left or right.
+- THE PLUMB's weights: a ball and chain, carried across.
+- THE LEDGER bead: `drawPilotRing`, pulled along the cord.
+- THE VALVE pin: a plate, pulled down.
+- THE MANTLE knob: its own `drawChevron`.
+- THE CAPSTAN horn: its own chevron.
+
+Give each a `drawWayArrow` inside the mark on the owning seat's screen and
+none on the partner's, the way `handleIsMine` decides it in `tether.ts`.
+Where the drawn handle is a ring, move it onto `drawPullKnob`. Retire the two
+private chevrons for the shared arrow. Write a roll-out test like
+`cue-aim.test.ts`, with the list as its `TO_COME`: a file drawing a pull
+handle must call `drawPullKnob` or `drawWayArrow`. Budget rows will move by a
+stroke or two each; remeasure them. The owner asked for this look by name.
+
+## THE CAPSTAN's PULL cue stands on the horn, outside the grab zone
+
+- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Files:** `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/capstan-marks.ts`
+
+The survey of pull cues found that `boss-cue-read-zl.ts` stands PULL on
+`capstanHornAt`, near the drum's end at about ±0.82 of its half-width. But
+`capstanSteerUnder` takes the grab only at the drum's middle and treats the
+ends as rub zones. Confirm it with a test that presses where the cue
+stands. If the press is refused, move the cue onto the grab zone, or widen the
+grab to the horn, whichever the boss's spec says is the control.
+
+## `markAt` is written again in nine cue readings
+
+- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Files:** `packages/render/src/boss-cue-read-j.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/boss-cue-read-n.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-s.ts`, `packages/render/src/boss-cue-read-v.ts`, `packages/render/src/boss-cue-read-w.ts`, `packages/render/src/boss-cue-read-x.ts`, `packages/render/src/boss-cue-read-y.ts`, `packages/render/src/boss-cue-shape.ts`
+
+Each file has its own private `markAt(seat, kind, word, x, y, l, seed)`
+returning the same `BossCue` with the scan frame's `HALF_W`/`HALF_H`. THE
+REPRISE's takes a `wide`, THE THROAT's adds a `why`, and THE GIMBAL's orders
+its arguments differently. Put one in `boss-cue-shape.ts`, with optional `wide` and
+`extra`, call it from all nine, and add a row to the purity test's
+called-not-re-derived table.
