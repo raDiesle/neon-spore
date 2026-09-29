@@ -365,6 +365,7 @@ list removes it and the list with it.
 ## §31 THE PLUMB — its weights are brought level by two pulls, not a lean
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-31-the-plumb-its-weights-are-brought-level-by-tw)
 - **Files:** `packages/sim/src/plumb.ts`, `packages/sim/src/plumb-step.ts`, `packages/sim/src/plumb-hand.ts`, `packages/content/src/keys-desk.ts`, `apps/game/src/lean.ts`, `docs/spec/bosses-choreographed.md`
 - **Asks:** Which slot leans a seat's phone at a desk on THE PLUMB — the pilot's I/S with the navigator's J/L (the slots the wave leaves idle, but the two seats on different kinds of key), or the arrows, left/right the pilot's and up/down the navigator's (one pair each, but both seats on the one cluster)?
 - **Answered:** 2026-09-27 — neither slot. The owner will not add keys a player has to learn, and will not have a wave need a tilt sensor that a phone may lack and a desk never has. He asks for the control to change: each seat pulls a long drag left or right, the stones grow or shrink with it, and the pair keep the level by pulling on both sides at the same time, so the two pulls weigh the same in sum. The work is now THE PLUMB's control redesigned around that drag (its `plumbLevel*` steps, its guide), not desk keys.
