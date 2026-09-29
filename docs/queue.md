@@ -1486,18 +1486,3 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
-
-## `--auto-miss` never lets THE FILAMENT's line run out
-
-- **Found:** 2026-09-29, claude/queue-tasks-efa837
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-auto-miss-never-lets-the-filaments-line-run-out)
-- **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `tools/frames/auto.ts`
-
-`bun run frames . --wave "THE FILAMENT" --auto both --auto-miss --until breach`
-traces every filament and finds no breach in 3000 ticks: the misser only
-withholds inside an asking window (`openSlow(…, "ask")`), and THE FILAMENT's
-trace opens none — its SLOW is the pause between filaments. The timeout is
-reached with no hands at all (`--until breach`, tick 1050), which is how its
-blow was looked at. Either teach the misser the trace, as it was taught THE
-GALL's windowless fire step, or say in `auto-miss.ts`'s header and the frames
-recipe that THE FILAMENT's blow is reached bare. `bun run check` proves it.

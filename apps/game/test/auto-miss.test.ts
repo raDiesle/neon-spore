@@ -70,6 +70,7 @@ describe("--auto-miss", () => {
     "THE CYST",
     "THE SLING",
     "THE GALL",
+    "THE FILAMENT",
   ]) {
     it(`reaches ${name}'s timeout blow, which AUTO alone never lands`, () => {
       expect(bossBlow(name, false)).toBeNull();

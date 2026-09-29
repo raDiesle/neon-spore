@@ -1,4 +1,13 @@
-import { type Command, gallBoss, gallLitStep, midCol, slowing, type World } from "@neon-spore/sim";
+import {
+  type Command,
+  filamentBoss,
+  filamentTracing,
+  gallBoss,
+  gallLitStep,
+  midCol,
+  slowing,
+  type World,
+} from "@neon-spore/sim";
 
 /**
  * **AUTO that lets every other ask run out**, so a boss's own blow at the
@@ -30,12 +39,24 @@ import { type Command, gallBoss, gallLitStep, midCol, slowing, type World } from
  * time — its miss is the blow, and a run that reached it is done — and the
  * misser slides the cannon one column off the middle for as long as it is lit
  * (`presses`). The closes before it alternate like any other window.
+ *
+ * **THE FILAMENT's trace is the other**: its SLOW is the pause between two
+ * lines, not an ask, and the ask is the line itself — stood still past its
+ * clock, it strikes (`filament-step.ts` `late`). So the lines alternate as
+ * windows do, by the one they are on: the first is let run out, and its
+ * strike is the wave (`wave-fail.ts`).
  */
 export interface AskMisser {
   /** Whether AUTO keeps its hands off this tick. */
   withholds(w: World): boolean;
   /** The misser's own presses this tick, pushed in AUTO's place while it withholds. */
   presses(w: World): readonly { player: 1 | 2; command: Command }[];
+}
+
+/** Whether a line of THE FILAMENT is being traced that is to be let run out. */
+function unansweredLine(w: World): boolean {
+  const s = filamentBoss(w);
+  return s !== null && filamentTracing(s) && s.cursor % 2 === 0;
 }
 
 /** The column a lit shot with no asking window must leave by, or null. */
@@ -50,7 +71,7 @@ export function askMisser(): AskMisser {
   let seen = 0;
   return {
     withholds(w) {
-      if (unwindowedShot(w) !== null) return true;
+      if (unwindowedShot(w) !== null || unansweredLine(w)) return true;
       if (!slowing(w) || !w.slowAsks) return false;
       if (w.slowFromBeat !== window) {
         window = w.slowFromBeat;
