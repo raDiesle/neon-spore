@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · a8333beb1 — Put back the queue entries the governor's body lane deleted by mistake
+
+When THE GOVERNOR's body landed, its queue edit matched the entry above its own and took out THE WINCH look's text, both THE SLUICE entries and THE GOVERNOR's own header. All four are back as they were. A finding is queued: `land` does not refuse a landing that deletes entries nobody closed.
+
 ## 2026-09-29 · bb0c78c65 — THE GOVERNOR is drawn: a flywheel's needle under a flyball governor
 
 THE VANE and INTERFERENCE combined: the needle sweeps a graduated brass flywheel over the middle column, and the hub it turns on is the only part that can be shot. Behind the far rim stands a Watt governor. Its two flyweights swing out, and its collar climbs, with the needle's speed. They turn with the needle, so they stall when it stalls. The brake yoke's two jaws are the braking seat's chord, and they shut on the drum pad by pad. The lit mark is a piece of the track, full on the tapper's screen and faint on the other. Six studs are the two runs. The hub stays dull until both runs are spent; while a shot is owed it lights in the step's colour and the dial tips up to it. The three marks (the lit mark, the yoke and the hub) answer a touch with the halo, the partner's clock and a verdict.
