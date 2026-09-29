@@ -1355,6 +1355,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## §24 THE KEEL — row 11's held breath and the seam's three brightnesses, the look
 
 - **Found:** 2026-09-29, claude/queue-24-keel-held-breath
+- **Taken:** 2026-09-29, claude/queue-26-the-seam-the-false-points-flicker-and-the-hel (claim: claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th)
 - **Files:** `packages/render/src/keel-story.ts`, `packages/render/src/keel-story-pose.ts`, `packages/render/src/keel-marks.ts`, `tools/director/src/poses-bosses-hands-keel.ts`, `tools/director/test/boss-states.test.ts`
 
 Row 11's simulation landed (`sim/keel-story.ts`, the `breath` phase, bosses
