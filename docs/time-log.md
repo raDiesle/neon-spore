@@ -29060,3 +29060,5 @@ was only how a grind reads as dying without a cannon's colour.
 
 Bottleneck: reading — a new phase is registered on seven pages outside the
 simulation, found only by letting the typecheck name them.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

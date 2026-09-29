@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 627836198 — THE KEEL holds its breath before the tempo run, hands off
+
+Between the marrow and the fast run, the whole spine now holds its breath for three beats under THE SLOW, and both seats must send nothing: after eight beats of reaching for whatever lit, reaching is the one mistake left. A press on the spine stirs it once, and one locked segment the wave's own order does not re-light works loose, which costs one extra tap at the end of the run and never the fight. Held untouched, every seam flares once. This is §24 row 11, simulation only; the spine stands through the breath as in a rest until its queued look lands.
+
 ## 2026-09-29 · b2d2f51a7 — THE GRINDSTONE's spent axle lets its grind die out, white to grey
 
 Row 11's fade now has its picture. The axle goes white-hot as the last shot lands and dies back to the wheel's own grey across the phase, with a halo and a ring of grind streaks round its rim that slow, shorten and dim as it goes. No cannon colour is used. Both jaws strain faintly off the stone, and a pad held down jars its own jaw back. The STATES sheet has THE GRINDSTONE · FADE, played to by AUTO.
