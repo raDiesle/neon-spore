@@ -756,24 +756,6 @@ sim state beyond it. `bun run check` proves the sim half; the false point's
 dim half-brightness pulse and the two new poses (flickering false point,
 sealed white point) are a look task, queued separately once this lane lands.
 
-## §33 THE GRINDSTONE — row 11's fading grind, the look
-
-- **Found:** 2026-09-29, claude/queue-33-the-grindstone-a-revised-simulation-lane-a-gr
-- **Taken:** 2026-09-29, claude/queue-33-grindstone-fade-look (claim: claude/queue-33-the-grindstone-row-11s-fading-grind-the-look)
-- **Files:** `packages/render/src/grindstone-pose.ts`, `packages/render/src/grindstone-draw.ts`, `packages/render/test/grindstone-frame.test.ts`, `tools/director/src/`
-
-The fade is in the simulation (`sim/grindstone-fade.ts`): after the last
-shot the wheel is in phase `fade` for `grindstoneFadeBeats`, a beat more
-per `jars`, and `grindstoneFade` / `grindstoneJar` are on the silent lists,
-read off the state. Nothing draws it yet — the wheel stands as it did after
-the third hit. Draw §33's sixth pose: the spent axle's grind dying out,
-fading from white to the wheel's own grey across the phase, no cannon
-colour, the caliper straining faintly untouched; a jar jolting the caliper
-on that side. A look with no shipped alternative. Add the pose to the
-STATES sheet (grindstone OWED in `tools/director/test/boss-states.test.ts`
-loses `fade`, and the entry goes) and draw it again in
-`grindstone-frame.test.ts`.
-
 ## Unverified at 4b5e7e87c: GRAPHICS → EFFECTS: the five buttons, and each page op…
 
 - **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z

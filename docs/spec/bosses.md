@@ -9995,9 +9995,15 @@ where they happen, the shave pitched up as the flat comes clean, the clear
 per pass and the hit per hit: the fade is silent by design, and the jar
 that breaks it is the slip's scrape pitched up. The autopilot hand plays it
 to the end and sends nothing through the fade
-(`tools/director/test/autopilot-grindstone.test.ts`). **Row 11's fade is in
-the simulation only** (29 September 2026): the wheel stands as it did after
-the last shot until its picture, the sixth pose, lands.
+(`tools/director/test/autopilot-grindstone.test.ts`). **Row 11's fade is
+drawn** (29 September 2026, `render/grindstone-marks.ts`'s
+`drawGrindstoneHeat`): the axle goes white-hot as the last shot lands and
+dies back to the wheel's own grey across the phase, a halo fading with it
+and a ring of grind streaks run round its rim, slowing, shortening and
+dimming as it goes, no cannon colour; both jaws strain faintly off the
+stone, a pad down jars its own jaw back off beat by beat, and a jar's extra
+beat is seen as the grind coming back. The STATES sheet has THE GRINDSTONE
+· FADE, played to by AUTO.
 
 **The look** (`render/src/grindstone-draw.ts`, `grindstone-shape.ts`,
 `grindstone-pose.ts`, `grindstone-marks.ts`, half one of lane two). The

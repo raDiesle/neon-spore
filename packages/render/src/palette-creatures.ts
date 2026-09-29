@@ -1,7 +1,7 @@
 /**
  * The hues one creature or boss owns, each with the argument for spending it:
  * spread into `PALETTE` (`palette.ts`), which is where every one is read from.
- * Cut out of it when the file reached its ceiling; a new owned hue goes here.
+ * Cut out of it at its ceiling; a new owned hue goes in `palette-creatures-late.ts`.
  */
 export const CREATURE_HUES = {
   /**

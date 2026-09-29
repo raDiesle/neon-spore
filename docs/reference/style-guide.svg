@@ -380,116 +380,121 @@
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#D7C4A0 39°</text>
     </g>
     <g transform="translate(420 1942)">
+      <rect width="66" height="46" rx="4" fill="#F6F3EC" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">grindstoneHeat</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#F6F3EC 42°</text>
+    </g>
+    <g transform="translate(496 1942)">
       <rect width="66" height="46" rx="4" fill="#6C7A6E" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">halterPlate</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#6C7A6E 129°</text>
     </g>
-    <g transform="translate(496 1942)">
+    <g transform="translate(572 1942)">
       <rect width="66" height="46" rx="4" fill="#222A25" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">halterPlateDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#222A25 143°</text>
     </g>
-    <g transform="translate(572 1942)">
+    <g transform="translate(648 1942)">
       <rect width="66" height="46" rx="4" fill="#E9B08C" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">halterFlesh</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E9B08C 23°</text>
     </g>
-    <g transform="translate(648 1942)">
+    <g transform="translate(724 1942)">
       <rect width="66" height="46" rx="4" fill="#6B4536" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">halterFleshDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#6B4536 17°</text>
     </g>
-    <g transform="translate(724 1942)">
+    <g transform="translate(800 1942)">
       <rect width="66" height="46" rx="4" fill="#8A5236" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">capstanRust</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8A5236 20°</text>
     </g>
-    <g transform="translate(800 1942)">
+    <g transform="translate(40 2028)">
       <rect width="66" height="46" rx="4" fill="#2C1A12" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">capstanRustDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2C1A12 18°</text>
     </g>
-    <g transform="translate(40 2028)">
+    <g transform="translate(116 2028)">
       <rect width="66" height="46" rx="4" fill="#4B3A30" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">capstanGrate</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4B3A30 22°</text>
     </g>
-    <g transform="translate(116 2028)">
+    <g transform="translate(192 2028)">
       <rect width="66" height="46" rx="4" fill="#E4DACB" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">capstanWorn</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E4DACB 36°</text>
     </g>
-    <g transform="translate(192 2028)">
+    <g transform="translate(268 2028)">
       <rect width="66" height="46" rx="4" fill="#7B5A49" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">capstanCore</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#7B5A49 20°</text>
     </g>
-    <g transform="translate(268 2028)">
+    <g transform="translate(344 2028)">
       <rect width="66" height="46" rx="4" fill="#6E4A82" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallSeam</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#6E4A82 279°</text>
     </g>
-    <g transform="translate(344 2028)">
+    <g transform="translate(420 2028)">
       <rect width="66" height="46" rx="4" fill="#24172C" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallSeamDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#24172C 277°</text>
     </g>
-    <g transform="translate(420 2028)">
+    <g transform="translate(496 2028)">
       <rect width="66" height="46" rx="4" fill="#B889C9" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallFlesh</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#B889C9 284°</text>
     </g>
-    <g transform="translate(496 2028)">
+    <g transform="translate(572 2028)">
       <rect width="66" height="46" rx="4" fill="#4E3160" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallFleshDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4E3160 277°</text>
     </g>
-    <g transform="translate(572 2028)">
+    <g transform="translate(648 2028)">
       <rect width="66" height="46" rx="4" fill="#8C6A7E" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">gallRoot</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8C6A7E 325°</text>
     </g>
-    <g transform="translate(648 2028)">
+    <g transform="translate(724 2028)">
       <rect width="66" height="46" rx="4" fill="#8E98A3" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeSteel</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#8E98A3 211°</text>
     </g>
-    <g transform="translate(724 2028)">
+    <g transform="translate(800 2028)">
       <rect width="66" height="46" rx="4" fill="#2B3139" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeSteelDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2B3139 214°</text>
     </g>
-    <g transform="translate(800 2028)">
+    <g transform="translate(40 2114)">
       <rect width="66" height="46" rx="4" fill="#A28E6C" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvas</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#A28E6C 38°</text>
     </g>
-    <g transform="translate(40 2114)">
+    <g transform="translate(116 2114)">
       <rect width="66" height="46" rx="4" fill="#43392A" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvasDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#43392A 36°</text>
     </g>
-    <g transform="translate(116 2114)">
+    <g transform="translate(192 2114)">
       <rect width="66" height="46" rx="4" fill="#E3CC98" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">burgeeCanvasCaught</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#E3CC98 42°</text>
     </g>
-    <g transform="translate(192 2114)">
+    <g transform="translate(268 2114)">
       <rect width="66" height="46" rx="4" fill="#58545B" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueSoot</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#58545B 274°</text>
     </g>
-    <g transform="translate(268 2114)">
+    <g transform="translate(344 2114)">
       <rect width="66" height="46" rx="4" fill="#1E1B20" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueSootDark</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#1E1B20 276°</text>
     </g>
-    <g transform="translate(344 2114)">
+    <g transform="translate(420 2114)">
       <rect width="66" height="46" rx="4" fill="#0C0A0E" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueSlot</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0C0A0E 270°</text>
     </g>
-    <g transform="translate(420 2114)">
+    <g transform="translate(496 2114)">
       <rect width="66" height="46" rx="4" fill="#4A3530" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">flueCore</text>
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#4A3530 12°</text>

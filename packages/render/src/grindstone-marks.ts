@@ -1,7 +1,7 @@
 import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { grindstoneAxleR, grindstonePadAt, grindstonePadR } from "./grindstone-shape.js";
-import { rgba } from "./hex.js";
+import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
@@ -122,4 +122,56 @@ export function drawGrindstoneFlash(
     ctx.fillStyle = rgba(PALETTE.grindstoneFlat, 0.45 * free);
     ctx.fill(p);
   }
+}
+
+/** How many streaks the dying grind throws off the axle. */
+const STREAKS = 6;
+
+/**
+ * **The spent axle's grind dying out** (§33 row 11, its sixth pose): the
+ * axle white-hot as the fade opens and back to the wheel's own grey by
+ * `faded` 1, a halo round it dying with it, and a ring of grind streaks run
+ * round its rim, slower, shorter and fainter as the grind fades — no cannon
+ * colour, since nothing is being asked for. `turn` is how far round the
+ * streaks have run, in turns. Drawn in the axle's place; called only while
+ * it fades.
+ */
+export function drawGrindstoneHeat(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  size: number,
+  faded: number,
+  turn: number,
+): void {
+  const r = grindstoneAxleR(l) * size;
+  const heat = 1 - faded;
+  const colour = mixHex(PALETTE.grindstoneHeat, PALETTE.grindstoneStone, faded);
+  const face = new Path2D();
+  face.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fillStyle = rgba(colour, 0.95);
+  ctx.fill(face);
+  ctx.lineWidth = STROKE.inner;
+  ctx.strokeStyle = rgba(PALETTE.grindstoneStoneDark, 0.9);
+  ctx.stroke(face);
+  if (heat <= 0) return;
+
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  const halo = new Path2D();
+  halo.arc(0, 0, r * 2.4, 0, Math.PI * 2);
+  ctx.fillStyle = rgba(colour, 0.26 * heat);
+  ctx.fill(halo);
+  const streaks = new Path2D();
+  const reach = r * 1.6;
+  const arc = 0.45 * heat;
+  for (let k = 0; k < STREAKS; k++) {
+    const from = (turn + k / STREAKS) * Math.PI * 2;
+    streaks.moveTo(Math.cos(from) * reach, Math.sin(from) * reach);
+    streaks.arc(0, 0, reach, from, from + arc);
+  }
+  ctx.lineCap = "round";
+  ctx.lineWidth = STROKE.outline;
+  ctx.strokeStyle = rgba(colour, 0.85 * heat);
+  ctx.stroke(streaks);
+  ctx.restore();
 }

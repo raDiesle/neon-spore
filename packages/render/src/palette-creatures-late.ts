@@ -73,4 +73,6 @@ export const LATE_CREATURE_HUES = {
   flueSootDark: "#1E1B20",
   flueSlot: "#0C0A0E",
   flueCore: "#4A3530",
+  /** THE GRINDSTONE's spent axle as row 11's fade opens: a white with no cannon's in it. */
+  grindstoneHeat: "#F6F3EC",
 } as const;

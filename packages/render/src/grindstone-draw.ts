@@ -9,11 +9,15 @@ import {
   drawGrindstoneAxle,
   drawGrindstoneFaceGlow,
   drawGrindstoneFlash,
+  drawGrindstoneHeat,
 } from "./grindstone-marks.js";
 import {
   grindstoneArrived,
   grindstoneClear,
   grindstoneDepth,
+  grindstoneFaded,
+  grindstoneFadeShut,
+  grindstoneFadeTurn,
   grindstoneFree,
   grindstoneLeft,
   grindstoneShut,
@@ -72,6 +76,7 @@ export function drawGrindstone(
   const alpha = (0.2 + 0.8 * arrived) * (1 - 0.8 * free);
   const step = grindstoneLitStep(s);
   const shut = grindstoneShut(world, s, beat, beatPhase);
+  const faded = grindstoneFaded(s, cfg, beat, beatPhase);
 
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -89,7 +94,7 @@ export function drawGrindstone(
       ctx,
       l,
       side,
-      shut,
+      faded === null ? shut : grindstoneFadeShut(s, side, faded, beatPhase),
       pads,
       s.padsDown[side],
       beatPhase,
@@ -125,7 +130,8 @@ export function drawGrindstone(
     : null;
   // A core's hurt, called: the axle is smaller and brighter per shot the same way a kernel is.
   const hurt = coreHurt(s.hits);
-  drawGrindstoneAxle(ctx, l, hurt.size, hurt.bright, s.locked, shot, beatPhase);
+  if (faded === null) drawGrindstoneAxle(ctx, l, hurt.size, hurt.bright, s.locked, shot, beatPhase);
+  else drawGrindstoneHeat(ctx, l, hurt.size, faded, grindstoneFadeTurn(s, faded, beat, beatPhase));
   drawGrindstoneFlash(ctx, l, fx.flash, fx.free);
   ctx.restore();
 }

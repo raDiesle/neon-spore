@@ -29029,3 +29029,17 @@ Bottleneck: none worth the name — THE PLUMB's bleed had already cut every
 step of this lane.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GRINDSTONE's spent axle lets its grind die out
+
+- reading: 5 min. THE SLING's cool, landed an hour before, and THE GRINDSTONE's
+  axle and jaw draws.
+- writing: 20 min. `grindstoneFaded`, the fade's turn and jars, `drawGrindstoneHeat`,
+  the frame test, the FADE card, the docs.
+- looking: 10 min. The opening and the late fade under AUTO, side by side.
+- friction: 5 min. The heat replaces the bitten axle's rim, so the frame test's
+  cannon count had to be read as "no more than" rather than "the same".
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the pattern was fresh from THE SLING, and what was new
+was only how a grind reads as dying without a cannon's colour.
