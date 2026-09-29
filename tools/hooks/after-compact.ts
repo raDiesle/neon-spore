@@ -19,8 +19,10 @@
  * The pure half is `brief`, held by `test/after-compact.test.ts`.
  */
 
+import { join } from "node:path";
 import { parseItems } from "../queue/queue";
-import { readPayload } from "./payload";
+import { CHECKPOINT } from "./before-compact";
+import { readPayload, sessionId } from "./payload";
 
 /**
  * The titles of what is parked, through the queue's own parser — its preamble
@@ -31,8 +33,16 @@ export function parkedTitles(text: string): string[] {
   return parseItems(text, "parked").map((item) => item.title);
 }
 
-/** The lines the session reads, from the three answers the tree gives. */
-export function brief(git: string, queue: string, parked: string[]): string {
+/**
+ * The lines the session reads, from the three answers the tree gives, and the
+ * checkpoint `before-compact.ts` wrote when there is one of this session's.
+ */
+export function brief(
+  git: string,
+  queue: string,
+  parked: string[],
+  checkpoint: string | null = null,
+): string {
   const lines = [
     "The conversation was just compacted. The tree, not the summary, is the state:",
     `- git: ${git.trim() || "(no answer)"}`,
@@ -40,6 +50,11 @@ export function brief(git: string, queue: string, parked: string[]): string {
   ];
   if (parked.length > 0) {
     lines.push(`- parked (${parked.length}): ${parked.map((t) => `"${t}"`).join(", ")}`);
+  }
+  if (checkpoint !== null) {
+    lines.push(
+      `- checkpoint: read ${checkpoint} before anything else — the owner's words, verbatim, from before the cut`,
+    );
   }
   lines.push(
     "Rules are in CLAUDE.md. A task list given in a prompt is worked in order, each landed before the next;",
@@ -54,6 +69,26 @@ function run(cmd: string[]): string {
     return out.stdout.toString();
   } catch {
     return "";
+  }
+}
+
+/**
+ * Whether a checkpoint was written by this session. One written by another
+ * session in the same worktree is another conversation's words, and pointing
+ * at it would be worse than saying nothing.
+ */
+export function checkpointBelongs(text: string, session: string): boolean {
+  return text.split("\n", 1)[0] === `session: ${session}`;
+}
+
+async function checkpointFor(session: string): Promise<string | null> {
+  const gitDir = run(["git", "rev-parse", "--absolute-git-dir"]).trim();
+  if (gitDir === "") return null;
+  const path = join(gitDir, CHECKPOINT);
+  try {
+    return checkpointBelongs(await Bun.file(path).text(), session) ? path : null;
+  } catch {
+    return null;
   }
 }
 
@@ -77,7 +112,7 @@ async function main(): Promise<void> {
     parked = [];
   }
 
-  process.stdout.write(brief(git, queue, parked));
+  process.stdout.write(brief(git, queue, parked, await checkpointFor(sessionId(payload))));
 }
 
 await main();

@@ -21,6 +21,10 @@ export interface HookPayload {
   source?: unknown;
   /** The tool that ran: `"Bash"`, `"PowerShell"`, `"Edit"`, and so on. */
   tool_name?: unknown;
+  /** The session's transcript, one JSON object per line. `PreCompact` reads it. */
+  transcript_path?: unknown;
+  /** `PreCompact` only: `auto` or `manual`. */
+  trigger?: unknown;
 }
 
 /** The payload on stdin, or `null` when it is absent or not JSON. */
@@ -96,4 +100,15 @@ export function stopHookActive(payload: HookPayload | null): boolean {
 export function sessionId(payload: HookPayload | null): string {
   const raw = payload?.session_id;
   return typeof raw === "string" && raw !== "" ? raw.replaceAll(/[^\w-]/g, "") : "unkeyed";
+}
+
+/**
+ * The transcript file a payload names, or null when it names none.
+ *
+ * `before-compact.ts` reads the owner's own words out of it, which is the one
+ * thing in a session that the tree does not already hold.
+ */
+export function transcriptPath(payload: HookPayload | null): string | null {
+  const raw = payload?.transcript_path;
+  return typeof raw === "string" && raw !== "" ? raw : null;
 }

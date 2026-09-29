@@ -79,6 +79,17 @@ for one kind of work goes in that work's skill, a fact that changes goes in
   `docs/queue.md`, half-done work in `docs/parked.md`, a decision in
   `tools/versus/DECIDED.md`, the minutes in `docs/time-log.md`. The summary a
   compaction writes is not a place to keep anything.
+- **The owner's words survive a compaction verbatim, without being asked
+  for.** About half of all landed items had an automatic compaction fall
+  inside them (62 sessions, measured 29 September 2026), and the summary
+  paraphrases the one thing the tree does not hold. So `PreCompact` runs
+  `tools/hooks/before-compact.ts`, which copies the owner's first and latest
+  three messages out of the transcript, the claimed queue entry and the diff
+  against `main` into `claude-checkpoint.md` in the worktree's git dir, and
+  `after-compact.ts` points at it when its first line names the same session.
+  It is Anthropic's progress-file pattern for long-running agents, with the
+  model taken out of the writing: notes the model has to remember to write
+  are skipped exactly when the context is fullest.
 - **Do the thinking and the typing in the same session, in as few turns as the
   work allows.** Handing the typing to a worker model adds turns rather than
   removing them — `delegation-cost.md` measured it at 6.8 times the cost, and

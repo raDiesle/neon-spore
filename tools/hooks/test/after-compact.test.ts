@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { brief, parkedTitles } from "../after-compact";
+import { brief, checkpointBelongs, parkedTitles } from "../after-compact";
 
 /**
  * The hook that re-orients a session after a compaction. What is tested is the
@@ -46,6 +46,19 @@ describe("after-compact", () => {
 
   it("leaves the parked line out when nothing is parked", () => {
     expect(brief("main, clean", "DONE", [])).not.toContain("parked");
+  });
+
+  it("points at this session's checkpoint in one more line, and only when there is one", () => {
+    const out = brief("claude/x, clean", "DONE", [], "/repo/.git/claude-checkpoint.md");
+    expect(out).toContain("read /repo/.git/claude-checkpoint.md before anything else");
+    expect(out.trim().split("\n").length).toBeLessThanOrEqual(7);
+    expect(brief("claude/x, clean", "DONE", [])).not.toContain("checkpoint");
+  });
+
+  it("takes a checkpoint as this session's only when its first line names this session", () => {
+    expect(checkpointBelongs("session: abc\n\nwords", "abc")).toBe(true);
+    expect(checkpointBelongs("session: abcd\n\nwords", "abc")).toBe(false);
+    expect(checkpointBelongs("", "abc")).toBe(false);
   });
 
   it("is wired as the compact-matched SessionStart hook", async () => {

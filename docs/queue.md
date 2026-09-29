@@ -330,33 +330,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A compaction mid-item leaves the owner's words and the plan in a file
-
-- **Found:** 2026-09-29, claude/queue-performance-analysis-55a3ec
-- **Taken:** 2026-09-29, claude/queue-performance-analysis-55a3ec (claim: claude/queue-a-compaction-mid-item-leaves-the-owners-words-an)
-- **Files:** `tools/hooks/after-compact.ts`, `tools/hooks/test/after-compact.test.ts`, `tools/hooks/payload.ts`, `.claude/settings.json`, `docs/token-budget.md`
-
-Measured over 62 local sessions on 29 September 2026: about half of all landed
-items had an automatic compaction fall inside them (median 168k tokens at the
-cut, 40–60 s each). The tree keeps every edit; what is lost is what was only in
-the chat — the owner's own words for the item, which the summary paraphrases,
-what was tried and ruled out, and what was already checked. Anthropic's own
-guidance for long-running agents is a progress file written outside the context
-and read back on resume (engineering posts *Effective harnesses for
-long-running agents* and *Effective context engineering for AI agents*).
-
-Do it deterministically, with no cooperation from the model: a `PreCompact`
-hook (a new script beside `after-compact.ts`, both matchers) reads the hook
-payload's `transcript_path` and writes a checkpoint into the worktree's own git
-dir (`git rev-parse --git-dir`, so it is untracked and dies with the worktree):
-the owner's last few messages **verbatim**, the claimed queue entry's title
-and body if the branch holds a `Taken:` claim, and `git diff --stat main` plus
-`git status --short`. `after-compact.ts` then adds one line pointing at it
-("read <path> before you continue"), and its test holds that line. Keep the
-checkpoint under ~2k tokens: messages trimmed, tool output never copied.
-`docs/token-budget.md` gets a sentence in "Practical habits". No change to
-`CLAUDE.md`.
-
 ## An automatic compaction waits for the item to land, up to a ceiling
 
 - **Found:** 2026-09-29, claude/queue-performance-analysis-55a3ec

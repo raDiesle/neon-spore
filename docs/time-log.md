@@ -29462,3 +29462,17 @@ Bottleneck: writing — every existing test assumed the call was its own
 answer, and each needed the flight waited out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — Before a compaction, the owner's words go to a checkpoint file verbatim
+
+- reading: 5 min. `after-compact.ts`, `payload.ts`, the queue parser's
+  `Item`, and the shape of a user line in this session's own transcript.
+- writing: 15 min. `before-compact.ts`, its test, the checkpoint line in
+  `after-compact.ts`, the settings entry, a paragraph in `token-budget.md`.
+- looking: 5 min. Both hooks run by hand on this session's transcript.
+- friction: 5 min. The guard refused a heredoc with a doubled backslash, so
+  the edits went through the Edit tool instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — telling the owner's lines apart from reminders, tool
+results and slash-command echoes, all of which are user lines too.

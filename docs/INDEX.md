@@ -3333,6 +3333,7 @@ by hand never moves.
 | `tools/hooks/after-edit-size.ts` | One line on the edit that takes a file within 88% of the line ceiling, so the seam is chosen before the check goes red |
 | `tools/hooks/heredoc.ts` | The guard's one rule about a heredoc body: a doubled backslash the Bash tool would halve is refused, with the two ways that work |
 | `tools/hooks/bun-pin.ts` | The bun this repository is pinned to, read off `.bun-version`, and what to say to a session running an older one |
+| `tools/hooks/before-compact.ts` | What a session writes down the moment before its conversation is compacted |
 | `tools/hooks/written-paths.ts` | The files a bash command wrote, read out of the command line itself |
 | `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
