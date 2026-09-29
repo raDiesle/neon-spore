@@ -1621,6 +1621,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## `land` could skip the tests `check:fast` already ran green on the same tree
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-land-could-skip-the-tests-check-fast-already-ran)
 - **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`, `tools/land/red-check.ts`
 - **Asks:** Run `check:fast` after the commit rather than before it, so its green result can be reused by `land`, or drop the idea?
 
