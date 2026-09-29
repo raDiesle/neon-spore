@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 0542ce393 — THE SEAM's cue words: FIRE under the lit point and the rock, SHIELD under the grit
+
+THE SEAM now says what the lit step wants. It says `FIRE` at the hull under the column where the shot is wanted: the ridge's column for a point or the glow, the rock's own column for a rock. While grit falls, including a blind throw, it says `SHIELD` under the ridge. Both words go to either seat and never name the colour. A step of grit and a rock at once says both, and each word goes once its half is answered. The false point and the dark say nothing, because the answer there is to send nothing.
+
 ## 2026-09-29 · 996c5285a — THE MAZE: two fifths less time, a dealt spin, the drum falls on a dead end, and the boss fuse
 
 The reading clock is 40% shorter on every sheet (fourteen beats on the first, thirty-eight on the fifth), and both it and the heart's hold now burn down on the fuse the other bosses wear, between the drum and the hull. Every time a wheel comes up — each wave try and each round — it is turned to an angle off the seeded rng, never with a way in near the ship, so a pair cannot repeat last try's clicks from memory; the rehearsal keeps its drum upright. A dead end no longer drops a meteor: the drum breaks and falls onto the ship, and the hull is hit where it lands, as a timeout already did.

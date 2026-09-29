@@ -29352,3 +29352,5 @@ Bottleneck: reading — five maze files to learn which loss was paid for where.
 
 Bottleneck: reading — "STATES poses" meant a director page, which only
 turned up by listing `tools/director/src`.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
