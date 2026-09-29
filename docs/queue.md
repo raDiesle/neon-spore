@@ -423,26 +423,6 @@ match, and move the lean out of THE PLUMB. A drag works the same on a desk, so
 no key is added. A control change on a shipped wave, which the owner asked for
 by name. `bun run check` proves it.
 
-## THE JAM's first runaway shot lands on its first lure
-
-- **Found:** 2026-09-26, claude/happy-babbage-ilb1n9
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-jams-first-runaway-shot-lands-on-its-first-l)
-- **Files:** `packages/content/src/waves/act-7.ts`, `tools/director/test/autopilot-field.test.ts`
-- **Asks:** Which way should THE JAM open: the fault placed a beat late, the first lure moved off the cannon's column, or the breach kept as the lesson?
-- **Answered:** 2026-09-27 — the fault placed late, over moving the lure or keeping the breach, and later than one beat. The owner: the runaway starts when the first lure has come down to half height, measured from the hull's top, in the centre of the field. Work out the beat that puts it there from the lure's fall speed, and set the fault's `at` to that beat.
-
-THE JAM's beat-0 lure comes on at authored column 3, which is the cannon's
-starting column, on tick 75. The runaway cannon's first shot goes off on that
-same tick, so the lure takes a red shot before either seat has seen it, and
-three `lure` breaches land at tick 152. AUTO answers every beat after that
-(`autopilot-jam.ts`), and it is why THE JAM is the one name left in the field
-test's `HALF_PLAYED`. The wave's own comment says the first six beats teach
-that "the cannon has to *leave*", which it cannot do in time. The options:
-`faults: [{ kind: "cannon", color: "alternating", at: 1 }]`, which also moves
-which beat opens on red; the first lure authored in another column; or the
-breach kept on purpose. Whichever is picked, take THE JAM out of
-`HALF_PLAYED` if the test then passes.
-
 ## move one boss a lane onto the solid rig, from the roster
 
 - **Found:** 2026-09-26, claude/queue-the-instar-looks-flat-and-ugly-from-the-side

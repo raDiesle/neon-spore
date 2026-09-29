@@ -76,8 +76,12 @@ import type { Wave } from "../wave-types.js";
  * has to call out. A fault fixed to one colour would have made half this wave
  * unanswerable and the other half a matter of standing still.
  *
- * 1. Beat 0, one lure alone. Nothing can be done about the firing, so the
- *    whole lesson of the first six beats is that the cannon has to *leave*.
+ * 1. Beat 0, one lure alone, over the cannon, and the gun still quiet. It runs
+ *    away on beat 7, when the lure has come down to half height above the
+ *    hull — the owner's placing, 27 September 2026. Fired from beat 0 its
+ *    first shot met the lure on the tick it came on, before either seat had
+ *    seen it; now the pair watch it fall and the lesson is that the cannon has
+ *    to *leave* before the gun wakes.
  * 2. Beat 6, a bulb two columns away, so the crossing has a reason and the
  *    colour has a consequence.
  * 3. Beats 18–22, two lures with one target between them. The muzzle can only
@@ -177,7 +181,7 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 48, col: 0, kind: "lure", color: "cyan" },
       { beat: 50, col: 6, color: "red" },
     ],
-    faults: [{ kind: "cannon", color: "alternating" }],
+    faults: [{ kind: "cannon", color: "alternating", at: 7 }],
   },
   {
     id: "theCoil",

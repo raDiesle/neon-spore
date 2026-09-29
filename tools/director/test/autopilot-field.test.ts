@@ -29,10 +29,10 @@ import { stageField } from "../src/stage-field.js";
  * answers (`autopilot-touch.ts`); THE CLASP and THE STRAND are the field
  * hand's own. A wave that gains a verb is a name here or a hand for it.
  *
- * THE JAM opens with a lure over the cannon's starting column on the beat the
- * runaway fires its first shot, so no hand, AUTO's or a person's, can take
- * the cannon off it in time (`docs/queue.md`). */
-const HALF_PLAYED = new Set(["THE JAM"]);
+ * THE JAM was one until its runaway was placed at beat 7: it used to fire its
+ * first shot on the beat its first lure came on over the cannon, which no
+ * hand could answer. */
+const HALF_PLAYED = new Set<string>();
 
 /** Wave `index` stood up the way the game starts it, on the poses' config. */
 function waveWorld(index: number): World {

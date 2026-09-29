@@ -28628,3 +28628,13 @@ The bottleneck: a slip carried no seat, so the event had to be widened, with eve
 The bottleneck: the launch entry pointed at another worktree, so the first page measured was not this tree's.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE JAM's runaway wakes at beat 7
+
+- reading: 5 min. The queue entry, `wave-faults.ts`, `fault-clock.ts`, how `layout.ts` places the hull against the rows.
+- writing: 5 min. The fault's `at`, the wave's prose, THE JAM out of `HALF_PLAYED`.
+- looking: 0 min. A probe printed the lure's row by beat; nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: which beat is "half height" turned on how a fault's beat and an arrival's are counted, which is one subtraction in `fault-clock.ts` found by reading.
