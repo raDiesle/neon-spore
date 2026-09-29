@@ -28664,3 +28664,17 @@ The bottleneck: the regex passes could not be fixed one at a time, because each 
 The bottleneck: finding a seam that kept the typecheck's guard, which turned on each cue's own switch being exhaustive over its prefix.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — lane speed, re-read over 1 087 entries
+
+- reading: 15 min. `lane-speed.md`, `delegation-cost.md`, `token-budget.md`,
+  decisions #32, the stamp in `note-commit.ts`, `fast-scope.ts`.
+- writing: 15 min. A scratch parse over four row formats, the re-read section,
+  three queue entries.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. Two heredocs refused for doubled backslashes; the parse
+  went through the Write tool.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the ledger has four row formats and no script, so the
+first parse read a third of it.

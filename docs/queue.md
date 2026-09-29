@@ -1684,3 +1684,43 @@ than the world. Pass the world down, let the `CHARGE` branch call `surgeAsks`,
 and add the pair to the called-not-re-derived table in
 `packages/sim/test/purity.test.ts`. `render/test/boss-cue-surge.test.ts` and
 `surge-verdict.test.ts` hold the behaviour.
+
+## The time-log stamp starts at the lane's first commit, which is its last
+
+- **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
+- **Files:** `tools/land/note-commit.ts`, `tools/land/stamp.ts`
+
+`stampTimeLog` measures from the author date of the lane's oldest landed
+commit. A lane commits once, when it is done, so 655 stamped entries dated 17
+to 29 September have a median of one minute and a p90 of five — the stamp is
+the landing, not the lane (`docs/lane-speed.md`, *Re-read on 29 September
+2026*). Start the clock at the earliest of the queue claim commit on `main`
+naming this branch, and the branch's creation in its reflog, falling back to
+the first commit; say in the line which one it used. `stamp.ts` is pure, so the
+choice of start is tested there with fixed timestamps.
+
+## `land` runs the full suite again on a tree `check:fast` already ran it on
+
+- **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
+- **Files:** `tools/check/fast.ts`, `tools/land/run.ts`
+
+A `check:fast` whose scope reached most of the tree has been logged at 140–160
+s, and `bun run land` then runs `bun run check`, about 150 s, on the rebased
+tree — the identical tree whenever the trunk did not move in between. Record a
+green run that covered every test file under the tree's `git write-tree` hash
+and the lockfile's hash, and let `land` skip its check when the rebased tree
+matches one. A partial `check:fast` records nothing, so the landing's check
+stays the one that counts for every other lane.
+
+## The time log has no script that reads it
+
+- **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
+- **Files:** `docs/lane-speed.md`, `docs/time-log.md`
+
+`docs/lane-speed.md` says to re-read it "by running the parse again", and no
+parse is in the tree. The entries use four row formats — a table, `- reading:
+N min`, `- reading — N min` and a bold row name — and a bottleneck line that
+is sometimes `Bottleneck:` and sometimes bold prose. A small `bun run
+lane-speed` that prints the distribution, shares, the tail and the friction
+causes per period, with a test over one entry in each format, makes the next
+reading one command.

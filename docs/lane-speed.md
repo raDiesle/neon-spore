@@ -267,3 +267,57 @@ line-ceiling hook, which is built and wired; the size paragraph in the prompt
 `queue next` hands over; the four tables one fact has to enter; and the elapsed
 stamp `bun run land` owes each entry. A fifth asked whether to measure fast
 mode; it was answered the day it was written and is off the list.
+
+## Re-read on 29 September 2026
+
+The owner asked again what the last days say about speeding a lane up —
+implementation, tests and thinking — without a drawback worth the name. The
+ledger had grown to 1 087 entries dated 17 to 29 September, in four row
+formats (a table, `- reading: N min`, `- reading — N min`, bold names), and no
+script in the tree reads all four; the parse was a scratch file, which is its
+own queue entry.
+
+| period | lanes | mean | median | lanes ≥ 90 min | friction share | landing share |
+|---|---|---|---|---|---|---|
+| 10–16 Sep (above) | 296 | 48 | 35 | — | 12.1% | 14.5% |
+| 17–22 Sep | 338 | 77 | 70 | 111 | 13.8% | 15.8% |
+| 23–29 Sep | 749 | 34 | 25 | 34 | 9.4% | 17.9% |
+
+**Splitting worked, late.** The week after the split rule went into
+`CLAUDE.md` was the worst week in the ledger — median 70, a third of lanes
+over ninety minutes, the boss look lanes carried whole. From 23 September the
+median fell to 25 and the long tail to one lane in twenty-two, while lanes per
+day doubled. Nothing else changed that week that could explain a factor of
+three.
+
+**Friction fell where a hook was built for it.** Keyword counts over the
+friction rows, per lane, 10–16 against 17–29 September: the 250-line ceiling
+1.65 → 0.88 minutes (the size hook), servers and ports 1.52 → 0.69 (`bun run
+here`, `preview:once`), shell quoting 0.55 → 0.34. The two rows that grew are
+test timeouts, 0.43 → 0.61, and `land` refusing or stopping, which fell
+per lane but is still the largest single cause at 0.68. The counts are
+keywords, not a classification; the direction is the finding.
+
+**The calendar is parallel sessions, not faster ones.** 26 September holds
+263 entries against an 895-minute span of the trunk's own commits. At the
+estimate's usual inflation of two and a half to four, that is three to five
+sessions at once — which is where the throughput has come from, and it costs
+rebases and the landing races `land` now replays through.
+
+**The stamp measures nothing.** 655 lanes carry a `*Measured:` line and its
+median is **one minute**, p90 five: a lane commits once, at the end, so the
+first commit and the trunk moving are the same minute. The comparison this
+file said it was waiting for — the stamp beside the estimate — cannot be made
+from it. Queued: start the clock at the claim or the branch.
+
+**Tests are not the lever and not free either.** `bun run check` runs in about
+150 s on this machine, and a `check:fast` that the diff scoped to most of the
+tree has been logged at 140–160 s — the same suite twice in one lane when the
+trunk has not moved between them. Queued: a green full run keyed by the tree
+it ran on, so `land` skips a second run of an identical tree.
+
+**Thinking and fast mode, unchanged.** Writing is still 38–40% of every
+period and the largest row; no figure here separates thinking from typing, and
+`docs/decisions.md` #32 stands. The levers that took minutes off were all of
+the kind that removed work — a split, a hook that speaks before the red test,
+a server that finds its own port — not a faster model doing the same work.
