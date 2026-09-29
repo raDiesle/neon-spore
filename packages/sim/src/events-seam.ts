@@ -28,6 +28,12 @@ export type SeamEvent =
   | ({ type: "seamRockOut" } & SeamColEvent)
   /** Grit taken on the shield. */
   | ({ type: "seamBlock" } & SeamColEvent)
+  /** The false point fired at: the hull takes it. */
+  | ({ type: "seamBaited" } & SeamColEvent)
+  /** The false point's beats ran out with nothing sent: its flicker fades. */
+  | ({ type: "seamFade" } & SeamColEvent)
+  /** A bolt fired into the dark: the ridge reseals and holds one beat longer. */
+  | ({ type: "seamReseal" } & SeamColEvent)
   /** A step ran out unanswered: the hull takes it. */
   | ({ type: "seamMiss" } & SeamColEvent)
   /** The script is done and the sealed ridge splits down its crack. */

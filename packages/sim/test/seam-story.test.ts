@@ -91,8 +91,10 @@ describe("the glow", () => {
 });
 
 describe("the shipped script", () => {
-  it("is eleven steps with both story steps in it, and answered through it splits", () => {
-    expect(SCRIPT.length).toBe(11);
+  it("is thirteen steps with every story step in it, and answered through it splits", () => {
+    expect(SCRIPT.length).toBe(13);
+    expect(SCRIPT.some((s) => s.ask === "decoy")).toBe(true);
+    expect(SCRIPT.at(-1)?.ask).toBe("dark");
     expect(SCRIPT.some((s) => s.ask === "blind")).toBe(true);
     expect(SCRIPT.some((s) => s.ask === "glow")).toBe(true);
     const world = install();

@@ -13,6 +13,7 @@ import {
   type SeamState,
   type SeamStep,
   seamBoss,
+  seamHoldsFire,
   seamLitStep,
   seamShields,
   seamStepCol,
@@ -38,10 +39,12 @@ export const SCRIPT: readonly SeamStep[] = [
   { ask: "point", color: "red", offset: 0, seals: false },
   { ask: "point", color: "cyan", offset: 0, seals: true },
   { ask: "grit", color: "either", offset: 0, seals: false },
+  { ask: "decoy", color: "either", offset: 0, seals: false },
   { ask: "rock", color: "cyan", offset: 2, seals: false },
   { ask: "glow", color: "either", offset: 0, seals: false },
   { ask: "point", color: "either", offset: 0, seals: true },
   { ask: "both", color: "either", offset: -2, seals: false },
+  { ask: "dark", color: "either", offset: 0, seals: false },
 ];
 
 export function install(steps: readonly SeamStep[] = SCRIPT): World {
@@ -93,11 +96,16 @@ export function shield(world: World, col = MID): Set<string> {
 }
 
 /** The lit step answered the way it asks: shot in its column and colour, the
- * shield under the ridge, or both. */
+ * shield under the ridge, or both — or, for the false point and the dark,
+ * nothing sent until it has run out. */
 export function answer(world: World): void {
   const s = seam(world);
   const step = seamLitStep(s);
   if (step === null) throw new Error("nothing is lit");
+  if (seamHoldsFire(step)) {
+    runUntil(world, (w) => seam(w).phase !== "lit");
+    return;
+  }
   const shots = step.ask === "glow" ? world.cfg.seamGlowShots : 1;
   if (step.ask !== "grit" && step.ask !== "blind")
     for (let i = 0; i < shots; i++)

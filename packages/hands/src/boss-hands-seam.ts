@@ -20,6 +20,9 @@ import {
  * **The shot** wants the step's colour; an `"either"` step takes cyan.
  * **The shield** is THE OCULUS's (`boss-hands-oculus.ts`): carried under the
  * middle by the navigator and pressed by the pilot.
+ *
+ * **The false point and the dark are sent nothing**: neither wants a shot or
+ * the shield (`seamHoldsFire`), so both halves of the hand fall silent there.
  */
 type Press = Omit<TimedCommand, "tick">;
 

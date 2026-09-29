@@ -159,6 +159,8 @@ export const CHOREO_FIELD_GROUP_C = {
   seamBlindBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   seamGlowBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   seamGlowShots: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamDecoyBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
+  seamDarkBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   seamRestBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   seamSplitBeats: "THE SEAM — the boss answered with the cannon and the shield, in order",
   // OculusConfig — the rests around the steps, the grace a hold is given on

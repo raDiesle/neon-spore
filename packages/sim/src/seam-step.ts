@@ -1,6 +1,13 @@
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { freshSeam, type SeamState, type SeamStep, seamStepCol } from "./seam.js";
+import {
+  freshSeam,
+  type SeamState,
+  type SeamStep,
+  seamHoldsFire,
+  seamLitStep,
+  seamStepCol,
+} from "./seam.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -14,6 +21,10 @@ import type { World } from "./world.js";
  *
  * Steps light on a beat, so unlike THE VALVE's windows a step's own beats are
  * whole: it closes once `since` reaches them.
+ *
+ * **A step answered by sending nothing** (`seamHoldsFire`) is the other way
+ * round: its beats running out is the answer, and a bolt into the ridge while
+ * it is lit is the thing it asks the pair not to do (`seamFiredInto`).
  */
 
 export function installSeam(world: World, steps: readonly SeamStep[]): SeamState {
@@ -34,7 +45,11 @@ export function stepSeam(world: World, s: SeamState): void {
   }
   if (s.phase === "still" && since >= cfg.seamStillBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.seamRestBeats) next(world, s);
-  else if (s.phase === "lit" && since >= seamStepBeats(world, s)) miss(world, s);
+  else if (s.phase === "lit" && since >= seamStepBeats(world, s)) {
+    const step = seamLitStep(s);
+    if (step !== null && seamHoldsFire(step)) held(world, s, step);
+    else miss(world, s);
+  }
 }
 
 /** How long the lit step stays lit, by what it asks. */
@@ -46,6 +61,8 @@ export function seamStepBeats(world: World, s: SeamState): number {
   if (ask === "both") return cfg.seamBothBeats;
   if (ask === "blind") return cfg.seamBlindBeats;
   if (ask === "glow") return cfg.seamGlowBeats;
+  if (ask === "decoy") return cfg.seamDecoyBeats;
+  if (ask === "dark") return cfg.seamDarkBeats + (s.held ? 1 : 0);
   return cfg.seamPointBeats;
 }
 
@@ -58,8 +75,37 @@ export function seamAnswered(world: World, s: SeamState): void {
   rest(world, s);
 }
 
+/**
+ * A bolt into the ridge while a step asks for nothing. **At the false point
+ * it is the hull hit §26 row 10 names**, and so the wave; the point it
+ * mimicked dimming back has nothing left to happen on. **Into the dark it
+ * holds the ridge shut one beat longer**, resealed and reopened (row 16) —
+ * once: the ridge already held is not held again.
+ */
+export function seamFiredInto(world: World, s: SeamState, step: SeamStep, col: number): void {
+  if (step.ask === "dark") {
+    if (s.held) return;
+    s.held = true;
+    world.events.push({ type: "seamReseal", col });
+    return;
+  }
+  world.events.push({ type: "seamBaited", col });
+  closeSlow(world);
+  rest(world, s);
+  bossStrikesHull(world, "seam", col);
+}
+
+/** A step that asked for nothing ran out with nothing sent: the false point's
+ * flicker fades, and the dark gives without a sound (§26, *Presentation*). */
+function held(world: World, s: SeamState, step: SeamStep): void {
+  if (step.ask === "decoy") world.events.push({ type: "seamFade", col: midCol(world.cfg) });
+  closeSlow(world);
+  rest(world, s);
+}
+
 /** The next step lights under THE SLOW, or, with the script done, the ridge
- * splits. */
+ * splits. The dark is the one step THE SLOW does not open on: rows 2–15 are
+ * its span, and the held dark is the ridge's one quiet beat. */
 function next(world: World, s: SeamState): void {
   const step = s.steps[s.cursor];
   if (step === undefined) {
@@ -74,7 +120,8 @@ function next(world: World, s: SeamState): void {
   s.shot = false;
   s.guarded = false;
   s.quenched = 0;
-  openSlow(world, seamStepBeats(world, s), "ask");
+  s.held = false;
+  if (step.ask !== "dark") openSlow(world, seamStepBeats(world, s), "ask");
   world.events.push({ type: "seamLight", ask: step.ask, col: seamStepCol(world, step) });
 }
 

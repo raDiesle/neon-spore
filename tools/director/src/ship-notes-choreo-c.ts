@@ -138,12 +138,13 @@ export const CHOREO_NOTES_C = {
     "ridge (seamGritBeats), a rock shot in its column (seamRockBeats), or grit " +
     "and a rock at once (seamBothBeats). The story: the ridge turned face away " +
     "throws grit blind (seamBlindBeats), and a glow gathers on the crack until " +
-    "seamGlowShots shots of either colour quench it (seamGlowBeats). A step run " +
-    "out is a hull hit, which is the wave. Three sealing points are the health, " +
-    "and THE SLOW spans every step — sim/seam*.ts, sim/config-seam.ts. What a " +
-    "step asks — the point, the rock, the shield's place under the ridge — wears " +
-    "the halo on both screens, both seats' at once, and greens when answered or " +
-    "reddens when run out (render/seam-verdicts.ts).",
+    "seamGlowShots shots of either colour quench it (seamGlowBeats). A false point " +
+    "(seamDecoyBeats) and the dark (seamDarkBeats) ask for nothing: a bolt at the " +
+    "one is a hull hit, into the other a beat more. A step run out is a hull hit, " +
+    "the wave. Three seals are the health; THE SLOW spans all but the dark — " +
+    "sim/seam*.ts, sim/config-seam.ts. What a step asks — point, rock, the " +
+    "shield's place — wears the halo on both screens, greening when answered, " +
+    "reddening when run out (render/seam-verdicts.ts).",
   "THE OCULUS — the boss both hands hold shut, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §27: two seats holding at " +
     "once, for as long as the count runs. An eye over the middle column behind " +

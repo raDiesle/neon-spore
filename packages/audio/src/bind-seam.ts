@@ -2,13 +2,17 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE SEAM's ten, in a file of their own for `bind-gorge.ts`' reason.
+ * THE SEAM's thirteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the ridge stands over `midCol`, so all but a
  * rock's are in the middle, and a rock spat to one side is heard on that side.
  *
  * **The seal is pitched up per point closed**, so how far the pair are along
  * can be heard without either of them counting.
+ *
+ * **The two steps that ask for nothing borrow**: the false point fired at is
+ * the miss, for it is one; its flicker fading is the dim click, low; and a
+ * bolt into the dark is the seal again, low, the ridge shutting on it.
  */
 export function seamCue(e: Extract<SimEvent, { type: `seam${string}` }>, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -29,6 +33,12 @@ export function seamCue(e: Extract<SimEvent, { type: `seam${string}` }>, cols: n
       return { id: "boss.seamRockOut", pan };
     case "seamBlock":
       return { id: "boss.seamBlock", pan };
+    case "seamBaited":
+      return { id: "boss.seamMiss", pan, pitch: 0.85 };
+    case "seamFade":
+      return { id: "boss.seamDim", pan, pitch: 0.7 };
+    case "seamReseal":
+      return { id: "boss.seamSeal", pan, pitch: 0.8 };
     case "seamMiss":
       return { id: "boss.seamMiss", pan };
     case "seamSplit":

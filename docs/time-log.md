@@ -29062,3 +29062,17 @@ Bottleneck: reading — a new phase is registered on seven pages outside the
 simulation, found only by letting the typecheck name them.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SEAM asks the pair to hold fire twice
+
+- reading: 5 min. §26 rows 10 and 16, `seam-step.ts`, `seam-shot.ts`, the rig
+  and the pages THE SEAM's events are registered on.
+- writing: 10 min. The `decoy` and `dark` asks and `held`, three events bound
+  and silenced, seven tests, the docs and the look queued.
+- looking: 0 min. Nothing the ridge draws changed; neither step is drawn yet.
+- friction: 5 min. Page three of the silent list and the director's notes
+  page were both full, so the rows went to page four and the note was cut.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — two pages at their 250-line limit, found only when the
+limits test ran after the edit.

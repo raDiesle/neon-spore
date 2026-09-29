@@ -31,6 +31,12 @@ export const SILENT_BOSS_D = [
   "keelBreath",
   "keelStir",
   "keelHeld",
+  // THE SEAM's two steps that ask for nothing, landed after page three
+  // filled: the false point and the dark are read off the lit step each
+  // frame, and nothing of them outlives one (`sim/seam-step.ts`).
+  "seamBaited",
+  "seamFade",
+  "seamReseal",
   // THE PLUMB's bleed, landed after page three filled: how far the light has
   // bled is read off the state each frame (`sim/plumb-bleed.ts`).
   "plumbBleed",

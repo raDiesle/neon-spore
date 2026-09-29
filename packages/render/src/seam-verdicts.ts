@@ -52,6 +52,9 @@ const OWES: Readonly<Record<SeamAsk, readonly number[]>> = {
   grit: [SEAM_GRIT_MARK],
   blind: [SEAM_GRIT_MARK],
   both: [SEAM_GRIT_MARK, SEAM_ROCK_MARK],
+  // Answered by sending nothing: there is no mark to go to.
+  decoy: [],
+  dark: [],
 };
 
 /** The words that answer a mark, and which. */

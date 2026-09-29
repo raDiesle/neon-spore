@@ -707,28 +707,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §26 THE SEAM — a revised simulation lane, two beats of holding fire
-
-- **Found:** 2026-09-26, this session, at the owner's direction: revise the
-- **Taken:** 2026-09-29, claude/queue-26-seam-holding-fire (claim: claude/queue-26-the-seam-a-revised-simulation-lane-two-beats)
-  bosses added today for a fuller story arc, more distinct visual states and
-  more SLOW beats that ask for action
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-THE SEAM already ships as a choreographed scene gating the standard `FIRE`
-and `SHIELD` commands (`docs/spec/bosses.md` §26). This adds two beats built
-entirely from restraint: a new row 7 where a false, colourless point flickers
-at the crack's midpoint and the pair must send nothing rather than fire at
-it, and a new row 11 where the ridge goes dark and still for a breath after
-its last real point seals, again answered by holding fire rather than
-reaching for a target that no longer exists. Both read off `SENDING
-NOTHING`, already built for THE KEEL, THE HALTER and THE FLUE — a reuse, not
-a first use, so no gesture-registration edit is needed. This is one new
-boolean field per row, both reads off the same restraint primitive, no new
-sim state beyond it. `bun run check` proves the sim half; the false point's
-dim half-brightness pulse and the two new poses (flickering false point,
-sealed white point) are a look task, queued separately once this lane lands.
-
 ## Unverified at 4b5e7e87c: GRAPHICS → EFFECTS: the five buttons, and each page op…
 
 - **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
@@ -1393,3 +1371,21 @@ white on the breath — read off `locked` and the phase, no new state. Pose
 `OWED`. A look with no shipped alternative for the breath; the seam's
 brightness replaces a shipped look, so it goes to VERSUS unless the owner
 asks for it by name.
+
+## §26 THE SEAM — the false point's flicker and the held dark, the look
+
+- **Found:** 2026-09-29, claude/queue-26-seam-holding-fire
+- **Files:** `packages/render/src/seam-draw.ts`, `packages/render/src/seam-marks.ts`, `packages/render/src/seam-story.ts`, `packages/render/test/seam-frame.test.ts`
+
+Rows 10 and 16's simulation landed (`sim/seam-step.ts` `seamFiredInto`,
+bosses §11.43): a `decoy` step, a false point where a bolt is the wave, and a
+`dark` step after the last one, held one beat longer by a bolt (`held`,
+`seamReseal`). Nothing is drawn for either yet: the lit-step marks in
+`seam-draw.ts` return for any ask but a point or a glow. §26 asks for the
+false point at the crack's midpoint, dim white-grey with no cannon colour, at
+half a real point's brightness on its own slower period, fading out on
+`seamFade`; and for the crack dark and still through the dark, the sealed
+white of the last point read off `sealed`, resealing with a flash on
+`seamReseal`. Both are looks with no shipped alternative — nothing is drawn
+there now. THE SEAM has no poses on the STATES sheet (`OWED` names all four
+phases); the two are asks, not phases, so they are cards with that lane.

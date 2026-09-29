@@ -8818,8 +8818,40 @@ and ends the fight. `sim/test/seam-story.test.ts` adds the two story steps:
 the turn lights under THE SLOW, takes no shot and only the shield, and runs
 out after `seamBlindBeats`; the glow takes either colour, counts down its
 quenches in the middle column only, and half quenched is still a miss; the
-shipped script is eleven steps and answered whole it splits. Whether any of it *reads* is the owner's eye, after lane
-two.
+shipped script is thirteen steps and answered whole it splits.
+`sim/test/seam-hold.test.ts` adds the two steps that ask for nothing: the
+false point lights under THE SLOW, wants neither the cannon nor the shield,
+fades after `seamDecoyBeats` untouched, is a hull hit fired at in either
+colour and meets nothing off the ridge's column; the dark lies without THE
+SLOW, gives in silence and splits the ridge, and a bolt fired into it holds
+it one beat longer, once. Whether any of it *reads* is the owner's eye, after
+lane two.
+
+**Two steps are answered by sending nothing** (§26 rows 10 and 16; 29
+September 2026). **`decoy`** is a false point flickering colourless at the
+crack's midpoint for `seamDecoyBeats`, between the second grit and the rock;
+**`dark`** is the crack dark and still for `seamDarkBeats` after the last
+step, before the split. Neither wants a shot or the shield
+(`sim/seam.ts` `seamHoldsFire`), so the hand and the verdicts ask nothing of
+either; each passes when its beats run out untouched, the false point with a
+`seamFade`, the dark without a sound. A bolt up the ridge's column while one
+is lit is the thing it asks the pair not to do (`sim/seam-step.ts`
+`seamFiredInto`). One field was added, `held`, and three events. Three
+departures, argued:
+
+- **A bolt at the false point is the wave.** Row 10 says it cracks the ridge
+  further — an ordinary hull hit — *and* dims the point it mimicked back to
+  unlit. In this game a hull hit is the wave (the owner, 12 September 2026),
+  so the second half has nothing left to happen on and is not built.
+- **The dark holds one beat longer once.** Row 16's *resealed and reopened*
+  is one beat added to the step (`seamReseal`, `held`); a second bolt into a
+  ridge already held changes nothing, THE KEEL's flare cap's reason — a pair
+  firing steadily would otherwise hold the fight open for ever.
+- **THE SLOW does not open on the dark.** §26 spans rows 2–15 and calls the
+  held dark the ridge's one quiet beat, so the dark plays at tempo; the false
+  point, row 10, is inside the span and slowed. No shared restraint code
+  exists to reuse: *SENDING NOTHING* is a gesture of the spec, and here it is
+  the step's beats running out.
 
 **Half the look has landed** (26 September 2026): the body. THE RIND's three
 sizes stood on end down the middle column in shell grey, one lobe to a point,

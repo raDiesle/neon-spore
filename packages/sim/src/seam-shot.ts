@@ -1,6 +1,14 @@
 import { metColor, missedColor } from "./balance.js";
-import { seamBoss, seamLitStep, seamStepCol, seamWantsShield, seamWantsShot } from "./seam.js";
-import { seamAnswered } from "./seam-step.js";
+import { midCol } from "./config.js";
+import {
+  seamBoss,
+  seamHoldsFire,
+  seamLitStep,
+  seamStepCol,
+  seamWantsShield,
+  seamWantsShot,
+} from "./seam.js";
+import { seamAnswered, seamFiredInto } from "./seam-step.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
 
@@ -16,14 +24,21 @@ import type { World } from "./world.js";
  *
  * **The glow** takes either colour and more than one shot: it is answered
  * once `seamGlowShots` have landed, each a `seamQuench` with what is left.
+ *
+ * **The false point and the dark take a bolt too**, of either colour, up the
+ * ridge's column — the one thing they ask is that none comes (`seamFiredInto`).
  */
 export function seamStruck(world: World, bullet: Bullet): boolean {
   const s = seamBoss(world);
+  if (s === null) return false;
+  const step = seamLitStep(s);
+  if (step !== null && seamHoldsFire(step) && bullet.col === midCol(world.cfg)) {
+    seamFiredInto(world, s, step, bullet.col);
+    return true;
+  }
   // Only a lit step stands in a column: a bolt anywhere else met nothing
   // (`shot-out.ts`).
-  if (s === null || !seamWantsShot(s)) return false;
-  const step = seamLitStep(s);
-  if (step === null || bullet.col !== seamStepCol(world, step)) return false;
+  if (step === null || !seamWantsShot(s) || bullet.col !== seamStepCol(world, step)) return false;
   if (step.color !== "either") {
     if (bullet.color !== step.color) {
       missedColor(world);

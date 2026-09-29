@@ -22,6 +22,10 @@ export interface SeamConfig {
   seamGlowBeats: number;
   /** Shots of either colour that quench the glow. */
   seamGlowShots: number;
+  /** Beats the false point flickers, waiting for the pair to send nothing. */
+  seamDecoyBeats: number;
+  /** Beats the crack lies dark before it gives, one more if a bolt is fired into it. */
+  seamDarkBeats: number;
   /** Beats the ridge rests after a step before the next lights. */
   seamRestBeats: number;
   /** Beats the split ridge hangs before the wave may end. */
@@ -37,6 +41,8 @@ export const SEAM_DEFAULTS: SeamConfig = {
   seamBlindBeats: 3,
   seamGlowBeats: 4,
   seamGlowShots: 3,
+  seamDecoyBeats: 3,
+  seamDarkBeats: 2,
   seamRestBeats: 1,
   seamSplitBeats: 2,
 };

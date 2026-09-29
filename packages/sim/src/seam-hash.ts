@@ -19,6 +19,7 @@ export function seamHashParts(s: SeamState): number[] {
     s.shot ? 1 : 0,
     s.guarded ? 1 : 0,
     s.quenched,
+    s.held ? 1 : 0,
     s.steps.length,
   ];
   for (const step of s.steps) {

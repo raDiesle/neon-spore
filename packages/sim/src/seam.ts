@@ -41,8 +41,23 @@ export type SeamPhase = (typeof SEAM_PHASES)[number];
  * with the crack out of sight; and **`glow`**, heat bleeding up through the
  * shell and gathering at one point on the crack, quenched by
  * `seamGlowShots` shots of either colour.
+ *
+ * And the two answered by **sending nothing** (§26 rows 10 and 16):
+ * **`decoy`**, a false point flickering colourless at the crack's midpoint,
+ * where a bolt is a hull hit; and **`dark`**, the crack dark and still after
+ * the last seal, where a bolt holds the ridge shut one beat longer. Both pass
+ * when their beats run out untouched (`seamHoldsFire`).
  */
-export const SEAM_ASKS = ["point", "grit", "rock", "both", "blind", "glow"] as const;
+export const SEAM_ASKS = [
+  "point",
+  "grit",
+  "rock",
+  "both",
+  "blind",
+  "glow",
+  "decoy",
+  "dark",
+] as const;
 export type SeamAsk = (typeof SEAM_ASKS)[number];
 
 /** One step of the script, authored on the wave. */
@@ -81,6 +96,8 @@ export interface SeamState {
   guarded: boolean;
   /** Shots landed on this step's glow, nought up to `seamGlowShots`. */
   quenched: number;
+  /** Whether a bolt fired into this step's dark has held it one beat longer. */
+  held: boolean;
 }
 
 export function seamBoss(world: World): SeamState | null {
@@ -96,7 +113,14 @@ export function seamLitStep(s: SeamState): SeamStep | null {
 /** Whether the lit step wants a shot, and has not had it. */
 export function seamWantsShot(s: SeamState): boolean {
   const step = seamLitStep(s);
-  return step !== null && step.ask !== "grit" && step.ask !== "blind" && !s.shot;
+  return (
+    step !== null && step.ask !== "grit" && step.ask !== "blind" && !seamHoldsFire(step) && !s.shot
+  );
+}
+
+/** Whether a step is answered by sending nothing: the false point and the dark. */
+export function seamHoldsFire(step: SeamStep): boolean {
+  return step.ask === "decoy" || step.ask === "dark";
 }
 
 /** Whether the lit step wants the shield, and has not had it. */
@@ -136,5 +160,6 @@ export function freshSeam(beat: number, steps: readonly SeamStep[]): SeamState {
     shot: false,
     guarded: false,
     quenched: 0,
+    held: false,
   };
 }
