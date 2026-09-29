@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · f67c4b22a — THE GOVERNOR's receipts: the tap's flash, the skid's scrape, its blow at the hull
+
+A tap or a retap flashes the rim white at the lit mark and throws a spike past it; a skid drags a dull brass scrape along the track behind the needle; a hub hit flashes the hub, wider for every hit. The flywheel flinches and shakes on every blow it takes — a run's third tap, a retap and a hub hit the whole blow, the taps inside a run the lighter one — the plating shudders as the hub lights and again as the governor is spent, and a fire step run out sheds a brass shard off the rim that tumbles down the middle column and bites a notch in the hull.
+
 ## 2026-09-29 · eb20c8907 — JUMP TO WAVE filters by the director's marks: boss, panel, guide, fault
 
 Under the text field on TESTING › JUMP TO WAVE there is now the director's row of marks as four toggles — ✦ BOSS, ⎈ PANEL, ✎ GUIDE, ⚠ FAULT — ORed with each other and ANDed with what is typed, as in the director. The field also finds a boss by its type (`special`, `normal`) and a wave by its panel's name.

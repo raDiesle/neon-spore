@@ -29246,3 +29246,5 @@ Bottleneck: looking — reaching TESTING in the pane took three screens first.
 Bottleneck: friction — a frame-diff test proves nothing when the same event
 throws several things; it had to be narrowed until switching one receipt off
 failed it.
+
+*Measured: 192 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
