@@ -759,6 +759,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §31 THE PLUMB — a revised simulation lane, a light left to bleed off
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-29, claude/queue-31-the-plumb-its-weights-are-brought-level-by-tw (claim: claude/queue-31-the-plumb-a-revised-simulation-lane-a-light-l)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
