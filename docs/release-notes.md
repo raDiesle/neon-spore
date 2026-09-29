@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 70c8470d3 — THE GAUGE: the standard set's egg for a cannon, and a face round the mouth
+
+The gauge's cannon is now the field's own, the violet egg under a white neon rim, drawn long so it still points, and its vent stands further off the mouth: the rim is out from 0.9 of the dial to 0.97 and the egg reaches 0.36. The armour round the mouth is a row of bone teeth, two venom eyes on the crown watch where the cannon aims and screw shut on a hit, and a tongue lolls in the mouth behind the ship. The gashes moved off the eyes.
+
 ## 2026-09-29 · 25330727a — The compaction trial sees a landing inside a compound command
 
 `bun run compaction` only knew `bun run land` at the start of a command, so a `git commit …; bun run land` went uncounted and the cut after it read as mid-item. A landing is now `bun run land` anywhere in the command, proven by land's own banner rather than the exit code a `| tail` hides. The baseline moves from 179 items and 57% of cuts mid-item to 466 items and 31%.
