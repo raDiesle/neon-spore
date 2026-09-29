@@ -1,16 +1,40 @@
 import type { BossEntry } from "../src/boss-entries.js";
 import type { BossState } from "../src/boss-union.js";
+import { mazeWheel } from "../src/maze-solve.js";
+import type { MazeWheel } from "../src/maze-wheel.js";
+import type { Scar } from "../src/types.js";
 
 /**
  * **THE CAIRN to THE SINEW's page of `hash-fixture.ts`** — the second page,
  * the bosses from where `BOSS_KINDS`' "appended, never inserted" comment
  * stands to the one before THE LEDGER. What each is authored with and how
  * each is moved off its installed state; the reasons are on `-a.ts` and in
- * `hash-fixture.ts`, which composes the three pages.
+ * `hash-fixture.ts`, which composes the pages. THE MAZE is here too, out of
+ * its place in `BOSS_KINDS`: it came over from `-a.ts` on 29 September 2026,
+ * when that page passed 250 lines.
  */
+
+/**
+ * A wheel of the shape `installMaze` copies: two rings, two gaps in the rim,
+ * a radial wall between them and one of them walled off from the middle —
+ * what `mazeFault` asks of an authored one, so the fixture is a wheel the game
+ * would actually deal rather than a shape that happens to walk. The routes are
+ * solved from the walls, the same way content's are.
+ */
+const WHEEL: MazeWheel = mazeWheel(
+  {
+    rings: 2,
+    coreMilli: 300,
+    openMilli: 60,
+    walls: [[], [0, 180_000], [0, 180_000]],
+    openings: [[90_000], [45_000, 225_000], [45_000, 225_000]],
+  },
+  0,
+);
 
 /** What each is authored with; the keys are the page's share of `BOSS_KINDS`. */
 export const BOSS_ENTRIES_B = {
+  maze: { kind: "maze", rounds: [WHEEL] },
   cairn: { kind: "cairn", units: 5 },
   // THE WELL authors nothing and keeps nothing: the tag is the only number it
   // contributes to the fingerprint (`well.ts`).
@@ -78,8 +102,32 @@ export const BOSS_ENTRIES_B = {
   sinew: { kind: "sinew" },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
-/** THE CAIRN to THE SINEW's share of `patchBoss`. */
-export function patchBossB(boss: BossState): void {
+/** THE CAIRN to THE SINEW's share of `patchBoss`, and THE MAZE's; `scar` is the world's fixture. */
+export function patchBossB(boss: BossState, scar: () => Required<Scar>): void {
+  if (boss.kind === "maze") {
+    boss.phase = "read";
+    boss.phaseBeat = 4;
+    boss.angleMilli = 45_000;
+    boss.turn = 1;
+    boss.armed = false;
+    boss.dragging = true;
+    boss.dragFromMilli = 300;
+    boss.lockedCol = 3;
+    boss.lockedWay = 1;
+    boss.way = 0;
+    boss.step = 2;
+    boss.tried = [1];
+    boss.hullMilli = 62_000;
+    boss.scars = [scar()];
+    boss.verdict = -1;
+    boss.verdictCol = 3;
+    boss.lost = "mouth";
+    boss.gripSeats = 3;
+    boss.gripFromMilli = [10, -20, 30, 40];
+    boss.gripXMilli = 120;
+    boss.gripYMilli = -80;
+    boss.gripShookMilli = [500, 700];
+  }
   if (boss.kind === "gorge") {
     // One bead held, so the intake's colour is a value and not the null an
     // empty sack starts with — the walk cannot flip a null.

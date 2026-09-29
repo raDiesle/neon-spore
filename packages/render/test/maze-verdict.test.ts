@@ -3,7 +3,6 @@ import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   createWorld,
   type MazeState,
-  mazeWheel,
   type SimEvent,
   startWave,
   step,
@@ -27,6 +26,7 @@ import {
   stubCanvas,
   waveWith,
 } from "./frame-harness.js";
+import { gripState as grip, mazeState } from "./maze-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -44,60 +44,9 @@ beforeAll(installCanvasGlobals);
 
 const layout = (role: ViewRole) => computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
 
-/** One small drum with two ways into the middle (`maze-draw.test.ts`). */
-function wheel() {
-  return mazeWheel(
-    {
-      rings: 3,
-      coreMilli: 250,
-      openMilli: 60,
-      walls: [[], [0, 180_000], [0, 180_000], [0, 180_000]],
-      openings: [
-        [90_000, 270_000],
-        [45_000, 225_000],
-        [45_000, 225_000],
-        [45_000, 225_000],
-      ],
-    },
-    15_000,
-  );
-}
-
 /** The wheel up and turning: `read` — or what `overrides` says. */
-function maze(overrides: Partial<MazeState> = {}): MazeState {
-  return {
-    kind: "maze",
-    rounds: [wheel()],
-    round: 0,
-    phase: "read",
-    phaseBeat: 4,
-    angleMilli: 15_000,
-    turn: 0,
-    dragging: false,
-    dragFromMilli: 0,
-    armed: true,
-    lockedCol: -1,
-    lockedWay: -1,
-    way: -1,
-    shotColor: -1,
-    step: 0,
-    tried: [],
-    hullMilli: 100_000,
-    scars: [],
-    verdict: 0,
-    verdictCol: -1,
-    lost: null,
-    gripSeats: 0,
-    gripFromMilli: [0, 0, 0, 0],
-    gripXMilli: 0,
-    gripYMilli: 0,
-    gripShookMilli: [0, 0],
-    ...overrides,
-  };
-}
-
-const grip = (overrides: Partial<MazeState> = {}) =>
-  maze({ phase: "grip", way: 0, shotColor: 0, ...overrides });
+const maze = (overrides: Partial<MazeState> = {}) =>
+  mazeState({ phase: "read", phaseBeat: 4, ...overrides });
 
 /** What the asking draws on a role's screen. */
 function asked(role: ViewRole, m: MazeState): string {

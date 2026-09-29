@@ -29429,3 +29429,17 @@ between what one sitting could do and what the queue holds took the most thought
 Bottleneck: the recorded rehearsal — a burn is a push that keeps going, so every level change moved every leg after it, and the replay had to be re-recorded rather than edited.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — the maze's render tests and hash fixture under the ceiling
+
+- reading: 5 min. The three files, the harness pattern the flue and the
+  governor use, how the fixture pages are composed.
+- writing: 10 min. `maze-harness.ts` with the drum, the state and the spy
+  three files each kept a copy of; the grip and draw tests cut in two;
+  THE MAZE's fixture moved to `-b.ts`.
+- looking: 0 min. Tests only.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, counting the cases before and after, `land`.
+
+Bottleneck: writing — cutting by line ranges, then reading the imports each
+half still needed.

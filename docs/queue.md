@@ -1424,20 +1424,6 @@ has to: in `waves.ts`, the intro clock (`tickOpening`, `left`, `sentAtTick`,
 `refreshAll` and `jumpToBrushWave` with the panels they call could stand in a
 `main-refresh.ts` the way `main-tempo.ts` already does.
 
-## Three maze test files are past the line ceiling
-
-- **Found:** 2026-09-29, claude/the-maze-level-adjustments-85d033
-- **Taken:** 2026-09-29, claude/queue-tasks-b9e006 (claim: claude/queue-three-maze-test-files-are-past-the-line-ceiling)
-- **Files:** `packages/render/test/maze-grip.test.ts`, `packages/render/test/maze-draw.test.ts`, `packages/sim/test/hash-fixture-bosses-a.ts`
-
-`maze-grip.test.ts` is 294 lines, `maze-draw.test.ts` 304 and
-`hash-fixture-bosses-a.ts` 269. All three were already over before the shake
-added a few lines to each. Split `maze-grip.test.ts` along its `describe`s:
-the thumb and the string in one file, the ring, the landing and the field in
-another. Move `maze-draw.test.ts`'s fall and funnel cases into a file of
-their own. Take THE MAZE's fixture out of `hash-fixture-bosses-a.ts` into a
-`-b` file, the way the other boss fixtures are split.
-
 ## Eighteen bosses' FIRE cues stand at the hull and aim at nothing
 
 - **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0

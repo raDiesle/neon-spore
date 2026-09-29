@@ -135,7 +135,7 @@ function patchBoss(world: World): void {
   const boss = world.boss;
   if (boss === null) return;
   patchBossA(boss, scar);
-  patchBossB(boss);
+  patchBossB(boss, scar);
   patchBossC(boss);
   patchBossD(boss);
   patchBossE(boss);

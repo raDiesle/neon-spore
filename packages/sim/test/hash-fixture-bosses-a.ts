@@ -1,7 +1,5 @@
 import type { BossEntry } from "../src/boss-entries.js";
 import type { BossState } from "../src/boss-union.js";
-import { mazeWheel } from "../src/maze-solve.js";
-import type { MazeWheel } from "../src/maze-wheel.js";
 import type { Scar } from "../src/types.js";
 
 /**
@@ -9,29 +7,12 @@ import type { Scar } from "../src/types.js";
  * with, and how each is moved off the state `startWave` installs it in. Cut
  * out on 18 September 2026 when the fixture stood at three times its limit,
  * along the seam `BOSS_KINDS` already has: this page is the ten that were on
- * the list before its "appended, never inserted" comment; `-b.ts` takes THE
- * CAIRN to THE SINEW and `-c.ts` THE LEDGER on, where a new boss goes.
+ * the list before its "appended, never inserted" comment — bar THE MAZE, whose
+ * fixture moved to `-b.ts` on 29 September 2026 when this page passed 250
+ * lines; `-b.ts` takes THE CAIRN to THE SINEW and `-c.ts` THE LEDGER on.
  * `hash-fixture.ts` composes the three, keeps the world, and says once why
  * the values are what they are.
  */
-
-/**
- * A wheel of the shape `installMaze` copies: two rings, two gaps in the rim,
- * a radial wall between them and one of them walled off from the middle —
- * what `mazeFault` asks of an authored one, so the fixture is a wheel the game
- * would actually deal rather than a shape that happens to walk. The routes are
- * solved from the walls, the same way content's are.
- */
-const WHEEL: MazeWheel = mazeWheel(
-  {
-    rings: 2,
-    coreMilli: 300,
-    openMilli: 60,
-    walls: [[], [0, 180_000], [0, 180_000]],
-    openings: [[90_000], [45_000, 225_000], [45_000, 225_000]],
-  },
-  0,
-);
 
 /** What each is authored with; the keys are the page's share of `BOSS_KINDS`. */
 export const BOSS_ENTRIES_A = {
@@ -39,7 +20,6 @@ export const BOSS_ENTRIES_A = {
   mirror: { kind: "mirror", rounds: [["fireRed", "guard"], ["cannonLeft"]] },
   warden: { kind: "warden", plates: 4 },
   vane: { kind: "vane", pins: 3 },
-  maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
   // Two ships, one lying each way, neither touching the other and both well
   // inside a chart eleven columns by ten. `fleetFault` is what says that is a
@@ -94,7 +74,7 @@ export const BOSS_ENTRIES_A = {
   },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
-/** The first ten bosses' share of `patchBoss`; `scar` is the world's fixture. */
+/** The first ten bosses' share of `patchBoss`, bar THE MAZE; `scar` is the world's fixture. */
 export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
   if (boss.kind === "queen") {
     boss.phase = 2;
@@ -133,30 +113,6 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.spentOpening = 2;
     boss.throwBeat = 5;
     boss.throwCol = 4;
-  }
-  if (boss.kind === "maze") {
-    boss.phase = "read";
-    boss.phaseBeat = 4;
-    boss.angleMilli = 45_000;
-    boss.turn = 1;
-    boss.armed = false;
-    boss.dragging = true;
-    boss.dragFromMilli = 300;
-    boss.lockedCol = 3;
-    boss.lockedWay = 1;
-    boss.way = 0;
-    boss.step = 2;
-    boss.tried = [1];
-    boss.hullMilli = 62_000;
-    boss.scars = [scar()];
-    boss.verdict = -1;
-    boss.verdictCol = 3;
-    boss.lost = "mouth";
-    boss.gripSeats = 3;
-    boss.gripFromMilli = [10, -20, 30, 40];
-    boss.gripXMilli = 120;
-    boss.gripYMilli = -80;
-    boss.gripShookMilli = [500, 700];
   }
   if (boss.kind === "gauge") {
     boss.phase = "play";
