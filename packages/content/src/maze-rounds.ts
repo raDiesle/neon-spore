@@ -33,7 +33,9 @@ import { MAZE_DRAWN } from "./maze-drawn.js";
  * **Authored, never generated.** Two devices have to be looking at the same
  * drum, and the cheapest way to guarantee that is for there to be only one —
  * the argument `mirror.ts` makes about its sequences. There is no rng in this
- * file and nothing in the boss draws from one, the opening angle included.
+ * file. The one thing the boss deals from the seeded rng is the angle a drum
+ * opens at (`sim/maze-spin.ts`, the owner, 29 September 2026), so a pair that
+ * lost a wave cannot turn the same clicks again from memory.
  * The second and third sheets were *drawn* by `bun run maze`, which shuffles
  * the walls of a grid and opens them where they would not close a loop; that
  * randomness ran once, out of the game, and what is below is its printed
@@ -87,10 +89,11 @@ const SENT: MazeGeometry = {
 };
 
 /**
- * Half a turn, which is where every drum stands when its round opens: the
- * sheet the right way up, with its gaps as far from the ship as they go.
- * Bringing one of them all the way down onto the ship's own column is the
- * round, and only that column counts (`mazeEntranceCol`).
+ * Half a turn: the sheet the right way up, with its gaps as far from the ship
+ * as they go. A wave's drum is turned off it by a dealt angle every time it
+ * comes up (`sim/maze-spin.ts`); a rehearsal's hangs here, because its pull is
+ * measured from it. Bringing a gap all the way down onto the ship's own column
+ * is the round, and only that column counts (`mazeEntranceCol`).
  */
 const UPRIGHT = 180_000;
 

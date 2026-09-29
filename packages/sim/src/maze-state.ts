@@ -1,4 +1,5 @@
 import { type MazePhase, mazeWrap } from "./maze.js";
+import { mazeDealAngle } from "./maze-spin.js";
 import type { MazeVerdictReason } from "./maze-verdict.js";
 import { type MazeWheel, mazeCopyWheel } from "./maze-wheel.js";
 import type { Scar } from "./types.js";
@@ -122,8 +123,10 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
   m.tried = [];
 }
 
-/** A fresh maze, at full hull, on the round it is authored to open with. */
-export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
+/** A fresh maze, at full hull, on the round it is authored to open with, the
+ * drum turned to an angle of the rng's (`maze-spin.ts`) unless it is asked to
+ * hang `upright`, as a rehearsal's is. */
+export function installMaze(world: World, rounds: MazeWheel[], upright = false): MazeState {
   const copies = rounds.map(mazeCopyWheel);
   return {
     kind: "maze",
@@ -131,7 +134,9 @@ export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
     round: 0,
     phase: "lead",
     phaseBeat: world.beat,
-    angleMilli: mazeWrap(copies[0]?.startMilli ?? 0),
+    angleMilli: upright
+      ? mazeWrap(copies[0]?.startMilli ?? 0)
+      : mazeDealAngle(world, copies[0] ?? null),
     turn: 0,
     armed: true,
     dragging: false,

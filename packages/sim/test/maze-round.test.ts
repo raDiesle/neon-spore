@@ -79,32 +79,31 @@ test("the way in that reaches the middle takes a share of the boss", () => {
   expect(mazeOf(world).hullMilli).toBe(100_000 - Math.round(100_000 / WHEELS.length));
 });
 
-test("a dead end costs the hull, and the wave", () => {
+test("a dead end brings the drum down on the hull, and the wave", () => {
   const world = install();
   untilReading(world);
   const answer = mazeCoreEntrance(WHEELS[0]!);
   const dud = (answer + 1) % WHEELS[0]!.entrances.length;
-  const col = (() => {
-    const c = clickOnto(world, dud);
-    send(world, 1, { kind: "cannonCol", col: c });
-    send(world, 2, { kind: "fire", color: "red" });
-    return c;
-  })();
+  const col = clickOnto(world, dud);
+  send(world, 1, { kind: "cannonCol", col });
+  send(world, 2, { kind: "fire", color: "red" });
   const seen = past(world, "travel", TPB * 200);
-  const breach = seen.filter((e) => e.type === "breach");
-  expect(breach).toHaveLength(1);
-  expect(breach[0]).toMatchObject({ col });
+  // No rock out of the column: the drum is the thing that falls, and it has
+  // not landed yet (the owner, 29 September 2026).
+  expect(seen.filter((e) => e.type === "breach")).toHaveLength(0);
   expect(mazeOf(world).lost).toBe("mouth");
-
-  // The hit is the wave lost: the field holds from that tick, with the drum
-  // standing in its verdict for the picture to shake apart, and nothing the
-  // round used to do next — the same stage built again — happens. The boss's
-  // own hull is untouched: a stage lost is never a stage undone.
-  expect(failHolds(world)).toBe(true);
-  expect(failHolds(world)).toBe(true);
-  for (let i = 0; i < TPB * (MAZE_VERDICT_BEATS + 8); i++) step(world, []);
   expect(mazeOf(world).phase).toBe("verdict");
-  expect(mazeOf(world).hullMilli).toBe(100_000);
+
+  const landing = past(world, "verdict", TPB * (MAZE_VERDICT_BEATS + 4));
+  const breach = landing.filter((e) => e.type === "breach");
+  expect(breach).toHaveLength(1);
+  expect(breach[0]).toMatchObject({ col: mazeBottomCol(CFG) });
+  expect(isWardable((breach[0] as { kind: CreatureKind }).kind)).toBe(false);
+
+  // The hit is the wave lost, and the boss's own hull is untouched: a stage
+  // lost is never a stage undone.
+  expect(failHolds(world)).toBe(true);
+  expect(world.boss).toBeNull();
 });
 
 test("with the hull held, a lost stage ends the round", () => {

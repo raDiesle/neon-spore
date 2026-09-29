@@ -15,9 +15,13 @@ export const MAZE_LEAD_BEATS = 3;
  * How long the pair has for one attempt: this much per way in, plus a flat
  * allowance. Generous for the reason THE MIRROR's clock is — a pair still
  * saying "no, the *other* one" has not failed at what the boss is testing.
+ *
+ * **Two fifths shorter since 29 September 2026**, from ten and fourteen — the
+ * owner: *reduce time for every level by 40%*. The first sheet went from
+ * twenty-four beats to fourteen and the fifth from sixty-four to thirty-eight.
  */
-export const MAZE_READ_PER_WAY = 10;
-export const MAZE_READ_SLACK = 14;
+export const MAZE_READ_PER_WAY = 6;
+export const MAZE_READ_SLACK = 8;
 
 export function mazeReadBeats(ways: number): number {
   return ways * MAZE_READ_PER_WAY + MAZE_READ_SLACK;

@@ -336,6 +336,7 @@ by hand never moves.
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-state.ts` | what THE MAZE remembers between ticks — `MazeState`, a paragraph per field — and the two ways it is set: fresh for a wave, wiped for a phase |
+| `packages/sim/src/maze-spin.ts` | **Where a drum stands when it comes up: somewhere the pair has not seen it** |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/maze-hand.ts` | **A thumb on THE MAZE's heart**, off the wire, on the tick |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
@@ -1718,6 +1719,7 @@ by hand never moves.
 | `packages/render/src/volley-ward.ts` | **THE VOLLEY wears the shield's own band on the face the shield will meet.** The owner asked for it on 15… |
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
+| `packages/render/src/maze-boss-draw.ts` | THE MAZE's whole pass over the boss layer, in the order the eye reads it |
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
 | `packages/render/src/eye-look.ts` | the one record a candidate EYE patches, on the two bodies that share one |
 | `packages/render/src/veer-clown.ts` | THE VEER's rider: a clown sitting on the rock, and the reason the rock does not fall straight |
@@ -1822,6 +1824,7 @@ by hand never moves.
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
 | `packages/render/src/maze-funnel.ts` | **THE MAZE's way in is a funnel**: the rim's cut flares out to a mouth exactly as wide as the snap window |
+| `packages/render/src/maze-fuse.ts` | **THE MAZE's clocks on the fuse every boss wears: under the drum, over the hull** |
 | `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, top right where the hull bar was |
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
 | `packages/render/src/eye-rim.ts` | **The eye's box, and the rim hung on it.** The third piece of one eye — `eye.ts` holds the wet parts |

@@ -46,7 +46,6 @@ const STILL_A_ROCK = new Set([
   // The rounds and interludes, which have no boss body to strike from.
   "fleet.ts",
   "gauge-round.ts",
-  "maze-verdict.ts",
   "mirror-round.ts",
   "pinball-round.ts",
   "pulse-round.ts",

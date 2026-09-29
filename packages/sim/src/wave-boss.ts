@@ -73,7 +73,7 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // No creature and no row either. THE MAZE is three mouths in the sky and a
     // wheel behind them, so there is nothing of it for the fall loop or a
     // hand to find — the same shape THE VANE has, one branch down.
-    world.boss = installMaze(world, boss.rounds);
+    world.boss = installMaze(world, boss.rounds, boss.upright === true);
   } else if (boss?.kind === "fleet") {
     // No creature and no row: a chart is not a body. Nothing of THE FLEET
     // falls, can be warded or can be taken hold of — the ships are squares on

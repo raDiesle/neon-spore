@@ -28,6 +28,12 @@ import type { MazeWheel } from "./maze-wheel.js";
 export interface MazeEntry {
   kind: "maze";
   rounds: MazeWheel[];
+  /**
+   * Open the first wheel at its authored angle rather than a dealt one
+   * (`maze-spin.ts`). For a rehearsal, whose pull is authored to end on the
+   * click and so has to know where the drum starts; a wave never sets it.
+   */
+  upright?: boolean;
 }
 
 /**

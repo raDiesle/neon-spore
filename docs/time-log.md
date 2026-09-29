@@ -29324,3 +29324,15 @@ Bottleneck: landing — `check:fast` reached 54 shards for a change to one
 file of the app.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE MAZE: shorter clock, dealt spin, the drum falls, the fuse
+
+- reading: 5 min. The maze's clock, verdict, state, fall and timer; THE SLOW's
+  fuse and where it is placed.
+- writing: 10 min. `maze-spin.ts`, `maze-fuse.ts`, `maze-boss-draw.ts`, the
+  dead end through `mazeFalls`, the rehearsal's `upright`, tests.
+- looking: 5 min. One frame at tick 400.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — five maze files to learn which loss was paid for where.

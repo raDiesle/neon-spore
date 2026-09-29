@@ -9,7 +9,7 @@ import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import { drawMaze } from "./maze-draw.js";
+import { drawMazeBoss } from "./maze-boss-draw.js";
 import { drawMirror } from "./mirror.js";
 import { drawMirrorGrip, mirrorHandPlace } from "./mirror-grip.js";
 import { drawMirrorAsked } from "./mirror-marks.js";
@@ -149,11 +149,7 @@ export function drawBoss(
   }
 
   if (boss.kind === "maze") {
-    drawMaze(ctx, l, world.cfg, boss, view.role, world.beat, view.beatPhase, view.time);
-    // The navigator's thumb landing on the heart or leaving it, thrown off
-    // it over everything the drum drew, and the verdicts on both parts
-    // last of all (`maze-grip-fx.ts`, `maze-marks.ts`).
-    effects.boss.maze.draw(ctx, l, world.cfg, boss);
+    drawMazeBoss(ctx, l, world, boss, view, effects);
     return;
   }
 

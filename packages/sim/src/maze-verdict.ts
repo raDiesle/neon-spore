@@ -1,7 +1,8 @@
 import { breachHull } from "./hull.js";
 import { mazeBottomCol } from "./maze.js";
 import { mazeHeartColor } from "./maze-round.js";
-import { enterMazePhase, type MazeState } from "./maze-state.js";
+import { mazeDealAngle } from "./maze-spin.js";
+import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-state.js";
 import { type CreatureKind, livingKindForColor } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -48,8 +49,11 @@ const MAZE_WRECK: CreatureKind = "gyre";
  * A dead end, the wrong colour, or nothing at all. Three failures, and each
  * one now reaches the hull as the thing that actually did it.
  *
- * **A dead end sends the shot back**, out of the column it went up, as the
- * rock this game has always answered a wrong step with.
+ * **A dead end brings the drum down on the ship**, the way the clock running
+ * out does. It used to send the shot back as a rock out of the column it went
+ * up, and the owner, 29 September 2026: *it rains a meteor to damage hull.
+ * this is weird* — the maze is the thing that was got wrong, so the maze is
+ * the thing that breaks and falls.
  *
  * **The wrong colour is thrown back by the heart**, so what breaks the ship is
  * the heart's own blood and it is filed as the living body of that colour: no
@@ -64,8 +68,8 @@ const MAZE_WRECK: CreatureKind = "gyre";
  * colour, so the breach is the one the wrong colour makes and the picture
  * is the same gout (`maze-hand.ts`).
  *
- * **The clock running out is not paid for here at all**: the drum comes down
- * on the ship for that one, and a fall is paid for when it lands rather than
+ * **Neither a dead end nor the clock is paid for here at all**: the drum
+ * comes down on the ship for both, and a fall is paid for when it lands rather than
  * when it lets go (`mazeSettle` below, and *a body is resolved when it is seen
  * to touch*). The column it lands in is the one the drum *stands over* rather
  * than wherever the cannon happened to be parked, because that is where the
@@ -73,20 +77,26 @@ const MAZE_WRECK: CreatureKind = "gyre";
  */
 export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason): void {
   const aimed = m.lockedCol < 0 ? world.cannonCol : m.lockedCol;
-  const col = reason === "silence" ? mazeBottomCol(world.cfg) : aimed;
+  const col = mazeFalls(reason) ? mazeBottomCol(world.cfg) : aimed;
   m.verdict = -1;
   m.verdictCol = col;
   m.lost = reason;
   enterMazePhase(m, "verdict", world.beat);
-  if (reason === "mouth") {
-    breachHull(world, col, "meteorFastest", world.cfg.mazeRow, "heavy");
-  }
   if (reason === "color" || reason === "slip") {
     const blood = mazeHeartColor(m.round);
     const kind = livingKindForColor(blood);
     breachHull(world, col, kind, world.cfg.mazeRow, "heavy", blood);
   }
   world.events.push({ type: "mazeVerdict", right: false, col, reason });
+}
+
+/**
+ * Whether a loss brings the drum down on the ship: a dead end and the clock,
+ * the two the walls are to blame for. What `render/maze-fall.ts` reads to drop
+ * the pieces, so the picture and the breach cannot pick different losses.
+ */
+export function mazeFalls(reason: MazeVerdictReason): boolean {
+  return reason === "mouth" || reason === "silence";
 }
 
 /** The shot reached the middle. It takes its share of the maze's hull — one per
@@ -113,13 +123,13 @@ export function mazeRight(world: World, m: MazeState): void {
  * **The middle moves the fight to the next wheel.** That is the only way
  * forward there is.
  *
- * **A lost stage is the round's verdict and nothing after it.** A dead end
- * and the wrong colour hit the hull the beat they are judged (`mazeWrong`),
+ * **A lost stage is the round's verdict and nothing after it.** The wrong
+ * colour and a slip hit the hull the beat they are judged (`mazeWrong`),
  * and a hit is the wave lost (`wave-fail.ts`): the field holds from that
- * tick, so this is never reached for either of them, and the whole wave is
+ * tick, so this is never reached for it, and the whole wave is
  * played again from the top — which is where the *same stage over again*
- * that a dead end used to build for itself now comes from. The clock running
- * out is paid for here rather than three beats earlier: the drum comes down
+ * that a dead end used to build for itself now comes from. A dead end and the
+ * clock running out are paid for here rather than three beats earlier: the drum comes down
  * on the ship across the verdict (`render/maze-fall.ts`) and the hull is
  * broken on the beat the pieces land, which is the rule every other arrival
  * on this field already follows — and then the drum is gone, because a drum
@@ -130,7 +140,7 @@ export function mazeRight(world: World, m: MazeState): void {
  */
 export function mazeSettle(world: World, m: MazeState): void {
   if (m.verdict !== 1) {
-    if (m.lost === "silence") {
+    if (m.lost !== null && mazeFalls(m.lost)) {
       breachHull(world, m.verdictCol, MAZE_WRECK, world.cfg.mazeRow, "heavy");
     }
     world.boss = null;
@@ -149,11 +159,12 @@ export function mazeSettle(world: World, m: MazeState): void {
  *
  * The one way in to a round of this fight, so the fight's own settle and a
  * caller jumping to a sheet cannot disagree about what a round *is*: the angle
- * comes off the new wheel's `startMilli` and the lock, the way and the step go
+ * is dealt off the rng (`maze-spin.ts`) and the lock, the way and the step go
  * (`enterMazePhase`'s `lead` branch). Writing `round` and leaving the rest is
  * how the drum comes up at the last round's angle with its lock still on.
  */
 export function mazeOpenRound(world: World, m: MazeState, round: number): void {
   m.round = Math.max(0, Math.min(m.rounds.length - 1, round));
   enterMazePhase(m, "lead", world.beat);
+  m.angleMilli = mazeDealAngle(world, mazeCurrent(m));
 }

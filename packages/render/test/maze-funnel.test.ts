@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   DEFAULT_CONFIG as CFG,
+  createRng,
   installMaze,
   MAZE_TURN,
   type MazeWheel,
@@ -99,7 +100,7 @@ describe("THE MAZE's lit way in and the lever's knob", () => {
   it("draws the funnel's lips after the knob's disc", () => {
     const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "p1");
     const w = wheel();
-    const m = installMaze({ beat: 0 } as World, [w]);
+    const m = installMaze({ beat: 0, rng: createRng(1) } as World, [w]);
     let at = 0;
     while (mazeEntranceCol(CFG, w, at, 0) < 0) at += 25;
     m.phase = "read";

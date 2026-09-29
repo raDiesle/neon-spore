@@ -35,8 +35,9 @@ import type { MazeWheel } from "./maze-wheel.js";
  * the gauge here — a lock is discrete, countable and announceable, so the pair
  * goes back to saying *column seven* instead of describing an angle.
  *
- * **Wheels are authored, never generated** (`packages/content/src/maze-rounds.ts`),
- * the layout and the opening angle both. Nothing here draws from the rng.
+ * **Wheels are authored, never generated** (`packages/content/src/maze-rounds.ts`).
+ * Only the angle a drum opens at is dealt, off the seeded rng, so a pair
+ * cannot learn a sheet by heart (`maze-spin.ts`). Nothing here draws from it.
  *
  * **Integers, in thousandths, and rotation is where a float would get in.**
  * The angle is whole thousandths of a degree, the sine is a table of whole

@@ -41,7 +41,9 @@ export const THE_MAZE: GuideScene = {
   bpm: 120,
   seed: 1,
   entries: [],
-  boss: { kind: "maze", rounds: MAZE_ROUNDS },
+  // Upright: the pull below is measured from the authored angle, and a wave
+  // deals its drum a spin of the rng's instead (`sim/maze-spin.ts`).
+  boss: { kind: "maze", rounds: MAZE_ROUNDS, upright: true },
   acts: [
     { tick: 400, drag: "mazeString", toMilli: 15_817, by: 560, until: 900 },
     { tick: 620, control: "cannon", col: 2 },

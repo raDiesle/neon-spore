@@ -1,4 +1,4 @@
-import { MAZE_TURN, MAZE_VERDICT_BEATS, type MazeState } from "@neon-spore/sim";
+import { MAZE_TURN, MAZE_VERDICT_BEATS, type MazeState, mazeFalls } from "@neon-spore/sim";
 
 /**
  * THE MAZE coming apart, which is what a failed attempt looks like — and, when
@@ -64,11 +64,13 @@ export function mazeFall(m: MazeState, beat: number, beatPhase: number): number 
 
 /**
  * How far the wreckage has fallen towards the ship, 0 let go and 1 landed.
- * Only the clock running out sends it down there; a dead end shakes the drum
- * apart where it hangs and the pieces drift off.
+ * A dead end and the clock running out both send it down there — the owner,
+ * 29 September 2026, had a dead end drop a meteor and asked for the wheel to
+ * be destroyed and fall onto the ship instead. Which losses fall is the sim's
+ * rule (`mazeFalls`), because it is also the rule for when the hull breaks.
  */
 export function mazeCrash(m: MazeState, beat: number, beatPhase: number): number {
-  return m.lost === "silence" ? mazeFall(m, beat, beatPhase) : 0;
+  return m.lost !== null && mazeFalls(m.lost) ? mazeFall(m, beat, beatPhase) : 0;
 }
 
 /**
