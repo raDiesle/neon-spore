@@ -759,6 +759,7 @@ sealed white point) are a look task, queued separately once this lane lands.
 ## §32 THE SLING — a revised simulation lane, a cooling tick left alone
 
 - **Found:** 2026-09-26, this session, at the owner's direction: revise the
+- **Taken:** 2026-09-29, claude/queue-31-the-plumb-row-11s-bleed-the-look (claim: claude/queue-32-the-sling-a-revised-simulation-lane-a-cooling)
   bosses added today for a fuller story arc, more distinct visual states and
   more SLOW beats that ask for action
 - **Files:** `docs/spec/bosses-choreographed.md`
