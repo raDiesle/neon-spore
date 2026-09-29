@@ -1490,6 +1490,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## `--auto-miss` never lets THE FILAMENT's line run out
 
 - **Found:** 2026-09-29, claude/queue-tasks-efa837
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-auto-miss-never-lets-the-filaments-line-run-out)
 - **Files:** `apps/game/src/auto-miss.ts`, `apps/game/test/auto-miss.test.ts`, `tools/frames/auto.ts`
 
 `bun run frames . --wave "THE FILAMENT" --auto both --auto-miss --until breach`
