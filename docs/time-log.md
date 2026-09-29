@@ -28907,3 +28907,5 @@ one another, and the one that decides where it leaves had no way to hear the row
 
 Bottleneck: looking — "the same" needed a second sheet to be said, and a
 constant set to zero for one render was the cheapest way to have it.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

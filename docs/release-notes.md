@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 2bca10fab — The solid sheet is seen whole after thin tubes were sliced more coarsely
+
+`bun run solid` was looked at by an eye, all fifteen cells, and its tails and fins magnified beside the same sheet sliced finely everywhere: they read the same. One band across the body at yaw 23° is older than that change and is queued on its own.
+
 ## 2026-09-29 · cb9c66fb0 — THE FILAMENT's timeout hit is its own blow: the vein snaps and whips down
 
 A fault on the line, or a line let stand past its clock, used to break the hull with a rock that came out of the lit ring and fell, and no rock had ever been in the picture. Now the vein snaps at the tile it stood on and whips its torn end down to the column, bursts on the skin and is pulled back (`filament-blow.ts`). The strike carries the line's row through to where the blow leaves, so it starts wherever the pair were looking. A look the owner asked for by name: his rule of 26 September 2026 that a boss's timeout hit is the boss's own blow.
