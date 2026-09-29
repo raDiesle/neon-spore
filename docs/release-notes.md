@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 349b3df72 — Both wave lists open on the wave last played on this device
+
+TESTING → JUMP TO WAVE scrolls to the wave this device last opened, lights it and says LAST PLAYED under its name. The director does the same with its wave list: an address with no ?wave= opens the wave last opened here, and whenever the list comes into view — first load, a phone switching to WAVES — the open row is brought to the middle of the column and pulses once. A ?wave= in the address still wins.
+
 ## 2026-09-29 · 48bf9c96a — SNAKE turns on the tick it is pressed, and the mouth stands open twice as long
 
 The wheel no longer waits for the next step. A turn is taken on the tile the head is nearer to: the one it stands on in the first half of a step, or the one ahead in the second half, where that step is taken at once. The body slides into the tile ahead all through a step, so a queued turn looked like the snake carrying on and then snapping round, up to a whole step late. The mouth now stands open 168 ticks instead of 84 (1.4 s), with the rest after it doubled to match. Both asked for by the owner by name.

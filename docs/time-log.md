@@ -29290,3 +29290,5 @@ which only showed once the slide and the step were read side by side.
 
 Bottleneck: looking — the game's list and the director are two servers, each
 reached through its own menu.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
