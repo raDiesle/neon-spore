@@ -29574,3 +29574,5 @@ counted a round's marks had to learn it is three levels of them.
 
 Bottleneck: landing. Deleting a guide and its film left prose in five docs,
 and only the doc-drift and briefing-count tests found it.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

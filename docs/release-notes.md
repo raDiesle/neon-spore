@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · eb121ee13 — THE STARE: five levels of a beat pattern, taught in blue, one hit each
+
+The eye now opens on the beats of an authored pattern, eight beats a level, five levels in the one boss wave. Each level is played once in blue, where nothing costs, then for real: on an open beat both seats touch nothing, and the laser strikes the column the cannon was sent to; on a shut beat a bolt up the middle hits it, and one hit ends the level. After each pass without a hit the shut eye charges a beam. Either seat pulls the lid in time and it vents to the sides; otherwise the beam comes down the middle onto the hull. Three passes with no hit and the level is taught again. The rocks, the rolled seat, the guide and its film are gone. Each beat is heard, a key per level, and a score of pips under the eye shows the pattern for players with the sound off. Exemption: a look the owner asked for by name (the score, the blue pass, the vent and the beam).
+
 ## 2026-09-29 · 178e5c986 — THE GAUGE: three levels, each quicker and narrower
 
 The round is three levels of three marks, each against a clock of its own. Each level up walks the band faster and cuts it narrower, and between two the rim stands bare for four beats under LEVEL N with the next clock held full. The verdict says how far the pair got. Look exemption: a look the owner asked for by name.
