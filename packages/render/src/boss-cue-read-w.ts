@@ -102,6 +102,7 @@ function markAt(
 /** Every way a call can be refused, asked as `stepGauge` asks it. */
 function callReady(world: World, g: GaugeState): boolean {
   if (world.beat - g.calledBeat < world.cfg.gaugeCallRestBeats) return false;
+  if (g.shotTick !== -1) return false;
   if (g.openThumb || gaugeSettling(world.cfg, g, world.beat)) return false;
   return gaugeSeated(world, g);
 }

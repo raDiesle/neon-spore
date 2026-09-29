@@ -36,6 +36,9 @@ function gauge(over: Partial<GaugeState> = {}): GaugeState {
     marks: 0,
     boundBeat: -1,
     openThumb: false,
+    shotTick: -1,
+    regrowBeat: -1,
+    woundBeat: 0,
     ...over,
   } as unknown as GaugeState;
 }
@@ -61,7 +64,7 @@ function watch(g: GaugeState, showMarks: boolean): { fills: string[]; ends: numb
       return typeof v === "function" ? v.bind(target) : v;
     },
   }) as unknown as CanvasRenderingContext2D;
-  drawGaugeFoe(spy, DIAL, CFG, g, { showMarks, beatPhase: 0.3, tick: 300, time: 1 });
+  drawGaugeFoe(spy, DIAL, CFG, g, { showMarks, beatPhase: 0.3, beat: 4, tick: 300, time: 1 });
   return { fills, ends };
 }
 

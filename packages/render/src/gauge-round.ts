@@ -103,6 +103,7 @@ export function drawGaugeRound(
   const dialView: DialView = {
     showMarks: showsGaugeMarks(view.role),
     beatPhase: view.beatPhase,
+    beat: view.world.beat,
     tick: view.world.tick,
     time: view.time,
   };

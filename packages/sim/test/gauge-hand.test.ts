@@ -20,6 +20,7 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
+import { landNow } from "./gauge-land.js";
 
 /**
  * **THE GAUGE's two states and the two thumbs that answer them**
@@ -56,6 +57,8 @@ function call(world: World): Command {
 
 function heard(world: World, player: 1 | 2, command: Command): void {
   gaugeRoundHeard(world, player, command);
+  const g = gaugeRound(world);
+  if (g !== null) landNow(world, g);
 }
 
 function needle(on: boolean, fromMilli: number): Command {

@@ -1,7 +1,7 @@
 import { NO_BEARING, TURN } from "./bearing.js";
 import type { SimConfig } from "./config.js";
 import { GAUGE_FULL, type GaugeState } from "./gauge.js";
-import { gaugeBound } from "./gauge-band.js";
+import { gaugeBound, gaugeWoundOpen } from "./gauge-band.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -69,7 +69,7 @@ export function gaugeNeedleAsks(gauge: GaugeState): boolean {
 
 /** Whether the band is asked of the navigator's thumb: live, and wound tight. */
 export function gaugeBandAsks(gauge: GaugeState): boolean {
-  return gauge.phase === "play" && gaugeBound(gauge);
+  return gauge.phase === "play" && gaugeBound(gauge) && gaugeWoundOpen(gauge);
 }
 
 /**
@@ -148,7 +148,7 @@ function needle(
 
 /** Her thumb holding the wound band open, and only while it is wound. */
 function band(world: World, gauge: GaugeState, player: 1 | 2, on: boolean): void {
-  if (player !== 2 || !gaugeBound(gauge)) return;
+  if (player !== 2 || !gaugeBound(gauge) || !gaugeWoundOpen(gauge)) return;
   if (on && !gauge.openThumb) world.events.push({ type: "gaugeHold", part: "band" });
   gauge.openThumb = on;
 }

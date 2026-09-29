@@ -19,6 +19,15 @@ import type { World } from "./world.js";
  * state and the number it changes is hers.
  */
 
+/**
+ * Whether a wound is open on the rim at all. After one is shot out the rim is
+ * bare for `gaugeRegrowBeats`, and nothing can be seated in a band that is not
+ * there (`gauge-call.ts`).
+ */
+export function gaugeWoundOpen(gauge: GaugeState): boolean {
+  return gauge.regrowBeat === -1;
+}
+
 /** Whether the band is wound tight — narrow unless her thumb is holding it. */
 export function gaugeBound(gauge: GaugeState): boolean {
   return gauge.boundBeat !== -1;
@@ -43,7 +52,12 @@ export function gaugeSpanNow(cfg: SimConfig, gauge: GaugeState): number {
  * (`render/gauge.ts` lights her aim ring with it). `gaugeSeated` is this.
  */
 export function gaugeSeatedBy(cfg: SimConfig, gauge: GaugeState): boolean {
-  return Math.abs(gauge.needleMilli - gauge.markMilli) <= gaugeSpanNow(cfg, gauge);
+  return gaugeWoundOpen(gauge) && gaugeHits(cfg, gauge, gauge.needleMilli);
+}
+
+/** Whether a shot along `milli` lands in the open wound — the landing's judgement. */
+export function gaugeHits(cfg: SimConfig, gauge: GaugeState, milli: number): boolean {
+  return Math.abs(milli - gauge.markMilli) <= gaugeSpanNow(cfg, gauge);
 }
 
 /**
@@ -86,4 +100,5 @@ export function drawBand(world: World, gauge: GaugeState): void {
   gauge.markMilli = mark;
   gauge.driftDir = nextInt(world.rng, 2) === 0 ? -1 : 1;
   gauge.woundColor = nextInt(world.rng, 2) === 0 ? "red" : "cyan";
+  gauge.woundBeat = world.beat;
 }

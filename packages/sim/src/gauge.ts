@@ -1,5 +1,5 @@
-import { drawBand, driftBand, gaugeSeatedBy } from "./gauge-band.js";
-import { gaugeCalled } from "./gauge-call.js";
+import { drawBand, driftBand, gaugeSeatedBy, gaugeWoundOpen } from "./gauge-band.js";
+import { gaugeCalled, gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
 import { gaugeJammed } from "./gauge-hand.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
@@ -112,6 +112,15 @@ export interface GaugeState {
   boundBeat: number;
   /** Whether the navigator's thumb is holding the wound band open. */
   openThumb: boolean;
+  /**
+   * `world.tick` the shot in the air lands on, or `-1` with none out. A call
+   * is judged there and not when it is made (`gauge-call.ts`).
+   */
+  shotTick: number;
+  /** `world.beat` a shot-out wound's successor opens on, or `-1` while one is open. */
+  regrowBeat: number;
+  /** `world.beat` the wound now on the rim opened on, which the picture grows it from. */
+  woundBeat: number;
 }
 
 /** Far enough before any call was made that the first one is never blocked. */
@@ -141,6 +150,9 @@ export function openGauge(world: World): GaugeState {
     liftBeat: -1,
     boundBeat: -1,
     openThumb: false,
+    shotTick: -1,
+    regrowBeat: -1,
+    woundBeat: world.beat,
   };
   drawBand(world, gauge);
   return gauge;
@@ -171,9 +183,16 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
     const next = gauge.needleMilli + gauge.valve * cfg.gaugeTurnMilli;
     gauge.needleMilli = Math.max(0, Math.min(GAUGE_FULL, next));
   }
+  // The bolt reaches the rim, and only then is the call judged; a wound shot
+  // out leaves the rim bare for `gaugeRegrowBeats` (`gauge-call.ts`).
+  if (gauge.shotTick !== -1 && world.tick >= gauge.shotTick) gaugeShotLands(world, gauge);
+  if (onBeat) gaugeWoundRegrows(world, gauge);
   // Her thumb on the band stops it walking. That is the whole of what the
   // hold buys, and it is bought with the call she cannot make while it is down.
-  if (onBeat && !gauge.openThumb) driftBand(world, gauge);
+  // A band with a shot on its way to it stands still too, so the call is judged
+  // against the wound she saw it made at; and a bare rim has no band to walk.
+  const still = gauge.openThumb || gauge.shotTick !== -1 || !gaugeWoundOpen(gauge);
+  if (onBeat && !still) driftBand(world, gauge);
 
   if (gauge.marks >= cfg.gaugeMarks) return true;
   if (gaugeBeatsLeft(world, gauge) <= 0) return false;

@@ -137,6 +137,9 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.liftBeat = 6;
     boss.boundBeat = 4;
     boss.openThumb = true;
+    boss.shotTick = 230;
+    boss.regrowBeat = 8;
+    boss.woundBeat = 2;
   }
   if (boss.kind === "pinball") {
     boss.phase = "play";

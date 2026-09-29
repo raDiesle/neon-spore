@@ -13,6 +13,7 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
+import { landNow } from "./gauge-land.js";
 
 /**
  * **THE GAUGE's call names a colour** (`src/gauge-call.ts`). The owner, 27
@@ -50,6 +51,7 @@ describe("THE GAUGE's call", () => {
     const { world, g } = playing();
     seat(world, g);
     gaugeRoundHeard(world, 2, { kind: "call", color: g.woundColor });
+    landNow(world, g);
     expect(g.marks).toBe(1);
     expect(g.misses).toBe(0);
   });
@@ -60,6 +62,7 @@ describe("THE GAUGE's call", () => {
     const wrong = other(g);
     world.events.length = 0;
     gaugeRoundHeard(world, 2, { kind: "call", color: wrong });
+    landNow(world, g);
     expect(g.marks).toBe(0);
     expect(g.misses).toBe(1);
     expect(gaugeJammed(g)).toBe(true);
@@ -74,6 +77,7 @@ describe("THE GAUGE's call", () => {
       seat(world, g);
       g.boundBeat = -1;
       gaugeRoundHeard(world, 2, { kind: "call", color: g.woundColor });
+      landNow(world, g);
       seen.add(g.woundColor);
     }
     expect(g.marks).toBe(12);

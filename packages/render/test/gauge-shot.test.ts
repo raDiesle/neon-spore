@@ -2,12 +2,12 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type GaugeState, ticksPerBeat } from "@neon-spore/sim";
 import { type Dial, drawGauge } from "../src/gauge.js";
 import {
-  callAge,
   cannonPose,
   gaugeAimShown,
   gaugeScarLeft,
   gaugeShotOut,
   gaugeWoundGrown,
+  shotClock,
 } from "../src/gauge-shot.js";
 import { PALETTE } from "../src/palette.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
@@ -15,31 +15,44 @@ import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * What a call looks like (`gauge-shot.ts`): the cannon fires, and the shot
- * lands in the wound or on the armour. Held to the claims a pair would notice
- * were wrong — a shot that starts half over, a hit nobody on the pilot's
- * screen can see, a miss that looks like one, and a shot still out when the
- * next call can be made.
+ * What a call looks like (`gauge-shot.ts`): the cannon fires, the bolt flies,
+ * and it lands in the wound or on the armour. Held to the claims a pair would
+ * notice were wrong — a shot that starts half over, an answer shown before the
+ * bolt is there, a hit nobody on the pilot's screen can see, a miss that looks
+ * like one, and a shot still out when the next call can be made.
  */
 
 beforeAll(installCanvasGlobals);
 
 const DIAL: Dial = { cx: 200, cy: 400, r: 160 };
 const BEAT = ticksPerBeat(CFG);
+const FLIGHT = CFG.gaugeShotTicks;
 
-function called(good: boolean, tick = 1000): GaugeState {
+/**
+ * A call made on tick 1000, `after` ticks ago. Before `FLIGHT` the bolt is in
+ * the air and nothing is judged; after it, a hit has shot the wound out and the
+ * rim is bare, and a miss has left the wound standing.
+ */
+function called(good: boolean, after: number): GaugeState {
+  const flying = after < FLIGHT;
   return {
     needleMilli: 400,
-    markMilli: good ? 700 : 900,
+    markMilli: 400,
     calledMilli: 400,
     calledBeat: 13,
-    calledTick: tick,
-    calledGood: good,
-    marks: good ? 1 : 0,
+    calledTick: 1000,
+    calledGood: !flying && good,
+    marks: !flying && good ? 1 : 0,
     boundBeat: -1,
     openThumb: false,
+    shotTick: flying ? 1000 + FLIGHT : -1,
+    regrowBeat: !flying && good ? 16 : -1,
+    woundBeat: 2,
   } as unknown as GaugeState;
 }
+
+const clock = (g: GaugeState, after: number, beat = 14, phase = 0) =>
+  shotClock(CFG, g, 1000 + after, beat, phase);
 
 /** How many times the hit's green ring goes down on the pilot's screen. */
 function ringsOnPilot(g: GaugeState, tick: number): number {
@@ -56,7 +69,7 @@ function ringsOnPilot(g: GaugeState, tick: number): number {
       return typeof v === "function" ? v.bind(target) : v;
     },
   }) as unknown as CanvasRenderingContext2D;
-  drawGauge(spy, DIAL, CFG, g, { showMarks: false, beatPhase: 0.9, tick, time: 1 });
+  drawGauge(spy, DIAL, CFG, g, { showMarks: false, beatPhase: 0.9, beat: 14, tick, time: 1 });
   return rings;
 }
 
@@ -69,40 +82,59 @@ function isGood(rgba: string): boolean {
 
 describe("THE GAUGE's shot", () => {
   it("is timed from its own tick, so a call late in a beat still flies", () => {
-    const g = called(true);
-    expect(callAge(CFG, g, 1000)).toBe(0);
-    expect(callAge(CFG, g, 1000 + BEAT)).toBeCloseTo(1, 9);
-    expect(callAge(CFG, { ...g, calledMilli: -1 }, 1000)).toBe(Number.POSITIVE_INFINITY);
+    const g = called(true, 0);
+    expect(clock(g, 0).age).toBe(0);
+    expect(clock(g, BEAT).age).toBeCloseTo(1, 9);
+    expect(clock({ ...g, calledMilli: -1 }, 0).age).toBe(Number.POSITIVE_INFINITY);
   });
 
   it("kicks the cannon back when it fires, with the aim line faded", () => {
-    const g = called(true);
-    expect(cannonPose(g, 0).recoil).toBe(1);
-    expect(cannonPose(g, 0).aimMilli).toBe(g.needleMilli);
-    expect(gaugeAimShown(0.1)).toBeLessThan(0.5);
+    const g = called(true, 0);
+    expect(cannonPose(g, clock(g, 0)).recoil).toBe(1);
+    expect(cannonPose(g, clock(g, 0)).aimMilli).toBe(g.needleMilli);
+    expect(gaugeAimShown(clock(g, 5))).toBeLessThan(0.5);
+  });
+
+  it("leaves the wound standing until the bolt is there", () => {
+    const g = called(true, FLIGHT - 1);
+    expect(clock(g, FLIGHT - 1).flying).toBe(true);
+    expect(gaugeWoundGrown(g, clock(g, FLIGHT - 1))).toBe(1);
+    expect(gaugeScarLeft(g, clock(g, FLIGHT - 1))).toBe(0);
+    expect(ringsOnPilot(g, 1000 + FLIGHT - 1)).toBe(0);
   });
 
   it("bursts on both screens when it lands, and not when it misses", () => {
-    const at = 1000 + Math.round(BEAT * 0.5);
-    expect(ringsOnPilot(called(true), at)).toBeGreaterThan(0);
-    expect(ringsOnPilot(called(false), at)).toBe(0);
+    const after = FLIGHT + Math.round(BEAT * 0.2);
+    expect(ringsOnPilot(called(true, after), 1000 + after)).toBeGreaterThan(0);
+    expect(ringsOnPilot(called(false, after), 1000 + after)).toBe(0);
+  });
+
+  it("caves the shot-out wound in, and grows the next from the beat it opened", () => {
+    const hit = called(true, FLIGHT);
+    expect(gaugeWoundGrown(hit, clock(hit, FLIGHT))).toBe(1);
+    expect(gaugeWoundGrown(hit, clock(hit, FLIGHT + BEAT))).toBe(0);
+    const fresh = { ...hit, regrowBeat: -1, woundBeat: 16 };
+    expect(gaugeWoundGrown(fresh, clock(fresh, FLIGHT, 16, 0))).toBe(0);
+    expect(gaugeWoundGrown(fresh, clock(fresh, FLIGHT, 17, 0))).toBe(1);
   });
 
   it("rattles the cannon on a miss and holds it still on a hit", () => {
-    const at = 0.6;
-    expect(cannonPose(called(false), at).aimMilli).not.toBe(400);
-    expect(cannonPose(called(true), at).aimMilli).toBe(400);
+    const after = FLIGHT + Math.round(BEAT * 0.3);
+    expect(cannonPose(called(false, after), clock(called(false, after), after)).aimMilli).not.toBe(
+      400,
+    );
+    expect(cannonPose(called(true, after), clock(called(true, after), after)).aimMilli).toBe(400);
   });
 
-  it("is over, and a fresh wound open, before the next call can be made", () => {
+  it("is over before the next call can be made", () => {
     for (const good of [true, false]) {
-      const g = { ...called(good), needleMilli: 520 };
-      const rest = CFG.gaugeCallRestBeats;
-      expect(cannonPose(g, rest)).toEqual({ aimMilli: 520, recoil: 0 });
-      expect(gaugeAimShown(rest)).toBe(1);
-      expect(gaugeWoundGrown(g, rest)).toBe(1);
-      expect(gaugeScarLeft(g, rest)).toBe(0);
-      expect(gaugeShotOut(CFG, g, 1000 + rest * BEAT)).toBe(false);
+      const after = CFG.gaugeCallRestBeats * BEAT;
+      const g = { ...called(good, after), needleMilli: 520 };
+      const c = clock(g, after);
+      expect(cannonPose(g, c)).toEqual({ aimMilli: 520, recoil: 0 });
+      expect(gaugeAimShown(c)).toBe(1);
+      expect(gaugeScarLeft(g, c)).toBe(0);
+      expect(gaugeShotOut(c)).toBe(false);
     }
   });
 });

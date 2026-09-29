@@ -3,13 +3,13 @@ import { drawGaugeAlien, rimPoint } from "./gauge-alien.js";
 import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
 import { gaugeShotLoad, gaugeWoundColor } from "./gauge-load.js";
 import {
-  callAge,
   cannonPose,
   drawGaugeShot,
   gaugeAimShown,
   gaugeFlinch,
   gaugeScarLeft,
   gaugeWoundGrown,
+  shotClock,
 } from "./gauge-shot.js";
 import { drawGaugeScar, drawGaugeWound } from "./gauge-wound.js";
 import type { ViewRole } from "./layout.js";
@@ -31,7 +31,7 @@ import type { ViewRole } from "./layout.js";
  * it: `drawGaugeFoe` before `drawHull`, `drawGauge` after (`gauge-round.ts`).
  *
  * Stateless, like every other draw in this package: everything it shows is on
- * the world — the call's answer too, read off `calledTick` and the tick — so
+ * the world — the call's answer too, read off `calledTick`, `shotTick` and the tick — so
  * nothing here outlives a frame and `Effects.reset` has nothing of it to clear.
  */
 
@@ -61,6 +61,8 @@ export interface DialView {
   /** Whether this screen is the one that can see the wound. */
   showMarks: boolean;
   beatPhase: number;
+  /** `world.beat`, which a fresh wound is grown from (`gauge-shot.ts`). */
+  beat: number;
   /** `world.tick`, which a call's flight is timed from (`gauge-shot.ts`). */
   tick: number;
   /** The renderer's clock, which the alien breathes on. */
@@ -75,10 +77,10 @@ export function drawGaugeFoe(
   gauge: GaugeState,
   view: DialView,
 ): void {
-  const age = callAge(cfg, gauge, view.tick);
-  drawGaugeAlien(ctx, dial, view.time, gaugeFlinch(gauge, age));
+  const c = shotClock(cfg, gauge, view.tick, view.beat, view.beatPhase);
+  drawGaugeAlien(ctx, dial, view.time, gaugeFlinch(gauge, c));
   // The scar of a hit is on both screens: it is where *he* stopped.
-  drawGaugeScar(ctx, dial, gauge.calledMilli, gaugeShotLoad(gauge), gaugeScarLeft(gauge, age));
+  drawGaugeScar(ctx, dial, gauge.calledMilli, gaugeShotLoad(gauge), gaugeScarLeft(gauge, c));
   if (!view.showMarks) return;
   // The width **now**, not the one in the config: the band winds tight every
   // few marks and her thumb gives it back, and a wound that stood at the full
@@ -93,7 +95,7 @@ export function drawGaugeFoe(
     cfg.gaugeSpanMilli,
     gaugeWoundColor(gauge),
     glow,
-    gaugeWoundGrown(gauge, age),
+    gaugeWoundGrown(gauge, c),
   );
 }
 
@@ -105,14 +107,16 @@ export function drawGauge(
   gauge: GaugeState,
   view: DialView,
 ): void {
-  const age = callAge(cfg, gauge, view.tick);
+  const c = shotClock(cfg, gauge, view.tick, view.beat, view.beatPhase);
   const load = gaugeShotLoad(gauge);
   // Only her screen lights the ring for a shot that would land: his own screen
-  // telling him he had arrived would be the band, drawn a second way.
-  const hot = view.showMarks && gaugeSeatedBy(cfg, gauge) && gaugeWoundGrown(gauge, age) >= 1;
-  drawGaugeAim(ctx, dial, gauge.needleMilli, load, gaugeAimShown(age), hot);
-  drawGaugeShot(ctx, dial, gauge, age);
-  drawGaugeCannon(ctx, dial, cannonPose(gauge, age), load);
+  // telling him he had arrived would be the band, drawn a second way. Not with
+  // a bolt already on its way, which is a call she cannot make again.
+  const hot =
+    view.showMarks && !c.flying && gaugeSeatedBy(cfg, gauge) && gaugeWoundGrown(gauge, c) >= 1;
+  drawGaugeAim(ctx, dial, gauge.needleMilli, load, gaugeAimShown(c), hot);
+  drawGaugeShot(ctx, dial, gauge, c);
+  drawGaugeCannon(ctx, dial, cannonPose(gauge, c), load);
 }
 
 /**

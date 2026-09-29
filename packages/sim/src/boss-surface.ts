@@ -73,6 +73,7 @@ export {
   gaugeSeatedBy,
   gaugeSettling,
   gaugeSpanNow,
+  gaugeWoundOpen,
   MIRROR_GESTURES,
   MIRROR_LEAD_BEATS,
   MIRROR_STEPS,

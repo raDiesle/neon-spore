@@ -174,6 +174,14 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
+A call is judged **where the bolt lands**, not where it left (the owner, 29
+September 2026: *first shot must reach the coloured area, and then destroyed if
+correct colour*). `gaugeShotTicks` is the bolt's flight, and the band stands
+still while it is in the air, so the shot is judged against the wound it was
+fired at. A hit shoots the wound out, and the rim stands bare for
+`gaugeRegrowBeats` before the next one opens, somewhere else. A call made
+while a bolt is out or the rim is bare is refused, never counted as a miss.
+
 ### The two states it changes into, and the two thumbs that answer them
 
 *18 September 2026, `.claude/skills/new-boss` §6.2. The simulation is

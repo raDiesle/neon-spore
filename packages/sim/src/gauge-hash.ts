@@ -38,5 +38,10 @@ export function gaugeHashParts(g: GaugeState): number[] {
   push(g.liftBeat);
   push(g.boundBeat);
   push(g.openThumb ? 1 : 0);
+  // The shot in the air and the bare rim after a hit: a device that thinks
+  // the bolt has landed hears a mark the other has not yet made.
+  push(g.shotTick);
+  push(g.regrowBeat);
+  push(g.woundBeat);
   return out;
 }

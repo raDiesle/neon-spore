@@ -47,6 +47,13 @@ export interface GaugeConfig {
    * enough that the pair would rather spend the thumb than talk into it.
    */
   gaugeBoundSpanMilli: number;
+  /**
+   * Ticks a shot is in the air, from the cannon to the rim. A call is judged
+   * where the bolt lands, so this is how long the pair watches it go.
+   */
+  gaugeShotTicks: number;
+  /** Beats the rim stands bare after a wound is shot out, before the next opens. */
+  gaugeRegrowBeats: number;
 }
 
 /**
@@ -68,6 +75,14 @@ export interface GaugeConfig {
  * 18 is under a third of `gaugeSpanMilli`: a band 36 wide against a needle
  * that crosses 3 a tick is about twelve ticks of window, which is a thing a
  * pair can hit and not a thing they can talk into.
+ *
+ * **The shot is judged where it lands** (the owner, 29 September 2026: *first
+ * shot must reach the coloured area, and then destroyed if correct colour, and
+ * then with at least 1 … break the new area to aim for appears*).
+ * `gaugeShotTicks` at 45 is six tenths of a beat — long enough to watch the
+ * bolt cross the mouth, short enough that it is still the call's answer and
+ * not a second event. `gaugeRegrowBeats` at 2 is the bare rim after a wound is
+ * shot out: the break he asked for, and a beat more so the burst is seen.
  */
 export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeTurnMilli: 3,
@@ -79,4 +94,6 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeSettleBeats: 2,
   gaugeBindMarks: 2,
   gaugeBoundSpanMilli: 18,
+  gaugeShotTicks: 45,
+  gaugeRegrowBeats: 2,
 };

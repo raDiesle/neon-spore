@@ -29445,3 +29445,18 @@ Bottleneck: writing — cutting by line ranges, then reading the imports each
 half still needed.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GAUGE: the shot lands before it is judged
+
+- reading: 5 min. The call, the band, the shot's picture, the cue, and the
+  twelve tests that took the answer at the moment of the call.
+- writing: 10 min. The flight and the bare rim in the simulation and its
+  hash, `landNow` for the tests about what a call means, the flight's own
+  tests, the shot's clock in the picture.
+- looking: 5 min. One frame of the bolt in the air with the wound still up.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, which asked for the two new fields in the
+  spec, the commit, `land`.
+
+Bottleneck: writing — every existing test assumed the call was its own
+answer, and each needed the flight waited out.

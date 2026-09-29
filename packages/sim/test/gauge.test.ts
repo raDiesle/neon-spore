@@ -198,8 +198,11 @@ describe("the two halves", () => {
       cmd(world, 2, { kind: "call", color: gauge.woundColor }),
       cmd(world, 2, { kind: "call", color: gauge.woundColor }),
     ]);
+    // Judged where the bolt lands, so the miss is counted a flight later.
+    run(world, CFG.gaugeShotTicks);
     expect(gauge.misses).toBe(1);
     step(world, [cmd(world, 2, { kind: "call", color: gauge.woundColor })]);
+    run(world, CFG.gaugeShotTicks);
     expect(gauge.misses).toBe(1);
   });
 });
