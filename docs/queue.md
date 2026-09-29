@@ -1674,7 +1674,6 @@ with a frame test that counts the ring on p2's full frame with a lobe standing.
 ## `land` runs the full suite again on a tree `check:fast` already ran it on
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
-- **Taken:** 2026-09-29, claude/lane-speed-fixes (claim: claude/queue-land-runs-the-full-suite-again-on-a-tree-check-f)
 - **Files:** `tools/check/fast.ts`, `tools/land/run.ts`
 
 A `check:fast` whose scope reached most of the tree has been logged at 140–160
