@@ -29173,3 +29173,5 @@ minute a picture, and a turn needs four of them to be seen.
 Bottleneck: landing — `mark-feedback-roll-out.test.ts` holds a new boss's
 marks to the touch convention before its touch exists, which pulled the
 verdicts and a roster cut into the body's half.
+
+*Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · bb0c78c65 — THE GOVERNOR is drawn: a flywheel's needle under a flyball governor
+
+THE VANE and INTERFERENCE combined: the needle sweeps a graduated brass flywheel over the middle column, and the hub it turns on is the only part that can be shot. Behind the far rim stands a Watt governor. Its two flyweights swing out, and its collar climbs, with the needle's speed. They turn with the needle, so they stall when it stalls. The brake yoke's two jaws are the braking seat's chord, and they shut on the drum pad by pad. The lit mark is a piece of the track, full on the tapper's screen and faint on the other. Six studs are the two runs. The hub stays dull until both runs are spent; while a shot is owed it lights in the step's colour and the dial tips up to it. The three marks (the lit mark, the yoke and the hub) answer a touch with the halo, the partner's clock and a verdict.
+
 ## 2026-09-29 · 08e2091a9 — THE STARE's eye as a turning globe, offered in VERSUS
 
 THE STARE's eye as a lit ball in the cowl, its opening, iris and lashes placed on the surface and carried round by the turn, is offered as stare:eye globe against the flat eye squashed to a sliver and sheared, judged on THE STARE · TURNING. The shipped eye is lifted into render/stare-eye-look.ts STARE_EYE so the pair can patch it; the game draws exactly what it did.

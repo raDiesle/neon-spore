@@ -1283,3 +1283,17 @@ THE GOVERNOR sets its fade again after each part that glows. Make
 `strokeGlow` multiply by the alpha it found and restore it, drop the
 re-settings in `governor-draw.ts`, and add a render test that a glow inside
 a `globalAlpha = 0.5` leaves 0.5 behind. Check the glow budget tests still hold.
+
+## Unverified at bb0c78c65: THE GOVERNOR's body watched at tempo: the flyweights r…
+
+- **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
+- **Files:** `docs/INDEX.md`, `docs/asset-catalogue.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-d.ts`
+
+*THE GOVERNOR is drawn: a flywheel's needle under a flyball governor* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
+
+- THE GOVERNOR's body watched at tempo: the flyweights rising as a pad lifts, and the dial tipping to the hub
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
