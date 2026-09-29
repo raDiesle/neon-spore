@@ -29076,3 +29076,5 @@ simulation, found only by letting the typecheck name them.
 
 Bottleneck: friction — two pages at their 250-line limit, found only when the
 limits test ran after the edit.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

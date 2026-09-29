@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 531de7c74 — THE SEAM asks the pair to hold fire twice
+
+A false point now flickers on the crack between the second grit and the rock, and a bolt at it is a hull hit. After the last step, the crack lies dark for two beats before it splits, and a bolt fired into it holds the ridge shut one beat longer. Each step passes when its beats run out untouched. The script is now thirteen steps. THE SLOW opens on the false point but not on the dark, which is the ridge's one quiet beat.
+
 ## 2026-09-29 · 627836198 — THE KEEL holds its breath before the tempo run, hands off
 
 Between the marrow and the fast run, the whole spine now holds its breath for three beats under THE SLOW, and both seats must send nothing: after eight beats of reaching for whatever lit, reaching is the one mistake left. A press on the spine stirs it once, and one locked segment the wave's own order does not re-light works loose, which costs one extra tap at the end of the run and never the fight. Held untouched, every seam flares once. This is §24 row 11, simulation only; the spine stands through the breath as in a rest until its queued look lands.
