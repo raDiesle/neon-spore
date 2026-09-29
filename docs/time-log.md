@@ -28652,3 +28652,13 @@ The bottleneck: which beat is "half height" turned on how a fault's beat and an 
 The bottleneck: the regex passes could not be fixed one at a time, because each read what the last left behind, so the fix was a rewrite rather than one character class.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — five bosses' sounds routed by prefix
+
+- reading: 10 min. The three choreographed pages, the five cues' signatures, where `gaugeHold` was bound.
+- writing: 10 min. `bind-prefixed.ts`, the cues widened to their prefixes, the names cut from two pages, the skill's row.
+- looking: 0 min. Nothing drawn; the ear's cues are unchanged.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+The bottleneck: finding a seam that kept the typecheck's guard, which turned on each cue's own switch being exhaustive over its prefix.

@@ -5,11 +5,9 @@ import { lateCue } from "./bind-choreographed-c.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
-import { leadCue } from "./bind-lead.js";
-import { ledgerCue } from "./bind-ledger.js";
+import { isPrefixed, type PrefixedEvent, prefixedCue } from "./bind-prefixed.js";
 import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
-import { tasterCue } from "./bind-taster.js";
 
 /**
  * The choreographed bosses' events (`docs/spec/bosses-choreographed.md`),
@@ -38,11 +36,8 @@ type ChoreographedEvent =
           | `undertow${string}`
           | `gorge${string}`
           | `curtain${string}`
-          | `taster${string}`
-          | `ledger${string}`
           | `sinew${string}`
           | `surge${string}`
-          | `lead${string}`
           | `scuttle${string}`
           | `antiphon${string}`
           | `hive${string}`
@@ -75,13 +70,18 @@ type ChoreographedEvent =
     >
   // And the events added to bosses that had already shipped, which have to be
   // named one by one over there (`bind-choreographed-b.ts`).
-  | AddedEvent;
+  | AddedEvent
+  // And the bosses whose every event one cue takes, routed by prefix
+  // (`bind-prefixed.ts`).
+  | PrefixedEvent;
 
-export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
+export function choreographedCue(e: ChoreographedEvent, cols: number): Cue | null {
   // The events added to bosses that had already shipped, asked as one question
-  // rather than as a `case` each: this file is at its limit and that list
-  // grows by a handful of names per boss (`bind-choreographed-b.ts`).
+  // rather than as a `case` each: that list grows by a handful of names per
+  // boss (`bind-choreographed-b.ts`). Then the bosses one cue takes whole,
+  // whose cases are on their own pages (`bind-prefixed.ts`).
   if (isAddedEvent(e)) return addedCue(e, cols);
+  if (isPrefixed(e)) return prefixedCue(e, cols);
   switch (e.type) {
     case "batonLaunch":
     case "batonStruck":
@@ -130,32 +130,6 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "curtainTear":
     case "curtainOut":
       return curtainCue(e, cols);
-    case "tasterRise":
-    case "tasterGrow":
-    case "tasterSet":
-    case "tasterThick":
-    case "tasterPare":
-    case "tasterShear":
-    case "tasterCrest":
-    case "tasterLift":
-    case "tasterTaste":
-    case "tasterClose":
-    case "tasterRefused":
-    case "tasterPryFill":
-    case "tasterOut":
-      return tasterCue(e, cols);
-    case "ledgerRoot":
-    case "ledgerSeam":
-    case "ledgerRefused":
-    case "ledgerBead":
-    case "ledgerWard":
-    case "ledgerWhip":
-    case "ledgerBill":
-    case "ledgerSocket":
-    case "ledgerLast":
-    case "ledgerHeld":
-    case "ledgerTear":
-      return ledgerCue(e, cols);
     case "sinewSettle":
     case "sinewGrip":
     case "sinewRefuse":
@@ -186,21 +160,6 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "surgeEvert":
     case "surgeOut":
       return surgeCue(e, cols);
-    case "leadEnter":
-    case "leadPace":
-    case "leadTurn":
-    case "leadFlight":
-    case "leadHit":
-    case "leadMiss":
-    case "leadReverse":
-    case "leadTorch":
-    case "leadRock":
-    case "leadStill":
-    case "leadPass":
-    case "leadWall":
-    case "leadDown":
-    case "leadOut":
-      return leadCue(e, cols);
     // THE INSTAR, THE FILAMENT, THE GIMBAL and the
     // undertow's own default, which is what a page at its limit gives back
     // (`bind-choreographed-c.ts`) — and since 22 September 2026 THE SCUTTLE,

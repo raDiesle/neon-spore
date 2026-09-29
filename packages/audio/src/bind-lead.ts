@@ -11,32 +11,7 @@ import { type Cue, panForCol } from "./bind.js";
  * from its column, and the hit or the miss a beat later comes from the
  * column the body is in *then*, which is the pan the pair was betting on.
  */
-export function leadCue(
-  e: Extract<
-    SimEvent,
-    {
-      type:
-        | "leadEnter"
-        | "leadPace"
-        | "leadTurn"
-        | "leadFlight"
-        | "leadHit"
-        | "leadMiss"
-        | "leadReverse"
-        | "leadTorch"
-        | "leadRock"
-        | "leadStill"
-        | "leadGrip"
-        | "leadRelease"
-        | "leadTear"
-        | "leadPass"
-        | "leadWall"
-        | "leadDown"
-        | "leadOut";
-    }
-  >,
-  cols: number,
-): Cue {
+export function leadCue(e: Extract<SimEvent, { type: `lead${string}` }>, cols: number): Cue {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "leadEnter":

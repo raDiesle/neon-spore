@@ -25,32 +25,7 @@ import { type Cue, panForCol } from "./bind.js";
  * where its event is raised, so a pan read off the column is the same answer
  * `tasterRise` gives and one fewer special case (`sim/taster-hand.ts`).
  */
-export function tasterCue(
-  e: Extract<
-    SimEvent,
-    {
-      type:
-        | "tasterRise"
-        | "tasterGrow"
-        | "tasterSet"
-        | "tasterThick"
-        | "tasterPare"
-        | "tasterShear"
-        | "tasterCrest"
-        | "tasterLift"
-        | "tasterTaste"
-        | "tasterClose"
-        | "tasterRefused"
-        | "tasterPin"
-        | "tasterWipe"
-        | "tasterPry"
-        | "tasterHandRefuse"
-        | "tasterPryFill"
-        | "tasterOut";
-    }
-  >,
-  cols: number,
-): Cue {
+export function tasterCue(e: Extract<SimEvent, { type: `taster${string}` }>, cols: number): Cue {
   switch (e.type) {
     case "tasterRise":
       // The crest is a fan wide: panned to its middle, not its left edge.

@@ -1,14 +1,9 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
-import { gaugeCue } from "./bind-gauge.js";
-import { leadCue } from "./bind-lead.js";
-import { ledgerCue } from "./bind-ledger.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
 import { snakeBodyCue } from "./bind-snake-body.js";
-import { tasterCue } from "./bind-taster.js";
-import { throatCue } from "./bind-throat.js";
 import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
 import { wellCue } from "./bind-well.js";
@@ -25,9 +20,12 @@ import { wellCue } from "./bind-well.js";
  * bound in `bind.ts` years of commits earlier. One page per kind of arrival,
  * and this one grows by a handful of names per boss the briefs reach.
  *
- * Mostly those are the §6.2 hands (`.claude/skills/new-boss` §6.2), and this
- * page was called the hands until THE THROAT's four silent clock moments
- * arrived here too, on exactly the same terms.
+ * Mostly those are the §6.2 hands (`.claude/skills/new-boss` §6.2). A boss
+ * whose every event one cue already takes is not named here at all: THE
+ * TASTER, THE LEDGER, THE LEAD, THE GAUGE and THE THROAT went to
+ * `bind-prefixed.ts` on 29 September 2026, when this page stood a line under
+ * its limit, and a boss that gains an event there adds one `case` to its own
+ * page and nothing to this one.
  */
 export type AddedEvent = Extract<
   SimEvent,
@@ -61,39 +59,6 @@ export type AddedEvent = Extract<
       | "pulseBrace"
       | "pulseSlip"
       | "pulseArrest"
-      // And THE THROAT's two, the gullet handing out a control as it loses one,
-      // with the four of its own clock that shipped silent beside them.
-      | `throat${string}`
-      // And THE TASTER's three, one per movement of its fight, and the refusal
-      // of a thumb on the other seat's ring (`sim/taster-hand.ts`).
-      | "tasterPin"
-      | "tasterWipe"
-      | "tasterPry"
-      | "tasterHandRefuse"
-      // And THE LEDGER's five, which are four hands: the foot, the plug, the
-      // bill the plug rolls over, the return hauled down and the cord hauled
-      // out (`sim/ledger-hand.ts`). The first boss to arrive here with a
-      // gesture in every movement of its fight.
-      | "ledgerFoot"
-      | "ledgerPlug"
-      | "ledgerRoll"
-      | "ledgerPull"
-      | "ledgerHaul"
-      // And THE LEAD's three, which are one hand held down: taken, let go of,
-      // and torn out of the thumb that was holding it (`sim/lead-hand.ts`).
-      // The first boss to arrive here with a gesture that is a *length of
-      // time* rather than a moment, which is why all three are needed to say
-      // what one thumb did.
-      | "leadGrip"
-      | "leadRelease"
-      | "leadTear"
-      // And THE GAUGE's four, the first sounds this round has had at all: a
-      // call's two answers, and what each can cost the seat not making it
-      // (`sim/events-gauge.ts`).
-      | "gaugeMark"
-      | "gaugeMiss"
-      | "gaugeJam"
-      | "gaugeBind"
       // And THE WELL's four, the first sounds that boss has had at all — it
       // arrived as a projection with no state and nothing to report. None of
       // them names a column, and that is the point rather than an omission:
@@ -113,12 +78,8 @@ export type AddedEvent = Extract<
  * Every name above as a set, so the page next door asks one question instead
  * of carrying a `case` per event. Three names a boss is three lines there and
  * that file is at its limit; here they are three lines it was going to have
- * anyway. THE THROAT is a prefix rather than a list because it is the one boss
- * on this page whose events *all* arrive here, so there is nothing next door
- * for the prefix to collide with.
+ * anyway.
  */
-const THROAT = "throat";
-
 const ADDED_EVENTS = new Set<string>([
   "wardenHold",
   "wardenThrow",
@@ -141,22 +102,6 @@ const ADDED_EVENTS = new Set<string>([
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",
-  "tasterPin",
-  "tasterWipe",
-  "tasterPry",
-  "tasterHandRefuse",
-  "ledgerFoot",
-  "ledgerPlug",
-  "ledgerRoll",
-  "ledgerPull",
-  "ledgerHaul",
-  "leadGrip",
-  "leadRelease",
-  "leadTear",
-  "gaugeMark",
-  "gaugeMiss",
-  "gaugeJam",
-  "gaugeBind",
   "wellRoll",
   "wellHeld",
   "wellWound",
@@ -165,41 +110,11 @@ const ADDED_EVENTS = new Set<string>([
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
 export function isAddedEvent(e: { type: string }): e is AddedEvent {
-  return ADDED_EVENTS.has(e.type) || e.type.startsWith(THROAT);
+  return ADDED_EVENTS.has(e.type);
 }
 
 export function addedCue(e: AddedEvent, cols: number): Cue {
   switch (e.type) {
-    // THE TASTER's go back to its own page: a second file panning this boss
-    // would be two answers to which column a blade stands over (`bind-taster.ts`).
-    case "tasterPin":
-    case "tasterWipe":
-    case "tasterPry":
-    case "tasterHandRefuse":
-      return tasterCue(e, cols);
-    // And THE LEDGER's five, for that reason said about a socket: the eleven
-    // next door are all panned to the column they happened in, and a second
-    // file answering *where* for this boss would be the one fight in the game
-    // whose ear could disagree with itself (`bind-ledger.ts`).
-    case "ledgerFoot":
-    case "ledgerPlug":
-    case "ledgerRoll":
-    case "ledgerPull":
-    case "ledgerHaul":
-      return ledgerCue(e, cols);
-    // And THE LEAD's three, for the reason said twice above: the fourteen next
-    // door are panned to the column the body was in when it happened, and this
-    // is the one fight where a second file answering *where* would be an ear
-    // disagreeing with the bet the pair just made (`bind-lead.ts`).
-    case "leadGrip":
-    case "leadRelease":
-    case "leadTear":
-      return leadCue(e, cols);
-    case "gaugeMark":
-    case "gaugeMiss":
-    case "gaugeJam":
-    case "gaugeBind":
-      return gaugeCue(e);
     // THE WELL's four take no `cols`: nothing this boss reports happened in a
     // column, so there is nothing for a pan to be read off (`bind-well.ts`).
     case "wellRoll":
@@ -230,19 +145,6 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "scoutSlip":
     case "scoutPrime":
       return scoutHandCue(e);
-    // Named one by one although the union above is a prefix, because the
-    // narrowing is what makes a throat event added tomorrow a type error here
-    // rather than a silence: `throatCue` takes the prefix, so a `default` arm
-    // would swallow it and the set below would still have let it through.
-    case "throatCinch":
-    case "throatSlip":
-    case "throatHaul":
-    case "throatInhale":
-    case "throatChoke":
-    case "throatSwallow":
-    case "throatEvert":
-    case "throatRefuse":
-      return throatCue(e, cols);
     default:
       return pulseHandCue(e);
   }

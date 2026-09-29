@@ -1670,21 +1670,6 @@ Find out whether the ring is drawn under the lobe's body (the pin sits
 reach, or missing from the page `frames` loads; fix whichever it is, and pin it
 with a frame test that counts the ring on p2's full frame with a lobe standing.
 
-## `bind-choreographed-b.ts` stands at 249 of its 250 lines
-
-- **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-bind-choreographed-b-ts-stands-at-249-of-its-250)
-- **Files:** `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-choreographed.ts`
-
-THE TASTER's `tasterHandRefuse` took the page of events added to shipped bosses
-to 253 lines; its comments were cut to 249 to land. The mark-feedback roll-out
-still has THE LEDGER, THE LEAD and THE GAUGE on this page to come, and each new
-refusal adds three lines (union member, set entry, case). Split it along a seam
-of its own — the §6.2 hands of the bosses already bound in their own
-`bind-<boss>.ts` (`tasterCue`, `ledgerCue`, `leadCue`, `gaugeCue`) routed by
-prefix as `throat${string}` already is — so each of those bosses brings its
-names with its page, and prove it with `packages/audio/test/bind.test.ts`.
-
 ## `surgeWord`'s `HOLD` re-derives `surgeAsks`
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the

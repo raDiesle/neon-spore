@@ -25,31 +25,7 @@ import { type Cue, panForCol } from "./bind.js";
  * cadence tightening is audible without counting: four beats is the pitch the
  * pair learned in the first movement, two is a step and a half above it.
  */
-export function ledgerCue(
-  e: Extract<
-    SimEvent,
-    {
-      type:
-        | "ledgerRoot"
-        | "ledgerSeam"
-        | "ledgerRefused"
-        | "ledgerBead"
-        | "ledgerWard"
-        | "ledgerWhip"
-        | "ledgerBill"
-        | "ledgerSocket"
-        | "ledgerLast"
-        | "ledgerHeld"
-        | "ledgerTear"
-        | "ledgerFoot"
-        | "ledgerPlug"
-        | "ledgerRoll"
-        | "ledgerPull"
-        | "ledgerHaul";
-    }
-  >,
-  cols: number,
-): Cue {
+export function ledgerCue(e: Extract<SimEvent, { type: `ledger${string}` }>, cols: number): Cue {
   switch (e.type) {
     case "ledgerRoot":
       return { id: "boss.ledgerRoot", pan: panForCol(e.col, cols) };
