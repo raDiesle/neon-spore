@@ -1710,6 +1710,7 @@ with a frame test that counts the ring on p2's full frame with a lobe standing.
 ## `bind-choreographed-b.ts` stands at 249 of its 250 lines
 
 - **Found:** 2026-09-28, claude/queue-every-other-boss-with-a-mark-answers-a-touch-the
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-bind-choreographed-b-ts-stands-at-249-of-its-250)
 - **Files:** `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-choreographed.ts`
 
 THE TASTER's `tasterHandRefuse` took the page of events added to shipped bosses
