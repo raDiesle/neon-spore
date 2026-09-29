@@ -69,11 +69,11 @@ describe("after-compact", () => {
     const compact = (settings.hooks?.SessionStart ?? []).filter((e) => e.matcher === "compact");
     expect(compact.length).toBe(1);
     expect(compact[0]?.hooks?.[0]?.command).toBe("bun tools/hooks/after-compact.ts");
-    // The window is what makes the hook matter: compaction at 200k, not at the
+    // The window is what makes the hook matter: compaction at 120k, not at the
     // model's own ~967k. `docs/token-budget.md` says why. A plain integer
     // count, never "200k": the setting is validated as an integer and a value
     // that fails validation is dropped without a word, so the string form the
     // `/autocompact` command accepts leaves every session at the model default.
-    expect(settings.autoCompactWindow).toBe(200000);
+    expect(settings.autoCompactWindow).toBe(120000);
   });
 });

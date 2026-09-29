@@ -29606,3 +29606,15 @@ Bottleneck: landing — a trunk moving faster than a full check, and one
 of its moves rewriting a file this lane had edited.
 
 *Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — The automatic compaction window goes from 200k to 120k
+
+- reading: 5 min. Every place that named 200k.
+- writing: 10 min. Two transcript parsers (context at each landing, growth
+  per item) and a rough simulation of five windows; settings, test, docs.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the simulation, whose latency slope comes from
+item-level figures that bigger items confound.

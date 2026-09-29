@@ -8,7 +8,8 @@ to change the wrong thing.
 ## How the work is actually done
 
 One session at a time, on Opus 5.5 at high effort, tasks one after another in it, with the
-conversation compacted automatically at about 200k tokens. There is no model
+conversation compacted automatically at about 120k tokens between items, and
+held back to 320k inside one. There is no model
 choice to make and no parallel lane to schedule. So the bill has two parts
 and only two levers:
 
@@ -19,9 +20,9 @@ and only two levers:
 - **At a compaction, the conversation is replaced by a summary.** The next
   turn is cheap again — and everything that lived only in the chat is gone or
   blurred. The lever is what has been written into the repository by then.
-  The threshold is `autoCompactWindow` in `.claude/settings.json`, 200k rather
+  The threshold is `autoCompactWindow` in `.claude/settings.json`, 120k rather
   than the model's own ~967k, because every turn re-reads everything below it.
-  **It is written as the integer `200000`.** The setting is validated as a
+  **It is written as the integer `120000`.** The setting is validated as a
   whole number between 100000 and 1000000 and a value that fails is discarded
   without a word, so the `"200k"` string — the form `/autocompact` accepts on
   the command line, and what this file said until 18 September 2026 — pinned
@@ -31,7 +32,7 @@ and only two levers:
   count and no suffix; a cloud session that does not read this checkout is
   pinned there instead. What is actually in force is not a guess:
   `claude -p "/autocompact"` prints the window and where it came from, and
-  `200k tokens (from settings)` is the answer this repository should give —
+  `120k tokens (from settings)` is the answer this repository should give —
   `tokens (default for this model)` means the value was thrown away again.
   A machine-wide default for every *other* checkout is a separate thing, in the
   user settings file under the home directory; `/autocompact 200k` writes it
@@ -40,9 +41,17 @@ and only two levers:
   It was 300k until 11 September 2026; the owner drains the queue in long
   sittings of independent items, and an item hardly ever needs more than
   ~100k of its own context, so the long tail past 200k was being re-read on
-  every turn for nothing. Lower than that and a feature-sized task — a new
-  creature with its six tables, its wave, its tests and its look — compacts
-  twice before it lands, which costs more than it saves;
+  every turn for nothing. It was 200k until 29 September 2026, when
+  `tools/hooks/defer-compact.ts` began holding an automatic compaction back
+  until the item lands (up to 320k). From then on the window no longer decides
+  where a feature-sized task is cut — the ceiling does — only how much of the
+  items already landed is carried into the next one, and that is dead weight
+  every turn re-reads. Measured over 338 landings that day: an item lands at a
+  median 133k and adds a median 42k (p90 103k), a turn after a compaction
+  starts at a median 66k, and a rough model of carried tokens against the
+  minute or two a compaction costs put the window at 100k–120k — 2.0 minutes
+  of overhead per item at 120k against 3.7 at 200k. 120k rather than the floor
+  of 100k, so a set of two small items that share a reading stays together;
   the `# Compact instructions` at the end of `CLAUDE.md` say what the summary
   keeps, and `tools/hooks/after-compact.ts` restates the tree's state — branch,
   queue, parked — into the fresh context so the session re-orients from files.
@@ -96,7 +105,7 @@ for one kind of work goes in that work's skill, a fact that changes goes in
   last turn's context reaches 320k; the harness asks again before every
   turn, so the first turn after `bun run land` compacts on the boundary, and
   a manual `/compact` always goes through. The price is that turns between
-  200k and the ceiling re-read up to 60% more. The ceiling is not optional:
+  the window and the ceiling re-read more than they would have. The ceiling is not optional:
   a scratch session on Claude Code 2.1.278 with a hook that always refused
   went on quietly past its window, as hoped, and then died with "Prompt is
   too long" at the model's own limit.

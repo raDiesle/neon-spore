@@ -3,7 +3,7 @@
 /**
  * An automatic compaction waits for the item to land, up to a ceiling.
  *
- * `autoCompactWindow` (200k) cannot see a task boundary, so the cut falls
+ * `autoCompactWindow` (120k) cannot see a task boundary, so the cut falls
  * wherever the count crosses it — inside about half of all landed items. The
  * advice everywhere is to compact between tasks, never in one. This is a
  * `PreCompact` hook: an automatic compaction is blocked while the lane is
@@ -24,7 +24,7 @@ import { readPayload, transcriptPath } from "./payload";
 /**
  * Past this, the compaction goes ahead mid-item after all. The model's own
  * window is ~967k, so this is far from the hard limit, and every turn above
- * 200k re-reads up to 60% more than it would have.
+ * the window re-reads more than it would have.
  */
 export const CEILING = 320_000;
 
