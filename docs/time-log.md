@@ -29495,3 +29495,19 @@ Bottleneck: reading — thirty-odd files' headers to say in one line what
 each piece is for.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-29 — An automatic compaction waits for the item to land, up to 320k
+
+- reading: 0 min. Everything needed was open from the lane before.
+- writing: 10 min. `defer-compact.ts`, its test, the settings entry, a
+  paragraph in `token-budget.md`.
+- looking: 10 min. A scratch Claude Code session with a 100k window and a
+  hook that always refused, then the real hook run by hand on its
+  transcript in a dirty tree and a clean one.
+- friction: 5 min. The first hand run let the compaction through: the
+  transcript's last turn was the harness's "Prompt is too long", with a
+  usage of zeros.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — the one unknown, whether a refused compaction stops
+the turn, only a real session could answer.

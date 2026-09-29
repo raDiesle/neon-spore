@@ -3336,6 +3336,7 @@ by hand never moves.
 | `tools/hooks/bun-pin.ts` | The bun this repository is pinned to, read off `.bun-version`, and what to say to a session running an older one |
 | `tools/hooks/before-compact.ts` | What a session writes down the moment before its conversation is compacted |
 | `tools/hooks/written-paths.ts` | The files a bash command wrote, read out of the command line itself |
+| `tools/hooks/defer-compact.ts` | An automatic compaction waits for the item to land, up to a ceiling |
 | `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
 | `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |

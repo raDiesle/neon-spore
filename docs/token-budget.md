@@ -90,6 +90,16 @@ for one kind of work goes in that work's skill, a fact that changes goes in
   It is Anthropic's progress-file pattern for long-running agents, with the
   model taken out of the writing: notes the model has to remember to write
   are skipped exactly when the context is fullest.
+- **An automatic compaction waits for the item to land.** A second
+  `PreCompact` hook, `tools/hooks/defer-compact.ts`, refuses an automatic
+  one while the tree is dirty or the branch is ahead of `main`, until the
+  last turn's context reaches 320k; the harness asks again before every
+  turn, so the first turn after `bun run land` compacts on the boundary, and
+  a manual `/compact` always goes through. The price is that turns between
+  200k and the ceiling re-read up to 60% more. The ceiling is not optional:
+  a scratch session on Claude Code 2.1.278 with a hook that always refused
+  went on quietly past its window, as hoped, and then died with "Prompt is
+  too long" at the model's own limit.
 - **Do the thinking and the typing in the same session, in as few turns as the
   work allows.** Handing the typing to a worker model adds turns rather than
   removing them — `delegation-cost.md` measured it at 6.8 times the cost, and
