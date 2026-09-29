@@ -193,6 +193,14 @@
           <!-- Which step of its script a choreographed boss is on, hidden on
                every other wave (stage-step-readout.ts). -->
           <p class="note step-readout" id="stepReadout" hidden></p>
+          <!-- And a jump to any step of it: the one before, the one after,
+               and every step by name (stage-jump-row.ts). -->
+          <div class="step-jump" id="stepJump" hidden>
+            <button type="button" id="stepBack" title="the step before">◀</button>
+            <select id="stepList" title="every step, by name"></select>
+            <button type="button" id="stepNext" title="the step after">▶</button>
+          </div>
+          <p class="note" id="stepJumpNote"></p>
           <button type="button" id="endRun">▣ SHEET</button>
           <!-- **The three tempi a pair can actually choose**, not the slider.
                `bpm` has been movable since the tool existed, on TUNING's first

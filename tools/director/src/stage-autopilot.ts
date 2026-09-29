@@ -48,6 +48,8 @@ export interface StageAutopilot {
   mode(): AutoMode;
   /** What the row's buttons do, for whoever has no page to click. */
   setMode(m: AutoMode): void;
+  /** BOTH for a replay, and the call that puts back whatever was on before (`stage-jump.ts`). */
+  playBoth(): () => void;
   /** Where each of AUTO's thumbs is, in layout pixels. */
   fingers(): readonly Finger[];
 }
@@ -92,6 +94,11 @@ export function stageAutopilot(deps: StageAutopilotDeps, doc?: Document): StageA
   return {
     mode: () => mode,
     setMode,
+    playBoth() {
+      const was = mode;
+      setMode("both");
+      return () => setMode(was);
+    },
     fingers: () => ghosts.fingers(),
     commands(w) {
       const plays = PLAYS[mode];

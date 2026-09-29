@@ -13,6 +13,8 @@ import { stageAutopilot } from "./stage-autopilot.js";
 import { draftControlSet, draftGuide } from "./stage-draft.js";
 import { stageField } from "./stage-field.js";
 import { exposeStageHandle } from "./stage-handle.js";
+import { stageJump } from "./stage-jump.js";
+import { bindStageJumpRow } from "./stage-jump-row.js";
 import { runStageLoopWhileSeen, stageTickHz } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
@@ -97,6 +99,7 @@ export function bindStage(
         renderer.draw(seen);
         auto.paint(canvas, viewport(), stage(), world); // AUTO's fingers, over the frame
         paintStep(world);
+        paintJump(world);
       },
     },
     keys,
@@ -120,7 +123,7 @@ export function bindStage(
   let wantedRound = 0;
 
   // A fresh world every time, built from the draft — `stage-world.ts` has why.
-  const rebuild = (): void => {
+  const restage = (): void => {
     // The round goes in with the build rather than after it: a world standing
     // on the wrong sheet is a world the panel is already lying about, and the
     // two used to be two statements a caller had to put in the right order.
@@ -130,6 +133,23 @@ export function bindStage(
     afterRun.paint(); // a fresh world is never over
     repeat.hide();
   };
+  // A restart, a wave change and an edit forget the steps a jump has found.
+  const rebuild = (): void => {
+    jump.forget();
+    restage();
+  };
+  // ◀ ▶ and every step by name, replayed with AUTO on both seats (`stage-jump.ts`).
+  const jump = stageJump({
+    world: () => world,
+    restage,
+    stepOnce: stepper.stepOnce,
+    autoBoth: auto.playBoth,
+    pause: () => {
+      running = false;
+      paintPlay();
+    },
+  });
+  const paintJump = bindStageJumpRow(document, jump);
 
   // Only while the canvas is on screen: a phone showing WAVE or MAP, or a
   // desk with the GAME column collapsed, pays nothing for the stage.

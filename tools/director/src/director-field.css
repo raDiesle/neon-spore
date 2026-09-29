@@ -135,6 +135,23 @@
   letter-spacing: 0.06em;
   opacity: 1;
 }
+/* ◀, every step by name, ▶ (stage-jump-row.ts): one row under the readout,
+   the list taking what the two arrows leave. */
+.transport .step-jump {
+  display: flex;
+  gap: 4px;
+}
+.transport .step-jump[hidden] {
+  display: none;
+}
+.transport .step-jump button {
+  width: auto;
+  flex: 0 0 auto;
+}
+.transport .step-jump select {
+  flex: 1 1 0;
+  min-width: 0;
+}
 /* AUTO's row in RUN (stage-autopilot.ts): a word in front of its four, and
    what it says when the wave has nothing for it to play. */
 .auto-label,

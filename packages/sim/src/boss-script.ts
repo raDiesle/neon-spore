@@ -32,17 +32,27 @@ const SCRIPT_LISTS = ["steps", "marks", "tiles", "thresholds"] as const;
 /** Bosses that keep a `cursor` which is not a place in a script. */
 export const NOT_A_SCRIPT: readonly BossState["kind"][] = ["reprise"];
 
-export function bossScriptOf(boss: BossState | null): BossScript | null {
+/** The boss's script list and its place in it, or null where it has none. */
+function scriptList(boss: BossState | null): { at: number; list: unknown[] } | null {
   if (boss === null || NOT_A_SCRIPT.includes(boss.kind) || !("cursor" in boss)) return null;
   const at = boss.cursor;
   if (typeof at !== "number") return null;
   for (const key of SCRIPT_LISTS) {
     if (!(key in boss)) continue;
     const list = (boss as unknown as Record<string, unknown>)[key];
-    if (!Array.isArray(list)) continue;
-    return { at, of: list.length, name: stepName(list[at]) };
+    if (Array.isArray(list)) return { at, list };
   }
   return null;
+}
+
+export function bossScriptOf(boss: BossState | null): BossScript | null {
+  const s = scriptList(boss);
+  return s === null ? null : { at: s.at, of: s.list.length, name: stepName(s.list[s.at]) };
+}
+
+/** Every step's own word, in order — what the director's step list is written from. */
+export function bossScriptNames(world: World): (string | null)[] | null {
+  return scriptList(world.boss)?.list.map(stepName) ?? null;
 }
 
 export function bossScript(world: World): BossScript | null {

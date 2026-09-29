@@ -1366,28 +1366,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Living bosses — the director jumps to any choreography step
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-living-bosses-the-director-jumps-to-any-choreogr)
-- **Needs:** Living bosses — the director shows which choreography step is playing
-- **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-step.ts`, `tools/director/src/stage-autopilot.ts`, `tools/director/test/stage-step.test.ts`, `docs/spec/living-bosses.md`
-
-Section 3 of `docs/spec/living-bosses.md`. Beside the step readout, add ◀ and
-▶ for the step before and after and a list of every step by number and pose
-name. A jump rebuilds the world and replays it headless with AUTO on both
-seats, the way `stage.seek` replays to a beat, until the boss's `cursor` is
-the step asked for and its phase is the start of that step's morph, then
-pauses there, drawn. Remember the tick each step was first reached on, so a
-later jump replays straight to it; drop the memory on restart and on a wave
-change. A jump that cannot reach its step within the wave's length stops at
-the furthest step it reached, says so, and stays paused.
-
-Done when: a test jumps THE INSTAR to its last step and back to its second
-and finds `cursor` right both times; a second jump to a remembered step
-replays no further than its tick; ◀ at step 1 and ▶ at the last do nothing.
-`bun run check` proves it.
-
 ## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
@@ -1596,3 +1574,13 @@ through the same drag target so the wire carries what it carries now, and
 take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
+
+## `tools/director/src/stage.ts` is at 240 lines, one feature from the ceiling
+
+- **Found:** 2026-09-29, claude/queue-tasks-efa837
+- **Files:** `tools/director/src/stage.ts`
+
+The jump row took it from ~225 to 240. Its paint bindings (`paintStep`,
+`paintJump`, `paintPlay`) and the transport wiring are one seam: move them
+into a `stage-paint.ts` the way `stage-jump-row.ts` stands, so the next row
+in RUN does not push it past 250. `bun run check` proves it.

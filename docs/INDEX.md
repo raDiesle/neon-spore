@@ -3330,6 +3330,8 @@ by hand never moves.
 | `tools/director/src/stage-step.ts` | **one tick of the stage's world and one frame of its picture** — what the loop next door calls, and the first of the stage's own running `bun test` can drive |
 | `tools/director/src/stage-step-readout.ts` | **Which step of its choreography a boss is on**, in RUN beside `↺ WAVE` |
 | `tools/director/src/stage-strip-both.ts` | **One strip carries the cannon and the shield together**, and only under TEST |
+| `tools/director/src/stage-jump-row.ts` | **◀, the list of steps and ▶**, under the step readout in RUN (`docs/spec/living-bosses.md` §3) |
+| `tools/director/src/stage-jump.ts` | **A jump to any step of a boss's choreography** (`docs/spec/living-bosses.md` §3) |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

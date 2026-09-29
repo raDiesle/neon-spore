@@ -28799,3 +28799,18 @@ Bottleneck: reading — the hit tests read the pose off a `Field`, not the
 view, which decided a page-wide level over a field of the view.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — the director jumps to any choreography step
+
+- reading: 15 min. The spec's §3, the step readout, `stage-step.ts`'s seek,
+  AUTO, and how THE INSTAR's cursor and morph share a tick.
+- writing: 25 min. `stage-jump.ts`, its row, `bossScriptNames`, AUTO's
+  `playBoth`, the stage's `restage`/`rebuild` split, four tests.
+- looking: 10 min. The row on THE INSTAR in the director: 28 steps, the
+  last in about a tenth of a second, ◀ and ▶ stepping.
+- friction: 5 min. `bun -e` cannot resolve the workspace packages; a probe
+  file stood in.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the jump needed a rebuild that forgets nothing
+beside the stage's own, which forgets everything.

@@ -625,12 +625,17 @@ whenever the wave or the build changes. A jump that cannot reach its step
 within the whole wave's length stops, says which step it reached, and stays
 paused there.
 
+**Built, 29 September 2026** — `tools/director/src/stage-jump.ts` replays,
+`tools/director/src/stage-jump-row.ts` is the row. The cap on a wave that
+never ends is `JUMP_CAP_BEATS`; THE INSTAR's last step, from a cold start, is
+about a tenth of a second.
+
 ---
 
 ## The order the work is queued in
 
 1. The director's step readout.
-2. The director's jump.
+2. The director's jump (landed 29 September 2026).
 3. The idle drift helper, with the part drift in it, and its tests, drawing
    nothing.
 4. THE INSTAR's one head, a VERSUS candidate.
