@@ -1674,6 +1674,7 @@ with a frame test that counts the ring on p2's full frame with a lobe standing.
 ## The time-log stamp starts at the lane's first commit, which is its last
 
 - **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
+- **Taken:** 2026-09-29, claude/lane-speed-fixes (claim: claude/queue-the-time-log-stamp-starts-at-the-lanes-first-com)
 - **Files:** `tools/land/note-commit.ts`, `tools/land/stamp.ts`
 
 `stampTimeLog` measures from the author date of the lane's oldest landed
