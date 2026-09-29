@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · e0392059d — THE KEEL's seam in three brightnesses, offered in VERSUS
+
+A locked seam as a hairline through movement one, a fuller seam pulsing on the beat from the socket on, and full white from the held breath, read off movement and the phase, is offered as keel:seam three against the seam the game draws today, judged on THE KEEL · BREATH. The shipped seam is lifted into render/keel-seam-look.ts KEEL_SEAM so the pair can patch it; the game draws exactly what it did.
+
 ## 2026-09-29 · b8cffbe20 — THE KEEL holds its breath in a swell
 
 Through the held breath the whole arch rises and dims over one slow breath in and out, over the segments' own sway, and drops flat the moment a touch stirs it; held untouched, every seam flares as a lock's does. The director poses it at its top as keel:breath, off OWED. A look with no shipped alternative: until now the spine stood through the breath as in a rest. The seam's three brightnesses are the item's second half, left queued for VERSUS.

@@ -29122,3 +29122,5 @@ and only a real frame said so.
 
 Bottleneck: reading — a candidate needs a record the draw path reads every
 frame, and the seam was a stroke inline in `drawSegment`.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
