@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · a4badf85e — The motion setting turns the bosses' living motion down
+
+A device whose motion setting is off now draws every boss part at its parent's angles and every body at half its lean; any other device, including one that has said nothing, draws full life. The level is one value a page (motion-life.ts), read by the outline pose, the part drift and the three sways, so a hit test that finds a mark where it is drawn agrees with the drawer. Exemption: a look the owner asked for by name (his answer of 27 September 2026, the motion setting and nothing else).
+
 ## 2026-09-29 · 552850e8c — `land` keeps its whole check: reusing check:fast's green result is dropped
 
 The owner, 29 September 2026, chose to drop it over moving check:fast after the commit: with several sessions landing at once the trunk usually moves between the two, so the saving would rarely apply, and it would change a rule every lane follows.

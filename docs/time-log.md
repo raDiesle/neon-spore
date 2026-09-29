@@ -28797,3 +28797,5 @@ Bottleneck: landing — a one-entry removal still pays the full landing check.
 
 Bottleneck: reading — the hit tests read the pose off a `Field`, not the
 view, which decided a page-wide level over a field of the view.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
