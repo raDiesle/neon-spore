@@ -365,6 +365,7 @@ list removes it and the list with it.
 ## THE GAUGE's cannon colour is a picture, not a rule
 
 - **Found:** 2026-09-25, claude/gauge-cannon-visual-clarity-82d0c7
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-gauges-cannon-colour-is-a-picture-not-a-rule)
 - **Files:** `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-band.ts`, `packages/content/src/controls-round.ts`, `packages/render/src/gauge-load.ts`, `packages/render/src/gauge-button.ts`
 - **Asks:** Should the wound's colour stay a picture, or should P2 get a red and a cyan fire button and a hit need the colour that matches?
 - **Answered:** 2026-09-27 — (b) a rule, over leaving the colour a picture. P2 gets the red and cyan fire buttons in place of CALL. The wound's colour comes from the `Rng` on each `drawBand` and is hashed. A wrong colour is a miss that jams the valve.
