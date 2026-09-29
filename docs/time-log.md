@@ -28650,3 +28650,5 @@ The bottleneck: which beat is "half height" turned on how a fault's beat and an 
 - landing: 5 min. The three guards, `check:fast`, the commit, `land`.
 
 The bottleneck: the regex passes could not be fixed one at a time, because each read what the last left behind, so the fix was a rewrite rather than one character class.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

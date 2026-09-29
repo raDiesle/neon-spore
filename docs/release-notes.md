@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 60a64e231 — The guards' comment-and-string stripper reads a source in one pass
+
+`stripNonCode` was five regex passes, and its template one matched nothing: the escape sat inside its character class, so only an empty pair of backticks was ever stripped, and the purity, copies and pointer guards all read template text as code. It is now one left-to-right scanner, so a quote inside a template or a backtick inside a string no longer opens anything, and a template's `${…}` holes stay code, nested or not. It has tests of its own. No guard moved: every file that passed still passes, and none newly fails.
+
 ## 2026-09-29 · cc099e651 — THE JAM's runaway cannon wakes at beat 7, when its first lure is halfway down
 
 The fault used to start with the wave, so its first shot met the beat-0 lure on the tick the lure came on over the cannon, and three breaches landed before either seat had seen it. The owner placed it on 27 September 2026: the gun runs away when the first lure has come down to half height above the hull. The lure falls a row a beat from row 0 and the hull is row 14, so that is beat 7, and the fault now carries `at: 7`. AUTO clears THE JAM with no breach, so it leaves the field test's list of waves played only halfway.
