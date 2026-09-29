@@ -7,6 +7,7 @@ import {
   partSeed,
   STILL,
 } from "./idle-drift-parts.js";
+import { motionLife } from "./motion-life.js";
 import { OUTLINE_SEED, type OutlineBoss, outlinePose, type Point } from "./outline-drift.js";
 
 /**
@@ -118,7 +119,7 @@ export function partOn(
   const gain = length < PART.minTiles ? 0 : PART.tip / (length * ownReach(row));
   const seed = partSeed(OUTLINE_SEED[boss], index);
   return (t) =>
-    partDrift(t, seed, row, parent, k * gain, { life: OUTLINE_PARTS[boss] > 0 ? 1 : 0 });
+    partDrift(t, seed, row, parent, k * gain, { life: OUTLINE_PARTS[boss] > 0 ? motionLife() : 0 });
 }
 
 /**

@@ -1,8 +1,10 @@
+import { setMotionLife } from "@neon-spore/render";
 import { demoRows } from "./demo-menu.js";
 import type { Installer } from "./install.js";
 import type { JoinScreen } from "./join.js";
 import type { Link } from "./link.js";
 import type { MenuBindings } from "./menu-bindings.js";
+import { bossLife } from "./settings.js";
 import type { ShellParts } from "./shell.js";
 
 /**
@@ -48,6 +50,7 @@ export function menuWiring(p: ShellParts, deps: MenuDeps): MenuBindings {
       // phone for less motion and wants this one to move must be able to.
       setMotion: (on) => {
         document.body.dataset.motion = on ? "on" : "off";
+        setMotionLife(bossLife(on));
       },
       install: () => deps.installer()?.offer(),
       canInstall: () => deps.installer()?.available() ?? false,

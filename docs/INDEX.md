@@ -2144,6 +2144,7 @@ by hand never moves.
 | `packages/render/src/moult-ghost.ts` | **What it turns into next, and when** — the navigator's half of THE MOULT |
 | `packages/render/src/moult-shape.ts` | **THE MOULT's one contour**: the rock's facets and the pod's blob, blended vertex by vertex |
 | `packages/render/src/moult.ts` | THE MOULT, drawn: the form it is wearing **now** on both screens |
+| `packages/render/src/motion-life.ts` | **The bosses' `life` level** (`docs/spec/living-bosses.md` §1, "One number turns it down") |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/balloon-burst.ts` | **THE BALLOON popping**: the skin the pair stretched, torn into shreds that fly outward and fade in the air |
 | `packages/render/src/baton-draw.ts` | THE BATON, drawn: an arm of sockets hanging down the middle column |

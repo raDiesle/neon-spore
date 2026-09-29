@@ -1,4 +1,4 @@
-import { Canvas2DRenderer } from "@neon-spore/render";
+import { Canvas2DRenderer, setMotionLife } from "@neon-spore/render";
 import { framePhase } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
@@ -20,6 +20,7 @@ import { bindPressLag } from "./press-lag-page.js";
 import { pressQuit } from "./quit.js";
 import { bindRasterBurst, bindRasterClasp, bindRasterStrips } from "./raster.js";
 import { createRunState } from "./run-state.js";
+import { bossLife, readSettings } from "./settings.js";
 import { bindShell } from "./shell.js";
 import { bindTestControls } from "./testing.js";
 import { bindSplashTrail } from "./trail.js";
@@ -39,6 +40,8 @@ const audio = bindAudio(canvas, () => view.role());
 // The config, the world on it, and the three ways a run starts (`main-world.ts`).
 const { cfg, world, progression, jumpToWave, startTogether, playAt } = openWorld(audio, buffer);
 const renderer = new Canvas2DRenderer(canvas);
+// The bosses' living motion follows the motion setting (`motion-life.ts`).
+setMotionLife(bossLife(readSettings().motion));
 // The same context the renderer draws through: a second `getContext` on one
 // canvas hands back the one that is already there, so the intro paints over
 // the frame rather than onto a second surface nobody would see.

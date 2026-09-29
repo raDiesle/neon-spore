@@ -1,7 +1,7 @@
 import { beatSeconds, type SimConfig } from "@neon-spore/sim";
 import { IDLE_DRIFT, subSeed } from "./idle-drift.js";
 import type { Layout } from "./layout.js";
-import { OUTLINE_DRIFT, OUTLINE_SEED } from "./outline-drift.js";
+import { OUTLINE_SEED, outlineDrift } from "./outline-drift.js";
 import { noise1 } from "./solid-motion.js";
 
 /**
@@ -42,7 +42,7 @@ export function throatSway(
   beatPhase: number,
   t: number,
 ): number {
-  const k = OUTLINE_DRIFT.throat;
+  const k = outlineDrift("throat");
   if (k <= 0) return 0;
   const seconds = (beat + beatPhase) * beatSeconds(cfg);
   const seed = OUTLINE_SEED.throat;

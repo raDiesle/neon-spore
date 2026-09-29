@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_SETTINGS, DEVICE_KEYS, parseSettings } from "../src/settings.js";
+import { bossLife, DEFAULT_SETTINGS, DEVICE_KEYS, parseSettings } from "../src/settings.js";
 
 /**
  * The things a player turns on and off.
@@ -88,6 +88,17 @@ const sources = await Promise.all(
     .sort()
     .map((name) => Bun.file(`${dir}/${name}`).text()),
 );
+
+describe("the bosses' life", () => {
+  it("is full on a device that has not asked the game to be still", () => {
+    expect(bossLife(DEFAULT_SETTINGS.motion)).toBe(1);
+    expect(bossLife(parseSettings(null).motion)).toBe(1);
+  });
+
+  it("is 0 once the motion setting is off", () => {
+    expect(bossLife(parseSettings(JSON.stringify({ motion: false })).motion)).toBe(0);
+  });
+});
 
 describe("every key this game stores", () => {
   it("is one CLEAR THIS DEVICE knows about", () => {

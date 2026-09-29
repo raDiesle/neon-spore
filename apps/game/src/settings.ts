@@ -153,6 +153,16 @@ export function hasMotionChoice(): boolean {
   }
 }
 
+/**
+ * The bosses' `life` level from the motion setting (`motion-life.ts` in
+ * render): 0 only on a device that has asked the game to be still. The phone's
+ * own `prefers-reduced-motion` is not read here — the owner, 27 September
+ * 2026: anybody who has not asked *the game* to be still sees full life.
+ */
+export function bossLife(motion: Settings["motion"]): number {
+  return motion ? 1 : 0;
+}
+
 /** Every key this game keeps on a device. The one place they are listed. */
 export const DEVICE_KEYS = [
   "neon-spore.settings",

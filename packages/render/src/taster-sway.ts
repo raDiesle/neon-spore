@@ -1,6 +1,6 @@
 import { beatSeconds, type SimConfig, type TasterPhase } from "@neon-spore/sim";
 import { IDLE_DRIFT } from "./idle-drift.js";
-import { OUTLINE_DRIFT, OUTLINE_SEED } from "./outline-drift.js";
+import { OUTLINE_SEED, outlineDrift } from "./outline-drift.js";
 import { noise1 } from "./solid-motion.js";
 
 /**
@@ -39,7 +39,7 @@ export function tasterSway(
   beat: number,
   beatPhase: number,
 ): number {
-  const k = OUTLINE_DRIFT.taster;
+  const k = outlineDrift("taster");
   if (k <= 0 || phase === "closed" || phase === "out") return 0;
   const seconds = (beat + beatPhase) * beatSeconds(cfg) - i * GUST_LAG;
   return k * TASTER_SWAY * noise1((seconds * 2) / IDLE_DRIFT.roll.period, OUTLINE_SEED.taster);

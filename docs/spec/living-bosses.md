@@ -305,11 +305,16 @@ with both running. On top of that:
   first, always.
 - **Parts smaller than 6 px on a 390 px field do not move**: the eye cannot
   see it, and the frame pays for it.
-- **One number turns it down.** The drawer is handed a `life` level from 0
-  to 1 with the rest of the view, and multiplies the part drift by it. It is
-  1 today. What sets it lower — the player's motion setting, a phone's
-  battery saver, a frame that runs long — is the owner's to say, and is
-  queued as a question.
+- **One number turns it down.** A `life` level from 0 to 1
+  (`packages/render/src/motion-life.ts`) multiplies the part drift, and the
+  body drift takes half of it plus a half. The motion setting sets it and
+  nothing else (the owner left the choice to the lane, 27 September 2026): a
+  device that has asked the game to be still draws its parts at their
+  parents' angles and its bodies at half their lean; every other device —
+  one that has said nothing, whatever its phone prefers — draws full life.
+  It is one value a page, not a field of the view, because a hit test that
+  finds a mark where it is drawn (`warden-grip.ts`) reads the same pose from
+  a `Field` and has to agree with the drawer.
 
 ### The part map
 
@@ -642,7 +647,7 @@ paused there.
 10. The outline tier for every other creature, six a lane, body and parts
     together.
 11. The mechanisms' hinged parts, six a lane.
-12. What sets the `life` level lower: a question for the owner.
+12. What sets the `life` level lower: the motion setting (landed 29 September 2026).
 
 One, two, three and nine need no screen. Four to eight, ten and eleven are
 looked at, so they are local only.

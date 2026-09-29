@@ -28784,3 +28784,16 @@ Bottleneck: the entry's premise — the ring stands in the shield's own spot, so
 Bottleneck: landing — a one-entry removal still pays the full landing check.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — the motion setting turns the bosses' life down
+
+- reading: 15 min. The spec's part drift, every caller of `outlinePose` and
+  `partOn`, the three sways, the grips that read a posed mark, the settings.
+- writing: 15 min. `motion-life.ts`, the four seams, the game's two calls,
+  the tests, the spec paragraph.
+- looking: 0 min. Nothing changes unless the setting is off.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the hit tests read the pose off a `Field`, not the
+view, which decided a page-wide level over a field of the view.

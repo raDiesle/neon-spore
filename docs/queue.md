@@ -1498,29 +1498,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## Living bosses — what turns the bosses' life down
-
-- **Found:** 2026-09-26, claude/living-motion-spec
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-living-bosses-what-turns-the-bosses-life-down)
-- **Needs:** Living bosses — the idle drift, a helper that draws nothing yet
-- **Files:** `apps/game/src/settings.ts`, `packages/render/src/renderer.ts`, `docs/spec/living-bosses.md`
-- **Asks:** What should turn the bosses' part motion down: the existing motion setting, a phone's battery saver, a frame running long, or nothing?
-- **Answered:** 2026-09-27 — the owner left it to the lane and asked only what keeps the bosses from looking static. Chosen: the existing motion setting and nothing else, over a long-frame governor or a battery-saver guess. Anybody who has not asked the game to be still sees full life; the setting stills the parts and halves the body drift, as the body says.
-
-Section 1 of `docs/spec/living-bosses.md`: the part drift is multiplied by a
-`life` level from 0 to 1 handed to the drawers with the view, and it is 1
-until the owner says otherwise. The options: **the motion setting** (today
-it only stills the menu; it would also still the parts, and halve the body
-drift); **battery saver** (no browser says so reliably, so it would read a
-slow frame rate as the sign); **a frame that runs long** (the drift drops
-when the frame time passes its budget, and comes back slowly); or
-**nothing** (always 1). Wire the one he picks, with a test that the drawers
-see 0 when it says so.
-
-Done when: `life` reaches every drawer that calls `partDrift`; the chosen
-source sets it; a test proves the part angles are the parent's at 0.
-`bun run check` proves it.
-
 ## THE INSTAR — a shoot mark asks for one colour, or none
 
 - **Found:** 2026-09-27, claude/boss-visuals-animation-581e11

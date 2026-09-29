@@ -115,6 +115,7 @@ export { drawLiving } from "./living-draw.js";
 export { LOST_LOOK, type LostLook, type LostPaint } from "./lost-look.js";
 export { drawLostScreen, lostButtons, lostHit } from "./lost-screen.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
+export { bodyLife, motionLife, setMotionLife } from "./motion-life.js";
 export { MOUNT_LOOK, type MountLook } from "./mount-look.js";
 export { rasp } from "./mount-rasp.js";
 export { taproot } from "./mount-taproot.js";

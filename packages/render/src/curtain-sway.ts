@@ -2,7 +2,7 @@ import { beatSeconds, type CurtainState, type SimConfig } from "@neon-spore/sim"
 import { curtainHemPull } from "./curtain-grip.js";
 import { IDLE_DRIFT, subSeed } from "./idle-drift.js";
 import type { Layout } from "./layout.js";
-import { OUTLINE_DRIFT, OUTLINE_SEED } from "./outline-drift.js";
+import { OUTLINE_SEED, outlineDrift } from "./outline-drift.js";
 import { noise1 } from "./solid-motion.js";
 
 /**
@@ -43,7 +43,7 @@ export function curtainSway(
   beat: number,
   beatPhase: number,
 ): number {
-  const k = OUTLINE_DRIFT.curtain * (1 - curtainHemPull(cfg, c));
+  const k = outlineDrift("curtain") * (1 - curtainHemPull(cfg, c));
   if (k <= 0 || c.phase === "out") return 0;
   const seconds = (beat + beatPhase) * beatSeconds(cfg);
   const wander = noise1((seconds * 2) / IDLE_DRIFT.roll.period, subSeed(OUTLINE_SEED.curtain, 3));

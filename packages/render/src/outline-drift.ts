@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { DEG, HUSH, IDLE_DRIFT, idleDrift } from "./idle-drift.js";
+import { bodyLife } from "./motion-life.js";
 import { slowHush } from "./slow-hush.js";
 
 /**
@@ -53,6 +54,11 @@ export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
   curtain: 1,
   taster: 1,
 };
+
+/** How much of its pose `boss` takes on this device: its seam, times the motion setting's (`motion-life.ts`). */
+export function outlineDrift(boss: OutlineBoss): number {
+  return OUTLINE_DRIFT[boss] * bodyLife();
+}
 
 /** Each boss's seed, so no two on one screen lean in step; its parts hash theirs from it (`outline-parts.ts`). */
 export const OUTLINE_SEED: Readonly<Record<OutlineBoss, number>> = {
@@ -124,7 +130,7 @@ export function outlinePose(
   tile: number,
   seed = OUTLINE_SEED[boss],
 ): OutlinePose | null {
-  const k = OUTLINE_DRIFT[boss] * hush;
+  const k = outlineDrift(boss) * hush;
   if (k <= 0 || reach <= 0) return null;
   const d = idleDrift(time, seed, k);
   // Each channel's share of the cap, as a fraction of the reach.
