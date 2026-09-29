@@ -197,8 +197,8 @@ export const SILENT_BOSS_D = [
   "haspSway",
   "haspSteady",
   "haspRough",
-  // THE GOVERNOR's fourteen, no burst from this table until its look lane
-  // draws them: the needle, the pads and the hub are the state's own.
+  // THE GOVERNOR's fourteen, no burst from this table: each is thrown above
+  // the loop by its own fx file (`governor-fx.ts`).
   "governorEnter",
   "governorLight",
   "governorPlant",

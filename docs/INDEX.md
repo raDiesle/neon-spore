@@ -1985,6 +1985,9 @@ by hand never moves.
 | `packages/render/src/governor-works.ts` | **THE GOVERNOR's works**: the spindle, the brake drum and the yoke's jaws, the collar and the two flyweights |
 | `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
 | `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hands**: the brake's chord on the works and the tap on the dial (`sim/governor-hand.ts` |
+| `packages/render/src/governor-blow.ts` | **THE GOVERNOR's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/governor-fx.ts` | What THE GOVERNOR leaves behind a frame (§11.58, *The receipts*) |
+| `packages/render/src/governor-receipts.ts` | **THE GOVERNOR's receipts, drawn** — what `governor-fx.ts` holds between frames |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-depth.ts` | **THE GIMBAL in depth**: a ring is not a line drawn round the drum but a hoop of metal with a body |

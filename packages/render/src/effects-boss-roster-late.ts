@@ -4,7 +4,7 @@ import { CystFx } from "./cyst-fx.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
-import { GovernorVerdicts } from "./governor-verdicts.js";
+import { GovernorFx } from "./governor-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SlingFx } from "./sling-fx.js";
@@ -62,7 +62,9 @@ export class LateRoster extends RoundMarks {
    * bursts — thrown the same on both screens, and told the core's colour by
    * the drawer (`flue-fx.ts`, `flue-draw.ts`). */
   readonly flue = new FlueFx();
-  /** THE GOVERNOR's mark's, yoke's and hub's verdicts on a touch
-   * (`governor-verdicts.ts`). */
-  readonly governor = new GovernorVerdicts();
+  /** THE GOVERNOR's flash on the rim for every tap, a skid's scrape, the
+   * hub's flash, the hull shock, its receipts' bursts and its marks' verdicts
+   * on a touch — thrown the same on both screens, and told the needle and the
+   * hub's colour by the drawer (`governor-fx.ts`, `governor-draw.ts`). */
+  readonly governor = new GovernorFx();
 }

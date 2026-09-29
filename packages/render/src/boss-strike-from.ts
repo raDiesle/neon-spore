@@ -8,6 +8,7 @@ import { fieldX } from "./field-flip.js";
 import { flueBlowFrom } from "./flue-blow.js";
 import { gallBlowFrom } from "./gall-blow.js";
 import { gimbalCentre } from "./gimbal-shape.js";
+import { governorBlowFrom } from "./governor-blow.js";
 import { grindstoneBlowFrom } from "./grindstone-blow.js";
 import { halterBlowFrom } from "./halter-blow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -106,6 +107,8 @@ const FROM: Partial<
   sling: slingBlowFrom,
   // The damper's underside, where the cinder is coughed out (`flue-blow.ts`).
   flue: flueBlowFrom,
+  // The flywheel's near edge, where the shard shears off (`governor-blow.ts`).
+  governor: governorBlowFrom,
 };
 
 /** Where the blow leaves the body — for THE FILAMENT, the tile it struck from

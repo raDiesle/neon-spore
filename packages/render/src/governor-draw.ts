@@ -9,7 +9,9 @@ import {
   governorTapping,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
+import type { GovernorFx } from "./governor-fx.js";
 import { drawGovernorHub } from "./governor-hub.js";
 import { drawGovernorMark, drawGovernorStuds, drawGovernorYokeAsk } from "./governor-marks.js";
 import {
@@ -21,6 +23,7 @@ import {
   governorStanding,
   governorSwing,
 } from "./governor-pose.js";
+import { drawGovernorFlash, drawGovernorScrape, drawGovernorTap } from "./governor-receipts.js";
 import {
   type Dial,
   dialAt,
@@ -30,16 +33,13 @@ import {
   TRACK_IN,
   TRACK_OUT,
 } from "./governor-shape.js";
-import {
-  drawGovernorHalos,
-  drawGovernorVerdicts,
-  type GovernorVerdicts,
-} from "./governor-verdicts.js";
+import { drawGovernorHalos, drawGovernorVerdicts } from "./governor-verdicts.js";
 import { drawGovernorWorks } from "./governor-works.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 import { showsGovernorHand } from "./view-role-clocks-c.js";
 
 /** The graduations round the track: a long one every other. */
@@ -64,10 +64,11 @@ const TAIL = 0.16;
  *
  * **Its health is read off the body**, no bar: six studs on the face are the
  * two runs, the hub dark until both are spent and lit in a shot's colour
- * after, smaller and brighter per hit. Everything but the verdicts on a
- * touch (`governor-verdicts.ts`) is read off `world` each frame — a tap's
- * flash on the rim, a skid's scrape and its own blow at the hull are the
- * look's second part.
+ * after, smaller and brighter per hit. Everything but what the events
+ * leave behind is read off `world` each frame: a tap's flash on the rim, a
+ * skid's scrape, the hub's flash, the blow it takes and its marks' verdicts
+ * are `fx` (`governor-fx.ts`, drawn by `governor-receipts.ts`); its own blow
+ * at the hull is `governor-blow.ts`.
  */
 export function drawGovernor(
   ctx: CanvasRenderingContext2D,
@@ -77,29 +78,36 @@ export function drawGovernor(
   beat: number,
   beatPhase: number,
   time: number,
-  fx: GovernorVerdicts,
+  fx: GovernorFx,
 ): void {
   const cfg = world.cfg;
   const d = governorStanding(l, cfg, s, beat, beatPhase);
+  const step = governorLitStep(s);
+  fx.note(s.needleMilli, step?.ask === "fire" ? stepColour(step.color).rim : PALETTE.hullRim);
   ctx.save();
+  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
   // `strokeGlow` leaves the alpha at 1, so the fade is set again after each part that glows.
   const fade = 1 - 0.5 * governorSpent(s, cfg, beat, beatPhase);
   ctx.globalAlpha = fade;
 
-  drawWheel(ctx, l, d);
+  drawWheel(ctx, l, d, fx.hurt.value);
+  ctx.globalAlpha = fade;
+  drawGovernorScrape(ctx, d, fx.scrape);
   drawGovernorHalos(ctx, l, d, s, time);
-  const step = governorLitStep(s);
   const tapper = governorTapper(s);
   if (step !== null && tapper !== null) {
     const full = showsGovernorHand(l.role, tapper);
     const left = governorLeft(s, beat, beatPhase);
     drawGovernorMark(ctx, d, step.markMilli, cfg.governorMarkMilli, left, full, beatPhase);
   }
+  drawGovernorTap(ctx, d, fx.tap);
+  ctx.globalAlpha = fade;
   drawGovernorStuds(ctx, l, d, s.taps);
   ctx.globalAlpha = fade;
   drawNeedle(ctx, d, s.needleMilli, governorHeat(s, cfg), governorOnMark(world, s));
   ctx.globalAlpha = fade;
   drawGovernorHub(ctx, l, d, s, beat, beatPhase);
+  drawGovernorFlash(ctx, l, d, fx.flash);
   ctx.globalAlpha = fade;
 
   const governor = governorGovernor(s);
@@ -119,10 +127,10 @@ export function drawGovernor(
 
 /**
  * The flywheel: its brass edge showing under the face, the rim lit from the
- * key over the whole disc, the dark face inside it, and the graduations
- * round the track.
+ * key over the whole disc and red with a blow taken, the dark face inside
+ * it, and the graduations round the track.
  */
-function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, d: Dial): void {
+function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, d: Dial, hurt: number): void {
   const drop = rimDepth(l, d);
   ctx.fillStyle = PALETTE.governorBrassDark;
   ctx.fill(dialRing(d, 1, drop));
@@ -139,6 +147,7 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, d: Dial): void {
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.governorBrassDark, 0.95);
   ctx.stroke(rim);
+  drawHurt(ctx, rim, hurt);
 
   ctx.fillStyle = PALETTE.governorFace;
   ctx.fill(dialRing(d, TRACK_OUT + 0.02));

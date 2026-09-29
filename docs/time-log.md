@@ -29229,3 +29229,20 @@ Bottleneck: looking — the phone picture needed a second tool to arrive as a PN
 Bottleneck: looking — reaching TESTING in the pane took three screens first.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GOVERNOR's look: the receipts and its own blow
+
+- reading: 25 min. THE FLUE's and THE GRINDSTONE's fx as the pattern, the
+  hurt rows, the strike tables, `HullShock`, the dial's geometry.
+- writing: 55 min. `governor-fx.ts`, `governor-receipts.ts`,
+  `governor-blow.ts`, the drawer's hurt and shake, the hurt and strike rows,
+  a test file, the spec.
+- looking: 10 min. A frame one tick after a tap.
+- friction: 15 min. The first drawn tests passed with a receipt switched off
+  — the sparks and the verdicts changed the frame too — and were rebuilt to
+  count strokes with those held off, then mutation-checked.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a frame-diff test proves nothing when the same event
+throws several things; it had to be narrowed until switching one receipt off
+failed it.

@@ -41,8 +41,8 @@ export const INGEST_SILENT_BOSS_E = [
   "spoolFray",
   "spoolFeather",
   "spoolStrand",
-  // THE GOVERNOR's fourteen, silent until its look lane draws them: the
-  // needle, the pads and the hub are read off the state every frame.
+  // THE GOVERNOR's fourteen: what outlives a frame is `governor-fx.ts`',
+  // read above the loop.
   "governorEnter",
   "governorLight",
   "governorPlant",

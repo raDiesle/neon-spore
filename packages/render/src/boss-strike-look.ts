@@ -7,6 +7,7 @@ import { filamentBlow } from "./filament-blow.js";
 import { flueBlow } from "./flue-blow.js";
 import { gallBlow } from "./gall-blow.js";
 import { gimbalBlow } from "./gimbal-blow.js";
+import { governorBlow } from "./governor-blow.js";
 import { grindstoneBlow } from "./grindstone-blow.js";
 import { halterBlow } from "./halter-blow.js";
 import { haspBlow } from "./hasp-blow.js";
@@ -107,6 +108,8 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   sling: slingBlow,
   // A fire step let run: the bared flue coughs a cinder that scorches the skin.
   flue: flueBlow,
+  // A fire step let run: the ungoverned flywheel bursts, and a shard of its rim bites the skin.
+  governor: governorBlow,
   // A fault on the line, or a line let stand: the vein snaps where it stood
   // and whips its torn end down to the column.
   filament: filamentBlow,

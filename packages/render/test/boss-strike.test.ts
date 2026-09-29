@@ -10,6 +10,8 @@ import { cystCentre } from "../src/cyst-shape.js";
 import { ingestBreach } from "../src/effects-breach.js";
 import { flueCentre } from "../src/flue-shape.js";
 import { gallRootAt } from "../src/gall-shape.js";
+import { TILT_READ } from "../src/governor-pose.js";
+import { governorDial } from "../src/governor-shape.js";
 import { grindstoneCentre } from "../src/grindstone-shape.js";
 import { halterCentre } from "../src/halter-shape.js";
 import { computeLayout, tileCX, tileCY } from "../src/layout.js";
@@ -93,7 +95,8 @@ describe("a boss's blow at the hull", () => {
     const bosses = [
       ...["oculus", "hasp", "stare", "ledger", "gimbal", "seam", "mantle"],
       ...["ratchet", "valve", "vise", "rime", "trivet", "plumb", "davit", "halter"],
-      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue", "filament"],
+      ...["capstan", "gall", "burgee", "cyst", "grindstone", "sling", "flue", "governor"],
+      "filament",
     ] as const;
     for (const by of bosses) {
       const fx = new BossStrikeFx();
@@ -149,6 +152,7 @@ describe("a boss's blow at the hull", () => {
     ["THE GRINDSTONE throws a chip off its wheel", "grindstone", grindstoneCentre],
     ["THE SLING flings a ball out of its cup", "sling", slingCentre],
     ["THE FLUE coughs a cinder out of its flue", "flue", flueCentre],
+    ["THE GOVERNOR sheds a shard off its flywheel's rim", "governor", governorHubAt],
   ] as const)("%s that bites the skin at reach 1", (_name, by, centreOf) => {
     const from = strikeFrom(L, CFG, by);
     const centre = centreOf(L, CFG);
@@ -169,6 +173,12 @@ describe("a boss's blow at the hull", () => {
     expect(fx.active).toBe(0);
   });
 });
+
+/** THE GOVERNOR's hub, where its dial stands while it is read. */
+function governorHubAt(l: typeof L, cfg: typeof CFG): { x: number; y: number } {
+  const d = governorDial(l, cfg, TILT_READ);
+  return { x: d.cx, y: d.cy };
+}
 
 /** Where a look first moves the canvas to: the piece it throws, drawn round its own middle. */
 function firstTranslate(

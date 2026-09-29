@@ -85,6 +85,9 @@ export function drawOnShip(
   // And THE FLUE's: the core bared is a thud through the plating, the flue
   // swinging open for good a harder one (`flue-fx.ts`, §40).
   held.effects.boss.flue.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE GOVERNOR's: the hub lighting is a thud through the plating, the
+  // governor flying apart for good a harder one (`governor-fx.ts`, §43).
+  held.effects.boss.governor.shock.draw(ctx, l, surfaceY, view.time);
   // And any boss's own blow when a window ran out, instead of a rock nobody
   // saw fall: out of its body and into the column (`boss-strike-fx.ts`).
   held.effects.boss.strike.draw(ctx, l, world.cfg, surfaceY, view.time);

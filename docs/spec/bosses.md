@@ -11462,8 +11462,24 @@ the way every mark does** (`governor-verdicts.ts`): the lit mark haloed for
 the tapper, the yoke for the braking seat, each wearing the partner's ring
 and clock on the other screen, the hub on both while a shot is owed; a tap
 landed or a chord made whole greens its mark, a skid, a slip or a window run
-out reddens it. A tap's flash, a skid's scrape and its own blow at the hull
-are still to come.
+out reddens it.
+
+**The receipts** (`render/src/governor-fx.ts`, drawn by
+`governor-receipts.ts`, 29 September 2026). **A tap or a retap landed
+flashes the rim** at the mark its step lit: that piece of the track burns
+white and a spike of light is thrown out past the rim. **A skid scrapes**:
+a dull brass scratch dragged back along the track from where the needle
+was, never the rim's white, so it can not be read as a tap. **A hub hit
+flashes the hub**, wider for every hit. The hub lighting and the governor
+flying apart for good each shudder the plating, the second harder. A run's
+third tap, a retap and a hit deal the governor the blow every boss takes
+(`boss-hurt.ts`) — the rim reddens and the dial shakes — and a tap inside a
+run the lighter one. The events carry no place on the dial, so the fx keeps
+the mark from `governorLight` and the needle the drawer last drew.
+**Its own blow at the hull** (`governor-blow.ts`): a fire step let run, the
+ungoverned flywheel bursts, and a shard of its brass rim shears off the
+near edge, tumbles end over end down the middle column and bites a notch in
+the skin, brass sparks spraying off it.
 
 **The hands** (`render/src/governor-grip.ts`, 29 September 2026). **The tap
 is anywhere on the dial's face**, a quarter tile past its rim, and only the

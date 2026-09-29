@@ -83,7 +83,7 @@ export class BossTransients extends BossRoster {
     this.burgee.ingest(events, l, cfg, beatSeconds, burst);
     this.grindstone.ingest(events, l, cfg, beatSeconds, burst);
     this.flue.ingest(events, l, cfg, beatSeconds, burst);
-    this.governor.ingest(events);
+    this.governor.ingest(events, l, cfg, beatSeconds, burst);
     this.fleet.ingest(events, beatSeconds);
     this.fleetGrip.ingest(events, l, burst);
     this.blows.ingest(events);

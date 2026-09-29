@@ -518,22 +518,6 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## §43 THE GOVERNOR — the look
-
-- **Found:** 2026-09-26, this session
-- **Needs:** §43 THE GOVERNOR — the simulation lane
-- **Files:** `packages/render/src/`, `packages/render/src/effects.ts`, `docs/spec/bosses.md`
-
-**The body landed 29 September 2026, and its hands the same day**
-(`render/src/governor-*.ts`, `governor-grip.ts`, `boss-cue-read-zq.ts`,
-`hands/src/boss-hands-governor.ts`, `docs/spec/bosses.md` §11.58 *The look*
-and *The hands*). What is left is the receipts:
-
-- **The receipts and the blow** — a tap's flash on the rim, a skid's scrape,
-  the hub's flash on a hit, and the governor's own blow at the hull when a
-  fire step runs out (a `governor-fx.ts` in `Effects`, cleared in `reset()`),
-  as THE FLUE's `flue-fx.ts` and `flue-blow.ts`.
-
 ## §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session
