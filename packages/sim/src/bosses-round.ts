@@ -142,7 +142,7 @@ export { snakeResting } from "./snake-controls.js";
 // The way home after a cleared arena: the picture opens the mouth off it and
 // slides the body on the same step the simulation takes (`snake-home.ts`).
 export { snakeGate, snakeGoingHome, snakeStepTicks } from "./snake-home.js";
-// Where a shot taken this instant would stop: the cue asks, so that the word
-// `FIRE` and the shot itself cannot disagree (`snake-move.ts`).
-export { snakeShotStop } from "./snake-move.js";
 export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";
+// Where a shot taken this instant would stop: the cue asks, so that the word
+// `FIRE` and the shot itself cannot disagree (`snake-shot.ts`).
+export { snakeShotStop } from "./snake-shot.js";

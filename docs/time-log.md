@@ -29261,3 +29261,17 @@ failed it.
 Bottleneck: reading — the settings keys had to be looked up, not remembered.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — SNAKE turns on the tick it is pressed; the mouth stands twice as long
+
+- reading: 10 min. `snake-move.ts`, `snake-controls.ts`, the slide in
+  `render/snake-body.ts`, AUTO's snake hand, the order `step-round.ts` hears in.
+- writing: 15 min. `turnSnake` and `snakeTurnsHere`, the verdict routed back
+  from a press, the hand held to the first half, the shot split to its own
+  file, four tests, the spec.
+- looking: 0 min. A turn's timing is not in a still frame; proved by tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice (the line limit, the index), the commit, `land`.
+
+Bottleneck: reading — the lag was the picture leading the rule by a tile,
+which only showed once the slide and the step were read side by side.

@@ -1,7 +1,8 @@
 import type { SimConfig } from "./config.js";
 import { type SnakeState, snakeGrip } from "./snake.js";
 import { snakeCrashed } from "./snake-arena.js";
-import { fireSnake } from "./snake-move.js";
+import { turnSnake } from "./snake-move.js";
+import { fireSnake } from "./snake-shot.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -36,8 +37,7 @@ export function snakeResting(world: World, snake: SnakeState): boolean {
  * **Nothing player 1 has works while the body is folded up.** During the pause
  * after a crash there is no head to spit out of and no mouth to open, so a
  * press that counted would be a shot leaving a body that is not on the arena.
- * The wheel is left alone: a turn is queued rather than taken, and the queue
- * is the one thing the pair may usefully agree about while they wait.
+ * The wheel is refused with them: the round is over from the crash.
  *
  * **And since 18 September 2026 the body asks for two more, on itself.** Past
  * `snakeGorgeTiles` the jaws stick: the MAW press does nothing at all and
@@ -49,14 +49,26 @@ export function snakeResting(world: World, snake: SnakeState): boolean {
  * (`docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
  */
 
-export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, command: Command): void {
+export function snakeHeard(
+  world: World,
+  snake: SnakeState,
+  player: 1 | 2,
+  command: Command,
+): false | null {
   if (command.kind === "snakeTurn") {
     // The wheel is player 2's whole seat. A turn from player 1 is not refused
-    // loudly — that screen has no wheel drawn on it at all.
-    if (player !== 2) return;
-    snake.turn = command.dir === "left" ? -1 : 1;
-    return;
+    // loudly — that screen has no wheel drawn on it at all. A turn is taken
+    // the tick it is pressed, so it is the one press here that can crash the
+    // body, and the verdict goes back to the round (`turnSnake`).
+    if (player !== 2) return null;
+    return turnSnake(world, snake, command.dir === "left" ? -1 : 1);
   }
+  heardHands(world, snake, player, command);
+  return null;
+}
+
+/** Everything but the wheel: nothing player 1 does, nor a thumb on the body, moves it. */
+function heardHands(world: World, snake: SnakeState, player: 1 | 2, command: Command): void {
   if (command.kind === "snakeFire") {
     if (player !== 1) return;
     // A rest between two shots, so a thumb held on the trigger is not a way of

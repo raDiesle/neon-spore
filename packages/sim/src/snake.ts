@@ -140,18 +140,18 @@ export interface SnakeState {
   roundBeat: number;
   /** The body, head first. Its length is the difficulty and the health bar at once. */
   body: SnakeTile[];
-  /** The way the last step went. */
+  /** The way the next step goes: the way the last one went, unless a turn has been taken since. */
   dirCol: number;
   dirRow: number;
   /**
-   * The quarter turn queued for the next step: -1 anticlockwise, 1 clockwise,
-   * 0 straight on.
+   * The quarter turn taken on the tile the head stands on: -1 anticlockwise,
+   * 1 clockwise, 0 none yet. Cleared by every step; its button lights meanwhile.
    *
-   * Queued rather than applied, and one number rather than a heading: a turn
-   * is *relative*, so two presses inside one tile are the last one winning
-   * rather than a body that has quietly turned twice. It also makes the
-   * reversal the arcade game forbids unreachable — a quarter turn cannot be a
-   * half turn — without a rule anybody has to write.
+   * The turn itself is already in the heading the moment it is pressed
+   * (`turnSnake`). It is taken relative to the way the head came onto the
+   * tile, so two presses inside one tile are the last one winning rather than
+   * a body that has quietly turned twice, and the reversal the arcade game
+   * forbids is unreachable without a rule anybody has to write.
    */
   turn: -1 | 0 | 1;
   /** `world.tick` of the last step. The whole of the clock the body moves on. */

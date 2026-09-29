@@ -44,3 +44,6 @@ export {
 // Which of the body's two parts is asked of a hand, which its rings read
 // (`render/snake-marks.ts`).
 export { snakeJawsAsks, snakeTailAsks } from "./snake-controls.js";
+// Whether a turn sent now is taken where the head stands or one tile on,
+// which a hand planning a corner has to know (`snake-move.ts`, `turnSnake`).
+export { snakeTurnsHere } from "./snake-move.js";

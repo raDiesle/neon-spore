@@ -98,24 +98,71 @@ function zero(n: number): number {
 }
 
 /**
+ * A quarter turn, **taken on the tick it is pressed** — `false` when taking it
+ * crashed the body, `null` otherwise.
+ *
+ * It used to be queued for the next step, and the owner found it laggy (29
+ * September 2026): the picture slides the head into the tile ahead all through
+ * a step (`render/snake-body.ts`), so a turn that waited for the step was seen
+ * going on and then snapping round, as much as a whole step late. Now the turn
+ * is taken on **the tile the head is nearer to**:
+ *
+ * - in the first half of a step, the one it is standing on — the heading
+ *   changes now and the step keeps its time;
+ * - in the second half, the one ahead — that step is taken now, straight on,
+ *   and the head turns there. That step comes at most half a step early.
+ *
+ * The turn is relative to the way the head *came onto* its tile (head minus
+ * neck), never to the heading, so two presses on one tile are still the last
+ * one winning, and left-left is still not the reversal the arcade game
+ * forbids.
+ */
+export function turnSnake(world: World, snake: SnakeState, turn: -1 | 1): false | null {
+  const head = snake.body[0];
+  if (!head || snakeInside(world.cfg, head)) return null;
+  if (!snakeTurnsHere(world, snake)) {
+    snake.stepTick = world.tick + 1;
+    if (advance(world, snake) === false) return false;
+  }
+  const [onto, from] = snake.body;
+  // Through the mouth there is nothing left to steer (`snake-home.ts`).
+  if (!onto || !from || snakeInside(world.cfg, onto)) return null;
+  const [dirCol, dirRow] = turned(onto.col - from.col, onto.row - from.row, turn);
+  snake.dirCol = dirCol;
+  snake.dirRow = dirRow;
+  snake.turn = turn;
+  return null;
+}
+
+/**
+ * Whether a turn heard now is taken on the tile the head is standing on —
+ * the first half of a step — rather than on the one ahead (`turnSnake`).
+ * Exported so a hand that plans a corner from where the head stands sends it
+ * while the corner is still there (`hands/boss-hands-snake.ts`).
+ *
+ * Commands are heard before the tick is counted (`step-round.ts`), so the
+ * tick a press belongs to is the next one — the tick a step taken on it
+ * would have been taken on.
+ */
+export function snakeTurnsHere(world: World, snake: SnakeState): boolean {
+  return 2 * (world.tick + 1 - snake.stepTick) < snakeStepTicks(world.cfg, snake);
+}
+
+/**
  * The head onto the next tile, or into something — `false` when it did, the
  * round's verdict, and `null` for a step taken.
  *
- * The queued turn is taken *here* and nowhere else, which is what makes it a
- * queue: everything a thumb does between two steps changes where the body is
- * going next, and nothing changes where it has already been
- * (`SnakeState.turn`).
+ * Straight on, always: a turn has already changed the heading by the time a
+ * step is taken (`turnSnake`), and the tile the head lands on has had no turn
+ * taken on it yet (`SnakeState.turn`).
  */
 function advance(world: World, snake: SnakeState): false | null {
   const head = snake.body[0];
   if (!head) return null;
   if (snakeInside(world.cfg, head)) return creepHome(snake, head);
-  const [dirCol, dirRow] = turned(snake.dirCol, snake.dirRow, snake.turn);
-  snake.dirCol = dirCol;
-  snake.dirRow = dirRow;
   snake.turn = 0;
-  const col = head.col + dirCol;
-  const row = head.row + dirRow;
+  const col = head.col + snake.dirCol;
+  const row = head.row + snake.dirRow;
   if (snakeAtGate(world.cfg, snake, col, row)) return creep(snake, col, row);
   if (!snakeOnBoard(world, col, row)) return crash(world, snake, col, row);
   // The tail is spared unless a point is still being paid out: it moves off
@@ -147,82 +194,6 @@ function advance(world: World, snake: SnakeState): false | null {
     snake.grow += world.cfg.snakeGrowTiles;
   }
   return creep(snake, col, row);
-}
-
-/**
- * A shot, straight out of the head along the way it is pointing.
- *
- * Hit-scan and not a travelling bullet, and the reason is the sentence rather
- * than the arithmetic: the head *is* the gun, so what player 1 is answering is
- * "it is lined up now", and a shot that took a few tiles to arrive would be
- * answering where the body was when they pressed. It stops at the first
- * standing enemy, its own body or the wall, whichever comes first.
- *
- * **And it is short.** `snakeShotTiles` is the whole of its reach, counted
- * from the tile in front of the head. A spit that carried the arena made the
- * steering irrelevant to the trigger; one that carries ten small tiles, five
- * of the old big ones, still makes "bring me to it" the sentence the pair
- * says most.
- *
- * Returns whether it found something, and leaves where it stopped on the state
- * for the picture to draw.
- */
-export function fireSnake(world: World, snake: SnakeState): boolean {
-  const stop = snakeShotStop(world, snake);
-  if (stop === null) return false;
-  snake.shotBeat = world.beat;
-  snake.shotCol = stop.col;
-  snake.shotRow = stop.row;
-  snake.shotHit = stop.enemy !== -1;
-  if (stop.enemy === -1) return false;
-  snake.struck.push(stop.enemy);
-  return true;
-}
-
-/**
- * **Where a shot taken this instant would stop, and what it would find** —
- * the walk on its own, with nothing written back.
- *
- * Lifted out of `fireSnake` on 18 September 2026 so the field could say
- * `FIRE` on an enemy that is actually reachable (`render/boss-cue-read-g.ts`).
- * A cue that walked the reach a second time would be a second copy of the one
- * rule that decides whether the pair is close enough yet, and the two copies
- * would disagree the first time a meteor moved — the shot stops at the first
- * standing enemy, its own body, a meteor or the wall, and which of those it
- * met is the whole of what player 1 learns.
- *
- * `null` only where there is no head to spit out of.
- */
-export function snakeShotStop(
-  world: World,
-  snake: SnakeState,
-): { col: number; row: number; enemy: number } | null {
-  const head = snake.body[0];
-  if (!head) return null;
-  let col = head.col;
-  let row = head.row;
-  for (let reach = 0; reach < world.cfg.snakeShotTiles; reach++) {
-    col += snake.dirCol;
-    row += snake.dirRow;
-    if (!snakeOnBoard(world, col, row)) {
-      return { col: col - snake.dirCol, row: row - snake.dirRow, enemy: -1 };
-    }
-    const enemy = snakeEnemyAt(snake, col, row);
-    if (enemy !== -1) return { col, row, enemy };
-    // A meteor stops the shot and takes nothing from it. That is the whole of
-    // what makes one worth *placing*: it is a wall between the trigger and its
-    // target, and the only answer to it is the steering.
-    if (
-      snakeRockAt(snake, col, row) ||
-      snakeOccupies(snake, col, row, false, snakeLifted(world.cfg, snake))
-    ) {
-      return { col, row, enemy: -1 };
-    }
-  }
-  // Nothing inside the reach. The spit still lands, and where it lands is the
-  // whole of what player 1 learns: the picture draws it stopping in mid-air,
-  // which is the pair being told they are not close enough yet.
-  return { col, row, enemy: -1 };
 }
 
 /**

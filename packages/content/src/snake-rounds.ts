@@ -35,9 +35,9 @@ import type { SnakeRound } from "@neon-spore/sim";
  * second a small tile and 28 under a quarter. A small tile is half a big one,
  * so the body crosses the screen about a third slower than it did on the old
  * grid, which the owner asked for (25 September 2026). The body slides between
- * tiles rather than jumping (`snake-body.ts`). The mouth stands open for 84
- * ticks whatever the round (`snakeMawTicks`), so the press that is two steps
- * in round one is three by round three.
+ * tiles rather than jumping (`snake-body.ts`). The mouth stands open for 168
+ * ticks whatever the round (`snakeMawTicks`), so the press that is four steps
+ * in round one is six by round three.
  */
 export const SNAKE_ROUNDS: SnakeRound[] = [
   // Learning what the two seats are. One enemy straight ahead and inside the

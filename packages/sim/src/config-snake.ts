@@ -136,14 +136,14 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   snakeShedTiles: 14,
   snakeJawsMilli: 1500,
   snakeTailTiles: 6,
-  // Seven tenths of a second, about two steps in the first round and three by
-  // the last. It was half a second, and the owner asked
-  // for a mouth that stands open long enough to be seen standing open: at the
-  // old window the jaws were swinging shut about as soon as they had finished
-  // swinging apart, which read as a twitch rather than as a mouth.
-  snakeMawTicks: 84,
+  // Fourteen tenths of a second, about four steps in the first round and six
+  // by the last. It was half a second, then seven tenths, and the owner asked
+  // each time for a mouth that stands open longer (last on 29 September 2026,
+  // "double"): at half a second the jaws were swinging shut about as soon as
+  // they had finished swinging apart, which read as a twitch, not a mouth.
+  snakeMawTicks: 168,
   // The window itself: the mouth reopens the tick it shuts, and not before.
-  snakeMawRestTicks: 84,
+  snakeMawRestTicks: 168,
   snakeFireRestBeats: 1,
   // Ten small tiles, five of the old ones. Short enough that the shot is
   // still a reason to steer.

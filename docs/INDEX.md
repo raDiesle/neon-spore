@@ -526,6 +526,7 @@ by hand never moves.
 | `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
 | `packages/sim/src/snake-hash.ts` | What SNAKE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/snake-home.ts` | **Going home**: what the body does between a cleared arena and the next |
+| `packages/sim/src/snake-shot.ts` | A shot, straight out of the head along the way it is pointing |
 | `packages/sim/src/coil.ts` | THE COIL: a rock sitting inside a dome of its own |
 | `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
 | `packages/sim/src/events-coil.ts` | **THE COIL's two**: a dome coming off, and the charge it was holding leaving for the next one |

@@ -115,7 +115,10 @@ export function closeSnake(world: World): void {
 export function snakeRoundHeard(world: World, player: 1 | 2, command: Command): void {
   const round = snakeRound(world);
   if (round === null || round.phase !== "play") return;
-  snakeHeard(world, round, player, command);
+  if (snakeHeard(world, round, player, command) !== false) return;
+  // A turn taken the tick it was pressed drove the body into something.
+  round.passed = false;
+  enterPhase(round, "verdict", world.beat);
 }
 
 export function enterPhase(round: SnakeState, phase: SnakePhase, beat: number): void {

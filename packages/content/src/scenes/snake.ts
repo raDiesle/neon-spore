@@ -43,11 +43,10 @@ export const SNAKE: GuideScene = {
   boss: { kind: "snake", rounds: SNAKE_ROUNDS },
   acts: [
     { tick: 420, control: "snakeFire" },
-    // Queued between two steps, so it is applied on the one that takes the
-    // head off the opening column and along the row the second enemy is
-    // standing in. A turn is relative and queued rather than applied
-    // (`SnakeState.turn`), so the tick it is sent on is the tick that decides
-    // which corner the body turns.
+    // Taken the tick it is sent (`turnSnake`), on whichever tile the head is
+    // nearer, so the tick it is sent on is the tick that decides which corner
+    // takes the head off the opening column and along the row the second
+    // enemy is standing in.
     { tick: 870, control: "snakeLeft" },
     { tick: 950, control: "snakeFire" },
   ],

@@ -407,6 +407,13 @@ now carry the whole body and everything standing in the arena, and the split
 is the hands alone. The seat with the wheel cannot shoot or eat, and the seat
 with the trigger cannot turn.
 
+**A turn is taken the tick it is pressed** (`turnSnake`), on the tile the
+head is nearer to: the one it stands on in the first half of a step, the one
+ahead in the second, where that step is taken at once. It used to wait for the
+next step, and the owner found the wheel laggy (29 September 2026): the body
+slides into the tile ahead all through a step, so a queued turn was seen going
+on and then snapping round.
+
 **The shot carries ten small tiles and no further** (`snakeShotTiles`). It used
 to carry the width of the arena, which quietly took the steering out of the
 round: an enemy eight tiles up column four was answered from the opening square,
@@ -655,7 +662,7 @@ out of first — with the three walls as THE SCOUT's hairline and no floor,
 because the floor is the hull (`render/snake-draw.ts`, `snakeArena`). The
 four presses are lobes on the band (`snake-button.ts`): player 2's two carry
 the nose the body is pointed at and the arc of the turn, THE SCOUT's own
-glyphs, and light while a turn is queued; player 1's two carry the head
+glyphs, and light from a turn until the next step; player 1's two carry the head
 itself — a venom-green one with the chevrons of the shot fading in as the rest
 runs out, and an amber-pod one whose jaws open with the mouth's own window.
 `touch-lobe.ts` answers all four as one press each, so the round needs no

@@ -8,6 +8,7 @@ import {
   snakeResting,
   snakeRound,
   snakeShotStop,
+  snakeTurnsHere,
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
@@ -30,7 +31,7 @@ import type { Hand } from "./hand.js";
  * (its own tail excepted, the tick it is vacating) stands on it — a struck
  * enemy is gone and a point is never an obstacle, since walking onto one only
  * ever helps. `bfsFirstTurn` searches breadth-first over `(col, row, heading)`
- * states, the shape a queued quarter-turn actually has, for the nearest tile
+ * states, the shape a quarter-turn actually has, for the nearest tile
  * that is either an untaken point or a heading a shot would carry to a
  * standing enemy from — replanned fresh every tick, so a struck enemy or a
  * banked point drops out of the search the moment it is gone.
@@ -38,7 +39,7 @@ import type { Hand } from "./hand.js";
 
 type Press = Omit<TimedCommand, "tick">;
 
-/** The heading after a queued turn, the way `snake-move.ts`'s own `turned` reads. */
+/** The heading after a turn, the way `snake-move.ts`'s own `turned` reads. */
 function turnedDir(dc: number, dr: number, turn: -1 | 0 | 1): Dir {
   const next = DIRS[(dirIndex(dc, dr) + turn + 4) % 4];
   if (!next) throw new Error("a heading this package does not have");
@@ -191,7 +192,10 @@ export const snakeHand: Hand = (w) => {
       });
     }
   }
-  if (turn !== null && turn !== 0) {
+  // One corner a tile, sent while it is still the tile the head stands on: a
+  // turn is taken the tick it is heard, and in the second half of a step it
+  // is taken one tile on, which is not the corner this search found.
+  if (turn !== null && turn !== 0 && s.turn === 0 && snakeTurnsHere(w, s)) {
     out.push({ player: 2, command: { kind: "snakeTurn", dir: turn === 1 ? "right" : "left" } });
   }
   return out;
