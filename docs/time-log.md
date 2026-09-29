@@ -28782,3 +28782,5 @@ Bottleneck: the entry's premise — the ring stands in the shield's own spot, so
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: landing — a one-entry removal still pays the full landing check.
+
+*Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · 552850e8c — `land` keeps its whole check: reusing check:fast's green result is dropped
+
+The owner, 29 September 2026, chose to drop it over moving check:fast after the commit: with several sessions landing at once the trunk usually moves between the two, so the saving would rarely apply, and it would change a rule every lane follows.
+
 ## 2026-09-29 · f058cfce4 — THE UNDERTOW's pin ring was drawn all along: pinned with the shield in its column
 
 The entry said the ring did not show in `bun run frames` while a lobe stood. It does: the pin stands where the plate stands, and at tick 470 the shield is in the lobe's own column, so the ring is drawn in the middle of the plate and reads as a black disc in it. A run with the rings switched off tells the two apart. `undertow-grip-frame.test.ts` already counted the ring on p2's frame; it now counts it with the shield standing in that column too. Nothing drawn changes.
