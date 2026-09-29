@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-29 · b2d2f51a7 — THE GRINDSTONE's spent axle lets its grind die out, white to grey
+
+Row 11's fade now has its picture. The axle goes white-hot as the last shot lands and dies back to the wheel's own grey across the phase, with a halo and a ring of grind streaks round its rim that slow, shorten and dim as it goes. No cannon colour is used. Both jaws strain faintly off the stone, and a pad held down jars its own jaw back. The STATES sheet has THE GRINDSTONE · FADE, played to by AUTO.
+
 ## 2026-09-29 · 67506b8fb — THE SLING's spent yoke ticks white-hot and cools back to steel
 
 Row 11's cool, the sixth pose: once the last shot is in, the cup goes white-hot and cools back to the fork's own scoured grey across the phase. A halo dies with it and a ring ticks off it on every beat, with no cannon colour. Both cords strain faintly against their catches, a finger down jolts its own side's catch back off home, and a snap's extra beat shows as the heat coming back up. A look with no shipped alternative: before this the fork stood unchanged. The STATES sheet has THE SLING · COOL, played to by AUTO.
