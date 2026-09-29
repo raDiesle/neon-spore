@@ -28980,3 +28980,5 @@ binding chain typed to always return a sound.
 
 Bottleneck: looking — a run as long as the chain alone was a dot, and only
 the rendered frame showed it.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
