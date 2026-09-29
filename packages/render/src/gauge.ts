@@ -7,6 +7,7 @@ import {
 } from "@neon-spore/sim";
 import { drawGaugeAlien, rimPoint } from "./gauge-alien.js";
 import { drawGaugeAim, drawGaugeCannon } from "./gauge-cannon.js";
+import { drawGaugeEyes, drawGaugeTongue } from "./gauge-face.js";
 import { drawGaugeHurt } from "./gauge-hurt.js";
 import { gaugeShotLoad, gaugeWoundColor } from "./gauge-load.js";
 import {
@@ -85,7 +86,10 @@ export function drawGaugeFoe(
   view: DialView,
 ): void {
   const c = shotClock(cfg, gauge, view.tick, view.beat, view.beatPhase);
-  drawGaugeAlien(ctx, dial, view.time, gaugeFlinch(gauge, c));
+  const flinch = gaugeFlinch(gauge, c);
+  drawGaugeAlien(ctx, dial, view.time, flinch);
+  drawGaugeTongue(ctx, dial, view.time);
+  drawGaugeEyes(ctx, dial, gauge.needleMilli, view.time, flinch);
   // Every mark landed, torn into its flesh: the count, never as a number.
   drawGaugeHurt(ctx, dial, gauge.marks, view.time);
   // The scar of a hit is on both screens: it is where *he* stopped.
@@ -125,7 +129,7 @@ export function drawGauge(
     view.showMarks && !c.flying && gaugeSeatedBy(cfg, gauge) && gaugeWoundGrown(gauge, c) >= 1;
   drawGaugeAim(ctx, dial, gauge.needleMilli, load, gaugeAimShown(c), hot);
   drawGaugeShot(ctx, dial, gauge, c);
-  drawGaugeCannon(ctx, dial, cannonPose(gauge, c), load);
+  drawGaugeCannon(ctx, dial, cannonPose(gauge, c), load, view.time);
 }
 
 /**

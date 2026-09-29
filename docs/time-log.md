@@ -29694,3 +29694,13 @@ Bottleneck: reading — the report called a boundary cut mid-item, and only
 the hook's log showed the hook had been right and the parser wrong.
 
 *Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE GAUGE: the standard set's egg for a cannon, and a face round the mouth
+
+- reading: 10 min. The field's cloaca (`cannon-maw.ts`, the egg's contour, curve and skin) and the alien.
+- writing: 15 min. The egg drawn long, the teeth, the eyes and the tongue in `gauge-face.ts`, the gash slots moved off the eyes.
+- looking: 10 min. Three frames: the eyes too small and among the gashes, the tongue standing up like a second cannon.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, one import sort, the commit.
+
+Bottleneck: the tongue's first shape was the cannon's shape in another violet, and only a frame showed it.

@@ -1,11 +1,13 @@
 import type { Point } from "@neon-spore/content";
+import { eggBeats } from "./egg-curve.js";
+import { drawEggSkin, NO_FLARE } from "./egg-skin.js";
 import type { Dial } from "./gauge.js";
 import { angleOf, rimPoint } from "./gauge-alien.js";
 import { type Loaded, loadedLook } from "./gauge-load.js";
-import { halo } from "./glow.js";
+import { halo, strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
-import { OWN_SKIN } from "./hull-skin.js";
 import { PALETTE } from "./palette.js";
+import { splinePath } from "./spline.js";
 
 /**
  * THE GAUGE's cannon: the ship's own, standing on the crown where it always
@@ -18,16 +20,29 @@ import { PALETTE } from "./palette.js";
  * crown, and a shot goes out along that line to the alien's rim
  * (`gauge-alien.ts`), so every reading is still `sim/gauge.ts`'s.
  *
- * The cannon lobe is the hull's own skin, the barrel's vent glows the colour
+ * Since 29 September 2026 it is the standard set's cannon, the field's egg in
+ * its violet jelly and white rim (`cannon-maw.ts`) — the owner: *please make
+ * the cannon look like cannon from "standard set"* — its vent glows the colour
  * it is loaded with (`gauge-load.ts`), and a dotted line runs from the vent to
  * the rim with a ring where it meets it: where the shot will land, on both
  * screens — he turns it, she has to see it to call it.
  */
 
-/** The lobe it turns in, and the barrel out of it, as shares of the radius. */
-const LOBE = 0.12;
-const BARREL = 0.27;
+/**
+ * The egg, as shares of the radius: how far its vent stands out from the
+ * pivot, how far its fat end sits back behind it, and its half-width there.
+ * The vent is short of the mouth by more than half the radius — the owner,
+ * 29 September 2026: *increase distance of cannon to mouth a little bit*.
+ */
+const REACH = 0.36;
+const BACK = 0.12;
+const WIDE = 0.13;
 const BORE = 0.055;
+/** How much narrower the egg is at the vent than at its fat end. */
+const TAPER = 0.4;
+/** Points round the egg. */
+const STEPS = 30;
+const REST = eggBeats(0, 0);
 
 /**
  * Which way the cannon points and how far its barrel has kicked back. At rest
@@ -53,7 +68,25 @@ export function aimAt(ctx: CanvasRenderingContext2D, dial: Dial, milli: number):
 
 /** From the pivot to the barrel's mouth, in pixels, with nothing kicking it. */
 export function muzzleReach(dial: Dial): number {
-  return dial.r * (LOBE + BARREL);
+  return dial.r * REACH;
+}
+
+/**
+ * The egg pointing up, its vent `tip` pixels out and its fat end `back`
+ * pixels behind the pivot: the field's cloaca drawn long, so it still says
+ * which way it faces.
+ */
+function eggAlong(tip: number, back: number, wide: number, t: number): Path2D {
+  const mid = (tip - back) / 2;
+  const half = (tip + back) / 2;
+  const pts: Point[] = [];
+  for (let i = 0; i < STEPS; i++) {
+    const a = (i / STEPS) * Math.PI * 2;
+    const up = Math.cos(a);
+    const w = wide * (1 - TAPER * (0.5 + 0.5 * up)) * (1 + 0.03 * Math.sin(a * 3 + t * 1.1));
+    pts.push({ x: Math.sin(a) * w, y: -(mid + up * half) });
+  }
+  return splinePath(pts, true);
 }
 
 export function drawGaugeCannon(
@@ -61,27 +94,22 @@ export function drawGaugeCannon(
   dial: Dial,
   pose: CannonPose,
   load: Loaded,
+  time: number,
 ): void {
   const look = loadedLook(load);
-  const lobe = dial.r * LOBE;
   const bore = dial.r * BORE;
-  const tip = muzzleReach(dial) - dial.r * BARREL * 0.35 * pose.recoil;
+  const wide = dial.r * WIDE;
+  const back = dial.r * BACK;
+  const tip = muzzleReach(dial) - dial.r * (REACH - BACK) * 0.3 * pose.recoil;
+  const mid = (tip - back) / 2;
   ctx.save();
   aimAt(ctx, dial, pose.aimMilli);
-  // The barrel: a fat tapering snout of the hull's own membrane, rounded at
-  // the mouth — a lobe of the ship grown long, not a pipe bolted onto it.
-  ctx.beginPath();
-  ctx.moveTo(-bore * 1.5, -lobe * 0.3);
-  ctx.quadraticCurveTo(-bore * 1.25, -tip * 0.7, -bore, -tip);
-  ctx.quadraticCurveTo(0, -tip - bore * 0.7, bore, -tip);
-  ctx.quadraticCurveTo(bore * 1.25, -tip * 0.7, bore * 1.5, -lobe * 0.3);
-  ctx.closePath();
-  ctx.fillStyle = OWN_SKIN.body[1];
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineWidth = 2.2;
-  ctx.stroke();
-  // The vent at its mouth, in the loaded colour: the one part of the gun that
+  // The standard set's cannon — the field's cloaca (`cannon-maw.ts`), violet
+  // jelly under a white neon rim — drawn long so it points.
+  const path = eggAlong(tip, back, wide, time);
+  drawEggSkin(ctx, path, 0, -mid, wide * 1.15, time, REST, NO_FLARE);
+  strokeGlow(ctx, path, PALETTE.hullRim, 1.3 + 0.9 * pose.recoil, 0.45 + 0.4 * pose.recoil);
+  // The vent at its tip, in the loaded colour: the one part of the gun that
   // says what is in it.
   halo(ctx, 0, -tip, bore * 3, look.hex, 0.55);
   ctx.beginPath();
@@ -91,18 +119,6 @@ export function drawGaugeCannon(
   ctx.strokeStyle = look.rim;
   ctx.lineWidth = 1.4;
   ctx.stroke();
-  // The lobe it turns in, over the barrel's root.
-  ctx.beginPath();
-  ctx.arc(0, 0, lobe, 0, Math.PI * 2);
-  ctx.fillStyle = OWN_SKIN.body[1];
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = PALETTE.hullRim;
-  ctx.beginPath();
-  ctx.arc(0, 0, lobe * 0.28, 0, Math.PI * 2);
-  ctx.fill();
   ctx.restore();
 }
 

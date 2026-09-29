@@ -25,23 +25,30 @@ import { splinePath } from "./spline.js";
  * wound, the aim mark and the two thumbs all stand on it, and a thing that is
  * aimed at must not move while the arm aiming at it is still.
  *
- * **The rim is armour everywhere the wound is not.** Grey plates, `rock`'s
- * colours, so a shot landing on it reads as the hard thing it is. The wound
+ * **The rim is teeth everywhere the wound is not.** They were grey plates, and
+ * on 29 September 2026 the owner asked for the face they were half of: *i like
+ * idea that visual it looks like a mouth, can you enhance that we see like a
+ * face of an alien and some open mouth visual e.g. tongue and eyes*. Bone, so
+ * a shot landing on them still reads as the hard thing it is; the eyes and the
+ * tongue are `gauge-face.ts`. The wound
  * is flesh in the colour of the loaded shot (`gauge-wound.ts`); the colours
  * a pair reads as *hit this* are only ever there.
  */
 
-/** The rim's distance from the pivot, as a share of the dial's radius. */
-export const RIM = 0.9;
+/** The rim's distance from the pivot, as a share of the dial's radius — out
+ * from 0.9 on 29 September 2026, so the mouth stands further off the cannon. */
+export const RIM = 0.97;
 /** The body's middle distance, and the arms' extra reach, as shares of it. */
 const BODY = 1.62;
 const ARM_REACH = 0.42;
 const ARMS = 6;
 /** How many points round each of the two loops. */
 const N = 96;
-/** The armour's plates: how many across the half-turn, and how deep. */
-const PLATES = 15;
-const PLATE_DEPTH = 0.075;
+/** The teeth: how many across the half-turn, and how far each points in. */
+const TEETH = 15;
+const TOOTH_DEPTH = 0.1;
+const BONE = "#D8CCAA";
+const BONE_DARK = "#5E5645";
 
 /** Where a value on the dial points, as a canvas angle. Left is 0, right is full. */
 export function angleOf(milli: number): number {
@@ -130,47 +137,46 @@ export function drawGaugeAlien(
   ctx.restore();
 
   strokeGlow(ctx, splinePath(outline(dial, time, flinch), true), SKIN, 2, 0.55 + 0.4 * flinch);
-  drawArmour(ctx, dial);
+  drawTeeth(ctx, dial);
 }
 
 /**
- * The plates round the mouth: one shallow scale each, over the half-turn the
- * cannon can face and a little past both ends, so the armour runs on under
- * the hull rather than stopping where the dial does.
+ * The teeth round the mouth: one fang each, over the half-turn the cannon can
+ * face and a little past both ends, so the jaw runs on under the hull rather
+ * than stopping where the dial does.
  */
-function drawArmour(ctx: CanvasRenderingContext2D, dial: Dial): void {
-  const step = GAUGE_FULL / PLATES;
-  const depth = dial.r * PLATE_DEPTH;
+function drawTeeth(ctx: CanvasRenderingContext2D, dial: Dial): void {
+  const step = GAUGE_FULL / TEETH;
+  const depth = dial.r * TOOTH_DEPTH;
   ctx.save();
   ctx.lineJoin = "round";
-  for (let k = -1; k <= PLATES + 1; k++) {
+  for (let k = -1; k <= TEETH + 1; k++) {
     const lo = k * step;
-    const hi = lo + step;
-    const path = platePath(dial, lo, hi, depth);
-    ctx.fillStyle = PALETTE.rockDark;
+    // Every other one a little shorter, so the row is a jaw and not a saw.
+    const path = toothPath(dial, lo, lo + step, depth * (k % 2 === 0 ? 1 : 0.8));
+    ctx.fillStyle = BONE_DARK;
     ctx.fill(path);
-    ctx.strokeStyle = mixHex(PALETTE.rock, PALETTE.rockDark, 0.35);
+    ctx.strokeStyle = BONE;
     ctx.lineWidth = 1.4;
     ctx.stroke(path);
   }
   ctx.restore();
 }
 
-/** One plate from `lo` to `hi` on the rim, bulging `depth` towards the cannon. */
-function platePath(dial: Dial, lo: number, hi: number, depth: number): Path2D {
+/** One fang from `lo` to `hi` on the rim, its point `depth` towards the cannon. */
+function toothPath(dial: Dial, lo: number, hi: number, depth: number): Path2D {
   const path = new Path2D();
   const steps = 6;
   for (let i = 0; i <= steps; i++) {
     const m = lo + ((hi - lo) * i) / steps;
-    const p = rimPoint(dial, m, depth * 0.35);
+    const p = rimPoint(dial, m, depth * 0.3);
     if (i === 0) path.moveTo(p.x, p.y);
     else path.lineTo(p.x, p.y);
   }
   for (let i = steps; i >= 0; i--) {
     const u = i / steps;
-    const m = lo + (hi - lo) * u;
-    const bulge = Math.sin(Math.PI * u) ** 0.6;
-    const p = rimPoint(dial, m, -depth * bulge);
+    // Full at the root and drawn to a blunt point in the middle.
+    const p = rimPoint(dial, lo + (hi - lo) * u, -depth * Math.sin(Math.PI * u) ** 1.6);
     path.lineTo(p.x, p.y);
   }
   path.closePath();

@@ -24,19 +24,20 @@ import { splinePath } from "./spline.js";
 /**
  * Where each gash tears, in order: the angle round the pivot (canvas degrees,
  * 180 is left and 270 straight up), the distance as a share of the dial's
- * radius, and the tilt of its long axis. Left and right shoulder by turns, and
- * clear of the crown, where the face is, and of the sides of a narrow phone.
+ * radius, and the tilt of its long axis. Left and right shoulder by turns,
+ * clear of the eyes (`gauge-face.ts`) and of the sides of a narrow phone; the
+ * last is over the brow.
  */
 const SLOTS: readonly (readonly [number, number, number])[] = [
   [212, 1.22, 0.5],
   [322, 1.26, -0.6],
-  [236, 1.36, -0.3],
-  [300, 1.18, 0.9],
+  [226, 1.34, -0.3],
+  [308, 1.14, 0.9],
   [204, 1.1, 1.2],
   [334, 1.12, -1.1],
   [224, 1.12, -0.9],
   [312, 1.38, 0.2],
-  [250, 1.2, 0.7],
+  [270, 1.64, 0.1],
 ];
 
 /** The gash's half-length and half-width, as shares of the dial's radius. */

@@ -1225,6 +1225,7 @@ by hand never moves.
 | `packages/render/src/gauge-words.ts` | THE GAUGE's big words over the dial: the count-in, the level that is coming, and the verdict |
 | `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |
 | `packages/render/src/gauge-hurt.ts` | **What the alien has taken**: one torn gash in its flesh for every mark the pair has landed |
+| `packages/render/src/gauge-face.ts` | **THE GAUGE's face**: two eyes on the crown over the open mouth, and a tongue lolling in it |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |
