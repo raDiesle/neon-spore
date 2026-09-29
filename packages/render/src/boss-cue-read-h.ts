@@ -25,14 +25,14 @@ import { scoutAt } from "./scout-draw.js";
  * and stands on `l.hullY`, and THE SCOUT's arena is the field's own columns
  * with the mother ship's mouth on the bottom row (`scoutAt`, `scoutHome`).
  *
- * **Both of them already talk, and that is what decides the page.** Each draws
- * a line of its own at the top, on both screens, every tick, and a cue that
- * said the same thing again three tiles lower would be the
- * four-pictures-for-one-idea mistake `target-lock.ts` records the owner
- * ending. They differ in what the line is, and so the readings differ: PINBALL
- * says *what is wanted now* (`waiting`), so only the one word its sentence
- * cannot say survives; THE SCOUT says *what this seat is for* (`job`), which
- * is a standing fact and leaves every moment in the round unspoken.
+ * **PINBALL already talks, and that is what decides its reading.** It draws
+ * a line of its own at the top, on both screens, every tick, saying *what is
+ * wanted now* (`waiting`), and a cue that said the same thing again three
+ * tiles lower would be the four-pictures-for-one-idea mistake `target-lock.ts`
+ * records the owner ending — so only the one word its sentence cannot say
+ * survives. THE SCOUT said *what this seat is for* at the top until 29
+ * September 2026, when the owner had every word over its arena taken away; its
+ * one word is still only the moment the round cannot show on its own.
  */
 
 /** THE CHOIR's frame, in tiles: the size of this mark, as on every page. */

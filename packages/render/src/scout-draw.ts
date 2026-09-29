@@ -93,6 +93,14 @@ export function drawScoutHome(
   strokeGlow(ctx, ring, PALETTE.pod, STROKE.outline, 0.3 + 0.6 * open);
 }
 
+/**
+ * How one piece of the arena is put on the screen: `paint` draws it whole at
+ * (`x`, `y`). The pilot's glimpse tears it instead (`scout-look.ts`).
+ */
+export type ScoutPut = (id: number, x: number, y: number, paint: () => void) => void;
+
+const whole: ScoutPut = (_id, _x, _y, paint) => paint();
+
 /** Every mote still out there: the ones neither carried nor banked. */
 export function drawScoutMotes(
   ctx: CanvasRenderingContext2D,
@@ -100,6 +108,7 @@ export function drawScoutMotes(
   cfg: SimConfig,
   round: ScoutState,
   time: number,
+  put: ScoutPut = whole,
 ): void {
   const motes = scoutCurrent(round).motes;
   const r = (cfg.scoutMoteRadiusMilli * l.tile) / 1000;
@@ -108,13 +117,15 @@ export function drawScoutMotes(
     const mote = motes[i];
     if (mote === undefined) continue;
     const { x, y } = scoutAt(l, mote);
-    drawPodBody(ctx, x, y, r * 1.18, time + i * 0.31, "ward");
+    put(i, x, y, () => drawPodBody(ctx, x, y, r * 1.18, time + i * 0.31, "ward"));
   }
 }
 
 /**
  * The hazards, where they are this tick. Burning rocks, the field's own, and
  * the one that caught the ship — if one did — burns brighter for the verdict.
+ * `only` draws that one alone: the catcher, on the screen that was never
+ * shown the arena (`scout-round.ts`).
  */
 export function drawScoutHazards(
   ctx: CanvasRenderingContext2D,
@@ -122,13 +133,15 @@ export function drawScoutHazards(
   cfg: SimConfig,
   round: ScoutState,
   time: number,
+  put: ScoutPut = whole,
+  only = -1,
 ): void {
   const r = (cfg.scoutHazardRadiusMilli * l.tile) / 1000;
   for (let i = 0; i < round.hazards.length; i++) {
     const hazard = round.hazards[i];
-    if (hazard === undefined) continue;
+    if (hazard === undefined || (only >= 0 && i !== only)) continue;
     const { x, y } = scoutAt(l, hazard);
     if (round.caughtBy === i) halo(ctx, x, y, r * 2.2, PALETTE.ember, 0.6);
-    drawRockBody(ctx, x, y, r, time + i * 0.7, i * 7 + 3, 0);
+    put(100 + i, x, y, () => drawRockBody(ctx, x, y, r, time + i * 0.7, i * 7 + 3, 0));
   }
 }

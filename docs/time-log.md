@@ -29576,3 +29576,13 @@ Bottleneck: landing. Deleting a guide and its film left prose in five docs,
 and only the doc-drift and briefing-count tests found it.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SCOUT looks like an alien pacman, throws rings when let go, and burns a fuse instead of words
+
+- reading: 5 min. The round's picture files, THE FLIP's tear and the slow's fuse.
+- writing: 15 min. The pacman, its eye and feelers, the launch, the suck, the glimpse, the fuse, the tests.
+- looking: 10 min. Frames of both seats; the ship drawn larger once the mouth did not read at its touch radius.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the look at phone size — the first pacman was fourteen pixels across and its mouth was invisible until it was drawn a third larger than it touches.

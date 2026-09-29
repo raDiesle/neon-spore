@@ -1,22 +1,23 @@
-import {
-  type ScoutState,
-  scoutCurrent,
-  scoutLeft,
-  scoutMawOpen,
-  scoutPilot,
-  type World,
-} from "@neon-spore/sim";
+import { type ScoutState, scoutMawOpen, scoutPilot, type World } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
+import { tear } from "./flip-reveal.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
 import { frame } from "./hull-frame.js";
-import type { Layout, ViewRole } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { drawScoutHazards, drawScoutHome, drawScoutMotes, drawScoutWalls } from "./scout-draw.js";
+import {
+  drawScoutHazards,
+  drawScoutHome,
+  drawScoutMotes,
+  drawScoutWalls,
+  type ScoutPut,
+} from "./scout-draw.js";
 import { drawScoutGrips } from "./scout-grip.js";
+import { drawScoutClock, drawScoutLaunch, drawScoutSuck, scoutGlimpse } from "./scout-look.js";
 import { drawScoutAsked, drawScoutVerdicts } from "./scout-marks.js";
 import { drawScout } from "./scout-ship.js";
 import { seatSkin } from "./seat-skin.js";
@@ -45,7 +46,8 @@ import { showsScoutArena, showsScoutNose } from "./view-role.js";
  * **The split is the encounter** (`view-role.ts`): the pilot is shown the
  * ship, its nose and what it carries and not one mote or hazard; the
  * navigator is shown every mote and hazard and a ship with no nose on it.
- * Both are shown home, the walls and the count, because both are counting.
+ * Both are shown home, the walls and the clock, and the pilot a glimpse of
+ * the arena every few seconds (`scout-look.ts`).
  *
  * Nothing here outlives a frame. The pose is read off the world each time
  * rather than eased, for THE PULSE's reason: an ease is state a restart reads
@@ -86,21 +88,20 @@ export function drawScoutRound(
   drawShipAir(ctx, l, view.time, skin);
   drawScoutWalls(ctx, l, cfg);
 
-  ctx.textAlign = "center";
-  const top = l.gridTop + l.tile * 0.52;
-  drawTitle(ctx, l, view.role, boss, top);
-  drawTally(ctx, l, view, boss, top + l.tile * 0.92);
+  // No words over the arena while it is flown — the owner, 29 September
+  // 2026: *remove all the text above from wave during game*. The clock is
+  // the fuse across the top, and who does what is the guide's to say.
+  drawScoutClock(ctx, l, boss, world.beat, view.beatPhase);
 
   drawScoutHome(ctx, l, cfg, mood.intake, view.time);
-  const pilot = scoutPilot(boss);
-  if (showsScoutArena(view.role, pilot)) {
-    drawScoutMotes(ctx, l, cfg, boss, view.time);
-    drawScoutHazards(ctx, l, cfg, boss, view.time);
-  }
+  drawScoutSuck(ctx, l, cfg, boss, view.time);
+  drawArena(ctx, l, view, boss);
   // The little ship is out only once the lead has let it go: in the lead it
   // is still inside the mother ship, and the picture is the mouth opening.
   if (boss.phase !== "lead") {
-    drawScout(ctx, l, cfg, boss, world.tick, view.time, showsScoutNose(view.role, pilot));
+    const nose = showsScoutNose(view.role, scoutPilot(boss));
+    drawScout(ctx, l, cfg, boss, world.tick, view.time, nose);
+    drawScoutLaunch(ctx, l, cfg, boss, world.tick);
   }
 
   drawHull(
@@ -132,62 +133,35 @@ export function drawScoutRound(
   drawScoutVerdicts(ctx, l, cfg, boss, effects.boss.scout.verdicts);
 }
 
-/** The name and which seat is doing what, in the clear air above the arena. */
-function drawTitle(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  role: ViewRole,
-  boss: ScoutState,
-  top: number,
-): void {
-  ctx.fillStyle = PALETTE.hull;
-  ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("THE SCOUT", l.width / 2, top);
-  ctx.fillStyle = PALETTE.dim;
-  ctx.font = '12px "Courier New",monospace';
-  ctx.fillText(job(role, boss), l.width / 2, top + l.tile * 0.46);
-}
-
 /**
- * What this seat is for, said on both screens. Addressed rather than split:
- * the pilot is told they are flying blind and the navigator that they are
- * the eyes, and each is told the other's job in the same breath, since the
- * whole round is the two of them saying it out loud.
+ * The motes and hazards, on the screen that is shown them. The pilot's is
+ * shown them only in a glimpse, torn in and out (`scout-look.ts`), and the
+ * one hazard that caught the ship once it has — *when little ship is caught,
+ * it should show the enemy which caught it for both players*.
  */
-function job(role: ViewRole, boss: ScoutState): string {
-  if (boss.phase === "lead") return "the ship is opening";
-  if (boss.phase !== "play") return boss.passed ? "every mote is home" : "the scout is lost";
-  if (role === "test") return "one flies, one sees";
-  if (role === (scoutPilot(boss) === 1 ? "p1" : "p2")) return "you fly it — they can see the arena";
-  return "you see the arena — they fly it";
-}
-
-/**
- * Motes banked, which arena this is, and how long there is. Three readings
- * for PINBALL's reason: a row of four across a phone is a row nobody reads.
- * In the lead the clock shows the beats until the ship is let go.
- */
-function drawTally(
+function drawArena(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   view: ViewState,
   boss: ScoutState,
-  y: number,
 ): void {
-  const cfg = view.world.cfg;
-  const arena = scoutCurrent(boss);
-  const total = arena.motes.length;
-  const since = view.world.beat - (boss.phase === "lead" ? boss.phaseBeat : boss.arenaBeat);
-  const span = boss.phase === "lead" ? cfg.scoutLeadBeats : arena.beats;
-  const beats = Math.max(0, span - since);
-  ctx.font = '11px "Courier New",monospace';
-  ctx.textAlign = "center";
-  ctx.fillStyle = PALETTE.pod;
-  ctx.fillText(`MOTES ${total - scoutLeft(boss)}/${total}`, l.width * 0.16, y);
-  ctx.fillStyle = PALETTE.dim;
-  ctx.fillText(`ARENA ${boss.arena + 1}/${boss.arenas.length}`, l.width / 2, y);
-  ctx.fillStyle = boss.phase === "play" && beats < 4 ? PALETTE.red : PALETTE.dim;
-  ctx.fillText(`${beats}`, l.width * 0.88, y);
+  const { world, time } = view;
+  const cfg = world.cfg;
+  if (showsScoutArena(view.role, scoutPilot(boss))) {
+    drawScoutMotes(ctx, l, cfg, boss, time);
+    drawScoutHazards(ctx, l, cfg, boss, time);
+    return;
+  }
+  const glimpse = scoutGlimpse(cfg, boss, world.tick);
+  if (glimpse !== null) {
+    const frame = Math.floor(time * 18);
+    const put: ScoutPut = (id, x, y, paint) =>
+      tear(ctx, l, id, x, y, frame, glimpse.s, glimpse.alpha, 0, paint);
+    drawScoutMotes(ctx, l, cfg, boss, time, put);
+    drawScoutHazards(ctx, l, cfg, boss, time, put);
+  } else if (boss.caughtBy >= 0) {
+    drawScoutHazards(ctx, l, cfg, boss, time, undefined, boss.caughtBy);
+  }
 }
 
 /** How it went, once it is over. */

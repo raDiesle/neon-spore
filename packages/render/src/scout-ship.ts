@@ -1,41 +1,56 @@
-import { blobPoints } from "@neon-spore/content";
 import {
   mazeCosMilli,
   mazeSinMilli,
   type ScoutState,
   type SimConfig,
-  scoutNose,
   scoutPrimed,
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawAlienEye, drawFeelers } from "./scout-alien.js";
 import { scoutAt } from "./scout-draw.js";
-import { splinePath } from "./spline.js";
-import { drawWetSocket } from "./wet-socket.js";
 
 /**
  * THE SCOUT's little ship, drawn. Split off `scout-draw.ts` — the arena it
  * flies in — on that file's line count.
  *
- * **It is the mother ship's own material at a tile's scale**: one lobed
- * contour of the hull's violet (`blobPoints`, the call the hull itself is
- * built from), with a nose on it where the heading is. Not a new shape — a
- * piece of the ship, put out, which is what the wave's guide says happens.
+ * **It is a pacman, but alien** — the owner, 29 September 2026: *make it look
+ * like a pacman but alien, which collects the stuff*. A round of the mother
+ * ship's violet with a wedge of a mouth chomping, lobed at the rim like
+ * everything this game grows (`blobPath`'s wobble, done here on an arc), a
+ * wet slit-pupilled eye, and two feelers with lit tips riding the back.
+ *
+ * **The mouth is the heading, so only the pilot sees it** (`showsScoutNose`).
+ * On the navigator's screen the mouth is shut, the eye is centred and the
+ * feelers stand straight up: a place and nothing more, which is exactly what
+ * that seat is meant to have. What is aboard sits in the mouth, on the same
+ * half.
  *
  * Nothing is held between frames; every number comes off the round, the tick
  * and the frame clock.
  */
 
+/** The mouth's half-opening, in radians, at its narrowest and widest. */
+const MOUTH_SHUT = 0.08;
+const MOUTH_WIDE = 0.95;
+/** Chomps a second. */
+const CHOMP_HZ = 3;
+/** The rim's lobes, and how deep they go as a share of the radius. */
+const LOBES = 5;
+const LOBE_DEPTH = 0.07;
 /**
- * The little ship: a lobe of the mother ship's own material, with a nose on
- * it where the heading is and its wake behind it while it burns.
- *
- * `nose` is the pilot's half of the split (`showsScoutNose`): without it the
- * ship is a place and nothing more, which is exactly what the navigator is
- * meant to have. The motes it carries ride its rim on the same half — they
- * come off it only at home, and the pilot is the one flying it there.
+ * How much bigger the body is drawn than it touches (`scoutRadiusMilli`): at
+ * the touch radius it is fourteen pixels across a phone and the mouth does
+ * not read. A hazard's own rock is drawn at its touch radius, so a body this
+ * size still meets one only once the two are really touching.
+ */
+const DRAWN = 1.35;
+
+/**
+ * The little ship. `nose` is the pilot's half of the split: the mouth, the
+ * eye set forward, the feelers behind, the wake and what it carries.
  */
 export function drawScout(
   ctx: CanvasRenderingContext2D,
@@ -47,9 +62,11 @@ export function drawScout(
   nose: boolean,
 ): void {
   const { x, y } = scoutAt(l, round);
-  const r = (cfg.scoutRadiusMilli * l.tile) / 1000;
+  const r = (DRAWN * cfg.scoutRadiusMilli * l.tile) / 1000;
   const sin = mazeSinMilli(round.headingMilli) / 1000;
   const cos = mazeCosMilli(round.headingMilli) / 1000;
+  // The screen angle the mouth faces: up, on the navigator's screen, and shut.
+  const face = nose ? Math.atan2(-cos, sin) : -Math.PI / 2;
 
   // Caught: a red flash that fades over the verdict, so the touch is seen.
   if (round.caughtTick >= 0) {
@@ -59,57 +76,67 @@ export function drawScout(
   }
   // **The wake says the thruster is firing, so it is asked whether it is.**
   // A burn held on a heavy ship outside `scoutPrimeTicks` adds nothing at all
-  // (`sim/scout-fly.ts`), and this drew the same two chevrons for it as for a
-  // burn that worked — a picture of a control answering while it is refused.
-  // `scoutPrimed` is the flight's own reading, called rather than restated.
+  // (`sim/scout-fly.ts`), and a wake for it would be a control answering
+  // while it is refused. `scoutPrimed` is the flight's own reading.
   if (nose && round.burning && scoutPrimed(cfg, round, tick)) {
     drawScoutWake(ctx, x, y, r, sin, cos, time);
   }
 
-  const body = splinePath(blobPoints(x, y, r, r * 0.9, 3, 0.1, 0.05, time * 0.7, 5, 24), true);
-  paintScoutBody(ctx, body, x, y, r);
+  drawFeelers(ctx, x, y, r, nose ? face + Math.PI : -Math.PI / 2, time);
+  const chomp = 0.5 + 0.5 * Math.sin(time * CHOMP_HZ * Math.PI * 2);
+  const mouth = nose && round.caughtTick < 0 ? MOUTH_SHUT + (MOUTH_WIDE - MOUTH_SHUT) * chomp : 0;
+  paintScoutBody(ctx, pacPath(x, y, r, face, mouth, time), x, y, r);
+  // The eye: forward of the middle and to the mouth's upper side for the
+  // pilot; dead centre for the navigator, where it gives nothing away.
+  const up = face - (Math.PI / 2) * Math.sign(Math.cos(face) || 1);
+  const ex = nose ? x + Math.cos(face) * r * 0.12 + Math.cos(up) * r * 0.42 : x;
+  const ey = nose ? y + Math.sin(face) * r * 0.12 + Math.sin(up) * r * 0.42 : y - r * 0.2;
+  drawAlienEye(ctx, ex, ey, r, time);
 
   if (!nose) return;
-  const tip = scoutNose(round.headingMilli);
-  const reach = r * 1.7;
-  ctx.save();
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineCap = "round";
-  ctx.lineWidth = Math.max(1.4, r * 0.18);
-  ctx.beginPath();
-  // From the skin outward, so the heading never crosses the porthole.
-  const skin = r * 0.7;
-  ctx.moveTo(x + (tip.colMilli / 1000) * skin, y + (tip.rowMilli / 1000) * skin);
-  ctx.lineTo(x + (tip.colMilli / 1000) * reach, y + (tip.rowMilli / 1000) * reach);
-  ctx.stroke();
-  ctx.restore();
-  // What it is carrying, riding the rim opposite the nose: one amber bead a
-  // mote, so the pilot can count them without being told.
+  // What it is carrying, in the mouth: one amber bead a mote, so the pilot
+  // can count them without being told.
   const beads = round.carrying.length;
   for (let i = 0; i < beads; i++) {
-    const spread = (i - (beads - 1) / 2) * 0.5;
-    const bx = x - sin * r * 1.15 * Math.cos(spread) + cos * r * 1.15 * Math.sin(spread);
-    const by = y + cos * r * 1.15 * Math.cos(spread) + sin * r * 1.15 * Math.sin(spread);
+    const spread = (i - (beads - 1) / 2) * 0.45;
+    const bx = x + Math.cos(face + spread) * r * 0.72;
+    const by = y + Math.sin(face + spread) * r * 0.72;
     ctx.save();
     ctx.fillStyle = PALETTE.pod;
     ctx.beginPath();
-    ctx.arc(bx, by, r * 0.28, 0, Math.PI * 2);
+    ctx.arc(bx, by, r * 0.2, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
 }
 
 /**
+ * The body's outline: a lobed rim from one lip of the mouth round to the
+ * other, and in to the middle. `mouth` 0 is a closed round.
+ */
+function pacPath(x: number, y: number, r: number, face: number, mouth: number, time: number) {
+  const path = new Path2D();
+  const steps = 36;
+  const from = face + mouth;
+  const span = Math.PI * 2 - mouth * 2;
+  if (mouth > 0) path.moveTo(x, y);
+  for (let i = 0; i <= steps; i++) {
+    const a = from + (span * i) / steps;
+    const k = r * (1 + LOBE_DEPTH * Math.sin(a * LOBES + time * 1.4));
+    const px = x + Math.cos(a) * k;
+    const py = y + Math.sin(a) * k;
+    if (i === 0 && mouth === 0) path.moveTo(px, py);
+    else path.lineTo(px, py);
+  }
+  path.closePath();
+  return path;
+}
+
+/**
  * **The ship as a made thing** — the mother ship's violet with a curve to it,
- * lit from above like everything else on the field, rather than a dark fill
- * with a glowing line round it.
- *
- * The body is shaded from a lit shoulder to the deep underneath; a cold
- * bounce comes up off the water into its underside; a wet porthole sits in
- * the middle with its lower wall lit; a film of gloss rides the top of the
- * curve. **The porthole is centred, not toward the nose**: an eye set forward
- * would tell the navigator the heading, which the split keeps from them
- * (`showsScoutNose`).
+ * lit from above like everything else on the field: shaded from a lit
+ * shoulder to the deep underneath, a cold bounce off the water on its
+ * underside, and a film of gloss over the top of the curve.
  */
 function paintScoutBody(
   ctx: CanvasRenderingContext2D,
@@ -128,31 +155,15 @@ function paintScoutBody(
   ctx.fill(body);
   ctx.clip(body);
   // The bounce off the water, on the underside.
-  ctx.strokeStyle = rgba(PALETTE.sheenCold, 0.75);
+  ctx.strokeStyle = rgba(PALETTE.sheenCold, 0.35);
   ctx.lineWidth = r * 0.16;
   ctx.beginPath();
   ctx.arc(x, y - r * 0.12, r * 0.98, Math.PI * 0.18, Math.PI * 0.82);
   ctx.stroke();
-  ctx.restore();
-  // The porthole: a wet socket in the plating with a glint in it.
-  drawWetSocket(ctx, x, y + r * 0.08, r * 0.42, r * 0.34, Math.max(1, r * 0.08));
-  ctx.save();
-  ctx.fillStyle = rgba(PALETTE.sheenDeep, 0.85);
-  ctx.beginPath();
-  ctx.ellipse(x, y + r * 0.04, r * 0.26, r * 0.2, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.8);
-  ctx.beginPath();
-  ctx.arc(x - r * 0.09, y - r * 0.04, r * 0.06, 0, Math.PI * 2);
-  ctx.fill();
-  // The film over the curve: a soft bloom on the shoulder and a hard point.
+  // The film over the curve: a soft bloom on the shoulder.
   ctx.fillStyle = rgba(PALETTE.sheenRim, 0.45);
   ctx.beginPath();
   ctx.ellipse(x - r * 0.38, y - r * 0.46, r * 0.3, r * 0.13, -0.6, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = rgba(PALETTE.sheenRim, 0.95);
-  ctx.beginPath();
-  ctx.arc(x - r * 0.46, y - r * 0.5, r * 0.06, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
 }

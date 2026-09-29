@@ -1290,6 +1290,8 @@ by hand never moves.
 | `packages/render/src/scout-ship.ts` | THE SCOUT's little ship, drawn |
 | `packages/render/src/scout-grip.ts` | **THE SCOUT's two hands on its own picture** |
 | `packages/render/src/scout-marks.ts` | THE SCOUT's line and prime haloed while asked, the partner's clock on the prime, green on a reel and a prime, red on a refused press |
+| `packages/render/src/scout-alien.ts` | **What makes THE SCOUT's pacman alien** (`scout-ship.ts`): two feelers with lit tips off its back |
+| `packages/render/src/scout-look.ts` | **THE SCOUT's moments**, each asked for by the owner on 29 September 2026 and each drawn off the round and… |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
 | `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |

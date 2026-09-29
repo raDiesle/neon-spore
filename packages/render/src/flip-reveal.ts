@@ -80,7 +80,7 @@ export function drawProjected(
  * sideways by up to half a tile and drop out at a rate of `s`. At `s` 0, it is
  * one whole body at `alpha`.
  */
-function tear(
+export function tear(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   id: number,

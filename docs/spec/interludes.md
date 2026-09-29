@@ -828,6 +828,16 @@ with the pilot's hands dead until it is home. The pilot is shown the arena
 carry one mote more each, from one, on four times the clock a clean flight
 takes (`packages/content/src/scout-arenas.ts`).
 
+**How it looks** (`packages/render/src/scout-look.ts`, `scout-ship.ts`). The
+little ship is an alien pacman — a lobed violet round with a chomping mouth, a
+slit-pupilled green eye and two feelers — and the mouth, which is the heading,
+is drawn only on the pilot's screen. Two rings come off it each time it is let
+go. The mouth's reach is dashed round home while a mote is aboard, and a
+stream of amber runs into the mouth while it sucks. The pilot's glimpse tears
+in and out with THE FLIP's projection tear, and the hazard that caught the
+ship is shown on both screens. No words stand over the arena while it is
+flown; its clock is the slow's fuse across the top.
+
 **Three bars, three hands** (18 September 2026, `.claude/skills/new-boss`
 §6.2; the simulation is `packages/sim/src/pulse-hand.ts`). THE PULSE splits
 nothing in its verbs — both panels carry the same four arrows and a press is
