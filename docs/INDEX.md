@@ -3404,5 +3404,8 @@ by hand never moves.
 | `tools/director/src/effects/slow-light/horizon.ts` | Rings of knots round the boss, in body radii, inner first |
 | `tools/director/src/effects/slow-light/streams.ts` | THE SLOW's light from 22 to 26 September 2026, when CRAWL took its place (`packages/render/src/slow-crawl.ts`) |
 | `tools/director/src/effects/slow-light/window.ts` | **What every kept `slow:light` answer draws round its light**: the prism under it and the fuse over it |
+| `tools/ledger/parse.ts` | `docs/time-log.md` read as records: one per dated `##` entry, with its five rows |
+| `tools/ledger/read.ts` | The reading `docs/lane-speed.md` makes of the ledger, as numbers: the distribution, the rows' shares |
+| `tools/ledger/run.ts` | `bun run lane-speed` — the time log's reading, printed |
 
 <!-- index:code:end -->

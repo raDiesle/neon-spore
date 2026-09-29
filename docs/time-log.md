@@ -28734,3 +28734,15 @@ Bottleneck: reading — the finding's premise, that `check:fast` sometimes runs
 the whole suite, was only disproved by opening `fast-scope.ts`.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — `bun run lane-speed` reads the time log
+
+- reading: 0 min. The analysis's scratch parse was the starting point.
+- writing: 5 min. `tools/ledger/` — the parse, the reading, the command, a
+  test holding one entry in each of the four row formats.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. The index rows, `lane-speed.md` and `commands.md`, `check:fast`, `land`.
+
+Bottleneck: none; the parse existed in scratch before the claim, so the lane was
+filing it, not writing it.

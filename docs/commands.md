@@ -98,6 +98,7 @@ bun run queue release <n>  # give back an item that was handed out, not started
 bun run queue done "<title>"  # take an entry out once it has landed — never <n>
 bun run delegate       # hand a spec to the worker: <spec> <files it may edit>
 bun run index          # regenerate the file map in docs/INDEX.md
+bun run lane-speed     # the time log's reading: shares, tail, friction causes — --from, --to, --split <day>
 ```
 
 ## Pictures

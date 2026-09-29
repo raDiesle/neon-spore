@@ -273,15 +273,16 @@ mode; it was answered the day it was written and is off the list.
 The owner asked again what the last days say about speeding a lane up —
 implementation, tests and thinking — without a drawback worth the name. The
 ledger had grown to 1 087 entries dated 17 to 29 September, in four row
-formats (a table, `- reading: N min`, `- reading — N min`, bold names), and no
-script in the tree reads all four; the parse was a scratch file, which is its
-own queue entry.
+formats (a table, `- reading: N min`, `- reading — N min`, bold names).
+`bun run lane-speed` reads all four (`tools/ledger/`), and every figure in this
+section is what it prints — `--split 2026-09-23` for the week the tail fell,
+`--from` and `--to` for any other period.
 
 | period | lanes | mean | median | lanes ≥ 90 min | friction share | landing share |
 |---|---|---|---|---|---|---|
 | 10–16 Sep (above) | 296 | 48 | 35 | — | 12.1% | 14.5% |
 | 17–22 Sep | 338 | 77 | 70 | 111 | 13.8% | 15.8% |
-| 23–29 Sep | 749 | 34 | 25 | 34 | 9.4% | 17.9% |
+| 23–29 Sep | 761 | 34 | 25 | 34 | 9.5% | 17.8% |
 
 **Splitting worked, late.** The week after the split rule went into
 `CLAUDE.md` was the worst week in the ledger — median 70, a third of lanes

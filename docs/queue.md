@@ -1678,17 +1678,3 @@ about the committed tree. The options:
    which with three to five sessions landing at once is not the usual case.
 2. **Drop it.** The landing's check stays whole, and the saving above is the
    price of not changing a rule every lane follows.
-
-## The time log has no script that reads it
-
-- **Found:** 2026-09-29, claude/task-speed-analysis-49cc0a
-- **Taken:** 2026-09-29, claude/lane-speed-fixes (claim: claude/queue-the-time-log-has-no-script-that-reads-it)
-- **Files:** `docs/lane-speed.md`, `docs/time-log.md`
-
-`docs/lane-speed.md` says to re-read it "by running the parse again", and no
-parse is in the tree. The entries use four row formats — a table, `- reading:
-N min`, `- reading — N min` and a bold row name — and a bottleneck line that
-is sometimes `Bottleneck:` and sometimes bold prose. A small `bun run
-lane-speed` that prints the distribution, shares, the tail and the friction
-causes per period, with a test over one entry in each format, makes the next
-reading one command.
