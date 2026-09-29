@@ -28707,3 +28707,13 @@ Bottleneck: writing — the choice between two claims on one branch had to be
 argued before it was coded.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE MAZE's lever turns the drum one turn a lap
+
+- reading: 5 min. `config-maze-turn.ts`, `maze-controls.ts`, `maze-string.ts`'s ring, the guide's pull.
+- writing: 5 min. The gearing derived from the ring, the ring moved into the config, `boss-surface-maze.ts`, two tests.
+- looking: 0 min. The film probed instead; no frame taken.
+- friction: 5 min. Both boss barrels sat at 250 lines, so one new export meant cutting THE MAZE's names onto a page of their own.
+- landing: 5 min. `check:fast`, the index row, the commit, `land`.
+
+Bottleneck: the guide's film pulled a measured 3.9 tiles against the old gearing and nothing tested it, so it went silently wrong until a probe showed it clicking nothing.

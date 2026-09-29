@@ -1,4 +1,4 @@
-import { mazeBottomCol, mazeClickAngle, mazeEntranceCol, mazeWrap } from "./maze.js";
+import { mazeBottomCol, mazeClickAngle, mazeDragTurn, mazeEntranceCol, mazeWrap } from "./maze.js";
 import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-state.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { Color, Command } from "./types.js";
@@ -132,7 +132,7 @@ function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): 
   // back off them between agreeing on it and saying it.
   if (m.lockedWay >= 0 && Math.abs(moved) < world.cfg.mazeDragBreakMilli) return;
   m.dragFromMilli = fromMilli;
-  const turned = Math.round((moved * world.cfg.mazeDragMilliPerTile) / 1000);
+  const turned = mazeDragTurn(world.cfg, moved);
   if (turned === 0) return;
   breakDetent(m);
   m.angleMilli = mazeWrap(m.angleMilli + turned);

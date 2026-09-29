@@ -15,17 +15,23 @@ export interface MazeTurnConfig {
    */
   mazeTurnMilli: number;
   /**
-   * How far the wheel turns for one tile of hand travel while the string's
-   * handle is dragged, in thousandths of a degree. Forty-five degrees: the
-   * handle can be pulled about a third of the field's width in one gesture and
-   * carry a way in the whole distance between two of them, so a pull is one
-   * hand movement rather than a series of them.
+   * How far out from the rim the lever's knob runs, in thousandths of a tile:
+   * the knob's own radius and a hair for the bezel, so the ring the hand goes
+   * round runs against the drum with no gap (`maze-string.ts`).
+   *
+   * **It is also the lever's gearing.** A hand on the string turns the wheel
+   * one turn for one lap of that ring (the owner, 27 September 2026, 1:1 over
+   * the 45° a tile it was tuned to), so the knob stays on the gap it was put
+   * on all the way round — and how far one tile of hand travel turns it is
+   * worked out from the ring's size (`mazeDragTurn`), not tuned beside it. A
+   * gearing written as a number went wrong the first time the field's width
+   * changed; one derived from the ring cannot.
    *
    * It is the drag's counterpart to `mazeTurnMilli`, which is per *tick* and
    * belongs to the thumb — the two are the two gestures and neither replaces
    * the other (`maze-controls.ts`).
    */
-  mazeDragMilliPerTile: number;
+  mazeLeverOutMilli: number;
   /**
    * How far the hand has to carry on past a click before it breaks, in
    * thousandths of a tile. The detent needs hysteresis and a thumb does not: a
@@ -62,7 +68,7 @@ export interface MazeTurnConfig {
 
 export const MAZE_TURN_DEFAULTS: MazeTurnConfig = {
   mazeTurnMilli: 600,
-  mazeDragMilliPerTile: 45_000,
+  mazeLeverOutMilli: 450,
   mazeDragBreakMilli: 200,
   mazeSnapMilli: 450,
 };

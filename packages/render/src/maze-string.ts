@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import type { MazeState, SimConfig } from "@neon-spore/sim";
+import { type MazeState, mazeLeverRadiusMilli, type SimConfig } from "@neon-spore/sim";
 import { handleRadius } from "./handle-draw.js";
 import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
@@ -34,12 +34,6 @@ import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
  */
 
 /**
- * How far out from the rim the knob's middle stands, in tiles: its own radius
- * and a hair for the bezel, so the ring runs against the drum with no gap.
- */
-const STRING_TILES = 0.45;
-
-/**
  * Where round the drum the lever rests, as an angle off straight down.
  *
  * **It is off the bottom on purpose, and that is the whole of this constant.**
@@ -54,10 +48,15 @@ const STRING_TILES = 0.45;
  */
 const STRING_ANGLE = (40 / 360) * Math.PI * 2;
 
-/** The circle the knob runs round: the drum's centre, and the channel's radius. */
+/**
+ * The circle the knob runs round: the drum's centre, and the channel's radius,
+ * which the simulation owns because it is also the lever's gearing
+ * (`mazeLeverOutMilli`) — a ring drawn one size and geared to another is a
+ * knob that slides off the gap it was put on.
+ */
 function knobRing(l: Layout, cfg: SimConfig): { cx: number; cy: number; r: number } {
   const d = mazeDrum(l, cfg);
-  return { cx: d.cx, cy: d.cy, r: d.r + l.tile * STRING_TILES };
+  return { cx: d.cx, cy: d.cy, r: (mazeLeverRadiusMilli(cfg) * l.tile) / 1000 };
 }
 
 /** A point on a circle round the drum, `a` radians off straight down to the left. */

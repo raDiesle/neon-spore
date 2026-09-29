@@ -382,25 +382,6 @@ fire buttons in place of CALL. (b) is a sim change with a new `GaugeState`
 field, the codec, the director's `field-controls-gauge.ts`, and the guide's
 three steps.
 
-## THE MAZE's lever turns the drum 2.6 times per lap of its ring
-
-- **Found:** 2026-09-25, claude/pull-circle-animation-9cd78e
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-mazes-lever-turns-the-drum-2-6-times-per-lap)
-- **Files:** `packages/sim/src/config-maze-turn.ts`, `packages/render/src/maze-string.ts`, `packages/sim/test/maze*.test.ts`
-- **Asks:** should one lap of the lever round the drum be one turn of the drum?
-- **Answered:** 2026-09-27 — 1:1, over keeping the lever geared at 45° a tile.
-
-The lever's channel is now the whole ring round the drum (owner, 25
-September 2026), about 21 tiles round, and `mazeDragMilliPerTile` is 45°
-a tile — so a thumb that goes once round the ring turns the drum about
-2.6 times, and the knob and the gaps in the rings drift apart as it goes.
-The options: **1:1** — `mazeDragMilliPerTile` ≈ 17_000 (360° over the
-ring's circumference in tiles), the knob stays on the same gap all the way
-round, and a way in takes about a third of a lap rather than an eighth; or
-**keep 45°/tile** — short gestures, as tuned, with the knob and the drum
-geared. 1:1 is a one-number change plus the maze tests that count pulls to
-an alignment.
-
 ## §31 THE PLUMB — its weights are brought level by two pulls, not a lean
 
 - **Found:** 2026-09-26, claude/queue-31-the-plumb-the-lean-reader

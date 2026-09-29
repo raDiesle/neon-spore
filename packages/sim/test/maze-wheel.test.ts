@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test";
 import { hashWorld } from "../src/hash.js";
 import { step } from "../src/index.js";
-import { mazeEntranceCol, mazeEntranceX, mazeWrap } from "../src/maze.js";
+import { mazeDragTurn, mazeEntranceCol, mazeEntranceX, mazeWrap } from "../src/maze.js";
 import { mazeWheel } from "../src/maze-solve.js";
 import { mazeCurrent } from "../src/maze-state.js";
 import { mazeArc, mazeFault, mazeSweep } from "../src/maze-wheel.js";
@@ -169,7 +169,7 @@ test("the wheel follows the hand, by the distance it has come from the grab", ()
   const from = mazeOf(world).angleMilli;
   drag(world, SHORT);
   expect(mazeOf(world).lockedWay).toBe(-1);
-  expect(mazeOf(world).angleMilli).toBe(mazeWrap(from + (SHORT * CFG.mazeDragMilliPerTile) / 1000));
+  expect(mazeOf(world).angleMilli).toBe(mazeWrap(from + mazeDragTurn(CFG, SHORT)));
   // And back to the grab is back where it started: the hand names a place on
   // the string, so a pull undone is a wheel undone.
   drag(world, SHORT, 0);

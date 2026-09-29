@@ -34,7 +34,7 @@ export const BOSS_FIELDS = {
   mazeRow: "MAZE",
   mazeSpanMilli: "MAZE",
   mazeTurnMilli: "MAZE",
-  mazeDragMilliPerTile: "MAZE",
+  mazeLeverOutMilli: "MAZE",
   mazeDragBreakMilli: "MAZE",
   mazeSnapMilli: "MAZE",
   mazeHeartPullMilli: "MAZE",

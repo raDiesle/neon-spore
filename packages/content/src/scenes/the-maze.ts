@@ -26,8 +26,11 @@ import type { GuideScene } from "../scene-types.js";
  * the click is, which is the same thing a pair does with a real thumb, and it
  * is the one number in this film that had to be measured rather than reasoned
  * about. It is a long pull now — the drum opens with its gap as far from the
- * ship as it goes, which is the round — and 3900 is the displacement that ends
- * with the gap at the very bottom, on the middle column.
+ * ship as it goes, which is the round — and 15 817 is the displacement that
+ * ends with the gap at the very bottom, on the middle column: about half a lap
+ * of the lever's ring, since the lever turns the drum one turn a lap (27
+ * September 2026; it was 3900 at forty-five degrees a tile).
+ * `test/scene-maze.test.ts` holds it.
  *
  * **And the hand stays down through the shot.** Letting go breaks the detent
  * too, so a film that released before she fired would be a film about a column
@@ -40,7 +43,7 @@ export const THE_MAZE: GuideScene = {
   entries: [],
   boss: { kind: "maze", rounds: MAZE_ROUNDS },
   acts: [
-    { tick: 400, drag: "mazeString", toMilli: 3900, by: 560, until: 900 },
+    { tick: 400, drag: "mazeString", toMilli: 15_817, by: 560, until: 900 },
     { tick: 620, control: "cannon", col: 2 },
     { tick: 660, control: "cannon", col: 3 },
     { tick: 700, control: "fireRed" },

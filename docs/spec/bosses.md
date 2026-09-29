@@ -1785,9 +1785,11 @@ cannon still slides under it. `mazeRow` is the row the mouths hang on, where a
 wrong answer comes back out of the field and starts falling, the same job
 `mirrorRow` does. `mazeTurnMilli` is how far the wheel turns in a tick while the
 valve is held, in thousandths of a degree — a whole turn at 200 is twenty-four
-beats. `mazeDragMilliPerTile` is how far it turns for one tile of hand travel on
-the string, forty-five degrees, so a pull is one hand movement rather than a
-series of them. `mazeSnapMilli` is how near a column's centre a way in has to
+beats. `mazeLeverOutMilli` is how far out from the rim the lever's knob runs, and
+with it the lever's gearing: a hand that goes once round the ring turns the
+wheel once (the owner, 27 September 2026, 1:1 over the forty-five degrees a tile
+it was first tuned to), so the knob stays on the gap it was put on. The turn per
+tile of hand travel is worked out from the ring (`mazeDragTurn`), not tuned. `mazeSnapMilli` is how near a column's centre a way in has to
 come before it clicks onto it — wider than the rim moves in one tick, so a
 column cannot be turned straight past, and inside the column's half-width. It
 is wide on purpose (the owner, 25 September 2026: *the entrance should snap a

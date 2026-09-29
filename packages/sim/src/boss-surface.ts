@@ -18,6 +18,8 @@ export * from "./boss-script.js";
 // And the clock bosses' names, whole — a list of the same kind, cut for the
 // same reason `bosses.ts` was (`boss-surface-clocks.ts`).
 export * from "./boss-surface-clocks.js";
+// THE MAZE's, since its lever's ring became the simulation's (`boss-surface-maze.ts`).
+export * from "./boss-surface-maze.js";
 // And PINBALL's, whole: the round whose state is a shot rather than a clock
 // (`boss-surface-pinball.ts`).
 export * from "./boss-surface-pinball.js";
@@ -71,16 +73,6 @@ export {
   gaugeSeatedBy,
   gaugeSettling,
   gaugeSpanNow,
-  installMaze,
-  MAZE_APPROACH_BEATS,
-  MAZE_REASONS,
-  MAZE_TURN,
-  MAZE_VERDICT_BEATS,
-  type MazeEntrance,
-  type MazeGeometry,
-  type MazeState,
-  type MazeStep,
-  type MazeWheel,
   MIRROR_GESTURES,
   MIRROR_LEAD_BEATS,
   MIRROR_STEPS,
@@ -89,29 +81,6 @@ export {
   type MirrorState,
   type MirrorStep,
   type MirrorVerdictReason,
-  mazeArc,
-  mazeBottomCol,
-  mazeCenterMilli,
-  mazeCircleMilli,
-  mazeCopyWheel,
-  mazeCoreEntrance,
-  mazeCosMilli,
-  mazeCurrent,
-  mazeEntranceAngle,
-  mazeEntranceCol,
-  mazeEntrances,
-  mazeFault,
-  mazeHeartColor,
-  mazeHeartShot,
-  mazeRadiusMilli,
-  mazeReachesCore,
-  mazeReadBeats,
-  mazeRingMilli,
-  mazeRound,
-  mazeSinMilli,
-  mazeSolveRoute,
-  mazeSweep,
-  mazeWheel,
   mirrorGesture,
   mirrorHoldsControls,
   mirrorListenBeats,
@@ -235,9 +204,6 @@ export {
 export { fleetWoundAsks } from "./fleet-hand.js";
 // Which parts THE GAUGE asks a hand for, which its rings read (`gauge-marks.ts`).
 export { gaugeBandAsks, gaugeNeedleAsks } from "./gauge-hand.js";
-// Which parts THE MAZE asks a hand for, which its rings read (`maze-marks.ts`).
-export { mazeStringAsks } from "./maze-controls.js";
-export { mazeHeartAsks } from "./maze-hand.js";
 // Which marks THE MIRROR and THE BULB QUEEN ask a thumb for, which their
 // rings read rather than re-derive (`render/mirror-grip.ts`, `queen-marks.ts`).
 export { mirrorAsks, mirrorLobesOf } from "./mirror-hand.js";

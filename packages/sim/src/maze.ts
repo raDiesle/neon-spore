@@ -104,6 +104,20 @@ export function mazeCenterMilli(cfg: SimConfig): number {
   return cfg.cols * 500;
 }
 
+/** The radius of the ring the lever's knob runs round, in thousandths of a column. */
+export function mazeLeverRadiusMilli(cfg: SimConfig): number {
+  return mazeRadiusMilli(cfg) + cfg.mazeLeverOutMilli;
+}
+
+/**
+ * How far the wheel turns for `movedMilli` of hand travel round the lever's
+ * ring: one turn a lap, so the knob stays on the gap it was put on. `2π` in
+ * thousandths is the one rounding step, and it is the same on every device.
+ */
+export function mazeDragTurn(cfg: SimConfig, movedMilli: number): number {
+  return Math.round((movedMilli * MAZE_TURN * 1000) / (6283 * mazeLeverRadiusMilli(cfg)));
+}
+
 /** The angle a way in stands at, 0 being straight down at the ship. */
 export function mazeEntranceAngle(wheel: MazeWheel, angleMilli: number, index: number): number {
   return mazeWrap(angleMilli + (wheel.entrances[index]?.angleMilli ?? 0));
