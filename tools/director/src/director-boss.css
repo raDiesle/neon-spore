@@ -206,6 +206,11 @@ button.pin-cell.mBlockLit {
   border-color: var(--gold);
   color: var(--gold);
 }
+/* THE SCOUT's mouth and the tile over it: not cells, nothing goes there. */
+button.pin-cell.mHome {
+  color: var(--gold);
+  opacity: 0.6;
+}
 .pin-clock {
   display: flex;
   gap: 6px;

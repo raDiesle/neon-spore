@@ -62,7 +62,10 @@ export function renderPinballEditor(
     ),
   );
 
-  panel.appendChild(tabs(boss, at, redraw));
+  // The bar is handed `onEdit`, not `redraw`: a redraw writes the board it was
+  // drawn on back into `SHOWN`, over the one a tab had just chosen, and until
+  // 29 September 2026 that left every tab but the first unreachable.
+  panel.appendChild(tabs(boss, at, onEdit));
   panel.appendChild(grid(round.pieces, redraw));
   panel.appendChild(clock(round, redraw));
 
@@ -72,13 +75,13 @@ export function renderPinballEditor(
 }
 
 /** One button per board, and the two that add and remove one. */
-function tabs(boss: PinballEntry, at: number, redraw: () => void): HTMLElement {
+function tabs(boss: PinballEntry, at: number, onEdit: () => void): HTMLElement {
   const row = el("div", "pin-tabs");
   boss.rounds.forEach((_, i) => {
     const tab = button(`TABLE ${i + 1}`, i === at ? "pin-tab on" : "pin-tab");
     tab.addEventListener("click", () => {
       SHOWN.set(boss, i);
-      redraw();
+      onEdit();
     });
     row.appendChild(tab);
   });
@@ -94,7 +97,7 @@ function tabs(boss: PinballEntry, at: number, redraw: () => void): HTMLElement {
       pieces: (last?.pieces ?? []).map((p) => ({ ...p })),
     });
     SHOWN.set(boss, boss.rounds.length - 1);
-    redraw();
+    onEdit();
   });
   row.appendChild(add);
 
@@ -103,7 +106,7 @@ function tabs(boss: PinballEntry, at: number, redraw: () => void): HTMLElement {
   drop.addEventListener("click", () => {
     boss.rounds.splice(at, 1);
     SHOWN.set(boss, Math.max(0, Math.min(at, boss.rounds.length - 1)));
-    redraw();
+    onEdit();
   });
   row.appendChild(drop);
   return row;

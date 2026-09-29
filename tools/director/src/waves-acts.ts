@@ -12,6 +12,7 @@ import type { Wave } from "@neon-spore/content";
 import type { PinballRound } from "@neon-spore/sim";
 import { countWaveArray, serializeWaveArray } from "./serialize.js";
 import { serializePinballRounds } from "./serialize-pinball.js";
+import { serializeScoutArenas } from "./serialize-scout.js";
 import { ACT_FILES, type ActFile } from "./waves-act-files.js";
 
 export { ACT_FILES, type ActFile };
@@ -28,6 +29,10 @@ export const repoRootPath = Bun.fileURLToPath(new URL("../../../", import.meta.u
  */
 const pinballFile = new URL("../../../packages/content/src/pinball-rounds.ts", import.meta.url);
 const pinballRel = "packages/content/src/pinball-rounds.ts";
+
+/** THE SCOUT's levels, the second such file and for the same reason (`serialize-scout.ts`). */
+const scoutFile = new URL("../../../packages/content/src/scout-arenas.ts", import.meta.url);
+const scoutRel = "packages/content/src/scout-arenas.ts";
 
 /**
  * The files a save reads and writes, and the tree Biome runs in.
@@ -46,6 +51,8 @@ export interface WaveFiles {
   readonly acts: readonly ActFile[];
   /** PINBALL's board file, written beside the acts when the list holds a pinball wave. */
   readonly boards: { readonly file: URL; readonly rel: string };
+  /** THE SCOUT's arena file, written the same way when the list holds a scout wave. */
+  readonly arenas: { readonly file: URL; readonly rel: string };
 }
 
 /** The checkout this director is running in — what a save writes unless told otherwise. */
@@ -53,6 +60,7 @@ export const REAL_FILES: WaveFiles = {
   root: repoRootPath,
   acts: ACT_FILES,
   boards: { file: pinballFile, rel: pinballRel },
+  arenas: { file: scoutFile, rel: scoutRel },
 };
 
 const BIOME = join(repoRootPath, "node_modules", "@biomejs", "biome", "bin", "biome");
@@ -91,7 +99,11 @@ export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): 
     await Bun.write(act.file, next);
   }
 
-  const rels = [...acts.map((act) => act.rel), ...(await writeBoards(waves, files))];
+  const rels = [
+    ...acts.map((act) => act.rel),
+    ...(await writeBoards(waves, files)),
+    ...(await writeArenas(waves, files)),
+  ];
   // The repository's own Biome by path, not `bun x biome`: run from a tree
   // that has no `node_modules`, the latter resolves the package from the
   // network first — ten seconds, on the day this was measured.
@@ -129,4 +141,19 @@ async function writeBoards(waves: readonly Wave[], files: WaveFiles): Promise<st
   const source = await Bun.file(files.boards.file).text();
   await Bun.write(files.boards.file, serializePinballRounds(source, rounds));
   return [files.boards.rel];
+}
+
+/** THE SCOUT's arenas, under `writeBoards`' rule: exactly one scout wave may own the list. */
+async function writeArenas(waves: readonly Wave[], files: WaveFiles): Promise<string[]> {
+  const owners = waves.filter((w) => w.boss?.kind === "scout");
+  if (owners.length !== 1) {
+    if (owners.length > 1)
+      console.log(`${owners.length} scout waves share one arena list — none written`);
+    return [];
+  }
+  const boss = owners[0]?.boss;
+  if (boss === undefined || boss.kind !== "scout") return [];
+  const source = await Bun.file(files.arenas.file).text();
+  await Bun.write(files.arenas.file, serializeScoutArenas(source, boss.arenas));
+  return [files.arenas.rel];
 }

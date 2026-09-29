@@ -1,7 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import { PINBALL_ROUNDS, pinBoard, pinBoardRows, pinPicture } from "@neon-spore/content";
-import { DEFAULT_CONFIG, pinballFault } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, type PinballEntry, pinballFault } from "@neon-spore/sim";
+import { renderPinballEditor } from "../src/pinball-editor.js";
 import { serializePinballRounds } from "../src/serialize-pinball.js";
+import { FakeEl, installDom } from "./fake-dom.js";
 
 /**
  * The board round trip, which is the only thing standing between the editor
@@ -67,5 +69,25 @@ describe("serializePinballRounds", () => {
     expect(() => serializePinballRounds("// nothing here", PINBALL_ROUNDS)).toThrow(
       /PINBALL_ROUNDS/,
     );
+  });
+});
+
+describe("the table bar", () => {
+  it("moves to the table pressed", () => {
+    const dom = installDom();
+    try {
+      const boss: PinballEntry = { kind: "pinball", rounds: structuredClone(PINBALL_ROUNDS) };
+      const render = (): FakeEl => {
+        const panel = new FakeEl();
+        renderPinballEditor(panel as unknown as HTMLElement, boss, () => {});
+        return panel;
+      };
+      const tables = (panel: FakeEl) =>
+        panel.descendants().filter((e) => e.textContent.startsWith("TABLE "));
+      tables(render())[1]?.click();
+      expect(tables(render()).findIndex((t) => t.classList.contains("on"))).toBe(1);
+    } finally {
+      dom.restore();
+    }
   });
 });

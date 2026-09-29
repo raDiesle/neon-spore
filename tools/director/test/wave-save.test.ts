@@ -64,13 +64,17 @@ beforeAll(async () => {
     ...REAL_FILES.boards,
     file: await copied(REAL_FILES.boards.file, REAL_FILES.boards.rel),
   };
+  const arenas = {
+    ...REAL_FILES.arenas,
+    file: await copied(REAL_FILES.arenas.file, REAL_FILES.arenas.rel),
+  };
   const biome = (await Bun.file(join(REAL_FILES.root, "biome.json")).json()) as Record<
     string,
     unknown
   >;
   delete biome.vcs;
   await Bun.write(join(dir, "biome.json"), JSON.stringify(biome));
-  copy = { root: dir, acts, boards };
+  copy = { root: dir, acts, boards, arenas };
 });
 
 afterAll(async () => {
@@ -88,7 +92,7 @@ afterAll(async () => {
  * here still passed.
  */
 async function actTexts(files: WaveFiles): Promise<string[]> {
-  const all = [...files.acts.map((act) => act.file), files.boards.file];
+  const all = [...files.acts.map((act) => act.file), files.boards.file, files.arenas.file];
   return await Promise.all(all.map((file) => Bun.file(file).text()));
 }
 
@@ -109,7 +113,7 @@ test("the token follows the act files' contents", async () => {
       exportName: `WAVES_${name.toUpperCase()}`,
     }));
     for (const act of acts) await Bun.write(act.file, "export const X = [];\n");
-    const files: WaveFiles = { root: at, acts, boards: copy.boards };
+    const files: WaveFiles = { root: at, acts, boards: copy.boards, arenas: copy.arenas };
 
     const first = await wavesToken(files);
     expect(await wavesToken(files)).toBe(first);
@@ -216,7 +220,11 @@ test("a save into the copy leaves the checked-in files untouched, to the mtime",
   // Bytes would not show it: the round trip writes the same ones back. What a
   // shard reading the real tree would notice is the write itself, and a write
   // of identical bytes still moves the modification time.
-  const real = [...REAL_FILES.acts.map((act) => act.file), REAL_FILES.boards.file];
+  const real = [
+    ...REAL_FILES.acts.map((act) => act.file),
+    REAL_FILES.boards.file,
+    REAL_FILES.arenas.file,
+  ];
   const before = real.map((file) => Bun.file(file).lastModified);
   const waves = await readWaves();
 

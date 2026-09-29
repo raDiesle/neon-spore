@@ -3097,6 +3097,7 @@ by hand never moves.
 | `tools/director/src/serialize-boss-b.ts` | **The scripted bosses, written back out**: THE SEAM and every scene after it |
 | `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
 | `tools/director/src/serialize-fault.ts` | **A `Malfunction` as its own source, arm by arm**, and every field of the arm is written |
+| `tools/director/src/serialize-scout.ts` | THE SCOUT's arenas, written back into `packages/content/src/scout-arenas.ts` |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
@@ -3219,6 +3220,8 @@ by hand never moves.
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
 | `tools/director/src/scene-overlay.ts` | **Drawing a scene's bodies**, once the placing next door has said where each of them stands |
+| `tools/director/src/scout-editor-grid.ts` | THE SCOUT's arena as the editor paints it: the cells, what a press does to one |
+| `tools/director/src/scout-editor.ts` | THE SCOUT's levels, painted on the arena they are flown in |
 | `tools/director/src/stage-world.ts` | A fresh run of the wave being edited, stood up the way the game stands one up |
 | `tools/port.ts` | `bun run port` — which port this checkout's servers answer on |
 | `tools/servers.ts` | The two servers this repository starts and settles a port with, described once |

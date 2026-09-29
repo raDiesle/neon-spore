@@ -29650,3 +29650,13 @@ Bottleneck: reading — the siren only knew field creatures, and finding where
 its drawing could be called from without the roster took the longest.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — The director edits THE SCOUT's levels: motes and hazards on the grid, a clock and speeds per level
+
+- reading: 5 min. PINBALL's editor, its serializer and the save's file list.
+- writing: 10 min. The editor and its grid, the serializer, the save and the token, the tests.
+- looking: 5 min. The panel photographed from this tree.
+- friction: 5 min. The browser pane's `director-here` started another worktree's director, and the first shot photographed a hidden panel off it.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: making a save that changed nothing write the arena file byte for byte — Biome breaks a list of two places however short it is, and the serializer had to learn that.

@@ -6,6 +6,7 @@ import { renderFleetEditor } from "./fleet-editor.js";
 import { renderMazeEditor } from "./maze-editor.js";
 import { renderPinballEditor } from "./pinball-editor.js";
 import { renderRepriseEditor } from "./reprise-editor.js";
+import { renderScoutEditor } from "./scout-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
 import { renderSnakeEditor } from "./snake-editor.js";
 import { renderSpliceEditor } from "./splice-editor.js";
@@ -102,14 +103,16 @@ export function bindBossPanel(
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }
-    // PINBALL is the second, and the same sentence applies: its boards are the
-    // fight, so this panel paints them rather than describing them
-    // (`pinball-editor.ts`).
-    if (wave.boss.kind === "pinball") {
-      renderPinballEditor(panel, wave.boss, () => {
+    // PINBALL is the second and THE SCOUT the third, and the same sentence
+    // applies: the boards and the arenas are the fight, so this panel paints
+    // them rather than describing them (`pinball-editor.ts`, `scout-editor.ts`).
+    if (wave.boss.kind === "pinball" || wave.boss.kind === "scout") {
+      const edited = (): void => {
         store.dirty = true;
         onEdit();
-      });
+      };
+      if (wave.boss.kind === "pinball") renderPinballEditor(panel, wave.boss, edited);
+      else renderScoutEditor(panel, wave.boss, edited);
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
       return;
     }

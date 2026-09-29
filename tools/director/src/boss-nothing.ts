@@ -4,7 +4,6 @@ import type { BossEntry } from "@neon-spore/sim";
 const AUTHORS_NOTHING = [
   "gauge",
   "well",
-  "scout",
   "stare",
   "baton",
   "throat",
@@ -69,13 +68,11 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   the projection's figures are render's own constants, because the only
  *   thing a dial could move is how the picture reads, and that is what VERSUS
  *   is for (`render/src/well.ts`).
- * - **THE SCOUT**'s arenas are authored in
- *   `packages/content/src/scout-arenas.ts` as places in thousandths of a tile,
- *   which is a picture rather than a form — the same answer SNAKE's rounds and
- *   PINBALL's boards get, one card along.
  * - **THE STARE**'s levels are authored in
  *   `packages/content/src/stare-levels.ts` as beat patterns, which is a rhythm
- *   rather than a form — THE SCOUT's answer, one card along (`sim/stare.ts`).
+ *   rather than a form (`sim/stare.ts`). THE SCOUT stood here beside it until
+ *   29 September 2026, when the owner asked to make its levels in the
+ *   director; it has an editor of its own now (`scout-editor.ts`).
  *
  * - **THE BATON** asks for nothing for THE STARE's reason and one more: the
  *   arm hangs in `midCol` so there is no column, the sockets are the health so

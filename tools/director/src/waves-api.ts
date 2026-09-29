@@ -58,7 +58,8 @@ export interface WavesView {
 /**
  * A fingerprint of the act files' contents, and the board file's with them.
  *
- * The board file is in the hash because a save writes it (`waves-acts.ts`),
+ * The board file — and THE SCOUT's arena file beside it, since 29 September
+ * 2026 — is in the hash because a save writes it (`waves-acts.ts`),
  * and a file a save writes is a file a save can overwrite: from the day the
  * director began writing boards, 2 September 2026, its comment said the file
  * was "read into the token" while only the acts were, so a board edited on
@@ -73,7 +74,7 @@ export interface WavesView {
  * file that gains an identical one cannot collide.
  */
 export async function wavesToken(files: WaveFiles = REAL_FILES): Promise<string> {
-  const hashed = [...files.acts.map((act) => act.file), files.boards.file];
+  const hashed = [...files.acts.map((act) => act.file), files.boards.file, files.arenas.file];
   const texts = await Promise.all(hashed.map((file) => Bun.file(file).text()));
   const joined = texts.map((t) => `${t.length}\0${t}`).join("\0");
   return Bun.hash(joined).toString(16);
