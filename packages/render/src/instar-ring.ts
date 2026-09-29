@@ -1,5 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
-import type { InstarGesture } from "@neon-spore/sim";
+import type { SceneMark } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { drawInstarCrosshair } from "./instar-crosshair.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
@@ -11,8 +11,9 @@ export const RING_SWELL = { awaited: 0.14, calm: 0.08 } as const;
 
 /**
  * The ring itself: red, brighter for the seat it wants, breathing until a
- * thumb lands, its arc filling as the part gives. A shoot mark's is a violet
- * crosshair instead, with nothing over the part (`instar-crosshair.ts`).
+ * thumb lands, its arc filling as the part gives. A shoot mark's is a
+ * crosshair instead, in the colour it asks for, with nothing over the part
+ * (`instar-crosshair.ts`).
  *
  * `awaited` is the partner already answered and counting: the ring breathes
  * harder and burns brighter, because this is the mark the step is waiting on
@@ -24,7 +25,7 @@ export function drawInstarRing(
   x: number,
   y: number,
   r: number,
-  gesture: InstarGesture,
+  mark: Pick<SceneMark, "gesture" | "color">,
   mine: boolean,
   held: boolean,
   along: number,
@@ -35,9 +36,10 @@ export function drawInstarRing(
   const swell = awaited ? RING_SWELL.awaited : RING_SWELL.calm;
   const breathe = held ? 1 : 1 + swell * Math.sin(time * beat);
   const glow = (mine ? (held ? 1.4 : 1.3) : 0.4) * (awaited ? 1.35 : 1);
+  const gesture = mark.gesture;
   if (gesture === "shoot") {
     // A crosshair and not a ring, and nothing over the part (`instar-crosshair.ts`).
-    drawInstarCrosshair(ctx, x, y, r * breathe, held || awaited, glow);
+    drawInstarCrosshair(ctx, x, y, r * breathe, held || awaited, glow, mark.color);
     if (!mine) drawMarkWait(ctx, x, y, r, time);
     drawProgress(ctx, x, y, r, along);
     return;

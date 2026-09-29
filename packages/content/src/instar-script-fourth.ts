@@ -18,8 +18,24 @@ export const INSTAR_HOVER: BossSequenceStep = {
   windowBeats: 4,
   landBeats: 3,
   marks: [
-    { seat: "both", part: "tail", gesture: "shoot", xMilli: 380, yMilli: 600, need: 2 },
-    { seat: "both", part: "tail", gesture: "shoot", xMilli: 620, yMilli: 600, need: 2 },
+    {
+      seat: "both",
+      part: "tail",
+      gesture: "shoot",
+      xMilli: 380,
+      yMilli: 600,
+      need: 2,
+      color: "red",
+    },
+    {
+      seat: "both",
+      part: "tail",
+      gesture: "shoot",
+      xMilli: 620,
+      yMilli: 600,
+      need: 2,
+      color: "cyan",
+    },
   ],
 };
 

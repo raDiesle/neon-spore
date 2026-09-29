@@ -41,7 +41,17 @@ export const BOSS_ENTRIES_D = {
         pushMilli: 250,
         marks: [
           { seat: "p1", part: "arm", gesture: "pullUp", xMilli: 318, yMilli: 720, need: 1000 },
-          { seat: "both", part: "spot", gesture: "shoot", xMilli: 681, yMilli: 300, need: 3 },
+          // A colour, which no shipped NETTLE mark names, so the field the
+          // two scenes share is not an absent one the walk cannot see.
+          {
+            seat: "both",
+            part: "spot",
+            gesture: "shoot",
+            xMilli: 681,
+            yMilli: 300,
+            need: 3,
+            color: "cyan",
+          },
         ],
       },
     ],

@@ -1,4 +1,5 @@
 import { circleSubpath } from "@neon-spore/content";
+import type { Color } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { PALETTE, STROKE } from "./palette.js";
 
@@ -11,10 +12,11 @@ import { PALETTE, STROKE } from "./palette.js";
  * (`instar-weak.ts`). For the same reason a shoot mark has no halo
  * (`instar-marks.ts`): the part's own red is its light.
  *
- * **In the ship's violet**, because either colour of bolt counts: a red
- * crosshair would say *fire red*. Which colour it should say, if any, is
- * the owner's question in `docs/queue.md` (*a shoot mark asks for one
- * colour, or none*).
+ * **In the colour of the bolt it takes** — the owner's answer of the same
+ * day: *and then also in the colour of the shot to take*. Each of THE
+ * INSTAR's shoot marks names one (`sim/scene-panel.ts` refuses the other).
+ * A mark that names none takes either, and is drawn in the ship's violet,
+ * because a red crosshair would say *fire red*.
  *
  * The window ring and the progress arc are the ring's (`instar-ring.ts`),
  * drawn round this the same as round any other mark.
@@ -24,6 +26,13 @@ import { PALETTE, STROKE } from "./palette.js";
  * (`instar-together.ts`) — and where it stops short of the centre. */
 const TICK_OUT = 1.75;
 const TICK_IN = 0.45;
+
+/** The crosshair's stroke and its bright rim, by the colour the mark asks for. */
+const CROSSHAIR_INK: Record<Color | "none", readonly [string, string]> = {
+  red: [PALETTE.red, PALETTE.redRim],
+  cyan: [PALETTE.cyan, PALETTE.cyanRim],
+  none: [PALETTE.hull, PALETTE.hullRim],
+};
 
 /**
  * How the crosshair is laid on the mark. Swapped by the test that finds it
@@ -37,9 +46,10 @@ export const CROSSHAIR_LOOK: {
     r: number,
     bright: boolean,
     k: number,
+    color?: Color,
   ) => void;
 } = {
-  paint: (ctx, x, y, r, bright, k) => {
+  paint: (ctx, x, y, r, bright, k, color) => {
     const p = new Path2D(circleSubpath(x, y, r));
     for (let q = 0; q < 4; q++) {
       const dx = Math.cos((q * Math.PI) / 2);
@@ -47,7 +57,8 @@ export const CROSSHAIR_LOOK: {
       p.moveTo(x + dx * r * TICK_OUT, y + dy * r * TICK_OUT);
       p.lineTo(x + dx * r * TICK_IN, y + dy * r * TICK_IN);
     }
-    strokeGlow(ctx, p, bright ? PALETTE.hullRim : PALETTE.hull, STROKE.outline, k);
+    const [ink, rim] = CROSSHAIR_INK[color ?? "none"];
+    strokeGlow(ctx, p, bright ? rim : ink, STROKE.outline, k);
   },
 };
 
@@ -59,6 +70,7 @@ export function drawInstarCrosshair(
   r: number,
   bright: boolean,
   k: number,
+  color?: Color,
 ): void {
-  CROSSHAIR_LOOK.paint(ctx, x, y, r, bright, k);
+  CROSSHAIR_LOOK.paint(ctx, x, y, r, bright, k, color);
 }

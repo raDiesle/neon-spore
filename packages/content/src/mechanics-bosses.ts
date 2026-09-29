@@ -171,7 +171,7 @@ export const BOSS_MECHANICS = {
     reach: "spawn",
   },
   instar: {
-    what: "No controls. The body is the panel. Red marks show where it will strike and whose thumb it wants. Answer every mark before its window shuts.",
+    what: "The body is the panel. Red marks show where it will strike and whose thumb it wants. A crosshair wants a shot of its colour. Answer each before it shuts.",
     reach: "spawn",
   },
   nettle: {

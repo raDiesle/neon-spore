@@ -1477,32 +1477,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## THE INSTAR — a shoot mark asks for one colour, or none
-
-- **Found:** 2026-09-27, claude/boss-visuals-animation-581e11
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-instar-a-shoot-mark-asks-for-one-colour-or-n)
-- **Files:** `packages/sim/src/instar-words.ts`, `packages/sim/src/instar-hash.ts`, `packages/content/src/instar-script-second.ts`, `packages/content/src/instar-script-third.ts`, `packages/content/src/instar-script-fourth.ts`, `packages/render/src/instar-marks.ts`
-- **Asks:** Should each of THE INSTAR's shoot marks ask for one cannon colour and be drawn in it, or keep taking either colour?
-- **Answered:** 2026-09-27 — (a) one colour per mark, over a split or violet crosshair.
-
-The owner, 27 September 2026, on the fourth act's tail (both seats, two
-marks, two bolts each): *it should have not just a red circle but a
-crosshair, and then also in the colour of the shot to take.* But every shoot
-mark takes either colour today (`instar-words.ts`: *bolts out of the top of
-the mark's column, either colour*), so there is no colour to draw. The
-options:
-**(a) one colour per mark.** The script names a colour, the simulation
-counts only bolts of it, and a wrong colour is refused the way a wrong seat
-is. The tail's two marks get one colour each, so both players fire. This is a
-rule change: a new field in the hash, the autopilot hand and the guide's
-words.
-**(b) either colour, drawn in both.** The crosshair is split into the two
-cannon colours.
-**(c) either colour, drawn in the ship's violet.** No rule changes.
-
-Wire the one he picks. For (a), a test proves that the wrong colour does not
-count and is refused. `bun run check` proves it.
-
 ## THE BULB QUEEN's parts: how far
 
 - **Found:** 2026-09-27, claude/queue-living-bosses-the-outline-tiers-parts-and-surfac

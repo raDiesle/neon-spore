@@ -91,7 +91,13 @@ export const INSTAR_WORDS: Record<InstarGesture, { kind: CueKind; word: string }
 /** The two lines a seat reads over a mark: the kind and the gesture on its
  * own mark, the owner's name alone on its partner's. */
 export function instarMarkWord(mark: SceneMark, role: ViewRole): { kind?: CueKind; word: string } {
-  if (instarMarkIsMine(role, mark.seat)) return INSTAR_WORDS[mark.gesture];
+  if (instarMarkIsMine(role, mark.seat)) {
+    // A shoot mark that asks for a colour says it: the crosshair is drawn in
+    // it too (`instar-crosshair.ts`), and a word is what the pair says aloud.
+    if (mark.gesture === "shoot" && mark.color !== undefined)
+      return { kind: "PRESS", word: mark.color === "red" ? "SHOOT RED" : "SHOOT CYAN" };
+    return INSTAR_WORDS[mark.gesture];
+  }
   return { word: mark.seat === "p1" ? "P1'S" : "P2'S" };
 }
 
@@ -166,7 +172,7 @@ export function drawInstarMarks(
       }
       // A shoot mark's light is the part's own red glow (`instar-weak.ts`), not a halo over it.
       if (mine && mark.gesture !== "shoot") drawMarkHalo(ctx, at.x, at.y, r, time);
-      drawInstarRing(ctx, at.x, at.y, r, mark.gesture, mine, held, along, time, awaited);
+      drawInstarRing(ctx, at.x, at.y, r, mark, mine, held, along, time, awaited);
       if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);
       drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);

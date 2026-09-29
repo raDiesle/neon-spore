@@ -6915,6 +6915,19 @@ every other sky boss's (`shot-out.ts`, `SKY_BOSSES`). Since 28 September
 2026 HARD asks each sky boss whether a bolt met it, and a scene's answer is
 its SHOOT marks: a bolt no mark heard met nothing, and loses the wave there.
 
+**Each SHOOT mark asks for one colour** (the owner, 27 September 2026, over a
+split crosshair or a violet one): the script names it on the mark, the
+crosshair is drawn in it and the word says it — SHOOT RED, SHOOT CYAN — and
+only a bolt of it counts (`sim/scene-panel.ts`). A bolt of the other colour
+counts nothing and is refused the way a thumb from the wrong seat is
+(`instarRefuse`, for player 2, whose button chose it); it met the mark, so
+HARD does not take the wave for it. The two marks of a pair are one of each
+colour — the eyes, the nests and the tail's blades — so the navigator changes
+buttons between them, and the heart asks for cyan. This is the one colour on
+a mark, and it is on a crosshair rather than a ring: the rings stay red,
+because whose a ring is is still where it is drawn. THE NETTLE's marks name
+no colour and take either.
+
 **The in-between motion is not the script's.** The morph is still
 `morphBeats` with the marks hidden, and the simulation says nothing about how
 the body gets from one figure to the next; the rearing, coiling and turning

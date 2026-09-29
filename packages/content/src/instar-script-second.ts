@@ -38,8 +38,24 @@ export const INSTAR_GLARE: BossSequenceStep = {
   windowBeats: 5,
   landBeats: 3,
   marks: [
-    { seat: "both", part: "eye", gesture: "shoot", xMilli: 380, yMilli: 238, need: 3 },
-    { seat: "both", part: "eye", gesture: "shoot", xMilli: 620, yMilli: 238, need: 3 },
+    {
+      seat: "both",
+      part: "eye",
+      gesture: "shoot",
+      xMilli: 380,
+      yMilli: 238,
+      need: 3,
+      color: "red",
+    },
+    {
+      seat: "both",
+      part: "eye",
+      gesture: "shoot",
+      xMilli: 620,
+      yMilli: 238,
+      need: 3,
+      color: "cyan",
+    },
   ],
 };
 
@@ -75,5 +91,15 @@ export const INSTAR_BARE: BossSequenceStep = {
   morphBeats: 6,
   windowBeats: 5,
   landBeats: 4,
-  marks: [{ seat: "both", part: "heart", gesture: "shoot", xMilli: 340, yMilli: 440, need: 4 }],
+  marks: [
+    {
+      seat: "both",
+      part: "heart",
+      gesture: "shoot",
+      xMilli: 340,
+      yMilli: 440,
+      need: 4,
+      color: "cyan",
+    },
+  ],
 };

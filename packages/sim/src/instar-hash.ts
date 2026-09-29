@@ -62,6 +62,7 @@ export function instarHashParts(s: SceneState): number[] {
         m.yMilli,
         m.need,
         m.sweepMilli ?? 0,
+        m.color === "red" ? 1 : m.color === "cyan" ? 2 : 0,
       );
   }
   for (const n of s.progress) out.push(n);

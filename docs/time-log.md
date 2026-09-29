@@ -28830,3 +28830,18 @@ Bottleneck: none worth the name — a split along a seam the queue entry had
 already named.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE INSTAR's shoot marks ask for one colour
+
+- reading: 5 min. `scene-panel.ts`, THE NETTLE's refusal, the three scripts
+  with SHOOT marks and the crosshair's painter.
+- writing: 5 min. `color` on `SceneMark`, the refusal, the hash, the
+  scripts, SHOOT RED / SHOOT CYAN and the crosshair in its colour.
+- looking: 5 min. The hover step as P2 sees it, and AUTO through all
+  twenty-six steps in the game's own loop.
+- friction: 5 min. AUTO lost the hover step in the game and not in the
+  bare simulation: it waited for both red bolts to land before sliding.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — a hand that pressed every tick had never had to
+count the bolts it already had in the air.

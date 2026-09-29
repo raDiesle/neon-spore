@@ -1,3 +1,5 @@
+import type { Color } from "./types.js";
+
 /**
  * **The words THE INSTAR's script is written in**: whose thumb, which part,
  * which gesture, which pose, which flight, which phase — and the step and the
@@ -47,7 +49,8 @@ export type InstarPart = (typeof INSTAR_PARTS)[number];
 `both` mark, one seat's on its own.
  *
  * **The last three are the ship's own panel**, added for THE NETTLE (§11.n):
- * `shoot` — bolts out of the top of the mark's column, either colour;
+ * `shoot` — bolts out of the top of the mark's column, of the mark's
+ * `color` when it names one (THE INSTAR's all do) and either when it does not;
  * `shield` — the dome brought up with the shield under the mark; `suck` — the
  * maw opened with the cannon under it. No thumb on the body answers them and
  * no drag on one counts (`instar-hand.ts`); the panel does (`scene-panel.ts`).
@@ -167,6 +170,15 @@ export interface SceneMark<Part extends string = string> {
    * about where the ring was when it came down (`content/test/instar-script.test.ts`).
    */
   sweepMilli?: number;
+  /**
+   * **The colour a `shoot` mark asks for**, and the only colour of bolt it
+   * counts; a bolt of the other is refused and told so, the way a thumb from
+   * the wrong seat is (`scene-panel.ts`). The owner, 27 September 2026: *a
+   * crosshair, and then also in the colour of the shot to take*. Absent takes
+   * either colour, which is THE NETTLE's rule and was THE INSTAR's. Read by
+   * no other gesture.
+   */
+  color?: Color;
 }
 
 export type InstarMark = SceneMark<InstarPart>;

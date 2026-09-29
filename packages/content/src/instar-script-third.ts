@@ -36,8 +36,24 @@ export const INSTAR_PERCH: BossSequenceStep = {
   windowBeats: 5,
   landBeats: 3,
   marks: [
-    { seat: "both", part: "eggs", gesture: "shoot", xMilli: 380, yMilli: 170, need: 2 },
-    { seat: "both", part: "eggs", gesture: "shoot", xMilli: 640, yMilli: 160, need: 2 },
+    {
+      seat: "both",
+      part: "eggs",
+      gesture: "shoot",
+      xMilli: 380,
+      yMilli: 170,
+      need: 2,
+      color: "cyan",
+    },
+    {
+      seat: "both",
+      part: "eggs",
+      gesture: "shoot",
+      xMilli: 640,
+      yMilli: 160,
+      need: 2,
+      color: "red",
+    },
   ],
 };
 
