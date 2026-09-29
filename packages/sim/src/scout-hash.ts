@@ -28,12 +28,15 @@ export function scoutHashParts(b: ScoutState): number[] {
   push(b.passed ? 1 : 0);
   push(b.arena);
   push(b.arenaBeat);
+  push(b.arenaTick);
+  push(b.launchTick);
   push(b.colMilli);
   push(b.rowMilli);
   push(b.vColMilli);
   push(b.vRowMilli);
   push(b.headingMilli);
   push(b.turn);
+  push(b.turnTick);
   push(b.burning ? 1 : 0);
   // The catch, tick and which one did it. Nothing but the picture reads the
   // index, and it is in here anyway: rule 4 has no clause for a field only the
@@ -44,6 +47,8 @@ export function scoutHashParts(b: ScoutState): number[] {
   // What has been collected, and where everything is now. The hazards move, so
   // their positions are the play rather than the map.
   push(b.mawTick);
+  // Whether the mouth has the ship: the pilot's hands are dead while it does.
+  push(b.sucking ? 1 : 0);
   // The two hands on the picture. A line on the ship is whether player 1's
   // controls do anything at all, and a prime is whether his burn does — so a
   // device that disagreed about either would be flying a different ship
@@ -67,9 +72,6 @@ export function scoutHashParts(b: ScoutState): number[] {
   push(b.arenas.length);
   for (const arena of b.arenas) {
     push(arena.beats);
-    push(arena.startColMilli);
-    push(arena.startRowMilli);
-    push(arena.startHeadingMilli);
     push(arena.motes.length);
     for (const mote of arena.motes) {
       push(mote.colMilli);

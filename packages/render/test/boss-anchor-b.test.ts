@@ -138,10 +138,14 @@ describe("a caption pointed at THE SCOUT", () => {
     return world;
   }
 
-  it("rings the mouth while the lead holds the ship, and the ship once it is out", () => {
-    const held = withBoss({ kind: "scout", arenas: SCOUT_ARENAS }, 1);
-    const mouth = anchorPoint(PILOT, held, SET, { at: "boss" }, 0);
-    expect(mouth?.y ?? 0).toBeGreaterThan(PILOT.hullY - PILOT.tile);
+  // The lead is gone (29 September 2026): the ship is out over the cannon from
+  // the first tick, so the caption is on the ship from the first tick too.
+  it("rings the ship from the first tick, and wherever it is flown", () => {
+    const first = withBoss({ kind: "scout", arenas: SCOUT_ARENAS }, 1);
+    const launched = scoutRound(first);
+    if (launched === null) throw new Error("no scout");
+    const over = anchorPoint(PILOT, first, SET, { at: "boss" }, 0);
+    expect(over?.y).toBeCloseTo(scoutAt(PILOT, launched).y);
     const world = out();
     const s = scoutRound(world);
     if (s === null) throw new Error("no scout");

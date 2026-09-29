@@ -45,6 +45,14 @@ export const ROUND_FIELD_GROUP = {
   scoutPrimeTicks: "THE SCOUT — a little ship one of you flies",
   scoutHomeRadiusMilli: "THE SCOUT — a little ship one of you flies",
   scoutLeadBeats: "THE SCOUT — a little ship one of you flies",
+  scoutLaunchMilli: "THE SCOUT — a little ship one of you flies",
+  scoutTurnRepeatTicks: "THE SCOUT — a little ship one of you flies",
+  scoutCarryMax: "THE SCOUT — a little ship one of you flies",
+  scoutSuckRadiusMilli: "THE SCOUT — a little ship one of you flies",
+  scoutSuckMilli: "THE SCOUT — a little ship one of you flies",
+  scoutRevealFirstTicks: "THE SCOUT — a little ship one of you flies",
+  scoutRevealEveryTicks: "THE SCOUT — a little ship one of you flies",
+  scoutRevealTicks: "THE SCOUT — a little ship one of you flies",
   scoutVerdictBeats: "THE SCOUT — a little ship one of you flies",
   // The twelve bosses of the choreographed page, and THE STARE with them
   // (`ship-fields-choreo.ts`).

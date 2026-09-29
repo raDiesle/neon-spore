@@ -15,11 +15,17 @@ import type { Hand } from "./hand.js";
  * THE SCOUT: a deliberately stupid autopilot, lifted from
  * `content/test/scout-flight.test.ts`'s own — points the nose at the first
  * mote it has not got, burns while aimed and under half top speed, coasts
- * otherwise, and heads home once it is carrying everything. It plans no order
- * and leads no hazard, and exists only to reach `laden` and `heavy`, which is
- * five motes aboard and so only ever the second arena.
+ * otherwise, and heads home the moment one is aboard, since the ship carries
+ * one at a time (`scoutCarryMax`). It plans no order and leads no hazard.
  *
- * **It holds a burn that two beats of flying on would be caught after.** That
+ * **It steers in eighths of a turn**, as the pilot's panel does since 29
+ * September 2026 (`scoutTurnStep`): "aimed" is the nose within `SLACK` of the
+ * bearing, a little over half a step, so a bearing that sits on the boundary
+ * between two eighths does not have the nose flapping between them a tick at a
+ * time. Off by more, it presses the turn that way, and a held turn steps again
+ * on the round's own repeat.
+ *
+ * **It holds a burn that three beats of flying on would be caught after.** That
  * is the one thing it is not stupid about, and the reason it is its own file.
  * Until 23 September 2026 it held off a hazard inside a fixed box of rows and
  * columns; the second arena then put its motes on a 2.5-tile pitch with a
@@ -30,8 +36,11 @@ import type { Hand } from "./hand.js";
  * burning tick, about a tenth of a second a pose.
  */
 
+/** How far off the bearing the nose may be and still count as aimed: over half of a 45° step. */
+const SLACK = 27_500;
+
 /** How far ahead a burn is asked about, in beats. */
-const LOOK_BEATS = 2;
+const LOOK_BEATS = 3;
 
 type Press = Omit<TimedCommand, "tick">;
 
@@ -45,7 +54,7 @@ function fly(w: World, look: boolean): Press[] {
   const dr = want.rowMilli - s.rowMilli;
   const off = turnToward(s.headingMilli, scoutBearing(dc, dr));
   const out: Press[] = [];
-  const aimed = Math.abs(off) <= w.cfg.scoutTurnMilliDeg;
+  const aimed = Math.abs(off) <= SLACK;
   const speedSq = s.vColMilli * s.vColMilli + s.vRowMilli * s.vRowMilli;
   const cruising = speedSq >= (w.cfg.scoutMaxSpeedMilli / 2) * (w.cfg.scoutMaxSpeedMilli / 2);
   const dir = off > 0 ? 1 : -1;
@@ -68,21 +77,25 @@ function caughtFlyingOn(w: World): boolean {
   const s = scoutRound(ahead);
   if (s === null) return false;
   const ticks = LOOK_BEATS * ticksPerBeat(w.cfg);
+  const arena = s.arena;
   for (let i = 0; i < ticks; i++) {
     step(
       ahead,
       fly(ahead, false).map((c) => ({ ...c, tick: ahead.tick })),
     );
+    // A copy that wins the arena is flying the next one, which is not this leg.
+    if (s.arena !== arena) return false;
     if (s.caughtTick >= 0) return true;
   }
   return false;
 }
 
-/** Where the scout is heading for: the first mote it has not got, else home. */
+/** Where the scout is heading for: home with a mote aboard, else the first it has not banked. */
 function scoutTarget(w: World, s: ScoutState): { colMilli: number; rowMilli: number } {
   const arena = scoutCurrent(s);
+  if (s.carrying.length > 0) return scoutHome(w.cfg.cols, w.cfg.rows);
   for (let i = 0; i < arena.motes.length; i++) {
-    if (s.carrying.includes(i) || s.banked.includes(i)) continue;
+    if (s.banked.includes(i)) continue;
     const mote = arena.motes[i];
     if (mote !== undefined) return mote;
   }

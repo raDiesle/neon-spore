@@ -3,6 +3,7 @@ import { ticksPerBeat } from "./config.js";
 import { MAZE_TURN, mazeCosMilli, mazeSinMilli, mazeWrap } from "./maze.js";
 import type { ScoutState } from "./scout.js";
 import { scoutPrimed, stepScoutReel } from "./scout-hand.js";
+import { stepScoutSuck } from "./scout-suck.js";
 
 /**
  * One tick of the flight, and the four things that decide how it feels.
@@ -15,7 +16,7 @@ import { scoutPrimed, stepScoutReel } from "./scout-hand.js";
  *
  * **Turn, burn, drag, carry**, in that order, and the order is the feel:
  *
- * - The nose turns first, so a burn pressed in the same tick as the crank
+ * - The nose turns first, in eighths of a turn (`scoutTurnStep`), so a burn pressed in the same tick as the crank
  *   moved goes where the pair just pointed rather than where it pointed
  *   before. A round about one person aiming for another person is a round
  *   where the aim is never a tick behind the word.
@@ -63,7 +64,9 @@ export function stepScoutFlight(cfg: SimConfig, scout: ScoutState, tick: number)
   // The line first, and it replaces the flight rather than adding to it: a
   // ship being reeled home is not one player 1 is flying, so his turn and his
   // burn do nothing until her thumb comes off (`scout-hand.ts`).
-  if (stepScoutReel(cfg, scout, tick)) {
+  // The mouth's suck the same way, and for the same reason: once it has the
+  // ship, the ship is going home and nobody is flying it (`scout-suck.ts`).
+  if (stepScoutReel(cfg, scout, tick) || stepScoutSuck(cfg, scout)) {
     const tpbReel = ticksPerBeat(cfg);
     scout.colMilli += Math.round(scout.vColMilli / tpbReel);
     scout.rowMilli += Math.round(scout.vRowMilli / tpbReel);
@@ -71,8 +74,10 @@ export function stepScoutFlight(cfg: SimConfig, scout: ScoutState, tick: number)
     return;
   }
 
-  if (scout.turn !== 0) {
-    scout.headingMilli = mazeWrap(scout.headingMilli + scout.turn * cfg.scoutTurnMilliDeg);
+  // A held crank steps again every `scoutTurnRepeatTicks`; the first step was
+  // the press itself (`scoutTurnStep`, from `scout-round.ts`).
+  if (scout.turn !== 0 && tick - scout.turnTick >= cfg.scoutTurnRepeatTicks) {
+    scoutTurnStep(cfg, scout, scout.turn, tick);
   }
 
   if (scout.burning && scoutPrimed(cfg, scout, tick)) {
@@ -98,6 +103,20 @@ export function stepScoutFlight(cfg: SimConfig, scout: ScoutState, tick: number)
   scout.colMilli += Math.round(scout.vColMilli / tpb);
   scout.rowMilli += Math.round(scout.vRowMilli / tpb);
   bounce(cfg, scout);
+}
+
+/**
+ * One step of the nose, an eighth of a turn, and the tick it was taken on.
+ *
+ * **The heading snaps.** It is put back onto the nearest multiple of
+ * `scoutTurnMilliDeg` before the step, so a nose is always one of eight
+ * headings the pair can name — the owner's *snap each 45 degree*.
+ */
+export function scoutTurnStep(cfg: SimConfig, scout: ScoutState, dir: -1 | 1, tick: number): void {
+  const step = cfg.scoutTurnMilliDeg;
+  const snapped = Math.round(scout.headingMilli / step) * step;
+  scout.headingMilli = mazeWrap(snapped + dir * step);
+  scout.turnTick = tick;
 }
 
 /** The arena's edges, in thousandths of a tile, inset by the scout's own size. */

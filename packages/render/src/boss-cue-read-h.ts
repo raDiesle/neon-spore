@@ -3,9 +3,9 @@ import {
   pinCannonMilli,
   pinCaught,
   type ScoutState,
-  scoutAtHome,
   scoutHome,
   scoutMawOpen,
+  scoutSuckWanted,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -143,29 +143,30 @@ const HOME_LIFT = 2.7;
  * here to say.
  *
  * **She is told her own one verb, at the moment it will land.** `PRESS` /
- * `OPEN` on the mother ship's mouth while the little ship is standing on it
- * and the mouth is shut. Both the ship's place and home are drawn on her
- * screen (`scout-round.ts` draws home on all three), so the mark stands on
+ * `OPEN` on the mother ship's mouth while the little ship is carrying a mote
+ * inside the mouth's two-tile reach and the mouth is shut — the owner's *also
+ * helping player that player needs to suck*, 29 September 2026. Both the
+ * ship's place and home are drawn on her screen (`scout-round.ts` draws home
+ * on all three), so the mark stands on
  * nothing she is not shown, and the word says what her thumb does rather than
  * where the ship should go next.
  *
- * - The moment is `scoutAtHome`, the rule the bank itself is judged by
- *   (`sim/scout-arena.ts`), so the word cannot promise a press the simulation
+ * - The moment is `scoutSuckWanted`, the rule the suck itself starts on
+ *   (`sim/scout-suck.ts`), so the word cannot promise a press the simulation
  *   is about to refuse.
  * - It goes while the mouth stands open, because the press has already landed
  *   and the mouth shuts on its own (`scoutMawOpen`): a word over a button that
  *   has done its work is an invitation to spend the next window early.
- * - It says nothing about what is aboard. A ship that arrives empty is asked
- *   for the press anyway, and the cost of that press is nothing — which is
- *   better than a cue whose appearing is a report on the pilot's half of the
- *   picture.
+ * - It asks only for a ship with a mote aboard: the ship is let go inside
+ *   the reach, so a cue on an empty one would stand on the mouth from the
+ *   first tick of every trip.
  *
  * Nothing outside `play`: the lead is for reading two screens and the verdict
  * for looking at one.
  */
 export function scoutCues(l: Layout, world: World, s: ScoutState): readonly BossCue[] {
   if (s.phase !== "play") return [];
-  if (!scoutAtHome(world.cfg, s)) return [];
+  if (!scoutSuckWanted(world.cfg, s)) return [];
   if (scoutMawOpen(s, world.tick, world.cfg.scoutMawTicks)) return [];
   const home = scoutAt(l, scoutHome(world.cfg.cols, world.cfg.rows));
   return [

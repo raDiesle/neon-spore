@@ -1508,3 +1508,36 @@ REPRISE's takes a `wide`, THE THROAT's adds a `why`, and THE GIMBAL's orders
 its arguments differently. Put one in `boss-cue-shape.ts`, with optional `wide` and
 `extra`, call it from all nine, and add a row to the purity test's
 called-not-re-derived table.
+
+## THE SCOUT's loads are unreachable
+
+- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Files:** `packages/sim/src/scout-hand.ts`, `packages/sim/src/config-scout.ts`, `packages/render/src/scout-grip.ts`, `tools/director/src/field-controls-scout.ts`, `tools/director/src/poses-bosses-rounds-b.ts`
+
+`laden` and `heavy` need more than one mote aboard (`scoutLadenMotes`,
+`scoutHeavyMotes`), and since the owner's one-at-a-time pass `scoutCarryMax` is
+1, so the line and the prime are never offered in the shipped round. The
+director's two poses reach them only through a `cfg` override
+(`LADEN_AT_ONE`, `HEAVY_AT_ONE`). Either take the loads, the line and the
+prime out with their hands and tests, or re-gate them on something one mote
+can reach (the level, say); then drop the overrides.
+
+## `tools/frames/scout-press.ts` documents a flight that no longer exists
+
+- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Files:** `tools/frames/scout-press.ts`
+
+Its header and its recorded presses describe the old arena, the lead, and the
+old continuous turn rate. The round now launches on the first tick, steps the
+nose 45° a press and holds one mote at a time. Re-record the presses off the
+autopilot in `packages/content/test/scout-flight.test.ts` and rewrite the
+header, then photograph it with `bun run frames`.
+
+## `packages/sim/test/scout.test.ts` is 348 lines
+
+- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Files:** `packages/sim/test/scout.test.ts`
+
+The trip's tests (launch, 45° steps, one at a time, the suck) took it past the
+~250-line line. Move them into a `scout-trip.test.ts` beside it, with the
+helpers they share in a small `scout-harness.ts`.

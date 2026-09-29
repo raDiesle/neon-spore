@@ -1,3 +1,5 @@
+import { SCOUT_TRIP_DEFAULTS, type ScoutTripConfig } from "./config-scout-trip.js";
+
 /**
  * THE SCOUT's numbers — how the little ship flies, what it is allowed to touch
  * and what touching it costs (`scout.ts`, `docs/spec/interludes.md`).
@@ -15,16 +17,17 @@
  * (`scoutMaxSpeedMilli`), and never dies of the wall it drifted into
  * (`scoutBounceMilli`) — only of the thing that was moving towards it.
  */
-export interface ScoutConfig {
+export interface ScoutConfig extends ScoutTripConfig {
   /**
-   * How far the nose swings in a tick while the crank is turning, in
-   * thousandths of a degree.
+   * How far the nose swings in one step of the crank, in thousandths of a
+   * degree.
    *
-   * 9 000 is nine degrees a tick, so a whole turn takes forty ticks — a little
-   * over half a beat at the tempo the game ships at, where a beat is seventy-
-   * five ticks. Fast enough that "point it at the top left" is one movement and
-   * not a sentence with a pause in it, slow enough that a thumb can stop on a
-   * heading rather than hunting past it.
+   * 45 000, an eighth of a turn: the nose only ever points at one of eight
+   * headings, so "point it at the top left" is one press and a heading said
+   * out loud is a heading the ship can have (the owner, 29 September 2026:
+   * *snap each 45 degree and not so fast*). It was nine degrees a tick, which
+   * a thumb hunted past. How often a held crank steps is
+   * `scoutTurnRepeatTicks`.
    */
   scoutTurnMilliDeg: number;
   /**
@@ -92,7 +95,10 @@ export interface ScoutConfig {
    * would make the trip home the hard part, and the hard part is the trip out.
    */
   scoutHomeRadiusMilli: number;
-  /** Beats of quiet before the mother ship opens and the round begins. */
+  /**
+   * Beats of quiet before the ship is let go. 0: the owner, 29 September 2026
+   * — *the ship should go out immediately when wave starts*.
+   */
   scoutLeadBeats: number;
   /** Beats the result stands before the wave gives way to the next one. */
   scoutVerdictBeats: number;
@@ -110,12 +116,13 @@ export interface ScoutConfig {
  * seat that cannot see the arena can be told — "a short one" against "hold it".
  */
 export const SCOUT_DEFAULTS: ScoutConfig & ScoutHandConfig = {
+  ...SCOUT_TRIP_DEFAULTS,
   scoutLadenMotes: 3,
   scoutHeavyMotes: 4,
   scoutReelMilli: 2600,
   scoutPrimeMilli: 1500,
   scoutPrimeTicks: 180,
-  scoutTurnMilliDeg: 9_000,
+  scoutTurnMilliDeg: 45_000,
   scoutBurnMilli: 240,
   scoutDragMilli: 976,
   scoutMaxSpeedMilli: 7_000,
@@ -125,7 +132,7 @@ export const SCOUT_DEFAULTS: ScoutConfig & ScoutHandConfig = {
   scoutHazardRadiusMilli: 460,
   scoutMawTicks: 30,
   scoutHomeRadiusMilli: 900,
-  scoutLeadBeats: 4,
+  scoutLeadBeats: 0,
   scoutVerdictBeats: 5,
 };
 

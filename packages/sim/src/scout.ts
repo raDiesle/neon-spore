@@ -76,15 +76,14 @@ export interface ScoutHazard extends ScoutPoint {
 /**
  * One arena, authored whole. Several make a round the way SNAKE's do: clear
  * one and the next opens, and only the last one won is the round won.
+ *
+ * **Where the ship starts is not authored.** It is let go one tile over the
+ * cannon, nose up, in every arena (`scoutLaunch`, the owner, 29 September
+ * 2026), so an arena is its clock, its motes and its hazards and nothing else.
  */
 export interface ScoutArena {
   /** Beats the pair have for this arena before the clock breaks the hull. */
   beats: number;
-  /** Where the mother ship puts the scout down, in thousandths of a tile. */
-  startColMilli: number;
-  startRowMilli: number;
-  /** The nose it is let go with, in thousandths of a degree. 0 is straight up. */
-  startHeadingMilli: number;
   /** Every mote that has to be collected. All of them, or the arena is not won. */
   motes: readonly ScoutMote[];
   /** Everything that is moving and must not be touched. */
@@ -139,6 +138,18 @@ export interface ScoutState {
   arena: number;
   /** `world.beat` this attempt began on — the clock it is judged against. */
   arenaBeat: number;
+  /**
+   * `world.tick` it began on. The pilot's glimpses of the arena are counted
+   * off it in ticks, because they are seconds and not beats
+   * (`scout-reveal.ts`).
+   */
+  arenaTick: number;
+  /**
+   * `world.tick` the ship was last let go on — at the arena's start and again
+   * each time the mouth has banked what it carried. The picture's flash of a
+   * launch is counted off it.
+   */
+  launchTick: number;
   /** Where the scout is, in thousandths of a tile. */
   colMilli: number;
   rowMilli: number;
@@ -157,6 +168,11 @@ export interface ScoutState {
    * the claw's panel.
    */
   turn: -1 | 0 | 1;
+  /**
+   * `world.tick` the nose last stepped on, or -1. A held crank steps again
+   * `scoutTurnRepeatTicks` after it (`scout-fly.ts`).
+   */
+  turnTick: number;
   /** Whether the burn is held. The one thing that adds speed. */
   burning: boolean;
   /**
@@ -174,6 +190,13 @@ export interface ScoutState {
   banked: number[];
   /** `world.tick` the mother ship's mouth was last opened. It stands for `scoutMawTicks`. */
   mawTick: number;
+  /**
+   * Whether the mouth has the ship and is drawing it in. Set when the mouth is
+   * open with a carrying ship inside `scoutSuckRadiusMilli`, and held until the
+   * ship is home and what it carries is banked; the pilot's hands are dead
+   * while it runs (`scout-arena.ts`).
+   */
+  sucking: boolean;
   /** Where each of this arena's hazards is now. Copied out at the open. */
   hazards: ScoutHazard[];
   /**
@@ -205,30 +228,4 @@ export interface ScoutState {
    * burn does nothing outside `scoutPrimeTicks` of it.
    */
   primeTick: number;
-}
-
-/** The arena being flown, or the last one when the round is over. */
-export function scoutCurrent(scout: ScoutState): ScoutArena {
-  return scout.arenas[Math.min(scout.arena, scout.arenas.length - 1)] as ScoutArena;
-}
-
-/**
- * Whether every mote in the current arena has been brought home.
- *
- * Banked and not merely collected: a ship full of motes that never came back
- * is a round nobody finished, which is the whole of what the second seat's
- * hand is for.
- */
-export function scoutCleared(scout: ScoutState): boolean {
-  return scout.banked.length >= scoutCurrent(scout).motes.length;
-}
-
-/** How many motes are still to be banked — out there or aboard. What the picture counts. */
-export function scoutLeft(scout: ScoutState): number {
-  return Math.max(0, scoutCurrent(scout).motes.length - scout.banked.length);
-}
-
-/** Whether the mother ship's mouth is open on this tick. */
-export function scoutMawOpen(scout: ScoutState, tick: number, mawTicks: number): boolean {
-  return scout.mawTick >= 0 && tick - scout.mawTick < mawTicks;
 }

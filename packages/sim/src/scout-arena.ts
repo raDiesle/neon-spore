@@ -2,9 +2,10 @@ import type { SimConfig } from "./config.js";
 import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
 import type { ScoutPoint, ScoutState } from "./scout.js";
-import { scoutCleared, scoutCurrent, scoutMawOpen } from "./scout.js";
+import { scoutCleared, scoutCurrent } from "./scout-ask.js";
 import { stepScoutFlight, stepScoutHazards } from "./scout-fly.js";
-import { scoutHome, scoutStand } from "./scout-open.js";
+import { scoutHome, scoutRelaunch, scoutStand } from "./scout-open.js";
+import { scoutSuckTakes } from "./scout-suck.js";
 import type { World } from "./world.js";
 
 /**
@@ -100,8 +101,14 @@ export function stepScoutArena(world: World, scout: ScoutState): boolean | null 
   const caught = scoutHazardAt(cfg, scout);
   if (caught >= 0) return caughtBy(world, scout, caught);
 
-  const mote = scoutMoteAt(cfg, scout);
-  if (mote >= 0) scout.carrying.push(mote);
+  // One at a time: a ship already carrying `scoutCarryMax` flies straight
+  // through the rest (the owner, 29 September 2026 — *one must be collected
+  // after another and sucked each*).
+  if (scout.carrying.length < cfg.scoutCarryMax && !scout.sucking) {
+    const mote = scoutMoteAt(cfg, scout);
+    if (mote >= 0) scout.carrying.push(mote);
+  }
+  if (scoutSuckTakes(cfg, scout, world.tick)) scout.sucking = true;
   bankAtHome(world, scout);
   // Banking the last mote does not end the tick: the arena is asked at the top
   // of the next one, so the picture gets a tick with the scout sitting on the
@@ -110,22 +117,28 @@ export function stepScoutArena(world: World, scout: ScoutState): boolean | null 
 }
 
 /**
- * Home, with the mouth open: everything aboard comes off.
+ * In the mouth: everything aboard comes off, and the ship is put out again.
  *
- * Two hands, exactly as THE CLAW's catch is two hands — the pilot has to bring
- * the ship back and the other seat has to have opened for it. A ship that
- * arrives with the mouth shut is not punished: it is simply still carrying,
- * and the pair go round again, which is the one place in this round where a
- * mistake costs time rather than the hull.
+ * Two hands, exactly as THE CLAW's catch is two hands — the pilot brings the
+ * ship inside `scoutSuckRadiusMilli` and the other seat opens for it, and the
+ * suck that starts then (`scout-suck.ts`) carries it the rest of the way. A
+ * ship that arrives with the mouth shut is not punished: it is simply still
+ * carrying, which is the one place in this round where a mistake costs time
+ * rather than the hull.
  */
 function bankAtHome(world: World, scout: ScoutState): void {
-  if (scout.carrying.length === 0) return;
+  if (!scout.sucking) return;
   const cfg = world.cfg;
-  if (!scoutMawOpen(scout, world.tick, cfg.scoutMawTicks)) return;
-  if (!scoutAtHome(cfg, scout)) return;
+  const home = scoutHome(cfg.cols, cfg.rows);
+  // Swallowed, not merely arrived: inside a quarter of a tile of the middle.
+  if (!touching(scout, 0, home, SWALLOWED_MILLI)) return;
   for (const at of scout.carrying) scout.banked.push(at);
   scout.carrying = [];
+  scoutRelaunch(cfg, scout, world.tick);
 }
+
+/** How near the middle of home a sucked ship has to come to be swallowed, in thousandths. */
+const SWALLOWED_MILLI = 250;
 
 /**
  * The arena is cleared. The next one, or the round won.
@@ -136,7 +149,7 @@ function bankAtHome(world: World, scout: ScoutState): void {
  */
 function openNextArena(world: World, scout: ScoutState): boolean | null {
   if (scout.arena + 1 >= scout.arenas.length) return true;
-  scoutStand(scout, scout.arena + 1, world.beat);
+  scoutStand(world.cfg, scout, scout.arena + 1, world.beat, world.tick);
   return null;
 }
 
@@ -155,6 +168,7 @@ function caughtBy(world: World, scout: ScoutState, index: number): boolean {
   scout.vRowMilli = 0;
   scout.burning = false;
   scout.turn = 0;
+  scout.sucking = false;
   // SNAKE's own crash, argument and arguments alike: the middle column because
   // there is no column in this round to blame, a rock's kind because that is
   // what a scar off the field has always been drawn as, and `heavy` because

@@ -1,6 +1,6 @@
 import { buildBoss, buildPods, buildQueue, placedFaults, WAVES } from "@neon-spore/content";
 import type { Hand } from "@neon-spore/hands";
-import { step, type TimedCommand, type World } from "@neon-spore/sim";
+import { type SimConfig, step, type TimedCommand, type World } from "@neon-spore/sim";
 import { type BossKind, bossTitle } from "./boss-states.js";
 import { fresh, POSE_CONFIG, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
 
@@ -24,7 +24,7 @@ import { fresh, POSE_CONFIG, type Pose, run, runUntil, POSE_TPB as TPB } from ".
  */
 
 /** The wave that carries this boss, stood at beat 0 as the game starts it. */
-export function bossWorld(kind: BossKind): World {
+export function bossWorld(kind: BossKind, cfg: Partial<SimConfig> = {}): World {
   const index = WAVES.findIndex((w) => w.boss?.kind === kind);
   if (index === -1) throw new Error(`no wave carries the ${kind}`);
   const cols = POSE_CONFIG.cols;
@@ -32,7 +32,7 @@ export function bossWorld(kind: BossKind): World {
     buildQueue(index, cols),
     buildPods(index, cols),
     buildBoss(index, cols),
-    {},
+    cfg,
     index,
     placedFaults(WAVES[index]?.faults),
   );
@@ -62,6 +62,8 @@ export interface BossPoseExtra {
   hold?: number;
   /** The run's budget in beats, for a state further off than sixty. */
   budgetBeats?: number;
+  /** Figures the pose's world is built on, for a state the shipped figures no longer reach. */
+  cfg?: Partial<SimConfig>;
 }
 
 /** A hand on the controls, reading the field as it goes — `@neon-spore/hands`. */
@@ -103,7 +105,7 @@ export function bossPose(kind: BossKind, state: string, note: string, x: BossPos
     span: x.span,
     boss: { kind, state },
     build: () => {
-      const w = bossWorld(kind);
+      const w = bossWorld(kind, x.cfg);
       const what = `${bossTitle(kind)} ${state}`;
       const budget = (x.budgetBeats ?? 60) * TPB;
       if (x.hand) runHand(w, what, x.hand, want, budget);

@@ -58,11 +58,12 @@ function cue(world: World, role: ViewRole): BossCue | null {
   return bossCue(l, world, 0, () => l.hullY);
 }
 
-/** The little ship standing on the mother ship's mouth. */
+/** The little ship standing on the mother ship's mouth, a mote aboard. */
 function home(world: World, s: ScoutState): void {
   const at = scoutHome(world.cfg.cols, world.cfg.rows);
   s.colMilli = at.colMilli;
   s.rowMilli = at.rowMilli;
+  s.carrying = [0];
 }
 
 describe("THE SCOUT", () => {
@@ -74,7 +75,7 @@ describe("THE SCOUT", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("asks the navigator to OPEN once the ship is standing on the mouth", () => {
+  it("asks the navigator to OPEN once a laden ship is inside the mouth's reach", () => {
     const { world, s } = opened();
     home(world, s);
     const c = cue(world, "p2");
@@ -112,15 +113,20 @@ describe("THE SCOUT", () => {
     expect(cue(world, "p2")?.word).toBe("OPEN");
   });
 
-  // A press that banks nothing costs nothing, and a cue that came out only
-  // for a loaded ship would report the pilot's half of the picture to her.
-  it("asks for the press whether or not anything is aboard", () => {
+  // The ship is let go inside the reach, so a cue on an empty one would stand
+  // on the mouth from the first tick of every trip.
+  it("asks only with a mote aboard, inside two tiles, and not once the suck has it", () => {
     const { world, s } = opened();
     home(world, s);
     s.carrying = [];
-    expect(cue(world, "p2")?.word).toBe("OPEN");
+    expect(cue(world, "p2")).toBeNull();
     s.carrying = [0];
     expect(cue(world, "p2")?.word).toBe("OPEN");
+    s.rowMilli -= world.cfg.scoutSuckRadiusMilli + 1;
+    expect(cue(world, "p2")).toBeNull();
+    home(world, s);
+    s.sucking = true;
+    expect(cue(world, "p2")).toBeNull();
   });
 
   it("says nothing once the round is over, on either screen", () => {

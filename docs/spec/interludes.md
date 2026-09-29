@@ -791,8 +791,22 @@ in the arena, and home's is the largest because it is the one thing the pair is
 aiming at. `scoutMawTicks` is how long the mother ship's mouth stands open on a
 press. `scoutLadenMotes` and `scoutHeavyMotes` are the loads above,
 `scoutReelMilli` is how fast the line pulls, and `scoutPrimeMilli` and
-`scoutPrimeTicks` are how far a prime is carried and how long it lasts. `scoutLeadBeats` is the quiet before the ship is let go, and
-`scoutVerdictBeats` is how long the result stands.
+`scoutPrimeTicks` are how far a prime is carried and how long it lasts.
+`scoutLeadBeats` is the quiet before the ship is let go — none since 29
+September 2026 — and `scoutVerdictBeats` is how long the result stands.
+
+**The trip, as the owner re-cut it on 29 September 2026**
+(`packages/sim/src/config-scout-trip.ts`). The ship goes out on the first tick,
+`scoutLaunchMilli` above the cannon. A turn steps the nose 45° at once, the
+cannon's feel, and a held turn steps again every `scoutTurnRepeatTicks`. The
+ship holds `scoutCarryMax` motes — one, so each is fetched and sucked home
+before the next — and an open mouth takes a carrying ship from anywhere inside
+`scoutSuckRadiusMilli` of the cannon, drawing it in at `scoutSuckMilli` a beat
+with the pilot's hands dead until it is home. The pilot is shown the arena
+`scoutRevealFirstTicks` after the ship is let go, and again every
+`scoutRevealEveryTicks`, for `scoutRevealTicks` each time. The four levels
+carry one mote more each, from one, on four times the clock a clean flight
+takes (`packages/content/src/scout-arenas.ts`).
 
 **Three bars, three hands** (18 September 2026, `.claude/skills/new-boss`
 §6.2; the simulation is `packages/sim/src/pulse-hand.ts`). THE PULSE splits

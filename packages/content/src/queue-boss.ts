@@ -230,7 +230,6 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       ...boss,
       arenas: boss.arenas.map((a) => ({
         ...a,
-        startColMilli: mapColMilli(a.startColMilli, cols),
         motes: a.motes.map((m) => ({ ...m, colMilli: mapColMilli(m.colMilli, cols) })),
         hazards: a.hazards.map((h) => ({
           ...h,

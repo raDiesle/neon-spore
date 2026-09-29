@@ -17,14 +17,12 @@ export {
   type ScoutPhase,
   type ScoutPoint,
   type ScoutState,
-  scoutCleared,
-  scoutCurrent,
-  scoutLeft,
-  scoutMawOpen,
 } from "./scout.js";
 // Whether the little ship is on the mother ship's mouth: the round asks at
 // the bank, the field's cue asks every tick (`scout-arena.ts`).
 export { scoutAtHome } from "./scout-arena.js";
+// What is read off the round, never re-derived from its fields (`scout-ask.ts`).
+export { scoutCleared, scoutCurrent, scoutLeft, scoutMawOpen } from "./scout-ask.js";
 export { scoutNose } from "./scout-fly.js";
 // The load its motes put the little ship in, and whether a heavy one's burn
 // takes — read, never re-derived from `carrying.length` (`scout-hand.ts`).
@@ -36,5 +34,9 @@ export {
   scoutPrimed,
   scoutPrimeOffered,
 } from "./scout-hand.js";
-export { scoutHome, scoutStand } from "./scout-open.js"; // home, and one arena set out.
+export { scoutHome, scoutLaunch, scoutStand } from "./scout-open.js"; // home, and one arena set out.
+// Whether the pilot is being shown the arena (`scout-reveal.ts`).
+export { scoutRevealOpen, scoutRevealThrough } from "./scout-reveal.js";
 export { enterScoutPhase, scoutHolds, scoutOpenRound, scoutRound } from "./scout-round.js";
+// The mouth's reach, and whether a press on it is owed (`scout-suck.ts`).
+export { scoutInSuckReach, scoutSuckWanted } from "./scout-suck.js";

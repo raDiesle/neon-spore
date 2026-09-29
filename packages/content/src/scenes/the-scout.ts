@@ -6,103 +6,109 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
  *
  * The field is gone. Player 1's screen has the nose and the burn and nothing
  * else; player 2's has the arena — the motes hanging still, the hazard sweeping
- * its row — and the maw. The film is the first arena flown whole, four motes
- * in a loop and the run home, then the second arena opening and its first trip:
- * three motes up the column, a turn, and home again with the maw open.
+ * its row — and the mouth. The film is the first two levels flown whole: the
+ * little ship let go over the cannon, one mote fetched and sucked home, then
+ * the second level's two, **one after another** — the owner's *small released
+ * ship must collect powerups and then bring them back one after another*, 29
+ * September 2026.
  *
  * **The flight was generated, not reasoned about.** A burn is a push that keeps
  * going, and a turn does nothing to the drift, so where the little one is at
- * a tick is the sum of every burn before it. The acts below came out of a
- * search that re-ran the film after every leg — a delay, a turn, a burn of so
- * many ticks — and kept the first leg that reached its mote and did not drift
- * into a hazard afterwards. Change one number and every leg after it lands
- * somewhere else; regenerate rather than edit.
+ * a tick is the sum of every burn before it. The acts below were recorded off
+ * the autopilot in `test/scout-flight.test.ts`, flown on this scene's own
+ * world with its burn given a band — on under a fifth of top speed, off past
+ * three fifths — so a thumb reads as pushes and coasts rather than a flutter.
+ * Change one number and every leg after it lands somewhere else; regenerate
+ * rather than edit.
  *
- * **The maw is tapped when the hull is touched, not before.** A mote comes off
- * only while the maw is open at home, and the maw opens for a moment after the
- * tap, so a tap on the way in is a tap wasted; the film taps it at the tick the
- * home radius is reached and the mote comes off on the next beat.
+ * **The mouth is tapped the tick the ship is in its reach with a mote aboard**
+ * (`scoutSuckWanted`), the moment the field writes `OPEN` on it for her; the
+ * suck brings the ship the rest of the way and it is let go again over the
+ * cannon.
  *
  * Player 1 has three controls and cannot see where any of it is; player 2 has
  * one and cannot fly. The captions say which seat does what and never where the
  * motes are — that is the sentence the pair has to say to each other.
- *
- * **Seven pages still, and the maw's changed on 18 September 2026.** The field
- * now says `OPEN` on the mouth at the moment the little ship reaches it, so the
- * page that named her verb carries the rule underneath it instead
- * (`docs/spec/briefings.md`).
  */
 export const THE_SCOUT: GuideScene = {
-  ticks: 1700,
+  ticks: 1800,
   bpm: 120,
   seed: 1,
   entries: [],
   boss: { kind: "scout", arenas: SCOUT_ARENAS },
   acts: [
-    // Arena one: near-left, far-left, far-right, near-right, home.
-    { tick: 246, control: "scoutTurnLeft", until: 253 },
-    { tick: 255, control: "scoutBurn", until: 275 },
-    { tick: 373, control: "scoutTurnRight", until: 380 },
-    { tick: 382, control: "scoutBurn", until: 418 },
-    { tick: 581, control: "scoutTurnRight", until: 591 },
-    { tick: 593, control: "scoutBurn", until: 629 },
-    { tick: 751, control: "scoutTurnRight", until: 761 },
-    { tick: 763, control: "scoutBurn", until: 795 },
-    { tick: 869, control: "scoutTurnRight", until: 873 },
-    { tick: 875, control: "scoutBurn", until: 907 },
-    { tick: 992, control: "scoutMaw" },
-    // Arena two: three short burns up the column, about, and home.
-    { tick: 998, control: "scoutBurn", until: 1006 },
-    { tick: 1036, control: "scoutBurn", until: 1048 },
-    { tick: 1205, control: "scoutBurn", until: 1224 },
-    { tick: 1340, control: "scoutTurnRight", until: 1360 },
-    { tick: 1362, control: "scoutBurn", until: 1405 },
-    { tick: 1578, control: "scoutMaw" },
+    // Level one: straight up, about, home, and the mouth.
+    { tick: 1, control: "scoutBurn", until: 25 },
+    { tick: 72, control: "scoutBurn", until: 89 },
+    { tick: 135, control: "scoutBurn", until: 152 },
+    { tick: 173, control: "scoutTurnRight", until: 263 },
+    { tick: 263, control: "scoutBurn", until: 288 },
+    { tick: 335, control: "scoutBurn", until: 352 },
+    { tick: 398, control: "scoutBurn", until: 415 },
+    { tick: 452, control: "scoutMaw" },
+    { tick: 484, control: "scoutBurn", until: 556 },
+    { tick: 488, control: "scoutTurnRight", until: 627 },
+    { tick: 556, control: "scoutBurn", until: 580 },
+    // Level two: the left one, home; the right one, home.
+    { tick: 627, control: "scoutTurnLeft", until: 628 },
+    { tick: 628, control: "scoutBurn", until: 647 },
+    { tick: 699, control: "scoutBurn", until: 715 },
+    { tick: 715, control: "scoutTurnRight", until: 716 },
+    { tick: 758, control: "scoutBurn", until: 777 },
+    { tick: 777, control: "scoutTurnRight", until: 778 },
+    { tick: 781, control: "scoutTurnRight", until: 811 },
+    { tick: 824, control: "scoutBurn", until: 844 },
+    { tick: 844, control: "scoutTurnRight", until: 845 },
+    { tick: 878, control: "scoutBurn", until: 898 },
+    { tick: 945, control: "scoutBurn", until: 962 },
+    { tick: 1008, control: "scoutBurn", until: 1025 },
+    { tick: 1033, control: "scoutTurnLeft", until: 1034 },
+    { tick: 1071, control: "scoutBurn", until: 1087 },
+    { tick: 1085, control: "scoutMaw" },
+    { tick: 1113, control: "scoutBurn", until: 1117 },
+    { tick: 1117, control: "scoutBurn", until: 1141 },
+    { tick: 1188, control: "scoutTurnRight", until: 1189 },
+    { tick: 1189, control: "scoutBurn", until: 1208 },
+    { tick: 1254, control: "scoutBurn", until: 1271 },
+    { tick: 1271, control: "scoutTurnLeft", until: 1272 },
+    { tick: 1317, control: "scoutBurn", until: 1332 },
+    { tick: 1332, control: "scoutTurnLeft", until: 1333 },
+    { tick: 1343, control: "scoutTurnLeft", until: 1373 },
+    { tick: 1373, control: "scoutBurn", until: 1401 },
+    { tick: 1401, control: "scoutTurnLeft", until: 1402 },
+    { tick: 1447, control: "scoutBurn", until: 1466 },
+    { tick: 1512, control: "scoutBurn", until: 1529 },
+    { tick: 1575, control: "scoutBurn", until: 1592 },
+    { tick: 1604, control: "scoutTurnRight", until: 1605 },
+    { tick: 1605, control: "scoutMaw" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "THE SHIP OPENS. ONE GOES OUT", anchor: { at: "boss" } },
+    // A page stands a second and a half at least, so five of them: the first
+    // level is three, the second two.
     {
-      tick: 240,
+      tick: 0,
       seat: 1,
-      text: "PLAYER 1 SWINGS THE NOSE",
-      anchor: { at: "control", control: "scoutTurnLeft" },
-    },
-    {
-      tick: 580,
-      seat: 1,
-      text: "BURN, LET GO. IT KEEPS GOING",
+      text: "PLAYER 1 FETCHES A POWERUP",
       anchor: { at: "control", control: "scoutBurn" },
     },
     {
-      tick: 760,
+      tick: 180,
+      seat: 1,
+      text: "THEN BRINGS IT BACK",
+      anchor: { at: "control", control: "scoutTurnRight" },
+    },
+    {
+      tick: 400,
+      seat: 2,
+      text: "PLAYER 2 SUCKS IT IN",
+      anchor: { at: "control", control: "scoutMaw" },
+    },
+    { tick: 620, seat: 1, text: "ONE AFTER ANOTHER", anchor: { at: "boss" } },
+    {
+      tick: 1000,
       seat: 2,
       text: "PLAYER 2 SEES WHAT CROSSES",
       anchor: { at: "boss", part: "hazard" },
-    },
-    // AT HOME, PLAYER 2 OPENS MAW stood here and is the cue's now: the field
-    // writes `PRESS` / `OPEN` on the mother ship's mouth, on her screen alone,
-    // for as long as the little ship stands on it with the mouth shut
-    // (`decisions.md` #34, `render/boss-cue-read-h.ts`). The page could not
-    // simply come out — the tap at 992 is the first arena's last act — so it
-    // carries the rule underneath her thumb that no picture on either screen
-    // states: flying over a mote is not having it.
-    {
-      tick: 960,
-      seat: 2,
-      text: "ONLY THE MAW TAKES A MOTE",
-      anchor: { at: "control", control: "scoutMaw" },
-    },
-    {
-      tick: 1140,
-      seat: 2,
-      text: "A SECOND ARENA. TWO CROSS",
-      anchor: { at: "boss", part: "hazard" },
-    },
-    {
-      tick: 1340,
-      seat: 1,
-      text: "TURN ABOUT, BURN FOR HOME",
-      anchor: { at: "control", control: "scoutTurnRight" },
     },
   ],
 };

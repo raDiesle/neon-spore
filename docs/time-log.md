@@ -29417,3 +29417,13 @@ Bottleneck: writing — the roll-out is thirty-odd boss files, and the cut
 between what one sitting could do and what the queue holds took the most thought.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-29 — THE SCOUT: out at once over the cannon, 45° steps, one mote a trip sucked home from two tiles, four levels
+
+- reading: 5 min. The round's eleven sim files and the autopilot.
+- writing: 15 min. The trip config, the suck and the reveal, four levels, the tests.
+- looking: 0 min. Nothing drawn changed in this half; the look is part three.
+- friction: 10 min. Regenerating the rehearsal off the autopilot until the replay matched the recording.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the recorded rehearsal — a burn is a push that keeps going, so every level change moved every leg after it, and the replay had to be re-recorded rather than edited.

@@ -13,7 +13,7 @@ import { WAVES } from "../src/waves.js";
  */
 
 describe("the rehearsal for THE SCOUT", () => {
-  it("flies arena one whole and the first trip of arena two, and touches nothing that moves", () => {
+  it("flies the first two levels whole, one mote a trip, and touches nothing that moves", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theScout");
     const run = new SceneRun(sceneScript("theScout", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -28,22 +28,20 @@ describe("the rehearsal for THE SCOUT", () => {
       for (const e of run.world.events)
         if (e.type === "breach" || e.type === "waveFailed") seen.push(e.type);
     }
-    // Four motes picked in a loop and banked together on beat 16, and the
-    // second arena opens the same beat; three of its column come home on 26.
-    // Nothing moving is touched: no breach, no wave failed.
+    // One mote at a time, each sucked home before the next is taken: level
+    // one's single mote banked on beat 8, and level two's two on 18 and 27,
+    // the third level opening as the second is swallowed. Nothing moving is
+    // touched: no breach, no wave failed.
     expect(seen).toEqual([
-      "arena 0 lead carrying  banked  @0",
-      "arena 0 play carrying  banked  @4",
-      "arena 0 play carrying 2 banked  @6",
-      "arena 0 play carrying 2,0 banked  @9",
-      "arena 0 play carrying 2,0,1 banked  @12",
-      "arena 0 play carrying 2,0,1,3 banked  @14",
-      "arena 0 play carrying  banked 2,0,1,3 @16",
-      "arena 1 play carrying  banked  @16",
-      "arena 1 play carrying 0 banked  @17",
-      "arena 1 play carrying 0,1 banked  @20",
-      "arena 1 play carrying 0,1,2 banked  @21",
-      "arena 1 play carrying  banked 0,1,2 @26",
+      "arena 0 play carrying  banked  @0",
+      "arena 0 play carrying 0 banked  @2",
+      "arena 0 play carrying  banked 0 @8",
+      "arena 1 play carrying  banked  @8",
+      "arena 1 play carrying 0 banked  @13",
+      "arena 1 play carrying  banked 0 @18",
+      "arena 1 play carrying 1 banked 0 @22",
+      "arena 1 play carrying  banked 0,1 @27",
+      "arena 2 play carrying  banked  @27",
     ]);
   });
 });

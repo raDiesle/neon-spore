@@ -1,5 +1,6 @@
+import type { SimConfig } from "./config.js";
 import type { ScoutPoint, ScoutState } from "./scout.js";
-import { scoutCurrent } from "./scout.js";
+import { scoutCurrent } from "./scout-ask.js";
 
 /**
  * **Standing THE SCOUT up**: where home is, and one arena set out as authored.
@@ -23,6 +24,16 @@ export function scoutHome(cols: number, rows: number): ScoutPoint {
 }
 
 /**
+ * Where the ship is let go: one tile over the cannon, which is `scoutLaunchMilli`
+ * above the middle of home (the owner, 29 September 2026 — *just one tile above
+ * cannon*). Every arena, nose up; nothing about it is authored.
+ */
+export function scoutLaunch(cfg: SimConfig): ScoutPoint {
+  const home = scoutHome(cfg.cols, cfg.rows);
+  return { colMilli: home.colMilli, rowMilli: home.rowMilli - cfg.scoutLaunchMilli };
+}
+
+/**
  * Stand the scout at the start of one arena, everything back as authored.
  *
  * `boss-round.ts` calls this to reach an arena nothing headless could win to,
@@ -30,17 +41,18 @@ export function scoutHome(cols: number, rows: number): ScoutPoint {
  * the second arena the same arena either way round (`boss-round.ts` says why
  * that matters).
  */
-export function scoutStand(scout: ScoutState, index: number, beat: number): void {
+export function scoutStand(
+  cfg: SimConfig,
+  scout: ScoutState,
+  index: number,
+  beat: number,
+  tick: number,
+): void {
   scout.arena = Math.max(0, Math.min(index, scout.arenas.length - 1));
   const arena = scoutCurrent(scout);
   scout.arenaBeat = beat;
-  scout.colMilli = arena.startColMilli;
-  scout.rowMilli = arena.startRowMilli;
-  scout.vColMilli = 0;
-  scout.vRowMilli = 0;
-  scout.headingMilli = arena.startHeadingMilli;
-  scout.turn = 0;
-  scout.burning = false;
+  scout.arenaTick = tick;
+  scoutRelaunch(cfg, scout, tick);
   scout.carrying = [];
   scout.banked = [];
   scout.mawTick = -1;
@@ -54,4 +66,23 @@ export function scoutStand(scout: ScoutState, index: number, beat: number): void
   // would be a hand on a ship that is not there yet (`scout-hand.ts`).
   scout.reeling = false;
   scout.primeTick = -1;
+}
+
+/**
+ * Put the ship out again one tile over the cannon, nose up and at rest: at an
+ * arena's start, and after the mouth has banked what it carried, so every
+ * trip starts from the same place both seats can name.
+ */
+export function scoutRelaunch(cfg: SimConfig, scout: ScoutState, tick: number): void {
+  const launch = scoutLaunch(cfg);
+  scout.launchTick = tick;
+  scout.colMilli = launch.colMilli;
+  scout.rowMilli = launch.rowMilli;
+  scout.vColMilli = 0;
+  scout.vRowMilli = 0;
+  scout.headingMilli = 0;
+  scout.turn = 0;
+  scout.turnTick = -1;
+  scout.burning = false;
+  scout.sucking = false;
 }

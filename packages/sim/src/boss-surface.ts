@@ -135,6 +135,8 @@ export {
   scoutCurrent,
   scoutHolds,
   scoutHome,
+  scoutInSuckReach,
+  scoutLaunch,
   scoutLeft,
   // Whether each hand is on offer and asks, and the load its motes make
   // (`scout-hand.ts`, `render/scout-grip.ts`, `render/scout-marks.ts`).
@@ -148,7 +150,10 @@ export {
   scoutPrimeAsks,
   scoutPrimed,
   scoutPrimeOffered,
+  scoutRevealOpen,
+  scoutRevealThrough,
   scoutRound,
+  scoutSuckWanted,
   shipCol,
   shipCovers,
   shipRow,

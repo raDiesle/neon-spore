@@ -20,6 +20,10 @@ import { bossPose } from "./poses-bosses-kit.js";
 
 const FULL = { crop: "full" as const };
 
+/** THE SCOUT's two gates put under the one mote a ship can carry. */
+const LADEN_AT_ONE = { scoutLadenMotes: 0 };
+const HEAVY_AT_ONE = { scoutLadenMotes: 0, scoutHeavyMotes: 0 };
+
 export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pinball",
@@ -146,7 +150,9 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     "scout",
     "lead",
     "The arena arrives. P1 will fly the scout; P2 sees what it flies into — nothing is steered yet.",
-    FULL,
+    // The shipped lead is no beats at all since 29 September 2026 — the ship
+    // goes out on the first tick — so the pose gives it one to be seen in.
+    { ...FULL, cfg: { scoutLeadBeats: 1 } },
   ),
   bossPose(
     "scout",
@@ -168,9 +174,13 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "scout",
     "laden",
-    "Four motes aboard, one to go. P1 flies the last one onto the ship; P2 keeps the mouth open.",
+    "A mote aboard on a ship that reads as laden. P1 flies for home; P2 has the line on offer.",
     {
       ...FULL,
+      // The ship carries one mote since 29 September 2026 (`scoutCarryMax`),
+      // so the shipped gates are never passed: the pose lowers them to reach
+      // the look (docs/queue.md, *THE SCOUT's loads are unreachable*).
+      cfg: LADEN_AT_ONE,
       hand: scoutHand,
       want: (w) =>
         w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "laden",
@@ -180,9 +190,10 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "scout",
     "heavy",
-    "Every mote aboard and the run over the moment they land. P1 flies for home; P2 keeps the mouth open.",
+    "A mote aboard on a ship that reads as heavy. P1 needs a prime to burn; P2 keeps the mouth open.",
     {
       ...FULL,
+      cfg: HEAVY_AT_ONE,
       hand: scoutHand,
       want: (w) =>
         w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "heavy",

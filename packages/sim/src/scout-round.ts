@@ -1,5 +1,6 @@
 import type { ScoutArena, ScoutPhase, ScoutState } from "./scout.js";
 import { stepScoutArena } from "./scout-arena.js";
+import { scoutTurnStep } from "./scout-fly.js";
 import { scoutHandHeard } from "./scout-hand.js";
 import { scoutStand } from "./scout-open.js";
 import type { Command } from "./types.js";
@@ -60,23 +61,27 @@ export function installScout(world: World, arenas: readonly ScoutArena[]): Scout
     })),
     arena: 0,
     arenaBeat: world.beat,
+    arenaTick: world.tick,
+    launchTick: world.tick,
     colMilli: 0,
     rowMilli: 0,
     vColMilli: 0,
     vRowMilli: 0,
     headingMilli: 0,
     turn: 0,
+    turnTick: -1,
     burning: false,
     carrying: [],
     banked: [],
     mawTick: -1,
+    sucking: false,
     hazards: [],
     caughtTick: -1,
     caughtBy: -1,
     reeling: false,
     primeTick: -1,
   };
-  scoutStand(state, 0, world.beat);
+  scoutStand(world.cfg, state, 0, world.beat, world.tick);
   return state;
 }
 
@@ -85,7 +90,7 @@ export function installScout(world: World, arenas: readonly ScoutArena[]): Scout
  * photograph the second one: nothing headless can win to it.
  */
 export function scoutOpenRound(world: World, scout: ScoutState, index: number): void {
-  scoutStand(scout, index, world.beat);
+  scoutStand(world.cfg, scout, index, world.beat, world.tick);
 }
 
 /**
@@ -111,6 +116,8 @@ export function stepScoutRound(world: World): void {
     // does: the beats it is judged against are the beats it could have been
     // flying, and the lead is for reading rather than for flying.
     round.arenaBeat = world.beat;
+    round.arenaTick = world.tick;
+    round.launchTick = world.tick;
     return;
   }
   // Over, and only being looked at — THE GAUGE's spent phase, same reason.
@@ -161,6 +168,12 @@ export function scoutRoundHeard(world: World, player: 1 | 2, command: Command): 
     return;
   }
   if (command.kind === "scoutTurn") {
+    // The press is the first step, taken at once; a thumb left down steps
+    // again on the repeat (`scout-fly.ts`). A second press in the direction
+    // already held is the same press and steps nothing.
+    if (command.on && round.turn !== command.dir && !round.sucking) {
+      scoutTurnStep(world.cfg, round, command.dir, world.tick);
+    }
     round.turn = command.on ? command.dir : 0;
     return;
   }

@@ -124,6 +124,8 @@ describe("THE SCOUT draws on all three screens", () => {
     const calls = (role: ViewRole, without: "motes" | "hazards" | null): number => {
       const world = opened();
       const r = flying(world);
+      // Nothing aboard: the first level has one mote, and a mote aboard is not out there to draw.
+      r.carrying = [];
       if (without === "hazards") r.hazards = [];
       if (without === "motes") r.banked = scoutCurrent(r).motes.map((_, i) => i);
       return drawn(world, role, 1, false).calls;

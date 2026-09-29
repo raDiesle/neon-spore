@@ -8,6 +8,7 @@ import {
   type ScoutState,
   type SimConfig,
   scoutCleared,
+  scoutLaunch,
   scoutLeft,
   scoutRound,
   startWave,
@@ -38,34 +39,31 @@ const TPB = ticksPerBeat(CFG);
 /** The wave it is installed on. Any number: it is a wave like any other. */
 const WAVE = 6;
 
+/** Where the ship is let go: one tile above the middle of home, on 11 × 15 (5500, 13000). */
+const LAUNCH = scoutLaunch(CFG);
+
 /**
  * One arena, placed for the rig rather than for a player.
  *
- * The scout starts dead centre pointing up with a mote four tiles above it, so
- * one held burn is the whole trip; the second mote is in a corner nothing here
- * ever reaches, and it is load-bearing — without it, taking the one in the
- * path would clear the arena and move the round on under whichever test was
- * watching it. The hazard sits far off to the left travelling away, so it only
- * arrives in the test that flies at it.
+ * The scout is let go one tile over the cannon pointing up with a mote four
+ * tiles above it, so one held burn is the whole trip; the second mote is in a
+ * corner nothing here ever reaches, and it is load-bearing — without it,
+ * taking the one in the path would clear the arena and move the round on
+ * under whichever test was watching it. The hazard sits far off to the left
+ * and still, so it only arrives in the test that puts one on the ship.
  */
 const ARENA: ScoutArena = {
   beats: 40,
-  startColMilli: 5_500,
-  startRowMilli: 7_500,
-  startHeadingMilli: 0,
   motes: [
-    { colMilli: 5_500, rowMilli: 3_500 },
+    { colMilli: 5_500, rowMilli: 9_000 },
     { colMilli: 500, rowMilli: 500 },
   ],
-  hazards: [{ colMilli: 1_000, rowMilli: 13_000, vColMilli: 0, vRowMilli: 0 }],
+  hazards: [{ colMilli: 1_000, rowMilli: 3_000, vColMilli: 0, vRowMilli: 0 }],
 };
 
 /** A second arena, so a cleared one has somewhere to go. */
 const NEXT: ScoutArena = {
   beats: 20,
-  startColMilli: 2_000,
-  startRowMilli: 9_000,
-  startHeadingMilli: 90_000,
   motes: [{ colMilli: 2_000, rowMilli: 2_000 }],
   hazards: [],
 };
@@ -107,18 +105,11 @@ function burn(world: World, ticks: number): void {
   press(world, 1, { kind: "scoutBurn", on: false });
 }
 
-/**
- * Turn until the nose is pointing where it was asked to, then stop.
- *
- * A count of ticks would be frame-perfect arithmetic in a test about
- * something else — and off by exactly one tick, because the tick a press
- * arrives on is a tick the nose also turns on. Asking the heading is what a
- * pair does anyway.
- */
+/** Hold a turn until the nose is on `headingMilli`, then let go. The nose steps, so it lands exactly. */
 function face(world: World, headingMilli: number, dir: -1 | 1 = 1): void {
   step(world, [cmd(world, 1, { kind: "scoutTurn", on: true, dir })]);
-  for (let i = 0; i < 80; i++) {
-    if (Math.abs(round(world).headingMilli - headingMilli) < CFG.scoutTurnMilliDeg) break;
+  for (let i = 0; i < 8 * CFG.scoutTurnRepeatTicks; i++) {
+    if (round(world).headingMilli === headingMilli) break;
     step(world, []);
   }
   press(world, 1, { kind: "scoutTurn", on: false, dir });
@@ -136,31 +127,40 @@ function burnUntil(world: World, done: (scout: ScoutState) => boolean, ticks = 6
   return reached;
 }
 
-/** Whether the ship is over the mother ship, which is the bottom middle. */
-function atHome(scout: ScoutState): boolean {
+/** Whether the ship is inside the mouth's reach: two tiles round the middle of home. */
+function inReach(scout: ScoutState): boolean {
   const dCol = scout.colMilli - CFG.cols * 500;
   const dRow = scout.rowMilli - (CFG.rows * 1000 - 1_000);
-  const reach = CFG.scoutRadiusMilli + CFG.scoutHomeRadiusMilli;
+  const reach = CFG.scoutSuckRadiusMilli;
   return dCol * dCol + dRow * dRow <= reach * reach;
 }
 
-/** Point the nose down and fly back to the mother ship. */
+/** Point the nose down and fly back into the mouth's reach. */
 function goHome(world: World): boolean {
   face(world, 180_000);
-  return burnUntil(world, atHome);
+  return burnUntil(world, inReach);
+}
+
+/** Tick until the ship is let go again, which is the tick the mouth swallowed it. */
+function swallowed(world: World, ticks = 4 * TPB): boolean {
+  const from = round(world).launchTick;
+  for (let i = 0; i < ticks; i++) {
+    step(world, []);
+    if (round(world).launchTick !== from) return true;
+  }
+  return false;
 }
 
 describe("THE SCOUT", () => {
-  it("holds the ship still until the mother ship has opened", () => {
+  it("lets the ship go one tile above the cannon as the round opens", () => {
+    // The owner, 29 September 2026: *the ship should go out immediately when
+    // wave starts, just one tile above cannon*. No lead, no drift into place.
     const world = open();
-    const scout = round(world);
-    expect(scout.phase).toBe("lead");
-    const where = scout.rowMilli;
-    // A burn during the lead is a press nobody meant: the pair are reading two
-    // screens that have just stopped being the field.
-    burn(world, TPB);
-    expect(round(world).rowMilli).toBe(where);
-    expect(round(world).vRowMilli).toBe(0);
+    play(world);
+    expect(world.tick).toBeLessThanOrEqual(1);
+    expect(round(world).colMilli).toBe(LAUNCH.colMilli);
+    expect(round(world).rowMilli).toBe(LAUNCH.rowMilli);
+    expect(LAUNCH.rowMilli).toBe(CFG.rows * 1000 - 2_000);
   });
 
   it("flies where the nose points, and coasts after the thumb comes off", () => {
@@ -175,7 +175,7 @@ describe("THE SCOUT", () => {
     // Up the arena is a falling row number, and the column has not moved: a
     // burn is along the nose and nowhere else.
     expect(coasting).toBeLessThan(from);
-    expect(round(world).colMilli).toBe(ARENA.startColMilli);
+    expect(round(world).colMilli).toBe(LAUNCH.colMilli);
     for (let i = 0; i < 10; i++) step(world, []);
     // Still going with nothing held — that is the whole difference between a
     // ship and a cursor — and slowing down.
@@ -191,14 +191,22 @@ describe("THE SCOUT", () => {
     expect(Math.abs(round(world).vRowMilli)).toBeLessThan(200);
   });
 
-  it("turns the nose while the finger is down and leaves it where it stopped", () => {
+  it("steps the nose an eighth of a turn a press, and slowly while it is held", () => {
+    // *It should snap each 45 degree and not so fast* — the cannon's feel.
     const world = open();
     play(world);
-    press(world, 1, { kind: "scoutTurn", on: true, dir: 1 }, 9);
-    const turned = round(world).headingMilli;
-    expect(turned).toBeGreaterThan(0);
-    press(world, 1, { kind: "scoutTurn", on: false, dir: 1 }, 10);
-    expect(round(world).headingMilli).toBe(turned);
+    press(world, 1, { kind: "scoutTurn", on: true, dir: 1 });
+    expect(round(world).headingMilli).toBe(45_000);
+    for (let i = 0; i < CFG.scoutTurnRepeatTicks - 2; i++) step(world, []);
+    expect(round(world).headingMilli).toBe(45_000);
+    for (let i = 0; i < 2; i++) step(world, []);
+    expect(round(world).headingMilli).toBe(90_000);
+    press(world, 1, { kind: "scoutTurn", on: false, dir: 1 }, 3 * CFG.scoutTurnRepeatTicks);
+    expect(round(world).headingMilli).toBe(90_000);
+    // And the other way, one press, one step.
+    press(world, 1, { kind: "scoutTurn", on: true, dir: -1 });
+    press(world, 1, { kind: "scoutTurn", on: false, dir: -1 });
+    expect(round(world).headingMilli).toBe(45_000);
   });
 
   it("never leaves the arena, however long the burn is held", () => {
@@ -226,7 +234,25 @@ describe("THE SCOUT", () => {
     expect(scoutLeft(scout)).toBe(2);
   });
 
-  it("only banks it at the mother ship, and only with the mouth open", () => {
+  it("carries one mote at a time and flies straight through the next", () => {
+    // Two in the ship's line; the second is passed over while the first is aboard.
+    const world = open([
+      {
+        ...ARENA,
+        motes: [
+          { colMilli: 5_500, rowMilli: 10_000 },
+          { colMilli: 5_500, rowMilli: 7_000 },
+          { colMilli: 500, rowMilli: 500 },
+        ],
+      },
+    ]);
+    play(world);
+    burn(world, 4 * TPB);
+    expect(round(world).rowMilli).toBeLessThan(7_000);
+    expect(round(world).carrying).toEqual([0]);
+  });
+
+  it("banks it only when the mouth sucks the ship in, from two tiles off", () => {
     const world = open();
     play(world);
     burn(world, 3 * TPB);
@@ -234,13 +260,21 @@ describe("THE SCOUT", () => {
 
     // Home is the bottom middle, so the way back is a half turn and a burn.
     expect(goHome(world)).toBe(true);
-    // Arrived with the mouth shut: nothing is lost and nothing is taken.
+    // Inside the reach with the mouth shut: nothing is lost and nothing is taken.
+    for (let i = 0; i < TPB; i++) step(world, []);
     expect(round(world).banked).toEqual([]);
     expect(round(world).carrying).toEqual([0]);
+    expect(round(world).sucking).toBe(false);
 
-    press(world, 2, { kind: "scoutMaw" }, 2);
+    // Her press takes the ship; the pilot's hands are dead while it runs home.
+    press(world, 2, { kind: "scoutMaw" });
+    expect(round(world).sucking).toBe(true);
+    expect(swallowed(world)).toBe(true);
     expect(round(world).banked).toEqual([0]);
     expect(round(world).carrying).toEqual([]);
+    // And the ship is let go again, where the round began.
+    expect(round(world).colMilli).toBe(LAUNCH.colMilli);
+    expect(round(world).rowMilli).toBe(LAUNCH.rowMilli);
   });
 
   it("gives the pilot no mouth and the other seat no ship", () => {
@@ -248,7 +282,7 @@ describe("THE SCOUT", () => {
     play(world);
     // Player 2 cannot fly it.
     press(world, 2, { kind: "scoutBurn", on: true }, 20);
-    expect(round(world).rowMilli).toBe(ARENA.startRowMilli);
+    expect(round(world).rowMilli).toBe(LAUNCH.rowMilli);
     expect(round(world).burning).toBe(false);
     // And player 1 cannot open the mouth.
     press(world, 1, { kind: "scoutMaw" });
@@ -257,9 +291,7 @@ describe("THE SCOUT", () => {
 
   it("costs the hull when a hazard catches it, and that is the wave lost", () => {
     // One hazard, sitting exactly where the ship is let go.
-    const world = open([
-      { ...ARENA, hazards: [{ colMilli: 5_500, rowMilli: 7_500, vColMilli: 0, vRowMilli: 0 }] },
-    ]);
+    const world = open([{ ...ARENA, hazards: [{ ...LAUNCH, vColMilli: 0, vRowMilli: 0 }] }]);
     play(world);
     step(world, []);
     expect(round(world).caughtTick).toBeGreaterThanOrEqual(0);
@@ -286,18 +318,16 @@ describe("THE SCOUT", () => {
   });
 
   it("opens the next arena when every mote is home", () => {
-    // One mote, right where the ship is let go, and home under it.
-    const world = open([
-      { ...ARENA, motes: [{ colMilli: 5_500, rowMilli: 7_500 }], hazards: [] },
-      NEXT,
-    ]);
+    // One mote, right where the ship is let go — which is inside the reach.
+    const world = open([{ ...ARENA, motes: [{ ...LAUNCH }], hazards: [] }, NEXT]);
     play(world);
     step(world, []);
     expect(round(world).carrying).toEqual([0]);
-    expect(goHome(world)).toBe(true);
-    press(world, 2, { kind: "scoutMaw" }, 4);
+    press(world, 2, { kind: "scoutMaw" });
+    for (let i = 0; i < 4 * TPB && round(world).arena === 0; i++) step(world, []);
     expect(round(world).arena).toBe(1);
-    expect(round(world).colMilli).toBe(NEXT.startColMilli);
+    expect(round(world).colMilli).toBe(LAUNCH.colMilli);
+    expect(round(world).rowMilli).toBe(LAUNCH.rowMilli);
     expect(round(world).banked).toEqual([]);
   });
 

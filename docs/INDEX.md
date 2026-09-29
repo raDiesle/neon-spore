@@ -357,11 +357,14 @@ by hand never moves.
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
+| `packages/sim/src/scout-ask.ts` | **The four questions every THE SCOUT file asks of the round** |
 | `packages/sim/src/scout-fly.ts` | One tick of the flight, and the four things that decide how it feels |
 | `packages/sim/src/scout-hash.ts` | What THE SCOUT puts into `hashWorld`, and nothing else |
 | `packages/sim/src/scout-hand.ts` | The two counts `scoutLoad` reads, as little of `SimConfig` as it needs |
 | `packages/sim/src/scout-round.ts` | THE SCOUT's clock: the three phases, the way in and the way out |
+| `packages/sim/src/scout-reveal.ts` | **When the pilot is shown the arena**: a second of it |
 | `packages/sim/src/scout-open.ts` | **Standing THE SCOUT up**: where home is, and one arena set out as authored |
+| `packages/sim/src/scout-suck.ts` | **The mouth takes the ship back**: two tiles round the cannon |
 | `packages/sim/src/scout.ts` | THE SCOUT: the ship puts something small out into the dark, and only one of you is holding it |
 | `packages/sim/src/scuttle-hash.ts` | What THE SCUTTLE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/scuttle-hand.ts` | **The pilot's thumb on a part THE SCUTTLE already let go of**, off the wire, on the tick |
@@ -372,6 +375,7 @@ by hand never moves.
 | `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
 | `packages/sim/src/config-stare.ts` | THE STARE's numbers — how long the eye is turned away, how much warning a turn gives |
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
+| `packages/sim/src/config-scout-trip.ts` | **THE SCOUT's trip**: how the little ship is put out, how much it may carry |
 | `packages/sim/src/config-scuttle.ts` | THE SCUTTLE's numbers — how many sockets the frame has and how many of the parts in them are pods |
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
 | `packages/sim/src/config-sling.ts` | THE SLING's tuning: the rests around its steps, the grace a draw is given, the spent yoke's cool |
@@ -1001,7 +1005,7 @@ by hand never moves.
 | `packages/content/src/metaball.ts` | the outline of a metaball field, as however many closed loops it has — what SYMBIOSIS and THE CHOIR are drawn with |
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
 | `packages/content/src/scene-act-types.ts` | one moment of a rehearsal — a thumb on a control or a hand on the field, and a field for every gesture the film can show |
-| `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: two of them, and the arena is the fight |
+| `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: four levels, one mote more on each, and the arena is the fight |
 | `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
 | `packages/content/src/creatures-beatbox.ts` | THE BEATBOX's row, cut out of `creatures-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |

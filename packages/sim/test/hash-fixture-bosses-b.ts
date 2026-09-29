@@ -32,9 +32,6 @@ export const BOSS_ENTRIES_B = {
     arenas: [
       {
         beats: 24,
-        startColMilli: 3_500,
-        startRowMilli: 7_500,
-        startHeadingMilli: 0,
         motes: [
           { colMilli: 1_500, rowMilli: 2_500 },
           { colMilli: 5_500, rowMilli: 11_500 },
