@@ -1377,6 +1377,7 @@ has to: in `waves.ts`, the intro clock (`tickOpening`, `left`, `sentAtTick`,
 ## `mazeRefuse` still has a "heart" part the maze no longer sends
 
 - **Found:** 2026-09-29, claude/the-maze-level-adjustments-85d033
+- **Taken:** 2026-09-29, claude/queue-tasks-b9e006 (claim: claude/queue-mazerefuse-still-has-a-heart-part-the-maze-no-lo)
 - **Files:** `packages/sim/src/events-rounds.ts`, `packages/sim/src/maze-controls.ts`, `packages/render/src/maze-marks.ts`, `packages/render/test/maze-verdict.test.ts`, `packages/audio/test/bind.test.ts`
 
 Since the shake, either seat may hold the heart (`maze-hand.ts`), so the only
