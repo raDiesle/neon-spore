@@ -36,11 +36,14 @@ export interface Session {
   checkpointReads: number[];
 }
 
-const LAND = /^\s*(cd [^;&]+(&&|;)\s*)?bun run land\b/;
+/** `bun run land` as a command of its own, anywhere in a compound one. */
+const LAND = /(^|[;&|\n(])\s*bun run land\b/;
+/** What `tools/land/say.ts` prints when a landing went through, since 4 September. */
+const LANDED = "L A N D E D";
 const EDITS = new Set(["Edit", "Write", "MultiEdit", "NotebookEdit"]);
 
 type Block = { type?: string; name?: string; id?: string; input?: Record<string, unknown> };
-type ResultBlock = { type?: string; tool_use_id?: string; is_error?: boolean };
+type ResultBlock = { type?: string; tool_use_id?: string; content?: unknown };
 
 function blocks<T>(content: unknown): T[] {
   return Array.isArray(content) ? (content.filter((b) => typeof b === "object" && b) as T[]) : [];
@@ -109,7 +112,9 @@ export function readSession(text: string): Session {
       }
     } else if (entry.type === "user") {
       for (const b of blocks<ResultBlock>(message.content)) {
-        if (b.type === "tool_result" && landIds.has(b.tool_use_id ?? "") && b.is_error !== true) {
+        // The banner, not the exit code: a `| tail` hides a failed land's.
+        if (b.type !== "tool_result" || !landIds.has(b.tool_use_id ?? "")) continue;
+        if (JSON.stringify(b.content ?? "").includes(LANDED)) {
           session.landings.push(at);
           lastLand = at;
         }

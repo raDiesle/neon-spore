@@ -24,11 +24,19 @@ const tool = (id: string, name: string, input: Record<string, unknown>) => ({
   name,
   input,
 });
-const result = (m: number, id: string, isError = false): string =>
+const result = (m: number, id: string, landed = true): string =>
   JSON.stringify({
     type: "user",
     timestamp: at(m),
-    message: { content: [{ type: "tool_result", tool_use_id: id, is_error: isError }] },
+    message: {
+      content: [
+        {
+          type: "tool_result",
+          tool_use_id: id,
+          content: landed ? "🟢 ╺━╸ L A N D E D ! ╺━╸ x → main @ abc (1 commit)" : "rebase failed",
+        },
+      ],
+    },
   });
 const cut = (m: number, pre: number): string =>
   JSON.stringify({
@@ -41,20 +49,24 @@ const cut = (m: number, pre: number): string =>
 const transcript = [
   call(0, "a", 60_000, [tool("e1", "Edit", { file_path: "a.ts" })]),
   cut(5, 170_000),
-  call(10, "b", 90_000, [tool("l1", "Bash", { command: "bun run land --keep" })]),
+  call(10, "b", 90_000, [
+    tool("l1", "Bash", { command: "git commit -qm x; bun run land --keep 2>&1 | tail -3" }),
+  ]),
   result(11, "l1"),
   cut(12, 125_000),
   call(13, "c", 70_000, [tool("r1", "Read", { file_path: "/g/claude-checkpoint.md" })]),
   call(14, "c", 70_000),
   call(20, "d", 330_000, [tool("l2", "Bash", { command: "cd /x && bun run land" })]),
-  result(21, "l2", true),
+  result(21, "l2", false),
+  call(23, "f", 80_000, [tool("g1", "Bash", { command: 'grep -n "bun run land" CLAUDE.md' })]),
+  result(24, "g1"),
   call(22, "e", 0, [{ type: "text", text: "Prompt is too long" }]),
 ].join("\n");
 
 describe("the compaction trial", () => {
   const session = readSession(transcript);
 
-  it("counts a landing only when the command succeeded", () => {
+  it("counts a landing anywhere in a compound command, only when land said it landed", () => {
     expect(session.landings).toEqual([T0 + 11 * 60_000]);
   });
 
@@ -63,7 +75,7 @@ describe("the compaction trial", () => {
   });
 
   it("counts each call once, skips the harness's zero-usage messages, and sees the failures", () => {
-    expect(session.calls.map((c) => c.context)).toEqual([60_000, 90_000, 70_000, 330_000]);
+    expect(session.calls.map((c) => c.context)).toEqual([60_000, 90_000, 70_000, 330_000, 80_000]);
     expect(session.tooLong.length).toBe(1);
     expect(session.checkpointReads.length).toBe(1);
   });

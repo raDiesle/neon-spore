@@ -110,7 +110,7 @@ export function period(
 
 /** What each figure should do after the change, in the words a verdict needs. */
 export const EXPECT: Readonly<Record<string, string>> = {
-  "cut mid-item": "down from about half to under 15%",
+  "cut mid-item": "down from about a third (an edit since the last landing) to under 10%",
   "compactions per item":
     "down: before counts sessions that compacted and landed nothing; the model said 0.56 a queue item",
   "ceiling hits": "rare: over 10% of compactions means raise the ceiling to 400k",

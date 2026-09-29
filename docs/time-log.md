@@ -29679,3 +29679,16 @@ Bottleneck: writing — deciding which figures a verdict can rest on, when
 the stamps that time an item from its claim only began today.
 
 *Measured: 38 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — The compaction trial sees a landing inside a compound command
+
+- reading: 5 min. This session's own cut, the hook's log beside it, and
+  when land's banner began (4 September, before the baseline).
+- writing: 5 min. The landing pattern, the banner as the proof, the test.
+- looking: 5 min. The corrected baseline: 466 items, 31% of cuts after an
+  edit, 48% of items with an automatic cut somewhere inside.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the report called a boundary cut mid-item, and only
+the hook's log showed the hook had been right and the parser wrong.
