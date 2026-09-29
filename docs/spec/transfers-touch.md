@@ -306,8 +306,7 @@ Not boss fights, but the most worked-out touch vocabularies there are.
   its attack rhythm* in light and sound, a rhythm that need not match the
   level's beat; then it attacks with exactly that timing and each hit is
   parried. Kale ends verses with a combo holding one hit that must not be
-  parried. [Kale](https://www.youtube.com/watch?v=nltY0LVBoWI) ·
-  [Kale, S rank](https://www.youtube.com/watch?v=q90Eh-GfyJU)
+  parried. [Kale, S rank](https://www.youtube.com/watch?v=q90Eh-GfyJU)
 - **Punch-Out!!** (Wii, 2009) — **Great Tiger's turban jewel flashes a colour
   per attack**: red a left jab, blue a left uppercut, green a right uppercut.
   In his combo it flashes *the whole sequence in order* before he throws it.

@@ -28863,3 +28863,15 @@ Bottleneck: writing — one verb's shape changed, and twenty-six files carried
 it, from the wire codec to a film's act.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-29 — the research page's YouTube links, opened
+
+- reading: 0 min. The queue entry and the page's links.
+- writing: 5 min. A script pairing each link's words with its video's
+  title through YouTube's oEmbed; one dead link taken out.
+- looking: 5 min. 47 links and 22 thumbnails answered: every title matches
+  its words, every thumbnail is a real picture; *Kale* is gone from YouTube.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the check was two HTTP sweeps; the rest was ceremony.

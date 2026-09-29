@@ -1189,21 +1189,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Unverified at 143917958: the YouTube thumbnails and video links in docs/spec/tr…
-
-- **Found:** 2026-09-26, claude/queue-unverified-at-8e6e6e71-research-tab-on-the-direc
-- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-unverified-at-143917958-the-youtube-thumbnails-a)
-- **Files:** `docs/queue.md`, `docs/time-log.md`, `tools/director/src/director-markdown.css`, `tools/director/src/markdown.ts`, `tools/director/test/markdown.test.ts`
-
-*The director draws a markdown `---` as a rule, not three dashes* landed from a session that could not look at it. What went unchecked:
-
-- the YouTube thumbnails and video links in docs/spec/transfers-touch.md, opened — the container's proxy refuses YouTube
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at d75b9936b: THE SLOW's light round THE TRIVET seen in a frame
 
 - **Found:** 2026-09-26, tmp-trivet-aim
