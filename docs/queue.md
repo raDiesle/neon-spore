@@ -1606,6 +1606,7 @@ and `bun run check` is green.
 ## THE SCUTTLE's frame is drawn above the canvas on a stage wider than 0.53
 
 - **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
+- **Taken:** 2026-09-29, claude/queue-tasks-efa837 (claim: claude/queue-the-scuttles-frame-is-drawn-above-the-canvas-on)
 - **Files:** `packages/render/src/scuttle-shape.ts`, `packages/render/src/layout.ts`, `packages/render/test/scuttle-frame.test.ts`, `packages/sim/src/config-scuttle.ts`, `packages/render/src/lead-shape.ts`
 
 The owner, 27 September 2026, in the director: only one row of THE SCUTTLE and
