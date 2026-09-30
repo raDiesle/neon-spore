@@ -1455,6 +1455,7 @@ if one is due.
 ## `tools/land/run.ts` is at 249 lines
 
 - **Found:** 2026-09-30, claude/queue-land-lets-a-lane-delete-queue-entries-it-never-c
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-tools-land-run-ts-is-at-249-lines)
 - **Files:** `tools/land/run.ts`
 
 The guard against dropped queue entries (`queue-dropped.ts`, called from
