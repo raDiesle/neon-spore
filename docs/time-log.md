@@ -30115,3 +30115,5 @@ Bottleneck: `check:fast` timing out under load, which the queue now carries as a
 - landing: 5 min. `check:fast`, the queue entry, the commit, `land`.
 
 Bottleneck: writing — the whip's loop had to be one path the line's own stroke could draw, which meant reaching into `spool-line.ts` rather than laying over it.
+
+*Measured: 43 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
