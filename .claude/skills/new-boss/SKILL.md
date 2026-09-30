@@ -181,7 +181,7 @@ things, and a boss's look lane is read against all five:
 5. **The mark says which gesture**: a breathing ring, a glyph inside it, the
    window closing as a ring, and the cue's word beside it (`boss-cue.ts`) —
    and a swipe is a track the length of the swipe, never a ring
-   (`instar-track.ts`, the owner's generic rule in `owner.md`). **A pull's
+   (`instar-track.ts`, the owner's generic rule in `generic.md`). **A pull's
    knob carries its arrow** (`drawPullKnob`'s required `way`, `way-arrow.ts`);
    **a shot cue sets `BossCue.aim`** on what the bolt must reach when its
    word stands at the hull; SHIELD and SUCK get the panel's face in their box
@@ -195,9 +195,11 @@ things, and a boss's look lane is read against all five:
 
 On record, with where and in his words where he gave them: THE TELL and why
 it went, the field that stays the field, the beat list that waits, one meter
-that is *ours*, the rules he set, the long choreographed window and THE SLOW
-on a step — `.claude/skills/new-boss/owner.md`. **Read it before designing,
-and add a line there every time feedback on a boss says one**, dated.
+that is *ours*, the rules he set — `.claude/skills/new-boss/owner.md`; and
+the rules he gave for every boss, the long choreographed window, THE SLOW on
+a step and the feedback on every touch among them, beside it in `generic.md`.
+**Read both before designing, and add a line to one every time feedback on a
+boss says one**, dated.
 
 **Enhancing a boss that already shipped** — the three standing briefs,
 §6.1–6.3, kept under those numbers because `docs/queue.md` names them one by

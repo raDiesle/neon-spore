@@ -8,7 +8,7 @@ import { PALETTE, STROKE } from "./palette.js";
  *
  * The owner, 24 September 2026: *there should be always in general some
  * visual if player did correct or not, immediately, e.g. green or red colour
- * of the circle he touched with animation* (`.claude/skills/new-boss/owner.md`).
+ * of the circle he touched with animation* (`.claude/skills/new-boss/generic.md`).
  * So a touch that moved the part throws a `good` wash and ring off the mark,
  * and a touch that was refused or let the part slip throws a `red` one, both
  * widening and fading over `VERDICT_SECONDS`. Green is `good`'s own reserved

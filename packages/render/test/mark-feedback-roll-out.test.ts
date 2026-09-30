@@ -6,7 +6,7 @@ import { BOSS_KINDS } from "@neon-spore/sim";
  * **Every boss with a mark answers a touch the same way** — the owner, 27
  * September 2026: *ultimately i want the consistent visual across all waves …
  * make sure that extending boss waves or adding new will follow the same
- * conventions* (`.claude/skills/new-boss/owner.md`).
+ * conventions* (`.claude/skills/new-boss/generic.md`).
  *
  * A boss has a mark when the renderer has a page for one: `<boss>-grip.ts`,
  * `-handles.ts`, `-hand.ts` or `-marks.ts`, which is where `new-boss` §5 puts

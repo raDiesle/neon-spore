@@ -5,7 +5,7 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * **Which mark is wanted, and by whom** — the two halves of the owner's rule
  * of 24 September 2026 that are not the verdict (`.claude/skills/new-boss/
- * owner.md`, `grip-verdict.ts` for the third): *more visible the action
+ * generic.md`, `grip-verdict.ts` for the third): *more visible the action
  * player has to do right now … then also more visible when other player has
  * now to take action and where.* Shared by every boss with a mark, 27
  * September 2026 (*the consistent visual across all waves*); THE INSTAR was

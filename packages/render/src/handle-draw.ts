@@ -31,7 +31,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * THE MAZE's and THE WARDEN's handles take nothing from this file now but a
  * radius and a field point: since 25 September 2026 a handle you pull is drawn
  * as the path it can be pulled (`pull-track.ts`, the owner's rule in
- * `.claude/skills/new-boss/owner.md`), and the ring and its dial stay for the
+ * `.claude/skills/new-boss/generic.md`), and the ring and its dial stay for the
  * handles `docs/queue.md` has not moved yet.
  */
 

@@ -29863,3 +29863,13 @@ Bottleneck: seeing that the horn press was refused, because `touchDown` answered
 Bottleneck: the queue entry blamed the input delay for the seven ticks, and only a probe of the wave showed they were the end of a bolt's climb fired at the step before.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — `.claude/skills/new-boss/owner.md` is at 263 lines: the rules for every boss cut into `generic.md`
+
+- reading: 5 min. `owner.md` line by line, sorting what the owner said of one boss from what he marked *generic* or *for all bosses*, and the eleven places that cite the page.
+- writing: 5 min. `generic.md`, its lead, the pointer left in `owner.md`, SKILL.md §7 naming both, and the citations of a generic rule repointed.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, the commit.
+
+Bottleneck: deciding, for each citation, whether it named a generic rule or THE BELLOWS/INSTAR counter-example that stays in `owner.md`.

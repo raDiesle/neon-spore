@@ -79,7 +79,7 @@ from the hash is a field that can silently desync two devices.
 
 **A handle the players pull is never drawn fresh.** Every boss and every wave
 wears the same three pieces (the owner, 25 September 2026, generic;
-`.claude/skills/new-boss/owner.md`): a thin channel along the travel that fills
+`.claude/skills/new-boss/generic.md`): a thin channel along the travel that fills
 green behind the hand (`drawPullTrack`, `render/src/pull-track.ts` — a track
 builder beside `tether-track.ts` is all a new one writes), a big circle to start
 (`drawPullKnob`, `render/src/pull-knob.ts`), and a press answered at the knob's

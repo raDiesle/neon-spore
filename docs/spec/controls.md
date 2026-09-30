@@ -111,7 +111,7 @@ circle to start at the handle's radius (`pull-knob.ts`), and a press answered
 at that radius times `PULL_GRAB` — about three times the circle drawn, because
 a handle that moves is hard to catch. A turn with no end has a channel with no
 end: THE MAZE's is the whole ring round the drum. The reasoning is in
-`.claude/skills/new-boss/owner.md`; which handles still wear the older ring is
+`.claude/skills/new-boss/generic.md`; which handles still wear the older ring is
 the queue's.
 
 | Control | Where | Seat | Gesture | Does |

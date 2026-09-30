@@ -14,7 +14,7 @@ are through the whole game*.
 The shapes of bodies are `docs/asset-catalogue.md`'s. The band's buttons and
 the in-screen controls, row by row with what each one does, are
 `docs/spec/controls.md`'s. The owner's rules these pieces carry, dated and in
-his words, are `.claude/skills/new-boss/owner.md`'s. This page is the drawing
+his words, are `.claude/skills/new-boss/generic.md`'s. This page is the drawing
 vocabulary between them.
 
 **How it is kept honest.** `packages/render/test/controls-catalogue.test.ts`

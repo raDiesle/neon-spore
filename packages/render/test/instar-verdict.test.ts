@@ -11,7 +11,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **Was that right, and whose is it** — the owner's rule of 24 September 2026
- * on THE INSTAR, its worked example (`.claude/skills/new-boss/owner.md`):
+ * on THE INSTAR, its worked example (`.claude/skills/new-boss/generic.md`):
  * a touch that moved a part washes its mark green, a refused thumb washes it
  * red, the open mark of this seat wears a halo and the partner's a turning
  * ring. The verdict is a transient and the next run does not inherit it.

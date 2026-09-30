@@ -1400,17 +1400,6 @@ topmost point below the switcher's bottom, so the next boss cannot break it.
 A boss that fails and has to move is a fix to something wrong, not a look;
 say which in the commit.
 
-## `.claude/skills/new-boss/owner.md` is at 263 lines
-
-- **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-claude-skills-new-boss-owner-md-is-at-263-lines)
-- **Files:** `.claude/skills/new-boss/owner.md`, `.claude/skills/new-boss/SKILL.md`
-
-The owner's verdicts on bosses keep growing past the size line. Split the
-generic rules (the ones marked *generic* or *for all bosses*) into their own
-file next to it, name it from `SKILL.md`, and keep the per-boss verdicts in
-`owner.md`. Move text only; change no wording.
-
 ## CLAUDE.md sends a reader to `purity.test.ts` for the called-not-re-derived table
 
 - **Found:** 2026-09-30, worktree-agent-a4a142ed5d16baf7b

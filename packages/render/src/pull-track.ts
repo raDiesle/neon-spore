@@ -5,7 +5,7 @@ import type { PullWay } from "./pull-line.js";
 /**
  * **A pull is drawn as the way the hand goes, and a big circle where it
  * starts.** The one look every handle you pull wears — the owner's rule,
- * written for every boss and every wave in `.claude/skills/new-boss/owner.md`
+ * written for every boss and every wave in `.claude/skills/new-boss/generic.md`
  * and `.claude/skills/new-creature/SKILL.md`.
  *
  * THE INSTAR's swipe learnt it first (`instar-track.ts`): *instead of a circle
