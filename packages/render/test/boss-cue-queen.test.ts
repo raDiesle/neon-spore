@@ -103,7 +103,7 @@ describe("BULB QUEEN", () => {
     her.color = null;
     // BROOD: a press, while the pry is still waiting; gone once she is open.
     q.phase = 1;
-    expect(word(world, "p1")).toBe("OPEN");
+    expect(word(world, "p1")).toBe("TAP");
     expect(cue(world, "p1")?.kind).toBe("PRESS");
     for (const side of [-1, 1] as const) {
       q.weakSide = side;
@@ -115,7 +115,7 @@ describe("BULB QUEEN", () => {
     // SCREAM: a hold, from the tell through the bloom, so the thumb is there.
     q.phase = 2;
     her.color = null;
-    expect(word(world, "p1")).toBe("OPEN");
+    expect(word(world, "p1")).toBe("HOLD");
     expect(cue(world, "p1")?.kind).toBe("HOLD");
     her.color = "cyan";
     expect(cue(world, "p1")?.kind).toBe("HOLD");

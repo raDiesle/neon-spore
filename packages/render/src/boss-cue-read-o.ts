@@ -67,7 +67,7 @@ import {
  *   teaches the pair to stop reading the words.
  *
  * **Two more words, for two of the four hands** (`sim/ledger-hand.ts`).
- * `ROOT` stands in `rooting`, which used to be the one movement with nothing
+ * `MOVE` / `WHERE IT ROOTS` stands in `rooting`, which used to be the one movement with nothing
  * in it: the body cannot be hurt and no return is owed, and the foot of the
  * cord can be walked along the plating before it seats, which decides where
  * the whole walk starts. `PULL` stands on the bead in `whipping` when the
@@ -75,7 +75,7 @@ import {
  * for nothing, so a pair that is ahead of the cord is better off hauling the
  * next bill down than waiting for it. It gives the bead back to `SHIELD` on the
  * beat it lands, because one word stands on one thing. **Both of them drop
- * their frame where his ring is under the bead** — `ROOT`'s arrangement, said
+ * their frame where his ring is under the bead** — the root's arrangement, said
  * about a bead instead of a root (`ledger-pull.ts`, THE STARE's `SHUT`).
  *
  * **The other two hands get no word, and that is the same rule twice.** The
@@ -138,7 +138,8 @@ export function ledgerCues(
       {
         seat: 2,
         kind: "CARRY",
-        word: "ROOT",
+        word: "MOVE",
+        why: "WHERE IT ROOTS",
         x: at.x,
         y: at.y,
         halfW: half,
@@ -164,7 +165,7 @@ export function ledgerCues(
     // bead, never two — `SHIELD` is the beat it lands on and this is every beat
     // before it.
     const pull = phase === "whipping" && world.shieldCol === t.socket && left > 1 && !next.pulled;
-    // **No frame where his ring is under it**, `ROOT`'s arrangement said
+    // **No frame where his ring is under it**, the root's arrangement said
     // about a bead instead of a root: from the day the pull was drawn, the
     // soonest haulable return wears a ring that rides it down the cord
     // (`ledger-pull.ts`), and a ring is a mark already. The word stands out at

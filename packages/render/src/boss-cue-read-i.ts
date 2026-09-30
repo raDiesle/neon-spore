@@ -104,9 +104,9 @@ function merging(l: Layout, world: World, b: BatonState): readonly BossCue[] {
  * `batonActor` is the turn and there is nothing else to read — act `n` is
  * his on the even counts and hers on the odd, and a beat that ends one act
  * short puts the bead back at the top of a whole arm (`sim/baton-cross.ts`).
- * His is `SEND` and not `LAUNCH`: the same thumb on the same trigger, but
- * nothing is being launched out of a socket any more, and the eleven beats
- * are one long shove down the column.
+ * His is `TAP` / `TO SEND IT DOWN` and not `TO LAUNCH IT`: the same thumb on
+ * the same trigger, but nothing is being launched out of a socket any more,
+ * and the eleven beats are one long shove down the column.
  *
  * **No `MOVE` stands here**, and that is a choice rather than an oversight.
  * The drop is straight down the column the last socket hangs in, so the
@@ -121,7 +121,8 @@ function crossing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
   const seat = batonActor(b);
   if (batonLocked(b, seat, world.beat)) return [];
   const { x, y } = beadPoint(l, world.cfg, b, bead, world.tick);
-  return [markAt(seat, "PRESS", seat === 1 ? "SEND" : "FIRE", x, y, l, 84 + seat)];
+  const cue = markAt(seat, "PRESS", seat === 1 ? "TAP" : "FIRE", x, y, l, 84 + seat);
+  return [seat === 1 ? { ...cue, why: "TO SEND IT DOWN" } : cue];
 }
 
 /**
@@ -130,7 +131,7 @@ function crossing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
  * when it arrives (`sim/pod-intake.ts`). Both locks opened at the drop, so
  * nothing here asks whether he may act.
  *
- * `OPEN` stands for as long as the cannon is under the pod rather than at the
+ * `TAP` / `TO OPEN THE MAW` stands for as long as the cannon is under the pod rather than at the
  * moment it arrives. **The moment is his**: a word that appeared on the beat
  * to press would be the catch made for him, and the maw's window is the one
  * clock this game has always left in a thumb (`docs/decisions.md` #34).
@@ -142,7 +143,7 @@ function falling(l: Layout, world: World, b: BatonState): readonly BossCue[] {
     return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 87)];
   }
   const at = podCenter(l, pod);
-  return [markAt(1, "PRESS", "OPEN", at.x, at.y, l, 88)];
+  return [{ ...markAt(1, "PRESS", "TAP", at.x, at.y, l, 88), why: "TO OPEN THE MAW" }];
 }
 
 /** Every word THE BATON says, most urgent first, by the stage it is in. */

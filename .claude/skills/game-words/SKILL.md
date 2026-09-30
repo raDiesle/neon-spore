@@ -115,6 +115,13 @@ A plate that is a boss's own armour is not the shield: THE WARDEN's rim says
 *piece*. `CEILING` went up rather than down on the day this row was added, the
 one thing that may raise it, and the sweep brought it back down.
 
+**A cue's word is what the thumb does, never what it does to the boss.** A
+mark on the field says `TAP`, `HOLD`, `PULL` or the button's own name (`FIRE`,
+`SHIELD`), and what the gesture is for goes on its `why` line: `TAP` over `TO
+FREEZE THE WHEEL`, never `FREEZE`. That is the owner's rule, 30 September 2026,
+and it holds for every boss (`decisions.md` #34). `render/test/cue-verbs.test.ts`
+lists the gestures. A new one goes in that list, and an effect never does.
+
 **A `name` is a proper noun and no row in this table reaches it.** The wave
 `THE WARD` keeps its name: renaming one reaches the director, the perf rows and
 the baselines, and a title is not the word a player reads for the object.

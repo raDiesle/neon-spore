@@ -23,12 +23,12 @@ import type { Circle, Layout } from "./layout.js";
  *
  * **A flank step is two words, one after the other.** While it is lit,
  * `TAP` on its freeze mark, to the seat that taps it still — the partner of
- * the one who pinches it (`cyst-grip.ts`); once it is stilled, `SHUT` on the
+ * the one who pinches it (`cyst-grip.ts`); once it is stilled, `HOLD` / `TILL IT SHUTS` on the
  * flank, to the pincher, gone while the flank is held under the shut line and
  * owed again the moment it is let go. So each seat is shown only its own half
  * of the step, and the other half is what it has to hear.
  *
- * **A swell is `SHUT` on both flanks**, to both seats, each gone while its
+ * **A swell is `HOLD` / `TILL IT SHUTS` on both flanks**, to both seats, each gone while its
  * own is held.
  *
  * **`FIRE` at the hull under the middle column while the core is bared and
@@ -75,7 +75,16 @@ export function cystCues(
       if (s.gapMilli[side] <= shut) continue;
       const at = cystStanding(l, world, s, "flank", side, beatPhase);
       const seat = cystPincher(side);
-      out.push({ seat, kind: "HOLD", word: "SHUT", x: at.x, y: at.y, ...frame, seed: 148 + side });
+      out.push({
+        seat,
+        kind: "HOLD",
+        word: "HOLD",
+        why: "TILL IT SHUTS",
+        x: at.x,
+        y: at.y,
+        ...frame,
+        seed: 148 + side,
+      });
     }
     return out;
   }
@@ -89,5 +98,16 @@ export function cystCues(
   if (cystClosed(world, s)) return [];
   const at = cystStanding(l, world, s, "flank", side, beatPhase);
   const seat = cystPincher(side);
-  return [{ seat, kind: "HOLD", word: "SHUT", x: at.x, y: at.y, ...frame, seed: 151 }];
+  return [
+    {
+      seat,
+      kind: "HOLD",
+      word: "HOLD",
+      why: "TILL IT SHUTS",
+      x: at.x,
+      y: at.y,
+      ...frame,
+      seed: 151,
+    },
+  ];
 }

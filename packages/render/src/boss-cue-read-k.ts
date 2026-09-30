@@ -142,11 +142,13 @@ function wardedCue(l: Layout, world: World, b: ThroatState, beatPhase: number): 
   if (b.phase === "open") {
     if (!throatTubeAsks(b)) return null;
     const at = throatTubeCircle(l, cfg, b, world.beat, beatPhase);
-    return markAt(1, "CARRY", "HAUL", at.x, at.y, l, 54);
+    return { ...markAt(1, "CARRY", "PULL", at.x, at.y, l, 54), why: "TO HAUL IT" };
   }
   if (!throatRingAsks(b)) return null;
   const at = throatRingCircle(l, cfg, b, world.beat, beatPhase);
-  return at === null ? null : markAt(2, "HOLD", "CINCH", at.x, at.y, l, 55);
+  return at === null
+    ? null
+    : { ...markAt(2, "HOLD", "HOLD", at.x, at.y, l, 55), why: "TO CINCH IT" };
 }
 
 /**
@@ -228,7 +230,7 @@ export function throatCues(
     }
     if (!braking(c.kind) || gripBrakes(world, c) > 0) continue;
     const at = creatureCenter(l, world, c, beatPhase);
-    climbing.push(markAt(null, "HOLD", "BRAKE", at.x, at.y, l, 53));
+    climbing.push({ ...markAt(null, "HOLD", "HOLD", at.x, at.y, l, 53), why: "TO BRAKE IT" });
   }
   const last = waiting === null ? [] : [waiting.cue];
   return [...flings, ...standing, ...(warded === null ? [] : [warded]), ...climbing, ...last];

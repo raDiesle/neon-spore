@@ -47,7 +47,7 @@ import { type Layout, tileCX } from "./layout.js";
  * **And the navigator is told only what the cannon's own column can answer.**
  * THE THROAT's pairing: one gesture across two
  * seats, so while the cannon is elsewhere she is told nothing rather than told
- * to `PIERCE` up a lane the shot cannot reach the intake from. It costs her
+ * to pierce up a lane the shot cannot reach the intake from. It costs her
  * nothing — the ring she is shown stays on the lobe nearest full either way
  * (`gorge-draw.ts`) — and it keeps the word honest, which is that a cue names
  * a thing to do *now*.
@@ -57,14 +57,15 @@ import { type Layout, tileCX } from "./layout.js";
  * - **While it is being fed.** Nothing is owed and nothing is said: a word
  *   over a sack that wants to be left alone would be the boss asking for its
  *   own dinner, and the restraint is the fight.
- * - **The pry until the mouth is full, which shipped and comes out.** `PRY`
+ * - **The pry until the mouth is full, which shipped and comes out.** A pry
  *   stood the moment the beam began filling, whatever the mouth held, and on a
  *   mouth short of full it is a bead thrown away for nothing: `gorgeStruck`
  *   only ends the fight on `bullet.lance && gorgeFull`, and a pry nobody could
  *   spend clenches on the thumb at `gorgePryBeats` and spits a bead down its
  *   own column (`gorge-pry.ts`). The mouth fills itself a bead a spit and
  *   holds at full, so the window always comes; asking for it early only costs
- *   the pair the bead. `BURN` stands in the meantime, which is the honest word
+ *   the pair the bead. `HOLD` / `TO BURN IT` stands in the meantime, which is
+ *   the honest word
  *   — a shot in the mouth's colour feeds it, so holding the trigger is both
  *   the wait and the work.
  * - **The spat body.** After `gorgeSpitRuptures` the sack returns a bead down
@@ -122,15 +123,15 @@ export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly Boss
   }
 
   if (full && world.cannonCol === fullCol) {
-    out.push(markAt(2, "PRESS", "PIERCE", tileCX(l, fullCol), y, l, 34));
+    out.push({ ...markAt(2, "PRESS", "TAP", tileCX(l, fullCol), y, l, 34), why: "TO PIERCE IT" });
   }
   const mouth = g.mouth < 0 ? undefined : g.intakes[g.mouth];
   if (mouth !== undefined && world.cannonCol === mouthCol) {
     const x = tileCX(l, mouthCol);
     if (gorgeFull(mouth, cfg) && g.pry < 0 && priming(world)) {
-      out.push(markAt(2, "HOLD", "PRY", x, y, l, 75));
+      out.push({ ...markAt(2, "HOLD", "HOLD", x, y, l, 75), why: "TO PRY IT" });
     } else {
-      out.push(markAt(2, "HOLD", "BURN", x, y, l, 33));
+      out.push({ ...markAt(2, "HOLD", "HOLD", x, y, l, 33), why: "TO BURN IT" });
     }
   }
   return out;

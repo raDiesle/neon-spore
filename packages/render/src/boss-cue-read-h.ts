@@ -139,9 +139,9 @@ const HOME_LIFT = 2.7;
  * because the only thing there is to say to it is the thing the other one is
  * here to say.
  *
- * **She is told her own one verb, at the moment it will land.** `PRESS` /
- * `OPEN` on the mother ship's mouth while the little ship is carrying a mote
- * inside the mouth's two-tile reach and the mouth is shut — the owner's *also
+ * **She is told her own one verb, at the moment it will land.** `TAP` /
+ * `TO OPEN THE MOUTH` on the mother ship's mouth while the little ship is
+ * carrying a mote inside the mouth's two-tile reach and the mouth is shut — the owner's *also
  * helping player that player needs to suck*, 29 September 2026. Both the
  * ship's place and home are drawn on her screen (`scout-round.ts` draws home
  * on all three), so the mark stands on
@@ -170,7 +170,8 @@ export function scoutCues(l: Layout, world: World, s: ScoutState): readonly Boss
     {
       seat: scoutNavigator(s),
       kind: "PRESS",
-      word: "OPEN",
+      word: "TAP",
+      why: "TO OPEN THE MOUTH",
       x: home.x,
       y: home.y - l.tile * HOME_LIFT,
       ...cueFrame(l),

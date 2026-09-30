@@ -154,7 +154,7 @@ describe("THE LEDGER's words", () => {
     // either seat can do in this movement is walk the foot along the plating
     // before it seats (`sim/ledger-hand.ts`).
     const hers = cue(world, "p2");
-    expect(hers?.word).toBe("ROOT");
+    expect(hers?.word).toBe("MOVE");
     expect(hers?.kind).toBe("CARRY");
     expect(word(world, "p1")).toBeNull();
     t.rootBeat = world.beat - CFG.ledgerRootBeats;

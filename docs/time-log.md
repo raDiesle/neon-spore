@@ -30153,3 +30153,14 @@ Bottleneck: friction — the compaction landed between reading the file and cutt
 Bottleneck: writing. Row 11's refreeze turned out to need a simulation phase that does not exist, so it went to the queue rather than into this lane.
 
 *Measured: 57 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — Every cue word says what the thumb does, and the effect goes under it
+
+- reading: 5 min. Every `markAt` and `word:` literal in `render/src`, and the readings that pick a word by state.
+- writing: 15 min. About forty words become gestures with a `why` line, sixteen test files follow, and `cue-verbs.test.ts` holds the rule.
+- looking: 5 min. THE VALVE's `TAP` over `TO FREEZE THE WHEEL`, from `bun run frames`.
+- friction: 5 min. The new source scan timed out while the whole suite ran beside it, until it read the files once at load.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the word lives in the tests as well as the source, so
+each rename was paid for twice.

@@ -39,7 +39,7 @@ import type { Layout } from "./layout.js";
  * The owner asked for it in as many words and `docs/decisions.md` #34 is the
  * reversal it cost — this repository had twice written down that *nothing is
  * written for the pair to read aloud*, and both times it was arguing against
- * a **script**. A verb is not a script: `SHEAR` over a marked fan tells a
+ * a **script**. A verb is not a script: `TAP` over a marked fan tells a
  * player what their own thumb does and nothing at all about what the other
  * seat is doing, which is the half they still have to ask for.
  *

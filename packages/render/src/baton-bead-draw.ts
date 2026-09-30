@@ -54,7 +54,7 @@ const MERGED = 1.3;
 /**
  * Where a bead is on this tick, bow and all.
  *
- * Exported because the cue hangs off it: `LAUNCH` and `FIRE` are drawn beside
+ * Exported because the cue hangs off it: `TAP` and `FIRE` are drawn beside
  * the bead they are about (`boss-cue.ts`), and a frame that read the row off
  * the simulation but not the bow would sit a fifth of a tile beside the thing
  * it is pointing at on every flight.

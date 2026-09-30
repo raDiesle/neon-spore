@@ -11,7 +11,7 @@ import { sinewWord } from "./sinew-word.js";
  * (`sinew-handles.ts`) — this seat's bright, the partner's dim.
  *
  * A handle **asks** while its owner's hand is off it and the field has a word
- * for that hand (`sinew-word.ts`): `PULL` before the zone, `APART` through the
+ * for that hand (`sinew-word.ts`): `PULL` before the zone, `PULL APART` through the
  * snap-back, `SWAY` on the fall. The silences are the word's own — a slack
  * tendon asks nothing of the free hand — so the halo is never a second prompt
  * arguing with the first. An asking handle wears the halo on its owner's

@@ -167,20 +167,21 @@ describe("THE GAUGE", () => {
     expect(cue(world, "p1")).toBeNull();
   });
 
-  it("asks her to OPEN the band, on its middle, while it is wound and her thumb is off", () => {
+  it("asks her to HOLD the band open, on its middle, while it is wound and her thumb is off", () => {
     const { world, g } = opened();
     g.phase = "play";
     g.boundBeat = world.beat;
     g.needleMilli = 0;
     const c = cue(world, "p2");
-    expect(c?.word).toBe("OPEN");
+    expect(c?.word).toBe("HOLD");
+    expect(c?.why).toBe("KEEPS IT OPEN");
     expect(c?.kind).toBe("HOLD");
     const mid = gaugeBandMid(gaugeDial(LAYOUT.p2), g);
     expect(c?.x).toBeCloseTo(mid.x, 6);
     expect(c?.y).toBeCloseTo(mid.y, 6);
     // Her thumb is the answer to it, so it goes the moment she gives it.
     g.openThumb = true;
-    expect(cue(world, "p2")?.word).not.toBe("OPEN");
+    expect(cue(world, "p2")?.why).not.toBe("KEEPS IT OPEN");
   });
 
   it("puts the call above the band: a needle seated in the tight window is a mark she can take", () => {

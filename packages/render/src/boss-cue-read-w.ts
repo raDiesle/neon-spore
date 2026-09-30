@@ -56,7 +56,7 @@ import type { Layout } from "./layout.js";
  * should say "call position"*. The first is the talking, which is her half of
  * the round; the second is the thumb, once there is nothing left to say. Both
  * stand on things drawn on her screen alone, so the mark stands on something
- * she is already shown, and neither says where the needle has to go. `HOLD` / `OPEN` on the middle of the band while it is
+ * she is already shown, and neither says where the needle has to go. `HOLD` / `KEEPS IT OPEN` on the middle of the band while it is
  * wound tight and her thumb is off it: the bind is hers, it is drawn on her
  * screen alone, and the verb is a hold on a thing she can see is narrow. The
  * call outranks it, because a needle already seated in the tight band is a
@@ -95,7 +95,7 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   }
   if (gaugeBound(g) && !g.openThumb) {
     const mid = gaugeBandMid(dial, g);
-    out.push(markAt(2, "HOLD", "OPEN", mid.x, mid.y, l, 80));
+    out.push({ ...markAt(2, "HOLD", "HOLD", mid.x, mid.y, l, 80), why: "KEEPS IT OPEN" });
   }
   if (callDue(g) && !gaugeSeated(world, g)) {
     const mid = gaugeBandMid(dial, g);

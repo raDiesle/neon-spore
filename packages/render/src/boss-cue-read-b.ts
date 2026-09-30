@@ -44,12 +44,13 @@ import { tasterCrestY } from "./taster-draw.js";
  * the three columns the crest has are three different fights:
  *
  * - **A standing blade**, which the colour it did *not* grow toward strikes
- *   off: `PRESS` / `SHEAR`.
+ *   off: `TAP` / `TO SHEAR IT`.
  * - **The soft crest where one used to be**, which takes either colour and
  *   counts nothing on the balance sheet — and `tasterCrestCuts` of them cut it
  *   through for good, after which the fan can no longer re-edge (`tasterLift`).
  *   That is the answer to the third movement and the field said nothing about
- *   it at all: `PRESS` / `CUT`, which is the simulation's own word for it.
+ *   it at all: `TAP` / `TO CUT IT`, the cut being the simulation's own word
+ *   for it.
  * - **A blade still growing**, where the shot is simply spent — and spent is
  *   the trap, because the ledger counted the colour before the shot got here.
  *
@@ -65,7 +66,7 @@ import { tasterCrestY } from "./taster-draw.js";
  * **The mark is on the fan and never on a blade.** Which blade is not the
  * question — any standing one falls to the colour it did not grow toward — and
  * a frame around one of them would be the field answering *which*, which is the
- * pair's own sentence (`decisions.md` #34). `CUT` is the one exception and it is
+ * pair's own sentence (`decisions.md` #34). The cut is the one exception and it is
  * not one: it stands on his **own column**, where the crest is already open and
  * his cannon is already parked, so it names nothing he is not looking at.
  *
@@ -79,23 +80,24 @@ import { tasterCrestY } from "./taster-draw.js";
  * (`sim/taster-hand.ts`). Each stands where its own hand goes, and each is the
  * most urgent thing its seat has in that movement:
  *
- * - `PIN` / `HOLD`, his, while the fan is `fanning` and a blade is growing
+ * - `HOLD` / `TO PIN IT`, his, while the fan is `fanning` and a blade is growing
  *   unheld. On the fan's middle and not on a blade, for the rule above: *which*
  *   blade is not the question — any growing one will do — and three are out at
  *   once there. It goes the moment his thumb is down, because a word about a
  *   thing already being done teaches nothing (`gripBrakes`).
  * - `WIPE` / `CARRY`, hers, while the fan is `hurrying` and the crest can still
- *   be cut. On **the soft column itself**, which is `CUT`'s exception and for
+ *   be cut. On **the soft column itself**, which is the cut's exception and for
  *   its reason: the gap is already open on her screen and it is the one place
  *   her thumb may land, so the mark names nothing she is not looking at.
- * - `PRY` / `CARRY`, his, on a `closed` fan that is not open yet. The word this
- *   fight ended on used to be hers alone; now his comes first, and `BURN` waits
- *   for the interlock to be apart — a beam at a shut fan is refused, so `BURN`
+ * - `PULL` / `TO PRY IT OPEN`, his, on a `closed` fan that is not open yet. The
+ *   word this fight ended on used to be hers alone; now his comes first, and
+ *   `HOLD` / `TO BURN IT` waits for the interlock to be apart — a beam at a
+ *   shut fan is refused, so the burn
  *   there would be the field asking for the one thing that cannot work.
  *
  * `WIPE` is the one word of the three the game did not already have. It earns
- * its place the way `CUT` did: the hand is a *second* way into the same gap,
- * and a seat told to `CUT` with a thumb would reach for the trigger.
+ * its place the way the cut did: the hand is a *second* way into the same gap,
+ * and a seat told to cut with a thumb would reach for the trigger.
  *
  * Nothing in `out`, where the fan is unlocking outward and the wave is held
  * `tasterOutBeats` so it cannot end on the same beat.
@@ -112,16 +114,24 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
     // and his hands are back on the carriage. The interlock is over the whole
     // body and the beam reaches it from any column the crest spans, so the one
     // wrong column is one off the crest.
-    if (!tasterPried(t, world.beat, world.cfg)) return [markAt(1, "CARRY", "PRY", x, y, l, 45, 2)];
-    return here < 0 ? [move()] : [markAt(2, "HOLD", "BURN", x, y, l, 41, 2)];
+    if (!tasterPried(t, world.beat, world.cfg))
+      return [{ ...markAt(1, "CARRY", "PULL", x, y, l, 45, 2), why: "TO PRY IT OPEN" }];
+    return here < 0
+      ? [move()]
+      : [{ ...markAt(2, "HOLD", "HOLD", x, y, l, 41, 2), why: "TO BURN IT" }];
   }
   const out: BossCue[] = [];
   const k = here < 0 ? undefined : t.blades[here];
   // Hers, the shot: the column his cannon is standing in, and what it does
   // there. A shot is the more urgent of her two, since the carry has no beat
   // it has to land on.
-  if (k?.shorn === true) out.push(markAt(2, "PRESS", "CUT", tileCX(l, world.cannonCol), y, l, 44));
-  else if (k !== undefined && k.setBeat >= 0) out.push(markAt(2, "PRESS", "SHEAR", x, y, l, 42, 2));
+  if (k?.shorn === true)
+    out.push({
+      ...markAt(2, "PRESS", "TAP", tileCX(l, world.cannonCol), y, l, 44),
+      why: "TO CUT IT",
+    });
+  else if (k !== undefined && k.setBeat >= 0)
+    out.push({ ...markAt(2, "PRESS", "TAP", x, y, l, 42, 2), why: "TO SHEAR IT" });
   // Hers, the carry, on the leftmost soft column so the mark does not wander
   // along the crest as the fan thins. Only while the crest can still be cut.
   const soft = phase === "hurrying" && !tasterLifted(t) ? t.blades.findIndex((b) => b.shorn) : -1;
@@ -130,7 +140,7 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
   // with a beat on it, and the carriage is not.
   const growing = t.blades.some((b) => !b.shorn && b.growBeat >= 0 && b.setBeat < 0);
   if (phase === "fanning" && t.pin < 0 && growing)
-    out.push(markAt(1, "HOLD", "PIN", x, y, l, 47, 2));
+    out.push({ ...markAt(1, "HOLD", "HOLD", x, y, l, 47, 2), why: "TO PIN IT" });
   // His, unchanged: the column he is in answers nothing and some other one
   // would. It is added rather than returned instead of hers, so a word for her
   // never takes his away (`bossCue` shows each seat its own first cue).

@@ -166,8 +166,8 @@ describe("the cue on a real frame", () => {
       },
     });
     const said = texts.map((t) => t.text);
-    expect(said).toContain("BURN");
     expect(said).toContain("HOLD");
+    expect(said).toContain("TO BURN IT");
   });
 
   it("is on neither screen when the boss is asking for nothing", () => {
@@ -180,7 +180,7 @@ describe("the cue on a real frame", () => {
       },
     });
     const said = texts.map((t) => t.text);
-    expect(said).not.toContain("PIERCE");
+    expect(said).not.toContain("TAP");
     expect(said).not.toContain("PRESS");
   });
 });
@@ -196,8 +196,15 @@ describe("the cue's kind line", () => {
   function drawn(): TextBox[] {
     const world = opened("gorge");
     const g: GorgeState = boss(gorgeBoss(world), "gorge");
-    g.mouth = 3;
-    g.ruptures = CFG.gorgeMouthRuptures;
+    // A full intake, pinched, with the cannon under it: `PRESS` over `TAP`,
+    // the one gorge cue whose kind is not its own verb said again.
+    const k = g.intakes[2];
+    if (k === undefined) throw new Error("no intake 2");
+    k.beads = CFG.gorgeFullBeads;
+    k.color = "red";
+    k.fullBeat = world.beat;
+    g.pinch = 2;
+    world.cannonCol = g.col + 2;
     const { ctx } = stubCanvas();
     ctx.texts = [];
     const l = computeLayout(VIEWPORT, CFG, "p2");
@@ -207,8 +214,8 @@ describe("the cue's kind line", () => {
 
   it("stands over the mark", () => {
     const texts = drawn();
-    const kind = texts.find((t) => t.text === "HOLD");
-    const word = texts.find((t) => t.text === "BURN");
+    const kind = texts.find((t) => t.text === "PRESS");
+    const word = texts.find((t) => t.text === "TAP");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
     expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);

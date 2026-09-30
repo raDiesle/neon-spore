@@ -17,7 +17,8 @@ import { valveDrumAt, valveSparkNow } from "./valve-spark.js";
  * on its mark. Once it holds, the word goes: the pilot's part is to keep it
  * there, and a word saying *turn* would move it off.
  *
- * **`FREEZE` on the socket, to the navigator, while the wheel holds** — the
+ * **`TAP` / `TO FREEZE THE WHEEL` on the socket, to the navigator, while the
+ * wheel holds** — the
  * one tap that counts is hers (`sim/valve-hand.ts`), and the pilot's there
  * does nothing, so nothing is said to him.
  *
@@ -67,7 +68,16 @@ export function valveCues(
   }
   if (s.phase === "hold") {
     const { x, y } = valveSocketCircle(l, cfg, s, beat, beatPhase);
-    out.push({ seat: 2, kind: "PRESS", word: "FREEZE", x, y, ...frame, seed: 182 });
+    out.push({
+      seat: 2,
+      kind: "PRESS",
+      word: "TAP",
+      why: "TO FREEZE THE WHEEL",
+      x,
+      y,
+      ...frame,
+      seed: 182,
+    });
   }
   const pin = valveLivePinCircle(l, cfg, s, beat, beatPhase);
   if (pin !== null) {

@@ -49,12 +49,14 @@ import { leadWord } from "./lead-word.js";
  *   answer (`sim/lead-shot.ts`). `STILL` stood through all four of those beats
  *   until 19 September 2026 and said only the verb the picture already drew;
  *   the stalk is a handle there now, so the word is `HOLD` while it may be
- *   taken, `BURN` while she has it, and **nothing** once the still is spent.
+ *   taken, `HOLD` over `WHILE THE BEAM FILLS` while she has it, and
+ *   **nothing** once the still is spent.
  *   The whole argument, and the silence, is `lead-word.ts`.
- * - **`BURN`, on the pass.** It runs for the farther wall at `leadPassCols` a
- *   beat and **only the beam standing in its column** ends it; a pass that
- *   reaches the wall is another still and a pass back. The same word the hold
- *   carries, and deliberately: what her hand buys in the still is this beam.
+ * - **`HOLD` over `TO BURN IT`, on the pass.** It runs for the farther wall at
+ *   `leadPassCols` a beat and **only the beam standing in its column** ends
+ *   it; a pass that reaches the wall is another still and a pass back. It was
+ *   `BURN` until 30 September 2026, when the word became the thumb's and the
+ *   effect went to the small line (#34).
  *
  * **The mark stands on the body, and only she is shown the body.** The stalk's
  * foot is drawn at `s.col` on her screen and at the middle of the field on his
@@ -67,10 +69,16 @@ import { leadWord } from "./lead-word.js";
  */
 export function leadCues(l: Layout, world: World, s: LeadState): readonly BossCue[] {
   if (leadPassing(s)) {
-    return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 54)];
+    return [
+      {
+        ...markAt(2, "HOLD", "HOLD", tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 54),
+        why: "TO BURN IT",
+      },
+    ];
   }
   if (!leadStill(s)) return [];
   const say = leadWord(s);
   if (say === null) return [];
-  return [markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 95)];
+  const cue = markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 95);
+  return [say.why === undefined ? cue : { ...cue, why: say.why }];
 }

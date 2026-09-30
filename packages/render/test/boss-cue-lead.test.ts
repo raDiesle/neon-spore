@@ -100,7 +100,7 @@ describe("THE LEAD's word", () => {
   it("says the beam's word under her thumb, because that is what her hand is buying", () => {
     const { world, s } = still();
     s.heldBeat = world.beat;
-    expect(leadWord(s)).toEqual({ kind: "HOLD", word: "BURN" });
+    expect(leadWord(s)).toEqual({ kind: "HOLD", word: "HOLD", why: "WHILE THE BEAM FILLS" });
   });
 
   it("goes quiet on a still already spent, rather than name a state it is leaving", () => {
@@ -128,14 +128,15 @@ describe("THE LEAD's word", () => {
     };
     // The offered stalk says `HOLD` once and not twice: the kind line goes when
     // it is the verb said over again, which is the same economy THE SURGE's
-    // charge gets (`boss-cue-text.ts`). Under her thumb the two part, and the
-    // grammar line above `BURN` is the gesture still being a hold.
+    // charge gets (`boss-cue-text.ts`). Under her thumb it is still `HOLD`,
+    // once, and the small line under it says what the hold is buying.
     expect(drawn("p2", offered)).toContain("HOLD");
     expect(drawn("p2", offered).filter((t) => t === "HOLD")).toHaveLength(1);
-    expect(drawn("p2", held)).toEqual(["BURN", "HOLD", ...drawn("p1", held)]);
+    expect(drawn("p2", held).filter((t) => t === "HOLD")).toHaveLength(1);
+    expect(drawn("p2", held)).toContain("WHILE THE BEAM FILLS");
     // And the pilot is shown neither, on a stalk that is a readout on his glass.
     expect(drawn("p1", offered)).not.toContain("HOLD");
-    expect(drawn("p1", held)).not.toContain("BURN");
+    expect(drawn("p1", held)).not.toContain("WHILE THE BEAM FILLS");
   });
 });
 

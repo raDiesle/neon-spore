@@ -93,9 +93,9 @@ export function batonPassingCues(l: Layout, world: World, b: BatonState): readon
   const sitting = batonLaunchable(cfg, b);
   if (sitting !== null && !batonLocked(b, 1, world.beat)) {
     const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
-    out.push(markAt(1, "PRESS", "LAUNCH", x, y, l, 48 + sitting.socket));
+    out.push({ ...markAt(1, "PRESS", "TAP", x, y, l, 48 + sitting.socket), why: "TO LAUNCH IT" });
   }
-  // **`STRIP` is the locked seat's, and it is last.** A shell coming away is
+  // **`TAP` / `TO STRIP IT` is the locked seat's, and it is last.** A shell coming away is
   // the only thing on this field that seat may touch, and it is also the least
   // urgent thing on the screen: a rock is warded, and a handover missed is a
   // socket back. The mark is drawn on whichever of them the beat locked out,
@@ -104,7 +104,7 @@ export function batonPassingCues(l: Layout, world: World, b: BatonState): readon
   for (const seat of [1, 2] as const) {
     if (!batonMayStrip(b, seat, world.beat)) continue;
     const at = socketPoint(l, cfg, b, b.swellSocket);
-    out.push(markAt(seat, "PRESS", "STRIP", at.x, at.y, l, 90 + seat));
+    out.push({ ...markAt(seat, "PRESS", "TAP", at.x, at.y, l, 90 + seat), why: "TO STRIP IT" });
   }
   return out;
 }

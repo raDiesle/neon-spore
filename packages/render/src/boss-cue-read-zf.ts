@@ -19,7 +19,7 @@ import { viseLobeStanding, viseShotStanding } from "./vise-grip.js";
  * could stand on is a secret, and `cueSeen` only keeps each word to the thumb
  * that can act on it.
  *
- * **`SHUT` on each lobe a lit pinch asks for** — the left one's is Player 1's
+ * **`HOLD` / `TILL IT SHUTS` on each lobe a lit pinch asks for** — the left one's is Player 1's
  * and the right one's Player 2's (`vise-grip.ts`), one of them on a single
  * seam and both on a `both` step. It stands on the lobe's round, where the
  * ghost thumb does, and goes the moment that lobe's gap is pinched under the
@@ -67,7 +67,16 @@ export function viseCues(
     if (!asked || viseShut(world, s, side)) continue;
     const lobe = viseLobeStanding(l, world, s, seat, beatPhase);
     const seed = seat === 1 ? 136 : 137;
-    out.push({ seat, kind: "HOLD", word: "SHUT", x: lobe.x, y: lobe.y, ...frame, seed });
+    out.push({
+      seat,
+      kind: "HOLD",
+      word: "HOLD",
+      why: "TILL IT SHUTS",
+      x: lobe.x,
+      y: lobe.y,
+      ...frame,
+      seed,
+    });
   }
   return out;
 }

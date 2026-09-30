@@ -125,7 +125,7 @@ describe("THE GORGE", () => {
     const g = installed(world);
     world.cannonCol = fill(world, g, 2);
     g.pinch = 2;
-    expect(word(world, "p2")).toBe("PIERCE");
+    expect(word(world, "p2")).toBe("TAP");
     expect(cue(world, "p2")?.kind).toBe("PRESS");
   });
 
@@ -164,8 +164,8 @@ describe("THE GORGE", () => {
     expect(word(world, "p1")).toBe("MOVE");
     expect(word(world, "p2")).toBeNull();
     world.cannonCol = col;
-    expect(word(world, "p2")).toBe("BURN");
-    expect(cue(world, "p2")?.kind).toBe("HOLD");
+    expect(word(world, "p2")).toBe("HOLD");
+    expect(cue(world, "p2")?.why).toBe("TO BURN IT");
     expect(word(world, "p1")).toBeNull();
   });
 
@@ -176,12 +176,12 @@ describe("THE GORGE", () => {
     world.prime = { tick: world.tick, color: "red", spent: false };
     // A pry on a mouth short of full is a bead thrown away: `gorgeStruck` ends
     // the fight on `bullet.lance && gorgeFull` and nothing else.
-    expect(word(world, "p2")).toBe("BURN");
+    expect(cue(world, "p2")?.why).toBe("TO BURN IT");
     gorged(g, 3, true);
-    expect(word(world, "p2")).toBe("PRY");
+    expect(cue(world, "p2")?.why).toBe("TO PRY IT");
     g.pry = 3;
     g.pryBeat = world.beat;
-    expect(word(world, "p2")).toBe("BURN");
+    expect(cue(world, "p2")?.why).toBe("TO BURN IT");
   });
 
   it("still asks for a full intake's pinch and pierce once the sack is gorged", () => {
@@ -193,7 +193,7 @@ describe("THE GORGE", () => {
     // seats lost the one answer to it.
     world.cannonCol = fill(world, g, 0);
     expect(word(world, "p1")).toBe("PINCH");
-    expect(word(world, "p2")).toBe("PIERCE");
+    expect(word(world, "p2")).toBe("TAP");
     // And he is never told to leave the column the pierce is owed in: the word
     // comes back the beat she takes it and the mouth is all that is left.
     g.pinch = 0;

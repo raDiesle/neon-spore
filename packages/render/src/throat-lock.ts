@@ -117,7 +117,7 @@ export function drawThroatLock(
   time: number,
   /**
    * The throat is holding a body right now, on player 2's own screen: `FIRE`
-   * over one standing in the mouth or `BRAKE` over one climbing under it, both
+   * over one standing in the mouth or `HOLD` / `TO BRAKE IT` over one climbing under it, both
    * close enough to this lock's own station that the two texts land on each
    * other rather than beside them (`throat-draw.ts`). Silent while either is
    * true, `throatCinched`'s own idiom: a word already answering this beat is

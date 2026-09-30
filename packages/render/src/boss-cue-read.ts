@@ -181,10 +181,13 @@ export function queenCues(
   const gesture = queenGesture(q);
   if (gesture === "pry" && q.openBeat !== -1 && queen.color === null) {
     const y = queenMarkCenter(l, queen, 1).y;
-    out.push(markAt(1, "PRESS", "OPEN", tileCX(l, queen.col), y, l, 41));
+    out.push({ ...markAt(1, "PRESS", "TAP", tileCX(l, queen.col), y, l, 41), why: "TO OPEN IT" });
   } else if (gesture === "hold" && q.openBeat !== -1) {
     const y = queenMarkCenter(l, queen, 1).y;
-    out.push(markAt(1, "HOLD", "OPEN", tileCX(l, queen.col), y, l, 42));
+    out.push({
+      ...markAt(1, "HOLD", "HOLD", tileCX(l, queen.col), y, l, 42),
+      why: "TILL IT OPENS",
+    });
   }
   if (q.openBeat !== -1) {
     out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 38));

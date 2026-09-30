@@ -75,11 +75,11 @@ describe("THE SCOUT", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("asks the navigator to OPEN once a laden ship is inside the mouth's reach", () => {
+  it("asks the navigator to TAP once a laden ship is inside the mouth's reach", () => {
     const { world, s } = opened();
     home(world, s);
     const c = cue(world, "p2");
-    expect(c?.word).toBe("OPEN");
+    expect(c?.word).toBe("TAP");
     expect(c?.kind).toBe("PRESS");
     expect(c?.seat).toBe(2);
     // On the mouth, in the column it is drawn in.
@@ -110,7 +110,7 @@ describe("THE SCOUT", () => {
     s.mawTick = world.tick;
     expect(cue(world, "p2")).toBeNull();
     s.mawTick = world.tick - world.cfg.scoutMawTicks;
-    expect(cue(world, "p2")?.word).toBe("OPEN");
+    expect(cue(world, "p2")?.word).toBe("TAP");
   });
 
   // The ship is let go inside the reach, so a cue on an empty one would stand
@@ -121,7 +121,7 @@ describe("THE SCOUT", () => {
     s.carrying = [];
     expect(cue(world, "p2")).toBeNull();
     s.carrying = [0];
-    expect(cue(world, "p2")?.word).toBe("OPEN");
+    expect(cue(world, "p2")?.word).toBe("TAP");
     s.rowMilli -= world.cfg.scoutSuckRadiusMilli + 1;
     expect(cue(world, "p2")).toBeNull();
     home(world, s);

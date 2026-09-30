@@ -179,11 +179,11 @@ describe("THE SINEW's word", () => {
     // catch, and the seat thrown off has nothing else to read
     // (`sim/sinew-hand.ts`).
     for (const player of [1, 2] as const) {
-      expect(say(world, player, { swinging: true })).toEqual({ kind: "CARRY", word: "APART" });
+      expect(say(world, player, { swinging: true })).toEqual({ kind: "CARRY", word: "PULL APART" });
     }
     s.pullP1Milli = -1;
     s.pullP2Milli = -1;
-    expect(say(world, 1, { swinging: true })).toEqual({ kind: "CARRY", word: "APART" });
+    expect(say(world, 1, { swinging: true })).toEqual({ kind: "CARRY", word: "PULL APART" });
   });
 
   it("says nothing once the mass is down", () => {

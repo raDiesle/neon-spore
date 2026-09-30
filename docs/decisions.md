@@ -1207,6 +1207,22 @@ HEALS`, `FLING` over `INTO THE MOUTH` — and a gum still above the mouth's row 
 above kept in the briefing, *what a mistake costs*, and only for this boss. The
 line still never says a column, a colour or a count (`render/src/throat-say.ts`).
 
+**The word is the thumb's, and the effect goes under it, 30 September 2026.**
+The owner read THE VALVE's `PRESS` over `FREEZE` and asked what it meant:
+*the helping text should say that player needs to do, not the effect. so the
+player action is then to tap, not to freeze … this is generic rule set.* The
+kind line said the gesture and the word said what it did to the boss, and a
+player reading `FREEZE` was left to guess the gesture. So **the word is a
+gesture** — `TAP`, `HOLD`, `PULL`, `MOVE`, `SHAKE` — **or the name of the
+button it is made on** (`FIRE`, `SHIELD`, `SUCK`, `EAT`), and what it is
+*for* moves to `why`: `TAP` over `TO FREEZE THE WHEEL`, `HOLD` over `TO BURN
+IT`, `TAP` over `WHEN P2 SAYS SET`. About forty words changed in one sweep
+(`PIN`, `BURN`, `PRY`, `CUT`, `SHEAR`, `PIERCE`, `HAUL`, `CINCH`, `OPEN`,
+`SHUT`, `ROOT`, `FREEZE` and more). A `CALL` is exempt, because its word is
+said out loud rather than done with a thumb. `render/test/cue-verbs.test.ts`
+reads every cue word in `render/src` and holds the rule, and a word that
+starts with something that is not in its gesture list fails it.
+
 **Reconsider if:** a cue starts carrying a column, a colour or a count. That is
 the pair's own sentence, and a field that says it has taken the game's subject
 away.

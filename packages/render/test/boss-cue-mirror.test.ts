@@ -130,18 +130,18 @@ describe("THE MIRROR", () => {
     }
   });
 
-  it("asks each seat to PIN its own lobe under hold: player 1 the cannon, player 2 the shield", () => {
+  it("asks each seat to HOLD its own lobe under hold: player 1 the cannon, player 2 the shield", () => {
     const { world, m } = opened();
     m.phase = "hold";
     m.cannonCol = 2;
     world.shieldCol = 6;
     const p1 = cue(world, "p1");
-    expect(p1?.word).toBe("PIN");
+    expect(p1?.word).toBe("HOLD");
     expect(p1?.kind).toBe("HOLD");
     expect(p1?.seat).toBe(1);
     expect(p1?.x).toBe(tileCX(LAYOUT.p1, 2));
     const p2 = cue(world, "p2");
-    expect(p2?.word).toBe("PIN");
+    expect(p2?.word).toBe("HOLD");
     expect(p2?.kind).toBe("HOLD");
     expect(p2?.seat).toBe(2);
     expect(p2?.x).toBe(tileCX(LAYOUT.p2, 6));

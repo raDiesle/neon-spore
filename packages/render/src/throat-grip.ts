@@ -21,7 +21,7 @@ import { bossOf } from "./touch-field.js";
  * §11.19).
  *
  * Both gestures shipped in the simulation with nothing drawn to take hold of,
- * and the cue has been saying `CINCH` and `HAUL` over bare tube ever since
+ * and the cue was saying `CINCH` and `HAUL` over bare tube (now `PULL` and `HOLD`)
  * (`boss-cue-read-k.ts`). The look is exempt under *a look with no shipped
  * alternative*: there was no drawing of either control to run a candidate
  * against.

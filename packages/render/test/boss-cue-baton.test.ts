@@ -31,7 +31,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **THE BATON, and the word each of its five stages says**
  * (`render/src/boss-cue-read-i.ts`).
  *
- * The arm's own two — `LAUNCH` on a bead in its socket and `FIRE` on one in
+ * The arm's own two — `TAP` on a bead in its socket and `FIRE` on one in
  * the air — were the whole reading until 18 September 2026, and they are a
  * third of the fight: the cannon the flight has to be met in, the crossing's
  * act a beat and the pod at the end were all answered on a field that said
@@ -101,7 +101,7 @@ function words(world: World, role: ViewRole): string[] {
   if (b === null) return [];
   return batonCues(l, world, b)
     .filter((c) => c.seat === (role === "p1" ? 1 : 2))
-    .map((c) => c.word);
+    .flatMap((c) => (c.why === undefined ? [c.word] : [c.word, c.why]));
 }
 
 /** A column the cannon is not standing in. */
@@ -114,7 +114,7 @@ describe("the arm passing a bead", () => {
     const { world, b } = opened();
     const bead = only(b);
     bead.flying = false;
-    expect(word(world, "p1")).toBe("LAUNCH");
+    expect(word(world, "p1")).toBe("TAP");
     expect(word(world, "p2")).toBeNull();
 
     fly(world, bead, world.cannonCol);
@@ -162,7 +162,7 @@ describe("the arm passing a bead", () => {
     // first, and a bead nobody met lands back where it left.
     expect(word(world, "p1")).toBe("MOVE");
     world.cannonCol = elsewhere(world);
-    expect(word(world, "p1")).toBe("LAUNCH");
+    expect(word(world, "p1")).toBe("TAP");
   });
 });
 
@@ -179,7 +179,7 @@ describe("the crossing", () => {
 
   it("says one word, on the seat whose act is due", () => {
     const his = crossing(0);
-    expect(word(his, "p1")).toBe("SEND");
+    expect(word(his, "p1")).toBe("TAP");
     expect(word(his, "p2")).toBeNull();
 
     const hers = crossing(1);
@@ -225,7 +225,7 @@ describe("the drop, which is the fight", () => {
 
     world.cannonCol = 0;
     const his = cue(world, "p1");
-    expect(his?.word).toBe("OPEN");
+    expect(his?.word).toBe("TAP");
     expect(his?.kind).toBe("PRESS");
     expect(his?.y).toBeCloseTo(podCenter(LAYOUT.p1, pod).y, 6);
     // The catch is his alone: she is told nothing at all (`baton-cross.ts`).
@@ -281,23 +281,21 @@ describe("what the whole fight may say", () => {
       "HOLD·HOLD·1",
       "HOLD·HOLD·2",
       "PRESS·FIRE·2",
-      "PRESS·LAUNCH·1",
-      "PRESS·OPEN·1",
-      "PRESS·SEND·1",
+      "PRESS·TAP·1",
     ]);
   });
 
-  it("puts STRIP on the seat the beat locked out, and on neither otherwise", () => {
+  it("puts TAP / TO STRIP IT on the seat the beat locked out, and on neither otherwise", () => {
     const { world, b } = opened();
     only(b).flying = false;
     b.sockets[1] = BATON_SOCKET_SWELL;
     b.swellSocket = 1;
     b.swellBeat = world.beat;
     // Nobody locked: nobody may reach the arm, so nobody is asked.
-    expect(words(world, "p2")).not.toContain("STRIP");
+    expect(words(world, "p2")).not.toContain("TO STRIP IT");
     b.lockUntil = [-1, world.beat];
-    expect(words(world, "p2")).toContain("STRIP");
-    expect(words(world, "p1")).not.toContain("STRIP");
+    expect(words(world, "p2")).toContain("TO STRIP IT");
+    expect(words(world, "p1")).not.toContain("TO STRIP IT");
   });
 
   it("gives each seat HOLD on its own bead while the two are drawn together", () => {

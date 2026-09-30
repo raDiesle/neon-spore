@@ -85,8 +85,8 @@ export function vaneCues(l: Layout, world: World): readonly BossCue[] {
 }
 
 /**
- * THE VANE's two hands: `HOLD` / `PIN` on the arm, the pilot's, and `CARRY` /
- * `HAUL` on the housing, the navigator's.
+ * THE VANE's two hands: `HOLD` / `TO PIN IT` on the arm, the pilot's, and
+ * `PULL` / `TO HAUL IT` on the housing, the navigator's.
  *
  * **Each stands on its own ring** (`vane-grip.ts`), and the gate is that file's
  * own — a word offered where the handle is not drawn, or on a beat the rule
@@ -95,7 +95,7 @@ export function vaneCues(l: Layout, world: World): readonly BossCue[] {
  * reading of `World` and a mark that slid under a thumb would be the arm's
  * movement said twice.
  *
- * `PIN` is his because only seat 1 is heard on the arm, and `HAUL` hers for
+ * The pin is his because only seat 1 is heard on the arm, and the haul hers for
  * the same reason (`sim/vane-hand.ts`). Neither says a column: where the arm
  * stops is the fold line the pair has to name out loud, and a field that
  * marked a good column would be the answer itself (`decisions.md` #34).
@@ -105,11 +105,11 @@ function handCues(l: Layout, world: World, b: VaneState): BossCue[] {
   const out: BossCue[] = [];
   if (vaneArmAsks(cfg, b, beat)) {
     const arm = vaneArmCircle(l, cfg, b, beat, waveBeat, 0);
-    out.push(markAt(1, "HOLD", "PIN", arm.x, arm.y, l, 75));
+    out.push({ ...markAt(1, "HOLD", "HOLD", arm.x, arm.y, l, 75), why: "TO PIN IT" });
   }
   if (vaneHousingAsks(cfg, b, beat)) {
     const h = vaneHousingCircle(l, cfg);
-    out.push(markAt(2, "CARRY", "HAUL", h.x, h.y, l, 76));
+    out.push({ ...markAt(2, "CARRY", "PULL", h.x, h.y, l, 76), why: "TO HAUL IT" });
   }
   return out;
 }

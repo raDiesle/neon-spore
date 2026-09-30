@@ -99,7 +99,7 @@ import { repriseTearCenter } from "./reprise-draw.js";
  *   on the beat a body enters the field rather than the beat it comes into
  *   reach, and it would turn the one thing this boss is made of into a reaction.
  * - **The lance.** `fireRed` and `fireCyan` held fill the cannon lobe and burn
- *   a whole column at once (`sim/lance.ts`), and the family says `HOLD` / `BURN`
+ *   a whole column at once (`sim/lance.ts`), and the family says `HOLD` / `TO BURN IT`
  *   wherever a column holds several — THE LEAD's and THE SCUTTLE's word. Here
  *   whether a column holds more than one is *the answer*, so the choice between
  *   the tap and the hold is the pair's and the field says `FIRE` for both.

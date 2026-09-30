@@ -78,10 +78,10 @@ describe("THE VALVE", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("asks the navigator to FREEZE, on the socket, once the wheel holds, and the pilot nothing", () => {
+  it("asks the navigator to TAP, on the socket, once the wheel holds, and the pilot nothing", () => {
     const { world, s } = hung("hold");
     const c = cue(world, "p2");
-    expect(c).toMatchObject({ word: "FREEZE", kind: "PRESS", seat: 2 });
+    expect(c).toMatchObject({ word: "TAP", kind: "PRESS", seat: 2, why: "TO FREEZE THE WHEEL" });
     const socket = valveSocketCircle(LAYOUT.p2, CFG, s, world.beat, 0);
     expect(c?.x).toBeCloseTo(socket.x, 5);
     expect(c?.y).toBeCloseTo(socket.y, 5);

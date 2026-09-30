@@ -212,7 +212,7 @@ describe("THE SINEW's tendon", () => {
     s.snapBeat = world.beat;
     const frame = drawn(world, role, 3);
     expect(frame.text).toContain(PALETTE.ember);
-    expect(frame.words.some((w) => w.includes("PULL"))).toBe(false);
+    expect(frame.words.some((w) => w === "PULL")).toBe(false);
   });
 
   it.each(ROLES)("draws the falling mass on its way to the hull, on %s", (role) => {

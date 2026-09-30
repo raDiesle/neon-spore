@@ -51,8 +51,9 @@ import { mirrorHullY } from "./mirror.js";
  * The last round is `reflect` — the same word, the kind `CARRY`, because the
  * answer has moved onto the picture and a carry is what the first of its
  * lobes takes; still neither the step nor the seat. `hold` is the one arm
- * that is a gesture and not a round: `PIN` on each seat's own lobe of it,
- * player 1's cannon and player 2's shield, the pin being both or nothing.
+ * that is a gesture and not a round: `HOLD` / `BOTH AT ONCE` on each seat's
+ * own lobe of it, player 1's cannon and player 2's shield, the pin being both
+ * or nothing.
  *
  * Nothing in `lead` or `show`: the band is drawn dead while the mirror holds
  * the controls (`mirrorHoldsControls`, `band.ts`), and a cue over a thumb the
@@ -64,8 +65,8 @@ export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly Bo
   const gesture = mirrorGesture(m);
   if (gesture === "hold") {
     return [
-      markAt(1, "HOLD", "PIN", tileCX(l, m.cannonCol), y, l, 64),
-      markAt(2, "HOLD", "PIN", tileCX(l, world.shieldCol), y, l, 65),
+      { ...markAt(1, "HOLD", "HOLD", tileCX(l, m.cannonCol), y, l, 64), why: "BOTH AT ONCE" },
+      { ...markAt(2, "HOLD", "HOLD", tileCX(l, world.shieldCol), y, l, 65), why: "BOTH AT ONCE" },
     ];
   }
   if (m.phase !== "listen") return [];

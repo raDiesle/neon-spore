@@ -47,13 +47,13 @@ import type { BossCue } from "./boss-cue.js";
  *   pulling harder stops being an option — before that it still is, and a field
  *   that chose between *harder* and *let go* would be choosing the number.
  *
- * - **`APART`, while the handles are swinging.** This said nothing here until
+ * - **`PULL APART`, while the handles are swinging.** This said nothing here until
  *   19 September 2026, and it was right to: a snap-back threw both hands off
  *   and nothing took hold in the beats after, so a word there was a verb the
  *   game was about to refuse — the first of `boss-cue.ts`'s three rules. The
  *   simulation now has an answer for those beats (`sim/sinew-hand.ts`): a hand
  *   may land on a whipping handle, and both carried **outward** past
- *   `sinewCatchMilli` catch the tendon and end the swing early. `APART` is the
+ *   `sinewCatchMilli` catch the tendon and end the swing early. `PULL APART` is the
  *   direction and nothing else, which is all a word may carry — the distance is
  *   the pair's to find, as every distance in this fight is. It goes to **both**
  *   seats, held or not, because one hand out is not a catch and the seat that
@@ -61,7 +61,7 @@ import type { BossCue } from "./boss-cue.js";
  *
  * **Sideways means two different things here, and never in the same beat.** The
  * catch is both hands **outward** and the walk is both hands **the same way**,
- * so `APART` and `SWAY` are never on the field together: the swing is over
+ * so `PULL APART` and `SWAY` are never on the field together: the swing is over
  * before the last fibre parts, and the fall has no tendon left to catch.
  *
  * `STILL` is its kind, THE STARE's fifth (`boss-cue.ts`): what the fight wants
@@ -88,7 +88,7 @@ export interface SinewWord {
 /** The pull that is on offer while nobody holds, and the steer once it falls. */
 const FREE: SinewWord = { kind: "CARRY", word: "PULL" };
 const SWAY: SinewWord = { kind: "CARRY", word: "SWAY" };
-const APART: SinewWord = { kind: "CARRY", word: "APART" };
+const APART: SinewWord = { kind: "CARRY", word: "PULL APART" };
 const HOLD: SinewWord = { kind: "HOLD", word: "HOLD" };
 const LIFT: SinewWord = { kind: "STILL", word: "LIFT" };
 

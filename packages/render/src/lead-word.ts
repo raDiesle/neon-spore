@@ -22,14 +22,14 @@ import type { BossCue } from "./boss-cue.js";
  * has ever put on a thumb: THE LEAD shipped answered entirely on the panel,
  * and a handle nobody is told about is a handle nobody takes.
  *
- * **`BURN` while she holds it**, which is the same word the pass already
- * carries and deliberately so. Her hand is not doing anything to the body —
- * `leadShootable` is false through the whole still and no bolt is registered
- * (`sim/lead-shot.ts`) — it is buying the beam the beats it needs to fill,
- * and the beam is his. So the word on her screen is the one she says out
- * loud, and it is the same one she will say again when it passes: *burn*,
- * then *up*, and the fight ends in the column she is the only one who can
- * see.
+ * **`HOLD` again while she holds it, with `WHILE THE BEAM FILLS` under it.**
+ * It stood as `BURN` until 30 September 2026, the same word the pass
+ * carries; the owner, that day: *the helping text should say that player
+ * needs to do, not the effect* (#34). Her hand is not doing anything to the
+ * body — `leadShootable` is false through the whole still and no bolt is
+ * registered (`sim/lead-shot.ts`) — it is buying the beam the beats it needs
+ * to fill, and the beam is his. So the word is her thumb's and the reason is
+ * the small line.
  *
  * **The silence is the still she has already spent.** Once the stalk has been
  * let go of or has torn out of her thumb, `freeBeat` is set and it passes on
@@ -47,11 +47,13 @@ import type { BossCue } from "./boss-cue.js";
 export interface LeadWord {
   kind: BossCue["kind"];
   word: string;
+  /** What the hold is for, written small under it (`BossCue.why`). */
+  why?: string;
 }
 
 /** The stalk on offer, and the beam it is being held open for. */
 const TAKE: LeadWord = { kind: "HOLD", word: "HOLD" };
-const FILL: LeadWord = { kind: "HOLD", word: "BURN" };
+const FILL: LeadWord = { kind: "HOLD", word: "HOLD", why: "WHILE THE BEAM FILLS" };
 
 /**
  * The one word the stalk carries this frame of a still, or nothing.

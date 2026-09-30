@@ -40,7 +40,7 @@ describe("a rock the mouth already has", () => {
     // The cinch stops the inhale and never the mouth, so in a phase with a
     // stride the frozen beats are the mouth sliding off the body.
     const { world } = warded("slide", 1);
-    expect(word(world, "p2")).toBe("CINCH");
+    expect(word(world, "p2")).toBe("HOLD");
     expect(cue(world, "p2")?.kind).toBe("HOLD");
     expect(cue(world, "p2")?.seat).toBe(2);
     // Not his: there is one thumb on the ring and it is hers (`ringHeard`).
@@ -68,7 +68,7 @@ describe("a rock the mouth already has", () => {
     // `open` inhales every beat and its stride is zero: a pinched ring buys
     // nothing there, and the only answer left is to take the mouth off the body.
     const { world, t } = warded("open", CFG.throatRings - 1);
-    expect(word(world, "p1")).toBe("HAUL");
+    expect(word(world, "p1")).toBe("PULL");
     expect(cue(world, "p1")?.kind).toBe("CARRY");
     expect(cue(world, "p1")?.seat).toBe(1);
     expect(word(world, "p2")).toBeNull();
@@ -101,7 +101,7 @@ describe("a rock the mouth already has", () => {
     const { world, t } = warded("slide", 1);
     put(world, "meteor", mouthCol(world, t), throatMouthRow(CFG));
     put(world, "meteor", mouthCol(world, t), throatMouthRow(CFG));
-    expect(word(world, "p2")).toBe("CINCH");
+    expect(word(world, "p2")).toBe("HOLD");
   });
 });
 
@@ -114,8 +114,8 @@ describe("a rock climbing the gullet", () => {
 
   it("asks either thumb to brake it, on both screens", () => {
     const { world } = climbing();
-    expect(word(world, "p1")).toBe("BRAKE");
-    expect(word(world, "p2")).toBe("BRAKE");
+    expect(word(world, "p1")).toBe("HOLD");
+    expect(word(world, "p2")).toBe("HOLD");
     expect(cue(world, "p1")?.kind).toBe("HOLD");
     // The carry is either seat's, which `handMeans` says of every rock and
     // this reading calls rather than repeats.

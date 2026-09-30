@@ -108,7 +108,7 @@ describe("THE TASTER", () => {
     const world = opened();
     const t = installed(world);
     standing(world, t, 0);
-    expect(word(world, "p2")).toBe("SHEAR");
+    expect(word(world, "p2")).toBe("TAP");
     expect(cue(world, "p2")?.kind).toBe("PRESS");
     expect(word(world, "p1")).toBeNull();
   });
@@ -119,7 +119,7 @@ describe("THE TASTER", () => {
     standing(world, t, 3);
     shorn(world, t, 0);
     const hers = cue(world, "p2");
-    expect(hers?.word).toBe("CUT");
+    expect(hers?.word).toBe("TAP");
     expect(hers?.kind).toBe("PRESS");
     // On his own column, where the crest is already open — not on the fan's
     // middle, which is where the words about the fan as a whole stand.
@@ -163,7 +163,7 @@ describe("THE TASTER", () => {
     t.shorn = t.blades.length - CFG.tasterClosedBlades;
     // A beam at a shut fan is refused (`tasterStruck`), so `BURN` here would
     // be the field asking for the one thing that cannot work.
-    expect(word(world, "p1")).toBe("PRY");
+    expect(word(world, "p1")).toBe("PULL");
     expect(cue(world, "p1")?.kind).toBe("CARRY");
     expect(word(world, "p2")).toBeNull();
   });
@@ -174,10 +174,10 @@ describe("THE TASTER", () => {
     standing(world, t, 0);
     t.shorn = t.blades.length - CFG.tasterClosedBlades;
     t.pryBeat = world.beat;
-    expect(word(world, "p2")).toBe("BURN");
+    expect(word(world, "p2")).toBe("HOLD");
     expect(cue(world, "p2")?.kind).toBe("HOLD");
     world.cannonCol = t.col + t.blades.length - 1;
-    expect(word(world, "p2")).toBe("BURN");
+    expect(word(world, "p2")).toBe("HOLD");
     expect(word(world, "p1")).toBeNull();
   });
 
@@ -189,25 +189,25 @@ describe("THE TASTER", () => {
     const growing = t.blades[6];
     if (growing === undefined) throw new Error("no blade 6");
     growing.growBeat = world.beat;
-    expect(word(world, "p1")).toBe("PIN");
+    expect(word(world, "p1")).toBe("HOLD");
     expect(cue(world, "p1")?.kind).toBe("HOLD");
     // On the fan and never on one blade: any growing blade will do, and three
     // are out at once there.
     expect(cue(world, "p1")?.x).toBe(tileCX(LAYOUT.p1, t.col + (t.blades.length - 1) / 2));
     // Hers is unchanged: the cannon is under a standing blade.
-    expect(word(world, "p2")).toBe("SHEAR");
+    expect(word(world, "p2")).toBe("TAP");
   });
 
-  it("stops saying PIN the moment his thumb is on one", () => {
+  it("stops asking for the pin the moment his thumb is on one", () => {
     const world = opened();
     const t = installed(world);
     t.shorn = CFG.tasterFanShorn;
     const growing = t.blades[6];
     if (growing === undefined) throw new Error("no blade 6");
     growing.growBeat = world.beat;
-    expect(word(world, "p1")).toBe("PIN");
+    expect(cue(world, "p1")?.why).toBe("TO PIN IT");
     t.pin = 6;
-    expect(word(world, "p1")).not.toBe("PIN");
+    expect(cue(world, "p1")?.why).not.toBe("TO PIN IT");
   });
 
   it("asks her to wipe a gap while the fan is hurrying, on the gap itself", () => {
@@ -215,10 +215,10 @@ describe("THE TASTER", () => {
     const t = installed(world);
     shorn(world, t, 0);
     t.shorn = CFG.tasterHurryShorn;
-    // His cannon is on the gap, so `CUT` is her first word and `WIPE` her
+    // His cannon is on the gap, so `TAP` is her first word and `WIPE` her
     // second — both about the same column, one with a bolt and one with a
     // thumb. Off the gap, the carry is what is left.
-    expect(word(world, "p2")).toBe("CUT");
+    expect(word(world, "p2")).toBe("TAP");
     world.cannonCol = t.col + t.blades.length - 1;
     const hers = cue(world, "p2");
     expect(hers?.word).toBe("WIPE");

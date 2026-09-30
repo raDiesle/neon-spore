@@ -72,7 +72,7 @@ function carryCues(l: Layout, world: World, s: ScuttleState): BossCue[] {
  * own picture (`showsScuttleLive`) and it is the only thing a bolt can strike,
  * so a mark on it says *now* and nothing she was not already shown.
  *
- * `BURN` replaces `FIRE` for the last part, which is not thrown at all — the
+ * `HOLD` / `TO BURN IT` replaces `FIRE` for the last part, which is not thrown at all — the
  * frame winds up, and only the beam standing in that column before the throw
  * ends the fight. The verb changing is the whole of what the cue is for.
  *
@@ -119,7 +119,10 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
     if (s.live < 0) return [];
     const col = scuttlePartCol(s, cfg, s.live);
     const out: BossCue[] = [
-      markAt(2, "HOLD", "BURN", tileCX(l, col), scuttleRowY(l, cfg, s.live), l, 55),
+      {
+        ...markAt(2, "HOLD", "HOLD", tileCX(l, col), scuttleRowY(l, cfg, s.live), l, 55),
+        why: "TO BURN IT",
+      },
     ];
     if (world.cannonCol !== col) {
       out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 96));

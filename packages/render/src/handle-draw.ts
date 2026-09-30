@@ -135,7 +135,7 @@ export function drawHandleRest(ctx: CanvasRenderingContext2D, rest: Circle, hex:
  * How far out the dial sweeps, in ring radii.
  *
  * Named because a word standing on a handle has to clear it: THE LEDGER's
- * `ROOT` drops its own frame and stands on the ring instead, and at the ring's
+ * `MOVE` on the root drops its own frame and stands on the ring instead, and at the ring's
  * own radius its second line lands on the arc (`boss-cue-read-o.ts`).
  */
 export const DIAL_RADII = 1.55;

@@ -167,20 +167,20 @@ describe("the words over THE CYST", () => {
     expect(cue(world, "p1")).toBeNull();
   });
 
-  it("says SHUT to the pincher once the flank is stilled, gone while it is held", () => {
+  it("says HOLD to the pincher once the flank is stilled, gone while it is held", () => {
     const { world, s } = lit("left");
     s.phase = "frozen";
     const c = cue(world, "p1");
-    expect(c?.word).toBe("SHUT");
+    expect(c?.word).toBe("HOLD");
     expect(c?.seat).toBe(1);
     s.gapMilli[0] = CFG.cystShutMilli;
     expect(cue(world, "p1")).toBeNull();
   });
 
-  it("says SHUT to both seats on a swell", () => {
+  it("says HOLD to both seats on a swell", () => {
     const { world } = lit("swell");
-    expect(cue(world, "p1")?.word).toBe("SHUT");
-    expect(cue(world, "p2")?.word).toBe("SHUT");
+    expect(cue(world, "p1")?.word).toBe("HOLD");
+    expect(cue(world, "p2")?.word).toBe("HOLD");
   });
 
   it("says FIRE at the hull only while the core is bared", () => {

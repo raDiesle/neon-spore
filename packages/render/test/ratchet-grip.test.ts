@@ -152,10 +152,10 @@ describe("the words on THE RATCHET", () => {
   const words = (world: World, s: RatchetState): string[] =>
     ratchetCues(layout("test"), world, s, 0).map((c) => c.word);
 
-  it("asks her to HOLD and him to wait ON SET, each on their own screen", () => {
+  it("asks her to HOLD and him to TAP when she says SET, each on their own screen", () => {
     const { world, s } = working();
     const cues = ratchetCues(layout("test"), world, s, 0);
-    expect(cues.map((c) => c.word)).toEqual(["HOLD", "ON SET"]);
+    expect(cues.map((c) => c.word)).toEqual(["HOLD", "TAP"]);
     const [hold, onSet] = cues;
     if (hold === undefined || onSet === undefined) throw new Error("no cues");
     expect(cueSeen(hold, "p2")).toBe(true);
@@ -167,7 +167,7 @@ describe("the words on THE RATCHET", () => {
   it("goes quiet on her catch once she holds, and says the same to him", () => {
     const { world, s } = working();
     s.catchMilli = CFG.ratchetGripMilli;
-    expect(words(world, s)).toEqual(["ON SET"]);
+    expect(words(world, s)).toEqual(["TAP"]);
   });
 
   it("says LIFT on a spent catch, and nothing to him while his thumb is down", () => {

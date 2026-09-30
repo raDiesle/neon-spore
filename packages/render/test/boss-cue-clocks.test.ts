@@ -96,7 +96,7 @@ describe("THE LEAD", () => {
     const s = installed<LeadState>(world, "lead");
     s.segments = 1;
     s.passBeat = world.beat;
-    expect(word(world, "p2")).toBe("BURN");
+    expect(word(world, "p2")).toBe("HOLD");
     expect(cue(world, "p2")?.kind).toBe("HOLD");
     expect(word(world, "p1")).toBeNull();
   });
@@ -160,7 +160,7 @@ describe("THE SCUTTLE", () => {
     expect(word(world, "p2")).toBe("FIRE");
 
     s.windBeat = world.beat;
-    expect(word(world, "p2")).toBe("BURN");
+    expect(word(world, "p2")).toBe("HOLD");
   });
 
   it("offers her no bolt she cannot spend, and tells him nothing either way", () => {
@@ -189,12 +189,12 @@ describe("THE SCUTTLE", () => {
     expect(his?.word).toBe("MOVE");
     expect(his?.kind).toBe("CARRY");
     expect(his?.x).toBe(tileCX(LAYOUT.p1, world.cannonCol));
-    expect(word(world, "p2")).toBe("BURN");
+    expect(word(world, "p2")).toBe("HOLD");
     // Standing there already, there is nothing to say to him and her fill is
     // still the whole of what is left.
     world.cannonCol = col;
     expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBe("BURN");
+    expect(word(world, "p2")).toBe("HOLD");
   });
   it("offers him a carry on a part one column off, and nothing once he stands under one", () => {
     const { world, s, col } = hanging();
