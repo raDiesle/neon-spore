@@ -1258,20 +1258,6 @@ state render keeps about the simulation. The world could say it: a hashed
 `SlowOpening`. The pinned hashes move with it and are re-pinned in the same
 commit; the fuse tests stay green unchanged.
 
-## THE RATCHET's catch halo says a spent catch asks, and the code does not
-
-- **Found:** 2026-09-30, claude/queue-22-the-ratchet-the-story-between-the-teeth-the-l
-- **Files:** `packages/sim/src/ratchet.ts`, `packages/render/src/boss-cue-read-zb.ts`, `packages/render/src/ratchet-marks.ts`
-
-`ratchetCatchAsks` is documented as asking "spent included", but its body
-returns `!ratchetHeld(s, cfg)`, and `ratchetHeld` ignores `catchSpent`: a spent
-catch still past the notch draws no halo, while the cue next to it
-(`ratchetCues`) says `LIFT` on exactly that catch. Decide which is right — the
-doc's reading adds `|| s.catchSpent` — and have `ratchetCues` call
-`ratchetCatchAsks` for its catch word instead of re-deriving the same gate,
-with a row in `copies-table.ts`. A test in `ratchet-grip.test.ts` pins the halo
-and the word to the same states.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too

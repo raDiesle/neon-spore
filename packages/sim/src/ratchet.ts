@@ -156,11 +156,12 @@ export function ratchetJammed(s: RatchetState): boolean {
  * **Whether her catch is asking for a hand**: the rack will take one, the
  * state is not the kick (his pawl alone), and it is not set — spent included,
  * because a spent catch is one she has to lift and set again. The halo is
- * drawn under it (`render/ratchet-marks.ts`).
+ * drawn under it (`render/ratchet-marks.ts`) and the catch's word is said over
+ * it (`render/boss-cue-read-zb.ts`), both off this one gate.
  */
 export function ratchetCatchAsks(s: RatchetState, cfg: SimConfig): boolean {
   if (s.phase === "open" || s.phase === "jam" || s.phase === "kick") return false;
-  return !ratchetHeld(s, cfg);
+  return s.catchSpent || !ratchetHeld(s, cfg);
 }
 
 /** Whether his pawl is asking for a press: a tooth is lit, or the kick or the bind wants it down, and his thumb is not. */

@@ -19,7 +19,7 @@ import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
  *
  * Whether a mark asks is the simulation's (`sim/ratchet.ts`): her catch while
  * the rack takes a hand, it is not set and the state is not the kick
- * (`ratchetCatchAsks`); his pawl while a tooth is lit, or the kick or the
+ * (`ratchetCatchAsks`, a spent catch included); his pawl while a tooth is lit, or the kick or the
  * bind wants it down, and his thumb is off it (`ratchetPawlAsks`).
  *
  * **No partner's ring, and no waiting clock**, HASP's reason: each seat is

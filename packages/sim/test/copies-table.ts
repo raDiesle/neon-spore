@@ -844,6 +844,17 @@ export const COPIES: Copy[] = [
       /surgeHeld\([^)]*\)\s*(?:\|\||!==)\s*surgeInBand\(|\bheld\s*!==\s*band\b|!surgeHeld\([^)]*\)\s*&&\s*!surgeInBand\(/,
   },
   {
+    // **Whether THE RATCHET's catch asks for her hand** — the rack taking one,
+    // not the kick, and not set or spent. The halo called it and the catch's
+    // word wrote it out again, `wind || s.catchSpent || !held`, while the gate
+    // itself left the spent catch out (30 September 2026): a copy is a `LIFT`
+    // over a catch with no ring under it.
+    call: "ratchetCatchAsks",
+    owner: "packages/sim/src/ratchet.ts",
+    pattern:
+      /catchSpent\s*\|\|\s*!(?:held\b|ratchetHeld\()|!(?:held\b|ratchetHeld\([^)]*\))\s*\|\|\s*\w+\.catchSpent\b/,
+  },
+  {
     // **How far a cue's frame reaches** — THE CHOIR's 0.72 by 0.66 tiles, or
     // the 0.9 by 0.62 of every reading from THE GIMBAL on. Thirty-nine cue
     // readings and THE PLUMB's marks each kept their own pair of constants,

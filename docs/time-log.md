@@ -30239,3 +30239,13 @@ Bottleneck: landing. The case failed the previous lane's `land`, so this one had
 Bottleneck: friction. On a shared machine every timing had to be taken several times before a figure could be trusted.
 
 *Measured: 40 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE RATCHET's catch halo says a spent catch asks, and the code does not
+
+- reading: 5 min. `ratchet.ts`, the cue, the halo, the spend in `ratchet-step.ts` and the spec's words and halo paragraphs.
+- writing: 5 min. The gate's `|| s.catchSpent`, the cue calling it, the copies row and the test pinning halo and word together.
+- looking: 0 min. No reachable frame changed: every spend clears the depth, so a spent catch already drew its halo.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. Deciding needed proof that the simulation never reaches a spent catch still past the notch, which is why the fix changes no frame.

@@ -1,5 +1,6 @@
 import {
   type RatchetState,
+  ratchetCatchAsks,
   ratchetHeld,
   ratchetLoose,
   ratchetWorking,
@@ -23,7 +24,10 @@ import { ratchetBoltAt } from "./ratchet-shape.js";
  * the catch, and a hand still down holds nothing until it has come back up
  * past the notch (`sim/ratchet-hand.ts`). So the word on a spent catch is the
  * way out of it. Once she is holding, the word goes: what she says next is
- * `SET`, out loud, and the field must not say it for her.
+ * `SET`, out loud, and the field must not say it for her. Whether the catch
+ * asks is the halo's gate, called (`ratchetCatchAsks`), so the word and the
+ * ring under it can never disagree; the wind's `LIFT` on a set catch is the
+ * one word said beyond it.
  *
  * **`TAP` / `WHEN P2 SAYS SET` on his pad while a tooth is waiting.** Never
  * `TAP` alone: a press is never refused, and a word telling him to press
@@ -62,11 +66,10 @@ export function ratchetCues(
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 112 });
   }
   if (!ratchetTakesHand(s)) return out;
-  const held = ratchetHeld(s, cfg);
-  const wind = s.phase === "wind";
-  if (s.phase !== "kick" && (wind || s.catchSpent || !held)) {
+  const wind = s.phase === "wind" && ratchetHeld(s, cfg);
+  if (ratchetCatchAsks(s, cfg) || wind) {
     const bar = ratchetCatchCircle(l, cfg, s);
-    const word = s.catchSpent || (wind && held) ? "LIFT" : "HOLD";
+    const word = s.catchSpent || wind ? "LIFT" : "HOLD";
     out.push({ seat: 2, kind: "CARRY", word, x: bar.x, y: bar.y, ...frame, seed: 113 });
   }
   if (s.pawlDown) return out;

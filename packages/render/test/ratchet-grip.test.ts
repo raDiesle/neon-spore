@@ -5,8 +5,11 @@ import {
   DEFAULT_CONFIG,
   NO_BOLT,
   NO_CATCH,
+  RATCHET_PHASES,
   type RatchetState,
   ratchetBoss,
+  ratchetCatchAsks,
+  ratchetHeld,
   startWave,
   type World,
 } from "@neon-spore/sim";
@@ -176,6 +179,28 @@ describe("the words on THE RATCHET", () => {
     s.catchSpent = true;
     s.pawlDown = true;
     expect(words(world, s)).toEqual(["LIFT"]);
+  });
+
+  it("words her catch exactly where its halo asks, a spent catch included", () => {
+    const { world, s } = working();
+    for (const phase of RATCHET_PHASES) {
+      for (const depth of [NO_CATCH, 0, CFG.ratchetGripMilli, CFG.ratchetReachMilli]) {
+        for (const spent of [false, true]) {
+          Object.assign(s, { phase, catchMilli: depth, catchSpent: spent });
+          const worded = ratchetCues(layout("test"), world, s, 0).some((c) => c.seat === 2);
+          // The wind's pump says LIFT over a set catch, the one word beyond the halo.
+          const pump = phase === "wind" && ratchetHeld(s, CFG);
+          expect([phase, depth, spent, worded]).toEqual([
+            phase,
+            depth,
+            spent,
+            ratchetCatchAsks(s, CFG) || pump,
+          ]);
+        }
+      }
+    }
+    Object.assign(s, { phase: "work", catchMilli: CFG.ratchetReachMilli, catchSpent: true });
+    expect(ratchetCatchAsks(s, CFG)).toBe(true);
   });
 
   it("asks him alone to HOLD the kicked pawl, and both of them in the bind", () => {
