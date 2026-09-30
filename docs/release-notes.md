@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 4375eb31d — CONTROLS › ON THE FIELD: every touch and gesture on one page, each with a suggestion
+
+The director's ON THE FIELD, TRIED AND SET ASIDE and GESTURES tabs are now one page, and PANELS stays its own tab. The page goes in this order:
+
 ## 2026-09-30 · c66d10d54 — The world says when a slow window's latest ask was made, and the fuse counts from it
 
 `openSlow` now records the beat it was called on in `World.slowAskBeat`, hashed, and `clearSlow` resets it. `slowWindow` reads it for the fuse's span, never earlier than the window's own start, in place of the renderer's `SlowOpening`. That class, its `Effects` field and its reset entry are gone, so render no longer keeps its own record of the simulation. The fuse starts from the same beat as before, so nothing drawn changes. No test pins a world hash, so none needed re-pinning: every replay test compares two runs of the same build. Also queued: a claim whose trunk commit fails leaves its edit and its branch behind.

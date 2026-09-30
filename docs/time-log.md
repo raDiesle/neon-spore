@@ -30285,3 +30285,5 @@ Bottleneck: friction — the claim failed half-done and had to be put back by ha
 - landing: 5 min. Formatting, the index regenerated for six new files, `check:fast`, the commit, `land`.
 
 Bottleneck: writing. There is one suggestion per row, and each had to be read against its row before it could be written.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
