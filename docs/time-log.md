@@ -30731,3 +30731,18 @@ Bottleneck: the thud is a tenth of a tile, so it only showed in a crop of
 the rim at five times, not in any strip.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VISE's body watched
+
+- reading: 5 min. The header of `vise-draw.ts`, `viseSplit` and the event
+  list, to know what the case is meant to do and when.
+- writing: 0 min. Nothing was wrong.
+- looking: 10 min. Four strips with AUTO on both seats: the husk and its
+  crack, the lobes opening on the kernel and the first hit, the split's
+  flash, and the split to the end of the wave.
+- friction: 5 min. `sheet --band` takes fractions and `crop --zoom` whole
+  numbers, and each was first given the other kind.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: two strips had to be rerun because of flag units, not anything
+the game drew.

@@ -518,16 +518,6 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## Unverified at 13c34088d: THE VISE's body watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-28-the-vise-the-look
-- **Taken:** 2026-09-30, claude/queue-unverified-at-4c7090ce0-the-oculuss-thud-core-fl (claim: claude/queue-unverified-at-13c34088d-the-vises-body-watched-a)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/palette-creatures.ts`
-
-*THE VISE gets its body: a seed-case that cracks and bares its kernel* landed from a session that could not look at it. The commit touched 10 more files. What went unchecked:
-
-- THE VISE's body watched at tempo
-
 ## Unverified at 713d49b1e: THE MANTLE's buckle, vent, crack and turn, played at t…
 
 - **Found:** 2026-09-26, claude/queue-23-the-mantle-a-fuller-story-arc-buckle-vent-tur
