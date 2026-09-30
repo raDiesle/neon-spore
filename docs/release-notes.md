@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 944b0a847 — Close the pull-way roll-out and log where its time went
+
+## 2026-09-30 · e3276f05d — Every pull handle shows its way, on the seat whose pull it is
+
+The ten pull handles that were a bare ring or a private chevron now carry THE INSTAR's arrow inside the mark, on the owning seat's screen and never on the partner's. THE SINEW, THE BALLOON and THE LEDGER's haul and cord beads are the shared knob now, with the ring's dial kept round the first two and the haul; THE FLEET's wreck is the knob. THE ANTIPHON's rail keeps its ring so the candidate stays readable, and THE CAIRN's hand, THE PLUMB's weights, THE VALVE's pulled pin, THE MANTLE's knobs and THE CAPSTAN's horn carry the knob's arrow without the knob (`drawPullArrow`). The two private chevrons are gone.
+
 ## 2026-09-30 · 36d45a701 — Four files THE GAUGE's tooth left at the line, each cut back under it
 
 THE PLUMB's silent events move to the fifth ingest page and THE VALVE's sounds to a new fifth no-subject page, because by build order each was the last boss on its full page. `gaugeHeard` moves to `gauge-hand.ts`, next to the two thumbs. The band's grip cases now live in `gauge-bind-grip.test.ts`, and the round both grip tests share is in `gauge-grip-harness.ts`. Nothing drawn or heard changes.

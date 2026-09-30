@@ -29943,3 +29943,5 @@ Bottleneck: splitting a test file needs a non-test harness module for its helper
 - landing: 5 min. The budget remeasure (no row moved), `check:fast`, the commit.
 
 Bottleneck: friction — the MANTLE and CAPSTAN frame tests proved their marks by counting `hullRim`, so the arrow had to be drawn in the chevron's colour and the horn test split by seat.
+
+*Measured: 34 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
