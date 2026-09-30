@@ -30164,3 +30164,5 @@ Bottleneck: writing. Row 11's refreeze turned out to need a simulation phase tha
 
 Bottleneck: writing — the word lives in the tests as well as the source, so
 each rename was paid for twice.
+
+*Measured: 46 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

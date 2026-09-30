@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · a805e1ebf — Every cue word says what the thumb does, and the effect goes under it
+
+A boss's cue on the field now names the gesture — TAP, HOLD, PULL, MOVE — or the button it is made on, and what that does to the boss moves to the small line under it: THE VALVE says TAP over TO FREEZE THE WHEEL where it said FREEZE, THE LEAD says HOLD over TO BURN IT, THE RATCHET says TAP over WHEN P2 SAYS SET. About forty words across the bosses changed the same way.
+
 ## 2026-09-30 · b314ae025 — THE RIME answers its events: flakes off a rubbed half, a flash as it clears, the core's hit ring, and the shatter's shudder
 
 A rub throws frost off the half being rubbed, on that seat's side, and jabs the pane. A half coming clear flashes its rim and deals the blow. The film flashes back over a half that frosts again. A core hit rings the core in its colour, wider for each hit. The shatter flashes the whole lens and shudders down the plating. All of it lives in `rime-fx.ts`, is cleared in `reset()`, and is drawn by `drawRimeFlashes` and the ship's shock. The cue words were already in. Row 11's refreeze film needs a simulation phase first, and is queued as its own item.
