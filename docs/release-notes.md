@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · dfe597e7f — THE GAUGE's loose tooth, drawn: it rocks on his screen and is ringed on hers
+
+In the rest after the first level, the pilot sees one tooth rocking and glowing in the jaw. The navigator sees a ring on every tooth and pulls the one he names with a drag. The tooth in her hand follows her thumb on both screens, and a tooth that comes out leaves dark gum where it stood. He reads TOOTH, she reads PULL.
+
 ## 2026-09-30 · c117dc5ef — Hold THE STARE's open eye to an op-count budget, and rule out what a desktop can see
 
 A new `stare-budget.test.ts` measures THE STARE open against shut on a live beat. Opening the eye adds one gradient, one fill and three strokes. The gaze is a plain alpha fill, with no blur and no `lighter`. A simulation tick with the eye open costs about 9 µs. None of that explains the lag on the owner's phone. A cached bitmap of the gaze would fill the same area, so it was not tried. A narrower beam changes the frame, so it is a look for VERSUS, not a fix.

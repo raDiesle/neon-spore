@@ -29908,3 +29908,4 @@ Bottleneck: the lag is on a phone and every tool here measures a desktop, so the
 
 Bottleneck: the first render test found the jaw's end tooth drawn as a socket on every frame, because `-1` meant both "past the end" and "no loose tooth".
 
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
