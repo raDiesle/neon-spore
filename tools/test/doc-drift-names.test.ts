@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { declaredNames, ownSubjectClaims, REMEMBERED, sourceFiles } from "./doc-names.js";
 import { ROOT } from "./doc-paths.js";
 import { itCosts } from "./figure.js";
+import { treeText } from "./tree-text.js";
 
 /**
  * **A comment that names something in its own file's subject names something
@@ -26,12 +27,14 @@ import { itCosts } from "./figure.js";
  * make a red test stop, which is the one way this check can be made worthless.
  */
 describe("a comment naming something in its own file's subject", () => {
-  itCosts(850, "names something this tree still writes down", () => {
-    const names = declaredNames();
+  itCosts(850, "names something this tree still writes down", async () => {
+    const names = await declaredNames();
     const found: string[] = [];
     let claims = 0;
-    for (const file of sourceFiles()) {
-      const source = readFileSync(join(ROOT, file), "utf8");
+    const files = sourceFiles();
+    const sources = await treeText(files);
+    for (const [i, file] of files.entries()) {
+      const source = sources[i] as string;
       for (const name of ownSubjectClaims(file, source)) {
         claims++;
         const row = `${file} → ${name}`;
@@ -46,8 +49,8 @@ describe("a comment naming something in its own file's subject", () => {
 
   // `declaredNames()` alone walks every source file, so this one needs a
   // figure of its own as much as the walk above.
-  itCosts(550, "remembers nothing the tree has got back", () => {
-    const names = declaredNames();
+  itCosts(550, "remembers nothing the tree has got back", async () => {
+    const names = await declaredNames();
     const alive: string[] = [];
     for (const row of REMEMBERED.keys()) {
       const name = row.split(" → ")[1] as string;

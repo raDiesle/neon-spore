@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { join, relative } from "node:path";
 import { Glob } from "bun";
 import { itCosts } from "../../../tools/test/figure.js";
+import { treeText } from "../../../tools/test/tree-text.js";
 import { COPIES } from "./copies-table.js";
 import { ROOT, read, stripNonCode } from "./source-scan.js";
 
@@ -34,28 +35,29 @@ function allSourceFiles(): string[] {
   return all;
 }
 
-/** Each file read once and stripped once, whichever rows ask for it. */
+/**
+ * Each file read once and stripped once, whichever rows ask for it. The
+ * reading is `tools/test/tree-text.ts`', many files at a time: until 30
+ * September 2026 the first row opened every file one `await` after another.
+ */
 class Sources {
-  private readonly raw = new Map<string, string>();
   private readonly stripped = new Map<string, string>();
 
-  async text(file: string): Promise<string> {
-    let text = this.raw.get(file);
-    if (text === undefined) {
-      text = await Bun.file(file).text();
-      this.raw.set(file, text);
-    }
-    return text;
+  async code(file: string, strip: boolean): Promise<string> {
+    return (await this.codes([file], strip))[0] as string;
   }
 
-  async code(file: string, strip: boolean): Promise<string> {
-    if (!strip) return await this.text(file);
-    let code = this.stripped.get(file);
-    if (code === undefined) {
-      code = stripNonCode(await this.text(file));
-      this.stripped.set(file, code);
-    }
-    return code;
+  async codes(files: readonly string[], strip: boolean): Promise<string[]> {
+    const texts = await treeText(files);
+    if (!strip) return texts;
+    return files.map((file, i) => {
+      let code = this.stripped.get(file);
+      if (code === undefined) {
+        code = stripNonCode(texts[i] as string);
+        this.stripped.set(file, code);
+      }
+      return code;
+    });
   }
 }
 
@@ -79,12 +81,13 @@ describe("no re-derived rules", () => {
 
     itCosts(450, `every other file calls ${copy.call} instead of re-deriving it`, async () => {
       const offenders: string[] = [];
-      for (const file of files) {
-        if (allowed.has(file)) continue;
-        if (copy.pattern.test(await sources.code(file, strip))) {
+      const codes = await sources.codes(files, strip);
+      files.forEach((file, i) => {
+        if (allowed.has(file)) return;
+        if (copy.pattern.test(codes[i] as string)) {
           offenders.push(relative(ROOT, file).replaceAll("\\", "/"));
         }
-      }
+      });
       expect(
         offenders,
         `Call ${copy.call} from ${copy.owner} in: ${offenders.join(", ")}`,

@@ -29957,3 +29957,13 @@ Bottleneck: friction — the MANTLE and CAPSTAN frame tests proved their marks b
 Bottleneck: a new rest with two hands is fifteen registrations outside `sim`, and each one is found only by the typecheck or a test naming the one before it.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — Two slow rows drift past their figures under a loaded `check:fast`: the tree read in parallel, once
+
+- reading: 5 min. The two rows, `figure.ts`, `doc-names.ts`, and the chunked reader `tree-walk.test.ts` already had.
+- writing: 5 min. `tools/test/tree-text.ts`, the cached reader; `copies.test.ts` and `doc-names.ts` moved onto it, and `tree-walk.test.ts` gives its reader up.
+- looking: 0 min.
+- friction: 5 min. A machine load of 20 to 38 on 14 cores made every timing noisy, so no figure could be lowered honestly.
+- landing: 5 min. A lint fix, `check:fast`, the commit.
+
+Bottleneck: the rows were slow because they opened files one at a time, not because of the matching. That showed only once opening, stripping and matching were timed separately.

@@ -1,6 +1,5 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { ROOT } from "./doc-paths.js";
+import { treeText } from "./tree-text.js";
 
 /**
  * **What a source comment may name, and the ten names the tree keeps on
@@ -168,11 +167,22 @@ function everyFile(): string[] {
  * Deliberately generous: the question asked of it is only ever *does this word
  * appear as a name at all*, and a false yes costs a comment nobody checked
  * while a false no costs a red test nobody can fix.
+ *
+ * **Harvested once per process** and shared by every row that asks, read
+ * through `tree-text.ts`: two rows each walked all forty-seven hundred files
+ * one `readFileSync` at a time until 30 September 2026, and drifted to
+ * fourteen seconds under a loaded `check:fast`.
  */
-export function declaredNames(): Set<string> {
+export function declaredNames(): Promise<ReadonlySet<string>> {
+  harvested ??= harvest();
+  return harvested;
+}
+
+let harvested: Promise<ReadonlySet<string>> | undefined;
+
+async function harvest(): Promise<ReadonlySet<string>> {
   const names = new Set<string>();
-  for (const file of everyFile()) {
-    const source = readFileSync(join(ROOT, file), "utf8");
+  for (const source of await treeText(everyFile())) {
     for (const match of source.matchAll(DECLARED)) names.add(match[1] as string);
     for (const match of source.matchAll(PROPERTY)) names.add(match[1] as string);
     for (const match of source.matchAll(QUOTED))

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
 import { read } from "../../packages/sim/test/source-scan.ts";
 import { fileCosts } from "./figure.js";
+import { AT_ONCE, treeText } from "./tree-text.js";
 
 /**
  * **A worktree is a full copy of the repository sitting inside the
@@ -69,32 +70,13 @@ export function recursesIntoDirectories(source: string): boolean {
 }
 
 /**
- * How many of the eighteen hundred files are open at once.
- *
  * **They were read one at a time until 16 September 2026**, an `await` per file
  * inside a `for`, which is 350 ms alone and crossed the 5000 ms cap inside
  * `bun run check` — thirteen shards reading the one disk — and took a landing
  * red. The next run was green with nothing changed, which is the worst shape a
  * red check has: it teaches the next session to re-run rather than to read.
- *
- * Sixty-four at a time rather than all of them, because a `Promise.all` over
- * the whole list opens eighteen hundred descriptors at once and the point is to
- * stop being the thing that falls over under load. Raising the cap was the
- * other way and is the second choice for the reason `FRAME_TIMEOUT_MS` in
- * `packages/render/test/frame-harness.ts` already gives: a cap raised to cover
- * contention hides whatever gets slow next.
+ * The reader that fixed it is `tree-text.ts` now, shared with the other walks.
  */
-const AT_ONCE = 64;
-
-/** Every file's text, in the order it was asked for. */
-async function sources(paths: readonly string[]): Promise<string[]> {
-  const out: string[] = [];
-  for (let i = 0; i < paths.length; i += AT_ONCE) {
-    const chunk = paths.slice(i, i + AT_ONCE);
-    out.push(...(await Promise.all(chunk.map((f) => Bun.file(join(ROOT, f)).text()))));
-  }
-  return out;
-}
 
 describe("a walk of the repository", () => {
   // The same list every other walk over this tree asks, rather than a fourth
@@ -107,7 +89,7 @@ describe("a walk of the repository", () => {
   });
 
   it("skips `.claude`, wherever it recurses into directories", async () => {
-    const read = await sources(files);
+    const read = await treeText(files);
     const blind = files.filter((_, i) => {
       const source = read[i] as string;
       return recursesIntoDirectories(source) && !source.includes(SKIPS_IT);
@@ -137,10 +119,10 @@ describe("recursesIntoDirectories", () => {
   });
 });
 
-describe("sources", () => {
+describe("treeText", () => {
   it("hands back a text per path, in the order asked for", async () => {
     const here = "tools/test/tree-walk.test.ts";
-    const two = await sources([here, "package.json"]);
+    const two = await treeText([here, "package.json"]);
     expect(two).toHaveLength(2);
     // Read in chunks and gathered, so the order is the caller's and not the
     // order the disk answered in — the walk above indexes one against the other.
@@ -151,6 +133,6 @@ describe("sources", () => {
   it("reads more files than fit in one chunk", async () => {
     const files = [...new Glob("packages/sim/src/*.ts").scanSync(ROOT)];
     expect(files.length, "no sim source to read").toBeGreaterThan(AT_ONCE);
-    expect(await sources(files)).toHaveLength(files.length);
+    expect(await treeText(files)).toHaveLength(files.length);
   });
 });

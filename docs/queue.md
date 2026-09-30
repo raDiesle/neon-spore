@@ -1362,22 +1362,6 @@ and has to grep for it. Name `copies-table.ts` in that sentence — one edit to 
 file that empties the prompt cache, so fold it into the next CLAUDE.md change
 if one is due.
 
-## Two slow rows drift past their figures under a loaded `check:fast`
-
-- **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
-- **Taken:** 2026-09-30, worktree-agent-a74e6693c4b8b5117 (claim: claude/queue-two-slow-rows-drift-past-their-figures-under-a-l)
-- **Files:** `packages/sim/test/copies.test.ts`, `tools/test/doc-drift-names.test.ts`
-
-`check:fast` reports a figure drift on "every other file calls clearHolds
-instead of re-deriving it": 7.9–8.6 s at slowdown 5.0 against a figure of 450
-ms. Run alone, the whole file takes 2.8 s and that row about 780 ms. Either
-time it alone and raise the figure to what it costs, or find out why the row
-reads every file on each run (a cached source list would make it cheap), and
-say which in the commit. The same run drifted `doc-drift-names.test.ts`'s
-"names something this tree still writes down": 13.9 s at slowdown 5.0 against
-850 ms. That is the same cure, and the same question of whether it rereads the
-tree per row.
-
 ## THE GAUGE's simulation test is past the line
 
 - **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
