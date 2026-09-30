@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c117dc5ef — Hold THE STARE's open eye to an op-count budget, and rule out what a desktop can see
+
+A new `stare-budget.test.ts` measures THE STARE open against shut on a live beat. Opening the eye adds one gradient, one fill and three strokes. The gaze is a plain alpha fill, with no blur and no `lighter`. A simulation tick with the eye open costs about 9 µs. None of that explains the lag on the owner's phone. A cached bitmap of the gaze would fill the same area, so it was not tried. A narrower beam changes the frame, so it is a look for VERSUS, not a fix.
+
 ## 2026-09-30 · c6399afe1 — Cut the guarded replay and the race retry out of `tools/land/run.ts`
 
 `tools/land/run.ts` is at 249 lines — the guard against dropped queue entries took it to the line. `replayGuarded` and the race-retry loop that repeats it are one seam and are now `tools/land/replay-guarded.ts` (`replay.ts`, at 183 lines, had no room for them); `run.ts` keeps the plan, the check and the report, at 189 lines. `tools/land/test/` is untouched.
