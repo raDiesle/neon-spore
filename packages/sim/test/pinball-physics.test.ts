@@ -27,6 +27,7 @@ const CFG = DEFAULT_CONFIG;
 const PHYS: PinPhysics = {
   ballMilli: CFG.pinballBallMilli,
   gravityMilli: CFG.pinballGravityMilli,
+  gravityTicks: CFG.pinballGravityTicks,
   speedCapMilli: CFG.pinballSpeedCapMilli,
   bouncePermille: CFG.pinballBouncePermille,
   wallPermille: CFG.pinballWallPermille,
@@ -97,7 +98,7 @@ describe("the tunnelling invariant", () => {
 describe("stepBall", () => {
   it("reverses a ball off the left wall and keeps it on the table", () => {
     // Close enough that this tick's motion carries it past the wall.
-    const ball: PinBall = { xMilli: 400, yMilli: 5000, vxMilli: -200, vyMilli: 0 };
+    const ball: PinBall = { xMilli: 300, yMilli: 5000, vxMilli: -200, vyMilli: 0, ageTicks: 0 };
     stepBall(ball, [], [], PHYS);
     expect(ball.xMilli).toBeGreaterThanOrEqual(PHYS.ballMilli);
     expect(ball.vxMilli).toBeGreaterThan(0);
@@ -113,7 +114,7 @@ describe("stepBall", () => {
       target: false,
     };
     // Dead centre underneath it, travelling straight up.
-    const ball: PinBall = { xMilli: 5000, yMilli: 5600, vxMilli: 0, vyMilli: -200 };
+    const ball: PinBall = { xMilli: 5000, yMilli: 5500, vxMilli: 0, vyMilli: -200, ageTicks: 0 };
     const struck = stepBall(ball, [peg], [true], PHYS);
     expect(struck).toEqual([0]);
     expect(ball.vxMilli).toBe(0);
@@ -129,7 +130,7 @@ describe("stepBall", () => {
       hMilli: CFG.pinballPegMilli,
       target: false,
     };
-    const ball: PinBall = { xMilli: 5000, yMilli: 5600, vxMilli: 0, vyMilli: -200 };
+    const ball: PinBall = { xMilli: 5000, yMilli: 5500, vxMilli: 0, vyMilli: -200, ageTicks: 0 };
     expect(stepBall(ball, [peg], [false], PHYS)).toEqual([]);
     expect(ball.vyMilli).toBeLessThan(0);
   });
@@ -147,6 +148,7 @@ describe("stepBall", () => {
         // that they are evenly spaced.
         vxMilli: -240 + shot * 25,
         vyMilli: -260 + (shot % 5) * 20,
+        ageTicks: 0,
       };
       let last = speed(ball);
       for (let tick = 0; tick < 4000; tick++) {
@@ -179,7 +181,13 @@ describe("stepBall", () => {
     const trace = (): string => {
       const pieces = board();
       const alive = pieces.map(() => true);
-      const ball: PinBall = { xMilli: 5500, yMilli: 16_000, vxMilli: 90, vyMilli: -250 };
+      const ball: PinBall = {
+        xMilli: 5500,
+        yMilli: 16_000,
+        vxMilli: 90,
+        vyMilli: -250,
+        ageTicks: 0,
+      };
       const out: number[] = [];
       for (let tick = 0; tick < 1500 && ball.yMilli <= PHYS.heightMilli; tick++) {
         for (const i of stepBall(ball, pieces, alive, PHYS)) alive[i] = false;

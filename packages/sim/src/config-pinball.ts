@@ -39,8 +39,17 @@ export interface PinballConfig {
   pinballBallMilli: number;
   /** A peg's radius, in thousandths of a tile. Every peg is this size. */
   pinballPegMilli: number;
-  /** What the ball gains downward each tick, in thousandths of a tile per tick. */
+  /** What the ball gains downward on a tick gravity is applied, in thousandths
+   * of a tile per tick. */
   pinballGravityMilli: number;
+  /**
+   * Gravity is applied on one tick in this many, counted from the launch
+   * (`PinBall.ageTicks`). The way to a fall slower than a gravity of 1 without
+   * a unit finer than a thousandth: 1 every 2 ticks is half a thousandth a
+   * tick, which with the launch and the cap halved is the same flight as
+   * before at half the speed.
+   */
+  pinballGravityTicks: number;
   /** The fastest it may ever travel, in thousandths of a tile per tick. */
   pinballSpeedCapMilli: number;
   /** How much speed survives a bounce off a piece, in thousandths. */
@@ -68,8 +77,19 @@ export interface PinballConfig {
    * It is also how high above the floor a ball rests and how deep the clear
    * lane above the ship is, which is why it is one number rather than three:
    * the mouth a ball comes out of is the mouth it has to come back into.
+   * How wide the cannon *takes* a ball is `pinballCatchReachMilli`.
    */
   pinballCatchMilli: number;
+  /**
+   * How far across from the cannon's middle a ball coming down is still
+   * taken, in thousandths of a tile (`pinCaught`).
+   *
+   * Its own number since 30 September 2026, when the owner asked for a wider
+   * catch: widening `pinballCatchMilli` would have raised the launch lane and
+   * cost every board a row. A column and a tenth either side, so a cannon a
+   * column off still takes the ball.
+   */
+  pinballCatchReachMilli: number;
   /** Beats one shot may stay in the air before the table gives it back. */
   pinballFlightBeats: number;
 }
@@ -77,10 +97,11 @@ export interface PinballConfig {
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * `pinballGravityMilli: 2` drops a ball the height of the table in about a
- * second and a tenth, which is Peggle's fall and is not a coincidence — a
- * slower one turns every shot into waiting and a faster one is over before
- * either player has said anything about it.
+ * `pinballGravityMilli: 2` dropped a ball the height of the table in about a
+ * second and a tenth, which is Peggle's fall. On 30 September 2026 the owner
+ * found it *too hard to follow* and asked for it slower, so the whole flight
+ * runs at half speed: a gravity of 1 on every second tick, and the launch, the
+ * cap and the nudge halved with it — the same arcs, drawn twice as slowly.
  *
  * `pinballNeedleMilli: 122` sweeps the needle across its whole arc in about
  * six and a half seconds. That number is the round: a spoken exchange in this game
@@ -98,12 +119,13 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   pinballRows: 14,
   pinballBallMilli: 240,
   pinballPegMilli: 200,
-  pinballGravityMilli: 2,
+  pinballGravityMilli: 1,
+  pinballGravityTicks: 2,
   // Below `pinballBallMilli` plus `PIN_THIN_MILLI` — see the header.
-  pinballSpeedCapMilli: 300,
+  pinballSpeedCapMilli: 150,
   pinballBouncePermille: 880,
   pinballWallPermille: 820,
-  pinballLaunchMilli: 250,
+  pinballLaunchMilli: 125,
   pinballWeakPermille: 450,
   // Forty-eight degrees either side of straight up. It was seventy-five, and
   // an arc that wide spent most of its sweep pointing at a side wall a tile
@@ -120,5 +142,7 @@ export const PINBALL_DEFAULTS: PinballConfig = {
   // whole cycle is 2.1 s — the short end of a spoken exchange, deliberately.
   pinballPowerMilli: 8,
   pinballCatchMilli: 620,
-  pinballFlightBeats: 24,
+  pinballCatchReachMilli: 1100,
+  // Twice the 24 it was, with the flight at half speed.
+  pinballFlightBeats: 48,
 };

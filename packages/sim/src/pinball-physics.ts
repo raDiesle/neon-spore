@@ -23,7 +23,7 @@ import { hitPiece, isqrt, type PinBall, type PinPiece } from "./pinball-contact.
  * is *capped*: `pinballSpeedCapMilli` is held below the ball's radius plus the
  * thinnest half-thickness a piece may have, so one tick's motion can never
  * carry the centre past the far side of anything. At 120 ticks a second the
- * cap is 36 tiles a second — faster than the table is tall, so the constraint
+ * cap is 18 tiles a second — still faster than the table is tall, so the constraint
  * costs nothing anybody can feel and buys an integration with no memory.
  *
  * **One bounce a tick, and it is the deepest.** A ball wedged between two pegs
@@ -38,6 +38,8 @@ import { hitPiece, isqrt, type PinBall, type PinPiece } from "./pinball-contact.
 export interface PinPhysics {
   ballMilli: number;
   gravityMilli: number;
+  /** Gravity is applied on one tick in this many of the ball's age. */
+  gravityTicks: number;
   speedCapMilli: number;
   bouncePermille: number;
   wallPermille: number;
@@ -91,7 +93,8 @@ export function stepBall(
   alive: readonly boolean[],
   phys: PinPhysics,
 ): number[] {
-  ball.vyMilli += phys.gravityMilli;
+  ball.ageTicks += 1;
+  if (ball.ageTicks % Math.max(1, phys.gravityTicks) === 0) ball.vyMilli += phys.gravityMilli;
   capSpeed(ball, phys.speedCapMilli);
   ball.xMilli += ball.vxMilli;
   ball.yMilli += ball.vyMilli;

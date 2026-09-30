@@ -30335,3 +30335,13 @@ Bottleneck: reading. Four files each hold part of how a claim is judged, and the
 Bottleneck: reading. Whether each stamp was wrong had to be settled from the simulation's own hand, not the note.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — PINBALL's ball flies at half speed and the cannon takes it a column off
+
+- reading: 15 min. `pinball-physics.ts`, `pinball-shot.ts`, the config, the hash, and what in render reads the catch.
+- writing: 15 min. `pinballGravityTicks` and `PinBall.ageTicks`, `pinballCatchReachMilli`, the halved launch, cap and nudge, the longer rounds, the tests.
+- looking: 0 min. The picture comes with the look lanes that follow.
+- friction: 5 min. A compaction mid-lane.
+- landing: 10 min. Two physics tests written against the old cap, two pose budgets, a doc-drift row, `check:fast`.
+
+Bottleneck: reading. A slower gravity with no unit finer than a thousandth had to be found before any number could change.

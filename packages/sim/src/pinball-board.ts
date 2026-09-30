@@ -37,6 +37,7 @@ export function pinPhysics(cfg: SimConfig): PinPhysics {
   return {
     ballMilli: cfg.pinballBallMilli,
     gravityMilli: cfg.pinballGravityMilli,
+    gravityTicks: cfg.pinballGravityTicks,
     speedCapMilli: cfg.pinballSpeedCapMilli,
     bouncePermille: cfg.pinballBouncePermille,
     wallPermille: cfg.pinballWallPermille,

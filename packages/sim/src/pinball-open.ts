@@ -32,7 +32,7 @@ export function openPinball(world: World, rounds: readonly PinballRound[]): Pinb
     angleDir: 1,
     powerMilli: 0,
     powerDir: 1,
-    ball: { xMilli: 0, yMilli: 0, vxMilli: 0, vyMilli: 0 },
+    ball: { xMilli: 0, yMilli: 0, vxMilli: 0, vyMilli: 0, ageTicks: 0 },
     flightBeat: world.beat,
     drops: 0,
     dropBeat: -1,

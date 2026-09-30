@@ -75,13 +75,14 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     "pinball",
     "verdict",
     "Every ball dropped or the clock run out. P1 waits; P2 waits out the verdict beats.",
-    { ...FULL, hold: 6 },
+    // A round is sixty beats since the flight was slowed, past the default budget.
+    { ...FULL, hold: 6, budgetBeats: 120 },
   ),
   bossPose(
     "pinball",
     "spent",
     "The table is over and only looked at. P1 waits; P2 waits for the next wave.",
-    { ...FULL, hold: 12 },
+    { ...FULL, hold: 12, budgetBeats: 120 },
   ),
   bossPose(
     "pulse",

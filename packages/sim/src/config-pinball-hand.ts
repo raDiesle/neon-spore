@@ -40,7 +40,8 @@ export interface PinballHandConfig {
    * What one nudge adds to the ball's sideways speed, in thousandths of a tile
    * per tick, in the direction she shoved.
    *
-   * 120: enough to move a ball a peg over by the time it has fallen a third of
+   * 60 (120 until the flight was halved in speed on 30 September 2026):
+   * enough to move a ball a peg over by the time it has fallen a third of
    * the table, and nowhere near enough to place it. A nudge that could aim
    * would make the needle and the bar into decoration.
    */
@@ -60,6 +61,6 @@ export const PINBALL_HAND_DEFAULTS: PinballHandConfig = {
   pinballHardMilli: 900,
   pinballWindMilli: 1500,
   pinballNudgeMilli: 1200,
-  pinballNudgeShoveMilli: 120,
+  pinballNudgeShoveMilli: 60,
   pinballNudges: 1,
 };

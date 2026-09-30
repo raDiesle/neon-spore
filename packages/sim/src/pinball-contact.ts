@@ -60,6 +60,9 @@ export interface PinBall {
   yMilli: number;
   vxMilli: number;
   vyMilli: number;
+  /** Ticks since it was fired, which is what says on which of them gravity
+   * is applied (`SimConfig.pinballGravityTicks`). */
+  ageTicks: number;
 }
 
 /**

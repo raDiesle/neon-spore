@@ -39,7 +39,7 @@ import type { World } from "./world.js";
  * whole difficulty and the pair's to work out.
  */
 export function pinCaught(cfg: SimConfig, xMilli: number, col: number): boolean {
-  return Math.abs(xMilli - pinCannonMilli(cfg, col)) <= cfg.pinballCatchMilli;
+  return Math.abs(xMilli - pinCannonMilli(cfg, col)) <= cfg.pinballCatchReachMilli;
 }
 
 /**
@@ -81,6 +81,7 @@ export function pinRestingBall(world: World, _state: PinballState): PinBall {
     yMilli: pinHeightMilli(world.cfg) - world.cfg.pinballCatchMilli,
     vxMilli: 0,
     vyMilli: 0,
+    ageTicks: 0,
   };
 }
 

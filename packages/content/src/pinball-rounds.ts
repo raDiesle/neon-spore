@@ -172,9 +172,12 @@ export function pinPicture(pieces: readonly PinPiece[]): string {
  * worth nothing; the targets are in the shoulders and only a wall bounce
  * reaches them.
  *
- * **Forty-odd beats is twenty-five seconds at 96 BPM**, and three boards with
- * the morph and the verdict either side is the ninety the whole category is
- * written around ([interludes](../../../docs/spec/interludes.md)).
+ * **Sixty-odd beats is about forty seconds at 96 BPM.** It was forty-odd, and
+ * three boards with the morph and the verdict either side was the ninety the
+ * whole category is written around
+ * ([interludes](../../../docs/spec/interludes.md)); on 30 September 2026 the
+ * owner asked for the ball slower, every flight now takes twice as long, and
+ * the rounds grew by a half so a pair still gets about as many shots.
  *
  * **Everything worth saying about a board is said up here, and not beside
  * it.** The director regenerates this array on every save
@@ -186,7 +189,7 @@ export function pinPicture(pieces: readonly PinPiece[]): string {
  */
 export const PINBALL_ROUNDS: PinballRound[] = [
   {
-    beats: 44,
+    beats: 60,
     pieces: pinBoard(`
       ...........
       ..ooooooo..
@@ -202,7 +205,7 @@ export const PINBALL_ROUNDS: PinballRound[] = [
     `),
   },
   {
-    beats: 48,
+    beats: 66,
     pieces: pinBoard(`
       ...........
       ..O.....O..
@@ -218,7 +221,7 @@ export const PINBALL_ROUNDS: PinballRound[] = [
     `),
   },
   {
-    beats: 52,
+    beats: 72,
     pieces: pinBoard(`
       .O.......O.
       .oo.....oo.
