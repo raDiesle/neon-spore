@@ -30237,3 +30237,5 @@ Bottleneck: landing. The case failed the previous lane's `land`, so this one had
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction. On a shared machine every timing had to be taken several times before a figure could be trusted.
+
+*Measured: 40 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 6a0a6e18e — The INDEX drift guard and the frames wave test stop timing out on a shared machine
+
+The drift guard's heavy case used to read its 3,300 files one at a time. It now reads them through the shared `treeText` reader, and only that case has a figure, 400 ms, measured alone. `waveNamesAt` now links the workspace's own packages into its scratch checkout instead of running `bun install`. Deleting the installed `node_modules` alone took 18 s on a busy Mac. The case now takes about 2.5 s and has an `itCosts` figure of 1200 in place of a flat minute. `doc-drift.test.ts` has the same serial read and is queued.
+
 ## 2026-09-30 · ac51d29f1 — The pull-handle roll-out guard reads render/src sixty-four files at a time and stops timing out
 
 "names every file that draws the knob or the arrow" read twelve hundred files one `readFileSync` at a time, and at a load average of thirty-two it took 5.9 s alone and failed at bun's five seconds. It reads them through the shared `treeText` reader now, 280 to 530 ms at a load of thirty-seven, and has an `itCosts` figure of 200 in place of the flat default.
