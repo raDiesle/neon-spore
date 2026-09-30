@@ -30139,3 +30139,5 @@ Bottleneck: writing — the seat split had to be carried through every count the
 - landing: 5 min. The gauge tests, `check:fast`, the commit.
 
 Bottleneck: friction — the compaction landed between reading the file and cutting it, so it was read twice.
+
+*Measured: 54 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

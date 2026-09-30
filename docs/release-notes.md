@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 01840072c — THE GAUGE's simulation test splits in two around one rig
+
+gauge.test.ts was 308 lines. Its rig — the round opened on a wave and the talking pair that answers every rest — moves to gauge-rig.ts, and the round left and fingerprinted moves to gauge-leave.test.ts. No test changed beyond its imports.
+
 ## 2026-09-30 · 89bd3522e — THE HASP's story is drawn: a door rattling, a wheel backspun, rust, a sway
 
 Between the hasps the door now shows each of its four states: the next door chattering on its hinge until his grip is kept; the freed wheel running backward with ghost spokes smearing its mark until her winding catches it; the last clasp furred with rust and dropping flakes, thinning as she rocks it; and all three doors swaying toward half-shut. Her words are WIND, ROCK and, in the sway, HOLD. The rattle and the rust have sounds of their own; the other ten story sounds stay on the door's voice.
