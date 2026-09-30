@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 51d6e7287 — THE STARE: a bigger eye inside the field, lashes that count, a charge you can see
+
+The eye hangs two tiles into the field now, so no part of the boss touches the top of the screen, and it is bigger. It glows blue on the teaching pass. Its lashes light one by one as the pattern plays, so the players can count to the next opening. The red of the gaze reaches past the middle of the field, with STILL at its foot. While the eye charges it swells and an ember halo builds on the cowl; a pulled lid vents the charge to both sides, and an unpulled one drops a vertical beam onto the ship. FIRE, MOVE and PULL are said on both seats, each seat its own half, and the hands only fire a clean shot: a shut beat with a shut beat after it.
+
 ## 2026-09-29 · 70c8470d3 — THE GAUGE: the standard set's egg for a cannon, and a face round the mouth
 
 The gauge's cannon is now the field's own, the violet egg under a white neon rim, drawn long so it still points, and its vent stands further off the mouth: the rim is out from 0.9 of the dial to 0.97 and the egg reaches 0.36. The armour round the mouth is a row of bone teeth, two venom eyes on the crown watch where the cannon aims and screw shut on a hit, and a tongue lolls in the mouth behind the ship. The gashes moved off the eyes.

@@ -29723,3 +29723,5 @@ Bottleneck: the tongue's first shape was the cannon's shape in another violet, a
 
 Bottleneck: writing. Lowering the eye moved every number placed off it,
 from the gaze foot to THE SLOW's light, and each needed its own test.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
