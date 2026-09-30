@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 8a827c664 — The rounds name themselves on the hull they break
+
+Seven rounds — THE FLEET, the gauge, the mirror, the pinball, the pulse, the scout's arena and the snake — now break the hull through one call, roundStrikesHull, which puts the round's name on the breach event. It is the same hit as before, down to the rock kind that picks the scar and the sound, so nothing visible moves yet. It is the seam a VERSUS look for the round's own timeout hit will draw from. The maze stays out: its hits are the heart's own bodies, which the pair can see, and not an unseen rock. The boss's blow and a round's named rock now travel in one Strike record, and the ratchet test's list of files that still drop a rock is down to two.
+
 ## 2026-09-30 · 89b39aad6 — THE MANTLE's brace watched at tempo
 
 The brace that landed unwatched on 26 September was watched from the glow to the steady. The seam pulses bright, the shell shudders from side to side, and both knob rings stand lit while the thumbs are held. Nothing needed changing.
