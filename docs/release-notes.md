@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c66d10d54 — The world says when a slow window's latest ask was made, and the fuse counts from it
+
+`openSlow` now records the beat it was called on in `World.slowAskBeat`, hashed, and `clearSlow` resets it. `slowWindow` reads it for the fuse's span, never earlier than the window's own start, in place of the renderer's `SlowOpening`. That class, its `Effects` field and its reset entry are gone, so render no longer keeps its own record of the simulation. The fuse starts from the same beat as before, so nothing drawn changes. No test pins a world hash, so none needed re-pinning: every replay test compares two runs of the same build. Also queued: a claim whose trunk commit fails leaves its edit and its branch behind.
+
 ## 2026-09-30 · e86b55aec — doc-drift.test.ts reads src once, in parallel, before its source-comment case
 
 The case that checks every file name a src comment backticks read 2,590 files one after another and failed `land` on bun's 5 s at a load of 36. It now reads them together in a beforeAll that carries a figure: 0.7 s at once against 6.9 s in turn. Three walks still drifting past their figures are queued.

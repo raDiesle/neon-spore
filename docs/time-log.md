@@ -30273,3 +30273,5 @@ Bottleneck: landing. At a load near 38 every `check` takes minutes, and the entr
 - landing: 5 min. `check:fast`, the finding, the commit, `land`.
 
 Bottleneck: friction — the claim failed half-done and had to be put back by hand before the work could start.
+
+*Measured: 35 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
