@@ -30586,3 +30586,17 @@ Bottleneck: AUTO lost the wave at tick 300, so the watch ended at the first
 movement and the rest of the fight could not be seen.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GRINDSTONE watched at tempo, body and fight
+
+- reading: 5 min. The two entries, the hand, the grip and the drag targets
+  that carry its touch.
+- writing: 0 min. Nothing was wrong, so nothing was written.
+- looking: 15 min. AUTO's events to the next wave, then frames every 80
+  ticks from the first light to the clamp and every 90 from the fade to
+  the stone leaving.
+- friction: 5 min. `timeout` does not exist on this Mac.
+- landing: 5 min. `queue done` twice, `check:fast`, `land`.
+
+Bottleneck: finding where the touch goes, since the grind fields are only
+named in the drag targets and the grip, never in `apps/game`.
