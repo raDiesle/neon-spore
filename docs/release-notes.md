@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 6882f8687 — THE RIME's two halves answer a thumb: a rub on your side of the lens
+
+Each player now presses anywhere on their own half of THE RIME's lens, reaching half a tile past the rim, and holds a rub there: the pilot's is the left half, the navigator's the right. The rub counts each time the thumb turns back on itself, the way THE GRINDSTONE's flat does, and the simulation wipes the frost from those turns. A thumb on the other seat's half falls through to whatever is behind it. The lens takes a hand until it shatters. The director's ON THE FIELD tab has a row and a pose for each half, and the controls table has both. The bosses' grips moved to their own pose file so the page's list stays under the line.
+
 ## 2026-09-30 · 734ea193b — Draw THE RATCHET's story between the teeth: sag, kick, grind, wind
 
 The rack now shows its four story states. In the slip it sags back a tooth past the pawl. In the kick the pawl springs out of its seat. In the bind the rack shakes and throws ember sparks off the seam. In the wind the spring runs down to slack coils and winds back a turn per set. Each pose eases closed as the pair's answer counts.
