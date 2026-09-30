@@ -30357,3 +30357,5 @@ Bottleneck: reading. A slower gravity with no unit finer than a thousandth had t
 - landing: 5 min. `bun run index` for the new file's row, `check:fast`.
 
 Bottleneck: writing. The film's thickening, cracks and break-up each needed a number that reads at a glance, all in one small drawing.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
