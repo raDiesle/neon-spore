@@ -1362,6 +1362,7 @@ title is not among them, refuse the landing and name the entry. Test it in
 ## The wave marks are asked in two places: the director's rail and JUMP TO WAVE
 
 - **Found:** 2026-09-29, claude/jump-wave-boss-filters-135b87
+- **Taken:** 2026-09-30, worktree-agent-a4a142ed5d16baf7b (claim: claude/queue-the-wave-marks-are-asked-in-two-places-the-direc)
 - **Files:** `apps/game/src/menu-wave-filter.ts`, `tools/director/src/rail-marks.ts`, `packages/content/src/`
 
 `marksOn` — which of boss, panel, guide and fault a wave carries — is written
