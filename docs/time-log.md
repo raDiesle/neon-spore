@@ -30381,3 +30381,5 @@ Bottleneck: friction. `bun run sheet` has no deadline, so a stuck browser is sil
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing. The fan's two arcs had been traced against an empty board on purpose, and the reason had to be rewritten, not only the code.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

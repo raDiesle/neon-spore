@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 85fe9947e — PINBALL's aim fan shows where it first bounces
+
+The two arcs the sweep draws — the weakest and the strongest throw at that angle — are traced against the pieces really standing, ring the first one each touches, and carry on for a short dimmer leg to say which way the ball comes off. The live arc on the bar does the same, with its mark on the contact. Before, the fan went straight through the board it was aiming at.
+
 ## 2026-09-30 · 113feb44c — THE RIME's flakes, clear flash, hit and shatter are watched at tempo
 
 Four event strips, six frames three ticks apart: flakes spray off a rubbed half, the half clears white with its scatter, the round reaches the core, and the frosted body breaks into facets. The unverified entry comes out, and `bun run sheet` going silent for fifty minutes is queued.
