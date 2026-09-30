@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## The rounds' own timeout hit, offered on VERSUS beside the rock
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
+- **Taken:** 2026-09-30, claude/queue-unverified-at-f043ab146-the-mantles-brace-watche (claim: claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes)
 - **Files:** `packages/sim/src/hull-damage.ts`, `packages/sim/src/events.ts`, `packages/sim/src/fleet.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/maze-verdict.ts`, `packages/sim/src/mirror-round.ts`, `packages/sim/src/pinball-round.ts`, `packages/sim/src/pulse-round.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/snake-move.ts`, `packages/render/src/rock-impact.ts`, `packages/render/src/effects-breach.ts`, `tools/versus/candidates/`, `tools/director/src/versus-pose.ts`, `tools/director/src/poses-versus-states.ts`
 
 The owner answered on 26 September 2026 (17:40Z): *give me a versus
