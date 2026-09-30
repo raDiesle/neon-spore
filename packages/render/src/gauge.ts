@@ -20,6 +20,7 @@ import {
   shotClock,
 } from "./gauge-shot.js";
 import { drawTeeth, type TeethView } from "./gauge-teeth.js";
+import { drawGaugeTongueOut } from "./gauge-tongue.js";
 import { drawGaugeScar, drawGaugeWound } from "./gauge-wound.js";
 import type { ViewRole } from "./layout.js";
 
@@ -94,7 +95,9 @@ export function drawGaugeFoe(
   const flinch = gaugeFlinch(gauge, c);
   drawGaugeAlien(ctx, dial, view.time, flinch);
   drawTeeth(ctx, dial, gaugeTeethView(gauge, view), view.time);
-  drawGaugeTongue(ctx, dial, view.time);
+  // Out and wrung in the rest after the second level (`gauge-tongue.ts`).
+  if (gauge.tongueOut) drawGaugeTongueOut(ctx, dial, cfg, gauge, view.time);
+  else drawGaugeTongue(ctx, dial, view.time);
   drawGaugeEyes(ctx, dial, gauge.needleMilli, view.time, flinch);
   // Every mark landed, torn into its flesh: the count, never as a number.
   drawGaugeHurt(ctx, dial, gauge.marks, view.time);

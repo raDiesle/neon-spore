@@ -29981,3 +29981,13 @@ Bottleneck: the rows were slow because they opened files one at a time, not beca
 Bottleneck: `seamHand` answers each step at once, so no frame of grit meeting the shield exists until a pose delays the press itself.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GAUGE's tongue is drawn out and wrung, with a ring and TWIST for each seat's hand
+
+- reading: 5 min. The in-mouth tongue in `gauge-face.ts`, the tooth's grip and cue as the model.
+- writing: 20 min. `gauge-tongue.ts` (the ribbon turned along its length), `gauge-tongue-grip.ts`, the TWIST cue and `gauge-tongue.test.ts`.
+- looking: 10 min. The scripted hands twist on the tick they take hold, so the wrung tongue was photographed with two `--hold`s at 0.7 each way.
+- friction: 5 min. A `--boss` staging that the round overwrote, and an import sort.
+- landing: 5 min. `check:fast`, the index lines and the commit.
+
+Bottleneck: looking — the auto-run's hands go straight past the twist, so the state worth seeing lasts no ticks until two `--hold`s stop them short of it.

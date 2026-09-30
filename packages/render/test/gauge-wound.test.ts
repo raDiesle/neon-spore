@@ -46,6 +46,10 @@ function gauge(over: Partial<GaugeState> = {}): GaugeState {
     toothHold: -1,
     toothDxMilli: 0,
     toothDyMilli: 0,
+    tongueOut: false,
+    tongueHolds: 0,
+    tongueP1Milli: 0,
+    tongueP2Milli: 0,
     ...over,
   } as unknown as GaugeState;
 }

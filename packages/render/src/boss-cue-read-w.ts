@@ -4,6 +4,7 @@ import {
   gaugeJammed,
   gaugeSeated,
   gaugeSettling,
+  gaugeTongueAsks,
   gaugeToothAsks,
   gaugeWoundOpen,
   type World,
@@ -14,6 +15,8 @@ import { type Dial, gaugeBandMid, gaugeNeedleTip } from "./gauge.js";
 import { rimPoint } from "./gauge-alien.js";
 import { gaugeDial } from "./gauge-round.js";
 import { toothPoint } from "./gauge-teeth.js";
+import { gaugeTongueGrip } from "./gauge-tongue.js";
+import { gaugeTongueHeld } from "./gauge-tongue-grip.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -75,6 +78,12 @@ import type { Layout } from "./layout.js";
  * `TOOTH` stands on the loose one over his, and `PULL` over the top of her
  * jaw until a tooth is in her hand. Neither names the tooth: his stands on a
  * thing already drawn for him, and hers is only the verb.
+ *
+ * **The tongue's rest has no secret** (`sim/gauge-tongue.ts`): both hands are
+ * wanted and the tongue is drawn on both screens, so each seat gets `TURN` /
+ * `TWIST` on its own place on it until its hand is down. The word is the verb
+ * alone and never the way — which way each of them wrings it is the thing
+ * they have to agree out loud.
  */
 export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly BossCue[] {
   if (g.phase !== "play") return [];
@@ -93,6 +102,7 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
     out.push(markAt(2, "CALL", "POSITION", mid.x, mid.y, l, 69));
   }
   if (gaugeToothAsks(g)) out.push(...toothCues(l, dial, g));
+  if (gaugeTongueAsks(g)) out.push(...tongueCues(l, dial, g));
   if (gaugeJammed(g) && !g.handOn) {
     const tip = gaugeNeedleTip(dial, g);
     out.push(markAt(1, "TURN", "TURN", tip.x, tip.y, l, 81));
@@ -107,6 +117,17 @@ function toothCues(l: Layout, dial: Dial, g: GaugeState): BossCue[] {
   if (g.toothHold === -1) {
     const top = rimPoint(dial, 500, -dial.r * 0.2);
     cues.push(markAt(2, "CARRY", "PULL", top.x, top.y, l, 102));
+  }
+  return cues;
+}
+
+/** Each seat's verb on its own place on the tongue, until its hand is on it. */
+function tongueCues(l: Layout, dial: Dial, g: GaugeState): BossCue[] {
+  const cues: BossCue[] = [];
+  for (const seat of [1, 2] as const) {
+    if (gaugeTongueHeld(g, seat)) continue;
+    const at = gaugeTongueGrip(dial, seat);
+    cues.push(markAt(seat, "TURN", "TWIST", at.x, at.y, l, seat === 1 ? 103 : 104));
   }
   return cues;
 }

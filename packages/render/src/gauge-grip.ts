@@ -13,6 +13,7 @@ import {
   showsGaugeValve,
 } from "./gauge.js";
 import { gaugeDial } from "./gauge-round.js";
+import { drawGaugeTongueRing, gaugeTongueUnder } from "./gauge-tongue-grip.js";
 import { drawGaugeToothRings, gaugeToothUnder } from "./gauge-tooth-grip.js";
 import { drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
@@ -24,7 +25,8 @@ import type { ViewRole } from "./view-role.js";
 /**
  * **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle
  * while the valve is dead, and the navigator's on the band while it is wound
- * tight — and hers on the teeth for one rest, which is `gauge-tooth-grip.ts`.
+ * tight — and hers on the teeth for one rest, which is `gauge-tooth-grip.ts`,
+ * and both on the tongue for the next, which is `gauge-tongue-grip.ts`.
  * Drawn and answered in one file for `gorge-grip.ts`' reason — the circle a
  * thumb is answered at is the circle the ring is drawn from.
  *
@@ -81,8 +83,12 @@ export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): T
     return needleTouch(dial);
   if (field.seat === 2 && gaugeBandAsks(g) && hitCircle(gaugeBandGrip(l, field.cfg, dial, g), x, y))
     return bandTouch(x, y);
+  // Both hands on the tongue, in the rest after the second (`gauge-tongue-grip.ts`).
+  const hand = handleRadius(l, field.cfg);
+  const tongue = gaugeTongueUnder(dial, hand, g, field.seat, x, y);
+  if (tongue !== null) return tongue;
   // Her hand on the teeth, in the rest after the first level (`gauge-tooth-grip.ts`).
-  if (field.seat === 2) return gaugeToothUnder(dial, handleRadius(l, field.cfg), g, x, y);
+  if (field.seat === 2) return gaugeToothUnder(dial, hand, g, x, y);
   return null;
 }
 
@@ -144,5 +150,8 @@ export function drawGaugeGrip(
     const c = gaugeBandGrip(l, cfg, dial, g);
     drawGripRing(ctx, c.x, c.y, c.r, g.openThumb, time);
   }
-  if (showsGaugeMarks(role)) drawGaugeToothRings(ctx, dial, handleRadius(l, cfg), g, time);
+  const hand = handleRadius(l, cfg);
+  if (showsGaugeMarks(role)) drawGaugeToothRings(ctx, dial, hand, g, time);
+  if (showsGaugeValve(role)) drawGaugeTongueRing(ctx, dial, hand, g, 1, time);
+  if (showsGaugeMarks(role)) drawGaugeTongueRing(ctx, dial, hand, g, 2, time);
 }
