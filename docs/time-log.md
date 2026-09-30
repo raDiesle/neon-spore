@@ -30042,3 +30042,5 @@ Bottleneck: reading each boss's drawer to find the circle it stands on, since no
 - landing: 5 min. `autopilot-valve.test.ts` run, `check:fast`, the commit.
 
 Bottleneck: the item was stale when claimed — its work had landed piecemeal with the story's look — and only reading the code showed it.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

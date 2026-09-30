@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · cd72d701a — THE VALVE's story between the pins already had its hands
+
+The cue words (TAP, HOLD, RUB on the socket), the pin's hands in the jet, brace, wipe and seal, the twelve story bursts from valve-fx-story.ts and AUTO's play through to open had all shipped with the story's look; the item is closed with nothing changed in code. Unverified at tempo until the owner has looked.
+
 ## 2026-09-30 · ae31650af — The last six bosses' FIRE cues ring what they are fired at
 
 THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE, THE VALVE and THE GOVERNOR now put the crosshair on the thing the shot must reach, while the word stays at the hull where the cannon goes: the capstan's bared core at the drum's middle; the gall's root; the burgee's lit spindle; the flue's core in the damper's unit; the valve's spark where it has fallen to; and the governor's lit hub. Every boss's shot cue now carries an aim.
