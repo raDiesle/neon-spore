@@ -14,10 +14,11 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawRimeFilm } from "./rime-film.js";
 import type { RimeFx } from "./rime-fx.js";
 import { RIME_GLINT } from "./rime-glint.js";
 import { drawRimeCore, drawRimeFlashes, drawRimeLitHalf, drawRimeSurge } from "./rime-marks.js";
-import { rimeArrived, rimeClear, rimeLeft, rimeShatter, rimeSurge } from "./rime-pose.js";
+import { rimeArrived, rimeClear, rimeFilm, rimeLeft, rimeShatter, rimeSurge } from "./rime-pose.js";
 import {
   RIME_SHEETS,
   rimeAt,
@@ -46,7 +47,8 @@ import { stepColour } from "./step-colour.js";
  * what a step asks for — the lit half in white, the core in its cannon's
  * colour (§29, *Colour*). **Its health is the frost and the core**: a half's
  * clear patch as wide as its frost is gone, and the core smaller and brighter
- * for every hit. What outlives a frame — the flakes, the flashes, the film
+ * for every hit, and the film ticking back over it once it is spent
+ * (`rime-film.ts`). What outlives a frame — the flakes, the flashes, the film
  * flashing back, the shatter's shudder and the blow — is `fx`'s (`rime-fx.ts`),
  * told the core's colour here every frame.
  */
@@ -100,6 +102,9 @@ export function drawRime(
   drawRimeFog(ctx, l, rimeFog(s, beat, beatPhase), clear, time);
   ctx.globalAlpha = alpha;
   drawRimeFlashes(ctx, l, fx);
+  const film = rimeFilm(s, cfg, beat, beatPhase);
+  if (film !== null) drawRimeFilm(ctx, l, film, fx.scatter);
+  ctx.globalAlpha = alpha;
   if (step?.ask === "icicle") {
     const dx = fieldX(l, rimeIcicleCol(midCol(cfg), step)) - home.x;
     const toHull = l.hullY - at.y;

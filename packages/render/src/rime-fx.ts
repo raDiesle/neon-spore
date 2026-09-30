@@ -14,7 +14,8 @@ import { SpriteBursts } from "./sprite-burst.js";
  * of them as the half comes clear, its rim flashing white; the pale **film**
  * flashing over a half that frosts back solid, and over both as a shield step
  * runs out and the lens clouds; the **flash** of a core hit, wider for every
- * hit; the pale flash of the shatter, with a shudder down the plating; and the
+ * hit; the refreeze's cracks flashing white as a wipe or a shield scatters
+ * them (`rime-film.ts`); the pale flash of the shatter, with a shudder down the plating; and the
  * bursts its other receipts throw. Behind `?raster=1`, the painted clearing
  * as the core lies bare (`clear`, `docs/raster.md`), which draws nothing until
  * a host installs its atlas.
@@ -46,6 +47,8 @@ const SHATTER_BEATS = 1.2;
 const CLEAN_DECAY = 3;
 const FILM_DECAY = 2.5;
 const FLASH_DECAY = 3;
+/** How fast the refreeze's scattered cracks stop flashing, per second: inside the beat it adds. */
+const SCATTER_DECAY = 2;
 
 export class RimeFx {
   /** The painted clearing `rimeBare` throws over the pane: an offered look, off until installed. */
@@ -59,6 +62,7 @@ export class RimeFx {
   private flashNow = 0;
   private flashHits = 0;
   private shatterNow = 0;
+  private scatterNow = 0;
   private coreHex: string = PALETTE.hullRim;
 
   /** How bright the flash round half `side`'s rim still is, as it came clear, 0..1. */
@@ -79,6 +83,11 @@ export class RimeFx {
   /** How bright the shatter's flash still is, 0..1. */
   get shattered(): number {
     return this.shatterNow;
+  }
+
+  /** How bright the refreeze's cracks still flash from the last scatter, 0..1. */
+  get scatter(): number {
+    return this.scatterNow;
   }
 
   /** The drawer's word for the colour the core is lit, which `rimeHit` does not carry. */
@@ -135,6 +144,13 @@ export class RimeFx {
           this.flashHits = e.hits;
           this.hurt.hit();
           break;
+        case "rimeRefreeze":
+          burst(mid.x, mid.y, 6, PALETTE.rimeFrost);
+          break;
+        case "rimeScatter":
+          burst(mid.x, mid.y, 5, PALETTE.hullRim);
+          this.scatterNow = 1;
+          break;
         case "rimeShatter":
           burst(mid.x, mid.y, 24, PALETTE.rimeFrost);
           this.shatterNow = 1;
@@ -155,6 +171,7 @@ export class RimeFx {
     this.flashNow = Math.max(0, this.flashNow - FLASH_DECAY * step);
     if (this.flashNow === 0) this.flashHits = 0;
     this.shatterNow = Math.max(0, this.shatterNow - FLASH_DECAY * step);
+    this.scatterNow = Math.max(0, this.scatterNow - SCATTER_DECAY * step);
     this.clear.update(dt);
     this.shock.update(dt);
     this.hurt.update(dt);
@@ -168,6 +185,7 @@ export class RimeFx {
     this.flashNow = 0;
     this.flashHits = 0;
     this.shatterNow = 0;
+    this.scatterNow = 0;
     this.coreHex = PALETTE.hullRim;
     this.clear.clear();
     this.shock.clear();

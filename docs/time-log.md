@@ -30347,3 +30347,13 @@ Bottleneck: reading. Whether each stamp was wrong had to be settled from the sim
 Bottleneck: reading. A slower gravity with no unit finer than a thousandth had to be found before any number could change.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE RIME's refreeze films the spent core over, and a scatter cracks it wider
+
+- reading: 10 min. The refreeze's rules in `rime.ts` and its test, `rime-pose.ts`'s clock, `rime-fx.ts`, and `rime-story-frame.test.ts` as the frame test's model.
+- writing: 20 min. `rime-film.ts`, `rimeFilm` in the pose, the scatter flash in `RimeFx`, the draw call, and two tests.
+- looking: 0 min. The frame tests stand in for an eye; the frame is sent after landing.
+- friction: 5 min. A compaction mid-lane, and a palette name guessed rather than read.
+- landing: 5 min. `bun run index` for the new file's row, `check:fast`.
+
+Bottleneck: writing. The film's thickening, cracks and break-up each needed a number that reads at a glance, all in one small drawing.

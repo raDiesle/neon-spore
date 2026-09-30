@@ -10,7 +10,8 @@ import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
 /**
  * What THE RIME leaves behind a frame (`rime-fx.ts`): flakes off a half at
  * every reversal, a half's rim flashing as it comes clear, the film flashing
- * back as it frosts, a core hit's flash wider hit by hit, the shatter's, the
+ * back as it frosts, a core hit's flash wider hit by hit, the refreeze's
+ * cracks flashing as a scatter lands, the shatter's, the
  * hull's shudder, and the blow each landing deals. `rime-frame.test.ts` has
  * the poses read off the world; this file has what the events add to them.
  */
@@ -98,6 +99,19 @@ describe("THE RIME's transients", () => {
     expect(fx.shock.now).toBe(0);
   });
 
+  it("flurries frost as the refreeze opens, and flashes its cracks white as a scatter lands, dealing nothing", () => {
+    const fx = new RimeFx();
+    const [opened] = said(fx, [{ type: "rimeRefreeze", col }]);
+    expect(opened?.hex).toBe(PALETTE.rimeFrost);
+    expect(fx.scatter).toBe(0);
+    const [scattered] = said(fx, [{ type: "rimeScatter", side: 1, col }]);
+    expect(scattered?.hex).toBe(PALETTE.hullRim);
+    expect(fx.scatter).toBe(1);
+    expect(fx.hurt.value).toBe(0);
+    settle(fx);
+    expect(fx.scatter).toBe(0);
+  });
+
   it("says nothing for another boss's events", () => {
     const fx = new RimeFx();
     expect(said(fx, [{ type: "grindstoneHit", hits: 1, col }])).toEqual([]);
@@ -111,10 +125,13 @@ describe("THE RIME's transients", () => {
       { type: "rimeClear", side: 0, wipes: 1, col },
       { type: "rimeFrost", side: 1, col },
       { type: "rimeHit", hits: 2, col },
+      { type: "rimeScatter", side: 0, col },
       { type: "rimeShatter", col },
     ]);
     fx.reset();
-    expect([fx.cleared(0), fx.film(1), fx.flash.now, fx.shattered]).toEqual([0, 0, 0, 0]);
+    expect([fx.cleared(0), fx.film(1), fx.flash.now, fx.shattered, fx.scatter]).toEqual([
+      0, 0, 0, 0, 0,
+    ]);
     expect(fx.flash.hex).toBe(PALETTE.hullRim);
     expect(fx.shock.now).toBe(0);
     expect(fx.hurt.value).toBe(0);

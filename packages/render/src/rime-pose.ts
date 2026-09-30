@@ -45,3 +45,19 @@ export function rimeSurge(s: RimeState, beat: number, beatPhase: number): number
   if (rimeLitStep(s)?.ask !== "shield") return 0;
   return 1 - rimeLeft(s, beat, beatPhase);
 }
+
+/**
+ * The refreeze, posed (§29 row 11): `into` beats of film over the spent core,
+ * out of `beats` — its own and the ones a scatter added — and `jars`, how
+ * many times a wipe or a shield has cracked it. Null outside the refreeze.
+ */
+export function rimeFilm(
+  s: RimeState,
+  cfg: SimConfig,
+  beat: number,
+  beatPhase: number,
+): { into: number; beats: number; jars: number } | null {
+  if (s.phase !== "refreeze") return null;
+  const beats = cfg.rimeRefreezeBeats + s.jars;
+  return { into: Math.min(beats, phaseInto(s, beat, beatPhase)), beats, jars: s.jars };
+}

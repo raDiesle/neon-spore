@@ -1257,21 +1257,6 @@ shared rig, the way the gauge tests were. Time the preview and browser start
 on an idle machine, and either share one preview between the halves or give
 the hook a figure it can meet under load. Prove it with `bun run check`.
 
-## §29 THE RIME — row 11's refreeze, its look
-
-- **Found:** 2026-09-30, claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and
-- **Taken:** 2026-09-30, claude/queue-tasks-f82769 (claim: claude/queue-29-the-rime-row-11s-refreeze-its-look)
-- **Files:** `packages/render/src/rime-fx.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`
-
-The simulation half is in (`sim/rime-refreeze.ts`): after the last step the
-phase is `refreeze` for `rimeRefreezeBeats`, `rimeRefreeze` says it opened,
-and `rimeScatter{side}` says a wipe or a shield scattered it for a beat more.
-The picture has none of it: through those beats the lens draws its rest pose.
-Draw the film ticking and hairline-cracking across the core in `rimeFrost`,
-with no cannon colour, a scatter cracking it wider, and the film shattering a
-beat before the lens does. Take both events off the two silent lists, and add
-the frame to `frame.test.ts`'s RIME cases.
-
 ## Unverified at b314ae025: THE RIME's flakes, flashes and shatter watched at tempo
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
