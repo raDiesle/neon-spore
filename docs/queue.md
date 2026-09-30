@@ -1266,6 +1266,7 @@ control change the owner asked for by name. `bun run check` proves it.
 ## THE SEAM under the game's AUTO is baited by its own false point
 
 - **Found:** 2026-09-29, claude/queue-26-the-seam-the-false-points-flicker-and-the-hel
+- **Taken:** 2026-09-30, worktree-agent-a2cbf0fc2b7f30d2d (claim: claude/queue-the-seam-under-the-games-auto-is-baited-by-its-o)
 - **Files:** `apps/game/src/autopilot.ts`, `apps/game/src/input-buffer.ts`, `packages/hands/src/boss-hands-seam.ts`, `tools/frames/auto.ts`
 
 `bun run frames . --wave "THE SEAM" --auto both` loses the wave at the false
