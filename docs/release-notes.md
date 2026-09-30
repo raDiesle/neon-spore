@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 125818fc0 — THE OCULUS watched at tempo: the shut, the break, the lit core and the shatter all read
+
+AUTO played THE OCULUS through. Its lens slides shut in two halves, and at the break cracks run across the socket and flake at its middle. The core lights under a hit, the reseal shows its ring, and in the shatter dark rifts open across the lens. Nothing needed changing.
+
 ## 2026-09-30 · 36da93974 — THE VANE's guard arms turn round the hub, and the one across a mouth glows
 
 Each re-forming of THE VANE now shows its new guard arm: a steel spar turning round the hub once a sweep. The spar standing across a mouth glows in the wave's colour exactly while a shot there would be refused, so the pair can see which mouth is shut. The hub is drawn a size bigger with every form.
