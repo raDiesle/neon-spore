@@ -1,4 +1,4 @@
-import { type CreatureKind, fallTilesPerBeat } from "@neon-spore/sim";
+import { type CreatureKind, fallTilesPerBeat, type RoundKind } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
 import { drawRockBody, wearsRockLook } from "./meteor.js";
@@ -15,19 +15,17 @@ import { rockFallY } from "./rock-fall.js";
 import type { Impact } from "./rock-impact-state.js";
 import { RockScuffs, scuffStep } from "./rock-scuffs.js";
 import { rockRadius, torchRotation } from "./rock-size.js";
+import { drewRoundStrike } from "./round-strike-look.js";
 import { drawTorchRock, drawTorchTail } from "./torch.js";
 
 /**
  * **The last step of a rock's fall, and what becomes of the rock after it.**
- * A miss hits, sinks into the skin and rolls off the field; a deflect hands
- * its point to `DeflectFx` and is gone. When it sinks, lets go and how fast it
- * rolls is `rock-drift.ts`; the marks it leaves on the way, `rock-scuffs.ts`.
+ * A miss sinks into the skin and rolls off; a deflect hands its point to
+ * `DeflectFx`. The drift is `rock-drift.ts`; the marks, `rock-scuffs.ts`.
  */
 
-/** How long the torch's tail lasts once it is in the hull — long enough not
- * to blink out between two frames, short enough that it is gone by the time
- * anyone reads the crater: a rock lodged in the skin with a trail still
- * hanging off it reads as still falling, and there is no falling left to do. */
+/** How long the torch's tail lasts in the hull: not blinking out between two
+ * frames, gone before the crater is read — a trail on a lodged rock is a fall. */
 const TAIL_LIFE = 0.15;
 
 /**
@@ -76,6 +74,7 @@ export class RockImpactFx {
     tail = true,
     seed = 0,
     holes = 0,
+    round?: RoundKind,
   ): void {
     const mid = l.gridLeft + l.gridWidth / 2;
     const fallTiles = fallTilesPerBeat(kind);
@@ -98,6 +97,7 @@ export class RockImpactFx {
       arrived: false,
       tail,
       scuffed: 0,
+      round,
     });
   }
 
@@ -156,6 +156,8 @@ export class RockImpactFx {
         // which is what `DeflectFx` bounces from.
         im.onArrive(x, im.embed ? surfaceY : arriveY);
       }
+      // A round's hit, when a look is offered in the rock's place: no rock.
+      if (drewRoundStrike(ctx, l, im, x, surfaceY, time)) continue;
 
       const rolling = im.t > stuckAt;
       const rise = liftoffRise(im);
@@ -235,10 +237,8 @@ export class RockImpactFx {
    * this goes false (`hull.ts`): the sim scars the columns before a rock
    * still in the air is visibly there, and a hole that opens first reads as
    * the ship breaking by itself. It stops covering the frame the rock
-   * arrives, not when it lifts off: the hole is what the rock made, so it is
-   * seen the instant the rock is seen in it, with the rock drawn over the
-   * hull inside it. A hole kept shut under a stuck rock opened only as the
-   * rock left, which read as the ship breaking *after* the hit.
+   * arrives, not when it lifts off: a hole kept shut under a stuck rock
+   * opened as the rock left, which read as the ship breaking *after* the hit.
    */
   coversCrater(x: number, tile: number): boolean {
     for (const im of this.impacts) {

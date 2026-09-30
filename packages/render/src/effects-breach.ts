@@ -123,6 +123,7 @@ export function ingestBreach(
     parts.tail ?? true,
     e.seed,
     e.holes,
+    e.round,
   );
 }
 

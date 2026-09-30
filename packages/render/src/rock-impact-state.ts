@@ -1,4 +1,4 @@
-import type { CreatureKind } from "@neon-spore/sim";
+import type { CreatureKind, RoundKind } from "@neon-spore/sim";
 
 /**
  * One rock on its way into, or off, the hull — the record `rock-impact.ts`
@@ -49,4 +49,7 @@ export interface Impact {
   tail: boolean;
   /** How many marks it has left on the skin rolling off (`rock-scuffs.ts`). */
   scuffed: number;
+  /** The round whose meter ran out, when this rock is its timeout hit — for
+   * the look offered in its place (`round-strike-look.ts`). */
+  round?: RoundKind;
 }
