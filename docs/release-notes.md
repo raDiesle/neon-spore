@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 4fff7a8f6 — Done: THE SEAM under the game's AUTO is baited by its own false point
+
+## 2026-09-30 · 7d4edcb81 — Fix: THE SEAM under the game's AUTO is baited by its own false point
+
+The seam's hand no longer sends a shot the lit step will not take. It fired until a step's shot landed, so the bolts already climbing behind the answer, and one laid in the muzzle, came off the top under the false point that lit next and baited it. The seven ticks in the report were the end of a bolt's climb, not the input delay. AUTO on BOTH now plays THE SEAM through the false point and the dark, and `seam-auto.test.ts` proves it through `gameAutopilot` and the `InputBuffer`. A fix to something wrong, not a look.
+
 ## 2026-09-30 · e1ea7e284 — Queue: done "THE CAPSTAN's PULL cue stands on the horn, outside the grab zone"
 
 ## 2026-09-30 · 312a7b419 — THE CAPSTAN's PULL cue stands on the drum's middle, where a press takes the pull

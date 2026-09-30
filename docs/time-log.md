@@ -29861,3 +29861,5 @@ Bottleneck: seeing that the horn press was refused, because `touchDown` answered
 - landing: 5 min. `check:fast` over 55 shards, the commit.
 
 Bottleneck: the queue entry blamed the input delay for the seven ticks, and only a probe of the wave showed they were the end of a bolt's climb fired at the step before.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
