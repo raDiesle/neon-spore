@@ -47,7 +47,9 @@ players know it — its core concept of game.*
 - **The one exception is THE PUSH's arrows** (`drawCarryArrows`), the owner,
   29 September 2026: *keep visual as it is for “the push” of enemies one tile to left or right … it only appears when one of the players clicks/touches it, so this makes it exception*. They
   answer a thumb already on the rock rather than invite one, so a helper that
-  is drawn only under a touch is the test for any second exception.
+  is drawn only under a touch is the test for any second exception. The next
+  day narrowed it rather than lifting it: the arrows now show only the beat of
+  quiet after a carry, never the offer before one (the `drawCarryArrows` row).
 - **A gesture of its own** — one the standard set does not have, or one that
   is crucial to defeating that one enemy or boss — wears the full set below:
   the mark, whose it is, the gesture's picture, the verdict. That is every

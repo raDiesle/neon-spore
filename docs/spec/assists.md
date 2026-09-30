@@ -169,8 +169,9 @@ because the guide teaches the carry and the standard set wears no helper. White,
 and red and cyan are ammunition — an arrow here is an instruction to a player
 rather than a force on a body.
 
-**They are the standard set's one helper, and they stay** — the owner, 29
-September 2026, asked whether the guide's teaching of the carry made them
+**What is left of them is the standard set's one helper, and it stays** —
+the 30 September pass above narrowed the exception, it did not lift it. The
+owner, 29 September 2026, asked whether the guide's teaching of the carry made them
 redundant: *keep visual as it is for “the push” of enemies one tile to left or right … it only appears when one of the players clicks/touches it, so this makes it exception* (`docs/controls-catalogue.md`, *Two sets*).
 
 **What it buys is a lane, never a beat.** A carried rock is still a falling

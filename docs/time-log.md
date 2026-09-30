@@ -30044,3 +30044,14 @@ Bottleneck: reading each boss's drawer to find the circle it stands on, since no
 Bottleneck: the item was stale when claimed — its work had landed piecemeal with the story's look — and only reading the code showed it.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE PUSH's exception says what is left of it
+
+- reading: 5 min. `land`'s warning, and the 29 September lane's three edits.
+- writing: 5 min. A sentence each in the catalogue and the assists spec.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — two lanes answered neighbouring questions a day apart,
+and only `land`'s merge note said the second had overtaken the first.
