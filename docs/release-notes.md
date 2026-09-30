@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · d3b374394 — THE VANE's colour holds for a whole cycle
+
+The housing used to change colour at every opening, which was every six beats. It now keeps one colour for `cfg.vaneColorOpenings` openings, 2 by default, so both ends of a sweep share a colour and it changes once per twelve-beat cycle. The owner asked on 30 September 2026: *the changing colour should be somehow slower*. This is a look the owner asked for by name.
+
 ## 2026-09-30 · c315d54df — A render test holds every boss's body below the seat switcher
 
 `boss-top.test.ts` draws each boss wave bare, with its boss and without, on both seats at three beats. The first row where the two frames differ has to be below the switcher's bottom at row 30. Every field boss clears it; the nearest is THE LEDGER at row 71. So no boss moved, and nothing drawn changed. Three bosses are exempt, each with its reason: THE SPLICE's hold, which is the room the fight is in; and THE MIRROR's reflected hull and THE REPRISE's cables, both queued with a question for the owner. The takeover rounds are outside the claim. Two supporting changes: `drawPixels` takes a `bare` argument, and `sheen.ts` no longer makes a sweep pass that has no colour stop on the field. Chrome draws such a pass as nothing, and Skia throws on it. The tree walk in `doc-drift-names.test.ts` moved into `beforeAll`, outside the timed cases.

@@ -30501,3 +30501,5 @@ Bottleneck: looking. Diffing full frames mixed backdrop and HUD into the boss, a
 - landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
 
 Bottleneck: friction. Two files in a row went over the size limit, and each fix cost more time than the change itself.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
