@@ -1319,6 +1319,7 @@ claims.
 ## `director-controls.css` is past the line
 
 - **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-director-controls-css-is-past-the-line)
 - **Files:** `tools/director/src/director-controls.css`, `tools/director/src/director.css`
 
 It is 292 lines. The ON THE FIELD rows' rules (`.field-control`, its stamps
