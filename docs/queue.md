@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/valve-draw.ts`, `packages/render/src/valve-marks.ts`
 
 *THE VALVE has a body: an iron drum whose notched rim turns with its wheel, listing a step for every pin pulled* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
