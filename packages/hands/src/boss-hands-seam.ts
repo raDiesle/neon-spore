@@ -1,4 +1,5 @@
 import {
+  type Color,
   midCol,
   type SeamState,
   seamBoss,
@@ -23,6 +24,15 @@ import {
  *
  * **The false point and the dark are sent nothing**: neither wants a shot or
  * the shield (`seamHoldsFire`), so both halves of the hand fall silent there.
+ *
+ * **And nothing is sent that the lit step will not take.** A bolt takes some
+ * eighty ticks to leave the top of the field, and a laid shot up to half a
+ * beat more, so a hand that fired until the step was answered left two or
+ * three bolts climbing the middle after it — and the one released last
+ * arrived under the false point two steps later, which baited it and lost the
+ * wave (`seam-auto.test.ts`). The hand fires only while what is already on
+ * its way up the step's column, in its colour, is short of what it asks: one
+ * shot, or the glow's shots still owed.
  */
 type Press = Omit<TimedCommand, "tick">;
 
@@ -35,10 +45,22 @@ export const seamHand = (w: World): Press[] => {
 function shoot(w: World, s: SeamState): Press[] {
   const step = seamLitStep(s);
   if (step === null || !seamWantsShot(s)) return [];
+  const col = seamStepCol(w, step);
+  const color = step.color === "either" ? "cyan" : step.color;
+  const owed = step.ask === "glow" ? w.cfg.seamGlowShots - s.quenched : 1;
+  if (onTheWay(w, col, color) >= owed) return [{ player: 1, command: { kind: "cannonCol", col } }];
   return [
-    { player: 1, command: { kind: "cannonCol", col: seamStepCol(w, step) } },
-    { player: 2, command: { kind: "fire", color: step.color === "either" ? "cyan" : step.color } },
+    { player: 1, command: { kind: "cannonCol", col } },
+    { player: 2, command: { kind: "fire", color } },
   ];
+}
+
+/** Shots of `color` in the muzzle or climbing `col`: the laid one leaves up
+ * whatever column the cannon holds, and the hand holds it on `col`. */
+function onTheWay(w: World, col: number, color: Color): number {
+  let n = w.charge !== null && w.charge.color === color ? 1 : 0;
+  for (const b of w.bullets) if (b.col === col && b.color === color) n += 1;
+  return n;
 }
 
 function shield(w: World, s: SeamState): Press[] {

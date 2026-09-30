@@ -29851,3 +29851,13 @@ Bottleneck: friction — the fingerprint test's bot does not know a new gesture 
 Bottleneck: seeing that the horn press was refused, because `touchDown` answered it with a rub rather than with nothing, which only a probe of the hold's target showed.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE SEAM under the game's AUTO is baited by its own false point
+
+- reading: 10 min. The queue entry, the seam's step, shot and hold-fire rules, the shot charge and the cooldown, the game's autopilot and input buffer, and a probe of the wave tick by tick to find which bolt struck the false point.
+- writing: 5 min. `boss-hands-seam.ts` fires only while fewer shots are on their way in the step's column and colour than the step asks for, and `seam-auto.test.ts` plays the wave through the autopilot and the buffer.
+- looking: 0 min.
+- friction: 5 min. A heredoc refused by the worktree guard, an unquoted zsh glob, and a tagged stash to prove the test red without the fix.
+- landing: 5 min. `check:fast` over 55 shards, the commit.
+
+Bottleneck: the queue entry blamed the input delay for the seven ticks, and only a probe of the wave showed they were the end of a bolt's climb fired at the step before.
