@@ -1505,6 +1505,7 @@ still passes. Whether it cured the phone is the owner's to say.
 ## `mechanics-bosses.ts` is at 249 lines
 
 - **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-mechanics-bosses-ts-is-at-249-lines)
 - **Files:** `packages/content/src/mechanics-bosses.ts`, `packages/content/src/mechanics-bosses-b.ts`
 
 The next boss's sentence takes it past the line ceiling. Move the bosses
