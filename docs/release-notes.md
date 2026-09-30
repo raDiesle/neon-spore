@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 10e0551d2 — PINBALL's ball flies at half speed, and the cannon takes it a column off
+
+The owner found the flight too hard to follow. The ball now traces the same arcs at half the speed: launch, speed cap and nudge are halved, and gravity is 1 on every second tick of the ball's age (`pinballGravityTicks`, `PinBall.ageTicks`, both hashed). The cannon catches a falling ball up to 1.1 columns either side of its middle (`pinballCatchReachMilli`, a new field so the launch lane stays the same height). A flight may stay up 48 beats, and the three rounds run 60, 66 and 72 beats so a pair gets about as many shots as before.
+
 ## 2026-09-30 · c6b950f12 — ON THE FIELD's rows sit in their families and carry the gestures they are
 
 THE UNDERTOW'S PIN is stamped "hold", the falling-through press it is, and THE GORGE'S PRY keeps "hold" because `gorge-hand.ts`'s `pry()` is a timed hold. THE GUM moved to the creatures' rows after THE PUSH and THE WARDEN'S TETHER to THE WARDEN's three hands. The gesture catalogue caught up with the bosses: the four the spec asked for are built (`gesture-built-bosses.ts`, renamed from `gesture-unbuilt.ts`), TILT is a card under missed, and an empty state gets no heading. `director-controls.css` gave the ON THE FIELD rows to `director-field-controls.css`. A director page is a tool, not a look.

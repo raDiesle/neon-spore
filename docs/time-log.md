@@ -30345,3 +30345,5 @@ Bottleneck: reading. Whether each stamp was wrong had to be settled from the sim
 - landing: 10 min. Two physics tests written against the old cap, two pose budgets, a doc-drift row, `check:fast`.
 
 Bottleneck: reading. A slower gravity with no unit finer than a thousandth had to be found before any number could change.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
