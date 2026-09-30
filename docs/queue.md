@@ -1312,6 +1312,7 @@ stays green without edits beyond imports.
 ## §29 THE RIME — row 11's refreeze, its simulation and then its look
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
+- **Taken:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo (claim: claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and)
 - **Files:** `packages/sim/src/rime-step.ts`, `packages/sim/src/rime.ts`, `packages/sim/src/events-rime.ts`, `packages/render/src/rime-fx.ts`, `packages/render/src/rime-marks.ts`
 
 The hands, the fx and the cue words are all in (`rime-grip.ts`, `rime-fx.ts`,
