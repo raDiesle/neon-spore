@@ -821,6 +821,7 @@ what the rest of this file holds.
 ## §29 THE RIME — its hands, the second half of its look
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
+- **Taken:** 2026-09-30, claude/queue-25-the-valve-the-story-between-the-pins-its-hand (claim: claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo)
 - **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
 
 The body is drawn: BULB · PEBBLE's pane of dull glass split down the spine,
