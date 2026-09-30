@@ -37,7 +37,7 @@ import { trivetStruck } from "./trivet-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { undertowBurned } from "./undertow-press.js";
 import { valveStruck } from "./valve-shot.js";
-import { vaneStruck } from "./vane.js";
+import { vaneMouthAlong, vaneMouthStruck, vaneStruck } from "./vane.js";
 import { viseStruck } from "./vise-shot.js";
 import type { World } from "./world.js";
 
@@ -144,6 +144,16 @@ function burnColumn(world: World, col: number, color: Color): number {
       batonStruck(world, b, bead);
       return bead;
     }
+    // THE VANE's open bearing, on the arm's row, the same way (`vane.ts`).
+    const mouth = vaneMouthAlong(world, b, from, 0);
+    if (
+      mouth >= 0 &&
+      (!hit || mouth > creatureMilli(world, hit)) &&
+      (!pod || mouth > pod.rowMilli)
+    ) {
+      vaneMouthStruck(world, b);
+      return mouth;
+    }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
       freePod(world, pod);
       return pod.rowMilli;
@@ -153,8 +163,8 @@ function burnColumn(world: World, col: number, color: Color): number {
     if (!resolve(world, b, hit)) return met;
     from = met;
   }
-  // Nothing left in the column, so it reaches the top of the field — where THE
-  // VANE's bearing hangs and the other bosses above the grid.
+  // Nothing left in the column, so it reaches the top of the field — THE
+  // VANE's armour and the other bosses above the grid.
   vaneStruck(world, b);
   // And THE GORGE, where the beam in the mouth is what ends the fight
   // (`gorge-step.ts`).

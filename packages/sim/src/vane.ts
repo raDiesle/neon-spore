@@ -1,6 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
 import type { VaneEntry } from "./boss-entries.js";
 import type { VaneState } from "./boss-state.js";
+import { isMount } from "./gyre.js";
 import { type Bullet, spanOf } from "./types.js";
 import { vaneFold } from "./vane-arm.js";
 import {
@@ -12,7 +13,7 @@ import {
 } from "./vane-cycle.js";
 import { stepVanePin } from "./vane-hand.js";
 import { vaneBearingOpen, vaneOpeningSpent, vaneSplitCol, vaneTipNow } from "./vane-open.js";
-import type { World } from "./world.js";
+import { MILLI, type World } from "./world.js";
 
 /**
  * THE VANE's whole choreography: the boss that bends the field instead of the
@@ -22,9 +23,14 @@ import type { World } from "./world.js";
  * nothing about it can reach the hull — the only thing it does is decide where
  * the wave's own arrivals land. **Something crossing the arm three columns to
  * its left comes out three columns to its right.** That is the fight in one
- * sentence, and it is the only sentence: once a body is on the field its column
- * is true forever, so the field is never a lie. What the boss takes away is the
- * radar, which announces a column that the arm has not folded yet.
+ * sentence, and it is the only sentence: once a body is below the arm its
+ * column is true forever, so the field is never a lie. What the boss takes away
+ * is the radar, which announces a column that the arm has not folded yet.
+ *
+ * **Since 30 September 2026 the arm hangs two rows down** (`cfg.vaneArmRow`),
+ * the owner's *move boss around 2 tiles more down*: a body comes in on its
+ * radar column, crosses the arm and slides out on the other side of it, and a
+ * shot meets the bearing there rather than at the top edge (`vaneMouthAlong`).
  *
  * The pair feel that as a change of language rather than of difficulty. Every
  * announcement this game has ever asked for is `<thing> in <column>`, and under
@@ -77,13 +83,17 @@ export function stepVane(world: World, b: VaneState): void {
   // being held (`vane-hand.ts`).
   stepVanePin(world, b);
   const tip = vaneTipNow(world, b);
+  const arm = cfg.vaneArmRow;
   for (const c of world.creatures) {
-    // An arrival, and only an arrival. `fromRow` is negative for exactly the
-    // one beat a body glides in from above the field, so this is the beat the
-    // arm is sweeping through it — and it is also the beat before any frame is
-    // drawn of it, which is why a thrown body is *born* in its landing column
-    // rather than visibly jumping columns a beat later.
-    if (c.fromRow >= 0) continue;
+    // A body crossing the arm's row this beat, and only then: `fromRow` is
+    // where the fall started and `row` where it ended, so a body is folded
+    // once, on the way down, and its column is true below. Only `col` moves —
+    // `fromCol` is left where it was, so the picture slides it across the arm
+    // as it falls through it rather than cutting it to the far side. The
+    // three kinds `beat.ts` does not fall are left alone: a wheel's mount, a
+    // worm's link and a balloon, which each wrote their own `from` fields.
+    if (isMount(c) || c.kind === "crawler" || c.kind === "balloon") continue;
+    if (c.fromRow >= arm || c.row < arm) continue;
     const to = vaneFold(cfg, tip, c.col, spanOf(c));
     if (to === c.col) continue;
     c.col = to;
@@ -93,9 +103,37 @@ export function stepVane(world: World, b: VaneState): void {
 }
 
 /**
- * A shot that nothing on the field stopped, leaving through the top — where the
- * bearing hangs. Called by `bullets.ts` at the one moment a bullet has run out
- * of field, and a no-op unless THE VANE is the boss.
+ * A shot that nothing on the field stopped, leaving through the top. Since the
+ * arm came down to `cfg.vaneArmRow` the bearing is not up there any more — a
+ * shot at it is met on its row (`vaneMouthAlong`) — so this is only the
+ * housing's armour: every bolt that gets past the arm is one the vane took,
+ * and HARD's question is answered yes (`shot-out.ts`).
+ */
+export function vaneStruck(world: World, _bullet: Bullet): boolean {
+  const b = world.boss;
+  return b !== null && b.kind === "vane";
+}
+
+/**
+ * Where the open bearing is in this shot's column and sweep, in thousandths of
+ * a row, or -1 when there is nothing there for it to meet. Asked by
+ * `bullets.ts` and `lance-burn.ts` beside the bodies, pods and THE BATON's
+ * bead in the same segment, so whichever stands lowest is the one the shot
+ * reaches first. Only the split column is a mouth, and only while it is open:
+ * everywhere else the shot flies on to the armour at the top.
+ */
+export function vaneMouthAlong(world: World, bullet: Bullet, from: number, to: number): number {
+  const b = world.boss;
+  if (b === null || b.kind !== "vane") return -1;
+  const mouth = world.cfg.vaneArmRow * MILLI;
+  if (from < mouth || mouth < to) return -1;
+  if (!vaneBearingOpen(world, b) || vaneOpeningSpent(world, b)) return -1;
+  return bullet.col === vaneSplitCol(world, b) ? mouth : -1;
+}
+
+/**
+ * A shot meeting the bearing on the arm's row, called by `bullets.ts` and
+ * `lance-burn.ts` once `vaneMouthAlong` has said it is there to be met.
  *
  * Three things have to line up, and the pair holds them between them: the
  * housing has to be split, which under SWING happens at each end of the sweep
@@ -110,15 +148,12 @@ export function stepVane(world: World, b: VaneState): void {
  * a shot stops at the first body in its way, so the pair are firing up a lane
  * they have kept empty. The boss defends itself with what it throws.
  *
- * **Every bolt meets the housing**, split or shut, so the answer to HARD's
- * question is always yes while the boss is up: a shot into the shut housing
- * is armour and costs nothing, by design (`shot-out.ts`).
+ * A shot into the shut housing is not met here at all: it flies on past the
+ * arm and is `vaneStruck`'s armour at the top.
  */
-export function vaneStruck(world: World, bullet: Bullet): boolean {
+export function vaneMouthStruck(world: World, bullet: Bullet): void {
   const b = world.boss;
-  if (b === null || b.kind !== "vane") return false;
-  if (!vaneBearingOpen(world, b) || vaneOpeningSpent(world, b)) return true;
-  if (bullet.col !== vaneSplitCol(world, b)) return true;
+  if (b === null || b.kind !== "vane") return;
   // The colour is the cycle's in every phase: the housing has worn it since
   // the arm stopped, and a pinned arm is an arm that has stopped. Under VEER
   // and SEIZE the opening number is the one the cycle would have been on, so
@@ -126,18 +161,17 @@ export function vaneStruck(world: World, bullet: Bullet): boolean {
   // (`vane-cycle.ts`).
   if (bullet.color !== vaneColor(vaneOpeningNow(world.waveBeat))) {
     missedColor(world);
-    world.events.push({ type: "reject", col: bullet.col, row: 0 });
-    return true;
+    world.events.push({ type: "reject", col: bullet.col, row: world.cfg.vaneArmRow });
+    return;
   }
 
   metColor(world);
   spendOpening(world, b);
   b.pins -= 1;
   world.events.push({ type: "vaneKnock", pins: b.pins, col: bullet.col });
-  if (b.pins > 0) return true;
+  if (b.pins > 0) return;
 
   world.boss = null;
-  return true;
 }
 
 /** One hit per opening, whichever kind of opening this phase has. */

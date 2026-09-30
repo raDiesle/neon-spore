@@ -8,7 +8,9 @@
  * extends it rather than nesting it, so every call site reads
  * `cfg.vanePinBeats`. The boss's *place* — how many pins the bearing carries —
  * stays in `config-boss.ts`; these two are a count the pair says out loud,
- * which is what `config-boss-clocks.ts` groups.
+ * which is what `config-boss-clocks.ts` groups. The arm's row joined them on
+ * 30 September 2026, as the third number about where the pair's hands meet
+ * the bearing.
  */
 export interface VaneHandConfig {
   /**
@@ -32,10 +34,25 @@ export interface VaneHandConfig {
    * than the drift of a thumb settling.
    */
   vaneHaulMilli: number;
+  /**
+   * The row the arm hangs across, and the one row of the field that is the
+   * boss's: a body is folded as it crosses it, and a shot up the split column
+   * meets the bearing here rather than at the top edge (`vane.ts`, `vaneMouthAlong`).
+   *
+   * 2: the owner, 30 September 2026 — *move boss around 2 tiles more down*.
+   * Two rows of sky above it are where the radar's column is still the true
+   * one, so the pair watch a body come in, cross the arm and come out; at
+   * row 0 the fold was a thing that had happened before anything was drawn.
+   */
+  vaneArmRow: number;
 }
 
-/** The defaults, spread into `DEFAULT_CONFIG`: four beats, a tile and a half. */
+/**
+ * The defaults, spread into `DEFAULT_CONFIG`: four beats, a tile and a half,
+ * and the arm two rows down.
+ */
 export const VANE_HAND_DEFAULTS: VaneHandConfig = {
   vanePinBeats: 4,
   vaneHaulMilli: 1500,
+  vaneArmRow: 2,
 };

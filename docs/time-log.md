@@ -30431,3 +30431,13 @@ Bottleneck: writing. The race existed privately in `serve.ts`, so it had to be m
 Bottleneck: reading. The entry named one stale pointer, and two more documents carried the same one.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VANE's arm hangs two rows down, and a shot meets the bearing there
+
+- reading: 20 min. `vane.ts`, `vane-open.ts`, the sweep in `bullets.ts` and `lance-burn.ts`, `shot-out.ts`, and every vane test that timed a fold to row 0.
+- writing: 25 min. `vaneArmRow`, the fold on the crossing, `vaneMouthAlong` and `vaneMouthStruck`, the spec note, and `vane-mouth.test.ts`.
+- looking: 0 min. The picture comes with the look lane that follows.
+- friction: 15 min. Two compactions mid-lane, and a landings table whose beats all moved by the two rows.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. Every test that waited for a body at row 0 had to be retimed to the crossing, one at a time.

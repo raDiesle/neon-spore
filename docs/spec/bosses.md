@@ -971,6 +971,15 @@ in its true column for all fourteen beats of its fall — 8.75 s at the defaults
 What the arm spends is the radar's lead, which is surplus on top of the floor,
 never the floor itself.
 
+**Since 30 September 2026 the arm hangs two rows down**, the owner's *move boss
+around 2 tiles more down* (`cfg.vaneArmRow`, 2). Everything above says row 0
+and means the arm's row: a body is folded on the beat it *crosses* that row, so
+the pair watch it come in on its radar column, cross the arm and slide out on
+the other side, and it stands in its true column for twelve beats of its fall
+rather than fourteen. A shot up the split column meets the bearing on the arm's
+row, not at the top edge, and a body standing on that row or below it is in
+front of the bearing and takes the shot instead (`vaneMouthAlong`, `vane.ts`).
+
 **The cycle is fixed and learnable, and it is written once.** Held at one end,
 across, held at the other, back — the same lengths in every phase, so a pair
 that learned it on its first turn has learned it for the fight, exactly as *fixed and
@@ -1091,7 +1100,7 @@ numbers, in `BossClockConfig` with the other counts a pair says out loud. The
 three events — `vanePin`, `vaneSlip`, `vaneHaul` — are `events-vane.ts`, the
 boss's first, cued by `bind-vane.ts` and voiced by `sounds/boss-vane.ts`.
 A fourth, `vaneKnock`, is the pin a shot knocks out of the bearing, with the
-pins left (`vane.ts` `vaneStruck`, 26 September 2026): it has `boss.vaneKnock`,
+pins left (`vane.ts` `vaneMouthStruck`, 26 September 2026): it has `boss.vaneKnock`,
 and it deals the blow off `BossBlows`' table rather than a pin count watched
 frame to frame.
 

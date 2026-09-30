@@ -113,17 +113,18 @@ describe("the pin, under VEER", () => {
    */
   it("folds an arrival about the column it is pinned in", () => {
     const world = createWorld({ ...CFG }, 1);
-    startWave(world, 0, [{ beat: 3, col: 0, kind: "meteor", color: null }], [], {
+    startWave(world, 0, [{ beat: 1, col: 0, kind: "meteor", color: null }], [], {
       kind: "vane",
       pins: 3,
     });
     beats(world, 1);
     pin(world);
     const held = vane(world).pinCol;
-    beats(world, 3);
-    const body = world.creatures[0];
-    expect(body).toBeDefined();
-    expect(body?.col).toBe(vaneFold(CFG, held, 0, colSpan("meteor")));
+    // Beat by beat to the one it crosses the arm on, which is where it folds.
+    do beats(world, 1);
+    while ((world.creatures[0]?.row ?? 0) < CFG.vaneArmRow);
+    expect(vanePinned(world, vane(world))).toBe(true);
+    expect(world.creatures[0]?.col).toBe(vaneFold(CFG, held, 0, colSpan("meteor")));
   });
 
   it("puts the split on the side away from the load, as the ends do", () => {

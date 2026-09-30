@@ -1,7 +1,7 @@
 /**
  * **What THE VANE's second and third hands do that neither screen already
  * says**, as three events (`vane-hand.ts`) — and a fourth, the pin a shot
- * knocks out (`vane.ts` `vaneStruck`), and a fifth, the press from the wrong
+ * knocks out (`vane.ts` `vaneMouthStruck`), and a fifth, the press from the wrong
  * seat a mark answers red.
  *
  * Its own file on `events-warden.ts`' terms: one boss, one arm of `SimEvent`,
