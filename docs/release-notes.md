@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 270cff9be — THE RIME refreezes before it shatters: three beats of film under THE SLOW, and a wipe or a shield scatters it for one more
+
+After the last step of its script, the spent core now films over for rimeRefreezeBeats under THE SLOW, and it asks both seats to send nothing. A fresh reversal on either half, or the guard pressed anywhere, scatters the crack and adds a beat. That happens once a beat, and at most rimeRefreezeScatters times. The shape is THE GRINDSTONE's fade. rimeRefreeze is silent, and rimeScatter is the shave's scrape pitched up. The film's picture is queued as its own lane, and until then the lens draws its rest pose through those beats.
+
 ## 2026-09-30 · 0ab677b78 — Queue: frames/test/opening.test.ts times out in its hook on a busy machine
 
 The hands-test lane's first land went red on this file alone at a load average of about 31, a hook out of its 120 s, and green on the rerun. The entry asks for the 552-line file split around a rig and a hook figure it can meet.

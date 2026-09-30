@@ -30200,3 +30200,5 @@ Bottleneck: landing. The finding came out of the previous lane's first `land`, s
 - landing: 10 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing — a new phase and two events are fourteen registrations outside the simulation, and each is found only from the one before it.
+
+*Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

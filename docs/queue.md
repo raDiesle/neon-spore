@@ -1339,3 +1339,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 270cff9be: THE RIME's refreeze watched at tempo, a scatter by wip…
+
+- **Found:** 2026-09-30, claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-d.ts`, `packages/audio/src/bind-rime.ts`, `packages/audio/test/bind.test.ts`
+
+*THE RIME refreezes before it shatters: three beats of film under THE SLOW, and a wipe or a shield scatters it for one more* landed from a session that could not look at it. The commit touched 14 more files. What went unchecked:
+
+- THE RIME's refreeze watched at tempo, a scatter by wipe and by shield
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
