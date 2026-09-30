@@ -102,6 +102,14 @@ describe("what a tail file may not contain", () => {
     }
   });
 
+  it("never puts a minus sign before a number it has not seen", () => {
+    // FLAME's flicker undid its move with `translate(-${x} …)`, and a centre
+    // left of the origin wrote `--6.04`: the browser dropped the whole
+    // transform, and the flame stood still on every card that had one. Undo
+    // a move with the negated number, never a minus in front of the text.
+    for (const [file, src] of SOURCE) expect(code(src), file).not.toMatch(/[( ,]-\$\{/);
+  });
+
   it("leaves the gradient boilerplate to the shared fades", () => {
     // Three tails were each writing the same nine lines of `<linearGradient>`
     // and `<stop>`, differing only in the stop table. A fourth copy is how the

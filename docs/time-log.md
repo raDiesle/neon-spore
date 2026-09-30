@@ -30650,3 +30650,18 @@ Bottleneck: the watch itself — two dozen frames across a three-thousand-tick
 wave, read one at a time.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — GRAPHICS → EFFECTS opened, THE SLOW's CRAWL watched, FLAME's flicker fixed
+
+- reading: 5 min. The queue entry, the EFFECTS registry, FLAME's flicker,
+  and where THE INSTAR opens its slow window.
+- writing: 5 min. FLAME's way back as its own negated numbers, and a test
+  that no tail puts a minus in front of an interpolation.
+- looking: 5 min. The seven EFFECTS buttons each opened their page in a
+  new tab; CRAWL ran in over the prism and under the fuse on THE INSTAR.
+- friction: 5 min. The compaction fell mid-check, and AUTO answers the
+  window the tick it opens, so the frames were taken with no hands.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: finding the tick THE SLOW is open on — AUTO shuts it the tick
+after `instarShow`.

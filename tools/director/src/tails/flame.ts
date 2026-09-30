@@ -126,15 +126,17 @@ export const FLAME: Tail<"flame"> = {
     ctx.body.appendChild(root);
 
     // The flicker: the whole flame stretched a few per cent about the nozzle,
-    // one transform a frame and nothing allocated.
-    const x = ctx.centre.x.toFixed(2);
-    const y = ctx.centre.y.toFixed(2);
+    // one transform a frame and nothing allocated. The way back is its own
+    // pair of numbers, not a minus put before these: a centre left of the
+    // origin read `--6.04`, and the browser dropped the whole transform.
+    const to = `${ctx.centre.x.toFixed(2)} ${ctx.centre.y.toFixed(2)}`;
+    const back = `${(-ctx.centre.x).toFixed(2)} ${(-ctx.centre.y).toFixed(2)}`;
     const phase = phaseOf(ctx.name);
     ctx.onFrame(({ t }) => {
       const flick = 1 + FLICKER * Math.sin((t / BEAT_SECONDS) * FLICKER_RATE + phase);
       flame.setAttribute(
         "transform",
-        `translate(${x} ${y}) scale(1 ${flick.toFixed(4)}) translate(-${x} -${y})`,
+        `translate(${to}) scale(1 ${flick.toFixed(4)}) translate(${back})`,
       );
     });
   },
