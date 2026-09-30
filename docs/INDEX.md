@@ -3242,7 +3242,7 @@ by hand never moves.
 | `tools/director/src/gesture-types.ts` | What a card on CONTROLS › GESTURES is made of: a gesture, where it stands |
 | `tools/director/src/gesture-unbuilt.ts` | What the game does not read yet: eight the spec already asks for by name |
 | `tools/director/src/gesture-unbuilt-b.ts` | The eight worth having, continued from `gesture-unbuilt.ts` — split here once that page passed 250 lines |
-| `tools/director/src/gestures-page.ts` | GESTURES — the fourth inner tab of CONTROLS: every gesture a phone can make that this game reads, could read |
+| `tools/director/src/gestures-page.ts` | How a gesture is drawn on CONTROLS › ON THE FIELD: a card per gesture |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
@@ -3290,7 +3290,7 @@ by hand never moves.
 | `tools/director/src/field-controls-gall.ts` | THE GALL's pinch, as a row of the ON THE FIELD tab |
 | `tools/director/src/field-controls-gimbal.ts` | THE GIMBAL's two rings, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-grindstone.ts` | THE GRINDSTONE's flats and jaws, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
+| `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn (`field-page.ts` lays them out) |
 | `tools/director/src/field-controls-ratchet.ts` | THE RATCHET's catch and pawl, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rime.ts` | THE RIME's two halves, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
@@ -3332,6 +3332,12 @@ by hand never moves.
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-davit.ts` | THE DAVIT's two steers and two looses, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-families-held.ts` | A boss's own controls that are held or carried along one axis: a lever, a pin, a pair, a pull |
+| `tools/director/src/field-families-shaped.ts` | A boss's own controls that have a shape: a place, a bearing, a line, a draw, a rub, a squeeze, a chord |
+| `tools/director/src/field-families.ts` | Where every row of CONTROLS › ON THE FIELD stands: generic to every wave, generic to one creature or wave |
+| `tools/director/src/field-notes-gestures.ts` | A suggestion for every gesture in the catalogue (`gesture-catalogue.ts`), keyed by its name |
+| `tools/director/src/field-notes.ts` | The suggestions on CONTROLS › ON THE FIELD — what this lane would decide about each thing on the page |
+| `tools/director/src/field-page.ts` | CONTROLS › ON THE FIELD — one page for every touch the field answers and every gesture it could be built from… |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

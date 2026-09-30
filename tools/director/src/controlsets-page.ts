@@ -15,11 +15,9 @@ import {
   startWave,
   type World,
 } from "@neon-spore/sim";
-import { renderFieldControls } from "./field-controls-rows.js";
-import { renderGestures } from "./gestures-page.js";
+import { renderFieldPage } from "./field-page.js";
 import { frameWorld } from "./pose-art.js";
 import { bindTabs } from "./tabs.js";
-import { renderTriedControls } from "./tried-controls-page.js";
 
 /**
  * CONTROLS: every registered panel, drawn, plus the things the pair touches
@@ -158,9 +156,7 @@ export function renderControlSets(): void {
   drawn = true;
   body.replaceChildren();
   for (const set of CONTROL_SETS) body.appendChild(setCard(set));
-  renderFieldControls();
-  renderTriedControls();
-  renderGestures();
+  renderFieldPage();
 }
 
 /**
@@ -170,7 +166,8 @@ export function renderControlSets(): void {
  * restore straight to this tab (`?sheet=states&inner=controlsets`) fires the
  * same click `mountSheet` already drives for every inner tab.
  *
- * The four inner tabs (PANELS/ON THE FIELD/TRIED AND SET ASIDE/GESTURES) are wired
+ * The two inner tabs (PANELS/ON THE FIELD — three merged into the second on
+ * 30 September 2026, `field-page.ts`) are wired
  * here too, with the same `bindTabs` every other nested bar in this director
  * uses (`sound-page.ts`, `states-page.ts`, `backlog-page.ts`) — a different
  * selector from theirs, so a click here cannot touch their own restored tab.

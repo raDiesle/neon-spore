@@ -1,5 +1,5 @@
 /**
- * The director's one stylesheet, in twenty files, in this order.
+ * The director's one stylesheet, in twenty-one files, in this order.
  *
  * `index.html` used to link the twenty directly, and the order of the links
  * was the cascade: `director-phone.css` came last so that its
@@ -36,6 +36,7 @@
 @import "./director-rounds.css";
 @import "./director-controls.css";
 @import "./director-gestures.css";
+@import "./director-field-page.css";
 @import "./director-styleguide.css";
 @import "./director-wordings.css";
 @import "./director-phone.css";

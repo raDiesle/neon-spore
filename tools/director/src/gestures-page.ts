@@ -1,23 +1,19 @@
-import { GESTURES } from "./gesture-catalogue.js";
 import { BROWSER_EVENTS, type EventFamily, FAMILY_TITLES } from "./gesture-events.js";
 import { eventColour, figureSvg } from "./gesture-figure.js";
-import { type Gesture, type GestureState, STATE_TITLES } from "./gesture-types.js";
+import { type Gesture, STATE_TITLES } from "./gesture-types.js";
 
 /**
- * GESTURES — the fourth inner tab of CONTROLS: every gesture a phone can make
- * that this game reads, could read, or has decided not to, each drawn as the
- * hand on the glass beside the events it fires; and under them the raw events
- * themselves, with what an iPhone and an Android do with each.
+ * How a gesture is drawn on CONTROLS › ON THE FIELD: a card per gesture, the
+ * hand on the glass beside the events it fires, the key to the marks, and the
+ * raw events themselves with what an iPhone and an Android do with each.
  *
- * The other three tabs are what the game *has*. This one is what it can be
- * built from, which is why it is not grouped by wave or boss but by where a
- * gesture stands. Data: `gesture-catalogue.ts` and `gesture-events.ts`;
- * picture: `gesture-figure.ts`. Built once, the first time CONTROLS opens.
+ * Once the fourth inner tab; since 30 September 2026 the lower half of the
+ * one ON THE FIELD page (`field-page.ts`), which says where each card goes.
+ * Data: `gesture-catalogue.ts` and `gesture-events.ts`; picture:
+ * `gesture-figure.ts`.
  */
 
-const ORDER: readonly GestureState[] = ["built", "specd", "consider", "missed"];
-
-function text(tag: string, content: string, cls?: string): HTMLElement {
+export function text(tag: string, content: string, cls?: string): HTMLElement {
   const node = document.createElement(tag);
   node.textContent = content;
   if (cls) node.className = cls;
@@ -30,7 +26,7 @@ function row(dl: HTMLElement, term: string, value: string | undefined): void {
   dl.appendChild(text("dd", value));
 }
 
-function card(g: Gesture): HTMLElement {
+export function card(g: Gesture): HTMLElement {
   const section = document.createElement("section");
   section.className = `gesture-card state-${g.state}`;
   const h3 = text("h3", g.name);
@@ -48,7 +44,7 @@ function card(g: Gesture): HTMLElement {
   return section;
 }
 
-function legend(): HTMLElement {
+export function legend(): HTMLElement {
   const box = document.createElement("div");
   box.className = "gesture-legend";
   const marks: [string, string][] = [
@@ -79,7 +75,7 @@ function legend(): HTMLElement {
   return box;
 }
 
-function eventsTable(): HTMLElement {
+export function eventsTable(): HTMLElement {
   const wrap = document.createElement("div");
   wrap.className = "gesture-events";
   const families = [...new Set(BROWSER_EVENTS.map((e) => e.family))] as EventFamily[];
@@ -105,34 +101,4 @@ function eventsTable(): HTMLElement {
     wrap.appendChild(table);
   }
   return wrap;
-}
-
-let drawn = false;
-
-/** The whole tab, once. */
-export function renderGestures(): void {
-  if (drawn) return;
-  const body = document.getElementById("gesturesBody");
-  if (!body) return;
-  drawn = true;
-  body.replaceChildren(legend());
-  for (const state of ORDER) {
-    const head = document.createElement("div");
-    head.className = `gesture-group state-${state}`;
-    head.appendChild(text("h2", STATE_TITLES[state].title));
-    head.appendChild(text("p", STATE_TITLES[state].sub, "sub"));
-    body.appendChild(head);
-    const grid = document.createElement("div");
-    grid.className = "gesture-grid";
-    for (const g of GESTURES.filter((x) => x.state === state)) grid.appendChild(card(g));
-    body.appendChild(grid);
-  }
-  const events = document.createElement("div");
-  events.className = "gesture-group";
-  events.appendChild(text("h2", "THE RAW EVENTS"));
-  events.appendChild(
-    text("p", "what the browser hands the page, and which file of the game listens", "sub"),
-  );
-  body.appendChild(events);
-  body.appendChild(eventsTable());
 }

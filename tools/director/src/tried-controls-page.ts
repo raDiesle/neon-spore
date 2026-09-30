@@ -37,7 +37,7 @@ export const TRIED_CONTROLS: readonly TriedControlDef[] = [
   },
 ];
 
-function triedControlRow(c: TriedControlDef): HTMLElement {
+export function triedControlRow(c: TriedControlDef): HTMLElement {
   const section = document.createElement("section");
   section.className = "tried-control";
   const h3 = document.createElement("h3");
@@ -51,12 +51,4 @@ function triedControlRow(c: TriedControlDef): HTMLElement {
   ref.textContent = c.specHeading;
   section.appendChild(ref);
   return section;
-}
-
-/** TRIED AND SET ASIDE, built once alongside PANELS — see `renderFieldControls`. */
-export function renderTriedControls(): void {
-  const body = document.getElementById("controlsTriedBody");
-  if (!body) return;
-  body.replaceChildren();
-  for (const c of TRIED_CONTROLS) body.appendChild(triedControlRow(c));
 }

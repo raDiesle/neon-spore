@@ -1354,3 +1354,51 @@ write the file back as it was before throwing, and let `take` from the tree
 that already owns the claim branch mark the trunk rather than refuse. Prove
 it with a test in `tools/queue/test/` that fails the commit once and then
 claims.
+
+## `director-controls.css` is past the line
+
+- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Files:** `tools/director/src/director-controls.css`, `tools/director/src/director.css`
+
+It is 292 lines. The ON THE FIELD rows' rules (`.field-control`, its stamps
+and its example strip) are one block and can go to a sheet of their own,
+imported from `director.css` beside `director-field-page.css`; the import
+count in `director.css`'s comment moves with it.
+
+## The gesture catalogue is behind the game
+
+- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Files:** `tools/director/src/gesture-catalogue.ts`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/field-notes.ts`, `packages/sim/src/drag-targets-e.ts`
+
+Seven gestures are still stamped `specd` though each ships now (FREEZE TAP,
+SENDING NOTHING, TAPS ON A MOVING TARGET, RUB, SQUEEZE, CHORD, HOLD THEN
+SWIPE): move them to `built`, each with the file that reads it. TILT, AS A
+LEVEL was ruled out by the owner on 27 September 2026 (the note at the top of
+`packages/sim/src/plumb.ts`): move it to `missed` with that ruling as its
+reason. The comment in `drag-targets-e.ts` around line 62 still speaks of a
+`deviceorientation` reading; say what THE PLUMB's stones are now. Then take
+the matching decision out of `DECISIONS` in `field-notes.ts`.
+`test/gestures.test.ts` has to stay green.
+
+## Two ON THE FIELD rows sit in the wrong list
+
+- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Files:** `tools/director/src/field-controls-bosses.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/field-notes.ts`
+
+THE GUM is a creature's and is listed in `field-controls-bosses.ts`; THE
+WARDEN'S TETHER is a boss's and is listed in `field-controls-page.ts`'s generic
+rows. The new page already groups them correctly (`field-families.ts`). Swap
+the two lists so the files match the page, and drop the decision and the two
+`ROW_NOTES` lines that point it out. `test/field-page.test.ts` and
+`test/on-field-controls.test.ts` must stay green.
+
+## Two ON THE FIELD rows carry the wrong gesture stamp
+
+- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Files:** `tools/director/src/field-controls-gorge.ts`, `tools/director/src/field-controls-undertow.ts`, `tools/director/src/field-notes.ts`
+
+THE GORGE'S PRY is stamped as a hold but counts a pry past a distance, so it
+is a grab and drag. THE UNDERTOW'S PIN is stamped as a grab and drag but is a
+pin held still, so it is a hold. Restamp both against `packages/sim/src/gorge.ts`
+and the undertow's step, and cut the part of their `ROW_NOTES` lines that
+says so.

@@ -30275,3 +30275,13 @@ Bottleneck: landing. At a load near 38 every `check` takes minutes, and the entr
 Bottleneck: friction — the claim failed half-done and had to be put back by hand before the work could start.
 
 *Measured: 35 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — CONTROLS: ON THE FIELD, TRIED AND SET ASIDE and GESTURES as one page
+
+- reading: 5 min. The three tabs' files, every `FIELD_CONTROLS` row and the gesture catalogue, to sort each row into its family.
+- writing: 15 min. `field-page.ts`, the families and the notes (a SUGGESTED line on every item), the page's test, and the three old renderers cut down to their exported helpers.
+- looking: 5 min. The director opened from this worktree on CONTROLS › ON THE FIELD, and one picture.
+- friction: 0 min. `tsc -p tools/director` has no tsconfig to find; run from the root instead.
+- landing: 5 min. Formatting, the index regenerated for six new files, `check:fast`, the commit, `land`.
+
+Bottleneck: writing. There is one suggestion per row, and each had to be read against its row before it could be written.
