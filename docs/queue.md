@@ -1263,25 +1263,6 @@ take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
 redesign lands with, if it lands first. The guide's words change with it. A
 control change the owner asked for by name. `bun run check` proves it.
 
-## THE SEAM under the game's AUTO is baited by its own false point
-
-- **Found:** 2026-09-29, claude/queue-26-the-seam-the-false-points-flicker-and-the-hel
-- **Taken:** 2026-09-30, worktree-agent-a2cbf0fc2b7f30d2d (claim: claude/queue-the-seam-under-the-games-auto-is-baited-by-its-o)
-- **Files:** `apps/game/src/autopilot.ts`, `apps/game/src/input-buffer.ts`, `packages/hands/src/boss-hands-seam.ts`, `tools/frames/auto.ts`
-
-`bun run frames . --wave "THE SEAM" --auto both` loses the wave at the false
-point: the decoy lights at tick 975 and `seamBaited` fires at 982, seven ticks
-later — the input delay. The hand itself sends nothing on a decoy
-(`seamHoldsFire`), and stepping `autopilotHand` directly against a world in a
-probe never baits it, so the press is one made for the step before and
-landing late through the game's buffer (`inputDelayTicks`). Find which press
-trails into the decoy — likely the last shot of the point before it, sent on
-its final ticks — and make the hand stop pressing `inputDelayTicks` before a
-held step lights, or have the AUTO path look that far ahead. Prove it with a
-test that runs the seam wave through `gameAutopilot` and the `InputBuffer`
-past step 12 with no `seamBaited`; `--until seamLight:ask=dark --auto both`
-then gives the dark's frame without a scratch script.
-
 ## Two dozen `strokeGlow` callers reach it with an alpha left over
 
 - **Found:** 2026-09-29, claude/queue-tasks-b9e006
