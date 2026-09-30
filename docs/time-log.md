@@ -30213,3 +30213,5 @@ Bottleneck: writing — a new phase and two events are fourteen registrations ou
 
 Bottleneck: friction — the lash case's geometry depended on the kind line
 existing, which was invisible from the assertion that failed.
+
+*Measured: 23 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

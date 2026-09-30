@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · f9a3e52af — A kind line stands only over a button's name, never over a gesture
+
+Once every cue word became the thumb's, the dim line over it said the gesture twice: THE VALVE's p2 frame drew PRESS over TAP, the same repetition the owner removed for CARRY on 24 September. `saysKind` now draws the line only where it adds something — over FIRE, SHOOT, SHIELD, SUCK or EAT, and over a CALL or a STILL, which are not gestures. The kind stays on the cue as data.
+
 ## 2026-09-30 · 270cff9be — THE RIME refreezes before it shatters: three beats of film under THE SLOW, and a wipe or a shield scatters it for one more
 
 After the last step of its script, the spent core now films over for rimeRefreezeBeats under THE SLOW, and it asks both seats to send nothing. A fresh reversal on either half, or the guard pressed anywhere, scatters the crack and adds a beat. That happens once a beat, and at most rimeRefreezeScatters times. The shape is THE GRINDSTONE's fade. rimeRefreeze is silent, and rimeScatter is the shave's scrape pitched up. The film's picture is queued as its own lane, and until then the lens draws its rest pose through those beats.
