@@ -42,7 +42,8 @@ import { bossPose } from "./poses-bosses-kit.js";
  * a boss standing still and is posed with the rest of those in
  * `poses-bosses-first.ts`.
  *
- * **THE SPOOL's three earned states are here rather than with the other
+ * **THE SPOOL's six earned states — three of the fight, and the story's
+ * three between the ribs — are here rather than with the other
  * handle boss**, which is where a brake belongs by rights: THE BELLOWS's five
  * cards took `poses-bosses-hands-handles.ts` within a couple of dozen lines
  * of its limit, and a boss's cards are worth more kept in one block than
@@ -165,6 +166,24 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "slack",
     "The fourth rib is open and the spool drifts off the top. P1 lets the brake go; P2 is done.",
     { hand: spoolHand, want: spoolIn("slack"), hold: 6, budgetBeats: 240 },
+  ),
+  bossPose(
+    "spool",
+    "snag",
+    "The line caught dead, the casing shuddering. P1 lets the brake go, then grips again; P2 counts.",
+    { hand: spoolHand, want: spoolIn("snag"), hold: 2, budgetBeats: 60 },
+  ),
+  bossPose(
+    "spool",
+    "whip",
+    "The line thrown wide in a loop. P1 holds the brake full deep; P2 counts the beats.",
+    { hand: spoolHand, want: spoolIn("whip"), hold: 2, budgetBeats: 90 },
+  ),
+  bossPose(
+    "spool",
+    "fray",
+    "The line furred with fibres. P1 holds the brake featherlight; P2 says how light.",
+    { hand: spoolHand, want: spoolIn("fray"), hold: 2, budgetBeats: 120 },
   ),
 ];
 

@@ -32,8 +32,9 @@ export const INGEST_SILENT_BOSS_E = [
   "haspSteady",
   "haspRough",
   // THE SPOOL's story between the ribs (`sim/spool-story.ts`), here because
-  // page three, where its twelve are, is full: silent until its look lane
-  // draws the snag, the whip and the fray off the phase.
+  // page three, where its twelve are, is full: what the spool does is read
+  // off its phase (`spool-story.ts`), and each burst is thrown above the loop
+  // by `spool-fx-story.ts`, through the spool's own fx.
   "spoolSnag",
   "spoolFree",
   "spoolSnap",

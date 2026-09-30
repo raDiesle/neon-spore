@@ -4,6 +4,7 @@ import type { Burst } from "./effects-boss.js";
 import { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { spoolStoryBurst } from "./spool-fx-story.js";
 import { type SpoolPose, spoolHome, spoolRibX, spoolSide } from "./spool-shape.js";
 
 /**
@@ -122,8 +123,14 @@ export class SpoolFx {
         case "spoolOut":
           burst(at.x, tileCY(l, 0), 16, PALETTE.wisp);
           break;
-        default:
+        // The story between the ribs (`spool-fx-story.ts`): an answer is a
+        // step landed, a run-out a blow that shakes the casing it came off.
+        default: {
+          const blow = spoolStoryBurst(e, l, cfg, pose, burst);
+          if (blow === "landed") this.hurt.hit();
+          else if (blow === "struck") this.shudderNow = 1;
           break;
+        }
       }
     }
   }

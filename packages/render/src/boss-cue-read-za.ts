@@ -1,4 +1,4 @@
-import type { SpoolState, World } from "@neon-spore/sim";
+import type { SpoolPhase, SpoolState, World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
@@ -20,7 +20,32 @@ import { spoolBrakeAsks, spoolKnobCircle } from "./spool-grip.js";
  * which is the answer she is there to give (§21). And silent outside a
  * movement: while the spool is taut, easing a rib or slipped, nothing runs
  * and the brake is asked for nothing.
+ *
+ * **The story between the ribs says its own words on the same knob**, to the
+ * same seat, since all three are his thumb (`sim/spool-story.ts`): `RELEASE`
+ * while the snag counts beats off the brake, then `HOLD` the moment the count
+ * is made and a grip would free it; `HOLD DEEP` for the whip, whose depth is
+ * the rail's own end and needs nobody to call it; and `HOLD` alone for the
+ * fray, because how light is hers to say (§21, S3).
  */
+
+type Ask = { readonly kind: BossCue["kind"]; readonly word: string; readonly seed: number };
+
+/** The whip's and the fray's word, on the knob to the pilot. */
+const STORY: Partial<Record<SpoolPhase, Ask>> = {
+  whip: { kind: "CARRY", word: "HOLD DEEP", seed: 119 },
+  fray: { kind: "CARRY", word: "HOLD", seed: 120 },
+};
+/** The snag's two: off the brake until the count is made, then back on it. */
+const SNAG_OFF: Ask = { kind: "STILL", word: "RELEASE", seed: 116 };
+const SNAG_ON: Ask = { kind: "CARRY", word: "HOLD", seed: 117 };
+/** The movement's one word, while the line runs with no hand on it. */
+const RUNNING: Ask = { kind: "CARRY", word: "HOLD", seed: 111 };
+
+function askOf(world: World, s: SpoolState): Ask | null {
+  if (s.phase === "snag") return s.runBeats >= world.cfg.spoolSnagBeats ? SNAG_ON : SNAG_OFF;
+  return STORY[s.phase] ?? (spoolBrakeAsks(s) ? RUNNING : null);
+}
 
 export function spoolCues(
   l: Layout,
@@ -28,8 +53,9 @@ export function spoolCues(
   s: SpoolState,
   beatPhase: number,
 ): readonly BossCue[] {
-  if (!spoolBrakeAsks(s)) return [];
+  const ask = askOf(world, s);
+  if (ask === null) return [];
   const knob = spoolKnobCircle(l, world.cfg, s, world.beat, beatPhase);
   const frame = cueFrame(l, CUE_FRAME_WIDE);
-  return [{ seat: 1, kind: "CARRY", word: "HOLD", x: knob.x, y: knob.y, ...frame, seed: 111 }];
+  return [{ seat: 1, ...ask, x: knob.x, y: knob.y, ...frame }];
 }

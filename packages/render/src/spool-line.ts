@@ -4,6 +4,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { spoolRunRate, spoolSag } from "./spool-pose.js";
 import { type SpoolPose, spoolLineFoot, spoolLineTop, spoolSide } from "./spool-shape.js";
+import { drawSpoolStoryLine, spoolWhipPath } from "./spool-story.js";
 
 /**
  * **The line**, from the underside of the winding to the hull — the one part
@@ -14,7 +15,9 @@ import { type SpoolPose, spoolLineFoot, spoolLineTop, spoolSide } from "./spool-
  * paying has a line standing still.
  *
  * A slip throws a loop into it that pulls back taut; the slack spool lets it
- * go altogether, and its foot lifts off the hull and trails.
+ * go altogether, and its foot lifts off the hull and trails. The story between
+ * the ribs is `spool-story.ts`': the whip's loop in place of the curve, and
+ * the snag's catch and the fray's fibres laid over it.
  */
 export function drawSpoolLine(
   ctx: CanvasRenderingContext2D,
@@ -33,10 +36,15 @@ export function drawSpoolLine(
   const hull = spoolLineFoot(l, cfg);
   const slack = s.phase === "slack" ? sag : 0;
   const foot = { x: hull.x, y: hull.y - slack * (hull.y - top.y) * 0.55 };
-  const bow = spoolSide(l, cfg) * (sag * 1.2 + rate * 0.05 * Math.sin(time * 30)) * l.tile;
-  const line = new Path2D();
-  line.moveTo(top.x, top.y);
-  line.quadraticCurveTo((top.x + foot.x) / 2 + bow, (top.y + foot.y) / 2, foot.x, foot.y);
+  const side = spoolSide(l, cfg);
+  const bow = side * (sag * 1.2 + rate * 0.05 * Math.sin(time * 30)) * l.tile;
+  const ctrl = { x: (top.x + foot.x) / 2 + bow, y: (top.y + foot.y) / 2 };
+  let line = spoolWhipPath(l, s, cfg, top, foot, side, beat, beatPhase);
+  if (line === null) {
+    line = new Path2D();
+    line.moveTo(top.x, top.y);
+    line.quadraticCurveTo(ctrl.x, ctrl.y, foot.x, foot.y);
+  }
 
   const alpha = ctx.globalAlpha;
   ctx.globalAlpha = alpha * 0.45;
@@ -50,4 +58,5 @@ export function drawSpoolLine(
   ctx.setLineDash([]);
   ctx.lineDashOffset = 0;
   ctx.globalAlpha = alpha;
+  drawSpoolStoryLine(ctx, l, s, cfg, top, ctrl, foot, beat, beatPhase);
 }

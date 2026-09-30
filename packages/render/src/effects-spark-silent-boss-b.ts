@@ -103,8 +103,9 @@ export const SILENT_BOSS_B = [
   "spoolSlack",
   "spoolDrift",
   "spoolOut",
-  // And its story between the ribs, silent until its look lane draws the
-  // snag, the whip and the fray off the phase (`sim/spool-story.ts`).
+  // And its story between the ribs: what the spool does is read off its
+  // phase (`spool-story.ts`), and each burst is thrown above the loop by
+  // `spool-fx-story.ts`, through the spool's own fx.
   "spoolSnag",
   "spoolFree",
   "spoolSnap",

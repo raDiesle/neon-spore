@@ -22,6 +22,7 @@ import {
   spoolSocketPath,
   spoolWindR,
 } from "./spool-shape.js";
+import { spoolStoryShake } from "./spool-story.js";
 import { showsSpoolZone } from "./view-role-clocks-c.js";
 
 /**
@@ -29,7 +30,7 @@ import { showsSpoolZone } from "./view-role-clocks-c.js";
  * rock-grey casing with four ribs round a winding of the ship's own violet
  * line, and the line run down to the hull (§11.36, §21).
  *
- * Five poses, drawn off the world alone: taut and still; the brake shallow
+ * Five poses, and the story's three (`spool-story.ts`), drawn off the world alone: taut and still; the brake shallow
  * and the line running fast; the brake deep and the line crawling; a rib
  * easing open off the casing; and the spool slack, turning its flange to the
  * ship and drifting off the top with the line trailing. The two paying poses
@@ -73,10 +74,15 @@ export function drawSpool(
   drawSpoolLine(ctx, l, cfg, s, pose, beat, beatPhase, time, run);
   ctx.globalAlpha = alpha;
   const hurt = fx.hurt.value;
+  // The snag shudders the casing and nothing a thumb has to find (`spool-story.ts`).
+  const shake = spoolStoryShake(l, s, beat, beatPhase, world);
+  ctx.save();
+  ctx.translate(shake.x, shake.y);
   drawFlange(ctx, l, pose, side, false, time, hurt);
   drawBarrel(ctx, l, pose, run, drift, hurt);
   drawRibs(ctx, l, world, s, pose, side, beat, beatPhase);
   drawFlange(ctx, l, pose, -side as -1 | 1, true, time, hurt);
+  ctx.restore();
   if (s.phase !== "slack") drawSpoolBrakeMark(ctx, l, cfg, s, pose, time, fx.verdicts);
   if (s.phase !== "slack" && showsSpoolZone(l.role)) {
     drawSpoolGauge(ctx, l, cfg, s, pose, beat, beatPhase, time);

@@ -30105,3 +30105,13 @@ Bottleneck: the busy machine — three lanes checking at once made `check:fast` 
 Bottleneck: `check:fast` timing out under load, which the queue now carries as a finding.
 
 *Measured: 39 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — §21 THE SPOOL — the story between the ribs, the look
+
+- reading: 5 min. `sim/spool-story.ts`, THE VALVE's story look as the pattern, `spool-line.ts`, `spool-draw.ts` and the silent lists.
+- writing: 15 min. `spool-story.ts`, `spool-fx-story.ts`, the knob's three words, three director cards and the frame test.
+- looking: 0 min. Nothing was watched at tempo; one PNG taken after the commit.
+- friction: 5 min. A compaction mid-lane, two director notes over the 120-character limit, and a Biome sort.
+- landing: 5 min. `check:fast`, the queue entry, the commit, `land`.
+
+Bottleneck: writing — the whip's loop had to be one path the line's own stroke could draw, which meant reaching into `spool-line.ts` rather than laying over it.
