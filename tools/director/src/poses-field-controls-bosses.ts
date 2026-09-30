@@ -1,0 +1,49 @@
+import type { Pose } from "./pose-kit.js";
+import { BURGEE_GRIPS } from "./poses-field-controls-burgee.js";
+import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
+import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
+import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
+import { FLUE_GRIPS } from "./poses-field-controls-flue.js";
+import { GALL_GRIPS } from "./poses-field-controls-gall.js";
+import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
+import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
+import { HALTER_GRIPS } from "./poses-field-controls-halter.js";
+import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
+import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
+import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
+import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
+import { PLUMB_GRIPS } from "./poses-field-controls-plumb.js";
+import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
+import { RIME_GRIPS } from "./poses-field-controls-rime.js";
+import { SLING_GRIPS } from "./poses-field-controls-sling.js";
+import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
+import { VALVE_GRIPS } from "./poses-field-controls-valve.js";
+import { VISE_GRIPS } from "./poses-field-controls-vise.js";
+
+/**
+ * Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a
+ * boss, listed here so `poses-field-controls.ts` keeps only the poses that
+ * belong to no boss. A new boss's grips are one import and one spread.
+ */
+export const BOSS_GRIPS: readonly Pose[] = [
+  ...HASP_GRIPS,
+  ...RATCHET_GRIPS,
+  ...MANTLE_GRIPS,
+  ...KEEL_GRIPS,
+  ...OCULUS_GRIPS,
+  ...VISE_GRIPS,
+  ...TRIVET_GRIPS,
+  ...PLUMB_GRIPS,
+  ...HALTER_GRIPS,
+  ...CAPSTAN_GRIPS,
+  ...GALL_GRIPS,
+  ...GRINDSTONE_GRIPS,
+  ...RIME_GRIPS,
+  ...CYST_GRIPS,
+  ...DAVIT_GRIPS,
+  ...BURGEE_GRIPS,
+  ...FLUE_GRIPS,
+  ...GOVERNOR_GRIPS,
+  ...SLING_GRIPS,
+  ...VALVE_GRIPS,
+];

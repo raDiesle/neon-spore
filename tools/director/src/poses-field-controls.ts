@@ -20,31 +20,13 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_PULL, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
-import { BURGEE_GRIPS } from "./poses-field-controls-burgee.js";
-import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
-import { CYST_GRIPS } from "./poses-field-controls-cyst.js";
+import { BOSS_GRIPS } from "./poses-field-controls-bosses.js";
 import { DARK_LIGHT } from "./poses-field-controls-dark.js";
-import { DAVIT_GRIPS } from "./poses-field-controls-davit.js";
-import { FLUE_GRIPS } from "./poses-field-controls-flue.js";
-import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GIMBAL_GRIPS } from "./poses-field-controls-gimbal.js";
-import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
-import { GRINDSTONE_GRIPS } from "./poses-field-controls-grindstone.js";
-import { HALTER_GRIPS } from "./poses-field-controls-halter.js";
-import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
 import { INSTAR_PULL } from "./poses-field-controls-instar.js";
-import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
-import { MANTLE_GRIPS } from "./poses-field-controls-mantle.js";
-import { OCULUS_GRIPS } from "./poses-field-controls-oculus.js";
-import { PLUMB_GRIPS } from "./poses-field-controls-plumb.js";
-import { RATCHET_GRIPS } from "./poses-field-controls-ratchet.js";
 import { SINEW_PULL } from "./poses-field-controls-sinew.js";
-import { SLING_GRIPS } from "./poses-field-controls-sling.js";
 import { SPOOL_BRAKE } from "./poses-field-controls-spool.js";
 import { SURGE_HOLD } from "./poses-field-controls-surge.js";
-import { TRIVET_GRIPS } from "./poses-field-controls-trivet.js";
-import { VALVE_GRIPS } from "./poses-field-controls-valve.js";
-import { VISE_GRIPS } from "./poses-field-controls-vise.js";
 
 /**
  * The states the ON THE FIELD tab needed a picture of and the gallery did not
@@ -182,8 +164,8 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
   // that belong to no boss: THE SURGE's, THE ANTIPHON's, THE INSTAR's, THE
   // GIMBAL's and THE SINEW's went out one at a time, each as this file
   // reached its limit again (`poses-field-controls-surge.ts`, `-antiphon.ts`,
-  // `-instar.ts`, `-gimbal.ts`, `-sinew.ts`, `-spool.ts`, `-hasp.ts`,
-  // `-ratchet.ts`).
+  // `-instar.ts`, `-gimbal.ts`, `-sinew.ts`, `-spool.ts`); the bosses' grips
+  // are listed in `poses-field-controls-bosses.ts`.
   poses: [
     TETHER_TAUT,
     BALLOON_HELD,
@@ -195,25 +177,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     INSTAR_PULL,
     ...GIMBAL_GRIPS,
     SPOOL_BRAKE,
-    ...HASP_GRIPS,
-    ...RATCHET_GRIPS,
-    ...MANTLE_GRIPS,
-    ...KEEL_GRIPS,
-    ...OCULUS_GRIPS,
-    ...VISE_GRIPS,
-    ...TRIVET_GRIPS,
-    ...PLUMB_GRIPS,
-    ...HALTER_GRIPS,
-    ...CAPSTAN_GRIPS,
-    ...GALL_GRIPS,
-    ...GRINDSTONE_GRIPS,
-    ...CYST_GRIPS,
-    ...DAVIT_GRIPS,
-    ...BURGEE_GRIPS,
-    ...FLUE_GRIPS,
-    ...GOVERNOR_GRIPS,
-    ...SLING_GRIPS,
-    ...VALVE_GRIPS,
+    ...BOSS_GRIPS,
     DARK_LIGHT,
     GUIDE_HOLD,
   ],

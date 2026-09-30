@@ -1519,6 +1519,7 @@ by hand never moves.
 | `packages/render/src/rime-story.ts` | **THE RIME's two story steps, drawn** (§29's story item; the rules are `sim/rime-step.ts` |
 | `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
 | `packages/render/src/rime-glint.ts` | **THE RIME's frost glints**: a line of light crosses the pane on a slant every few seconds, catching the sheets' edges |
+| `packages/render/src/rime-grip.ts` | **The two halves of THE RIME's lens as controls** |
 | `packages/render/src/rime-fx.ts` | What THE RIME leaves behind a frame: so far only, behind `?raster=1`, the painted clearing |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
@@ -2794,6 +2795,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
+| `tools/director/src/poses-field-controls-rime.ts` | THE RIME's two hands: a half of the lens rubbed, once a seat |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-field-controls-davit.ts` | THE DAVIT's two steers and two looses: a swing lit |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
@@ -2805,6 +2807,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-cyst.ts` | THE CYST's four hands: a flank tapped still by one seat and pinched shut by the other |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-burgee.ts` | THE BURGEE's two hands, **each photographed from the seat whose hand it is** |
+| `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-flue.ts` | THE FLUE's tap, **photographed from the tapper's seat**, the screen it is pressed on |
 | `tools/director/src/poses-field-controls-plumb.ts` | THE PLUMB's pull: the left weight asked for, the bob skewed left |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
@@ -3284,6 +3287,7 @@ by hand never moves.
 | `tools/director/src/field-controls-grindstone.ts` | THE GRINDSTONE's flats and jaws, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-ratchet.ts` | THE RATCHET's catch and pawl, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-rime.ts` | THE RIME's two halves, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-throat.ts` | **THE THROAT's two hands**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-taster.ts` | **THE TASTER's three thumbs on its own fan**, in a file of its own |

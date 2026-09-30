@@ -9,6 +9,7 @@ import { grindstoneStanding, grindstoneTakesHand } from "./grindstone-grip.js";
 import { halterGripStanding } from "./halter-grip.js";
 import type { Circle, Layout } from "./layout.js";
 import { plumbStoneStanding, plumbTakesHand } from "./plumb-grip.js";
+import { rimeHalfStanding, rimeTakesHand } from "./rime-grip.js";
 import { slingDrawCircle } from "./sling-grip.js";
 import { trivetFootStanding, trivetTakesChord } from "./trivet-grip.js";
 import { valvePinHandle, valveWheelCircle } from "./valve-grip.js";
@@ -40,6 +41,13 @@ export function laterBossHandleCircle(
     const b = world.boss?.kind === "trivet" ? world.boss : null;
     if (b === null || !trivetTakesChord(b)) return null;
     return trivetFootStanding(l, world, b, target === "trivetPadFront" ? 1 : 2, beatPhase);
+  }
+  if (target === "rimeHalfLeft" || target === "rimeHalfRight") {
+    // THE RIME's half of the lens, where its clear patch opens from, dropped
+    // in as the lens arrives. Null once it shatters (`rime-grip.ts`).
+    const b = world.boss?.kind === "rime" ? world.boss : null;
+    if (b === null || !rimeTakesHand(b)) return null;
+    return rimeHalfStanding(l, cfg, b, target, world.beat, beatPhase);
   }
   if (target.startsWith("grind")) {
     // THE GRINDSTONE's two flats and two jaws, each where the wheel stands and

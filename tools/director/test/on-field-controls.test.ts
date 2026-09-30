@@ -402,9 +402,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // draw both (`render/vise-grip.ts`, `docs/spec/bosses.md` §11.45).
   viseLobeLeft: "field",
   viseLobeRight: "field",
-  // THE RIME: simulation lane only, no look yet.
-  rimeHalfLeft: "unbuilt",
-  rimeHalfRight: "unbuilt",
+  // THE RIME's two halves, each a rub on the seat's side of the lens.
+  rimeHalfLeft: "field",
+  rimeHalfRight: "field",
   // THE TRIVET's two feet, chorded one a seat by geometry though both screens
   // draw both (`render/trivet-grip.ts`, `bosses-choreographed.md` §30).
   trivetPadFront: "field",

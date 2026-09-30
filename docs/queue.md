@@ -1335,3 +1335,17 @@ doc's reading adds `|| s.catchSpent` — and have `ratchetCues` call
 `ratchetCatchAsks` for its catch word instead of re-deriving the same gate,
 with a row in `copies-table.ts`. A test in `ratchet-grip.test.ts` pins the halo
 and the word to the same states.
+
+## Two tests time out in `check:fast` whenever the machine is shared
+
+- **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
+- **Files:** `tools/index/test/drift.test.ts`, `tools/frames/test/wave.test.ts`, `tools/test/figure.ts`
+
+With three lanes checking at once (load average about 44), `check:fast` went
+red on timeouts alone. Three of the four passed when rerun by themselves.
+`drift.test.ts` did not: it took 45 s alone at a 2.6 slowdown, which is about
+17.6 s idle, against `fileCosts(500)`. `frames/test/wave.test.ts:49` took 44 s
+alone. The lane had to judge both as load and land around them. Time each one
+on an idle machine and set its figure to what it measures, or make it cheaper:
+build the index once per file instead of once per case, and shorten the wave
+the frames run. After that, `check:fast` should pass under three lanes.

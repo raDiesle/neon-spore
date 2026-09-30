@@ -30093,3 +30093,13 @@ Bottleneck: landing — a new palette colour reaches the style guide's families 
 Bottleneck: the busy machine — three lanes checking at once made `check:fast` take six minutes and fail once on a timing test that passes alone.
 
 *Measured: 35 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — §29 THE RIME — its hands, the second half of its look (the grip)
+
+- reading: 15 min. The item, `sim/rime-hand.ts` and the rub hold, THE GRINDSTONE's and THE TRIVET's grips, and the director's field-controls coverage.
+- writing: 20 min. `rime-grip.ts` and its test, the placement, the two director rows and their pose, the controls table, and the split of the bosses' grips out of `poses-field-controls.ts`.
+- looking: 0 min. Nothing was watched at tempo. The flakes and the cue words are the next two lanes.
+- friction: 15 min. `check:fast` timed out on four slow tests under three concurrent lanes, and each had to be rerun alone.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: `check:fast` timing out under load, which the queue now carries as a finding.

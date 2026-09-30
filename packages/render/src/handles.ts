@@ -35,6 +35,7 @@ import { plumbPullUnder } from "./plumb-grip.js";
 import { pulseMeterUnder } from "./pulse-grip.js";
 import { queenMarkUnder } from "./queen-grip.js";
 import { ratchetCatchUnder, ratchetPawlUnder } from "./ratchet-grip.js";
+import { rimeHalfUnder } from "./rime-grip.js";
 import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
@@ -150,6 +151,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     trivetPadUnder(l, x, y, field) ?? // THE TRIVET's foot, one finger of this seat's chord in its zone (`trivet-grip.ts`).
     plumbPullUnder(l, x, y, field) ?? // THE PLUMB's stone on this seat's side, pulled left or right (`plumb-grip.ts`).
     grindstoneGripUnder(l, x, y, field) ?? // THE GRINDSTONE's flat rubbed, or a finger of its jaw's chord (`grindstone-grip.ts`).
+    rimeHalfUnder(l, x, y, field) ?? // THE RIME's lens, this seat's half of it rubbed clear (`rime-grip.ts`).
     cystUnder(l, x, y, field) ?? // THE CYST's freeze mark, the partner's flank tapped still, or this seat's pinch zone (`cyst-grip.ts`).
     halterGripUnder(l, x, y, field) ?? // THE HALTER's two lit grips, either seat's, a finger of a chord each (`halter-grip.ts`).
     capstanRubUnder(l, x, y, field) ?? // THE CAPSTAN's drum, either end rubbed from either seat (`capstan-grip.ts`).
