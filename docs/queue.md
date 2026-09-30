@@ -1251,6 +1251,7 @@ and `bun run check` is green.
 ## THE DAVIT's lean becomes a drag
 
 - **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
+- **Taken:** 2026-09-30, claude/queue-davit-drag (claim: claude/queue-the-davits-lean-becomes-a-drag)
 - **Files:** `packages/sim/src/davit.ts`, `packages/sim/src/davit-step.ts`, `packages/sim/src/davit-hand.ts`, `packages/sim/src/drag-targets-e.ts`, `apps/game/src/lean.ts`, `docs/spec/bosses.md`
 
 The owner, 27 September 2026: no wave may need a tilt sensor, because a phone
