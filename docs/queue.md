@@ -1317,36 +1317,6 @@ the lit spindle, the spark, the bolt, the thrown rock. THE SEAM's
 `TO_COME`, extend that boss's `boss-cue-*.test.ts`, and send one PNG.
 Several bosses may go in one lane. The owner asked for this look by name.
 
-## Ten pull handles are drawn without the shared knob, and show no way
-
-- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
-- **Taken:** 2026-09-30, worktree-agent-a4315fac4d94d2dbf (claim: claude/queue-ten-pull-handles-are-drawn-without-the-shared-kn)
-- **Files:** `packages/render/src/pull-knob.ts`, `packages/render/src/way-arrow.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/antiphon-rail-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/cairn-hand.ts`, `packages/render/src/plumb-weight.ts`, `packages/render/src/ledger-haul.ts`, `packages/render/src/valve-draw.ts`, `packages/render/src/mantle-handle.ts`, `packages/render/src/capstan-marks.ts`
-
-The owner, 29 September 2026: *we basically disallow "pull \*" circle only
-visual helper*. Every `drawPullKnob` caller now draws its way as THE
-INSTAR's arrow (`way-arrow.ts`), and `way` is required. The pulls drawn some
-other way show a bare ring, or a chevron of their own:
-- THE SINEW: `drawHandleRing`, pulled down.
-- THE BALLOON: `drawHandleRing`, left or right. The way is only in the
-  word's ◀ ▶.
-- THE ANTIPHON rail: `drawGripRing`, pulled down.
-- THE FLEET's wreck: `drawGripRing`, pulled down.
-- THE CAIRN's pile hand: `grip.ts`'s four arcs, carried left or right.
-- THE PLUMB's weights: a ball and chain, carried across.
-- THE LEDGER bead: `drawPilotRing`, pulled along the cord.
-- THE VALVE pin: a plate, pulled down.
-- THE MANTLE knob: its own `drawChevron`.
-- THE CAPSTAN horn: its own chevron.
-
-Give each a `drawWayArrow` inside the mark on the owning seat's screen and
-none on the partner's, the way `handleIsMine` decides it in `tether.ts`.
-Where the drawn handle is a ring, move it onto `drawPullKnob`. Retire the two
-private chevrons for the shared arrow. Write a roll-out test like
-`cue-aim.test.ts`, with the list as its `TO_COME`: a file drawing a pull
-handle must call `drawPullKnob` or `drawWayArrow`. Budget rows will move by a
-stroke or two each; remeasure them. The owner asked for this look by name.
-
 ## THE SCOUT's loads are unreachable
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480

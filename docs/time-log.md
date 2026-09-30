@@ -29933,3 +29933,13 @@ Bottleneck: the headless world and `bun run frames` count ticks from different s
 Bottleneck: splitting a test file needs a non-test harness module for its helpers, because a test must not import another test, and that module is most of the work.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — Every pull handle shows its way, on the seat whose pull it is
+
+- reading: 5 min. The ten handles' draw files, `pull-knob.ts`, `handle-word.ts`, and which seat steers each of THE CAPSTAN's bands.
+- writing: 15 min. The knob or the arrow in ten handles, `seatIsMine`, `drawHandleDial`, the roll-out test, the catalogue and two spec pages.
+- looking: 5 min. One frame of THE SINEW on the pilot's screen.
+- friction: 5 min. Two frame tests counted the old chevron's colour, and the worktree guard refused a `cd` into a computed path.
+- landing: 5 min. The budget remeasure (no row moved), `check:fast`, the commit.
+
+Bottleneck: friction — the MANTLE and CAPSTAN frame tests proved their marks by counting `hullRim`, so the arrow had to be drawn in the chevron's colour and the horn test split by seat.
