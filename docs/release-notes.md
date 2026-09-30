@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 9f2cd4460 — A check a landing could not make is never a queue entry again
+
+`bun run land --unverified "<what>"` now only prints each item as left for the owner's regression pass. It writes nothing into docs/queue.md, and `bun run unverified` is gone. The twenty `Unverified at <sha>:` entries, all of them watched-at-tempo checks, are off the queue, and no other work waits on them. The owner, 30 September 2026: "they should be gone from queue and do not block other tasks." The rule is rewritten in queue.md, cloud-session.md, commands.md and CLAUDE.md. VERSUS candidates and look entries are untouched and stay the owner's to check and decide.
+
 ## 2026-09-30 · d39d30314 — THE VISE's body watched at tempo, and its unverified entry closed
 
 THE VISE was watched with AUTO on both seats from its entry to the end of the wave, and its body works as drawn. Nothing was changed. - The tan two-lobed husk flushes pink on its first crack, at tick 525. - Its lobes swing open on the kernel at 1725. - The kernel takes the red cannon's crosshair and flashes on its first hit, at 1920. - At the split (3075), a pale flash covers the kernel, then the lobes fall flat and apart and fade out, and the wave clears.
