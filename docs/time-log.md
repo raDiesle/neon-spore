@@ -29745,3 +29745,5 @@ Bottleneck: finding that of the story's twelve events only one had a receipt her
 - landing: 5 min. `check:fast`, the commit.
 
 Bottleneck: `check:fast` reached 94 shards, since a sim surface is imported by nearly every package.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

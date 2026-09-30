@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · f974a021d — Cut THE SPOOL's zone readings out of `spool.ts`
+
+`spoolZoneMilli`, `spoolZone`, `spoolInZone` and `spoolBrakeForRateMilli` move to `spool-zone.ts`, re-exported beside the rest of the spool on both surfaces, so every caller keeps its name. The copies-table row for the brake's inverse now names its new owner. `spool.ts` is at 205 lines.
+
+## 2026-09-30 · 77639f191 — Cut THE KEEL's story receipts out of `keel-fx.ts`
+
+`KeelFx.ingest` answers the fight's events and hands every other one to `keelStoryReceipt` in the new `keel-story-fx.ts`, where the flip, the marrow, the breath and the cooldown will put their receipts as their looks land. Only the breath's flare had one, and it moved. Nothing drawn changes.
+
 ## 2026-09-30 · 51d6e7287 — THE STARE: a bigger eye inside the field, lashes that count, a charge you can see
 
 The eye hangs two tiles into the field now, so no part of the boss touches the top of the screen, and it is bigger. It glows blue on the teaching pass. Its lashes light one by one as the pattern plays, so the players can count to the next opening. The red of the gaze reaches past the middle of the field, with STILL at its foot. While the eye charges it swells and an ember halo builds on the cowl; a pulled lid vents the charge to both sides, and an unpulled one drops a vertical beam onto the ship. FIRE, MOVE and PULL are said on both seats, each seat its own half, and the hands only fire a clean shot: a shut beat with a shut beat after it.
