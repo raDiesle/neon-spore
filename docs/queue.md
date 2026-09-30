@@ -1261,6 +1261,7 @@ the hook a figure it can meet under load. Prove it with `bun run check`.
 ## `bun run sheet` has no deadline, and a stuck browser is fifty minutes of silence
 
 - **Found:** 2026-09-30, claude/queue-bottom-up
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-bun-run-sheet-has-no-deadline-and-a-stuck-browse)
 - **Files:** `tools/frames/sheet.ts`, `tools/frames/browser.ts`
 
 A `bun run sheet <prefix> out.png --cols 6 --cell 240 --band 0.15,0.6`,
