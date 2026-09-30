@@ -1275,6 +1275,7 @@ and the word to the same states.
 ## Two tests time out in `check:fast` whenever the machine is shared
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
+- **Taken:** 2026-09-30, worktree-agent-aab4accb5f1d61df0 (claim: claude/queue-two-tests-time-out-in-check-fast-whenever-the-ma)
 - **Files:** `tools/index/test/drift.test.ts`, `tools/frames/test/wave.test.ts`, `tools/test/figure.ts`
 
 With three lanes checking at once (load average about 44), `check:fast` went
