@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · e1ea7e284 — Queue: done "THE CAPSTAN's PULL cue stands on the horn, outside the grab zone"
+
+## 2026-09-30 · 312a7b419 — THE CAPSTAN's PULL cue stands on the drum's middle, where a press takes the pull
+
+THE CAPSTAN's PULL cue stands on the horn, outside the grab zone: on a left or right band `boss-cue-read-zl.ts` stood PULL on `capstanHornAt`, which is inside an end's rub circle, so a steering thumb put down on the word was handed a rub (`capstanRubUnder`) and never the pull. The spec (§11.54, and controls.md's THE CAPSTAN'S PULL) names the drum's middle or its cradle, on neither end, as the control, so the cue moves there (`capstanSteerStanding`), as it already stood on a hold; which way to carry is the horn's chevron. `boss-cue-capstan.test.ts` now presses the word on each band and seat and expects `capstanSteer`.
+
 ## 2026-09-30 · 5d2e4ada3 — THE GAUGE: a loose tooth between the first two levels, pulled by the navigator
 
 After the first level one tooth of the rim comes loose, and the rest before the second level stretches to gaugeToothBeats. Only the pilot will see which tooth it is; only the navigator can pull one, with a press and a drag. The right tooth ends the rest early. A wrong one comes out anyway and jams the valve into the next level, and a rest that runs out with the loose tooth still in costs the same.

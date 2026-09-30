@@ -29849,3 +29849,5 @@ Bottleneck: friction — the fingerprint test's bot does not know a new gesture 
 - landing: 5 min. `check:fast`, the commit, `queue done`.
 
 Bottleneck: seeing that the horn press was refused, because `touchDown` answered it with a rub rather than with nothing, which only a probe of the hold's target showed.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
