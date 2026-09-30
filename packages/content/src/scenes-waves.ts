@@ -49,7 +49,6 @@ import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
-import { THE_VANE } from "./scenes/the-vane.js";
 import { THE_VEER } from "./scenes/the-veer.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_VOLLEY } from "./scenes/the-volley.js";
@@ -95,7 +94,6 @@ export type WaveSceneId =
   | "theWisp"
   | "theGyre"
   | "theRecoil"
-  | "theVane"
   | "bulbQueen"
   | "theMirror"
   | "theFleet"
@@ -157,7 +155,6 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theWisp: THE_WISP,
   theGyre: THE_GYRE,
   theRecoil: THE_RECOIL,
-  theVane: THE_VANE,
   bulbQueen: BULB_QUEEN,
   theMirror: THE_MIRROR,
   theFleet: THE_FLEET,

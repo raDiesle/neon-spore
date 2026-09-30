@@ -25,8 +25,6 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // Two rocks on one beat, then three: the rock is the lesson, a wave on.
   "TWO ROCKS": ["meteor"],
   "THE HAND": ["meteor"],
-  // The arm folds what comes in under it, and the guide names the rocks.
-  "THE VANE": ["meteor"],
   // Four rocks answered untriggered and a fifth on its own — the rocks are
   // what the ward is shown against, the plain one included.
   "THE WARD": ["meteor"],

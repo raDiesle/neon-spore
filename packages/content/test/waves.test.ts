@@ -210,10 +210,12 @@ describe("wave content", () => {
    * pips say its rule the same way, and asked which it wanted, a film or
    * none, the owner answered the same day: *both guides go*. THE STARE's went
    * on 29 September 2026, when its eye learnt to teach its own rhythm in a
-   * blue pass: *the guide is not required for this wave*. A name goes here
-   * only on the owner's word.
+   * blue pass: *the guide is not required for this wave*. THE VANE's went on
+   * 30 September 2026, its split already wearing `FIRE` in its colour:
+   * *remove the tutorial, not required*. A name goes here only on the
+   * owner's word.
    */
-  const SAYS_ITSELF = new Set(["THE INSTAR", "THE FILAMENT", "THE STARE"]);
+  const SAYS_ITSELF = new Set(["THE INSTAR", "THE FILAMENT", "THE STARE", "THE VANE"]);
 
   it("gives the first wave that carries anything new a guide", () => {
     const seen = new Set<string>();

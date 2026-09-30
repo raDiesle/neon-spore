@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and eight of the hundred and twenty waves today, and a wave
+   new carries one — one hundred and seven of the hundred and twenty waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-eight of them now**, one per guided wave bar twenty,
+**There are eighty-seven of them now**, one per guided wave bar twenty,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The twenty that are still the
 three strings and the two circles are the bosses from THE NETTLE on, each
@@ -542,7 +542,9 @@ text.* THE INSTAR is one of two waves first on a panel with no guide
 (`test/waves.test.ts`, `SAYS_ITSELF`); it opens on its number, name and
 sentence like any unguided wave. THE FILAMENT is the other, the same day:
 asked whether it wanted a film, the owner answered *both guides go*, since
-its rings say whose move is open and its pips the window.
+its rings say whose move is open and its pips the window. THE VANE's film
+came off on 30 September 2026 in the owner's words, *remove the tutorial, not
+required*: the mouth of the split already says `FIRE` in the colour it takes.
 
 **A wave with a film carries no prose.** Until 25 September 2026 this said a
 filmed wave kept its three strings as well, for a phone that had already
@@ -918,7 +920,8 @@ the cue writes `FIRE` on it and it has been that colour since the arm stopped.
 So the page carries the half of the shot nothing draws: the bearing hangs above
 the field, the bolt has to leave through the split to reach it, and a shot
 stops at the first body in its way. Its other two pages are about the fold,
-which is the one thing the field will never say a word about.
+which is the one thing the field will never say a word about. The whole film
+came off on 30 September 2026, at the owner's word (§3.2).
 
 SNAKE's one row is the same day and is the third page in a row that stayed
 because a film's last act belongs to the seat whose page it is. What it said

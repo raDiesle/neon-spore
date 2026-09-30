@@ -51,6 +51,8 @@ const STILL_PROSE = [
   // (`waves.test.ts`, `SAYS_ITSELF`).
   // And THE FILAMENT the same day, the same way: asked whether it wanted a
   // film, the owner answered *both guides go*.
+  // THE VANE's film went too, on 30 September 2026, with its guide: *remove
+  // the tutorial, not required*. It had been on no list, being filmed.
   // And THE GIMBAL, once the drum and its two rims were drawn:
   // `scenes/the-gimbal.ts` is both rings turned to their marks and held — hers
   // the other way round on her own face — and a tooth sheared off each.

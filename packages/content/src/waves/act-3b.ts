@@ -18,14 +18,17 @@ import type { Wave } from "../wave-types.js";
  * land in the newest act rather than here — the director's save splits an
  * incoming list across the act files at each one's current length and gives
  * the last of them whatever is left (`tools/director/src/waves-acts.ts`).
+ *
+ * **THE VANE carries no guide**, THE INSTAR's way: the owner, 30 September
+ * 2026, *remove the tutorial, not required*. The mouth of the split says
+ * `FIRE` in the colour it takes, and the cannon says `MOVE`, so the field
+ * already says what the film did. The comment is up here because the
+ * director writes this file back and keeps nothing between a wave's braces.
  */
 export const WAVES_ACT_3B: Wave[] = [
   {
     id: "theVane",
     name: "THE VANE",
-    guide: {
-      scene: "theVane",
-    },
     entries: [
       { beat: 0, col: 1, kind: "meteor", color: null },
       { beat: 3, col: 5, color: "red" },

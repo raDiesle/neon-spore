@@ -22,6 +22,18 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-30 — THE VANE opens with no guide
+
+- reading: 10 min. THE FILAMENT's removal, to copy it, and the four tests
+  that name a guided wave.
+- writing: 5 min. The guide and the film out, `SAYS_ITSELF` four long, the
+  counts by one, the lesson-keeps row gone with the lesson.
+- looking: 0 min. No picture: the wave opens on its name.
+- friction: 0 min.
+- landing: 5 min. `bun run index` for the deleted film, `check:fast`, `land`.
+
+Bottleneck: finding every list that names a guided wave, four files apart.
+
 **A new entry goes at the end of the file**, below the last one — never up
 here under the preamble. `bun run land` stamps its measured line under the
 *last* entry, and a landing that has to merge this file puts the arriving
