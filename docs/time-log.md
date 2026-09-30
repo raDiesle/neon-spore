@@ -29837,3 +29837,5 @@ Bottleneck: the runtime direction between `control-sets.ts` and `control-seats.t
 - landing: 5 min. `check:fast`, one import sort, the audio doc's counts, the commit.
 
 Bottleneck: friction — the fingerprint test's bot does not know a new gesture exists, and a lapse that jams is how it found out.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

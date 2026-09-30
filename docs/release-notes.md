@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 5d2e4ada3 — THE GAUGE: a loose tooth between the first two levels, pulled by the navigator
+
+After the first level one tooth of the rim comes loose, and the rest before the second level stretches to gaugeToothBeats. Only the pilot will see which tooth it is; only the navigator can pull one, with a press and a drag. The right tooth ends the rest early. A wrong one comes out anyway and jams the valve into the next level, and a rest that runs out with the loose tooth still in costs the same.
+
 ## 2026-09-30 · 75f623ae2 — Queue: `tools/land/run.ts` is at 249 lines
 
 The land-guard lane's new check took the file to the line, and it is filed here so the next addition cuts it first.
