@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at 448d98d6c: THE GRINDSTONE is undrawn and never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-33-the-grindstone-the-simulation-lane
+- **Taken:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched (claim: claude/queue-unverified-at-448d98d6c-the-grindstone-is-undraw)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
 
 *THE GRINDSTONE: the simulation lane — a wheel two thumbs grind true, then shoot into* landed from a session that could not look at it. The commit touched 55 more files. What went unchecked:
