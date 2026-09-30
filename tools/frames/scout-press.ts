@@ -4,48 +4,55 @@ import type { PressSpec } from "./spec.js";
 /**
  * **THE SCOUT's flying, written on the press line.**
  *
- * Both of that round's handles are gated on what the little ship is
- * **carrying** — `scoutLineGrippable` wants it past `scoutLadenMotes` and
- * `scoutPrimeGrippable` past `scoutHeavyMotes` (`sim/scout-hand.ts`) — and a
- * wave left to itself carries nothing: a probe of it stepped 1600 ticks with
- * `carrying` at 0 throughout, because the ship is flown by hand. So neither
- * ring could be photographed, and neither could the flame, the nose swinging
- * or the mouth open at home. `--hold` was no way round it: a thumb on a ring
- * that is not offered is not a ring. `--boss-json` could not reach it either
- * until 24 September 2026, when a list stopped having to keep its length
- * (`boss-check.ts`); a flight is still the way to a state the play reached.
+ * The ship is flown by hand, so a wave left to itself never leaves the
+ * cannon: the flame, the nose stepped round, a mote aboard and the mouth
+ * drawing the ship home are all states only a flight reaches. `--hold` is no
+ * way round it — a thumb on a ring that is not offered is not a ring — and
+ * `--boss-json` writes a state rather than flying to it. (The two rings
+ * themselves, `scoutLineGrippable` and `scoutPrimeGrippable`, want more
+ * aboard than `scoutCarryMax` lets a ship hold, so no flight reaches them
+ * either; that is the queue's "THE SCOUT's loads are unreachable".)
  *
  * **The pilot's three are a thumb that goes down and comes up**, so a press
  * carries how many ticks it stays down and expands into the two commands the
  * panel itself sends:
  *
- *   --press 246:1:scoutTurnLeft=7      the nose swings left for seven ticks
+ *   --press 246:1:scoutTurnLeft=7      the nose steps 45° left
  *   --press 255:1:scoutBurn=20         then twenty ticks of push
  *   --press 992:2:scoutMaw             and her mouth open at home
  *
  * That is the shape a rehearsal's acts are already written in — `{ tick: 246,
  * control: "scoutTurnLeft", until: 253 }` in `content/src/scenes/the-scout.ts`
  * — so a flight that is known to work can be transcribed rather than searched
- * for again. **A burn is a push that keeps going and a turn does nothing to
- * the drift**, so where the ship is at a tick is the sum of every burn before
- * it; change one number and every leg after it lands somewhere else.
+ * for again. **A turn is a step, not a swing**: the press turns the nose 45° at
+ * once and a thumb left down steps it again every `scoutTurnRepeatTicks`, so
+ * `=7` is one step and the `=90` below is four — half a turn, the way home.
+ * **A burn adds to the travel and drag takes it away**, so where the ship is
+ * at a tick is the sum of every burn before it; change one number and every
+ * leg after it lands somewhere else.
  *
  * **One flight that works, so the next lane does not fly it again.** The first
- * arena, laden — four motes aboard, which is `scoutLadenMotes` passed and the
- * navigator's ring drawn on the ship — photographed at `--ticks 1400 --seat p2`
- * with these presses as one argument, the newlines taken out:
+ * arena's one mote fetched and banked: out, four steps round at the top, home,
+ * and the mouth opened as the ship comes inside `scoutSuckRadiusMilli` — banked
+ * on tick 616, and the second arena stood up on 617. As one argument, the
+ * newlines taken out, photographed at `--ticks 330 --seat p2` with the presses
+ * after it left off (the ship at the top, the mote aboard, turned for home) and
+ * at `--ticks 608 --seat p1` whole (in the mouth):
  *
- *   --press 300:1:scoutTurnLeft=6,307:1:scoutBurn=35,477:1:scoutTurnRight=6,
- *           484:1:scoutBurn=40,651:1:scoutTurnRight=9,661:1:scoutBurn=40,
- *           831:1:scoutTurnRight=3,835:1:scoutBurn=18,965:1:scoutTurnRight=8,
- *           974:1:scoutBurn=40,1141:1:scoutTurnRight=3,1145:1:scoutBurn=10
+ *   --press 19:1:scoutBurn=24,90:1:scoutBurn=17,153:1:scoutBurn=17,
+ *           216:1:scoutBurn=17,238:1:scoutTurnRight=90,328:1:scoutBurn=25,
+ *           399:1:scoutBurn=17,462:1:scoutBurn=17,525:1:scoutBurn=17,
+ *           571:2:scoutMaw
  *
  * It was not written by hand and could not have been: it was **recorded** off a
- * closed-loop autopilot flown in a headless world (`bun run probe`, which points
- * at the nearest mote, burns, coasts and says what it pressed). Play begins at
- * `world.tick` 300 on this wave and the lead before it takes no commands, so the
- * first press is on that tick — a flight recorded one tick early comes back with
- * the ship still sitting at its start and nothing to say why.
+ * closed-loop autopilot flown in a headless world (`bun run probe`, the one in
+ * `content/test/scout-flight.test.ts` with a look ahead at the hazards and a
+ * coast band on the burn, saying what it pressed). **A headless `startWave` and
+ * the browser do not start on the same tick**: headless play begins on tick 1,
+ * and `bun run frames` jumps to this wave with `world.tick` already at 18, so
+ * play begins on 19 and the recording was moved on by eighteen. A line left on
+ * the headless axis comes back with its first burn unheard and the ship still
+ * sitting at its start — the run's `unheard:` line says so.
  *
  * **`on` and `off` are the two halves said separately**, for the one thing a
  * tick count cannot say: a thumb that is *still down* when the picture is

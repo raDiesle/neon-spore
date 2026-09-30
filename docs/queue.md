@@ -1358,18 +1358,6 @@ director's two poses reach them only through a `cfg` override
 prime out with their hands and tests, or re-gate them on something one mote
 can reach (the level, say); then drop the overrides.
 
-## `tools/frames/scout-press.ts` documents a flight that no longer exists
-
-- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-tools-frames-scout-press-ts-documents-a-flight-t)
-- **Files:** `tools/frames/scout-press.ts`
-
-Its header and its recorded presses describe the old arena, the lead, and the
-old continuous turn rate. The round now launches on the first tick, steps the
-nose 45° a press and holds one mote at a time. Re-record the presses off the
-autopilot in `packages/content/test/scout-flight.test.ts` and rewrite the
-header, then photograph it with `bun run frames`.
-
 ## Check that no boss touches the top of the screen
 
 - **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70

@@ -29909,3 +29909,13 @@ Bottleneck: the lag is on a phone and every tool here measures a desktop, so the
 Bottleneck: the first render test found the jaw's end tooth drawn as a socket on every frame, because `-1` meant both "past the end" and "no loose tooth".
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — `tools/frames/scout-press.ts` documents a flight that no longer exists: a flight that banks, recorded and written down
+
+- reading: 10 min. The scout round's turn, burn, carry, suck and bank rules, and the old header against them.
+- writing: 10 min. A recorder probe on the content test's autopilot, and the header rewritten around the line it printed.
+- looking: 10 min. The line photographed mid-suck and at the top with the mote aboard.
+- friction: 10 min. The line was recorded headless, starting at tick 1, and the browser starts THE SCOUT at 18, so every press was unheard until each one moved on by eighteen.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: the headless world and `bun run frames` count ticks from different starts, and nothing says so except a press reported unheard.
