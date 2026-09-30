@@ -29735,3 +29735,13 @@ from the gaze foot to THE SLOW's light, and each needed its own test.
 - landing: 5 min. `check:fast`, the commit.
 
 Bottleneck: finding that of the story's twelve events only one had a receipt here, so the cut is mostly a place for the next ones.
+
+## 2026-09-30 — `sim/spool.ts`: the zone's readings cut out
+
+- reading: 5 min. The zone's four readings, their callers, the two surfaces that re-export them, the copies-table row.
+- writing: 5 min. `spool-zone.ts`, the two re-export lines, `spool-step.ts`'s import, the row's owner.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: `check:fast` reached 94 shards, since a sim surface is imported by nearly every package.

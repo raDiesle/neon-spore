@@ -1281,20 +1281,6 @@ test that runs the seam wave through `gameAutopilot` and the `InputBuffer`
 past step 12 with no `seamBaited`; `--until seamLight:ask=dark --auto both`
 then gives the dark's frame without a scratch script.
 
-## `sim/spool.ts` is at 242 lines — cut the zone's readings out
-
-- **Found:** 2026-09-29, claude/queue-21-the-spool-the-story-between-the-ribs-the-simu
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-sim-spool-ts-is-at-242-lines-cut-the-zones-readi)
-- **Files:** `packages/sim/src/spool.ts`, `packages/sim/src/spool-step.ts`, `packages/sim/src/spool-story.ts`
-
-The story between the ribs took `spool.ts` to 242 lines, with the state, its
-phases and every reading of it — the zone's width and centre, the rate for a
-depth, the depth itself — on one page. Cut the zone's readings
-(`spoolZone*`, `spoolBrakeForRateMilli` and what only they call) into a
-`spool-zone.ts` re-exported where the others are, keeping every caller and
-`copies-table.ts` row pointing at the same names, and `spool.test.ts`
-unchanged.
-
 ## Two dozen `strokeGlow` callers reach it with an alpha left over
 
 - **Found:** 2026-09-29, claude/queue-tasks-b9e006

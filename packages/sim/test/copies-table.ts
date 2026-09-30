@@ -740,7 +740,7 @@ export const COPIES: Copy[] = [
     // out again rather than importing, and either end of the reach retuned
     // would leave the copy answering for a spool that no longer exists.
     call: "spoolBrakeForRateMilli",
-    owner: "packages/sim/src/spool.ts",
+    owner: "packages/sim/src/spool-zone.ts",
     pattern: /spoolRateFastMilli\s*-\s*\w+\s*\)/,
   },
   {

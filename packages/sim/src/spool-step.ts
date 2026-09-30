@@ -9,11 +9,11 @@ import {
   spoolGone,
   spoolGrace,
   spoolInStory,
-  spoolInZone,
   spoolLegs,
   spoolPayRateMilli,
 } from "./spool.js";
 import { openSpoolStory, spoolStoryAfter, stepSpoolStory } from "./spool-story.js";
+import { spoolInZone } from "./spool-zone.js";
 import type { World } from "./world.js";
 
 /**

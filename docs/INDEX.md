@@ -254,6 +254,7 @@ by hand never moves.
 | `packages/sim/src/spool-hash.ts` | What THE SPOOL puts into `hashWorld`, and nothing else |
 | `packages/sim/src/spool-step.ts` | THE SPOOL's clock: the line running out under the brake, the zone moving under a correction |
 | `packages/sim/src/spool-story.ts` | **THE SPOOL's story between the ribs** (§21 rows S1–S3) |
+| `packages/sim/src/spool-zone.ts` | **THE SPOOL's zone, read off the state** (`spool.ts`): how wide it is, where it sits |
 | `packages/sim/src/spool.ts` | THE SPOOL: the one boss answered by holding back exactly enough |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |

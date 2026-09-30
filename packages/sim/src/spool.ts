@@ -38,8 +38,8 @@ import type { World } from "./world.js";
  *
  * The clock is `spool-step.ts`, the story between the ribs `spool-story.ts`,
  * the brake `spool-hand.ts`, the fingerprint
- * `spool-hash.ts`, the numbers `config-spool.ts`. This file is the shape and
- * the readings taken off it.
+ * `spool-hash.ts`, the numbers `config-spool.ts`, the zone's readings
+ * `spool-zone.ts`. This file is the shape and the other readings off it.
  */
 
 /** No hand on the brake, and the depth that says so. */
@@ -154,43 +154,6 @@ export function spoolPayRateMilli(s: SpoolState, cfg: SimConfig): number {
   const depth = Math.max(0, Math.min(reach, spoolDepthMilli(s)));
   const span = cfg.spoolRateFastMilli - cfg.spoolRateSlowMilli;
   return cfg.spoolRateFastMilli - Math.round((depth * span) / reach);
-}
-
-/**
- * The depth that pays a line out at `rate` — `spoolPayRateMilli` read the
- * other way, for the one caller that has a rate and wants the grip: the
- * director's hand playing the fight correctly. **Called, never re-derived**
- * (`packages/sim/test/purity.test.ts`).
- */
-export function spoolBrakeForRateMilli(cfg: SimConfig, rate: number): number {
-  const reach = Math.max(1, cfg.spoolReachMilli);
-  const span = Math.max(1, cfg.spoolRateFastMilli - cfg.spoolRateSlowMilli);
-  const over = Math.max(0, Math.min(span, cfg.spoolRateFastMilli - rate));
-  return Math.round((over * reach) / span);
-}
-
-/**
- * **How wide the zone is now**, in thousandths: narrower by
- * `spoolZoneNarrowMilli` a rib, and never narrower than that step, so the
- * last rib's zone is a target and not a point — `sinewZoneWidth`'s rule, and
- * the reason the last movement runs one leg rather than three. A zone this
- * narrow with corrections in it would be a step nobody could land.
- */
-export function spoolZoneMilli(s: SpoolState, cfg: SimConfig): number {
-  const narrow = Math.max(1, cfg.spoolZoneNarrowMilli);
-  return Math.max(narrow, cfg.spoolZoneWideMilli - spoolGone(s) * narrow);
-}
-
-/** The zone on the track, low and high — what the navigator alone is shown. */
-export function spoolZone(s: SpoolState, cfg: SimConfig): { low: number; high: number } {
-  const half = Math.floor(spoolZoneMilli(s, cfg) / 2);
-  return { low: Math.max(0, s.wantMilli - half), high: s.wantMilli + half };
-}
-
-/** Whether the paid-out length is inside the zone: the thing a movement counts. */
-export function spoolInZone(s: SpoolState, cfg: SimConfig): boolean {
-  const zone = spoolZone(s, cfg);
-  return s.paidMilli >= zone.low && s.paidMilli <= zone.high;
 }
 
 /**
