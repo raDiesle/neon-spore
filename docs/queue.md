@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at 4c7090ce0: THE OCULUS's thud, core flashes and shatter flash watc…
 
 - **Found:** 2026-09-26, claude/queue-27-the-oculus-its-hands-the-second-half-of-its-l
+- **Taken:** 2026-09-30, claude/queue-unverified-at-881f776df-the-davit-no-touch-sends (claim: claude/queue-unverified-at-4c7090ce0-the-oculuss-thud-core-fl)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`
 
 *THE OCULUS's receipts drawn: a shut pair thuds, a core hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
