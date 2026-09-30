@@ -30006,3 +30006,5 @@ Bottleneck: looking — the auto-run's hands go straight past the twist, so the 
 
 Bottleneck: writing — six documents said the arrows were the offer, and each
 had to say the pause instead.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 2ce24f244 — THE PUSH's arrows keep only the pause
+
+The two white arrows beside a held rock are no longer an offer. They are drawn only for the beat after a carry, when a second carry is refused, and they fade out over that pause, so the wait has a length the eye can learn. A side with a wall behind it is still not drawn. The simulation now exports `carryPauseLeft`, so the picture reads the pause instead of re-deriving it.
+
 ## 2026-09-30 · 07e42dec8 — THE GAUGE's tongue is drawn out and wrung, with a ring and TWIST for each seat's hand
 
 In the rest after the second level the tongue lolls up out of the throat as a long flat ribbon. Her hand goes a little way up from the root and his at the tip. Each seat's drag turns its end, so the width narrows to its edge and the darker underside comes round, and two halves wrung opposite ways spiral between the two hands, on both screens. Each seat is offered a ring on its own place, filled once its hand is on it, and a TWIST cue until it is.
