@@ -256,7 +256,7 @@ became.
 The bulb's sway and the slick's tilt used to be typed out inside
 `packages/render/src/creatures.ts`, where nothing outside the running game
 could see them. They are now `packages/content/src/own-motion.ts`, as a `Pose`
-per second, and the renderer calls them. A row in `packages/sim/test/purity.test.ts`
+per second, and the renderer calls them. A row in `packages/sim/test/copies-table.ts`
 fails if anyone writes `sin(t * 1.9)` anywhere else again.
 
 This is what lets a catalogue card show **the motion the field would show**

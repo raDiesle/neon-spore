@@ -1232,20 +1232,6 @@ say which in the commit. The same run drifted `doc-drift-names.test.ts`'s
 850 ms. That is the same cure, and the same question of whether it rereads the
 tree per row.
 
-## CLAUDE.md sends a reader to `purity.test.ts` for the called-not-re-derived table
-
-- **Found:** 2026-09-30, worktree-agent-a4a142ed5d16baf7b
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-claude-md-sends-a-reader-to-purity-test-ts-for-t)
-- **Files:** `CLAUDE.md`, `packages/sim/test/purity.test.ts`, `packages/sim/test/copies-table.ts`
-
-The rules section says `purity.test.ts` also carries the table of rules that
-must be called, not re-derived. It has not since the split: the table is
-`COPIES` in `copies-table.ts`, checked by `copies.test.ts`, and `purity.test.ts`
-holds only the determinism bans. A lane told to add a row there finds no table
-and has to grep for it. Name `copies-table.ts` in that sentence — one edit to a
-file that empties the prompt cache, so fold it into the next CLAUDE.md change
-if one is due.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too

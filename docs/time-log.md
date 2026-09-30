@@ -30419,3 +30419,13 @@ Bottleneck: reading. The fuse's function already existed, so most of the time we
 Bottleneck: writing. The race existed privately in `serve.ts`, so it had to be moved before the sheet could share it.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — CLAUDE.md names `copies-table.ts` for the called-not-re-derived table
+
+- reading: 5 min. Where `COPIES` lives now, and every sentence under `docs/` still sending a reader to `purity.test.ts` for it.
+- writing: 5 min. CLAUDE.md's rules paragraph, and the same pointer in `docs/asset-catalogue.md` and `docs/spec/briefings.md`.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading. The entry named one stale pointer, and two more documents carried the same one.

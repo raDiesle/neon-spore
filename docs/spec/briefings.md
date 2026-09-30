@@ -577,7 +577,7 @@ have, and goes on being wrong until somebody changes the lobe.
 This section used to ask for "a pure function of `(ctx, panel, t, role)`", and
 that was the wrong shape. A function that draws where a creature *would be* at
 `t` is a second copy of where a creature lands and of what a shot does — the
-exact class of drift `packages/sim/test/purity.test.ts` keeps a table against.
+exact class of drift `packages/sim/test/copies-table.ts` keeps a table against.
 It would have been correct on the day it was written and quietly wrong the day
 the fall speed changed, and nothing tests a painting.
 

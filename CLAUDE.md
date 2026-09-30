@@ -29,9 +29,10 @@ session needs goes here.
    exceptions in `hash.ts` (`docs/decisions.md` #23).
 5. **The game never reads a microphone and never evaluates speech.**
 
-Rules 1–4 are tests: `packages/sim/test/purity.test.ts`, which also carries a
-table of rules that must be **called, not re-derived** — add a row when review
-catches one — and `packages/sim/test/hash-coverage.test.ts`.
+Rules 1–4 are tests: `packages/sim/test/purity.test.ts` and
+`hash-coverage.test.ts`. Rules that must be **called, not re-derived** are
+`COPIES` in `packages/sim/test/copies-table.ts` — add a row when review
+catches one.
 
 Style and formatting are Biome's job: `bun run lint`, `bun run format`, and
 `bun run imports:sort` when lint asks for a sort — `format` never sorts, on
