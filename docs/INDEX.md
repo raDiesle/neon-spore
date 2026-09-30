@@ -1486,9 +1486,11 @@ by hand never moves.
 | `packages/render/src/hash.ts` | The one repeatable 0..1 in `render/`, and the one place its two magic numbers are written down |
 | `packages/render/src/hasp-draw.ts` | **THE HASP**: three sealed clasps down the middle of the field |
 | `packages/render/src/hasp-fx.ts` | What THE HASP leaves behind a frame: the **dim** of a wheel seizing under the navigator's hand |
+| `packages/render/src/hasp-fx-story.ts` | **What THE HASP's story throws** (`sim/hasp-story.ts`): the burst each of its twelve events leaves |
 | `packages/render/src/hasp-parts.ts` | THE HASP's two halves, one to a seat: **the wheel** on the navigator's screen and **the latch** on the… |
 | `packages/render/src/hasp-pose.ts` | **How far through a pose THE HASP is**, and how far each clasp stands open |
 | `packages/render/src/hasp-shape.ts` | **Where THE HASP is**: three clasps down the middle column, each a hinged shell over a hub |
+| `packages/render/src/hasp-story.ts` | **THE HASP's story between the hasps, drawn** (`sim/hasp-story.ts`, §20 S1–S4) |
 | `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
 | `packages/render/src/hasp-blow.ts` | **THE HASP's own blow at the hull** (`boss-strike-look.ts`): its falling bolt driven home into the plating |
 | `packages/render/src/hasp-marks.ts` | **THE HASP's halos and verdicts** — each seat's own mark answers a touch, and neither is shown the partner's ring |
@@ -3142,6 +3144,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
+| `tools/director/src/poses-bosses-hands-hasp.ts` | **THE HASP's story between the hasps**, posed with a hand on the controls: the rattle, the backspin, the rust and the sway |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's four states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |

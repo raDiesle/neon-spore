@@ -179,6 +179,31 @@ describe("the words on THE HASP", () => {
     expect(words(world, s)).toEqual([]);
   });
 
+  it("gives her the story's own word between the hasps, and him HOLD", () => {
+    const { world, s } = working();
+    const held = CFG.haspGripMilli;
+    const said = (phase: HaspState["phase"], hasps: number, latch: number): string[] => {
+      s.phase = phase;
+      s.hasps = hasps;
+      s.latchMilli = latch;
+      return words(world, s);
+    };
+    // The rattle is his alone; the backspin hers, whatever his hand does.
+    expect(said("rattle", 2, NO_LATCH)).toEqual(["HOLD"]);
+    expect(said("rattle", 2, held)).toEqual([]);
+    expect(said("backspin", 1, NO_LATCH)).toEqual(["WIND"]);
+    // The rust is gated: her ROCK only once he holds.
+    expect(said("rust", 1, NO_LATCH)).toEqual(["HOLD"]);
+    expect(said("rust", 1, held)).toEqual(["ROCK"]);
+    // The sway asks both to keep: his latch, her thumb on the rim — the chord.
+    expect(said("sway", 0, NO_LATCH)).toEqual(["HOLD", "HOLD"]);
+    expect(said("sway", 0, held)).toEqual(["HOLD"]);
+    const [hers] = haspCues(layout("test"), world, s, 0);
+    expect(hers?.seat).toBe(2);
+    s.handMilli = 0;
+    expect(words(world, s)).toEqual([]);
+  });
+
   it("puts FIRE over a loose bolt, to both seats", () => {
     const { world, s } = working();
     s.phase = "swing";

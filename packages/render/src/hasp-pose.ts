@@ -2,6 +2,7 @@ import {
   HASP_COUNT,
   type HaspState,
   haspBurning,
+  haspHandHasp,
   haspHeatMilli,
   haspHeld,
   haspWheelUp,
@@ -12,6 +13,7 @@ import {
 import { smoothstep } from "./ease.js";
 import { mixHex } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { phaseInto } from "./phase-into.js";
 
 /**
  * **How far through a pose THE HASP is**, and how far each clasp stands open
@@ -37,6 +39,8 @@ const CREEP = 0.14;
 const CLEAR = 1.35;
 /** How many turns the hubs spin down through as the row clears. */
 const SPIN_DOWN = 1.6;
+/** How fast the backspun wheel runs off its mark, in turns a beat (§20 S2). */
+const BACKSPIN_TURNS = 0.6;
 
 /** How far through a phase the scene is, 0..1, counted from the beat it began. */
 function through(s: HaspState, beats: number, beat: number, beatPhase: number): number {
@@ -120,7 +124,10 @@ export function haspFree(s: HaspState, cfg: SimConfig): boolean {
  * Where hub `i`'s spokes stand, in turns. The working wheel stands where her
  * hand has left it; an opened one where it was when it gave; and as the row
  * clears every hub spins down together, fast and then slowing, which is the
- * payoff's *wheel-hubs spinning down*.
+ * payoff's *wheel-hubs spinning down*. In the backspin the freed wheel runs
+ * back on its spring at a steady rate, her winding carried on top of it — the
+ * simulation counts her travel and never turns it back, so the spring is the
+ * picture's (`hasp-story.ts` draws the smear).
  */
 export function haspSpokeTurns(
   s: HaspState,
@@ -130,6 +137,9 @@ export function haspSpokeTurns(
   beatPhase: number,
 ): number {
   const own = i === haspWorkIndex(s) || haspOpened(s, i) ? s.wheelMilli / 1000 : 0;
+  if (s.phase === "backspin" && i === haspHandHasp(s)) {
+    return own - BACKSPIN_TURNS * phaseInto(s, beat, beatPhase);
+  }
   if (s.phase !== "clear") return own;
   const t = through(s, cfg.haspClearBeats, beat, beatPhase);
   return own + SPIN_DOWN * (1 - (1 - t) * (1 - t)) * (i % 2 === 0 ? 1 : -1);

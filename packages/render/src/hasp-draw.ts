@@ -8,6 +8,7 @@ import { drawHaspHalos, drawHaspVerdicts } from "./hasp-marks.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
 import { haspBoltAt, haspCentre, haspShellPath, haspShellRadius } from "./hasp-shape.js";
+import { drawHaspSmear, drawHaspStory, haspStoryGape } from "./hasp-story.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -45,7 +46,8 @@ const HASP_SLACK_RATE = 1.4;
  * dark mid-turn; and the row swung open, every hub spinning down and the
  * passage behind the door lit for the first time. The morph between any two
  * is how far each clasp's halves have swung, eased over the phase's own beats
- * (`hasp-pose.ts`).
+ * (`hasp-pose.ts`). Between the hasps, the story's four poses are drawn over
+ * the same row (`hasp-story.ts`).
  *
  * **Its health is the row.** A hasp is sealed or it has swung, and the count
  * of shut clasps is the count left — nothing prints the number.
@@ -70,6 +72,7 @@ export function drawHasp(
   const lit = smoothstep(haspStillPhase(s, cfg, beat, beatPhase));
   const clearing = haspClearing(s, cfg, beat, beatPhase);
   const wheel = showsHaspWheel(l.role);
+  const latch = showsHaspLatch(l.role);
 
   ctx.save();
   // The jolt of a hasp giving drops the whole row in its mounting — applied to
@@ -78,16 +81,20 @@ export function drawHasp(
   ctx.translate(fx.hurt.shakeX(time, l.tile), fx.jolt * l.tile);
   if (clearing > 0) drawPassage(ctx, l, world, clearing);
   for (let i = 0; i < HASP_COUNT; i++) {
-    const gape = haspGape(s, cfg, i, beat, beatPhase, wheel);
+    const rest = haspGape(s, cfg, i, beat, beatPhase, wheel);
+    const gape = rest + haspStoryGape(s, cfg, i, beat, beatPhase, time, latch, rest);
     drawClasp(ctx, l, world, s, i, gape, fx.hurt.value, time);
+    drawHaspStory(ctx, l, cfg, s, i, gape, beat, beatPhase, time, latch, wheel);
   }
   // The halos go on the shells and under the marks they ask for.
   drawHaspHalos(ctx, l, cfg, s, time);
   for (let i = 0; i < HASP_COUNT; i++) {
-    if (wheel) drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase);
-    else drawHaspCap(ctx, l, cfg, i);
+    if (wheel) {
+      drawHaspWheel(ctx, l, cfg, s, i, beat, beatPhase);
+      drawHaspSmear(ctx, l, cfg, s, i, beat, beatPhase);
+    } else drawHaspCap(ctx, l, cfg, i);
   }
-  if (showsHaspLatch(l.role)) drawHaspLatch(ctx, l, cfg, s, beat, beatPhase, fx.flare);
+  if (latch) drawHaspLatch(ctx, l, cfg, s, beat, beatPhase, fx.flare);
   drawHaspVerdicts(ctx, l, cfg, s, fx.verdicts);
   if (haspLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
   ctx.restore();

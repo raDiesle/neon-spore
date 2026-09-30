@@ -3,6 +3,7 @@ import { BossHurt } from "./boss-hurt.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { GripVerdicts } from "./grip-verdict.js";
+import { haspStoryBurst } from "./hasp-fx-story.js";
 import { haspBarAt, haspCentre } from "./hasp-shape.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
@@ -13,7 +14,8 @@ import { showsHaspLatch, showsHaspWheel } from "./view-role-clocks-c.js";
  * What THE HASP leaves behind a frame: the **dim** of a wheel seizing under
  * the navigator's hand, the **flare** of the latch burning the pilot off it,
  * the **jolt** of the row as a hasp gives, the **shock** that opening sends
- * through the hull, and the bursts its fourteen receipts throw.
+ * through the hull, and the bursts its fourteen receipts throw — and the
+ * story's twelve, off their own page (`hasp-fx-story.ts`).
  *
  * Everything else — which clasps have swung, how far the wheel has come, how
  * hot the latch is — is read off the boss every frame (`hasp-draw.ts`,
@@ -164,8 +166,13 @@ export class HaspFx {
         case "haspOut":
           burst(hub.x, haspCentre(l, cfg, 1).y, 18, PALETTE.wispRim);
           break;
-        default:
+        // The story between the hasps (`hasp-fx-story.ts`).
+        default: {
+          const blow = haspStoryBurst(e, l, cfg, burst, wheel);
+          if (blow === "landed") this.hurt.hit();
+          else if (blow === "struck") this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           break;
+        }
       }
     }
   }

@@ -30,6 +30,7 @@ import { BOSS_GOVERNOR_SOUNDS } from "./sounds/boss-governor.js";
 import { BOSS_GRINDSTONE_SOUNDS } from "./sounds/boss-grindstone.js";
 import { BOSS_HALTER_SOUNDS } from "./sounds/boss-halter.js";
 import { BOSS_HASP_SOUNDS } from "./sounds/boss-hasp.js";
+import { BOSS_HASP_STORY_SOUNDS } from "./sounds/boss-hasp-story.js";
 import { BOSS_HIVE_SOUNDS } from "./sounds/boss-hive.js";
 import { BOSS_INSTAR_SOUNDS } from "./sounds/boss-instar.js";
 import { BOSS_KEEL_SOUNDS } from "./sounds/boss-keel.js";
@@ -107,6 +108,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_GIMBAL_SOUNDS,
   ...BOSS_SPOOL_SOUNDS,
   ...BOSS_HASP_SOUNDS,
+  ...BOSS_HASP_STORY_SOUNDS,
   ...BOSS_RATCHET_SOUNDS,
   ...BOSS_MANTLE_SOUNDS,
   ...BOSS_KEEL_SOUNDS,

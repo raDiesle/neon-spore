@@ -42,9 +42,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   burgee: ["slack", "lit", "rest", "spent"],
   flue: ["slack", "lit", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],
-  // THE HASP's story between the hasps: the simulation has landed, the
-  // four poses are the look lane (§20). Struck the day it lands.
-  hasp: ["rattle", "backspin", "rust", "sway"],
 };
 
 describe("the BOSSES category", () => {

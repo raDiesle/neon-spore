@@ -979,22 +979,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §20 THE HASP — the story between the hasps, the look
-
-- **Found:** 2026-09-26, claude/older-boss-stories
-- **Taken:** 2026-09-30, worktree-agent-a70e742e42142bd27 (claim: claude/queue-20-the-hasp-the-story-between-the-hasps-the-look)
-- **Needs:** §20 THE HASP — the story between the hasps, the simulation
-- **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/test/frame.test.ts`
-
-Draw §20's four new poses: a door shaking on its hinge, a wheel spinning
-backward with its mark smeared, a hasp furred with rust, three doors swaying
-half-shut. A look with no shipped alternative. The simulation landed
-27 September 2026 (`sim/hasp-story.ts`), and the existing latch and wheel are
-already drawn and take hands in every state (`haspLatchUp`, `haspWheelUp`,
-`haspHandHasp`), so what is left is the four poses, their cue words, a sound
-of their own for any of the twelve events (`bind-hasp.ts` borrows the door's
-now), and striking `hasp` from `OWED` in `tools/director/test/boss-states.test.ts`.
-
 ## Unverified at 98106e512: THE TRIVET's lurch aim and needle sparks watched at te…
 
 - **Found:** 2026-09-26, tmp-trivet-aim
@@ -1338,3 +1322,15 @@ alone. The lane had to judge both as load and land around them. Time each one
 on an idle machine and set its figure to what it measures, or make it cheaper:
 build the index once per file instead of once per case, and shorten the wave
 the frames run. After that, `check:fast` should pass under three lanes.
+
+## `pull-way-roll-out.test.ts` times out on a busy machine
+
+- **Found:** 2026-09-30, claude/queue-20-the-hasp-the-story-between-the-hasps-the-look
+- **Files:** `packages/render/test/pull-way-roll-out.test.ts`
+
+"names every file that draws the knob or the arrow" reads every file in
+`render/src` under bun's default 5000 ms, and at a load average of 32 it took
+6.2 s and failed `check:fast`, alone and in its shard; with `--timeout 30000`
+it passed in 3.8 s. Read the sources once in a `beforeAll` shared by the
+file's tests, or give the test a figure of its own the way the slow tree
+walks have, and prove it with `bun run check`.

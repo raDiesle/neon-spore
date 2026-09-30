@@ -2710,7 +2710,13 @@ departures argued there: the backspin's travel counts either way round, no
 grip in the story burns, S4's window is `haspSwayBeats` because
 `haspSwingBeats` already names the clasp's swing, and every window closes
 once *past* its beats. The existing latch and wheel take the hands in every
-state; **not built:** the four poses — the story's look lane.
+state. **The four poses built on 30 September 2026** (`render/hasp-story.ts`):
+the door chattering on its hinge, quieting for his grip on the latch's
+screens; the backspun wheel's ghost spokes, fading for her winding on the
+wheel's; the last hasp furred with rust, thinning for her rocks on the
+wheel's; the three doors falling toward half-shut on both. Her words are
+`WIND`, `ROCK` and, in the sway, `HOLD`; the rattle and the rust have sounds
+of their own (`sounds/boss-hasp-story.ts`).
 
 **Reusable.** Nothing named — the finding is that a gate between two hands
 needs no primitive of its own, only a rule in the boss's own step function

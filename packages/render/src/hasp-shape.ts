@@ -74,6 +74,21 @@ export function haspBoltAt(
   return { x: fieldX(l, s.boltCol), y: from + (l.hullY - from) * smoothstep(along), along };
 }
 
+/**
+ * Clasp `i`'s seam, shut: its x, the hinge at its top and the tail at its
+ * bottom — where the story's rattle chatters and its rust grows
+ * (`hasp-story.ts`).
+ */
+export function haspSeam(
+  l: Layout,
+  cfg: SimConfig,
+  i: number,
+): { x: number; top: number; bottom: number } {
+  const at = haspCentre(l, cfg, i);
+  const ry = SHELL_RY * l.tile;
+  return { x: at.x, top: at.y - ry, bottom: at.y + ry };
+}
+
 /** The shut shell's own radius on this screen — the longer of its two half-axes,
  * for a light that has to reach every facet (`hasp-draw.ts`). */
 export function haspShellRadius(l: Layout): number {

@@ -2,7 +2,7 @@ import { type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
-import { haspLatchAsks, haspLatchCircle, haspWheelCircle } from "./hasp-grip.js";
+import { haspLatchAsks, haspLatchCircle, haspWheelAsks, haspWheelCircle } from "./hasp-grip.js";
 import { haspFree } from "./hasp-pose.js";
 import { haspBoltAt } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
@@ -33,7 +33,21 @@ import type { Layout } from "./layout.js";
  * Either seat's and either colour's (`sim/hasp-shot.ts`), so it carries no
  * seat — THE GIMBAL's seam, and for its reason. Its crosshair rides the
  * bolt as it falls (`haspBoltAt`, the drawing's own).
+ *
+ * **Between the hasps her word is the story's** (`sim/hasp-story.ts`), his
+ * stays `HOLD`: every state that wants his hand wants it kept. The backspin
+ * asks her to `WIND` the spring back, with no gate, so the word stands the
+ * whole window; the rust to `ROCK` it, only while he holds, because a rock
+ * against a lifted latch counts nothing; and the sway to `HOLD` her thumb on
+ * the rim and keep it still — the rim's gesture with the latch's verb, and
+ * gone once her thumb is there, as his is.
  */
+
+/** Her word on the wheel in the story states that ask it to move. */
+const HER_WORD: Partial<Record<HaspState["phase"], { word: string; seed: number }>> = {
+  backspin: { word: "WIND", seed: 104 },
+  rust: { word: "ROCK", seed: 105 },
+};
 
 export function haspCues(
   l: Layout,
@@ -53,9 +67,14 @@ export function haspCues(
     const bar = haspLatchCircle(l, cfg, s);
     out.push({ seat: 1, kind: "CARRY", word: "HOLD", x: bar.x, y: bar.y, ...frame, seed: 102 });
   }
-  if (haspFree(s, cfg)) {
-    const w = haspWheelCircle(l, cfg, s);
-    out.push({ seat: 2, kind: "TURN", word: "TURN", x: w.x, y: w.y, ...frame, seed: 103 });
+  const w = haspWheelCircle(l, cfg, s);
+  if (s.phase === "sway") {
+    if (haspWheelAsks(s)) {
+      out.push({ seat: 2, kind: "TURN", word: "HOLD", x: w.x, y: w.y, ...frame, seed: 106 });
+    }
+  } else if (haspFree(s, cfg)) {
+    const said = HER_WORD[s.phase] ?? { word: "TURN", seed: 103 };
+    out.push({ seat: 2, kind: "TURN", ...said, x: w.x, y: w.y, ...frame });
   }
   return out;
 }

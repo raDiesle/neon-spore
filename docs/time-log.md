@@ -30117,3 +30117,13 @@ Bottleneck: `check:fast` timing out under load, which the queue now carries as a
 Bottleneck: writing — the whip's loop had to be one path the line's own stroke could draw, which meant reaching into `spool-line.ts` rather than laying over it.
 
 *Measured: 43 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — §20 THE HASP — the story between the hasps, the look
+
+- reading: 10 min. THE VALVE's story as the pattern, `sim/hasp-story.ts`, the hasp drawer, its seat split and the director's pose kit.
+- writing: 20 min. The four poses in `hasp-story.ts`, the story's bursts, her three words, two sounds, four director cards and the frame test.
+- looking: 5 min. One frame rendered off the commit.
+- friction: 5 min. A compaction mid-lane, and a roll-out test timing out on a machine at load 32.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — the seat split had to be carried through every count the story draws, and each one needed its own proof that the other screen stays still.

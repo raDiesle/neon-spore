@@ -17,8 +17,9 @@ import type { SimEvent } from "@neon-spore/sim";
  * THE GAUGE's tooth left that page at 250.
  */
 export const INGEST_SILENT_BOSS_E = [
-  // THE HASP's story between the hasps (`packages/audio/src/bind-hasp.ts`):
-  // what the door does is read off its phase (`hasp-story.ts`), never off these.
+  // THE HASP's story between the hasps: what the door does is read off its
+  // phase (`hasp-story.ts`), and each burst is thrown above the loop by
+  // `hasp-fx-story.ts`, through the door's own fx.
   "haspRattle",
   "haspHush",
   "haspSlam",

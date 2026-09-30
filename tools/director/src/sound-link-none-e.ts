@@ -24,4 +24,9 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.valveSparkHit": "the spark on the hull, which the hull's own sounds have.",
   "boss.valveOpen": "the drum's face falling open. Same argument.",
   "boss.valveOut": "the drum gone and the wave ending. Same argument, and an absence.",
+  // THE HASP's story, the two of its twelve with a voice of their own
+  // (`sounds/boss-hasp-story.ts`); the page before has the door's fourteen,
+  // and the argument is theirs.
+  "boss.haspRattle": "a door shaking on its hinge. Part of the fixture, like the clasps.",
+  "boss.haspRust": "a clasp furred with rust. Same argument: a coat on the fixture.",
 };

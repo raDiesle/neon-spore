@@ -184,8 +184,9 @@ export const SILENT_BOSS_D = [
   "ratchetWind",
   "ratchetWound",
   "ratchetUnwind",
-  // THE HASP's story between the hasps: no burst until the look lane draws
-  // the four states (`sim/hasp-story.ts`); the door's phase says them.
+  // THE HASP's story between the hasps: what the door does is read off its
+  // phase (`hasp-story.ts`), and each burst is thrown above the loop by
+  // `hasp-fx-story.ts`, through the door's own fx.
   "haspRattle",
   "haspHush",
   "haspSlam",

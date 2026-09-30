@@ -24,13 +24,16 @@ export function isHaspEvent(e: SimEvent): e is HaspSimEvent {
  * heard rather than counted — the three clasps are drawn on it, but by the
  * last one the pilot is watching his own heat and nothing else.
  *
- * **The story between the hasps borrows the door's own voice** (`sim/hasp-story.ts`):
- * each of its twelve is a sound this fight already makes, pitched down so it
- * is heard as the same door answering rather than a new one arriving — the
- * rattle and the sway open on the latch lighting, the backspin on the rim
- * coming free, the rust on the seize, and every state run out is the bolt's
- * blow at the hull, lower the later it comes. The look lane may give them
- * sounds of their own.
+ * **The story between the hasps mostly borrows the door's own voice**
+ * (`sim/hasp-story.ts`): ten of its twelve are sounds this fight already
+ * makes, pitched so they are heard as the same door answering rather than a
+ * new one arriving — the sway opens on the latch lighting, the backspin on the
+ * rim coming free, and every state run out is the bolt's blow at the hull,
+ * lower the later it comes. Those borrowings say the right thing: a lit clasp,
+ * a rim spinning, a blow landed. **The rattle and the rust have their own**
+ * (`sounds/boss-hasp-story.ts`): the rattle borrowed one knock, which said *a
+ * clasp is ready* rather than *a door shaking*, and the rust borrowed the
+ * seize, which tells her to let go where the rust asks her to rock.
  */
 export function haspCue(e: HaspSimEvent, cols: number): Cue {
   const pan = panForCol(e.col, cols);
@@ -65,7 +68,7 @@ export function haspCue(e: HaspSimEvent, cols: number): Cue {
     case "haspOut":
       return { id: "boss.haspOut", pan };
     case "haspRattle":
-      return { id: "boss.haspLit", pan, pitch: 0.8 };
+      return { id: "boss.haspRattle", pan };
     case "haspHush":
       return { id: "boss.haspCool", pan, pitch: 0.9 };
     case "haspSlam":
@@ -77,7 +80,7 @@ export function haspCue(e: HaspSimEvent, cols: number): Cue {
     case "haspSpoke":
       return { id: "boss.haspBoltHit", pan, pitch: 0.8 };
     case "haspRust":
-      return { id: "boss.haspSeize", pan, pitch: 0.7 };
+      return { id: "boss.haspRust", pan };
     case "haspCrack":
       return { id: "boss.haspOpen", pan, pitch: 0.8 };
     case "haspBurst":
