@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · d6d12c06c — THE MANTLE and THE DAVIT arrive faded through their glows, and THE DAVIT stands up once
+
+THE MANTLE and THE DAVIT fade in by ctx.globalAlpha as they arrive. The first strokeGlow inside each one put the alpha back to 1, so every plate, handle and hook drawn after it came in at full strength. The fix, used as FLUE and GOVERNOR already use it, is strokeGlowFaded, in every glow those bodies draw. The same fix goes to a brood egg and to a living body's neon edge through THE FLIP's tear. The pod THE SCOUT tears is handed the context's alpha, since its glow and halo take one.
+
 ## 2026-09-30 · 957393f83 — THE VANE's bearing is drawn on the arm's row, with a crosshair round the split
 
 The bearing, the hub and the arm now hang two rows down, where the simulation already meets a shot. While the housing is split, the navigator's FIRE mark wears a crosshair wider than a word's own, round the column the bolt has to climb. This is a look the owner asked for by name: "move boss around 2 tiles more down" and "make the area to damage with cannon more visible with the crosshair indicator".
