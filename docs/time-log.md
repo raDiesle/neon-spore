@@ -30667,3 +30667,18 @@ Bottleneck: finding the tick THE SLOW is open on — AUTO shuts it the tick
 after `instarShow`.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE MANTLE's brace watched
+
+- reading: 5 min. `mantle-brace.ts` for what the shudder, the seam's pulse
+  and the rings are meant to do.
+- writing: 0 min. Nothing needed changing.
+- looking: 5 min. Two strips from `mantleGlow`: the seam pulses bright,
+  the shell moves side to side between frames four ticks apart, and both
+  knob rings stand lit under AUTO's two thumbs.
+- friction: 5 min. The compaction fell between taking the frames and
+  reading them.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: the shudder is a few pixels, so it only shows between frames
+a few ticks apart, never in a strip a second apart.

@@ -518,21 +518,6 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## Unverified at f043ab146: THE MANTLE's brace watched at tempo: the shudder, the…
-
-- **Found:** 2026-09-26, claude/queue-23-the-mantle-the-braces-look-and-its-hand
-- **Taken:** 2026-09-30, claude/queue-unverified-at-4b5e7e87c-graphics-effects-the-fiv (claim: claude/queue-unverified-at-f043ab146-the-mantles-brace-watche)
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/hands/src/boss-hands-mantle.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`
-
-*§23 THE MANTLE: the brace is drawn, asked for and played* landed from a session that could not look at it. The commit touched 9 more files. What went unchecked:
-
-- THE MANTLE's brace watched at tempo: the shudder, the glow's pulse and the knob rings
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## The rounds' own timeout hit, offered on VERSUS beside the rock
 
 - **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
