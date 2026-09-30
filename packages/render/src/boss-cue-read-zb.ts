@@ -6,10 +6,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratchet-grip.js";
+import { ratchetBoltAt } from "./ratchet-shape.js";
 
 /**
  * **What THE RATCHET is asking for**: page twenty-eight of the readings, and
@@ -34,16 +35,23 @@ import { ratchetCatchCircle, ratchetPadCircle, ratchetTakesHand } from "./ratche
  * **And `FIRE` over the loose bolt, ahead of both**, at the hull under its
  * column, because a bolt left unshot is the one blow this boss lands on
  * the hull (`ratchetBoltBeats`). Either seat's and either colour's
- * (`sim/ratchet-shot.ts`), so it carries no seat.
+ * (`sim/ratchet-shot.ts`), so it carries no seat. Its crosshair rides the
+ * bolt as it falls (`ratchetBoltAt`, the drawing's own).
  */
 
-export function ratchetCues(l: Layout, world: World, s: RatchetState): readonly BossCue[] {
+export function ratchetCues(
+  l: Layout,
+  world: World,
+  s: RatchetState,
+  beatPhase: number,
+): readonly BossCue[] {
   const out: BossCue[] = [];
   const cfg = world.cfg;
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (ratchetLoose(s)) {
     const x = fieldX(l, s.boltCol);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 112 });
+    const aim = cueAimAt(l, ratchetBoltAt(l, cfg, s, world.beat, beatPhase));
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 112 });
   }
   if (!ratchetTakesHand(s)) return out;
   if (s.catchSpent || !ratchetHeld(s, cfg)) {

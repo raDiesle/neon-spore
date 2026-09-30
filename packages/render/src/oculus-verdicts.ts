@@ -6,13 +6,16 @@ import {
   oculusLeafAsks,
   type SimConfig,
   type SimEvent,
+  type World,
 } from "@neon-spore/sim";
+import { fieldX } from "./field-flip.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import { oculusSide } from "./oculus-grip.js";
-import { oculusRadius, oculusSocketRadius } from "./oculus-shape.js";
-import { oculusCorePose, oculusGaze, oculusGlare } from "./oculus-story.js";
+import { oculusArrived } from "./oculus-pose.js";
+import { oculusCentre, oculusLift, oculusRadius, oculusSocketRadius } from "./oculus-shape.js";
+import { oculusCorePose, oculusGaze, oculusGlare, oculusLookedCol } from "./oculus-story.js";
 
 /**
  * **THE OCULUS's marks answering a touch the way every mark does**
@@ -126,6 +129,27 @@ function marksAt(
     half(2),
     { x: hull.x, y: hull.y, r: l.tile * 0.5 },
   ];
+}
+
+/**
+ * Where a mark stands on the field, out of the lens's frame, for the world as
+ * it stands — the circle its halo is drawn on, which the cue's crosshair rides
+ * (`boss-cue-read-ze.ts`). The lens's thud and shake are left out, as the
+ * hands' circles leave them (`oculus-grip.ts`).
+ */
+export function oculusMarkStanding(
+  l: Layout,
+  world: World,
+  s: OculusState,
+  beatPhase: number,
+  mark: number,
+): Circle | undefined {
+  const cfg = world.cfg;
+  const home = oculusCentre(l, cfg);
+  const y = home.y - oculusLift(l, oculusArrived(s, cfg, world.beat, beatPhase));
+  const hull = { x: fieldX(l, oculusLookedCol(cfg, s)) - home.x, y: l.hullY - y };
+  const c = marksAt(l, cfg, s, world.beat, beatPhase, hull)[mark];
+  return c === undefined ? undefined : { x: home.x + c.x, y: y + c.y, r: c.r };
 }
 
 /** What a mark asks of this screen: `own` for the halo, `theirs` for the partner's ring and clock. */

@@ -17,6 +17,7 @@ import {
   mantleHandlesLit,
   mantleOpen,
   mantleShed,
+  mantleSparkNow,
   mantleValvePose,
 } from "./mantle-pose.js";
 import {
@@ -25,7 +26,6 @@ import {
   mantlePlatePath,
   mantleReach,
   mantleRimPath,
-  mantleSparkPoint,
   PLATE_BOUNDS,
   type Point,
   type Side,
@@ -102,7 +102,7 @@ export function drawMantle(
   else if (s.phase !== "dark")
     drawMantleHandles(ctx, l, world, s, at, poses, lit, time, fx.marks.verdicts);
   drawMantleMarks(ctx, l, cfg, s, at, time, fx.marks.verdicts);
-  if (mantleLeaking(s)) drawSpark(ctx, l, world, s, at, beat, beatPhase);
+  if (mantleLeaking(s)) drawSpark(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
 }
 
@@ -214,14 +214,10 @@ function drawSpark(
   l: Layout,
   world: World,
   s: MantleState,
-  at: Point,
   beat: number,
   beatPhase: number,
 ): void {
-  const along = smoothstep(
-    (beat - s.sparkBeat + beatPhase) / Math.max(1, world.cfg.mantleSparkBeats),
-  );
-  const { x, y } = mantleSparkPoint(l, at, s.sparkCol, along);
+  const { x, y, along } = mantleSparkNow(l, world.cfg, s, beat, beatPhase);
   const bead = new Path2D();
   bead.ellipse(x, y, l.tile * 0.18, l.tile * 0.26, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(CORE, 0.55 + 0.4 * along);

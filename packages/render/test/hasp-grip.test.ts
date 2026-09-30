@@ -17,6 +17,7 @@ import { haspCues } from "../src/boss-cue-read-z.js";
 import { cueSeen } from "../src/boss-cue-shape.js";
 import { handleCircle } from "../src/handle-place.js";
 import { haspLatchCircle, haspWheelCircle } from "../src/hasp-grip.js";
+import { haspBoltAt } from "../src/hasp-shape.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { type Field, touchDown } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
@@ -151,12 +152,12 @@ describe("a thumb on THE HASP", () => {
 
 describe("the words on THE HASP", () => {
   const words = (world: World, s: HaspState): string[] =>
-    haspCues(layout("test"), world, s).map((c) => c.word);
+    haspCues(layout("test"), world, s, 0).map((c) => c.word);
 
   it("asks him to HOLD while the latch is up, and says nothing to her yet", () => {
     const { world, s } = working();
     expect(words(world, s)).toEqual(["HOLD"]);
-    const [hold] = haspCues(layout("test"), world, s);
+    const [hold] = haspCues(layout("test"), world, s, 0);
     if (hold === undefined) throw new Error("no cue");
     expect(cueSeen(hold, "p1")).toBe(true);
     expect(cueSeen(hold, "p2")).toBe(false);
@@ -166,7 +167,7 @@ describe("the words on THE HASP", () => {
     const { world, s } = working();
     s.latchMilli = CFG.haspGripMilli;
     expect(words(world, s)).toEqual(["TURN"]);
-    const [turn] = haspCues(layout("test"), world, s);
+    const [turn] = haspCues(layout("test"), world, s, 0);
     if (turn === undefined) throw new Error("no cue");
     expect(cueSeen(turn, "p2")).toBe(true);
     expect(cueSeen(turn, "p1")).toBe(false);
@@ -182,8 +183,18 @@ describe("the words on THE HASP", () => {
     const { world, s } = working();
     s.phase = "swing";
     s.boltCol = 5;
-    const cues = haspCues(layout("test"), world, s);
+    s.boltBeat = world.beat;
+    const l = layout("test");
+    const cues = haspCues(l, world, s, 0.5);
     expect(cues.map((c) => c.word)).toEqual(["FIRE"]);
     expect(cues[0]?.seat).toBeNull();
+    // The owner, 29 September 2026, every boss: a shot cue carries a clear
+    // aim target (`cue-helper.ts`). The word stays at the hull, where the
+    // cannon goes; the crosshair rides the thing it is fired at.
+    const bolt = haspBoltAt(l, CFG, s, world.beat, 0.5);
+    expect(cues[0]?.y).toBe(l.hullY);
+    expect(cues[0]?.aim?.x).toBeCloseTo(cues[0]?.x ?? Number.NaN, 5);
+    expect(cues[0]?.aim?.y).toBeCloseTo(bolt.y, 5);
+    expect(cues[0]?.aim?.y).toBeLessThan(l.hullY);
   });
 });

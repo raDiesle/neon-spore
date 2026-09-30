@@ -11,6 +11,7 @@ import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { oculusHalfStanding } from "./oculus-grip.js";
+import { OCULUS_CORE_MARK, OCULUS_HULL_MARK, oculusMarkStanding } from "./oculus-verdicts.js";
 
 /**
  * **What THE OCULUS is asking for** — page thirty-one of the readings. Both
@@ -33,6 +34,9 @@ import { oculusHalfStanding } from "./oculus-grip.js";
  * **The story steps** (`oculus-story.ts`): a look is `FIRE` at the hull
  * under the column the eye looks down, where its notch is; a glare is
  * `SHIELD` at the hull under the middle, where its beam lands.
+ *
+ * **Each `FIRE` rings what its halo stands on** (`oculusMarkStanding`): the
+ * lit core for a fire step, the look's notch at the hull for a look.
  */
 
 export function oculusCues(
@@ -46,7 +50,9 @@ export function oculusCues(
   const step = oculusLitStep(s);
   if (step?.ask === "fire" || step?.ask === "look") {
     const x = fieldX(l, oculusLookCol(midCol(world.cfg), step));
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 130 });
+    const mark = step.ask === "fire" ? OCULUS_CORE_MARK : OCULUS_HULL_MARK;
+    const aim = oculusMarkStanding(l, world, s, beatPhase, mark);
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 130 });
   }
   if (step?.ask === "glare") {
     const x = fieldX(l, midCol(world.cfg));

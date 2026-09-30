@@ -1,4 +1,5 @@
-import { HASP_COUNT, midCol, type SimConfig } from "@neon-spore/sim";
+import { HASP_COUNT, type HaspState, midCol, type SimConfig } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -51,6 +52,26 @@ export function haspCentre(l: Layout, cfg: SimConfig, i: number): Point {
 /** The hub's radius on this screen. */
 export function haspHubRadius(l: Layout): number {
   return HUB * l.tile;
+}
+
+/**
+ * Where the loose bolt is, fallen `along` (0..1) of the way from the second
+ * clasp's hub down its column to the hull: drawn there (`hasp-draw.ts`) and
+ * aimed at there (`boss-cue-read-z.ts`).
+ */
+export function haspBoltAt(
+  l: Layout,
+  cfg: SimConfig,
+  s: HaspState,
+  beat: number,
+  beatPhase: number,
+): Point & { along: number } {
+  const along = Math.min(
+    1,
+    Math.max(0, (beat - s.boltBeat + beatPhase) / Math.max(1, cfg.haspBoltBeats)),
+  );
+  const from = haspCentre(l, cfg, 1).y + haspHubRadius(l);
+  return { x: fieldX(l, s.boltCol), y: from + (l.hullY - from) * smoothstep(along), along };
 }
 
 /** The shut shell's own radius on this screen — the longer of its two half-axes,

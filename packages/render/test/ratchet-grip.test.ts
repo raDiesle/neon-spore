@@ -15,6 +15,7 @@ import { cueSeen } from "../src/boss-cue-shape.js";
 import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { ratchetCatchCircle, ratchetPadCircle } from "../src/ratchet-grip.js";
+import { ratchetBoltAt } from "../src/ratchet-shape.js";
 import { type Field, touchDown, touchMove, touchUp } from "../src/touch.js";
 import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
 
@@ -149,11 +150,11 @@ describe("a thumb on THE RATCHET", () => {
 
 describe("the words on THE RATCHET", () => {
   const words = (world: World, s: RatchetState): string[] =>
-    ratchetCues(layout("test"), world, s).map((c) => c.word);
+    ratchetCues(layout("test"), world, s, 0).map((c) => c.word);
 
   it("asks her to HOLD and him to wait ON SET, each on their own screen", () => {
     const { world, s } = working();
-    const cues = ratchetCues(layout("test"), world, s);
+    const cues = ratchetCues(layout("test"), world, s, 0);
     expect(cues.map((c) => c.word)).toEqual(["HOLD", "ON SET"]);
     const [hold, onSet] = cues;
     if (hold === undefined || onSet === undefined) throw new Error("no cues");
@@ -181,8 +182,18 @@ describe("the words on THE RATCHET", () => {
     const { world, s } = working();
     s.phase = "open";
     s.boltCol = 5;
-    const cues = ratchetCues(layout("test"), world, s);
+    s.boltBeat = world.beat;
+    const l = layout("test");
+    const cues = ratchetCues(l, world, s, 0.5);
     expect(cues.map((c) => c.word)).toEqual(["FIRE"]);
     expect(cues[0]?.seat).toBeNull();
+    // The owner, 29 September 2026, every boss: a shot cue carries a clear
+    // aim target (`cue-helper.ts`). The word stays at the hull, where the
+    // cannon goes; the crosshair rides the thing it is fired at.
+    const bolt = ratchetBoltAt(l, CFG, s, world.beat, 0.5);
+    expect(cues[0]?.y).toBe(l.hullY);
+    expect(cues[0]?.aim?.x).toBeCloseTo(cues[0]?.x ?? Number.NaN, 5);
+    expect(cues[0]?.aim?.y).toBeCloseTo(bolt.y, 5);
+    expect(cues[0]?.aim?.y).toBeLessThan(l.hullY);
   });
 });

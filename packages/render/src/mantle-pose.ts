@@ -1,6 +1,7 @@
 import { type MantleState, mantleDone, mantleFinale, type SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import type { Side, ValvePose } from "./mantle-shape.js";
+import type { Layout } from "./layout.js";
+import { mantleCentre, mantleSparkPoint, type Side, type ValvePose } from "./mantle-shape.js";
 import { MANTLE_TURN_TOP, mantleBulge, mantleTurnOpen } from "./mantle-story.js";
 import { phaseInto } from "./phase-into.js";
 
@@ -139,4 +140,19 @@ export function mantleCoreLife(
     return 0.3 * (1 - smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, cfg.mantleOpenBeats)));
   }
   return 1;
+}
+
+/**
+ * Where the leaking spark's bead is now, and how far along its fuse (eased):
+ * drawn there (`mantle-draw.ts`) and aimed at there (`boss-cue-read-zc.ts`).
+ */
+export function mantleSparkNow(
+  l: Layout,
+  cfg: SimConfig,
+  s: MantleState,
+  beat: number,
+  beatPhase: number,
+): { x: number; y: number; along: number } {
+  const along = smoothstep((beat - s.sparkBeat + beatPhase) / Math.max(1, cfg.mantleSparkBeats));
+  return { ...mantleSparkPoint(l, mantleCentre(l, cfg), s.sparkCol, along), along };
 }

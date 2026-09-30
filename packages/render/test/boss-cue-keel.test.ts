@@ -15,6 +15,8 @@ import {
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
 import { keelJointCircle } from "../src/keel-grip.js";
+import { keelSocketAt } from "../src/keel-marks.js";
+import { keelRockNow, keelSegs } from "../src/keel-pose.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -111,6 +113,13 @@ describe("THE KEEL", () => {
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
       expect(c?.y).toBe(LAYOUT[role].hullY);
+      // The crosshair rides the socket between the cut faces, not the hull.
+      const segs = keelSegs(LAYOUT[role], CFG, s, world.beat, 0);
+      const socket = keelSocketAt(LAYOUT[role], s, segs);
+      expect(socket).not.toBeNull();
+      expect(c?.aim?.x).toBeCloseTo(socket?.x ?? Number.NaN, 5);
+      expect(c?.aim?.y).toBeCloseTo(socket?.y ?? Number.NaN, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 
@@ -124,6 +133,13 @@ describe("THE KEEL", () => {
       expect(c?.word).toBe("FIRE");
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], 2), 5);
+      // The crosshair rides the rock as it falls (`keelRockNow`).
+      const segs = keelSegs(LAYOUT[role], CFG, s, world.beat, 0);
+      const rock = keelRockNow(LAYOUT[role], CFG, s, segs, world.beat, 0);
+      expect(rock).not.toBeNull();
+      expect(c?.aim?.x).toBeCloseTo(rock?.x ?? Number.NaN, 5);
+      expect(c?.aim?.y).toBeCloseTo(rock?.y ?? Number.NaN, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

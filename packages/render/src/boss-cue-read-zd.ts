@@ -9,11 +9,12 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { keelJointCircle } from "./keel-grip.js";
-import { keelSegs } from "./keel-pose.js";
-import { keelEndCircle } from "./keel-story.js";
+import { keelSocketAt } from "./keel-marks.js";
+import { keelRockNow, keelSegs } from "./keel-pose.js";
+import { keelEndCircle, keelMarrowAt } from "./keel-story.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -45,6 +46,10 @@ import type { Layout } from "./layout.js";
  * chord needs said; and `FIRE` at the hull under the middle column while the
  * marrow is lit, to either seat, since the colours are the conversation. The
  * cooldown says nothing: it wants the hands off.
+ *
+ * **Each `FIRE` rings what it is fired at** — the rock as it falls, the
+ * socket between the cut faces, the marrow's lens — each off the function its
+ * drawing stands on, so the crosshair and the thing never part.
  */
 
 export function keelCues(
@@ -56,16 +61,15 @@ export function keelCues(
   const out: BossCue[] = [];
   const cfg = world.cfg;
   const frame = cueFrame(l, CUE_FRAME_WIDE);
-  if (keelThrown(s)) {
-    const x = fieldX(l, s.rockCol);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 119 });
-  }
-  if (s.phase === "socket") {
-    const x = fieldX(l, midCol(cfg));
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 120 });
-  }
+  const segs = keelSegs(l, cfg, s, world.beat, beatPhase);
+  const fire = (col: number, on: { x: number; y: number } | null, seed: number): void => {
+    const aim = on === null ? undefined : cueAimAt(l, on);
+    const x = fieldX(l, col);
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed });
+  };
+  if (keelThrown(s)) fire(s.rockCol, keelRockNow(l, cfg, s, segs, world.beat, beatPhase), 119);
+  if (s.phase === "socket") fire(midCol(cfg), keelSocketAt(l, s, segs), 120);
   if (keelFlipping(s)) {
-    const segs = keelSegs(l, cfg, s, world.beat, beatPhase);
     for (const seat of [1, 2] as const) {
       const end = s.held[seat - 1] ? null : keelEndCircle(segs, l, s, seat);
       if (end === null) continue;
@@ -73,10 +77,7 @@ export function keelCues(
       out.push({ seat, kind: "HOLD", word: "HOLD", x: end.x, y: end.y, ...frame, seed });
     }
   }
-  if (keelMarrowLit(s)) {
-    const x = fieldX(l, midCol(cfg));
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 139 });
-  }
+  if (keelMarrowLit(s)) fire(midCol(cfg), keelMarrowAt(l, s, segs), 139);
   const ring = keelLit(s) ? keelJointCircle(l, cfg, s, world.beat, beatPhase) : null;
   if (ring !== null) {
     const seat = keelSeat(s, cfg.cols);

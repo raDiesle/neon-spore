@@ -2,13 +2,12 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import { HASP_COUNT, type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
-import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import type { GripVerdict } from "./grip-verdict.js";
 import { drawHaspHalos, drawHaspVerdicts } from "./hasp-marks.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
-import { haspCentre, haspHubRadius, haspShellPath, haspShellRadius } from "./hasp-shape.js";
+import { haspBoltAt, haspCentre, haspShellPath, haspShellRadius } from "./hasp-shape.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -190,14 +189,7 @@ function drawBolt(
   beat: number,
   beatPhase: number,
 ): void {
-  const cfg = world.cfg;
-  const along = Math.min(
-    1,
-    Math.max(0, (beat - s.boltBeat + beatPhase) / Math.max(1, cfg.haspBoltBeats)),
-  );
-  const from = haspCentre(l, cfg, 1).y + haspHubRadius(l);
-  const x = fieldX(l, s.boltCol);
-  const y = from + (l.hullY - from) * smoothstep(along);
+  const { x, y, along } = haspBoltAt(l, world.cfg, s, beat, beatPhase);
   const bolt = new Path2D();
   bolt.roundRect(x - l.tile * 0.12, y - l.tile * 0.3, l.tile * 0.24, l.tile * 0.6, l.tile * 0.1);
   ctx.fillStyle = rgba(PALETTE.hullRim, 0.55 + 0.35 * along);

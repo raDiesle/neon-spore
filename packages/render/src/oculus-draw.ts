@@ -1,10 +1,8 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import {
-  midCol,
   OCULUS_LEAVES,
   type OculusState,
   oculusLitStep,
-  oculusLookCol,
   oculusWindowBeats,
   type World,
 } from "@neon-spore/sim";
@@ -41,6 +39,7 @@ import {
   oculusCorePose,
   oculusGaze,
   oculusGlare,
+  oculusLookedCol,
 } from "./oculus-story.js";
 import { drawOculusMarkFeedback } from "./oculus-verdicts.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -91,9 +90,8 @@ export function drawOculus(
   const step = oculusLitStep(s);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const y = home.y - oculusLift(l, arrived) + fx.thud * l.tile;
-  const looked = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
-  const lookCol = looked?.ask === "look" ? oculusLookCol(midCol(cfg), looked) : midCol(cfg);
-  const aim: Aim = { toHull: l.hullY - y, lookX: fieldX(l, lookCol) - home.x };
+  const lookX = fieldX(l, oculusLookedCol(cfg, s)) - home.x;
+  const aim: Aim = { toHull: l.hullY - y, lookX };
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * shatter);
   ctx.translate(home.x + fx.hurt.shakeX(time, l.tile), y);

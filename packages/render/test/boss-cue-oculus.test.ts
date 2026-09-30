@@ -120,6 +120,10 @@ describe("THE OCULUS", () => {
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
       expect(c?.y).toBe(LAYOUT[role].hullY);
+      // The crosshair rides the lit core, up in the lens, where its halo is.
+      const l = LAYOUT[role];
+      expect(c?.aim?.y).toBeLessThan(l.hullY - l.tile);
+      expect(Math.abs((c?.aim?.x ?? Number.NaN) - fieldX(l, midCol(CFG)))).toBeLessThan(l.tile);
     }
   });
 
@@ -133,6 +137,10 @@ describe("THE OCULUS", () => {
       const c = cue(world, role);
       expect(c?.word).toBe("FIRE");
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], oculusLookCol(midCol(CFG), look)), 5);
+      // The crosshair rides the notch the sight stands on at the hull.
+      const l = LAYOUT[role];
+      expect(c?.aim?.x).toBeCloseTo(c?.x ?? Number.NaN, 0);
+      expect(Math.abs((c?.aim?.y ?? Number.NaN) - l.hullY)).toBeLessThan(l.tile);
     }
   });
 

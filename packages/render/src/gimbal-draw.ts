@@ -2,11 +2,11 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import { type GimbalState, gimbalLeaking, INNER, OUTER, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
-import { fieldX } from "./field-flip.js";
 import {
   gimbalCorePath,
   gimbalHoopPath,
   gimbalLeafPath,
+  gimbalLeakPoint,
   gimbalOpenPhase,
   gimbalRibPath,
   gimbalSeamPath,
@@ -184,8 +184,7 @@ function drawLeak(
   const colour = s.seamCol % 2 === 0 ? PALETTE.red : PALETTE.cyan;
   const seam = gimbalSeamPath(at, gimbalDrumR(l), open);
   strokeGlow(ctx, seam, colour, STROKE.outline, 1 + along);
-  const x = fieldX(l, s.seamCol);
-  const y = at.y + (l.hullY - at.y) * smoothstep(along);
+  const { x, y } = gimbalLeakPoint(l, world.cfg, s, beat, beatPhase);
   const bead = new Path2D();
   bead.ellipse(x, y, l.tile * 0.18, l.tile * 0.26, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(colour, 0.5 + 0.4 * along);

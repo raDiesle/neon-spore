@@ -10,10 +10,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { mantleCoreCircle, mantleKnobCircle, mantleSide, mantleVentCircle } from "./mantle-grip.js";
+import { mantleSparkNow } from "./mantle-pose.js";
 
 /**
  * **What THE MANTLE is asking for** — page twenty-nine of the readings, and
@@ -52,7 +53,8 @@ import { mantleCoreCircle, mantleKnobCircle, mantleSide, mantleVentCircle } from
  * **And `FIRE` at the hull under the leaking spark, ahead of both**, because
  * a spark left unshot is the one blow this boss lands on the hull
  * (`mantleSparkBeats`). Either seat's shot puts it out, so it carries no
- * seat — THE RATCHET's loose bolt, again (`boss-cue-read-zb.ts`).
+ * seat — THE RATCHET's loose bolt, again (`boss-cue-read-zb.ts`). Its crosshair
+ * rides the bead (`mantleSparkNow`, the drawing's own).
  */
 
 export function mantleCues(
@@ -66,7 +68,8 @@ export function mantleCues(
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (mantleLeaking(s)) {
     const x = fieldX(l, s.sparkCol);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 115 });
+    const aim = cueAimAt(l, mantleSparkNow(l, world.cfg, s, world.beat, beatPhase));
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 115 });
   }
   if (mantlePulling(s)) {
     for (const seat of [1, 2] as const) {

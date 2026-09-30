@@ -1,9 +1,10 @@
 import { type HaspState, haspLoose, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { haspLatchAsks, haspLatchCircle, haspWheelCircle } from "./hasp-grip.js";
 import { haspFree } from "./hasp-pose.js";
+import { haspBoltAt } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -30,16 +31,23 @@ import type { Layout } from "./layout.js";
  * **And `FIRE` over the loose bolt, ahead of both**, at the hull under its
  * column, because it is the only thing on this boss that ends the wave.
  * Either seat's and either colour's (`sim/hasp-shot.ts`), so it carries no
- * seat — THE GIMBAL's seam, and for its reason.
+ * seat — THE GIMBAL's seam, and for its reason. Its crosshair rides the
+ * bolt as it falls (`haspBoltAt`, the drawing's own).
  */
 
-export function haspCues(l: Layout, world: World, s: HaspState): readonly BossCue[] {
+export function haspCues(
+  l: Layout,
+  world: World,
+  s: HaspState,
+  beatPhase: number,
+): readonly BossCue[] {
   const out: BossCue[] = [];
   const cfg = world.cfg;
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (haspLoose(s)) {
     const x = fieldX(l, s.boltCol);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 101 });
+    const aim = cueAimAt(l, haspBoltAt(l, cfg, s, world.beat, beatPhase));
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 101 });
   }
   if (haspLatchAsks(s, cfg)) {
     const bar = haspLatchCircle(l, cfg, s);

@@ -29,7 +29,6 @@ export function drawKeelFaces(
   segs: Seg[],
   open: number,
 ): Point | null {
-  const ends: Point[] = [];
   segs.forEach((g, k) => {
     const side = keelMiddle(s, k);
     if (side === 0) return;
@@ -40,7 +39,19 @@ export function drawKeelFaces(
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.8);
     ctx.stroke(face);
-    ends.push(keelSegEnd(l, g.centre, g.slope, g.pose, end));
+  });
+  return keelSocketAt(l, s, segs);
+}
+
+/**
+ * Where the socket stands: halfway between the middle two's cut ends. Drawn
+ * there (`drawKeelSocket`) and aimed at there (`boss-cue-read-zd.ts`).
+ */
+export function keelSocketAt(l: Layout, s: KeelState, segs: readonly Seg[]): Point | null {
+  const ends: Point[] = [];
+  segs.forEach((g, k) => {
+    const side = keelMiddle(s, k);
+    if (side !== 0) ends.push(keelSegEnd(l, g.centre, g.slope, g.pose, side === -1 ? 1 : -1));
   });
   const [a, b] = ends;
   if (a === undefined || b === undefined) return null;

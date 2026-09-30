@@ -9,14 +9,13 @@ import {
   keelBright,
   keelOpen,
   keelPulse,
-  keelRockAlong,
+  keelRockNow,
   keelSegs,
 } from "./keel-pose.js";
 import { KEEL_SEAM } from "./keel-seam-look.js";
 import {
   keelPlatePath,
   keelRibsPath,
-  keelRockPoint,
   keelSeamPath,
   keelSegEnd,
   type Point,
@@ -100,12 +99,8 @@ export function drawKeel(
     if (g !== undefined) drawKeelRing(ctx, l, s, cfg, g.centre, beat, beatPhase);
   }
   drawKeelVerdicts(ctx, l, cfg, s, segs, time, fx.marks.verdicts);
-  const along = keelRockAlong(s, cfg, beat, beatPhase);
-  const tail = segs[n - 1];
-  if (along >= 0 && tail !== undefined) {
-    const from = keelSegEnd(l, tail.centre, tail.slope, tail.pose, 1);
-    drawRock(ctx, l, keelRockPoint(l, from, s.rockCol, along), beat + beatPhase);
-  }
+  const rock = keelRockNow(l, cfg, s, segs, beat, beatPhase);
+  if (rock !== null) drawRock(ctx, l, rock, beat + beatPhase);
   ctx.restore();
 }
 

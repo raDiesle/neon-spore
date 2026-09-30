@@ -70,6 +70,24 @@ export function drawKeelEnds(
   }
 }
 
+/**
+ * Where the marrow's lens stands: where the middle two meet. Drawn there
+ * (`drawKeelMarrow`) and aimed at there (`boss-cue-read-zd.ts`).
+ */
+export function keelMarrowAt(
+  l: Layout,
+  s: KeelState,
+  segs: readonly Seg[],
+): { x: number; y: number } | null {
+  const half = s.locked.length / 2;
+  const a = segs[half - 1];
+  const b = segs[half];
+  if (a === undefined || b === undefined) return null;
+  const p = keelSegEnd(l, a.centre, a.slope, a.pose, 1);
+  const q = keelSegEnd(l, b.centre, b.slope, b.pose, -1);
+  return { x: (p.x + q.x) / 2, y: (p.y + q.y) / 2 };
+}
+
 /** The marrow's lens where the middle two meet, a half of each colour, and the beam down to the hull. */
 export function drawKeelMarrow(
   ctx: CanvasRenderingContext2D,
@@ -79,14 +97,9 @@ export function drawKeelMarrow(
   beatPhase: number,
 ): void {
   if (!keelMarrowLit(s)) return;
-  const half = s.locked.length / 2;
-  const a = segs[half - 1];
-  const b = segs[half];
-  if (a === undefined || b === undefined) return;
-  const p = keelSegEnd(l, a.centre, a.slope, a.pose, 1);
-  const q = keelSegEnd(l, b.centre, b.slope, b.pose, -1);
-  const x = (p.x + q.x) / 2;
-  const y = (p.y + q.y) / 2;
+  const at = keelMarrowAt(l, s, segs);
+  if (at === null) return;
+  const { x, y } = at;
   const pulse = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
   const beam = new Path2D();
   beam.moveTo(x, y);

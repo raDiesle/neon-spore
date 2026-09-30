@@ -1,4 +1,5 @@
-import { midCol, RATCHET_TEETH, type SimConfig } from "@neon-spore/sim";
+import { midCol, RATCHET_TEETH, type RatchetState, type SimConfig } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -67,6 +68,27 @@ export function ratchetPawlY(l: Layout): number {
 /** The lock at the top of the strut, and its half-size. */
 export function ratchetLock(l: Layout, cfg: SimConfig): Point & { half: number } {
   return { x: ratchetX(l, cfg), y: l.gridTop + LOCK_ROW * l.tile, half: LOCK_HALF * l.tile };
+}
+
+/**
+ * Where the loose bolt is, fallen `along` (0..1) of the way from under the
+ * lock down its column to the hull: drawn there (`ratchet-draw.ts`) and aimed
+ * at there (`boss-cue-read-zb.ts`).
+ */
+export function ratchetBoltAt(
+  l: Layout,
+  cfg: SimConfig,
+  s: RatchetState,
+  beat: number,
+  beatPhase: number,
+): Point & { along: number } {
+  const along = Math.min(
+    1,
+    Math.max(0, (beat - s.boltBeat + beatPhase) / Math.max(1, cfg.ratchetBoltBeats)),
+  );
+  const lock = ratchetLock(l, cfg);
+  const from = lock.y + lock.half;
+  return { x: fieldX(l, s.boltCol), y: from + (l.hullY - from) * smoothstep(along), along };
 }
 
 /**

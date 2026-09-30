@@ -1,4 +1,10 @@
-import type { OculusAsk, OculusState, SimConfig } from "@neon-spore/sim";
+import {
+  midCol,
+  type OculusAsk,
+  type OculusState,
+  oculusLookCol,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -23,6 +29,15 @@ import { phaseInto } from "./phase-into.js";
  * All in the lens's own frame, the lens's centre at the origin; both screens
  * the same, as the rest of the lens is.
  */
+
+/**
+ * The column the eye looks down: the lit look's, or the last one's over the
+ * rest after, else the middle. The sight's notch and the hull mark stand on it.
+ */
+export function oculusLookedCol(cfg: SimConfig, s: OculusState): number {
+  const looked = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
+  return looked?.ask === "look" ? oculusLookCol(midCol(cfg), looked) : midCol(cfg);
+}
 
 /** How far the core rolls aside in its socket, as a share of the socket's radius. */
 const ROLL = 0.42;

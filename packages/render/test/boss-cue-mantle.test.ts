@@ -14,6 +14,7 @@ import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { mantleCoreCircle, mantleKnobCircle, mantleSide } from "../src/mantle-grip.js";
+import { mantleSparkNow } from "../src/mantle-pose.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -146,6 +147,13 @@ describe("THE MANTLE", () => {
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], s.sparkCol), 5);
       expect(c?.y).toBe(LAYOUT[role].hullY);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const spark = mantleSparkNow(LAYOUT[role], CFG, s, world.beat, 0);
+      expect(c?.aim?.x).toBeCloseTo(spark.x, 5);
+      expect(c?.aim?.y).toBeCloseTo(spark.y, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

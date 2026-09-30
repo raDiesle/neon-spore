@@ -1,5 +1,5 @@
 import type { BossCue } from "./boss-cue-shape.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 
 /**
  * **How far a cue's frame reaches**, and the one way a reading builds a cue.
@@ -46,4 +46,13 @@ export function markAt(
   wide = 1,
 ): BossCue {
   return { seat, kind, word, x, y, ...cueFrame(l, CUE_FRAME, wide), seed };
+}
+
+/**
+ * The crosshair over something small the cannon must hit on its way down — a
+ * bead, a bolt, a spark — the size THE SEAM's rock set (`seam-verdicts.ts`),
+ * so every falling thing the field names is ringed alike.
+ */
+export function cueAimAt(l: Layout, p: { x: number; y: number }): Circle {
+  return { x: p.x, y: p.y, r: l.tile * 0.4 };
 }

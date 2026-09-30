@@ -6,7 +6,16 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { keelSegCentre, keelSegSlope, RISE, type Seg, type SegPose } from "./keel-shape.js";
+import {
+  keelRockPoint,
+  keelSegCentre,
+  keelSegEnd,
+  keelSegSlope,
+  type Point,
+  RISE,
+  type Seg,
+  type SegPose,
+} from "./keel-shape.js";
 import { keelBreathSwell, keelFlipRise } from "./keel-story-pose.js";
 import type { Layout } from "./layout.js";
 import { phaseInto } from "./phase-into.js";
@@ -180,4 +189,24 @@ export function keelSegs(
     slope: keelSegSlope(l, cfg, k, n, rise),
     pose: keelSegPose(s, cfg, k, beat, beatPhase),
   }));
+}
+
+/**
+ * Where the tail's rock is now, fallen off the tail's end toward the hull, or
+ * null while none is thrown: drawn there (`keel-draw.ts`) and aimed at there
+ * (`boss-cue-read-zd.ts`).
+ */
+export function keelRockNow(
+  l: Layout,
+  cfg: SimConfig,
+  s: KeelState,
+  segs: readonly Seg[],
+  beat: number,
+  beatPhase: number,
+): Point | null {
+  const along = keelRockAlong(s, cfg, beat, beatPhase);
+  const tail = segs[segs.length - 1];
+  if (along < 0 || tail === undefined) return null;
+  const from = keelSegEnd(l, tail.centre, tail.slope, tail.pose, 1);
+  return keelRockPoint(l, from, s.rockCol, along);
 }

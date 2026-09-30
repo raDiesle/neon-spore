@@ -1,7 +1,9 @@
 import type { GimbalState, SimConfig } from "@neon-spore/sim";
 import { BEARING_TURN } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import type { Point } from "./gimbal-shape.js";
+import { fieldX } from "./field-flip.js";
+import { gimbalCentre, type Point } from "./gimbal-shape.js";
+import type { Layout } from "./layout.js";
 
 /**
  * **The sealed drum the two rings hang round, and the clock the whole scene is
@@ -142,6 +144,22 @@ export function gimbalSeamPhase(
 ): number {
   const done = (beat - s.seamBeat + beatPhase) / Math.max(1, cfg.gimbalSeamBeats);
   return Math.min(1, Math.max(0, done));
+}
+
+/**
+ * Where the leak's bead is, run from the drum down its column toward the hull:
+ * drawn there (`gimbal-draw.ts`) and aimed at there (`boss-cue-read-y.ts`).
+ */
+export function gimbalLeakPoint(
+  l: Layout,
+  cfg: SimConfig,
+  s: GimbalState,
+  beat: number,
+  beatPhase: number,
+): Point {
+  const at = gimbalCentre(l, cfg);
+  const along = smoothstep(gimbalSeamPhase(s, cfg, beat, beatPhase));
+  return { x: fieldX(l, s.seamCol), y: at.y + (l.hullY - at.y) * along };
 }
 
 /**

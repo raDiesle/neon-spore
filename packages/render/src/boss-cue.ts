@@ -151,16 +151,16 @@ export function bossCues(
     // rings want turning, and they never want it to the same place
     // (`boss-cue-read-y.ts`).
     case "gimbal":
-      return gimbalCues(l, world, boss);
+      return gimbalCues(l, world, boss, beatPhase);
     // And THE HASP's, the same two-seat answer on a latch and a wheel (`boss-cue-read-z.ts`).
     case "hasp":
-      return haspCues(l, world, boss);
+      return haspCues(l, world, boss, beatPhase);
     // And THE SPOOL's, one word for its one handle (`boss-cue-read-za.ts`).
     case "spool":
       return spoolCues(l, world, boss, beatPhase);
     // And THE RATCHET's, one word to each seat's hand and one over a loose bolt (`boss-cue-read-zb.ts`).
     case "ratchet":
-      return ratchetCues(l, world, boss);
+      return ratchetCues(l, world, boss, beatPhase);
     // And THE MANTLE's, a word to each seat's knob, one on the core and one over a spark (`boss-cue-read-zc.ts`).
     case "mantle":
       return mantleCues(l, world, boss, beatPhase);

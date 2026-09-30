@@ -8,8 +8,9 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
+import { gimbalLeakPoint } from "./gimbal-drum.js";
 import { gimbalRingCircle } from "./gimbal-grip.js";
 import type { Layout } from "./layout.js";
 
@@ -42,6 +43,8 @@ import type { Layout } from "./layout.js";
  * on this boss that ends the wave. Either seat's: the seam takes a bolt in
  * either colour (`gimbal-shot.ts`), so the cue carries no seat and both
  * screens get it — the one moment the pair is being asked for the same thing.
+ * Its crosshair rides the bead itself (`gimbalLeakPoint`, the drawing's own),
+ * so the frame at the hull says where and the ring says what at.
  */
 
 function markAt(
@@ -56,14 +59,21 @@ function markAt(
   return { seat, kind, word, x, y, ...cueFrame(l, CUE_FRAME_WIDE), seed };
 }
 
-export function gimbalCues(l: Layout, world: World, s: GimbalState): readonly BossCue[] {
+export function gimbalCues(
+  l: Layout,
+  world: World,
+  s: GimbalState,
+  beatPhase: number,
+): readonly BossCue[] {
   const out: BossCue[] = [];
   // The seam first: it is the only hazard this boss has and it reaches the
   // hull in four beats. The mark stands on the column it is running down,
   // at the hull, which is where the cannon has to be — never on the drum,
   // which would point at the leak rather than at the answer.
   if (gimbalLeaking(s)) {
-    out.push(markAt(null, "FIRE", fieldX(l, s.seamCol), l.hullY, l, 91, "PRESS"));
+    const fire = markAt(null, "FIRE", fieldX(l, s.seamCol), l.hullY, l, 91, "PRESS");
+    const bead = gimbalLeakPoint(l, world.cfg, s, world.beat, beatPhase);
+    out.push({ ...fire, aim: cueAimAt(l, bead) });
   }
   if (!gimbalTurning(s)) return out;
   for (const [seat, ring] of [

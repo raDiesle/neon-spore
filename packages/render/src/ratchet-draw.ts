@@ -2,7 +2,6 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import { RATCHET_TEETH, type RatchetState, ratchetLoose, type World } from "@neon-spore/sim";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
-import { fieldX } from "./field-flip.js";
 import { strokeGlow } from "./glow.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
@@ -24,6 +23,7 @@ import {
   ratchetStillPhase,
 } from "./ratchet-pose.js";
 import {
+  ratchetBoltAt,
   ratchetLock,
   ratchetPawlY,
   ratchetPlateBox,
@@ -200,15 +200,7 @@ function drawBolt(
   beat: number,
   beatPhase: number,
 ): void {
-  const cfg = world.cfg;
-  const along = Math.min(
-    1,
-    Math.max(0, (beat - s.boltBeat + beatPhase) / Math.max(1, cfg.ratchetBoltBeats)),
-  );
-  const lock = ratchetLock(l, cfg);
-  const from = lock.y + lock.half;
-  const x = fieldX(l, s.boltCol);
-  const y = from + (l.hullY - from) * smoothstep(along);
+  const { x, y, along } = ratchetBoltAt(l, world.cfg, s, beat, beatPhase);
   const bolt = new Path2D();
   bolt.roundRect(x - l.tile * 0.12, y - l.tile * 0.3, l.tile * 0.24, l.tile * 0.6, l.tile * 0.1);
   ctx.fillStyle = rgba(PALETTE.hullRim, 0.55 + 0.35 * along);
