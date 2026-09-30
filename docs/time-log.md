@@ -30383,3 +30383,13 @@ Bottleneck: friction. `bun run sheet` has no deadline, so a stuck browser is sil
 Bottleneck: writing. The fan's two arcs had been traced against an empty board on purpose, and the reason had to be rewritten, not only the code.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE RIME's refreeze and its scatter, by wipe and by shield, watched at tempo
+
+- reading: 5 min. The entry, and which press and hold reach `rimeStirred` in time: `--auto both` alone never scatters.
+- writing: 0 min. Nothing to change; the entry comes out.
+- looking: 15 min. The refreeze filming the spent core over, then a scatter forced at tick 1370 by a shield on column 5 and again by a wipe of the left half: both crack the core into the same star, and the runs differ only at the hull.
+- friction: 5 min. The two sheets were byte-identical, and the full frames had to be opened to show that the band had cropped away the only difference.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking. Neither the autopilot nor a plain run reaches a scatter, so each cause had to be forced with a hand-written press.
