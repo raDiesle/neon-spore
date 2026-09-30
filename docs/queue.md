@@ -1479,6 +1479,7 @@ helpers they share in a small `scout-harness.ts`.
 ## Three files the seat swap took near the size line
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-three-files-the-seat-swap-took-near-the-size-lin)
 - **Files:** `packages/render/src/band.ts`, `tools/director/src/stage.ts`,
   `packages/content/src/control-sets.ts`
 
