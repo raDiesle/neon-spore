@@ -30249,3 +30249,5 @@ Bottleneck: friction. On a shared machine every timing had to be taken several t
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading. Deciding needed proof that the simulation never reaches a spent catch still past the notch, which is why the fix changes no frame.
+
+*Measured: 29 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

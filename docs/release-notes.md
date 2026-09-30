@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 24aa0d6bd — THE RATCHET's catch word calls the halo's gate, and the gate counts a spent catch
+
+`ratchetCatchAsks` now reads as its comment always said: a spent catch asks for her hand, `|| s.catchSpent`. The spec's words section wants `LIFT` on a spent catch, and a halo that goes where the word stays is the ring contradicting its own cue. `ratchetCues` calls the gate for the catch's word instead of writing `wind || s.catchSpent || !held` out again; the wind's `LIFT` over a set catch is the one word said beyond it. A row in the copies table catches the next copy, and a test in `ratchet-grip.test.ts` walks every phase, depth and spent flag and pins the word to the halo.
+
 ## 2026-09-30 · 6a0a6e18e — The INDEX drift guard and the frames wave test stop timing out on a shared machine
 
 The drift guard's heavy case used to read its 3,300 files one at a time. It now reads them through the shared `treeText` reader, and only that case has a figure, 400 ms, measured alone. `waveNamesAt` now links the workspace's own packages into its scratch checkout instead of running `bun install`. Deleting the installed `node_modules` alone took 18 s on a busy Mac. The case now takes about 2.5 s and has an `itCosts` figure of 1200 in place of a flat minute. `doc-drift.test.ts` has the same serial read and is queued.
