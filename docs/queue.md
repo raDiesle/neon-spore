@@ -1216,6 +1216,7 @@ can reach (the level, say); then drop the overrides.
 ## Check that no boss touches the top of the screen
 
 - **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-check-that-no-boss-touches-the-top-of-the-screen)
 - **Files:** `packages/render/src/*-draw.ts`, `packages/render/src/layout.ts`, `.claude/skills/new-boss/owner.md`
 
 The owner, 29 September 2026, on THE STARE: *any boss should not touch top
