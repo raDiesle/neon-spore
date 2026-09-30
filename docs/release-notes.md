@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 36da93974 — THE VANE's guard arms turn round the hub, and the one across a mouth glows
+
+Each re-forming of THE VANE now shows its new guard arm: a steel spar turning round the hub once a sweep. The spar standing across a mouth glows in the wave's colour exactly while a shot there would be refused, so the pair can see which mouth is shut. The hub is drawn a size bigger with every form.
+
 ## 2026-09-30 · ecdae7611 — THE SEAM watched at tempo: the lit point, the grit, the rock and the split all read
 
 AUTO plays THE SEAM through to THE OCULUS. At every step the ridge shows what that step asks for: the red and cyan points, the grit and the rock at column 7, the white point that takes both colours at once, the quench, and the two halves parting at the end. Nothing needed changing.

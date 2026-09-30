@@ -30630,3 +30630,5 @@ wave, read one at a time.
 - landing: 5 min. `format`, `bun run index`, §11.5's look, `check:fast`, `land`.
 
 Bottleneck: looking. The first frame caught every guard between mouths, so a strip was needed to show the one lit.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
