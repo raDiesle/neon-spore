@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 26836993c — THE DAVIT watched at tempo, and its unverified entry closed
+
+THE DAVIT was watched with AUTO playing both seats. Two frame strips show the mast, the boom swinging onto each half and fading between swings, the slack chain and hook, and the target bar lighting in each step's colour. The entry's other two bullets were answered by later lanes: the thumb grips in `davit-grip.ts` and `touch.ts`, and the draw in `davit-draw.ts` and its family. Nothing needed changing.
+
 ## 2026-09-30 · 85eea8106 — A round that runs out has its own hit on VERSUS, beside the rock
 
 The round:timeout-hit slot now has a candidate, WINDOW: when a round's clock empties with nobody answering, the round's window closes onto the ship instead of a rock falling. A field-wide bar in a fuse's last colour narrows onto the struck column, pinches into a spike, and runs out along the membrane as a flat ring. It is judged on a new pose, THE FLEET · TIME RUNS OUT, which cuts the fleet's clock to a few beats and replays every six seconds, since the hit takes about two and a half seconds to reach the skin.
