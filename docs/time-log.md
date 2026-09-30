@@ -30441,3 +30441,5 @@ Bottleneck: reading. The entry named one stale pointer, and two more documents c
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction. Every test that waited for a body at row 0 had to be retimed to the crossing, one at a time.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
