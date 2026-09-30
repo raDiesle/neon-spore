@@ -30188,3 +30188,5 @@ Bottleneck: friction. The claim was tried before the trunk was brought up, so th
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: landing. The finding came out of the previous lane's first `land`, so it needed a lane of its own.
+
+*Measured: 2 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

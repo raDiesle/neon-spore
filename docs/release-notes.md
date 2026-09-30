@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 0ab677b78 — Queue: frames/test/opening.test.ts times out in its hook on a busy machine
+
+The hands-test lane's first land went red on this file alone at a load average of about 31, a hook out of its 120 s, and green on the rerun. The entry asks for the 552-line file split around a rig and a hook figure it can meet.
+
 ## 2026-09-30 · 1ac70fe31 — THE GAUGE's hands test splits in two around the one rig
 
 gauge-hand.test.ts was 304 lines. Its helpers (the round reached in its play, her call, a command heard straight, the two thumbs, a call allowed to land and one that will miss) move into gauge-rig.ts beside the constants it already exported, and the bind and both hands at the end of the play move to gauge-bind.test.ts. No test changed beyond its imports.
