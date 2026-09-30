@@ -30032,3 +30032,13 @@ Bottleneck: the lean was named in about thirty places across four packages and t
 Bottleneck: reading each boss's drawer to find the circle it stands on, since no two bosses name their target's position the same way.
 
 *Measured: 68 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — §25 THE VALVE — the story between the pins, its hands
+
+- reading: 10 min. The item, the STORY cue map, the silent lists, `valve-grip.ts`, AUTO's `pin()`, and the tests that name the story.
+- writing: 0 min. Nothing was missing: the cue words, the pin's story hands, the twelve bursts and AUTO's play had all shipped under other lanes.
+- looking: 0 min. Nothing was watched at tempo; the owner's look is still owed, as the item said.
+- friction: 5 min. A compaction between the claim and the reading.
+- landing: 5 min. `autopilot-valve.test.ts` run, `check:fast`, the commit.
+
+Bottleneck: the item was stale when claimed — its work had landed piecemeal with the story's look — and only reading the code showed it.

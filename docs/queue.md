@@ -576,19 +576,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §25 THE VALVE — the story between the pins, its hands
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (cut off THE SEAM's hands entry on 2026-09-29)
-- **Taken:** 2026-09-30, claude/queue-davit-drag (claim: claude/queue-25-the-valve-the-story-between-the-pins-its-hand)
-- **Files:** `packages/sim/src/valve-story.ts`, `packages/render/src/valve-story.ts`, `packages/render/src/boss-cue-read-zp.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
-
-The story between the pins is drawn, and none of its hands are. It needs
-its cue words: TAP on the jet, HOLD for the brace and the seal, and RUB for
-the wipe. The grip's reversal and hold reports must reach `valveRubbed` and
-`held`. Its twelve events come off the silent lists as each one gets its
-burst.
-Unverified at tempo until the owner has looked.
-
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
