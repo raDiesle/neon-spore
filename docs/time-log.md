@@ -29967,3 +29967,5 @@ Bottleneck: a new rest with two hands is fifteen registrations outside `sim`, an
 - landing: 5 min. A lint fix, `check:fast`, the commit.
 
 Bottleneck: the rows were slow because they opened files one at a time, not because of the matching. That showed only once opening, stripping and matching were timed separately.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

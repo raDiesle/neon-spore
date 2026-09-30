@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · d1c4c80ca — Read the tree in parallel, once, for the guards that walk it
+
+The guards that read every file in the tree now share one cached reader, `tools/test/tree-text.ts`. It reads sixty-four files at a time, and each file only once per `bun test` process. Before this, `copies.test.ts` and both `doc-drift-names.test.ts` rows opened one file at a time. Under a loaded `check:fast` they drifted to eight and fourteen seconds against figures of 450 and 850 ms. The rows were made cheap and the figures were left alone: alone under load they now take about 200 and 320 ms, where they took 615 and 1,070 ms before. `declaredNames` is harvested once and shared.
+
 ## 2026-09-30 · decfa67a9 — THE GAUGE's tongue lolls out after the second level, and both players wring it opposite ways
 
 The rest after the second level is spent on the tongue: each seat presses it and drags sideways, and with both hands on it dragged opposite ways it is wrung and the rest ends early. One hand alone, or two the same way round, does nothing; a rest that runs out with the tongue still out jams the valve. The simulation, its event and sound, and every registration outside it; the tongue is not drawn twisting yet.
