@@ -12,7 +12,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { capstanRubStanding } from "../src/capstan-grip.js";
+import { capstanCoreStanding, capstanRubStanding } from "../src/capstan-grip.js";
 import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { touchDown } from "../src/touch.js";
@@ -141,6 +141,14 @@ describe("THE CAPSTAN", () => {
       expect(said?.word).toBe("FIRE");
       expect(said?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)));
       expect(said?.y).toBe(LAYOUT[role].hullY);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const want = capstanCoreStanding(LAYOUT[role], CFG, s, world.beat, 0);
+      expect(said?.aim?.x).toBeCloseTo(want.x, 5);
+      expect(said?.aim?.y).toBeCloseTo(want.y, 5);
+      expect(said?.aim?.r).toBeCloseTo(want.r, 5);
+      expect(said?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

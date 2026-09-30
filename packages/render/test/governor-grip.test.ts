@@ -10,7 +10,12 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bossCue } from "../src/boss-cue.js";
-import { governorGripUnder, governorTapCircle, governorYokeCircle } from "../src/governor-grip.js";
+import {
+  governorGripUnder,
+  governorHubCircle,
+  governorTapCircle,
+  governorYokeCircle,
+} from "../src/governor-grip.js";
 import { governorStanding } from "../src/governor-pose.js";
 import { headAt } from "../src/governor-shape.js";
 import { handleCircle } from "../src/handles.js";
@@ -23,6 +28,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { FIRE, posed, stood } from "./governor-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -134,5 +140,25 @@ describe("the words", () => {
     const p2 = layout("p2");
     expect(bossCue(p1, world, 0, () => p1.hullY)?.word).toBe("TAP");
     expect(bossCue(p2, world, 0, () => p2.hullY)?.word).toBe("HOLD");
+  });
+
+  it("say FIRE at the hull while the hub is lit, and ring the hub", () => {
+    const world = stood();
+    const s = posed(world, FIRE, 0, (g) => {
+      g.hubLit = true;
+    });
+    for (const role of ["p1", "p2"] as const) {
+      const l = layout(role);
+      const said = bossCue(l, world, 0, () => l.hullY);
+      expect(said).toMatchObject({ word: "FIRE", seat: null, y: l.hullY });
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const want = governorHubCircle(l, CFG, s, world.beat, 0);
+      expect(said?.aim?.x).toBeCloseTo(want.x, 5);
+      expect(said?.aim?.y).toBeCloseTo(want.y, 5);
+      expect(said?.aim?.r).toBeCloseTo(want.r, 5);
+      expect(said?.aim?.y).toBeLessThan(l.hullY);
+    }
   });
 });

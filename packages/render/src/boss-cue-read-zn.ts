@@ -9,6 +9,7 @@ import {
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { burgeeMarks } from "./burgee-marks.js";
+import { burgeeSpindleAt, burgeeSpindleTall } from "./burgee-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -33,7 +34,8 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the middle column on a fire step, once the
  * spindle is lit**, to either seat. The step's colour is never named. Nothing
- * is said between steps.
+ * is said between steps. **It rings the spindle**, as tall as it is drawn
+ * (`burgeeSpindleAt`).
  */
 
 export function burgeeCues(l: Layout, world: World, s: BurgeeState): readonly BossCue[] {
@@ -43,7 +45,8 @@ export function burgeeCues(l: Layout, world: World, s: BurgeeState): readonly Bo
   if (step.ask === "fire") {
     if (!s.spindleLit) return [];
     const x = fieldX(l, midCol(world.cfg));
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 164 }];
+    const aim = { ...burgeeSpindleAt(l, world.cfg), r: burgeeSpindleTall(l) };
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 164 }];
   }
   const { ring, from, to } = burgeeMarks(l, world.cfg, step);
   const said: BossCue[] = [];

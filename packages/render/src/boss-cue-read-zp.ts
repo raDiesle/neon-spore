@@ -1,9 +1,10 @@
 import { type ValvePhase, type ValveState, valveLeaking, type World } from "@neon-spore/sim";
-import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { CUE_FRAME_WIDE, cueAimAt, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "./valve-grip.js";
+import { valveDrumAt, valveSparkNow } from "./valve-spark.js";
 
 /**
  * **What THE VALVE is asking for**: page forty-two of the readings. Both
@@ -25,7 +26,8 @@ import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "./valve
  *
  * **`FIRE` at the hull under the spark while it falls, ahead of the rest**,
  * to either seat, since either colour takes it — a spark left alone is the
- * blow this boss lands.
+ * blow this boss lands. It rings the spark where it has fallen to
+ * (`valveSparkNow`), THE SEAM's rock's size, having no halo of its own.
  *
  * **The story between the pins says its own words, on the socket and to
  * either seat**, since every one of its four is either thumb's
@@ -55,7 +57,9 @@ export function valveCues(
   const out: BossCue[] = [];
   if (valveLeaking(s)) {
     const x = fieldX(l, s.sparkCol);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 180 });
+    const drum = valveDrumAt(l, cfg, s, beat, beatPhase);
+    const aim = cueAimAt(l, valveSparkNow(l, world, s, drum, beat, beatPhase));
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 180 });
   }
   if (s.phase === "turn") {
     const { x, y } = valveWheelCircle(l, cfg, s, beat, beatPhase);

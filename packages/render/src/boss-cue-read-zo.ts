@@ -10,7 +10,7 @@ import {
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
-import { flueCentre, flueEmberAt } from "./flue-shape.js";
+import { FLUE_DAMPER, flueCentre, flueCoreR, flueEmberAt, flueUnitAt } from "./flue-shape.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -35,7 +35,8 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the middle column on a fire step, once the core
  * is bared**, to either seat. The step's colour is never named. Nothing is
- * said between steps.
+ * said between steps. **It rings the core** in the damper's unit, where
+ * `flue-draw.ts` bares it (`flueUnitAt`).
  */
 
 export function flueCues(l: Layout, world: World, s: FlueState): readonly BossCue[] {
@@ -45,7 +46,8 @@ export function flueCues(l: Layout, world: World, s: FlueState): readonly BossCu
   if (step.ask === "fire") {
     if (!s.bared) return [];
     const x = fieldX(l, midCol(world.cfg));
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 167 }];
+    const aim = { ...flueUnitAt(l, world.cfg, FLUE_DAMPER), r: flueCoreR(l) };
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 167 }];
   }
   const mid = flueCentre(l, world.cfg);
   const resters = flueResters(s);

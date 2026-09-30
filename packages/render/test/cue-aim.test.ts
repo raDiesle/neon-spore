@@ -12,19 +12,10 @@ import { join } from "node:path";
  * SEAM's does (`boss-cue-read-zr.ts`).
  *
  * Read off the source: each shot word's statement, up to its `;`, that
- * stands the cue on `l.hullY`, in a file that never sets an `aim`.
- * `TO_COME` is the roll-out, one boss a lane (`docs/queue.md`); it only
- * shrinks — an entry whose file has its aim fails here until it is struck.
+ * stands the cue on `l.hullY`, in a file that never sets an `aim`. The
+ * roll-out that gave the last eighteen theirs finished 30 September 2026; a
+ * new boss's reading is held to it from its first commit.
  */
-
-const TO_COME: Readonly<Record<string, string>> = {
-  "boss-cue-read-zl.ts": "THE CAPSTAN",
-  "boss-cue-read-zm.ts": "THE GALL",
-  "boss-cue-read-zn.ts": "THE BURGEE",
-  "boss-cue-read-zo.ts": "THE FLUE",
-  "boss-cue-read-zp.ts": "THE VALVE",
-  "boss-cue-read-zq.ts": "THE GOVERNOR",
-};
 
 const SRC = join(import.meta.dir, "../src");
 
@@ -44,11 +35,15 @@ const owing = readdirSync(SRC)
   .sort();
 
 describe("every boss's shot cue aims at something", () => {
-  it("has no shot at the hull without an aim but the roll-out's", () => {
-    expect(owing.filter((f) => TO_COME[f] === undefined)).toEqual([]);
+  it("has no shot at the hull without an aim", () => {
+    expect(owing).toEqual([]);
   });
 
-  it("strikes a boss off the roll-out once it has its aim", () => {
-    expect(Object.keys(TO_COME).filter((f) => !owing.includes(f))).toEqual([]);
+  it("reads the shot words it is meant to", () => {
+    // THE SEAM's reading stands FIRE at the hull and sets its aim: the check
+    // must see the one and credit the other, or it proves nothing.
+    const seam = readFileSync(join(SRC, "boss-cue-read-zr.ts"), "utf8");
+    expect(aimsAtNothing(seam)).toBe(false);
+    expect(aimsAtNothing(seam.replace(/\baim\b/g, "mark"))).toBe(true);
   });
 });

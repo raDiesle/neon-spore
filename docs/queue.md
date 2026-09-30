@@ -1270,25 +1270,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## Eighteen bosses' FIRE cues stand at the hull and aim at nothing
-
-- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
-- **Taken:** 2026-09-30, worktree-agent-ad77a5bcc41e3c5f6 (claim: claude/queue-eighteen-bosses-fire-cues-stand-at-the-hull-and)
-- **Files:** `packages/render/test/cue-aim.test.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue-read-zr.ts`
-
-The owner, 29 September 2026, for every boss: *shooting with cannon should
-have clear aim target (check "the instar")*. A shot cue's crosshair is drawn
-by `cue-helper.ts` from `BossCue.aim`, and a word standing off the hull is its
-own aim. The eighteen in `cue-aim.test.ts`'s `TO_COME` — THE GIMBAL, HASP,
-RATCHET, MANTLE, KEEL, OCULUS, VISE, RIME, TRIVET, CYST, GRINDSTONE, HALTER,
-CAPSTAN, GALL, BURGEE, FLUE, VALVE and GOVERNOR — stand FIRE at the hull
-under the column and set no `aim`, so they draw no crosshair. For each, set
-`aim` on the circle its halo or verdict already stands on: the bared core,
-the lit spindle, the spark, the bolt, the thrown rock. THE SEAM's
-`seamAim` (`boss-cue-read-zr.ts`) is the pattern. Strike the row from
-`TO_COME`, extend that boss's `boss-cue-*.test.ts`, and send one PNG.
-Several bosses may go in one lane. The owner asked for this look by name.
-
 ## THE SCOUT's loads are unreachable
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480

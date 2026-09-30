@@ -152,7 +152,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | Piece | Shared | Says | Who |
 |---|---|---|---|
 | `drawInstarCrosshair`, `CROSSHAIR_LOOK` | `instar-crosshair.ts` | **a shot**: a ring with four ticks in and nothing across the part, in the bolt's colour on THE INSTAR, violet when either takes it | THE INSTAR, every cue's aim |
-| `cueHelper`, `CueHelper`, `cueAim`, `aimIsHere`, `drawCueHelper` | `cue-helper.ts` | a cue's picture: the crosshair on `BossCue.aim` for `FIRE` and `SHOOT`, the panel's face in the scanner box for `SHIELD` and `SUCK` — drawn for every boss by `boss-cue-draw.ts`, so no boss draws its own | every boss with a cue; the ones whose shot still aims at nothing are `cue-aim.test.ts`'s `TO_COME` |
+| `cueHelper`, `CueHelper`, `cueAim`, `aimIsHere`, `drawCueHelper` | `cue-helper.ts` | a cue's picture: the crosshair on `BossCue.aim` for `FIRE` and `SHOOT`, the panel's face in the scanner box for `SHIELD` and `SUCK` — drawn for every boss by `boss-cue-draw.ts`, so no boss draws its own | every boss with a cue; `cue-aim.test.ts` fails a shot at the hull that aims at nothing |
 | `emblem` | `action-face.ts` | the band's button faces — the ward, the throat, the hand — at any size | the band, THE MIRROR's sequence, the cue helper, THE INSTAR |
 | `drawTargetLock`, `drawRadarLock` | `target-lock.ts` | *an instrument has picked this out and cannot tell you the rest*: four corner brackets, a sweep, a flicker | the cue's scan frame, the lure, the dart, the veil, THE QUEEN's marks and more |
 
@@ -188,8 +188,5 @@ Taught once, by the guide; **no helper on the field** (above).
 The pieces some bosses call and others still draw for themselves. Each is a
 `docs/queue.md` item, and a lane that finishes one updates **Who** above:
 
-- **Six shot cues** standing at the hull and aiming at nothing — *Eighteen
-  bosses' FIRE cues stand at the hull and aim at nothing*, held by
-  `render/test/cue-aim.test.ts`.
 - **Thirteen bosses' verdicts** — *Every other boss with a mark answers a touch
   the way THE INSTAR does*, held by `render/test/mark-feedback-roll-out.test.ts`.

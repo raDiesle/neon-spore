@@ -30020,3 +30020,13 @@ had to say the pause instead.
 Bottleneck: the lean was named in about thirty places across four packages and two spec files, and only the drift tests found the last few.
 
 *Measured: 33 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — Eighteen bosses' FIRE cues aim at their target
+
+- reading: 40 min. Each of the eighteen drawers, to find the circle its halo or verdict already stands on, and the grip pages that already stood some of them.
+- writing: 60 min. A standing function beside each drawer that had none, the eighteen readings setting `aim`, each boss's cue or grip test ringing it, and `cue-aim.test.ts`'s roll-out table retired.
+- looking: 5 min. One frame of THE CAPSTAN's shot.
+- friction: 15 min. The worktree guard refusing heredocs, compound commands and doubled backslashes, so every multi-file edit went through a Python script.
+- landing: 10 min. Three commits, `check:fast` before each, and `bun run land`.
+
+Bottleneck: reading each boss's drawer to find the circle it stands on, since no two bosses name their target's position the same way.

@@ -28,10 +28,8 @@ import {
   valveSocketGlow,
 } from "./valve-pose.js";
 import {
-  valveCentre,
   valveFacePath,
   valveHolePath,
-  valveLift,
   valvePinCentre,
   valvePinPath,
   valvePinTop,
@@ -42,7 +40,7 @@ import {
   valveWheel,
   valveWheelPath,
 } from "./valve-shape.js";
-import { drawValveSpark } from "./valve-spark.js";
+import { drawValveSpark, valveDrumAt } from "./valve-spark.js";
 import { drawValveStory, valveShake } from "./valve-story.js";
 import { drawValveHalos, drawValvePinHalo, drawValveVerdicts } from "./valve-verdicts.js";
 
@@ -75,8 +73,7 @@ export function drawValve(
 ): void {
   const cfg = world.cfg;
   const arrived = valveArrived(s, cfg, beat, beatPhase);
-  const home = valveCentre(l, cfg);
-  const c = { x: home.x, y: home.y - valveLift(l, arrived) };
+  const c = valveDrumAt(l, cfg, s, beat, beatPhase);
   const open = valveOpen(s, cfg, beat, beatPhase);
   const shake = valveShake(l, s, cfg, beat, beatPhase, world);
 

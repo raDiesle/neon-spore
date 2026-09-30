@@ -10,7 +10,7 @@ import {
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
-import { capstanRubStanding, capstanSteerStanding } from "./capstan-grip.js";
+import { capstanCoreStanding, capstanRubStanding, capstanSteerStanding } from "./capstan-grip.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -37,7 +37,8 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the middle column** on a shot with the core
  * bared, to either seat. The step's colour is never named — the core is lit
- * in it, on both screens. Nothing is said between steps.
+ * in it, on both screens. Nothing is said between steps. **It rings the
+ * core** at the drum's middle (`capstanCoreStanding`).
  */
 
 export function capstanCues(
@@ -52,7 +53,8 @@ export function capstanCues(
   if (step.ask === "fire") {
     if (!s.bared) return [];
     const x = fieldX(l, midCol(world.cfg));
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 159 }];
+    const aim = capstanCoreStanding(l, world.cfg, s, world.beat, beatPhase);
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 159 }];
   }
   const cfg = world.cfg;
   const face = capstanFace(world, s);

@@ -13,9 +13,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
+import { cueAimAt } from "../src/boss-cue-frame.js";
 import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { valveLivePinCircle, valveSocketCircle, valveWheelCircle } from "../src/valve-grip.js";
+import { valveDrumAt, valveSparkNow } from "../src/valve-spark.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -101,11 +103,26 @@ describe("THE VALVE", () => {
     const { world, s } = hung("turn");
     s.pins = VALVE_PINS - 1;
     s.sparkCol = 1;
-    s.sparkBeat = world.beat;
+    // A beat into its fall, so the crosshair is seen to have left the drum.
+    s.sparkBeat = world.beat - 1;
     for (const role of ["p1", "p2"] as const) {
       const c = cue(world, role);
       expect(c).toMatchObject({ word: "FIRE", seat: null, y: LAYOUT[role].hullY });
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], 1), 5);
+      const drum = valveDrumAt(LAYOUT[role], CFG, s, world.beat, 0);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const want = cueAimAt(
+        LAYOUT[role],
+        valveSparkNow(LAYOUT[role], world, s, drum, world.beat, 0),
+      );
+      expect(c?.aim?.x).toBeCloseTo(want.x, 5);
+      expect(c?.aim?.y).toBeCloseTo(want.y, 5);
+      expect(c?.aim?.r).toBeCloseTo(want.r, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
+      expect(c?.aim?.x).toBeCloseTo(fieldX(LAYOUT[role], 1), 5);
+      expect(c?.aim?.y).toBeGreaterThan(drum.y);
     }
   });
 

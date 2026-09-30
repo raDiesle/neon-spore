@@ -11,7 +11,7 @@ import {
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
-import { governorTapCircle, governorYokeCircle } from "./governor-grip.js";
+import { governorHubCircle, governorTapCircle, governorYokeCircle } from "./governor-grip.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -34,7 +34,7 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the middle column while the hub is lit**, to
  * either seat. The step's colour is never named. Nothing is said between
- * steps.
+ * steps. **It rings the hub** at the dial's middle (`governorHubCircle`).
  */
 
 export function governorCues(
@@ -47,7 +47,8 @@ export function governorCues(
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   if (governorFiring(s)) {
     const x = fieldX(l, midCol(cfg));
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 189 }];
+    const aim = governorHubCircle(l, cfg, s, world.beat, beatPhase);
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 189 }];
   }
   const out: BossCue[] = [];
   const governor = governorGovernor(s);

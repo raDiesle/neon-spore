@@ -8,7 +8,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { governorStanding } from "./governor-pose.js";
-import { type Dial, dialAt, drumAt, headAt, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
+import { type Dial, dialAt, drumAt, headAt, hubR, TRACK_IN, TRACK_OUT } from "./governor-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -96,6 +96,22 @@ export function governorTapCircle(
   const d = governorStanding(l, cfg, s, beat, beatPhase);
   const at = dialAt(d, step.markMilli, (TRACK_IN + TRACK_OUT) / 2);
   return { x: at.x, y: at.y, r: d.r * (TRACK_OUT - TRACK_IN) * 1.5 };
+}
+
+/**
+ * The hub as a circle where it stands this frame, at the dial's middle — what
+ * a shot is fired at while it is lit, and the circle the cue's crosshair
+ * rides (`boss-cue-read-zq.ts`). Its size before the hits shrink it.
+ */
+export function governorHubCircle(
+  l: Layout,
+  cfg: SimConfig,
+  s: GovernorState,
+  beat: number,
+  beatPhase: number,
+): Circle {
+  const d = governorStanding(l, cfg, s, beat, beatPhase);
+  return { x: d.cx, y: d.cy, r: hubR(l) };
 }
 
 /** A press on the governor: the tap on the dial, or one finger of this seat's chord on the works. */

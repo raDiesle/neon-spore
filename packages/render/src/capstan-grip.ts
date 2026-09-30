@@ -3,6 +3,7 @@ import { type CapstanState, capstanBand, capstanFace, type SimConfig } from "@ne
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import {
   capstanAt,
+  capstanCoreR,
   capstanFaceAt,
   capstanOnScreen,
   capstanSize,
@@ -138,6 +139,22 @@ export function capstanSteerStanding(
 ): Circle {
   const p = capstanScreenAt(l, cfg, s, { x: 0, y: 0 }, beat, beatPhase);
   return { x: p.x, y: p.y, r: capstanSize(l).ry };
+}
+
+/**
+ * The core as a circle where it stands this frame, at the drum's middle —
+ * what a shot is fired at once it is bared, and the circle the cue's
+ * crosshair rides (`boss-cue-read-zl.ts`).
+ */
+export function capstanCoreStanding(
+  l: Layout,
+  cfg: SimConfig,
+  s: CapstanState,
+  beat: number,
+  beatPhase: number,
+): Circle {
+  const p = capstanScreenAt(l, cfg, s, { x: 0, y: 0 }, beat, beatPhase);
+  return { x: p.x, y: p.y, r: capstanCoreR(l) };
 }
 
 /**

@@ -1,10 +1,11 @@
-import type { ValveState, World } from "@neon-spore/sim";
+import type { SimConfig, ValveState, World } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { type Point, valveSparkPoint } from "./valve-shape.js";
+import { valveArrived } from "./valve-pose.js";
+import { type Point, valveCentre, valveLift, valveSparkPoint } from "./valve-shape.js";
 
 /**
  * **THE VALVE's sparks** (§25 rows 7 and 11): an ember falling from under the
@@ -52,6 +53,38 @@ function paintSpark(
   strokeGlow(ctx, bead, PALETTE.emberRim, STROKE.outline, 2 + 2 * along);
 }
 
+/** Where the drum stands this frame, still lifted while it arrives: what `valve-draw.ts` draws it at. */
+export function valveDrumAt(
+  l: Layout,
+  cfg: SimConfig,
+  s: ValveState,
+  beat: number,
+  beatPhase: number,
+): Point {
+  const home = valveCentre(l, cfg);
+  return { x: home.x, y: home.y - valveLift(l, valveArrived(s, cfg, beat, beatPhase)) };
+}
+
+/** How far down its fall the spark loose this frame is, eased. */
+function sparkAlong(world: World, s: ValveState, beat: number, beatPhase: number): number {
+  return smoothstep((beat - s.sparkBeat + beatPhase) / Math.max(1, world.cfg.valveSparkBeats));
+}
+
+/**
+ * The spark loose this frame, falling from the drum at `at`: where it is
+ * drawn, and the point the cue's crosshair rides (`boss-cue-read-zp.ts`).
+ */
+export function valveSparkNow(
+  l: Layout,
+  world: World,
+  s: ValveState,
+  at: Point,
+  beat: number,
+  beatPhase: number,
+): Point {
+  return valveSparkPoint(l, at, s.sparkCol, sparkAlong(world, s, beat, beatPhase));
+}
+
 /** The spark loose this frame, `along` the way down its fall from the drum at `at`. */
 export function drawValveSpark(
   ctx: CanvasRenderingContext2D,
@@ -62,8 +95,6 @@ export function drawValveSpark(
   beat: number,
   beatPhase: number,
 ): void {
-  const along = smoothstep(
-    (beat - s.sparkBeat + beatPhase) / Math.max(1, world.cfg.valveSparkBeats),
-  );
-  VALVE_SPARK.paint(ctx, l, valveSparkPoint(l, at, s.sparkCol, along), along);
+  const along = sparkAlong(world, s, beat, beatPhase);
+  VALVE_SPARK.paint(ctx, l, valveSparkNow(l, world, s, at, beat, beatPhase), along);
 }

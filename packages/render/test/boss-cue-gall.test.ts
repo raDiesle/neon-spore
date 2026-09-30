@@ -3,6 +3,7 @@ import { midCol, type World } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
 import { gallPointCircle } from "../src/gall-grip.js";
+import { gallRootAt, gallRootR } from "../src/gall-shape.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
 import { CLOSE, FIRE, posed, stood } from "./gall-harness.js";
@@ -70,6 +71,14 @@ describe("THE GALL", () => {
       expect(said?.word).toBe("FIRE");
       expect(said?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)));
       expect(said?.y).toBe(LAYOUT[role].hullY);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const want = { ...gallRootAt(LAYOUT[role], CFG), r: gallRootR(LAYOUT[role]) };
+      expect(said?.aim?.x).toBeCloseTo(want.x, 5);
+      expect(said?.aim?.y).toBeCloseTo(want.y, 5);
+      expect(said?.aim?.r).toBeCloseTo(want.r, 5);
+      expect(said?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

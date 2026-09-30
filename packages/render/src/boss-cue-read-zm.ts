@@ -10,6 +10,7 @@ import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import { gallPointCircle } from "./gall-grip.js";
+import { gallRootAt, gallRootR } from "./gall-shape.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -30,7 +31,8 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the middle column on the bared root**, to either
  * seat. The step's colour is never named — the root is lit in it, on both
- * screens. Nothing is said between steps.
+ * screens. Nothing is said between steps. **It rings the root** where it is
+ * drawn (`gallRootAt`), its ripple left out.
  */
 
 export function gallCues(l: Layout, world: World, s: GallState): readonly BossCue[] {
@@ -40,7 +42,8 @@ export function gallCues(l: Layout, world: World, s: GallState): readonly BossCu
   if (step.ask === "fire") {
     if (!s.bared) return [];
     const x = fieldX(l, midCol(world.cfg));
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 162 }];
+    const aim = { ...gallRootAt(l, world.cfg), r: gallRootR(l) };
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 162 }];
   }
   if (gallShut(world, s)) return [];
   const at = gallPointCircle(l, world.cfg, s.point);
