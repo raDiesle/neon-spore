@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c315d54df — A render test holds every boss's body below the seat switcher
+
+`boss-top.test.ts` draws each boss wave bare, with its boss and without, on both seats at three beats. The first row where the two frames differ has to be below the switcher's bottom at row 30. Every field boss clears it; the nearest is THE LEDGER at row 71. So no boss moved, and nothing drawn changed. Three bosses are exempt, each with its reason: THE SPLICE's hold, which is the room the fight is in; and THE MIRROR's reflected hull and THE REPRISE's cables, both queued with a question for the owner. The takeover rounds are outside the claim. Two supporting changes: `drawPixels` takes a `bare` argument, and `sheen.ts` no longer makes a sweep pass that has no colour stop on the field. Chrome draws such a pass as nothing, and Skia throws on it. The tree walk in `doc-drift-names.test.ts` moved into `beforeAll`, outside the timed cases.
+
 ## 2026-09-30 · d6d12c06c — THE MANTLE and THE DAVIT arrive faded through their glows, and THE DAVIT stands up once
 
 THE MANTLE and THE DAVIT fade in by ctx.globalAlpha as they arrive. The first strokeGlow inside each one put the alpha back to 1, so every plate, handle and hook drawn after it came in at full strength. The fix, used as FLUE and GOVERNOR already use it, is strokeGlowFaded, in every glow those bodies draw. The same fix goes to a brood egg and to a living body's neon edge through THE FLIP's tear. The pod THE SCOUT tears is handed the context's alpha, since its glow and halo take one.

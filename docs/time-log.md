@@ -30489,3 +30489,5 @@ Bottleneck: reading. Sorting the two dozen callers into those in a fading body a
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: looking. Diffing full frames mixed backdrop and HUD into the boss, and the numbers meant something only once the frames were bare.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
