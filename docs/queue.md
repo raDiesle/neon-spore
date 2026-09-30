@@ -1362,19 +1362,6 @@ private chevrons for the shared arrow. Write a roll-out test like
 handle must call `drawPullKnob` or `drawWayArrow`. Budget rows will move by a
 stroke or two each; remeasure them. The owner asked for this look by name.
 
-## THE CAPSTAN's PULL cue stands on the horn, outside the grab zone
-
-- **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
-- **Taken:** 2026-09-30, worktree-agent-a0b632fb88f5b36e3 (claim: claude/queue-the-capstans-pull-cue-stands-on-the-horn-outside)
-- **Files:** `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/capstan-marks.ts`
-
-The survey of pull cues found that `boss-cue-read-zl.ts` stands PULL on
-`capstanHornAt`, near the drum's end at about ±0.82 of its half-width. But
-`capstanSteerUnder` takes the grab only at the drum's middle and treats the
-ends as rub zones. Confirm it with a test that presses where the cue
-stands. If the press is refused, move the cue onto the grab zone, or widen the
-grab to the horn, whichever the boss's spec says is the control.
-
 ## THE SCOUT's loads are unreachable
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
