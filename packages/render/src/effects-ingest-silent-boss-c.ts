@@ -226,19 +226,6 @@ export const INGEST_SILENT_BOSS_C = [
   "trivetTurn",
   "trivetCollapse",
   "trivetOut",
-  // THE PLUMB's twelve: what outlives a frame is `plumb-fx.ts`, read above the loop.
-  "plumbEnter",
-  "plumbLight",
-  "plumbDrift",
-  "plumbSettle",
-  "plumbSwing",
-  "plumbCore",
-  "plumbHit",
-  "plumbSteady",
-  "plumbDim",
-  "plumbMiss",
-  "plumbFree",
-  "plumbOut",
   // THE GAUGE's four, its first events: the needle, band, jam and bind are world
   // state, read off `needleMilli`, `markMilli`, `jamBeat` and `boundBeat` every
   // frame (`render/gauge.ts`, 19 September 2026). Sound was what was missing —

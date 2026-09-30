@@ -1,8 +1,8 @@
 import { isBeatTick } from "./beat-clock.js";
 import { midCol } from "./config.js";
 import type { GaugePhase, GaugeState } from "./gauge.js";
-import { gaugeHeard, openGauge, stepGauge } from "./gauge.js";
-import { gaugeHandHeard, releaseGaugeHands } from "./gauge-hand.js";
+import { openGauge, stepGauge } from "./gauge.js";
+import { gaugeHandHeard, gaugeHeard, releaseGaugeHands } from "./gauge-hand.js";
 import { breachHull } from "./hull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";

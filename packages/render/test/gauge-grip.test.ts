@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
+import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -8,13 +8,12 @@ import {
   startWave,
   step,
   ticksPerBeat,
-  type World,
 } from "@neon-spore/sim";
 import { gaugeLobeArmed } from "../src/gauge-button.js";
-import { drawGaugeGrip, gaugeBandGrip, gaugeNeedleGrip } from "../src/gauge-grip.js";
+import { drawGaugeGrip } from "../src/gauge-grip.js";
 import { gaugeDial } from "../src/gauge-round.js";
-import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
+import type { ViewRole } from "../src/layout.js";
+import { type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -24,6 +23,7 @@ import {
   stubCanvas,
   waveWith,
 } from "./frame-harness.js";
+import { fieldWith, layout, needleAt, playing, round } from "./gauge-grip-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -35,52 +35,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * reaches the canvas on the screen its own seat holds and no other. The rule
  * is the simulation's (`sim/test/gauge-hand.test.ts`); this file proves the
  * picture hands it a thumb — and that it never draws a control the round is
- * about to refuse.
+ * about to refuse. The band's own cases are next door
+ * (`gauge-bind-grip.test.ts`), and the round they share is
+ * `gauge-grip-harness.ts`.
  */
 
 beforeAll(installCanvasGlobals);
-
-const layout = (role: ViewRole) => computeLayout({ width: 420, height: 900, dpr: 2 }, CFG, role);
-
-/** The round installed and stepped once, so its state is the world's own. */
-function round(): { world: World; g: GaugeState } {
-  const world = createWorld(CFG, 5);
-  const index = waveWith("gauge");
-  startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
-  step(world, []);
-  const g = world.boss;
-  if (g === null || g.kind !== "gauge") throw new Error("the gauge's wave installed no gauge");
-  g.phase = "play";
-  return { world, g };
-}
-
-/** The same round with the fields this case is about moved. */
-function playing(overrides: Partial<GaugeState> = {}): GaugeState {
-  const { g } = round();
-  return Object.assign(g, overrides);
-}
-
-function fieldWith(seat: 1 | 2, boss: GaugeState | null): Field {
-  return {
-    creatures: [],
-    cannonCol: 4,
-    shieldCol: 4,
-    beatPhase: 0.5,
-    skinY: null,
-    beat: 6,
-    waveBeat: 6,
-    tick: 0,
-    seat,
-    cfg: DEFAULT_CONFIG,
-    boss,
-    controls: controlSet("default"),
-    faults: [],
-    well: false,
-  };
-}
-
-const needleAt = (l: Layout, g: GaugeState) => gaugeNeedleGrip(l, DEFAULT_CONFIG, gaugeDial(l), g);
-const bandAt = (l: Layout, g: GaugeState) => gaugeBandGrip(l, DEFAULT_CONFIG, gaugeDial(l), g);
 
 describe("a thumb on the needle", () => {
   it("is the pilot's, under a jam, and nobody else's", () => {
@@ -119,36 +79,6 @@ describe("a thumb on the needle", () => {
     expect(turned).toMatchObject({ target: "gaugeNeedle", on: true, fromMilli: 750 });
     const lifted = touchUp(l, hold, { x: dial.cx, y: dial.cy - dial.r })?.command;
     expect(lifted).toMatchObject({ target: "gaugeNeedle", on: false });
-  });
-});
-
-describe("a thumb on the band", () => {
-  it("is the navigator's, while it is wound, and nobody else's", () => {
-    const l = layout("p2");
-    const bound = playing({ boundBeat: 3 });
-    const at = bandAt(l, bound);
-    const touch = touchDown(l, at.x, at.y, fieldWith(2, bound));
-    expect(touch?.command).toMatchObject({ target: "gaugeBand", on: true });
-    expect(touch?.hold).toMatchObject({ kind: "drag", target: "gaugeBand", player: 2 });
-    const his = touchDown(layout("p1"), at.x, at.y, fieldWith(1, bound));
-    expect(his?.command?.kind === "drag" && his.command.target).not.toBe("gaugeBand");
-    expect(touchDown(l, at.x, at.y, fieldWith(2, playing()))).toBeNull();
-  });
-
-  it("lets go on the lift, and carries no distance anybody reads", () => {
-    const l = layout("p2");
-    const bound = playing({ boundBeat: 3 });
-    const field = fieldWith(2, bound);
-    const at = bandAt(l, bound);
-    const hold = touchDown(l, at.x, at.y, field)?.hold as Hold;
-    expect(touchMove(l, hold, at.x + 4, at.y)?.command).toMatchObject({
-      target: "gaugeBand",
-      on: true,
-    });
-    expect(touchUp(l, hold, { x: at.x, y: at.y })?.command).toMatchObject({
-      target: "gaugeBand",
-      on: false,
-    });
   });
 });
 

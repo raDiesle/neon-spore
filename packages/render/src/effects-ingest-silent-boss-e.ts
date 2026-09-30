@@ -12,7 +12,9 @@ import type { SimEvent } from "@neon-spore/sim";
  *
  * THE HASP's story came over on 29 September 2026, when THE SLING's cool
  * and THE GRINDSTONE's fade took page four within a line of the wall: the
- * last rows on the page go, never the boss being worked on.
+ * last rows on the page go, never the boss being worked on. THE PLUMB's
+ * twelve came from page three on 30 September 2026 by the same rule, when
+ * THE GAUGE's tooth left that page at 250.
  */
 export const INGEST_SILENT_BOSS_E = [
   // THE HASP's story between the hasps (`packages/audio/src/bind-hasp.ts`):
@@ -41,6 +43,20 @@ export const INGEST_SILENT_BOSS_E = [
   "spoolFray",
   "spoolFeather",
   "spoolStrand",
+  // THE PLUMB's twelve, from page three when THE GAUGE's tooth took it to the
+  // wall: what outlives a frame is `plumb-fx.ts`, read above the loop.
+  "plumbEnter",
+  "plumbLight",
+  "plumbDrift",
+  "plumbSettle",
+  "plumbSwing",
+  "plumbCore",
+  "plumbHit",
+  "plumbSteady",
+  "plumbDim",
+  "plumbMiss",
+  "plumbFree",
+  "plumbOut",
   // THE GOVERNOR's fourteen: what outlives a frame is `governor-fx.ts`',
   // read above the loop.
   "governorEnter",

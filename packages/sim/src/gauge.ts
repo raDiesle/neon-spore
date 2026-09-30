@@ -1,9 +1,9 @@
 import { drawBand, driftBand, gaugeSeatedBy, gaugeWoundOpen } from "./gauge-band.js";
-import { gaugeCalled, gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
+import { gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
 import { gaugeJammed } from "./gauge-hand.js";
 import { gaugeAllLevels } from "./gauge-level.js";
 import { gaugeToothLapses } from "./gauge-tooth.js";
-import type { Color, Command } from "./types.js";
+import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -225,24 +225,4 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
 /** Whether the needle is between the two marks, which is the whole judgement. */
 export function gaugeSeated(world: World, gauge: GaugeState): boolean {
   return gaugeSeatedBy(world.cfg, gauge);
-}
-
-/**
- * The two controls, and the two seats they belong to.
- *
- * The seat check is a rule of the simulation rather than a coat of paint on
- * the picture, for the reason the rest of the split is: a pilot who could call
- * would be playing both halves of a round whose only content is that he cannot
- * see the marks, and both devices have to agree exactly which presses counted.
- * The call itself is next door (`gauge-call.ts`).
- */
-export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, command: Command): void {
-  if (command.kind === "valve") {
-    // The pilot turns. A valve from the navigator is not refused loudly — she
-    // has no valve drawn on her screen at all, so there is nothing to refuse.
-    if (player !== 1) return;
-    gauge.valve = command.on ? command.dir : 0;
-    return;
-  }
-  if (command.kind === "call" && player === 2) gaugeCalled(world, gauge, command.color);
 }

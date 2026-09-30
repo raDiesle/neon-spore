@@ -3251,6 +3251,7 @@ by hand never moves.
 | `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
 | `tools/director/src/sound-link-none-c.ts` | The sounds wired up with nothing to draw, the third page — from THE GAUGE on |
 | `tools/director/src/sound-link-none-d.ts` | The sounds wired up with nothing to draw, the fourth page — from THE SEAM on |
+| `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |

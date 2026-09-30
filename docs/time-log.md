@@ -29921,3 +29921,13 @@ Bottleneck: the first render test found the jaw's end tooth drawn as a socket on
 Bottleneck: the headless world and `bun run frames` count ticks from different starts, and nothing says so except a press reported unheard.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — Four files THE GAUGE's tooth left at the line, each cut back under it
+
+- reading: 5 min. The four files and the page seams each already had.
+- writing: 15 min. THE PLUMB's silent rows went to page E, THE VALVE's sounds to a new page E, `gaugeHeard` to `gauge-hand.ts`, and the band's grip cases to their own test with a shared harness.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. The test split left an import block from before the cut, so it was rewritten by hand.
+- landing: 5 min. `bun run index`, a format pass, `check:fast` and the commit.
+
+Bottleneck: splitting a test file needs a non-test harness module for its helpers, because a test must not import another test, and that module is most of the work.
