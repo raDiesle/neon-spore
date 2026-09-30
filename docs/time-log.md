@@ -29839,3 +29839,13 @@ Bottleneck: the runtime direction between `control-sets.ts` and `control-seats.t
 Bottleneck: friction — the fingerprint test's bot does not know a new gesture exists, and a lapse that jams is how it found out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE CAPSTAN's PULL cue moved off the horn onto the drum's middle
+
+- reading: 5 min. The cue reader, `capstan-grip.ts`'s two hit tests and their end circles, and §11.54's pull paragraph, which names the middle as the control.
+- writing: 5 min. The cue stands on `capstanSteerStanding` for every step, and a test presses the word on each seat and band.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `queue done`.
+
+Bottleneck: seeing that the horn press was refused, because `touchDown` answered it with a rub rather than with nothing, which only a probe of the hold's target showed.

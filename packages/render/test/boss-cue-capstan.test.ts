@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
+import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   type CapstanState,
   type CapstanStep,
@@ -15,6 +15,7 @@ import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { capstanRubStanding } from "../src/capstan-grip.js";
 import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { touchDown } from "../src/touch.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -31,7 +32,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * the band's face is round, `RUB` on that face to the other seat once it is;
  * on a hold `PULL` to both until somebody pulls, then `RUB` to the seat that
  * is not pulling; and `FIRE` under the middle column on a bared core. What is
- * *not* said: nothing between steps, and never the shot's colour.
+ * *not* said: nothing between steps, and never the shot's colour. And a
+ * word is where the thumb goes: a press on `PULL` takes the pull.
  */
 
 beforeAll(installCanvasGlobals);
@@ -92,6 +94,34 @@ describe("THE CAPSTAN", () => {
       expect(said?.y).toBeCloseTo(at.y);
     },
   );
+
+  it.each([
+    ["left", "p1", 1],
+    ["right", "p2", 2],
+    ["hold", "p1", 1],
+    ["hold", "p2", 2],
+  ] as const)("stands PULL where a press takes the pull, on a %s step on %s", (ask, role, seat) => {
+    const { world } = lit(ask);
+    const said = cue(world, role);
+    if (said?.word !== "PULL") throw new Error("no PULL");
+    const touch = touchDown(LAYOUT[role], said.x, said.y, {
+      creatures: world.creatures,
+      cannonCol: world.cannonCol,
+      shieldCol: world.shieldCol,
+      beatPhase: 0,
+      skinY: null,
+      beat: world.beat,
+      waveBeat: world.waveBeat,
+      tick: world.tick,
+      seat,
+      cfg: CFG,
+      boss: world.boss,
+      controls: controlSet("default"),
+      faults: [],
+      well: false,
+    });
+    expect(touch?.hold?.kind === "drag" ? touch.hold.target : null).toBe("capstanSteer");
+  });
 
   it("says PULL on a hold to both until one pulls, then RUB to the other", () => {
     const { world, s } = lit("hold");

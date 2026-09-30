@@ -10714,7 +10714,11 @@ says **`PULL`** where it said `LEAN`, a carry rather than a hold, and
 ON THE FIELD has THE CAPSTAN'S PULL beside THE CAPSTAN'S RUB. AUTO's
 steering seat holds the drum past the mark and the other seat lets go of
 it. Where the paragraphs below and above say *lean*, read the pull; the
-rocked picture reads the same number (`capstan-pose.ts`).
+rocked picture reads the same number (`capstan-pose.ts`). **`PULL` stands
+on the drum's middle, not on the horn** (30 September 2026): the horn is
+inside an end's rub zone, so a thumb put down on the word was handed a
+rub; the word now stands where a press takes the pull, and which way to
+carry it is the horn's chevron (`boss-cue-capstan.test.ts` presses it).
 
 **The look** (`render/src/capstan-draw.ts`, 27 September 2026 — the body,
 then its blow and receipts the same day). **Two drafts combined**: CREATURES' GATE

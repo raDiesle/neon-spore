@@ -10,8 +10,7 @@ import {
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
-import { capstanRubStanding, capstanScreenAt } from "./capstan-grip.js";
-import { capstanHornAt } from "./capstan-shape.js";
+import { capstanRubStanding, capstanSteerStanding } from "./capstan-grip.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 
@@ -21,16 +20,19 @@ import type { Layout } from "./layout.js";
  * Both screens draw the whole drum, so the word is what keeps the two jobs
  * apart: one seat pulls the drum round, the other rubs.
  *
- * **`PULL` at the horn the band asks toward, to the seat that steers**: the
- * pilot on a left band, the navigator on a right. It goes once that band's
- * face is bared — a word over a pull held could only say *keep going* — and
- * a pull let go is owed it again. **`RUB` on the bared face, to the other
+ * **`PULL` on the drum's middle, to the seat that steers**: the pilot on a
+ * left band, the navigator on a right. The middle because that is where a
+ * press takes the pull (`capstanSteerUnder`); the horn the band asks toward
+ * is inside an end's rub zone, and a thumb put down on a word there was
+ * handed a rub. Which way to carry is the chevron's, on that horn
+ * (`capstan-marks.ts`). It goes once that band's face is bared — a word over
+ * a pull held could only say *keep going* — and a pull let go is owed it
+ * again. **`RUB` on the bared face, to the other
  * seat**, from the moment it is round: the seat the pull is not asked of is
  * the only one whose reversals wear (`capstan-hand.ts`).
  *
  * **A hold** may be steered by either seat, and which one is the pair's to
- * settle out loud, so until somebody pulls past the mark `PULL` stands on the
- * drum's middle for both; after, `RUB` on whichever face that pull bared, to
+ * settle out loud, so until somebody pulls past the mark `PULL` goes to both; after, `RUB` on whichever face that pull bared, to
  * the seat that is not pulling.
  *
  * **`FIRE` at the hull under the middle column** on a shot with the core
@@ -56,8 +58,7 @@ export function capstanCues(
   const face = capstanFace(world, s);
   const band = capstanBand(s);
   if (face === null || (band !== null && face !== band)) {
-    const horn = band === null ? { x: 0, y: 0 } : capstanHornAt(l, band);
-    const at = capstanScreenAt(l, cfg, s, horn, world.beat, beatPhase);
+    const at = capstanSteerStanding(l, cfg, s, world.beat, beatPhase);
     const seat = band === null ? null : capstanSteerer(world, s);
     return [{ seat, kind: "CARRY", word: "PULL", x: at.x, y: at.y, ...frame, seed: 160 }];
   }
