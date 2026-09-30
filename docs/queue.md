@@ -1311,6 +1311,7 @@ if one is due.
 ## THE GAUGE's simulation test is past the line
 
 - **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
+- **Taken:** 2026-09-30, claude/gauge-test-split (claim: claude/queue-the-gauges-simulation-test-is-past-the-line)
 - **Files:** `packages/sim/test/gauge.test.ts`
 
 The tongue's lane left `sim/test/gauge.test.ts` at 308 lines. Its `talking()`
