@@ -1260,6 +1260,7 @@ the hook a figure it can meet under load. Prove it with `bun run check`.
 ## Unverified at 270cff9be: THE RIME's refreeze watched at tempo, a scatter by wip…
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-unverified-at-270cff9be-the-rimes-refreeze-watch)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-d.ts`, `packages/audio/src/bind-rime.ts`, `packages/audio/test/bind.test.ts`
 
 *THE RIME refreezes before it shatters: three beats of film under THE SLOW, and a wipe or a shield scatters it for one more* landed from a session that could not look at it. The commit touched 14 more files. What went unchecked:
