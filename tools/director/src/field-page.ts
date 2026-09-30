@@ -150,6 +150,9 @@ export function renderFieldPage(): void {
     partHead(PART.ideas, "gestures nothing reads yet, and controls the game had and set aside"),
   );
   for (const state of IDEA_STATES) {
+    // SPECIFIED is empty while the spec asks for nothing unbuilt, and a
+    // heading over no cards reads as a page that failed to draw.
+    if (!GESTURES.some((g) => g.state === state)) continue;
     body.appendChild(stateHead(state));
     body.appendChild(gestureGrid(state));
   }

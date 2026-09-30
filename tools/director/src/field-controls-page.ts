@@ -1,7 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { BOSS_FIELD_CONTROLS } from "./field-controls-bosses.js";
+import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { SHIP_FIELD_CONTROLS } from "./field-controls-ship.js";
-import { tetherExamples } from "./field-controls-tether.js";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -59,24 +59,11 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     sends: ["drag"],
     pose: "GRIP · THE PUSH PAUSE",
   },
+  // THE GUM, the grip's own hand read a third way: a creature's, not a boss's.
+  ...GUM_CONTROLS,
   // The ship's own lobes, cannon to muzzle: `field-controls-ship.ts`.
   ...SHIP_FIELD_CONTROLS,
   // THE MAZE's string moved out with its heart: `field-controls-maze.ts`.
-  {
-    name: "THE WARDEN'S TETHER",
-    where: "on the tether's resting circle, while one hangs from the rim",
-    seat: "player 1 — the pilot pulls, player 2 keeps both colours",
-    gesture: "grab and drag",
-    does:
-      "Pulls the line taut; held taut long enough it opens a hatch " +
-      "(render/tether.ts, sim/config-boss.ts).",
-    source: "touch.ts — wardenRopeUnder() under handleUnder()",
-    holdKind: "drag",
-    dragTarget: "wardenTether",
-    sends: ["drag"],
-    pose: "TETHER · HELD TAUT",
-    examples: tetherExamples,
-  },
   {
     name: "THE LID'S CORD",
     where: "on the cord's resting circle, under every armoured eye on the field",

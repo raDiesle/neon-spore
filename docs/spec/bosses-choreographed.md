@@ -3617,7 +3617,8 @@ long window.
 DavidDe, 26 September 2026: more choreographed concepts, easy to follow, more
 than ten steps apiece, in the same "both screens read the same picture" shape
 as the five above. **Written to spend gestures still sitting in `consider` on
-CONTROLS › GESTURES** (`tools/director/src/gesture-unbuilt.ts`) rather than to
+CONTROLS › GESTURES** (then `gesture-unbuilt.ts`; `tools/director/src/gesture-built-bosses.ts` since
+30 September 2026) rather than to
 re-skin anything already shipped — `SQUEEZE ONE BODY`, `RUB`, `CHORD` and
 `TILT, AS A LEVEL` were all four untouched by any of the twenty-two concepts
 above them, and each is spent here by exactly one new concept, the same
@@ -5263,10 +5264,10 @@ documentation guarantee in the repository and the reason this table is short.
 | **`SequenceTap`** | Several marks that must be answered in a written order, with a wrong one costing the step. Falls out of `BossSequenceStep` for free if a step may hold one mark and the script may hold many steps | `simon.ts`'s step cursor; §16's cursor | the second brief's sequence category, already shipped as THE SPLICE |
 | **`FollowTarget`** | A hold that stays valid only while the thumb keeps up with a body that is moving under it | `grip.ts` — a hand stays on a creature until the creature stops existing, and the creature is what moves | 11, and 17's follower |
 | **`RepeatedTap`** | A count of presses on a target that **moves between them**, so the count cannot be spent in one place | §16's `tap` counts grabs on a mark that stands still | the second brief's repeated-tap category — absent here, and no concept wants it yet |
-| **`SqueezeGap`** | Two touches on one body, their distance apart read as a depth in thousandths, falling as the fingers converge | nothing — `gesture-unbuilt.ts`'s unclaimed `SQUEEZE ONE BODY`; needs a one-thumb twin refused and the iPhone's native `gesturechange` stopped | 28 |
-| **`RubCount`** | A back-and-forth wipe over one body, read as a count of reversals (the touch's x changing sign) rather than a position; pure pointer events, so it survives the voice delay | nothing — `gesture-unbuilt.ts`'s unclaimed `RUB` | 29 |
-| **`ChordHold`** | A fixed set of a seat's own controls, two or three, all held down together with none lifting, for a beat count | nothing — `gesture-unbuilt.ts`'s unclaimed `CHORD`; inside the iPhone's five-finger limit at two or three | 30 |
-| **`LevelTilt`** | The phone's own lean (gamma) held inside a target range for a beat count, drawn with an on-screen twin | THE CHOIR's shake permission gate; `gesture-unbuilt.ts`'s unclaimed `TILT, AS A LEVEL` | 31 |
+| **`SqueezeGap`** | Two touches on one body, their distance apart read as a depth in thousandths, falling as the fingers converge | nothing — `gesture-built-bosses.ts`'s `SQUEEZE ONE BODY`, built since; needs a one-thumb twin refused and the iPhone's native `gesturechange` stopped | 28 |
+| **`RubCount`** | A back-and-forth wipe over one body, read as a count of reversals (the touch's x changing sign) rather than a position; pure pointer events, so it survives the voice delay | nothing — `gesture-built-bosses.ts`'s `RUB`, built since | 29 |
+| **`ChordHold`** | A fixed set of a seat's own controls, two or three, all held down together with none lifting, for a beat count | nothing — `gesture-built-bosses.ts`'s `CHORD`, built since; inside the iPhone's five-finger limit at two or three | 30 |
+| **`LevelTilt`** | The phone's own lean (gamma) held inside a target range for a beat count, drawn with an on-screen twin | THE CHOIR's shake permission gate; `gesture-missed.ts`'s `TILT, AS A LEVEL`, ruled out since | 31 |
 
 ### Information
 

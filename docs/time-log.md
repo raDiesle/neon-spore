@@ -30323,3 +30323,13 @@ Bottleneck: timing. The figures had to be read off runs at a load near 30, and o
 Bottleneck: reading. Four files each hold part of how a claim is judged, and the fix touched two of them.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — ON THE FIELD's rows restamped and refiled, the gesture catalogue caught up, and `director-controls.css` split
+
+- reading: 10 min. The four queue entries, every row the notes named, `gorge-hand.ts` and `drag-targets-e.ts`, and the gesture files against the bosses that shipped.
+- writing: 10 min. The rename to `gesture-built-bosses.ts`, the TILT card, two rows moved, one restamped, the notes struck, and the stylesheet cut in two.
+- looking: 0 min. A director page is a tool; the tests hold the order and the imports.
+- friction: 5 min. A compaction mid-lane, and three documents still naming the renamed file.
+- landing: 5 min. Formatting, the index, `check:fast`, the commit, `land`.
+
+Bottleneck: reading. Whether each stamp was wrong had to be settled from the simulation's own hand, not the note.

@@ -16,7 +16,6 @@ import { GIMBAL_CONTROLS } from "./field-controls-gimbal.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GOVERNOR_CONTROLS } from "./field-controls-governor.js";
 import { GRINDSTONE_CONTROLS } from "./field-controls-grindstone.js";
-import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { HALTER_CONTROLS } from "./field-controls-halter.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
@@ -62,8 +61,11 @@ import { WELL_CONTROLS } from "./field-controls-well.js";
  * how a row is drawn (`field-controls-rows.ts`). This one moves a *half of the
  * list*, and the half is the one that grows: the page keeps the handles the
  * game has always had — the grip, the push, the cannon, the maw, the shield,
- * the muzzle, the warden's tether, the lid's cord, the choir's two arrows and
- * the guide's hold — and every boss that arrives brings its row here instead.
+ * the muzzle, the gum, the lid's cord, the choir's two arrows and the
+ * guide's hold — and every boss that arrives brings its row here instead.
+ * THE WARDEN's tether and THE GUM traded places on 30 September 2026: the
+ * tether is a boss's and went to `field-controls-warden.ts`, the gum a
+ * creature's.
  * One boss's handle was the one that took the page to 251 lines
  * (`packages/sim/test/limits.test.ts` is where that is a failure rather than a
  * preference).
@@ -74,7 +76,6 @@ import { WELL_CONTROLS } from "./field-controls-well.js";
 export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE BALLOON's two (`field-controls-balloon.ts`), after the pilot's four handles.
   ...BALLOON_CONTROLS,
-  ...GUM_CONTROLS,
   // THE SINEW's two: a pair adding into one sum, not a side each (`field-controls-sinew.ts`).
   ...SINEW_CONTROLS,
   ...SURGE_CONTROLS, // THE SURGE's one, the first taken by both seats.
@@ -91,7 +92,7 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
   ...FLEET_CONTROLS, // THE FLEET's plume, rake and wreck, on its chart (`field-controls-fleet.ts`).
   ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
-  ...WARDEN_CONTROLS, // THE WARDEN's thumb and swipe, its second and third hands (`field-controls-warden.ts`).
+  ...WARDEN_CONTROLS, // THE WARDEN's tether, thumb and swipe (`field-controls-warden.ts`).
   // THE CURTAIN's hem, the one handle that exists because the other was jammed shut
   // (`field-controls-curtain.ts`).
   ...CURTAIN_CONTROLS,

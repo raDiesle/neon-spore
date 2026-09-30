@@ -60,18 +60,16 @@ export type DragTargetE =
 
 /**
  * `plumbLevelLeft` and `plumbLevelRight` are the eighty-first and
- * eighty-second: THE PLUMB's left counterweight under the pilot's phone, and
- * its right under the navigator's.
+ * eighty-second: THE PLUMB's left stone under the pilot's finger, and its
+ * right under the navigator's.
  *
- * The first targets **no finger touches**. `fromMilli` is the phone's own
- * lean — the `deviceorientation` gamma, thousandths of a degree off level,
- * signed, which is why it rides `fromMilli` and not `id` — and `on` says
- * whether the phone is being read at all: `LevelTilt`, §31's primitive,
- * THE CHOIR's shake carried over from an instant to a held level. A drag is
- * still the right command, because what the simulation wants is a level held
- * over beats with a start and an end, which is what a drag already is.
- * Geometry says whose is whose, `viseLobeLeft`'s reason, and the wrong seat's
- * reading does nothing (`plumb-hand.ts`). `id` is unused.
+ * Each is a long drag, left or right: `fromMilli` is how far across the
+ * thumb has carried, thousandths of a tile, signed, and `on` is false on the
+ * lift that lets the stone go. They were the phone's own lean, a
+ * `deviceorientation` reading, until the owner ruled on 27 September 2026
+ * that no wave may need a tilt sensor (`plumb.ts`); the names stayed.
+ * Geometry says whose is whose, `viseLobeLeft`'s reason, and the wrong
+ * seat's pull does nothing (`plumb-hand.ts`). `id` is unused.
  */
 
 /**

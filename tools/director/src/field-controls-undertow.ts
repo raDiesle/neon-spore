@@ -33,7 +33,7 @@ export const UNDERTOW_CONTROLS: readonly FieldControlDef[] = [
     seat:
       "player 2 only — a press from the pilot falls through as if no ring were there; " +
       "the ring asking her wears the halo on her screen, and a pin washes green (render/undertow-marks.ts)",
-    gesture: "grab and drag",
+    gesture: "hold",
     does:
       "Pins that breach shut for as long as her thumb is down: it stops " +
       "widening and the maw stays out of it, both exactly the way her plate " +

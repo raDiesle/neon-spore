@@ -156,4 +156,17 @@ export const STAY_MISSED: readonly Gesture[] = [
     why: "Every hold in the game would be broken by it. It is refused, not read.",
     platform: "Android sends contextmenu; an iPhone shows a callout that CSS must suppress.",
   },
+  {
+    name: "TILT, AS A LEVEL",
+    state: "missed",
+    does: "The phone leaned left or right and held there; the angle is a level, like a hold. It was THE PLUMB's, until its stones became long drags.",
+    hand: [],
+    phone: { tilt: 18 },
+    timeline: {
+      lanes: [{ event: "deviceorientation", marks: [[0.5, 9.5]] }],
+      note: "gamma: degrees left and right",
+    },
+    platform: "Same gate as the shake on an iPhone; Android asks nothing.",
+    why: "The owner ruled on 27 September 2026 that no wave may need a tilt sensor (`packages/sim/src/plumb.ts`).",
+  },
 ];

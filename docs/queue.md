@@ -429,10 +429,10 @@ leave behind, same as the four already listed, and it is a look:
 ## §41 THE WINCH — the simulation lane
 
 - **Found:** 2026-09-26, this session
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/gesture-unbuilt-b.ts`
+- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt-b.ts`
 - **Asks:** THE DAVIT already ships this question — its draw "counts its beats only while the other seat's lean holds … and lands only if it lifts while the lean still holds" (`docs/spec/bosses.md` §11.52) — so THE WINCH plays as THE DAVIT with THE TRIVET's chord where the lean is. Build it anyway as designed (two lanes, sim then look); cut §41 as a duplicate and drop both WINCH entries; or redesign it first so a lifted brake also unwinds a draw already banked, which DAVIT's lean never does?
 - **Answered:** 2026-09-27 — redesign, over building as designed or cutting. The owner's rule: a mechanic that is most of a boss must not repeat one that ships, but a boss that uses it as one state among others may. Here the gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT. Redesign it so a lifted brake also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more — the owner's floor for any boss.
-- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §41 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt.ts` and `gesture-unbuilt-b.ts`, delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
+- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §41 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt-b.ts` (the cards that were in gesture-unbuilt.ts are built now, in `tools/director/src/gesture-built-bosses.ts`, and name hand files rather than spec sections), delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
 
 No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
 with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first time —
@@ -451,8 +451,8 @@ brake seat is not sending nothing, it is actively holding, and it is the
 *other* seat's in-progress gesture that answers to it. The full beat list
 and primitive table entry are §41 of `docs/spec/bosses-choreographed.md`.
 `CHORD` and `HOLD, THEN SWIPE` each already carry a §41 THE WINCH entry
-in their `where` arrays, split across `gesture-unbuilt.ts` and the new
-`gesture-unbuilt-b.ts` — land both files with the rest. THE SLOW on every
+in their `where` arrays, split across what is `gesture-built-bosses.ts`
+now and `gesture-unbuilt-b.ts` — land both files with the rest. THE SLOW on every
 draw the brake is covering. `bun run check` proves it.
 
 ## §41 THE WINCH — the look
@@ -474,10 +474,10 @@ drawn yet and stays unverified at tempo until the owner has looked.
 ## §42 THE SLUICE — the simulation lane
 
 - **Found:** 2026-09-26, this session
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt.ts`
+- **Files:** `docs/spec/bosses-choreographed.md`
 - **Asks:** THE DAVIT already ships this shape — its draw counts only while the other seat's lean holds and lands only if it lifts while the lean still holds (`docs/spec/bosses.md` §11.52) — and THE SLUICE is that with THE VISE's pinch where the lean is, as THE WINCH is with a chord (the same question on its entry). Build it as designed (two lanes, sim then look); cut §42 as a duplicate and drop both SLUICE entries; or redesign it first so a gap sprung open also unwinds a draw already banked, which DAVIT's lean never does?
 - **Answered:** 2026-09-27 — redesign, the same answer as THE WINCH's and for the same reason. The gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT with a pinch. Redesign it so a gap sprung open also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more.
-- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §42 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt.ts`, delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
+- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §42 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of the gesture catalogue (none are left since those cards were built, `tools/director/src/gesture-built-bosses.ts`), delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
 
 No new gesture, no new primitive: `SqueezeGap` (THE VISE's `SqueezeGap`)
 paired with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first
@@ -496,8 +496,8 @@ sealing seat is fighting the gap the whole span the draw is open rather
 than simply holding two controls flat. The full beat list and primitive
 table entry are §42 of `docs/spec/bosses-choreographed.md`. `SQUEEZE ONE
 BODY` and `HOLD, THEN SWIPE` each already carry a §42 THE SLUICE entry in
-their `where` arrays in `tools/director/src/gesture-unbuilt.ts` — land it
-with the rest. THE SLOW on every seal-and-draw window. `bun run check`
+their `where` arrays in what is `tools/director/src/gesture-built-bosses.ts`
+now — land it with the rest. THE SLOW on every seal-and-draw window. `bun run check`
 proves it.
 
 ## §42 THE SLUICE — the look
@@ -1299,55 +1299,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## `director-controls.css` is past the line
-
-- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-director-controls-css-is-past-the-line)
-- **Files:** `tools/director/src/director-controls.css`, `tools/director/src/director.css`
-
-It is 292 lines. The ON THE FIELD rows' rules (`.field-control`, its stamps
-and its example strip) are one block and can go to a sheet of their own,
-imported from `director.css` beside `director-field-page.css`; the import
-count in `director.css`'s comment moves with it.
-
-## The gesture catalogue is behind the game
-
-- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-the-gesture-catalogue-is-behind-the-game)
-- **Files:** `tools/director/src/gesture-catalogue.ts`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/field-notes.ts`, `packages/sim/src/drag-targets-e.ts`
-
-Seven gestures are still stamped `specd` though each ships now (FREEZE TAP,
-SENDING NOTHING, TAPS ON A MOVING TARGET, RUB, SQUEEZE, CHORD, HOLD THEN
-SWIPE): move them to `built`, each with the file that reads it. TILT, AS A
-LEVEL was ruled out by the owner on 27 September 2026 (the note at the top of
-`packages/sim/src/plumb.ts`): move it to `missed` with that ruling as its
-reason. The comment in `drag-targets-e.ts` around line 62 still speaks of a
-`deviceorientation` reading; say what THE PLUMB's stones are now. Then take
-the matching decision out of `DECISIONS` in `field-notes.ts`.
-`test/gestures.test.ts` has to stay green.
-
-## Two ON THE FIELD rows sit in the wrong list
-
-- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-two-on-the-field-rows-sit-in-the-wrong-list)
-- **Files:** `tools/director/src/field-controls-bosses.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/field-notes.ts`
-
-THE GUM is a creature's and is listed in `field-controls-bosses.ts`; THE
-WARDEN'S TETHER is a boss's and is listed in `field-controls-page.ts`'s generic
-rows. The new page already groups them correctly (`field-families.ts`). Swap
-the two lists so the files match the page, and drop the decision and the two
-`ROW_NOTES` lines that point it out. `test/field-page.test.ts` and
-`test/on-field-controls.test.ts` must stay green.
-
-## Two ON THE FIELD rows carry the wrong gesture stamp
-
-- **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-two-on-the-field-rows-carry-the-wrong-gesture-st)
-- **Files:** `tools/director/src/field-controls-gorge.ts`, `tools/director/src/field-controls-undertow.ts`, `tools/director/src/field-notes.ts`
-
-THE GORGE'S PRY is stamped as a hold but counts a pry past a distance, so it
-is a grab and drag. THE UNDERTOW'S PIN is stamped as a grab and drag but is a
-pin held still, so it is a hold. Restamp both against `packages/sim/src/gorge.ts`
-and the undertow's step, and cut the part of their `ROW_NOTES` lines that
-says so.

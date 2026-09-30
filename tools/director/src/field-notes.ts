@@ -75,23 +75,6 @@ export const DECISIONS: readonly FieldDecision[] = [
       "arrow, refused the same way when it falls short.",
     rows: ["THE WARDEN'S TETHER", "THE GORGE'S PRY", "PINBALL'S PLUNGER"],
   },
-  {
-    title: "TWO ROWS ARE FILED UNDER THE WRONG LIST",
-    text:
-      "THE GUM is a creature and sits in the bosses' file; THE WARDEN's " +
-      "tether is a boss's and sits in the generic one. The page puts them " +
-      "where they belong already; suggest moving the rows to match.",
-    rows: ["THE GUM", "THE WARDEN'S TETHER"],
-  },
-  {
-    title: "THE GESTURE CATALOGUE IS BEHIND THE GAME",
-    text:
-      "Seven gestures are still stamped SPEC'D and every one ships now " +
-      "(FREEZE TAP, SENDING NOTHING, TAPS ON A MOVING TARGET, RUB, SQUEEZE, " +
-      "CHORD, HOLD THEN SWIPE). TILT was ruled out on 27 September 2026 and " +
-      "THE PLUMB is drag stones. Suggest: move the seven to BUILT and TILT to " +
-      "MISSED, with the ruling as its reason.",
-  },
 ];
 
 /** Rows whose suggestion is not their family's. */
@@ -102,9 +85,6 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
   "THE GUIDE'S HOLD":
     "The one hold not on the field. Keep; it is the game's own screen, and " +
     "the timed ring is worth borrowing for the both-seats mark.",
-  "THE GUM":
-    "Move the row to the generic file. Its swipe is the model for the " +
-    "generic PULL: counted on the lift, direction named.",
   "THE LID'S CORD":
     "THE WARDEN's tether made generic already — a creature's cord pulled " +
     "as a level. The model for the LEVER.",
@@ -113,15 +93,7 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
     "sensor the game ever reads.",
   "THE CHOIR'S RIGHT ARROW": "As the left arrow.",
   "THE LIGHT": "Keep. The only generic press that is on both screens at once.",
-  "THE WARDEN'S TETHER":
-    "Move the row to the bosses' file. A pull down, held as a level — the " +
-    "LEVER and the PULL both started here.",
-  "THE GORGE'S PRY":
-    "Stamped HOLD but it counts a pry past a distance — restamp it GRAB " +
-    "AND DRAG so it reads as the pull it is.",
-  "THE UNDERTOW'S PIN":
-    "Stamped GRAB AND DRAG but it is a pin held still. Restamp as HOLD; it " +
-    "is also a falling-through press, against the wrong-seat rule.",
+  "THE UNDERTOW'S PIN": "A falling-through press, against the wrong-seat rule.",
   "THE PLUMB'S LEFT STONE":
     "Was TILT until the owner's ruling. Keep as a LEVER; say in the row " +
     "that no sensor is read.",

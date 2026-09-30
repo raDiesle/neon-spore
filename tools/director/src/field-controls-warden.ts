@@ -1,9 +1,11 @@
 import type { FieldControlDef } from "./field-control-def.js";
+import { tetherExamples } from "./field-controls-tether.js";
 
 /**
- * THE WARDEN's second and third hands, in a file of their own —
+ * THE WARDEN's three hands, in a file of their own —
  * `field-controls-page.ts` is at its limit, the split every boss since THE
- * INSTAR has made. The rope is `field-controls-tether.ts`'s row still.
+ * INSTAR has made. The rope was a generic row until 30 September 2026 and is
+ * the first here now; its four looks are drawn by `field-controls-tether.ts`.
  *
  * Two targets on one circle, the eye shut where the pupil stands, and the
  * phase and the seat say which a press is (`sim/warden-hand.ts`,
@@ -13,6 +15,21 @@ import type { FieldControlDef } from "./field-control-def.js";
  * (`docs/spec/bosses.md` §11.4, *Three phases, three gestures*).
  */
 export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
+  {
+    name: "THE WARDEN'S TETHER",
+    where: "on the tether's resting circle, while one hangs from the rim",
+    seat: "player 1 — the pilot pulls, player 2 keeps both colours",
+    gesture: "grab and drag",
+    does:
+      "Pulls the line taut; held taut long enough it opens a hatch " +
+      "(render/tether.ts, sim/config-boss.ts).",
+    source: "touch.ts — wardenRopeUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "wardenTether",
+    sends: ["drag"],
+    pose: "TETHER · HELD TAUT",
+    examples: tetherExamples,
+  },
   {
     name: "THE WARDEN'S THUMB",
     where:

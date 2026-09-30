@@ -50,7 +50,9 @@ function extent(p: Prim): [number, number, number, number] {
 
 describe("the gesture catalogue", () => {
   test("every state has cards, and every name is unique", () => {
-    for (const state of Object.keys(STATE_TITLES)) {
+    // SPECIFIED may be empty: a gesture leaves it when a boss is built to
+    // read it, and on 30 September 2026 every one had.
+    for (const state of Object.keys(STATE_TITLES).filter((s) => s !== "specd")) {
       expect(GESTURES.filter((g) => g.state === state).length, state).toBeGreaterThan(2);
     }
     expect(new Set(GESTURES.map((g) => g.name)).size).toBe(GESTURES.length);

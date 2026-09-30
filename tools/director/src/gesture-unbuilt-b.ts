@@ -1,8 +1,8 @@
 import type { Gesture } from "./gesture-types.js";
 
 /**
- * The eight worth having, continued from `gesture-unbuilt.ts` — split here
- * once that page passed 250 lines. §4.3 of `docs/spec/transfers-touch.md`
+ * The gestures worth having that no boss asks for yet — split off what is
+ * `gesture-built-bosses.ts` now, once that page passed 250 lines. §4.3 of `docs/spec/transfers-touch.md`
  * is the argument for each.
  */
 

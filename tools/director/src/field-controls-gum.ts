@@ -2,10 +2,10 @@ import type { FieldControlDef } from "./field-control-def.js";
 
 /**
  * THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s
- * pattern — `field-controls-page.ts` is at its limit, and this row belongs
- * beside the balloon's handles anyway: the second control on the field that
- * is a whole body rather than a cord or a ring hanging off one, and the one
- * that is the grip's own hand read a third way (THE PUSH is the second).
+ * pattern — `field-controls-page.ts` is at its limit. A creature's row, so it
+ * is spread in there after THE PUSH rather than among the bosses' (it sat
+ * beside the balloon's handles until 30 September 2026): the grip's own hand
+ * read a third way, and a whole body rather than a cord or a ring hanging off one.
  */
 export const GUM_CONTROLS: readonly FieldControlDef[] = [
   {
