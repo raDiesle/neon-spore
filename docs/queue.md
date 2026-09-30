@@ -1260,6 +1260,7 @@ the hook a figure it can meet under load. Prove it with `bun run check`.
 ## §29 THE RIME — row 11's refreeze, its look
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and
+- **Taken:** 2026-09-30, claude/queue-tasks-f82769 (claim: claude/queue-29-the-rime-row-11s-refreeze-its-look)
 - **Files:** `packages/render/src/rime-fx.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`
 
 The simulation half is in (`sim/rime-refreeze.ts`): after the last step the
