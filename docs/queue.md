@@ -1257,20 +1257,6 @@ shared rig, the way the gauge tests were. Time the preview and browser start
 on an idle machine, and either share one preview between the halves or give
 the hook a figure it can meet under load. Prove it with `bun run check`.
 
-## Unverified at b314ae025: THE RIME's flakes, flashes and shatter watched at tempo
-
-- **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
-
-*THE RIME answers its events: flakes off a rubbed half, a flash as it clears, the core's hit ring, and the shatter's shudder* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
-
-- THE RIME's flakes, flashes and shatter watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 270cff9be: THE RIME's refreeze watched at tempo, a scatter by wip…
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and
@@ -1284,3 +1270,18 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `bun run sheet` has no deadline, and a stuck browser is fifty minutes of silence
+
+- **Found:** 2026-09-30, claude/queue-bottom-up
+- **Files:** `tools/frames/sheet.ts`, `tools/frames/browser.ts`
+
+A `bun run sheet <prefix> out.png --cols 6 --cell 240 --band 0.15,0.6`,
+started from a backgrounded shell on macOS, printed nothing for about fifty
+minutes and had to be stopped by hand; the same command in the foreground
+wrote its sheet in seconds. Nothing in `sheet.ts` bounds `launchBrowser()`,
+`page.setContent` or `page.screenshot`, so whichever of them stalled did it
+silently. Put one deadline around the launch and the write — a minute is
+generous for six frames — that closes the browser and exits non-zero naming
+the step it was on, and a test that a plan whose write never settles
+rejects rather than waits.

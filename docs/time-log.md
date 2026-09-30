@@ -30359,3 +30359,13 @@ Bottleneck: reading. A slower gravity with no unit finer than a thousandth had t
 Bottleneck: writing. The film's thickening, cracks and break-up each needed a number that reads at a glance, all in one small drawing.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE RIME's flakes, clear flash, hit and shatter watched at tempo
+
+- reading: 5 min. The entry, and which events `bun run frames --until` stops on.
+- writing: 0 min. Nothing to change; the entry comes out.
+- looking: 15 min. Four event strips, six frames three ticks apart: flakes off the rubbed half, the half clearing white with its scatter, the round reaching the core, the body breaking into facets.
+- friction: 50 min. A `bun run sheet` in the background printed nothing for fifty minutes and was stopped; in the foreground it finished in seconds. Queued.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: friction. `bun run sheet` has no deadline, so a stuck browser is silence rather than an error.
