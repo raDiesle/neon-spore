@@ -1407,6 +1407,7 @@ letter, as their siblings did. The grip test's bind cases can move to
 ## Two slow rows drift past their figures under a loaded `check:fast`
 
 - **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
+- **Taken:** 2026-09-30, worktree-agent-a74e6693c4b8b5117 (claim: claude/queue-two-slow-rows-drift-past-their-figures-under-a-l)
 - **Files:** `packages/sim/test/copies.test.ts`, `tools/test/doc-drift-names.test.ts`
 
 `check:fast` reports a figure drift on "every other file calls clearHolds
