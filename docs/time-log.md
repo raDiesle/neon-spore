@@ -30261,3 +30261,5 @@ Bottleneck: reading. Deciding needed proof that the simulation never reaches a s
 - landing: 20 min. `check:fast` at a load near 39, and three `land`s refused, the last because the fix was already on the trunk.
 
 Bottleneck: landing. At a load near 38 every `check` takes minutes, and the entry this lane worked was claimed by another branch that landed first.
+
+*Measured: 33 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

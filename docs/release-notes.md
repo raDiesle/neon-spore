@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · e86b55aec — doc-drift.test.ts reads src once, in parallel, before its source-comment case
+
+The case that checks every file name a src comment backticks read 2,590 files one after another and failed `land` on bun's 5 s at a load of 36. It now reads them together in a beforeAll that carries a figure: 0.7 s at once against 6.9 s in turn. Three walks still drifting past their figures are queued.
+
 ## 2026-09-30 · 24aa0d6bd — THE RATCHET's catch word calls the halo's gate, and the gate counts a spent catch
 
 `ratchetCatchAsks` now reads as its comment always said: a spent catch asks for her hand, `|| s.catchSpent`. The spec's words section wants `LIFT` on a spent catch, and a halo that goes where the word stays is the ring contradicting its own cue. `ratchetCues` calls the gate for the catch's word instead of writing `wind || s.catchSpent || !held` out again; the wind's `LIFT` over a set catch is the one word said beyond it. A row in the copies table catches the next copy, and a test in `ratchet-grip.test.ts` walks every phase, depth and spent flag and pins the word to the halo.
