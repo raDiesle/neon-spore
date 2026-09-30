@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 7f7f04472 — Close "§25 THE VALVE's wheel drawn placed-surface" as spent
+
+The entry proposed which look to claim next for THE VALVE. That look has since been claimed and shipped, body and hands. Its method also does not fit the wheel. `pin`/`facet` carry a mark round a body turning about its vertical axis. The valve's wheel faces the viewer and turns in the screen's own plane, so its pointer has no far side to come round from, and it would draw exactly as it does now. Nothing is built.
+
 ## 2026-09-30 · aac6bcb01 — THE REPRISE's camera cables end at the field's top edge
 
 The owner's answer of 30 September 2026: the two cables the camera hangs by stop at the field's top edge instead of running up behind the seat switcher to the top of the screen, and the camera hangs a little lower, its whole body under the tear. Each cable turns about where it is tied to the edge, so only its slack middle swings. THE REPRISE is off boss-top.test.ts's exemption list: nothing of it reaches the switcher.

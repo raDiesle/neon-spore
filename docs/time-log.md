@@ -30555,3 +30555,5 @@ Bottleneck: the context ran out between the design and the first edit.
 
 Bottleneck: the entry was a proposal for a look that has since been claimed
 and shipped, and it read as work until the geometry was checked.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
