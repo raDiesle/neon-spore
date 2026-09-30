@@ -1,4 +1,5 @@
 import { type CaptureResult, captureFrames, type FrameSpec } from "./capture.js";
+import { within } from "./deadline.js";
 import { root, run } from "./exec.js";
 import { sweepScratch, withScratchTree } from "./scratch.js";
 
@@ -100,7 +101,11 @@ export async function previewUrlFrom(
       // The deadline is raced against the read, not checked between reads: a
       // build that prints nothing at all would otherwise hold `read()` open
       // for as long as it liked, and the thirty seconds meant nothing.
-      const { value, done } = await within(reader.read(), deadline, "never printed its port");
+      const { value, done } = await within(
+        reader.read(),
+        deadline,
+        "preview:once never printed its port",
+      );
       if (done) {
         const said = (await new Response(stderr).text()).trim();
         const tail = said.split("\n").slice(-TAIL_LINES).join("\n");
@@ -116,22 +121,6 @@ export async function previewUrlFrom(
     }
   } finally {
     reader.releaseLock();
-  }
-}
-
-/** `p`, or a throw saying `preview:once <what>` once the clock passes `deadline`. */
-async function within<T>(p: Promise<T>, deadline: number, what: string): Promise<T> {
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const late = new Promise<never>((_, reject) => {
-    timer = setTimeout(
-      () => reject(new Error(`preview:once ${what}`)),
-      Math.max(0, deadline - Date.now()),
-    );
-  });
-  try {
-    return await Promise.race([p, late]);
-  } finally {
-    clearTimeout(timer);
   }
 }
 

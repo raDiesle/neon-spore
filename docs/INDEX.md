@@ -3391,6 +3391,7 @@ by hand never moves.
 | `tools/frames/drive.ts` | The three verbs a capture drives the page with, and the rule each of them carries |
 | `tools/frames/draw-clock.ts` | The page's draw clock, held and set: the counter `performance.now` becomes for a capture (`freezeClocks`) |
 | `tools/frames/director-serve.ts` | GETTING A DIRECTOR RUNNING SO A PICTURE CAN BE TAKEN OFF IT |
+| `tools/frames/deadline.ts` | **A step that stalls says which step it was**, instead of saying nothing |
 | `tools/frames/flags.ts` | The whole `frames` command line, read and validated once into a `FrameSpec` |
 | `tools/frames/flag-lists.ts` | Every `--hold` and `--press` on the command line rather than the first, and the one tick line they join |
 | `tools/frames/fault.ts` | `--fault <kind>[:<numbers>]` — the wave's fault, written on the world from outside it |

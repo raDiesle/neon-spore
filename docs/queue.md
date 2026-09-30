@@ -1257,19 +1257,3 @@ lane landed around it. The file is also 552 lines. Split it in two around a
 shared rig, the way the gauge tests were. Time the preview and browser start
 on an idle machine, and either share one preview between the halves or give
 the hook a figure it can meet under load. Prove it with `bun run check`.
-
-## `bun run sheet` has no deadline, and a stuck browser is fifty minutes of silence
-
-- **Found:** 2026-09-30, claude/queue-bottom-up
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-bun-run-sheet-has-no-deadline-and-a-stuck-browse)
-- **Files:** `tools/frames/sheet.ts`, `tools/frames/browser.ts`
-
-A `bun run sheet <prefix> out.png --cols 6 --cell 240 --band 0.15,0.6`,
-started from a backgrounded shell on macOS, printed nothing for about fifty
-minutes and had to be stopped by hand; the same command in the foreground
-wrote its sheet in seconds. Nothing in `sheet.ts` bounds `launchBrowser()`,
-`page.setContent` or `page.screenshot`, so whichever of them stalled did it
-silently. Put one deadline around the launch and the write — a minute is
-generous for six frames — that closes the browser and exits non-zero naming
-the step it was on, and a test that a plan whose write never settles
-rejects rather than waits.

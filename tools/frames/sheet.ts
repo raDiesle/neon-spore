@@ -32,7 +32,8 @@
  */
 
 import type { Browser } from "playwright-core";
-import { launchBrowser } from "./browser.js";
+import { closeBrowser, launchBrowser } from "./browser.js";
+import { within } from "./deadline.js";
 
 /** What a sheet is made of, after the flags have been read. */
 export interface SheetPlan {
@@ -45,6 +46,21 @@ export interface SheetPlan {
   band: { top: number; bottom: number };
   /** Milliseconds between one frame and the next, for the captions. */
   everyMs: number;
+}
+
+/**
+ * **How long a sheet may take, launch and all.** Six frames take seconds; a
+ * minute is generous, and it is the difference between a failure that names
+ * its step and fifty minutes of nothing (`deadline.ts`).
+ */
+export const SHEET_MS = 60_000;
+
+/** How long a browser is given to close once the sheet is written or given up. */
+const CLOSE_MS = 5_000;
+
+/** What a sheet that ran out of time says, naming the step it was on. */
+export function stalled(step: string): string {
+  return `bun run sheet: gave up ${step} after ${SHEET_MS / 1000} s — nothing was written`;
 }
 
 /** The shape of the frames a sheet is made of: `<prefix>-00.png`, `-01`, … */
@@ -177,10 +193,19 @@ if (import.meta.main) {
     everyMs: Number(flag("every") ?? 800),
   };
 
-  const browser = await launchBrowser();
+  const deadline = Date.now() + SHEET_MS;
+  let browser: Browser | undefined;
   try {
-    console.log(`${await writeSheet(browser, plan, out)} — ${shots.length} frames`);
+    browser = await within(launchBrowser(), deadline, stalled("launching the browser"));
+    const at = await within(writeSheet(browser, plan, out), deadline, stalled("writing the sheet"));
+    console.log(`${at} — ${shots.length} frames`);
+  } catch (e) {
+    console.error(e instanceof Error ? e.message : String(e));
+    process.exitCode = 1;
   } finally {
-    await browser.close();
+    // A browser that stalled the write may stall its own close as well, and a
+    // sheet that has already failed owes nobody a wait for that.
+    if (browser) await within(closeBrowser(browser), Date.now() + CLOSE_MS, "").catch(() => {});
   }
+  process.exit();
 }

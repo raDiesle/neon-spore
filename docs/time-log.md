@@ -30407,3 +30407,13 @@ Bottleneck: looking. Neither the autopilot nor a plain run reaches a scatter, so
 Bottleneck: reading. The fuse's function already existed, so most of the time went on finding where the table's clear air starts.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — `bun run sheet` gives up after a minute, naming the step it stalled on
+
+- reading: 5 min. `sheet.ts`'s main, and the race `serve.ts` already had for the preview's port.
+- writing: 10 min. `deadline.ts` with the one `within`, which `serve.ts` now calls rather than keeping its own; the sheet's launch and write under it, a bounded close, and a test.
+- looking: 0 min. A real sheet of six frames written through it, and a missing prefix still refused.
+- friction: 0 min.
+- landing: 5 min. `bun run index` for the new file, `check:fast`, `land`.
+
+Bottleneck: writing. The race existed privately in `serve.ts`, so it had to be moved before the sheet could share it.
