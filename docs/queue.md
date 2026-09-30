@@ -992,6 +992,7 @@ time. A look with no shipped alternative.
 ## §20 THE HASP — the story between the hasps, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories
+- **Taken:** 2026-09-30, worktree-agent-a70e742e42142bd27 (claim: claude/queue-20-the-hasp-the-story-between-the-hasps-the-look)
 - **Needs:** §20 THE HASP — the story between the hasps, the simulation
 - **Files:** `packages/render/src/hasp-draw.ts`, `packages/render/test/frame.test.ts`
 
