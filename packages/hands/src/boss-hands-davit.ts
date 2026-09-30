@@ -2,6 +2,7 @@ import {
   type DavitState,
   type DavitStep,
   davitBoss,
+  davitCarryAngle,
   davitHalf,
   davitLitStep,
   midCol,
@@ -11,12 +12,13 @@ import {
 
 /**
  * **THE DAVIT played right**, for the autopilot: the boom steered by one
- * seat's lean and loosed by the other's draw, and the pivot shot.
+ * seat's thumb on the boom and loosed by the other's draw, and the pivot shot.
  *
- * **A lean is a level**, THE PLUMB's kind of reading (`sim/davit-hand.ts`): the
- * seat that steers the lit step leans to its target and says it again only
- * when the lean it has is not that one. On the left swing that is the pilot,
- * on the right the navigator; on a reland either may, and the pilot does.
+ * **A steer is a carry**, THE CAPSTAN's kind of pull (`sim/davit-hand.ts`):
+ * the seat that steers the lit step carries its thumb as far as the target's
+ * angle asks and says it again only when the boom's reading of it is not
+ * that. On the left swing that is the pilot, on the right the navigator; on a
+ * reland either may, and the pilot does.
  *
  * **A draw is THE SLING's**: the finger down on the other seat's loose, held
  * while the steered lean counts its beats, and lifted once they are counted
@@ -43,18 +45,15 @@ export const davitHand = (w: World): Press[] => {
     ];
   }
   const steer: 0 | 1 = step.ask === "right" ? 1 : 0;
-  return [...lean(s, step, steer), ...loose(s, step, steer === 0 ? 1 : 0)];
+  return [...carry(w, s, step, steer), ...loose(s, step, steer === 0 ? 1 : 0)];
 };
 
-function lean(s: DavitState, step: DavitStep, side: 0 | 1): Press[] {
-  if (s.tiltMilli[side] === step.leanMilli) return [];
+function carry(w: World, s: DavitState, step: DavitStep, side: 0 | 1): Press[] {
+  const scale = w.cfg.davitSteerDegreesPerTile;
+  const fromMilli = Math.round(step.leanMilli / scale);
+  if (s.tiltMilli[side] === davitCarryAngle(scale, fromMilli)) return [];
   const target = side === 0 ? "davitSteerLeft" : "davitSteerRight";
-  return [
-    {
-      player: side === 0 ? 1 : 2,
-      command: { kind: "drag", target, on: true, fromMilli: step.leanMilli },
-    },
-  ];
+  return [{ player: side === 0 ? 1 : 2, command: { kind: "drag", target, on: true, fromMilli } }];
 }
 
 function loose(s: DavitState, step: DavitStep, side: 0 | 1): Press[] {

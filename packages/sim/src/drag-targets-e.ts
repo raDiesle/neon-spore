@@ -116,12 +116,14 @@ export type DragTargetE =
 
 /**
  * `davitSteerLeft`, `davitSteerRight`, `davitLooseLeft` and `davitLooseRight`
- * are the ninety-third to the ninety-sixth: THE DAVIT's two leans and two
+ * are the ninety-third to the ninety-sixth: THE DAVIT's two steers and two
  * draws, one of each for each seat — the pilot's are the `Left` pair, the
  * navigator's the `Right`. Which of a seat's two is live is the lit step's.
  *
- * No new reading. A lean is `plumbLevelLeft`'s: `LevelTilt`, `fromMilli` the
- * phone's lean and a lift a phone that stopped reporting. A draw is
+ * No new reading. A steer is `capstanSteer`'s: a handle's carry, `fromMilli`
+ * how far the thumb has come across the boom since it took it, thousandths of
+ * a tile, and a lift the thumb up. It was the phone's lean, on the same slots,
+ * until 30 September 2026. A draw is
  * `slingDrawLeft`'s: `DrawRelease`, `on` the finger down and the lift's
  * `fromMilli` the swipe's sign. The wrong seat's touch does nothing
  * (`davit-hand.ts`). `id` is unused.

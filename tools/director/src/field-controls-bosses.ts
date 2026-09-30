@@ -184,8 +184,8 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   // two handles on two seats** — the partner's tap, then its own seat's pinch
   // (`field-controls-cyst.ts`).
   ...CYST_CONTROLS,
-  // THE DAVIT's two looses, the only pair here **judged against a lean** the
-  // partner holds with the phone rather than a hand (`field-controls-davit.ts`).
+  // THE DAVIT's steers and looses, the only pair here **judged against the
+  // partner's carry** of one boom (`field-controls-davit.ts`).
   ...DAVIT_CONTROLS,
   // THE BURGEE's ring and track, the only pair here **one seat's tap answered
   // by the other's swipe** on one swinging flag (`field-controls-burgee.ts`).

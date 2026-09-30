@@ -9,7 +9,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { davitLooseUnder } from "../src/davit-grip.js";
+import { davitLooseUnder, davitSteerCircle, davitSteerUnder } from "../src/davit-grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { type Field, type Hold, touchDown, touchUp } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
@@ -20,7 +20,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * THE DAVIT's one shared hook as a control (`davit-grip.ts`): that a thumb is
  * heard anywhere on the asked seat's own panel while the lit step wants that
  * seat's loose, never only on the rest handle's own circle, and that the
- * lift carries the swipe's side on `fromMilli`. The rule is the simulation's
+ * lift carries the swipe's side on `fromMilli`; and that a press on the boom
+ * takes the steer, for the steering seat only. The rule is the simulation's
  * (`sim/test/davit.test.ts`); this file proves the picture hands it a thumb.
  */
 
@@ -121,5 +122,42 @@ describe("the swipe's lift", () => {
     const rightCommand = right?.command as { fromMilli: number } | undefined;
     expect(right?.command).toMatchObject({ target: "davitLooseRight", on: false });
     expect(rightCommand?.fromMilli).toBeGreaterThan(0);
+  });
+});
+
+describe("a thumb on the boom", () => {
+  it("takes player 1's steer on the left swing, held and silent until it moves", () => {
+    const { world, b } = toLit();
+    const l = layout("p1");
+    const field = fieldOf(world, 1);
+    const c = davitSteerCircle(l, field.cfg, b, field.beat, field.beatPhase);
+    const touch = davitSteerUnder(l, c.x, c.y, field);
+    expect(touch?.player).toBe(1);
+    expect(touch?.command).toBeNull();
+    expect(touch?.hold).toMatchObject({ kind: "drag", target: "davitSteerLeft", player: 1 });
+  });
+
+  it("is reached through touchDown before the field's loose", () => {
+    const { world, b } = toLit();
+    const l = layout("p1");
+    const field = fieldOf(world, 1);
+    const c = davitSteerCircle(l, field.cfg, b, field.beat, field.beatPhase);
+    expect(touchDown(l, c.x, c.y, field)?.hold).toMatchObject({ target: "davitSteerLeft" });
+  });
+
+  it("is nobody's for the seat the step asks to draw", () => {
+    const { world, b } = toLit();
+    const l = layout("p2");
+    const field = fieldOf(world, 2);
+    const c = davitSteerCircle(l, field.cfg, b, field.beat, field.beatPhase);
+    expect(davitSteerUnder(l, c.x, c.y, field)).toBeNull();
+  });
+
+  it("is nobody's off the boom", () => {
+    const { world, b } = toLit();
+    const l = layout("p1");
+    const field = fieldOf(world, 1);
+    const c = davitSteerCircle(l, field.cfg, b, field.beat, field.beatPhase);
+    expect(davitSteerUnder(l, c.x + c.r * 1.5, c.y, field)).toBeNull();
   });
 });

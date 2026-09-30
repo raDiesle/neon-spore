@@ -145,7 +145,7 @@ export const ROWS: Record<string, Row> = {
   cystFreezeRight: {},
   cystFlankLeft: {},
   cystFlankRight: { seat: 2 },
-  // `davit-hand.ts`: a lean and a draw each, both on `fromMilli`; the pilot's
+  // `davit-hand.ts`: a steer and a draw each, both on `fromMilli`; the pilot's
   // are the left, and the wrong seat's touch does nothing.
   davitSteerLeft: {},
   davitLooseLeft: {},

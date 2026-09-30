@@ -151,7 +151,7 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   for (const c of commands) cystHeard(world, c.player, c.command);
   // Its spore, THE TRIVET's needle once a tick after the commands (`cyst-guard.ts`).
   cystGuarded(world);
-  // THE DAVIT's leans and draws, the same: a lean leaving its target and a
+  // THE DAVIT's steers and draws, the same: a steer leaving its target and a
   // draw lifting are both the instant (`davit-hand.ts`).
   for (const c of commands) davitHeard(world, c.player, c.command);
   // THE HALTER hears every command there is: any one at all is a seat's rest

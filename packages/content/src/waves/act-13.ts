@@ -6,10 +6,10 @@ import type { Wave } from "../wave-types.js";
  * wave with its argument written above it (`waves.ts`).
  *
  * **THE DAVIT is the first boss where one seat aims what the other looses.**
- * A crane boom pivoted off the hull's spine: on each swing one seat leans its
- * phone onto a lit target and keeps it there while the other holds a draw,
- * and the draw lands only if it lifts while the lean still holds, swiping
- * toward the lean's half (`docs/spec/bosses-choreographed.md` §35,
+ * A crane boom pivoted off the hull's spine: on each swing one seat's thumb
+ * carries the boom onto a lit target and keeps it there while the other holds
+ * a draw, and the draw lands only if it lifts while the steer still holds,
+ * swiping toward the target's half (`docs/spec/bosses-choreographed.md` §35,
  * `sim/davit.ts`). Two looses a swing light the pivot, which is shot in its
  * colour; between the shots either seat steers for the other to reland it.
  *
@@ -67,9 +67,9 @@ export const WAVES_ACT_13: Wave[] = [
     id: "theDavit",
     name: "THE DAVIT",
     guide: {
-      both: "Your partner leans the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
-      p1: "1. On the left swing, lean your phone onto the lit side and hold it there.\n2. On the right swing, hold a draw while your partner leans, then swipe toward the lit side.\n3. Shoot the pivot in its colour.",
-      p2: "1. On the left swing, hold a draw while your partner leans, then swipe toward the lit side.\n2. On the right swing, lean your phone onto the lit side and hold it.\n3. White takes either colour.",
+      both: "Your partner drags the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
+      p1: "1. On the left swing, drag the boom onto the lit side and hold it there.\n2. On the right swing, hold a draw while your partner steers, then swipe toward the lit side.\n3. Shoot the pivot in its colour.",
+      p2: "1. On the left swing, hold a draw while your partner steers, then swipe toward the lit side.\n2. On the right swing, drag the boom onto the lit side and hold it.\n3. White takes either colour.",
     },
     entries: [],
     boss: {

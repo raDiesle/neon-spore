@@ -2,7 +2,6 @@ import { type Layout, navHit, navStepHit, onNavBar, type ViewRole } from "@neon-
 import { guideHolds, guidePage, guidePages, onReadyPage, type World } from "@neon-spore/sim";
 import { swipeTurn } from "./guide-swipe.js";
 import type { InputBuffer } from "./input.js";
-import { askForLean, leanAsked } from "./lean.js";
 
 /**
  * The thumb on a wave's guide. Everything else about the opening — which state
@@ -193,10 +192,6 @@ export function bindBriefing({
     if (!down) return;
     down = false;
     hold(false);
-    // THE DAVIT is played by the phone's lean,
-    // and iOS reads none until it is asked from a press; this lift is the
-    // navigator's first (`lean.ts`).
-    if (leanAsked(world)) askForLean();
   };
   window.addEventListener("pointerup", lift);
   window.addEventListener("pointercancel", lift);

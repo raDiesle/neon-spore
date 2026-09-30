@@ -12,12 +12,14 @@ export interface DavitConfig {
   davitStillBeats: number;
   /** Beats the boom rests after a step before the next lights. */
   davitRestBeats: number;
-  /** Beats a swing or a reland is lit past its own count, for a lean to find its target and a lift to be made. */
+  /** Beats a swing or a reland is lit past its own count, for a steer to find its target and a lift to be made. */
   davitGraceBeats: number;
   /** Beats the spent boom hangs before the wave may end. */
   davitSpentBeats: number;
   /** Thousandths of a degree the boom swings back toward hanging each beat nobody steers it. */
   davitDriftMilli: number;
+  /** Degrees the boom swings for each tile a steering thumb carries across it. */
+  davitSteerDegreesPerTile: number;
 }
 
 export const DAVIT_DEFAULTS: DavitConfig = {
@@ -26,4 +28,5 @@ export const DAVIT_DEFAULTS: DavitConfig = {
   davitGraceBeats: 2,
   davitSpentBeats: 2,
   davitDriftMilli: 4000,
+  davitSteerDegreesPerTile: 10,
 };

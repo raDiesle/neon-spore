@@ -1236,22 +1236,6 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## THE DAVIT's lean becomes a drag
-
-- **Found:** 2026-09-27, claude/queue-task-questions-1c19ed
-- **Taken:** 2026-09-30, claude/queue-davit-drag (claim: claude/queue-the-davits-lean-becomes-a-drag)
-- **Files:** `packages/sim/src/davit.ts`, `packages/sim/src/davit-step.ts`, `packages/sim/src/davit-hand.ts`, `packages/sim/src/drag-targets-e.ts`, `apps/game/src/lean.ts`, `docs/spec/bosses.md`
-
-The owner, 27 September 2026: no wave may need a tilt sensor, because a phone
-may lack one and a desk never has one — and asked, he chose to replace the
-lean with a drag on THE DAVIT and THE CAPSTAN too, not add a drag beside it.
-THE DAVIT's draw counts only while the other seat's lean holds (§11.52); make
-that hold a drag the steering seat keeps inside the range instead, read
-through the same drag target so the wire carries what it carries now, and
-take THE DAVIT out of `lean.ts`. Follow whatever shape THE PLUMB's two-pull
-redesign lands with, if it lands first. The guide's words change with it. A
-control change the owner asked for by name. `bun run check` proves it.
-
 ## Two dozen `strokeGlow` callers reach it with an alpha left over
 
 - **Found:** 2026-09-29, claude/queue-tasks-b9e006

@@ -24,7 +24,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE DAVIT's boom — standing up out of stowed, swung by a steering lean,
+ * THE DAVIT's boom — standing up out of stowed, swung by a steering thumb,
  * asking a halo round itself while a swing or a reland wants steering, its
  * hook dark between steps and glowing the fire step's colour, its ring
  * closing as the window runs out — on all three screens.
@@ -33,7 +33,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * arrangement: `sim/test/davit*.test.ts` proves the script and the swings.
  * What this file asks is whether every branch of the picture is one a canvas
  * accepts, and that each says what it has to: the boom itself, the halo when
- * a lean is asked for, the hook lit in the colour a fire step wants.
+ * a steer is asked for, the hook lit in the colour a fire step wants.
  */
 
 beforeAll(() => {
@@ -118,7 +118,7 @@ describe("THE DAVIT's boom", () => {
     expect(settling.text).not.toBe(frame(role, (w) => posed(w, "rest")).text);
   });
 
-  it.each(ROLES)("swings toward the lean it is steered onto, on %s", (role) => {
+  it.each(ROLES)("swings toward the angle it is steered onto, on %s", (role) => {
     const left = frame(role, (w) => posed(w, "lit", -45_000));
     const right = frame(role, (w) => posed(w, "lit", 45_000));
     const hanging = frame(role, (w) => posed(w, "lit", 0));

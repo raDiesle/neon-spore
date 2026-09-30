@@ -18,7 +18,7 @@ import type { World } from "./world.js";
  * steers it, a window running out, and the boom swung spent.
  *
  * The shot is judged where a bolt leaves the top of the field
- * (`davit-shot.ts`) and calls `davitAnswered` here; the leans and the draws
+ * (`davit-shot.ts`) and calls `davitAnswered` here; the steers and the draws
  * are heard on the tick (`davit-hand.ts`), judged at the lift and only
  * *counted* here, on the beat, because what a swing asks is a number of beats
  * held while steered.
@@ -57,7 +57,7 @@ export function davitWindowBeats(world: World, step: DavitStep): number {
 }
 
 /**
- * The boom follows the lean steering it, or with nobody steering swings back
+ * The boom follows the thumb steering it, or with nobody steering swings back
  * toward hanging by `davitDriftMilli` a beat.
  */
 function swing(world: World, s: DavitState): void {
@@ -94,7 +94,7 @@ function lit(world: World, s: DavitState, since: number): void {
 
 /**
  * A seat loosed its draw true — held its beats steered, lifted while the
- * steer still held and swiped toward the lean's half — in a step that asked
+ * steer still held and swiped toward the steer's half — in a step that asked
  * it: a swing landed, or the boom relanded under the pivot. Called by the
  * lift (`davit-hand.ts`).
  */

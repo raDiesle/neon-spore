@@ -204,7 +204,7 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "grindstone") return { ...boss };
   // THE CYST the same: its core is `midCol` and its flanks are sides.
   if (boss.kind === "cyst") return { ...boss };
-  // THE DAVIT the same: its pivot is `midCol` and its targets are leans.
+  // THE DAVIT the same: its pivot is `midCol` and its targets are the boom's angles.
   if (boss.kind === "davit") return { ...boss };
   // THE HALTER the same: its seam is `midCol` and its marks are seats.
   if (boss.kind === "halter") return { ...boss };

@@ -13,8 +13,8 @@ import {
 import type { Bullet, Color } from "../src/types.js";
 
 /**
- * THE DAVIT's test rig: a script installed, a seat's phone leaned onto a
- * target, a seat's finger put down on its draw and lifted with a swipe as the
+ * THE DAVIT's test rig: a script installed, a seat's thumb carrying the boom
+ * onto a target, a seat's finger put down on its draw and lifted with a swipe as the
  * pair would, and a step driven to its answer. Shared by `davit.test.ts`.
  */
 
@@ -87,13 +87,19 @@ function drag(world: World, target: Target, on: boolean, fromMilli: number, play
   ]);
 }
 
-/** A seat's phone leaned to `milli`; the seat is the lean's own unless said. */
-export function lean(world: World, side: 0 | 1, milli: number, player = seatOf(side)): string[] {
-  return drag(world, side === 0 ? "davitSteerLeft" : "davitSteerRight", true, milli, player);
+/**
+ * A seat's thumb carrying the boom to `milli`, thousandths of a degree — sent
+ * as the carry that steers it there, so the tests read in the boom's angles;
+ * the seat is the steer's own unless said.
+ */
+export function steer(world: World, side: 0 | 1, milli: number, player = seatOf(side)): string[] {
+  const carry = milli / CFG.davitSteerDegreesPerTile;
+  if (!Number.isInteger(carry)) throw new Error(`no whole carry steers the boom to ${milli}`);
+  return drag(world, side === 0 ? "davitSteerLeft" : "davitSteerRight", true, carry, player);
 }
 
-/** A seat's phone stopped reporting. */
-export function unlean(world: World, side: 0 | 1): string[] {
+/** A seat's thumb lifted off the boom. */
+export function unsteer(world: World, side: 0 | 1): string[] {
   return drag(world, side === 0 ? "davitSteerLeft" : "davitSteerRight", false, 0, seatOf(side));
 }
 
@@ -107,7 +113,7 @@ export function lift(world: World, side: 0 | 1, swipe: number): string[] {
   return drag(world, side === 0 ? "davitLooseLeft" : "davitLooseRight", false, swipe, seatOf(side));
 }
 
-/** A swipe toward the half `leanMilli` points into. */
+/** A swipe toward the half a step's `leanMilli` points into. */
 export const toward = (leanMilli: number): number => (leanMilli < 0 ? -600 : 600);
 
 /** Until `side` has held the lit step's count. */

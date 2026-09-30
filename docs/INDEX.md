@@ -147,7 +147,7 @@ by hand never moves.
 | `packages/sim/src/creature-rules.ts` | the state machines the bestiary asks for that are small enough to be one function each |
 | `packages/sim/src/dart.ts` | THE DART: the first body that does not hold its lane |
 | `packages/sim/src/dark.ts` | THE DARK: |
-| `packages/sim/src/davit-hand.ts` | A lean and a draw for each seat on THE DAVIT, heard as THE PLUMB and THE SLING hear theirs |
+| `packages/sim/src/davit-hand.ts` | A steer and a draw for each seat on THE DAVIT, heard as THE CAPSTAN and THE SLING hear theirs |
 | `packages/sim/src/davit-hash.ts` | What THE DAVIT puts into `hashWorld`, and nothing else |
 | `packages/sim/src/davit-shot.ts` | **THE DAVIT's shot**: the lit pivot, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/davit-step.ts` | THE DAVIT's clock: the boom settling, each step lighting, the beats a steered draw is held being counted |
@@ -2175,7 +2175,7 @@ by hand never moves.
 | `packages/render/src/dark-tap.ts` | **A finger on THE DARK**: a press anywhere on the field lights the square under it |
 | `packages/render/src/davit-blow.ts` | **THE DAVIT's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/davit-draw.ts` | **THE DAVIT** (§35): a crane boom on a mast over the middle column |
-| `packages/render/src/davit-grip.ts` | **THE DAVIT's two looses as controls**: `davitLooseLeft` is the pilot's (seat 1) |
+| `packages/render/src/davit-grip.ts` | **THE DAVIT's two steers and two looses as controls** |
 | `packages/render/src/davit-marks.ts` | The mast's own socket: a dark steel foot the boom always stands out of |
 | `packages/render/src/davit-pose.ts` | THE DAVIT's timing: how far the boom has stood up out of stowed, how far a lit step's window has run |
 | `packages/render/src/davit-shape.ts` | **THE DAVIT's geometry**: a boom stowed pointing straight up off a mast over the middle column |
@@ -2574,7 +2574,6 @@ by hand never moves.
 | `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
 | `apps/game/src/last-wave.ts` | The wave this device last opened, so JUMP TO WAVE can open on it |
-| `apps/game/src/lean.ts` | **The phone's own lean**, THE DAVIT's control |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
 | `apps/game/src/join-step-view.ts` | the chrome around whichever of the room screen's four steps is up — the blocks, the heading, the one way back |
@@ -2793,7 +2792,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-halter.ts` | THE HALTER's two grips: the left segment asked for |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
-| `tools/director/src/poses-field-controls-davit.ts` | THE DAVIT's two looses: a swing lit, one seat leaning the boom onto its column and the other holding its… |
+| `tools/director/src/poses-field-controls-davit.ts` | THE DAVIT's two steers and two looses: a swing lit |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
 | `tools/director/src/poses-field-controls-keel.ts` | THE KEEL's one hand: the first joint lit and waiting for its tap |
 | `tools/director/src/poses-field-controls-oculus.ts` | THE OCULUS's two hands: a thumb on each half of the lens, holding the first pair shut |
@@ -3320,7 +3319,7 @@ by hand never moves.
 | `tools/director/src/field-controls-undertow.ts` | **THE UNDERTOW's two thumbs**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-keel.ts` | THE KEEL's one control, as a row of the ON THE FIELD tab: a tap on the lit joint |
 | `tools/director/src/field-controls-oculus.ts` | THE OCULUS's two leaf holds, as rows of the ON THE FIELD tab |
-| `tools/director/src/field-controls-davit.ts` | THE DAVIT's two looses, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-davit.ts` | THE DAVIT's two steers and two looses, as rows of the ON THE FIELD tab |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

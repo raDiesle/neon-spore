@@ -35,6 +35,7 @@ export const CHOREO_FIELD_GROUP_D = {
   davitGraceBeats: "THE DAVIT — the boss one hand steers for the other to loose",
   davitSpentBeats: "THE DAVIT — the boss one hand steers for the other to loose",
   davitDriftMilli: "THE DAVIT — the boss one hand steers for the other to loose",
+  davitSteerDegreesPerTile: "THE DAVIT — the boss one hand steers for the other to loose",
   // HalterConfig — the alarm before the first step, the pause between steps,
   // how long a seat must send nothing, how long the pair must hold, and the
   // spent seam (`config-halter.ts`).

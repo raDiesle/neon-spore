@@ -11,27 +11,27 @@ import {
   drawHome,
   hold,
   install,
-  lean,
   lift,
   rightColor,
   runUntil,
   SCRIPT,
   shot,
+  steer,
   toLit,
   toward,
-  unlean,
+  unsteer,
 } from "./davit-rig.js";
 
 /**
- * THE DAVIT: one seat leaning its phone onto the lit step's target and
- * keeping it there while the other holds a draw for the step's beats and
- * looses it toward the lean's half, two looses a swing, then the ordinary shot
+ * THE DAVIT: one seat's thumb carrying the boom onto the lit step's target
+ * and keeping it there while the other holds a draw for the step's beats and
+ * looses it toward the target's half, two looses a swing, then the ordinary shot
  * into the pivot the two swings light.
  *
  * What these pin is the gate a screen cannot show: that a draw is counted only
- * while the *other* seat's lean holds the target, that a lean leaving the
+ * while the *other* seat's steer holds the target, that a steer leaving the
  * target costs the draw its count, that a lift too soon, the wrong way or with
- * the lean gone springs the draw slack with the step still lit, that the wrong
+ * the steer gone springs the draw slack with the step still lit, that the wrong
  * seat's touch is not heard, that a swing run out is tried again rather than
  * lost, that a reland is either seat's, and that a shot run out is the wave.
  */
@@ -47,9 +47,9 @@ function answer(world: World): void {
     davitStruck(world, shot(rightColor(step)));
     return;
   }
-  const steer: 0 | 1 = step.ask === "reland" ? 0 : steererOf(step.ask);
-  const drawer: 0 | 1 = steer === 0 ? 1 : 0;
-  lean(world, steer, step.leanMilli);
+  const steerer: 0 | 1 = step.ask === "reland" ? 0 : steererOf(step.ask);
+  const drawer: 0 | 1 = steerer === 0 ? 1 : 0;
+  steer(world, steerer, step.leanMilli);
   hold(world, drawer);
   drawHome(world, drawer);
   lift(world, drawer, toward(step.leanMilli));
@@ -67,7 +67,7 @@ function toStep(n: number): World {
 }
 
 describe("THE DAVIT comes in", () => {
-  it("still, both swings empty, the pivot dark, no lean read, no finger down", () => {
+  it("still, both swings empty, the pivot dark, no steer held, no finger down", () => {
     const world = install();
     const s = davit(world);
     expect(s.phase).toBe("still");
@@ -98,10 +98,10 @@ describe("THE DAVIT comes in", () => {
 });
 
 describe("a swing", () => {
-  it("counts the draw while the other seat's lean holds, and looses it toward the lean", () => {
+  it("counts the draw while the other seat's steer holds, and looses it toward the target", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -18000);
+    steer(world, 0, -18000);
     hold(world, 1);
     beats(world, 2);
     expect(davit(world).drawnBeats[1]).toBe(2);
@@ -122,19 +122,19 @@ describe("a swing", () => {
     expect(davit(world).drawnBeats).toEqual([0, 0]);
   });
 
-  it("counts nothing while the lean is off the target", () => {
+  it("counts nothing while the steer is off the target", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000 + SCRIPT[0]!.rangeMilli + 1);
+    steer(world, 0, -20000 + SCRIPT[0]!.rangeMilli + 10);
     hold(world, 1);
     beats(world, 2);
     expect(davit(world).drawnBeats[1]).toBe(0);
   });
 
-  it("counts nothing when the drawer leans for themself", () => {
+  it("counts nothing when the drawer steers for themself", () => {
     const world = install();
     toLit(world);
-    lean(world, 1, -20000);
+    steer(world, 1, -20000);
     hold(world, 1);
     beats(world, 2);
     expect(davit(world).drawnBeats[1]).toBe(0);
@@ -143,7 +143,7 @@ describe("a swing", () => {
   it("counts nothing for the steerer's own draw, and its lift only lets go", () => {
     const world = install();
     toLit(world);
-    lean(world, 1, -20000);
+    steer(world, 1, -20000);
     hold(world, 0);
     beats(world, 2);
     expect(davit(world).drawnBeats[0]).toBe(0);
@@ -156,7 +156,7 @@ describe("a swing", () => {
   it("springs slack on a lift too soon, the count gone and the step still lit", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000);
+    steer(world, 0, -20000);
     hold(world, 1);
     beats(world, 2);
     expect(lift(world, 1, toward(-20000))).toContain("davitSlack");
@@ -165,10 +165,10 @@ describe("a swing", () => {
     expect(davit(world).phase).toBe("lit");
   });
 
-  it("springs slack on a lift home swiped away from the lean, or not swiped", () => {
+  it("springs slack on a lift home swiped away from the target, or not swiped", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000);
+    steer(world, 0, -20000);
     hold(world, 1);
     drawHome(world, 1);
     expect(lift(world, 1, toward(20000))).toContain("davitSlack");
@@ -178,33 +178,33 @@ describe("a swing", () => {
     expect(davit(world).swings).toEqual([0, 0]);
   });
 
-  it("loses the count when the lean leaves the target, and a lift then is slack", () => {
+  it("loses the count when the steer leaves the target, and a lift then is slack", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000);
+    steer(world, 0, -20000);
     hold(world, 1);
     drawHome(world, 1);
-    expect(lean(world, 0, 0)).toContain("davitDrift");
+    expect(steer(world, 0, 0)).toContain("davitDrift");
     expect(davit(world).drawnBeats[1]).toBe(0);
-    lean(world, 0, -20000);
+    steer(world, 0, -20000);
     expect(lift(world, 1, toward(-20000))).toContain("davitSlack");
   });
 
-  it("loses the count when the steering phone stops reporting", () => {
+  it("loses the count when the steering thumb lifts", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000);
+    steer(world, 0, -20000);
     hold(world, 1);
     beats(world, 2);
-    expect(unlean(world, 0)).toContain("davitDrift");
+    expect(unsteer(world, 0)).toContain("davitDrift");
     expect(davit(world).tiltMilli[0]).toBe(DAVIT_UNREAD);
     expect(davit(world).drawnBeats[1]).toBe(0);
   });
 
-  it("does not hear the wrong seat's lean or draw", () => {
+  it("does not hear the wrong seat's steer or draw", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000, 2);
+    steer(world, 0, -20000, 2);
     hold(world, 1, 1);
     expect(davit(world).tiltMilli).toEqual([DAVIT_UNREAD, DAVIT_UNREAD]);
     expect(davit(world).holding).toEqual([false, false]);
@@ -213,7 +213,7 @@ describe("a swing", () => {
   it("does nothing for a lift with no finger down", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -20000);
+    steer(world, 0, -20000);
     expect(lift(world, 1, toward(-20000))).not.toContain("davitSlack");
   });
 
@@ -232,7 +232,7 @@ describe("a swing", () => {
 
   it("is the navigator's to steer on the right swing, and the pilot's to loose", () => {
     const world = toStep(2);
-    lean(world, 1, 20000);
+    steer(world, 1, 20000);
     hold(world, 0);
     drawHome(world, 0);
     expect(lift(world, 0, toward(20000))).toContain("davitLoose");
@@ -241,12 +241,12 @@ describe("a swing", () => {
 });
 
 describe("the boom", () => {
-  it("follows the steering lean, and swings back toward hanging when it is lost", () => {
+  it("follows the steering thumb, and swings back toward hanging when it is lost", () => {
     const world = install();
     toLit(world);
-    lean(world, 0, -19000);
+    steer(world, 0, -19000);
     expect(davit(world).aimMilli).toBe(-19000);
-    lean(world, 0, 0);
+    steer(world, 0, 0);
     expect(davit(world).aimMilli).toBe(-19000);
     beats(world, 1);
     expect(davit(world).aimMilli).toBe(-19000 + CFG.davitDriftMilli);
@@ -259,7 +259,7 @@ describe("the pivot", () => {
   it("lights with the fourth loose, two a swing", () => {
     const world = toStep(3);
     expect(davit(world).pivotLit).toBe(false);
-    lean(world, 1, -15000);
+    steer(world, 1, -15000);
     hold(world, 0);
     drawHome(world, 0);
     expect(lift(world, 0, toward(-15000))).toContain("davitPivot");
@@ -304,7 +304,7 @@ describe("a fire step", () => {
 describe("a reland", () => {
   it("is either seat's: the navigator steers and the pilot looses", () => {
     const world = toStep(5);
-    lean(world, 1, -10000);
+    steer(world, 1, -10000);
     hold(world, 0);
     drawHome(world, 0);
     expect(lift(world, 0, toward(-10000))).toContain("davitReland");
@@ -314,7 +314,7 @@ describe("a reland", () => {
 
   it("and the other way about", () => {
     const world = toStep(5);
-    lean(world, 0, -10000);
+    steer(world, 0, -10000);
     hold(world, 1);
     drawHome(world, 1);
     expect(lift(world, 1, toward(-10000))).toContain("davitReland");

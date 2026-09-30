@@ -121,7 +121,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   davit: {
-    what: "Your partner leans the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
+    what: "Your partner drags the boom onto the lit side: hold a draw, then swipe that way. Two each way light the pivot. Shoot it in its colour. Then reland it.",
     reach: "spawn",
   },
   halter: {

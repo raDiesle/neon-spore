@@ -1,7 +1,7 @@
 import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { burgeeDrawCircle, burgeeFreezeCircle } from "./burgee-grip.js";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
-import { davitLooseCircle } from "./davit-grip.js";
+import { davitLooseCircle, davitSteerCircle } from "./davit-grip.js";
 import { flueTapCircle } from "./flue-grip.js";
 import { gallPointCircle, gallTakesPinch } from "./gall-grip.js";
 import { governorChordsFor, governorTapCircle, governorYokeCircle } from "./governor-grip.js";
@@ -57,9 +57,16 @@ export function laterBossHandleCircle(
     const side = target === "halterChordLeft" ? 0 : 1;
     return halterGripStanding(l, cfg, b, side, world.beat, beatPhase);
   }
+  if (target === "davitSteerLeft" || target === "davitSteerRight") {
+    // THE DAVIT's boom, round its middle where it swings this frame — a
+    // steering thumb goes down on it and carries it (`davit-grip.ts`).
+    const b = world.boss?.kind === "davit" ? world.boss : null;
+    if (b === null) return null;
+    return davitSteerCircle(l, cfg, b, world.beat, beatPhase);
+  }
   if (target === "davitLooseLeft" || target === "davitLooseRight") {
     // THE DAVIT's hook, the one shared rest handle either seat's loose takes
-    // it at — the boom itself never moves for a hand (`davit-grip.ts`).
+    // it at (`davit-grip.ts`).
     const b = world.boss?.kind === "davit" ? world.boss : null;
     if (b === null) return null;
     return davitLooseCircle(l, cfg, b, target === "davitLooseLeft" ? 0 : 1, world.beat, beatPhase);

@@ -189,7 +189,7 @@ export function clockHashParts(boss: BossState): number[] {
     for (const n of cystHashParts(boss)) out.push(n);
   }
   // THE DAVIT: the phase, the cursor, the swings, the hits, the pivot, both
-  // seats' leans, fingers and counts, the boom and the script (`davit-hash.ts`).
+  // seats' steers, fingers and counts, the boom and the script (`davit-hash.ts`).
   if (boss.kind === "davit") {
     for (const n of davitHashParts(boss)) out.push(n);
   }

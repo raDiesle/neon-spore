@@ -30008,3 +30008,13 @@ Bottleneck: writing — six documents said the arrows were the offer, and each
 had to say the pause instead.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE DAVIT's lean becomes a drag
+
+- reading: 20 min. THE CAPSTAN's carried pull as the model, `davit-hand.ts`, the grip and `handles.ts`, and every place the lean was named, in code and in the spec.
+- writing: 50 min. The carry in `sim`, `davitSteerUnder` and its circle, AUTO's hand, the director's rows and poses, `lean.ts` deleted, and §11.52 and §35 reworded.
+- looking: 0 min. The frames are the next thing an eye owes it; nothing was watched at tempo.
+- friction: 15 min. A compaction mid-lane, a rewording script whose anchor matched five times, and three doc-drift rows still naming the deleted `lean.ts`.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: the lean was named in about thirty places across four packages and two spec files, and only the drift tests found the last few.

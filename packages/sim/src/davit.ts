@@ -3,23 +3,23 @@ import type { World } from "./world.js";
 
 /**
  * THE DAVIT: a crane boom pivoted off the hull's spine, steered by one seat's
- * held lean onto a lit column and loosed there by the other seat's draw, and
+ * thumb onto a lit column and loosed there by the other seat's draw, and
  * then a pivot that has to be shot in the colour it shows
  * (`docs/spec/bosses-choreographed.md` §35).
  *
- * **The rule is one sentence**: one of you leans the boom onto the lit side
+ * **The rule is one sentence**: one of you drags the boom onto the lit side
  * and keeps it there while the other holds a draw and looses it that way;
  * shoot the lit pivot in its colour.
  *
- * Each seat has a lean and a draw — the pilot's `davitSteerLeft` and
+ * Each seat has a steer and a draw — the pilot's `davitSteerLeft` and
  * `davitLooseLeft`, the navigator's `davitSteerRight` and `davitLooseRight`.
- * A lean is THE PLUMB's reading (`LevelTilt`), a draw THE SLING's
- * (`DrawRelease`); what is new is that the lean is not judged on its own. A
- * step's `leanMilli` is where the boom must be steered, and the other seat's
- * draw only counts its beats while that lean is within `rangeMilli` of it,
- * and only lands if it lifts while the lean is still there, swiping toward
- * the half the lean points into. `aimMilli`, the boom itself, follows the
- * steering lean while it is in range and swings back toward hanging when it
+ * A steer is THE CAPSTAN's reading, a handle's carry turned into the boom's
+ * angle (`davit-hand.ts`), a draw THE SLING's (`DrawRelease`); what is new is
+ * that the steer is not judged on its own. A step's `leanMilli` is where the
+ * boom must be steered, and the other seat's draw only counts its beats
+ * while that steer is within `rangeMilli` of it, and only lands if it lifts
+ * while the steer is still there, swiping toward the half it points into.
+ * `aimMilli`, the boom itself, follows the steering thumb while it is in range and swings back toward hanging when it
  * is not.
  *
  * **Its health is the two swings of two looses each, and the three shots.**
@@ -31,8 +31,8 @@ import type { World } from "./world.js";
 export const DAVIT_LOOSES_PER_SWING = 2;
 
 /**
- * A seat's lean before its phone has said anything, or after it stopped:
- * further off any target than a phone can lean, so no range ever holds it.
+ * A seat's steer before its thumb is on the boom, or after it lifted: further
+ * off any target than a carry can swing it, so no range ever holds it.
  */
 export const DAVIT_UNREAD = 1_000_000;
 
@@ -46,19 +46,19 @@ export type DavitPhase = (typeof DAVIT_PHASES)[number];
 /**
  * What a step asks: the left swing (the pilot steers, the navigator looses),
  * the right swing (the other way about), a shot at the pivot, or a reland —
- * either seat looses against the other's lean.
+ * either seat looses against the other's steer.
  */
 export const DAVIT_ASKS = ["left", "right", "fire", "reland"] as const;
 export type DavitAsk = (typeof DAVIT_ASKS)[number];
 
-/** Which half a lean points into, and so which way a loose must swipe. */
+/** Which half a steer points into, and so which way a loose must swipe. */
 export type DavitHalf = "left" | "right";
 
 /** One step of the script, authored on the wave. */
 export interface DavitStep {
   ask: DavitAsk;
   /**
-   * Where the boom must be steered, thousandths of a degree of lean: below
+   * Where the boom must be steered, thousandths of a degree off hanging: below
    * nought the left half, the rest the right. Only a swing or a reland reads it.
    */
   leanMilli: number;
@@ -91,13 +91,13 @@ export interface DavitState {
   hits: number;
   /** Whether the pivot is lit to be shot. */
   pivotLit: boolean;
-  /** Each seat's lean, thousandths of a degree, or `DAVIT_UNREAD`. */
+  /** Each seat's steer as the boom's angle, thousandths of a degree, or `DAVIT_UNREAD`. */
   tiltMilli: [number, number];
   /** Whether each seat's finger is down on its draw this instant. */
   holding: [boolean, boolean];
   /** Beats each seat has held its draw steered in the lit step, up to the step's `beats`. */
   drawnBeats: [number, number];
-  /** Where the boom points, thousandths of a degree: the steering lean, or swinging back to nought. */
+  /** Where the boom points, thousandths of a degree: the steering thumb's, or swinging back to nought. */
   aimMilli: number;
 }
 
@@ -111,7 +111,7 @@ export function davitLitStep(s: DavitState): DavitStep | null {
   return s.phase === "lit" ? (s.steps[s.cursor] ?? null) : null;
 }
 
-/** The half a lean points into. */
+/** The half a steer points into. */
 export function davitHalf(leanMilli: number): DavitHalf {
   return leanMilli < 0 ? "left" : "right";
 }
@@ -137,7 +137,7 @@ export function davitSteers(s: DavitState, side: 0 | 1): boolean {
   return ask === (side === 0 ? "left" : "right");
 }
 
-/** Whether this seat's lean holds the lit step's target, whether or not the step lets it steer. */
+/** Whether this seat's steer holds the lit step's target, whether or not the step lets it steer. */
 export function davitOnTarget(s: DavitState, side: 0 | 1): boolean {
   const step = davitLitStep(s);
   if (step === null || step.ask === "fire") return false;
@@ -150,7 +150,7 @@ export function davitSteered(s: DavitState, drawer: 0 | 1): boolean {
   return davitSteers(s, steer) && davitOnTarget(s, steer);
 }
 
-/** The seat whose lean the boom is following this instant, or null when it swings free. */
+/** The seat whose steer the boom is following this instant, or null when it swings free. */
 export function davitSteering(s: DavitState): 0 | 1 | null {
   for (const side of [0, 1] as const) {
     if (davitSteers(s, side) && davitOnTarget(s, side)) return side;
@@ -163,7 +163,7 @@ export function davitDone(s: DavitState): boolean {
   return s.phase === "spent";
 }
 
-/** A fresh boom: both swings empty, the pivot dark, no lean read, no finger down. */
+/** A fresh boom: both swings empty, the pivot dark, no steer read, no finger down. */
 export function freshDavit(beat: number, steps: readonly DavitStep[]): DavitState {
   return {
     kind: "davit",

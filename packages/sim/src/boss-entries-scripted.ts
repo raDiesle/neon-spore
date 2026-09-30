@@ -46,7 +46,7 @@ export type ScriptedBossEntry =
   | GrindstoneEntry
   // The one that authors flanks as well as shots: a sac one seat stills for the other (`cyst.ts`).
   | CystEntry
-  // The one that authors leans and draws as well as shots: a boom one seat steers for the other (`davit.ts`).
+  // The one that authors steers and draws as well as shots: a boom one seat steers for the other (`davit.ts`).
   | DavitEntry
   // The one that authors rests and chords as well as shots: a seam one seat stays off while the other grips (`halter.ts`).
   | HalterEntry
