@@ -1,9 +1,9 @@
 import { isBeatTick } from "./beat-clock.js";
+import { roundStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import type { GaugePhase, GaugeState } from "./gauge.js";
 import { openGauge, stepGauge } from "./gauge.js";
 import { gaugeHandHeard, gaugeHeard, releaseGaugeHands } from "./gauge-hand.js";
-import { breachHull } from "./hull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -128,7 +128,7 @@ export function stepGaugeRound(world: World): void {
  */
 function spendHull(world: World): void {
   const col = midCol(world.cfg);
-  breachHull(world, col, "meteorFastest", 0, "heavy");
+  roundStrikesHull(world, "gauge", col);
 }
 
 /**

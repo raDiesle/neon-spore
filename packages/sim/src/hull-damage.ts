@@ -1,4 +1,4 @@
-import type { BossKind } from "./boss-strike.js";
+import type { Strike } from "./boss-strike.js";
 import { bodyCenterCol, type Color, type Creature, spanOf } from "./types.js";
 import { failWave } from "./wave-fail.js";
 import type { World } from "./world.js";
@@ -52,13 +52,12 @@ export function breachHull(
    * which is the truth for every caller that breaks the hull without a body:
    * a rock, and the rounds that cost the hull from off the field. */
   color: Color | null = null,
-  /** The boss whose blow this is (`bossStrikesHull`); none for a body. */
-  by?: BossKind,
-  /** Which of its blows, when it has more than one (`bossStrikesHull`). */
-  blow?: string,
+  /** Whose blow this is, a boss's or a round's (`boss-strike.ts`); none for
+   * a body. */
+  strike: Strike = {},
 ): void {
   scarHull(world, col, kind, color);
-  breachUnscarred(world, col, kind, fromRow, weight, color, by, blow);
+  breachUnscarred(world, col, kind, fromRow, weight, color, strike);
 }
 
 /**
@@ -112,8 +111,7 @@ export function breachUnscarred(
   fromRow: number,
   weight: BreachWeight,
   color: Color | null = null,
-  by?: BossKind,
-  blow?: string,
+  strike: Strike = {},
 ): void {
   failWave(world);
   world.events.push({
@@ -127,8 +125,7 @@ export function breachUnscarred(
     holes: 0,
     color,
     beat: world.beat,
-    ...(by ? { by } : {}),
-    ...(blow ? { blow } : {}),
+    ...strike,
   });
 }
 

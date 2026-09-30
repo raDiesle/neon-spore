@@ -1,5 +1,5 @@
+import { roundStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
 import { type SnakeState, snakeCurrent, snakeLifted } from "./snake.js";
 import {
   snakeCleared,
@@ -69,7 +69,7 @@ export function stepSnake(world: World, snake: SnakeState): boolean | null {
  * and a second round is not a second argument.
  */
 function runOut(world: World): false {
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
+  roundStrikesHull(world, "snake", midCol(world.cfg));
   return false;
 }
 
@@ -210,6 +210,6 @@ function crash(world: World, snake: SnakeState, col: number, row: number): false
   snake.crashTick = world.tick;
   snake.bumpCol = col;
   snake.bumpRow = row;
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "light");
+  roundStrikesHull(world, "snake", midCol(world.cfg), 0, "light");
   return false;
 }

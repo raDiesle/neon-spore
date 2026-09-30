@@ -1,4 +1,4 @@
-import type { BossKind } from "./boss-strike.js";
+import type { BossKind, RoundKind } from "./boss-strike.js";
 import type { BossEvent } from "./events-bosses.js";
 import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
@@ -191,11 +191,8 @@ export type SimEvent =
        * fell — a round that breaks the hull with nothing on the field. */
       seed: number;
       holes: number;
-      /**
-       * The colour of the body that broke through, so the burst can be thrown
-       * in it (`effects-breach.ts`). null for everything colourless — a rock,
-       * and the rounds that break the hull with no body on the field at all.
-       */
+      /** The colour of the body that broke through, for the burst
+       * (`effects-breach.ts`); null for a rock, and for a round with no body. */
       color: Color | null;
       /** The beat this happened on — matches the `Scar`s it left, so render/
        * can tell a scar's crack apart from one an earlier beat left behind. */
@@ -206,6 +203,8 @@ export type SimEvent =
       /** Which of its blows, for a boss with more than one (THE RATCHET's
        * jam and its loose bolt); none for the rest. */
       blow?: string;
+      /** The round whose window ran out (`roundStrikesHull`). */
+      round?: RoundKind;
     }
   | { type: "petal"; col: number; row: number; left: number }
   | { type: "queenDown"; col: number; row: number }

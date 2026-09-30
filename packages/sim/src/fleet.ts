@@ -1,9 +1,9 @@
 import type { FleetEntry } from "./boss-entries.js";
+import { roundStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import { fleetCols, fleetIndex, fleetOnBoard, fleetRows, fleetShipAt } from "./fleet-board.js";
 import { openFlood, stepFleetFlood } from "./fleet-flood.js";
 import { type FleetState, fleetStruck } from "./fleet-state.js";
-import { breachHull } from "./hull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -120,7 +120,7 @@ export function stepFleet(world: World, b: FleetState): void {
   // has columns of its own and the ship does not stand under any of them —
   // the same call THE GAUGE makes for the same reason, and the scar is what
   // makes it read: it is still there when the next wave opens.
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
+  roundStrikesHull(world, "fleet", midCol(world.cfg));
   world.boss = null;
 }
 

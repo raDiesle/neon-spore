@@ -1,6 +1,6 @@
+import { roundStrikesHull } from "./boss-strike.js";
 import type { SimConfig } from "./config.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
 import type { ScoutPoint, ScoutState } from "./scout.js";
 import { scoutCleared, scoutCurrent } from "./scout-ask.js";
 import { stepScoutFlight, stepScoutHazards } from "./scout-fly.js";
@@ -173,7 +173,7 @@ function caughtBy(world: World, scout: ScoutState, index: number): boolean {
   // there is no column in this round to blame, a rock's kind because that is
   // what a scar off the field has always been drawn as, and `heavy` because
   // the thing that caught it was moving.
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
+  roundStrikesHull(world, "scout", midCol(world.cfg));
   return false;
 }
 
@@ -189,6 +189,6 @@ function ranOut(world: World, scout: ScoutState): boolean {
   scout.vRowMilli = 0;
   scout.burning = false;
   scout.turn = 0;
-  breachHull(world, midCol(world.cfg), "meteorFastest", 0, "light");
+  roundStrikesHull(world, "scout", midCol(world.cfg), 0, "light");
   return false;
 }

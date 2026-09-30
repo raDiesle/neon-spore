@@ -1,5 +1,6 @@
+import { roundStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { type BreachWeight, breachHull } from "./hull.js";
+import type { BreachWeight } from "./hull.js";
 import type { PinballPhase, PinballRound, PinballState } from "./pinball.js";
 import { pinFieldCol, pinHeightMilli, pinPhysics, pinPower, pinSweep } from "./pinball-board.js";
 import { pinballHeard } from "./pinball-controls.js";
@@ -189,7 +190,7 @@ export function pinballOpenRound(world: World, state: PinballState, round: numbe
  * and THE FLEET all do.
  */
 function spendHull(world: World, weight: BreachWeight, col: number): void {
-  breachHull(world, col, "meteorFastest", 0, weight);
+  roundStrikesHull(world, "pinball", col, 0, weight);
 }
 
 /**

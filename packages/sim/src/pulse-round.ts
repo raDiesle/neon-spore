@@ -1,5 +1,5 @@
+import { roundStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
-import { breachHull } from "./hull.js";
 import { PULSE_COUNT_BEATS, type PulsePhase, type PulseStage, type PulseState } from "./pulse.js";
 import { pulseEndTick, pulseExpire, pulseLaneIndex } from "./pulse-chart.js";
 import { pulseHeard, pulseMark } from "./pulse-controls.js";
@@ -86,7 +86,7 @@ export function stepPulseRound(world: World): void {
   // lost rather than passed.
   if (state.meter <= 0) {
     state.passed = false;
-    breachHull(world, midCol(world.cfg), "meteorFastest", 0, "heavy");
+    roundStrikesHull(world, "pulse", midCol(world.cfg));
     enterPhase(state, "verdict", world.beat);
     return;
   }

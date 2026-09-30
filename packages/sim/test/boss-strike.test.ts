@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { bossStrikesHull } from "../src/boss-strike.js";
+import { bossStrikesHull, roundStrikesHull } from "../src/boss-strike.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
 import { NOT_FAILED } from "../src/wave-fail.js";
 import { createWorld } from "../src/world.js";
@@ -31,26 +31,59 @@ describe("bossStrikesHull", () => {
 });
 
 /**
+ * A round has no boss body to strike from, so its window running out is still
+ * an unseen rock — named, so VERSUS can offer the round's own hit beside it.
+ * The seven rounds call this, and so leave the ratchet below.
+ */
+describe("roundStrikesHull", () => {
+  it("is the same hit as ever, with the round named on it", () => {
+    const world = createWorld(DEFAULT_CONFIG, 1);
+    roundStrikesHull(world, "pulse", 4);
+    expect(world.failTick).not.toBe(NOT_FAILED);
+    expect(world.scars.map((s) => s.col)).toEqual([4]);
+    const breach = world.events.find((e) => e.type === "breach");
+    expect(breach).toMatchObject({ col: 4, weight: "heavy", round: "pulse" });
+    expect(breach).not.toHaveProperty("by");
+    expect(breach).not.toHaveProperty("blow");
+  });
+
+  it("keeps a light hit light", () => {
+    const world = createWorld(DEFAULT_CONFIG, 1);
+    roundStrikesHull(world, "snake", 3, 0, "light");
+    const breach = world.events.find((e) => e.type === "breach");
+    expect(breach).toMatchObject({ col: 3, weight: "light", round: "snake" });
+  });
+
+  it("is what every round calls", () => {
+    const src = join(import.meta.dir, "..", "src");
+    for (const f of [
+      "fleet",
+      "gauge-round",
+      "mirror-round",
+      "pinball-round",
+      "pulse-round",
+      "scout-arena",
+      "snake-move",
+    ]) {
+      expect(readFileSync(join(src, `${f}.ts`), "utf8"), f).toContain("roundStrikesHull(world, ");
+    }
+  });
+});
+
+/**
  * **The ratchet.** A hull hit that is a rock falling out of row 0 is the
  * stand-in the rule retired. These are the files that still make one, each
  * waiting on its own queue item; the list only ever gets shorter, and a new
  * file here is a new boss breaking the rule.
  */
 const STILL_A_ROCK = new Set([
-  // The blow itself, which keeps the rock's kind for the scar and the sound.
+  // The blow itself, which keeps the rock's kind for the scar and the sound,
+  // and the rounds' named rock (`roundStrikesHull`), which is the same call.
   "boss-strike.ts",
   // THE KEEL's tail rock, which the pair watch fall down its column and which
   // breaks the hull from the hull row it reached: a rock really in the
   // picture. Its socket's hit is the boss's own blow (`bossStrikesHull`).
   "keel-step.ts",
-  // The rounds and interludes, which have no boss body to strike from.
-  "fleet.ts",
-  "gauge-round.ts",
-  "mirror-round.ts",
-  "pinball-round.ts",
-  "pulse-round.ts",
-  "scout-arena.ts",
-  "snake-move.ts",
 ]);
 
 /**

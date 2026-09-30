@@ -1,5 +1,5 @@
+import { roundStrikesHull } from "./boss-strike.js";
 import { hullRow } from "./config.js";
-import { breachHull } from "./hull.js";
 import { enterPhase, type MirrorState, type MirrorVerdictReason } from "./simon.js";
 import { MILLI, type World } from "./world.js";
 
@@ -23,7 +23,7 @@ export function wrong(world: World, m: MirrorState, reason: MirrorVerdictReason)
   m.verdict = -1;
   m.verdictCol = col;
   enterPhase(m, "verdict", world.beat, world.cannonCol);
-  breachHull(world, col, "meteorFastest", world.cfg.mirrorRow, "heavy");
+  roundStrikesHull(world, "mirror", col, world.cfg.mirrorRow);
   world.events.push({ type: "mirrorVerdict", right: false, col, reason });
 }
 
