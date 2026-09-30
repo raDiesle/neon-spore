@@ -35,7 +35,7 @@ describe("THE RIME's painted clearing", () => {
   it("is thrown by the bare core once an atlas is installed", () => {
     const fx = new RimeFx();
     fx.clear.install(ATLAS);
-    fx.ingest(BARE, L, DEFAULT_CONFIG);
+    fx.ingest(BARE, L, DEFAULT_CONFIG, 0.5, () => {});
     expect(drawn(fx)).toBe(1);
   });
 
@@ -47,20 +47,20 @@ describe("THE RIME's painted clearing", () => {
       { type: "rimeHit", hits: 1, col: MID },
       { type: "rimeShatter", col: MID },
     ];
-    fx.ingest(other, L, DEFAULT_CONFIG);
+    fx.ingest(other, L, DEFAULT_CONFIG, 0.5, () => {});
     expect(drawn(fx)).toBe(0);
   });
 
   it("draws nothing with no atlas — the reveal as it ships", () => {
     const fx = new RimeFx();
-    fx.ingest(BARE, L, DEFAULT_CONFIG);
+    fx.ingest(BARE, L, DEFAULT_CONFIG, 0.5, () => {});
     expect(drawn(fx)).toBe(0);
   });
 
   it("plays out on its own sheet's clock", () => {
     const fx = new RimeFx();
     fx.clear.install(ATLAS);
-    fx.ingest(BARE, L, DEFAULT_CONFIG);
+    fx.ingest(BARE, L, DEFAULT_CONFIG, 0.5, () => {});
     fx.update(LIFE * 0.9);
     expect(drawn(fx)).toBe(1);
     fx.update(LIFE * 0.2);
@@ -70,7 +70,7 @@ describe("THE RIME's painted clearing", () => {
   it("is forgotten on a restart, and reached where a host installs it", () => {
     const effects = new Effects();
     effects.boss.rime.clear.install(ATLAS);
-    effects.boss.rime.ingest(BARE, L, DEFAULT_CONFIG);
+    effects.boss.rime.ingest(BARE, L, DEFAULT_CONFIG, 0.5, () => {});
     effects.reset();
     expect(drawn(effects.boss.rime)).toBe(0);
   });

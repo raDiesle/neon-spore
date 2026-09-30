@@ -73,7 +73,7 @@ export class BossTransients extends BossRoster {
     this.valve.ingest(events, l, cfg, beatSeconds, burst);
     this.oculus.ingest(events, l, cfg, beatSeconds, burst);
     this.vise.ingest(events, l, cfg, beatSeconds, burst);
-    this.rime.ingest(events, l, cfg);
+    this.rime.ingest(events, l, cfg, beatSeconds, burst);
     this.sling.ingest(events, l, cfg);
     this.trivet.ingest(events, l, cfg, beatSeconds, burst);
     this.plumb.ingest(events, l, cfg, burst);

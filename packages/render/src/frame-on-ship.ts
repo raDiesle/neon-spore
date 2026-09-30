@@ -82,6 +82,9 @@ export function drawOnShip(
   // And THE GRINDSTONE's: the caliper biting is a thud through the plating,
   // the snap free a harder one (`grindstone-fx.ts`, §33).
   held.effects.boss.grindstone.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE RIME's: the lens shattering is a shudder down the plating
+  // (`rime-fx.ts`, §29).
+  held.effects.boss.rime.shock.draw(ctx, l, surfaceY, view.time);
   // And THE FLUE's: the core bared is a thud through the plating, the flue
   // swinging open for good a harder one (`flue-fx.ts`, §40).
   held.effects.boss.flue.shock.draw(ctx, l, surfaceY, view.time);

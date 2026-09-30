@@ -818,32 +818,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §29 THE RIME — its hands, the second half of its look
-
-- **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
-- **Taken:** 2026-09-30, claude/queue-25-the-valve-the-story-between-the-pins-its-hand (claim: claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo)
-- **Files:** `packages/render/src/rime-marks.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `apps/game/src/`
-
-The body is drawn: BULB · PEBBLE's pane of dull glass split down the spine,
-THE CAIRN's seven sheets of frost over it with their seams showing, a half's
-clear patch as wide as its frost is gone, the lit half white and the other
-dulled, a shield step's surge crawling in from the rim, the core lit in its
-colour and smaller per hit, and the shatter dropping the sheets apart
-(`render/rime-*.ts`, `test/rime-frame.test.ts`). What is left, in lanes:
-**the rub on the field** — a thumb down on a half sends `rimeHalfLeft` or
-`rimeHalfRight` with its reversal count as the drag's `id`, and nothing on
-the field sends one yet — the count is kept already (`packages/render/src/rub-turns.ts`,
-THE GRINDSTONE's), so this is a `rime-grip.ts` whose press on a half is a
-`rub: true` hold, `grindstone-grip.ts` its model; **the fx**, in `Effects`
-and cleared in `reset()` — flakes shaved off under a rub, a half's
-clear, the core's hit flash and the shatter's, the twelve `rime*` events off
-the two silent lists as each gets its burst, and row 11's refreeze film;
-and **the cue's words** (WIPE on the lit half, FIRE on the lit core, SHIELD on a
-surge). Unverified at tempo until the owner
-has looked. The autopilot hand is done (`hands/boss-hands-rime.ts`,
-`director/test/autopilot-rime.test.ts`), and THE SLOW's aim on the lens
-(`render/slow-boss-aim-b.ts`).
-
 ## Unverified at f36bb0d02: THE RIME's body watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
@@ -1334,3 +1308,23 @@ walks have, and prove it with `bun run check`.
 three constants `gauge-rig.ts` now exports; import those, and move "the bind"
 and "both hands" to a file of their own with the helpers in the rig. Every test
 stays green without edits beyond imports.
+
+## §29 THE RIME — row 11's refreeze, its simulation and then its look
+
+- **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
+- **Files:** `packages/sim/src/rime-step.ts`, `packages/sim/src/rime.ts`, `packages/sim/src/events-rime.ts`, `packages/render/src/rime-fx.ts`, `packages/render/src/rime-marks.ts`
+
+The hands, the fx and the cue words are all in (`rime-grip.ts`, `rime-fx.ts`,
+`boss-cue-read-zg.ts`). What is left is row 11 of
+`docs/spec/bosses-choreographed.md` §29: after the third hit, a pale film
+crawls over the spent core for 3 beats and the pair must send nothing. A wipe
+or shield in that window scatters the crack early and adds one beat before
+the core spends. The simulation has no such phase. The third hit goes straight
+to the shatter, so `rime-fx.ts` has no event to draw it from. This is two
+lanes. First the simulation: a `refreeze` phase with its beats in
+`config-rime.ts`, a `rimeRefreeze` event, the reflex beat, and a line in hash
+and §11.46; `sim/grindstone-fade.ts` is the model for a phase that asks for
+stillness. Then the look: a film ticking and hairline-cracking across the core
+in `rimeFrost`, with no cannon colour, and shattering a beat before the lens
+does. The new event goes on both silent lists, and the sound goes in
+`bind-rime.ts`.

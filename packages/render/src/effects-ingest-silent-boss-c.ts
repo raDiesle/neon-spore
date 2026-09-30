@@ -199,7 +199,8 @@ export const INGEST_SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
-  // THE RIME's twelve, for the same reason (`packages/audio/src/bind-rime.ts`).
+  // THE RIME's twelve, for the same reason: what outlives a frame is
+  // `rime-fx.ts`', read above the loop (`packages/audio/src/bind-rime.ts`).
   "rimeEnter",
   "rimeLight",
   "rimeShave",

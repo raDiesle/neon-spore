@@ -1522,7 +1522,7 @@ by hand never moves.
 | `packages/render/src/rime-blow.ts` | THE RIME's timeout blow: the lens drops a frosted sheet that bursts and frosts the hull |
 | `packages/render/src/rime-glint.ts` | **THE RIME's frost glints**: a line of light crosses the pane on a slant every few seconds, catching the sheets' edges |
 | `packages/render/src/rime-grip.ts` | **The two halves of THE RIME's lens as controls** |
-| `packages/render/src/rime-fx.ts` | What THE RIME leaves behind a frame: so far only, behind `?raster=1`, the painted clearing |
+| `packages/render/src/rime-fx.ts` | What THE RIME leaves behind a frame (§29, *Presentation*) |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |

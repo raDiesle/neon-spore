@@ -166,7 +166,8 @@ export const SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
-  // THE RIME's twelve, the same (`packages/audio/src/bind-rime.ts`).
+  // THE RIME's twelve, the same: each is thrown above the loop by its own fx
+  // file (`rime-fx.ts`, `packages/audio/src/bind-rime.ts`).
   "rimeEnter",
   "rimeLight",
   "rimeShave",

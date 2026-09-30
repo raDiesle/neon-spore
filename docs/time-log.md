@@ -30141,3 +30141,13 @@ Bottleneck: writing — the seat split had to be carried through every count the
 Bottleneck: friction — the compaction landed between reading the file and cutting it, so it was read twice.
 
 *Measured: 54 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — §29 THE RIME — its hands, the second half of its look (the fx)
+
+- reading: 10 min. THE VISE's and THE GRINDSTONE's fx, the twelve `rime*` events, the cue page, and row 11 of §29.
+- writing: 25 min. `rime-fx.ts` rewritten around the shock and the hurt, `drawRimeFlashes`, the wiring through `drawRime` and the ship's shudder, and the tests.
+- looking: 0 min. Nothing was watched at tempo.
+- friction: 5 min. A BSD `sed` alternation did not match, and the render package has no `tsconfig` of its own.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing. Row 11's refreeze turned out to need a simulation phase that does not exist, so it went to the queue rather than into this lane.

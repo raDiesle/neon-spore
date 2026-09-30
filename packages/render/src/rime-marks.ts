@@ -3,6 +3,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import type { RimeFx } from "./rime-fx.js";
 import {
   rimeCorePath,
   rimeCoreR,
@@ -17,7 +18,7 @@ import { stepColour } from "./step-colour.js";
  * half, which is *wipe this side clear*; the surge crawling in from the rim,
  * which is *shield under the lens*; and the lit core, which is *shoot here, in
  * this colour*. Cut from `rime-draw.ts` the day it was written, along the line
- * its second half will grow on — the cue words and the flakes come here.
+ * its second half grew on — the flashes `rime-fx.ts` keeps come here too.
  *
  * A step's colour is `stepColour`'s, called rather than copied: its
  * cannon's, or white for a step either answers.
@@ -94,4 +95,32 @@ export function drawRimeCore(
   const ring = new Path2D();
   ring.arc(0, 0, rimeCoreR(l) * 1.45, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
   strokeGlow(ctx, ring, body, STROKE.outline, 1);
+}
+
+/**
+ * What `rime-fx.ts` keeps between frames, laid over the pane: a half's rim
+ * flashing white as it comes clear, the pale film flashing back over a half
+ * that frosts solid again, and the core hit's flash — a ring in the core's
+ * colour, wider for every hit. The shatter's flash is the whole lens, pale.
+ */
+export function drawRimeFlashes(ctx: CanvasRenderingContext2D, l: Layout, fx: RimeFx): void {
+  for (const side of [0, 1] as const) {
+    const half = rimeHalfPath(l, side);
+    if (fx.film(side) > 0) {
+      ctx.fillStyle = rgba(PALETTE.rimeFrost, 0.6 * fx.film(side));
+      ctx.fill(half);
+    }
+    if (fx.cleared(side) > 0)
+      strokeGlow(ctx, half, PALETTE.rimeFrost, STROKE.outline, fx.cleared(side));
+  }
+  const flash = fx.flash;
+  if (flash.now > 0) {
+    const ring = new Path2D();
+    ring.arc(0, 0, rimeCoreR(l) * (1.6 + 0.4 * flash.hits + 0.6 * (1 - flash.now)), 0, Math.PI * 2);
+    strokeGlow(ctx, ring, flash.hex, STROKE.outline, flash.now);
+  }
+  if (fx.shattered > 0) {
+    ctx.fillStyle = rgba(PALETTE.rimeFrost, 0.5 * fx.shattered);
+    ctx.fill(rimeLensPath(l));
+  }
 }

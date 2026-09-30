@@ -7,14 +7,16 @@ import {
   rimeRubbing,
   type World,
 } from "@neon-spore/sim";
+import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import type { RimeFx } from "./rime-fx.js";
 import { RIME_GLINT } from "./rime-glint.js";
-import { drawRimeCore, drawRimeLitHalf, drawRimeSurge } from "./rime-marks.js";
+import { drawRimeCore, drawRimeFlashes, drawRimeLitHalf, drawRimeSurge } from "./rime-marks.js";
 import { rimeArrived, rimeClear, rimeLeft, rimeShatter, rimeSurge } from "./rime-pose.js";
 import {
   RIME_SHEETS,
@@ -28,6 +30,7 @@ import {
   rimeSheet,
 } from "./rime-shape.js";
 import { drawRimeFog, drawRimeIcicle, rimeFog, rimeIcicle, rimeSink } from "./rime-story.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE RIME**: a frosted pane of glass over the middle column, each half
@@ -43,7 +46,9 @@ import { drawRimeFog, drawRimeIcicle, rimeFog, rimeIcicle, rimeSink } from "./ri
  * what a step asks for — the lit half in white, the core in its cannon's
  * colour (§29, *Colour*). **Its health is the frost and the core**: a half's
  * clear patch as wide as its frost is gone, and the core smaller and brighter
- * for every hit. Nothing here outlives a frame.
+ * for every hit. What outlives a frame — the flakes, the flashes, the film
+ * flashing back, the shatter's shudder and the blow — is `fx`'s (`rime-fx.ts`),
+ * told the core's colour here every frame.
  */
 export function drawRime(
   ctx: CanvasRenderingContext2D,
@@ -53,6 +58,7 @@ export function drawRime(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: RimeFx,
 ): void {
   const cfg = world.cfg;
   const arrived = rimeArrived(s, cfg, beat, beatPhase);
@@ -63,18 +69,20 @@ export function drawRime(
   ctx.save();
   ctx.globalAlpha = alpha;
   const at = rimeAt(l, cfg, arrived);
-  ctx.translate(at.x, at.y);
+  ctx.translate(at.x + fx.hurt.shakeX(time, l.tile), at.y);
 
-  if (shatter <= 0) drawGlass(ctx, l, time);
+  if (shatter <= 0) drawGlass(ctx, l, time, fx.hurt.value);
   const step = rimeLitStep(s);
   const firing = step !== null && step.ask === "fire" && s.bared;
   const lit = firing ? { color: step.color, left: rimeLeft(s, beat, beatPhase) } : null;
+  if (lit !== null) fx.tell(stepColour(lit.color).rim);
   const hurt = coreHurt(s.hits);
   drawRimeCore(ctx, l, hurt.size * (1 - 0.6 * shatter), hurt.bright, s.bared, lit, beatPhase);
   ctx.globalAlpha = alpha;
 
   if (shatter > 0) {
     drawSheets(ctx, l, shatter);
+    drawRimeFlashes(ctx, l, fx);
     ctx.restore();
     return;
   }
@@ -91,6 +99,7 @@ export function drawRime(
   const clear = Math.min(rimeClear(s, 0), rimeClear(s, 1));
   drawRimeFog(ctx, l, rimeFog(s, beat, beatPhase), clear, time);
   ctx.globalAlpha = alpha;
+  drawRimeFlashes(ctx, l, fx);
   if (step?.ask === "icicle") {
     const dx = fieldX(l, rimeIcicleCol(midCol(cfg), step)) - home.x;
     const toHull = l.hullY - at.y;
@@ -112,8 +121,8 @@ export function drawRime(
   ctx.restore();
 }
 
-/** The bare pane: dull grey glass, the key light on it, and its pale rim. */
-function drawGlass(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
+/** The bare pane: dull grey glass, the key light on it, the blow's red, and its pale rim. */
+function drawGlass(ctx: CanvasRenderingContext2D, l: Layout, time: number, hurt: number): void {
   const lens = rimeLensPath(l);
   const { rx, ry } = rimeRadius(l);
   ctx.fillStyle = rgba(PALETTE.background, 0.9);
@@ -124,6 +133,7 @@ function drawGlass(ctx: CanvasRenderingContext2D, l: Layout, time: number): void
   ctx.clip(lens);
   litRound(ctx, 0, -ry * 0.2, Math.max(rx, ry), LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.5));
   ctx.restore();
+  drawHurt(ctx, lens, hurt);
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
   ctx.stroke(lens);

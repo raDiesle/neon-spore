@@ -185,7 +185,9 @@ export class BossRoster extends LateRoster {
    * screens, and told the kernel's colour by the drawer (`vise-fx.ts`,
    * `vise-draw.ts`). */
   readonly vise = new ViseFx();
-  /** THE RIME's painted clearing over the bare core (`rime-fx.ts`). */
+  /** THE RIME's flakes, flashes, film, the shatter's shudder, its blow and
+   * the painted clearing — thrown the same on both screens, and told the
+   * core's colour by the drawer (`rime-fx.ts`, `rime-draw.ts`). */
   readonly rime = new RimeFx();
   /** THE BULB QUEEN's two marks' verdicts on a touch (`queen-fx.ts`). */
   readonly queen = new QueenFx();
