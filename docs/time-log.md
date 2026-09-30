@@ -30567,3 +30567,5 @@ and shipped, and it read as work until the geometry was checked.
 - landing: 5 min. `format`, `imports:sort`, `bun run index`, `check:fast`, the commit, `land`.
 
 Bottleneck: friction. A constant turned into a clock touches every call site that assumed it, and the line limits on the barrel pages made each new export a move.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

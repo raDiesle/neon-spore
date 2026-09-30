@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 76290bd31 — THE VANE's last form walks along the top, a column a cycle
+
+In its fourth and last form the bearing no longer stays in the centre: the pivot walks one column each cycle, out to two columns either side and back (`vaneDriftCols`), starting from the centre when the form begins. While the pilot's thumb pins the arm, the whole bearing stands still where the pin found it, so the split does not walk out from under the shot. The tip, the split and the guard arms all move with the pivot, and the drawn hub and housing follow it — a fix to something wrong, since a picture left at the centre would offer the shot in a column the rule no longer accepts.
+
 ## 2026-09-30 · 7f7f04472 — Close "§25 THE VALVE's wheel drawn placed-surface" as spent
 
 The entry proposed which look to claim next for THE VALVE. That look has since been claimed and shipped, body and hands. Its method also does not fit the wheel. `pin`/`facet` carry a mark round a body turning about its vertical axis. The valve's wheel faces the viewer and turns in the screen's own plane, so its pointer has no far side to come round from, and it would draw exactly as it does now. Nothing is built.
