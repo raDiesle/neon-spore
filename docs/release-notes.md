@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · decfa67a9 — THE GAUGE's tongue lolls out after the second level, and both players wring it opposite ways
+
+The rest after the second level is spent on the tongue: each seat presses it and drags sideways, and with both hands on it dragged opposite ways it is wrung and the rest ends early. One hand alone, or two the same way round, does nothing; a rest that runs out with the tongue still out jams the valve. The simulation, its event and sound, and every registration outside it; the tongue is not drawn twisting yet.
+
 ## 2026-09-30 · 944b0a847 — Close the pull-way roll-out and log where its time went
 
 ## 2026-09-30 · e3276f05d — Every pull handle shows its way, on the seat whose pull it is

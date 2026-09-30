@@ -29955,3 +29955,5 @@ Bottleneck: friction — the MANTLE and CAPSTAN frame tests proved their marks b
 - landing: 5 min. `check:fast` and the commit.
 
 Bottleneck: a new rest with two hands is fifteen registrations outside `sim`, and each one is found only by the typecheck or a test naming the one before it.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
