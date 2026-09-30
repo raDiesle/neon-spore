@@ -30395,3 +30395,13 @@ Bottleneck: writing. The fan's two arcs had been traced against an empty board o
 Bottleneck: looking. Neither the autopilot nor a plain run reaches a scatter, so each cause had to be forced with a hand-written press.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — PINBALL's clock is the boss fuse at the top, and the header text is gone
+
+- reading: 5 min. `slow-fuse.ts`, the fuses in `maze-fuse.ts` and `reprise-fuse.ts`, and where the round's beat count starts.
+- writing: 5 min. `pinball-fuse.ts`, the header removed, the test, a paragraph in the spec.
+- looking: 0 min. The frame is sent after landing.
+- friction: 5 min. A compaction at the start of the lane.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. The fuse's function already existed, so most of the time went on finding where the table's clear air starts.

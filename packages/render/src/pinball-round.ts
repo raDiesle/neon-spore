@@ -1,4 +1,4 @@
-import { type PinballState, pinCannonMilli, pinTargetsLeft } from "@neon-spore/sim";
+import { type PinballState, pinCannonMilli } from "@neon-spore/sim";
 import { drawBand } from "./band.js";
 import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
@@ -9,6 +9,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawAim, drawPowerBar } from "./pinball-aim.js";
 import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
+import { drawPinFuse } from "./pinball-fuse.js";
 import { drawPinballGrips } from "./pinball-grip.js";
 import { drawPinballAsked, drawPinballVerdicts } from "./pinball-marks.js";
 import { drawPinPieces } from "./pinball-piece.js";
@@ -112,10 +113,9 @@ export function drawPinballRound(
 
   ctx.textAlign = "center";
   drawPinWalls(ctx, table);
-  // The header hangs in the air above the first pins, from the table's own top.
-  const top = table.y + table.tile * 0.52;
-  drawTitle(ctx, l, table, view.role, boss, top);
-  drawTally(ctx, l, view, boss, top + table.tile * 0.92);
+  // No header: the only reading the top of the table carries is the board's
+  // clock, the fuse every boss wears (`pinball-fuse.ts`).
+  drawPinFuse(ctx, l, table, view, boss);
 
   if (boss.phase !== "morph") {
     if (showsPinPieces(view.role)) {
@@ -163,79 +163,6 @@ export function drawPinballRound(
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
   ctx.textAlign = "left";
   drawPinballVerdicts(ctx, l, cfg, boss, effects.boss.pinball.verdicts);
-}
-
-/**
- * The name, whose press the round is waiting for, and the tally — all three in
- * the clear air at the top of the table.
- *
- * They stand *inside* the board rather than above it because there is nothing
- * above it any more: the table runs from the top of the play area to the hull.
- * The band of air they sit in is the one every board hangs below
- * (`PIN_TOP_TILES` in `content/src/pinball-rounds.ts`), so no piece can ever be
- * drawn under this text.
- */
-function drawTitle(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  t: { tile: number },
-  role: ViewRole,
-  boss: PinballState,
-  top: number,
-): void {
-  ctx.fillStyle = PALETTE.hull;
-  ctx.font = '600 16px "Courier New",monospace';
-  ctx.fillText("PINBALL", l.width / 2, top);
-  ctx.fillStyle = PALETTE.dim;
-  ctx.font = '12px "Courier New",monospace';
-  ctx.fillText(waiting(role, boss), l.width / 2, top + t.tile * 0.46);
-}
-
-/**
- * Whose turn it is, said on both screens. The one thing that differs between
- * them is whether it says "you" or "them", which is not an information split —
- * it is the same fact, addressed.
- *
- * Two states rather than three, since the sweep is no longer opened by a press
- * (`packages/sim/src/pinball-controls.ts`): the needle is player 1's to stop
- * and the bar is player 2's to fire on.
- */
-function waiting(role: ViewRole, boss: PinballState): string {
-  if (boss.phase === "morph") return "the table is coming up";
-  if (boss.shot === "flight") return "get the cannon under it";
-  const mine = boss.shot === "power" ? role !== "p1" : role !== "p2";
-  const who = mine ? "you" : "they";
-  if (boss.shot === "power") return `${who} fire on the bar`;
-  return `${who} stop the needle`;
-}
-
-/**
- * Targets left, which board this is, and how long there is — with what the
- * drops have cost hung off the middle only once there is one.
- *
- * Three readings and not four: a row of four numbers across a phone is a row
- * nobody reads under pressure, and the drop count is the one that is nothing at
- * all until it is something.
- */
-function drawTally(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  view: ViewState,
-  boss: PinballState,
-  y: number,
-): void {
-  const left = pinTargetsLeft(boss);
-  const round = boss.rounds[Math.min(boss.round, boss.rounds.length - 1)];
-  const beats = Math.max(0, (round?.beats ?? 0) - (view.world.beat - boss.roundBeat));
-  ctx.font = '11px "Courier New",monospace';
-  ctx.textAlign = "center";
-  ctx.fillStyle = PALETTE.pod;
-  ctx.fillText(`LIT ${left}`, l.width * 0.16, y);
-  ctx.fillStyle = boss.drops > 0 ? PALETTE.red : PALETTE.dim;
-  const cost = boss.drops > 0 ? `  ·  ${boss.drops} DROPPED` : "";
-  ctx.fillText(`TABLE ${boss.round + 1}/${boss.rounds.length}${cost}`, l.width / 2, y);
-  ctx.fillStyle = beats < 8 ? PALETTE.red : PALETTE.dim;
-  ctx.fillText(`${beats}`, l.width * 0.88, y);
 }
 
 /** How it went, once it is over. */

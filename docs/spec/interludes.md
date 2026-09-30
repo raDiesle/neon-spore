@@ -615,6 +615,16 @@ out of each screen and this round's is nought on his. Nine more bosses draw a
 dim ring and each is ruled on in its own section as a lane reaches it
 (`docs/queue.md`).
 
+**The top of the table says nothing, 30 September 2026.** The owner: *remove
+all the wave text above, and show the regular boss (choreographed) time
+indicator, but on top of screen.* The name, whose press it is, and the tally
+of targets, board, drops and beats are gone. What stands in the clear air
+above the first row is THE SLOW's fuse, drawn by the same function in the same
+colours, burning in from both ends over the board's beats and only while a
+board is being played (`render/pinball-fuse.ts`). Whose press it is was
+already said by the band and the asked parts; the drop count is said by the
+scars.
+
 **What is not built**: the three events are still on both silent lists, and a
 tilt is still said by the ring going out rather than by a sound or a mark of
 its own. *Never watched at tempo*: whether a shove is a gesture a thumb can

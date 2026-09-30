@@ -2229,6 +2229,7 @@ by hand never moves.
 | `packages/render/src/pinball-grip.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
 | `packages/render/src/pinball-marks.ts` | PINBALL's plunger and table haloed while asked, the partner's clock on the other, green on the wind and shove, red on the tilt and the other seat's press |
+| `packages/render/src/pinball-fuse.ts` | **PINBALL's clock is the fuse every boss wears, along the top of the table** |
 | `packages/render/src/pinch.ts` | **`SqueezeGap` from two fingers** — the one gesture in the game read off two touches at once |
 | `packages/render/src/pinch-pair.ts` | A pinch's answer, and the seat it is from |
 | `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
