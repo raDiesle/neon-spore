@@ -1167,6 +1167,7 @@ and `bun run check` is green.
 ## Two dozen `strokeGlow` callers reach it with an alpha left over
 
 - **Found:** 2026-09-29, claude/queue-tasks-b9e006
+- **Taken:** 2026-09-30, claude/queue-tasks-f82769 (claim: claude/queue-two-dozen-strokeglow-callers-reach-it-with-an-al)
 - **Files:** `packages/render/src/fence-skull.ts`, `packages/render/src/eye-iris.ts`, `packages/render/src/body-mark.ts`, `packages/render/src/spool-draw.ts`, `packages/render/src/spool-line.ts`, `packages/render/src/spool-brake.ts`, `packages/render/src/spool-gauge.ts`, `packages/render/src/gyre-wheel.ts`, `packages/render/src/pods.ts`, `packages/render/src/recoil-globe.ts`, `packages/render/src/reprise-brood.ts`, `packages/render/src/living-skin.ts`, `packages/render/src/davit-marks.ts`, `packages/render/src/ratchet-parts.ts`, `packages/render/src/ledger-draw.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/grip-verdict.ts`
 
 `strokeGlow` ignores the caller's `globalAlpha` and leaves it at 1
