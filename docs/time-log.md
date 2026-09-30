@@ -30700,3 +30700,16 @@ two and a half seconds into the replay, so every shot inside the first
 three seconds showed an empty sky.
 
 *Measured: 31 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE DAVIT watched
+
+- reading: 5 min. The entry's three bullets against `davit-grip.ts`,
+  `touch.ts` and the draw family, which later lanes had already answered.
+- writing: 0 min. Nothing was wrong.
+- looking: 5 min. Two strips of THE DAVIT with AUTO on both seats, and a
+  crop of the boom at both ends of its swing.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: the first strip's stride fell inside the boom's fade between
+swings, so it read as barely drawn until a sparser strip showed it standing.
