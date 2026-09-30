@@ -178,7 +178,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     // field and under the ship, because the band is how the pair answers the
     // hurry and must not be dimmed by a picture of it. It draws nothing until
     // a VERSUS candidate patches `SLOW_LOOK.paint` (`slow-look.ts`).
-    drawFieldSlow(ctx, l, world, view);
+    drawFieldSlow(ctx, l, world, view, this.held.effects.slowOpening);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
     // The one word the boss wants, over the finished ship — it paints over

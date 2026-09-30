@@ -206,4 +206,5 @@ export function resetAll(e: Effects): void {
   e.beatboxWaves.clear();
   e.beatboxSilences.clear();
   e.chains.clear();
+  e.slowOpening.clear();
 }

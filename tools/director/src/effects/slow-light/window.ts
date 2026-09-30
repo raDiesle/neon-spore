@@ -1,6 +1,7 @@
 import type { Layout } from "../../../../../packages/render/src/layout.js";
 import { drawFuse } from "../../../../../packages/render/src/slow-fuse.js";
 import { fuseAt, underAim } from "../../../../../packages/render/src/slow-fuse-place.js";
+import { acting } from "../../../../../packages/render/src/slow-intake.js";
 import { type Aim, aim, ramp } from "../../../../../packages/render/src/slow-intake-aim.js";
 import type { SlowLook, SlowWindow } from "../../../../../packages/render/src/slow-look.js";
 import { drawPrism } from "../../../../../packages/render/src/slow-prism.js";
@@ -34,6 +35,6 @@ export function withLight(light: Light): SlowLook["paint"] {
       drawPrism(ctx, l, at, up, win);
       light(ctx, l, at, up, win);
     }
-    drawFuse(ctx, l, win, fuseAt(l, world, view.beatPhase, underAim(at)));
+    if (acting(world)) drawFuse(ctx, l, win, fuseAt(l, world, view.beatPhase, underAim(at)));
   };
 }

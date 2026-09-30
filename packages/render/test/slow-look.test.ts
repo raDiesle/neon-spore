@@ -5,6 +5,7 @@ import { computeLayout, type Layout } from "../src/layout.js";
 import type { ViewState } from "../src/renderer.js";
 import { CRAWL_LIT, CRAWL_SPARKS } from "../src/slow-crawl.js";
 import { drawFieldSlow, SLOW_LOOK, type SlowWindow, slowWindow } from "../src/slow-look.js";
+import { SlowOpening } from "../src/slow-opening.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -153,6 +154,24 @@ describe("slowWindow", () => {
     const win = slowWindow(slowed(4, 12, 6), 0);
     expect(win?.beats).toBe(8);
     expect(win?.through).toBe(0.25);
+  });
+
+  /** But a measure counts from the latest ask (`src/slow-opening.ts`): the
+   * owner's *the size to start should always be the same*, 30 September 2026. */
+  it("spans from the beat the end last moved on, when something remembers it", () => {
+    const opening = new SlowOpening();
+    const world = slowed(4, 8, 4);
+    expect(slowWindow(world, 0, opening)?.span).toBe(4);
+    world.beat = 6;
+    world.slowToBeat = 12;
+    const win = slowWindow(world, 0, opening);
+    expect(win?.span).toBe(6);
+    expect(win?.left).toBe(6);
+    world.slowToBeat = NO_SLOW;
+    world.slowFromBeat = NO_SLOW;
+    expect(slowWindow(world, 0, opening)).toBeNull();
+    const again = slowed(20, 24, 22);
+    expect(slowWindow(again, 0, opening)?.span).toBe(4);
   });
 });
 

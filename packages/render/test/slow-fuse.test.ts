@@ -10,6 +10,7 @@ import {
   type FusePlace,
   fuseBox,
   fusePlace,
+  roomUnder,
   underAim,
   underBox,
 } from "../src/slow-fuse-place.js";
@@ -40,8 +41,8 @@ const LAYOUT: Layout = computeLayout(VIEWPORT, CFG, "p1");
  * of the way down, four tiles long. Where it goes is `fusePlace`'s, below. */
 const PLACE: FusePlace = { x: LAYOUT.width / 2, y: LAYOUT.height / 3, half: LAYOUT.tile * 2 };
 
-function window(beats: number, left: number, asks = true): SlowWindow {
-  return { beats, left, through: (beats - left) / beats, asks };
+function window(beats: number, left: number, asks = true, span = beats): SlowWindow {
+  return { beats, left, through: (beats - left) / beats, span, asks };
 }
 
 /**
@@ -77,10 +78,20 @@ describe("how much of the fuse is left", () => {
     expect((x0 + x1) / 2).toBeCloseTo(PLACE.x, 2);
   });
 
-  /** The owner, 27 September 2026: *more visible (e.g. more height)*. It
-   * was two tenths of a tile along the top of the screen. */
-  it("is more than twice as thick as it was, with the glow wider still", () => {
-    expect(FUSE_THICK).toBeGreaterThanOrEqual(0.45);
+  /** The owner, 30 September 2026: *the size to start should always be the
+   * same*. A step asked inside a window the last one left open counts from
+   * its own ask, not from the window's first beat. */
+  it("starts whole on an ask made inside a window already open", () => {
+    const [f0 = 0, , f1 = 0] = drawn(window(8, 8)).line ?? [];
+    const [x0 = 0, , x1 = 0] = drawn(window(12, 4, true, 4)).line ?? [];
+    expect(x1 - x0).toBeCloseTo(f1 - f0, 2);
+  });
+
+  /** The owner, 27 September 2026: *more visible (e.g. more height)*, which
+   * took it to 0.45 of a tile; and on the 30th, *make the glowing look better
+   * and less height*. The glow is what makes a thin line read. */
+  it("is a thin line in a glow wider than it", () => {
+    expect(FUSE_THICK).toBeLessThanOrEqual(0.25);
     const widths = drawn(window(8, 6))
       .log.filter((e) => e.startsWith("set lineWidth="))
       .map((e) => Number(e.slice("set lineWidth=".length)));
@@ -109,22 +120,26 @@ describe("what colour it is", () => {
     return drawn(win).log.some((e) => e.startsWith("set strokeStyle=") && e.includes(hue(hex)));
   }
 
-  it("is the ship's own violet while there is time", () => {
-    expect(shows(window(8, 6), PALETTE.hull)).toBe(true);
-    expect(shows(window(8, 6), PALETTE.ember)).toBe(false);
+  /** The owner, 30 September 2026: *starting green, then blue then to orange
+   * and then to red colour depending on remaining seconds*. A quarter each. */
+  const bands: readonly (readonly [number, string])[] = [
+    [7, PALETTE.good],
+    [5, PALETTE.blue],
+    [3, PALETTE.ember],
+    [1.5, PALETTE.red],
+  ];
+
+  it("goes green, blue, orange, then red as it burns", () => {
+    for (const [left, colour] of bands) {
+      for (const [, other] of bands) {
+        expect(shows(window(8, left), other)).toBe(other === colour);
+      }
+    }
   });
 
-  /** The owner's, the same day: *an orange-like warning colour before the
-   * red, somewhere in the middle*. */
-  it("warns in orange from half the window", () => {
-    expect(shows(window(8, 4), PALETTE.ember)).toBe(true);
-    expect(shows(window(8, 3), PALETTE.hull)).toBe(false);
-    expect(shows(window(8, 3), PALETTE.red)).toBe(false);
-  });
-
-  it("goes red for the last two beats", () => {
-    expect(shows(window(8, 1.5), PALETTE.red)).toBe(true);
-    expect(shows(window(8, 1.5), PALETTE.ember)).toBe(false);
+  it("colours by the share left, so a short ask starts green too", () => {
+    expect(shows(window(2, 2), PALETTE.good)).toBe(true);
+    expect(shows(window(12, 4, true, 4), PALETTE.good)).toBe(true);
   });
 });
 
@@ -153,9 +168,10 @@ describe("which windows get a fuse", () => {
 });
 
 /**
- * **Where it stands** — `src/slow-fuse-place.ts`, the owner's *below the boss
- * and between the ship hull*, 27 September 2026. A body and marks set by
- * hand; `tools/director/test/fuse-place.test.ts` walks every boss's windows.
+ * **Where it stands** — `src/slow-fuse-place.ts`: below the boss by default,
+ * over it when the boss is down on the hull, the owner, 30 September 2026. A
+ * body and marks set by hand; `tools/director/test/fuse-place.test.ts` walks
+ * every boss's windows.
  */
 describe("where the fuse stands", () => {
   const T = LAYOUT.tile;
@@ -164,14 +180,25 @@ describe("where the fuse stands", () => {
   const crosses = (a: Box, b: Box): boolean =>
     a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
 
-  it("stands level on the body's column, halfway to the hull, as long as the body is wide", () => {
+  it("stands level across almost the whole screen, halfway to the hull", () => {
     const p = fusePlace(LAYOUT, underBox(body), []);
     expect(p.x).toBeCloseTo(mid, 5);
-    expect(p.half).toBeCloseTo(T, 5);
+    expect(p.half * 2).toBeGreaterThan(LAYOUT.width * 0.8);
     expect(Math.abs(p.y - (body.bottom + LAYOUT.hullY) / 2)).toBeLessThan(T * 0.1);
     const box = fuseBox(LAYOUT, p);
+    expect(box.left).toBeGreaterThan(0);
+    expect(box.right).toBeLessThan(LAYOUT.width);
     expect(box.top).toBeGreaterThanOrEqual(body.bottom);
     expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
+  });
+
+  it("is the same length under a narrow body and a wide one", () => {
+    const wide: Box = { ...body, left: -T, right: LAYOUT.width + T };
+    const at = { x: mid - T, y: T * 4, r: T * 0.5, ax: mid + T * 3, ay: 0 };
+    const halves = [underBox(body), underBox(wide), underAim(at)].map(
+      (b) => fusePlace(LAYOUT, b, []).half,
+    );
+    for (const half of halves) expect(half).toBeCloseTo(halves[0] ?? 0, 5);
   });
 
   it("moves off a mark that sits in the middle of the gap", () => {
@@ -183,28 +210,26 @@ describe("where the fuse stands", () => {
     expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
   });
 
-  it("drops to just above the hull where there is no gap", () => {
-    const low: Box = { ...body, bottom: LAYOUT.hullY - 2 };
+  it("stands over a boss that is down on the hull", () => {
+    const low: Box = { ...body, top: LAYOUT.hullY - T * 3, bottom: LAYOUT.hullY - 2 };
+    expect(roomUnder(LAYOUT, underBox(low))).toBe(false);
     const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underBox(low), []));
+    expect(box.bottom).toBeLessThanOrEqual(low.top);
+    expect(box.bottom).toBeGreaterThan(low.top - T * 0.5);
+  });
+
+  it("drops to just above the hull when the boss fills the field over it too", () => {
+    const tall: Box = { ...body, top: LAYOUT.gridTop, bottom: LAYOUT.hullY - 2 };
+    const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underBox(tall), []));
     expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
     expect(box.bottom).toBeGreaterThan(LAYOUT.hullY - T * 0.25);
   });
 
-  /** THE INSTAR hangs head-down off a chain that climbs to its engines: the
-   * middle of head and engines is a column nothing of it hangs in. */
-  it("stands under a climbing body's lower end, as wide as that end", () => {
+  /** THE INSTAR hangs head-down off a chain that climbs to its engines: its
+   * band of height runs from the engines down to the head. */
+  it("stands under a climbing body's lower end", () => {
     const at = { x: mid - T, y: T * 4, r: T, ax: mid + T * 3, ay: 0 };
-    const p = fusePlace(LAYOUT, underAim(at), []);
-    expect(p.x).toBeCloseTo(at.x, 5);
-    expect(p.half).toBeCloseTo(at.r, 5);
-    const level = { ...at, ay: at.y };
-    expect(fusePlace(LAYOUT, underAim(level), []).x).toBeCloseTo(mid + T, 5);
-  });
-
-  it("keeps both ends on the screen under a body wider than it", () => {
-    const wide: Box = { ...body, left: -T, right: LAYOUT.width + T };
-    const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underBox(wide), []));
-    expect(box.left).toBeGreaterThan(0);
-    expect(box.right).toBeLessThan(LAYOUT.width);
+    const box = fuseBox(LAYOUT, fusePlace(LAYOUT, underAim(at), []));
+    expect(box.top).toBeGreaterThanOrEqual(at.y + at.r);
   });
 });

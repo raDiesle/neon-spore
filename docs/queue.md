@@ -1318,3 +1318,17 @@ The tongue's lane left `sim/test/gauge.test.ts` at 308 lines. Its `talking()`
 driver, which answers every rest the round asks for, and the level cases can go
 to a file of their own, with the driver exported for both. Every test stays
 green without edits beyond imports.
+
+## The world does not say when a window's latest ask was made
+
+- **Found:** 2026-09-30, claude/boss-time-indicator-styling-2ec063
+- **Files:** `packages/sim/src/slow.ts`, `packages/render/src/slow-opening.ts`, `packages/render/src/slow-look.ts`
+
+`openSlow` keeps `slowFromBeat` when a second window opens over one already
+up and moves only `slowToBeat`, so a fuse measured from the window's start
+began short on THE INSTAR's second step and grew back. Render now remembers the
+beat the end last moved on in `Effects.slowOpening` (`SlowOpening`), which is
+state render keeps about the simulation. The world could say it: a hashed
+`slowAskBeat`, set by `openSlow` each time, read by `slowWindow` in place of
+`SlowOpening`. The pinned hashes move with it and are re-pinned in the same
+commit; the fuse tests stay green unchanged.

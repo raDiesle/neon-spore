@@ -30,9 +30,14 @@ export const PALETTE = {
   rock: "#C7CBD6",
   rockDark: "#3C3F49",
   /** The one thing in the game that goes right: a Simon round answered in
-   * full. Nothing else is ever green, which is what makes it read instantly. */
+   * full. Also the first quarter of a fuse — the time is all still there. */
   good: "#3BFF9E",
   goodRim: "#C7FFE4",
+  /** A fuse's second quarter, between the green it starts at and the ember
+   * it warns in (`slow-fuse.ts`). A true blue, not the shield's cyan: the
+   * fuse is not the shield, and the eye must not read it as one. */
+  blue: "#3F7BFF",
+  blueRim: "#C9D9FF",
   sparkDim: "#8B85AB",
   ...CREATURE_HUES,
   ...LATE_CREATURE_HUES,

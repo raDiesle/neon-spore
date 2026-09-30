@@ -46,7 +46,7 @@ export function mazeWindow(
         : 0;
   if (beats <= 0) return null;
   const through = Math.max(0, Math.min(1, (world.beat - m.phaseBeat + beatPhase) / beats));
-  return { beats, through, left: beats * (1 - through) };
+  return { beats, through, left: beats * (1 - through), span: beats };
 }
 
 /** The fuse for this frame, under the drum and its lever. */
@@ -63,7 +63,7 @@ export function drawMazeFuse(
   if (rest <= 0) return;
   const d = mazeDrum(l, world.cfg);
   const lever = (mazeLeverRadiusMilli(world.cfg) * l.tile) / 1000;
-  const at = fuseAt(l, world, beatPhase, { x: d.cx, half: d.r, bottom: d.cy + lever });
-  const { body, core } = fuseColours(win);
+  const at = fuseAt(l, world, beatPhase, { top: d.cy - d.r, bottom: d.cy + lever });
+  const { body, core } = fuseColours(rest);
   drawFuseLine(ctx, l, at, rest, body, core);
 }

@@ -14,23 +14,27 @@ import type { SlowWindow } from "./slow-look.js";
  * kept it over the other three in VERSUS (`tools/versus/DECIDED.md`).
  *
  * **Where the eye already is.** It stood along the top edge of the screen
- * from 25 September 2026, beside where the light runs in, and on the 27th the
- * owner moved it: *below the boss and between the ship hull*. So it stands
- * level on the boss's own column, halfway between the bottom of the body and
- * the top of the hull, and never over a live mark (`slow-fuse-place.ts` says
- * where, and how it gets out of a mark's way). The pair is already looking at
- * the body the window is about, and the measure is read without looking away.
+ * from 25 September 2026, and on the 27th the owner moved it: *below the boss
+ * and between the ship hull*. On the 30th it became as long as the screen, and
+ * stands over the boss instead when the boss is down on the hull
+ * (`slow-fuse-place.ts` says where, and how it gets out of a mark's way).
+ *
+ * **It starts the same length every time** — the owner, 30 September 2026:
+ * *the size to start should always be the same (almost full screen)*. It
+ * counts from the latest ask rather than from the window's first beat, so a
+ * step asked inside a window the last one left open starts whole and never
+ * grows back (`slow-opening.ts`).
  *
  * **It burns in from both ends** and meets in the middle on the beat the
  * window shuts, so the eye reads one length and never has to find which end is
  * moving. There are no notches: the bar's were the part that read as a
- * spreadsheet. It goes orange at half the window and red for the last
- * `URGENT` beats — the owner's, the same day: *add an orange-like warning
- * colour before the red, somewhere in the middle*.
+ * spreadsheet. **Its colour is how much is left**, in quarters, the same day:
+ * *starting green, then blue then to orange and then to red*.
  *
- * **It is thick enough to read at a glance** — *more visible (e.g. more
- * height)*, the same day: more than twice the two-tenths of a tile it was at
- * the top, with the glow and the sparks widened to match, and round ends.
+ * **Thin, and lit** — *make the glowing look better and less height*, the same
+ * day: a fifth of a tile of line with a white-hot core, in a glow of three
+ * wide faint strokes that fall off softly rather than one flat band, and a
+ * small spark at each burning end.
  *
  * **It does not fade with the light.** A measure that dims as it empties is a
  * measure that lies about its last beat, so it stands at full strength from
@@ -38,24 +42,23 @@ import type { SlowWindow } from "./slow-look.js";
  * shuts the window and takes the fuse with it (`sim/slow.ts` `closeSlow`).
  */
 
-/** How wide the fuse's glow is, in tiles; how thick it is is `FUSE_THICK`. */
-const GLOW = 1.2;
+/** The glow round the line, widest first: its width in lines, and its alpha. */
+const GLOW: readonly (readonly [number, number])[] = [
+  [5, 0.06],
+  [3.2, 0.12],
+  [2, 0.28],
+];
 
-/** The spark at each burning end, in tiles. */
-const SPARK = 0.8;
+/** The spark at each burning end, in lines; how thick a line is is `FUSE_THICK`. */
+const SPARK = 2.6;
 
-/** The share of the window left at which the fuse turns orange. */
-const WARN = 0.5;
-
-/** Beats left at which the fuse turns red. */
-const URGENT = 2;
-
-/** The fuse's colours for how much of the window is left: the ship's violet,
- * then the ember's orange, then red. */
-export function fuseColours(win: Omit<SlowWindow, "asks">): { body: string; core: string } {
-  if (win.left <= URGENT) return { body: PALETTE.red, core: PALETTE.redRim };
-  if (win.left <= win.beats * WARN) return { body: PALETTE.ember, core: PALETTE.emberRim };
-  return { body: PALETTE.hull, core: PALETTE.hullRim };
+/** The fuse's colours for the share of its length left: green, blue, the
+ * ember's orange, then red, a quarter each. */
+export function fuseColours(rest: number): { body: string; core: string } {
+  if (rest > 0.75) return { body: PALETTE.good, core: PALETTE.goodRim };
+  if (rest > 0.5) return { body: PALETTE.blue, core: PALETTE.blueRim };
+  if (rest > 0.25) return { body: PALETTE.ember, core: PALETTE.emberRim };
+  return { body: PALETTE.red, core: PALETTE.redRim };
 }
 
 /**
@@ -72,9 +75,9 @@ export function drawFuse(
   at: FusePlace,
 ): void {
   if (!win.asks) return;
-  const rest = win.left / win.beats;
+  const rest = Math.min(1, win.left / win.span);
   if (rest <= 0) return;
-  const { body, core } = fuseColours(win);
+  const { body, core } = fuseColours(rest);
   drawFuseLine(ctx, l, at, rest, body, core);
 }
 
@@ -109,19 +112,18 @@ export function drawFuseLine(
   ctx.lineCap = "round";
   // Glow, body, core: widest and faintest first, so it reads as lit rather
   // than ruled.
-  line(l.tile * GLOW, rgba(body, 0.18));
-  line(thick * 1.6, rgba(body, 0.35));
+  for (const [width, alpha] of GLOW) line(thick * width, rgba(body, alpha));
   line(thick, rgba(body, 0.95));
   line(thick * 0.4, rgba(core, 0.95));
 
   // Where it is burning: one spark on each end, added, so the ends are the
   // brightest thing on the line and the eye goes to where it moves.
-  const r = l.tile * SPARK;
+  const r = thick * SPARK;
   ctx.globalCompositeOperation = "lighter";
   for (const x of [mid - half, mid + half]) {
     const spark = ctx.createRadialGradient(x, y, 0, x, y, r);
     spark.addColorStop(0, rgba(core, 0.95));
-    spark.addColorStop(0.35, rgba(body, 0.5));
+    spark.addColorStop(0.3, rgba(body, 0.45));
     spark.addColorStop(1, rgba(body, 0));
     ctx.fillStyle = spark;
     ctx.fillRect(x - r, y - r, r * 2, r * 2);

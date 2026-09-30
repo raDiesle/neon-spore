@@ -25,6 +25,7 @@ import { RicochetFx } from "./ricochet.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { ShieldPushFx } from "./shield-push-fx.js";
 import { ShotOutFx } from "./shot-out.js";
+import { SlowOpening } from "./slow-opening.js";
 import { VerletChains } from "./solid-verlet.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
@@ -153,6 +154,9 @@ export class Effects {
   /** A boss's dragged parts — a tail that sags and swings on after the body
    * stops — stepped by the pass that draws them (`solid-verlet.ts`). */
   readonly chains = new VerletChains();
+  /** The beat THE SLOW's window last opened on, so its fuse starts whole on
+   * every ask (`slow-opening.ts`). */
+  readonly slowOpening = new SlowOpening();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {

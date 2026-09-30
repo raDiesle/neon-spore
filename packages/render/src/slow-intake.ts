@@ -1,3 +1,5 @@
+import { instarBoss, type World } from "@neon-spore/sim";
+import { instarMarksUp } from "./instar-marks.js";
 import { drawCrawl } from "./slow-crawl.js";
 import { drawFuse } from "./slow-fuse.js";
 import { fuseAt, underAim } from "./slow-fuse-place.js";
@@ -25,7 +27,8 @@ import { drawPrism } from "./slow-prism.js";
  * on the 24th — *it was a stupid idea to introduce it* — and on the 25th he
  * asked for *some progress indicator* back. The fuse stood where the light
  * starts until the 27th, when he moved it under the body and above the hull,
- * clear of every mark (`slow-fuse-place.ts`); the other answers to the same
+ * clear of every mark (`slow-fuse-place.ts`), and on the 30th it stood only
+ * while there is something to press (`acting`); the other answers to the same
  * question are in VERSUS against it (`slow:measure`).
  *
  * **Under the light, the prism** (`slow-prism.ts`): the owner took it from
@@ -49,5 +52,17 @@ export const intakeWindow: SlowLook["paint"] = (ctx, l, world, view, win) => {
     drawPrism(ctx, l, at, up, win);
     drawCrawl(ctx, l, at, up, win);
   }
-  drawFuse(ctx, l, win, fuseAt(l, world, view.beatPhase, underAim(at)));
+  if (acting(world)) drawFuse(ctx, l, win, fuseAt(l, world, view.beatPhase, underAim(at)));
 };
+
+/**
+ * **Whether the pair has something to do this frame** — the owner, 30
+ * September 2026: *the time progress bar should only show up if player need to
+ * do actions*. A window that asks is the rule for every boss (`drawFuse`
+ * asks it); THE INSTAR also holds a window open across the beats between its
+ * steps, while its marks are down, and there is nothing to press then.
+ */
+export function acting(world: World): boolean {
+  const s = instarBoss(world);
+  return s === null || instarMarksUp(world, s);
+}

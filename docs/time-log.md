@@ -30069,3 +30069,13 @@ and only `land`'s merge note said the second had overtaken the first.
 Bottleneck: landing — the whole check is longer than the change.
 
 *Measured: 12 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — every boss's fuse starts full width and green, and burns through blue, orange and red
+
+- reading: 5 min. `slow-fuse.ts`, `slow-fuse-place.ts`, `slow-look.ts`, and `openSlow` for why the fuse started short.
+- writing: 15 min. The four bands, the thinner line in a softer glow, the placement below or over the boss, `SlowOpening`, `acting`, and the tests.
+- looking: 5 min. One frame of THE INSTAR's step.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice: the style guide's palette families and sheet, and the index lines.
+
+Bottleneck: landing — a new palette colour reaches the style guide's families and its sheet, and only the full `check:fast` said so.

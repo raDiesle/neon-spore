@@ -9,29 +9,35 @@ import type { Layout } from "./layout.js";
 import type { Aim } from "./slow-intake-aim.js";
 
 /**
- * **Where the fuse stands: level under the boss, above the hull, and clear of
- * every mark.**
+ * **Where the fuse stands: across the screen under the boss, or over it when
+ * the boss is down on the hull, and clear of every mark.**
  *
- * The owner, 27 September 2026: *make the remaining time in slow state of
- * bosses below the boss and between the ship hull*. So it stands on the boss's
- * own column, halfway between the bottom of the body (`slow-intake-aim.ts`
- * already says where the body stands and how wide it is) and the top of the
- * hull, and as long as the body is wide.
+ * The owner, 27 September 2026: *below the boss and between the ship hull*.
+ * And on the 30th: *there are two positions, either below the boss (the
+ * default) and when it is a boss very near the ship hull and there is more
+ * space above boss, then above it*. So the body is read as a band of height
+ * only — where it starts and where it ends (`slow-intake-aim.ts` already says
+ * where it stands) — and the fuse is as long as the screen whatever the body's
+ * width, so it starts the same length on every boss (`slow-fuse.ts`).
+ *
+ * **Below, while there is room.** Halfway between the bottom of the body and
+ * the top of the hull, when that gap holds the fuse and `NEAR` tiles more. A
+ * gap thinner than that is a boss down on the hull.
+ *
+ * **Above, when the boss is down on the hull** and the field over it is taller
+ * than the gap under it: just over the top of the body, walking up from there.
  *
  * **It never lies over a live mark.** A ring the pair is asked to press is the
  * one thing on the field a line must not cross, and THE INSTAR's tail marks sit
- * low, in exactly the gap the fuse wants. So the middle is the first height
- * tried and not the only one: it walks down and up from there, a few pixels at
- * a time, and takes the nearest height that crosses nothing.
+ * low, in exactly the gap the fuse wants. So the first height is tried and not
+ * the only one: it walks a few pixels at a time and takes the nearest height
+ * that crosses nothing.
  *
- * **Where there is no gap**, it drops to just above the hull. That is a boss
- * standing on the hull — THE UNDERTOW's edge pushes up out of it, and its
- * rings are on the hull line too — so a fuse dropped onto a ring walks up from
- * there to the first height clear of every mark: under the boss is a place
- * the fight does not have, and over a ring is the one place the fuse may not
- * be. A gap with no clear height in it at all takes the hull as well.
+ * **Where neither has room**, it drops to just above the hull, and a fuse
+ * dropped onto a ring walks up from there to the first height clear of every
+ * mark — over a ring is the one place the fuse may not be.
  *
- * Read fresh every frame and never remembered, like the aim it stands under.
+ * Read fresh every frame and never remembered, like the aim it stands by.
  */
 
 /** A rectangle in canvas pixels. */
@@ -49,11 +55,20 @@ export interface FusePlace {
   readonly half: number;
 }
 
-/** How thick the fuse is, in tiles — pinned by `slow-fuse.test.ts`. */
-export const FUSE_THICK = 0.45;
+/** How thick the fuse is, in tiles. It was 0.45 from 25 September 2026 and
+ * the owner asked for *less height* on the 30th; the glow round it is what
+ * makes it read (`slow-fuse.ts`). Pinned by `slow-fuse.test.ts`. */
+export const FUSE_THICK = 0.2;
+
+/** Tiles of field the gap under the body must hold beyond the fuse itself for
+ * the fuse to stand there; a thinner gap is a boss down on the hull. */
+export const FUSE_NEAR = 0.6;
+
+/** Pixels between the top of the body and a fuse stood over it. */
+const OVER_BODY = 6;
 
 /** How far each end stands in from the side of the screen, in tiles: past the
- * round cap, so it is whole under a body as wide as the screen. */
+ * round cap and the spark, so the fuse is whole and almost the screen's width. */
 const SIDE = 0.5;
 
 /** Pixels between the fuse and the hull when it has dropped onto it. */
@@ -77,38 +92,34 @@ export function bodyBox(at: Aim): Box {
 }
 
 /**
- * **The part of the body the fuse stands under**: its column, half its width,
- * and how low it reaches.
+ * **The band of height the body takes**, which is all the fuse asks of it: it
+ * is as long as the screen, so where the body stands across the field is not
+ * its question.
  */
 export interface Under {
-  readonly x: number;
-  readonly half: number;
+  readonly top: number;
   readonly bottom: number;
 }
 
-/**
- * The aim's body, seen from below. A level body — THE HIVE's mass, THE LEAD's
- * stalk laid flat — is stood under whole, at its middle. A body whose axis
- * climbs is stood under at its **lower end**: THE INSTAR's chain runs up and
- * off to its engines, and the middle of head and engines is a column nothing
- * of it hangs in. The head is the column, and the head is the width.
- */
+/** The aim's body, head to the far end of its axis. */
 export function underAim(at: Aim): Under {
-  const bottom = Math.max(at.y, at.ay) + at.r;
-  if (Math.abs(at.y - at.ay) < at.r) {
-    return { x: (at.x + at.ax) / 2, half: Math.abs(at.x - at.ax) / 2 + at.r, bottom };
-  }
-  return { x: at.y > at.ay ? at.x : at.ax, half: at.r, bottom };
+  return { top: Math.min(at.y, at.ay) - at.r, bottom: Math.max(at.y, at.ay) + at.r };
 }
 
-/** A box, stood under whole: THE REPRISE's sac. */
+/** A box, stood by whole: THE REPRISE's sac. */
 export function underBox(b: Box): Under {
-  return { x: (b.left + b.right) / 2, half: (b.right - b.left) / 2, bottom: b.bottom };
+  return { top: b.top, bottom: b.bottom };
+}
+
+/** Half the fuse's height, in pixels: the line and the bright inner stroke of
+ * its glow, twice as wide — the fainter glow past it may lie over a ring. */
+export function fuseHalfHeight(l: Layout): number {
+  return l.tile * FUSE_THICK;
 }
 
 /** The fuse's own box at a place, whole: the bright line and its round caps. */
 export function fuseBox(l: Layout, p: FusePlace): Box {
-  const h = (l.tile * FUSE_THICK * 1.6) / 2;
+  const h = fuseHalfHeight(l);
   return { left: p.x - p.half - h, right: p.x + p.half + h, top: p.y - h, bottom: p.y + h };
 }
 
@@ -147,32 +158,43 @@ export function liveMarks(l: Layout, world: World, beatPhase: number): Box[] {
   }));
 }
 
-/** The fuse under `body`, clear of `marks`: see the header. */
+/** Whether the gap under `body` is room for the fuse (see the header). */
+export function roomUnder(l: Layout, body: Under): boolean {
+  const h = fuseHalfHeight(l);
+  return l.hullY - FUSE_OVER_HULL - body.bottom >= 2 * h + l.tile * FUSE_NEAR;
+}
+
+/** The fuse by `body`, clear of `marks`: see the header. */
 export function fusePlace(l: Layout, body: Under, marks: readonly Box[]): FusePlace {
   const side = l.tile * SIDE;
-  const x = Math.min(l.width - side, Math.max(side, body.x));
-  const half = Math.max(0, Math.min(body.half, x - side, l.width - side - x));
-  const h = (l.tile * FUSE_THICK * 1.6) / 2;
+  const x = l.width / 2;
+  const half = Math.max(0, x - side);
+  const h = fuseHalfHeight(l);
   const floor = l.hullY - FUSE_OVER_HULL - h;
-  const ceiling = body.bottom + h;
+  const roof = l.gridTop + h;
   const low = { x, y: floor, half };
   const clear = (y: number): boolean => {
     const box = fuseBox(l, { x, y, half });
     return !marks.some((m) => crosses(box, m));
   };
-  if (ceiling > floor) {
-    for (let y = floor; y >= l.gridTop + h; y -= STEP) if (clear(y)) return { x, y, half };
+  if (roomUnder(l, body)) {
+    const ceiling = body.bottom + h;
+    const mid = (ceiling + floor) / 2;
+    for (let d = 0; mid - d >= ceiling || mid + d <= floor; d += STEP) {
+      if (mid + d <= floor && clear(mid + d)) return { x, y: mid + d, half };
+      if (mid - d >= ceiling && clear(mid - d)) return { x, y: mid - d, half };
+    }
     return low;
   }
-  const mid = (ceiling + floor) / 2;
-  for (let d = 0; mid - d >= ceiling || mid + d <= floor; d += STEP) {
-    if (mid + d <= floor && clear(mid + d)) return { x, y: mid + d, half };
-    if (mid - d >= ceiling && clear(mid - d)) return { x, y: mid - d, half };
+  const over = body.top - OVER_BODY - h;
+  if (over - roof > floor - body.bottom) {
+    for (let y = over; y >= roof; y -= STEP) if (clear(y)) return { x, y, half };
   }
+  for (let y = floor; y >= roof; y -= STEP) if (clear(y)) return { x, y, half };
   return low;
 }
 
-/** The fuse for this frame, under `body`, clear of this frame's marks. */
+/** The fuse for this frame, by `body`, clear of this frame's marks. */
 export function fuseAt(l: Layout, world: World, beatPhase: number, body: Under): FusePlace {
   return fusePlace(l, body, liveMarks(l, world, beatPhase));
 }

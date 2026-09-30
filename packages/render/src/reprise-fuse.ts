@@ -70,6 +70,6 @@ export function drawRepriseFuse(
     drawFuseLine(ctx, l, at, m.rest, PALETTE.rock, PALETTE.text);
     return;
   }
-  const { body, core } = fuseColours({ beats: clock.beats, through: 1 - m.rest, left: m.left });
+  const { body, core } = fuseColours(m.rest);
   drawFuseLine(ctx, l, at, m.rest, body, core);
 }

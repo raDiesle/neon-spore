@@ -6,13 +6,14 @@ import { repriseBox } from "../../../packages/render/src/reprise-draw.js";
 import {
   type Box,
   bodyBox,
-  FUSE_OVER_HULL,
   fuseAt,
   fuseBox,
   liveMarks,
+  roomUnder,
   underAim,
   underBox,
 } from "../../../packages/render/src/slow-fuse-place.js";
+import { acting } from "../../../packages/render/src/slow-intake.js";
 import { aim } from "../../../packages/render/src/slow-intake-aim.js";
 import { slowWindow } from "../../../packages/render/src/slow-look.js";
 import { cpuTimeout } from "../../test/cpu-time.js";
@@ -22,19 +23,22 @@ import { stageField } from "../src/stage-field.js";
 
 /**
  * **The fuse stands under the boss, above the hull, and over no mark** — the
- * owner, 27 September 2026: *below the boss and between the ship hull*.
+ * owner, 27 September 2026: *below the boss and between the ship hull*; and on
+ * the 30th, over the boss instead when it is down on the hull.
  *
  * AUTO plays both seats through every boss wave, and on every tick a window
- * that asks is open the fuse is placed as the game places it
+ * that asks is open and the pair has something to do (`slow-intake.ts`
+ * `acting`) the fuse is placed as the game places it
  * (`slow-intake.ts`), and its box is held against the body's box
  * (`slow-intake-aim.ts`), the hull, and the ring of every mark asking for a
  * thumb that tick (`slow-fuse-place.ts` `liveMarks`). THE REPRISE counts its
  * own clock rather than a window and is walked the same way under its sac.
  *
- * A body that comes within a fuse's height of the hull leaves no gap, and the
- * fuse drops onto the hull — or walks up off it, clear of a ring standing
- * there: that is the one place it may stand beside the body rather than under
- * it. THE UNDERTOW is that boss. A boss THE SLOW's aim has no row for falls
+ * A body that comes within a fuse's height and `FUSE_NEAR` of the hull leaves
+ * no gap, and the fuse stands over it — or drops onto the hull where the field
+ * over it is shorter, walking up off it clear of a ring standing there: those
+ * are the places it may stand other than under the body, and only on the hull
+ * may it cross the body. THE UNDERTOW is that boss. A boss THE SLOW's aim has no row for falls
  * back to the cannon on the hull and would be excused the same way, which is
  * how five bosses hid there until page four (`slow-boss-aim-d.ts`) gave them
  * rows: those five must now be walked, and leave a gap on every tick, and so
@@ -86,10 +90,12 @@ function walk(kind: BossKind): Walked {
     const { body, under } = m;
     const box = fuseBox(l, fuseAt(l, world, bp, under));
     const at = `${kind} at tick ${world.tick}`;
-    const gap = l.hullY - FUSE_OVER_HULL - body.bottom >= box.bottom - box.top;
+    const gap = roomUnder(l, under);
     if (gap) gapped++;
     if (box.bottom > l.hullY) wrong.push(`${at}: below the hull`);
     if (gap && box.top < body.bottom) wrong.push(`${at}: not under the body`);
+    if (!gap && crosses(box, body) && box.bottom < l.hullY - l.tile)
+      wrong.push(`${at}: across the body, off the hull`);
     if (liveMarks(l, world, bp).some((m) => crosses(box, m))) wrong.push(`${at}: over a mark`);
   }
   return { ticks, gapped, wrong };
@@ -107,7 +113,7 @@ function measured(
     const body = repriseBox(l, world.cfg);
     return { body, under: underBox(body) };
   }
-  if (slowWindow(world, bp)?.asks !== true) return null;
+  if (slowWindow(world, bp)?.asks !== true || !acting(world)) return null;
   const at = aim(world, l, world.beat, bp);
   return { body: bodyBox(at), under: underAim(at) };
 }

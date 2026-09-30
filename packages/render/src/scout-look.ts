@@ -137,7 +137,7 @@ export function drawScoutClock(
   const beats = scoutCurrent(round).beats;
   const left = Math.max(0, beats - (beat + beatPhase - round.arenaBeat));
   if (left <= 0) return;
-  const { body, core } = fuseColours({ beats, through: 1 - left / beats, left });
+  const { body, core } = fuseColours(left / beats);
   const at = {
     x: l.gridLeft + l.gridWidth / 2,
     y: l.gridTop + l.tile * 0.5,

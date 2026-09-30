@@ -74,7 +74,7 @@ export function drawGaugeFuse(
   const left = Math.max(0, gaugeBeatsLeft(world, g) - (burning ? beatPhase : 0));
   if (left <= 0) return;
   const rest = Math.min(1, left / beats);
-  const { body, core } = fuseColours({ beats, through: 1 - rest, left });
+  const { body, core } = fuseColours(rest);
   const floor = sirenBottom(l) + UNDER_SIREN;
   const y = Math.max(floor, dial.cy - dial.r * REACH - OVER_HEAD);
   drawFuseLine(ctx, l, { x: dial.cx, y, half: dial.r * HALF }, rest, body, core);
