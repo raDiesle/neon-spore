@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { WAVES } from "@neon-spore/content";
-import { filterTerms, marksMatch, marksOn, waveMatches } from "../src/menu-wave-filter.js";
+import { WAVES, waveMarksOn } from "@neon-spore/content";
+import { filterTerms, marksMatch, waveMatches } from "../src/menu-wave-filter.js";
 
 /**
  * The JUMP TO WAVE filter, tested against the shipped campaign rather than
@@ -74,7 +74,9 @@ describe("marks", () => {
   });
 
   test("marks are ORed: a second press widens", () => {
-    const boss = new Set(WAVES.flatMap((_, i) => (marksOn(i).includes("boss") ? [i] : [])));
+    const boss = new Set(
+      WAVES.flatMap((_, i) => (waveMarksOn(WAVES, i).includes("boss") ? [i] : [])),
+    );
     const either = WAVES.filter((_, i) => marksMatch(i, new Set(["boss", "fault"]))).length;
     expect(either).toBeGreaterThan(boss.size);
   });

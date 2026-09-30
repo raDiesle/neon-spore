@@ -29773,3 +29773,13 @@ of its own.
 Bottleneck: reading — the entry asks for the lane's `queue done` commits, and `done` makes none, so the claim's `Taken:` line had to stand in as the record.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — the wave marks are content's question, asked by the rail and JUMP TO WAVE
+
+- reading: 5 min. The queue entry, both `marksOn` copies, `firstOnPanel`, and the called-not-re-derived table in `copies-table.ts`.
+- writing: 5 min. `wave-marks.ts`, both callers, the table's row, a content test.
+- looking: 0 min. Nothing drawn changes.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the table CLAUDE.md places in `purity.test.ts` has moved to `copies-table.ts`, and only a grep said so.

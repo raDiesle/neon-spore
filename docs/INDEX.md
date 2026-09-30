@@ -945,6 +945,7 @@ by hand never moves.
 | `packages/content/src/wave-entry.ts` | **What one arrival is**, and the half of a wave that grows |
 | `packages/content/src/wave-entry-fence.ts` | **THE FENCE's three fields**: where a wall is open, and where it can be cut |
 | `packages/content/src/wave-faults.ts` | **A fault as an author writes it**: the kind, the beat row it enters on, and how many beat rows it holds |
+| `packages/content/src/wave-marks.ts` | **Which of the four marks a wave carries** — a boss, a panel, a guide, a fault |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |

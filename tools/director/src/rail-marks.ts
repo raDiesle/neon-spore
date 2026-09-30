@@ -1,4 +1,10 @@
-import { controlSet, DEFAULT_CONTROL_SET_ID, firstOnPanel, type Wave } from "@neon-spore/content";
+import {
+  controlSet,
+  firstOnPanel,
+  type Wave,
+  type WaveMarkId,
+  waveMarksOn,
+} from "@neon-spore/content";
 
 /**
  * The small glyphs in front of a wave's name in the rail: a boss, a panel, a
@@ -14,41 +20,28 @@ import { controlSet, DEFAULT_CONTROL_SET_ID, firstOnPanel, type Wave } from "@ne
 
 /** The glyph of each mark, and the word the filter offers it by — one table, so
  * the pressable row in the filter cannot drift from the row it filters
- * (`rail-filter.ts`). */
+ * (`rail-filter.ts`). Which marks a wave carries is content's question,
+ * `waveMarksOn`, and JUMP TO WAVE asks it too; only the glyphs are ours. */
 export const MARKS = [
   ["boss", "♛", "boss"],
   ["control", "⎈", "panel"],
   ["card", "✎", "guide"],
   ["fault", "⚠", "fault"],
-] as const;
+] as const satisfies readonly (readonly [WaveMarkId, string, string])[];
 
-export type MarkId = (typeof MARKS)[number][0];
+export type MarkId = WaveMarkId;
 
-/** Which marks a wave carries, by id — the same four questions `waveMarks`
- * draws, asked without a document. It is what the filter narrows on and what a
- * test can read. */
-export function marksOn(waves: readonly Wave[], index: number): MarkId[] {
-  const wave = waves[index];
-  if (!wave) return [];
-  const out: MarkId[] = [];
-  if (wave.boss) out.push("boss");
-  if (firstOnPanel(waves, index) || controlSet(wave.controls).id !== DEFAULT_CONTROL_SET_ID) {
-    out.push("control");
-  }
-  if (wave.guide) out.push("card");
-  if (wave.faults?.length) out.push("fault");
-  return out;
-}
 /** The marks as spans, in the order a row draws them. */
 export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] {
   const wave = waves[index];
   if (!wave) return [];
   const out: HTMLElement[] = [];
+  const on = waveMarksOn(waves, index);
 
   // A boss wave is not one entry among several; a small mark says so without
   // spending a whole tab on the one wave that needs it.
-  if (wave.boss) {
-    out.push(mark("boss-mark", wave.boss.kind === "mirror" ? "◑ " : "♛ "));
+  if (on.includes("boss")) {
+    out.push(mark("boss-mark", wave.boss?.kind === "mirror" ? "◑ " : "♛ "));
   }
 
   /**
@@ -57,15 +50,15 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    * panel at all**. SALVAGE is where the standard panel's last button
    * arrives and it is the ordinary panel from then on — so a list that
    * only marked the unusual ones would say nothing about the wave that hands
-   * the pair something they have never held. `firstOnPanel` is called rather
-   * than worked out again here; the same question decides whether that wave is
-   * required to carry a guide (`content/test/waves.test.ts`).
+   * the pair something they have never held. Whether it is marked is
+   * `waveMarksOn`'s answer; `firstOnPanel` — the same question that decides
+   * whether that wave must carry a guide (`content/test/waves.test.ts`) — is
+   * asked again here only for the title's words.
    */
-  const set = controlSet(wave.controls);
-  const first = firstOnPanel(waves, index);
-  if (first || set.id !== DEFAULT_CONTROL_SET_ID) {
+  if (on.includes("control")) {
+    const set = controlSet(wave.controls);
     const m = mark("control-mark", "⎈ ");
-    m.title = first ? `${set.name} — first wave on this panel` : set.name;
+    m.title = firstOnPanel(waves, index) ? `${set.name} — first wave on this panel` : set.name;
     out.push(m);
   }
 
@@ -83,7 +76,7 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    * 2026, and a mark that opens a page that is not there is worse than a mark
    * that only marks.
    */
-  if (wave.guide) out.push(mark("card-mark", "✎ "));
+  if (on.includes("card")) out.push(mark("card-mark", "✎ "));
 
   /**
    * **A fault, since it stopped being one thing about the whole wave.** The
@@ -93,9 +86,9 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    * are placed on — which is the one thing about a fault a glance cannot get
    * from the map without opening the wave (`sim/fault-placed.ts`).
    */
-  if (wave.faults?.length) {
+  if (on.includes("fault")) {
     const m = mark("fault-mark", "⚠ ");
-    m.title = wave.faults
+    m.title = (wave.faults ?? [])
       .map((f) => `${f.kind.toUpperCase()} from beat ${f.at ?? 0}${lengthOf(f)}`)
       .join(", ");
     out.push(m);

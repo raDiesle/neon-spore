@@ -84,6 +84,18 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // **Whether a wave carries the panel mark** — the first wave on its panel,
+    // or a panel that is not the ordinary one. The director's rail wrote it
+    // twice (the filter's ids and the spans it draws) and JUMP TO WAVE copied
+    // it a third time, because the game must not import a dev tool (30
+    // September 2026). A copy is a filter that finds a wave the list does not
+    // mark, or one list marking SALVAGE and the other not.
+    call: "waveMarksOn",
+    owner: "packages/content/src/wave-marks.ts",
+    pattern:
+      /firstOnPanel\([^)]*\)\s*\|\|\s*controlSet\(|\|\|\s*(?:\w+|controlSet\([^)]*\))\.id\s*!==\s*DEFAULT_CONTROL_SET_ID/,
+  },
+  {
     call: "mapCol",
     owner: "packages/content/src/queue.ts",
     pattern: /\bAUTHORED_COLS\s*-\s*1\b/,

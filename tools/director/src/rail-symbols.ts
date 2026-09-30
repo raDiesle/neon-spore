@@ -1,5 +1,5 @@
-import type { Wave } from "@neon-spore/content";
-import { MARKS, type MarkId, marksOn } from "./rail-marks.js";
+import { type Wave, waveMarksOn } from "@neon-spore/content";
+import { MARKS, type MarkId } from "./rail-marks.js";
 import { readRemembered, writeRemembered } from "./remembered.js";
 
 /**
@@ -46,7 +46,7 @@ export function marksMatch(
   pressed: ReadonlySet<MarkId>,
 ): boolean {
   if (pressed.size === 0) return true;
-  return marksOn(waves, index).some((id) => pressed.has(id));
+  return waveMarksOn(waves, index).some((id) => pressed.has(id));
 }
 
 /** Where the pressed marks are kept between loads (`remembered.ts`). */

@@ -1,4 +1,10 @@
-import { controlSet, DEFAULT_CONTROL_SET_ID, firstOnPanel, WAVES } from "@neon-spore/content";
+import {
+  controlSet,
+  DEFAULT_CONTROL_SET_ID,
+  WAVES,
+  type WaveMarkId,
+  waveMarksOn,
+} from "@neon-spore/content";
 
 /**
  * The filter over the JUMP TO WAVE list.
@@ -61,8 +67,9 @@ export function waveMatches(index: number, query: string): boolean {
 
 /**
  * The director's row of marks over its filter (`tools/director/src/rail-
- * symbols.ts`), asked for here on 29 September 2026 with the boss first. The
- * same four questions `rail-marks.ts` asks, copied for the reason above.
+ * symbols.ts`), asked for here on 29 September 2026 with the boss first.
+ * Which marks a wave carries is not copied: it is content's `waveMarksOn`,
+ * which the director's rail asks too. Only the glyphs and words are ours.
  *
  * Here they are words as well as glyphs: a phone's page is not a 210 px
  * track, and a pressable glyph with no word on it is a legend to learn.
@@ -72,29 +79,14 @@ export const MARKS = [
   ["control", "⎈", "PANEL"],
   ["card", "✎", "GUIDE"],
   ["fault", "⚠", "FAULT"],
-] as const;
+] as const satisfies readonly (readonly [WaveMarkId, string, string])[];
 
-export type MarkId = (typeof MARKS)[number][0];
-
-/** Which marks a wave carries. A panel mark is a panel that is not the
- * ordinary one, or the first wave played on any panel at all. */
-export function marksOn(index: number): MarkId[] {
-  const wave = WAVES[index];
-  if (!wave) return [];
-  const out: MarkId[] = [];
-  if (wave.boss) out.push("boss");
-  if (firstOnPanel(WAVES, index) || controlSet(wave.controls).id !== DEFAULT_CONTROL_SET_ID) {
-    out.push("control");
-  }
-  if (wave.guide) out.push("card");
-  if (wave.faults?.length) out.push("fault");
-  return out;
-}
+export type MarkId = WaveMarkId;
 
 /** Whether a wave carries at least one pressed mark — ORed with each other,
  * as in the director, and ANDed with the field by the caller. No marks
  * pressed is not a filter. */
 export function marksMatch(index: number, pressed: ReadonlySet<MarkId>): boolean {
   if (pressed.size === 0) return true;
-  return marksOn(index).some((id) => pressed.has(id));
+  return waveMarksOn(WAVES, index).some((id) => pressed.has(id));
 }

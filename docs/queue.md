@@ -1314,18 +1314,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The wave marks are asked in two places: the director's rail and JUMP TO WAVE
-
-- **Found:** 2026-09-29, claude/jump-wave-boss-filters-135b87
-- **Taken:** 2026-09-30, worktree-agent-a4a142ed5d16baf7b (claim: claude/queue-the-wave-marks-are-asked-in-two-places-the-direc)
-- **Files:** `apps/game/src/menu-wave-filter.ts`, `tools/director/src/rail-marks.ts`, `packages/content/src/`
-
-`marksOn` — which of boss, panel, guide and fault a wave carries — is written
-twice, once in the director's `rail-marks.ts` and once, copied, in the game's
-`menu-wave-filter.ts`, because the game must not import a dev tool. Move the
-pure question into `packages/content` beside `firstOnPanel`, call it from both,
-and add a row to the purity test's called-not-re-derived table.
-
 ## `waves.ts` and the director's `main.ts` are both near the line ceiling
 
 - **Found:** 2026-09-29, claude/scroll-previous-wave-director-bb6576
@@ -1496,3 +1484,16 @@ The owner's verdicts on bosses keep growing past the size line. Split the
 generic rules (the ones marked *generic* or *for all bosses*) into their own
 file next to it, name it from `SKILL.md`, and keep the per-boss verdicts in
 `owner.md`. Move text only; change no wording.
+
+## CLAUDE.md sends a reader to `purity.test.ts` for the called-not-re-derived table
+
+- **Found:** 2026-09-30, worktree-agent-a4a142ed5d16baf7b
+- **Files:** `CLAUDE.md`, `packages/sim/test/purity.test.ts`, `packages/sim/test/copies-table.ts`
+
+The rules section says `purity.test.ts` also carries the table of rules that
+must be called, not re-derived. It has not since the split: the table is
+`COPIES` in `copies-table.ts`, checked by `copies.test.ts`, and `purity.test.ts`
+holds only the determinism bans. A lane told to add a row there finds no table
+and has to grep for it. Name `copies-table.ts` in that sentence — one edit to a
+file that empties the prompt cache, so fold it into the next CLAUDE.md change
+if one is due.
