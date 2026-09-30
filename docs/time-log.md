@@ -30443,3 +30443,13 @@ Bottleneck: reading. The entry named one stale pointer, and two more documents c
 Bottleneck: friction. Every test that waited for a body at row 0 had to be retimed to the crossing, one at a time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — A ball caught back in the cannon says YEAH
+
+- reading: 5 min. `pinball-blast.ts`'s take and drop, and where the round stamped a catch it never drew.
+- writing: 15 min. `pinball-catch.ts`, `catchBeat` made `catchTick`, the mouth shared with the resting ball, the test, a paragraph in the spec.
+- looking: 0 min. The frame is sent after landing.
+- friction: 10 min. A compaction mid-lane, and THE SINEW's `catchBeat` renamed by mistake in its fixture, which the hash-coverage test caught.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: friction. The compaction and the wrongly renamed fixture cost more than the drawing did.

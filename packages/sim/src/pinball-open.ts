@@ -37,7 +37,7 @@ export function openPinball(world: World, rounds: readonly PinballRound[]): Pinb
     drops: 0,
     dropBeat: -1,
     dropXMilli: 0,
-    catchBeat: -1,
+    catchTick: -1,
     hitTick: -1,
     hitXMilli: 0,
     hitYMilli: 0,

@@ -625,6 +625,13 @@ board is being played (`render/pinball-fuse.ts`). Whose press it is was
 already said by the band and the asked parts; the drop count is said by the
 scars.
 
+**A catch says YEAH, 30 September 2026.** The owner: *make a nicer success
+yeah animation when ball was collected correct again with cannon.* A catch had
+no picture of its own — the ball simply reappeared in the muzzle. Now the
+mouth flashes green, two rings and a spray of sparks go up out of it, and the
+word jumps out, overshoots, settles and floats off, in under a second and
+held inside the table (`render/pinball-catch.ts`, off the sim's `catchTick`).
+
 **What is not built**: the three events are still on both silent lists, and a
 tilt is still said by the ring going out rather than by a sound or a mark of
 its own. *Never watched at tempo*: whether a shove is a gesture a thumb can

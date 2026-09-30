@@ -9,6 +9,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawAim, drawPowerBar } from "./pinball-aim.js";
 import { drawPinBlast, drawPinTake } from "./pinball-blast.js";
+import { drawPinCatch } from "./pinball-catch.js";
 import { drawPinFuse } from "./pinball-fuse.js";
 import { drawPinballGrips } from "./pinball-grip.js";
 import { drawPinballAsked, drawPinballVerdicts } from "./pinball-marks.js";
@@ -142,13 +143,15 @@ export function drawPinballRound(
     f,
   );
   // Over the ship, because both are *on* it: the ball waiting in the muzzle
-  // between shots, and the fire from the last one that got past it.
+  // between shots, the fire from the last one that got past it, and the
+  // cheer for the last one that did not.
+  const mouthX = table.x + (pinCannonMilli(cfg, world.cannonCol) * table.tile) / 1000;
+  const mouthY = surfaceY(mouthX) - table.tile * 0.34;
   if (boss.phase === "play" && boss.shot !== "flight") {
-    const mouth = pinCannonMilli(cfg, world.cannonCol);
-    const x = table.x + (mouth * table.tile) / 1000;
-    drawPinResting(ctx, table, x, surfaceY(x) - table.tile * 0.34, cfg.pinballBallMilli);
+    drawPinResting(ctx, table, mouthX, mouthY, cfg.pinballBallMilli);
   }
   drawPinBlast(ctx, l, table, view, boss, surfaceY);
+  drawPinCatch(ctx, table, view, boss, mouthX, mouthY);
   // The two hands on the table, after the ship: both stand a tile and a half
   // above the floor, and the floor is the skin the hull pass bows and lights
   // (`pinball-grip.ts`).

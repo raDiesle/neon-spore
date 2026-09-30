@@ -46,7 +46,7 @@ export function pinballHashParts(boss: PinballState): number[] {
   out.push(boss.drops);
   out.push(boss.dropBeat);
   out.push(boss.dropXMilli);
-  out.push(boss.catchBeat);
+  out.push(boss.catchTick);
   out.push(boss.hitTick);
   out.push(boss.hitXMilli);
   out.push(boss.hitYMilli);

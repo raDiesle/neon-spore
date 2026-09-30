@@ -156,8 +156,13 @@ export interface PinballState {
    * the picture is drawn the ball has been put back on the cannon.
    */
   dropXMilli: number;
-  /** `world.beat` of the last catch, for the same reason. */
-  catchBeat: number;
+  /**
+   * `world.tick` of the last catch, -1 before the first. A tick and not a
+   * beat for `hitTick`'s reason: the picture of it is the round's *YEAH*
+   * (`render/pinball-catch.ts`), and it has to start on the frame the ball
+   * lands in the mouth, not somewhere inside the beat it landed in.
+   */
+  catchTick: number;
   /**
    * `world.tick` a **target** was last struck, and where it stood.
    *

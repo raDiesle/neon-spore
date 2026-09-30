@@ -144,7 +144,7 @@ function flyBall(world: World, state: PinballState): void {
   // only thing that was spent.
   if (!stuck) {
     const caught = pinCaught(world.cfg, state.ball.xMilli, world.cannonCol);
-    if (caught) state.catchBeat = world.beat;
+    if (caught) state.catchTick = world.tick;
     else {
       state.drops += 1;
       state.dropBeat = world.beat;
