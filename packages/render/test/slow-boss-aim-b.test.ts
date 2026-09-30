@@ -5,6 +5,7 @@ import {
   filamentBoss,
   grindstoneBoss,
   sinewBoss,
+  stareBoss,
   startWave,
   surgeBoss,
   type World,
@@ -18,6 +19,7 @@ import { rimeCentre, rimeRadius } from "../src/rime-shape.js";
 import { sinewMassCentre, sinewMassRx, sinewMassRy } from "../src/sinew-shape.js";
 import { aim } from "../src/slow-intake-aim.js";
 import { spoolBarrelHalf, spoolFlangeR, spoolHome } from "../src/spool-shape.js";
+import { stareEye, stareReach, stareSwell, swollenEye } from "../src/stare-shape.js";
 import { surgeBulbCircle } from "../src/surge-shape.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT, waveWith } from "./frame-harness.js";
 
@@ -60,6 +62,18 @@ describe("THE SLOW's aim at a boss, page two", () => {
     const at = aim(stood(kind), L, 0, 0);
     expect(at).toEqual(want());
     expect(at.y).toBeLessThan(L.hullY - 2 * L.tile);
+  });
+
+  it("stands round THE STARE's cowl, swollen as far as the charge has come", () => {
+    const world = stood("stare");
+    const s = need(stareBoss(world), "stare");
+    s.phase = "charge";
+    s.phaseBeat = 0;
+    const beat = CFG.stareChargeBeats;
+    const e = swollenEye(stareEye(L, CFG), stareSwell(s, CFG, beat, 0));
+    const at = aim(world, L, beat, 0);
+    expect(at).toEqual(round({ x: e.cx, y: e.cy }, stareReach(e)));
+    expect(e.rx).toBeGreaterThan(stareEye(L, CFG).rx);
   });
 
   it("stands round THE GRINDSTONE's wheel where it stands, as wide as its caliper", () => {

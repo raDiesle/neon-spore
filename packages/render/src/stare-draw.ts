@@ -1,9 +1,10 @@
 import {
   type StareState,
+  stareBlue,
+  stareCharging,
   stareLevelPattern,
   stareOpenLive,
   stareStepAt,
-  stareTeaching,
   type World,
 } from "@neon-spore/sim";
 import type { EyeInk } from "./eye.js";
@@ -11,10 +12,20 @@ import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawCharge, drawVent } from "./stare-charge.js";
 import { STARE_EYE } from "./stare-eye-look.js";
 import type { StareFx } from "./stare-fx.js";
+import { drawLashes, drawScars } from "./stare-lashes.js";
 import { drawStareLid } from "./stare-lid.js";
-import { cowlPath, type StareEye, stareEye, stareFace, stareGazeFootY } from "./stare-shape.js";
+import {
+  cowlPath,
+  type StareEye,
+  stareEye,
+  stareFace,
+  stareGazeFootY,
+  stareSwell,
+  swollenEye,
+} from "./stare-shape.js";
 
 /**
  * THE STARE, drawn: the cowled eye over the top of the field, opening on the
@@ -24,21 +35,19 @@ import { cowlPath, type StareEye, stareEye, stareFace, stareGazeFootY } from "./
  *
  * **Every screen sees the same eye**, since 29 September 2026: both seats
  * freeze on an open beat, so the gaze, the score and the lid are on both
- * phones. The **score** is the level's pattern under the eye, one pip a beat,
- * the open beats full and the shut ones hollow, with the beat the eye is on
- * ringed — the rhythm for a player with the sound off (`sim/stare.ts`).
+ * phones. The **score** is the fan of lashes under the eye, one a beat of
+ * the level's pattern (`stare-lashes.ts`) — the rhythm for a player with the
+ * sound off. The cowl carries a scar for every level taken off it, and the
+ * charge and the vent are `stare-charge.ts`'s.
  *
- * **The ink says what an open eye costs**: cyan on the teaching pass, where
- * nothing is caught; the hull's red on a live one; grey while it is shut; and
- * white for the frames after it catches a thumb. The lens is drawn on the
+ * **The ink says what an open eye costs**: cyan on the teaching pass and its
+ * lead-in, where nothing is caught, with a halo round the cowl; the hull's
+ * red on an open live beat; ember while it charges; grey while it is shut;
+ * and white for the frames after it catches a thumb. The lens is drawn on the
  * beat clock, so the pupil is the same on both phones; the fluid and the
  * lashes on the wall clock, since nobody reads a number off a lash
  * (`content/own-motion.ts`).
  */
-
-/** The pip row: how far under the eye's middle, and how far apart, in socket heights. */
-const PIP_DROP = 1.55;
-const PIP_GAP = 0.42;
 
 export function drawStare(
   ctx: CanvasRenderingContext2D,
@@ -51,21 +60,43 @@ export function drawStare(
   fx: StareFx,
 ): void {
   const cfg = world.cfg;
-  const eye = stareEye(l, cfg);
+  const socket = stareEye(l, cfg);
+  const swell = stareSwell(boss, cfg, beat, beatPhase);
+  const eye = swollenEye(socket, swell);
   const f = stareFace(boss, cfg, beat, beatPhase);
   const ink = stareInk(boss, fx.flash);
 
   // The gaze first, under everything else of the boss: it is light on the
   // field and the eye stands in front of its own light.
   if (boss.open) drawGaze(ctx, l, eye, beatPhase, ink.hex);
+  drawVent(ctx, l, socket, fx.vent);
 
-  // The cowl, in the field's own rock, with its rim lit a little by the eye.
-  const cowl = cowlPath(eye, time);
+  // The cowl, in the field's own rock, with its rim lit a little by the eye —
+  // and, through the blue pass and its lead-in, a halo of the lesson's cyan
+  // breathing on the beat, so the eye that costs nothing looks it.
+  const cowl = cowlPath(socket, time);
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;
   ctx.fill(cowl);
+  if (stareBlue(boss)) {
+    const breath = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
+    strokeGlow(ctx, cowl, PALETTE.cyan, STROKE.outline * 2, 1.6 + 1.4 * breath, 0.9, l.tile * 0.5);
+  }
+  // And through the charge, the same halo in ember, hotter as it fills.
+  if (swell > 0) {
+    strokeGlow(
+      ctx,
+      cowl,
+      PALETTE.ember,
+      STROKE.outline * 2,
+      1 + 2 * swell,
+      0.5 + 0.5 * swell,
+      l.tile * 0.5,
+    );
+  }
   strokeGlow(ctx, cowl, mixHex(PALETTE.dim, ink.rim, 0.5), STROKE.outline, 0.6);
   ctx.restore();
+  drawScars(ctx, socket, boss.level);
 
   // The eye, through the record VERSUS patches (`stare-eye-look.ts`).
   STARE_EYE.paint(ctx, {
@@ -77,12 +108,14 @@ export function drawStare(
     time,
     beats: beat + beatPhase,
   });
+  drawCharge(ctx, eye, swell, beatPhase, time);
   // The lid over it while it charges, and its ring (`stare-lid.ts`).
   drawStareLid(ctx, l, cfg, boss, time, ink.rim);
 
-  // The score, from the lead-in to the end of the charge.
-  if (boss.phase !== "hurt" && boss.phase !== "dying") {
-    drawScore(ctx, eye, stareLevelPattern(boss), stareStepAt(boss, beat), ink);
+  // The lashes are the score, from the lead-in to the end of the pass.
+  if (boss.phase === "rest" || boss.phase === "teach" || boss.phase === "live") {
+    const lesson = stareBlue(boss) ? INK.teach : INK.live;
+    drawLashes(ctx, socket, stareLevelPattern(boss), stareStepAt(boss, beat), lesson);
   }
 }
 
@@ -90,12 +123,19 @@ export function drawStare(
 const INK = {
   live: { hex: PALETTE.red, rim: PALETTE.redRim },
   teach: { hex: PALETTE.cyan, rim: PALETTE.cyanRim },
+  charge: { hex: PALETTE.ember, rim: PALETTE.emberRim },
   shut: { hex: PALETTE.dim, rim: PALETTE.hullRim },
 } as const;
 
 /** The eye's ink for what an open beat would cost now, whitened by a flash. */
 function stareInk(s: StareState, flash: number): EyeInk {
-  const ink = stareOpenLive(s) ? INK.live : stareTeaching(s) ? INK.teach : INK.shut;
+  const ink = stareOpenLive(s)
+    ? INK.live
+    : stareBlue(s)
+      ? INK.teach
+      : stareCharging(s)
+        ? INK.charge
+        : INK.shut;
   return { hex: mixHex(ink.hex, PALETTE.text, flash), rim: mixHex(ink.rim, PALETTE.text, flash) };
 }
 
@@ -126,44 +166,5 @@ function drawGaze(
   ctx.lineTo(l.gridLeft, bottom);
   ctx.closePath();
   ctx.fill();
-  ctx.restore();
-}
-
-/** The score under the eye: open beats full, shut ones hollow, the beat it is on ringed. */
-function drawScore(
-  ctx: CanvasRenderingContext2D,
-  e: StareEye,
-  pattern: string,
-  at: number,
-  ink: EyeInk,
-): void {
-  const n = pattern.length;
-  const gap = e.ry * PIP_GAP;
-  const r = e.ry * 0.11;
-  const y = e.cy + e.ry * PIP_DROP;
-  const x0 = e.cx - ((n - 1) * gap) / 2;
-  ctx.save();
-  ctx.lineWidth = STROKE.inner;
-  for (let i = 0; i < n; i++) {
-    const x = x0 + i * gap;
-    ctx.beginPath();
-    ctx.arc(x, y, pattern[i] === "x" ? r * 1.4 : r, 0, Math.PI * 2);
-    if (pattern[i] === "x") {
-      ctx.fillStyle = ink.rim;
-      ctx.globalAlpha = 0.95;
-      ctx.fill();
-    } else {
-      ctx.strokeStyle = PALETTE.dim;
-      ctx.globalAlpha = 0.6;
-      ctx.stroke();
-    }
-    if (i === at) {
-      ctx.beginPath();
-      ctx.arc(x, y, r * 2.2, 0, Math.PI * 2);
-      ctx.strokeStyle = PALETTE.text;
-      ctx.globalAlpha = 0.9;
-      ctx.stroke();
-    }
-  }
   ctx.restore();
 }

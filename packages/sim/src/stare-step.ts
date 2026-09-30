@@ -2,7 +2,7 @@ import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { StarePhase, StareState } from "./stare.js";
-import { stareForbids, stareLevelPattern, stareOpenLive } from "./stare.js";
+import { stareBlue, stareForbids, stareLevelPattern, stareOpenLive } from "./stare.js";
 import type { Command, TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
@@ -58,8 +58,7 @@ export function stepStare(world: World, s: StareState): void {
 
   if (s.phase === "rest") {
     if (since < cfg.stareRestBeats) return;
-    // A pass is 0 only at the top of a level, which is where the blue pass is.
-    enterStare(s, s.pass === 0 ? "teach" : "live", world.beat);
+    enterStare(s, stareBlue(s) ? "teach" : "live", world.beat);
     play(world, s);
     return;
   }

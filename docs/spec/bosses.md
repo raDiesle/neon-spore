@@ -2935,30 +2935,50 @@ nothing, and a thumb on it is never a catch.
 one, the pattern's downbeat a touch louder so the bar can be counted, and each
 level a step higher, so a level is also a key.
 
-**The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-fx.ts`,
-`stare-lid.ts`): the cowled eye over the middle column, its ink blue while it
-teaches, red while it plays for real and grey between. It opens on an open
-beat and falls shut as the beat passes; the gaze is drawn down the field on
-both screens while it is open. **The score** under the cowl is the pattern
-itself — a filled pip for an open beat, a hollow one for a shut beat, and a
-ring on the beat the eye is on — so a pair with the sound off can read the
-rhythm they would otherwise hear. While it charges the lid's flap and ring are
-drawn on every screen. A catch, a blast and a hit flash the eye; a vent throws
-two cyan bursts out of its sides. The eye is painted through one record,
-`STARE_EYE` (`render/stare-eye-look.ts`), and VERSUS offers `stare:eye` /
-`globe` against it on THE STARE · LIVE. Proved in
-`render/test/stare-frame.test.ts`.
+**The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-lashes.ts`,
+`stare-charge.ts`, `stare-fx.ts`, `stare-lid.ts`, `stare-blow.ts`): the cowled
+eye over the middle column, **hung inside the field** two tiles under row 0's
+top edge — the owner, 29 September 2026, *any boss should not touch top of
+game screen* — its ink blue with a blue halo on the cowl while it teaches, red
+while it plays for real and grey between. It opens on an open beat and falls
+shut as the beat passes; the gaze is drawn down the field on both screens while
+it is open, and runs out `GAZE_TILES` (8.5) down, so the red and the word at
+its foot stand well clear of the eye. **The score is the lashes** — the
+owner's *do not use the progress dots … we could use glowing eyelash each to
+use for counting* — one lash a beat of the pattern along the eye's lower rim,
+long and lit for an open beat, short for a shut one, dim once played, and the
+beat the eye is on white and longest, each over a dark stroke so it reads
+through the gaze. A pair with the sound off reads the rhythm off them.
+**The charge** swells the eye (`swollenEye`), gathers a hot core in it with
+light streaking in from round the cowl, and warms an ember halo on the cowl,
+all read off `stareSwell`; the lid's flap and ring are drawn on every screen.
+**A vent** throws the charge out flat from both corners of the eye to the
+walls of the field. **The beam**, when nobody pulls, is a column of ember
+light the eye's width straight down onto the ship; **the laser**, a catch, is
+one hard ray to the column the cannon was sent to, branding the eye's almond
+into the hull. A hit leaves a scar on the cowl per level spent, and the struck
+eye shudders. THE SLOW's light stands round the cowl, swollen as far as the
+charge has come (`slow-boss-aim-b.ts`), so the prism never splits the eye.
+The eye is painted through one record, `STARE_EYE` (`render/stare-eye-look.ts`),
+and VERSUS offers `stare:eye` / `globe` against it on THE STARE · LIVE. Proved
+in `render/test/stare-frame.test.ts`.
 
 **The cue** (`render/boss-cue-read-d.ts`) is `STILL`, on both seats, at the
 foot of the gaze on an open live beat — the fifth kind of cue and the only one
 that is not a gesture ([decisions](../decisions.md) #34), its own word rather
-than `HOLD` because a player told to hold would hold the trigger — and `PULL`,
-a `CARRY` on the lid's ring while the eye charges and nobody has it. Silent on
-the blue pass, on a shut beat and at rest: `render/test/boss-cue-stare.test.ts`.
+than `HOLD` because a player told to hold would hold the trigger. On a shut
+live beat with a shut beat after it (`stareClearShot`) it is `FIRE` at the
+cannon on the navigator's screen, aimed at the eye, or `MOVE` on the pilot's
+first if the cannon is not under the eye; and `PULL`, a `CARRY` beside the
+lid's ring while the eye charges and nobody has it. Each carries a *why* line
+(`STARE_WHY`) that names no colour, column or count. Silent on the blue pass,
+on a shut beat before an open one and at rest:
+`render/test/boss-cue-stare.test.ts`. The hands shoot on `stareClearShot`
+too, so no rehearsal bolt meets an open eye.
 
 **There is no guide.** The owner, 29 September 2026: *the guide is not
 required for this wave* — the blue pass is the lesson, drawn on the field it
-is about. Every branch of the clock is held in `sim/test/stare.test.ts`.
+is about. Every branch of the clock is held in `sim/test/stare.test.ts`, and the two clocks the hands and the cue read in `sim/test/stare-clocks.test.ts`.
 *Never watched at tempo*: whether eight beats at 96 bpm can be learnt from one
 blue pass, and how the lid feels under a thumb, are the owner's ear and eye.
 

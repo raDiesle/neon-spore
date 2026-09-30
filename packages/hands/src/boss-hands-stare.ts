@@ -1,11 +1,4 @@
-import {
-  midCol,
-  stareBoss,
-  stareLevelPattern,
-  stareStepAt,
-  type TimedCommand,
-  type World,
-} from "@neon-spore/sim";
+import { midCol, stareBoss, stareClearShot, type TimedCommand, type World } from "@neon-spore/sim";
 
 type Press = Omit<TimedCommand, "tick">;
 
@@ -20,10 +13,7 @@ export const stareHand = (w: World): Press[] => {
   const s = stareBoss(w);
   if (s === null) return [];
   if (s.phase === "charge") return lidHand(w);
-  if (s.phase !== "live" || s.open) return [];
-  const pattern = stareLevelPattern(s);
-  const next = stareStepAt(s, w.beat) + 1;
-  if (next >= pattern.length || pattern[next] !== ".") return [];
+  if (!stareClearShot(s, w.beat)) return [];
   const col = midCol(w.cfg);
   if (w.cannonCol !== col) return [{ player: 1, command: { kind: "cannonCol", col } }];
   return [{ player: 2, command: { kind: "fire", color: "cyan" } }];

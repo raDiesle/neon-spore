@@ -4,23 +4,60 @@ import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
- * **THE STARE's own blow at the hull** (`boss-strike-look.ts`). Its gaze is
- * already in the picture: a fan of red that fades a few rows down
- * (`stare-draw.ts`'s `drawGaze`). When it catches a seat pressing, the look
- * lands. The fan draws in to one hard ray, red-hot along its core, that burns all
- * the way down the middle column. Where it meets the plating it brands the
- * eye's own almond into the hull, with its pupil, glowing red and cooling as
- * the ray lets go.
+ * **THE STARE's own blows at the hull** (`boss-strike-look.ts`), and it has
+ * two (`sim/stare-step.ts`):
+ *
+ * - **The laser**, a catch: one hard ray, red-hot along its core, from the
+ *   eye to **the column the cannon was sent to** — the owner, 29 September
+ *   2026, *the damaging laser hits where one of the players moved* — so the
+ *   ray leans across the field when the slide was the press. Where it meets
+ *   the plating it brands the eye's own almond into the hull, with its
+ *   pupil, cooling as the ray lets go.
+ * - **The beam**, a charge nobody vented: a column of ember light the width
+ *   of the eye, straight down the middle onto the ship, white at its core —
+ *   the massive beam the swelling eye was seen gathering (`stare-charge.ts`).
  */
 
 /** The ray's half-width at the socket and at the hull, in tiles. */
-const WIDE = 0.55;
+const WIDE = 0.3;
 const NARROW = 0.1;
 /** The brand's half-width, and its height as a share of that — flat, lying on the skin. */
 const BRAND = 0.75;
 const BRAND_FLAT = 0.34;
 
+/** The beam's half-width, in tiles: the eye's own. */
+const BEAM = 1.1;
+
 export function stareBlow(ctx: CanvasRenderingContext2D, f: StrikeFrame): void {
+  if (f.blow === "beam") stareBeam(ctx, f);
+  else stareLaser(ctx, f);
+}
+
+function stareBeam(ctx: CanvasRenderingContext2D, f: StrikeFrame): void {
+  const { from, to, tile } = f;
+  const fade = 1 - f.after;
+  if (fade <= 0) return;
+  const front = from.y + (to.y - from.y) * (1 - (1 - f.reach) ** 3);
+  const w = BEAM * tile * (1 - 0.6 * f.after);
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  ctx.fillStyle = rgba(PALETTE.ember, 0.55 * fade);
+  ctx.fillRect(to.x - w, from.y, w * 2, front - from.y);
+  ctx.fillStyle = rgba(PALETTE.emberRim, 0.7 * fade);
+  ctx.fillRect(to.x - w * 0.45, from.y, w * 0.9, front - from.y);
+  ctx.fillStyle = rgba(PALETTE.text, 0.85 * fade);
+  ctx.fillRect(to.x - w * 0.15, from.y, w * 0.3, front - from.y);
+  if (f.reach >= 1) {
+    // Where it lands: a flat splash of the same light along the plating.
+    ctx.fillStyle = rgba(PALETTE.emberRim, 0.6 * fade);
+    ctx.beginPath();
+    ctx.ellipse(to.x, to.y, w * (1.6 + f.after), w * 0.35, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function stareLaser(ctx: CanvasRenderingContext2D, f: StrikeFrame): void {
   const { from, to, tile } = f;
   const fade = 1 - f.after;
   if (fade <= 0) return;

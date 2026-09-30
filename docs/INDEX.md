@@ -1649,6 +1649,8 @@ by hand never moves.
 | `packages/render/src/stare-lid.ts` | **THE STARE's lid**: the one thing on the eye a hand takes hold of |
 | `packages/render/src/stare-blow.ts` | THE STARE's timeout blow: its gaze narrows to one ray that brands the eye into the hull |
 | `packages/render/src/stare-eye-look.ts` | THE STARE's eye as the one record its turn is painted through, so VERSUS can offer another turn |
+| `packages/render/src/stare-charge.ts` | **THE STARE's beam, gathering and let out** — the two pictures the owner asked for on 29 September 2026 |
+| `packages/render/src/stare-lashes.ts` | **What THE STARE counts with, and what it has taken**: the lashes that are its score |
 | `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
 | `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |
 | `packages/render/src/intro-player.ts` | ONE OF THE TWO PEOPLE IN THE SCENE |

@@ -136,12 +136,43 @@ describe("THE STARE's eye", () => {
     },
   );
 
-  it.each(ROLES)("rings the beat the eye is on in the score on %s", (role) => {
+  it.each(ROLES)("lights the lash of the beat the eye is on on %s", (role) => {
     const one = frame(role, (w) => set(w, "live"));
     const two = frame(role, (w) => {
       set(w, "live").phaseBeat = w.beat - 2;
     });
     expect(two.text).not.toBe(one.text);
+  });
+
+  it.each(ROLES)("swells and heats the shut eye as the charge fills on %s", (role) => {
+    const early = frame(role, (w) => set(w, "charge"));
+    const late = frame(role, (w) => {
+      set(w, "charge").phaseBeat = w.beat - (CFG.stareChargeBeats - 1);
+    });
+    expect(late.text).not.toBe(early.text);
+    // The core is round, and a shut live eye has none.
+    expect(count(early.text, "arc")).toBeGreaterThan(
+      count(frame(role, (w) => set(w, "live")).text, "arc"),
+    );
+  });
+
+  it.each(ROLES)("cuts a scar into the cowl for each level taken, on %s", (role) => {
+    const none = frame(role, (w) => set(w, "rest"));
+    const two = frame(role, (w) => {
+      set(w, "rest").level = 2;
+    });
+    expect(two.text).not.toBe(none.text);
+  });
+
+  it("throws the vent out on the tick and lets it fall", () => {
+    const fx = new Effects();
+    expect(fx.boss.stare.vent).toBe(0);
+    fx.ingest([{ type: "stareVent", player: 1 }], L, 0, () => 0, CFG);
+    expect(fx.boss.stare.vent).toBe(1);
+    fx.update(0.25, L);
+    const after = fx.boss.stare.vent;
+    expect(after).toBeLessThan(1);
+    expect(after).toBeGreaterThan(0);
   });
 
   it.each(ROLES)("brings the lid down with its handle on %s while the eye charges", (role) => {

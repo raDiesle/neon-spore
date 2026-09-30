@@ -39,12 +39,15 @@ import { showsStareCaught } from "./view-role-clocks-b.js";
  * the eye that caught the thumb.
  *
  * **Three more are read here** (29 September 2026): the charge venting is a
- * burst off both corners of the eye, and the beam let go and a bolt home are
- * a lesser flash with no seat — transients, on both screens.
+ * burst off both corners of the eye and the jets it throws to the walls
+ * (`vent`), and the beam let go and a bolt home are a lesser flash with no
+ * seat — transients, on both screens.
  */
 
 /** How fast the flash falls away — a beat and a bit at the game's tempo. */
 const FLASH_DECAY = 3;
+/** How fast the vent's jets die, a share a second: gone in a beat and a bit. */
+const VENT_FALL = 1.4;
 /** How much of the panel the flash is worth at its brightest. */
 const FLASH_ALPHA = 0.55;
 /** How far past the button's own edge the flash spills, as a share of it. */
@@ -52,6 +55,7 @@ const FLASH_SPREAD = 1.35;
 
 export class StareFx {
   private flashNow = 0;
+  private ventNow = 0;
   private seat: 0 | 1 | 2 = 0;
   /** The press the eye punished, for finding the circle it came through. */
   private verb: Command | null = null;
@@ -59,6 +63,11 @@ export class StareFx {
   /** How bright the flash is right now, one on the tick and falling. */
   get flash(): number {
     return this.flashNow;
+  }
+
+  /** How much of the vent is still in the air, one on the tick and falling (`stare-charge.ts`). */
+  get vent(): number {
+    return this.ventNow;
   }
 
   /** Which seat was caught, while the flash is up. */
@@ -83,6 +92,7 @@ export class StareFx {
         // The charge let out to the sides: a burst off each corner of the
         // eye, on both screens, and no seat — nothing was caught.
         const eye = stareEye(l, cfg);
+        this.ventNow = 1;
         burst(eye.cx - eye.rx, eye.cy, 10, PALETTE.cyan);
         burst(eye.cx + eye.rx, eye.cy, 10, PALETTE.cyan);
       } else if (e.type === "stareBlast" || e.type === "stareHit") {
@@ -97,6 +107,7 @@ export class StareFx {
   update(dt: number): void {
     const step = Math.min(dt, 1 / 30);
     this.flashNow = Math.max(0, this.flashNow - this.flashNow * FLASH_DECAY * step);
+    this.ventNow = Math.max(0, this.ventNow - VENT_FALL * step);
     if (this.flashNow < 0.01) {
       this.flashNow = 0;
       this.seat = 0;
@@ -134,6 +145,7 @@ export class StareFx {
 
   clear(): void {
     this.flashNow = 0;
+    this.ventNow = 0;
     this.seat = 0;
     this.verb = null;
   }

@@ -1,12 +1,15 @@
 import {
+  midCol,
   type SpliceState,
   type StareState,
   stareCharging,
+  stareClearShot,
   stareOpenLive,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { cueFrame } from "./boss-cue-frame.js";
+import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { stareLidRest } from "./stare-lid.js";
 import { stareEye, stareGazeFootY } from "./stare-shape.js";
@@ -31,44 +34,84 @@ import { stareEye, stareGazeFootY } from "./stare-shape.js";
  */
 
 /**
- * THE STARE. `STILL` at the foot of the gaze — the lowest row its red
- * reaches — on an open beat of a live pass, and nowhere else: the teaching
- * pass's cyan costs nothing and asks nothing. `PULL` on the lid's ring while
- * the eye charges and no thumb is on it yet; the ring filling is the
- * picture's own answer, and a word under a hand already doing it would be
- * the second prompt.
+ * THE STARE. `STILL` at the foot of the gaze — halfway down the field, well
+ * clear of the eye — on an open beat of a live pass, and nowhere else: the
+ * teaching pass's cyan costs nothing and asks nothing. `FIRE` at the cannon
+ * under the eye, aimed at the eye, on a shut live beat whose next beat is
+ * shut too (`stareClearShot`) — the navigator's, and the pilot is told `MOVE`
+ * if the cannon is not under it. `PULL` **beside** the lid's ring while the
+ * eye charges and no thumb is on it yet, so the word is not written over the
+ * ring it names; the ring filling is the picture's own answer, and a word
+ * under a hand already doing it would be the second prompt.
  */
 export function stareCues(l: Layout, world: World, s: StareState): readonly BossCue[] {
+  const cfg = world.cfg;
+  const eye = stareEye(l, cfg);
+  const frame = cueFrame(l);
   if (stareOpenLive(s)) {
-    const eye = stareEye(l, world.cfg);
+    const y = stareGazeFootY(l);
     return [
       {
         seat: null,
         kind: "STILL",
         word: "STILL",
         x: eye.cx,
-        y: stareGazeFootY(l),
-        ...cueFrame(l),
+        y,
+        ...frame,
         seed: 61,
+        why: STARE_WHY.STILL,
+      },
+    ];
+  }
+  if (stareClearShot(s, world.beat)) {
+    const col = midCol(cfg);
+    if (world.cannonCol !== col) {
+      const x = fieldX(l, world.cannonCol);
+      return [{ seat: 1, kind: "CARRY", word: "MOVE", x, y: l.hullY, ...frame, seed: 63 }];
+    }
+    const aim = { x: eye.cx, y: eye.cy, r: eye.ry };
+    const x = fieldX(l, col);
+    return [
+      {
+        seat: 2,
+        kind: "PRESS",
+        word: "FIRE",
+        x,
+        y: l.hullY,
+        ...frame,
+        seed: 64,
+        aim,
+        why: STARE_WHY.FIRE,
       },
     ];
   }
   if (!stareCharging(s) || s.lidSeat !== 0) return [];
-  const rest = stareLidRest(l, world.cfg);
+  const rest = stareLidRest(l, cfg);
   return [
     {
       seat: null,
       kind: "CARRY",
       word: "PULL",
-      x: rest.x,
+      x: eye.cx + eye.rx * PULL_BESIDE,
       y: rest.y,
       halfW: rest.r,
       halfH: rest.r,
       seed: 62,
       framed: false,
+      why: STARE_WHY.PULL,
     },
   ];
 }
+
+/** How far to the side of the lid's ring `PULL` is written, in socket half-widths. */
+const PULL_BESIDE = 1.85;
+
+/** What each of THE STARE's words is for — never a column, a colour or a count. */
+export const STARE_WHY = {
+  STILL: "IT SEES ANY MOVE",
+  FIRE: "WHILE IT IS SHUT",
+  PULL: "BEFORE IT FIRES",
+} as const;
 
 /**
  * **THE SPLICE says nothing, since 25 September 2026.** A `WAIT` rode the

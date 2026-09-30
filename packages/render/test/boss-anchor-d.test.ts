@@ -121,8 +121,9 @@ describe("a caption pointed at THE STARE", () => {
       const at = anchorPoint(l, world, SET, { at: "boss" }, 0);
       expect(at?.x).toBeCloseTo(eye.cx);
       expect(at?.y).toBeCloseTo(eye.cy);
-      // The socket sits above row 0, where the cowl is drawn.
-      expect(at?.y ?? 0).toBeLessThan(l.gridTop);
+      // The socket hangs inside the field, clear of the top of the screen:
+      // no boss touches it (the owner, 29 September 2026).
+      expect(at?.y ?? 0).toBeGreaterThan(l.gridTop + eye.ry * 2);
     }
   });
 });

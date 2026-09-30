@@ -71,7 +71,7 @@ const FLUID_MUL = 1.45;
  * it. Rooted just past the film, every hair begins where the eye ends and only
  * ever travels away from it.
  */
-const ROOT_MUL = FLUID_MUL + 0.04;
+export const ROOT_MUL = FLUID_MUL + 0.04;
 
 /** Lashes on the upper rim. Seven: enough to read as a fringe, few enough that
  * they are still separate things when the body is small and far up the field. */

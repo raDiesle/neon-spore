@@ -92,6 +92,26 @@ export function stareTeaching(s: StareState): boolean {
   return s.phase === "teach";
 }
 
+/**
+ * Whether the pass the eye is on, or is resting before, is the blue one: the
+ * teach itself, and the lead-in to it. A pass is 0 only at the top of a level,
+ * which is where the blue pass is (`stare-step.ts` asks this to choose).
+ */
+export function stareBlue(s: StareState): boolean {
+  return s.phase === "teach" || (s.phase === "rest" && s.pass === 0);
+}
+
+/**
+ * Whether a shot now is a clean one: shut on a live pass, and the pattern's
+ * next beat shut too, so no press lands on the tick the eye opens and no bolt
+ * arrives at an open eye. What the hands shoot on and the `FIRE` cue asks on.
+ */
+export function stareClearShot(s: StareState, beat: number): boolean {
+  if (!stareShootable(s)) return false;
+  const next = stareStepAt(s, beat) + 1;
+  return stareLevelPattern(s)[next] === ".";
+}
+
 /** Whether the eye is charging its beam and the lid is the pair's to pull. */
 export function stareCharging(s: StareState): boolean {
   return s.phase === "charge";

@@ -29706,3 +29706,20 @@ the hook's log showed the hook had been right and the parser wrong.
 Bottleneck: the tongue's first shape was the cannon's shape in another violet, and only a frame showed it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE STARE's look: the eye lowered, lashes, the charge
+
+- reading: 10 min. The shape, the draw, the cue, the lid, THE SLOW's aim
+  table and every test that placed the eye.
+- writing: 45 min. The lowered and bigger eye, the blue halo, the lashes,
+  the charge and the vent, the scars, the cue on both seats, the hands'
+  clean shot, the SLOW's row and the §11.16 look.
+- looking: 20 min. Frames of the teaching pass, the charge and the pull,
+  one seat at a time.
+- friction: 15 min. A file named `stare-marks.ts` read as a touch mark to
+  the roll-out test, and the copies test timed out under a load of 19.
+- landing: 10 min. Three `check:fast` runs, the last for an import sort
+  the rename left behind.
+
+Bottleneck: writing. Lowering the eye moved every number placed off it,
+from the gaze foot to THE SLOW's light, and each needed its own test.
