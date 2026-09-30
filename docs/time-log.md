@@ -30682,3 +30682,5 @@ after `instarShow`.
 
 Bottleneck: the shudder is a few pixels, so it only shows between frames
 a few ticks apart, never in a strip a second apart.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

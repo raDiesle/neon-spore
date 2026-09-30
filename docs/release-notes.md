@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 89b39aad6 — THE MANTLE's brace watched at tempo
+
+The brace that landed unwatched on 26 September was watched from the glow to the steady. The seam pulses bright, the shell shudders from side to side, and both knob rings stand lit while the thumbs are held. Nothing needed changing.
+
 ## 2026-09-30 · 254fa8221 — FLAME's flicker moves again on the director's cards
 
 FLAME undid its move with a minus written in front of the centre, so a centre left of the origin read `--6.04` and the browser dropped the whole transform: the flame stood still on every card that had one. The way back is now its own negated pair of numbers, and a test keeps any tail from putting a minus before an interpolation. A fix to something wrong, not a look.
