@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c88e550f5 — CLAUDE.md names `copies-table.ts` for the called-not-re-derived table
+
+The table of rules that must be called rather than re-derived moved out of `purity.test.ts` into `COPIES` in `packages/sim/test/copies-table.ts`, and CLAUDE.md, `docs/asset-catalogue.md` and `docs/spec/briefings.md` still sent a reader to the old file. All three now name the new one.
+
 ## 2026-09-30 · df5fca972 — `bun run sheet` gives up after a minute, naming the step it stalled on
 
 A sheet's browser launch and its write now run under one sixty-second deadline. Past it, the command prints which step it was on and exits non-zero, instead of hanging in silence the way one did for fifty minutes. The race lives in `tools/frames/deadline.ts`, and `serve.ts` calls it rather than keeping its own.
