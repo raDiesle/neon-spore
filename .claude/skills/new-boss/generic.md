@@ -155,4 +155,6 @@ item naming the rule, never a fix made in passing.
   THE STARE: *any boss should not touch top of game screen*. The phone's bar
   and the seat switcher stand there, and a body under them is half read.
   Hang it inside the field or clear of the switcher; THE STARE's eye sits
-  `EYE_DROP` tiles under row 0's top (`stare-shape.ts`).
+  `EYE_DROP` tiles under row 0's top (`stare-shape.ts`). A new boss is held
+  to it by `packages/render/test/boss-top.test.ts`, which lists the three
+  exemptions and why.

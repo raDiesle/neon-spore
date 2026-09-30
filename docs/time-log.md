@@ -30479,3 +30479,13 @@ Bottleneck: friction. The compaction landed between two edits of the same file, 
 Bottleneck: reading. Sorting the two dozen callers into those in a fading body and those only left an alpha took longer than the fix did.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — A render test holds every boss's body below the seat switcher
+
+- reading: 15 min. The bare-frame pass, the takeover rounds that skip it, and the switcher's CSS.
+- writing: 20 min. `boss-top.test.ts`, the `bare` argument to `drawPixels`, the sheen guard, the tree walk in `doc-drift-names.test.ts` moved out of its timed cases, and two queued questions.
+- looking: 20 min. A bare-frame survey of every boss wave at three beats, and the rounds and three outliers drawn to PNG.
+- friction: 10 min. Skia throws on a gradient with no stops where Chrome draws nothing, so the survey crashed until `sheen.ts` stopped making that pass.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking. Diffing full frames mixed backdrop and HUD into the boss, and the numbers meant something only once the frames were bare.

@@ -1193,26 +1193,6 @@ director's two poses reach them only through a `cfg` override
 prime out with their hands and tests, or re-gate them on something one mote
 can reach (the level, say); then drop the overrides.
 
-## Check that no boss touches the top of the screen
-
-- **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-check-that-no-boss-touches-the-top-of-the-screen)
-- **Files:** `packages/render/src/*-draw.ts`, `packages/render/src/layout.ts`, `.claude/skills/new-boss/owner.md`
-
-The owner, 29 September 2026, on THE STARE: *any boss should not touch top
-of game screen* — a rule for every boss, now in the new-boss skill's
-`owner.md`. THE STARE was lowered into the field; the other bosses were not
-looked at. Many hang above `l.gridTop` on purpose (THE GORGE's sack, for
-one). Take a frame of each boss wave on both seats with `bun run frames`,
-and list every boss whose body reaches the seat switcher or the top edge.
-Then add one render test that walks the bosses and holds each body's
-topmost point below the switcher's bottom, so the next boss cannot break it.
-A boss that fails and has to move is a fix to something wrong, not a look;
-say which in the commit. The same run drifted `doc-drift-names.test.ts`'s
-"names something this tree still writes down": 13.9 s at slowdown 5.0 against
-850 ms. That is the same cure, and the same question of whether it rereads the
-tree per row.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
@@ -1239,3 +1219,30 @@ gives no pair. When the field is missing on the before side only, render the
 after frame, and say that the before side has no such field instead of refusing
 the whole run. A test in `tools/frames/test/` should cover a field that only the
 after side has. Prove it with `bun run check`.
+
+## THE MIRROR's reflected hull fills the top of the screen
+
+- **Found:** 2026-09-30, claude/queue-bottom-up
+- **Files:** `packages/render/test/boss-top.test.ts`
+- **Asks:** THE MIRROR's upside-down hull fills the top 280 px of the screen, under the seat switcher: keep it as the design and leave THE MIRROR exempt, pull it down inside the field, or shorten it so it stops under the switcher?
+
+The owner's rule of 29 September 2026 (*any boss should not touch top of game
+screen*) is now a test, `boss-top.test.ts`, and THE MIRROR is one of its three
+exemptions. Its reflected hull is the fight's picture, so moving it is a
+redesign and not something to do unattended. The options: (a) keep it and
+keep the exemption with the owner's word as its reason; (b) move the whole
+reflection down so its top edge is below the switcher's bottom at row 30;
+(c) cut the reflection off at the top of the field. For (b) or (c), delete
+`mirror` from `EXEMPT` and the test holds it.
+
+## THE REPRISE's camera cables run to the top edge
+
+- **Found:** 2026-09-30, claude/queue-bottom-up
+- **Files:** `packages/render/test/boss-top.test.ts`
+- **Asks:** THE REPRISE's body is clear of the switcher, but the cables it hangs by run to the top edge: keep the cables to the top, cut them at the top of the field, or drop them?
+
+The body sits at about y 90–185 on a 390×844 screen. Only the two cables,
+x 114–275, reach y 0, and they pass behind the seat switcher. The options:
+(a) keep them and keep `reprise` in `EXEMPT` with the owner's word as its
+reason; (b) end them at `l.gridTop`, so the camera hangs from the field's
+edge; (c) drop them. For (b) or (c), delete `reprise` from `EXEMPT`.

@@ -20,7 +20,10 @@ import type { Layout } from "./layout.js";
  */
 export function sweep(ctx: CanvasRenderingContext2D, body: Path2D, l: Layout, time: number): void {
   const at = ((time * 0.075) % 1.55) - 0.3;
-  if (at < -0.25 || at > 1.25) return;
+  // Off the field is where no stop below lands inside (0, 1): a gradient with
+  // no stops is transparent in Chrome and a thrown error in Skia, so the pass
+  // that would draw nothing is not made (`test/pixel-harness.ts`).
+  if (at <= -0.18 || at >= 1.18) return;
 
   ctx.globalCompositeOperation = "lighter";
   ctx.lineCap = "round";

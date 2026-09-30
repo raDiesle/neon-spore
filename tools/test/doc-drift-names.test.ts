@@ -1,9 +1,10 @@
-import { describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { declaredNames, ownSubjectClaims, REMEMBERED, sourceFiles } from "./doc-names.js";
 import { ROOT } from "./doc-paths.js";
 import { itCosts } from "./figure.js";
+import { loadedTimeout } from "./repo-time.js";
 import { treeText } from "./tree-text.js";
 
 /**
@@ -27,12 +28,19 @@ import { treeText } from "./tree-text.js";
  * make a red test stop, which is the one way this check can be made worthless.
  */
 describe("a comment naming something in its own file's subject", () => {
-  itCosts(850, "names something this tree still writes down", async () => {
-    const names = await declaredNames();
+  // Read before the cases, the way `doc-drift.test.ts` reads its sources: the
+  // walk is the machine's time, not the check's, and on 30 September 2026 it
+  // took this case to 13.9 s at slowdown 5.0 against its 850 ms figure.
+  let names: ReadonlySet<string> = new Set();
+  const files = sourceFiles();
+  let sources: string[] = [];
+  beforeAll(async () => {
+    [names, sources] = await Promise.all([declaredNames(), treeText(files)]);
+  }, loadedTimeout(150));
+
+  itCosts(850, "names something this tree still writes down", () => {
     const found: string[] = [];
     let claims = 0;
-    const files = sourceFiles();
-    const sources = await treeText(files);
     for (const [i, file] of files.entries()) {
       const source = sources[i] as string;
       for (const name of ownSubjectClaims(file, source)) {
@@ -47,10 +55,7 @@ describe("a comment naming something in its own file's subject", () => {
     expect(missing).toEqual([]);
   });
 
-  // `declaredNames()` alone walks every source file, so this one needs a
-  // figure of its own as much as the walk above.
-  itCosts(550, "remembers nothing the tree has got back", async () => {
-    const names = await declaredNames();
+  itCosts(550, "remembers nothing the tree has got back", () => {
     const alive: string[] = [];
     for (const row of REMEMBERED.keys()) {
       const name = row.split(" → ")[1] as string;

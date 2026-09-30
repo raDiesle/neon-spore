@@ -93,6 +93,9 @@ export function drawPixels(
   world: World,
   role: ViewRole,
   viewport: Viewport = PIXEL_VIEWPORT,
+  /** The bodies and nothing else (`ViewState.bare`): no backdrop, ship or HUD
+   * for a body to be confused with. */
+  bare = false,
 ): PixelFrame {
   const canvas = skiaCanvas();
   const renderer = new Canvas2DRenderer(canvas, { readback: true });
@@ -107,6 +110,7 @@ export function drawPixels(
     dt: 1 / world.cfg.tickHz,
     events: [],
     running: true,
+    bare,
   });
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("no context on the Skia canvas");
