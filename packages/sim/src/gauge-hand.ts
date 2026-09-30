@@ -2,6 +2,7 @@ import { NO_BEARING, TURN } from "./bearing.js";
 import type { SimConfig } from "./config.js";
 import { GAUGE_FULL, type GaugeState } from "./gauge.js";
 import { gaugeBound, gaugeWoundOpen } from "./gauge-band.js";
+import { gaugeToothHeard, releaseTooth } from "./gauge-tooth.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -52,8 +53,10 @@ import type { World } from "./world.js";
  * hers, they are entered by different halves of the same call, and a pair that
  * misses on the mark after a bind is in both at once. So there is no neutral
  * third name here — the ordinary state of the round is the round, `play`.
+ * `loose` is the third, and the rest's: a tooth waiting to be pulled between
+ * two levels (`gauge-tooth.ts`).
  */
-export const GAUGE_GRIPS = ["jammed", "bound"] as const;
+export const GAUGE_GRIPS = ["jammed", "bound", "loose"] as const;
 export type GaugeGrip = (typeof GAUGE_GRIPS)[number];
 
 /** Whether the valve is dead and the needle is the pilot's to swing by hand. */
@@ -115,6 +118,7 @@ export function gaugeHandHeard(
   if (command.kind !== "drag") return;
   if (command.target === "gaugeNeedle") needle(world, gauge, player, command.on, command.fromMilli);
   else if (command.target === "gaugeBand") band(world, gauge, player, command.on);
+  else if (command.target === "gaugeTooth") gaugeToothHeard(world, gauge, player, command);
 }
 
 /**
@@ -165,4 +169,5 @@ function band(world: World, gauge: GaugeState, player: 1 | 2, on: boolean): void
 export function releaseGaugeHands(gauge: GaugeState): void {
   gauge.handOn = false;
   gauge.openThumb = false;
+  releaseTooth(gauge);
 }

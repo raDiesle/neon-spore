@@ -59,6 +59,8 @@ export {
   fleetStruck,
   GAUGE_FULL,
   GAUGE_LEAD_BEATS,
+  // The loose tooth between the first two levels (`gauge-tooth.ts`).
+  GAUGE_TEETH,
   type GaugeEntry,
   type GaugeState,
   gaugeBeatsLeft,
@@ -76,6 +78,9 @@ export {
   gaugeSeatedBy,
   gaugeSettling,
   gaugeSpanNow,
+  gaugeToothAsks,
+  gaugeToothLoose,
+  gaugeToothPulled,
   gaugeWoundOpen,
   MIRROR_GESTURES,
   MIRROR_LEAD_BEATS,

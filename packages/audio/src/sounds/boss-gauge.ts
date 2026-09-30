@@ -7,7 +7,8 @@
  * rather than pitch — one settling, one falling away. A jam and a bind are
  * what a miss and a mark can cost, and each is a fact about the *other*
  * seat's half of the machine: the pilot's valve seizing, the navigator's band
- * winding tight.
+ * winding tight. The pull, added 30 September 2026, is the loose tooth
+ * between two levels coming out: a wet pop, and a low knock behind it.
  */
 
 import { after, air, glint, metal, noise, soft, sub } from "../grain.js";
@@ -57,6 +58,19 @@ export const BOSS_GAUGE_SOUNDS: SoundDef[] = [
     layers: [
       { source: "triangle", freq: 58, toFreq: 130, gain: 0.22, attack: 0.03, release: 0.28 },
       after(0.18, metal(78, 0.26, 0.28, 210)),
+    ],
+  },
+  {
+    id: "boss.gaugePull",
+    family: "boss",
+    blurb: "A tooth pulled: a wet pop out of its socket, and a low knock behind it.",
+    status: "bound",
+    use: "THE GAUGE: the loose tooth pulled between two levels — the right one.",
+    level: 0.34,
+    layers: [
+      { source: "sine", freq: 420, toFreq: 160, gain: 0.24, attack: 0.004, release: 0.12 },
+      after(0.01, soft(0.4, air(2600, 1400, 0.2, 0.05, 0.9))),
+      after(0.05, sub(74, 0.18, 0.3)),
     ],
   },
 ];

@@ -159,6 +159,7 @@ by hand never moves.
 | `packages/sim/src/gauge-hash.ts` | THE GAUGE's half of the boss fingerprint (`hash-boss.ts`), in the shape `mazeHashParts` set |
 | `packages/sim/src/gauge-call.ts` | **The navigator's call**: the one thing in THE GAUGE that can be wrong |
 | `packages/sim/src/gauge-level.ts` | **THE GAUGE's levels**: three rounds of the same rule, each harder |
+| `packages/sim/src/gauge-tooth.ts` | **THE GAUGE's loose tooth**: the rest between the first level and the second, spent on a gesture |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/gall-hand.ts` | A pinch on THE GALL: `gallPinch`, `fromMilli` the gap between the two touches in thousandths of a tile |
 | `packages/sim/src/gall-hash.ts` | What THE GALL puts into `hashWorld`, and nothing else |
@@ -455,7 +456,7 @@ by hand never moves.
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it is flung — its landing is a `breach` |
 | `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
 | `packages/sim/src/events-governor.ts` | What THE GOVERNOR says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as five events (`gauge.ts`, `gauge-hand.ts`) |
+| `packages/sim/src/events-gauge.ts` | **What THE GAUGE's dial does that neither screen already says**, as seven events (`gauge.ts`, `gauge-hand.ts`) |
 | `packages/sim/src/events-gall.ts` | What THE GALL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-gimbal.ts` | What THE GIMBAL says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-grindstone.ts` | What THE GRINDSTONE says as it happens, one line per thing the picture and the sound answer |
@@ -2402,7 +2403,7 @@ by hand never moves.
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's fourteen, in a file of their own because `bind.ts` is full |
 | `packages/audio/src/bind-governor.ts` | Whether an event is THE GOVERNOR's, so a page of the chain can hand it over whole |
-| `packages/audio/src/bind-gauge.ts` | THE GAUGE's five, in a file of their own for `bind-pulse-hand.ts`'s reason |
+| `packages/audio/src/bind-gauge.ts` | THE GAUGE's seven, in a file of their own for `bind-pulse-hand.ts`'s reason |
 | `packages/audio/src/bind-gall.ts` | Whether an event is THE GALL's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-gimbal.ts` | THE GIMBAL's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-grindstone.ts` | Whether an event is THE GRINDSTONE's, so a page of the chain can hand it over whole |

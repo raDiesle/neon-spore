@@ -180,6 +180,18 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
+**The loose tooth** (30 September 2026). The owner: *add some intermediate
+choreographed on screen gesture events, e.g. pull teeth out ( p1 needs to tell
+p2 which one to pull out.)*. The rest after the first level is
+`gaugeToothBeats` long and spent on one tooth of `GAUGE_TEETH`, and the split
+is turned round for it: the pilot's screen shows which tooth is loose, the
+navigator's hand pulls — a drag of `gaugeToothPullMilli` from the tooth she
+pressed. The loose one ends the rest early, after `gaugeRegrowBeats`; any other
+comes out anyway and jams the valve into the next level, and a rest that runs
+out with the loose one still in costs the same. The pulled teeth stay out for
+the round (`packages/sim/src/gauge-tooth.ts`, THE GAUGE'S TOOTH in
+`controls.md`).
+
 **The crown and the gashes** (29 September 2026). The owner: *remove the
 permanent text … show the default bosses time remaining bar top of boss …
 add some siren which tells that p2 needs to inform p1 about position … the

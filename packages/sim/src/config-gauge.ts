@@ -62,6 +62,10 @@ export interface GaugeConfig {
   gaugeShotTicks: number;
   /** Beats the rim stands bare after a wound is shot out, before the next opens. */
   gaugeRegrowBeats: number;
+  /** Beats the rest after the first level lasts, spent on the loose tooth. */
+  gaugeToothBeats: number;
+  /** How far a tooth is dragged before it comes out, in thousandths of a tile. */
+  gaugeToothPullMilli: number;
 }
 
 /**
@@ -100,6 +104,12 @@ export interface GaugeConfig {
  * bolt cross the mouth, short enough that it is still the call's answer and
  * not a second event. `gaugeRegrowBeats` at 2 is the bare rim after a wound is
  * shot out: the break he asked for, and a beat more so the burst is seen.
+ *
+ * **The tooth** (`gauge-tooth.ts`, 30 September 2026). `gaugeToothBeats` at
+ * 16 is ten seconds: time for him to count along the rim out loud and for her
+ * to count along with him, and short enough that a pair who pulls it at once
+ * gets the rest back. `gaugeToothPullMilli` at 800 is most of a tile — a pull,
+ * not a brush of the thumb on the way somewhere else.
  */
 export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeTurnMilli: 3,
@@ -117,4 +127,6 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeBoundSpanMilli: 18,
   gaugeShotTicks: 45,
   gaugeRegrowBeats: 2,
+  gaugeToothBeats: 16,
+  gaugeToothPullMilli: 800,
 };

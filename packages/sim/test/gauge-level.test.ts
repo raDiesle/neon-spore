@@ -88,7 +88,8 @@ describe("THE GAUGE's levels", () => {
     for (let i = 0; i < CFG.gaugeLevelMarks; i++) mark(world, g);
     expect(gaugeBetweenLevels(world, g)).toBe(true);
     expect(gaugeWoundOpen(g)).toBe(false);
-    ticks(world, TPB * (CFG.gaugeLevelRestBeats - 1));
+    // The first rest is the loose tooth's, and it is longer (`gauge-tooth.ts`).
+    ticks(world, TPB * (CFG.gaugeToothBeats - 1));
     expect(gaugeBeatsLeft(world, g)).toBe(CFG.gaugeLevelBeats);
     ticks(world, TPB * 2);
     expect(gaugeBetweenLevels(world, g)).toBe(false);
@@ -111,7 +112,7 @@ describe("THE GAUGE's levels", () => {
   it("each run out on their own clock, and that breaks the hull", () => {
     const { world, g } = playing();
     for (let i = 0; i < CFG.gaugeLevelMarks; i++) mark(world, g);
-    ticks(world, TPB * (CFG.gaugeLevelRestBeats + CFG.gaugeLevelBeats + 2));
+    ticks(world, TPB * (CFG.gaugeToothBeats + CFG.gaugeLevelBeats + 2));
     expect(g.phase).toBe("verdict");
     expect(g.passed).toBe(false);
     expect(world.scars.length).toBe(1);

@@ -2,6 +2,7 @@ import { drawBand, driftBand, gaugeSeatedBy, gaugeWoundOpen } from "./gauge-band
 import { gaugeCalled, gaugeShotLands, gaugeWoundRegrows } from "./gauge-call.js";
 import { gaugeJammed } from "./gauge-hand.js";
 import { gaugeAllLevels } from "./gauge-level.js";
+import { gaugeToothLapses } from "./gauge-tooth.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -126,6 +127,12 @@ export interface GaugeState {
   regrowBeat: number;
   /** `world.beat` the wound now on the rim opened on, which the picture grows it from. */
   woundBeat: number;
+  /** The loose tooth or `-1`, the teeth out, and her pull (`gauge-tooth.ts`). */
+  looseTooth: number;
+  pulledTeeth: number;
+  toothHold: number;
+  toothDxMilli: number;
+  toothDyMilli: number;
 }
 
 /** Far enough before any call was made that the first one is never blocked. */
@@ -160,6 +167,11 @@ export function openGauge(world: World): GaugeState {
     shotTick: -1,
     regrowBeat: -1,
     woundBeat: world.beat,
+    looseTooth: -1,
+    pulledTeeth: 0,
+    toothHold: -1,
+    toothDxMilli: 0,
+    toothDyMilli: 0,
   };
   drawBand(world, gauge);
   return gauge;
@@ -197,6 +209,7 @@ export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boo
   // out leaves the rim bare for `gaugeRegrowBeats` (`gauge-call.ts`).
   if (gauge.shotTick !== -1 && world.tick >= gauge.shotTick) gaugeShotLands(world, gauge);
   if (onBeat) gaugeWoundRegrows(world, gauge);
+  if (onBeat) gaugeToothLapses(world, gauge);
   // Her thumb on the band stops it walking. That is the whole of what the
   // hold buys, and it is bought with the call she cannot make while it is down.
   // A band with a shot on its way to it stands still too, so the call is judged

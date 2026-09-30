@@ -7,6 +7,7 @@ import {
   gaugeHolds,
   gaugeRound,
   gaugeSeated,
+  gaugeToothAsks,
   hashWorld,
   roundSpent,
   type SimConfig,
@@ -66,12 +67,17 @@ function cmd(world: World, player: 1 | 2, command: TimedCommand["command"]): Tim
  * A pair who are talking: the pilot turns towards the band he cannot see and
  * the navigator calls the moment the needle is between her marks. It reads the
  * whole world because a test rig may — what it stands in for is two people and
- * a sentence.
+ * a sentence. Between the first two levels he counts the loose tooth out and
+ * she pulls it (`src/gauge-tooth.ts`).
  */
 function talking(world: World): TimedCommand[] {
   const gauge = gaugeRound(world);
   if (gauge === null || gauge.phase !== "play") return [];
   const out: TimedCommand[] = [];
+  if (gaugeToothAsks(gauge)) {
+    const pull = { kind: "drag", target: "gaugeTooth", on: true, id: gauge.looseTooth } as const;
+    out.push(cmd(world, 2, { ...pull, fromMilli: 0, fromYMilli: 2000 }));
+  }
   const want = gauge.needleMilli < gauge.markMilli ? 1 : -1;
   if (gauge.valve !== want) out.push(cmd(world, 1, { kind: "valve", on: true, dir: want }));
   if (gaugeSeated(world, gauge)) out.push(cmd(world, 2, { kind: "call", color: gauge.woundColor }));

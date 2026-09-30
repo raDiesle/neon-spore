@@ -230,4 +230,7 @@ export const NO_SUBJECT_D: Record<string, string> = {
   "boss.governorMiss": "a fire step unanswered, on the hull, which the hull's own sounds have.",
   "boss.governorSpent": "the flyweights falling, spent. Same argument.",
   "boss.governorOut": "the governor gone and the wave ending. Same argument, and an absence.",
+  // THE GAUGE's tooth, on page c's argument for the other four: a dial, no card.
+  "boss.gaugePull":
+    "the loose tooth pulled out of the dial's rim. A tooth on a plate, not a body on a grid.",
 };

@@ -15,6 +15,10 @@ import type { FieldControlDef } from "./field-control-def.js";
  * pointed at `THE GAUGE · PLAY` until 21 September 2026, which is a picture of
  * the round with neither control drawn on it — a reader following the link
  * found no ring where the row said one stands.
+ *
+ * The third, THE GAUGE'S TOOTH, turns the split round for one rest: it is
+ * the pilot's screen that shows which tooth is loose, and the navigator's
+ * hand that pulls it (`sim/gauge-tooth.ts`).
  */
 export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -63,5 +67,27 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "gaugeBand",
     sends: ["drag"],
     pose: "THE GAUGE · BOUND",
+  },
+  {
+    name: "THE GAUGE'S TOOTH",
+    where:
+      "a ring on every tooth still in the rim, on player 2's screen only, and " +
+      "only in the rest after the first level while a tooth is loose; which " +
+      "one is loose shows on player 1's screen alone, wobbling",
+    seat:
+      "player 2 only — the navigator pulls; player 1's press falls through, " +
+      "never refused: he has no hand on the teeth, only the count",
+    gesture: "grab and drag",
+    does:
+      "Pulls a tooth out of the rim: the press names the tooth and a drag of " +
+      "gaugeToothPullMilli takes it. The loose one ends the rest early, after " +
+      "the ordinary regrow; any other comes out anyway and jams the valve into " +
+      "the next level, and a rest of gaugeToothBeats that runs out with the " +
+      "loose one still in costs the same (sim/gauge-tooth.ts).",
+    source: "touch.ts — gaugeGripUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "gaugeTooth",
+    sends: ["drag"],
+    pose: "THE GAUGE · LOOSE",
   },
 ];

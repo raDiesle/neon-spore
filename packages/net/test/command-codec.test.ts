@@ -305,6 +305,8 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "governorChordLeft", on: true, fromMilli: 0, id: 0 },
   { kind: "drag", target: "governorChordRight", on: false, fromMilli: 0, id: 1 },
   { kind: "drag", target: "governorTap", on: true, fromMilli: 0 },
+  // THE GAUGE's tooth names the tooth as `id` and is carried (`sim/gauge-tooth.ts`).
+  { kind: "drag", target: "gaugeTooth", on: true, id: 4, fromMilli: 300, fromYMilli: -600 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   { kind: "shake" },
@@ -492,6 +494,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   governorChordLeft: true,
   governorChordRight: true,
   governorTap: true,
+  gaugeTooth: true,
   crank: true,
 };
 

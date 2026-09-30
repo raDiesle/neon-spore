@@ -32,6 +32,8 @@ export const ROUND_FIELD_GROUP = {
   gaugeLevelDriftMilli: "THE GAUGE — a round with no field in it",
   gaugeLevelSpanMilli: "THE GAUGE — a round with no field in it",
   gaugeLevelRestBeats: "THE GAUGE — a round with no field in it",
+  gaugeToothBeats: "THE GAUGE — a round with no field in it",
+  gaugeToothPullMilli: "THE GAUGE — a round with no field in it",
   // ScoutConfig — every one of them is *feel*, which is why they are dials at
   // all: the three at the top decide whether the little ship reads as a ship,
   // and the owner is the only instrument that can say (`config-scout.ts`).

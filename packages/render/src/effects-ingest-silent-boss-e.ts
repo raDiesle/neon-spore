@@ -78,6 +78,10 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE GAUGE's thumb landing on its needle or band: a green ring round
   // the part, `effects.boss.gauge`'s (`gauge-marks.ts`).
   "gaugeHold",
+  // THE GAUGE's tooth pulled, right or wrong: the rim redraws the gap
+  // (`sim/gauge-tooth.ts`).
+  "gaugePull",
+  "gaugeWrongPull",
   // And THE FLEET's thumb landing on its wound: a green ring round that seat's
   // own ring, `effects.boss.fleetGrip.marks`' (`fleet-grip-marks.ts`).
   "fleetHold",

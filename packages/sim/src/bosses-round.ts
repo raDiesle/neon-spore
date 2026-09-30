@@ -34,7 +34,6 @@ export {
   gaugeLevelMarksMade,
   gaugeLevelSpan,
 } from "./gauge-level.js";
-
 export {
   closeGauge,
   GAUGE_LEAD_BEATS,
@@ -44,6 +43,13 @@ export {
   gaugeRound,
   gaugeRoundHeard,
 } from "./gauge-round.js";
+// The tooth between the first two levels (`gauge-tooth.ts`).
+export {
+  GAUGE_TEETH,
+  gaugeToothAsks,
+  gaugeToothLoose,
+  gaugeToothPulled,
+} from "./gauge-tooth.js";
 
 export {
   PIN_SHOTS,

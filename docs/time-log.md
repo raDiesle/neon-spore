@@ -29827,3 +29827,13 @@ Bottleneck: the director's panels are declared after the callbacks that repaint 
 Bottleneck: the runtime direction between `control-sets.ts` and `control-seats.ts`, which had to stay one-way with the types going back.
 
 *Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GAUGE: a loose tooth between the first two levels, pulled by the navigator
+
+- reading: 10 min. How THE GAUGE's two thumbs are heard (`gauge-hand.ts`), the drag command's fields, and the twelve places a new gesture registers.
+- writing: 20 min. `gauge-tooth.ts`, its five fields in the state and the fingerprint, the event, the sound, the director's row and its test.
+- looking: 0 min. No picture yet: the look is the next lane.
+- friction: 5 min. The tooth's longer rest broke two level-timing tests and the talking bot, which jammed at the lapse until it learned to pull.
+- landing: 5 min. `check:fast`, one import sort, the audio doc's counts, the commit.
+
+Bottleneck: friction — the fingerprint test's bot does not know a new gesture exists, and a lapse that jams is how it found out.

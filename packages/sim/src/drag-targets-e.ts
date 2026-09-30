@@ -40,7 +40,8 @@ export type DragTargetE =
   | "flueTap"
   | "governorChordLeft"
   | "governorChordRight"
-  | "governorTap";
+  | "governorTap"
+  | "gaugeTooth";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -189,4 +190,14 @@ export type DragTargetE =
  * `valvePin`'s edge. What is new is only what the chord is worth: it never
  * decides whether the tap counts, only how fast the needle runs
  * (`governor-hand.ts`, `governor-turn.ts`).
+ */
+
+/**
+ * `gaugeTooth` is the hundred-and-eighth: THE GAUGE's loose tooth, under the
+ * navigator's hand between the first level and the second.
+ *
+ * No new reading. It is `gorgeLobe`'s carried handle — `id` the tooth, and
+ * `fromMilli`/`fromYMilli` how far it has been dragged from where it was
+ * grabbed — and a drag past `gaugeToothPullMilli` takes it out
+ * (`gauge-tooth.ts`).
  */

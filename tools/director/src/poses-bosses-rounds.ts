@@ -4,6 +4,7 @@ import {
   gaugeBound,
   gaugeJammed,
   gaugeRound,
+  gaugeToothLoose,
   snakeGrip,
   type World,
 } from "@neon-spore/sim";
@@ -137,6 +138,12 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "bound",
     "Marks landed and the band is wound tight. P2 may hold it open with a thumb; P1 turns into a far narrower window.",
     { ...FULL, hand: gaugeHand, want: gaugeIs(gaugeBound), hold: 6 },
+  ),
+  bossPose(
+    "gauge",
+    "loose",
+    "A level down and a tooth works loose. P1 counts it out — only his screen shows which; P2 pulls it.",
+    { ...FULL, hand: gaugeHand, want: gaugeIs(gaugeToothLoose), hold: 6, budgetBeats: 140 },
   ),
   bossPose(
     "gauge",

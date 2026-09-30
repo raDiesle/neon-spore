@@ -1,5 +1,5 @@
 /**
- * **What THE GAUGE's dial does that neither screen already says**, as five
+ * **What THE GAUGE's dial does that neither screen already says**, as seven
  * events (`gauge.ts`, `gauge-hand.ts`).
  *
  * Its own file on `events-pulse.ts`'s terms: one round, one arm of `SimEvent`,
@@ -15,7 +15,9 @@
  * says so: the pilot's valve going dead is a fact of his own half, and the
  * navigator's band winding tight is a fact of hers — the exact asymmetry
  * `gauge-hand.ts` is about. The fifth, `gaugeHold`, is no sound at all: it
- * is for the ring a thumb lands on (28 September 2026).
+ * is for the ring a thumb lands on (28 September 2026). The last two are the
+ * tooth between two levels (`gauge-tooth.ts`, 30 September 2026): the right
+ * one pulled, and the wrong one.
  */
 export type GaugeEvent =
   /** A call landed between the marks. */
@@ -32,4 +34,8 @@ export type GaugeEvent =
   /** His hand landed on the jammed needle, or her thumb on the wound band —
    * said once, on the landing, for the green round the ring
    * (`render/gauge-marks.ts`). Silent: the ring filling says it. */
-  | { type: "gaugeHold"; part: "band" | "needle" };
+  | { type: "gaugeHold"; part: "band" | "needle" | "tooth" }
+  /** The loose tooth came out, and the rest ends early. */
+  | { type: "gaugePull" }
+  /** A sound tooth came out instead; the jam beside it is the cost. */
+  | { type: "gaugeWrongPull" };
