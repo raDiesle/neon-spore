@@ -29785,3 +29785,13 @@ Bottleneck: reading — the entry asks for the lane's `queue done` commits, and 
 Bottleneck: reading — the table CLAUDE.md places in `purity.test.ts` has moved to `copies-table.ts`, and only a grep said so.
 
 *Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — `sim/test/scout.test.ts`: the harness and the trip cut out
+
+- reading: 5 min. The file's helpers, which of them the round-trip cases share, the four scout test files beside it.
+- writing: 5 min. `scout-harness.ts` for the world, the press and the arena walk; `scout-trip.test.ts` for launch-to-home.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. A format pass, `check:fast`, the commit.
+
+Bottleneck: working out which helpers the remaining cases still needed, so the harness exports only those.
