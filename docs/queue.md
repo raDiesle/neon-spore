@@ -1235,6 +1235,7 @@ tree per row.
 ## CLAUDE.md sends a reader to `purity.test.ts` for the called-not-re-derived table
 
 - **Found:** 2026-09-30, worktree-agent-a4a142ed5d16baf7b
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-claude-md-sends-a-reader-to-purity-test-ts-for-t)
 - **Files:** `CLAUDE.md`, `packages/sim/test/purity.test.ts`, `packages/sim/test/copies-table.ts`
 
 The rules section says `purity.test.ts` also carries the table of rules that
