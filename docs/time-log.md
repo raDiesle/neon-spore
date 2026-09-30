@@ -29725,3 +29725,13 @@ Bottleneck: writing. Lowering the eye moved every number placed off it,
 from the gaze foot to THE SLOW's light, and each needed its own test.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — `render/keel-fx.ts`: the story's receipts cut out
+
+- reading: 5 min. `KeelFx`'s switch, the sim's story events, which of them the switch answers (only the breath's flare).
+- writing: 5 min. `keel-story-fx.ts` with the breath's case, called from the switch's default.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: finding that of the story's twelve events only one had a receipt here, so the cut is mostly a place for the next ones.

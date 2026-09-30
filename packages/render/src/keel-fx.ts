@@ -5,15 +5,16 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { keelRockPoint, keelSegCentre, type Point, RISE } from "./keel-shape.js";
+import { keelStoryReceipt } from "./keel-story-fx.js";
 import { KeelVerdicts } from "./keel-verdicts.js";
 import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
  * What THE KEEL leaves behind a frame: the **snap** of a segment as it locks,
- * the **jolt** of the whole spine as a joint or the socket takes, the flare
- * down every seam as the breath is held untouched (§24 row 11), the **shock**
- * a hit sends through the hull, and the bursts its sixteen receipts throw.
+ * the **jolt** of the whole spine as a joint or the socket takes, the **shock**
+ * a hit sends through the hull, and the bursts the fight's receipts throw;
+ * the story's between are `keel-story-fx.ts`'s, called for the rest.
  *
  * Everything else — which segments are locked, how far the midpoint is
  * hinged, where the rock has fallen to — is read off the boss every frame
@@ -150,9 +151,6 @@ export class KeelFx {
           for (let k = 0; k < n; k++) this.setSnap(k, 1);
           this.joltNow = SHUT_JOLT;
           break;
-        case "keelHeld":
-          for (let k = 0; k < n; k++) this.setSnap(k, 1);
-          break;
         case "keelThrow":
           this.rockAge = 0;
           this.rockFall = Math.max(1, cfg.keelRockBeats) * beatSeconds;
@@ -171,6 +169,7 @@ export class KeelFx {
           }
           break;
         default:
+          keelStoryReceipt(e, n, (k) => this.setSnap(k, 1));
           break;
       }
     }

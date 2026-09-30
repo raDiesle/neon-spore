@@ -1281,19 +1281,6 @@ test that runs the seam wave through `gameAutopilot` and the `InputBuffer`
 past step 12 with no `seamBaited`; `--until seamLight:ask=dark --auto both`
 then gives the dark's frame without a scratch script.
 
-## `render/keel-fx.ts` is at 220 lines — cut the story's receipts out
-
-- **Found:** 2026-09-29, claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-render-keel-fx-ts-is-at-220-lines-cut-the-storys)
-- **Files:** `packages/render/src/keel-fx.ts`
-
-The held breath's flare took `KeelFx` to 220 lines, and its `ingest` switch
-is one case per event across the whole fight. The story between — the flip,
-the marrow, the breath and the cooldown — will want receipts of its own as
-its looks land. Cut the switch along the fight's line, the story's cases
-into a `keel-story-fx.ts` the class calls, keeping `KeelFx`'s surface and
-`keel-fx.test.ts` unchanged.
-
 ## `sim/spool.ts` is at 242 lines — cut the zone's readings out
 
 - **Found:** 2026-09-29, claude/queue-21-the-spool-the-story-between-the-ribs-the-simu

@@ -1254,6 +1254,7 @@ by hand never moves.
 | `packages/render/src/keel-pose.ts` | **The clock THE KEEL is posed off** (§24, *Animation*): a loose |
 | `packages/render/src/keel-shape.ts` | **Where THE KEEL is**, in field pixels: six segments arched along the top of the field |
 | `packages/render/src/keel-story-pose.ts` | **The numbers THE KEEL's story between is posed off** (`keel-story.ts` draws them) |
+| `packages/render/src/keel-story-fx.ts` | **The receipts of THE KEEL's story between** (§24 rows 9, 10, 11 and 15) — the flip, the marrow |
 | `packages/render/src/keel-story.ts` | **THE KEEL's story between, drawn** (§24 rows 9, 10 and 15): the marks on the three states |
 | `packages/render/src/keel-seam-look.ts` | What a locked segment's seam is painted from, read off the pose and `KeelFx` by `keel-draw.ts` |
 | `packages/render/src/keel-grip.ts` | **The thumb on THE KEEL** — the first of its hands lanes |
