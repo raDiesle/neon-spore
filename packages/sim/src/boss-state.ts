@@ -155,18 +155,27 @@ export interface WardenState {
 }
 
 /**
- * Everything THE VANE remembers between beats, which is four integers.
+ * Everything THE VANE remembers between beats.
  *
  * Where the arm is standing, how far it reaches, whether the bearing is split
- * and which side of it, what colour that side carries — all of it is derived
- * from the wave's beat and the pins (`vane-cycle.ts`). What cannot be derived
- * is how many pins are left, which opening has already spent its one shot, and
- * the last thing the arm threw, which is render/'s to draw and nobody else's.
+ * and which side of it, what colour that side carries, where its guard arms
+ * have turned to — all of it is derived from the wave's beat, the pins and the
+ * form (`vane-cycle.ts`, `vane-guard.ts`). What cannot be derived is how many
+ * pins are left and in which form, which opening has already spent its one
+ * shot, where a thumb pinned the arm, and the last thing the arm threw, which
+ * is render/'s to draw and nobody else's.
  */
 export interface VaneState {
   kind: "vane";
   /** Pins left in the bearing. Each one gone lets the arm slip further out. */
   pins: number;
+  /**
+   * Which form the bearing is in, 0 as it was built. Its last pin out of a
+   * form before `vaneForms - 1` re-forms it rather than ending it: a fresh
+   * set of `vaneFormPins`, and one more guard arm turning round the hub
+   * (`vane.ts`, `vane-guard.ts`).
+   */
+  form: number;
   /**
    * The opening whose one shot has been spent, -1 for none yet. An index and
    * not a flag: openings are numbered from the start of the wave, so "already

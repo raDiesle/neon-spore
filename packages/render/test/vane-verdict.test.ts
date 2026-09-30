@@ -49,6 +49,7 @@ function vane(overrides: Partial<VaneState> = {}): VaneState {
   return {
     kind: "vane",
     pins: 2,
+    form: 0,
     spentOpening: -1,
     throwBeat: -1,
     throwCol: -1,

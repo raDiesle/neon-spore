@@ -5,6 +5,7 @@ import { isMount } from "./gyre.js";
 import { type Bullet, spanOf } from "./types.js";
 import { vaneFold } from "./vane-arm.js";
 import { vaneColor, vaneOpening, vaneOpeningNow } from "./vane-cycle.js";
+import { vaneGuarded } from "./vane-guard.js";
 import { stepVanePin } from "./vane-hand.js";
 import { vaneBearingOpen, vaneOpeningSpent, vaneSplitCol, vaneTipNow } from "./vane-open.js";
 import { vanePhase, vaneSplitsOnCycle } from "./vane-phases.js";
@@ -44,6 +45,12 @@ import { MILLI, type World } from "./world.js";
  * shot counts. `vane-hand.ts` hears both and `vane-open.ts` is the one place
  * that reads a phase into *where the arm is* and *whether the bearing is open*.
  *
+ * **And since 30 September 2026 its last pin is not always its last.** The
+ * bearing goes through `vaneForms` forms, each after the first carrying
+ * `vaneFormPins` and one more guard arm turning round the hub across the
+ * mouths (`vane-guard.ts`) — the owner's *another arm appears and rotates
+ * around it … harder and harder to hit*.
+ *
  * `docs/spec/bosses.md` §11.5 is the design, `vane-cycle.ts` is the
  * clock and `vane-arm.ts` is the fold in columns; this is only what moves.
  */
@@ -53,6 +60,7 @@ export function installVane(world: World, entry: VaneEntry): VaneState {
   return {
     kind: "vane",
     pins: entry.pins ?? world.cfg.vanePins,
+    form: 0,
     spentOpening: -1,
     throwBeat: -1,
     throwCol: -1,
@@ -149,6 +157,13 @@ export function vaneMouthAlong(world: World, bullet: Bullet, from: number, to: n
 export function vaneMouthStruck(world: World, bullet: Bullet): void {
   const b = world.boss;
   if (b === null || b.kind !== "vane") return;
+  // A guard arm across the mouth takes the shot, and the opening with it: a
+  // spray fired at a guard must not be the way past it (`vane-guard.ts`).
+  if (vaneGuarded(world, b, bullet.col)) {
+    spendOpening(world, b);
+    world.events.push({ type: "reject", col: bullet.col, row: world.cfg.vaneArmRow });
+    return;
+  }
   // The colour is the cycle's in every phase: the housing has worn it since
   // the arm stopped, and a pinned arm is an arm that has stopped. Under VEER
   // and SEIZE the opening number is the one the cycle would have been on, so
@@ -165,8 +180,25 @@ export function vaneMouthStruck(world: World, bullet: Bullet): void {
   b.pins -= 1;
   world.events.push({ type: "vaneKnock", pins: b.pins, col: bullet.col });
   if (b.pins > 0) return;
+  if (b.form < world.cfg.vaneForms - 1) reform(b, world.cfg.vaneFormPins);
+  else world.boss = null;
+}
 
-  world.boss = null;
+/**
+ * **The bearing's last pin out of a form that is not its last**: it re-forms
+ * rather than going down — a fresh set of pins, one more guard arm, and the
+ * arm let go, so the new form starts sweeping (`docs/spec/bosses.md` §11.5,
+ * *Four forms*). The `vaneKnock` at nought pins is the re-form's own event;
+ * nothing new goes on the wire or into the sound.
+ */
+function reform(b: VaneState, pins: number): void {
+  b.form += 1;
+  b.pins = pins;
+  b.pinBeat = -1;
+  b.pinCol = -1;
+  b.pinSide = 0;
+  b.hauled = false;
+  b.spentPin = -1;
 }
 
 /** One hit per opening, whichever kind of opening this phase has. */

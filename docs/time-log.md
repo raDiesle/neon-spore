@@ -30503,3 +30503,13 @@ Bottleneck: looking. Diffing full frames mixed backdrop and HUD into the boss, a
 Bottleneck: friction. Two files in a row went over the size limit, and each fix cost more time than the change itself.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VANE re-forms three times, one more guard arm each form
+
+- reading: 10 min. The pin, the haul and the opening in `vane-open.ts`, and how AUTO's hand picks a beat to fire.
+- writing: 25 min. `vane-guard.ts`, the re-form in `vane.ts`, four config fields, the hash, the hand's wait, two new test files and the spec's *Four forms*.
+- looking: 0 min. Nothing is drawn yet; the guards and the growth are the next look lane.
+- friction: 20 min. AUTO shot into a colour that turned in flight, a guard window three beats wide missed the only clear beat, and a compaction came in the middle.
+- landing: 5 min. `imports:sort`, `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: friction. The AUTO run across all four forms was the only thing that found both timing edges, and each one needed its own diagnosis.

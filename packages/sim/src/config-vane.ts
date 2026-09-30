@@ -56,15 +56,53 @@ export interface VaneHandConfig {
    * thing to watch at all.
    */
   vaneColorOpenings: number;
+  /**
+   * Forms the bearing goes through before its last pin ends the fight
+   * (`vane.ts`, *re-forms*). Each one after the first carries a fresh set of
+   * `vaneFormPins` and one more guard arm turning round the hub.
+   *
+   * 4: the owner, 30 September 2026 — *change its form of boss when it
+   * reaches current end of hitting it … some more arms appears in further
+   * levels which make it harder and harder to hit*. The bearing as built,
+   * then one, two and three guards; a fourth would cover a mouth for most of
+   * a pin and the fight would be waiting rather than reading.
+   */
+  vaneForms: number;
+  /**
+   * Pins a re-formed bearing carries. 3: under SWING's threshold, so a new
+   * form opens at VEER and keeps SEIZE for its last pin — the pin and the
+   * haul the pair already learned, with the guards as the one new thing.
+   */
+  vaneFormPins: number;
+  /**
+   * Beats one guard arm takes to go once round the hub (`vane-guard.ts`).
+   *
+   * 12: one cycle of the sweep, so a guard is in the same place every time
+   * the arm is, and a pair that has watched one turn has watched them all.
+   */
+  vaneGuardTurnBeats: number;
+  /**
+   * Beats a passing guard stands across a mouth, and so the beats a shot up
+   * it is refused. 2 of a 12-beat turn: with three guards spaced round the
+   * hub a mouth is covered half the time, and any four beats — one pin
+   * (`vanePinBeats`) — still hold a beat that is clear with the next one clear
+   * after it, which is what a shot up the column needs.
+   */
+  vaneGuardCoverBeats: number;
 }
 
 /**
  * The defaults, spread into `DEFAULT_CONFIG`: four beats, a tile and a half,
- * the arm two rows down, and a colour kept for two openings.
+ * the arm two rows down, a colour kept for two openings, and four forms of
+ * three pins each after the first, their guards once round a cycle.
  */
 export const VANE_HAND_DEFAULTS: VaneHandConfig = {
   vanePinBeats: 4,
   vaneHaulMilli: 1500,
   vaneArmRow: 2,
   vaneColorOpenings: 2,
+  vaneForms: 4,
+  vaneFormPins: 3,
+  vaneGuardTurnBeats: 12,
+  vaneGuardCoverBeats: 2,
 };

@@ -2,6 +2,7 @@ import {
   type Color,
   type TimedCommand,
   vaneColor,
+  vaneGuardedAt,
   vaneOpen,
   vaneOpeningNow,
   vanePhase,
@@ -109,7 +110,8 @@ const haul = (milli: number): Press => ({
  * up that column in that colour while it is open (`vaneOpen`, `vaneSplitCol`,
  * `vaneColor`). Under SWING the cycle opens it at each end of the sweep; from
  * VEER the pilot's thumb on the arm does, and under SEIZE the navigator hauls
- * the seized housing off the pinned arm as well (`sim/vane-hand.ts`).
+ * the seized housing off the pinned arm as well (`sim/vane-hand.ts`). A
+ * re-formed bearing's guard arms are waited out rather than shot into.
  */
 export const vaneHand: Hand = (w) => {
   const b = w.boss;
@@ -124,7 +126,13 @@ export const vaneHand: Hand = (w) => {
   const col = vaneSplitCol(w, b);
   if (col === -1) return out;
   out.push(aim(col));
-  if (vaneOpen(w) && free(w) && w.cannonCol === col)
-    out.push(fire(vaneColor(w.cfg, vaneOpeningNow(w.waveBeat))));
+  // A guard across the mouth now or on the beat the shot gets there takes it
+  // and the opening with it, so the hand waits for the gap (`sim/vane-guard.ts`);
+  // and a colour that turns before the shot arrives is waited out the same way.
+  const clear =
+    !vaneGuardedAt(w.cfg, b, col, w.waveBeat) && !vaneGuardedAt(w.cfg, b, col, w.waveBeat + 1);
+  const color = vaneColor(w.cfg, vaneOpeningNow(w.waveBeat));
+  const holds = color === vaneColor(w.cfg, vaneOpeningNow(w.waveBeat + 1));
+  if (vaneOpen(w) && free(w) && w.cannonCol === col && clear && holds) out.push(fire(color));
   return out;
 };

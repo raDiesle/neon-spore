@@ -171,6 +171,11 @@ export {
   // THE VANE's arm once a thumb is on it, and its bearing under all three
   // phases — read, never re-derived from the cycle (`vane-open.ts`).
   vaneBearingOpen,
+  // The guard arms a re-formed bearing turns across its mouths (`vane-guard.ts`).
+  vaneGuardBeat,
+  vaneGuardCount,
+  vaneGuarded,
+  vaneGuardedAt,
   vaneOpeningSpent,
   vanePinned,
   // The same two off a config and a beat, for the hit test, which is handed a

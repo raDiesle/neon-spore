@@ -1246,3 +1246,14 @@ x 114–275, reach y 0, and they pass behind the seat switcher. The options:
 (a) keep them and keep `reprise` in `EXEMPT` with the owner's word as its
 reason; (b) end them at `l.gridTop`, so the camera hangs from the field's
 edge; (c) drop them. For (b) or (c), delete `reprise` from `EXEMPT`.
+
+## `vane.test.ts` is past 250 lines
+
+- **Found:** 2026-09-30, claude/the-vane-boss-expansion-12346e
+- **Files:** `packages/sim/test/vane.test.ts`
+
+At 440 lines it is well past the limit. Split it along its own `describe`
+blocks: the fold, the bearing and its phases, and the full pinned cycle. The
+shared helpers (`open`, `beats`, `vane`, `shoot`) go into a
+`vane-fixture.ts` beside it, the way `vane-forms.test.ts` would want them
+too. Nothing changes but where the tests live, and `bun run check` proves it.

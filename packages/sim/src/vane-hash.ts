@@ -7,7 +7,7 @@ import type { VaneState } from "./boss-state.js";
  * standing is where every arrival this beat lands**, so two phones that
  * disagree about the pin are two phones putting the same rock in two columns.
  *
- * `pins` is the phase and so the reach; `spentOpening` and `spentPin` are each
+ * `pins` is the phase and so the reach, and `form` how many guard arms turn; `spentOpening` and `spentPin` are each
  * whether the next shot counts, one for a window the cycle handed the pair and
  * one for a window they made (`vane-open.ts`); `hauled` is the same question
  * again under SEIZE. `throwBeat` and `throwCol` are render's — the last thing
@@ -16,6 +16,7 @@ import type { VaneState } from "./boss-state.js";
  */
 export function hashVane(push: (n: number) => void, b: VaneState): void {
   push(b.pins);
+  push(b.form);
   push(b.spentOpening);
   push(b.throwBeat);
   push(b.throwCol);

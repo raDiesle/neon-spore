@@ -260,9 +260,10 @@ describe("the bearing", () => {
     expect(vane(world).pins).toBe(3);
   });
 
-  it("goes down on its last pin and lets the wave finish", () => {
+  it("re-forms on its first form's last pin rather than going down", () => {
     // SEIZE: the arm pinned under the pilot's thumb, the seized housing hauled
-    // off it by the navigator, and then the shot (`vane-hand.test.ts`).
+    // off it by the navigator, and then the shot (`vane-hand.test.ts`). The
+    // fall itself is the last form's (`vane-forms.test.ts`).
     const world = beats(open(1), 1);
     const at = world.tick;
     beats(world, 1, [
@@ -280,7 +281,8 @@ describe("the bearing", () => {
       },
     ]);
     shoot(world, vaneSplitCol(world, vane(world)), vaneColor(CFG, vaneOpeningNow(world.waveBeat)));
-    expect(world.boss).toBeNull();
+    expect(vane(world).form).toBe(1);
+    expect(vane(world).pins).toBe(CFG.vaneFormPins);
   });
 });
 

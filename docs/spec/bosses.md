@@ -1170,6 +1170,42 @@ the hands above — `vanePinBeats`, how long the pilot's thumb holds the arm
 before the sweep tears it free, and `vaneHaulMilli`, how far the navigator's
 has to carry the seized housing for the lift to count as a haul.
 
+### Four forms
+
+The owner, 30 September 2026: *change its form of boss when it reaches current
+end of hitting it … another arm appears and rotates around it, and maybe some
+more arms appears in further levels which make it harder and harder to hit.*
+
+So the bearing's last pin is not its last until the fourth time. When the pins
+run out in a form that is not the last, the bearing **re-forms**
+(`packages/sim/src/vane.ts`, `reform`). It gets `vaneFormPins` fresh pins
+(three, so a new form opens at VEER and keeps SEIZE for its last pin), the arm
+is let go, and **one more guard arm** turns round the hub. `VaneState.form`
+counts the re-forms, from 0 to `vaneForms - 1`. The `vaneKnock` at nought pins
+is the re-form's own event, so nothing new goes on the wire or into the sound.
+The fight is `vanePins + (vaneForms - 1) × vaneFormPins` pins, fourteen at the
+defaults.
+
+A guard arm is arithmetic on the wave's beat, the same as the cycle, and
+nothing about it is stored (`packages/sim/src/vane-guard.ts`). Each guard goes
+round the hub once every `vaneGuardTurnBeats` (twelve, one sweep), and the
+guards of a form are spaced evenly round it. A guard lies across the mouth
+right of the pivot at the start of its turn and across the left one halfway
+round, each time for `vaneGuardCoverBeats` (two). The pivot column is never a
+mouth, so it is never covered. A shot into a guarded mouth is a `reject`, and
+it spends the opening the way a second shot does, so spraying at a guard is not
+the way past it.
+
+With three guards a mouth is covered half the time. Any four beats, which is
+one pin, still hold a beat that is clear with the next one clear too, and a
+shot up the column needs exactly that. AUTO waits for that gap, and for a colour
+that will not turn before the shot lands (`packages/hands/test/vane-hand.test.ts`).
+
+**What is not built yet.** Two things. The picture does not show the guards or
+the re-formed hub, which grows once per form. And in the last form the bearing
+does not drift along the top yet, which is the owner's *the boss in later
+levels should probably start to move around*.
+
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 
 > The one where the only one who can see the ships is the one who cannot move
