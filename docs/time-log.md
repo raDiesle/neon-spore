@@ -30632,3 +30632,19 @@ wave, read one at a time.
 Bottleneck: looking. The first frame caught every guard between mouths, so a strip was needed to show the one lit.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE OCULUS watched at tempo
+
+- reading: 5 min. The queue entry, then AUTO's events through the wave:
+  the lit column, the shut, the break, the hits, the reseal, the shatter.
+- writing: 0 min.
+- looking: 10 min. The pair sliding shut in halves, the cracks running
+  across the socket at the break and flaking at its middle, the core lit
+  under the hit, the reseal's ring, and the dark rifts opening across the
+  lens in the shatter's first half second all read.
+- friction: 5 min. The compaction fell between writing the frames and
+  reading them.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: the watch itself — two dozen frames across a three-thousand-tick
+wave, read one at a time.
