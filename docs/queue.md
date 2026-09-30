@@ -1344,6 +1344,7 @@ what the rest of this file holds.
 ## `land` lets a lane delete queue entries it never closed
 
 - **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
+- **Taken:** 2026-09-30, worktree-agent-ac86707bb0b53fe1a (claim: claude/queue-land-lets-a-lane-delete-queue-entries-it-never-c)
 - **Files:** `tools/land/queue-guard.ts`, `tools/land/land.ts`
 
 The governor's body lane rewrote its own entry's body with one Python
