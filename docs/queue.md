@@ -1468,6 +1468,7 @@ header, then photograph it with `bun run frames`.
 ## `packages/sim/test/scout.test.ts` is 348 lines
 
 - **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-packages-sim-test-scout-test-ts-is-348-lines)
 - **Files:** `packages/sim/test/scout.test.ts`
 
 The trip's tests (launch, 45° steps, one at a time, the suck) took it past the
