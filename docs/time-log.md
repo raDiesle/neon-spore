@@ -30178,3 +30178,13 @@ each rename was paid for twice.
 Bottleneck: friction. The claim was tried before the trunk was brought up, so the entry it named was not in the file yet.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — `frames/test/opening.test.ts` times out in its hook on a busy machine (queued)
+
+- reading: 5 min. The check log, the file's hooks and the neighbouring timeout entries.
+- writing: 5 min. The queue entry.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing. The finding came out of the previous lane's first `land`, so it needed a lane of its own.

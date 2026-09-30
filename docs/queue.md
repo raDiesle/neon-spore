@@ -1299,6 +1299,19 @@ it passed in 3.8 s. Read the sources once in a `beforeAll` shared by the
 file's tests, or give the test a figure of its own the way the slow tree
 walks have, and prove it with `bun run check`.
 
+## `frames/test/opening.test.ts` times out in its hook on a busy machine
+
+- **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
+- **Files:** `tools/frames/test/opening.test.ts`
+
+At a load average of about 31, `bun run land` went red on this file alone. A
+`beforeAll`/`afterAll` hook ran out its `STARVED_MS` of 120 s, and the result
+was reported as an unnamed case. The rerun a minute later was green, so the
+lane landed around it. The file is also 552 lines. Split it in two around a
+shared rig, the way the gauge tests were. Time the preview and browser start
+on an idle machine, and either share one preview between the halves or give
+the hook a figure it can meet under load. Prove it with `bun run check`.
+
 ## §29 THE RIME — row 11's refreeze, its simulation and then its look
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
