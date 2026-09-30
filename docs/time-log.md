@@ -30091,3 +30091,5 @@ Bottleneck: landing — a new palette colour reaches the style guide's families 
 - landing: 10 min. `check:fast` twice, the commit, `land`.
 
 Bottleneck: the busy machine — three lanes checking at once made `check:fast` take six minutes and fail once on a timing test that passes alone.
+
+*Measured: 35 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

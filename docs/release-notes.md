@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 734ea193b — Draw THE RATCHET's story between the teeth: sag, kick, grind, wind
+
+The rack now shows its four story states. In the slip it sags back a tooth past the pawl. In the kick the pawl springs out of its seat. In the bind the rack shakes and throws ember sparks off the seam. In the wind the spring runs down to slack coils and winds back a turn per set. Each pose eases closed as the pair's answer counts.
+
 ## 2026-09-30 · 67b5d7d91 — Every boss's fuse starts full width and green, and burns through blue, orange and red
 
 The time left on a step is now a line almost as wide as the screen, the same length at the start of every ask, whatever the boss and however short the ask. It goes green, blue, orange, then red as a quarter of it burns each time. It is thinner, in a softer three-stroke glow, and shows only while the pair has something to press. It stands below the boss, or over it when the boss is down on the hull and there is more room above. A look the owner asked for by name.
