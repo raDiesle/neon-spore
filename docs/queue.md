@@ -1220,23 +1220,6 @@ after frame, and say that the before side has no such field instead of refusing
 the whole run. A test in `tools/frames/test/` should cover a field that only the
 after side has. Prove it with `bun run check`.
 
-## THE MIRROR's reflected hull fills the top of the screen
-
-- **Found:** 2026-09-30, claude/queue-bottom-up
-- **Taken:** 2026-09-30, claude/queue-tasks-66c8ef (claim: claude/queue-the-mirrors-reflected-hull-fills-the-top-of-the)
-- **Files:** `packages/render/test/boss-top.test.ts`
-- **Asks:** THE MIRROR's upside-down hull fills the top 280 px of the screen, under the seat switcher: keep it as the design and leave THE MIRROR exempt, pull it down inside the field, or shorten it so it stops under the switcher?
-- **Answered:** 2026-09-30 — keep it as it is, over pulling it down or cutting it at the field's top: (a), `mirror` stays in `EXEMPT` with the owner's word as its reason.
-
-The owner's rule of 29 September 2026 (*any boss should not touch top of game
-screen*) is now a test, `boss-top.test.ts`, and THE MIRROR is one of its three
-exemptions. Its reflected hull is the fight's picture, so moving it is a
-redesign and not something to do unattended. The options: (a) keep it and
-keep the exemption with the owner's word as its reason; (b) move the whole
-reflection down so its top edge is below the switcher's bottom at row 30;
-(c) cut the reflection off at the top of the field. For (b) or (c), delete
-`mirror` from `EXEMPT` and the test holds it.
-
 ## THE REPRISE's camera cables run to the top edge
 
 - **Found:** 2026-09-30, claude/queue-bottom-up

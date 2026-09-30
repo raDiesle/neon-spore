@@ -40,9 +40,9 @@ const EXEMPT: Record<string, string> = {
   // Queued with the owner's question (`docs/queue.md`): the cables the camera
   // hangs by run to the top edge, the body itself clear of the switcher.
   reprise: "the cables run to the top edge; asked of the owner",
-  // Queued with the owner's question (`docs/queue.md`): the reflected hull over
-  // the field is the design, and moving it is a redesign.
-  mirror: "the reflected hull fills the top of the screen; asked of the owner",
+  // The reflected hull over the field is the fight's picture: the owner, 30
+  // September 2026, asked whether to pull it down or cut it — "keep it as it is".
+  mirror: "the reflected hull is the design; the owner kept it, 30 September 2026",
 };
 
 /**

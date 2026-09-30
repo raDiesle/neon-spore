@@ -30515,3 +30515,13 @@ Bottleneck: friction. Two files in a row went over the size limit, and each fix 
 Bottleneck: friction. The AUTO run across all four forms was the only thing that found both timing edges, and each one needed its own diagnosis.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE MIRROR keeps its reflected hull at the top, on the owner's word
+
+- reading: 0 min. The entry and `boss-top.test.ts`'s exemptions.
+- writing: 0 min. The exemption's reason, from *asked of the owner* to his answer.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing. The change is one line; the gate is the whole of the time.
