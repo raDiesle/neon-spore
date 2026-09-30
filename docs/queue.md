@@ -1336,6 +1336,7 @@ Several bosses may go in one lane. The owner asked for this look by name.
 ## Ten pull handles are drawn without the shared knob, and show no way
 
 - **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Taken:** 2026-09-30, worktree-agent-a4315fac4d94d2dbf (claim: claude/queue-ten-pull-handles-are-drawn-without-the-shared-kn)
 - **Files:** `packages/render/src/pull-knob.ts`, `packages/render/src/way-arrow.ts`, `packages/render/src/sinew-handles.ts`, `packages/render/src/balloon-handles.ts`, `packages/render/src/antiphon-rail-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/cairn-hand.ts`, `packages/render/src/plumb-weight.ts`, `packages/render/src/ledger-haul.ts`, `packages/render/src/valve-draw.ts`, `packages/render/src/mantle-handle.ts`, `packages/render/src/capstan-marks.ts`
 
 The owner, 29 September 2026: *we basically disallow "pull \*" circle only
