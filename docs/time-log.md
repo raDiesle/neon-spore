@@ -29991,3 +29991,5 @@ Bottleneck: `seamHand` answers each step at once, so no frame of grit meeting th
 - landing: 5 min. `check:fast`, the index lines and the commit.
 
 Bottleneck: looking — the auto-run's hands go straight past the twist, so the state worth seeing lasts no ticks until two `--hold`s stop them short of it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

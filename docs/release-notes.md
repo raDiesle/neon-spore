@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 07e42dec8 — THE GAUGE's tongue is drawn out and wrung, with a ring and TWIST for each seat's hand
+
+In the rest after the second level the tongue lolls up out of the throat as a long flat ribbon. Her hand goes a little way up from the root and his at the tip. Each seat's drag turns its end, so the width narrows to its edge and the darker underside comes round, and two halves wrung opposite ways spiral between the two hands, on both screens. Each seat is offered a ring on its own place, filled once its hand is on it, and a TWIST cue until it is.
+
 ## 2026-09-30 · 4a18f6bf3 — THE SEAM's STATES poses: its four phases and every ask the lit step makes
 
 The director's STATES sheet now shows THE SEAM whole: the still ridge, a lit point, the rest after it and the split, and past the point each thing the lit step can ask — grit taken on the shield, a rock in flight, grit and a rock at once, the blind ridge, the glow, the false point and the dark. Each is run to with a hand on the controls, never set, and the seam's row in OWED is struck.
