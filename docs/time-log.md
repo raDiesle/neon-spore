@@ -30453,3 +30453,5 @@ Bottleneck: friction. Every test that waited for a body at row 0 had to be retim
 - landing: 5 min. `bun run index`, `check:fast`, `land`.
 
 Bottleneck: friction. The compaction and the wrongly renamed fixture cost more than the drawing did.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

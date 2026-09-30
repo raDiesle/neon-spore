@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 13757cea1 — A ball caught back in the cannon says YEAH
+
+When the cannon catches PINBALL's ball, the mouth flashes green, two rings and a spray of sparks go up out of it, and "YEAH!" jumps out, overshoots, settles and floats off, all in under a second and kept inside the table. Until now a catch had no picture: the ball simply reappeared in the muzzle. The sim's `catchBeat` becomes `catchTick`, so the cheer starts on the frame of the catch.
+
 ## 2026-09-30 · 2be136d94 — THE VANE's arm hangs two rows down, and a shot meets the bearing there
 
 The owner asked for the boss about two tiles lower. The arm now hangs across row 2 (`vaneArmRow`), and a body is folded on the beat it crosses that row, so the pair see it come in on its radar column and slide out on the far side. A shot up the split column hits the bearing on the arm's row. A body standing on that row, or anywhere below it in the column, takes the shot instead. The picture still draws the bearing at the top edge until the look lane that follows.
