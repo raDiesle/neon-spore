@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 36d45a701 — Four files THE GAUGE's tooth left at the line, each cut back under it
+
+THE PLUMB's silent events move to the fifth ingest page and THE VALVE's sounds to a new fifth no-subject page, because by build order each was the last boss on its full page. `gaugeHeard` moves to `gauge-hand.ts`, next to the two thumbs. The band's grip cases now live in `gauge-bind-grip.test.ts`, and the round both grip tests share is in `gauge-grip-harness.ts`. Nothing drawn or heard changes.
+
 ## 2026-09-30 · e7ad09516 — Write down a SCOUT flight that still flies, on the press line's own header
 
 `tools/frames/scout-press.ts` described a laden flight and a drift model the round no longer has. Its header now carries a line that fetches the first arena's mote and banks it, recorded off the content test's autopilot and photographed through `bun run frames`, says that a turn steps the nose 45° and a burn is taken away by drag, and warns that a line recorded headless starts eighteen ticks earlier than the browser does.
