@@ -1393,6 +1393,7 @@ if one is due.
 ## Four files THE GAUGE's tooth left at the line
 
 - **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-four-files-the-gauges-tooth-left-at-the-line)
 - **Files:** `packages/sim/src/gauge.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/src/sound-link-none-c.ts`, `packages/render/test/gauge-grip.test.ts`
 
 The loose tooth's lane added a field block, an event and a sound row, and left
