@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · ae31650af — The last six bosses' FIRE cues ring what they are fired at
+
+THE CAPSTAN, THE GALL, THE BURGEE, THE FLUE, THE VALVE and THE GOVERNOR now put the crosshair on the thing the shot must reach, while the word stays at the hull where the cannon goes: the capstan's bared core at the drum's middle; the gall's root; the burgee's lit spindle; the flue's core in the damper's unit; the valve's spark where it has fallen to; and the governor's lit hub. Every boss's shot cue now carries an aim.
+
+## 2026-09-30 · d19807d23 — Six more bosses' FIRE cues ring what they are fired at
+
+THE VISE, THE RIME, THE TRIVET, THE CYST, THE GRINDSTONE and THE HALTER now put the crosshair on the thing the shot must reach, while the word stays at the hull where the cannon goes: the vise's kernel, or its seed hanging over its column on a spit; the rime's core in the pane; the trivet's hub, thrown out on a lurch; the cyst's bared core, or its bud out on its stalk; the grindstone's axle once the caliper is locked; and the halter's core in the middle segment's crack.
+
+## 2026-09-30 · df273d111 — Six more bosses' FIRE cues ring what they are fired at
+
+THE GIMBAL, THE HASP, THE RATCHET, THE MANTLE, THE KEEL and THE OCULUS now put the crosshair on the thing the shot must reach, while the word stays at the hull where the cannon goes: the gimbal's leaking bead, the hasp's and the ratchet's falling bolt, the mantle's spark on its fuse, the keel's falling rock, open socket and marrow lens, and the oculus's lit core or the notch its look stands on at the hull.
+
 ## 2026-09-30 · 79105dfc1 — THE DAVIT's boom is steered by a thumb, not the phone's lean
 
 The steering seat now presses on the boom, a little over a tile from its middle wherever it has swung, and carries it across. That is THE CAPSTAN's pull, turned into the boom's angle by davitSteerDegreesPerTile. A lift lets the boom swing back toward hanging. The phone's lean sender, apps/game's lean.ts, read the tilt sensor for this boss alone, so it is deleted, and iOS is no longer asked for the sensor. AUTO now plays the fight out (hands/boss-hands-davit.ts). The frames and the tempo are still owed an eye.

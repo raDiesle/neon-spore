@@ -30030,3 +30030,5 @@ Bottleneck: the lean was named in about thirty places across four packages and t
 - landing: 10 min. Three commits, `check:fast` before each, and `bun run land`.
 
 Bottleneck: reading each boss's drawer to find the circle it stands on, since no two bosses name their target's position the same way.
+
+*Measured: 68 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
