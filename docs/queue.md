@@ -1297,6 +1297,7 @@ into a `keel-story-fx.ts` the class calls, keeping `KeelFx`'s surface and
 ## `sim/spool.ts` is at 242 lines — cut the zone's readings out
 
 - **Found:** 2026-09-29, claude/queue-21-the-spool-the-story-between-the-ribs-the-simu
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-sim-spool-ts-is-at-242-lines-cut-the-zones-readi)
 - **Files:** `packages/sim/src/spool.ts`, `packages/sim/src/spool-step.ts`, `packages/sim/src/spool-story.ts`
 
 The story between the ribs took `spool.ts` to 242 lines, with the state, its
