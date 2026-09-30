@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 92d2f1807 — A round's timeout hit has a slot for its own look
+
+The breach an interlude's timeout sends now carries its round onto the rock that draws it, and `round-strike-look.ts` holds an empty slot a VERSUS candidate can paint into. Empty — as it is in the game — the hit is the rock it always was, call for call; filled, the paint replaces the rock's body, tail, glow and roll marks while the sparks, crack and hole keep the rock's clock. Nothing on the field changes.
+
 ## 2026-09-30 · 8a827c664 — The rounds name themselves on the hull they break
 
 Seven rounds — THE FLEET, the gauge, the mirror, the pinball, the pulse, the scout's arena and the snake — now break the hull through one call, roundStrikesHull, which puts the round's name on the breach event. It is the same hit as before, down to the rock kind that picks the scar and the sound, so nothing visible moves yet. It is the seam a VERSUS look for the round's own timeout hit will draw from. The maze stays out: its hits are the heart's own bodies, which the pair can see, and not an unseen rock. The boss's blow and a round's named rock now travel in one Strike record, and the ratchet test's list of files that still drop a rock is down to two.
