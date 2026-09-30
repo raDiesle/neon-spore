@@ -1284,6 +1284,7 @@ then gives the dark's frame without a scratch script.
 ## `render/keel-fx.ts` is at 220 lines — cut the story's receipts out
 
 - **Found:** 2026-09-29, claude/queue-24-the-keel-row-11s-held-breath-and-the-seams-th
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-render-keel-fx-ts-is-at-220-lines-cut-the-storys)
 - **Files:** `packages/render/src/keel-fx.ts`
 
 The held breath's flare took `KeelFx` to 220 lines, and its `ingest` switch
