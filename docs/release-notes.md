@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c92f10ae0 — THE OCULUS's thud, core flashes and shatter watched at tempo
+
+All three receipts THE OCULUS draws were watched with AUTO on both seats, and its unverified entry is closed. - A shut pair presses the lens down and flushes the rim pink at tick 450, and the lens is back up by 530. - The first core hit, at 1620, flashes a pink disc half the socket wide that fades within a third of a second. - The shatter, at 2850, washes the whole rim pale, and the lens then splits along its six plates. Nothing was changed.
+
 ## 2026-09-30 · 26836993c — THE DAVIT watched at tempo, and its unverified entry closed
 
 THE DAVIT was watched with AUTO playing both seats. Two frame strips show the mast, the boom swinging onto each half and fading between swings, the slack chain and hook, and the target bar lighting in each step's colour. The entry's other two bullets were answered by later lanes: the thumb grips in `davit-grip.ts` and `touch.ts`, and the draw in `davit-draw.ts` and its family. Nothing needed changing.

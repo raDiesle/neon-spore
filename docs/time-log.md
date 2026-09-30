@@ -30729,3 +30729,5 @@ swings, so it read as barely drawn until a sparser strip showed it standing.
 
 Bottleneck: the thud is a tenth of a tile, so it only showed in a crop of
 the rim at five times, not in any strip.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
