@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · aac6bcb01 — THE REPRISE's camera cables end at the field's top edge
+
+The owner's answer of 30 September 2026: the two cables the camera hangs by stop at the field's top edge instead of running up behind the seat switcher to the top of the screen, and the camera hangs a little lower, its whole body under the tear. Each cable turns about where it is tied to the edge, so only its slack middle swings. THE REPRISE is off boss-top.test.ts's exemption list: nothing of it reaches the switcher.
+
 ## 2026-09-30 · f710b576e — THE MIRROR keeps its reflected hull at the top of the screen, on the owner's word
 
 The owner was asked whether THE MIRROR's upside-down hull should be pulled down or cut at the field's top, and kept it as it is. `boss-top.test.ts` keeps THE MIRROR exempt, now with his answer as the reason.

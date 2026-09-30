@@ -30541,3 +30541,5 @@ Bottleneck: landing. The change is one line; the gate is the whole of the time.
 - landing: 5 min. `check:fast` after a format, `land`.
 
 Bottleneck: the context ran out between the design and the first edit.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
