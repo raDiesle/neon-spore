@@ -30057,3 +30057,13 @@ Bottleneck: reading — two lanes answered neighbouring questions a day apart,
 and only `land`'s merge note said the second had overtaken the first.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VALVE's pointer is a white arrow, apart from its three spokes
+
+- reading: 5 min. `valve-draw.ts`'s wheel, `valve-shape.ts`'s spokes and pointer, `valve-marks.ts`'s notch.
+- writing: 5 min. A thick shaft and an arrowhead that meets the notch; the spokes shorter and dimmer.
+- looking: 5 min. The lit wheel and the frozen one, from `bun run frames` with a crop of each.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the whole check is longer than the change.

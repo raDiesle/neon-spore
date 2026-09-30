@@ -124,24 +124,53 @@ export function valveWheelPath(l: Layout, wheelMilli: number): Path2D {
   return splinePath(pts, true);
 }
 
-/** The wheel's spokes, four of them, turned with it, and the one white pointer that says its bearing. */
+/**
+ * The wheel's other three spokes, turned with it: short and thin, so the one
+ * that says the bearing is never mistaken for them.
+ */
 export function valveSpokesPath(l: Layout, wheelMilli: number): Path2D {
   const { at, r } = valveWheel(l);
   const p = new Path2D();
   for (let k = 1; k < 4; k++) {
-    const tip = onBearing(at, r * 0.8, wheelMilli + k * 250);
+    const tip = onBearing(at, r * 0.7, wheelMilli + k * 250);
     p.moveTo(at.x, at.y);
     p.lineTo(tip.x, tip.y);
   }
   return p;
 }
 
+/** How far out the pointer's tip is, as a share of the wheel's radius: at the rim, so it meets the mark's notch. */
+const POINTER_TIP = 1.02;
+/** Where its head starts, and half the head's width, as shares of the radius. */
+const POINTER_NECK = 0.72;
+const POINTER_HEAD = 0.17;
+
+/** The pointer's shaft: from the hub to the head, along the bearing. */
 export function valvePointerPath(l: Layout, wheelMilli: number): Path2D {
   const { at, r } = valveWheel(l);
-  const tip = onBearing(at, r * 0.9, wheelMilli);
+  const neck = onBearing(at, r * POINTER_NECK, wheelMilli);
   const p = new Path2D();
   p.moveTo(at.x, at.y);
-  p.lineTo(tip.x, tip.y);
+  p.lineTo(neck.x, neck.y);
+  return p;
+}
+
+/**
+ * The pointer's head: an arrowhead on the rim, aimed out along the bearing,
+ * so its tip and the mark's notch meet point to point when the wheel is on it.
+ */
+export function valvePointerHeadPath(l: Layout, wheelMilli: number): Path2D {
+  const { at, r } = valveWheel(l);
+  const a = bearingAngle(wheelMilli);
+  const tip = onBearing(at, r * POINTER_TIP, wheelMilli);
+  const neck = onBearing(at, r * (POINTER_NECK - 0.06), wheelMilli);
+  const wx = -Math.sin(a) * r * POINTER_HEAD;
+  const wy = Math.cos(a) * r * POINTER_HEAD;
+  const p = new Path2D();
+  p.moveTo(tip.x, tip.y);
+  p.lineTo(neck.x + wx, neck.y + wy);
+  p.lineTo(neck.x - wx, neck.y - wy);
+  p.closePath();
   return p;
 }
 

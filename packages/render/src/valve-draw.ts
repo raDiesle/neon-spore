@@ -33,6 +33,7 @@ import {
   valvePinCentre,
   valvePinPath,
   valvePinTop,
+  valvePointerHeadPath,
   valvePointerPath,
   valveReach,
   valveRimPath,
@@ -143,7 +144,10 @@ function drawDrum(
 /**
  * The wheel, drawn at the bearing it stands at this frame: dark while the
  * drum settles, lit iron once a mark lights, its white pointer saying where
- * it is — and glowing steady while frozen, the stillness made visible.
+ * it is — and glowing steady while frozen, the stillness made visible. The
+ * pointer is the one spoke of four that matters, so it is drawn apart from
+ * the rest: white where they are grey, twice as thick, reaching the rim where
+ * they stop short, and headed with an arrow that meets the mark's notch.
  */
 function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, s: ValveState): void {
   const lit = valveLit(s);
@@ -155,17 +159,26 @@ function drawWheel(ctx: CanvasRenderingContext2D, l: Layout, s: ValveState): voi
   ctx.strokeStyle = rgba(PALETTE.rock, 0.3 + 0.65 * lit);
   ctx.stroke(wheel);
   ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.25 + 0.5 * lit);
+  ctx.strokeStyle = rgba(PALETTE.rock, 0.2 + 0.35 * lit);
   ctx.stroke(valveSpokesPath(l, s.wheelMilli));
   const hub = new Path2D();
   hub.arc(at.x, at.y, r * 0.16, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.rock, 0.4 + 0.5 * lit);
   ctx.fill(hub);
   const pointer = valvePointerPath(l, s.wheelMilli);
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.hullRim, 0.3 + 0.6 * lit);
+  const head = valvePointerHeadPath(l, s.wheelMilli);
+  const white = rgba(PALETTE.hullRim, 0.5 + 0.5 * lit);
+  ctx.lineWidth = STROKE.outline * 2;
+  ctx.lineCap = "round";
+  ctx.strokeStyle = white;
   ctx.stroke(pointer);
-  if (s.phase === "frozen") strokeGlow(ctx, pointer, PALETTE.hullRim, STROKE.outline, 1);
+  ctx.lineCap = "butt";
+  ctx.fillStyle = white;
+  ctx.fill(head);
+  if (s.phase === "frozen") {
+    strokeGlow(ctx, pointer, PALETTE.hullRim, STROKE.outline * 2, 1);
+    strokeGlow(ctx, head, PALETTE.hullRim, STROKE.inner, 1);
+  }
 }
 
 /** How far a pin swings each way, in radians — about three degrees, the least a plate reads at. */
