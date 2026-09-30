@@ -1223,6 +1223,7 @@ after side has. Prove it with `bun run check`.
 ## THE MIRROR's reflected hull fills the top of the screen
 
 - **Found:** 2026-09-30, claude/queue-bottom-up
+- **Taken:** 2026-09-30, claude/queue-tasks-66c8ef (claim: claude/queue-the-mirrors-reflected-hull-fills-the-top-of-the)
 - **Files:** `packages/render/test/boss-top.test.ts`
 - **Asks:** THE MIRROR's upside-down hull fills the top 280 px of the screen, under the seat switcher: keep it as the design and leave THE MIRROR exempt, pull it down inside the field, or shorten it so it stops under the switcher?
 
