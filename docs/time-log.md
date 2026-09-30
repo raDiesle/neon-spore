@@ -30393,3 +30393,5 @@ Bottleneck: writing. The fan's two arcs had been traced against an empty board o
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: looking. Neither the autopilot nor a plain run reaches a scatter, so each cause had to be forced with a hand-written press.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
