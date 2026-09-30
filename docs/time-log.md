@@ -29783,3 +29783,5 @@ Bottleneck: reading — the entry asks for the lane's `queue done` commits, and 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading — the table CLAUDE.md places in `purity.test.ts` has moved to `copies-table.ts`, and only a grep said so.
+
+*Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
