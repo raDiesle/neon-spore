@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at 9676391bb: THE SEAM's ridge watched at tempo: the lit point, the…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-30, claude/queue-unverified-at-448d98d6c-the-grindstone-is-undraw (claim: claude/queue-unverified-at-9676391bb-the-seams-ridge-watched)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/seam-draw.ts`, `packages/render/src/seam-marks.ts`
 
 *THE SEAM has a body: a grey ridge in three stepped lobes whose teeth shed as its points seal* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
