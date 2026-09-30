@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 18c02fdd1 — THE VANE opens with no guide: its split says what to do
+
+The owner, 30 September 2026: *remove the tutorial, not required*. The wave opens on its number and name like THE INSTAR, THE FILAMENT and THE STARE — the mouth of the split already says `FIRE` in the colour it takes, and the cannon `MOVE`. The film `scenes/the-vane.ts` is deleted, `waves.test.ts` names the wave in `SAYS_ITSELF`, and `briefings.md` counts one hundred and seven guided waves and eighty-seven films.
+
 ## 2026-09-30 · 14d4b4f7d — doc-drift reads its sources through treeText, and two tree walks carry figures for the tree they walk now
 
 doc-drift.test.ts's source-comment case reads through the shared reader in tree-text.ts. It no longer uses a Promise.all of its own. tree-walk.test.ts's figure rises from 120 to 900 ms, and limits.test.ts's shared read from 200 to 500 ms. The tree grew from about 1,800 files to 4,772 under the old figures, and one run alone went red at the five-second floor. Closes "`doc-drift.test.ts` still reads its sources one `readFileSync` at a time" and "Three tree walks run past their figures under load".
