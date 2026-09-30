@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 85eea8106 — A round that runs out has its own hit on VERSUS, beside the rock
+
+The round:timeout-hit slot now has a candidate, WINDOW: when a round's clock empties with nobody answering, the round's window closes onto the ship instead of a rock falling. A field-wide bar in a fuse's last colour narrows onto the struck column, pinches into a spike, and runs out along the membrane as a flat ring. It is judged on a new pose, THE FLEET · TIME RUNS OUT, which cuts the fleet's clock to a few beats and replays every six seconds, since the hit takes about two and a half seconds to reach the skin.
+
 ## 2026-09-30 · 92d2f1807 — A round's timeout hit has a slot for its own look
 
 The breach an interlude's timeout sends now carries its round onto the rock that draws it, and `round-strike-look.ts` holds an empty slot a VERSUS candidate can paint into. Empty — as it is in the game — the hit is the rock it always was, call for call; filled, the paint replaces the rock's body, tail, glow and roll marks while the sparks, crack and hole keep the rock's clock. Nothing on the field changes.

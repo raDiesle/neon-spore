@@ -30698,3 +30698,5 @@ a few ticks apart, never in a strip a second apart.
 Bottleneck: the hit falls from the top of the field and reaches the skin
 two and a half seconds into the replay, so every shot inside the first
 three seconds showed an empty sky.
+
+*Measured: 31 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
