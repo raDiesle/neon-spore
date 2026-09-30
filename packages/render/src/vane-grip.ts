@@ -5,6 +5,7 @@ import {
   vaneHousingAsks,
   vanePhase,
   vanePinnedAt,
+  vanePivotAt,
   vanePivotCol,
   vaneReachMilli,
   vaneTipAt,
@@ -38,8 +39,9 @@ import { bossOf } from "./touch-field.js";
  * the one the thumb is in (`vaneTipNow`), so the two cannot disagree, and a
  * lift lets it sweep on again (`releasePin`).
  *
- * **The housing's does not move**, because the bearing never does: it hangs
- * over the pivot column on the arm's row. Her
+ * **The housing's does not move while it asks**: it hangs over the pivot on
+ * the arm's row, and it is asked only while a pin stands, when even the last
+ * form's wandering pivot is held still (`vanePivotAt`). Her
  * ring rests just under the casing, clear of the hub, and she carries it up.
  */
 
@@ -63,9 +65,9 @@ export function vaneBearingY(l: Layout, cfg: SimConfig): number {
   return tileCY(l, cfg.vaneArmRow) - l.tile * 0.2;
 }
 
-/** Where the hub stands, and how big it is. */
-export function vaneHubAt(l: Layout, cfg: SimConfig): { x: number; y: number; r: number } {
-  return { x: tileCX(l, vanePivotCol(cfg)), y: vaneBearingY(l, cfg), r: l.tile * 0.34 };
+/** Where the hub stands over `pivot`, a column or a tween of two, and how big it is. */
+export function vaneHubAt(l: Layout, cfg: SimConfig, pivot = vanePivotCol(cfg)) {
+  return { x: tileCX(l, pivot), y: vaneBearingY(l, cfg), r: l.tile * 0.34 };
 }
 
 /**
@@ -85,7 +87,8 @@ export function vaneTipPoint(
   beatPhase: number,
 ): { x: number; y: number; lead: number } {
   const from = vaneTipAt(cfg, b, beat, waveBeat);
-  const to = vanePinnedAt(cfg, b, beat) ? from : vaneTipCol(cfg, b.pins, waveBeat + 1);
+  const next = vanePivotAt(cfg, b, beat + 1, waveBeat + 1);
+  const to = vanePinnedAt(cfg, b, beat) ? from : vaneTipCol(cfg, b.pins, waveBeat + 1, next);
   const mFrom = vaneReachMilli(waveBeat);
   const m = mFrom + (vaneReachMilli(waveBeat + 1) - mFrom) * beatPhase;
   return {
@@ -109,8 +112,8 @@ export function vaneArmCircle(
 }
 
 /** The navigator's circle: under the casing, clear of the hub. */
-export function vaneHousingCircle(l: Layout, cfg: SimConfig): Circle {
-  const hub = vaneHubAt(l, cfg);
+export function vaneHousingCircle(l: Layout, cfg: SimConfig, pivot = vanePivotCol(cfg)): Circle {
+  const hub = vaneHubAt(l, cfg, pivot);
   const r = handleRadius(l, cfg);
   return { x: hub.x, y: hub.y + hub.r + r * 0.6, r };
 }
@@ -153,7 +156,8 @@ function partUnder(
   const b = bossOf(field, "vane");
   if (b === null) return null;
   const { cfg, beat } = field;
-  if (vaneHousingAsks(cfg, b, beat) && hitCircle(vaneHousingCircle(l, cfg), x, y)) {
+  const housing = vaneHousingCircle(l, cfg, vanePivotAt(cfg, b, beat, field.waveBeat));
+  if (vaneHousingAsks(cfg, b, beat) && hitCircle(housing, x, y)) {
     return "vaneHousing";
   }
   if (!vaneArmAsks(cfg, b, beat)) return null;
@@ -209,13 +213,14 @@ export function drawVaneGrips(
   beat: number,
   tip: { x: number; y: number },
   time: number,
+  pivot = vanePivotCol(cfg),
 ): void {
   const asks = vanePhase(b.pins).asks;
   if (asks === "shoot") return;
   const pinned = vanePinnedAt(cfg, b, beat);
   ring(ctx, { x: tip.x, y: tip.y, r: handleRadius(l, cfg) }, l, 1, pinned, time);
   if (asks !== "haul" || !pinned) return;
-  ring(ctx, vaneHousingCircle(l, cfg), l, 2, b.hauled, time);
+  ring(ctx, vaneHousingCircle(l, cfg, pivot), l, 2, b.hauled, time);
 }
 
 function ring(

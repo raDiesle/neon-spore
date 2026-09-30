@@ -7,6 +7,7 @@ import {
   vaneOpeningNow,
   vanePhase,
   vanePinned,
+  vanePivotNow,
   vaneSplitCol,
   type World,
   wardenColor,
@@ -129,8 +130,10 @@ export const vaneHand: Hand = (w) => {
   // A guard across the mouth now or on the beat the shot gets there takes it
   // and the opening with it, so the hand waits for the gap (`sim/vane-guard.ts`);
   // and a colour that turns before the shot arrives is waited out the same way.
+  const pivot = vanePivotNow(w, b);
   const clear =
-    !vaneGuardedAt(w.cfg, b, col, w.waveBeat) && !vaneGuardedAt(w.cfg, b, col, w.waveBeat + 1);
+    !vaneGuardedAt(w.cfg, b, col, w.waveBeat, pivot) &&
+    !vaneGuardedAt(w.cfg, b, col, w.waveBeat + 1, pivot);
   const color = vaneColor(w.cfg, vaneOpeningNow(w.waveBeat));
   const holds = color === vaneColor(w.cfg, vaneOpeningNow(w.waveBeat + 1));
   if (vaneOpen(w) && free(w) && w.cannonCol === col && clear && holds) out.push(fire(color));

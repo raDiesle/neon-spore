@@ -205,7 +205,9 @@ export {
   undertowPlateBeside,
   undertowUnseated,
 } from "./undertow.js";
-// The guard arms each re-formed bearing adds (`vane-guard.ts`).
+// The last form's walk, a clock of whole cycles (`vane-arm.ts`), and the guard
+// arms each re-formed bearing adds (`vane-guard.ts`).
+export { vaneDriftCol } from "./vane-arm.js";
 export { vaneGuardBeat, vaneGuardCount, vaneGuarded, vaneGuardedAt } from "./vane-guard.js";
 // THE VANE's two hands (18 September 2026): where the arm is standing once a
 // thumb has pinned it, and whether the bearing is open under each of its three
@@ -217,6 +219,8 @@ export {
   vanePinned,
   vanePinnedAt,
   vanePinSide,
+  vanePivotAt,
+  vanePivotNow,
   vaneSplitCol,
   vaneTipAt,
   vaneTipNow,

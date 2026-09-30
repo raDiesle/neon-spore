@@ -1,6 +1,7 @@
 import type { VaneState } from "./boss-state.js";
 import type { SimConfig } from "./config.js";
 import { vanePivotCol } from "./vane-arm.js";
+import { vanePivotNow } from "./vane-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -36,16 +37,17 @@ export function vaneGuardBeat(cfg: SimConfig, count: number, k: number, waveBeat
 
 /**
  * Whether a guard stands across the mouth in `col` on this beat. Only the two
- * columns beside the pivot are mouths; the pivot itself is never one, so
- * nothing covers it.
+ * columns beside the pivot are mouths, wherever the pivot stands (`pivot`,
+ * the centre unless the last form has wandered it — `vanePivotAt`); the pivot
+ * itself is never one, so nothing covers it.
  */
 export function vaneGuardedAt(
   cfg: SimConfig,
   b: VaneState,
   col: number,
   waveBeat: number,
+  pivot = vanePivotCol(cfg),
 ): boolean {
-  const pivot = vanePivotCol(cfg);
   if (col === pivot) return false;
   const at = col > pivot ? 0 : Math.floor(cfg.vaneGuardTurnBeats / 2);
   const count = vaneGuardCount(b);
@@ -58,5 +60,5 @@ export function vaneGuardedAt(
 
 /** The same question said about a world, which is how the shot asks it. */
 export function vaneGuarded(world: World, b: VaneState, col: number): boolean {
-  return vaneGuardedAt(world.cfg, b, col, world.waveBeat);
+  return vaneGuardedAt(world.cfg, b, col, world.waveBeat, vanePivotNow(world, b));
 }

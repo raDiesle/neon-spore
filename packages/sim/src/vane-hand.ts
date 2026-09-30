@@ -5,6 +5,7 @@ import {
   vaneHousingAsks,
   vanePinned,
   vanePinSide,
+  vanePivotNow,
   vaneSplitCol,
   vaneTipNow,
 } from "./vane-open.js";
@@ -57,8 +58,11 @@ function armHeard(world: World, b: VaneState, player: 1 | 2, on: boolean): void 
   if (!vaneArmAsks(world.cfg, b, world.beat)) return;
   // The column first, and then the beat. `vaneTipNow` answers `pinCol` as soon
   // as there is a pin, so a `pinBeat` written before it would hand the arm its
-  // own uninitialised column and fold every arrival about -1.
+  // own uninitialised column and fold every arrival about -1. The pivot is
+  // held with it for the same reason: the last form's wanders, and a pin that
+  // outlasts a cycle keeps the column it was pinned against.
   b.pinCol = vaneTipNow(world, b);
+  b.pinPivot = vanePivotNow(world, b);
   b.pinBeat = world.beat;
   b.pinSide = vanePinSide(world.waveBeat);
   b.hauled = false;
@@ -113,6 +117,7 @@ function releasePin(world: World, b: VaneState): void {
   const col = b.pinCol;
   b.pinBeat = -1;
   b.pinCol = -1;
+  b.pinPivot = -1;
   b.pinSide = 0;
   b.hauled = false;
   world.events.push({ type: "vaneSlip", col });

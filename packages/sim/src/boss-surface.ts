@@ -194,6 +194,7 @@ export {
   vaneColor,
   vaneCycle,
   vaneCycleBeat,
+  vaneDriftCol,
   vaneFold,
   vaneOpen,
   vaneOpening,

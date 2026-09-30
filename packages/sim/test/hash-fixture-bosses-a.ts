@@ -113,6 +113,8 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.spentOpening = 2;
     boss.throwBeat = 5;
     boss.throwCol = 4;
+    boss.formBeat = 3;
+    boss.pinPivot = 4;
   }
   if (boss.kind === "gauge") {
     boss.phase = "play";

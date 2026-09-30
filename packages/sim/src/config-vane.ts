@@ -89,12 +89,24 @@ export interface VaneHandConfig {
    * after it, which is what a shot up the column needs.
    */
   vaneGuardCoverBeats: number;
+  /**
+   * Columns the pivot wanders either side of the centre in the last form
+   * (`vaneDriftCol`), one column a cycle, out and back.
+   *
+   * 2: the owner, 30 September 2026 — *The boss in later levels should
+   * probably start to move around*. Two keeps the arm on a pivot at least
+   * three columns from either wall, so SEIZE still folds three columns across
+   * it; a pair who have read the arm through three forms has one new thing to
+   * say, where it hangs. 0 keeps it at the centre for good.
+   */
+  vaneDriftCols: number;
 }
 
 /**
  * The defaults, spread into `DEFAULT_CONFIG`: four beats, a tile and a half,
  * the arm two rows down, a colour kept for two openings, and four forms of
- * three pins each after the first, their guards once round a cycle.
+ * three pins each after the first, their guards once round a cycle, and a
+ * last form that wanders two columns either side.
  */
 export const VANE_HAND_DEFAULTS: VaneHandConfig = {
   vanePinBeats: 4,
@@ -105,4 +117,5 @@ export const VANE_HAND_DEFAULTS: VaneHandConfig = {
   vaneFormPins: 3,
   vaneGuardTurnBeats: 12,
   vaneGuardCoverBeats: 2,
+  vaneDriftCols: 2,
 };

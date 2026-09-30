@@ -30557,3 +30557,13 @@ Bottleneck: the entry was a proposal for a look that has since been claimed
 and shipped, and it read as work until the geometry was checked.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VANE's last form walks along the top, a column a cycle
+
+- reading: 5 min. Every caller of the pivot column across sim, render, hands and the cue, since the pivot had been a constant.
+- writing: 15 min. `vaneDriftCol`, `formBeat` and `pinPivot`, the pivot threaded through the tip, the split, the guards and the picture, and `vane-drift.test.ts`.
+- looking: 0 min. The hub and housing follow the pivot; the walk's own look is the next lane.
+- friction: 15 min. Two render tests pinned without a pivot, four arithmetic slips in the new test's cycle boundaries, and two files at their line limits.
+- landing: 5 min. `format`, `imports:sort`, `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: friction. A constant turned into a clock touches every call site that assumed it, and the line limits on the barrel pages made each new export a move.

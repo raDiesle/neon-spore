@@ -54,8 +54,13 @@ const ARM = 0;
 const HOUSING = 1;
 
 /** The two parts' circles, the arm's on the tip as drawn this instant. */
-function partsAt(l: Layout, cfg: SimConfig, tip: { x: number; y: number }): [Circle, Circle] {
-  return [{ x: tip.x, y: tip.y, r: handleRadius(l, cfg) }, vaneHousingCircle(l, cfg)];
+function partsAt(
+  l: Layout,
+  cfg: SimConfig,
+  tip: { x: number; y: number },
+  pivot?: number,
+): [Circle, Circle] {
+  return [{ x: tip.x, y: tip.y, r: handleRadius(l, cfg) }, vaneHousingCircle(l, cfg, pivot)];
 }
 
 /** The asking, drawn over the mechanism and under the grip's rings. */
@@ -67,10 +72,11 @@ export function drawVaneAsked(
   beat: number,
   tip: { x: number; y: number },
   time: number,
+  pivot?: number,
 ): void {
   const asked = [vaneArmAsks(cfg, b, beat), vaneHousingAsks(cfg, b, beat)];
   const seat = seatOf(l.role);
-  partsAt(l, cfg, tip).forEach((c, part) => {
+  partsAt(l, cfg, tip, pivot).forEach((c, part) => {
     if (!asked[part]) return;
     if ((part === ARM ? 1 : 2) === seat) {
       drawMarkHalo(ctx, c.x, c.y, c.r, time);
@@ -88,8 +94,9 @@ export function drawVaneVerdicts(
   cfg: SimConfig,
   tip: { x: number; y: number },
   verdicts: GripVerdicts,
+  pivot?: number,
 ): void {
-  partsAt(l, cfg, tip).forEach((c, part) => {
+  partsAt(l, cfg, tip, pivot).forEach((c, part) => {
     const v = verdicts.at(part);
     if (v !== null) drawVerdictRing(ctx, c.x, c.y, c.r, v);
   });

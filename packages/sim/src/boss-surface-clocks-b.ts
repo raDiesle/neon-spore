@@ -182,6 +182,8 @@ export {
   // `Field` and never a world (`render/vane-grip.ts`).
   vanePinnedAt,
   vanePinSide,
+  vanePivotAt,
+  vanePivotNow,
   vaneSplitCol,
   vaneTipAt,
   vaneTipNow,

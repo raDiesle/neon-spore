@@ -1,6 +1,6 @@
 import type { VaneState } from "./boss-state.js";
 import type { SimConfig } from "./config.js";
-import { vanePivotCol, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
+import { vaneDriftCol, vanePivotCol, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 import { VANE_CYCLE, vaneOpening, vaneReachMilli, vaneStageIndex } from "./vane-cycle.js";
 import { vanePhase, vaneSplitsOnCycle } from "./vane-phases.js";
 import type { World } from "./world.js";
@@ -91,7 +91,24 @@ export function vanePinSide(waveBeat: number): number {
  */
 export function vaneTipAt(cfg: SimConfig, b: VaneState, beat: number, waveBeat: number): number {
   if (vanePinnedAt(cfg, b, beat)) return b.pinCol;
-  return vaneTipCol(cfg, b.pins, waveBeat);
+  return vaneTipCol(cfg, b.pins, waveBeat, vanePivotAt(cfg, b, beat, waveBeat));
+}
+
+/**
+ * **The column the pivot stands in this beat**: the centre until the last
+ * form, which wanders (`vaneDriftCol`), and the column it was pinned against
+ * while a thumb holds the arm — a pin holds the whole arm still, bearing and
+ * all, or the split would walk out from under the shot. A pin with no pivot
+ * kept (`pinPivot` -1, a pin set by hand rather than heard) holds it at home.
+ */
+export function vanePivotAt(cfg: SimConfig, b: VaneState, beat: number, waveBeat: number): number {
+  if (vanePinnedAt(cfg, b, beat)) return b.pinPivot >= 0 ? b.pinPivot : vanePivotCol(cfg);
+  return vaneDriftCol(cfg, b.form, b.formBeat, waveBeat);
+}
+
+/** The same column said about a world. */
+export function vanePivotNow(world: World, b: VaneState): number {
+  return vanePivotAt(world.cfg, b, world.beat, world.waveBeat);
 }
 
 /** The same column said about a world. */
@@ -108,9 +125,9 @@ export function vaneTipNow(world: World, b: VaneState): number {
  * is the rule taught by a column rather than by a card.
  */
 export function vaneSplitCol(world: World, b: VaneState): number {
-  if (vaneSplitsOnCycle(vanePhase(b.pins))) return vaneWeakCol(world.cfg, world.waveBeat);
+  const pivot = vanePivotNow(world, b);
+  if (vaneSplitsOnCycle(vanePhase(b.pins))) return vaneWeakCol(world.cfg, world.waveBeat, pivot);
   if (!vanePinned(world, b)) return -1;
-  const pivot = vanePivotCol(world.cfg);
   return Math.max(0, Math.min(world.cfg.cols - 1, pivot - b.pinSide));
 }
 

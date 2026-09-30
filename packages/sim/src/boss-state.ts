@@ -159,8 +159,9 @@ export interface WardenState {
  *
  * Where the arm is standing, how far it reaches, whether the bearing is split
  * and which side of it, what colour that side carries, where its guard arms
- * have turned to — all of it is derived from the wave's beat, the pins and the
- * form (`vane-cycle.ts`, `vane-guard.ts`). What cannot be derived is how many
+ * have turned to, which column the pivot has wandered to in the last form —
+ * all of it is derived from the wave's beat, the pins and the form
+ * (`vane-cycle.ts`, `vane-guard.ts`, `vaneDriftCol`). What cannot be derived is how many
  * pins are left and in which form, which opening has already spent its one
  * shot, where a thumb pinned the arm, and the last thing the arm threw, which
  * is render/'s to draw and nobody else's.
@@ -176,6 +177,9 @@ export interface VaneState {
    * (`vane.ts`, `vane-guard.ts`).
    */
   form: number;
+  /** The wave beat the current form began on: the last form's drift counts
+   * its cycles from here, so a re-form never lands the pivot mid-wander. */
+  formBeat: number;
   /**
    * The opening whose one shot has been spent, -1 for none yet. An index and
    * not a flag: openings are numbered from the start of the wave, so "already
@@ -206,6 +210,10 @@ export interface VaneState {
   /** The `pinBeat` whose one shot has been spent, -1 for none. `spentOpening`
    * says the same thing about an opening the cycle handed them. */
   spentPin: number;
+  /** The pivot's column when the arm was pinned, -1 for none: a thumb holds
+   * the hub still along with the tip, so the split does not wander from
+   * under the shot it was held open for (`vanePivotAt`). */
+  pinPivot: number;
 }
 
 export type { FleetState } from "./fleet-state.js";

@@ -1,5 +1,14 @@
 import { circleSubpath } from "@neon-spore/content";
-import { type VaneState, vaneColor, vaneOpen, vaneOpeningNow, type World } from "@neon-spore/sim";
+import {
+  type SimConfig,
+  type VaneState,
+  vaneColor,
+  vaneOpen,
+  vaneOpeningNow,
+  vanePinnedAt,
+  vanePivotAt,
+  type World,
+} from "@neon-spore/sim";
 import type { BossHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import type { GripVerdicts } from "./grip-verdict.js";
@@ -70,7 +79,10 @@ function drawMechanism(
   verdicts: GripVerdicts,
 ): void {
   const cfg = world.cfg;
-  const { x: px, y: py, r: hub } = vaneHubAt(l, cfg);
+  // The hub walks with the last form's pivot, eased between beats the way the
+  // tip is, and stands still under a pin (`vanePivotAt`).
+  const pivot = hubCol(cfg, b, world.beat, world.waveBeat, beatPhase);
+  const { x: px, y: py, r: hub } = vaneHubAt(l, cfg, pivot);
 
   // Where the arm stands between two beats — `vane-grip.ts`'s answer, because
   // the pilot's thumb is answered at exactly this point and a picture that
@@ -99,8 +111,8 @@ function drawMechanism(
   // The two hands, under the tip so the ring circles it rather than covering
   // it, and over the spar so a thumb is never behind the thing it is on
   // (`vane-grip.ts`) — and the asking under the rings (`vane-marks.ts`).
-  drawVaneAsked(ctx, l, cfg, b, world.beat, tip, time);
-  drawVaneGrips(ctx, l, cfg, b, world.beat, tip, time);
+  drawVaneAsked(ctx, l, cfg, b, world.beat, tip, time, pivot);
+  drawVaneGrips(ctx, l, cfg, b, world.beat, tip, time, pivot);
 
   // The tip, which is the fold line and the only column anybody has to watch.
   // The last thing filled in the whole picture, and `vane-pin-frame.test.ts`
@@ -114,7 +126,14 @@ function drawMechanism(
 
   drawThrow(ctx, l, cfg.vaneArmRow, b, world.beat, beatPhase, tx, ty);
   // The verdict on a touch, last of all.
-  drawVaneVerdicts(ctx, l, cfg, tip, verdicts);
+  drawVaneVerdicts(ctx, l, cfg, tip, verdicts, pivot);
+}
+
+/** The pivot between two beats: the last form's walk eased, a pinned one still. */
+function hubCol(cfg: SimConfig, b: VaneState, beat: number, waveBeat: number, phase: number) {
+  const from = vanePivotAt(cfg, b, beat, waveBeat);
+  if (vanePinnedAt(cfg, b, beat)) return from;
+  return from + (vanePivotAt(cfg, b, beat + 1, waveBeat + 1) - from) * phase;
 }
 
 /**

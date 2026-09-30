@@ -61,6 +61,7 @@ export function installVane(world: World, entry: VaneEntry): VaneState {
     kind: "vane",
     pins: entry.pins ?? world.cfg.vanePins,
     form: 0,
+    formBeat: world.waveBeat,
     spentOpening: -1,
     throwBeat: -1,
     throwCol: -1,
@@ -69,6 +70,7 @@ export function installVane(world: World, entry: VaneEntry): VaneState {
     pinSide: 0,
     hauled: false,
     spentPin: -1,
+    pinPivot: -1,
   };
 }
 
@@ -180,7 +182,7 @@ export function vaneMouthStruck(world: World, bullet: Bullet): void {
   b.pins -= 1;
   world.events.push({ type: "vaneKnock", pins: b.pins, col: bullet.col });
   if (b.pins > 0) return;
-  if (b.form < world.cfg.vaneForms - 1) reform(b, world.cfg.vaneFormPins);
+  if (b.form < world.cfg.vaneForms - 1) reform(b, world.cfg.vaneFormPins, world.waveBeat);
   else world.boss = null;
 }
 
@@ -191,14 +193,16 @@ export function vaneMouthStruck(world: World, bullet: Bullet): void {
  * *Four forms*). The `vaneKnock` at nought pins is the re-form's own event;
  * nothing new goes on the wire or into the sound.
  */
-function reform(b: VaneState, pins: number): void {
+function reform(b: VaneState, pins: number, waveBeat: number): void {
   b.form += 1;
+  b.formBeat = waveBeat;
   b.pins = pins;
   b.pinBeat = -1;
   b.pinCol = -1;
   b.pinSide = 0;
   b.hauled = false;
   b.spentPin = -1;
+  b.pinPivot = -1;
 }
 
 /** One hit per opening, whichever kind of opening this phase has. */

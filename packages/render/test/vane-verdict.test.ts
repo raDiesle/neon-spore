@@ -50,6 +50,7 @@ function vane(overrides: Partial<VaneState> = {}): VaneState {
     kind: "vane",
     pins: 2,
     form: 0,
+    formBeat: 0,
     spentOpening: -1,
     throwBeat: -1,
     throwCol: -1,
@@ -58,13 +59,14 @@ function vane(overrides: Partial<VaneState> = {}): VaneState {
     pinSide: 0,
     hauled: false,
     spentPin: -1,
+    pinPivot: -1,
     ...overrides,
   };
 }
 
 /** SEIZE, the arm pinned this beat and the housing not yet hauled. */
 const seized = (overrides: Partial<VaneState> = {}) =>
-  vane({ pins: 1, pinBeat: BEAT, pinCol: 2, pinSide: 1, ...overrides });
+  vane({ pins: 1, pinBeat: BEAT, pinCol: 2, pinSide: 1, pinPivot: 5, ...overrides });
 
 const TIP = { x: 120, y: 90 };
 

@@ -74,7 +74,15 @@ function guardedBeat(form: number, col: number): number {
 function lastPin(form: number): World {
   const world = open();
   const b = vane(world);
-  Object.assign(b, { form, pins: 1, pinBeat: 0, pinCol: PIVOT, pinSide: -1, hauled: true });
+  Object.assign(b, {
+    form,
+    pins: 1,
+    pinBeat: 0,
+    pinCol: PIVOT,
+    pinSide: -1,
+    hauled: true,
+    pinPivot: PIVOT,
+  });
   world.waveBeat = clearBeat(form, RIGHT);
   return world;
 }

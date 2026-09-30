@@ -1201,10 +1201,21 @@ one pin, still hold a beat that is clear with the next one clear too, and a
 shot up the column needs exactly that. AUTO waits for that gap, and for a colour
 that will not turn before the shot lands (`packages/hands/test/vane-hand.test.ts`).
 
-**What is not built yet.** Two things. The picture does not show the guards or
-the re-formed hub, which grows once per form. And in the last form the bearing
-does not drift along the top yet, which is the owner's *the boss in later
-levels should probably start to move around*.
+**The last form walks.** This is the owner's *the boss in later levels should
+probably start to move around*. In the last form the pivot leaves the centre
+and steps one column at each new cycle, out to `vaneDriftCols` (two) either
+side and back, as a triangle wave (`packages/sim/src/vane-arm.ts`,
+`vaneDriftCol`). The walk is counted from `VaneState.formBeat`, the wave's beat
+when the form began, so it always starts at the centre. The fold, the tip, the
+split and the guards' two mouths are all taken from that pivot
+(`vanePivotAt`). A pin holds the pivot where the thumb found it
+(`VaneState.pinPivot`), because the arm stops bearing and all, and the split
+must not walk out from under the shot. The hub and the housing are drawn at the
+pivot and ease between columns (`packages/render/src/vane-draw.ts`). Only
+whole cycles move it, so the pair can count it the way they count the colour.
+
+**What is not built yet.** The picture does not show the guards, or the
+re-formed hub, which grows once per form.
 
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 

@@ -3,6 +3,7 @@ import {
   vaneArmAsks,
   vaneHousingAsks,
   vaneOpen,
+  vanePivotAt,
   vaneSplitCol,
   type World,
 } from "@neon-spore/sim";
@@ -124,7 +125,7 @@ function handCues(l: Layout, world: World, b: VaneState): BossCue[] {
     out.push({ ...markAt(1, "HOLD", "HOLD", arm.x, arm.y, l, 75), why: "TO PIN IT" });
   }
   if (vaneHousingAsks(cfg, b, beat)) {
-    const h = vaneHousingCircle(l, cfg);
+    const h = vaneHousingCircle(l, cfg, vanePivotAt(cfg, b, beat, waveBeat));
     out.push({ ...markAt(2, "CARRY", "PULL", h.x, h.y, l, 76), why: "TO HAUL IT" });
   }
   return out;
