@@ -1006,6 +1006,7 @@ now), and striking `hasp` from `OWED` in `tools/director/test/boss-states.test.t
 ## §21 THE SPOOL — the story between the ribs, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories
+- **Taken:** 2026-09-30, worktree-agent-ab3798f924ccfb638 (claim: claude/queue-21-the-spool-the-story-between-the-ribs-the-look)
 - **Needs:** §21 THE SPOOL — the story between the ribs, the simulation
 - **Files:** `packages/render/src/spool-draw.ts`, `packages/render/test/frame.test.ts`
 
