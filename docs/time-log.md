@@ -30417,3 +30417,5 @@ Bottleneck: reading. The fuse's function already existed, so most of the time we
 - landing: 5 min. `bun run index` for the new file, `check:fast`, `land`.
 
 Bottleneck: writing. The race existed privately in `serve.ts`, so it had to be moved before the sheet could share it.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
