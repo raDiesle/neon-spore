@@ -1328,3 +1328,17 @@ stillness. Then the look: a film ticking and hairline-cracking across the core
 in `rimeFrost`, with no cannon colour, and shattering a beat before the lens
 does. The new event goes on both silent lists, and the sound goes in
 `bind-rime.ts`.
+
+## Unverified at b314ae025: THE RIME's flakes, flashes and shatter watched at tempo
+
+- **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`
+
+*THE RIME answers its events: flakes off a rubbed half, a flash as it clears, the core's hit ring, and the shatter's shudder* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
+
+- THE RIME's flakes, flashes and shatter watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

@@ -30151,3 +30151,5 @@ Bottleneck: friction — the compaction landed between reading the file and cutt
 - landing: 10 min. `check:fast`, the commit, `land`.
 
 Bottleneck: writing. Row 11's refreeze turned out to need a simulation phase that does not exist, so it went to the queue rather than into this lane.
+
+*Measured: 57 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

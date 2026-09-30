@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · b314ae025 — THE RIME answers its events: flakes off a rubbed half, a flash as it clears, the core's hit ring, and the shatter's shudder
+
+A rub throws frost off the half being rubbed, on that seat's side, and jabs the pane. A half coming clear flashes its rim and deals the blow. The film flashes back over a half that frosts again. A core hit rings the core in its colour, wider for each hit. The shatter flashes the whole lens and shudders down the plating. All of it lives in `rime-fx.ts`, is cleared in `reset()`, and is drawn by `drawRimeFlashes` and the ship's shock. The cue words were already in. Row 11's refreeze film needs a simulation phase first, and is queued as its own item.
+
 ## 2026-09-30 · 01840072c — THE GAUGE's simulation test splits in two around one rig
 
 gauge.test.ts was 308 lines. Its rig — the round opened on a wave and the talking pair that answers every rest — moves to gauge-rig.ts, and the round left and fingerprinted moves to gauge-leave.test.ts. No test changed beyond its imports.
