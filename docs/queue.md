@@ -1314,25 +1314,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `land` lets a lane delete queue entries it never closed
-
-- **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
-- **Taken:** 2026-09-30, worktree-agent-ac86707bb0b53fe1a (claim: claude/queue-land-lets-a-lane-delete-queue-entries-it-never-c)
-- **Files:** `tools/land/queue-guard.ts`, `tools/land/land.ts`
-
-The governor's body lane rewrote its own entry's body with one Python
-replace whose start anchor matched the entry *above* it. The replace took
-out three whole entries: the text of §41 THE WINCH — the look, both §42 THE
-SLUICE entries, and the §43 header. `bun run land` put that on the trunk
-without a word. The only thing that caught it was a later `grep` for the
-header, and `claude/restore-queue-entries-lost-in-governor` put them back.
-`queue-guard.ts` refuses a landing that puts back an entry the trunk took
-out, but not its mirror: a landing that takes out an entry nobody closed.
-Add that to the guard. Read the lane's own `queue done` / `queue release`
-commits for the titles it closed. If an entry the trunk had is gone and its
-title is not among them, refuse the landing and name the entry. Test it in
-`tools/land/test/` the way the re-add case is tested.
-
 ## The wave marks are asked in two places: the director's rail and JUMP TO WAVE
 
 - **Found:** 2026-09-29, claude/jump-wave-boss-filters-135b87

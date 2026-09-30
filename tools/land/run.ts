@@ -55,6 +55,7 @@ import { git, gitOrDie } from "./git.js";
 import { type Landing, plan, SWEPT_NOTHING } from "./land.js";
 import { writeNotes } from "./note-commit.js";
 import { type Landed, LOG_FORMAT, parseLanded } from "./notes.js";
+import { droppedAfter, droppedRefusal } from "./queue-dropped.js";
 import { everHeldIn, queueSnapshots, refusal, resurrectedAfter } from "./queue-guard.js";
 import { trunkMove, trunkRaced } from "./race.js";
 import { rerace } from "./race-retry.js";
@@ -149,6 +150,10 @@ async function moveTrunk(): Promise<Landed[]> {
     // the entries the three snapshots read as newly filed (`queue-guard.ts`).
     const back = await resurrectedAfter(root, queueBefore, everHeldIn(run, TRUNK));
     if (back.length > 0) return { ok: false, said: [...said, ...refusal(TRUNK, back)] };
+    // Its mirror: an entry the trunk has that this lane took out unclosed (`queue-dropped.ts`).
+    const laneLog = await run(["log", "--format=%B", `${TRUNK}..HEAD`]);
+    const gone = await droppedAfter(root, queueBefore, branch, laneLog);
+    if (gone.length > 0) return { ok: false, said: [...said, ...droppedRefusal(TRUNK, gone)] };
     return { ok: true, said };
   };
   if (going.rebase) {

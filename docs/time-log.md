@@ -29761,3 +29761,13 @@ Bottleneck: none worth a sentence; the audit itself is queued for a lane
 of its own.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — `land` refuses a lane that takes out queue entries it never closed
+
+- reading: 5 min. The queue entry, `queue-guard.ts` and its two tests, and `tools/queue` for what `done` and `release` commit.
+- writing: 5 min. `queue-dropped.ts`, its call in `run.ts`, the pure and real-git tests, a paragraph in `git-and-landing.md`.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the entry asks for the lane's `queue done` commits, and `done` makes none, so the claim's `Taken:` line had to stand in as the record.

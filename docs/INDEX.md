@@ -3060,6 +3060,7 @@ by hand never moves.
 | `tools/frames/offline.ts` | **A capture reaches the preview and nothing else.** Since the sign-in landed |
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
 | `tools/land/queue-merge.ts` | Merging `docs/queue.md` when a lane and the trunk both wrote to it |
+| `tools/land/queue-dropped.ts` | **A landing must not take out a queue entry nobody closed** |
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo on the web, and name a bun below the pin anywhere |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |

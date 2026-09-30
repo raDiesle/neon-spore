@@ -190,6 +190,13 @@ is a known enough failure that `tools/land/queue-guard.ts` fails the landing
 when it happens, and it will not save you on the release notes, where the only
 symptom is somebody else's entry quietly coming back.
 
+**The mirror is refused too** (`tools/land/queue-dropped.ts`): a landing that
+takes out an entry the trunk still has, which this lane neither claimed — its
+`Taken:` line names another branch or none — nor named word for word in one
+of its own commit messages. On 29 September 2026 one over-reaching replace
+took three entries out of the queue and landed without a word. To close an
+entry you did not start with, `bun run queue take` it first.
+
 **`docs/queue.md` is now merged for you, and only that file.** The conflict
 there was not even between two lanes: `bun run queue take` writes the `Taken:`
 line on the trunk and `bun run queue done` removes the whole entry in the lane,
