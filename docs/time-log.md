@@ -30600,3 +30600,5 @@ movement and the rest of the fight could not be seen.
 
 Bottleneck: finding where the touch goes, since the grind fields are only
 named in the drag targets and the grip, never in `apps/game`.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

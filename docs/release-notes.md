@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 0f03d2b51 — THE GRINDSTONE watched at tempo: body, touch and hand all hold
+
+AUTO clears THE GRINDSTONE: the flat is ground true, the jaw bites, twelve shots land, the clamp shuts and the stone leaves edge-on before the next wave starts. The rub bracket follows the lit flat, and the bite's target and FIRE cue stand where the shot goes. The touch reaches the sim through the drag targets and the grindstone grip. Both unverified entries are closed.
+
 ## 2026-09-30 · f1b682784 — THE VALVE's drum watched at tempo: the turn, the freeze and the list read
 
 At tempo, with AUTO on both seats, the wheel turns onto its mark. The freeze stands in green rings and the pulled pin slides down and fades. The drum then lists one step, with the hung pins in its frame and the spent pin's slot dark in its underside. The same run found that AUTO loses the wave to its first spark at tick 300, so that is now queued.
