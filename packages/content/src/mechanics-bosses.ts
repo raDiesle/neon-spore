@@ -33,24 +33,6 @@ type BossId = Extract<
   | "antiphon"
   | "hive"
   | "instar"
-  | "filament"
-  | "gimbal"
-  | "spool"
-  | "hasp"
-  | "ratchet"
-  | "nettle"
-  | "mantle"
-  | "keel"
-  | "valve"
-  | "seam"
-  | "oculus"
-  | "vise"
-  | "rime"
-  | "trivet"
-  | "plumb"
-  | "sling"
-  | "grindstone"
-  | "cyst"
 >;
 
 /**
@@ -172,78 +154,6 @@ export const BOSS_MECHANICS = {
   },
   instar: {
     what: "The body is the panel. Red marks show where it will strike and whose thumb it wants. A crosshair wants a shot of its colour. Answer each before it shuts.",
-    reach: "spawn",
-  },
-  nettle: {
-    what: "A jellyfish over the ship. Marks on its body say what to do: a thumb, or SHOOT, SHIELD or SUCK under the mark. Answer each before it shuts.",
-    reach: "spawn",
-  },
-  filament: {
-    what: "Player 1 draws a line with a thumb, one tile a beat. Player 2 follows behind. Stay close but never touch.",
-    reach: "spawn",
-  },
-  gimbal: {
-    what: "A drum hangs in two rings, one ring each. Turn your ring to your mark and hold it. The inner rim runs backwards. Six latch-teeth.",
-    reach: "spawn",
-  },
-  spool: {
-    what: "A spool pays a line to the hull. One of you holds the brake. The other sees how fast it should run. Hold it right and a rib eases.",
-    reach: "spawn",
-  },
-  hasp: {
-    what: "He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long. Three hasps.",
-    reach: "spawn",
-  },
-  ratchet: {
-    what: "One holds the catch, the other presses the pawl. Every press climbs one tooth for good, and is clean only while the catch is held. Five clean of seven.",
-    reach: "spawn",
-  },
-  mantle: {
-    what: "Two handles, one each. Pull both down together, hard enough, to open one of its four joints. Letting go costs the whole pull. Then tap the bare core, turn about.",
-    reach: "spawn",
-  },
-  keel: {
-    what: "Six joints. When one lights, the one whose half it is on taps it. The middle opens: shoot it in its colour. Then fast joints, and one rock.",
-    reach: "spawn",
-  },
-  valve: {
-    what: "One turns the wheel onto its mark. The other taps the pin to freeze it. Then either pulls it. Three pins, and the last wants a full turn.",
-    reach: "spawn",
-  },
-  seam: {
-    what: "A point on the crack lights in a colour. Shoot it in that colour. Shield the grit it throws. Seal three points and the ridge splits.",
-    reach: "spawn",
-  },
-  oculus: {
-    what: "Both hold your leaf together until the pair shuts. Six shut, the eye cracks. Shoot it in its colour, and hold again when leaves open.",
-    reach: "spawn",
-  },
-  vise: {
-    what: "Each pinches a lobe shut until a seam cracks. Two seams each, the kernel bares. Shoot it in its colour, and pinch both when both light.",
-    reach: "spawn",
-  },
-  rime: {
-    what: "Each rubs a half of the lens clear, back and forth. Two wipes each, the core bares. Shoot it in its colour, and shield the surge under it.",
-    reach: "spawn",
-  },
-  trivet: {
-    what: "Hold your foot's lit pads down together until it plants. Both feet home light the hub. Shoot it in its colour. When both light, hold together.",
-    reach: "spawn",
-  },
-  plumb: {
-    what: "Each drags a stone. Pull away from the low side, together, until the bob hangs true. Both weights true light the core. Shoot it in its colour.",
-    reach: "spawn",
-  },
-  sling: {
-    what: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
-    reach: "spawn",
-  },
-  grindstone: {
-    what: "Rub your flat back and forth until clean, twice. Both flats clean lock the caliper: shoot the axle in its colour. When the jaws light, both hold every pad.",
-    reach: "spawn",
-  },
-  cyst: {
-    what: "When a flank shakes, your partner taps it still: pinch it shut to crack it. Both cracked: shoot the core in its colour. Then crack each flank once more.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

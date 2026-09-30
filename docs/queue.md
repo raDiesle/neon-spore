@@ -1438,17 +1438,6 @@ render/test, the way the other `*-budget.test.ts` files do. Then try a gaze that
 narrower beam or a cached gradient bitmap, and check that its frame test
 still passes. Whether it cured the phone is the owner's to say.
 
-## `mechanics-bosses.ts` is at 249 lines
-
-- **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-mechanics-bosses-ts-is-at-249-lines)
-- **Files:** `packages/content/src/mechanics-bosses.ts`, `packages/content/src/mechanics-bosses-b.ts`
-
-The next boss's sentence takes it past the line ceiling. Move the bosses
-from THE NETTLE on into `mechanics-bosses-b.ts`, which is already spread into
-`MECHANICS`. Keep `MECHANIC_IDS` in the same key order: the bestiary walks
-it, so check that `MECHANICS` still names each id one by one.
-
 ## Check that no boss touches the top of the screen
 
 - **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70

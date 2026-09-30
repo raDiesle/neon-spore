@@ -29795,3 +29795,13 @@ Bottleneck: reading — the table CLAUDE.md places in `purity.test.ts` has moved
 - landing: 5 min. A format pass, `check:fast`, the commit.
 
 Bottleneck: working out which helpers the remaining cases still needed, so the harness exports only those.
+
+## 2026-09-30 — `content/mechanics-bosses.ts`: THE NETTLE on moved to the second page
+
+- reading: 5 min. The two boss pages, the table's spread, and `MECHANIC_IDS` taking its order from the keys.
+- writing: 5 min. Eighteen rows moved to the head of `mechanics-bosses-b.ts`, and eighteen lines of the table replaced by the spread already there.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: keeping the key order, because the ids list and every page that walks it read the table in that order.

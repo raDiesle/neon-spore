@@ -134,25 +134,8 @@ export const MECHANICS = {
   antiphon: BOSS_MECHANICS.antiphon,
   hive: BOSS_MECHANICS.hive,
   instar: BOSS_MECHANICS.instar,
-  nettle: BOSS_MECHANICS.nettle,
-  filament: BOSS_MECHANICS.filament,
-  gimbal: BOSS_MECHANICS.gimbal,
-  spool: BOSS_MECHANICS.spool,
-  hasp: BOSS_MECHANICS.hasp,
-  ratchet: BOSS_MECHANICS.ratchet,
-  mantle: BOSS_MECHANICS.mantle,
-  keel: BOSS_MECHANICS.keel,
-  valve: BOSS_MECHANICS.valve,
-  seam: BOSS_MECHANICS.seam,
-  oculus: BOSS_MECHANICS.oculus,
-  vise: BOSS_MECHANICS.vise,
-  rime: BOSS_MECHANICS.rime,
-  trivet: BOSS_MECHANICS.trivet,
-  plumb: BOSS_MECHANICS.plumb,
-  sling: BOSS_MECHANICS.sling,
-  grindstone: BOSS_MECHANICS.grindstone,
-  cyst: BOSS_MECHANICS.cyst,
-  // The second boss page, whole and in its own order (`mechanics-bosses-b.ts`).
+  // The second boss page, THE NETTLE on, whole and in its own order
+  // (`mechanics-bosses-b.ts`).
   ...BOSS_MECHANICS_B,
   well: {
     what: "Player 1 sees the field as a clock, with the ship in the middle. Column four is four o'clock. The two ends of the field meet at twelve.",
