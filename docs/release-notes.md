@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · d39d30314 — THE VISE's body watched at tempo, and its unverified entry closed
+
+THE VISE was watched with AUTO on both seats from its entry to the end of the wave, and its body works as drawn. Nothing was changed. - The tan two-lobed husk flushes pink on its first crack, at tick 525. - Its lobes swing open on the kernel at 1725. - The kernel takes the red cannon's crosshair and flashes on its first hit, at 1920. - At the split (3075), a pale flash covers the kernel, then the lobes fall flat and apart and fade out, and the wave clears.
+
 ## 2026-09-30 · c92f10ae0 — THE OCULUS's thud, core flashes and shatter watched at tempo
 
 All three receipts THE OCULUS draws were watched with AUTO on both seats, and its unverified entry is closed. - A shut pair presses the lens down and flushes the rim pink at tick 450, and the lens is back up by 530. - The first core hit, at 1620, flashes a pink disc half the socket wide that fades within a third of a second. - The shatter, at 2850, washes the whole rim pale, and the lens then splits along its six plates. Nothing was changed.

@@ -30746,3 +30746,5 @@ the rim at five times, not in any strip.
 
 Bottleneck: two strips had to be rerun because of flag units, not anything
 the game drew.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
