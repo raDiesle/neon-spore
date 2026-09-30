@@ -1316,6 +1316,7 @@ what the rest of this file holds.
 ## `doc-drift.test.ts` still reads its sources one `readFileSync` at a time
 
 - **Found:** 2026-09-30, claude/queue-two-tests-time-out-in-check-fast-whenever-the-ma
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-doc-drift-test-ts-still-reads-its-sources-one-re)
 - **Files:** `tools/test/doc-drift.test.ts`, `tools/test/tree-text.ts`
 
 "names a source file this tree still has" reads every file under
