@@ -1365,6 +1365,7 @@ stroke or two each; remeasure them. The owner asked for this look by name.
 ## THE CAPSTAN's PULL cue stands on the horn, outside the grab zone
 
 - **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Taken:** 2026-09-30, worktree-agent-a0b632fb88f5b36e3 (claim: claude/queue-the-capstans-pull-cue-stands-on-the-horn-outside)
 - **Files:** `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/capstan-marks.ts`
 
 The survey of pull cues found that `boss-cue-read-zl.ts` stands PULL on
