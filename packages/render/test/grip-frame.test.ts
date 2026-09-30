@@ -37,8 +37,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * past a canvas that refuses what a real one refuses.
  *
  * **Both kinds of hand, because they are two different pictures now.** A hand
- * on a rock is a brake and wears a beam from the hull and two carry arrows; a
- * hand on a living body is an aim and wears neither (`sim/hand.ts`).
+ * on a rock is a brake and wears a beam from the hull, and two carry arrows for
+ * the beat after it is carried; a hand on a living body is an aim and wears
+ * neither (`sim/hand.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -107,7 +108,7 @@ describe("a grip", () => {
  * half of the split.
  *
  * The beam from the hull and the two carry arrows belong to the brake: one says
- * *this body is being dragged at*, the other says *and it can be walked a lane*.
+ * *this body is being dragged at*, the other *and it was just walked a lane*.
  * Neither is true of a hand on a slick, which slows nothing and moves nothing —
  * so the same gesture on the two bodies has to put visibly less on the screen
  * for the aim, or the partner reads a beat they were never given.

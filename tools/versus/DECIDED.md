@@ -24,9 +24,9 @@ a question, so the directory went with the entry.
 already been answered somewhere else on the same frame. It asked how the
 field should say that a body just carried a column cannot be carried again
 for a beat, and its premise was that nothing said so. Something does: the
-two white carry arrows beside the body are drawn only while
-`carryIsReady` (`grip-arrows.ts`), so they go out for the length of the
-pause and come back with it.
+two white carry arrows beside the body are the pause itself: since
+30 September 2026 they are drawn only while `carryIsReady` is false, fading out
+over it (`grip-arrows.ts`).
 
 `creature:strand` left with its slot decided rather than closed, and `mute`
 **won and shipped**: the reel rolls at six swaps a second in one violet,

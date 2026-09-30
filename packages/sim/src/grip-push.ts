@@ -223,6 +223,16 @@ function say(world: World, c: Creature, dir: -1 | 1, paid: readonly (1 | 2)[]): 
  * is a second copy of the rule, and it would drift.
  */
 export function carryIsReady(world: World, c: Creature): boolean {
-  if (c.pushBeat === undefined) return true;
-  return world.beat - c.pushBeat > world.cfg.gripPushPauseBeats;
+  return carryPauseLeft(world, c) === 0;
+}
+
+/**
+ * How many beats of the refusal are still to run, counting this one: the
+ * pause plus one on the beat of the carry, 0 once `carryIsReady`. The one
+ * place the subtraction is written, so the picture can fade the wait out
+ * without a copy of it (`render/grip-arrows.ts`).
+ */
+export function carryPauseLeft(world: World, c: Creature): number {
+  if (c.pushBeat === undefined) return 0;
+  return Math.max(0, world.cfg.gripPushPauseBeats + 1 - (world.beat - c.pushBeat));
 }

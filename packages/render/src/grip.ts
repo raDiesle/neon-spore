@@ -121,9 +121,9 @@ export function drawHandAt(
   const weight = p1 && p2 ? 1 : 0.62;
   if (means === "brake") drawBeam(ctx, l, x, y, time, weight);
   drawRing(ctx, x, y, r, time, weight);
-  // The two lanes out, and only a braked body has any: an aim does not move
-  // what it is pointed at (`grip-arrows.ts`).
-  if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r, time);
+  // The beat of quiet after a carry, and only a braked body has one: an aim
+  // does not move what it is pointed at (`grip-arrows.ts`).
+  if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r);
   drawLabel(ctx, l.role, x, y + r + 12, means, p1, p2, names);
 }
 
@@ -133,10 +133,9 @@ export function drawHandAt(
  * **The ring says nothing about the beat of quiet after a carry, and does not
  * need to.** A body pushed a column cannot be pushed again for
  * `gripPushPauseBeats` (`sim/grip-push.ts`), and the field already says so
- * where it is loudest: the two carry arrows are drawn only while the body may
- * be carried (`grip-arrows.ts`), so they go out for the pause and come back
- * with it. A ring that stopped turning for those beats was offered beside this
- * one and withdrawn — it is a second, quieter statement of the same fact, and
+ * where it is loudest: the two carry arrows are drawn only for that pause
+ * (`grip-arrows.ts`), fading out over it. A ring that stopped turning for
+ * those beats was offered beside this one and withdrawn — it is a second, quieter statement of the same fact, and
  * a ring at rest reads as a hand *let go* while the beam is still pulling. */
 function drawRing(
   ctx: CanvasRenderingContext2D,

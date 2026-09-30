@@ -108,8 +108,8 @@ const STRAND_POSE: Pose = {
 /**
  * A hand on a body, and that hand carrying it one column across. The push
  * sets `pushBeat`, and `carryIsReady` is false for `gripPushPauseBeats` after
- * it — which is why the two carry arrows are off the body here: they are drawn
- * only while it may be carried again (`render/grip-arrows.ts`).
+ * it — which is why the two carry arrows are on the body here: they are drawn
+ * only for that pause, fading out over it (`render/grip-arrows.ts`).
  *
  * `drag` has no helper in `pose-kit.ts` because this is the only pose that
  * needs one: the command carries cumulative thousandths of a tile from the
@@ -117,8 +117,9 @@ const STRAND_POSE: Pose = {
  */
 const GRIP_POSE: Pose = {
   name: "GRIP · THE PUSH PAUSE",
-  note: "A hand grabs a falling rock and shoves it one column across. A rock that has just been shoved cannot be shoved again for a beat, and the field says so by taking the two carry arrows away for as long as that wait lasts.",
-  lookAt: "the two carry arrows beside the rock — gone for a beat after it is shoved, then back",
+  note: "A hand grabs a falling rock and shoves it one column across. A rock that has just been shoved cannot be shoved again for a beat, and the field says so with two white arrows beside it that fade out over that wait.",
+  lookAt:
+    "the two carry arrows beside the rock — there only after it is shoved, fading out over the beat",
   crop: "tile",
   span: 5,
   at: firstOfKind("meteor"),

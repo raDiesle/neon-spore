@@ -13,14 +13,16 @@ import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-h
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * The two arrows beside a held rock, and the two things they have to say that
- * nothing on the field said before: **you may carry this**, and **not yet**.
+ * The two arrows beside a held rock, and the one thing they have to say that
+ * nothing on the field said before: **not yet**. The owner, 30 September 2026,
+ * took away the other half — *you may carry this* — because the guide teaches
+ * that once and the standard set wears no helper (`docs/controls-catalogue.md`).
  *
- * Both are counted rather than looked at. What is being pinned is that a
- * direction the simulation would refuse is a direction the picture does not
- * offer — a wall on one side, and the beat of quiet a carry costs
- * (`sim/grip-push.ts`) — and a test that named an arc would pass the day the
- * chevron became a triangle while still promising a lane that is not there.
+ * Counted rather than looked at. What is being pinned is that the arrows are
+ * the beat of quiet a carry costs (`sim/grip-push.ts`) and nothing else, and
+ * that a direction the simulation would refuse — a wall on one side — is not
+ * drawn; a test that named an arc would pass the day the chevron became a
+ * triangle while still pointing into the wall.
  */
 
 beforeAll(installCanvasGlobals);
@@ -44,40 +46,63 @@ function marks(world: World): number {
   if (!c) throw new Error("the field is empty");
   const { ctx } = stubCanvas();
   const at = creatureCenter(L, world, c, 0);
-  drawCarryArrows(
-    ctx as unknown as CanvasRenderingContext2D,
-    L,
-    world,
-    c,
-    at.x,
-    at.y,
-    L.tile,
-    0.25,
-  );
+  drawCarryArrows(ctx as unknown as CanvasRenderingContext2D, L, world, c, at.x, at.y, L.tile);
   return ctx.calls;
 }
 
+/** The brightest alpha the arrows were stroked at, for the one body here. */
+function alphaOf(world: World): number {
+  const c = world.creatures[0];
+  if (!c) throw new Error("the field is empty");
+  const { ctx } = stubCanvas();
+  let peak = 0;
+  const stroke = ctx.stroke.bind(ctx);
+  ctx.stroke = () => {
+    peak = Math.max(peak, ctx.globalAlpha);
+    stroke();
+  };
+  const at = creatureCenter(L, world, c, 0);
+  drawCarryArrows(ctx as unknown as CanvasRenderingContext2D, L, world, c, at.x, at.y, L.tile);
+  return peak;
+}
+
+/** The same rock, carried on the beat the world is on. */
+function justCarried(col: number): World {
+  const world = heldRock(col);
+  const c = world.creatures[0];
+  if (!c) throw new Error("the field is empty");
+  c.pushBeat = world.beat;
+  return world;
+}
+
 describe("the arrows beside a held rock", () => {
-  it("offers both lanes in the middle of the field", () => {
-    expect(marks(heldRock(4))).toBeGreaterThan(0);
+  it("are not drawn while the rock may be carried", () => {
+    expect(marks(heldRock(4))).toBe(0);
   });
 
-  it("offers fewer against a wall than in the open", () => {
-    expect(marks(heldRock(0))).toBeLessThan(marks(heldRock(4)));
-    expect(marks(heldRock(CFG.cols - 1))).toBeLessThan(marks(heldRock(4)));
+  it("are drawn on the beat the rock is carried", () => {
+    expect(marks(justCarried(4))).toBeGreaterThan(0);
   });
 
-  it("goes out for the beat the body has to stand still", () => {
-    const world = heldRock(4);
-    const c = world.creatures[0];
-    if (!c) throw new Error("the field is empty");
+  it("point fewer ways against a wall than in the open", () => {
+    expect(marks(justCarried(0))).toBeLessThan(marks(justCarried(4)));
+    expect(marks(justCarried(CFG.cols - 1))).toBeLessThan(marks(justCarried(4)));
+  });
+
+  it("are gone once the wait the simulation counts has passed", () => {
+    const world = justCarried(4);
+    world.beat += CFG.gripPushPauseBeats;
     expect(marks(world)).toBeGreaterThan(0);
-    // Carried on this beat: `carryIsReady` is false until the pause is over,
-    // and the arrows are that pause drawn.
-    c.pushBeat = world.beat;
+    world.beat += 1;
     expect(marks(world)).toBe(0);
-    // And back, once the wait the simulation counts has passed.
-    world.beat += CFG.gripPushPauseBeats + 1;
-    expect(marks(world)).toBeGreaterThan(0);
+  });
+
+  it("fade over the pause rather than stepping off", () => {
+    const world = justCarried(4);
+    const early = alphaOf(world);
+    world.beat += CFG.gripPushPauseBeats;
+    const late = alphaOf(world);
+    expect(late).toBeGreaterThan(0);
+    expect(late).toBeLessThan(early);
   });
 });

@@ -29993,3 +29993,16 @@ Bottleneck: `seamHand` answers each step at once, so no frame of grit meeting th
 Bottleneck: looking — the auto-run's hands go straight past the twist, so the state worth seeing lasts no ticks until two `--hold`s stop them short of it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE PUSH's arrows keep only the pause
+
+- reading: 10 min. `grip-arrows.ts`, the pause's rule in `grip-push.ts`, the
+  beat clock, and the six documents that described the arrows as an offer.
+- writing: 15 min. The fade over the pause, `carryPauseLeft` so the
+  subtraction is not copied into render/, the inverted tests, the documents.
+- looking: 5 min. The director's GRIP pose frame.
+- friction: 5 min. A context compaction mid-lane.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — six documents said the arrows were the offer, and each
+had to say the pause instead.

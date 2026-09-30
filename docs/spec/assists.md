@@ -159,10 +159,13 @@ the price is the one already built in: the thumb is on the field, so it is off
 the strip below.
 
 **And it is now the only thing on the field that says so.** A held rock wears
-two white arrows, one each way, for as long as it may be carried; they go out
-on the beat the column changes and come back when the pause is over, so the
-wait has a length the eye can learn, and a direction with a wall behind it is
-not offered at all (`render/grip-arrows.ts`). White, because amber is the hand
+two white arrows, one each way, for the beat after it is carried and not
+otherwise; they arrive on the frame the column changes and fade out as the
+pause runs, gone on the beat a hand may carry it again, so the wait has a
+length the eye can learn, and a direction with a wall behind it is not drawn
+at all (`render/grip-arrows.ts`). The owner, 30 September 2026, took away the
+other half — the same arrows standing beside every held rock as an offer —
+because the guide teaches the carry and the standard set wears no helper. White, because amber is the hand
 and red and cyan are ammunition — an arrow here is an instruction to a player
 rather than a force on a body.
 
