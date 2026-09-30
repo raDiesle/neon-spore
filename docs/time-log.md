@@ -29805,3 +29805,13 @@ Bottleneck: working out which helpers the remaining cases still needed, so the h
 - landing: 5 min. `check:fast`, the commit.
 
 Bottleneck: keeping the key order, because the ids list and every page that walks it read the table in that order.
+
+## 2026-09-30 — `game/waves.ts` and the director's `main.ts`: the opening and the refresh cut out
+
+- reading: 10 min. The wave's opening retries, and the director's four functions that every panel calls when the wave moves, with the panels they reach.
+- writing: 10 min. `wave-opening.ts` with `arm`/`tick`; `main-refresh.ts` binding the refresh to a getter of the panels, so the late `const`s are read when called and not when bound.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast` over 100 shards, the commit.
+
+Bottleneck: the director's panels are declared after the callbacks that repaint them, which is why the refresh takes a getter and not the panels themselves.

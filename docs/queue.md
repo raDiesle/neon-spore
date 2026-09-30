@@ -1314,19 +1314,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `waves.ts` and the director's `main.ts` are both near the line ceiling
-
-- **Found:** 2026-09-29, claude/scroll-previous-wave-director-bb6576
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-waves-ts-and-the-directors-main-ts-are-both-near)
-- **Files:** `apps/game/src/waves.ts`, `tools/director/src/main.ts`
-
-`waves.ts` is 228 lines and `main.ts` 238 after the last-played wave went into
-each (`last-wave.ts`, `rail-arrive.ts`). Choose the seam before the next lane
-has to: in `waves.ts`, the intro clock (`tickOpening`, `left`, `sentAtTick`,
-`RETRY_TICKS`) is one subject apart from opening a wave; in `main.ts`,
-`refreshAll` and `jumpToBrushWave` with the panels they call could stand in a
-`main-refresh.ts` the way `main-tempo.ts` already does.
-
 ## Eighteen bosses' FIRE cues stand at the hull and aim at nothing
 
 - **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0

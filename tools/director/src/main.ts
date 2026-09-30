@@ -10,6 +10,7 @@ import { initColumns } from "./columns.js";
 import { bindDocumentationRooms } from "./documentation-rooms.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { makeHeld } from "./held.js";
+import { bindRefresh } from "./main-refresh.js";
 import { bindTempoControls } from "./main-tempo.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
@@ -17,7 +18,7 @@ import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { onPhone } from "./phone-view.js";
 import { bindRail } from "./rail.js";
-import { rememberedWave, rememberWave } from "./rail-arrive.js";
+import { rememberedWave } from "./rail-arrive.js";
 import { makeSelection } from "./selection.js";
 import { bindPlace, type PlaceSession } from "./session.js";
 import { renderShip, renderShipSheet } from "./ship.js";
@@ -83,6 +84,16 @@ const selection = makeSelection();
 // And which brush the author is carrying, if any — the palette lights it and
 // the map spends it (`held.ts`).
 const held = makeHeld();
+// What every panel does when the wave under it moves — see `main-refresh.ts`.
+const { onShape, refreshAll, jumpToBrushWave } = bindRefresh({
+  store,
+  cfg,
+  place,
+  selection,
+  stage,
+  panels: () => ({ rail, grid, boss, palette, cells }),
+  paintStatus,
+});
 const palette = bindPalette({
   selection,
   held,
@@ -152,62 +163,15 @@ function paintSelected(brush: Brush): void {
   store.dirty = true;
   onShape();
 }
-// Ctrl-click on a brush: open the wave that first puts it on the field and
-// let it run, so a brush can be *seen* rather than read about. The same two
-// steps DEMOS takes (`demo-panel.ts`) — `refreshAll` is what every jump to a
-// wave goes through — with the play on the end, since the transport may have
-// been left paused and a wave opened to be watched should not land held.
-function jumpToBrushWave(brush: Brush): void {
-  const index = jumpWaveIndex(store.waves, brush);
-  if (index === undefined) return;
-  store.index = index;
-  refreshAll();
-  stage.play();
-}
 // Brushes the current wave has no use for, so the palette knows what to hide.
 function hiddenBrushes(): ReadonlySet<Brush> {
   const wave = currentWave(store);
   if (!wave || !isCreaturePlacementBlocked(wave)) return new Set();
   return new Set(CREATURE_BRUSHES);
 }
-// A wave changed shape: redraw the grid, the boss panel, and replay from the top.
-function onShape(): void {
-  // The list too: a fault is painted on the map, and its ⚠ is on the wave's
-  // own row (`rail-marks.ts`). No other mark moves on a shape edit.
-  rail.render();
-  grid?.render();
-  boss.render();
-  palette.render();
-  // The selection did not move, but what is under it may have just been
-  // erased or painted over — the panel names the contents, not the coordinates.
-  cells?.render();
-  stage.rebuild();
-  paintStatus();
-  renderShip(cfg, currentWave(store));
-}
 // Only the prose changed — replaying the wave for a typed letter would be rude.
 function onProse(): void {
   paintStatus();
-}
-
-function refreshAll(): void {
-  place.persist(store.index);
-  rememberWave(store.index);
-  // A different wave: beat 4 column 2 is a different cell now, and pointing the
-  // panel at whatever happens to be there would be a selection nobody made.
-  selection.set(null);
-  // And a round belongs to the boss it was picked for — before `boss.render`,
-  // which marks the tab, and before the rebuild that would stand this wave's
-  // fight on the last one's fourth sheet.
-  stage.closeRound();
-  rail.render();
-  grid?.render();
-  boss.render();
-  palette.render();
-  cells?.render();
-  stage.rebuild();
-  paintStatus();
-  renderShip(cfg, currentWave(store));
 }
 
 // The save button is the indicator: blue while there is something to write,

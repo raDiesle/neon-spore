@@ -2507,6 +2507,7 @@ by hand never moves.
 | `apps/game/src/main-shell.ts` | What `main.ts` hands `bindShell` — beside `main.ts` rather than inside it, `shell-menu.ts`'s own reason |
 | `apps/game/src/main-world.ts` | **The world's opening**: the config this build plays at, the world built on it |
 | `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
+| `apps/game/src/wave-opening.ts` | The clock that carries a wave's introduction past |
 | `apps/game/src/welcome.ts` | the page before a device's first tutorial: once per device, pressed away, the film held on its first frame under it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/autopilot.ts` | AUTO under the TEST panel: the director's hands press OFF, BOTH, P1 or P2 into the game's own input buffer, on the tick |
@@ -2756,6 +2757,7 @@ by hand never moves.
 | `tools/director/src/keys.ts` | Both roles on one keyboard, so a wave can be tried the moment it is placed |
 | `tools/director/src/main.ts` | The director: one screen where a wave is placed, played and judged — not |
 | `tools/director/src/main-tempo.ts` | **THE TEMPO HAS TWO CONTROLS AND THEY ARE ONE NUMBER.** TUNING's first slider moves `bpm` two points at a… |
+| `tools/director/src/main-refresh.ts` | Anything beside the stage that paints the wave being edited |
 | `tools/director/src/markdown.ts` | The little of markdown the spec actually writes, turned into DOM: headings, paragraphs, bullets |
 | `tools/director/src/markdown-inline.ts` | The inline half of `markdown.ts`: bold, italics, code, links and images inside one line |
 | `tools/director/src/mobile-menu.ts` | On a phone the director opens on a menu, not on a wave |

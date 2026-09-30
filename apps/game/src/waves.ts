@@ -9,10 +9,8 @@ import {
   waveGuideSteps,
   waveHasGuide,
 } from "@neon-spore/content";
-import { introSeconds } from "@neon-spore/render";
 import {
   endRun,
-  introHolds,
   playSeconds,
   resetRun,
   type SimConfig,
@@ -26,10 +24,11 @@ import { writeLastWave } from "./last-wave.js";
 import { reachedWith } from "./pairing.js";
 import { reached, timed, updateProgress } from "./progress.js";
 import { clearQuit, sayQuit } from "./quit.js";
+import { createWaveOpening } from "./wave-opening.js";
 
 /**
- * Wave progression: the two ways a wave starts, and the clock that carries its
- * introduction past.
+ * Wave progression: the two ways a wave starts. The clock that carries its
+ * introduction past is `wave-opening.ts`'s.
  *
  * The simulation asks for a queue when it needs one; it cannot fetch one
  * itself, because waves live in `content/` and nothing points back into the
@@ -40,44 +39,7 @@ import { clearQuit, sayQuit } from "./quit.js";
  * guide is passed as a plain boolean, not as its words: the simulation decides
  * how many states hold the field and never reads one of them.
  *
- * **The introduction's seconds are counted here, and this is the only place
- * they could be.** `packages/sim` may not read a wall clock — that is what
- * makes lockstep possible — so the wave's opening is held in the world and let
- * go by a command, exactly like the guide's. Where the guide's command comes
- * from a thumb, the introduction's comes from this countdown, one seat's worth
- * per device. Two devices therefore leave the introduction a few frames apart
- * and the world agrees about it anyway, because the acks travel the same wire
- * every other press does.
  */
-
-/**
- * How long the introduction stands — long enough to read a short sentence
- * twice; at 2.6 s the old banner's hint was gone before anyone had finished it,
- * which made every wave feel like it started mid-sentence.
- *
- * **The number lives in `render/wave-intro.ts` and is imported.** The words fade
- * out over the last half-second of it, and the fade is drawn there while the
- * countdown is run here — two places that have to agree about one duration,
- * which is the definition of a number that should only be written once.
- */
-
-/**
- * How long to wait, **in world ticks**, before asking again when the
- * introduction is somehow still standing.
- *
- * Ticks and not seconds, and that is the whole of what makes the retry safe.
- * An ack is scheduled `inputDelayTicks` into the future, so for a moment after
- * it is sent the introduction is legitimately still up — a retry on a wall
- * clock fires into that gap, the world moves on to the guide, and the second
- * pair of acks arrives to put away a guide nobody has read. That is not a race
- * that showed up under load: it happened on the first frame anybody looked at.
- *
- * Counting the world's own ticks fixes both halves at once. It cannot fire
- * before the first ack has had time to land, and it cannot fire while the game
- * is paused — which is the one case a retry exists for, since a paused loop
- * throws buffered commands away — because a paused world does not tick either.
- */
-const RETRY_TICKS = 60;
 
 export interface WaveProgressionOptions {
   world: World;
@@ -101,10 +63,7 @@ export function createWaveProgression({
   audio,
   buffer,
 }: WaveProgressionOptions): WaveProgression {
-  /** Seconds left on the introduction that is up, or 0 when none is. */
-  let left = 0;
-  /** The world tick the acks were sent on, or -1 while none has been sent. */
-  let sentAtTick = -1;
+  const intro = createWaveOpening(world, buffer);
   /** Whether this run's final clock has already been written down. */
   let ended = false;
 
@@ -165,13 +124,7 @@ export function createWaveProgression({
       // sim may not ask content for itself (`content/control-sets.ts`).
       setLance(controlSetForWave(wave)),
     );
-    // Armed only for an opening that has an introduction in it. A guided wave
-    // crosses its gate straight onto the field (`sim/briefing.ts`), so a clock
-    // set here would be counting down a screen nobody will see.
-    // Read after `startWave`, which is what counts this try: a wave gone again
-    // stands for half as long (`RETRY_INTRO_SECONDS`).
-    left = introHolds(world) ? introSeconds(world.waveTries) : 0;
-    sentAtTick = -1;
+    intro.arm();
     clearQuit();
   };
 
@@ -203,26 +156,6 @@ export function createWaveProgression({
   return {
     handle,
     jumpToWave,
-    tickOpening: (dtSeconds) => {
-      // The world is the authority on whether the introduction is still up: a
-      // headless check that acked it by hand, or a partner who was slower than
-      // this device, both show up here as the phase having moved on.
-      if (!introHolds(world)) {
-        sentAtTick = -1;
-        return;
-      }
-      if (sentAtTick >= 0) {
-        // Already asked once. Ask again only when the world has ticked far
-        // enough past that for the answer to have been lost rather than merely
-        // to be in flight — see `RETRY_TICKS`, which is why this counts ticks.
-        if (world.tick - sentAtTick < RETRY_TICKS) return;
-      } else {
-        left -= dtSeconds;
-        if (left > 0) return;
-      }
-      buffer.push(1, { kind: "brief" });
-      buffer.push(2, { kind: "brief" });
-      sentAtTick = world.tick;
-    },
+    tickOpening: intro.tick,
   };
 }
