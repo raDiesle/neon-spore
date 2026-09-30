@@ -30513,3 +30513,5 @@ Bottleneck: friction. Two files in a row went over the size limit, and each fix 
 - landing: 5 min. `imports:sort`, `bun run index`, `check:fast`, the commit, `land`.
 
 Bottleneck: friction. The AUTO run across all four forms was the only thing that found both timing edges, and each one needed its own diagnosis.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

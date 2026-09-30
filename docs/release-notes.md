@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 8232fa2c4 — THE VANE re-forms three times, one more guard arm each form
+
+The bearing's last pin no longer ends the fight until its fourth form: each of the first three re-forms it with three fresh pins (so it opens at VEER and keeps SEIZE for the last), and each new form turns one more guard arm round the hub. A guard across a mouth refuses the shot and spends the opening, so the pair time the gap as well as the pin, the column and the colour. AUTO waits for the gap and for a colour that holds until the shot arrives, and plays all four forms through. Nothing is drawn yet; the guards and the growth are the next lane.
+
 ## 2026-09-30 · d3b374394 — THE VANE's colour holds for a whole cycle
 
 The housing used to change colour at every opening, which was every six beats. It now keeps one colour for `cfg.vaneColorOpenings` openings, 2 by default, so both ends of a sweep share a colour and it changes once per twelve-beat cycle. The owner asked on 30 September 2026: *the changing colour should be somehow slower*. This is a look the owner asked for by name.
