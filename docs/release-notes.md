@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c6399afe1 — Cut the guarded replay and the race retry out of `tools/land/run.ts`
+
+`tools/land/run.ts` is at 249 lines — the guard against dropped queue entries took it to the line. `replayGuarded` and the race-retry loop that repeats it are one seam and are now `tools/land/replay-guarded.ts` (`replay.ts`, at 183 lines, had no room for them); `run.ts` keeps the plan, the check and the report, at 189 lines. `tools/land/test/` is untouched.
+
+## 2026-09-30 · b74adf6e6 — Cut the owner's rules for every boss out of `owner.md` into `generic.md`
+
+`.claude/skills/new-boss/owner.md` is at 263 lines — over the size line the skills are held to. What the owner said of one boss stays in `owner.md`; the lines he marked *generic* or *for all bosses* — the long window, THE SLOW on a step, feedback on every touch, every mark showing its gesture, nothing at the top of the screen — are `generic.md` beside it, and SKILL.md §7 sends a designer to both. The render sources and docs that cite a generic rule now name the page it lives on.
+
 ## 2026-09-30 · 4fff7a8f6 — Done: THE SEAM under the game's AUTO is baited by its own false point
 
 ## 2026-09-30 · 7d4edcb81 — Fix: THE SEAM under the game's AUTO is baited by its own false point

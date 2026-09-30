@@ -29883,3 +29883,5 @@ Bottleneck: deciding, for each citation, whether it named a generic rule or THE 
 - landing: 5 min. `bun run index`, `check:fast` over 75 shards, the commit.
 
 Bottleneck: `replay.ts`, the file the queue item named, had no room, so the seam got a file of its own.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
