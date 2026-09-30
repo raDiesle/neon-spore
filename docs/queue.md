@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at 4b5e7e87c: GRAPHICS → EFFECTS: the five buttons, and each page op…
 
 - **Found:** 2026-09-26, claude/jolly-ramanujan-a02i5z
+- **Taken:** 2026-09-30, claude/queue-unverified-at-e72d91c4b-the-oculuss-lens-watched (claim: claude/queue-unverified-at-4b5e7e87c-graphics-effects-the-fiv)
 - **Files:** `docs/INDEX.md`, `docs/time-log.md`, `packages/hands/src/boss-hands-snake-grid.ts`, `packages/hands/src/boss-hands-snake.ts`, `packages/render/src/slow-crawl.ts`, `packages/render/src/slow-fuse.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/src/slow-intake.ts`
 
 2 commits landed, ending in *SNAKE's hand plans on flat arrays, and SHED's pose builds in a tenth of the time*, from a session that could not look at it. The commit touched 18 more files. What went unchecked:
