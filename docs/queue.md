@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## §25 THE VALVE's wheel drawn placed-surface, not a flat spin
 
 - **Found:** 2026-09-26, this session
+- **Taken:** 2026-09-30, claude/queue-25-the-valves-wheel-drawn-placed-surface-not-a-f
 - **Needs:** nothing — THE VALVE's simulation lane already landed, and its
   look is queued but not yet claimed
 - **Files:** `docs/spec/bosses-choreographed.md`
