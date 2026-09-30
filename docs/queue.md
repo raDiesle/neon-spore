@@ -1223,6 +1223,7 @@ after side has. Prove it with `bun run check`.
 ## THE REPRISE's camera cables run to the top edge
 
 - **Found:** 2026-09-30, claude/queue-bottom-up
+- **Taken:** 2026-09-30, claude/queue-tasks-66c8ef (claim: claude/queue-the-reprises-camera-cables-run-to-the-top-edge)
 - **Files:** `packages/render/test/boss-top.test.ts`
 - **Asks:** THE REPRISE's body is clear of the switcher, but the cables it hangs by run to the top edge: keep the cables to the top, cut them at the top of the field, or drop them?
 - **Answered:** 2026-09-30 — (b), end the cables at `l.gridTop`, over keeping them to the top or dropping them, and hang the camera a little lower than it sits now. Delete `reprise` from `EXEMPT`.
