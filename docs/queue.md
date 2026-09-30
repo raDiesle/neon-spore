@@ -579,6 +579,7 @@ what the rest of this file holds.
 ## §26 THE SEAM — its STATES poses, the last of its hands
 
 - **Found:** 2026-09-29, claude/queue-26-the-seam-the-cues-words-and-the-poses-the-res
+- **Taken:** 2026-09-30, worktree-agent-a6d5193533404a7b6 (claim: claude/queue-26-the-seam-its-states-poses-the-last-of-its-han)
 - **Files:** `tools/director/src/poses-bosses-hands-valve.ts`, `tools/director/src/poses-bosses-hands-vise.ts`, `tools/director/src/`
 
 The receipts are in (`render/seam-fx.ts`) and so are the cue's words
