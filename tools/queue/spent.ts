@@ -27,7 +27,7 @@
 
 import { branchFor } from "./claim.js";
 import { gitIn } from "./git.js";
-import { claimedBranch, workedBranch } from "./mark.js";
+import { claimedBranch, takenMark, workedBranch } from "./mark.js";
 import type { Item } from "./queue.js";
 import { ROOT, TRUNK } from "./tree.js";
 
@@ -69,7 +69,9 @@ export function spentHere(item: Item, mark: string, root = ROOT): string[] | nul
   // The branch today's title derives is live only if a lane is on it, and
   // `heldElsewhere` has already answered for that one.
   if (checkedOut.has(branchFor(item))) return null;
-  return spentBranches(mark, {
+  // No line anywhere and a claim branch standing is a `take` whose line never
+  // reached the trunk: the branch is the only thing to judge.
+  return spentBranches(mark || takenMark(branchFor(item), ""), {
     local: (b) => run("rev-parse", "--verify", "--quiet", `refs/heads/${b}`).ok,
     checkedOut,
     merged: (b) => run("merge-base", "--is-ancestor", b, TRUNK).ok,

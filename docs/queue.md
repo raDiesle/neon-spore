@@ -1299,24 +1299,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A claim whose trunk commit fails leaves its edit and its branch behind
-
-- **Found:** 2026-09-30, claude/queue-the-world-does-not-say-when-a-windows-latest-ask
-- **Taken:** 2026-09-30, claude/queue-tasks-f82769 (claim: claude/queue-a-claim-whose-trunk-commit-fails-leaves-its-edit)
-- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`
-
-`onTrunk` writes `docs/queue.md` in the main checkout and then commits it
-there. When the commit failed on a stale `index.lock` held by another
-session for a moment, the `Taken:` line stayed uncommitted in the main
-checkout and the claim branch had already been made. The retry printed
-`left alone — … has uncommitted changes to it`, and once the line was taken
-back out by hand, a third try refused with `already taken` by its own
-branch, so the trunk never recorded the claim. Wanted: on a failed commit,
-write the file back as it was before throwing, and let `take` from the tree
-that already owns the claim branch mark the trunk rather than refuse. Prove
-it with a test in `tools/queue/test/` that fails the commit once and then
-claims.
-
 ## `director-controls.css` is past the line
 
 - **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17

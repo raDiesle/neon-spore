@@ -78,9 +78,14 @@ export function onTrunk(
       return false;
     }
     const path = join(tree, rel);
-    writeFileSync(path, edit(readFileSync(path, "utf8")));
+    const was = readFileSync(path, "utf8");
+    writeFileSync(path, edit(was));
     const made = gitIn(tree, "commit", "--only", rel, "-q", "-m", subject);
-    if (!made.ok) throw new Error(`could not commit ${rel} on ${TRUNK}: ${made.err}`);
+    if (!made.ok) {
+      // Left behind, the edit is a change the next `take` refuses to touch.
+      writeFileSync(path, was);
+      throw new Error(`could not commit ${rel} on ${TRUNK}: ${made.err}`);
+    }
   }
   console.log(`  ${TRUNK}     ${rel} — ${subject}`);
 
@@ -199,6 +204,8 @@ export function claim(item: Item, root = ROOT, dealt = false): string {
     const put = () => onTrunk(item, edit, `Mark ${JSON.stringify(item.title)} taken`, root);
     const marked = put();
     if (marked === "refused") settleRefused(item, put, root, trunkTree(root));
+    // No line was written: a branch kept now is a claim nobody can see.
+    if (marked === false && !kept) throw new Error(`could not mark ${item.title} on ${TRUNK}`);
     if (marked && kept) {
       moveKept(branch, kept, root);
       // A re-stamp took the line off this tree's copy too (`unmark`), and the

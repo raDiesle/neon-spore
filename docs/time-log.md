@@ -30311,3 +30311,13 @@ Bottleneck: writing. There is one suggestion per row, and each had to be read ag
 Bottleneck: timing. The figures had to be read off runs at a load near 30, and one of three runs was five times the others.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — a claim whose trunk commit fails puts its line back and leaves no branch
+
+- reading: 10 min. `repo.ts`'s `onTrunk` and `claim`, `kept.ts`, `spent.ts`, `claim.ts`'s `heldElsewhere` and the `take` path in `run.ts`.
+- writing: 5 min. The file put back on a failed commit, a claim that wrote no line refused, a lineless claim branch read as spent, and `claim-fails.test.ts`.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. A compaction mid-lane, and the hook's `$GIT_DIR`, which a worktree's hook does not get.
+- landing: 5 min. The test run against the unfixed code, `check:fast`.
+
+Bottleneck: reading. Four files each hold part of how a claim is judged, and the fix touched two of them.
