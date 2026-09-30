@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 4a18f6bf3 — THE SEAM's STATES poses: its four phases and every ask the lit step makes
+
+The director's STATES sheet now shows THE SEAM whole: the still ridge, a lit point, the rest after it and the split, and past the point each thing the lit step can ask — grit taken on the shield, a rock in flight, grit and a rock at once, the blind ridge, the glow, the false point and the dark. Each is run to with a hand on the controls, never set, and the seam's row in OWED is struck.
+
 ## 2026-09-30 · d1c4c80ca — Read the tree in parallel, once, for the guards that walk it
 
 The guards that read every file in the tree now share one cached reader, `tools/test/tree-text.ts`. It reads sixty-four files at a time, and each file only once per `bun test` process. Before this, `copies.test.ts` and both `doc-drift-names.test.ts` rows opened one file at a time. Under a loaded `check:fast` they drifted to eight and fourteen seconds against figures of 450 and 850 ms. The rows were made cheap and the figures were left alone: alone under load they now take about 200 and 320 ms, where they took 615 and 1,070 ms before. `declaredNames` is harvested once and shared.

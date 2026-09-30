@@ -29979,3 +29979,5 @@ Bottleneck: the rows were slow because they opened files one at a time, not beca
 - landing: 5 min. `bun run index`, a format pass, `check:fast` and the commit.
 
 Bottleneck: `seamHand` answers each step at once, so no frame of grit meeting the shield exists until a pose delays the press itself.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
