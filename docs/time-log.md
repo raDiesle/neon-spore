@@ -29747,3 +29747,15 @@ Bottleneck: finding that of the story's twelve events only one had a receipt her
 Bottleneck: `check:fast` reached 94 shards, since a sim surface is imported by nearly every package.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — No boss touches the top of the screen, as a rule
+
+- reading: 5 min. The new-boss skill's owner rules and the queue's format.
+- writing: 5 min. The rule, the audit of the other bosses, and the
+  skill file's split, both queued.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. One `check:fast`.
+
+Bottleneck: none worth a sentence; the audit itself is queued for a lane
+of its own.

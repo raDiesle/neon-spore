@@ -1489,3 +1489,29 @@ The next boss's sentence takes it past the line ceiling. Move the bosses
 from THE NETTLE on into `mechanics-bosses-b.ts`, which is already spread into
 `MECHANICS`. Keep `MECHANIC_IDS` in the same key order: the bestiary walks
 it, so check that `MECHANICS` still names each id one by one.
+
+## Check that no boss touches the top of the screen
+
+- **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70
+- **Files:** `packages/render/src/*-draw.ts`, `packages/render/src/layout.ts`, `.claude/skills/new-boss/owner.md`
+
+The owner, 29 September 2026, on THE STARE: *any boss should not touch top
+of game screen* — a rule for every boss, now in the new-boss skill's
+`owner.md`. THE STARE was lowered into the field; the other bosses were not
+looked at. Many hang above `l.gridTop` on purpose (THE GORGE's sack, for
+one). Take a frame of each boss wave on both seats with `bun run frames`,
+and list every boss whose body reaches the seat switcher or the top edge.
+Then add one render test that walks the bosses and holds each body's
+topmost point below the switcher's bottom, so the next boss cannot break it.
+A boss that fails and has to move is a fix to something wrong, not a look;
+say which in the commit.
+
+## `.claude/skills/new-boss/owner.md` is at 263 lines
+
+- **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70
+- **Files:** `.claude/skills/new-boss/owner.md`, `.claude/skills/new-boss/SKILL.md`
+
+The owner's verdicts on bosses keep growing past the size line. Split the
+generic rules (the ones marked *generic* or *for all bosses*) into their own
+file next to it, name it from `SKILL.md`, and keep the per-boss verdicts in
+`owner.md`. Move text only; change no wording.

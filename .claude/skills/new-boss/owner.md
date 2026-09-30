@@ -252,6 +252,11 @@ item naming the rule, never a fix made in passing.
   crucial to defeating that one enemy or boss. Which is which, and every
   piece to choose from: `docs/controls-catalogue.md`. **The one exception is
   THE PUSH's arrows**, the same day: *keep visual as it is for “the push” of enemies one tile to left or right … it only appears when one of the players clicks/touches it, so this makes it exception*.
+- **No boss touches the top of the screen**, generic, 29 September 2026, on
+  THE STARE: *any boss should not touch top of game screen*. The phone's bar
+  and the seat switcher stand there, and a body under them is half read.
+  Hang it inside the field or clear of the switcher; THE STARE's eye sits
+  `EYE_DROP` tiles under row 0's top (`stare-shape.ts`).
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss
