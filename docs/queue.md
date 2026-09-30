@@ -1332,6 +1332,7 @@ and time the case again alone. Prove it with `bun run check`.
 ## Three tree walks run past their figures under load
 
 - **Found:** 2026-09-30, claude/queue-bottom-up
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-three-tree-walks-run-past-their-figures-under-lo)
 - **Files:** `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `packages/sim/test/limits.test.ts`
 
 At a load average near 38, one `bun run check` reported figure drift on three
