@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 1ac70fe31 — THE GAUGE's hands test splits in two around the one rig
+
+gauge-hand.test.ts was 304 lines. Its helpers (the round reached in its play, her call, a command heard straight, the two thumbs, a call allowed to land and one that will miss) move into gauge-rig.ts beside the constants it already exported, and the bind and both hands at the end of the play move to gauge-bind.test.ts. No test changed beyond its imports.
+
 ## 2026-09-30 · a805e1ebf — Every cue word says what the thumb does, and the effect goes under it
 
 A boss's cue on the field now names the gesture — TAP, HOLD, PULL, MOVE — or the button it is made on, and what that does to the boss moves to the small line under it: THE VALVE says TAP over TO FREEZE THE WHEEL where it said FREEZE, THE LEAD says HOLD over TO BURN IT, THE RATCHET says TAP over WHEN P2 SAYS SET. About forty words across the bosses changed the same way.

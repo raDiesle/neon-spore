@@ -30176,3 +30176,5 @@ each rename was paid for twice.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction. The claim was tried before the trunk was brought up, so the entry it named was not in the file yet.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
