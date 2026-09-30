@@ -10718,7 +10718,7 @@ rocked picture reads the same number (`capstan-pose.ts`). **`PULL` stands
 on the drum's middle, not on the horn** (30 September 2026): the horn is
 inside an end's rub zone, so a thumb put down on the word was handed a
 rub; the word now stands where a press takes the pull, and which way to
-carry it is the horn's chevron (`boss-cue-capstan.test.ts` presses it).
+carry it is the horn's arrow (`boss-cue-capstan.test.ts` presses it).
 
 **The look** (`render/src/capstan-draw.ts`, 27 September 2026 — the body,
 then its blow and receipts the same day). **Two drafts combined**: CREATURES' GATE
@@ -10737,8 +10737,9 @@ bared. Each face carries a band of eight marks (`capstanWearThreshold`),
 scrubbed from grate to bare metal one per reversal worn and its rim turning a
 tooth with each; worn bright the rim goes white for good (`capstan-marks.ts`).
 **The marks say which gesture**, in the hull's rim-white and nothing else: a
-chevron on the horn the lit band asks the lean toward, going dark as its
-face comes round, and on a hold faint on both; the bared face's rim lit on
+pull arrow on the horn the lit band asks the lean toward (`drawPullArrow`,
+30 September 2026), on the steering seat's screen alone, going dark as its
+face comes round, and on a hold faint on both, on both screens; the bared face's rim lit on
 the beat while it is the one to rub; the core in the drum's middle, under a
 riveted cap hinged along its top, lit in a fire step's colour with a ring
 closing as its window runs. Through a hold the cap creeps back over the

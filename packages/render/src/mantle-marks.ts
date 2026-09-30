@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
+import { seatIsMine } from "./handle-word.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { mantleVentCircle } from "./mantle-grip.js";
 import { mantleRing, type Point } from "./mantle-shape.js";
@@ -25,7 +26,7 @@ import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
  * ring for the seat whose tap is next (`mantleCoreAsks`), and the vent, from
  * either seat, while it hisses. **An asking mark wears the halo on its
  * owner's screen and the partner's turning ring and clock on the other's** —
- * which is why a knob's chevron, the gesture, is drawn on its owner's screen
+ * which is why a knob's arrow, the gesture, is drawn on its owner's screen
  * alone (`mantle-handle.ts`). The core's is on the half of the ring that is
  * that seat's, left for the pilot and right for the navigator, by the
  * handles' geometry. The vent is both seats', so it haloes on both.
@@ -79,9 +80,10 @@ export class MantleMarks {
   }
 }
 
-/** Whether `seat`'s marks are this screen's own — both on the test screen. */
+/** Whether `seat`'s marks are this screen's own — both on the test screen.
+ * The field's one seat rule (`handle-word.ts`), called rather than re-said. */
 export function mantleMine(role: ViewRole, seat: 1 | 2): boolean {
-  return role === "test" || (role === "p1") === (seat === 1);
+  return seatIsMine(role, seat);
 }
 
 /** The verdict's radius round a knob, in handle radii. */

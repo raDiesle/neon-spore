@@ -7,6 +7,7 @@ import {
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
+import { seatIsMine } from "./handle-word.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -47,9 +48,9 @@ import { stepColour } from "./step-colour.js";
  * the bob's belly both cannons are asked to hit (§11.48,
  * `bosses-choreographed.md` §31).
  *
- * **Both screens are drawn the same.** Nothing here reads `l.role`: a level
- * is one seat's, but the other has to see which ball swings and how far its
- * partner's bubble is off to say so.
+ * **Both screens are drawn the same**, but for the arrow in each ball, which
+ * is on its own seat's screen alone: a level is one seat's, but the other has
+ * to see which ball swings and how far its partner's bubble is off to say so.
  *
  * **Old bronze on a thread of light**: the body a dull olive bronze that is
  * neither cannon's colour, the glass a pale green-white, and the only colour
@@ -109,6 +110,8 @@ export function drawPlumb(
       size,
       s.weights[side] >= PLUMB_SETTLES_PER_WEIGHT,
       free > 0,
+      seatIsMine(l.role, side === 0 ? 1 : 2),
+      time,
     );
     const bled = plumbBled(s, world, side, beat, beatPhase);
     const stone = { ...ball, r: plumbBallR(l, side) * size };

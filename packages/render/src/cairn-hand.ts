@@ -1,7 +1,10 @@
 import { type Creature, gripsCreature, type World } from "@neon-spore/sim";
 import { cairnUnits } from "./cairn-units.js";
 import { drawHandAt } from "./grip.js";
+import { handleRadius } from "./handle-draw.js";
+import { seatIsMine } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
+import { drawPullArrow } from "./pull-knob.js";
 import type { SeatNames } from "./seat-name.js";
 
 /** How far outside the outermost stone the ring sits — a hand closed on the
@@ -13,7 +16,9 @@ const RING_OUT = 1.1;
  * ring and word every other hand gets, on top of the body it is on rather than
  * behind it. No beam and no lanes: the pull is what the finger's travel
  * spends, not a rope from the ship, and the puff where the unit comes out is
- * the picture of which side (`cairn.ts`).
+ * the picture of which side (`cairn.ts`). Inside the ring, on the screen
+ * whose hand it is, the shared arrow says the pull goes sideways
+ * (`pull-knob.ts`, 30 September 2026).
  */
 export function drawPileHand(
   ctx: CanvasRenderingContext2D,
@@ -34,7 +39,17 @@ export function drawPileHand(
   const ring = pileRing(l, body, units, time, hush);
   if (ring === null) return;
   drawHandAt(ctx, l, world, body, "pull", p1, p2, ring.x, ring.y, ring.r, time, names);
+  // The way, on the screen whose hand it is: either side, so two heads — which
+  // side the unit comes out is the finger's travel, not the pile's (`cairn.ts`).
+  if ((p1 && seatIsMine(l.role, 1)) || (p2 && seatIsMine(l.role, 2))) {
+    drawPullArrow(ctx, ring, handleRadius(l, world.cfg), SIDEWAYS, time, {
+      alpha: 0.9,
+      either: true,
+    });
+  }
 }
+
+const SIDEWAYS = { dx: 1, dy: 0 } as const;
 
 /**
  * Where the ring round the pile stands this frame, or nothing once no stone

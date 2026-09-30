@@ -13,6 +13,8 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullArrow } from "./pull-knob.js";
+import { PULL_DOWN } from "./pull-line.js";
 import { drawValveFx, type ValveFx } from "./valve-fx.js";
 import { drawValveMark, drawValveSocket } from "./valve-marks.js";
 import {
@@ -30,6 +32,7 @@ import {
   valveFacePath,
   valveHolePath,
   valveLift,
+  valvePinCentre,
   valvePinPath,
   valvePinTop,
   valvePointerPath,
@@ -189,7 +192,8 @@ export const VALVE_PIN: { sway: (i: number, going: number, time: number) => numb
 
 /**
  * Pin `i`: hung under the drum while it is in, reaching and edged in white
- * while it is the one to pull, sliding down and fading as it comes free,
+ * while it is the one to pull, with the shared pull arrow down its middle
+ * (`pull-knob.ts`, 30 September 2026), sliding down and fading as it comes free,
  * and gone — a slot in the drum — after.
  */
 function drawPin(
@@ -220,7 +224,11 @@ function drawPin(
   ctx.lineWidth = STROKE.outline;
   ctx.strokeStyle = rgba(PALETTE.rock, 0.8);
   ctx.stroke(plate);
-  if (s.phase === "frozen" && i === pulled(s))
+  if (s.phase === "frozen" && i === pulled(s)) {
     strokeGlow(ctx, plate, PALETTE.hullRim, STROKE.inner, 1);
+    // Either thumb draws it out, so the way down is on both screens (`valve-hand.ts`).
+    const pin = valvePinCentre(l, i, VALVE_PINS, valvePinReach(s, i, beatPhase));
+    drawPullArrow(ctx, pin, pin.r * 0.8, PULL_DOWN, time, { alpha: 0.9 });
+  }
   ctx.restore();
 }

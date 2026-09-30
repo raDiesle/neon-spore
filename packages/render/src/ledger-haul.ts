@@ -1,8 +1,10 @@
 import { type LedgerState, ledgerHaulable, type SimConfig } from "@neon-spore/sim";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { drawHandleDial, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { ledgerCordAt, ledgerRootPoint, ledgerSocketPoint, ledgerTaut } from "./ledger-shape.js";
 import { PALETTE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
+import { PULL_DOWN, type PullWay } from "./pull-line.js";
 
 /**
  * **The pilot's carry on the taut cord**, which is how this fight can now be
@@ -88,7 +90,18 @@ export function drawLedgerHaul(
 ): void {
   if (!ledgerHaulable(t, cfg, beat)) return;
   const pull = Math.max(0, Math.min(1, t.haulMilli / Math.max(1, cfg.ledgerHaulMilli)));
-  drawPilotRing(ctx, ledgerHaulCircle(l, cfg, t, time), t.haulMilli > 0, pull, time);
+  drawPilotRing(ctx, ledgerHaulCircle(l, cfg, t, time), t.haulMilli > 0, pull, time, PULL_DOWN);
+}
+
+/**
+ * The way down the cord from the body to the socket, as a unit: the way the
+ * bead's return is hauled, one beat nearer its landing.
+ */
+export function ledgerCordWay(l: Layout, cfg: SimConfig, t: LedgerState): PullWay {
+  const from = ledgerRootPoint(l, cfg, t);
+  const to = ledgerSocketPoint(l, t);
+  const d = Math.max(1e-6, Math.hypot(to.x - from.x, to.y - from.y));
+  return { dx: (to.x - from.x) / d, dy: (to.y - from.y) / d };
 }
 
 /**
@@ -97,8 +110,12 @@ export function drawLedgerHaul(
  * travels them is the ship's own damage (`ledger-cord.ts`). The white is left
  * to the lock that names her column, and the two must not be the same mark.
  *
+ * **The shared knob, carrying `way`** (`pull-knob.ts`, 30 September 2026),
+ * with the ring's dial kept round it (`drawHandleDial`). Always with its
+ * arrow, because it is only ever drawn on his screen.
+ *
  * **There is no dim one**, which is the whole seat rule of this fight said a
- * second time (`ledger-pull.ts`): a ring fills its disc opaquely, so a dimmed
+ * second time (`ledger-pull.ts`): a knob fills its disc opaquely, so a dimmed
  * one is a dark circle sitting on the cord — and a dark circle on a cord is
  * what a *return* looks like. Her screen is never shown a return. The first
  * frame taken of this had one on it.
@@ -109,15 +126,9 @@ export function drawPilotRing(
   held: boolean,
   pull: number,
   time: number,
+  way: PullWay,
 ): void {
-  drawHandleRing(ctx, {
-    x: at.x,
-    y: at.y,
-    r: at.r,
-    hex: PALETTE.hull,
-    rim: PALETTE.hullRim,
-    held,
-    pull,
-    time,
-  });
+  const rim = PALETTE.hullRim;
+  drawPullKnob(ctx, at, at.r, { hex: PALETTE.hull, rim, held, time, way });
+  drawHandleDial(ctx, at.x, at.y, at.r, rim, pull);
 }

@@ -13,11 +13,16 @@ import { drawHandleHint, type HandleWords, HINT_LOUD } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
+import { PULL_DOWN } from "./pull-line.js";
 import { seatOf } from "./view-role.js";
 
 /**
  * **What the wound looks like while it is being worked** — the plume out of
- * it, the state's own clock under it, and this seat's ring on it.
+ * it, the state's own clock under it, and this seat's ring on it — or, for
+ * her pull on the wreck, the shared knob with the way down in it
+ * (`pull-knob.ts`, 30 September 2026). The ring is on one screen only, so
+ * the arrow is too.
  *
  * The three touches it belongs to are `fleet-grip.ts` next door, and that
  * header carries the argument for all of it: one circle, one ring a screen,
@@ -110,7 +115,18 @@ export function drawFleetGrip(
   // Asked of both thumbs while the wound is open, so the halo is under this
   // seat's ring until its thumb is down (`fleet-grip-marks.ts`).
   if (fleetWoundAsks(b) && !grip.held) drawMarkHalo(ctx, ring.x, ring.y, ring.r, time);
-  drawGripRing(ctx, ring.x, ring.y, ring.r, grip.held, time);
+  // Her thumb on the wreck is a pull, so it is the shared knob with the way
+  // down in it; the other three are holds and a rake, and stay rings.
+  if (grip.words === WRECK_WORDS) {
+    const rim = PALETTE.text;
+    drawPullKnob(ctx, ring, ring.r, {
+      hex: PALETTE.rock,
+      rim,
+      held: grip.held,
+      time,
+      way: PULL_DOWN,
+    });
+  } else drawGripRing(ctx, ring.x, ring.y, ring.r, grip.held, time);
   // The word goes as soon as the thumb lands, the way THE MAZE's heart's does.
   if (!grip.held) {
     drawHandleHint(ctx, l, l.role, hole.x, hole.y + c.tile * 1.05, HINT_LOUD, grip.words);

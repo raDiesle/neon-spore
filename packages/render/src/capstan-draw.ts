@@ -35,6 +35,7 @@ import {
   capstanSqueeze,
 } from "./capstan-shape.js";
 import { coreHurt } from "./core-hurt.js";
+import { seatIsMine } from "./handle-word.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -93,7 +94,9 @@ export function drawCapstan(
   ctx.translate(0, -pivot + fx.thud * l.tile);
   drawCradle(ctx, l);
   for (const side of SIDES) {
-    drawCapstanHorn(ctx, l, side, hornStrength(world, s, side), beatPhase);
+    const strength = hornStrength(world, s, side);
+    const mine = strength === EITHER || seatIsMine(l.role, side === 0 ? 1 : 2);
+    drawCapstanHorn(ctx, l, side, strength, mine, beatPhase, time);
   }
 
   const shake = capstanShake(l, world, s, beat, beatPhase, time);

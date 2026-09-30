@@ -63,7 +63,7 @@ describe("THE MANTLE's shell", () => {
     const lit = frame(role, (w) => pulling(w, 0, 0));
     const shut = frame(role, still);
     expect(lit.text).not.toBe(shut.text);
-    // The chevron under each knob nobody is holding: pull this down.
+    // The arrow inside each lit knob, on its own seat's screen: pull this down.
     expect(tinted(lit.text, PALETTE.hullRim)).toBeGreaterThan(tinted(shut.text, PALETTE.hullRim));
   });
 

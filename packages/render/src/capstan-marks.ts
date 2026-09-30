@@ -12,6 +12,7 @@ import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullArrow } from "./pull-knob.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -81,30 +82,33 @@ export function drawCapstanFace(
 }
 
 /**
- * The lean's mark on horn `side`: a chevron pointing down and out, the way
- * the phone goes — lit and breathing on the side the step asks for, faint on
- * both while a hold takes either.
+ * The lean's mark on horn `side`: the shared pull arrow (`drawPullArrow`,
+ * 30 September 2026) pointing out, the way the phone goes — lit and
+ * breathing on the side the step asks for, faint on both while a hold takes
+ * either. On the screen of the seat that steers alone (`mine`): a gesture on
+ * a mark reads as *your next move*, and the other seat's is the rub.
  */
 export function drawCapstanHorn(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   side: 0 | 1,
   strength: number,
+  mine: boolean,
   beatPhase: number,
+  time: number,
 ): void {
-  if (strength <= 0) return;
+  if (strength <= 0 || !mine) return;
   const at = capstanHornAt(l, side);
-  const out = side === 0 ? -1 : 1;
-  const r = 0.16 * l.tile;
-  const chevron = new Path2D();
-  chevron.moveTo(at.x - out * r * 0.4, at.y - r);
-  chevron.lineTo(at.x + out * r * 0.6, at.y);
-  chevron.lineTo(at.x - out * r * 0.4, at.y + r);
   const pulse = 0.7 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  strokeGlow(ctx, chevron, PALETTE.hullRim, STROKE.outline, pulse * strength, strength);
+  const way = { dx: side === 0 ? -1 : 1, dy: 0 };
+  drawPullArrow(ctx, at, HORN_R * l.tile, way, time, {
+    alpha: pulse * strength,
+    hex: PALETTE.hullRim,
+  });
 }
+
+/** The horn's arrow, in tiles: the chevron's reach it replaces. */
+const HORN_R = 0.16;
 
 /**
  * The core and its cap, at the drum's middle. The core is soft and dull

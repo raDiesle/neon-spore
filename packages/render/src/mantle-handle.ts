@@ -17,6 +17,8 @@ import {
   type ValvePose,
 } from "./mantle-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullArrow } from "./pull-knob.js";
+import { PULL_DOWN } from "./pull-line.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -25,8 +27,9 @@ import { splinePath } from "./spline.js";
  * Every mark on this boss is on both screens (`mantle-draw.ts`).
  *
  * **A handle says its gesture.** It hangs on a strap in a groove that runs
- * straight down, with a chevron under it while it is lit and nobody is on it
- * — pull this down, on its owner's screen; the partner's has their clock
+ * straight down, with the shared pull arrow inside its knob while it is lit
+ * (`pull-knob.ts`, 30 September 2026; fainter once a thumb is on it) — pull
+ * this down, on its owner's screen; the partner's has their clock
  * instead (`mantle-marks.ts`) — and two notches in the groove: the floor a thumb must
  * clear before it counts, and half this movement's threshold, which is where
  * both thumbs meet when they pull alike. The half-way notch sinks a little
@@ -43,6 +46,8 @@ import { splinePath } from "./spline.js";
 const CORD_STEPS = 24;
 /** How far the cord sags below the lower knob, in tiles. */
 const SAG = 0.6;
+/** The knob's radius, in tiles. */
+const KNOB_R = 0.3;
 
 export function drawMantleHandles(
   ctx: CanvasRenderingContext2D,
@@ -71,7 +76,10 @@ export function drawMantleHandles(
     drawMantleKnobHalo(ctx, l, cfg, s, index, knob, time);
     drawKnob(ctx, l, knob, counted(s, cfg, index) > 0, lit, time);
     const mine = mantleMine(l.role, index === 0 ? 1 : 2);
-    if (mine && lit > 0 && depth === 0) drawChevron(ctx, l, knob, lit, time);
+    // The way down, inside the knob, on its own seat's screen while it is lit.
+    const alpha = lit * (depth === 0 ? 0.95 : 0.6);
+    const hex = PALETTE.hullRim;
+    if (mine && lit > 0) drawPullArrow(ctx, knob, l.tile * KNOB_R, PULL_DOWN, time, { alpha, hex });
     drawMantleKnobMarks(ctx, l, cfg, s, index, knob, time, verdicts);
   }
   const [left, right] = knobs;
@@ -120,7 +128,7 @@ function drawKnob(
   lit: number,
   time: number,
 ): void {
-  const r = l.tile * 0.3;
+  const r = l.tile * KNOB_R;
   const body = splinePath(blobPoints(knob.x, knob.y, r, r, 3, 0.1, 0.04, time * 1.2, 7, 18), true);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(body);
@@ -130,25 +138,6 @@ function drawKnob(
     ctx.strokeStyle = rgba(PALETTE.rock, 0.45 + 0.5 * lit);
     ctx.stroke(body);
   }
-}
-
-/** Pull this down: a chevron under a lit knob nobody is holding, breathing. */
-function drawChevron(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  knob: Point,
-  lit: number,
-  time: number,
-): void {
-  const y = knob.y + l.tile * (0.55 + 0.08 * Math.sin(time * 5));
-  const w = l.tile * 0.2;
-  const p = new Path2D();
-  p.moveTo(knob.x - w, y - w * 0.6);
-  p.lineTo(knob.x, y);
-  p.lineTo(knob.x + w, y - w * 0.6);
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.hullRim, lit * (0.55 + 0.35 * Math.sin(time * 5)));
-  ctx.stroke(p);
 }
 
 /** A stretch of the cord, `from` to `to` in shares of its length. */

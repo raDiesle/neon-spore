@@ -31,8 +31,10 @@ import { PALETTE, STROKE } from "./palette.js";
  * THE MAZE's and THE WARDEN's handles take nothing from this file now but a
  * radius and a field point: since 25 September 2026 a handle you pull is drawn
  * as the path it can be pulled (`pull-track.ts`, the owner's rule in
- * `.claude/skills/new-boss/generic.md`), and the ring and its dial stay for the
- * handles `docs/queue.md` has not moved yet.
+ * `.claude/skills/new-boss/generic.md`). Since 30 September 2026 every pull
+ * handle is the shared knob with its way inside it (`pull-knob.ts`); the dial
+ * stays, drawn round the knob by the handles that had one, and the ring stays
+ * for the grips that are not pulls.
  */
 
 /**
@@ -187,7 +189,23 @@ export function drawHandleRing(
   ctx.fill(p);
   ctx.restore();
   strokeGlow(ctx, p, held ? rim : hex, STROKE.inner, held ? 1.2 : 0.8);
+  drawHandleDial(ctx, x, y, r, rim, pull);
+}
 
+/**
+ * The gauge alone: how much of the pull is in, swept round a handle from the
+ * top. The ring above draws it, and so does every handle moved onto the shared
+ * knob (`pull-knob.ts`) that had one — the partner reads the pull off it, and
+ * the knob says only where the thumb goes and which way.
+ */
+export function drawHandleDial(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  rim: string,
+  pull: number,
+): void {
   if (pull <= 0) return;
   ctx.save();
   ctx.strokeStyle = rim;

@@ -59,7 +59,16 @@ export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "P1'S"
 
 /** Whether this screen's thumb is the one the handle is for: the rig's always is. */
 export function handleIsMine(role: ViewRole, words: HandleWords = PILOT_HANDLE): boolean {
-  return role === "test" || (role === "p1") === (words.seat === 1);
+  return seatIsMine(role, words.seat);
+}
+
+/**
+ * Whether this screen is the given seat's — the rig's is both. The one seat
+ * rule every handle on the field answers to, for the handles that name a seat
+ * without a word under them (THE MANTLE's, THE PLUMB's, THE CAPSTAN's horns).
+ */
+export function seatIsMine(role: ViewRole, seat: 1 | 2): boolean {
+  return role === "test" || (role === "p1") === (seat === 1);
 }
 
 export function drawHandleHint(

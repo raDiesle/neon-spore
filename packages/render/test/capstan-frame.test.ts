@@ -101,10 +101,22 @@ function count(text: string, colour: string): number {
 }
 
 describe("THE CAPSTAN's cradle", () => {
-  it.each(ROLES)("lights the horn a band step asks the lean toward, on %s", (role) => {
-    const resting = frame(role, (w) => posed(w, null));
-    const asked = frame(role, (w) => posed(w, LEFT));
-    expect(count(asked, PALETTE.hullRim)).toBeGreaterThan(count(resting, PALETTE.hullRim));
+  // The horn is the steering seat's pull arrow (`capstan-marks.ts`): a left
+  // step is the pilot's to steer, so it lights on his screen and the rig's,
+  // and the navigator's shows her no way for a pull that is not hers.
+  it.each(["p1", "test"] as const)(
+    "lights the horn a band step asks the lean toward, on %s",
+    (role) => {
+      const resting = frame(role, (w) => posed(w, null));
+      const asked = frame(role, (w) => posed(w, LEFT));
+      expect(count(asked, PALETTE.hullRim)).toBeGreaterThan(count(resting, PALETTE.hullRim));
+    },
+  );
+
+  it("lights no horn for a band step on the seat that does not steer it", () => {
+    const resting = frame("p2", (w) => posed(w, null));
+    const asked = frame("p2", (w) => posed(w, LEFT));
+    expect(count(asked, PALETTE.hullRim)).toBe(count(resting, PALETTE.hullRim));
   });
 
   it.each(ROLES)("rocks the drum over as the steering seat leans, on %s", (role) => {

@@ -3,9 +3,12 @@ import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
 import type { GripVerdict } from "./grip-verdict.js";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { drawHandleDial, handleRadius } from "./handle-draw.js";
+import { seatIsMine } from "./handle-word.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
+import { PULL_DOWN } from "./pull-line.js";
 import { drawSinewHandleHalo, drawSinewHandleMarks, sinewHandleAsks } from "./sinew-marks.js";
 import { type Point, sinewLanded, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
 import { sinewWord } from "./sinew-word.js";
@@ -26,6 +29,11 @@ import { bossOf } from "./touch-field.js";
  * screens, yours bright and theirs dim, so each seat can see the other's
  * hand come down: the sum is the two of them together and the moment it
  * enters the zone is a moment neither hand can feel.
+ *
+ * **Each is the shared knob** (`pull-knob.ts`), and yours carries the way down
+ * inside it; the partner's carries none, since a gesture on a mark reads as
+ * *your next move* (`docs/queue.md`, 30 September 2026). The dial round it is
+ * the ring's, kept (`drawHandleDial`): it is how much of each pull is in.
  *
  * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
  * 2026). A ring punches its circle out of the background before it draws its
@@ -167,7 +175,7 @@ export function drawSinewHandles(
     const head = sinewHandleAt(l, cfg, s, beat, beatPhase, side, swingTiles);
     const held = sinewHeld(s, player);
     const pull = Math.min(1, sinewPull(s, player) / Math.max(1, cfg.sinewReachMilli));
-    const mine = l.role === "test" || (l.role === "p1") === (player === 1);
+    const mine = seatIsMine(l.role, player);
     const asks = sinewHandleAsks(cfg, s, player, falling, swinging);
     // The cord, from the mass's own flank out to the ring: the shipped sinew
     // look, in the boss's colour for the hand that is yours.
@@ -183,17 +191,17 @@ export function drawSinewHandles(
       rim: mine ? PALETTE.hullRim : PALETTE.rock,
     });
     drawSinewHandleHalo(ctx, head, mine, asks, time);
-    drawHandleRing(ctx, {
-      x: head.x,
-      y: head.y,
-      r: head.r,
+    // The shared knob, carrying the way down on its owner's screen alone.
+    const rim = swinging ? PALETTE.emberRim : mine ? PALETTE.text : PALETTE.rock;
+    drawPullKnob(ctx, head, head.r, {
       hex: swinging ? PALETTE.ember : mine ? PALETTE.rock : PALETTE.dim,
-      rim: swinging ? PALETTE.emberRim : mine ? PALETTE.text : PALETTE.rock,
+      rim,
       held,
-      pull,
       time,
+      way: mine ? PULL_DOWN : null,
       theirs: !mine,
     });
+    drawHandleDial(ctx, head.x, head.y, head.r, rim, pull);
     drawSinewHandleMarks(ctx, head, mine, asks, time, verdicts.at(player));
     // **The cue, and not a word of this file's own** (`decisions.md` #34,
     // `boss-cue-text.ts`). Which word, and the three silences, are

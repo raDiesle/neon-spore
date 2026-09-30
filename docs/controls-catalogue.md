@@ -111,7 +111,8 @@ Taught once, by the guide; **no helper on the field** (above).
 | `drawGripRing` | `grip-rings.ts` | *put a thumb here*: breathes until a thumb lands, filled and steady once one has | THE QUEEN, THE MIRROR, THE WARDEN, THE MAZE, THE GAUGE and twelve more |
 | `drawGripDial` | `grip-rings.ts` | a hold's beats running out, from the top clockwise | the same |
 | `drawThrownRing` | `grip-rings.ts` | something came off: a ring running out and fading | THE QUEEN, THE MIRROR, THE FLEET |
-| `drawHandleRing`, `DIAL_RADII` | `handle-draw.ts` | the older handle: a ring with a gauge round it. **A pull no longer wears it** — see the knob | handles the queue has not moved yet |
+| `drawHandleRing`, `DIAL_RADII` | `handle-draw.ts` | the older handle: a ring with a gauge round it. **A pull no longer wears it** — see the knob | the grips that are not pulls |
+| `drawHandleDial` | `handle-draw.ts` | the ring's gauge on its own, round a knob: how much of a pull is in | THE SINEW, THE BALLOON, THE LEDGER |
 | `drawHandleRest`, `handleSag`, `handleRadius`, `fieldPoint` | `handle-draw.ts` | where a handle rests, the rope's sag, the size the rule clamps it at, a simulation point in pixels | every handle |
 | `hitCircle`, `hitReach`, `HIT_REACH`, `HIT_FLOOR_PX` | `hit.ts` | how far past its edge a mark answers: half again, never under 48 px | every mark |
 
@@ -122,7 +123,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | `drawMarkHalo` | `mark-feedback.ts` | *this is yours, now*: a breathing light under this seat's open mark | every boss with verdicts |
 | `drawMarkTheirs` | `mark-feedback.ts` | *someone else is being waited on here*: a dim dashed ring turning round the partner's | the same |
 | `drawMarkWait` | `mark-feedback.ts` | *not yours — wait*: a clock face whose hand goes round, in place of the gesture | the same |
-| `drawHandleHint`, `handleIsMine`, `HandleWords`, `PILOT_HANDLE`, `HINT_LOUD`, `HINT_SOFT`, `HintStyle` | `handle-word.ts` | the word under a handle: `PULL` on the seat it is for, `P1'S` on the other, gone once a hand lands | THE WARDEN, THE LID, THE MAZE, THE CURTAIN, THE BALLOON, THE FLEET |
+| `drawHandleHint`, `handleIsMine`, `seatIsMine`, `HandleWords`, `PILOT_HANDLE`, `HINT_LOUD`, `HINT_SOFT`, `HintStyle` | `handle-word.ts` | the word under a handle: `PULL` on the seat it is for, `P1'S` on the other, gone once a hand lands; `seatIsMine`, whether a seat's handle is this screen's | THE WARDEN, THE LID, THE MAZE, THE CURTAIN, THE BALLOON, THE FLEET |
 
 ### Was it right
 
@@ -136,7 +137,8 @@ Taught once, by the guide; **no helper on the field** (above).
 
 | Piece | Shared | Says | Who |
 |---|---|---|---|
-| `drawPullKnob`, `PULL_GRAB` | `pull-knob.ts` | **a pull**: the big circle to start, with the arrow of the way inside it; answered at `PULL_GRAB` times its radius | THE WARDEN, THE LID, THE STARE, THE CURTAIN, THE MAZE |
+| `drawPullKnob`, `PULL_GRAB` | `pull-knob.ts` | **a pull**: the big circle to start, with the arrow of the way inside it; answered at `PULL_GRAB` times its radius | THE WARDEN, THE LID, THE STARE, THE CURTAIN, THE MAZE, THE SINEW, THE BALLOON, THE FLEET, THE LEDGER |
+| `drawPullArrow` | `pull-knob.ts` | the knob's arrow without the knob, for a pull whose mark is not a ring, on its owner's screen | THE ANTIPHON, THE CAIRN, THE PLUMB, THE VALVE, THE MANTLE, THE CAPSTAN |
 | `drawPullTrack`, `PullTrack`, `PullTrackDraw`, `pullTrackPoint`, `pullWay`, `PULL_TRACK_W` | `pull-track.ts` | the way the pull can go: a thin channel filling green behind the hand, chevrons ahead; `closed` for a turn with no end | the same |
 | `straightPullTrack`, `StraightPull`, `PullWay`, `PULL_UP`, `PULL_DOWN`, `pullRoom`, `fittingWay` | `pull-line.ts` | a pull measured as a distance, as a straight track that turns to follow the hand; how much field it has room for | THE WARDEN, THE LID, THE STARE, THE CURTAIN |
 | `drawWayArrow` | `way-arrow.ts` | **a direction**: THE INSTAR's arrow turned any way; `heads: 2` for a pull that may go either way | THE INSTAR's rings, every knob |
@@ -186,8 +188,6 @@ Taught once, by the guide; **no helper on the field** (above).
 The pieces some bosses call and others still draw for themselves. Each is a
 `docs/queue.md` item, and a lane that finishes one updates **Who** above:
 
-- **Ten pull handles** drawn without the knob and with no way — *Ten pull
-  handles are drawn without the shared knob, and show no way*.
 - **Eighteen shot cues** standing at the hull and aiming at nothing — *Eighteen
   bosses' FIRE cues stand at the hull and aim at nothing*, held by
   `render/test/cue-aim.test.ts`.

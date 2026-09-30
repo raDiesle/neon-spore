@@ -24,7 +24,7 @@ import type { Layout } from "./layout.js";
  * left band, the navigator on a right. The middle because that is where a
  * press takes the pull (`capstanSteerUnder`); the horn the band asks toward
  * is inside an end's rub zone, and a thumb put down on a word there was
- * handed a rub. Which way to carry is the chevron's, on that horn
+ * handed a rub. Which way to carry is the arrow's, on that horn
  * (`capstan-marks.ts`). It goes once that band's face is bared — a word over
  * a pull held could only say *keep going* — and a pull let go is owed it
  * again. **`RUB` on the bared face, to the other

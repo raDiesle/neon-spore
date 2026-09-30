@@ -48,6 +48,9 @@ export function drawPullKnob(
     way: PullWay | null;
     /** A pull that may go either way and has not gone one yet: an arrow with two heads. */
     either?: boolean;
+    /** The partner's knob: nothing punched under it, which over a lobe or a
+     * board read as a black hole rather than a handle (`handle-draw.ts`). */
+    theirs?: boolean;
   },
 ): void {
   ctx.save();
@@ -61,9 +64,11 @@ export function drawPullKnob(
     ctx.stroke();
   }
   ctx.globalAlpha = 1;
-  ctx.fillStyle = PALETTE.background;
   const disc = ring(at, r);
-  ctx.fill(disc);
+  if (!o.theirs) {
+    ctx.fillStyle = PALETTE.background;
+    ctx.fill(disc);
+  }
   ctx.fillStyle = o.held ? o.rim : o.hex;
   ctx.globalAlpha = o.held ? 0.85 : 0.35;
   ctx.fill(disc);
@@ -71,14 +76,47 @@ export function drawPullKnob(
   ctx.strokeStyle = o.held ? PALETTE.text : o.rim;
   ctx.lineWidth = STROKE.outline;
   ctx.stroke(disc);
-  if (o.way !== null) {
-    ctx.strokeStyle = PALETTE.text;
-    ctx.globalAlpha = o.held ? 0.7 : 0.95;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    drawWayArrow(ctx, at.x, at.y, r * ARROW, o.way.dx, o.way.dy, o.time, o.either ? 2 : 1);
-  }
+  if (o.way !== null)
+    strokeWay(ctx, at, r, o.way, o.time, o.held ? 0.7 : 0.95, o.either, PALETTE.text);
   ctx.restore();
+}
+
+/**
+ * **The knob's arrow without the knob**, for a pull handle whose mark is not
+ * a ring — a bead, a ball, a plate, a horn, a candidate the ring would hide.
+ * The same arrow at the same reach in the same stroke, inside `r`, the mark's
+ * own radius; the caller decides whose screen it is on, as it passes `way:
+ * null` to the knob.
+ */
+export function drawPullArrow(
+  ctx: CanvasRenderingContext2D,
+  at: Point,
+  r: number,
+  way: PullWay,
+  time: number,
+  o: { alpha: number; either?: boolean; hex?: string },
+): void {
+  ctx.save();
+  strokeWay(ctx, at, r, way, time, o.alpha, o.either, o.hex ?? PALETTE.text);
+  ctx.restore();
+}
+
+function strokeWay(
+  ctx: CanvasRenderingContext2D,
+  at: Point,
+  r: number,
+  way: PullWay,
+  time: number,
+  alpha: number,
+  either: boolean | undefined,
+  hex: string,
+): void {
+  ctx.strokeStyle = hex;
+  ctx.lineWidth = STROKE.outline;
+  ctx.globalAlpha = alpha;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  drawWayArrow(ctx, at.x, at.y, r * ARROW, way.dx, way.dy, time, either ? 2 : 1);
 }
 
 /** A circle as its own path, so it adds nothing to the context's current one. */

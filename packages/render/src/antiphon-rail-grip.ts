@@ -15,6 +15,8 @@ import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullArrow } from "./pull-knob.js";
+import { PULL_DOWN } from "./pull-line.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsAntiphonRail } from "./view-role-clocks-b.js";
@@ -52,6 +54,11 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * is the simulation's to refuse; a thumb may rest on a candidate while the
  * organ is still growing and the ring fills under it, which is the picture
  * of a hand held ready.
+ *
+ * **Each ring carries the way down inside it** (`drawPullArrow`, 30 September
+ * 2026), and stays a ring rather than the shared knob: the knob's disc would
+ * black out the candidate it stands on, and the candidate's shape and colour
+ * are the whole reading.
  *
  * Over the rings, the convention every mark answers a touch with
  * (`antiphon-marks.ts`): the halo under each candidate a pull would take on
@@ -117,7 +124,9 @@ export function drawAntiphonRailGrip(
     if (antiphonCrossed(s, i)) drawCross(ctx, at.x, at.y, r * CROSS_R);
     else {
       if (antiphonRailAsks(s, cfg, beat, i)) drawMarkHalo(ctx, at.x, at.y, r, time);
-      drawGripRing(ctx, at.x, at.y, r, s.heldRail === i, time);
+      const held = s.heldRail === i;
+      drawGripRing(ctx, at.x, at.y, r, held, time);
+      drawPullArrow(ctx, at, r, PULL_DOWN, time, { alpha: held ? 0.6 : 0.85 });
     }
     const v = verdicts.at(c.col);
     if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);

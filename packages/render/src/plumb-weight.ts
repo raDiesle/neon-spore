@@ -4,10 +4,15 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { plumbBallPath, plumbBallR, plumbChainPath } from "./plumb-shape.js";
+import { drawPullArrow } from "./pull-knob.js";
 
 /**
  * THE PLUMB's two weights, one at a time: out of `plumb-draw.ts` when row
  * 11's bleed came to run down their chains (`plumb-bleed-light.ts`).
+ *
+ * A ball still on its chain carries the shared pull arrow, two-headed since
+ * the lean goes either way (`plumb-hand.ts`), on its own seat's screen alone
+ * (`pull-knob.ts`, 30 September 2026).
  */
 
 /** One chain and its ball, `size` times its own. A locked ball's rim is lit glass; a loosed one's chain is gone. */
@@ -20,6 +25,9 @@ export function drawPlumbWeight(
   size: number,
   locked: boolean,
   loosed: boolean,
+  /** Whether this ball is this screen's seat's to level, and the clock its arrow moves on. */
+  mine: boolean,
+  time: number,
 ): void {
   if (!loosed) {
     ctx.lineWidth = STROKE.inner * 0.8;
@@ -41,4 +49,11 @@ export function drawPlumbWeight(
   ctx.strokeStyle = rgba(locked ? PALETTE.plumbGlass : PALETTE.plumbBronze, 0.95);
   ctx.stroke(ball);
   ctx.restore();
+  if (mine && !loosed) {
+    drawPullArrow(ctx, at, r * size * ARROW_IN, SIDEWAYS, time, { alpha: 0.9, either: true });
+  }
 }
+
+/** Either way along the beam, and a little inside the ball's lobes. */
+const SIDEWAYS = { dx: 1, dy: 0 } as const;
+const ARROW_IN = 0.8;

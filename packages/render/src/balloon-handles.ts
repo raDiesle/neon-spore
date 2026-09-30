@@ -10,10 +10,11 @@ import { balloonRy } from "./balloon.js";
 import { creatureCenter, flatCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { strokeGlow } from "./glow.js";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
-import { drawHandleHint, type HintStyle } from "./handle-word.js";
+import { drawHandleDial, handleRadius } from "./handle-draw.js";
+import { drawHandleHint, type HintStyle, seatIsMine } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
 
 /**
  * **THE BALLOON's two handles**: the one thing on this field that two people
@@ -145,7 +146,7 @@ function drawOne(
   const pull = balloonTension(cfg, c, player) / 1000;
   // Whose it is on *this* screen. The rig sees both as its own, which is what
   // makes a two-seat control drawable in one frame for a test.
-  const mine = l.role === "test" || (l.role === "p1") === (player === 1);
+  const mine = seatIsMine(l.role, player);
   const body = creatureCenter(l, world, c, glidePhase(cfg, world.beat, c, beatPhase));
 
   // The tab: a short line from the skin out to the ring, so the handle reads
@@ -157,17 +158,19 @@ function drawOne(
   tab.lineTo(head.x - side * head.r * 0.9, head.y);
   strokeGlow(ctx, tab, mine ? PALETTE.text : PALETTE.dim, STROKE.inner, held ? 1.1 : 0.45);
 
-  drawHandleRing(ctx, {
-    x: head.x,
-    y: head.y,
-    r: head.r,
+  // The shared knob, carried outward — its arrow on its owner's screen alone,
+  // and the tension dial round it for both, since the moment both are taut is
+  // the one each seat has to see in the other's.
+  const rim = mine ? PALETTE.text : PALETTE.rock;
+  drawPullKnob(ctx, head, head.r, {
     hex: mine ? PALETTE.rock : PALETTE.dim,
-    rim: mine ? PALETTE.text : PALETTE.rock,
+    rim,
     held,
-    pull,
     time,
+    way: mine ? { dx: side, dy: 0 } : null,
     theirs: !mine,
   });
+  drawHandleDial(ctx, head.x, head.y, head.r, rim, pull);
   if (!held) hint(ctx, l, head, side);
 }
 

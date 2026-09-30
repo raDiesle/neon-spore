@@ -10,6 +10,7 @@ import {
   drawLedgerHaul,
   drawPilotRing,
   ledgerCordRing,
+  ledgerCordWay,
   ledgerHaulCircle,
   STILL,
 } from "./ledger-haul.js";
@@ -37,8 +38,10 @@ import { showsLedgerBead } from "./view-role-clocks.js";
  * (`ledger-haul.ts`, `HAUL_U`).
  *
  * **They are drawn with the body and the cord** (`ledger-draw.ts`), before the
- * beads and not after: `drawHandleRing` fills opaquely, and a ring drawn over
+ * beads and not after: `drawPullKnob` fills opaquely, and a knob drawn over
  * the bead it is about would leave him holding a disc with no return in it.
+ * Its arrow, down the cord (`ledgerCordWay`), is the knob's reach and the
+ * bead's is half of it, so the bead sits on the shaft and the head shows.
  *
  * The two are never offered together — `whipping` against `taut` — so one
  * entry point draws whichever the cord is showing and one answers a press for
@@ -139,7 +142,8 @@ export function drawLedgerPulls(
   const b = ledgerPullable(t, cfg, beat);
   if (b !== null) {
     const u = ledgerBeadU(b, beat, beatPhase);
-    drawPilotRing(ctx, ledgerCordRing(l, cfg, t, time, u), false, u, time);
+    const way = ledgerCordWay(l, cfg, t);
+    drawPilotRing(ctx, ledgerCordRing(l, cfg, t, time, u), false, u, time, way);
     return;
   }
   drawLedgerHaul(ctx, l, cfg, t, beat, time);
