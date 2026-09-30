@@ -1348,7 +1348,6 @@ by hand never moves.
 | `packages/render/src/slow-boss-aim-c.ts` | **THE SLOW's aim, page three** — the bosses whose body is longer than it is round |
 | `packages/render/src/slow-boss-aim-d.ts` | **THE SLOW's aim, page four** — the five bosses that opened windows that ask and had no row on any page |
 | `packages/render/src/slow-hush.ts` | **A boss's natural motion dies down while THE SLOW is open** — the owner, 27 September 2026 |
-| `packages/render/src/slow-opening.ts` | The beat the window's latest ask was made on, so the fuse starts whole every time |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
 | `packages/render/src/sprite-bake.ts` | **A SPRITE BAKED AT LOAD**: detail drawn by our own code, once, onto an offscreen canvas |
 | `packages/render/src/tether.ts` | THE WARDEN's rope, and the handle on it: the one thing on this field either player can put a hand on |

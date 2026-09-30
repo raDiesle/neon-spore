@@ -1,8 +1,7 @@
-import { NO_SLOW, slowing, type World } from "@neon-spore/sim";
+import { slowing, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 import { intakeWindow } from "./slow-intake.js";
-import type { SlowOpening } from "./slow-opening.js";
 
 /**
  * **The one moment in this game that exists purely to be felt, and the seam
@@ -50,8 +49,9 @@ export interface SlowWindow {
   /** Beats left, fractional, and never negative. */
   readonly left: number;
   /** Beats from the window's latest opening to its end: what a measure counts
-   * down, so it starts whole on every ask (`slow-opening.ts`). `beats` when
-   * nothing remembered the opening. */
+   * down, so it starts whole on every ask. The world keeps the beat
+   * (`slowAskBeat`), because `openSlow` re-opening a window moves only its end;
+   * `beats` for a window that was never re-opened. */
   readonly span: number;
   /** Whether it fails the pair if it runs out (`sim/slow.ts` `SlowKind`). */
   readonly asks: boolean;
@@ -67,18 +67,16 @@ export interface SlowWindow {
  * `openSlow` moves the end and keeps the start, so two dramatic beats in a row
  * are one border closing and not two (`sim/slow.ts`).
  */
-export function slowWindow(
-  world: World,
-  beatPhase: number,
-  opening?: SlowOpening,
-): SlowWindow | null {
-  const opened = opening?.seen(world) ?? NO_SLOW;
+export function slowWindow(world: World, beatPhase: number): SlowWindow | null {
   if (!slowing(world)) return null;
   const beats = world.slowToBeat - world.slowFromBeat;
   if (beats <= 0) return null;
   const now = world.beat + beatPhase;
   const through = Math.min(1, Math.max(0, (now - world.slowFromBeat) / beats));
-  const span = opened === NO_SLOW ? beats : Math.max(1, world.slowToBeat - opened);
+  // From the latest ask, which the world keeps (`slowAskBeat`), and never
+  // before the window's own start — a window set by hand has no ask in it.
+  const asked = Math.max(world.slowFromBeat, world.slowAskBeat);
+  const span = Math.max(1, world.slowToBeat - asked);
   const left = Math.max(0, world.slowToBeat - now);
   return { beats, through, left, span, asks: world.slowAsks };
 }
@@ -130,9 +128,8 @@ export function drawFieldSlow(
   l: Layout,
   world: World,
   view: ViewState,
-  opening?: SlowOpening,
 ): void {
-  const win = slowWindow(world, view.beatPhase, opening);
+  const win = slowWindow(world, view.beatPhase);
   if (win === null) return;
   SLOW_LOOK.paint(ctx, l, world, view, win);
 }

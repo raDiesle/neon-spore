@@ -91,13 +91,16 @@ export function slowRateMilli(world: World): number {
  * dramatic beats in a row are one long window, not a window that stops and
  * starts again in the middle of the pair's sentence about it. The latest
  * opening also says whether it asks, since it is the one saying where the
- * window ends.
+ * window ends, and the beat it was made on (`slowAskBeat`): a measure of the
+ * latest ask counts from there and not from the window's start, or THE
+ * INSTAR's second step would open on a fuse already short.
  */
 export function openSlow(world: World, beats: number, kind: SlowKind): void {
   if (beats <= 0) return;
   world.slowFromBeat = slowing(world) ? world.slowFromBeat : world.beat;
   world.slowToBeat = world.beat + beats;
   world.slowAsks = kind === "ask";
+  world.slowAskBeat = world.beat;
 }
 
 /**
@@ -139,4 +142,5 @@ export function clearSlow(world: World): void {
   world.slowFromBeat = NO_SLOW;
   world.slowToBeat = NO_SLOW;
   world.slowAsks = false;
+  world.slowAskBeat = NO_SLOW;
 }

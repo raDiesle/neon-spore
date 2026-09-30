@@ -369,6 +369,7 @@ describe("the window is the slow", () => {
     // as long as the pair is being asked for something.
     expect(world.slowFromBeat).toBe(s.phaseBeat);
     expect(world.slowToBeat).toBe(s.phaseBeat + WINDOW);
+    expect(world.slowAskBeat).toBe(s.phaseBeat);
     // And it asks: a step unanswered is a strike, so the fuse counts it down.
     expect(world.slowAsks).toBe(true);
   });

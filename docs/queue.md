@@ -1244,20 +1244,6 @@ and has to grep for it. Name `copies-table.ts` in that sentence — one edit to 
 file that empties the prompt cache, so fold it into the next CLAUDE.md change
 if one is due.
 
-## The world does not say when a window's latest ask was made
-
-- **Found:** 2026-09-30, claude/boss-time-indicator-styling-2ec063
-- **Files:** `packages/sim/src/slow.ts`, `packages/render/src/slow-opening.ts`, `packages/render/src/slow-look.ts`
-
-`openSlow` keeps `slowFromBeat` when a second window opens over one already
-up and moves only `slowToBeat`, so a fuse measured from the window's start
-began short on THE INSTAR's second step and grew back. Render now remembers the
-beat the end last moved on in `Effects.slowOpening` (`SlowOpening`), which is
-state render keeps about the simulation. The world could say it: a hashed
-`slowAskBeat`, set by `openSlow` each time, read by `slowWindow` in place of
-`SlowOpening`. The pinned hashes move with it and are re-pinned in the same
-commit; the fuse tests stay green unchanged.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
@@ -1351,3 +1337,20 @@ reading its 2,590 files in parallel in a `beforeAll`: 0.7 s instead of 6.9 s.
 For each of the three: time it alone on a quiet machine. If it reads files one
 after another, read them in parallel before the case. Otherwise raise the
 figure to what the timing shows. Prove it with `bun run check`.
+
+## A claim whose trunk commit fails leaves its edit and its branch behind
+
+- **Found:** 2026-09-30, claude/queue-the-world-does-not-say-when-a-windows-latest-ask
+- **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`
+
+`onTrunk` writes `docs/queue.md` in the main checkout and then commits it
+there. When the commit failed on a stale `index.lock` held by another
+session for a moment, the `Taken:` line stayed uncommitted in the main
+checkout and the claim branch had already been made. The retry printed
+`left alone — … has uncommitted changes to it`, and once the line was taken
+back out by hand, a third try refused with `already taken` by its own
+branch, so the trunk never recorded the claim. Wanted: on a failed commit,
+write the file back as it was before throwing, and let `take` from the tree
+that already owns the claim branch mark the trunk rather than refuse. Prove
+it with a test in `tools/queue/test/` that fails the commit once and then
+claims.

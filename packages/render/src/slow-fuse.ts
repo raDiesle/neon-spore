@@ -23,7 +23,7 @@ import type { SlowWindow } from "./slow-look.js";
  * *the size to start should always be the same (almost full screen)*. It
  * counts from the latest ask rather than from the window's first beat, so a
  * step asked inside a window the last one left open starts whole and never
- * grows back (`slow-opening.ts`).
+ * grows back (`World.slowAskBeat`).
  *
  * **It burns in from both ends** and meets in the middle on the beat the
  * window shuts, so the eye reads one length and never has to find which end is

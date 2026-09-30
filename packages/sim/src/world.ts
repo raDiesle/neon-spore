@@ -86,6 +86,14 @@ export interface World extends ShipState, FaultState {
   slowToBeat: number;
   /** Whether the window up asks the pair for something (`slow.ts` `SlowKind`). */
   slowAsks: boolean;
+  /**
+   * **The beat the window's latest opening was made on**, ask or show, or
+   * `NO_SLOW` before the wave's first. `openSlow` keeps `slowFromBeat` when it
+   * re-opens a window and moves only the end, so this is the one field that
+   * says when the pair was last asked — what the fuse measures from, so that it
+   * starts whole on every ask (`render/slow-look.ts`).
+   */
+  slowAskBeat: number;
 
   /**
    * **What the pair has spent, per colour, beat by beat** — the only thing in
@@ -178,6 +186,7 @@ export function createWorld(
     slowFromBeat: NO_SLOW,
     slowToBeat: NO_SLOW,
     slowAsks: false,
+    slowAskBeat: NO_SLOW,
     spend: newSpendLedger(),
     creatures: [],
     bullets: [],

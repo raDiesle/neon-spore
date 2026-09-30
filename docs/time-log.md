@@ -30263,3 +30263,13 @@ Bottleneck: reading. Deciding needed proof that the simulation never reaches a s
 Bottleneck: landing. At a load near 38 every `check` takes minutes, and the entry this lane worked was claimed by another branch that landed first.
 
 *Measured: 33 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — The world does not say when a window's latest ask was made
+
+- reading: 5 min. The queue entry, `slow.ts`, `SlowOpening` and every place that read it.
+- writing: 10 min. `slowAskBeat` on the world, set by `openSlow`, cleared by `clearSlow` and hashed; `slowWindow` reading it in place of `SlowOpening`, which is gone with its `Effects` field; the tests.
+- looking: 0 min. The fuse counts from the same beat as before.
+- friction: 5 min. The claim's trunk commit hit another session's `index.lock` and left its edit behind, and the retry refused as already taken.
+- landing: 5 min. `check:fast`, the finding, the commit, `land`.
+
+Bottleneck: friction — the claim failed half-done and had to be put back by hand before the work could start.

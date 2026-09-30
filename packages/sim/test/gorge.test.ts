@@ -179,6 +179,10 @@ describe("THE SLOW", () => {
     feed(world, g.col + 5, CFG.gorgeFullBeads);
     const second = world.beat + CFG.gorgeVentBeats;
     expect(world.slowToBeat).toBe(second);
+    // Re-opened over the first: the start stays, and the world says when the
+    // latest ask was made, which is where a fuse of it counts from.
+    expect(world.slowFromBeat).toBeLessThan(world.beat);
+    expect(world.slowAskBeat).toBe(world.beat);
     feed(world, g.col + 5, CFG.gorgeVentShots);
     expect(world.slowToBeat).toBe(world.beat + CFG.gorgeVentBeats - 2);
     const seen = beats(world, CFG.gorgeVentBeats);
