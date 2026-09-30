@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 1d4d821ff — `land` refuses a lane that takes out queue entries it never closed
+
+A landing that takes an entry out of docs/queue.md or docs/parked.md which the trunk still has is now refused, naming the entry, unless the lane closed it: the trunk's `Taken:` line names the lane's branch, or one of the lane's own commit messages carries the title word for word. An entry moved between the two files is not counted as gone. The mirror of the re-add guard, after one over-reaching replace on 29 September took three entries out unseen.
+
 ## 2026-09-30 · 63f4a33b5 — No boss touches the top of the screen, as a rule for every boss
 
 The owner's rule from THE STARE, 29 September 2026, now stands in the new-boss skill for every boss that follows. An audit of the bosses already shipped is queued, with a test to hold them to it.

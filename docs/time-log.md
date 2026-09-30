@@ -29771,3 +29771,5 @@ of its own.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: reading — the entry asks for the lane's `queue done` commits, and `done` makes none, so the claim's `Taken:` line had to stand in as the record.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
