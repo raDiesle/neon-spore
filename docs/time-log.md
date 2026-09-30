@@ -30455,3 +30455,13 @@ Bottleneck: friction. Every test that waited for a body at row 0 had to be retim
 Bottleneck: friction. The compaction and the wrongly renamed fixture cost more than the drawing did.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VANE's bearing is drawn on the arm's row, with a crosshair round the split
+
+- reading: 5 min. `vane-grip.ts`, `vane-draw.ts`, `boss-cue-read-x.ts`, and how `cue-helper.ts` sizes a shot cue's ring.
+- writing: 10 min. `vaneBearingY` off `cfg.vaneArmRow`, the throw's streak on that row, `vaneMouthAim`, and the test for it.
+- looking: 5 min. One frame just before a knock, on the navigator's screen.
+- friction: 5 min. A compaction between the move and the crosshair.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. The compaction landed between two edits of the same file, and the files had to be read again.

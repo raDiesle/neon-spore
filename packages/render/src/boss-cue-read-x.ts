@@ -8,7 +8,7 @@ import {
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { type Layout, tileCX } from "./layout.js";
+import { type Circle, type Layout, tileCX } from "./layout.js";
 import { vaneArmCircle, vaneBearingY, vaneHousingCircle } from "./vane-grip.js";
 
 /**
@@ -80,8 +80,24 @@ export function vaneCues(l: Layout, world: World): readonly BossCue[] {
   if (world.cannonCol !== weak) {
     out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 73));
   }
-  out.push(markAt(2, "PRESS", "FIRE", tileCX(l, weak), vaneBearingY(l), l, 74));
+  // The crosshair rings the mouth wider than a word's own (`VANE_AIM_R`): the
+  // owner, 30 September 2026 — *make the area to damage with cannon more
+  // visible with the crosshair indicator*.
+  const mouth = { x: tileCX(l, weak), y: vaneBearingY(l, world.cfg) };
+  out.push({ ...markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 74), aim: vaneMouthAim(l, mouth) });
   return out;
+}
+
+/**
+ * The crosshair on the split, in tiles: wider than a cue's own ring (about a
+ * third of a tile) and than the hub, so it stands round the whole mouth the
+ * bolt has to climb to rather than on the word.
+ */
+const VANE_AIM_R = 0.62;
+
+/** Where the navigator's crosshair stands while the housing is split. */
+export function vaneMouthAim(l: Layout, mouth: { x: number; y: number }): Circle {
+  return { x: mouth.x, y: mouth.y, r: l.tile * VANE_AIM_R };
 }
 
 /**

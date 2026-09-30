@@ -39,7 +39,7 @@ import { bossOf } from "./touch-field.js";
  * lift lets it sweep on again (`releasePin`).
  *
  * **The housing's does not move**, because the bearing never does: it hangs
- * over the pivot column above row 0 where nothing else in the game is. Her
+ * over the pivot column on the arm's row. Her
  * ring rests just under the casing, clear of the hub, and she carries it up.
  */
 
@@ -47,21 +47,25 @@ import { bossOf } from "./touch-field.js";
 const DROOP = 0.85;
 
 /**
- * The row the bearing hangs on, above the field's first row — where the casing,
- * its pins and the mouth of the split all stand.
+ * The row the bearing hangs on — where the casing, its pins and the mouth of
+ * the split all stand. Since 30 September 2026 that is the arm's own row
+ * (`cfg.vaneArmRow`), a little above its centre so the tip's droop reaches the
+ * row below: the simulation meets a shot there and folds a body as it crosses
+ * it, and a bearing drawn at the top edge would be answered two rows from
+ * where it is.
  *
  * Here rather than in `vane-draw.ts`, where it lived until the arm became
  * touchable, for the reason the header gives: a place the hit test and the
  * drawing must agree about belongs to neither of them. The cue's mark stands on
  * the mouth and reads it too (`boss-cue-read-x.ts`).
  */
-export function vaneBearingY(l: Layout): number {
-  return tileCY(l, 0) - l.tile * 0.2;
+export function vaneBearingY(l: Layout, cfg: SimConfig): number {
+  return tileCY(l, cfg.vaneArmRow) - l.tile * 0.2;
 }
 
 /** Where the hub stands, and how big it is. */
 export function vaneHubAt(l: Layout, cfg: SimConfig): { x: number; y: number; r: number } {
-  return { x: tileCX(l, vanePivotCol(cfg)), y: vaneBearingY(l), r: l.tile * 0.34 };
+  return { x: tileCX(l, vanePivotCol(cfg)), y: vaneBearingY(l, cfg), r: l.tile * 0.34 };
 }
 
 /**
@@ -86,7 +90,7 @@ export function vaneTipPoint(
   const m = mFrom + (vaneReachMilli(waveBeat + 1) - mFrom) * beatPhase;
   return {
     x: tileCX(l, from + (to - from) * beatPhase),
-    y: vaneBearingY(l) + l.tile * DROOP * (1 - Math.abs(m) / 1000),
+    y: vaneBearingY(l, cfg) + l.tile * DROOP * (1 - Math.abs(m) / 1000),
     lead: to - from,
   };
 }

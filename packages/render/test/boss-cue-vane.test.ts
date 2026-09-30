@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
+  DEFAULT_CONFIG,
   startWave,
   step,
   VANE_CYCLE_BEATS,
@@ -98,7 +99,20 @@ describe("THE VANE", () => {
     expect(hers?.seat).toBe(2);
     // On the mouth of the split, which is drawn on both screens.
     expect(hers?.x).toBeCloseTo(tileCX(LAYOUT.p2, weak), 6);
-    expect(hers?.y).toBeCloseTo(vaneBearingY(LAYOUT.p2), 6);
+    expect(hers?.y).toBeCloseTo(vaneBearingY(LAYOUT.p2, DEFAULT_CONFIG), 6);
+  });
+
+  it("rings the split with a crosshair wider than a word's own", () => {
+    const { world } = opened();
+    const beat = openBeat(world);
+    const weak = vaneWeakCol(CFG, beat);
+    const l = LAYOUT.p2;
+    const aim = cue(world, "p2")?.aim;
+    expect(aim?.x).toBeCloseTo(tileCX(l, weak), 6);
+    expect(aim?.y).toBeCloseTo(vaneBearingY(l, DEFAULT_CONFIG), 6);
+    // A word's own ring is about a third of a tile (`cue-helper.ts`); the
+    // mouth's is more than half of one, so it reads from across the table.
+    expect(aim?.r ?? 0).toBeGreaterThan(l.tile * 0.5);
   });
 
   it("takes his word away when he arrives, and leaves hers standing", () => {

@@ -11,7 +11,7 @@ import { drawVaneAsked, drawVaneVerdicts } from "./vane-marks.js";
 import { drawArm } from "./vane-spar.js";
 
 /**
- * THE VANE, drawn: an arm sweeping the top of the field, and the bearing it
+ * THE VANE, drawn: an arm sweeping across the field's third row, and the bearing it
  * turns on.
  *
  * **A mechanism, and never a body.** That was one open stroke of even width
@@ -25,8 +25,9 @@ import { drawArm } from "./vane-spar.js";
  * still the thing that turns when something pushes it.
  *
  * The pivot is not decoration — it is the only part of the boss that can be
- * reached, and it hangs above row 0 where nothing else in the game is, so a
- * shot answers it by leaving the field entirely (`vane.ts`). The casing around
+ * reached. It hung above row 0 until 30 September 2026 and hangs on the arm's
+ * own row now (`cfg.vaneArmRow`), so a shot climbs a clear lane to it and a
+ * body standing on that row is in front of it (`vane.ts`). The casing around
  * it wears the pins, and a pin gone is a gap that never fills: the arm reaches
  * a phase further out for it, so the silhouette says how far in the pair are by
  * getting *longer*, which is the same bargain the Bulb Queen makes by sinking.
@@ -111,7 +112,7 @@ function drawMechanism(
   ctx.restore();
   strokeGlow(ctx, dot, PALETTE.rock, STROKE.inner, 0.9);
 
-  drawThrow(ctx, l, b, world.beat, beatPhase, tx, ty);
+  drawThrow(ctx, l, cfg.vaneArmRow, b, world.beat, beatPhase, tx, ty);
   // The verdict on a touch, last of all.
   drawVaneVerdicts(ctx, l, cfg, tip, verdicts);
 }
@@ -125,6 +126,8 @@ function drawMechanism(
 function drawThrow(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  /** The arm's row, which the body was crossing when it was thrown. */
+  row: number,
   b: VaneState,
   beat: number,
   beatPhase: number,
@@ -136,7 +139,7 @@ function drawThrow(
   if (since < 0 || since > THROW_FADE) return;
   const fade = 1 - since / THROW_FADE;
   const cx = tileCX(l, b.throwCol);
-  const cy = tileCY(l, 0);
+  const cy = tileCY(l, row);
   const streak = new Path2D(
     `M ${tx.toFixed(2)} ${ty.toFixed(2)} L ${cx.toFixed(2)} ${cy.toFixed(2)}`,
   );
