@@ -30190,3 +30190,13 @@ Bottleneck: friction. The claim was tried before the trunk was brought up, so th
 Bottleneck: landing. The finding came out of the previous lane's first `land`, so it needed a lane of its own.
 
 *Measured: 2 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — §29 THE RIME — row 11's refreeze, its simulation and then its look
+
+- reading: 10 min. `grindstone-fade.ts` and its test, THE RIME's step, hand and guard, and the event chain the fade walks through.
+- writing: 25 min. `rime-refreeze.ts`, the phase and its two fields, the events through audio, render's silent lists and the director, the seven tests, and §11.46.
+- looking: 0 min. Nothing drawn changed but a three-beat wait before the shatter.
+- friction: 10 min. A compaction mid-lane, and a scripted doc edit whose anchor did not match.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing — a new phase and two events are fourteen registrations outside the simulation, and each is found only from the one before it.

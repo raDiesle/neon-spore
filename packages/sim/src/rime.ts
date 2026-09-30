@@ -30,9 +30,11 @@ export const RIME_FULL_MILLI = 1000;
 
 /**
  * Where the scene is: settling, a step lit and waiting, the lens resting
- * between steps, and the lens shattered.
+ * between steps, and the lens shattered — and the film refreezing over the
+ * spent core before that (`rime-refreeze.ts`), appended last so the hash's
+ * indices keep their places.
  */
-export const RIME_PHASES = ["still", "lit", "rest", "shattered"] as const;
+export const RIME_PHASES = ["still", "lit", "rest", "shattered", "refreeze"] as const;
 export type RimePhase = (typeof RIME_PHASES)[number];
 
 /**
@@ -85,6 +87,10 @@ export interface RimeState {
   rubs: [number, number];
   /** Whether each half was rubbed since the last beat: a half rubbed does not regrow. */
   rubbed: [boolean, boolean];
+  /** Beats a reflex wipe or shield has added to the refreeze, up to `rimeRefreezeScatters`. */
+  jars: number;
+  /** Whether the refreeze was scattered this beat already: one beat added per beat, at most. */
+  stirred: boolean;
 }
 
 export function rimeBoss(world: World): RimeState | null {
@@ -135,5 +141,7 @@ export function freshRime(beat: number, steps: readonly RimeStep[]): RimeState {
     rimeMilli: [RIME_FULL_MILLI, RIME_FULL_MILLI],
     rubs: [0, 0],
     rubbed: [false, false],
+    jars: 0,
+    stirred: false,
   };
 }

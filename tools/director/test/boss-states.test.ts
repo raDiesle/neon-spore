@@ -27,8 +27,8 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  */
 
 const OWED: Partial<Record<BossKind, readonly string[]>> = {
-  // THE RIME the same, §29: its four, less the still posed for `rime:pane`.
-  rime: ["lit", "rest", "shattered"],
+  // THE RIME the same, §29: its five, less the still posed for `rime:pane`.
+  rime: ["lit", "rest", "shattered", "refreeze"],
   // THE PLUMB, THE SLING and THE DAVIT: less the stills posed for their
   // swing's slots (`poses-bosses-hands-mechanisms.ts`), and THE PLUMB's bleed
   // and THE SLING's cool, each posed with row 11's look.

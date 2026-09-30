@@ -2,6 +2,7 @@ import { markMoment } from "./balance.js";
 import { midCol } from "./config.js";
 import { guardArmed } from "./hull-guard.js";
 import { rimeBoss, rimeIcicleCol, rimeLitStep } from "./rime.js";
+import { rimeStirred } from "./rime-refreeze.js";
 import { rimeAnswered } from "./rime-step.js";
 import type { World } from "./world.js";
 
@@ -20,9 +21,18 @@ import type { World } from "./world.js";
  *
  * The sheet is billed as THE SEAM bills it, for its reason: there is no body
  * here for `wardTurns` to take.
+ *
+ * **In the refreeze a shield is the wrong answer**, wherever it stands: the
+ * guard pressed scatters its crack (`rime-refreeze.ts`), on the tick it is
+ * pressed — a dome still up across a beat is one press, not two — and it is
+ * the pilot's trigger, so the pilot's side.
  */
 export function rimeGuarded(world: World): void {
   const s = rimeBoss(world);
+  if (s?.phase === "refreeze") {
+    if (world.guardTick === world.tick) rimeStirred(world, s, 0);
+    return;
+  }
   const step = s === null ? null : rimeLitStep(s);
   if (s === null || step === null || (step.ask !== "shield" && step.ask !== "icicle")) return;
   const mid = midCol(world.cfg);

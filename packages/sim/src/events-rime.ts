@@ -36,7 +36,11 @@ export type RimeEvent =
   | ({ type: "rimeCloud" } & RimeColEvent)
   /** A shot, whiteout or icicle ran out unanswered: the hull takes it. */
   | ({ type: "rimeMiss" } & RimeColEvent)
-  /** The script is done and the lens shatters. */
+  /** The script is done: a film refreezes over the spent core, both hands to be left off it. */
+  | ({ type: "rimeRefreeze" } & RimeColEvent)
+  /** A reflex wipe or shield scattered the refreezing crack; it takes a beat longer. */
+  | ({ type: "rimeScatter"; side: 0 | 1 } & RimeColEvent)
+  /** The refreeze has run its beats and the lens shatters. */
   | ({ type: "rimeShatter" } & RimeColEvent)
   /** The shattered lens has fallen `rimeShatterBeats`; the wave may end. */
   | ({ type: "rimeOut" } & RimeColEvent);

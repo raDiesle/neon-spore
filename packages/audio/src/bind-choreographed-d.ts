@@ -164,6 +164,8 @@ export function laterCue(e: LaterEvent, cols: number): Cue | null {
     case "rimeBlock":
     case "rimeCloud":
     case "rimeMiss":
+    case "rimeRefreeze":
+    case "rimeScatter":
     case "rimeShatter":
     case "rimeOut":
       return rimeCue(e, cols);

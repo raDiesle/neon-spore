@@ -2,15 +2,18 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason.
+ * THE RIME's fourteen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * **Heard where they happen**: the lens stands over `midCol`, so every one of
  * them is in the middle.
  *
  * **A clear and a hit are pitched up as they add up**, so how far the pair
  * are along can be heard without either of them counting.
+ *
+ * **The refreeze is silent**, as THE GRINDSTONE's fade is: the beats that ask
+ * for nothing sound of nothing, and what breaks them, `rimeScatter`, is heard.
  */
-export function rimeCue(e: Extract<SimEvent, { type: `rime${string}` }>, cols: number): Cue {
+export function rimeCue(e: Extract<SimEvent, { type: `rime${string}` }>, cols: number): Cue | null {
   const pan = panForCol(e.col, cols);
   switch (e.type) {
     case "rimeEnter":
@@ -34,6 +37,11 @@ export function rimeCue(e: Extract<SimEvent, { type: `rime${string}` }>, cols: n
       return { id: "boss.rimeCloud", pan };
     case "rimeMiss":
       return { id: "boss.rimeMiss", pan };
+    case "rimeRefreeze":
+      return null;
+    case "rimeScatter":
+      // A wipe or shield sent into the refreeze: the shave's scrape, higher, as the crack scatters.
+      return { id: "boss.rimeShave", pan, pitch: 1.25 };
     case "rimeShatter":
       return { id: "boss.rimeShatter", pan };
     case "rimeOut":

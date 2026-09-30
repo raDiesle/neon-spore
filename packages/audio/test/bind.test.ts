@@ -553,6 +553,8 @@ const SAMPLES: Record<string, SimEvent> = {
   rimeBlock: { type: "rimeBlock", col: 5 },
   rimeCloud: { type: "rimeCloud", col: 5 },
   rimeMiss: { type: "rimeMiss", col: 5 },
+  rimeRefreeze: { type: "rimeRefreeze", col: 5 },
+  rimeScatter: { type: "rimeScatter", col: 5, side: 0 },
   rimeShatter: { type: "rimeShatter", col: 5 },
   rimeOut: { type: "rimeOut", col: 5 },
   trivetEnter: { type: "trivetEnter", col: 5 },
@@ -846,7 +848,8 @@ describe("bindings", () => {
   // THE SLING's spent yoke cooling the same beat: `slingSnap` is heard.
   // `grindstoneFade` is the ninth, THE GRINDSTONE's: `grindstoneJar` is heard.
   // `stareAgain` is the tenth: THE STARE's level starting over is heard as
-  // the blue pass that follows it (`bind-stare.ts`).
+  // the blue pass that follows it (`bind-stare.ts`). `rimeRefreeze` is the
+  // eleventh, THE RIME's, for the ninth's reason: `rimeScatter` is heard.
   const SILENT_BY_DESIGN = new Set([
     "needWave",
     "choirMerge",
@@ -858,6 +861,7 @@ describe("bindings", () => {
     "slingCool",
     "grindstoneFade",
     "stareAgain",
+    "rimeRefreeze",
   ]);
 
   it("names a sound that exists for every event but the ones that are silent by design", () => {

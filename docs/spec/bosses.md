@@ -9273,7 +9273,9 @@ the wrong seat's pinch is not heard; a pinch run out springs and relights the
 same step; the fourth seam bares the kernel; a fire step wants its colour and
 the middle column, and run out is the wave; a `both` counts nothing for one
 lobe, and run out covers the kernel until it is held again; and a script
-answered whole splits the case and ends the fight. Whether any of it *reads*
+answered whole splits the case and ends the fight — after a refreeze left alone for its beats, and a beat longer for
+every scatter a wipe or shield sends into it (`sim/test/rime-refreeze.test.ts`).
+Whether any of it *reads*
 — whether five beats of pinching is long or short with a voice in the way —
 is the owner's eye, after lane two.
 
@@ -9372,8 +9374,13 @@ first wipe starts from solid frost, its second from `rimeFilmMilli`. Every
 fresh reversal on the lit half shaves `rimeShaveMilli`; a beat nobody rubbed
 it grows `rimeRegrowMilli` back. A half at nought is a wipe, and the fourth
 wipe bares the core. An answered step closes THE SLOW and the lens rests
-`rimeRestBeats` before the next lights. With the script done the lens
-shatters, and falls `rimeShatterBeats` before the wave may end.
+`rimeRestBeats` before the next lights. With the script done a film
+**refreezes** over the spent core for `rimeRefreezeBeats`, under THE SLOW,
+and asks both seats to send nothing (`sim/rime-refreeze.ts`, row 11): a fresh
+reversal on either half, or the guard pressed anywhere, **scatters the crack**
+and adds a beat, once a beat and at most `rimeRefreezeScatters` times — the
+same shape as THE GRINDSTONE's fade. Then the lens shatters, and falls
+`rimeShatterBeats` before the wave may end.
 
 **The answers.** A wipe is answered on the tick its half reaches nought
 (`sim/rime-hand.ts`). A surge is answered as THE SEAM's grit is
@@ -9384,7 +9391,7 @@ while a fire step is lit, only in the middle column, and only in its colour
 unless it is `either`. The wrong colour is a colour missed on the balance
 sheet and nothing else, THE SEAM's rule.
 
-**Where this departs from the design, and why.** Ten places.
+**Where this departs from the design, and why.** Eleven places.
 
 - **A fire step run out is a hull hit, and a hull hit is the wave.** §29's
   rows 6 and 8 say "ordinary hull hit" and row 10 says the core "stays lit".
@@ -9426,6 +9433,12 @@ sheet and nothing else, THE SEAM's rule.
 - **There is no grace on a wipe window.** Unlike THE VISE's pinch, a wipe is
   a level reached rather than a count of beats held, so a window exactly its
   beats long can be met on any tick of it.
+- **A scattered refreeze costs a beat and nothing else, and the beats it may
+  cost are capped.** Row 11 says a wipe or shield "scatters the crack early,
+  adds 1 beat before the core spends", with no limit; a thumb left rubbing
+  would hold the lens up for ever, so `rimeRefreezeScatters` caps it, THE
+  GRINDSTONE's `grindstoneFadeJars` precedent. The shield is heard wherever it
+  stands, on the tick it is pressed, and counts on the pilot's side.
 
 **The story between the wipes** (26 September 2026, the owner's ask for more
 states where the pair must act). Once the core is bare, two steps turn the
@@ -9465,13 +9478,13 @@ half and the navigator's, with THE CAIRN's seven faceted sheets laid over it
 as pale frost; a half's clear patch as wide as its frost is gone; the lit half
 white and the other dulled; a surge crawling in from the rim through a shield
 step; the core lit in its colour once bared, smaller per hit; and the
-shatter dropping the sheets apart. Half two, the hands, is not: the render
-package's silent-event lists and `tools/director/src/sound-link-none-d.ts`
-still carry all twelve of its events. The twelve sounds *are* bound
-(`audio/src/bind-rime.ts`), heard where they happen, the clear pitched up per
-wipe and the hit per hit. There is no autopilot hand yet either
-(`tools/director/test/autopilot.test.ts`'s `NO_HAND`), and no touch rubs a
-half from the field.
+shatter dropping the sheets apart. Half two, the hands, landed 30 September
+2026: the grip, the autopilot hand, the fx and the flakes. The twelve sounds
+are bound (`audio/src/bind-rime.ts`), heard where they happen, the clear
+pitched up per wipe and the hit per hit; the refreeze is silent and its
+scatter is the shave's scrape pitched up. **Row 11's refreeze is in the
+simulation (30 September 2026) and not yet in the picture**: through its
+beats the lens draws as it rests, and its film is queued.
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/rime.test.ts`): the lens comes in still with both halves frosted

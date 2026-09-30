@@ -24,6 +24,8 @@ export function rimeHashParts(s: RimeState): number[] {
     ...s.rubs,
     s.rubbed.length,
     ...s.rubbed.map((r) => (r ? 1 : 0)),
+    s.jars,
+    s.stirred ? 1 : 0,
     s.steps.length,
   ];
   for (const step of s.steps) {

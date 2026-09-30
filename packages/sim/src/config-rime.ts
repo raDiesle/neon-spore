@@ -13,6 +13,10 @@ export interface RimeConfig {
   rimeRestBeats: number;
   /** Beats the shattered lens falls before the wave may end. */
   rimeShatterBeats: number;
+  /** Beats the film refreezes over the spent core, both hands off it, before the lens shatters. */
+  rimeRefreezeBeats: number;
+  /** Beats a reflex wipe or shield may add to the refreeze, one a beat, before it spends anyway. */
+  rimeRefreezeScatters: number;
   /** Frost one reversal of a wiping thumb shaves off the lit half, in thousandths of its face. */
   rimeShaveMilli: number;
   /** Frost a lit half nobody rubbed grows back in a beat, in thousandths of its face. */
@@ -25,6 +29,8 @@ export const RIME_DEFAULTS: RimeConfig = {
   rimeStillBeats: 2,
   rimeRestBeats: 1,
   rimeShatterBeats: 2,
+  rimeRefreezeBeats: 3,
+  rimeRefreezeScatters: 2,
   rimeShaveMilli: 125,
   rimeRegrowMilli: 150,
   rimeFilmMilli: 500,

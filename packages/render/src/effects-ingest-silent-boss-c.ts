@@ -199,7 +199,7 @@ export const INGEST_SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
-  // THE RIME's twelve, for the same reason: what outlives a frame is
+  // THE RIME's fourteen, for the same reason: what outlives a frame is
   // `rime-fx.ts`', read above the loop (`packages/audio/src/bind-rime.ts`).
   "rimeEnter",
   "rimeLight",
@@ -211,6 +211,8 @@ export const INGEST_SILENT_BOSS_C = [
   "rimeBlock",
   "rimeCloud",
   "rimeMiss",
+  "rimeRefreeze",
+  "rimeScatter",
   "rimeShatter",
   "rimeOut",
   // THE TRIVET's thirteen: what outlives a frame is `trivet-fx.ts`', read above the loop.

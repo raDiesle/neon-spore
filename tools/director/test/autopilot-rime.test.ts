@@ -9,8 +9,9 @@ import { stageField } from "../src/stage-field.js";
 /**
  * **AUTO plays THE RIME to the end** (`hands/boss-hands-rime.ts`): each lit
  * half wiped clear by its own seat, both through each whiteout, every surge
- * and icicle turned, the bared core shot in its colour — with no wipe run
- * out, no surge let through, nothing missed, and the hull never struck.
+ * and icicle turned, the bared core shot in its colour, and both hands kept
+ * off the refreeze — with no wipe run out, no surge let through, nothing
+ * missed, the refreeze never scattered, and the hull never struck.
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -33,6 +34,7 @@ describe("AUTO on THE RIME", () => {
     const clears: string[] = [];
     const hits: number[] = [];
     let blocks = 0;
+    let refreezes = 0;
     for (let i = 0; i < 30_000 && world.boss !== null; i++) {
       step(world, auto.commands(world));
       for (const e of world.events) {
@@ -40,13 +42,15 @@ describe("AUTO on THE RIME", () => {
         if (e.type === "rimeClear") clears.push(`${e.side}:${e.wipes}`);
         if (e.type === "rimeHit") hits.push(e.hits);
         if (e.type === "rimeBlock") blocks++;
-        if (["rimeFrost", "rimeCloud", "rimeMiss"].includes(e.type)) wrong++;
+        if (e.type === "rimeRefreeze") refreezes++;
+        if (["rimeFrost", "rimeCloud", "rimeMiss", "rimeScatter"].includes(e.type)) wrong++;
       }
     }
     expect(shatter).toBe(true);
     expect(clears).toEqual(["0:1", "0:2", "1:1", "1:2"]);
     expect(blocks).toBe(3);
     expect(hits).toEqual([1, 2, 3]);
+    expect(refreezes).toBe(1);
     expect(wrong).toBe(0);
     expect(world.scars).toEqual([]);
     expect(rimeBoss(world)).toBeNull();

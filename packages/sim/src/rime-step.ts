@@ -10,6 +10,7 @@ import {
   rimeRubbing,
   rimeWiping,
 } from "./rime.js";
+import { openRefreeze, stepRefreeze } from "./rime-refreeze.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -29,6 +30,10 @@ import type { World } from "./world.js";
  * hull hit. **A shot that runs out is the hull**, THE SEAM's rule
  * (`seam-step.ts`): this game has no hull hit that is not the wave. So is a
  * whiteout left unwiped and an icicle left unshielded, the two story steps.
+ *
+ * **With the script done the lens does not shatter at once**: a film
+ * refreezes over the spent core first, and asks to be left alone
+ * (`rime-refreeze.ts`, §29 row 11).
  */
 
 export function installRime(world: World, steps: readonly RimeStep[]): RimeState {
@@ -50,6 +55,15 @@ export function stepRime(world: World, s: RimeState): void {
   if (s.phase === "still" && since >= cfg.rimeStillBeats) next(world, s);
   else if (s.phase === "rest" && since >= cfg.rimeRestBeats) next(world, s);
   else if (s.phase === "lit") lit(world, s, since);
+  else if (s.phase === "refreeze" && stepRefreeze(world, s, since)) shatter(world, s);
+}
+
+/** The refreeze has run its beats and the lens shatters, THE SLOW let go. */
+function shatter(world: World, s: RimeState): void {
+  closeSlow(world);
+  s.phase = "shattered";
+  s.phaseBeat = world.beat;
+  world.events.push({ type: "rimeShatter", col: midCol(world.cfg) });
 }
 
 function lit(world: World, s: RimeState, since: number): void {
@@ -126,14 +140,12 @@ export function rimeAnswered(world: World, s: RimeState): void {
   rest(world, s, true);
 }
 
-/** The next step lights under THE SLOW; or, with the script done, the lens shatters. */
+/** The next step lights under THE SLOW; or, with the script done, a film refreezes over the core. */
 function next(world: World, s: RimeState): void {
   const step = s.steps[s.cursor];
   const col = midCol(world.cfg);
   if (step === undefined) {
-    s.phase = "shattered";
-    s.phaseBeat = world.beat;
-    world.events.push({ type: "rimeShatter", col });
+    openRefreeze(world, s);
     return;
   }
   s.phase = "lit";

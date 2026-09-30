@@ -1312,26 +1312,19 @@ shared rig, the way the gauge tests were. Time the preview and browser start
 on an idle machine, and either share one preview between the halves or give
 the hook a figure it can meet under load. Prove it with `bun run check`.
 
-## §29 THE RIME — row 11's refreeze, its simulation and then its look
+## §29 THE RIME — row 11's refreeze, its look
 
-- **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
-- **Taken:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo (claim: claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and)
-- **Files:** `packages/sim/src/rime-step.ts`, `packages/sim/src/rime.ts`, `packages/sim/src/events-rime.ts`, `packages/render/src/rime-fx.ts`, `packages/render/src/rime-marks.ts`
+- **Found:** 2026-09-30, claude/queue-29-the-rime-row-11s-refreeze-its-simulation-and
+- **Files:** `packages/render/src/rime-fx.ts`, `packages/render/src/rime-marks.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `packages/render/src/effects-spark-silent-boss-c.ts`
 
-The hands, the fx and the cue words are all in (`rime-grip.ts`, `rime-fx.ts`,
-`boss-cue-read-zg.ts`). What is left is row 11 of
-`docs/spec/bosses-choreographed.md` §29: after the third hit, a pale film
-crawls over the spent core for 3 beats and the pair must send nothing. A wipe
-or shield in that window scatters the crack early and adds one beat before
-the core spends. The simulation has no such phase. The third hit goes straight
-to the shatter, so `rime-fx.ts` has no event to draw it from. This is two
-lanes. First the simulation: a `refreeze` phase with its beats in
-`config-rime.ts`, a `rimeRefreeze` event, the reflex beat, and a line in hash
-and §11.46; `sim/grindstone-fade.ts` is the model for a phase that asks for
-stillness. Then the look: a film ticking and hairline-cracking across the core
-in `rimeFrost`, with no cannon colour, and shattering a beat before the lens
-does. The new event goes on both silent lists, and the sound goes in
-`bind-rime.ts`.
+The simulation half is in (`sim/rime-refreeze.ts`): after the last step the
+phase is `refreeze` for `rimeRefreezeBeats`, `rimeRefreeze` says it opened,
+and `rimeScatter{side}` says a wipe or a shield scattered it for a beat more.
+The picture has none of it: through those beats the lens draws its rest pose.
+Draw the film ticking and hairline-cracking across the core in `rimeFrost`,
+with no cannon colour, a scatter cracking it wider, and the film shattering a
+beat before the lens does. Take both events off the two silent lists, and add
+the frame to `frame.test.ts`'s RIME cases.
 
 ## Unverified at b314ae025: THE RIME's flakes, flashes and shatter watched at tempo
 

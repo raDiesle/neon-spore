@@ -1,5 +1,6 @@
 import { midCol } from "./config.js";
 import { rimeBoss, rimeRubbing, rimeWiping } from "./rime.js";
+import { rimeStirred } from "./rime-refreeze.js";
 import { rimeCleared, rimeThawed } from "./rime-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -23,6 +24,9 @@ import type { World } from "./world.js";
  * would let the frost the beat grows back undo a wipe the pair had finished.
  * In the whiteout both halves are lit at once, and it is answered when both
  * are nought together (`rimeThawed`).
+ *
+ * **In the refreeze any fresh reversal is a wipe too many**, on either half,
+ * and scatters the film's crack (`rime-refreeze.ts`).
  */
 export function rimeHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag") return;
@@ -39,6 +43,7 @@ export function rimeHeard(world: World, player: 1 | 2, command: Command): void {
   const count = Math.max(0, command.id ?? 0);
   const fresh = count >= s.rubs[side] ? count - s.rubs[side] : count;
   s.rubs[side] = count;
+  if (fresh > 0) rimeStirred(world, s, side);
   if (fresh === 0 || !rimeRubbing(s, side)) return;
   s.rubbed[side] = true;
   s.rimeMilli[side] = Math.max(0, s.rimeMilli[side] - fresh * world.cfg.rimeShaveMilli);

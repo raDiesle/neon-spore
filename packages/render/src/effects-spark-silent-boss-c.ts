@@ -166,7 +166,7 @@ export const SILENT_BOSS_C = [
   "viseMiss",
   "viseSplit",
   "viseOut",
-  // THE RIME's twelve, the same: each is thrown above the loop by its own fx
+  // THE RIME's fourteen, the same: each is thrown above the loop by its own fx
   // file (`rime-fx.ts`, `packages/audio/src/bind-rime.ts`).
   "rimeEnter",
   "rimeLight",
@@ -178,6 +178,8 @@ export const SILENT_BOSS_C = [
   "rimeBlock",
   "rimeCloud",
   "rimeMiss",
+  "rimeRefreeze",
+  "rimeScatter",
   "rimeShatter",
   "rimeOut",
   // THE TRIVET's thirteen, no burst from this table: each is thrown above the

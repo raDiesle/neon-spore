@@ -229,6 +229,7 @@ by hand never moves.
 | `packages/sim/src/rime-hash.ts` | What THE RIME puts into `hashWorld`, and nothing else |
 | `packages/sim/src/rime-shot.ts` | **THE RIME's shot**: the bared core, where a bolt leaves the top of the field in the middle column |
 | `packages/sim/src/rime-step.ts` | THE RIME's clock: the lens settling, each step lighting |
+| `packages/sim/src/rime-refreeze.ts` | **THE RIME's refreeze**, §29 row 11 of `docs/spec/bosses-choreographed.md`: the third hit spends the core |
 | `packages/sim/src/rime.ts` | THE RIME: a frosted lens of two halves over the middle column, each wiped clear by its own seat |
 | `packages/sim/src/events-creature.ts` | the arm of `SimEvent` about one body — a disguise, a covering, a cloud, a layer |
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
@@ -2448,7 +2449,7 @@ by hand never moves.
 | `packages/audio/src/bind-trivet.ts` | THE TRIVET's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 | `packages/audio/src/bind-ratchet.ts` | THE RATCHET's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
-| `packages/audio/src/bind-rime.ts` | THE RIME's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-rime.ts` | THE RIME's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-keel.ts` | THE KEEL's twenty-four, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-oculus.ts` | THE OCULUS's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-davit.ts` | THE DAVIT's thirteen, in a file of their own for `bind-gorge.ts`' reason |
