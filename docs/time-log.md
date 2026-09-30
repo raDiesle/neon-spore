@@ -30584,3 +30584,5 @@ Bottleneck: friction. A constant turned into a clock touches every call site tha
 
 Bottleneck: AUTO lost the wave at tick 300, so the watch ended at the first
 movement and the rest of the fight could not be seen.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

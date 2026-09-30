@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · f1b682784 — THE VALVE's drum watched at tempo: the turn, the freeze and the list read
+
+At tempo, with AUTO on both seats, the wheel turns onto its mark. The freeze stands in green rings and the pulled pin slides down and fades. The drum then lists one step, with the hung pins in its frame and the spent pin's slot dark in its underside. The same run found that AUTO loses the wave to its first spark at tick 300, so that is now queued.
+
 ## 2026-09-30 · 76290bd31 — THE VANE's last form walks along the top, a column a cycle
 
 In its fourth and last form the bearing no longer stays in the centre: the pivot walks one column each cycle, out to two columns either side and back (`vaneDriftCols`), starting from the centre when the form begins. While the pilot's thumb pins the arm, the whole bearing stands still where the pin found it, so the split does not walk out from under the shot. The tip, the split and the guard arms all move with the pivot, and the drawn hub and housing follow it — a fix to something wrong, since a picture left at the centre would offer the shot in a column the rule no longer accepts.
