@@ -1270,17 +1270,6 @@ and has to grep for it. Name `copies-table.ts` in that sentence — one edit to 
 file that empties the prompt cache, so fold it into the next CLAUDE.md change
 if one is due.
 
-## THE GAUGE's simulation test is past the line
-
-- **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
-- **Taken:** 2026-09-30, claude/gauge-test-split (claim: claude/queue-the-gauges-simulation-test-is-past-the-line)
-- **Files:** `packages/sim/test/gauge.test.ts`
-
-The tongue's lane left `sim/test/gauge.test.ts` at 308 lines. Its `talking()`
-driver, which answers every rest the round asks for, and the level cases can go
-to a file of their own, with the driver exported for both. Every test stays
-green without edits beyond imports.
-
 ## The world does not say when a window's latest ask was made
 
 - **Found:** 2026-09-30, claude/boss-time-indicator-styling-2ec063
@@ -1334,3 +1323,14 @@ the frames run. After that, `check:fast` should pass under three lanes.
 it passed in 3.8 s. Read the sources once in a `beforeAll` shared by the
 file's tests, or give the test a figure of its own the way the slow tree
 walks have, and prove it with `bun run check`.
+
+## THE GAUGE's hands test is past the line too
+
+- **Found:** 2026-09-30, claude/gauge-test-split
+- **Files:** `packages/sim/test/gauge-hand.test.ts`, `packages/sim/test/gauge-rig.ts`
+
+`sim/test/gauge-hand.test.ts` is 304 lines. Its own rig (`CFG`, `TPB`, `WAVE`,
+`playing`, `call`, `heard`, `needle`, `band`, `callable`, `offBand`) re-declares
+three constants `gauge-rig.ts` now exports; import those, and move "the bind"
+and "both hands" to a file of their own with the helpers in the rig. Every test
+stays green without edits beyond imports.

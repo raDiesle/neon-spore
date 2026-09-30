@@ -30129,3 +30129,13 @@ Bottleneck: writing — the whip's loop had to be one path the line's own stroke
 Bottleneck: writing — the seat split had to be carried through every count the story draws, and each one needed its own proof that the other screen stays still.
 
 *Measured: 51 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GAUGE's simulation test is past the line
+
+- reading: 5 min. The 308-line file, and the helpers its sibling gauge tests already keep.
+- writing: 5 min. The rig to `gauge-rig.ts`, the leaving and the fingerprint to `gauge-leave.test.ts`.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. A compaction between the reading and the writing.
+- landing: 5 min. The gauge tests, `check:fast`, the commit.
+
+Bottleneck: friction — the compaction landed between reading the file and cutting it, so it was read twice.
