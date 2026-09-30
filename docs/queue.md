@@ -1372,6 +1372,7 @@ header, then photograph it with `bun run frames`.
 ## THE STARE's open eye lags on the owner's phone, and the desktop cannot see it
 
 - **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-the-stares-open-eye-lags-on-the-owners-phone-and)
 - **Files:** `packages/render/src/stare-draw.ts`
 
 The owner, 29 September 2026: *when eye opens game seems to lag on my
