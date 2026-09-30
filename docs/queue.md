@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at 881f776df: THE DAVIT: no touch sends a lean or draw
 
 - **Found:** 2026-09-26, claude/davit-sim
+- **Taken:** 2026-09-30, claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes (claim: claude/queue-unverified-at-881f776df-the-davit-no-touch-sends)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
 
 *§35 THE DAVIT: pair LevelTilt with DrawRelease as a steer, the simulation lane* landed from a session that could not look at it. The commit touched 63 more files. What went unchecked:
