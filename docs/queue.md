@@ -1226,6 +1226,7 @@ after side has. Prove it with `bun run check`.
 - **Taken:** 2026-09-30, claude/queue-tasks-66c8ef (claim: claude/queue-the-mirrors-reflected-hull-fills-the-top-of-the)
 - **Files:** `packages/render/test/boss-top.test.ts`
 - **Asks:** THE MIRROR's upside-down hull fills the top 280 px of the screen, under the seat switcher: keep it as the design and leave THE MIRROR exempt, pull it down inside the field, or shorten it so it stops under the switcher?
+- **Answered:** 2026-09-30 — keep it as it is, over pulling it down or cutting it at the field's top: (a), `mirror` stays in `EXEMPT` with the owner's word as its reason.
 
 The owner's rule of 29 September 2026 (*any boss should not touch top of game
 screen*) is now a test, `boss-top.test.ts`, and THE MIRROR is one of its three
@@ -1241,6 +1242,7 @@ reflection down so its top edge is below the switcher's bottom at row 30;
 - **Found:** 2026-09-30, claude/queue-bottom-up
 - **Files:** `packages/render/test/boss-top.test.ts`
 - **Asks:** THE REPRISE's body is clear of the switcher, but the cables it hangs by run to the top edge: keep the cables to the top, cut them at the top of the field, or drop them?
+- **Answered:** 2026-09-30 — (b), end the cables at `l.gridTop`, over keeping them to the top or dropping them, and hang the camera a little lower than it sits now. Delete `reprise` from `EXEMPT`.
 
 The body sits at about y 90–185 on a 390×844 screen. Only the two cables,
 x 114–275, reach y 0, and they pass behind the seat switcher. The options:
