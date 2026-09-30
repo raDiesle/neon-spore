@@ -27,8 +27,6 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  */
 
 const OWED: Partial<Record<BossKind, readonly string[]>> = {
-  // THE SEAM's simulation lane has landed with no look lane yet, §26: its four.
-  seam: ["still", "lit", "rest", "split"],
   // THE RIME the same, §29: its four, less the still posed for `rime:pane`.
   rime: ["lit", "rest", "shattered"],
   // THE PLUMB, THE SLING and THE DAVIT: less the stills posed for their

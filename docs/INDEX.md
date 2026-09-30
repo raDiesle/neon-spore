@@ -3129,6 +3129,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-rounds-b.ts` | **The rounds' states, the second page** — PINBALL's and THE PULSE's |
 | `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE BATON's crossing, THE THROAT's inhale |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
+| `tools/director/src/poses-bosses-hands-seam.ts` | **THE SEAM's states**, posed with a hand on the controls (`boss-hands-seam.ts`) |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |

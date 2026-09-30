@@ -30,7 +30,7 @@ import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { RATCHET_PHASES } from "./ratchet.js";
 import { RIME_PHASES } from "./rime.js";
 import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
-import { SEAM_PHASES } from "./seam.js";
+import { SEAM_PHASES, SEAM_SIGHTS } from "./seam.js";
 import type { MirrorPhase } from "./simon.js";
 import { SLING_PHASES } from "./sling.js";
 import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
@@ -131,7 +131,9 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   mantle: [...MANTLE_PHASES, ...MANTLE_SEAMS],
   keel: KEEL_PHASES,
   valve: VALVE_PHASES,
-  seam: SEAM_PHASES,
+  // Both of THE SEAM's axes: the scene's clock, and what the lit step asks
+  // past a point — each a different answer on the same two controls (`seam.ts`).
+  seam: [...SEAM_PHASES, ...SEAM_SIGHTS],
   oculus: OCULUS_PHASES,
   vise: VISE_PHASES,
   rime: RIME_PHASES,

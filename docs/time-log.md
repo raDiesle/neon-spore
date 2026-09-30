@@ -29969,3 +29969,13 @@ Bottleneck: a new rest with two hands is fifteen registrations outside `sim`, an
 Bottleneck: the rows were slow because they opened files one at a time, not because of the matching. That showed only once opening, stripping and matching were timed separately.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE SEAM's STATES poses: its four phases and every ask the lit step makes
+
+- reading: 15 min. THE VISE's and THE VALVE's pages, `seam.ts`'s script and `seamHand`, and how `bossPose` steps and holds a world.
+- writing: 10 min. `SEAM_SIGHTS` onto THE SEAM's row, eleven cards on a page of their own, and the OWED row struck.
+- looking: 5 min. A probe printed each pose's phase, ask, bolts and events to prove every card lands in its state.
+- friction: 5 min. The hand shields grit the tick it is thrown, so the grit cards needed a hand that holds the press, and only at the one ask.
+- landing: 5 min. `bun run index`, a format pass, `check:fast` and the commit.
+
+Bottleneck: `seamHand` answers each step at once, so no frame of grit meeting the shield exists until a pose delays the press itself.

@@ -60,6 +60,16 @@ export const SEAM_ASKS = [
 ] as const;
 export type SeamAsk = (typeof SEAM_ASKS)[number];
 
+/**
+ * THE SEAM's second axis, for the STATES sheet: what the lit step asks, past
+ * the point. Every one of these is phase `lit` and a different answer — grit
+ * on the shield, a rock shot out, both at once, the shield blind, the glow
+ * quenched, the false point and the dark left alone — so a sheet with only
+ * the phases would be lying by omission, MANTLE_SEAMS' reason. The lit point
+ * is `lit` itself; an ask added above is a pose owed there.
+ */
+export const SEAM_SIGHTS: readonly SeamAsk[] = SEAM_ASKS.filter((a) => a !== "point");
+
 /** One step of the script, authored on the wave. */
 export interface SeamStep {
   ask: SeamAsk;

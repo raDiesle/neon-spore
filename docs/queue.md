@@ -576,19 +576,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §26 THE SEAM — its STATES poses, the last of its hands
-
-- **Found:** 2026-09-29, claude/queue-26-the-seam-the-cues-words-and-the-poses-the-res
-- **Taken:** 2026-09-30, worktree-agent-a6d5193533404a7b6 (claim: claude/queue-26-the-seam-its-states-poses-the-last-of-its-han)
-- **Files:** `tools/director/src/poses-bosses-hands-valve.ts`, `tools/director/src/poses-bosses-hands-vise.ts`, `tools/director/src/`
-
-The receipts are in (`render/seam-fx.ts`) and so are the cue's words
-(`render/boss-cue-read-zr.ts`). What is left is the director's STATES
-gallery: a `poses-bosses-hands-seam.ts` page, run to and never set, that
-shows a lit point, grit on the shield, a rock in flight, grit and a rock at
-once, the false point and the dark. Model it on THE VISE's and THE VALVE's
-pages.
-
 ## §25 THE VALVE — the story between the pins, its hands
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e (cut off THE SEAM's hands entry on 2026-09-29)
