@@ -521,6 +521,7 @@ unverified at tempo until the owner has looked.
 ## Unverified at e72d91c4b: THE OCULUS's lens watched at tempo: the pair sliding s…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
+- **Taken:** 2026-09-30, claude/queue-unverified-at-9676391bb-the-seams-ridge-watched (claim: claude/queue-unverified-at-e72d91c4b-the-oculuss-lens-watched)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/oculus-draw.ts`, `packages/render/src/oculus-marks.ts`
 
 *THE OCULUS's body: a lapped rim, six iris blades that slide shut, the core* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
