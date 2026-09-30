@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 79105dfc1 — THE DAVIT's boom is steered by a thumb, not the phone's lean
+
+The steering seat now presses on the boom, a little over a tile from its middle wherever it has swung, and carries it across. That is THE CAPSTAN's pull, turned into the boom's angle by davitSteerDegreesPerTile. A lift lets the boom swing back toward hanging. The phone's lean sender, apps/game's lean.ts, read the tilt sensor for this boss alone, so it is deleted, and iOS is no longer asked for the sensor. AUTO now plays the fight out (hands/boss-hands-davit.ts). The frames and the tempo are still owed an eye.
+
 ## 2026-09-30 · 2ce24f244 — THE PUSH's arrows keep only the pause
 
 The two white arrows beside a held rock are no longer an offer. They are drawn only for the beat after a carry, when a second carry is refused, and they fade out over that pause, so the wait has a length the eye can learn. A side with a wall behind it is still not drawn. The simulation now exports `carryPauseLeft`, so the picture reads the pause instead of re-deriving it.
