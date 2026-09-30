@@ -1622,9 +1622,11 @@ by hand never moves.
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/ratchet-draw.ts` | **THE RATCHET**: a strut down the middle of the field, a rack of seven plates climbing inside it past a pawl |
 | `packages/render/src/ratchet-fx.ts` | What THE RATCHET leaves behind a frame |
+| `packages/render/src/ratchet-fx-story.ts` | **What THE RATCHET's story throws** (`sim/ratchet-story.ts`): the burst each of its twelve events leaves, and whether it lands a step or strikes the hull |
 | `packages/render/src/ratchet-parts.ts` | THE RATCHET's fittings round the rack: **the lock** at the top of the strut with its five pins |
 | `packages/render/src/ratchet-pose.ts` | **How far through a pose THE RATCHET is** — the clock the rack is posed off (§22, *Animation*) |
 | `packages/render/src/ratchet-shape.ts` | **Where THE RATCHET is**: a strut down the middle column, a rack of seven plates sliding up inside it |
+| `packages/render/src/ratchet-story.ts` | **THE RATCHET's story between the teeth, drawn** (§22): the rack sagging, the pawl kicked, the teeth grinding with sparks, the spring wound back |
 | `packages/render/src/ratchet-grip.ts` | **The two thumbs on THE RATCHET**: half two of the look lane |
 | `packages/render/src/ratchet-blow.ts` | **THE RATCHET's own blows at the hull** (`boss-strike-look.ts`): the jam shoots the rack's head plate down the strut; the loose bolt is driven home |
 | `packages/render/src/ratchet-marks.ts` | **THE RATCHET's catch and pawl answering a touch the way every mark does** (`mark-feedback.ts` |
@@ -3137,7 +3139,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-trivet.ts` | **THE TRIVET's four states**, posed with a hand on the controls (`boss-hands-trivet.ts`) |
-| `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's five states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
+| `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-rime.ts` | **THE RIME's still**, the one of its four states posed so far: the pane dropped in and standing |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |

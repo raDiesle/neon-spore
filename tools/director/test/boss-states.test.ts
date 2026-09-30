@@ -42,10 +42,8 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   burgee: ["slack", "lit", "rest", "spent"],
   flue: ["slack", "lit", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],
-  // THE RATCHET's story between the teeth: the simulation has landed, the
-  // four poses are the look lane (§22). Struck the day it lands.
-  ratchet: ["slip", "kick", "bind", "wind"],
-  // THE HASP's story between the hasps, the same (§20).
+  // THE HASP's story between the hasps: the simulation has landed, the
+  // four poses are the look lane (§20). Struck the day it lands.
   hasp: ["rattle", "backspin", "rust", "sway"],
   // THE SPOOL's story between the ribs, the same (§21).
   spool: ["snag", "whip", "fray"],

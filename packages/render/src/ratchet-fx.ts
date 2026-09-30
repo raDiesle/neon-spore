@@ -5,6 +5,7 @@ import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { type Layout, tileCY, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { ratchetStoryBurst } from "./ratchet-fx-story.js";
 import { RatchetMarks } from "./ratchet-marks.js";
 import { ratchetBarAt, ratchetLock, ratchetPawl, ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
@@ -12,7 +13,8 @@ import { showsRatchetCatch, showsRatchetPawl } from "./view-role-clocks-c.js";
 /**
  * What THE RATCHET leaves behind a frame: the **jolt** of the strut and the
  * **click** along the seam as a clean tooth lands, the **shock** it sends
- * through the hull, and the bursts its twelve receipts throw.
+ * through the hull, and the bursts its twelve receipts throw — and its
+ * story's twelve, from `ratchet-fx-story.ts`.
  *
  * Everything else — how far the rack has climbed, how many pins are home,
  * whether the catch is set — is read off the boss every frame
@@ -136,8 +138,13 @@ export class RatchetFx {
           burst(lock.x, lock.y, 18, PALETTE.rockDark);
           break;
         }
-        default:
+        default: {
+          // The story between the teeth throws its own (`ratchet-fx-story.ts`).
+          const blow = ratchetStoryBurst(e, l, cfg, burst);
+          if (blow === "landed") this.hurt.hit();
+          else if (blow === "struck") this.shock.strike(SHOCK_BEATS * beatSeconds, 1);
           break;
+        }
       }
     }
   }

@@ -979,17 +979,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## §22 THE RATCHET — the story between the teeth, the look
-
-- **Found:** 2026-09-26, claude/older-boss-stories
-- **Taken:** 2026-09-30, worktree-agent-a2df19f0b1f458817 (claim: claude/queue-22-the-ratchet-the-story-between-the-teeth-the-l)
-- **Needs:** §22 THE RATCHET — the story between the teeth, the simulation
-- **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-pose.ts`, `packages/render/test/frame.test.ts`
-
-Draw §22's four new poses: the rack sagging a tooth, the pawl sprung out of
-its seat, teeth grinding with sparks, the spring coiling tighter a turn at a
-time. A look with no shipped alternative.
-
 ## §20 THE HASP — the story between the hasps, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories
@@ -1332,3 +1321,17 @@ state render keeps about the simulation. The world could say it: a hashed
 `slowAskBeat`, set by `openSlow` each time, read by `slowWindow` in place of
 `SlowOpening`. The pinned hashes move with it and are re-pinned in the same
 commit; the fuse tests stay green unchanged.
+
+## THE RATCHET's catch halo says a spent catch asks, and the code does not
+
+- **Found:** 2026-09-30, claude/queue-22-the-ratchet-the-story-between-the-teeth-the-l
+- **Files:** `packages/sim/src/ratchet.ts`, `packages/render/src/boss-cue-read-zb.ts`, `packages/render/src/ratchet-marks.ts`
+
+`ratchetCatchAsks` is documented as asking "spent included", but its body
+returns `!ratchetHeld(s, cfg)`, and `ratchetHeld` ignores `catchSpent`: a spent
+catch still past the notch draws no halo, while the cue next to it
+(`ratchetCues`) says `LIFT` on exactly that catch. Decide which is right — the
+doc's reading adds `|| s.catchSpent` — and have `ratchetCues` call
+`ratchetCatchAsks` for its catch word instead of re-deriving the same gate,
+with a row in `copies-table.ts`. A test in `ratchet-grip.test.ts` pins the halo
+and the word to the same states.

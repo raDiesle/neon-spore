@@ -32,6 +32,13 @@ import { ratchetBoltAt } from "./ratchet-shape.js";
  * is waiting for. It is shown whatever her catch is doing, so it gives away
  * nothing about it. It goes while his thumb is down.
  *
+ * **The story between the teeth** (§22) asks with the same two hands. The
+ * slip is her catch alone, so its word is the catch's own `HOLD`; the kick is
+ * his pawl alone, so the catch says nothing and his pad says **`HOLD`** — a
+ * press no longer burns a tooth there, so the word can ask for it; the bind
+ * is both at once. The wind is her catch pumped, so its word never goes:
+ * `HOLD` while it is up and **`LIFT`** while it is set, which is the pump.
+ *
  * **And `FIRE` over the loose bolt, ahead of both**, at the hull under its
  * column, because a bolt left unshot is the one blow this boss lands on
  * the hull (`ratchetBoltBeats`). Either seat's and either colour's
@@ -54,14 +61,19 @@ export function ratchetCues(
     out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 112 });
   }
   if (!ratchetTakesHand(s)) return out;
-  if (s.catchSpent || !ratchetHeld(s, cfg)) {
+  const held = ratchetHeld(s, cfg);
+  const wind = s.phase === "wind";
+  if (s.phase !== "kick" && (wind || s.catchSpent || !held)) {
     const bar = ratchetCatchCircle(l, cfg, s);
-    const word = s.catchSpent ? "LIFT" : "HOLD";
+    const word = s.catchSpent || (wind && held) ? "LIFT" : "HOLD";
     out.push({ seat: 2, kind: "CARRY", word, x: bar.x, y: bar.y, ...frame, seed: 113 });
   }
-  if (ratchetWorking(s) && !s.pawlDown) {
-    const pad = ratchetPadCircle(l, cfg);
+  if (s.pawlDown) return out;
+  const pad = ratchetPadCircle(l, cfg);
+  if (ratchetWorking(s)) {
     out.push({ seat: 1, kind: "PRESS", word: "ON SET", x: pad.x, y: pad.y, ...frame, seed: 114 });
+  } else if (s.phase === "kick" || s.phase === "bind") {
+    out.push({ seat: 1, kind: "HOLD", word: "HOLD", x: pad.x, y: pad.y, ...frame, seed: 190 });
   }
   return out;
 }

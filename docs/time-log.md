@@ -30081,3 +30081,13 @@ Bottleneck: landing — the whole check is longer than the change.
 Bottleneck: landing — a new palette colour reaches the style guide's families and its sheet, and only the full `check:fast` said so.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — §22 THE RATCHET — the story between the teeth, the look
+
+- reading: 10 min. THE VALVE's story look as the pattern, `sim/ratchet-story.ts`, the rack's drawer and parts, the cue map and §22's story table.
+- writing: 20 min. `ratchet-story.ts`'s four poses folded into the drawer, the story's cue words, `ratchet-fx-story.ts`'s twelve bursts, four director cards, and their tests.
+- looking: 0 min. Nothing was watched at tempo; the frame tests and one PNG are what was seen.
+- friction: 5 min. A compaction mid-lane, and one `check:fast` run lost to a frames test whose preview never printed its port on a busy machine.
+- landing: 10 min. `check:fast` twice, the commit, `land`.
+
+Bottleneck: the busy machine — three lanes checking at once made `check:fast` take six minutes and fail once on a timing test that passes alone.

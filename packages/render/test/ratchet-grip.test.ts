@@ -178,6 +178,27 @@ describe("the words on THE RATCHET", () => {
     expect(words(world, s)).toEqual(["LIFT"]);
   });
 
+  it("asks him alone to HOLD the kicked pawl, and both of them in the bind", () => {
+    const { world, s } = working();
+    s.phase = "kick";
+    expect(words(world, s)).toEqual(["HOLD"]);
+    expect(ratchetCues(layout("test"), world, s, 0)[0]?.seat).toBe(1);
+    s.pawlDown = true;
+    expect(words(world, s)).toEqual([]);
+    s.phase = "bind";
+    s.pawlDown = false;
+    expect(words(world, s)).toEqual(["HOLD", "HOLD"]);
+  });
+
+  it("pumps her catch in the wind: HOLD while it is up, LIFT while it is set", () => {
+    const { world, s } = working();
+    s.phase = "wind";
+    s.pawlDown = true;
+    expect(words(world, s)).toEqual(["HOLD"]);
+    s.catchMilli = CFG.ratchetGripMilli;
+    expect(words(world, s)).toEqual(["LIFT"]);
+  });
+
   it("puts FIRE over a loose bolt, to both seats, and nothing else once the rack is open", () => {
     const { world, s } = working();
     s.phase = "open";

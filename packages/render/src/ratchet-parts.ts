@@ -82,19 +82,22 @@ export function drawRatchetLock(
 /**
  * The spring from the lock down to the rack's top, its coils packing tighter
  * as the rack climbs into it — half wound is where it throws the bolt (§22,
- * row 8), so the thing that throws it is the thing drawn winding.
+ * row 8), so the thing that throws it is the thing drawn winding. `wind` is
+ * its coils and their swing in tiles: seven and 0.22 as it hangs, fewer and
+ * wider while the story's wind has run it down (`ratchet-story.ts`).
  */
 export function drawRatchetSpring(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   cfg: SimConfig,
   top: number,
+  wind: { readonly coils: number; readonly width: number } = { coils: 7, width: 0.22 },
 ): void {
   const lock = ratchetLock(l, cfg);
   const from = lock.y + lock.half * 0.62;
   if (top <= from) return;
-  const coils = 7;
-  const w = l.tile * 0.22;
+  const coils = wind.coils;
+  const w = l.tile * wind.width;
   const coil = new Path2D();
   coil.moveTo(lock.x, from);
   for (let k = 0; k < coils * 2; k++) {
@@ -110,12 +113,15 @@ export function drawRatchetSpring(
 /**
  * The pawl: a pivot beside the rack and an arm whose tip bears on the
  * shoulder of plate `bears`, the last to have passed it. `lift` rides the tip
- * out over the tooth climbing past it and drops it back — the click. Drawn on
+ * out over the tooth climbing past it and drops it back — the click; past 1
+ * it springs the tip up off its seat as well, which is the story's kick
+ * (`ratchet-story.ts`). Drawn on
  * both screens: the rack and what holds it are the whole of what both seats
  * share.
  *
  * `pad` is the pilot's own mark, the round pad on the pivot he presses, and
- * it is lit while a tooth is waiting — on his screen alone, for the
+ * it is lit while a tooth is waiting, and while the story's kick or bind asks
+ * for it held down — on his screen alone, for the
  * catch's reason (`view-role-clocks-c.ts`).
  */
 export function drawRatchetPawl(
@@ -131,7 +137,9 @@ export function drawRatchetPawl(
   const seam = ratchetPawlY(l);
   const rest = ratchetShoulder(l, cfg, bears, seam - (bears + 1) * ratchetStep(l));
   const side = Math.sign(pivot.x - rest.x) || 1;
-  const tip = { x: rest.x + side * lift * l.tile * 0.24, y: seam };
+  const out = Math.min(1, lift);
+  const up = Math.max(0, lift - 1);
+  const tip = { x: rest.x + side * (out + 0.5 * up) * l.tile * 0.24, y: seam - up * l.tile * 0.5 };
   const arm = new Path2D();
   arm.moveTo(pivot.x, pivot.y);
   arm.lineTo(tip.x, tip.y);
@@ -150,7 +158,8 @@ export function drawRatchetPawl(
   if (!pad) return;
   const ring = new Path2D();
   ring.arc(pivot.x, pivot.y, l.tile * 0.34, 0, Math.PI * 2);
-  if (ratchetWorking(s)) strokeGlow(ctx, ring, PALETTE.rock, STROKE.inner, 1.1);
+  const asks = ratchetWorking(s) || s.phase === "kick" || s.phase === "bind";
+  if (asks) strokeGlow(ctx, ring, PALETTE.rock, STROKE.inner, 1.1);
   else {
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.3);
