@@ -30602,3 +30602,19 @@ Bottleneck: finding where the touch goes, since the grind fields are only
 named in the drag targets and the grip, never in `apps/game`.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE SEAM watched at tempo
+
+- reading: 5 min. The wave's three movements in `act-11.ts` and what
+  `seam-draw.ts` draws from.
+- writing: 0 min. Nothing was wrong, so nothing was written.
+- looking: 15 min. AUTO's events to THE OCULUS, then a frame every 150
+  ticks from the first lit point to the split: the red and cyan points, the
+  grit and the rock at column 7, the white point with both at once, the
+  quench and the two halves parting all read.
+- friction: 5 min. The compaction fell mid-watch, and the frames were
+  re-read from the scratch folder.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: the watch itself — fifteen frames across a two-thousand-tick
+wave, read one at a time.
