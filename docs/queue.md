@@ -1344,6 +1344,7 @@ the matching decision out of `DECISIONS` in `field-notes.ts`.
 ## Two ON THE FIELD rows sit in the wrong list
 
 - **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-two-on-the-field-rows-sit-in-the-wrong-list)
 - **Files:** `tools/director/src/field-controls-bosses.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/field-notes.ts`
 
 THE GUM is a creature's and is listed in `field-controls-bosses.ts`; THE
