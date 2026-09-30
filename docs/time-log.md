@@ -30715,3 +30715,17 @@ Bottleneck: the first strip's stride fell inside the boom's fade between
 swings, so it read as barely drawn until a sparser strip showed it standing.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE OCULUS's thud, flashes and shatter watched
+
+- reading: 5 min. `oculus-fx.ts`, `oculus-marks.ts` and the draw order in
+  `oculus-draw.ts`, to know how big each receipt is meant to be.
+- writing: 0 min. Nothing was wrong.
+- looking: 10 min. Strips of the shut pair, the first core hit and the
+  shatter with AUTO on both seats, and the rim's top cropped at four ticks
+  around the thud.
+- friction: 0 min.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: the thud is a tenth of a tile, so it only showed in a crop of
+the rim at five times, not in any strip.
