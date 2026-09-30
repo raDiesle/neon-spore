@@ -16,6 +16,7 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawBearing } from "./vane-bearing.js";
 import { drawVaneGrips, vaneHubAt, vaneTipPoint } from "./vane-grip.js";
+import { drawVaneGuards } from "./vane-guards.js";
 import { drawVaneAsked, drawVaneVerdicts } from "./vane-marks.js";
 import { drawArm } from "./vane-spar.js";
 
@@ -51,6 +52,9 @@ import { drawArm } from "./vane-spar.js";
 /** Beats a throw's streak takes to go out. Short — it is a flick, not a trail. */
 const THROW_FADE = 1.4;
 
+/** How much bigger the hub is drawn for each form the bearing has re-formed into. */
+const HUB_GROWTH = 0.12;
+
 export function drawVane(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -82,7 +86,11 @@ function drawMechanism(
   // The hub walks with the last form's pivot, eased between beats the way the
   // tip is, and stands still under a pin (`vanePivotAt`).
   const pivot = hubCol(cfg, b, world.beat, world.waveBeat, beatPhase);
-  const { x: px, y: py, r: hub } = vaneHubAt(l, cfg, pivot);
+  const { x: px, y: py, r: base } = vaneHubAt(l, cfg, pivot);
+  // Each re-forming grows the bearing a size, so the form the pair has reached
+  // is read off the hub before a guard has turned. The picture's alone: the
+  // housing's touch keeps its own radius (`vaneHousingCircle`).
+  const hub = base * (1 + HUB_GROWTH * b.form);
 
   // Where the arm stands between two beats — `vane-grip.ts`'s answer, because
   // the pilot's thumb is answered at exactly this point and a picture that
@@ -107,6 +115,9 @@ function drawMechanism(
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
   drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim, hurt);
+  // The guard arms each re-forming adds, over the housing so the one standing
+  // across a mouth is seen covering it (`vane-guards.ts`).
+  drawVaneGuards(ctx, l, world, b, px, py, beatPhase, hex);
   drawArm(ctx, l, px, py, hub, tx, ty, whip, hurt);
   // The two hands, under the tip so the ring circles it rather than covering
   // it, and over the spar so a thumb is never behind the thing it is on

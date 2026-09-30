@@ -6,10 +6,15 @@ import {
   step,
   type TimedCommand,
   ticksPerBeat,
+  type VaneState,
+  vaneGuardCount,
+  vaneGuardedAt,
   vanePhase,
   vanePinned,
+  vanePivotCol,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
+import { guardAngle } from "../src/vane-guards.js";
 import { armPoints } from "../src/vane-spar.js";
 import {
   CFG,
@@ -139,5 +144,43 @@ describe("the vane", () => {
     const { world } = played("test");
     const boss = world.boss;
     expect(boss?.kind === "vane" && boss.throwBeat !== -1).toBe(true);
+  });
+
+  /**
+   * The last form: three guards turning and the hub walking, which a wave
+   * played from its first pin never reaches (`vane-guards.ts`).
+   */
+  it("draws the guards and the walk in the last form", () => {
+    const world = createWorld(CFG, 3);
+    const index = waveWith("vane");
+    startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+    if (world.boss?.kind !== "vane") throw new Error("the vane's wave installed no vane");
+    Object.assign(world.boss, { form: CFG.vaneForms - 1, formBeat: 0 });
+    const { ctx } = runFrames(world, "p1", ticksPerBeat(CFG) * 14, { every: 3 });
+    expect(ctx.calls).toBeGreaterThan(1000);
+  });
+
+  /**
+   * A guard is drawn lying across a mouth on every beat the rule covers it, and
+   * on no other — the picture and the refusal are the same question.
+   */
+  it("lays a guard across each mouth exactly while the rule covers it", () => {
+    const pivot = vanePivotCol(CFG);
+    const half = (CFG.vaneGuardCoverBeats / CFG.vaneGuardTurnBeats) * Math.PI;
+    for (let form = 1; form < CFG.vaneForms; form++) {
+      const b = { form } as VaneState;
+      const count = vaneGuardCount(b);
+      for (let beat = 0; beat < CFG.vaneGuardTurnBeats; beat++) {
+        const angles = Array.from({ length: count }, (_, k) =>
+          guardAngle(CFG, count, k, beat, 0.5),
+        );
+        for (const side of [1, -1]) {
+          const across = angles.some(
+            (a) => Math.sign(Math.cos(a)) === side && Math.abs(Math.sin(a)) < Math.sin(half),
+          );
+          expect(across).toBe(vaneGuardedAt(CFG, b, pivot + side, beat));
+        }
+      }
+    }
   });
 });

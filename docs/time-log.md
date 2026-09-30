@@ -30620,3 +30620,13 @@ Bottleneck: the watch itself — fifteen frames across a two-thousand-tick
 wave, read one at a time.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VANE's guard arms and grown hub, drawn
+
+- reading: 0 min. The sim's guard rule and the bearing's drawing were in hand from the lane before.
+- writing: 5 min. `vane-guards.ts`, the hub's growth in `vane-draw.ts`, and two frame tests, one proving the lit spar and the refusing rule agree on every beat.
+- looking: 5 min. A strip of six frames to find one with a spar lit across a mouth.
+- friction: 0 min.
+- landing: 5 min. `format`, `bun run index`, §11.5's look, `check:fast`, `land`.
+
+Bottleneck: looking. The first frame caught every guard between mouths, so a strip was needed to show the one lit.

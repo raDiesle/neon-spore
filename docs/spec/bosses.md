@@ -1214,8 +1214,21 @@ must not walk out from under the shot. The hub and the housing are drawn at the
 pivot and ease between columns (`packages/render/src/vane-draw.ts`). Only
 whole cycles move it, so the pair can count it the way they count the colour.
 
-**What is not built yet.** The picture does not show the guards, or the
-re-formed hub, which grows once per form.
+**The look of the forms.** Each guard is a steel spar from the hub, reaching
+past the mouth beside it (`packages/render/src/vane-guards.ts`). Its angle is
+the guard's own beat round its turn and nothing else: flat to the right in the
+middle of its cover of the right mouth, over the top, and flat to the left half
+a turn later. **A spar glows in the wave's colour only while `vaneGuardedAt`
+covers the mouth it lies across.** So the arm the pair sees lit is the one that
+refuses the shot, and the render asks the rule rather than working it out
+again (`packages/render/test/vane-frame.test.ts` checks the two agree on every
+beat of a turn). The hub is drawn a size bigger at each re-forming
+(`HUB_GROWTH`, in `vane-draw.ts`). That is the picture alone: the housing's
+touch keeps its radius.
+
+**What is not built yet.** Nothing of the design. *Never watched at tempo*:
+whether a spar at twelve beats a turn reads as covering a mouth before the shot
+leaves the hull.
 
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 
