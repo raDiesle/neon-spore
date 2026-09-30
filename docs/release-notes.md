@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · e7ad09516 — Write down a SCOUT flight that still flies, on the press line's own header
+
+`tools/frames/scout-press.ts` described a laden flight and a drift model the round no longer has. Its header now carries a line that fetches the first arena's mote and banks it, recorded off the content test's autopilot and photographed through `bun run frames`, says that a turn steps the nose 45° and a burn is taken away by drag, and warns that a line recorded headless starts eighteen ticks earlier than the browser does.
+
 ## 2026-09-30 · dfe597e7f — THE GAUGE's loose tooth, drawn: it rocks on his screen and is ringed on hers
 
 In the rest after the first level, the pilot sees one tooth rocking and glowing in the jaw. The navigator sees a ring on every tooth and pulls the one he names with a drag. The tooth in her hand follows her thumb on both screens, and a tooth that comes out leaves dark gum where it stood. He reads TOOTH, she reads PULL.

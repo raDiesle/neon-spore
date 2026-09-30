@@ -29919,3 +29919,5 @@ Bottleneck: the first render test found the jaw's end tooth drawn as a socket on
 - landing: 5 min. `check:fast`, the commit.
 
 Bottleneck: the headless world and `bun run frames` count ticks from different starts, and nothing says so except a press reported unheard.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
