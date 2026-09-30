@@ -69,7 +69,15 @@ function ringsOnPilot(g: GaugeState, tick: number): number {
       return typeof v === "function" ? v.bind(target) : v;
     },
   }) as unknown as CanvasRenderingContext2D;
-  drawGauge(spy, DIAL, CFG, g, { showMarks: false, beatPhase: 0.9, beat: 14, tick, time: 1 });
+  drawGauge(spy, DIAL, CFG, g, {
+    showMarks: false,
+    showValve: true,
+    tile: 40,
+    beatPhase: 0.9,
+    beat: 14,
+    tick,
+    time: 1,
+  });
   return rings;
 }
 

@@ -1229,6 +1229,8 @@ by hand never moves.
 | `packages/render/src/gauge-marks.ts` | THE GAUGE's needle and band haloed and answering a touch green, on the screen that shows each and never the other |
 | `packages/render/src/gauge-hurt.ts` | **What the alien has taken**: one torn gash in its flesh for every mark the pair has landed |
 | `packages/render/src/gauge-face.ts` | **THE GAUGE's face**: two eyes on the crown over the open mouth, and a tongue lolling in it |
+| `packages/render/src/gauge-teeth.ts` | **THE GAUGE's teeth**: the jaw, a socket where one is out, the loose one rocking on his screen and the held one on her thumb |
+| `packages/render/src/gauge-tooth-grip.ts` | **The navigator's hand on the teeth**, in the rest after the first level (`sim/gauge-tooth.ts`) |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: the order the ship, the pod, the line and the claw go down in, and which screen sees the pod |
 | `packages/render/src/gall-draw.ts` | **THE GALL**: a soft nodule riding a raised seam the width of the field |
 | `packages/render/src/gall-marks.ts` | **THE GALL's marks**: what says what a step asks — two chevrons closing on the nodule from either side |

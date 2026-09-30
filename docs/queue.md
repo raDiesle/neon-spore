@@ -1384,7 +1384,10 @@ and list every boss whose body reaches the seat switcher or the top edge.
 Then add one render test that walks the bosses and holds each body's
 topmost point below the switcher's bottom, so the next boss cannot break it.
 A boss that fails and has to move is a fix to something wrong, not a look;
-say which in the commit.
+say which in the commit. The same run drifted `doc-drift-names.test.ts`'s
+"names something this tree still writes down": 13.9 s at slowdown 5.0 against
+850 ms. That is the same cure, and the same question of whether it rereads the
+tree per row.
 
 ## CLAUDE.md sends a reader to `purity.test.ts` for the called-not-re-derived table
 
@@ -1398,3 +1401,31 @@ holds only the determinism bans. A lane told to add a row there finds no table
 and has to grep for it. Name `copies-table.ts` in that sentence — one edit to a
 file that empties the prompt cache, so fold it into the next CLAUDE.md change
 if one is due.
+
+## Four files THE GAUGE's tooth left at the line
+
+- **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
+- **Files:** `packages/sim/src/gauge.ts`, `packages/render/src/effects-ingest-silent-boss-c.ts`, `tools/director/src/sound-link-none-c.ts`, `packages/render/test/gauge-grip.test.ts`
+
+The loose tooth's lane added a field block, an event and a sound row, and left
+these four at or past ~250: `sim/gauge.ts` at 248, `effects-ingest-silent-boss-c.ts`
+at 250, `sound-link-none-c.ts` at 248, and `gauge-grip.test.ts` at 261. Cut each
+along a seam it already has. In `gauge.ts`, `gaugeHeard` and the seat
+paragraph can join `gauge-hand.ts`. The ingest and sound-link pages get a next
+letter, as their siblings did. The grip test's bind cases can move to
+`gauge-bind-grip.test.ts`. Every test stays green without edits beyond imports.
+
+## Two slow rows drift past their figures under a loaded `check:fast`
+
+- **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
+- **Files:** `packages/sim/test/copies.test.ts`, `tools/test/doc-drift-names.test.ts`
+
+`check:fast` reports a figure drift on "every other file calls clearHolds
+instead of re-deriving it": 7.9–8.6 s at slowdown 5.0 against a figure of 450
+ms. Run alone, the whole file takes 2.8 s and that row about 780 ms. Either
+time it alone and raise the figure to what it costs, or find out why the row
+reads every file on each run (a cached source list would make it cheap), and
+say which in the commit. The same run drifted `doc-drift-names.test.ts`'s
+"names something this tree still writes down": 13.9 s at slowdown 5.0 against
+850 ms. That is the same cure, and the same question of whether it rereads the
+tree per row.

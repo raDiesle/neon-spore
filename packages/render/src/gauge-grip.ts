@@ -13,6 +13,7 @@ import {
   showsGaugeValve,
 } from "./gauge.js";
 import { gaugeDial } from "./gauge-round.js";
+import { drawGaugeToothRings, gaugeToothUnder } from "./gauge-tooth-grip.js";
 import { drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
@@ -23,8 +24,9 @@ import type { ViewRole } from "./view-role.js";
 /**
  * **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle
  * while the valve is dead, and the navigator's on the band while it is wound
- * tight. Drawn and answered in one file for `gorge-grip.ts`' reason — the
- * circle a thumb is answered at is the circle the ring is drawn from.
+ * tight — and hers on the teeth for one rest, which is `gauge-tooth-grip.ts`.
+ * Drawn and answered in one file for `gorge-grip.ts`' reason — the circle a
+ * thumb is answered at is the circle the ring is drawn from.
  *
  * Each ring stands on the half of the picture its own seat is shown
  * (`showsGaugeValve`, `showsGaugeMarks`), which is the round's whole split: he
@@ -79,6 +81,8 @@ export function gaugeGripUnder(l: Layout, x: number, y: number, field: Field): T
     return needleTouch(dial);
   if (field.seat === 2 && gaugeBandAsks(g) && hitCircle(gaugeBandGrip(l, field.cfg, dial, g), x, y))
     return bandTouch(x, y);
+  // Her hand on the teeth, in the rest after the first level (`gauge-tooth-grip.ts`).
+  if (field.seat === 2) return gaugeToothUnder(dial, handleRadius(l, field.cfg), g, x, y);
   return null;
 }
 
@@ -140,4 +144,5 @@ export function drawGaugeGrip(
     const c = gaugeBandGrip(l, cfg, dial, g);
     drawGripRing(ctx, c.x, c.y, c.r, g.openThumb, time);
   }
+  if (showsGaugeMarks(role)) drawGaugeToothRings(ctx, dial, handleRadius(l, cfg), g, time);
 }

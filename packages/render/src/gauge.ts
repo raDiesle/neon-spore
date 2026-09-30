@@ -19,6 +19,7 @@ import {
   gaugeWoundGrown,
   shotClock,
 } from "./gauge-shot.js";
+import { drawTeeth, type TeethView } from "./gauge-teeth.js";
 import { drawGaugeScar, drawGaugeWound } from "./gauge-wound.js";
 import type { ViewRole } from "./layout.js";
 
@@ -68,6 +69,10 @@ export interface Dial {
 export interface DialView {
   /** Whether this screen is the one that can see the wound. */
   showMarks: boolean;
+  /** Whether it is the pilot's, which sees the loose tooth (`gauge-teeth.ts`). */
+  showValve: boolean;
+  /** The layout's tile, which her drag on a tooth is counted in. */
+  tile: number;
   beatPhase: number;
   /** `world.beat`, which a fresh wound is grown from (`gauge-shot.ts`). */
   beat: number;
@@ -88,6 +93,7 @@ export function drawGaugeFoe(
   const c = shotClock(cfg, gauge, view.tick, view.beat, view.beatPhase);
   const flinch = gaugeFlinch(gauge, c);
   drawGaugeAlien(ctx, dial, view.time, flinch);
+  drawTeeth(ctx, dial, gaugeTeethView(gauge, view), view.time);
   drawGaugeTongue(ctx, dial, view.time);
   drawGaugeEyes(ctx, dial, gauge.needleMilli, view.time, flinch);
   // Every mark landed, torn into its flesh: the count, never as a number.
@@ -110,6 +116,17 @@ export function drawGaugeFoe(
     glow,
     gaugeWoundGrown(gauge, c),
   );
+}
+
+/** The teeth as this screen shows them: the loose one on his screen alone. */
+export function gaugeTeethView(gauge: GaugeState, view: DialView): TeethView {
+  return {
+    pulled: gauge.pulledTeeth,
+    loose: view.showValve ? gauge.looseTooth : -1,
+    hold: gauge.toothHold,
+    dx: (gauge.toothDxMilli * view.tile) / 1000,
+    dy: (gauge.toothDyMilli * view.tile) / 1000,
+  };
 }
 
 /** The cannon's line, the shot, and the cannon itself. After the hull. */

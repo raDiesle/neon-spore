@@ -29897,3 +29897,14 @@ Bottleneck: `replay.ts`, the file the queue item named, had no room, so the seam
 Bottleneck: the lag is on a phone and every tool here measures a desktop, so the lane could only rule causes out.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GAUGE's loose tooth, drawn: it rocks on his screen and is ringed on hers
+
+- reading: 10 min. How THE GAUGE's grip hands out a press, the drag's generic displacement path in `touch-move.ts`, and the cue page's seeds.
+- writing: 15 min. `gauge-teeth.ts` split off `gauge-alien.ts` with its socket, loose and held states. `gauge-tooth-grip.ts` has the rings and the press, plus CALL TOOTH and PULL, and the test.
+- looking: 5 min. The two seats' frames in the tooth's rest.
+- friction: 5 min. Two cue seeds already taken, and a test state that left the wound open, which the real rest never does.
+- landing: 5 min. `bun run index`, a format pass, `check:fast` and the commit.
+
+Bottleneck: the first render test found the jaw's end tooth drawn as a socket on every frame, because `-1` meant both "past the end" and "no loose tooth".
+

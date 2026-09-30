@@ -1,6 +1,13 @@
 import { drawBand } from "./band.js";
 import type { Effects } from "./effects.js";
-import { type Dial, type DialView, drawGauge, drawGaugeFoe, showsGaugeMarks } from "./gauge.js";
+import {
+  type Dial,
+  type DialView,
+  drawGauge,
+  drawGaugeFoe,
+  showsGaugeMarks,
+  showsGaugeValve,
+} from "./gauge.js";
 import { drawGaugeFuse, drawGaugeSiren } from "./gauge-crown.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeAsked, drawGaugeVerdicts } from "./gauge-marks.js";
@@ -97,6 +104,8 @@ export function drawGaugeRound(
   const dial = gaugeDial(l);
   const dialView: DialView = {
     showMarks: showsGaugeMarks(view.role),
+    showValve: showsGaugeValve(view.role),
+    tile: l.tile,
     beatPhase: view.beatPhase,
     beat: view.world.beat,
     tick: view.world.tick,

@@ -4,13 +4,16 @@ import {
   gaugeJammed,
   gaugeSeated,
   gaugeSettling,
+  gaugeToothAsks,
   gaugeWoundOpen,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { markAt } from "./boss-cue-frame.js";
-import { gaugeBandMid, gaugeNeedleTip } from "./gauge.js";
+import { type Dial, gaugeBandMid, gaugeNeedleTip } from "./gauge.js";
+import { rimPoint } from "./gauge-alien.js";
 import { gaugeDial } from "./gauge-round.js";
+import { toothPoint } from "./gauge-teeth.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -66,6 +69,12 @@ import type { Layout } from "./layout.js";
  * away in `stepGauge`. A word over any of the three would be an invitation to
  * press nothing — THE MAZE's argument about a handle the ship has taken away,
  * on a button instead.
+ *
+ * **The tooth's rest turns the split round** (`sim/gauge-tooth.ts`): the
+ * loose tooth is drawn on his screen alone and the hand is hers, so `CALL` /
+ * `TOOTH` stands on the loose one over his, and `PULL` over the top of her
+ * jaw until a tooth is in her hand. Neither names the tooth: his stands on a
+ * thing already drawn for him, and hers is only the verb.
  */
 export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly BossCue[] {
   if (g.phase !== "play") return [];
@@ -83,11 +92,23 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
     const mid = gaugeBandMid(dial, g);
     out.push(markAt(2, "CALL", "POSITION", mid.x, mid.y, l, 69));
   }
+  if (gaugeToothAsks(g)) out.push(...toothCues(l, dial, g));
   if (gaugeJammed(g) && !g.handOn) {
     const tip = gaugeNeedleTip(dial, g);
     out.push(markAt(1, "TURN", "TURN", tip.x, tip.y, l, 81));
   }
   return out;
+}
+
+/** His word on the loose tooth, and her verb over the jaw until one is in hand. */
+function toothCues(l: Layout, dial: Dial, g: GaugeState): BossCue[] {
+  const his = toothPoint(dial, g.looseTooth);
+  const cues = [markAt(1, "CALL", "TOOTH", his.x, his.y, l, 101)];
+  if (g.toothHold === -1) {
+    const top = rimPoint(dial, 500, -dial.r * 0.2);
+    cues.push(markAt(2, "CARRY", "PULL", top.x, top.y, l, 102));
+  }
+  return cues;
 }
 
 /** A wound is up for her to talk him onto: open, with no bolt still out at it. */
