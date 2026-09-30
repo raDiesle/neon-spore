@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 113feb44c — THE RIME's flakes, clear flash, hit and shatter are watched at tempo
+
+Four event strips, six frames three ticks apart: flakes spray off a rubbed half, the half clears white with its scatter, the round reaches the core, and the frosted body breaks into facets. The unverified entry comes out, and `bun run sheet` going silent for fifty minutes is queued.
+
 ## 2026-09-30 · bfcfadee4 — THE RIME's refreeze films the spent core over, and a scatter cracks it wider
 
 After the third hit the core used to show only the rest pose for the whole refreeze. Now a thin frost film ticks back over it, one step thicker each beat, with hairline cracks through it. A wipe or shield sent into the refreeze adds cracks and lengthens them, and the cracks flash white as it lands. Through its last beat the film fades and its pieces fly out along the cracks, a beat before the lens itself shatters. The film uses neither cannon's colour, because it asks nothing of either seat.
