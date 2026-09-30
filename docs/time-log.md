@@ -29873,3 +29873,13 @@ Bottleneck: the queue entry blamed the input delay for the seven ticks, and only
 - landing: 5 min. `bun run index`, `check:fast`, the commit.
 
 Bottleneck: deciding, for each citation, whether it named a generic rule or THE BELLOWS/INSTAR counter-example that stays in `owner.md`.
+
+## 2026-09-30 — `tools/land/run.ts` is at 249 lines: the guarded replay and the race cut into `replay-guarded.ts`
+
+- reading: 5 min. `run.ts`'s `moveTrunk`, `race-retry.ts`'s interface, and `replay.ts`, already at 183 lines and too full to take the seam.
+- writing: 5 min. `replayGuarded` and `settleRaces` in `replay-guarded.ts`, and `run.ts` calling them with its plan, check and report left in place.
+- looking: 0 min.
+- friction: 0 min. One format fix.
+- landing: 5 min. `bun run index`, `check:fast` over 75 shards, the commit.
+
+Bottleneck: `replay.ts`, the file the queue item named, had no room, so the seam got a file of its own.

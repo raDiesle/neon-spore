@@ -1412,15 +1412,3 @@ holds only the determinism bans. A lane told to add a row there finds no table
 and has to grep for it. Name `copies-table.ts` in that sentence — one edit to a
 file that empties the prompt cache, so fold it into the next CLAUDE.md change
 if one is due.
-
-## `tools/land/run.ts` is at 249 lines
-
-- **Found:** 2026-09-30, claude/queue-land-lets-a-lane-delete-queue-entries-it-never-c
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-tools-land-run-ts-is-at-249-lines)
-- **Files:** `tools/land/run.ts`
-
-The guard against dropped queue entries (`queue-dropped.ts`, called from
-`replayGuarded`) took the file to the line. Cut before the next addition:
-`replayGuarded` and the race-retry path that shares it are one seam, and could
-become `tools/land/replay.ts`, leaving `run.ts` with the plan, the check and
-the report. `tools/land/test/` must stay green without edits beyond imports.

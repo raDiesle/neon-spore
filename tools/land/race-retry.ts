@@ -5,7 +5,7 @@
  * the two diffs it decides over, replays, and runs the narrowed check. Both
  * the replay and the check are handed in, so a test can move a real trunk
  * between the check and the move without a minutes-long `bun run check`
- * (`test/race-retry.test.ts`), and `run.ts` can hand in the replay with its
+ * (`test/race-retry.test.ts`), and `replay-guarded.ts` can hand in the replay with its
  * queue guard and its frozen install.
  */
 

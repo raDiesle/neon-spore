@@ -3050,6 +3050,7 @@ by hand never moves.
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
 | `tools/land/replay.ts` | the rebase, and the generated and record files whose conflicts it settles on its own |
+| `tools/land/replay-guarded.ts` | **The replay with its guards over the queue, and the race that repeats it** |
 | `tools/land/remote-branch.ts` | The lane's branch on `origin`, after the landing has taken it locally |
 | `tools/land/red-check.ts` | What a landing says when `bun run check` comes back red |
 | `tools/land/reconcile.ts` | **The other rebase: the trunk against `origin/main`.** `land`'s replay covers a lane landing onto the trunk |
