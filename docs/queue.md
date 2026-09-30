@@ -518,16 +518,6 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…
-
-- **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
-- **Taken:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/valve-draw.ts`, `packages/render/src/valve-marks.ts`
-
-*THE VALVE has a body: an iron drum whose notched rim turns with its wheel, listing a step for every pin pulled* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
-
-- THE VALVE's drum watched at tempo: the wheel's turn, the freeze, the list
-
 ## Unverified at 448d98d6c: THE GRINDSTONE is undrawn and never watched at tempo
 
 - **Found:** 2026-09-26, claude/queue-33-the-grindstone-the-simulation-lane
@@ -1198,3 +1188,21 @@ blocks: the fold, the bearing and its phases, and the full pinned cycle. The
 shared helpers (`open`, `beats`, `vane`, `shoot`) go into a
 `vane-fixture.ts` beside it, the way `vane-forms.test.ts` would want them
 too. Nothing changes but where the tests live, and `bun run check` proves it.
+
+## AUTO loses THE VALVE to its first spark
+
+- **Found:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched
+- **Files:** `packages/hands/src/boss-hands-valve.ts`, `packages/sim/src/valve-shot.ts`, `packages/sim/src/valve-step.ts`
+
+`bun run frames . --wave "THE VALVE" --auto both --events --until valveOut
+--until-ticks 900` gives `valveSpark@190` in the middle column, then
+`fire@226` twice in that column in cyan, `valveShudder@287`, and
+`valveSparkHit@300` followed by `waveFailed` (breach by=valve). No
+`valveSparkOut` fires between them. So `spark()`'s shot never reaches
+`valveStruck` while the spark is still leaking. It could be taken by
+something on the grid first, arrive after `valveLeaking` has gone false, or
+be fired before the cannon has settled. Find out which with a probe, and fix
+the hand or the timing. Add a hands test (`packages/hands/test/` has only
+the vane's and the warden's) that AUTO clears the first movement. Until this
+is fixed, the watch of the jet, brace, wipe and seal (the 2b291c8d3 entry)
+cannot be run with `--auto both`. Prove it with `bun run check`.

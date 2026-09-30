@@ -30569,3 +30569,18 @@ and shipped, and it read as work until the geometry was checked.
 Bottleneck: friction. A constant turned into a clock touches every call site that assumed it, and the line limits on the barrel pages made each new export a move.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE VALVE's drum watched at tempo
+
+- reading: 10 min. `drawValve`, `valve-pose.ts`'s list, the hand and the
+  spark's step and hit test.
+- writing: 5 min. One queue entry, for AUTO losing the first spark.
+- looking: 15 min. Frames from tick 150 to 290 at one seat, cropped: the
+  wheel onto the mark, the freeze's rings, the pin falling, and the drum
+  listing one step with the pins in its frame.
+- friction: 10 min. A compaction mid-lane, and `--events` stopping at 120
+  ticks until `--until` was given.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: AUTO lost the wave at tick 300, so the watch ended at the first
+movement and the rest of the fight could not be seen.
