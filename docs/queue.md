@@ -1302,6 +1302,7 @@ walks have, and prove it with `bun run check`.
 ## THE GAUGE's hands test is past the line too
 
 - **Found:** 2026-09-30, claude/gauge-test-split
+- **Taken:** 2026-09-30, worktree-agent-a629a0f7076a937a4 (claim: claude/queue-the-gauges-hands-test-is-past-the-line-too)
 - **Files:** `packages/sim/test/gauge-hand.test.ts`, `packages/sim/test/gauge-rig.ts`
 
 `sim/test/gauge-hand.test.ts` is 304 lines. Its own rig (`CFG`, `TPB`, `WAVE`,
