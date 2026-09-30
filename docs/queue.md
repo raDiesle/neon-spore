@@ -1373,6 +1373,7 @@ and add a row to the purity test's called-not-re-derived table.
 ## `waves.ts` and the director's `main.ts` are both near the line ceiling
 
 - **Found:** 2026-09-29, claude/scroll-previous-wave-director-bb6576
+- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-waves-ts-and-the-directors-main-ts-are-both-near)
 - **Files:** `apps/game/src/waves.ts`, `tools/director/src/main.ts`
 
 `waves.ts` is 228 lines and `main.ts` 238 after the last-played wave went into
