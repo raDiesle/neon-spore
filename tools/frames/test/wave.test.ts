@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
+import { itCosts } from "../../test/figure.js";
 import { resolveWaveFlag, waveNamesAt, waveNamesHere } from "../wave.js";
 
 /**
@@ -36,16 +37,21 @@ describe("resolveWaveFlag", () => {
 });
 
 /**
- * A checkout and a `bun install` in a scratch worktree, which is what
- * `waveNamesAt` is — so it gets the minute that work can take under eight
- * shards on a loaded machine, not bun's five-second default. It timed out at
- * five seconds on four landings in one afternoon (10 September 2026), and the
- * fourth was the first that could name it (`tools/land/red-check.ts`).
+ * A checkout in a scratch worktree, the workspace's links and an import, which
+ * is what `waveNamesAt` is — scaled to the load by `itCosts`
+ * (`tools/test/figure.ts`), since checking out is git's work and slows as git
+ * does. It timed out at bun's five seconds on four landings on 10 September
+ * 2026, when it still ran `bun install`, and was given a flat minute; on 30
+ * September it took 44 s alone under three lanes' checks, 18 s of it deleting
+ * the `node_modules` the install had made. Linking the workspace instead
+ * (`linkWorkspaces`), it took 2363 to 3182 ms over four runs at a load
+ * average of sixteen to thirty, at a slowdown of one. So 1200.
  */
-const SCRATCH_TREE_MS = 60_000;
+const SCRATCH_TREE_MS = 1200;
 
 describe("waveNamesAt", () => {
-  it(
+  itCosts(
+    SCRATCH_TREE_MS,
     "reads today's WAVES from the working tree's own HEAD commit",
     async () => {
       const head = await Bun.$`git rev-parse HEAD`
@@ -54,7 +60,6 @@ describe("waveNamesAt", () => {
       const names = await waveNamesAt(head.trim());
       expect(names.map((w) => w.name)).toEqual(WAVES.map((w) => w.name));
     },
-    SCRATCH_TREE_MS,
   );
 });
 

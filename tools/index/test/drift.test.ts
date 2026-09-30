@@ -1,17 +1,23 @@
 import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { fileCosts } from "../../test/figure.js";
+import { itCosts } from "../../test/figure.js";
+import { treeText } from "../../test/tree-text.js";
 import { countsIn, driftInRow, headerCommentText, namesIn } from "../drift.js";
 import { parseRows } from "../index.js";
 
-// What this file is allowed to take, scaled to how busy the machine is
-// (`tools/test/repo-time.ts`). It spawns nothing and reads every file
-// `docs/INDEX.md` names; the heaviest case costs 390 ms alone and timed out at
-// 12.4 s on bun's flat five-second default on 17 September 2026, with fourteen
-// shards up here and another session's whole check still running. Its sibling
-// `index.test.ts` was given the same treatment and this file was missed.
-fileCosts(500);
+/**
+ * What the one case here that reads the tree costs alone, scaled to the load
+ * by `itCosts` (`tools/test/figure.ts`); every other case is a string check
+ * and bun's default is theirs. Until 30 September 2026 the whole file was
+ * timed against 500 ms, and that case read its 3,300 files one
+ * `readFileSync` at a time: 580 ms of reading warm on a busy Mac, and 40 s
+ * under three lanes' checks at once, past its loaded timeout of 32 s.
+ * `treeText` reads them sixty-four at a time, as the other tree guards do —
+ * 100 ms of reading — and the case then took 353, 474, 639, 865 and 1228 ms
+ * over five runs at a load average of fifteen. So 400.
+ */
+const TREE_CASE_MS = 400;
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 // `.claude` holds `worktrees/`, and a worktree is a full copy of the repository
@@ -60,16 +66,21 @@ describe("docs/INDEX.md rows still describe their files", () => {
    * while the file it describes is renamed out from under it, or grows a
    * ninth theme under a row that still says six.
    */
-  test("no row names something its file does not have, or counts it differently", () => {
-    const complaints: string[] = [];
-    for (const row of rows) {
-      const text = row.line.split("|")[2]?.trim() ?? "";
-      const source = readFileSync(join(ROOT, row.path), "utf8");
-      const found = driftInRow(text, { source, resolvesFile: (n) => names.has(n) });
-      for (const complaint of found) complaints.push(`${row.path}: ${complaint}`);
-    }
-    expect(complaints).toEqual([]);
-  });
+  itCosts(
+    TREE_CASE_MS,
+    "no row names something its file does not have, or counts it differently",
+    async () => {
+      const complaints: string[] = [];
+      const sources = await treeText(rows.map((row) => row.path));
+      for (const [i, row] of rows.entries()) {
+        const text = row.line.split("|")[2]?.trim() ?? "";
+        const source = sources[i] as string;
+        const found = driftInRow(text, { source, resolvesFile: (n) => names.has(n) });
+        for (const complaint of found) complaints.push(`${row.path}: ${complaint}`);
+      }
+      expect(complaints).toEqual([]);
+    },
+  );
 });
 
 describe("countsIn", () => {

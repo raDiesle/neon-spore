@@ -1272,21 +1272,6 @@ doc's reading adds `|| s.catchSpent` — and have `ratchetCues` call
 with a row in `copies-table.ts`. A test in `ratchet-grip.test.ts` pins the halo
 and the word to the same states.
 
-## Two tests time out in `check:fast` whenever the machine is shared
-
-- **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo
-- **Taken:** 2026-09-30, worktree-agent-aab4accb5f1d61df0 (claim: claude/queue-two-tests-time-out-in-check-fast-whenever-the-ma)
-- **Files:** `tools/index/test/drift.test.ts`, `tools/frames/test/wave.test.ts`, `tools/test/figure.ts`
-
-With three lanes checking at once (load average about 44), `check:fast` went
-red on timeouts alone. Three of the four passed when rerun by themselves.
-`drift.test.ts` did not: it took 45 s alone at a 2.6 slowdown, which is about
-17.6 s idle, against `fileCosts(500)`. `frames/test/wave.test.ts:49` took 44 s
-alone. The lane had to judge both as load and land around them. Time each one
-on an idle machine and set its figure to what it measures, or make it cheaper:
-build the index once per file instead of once per case, and shorten the wave
-the frames run. After that, `check:fast` should pass under three lanes.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
@@ -1341,3 +1326,18 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `doc-drift.test.ts` still reads its sources one `readFileSync` at a time
+
+- **Found:** 2026-09-30, claude/queue-two-tests-time-out-in-check-fast-whenever-the-ma
+- **Files:** `tools/test/doc-drift.test.ts`, `tools/test/tree-text.ts`
+
+"names a source file this tree still has" reads every file under
+`packages/*/src` and `apps/*/src` with a serial `readFileSync`, and the
+"is named in a document" case reads its documents the same way. In a
+`check:fast` at a load average of about twenty-five it took 5427 ms, a
+slowdown of 5.0 and about 1085 ms idle, against a figure of 350, so it was
+reported as figure drift. That is the same cause `drift.test.ts` had until
+this date. Read the sources through `treeText` (`tools/test/tree-text.ts`), as
+the other tree guards do, add the file to that header's list of callers,
+and time the case again alone. Prove it with `bun run check`.

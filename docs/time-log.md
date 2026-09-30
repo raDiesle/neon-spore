@@ -30227,3 +30227,13 @@ existing, which was invisible from the assertion that failed.
 Bottleneck: landing. The case failed the previous lane's `land`, so this one had to go first.
 
 *Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — Two tests time out in `check:fast` whenever the machine is shared
+
+- reading: 5 min. Both tests, `figure.ts`, `tree-text.ts`, and `waveNamesAt` with its scratch tree.
+- writing: 5 min. `treeText` in the drift case, `linkWorkspaces` in place of `bun install`, and both figures from what they measured.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. A compaction mid-lane, and a machine at load thirty that made single timings swing by four times.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. On a shared machine every timing had to be taken several times before a figure could be trusted.

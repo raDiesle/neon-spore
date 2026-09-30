@@ -7,8 +7,10 @@ import { isAbsolute, join } from "node:path";
  * `doc-drift-names.test.ts` twice over (its sources, and every file a name
  * could be declared in). Until 30 September 2026 only the first read in
  * parallel; the others opened one file at a time, `readFileSync` or an
- * `await` inside a `for`. On a quiet Mac that day, forty-seven hundred files
- * took 580 ms one at a time and 100 ms sixty-four at a time — an open is cheap
+ * `await` inside a `for`. `tools/index/test/drift.test.ts`, which reads the
+ * file under every row of `docs/INDEX.md`, came here later the same day. On a
+ * quiet Mac that day, forty-seven hundred files took 580 ms one at a time
+ * and 100 ms sixty-four at a time — an open is cheap
  * and waiting for each before asking for the next is not — and under a loaded
  * `check:fast` the serial walk drifted to eight and fourteen seconds against
  * figures of 450 and 850 ms (`docs/queue.md`). So they all read here.

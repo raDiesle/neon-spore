@@ -1,6 +1,7 @@
-import { join } from "node:path";
+import { mkdir, readdir, readFile, symlink } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { root, run } from "./exec.js";
+import { root } from "./exec.js";
 import { withScratchTree } from "./scratch.js";
 
 /**
@@ -32,17 +33,48 @@ export interface WaveName {
  * `bun install` in it to build the game at a historical commit; this makes
  * the same kind of checkout to answer the name → index question inside it,
  * so the answer and the build it feeds are never talking about two different
- * lists. `bun install` is needed because `waves.ts` reaches `@neon-spore/sim`
- * through `maze-rounds.ts`, and that import only resolves once the workspace
- * link exists in this checkout's own `node_modules`.
+ * lists. `waves.ts` reaches `@neon-spore/sim` through `maze-rounds.ts`, and
+ * that import only resolves once the workspace link exists in this checkout's
+ * own `node_modules` — which is all it needs, so `linkWorkspaces` makes the
+ * links and nothing else.
  */
 export async function waveNamesAt(rev: string): Promise<WaveName[]> {
   return withScratchTree(rev, async (scratch) => {
-    await run(["bun", "install"], scratch);
+    await linkWorkspaces(scratch);
     const url = pathToFileURL(join(scratch, "packages/content/src/waves.ts")).href;
     const mod = (await import(url)) as { WAVES: readonly WaveName[] };
     return mod.WAVES.map((w) => ({ name: w.name }));
   });
+}
+
+/**
+ * The links `bun install` would make for the workspace's own packages, and
+ * none of the rest of what it does.
+ *
+ * Until 30 September 2026 this ran `bun install`, and the answer cost what
+ * installing and then deleting wrangler, TypeScript and Biome cost: on a busy
+ * Mac 1 s to check out, 6 s to install, 2 s to import and 18 s to take the
+ * `node_modules` off disk again, which timed out `test/wave.test.ts` under
+ * three lanes' checks. `WAVES` reaches only workspace packages, and a link is
+ * what a workspace package is in `node_modules`. The link is a junction, which
+ * Windows makes without an administrator and every other system ignores.
+ */
+export async function linkWorkspaces(scratch: string): Promise<void> {
+  const manifest = JSON.parse(await readFile(join(scratch, "package.json"), "utf8")) as {
+    workspaces?: string[];
+  };
+  for (const glob of manifest.workspaces ?? []) {
+    const parent = glob.replace(/\/\*$/, "");
+    for (const dir of await readdir(join(scratch, parent)).catch(() => [])) {
+      const pkg = join(scratch, parent, dir);
+      const text = await readFile(join(pkg, "package.json"), "utf8").catch(() => "");
+      const name = text === "" ? undefined : (JSON.parse(text) as { name?: string }).name;
+      if (name === undefined) continue;
+      const link = join(scratch, "node_modules", name);
+      await mkdir(dirname(link), { recursive: true });
+      await symlink(pkg, link, "junction");
+    }
+  }
 }
 
 /**
