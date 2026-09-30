@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · f710b576e — THE MIRROR keeps its reflected hull at the top of the screen, on the owner's word
+
+The owner was asked whether THE MIRROR's upside-down hull should be pulled down or cut at the field's top, and kept it as it is. `boss-top.test.ts` keeps THE MIRROR exempt, now with his answer as the reason.
+
+## 2026-09-30 · ce7114ecd — Queue: the owner's answers for THE MIRROR's and THE REPRISE's tops
+
 ## 2026-09-30 · 8232fa2c4 — THE VANE re-forms three times, one more guard arm each form
 
 The bearing's last pin no longer ends the fight until its fourth form: each of the first three re-forms it with three fresh pins (so it opens at VEER and keeps SEIZE for the last), and each new form turns one more guard arm round the hub. A guard across a mouth refuses the shot and spends the opening, so the pair time the gap as well as the pin, the column and the colour. AUTO waits for the gap and for a colour that holds until the shot arrives, and plays all four forms through. Nothing is drawn yet; the guards and the growth are the next lane.
