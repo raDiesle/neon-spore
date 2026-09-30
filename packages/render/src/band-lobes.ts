@@ -97,3 +97,16 @@ export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {
   });
   return out;
 }
+
+/**
+ * Every control this screen carries, as the circle it is drawn in — asked of
+ * the same `bandLobes` that draws and answers them, so nothing the join grows
+ * can ever run to a button that is not there.
+ */
+export function controlLobes(l: Layout, set: ControlSet): Lobe[] {
+  const out: Lobe[] = [];
+  for (const player of [1, 2] as const) {
+    for (const lobe of bandLobes(l, set, player)) out.push(lobe);
+  }
+  return out;
+}

@@ -1,20 +1,13 @@
-import {
-  type ControlSet,
-  controlBroken,
-  controlSetForWave,
-  seatedSet,
-  setControls,
-} from "@neon-spore/content";
-import { faultsNow, mirrorHoldsControls, type World } from "@neon-spore/sim";
-import { drawStripFor } from "./band-channel.js";
-import { drawLobe } from "./band-control.js";
+import { type ControlSet, controlSetForWave, seatedSet, setControls } from "@neon-spore/content";
+import { mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawBandGround } from "./band-ground.js";
+import { drawBandHalf } from "./band-half.js";
 import { BAND_JOIN } from "./band-join.js";
+import { controlLobes } from "./band-lobes.js";
 import { drawBatonGrey, drawLock } from "./band-lock.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
-import { drawChokeStrip } from "./choke-strip.js";
 import { drawFireFlash, drawFireVein, type FireShot } from "./fire-vein.js";
-import { bandLobes, type Layout, type Lobe, showsCannon, showsShield, tileCX } from "./layout.js";
+import { type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
 import { seatSkin } from "./seat-skin.js";
 import { type NerveDraw, SHIP_NERVES } from "./ship-nerves.js";
 import { BAND_SLIME } from "./slime-look.js";
@@ -45,7 +38,10 @@ import { BAND_SLIME } from "./slime-look.js";
  * ruled line; it is the chamber under the hull now — `band-ground.ts` for the
  * tissue, `band-seam.ts` for the membrane it hangs from and the slime that
  * runs off it, `lobe-shell.ts` for the socket every control stands in. This
- * file still only decides *what is on the panel and where*.
+ * file still only decides *what is on the panel and where*. One seat's half of
+ * it is `band-half.ts`, and every circle on the screen is `controlLobes`, next
+ * to the `bandLobes` it asks (`band-lobes.ts`) — both cut out of here when THE
+ * SCOUT's seat swap took this file to 228 lines.
  *
  * **All of it is the seat’s colour**, and that is one lookup here rather than
  * a decision in each of the five: `seatSkin(l.role)` is read once and handed
@@ -150,8 +146,8 @@ export function drawBand(
   ctx.font = '9px "Courier New",monospace';
   ctx.textAlign = "center";
 
-  if (showsCannon(l.role)) drawHalf(ctx, l, world, set, 1, armed, open, time, lead);
-  if (showsShield(l.role)) drawHalf(ctx, l, world, set, 2, armed, open, time, lead);
+  if (showsCannon(l.role)) drawBandHalf(ctx, l, world, set, 1, armed, open, time, lead);
+  if (showsShield(l.role)) drawBandHalf(ctx, l, world, set, 2, armed, open, time, lead);
   drawFireFlash(nerves, shots);
 
   ctx.restore();
@@ -161,52 +157,6 @@ export function drawBand(
   // over a finished drawing.
   drawBatonGrey(ctx, l, world, set);
   ctx.textAlign = "left";
-}
-
-/**
- * Every control this screen carries, as the circle it is drawn in — asked of
- * the same `bandLobes` that draws and answers them, so nothing the join grows
- * can ever run to a button that is not there.
- */
-function controlLobes(l: Layout, set: ControlSet): Lobe[] {
-  const out: Lobe[] = [];
-  for (const player of [1, 2] as const) {
-    for (const lobe of bandLobes(l, set, player)) out.push(lobe);
-  }
-  return out;
-}
-
-/**
- * One seat's half of the panel, in the order the set lists it.
- *
- * `armed` and `open` are handed down rather than read here for the reason they
- * always were: they are windows the host is counting, not world state.
- */
-function drawHalf(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  set: ControlSet,
-  player: 1 | 2,
-  armed: boolean,
-  open: boolean,
-  time: number,
-  lead = 0,
-): void {
-  for (const c of setControls(set, player)) {
-    if (c.form !== "strip") continue;
-    drawStripFor(ctx, l, world, c);
-    // Over the cannon strip while THE CHOKE's fault has the cannon: the rail
-    // dead and the body on the node (`choke-strip.ts`).
-    if (controlBroken(c.id, faultsNow(world)) && c.id === "cannon")
-      drawChokeStrip(ctx, l, world, time, seatSkin(l.role));
-  }
-  // The lobes come from `bandLobes` rather than from named fields of the
-  // layout, and `touchDown` asks it the same question with the same set — so
-  // there is one answer to "where is this button", not two that have to agree.
-  for (const lobe of bandLobes(l, set, player)) {
-    drawLobe(ctx, l, lobe.circle, lobe.control, world, armed, open, time, lead);
-  }
 }
 
 /*

@@ -1397,19 +1397,6 @@ nose 45° a press and holds one mote at a time. Re-record the presses off the
 autopilot in `packages/content/test/scout-flight.test.ts` and rewrite the
 header, then photograph it with `bun run frames`.
 
-## Three files the seat swap took near the size line
-
-- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-three-files-the-seat-swap-took-near-the-size-lin)
-- **Files:** `packages/render/src/band.ts`, `tools/director/src/stage.ts`,
-  `packages/content/src/control-sets.ts`
-
-THE SCOUT's seat swap took them to 228, 225 and 233 lines. Split before the next
-addition: `band.ts`'s lobe-sizing helpers into a file of their own;
-`stage.ts`'s control-set and keyboard wiring into `stage-controls.ts`;
-`control-sets.ts`'s seating (`controlSeat`, `swapSeats`, `setSeating` and the
-two caches) into `control-seats.ts`, which already holds `seatedSet`.
-
 ## THE STARE's open eye lags on the owner's phone, and the desktop cannot see it
 
 - **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70

@@ -1,16 +1,7 @@
-import { seatedSet } from "@neon-spore/content";
-import {
-  Canvas2DRenderer,
-  DeskSeat,
-  handedLayout,
-  pointerSeats,
-  type ViewRole,
-} from "@neon-spore/render";
+import { Canvas2DRenderer, handedLayout, pointerSeats, type ViewRole } from "@neon-spore/render";
 import { createWorld, type SimConfig, type World } from "@neon-spore/sim";
-import { bindKeyHelp } from "./key-help.js";
-import { bindKeys, type Keys } from "./keys.js";
 import { stageAutopilot } from "./stage-autopilot.js";
-import { draftControlSet, draftGuide } from "./stage-draft.js";
+import { bindStageControls } from "./stage-controls.js";
 import { stageField } from "./stage-field.js";
 import { exposeStageHandle } from "./stage-handle.js";
 import { stageJump } from "./stage-jump.js";
@@ -50,18 +41,14 @@ export function bindStage(
     (v) => renderer.resize(v),
   );
 
-  // What the wave being edited says, read fresh (`stage-draft.ts`), and
-  // seated as the round seats it on this tick (`content/control-seats.ts`).
-  const currentControlSet = () => seatedSet(draftControlSet(store), world);
-  const currentGuide = () => draftGuide(store);
-  // The keyboard is that panel too: a key is a seat and a slot on it, and the
-  // stage is the one panel that knows which wave it is standing on
-  // (`keys.ts`). Handed the call rather than the set, for the same reason
-  // everything else on this line is.
-  // And the two seat keys, which say whose hand the mouse is under TEST
-  // (`render/desk-seat.ts`): held here by the keyboard, read by every hit test.
-  const desk = new DeskSeat();
-  const keys: Keys = bindKeys(cfg, () => world.creatures, currentControlSet, desk);
+  // The panel, read fresh and seated, and the keyboard that is it too
+  // (`stage-controls.ts`).
+  const {
+    controls: currentControlSet,
+    guide: currentGuide,
+    desk,
+    keys,
+  } = bindStageControls(store, cfg, () => world);
   // Ink off the end of a mouse, over the field and nowhere else, and none of
   // it on a phone (`stage-trail.ts`).
   bindStageTrail(canvas);
@@ -172,7 +159,6 @@ export function bindStage(
       role = r;
     },
   });
-  bindKeyHelp(currentControlSet);
 
   const play = (): void => {
     running = true;

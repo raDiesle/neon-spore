@@ -1679,6 +1679,7 @@ by hand never moves.
 | `packages/render/src/band-lock.ts` | The band, put out — the whole of it, or one seat's half |
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
 | `packages/render/src/band-filaments.ts` | Threads off the band's roof with a drop at the tip — the one part of POLYP the owner took, drawn over the pendants (12 September 2026) |
+| `packages/render/src/band-half.ts` | One seat's half of the panel, in the order the set lists it |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/volley-stone.ts` | **The shipped paint of THE VOLLEY's shell**, in the two passes `volley-look.ts` names |
 | `packages/render/src/volley-shards.ts` | THE VOLLEY's broken pieces: curved fragments of the ball a ward takes off it, and the core's skin when it hatches — thrown, falling on the skin, kept in `Effects` |
@@ -3403,6 +3404,7 @@ by hand never moves.
 | `tools/director/src/stage-strip-both.ts` | **One strip carries the cannon and the shield together**, and only under TEST |
 | `tools/director/src/stage-jump-row.ts` | **◀, the list of steps and ▶**, under the step readout in RUN (`docs/spec/living-bosses.md` §3) |
 | `tools/director/src/stage-jump.ts` | **A jump to any step of a boss's choreography** (`docs/spec/living-bosses.md` §3) |
+| `tools/director/src/stage-controls.ts` | The panel the stage is standing on, and the keyboard that is that panel too |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

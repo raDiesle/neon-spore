@@ -29815,3 +29815,13 @@ Bottleneck: keeping the key order, because the ids list and every page that walk
 - landing: 5 min. `bun run index`, `check:fast` over 100 shards, the commit.
 
 Bottleneck: the director's panels are declared after the callbacks that repaint them, which is why the refresh takes a getter and not the panels themselves.
+
+## 2026-09-30 — three files THE SCOUT's seat swap took near the line: each cut
+
+- reading: 10 min. `control-sets.ts`'s seating and its callers, `band.ts`'s two helpers under `drawBand`, and the director stage's panel and keyboard lines.
+- writing: 10 min. The seating moved to `control-seats.ts`, re-exported from where it was. `controlLobes` moved beside `bandLobes`, and one seat's half moved to `band-half.ts`. `stage-controls.ts` holds the panel, the desk seat, the keys and their help.
+- looking: 0 min.
+- friction: 5 min. An import sort, read before it was kept, which moved the seating's re-export up beside the imports.
+- landing: 5 min. `bun run index`, `check:fast` over 107 shards, the commit.
+
+Bottleneck: the runtime direction between `control-sets.ts` and `control-seats.ts`, which had to stay one-way with the types going back.

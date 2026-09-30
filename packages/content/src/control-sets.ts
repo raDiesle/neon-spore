@@ -1,6 +1,11 @@
+import { controlSeat, swapSeats } from "./control-seats.js";
 import { CONTROL_SETS } from "./control-sets-table.js";
 import { type ControlDef, type ControlId, control } from "./controls.js";
 
+// Which seat a control is on, and the panel with the seats exchanged, are in
+// `control-seats.ts` beside `seatedSet`, cut out when THE SCOUT's swap took this
+// file to 233 lines.
+export { controlSeat, setSeating, swapSeats } from "./control-seats.js";
 // And the one question a *creature* asks of a panel, cut out when THE SCOUT's
 // id took this file over the limit (`control-sets-groups.ts`).
 export { groupsCoveredBy } from "./control-sets-groups.js";
@@ -147,36 +152,6 @@ export function controlSet(id: ControlSetId | undefined): ControlSet {
 /** One seat's half of a panel, in order. Enumerable — never a switch in a drawing. */
 export function setControls(set: ControlSet, player: 1 | 2): readonly ControlDef[] {
   return set.controls.map(control).filter((c) => controlSeat(set, c) === player);
-}
-
-/** The seat a control is on **on this panel** — its own, unless the set is swapped. */
-export function controlSeat(set: ControlSet, def: ControlDef): 1 | 2 {
-  if (set.swapped !== true) return def.player;
-  return def.player === 1 ? 2 : 1;
-}
-
-const SWAPPED = new Map<ControlSetId, ControlSet>();
-const UNSWAPPED = new WeakMap<ControlSet, ControlSet>();
-
-/**
- * The same panel with the seats exchanged, one object per set so a caller
- * holding it twice holds the same thing twice.
- */
-export function swapSeats(set: ControlSet): ControlSet {
-  if (set.swapped === true) return set;
-  let out = SWAPPED.get(set.id);
-  if (out === undefined) {
-    out = { ...set, swapped: true };
-    SWAPPED.set(set.id, out);
-    UNSWAPPED.set(out, set);
-  }
-  return out;
-}
-
-/** The panel this control is on `seat` in: `set` itself, or `set` swapped either way. */
-export function setSeating(set: ControlSet, def: ControlDef, seat: 1 | 2): ControlSet {
-  if (controlSeat(set, def) === seat) return set;
-  return set.swapped === true ? (UNSWAPPED.get(set) ?? set) : swapSeats(set);
 }
 
 export function setHas(set: ControlSet, id: ControlId): boolean {
