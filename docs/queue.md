@@ -1245,3 +1245,17 @@ lane landed around it. The file is also 552 lines. Split it in two around a
 shared rig, the way the gauge tests were. Time the preview and browser start
 on an idle machine, and either share one preview between the halves or give
 the hook a figure it can meet under load. Prove it with `bun run check`.
+
+## `bun run frames <sha> --boss <field>` refuses a field the sha itself adds
+
+- **Found:** 2026-09-30, claude/pinball-wave-physics-ux-b2db9f
+- **Files:** `tools/frames/boss-install.ts`, `tools/frames/run.ts`
+
+`bun run frames 13757cea1 --wave "PINBALL" --ticks 2400 --boss catchTick=2375`
+exited 1 with "the pinball has no such field", naming the old `catchBeat`. The
+sha renamed `catchBeat` to `catchTick`, and the "before" frame runs the parent,
+where the field is not there yet. The workaround was `bun run frames .`, which
+gives no pair. When the field is missing on the before side only, render the
+after frame, and say that the before side has no such field instead of refusing
+the whole run. A test in `tools/frames/test/` should cover a field that only the
+after side has. Prove it with `bun run check`.
