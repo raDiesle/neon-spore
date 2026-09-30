@@ -981,6 +981,7 @@ what the rest of this file holds.
 ## §22 THE RATCHET — the story between the teeth, the look
 
 - **Found:** 2026-09-26, claude/older-boss-stories
+- **Taken:** 2026-09-30, worktree-agent-a2df19f0b1f458817 (claim: claude/queue-22-the-ratchet-the-story-between-the-teeth-the-l)
 - **Needs:** §22 THE RATCHET — the story between the teeth, the simulation
 - **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-pose.ts`, `packages/render/test/frame.test.ts`
 
