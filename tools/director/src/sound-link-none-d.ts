@@ -233,4 +233,6 @@ export const NO_SUBJECT_D: Record<string, string> = {
   // THE GAUGE's tooth, on page c's argument for the other four: a dial, no card.
   "boss.gaugePull":
     "the loose tooth pulled out of the dial's rim. A tooth on a plate, not a body on a grid.",
+  "boss.gaugeTwist":
+    "the tongue wrung by both hands. The same argument: a mouth on a plate, not a body on a grid.",
 };

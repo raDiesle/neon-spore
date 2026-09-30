@@ -1377,3 +1377,13 @@ say which in the commit. The same run drifted `doc-drift-names.test.ts`'s
 "names something this tree still writes down": 13.9 s at slowdown 5.0 against
 850 ms. That is the same cure, and the same question of whether it rereads the
 tree per row.
+
+## THE GAUGE's simulation test is past the line
+
+- **Found:** 2026-09-30, claude/the-gauge-improvements-ce5307
+- **Files:** `packages/sim/test/gauge.test.ts`
+
+The tongue's lane left `sim/test/gauge.test.ts` at 308 lines. Its `talking()`
+driver, which answers every rest the round asks for, and the level cases can go
+to a file of their own, with the driver exported for both. Every test stays
+green without edits beyond imports.

@@ -43,6 +43,8 @@ export {
   gaugeRound,
   gaugeRoundHeard,
 } from "./gauge-round.js";
+// The tongue between the last two (`gauge-tongue.ts`).
+export { GAUGE_TONGUE_LEVEL, gaugeTongueAsks, gaugeTongueOut } from "./gauge-tongue.js";
 // The tooth between the first two levels (`gauge-tooth.ts`).
 export {
   GAUGE_TEETH,

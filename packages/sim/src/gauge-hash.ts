@@ -52,5 +52,11 @@ export function gaugeHashParts(g: GaugeState): number[] {
   push(g.toothHold);
   push(g.toothDxMilli);
   push(g.toothDyMilli);
+  // The tongue after the second: a device that missed one hand on it hears
+  // the other twist it alone.
+  push(g.tongueOut ? 1 : 0);
+  push(g.tongueHolds);
+  push(g.tongueP1Milli);
+  push(g.tongueP2Milli);
   return out;
 }

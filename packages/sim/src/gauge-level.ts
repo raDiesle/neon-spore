@@ -1,5 +1,6 @@
 import type { SimConfig } from "./config.js";
 import type { GaugeState } from "./gauge.js";
+import { gaugeLoosenTongue } from "./gauge-tongue.js";
 import { gaugeLoosenTooth } from "./gauge-tooth.js";
 import type { World } from "./world.js";
 
@@ -61,7 +62,9 @@ export function gaugeLevelUp(world: World, gauge: GaugeState): boolean {
   gauge.regrowBeat = gauge.levelBeat;
   gauge.boundBeat = -1;
   gauge.jamBeat = -1;
-  // One rest is spent on a tooth instead (`gauge-tooth.ts`).
+  // One rest is spent on a tooth instead, and one on the tongue
+  // (`gauge-tooth.ts`, `gauge-tongue.ts`).
   gaugeLoosenTooth(world, gauge);
+  gaugeLoosenTongue(world, gauge);
   return true;
 }

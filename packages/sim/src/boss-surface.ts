@@ -61,6 +61,7 @@ export {
   GAUGE_LEAD_BEATS,
   // The loose tooth between the first two levels (`gauge-tooth.ts`).
   GAUGE_TEETH,
+  GAUGE_TONGUE_LEVEL,
   type GaugeEntry,
   type GaugeState,
   gaugeBeatsLeft,
@@ -78,6 +79,8 @@ export {
   gaugeSeatedBy,
   gaugeSettling,
   gaugeSpanNow,
+  gaugeTongueAsks,
+  gaugeTongueOut,
   gaugeToothAsks,
   gaugeToothLoose,
   gaugeToothPulled,

@@ -2,6 +2,7 @@ import {
   type GaugeState,
   gaugeRound,
   gaugeSeated,
+  gaugeTongueAsks,
   gaugeToothAsks,
   type TimedCommand,
   type World,
@@ -37,7 +38,8 @@ const valve = (dir: -1 | 1): Press => ({ player: 1, command: { kind: "valve", on
  * (`gaugeSeated`), in the wound's colour (`sim/gauge-call.ts`). Between the
  * first two levels she pulls the loose tooth, once half the rest has gone —
  * the time it takes him to count it out — so the loose tooth stands long
- * enough to be posed (`sim/gauge-tooth.ts`).
+ * enough to be posed (`sim/gauge-tooth.ts`). After the next, the two of them
+ * wring the tongue opposite ways on the same half-rest (`sim/gauge-tongue.ts`).
  */
 export const gaugeHand: Hand = (w) => {
   const g = gaugeRound(w);
@@ -47,6 +49,7 @@ export const gaugeHand: Hand = (w) => {
   if (g.valve !== want) out.push(valve(want));
   if (gaugeSeated(w, g)) out.push({ player: 2, command: { kind: "call", color: g.woundColor } });
   if (pullsNow(w, g)) out.push(pull(g.looseTooth));
+  if (twistsNow(w, g)) out.push(twist(1, 2000), twist(2, -2000));
   return out;
 };
 
@@ -54,6 +57,17 @@ export const gaugeHand: Hand = (w) => {
 function pullsNow(w: World, g: GaugeState): boolean {
   return gaugeToothAsks(g) && (g.levelBeat - w.beat) * 2 <= w.cfg.gaugeToothBeats;
 }
+
+/** Whether the tongue is out and half its rest has run. */
+function twistsNow(w: World, g: GaugeState): boolean {
+  return gaugeTongueAsks(g) && (g.levelBeat - w.beat) * 2 <= w.cfg.gaugeTongueBeats;
+}
+
+/** One seat's hand on the tongue, dragged well past the twist one way. */
+const twist = (player: 1 | 2, fromMilli: number): Press => ({
+  player,
+  command: { kind: "drag", target: "gaugeTongue", on: true, id: 0, fromMilli, fromYMilli: 0 },
+});
 
 /** Her hand on tooth `k`, dragged well past the pull in one press. */
 const pull = (k: number): Press => ({

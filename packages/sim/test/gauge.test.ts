@@ -7,6 +7,7 @@ import {
   gaugeHolds,
   gaugeRound,
   gaugeSeated,
+  gaugeTongueAsks,
   gaugeToothAsks,
   hashWorld,
   roundSpent,
@@ -77,6 +78,13 @@ function talking(world: World): TimedCommand[] {
   if (gaugeToothAsks(gauge)) {
     const pull = { kind: "drag", target: "gaugeTooth", on: true, id: gauge.looseTooth } as const;
     out.push(cmd(world, 2, { ...pull, fromMilli: 0, fromYMilli: 2000 }));
+  }
+  if (gaugeTongueAsks(gauge)) {
+    const wring = { kind: "drag", target: "gaugeTongue", on: true, id: 0, fromYMilli: 0 } as const;
+    out.push(
+      cmd(world, 1, { ...wring, fromMilli: 2000 }),
+      cmd(world, 2, { ...wring, fromMilli: -2000 }),
+    );
   }
   const want = gauge.needleMilli < gauge.markMilli ? 1 : -1;
   if (gauge.valve !== want) out.push(cmd(world, 1, { kind: "valve", on: true, dir: want }));

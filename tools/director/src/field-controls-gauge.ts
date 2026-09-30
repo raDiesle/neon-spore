@@ -90,4 +90,24 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     sends: ["drag"],
     pose: "THE GAUGE · LOOSE",
   },
+  {
+    name: "THE GAUGE'S TONGUE",
+    where:
+      "a ring on each side of the tongue, on both screens, only in the rest " +
+      "after the second level while the tongue is out",
+    seat: "both — each seat wrings its own half, and neither half does anything alone",
+    gesture: "grab and drag",
+    does:
+      "Twists the tongue: each press carries its drag across as a twist of its " +
+      "own half. When both hands are on it and have dragged opposite ways by " +
+      "gaugeTongueTwistMilli or more, it is wrung, and the rest ends early " +
+      "after the ordinary regrow; the same way round wrings nothing, and a " +
+      "rest of gaugeTongueBeats that runs out with the tongue still out jams " +
+      "the valve into the next level (sim/gauge-tongue.ts).",
+    source: "touch.ts — gaugeGripUnder() under handleUnder()",
+    holdKind: "drag",
+    dragTarget: "gaugeTongue",
+    sends: ["drag"],
+    pose: "THE GAUGE · TWISTING",
+  },
 ];

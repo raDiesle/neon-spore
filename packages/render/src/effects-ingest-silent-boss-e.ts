@@ -98,6 +98,9 @@ export const INGEST_SILENT_BOSS_E = [
   // (`sim/gauge-tooth.ts`).
   "gaugePull",
   "gaugeWrongPull",
+  // And the tongue wrung by both hands: its twist is drawn off the state
+  // (`sim/gauge-tongue.ts`), and the round going on is the rest of it.
+  "gaugeTwist",
   // And THE FLEET's thumb landing on its wound: a green ring round that seat's
   // own ring, `effects.boss.fleetGrip.marks`' (`fleet-grip-marks.ts`).
   "fleetHold",

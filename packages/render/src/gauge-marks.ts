@@ -39,7 +39,7 @@ export class GaugeMarks {
 
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
-      if (e.type === "gaugeHold" && e.part !== "tooth")
+      if (e.type === "gaugeHold" && e.part !== "tooth" && e.part !== "tongue")
         this.verdicts.mark(e.part === "needle" ? NEEDLE : BAND, true);
     }
   }

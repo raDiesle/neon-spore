@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 
 /**
- * THE GAUGE's seven, in a file of their own for `bind-pulse-hand.ts`'s reason —
+ * THE GAUGE's eight, in a file of their own for `bind-pulse-hand.ts`'s reason —
  * `bind-choreographed-b.ts` was full — and, like that one, panned to the
  * middle rather than to a column: the needle and the band are both drawn
  * state on the plate, never a body standing over a lane, so there is no
@@ -16,6 +16,8 @@ import type { Cue } from "./bind-cue.js";
  * climb to a stop, hers to hear coming before her thumb has to answer it.
  * The pull is the loose tooth coming out of its socket, wet and final; a
  * wrong pull is the miss, because that is what it costs (`sim/gauge-tooth.ts`).
+ * The twist is the tongue wrung by two hands at once: a slow creak winding
+ * up to a slap, so each seat hears the other's half arrive (`sim/gauge-tongue.ts`).
  */
 export function gaugeCue(e: Extract<SimEvent, { type: `gauge${string}` }>): Cue | null {
   switch (e.type) {
@@ -31,6 +33,8 @@ export function gaugeCue(e: Extract<SimEvent, { type: `gauge${string}` }>): Cue 
       return { id: "boss.gaugePull", pan: 0 };
     case "gaugeWrongPull":
       return { id: "boss.gaugeMiss", pan: 0 };
+    case "gaugeTwist":
+      return { id: "boss.gaugeTwist", pan: 0 };
     case "gaugeHold":
       // Silent by design: the ring filling says it on the one screen that shows
       // it, and a sound would tell the other seat what the round keeps from it.

@@ -29945,3 +29945,13 @@ Bottleneck: splitting a test file needs a non-test harness module for its helper
 Bottleneck: friction — the MANTLE and CAPSTAN frame tests proved their marks by counting `hullRim`, so the arrow had to be drawn in the chevron's colour and the horn test split by seat.
 
 *Measured: 34 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GAUGE's tongue lolls out after the second level, and both players wring it opposite ways
+
+- reading: 10 min. The tooth's rest as the model, and the registrations it needed outside the simulation, one by one.
+- writing: 25 min. `gauge-tongue.ts` with its four fields, the event and sound, the net, director, hands and frames rows, and `gauge-tongue.test.ts`.
+- looking: 0 min. Nothing is drawn yet; the look is the next lane.
+- friction: 5 min. A director gesture the type rejected, a format pass and two sound counts in `audio.md`.
+- landing: 5 min. `check:fast` and the commit.
+
+Bottleneck: a new rest with two hands is fifteen registrations outside `sim`, and each one is found only by the typecheck or a test naming the one before it.

@@ -47,6 +47,9 @@ export const ROWS: Record<string, Row> = {
   gaugeBand: { seat: 2 },
   // `gauge-tooth.ts`: her hand on the loose tooth, the tooth as `id`.
   gaugeTooth: { seat: 2, id: true },
+  // `gauge-tongue.ts`: both hands on the tongue, each seat its own half.
+  gaugeTongue: {},
+  gaugeTongue2: { seat: 2, as: "gaugeTongue" },
   // `fleet-hand.ts`.
   fleetBreach: { seat: 2 },
   fleetRake: {},

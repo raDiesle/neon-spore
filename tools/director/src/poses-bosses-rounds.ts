@@ -4,6 +4,7 @@ import {
   gaugeBound,
   gaugeJammed,
   gaugeRound,
+  gaugeTongueOut,
   gaugeToothLoose,
   snakeGrip,
   type World,
@@ -144,6 +145,12 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "loose",
     "A level down and a tooth works loose. P1 counts it out — only his screen shows which; P2 pulls it.",
     { ...FULL, hand: gaugeHand, want: gaugeIs(gaugeToothLoose), hold: 6, budgetBeats: 140 },
+  ),
+  bossPose(
+    "gauge",
+    "twisting",
+    "Two levels down and the tongue lolls out. P1 and P2 each take a side and wring it opposite ways, counted out loud.",
+    { ...FULL, hand: gaugeHand, want: gaugeIs(gaugeTongueOut), hold: 6, budgetBeats: 260 },
   ),
   bossPose(
     "gauge",

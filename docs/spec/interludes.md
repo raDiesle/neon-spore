@@ -192,6 +192,17 @@ out with the loose one still in costs the same. The pulled teeth stay out for
 the round (`packages/sim/src/gauge-tooth.ts`, THE GAUGE'S TOOTH in
 `controls.md`).
 
+**The twisted tongue** (30 September 2026). The owner, in the same sentence:
+*or to rotate the tongue that it gets twisted by both players*. The rest after
+the second level is `gaugeTongueBeats` long, and the tongue lolls out of the
+mouth on both screens. There is no split in it: each seat takes a side and
+drags, and it is wrung only when both hands are on it and dragged opposite
+ways by `gaugeTongueTwistMilli` or more each — so the talking is a count, *three,
+two, one, now*, rather than a description. Wrung, the rest ends early after
+`gaugeRegrowBeats`; a hand let go unwinds its half, and a rest that runs out
+with the tongue still out jams the valve into the next level
+(`packages/sim/src/gauge-tongue.ts`, THE GAUGE'S TONGUE in `controls.md`).
+
 **The crown and the gashes** (29 September 2026). The owner: *remove the
 permanent text … show the default bosses time remaining bar top of boss …
 add some siren which tells that p2 needs to inform p1 about position … the

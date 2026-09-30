@@ -73,4 +73,17 @@ export const BOSS_GAUGE_SOUNDS: SoundDef[] = [
       after(0.05, sub(74, 0.18, 0.3)),
     ],
   },
+  {
+    id: "boss.gaugeTwist",
+    family: "boss",
+    blurb: "A tongue wrung: a wet creak winding up, and a slap as it lets go.",
+    status: "bound",
+    use: "THE GAUGE: the tongue twisted by both hands at once, after the second level.",
+    level: 0.34,
+    layers: [
+      { source: "triangle", freq: 90, toFreq: 240, gain: 0.2, attack: 0.02, release: 0.22 },
+      after(0.16, soft(0.5, air(1800, 900, 0.16, 0.04, 0.8))),
+      after(0.2, sub(66, 0.16, 0.3)),
+    ],
+  },
 ];

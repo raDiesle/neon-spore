@@ -145,6 +145,7 @@ const SAMPLES: Record<string, SimEvent> = {
   gaugeHold: { type: "gaugeHold", part: "needle" },
   gaugePull: { type: "gaugePull" },
   gaugeWrongPull: { type: "gaugeWrongPull" },
+  gaugeTwist: { type: "gaugeTwist" },
   snakeRefuse: { type: "snakeRefuse", col: 2, row: 3, part: "tail", player: 1 },
   wellRoll: { type: "wellRoll" },
   wellHeld: { type: "wellHeld", left: 2 },

@@ -41,7 +41,8 @@ export type DragTargetE =
   | "governorChordLeft"
   | "governorChordRight"
   | "governorTap"
-  | "gaugeTooth";
+  | "gaugeTooth"
+  | "gaugeTongue";
 
 /**
  * `trivetPadFront` and `trivetPadRear` are the seventy-ninth and
@@ -200,4 +201,11 @@ export type DragTargetE =
  * `fromMilli`/`fromYMilli` how far it has been dragged from where it was
  * grabbed — and a drag past `gaugeToothPullMilli` takes it out
  * (`gauge-tooth.ts`).
+ */
+
+/**
+ * `gaugeTongue` is the hundred-and-ninth: THE GAUGE's tongue, under both
+ * seats' hands between the second level and the third. `fromMilli` is how far
+ * that thumb has dragged across, signed; `id` is unused. Two of them wrung
+ * opposite ways past `gaugeTongueTwistMilli` twist it (`gauge-tongue.ts`).
  */

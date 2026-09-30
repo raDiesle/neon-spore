@@ -66,6 +66,10 @@ export interface GaugeConfig {
   gaugeToothBeats: number;
   /** How far a tooth is dragged before it comes out, in thousandths of a tile. */
   gaugeToothPullMilli: number;
+  /** Beats the rest after the second level lasts, spent on the tongue. */
+  gaugeTongueBeats: number;
+  /** How far each hand turns the tongue, its own way, before it twists, in thousandths of a tile. */
+  gaugeTongueTwistMilli: number;
 }
 
 /**
@@ -110,6 +114,12 @@ export interface GaugeConfig {
  * to count along with him, and short enough that a pair who pulls it at once
  * gets the rest back. `gaugeToothPullMilli` at 800 is most of a tile — a pull,
  * not a brush of the thumb on the way somewhere else.
+ *
+ * **The tongue** (`gauge-tongue.ts`, 30 September 2026). `gaugeTongueBeats` at
+ * 16 is the tooth's rest again: long enough to count *three, two, one* twice
+ * over after a first try that came apart. `gaugeTongueTwistMilli` at 800 is
+ * the tooth's pull, asked of each thumb, so the two halves weigh the same and
+ * neither of them can do the other's by dragging further.
  */
 export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeTurnMilli: 3,
@@ -129,4 +139,6 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeRegrowBeats: 2,
   gaugeToothBeats: 16,
   gaugeToothPullMilli: 800,
+  gaugeTongueBeats: 16,
+  gaugeTongueTwistMilli: 800,
 };

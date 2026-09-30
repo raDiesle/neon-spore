@@ -459,6 +459,7 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE GAUGE's loose tooth under the navigator's hand between two levels
   // (`sim/gauge-tooth.ts`).
   gaugeTooth: "field",
+  gaugeTongue: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {
