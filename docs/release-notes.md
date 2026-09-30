@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 63c48b708 — PINBALL's clock is the boss fuse at the top, and the header text is gone
+
+The name, whose press it is, and the tally of targets, board, drops and beats no longer stand over the table. The top of the table now carries the fuse every boss wears. It burns in from both ends over the board's beats and is drawn only while a board is being played. It uses a look the owner asked for by name: "remove all the wave text above, and show the regular boss (choreographed) time indicator, but on top of screen."
+
 ## 2026-09-30 · b11dbf8c0 — THE RIME's refreeze and its scatter, by wipe and by shield, are watched at tempo
 
 The film closes over the spent core under THE SLOW. A scatter forced at the same tick by a shield on the core's column, and again by a wipe of its half, cracks the core into the same white star both ways.
