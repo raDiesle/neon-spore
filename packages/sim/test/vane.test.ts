@@ -183,13 +183,13 @@ describe("the bearing", () => {
 
   it("takes a pin from a shot in the split column, in the split's colour", () => {
     const world = beats(open(), 1);
-    shoot(world, vaneWeakCol(CFG, world.waveBeat), vaneColor(vaneOpening(world.waveBeat)));
+    shoot(world, vaneWeakCol(CFG, world.waveBeat), vaneColor(CFG, vaneOpening(world.waveBeat)));
     expect(vane(world).pins).toBe(CFG.vanePins - 1);
   });
 
   it("refuses the wrong colour, and books it against the colour balance", () => {
     const world = beats(open(), 1);
-    const right = vaneColor(vaneOpening(world.waveBeat));
+    const right = vaneColor(CFG, vaneOpening(world.waveBeat));
     shoot(world, vaneWeakCol(CFG, world.waveBeat), right === "red" ? "cyan" : "red");
     expect(vane(world).pins).toBe(CFG.vanePins);
     expect(world.balance.colorMisses).toBe(1);
@@ -197,7 +197,7 @@ describe("the bearing", () => {
 
   it("refuses the wrong column, and does not call that a colour miss", () => {
     const world = beats(open(), 1);
-    shoot(world, PIVOT, vaneColor(vaneOpening(world.waveBeat)));
+    shoot(world, PIVOT, vaneColor(CFG, vaneOpening(world.waveBeat)));
     expect(vane(world).pins).toBe(CFG.vanePins);
     expect(world.balance.colorMisses).toBe(0);
   });
@@ -219,7 +219,7 @@ describe("the bearing", () => {
   it("gives one pin per opening and no more, so a spray cannot skip one", () => {
     const world = beats(open(), 1);
     const col = vaneWeakCol(CFG, world.waveBeat);
-    const color = vaneColor(vaneOpening(world.waveBeat));
+    const color = vaneColor(CFG, vaneOpening(world.waveBeat));
     const at = world.tick;
     beats(world, 3, [
       { tick: at, player: 1, command: { kind: "cannonCol", col } },
@@ -246,7 +246,7 @@ describe("the bearing", () => {
       dragMilli: 0,
       shell: NO_SHELL,
     });
-    shoot(world, col, vaneColor(vaneOpening(world.waveBeat)));
+    shoot(world, col, vaneColor(CFG, vaneOpening(world.waveBeat)));
     expect(vane(world).pins).toBe(CFG.vanePins);
   });
 
@@ -256,7 +256,7 @@ describe("the bearing", () => {
     const world = beats(open(3), 1);
     expect(vanePhase(vane(world).pins).name).toBe("VEER");
     expect(vaneOpen(world)).toBe(false);
-    shoot(world, vaneWeakCol(CFG, 1), vaneColor(vaneOpening(1)));
+    shoot(world, vaneWeakCol(CFG, 1), vaneColor(CFG, vaneOpening(1)));
     expect(vane(world).pins).toBe(3);
   });
 
@@ -279,7 +279,7 @@ describe("the bearing", () => {
         },
       },
     ]);
-    shoot(world, vaneSplitCol(world, vane(world)), vaneColor(vaneOpeningNow(world.waveBeat)));
+    shoot(world, vaneSplitCol(world, vane(world)), vaneColor(CFG, vaneOpeningNow(world.waveBeat)));
     expect(world.boss).toBeNull();
   });
 });
@@ -311,7 +311,7 @@ describe("a full cycle, pinned", () => {
     {
       tick: beat * TPB + 4,
       player: 2 as const,
-      command: { kind: "fire" as const, color: vaneColor(i) },
+      command: { kind: "fire" as const, color: vaneColor(CFG, i) },
     },
   ]);
 

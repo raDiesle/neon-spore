@@ -45,14 +45,26 @@ export interface VaneHandConfig {
    * row 0 the fold was a thing that had happened before anything was drawn.
    */
   vaneArmRow: number;
+  /**
+   * Openings the housing keeps one colour for before it turns to the other
+   * (`vaneColor`).
+   *
+   * 2: the owner, 30 September 2026 — *the changing colour should be somehow
+   * slower*. Both ends of one sweep wear the same colour, so it turns once a
+   * cycle rather than twice, and the navigator loads it once for a whole
+   * swing. 1 was the colour until then; a larger number stops it being a
+   * thing to watch at all.
+   */
+  vaneColorOpenings: number;
 }
 
 /**
  * The defaults, spread into `DEFAULT_CONFIG`: four beats, a tile and a half,
- * and the arm two rows down.
+ * the arm two rows down, and a colour kept for two openings.
  */
 export const VANE_HAND_DEFAULTS: VaneHandConfig = {
   vanePinBeats: 4,
   vaneHaulMilli: 1500,
   vaneArmRow: 2,
+  vaneColorOpenings: 2,
 };

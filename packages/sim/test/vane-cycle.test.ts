@@ -83,12 +83,15 @@ describe("the cycle", () => {
     expect(vaneOpening(7)).not.toBe(-1);
   });
 
-  it("opens twice a cycle, in alternating colours, on alternating sides", () => {
+  it("opens twice a cycle, on alternating sides, in one colour a cycle", () => {
     const open = BEATS.filter((b) => vaneOpening(b) !== -1);
     expect(open.length).toBe(6);
     const openings = [...new Set(open.map((b) => vaneOpening(b)))];
     expect(openings).toEqual([0, 1]);
-    expect(vaneColor(0)).not.toBe(vaneColor(1));
+    // Both ends of one sweep wear the same colour, and the next cycle's turn
+    // it (`cfg.vaneColorOpenings`).
+    expect(vaneColor(CFG, 0)).toBe(vaneColor(CFG, 1));
+    expect(vaneColor(CFG, 2)).not.toBe(vaneColor(CFG, 0));
     // The housing splits away from the load: arm hard left, split on its right.
     expect(vaneWeakCol(CFG, 1)).toBe(PIVOT + 1);
     expect(vaneWeakCol(CFG, 7)).toBe(PIVOT - 1);
@@ -99,7 +102,7 @@ describe("the cycle", () => {
     expect(vaneOpening(1)).toBe(0);
     expect(vaneOpening(7)).toBe(1);
     expect(vaneOpening(1 + VANE_CYCLE_BEATS)).toBe(2);
-    expect(vaneColor(vaneOpening(1 + VANE_CYCLE_BEATS))).toBe(vaneColor(0));
+    expect(vaneColor(CFG, vaneOpening(1 + VANE_CYCLE_BEATS * 2))).toBe(vaneColor(CFG, 0));
   });
 
   it("never points the arm off the field, however far the phase reaches", () => {

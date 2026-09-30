@@ -146,7 +146,7 @@ describe("the pin, under VEER", () => {
       {
         tick: at + 2,
         player: 2,
-        command: { kind: "fire", color: vaneColor(vaneOpeningNow(world.waveBeat)) },
+        command: { kind: "fire", color: vaneColor(CFG, vaneOpeningNow(world.waveBeat)) },
       },
     ]);
     expect(vane(world).pins).toBe(2);
@@ -156,7 +156,7 @@ describe("the pin, under VEER", () => {
     const world = beats(open(3), 1);
     pin(world);
     const col = vaneSplitCol(world, vane(world));
-    const color = vaneColor(vaneOpeningNow(world.waveBeat));
+    const color = vaneColor(CFG, vaneOpeningNow(world.waveBeat));
     const at = world.tick;
     beats(world, 3, [
       { tick: at, player: 1, command: { kind: "cannonCol", col } },

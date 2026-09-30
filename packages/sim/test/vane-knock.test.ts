@@ -46,7 +46,7 @@ function beats(world: World, n: number, inputs: TimedCommand[] = []): SimEvent[]
 /** A shot of the opening's colour up the split, and what three beats said. */
 function knock(world: World): SimEvent[] {
   const col = vaneWeakCol(CFG, world.waveBeat);
-  const color = vaneColor(vaneOpening(world.waveBeat));
+  const color = vaneColor(CFG, vaneOpening(world.waveBeat));
   const at = world.tick;
   return beats(world, 3, [
     { tick: at, player: 1, command: { kind: "cannonCol", col } },

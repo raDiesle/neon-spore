@@ -219,3 +219,11 @@ export {
   vaneTipAt,
   vaneTipNow,
 } from "./vane-open.js";
+// The phases the pins put it in, split off `vane-cycle.ts` (`vane-phases.ts`).
+export {
+  VANE_PHASES,
+  type VaneGesture,
+  type VanePhase,
+  vanePhase,
+  vaneSplitsOnCycle,
+} from "./vane-phases.js";

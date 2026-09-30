@@ -125,6 +125,6 @@ export const vaneHand: Hand = (w) => {
   if (col === -1) return out;
   out.push(aim(col));
   if (vaneOpen(w) && free(w) && w.cannonCol === col)
-    out.push(fire(vaneColor(vaneOpeningNow(w.waveBeat))));
+    out.push(fire(vaneColor(w.cfg, vaneOpeningNow(w.waveBeat))));
   return out;
 };

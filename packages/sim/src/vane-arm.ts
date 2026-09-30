@@ -1,6 +1,7 @@
 import { midCol, type SimConfig } from "./config.js";
 import { clampSpanCol } from "./types.js";
-import { vaneOpening, vanePhase, vaneReachMilli } from "./vane-cycle.js";
+import { vaneOpening, vaneReachMilli } from "./vane-cycle.js";
+import { vanePhase } from "./vane-phases.js";
 
 /**
  * THE VANE's arm laid over a field: the five answers that come in columns.

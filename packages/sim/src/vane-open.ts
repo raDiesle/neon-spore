@@ -1,14 +1,8 @@
 import type { VaneState } from "./boss-state.js";
 import type { SimConfig } from "./config.js";
 import { vanePivotCol, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
-import {
-  VANE_CYCLE,
-  vaneOpening,
-  vanePhase,
-  vaneReachMilli,
-  vaneSplitsOnCycle,
-  vaneStageIndex,
-} from "./vane-cycle.js";
+import { VANE_CYCLE, vaneOpening, vaneReachMilli, vaneStageIndex } from "./vane-cycle.js";
+import { vanePhase, vaneSplitsOnCycle } from "./vane-phases.js";
 import type { World } from "./world.js";
 
 /**

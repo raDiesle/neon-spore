@@ -91,7 +91,7 @@ function drawMechanism(
   // while the cycle's own openings have stopped, from VEER on.
   const opening = vaneOpeningNow(world.waveBeat);
   const open = vaneOpen(world);
-  const hex = vaneColor(opening) === "red" ? PALETTE.red : PALETTE.cyan;
+  const hex = vaneColor(cfg, opening) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
   drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim, hurt);

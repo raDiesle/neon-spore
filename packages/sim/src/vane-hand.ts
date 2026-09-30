@@ -1,6 +1,5 @@
 import type { VaneState } from "./boss-state.js";
 import type { Command } from "./types.js";
-import { vanePhase } from "./vane-cycle.js";
 import {
   vaneArmAsks,
   vaneHousingAsks,
@@ -9,6 +8,7 @@ import {
   vaneSplitCol,
   vaneTipNow,
 } from "./vane-open.js";
+import { vanePhase } from "./vane-phases.js";
 import type { World } from "./world.js";
 
 /**

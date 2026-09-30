@@ -992,10 +992,15 @@ a table would not make obvious — the arm reaches the end of its travel one bea
 in front of it cannot be called across a voice delay.
 
 **The bearing, and how a shot gets to it.** The pivot is the only part that can
-be hit, and it is reachable only while the arm is held at an end. It hangs
-above the field, so a shot answers it by *leaving* the field: the pilot stands
-in the split column and the navigator fires the split's colour, and the shot
-has to climb a clear lane, because anything in the way stops it. The arm
+be hit, and it is reachable only while the arm is held at an end. It hangs on
+the arm's own row, two rows down since 30 September 2026 (`cfg.vaneArmRow`, the
+owner's *move boss around 2 tiles more down*), and a crosshair rings the split
+while it is open: the pilot stands in the split column and the navigator fires
+the split's colour, and the shot has to climb a clear lane, because anything in
+the way stops it. The colour holds for a whole cycle — both ends of one sweep
+wear it — and turns at the next (`cfg.vaneColorOpenings`, 2; it turned on
+every opening until the owner, 30 September 2026: *the changing colour should
+be somehow slower*). The arm
 therefore defends its own bearing with whatever it has just thrown, which is
 the one place its two halves meet. One hit per opening; a spray may not skip a
 pin. The housing splits on the side away from the load — arm hard right, split
@@ -1059,7 +1064,7 @@ leave standing.
 **The colour is the cycle's in every phase.** The housing has worn it since the
 arm stopped, and a pinned arm is an arm that has stopped, so `vaneOpeningNow`
 answers with the opening the cycle is on or the one it is on its way to. The
-alternation goes on at the rate the pair learned under SWING and the arm never
+colour turns at the rate the pair learned under SWING and the arm never
 carries a colour of its own.
 
 **Three departures, argued.** The cycle's own openings **stop** from VEER, and

@@ -61,7 +61,7 @@ function rock(world: World, col: number, row: number): void {
 /** A shot of the opening's colour up the split, and every event it raised. */
 function shoot(world: World): SimEvent[] {
   const col = vaneWeakCol(CFG, world.waveBeat);
-  const color = vaneColor(vaneOpening(world.waveBeat));
+  const color = vaneColor(CFG, vaneOpening(world.waveBeat));
   const at = world.tick;
   const inputs: TimedCommand[] = [
     { tick: at, player: 1, command: { kind: "cannonCol", col } },
@@ -105,7 +105,7 @@ describe("the bearing, on the arm's row", () => {
   it("says a wrong colour on the arm's row, where the shot stopped", () => {
     const world = open();
     const col = vaneWeakCol(CFG, world.waveBeat);
-    const wrong = vaneColor(vaneOpening(world.waveBeat)) === "red" ? "cyan" : "red";
+    const wrong = vaneColor(CFG, vaneOpening(world.waveBeat)) === "red" ? "cyan" : "red";
     const at = world.tick;
     const events: SimEvent[] = [];
     for (let t = 0; t < TPB; t++) {

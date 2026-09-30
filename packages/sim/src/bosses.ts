@@ -209,18 +209,13 @@ export { vaneFold, vanePivotCol, vaneReach, vaneTipCol, vaneWeakCol } from "./va
 export {
   VANE_CYCLE,
   VANE_CYCLE_BEATS,
-  VANE_PHASES,
-  type VaneGesture,
-  type VanePhase,
   type VaneStage,
   vaneColor,
   vaneCycle,
   vaneCycleBeat,
   vaneOpening,
   vaneOpeningNow,
-  vanePhase,
   vaneReachMilli,
-  vaneSplitsOnCycle,
   vaneStageIndex,
   vaneStageStart,
 } from "./vane-cycle.js";

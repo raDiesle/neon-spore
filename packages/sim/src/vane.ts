@@ -4,15 +4,10 @@ import type { VaneState } from "./boss-state.js";
 import { isMount } from "./gyre.js";
 import { type Bullet, spanOf } from "./types.js";
 import { vaneFold } from "./vane-arm.js";
-import {
-  vaneColor,
-  vaneOpening,
-  vaneOpeningNow,
-  vanePhase,
-  vaneSplitsOnCycle,
-} from "./vane-cycle.js";
+import { vaneColor, vaneOpening, vaneOpeningNow } from "./vane-cycle.js";
 import { stepVanePin } from "./vane-hand.js";
 import { vaneBearingOpen, vaneOpeningSpent, vaneSplitCol, vaneTipNow } from "./vane-open.js";
+import { vanePhase, vaneSplitsOnCycle } from "./vane-phases.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -157,9 +152,9 @@ export function vaneMouthStruck(world: World, bullet: Bullet): void {
   // The colour is the cycle's in every phase: the housing has worn it since
   // the arm stopped, and a pinned arm is an arm that has stopped. Under VEER
   // and SEIZE the opening number is the one the cycle would have been on, so
-  // the colour goes on alternating at the rate the pair already learned
+  // the colour goes on turning at the rate the pair already learned
   // (`vane-cycle.ts`).
-  if (bullet.color !== vaneColor(vaneOpeningNow(world.waveBeat))) {
+  if (bullet.color !== vaneColor(world.cfg, vaneOpeningNow(world.waveBeat))) {
     missedColor(world);
     world.events.push({ type: "reject", col: bullet.col, row: world.cfg.vaneArmRow });
     return;

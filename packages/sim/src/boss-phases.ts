@@ -41,7 +41,7 @@ import { THROAT_PHASES } from "./throat.js";
 import { TRIVET_PHASES } from "./trivet.js";
 import { UNDERTOW_PHASES } from "./undertow.js";
 import { VALVE_PHASES } from "./valve.js";
-import { VANE_PHASES } from "./vane-cycle.js";
+import { VANE_PHASES } from "./vane-phases.js";
 import { VISE_PHASES } from "./vise.js";
 import { WARDEN_PHASES } from "./warden-cycle.js";
 

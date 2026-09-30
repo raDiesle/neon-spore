@@ -189,6 +189,7 @@ by hand never moves.
 | `packages/sim/src/vane-hand.ts` | **THE VANE's two hands on the picture**, on the tick |
 | `packages/sim/src/vane-hash.ts` | THE VANE in the fingerprint |
 | `packages/sim/src/vane-open.ts` | **Where THE VANE's arm is standing and whether the bearing is open** — one place, read by the fold, the shot |
+| `packages/sim/src/vane-phases.ts` | **THE VANE's phases** — SWING, VEER, SEIZE and the gesture each asks, read off the pins |
 | `packages/sim/src/vane.ts` | THE VANE's whole choreography: the boss that bends the field instead of the beat |
 | `packages/sim/src/valve-hand.ts` | THE VALVE's two handles: the wheel, the pilot's, and the pin |
 | `packages/sim/src/valve-hash.ts` | What THE VALVE puts into `hashWorld`, and nothing else |

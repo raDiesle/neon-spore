@@ -44,6 +44,7 @@ export const BOSS_FIELDS = {
   vanePinBeats: "VANE",
   vaneHaulMilli: "VANE",
   vaneArmRow: "VANE",
+  vaneColorOpenings: "VANE",
   spliceEntranceRows: "THE SPLICE — straws fed in the order the numbers say",
   spliceTopRow: "THE SPLICE — straws fed in the order the numbers say",
   spliceFeedBeats: "THE SPLICE — straws fed in the order the numbers say",
