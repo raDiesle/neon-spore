@@ -21,11 +21,14 @@ import type { ViewState } from "./renderer.js";
  * So it cannot drift from what the ball does: there is no second copy of the
  * gravity, the cap or the wall bounce anywhere in this file.
  *
- * **It stops at first contact on purpose.** The owner asked to see the real
- * flight, and this shows it: the arc, the wall it banks off, and which piece
- * it arrives at. What it never shows is the cascade after that — where a ball
- * goes once it is in a cluster is the thing the pair are supposed to be
- * arguing about, and it is also the one part of this no line could promise.
+ * **It shows the first bounce and no more.** It used to stop at first contact,
+ * and on 30 September 2026 the owner asked for the sweep's own arcs to show
+ * *if it hits obstacles and bounces*. So every arc now runs against the real
+ * board, marks where it first touches something, and carries on for one short
+ * leg afterwards, dimmer, to say which way it comes off. What it still never
+ * shows is the cascade after that — where a ball goes once it is in a cluster
+ * is the thing the pair are supposed to be arguing about, and it is also the
+ * one part of this no line could promise.
  *
  * **It is also cut at a length, and the owner set that length.** *The dotted
  * predicted flying direction: maximum distance shown is the size of vertical
@@ -44,54 +47,69 @@ import type { ViewState } from "./renderer.js";
  */
 
 /** Ticks of flight a preview may step. A ceiling on the work, not on the
- * picture: the length below is what actually ends most traces. */
-const PREVIEW_TICKS = 260;
+ * picture: the length below is what actually ends most traces. Doubled when
+ * the ball was slowed to half speed, so it still reaches the same length. */
+const PREVIEW_TICKS = 520;
+
+/** How far the leg after the first bounce runs, in tiles of path. */
+const BOUNCE_TILES = 1.6;
 
 /** How far apart the dashes are, in tiles. */
 const DASH_TILES = 0.26;
 
-/** An empty board, for the fan: `stepBall` then answers about walls alone. */
-const NO_PIECES: never[] = [];
+type Pt = { x: number; y: number };
+
+/** A traced arc: the flight up to the first contact, and the leg after it. */
+interface Trace {
+  pts: Pt[];
+  /** Where the leg after the first bounce begins in `pts`, or -1 for none. */
+  bounce: number;
+}
 
 /**
- * The real path, as stage points, from the muzzle to the first thing the ball
- * would touch — or to the owner's length, whichever comes first.
+ * The real path, as stage points, from the muzzle through the first thing the
+ * ball would touch and a short leg beyond it — or to the owner's length,
+ * whichever comes first.
  *
  * The length is measured **along the path** rather than as a height reached,
  * because a shot thrown almost sideways would otherwise be drawn across the
  * whole table for nothing: what is being promised is *how much flight* the pair
  * are being shown, and that is a distance travelled.
  */
-function trace(view: ViewState, t: Table, boss: PinballState, powerMilli: number, board: boolean) {
+function trace(view: ViewState, t: Table, boss: PinballState, powerMilli: number): Trace {
   const cfg = view.world.cfg;
   const start = pinRestingBall(view.world, boss);
   const v = pinLaunchVelocity(cfg, boss.angleMilli, powerMilli);
   const ball: PinBall = { ...start, vxMilli: v.vxMilli, vyMilli: v.vyMilli };
   const phys = pinPhysics(cfg);
-  const pieces = board ? boss.pieces : NO_PIECES;
-  const alive = board ? boss.alive : NO_PIECES;
   // The cannon to the ceiling, in the ball's own units. `start.yMilli` *is*
   // that distance: the table's own top is y zero.
-  const budget = start.yMilli;
+  let budget = start.yMilli;
   let run = 0;
+  let bounce = -1;
   const pts = [pinAt(t, ball.xMilli, ball.yMilli)];
   for (let i = 0; i < PREVIEW_TICKS; i++) {
     const wasX = ball.xMilli;
     const wasY = ball.yMilli;
-    const struck = stepBall(ball, pieces, alive, phys);
+    const struck = stepBall(ball, boss.pieces, boss.alive, phys);
     run += Math.hypot(ball.xMilli - wasX, ball.yMilli - wasY);
     pts.push(pinAt(t, ball.xMilli, ball.yMilli));
-    if (struck.length > 0) break;
+    if (struck.length > 0) {
+      // The second contact ends the leg: past it is the cascade.
+      if (bounce >= 0) break;
+      bounce = pts.length - 1;
+      budget = run + BOUNCE_TILES * 1000;
+    }
     if (run >= budget) break;
     if (ball.yMilli >= t.rows * 1000) break;
   }
-  return pts;
+  return { pts, bounce };
 }
 
 function strokeTrace(
   ctx: CanvasRenderingContext2D,
   t: Table,
-  pts: readonly { x: number; y: number }[],
+  pts: readonly Pt[],
   color: string,
   width: number,
   alpha: number,
@@ -114,6 +132,33 @@ function strokeTrace(
   ctx.restore();
 }
 
+/** One arc: the flight, its first contact ringed, and the leg off it dimmer. */
+function drawTrace(
+  ctx: CanvasRenderingContext2D,
+  t: Table,
+  arc: Trace,
+  color: string,
+  width: number,
+  alpha: number,
+): void {
+  if (arc.bounce < 0) {
+    strokeTrace(ctx, t, arc.pts, color, width, alpha);
+    return;
+  }
+  strokeTrace(ctx, t, arc.pts.slice(0, arc.bounce + 1), color, width, alpha);
+  strokeTrace(ctx, t, arc.pts.slice(arc.bounce), color, width * 0.8, alpha * 0.55);
+  const at = arc.pts[arc.bounce];
+  if (at === undefined) return;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, t.tile * 0.16, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
 export function drawAim(
   ctx: CanvasRenderingContext2D,
   t: Table,
@@ -123,13 +168,14 @@ export function drawAim(
   if (boss.shot === "flight") return;
   const width = Math.max(1.5, t.tile * 0.07);
   if (boss.shot === "aim") {
-    strokeTrace(ctx, t, trace(view, t, boss, 0, false), PALETTE.sparkDim, width * 0.7, 0.4);
-    strokeTrace(ctx, t, trace(view, t, boss, 1000, false), PALETTE.shieldRim, width * 0.8, 0.6);
+    drawTrace(ctx, t, trace(view, t, boss, 0), PALETTE.sparkDim, width * 0.7, 0.45);
+    drawTrace(ctx, t, trace(view, t, boss, 1000), PALETTE.shieldRim, width * 0.8, 0.65);
     return;
   }
-  const pts = trace(view, t, boss, boss.powerMilli, true);
-  strokeTrace(ctx, t, pts, PALETTE.podRim, width, 0.95);
-  const end = pts[pts.length - 1];
+  const arc = trace(view, t, boss, boss.powerMilli);
+  drawTrace(ctx, t, arc, PALETTE.podRim, width, 0.95);
+  // The mark sits where the ball first arrives, which is what the bar decides.
+  const end = arc.pts[arc.bounce >= 0 ? arc.bounce : arc.pts.length - 1];
   if (end === undefined) return;
   halo(ctx, end.x, end.y, t.tile * 0.5, PALETTE.pod, 0.7);
   ctx.save();

@@ -30371,3 +30371,13 @@ Bottleneck: writing. The film's thickening, cracks and break-up each needed a nu
 Bottleneck: friction. `bun run sheet` has no deadline, so a stuck browser is silence rather than an error.
 
 *Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — PINBALL's aim fan shows where it first bounces
+
+- reading: 5 min. `pinball-aim.ts`, `stepBall`, and how a stub canvas logs a stroke.
+- writing: 5 min. The fan traced against the real board, the ring and the leg off it, the new test.
+- looking: 0 min. The frame is sent after landing.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: writing. The fan's two arcs had been traced against an empty board on purpose, and the reason had to be rewritten, not only the code.
