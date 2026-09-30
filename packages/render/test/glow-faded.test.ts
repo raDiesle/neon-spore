@@ -8,13 +8,8 @@ import { GovernorFx } from "../src/governor-fx.js";
 import { computeLayout } from "../src/layout.js";
 import { STROKE } from "../src/palette.js";
 import { stood as flueStood } from "./flue-harness.js";
-import {
-  CFG,
-  FRAME_TIMEOUT_MS,
-  installCanvasGlobals,
-  stubCanvas,
-  VIEWPORT,
-} from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+import { marks } from "./glow-marks.js";
 import { stood as governorStood } from "./governor-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -29,23 +24,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
-
-/** The alpha of every mark a draw makes, and the alpha it leaves. */
-function marks(draw: (c: CanvasRenderingContext2D) => void, start = 1) {
-  const { ctx } = stubCanvas();
-  const c = ctx as unknown as CanvasRenderingContext2D;
-  const at: number[] = [];
-  for (const name of ["stroke", "fill", "fillRect", "drawImage", "fillText"] as const) {
-    const was = (c[name] as (...a: unknown[]) => void).bind(c);
-    (c as unknown as Record<string, unknown>)[name] = (...a: unknown[]) => {
-      at.push(c.globalAlpha);
-      was(...a);
-    };
-  }
-  c.globalAlpha = start;
-  draw(c);
-  return { at, after: c.globalAlpha };
-}
 
 describe("strokeGlowFaded", () => {
   it("fades the glow and the core by the alpha it finds, and leaves it", () => {

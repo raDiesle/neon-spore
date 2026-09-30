@@ -8,7 +8,7 @@ import {
   davitHookRadius,
   davitMastPath,
 } from "./davit-shape.js";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -56,7 +56,7 @@ export function drawDavitAsk(
 ): void {
   const path = davitBoomPath(l, angle, 1);
   const pulse = 0.6 + 0.3 * Math.cos(beatPhase * Math.PI * 2);
-  strokeGlow(ctx, path, PALETTE.hullRim, STROKE.outline, pulse);
+  strokeGlowFaded(ctx, path, PALETTE.hullRim, STROKE.outline, pulse);
 }
 
 /** The slack chain hanging off the boom's tip. */
@@ -95,9 +95,9 @@ export function drawDavitHook(
   const { body, rim } = stepColour(lit.color);
   ctx.fillStyle = rgba(body, glow * (0.75 + 0.25 * Math.cos(beatPhase * Math.PI * 2)));
   ctx.fill(hook);
-  strokeGlow(ctx, hook, rim, STROKE.inner, 0.8 + glow);
+  strokeGlowFaded(ctx, hook, rim, STROKE.inner, 0.8 + glow);
   const point = davitHook(l, angle, sag);
   const ring = new Path2D();
   ring.arc(point.x, point.y, r * 1.6, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * lit.left);
-  strokeGlow(ctx, ring, body, STROKE.outline, 1);
+  strokeGlowFaded(ctx, ring, body, STROKE.outline, 1);
 }

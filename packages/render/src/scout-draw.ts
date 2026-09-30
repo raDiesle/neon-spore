@@ -117,7 +117,9 @@ export function drawScoutMotes(
     const mote = motes[i];
     if (mote === undefined) continue;
     const { x, y } = scoutAt(l, mote);
-    put(i, x, y, () => drawPodBody(ctx, x, y, r * 1.18, time + i * 0.31, "ward"));
+    // The pilot's glimpse tears a load, fading it by the context's alpha, and
+    // the pod's glow and halo only fade by the alpha they are handed.
+    put(i, x, y, () => drawPodBody(ctx, x, y, r * 1.18, time + i * 0.31, "ward", ctx.globalAlpha));
   }
 }
 

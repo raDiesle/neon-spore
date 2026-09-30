@@ -30467,3 +30467,13 @@ Bottleneck: friction. The compaction and the wrongly renamed fixture cost more t
 Bottleneck: friction. The compaction landed between two edits of the same file, and the files had to be read again.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE MANTLE and THE DAVIT arrive faded through their glows, and THE DAVIT stands up once
+
+- reading: 30 min. Every `strokeGlow` caller the audit flagged, which bodies fade by `ctx.globalAlpha`, and `davitStood`'s phases in `davit-step.ts`.
+- writing: 20 min. `strokeGlowFaded` in eight files, the pod's handed alpha, `davitStood`, `glow-marks.ts` and `glow-faded-arrival.test.ts`.
+- looking: 0 min. A handful of arrival frames change, and none is worth a picture.
+- friction: 25 min. A probe patched into `glow.ts` to find the callers under bun test, two compactions, and a well that read faded only because the test mock has no `save`.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading. Sorting the two dozen callers into those in a fading body and those only left an alpha took longer than the fix did.

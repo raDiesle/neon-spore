@@ -1,5 +1,5 @@
 import type { MantleState, World } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { mantleVentCircle } from "./mantle-grip.js";
@@ -40,7 +40,7 @@ export function drawMantleVent(
   slot.ellipse(vent.x, vent.y, vent.r * 0.6 * open, vent.r * 0.24 * open, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(PALETTE.red, 0.85);
   ctx.fill(slot);
-  strokeGlow(ctx, slot, PALETTE.red, STROKE.inner, 1.4);
+  strokeGlowFaded(ctx, slot, PALETTE.red, STROKE.inner, 1.4);
   for (let k = 0; k < PUFFS; k++) {
     const rise = (time * 1.4 + k / PUFFS) % 1;
     const drift = Math.sin(k * 2.1 + time * 3) * vent.r * 0.35;
@@ -85,5 +85,5 @@ export function drawMantleCrossCrack(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.red, 0.55 + 0.35 * crack);
   ctx.stroke(path);
-  strokeGlow(ctx, path, PALETTE.red, STROKE.inner, glow);
+  strokeGlowFaded(ctx, path, PALETTE.red, STROKE.inner, glow);
 }

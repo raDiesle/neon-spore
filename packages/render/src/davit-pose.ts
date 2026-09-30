@@ -15,14 +15,19 @@ import { phaseInto } from "./phase-into.js";
  * own loose hand is worth drawing as asking.
  */
 
-/** How far the boom stands out of its stowed socket: 0 just settled, 1 fully up. */
+/**
+ * How far the boom stands out of its stowed socket: 0 just settled, 1 fully
+ * up. It stands up once, through the opening "still"; every step after starts
+ * a phase of its own, and read off those the whole davit went out and stowed
+ * again at each one.
+ */
 export function davitStood(
   s: DavitState,
   beat: number,
   beatPhase: number,
   stillBeats: number,
 ): number {
-  if (s.phase === "spent") return 1;
+  if (s.phase !== "still") return 1;
   return smoothstep(phaseInto(s, beat, beatPhase) / Math.max(1, stillBeats));
 }
 

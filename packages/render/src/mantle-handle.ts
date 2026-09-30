@@ -1,6 +1,6 @@
 import { blobPoints } from "@neon-spore/content";
 import type { MantleState, World } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
@@ -132,7 +132,7 @@ function drawKnob(
   const body = splinePath(blobPoints(knob.x, knob.y, r, r, 3, 0.1, 0.04, time * 1.2, 7, 18), true);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(body);
-  if (counting) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.outline, 0.6 + 0.8 * lit);
+  if (counting) strokeGlowFaded(ctx, body, PALETTE.hullRim, STROKE.outline, 0.6 + 0.8 * lit);
   else {
     ctx.lineWidth = STROKE.outline;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.45 + 0.5 * lit);
@@ -172,7 +172,7 @@ function drawCord(
   const a = counts(0);
   const b = counts(1);
   if (a + b >= 1) {
-    strokeGlow(ctx, cordPart(left, right, sagY, 0, 1), PALETTE.hullRim, STROKE.outline, 1.4);
+    strokeGlowFaded(ctx, cordPart(left, right, sagY, 0, 1), PALETTE.hullRim, STROKE.outline, 1.4);
     return;
   }
   // A thumb below the floor moves its end of the cord, in grey: it is
@@ -181,9 +181,15 @@ function drawCord(
   if (a === 0 && share(0) > 0) ctx.stroke(cordPart(left, right, sagY, 0, share(0)));
   if (b === 0 && share(1) > 0) ctx.stroke(cordPart(left, right, sagY, 1 - share(1), 1));
   if (a > 0)
-    strokeGlow(ctx, cordPart(left, right, sagY, 0, a), PALETTE.hullRim, STROKE.outline, 0.9);
+    strokeGlowFaded(ctx, cordPart(left, right, sagY, 0, a), PALETTE.hullRim, STROKE.outline, 0.9);
   if (b > 0)
-    strokeGlow(ctx, cordPart(left, right, sagY, 1 - b, 1), PALETTE.hullRim, STROKE.outline, 0.9);
+    strokeGlowFaded(
+      ctx,
+      cordPart(left, right, sagY, 1 - b, 1),
+      PALETTE.hullRim,
+      STROKE.outline,
+      0.9,
+    );
 }
 
 /**
@@ -207,7 +213,7 @@ export function drawMantleRing(
     const arc = new Path2D();
     arc.ellipse(ring.x, ring.y, ring.r, ring.r, 0, from, from + Math.PI - 2 * gap);
     if (index === s.heartbeatNext)
-      strokeGlow(ctx, arc, PALETTE.hullRim, STROKE.outline * 1.5, 0.8 + pulse);
+      strokeGlowFaded(ctx, arc, PALETTE.hullRim, STROKE.outline * 1.5, 0.8 + pulse);
     else {
       ctx.lineWidth = STROKE.outline;
       ctx.strokeStyle = rgba(PALETTE.rock, 0.3);

@@ -63,11 +63,13 @@ export function strokeGlow(
 
 /**
  * `strokeGlow` inside a body that fades itself as a whole by
- * `ctx.globalAlpha` — THE FLUE and THE GOVERNOR while spent. It scales its
- * `alpha` by the alpha it finds and leaves that alpha as it found it, so a
- * part drawn after a glow is still faded. `strokeGlow` itself keeps ignoring
- * the caller's alpha: two dozen callers reach it with one left over from a
- * draw before, and are drawn as they are because it does.
+ * `ctx.globalAlpha` — THE FLUE and THE GOVERNOR while spent, THE MANTLE and
+ * THE DAVIT arriving, a brood egg, a living body's edge through THE FLIP's
+ * tear. It scales its `alpha` by the alpha it finds and leaves that alpha as
+ * it found it, so a part drawn after a glow is still faded. `strokeGlow`
+ * itself keeps ignoring the caller's alpha: the callers left reach it with one
+ * over from a draw before (THE GYRE's dash) or pass the fade themselves, and
+ * are drawn as they are because it does.
  */
 export function strokeGlowFaded(
   ctx: CanvasRenderingContext2D,

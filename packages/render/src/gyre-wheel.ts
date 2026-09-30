@@ -147,6 +147,7 @@ export function drawWheel(
     spokes.moveTo(x, y);
     spokes.quadraticCurveTo(x + dx * 0.5 + dy * SPOKE_BOW, y + dy * 0.5 - dx * SPOKE_BOW, p.x, p.y);
   }
+  // The dash's alpha is still set; `strokeGlow` does not read it, as above.
   strokeGlow(ctx, spokes, tint, STROKE.inner, 0.9 + pull, 0.6 + 0.3 * pull);
 
   ctx.restore();

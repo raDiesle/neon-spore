@@ -1,5 +1,5 @@
 import { type MantleState, mantleBracing, mantleBuckling, type World } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { mantleKnobCircle } from "./mantle-grip.js";
@@ -97,7 +97,7 @@ export function drawMantleSeam(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.red, 0.5 + 0.4 * Math.min(1, glow));
   ctx.stroke(path);
-  strokeGlow(ctx, path, PALETTE.red, STROKE.inner, glow);
+  strokeGlowFaded(ctx, path, PALETTE.red, STROKE.inner, glow);
 }
 
 /**
@@ -126,7 +126,7 @@ export function drawMantleBraceRings(
     if (held) {
       ctx.strokeStyle = rgba(PALETTE.hullRim, 0.9);
       ctx.stroke(ring);
-      strokeGlow(ctx, ring, PALETTE.hullRim, STROKE.inner, 1);
+      strokeGlowFaded(ctx, ring, PALETTE.hullRim, STROKE.inner, 1);
     } else {
       ctx.strokeStyle = rgba(PALETTE.dim, 0.45 + 0.4 * breathe);
       ctx.stroke(ring);

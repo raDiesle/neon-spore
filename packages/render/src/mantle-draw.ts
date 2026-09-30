@@ -2,7 +2,7 @@ import { blobPoints, LIGHT_HALF } from "@neon-spore/content";
 import { type MantleState, mantleFinale, mantleLeaking, type World } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { smoothstep } from "./ease.js";
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -145,7 +145,13 @@ function drawCore(
   ctx.fillStyle = rgba(life > 0.35 ? CORE : PALETTE.rockDark, Math.min(0.9, warm));
   ctx.fill(core);
   if (life > 0.35 || flare > 0)
-    strokeGlow(ctx, core, CORE, STROKE.inner, 0.4 + 0.8 * open + 0.6 * pulse * open + 1.2 * flare);
+    strokeGlowFaded(
+      ctx,
+      core,
+      CORE,
+      STROKE.inner,
+      0.4 + 0.8 * open + 0.6 * pulse * open + 1.2 * flare,
+    );
 }
 
 /**
@@ -222,5 +228,5 @@ function drawSpark(
   bead.ellipse(x, y, l.tile * 0.18, l.tile * 0.26, 0, 0, Math.PI * 2);
   ctx.fillStyle = rgba(CORE, 0.55 + 0.4 * along);
   ctx.fill(bead);
-  strokeGlow(ctx, bead, CORE, STROKE.inner, 1 + along);
+  strokeGlowFaded(ctx, bead, CORE, STROKE.inner, 1 + along);
 }

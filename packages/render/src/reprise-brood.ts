@@ -1,4 +1,4 @@
-import { strokeGlow } from "./glow.js";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { RepriseFrame } from "./reprise-body.js";
@@ -100,7 +100,7 @@ function drawEgg(
   g.addColorStop(1, PALETTE.rockDark);
   ctx.fillStyle = g;
   ctx.fill(shell);
-  strokeGlow(ctx, shell, PALETTE.rock, STROKE.inner, 0.7);
+  strokeGlowFaded(ctx, shell, PALETTE.rock, STROKE.inner, 0.7);
   ctx.restore();
 }
 
