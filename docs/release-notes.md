@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 89bd3522e — THE HASP's story is drawn: a door rattling, a wheel backspun, rust, a sway
+
+Between the hasps the door now shows each of its four states: the next door chattering on its hinge until his grip is kept; the freed wheel running backward with ghost spokes smearing its mark until her winding catches it; the last clasp furred with rust and dropping flakes, thinning as she rocks it; and all three doors swaying toward half-shut. Her words are WIND, ROCK and, in the sway, HOLD. The rattle and the rust have sounds of their own; the other ten story sounds stay on the door's voice.
+
 ## 2026-09-30 · 359303398 — THE SPOOL's story between the ribs is drawn: the snag, the whip and the fray
 
 The three states the simulation already ran now have a picture and a word. The snag catches the line dead in ember with the casing shuddering, and the pilot's knob says RELEASE through its count, then HOLD. The whip throws the line out in a loop that shrinks as the brake holds deep (HOLD DEEP). The fray furs the line with fibres that lie down as the count runs (HOLD). Each of the nine story events throws its burst above the loop through the spool's own fx, and the director has a card for each of the three states.
