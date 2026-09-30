@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · b26c7b2f7 — THE VALVE's pointer is a white arrow, apart from its three spokes
+
+The one line of the wheel's plus that has to be turned onto the mark was drawn the same length and nearly the same weight as the other three. It is now twice as thick, full white, reaches the rim and ends in an arrowhead whose tip meets the mark's notch; the other three spokes are shorter and dimmer. Exemption: a look the owner asked for by name.
+
 ## 2026-09-30 · 2d73bcb41 — THE PUSH's exception says what is left of it
 
 The catalogue and the assists spec still called THE PUSH's arrows the standard set's one exception in the words of 29 September, beside every held rock. Since 30 September they show only the beat of quiet after a carry, and the exception stands for that and nothing more. Nothing drawn changed.
