@@ -30465,3 +30465,5 @@ Bottleneck: friction. The compaction and the wrongly renamed fixture cost more t
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction. The compaction landed between two edits of the same file, and the files had to be read again.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
