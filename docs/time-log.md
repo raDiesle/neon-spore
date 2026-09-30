@@ -30543,3 +30543,15 @@ Bottleneck: landing. The change is one line; the gate is the whole of the time.
 Bottleneck: the context ran out between the design and the first edit.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — §25 THE VALVE's placed-surface wheel, closed as spent
+
+- reading: 10 min. The entry, `valve-draw.ts`'s wheel, `surface.ts`'s
+  projection and VERSUS's *seen at a glance* rule.
+- writing: 0 min. Nothing built.
+- looking: 0 min.
+- friction: 5 min. A compaction between the claim and the reading.
+- landing: 5 min. `queue done`, `check:fast`, `land`.
+
+Bottleneck: the entry was a proposal for a look that has since been claimed
+and shipped, and it read as work until the geometry was checked.

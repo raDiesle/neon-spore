@@ -518,40 +518,6 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## §25 THE VALVE's wheel drawn placed-surface, not a flat spin
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-09-30, claude/queue-25-the-valves-wheel-drawn-placed-surface-not-a-f
-- **Needs:** nothing — THE VALVE's simulation lane already landed, and its
-  look is queued but not yet claimed
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Released 27 September 2026: the owner moved every deferred entry back onto the
-queue. It had been held since 26 September, when new graphics stayed on THE
-INSTAR alone.
-
-THE VALVE's wheel (§25) is the best-fitting candidate on this page's whole
-unclaimed-look backlog (also carrying THE SEAM, THE OCULUS, THE VISE, THE
-RIME, THE TRIVET, THE PLUMB, THE SLING) for `.claude/skills/depth`'s placed-
-surface treatment rather than an ordinary flat pose: it is a big body (a
-drum, not a 26px creature, where the skill says placed depth is cheap and
-safe), it already turns continuously rather than snapping between marks
-("the wheel's turn is drawn continuously... a frozen wheel visibly stops
-mid-turn"), and the freeze is the boss's whole tell — a wheel with real
-foreshortening on its lit mark would make the freeze read as a mechanism
-stopping rather than an animation pausing, sharper than a flat disc can.
-Concretely: the wheel's mark is a feature pinned by longitude/latitude via
-`pin`/`facet` (`packages/content/src/surface.ts`) on the wheel's own face,
-so it foreshortens and swings toward/away as the wheel turns — proven at
-this size in `TURN IN DEPTH` (`bun run shapes:cues`); the drum body itself
-stays an ordinary posed silhouette, only the wheel's face and the pin
-sockets are placed. No rig (`drawRig`) needed — nothing here has to be seen
-from another side, only from straight on, which is `pin`/`facet` alone. Not
-yet checked against `tools/shape-sheet/src/drafts/` for a drum/wheel/valve
-silhouette collision — do that first. This is a proposal for which look to
-claim next, not a claim itself; the owner or whichever session claims
-THE VALVE's look decides.
-
 ## Unverified at c2a4f79ca: THE VALVE's drum watched at tempo: the wheel's turn, t…
 
 - **Found:** 2026-09-26, claude/hopeful-bardeen-5pqz0e
