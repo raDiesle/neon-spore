@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · c6b950f12 — ON THE FIELD's rows sit in their families and carry the gestures they are
+
+THE UNDERTOW'S PIN is stamped "hold", the falling-through press it is, and THE GORGE'S PRY keeps "hold" because `gorge-hand.ts`'s `pry()` is a timed hold. THE GUM moved to the creatures' rows after THE PUSH and THE WARDEN'S TETHER to THE WARDEN's three hands. The gesture catalogue caught up with the bosses: the four the spec asked for are built (`gesture-built-bosses.ts`, renamed from `gesture-unbuilt.ts`), TILT is a card under missed, and an empty state gets no heading. `director-controls.css` gave the ON THE FIELD rows to `director-field-controls.css`. A director page is a tool, not a look.
+
 ## 2026-09-30 · 49c4eff4f — A claim whose trunk commit fails puts its line back and leaves no branch
 
 When the marking commit in the tree holding main failed, `onTrunk` left the `Taken:` line in that tree uncommitted, and the claim branch stood, so the retry was refused twice. The file now goes back as it was before the throw, a claim whose line could not be written keeps no branch, and a claim branch with no line anywhere and nobody on it reads as spent, which `take` drops and claims afresh. `tools/queue/test/claim-fails.test.ts` fails the commit once with a hook and claims on the second try.

@@ -30333,3 +30333,5 @@ Bottleneck: reading. Four files each hold part of how a claim is judged, and the
 - landing: 5 min. Formatting, the index, `check:fast`, the commit, `land`.
 
 Bottleneck: reading. Whether each stamp was wrong had to be settled from the simulation's own hand, not the note.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
