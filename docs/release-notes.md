@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 63f4a33b5 — No boss touches the top of the screen, as a rule for every boss
+
+The owner's rule from THE STARE, 29 September 2026, now stands in the new-boss skill for every boss that follows. An audit of the bosses already shipped is queued, with a test to hold them to it.
+
 ## 2026-09-30 · f974a021d — Cut THE SPOOL's zone readings out of `spool.ts`
 
 `spoolZoneMilli`, `spoolZone`, `spoolInZone` and `spoolBrakeForRateMilli` move to `spool-zone.ts`, re-exported beside the rest of the spool on both surfaces, so every caller keeps its name. The copies-table row for the brake's inverse now names its new owner. `spool.ts` is at 205 lines.

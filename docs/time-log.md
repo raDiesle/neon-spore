@@ -29759,3 +29759,5 @@ Bottleneck: `check:fast` reached 94 shards, since a sim surface is imported by n
 
 Bottleneck: none worth a sentence; the audit itself is queued for a lane
 of its own.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
