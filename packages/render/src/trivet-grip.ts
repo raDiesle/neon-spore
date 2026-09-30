@@ -2,8 +2,9 @@ import { type SimConfig, type TrivetState, trivetDone, type World } from "@neon-
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
-import { trivetArrived, trivetFootLift } from "./trivet-pose.js";
+import { trivetArrived, trivetFootLift, trivetHubPress } from "./trivet-pose.js";
 import { type Point, trivetCentre, trivetDrop, trivetFoot, trivetHubR } from "./trivet-shape.js";
+import { trivetHubAt } from "./trivet-story.js";
 
 /**
  * **The pads on THE TRIVET** — the first of its hands lanes, and the one that
@@ -73,6 +74,23 @@ export function trivetFootStanding(
   const lift = trivetFootLift(world, s, side, world.beat, beatPhase);
   const foot = trivetFoot(l, side, lift, 0);
   return { x: at.x + foot.x, y: at.y + foot.y, r: trivetHubR(l) };
+}
+
+/**
+ * The hub as a circle where it stands this frame, pressed and thrown as it is
+ * drawn (`trivetHubAt`) — what a shot is fired at, and the circle the cue's
+ * crosshair rides (`boss-cue-read-zh.ts`). The collapse's fall is left out:
+ * no shot is asked for once the stand buckles.
+ */
+export function trivetHubStanding(
+  l: Layout,
+  world: World,
+  s: TrivetState,
+  beatPhase: number,
+): Circle {
+  const at = hubAt(l, world.cfg, s, world.beat, beatPhase);
+  const hub = trivetHubAt(l, world, s, world.beat, beatPhase, trivetHubPress(s) * l.tile);
+  return { x: at.x + hub.x, y: at.y + hub.y, r: trivetHubR(l) };
 }
 
 /**

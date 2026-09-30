@@ -98,6 +98,19 @@ export function trivetHubSwing(
   return { dx: dx * fling, dy: 0, tilt: Math.sign(dx) * LURCH_TILT * fling };
 }
 
+/** Where the hub stands in the stand's frame, `sink` pressed or lowered, thrown by a lurch or a fling. */
+export function trivetHubAt(
+  l: Layout,
+  world: World,
+  s: TrivetState,
+  beat: number,
+  beatPhase: number,
+  sink: number,
+): { x: number; y: number; tilt: number } {
+  const swing = trivetHubSwing(l, world, s, beat, beatPhase);
+  return { x: swing.dx, y: sink + swing.dy, tilt: swing.tilt };
+}
+
 /** How far foot `side` is thrown up by a lurch: the far foot only, and less once the near one is held. */
 export function trivetLurchLift(
   s: TrivetState,

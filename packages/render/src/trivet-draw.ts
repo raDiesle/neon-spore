@@ -39,7 +39,7 @@ import {
 } from "./trivet-shape.js";
 import {
   drawTrivetNeedle,
-  trivetHubSwing,
+  trivetHubAt,
   trivetLurchLift,
   trivetNeedle,
   trivetNeedleSink,
@@ -105,9 +105,8 @@ export function drawTrivet(
   const sink = trivetHubPress(s) * l.tile + fall;
   const step = trivetLitStep(s);
   // The lurch throws the hub out over its column and the roots go with it; the feet stay where they stand.
-  const swing = trivetHubSwing(l, world, s, beat, beatPhase);
-  const hub = { x: swing.dx, y: sink + swing.dy };
-  const root = (leg: 0 | 1 | 2): Point => swung(trivetRoot(l, leg, sink), sink, swing.tilt, hub);
+  const hub = trivetHubAt(l, world, s, beat, beatPhase, sink);
+  const root = (leg: 0 | 1 | 2): Point => swung(trivetRoot(l, leg, sink), sink, hub.tilt, hub);
 
   ctx.save();
   ctx.globalAlpha = alpha;
@@ -143,7 +142,7 @@ export function drawTrivet(
   drawTrivetNeedle(ctx, l, hub, out, trivetNeedleSink(s, beat, beatPhase), dx, toHull, beatPhase);
 
   ctx.translate(hub.x, hub.y);
-  ctx.rotate(swing.tilt);
+  ctx.rotate(hub.tilt);
   drawHub(ctx, l, time, fx.hurt.value);
   const firing = step !== null && (step.ask === "fire" || step.ask === "tip") && s.hubLit;
   const lit = firing ? { color: step.color, left: trivetLeft(world, s, beat, beatPhase) } : null;

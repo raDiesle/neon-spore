@@ -15,6 +15,7 @@ import {
 import {
   halterAt,
   halterBend,
+  halterCoreAt,
   halterFleshPath,
   halterGap,
   halterLowerPath,
@@ -80,11 +81,11 @@ export function drawHalter(
     if (gap > 0.5) drawFlesh(ctx, l, k, gap);
     if (k === 1 && gap > halterGap(l, 0.5)) {
       const hurt = coreHurt(s.hits);
-      const x = (halterSpan(l, 1).x0 + halterSpan(l, 1).x1) / 2;
       const shot =
         step?.ask === "fire" ? { color: step.color, left: halterLeft(s, beat, beatPhase) } : null;
       ctx.save();
-      ctx.translate(x, halterBend(l, x));
+      const core = halterCoreAt(l);
+      ctx.translate(core.x, core.y);
       drawHalterCore(ctx, l, hurt.size, hurt.bright, shot, beatPhase);
       ctx.restore();
     }

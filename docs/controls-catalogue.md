@@ -188,7 +188,7 @@ Taught once, by the guide; **no helper on the field** (above).
 The pieces some bosses call and others still draw for themselves. Each is a
 `docs/queue.md` item, and a lane that finishes one updates **Who** above:
 
-- **Twelve shot cues** standing at the hull and aiming at nothing — *Eighteen
+- **Six shot cues** standing at the hull and aiming at nothing — *Eighteen
   bosses' FIRE cues stand at the hull and aim at nothing*, held by
   `render/test/cue-aim.test.ts`.
 - **Thirteen bosses' verdicts** — *Every other boss with a mark answers a touch

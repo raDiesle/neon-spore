@@ -11,7 +11,12 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bossCue } from "../src/boss-cue.js";
-import { cystFlankCircle, cystMarkCircle } from "../src/cyst-grip.js";
+import {
+  cystBudStanding,
+  cystCoreStanding,
+  cystFlankCircle,
+  cystMarkCircle,
+} from "../src/cyst-grip.js";
 import { bossThumb } from "../src/guide-boss-hand.js";
 import { handleCircle } from "../src/handle-place.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
@@ -186,6 +191,28 @@ describe("the words over THE CYST", () => {
     const c = cue(world, "p1");
     expect(c?.word).toBe("FIRE");
     expect(c?.y).toBe(layout("p1").hullY);
+    // The owner, 29 September 2026, every boss: a shot cue carries a clear
+    // aim target (`cue-helper.ts`). The word stays at the hull, where the
+    // cannon goes; the crosshair rides the thing it is fired at.
+    const core = cystCoreStanding(layout("p1"), world, s, BEAT_PHASE);
+    expect(c?.aim?.x).toBeCloseTo(core.x, 5);
+    expect(c?.aim?.y).toBeCloseTo(core.y, 5);
+    expect(c?.aim?.y).toBeLessThan(layout("p1").hullY);
+  });
+
+  it("says FIRE at the hull on a bud, and rings the bud out on its stalk", () => {
+    const { world, s } = lit("bud");
+    const bud = s.steps[s.cursor];
+    if (bud === undefined) throw new Error("no bud step");
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.word).toBe("FIRE");
+      expect(c?.y).toBe(layout(role).hullY);
+      const at = cystBudStanding(layout(role), world, s, bud, BEAT_PHASE);
+      expect(c?.aim?.x).toBeCloseTo(at.x, 5);
+      expect(c?.aim?.y).toBeCloseTo(at.y, 5);
+      expect(c?.aim?.y).toBeLessThan(layout(role).hullY);
+    }
   });
 
   it("says nothing between steps", () => {

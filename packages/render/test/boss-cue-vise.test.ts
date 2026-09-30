@@ -15,7 +15,7 @@ import {
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
-import { viseLobeStanding } from "../src/vise-grip.js";
+import { viseLobeStanding, viseShotStanding } from "../src/vise-grip.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -133,6 +133,15 @@ describe("THE VISE", () => {
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
       expect(c?.y).toBe(LAYOUT[role].hullY);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const step = s.steps[s.cursor];
+      if (step === undefined) throw new Error("no fire step");
+      const kernel = viseShotStanding(LAYOUT[role], world, s, step, 0);
+      expect(c?.aim?.x).toBeCloseTo(kernel.x, 5);
+      expect(c?.aim?.y).toBeCloseTo(kernel.y, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 
@@ -146,6 +155,11 @@ describe("THE VISE", () => {
       const c = cue(world, role);
       expect(c?.word).toBe("FIRE");
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], viseSeedCol(midCol(CFG), spit)), 5);
+      // The crosshair rides the seed where it hangs, not the hull.
+      const seed = viseShotStanding(LAYOUT[role], world, s, spit, 0);
+      expect(c?.aim?.x).toBeCloseTo(seed.x, 5);
+      expect(c?.aim?.y).toBeCloseTo(seed.y, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

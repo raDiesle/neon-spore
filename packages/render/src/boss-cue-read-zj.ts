@@ -9,7 +9,7 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
-import { grindstoneStanding } from "./grindstone-grip.js";
+import { grindstoneAxleStanding, grindstoneStanding } from "./grindstone-grip.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -35,6 +35,9 @@ import type { Layout } from "./layout.js";
  * either seat: a fire step with the caliper locked, which is the only shot
  * `grindstone-shot.ts` hears. The axle wants its own colour and the word never
  * names one — THE VISE's kernel, again.
+ *
+ * **`FIRE` rings the axle** (`grindstoneAxleStanding`), where the shot must
+ * land once the caliper is locked.
  */
 
 export function grindstoneCues(
@@ -68,5 +71,6 @@ export function grindstoneCues(
   }
   if (step.ask !== "fire" || !s.locked) return [];
   const x = fieldX(l, midCol(world.cfg));
-  return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 156 }];
+  const aim = grindstoneAxleStanding(l, world.cfg, s, world.beat, beatPhase);
+  return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 156 }];
 }

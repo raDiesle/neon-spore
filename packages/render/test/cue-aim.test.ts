@@ -18,12 +18,6 @@ import { join } from "node:path";
  */
 
 const TO_COME: Readonly<Record<string, string>> = {
-  "boss-cue-read-zf.ts": "THE VISE",
-  "boss-cue-read-zg.ts": "THE RIME",
-  "boss-cue-read-zh.ts": "THE TRIVET",
-  "boss-cue-read-zi.ts": "THE CYST",
-  "boss-cue-read-zj.ts": "THE GRINDSTONE",
-  "boss-cue-read-zk.ts": "THE HALTER",
   "boss-cue-read-zl.ts": "THE CAPSTAN",
   "boss-cue-read-zm.ts": "THE GALL",
   "boss-cue-read-zn.ts": "THE BURGEE",

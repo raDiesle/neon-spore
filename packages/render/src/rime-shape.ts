@@ -59,6 +59,12 @@ export function rimeLift(l: Layout, arrived: number): number {
   return (1 - arrived) * 3 * l.tile;
 }
 
+/** The middle of the lens where it stands, `arrived` of the way in. */
+export function rimeAt(l: Layout, cfg: SimConfig, arrived: number): Point {
+  const home = rimeCentre(l, cfg);
+  return { x: home.x, y: home.y - rimeLift(l, arrived) };
+}
+
 /** The lens's half-width and half-height, in pixels. */
 export function rimeRadius(l: Layout): { rx: number; ry: number } {
   return { rx: RX * l.tile, ry: RY * l.tile };

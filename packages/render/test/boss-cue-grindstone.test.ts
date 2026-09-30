@@ -13,7 +13,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
-import { grindstoneStanding } from "../src/grindstone-grip.js";
+import { grindstoneAxleStanding, grindstoneStanding } from "../src/grindstone-grip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -142,6 +142,13 @@ describe("THE GRINDSTONE", () => {
       expect(c?.seat).toBeNull();
       expect(c?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)), 5);
       expect(c?.y).toBe(LAYOUT[role].hullY);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const axle = grindstoneAxleStanding(LAYOUT[role], CFG, s, world.beat, 0);
+      expect(c?.aim?.x).toBeCloseTo(axle.x, 5);
+      expect(c?.aim?.y).toBeCloseTo(axle.y, 5);
+      expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

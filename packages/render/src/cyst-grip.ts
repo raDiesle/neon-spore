@@ -1,13 +1,18 @@
 import {
   type CystState,
+  type CystStep,
   cystDone,
   cystFreezer,
   cystPincher,
+  cystStepCol,
+  midCol,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
-import { cystArrived } from "./cyst-pose.js";
-import { cystCentre, cystLift, cystMarkAt, cystR } from "./cyst-shape.js";
+import { cystArrived, cystPosed } from "./cyst-pose.js";
+import { cystCentre, cystCoreR, cystLift, cystMarkAt, cystR } from "./cyst-shape.js";
+import { cystBudAt } from "./cyst-story.js";
+import { fieldX } from "./field-flip.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -96,6 +101,30 @@ export function cystStanding(
 ): Circle {
   const at = what === "mark" ? cystMarkCircle : cystFlankCircle;
   return at(l, world.cfg, s, side, world.beat, beatPhase);
+}
+
+/**
+ * The core as a circle where it stands this frame — what a fire step is shot
+ * at, and the circle the cue's crosshair rides (`boss-cue-read-zi.ts`).
+ */
+export function cystCoreStanding(l: Layout, world: World, s: CystState, beatPhase: number): Circle {
+  return { ...sacAt(l, world.cfg, s, world.beat, beatPhase), r: cystCoreR(l) };
+}
+
+/** The bud as a circle where it hangs this frame, out on its stalk over `step`'s column. */
+export function cystBudStanding(
+  l: Layout,
+  world: World,
+  s: CystState,
+  step: CystStep,
+  beatPhase: number,
+): Circle {
+  const cfg = world.cfg;
+  const at = sacAt(l, cfg, s, world.beat, beatPhase);
+  const dx = fieldX(l, cystStepCol(midCol(cfg), step)) - at.x;
+  const grown = cystPosed(s, "bud", cfg.cystRestBeats, world.beat, beatPhase);
+  const bud = cystBudAt(l, grown, dx);
+  return { x: at.x + bud.x, y: at.y + bud.y, r: bud.r };
 }
 
 /**

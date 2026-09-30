@@ -10,7 +10,7 @@ import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
-import { viseLobeStanding } from "./vise-grip.js";
+import { viseLobeStanding, viseShotStanding } from "./vise-grip.js";
 
 /**
  * **What THE VISE is asking for** — page thirty-two of the readings, THE
@@ -37,6 +37,9 @@ import { viseLobeStanding } from "./vise-grip.js";
  * **The story steps** (`vise-story.ts`): a spit is `FIRE` at the hull under
  * the column the seed hangs over, where its notch is; a bite is `SHIELD` at
  * the hull under the middle, where its bar is lit.
+ *
+ * **`FIRE` rings what it is fired at** (`viseShotStanding`): the kernel on a
+ * fire step, the seed hanging over its column on a spit.
  */
 
 export function viseCues(
@@ -51,7 +54,8 @@ export function viseCues(
   const ask = step?.ask;
   if (step !== null && (ask === "fire" || ask === "spit")) {
     const x = fieldX(l, viseSeedCol(midCol(world.cfg), step));
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 135 });
+    const aim = viseShotStanding(l, world, s, step, beatPhase);
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 135 });
   }
   if (ask === "bite") {
     const x = fieldX(l, midCol(world.cfg));

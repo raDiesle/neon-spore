@@ -7,6 +7,7 @@ import {
 } from "./grindstone-pose.js";
 import {
   grindstoneAxleAt,
+  grindstoneAxleR,
   grindstoneBolt,
   grindstoneCut,
   grindstoneFlatHalf,
@@ -65,6 +66,23 @@ interface Standing {
   flat: { x: number; y: number; half: number };
   /** The jaw's pads, turned as far as the caliper is slack. */
   pads: { x: number; y: number }[];
+}
+
+/**
+ * The axle as a circle where it stands this frame, dropped in and freed as it
+ * is drawn — what a shot is fired at once the caliper is locked, and the
+ * circle the cue's crosshair rides (`boss-cue-read-zj.ts`).
+ */
+export function grindstoneAxleStanding(
+  l: Layout,
+  cfg: SimConfig,
+  s: GrindstoneState,
+  beat: number,
+  beatPhase: number,
+): Circle {
+  const arrived = grindstoneArrived(s, cfg, beat, beatPhase);
+  const at = grindstoneAxleAt(l, cfg, arrived, grindstoneFree(s, cfg, beat, beatPhase));
+  return { ...at, r: grindstoneAxleR(l) };
 }
 
 /** Where a seat's flat and pads stand this frame, in canvas pixels. */

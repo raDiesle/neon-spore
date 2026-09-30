@@ -11,7 +11,7 @@ import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
-import { trivetFootStanding } from "./trivet-grip.js";
+import { trivetFootStanding, trivetHubStanding } from "./trivet-grip.js";
 
 /**
  * **What THE TRIVET is asking for** — page thirty-four of the readings, THE
@@ -38,6 +38,9 @@ import { trivetFootStanding } from "./trivet-grip.js";
  * **`SHIELD` at the hull under a needle's column**, to either seat: the
  * navigator slides it there, and the pilot is the one who can see which
  * column to say, both screens drawing the same needle.
+ *
+ * **`FIRE` rings the hub** where it stands (`trivetHubStanding`), thrown out
+ * over its column on a lurch.
  */
 
 export function trivetCues(
@@ -69,7 +72,8 @@ export function trivetCues(
   // After the holds: on a lurch the shot is not heard until the leaning foot is held.
   if ((step.ask === "fire" || step.ask === "tip") && s.hubLit) {
     const x = fieldX(l, col);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 141 });
+    const aim = trivetHubStanding(l, world, s, beatPhase);
+    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 141 });
   }
   return out;
 }

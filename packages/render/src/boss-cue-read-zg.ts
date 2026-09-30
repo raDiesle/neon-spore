@@ -3,6 +3,8 @@ import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
+import { rimeArrived } from "./rime-pose.js";
+import { rimeAt, rimeCoreR } from "./rime-shape.js";
 
 /**
  * **What THE RIME is asking for** — page thirty-three of the readings, THE
@@ -22,16 +24,26 @@ import type { Layout } from "./layout.js";
  * (`on-field-controls.test.ts` lists both halves as unbuilt); a word asking
  * for a gesture the field cannot take is a word the pair cannot obey. The lit
  * halves, one or both, glow white on both screens meanwhile.
+ *
+ * **`FIRE` rings the core** in the middle of the pane (`rimeAt`), where it
+ * is lit.
  */
 
-export function rimeCues(l: Layout, world: World, s: RimeState): readonly BossCue[] {
+export function rimeCues(
+  l: Layout,
+  world: World,
+  s: RimeState,
+  beatPhase: number,
+): readonly BossCue[] {
   const step = rimeLitStep(s);
   if (s.phase !== "lit" || step === null) return [];
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   const mid = midCol(world.cfg);
   if (step.ask === "fire" && s.bared) {
     const x = fieldX(l, mid);
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 139 }];
+    const at = rimeAt(l, world.cfg, rimeArrived(s, world.cfg, world.beat, beatPhase));
+    const aim = { ...at, r: rimeCoreR(l) };
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 139 }];
   }
   if (step.ask === "shield" || step.ask === "icicle") {
     const x = fieldX(l, step.ask === "icicle" ? rimeIcicleCol(mid, step) : mid);

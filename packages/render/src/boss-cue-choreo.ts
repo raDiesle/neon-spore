@@ -35,7 +35,7 @@ export function choreoCues(
       return viseCues(l, world, boss, beatPhase);
     // THE RIME's, a word under the lit core and one where the shield is wanted (`boss-cue-read-zg.ts`).
     case "rime":
-      return rimeCues(l, world, boss);
+      return rimeCues(l, world, boss, beatPhase);
     // THE TRIVET's, a word on each foot a lit chord asks for, gone once it is held, and one under the lit hub (`boss-cue-read-zh.ts`).
     case "trivet":
       return trivetCues(l, world, boss, beatPhase);

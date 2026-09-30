@@ -11,9 +11,9 @@ import {
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
-import { cystStanding } from "./cyst-grip.js";
+import { cystBudStanding, cystCoreStanding, cystStanding } from "./cyst-grip.js";
 import { fieldX } from "./field-flip.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 
 /**
  * **What THE CYST is asking for** — page thirty-five of the readings, THE
@@ -35,6 +35,9 @@ import type { Layout } from "./layout.js";
  * lit**, to either seat; the core is lit in the colour it wants and the word
  * never names one. **A spore is `SHIELD` under its column; a bud is `FIRE`
  * under its**, as THE VISE's spit and THE RIME's icicle are.
+ *
+ * **Each `FIRE` rings what it is fired at**: the bared core on a fire step
+ * (`cystCoreStanding`), the bud out on its stalk on a bud (`cystBudStanding`).
  */
 
 export function cystCues(
@@ -47,18 +50,24 @@ export function cystCues(
   if (step === null) return [];
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   const mid = midCol(world.cfg);
-  const hull = (word: "FIRE" | "SHIELD", col: number, seed: number): BossCue => ({
+  const hull = (word: "FIRE" | "SHIELD", col: number, seed: number, aim?: Circle): BossCue => ({
     seat: null,
     kind: "PRESS",
     word,
     x: fieldX(l, col),
     y: l.hullY,
     ...frame,
+    ...(aim === undefined ? {} : { aim }),
     seed,
   });
-  if (step.ask === "fire") return s.bared ? [hull("FIRE", mid, 145)] : [];
+  if (step.ask === "fire") {
+    return s.bared ? [hull("FIRE", mid, 145, cystCoreStanding(l, world, s, beatPhase))] : [];
+  }
   if (step.ask === "spit") return [hull("SHIELD", cystStepCol(mid, step), 146)];
-  if (step.ask === "bud") return [hull("FIRE", cystStepCol(mid, step), 147)];
+  if (step.ask === "bud") {
+    const aim = cystBudStanding(l, world, s, step, beatPhase);
+    return [hull("FIRE", cystStepCol(mid, step), 147, aim)];
+  }
   const shut = world.cfg.cystShutMilli;
   if (step.ask === "swell") {
     const out: BossCue[] = [];

@@ -18,11 +18,11 @@ import { drawRimeCore, drawRimeLitHalf, drawRimeSurge } from "./rime-marks.js";
 import { rimeArrived, rimeClear, rimeLeft, rimeShatter, rimeSurge } from "./rime-pose.js";
 import {
   RIME_SHEETS,
+  rimeAt,
   rimeCentre,
   rimeFacetPath,
   rimeHalfPath,
   rimeLensPath,
-  rimeLift,
   rimePatchPath,
   rimeRadius,
   rimeSheet,
@@ -62,7 +62,8 @@ export function drawRime(
 
   ctx.save();
   ctx.globalAlpha = alpha;
-  ctx.translate(home.x, home.y - rimeLift(l, arrived));
+  const at = rimeAt(l, cfg, arrived);
+  ctx.translate(at.x, at.y);
 
   if (shatter <= 0) drawGlass(ctx, l, time);
   const step = rimeLitStep(s);
@@ -92,7 +93,7 @@ export function drawRime(
   ctx.globalAlpha = alpha;
   if (step?.ask === "icicle") {
     const dx = fieldX(l, rimeIcicleCol(midCol(cfg), step)) - home.x;
-    const toHull = l.hullY - (home.y - rimeLift(l, arrived));
+    const toHull = l.hullY - at.y;
     const sink = rimeSink(s, beat, beatPhase);
     drawRimeIcicle(ctx, l, rimeIcicle(s, beat, beatPhase), sink, dx, toHull, beatPhase);
     ctx.globalAlpha = alpha;

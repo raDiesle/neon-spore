@@ -58,6 +58,16 @@ export function drawCystSpore(
   drawOculusSight(ctx, l, { x: at.x, y: at.y + r }, { x: dx, y: toHull }, colour, out);
 }
 
+/** Where the bud hangs, `grown` of the way out on its stalk to `dx` across, at its full radius. */
+export function cystBudAt(l: Layout, grown: number, dx: number): Point & { r: number } {
+  const root = { x: Math.sign(dx) * cystCoreR(l) * 1.8, y: -cystCoreR(l) * 1.4 };
+  return {
+    x: root.x + (dx - root.x) * grown,
+    y: -BUD_RISE * l.tile * grown + root.y,
+    r: BUD * l.tile,
+  };
+}
+
 /**
  * The bud, `grown` of the way out on its stalk to hang `dx` across from the
  * sac's middle, ringed in `color` with `left` of its window still to run.
@@ -73,7 +83,7 @@ export function drawCystBud(
 ): void {
   if (grown <= 0) return;
   const root = { x: Math.sign(dx) * cystCoreR(l) * 1.8, y: -cystCoreR(l) * 1.4 };
-  const at = { x: root.x + (dx - root.x) * grown, y: -BUD_RISE * l.tile * grown + root.y };
+  const at = cystBudAt(l, grown, dx);
   const stalk = new Path2D();
   stalk.moveTo(root.x, root.y);
   stalk.quadraticCurveTo(root.x + (at.x - root.x) * 0.2, at.y, at.x, at.y);
@@ -83,7 +93,7 @@ export function drawCystBud(
   ctx.lineWidth = STROKE.inner;
   ctx.strokeStyle = rgba(PALETTE.cystSacDark, 0.8);
   ctx.stroke(stalk);
-  const r = BUD * l.tile * grown;
+  const r = at.r * grown;
   const bud = new Path2D();
   bud.ellipse(at.x, at.y, Math.max(0.5, r), Math.max(0.5, r * 1.12), 0, 0, Math.PI * 2);
   const { body, rim } = stepColour(color);

@@ -1,7 +1,7 @@
 import type { DragTarget, HalterState, SimConfig } from "@neon-spore/sim";
 import { halterLitStep } from "@neon-spore/sim";
 import { halterArrived, halterLitSegment } from "./halter-pose.js";
-import { halterAt, halterGripAt, halterGripR } from "./halter-shape.js";
+import { halterAt, halterCoreAt, halterCoreR, halterGripAt, halterGripR } from "./halter-shape.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -72,6 +72,23 @@ export function halterGripStanding(
   const at = halterAt(l, cfg, halterArrived(s, cfg, beat, beatPhase));
   const grip = halterGripAt(l, k, side);
   return { x: at.x + grip.x, y: at.y + grip.y, r: halterGripR(l) };
+}
+
+/**
+ * The core as a circle where it stands this frame, in the middle segment's
+ * crack — what a shot is fired at, and the circle the cue's crosshair rides
+ * (`boss-cue-read-zk.ts`).
+ */
+export function halterCoreStanding(
+  l: Layout,
+  cfg: SimConfig,
+  s: HalterState,
+  beat: number,
+  beatPhase: number,
+): Circle {
+  const at = halterAt(l, cfg, halterArrived(s, cfg, beat, beatPhase));
+  const core = halterCoreAt(l);
+  return { x: at.x + core.x, y: at.y + core.y, r: halterCoreR(l) };
 }
 
 /** Which target a grip is. */

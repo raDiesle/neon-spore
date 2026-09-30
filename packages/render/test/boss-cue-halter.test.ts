@@ -13,7 +13,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
-import { halterGripStanding } from "../src/halter-grip.js";
+import { halterCoreStanding, halterGripStanding } from "../src/halter-grip.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -120,6 +120,13 @@ describe("THE HALTER", () => {
       expect(said?.word).toBe("FIRE");
       expect(said?.x).toBeCloseTo(fieldX(LAYOUT[role], midCol(CFG)));
       expect(said?.y).toBe(LAYOUT[role].hullY);
+      // The owner, 29 September 2026, every boss: a shot cue carries a clear
+      // aim target (`cue-helper.ts`). The word stays at the hull, where the
+      // cannon goes; the crosshair rides the thing it is fired at.
+      const core = halterCoreStanding(LAYOUT[role], CFG, s, world.beat, 0);
+      expect(said?.aim?.x).toBeCloseTo(core.x, 5);
+      expect(said?.aim?.y).toBeCloseTo(core.y, 5);
+      expect(said?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
     }
   });
 

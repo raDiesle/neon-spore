@@ -72,6 +72,17 @@ export function drawViseBiteBar(
   strokeGlow(ctx, bar, PALETTE.hullRim, STROKE.outline, (0.7 + 0.3 * throb) * bite);
 }
 
+/** Where the spat seed hangs, `spit` of the way thrown out to `seedX` across, at its full radius. */
+export function viseSeedAt(
+  l: Layout,
+  spit: number,
+  seedX: number,
+): { x: number; y: number; r: number } {
+  const k = viseKernel(l);
+  const y = k.y + k.r * 1.5 * Math.sin(spit * Math.PI * 0.5);
+  return { x: k.x + (seedX - k.x) * spit, y, r: k.r * SEED };
+}
+
 /**
  * The spat seed: thrown from the kernel out to hang `seedX` across, a little
  * below it, in its colour, with the sight down to the hull `toHull` below.
@@ -87,7 +98,7 @@ export function drawViseSeed(
 ): void {
   if (spit <= 0) return;
   const k = viseKernel(l);
-  const at = { x: k.x + (seedX - k.x) * spit, y: k.y + k.r * 1.5 * Math.sin(spit * Math.PI * 0.5) };
+  const at = viseSeedAt(l, spit, seedX);
   const colour = stepColour(color);
   ctx.save();
   ctx.translate(at.x - k.x, at.y - k.y);

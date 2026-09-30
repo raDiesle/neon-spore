@@ -1,9 +1,19 @@
-import { type SimConfig, type ViseState, viseDone, type World } from "@neon-spore/sim";
+import {
+  midCol,
+  type SimConfig,
+  type ViseState,
+  type ViseStep,
+  viseDone,
+  viseSeedCol,
+  type World,
+} from "@neon-spore/sim";
+import { fieldX } from "./field-flip.js";
 import type { Circle, Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { viseArrived } from "./vise-pose.js";
-import { viseCentre, viseLift, viseRadius } from "./vise-shape.js";
+import { viseCentre, viseKernel, viseLift, viseRadius } from "./vise-shape.js";
+import { viseBite, viseLunge, viseSeedAt, viseSpit } from "./vise-story.js";
 
 /**
  * **The pinch on THE VISE** — the first of its hands lanes, and the one that
@@ -80,6 +90,31 @@ export function viseLobeStanding(
   beatPhase: number,
 ): Circle {
   return viseLobeCircle(l, world.cfg, s, seat, world.beat, beatPhase);
+}
+
+/**
+ * What a shot on THE VISE is fired at, for the world as it stands: the kernel
+ * on a fire step, the spat seed hanging over its column on a spit — the circle
+ * the cue's crosshair rides (`boss-cue-read-zf.ts`). The case's thud and shake
+ * are left out, as the lobes' circles leave them; its lunge is not.
+ */
+export function viseShotStanding(
+  l: Layout,
+  world: World,
+  s: ViseState,
+  step: ViseStep,
+  beatPhase: number,
+): Circle {
+  const cfg = world.cfg;
+  const at = caseAt(l, cfg, s, world.beat, beatPhase);
+  const y = at.y + viseLunge(viseBite(s, cfg, world.beat, beatPhase), l.hullY - at.y);
+  if (step.ask === "spit") {
+    const seedX = fieldX(l, viseSeedCol(midCol(cfg), step)) - at.x;
+    const seed = viseSeedAt(l, viseSpit(s, cfg, world.beat, beatPhase), seedX);
+    return { x: at.x + seed.x, y: y + seed.y, r: seed.r };
+  }
+  const k = viseKernel(l);
+  return { x: at.x + k.x, y: y + k.y, r: k.r };
 }
 
 /**

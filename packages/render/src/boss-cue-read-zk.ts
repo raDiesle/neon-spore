@@ -10,7 +10,7 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { fieldX } from "./field-flip.js";
-import { halterGripStanding } from "./halter-grip.js";
+import { halterCoreStanding, halterGripStanding } from "./halter-grip.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -33,6 +33,9 @@ import type { Layout } from "./layout.js";
  * **`FIRE` at the hull under the middle column** on a shot with the centre
  * bared, to either seat. The step's colour is never named — the core is lit
  * in it, on both screens.
+ *
+ * **`FIRE` rings the core** in the middle segment's crack
+ * (`halterCoreStanding`).
  */
 
 export function halterCues(
@@ -47,7 +50,8 @@ export function halterCues(
   if (step.ask === "fire") {
     if (!s.bared) return [];
     const x = fieldX(l, midCol(world.cfg));
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, seed: 157 }];
+    const aim = halterCoreStanding(l, world.cfg, s, world.beat, beatPhase);
+    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 157 }];
   }
   const left = halterGripStanding(l, world.cfg, s, 0, world.beat, beatPhase);
   const right = halterGripStanding(l, world.cfg, s, 1, world.beat, beatPhase);

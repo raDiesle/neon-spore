@@ -75,6 +75,12 @@ export function halterBend(l: Layout, x: number): number {
   return -ARCH * l.tile * (1 - u * u);
 }
 
+/** Where the core sits in the seam's frame: the middle segment's middle, up on the hunch. */
+export function halterCoreAt(l: Layout): Point {
+  const x = (halterSpan(l, 1).x0 + halterSpan(l, 1).x1) / 2;
+  return { x, y: halterBend(l, x) };
+}
+
 /** How far a plate stands off the seam, in pixels, `open` of the way cracked. */
 export function halterGap(l: Layout, open: number): number {
   return GAP * l.tile * open;
