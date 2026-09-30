@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · ecdae7611 — THE SEAM watched at tempo: the lit point, the grit, the rock and the split all read
+
+AUTO plays THE SEAM through to THE OCULUS. At every step the ridge shows what that step asks for: the red and cyan points, the grit and the rock at column 7, the white point that takes both colours at once, the quench, and the two halves parting at the end. Nothing needed changing.
+
 ## 2026-09-30 · 0f03d2b51 — THE GRINDSTONE watched at tempo: body, touch and hand all hold
 
 AUTO clears THE GRINDSTONE: the flat is ground true, the jaw bites, twelve shots land, the clamp shuts and the stone leaves edge-on before the next wave starts. The rub bracket follows the lit flat, and the bite's target and FIRE cue stand where the shot goes. The touch reaches the sim through the drag targets and the grindstone grip. Both unverified entries are closed.
