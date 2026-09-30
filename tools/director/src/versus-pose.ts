@@ -36,6 +36,7 @@ import { POSE_GROUPS } from "./poses.js";
 const SLOT_POSE: Record<string, string> = {
   "instar:head": "INSTAR · PERCHED",
   "keel:seam": "THE KEEL · BREATH",
+  "round:timeout-hit": "THE FLEET · TIME RUNS OUT",
   "stare:eye": "THE STARE · LIVE",
 };
 

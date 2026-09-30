@@ -8,6 +8,7 @@
 import type { Variant } from "../variant.js";
 import { INSTAR_HEAD_RIG } from "./instar-head/rig/index.js";
 import { KEEL_THREE } from "./keel-seam/three/index.js";
+import { ROUND_TIMEOUT_WINDOW } from "./round-timeout-hit/window/index.js";
 import { STARE_GLOBE } from "./stare-eye/globe/index.js";
 
-export const VARIANTS: Variant[] = [INSTAR_HEAD_RIG, KEEL_THREE, STARE_GLOBE];
+export const VARIANTS: Variant[] = [INSTAR_HEAD_RIG, KEEL_THREE, ROUND_TIMEOUT_WINDOW, STARE_GLOBE];

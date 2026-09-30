@@ -30684,3 +30684,17 @@ Bottleneck: the shudder is a few pixels, so it only shows between frames
 a few ticks apart, never in a strip a second apart.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — The rounds' own timeout hit, offered on VERSUS
+
+- reading: 5 min. `round-strike-look.ts`, `rock-impact.ts` and the fleet's
+  clock, for a pose that reaches the hit with no hand on anything.
+- writing: 10 min. The WINDOW candidate, its pose on THE FLEET with a cut
+  clock, and the slot's row.
+- looking: 10 min. Nine shots before one showed the hit at all.
+- friction: 5 min. The compaction fell in the middle of the shots.
+- landing: 5 min. The finding, `queue done`, `check:fast`, `land`.
+
+Bottleneck: the hit falls from the top of the field and reaches the skin
+two and a half seconds into the replay, so every shot inside the first
+three seconds showed an empty sky.

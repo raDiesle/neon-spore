@@ -3172,6 +3172,7 @@ by hand never moves.
 | `tools/director/src/poses-cores.ts` | BODIES · THE TWO CORES — a box and a dart, the pose `creature:body-interior` is judged on |
 | `tools/director/src/poses-damage.ts` | The two poses about **damage** — a rock being marked, and a body being destroyed |
 | `tools/director/src/poses-rounds.ts` | The states a candidate for an **interlude** is judged on |
+| `tools/director/src/poses-round-timeout.ts` | **A round running out on nobody** — the timeout hit |
 | `tools/director/src/poses-layers.ts` | the states a layer over a body is judged giving way in — a rind under fire, a lid under a hand — with `Pose.hand` |
 | `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
 | `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |

@@ -518,55 +518,6 @@ the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
 and THE WINCH's brake both make. Nothing here is drawn yet and stays
 unverified at tempo until the owner has looked.
 
-## The rounds' own timeout hit, offered on VERSUS beside the rock
-
-- **Found:** 2026-09-26, claude/timeout-hits, at the owner's direction: a boss's timeout hit is the boss's own blow, never a rock nobody saw fall
-- **Taken:** 2026-09-30, claude/queue-unverified-at-f043ab146-the-mantles-brace-watche (claim: claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes)
-- **Files:** `packages/sim/src/hull-damage.ts`, `packages/sim/src/events.ts`, `packages/sim/src/fleet.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/maze-verdict.ts`, `packages/sim/src/mirror-round.ts`, `packages/sim/src/pinball-round.ts`, `packages/sim/src/pulse-round.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/snake-move.ts`, `packages/render/src/rock-impact.ts`, `packages/render/src/effects-breach.ts`, `tools/versus/candidates/`, `tools/director/src/versus-pose.ts`, `tools/director/src/poses-versus-states.ts`
-
-The owner answered on 26 September 2026 (17:40Z): *give me a versus
-version so i can compare on page*. So the rock stays what the game draws,
-and a round's own picture of the hit is a VERSUS candidate beside it.
-Nothing of it was built.
-
-1. **The sim names the round.** The eight rounds above break the hull with
-   `breachHull(world, col, "meteorFastest", 0, "heavy")` when their window
-   runs out. Add `roundStrikesHull(world, round, col)` beside
-   `bossStrikesHull` (`sim/boss-strike.ts`) that does the same and puts an
-   optional `round` field on the `breach` event (`events.ts`), and call it
-   from all eight. Same scar, same sound, same fail: nothing visible moves.
-   `sim/test/boss-strike.test.ts` lets these eight through as exceptions;
-   make it require `round` on them instead.
-2. **The seam is at draw time, not at ingest.** A candidate's record is in
-   place only for one `draw()` (`breach-strike.ts` says why), so the choice
-   of rock or picture cannot be made in `ingestBreach`. Carry `round` onto
-   the rock `rock-impact.ts` spawns, and add an exported record
-   `ROUND_STRIKE_LOOK = { paint: null }` in a new file render/round-strike-look.ts
-   with `paint(ctx, { round, x, from, to, reach, after, tile, time })`,
-   `StrikeFrame`'s shape. In `RockImpactFx.draw`, a rock with a `round`
-   while `paint` is set draws the paint instead of the rock body and its
-   tail, with `reach` its fall progress; the arrival, the sparks and the
-   crack stay on the rock's clock, so nothing else changes. With `paint`
-   null the game draws exactly what it draws today; prove that in
-   `render/test/frame.test.ts`.
-3. **The candidate**, slot `round:timeout-hit`, one shared picture:
-   the round's window closing on the ship. A bar of light the width of the
-   field comes down from where the rock would have appeared, narrowing to
-   one tile over the struck column as it falls, pinches into a spike at
-   `reach = 1`, and runs out along the membrane as a flat ring while
-   `after` goes to 1. In THE SLOW's colour (`slow-look.ts`), so it reads as
-   time rather than stone. No 3D rig. `bun run versus new round:timeout-hit
-   window` prints the directory and the rules.
-4. **Its pose.** Add a pose in `poses-versus-states.ts` where a round's
-   window runs out unattended (the pulse round's meter emptying is the
-   easiest to reach with no hand), and a row for the slot in
-   `versus-pose.ts`. Judged live, not still: `bun run versus:shot
-   round:timeout-hit window --freeze <seconds> --only candidate` for the
-   PNG sent to the owner, one frame mid-fall.
-
-Exemption: none. This is a look with a shipped alternative, the rock, and
-that is why it goes to VERSUS.
-
 ## Unverified at 881f776df: THE DAVIT: no touch sends a lean or draw
 
 - **Found:** 2026-09-26, claude/davit-sim
@@ -866,6 +817,27 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A whole-picture round's timeout hit is never drawn
+
+- **Found:** 2026-09-30, claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes
+- **Files:** `packages/render/src/canvas2d-takeover.ts`, `packages/sim/src/pulse-round.ts`, `packages/render/src/effects-breach.ts`, `packages/render/test/frame.test.ts`
+
+THE PULSE's meter emptying calls `roundStrikesHull` and then enters its
+`verdict` phase, so the round still owns the picture on that tick:
+`canvas2d-takeover.ts` returns true before `canvas2d.ts` ingests the frame's
+events, and the `breach` event is dropped. No rock falls, and the VERSUS
+`round:timeout-hit` candidate can only be judged on THE FLEET and THE MIRROR,
+which draw over the field. The gauge, snake, pinball and scout end the same
+way and most likely lose theirs too. Decide in the takeover whether a round's
+breach is kept for the field (ingest it there, beside `ingestRounds`) or
+drawn by the round itself, and prove it in `frame.test.ts` with a pulse whose
+meter runs out: the rock's replay is live the first frame the field is back.
+
+A second thing to settle in the same lane: a round's breach falls from row 0,
+the whole height of the field at `meteorFastest`'s speed, so the hit reaches
+the skin about one and a half seconds after the round is over, which is the
+reason the VERSUS pose (`poses-round-timeout.ts`) replays every six seconds.
 
 ## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
 
