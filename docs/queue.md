@@ -1318,6 +1318,7 @@ what the rest of this file holds.
 ## Eighteen bosses' FIRE cues stand at the hull and aim at nothing
 
 - **Found:** 2026-09-29, claude/boss-visual-helpers-fb3cd0
+- **Taken:** 2026-09-30, worktree-agent-ad77a5bcc41e3c5f6 (claim: claude/queue-eighteen-bosses-fire-cues-stand-at-the-hull-and)
 - **Files:** `packages/render/test/cue-aim.test.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/boss-cue-shape.ts`, `packages/render/src/boss-cue-read-zr.ts`
 
 The owner, 29 September 2026, for every boss: *shooting with cannon should
