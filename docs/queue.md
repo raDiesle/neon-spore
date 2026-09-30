@@ -943,6 +943,7 @@ what the rest of this file holds.
 ## Unverified at d30a4b113: THE GRINDSTONE's body never watched at tempo
 
 - **Found:** 2026-09-26, tmp-grindstone-look
+- **Taken:** 2026-09-30, claude/queue-unverified-at-c2a4f79ca-the-valves-drum-watched (claim: claude/queue-unverified-at-d30a4b113-the-grindstones-body-nev)
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/grindstone-draw.ts`
 
 *§33 THE GRINDSTONE: the body — THE SMART's wheel ground flat and THE HOOD's caliper biting* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
