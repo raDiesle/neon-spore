@@ -30215,3 +30215,13 @@ Bottleneck: friction — the lash case's geometry depended on the kind line
 existing, which was invisible from the assertion that failed.
 
 *Measured: 23 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — `pull-way-roll-out.test.ts` times out on a busy machine
+
+- reading: 5 min. The test, the queue entry and how `copies.test.ts` reads the tree.
+- writing: 5 min. The whole-directory case through `treeText`, with a figure.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. Four timed runs at a load of thirty-seven, `check:fast`, `land`.
+
+Bottleneck: landing. The case failed the previous lane's `land`, so this one had to go first.

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { itCosts } from "../../../tools/test/figure.js";
+import { treeText } from "../../../tools/test/tree-text.js";
 
 /**
  * **Every pull handle shows its way**, the owner's generic rule for every
@@ -46,7 +48,19 @@ const RETIRED = ["mantle-handle.ts", "capstan-marks.ts"];
 
 const SRC = join(import.meta.dir, "../src");
 const read = (f: string) => readFileSync(join(SRC, f), "utf8");
-const showsWay = (f: string) => /\bdraw(PullKnob|PullArrow|WayArrow)\(/.test(read(f));
+const DRAWS_WAY = /\bdraw(PullKnob|PullArrow|WayArrow)\(/;
+const showsWay = (f: string) => DRAWS_WAY.test(read(f));
+
+/**
+ * The one case that reads the whole of `render/src`, twelve hundred files. It
+ * read them one `readFileSync` at a time and timed out at bun's five seconds
+ * at a load average of thirty-two on 30 September 2026, 5.9 s alone; it reads
+ * them through `treeText` now, sixty-four at a time — 280 to 530 ms over four
+ * runs at a load average of thirty-seven — and has a figure scaled to the load
+ * (`tools/test/figure.ts`) instead of the flat default. So 200. The other three
+ * read the fifteen handles and stay under bun's default.
+ */
+const WHOLE_SRC_MS = 200;
 
 describe("every pull handle shows its way", () => {
   it("draws the shared knob or arrow in every handle but the roll-out's", () => {
@@ -58,10 +72,10 @@ describe("every pull handle shows its way", () => {
     expect(Object.keys(TO_COME).filter(showsWay)).toEqual([]);
   });
 
-  it("names every file that draws the knob or the arrow", () => {
-    const drawing = readdirSync(SRC)
-      .filter((f) => f.endsWith(".ts") && !NOT_HANDLES.has(f))
-      .filter(showsWay);
+  itCosts(WHOLE_SRC_MS, "names every file that draws the knob or the arrow", async () => {
+    const files = readdirSync(SRC).filter((f) => f.endsWith(".ts") && !NOT_HANDLES.has(f));
+    const texts = await treeText(files.map((f) => join(SRC, f)));
+    const drawing = files.filter((_, i) => DRAWS_WAY.test(texts[i] as string));
     expect(drawing.filter((f) => PULL_HANDLES[f] === undefined)).toEqual([]);
   });
 

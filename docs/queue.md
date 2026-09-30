@@ -1287,18 +1287,6 @@ on an idle machine and set its figure to what it measures, or make it cheaper:
 build the index once per file instead of once per case, and shorten the wave
 the frames run. After that, `check:fast` should pass under three lanes.
 
-## `pull-way-roll-out.test.ts` times out on a busy machine
-
-- **Found:** 2026-09-30, claude/queue-20-the-hasp-the-story-between-the-hasps-the-look
-- **Files:** `packages/render/test/pull-way-roll-out.test.ts`
-
-"names every file that draws the knob or the arrow" reads every file in
-`render/src` under bun's default 5000 ms, and at a load average of 32 it took
-6.2 s and failed `check:fast`, alone and in its shard; with `--timeout 30000`
-it passed in 3.8 s. Read the sources once in a `beforeAll` shared by the
-file's tests, or give the test a figure of its own the way the slow tree
-walks have, and prove it with `bun run check`.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
