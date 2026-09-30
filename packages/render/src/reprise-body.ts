@@ -19,9 +19,9 @@ import { splinePath } from "./spline.js";
  * WEIGHT from `tools/shape-sheet/src/drafts/bosses.ts` — *a sac hung heavy,
  * narrow at the top* — pushed down through THE BREACH's tear, which is the
  * shape it had and which it keeps, so the silhouette still says *the wave
- * went up there and comes back out of it*. Two cords hang it from the top of
- * the screen, and swing (`reprise-parts.ts`); the eye and the count are drawn into it by `reprise-lens.ts` and
- * `reprise-brood.ts`.
+ * went up there and comes back out of it*. Two cords hang it from the field's
+ * top edge, and swing (`reprise-parts.ts`); the eye and the count are drawn
+ * into it by `reprise-lens.ts` and `reprise-brood.ts`.
  *
  * **Focus is a halo and, while it plays, a beam.** A soft light stands behind
  * the sac and pulses on each beat, so the eye finds it on an empty screen; and
@@ -106,8 +106,8 @@ function sacPoints(f: RepriseFrame, clench: number, t: number): Point[] {
   return pts;
 }
 
-/** The two cords it hangs from, up to the top of the screen, each swung
- * about its root by `swing` and the left mirrored (`reprise-parts.ts`). */
+/** The two cords it hangs from, up to the field's top edge, each swung
+ * about its end there by `swing` and the left mirrored (`reprise-parts.ts`). */
 function drawCords(
   ctx: CanvasRenderingContext2D,
   f: RepriseFrame,

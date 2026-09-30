@@ -30527,3 +30527,17 @@ Bottleneck: friction. The AUTO run across all four forms was the only thing that
 Bottleneck: landing. The change is one line; the gate is the whole of the time.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE REPRISE's camera cables end at the field's top edge
+
+- reading: 15 min. The cord geometry across three files, the part swing, and
+  `boss-top.test.ts`'s rule.
+- writing: 10 min. The camera 1.6 units lower, the cords from its shoulders
+  to the edge swinging about their ends there, the tests, `EXEMPT` one row
+  shorter.
+- looking: 5 min. One frame of the wave, cropped.
+- friction: 5 min. A compaction mid-lane, then a mirror test the old sway
+  had quietly broken.
+- landing: 5 min. `check:fast` after a format, `land`.
+
+Bottleneck: the context ran out between the design and the first edit.

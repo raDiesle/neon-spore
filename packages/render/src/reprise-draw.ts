@@ -49,8 +49,11 @@ import { splinePath } from "./spline.js";
  * **Where the body hangs, and how big it is.** The unit is what fits between
  * `TOP_PX` and the field's own top edge, held between six tenths of a tile and
  * a tile and a quarter, so a tall phone gets a bigger boss and a short one
- * still gets one that clears the top chrome. The sac hangs a third of its
- * height into the field, through the tear.
+ * still gets one that clears the top chrome. The sac hangs under the tear,
+ * on two cords tied to the field's own top edge: the owner, 30 September
+ * 2026, *end the cables at the field's top … hang it a little lower*. Until
+ * then it hung a third of its height into the field and its cords ran on up
+ * behind the seat switcher to the top of the screen.
  */
 export function repriseFrame(l: Layout, cfg: SimConfig): RepriseFrame {
   const room = (l.gridTop - TOP_PX - 6) / 1.65;
@@ -58,7 +61,7 @@ export function repriseFrame(l: Layout, cfg: SimConfig): RepriseFrame {
   return {
     x: tileCX(l, midCol(cfg)),
     y0: l.gridTop,
-    cy: l.gridTop - u * 0.35,
+    cy: l.gridTop + u * 1.25,
     u,
     rx: u * 1.75,
     ry: u * 1.0,
@@ -178,9 +181,9 @@ export function drawReprise(
   });
 }
 
-/** How far from the tear the sac's farthest reaches: its top corner, or the label past it. */
+/** How far from the tear the sac's farthest reaches: its heavy bottom corner. */
 function repriseReach(f: RepriseFrame): number {
-  return Math.hypot(f.rx * 1.15, f.y0 - (f.cy - f.ry * 1.1));
+  return Math.hypot(f.rx * 1.15, f.cy + f.ry * 1.1 - f.y0);
 }
 
 /** "● REC" or "▶ PLAY" on the sac's left lobe, a camera's own words. */

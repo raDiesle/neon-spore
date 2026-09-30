@@ -1220,20 +1220,6 @@ after frame, and say that the before side has no such field instead of refusing
 the whole run. A test in `tools/frames/test/` should cover a field that only the
 after side has. Prove it with `bun run check`.
 
-## THE REPRISE's camera cables run to the top edge
-
-- **Found:** 2026-09-30, claude/queue-bottom-up
-- **Taken:** 2026-09-30, claude/queue-tasks-66c8ef (claim: claude/queue-the-reprises-camera-cables-run-to-the-top-edge)
-- **Files:** `packages/render/test/boss-top.test.ts`
-- **Asks:** THE REPRISE's body is clear of the switcher, but the cables it hangs by run to the top edge: keep the cables to the top, cut them at the top of the field, or drop them?
-- **Answered:** 2026-09-30 — (b), end the cables at `l.gridTop`, over keeping them to the top or dropping them, and hang the camera a little lower than it sits now. Delete `reprise` from `EXEMPT`.
-
-The body sits at about y 90–185 on a 390×844 screen. Only the two cables,
-x 114–275, reach y 0, and they pass behind the seat switcher. The options:
-(a) keep them and keep `reprise` in `EXEMPT` with the owner's word as its
-reason; (b) end them at `l.gridTop`, so the camera hangs from the field's
-edge; (c) drop them. For (b) or (c), delete `reprise` from `EXEMPT`.
-
 ## `vane.test.ts` is past 250 lines
 
 - **Found:** 2026-09-30, claude/the-vane-boss-expansion-12346e

@@ -9,11 +9,14 @@ import type { ReprisePhase } from "./reprise-fx.js";
  * THE REPRISE's parts — the outline tier's (`outline-parts.ts`) on the sac:
  * **its two cords swing** and **its eye looks about**.
  *
- * - **The cords** turn about where they grow out of the sac, so the end at the
- *   top of the screen walks along it half a tile at the widest (`PART.tip`,
- *   *Big enough to be seen*, `docs/looks.md`). The pair is one drift drawn as
- *   exact mirrors, so neither says which side: they open and close together,
- *   the way a hung thing breathes.
+ * - **The cords** hang the sac from the field's own top edge, where the tear
+ *   is (the owner, 30 September 2026: *end the cables at the field's top*),
+ *   and both their ends stay put: each turns about where it is tied to the
+ *   edge, so its slack middle swings a quarter of a tile at the widest, half
+ *   of `PART.tip` for the cord's whole length (*Big enough to be seen*,
+ *   `docs/looks.md`). The pair is one drift drawn as exact mirrors, so neither
+ *   says which side: they open and close together, the way a hung thing
+ *   breathes.
  * - **The eye** — the lens, and the ring of eggs round it that is its count —
  *   hangs from the top of the sac and swings there, so it glances left and
  *   right inside the body, half a tile at the widest. Only its place moves:
@@ -49,20 +52,17 @@ export function eyeFreedom(
   return 1;
 }
 
-/** The right cord's root on the sac, its bend and its end at the top of the screen, at rest. */
+/** A cord's root on the sac, its bend and its end on the field's top edge, at rest. */
 export function cordPoints(f: RepriseFrame, side: -1 | 1, t: number): readonly Point[] {
   const root = { x: f.x + side * f.rx * 0.42, y: f.cy - f.ry * 0.8 };
-  const sway = Math.sin(t * 0.7 + side) * f.u * 0.08;
-  return [
-    root,
-    { x: root.x + side * f.u * 0.5 + sway, y: root.y - f.u },
-    { x: root.x + side * f.u * 0.9, y: 0 },
-  ];
+  const end = { x: root.x + side * f.u * 0.3, y: f.y0 };
+  const slack = f.u * (0.14 + 0.04 * Math.sin(t * 0.7));
+  return [root, { x: (root.x + end.x) / 2 + side * slack, y: (root.y + end.y) / 2 }, end];
 }
 
 /**
- * The right cord's angles about its root at `t` (the left draws them
- * mirrored), or `STILL`. `tile` turns the cord's length into tiles for
+ * The right cord's angles about its end on the edge at `t` (the left draws
+ * them mirrored), or `STILL`. `tile` turns the cord's length into tiles for
  * `partOn`; `hush` is the sac's.
  */
 export function cordSwing(f: RepriseFrame, tile: number, t: number, hush: number): PartAngles {
@@ -72,9 +72,10 @@ export function cordSwing(f: RepriseFrame, tile: number, t: number, hush: number
 }
 
 /**
- * A cord's points turned by its swing: `side` -1 mirrors the right's angles.
- * The end is carried on past the top of the screen, so a swing that lifts it
- * never leaves a gap under the edge.
+ * A cord's points with its bend turned by the swing about the end on the
+ * edge: `side` -1 mirrors the right's angles. Only the bend moves, so the
+ * cord stays tied to the sac and to the edge. The last point carries the end
+ * a little up into the tear, so the cord is seen to go through it.
  */
 export function swungCord(
   f: RepriseFrame,
@@ -82,16 +83,11 @@ export function swungCord(
   t: number,
   swing: PartAngles,
 ): readonly Point[] {
-  const pts = cordPoints(f, side, t);
-  const root = pts[0] as Point;
-  const end = pts[2] as Point;
+  const [root, bend, end] = cordPoints(f, side, t) as [Point, Point, Point];
   const a = { turn: swing.turn * side, tilt: swing.tilt, rotate: swing.rotate * side };
-  const m = partMatrix(a, { joint: root, axis: Math.atan2(end.y - root.y, end.x - root.x) });
-  const moved = pts.map((p) => partPoint(m, p));
-  const tip = moved[2] as Point;
-  const bend = moved[1] as Point;
-  const past = { x: tip.x + (tip.x - bend.x), y: tip.y + (tip.y - bend.y) };
-  return [...moved, past];
+  const m = partMatrix(a, { joint: end, axis: Math.atan2(root.y - end.y, root.x - end.x) });
+  const past = { x: end.x, y: end.y - f.u * 0.15 };
+  return [root, partPoint(m, bend), end, past];
 }
 
 /**

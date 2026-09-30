@@ -13,11 +13,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
 
 /**
- * THE REPRISE's parts (`reprise-parts.ts`): each cord's end and the eye move
- * far enough to be seen and no further, the cords are a mirror pair that never
- * leaves a gap under the top of the screen, the eye is home while an echo
- * plays, every mark on the eye is drawn where it has looked to, and no part
- * keeps step with another.
+ * THE REPRISE's parts (`reprise-parts.ts`): each cord's slack middle and the
+ * eye move far enough to be seen and no further, the cords are a mirror pair
+ * tied to the sac and to the field's top edge however they swing, the eye is
+ * home while an echo plays, every mark on the eye is drawn where it has looked
+ * to, and no part keeps step with another.
  */
 
 const L = computeLayout({ width: 390, height: 844, dpr: 2 }, CFG, "p1");
@@ -25,10 +25,10 @@ const F = repriseFrame(L, CFG);
 const saved = { ...OUTLINE_PARTS };
 afterEach(() => Object.assign(OUTLINE_PARTS, saved));
 
-/** How far the right cord's end at the top of the screen has walked at `t`, in tiles. */
-function endShift(t: number, side: -1 | 1 = 1): { x: number; y: number } {
-  const rest = cordPoints(F, side, t)[2] as { x: number; y: number };
-  const moved = swungCord(F, side, t, cordSwing(F, L.tile, t, 1))[2] as { x: number; y: number };
+/** How far a cord's bend has swung from where it hangs at rest at `t`, in tiles. */
+function bendShift(t: number, side: -1 | 1 = 1): { x: number; y: number } {
+  const rest = cordPoints(F, side, t)[1] as { x: number; y: number };
+  const moved = swungCord(F, side, t, cordSwing(F, L.tile, t, 1))[1] as { x: number; y: number };
   return { x: (moved.x - rest.x) / L.tile, y: (moved.y - rest.y) / L.tile };
 }
 
@@ -48,27 +48,32 @@ describe("THE REPRISE's parts", () => {
     expect(repriseEye(F, L.tile, 41.3, 1, 1)).toEqual({ x: F.x, y: F.cy });
   });
 
-  test("a cord's end and the eye move far enough to be seen, and never past `PART.tip`", () => {
-    const ends = sample((t) => Math.hypot(endShift(t).x, endShift(t).y), 600);
+  test("a cord's middle and the eye move far enough to be seen, and never past `PART.tip`", () => {
+    // The cord turns about its end on the edge, so its bend, halfway down,
+    // swings half as far as a tip would.
+    const bends = sample((t) => Math.hypot(bendShift(t).x, bendShift(t).y), 600);
+    expect(Math.max(...bends)).toBeLessThanOrEqual(PART.tip * 0.6);
+    expect(Math.max(...bends)).toBeGreaterThan(PART.tip * 0.3);
     const eyes = sample(glance, 600);
-    for (const worst of [Math.max(...ends), Math.max(...eyes)]) {
-      expect(worst).toBeLessThanOrEqual(PART.tip + 1e-9);
-      expect(worst).toBeGreaterThan(PART.tip * 0.6);
-    }
+    expect(Math.max(...eyes)).toBeLessThanOrEqual(PART.tip + 1e-9);
+    expect(Math.max(...eyes)).toBeGreaterThan(PART.tip * 0.6);
   });
 
-  test("the cords are exact mirrors, and each still reaches the top of the screen", () => {
+  test("the cords are exact mirrors, tied to the sac and to the field's top edge", () => {
     for (const t of [0.4, 17.2, 311.9]) {
-      const r = endShift(t, 1);
-      const lf = endShift(t, -1);
+      const r = bendShift(t, 1);
+      const lf = bendShift(t, -1);
       expect(lf.x).toBeCloseTo(-r.x, 9);
       expect(lf.y).toBeCloseTo(r.y, 9);
     }
     for (let f = 0; f <= 600 * 4; f++) {
       const t = f / 4;
       for (const side of [-1, 1] as const) {
-        const pts = swungCord(F, side, t, cordSwing(F, L.tile, t, 1));
-        expect(Math.min(...pts.slice(2).map((p) => p.y))).toBeLessThanOrEqual(0);
+        const [root, , end, past] = swungCord(F, side, t, cordSwing(F, L.tile, t, 1));
+        expect(root).toEqual({ x: F.x + side * F.rx * 0.42, y: F.cy - F.ry * 0.8 });
+        expect(end?.y).toBe(F.y0);
+        expect(past?.y).toBeLessThan(F.y0);
+        expect(past?.y).toBeGreaterThan(F.y0 - F.u * 0.5);
       }
     }
   });

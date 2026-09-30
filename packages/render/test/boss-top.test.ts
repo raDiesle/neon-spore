@@ -37,9 +37,6 @@ const EXEMPT: Record<string, string> = {
   // The living hold the fight is in (`splice-hold.ts`) is the room, walls and
   // cables from edge to edge, the way a backdrop is; the straws hang inside it.
   splice: "the hold is the room the fight is in, not a body",
-  // Queued with the owner's question (`docs/queue.md`): the cables the camera
-  // hangs by run to the top edge, the body itself clear of the switcher.
-  reprise: "the cables run to the top edge; asked of the owner",
   // The reflected hull over the field is the fight's picture: the owner, 30
   // September 2026, asked whether to pull it down or cut it — "keep it as it is".
   mirror: "the reflected hull is the design; the owner kept it, 30 September 2026",
