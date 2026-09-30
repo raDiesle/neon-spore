@@ -82,6 +82,14 @@ async function readAll(files: readonly string[]): Promise<Map<string, Uint8Array
   return out;
 }
 
+/**
+ * What the shared read costs whichever case pays it. It was 200 over 3,200
+ * files; by 30 September 2026 the tree had grown to nearly five thousand, and one
+ * run of three alone at a load of 28 to 42 came to about a second idle. So
+ * 500, which covers two of those three and leaves the third to say so.
+ */
+const READ_MS = 500;
+
 const decoder = new TextDecoder();
 
 /** The file's own count, by the same rule the hook applies to what it is handed. */
@@ -93,7 +101,7 @@ async function linesIn(file: string): Promise<number> {
 describe("file size limits", () => {
   const files = sourceFiles();
 
-  itCosts(200, "keeps source files under the limit", async () => {
+  itCosts(READ_MS, "keeps source files under the limit", async () => {
     const over: string[] = [];
     for (const file of files) {
       const rel = relative(ROOT, file).replaceAll("\\", "/");
@@ -145,7 +153,7 @@ describe("file size limits", () => {
 describe("source files are text", () => {
   const files = [...sourceFiles(), ...docFiles()];
 
-  itCosts(200, "has no control byte but tab, LF and CR in any of them", async () => {
+  itCosts(READ_MS, "has no control byte but tab, LF and CR in any of them", async () => {
     const binary: string[] = [];
     const read = await contents();
     for (const file of files) {

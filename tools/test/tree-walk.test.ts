@@ -46,8 +46,15 @@ import { AT_ONCE, treeText } from "./tree-text.js";
  * Under an idle machine this is still five seconds, because `loadedTimeout`
  * floors there and may only ever give a test *more* time. What it buys is the
  * loaded case, which is the only one that ever failed.
+ *
+ * **The tree grew under the figure.** It was 120 while the walk opened
+ * eighteen hundred files; by 30 September 2026 it opened 4,772, and three runs
+ * of this file alone at a load of 28 to 42 came to 460, 920 and 2,400 ms
+ * idle, the last red at the five-second floor. Sixty-four or two hundred and
+ * fifty-six at a time made no difference worth the name — 0.9 s and 0.7 s —
+ * so it is the count, not the reader. So 900, the middle run.
  */
-fileCosts(120);
+fileCosts(900);
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 

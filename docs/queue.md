@@ -1299,45 +1299,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `doc-drift.test.ts` still reads its sources one `readFileSync` at a time
-
-- **Found:** 2026-09-30, claude/queue-two-tests-time-out-in-check-fast-whenever-the-ma
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-doc-drift-test-ts-still-reads-its-sources-one-re)
-- **Files:** `tools/test/doc-drift.test.ts`, `tools/test/tree-text.ts`
-
-"names a source file this tree still has" reads every file under
-`packages/*/src` and `apps/*/src` with a serial `readFileSync`, and the
-"is named in a document" case reads its documents the same way. In a
-`check:fast` at a load average of about twenty-five it took 5427 ms, a
-slowdown of 5.0 and about 1085 ms idle, against a figure of 350, so it was
-reported as figure drift. That is the same cause `drift.test.ts` had until
-this date. Read the sources through `treeText` (`tools/test/tree-text.ts`), as
-the other tree guards do, add the file to that header's list of callers,
-and time the case again alone. Prove it with `bun run check`.
-
-## Three tree walks run past their figures under load
-
-- **Found:** 2026-09-30, claude/queue-bottom-up
-- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-three-tree-walks-run-past-their-figures-under-lo)
-- **Files:** `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `packages/sim/test/limits.test.ts`
-
-At a load average near 38, one `bun run check` reported figure drift on three
-walks. The drift was reported, not failed:
-
-- `tree-walk.test.ts`: about 623 ms idle against a figure of 120.
-- `limits.test.ts`'s "keeps source files under the limit": about 1429 ms idle
-  against a figure of 200.
-- `doc-drift.test.ts`'s "is a file this repository has": about 1409 ms idle
-  against a figure of 350, measured alone.
-
-The same file's source-comment case failed `land` outright. It was fixed by
-reading its 2,590 files in parallel in a `beforeAll`: 0.7 s instead of 6.9 s.
-`pull-way-roll-out.test.ts` had already been fixed the same way, by ac51d29f1.
-
-For each of the three: time it alone on a quiet machine. If it reads files one
-after another, read them in parallel before the case. Otherwise raise the
-figure to what the timing shows. Prove it with `bun run check`.
-
 ## A claim whose trunk commit fails leaves its edit and its branch behind
 
 - **Found:** 2026-09-30, claude/queue-the-world-does-not-say-when-a-windows-latest-ask

@@ -8,7 +8,8 @@ import { isAbsolute, join } from "node:path";
  * could be declared in). Until 30 September 2026 only the first read in
  * parallel; the others opened one file at a time, `readFileSync` or an
  * `await` inside a `for`. `tools/index/test/drift.test.ts`, which reads the
- * file under every row of `docs/INDEX.md`, came here later the same day. On a
+ * file under every row of `docs/INDEX.md`, came here later the same day, and
+ * `doc-drift.test.ts`'s source-comment case after it. On a
  * quiet Mac that day, forty-seven hundred files took 580 ms one at a time
  * and 100 ms sixty-four at a time — an open is cheap
  * and waiting for each before asking for the next is not — and under a loaded

@@ -30287,3 +30287,13 @@ Bottleneck: friction — the claim failed half-done and had to be put back by ha
 Bottleneck: writing. There is one suggestion per row, and each had to be read against its row before it could be written.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-30 — doc-drift reads through `treeText`, and two tree walks get figures for the tree they walk
+
+- reading: 5 min. `tree-text.ts`, `figure.ts`'s `loadedTimeout`, `tree-walk.test.ts` and `limits.test.ts`.
+- writing: 5 min. `doc-drift.test.ts` onto the shared reader, and the figures of `tree-walk.test.ts` and `limits.test.ts` raised with the runs that set them.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. A compaction at the start of the lane.
+- landing: 15 min. Three timed runs of each file alone and `check:fast`, at a load between 28 and 42.
+
+Bottleneck: timing. The figures had to be read off runs at a load near 30, and one of three runs was five times the others.
