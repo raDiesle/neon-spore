@@ -46,11 +46,11 @@ describe("THE INSTAR's scanner box", () => {
     expect(texts.map((t) => t.text)).toEqual(["P1'S"]);
   });
 
-  it("draws the kind above the verb when the two differ", () => {
-    const texts = drawn("TAP TAP", "PRESS");
-    expect(texts.map((t) => t.text).sort()).toEqual(["PRESS", "TAP TAP"]);
+  it("draws the kind above a button's name", () => {
+    const texts = drawn("SHIELD", "PRESS");
+    expect(texts.map((t) => t.text).sort()).toEqual(["PRESS", "SHIELD"]);
     const kind = texts.find((t) => t.text === "PRESS");
-    const word = texts.find((t) => t.text === "TAP TAP");
+    const word = texts.find((t) => t.text === "SHIELD");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
     expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);
@@ -58,6 +58,10 @@ describe("THE INSTAR's scanner box", () => {
 
   it("never draws CARRY: the verb is the motion already, the owner's 24 September", () => {
     expect(drawn("PULL DOWN", "CARRY").map((t) => t.text)).toEqual(["PULL DOWN"]);
+  });
+
+  it("never draws a kind over a gesture — PRESS over TAP TAP is the thumb said twice", () => {
+    expect(drawn("TAP TAP", "PRESS").map((t) => t.text)).toEqual(["TAP TAP"]);
   });
 
   it("hangs off the mark's other side when this one would push it back over the mark", () => {
@@ -94,8 +98,8 @@ describe("THE INSTAR's scanner box", () => {
       const { ctx } = stubCanvas();
       ctx.texts = [];
       const c = ctx as unknown as CanvasRenderingContext2D;
-      drawInstarWord(c, L, "TAP TAP", own.left, p1.y, -1, true, "PRESS", { own, avoid });
-      return (ctx.texts as TextBox[]).find((t) => t.text === "TAP TAP") as TextBox;
+      drawInstarWord(c, L, "SHIELD", own.left, p1.y, -1, true, "PRESS", { own, avoid });
+      return (ctx.texts as TextBox[]).find((t) => t.text === "SHIELD") as TextBox;
     };
     // With nothing else on the step the box flips across, level with its ring —
     // the case the partner's ring then sits under.

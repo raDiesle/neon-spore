@@ -3,6 +3,7 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   batonBoss,
   createWorld,
+  curtainBoss,
   type GorgeState,
   gorgeBoss,
   startWave,
@@ -193,18 +194,7 @@ describe("the cue on a real frame", () => {
  * the verb instead (`boss-cue-text.ts`).
  */
 describe("the cue's kind line", () => {
-  function drawn(): TextBox[] {
-    const world = opened("gorge");
-    const g: GorgeState = boss(gorgeBoss(world), "gorge");
-    // A full intake, pinched, with the cannon under it: `PRESS` over `TAP`,
-    // the one gorge cue whose kind is not its own verb said again.
-    const k = g.intakes[2];
-    if (k === undefined) throw new Error("no intake 2");
-    k.beads = CFG.gorgeFullBeads;
-    k.color = "red";
-    k.fullBeat = world.beat;
-    g.pinch = 2;
-    world.cannonCol = g.col + 2;
+  function drawn(world: World): TextBox[] {
     const { ctx } = stubCanvas();
     ctx.texts = [];
     const l = computeLayout(VIEWPORT, CFG, "p2");
@@ -213,12 +203,36 @@ describe("the cue's kind line", () => {
   }
 
   it("stands over the mark", () => {
-    const texts = drawn();
+    // THE CURTAIN's bared core with the cannon under it: `PRESS` over `FIRE`,
+    // a button's name, where the line says how the button is used.
+    const world = opened("curtain");
+    const c = boss(curtainBoss(world), "curtain");
+    c.phase = "torn";
+    c.phaseBeat = world.beat;
+    world.cannonCol = c.coreCol;
+    const texts = drawn(world);
     const kind = texts.find((t) => t.text === "PRESS");
-    const word = texts.find((t) => t.text === "TAP");
+    const word = texts.find((t) => t.text === "FIRE");
     expect(kind, "no kind line drawn").toBeTruthy();
     expect(word, "no verb drawn").toBeTruthy();
     expect((kind as TextBox).y).toBeLessThan((word as TextBox).y);
+  });
+
+  it("is not drawn over a gesture, which is the word said twice", () => {
+    // A full intake, pinched, with the cannon under it: `TAP` alone, since
+    // 30 September 2026 — `PRESS` over it said the thumb's gesture twice.
+    const world = opened("gorge");
+    const g: GorgeState = boss(gorgeBoss(world), "gorge");
+    const k = g.intakes[2];
+    if (k === undefined) throw new Error("no intake 2");
+    k.beads = CFG.gorgeFullBeads;
+    k.color = "red";
+    k.fullBeat = world.beat;
+    g.pinch = 2;
+    world.cannonCol = g.col + 2;
+    const texts = drawn(world).map((t) => t.text);
+    expect(texts).toContain("TAP");
+    expect(texts).not.toContain("PRESS");
   });
 });
 

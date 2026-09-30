@@ -26,7 +26,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * STARE's and THE FILAMENT's own calls, which name a seat rather than an
  * action, still draw one line. `boss-cue-text.ts`'s own rule travels with it:
  * a kind that equals the word — a `turn` mark's `TURN` over `TURN` — draws
- * once, and `CARRY` over `PULL DOWN` draws `PULL DOWN` alone (`saysKind`).
+ * once, `CARRY` over `PULL DOWN` draws `PULL DOWN` alone, and since 30
+ * September 2026 so does any gesture: `TAP TAP` has no `PRESS` over it, and
+ * only a button's name — `SHOOT`, `SHIELD` — keeps its line (`saysKind`).
  *
  * Its own file because `instar-marks.ts` was at its limit with the rings.
  */

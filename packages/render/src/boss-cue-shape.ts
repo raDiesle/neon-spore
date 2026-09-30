@@ -138,15 +138,31 @@ export function cueSeen(cue: BossCue, role: ViewRole): boolean {
 }
 
 /**
+ * The buttons on the band a word may name instead of a gesture. A `PRESS`
+ * over `FIRE` says how the button is used; over anything else the word is
+ * already the gesture.
+ */
+const BUTTONS = new Set(["FIRE", "SHOOT", "SHIELD", "SUCK", "EAT"]);
+
+/**
  * **Whether the kind line is drawn over this verb.** Not when it is the verb
  * said twice — `TURN` over `TURN` — and **never `CARRY`**: the owner, 24
  * September 2026, *why we need the keyword of "Carry"? … "Pull up" its clear
  * he has to take action, so "Carry" is not required at all.* Every carry's
  * verb is already the motion — `PULL`, `SWIPE`, `MOVE` — so the line over it
- * only repeated it in grammar. The kind stays on the cue as data: tests and
- * the desk still read which gesture a mark asks for. Both hands that write a
- * cue ask here (`boss-cue-text.ts`, `instar-word.ts`).
+ * only repeated it in grammar.
+ *
+ * **And, since 30 September 2026, never over a gesture at all.** Every word
+ * is now the thumb's (#34), so `PRESS` over `TAP` is the gesture said twice in
+ * two words — the 24 September objection again. The line stays where it says
+ * something the word does not: over a button's name (`PRESS` over `FIRE`,
+ * `HOLD` over `SHIELD`), and over a `CALL` or a `STILL`, which are not
+ * gestures. The kind stays on the cue as data: tests and the desk still read
+ * which gesture a mark asks for. Both hands that write a cue ask here
+ * (`boss-cue-text.ts`, `instar-word.ts`).
  */
 export function saysKind(kind: string | undefined, word: string): kind is string {
-  return kind !== undefined && kind !== word && kind !== "CARRY";
+  if (kind === undefined || kind === word || kind === "CARRY") return false;
+  if (kind === "CALL" || kind === "STILL") return true;
+  return BUTTONS.has((word.split(" ")[0] ?? "").replace(/!$/, ""));
 }

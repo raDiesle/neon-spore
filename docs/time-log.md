@@ -30202,3 +30202,14 @@ Bottleneck: landing. The finding came out of the previous lane's first `land`, s
 Bottleneck: writing — a new phase and two events are fourteen registrations outside the simulation, and each is found only from the one before it.
 
 *Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — A kind line stands only over a button's name, never over a gesture
+
+- reading: 5 min. `saysKind`, its two callers, and the three tests that drew `PRESS` over `TAP`.
+- writing: 10 min. `saysKind` narrowed to buttons, `CALL` and `STILL`; the gorge, instar and lash cases moved to `FIRE` and `SHIELD`.
+- looking: 5 min. THE VALVE's p2 frame, where the dim `PRESS` over `TAP` was found.
+- friction: 5 min. The lash test flips only on a box two lines tall, so moving the partner never fixed it; the word had to change.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the lash case's geometry depended on the kind line
+existing, which was invisible from the assertion that failed.

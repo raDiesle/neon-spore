@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { saysKind } from "../src/boss-cue-shape.js";
 
 /**
  * **A cue's word is what the thumb does, never what it does to the boss.**
@@ -81,5 +82,15 @@ describe("the words a cue says", () => {
       ({ word }) => !THUMB.has((word.split(" ")[0] ?? "").replace(/!$/, "")),
     ).map(({ file, word }) => `${file}: ${word}`);
     expect(wrong).toEqual([]);
+  });
+
+  it("wear a kind line only where it says something the word does not", () => {
+    expect(saysKind("PRESS", "TAP")).toBe(false);
+    expect(saysKind("HOLD", "PULL DOWN")).toBe(false);
+    expect(saysKind("CARRY", "MOVE")).toBe(false);
+    expect(saysKind("HOLD", "HOLD")).toBe(false);
+    expect(saysKind("PRESS", "FIRE")).toBe(true);
+    expect(saysKind("HOLD", "SHIELD")).toBe(true);
+    expect(saysKind("CALL", "SET")).toBe(true);
   });
 });
