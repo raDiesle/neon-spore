@@ -1302,6 +1302,7 @@ what the rest of this file holds.
 ## A claim whose trunk commit fails leaves its edit and its branch behind
 
 - **Found:** 2026-09-30, claude/queue-the-world-does-not-say-when-a-windows-latest-ask
+- **Taken:** 2026-09-30, claude/queue-tasks-f82769 (claim: claude/queue-a-claim-whose-trunk-commit-fails-leaves-its-edit)
 - **Files:** `tools/queue/repo.ts`, `tools/queue/run.ts`
 
 `onTrunk` writes `docs/queue.md` in the main checkout and then commits it
