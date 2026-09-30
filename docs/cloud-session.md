@@ -122,35 +122,19 @@ browser itself with `--remote-debugging-port` and connecting with
 have to be told apart first. It is a fallback: where the ordinary launch
 works, nothing changed.
 
-**Say it once, in the report, queue it, and then let it go.** The report is
-the sentence; the queue is what survives the session. A lane that could not
+**Say it once, in the report, and then let it go.** A lane that could not
 watch a wave at tempo, could not see a shape move, or could not take a frame
-cost lands with `bun run land --unverified "<what>"` — repeatable, one per
-thing — and the landing writes a single `## Unverified at <sha>:` entry into
-`docs/queue.md` beside the technical findings. A session at a machine that can
-look claims it with `bun run queue next`, opens it, and removes it with
-`bun run queue done`. **The flag has an afterwards**, for a session that
-lands and only then remembers what it never watched: `bun run unverified
-<sha> --unverified "<what>"` writes the same entry from an already-landed
-commit, without needing the lane `land` claimed it from.
-
-**An item only a phone in a hand can check is not queued.** A real thumb, a
-real finger, words read on two phones: both doors print it as *left for the
-owner's regression pass* and queue the rest (`splitUnverified` in
-`tools/land/unverified.ts`). The owner, 27 September 2026, clearing fifteen
-such entries: *"i dont want that things for me to test are counted towards
-queue items. i will test any feature more altogether with regression
-testing."* The report still names it, in the word *unverified*.
-
-That is a reversal of what the rest of this section argues, made by the owner on
-9 September 2026, and it is a narrow one. The objection below is to a list the
-*owner* owes answers to, and it stands: `docs/release-notes.md` is still
-read-only, there is still no verdict to type back in, and no count of anything
-outstanding. What changed is the observation that a cloud session's report has
-two halves treated differently for no reason a reader could see — a technical
-finding got a list that drains, an unverified look got a sentence in a
-transcript — and both are the same thing, which is work nobody has started. An
-`Unverified` entry is cleared by another session, not by an answer.
+cost names it in the report in the word *unverified*, and lands with
+`bun run land --unverified "<what>"` — repeatable, one per thing — which prints
+each as *left for the owner's regression pass*. **Nothing is queued.** From 9
+to 30 September 2026 the flag wrote an `## Unverified at <sha>:` entry into
+`docs/queue.md`, on the argument that a report ends with the session and a
+queue entry survives it; on 27 September the owner took out the ones only a
+phone in a hand could check, and on 30 September, with twenty *watched at
+tempo* entries in front of the work, the rest: *"do not handle non checked
+items to be unresolved from me. they should be gone from queue and do not
+block other tasks."* What a landing could not look at is his regression pass,
+not work another session owes (`tools/land/unverified.ts`).
 
 There used to be a second half to this: a `Check:` trailer on the commit, an outstanding list derived
 from those trailers, a ledger recording who had looked at what, and a sheet in

@@ -2,9 +2,9 @@
  * **The shas a reconcile rewrote, stamped again where the records name them.**
  *
  * `bun run land` stamps a release note with the sha of the commit it just put
- * on the trunk, and `land --unverified` heads a queue entry `Unverified at
- * <sha>:`. Both are right until `bun run push` finds `origin/main` ahead and
- * replays the trunk onto it (`reconcile.ts`): every commit origin had not seen
+ * on the trunk, and until 30 September 2026 `land --unverified` headed a
+ * queue entry `Unverified at <sha>:`. Both are right until `bun run push`
+ * finds `origin/main` ahead and replays the trunk onto it (`reconcile.ts`): every commit origin had not seen
  * gets a new sha, and the records go on naming the old one. Of the twelve
  * newest notes on 26 September 2026, five named a commit no history held.
  *

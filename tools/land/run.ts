@@ -14,7 +14,7 @@
  *   bun run land --sweep         the cleanup a --keep landing deferred
  *   bun run land --push          send origin/main too, whatever the sweep did
  *   bun run land --no-push       land, and leave origin/main alone regardless
- *   bun run land --unverified "<what>"   repeatable; queue what went unchecked
+ *   bun run land --unverified "<what>"   repeatable; print what went unchecked
  *
  * The one thing it will not do is merge. If the fast-forward is not available
  * the landing is refused, because the alternative is a fork in a history that

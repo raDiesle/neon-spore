@@ -84,8 +84,7 @@ bun run words --clean  # the CLEAN list and the CEILING that `tools/words/clean.
 ```
 bun run land           # rebase, check, fast-forward, note it, sweep
 bun run land --keep    # the same without the sweep or the push
-bun run land --unverified "<what>"   # queue what this landing could not look at
-bun run unverified <sha> --unverified "<what>"   # the same, once landing already happened
+bun run land --unverified "<what>"   # print what this landing could not look at — never queued
 bun run sweep          # the cleanup a --keep landing deferred, on its own
 bun run push           # send main to origin — reconciles the trunk first if origin moved
 bun run reconcile      # bring main up to origin's copy by itself, without sending anything back

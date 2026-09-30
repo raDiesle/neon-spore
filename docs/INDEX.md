@@ -3102,8 +3102,7 @@ by hand never moves.
 | `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check`, and who holds the trunk once it is over |
 | `tools/land/race-retry.ts` | **A trunk that moved during the check**, replayed onto and checked narrowly |
-| `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
-| `tools/land/unverified-run.ts` | `bun run unverified <sha> --unverified "<what>" [--unverified "<what>" ...]` |
+| `tools/land/unverified.ts` | `--unverified` — what a landing could not check, printed for the owner's regression pass and never queued |
 | `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |
 | `tools/land/done-twice.ts` | An entry the lane and the trunk both took out, said at landing with the commit that got there first |
 | `tools/land/merges.ts` | **A merge commit on the trunk is refused before `bun run push` sends it** |

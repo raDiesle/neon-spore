@@ -14,7 +14,7 @@
  * pick stepped over on every machine after `next` had handed one out five
  * times in one sitting. On 27 September such a check stopped being a queue
  * entry: it is the owner's regression pass, `bun run land --unverified`
- * leaves it out (`splitUnverified`), and a `Where: phone` line is reported by
+ * queues nothing since 30 September, and a `Where: phone` line is reported by
  * `problems.ts` so a hand-written one is caught rather than read.
  *
  * **There is no reservation the other way round.** There was until 21

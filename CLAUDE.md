@@ -96,10 +96,10 @@ A session started from a phone clones `origin` and never sees this checkout.
 - **It lands and pushes `main` after every queue item**, as `take` pushes
   the claim, once rebased onto `origin/main` and `bun run check` is green;
   otherwise it pushes the branch and says so.
-- **It says which parts it could not verify, in that word, and queues them**
-  with `bun run land --unverified "<what>"`, repeatable. `bun test` and the
-  typecheck hold unaided; a wave watched at tempo, a sheet seen by an eye,
-  `bun run perf` is *unverified*. **The relay is not**: `bun run relay:check:all`
+- **It names what it could not verify, in that word, in its report**;
+  `bun run land --unverified "<what>"` prints it, queues nothing. `bun test`
+  and the typecheck hold unaided; a wave watched at tempo, a sheet seen by an
+  eye, `bun run perf` is *unverified*. **The relay isn't**: `relay:check:all`
   starts a wrangler, runs the four checks and stops it, and it works here.
 - **Its servers need a host**: `PREVIEW_HOST=127.0.0.1`, `DIRECTOR_HOST=127.0.0.1`.
 - **As many at once as are reasonable**, on different packages.

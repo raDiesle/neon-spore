@@ -20,7 +20,7 @@
  * replay pointed at the other pair of branches, so it is now the same code:
  * `reconcile.ts`. It refuses on anything that is a real disagreement, and the
  * trunk is left where it was when it does. **The replay rewrites the shas the
- * release notes and `Unverified at` headings were stamped with**, so it
+ * release notes and queue entries were stamped with**, so it
  * restamps them in one more commit before the send (`restamp.ts`).
  *
  * **Two gates stand before the send**: a `docs/INDEX.md` that names one file

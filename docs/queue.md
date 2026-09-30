@@ -29,15 +29,16 @@ move them out again** without him asking for it in those words; the whole
 arrangement — the spec page, the director's group, the rule in three files —
 was written and taken out again inside one evening.
 
-**And a landing that could not check itself writes one, without being asked.**
-`bun run land --unverified "<what>"` puts an `## Unverified at <sha>:` entry
-here at the moment the trunk moves, and a cloud session uses it every time it
-lands something it could not look at — a wave never watched at tempo, a shape
-never seen to move, a frame cost the sandbox is too slow to take. It is an
-ordinary entry: claimed, opened on a machine that can look, and removed with
-`queue done`. `docs/cloud-session.md` has why the alternative — leaving it in a
-report that ends with the session — was the half of that arrangement that never
-worked.
+**A landing that could not check itself writes nothing here**, since 30
+September 2026. From 9 September `bun run land --unverified "<what>"` put an
+`## Unverified at <sha>:` entry on this list every time a lane landed something
+it could not look at, and twenty *watched at tempo* entries piled up in front
+of the work. The owner took them out: *"do not handle non checked items to be
+unresolved from me. they should be gone from queue and do not block other
+tasks."* What went unchecked is his regression pass — the landing prints it,
+the report names it in the word *unverified*, and it is never an entry, never
+a `Needs:` and never written by hand (`tools/land/unverified.ts`). A look he
+picks in VERSUS is the same: his to check and decide, on the VERSUS page.
 
 **And a topic that asks the owner something belongs here too**, on an
 `- **Asks:** <question>` line. That is a change the owner made on 6 September
@@ -275,11 +276,8 @@ anybody's.
 **A check that needs a phone in a hand is not queued at all**, since 27
 September 2026. The owner cleared fifteen of them that day: *"i dont want that
 things for me to test are counted towards queue items. i will test any feature
-more altogether with regression testing."* `bun run land --unverified` prints
-an item saying *real phone*, *real thumb*, *on glass* or *on two phones* as
-*left for the owner's regression pass* and queues only the rest — never *at
-tempo* alone, which is a screen's and still queued (`tools/land/unverified.ts`).
-Do not write such an entry by hand either; say it in the report. A
+more altogether with regression testing."* Since 30 September nothing a landing
+could not check is queued, phone or screen (above). A
 `- **Where:** phone` line is a reported problem (`tools/queue/problems.ts`):
 from 22 September 2026 it was a third value, `PHONE ONLY`, that the automatic
 pick stepped over on every machine, and it went when nothing wrote it any more.
@@ -469,7 +467,7 @@ tension, the cable paying out smoothly while the brake holds and snapping
 taut with a visible shudder the instant the brake breaks — the tell is
 the shudder, not a colour change, the same drawn-as-mechanism choice
 THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
-drawn yet and stays unverified at tempo until the owner has looked.
+drawn yet; how it looks at tempo is the owner's to judge, not an entry.
 
 ## §42 THE SLUICE — the simulation lane
 
@@ -515,269 +513,8 @@ the seal visibly straining and creeping open the instant a thumb eases
 rather than snapping between two fixed states, and a bolt that pays out
 smoothly while the seal holds and snaps taut with a shudder the instant
 the gate springs — the same drawn-as-mechanism choice THE VISE's pinch
-and THE WINCH's brake both make. Nothing here is drawn yet and stays
-unverified at tempo until the owner has looked.
-
-## Unverified at 713d49b1e: THE MANTLE's buckle, vent, crack and turn, played at t…
-
-- **Found:** 2026-09-26, claude/queue-23-the-mantle-a-fuller-story-arc-buckle-vent-tur
-- **Files:** `docs/INDEX.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-mantle.ts`, `packages/audio/src/sounds/boss-mantle.ts`, `packages/audio/test/bind.test.ts`
-
-*§23 THE MANTLE fights back: a buckle, a vent, a crosswise crack and a turn* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
-
-- THE MANTLE's buckle, vent, crack and turn, played at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at cce1f5176: THE SLOW's light round THE OCULUS's lens watched at te…
-
-- **Found:** 2026-09-26, claude/queue-27-oculus-aim
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/src/slow-intake-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`
-
-*THE SLOW's light stands round THE OCULUS's lens rather than splitting it* landed from a session that could not look at it. What went unchecked:
-
-- THE SLOW's light round THE OCULUS's lens watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 394267839: THE MANTLE's buckle, vent, cross crack and turn watche…
-
-- **Found:** 2026-09-26, claude/mantle-story-look
-- **Files:** `docs/INDEX.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/handle-place-boss.ts`, `packages/render/src/mantle-brace.ts`, `packages/render/src/mantle-draw.ts`, `packages/render/src/mantle-grip.ts`
-
-*THE MANTLE's buckle, vent, cross crack and turn are drawn* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
-
-- THE MANTLE's buckle, vent, cross crack and turn watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at b083b387a: THE SLOW's light round THE GIMBAL, THE HASP, THE MANTL…
-
-- **Found:** 2026-09-26, claude/queue-slow-boss-aim
-- **Files:** `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/test/slow-boss-aim.test.ts`
-
-*THE SLOW's light stands round THE GIMBAL, THE HASP, THE MANTLE, THE VALVE and THE VISE* landed from a session that could not look at it. What went unchecked:
-
-- THE SLOW's light round THE GIMBAL, THE HASP, THE MANTLE and THE VALVE watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 40d1ce2b9: THE MANTLE's spark bursting on the hull, watched at te…
-
-- **Found:** 2026-09-26, claude/mantle-blow
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-strike-look.ts`, `packages/render/src/mantle-blow.ts`, `packages/render/test/boss-strike.test.ts`, `packages/sim/src/mantle-step.ts`
-
-*THE MANTLE's spark bursts on the hull itself, not a rock* landed from a session that could not look at it. The commit touched 1 more file. What went unchecked:
-
-- THE MANTLE's spark bursting on the hull, watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at acbd58fe9: THE VISE's receipts at tempo: a crack's thud, a sprung…
-
-- **Found:** 2026-09-26, claude/vise-fx
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`
-
-*THE VISE's receipts drawn: a crack thuds, a sprung lobe rings open, a kernel hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
-
-- THE VISE's receipts at tempo: a crack's thud, a sprung lobe ringing, the kernel's flash and the split's, never seen in a real frame
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 8c0b4ab8c: THE KEEL's flip, marrow and cooldown never watched at…
-
-- **Found:** 2026-09-26, claude/queue-24-the-keel-a-fuller-story-arc-a-flip-a-reveal-a
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-choreographed-d.ts`, `packages/audio/src/bind-keel.ts`
-
-*THE KEEL's spine flips, lights its marrow and cools before the end* landed from a session that could not look at it. The commit touched 21 more files. What went unchecked:
-
-- THE KEEL's flip, marrow and cooldown never watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at f36bb0d02: THE RIME's body watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-29-the-rime-the-look
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/palette-creatures.ts`
-
-*THE RIME's body: a frosted pane of glass, wiped clear a half at a time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
-
-- THE RIME's body watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 54202e6f4: THE KEEL's flip, marrow and cooldown watched at tempo
-
-- **Found:** 2026-09-26, claude/keel-story-look
-- **Files:** `docs/INDEX.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zd.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`, `packages/render/src/keel-draw.ts`, `packages/render/src/keel-grip.ts`
-
-*THE KEEL's flip, marrow and cooldown are drawn* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
-
-- THE KEEL's flip, marrow and cooldown watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 2b291c8d3: THE VALVE's jet, brace, wipe and seal watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-25-the-valve-a-fuller-story-arc-a-backdraught-a
-- **Files:** `docs/INDEX.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-d.ts`, `packages/audio/src/bind-valve.ts`, `packages/audio/test/bind.test.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`, `packages/render/src/effects-spark-silent-boss-d.ts`
-
-*THE VALVE tells a story between its pins: a jet, a brace, a wipe and a seal* landed from a session that could not look at it. The commit touched 16 more files. What went unchecked:
-
-- THE VALVE's jet, brace, wipe and seal watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at babf72274: THE VALVE's story states watched at tempo: the jet, th…
-
-- **Found:** 2026-09-26, claude/queue-25-the-valve-a-fuller-story-arc-a-backdraught-a
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/valve-draw.ts`, `packages/render/src/valve-marks.ts`, `packages/render/src/valve-pose.ts`, `packages/render/src/valve-shape.ts`
-
-*THE VALVE's story states are drawn: the jet, the brace, the wipe, the seal* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
-
-- THE VALVE's story states watched at tempo: the jet, the brace's shudder, the wipe's film, the seal's seam
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 8a8d7d625: THE TRIVET's body watched at tempo
-
-- **Found:** 2026-09-26, claude/trivet-rebase
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/palette-creatures.ts`
-
-*THE TRIVET is drawn: a gunmetal stand on three needles, its feet lit by the chord* landed from a session that could not look at it. The commit touched 12 more files. What went unchecked:
-
-- THE TRIVET's body watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at ebfb94360: THE SEAM's turn and glow at tempo
-
-- **Found:** 2026-09-26, claude/queue-26-the-seam-the-ridge-turns-away-then-glows-from
-- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-d.ts`, `packages/audio/src/bind-seam.ts`, `packages/audio/test/bind.test.ts`, `packages/content/src/waves/act-11.ts`, `packages/render/src/effects-ingest-silent-boss-d.ts`
-
-*THE SEAM turns its face away, then glows from within* landed from a session that could not look at it. The commit touched 13 more files. What went unchecked:
-
-- THE SEAM's turn and glow at tempo
-
-## Unverified at 819111adf: THE SEAM's turn and glow watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-26-the-seam-the-ridge-turns-away-then-glows-from
-- **Files:** `docs/INDEX.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/seam-draw.ts`, `packages/render/src/seam-story.ts`, `packages/render/test/seam-story-frame.test.ts`
-
-*THE SEAM is drawn turning its back, and glowing from within* landed from a session that could not look at it. What went unchecked:
-
-- THE SEAM's turn and glow watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at d75b9936b: THE SLOW's light round THE TRIVET seen in a frame
-
-- **Found:** 2026-09-26, tmp-trivet-aim
-- **Files:** `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/src/trivet-shape.ts`, `packages/render/test/slow-boss-aim.test.ts`
-
-*THE SLOW's light stands round THE TRIVET* landed from a session that could not look at it. What went unchecked:
-
-- THE SLOW's light round THE TRIVET seen in a frame
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 48ad4d936: THE TRIVET's HOLD and FIRE seen on the field at tempo
-
-- **Found:** 2026-09-26, tmp-trivet-cue
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-cue-read-zh.ts`, `packages/render/src/boss-cue.ts`, `packages/render/test/boss-cue-trivet.test.ts`
-
-*THE TRIVET's cue says HOLD on each foot a lit chord asks for, and FIRE under the lit hub* landed from a session that could not look at it. What went unchecked:
-
-- THE TRIVET's HOLD and FIRE seen on the field at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 8a048e010: THE TRIVET's plant thud, clamp flare, hub flash and co…
-
-- **Found:** 2026-09-26, tmp-trivet-fx
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-c.ts`, `packages/render/src/effects-boss-roster.ts`, `packages/render/src/effects-boss.ts`
-
-*THE TRIVET's receipts drawn: a plant thuds, a clamp flares as it locks, a hub hit flashes wider each time* landed from a session that could not look at it. The commit touched 8 more files. What went unchecked:
-
-- THE TRIVET's plant thud, clamp flare, hub flash and collapse seen at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 98106e512: THE TRIVET's lurch aim and needle sparks watched at te…
-
-- **Found:** 2026-09-26, tmp-trivet-aim
-- **Files:** `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/slow-boss-aim.ts`, `packages/render/src/trivet-fx.ts`, `packages/render/test/slow-boss-aim.test.ts`, `packages/render/test/trivet-fx.test.ts`
-
-*THE SLOW follows THE TRIVET's lurch, and its hit and turned needle burst where they happen* landed from a session that could not look at it. What went unchecked:
-
-- THE TRIVET's lurch aim and needle sparks watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at 29123e6dc: THE HALTER never watched at tempo
-
-- **Found:** 2026-09-26, claude/queue-36-the-halter-the-simulation-lane
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`
-
-*§36 THE HALTER: pair RestraintGate with ChordHold, the simulation lane* landed from a session that could not look at it. The commit touched 55 more files. What went unchecked:
-
-- THE HALTER never watched at tempo
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+and THE WINCH's brake both make. Nothing here is drawn yet; how it
+looks at tempo is the owner's to judge, not an entry.
 
 ## A whole-picture round's timeout hit is never drawn
 
@@ -968,20 +705,6 @@ on a mark follows it.
 Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
-
-## Unverified at bb0c78c65: THE GOVERNOR's body watched at tempo: the flyweights r…
-
-- **Found:** 2026-09-29, claude/queue-43-the-governor-the-look
-- **Files:** `docs/INDEX.md`, `docs/asset-catalogue.md`, `docs/queue.md`, `docs/reference/style-guide.svg`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/render/src/boss-draw-clocks-d.ts`
-
-*THE GOVERNOR is drawn: a flywheel's needle under a flyball governor* landed from a session that could not look at it. The commit touched 19 more files. What went unchecked:
-
-- THE GOVERNOR's body watched at tempo: the flyweights rising as a pad lifts, and the dial tipping to the hub
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
 
 ## THE SCOUT's loads are unreachable
 

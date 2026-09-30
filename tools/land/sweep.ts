@@ -6,8 +6,7 @@
  * Split out of `run.ts` because that file's job is deciding and moving refs;
  * this file's job is cleanup, and it was most of `run.ts`'s length. The other
  * thing that happens after the fast-forward — writing `docs/release-notes.md`
- * and, when a session named one, the `--unverified` entry in `docs/queue.md` —
- * is `note-commit.ts`, which left here for the same reason.
+ * and printing what `--unverified` named — is `note-commit.ts`, which left here for the same reason.
  */
 
 import { liveClaims, partitionMerged } from "./claims.js";

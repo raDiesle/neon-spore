@@ -23,7 +23,7 @@ import { type Landed, PREAMBLE } from "../notes.js";
  */
 
 let root = "";
-/** The lane's own commit, so an `--unverified` entry can name a real range. */
+/** The lane's own commit, so a landing can name a real range. */
 let work = "";
 
 /** One `git` in the temporary trunk, unless another tree is named. */
@@ -105,19 +105,16 @@ describe("a release note in a clone with no worktrees", () => {
 });
 
 /**
- * The `--unverified` entry, which is the same commit and a different file.
- *
- * Worth a repository rather than a string: what `unverified.test.ts` cannot
- * reach is the `Files:` line, which is read off the landing itself with
- * `git diff --name-only` so that an entry can never name a file the commits
- * did not touch — and the `--only` naming two paths, which is what keeps the
- * note and the entry one bookkeeping step instead of two.
+ * What `--unverified` names, which is printed and **never queued**: the owner,
+ * 30 September 2026, wants nothing he has not checked on the queue at all
+ * (`unverified.ts`). Worth a repository rather than a string because the
+ * thing to prove is a file the commit does not touch.
  */
 describe("what a landing could not check", () => {
   test(
-    "goes into docs/queue.md, in the commit that carries the note",
+    "leaves docs/queue.md alone, and the note is the commit's only file",
     async () => {
-      const before = await capture(["rev-parse", "HEAD"]);
+      const before = await Bun.file(join(root, "docs/queue.md")).text();
       const landed: Landed[] = [{ ...LANDED[0]!, full: work, sha: work.slice(0, 7) }];
 
       await writeNotes(cloneState(), landed, "main", root, [
@@ -125,55 +122,9 @@ describe("what a landing could not check", () => {
         "THE GRATE's timing at tempo",
       ]);
 
-      const queue = await Bun.file(join(root, "docs/queue.md")).text();
-      expect(queue).toContain("- THE GRATE's timing at tempo");
-      // Off the diff, not off the session: `readme.md` is what the lane changed.
-      expect(queue).toContain("`readme.md`");
-
+      expect(await Bun.file(join(root, "docs/queue.md")).text()).toBe(before);
       const touched = await capture(["show", "--name-only", "--format=", "HEAD"]);
-      expect(touched).toContain("docs/release-notes.md");
-      expect(touched).toContain("docs/queue.md");
-      expect(await capture(["rev-parse", "HEAD^"])).toBe(before);
-    },
-    repoTimeout(25),
-  );
-});
-
-/**
- * The `Files:` line after a landing that **removed** something.
- *
- * `docs/queue.md` is held to naming only files the tree has
- * (`tools/test/doc-drift.test.ts`), and a diff names both sides of a change —
- * so an entry written off one listed the paths the landing had just deleted
- * and the next `bun run check` failed on the trunk. It happened landing a
- * VERSUS decision on 13 September 2026, where deleting the candidate
- * directories is most of what the commit does.
- */
-describe("an entry after a landing that deleted files", () => {
-  test(
-    "names what the commit left standing, never what it took away",
-    async () => {
-      await writeFile(join(root, "gone.md"), "here for now\n");
-      await run(["add", "gone.md"]);
-      await run(["commit", "-q", "-m", "a file that will go"]);
-      await run(["rm", "-q", "gone.md"]);
-      await writeFile(join(root, "kept.md"), "still here\n");
-      await run(["add", "kept.md"]);
-      await run(["commit", "-q", "-m", "take it away again"]);
-      const removal = await capture(["rev-parse", "HEAD"]);
-      await run(["branch", "--force", "main", "HEAD"]);
-
-      await writeNotes(
-        cloneState(),
-        [{ ...LANDED[0]!, full: removal, sha: removal.slice(0, 7) }],
-        "main",
-        root,
-        ["--unverified", "whether the thing that replaced it reads"],
-      );
-
-      const queue = await Bun.file(join(root, "docs/queue.md")).text();
-      expect(queue).toContain("`kept.md`");
-      expect(queue).not.toContain("`gone.md`");
+      expect(touched.trim()).toBe("docs/release-notes.md");
     },
     repoTimeout(25),
   );

@@ -27,7 +27,7 @@ export type Source = "queue" | "parked";
  * There was a `phone` value too, from 22 September 2026, for an entry needing
  * a device in a hand, which the automatic pick stepped over everywhere. On 27
  * September such a check stopped being a queue entry at all — it is the
- * owner's regression pass, and `bun run land --unverified` leaves it out — so
+ * owner's regression pass, and `bun run land --unverified` queues nothing — so
  * a `phone` line is now reported (`problems.ts`) like any other stray value.
  *
  * There was a `cloud` value beside `local` for eight days and the owner took

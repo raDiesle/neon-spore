@@ -1,8 +1,8 @@
 /**
  * The files a landing writes at the moment `main` moves, and the one commit
  * that carries them: `docs/release-notes.md` always, `docs/time-log.md` when
- * the landing's own commits wrote an entry in it, and `docs/queue.md` when the
- * session named something with `--unverified`.
+ * the landing's own commits wrote an entry in it. What `--unverified` names is
+ * printed, never written (`unverified.ts`).
  *
  * Split out of `sweep.ts` because that file is the cleanup — the branch, the
  * worktrees, the spent specs — and this is bookkeeping about the landing
@@ -16,7 +16,7 @@ import type { LandState } from "./land.js";
 import { branchMade, claimTimes } from "./lane-start.js";
 import { type Landed, prepend } from "./notes.js";
 import { laneStart, minutesBetween, stampInto } from "./stamp.js";
-import { appendEntry, parseUnverified, renderUnverified, splitUnverified } from "./unverified.js";
+import { parseUnverified } from "./unverified.js";
 
 /**
  * The release note, written where the fact is known.
@@ -60,10 +60,6 @@ export async function writeNotes(
   const existing = (await file.exists()) ? await file.text() : "";
   await Bun.write(path, prepend(existing, landed));
   const what = landed.length === 1 ? "one landing" : `${landed.length} landings`;
-  // The queue entry rides in the same commit as the note. Two commits would be
-  // two things to explain in `docs/release-notes.md` — and the note's own entry
-  // is derived from the landing, not from this commit, so the pair is one
-  // bookkeeping step rather than one of each.
   const paths = ["docs/release-notes.md"];
   if (await stampTimeLog(tree, landed, state.branch, TRUNK)) paths.push("docs/time-log.md");
   const unverified = parseUnverified(argv);
@@ -71,10 +67,11 @@ export async function writeNotes(
   // meant to say something and said nothing. Landing silently there is the
   // failure this whole flag exists to stop, so it is said out loud.
   if (argv.includes("--unverified") && unverified.length === 0) {
-    console.log("  ⚑ --unverified needs what went unchecked, in quotes — nothing was queued");
+    console.log("  ⚑ --unverified needs what went unchecked, in quotes — nothing was said");
   }
-  const queued = await writeUnverified(tree, state, landed, unverified);
-  if (queued) paths.push("docs/queue.md");
+  for (const item of unverified) {
+    console.log(`  left     for the owner's regression pass — ${item}`);
+  }
   await gitOrDie(["commit", "--only", ...paths, "-q", "-m", `Release notes for ${what}`], tree);
   // Only in a clone: the commit just made is on whatever this checkout is
   // standing on, and the trunk is a ref beside it rather than the branch that
@@ -127,62 +124,5 @@ async function stampTimeLog(
   if (stampedText === existing) return false;
   await Bun.write(path, stampedText);
   console.log(`  measured docs/time-log.md — ${minutes} min, ${start.from} to trunk`);
-  return true;
-}
-
-/**
- * `--unverified` — one queue entry for what this landing could not check.
- *
- * Written into the trunk's own `docs/queue.md`, beside the technical findings,
- * because it is the same kind of thing: work nobody has started, waiting for a
- * session that can do it. `unverified.ts` carries why that is a reversal of
- * what `notes.ts` argues, and why it is a narrow one.
- *
- * The paths come from the landing rather than from the session, so an entry
- * cannot name files the commits did not touch — `git diff --name-only` over
- * exactly the commits that landed.
- *
- * **Deletions are left out**, and that is not tidiness: `docs/queue.md` is held
- * to naming only files the tree has (`tools/test/doc-drift.test.ts`), so an
- * entry that listed what the landing *removed* turned the trunk red on the
- * commit after it. It happened on 13 September 2026, landing a VERSUS
- * decision — the candidate directories go, and one of them was the eighth path
- * in the diff and so the one the `Files:` line showed. Lowercase `d` is git's
- * own way to say "every change except a deletion".
- */
-async function writeUnverified(
-  tree: string,
-  state: LandState,
-  landed: Landed[],
-  items: readonly string[],
-): Promise<boolean> {
-  const { queued: unverified, owner } = splitUnverified(items);
-  for (const item of owner) console.log(`  left     for the owner's regression pass — ${item}`);
-  if (unverified.length === 0) return false;
-  const oldest = landed[0]?.full ?? "";
-  const newest = landed.at(-1);
-  if (!newest) return false;
-  const diff = await git(
-    ["diff", "--name-only", "--diff-filter=d", `${oldest}^`, newest.full],
-    tree,
-  );
-  const files = diff
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
-  const path = join(tree, "docs/queue.md");
-  const file = Bun.file(path);
-  const existing = (await file.exists()) ? await file.text() : "";
-  const entry = renderUnverified({
-    branch: state.branch,
-    date: newest.date,
-    sha: newest.sha,
-    items: unverified,
-    files,
-    subjects: landed.map((c) => c.subject),
-  });
-  await Bun.write(path, appendEntry(existing, entry));
-  const what = unverified.length === 1 ? "one thing" : `${unverified.length} things`;
-  console.log(`  queued   docs/queue.md — ${what} this landing could not check`);
   return true;
 }

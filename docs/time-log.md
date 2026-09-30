@@ -30748,3 +30748,20 @@ Bottleneck: two strips had to be rerun because of flag units, not anything
 the game drew.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — unchecked items off the queue for good
+
+- reading: 10 min. `unverified.ts`, `unverified-run.ts`, `note-commit.ts`,
+  their tests, and every document and comment that told a session to queue
+  what it could not look at.
+- writing: 15 min. The queuing path out of both doors, the tests turned
+  round to prove the queue is untouched, twenty entries removed, and the
+  rule rewritten in `queue.md`, `cloud-session.md`, `commands.md` and
+  `CLAUDE.md`.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The first queue listing was cut short by `head` and had
+  to be run again into a file to be counted.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the rule lived in eight comments and four documents, each
+saying the same thing in its own words.
