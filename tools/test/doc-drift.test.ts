@@ -1,5 +1,6 @@
-import { describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
@@ -16,6 +17,7 @@ import {
   TREE,
 } from "./doc-paths.js";
 import { itCosts } from "./figure.js";
+import { loadedTimeout } from "./repo-time.js";
 
 /**
  * Document drift, as a test.
@@ -193,11 +195,20 @@ function namesATsFile(mention: string): boolean {
 }
 
 describe("a comment under packages/*/src or apps/*/src", () => {
+  // Read together, before the case: 2,590 files one after another took 6.9 s
+  // at a load of 36 on 30 September 2026 and failed `land`, and 0.7 s at once,
+  // which is why the hook, too, carries a figure.
+  const sources = new Map<string, string>();
+  beforeAll(async () => {
+    const files = sourceFiles();
+    const texts = await Promise.all(files.map((f) => readFile(join(ROOT, f), "utf8")));
+    for (const [i, f] of files.entries()) sources.set(f, texts[i] ?? "");
+  }, loadedTimeout(150));
+
   itCosts(350, "names a source file this tree still has", () => {
     const found: { file: string; mention: string }[] = [];
     let claims = 0;
-    for (const file of sourceFiles()) {
-      const source = readFileSync(join(ROOT, file), "utf8");
+    for (const [file, source] of sources) {
       for (const span of commentSpans(source)) {
         for (const match of span.matchAll(/`([^`\n]+)`/g)) {
           const mention = (match[1] ?? "").trim();

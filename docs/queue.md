@@ -1327,3 +1327,25 @@ reported as figure drift. That is the same cause `drift.test.ts` had until
 this date. Read the sources through `treeText` (`tools/test/tree-text.ts`), as
 the other tree guards do, add the file to that header's list of callers,
 and time the case again alone. Prove it with `bun run check`.
+
+## Three tree walks run past their figures under load
+
+- **Found:** 2026-09-30, claude/queue-bottom-up
+- **Files:** `tools/test/doc-drift.test.ts`, `tools/test/tree-walk.test.ts`, `packages/sim/test/limits.test.ts`
+
+At a load average near 38, one `bun run check` reported figure drift on three
+walks. The drift was reported, not failed:
+
+- `tree-walk.test.ts`: about 623 ms idle against a figure of 120.
+- `limits.test.ts`'s "keeps source files under the limit": about 1429 ms idle
+  against a figure of 200.
+- `doc-drift.test.ts`'s "is a file this repository has": about 1409 ms idle
+  against a figure of 350, measured alone.
+
+The same file's source-comment case failed `land` outright. It was fixed by
+reading its 2,590 files in parallel in a `beforeAll`: 0.7 s instead of 6.9 s.
+`pull-way-roll-out.test.ts` had already been fixed the same way, by ac51d29f1.
+
+For each of the three: time it alone on a quiet machine. If it reads files one
+after another, read them in parallel before the case. Otherwise raise the
+figure to what the timing shows. Prove it with `bun run check`.

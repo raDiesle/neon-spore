@@ -30251,3 +30251,13 @@ Bottleneck: friction. On a shared machine every timing had to be taken several t
 Bottleneck: reading. Deciding needed proof that the simulation never reaches a spent catch still past the notch, which is why the fix changes no frame.
 
 *Measured: 29 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — doc-drift.test.ts's source-comment walk timed out a `land`
+
+- reading: 10 min. `pull-way-roll-out.test.ts`, `tools/test/figure.ts`, `doc-drift.test.ts`, and what reading src costs one file after another against in parallel.
+- writing: 10 min. The parallel read in a `beforeAll` with a figure, first in `pull-way-roll-out.test.ts` (already landed by its claim holder, and dropped) and then in `doc-drift.test.ts`, and one queue finding.
+- looking: 0 min. Nothing drawn changed.
+- friction: 15 min. A compaction mid-lane, a scripted edit refused by the guard hook, and a fix another session had landed first.
+- landing: 20 min. `check:fast` at a load near 39, and three `land`s refused, the last because the fix was already on the trunk.
+
+Bottleneck: landing. At a load near 38 every `check` takes minutes, and the entry this lane worked was claimed by another branch that landed first.
