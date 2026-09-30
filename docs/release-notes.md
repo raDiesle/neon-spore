@@ -9,6 +9,26 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 75f623ae2 — Queue: `tools/land/run.ts` is at 249 lines
+
+The land-guard lane's new check took the file to the line, and it is filed here so the next addition cuts it first.
+
+## 2026-09-30 · 2ce0ea5aa — Cut the three files THE SCOUT's seat swap took near the size line
+
+`control-sets.ts` was at 233 lines. Its seating (`controlSeat`, `swapSeats`, `setSeating`) is now in `control-seats.ts` beside `seatedSet`, and it is still re-exported from the old place, so no caller moved. In `band.ts`, which was at 228, one seat's half went to `band-half.ts` and `controlLobes` went beside `bandLobes`. In the director's `stage.ts`, which was at 225, the panel and the keyboard went to `stage-controls.ts`. Nothing is drawn or pressed differently.
+
+## 2026-09-30 · 6bac6ebbc — Cut the wave's opening out of `waves.ts` and the director's refresh out of `main.ts`
+
+Both files were near the line ceiling. The opening's retries are now `createWaveOpening` in `apps/game/src/wave-opening.ts`, and `waves.ts` is at 161 lines. What every director panel does when the wave under it moves (`onShape`, `refreshAll`, `jumpToBrushWave`) is now `bindRefresh` in `tools/director/src/main-refresh.ts`, and `main.ts` is at 202 lines. The refresh reads the panels through a getter, so it is bound before they exist. Nothing changes in how either one behaves.
+
+## 2026-09-30 · f7576f538 — Move THE NETTLE's boss rows onward to the second mechanics page
+
+`mechanics-bosses.ts` was at 249 lines. Its eighteen rows from THE NETTLE to THE CYST now open `mechanics-bosses-b.ts`, and the table takes them through the spread it already had, so the keys, and `MECHANIC_IDS`, keep their order. The first page is at 159 lines.
+
+## 2026-09-30 · 52c4f990d — Cut THE SCOUT's test harness and round trip out of `scout.test.ts`
+
+The file was at 348 lines. The shared world, the press and the arena walk are now in `scout-harness.ts`, the launch-to-home cases are in `scout-trip.test.ts`, and `scout.test.ts` keeps the rest at 86 lines. No test changed.
+
 ## 2026-09-30 · c28bddbd4 — The wave marks are content's question, asked by the director's rail and JUMP TO WAVE
 
 Which of boss, panel, guide and fault a wave carries is now one function, `waveMarksOn` in packages/content beside `firstOnPanel`. The director's rail (its drawn marks and its row of pressable symbols) and the game's JUMP TO WAVE filter both call it instead of each keeping a copy; only their glyphs and words stay local, typed against content's ids. The called-not-re-derived table has a row for it. Nothing a player or the director sees changes.
