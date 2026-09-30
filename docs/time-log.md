@@ -30665,3 +30665,5 @@ wave, read one at a time.
 
 Bottleneck: finding the tick THE SLOW is open on — AUTO shuts it the tick
 after `instarShow`.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

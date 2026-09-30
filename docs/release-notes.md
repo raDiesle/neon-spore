@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 254fa8221 — FLAME's flicker moves again on the director's cards
+
+FLAME undid its move with a minus written in front of the centre, so a centre left of the origin read `--6.04` and the browser dropped the whole transform: the flame stood still on every card that had one. The way back is now its own negated pair of numbers, and a test keeps any tail from putting a minus before an interpolation. A fix to something wrong, not a look.
+
 ## 2026-09-30 · 125818fc0 — THE OCULUS watched at tempo: the shut, the break, the lit core and the shatter all read
 
 AUTO played THE OCULUS through. Its lens slides shut in two halves, and at the break cracks run across the socket and flake at its middle. The core lights under a hit, the reseal shows its ring, and in the shatter dark rifts open across the lens. Nothing needed changing.
