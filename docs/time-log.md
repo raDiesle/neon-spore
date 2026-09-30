@@ -30055,3 +30055,5 @@ Bottleneck: the item was stale when claimed — its work had landed piecemeal wi
 
 Bottleneck: reading — two lanes answered neighbouring questions a day apart,
 and only `land`'s merge note said the second had overtaken the first.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 2d73bcb41 — THE PUSH's exception says what is left of it
+
+The catalogue and the assists spec still called THE PUSH's arrows the standard set's one exception in the words of 29 September, beside every held rock. Since 30 September they show only the beat of quiet after a carry, and the exception stands for that and nothing more. Nothing drawn changed.
+
 ## 2026-09-30 · cd72d701a — THE VALVE's story between the pins already had its hands
 
 The cue words (TAP, HOLD, RUB on the socket), the pin's hands in the jet, brace, wipe and seal, the twelve story bursts from valve-fx-story.ts and AUTO's play through to open had all shipped with the story's look; the item is closed with nothing changed in code. Unverified at tempo until the owner has looked.
