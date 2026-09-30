@@ -1356,6 +1356,7 @@ the two lists so the files match the page, and drop the decision and the two
 ## Two ON THE FIELD rows carry the wrong gesture stamp
 
 - **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-two-on-the-field-rows-carry-the-wrong-gesture-st)
 - **Files:** `tools/director/src/field-controls-gorge.ts`, `tools/director/src/field-controls-undertow.ts`, `tools/director/src/field-notes.ts`
 
 THE GORGE'S PRY is stamped as a hold but counts a pry past a distance, so it
