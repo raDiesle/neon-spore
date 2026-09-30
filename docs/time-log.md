@@ -29885,3 +29885,13 @@ Bottleneck: deciding, for each citation, whether it named a generic rule or THE 
 Bottleneck: `replay.ts`, the file the queue item named, had no room, so the seam got a file of its own.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE STARE's open eye lags on the owner's phone: a budget test, and none of the costs a desktop can see explain it
+
+- reading: 5 min. `drawGaze` in `stare-draw.ts`, `instar-budget.test.ts` as the model, and the open beat's sound.
+- writing: 5 min. `stare-budget.test.ts` with its open and shut rows, and the finding in its doc.
+- looking: 5 min. Two tallies, open against shut, and a simulation tick timed each way.
+- friction: 5 min. My scratch copy of the test was still in the tree during the previous land, and lint turned it red.
+- landing: 5 min. `check:fast`, the commit.
+
+Bottleneck: the lag is on a phone and every tool here measures a desktop, so the lane could only rule causes out.

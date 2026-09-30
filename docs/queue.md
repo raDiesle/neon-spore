@@ -1369,22 +1369,6 @@ nose 45° a press and holds one mote at a time. Re-record the presses off the
 autopilot in `packages/content/test/scout-flight.test.ts` and rewrite the
 header, then photograph it with `bun run frames`.
 
-## THE STARE's open eye lags on the owner's phone, and the desktop cannot see it
-
-- **Found:** 2026-09-29, claude/the-stare-boss-mechanics-71bd70
-- **Taken:** 2026-09-30, claude/queue-tasks-777b2f (claim: claude/queue-the-stares-open-eye-lags-on-the-owners-phone-and)
-- **Files:** `packages/render/src/stare-draw.ts`
-
-The owner, 29 September 2026: *when eye opens game seems to lag on my
-mobile*. Measured on the desktop the open frame costs about 0.5 ms more CPU
-paint than the shut one, and the op counts barely move. What does change is
-fill: the gaze (`drawGaze`) is a gradient-filled trapezoid the width of the
-field and a third of its height, drawn on every open beat. Add an op-count
-budget test for THE STARE open against shut, as a new stare-budget test in
-render/test, the way the other `*-budget.test.ts` files do. Then try a gaze that fills less area, such as a
-narrower beam or a cached gradient bitmap, and check that its frame test
-still passes. Whether it cured the phone is the owner's to say.
-
 ## Check that no boss touches the top of the screen
 
 - **Found:** 2026-09-30, claude/the-stare-boss-mechanics-71bd70
