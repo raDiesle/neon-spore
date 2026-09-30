@@ -30297,3 +30297,5 @@ Bottleneck: writing. There is one suggestion per row, and each had to be read ag
 - landing: 15 min. Three timed runs of each file alone and `check:fast`, at a load between 28 and 42.
 
 Bottleneck: timing. The figures had to be read off runs at a load near 30, and one of three runs was five times the others.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
