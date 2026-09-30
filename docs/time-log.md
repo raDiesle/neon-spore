@@ -30225,3 +30225,5 @@ existing, which was invisible from the assertion that failed.
 - landing: 5 min. Four timed runs at a load of thirty-seven, `check:fast`, `land`.
 
 Bottleneck: landing. The case failed the previous lane's `land`, so this one had to go first.
+
+*Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

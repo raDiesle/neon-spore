@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · ac51d29f1 — The pull-handle roll-out guard reads render/src sixty-four files at a time and stops timing out
+
+"names every file that draws the knob or the arrow" read twelve hundred files one `readFileSync` at a time, and at a load average of thirty-two it took 5.9 s alone and failed at bun's five seconds. It reads them through the shared `treeText` reader now, 280 to 530 ms at a load of thirty-seven, and has an `itCosts` figure of 200 in place of the flat default.
+
 ## 2026-09-30 · f9a3e52af — A kind line stands only over a button's name, never over a gesture
 
 Once every cue word became the thumb's, the dim line over it said the gesture twice: THE VALVE's p2 frame drew PRESS over TAP, the same repetition the owner removed for CARRY on 24 September. `saysKind` now draws the line only where it adds something — over FIRE, SHOOT, SHIELD, SUCK or EAT, and over a CALL or a STILL, which are not gestures. The kind stays on the cue as data.
