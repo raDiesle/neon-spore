@@ -30079,3 +30079,5 @@ Bottleneck: landing — the whole check is longer than the change.
 - landing: 5 min. `check:fast` twice: the style guide's palette families and sheet, and the index lines.
 
 Bottleneck: landing — a new palette colour reaches the style guide's families and its sheet, and only the full `check:fast` said so.
+
+*Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
