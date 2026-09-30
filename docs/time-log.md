@@ -30321,3 +30321,5 @@ Bottleneck: timing. The figures had to be read off runs at a load near 30, and o
 - landing: 5 min. The test run against the unfixed code, `check:fast`.
 
 Bottleneck: reading. Four files each hold part of how a claim is judged, and the fix touched two of them.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

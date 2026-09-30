@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-30 · 49c4eff4f — A claim whose trunk commit fails puts its line back and leaves no branch
+
+When the marking commit in the tree holding main failed, `onTrunk` left the `Taken:` line in that tree uncommitted, and the claim branch stood, so the retry was refused twice. The file now goes back as it was before the throw, a claim whose line could not be written keeps no branch, and a claim branch with no line anywhere and nobody on it reads as spent, which `take` drops and claims afresh. `tools/queue/test/claim-fails.test.ts` fails the commit once with a hook and claims on the second try.
+
 ## 2026-09-30 · 18c02fdd1 — THE VANE opens with no guide: its split says what to do
 
 The owner, 30 September 2026: *remove the tutorial, not required*. The wave opens on its number and name like THE INSTAR, THE FILAMENT and THE STARE — the mouth of the split already says `FIRE` in the colour it takes, and the cannon `MOVE`. The film `scenes/the-vane.ts` is deleted, `waves.test.ts` names the wave in `SAYS_ITSELF`, and `briefings.md` counts one hundred and seven guided waves and eighty-seven films.
