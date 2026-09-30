@@ -1329,6 +1329,7 @@ count in `director.css`'s comment moves with it.
 ## The gesture catalogue is behind the game
 
 - **Found:** 2026-09-30, claude/field-gestures-controls-doc-b84a17
+- **Taken:** 2026-09-30, claude/queue-bottom-up (claim: claude/queue-the-gesture-catalogue-is-behind-the-game)
 - **Files:** `tools/director/src/gesture-catalogue.ts`, `tools/director/src/gesture-unbuilt.ts`, `tools/director/src/field-notes.ts`, `packages/sim/src/drag-targets-e.ts`
 
 Seven gestures are still stamped `specd` though each ships now (FREEZE TAP,
