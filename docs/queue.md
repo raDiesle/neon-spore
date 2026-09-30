@@ -1299,18 +1299,6 @@ it passed in 3.8 s. Read the sources once in a `beforeAll` shared by the
 file's tests, or give the test a figure of its own the way the slow tree
 walks have, and prove it with `bun run check`.
 
-## THE GAUGE's hands test is past the line too
-
-- **Found:** 2026-09-30, claude/gauge-test-split
-- **Taken:** 2026-09-30, worktree-agent-a629a0f7076a937a4 (claim: claude/queue-the-gauges-hands-test-is-past-the-line-too)
-- **Files:** `packages/sim/test/gauge-hand.test.ts`, `packages/sim/test/gauge-rig.ts`
-
-`sim/test/gauge-hand.test.ts` is 304 lines. Its own rig (`CFG`, `TPB`, `WAVE`,
-`playing`, `call`, `heard`, `needle`, `band`, `callable`, `offBand`) re-declares
-three constants `gauge-rig.ts` now exports; import those, and move "the bind"
-and "both hands" to a file of their own with the helpers in the rig. Every test
-stays green without edits beyond imports.
-
 ## §29 THE RIME — row 11's refreeze, its simulation and then its look
 
 - **Found:** 2026-09-30, claude/queue-29-the-rime-its-hands-the-second-half-of-its-loo

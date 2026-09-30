@@ -1,6 +1,9 @@
+import { gaugeRoundHeard } from "../src/gauge-round.js";
 import {
+  type Command,
   createWorld,
   DEFAULT_CONFIG,
+  GAUGE_FULL,
   type GaugeState,
   gaugeHolds,
   gaugeRound,
@@ -16,6 +19,7 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
+import { landNow } from "./gauge-land.js";
 
 /**
  * THE GAUGE's rig: a round opened on a wave, and a pair who talk it through.
@@ -24,7 +28,8 @@ import {
  * line ceiling. `talking` is the one driver every rest the round asks for is
  * answered by, and both halves of the old file run it — the round reached and
  * played in `gauge.test.ts`, the round left and fingerprinted in
- * `gauge-leave.test.ts`.
+ * `gauge-leave.test.ts`. The thumbs' helpers after `runToEnd` serve the two
+ * states and their hands, in `gauge-hand.test.ts` and `gauge-bind.test.ts`.
  */
 
 /**
@@ -113,4 +118,45 @@ export function runToEnd(
     events.push(...world.events);
   }
   return { events, result };
+}
+
+/** The round, already past its lead-in and taking commands. */
+export function playing(seed = 5): { world: World; g: GaugeState } {
+  const world = open(seed);
+  const g = gaugeRound(world);
+  if (g === null) throw new Error("the gauge's wave installed no gauge");
+  let guard = 0;
+  while (g.phase !== "play" && guard++ < 40 * TPB) step(world, []);
+  if (g.phase !== "play") throw new Error("the round never reached its play");
+  return { world, g };
+}
+
+/** Her call, in the wound's colour: the colour is `gauge-call.ts`'s to test. */
+export function call(world: World): Command {
+  return { kind: "call", color: gaugeRound(world)?.woundColor ?? "red" };
+}
+
+/** A command the round hears straight away, its bolt landed at once. */
+export function heard(world: World, player: 1 | 2, command: Command): void {
+  gaugeRoundHeard(world, player, command);
+  const g = gaugeRound(world);
+  if (g !== null) landNow(world, g);
+}
+
+export function needle(on: boolean, fromMilli: number): Command {
+  return { kind: "drag", target: "gaugeNeedle", on, fromMilli };
+}
+
+export function band(on: boolean): Command {
+  return { kind: "drag", target: "gaugeBand", on, fromMilli: 0 };
+}
+
+/** A call that is allowed to land: the rest between calls already spent. */
+export function callable(world: World, g: GaugeState): void {
+  g.calledBeat = world.beat - CFG.gaugeCallRestBeats;
+}
+
+/** A call that will miss: the needle as far from the band as the dial allows. */
+export function offBand(g: GaugeState): void {
+  g.needleMilli = g.markMilli > GAUGE_FULL / 2 ? 0 : GAUGE_FULL;
 }

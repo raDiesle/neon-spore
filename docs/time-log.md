@@ -30166,3 +30166,13 @@ Bottleneck: writing — the word lives in the tests as well as the source, so
 each rename was paid for twice.
 
 *Measured: 46 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-09-30 — THE GAUGE's hands test is past the line too
+
+- reading: 5 min. The queue entry, commit 01840072c's split, the hands test and the rig it now shares.
+- writing: 5 min. The seven helpers into `gauge-rig.ts`, the bind and both hands into `gauge-bind.test.ts`, and the two headers.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The first claim ran on a branch behind `main` and found no such entry, and the worktree guard refused a multi-step shell edit.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction. The claim was tried before the trunk was brought up, so the entry it named was not in the file yet.
