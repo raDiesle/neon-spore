@@ -16,7 +16,11 @@ const HALF_DOES =
   "reversal shaves frost** off the half while its step — or a whiteout, " +
   "which asks both — is lit; a beat nobody rubbed grows frost back, and a " +
   "half rubbed to nothing is the wipe. A lift sets the count back to nought " +
-  "(sim/rime-hand.ts, packages/render/src/rub.ts).";
+  "(sim/rime-hand.ts, packages/render/src/rub.ts). While a wipe or the " +
+  "whiteout is lit on a half with frost still on it, the half wears the halo " +
+  "on its seat's screen and the partner's ring and clock on the other's; a " +
+  "half wiped clear greens, and one frosting back reddens " +
+  "(render/rime-verdicts.ts).";
 
 const WHERE_UNTIL = "on both screens, from the drop into frame until the lens shatters";
 const SOURCE =

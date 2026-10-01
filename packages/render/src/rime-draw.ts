@@ -31,6 +31,7 @@ import {
   rimeSheet,
 } from "./rime-shape.js";
 import { drawRimeFog, drawRimeIcicle, rimeFog, rimeIcicle, rimeSink } from "./rime-story.js";
+import { drawRimeMarkFeedback } from "./rime-verdicts.js";
 import { stepColour } from "./step-colour.js";
 
 /**
@@ -123,6 +124,7 @@ export function drawRime(
   spine.moveTo(0, -ry * 0.97);
   spine.lineTo(0, ry * 0.97);
   ctx.stroke(spine);
+  drawRimeMarkFeedback(ctx, l, cfg, s, time, l.hullY - at.y, fx.marks.verdicts);
   ctx.restore();
 }
 

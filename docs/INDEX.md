@@ -1528,6 +1528,7 @@ by hand never moves.
 | `packages/render/src/rime-grip.ts` | **The two halves of THE RIME's lens as controls** |
 | `packages/render/src/rime-fx.ts` | What THE RIME leaves behind a frame (§29, *Presentation*) |
 | `packages/render/src/rime-film.ts` | **THE RIME's refreeze**, drawn (§29 row 11): after the third hit a thin film ticks back over the spent core |
+| `packages/render/src/rime-verdicts.ts` | **THE RIME's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
 | `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-contour.ts` | Where a body's edge is: the two banks of a tapered ribbon along a run of joints |

@@ -160,10 +160,14 @@ export {
   type RimeState,
   type RimeStep,
   rimeBoss,
+  rimeCoreAsks,
   rimeDone,
+  rimeHalfAsks,
+  rimeIcicleAsks,
   rimeIcicleCol,
   rimeLitStep,
   rimeRubbing,
+  rimeSurgeAsks,
   rimeWiping,
 } from "./rime.js";
 // THE SEAM's ridge: the phase, the lit step and what it still wants, and the

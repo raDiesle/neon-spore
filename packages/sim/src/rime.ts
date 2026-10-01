@@ -121,6 +121,26 @@ export function rimeIcicleCol(mid: number, step: RimeStep): number {
   return mid + (step.offset ?? 0);
 }
 
+/** Whether half `side` is asked to be rubbed: a wipe or the whiteout lit on it, and frost still on it. */
+export function rimeHalfAsks(s: RimeState, side: 0 | 1): boolean {
+  return rimeRubbing(s, side) && s.rimeMilli[side] > 0;
+}
+
+/** Whether the core is asked for a shot: a fire step lit, the core bare. */
+export function rimeCoreAsks(s: RimeState): boolean {
+  return s.bared && rimeLitStep(s)?.ask === "fire";
+}
+
+/** Whether the surge is asked for the shield under the lens. */
+export function rimeSurgeAsks(s: RimeState): boolean {
+  return rimeLitStep(s)?.ask === "shield";
+}
+
+/** Whether the icicle is asked for the shield under its column. */
+export function rimeIcicleAsks(s: RimeState): boolean {
+  return rimeLitStep(s)?.ask === "icicle";
+}
+
 /** The lens shattered: the fight is over and it is only falling. */
 export function rimeDone(s: RimeState): boolean {
   return s.phase === "shattered";

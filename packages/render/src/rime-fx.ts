@@ -6,6 +6,7 @@ import type { Layout } from "./layout.js";
 import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
 import { rimeCentre, rimeHalfMiddle, rimeRadius } from "./rime-shape.js";
+import { RimeVerdicts } from "./rime-verdicts.js";
 import { SpriteBursts } from "./sprite-burst.js";
 
 /**
@@ -57,6 +58,8 @@ export class RimeFx {
   readonly shock = new HullShock();
   /** The blow a half wiped clear and a core hit deal the pane. */
   readonly hurt = new BossHurt();
+  /** Each mark's halo, partner's clock and verdict ring (`rime-verdicts.ts`). */
+  readonly marks = new RimeVerdicts();
   private readonly cleanNow: [number, number] = [0, 0];
   private readonly filmNow: [number, number] = [0, 0];
   private flashNow = 0;
@@ -102,6 +105,7 @@ export class RimeFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("rime")) continue;
       const mid = rimeCentre(l, cfg);
@@ -175,6 +179,7 @@ export class RimeFx {
     this.clear.update(dt);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   reset(): void {
@@ -190,6 +195,7 @@ export class RimeFx {
     this.clear.clear();
     this.shock.clear();
     this.hurt.clear();
+    this.marks.clear();
   }
 }
 

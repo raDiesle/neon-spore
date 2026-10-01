@@ -30782,3 +30782,15 @@ saying the same thing in its own words.
 Bottleneck: none worth the name; the template was one lane old.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE RIME's marks answer a touch
+
+- reading: 5 min. The lens's step, hand and draw, and THE VISE's verdicts to
+  copy.
+- writing: 10 min. Four asking predicates in the simulation, the verdict
+  file, its wiring and its test, the spec and the director's line.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A restart of the machine mid-lane, and a context cut.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the restart; the template itself was two lanes old.

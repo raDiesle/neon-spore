@@ -9593,6 +9593,22 @@ shielded again; and a script answered whole shatters the lens and ends the
 fight. Whether any of it *reads* — whether a wipe of eight reversals is long
 or short with a voice in the way — is the owner's eye, after lane two.
 
+**Its marks answer a touch the way every mark does** (`render/rime-verdicts.ts`,
+`test/rime-verdict.test.ts`). Five marks: each half, the core, the hull under
+the lens and the hull under the icicle. While a wipe or the whiteout is lit on
+a half with frost still on it, the half wears the halo on its own seat's
+screen and the partner's ring and clock on the other's, so a seat already
+wiped clear in the whiteout sees the half still frosted. The core asks for its
+shot while a fire step stands with it bare, the hull under the lens for the
+shield through the surge, and the hull under the icicle for the shield under
+its column; either seat answers those three, so they halo on both screens with
+nobody's clock. A half wiped clear greens it and the whiteout thawed greens
+both; a core hit and a shield turned green their marks. A step let run out —
+a half frosting back, the lens clouding, a shot or a shield missed — reddens
+only what it asked, and a wipe too many in the refreeze reddens the core. A
+half rubbed by the wrong seat, and a shot of the wrong colour, stay silent, as
+the simulation is.
+
 ## 11.47 THE TRIVET — the boss two chords plant, then shoot into
 
 > A stand of three legs over the middle of the field, both outer feet lifted.
