@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec
+- **Taken:** 2026-10-01, claude/queue-living-bosses-the-instars-body-with-weight-as-a (claim: claude/queue-living-bosses-the-instar-turns-on-the-idle-drift)
 - **Where:** local
 - **Needs:** Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
 - **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-mark-grip.ts`, `packages/render/src/instar-sway.ts`, `packages/render/test/instar-budget.test.ts`, `packages/render/test/baked-growth.test.ts`, `docs/spec/living-bosses.md`
