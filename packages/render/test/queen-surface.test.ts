@@ -33,8 +33,8 @@ beforeAll(installCanvasGlobals);
  * at no turn every seam is the shipped one and the far pair is hidden; a turn
  * moves each seam by its own longitude, takes a near one over the rim and
  * brings a far one round; the marks ride the same turn by less, stay over
- * their columns and are found by the thumb where they are drawn; the shipped
- * still shell turns nothing; and a frame turning costs within a tenth of one
+ * their columns and are found by the thumb where they are drawn; a shell
+ * held still turns nothing; and a frame turning costs within a tenth of one
  * standing still.
  */
 
@@ -139,8 +139,8 @@ describe("THE QUEEN's seams by longitude", () => {
 });
 
 describe("THE QUEEN's marks, turned", () => {
-  test("ship still: no turn at 0, at any beat", () => {
-    expect(saved.surface.amount).toBe(0);
+  test("held still: no turn at 0, at any beat", () => {
+    QUEEN_SURFACE.amount = 0;
     for (const b of [0, 7, 41]) expect(queenTurn(CFG, b, 0.3)).toBe(0);
   });
 

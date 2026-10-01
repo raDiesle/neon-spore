@@ -15,8 +15,9 @@ import { OUTLINE_SEED, outlineYaw } from "./outline-drift.js";
  *
  * Each seam's longitude is read off the share of her half-width it shipped
  * at, so at no turn every seam lands where it always did and the far pair is
- * hidden: a shell held still (`QUEEN_SURFACE.amount` 0, as shipped) draws the
- * shell the game has drawn since 11 September 2026.
+ * hidden: a shell held still (`QUEEN_SURFACE.amount` 0) draws the shell the
+ * game drew from 11 September 2026. It turns as shipped since 1 October 2026,
+ * VERSUS `queen:plates` · TURN, adopted (`tools/versus/DECIDED.md`).
  *
  * **The marks follow, by less.** They hang under her over columns the
  * simulation fires up (`queenMarkCol`), so they ride the same turn but only
@@ -26,8 +27,8 @@ import { OUTLINE_SEED, outlineYaw } from "./outline-drift.js";
  */
 
 export const QUEEN_SURFACE = {
-  /** How much of the turn the shell takes: 0 still, as shipped; 1 the whole. */
-  amount: 0,
+  /** How much of the turn the shell takes: 0 still; 1 the whole, as shipped. */
+  amount: 1,
   /** The widest turn of the shell, degrees, at the drift's widest yaw. */
   degrees: 45,
 };

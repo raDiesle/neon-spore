@@ -53,7 +53,8 @@ function sweep(boss: OutlineBoss, hush: number, reach: number, seconds: number) 
 }
 
 describe("the outline drift", () => {
-  test("the shipped seam draws no pose at all", () => {
+  test("a boss whose drift is off draws no pose at all", () => {
+    for (const boss of BOSSES) OUTLINE_DRIFT[boss] = 0;
     for (const boss of BOSSES) expect(outlinePose(boss, 3.2, 1, 3 * TILE, TILE)).toBeNull();
   });
 

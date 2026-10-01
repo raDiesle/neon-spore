@@ -31435,3 +31435,15 @@ Bottleneck: reading all three candidates' code up front, before the first one co
 Bottleneck: the shared drift's speed ceilings are tested, so the wider turn had to be THE INSTAR's own fields rather than the table's numbers.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE QUEEN's plates turn
+
+- reading: 10 min. The three slots the owner judged, the poses VERSUS
+  shoots them in, and the surface and outline records each patches.
+- writing: 5 min. `versus adopt`, then the two tests that pinned the shell
+  still and BULB QUEEN's budget rows remeasured.
+- looking: 5 min. The before shots of all three slots, side by side.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: the op-count rows, which fail one key at a time until the measure switch is flipped.

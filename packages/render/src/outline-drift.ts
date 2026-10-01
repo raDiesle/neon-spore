@@ -20,8 +20,8 @@ import { slowHush } from "./slow-hush.js";
  *
  * The pose is one matrix (`poseMatrix`), which the canvas takes and which
  * `posePoint` applies to a point — the test's way of measuring what the
- * canvas will draw. `OUTLINE_DRIFT` is how much of it each boss takes; the
- * shipped 0 draws no transform at all. `queen:shell`, `cairn:pile` and
+ * canvas will draw. `OUTLINE_DRIFT` is how much of it each boss takes; a 0
+ * draws no transform at all, and THE QUEEN takes the whole since 1 October 2026. `queen:shell`, `cairn:pile` and
  * `reprise:sac` were dropped on 27 September 2026 (`tools/versus/DECIDED.md`),
  * and the seam stays for the outline drift the queue still owes the next six
  * bosses, which re-aims it at a movement big enough to be seen. THE THROAT
@@ -44,7 +44,7 @@ export type OutlineBoss =
 
 /** How much of its pose each boss takes: 0 dead still, 1 the whole. Never past 1 — the cap is at 1. */
 export const OUTLINE_DRIFT: Record<OutlineBoss, number> = {
-  queen: 0,
+  queen: 1,
   cairn: 0,
   reprise: 0,
   warden: 1,

@@ -1415,3 +1415,19 @@ what `packages/render/src/valve-spark.ts` draws for **both** sparks, and the
 
 Taken by hand because the candidate's `paint` was inline in its `index.ts`,
 which `adopt` refuses; the slot was then closed with `drop`.
+
+## `queen:plates` / `turn` — taken, 2026-10-01
+
+The owner, 1 October 2026: looks better than the current one, like it is
+moving.
+
+turn — THE QUEEN's shell turns slowly left and right, its plates sliding round
+her, an outer seam going over the rim and a far one coming round, her two
+marks riding the turn a little
+
+Written into `packages/render/src/queen-surface.ts`, `QUEEN_SURFACE`:
+`amount`.
+
+Written into `packages/render/src/outline-drift.ts`, `OUTLINE_DRIFT`: `queen`.
+
+It was the only answer offered.
