@@ -1,5 +1,6 @@
 import { HEART_POINT, HEART_TOP, heartPoints } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
+import { lubDub } from "./heartbeat.js";
 import { type Layout, tileCX } from "./layout.js";
 import { splinePath } from "./spline.js";
 
@@ -37,15 +38,8 @@ const EMPTY_R = 1.3;
 const VEIN_R = 0.17;
 /** Taller than wide by this much. */
 const ASPECT = 0.95;
-/** How far the heart swells on the beat, and on the second, softer half of it. */
+/** How far the heart swells on the lub of a beat (`heartbeat.ts`). */
 const LUB = 0.05;
-const DUB = 0.025;
-
-/** The swell of a heartbeat at `beatPhase` of the beat: a strong lub, a soft dub a quarter later. */
-export function heartBeat(beatPhase: number): number {
-  const dub = beatPhase - 0.25;
-  return LUB * Math.exp(-beatPhase * 9) + (dub > 0 ? DUB * Math.exp(-dub * 9) : 0);
-}
 
 /** The heart with `strands` filaments left in it, the lobes held at the same height as it shrinks. */
 export function filamentHeart(l: Layout, cfg: SimConfig, strands: number, beatPhase = 0): Heart {
@@ -53,7 +47,7 @@ export function filamentHeart(l: Layout, cfg: SimConfig, strands: number, beatPh
   const rx = l.tile * (EMPTY_R + VEIN_R * strands);
   const ry = rx * ASPECT;
   const y = l.gridTop - l.tile * TOP_RISE + HEART_TOP * ry;
-  const swell = 1 + heartBeat(beatPhase);
+  const swell = 1 + LUB * lubDub(beatPhase);
   return { x, y, rx: rx * swell, ry: ry * swell };
 }
 

@@ -8,7 +8,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { fieldX } from "./field-flip.js";
-import { strokeGlow } from "./glow.js";
+import { halo, strokeGlow } from "./glow.js";
+import { lubDub } from "./heartbeat.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -26,10 +27,21 @@ import { stepColour } from "./step-colour.js";
  * (`seam-fx.ts`), which bursts a rock shot out where it was.
  */
 
+/** How far the lit point's lens swells on the lub, as a share of its size. */
+const POINT_SWELL = 0.3;
+/** The glow behind the lit point, in lobe half-heights. */
+const POINT_GLOW = 1.6;
+
 /**
  * The lit point: its opening on the crack glowing in the step's colour, and a
  * ring round it closing as the step's beats run out. Laid in the ridge's own
  * frame, like the crack it sits on.
+ *
+ * **It beats like a heart** — the owner, 1 October 2026: the part to shoot
+ * "must clearly highlight what to shoot in this colour … and it must beat
+ * like vulnerable hearth". The lens swells, brightens and throws a glow of
+ * its colour on the lub and again, softer, on the dub (`heartbeat.ts`); at
+ * rest between beats it is still lit, never dark.
  */
 export function drawSeamPoint(
   ctx: CanvasRenderingContext2D,
@@ -40,11 +52,13 @@ export function drawSeamPoint(
   beatPhase: number,
 ): void {
   const { body, rim } = stepColour(step.color);
-  const lens = seamPointPath(l, k);
-  ctx.fillStyle = rgba(body, 0.45 + 0.25 * Math.cos(beatPhase * Math.PI * 2));
-  ctx.fill(lens);
-  strokeGlow(ctx, lens, rim, STROKE.inner, 1.3);
+  const thump = lubDub(beatPhase);
   const { y, h } = seamLobe(l, k);
+  halo(ctx, 0, y, h * POINT_GLOW, body, 0.35 + 0.5 * thump);
+  const lens = seamPointPath(l, k, 1 + POINT_SWELL * thump);
+  ctx.fillStyle = rgba(body, 0.55 + 0.45 * thump);
+  ctx.fill(lens);
+  strokeGlow(ctx, lens, rim, STROKE.inner, 1.3 + thump);
   const ring = new Path2D();
   ring.arc(0, y, h * 0.75, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
   strokeGlow(ctx, ring, body, STROKE.outline, 1);
