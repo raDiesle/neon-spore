@@ -437,6 +437,7 @@ flat. `bun run check` proves the tests.
 ## `bun run frames <sha> --boss <field>` refuses a field the sha itself adds
 
 - **Found:** 2026-09-30, claude/pinball-wave-physics-ux-b2db9f
+- **Taken:** 2026-10-01, claude/queue-frames-test-opening-test-ts-times-out-in-its-hoo (claim: claude/queue-bun-run-frames-sha-boss-field-refuses-a-field-th)
 - **Files:** `tools/frames/boss-install.ts`, `tools/frames/run.ts`
 
 `bun run frames 13757cea1 --wave "PINBALL" --ticks 2400 --boss catchTick=2375`
