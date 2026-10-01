@@ -32,12 +32,14 @@ export function drawQueenAsked(
   time: number,
   ox: number,
   oy: number,
+  /** Her turn, as a share of its widest (`queenTurn`). */
+  turn = 0,
 ): void {
   const asks = queenAsks(boss, queen);
   if (asks === null) return;
   const mine = showsQueenShape(l.role);
   for (const side of [-1, 1] as const) {
-    const at = queenMarkCenter(l, queen, side);
+    const at = queenMarkCenter(l, queen, side, turn);
     const x = at.x + ox;
     const y = at.y + oy;
     if (!mine) {
@@ -57,11 +59,12 @@ export function drawQueenVerdicts(
   verdicts: GripVerdicts,
   ox: number,
   oy: number,
+  turn = 0,
 ): void {
   for (const side of [-1, 1] as const) {
     const v = verdicts.at(queenMarkKey(side));
     if (v === null) continue;
-    const at = queenMarkCenter(l, queen, side);
+    const at = queenMarkCenter(l, queen, side, turn);
     drawVerdictRing(ctx, at.x + ox, at.y + oy, at.r, v);
   }
 }

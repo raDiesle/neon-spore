@@ -39,6 +39,7 @@ const SLOT_POSE: Record<string, string> = {
   "instar:flight": "INSTAR · PERCHED",
   "instar:head": "INSTAR · PERCHED",
   "keel:seam": "THE KEEL · BREATH",
+  "queen:plates": "BULB QUEEN · SHUT",
   "reprise:skin": "THE REPRISE · RUNNING",
   "round:timeout-hit": "THE FLEET · TIME RUNS OUT",
   "stare:eye": "THE STARE · LIVE",

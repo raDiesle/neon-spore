@@ -15,6 +15,7 @@ import { handleCircle } from "./handles.js";
 import { bandLobes, type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
 import { queenMarksBox } from "./queen-figure.js";
+import { queenTurn } from "./queen-surface.js";
 import { radarBlips } from "./radar-blip.js";
 import { shipCircle } from "./touch-ship.js";
 
@@ -117,7 +118,7 @@ export function anchorPoint(
     if (boss === null || boss.kind !== "queen") return null;
     const queen = world.creatures.find((c) => c.id === boss.creatureId);
     if (!queen) return null;
-    const box = queenMarksBox(l, queen);
+    const box = queenMarksBox(l, queen, queenTurn(world.cfg, world.beat, beatPhase));
     return { x: box.x, y: box.y, r: box.ry + 6, rx: box.rx + 6, clear: CLEAR };
   }
   if (anchor.at === "pod") {

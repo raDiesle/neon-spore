@@ -1752,6 +1752,7 @@ by hand never moves.
 | `packages/render/src/queen-crane.ts` | THE CRANE — what holds each flank torch to the queen: an arm of two segments with a claw on the end |
 | `packages/render/src/queen-scutes.ts` | SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September 2026 |
 | `packages/render/src/queen-shell.ts` | **THE BULB QUEEN's shell in pieces**: her two wings, each with its joint, and the back between them |
+| `packages/render/src/queen-surface.ts` | **THE QUEEN's shell, placed by longitude**: seams pinned to her, so a turn slides them over the rim and round from behind; `queenTurn`, which the marks, hit test, cue and caption share; held still, the shipped seams |
 | `packages/render/src/queen-parts.ts` | **THE BULB QUEEN's parts on the idle drift** (`outline-parts.ts`) |
 | `packages/render/src/queen-marks.ts` | THE BULB QUEEN's marks asking (halo, or the partner's ring and clock) and their verdict rings |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |

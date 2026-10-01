@@ -3,6 +3,7 @@ import { drawGripDial, drawGripRing, drawThrownRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, showsQueenShape } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
+import { queenTurn } from "./queen-surface.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -78,9 +79,11 @@ function markIdUnder(l: Layout, x: number, y: number, field: Field): number | nu
   const queen = queenOf(field);
   if (boss === null || queen === null || queenAsks(boss, queen) === null) return null;
   const r = handleRadius(l, field.cfg);
+  // Where the frame drew them: turned with her shell, on the field's own beat.
+  const turn = queenTurn(field.cfg, field.beat, field.beatPhase);
   let best: { id: number; d: number } | null = null;
   for (const side of [-1, 1] as const) {
-    const at = queenMarkCenter(l, queen, side);
+    const at = queenMarkCenter(l, queen, side, turn);
     if (!hitCircle({ x: at.x, y: at.y, r }, x, y)) continue;
     const d = (x - at.x) ** 2 + (y - at.y) ** 2;
     if (best === null || d < best.d) best = { id: side === -1 ? 0 : 1, d };
@@ -114,11 +117,13 @@ export function drawQueenGrip(
   time: number,
   ox: number,
   oy: number,
+  /** Her turn, as a share of its widest (`queenTurn`). */
+  turn = 0,
 ): void {
   const asks = queenAsks(boss, queen);
   const mine = showsQueenShape(l.role);
   for (const side of [-1, 1] as const) {
-    const at = queenMarkCenter(l, queen, side);
+    const at = queenMarkCenter(l, queen, side, turn);
     const x = at.x + ox;
     const y = at.y + oy;
     const r = at.r * RING_MUL;

@@ -230,7 +230,16 @@ has none. The face-on half of a flight is unchanged. Test:
   there — so a turn slides them across it, fastest through the middle; a near
   vein goes over the rim and a far pair, hidden at rest, comes round. The
   gloss stays: the light does not turn. Held still, the skin draws the
-  shipped curves to the pixel. THE QUEEN's shell is next (`docs/queue.md`).
+  shipped curves to the pixel. *Her shell, the same day* (`queen-surface.ts`,
+  offered as `queen:plates` `turn`): THE QUEEN's seams are pinned on her
+  equator, each at the longitude its shipped share of her half-width gives,
+  with a far pair behind the rim; the shell turns up to 45° on her outline's
+  yaw, so an outer seam goes over the rim and a far one comes round. Her two
+  marks ride the same turn by 9° (`QUEEN_MARK_TURN`) — a third of a tile,
+  never out of the column the simulation fires up — and the drawing, the hit
+  test, the cue and the caption all ask `queenTurn`, on the beat clock and
+  never hushed, so the thumb finds a mark where it is drawn. Held still, the
+  shell draws its shipped seams.
 
 ### Every part moves on its own
 

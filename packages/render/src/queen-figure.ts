@@ -1,4 +1,6 @@
+import { facet, pin } from "@neon-spore/content";
 import { type Creature, QUEEN_FLANK_TILES, queenMarkCol } from "@neon-spore/sim";
+import { DEG } from "./idle-drift.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 
 /**
@@ -43,6 +45,16 @@ export const QUEEN_FIGURE = {
   petalCy: -1.0,
 } as const;
 
+/**
+ * **How far round her the marks ride a turn**, degrees at its widest: the
+ * shell's seams take `QUEEN_SURFACE.degrees`, the marks this much of it. A
+ * mark is fired at up a column (`queenMarkCol`) and the simulation does not
+ * turn, so it may not leave its column's tile — at 9 degrees one a tile out
+ * on her 2.2-tile half-width moves about a third of a tile, inside half of
+ * one. `docs/spec/living-bosses.md` §1.
+ */
+export const QUEEN_MARK_TURN = 9;
+
 /** One mark's centre and radius, before her shudder is added to it. */
 export interface MarkCircle {
   x: number;
@@ -53,11 +65,17 @@ export interface MarkCircle {
 /**
  * Where one of her two marks is drawn. The column comes from
  * `queenMarkCol` — the simulation's own answer to which column a shot has to
- * land in — so the picture and the rule cannot disagree about it.
+ * land in — so the picture and the rule cannot disagree about it. `turn` is
+ * her turn as a share of its widest (`queenTurn`): at 0 the mark is over its
+ * column's centre exactly, and turned it is carried round her by its
+ * longitude, `QUEEN_MARK_TURN` at the widest.
  */
-export function queenMarkCenter(l: Layout, queen: Creature, side: -1 | 1): MarkCircle {
+export function queenMarkCenter(l: Layout, queen: Creature, side: -1 | 1, turn = 0): MarkCircle {
+  const col = queenMarkCol(queen.col, side);
+  const k = QUEEN_FIGURE.bodyRx;
+  const round = facet(pin(Math.asin((col - queen.col) / k), 0, k), turn * QUEEN_MARK_TURN * DEG);
   return {
-    x: tileCX(l, queenMarkCol(queen.col, side)),
+    x: turn === 0 ? tileCX(l, col) : tileCX(l, queen.col) + round.x * l.tile,
     y: tileCY(l, queen.row) + QUEEN_FIGURE.weakCy * l.tile,
     r: QUEEN_FIGURE.weakR * l.tile,
   };
@@ -72,9 +90,10 @@ export function queenMarkCenter(l: Layout, queen: Creature, side: -1 | 1): MarkC
 export function queenMarksBox(
   l: Layout,
   queen: Creature,
+  turn = 0,
 ): { x: number; y: number; rx: number; ry: number } {
-  const left = queenMarkCenter(l, queen, -1);
-  const right = queenMarkCenter(l, queen, 1);
+  const left = queenMarkCenter(l, queen, -1, turn);
+  const right = queenMarkCenter(l, queen, 1, turn);
   return {
     x: (left.x + right.x) / 2,
     y: left.y,

@@ -11,6 +11,7 @@ import { QUEEN_LOOK } from "./queen-look.js";
 import { drawQueenAsked, drawQueenVerdicts } from "./queen-marks.js";
 import { pairSide, type QueenPair, type QueenParts, swingWings } from "./queen-parts.js";
 import { queenShellParts, queenShellPath } from "./queen-shell.js";
+import { queenTurn, shellTheta } from "./queen-surface.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
 
 // The figure itself is next door, with the rest of the measurements a caption
@@ -76,12 +77,14 @@ export function drawQueen(
   const oy = Math.cos(time * QUEEN_SHUDDER_HZ[1]) * jitter;
   const x = baseX + ox;
   const y = baseY + oy;
+  // Her turn (`queen-surface.ts`): the shell's seams ride it, the marks less.
+  const turn = queenTurn(cfg, beat, beatPhase);
 
   // The marks first, so the shell closes over both of them. Where each one
   // goes is `queen-figure.ts`'s answer rather than this file's, because a
   // caption pointing at the pair of them asks the same question.
   for (const side of [-1, 1] as const) {
-    const at = queenMarkCenter(l, queen, side);
+    const at = queenMarkCenter(l, queen, side, turn);
     const mx = at.x + ox;
     const my = at.y + oy;
     drawMark(ctx, l, mx, my, at.r, side, queen, boss, beat, beatPhase, time, healthShare);
@@ -106,13 +109,14 @@ export function drawQueen(
     healthShare,
     hurt,
     parts?.wing ?? null,
+    shellTheta(turn),
   );
   // The rings player 1's thumb answers with, over the shell's lip, and the
   // pry and the hold read off the beat (`queen-grip.ts`) — over the asking
   // and under the verdicts, as every mark is (`queen-marks.ts`).
-  drawQueenAsked(ctx, l, queen, boss, time, ox, oy);
-  drawQueenGrip(ctx, l, cfg, queen, boss, beat, beatPhase, time, ox, oy);
-  if (verdicts !== null) drawQueenVerdicts(ctx, l, queen, verdicts, ox, oy);
+  drawQueenAsked(ctx, l, queen, boss, time, ox, oy, turn);
+  drawQueenGrip(ctx, l, cfg, queen, boss, beat, beatPhase, time, ox, oy, turn);
+  if (verdicts !== null) drawQueenVerdicts(ctx, l, queen, verdicts, ox, oy, turn);
 
   // One offset, read by both calls below — never one seeded per side. The two
   // torches must move as a single tremor, or the eye reads whichever one
@@ -188,6 +192,7 @@ function drawShell(
   healthShare: number,
   hurt: number,
   wings: QueenPair | null,
+  turn: number,
 ): void {
   const phase = (id % 7) * 0.9;
   const wobbleMult = 1 + (1 - healthShare) * OUTER_WOBBLE_BONUS;
@@ -197,7 +202,7 @@ function drawShell(
 
   ctx.save();
   ctx.translate(x, y);
-  QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare });
+  QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare, turn });
   drawHurt(ctx, path, hurt);
   ctx.restore();
 }

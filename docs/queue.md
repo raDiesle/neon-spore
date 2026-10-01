@@ -434,37 +434,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## Living bosses — the surface marks by longitude, once an outline body turns
-
-- **Found:** 2026-09-27, claude/queue-reprise-parts
-- **Taken:** 2026-10-01, claude/queue-the-instars-turned-body-draws-13-more-fills-than (claim: claude/queue-living-bosses-the-surface-marks-by-longitude-onc)
-- **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
-- **Asks:** which outline body turns, and how far — THE REPRISE's sac, the queen's shell, or none, which closes this entry?
-- **Answered:** 2026-10-01 — both, over either alone and over closing it: THE REPRISE's sac first, in its own lane, since no hit test reads a mark on it; then the queen's shell, whose marks her drops and hit test follow. How far is the looks rule's: far enough to be seen (`docs/looks.md`), offered in VERSUS beside the still body.
-
-Split off "THE REPRISE's parts, and the surface marks" when its parts
-landed. A surface mark placed with `pin`/`facet` moves only when its body
-turns, and no outline body turns today: `OUTLINE_DRIFT` is 0 for all three
-slots, dropped as too small to see. So there is nothing for a mark to follow
-until an outline pose large enough to see ships with its hit tests following
-it. The outline drift for six more bosses landed on 27 September 2026 and
-shows how (`warden-drift.ts` is the worked example), but none of those six
-carries a surface mark, and the three slots here are still 0. "THE BULB
-QUEEN's parts: how far" was built on 1 October 2026 as her arms, not
-her body, so no body turns still, and which one does is the owner's.
-The options: **THE REPRISE's sac** rolls, its veins and gloss carried round
-and its hit test following; **the queen's shell** turns, her marks and so
-her drops moving with it, which that answer passed over; **none**, and this
-entry is closed. Then place the marks that
-sit on an outline body's skin — THE REPRISE's veins and gloss, the queen's
-marks on her shell — by longitude through `pin`/`facet`, so a turn carries
-them round and one goes behind the rim; the same size rule, and a hit test
-on a mark follows it.
-
-Done when: a test turns one body and shows each of its surface marks moving
-by its longitude and hidden past the rim, the op-count rows stay within 10%,
-and `bun run check` is green.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too

@@ -41,6 +41,8 @@ export interface ShellDraw {
   readonly time: number;
   /** What is left of her, 1 whole and 0 gone. */
   readonly healthShare: number;
+  /** How far round her surface is turned, radians (`queen-surface.ts`); 0, or absent, still. */
+  readonly turn?: number;
 }
 
 /**

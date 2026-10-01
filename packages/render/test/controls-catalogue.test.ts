@@ -43,6 +43,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "hull.ts": "the ship",
   "renderer.ts": "the frame",
   "outline-drift.ts": "a body's contour moving",
+  "motion-life.ts": "how much a body is allowed to move",
   "outline-parts.ts": "the same",
   "solid-motion.ts": "a body's depth",
   "solid-haze.ts": "the same",

@@ -14,6 +14,7 @@ import { markAt } from "./boss-cue-frame.js";
 import { creatureCenter } from "./creature-place.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
+import { queenTurn } from "./queen-surface.js";
 
 /**
  * **What THE CURTAIN and BULB QUEEN are asking for**, read off their own state
@@ -193,7 +194,7 @@ export function queenCues(
     out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 38));
   }
   if (queen.color !== null) {
-    const mark = queenMarkCenter(l, queen, q.weakSide);
+    const mark = queenMarkCenter(l, queen, q.weakSide, queenTurn(world.cfg, world.beat, beatPhase));
     out.push(markAt(2, "PRESS", "FIRE", mark.x, mark.y, l, 39));
   }
   if (torch !== undefined) {

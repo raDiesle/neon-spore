@@ -31176,3 +31176,18 @@ Bottleneck: which of the head's fifteen parts paid the extra fills was only answ
 Bottleneck: which vein faces us at which turn could only be settled by printing the samples, since the outer vein lies wholly outside the sac under its clip.
 
 *Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE QUEEN's shell, placed by longitude
+
+- reading: 15 min. `queen-scutes.ts`, `queen-figure.ts`, the grip's hit
+  test and every caller of `queenMarkCenter`, and the REPRISE lane just landed.
+- writing: 30 min. `queen-surface.ts`, the turn threaded through the marks,
+  grip, cue and caption, the seam-by-longitude plates, the test and the
+  VERSUS candidate.
+- looking: 5 min. One shot of `queen:plates`, its pose row written first.
+- friction: 15 min. The context ran out mid-lane; the depth hook refused a
+  hand-written `sin(lon+θ)` until `pin`/`facet` were called; `queen:shell`
+  was a dropped slot name and needed another.
+- landing: 5 min. Formatting, `check:fast`, `land`.
+
+Bottleneck: finding every place that locates a mark — drawing, hit test, cue and caption — so they all ask the one turn.

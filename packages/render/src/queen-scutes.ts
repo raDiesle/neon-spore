@@ -3,6 +3,7 @@ import { rgba } from "./hex.js";
 import { litColour, litRound } from "./key-light.js";
 import { PALETTE } from "./palette.js";
 import type { ShellDraw } from "./queen-look.js";
+import { seamsAt } from "./queen-surface.js";
 
 /**
  * SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September
@@ -25,14 +26,20 @@ import type { ShellDraw } from "./queen-look.js";
  * them the shipped light (`litRound`) so she is one body and not seven. Then
  * the plates breathe apart and back, and a tilt runs across them from wing
  * to wing, so the shadows each edge throws widen and narrow on their own.
+ *
+ * The seams are placed by longitude (`queen-surface.ts`): a turn carries them
+ * across her and a far pair, behind the rim at rest, comes round, so the shell
+ * is nine plates of which the two at the ends are hidden until she turns.
  */
 
-/** The seams, as shares of her half-width. Seven plates, three each side of
- * the one over her middle. */
-const SEAMS: readonly number[] = [-0.75, -0.45, -0.15, 0.15, 0.45, 0.75];
 /** How far the seams bow toward her middle, as a share of the half-width,
  * so the plates read as chevrons pointing in rather than as slats. */
 const BOW = 0.12;
+/** Where a seam's bow stops pointing one way and starts pointing the other,
+ * as a share of the half-width: inside every shipped seam, so a still shell
+ * bows exactly as it did, and wide enough that a seam carried across her
+ * middle turns its chevron over rather than flipping it in a frame. */
+const BOW_FLIP = 0.05;
 /** How much a plate slides under the next, as a share of the half-width. */
 const LAP = 0.06;
 /** The shadow the lapping edge throws, as a share of her half-height. */
@@ -57,6 +64,11 @@ const STONE = "#8A8F9C";
 const SHADOW = "#0B1024";
 const SHEEN = "#F4F1EA";
 
+/** Which way, and how much, a seam at `x` bows: toward her middle. */
+function bowAt(x: number, rx: number): number {
+  return -BOW * rx * Math.max(-1, Math.min(1, x / (BOW_FLIP * rx)));
+}
+
 /** One seam's curve from top to bottom, bowed toward the middle. */
 function seam(p: Path2D, x: number, h: number, bow: number, down: boolean): void {
   const y0 = down ? -h : h;
@@ -75,10 +87,10 @@ function band(left: number | null, right: number | null, h: number, rx: number):
   const r = right ?? rx * 1.6;
   p.moveTo(l, -h);
   if (right === null) p.lineTo(r, -h);
-  else seam(p, r, h, -BOW * rx * Math.sign(r || 1), true);
+  else seam(p, r, h, bowAt(r, rx), true);
   p.lineTo(l, h);
   if (left === null) p.lineTo(l, -h);
-  else seam(p, l, h, -BOW * rx * Math.sign(l || -1), false);
+  else seam(p, l, h, bowAt(l, rx), false);
   p.closePath();
   return p;
 }
@@ -104,7 +116,7 @@ function ridge(
 
 /** One seam's curve as a path of its own, shifted `dx` across. */
 function seamLine(x: number, dx: number, h: number, rx: number): Path2D {
-  const bow = -BOW * rx * Math.sign(x || 1);
+  const bow = bowAt(x, rx);
   const p = new Path2D();
   p.moveTo(x + dx, -h);
   p.quadraticCurveTo(x + dx + bow, 0, x + dx, h);
@@ -152,8 +164,8 @@ export function scutes(d: ShellDraw): void {
   const { ctx, path, rx, ry, time } = d;
   const h = ry * 1.6;
   const breath = 1 + BREATH * Math.sin((time * Math.PI * 2) / BREATH_SECONDS);
-  const at = (i: number): number => SEAMS[i]! * rx * breath;
-  const plates = SEAMS.length + 1;
+  const seams = seamsAt(d.turn ?? 0, rx, breath);
+  const plates = seams.length + 1;
   const mid = (plates - 1) / 2;
   // Outermost first, so each plate nearer the middle covers the lap of the
   // one outside it; the middle plate last, over both its neighbours.
@@ -166,13 +178,17 @@ export function scutes(d: ShellDraw): void {
   ctx.fill(path);
   for (const i of order) {
     const towardMid = i < mid ? 1 : i > mid ? -1 : 0;
-    const left = i === 0 ? null : at(i - 1);
-    const right = i === plates - 1 ? null : at(i);
+    // A seam behind the rim is no seam: the plate runs off the contour there,
+    // and a plate with neither seam in view is round the back.
+    const left = seams[i - 1] ?? null;
+    const right = seams[i] ?? null;
+    if (left === null && right === null) continue;
     // The plate runs `LAP` past its inner seam, under the next plate in.
     const l = left === null ? null : towardMid < 0 ? left - LAP * rx : left;
     const r = right === null ? null : towardMid > 0 ? right + LAP * rx : right;
     const region = band(l, r, h, rx);
-    const tilt = RIPPLE * Math.sin(time * RIPPLE_HZ * Math.PI * 2 - i * RIPPLE_LAG);
+    // Counted from the first plate that shipped, so the ripple runs as it did.
+    const tilt = RIPPLE * Math.sin(time * RIPPLE_HZ * Math.PI * 2 - (i - 1) * RIPPLE_LAG);
     // The edges this plate shows are its outer seams, where it laps the
     // plate outside it: the shadow first, onto that plate, then the ridge
     // over the shadow's inner half, then the edge. On the left wing the edge
