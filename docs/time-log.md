@@ -30946,3 +30946,5 @@ Bottleneck: the moving point — the halo has to follow the gall across the midd
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: where the circles stand between steps — the ring and the track sit over the lit column, which is gone once the step ends, so the verdicts file remembers the last lit catch's column for the green or red to land on.
+
+*Measured: 132 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

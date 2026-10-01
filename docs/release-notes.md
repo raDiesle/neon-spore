@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 071bade51 — THE BURGEE's marks answer a touch the way every mark does
+
+The flag's freeze ring, its draw track and its spindle now wear the halo on the screen they ask, the partner's ring and clock on the other, and a green or red ring when the flag answers: a freeze on the mark greens the ring and a flap reddens it, a flutter reddens the track, a catch greens both and a catch run out reddens both, and a hit or a shot run out says so on the spindle. Between steps the rings stand at the last lit catch's column, so a verdict stays where it was earned.
+
 ## 2026-10-01 · 80bc06e52 — THE GALL's marks answer a touch the way every mark does
 
 The point the gall sits on and its bared root now wear the halo on the screen they ask, the partner's ring and clock on the other, and a green or red ring when the seam answers: a close landed greens the point, a pinch let slip or a close run out reddens it, and a hit or a shot run out says so on the root. When the gall jumps across the middle, the halo goes over to the other screen with it.
