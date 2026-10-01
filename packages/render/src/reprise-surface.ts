@@ -33,6 +33,10 @@ export const REPRISE_SURFACE = {
   amount: 0,
   /** The widest turn, degrees, at the drift's widest yaw. */
   degrees: 40,
+  /** The veins' opacity: faint, as shipped. */
+  veinAlpha: 0.12,
+  /** The veins' width, in the sac's unit (never under 0.8 px). */
+  veinWidth: 0.04,
 };
 
 /** How far past a sample lying outside the sac its own circle reaches, so it is never pinned on the rim itself. */
@@ -95,8 +99,8 @@ export function veinAt(
  */
 export function drawVeins(ctx: CanvasRenderingContext2D, f: RepriseFrame, theta: number): void {
   ctx.lineCap = "round";
-  ctx.lineWidth = Math.max(0.8, f.u * 0.04);
-  ctx.strokeStyle = rgba(PALETTE.sheenRim, 0.12);
+  ctx.lineWidth = Math.max(0.8, f.u * REPRISE_SURFACE.veinWidth);
+  ctx.strokeStyle = rgba(PALETTE.sheenRim, REPRISE_SURFACE.veinAlpha);
   if (REPRISE_SURFACE.amount === 0) {
     drawShipped(ctx, f);
     return;

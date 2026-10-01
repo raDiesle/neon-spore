@@ -31511,3 +31511,15 @@ found one red test at a time.
 Bottleneck: each seam (neck, rear, tail root) was a different file's choice, so making it one body meant reading three drawers before one line changed.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE REPRISE's skin candidate made bolder
+
+- reading: 5 min. The surface record, its tests, and why the turn hid.
+- writing: 5 min. The veins' opacity and width named in `REPRISE_SURFACE`
+  at their shipped values, and the candidate patching them up with a
+  wider turn.
+- looking: 5 min. The before and after shots while it runs.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the turn moved veins drawn at an eighth of full strength, so nothing could be seen moving until the strength was a field the candidate could patch.
