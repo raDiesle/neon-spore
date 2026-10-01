@@ -59,6 +59,7 @@ import { dirname, join } from "node:path";
  * `jumpToWave` and `world.wave` actually use.
  */
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { absentNote, NoSuchField, unlessAbsent } from "./boss-check.js";
 import { sameFrames } from "./crop.js";
 import { parseFrameSpec } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
@@ -147,12 +148,16 @@ async function main(): Promise<void> {
   const scratchOut = await scratchDir("out-");
   try {
     console.log(`before: ${parent.slice(0, 7)}`);
-    const before = await captureAt(parent, spec, join(scratchOut, "before"));
+    // A field the sha itself adds is not on its parent's boss: the after
+    // frame alone, and said, rather than no picture (`boss-check.ts`).
+    const before = await unlessAbsent(captureAt(parent, spec, join(scratchOut, "before")));
+    const pair = before instanceof NoSuchField ? null : before;
+    if (before instanceof NoSuchField) console.log(`  ${absentNote(before)}`);
     console.log(`after: ${full.slice(0, 7)}`);
     const after = await captureAt(full, spec, join(scratchOut, "after"));
     const seconds = Math.round((Date.now() - start) / 1000);
 
-    if (sameFrames(before.whole, after.whole)) {
+    if (pair && sameFrames(pair.whole, after.whole)) {
       console.log(
         `identical: before and after look the same at this wave and tick (${seconds}s) — nothing written to ${out}. A picture of an unchanged field teaches nothing; try a different --wave or --ticks.`,
       );
@@ -161,7 +166,7 @@ async function main(): Promise<void> {
 
     await mkdir(out, { recursive: true });
     const written: string[] = [];
-    for (const p of [...before.paths, ...after.paths]) {
+    for (const p of [...(pair?.paths ?? []), ...after.paths]) {
       const rel = p.slice(scratchOut.length + 1);
       const dest = join(out, rel);
       await mkdir(dirname(dest), { recursive: true });
@@ -170,7 +175,7 @@ async function main(): Promise<void> {
     }
 
     console.log(`wrote ${written.length} frame(s) to ${out} in ${seconds}s`);
-    const both = [...before.atTick, ...after.atTick];
+    const both = [...(pair?.atTick ?? []), ...after.atTick];
     written.forEach((p, i) => {
       console.log(`  ${p}${tickNote(both[i])}`);
     });

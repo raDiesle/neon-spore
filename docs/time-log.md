@@ -31224,3 +31224,15 @@ Bottleneck: which of three readings of "remember test mode" was meant — the pa
 Bottleneck: proving that a step which times out still takes down what it brings up late, which needed a budget forced to 5 ms and a process list read before and after.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — `bun run frames <sha> --boss` takes the after frame alone for a field the sha adds
+
+- reading: 5 min. `boss-install.ts`, `boss-check.ts`, `run.ts`, and how an
+  error comes out of `captureAt`.
+- writing: 10 min. `NoSuchField`, `bossError`, `unlessAbsent`, the run's
+  after-only path, and `boss-absent.test.ts`.
+- looking: 5 min. The command from the queue entry, run against 13757cea1.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: telling a missing field apart from every other refusal without matching on the message, which meant giving the refusal a kind of its own.

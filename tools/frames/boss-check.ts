@@ -52,31 +52,73 @@ export function kindOf(v: unknown): string {
 }
 
 /**
+ * **The one refusal a pair can step past**: the boss has no field of that
+ * name. A sha that adds or renames a field is the change most worth a picture,
+ * and its parent cannot have the field yet — `bun run frames 13757cea1 --boss
+ * catchTick=2375` was refused whole on 30 September 2026 because the parent
+ * still called it `catchBeat`. So `run.ts` catches this on the *before* side
+ * only and takes the after frame alone; on the after side, and from `.`, it
+ * is an error like any other.
+ */
+export class NoSuchField extends Error {}
+
+/** `p`, or the `NoSuchField` it threw — any other error still throws. */
+export function unlessAbsent<T>(p: Promise<T>): Promise<T | NoSuchField> {
+  return p.catch((error: unknown) => {
+    if (error instanceof NoSuchField) return error;
+    throw error;
+  });
+}
+
+/** What the run says in place of the before frame it could not take. */
+export function absentNote(absent: NoSuchField): string {
+  return `before has no such field, so the after frame alone — ${absent.message}`;
+}
+
+/** What `installBoss` throws for a list, or null when every field may be written. */
+export function bossError(list: BossSpec, seen: BossSeen): Error | null {
+  const { said, absent } = firstRefusal(list, seen);
+  if (said === "") return null;
+  return absent ? new NoSuchField(said) : new Error(said);
+}
+
+/**
  * Why the list may not be written, or `""` when every field of it may.
  * Checked whole, so that nothing is written when one field is refused.
  */
 export function bossRefusal(list: BossSpec, seen: BossSeen): string {
+  return firstRefusal(list, seen).said;
+}
+
+function firstRefusal(list: BossSpec, seen: BossSeen): { said: string; absent: boolean } {
+  const no = (said: string) => ({ said, absent: false });
   for (const [i, one] of list.entries()) {
     const mine = one.where === "creature";
     const flag = mine ? "--creature" : "--boss";
     if (mine && !seen.hasBody) {
-      return `--creature ${one.key}: the ${seen.kind} is drawn as no body on the field`;
+      return no(`--creature ${one.key}: the ${seen.kind} is drawn as no body on the field`);
     }
     const field = seen.fields[i];
     if (!field?.present) {
       const what = mine ? `the ${seen.kind}'s body` : `the ${seen.kind}`;
-      return `${flag} ${one.key}: ${what} has no such field. It has ${field?.have.join(", ")}`;
+      const have = field?.have.join(", ");
+      return {
+        said: `${flag} ${one.key}: ${what} has no such field. It has ${have}`,
+        absent: true,
+      };
     }
     if (one.key === "kind" || (mine && one.key === "id")) {
-      return `${flag} ${one.key}: which body a wave installs is the wave's, not a flag's`;
+      return no(`${flag} ${one.key}: which body a wave installs is the wave's, not a flag's`);
     }
     const said = valueRefusal(flag, one.key, field.was, one.value, seen.beatIsNumber);
-    if (said !== "") return said;
+    if (said !== "") return no(said);
     if (hasNow(one.value) && !seen.beatIsNumber) {
-      return `--boss-json ${one.key}: a now inside it, and this build has no world.beat to read`;
+      return no(
+        `--boss-json ${one.key}: a now inside it, and this build has no world.beat to read`,
+      );
     }
   }
-  return "";
+  return no("");
 }
 
 function valueRefusal(

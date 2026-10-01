@@ -434,21 +434,6 @@ Done when, per boss: the candidate is in VERSUS; its hit tests find every
 target at the drift's widest; op count within 10%; `baked-growth.test.ts`
 flat. `bun run check` proves the tests.
 
-## `bun run frames <sha> --boss <field>` refuses a field the sha itself adds
-
-- **Found:** 2026-09-30, claude/pinball-wave-physics-ux-b2db9f
-- **Taken:** 2026-10-01, claude/queue-frames-test-opening-test-ts-times-out-in-its-hoo (claim: claude/queue-bun-run-frames-sha-boss-field-refuses-a-field-th)
-- **Files:** `tools/frames/boss-install.ts`, `tools/frames/run.ts`
-
-`bun run frames 13757cea1 --wave "PINBALL" --ticks 2400 --boss catchTick=2375`
-exited 1 with "the pinball has no such field", naming the old `catchBeat`. The
-sha renamed `catchBeat` to `catchTick`, and the "before" frame runs the parent,
-where the field is not there yet. The workaround was `bun run frames .`, which
-gives no pair. When the field is missing on the before side only, render the
-after frame, and say that the before side has no such field instead of refusing
-the whole run. A test in `tools/frames/test/` should cover a field that only the
-after side has. Prove it with `bun run check`.
-
 ## `vane.test.ts` is past 250 lines
 
 - **Found:** 2026-09-30, claude/the-vane-boss-expansion-12346e

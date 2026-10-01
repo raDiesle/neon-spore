@@ -17,14 +17,14 @@
  * does not have, by name, and says which names it does have.
  *
  * **The page reads and writes; this process decides.** What each field holds
- * now crosses out, `bossRefusal` (`boss-check.ts`) says whether the list may
+ * now crosses out, `bossError` (`boss-check.ts`) says whether the list may
  * be written, and only then does a second call write it — so the rule is a
  * pure function with tests of its own, and not code that only a browser runs.
  */
 
 import type { Page } from "playwright-core";
 import type { BossSpec } from "./boss.js";
-import { type BossSeen, bossRefusal } from "./boss-check.js";
+import { type BossSeen, bossError } from "./boss-check.js";
 
 /**
  * Write the fields on `world.boss` and on the body it is drawn as, where a
@@ -75,8 +75,8 @@ export async function installBoss(page: Page, fields: BossSpec): Promise<void> {
     };
   }, asked);
   if (typeof seen === "string") throw new Error(seen);
-  const said = bossRefusal(fields, seen);
-  if (said !== "") throw new Error(said);
+  const refused = bossError(fields, seen);
+  if (refused) throw refused;
   await page.evaluate((list) => {
     const world = window.neonSpore?.world as unknown as {
       boss: Record<string, unknown>;
