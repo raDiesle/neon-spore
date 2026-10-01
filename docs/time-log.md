@@ -30963,3 +30963,15 @@ Bottleneck: where the circles stand between steps — the ring and the track sit
 Bottleneck: what the rester's screen should ask — keeping still has nothing to touch, so the only thing the still seat is shown is the partner's clock on the ember.
 
 *Measured: 144 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — §41 THE WINCH is cut, and THE LAMPREY takes its place
+
+- reading: 10 min. THE WINCH's section, the library's unspent primitives,
+  §43's format and every page that names THE WINCH.
+- writing: 20 min. THE LAMPREY's section whole, its index line, and the
+  references to THE WINCH in the sections that stay.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: finding a pairing the page has not spent — `RepeatedTap` was the one primitive no concept had used, and a crawling mouth to hold gave it a second seat.

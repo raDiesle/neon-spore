@@ -392,52 +392,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## §41 THE WINCH — the simulation lane
-
-- **Found:** 2026-09-26, this session
-- **Taken:** 2026-10-01, claude/queue-work-1cce21 (claim: claude/queue-41-the-winch-the-simulation-lane)
-- **Files:** `docs/spec/bosses-choreographed.md`, `tools/director/src/gesture-unbuilt-b.ts`
-- **Asks:** THE DAVIT already ships this question — its draw "counts its beats only while the other seat's lean holds … and lands only if it lifts while the lean still holds" (`docs/spec/bosses.md` §11.52) — so THE WINCH plays as THE DAVIT with THE TRIVET's chord where the lean is. Build it anyway as designed (two lanes, sim then look); cut §41 as a duplicate and drop both WINCH entries; or redesign it first so a lifted brake also unwinds a draw already banked, which DAVIT's lean never does?
-- **Answered:** 2026-09-27 — redesign, over building as designed or cutting. The owner's rule: a mechanic that is most of a boss must not repeat one that ships, but a boss that uses it as one state among others may. Here the gated draw is rows 2–9 of ten, so it is the whole boss, and that boss is THE DAVIT. Redesign it so a lifted brake also unwinds a draw already banked, and add states before or after it so the boss keeps the pair busy for 30 seconds or more — the owner's floor for any boss.
-- **Answered:** 2026-09-27 — cut as it stands, over the redesign answered above. The owner, refining it: keep a boss that shares THE DAVIT's control step only when that step is one of several, and when the boss looks exciting and different from THE DAVIT; otherwise skip it and design something fresh, with more states and a new mechanic. Here the gated draw is rows 2–9 of ten, so it is not one of several. Take §41 out of `docs/spec/bosses-choreographed.md` and its `where` rows out of `tools/director/src/gesture-unbuilt-b.ts` (the cards that were in gesture-unbuilt.ts are built now, in `tools/director/src/gesture-built-bosses.ts`, and name hand files rather than spec sections), delete this entry and its look lane with `queue done`, and put a fresh boss on the NOT BUILT YET sheet in its place, one that keeps a pair busy for 30 seconds or more.
-
-No new gesture, no new primitive: `CHORD` (THE TRIVET's `ChordHold`) paired
-with `HOLD, THEN SWIPE` (THE SLING's `DrawRelease`) for the first time —
-the seam is which seat governs which. One seat holds a two-control chord
-down as a brake; the other draws and releases toward a lit column exactly
-as THE SLING already resolves it, but the draw only counts while the
-brake's chord is still held whole. Breaking the chord — either control
-lifted — at any point mid-draw springs the draw back slack, the same
-"spring back rather than lose the step outright" `DrawRelease` already
-uses for an early or wrong-direction release; it does not reset THE
-WINCH's own banked count of prior full turns, only the draw in flight.
-This is a harsher coupling than THE CAPSTAN's `TILT, AS A LEVEL` + `RUB`
-(a lifted tilt there only pauses the hidden face's rub counter, never
-springs anything back) and reads differently from a restraint gate: the
-brake seat is not sending nothing, it is actively holding, and it is the
-*other* seat's in-progress gesture that answers to it. The full beat list
-and primitive table entry are §41 of `docs/spec/bosses-choreographed.md`.
-`CHORD` and `HOLD, THEN SWIPE` each already carry a §41 THE WINCH entry
-in their `where` arrays, split across what is `gesture-built-bosses.ts`
-now and `gesture-unbuilt-b.ts` — land both files with the rest. THE SLOW on every
-draw the brake is covering. `bun run check` proves it.
-
-## §41 THE WINCH — the look
-
-- **Found:** 2026-09-26, this session
-- **Needs:** §41 THE WINCH — the simulation lane
-- **Files:** `docs/spec/bosses-choreographed.md`
-
-Lane two, read against `docs/style-guide.md`: a new silhouette (checked
-this session against `packages/content/src/silhouettes*.ts` and every
-file under `tools/shape-sheet/src/drafts/` — nothing winch-, drum- or
-brake-shaped exists to reuse or collide with) for a drum and cable under
-tension, the cable paying out smoothly while the brake holds and snapping
-taut with a visible shudder the instant the brake breaks — the tell is
-the shudder, not a colour change, the same drawn-as-mechanism choice
-THE VALVE's freeze and THE FLUE's ember drift both make. Nothing here is
-drawn yet; how it looks at tempo is the owner's to judge, not an entry.
-
 ## §42 THE SLUICE — the simulation lane
 
 - **Found:** 2026-09-26, this session

@@ -48,6 +48,7 @@ reordering the page without keeping them would break every one of them.
 
 **Not built — written and nobody has started it**
 
+- **[THE LAMPREY](#41-the-lamprey--a-mouth-on-the-hull-one-thumb-pinning-it-and-one-knocking-its-teeth-out)** · §41 — a mouth on the hull, one thumb pinning it and one knocking its teeth out. Written 1 October 2026 in place of THE WINCH, which the owner cut on 27 September 2026; not built.
 - **[THE FILAMENT](#17-the-filament--whether-you-can-follow-a-line-that-is-still-being-drawn)** · §17 — whether you can follow a line that is still being drawn. Written 17 September 2026 out of [the second brief](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have)'s one absent category, and it wants `TraceDrag`, which is the only gesture on either brief with no ancestor anywhere in this game
 - **[THE GIMBAL](#18-the-gimbal--whether-the-same-turn-means-the-same-thing-to-both-of-you)** · §18 — whether the same turn means the same thing to both of you. One of [five more](#five-more-asked-for-by-name) written 20 September 2026; queued in two lanes, cloud and local
 - **[THE BELLOWS](#19-the-bellows--whether-you-can-push-when-she-is-pulling)** · §19 — whether you can push when she is pulling. One of [five more](#five-more-asked-for-by-name); built 22 September 2026 and taken out on 24 September 2026 — [bosses](bosses.md) §11.35, under *Retired*, has the owner's reason
@@ -3261,7 +3262,7 @@ asking for the next joint.
 joint currently sits at (an index, the way `instar`'s pose index already
 works), a boolean per segment, and one boolean each for rows 9, 10, 11 and
 15's holds — reads off `CHORD` (already built for THE MANTLE, THE VALVE, THE
-TRIVET, THE GRINDSTONE, THE HALTER and THE WINCH, first use on THE KEEL), an
+TRIVET, THE GRINDSTONE and THE HALTER, first use on THE KEEL), an
 ordinary simultaneous fire, and `SENDING NOTHING` (already built for THE
 MANTLE, THE SEAM, THE OCULUS, THE VISE, THE RIME, THE TRIVET, THE PLUMB, THE
 SLING, THE GRINDSTONE, THE HALTER and THE FLUE, first use on THE KEEL was
@@ -3383,7 +3384,7 @@ genuinely new verb on either brief — `tools/director/test/on-field-controls.te
 exhaustive switch is where it is added, so the compiler is the checklist.
 Row 13's brace and row 19's finish both read one boolean off `CHORD`,
 already built for THE MANTLE, THE KEEL, THE TRIVET, THE GRINDSTONE, THE
-HALTER, THE WINCH and THE GOVERNOR. Row 18's wipe reads `RubCount` off the
+HALTER and THE GOVERNOR. Row 18's wipe reads `RubCount` off the
 same pointer path already built for THE RIME, THE GRINDSTONE and THE
 CAPSTAN. Row 20's fade is `SENDING NOTHING`'s own idle read, already built
 for the restraint gate, THE KEEL, THE HALTER and THE FLUE. No new primitive.
@@ -4894,105 +4895,126 @@ reach for it before inventing a new kind of gate.
 
 ---
 
-### §41 THE WINCH — a draw that only counts while the other hand keeps the brake down
+### §41 THE LAMPREY — a mouth on the hull, one thumb pinning it and one knocking its teeth out
 
-**Question.** `CHORD` has only ever gated whether a *hold* is counted true;
-`HOLD, THEN SWIPE` has only ever been judged against a lit column, its
-outcome decided at the release and by nothing the other seat is doing.
-THE CAPSTAN paired a held state with a continuous wipe, but breaking the
-hold there only *pauses* the wipe's own count — nothing is lost. This
-concept asks whether a chord held by one seat can gate, moment to
-moment, whether a wholly different continuous gesture — another seat's
-draw, already under way — is honoured at all: a chord that breaks before
-the draw is loosed springs the draw itself back slack, the same
-undrawing `DrawRelease` already does on an early or wrong-direction
-release, now caused by a hand that was never touching the draw.
+*Written 1 October 2026 in place of THE WINCH, which the owner cut on 27
+September 2026 with THE SLUICE: both were THE DAVIT's gated draw again, a
+hold that only lets the other seat's gesture count. **The owner's ask:**
+something fresh, with more states, that keeps a pair busy for half a minute
+or more.*
 
-**Silhouette.** A geared winch mid-hull, a hook drawn back along a track
-by one hand, a two-post brake astride the spool that the other hand
-chords to lock it. Health is the two draws, one per seat, each loosed at
-a lit column, plus a lit pawl once both are locked home; the pawl takes
-three ordinary hits.
+**Question.** `RepeatedTap` is the one gesture on the library's list that
+no concept has wanted: a count of taps on a target that moves between taps,
+so the taps cannot all go in one place. This asks what it is for. It is for
+teeth. A mouth bites onto the hull, and you knock its teeth out one at a
+time. The lit tooth jumps round the ring after every tap. Meanwhile the
+mouth is crawling along the hull, chewing as it goes, and the other seat
+keeps a thumb on it to stop it biting deeper (`FollowTarget`). **One seat
+chases a jumping mark, the other a crawling body, on the same mouth, in the
+same beat.** There is no gate here. Neither hand makes the other's gesture
+count. Each hand stops its own half of the bite.
 
-**Mechanic.** `winchBrakeLeft` / `winchBrakeRight`, one per seat, read by
-`CHORD`, exactly as THE TRIVET's planted feet — held true only while
-none of the two posts has lifted. `winchDrawnMilli`, the other seat, read
-by `HOLD, THEN SWIPE` exactly as THE SLING's arms: a hold on the hook,
-counted while held, resolved at release against a lit column. But the
-draw is only ever loosed while the *other* seat's brake chord is
-currently held — a release timed true against the column, with the
-brake up, springs the hook back slack all the same, precisely as an
-early or wrong-direction release already does; the brake breaking mid-draw
-costs nothing banked so far, only the draw in flight, so a seat that has
-been holding the chord for four beats loses no ground when its partner's
-hook is still short of the column.
+**Silhouette.** A long slime eel, one body of lobes that tapers to a tail.
+Its head is a round sucker mouth, rimmed with seven hooked teeth. It enters
+whole: it swims in from the top of the field in a wide S, circles the hull
+once, then slams its mouth onto the hull with a shudder that shakes the
+whole field. **The health is the teeth.** There are seven on the ring. Five
+knocked out drops the mouth off the hull, and the last two stay. Then the
+gullet behind them opens, and it takes three hits.
 
-**Player 1 and Player 2.** Identical screens, both posts, the hook and
-the pawl visible on both — but **the seat chording the brake is never
-the seat drawing the hook**: Player 1 chords for Player 2 to draw, then
-the two trade so Player 2 chords for Player 1, the same cross THE
-CAPSTAN's steering and wiping already make literal.
+**Mechanic.** `lampreyJaw` is `FollowTarget`. It is a hold that stays good
+only while the thumb stays on the jaw, and the jaw crawls along the hull a
+column every few beats. `lampreyTooth` is `RepeatedTap`. It is a tap on the
+one lit tooth, and after each tap the lit tooth jumps two places round the
+ring, never to the one beside it. **The bite has a depth,
+`lampreyBiteMilli`**, drawn as a red scar under the mouth that glows hotter as
+it deepens. It deepens every beat that the jaw is not held, and it stands
+still while it is held. **A full bite is a hull hit, and so it is the wave.**
+A tap that misses the lit tooth does not hurt. It lets the tooth snap back in
+and puts the count back one. Letting go of the jaw does not lose a tooth
+either. It only lets the bite deepen, so the two jobs fail in two different
+pictures.
+
+**Player 1 and Player 2.** Identical screens: the whole eel, the mouth, the
+scar and the lit tooth are on both. **The seat pinning the jaw is never the
+seat tapping the teeth.** In movement 1 Player 1 pins and Player 2 taps. In
+movement 2 the eel lets go, swims round and bites the other side of the
+hull, and the two trade. The pinner's thumb is busy and it moves. So the
+tapper is the only one with a free eye on the ring. The pinner is the only
+one who feels the jaw pull, and calls out when it starts to slip.
 
 **The beat list.**
 
 | # | Picture | Seat | Gesture | Window | Landed | Missed |
 |---|---|---|---|---|---|---|
-| **Movement 1 — the left draw** ||||||
-| 1 | The hook hangs slack at the spool, both posts up, pawl dark | — | — | — | — | — |
-| 2 | The brake's two posts light | P1 | hold two controls together (`CHORD`) | held, steadying | brake locked | either lifts, posts spring up, retry |
-| 3 | The hook's cup lights, a column lit to match | P2 | hold, then loose it toward the lit column (`HOLD, THEN SWIPE`), brake held throughout | 5 beats, held, then released true, brake down at release | left draw locked home | brake lifts before release, or held too short, or wrong direction: hook springs slack, retry from row 2 |
-| **Movement 2 — the right draw, roles swapped** ||||||
-| 4 | The brake's posts light for the other seat | P2 | hold two controls together | held, steadying | brake locked | posts spring up, retry |
-| 5 | The hook's cup lights, column lit | P1 | hold, then loose it true, brake held throughout | 5 beats, held, then released true, brake down at release | right draw locked home, pawl lights | springs slack, retry from row 4 |
-| **Movement 3 — the pawl, held down** ||||||
-| 6 | The pawl flashes a colour | that cannon's seat | fire it (`FIRE`) | 3 beats, seen | first hit lands | ordinary hull hit |
-| 7 | Both hooks creep slack under the pawl | P1+P2 | one chords the brake while the other redraws | held, then released true | pawl stays down | brake lifts or draw springs, movement's fire beats lost until both draws lock home again |
-| 8 | Pawl flashes again | that cannon's seat | fire it | 3 beats, seen | second hit | ordinary hull hit |
-| 9 | Hooks creep slack a second time, faster | P1+P2 | chord and redraw again, roles free to trade | held, then released true | stays down | springs, retry |
-| 10 | Pawl flashes white — either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, winch spent | stays lit |
-| 11 | Both posts lift for good and the spool spins free, spent | — | — | — | — | — |
+| **Movement 1 — the first bite** ||||||
+| 1 | The eel swims in from the top in a wide S, circles the hull, and slams its mouth onto the hull's left half; the field shakes | — | — | — | — | — |
+| 2 | The jaw starts to crawl right along the hull; the scar under it begins to glow | P1 | put a thumb on the jaw and keep it there as it crawls (`FollowTarget`) | held, the whole movement | bite stops deepening | thumb slips off: bite deepens a step a beat until it is back on |
+| 3 | One tooth on the ring lights | P2 | tap it (`RepeatedTap`) | 3 beats, seen | tooth flies out, lit tooth jumps two places on | tooth snaps back in, count back one |
+| 4 | The next tooth lights, the jaw still crawling | P2 | tap it | 3 beats | tooth 2 out | snaps back, count back one |
+| 5 | The next tooth lights | P2 | tap it | 3 beats | tooth 3 out | snaps back |
+| 6 | The jaw shudders, works loose, and the eel pulls off the hull | — | — | 2 beats | — | — |
+| **Movement 2 — the other side, roles traded** ||||||
+| 7 | The eel swims once round the hull, faster, and bites the right half | — | — | 2 beats | — | — |
+| 8 | The jaw crawls left, faster than before | P2 | keep a thumb on it (`FollowTarget`) | held, the whole movement | bite stops deepening | slips: bite deepens again from where it was |
+| 9 | A tooth lights | P1 | tap it | 2 beats, seen | tooth 4 out, lit tooth jumps on | snaps back, count back one |
+| 10 | The next tooth lights | P1 | tap it | 2 beats | tooth 5 out, the mouth falls off the hull | snaps back |
+| **Movement 3 — the gullet** ||||||
+| 11 | The eel rears up over the hull, two teeth left, its gullet lit in one cannon's colour | that cannon's seat | fire into it (`FIRE`) | 3 beats, seen | first hit, the eel recoils | it lunges: back to row 12 with the gullet dark |
+| 12 | The eel lunges and bites again with its two last teeth; the jaw crawls fastest | P1+P2 | one pins the jaw, the other taps both teeth | held, and 2 beats per tooth | both teeth out, back to row 11 for the next hit | the bite deepens; the window runs out as a full bite, the wave |
+| 13 | Gullet lit the other colour | that cannon's seat | fire it | 3 beats, seen | second hit | lunges, back to row 12 |
+| 14 | Gullet lit white, either colour answers it | either seat | fire it | 3 beats, seen | third hit lands, the eel goes slack | lunges, back to row 12 |
+| 15 | The eel falls away down the field, limp, its last lobes going grey | — | — | — | — | — |
 
-**THE SLOW** opens on every brake-and-draw window (rows 2–3, 4–5, 7, 9)
-together — the chord and the draw are one thing to watch rather than
-two, since a post lifted a beat before the release costs a draw the
-chording seat never touched, the same seconds-not-beats argument THE
-TRIVET's and THE SLING's own windows already make, now spent across two
-seats' unrelated gestures at once.
+**About forty seconds clean at 96 a minute**: the entrance is six beats,
+each movement's taps take nine to twelve, and movement 3 is three shots and
+two re-bites. Every slip adds beats, so a pair that talks badly plays it
+longer, never shorter.
 
-**Presentation.** No camera. Each locked draw a taut snap, THE SLING's
-own; each post held down a low steady creak; a draw sprung by a lifted
-brake the same slack, empty thud `DrawRelease` already gives a
-wrong-direction release.
+**THE SLOW** opens on the first tap of each bite (rows 3, 9 and 12). The
+pinner has just found the jaw, and the tapper has to find the lit tooth on a
+mouth that is moving. That is two moving things to find at once, and seconds
+are what the pair are short of, not beats.
 
-**Animation.** Five poses: both hooks slack, posts up; left drawn,
-brake down; both drawn, pawl lit; pawl guarded, a hook creeping slack;
-posts up for good, spool spun free. The hook draws by bending the cable
-taut under load rather than fading in, the same drawn-as-mechanism
-choice THE SLING and THE TRIVET both make.
+**Presentation.** No camera. Each tooth knocked out is a hard *crack*. The
+tooth spins off and falls down the field, so the pair can count the gaps in
+the ring by eye. A slipped jaw is a wet grinding sound that gets louder as the
+scar deepens. The pinner hears the bite before anyone sees it. The slam at
+the entrance is the loudest sound in the wave.
 
-**Colour.** Winch and posts a scoured steel grey, the hook a hot amber
-when drawn true, same as THE SLING's cup; the pawl is the only lit
-colour on the body, in whichever cannon colour a given beat wants.
+**Animation.** Seven poses:
+- swimming in an S;
+- circling the hull;
+- the slam, the mouth flattened on the hull;
+- crawling, the body pulling the mouth along in waves;
+- the mouth pulling free, stretched like a sucker;
+- rearing up, gullet open;
+- limp and falling.
 
-**Payoff.** Rows 3 and 5 — a draw already timed true against its column
-undone by a hand that was never on it, the sharpest version yet of one
-seat's gesture answering for a state only the other seat holds, distinct
-from THE CAPSTAN's pause-without-loss and from THE HALTER's and THE
-FLUE's own restraint gates, which read absence rather than another
-seat's active hold.
+The lit tooth's jump is a quick flick of light round the rim. The tooth never
+slides, so the tapper's eye has to jump too.
 
-**Cost. Low.** No new primitive — `CHORD` is already built for THE
-TRIVET and THE HALTER, `HOLD, THEN SWIPE` for THE SLING. The only new
-code is reading the brake seat's chord state at the instant the draw
-seat releases, ordinary per-boss wiring rather than a new field type.
+**Colour.** The eel is a dark wet olive, and its teeth are a pale bone white.
+The lit tooth is the only bright thing on the ring. The scar is the hull's own
+red and nothing else. The gullet in movement 3 is the only lit colour on the
+body, in whichever cannon colour the beat wants.
 
-**Reusable.** Gating one seat's release-resolved gesture on a wholly
-different seat's continuously-held state, so that state's lapse springs
-the gesture back rather than merely pausing it, is a shape distinct from
-THE CAPSTAN's retarget-without-loss and from every restraint gate reading
-one seat's own absence; any future concept wanting a partner's hold to
-underwrite the other partner's aim can reach for it before inventing a
-new kind of coupling.
+**Payoff.** The pair learn in movement 1 that two jobs fail in two different
+ways. A missed tooth snaps back. A slipped jaw lets the scar glow. In
+movement 2 they have to do the other one's job. Row 12 asks for both at the
+fastest crawl, with a cannon waiting after it.
+
+**Cost. Medium.** `RepeatedTap` is new: a tap target whose position moves to
+a new tooth after each landed tap, hashed as the lit tooth's index. It is a
+small step on §16's `tap`. `FollowTarget` is already in the grip machinery,
+which keeps a hand on a body that moves. The bite depth is one `Milli` field
+and a rate in `SimConfig`. The mouth crawling along the hull is a column
+index stepped on a beat count.
+
+**Reusable.** `RepeatedTap` itself, spent at last. And a pairing the game
+has not had: **two seats failing in two different pictures on one body**.
+A tap missed puts the count back. A hold lost lets a threat grow. Neither
+hand gates the other.
 
 ---
 
@@ -5101,7 +5123,7 @@ role before assuming `CHORD` is the only gate that fits.
 ### §43 THE GOVERNOR — a chord that does not gate the tap, only how hard it lands
 
 **Question.** Every pairing so far that couples a held state with a
-different seat's gesture — THE WINCH's brake, THE SLUICE's seal — asks the
+different seat's gesture — THE DAVIT's lean, THE SLUICE's seal — asks the
 same shape: hold the gate whole or the other seat's gesture springs back
 to nothing. `CHORD` has never done anything else. `TAPS ON A MOVING
 TARGET` has so far only ever been judged against a target moving on the
@@ -5137,7 +5159,7 @@ a tap counts at all.
 needle's true pace visible on both — but **the seat chording the brake is
 never the seat tapping the needle**: Player 1 governs for Player 2 to tap,
 then the two trade so Player 2 governs for Player 1, the same cross THE
-WINCH's brake-and-hook already makes literal, now spent on a pace rather
+DAVIT's lean-and-draw already makes, now spent on a pace rather
 than a pass or fail.
 
 **The beat list.**
@@ -5172,8 +5194,7 @@ number nobody's screen states outright.
 **Presentation.** No camera. A tap landed slow a clean tick, the same THE
 GALL's closures already give; a tap landed on a sprinting needle the
 identical tick, on purpose — the difficulty is felt in the miss rate, not
-signalled by a different sound. Each replanted chord a low steady creak,
-THE WINCH's own.
+signalled by a different sound. Each replanted chord a low steady creak.
 
 **Animation.** Five poses: flyweights slow, needle idle; flyweights loose,
 needle sprinting; a chord replanted, needle easing; a landed tap's flash on
@@ -5192,14 +5213,14 @@ tap can land at all — the same body, felt as two different fights
 depending on whether the chord seat is paying attention.
 
 **Cost. Low.** No new primitive — `CHORD` is already built for THE
-TRIVET, THE HALTER and THE WINCH, `TAPS ON A MOVING TARGET` for the
+TRIVET, THE HALTER and THE GRINDSTONE, `TAPS ON A MOVING TARGET` for the
 cinematic RATCHET, THE GALL and THE FLUE. The only new code is a speed
 multiplier on the needle's own script, read from the chord seat's state
 each frame rather than sampled once at a gate.
 
 **Reusable.** A held state changing how hard a different seat's gesture is
 to land, rather than whether it counts at all, is a third coupling shape
-beside THE WINCH's binary gate and THE SLUICE's continuous-pinch gate; any
+beside THE DAVIT's binary lean gate and THE SLUICE's continuous-pinch gate; any
 future concept wanting difficulty rather than validity to ride a partner's
 hold can reach for a speed or window multiplier before reaching for a
 spring-back rule.
