@@ -31077,3 +31077,5 @@ Bottleneck: the caption's anchor fell through to the lid lookup for the two new 
 - landing: 5 min. Formatting, the index, `check:fast`, `land`.
 
 Bottleneck: chasing the beaten pose's near nest through seat depths before a probe showed it sat on the head, not off the back.
+
+*Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

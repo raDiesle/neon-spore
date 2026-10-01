@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · fd35c7f28 — THE INSTAR's body with weight, offered in VERSUS
+
+A VERSUS candidate, so nothing on the field changes. The `instar:body` slot offers WEIGHT, a heavier INSTAR. Its girth runs, in head radii, 0.65 at the neck, 1.05 at the chest, 0.9 at the middle and 0.6 at the rear. The tail thins from 0.45 to 0.07. A pale band runs along the belly, the ridge stands tallest over the chest, and the rig head is on it. The spine is seated under each nest across the body, so the eggs stay on the back in every pose.
+
 ## 2026-10-01 · b831ae608 — THE HAUL's guide: a hold filled, the line reeled home, the prime pulled
 
 THE HAUL opens on a rehearsal now. Level one fills the hold to laden and player 2 reels the ship home on the line; level two swaps the seats, fills it to heavy, and player 2 primes the burn before player 1 sucks it in. Its captions and the ghost hand point at the real rings on the ship, which had fallen through to the wrong lookup. The director's SCOUT note says what the hold, the line and the prime are.
