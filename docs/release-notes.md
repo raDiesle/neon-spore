@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · ac78f675e — `bun run frames <sha> --boss` takes the after frame alone when the parent has no such field
+
+A `--boss` field the sha itself adds — 13757cea1 renamed `catchBeat` to `catchTick` — was refused on the parent's side, and the refusal took the whole pair with it: no picture at all of the change the flag was meant to show. That one refusal is now a `NoSuchField`, `run.ts` steps past it, says "before has no such field, so the after frame alone", and writes `after.png`. Every other refusal — a wrong type, a phase out of range — still stops the run.
+
 ## 2026-10-01 · 0e5bc44bf — `opening.test.ts` is two halves on one rig, and every step of the rig has its own clock
 
 The file that built the game and drove a real Chrome was 552 lines and one hook of 120 s shared by eight steps, and under load `bun run land` went red on the hook alone, unnamed. It is now `opening.test.ts` (the wave's opening) and `capture-shots.test.ts` (crop, zoom, strips, `--until`, `--hand`), each raising `opening-rig.ts`: the preview, the launch, the close and the stop each throw by name well inside the hook, and a preview or browser that comes up after its clock is taken down rather than left running. Each rig builds into its own scratch through `GAME_DIST`, which `apps/game/build.ts` and `preview.ts` now honour, so the two halves never serve a bundle the other is writing. The halves weigh 15 s each in the shards and run side by side.
