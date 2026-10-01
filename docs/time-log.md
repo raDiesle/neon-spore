@@ -31222,3 +31222,5 @@ Bottleneck: which of three readings of "remember test mode" was meant — the pa
 - landing: 10 min. `check`, `land`.
 
 Bottleneck: proving that a step which times out still takes down what it brings up late, which needed a budget forced to 5 ms and a process list read before and after.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
