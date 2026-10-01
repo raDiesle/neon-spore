@@ -31035,3 +31035,16 @@ Bottleneck: her arm is under a tile long, so a tile of elbow at the row's 6 s tu
 Bottleneck: re-reading THE SCOUT's six files after the cut cost twice the change itself.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE HAUL, a SCOUT wave whose holds take every mote
+
+- reading: 15 min. The autopilot, the flight test, the director's arena
+  save and the two poses, after a second context cut.
+- writing: 20 min. The two arenas, the wave, the hand's fill and prime, the
+  flight rig cut out of the old test, the director's two-list save.
+- looking: 5 min. The poses built and read: four aboard laden, five heavy.
+- friction: 5 min. Four tests held a figure THE HAUL moves; one compares
+  against HEAD and only clears on the commit.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the director's save assumed one arena file per boss, and teaching it two was half the lane.

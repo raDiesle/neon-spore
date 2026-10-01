@@ -1,5 +1,6 @@
 import { PULSE_STAGES } from "../pulse-stages.js";
 import { SCOUT_ARENAS } from "../scout-arenas.js";
+import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
@@ -36,7 +37,12 @@ import type { Wave } from "../wave-types.js";
  * eye became a fight of its own — levels of beat patterns
  * (`stare-levels.ts`) and a shut eye to shoot — and the owner took the rocks
  * off: *rocks falling is stupid because it doesn't relate to the boss*. Its
- * guide went the same day: *the guide is not required for this wave*. */
+ * guide went the same day: *the guide is not required for this wave*.
+ *
+ * **THE HAUL follows THE SCOUT** since 1 October 2026: the same round with a
+ * hold that fills (`scout-haul-arenas.ts`), so the line and the prime its ship
+ * was drawn with are finally asked for. It is flown second because it is the
+ * same picture with two more hands on it. */
 export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theScout",
@@ -46,6 +52,14 @@ export const WAVES_ACT_7C: Wave[] = [
     },
     entries: [],
     boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    bossType: "special",
+    controls: "scout",
+  },
+  {
+    id: "theHaul",
+    name: "THE HAUL",
+    entries: [],
+    boss: { kind: "scout", arenas: SCOUT_HAUL_ARENAS },
     bossType: "special",
     controls: "scout",
   },

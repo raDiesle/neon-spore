@@ -156,6 +156,7 @@ export {
   stepSpan,
 } from "./scenes.js";
 export { SCOUT_ARENAS } from "./scout-arenas.js";
+export { SCOUT_HAUL_ARENAS } from "./scout-haul-arenas.js";
 export {
   LINK_WORDS,
   type LinkWords,

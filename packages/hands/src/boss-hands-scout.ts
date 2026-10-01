@@ -1,10 +1,12 @@
 import {
   MAZE_TURN,
   type ScoutState,
+  scoutCarryLimit,
   scoutCurrent,
   scoutHome,
   scoutNavigator,
   scoutPilot,
+  scoutPrimeAsks,
   scoutRound,
   step,
   type TimedCommand,
@@ -17,8 +19,11 @@ import type { Hand } from "./hand.js";
  * THE SCOUT: a deliberately stupid autopilot, lifted from
  * `content/test/scout-flight.test.ts`'s own — points the nose at the first
  * mote it has not got, burns while aimed and under half top speed, coasts
- * otherwise, and heads home the moment one is aboard, since the ship carries
- * one at a time (`scoutCarryMax`). It plans no order and leads no hazard.
+ * otherwise, and heads home once the hold is full (`scoutCarryLimit`) or
+ * nothing is left out there — one mote a trip on THE SCOUT, the whole level on
+ * THE HAUL. It primes the moment a heavy ship asks (`scoutPrimeAsks`), and
+ * never reels: the line is a choice, the prime is not. It plans no order and
+ * leads no hazard.
  *
  * **It steers in eighths of a turn**, as the pilot's panel does since 29
  * September 2026 (`scoutTurnStep`): "aimed" is the nose within `SLACK` of the
@@ -46,6 +51,15 @@ const LOOK_BEATS = 3;
 
 type Press = Omit<TimedCommand, "tick">;
 
+/** The pilot's prime: a lift off the thruster that travelled far enough to count. */
+const PRIME = (w: World): Press["command"] => ({
+  kind: "drag",
+  target: "scoutPrime",
+  on: false,
+  fromMilli: 0,
+  fromYMilli: w.cfg.scoutPrimeMilli,
+});
+
 export const scoutHand: Hand = (w) => fly(w, true);
 
 function fly(w: World, look: boolean): Press[] {
@@ -69,6 +83,8 @@ function fly(w: World, look: boolean): Press[] {
   }
   const burn = aimed && !cruising && !(look && caughtFlyingOn(w));
   if (burn !== s.burning) out.push({ player: pilot, command: { kind: "scoutBurn", on: burn } });
+  // A heavy ship's burn does not take until it is primed: the lift, far enough.
+  if (scoutPrimeAsks(w.cfg, s, w.tick)) out.push({ player: pilot, command: PRIME(w) });
   // The navigator holds the mouth open the whole flight — an open mouth costs
   // nothing, and this hand only has to arrive loaded, not play the maw well.
   out.push({ player: scoutNavigator(s), command: { kind: "scoutMaw" } });
@@ -94,16 +110,17 @@ function caughtFlyingOn(w: World): boolean {
   return false;
 }
 
-/** Where the scout is heading for: home with a mote aboard, else the first it has not banked. */
+/** Where the scout is heading for: the first mote neither banked nor aboard, or home with a full hold or nothing left out. */
 function scoutTarget(w: World, s: ScoutState): { colMilli: number; rowMilli: number } {
+  const home = scoutHome(w.cfg.cols, w.cfg.rows);
+  if (s.carrying.length >= scoutCarryLimit(w.cfg, s)) return home;
   const arena = scoutCurrent(s);
-  if (s.carrying.length > 0) return scoutHome(w.cfg.cols, w.cfg.rows);
   for (let i = 0; i < arena.motes.length; i++) {
-    if (s.banked.includes(i)) continue;
+    if (s.banked.includes(i) || s.carrying.includes(i)) continue;
     const mote = arena.motes[i];
     if (mote !== undefined) return mote;
   }
-  return scoutHome(w.cfg.cols, w.cfg.rows);
+  return home;
 }
 
 /** The heading, in thousandths of a degree, that points along `(dc, dr)`. 0 is straight up. */

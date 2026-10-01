@@ -10,6 +10,7 @@
 import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
 import type { PinballRound } from "@neon-spore/sim";
+import { SCOUT_LISTS, type ScoutList } from "./scout-lists.js";
 import { countWaveArray, serializeWaveArray } from "./serialize.js";
 import { serializePinballRounds } from "./serialize-pinball.js";
 import { serializeScoutArenas } from "./serialize-scout.js";
@@ -30,9 +31,15 @@ export const repoRootPath = Bun.fileURLToPath(new URL("../../../", import.meta.u
 const pinballFile = new URL("../../../packages/content/src/pinball-rounds.ts", import.meta.url);
 const pinballRel = "packages/content/src/pinball-rounds.ts";
 
-/** THE SCOUT's levels, the second such file and for the same reason (`serialize-scout.ts`). */
-const scoutFile = new URL("../../../packages/content/src/scout-arenas.ts", import.meta.url);
-const scoutRel = "packages/content/src/scout-arenas.ts";
+/**
+ * THE SCOUT's levels, the second such file and for the same reason
+ * (`serialize-scout.ts`) — one list a scout wave, each in its own file
+ * (`scout-lists.ts`).
+ */
+const SCOUT_FILES: readonly ScoutFile[] = SCOUT_LISTS.map((l) => ({
+  ...l,
+  file: new URL(`../../../${l.rel}`, import.meta.url),
+}));
 
 /**
  * The files a save reads and writes, and the tree Biome runs in.
@@ -51,8 +58,13 @@ export interface WaveFiles {
   readonly acts: readonly ActFile[];
   /** PINBALL's board file, written beside the acts when the list holds a pinball wave. */
   readonly boards: { readonly file: URL; readonly rel: string };
-  /** THE SCOUT's arena file, written the same way when the list holds a scout wave. */
-  readonly arenas: { readonly file: URL; readonly rel: string };
+  /** THE SCOUT's arena files, one a scout wave, written the same way when the list holds it. */
+  readonly arenas: readonly ScoutFile[];
+}
+
+/** A scout wave's arena list (`scout-lists.ts`), and where this save finds it. */
+export interface ScoutFile extends ScoutList {
+  readonly file: URL;
 }
 
 /** The checkout this director is running in — what a save writes unless told otherwise. */
@@ -60,7 +72,7 @@ export const REAL_FILES: WaveFiles = {
   root: repoRootPath,
   acts: ACT_FILES,
   boards: { file: pinballFile, rel: pinballRel },
-  arenas: { file: scoutFile, rel: scoutRel },
+  arenas: SCOUT_FILES,
 };
 
 const BIOME = join(repoRootPath, "node_modules", "@biomejs", "biome", "bin", "biome");
@@ -143,17 +155,27 @@ async function writeBoards(waves: readonly Wave[], files: WaveFiles): Promise<st
   return [files.boards.rel];
 }
 
-/** THE SCOUT's arenas, under `writeBoards`' rule: exactly one scout wave may own the list. */
+/**
+ * THE SCOUT's arenas: each scout wave's levels into its own list, under
+ * `writeBoards`' rule — exactly one wave may own a list, so a second wave of
+ * the same id, or a scout wave with no list in `scout-lists.ts`, is left alone
+ * and says so.
+ */
 async function writeArenas(waves: readonly Wave[], files: WaveFiles): Promise<string[]> {
-  const owners = waves.filter((w) => w.boss?.kind === "scout");
-  if (owners.length !== 1) {
-    if (owners.length > 1)
-      console.log(`${owners.length} scout waves share one arena list — none written`);
-    return [];
+  const rels: string[] = [];
+  const scouts = waves.filter((w) => w.boss?.kind === "scout");
+  for (const w of scouts) {
+    if (!files.arenas.some((a) => a.wave === w.id))
+      console.log(`scout wave ${w.id} has no arena list — its levels not written`);
   }
-  const boss = owners[0]?.boss;
-  if (boss === undefined || boss.kind !== "scout") return [];
-  const source = await Bun.file(files.arenas.file).text();
-  await Bun.write(files.arenas.file, serializeScoutArenas(source, boss.arenas));
-  return [files.arenas.rel];
+  for (const list of files.arenas) {
+    const owners = scouts.filter((w) => w.id === list.wave);
+    if (owners.length > 1) console.log(`${owners.length} waves own ${list.name} — none written`);
+    const boss = owners.length === 1 ? owners[0]?.boss : undefined;
+    if (boss === undefined || boss.kind !== "scout") continue;
+    const source = await Bun.file(list.file).text();
+    await Bun.write(list.file, serializeScoutArenas(source, boss.arenas, list.name));
+    rels.push(list.rel);
+  }
+  return rels;
 }

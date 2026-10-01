@@ -10,8 +10,8 @@ import type { PressSpec } from "./spec.js";
  * way round it — a thumb on a ring that is not offered is not a ring — and
  * `--boss-json` writes a state rather than flying to it. (The two rings
  * themselves, `scoutLineGrippable` and `scoutPrimeGrippable`, want more
- * aboard than `scoutCarryMax` lets a ship hold, so no flight reaches them
- * either; that is the queue's "THE SCOUT's loads are unreachable".)
+ * aboard than `scoutCarryMax` lets a ship hold, so THE SCOUT never reaches
+ * them; THE HAUL's holds do, `scout-haul-arenas.ts`.)
  *
  * **The pilot's three are a thumb that goes down and comes up**, so a press
  * carries how many ticks it stays down and expands into the two commands the

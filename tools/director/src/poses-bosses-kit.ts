@@ -23,9 +23,11 @@ import { fresh, POSE_CONFIG, type Pose, run, runUntil, POSE_TPB as TPB } from ".
  * the frame.
  */
 
-/** The wave that carries this boss, stood at beat 0 as the game starts it. */
-export function bossWorld(kind: BossKind, cfg: Partial<SimConfig> = {}): World {
-  const index = WAVES.findIndex((w) => w.boss?.kind === kind);
+/** The wave that carries this boss — the first, or the one named — stood at beat 0 as the game starts it. */
+export function bossWorld(kind: BossKind, cfg: Partial<SimConfig> = {}, wave?: string): World {
+  const index = WAVES.findIndex(
+    (w) => w.boss?.kind === kind && (wave === undefined || w.id === wave),
+  );
   if (index === -1) throw new Error(`no wave carries the ${kind}`);
   const cols = POSE_CONFIG.cols;
   return fresh(
@@ -64,6 +66,8 @@ export interface BossPoseExtra {
   budgetBeats?: number;
   /** Figures the pose's world is built on, for a state the shipped figures no longer reach. */
   cfg?: Partial<SimConfig>;
+  /** The wave to stand, by id, for a state only a later wave of the same boss reaches. */
+  wave?: string;
 }
 
 /** A hand on the controls, reading the field as it goes — `@neon-spore/hands`. */
@@ -105,7 +109,7 @@ export function bossPose(kind: BossKind, state: string, note: string, x: BossPos
     span: x.span,
     boss: { kind, state },
     build: () => {
-      const w = bossWorld(kind, x.cfg);
+      const w = bossWorld(kind, x.cfg, x.wave);
       const what = `${bossTitle(kind)} ${state}`;
       const budget = (x.budgetBeats ?? 60) * TPB;
       if (x.hand) runHand(w, what, x.hand, want, budget);

@@ -175,11 +175,16 @@ describe("wave content", () => {
    * longer offers to add or remove a boss, and its wave list refuses to
    * delete or duplicate a boss wave, but neither of those stops somebody
    * editing `waves.ts` by hand.
+   *
+   * The one exception is named here, so it cannot be one by accident: THE
+   * HAUL is THE SCOUT with holds that take a whole level (the owner, 30
+   * September 2026), a second design on the same boss (`scout-haul-arenas.ts`).
    */
+  const SECOND_WAVES = new Set(["THE HAUL"]);
   it("gives every boss kind at most one wave", () => {
     const seen = new Map<string, string>();
     for (const wave of WAVES) {
-      if (!wave.boss) continue;
+      if (!wave.boss || SECOND_WAVES.has(wave.name)) continue;
       const owner = seen.get(wave.boss.kind);
       expect(owner, `${wave.boss.kind} is on both ${owner} and ${wave.name}`).toBeUndefined();
       seen.set(wave.boss.kind, wave.name);

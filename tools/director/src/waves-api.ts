@@ -74,7 +74,11 @@ export interface WavesView {
  * file that gains an identical one cannot collide.
  */
 export async function wavesToken(files: WaveFiles = REAL_FILES): Promise<string> {
-  const hashed = [...files.acts.map((act) => act.file), files.boards.file, files.arenas.file];
+  const hashed = [
+    ...files.acts.map((act) => act.file),
+    files.boards.file,
+    ...files.arenas.map((a) => a.file),
+  ];
   const texts = await Promise.all(hashed.map((file) => Bun.file(file).text()));
   const joined = texts.map((t) => `${t.length}\0${t}`).join("\0");
   return Bun.hash(joined).toString(16);

@@ -20,10 +20,6 @@ import { bossPose } from "./poses-bosses-kit.js";
 
 const FULL = { crop: "full" as const };
 
-/** THE SCOUT's two gates put under the one mote a ship can carry. */
-const LADEN_AT_ONE = { scoutLadenMotes: 0 };
-const HEAVY_AT_ONE = { scoutLadenMotes: 0, scoutHeavyMotes: 0 };
-
 export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pinball",
@@ -175,13 +171,12 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "scout",
     "laden",
-    "A mote aboard on a ship that reads as laden. P1 flies for home; P2 has the line on offer.",
+    "Four motes aboard on a ship that reads as laden. P1 flies for home; P2 has the line on offer.",
     {
       ...FULL,
-      // The ship carries one mote since 29 September 2026 (`scoutCarryMax`),
-      // so the shipped gates are never passed: the pose lowers them to reach
-      // the look (docs/queue.md, *THE SCOUT's loads are unreachable*).
-      cfg: LADEN_AT_ONE,
+      // THE SCOUT carries one mote (`scoutCarryMax`) and never passes a gate;
+      // THE HAUL's holds take a whole level (`scout-haul-arenas.ts`).
+      wave: "theHaul",
       hand: scoutHand,
       want: (w) =>
         w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "laden",
@@ -191,10 +186,11 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "scout",
     "heavy",
-    "A mote aboard on a ship that reads as heavy. P1 needs a prime to burn; P2 keeps the mouth open.",
+    "Five motes aboard on a ship that reads as heavy. P1 needs a prime to burn; P2 keeps the mouth open.",
     {
       ...FULL,
-      cfg: HEAVY_AT_ONE,
+      // Only THE HAUL's second level takes five; the hand flies the first on the way.
+      wave: "theHaul",
       hand: scoutHand,
       want: (w) =>
         w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "heavy",

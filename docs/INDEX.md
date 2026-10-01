@@ -1015,6 +1015,7 @@ by hand never moves.
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
 | `packages/content/src/scene-act-types.ts` | one moment of a rehearsal — a thumb on a control or a hand on the field, and a field for every gesture the film can show |
 | `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: four levels, one mote more on each, and the arena is the fight |
+| `packages/content/src/scout-haul-arenas.ts` | THE HAUL's arenas: THE SCOUT again, with a hold that takes every mote on the level at once |
 | `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
 | `packages/content/src/creatures-beatbox.ts` | THE BEATBOX's row, cut out of `creatures-table.ts` when it took that file past its 250-line limit |
 | `packages/content/src/mechanics-beatbox.ts` | THE BEATBOX's row, cut out of `mechanics-table.ts` when it took that file past its 250-line limit |
@@ -3142,7 +3143,7 @@ by hand never moves.
 | `tools/director/src/serialize-boss-b.ts` | **The scripted bosses, written back out**: THE SEAM and every scene after it |
 | `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
 | `tools/director/src/serialize-fault.ts` | **A `Malfunction` as its own source, arm by arm**, and every field of the arm is written |
-| `tools/director/src/serialize-scout.ts` | THE SCOUT's arenas, written back into `packages/content/src/scout-arenas.ts` |
+| `tools/director/src/serialize-scout.ts` | THE SCOUT's arenas, written back into `packages/content/src/scout-arenas.ts` (or another scout wave's file |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
@@ -3270,6 +3271,7 @@ by hand never moves.
 | `tools/director/src/scene-overlay.ts` | **Drawing a scene's bodies**, once the placing next door has said where each of them stands |
 | `tools/director/src/scout-editor-grid.ts` | THE SCOUT's arena as the editor paints it: the cells, what a press does to one |
 | `tools/director/src/scout-editor.ts` | THE SCOUT's levels, painted on the arena they are flown in |
+| `tools/director/src/scout-lists.ts` | **Which arena list each scout wave owns**, and the file it lives in |
 | `tools/director/src/stage-world.ts` | A fresh run of the wave being edited, stood up the way the game stands one up |
 | `tools/port.ts` | `bun run port` — which port this checkout's servers answer on |
 | `tools/servers.ts` | The two servers this repository starts and settles a port with, described once |

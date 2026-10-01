@@ -1,4 +1,5 @@
 import { type BossEntry, isScriptedEntry } from "@neon-spore/sim";
+import { scoutList } from "./scout-lists.js";
 import { serializeScripted } from "./serialize-boss-b.js";
 
 /**
@@ -19,7 +20,7 @@ import { serializeScripted } from "./serialize-boss-b.js";
  * inside it. Round-tripping the numbers would be correct and unreadable, and a
  * board nobody can read again is a board nobody will edit again.
  */
-export function serializeBoss(boss: BossEntry): string {
+export function serializeBoss(boss: BossEntry, waveId = ""): string {
   if (boss.kind === "queen") {
     return `{ kind: "queen", col: ${boss.col}, petals: ${boss.petals} }`;
   }
@@ -84,7 +85,10 @@ export function serializeBoss(boss: BossEntry): string {
   // and more so: an arena is a dozen places in thousandths of a tile, and a
   // list of those read back into the wave file is a picture nobody could see
   // again (`packages/content/src/scout-arenas.ts`).
-  if (boss.kind === "scout") return '{ kind: "scout", arenas: SCOUT_ARENAS }';
+  // Each scout wave names its own list (`scout-lists.ts`).
+  if (boss.kind === "scout") {
+    return `{ kind: "scout", arenas: ${scoutList(waveId)?.name ?? "SCOUT_ARENAS"} }`;
+  }
   // THE STARE's levels are named rather than written out, for THE SCOUT's
   // reason: a rhythm is read in its own file (`content/src/stare-levels.ts`).
   if (boss.kind === "stare") return '{ kind: "stare", levels: STARE_LEVELS }';

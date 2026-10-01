@@ -533,23 +533,6 @@ Done when: a test turns one body and shows each of its surface marks moving
 by its longitude and hidden past the rim, the op-count rows stay within 10%,
 and `bun run check` is green.
 
-## THE SCOUT's loads are unreachable
-
-- **Found:** 2026-09-29, claude/scout-wave-mechanics-3e9480
-- **Taken:** 2026-10-01, claude/queue-bulb-queen-parts-large-arms (claim: claude/queue-the-scouts-loads-are-unreachable)
-- **Files:** `packages/sim/src/scout-hand.ts`, `packages/sim/src/config-scout.ts`, `packages/render/src/scout-grip.ts`, `tools/director/src/field-controls-scout.ts`, `tools/director/src/poses-bosses-rounds-b.ts`
-- **Asks:** THE SCOUT's line and prime can never be offered while one mote rides at a time — take the loads, the line and the prime out, or re-gate them on something one mote reaches (the level), which puts two hands back on the field?
-- **Answered:** 2026-09-30 — keep them, over taking them out and over re-gating THE SCOUT's own: the line and the prime stay as a set for later rounds, and a new wave is built that carries enough motes to reach them.
-- **Half landed:** 2026-10-01 — the simulation: an arena may name its own `carry` (`scoutCarryLimit`, hashed, kept by the director's serializer). Left: the wave whose arenas carry past `scoutHeavyMotes`, its guide, the director's two poses pointed at it and `LADEN_AT_ONE`/`HEAVY_AT_ONE` dropped.
-
-`laden` and `heavy` need more than one mote aboard (`scoutLadenMotes`,
-`scoutHeavyMotes`), and since the owner's one-at-a-time pass `scoutCarryMax` is
-1, so the line and the prime are never offered in the shipped round. The
-director's two poses reach them only through a `cfg` override
-(`LADEN_AT_ONE`, `HEAVY_AT_ONE`). Either take the loads, the line and the
-prime out with their hands and tests, or re-gate them on something one mote
-can reach (the level, say); then drop the overrides.
-
 ## `frames/test/opening.test.ts` times out in its hook on a busy machine
 
 - **Found:** 2026-09-30, claude/queue-the-gauges-hands-test-is-past-the-line-too
@@ -651,3 +634,16 @@ its wave and its hands. Done when an autopilot clears its wave and
 The second lane of `.claude/skills/new-boss`: BLOOM · GLYPHED, `bloom`'s
 eight-armed mantle with `glyphed`'s rim of marks, the sign on one seat and
 the mottle on the other, in `frame.test.ts`. The sheet PNG is sent to the owner.
+
+## THE HAUL has no guide, and no mechanic row
+
+- **Found:** 2026-10-01, claude/queue-the-scouts-loads-are-unreachable
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes-choreographed.ts`, `tools/director/src/ship-notes-round.ts`
+
+The second half of *THE SCOUT's loads are unreachable*. THE HAUL ships with
+no `guide`, so the line and the prime — the two hands it exists to put on the
+field — are on offer with nothing to say what they are. Give it a choreographed
+scene the way `theScout` has one (`scenes-choreographed.ts`; `.claude/skills/new-tutorial`),
+showing a full hold made laden then heavy, the line brought in and the prime
+pulled, and give the director's MECHANICS sheet its row. Fix the
+`briefings.md` §1 count the scene changes. Prove it with `bun run check`.

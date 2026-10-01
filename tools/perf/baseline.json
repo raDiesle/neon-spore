@@ -658,8 +658,18 @@
       "unmeasured": true
     },
     {
-      "id": "theStare",
+      "id": "theHaul",
       "wave": 63,
+      "name": "THE HAUL",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theStare",
+      "wave": 64,
       "name": "THE STARE",
       "bodies": 0,
       "typical": 0,
@@ -669,7 +679,7 @@
     },
     {
       "id": "theCrossing",
-      "wave": 64,
+      "wave": 65,
       "name": "THE CROSSING",
       "bodies": 0,
       "typical": 0,
@@ -679,7 +689,7 @@
     },
     {
       "id": "theChoir",
-      "wave": 65,
+      "wave": 66,
       "name": "THE CHOIR",
       "bodies": 0,
       "typical": 0,
@@ -689,7 +699,7 @@
     },
     {
       "id": "pulse",
-      "wave": 66,
+      "wave": 67,
       "name": "THE PULSE",
       "bodies": 0,
       "arrivals": "0:741638a5",
@@ -700,7 +710,7 @@
     },
     {
       "id": "theBalloon",
-      "wave": 67,
+      "wave": 68,
       "name": "THE BALLOON",
       "bodies": 0,
       "typical": 0,
@@ -710,7 +720,7 @@
     },
     {
       "id": "theBaton",
-      "wave": 68,
+      "wave": 69,
       "name": "THE BATON",
       "bodies": 0,
       "typical": 0,
@@ -720,7 +730,7 @@
     },
     {
       "id": "theUndertow",
-      "wave": 69,
+      "wave": 70,
       "name": "THE UNDERTOW",
       "bodies": 0,
       "typical": 0,
@@ -730,7 +740,7 @@
     },
     {
       "id": "theThroat",
-      "wave": 70,
+      "wave": 71,
       "name": "THE THROAT",
       "bodies": 0,
       "typical": 0,
@@ -740,7 +750,7 @@
     },
     {
       "id": "theGorge",
-      "wave": 71,
+      "wave": 72,
       "name": "THE GORGE",
       "bodies": 0,
       "typical": 0,
@@ -750,7 +760,7 @@
     },
     {
       "id": "theCurtain",
-      "wave": 72,
+      "wave": 73,
       "name": "THE CURTAIN",
       "bodies": 0,
       "typical": 0,
@@ -760,7 +770,7 @@
     },
     {
       "id": "theTaster",
-      "wave": 73,
+      "wave": 74,
       "name": "THE TASTER",
       "bodies": 0,
       "typical": 0,
@@ -770,7 +780,7 @@
     },
     {
       "id": "theSinew",
-      "wave": 74,
+      "wave": 75,
       "name": "THE SINEW",
       "bodies": 0,
       "typical": 0,
@@ -780,7 +790,7 @@
     },
     {
       "id": "theLedger",
-      "wave": 75,
+      "wave": 76,
       "name": "THE LEDGER",
       "bodies": 0,
       "typical": 0,
@@ -790,7 +800,7 @@
     },
     {
       "id": "theSurge",
-      "wave": 76,
+      "wave": 77,
       "name": "THE SURGE",
       "bodies": 0,
       "typical": 0,
@@ -800,7 +810,7 @@
     },
     {
       "id": "theLead",
-      "wave": 77,
+      "wave": 78,
       "name": "THE LEAD",
       "bodies": 0,
       "typical": 0,
@@ -810,7 +820,7 @@
     },
     {
       "id": "theScuttle",
-      "wave": 78,
+      "wave": 79,
       "name": "THE SCUTTLE",
       "bodies": 0,
       "typical": 0,
@@ -820,7 +830,7 @@
     },
     {
       "id": "theAntiphon",
-      "wave": 79,
+      "wave": 80,
       "name": "THE ANTIPHON",
       "bodies": 0,
       "typical": 0,
@@ -830,7 +840,7 @@
     },
     {
       "id": "theHive",
-      "wave": 80,
+      "wave": 81,
       "name": "THE HIVE",
       "bodies": 0,
       "typical": 0,
@@ -840,7 +850,7 @@
     },
     {
       "id": "theInstar",
-      "wave": 81,
+      "wave": 82,
       "name": "THE INSTAR",
       "bodies": 0,
       "typical": 0,
@@ -850,7 +860,7 @@
     },
     {
       "id": "theBeatbox",
-      "wave": 82,
+      "wave": 83,
       "name": "THE BEATBOX",
       "bodies": 0,
       "typical": 0,
@@ -860,7 +870,7 @@
     },
     {
       "id": "theWeight",
-      "wave": 83,
+      "wave": 84,
       "name": "THE WEIGHT",
       "bodies": 0,
       "typical": 0,
@@ -870,7 +880,7 @@
     },
     {
       "id": "theCairn",
-      "wave": 84,
+      "wave": 85,
       "name": "THE CAIRN",
       "bodies": 0,
       "typical": 0,
@@ -880,7 +890,7 @@
     },
     {
       "id": "theCodex",
-      "wave": 85,
+      "wave": 86,
       "name": "THE CODEX",
       "bodies": 0,
       "typical": 0,
@@ -890,7 +900,7 @@
     },
     {
       "id": "theWell",
-      "wave": 86,
+      "wave": 87,
       "name": "THE WELL",
       "bodies": 0,
       "typical": 0,
@@ -900,7 +910,7 @@
     },
     {
       "id": "theHandover",
-      "wave": 87,
+      "wave": 88,
       "name": "THE HANDOVER",
       "bodies": 0,
       "typical": 0,
@@ -910,7 +920,7 @@
     },
     {
       "id": "theLeak",
-      "wave": 88,
+      "wave": 89,
       "name": "THE LEAK",
       "bodies": 0,
       "typical": 0,
@@ -920,7 +930,7 @@
     },
     {
       "id": "theSplice",
-      "wave": 89,
+      "wave": 90,
       "name": "THE SPLICE",
       "bodies": 0,
       "typical": 0,
@@ -930,7 +940,7 @@
     },
     {
       "id": "theMine",
-      "wave": 90,
+      "wave": 91,
       "name": "THE MINE",
       "bodies": 0,
       "typical": 0,
@@ -940,7 +950,7 @@
     },
     {
       "id": "theMoult",
-      "wave": 91,
+      "wave": 92,
       "name": "THE MOULT",
       "bodies": 0,
       "typical": 0,
@@ -950,7 +960,7 @@
     },
     {
       "id": "theReprise",
-      "wave": 92,
+      "wave": 93,
       "name": "THE REPRISE",
       "bodies": 0,
       "typical": 0,
@@ -960,7 +970,7 @@
     },
     {
       "id": "theFlip",
-      "wave": 93,
+      "wave": 94,
       "name": "THE FLIP",
       "bodies": 0,
       "typical": 0,
@@ -970,7 +980,7 @@
     },
     {
       "id": "theDark",
-      "wave": 94,
+      "wave": 95,
       "name": "THE DARK",
       "bodies": 0,
       "typical": 0,
@@ -980,7 +990,7 @@
     },
     {
       "id": "theHusk",
-      "wave": 95,
+      "wave": 96,
       "name": "THE HUSK",
       "bodies": 0,
       "typical": 0,
@@ -990,7 +1000,7 @@
     },
     {
       "id": "theFilament",
-      "wave": 96,
+      "wave": 97,
       "name": "THE FILAMENT",
       "bodies": 0,
       "typical": 0,
@@ -1000,7 +1010,7 @@
     },
     {
       "id": "theGimbal",
-      "wave": 97,
+      "wave": 98,
       "name": "THE GIMBAL",
       "bodies": 0,
       "typical": 0,
@@ -1010,7 +1020,7 @@
     },
     {
       "id": "theSpool",
-      "wave": 98,
+      "wave": 99,
       "name": "THE SPOOL",
       "bodies": 0,
       "typical": 0,
@@ -1020,7 +1030,7 @@
     },
     {
       "id": "theHasp",
-      "wave": 99,
+      "wave": 100,
       "name": "THE HASP",
       "bodies": 0,
       "typical": 0,
@@ -1030,7 +1040,7 @@
     },
     {
       "id": "theRatchet",
-      "wave": 100,
+      "wave": 101,
       "name": "THE RATCHET",
       "bodies": 0,
       "typical": 0,
@@ -1040,7 +1050,7 @@
     },
     {
       "id": "theNettle",
-      "wave": 101,
+      "wave": 102,
       "name": "THE NETTLE",
       "bodies": 0,
       "typical": 0,
@@ -1050,7 +1060,7 @@
     },
     {
       "id": "theMantle",
-      "wave": 102,
+      "wave": 103,
       "name": "THE MANTLE",
       "bodies": 0,
       "typical": 0,
@@ -1060,7 +1070,7 @@
     },
     {
       "id": "theKeel",
-      "wave": 103,
+      "wave": 104,
       "name": "THE KEEL",
       "bodies": 0,
       "typical": 0,
@@ -1070,7 +1080,7 @@
     },
     {
       "id": "theValve",
-      "wave": 104,
+      "wave": 105,
       "name": "THE VALVE",
       "bodies": 0,
       "typical": 0,
@@ -1080,7 +1090,7 @@
     },
     {
       "id": "theSeam",
-      "wave": 105,
+      "wave": 106,
       "name": "THE SEAM",
       "bodies": 0,
       "typical": 0,
@@ -1090,7 +1100,7 @@
     },
     {
       "id": "theOculus",
-      "wave": 106,
+      "wave": 107,
       "name": "THE OCULUS",
       "bodies": 0,
       "typical": 0,
@@ -1100,7 +1110,7 @@
     },
     {
       "id": "theVise",
-      "wave": 107,
+      "wave": 108,
       "name": "THE VISE",
       "bodies": 0,
       "typical": 0,
@@ -1110,7 +1120,7 @@
     },
     {
       "id": "theRime",
-      "wave": 108,
+      "wave": 109,
       "name": "THE RIME",
       "bodies": 0,
       "typical": 0,
@@ -1120,7 +1130,7 @@
     },
     {
       "id": "theTrivet",
-      "wave": 109,
+      "wave": 110,
       "name": "THE TRIVET",
       "bodies": 0,
       "typical": 0,
@@ -1130,7 +1140,7 @@
     },
     {
       "id": "thePlumb",
-      "wave": 110,
+      "wave": 111,
       "name": "THE PLUMB",
       "bodies": 0,
       "typical": 0,
@@ -1140,7 +1150,7 @@
     },
     {
       "id": "theSling",
-      "wave": 111,
+      "wave": 112,
       "name": "THE SLING",
       "bodies": 0,
       "typical": 0,
@@ -1150,7 +1160,7 @@
     },
     {
       "id": "theGrindstone",
-      "wave": 112,
+      "wave": 113,
       "name": "THE GRINDSTONE",
       "bodies": 0,
       "typical": 0,
@@ -1160,7 +1170,7 @@
     },
     {
       "id": "theCyst",
-      "wave": 113,
+      "wave": 114,
       "name": "THE CYST",
       "bodies": 0,
       "typical": 0,
@@ -1170,7 +1180,7 @@
     },
     {
       "id": "theDavit",
-      "wave": 114,
+      "wave": 115,
       "name": "THE DAVIT",
       "bodies": 0,
       "typical": 0,
@@ -1180,7 +1190,7 @@
     },
     {
       "id": "theHalter",
-      "wave": 115,
+      "wave": 116,
       "name": "THE HALTER",
       "bodies": 0,
       "typical": 0,
@@ -1190,7 +1200,7 @@
     },
     {
       "id": "theCapstan",
-      "wave": 116,
+      "wave": 117,
       "name": "THE CAPSTAN",
       "bodies": 0,
       "typical": 0,
@@ -1200,7 +1210,7 @@
     },
     {
       "id": "theGall",
-      "wave": 117,
+      "wave": 118,
       "name": "THE GALL",
       "bodies": 0,
       "typical": 0,
@@ -1210,7 +1220,7 @@
     },
     {
       "id": "theBurgee",
-      "wave": 118,
+      "wave": 119,
       "name": "THE BURGEE",
       "bodies": 0,
       "typical": 0,
@@ -1220,7 +1230,7 @@
     },
     {
       "id": "theFlue",
-      "wave": 119,
+      "wave": 120,
       "name": "THE FLUE",
       "bodies": 0,
       "typical": 0,
@@ -1230,7 +1240,7 @@
     },
     {
       "id": "theGovernor",
-      "wave": 120,
+      "wave": 121,
       "name": "THE GOVERNOR",
       "bodies": 0,
       "typical": 0,

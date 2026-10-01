@@ -38,7 +38,8 @@ export const ROUND_NOTES = {
     "hazard and has no button at all, so the flying is done on their word. " +
     "Collect every mote and the wave is over; a hazard's touch or the clock " +
     "running out costs the hull, which is the wave lost. The arenas are " +
-    "authored in packages/content/src/scout-arenas.ts; these dials are how it " +
+    "authored in packages/content/src/scout-arenas.ts, and THE HAUL's in " +
+    "scout-haul-arenas.ts; these dials are how it " +
     "flies, and the top three are the whole feel of it.",
   "SNAKE — a round the ship is the body of":
     "The other built round, and the first control that moves something. The " +

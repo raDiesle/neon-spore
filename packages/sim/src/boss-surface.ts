@@ -143,6 +143,7 @@ export {
   type ScoutPoint,
   type ScoutState,
   scoutAtHome,
+  scoutCarryLimit,
   scoutCleared,
   scoutCurrent,
   scoutHolds,

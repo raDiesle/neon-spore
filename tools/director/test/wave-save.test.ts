@@ -64,10 +64,8 @@ beforeAll(async () => {
     ...REAL_FILES.boards,
     file: await copied(REAL_FILES.boards.file, REAL_FILES.boards.rel),
   };
-  const arenas = {
-    ...REAL_FILES.arenas,
-    file: await copied(REAL_FILES.arenas.file, REAL_FILES.arenas.rel),
-  };
+  const arenas = [];
+  for (const a of REAL_FILES.arenas) arenas.push({ ...a, file: await copied(a.file, a.rel) });
   const biome = (await Bun.file(join(REAL_FILES.root, "biome.json")).json()) as Record<
     string,
     unknown
@@ -92,7 +90,11 @@ afterAll(async () => {
  * here still passed.
  */
 async function actTexts(files: WaveFiles): Promise<string[]> {
-  const all = [...files.acts.map((act) => act.file), files.boards.file, files.arenas.file];
+  const all = [
+    ...files.acts.map((act) => act.file),
+    files.boards.file,
+    ...files.arenas.map((a) => a.file),
+  ];
   return await Promise.all(all.map((file) => Bun.file(file).text()));
 }
 
@@ -223,7 +225,7 @@ test("a save into the copy leaves the checked-in files untouched, to the mtime",
   const real = [
     ...REAL_FILES.acts.map((act) => act.file),
     REAL_FILES.boards.file,
-    REAL_FILES.arenas.file,
+    ...REAL_FILES.arenas.map((a) => a.file),
   ];
   const before = real.map((file) => Bun.file(file).lastModified);
   const waves = await readWaves();

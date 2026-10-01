@@ -1,9 +1,12 @@
 import type { ScoutArena, ScoutHazard, ScoutPoint } from "@neon-spore/sim";
 
 /**
- * THE SCOUT's arenas, written back into `packages/content/src/scout-arenas.ts`
- * — PINBALL's board file's arrangement (`serialize-pinball.ts`), for its
- * reason: the wave names the list and the list is regenerated where it lives.
+ * A scout wave's arenas, written back into the file its list lives in.
+ *
+ * `scout-lists.ts` names the file — `scout-arenas.ts` for THE SCOUT,
+ * `scout-haul-arenas.ts` for THE HAUL — in PINBALL's board file's
+ * arrangement (`serialize-pinball.ts`), for its reason: the wave names the
+ * list and the list is regenerated where it lives.
  *
  * **Only the array is replaced**, and everything above the marker is kept byte
  * for byte. **So is the comment over each level**, by its place in the list:
@@ -18,14 +21,19 @@ import type { ScoutArena, ScoutHazard, ScoutPoint } from "@neon-spore/sim";
  * separator, as every number in the file was written.
  */
 
-const MARKER = "export const SCOUT_ARENAS: ScoutArena[] = [";
 const WIDTH = 100;
 
-export function serializeScoutArenas(source: string, arenas: readonly ScoutArena[]): string {
-  const idx = source.indexOf(MARKER);
-  if (idx === -1) throw new Error("Could not find SCOUT_ARENAS array in source");
-  const prefix = source.slice(0, idx + MARKER.length);
-  const notes = levelComments(source.slice(idx + MARKER.length));
+/** `name` is the list's export — `SCOUT_ARENAS`, or another scout wave's (`scout-lists.ts`). */
+export function serializeScoutArenas(
+  source: string,
+  arenas: readonly ScoutArena[],
+  name = "SCOUT_ARENAS",
+): string {
+  const marker = `export const ${name}: ScoutArena[] = [`;
+  const idx = source.indexOf(marker);
+  if (idx === -1) throw new Error(`Could not find ${name} array in source`);
+  const prefix = source.slice(0, idx + marker.length);
+  const notes = levelComments(source.slice(idx + marker.length));
   const body = arenas.map((a, i) => [...(notes[i] ?? []), ...arena(a)].join("\n")).join("\n");
   return `${prefix}\n${body}\n];\n`;
 }

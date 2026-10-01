@@ -115,7 +115,7 @@ function serializeWave(wave: Wave): string {
   }
 
   if (wave.boss) {
-    lines.push(`    boss: ${serializeBoss(wave.boss)},`);
+    lines.push(`    boss: ${serializeBoss(wave.boss, wave.id)},`);
   }
 
   // Directly under the boss, because it is about the boss and about nothing
