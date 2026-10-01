@@ -1463,3 +1463,11 @@ the tell, instead of a flat eye squashed to a sliver
 `packages/render/src/stare-eye-globe.ts`.
 
 It was the only answer offered.
+
+## `instar:head` — nothing taken, 2026-10-01
+
+the owner, 1 October 2026: keep current, all alternatives look worse; the
+shipped head is made bigger instead
+
+The other answers offered were `drake`, `hound`, `rig` and `viper`; they went
+with the slot.

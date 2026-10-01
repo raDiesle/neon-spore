@@ -49,8 +49,7 @@ const LOOK: RigLook = { deep: PALETTE.background, rim: PALETTE.hullRim, haze: 0.
 const NOSTRIL = { x: -0.91, y: -0.1, z: 0.14 } as const;
 
 /** What a rig head is made of: its parts with the jaw's hinge dropped by
- * `drop`, and where its nostrils sit, in head radii. VERSUS offers others
- * (`instar-rig-head-organic.ts`). */
+ * `drop`, and where its nostrils sit, in head radii. */
 export interface RigHeadShape {
   readonly parts: (f: HeadPose, r: number, drop: number) => Part[];
   readonly nostril: Vec3;

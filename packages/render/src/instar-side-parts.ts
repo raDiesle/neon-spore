@@ -8,8 +8,8 @@ import { PALETTE, STROKE } from "./palette.js";
 /**
  * **The parts a head in profile shares**, whichever skull carries them: the
  * socket and the eye in it, and the teeth along the upper lip. Split off
- * `instar-side-head.ts` so a second profile (`instar-drake-side-head.ts`)
- * calls them instead of drawing its own.
+ * `instar-side-head.ts` so a second profile can call them instead of
+ * drawing its own.
  */
 
 /** A jaw's turn on its hinge: a point in the jaw's rest pose, carried `open` radians down. */

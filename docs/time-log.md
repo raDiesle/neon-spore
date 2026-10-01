@@ -31525,3 +31525,15 @@ Bottleneck: each seam (neck, rear, tail root) was a different file's choice, so 
 Bottleneck: the turn moved veins drawn at an eighth of full strength, so nothing could be seen moving until the strength was a field the candidate could patch.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's head is bigger side-on
+
+- reading: 5 min. Where the head radius goes — girth, wings and tail are all
+  measured in it — and what the face-on eye marks pin to it.
+- writing: 5 min. `versus drop`, the dead head files and the sheet removed,
+  `grown` and `SIDE_GROW` on the profile's head drawers.
+- looking: 5 min. The side-on shot.
+- friction: 0 min.
+- landing: 5 min. The profile's reach margins remeasured and moved, `check:fast`, `land`.
+
+Bottleneck: the head radius is the whole body's unit and the face-on marks are pinned to it, so "bigger head" had to be a grown copy of the look handed to the side-on head drawers alone, and then the reach margins remeasured.

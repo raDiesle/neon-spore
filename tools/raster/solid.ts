@@ -14,9 +14,7 @@
  * same five yaws, shipped above VERSUS's body with weight
  * (`src/solid-instar-body-page.ts`); `--instar-drift` draws the game's own
  * frames of THE INSTAR side-on across ten seconds, still above VERSUS's
- * idle drift (`src/solid-instar-drift-page.ts`); `--instar-heads` draws the
- * shipped rig head and VERSUS's living heads in rows at the five yaws
- * (`src/solid-instar-heads-page.ts`); `--instar-flight` draws one pass of its
+ * idle drift (`src/solid-instar-drift-page.ts`); `--instar-flight` draws one pass of its
  * flight, carried stiff above VERSUS's serpent (`src/solid-instar-flight-page.ts`).
  */
 
@@ -28,21 +26,18 @@ const zdog = args.includes("--zdog");
 const instar = args.includes("--instar");
 const body = args.includes("--instar-body");
 const drift = args.includes("--instar-drift");
-const heads = args.includes("--instar-heads");
 const flight = args.includes("--instar-flight");
 const sheet = zdog
   ? "zdog"
   : flight
     ? "solid-instar-flight"
-    : heads
-      ? "solid-instar-heads"
-      : drift
-        ? "solid-instar-drift"
-        : body
-          ? "solid-instar-body"
-          : instar
-            ? "solid-instar"
-            : "solid";
+    : drift
+      ? "solid-instar-drift"
+      : body
+        ? "solid-instar-body"
+        : instar
+          ? "solid-instar"
+          : "solid";
 const named = args.find((a) => !a.startsWith("--"));
 const out = resolve(named ?? `.claude/tmp/${sheet}-sheet.png`);
 

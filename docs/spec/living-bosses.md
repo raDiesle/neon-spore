@@ -102,15 +102,13 @@ their own reach, so a pupil stays in its eye. Both ride the hush, so the body
 is as still over live marks, face-on and beaten as before, and the mark tests
 run at the candidate's reach.
 
-**Offered (1 October 2026, VERSUS `instar:head` / `drake`, `hound`,
-`viper`).** The owner: the side-on rig head *looks very geometrical … not
-natural shape of a living head*, and the face-on pose *looks good*. Each
-keeps the shipped face-on head, and draws side-on and turned as one skull and
-one jaw, each a spline of rings with horns, brows and jowls as lobes off them
-(`packages/render/src/instar-rig-head-organic.ts`, the three in
-`instar-rig-head-shapes.ts`). They sit on the rig head's frames, eyes and
-hinge, so they open, turn and wince as it does. The sheet:
-`bun run solid --instar-heads`.
+**Decided (1 October 2026, VERSUS `instar:head`, dropped).** Three organic
+side-on heads were offered against the rig head; the owner kept the current
+one — *all alternatives look worse* — and asked for it *altogether* bigger. So
+side-on the head is drawn `SIDE_GROW` (1.3) times the body's head radius, by as
+far as the turn has reached (`packages/render/src/instar-head-look.ts`); the
+body, the wings and the tail keep the radius they are measured in, and the
+face-on head keeps its size, for its eye and fire marks are pinned to it.
 
 **Offered (1 October 2026, VERSUS `instar:flight` / `serpent`).** While THE
 INSTAR flies in, passes or crosses, a wave runs down its side-on body from

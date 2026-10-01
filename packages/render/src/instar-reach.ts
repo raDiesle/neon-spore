@@ -32,8 +32,10 @@ export interface Box {
 
 /** How far the face-on view's paint reaches past its head and its rings, in head radii. */
 export const FRONT_REACH = 2;
-/** How far the side-on view's paint reaches past the figure's places, thousandths of the field's width. */
-export const PROFILE_REACH = { left: 360, right: 420, up: 640, down: 180 } as const;
+/** How far the side-on view's paint reaches past the figure's places, thousandths of the field's width.
+ * The left was 360 until the side-on head grew (`instar-head-look.ts`, `SIDE_GROW`): its snout
+ * reaches 371 at the loom's morph, and the down was 180 until its jaw reached 187 at the dive's. */
+export const PROFILE_REACH = { left: 380, right: 420, up: 640, down: 195 } as const;
 /** The measured margins are grown by this before a view is left undrawn. */
 const SAFETY = 1.15;
 

@@ -1812,7 +1812,6 @@ by hand never moves.
 | `packages/render/src/intro-ear.ts` | **AN EAR, AND NOTHING BUT AN EAR.** The other half of the owner's instruction of 16 September 2026 |
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
 | `packages/render/src/instar-draw.ts` | **THE INSTAR**: a living dragon of a ship, the size of the field (§11.32) |
-| `packages/render/src/instar-drake-side-head.ts` | **THE INSTAR's head side-on as a drake**, snout to the left |
 | `packages/render/src/instar-drift.ts` | **THE INSTAR turns on the idle drift** — the owner, 26 September 2026: the full body should keep turning |
 | `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
 | `packages/render/src/instar-fx-ingest.ts` | **What each of THE INSTAR's events does to its fx** |
@@ -1869,8 +1868,6 @@ by hand never moves.
 | `packages/render/src/instar-horn.ts` | **A horn of THE INSTAR, as a tube of the rig** |
 | `packages/render/src/instar-ring.ts` | **THE INSTAR's mark ring** — red, breathing until a thumb lands, its green arc filling as the part gives |
 | `packages/render/src/instar-rig-head-draw.ts` | **THE INSTAR's rig head, drawn** (`instar-rig-head.ts` is the model): the parts through `drawRig` |
-| `packages/render/src/instar-rig-head-organic.ts` | **THE INSTAR's head as one living skull** — the owner, 1 October 2026: the side-on rig head |
-| `packages/render/src/instar-rig-head-shapes.ts` | **Three living heads for THE INSTAR side-on** |
 | `packages/render/src/instar-rig-head.ts` | **THE INSTAR's one head, modelled once** (`docs/spec/living-bosses.md` §2) |
 | `packages/render/src/instar-reach.ts` | **How far each of THE INSTAR's views reaches, and whether any of it is on the field** |
 | `packages/render/src/instar-moult.ts` | **THE INSTAR's moult**: the old hide split open along the back, and the next body pale in the split |
@@ -3021,7 +3018,6 @@ by hand never moves.
 | `tools/raster/src/solid-instar-page.ts` | The INSTAR head sheet (`bun run solid --instar`) |
 | `tools/raster/src/solid-instar-body-page.ts` | The INSTAR body sheet (`bun run solid --instar-body`) |
 | `tools/raster/src/solid-instar-drift-page.ts` | The INSTAR drift strip (`bun run solid --instar-drift`): the game's own renderer drawing THE INSTAR's wave |
-| `tools/raster/src/solid-instar-heads-page.ts` | The INSTAR heads sheet (`bun run solid --instar-heads`) |
 | `tools/raster/src/solid-instar-flight-page.ts` | The INSTAR flight strip (`bun run solid --instar-flight`) |
 | `tools/raster/src/strip-bake.ts` | One painted strip, baked and packed: the atlas the field fetches (`<name>-strip.webp`) |
 | `tools/raster/src/sling-draw-art.ts` | One frame of THE SLING's arm drawing home, drawn into a 2D context |

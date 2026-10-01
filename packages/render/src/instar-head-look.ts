@@ -13,6 +13,15 @@ import { drawTurnedHead } from "./instar-turn.js";
  * (`tools/versus/candidates/instar-head/`); the draw paths call
  * `INSTAR_HEAD.front`, `.side` and `.turned` every frame and never the
  * drawings directly.
+ *
+ * **The head side-on is drawn bigger than the body's unit** — the owner,
+ * 1 October 2026, on the four heads VERSUS offered: *keep current, all
+ * alternatives look worse. it altogether should be increased.* The body's
+ * girth, wings and tail are all in head radii, so it is the profile's head
+ * alone that grows (`SIDE_GROW`), by as much of it as the turn has reached:
+ * the face-on head keeps its size, for the eye and fire marks are pinned to
+ * it (`instar-eye.test.ts`), and through the cross-fade the two heads are
+ * the same size where they meet.
  */
 export const INSTAR_HEAD: {
   front: (ctx: CanvasRenderingContext2D, look: Look) => void;
@@ -20,9 +29,17 @@ export const INSTAR_HEAD: {
   turned: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void;
 } = {
   front: drawInstarFront,
-  side: drawSideHead,
-  turned: (ctx, look, yaw) => drawRigSideHead(ctx, look, yaw),
+  side: (ctx, look) => drawSideHead(ctx, grown(look)),
+  turned: (ctx, look, yaw) => drawRigSideHead(ctx, grown(look), yaw),
 };
+
+/** How much bigger the head is side-on than the body's head radius. */
+export const SIDE_GROW = 1.3;
+
+/** The look with its head radius grown by as far as the head has turned side-on. */
+export function grown(look: Look): Look {
+  return { ...look, r: look.r * (1 + (SIDE_GROW - 1) * look.f.side) };
+}
 
 /** The shipped face-on head, turned — named so a candidate can keep it. */
 export function drawInstarFront(ctx: CanvasRenderingContext2D, look: Look): void {
