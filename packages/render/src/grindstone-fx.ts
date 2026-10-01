@@ -7,6 +7,7 @@ import {
   grindstoneCut,
   grindstonePadAt,
 } from "./grindstone-shape.js";
+import { GrindstoneVerdicts } from "./grindstone-verdicts.js";
 import { HullShock } from "./hull-shock.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -64,6 +65,8 @@ export class GrindstoneFx {
   readonly shock = new HullShock();
   /** The blow a clean pass and an axle hit deal the wheel. */
   readonly hurt = new BossHurt();
+  /** Whether the last touch on each of the wheel's marks was right (`grindstone-verdicts.ts`). */
+  readonly marks = new GrindstoneVerdicts();
 
   /** How far the whole wheel is pressed down right now, in tiles. */
   get thud(): number {
@@ -102,6 +105,7 @@ export class GrindstoneFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("grindstone")) continue;
       const mid = grindstoneCentre(l, cfg);
@@ -176,6 +180,7 @@ export class GrindstoneFx {
     this.freeNow = Math.max(0, this.freeNow - FLASH_DECAY * step);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -189,6 +194,7 @@ export class GrindstoneFx {
     this.shock.clear();
     this.axleHex = PALETTE.hullRim;
     this.hurt.clear();
+    this.marks.clear();
   }
 }
 

@@ -133,9 +133,12 @@ export {
   type GrindstoneState,
   type GrindstoneStep,
   grinding,
+  grindstoneAxleAsks,
   grindstoneBoss,
   grindstoneClamped,
   grindstoneDone,
+  grindstoneFlatAsks,
+  grindstoneJawAsks,
   grindstoneJawHeld,
   grindstoneLitStep,
 } from "./grindstone.js";

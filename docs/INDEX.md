@@ -2014,6 +2014,7 @@ by hand never moves.
 | `packages/render/src/grindstone-fx.ts` | What THE GRINDSTONE leaves behind a frame (§33, *Presentation*) |
 | `packages/render/src/grindstone-jaw.ts` | **THE GRINDSTONE's caliper jaws**: THE HOOD's two, trembling at the tip while they stand open |
 | `packages/render/src/grindstone-blow.ts` | **THE GRINDSTONE's own blow at the hull** (`boss-strike-look.ts`) |
+| `packages/render/src/grindstone-verdicts.ts` | **THE GRINDSTONE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-drift.ts` | **THE GORGE's lobes lean on their intakes** |
 | `packages/render/src/gorge-depth.ts` | **THE GORGE in depth**: the sack is not a strip painted across the top of the field but a body bowed round… |

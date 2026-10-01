@@ -16,7 +16,10 @@ const FLAT_DOES =
   "back since it went down, and **every fresh reversal shaves grit** off the " +
   "flat while its pass is lit; a beat nobody rubbed grows grit back, and a " +
   "flat ground to nothing is the pass. A lift sets the count back to nought " +
-  "(sim/grindstone-hand.ts, packages/render/src/rub.ts).";
+  "(sim/grindstone-hand.ts, packages/render/src/rub.ts). While its pass is " +
+  "lit the flat wears the halo on its seat's screen and the partner's ring " +
+  "and clock on the other's; a pass ground clean greens, and a grind through " +
+  "the fade or a flat gritted over again reddens (render/grindstone-verdicts.ts).";
 
 const JAW_DOES =
   "A **chord** of two: the caliper's pads on the seat's jaw sit a quarter of " +
@@ -24,7 +27,11 @@ const JAW_DOES =
   "each says its pad down as it lands and up as it lifts. A lit clamp counts " +
   "the beats **both jaws are held shut together**; a pad lifting in a held " +
   "clamp starts the count again (sim/grindstone-hand.ts, " +
-  "packages/render/src/chord-pads.ts).";
+  "packages/render/src/chord-pads.ts). While a clamp is lit and the jaw is " +
+  "not yet held, it wears the halo on its seat's screen and the partner's " +
+  "ring and clock on the other's; a clamp held home greens both jaws, and a " +
+  "pad lifted, a pad through the fade or the caliper sprung reddens " +
+  "(render/grindstone-verdicts.ts).";
 
 const WHERE_UNTIL = "on both screens, from the drop into frame until the wheel spins free";
 const SOURCE =

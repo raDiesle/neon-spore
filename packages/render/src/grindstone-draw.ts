@@ -31,6 +31,7 @@ import {
   grindstoneR,
   grindstoneWheelPath,
 } from "./grindstone-shape.js";
+import { drawGrindstoneMarkFeedback } from "./grindstone-verdicts.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -106,6 +107,7 @@ export function drawGrindstone(
   }
 
   // Edge-on as it falls: the flats the pair ground turn away and only the rim is left.
+  ctx.save();
   ctx.scale(1 - (1 - EDGE_ON) * free, 1);
   const cuts: [number, number] = [
     grindstoneCut(l, grindstoneDepth(s, 0)),
@@ -133,6 +135,8 @@ export function drawGrindstone(
   if (faded === null) drawGrindstoneAxle(ctx, l, hurt.size, hurt.bright, s.locked, shot, beatPhase);
   else drawGrindstoneHeat(ctx, l, hurt.size, faded, grindstoneFadeTurn(s, faded, beat, beatPhase));
   drawGrindstoneFlash(ctx, l, fx.flash, fx.free);
+  ctx.restore();
+  drawGrindstoneMarkFeedback(ctx, l, s, time, cuts, shut, fx.marks.verdicts);
   ctx.restore();
 }
 

@@ -128,6 +128,21 @@ export function grindstoneClamped(s: GrindstoneState): boolean {
   return grindstoneJawHeld(s, 0) && grindstoneJawHeld(s, 1);
 }
 
+/** Whether the lit step asks this seat's flat to be ground. */
+export function grindstoneFlatAsks(s: GrindstoneState, side: 0 | 1): boolean {
+  return grinding(s) === side;
+}
+
+/** Whether the lit step is a clamp and this seat's jaw is not yet held shut. */
+export function grindstoneJawAsks(s: GrindstoneState, side: 0 | 1): boolean {
+  return grindstoneLitStep(s)?.ask === "clamp" && !grindstoneJawHeld(s, side);
+}
+
+/** Whether the axle asks for a shot: a fire step lit with the caliper locked, the only shot that lands (`grindstone-shot.ts`). */
+export function grindstoneAxleAsks(s: GrindstoneState): boolean {
+  return grindstoneLitStep(s)?.ask === "fire" && s.locked;
+}
+
 /** The wheel spinning free: the fight is over and it is only falling. */
 export function grindstoneDone(s: GrindstoneState): boolean {
   return s.phase === "free";

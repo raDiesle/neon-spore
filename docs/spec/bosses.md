@@ -10319,6 +10319,21 @@ last shot from its first beat. Whether any of it
 *reads* — whether rubbing a flat under a voice feels like grinding — is the
 owner's eye, after lane two and the touch sender, on two real phones.
 
+**Its marks answer a touch the way every mark does**
+(`render/grindstone-verdicts.ts`, `test/grindstone-verdict.test.ts`). Five
+marks: each flat, each jaw and the axle. While a pass is lit on a flat, and
+while a clamp is lit on a jaw not yet held shut, the mark wears the halo on
+its own seat's screen and the partner's ring and clock on the other's, so a
+seat already holding its jaw sees the other still waited on. The axle asks
+for its shot while a fire step stands with the caliper locked; either seat
+answers it, so it haloes on both screens with nobody's clock. A pass ground
+clean greens its flat, a clamp held greens both jaws and an axle hit greens
+the axle; a pad lifted off a held clamp reddens its own jaw, and a grind or
+a pad through the fade reddens both of that seat's marks. A step let run
+out — a flat gritted over again, the caliper sprung, a shot missed —
+reddens only what it asked. A flat or jaw worked by the wrong seat, and a
+shot of the wrong colour, stay silent, as the simulation is.
+
 ## 11.51 THE CYST — the boss one hand stills for the other to crack
 
 > A sac over the middle of the field, two flanks shuddering over a core.

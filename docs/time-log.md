@@ -30841,3 +30841,16 @@ Bottleneck: the context cut; every level is both pulls, so which stones a level 
 Bottleneck: the context cut; a `both` step's loose answers only its own cord, so the other had to stay owed past it.
 
 *Measured: 49 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE GRINDSTONE's marks answer a touch
+
+- reading: 5 min. The wheel's steps, hand, draw and events, and THE SLING's
+  verdicts to copy.
+- writing: 10 min. Three asking predicates in the simulation, the verdict
+  file, its wiring into the wheel's frame and its test, the spec and the
+  director's lines.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the context cut; placing the jaw marks meant reading the caliper's turn about its bolt so the ring sits where the touch is taken.
