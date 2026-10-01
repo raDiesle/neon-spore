@@ -1,5 +1,6 @@
 import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
+import { tautMilli } from "./scene-drag-taut.js";
 import { pumpCommands } from "./scene-pump.js";
 import { actCol } from "./scene-script.js";
 import { ringCommands } from "./scene-turn.js";
@@ -14,82 +15,10 @@ import { ringCommands } from "./scene-turn.js";
  * and the only one that has to know anything about the handles themselves —
  * how far each of them goes, and which way.
  *
+ * **How far a handle goes is `scene-drag-taut.ts`'s**, one number per handle.
  * **A handle that is turned is `scene-turn.ts`'s** — THE CLAW's crank, which a
  * film authors as a press rather than a drag, so nothing here meets one.
  */
-
-/**
- * How far a handle is carried when the film does not say: as far as it goes.
- *
- * The three numbers are the simulation's own, and are read off the config
- * rather than repeated here — `packages/sim/test/purity.test.ts` exists to
- * catch exactly the second copy this would otherwise be.
- */
-function tautMilli(target: DragTarget, cfg: SimConfig): number {
-  if (target === "lidString") return cfg.lidTautMilli;
-  if (target === "wardenTether") return cfg.wardenTautMilli;
-  // A held body has no taut at all — it is carried a tile at a time and may be
-  // carried again — so what a film that does not say means is one column.
-  if (target === "gripBody") return cfg.gripPushMilli;
-  // An arrow has no taut either: it does not travel, it is a switch a hand
-  // throws, and the distance is the one that counts as thrown
-  // (`choirArrowHeard`). The side is read off the target rather than authored —
-  // carrying one the wrong way is a thing the *pair* can do and not a thing a
-  // film would be written to do.
-  if (target === "choirLeft") return -cfg.choirPullMilli;
-  if (target === "choirRight") return cfg.choirPullMilli;
-  // A balloon's two handles are the arrows' arrangement again, with a body
-  // between them: each is carried **outward**, away from the skin, and taut is
-  // the stretch at which it gives (`sim/balloon-pull.ts`). The sign is the
-  // side, so a film says which handle and never how far.
-  if (target === "balloonLeft") return -cfg.balloonTautMilli;
-  if (target === "balloonRight") return cfg.balloonTautMilli;
-  // THE SINEW's two are pulled down as far as a hand reaches, and a film
-  // about this boss almost never wants that: the sum of the two pulls has to
-  // land inside a zone, so a page writes `toMilli` for each hand. Left out,
-  // it is one hand at the band's limit — the last fibre's own number.
-  if (target === "sinewLeft" || target === "sinewRight") return cfg.sinewReachMilli;
-  // THE SURGE's bulb is not carried at all: a thumb on the glass charges it
-  // and the lift is the gesture (`sim/surge-hand.ts` reads neither distance).
-  if (target === "surgeBulb") return 0;
-  // THE CURTAIN's hem is the same pull turned over: it is carried **up**, and
-  // the gap over the core opens at `curtainLiftMilli` and not a thousandth
-  // before (`sim/curtain-hand.ts`). The sign is the direction, so a film that
-  // does not say means all the way to the top — and a film that wrote this
-  // number positive would be a hand pulling the hem down over the core it is
-  // meant to be baring.
-  if (target === "curtainHem") return -cfg.curtainLiftMilli;
-  // THE HIVE's underside is hauled **down**, and the mass relaxes the
-  // thousandth it has come far enough (`sim/hive-hand.ts`); the carry is
-  // cumulative from the grab and the deepest it reached is what counts, so a
-  // film that does not say means the whole haul. The same handle in the
-  // navigator's hand (`hand: 2`) is a pinch on one lobe, which reads no
-  // distance at all and is carried this far for nothing.
-  if (target === "hiveLobe") return cfg.hiveHaulMilli;
-  // THE SPOOL's brake is a depth rather than a distance to anywhere
-  // (`sim/spool-hand.ts`), so a film about it writes `toMilli` every time; left
-  // out, it is the whole reach, which is the slowest the line runs.
-  if (target === "spoolBrake") return cfg.spoolReachMilli;
-  // THE HASP's latch is held down, and held is a depth past `haspGripMilli`
-  // (`sim/hasp.ts`): left out, a film carries it the whole reach.
-  if (target === "haspLatch") return cfg.haspReachMilli;
-  // THE RATCHET's catch is the same level on the other seat (`sim/ratchet.ts`),
-  // and its pawl is a press that reads no distance at all: the tick it goes
-  // down is the whole of it (`sim/ratchet-hand.ts`).
-  if (target === "ratchetCatch") return cfg.ratchetReachMilli;
-  if (target === "ratchetPawl") return 0;
-  // THE SCOUT's line reads no distance — a thumb on the little ship is the
-  // reel, held (`sim/scout-hand.ts`) — and its prime reads only the distance
-  // the thumb has travelled when it lets go, which has to be past
-  // `scoutPrimeMilli`; left out, a film carries it exactly that far.
-  if (target === "scoutLine") return 0;
-  if (target === "scoutPrime") return cfg.scoutPrimeMilli;
-  // THE THROAT's mouth is carried **up**, toward what is falling, and has no
-  // end but the box it is kept in (`throatAimAt`): left out, a film carries it
-  // one widest circle, which is a body reached from where it stood.
-  if (target === "throatAim") return -cfg.throatMaxRadiusMilli;
-  return cfg.mazeTurnMilli;
-}
 
 /**
  * Which way a handle is carried.

@@ -653,18 +653,15 @@ to something wrong and not a new look, because the spec names the shudder.
 Done when a frame test sees the globe's opening move across the beats after a
 hit and stand still on a quiet beat, and `bun run check` is green.
 
-## `scene-drag.ts` is past the 250-line limit, and two files THE THROAT grew are close
+## `band-control.ts` and `controls-round.ts` are one control set from 250
 
-- **Found:** 2026-10-01, claude/undertow-boss-rework-ccb2d2 and claude/throat-boss-rework-48518d
+- **Found:** 2026-10-01, claude/throat-boss-rework-48518d
 - **Where:** local
-- **Files:** `packages/content/src/scene-drag.ts`, `packages/render/src/band-control.ts`, `packages/content/src/controls-round.ts`
+- **Files:** `packages/render/src/band-control.ts`, `packages/content/src/controls-round.ts`
 
-THE UNDERTOW's rework replaced its pin and free with one tap and left the
-file at exactly 250, trimmed to get there; THE THROAT's rework, landing after
-it, added the pump's branch and took it to 259. It holds every boss's
-rehearsal drag, one branch per target, in a long run. Split the bosses'
-targets into `scene-drag-boss.ts`, called once from the file it came from.
-`band-control.ts` (236) and `controls-round.ts` (246) are next: one more
-control set in either and it goes past. Done when `scene-drag.ts` is under
-~200 lines, the next boss's drag goes in the split file, and `bun run check`
-is green with every scene test unchanged.
+THE THROAT's rework added a control set and left `band-control.ts` at 236
+lines and `controls-round.ts` at 246; the next boss with a set of its own
+takes either past the limit. (`scene-drag.ts`, which the same lane took to
+259, was split there: `scene-drag-taut.ts` holds how far each handle goes.)
+Split each along a seam it already has before the next set is added. Done
+when both are under ~200 lines and `bun run check` is green.
