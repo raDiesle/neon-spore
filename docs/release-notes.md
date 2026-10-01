@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 007958d48 — The rig's three presses are remembered on the device
+
+Once the spore over the wordmark has been pressed three times, this device remembers it in local storage: the menu opens on TESTING from then on — every reload, every ☰ — instead of on the front page. The TESTING page's own BACK clears it, so the front page is one press away when a tester wants to see what a player sees. Not a look: no frame of the game changes.
+
 ## 2026-10-01 · fd856eb42 — THE QUEEN's shell can turn, its plates and marks with it, offered in VERSUS as queen:plates turn
 
 Her seams are pinned by longitude (`queen-surface.ts`), so a turn of up to 45° on her outline's yaw slides them across her, takes an outer seam over the rim and brings a far one round. Her two marks ride the same turn by 9°, and the drawing, the hit test, the cue and the caption all ask `queenTurn`, so a thumb finds a mark where it is drawn. Shipped still: the field draws as it did. Exemption: a look the owner asked for by name.

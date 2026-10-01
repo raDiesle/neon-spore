@@ -31205,3 +31205,5 @@ Bottleneck: finding every place that locates a mark — drawing, hit test, cue a
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: which of three readings of "remember test mode" was meant — the page, a row, or the seat — had to be settled without the owner.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
