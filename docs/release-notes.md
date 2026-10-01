@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 2f8325cf4 — PINBALL: two funnels low on the table, so a falling ball reaches the ship only across its middle third
+
+A slope runs down from each side wall, three tiles up, to the floor a third of the way in. A ball that comes down on one rolls off towards the middle instead of reaching the ship's outer thirds, so the cannon has a third of the hull to cover, not all of it. The slope is a one-way gate: a shot fired from under a funnel still passes up through it. Only the speed into the slope is damped (`pinballFunnelPermille`), so the ball rolls instead of sticking.
+
 ## 2026-10-01 · c40a7fb59 — THE SEAM: a bolt stops on the ridge, bursting at the lit point and scuffing anywhere else
 
 A bolt fired at THE SEAM used to fly through the shell like air and was only judged where it left the top of the field. It is now drawn no further than where it meets the picture. At the part the step asks for, in its colour, it bursts in that colour and a ring opens round it. On the shell, a wrong colour, or the decoy's held column it leaves a small grey scuff, with no effect on the boss. The simulation's verdict is one function, `seamVerdict`, asked by both the rules and the picture, so the two cannot disagree.
