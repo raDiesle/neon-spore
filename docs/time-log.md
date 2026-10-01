@@ -31421,3 +31421,15 @@ Bottleneck: an owner's hold said in chat was not on the entry, so `next` handed 
 Bottleneck: reading all three candidates' code up front, before the first one could change.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's turn reaches wider and shakes
+
+- reading: 5 min. The drift, the parts it hands its hush to, and the tests
+  that press marks on it.
+- writing: 5 min. `reach` and `shake` on `INSTAR_DRIFT`, the jaw and the
+  glance held to their own reach, the mark tests run at the candidate's.
+- looking: 5 min. The drift strip after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the shared drift's speed ceilings are tested, so the wider turn had to be THE INSTAR's own fields rather than the table's numbers.

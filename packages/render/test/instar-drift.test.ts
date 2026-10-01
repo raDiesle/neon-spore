@@ -37,13 +37,14 @@ const L = computeLayout(VIEWPORT, CFG, "test");
 /** Ten minutes of the drift, in beats. */
 const SPAN = 600 / beatSeconds(CFG);
 
+/** The drift as the candidate offers it: on, reached wide, shaking. */
 function drifting<T>(run: () => T): T {
-  const was = INSTAR_DRIFT.amount;
-  INSTAR_DRIFT.amount = 1;
+  const was = { ...INSTAR_DRIFT };
+  Object.assign(INSTAR_DRIFT, { amount: 1, reach: 1.75, shake: 1 });
   try {
     return run();
   } finally {
-    INSTAR_DRIFT.amount = was;
+    Object.assign(INSTAR_DRIFT, was);
   }
 }
 

@@ -1,6 +1,6 @@
 import { FRONT, SIDE } from "@neon-spore/content";
 import { beatSeconds, type InstarState, type SimConfig } from "@neon-spore/sim";
-import { HUSH, idleDrift } from "./idle-drift.js";
+import { DEG, HUSH, idleDrift, subSeed, wander } from "./idle-drift.js";
 import { INSTAR_HEAD } from "./instar-head-look.js";
 import { instarParts } from "./instar-parts.js";
 import type { InstarDrift } from "./instar-place.js";
@@ -34,9 +34,21 @@ import { type SlowSpan, slowHush } from "./slow-hush.js";
  * SLOW is open over live marks (`HUSH.liveMark`, the owner, 27 September 2026),
  * not at all face-on (the turn hands the body over, `instarHandover`), and
  * stilled over the first beats of `down`, as the weave is.
+ *
+ * **`reach` and `shake` are THE INSTAR's own**, on top of the shared drift —
+ * the owner, 1 October 2026: the turn reads better, but the body should move
+ * and shake more. `reach` scales every drifted angle, parts and all, past the
+ * shared table's (`idle-drift.ts`'s ceilings are the shared drift's, at a
+ * reach of 1); `shake` adds a quick tremor to the body's roll and pitch, a
+ * second's cell rather than eight. Both ride the hush, so the body is as
+ * still over live marks, face-on and beaten as it was.
  */
 export const INSTAR_DRIFT: {
   amount: number;
+  /** How far past the shared drift every angle turns: 1 is `IDLE_DRIFT`'s. */
+  reach: number;
+  /** The tremor on the body's roll and pitch, as a share of `SHAKE`'s; 0 is none. */
+  shake: number;
   /** Whether each part drifts on the body as well (`instar-parts.ts`); off, the body turns whole. */
   parts: boolean;
   /** The head at `yaw` (`SIDE` profile, `FRONT` face-on), where the profile's head would be:
@@ -44,6 +56,8 @@ export const INSTAR_DRIFT: {
   head: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void;
 } = {
   amount: 0,
+  reach: 1,
+  shake: 0,
   parts: true,
   head: (ctx, look, yaw) => INSTAR_HEAD.turned(ctx, look, yaw),
 };
@@ -52,6 +66,8 @@ export const INSTAR_DRIFT: {
 const SEED = 163;
 /** Beats of `down` over which a beaten body stops turning. */
 const STILLING = 2;
+/** The tremor at a `shake` of 1, degrees and seconds: quick, and small beside the turn. */
+const SHAKE = { roll: { amp: 3, period: 1.1 }, pitch: { amp: 2, period: 0.9 } } as const;
 
 /** The drift this frame, about the body's middle as the weave carried it; `undefined` when off. */
 export function instarDrift(
@@ -72,12 +88,16 @@ export function instarDrift(
     instarHandover(f.side) *
     still;
   const time = (beat + beatPhase) * beatSeconds(cfg);
-  const pose = idleDrift(time, SEED, hush);
+  const reached = hush * INSTAR_DRIFT.reach;
+  const pose = idleDrift(time, SEED, reached);
+  const shake = hush * INSTAR_DRIFT.shake * DEG;
   return {
     pivotXMilli: (f.headX + f.rearX) / 2 + sway.xMilli,
     pivotYMilli: (f.headY + f.rearY) / 2 + sway.yMilli,
     ...pose,
-    ...(INSTAR_DRIFT.parts ? { parts: instarParts(time, hush, f, sway) } : {}),
+    roll: pose.roll + wander(time, subSeed(SEED, 8), SHAKE.roll) * shake,
+    pitch: pose.pitch + wander(time, subSeed(SEED, 9), SHAKE.pitch) * shake,
+    ...(INSTAR_DRIFT.parts ? { parts: instarParts(time, reached, f, sway) } : {}),
   };
 }
 

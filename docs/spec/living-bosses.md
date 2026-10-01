@@ -91,6 +91,17 @@ is pressed where its part carried it. `INSTAR_DRIFT.parts` off turns the body
 whole. Tests: `packages/render/test/instar-drift.test.ts`,
 `packages/render/test/instar-parts.test.ts`.
 
+**Retuned (1 October 2026, the owner: *looks better but can also increase
+visible movement shake of body*).** Every drifted angle, the parts' included,
+now reaches 1.75 times the shared drift's (`INSTAR_DRIFT.reach`), and a quick
+tremor rides the body's roll and pitch, 3° and 2° on a cell of about half a
+second (`INSTAR_DRIFT.shake`). This is THE INSTAR's own: the shared table and
+its speed ceilings above are unchanged, and the candidate goes past them
+because the owner asked for it. The jaw's breath and the eyes' glance stop at
+their own reach, so a pupil stays in its eye. Both ride the hush, so the body
+is as still over live marks, face-on and beaten as before, and the mark tests
+run at the candidate's reach.
+
 **Offered (1 October 2026, VERSUS `instar:head` / `drake`, `hound`,
 `viper`).** The owner: the side-on rig head *looks very geometrical … not
 natural shape of a living head*, and the face-on pose *looks good*. Each

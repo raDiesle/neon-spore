@@ -63,7 +63,11 @@ const minus = (a: PartAngles, b: PartAngles): PartAngles => ({
 });
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 
-/** The parts this frame, at `hush` — the body's, so a hushed body hushes all of it. */
+/**
+ * The parts this frame, at `hush` — the body's, so a hushed body hushes all of
+ * it. A `hush` past 1 is a drift reached wider (`INSTAR_DRIFT.reach`); the jaw
+ * and the eyes stop at their own reach, so a pupil stays in its eye.
+ */
 export function instarParts(
   time: number,
   hush: number,
@@ -90,12 +94,13 @@ export function instarParts(
   // and side-on it is held a third to a half open, so the breath fades by it.
   const spread = 1 - 0.7 * f.wing;
   const shut = clamp01(1 - (f.jawUp + f.jawDown));
-  const jaw = partOwn(time, partSeed(SEED, SEAT.jaw), "jaw").tilt * DEG * hush * shut;
+  const own = Math.min(1, hush);
+  const jaw = partOwn(time, partSeed(SEED, SEAT.jaw), "jaw").tilt * DEG * own * shut;
   return {
     headTurn: head.turn,
     headPlane: head.tilt + head.rotate,
     jaw,
-    glance: glance(time, SEED, hush),
+    glance: glance(time, SEED, own),
     wings: [wing(SEAT.nearWing, spread), wing(SEAT.farWing, spread)],
     tailPlane: tailPlane(time, hush, body),
     headXMilli: f.headX + sway.xMilli,

@@ -10,12 +10,16 @@ import { patch, type Variant } from "../../../variant.js";
  * profile to three-quarter and back, never the back of its skull. Hushed to a
  * tenth over live marks while THE SLOW is open, still face-on, stilled when
  * beaten — and the marks are pressed where they are drawn, drift and all.
+ *
+ * Retuned 1 October 2026 — the owner: it looks better, but the body's
+ * movement and shake should be bigger. Every angle now reaches 1.75 times the
+ * shared drift's, and a quick tremor rides the body's roll and pitch.
  */
 export const INSTAR_DRIFT_TURN: Variant = {
   slot: "instar:drift",
   name: "turn",
   sentence:
-    "turn — THE INSTAR's whole side-on body keeps turning a little on a slow drift, and its head turns on top of it toward the players, profile to three-quarter and back",
+    "turn — THE INSTAR's whole side-on body keeps turning on a wide slow drift with a tremor in it, and its head turns on top of it toward the players, profile to three-quarter and back",
   dir: "tools/versus/candidates/instar-drift/turn",
   patches: [
     patch({
@@ -24,9 +28,9 @@ export const INSTAR_DRIFT_TURN: Variant = {
       where: {
         file: "packages/render/src/instar-drift.ts",
         symbol: "INSTAR_DRIFT",
-        type: "{ amount: number; head: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void }",
+        type: "{ amount: number; reach: number; shake: number; head: (ctx: CanvasRenderingContext2D, look: Look, yaw: number) => void }",
       },
-      fields: { amount: 1 },
+      fields: { amount: 1, reach: 1.75, shake: 1 },
     }),
   ],
 };
