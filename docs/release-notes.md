@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · eda3c7207 — THE INSTAR's serpent candidate swims harder and shivers
+
+On the owner's VERSUS note that SERPENT looks better and the body could move and shake more: the wave down THE INSTAR's body in flight is half as big again (half a head radius at the neck to one and a half at the rear), a crest comes every two beats rather than three, the girth swells by up to 28%, and a quick small shiver runs down on top of the swim. The candidate only; the field is unchanged.
+
 ## 2026-10-01 · e59ad4257 — THE SEAM's false point will change the fuse, and THE INSTAR's ship waits on the owner
 
 The owner picked option 3 for THE SEAM's false point: on a hold step the fuse burns the other way or in grey, and every boss's hold step follows. THE INSTAR's ship is deferred until his VERSUS feedback, one candidate at a time, so `next` passes over it.

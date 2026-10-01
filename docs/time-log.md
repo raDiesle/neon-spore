@@ -31419,3 +31419,5 @@ Bottleneck: an owner's hold said in chat was not on the entry, so `next` handed 
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: reading all three candidates' code up front, before the first one could change.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
