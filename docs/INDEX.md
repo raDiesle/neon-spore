@@ -2568,6 +2568,7 @@ by hand never moves.
 | `apps/game/src/field-input.ts` | Everything a finger on the glass reaches: the field itself, a shake |
 | `apps/game/src/keys.ts` | commands from the keyboard — the test rig, not the game |
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
+| `apps/game/src/test-mode.ts` | Whether this device has been let into the rig, so the menu opens on TESTING |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
 | `apps/game/src/join.ts` | the room screen, paired with the network indicator (`join-chip.ts`) — four steps, one question each |

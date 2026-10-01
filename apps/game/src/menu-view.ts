@@ -9,6 +9,7 @@ import { entryRows, type MenuEntry } from "./menu-rows.js";
 import { buildSeats } from "./menu-seats.js";
 import { buildSettings, type SettingsHooks } from "./menu-settings.js";
 import { whoLine } from "./menu-who.js";
+import { writeTestMode } from "./test-mode.js";
 
 /**
  * The menu's markup, built here rather than written into index.html.
@@ -34,7 +35,8 @@ import { whoLine } from "./menu-who.js";
  * wordmark three times inside `RIG_TAPS_MS`, and nothing on the page says so:
  * it is not a way into the game, and the one person who wants it knows where it
  * is. A fourth press does nothing new, because the count is cleared the moment
- * the page opens.
+ * the page opens. **The device remembers it** (`test-mode.ts`): the menu opens
+ * on TESTING from then on, until the rig's own BACK takes it to the front page.
  *
  * The rows an entry list is drawn as are `menu-rows.ts`.
  */
@@ -166,10 +168,10 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   );
   rows.draw(h.play, playPage);
 
-  testingPage.append(
-    backButton((p) => show(p)),
-    el("h2", undefined, "TESTING"),
-  );
+  // The rig's BACK is the way out of test mode as well as off the page.
+  const leaveRig = backButton((p) => show(p));
+  leaveRig.addEventListener("click", () => writeTestMode(false));
+  testingPage.append(leaveRig, el("h2", undefined, "TESTING"));
   rows.draw(h.testing, testingPage);
 
   // **The seat is the rig's, and nobody else's** (14 September 2026, the owner).
@@ -200,6 +202,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     taps.push(now);
     if (taps.length < RIG_TAPS) return;
     taps = [];
+    writeTestMode(true);
     show("testing");
   });
 

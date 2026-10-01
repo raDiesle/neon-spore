@@ -31193,3 +31193,15 @@ Bottleneck: which vein faces us at which turn could only be settled by printing 
 Bottleneck: finding every place that locates a mark — drawing, hit test, cue and caption — so they all ask the one turn.
 
 *Measured: 58 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — The rig's three presses are remembered on the device
+
+- reading: 5 min. `menu-view.ts`'s spore door, `menu.ts`'s `open`, and
+  `last-wave.ts` for the storage pattern.
+- writing: 5 min. `test-mode.ts`, the two hooks in the menu, the test.
+- looking: 5 min. The preview: three presses, a reload onto TESTING, BACK,
+  a reload onto the front page.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: which of three readings of "remember test mode" was meant — the page, a row, or the seat — had to be settled without the owner.

@@ -62,6 +62,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
       "neon-spore.progress",
       "neon-spore.room",
       "neon-spore.settings",
+      "neon-spore.test-mode",
       "neon-spore.token",
       "neon-spore.view",
       "neon-spore.welcome",

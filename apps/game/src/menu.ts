@@ -8,6 +8,7 @@ import type { MenuPage } from "./menu-parts.js";
 import { bindMenuSteps } from "./menu-steps.js";
 import { buildMenu } from "./menu-view.js";
 import { pairsHere as pairs } from "./pairing.js";
+import { landingPage, readTestMode } from "./test-mode.js";
 
 export type { MainMenu, MenuBindings } from "./menu-bindings.js";
 /**
@@ -57,7 +58,8 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     b.run.hold("menu", false);
   };
   const open = (page: MenuPage = "root"): void => {
-    dom.show(page);
+    // A device let into the rig opens on it (`test-mode.ts`).
+    dom.show(landingPage(page, readTestMode()));
     dom.paintSeat(b.seat());
     paintLink();
     dom.root.classList.add("on");

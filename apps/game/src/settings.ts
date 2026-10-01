@@ -174,6 +174,7 @@ export const DEVICE_KEYS = [
   "neon-spore.last-wave",
   "neon-spore.room",
   "neon-spore.view",
+  "neon-spore.test-mode",
   "neon-spore.intro",
   "neon-spore.welcome",
 ] as const;
