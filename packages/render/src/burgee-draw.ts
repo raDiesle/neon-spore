@@ -32,6 +32,7 @@ import {
   burgeeTip,
   type Point,
 } from "./burgee-shape.js";
+import { drawBurgeeMarkFeedback } from "./burgee-verdicts.js";
 import { coreHurt } from "./core-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -121,6 +122,8 @@ export function drawBurgee(
 
   drawSpindle(ctx, l, world, s, beat, beatPhase, time, fx);
   drawKnob(ctx, l, pivot, 0.13);
+  const fade = 1 - burgeeSpent(s, cfg, beat, beatPhase);
+  drawBurgeeMarkFeedback(ctx, l, cfg, s, time, fade, fx.verdicts);
   ctx.restore();
 }
 

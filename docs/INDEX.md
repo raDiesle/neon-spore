@@ -1160,6 +1160,7 @@ by hand never moves.
 | `packages/render/src/burgee-blow.ts` | **THE BURGEE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/burgee-receipts.ts` | **What THE BURGEE's receipts are drawn as**, off the numbers `burgee-fx.ts` keeps: a freeze's snap |
 | `packages/render/src/burgee-grip.ts` | **THE BURGEE's two hands as controls**: the freeze ring `burgeeFreeze` and the draw's track `burgeeDraw` |
+| `packages/render/src/burgee-verdicts.ts` | **THE BURGEE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/effects.ts` | every transient the field keeps past its frame, and where each one is kept |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/sparks.ts` | the particles every impact spends, thrown out or drawn in |

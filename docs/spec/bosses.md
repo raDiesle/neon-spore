@@ -11407,6 +11407,22 @@ held over the middle, COMMA at under half its size, which falls the way
 cloth falls — rocking and turning over down the middle column — and lands
 plastered flat on the skin, its fly still rippling as it fades.
 
+**Its marks answer a touch the way every mark does**
+(`render/burgee-verdicts.ts`, `test/burgee-verdict.test.ts`). Three marks:
+the freeze ring, the draw's track from its tail, and the spindle. The ring
+asks the step's freezer until the flag is frozen, and the track asks the
+other seat — the halo on the asked seat's screen and the partner's ring and
+clock on the other's, so on a catch both screens wait on something, and on
+a recatch either seat is asked and nobody waits. The spindle asks for the
+shot on a fire step while it is lit, which is either seat's, so it haloes on
+both screens with nobody's clock. A freeze on the mark greens the ring and a
+flap reddens it; a flutter, or a freeze run out before the swipe, reddens
+the track; a catch or a recatch greens the ring and the track, and a catch's
+or a recatch's window run out reddens both; a hit greens the spindle and a shot run out reddens it.
+Between steps the ring and the track stand at the last lit catch's column,
+so a verdict stays where it was earned. A wrong colour stays silent, as the
+simulation is.
+
 ## 11.57 THE FLUE — an ember one seat keeps still for the other to tap
 
 > An ember drifts along a slot mid-hull on its own. One of you sends

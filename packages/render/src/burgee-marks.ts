@@ -41,7 +41,7 @@ const STUDS = [-0.62, 0, 0.62] as const;
 export function burgeeMarks(
   l: Layout,
   cfg: SimConfig,
-  step: BurgeeStep,
+  step: Pick<BurgeeStep, "offset">,
 ): { ring: Circle; from: Point; to: Point } {
   const at = burgeeTip(l, cfg, step.offset * 1000);
   const y = at.y + TRACK_BELOW * l.tile;

@@ -2,6 +2,7 @@ import { midCol, type SimConfig, type SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { BurgeeFlag } from "./burgee-flag.js";
 import { burgeePivot, burgeeSpindleAt, burgeeTip } from "./burgee-shape.js";
+import { BurgeeVerdicts } from "./burgee-verdicts.js";
 import type { Burst } from "./effects-boss.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -48,6 +49,8 @@ export class BurgeeFx {
   readonly flag = new BurgeeFlag();
   /** The blow a catch, a recatch and a hit deal the burgee, and a freeze's jab. */
   readonly hurt = new BossHurt();
+  /** Whether the last touch on each of the flag's marks was right (`burgee-verdicts.ts`). */
+  readonly verdicts = new BurgeeVerdicts();
 
   /** How much of a flutter is still in the canvas, 1 as it starts and 0 gone. */
   get limp(): number {
@@ -87,6 +90,7 @@ export class BurgeeFx {
     _beatSeconds: number,
     burst: Burst,
   ): void {
+    this.verdicts.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("burgee")) continue;
       const spindle = burgeeSpindleAt(l, cfg);
@@ -161,6 +165,7 @@ export class BurgeeFx {
     if (this.flashNow === 0) this.flashHits = 0;
     this.hurt.update(dt);
     this.flag.update(dt);
+    this.verdicts.update(dt);
   }
 
   clear(): void {
@@ -175,5 +180,6 @@ export class BurgeeFx {
     this.shotHex = PALETTE.hullRim;
     this.hurt.clear();
     this.flag.clear();
+    this.verdicts.clear();
   }
 }

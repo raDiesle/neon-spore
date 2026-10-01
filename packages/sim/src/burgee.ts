@@ -156,6 +156,16 @@ export function burgeeAims(s: BurgeeState, side: 0 | 1): boolean {
   return freezer !== side + 1;
 }
 
+/** Whether the freeze mark asks this seat's tap: its tap may still the flag, and it is not still already. */
+export function burgeeFreezeAsks(s: BurgeeState, side: 0 | 1): boolean {
+  return burgeeFreezes(s, side) && !burgeeFrozen(s);
+}
+
+/** Whether the spindle asks for a shot: a fire step lit with the spindle lit. */
+export function burgeeSpindleAsks(s: BurgeeState): boolean {
+  return s.spindleLit && burgeeLitStep(s)?.ask === "fire";
+}
+
 /**
  * Whether the flag is held on the lit spindle rather than swinging: once both
  * catches are in, and until a recatch lights with the flag creeping loose, or
