@@ -1449,6 +1449,7 @@ by hand never moves.
 | `packages/render/src/pinball-table.ts` | PINBALL's table: the frame it is played inside, and everything standing on it |
 | `packages/render/src/round-draw.ts` | Which bosses replace the whole picture, and what draws each |
 | `packages/render/src/round-strike-look.ts` | **What a round's own timeout hit looks like** — the slot a VERSUS candidate paints into |
+| `packages/render/src/round-hit.ts` | **The rock a whole-picture round brings down on its own hull** when its window runs out — fall, sparks, and the crack held for it, drawn by the round because its frame returns before the field ingests |
 | `packages/render/src/snake-head.ts` | The head, shut and open |
 | `packages/render/src/snake-home.ts` | **The mouth on the way home**, the picture half of `sim/snake-home.ts` |
 | `packages/render/src/snake-hint.ts` | **Which item the field's hint stands on**, and whether it is eaten or shot |

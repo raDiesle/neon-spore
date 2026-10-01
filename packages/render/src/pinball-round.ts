@@ -4,7 +4,7 @@ import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
-import { frame, surfaceSampler } from "./hull-frame.js";
+import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawAim, drawPowerBar } from "./pinball-aim.js";
@@ -136,12 +136,13 @@ export function drawPinballRound(
     view.time,
     mood,
     at,
-    () => true,
-    () => true,
+    effects.boss.hit.craterShown(l),
+    effects.boss.hit.crackShown(),
     skin.hull,
     { x: 0, y: 0 },
     f,
   );
+  effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
   // Over the ship, because both are *on* it: the ball waiting in the muzzle
   // between shots, the fire from the last one that got past it, and the
   // cheer for the last one that did not.

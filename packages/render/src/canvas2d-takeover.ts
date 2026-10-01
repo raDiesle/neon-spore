@@ -66,9 +66,13 @@ export function drawTakeover(
   // `canvas2d.ts` ingests nothing until after this returns, so the one
   // transient a round keeps is fed here: its verdicts round a thumb
   // (`effects-round-marks.ts`). The rehearsal's seat feeds its own (`guide-seat.ts`).
+  // And the rock a round brings down on its own hull, which the field would
+  // never get to draw: the wave changing is what brings it back (`round-hit.ts`).
   if (ROUND_DRAWS[world.boss?.kind ?? ""] !== undefined) {
     held.effects.boss.ingestRounds(view.events);
     held.effects.boss.updateRounds(view.dt);
+    held.effects.boss.hit.ingest(view.events, l, view.time, world.cfg);
+    held.effects.boss.hit.update(view.dt, l);
   }
   if (drawRound(ctx, l, view, held.effects)) {
     drawWaveOpening(ctx, l, world, {

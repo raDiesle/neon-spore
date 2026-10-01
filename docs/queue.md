@@ -392,28 +392,6 @@ already has a pattern for. Whoever takes this names it in the entry they
 leave behind, same as the four already listed, and it is a look:
 `tools/versus/candidates/`, never straight onto the field.
 
-## A whole-picture round's timeout hit is never drawn
-
-- **Found:** 2026-09-30, claude/queue-the-rounds-own-timeout-hit-offered-on-versus-bes
-- **Taken:** 2026-10-01, claude/queue-42-the-sluice-the-simulation-lane (claim: claude/queue-a-whole-picture-rounds-timeout-hit-is-never-draw)
-- **Files:** `packages/render/src/canvas2d-takeover.ts`, `packages/sim/src/pulse-round.ts`, `packages/render/src/effects-breach.ts`, `packages/render/test/frame.test.ts`
-
-THE PULSE's meter emptying calls `roundStrikesHull` and then enters its
-`verdict` phase, so the round still owns the picture on that tick:
-`canvas2d-takeover.ts` returns true before `canvas2d.ts` ingests the frame's
-events, and the `breach` event is dropped. No rock falls, and the VERSUS
-`round:timeout-hit` candidate can only be judged on THE FLEET and THE MIRROR,
-which draw over the field. The gauge, snake, pinball and scout end the same
-way and most likely lose theirs too. Decide in the takeover whether a round's
-breach is kept for the field (ingest it there, beside `ingestRounds`) or
-drawn by the round itself, and prove it in `frame.test.ts` with a pulse whose
-meter runs out: the rock's replay is live the first frame the field is back.
-
-A second thing to settle in the same lane: a round's breach falls from row 0,
-the whole height of the field at `meteorFastest`'s speed, so the hit reaches
-the skin about one and a half seconds after the round is over, which is the
-reason the VERSUS pose (`poses-round-timeout.ts`) replays every six seconds.
-
 ## Living bosses — THE INSTAR's body with weight, as a VERSUS candidate
 
 - **Found:** 2026-09-26, claude/living-motion-spec

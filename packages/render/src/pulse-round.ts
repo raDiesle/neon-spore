@@ -5,7 +5,7 @@ import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
-import { frame, surfaceSampler } from "./hull-frame.js";
+import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { type Layout, seatOf } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPulseDrops } from "./pulse-drop.js";
@@ -127,8 +127,7 @@ export function drawPulseRound(
   // **The membrane first, because the lanes hang off it.** The placeholders
   // are sunk into the ship, so where a lane *ends* is a question about the
   // hull's own skin — one `frame()` built here and handed to the layout, the
-  // hull pass and the drops alike, so all three agree about where the ship is
-  // this tick (`canvas2d.ts` makes the same bargain for the same reason).
+  // hull pass and the drops alike, so all three agree where the ship is.
   const { at, mood } = stillPose(view);
   const f = frame(l, view.time, mood, at);
   const field = pulseField(l, set, view.role, surfaceSampler(f));
@@ -159,12 +158,13 @@ export function drawPulseRound(
     view.time,
     mood,
     at,
-    () => true,
-    () => true,
+    effects.boss.hit.craterShown(l),
+    effects.boss.hit.crackShown(),
     skin.hull,
     { x: 0, y: 0 },
     f,
   );
+  effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
   // Over the hull and under what is still falling: the whole ship carrying the
   // colour of a body that got past its socket (`pulse-wash.ts`).
   drawPulseWash(ctx, l, surfaceSampler(f), pulseWash(cfg, boss, seat, world.tick));

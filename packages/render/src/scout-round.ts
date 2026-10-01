@@ -5,7 +5,7 @@ import { drawBackground } from "./field.js";
 import { tear } from "./flip-reveal.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
-import { frame } from "./hull-frame.js";
+import { frame, skinSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
@@ -111,12 +111,13 @@ export function drawScoutRound(
     view.time,
     mood,
     at,
-    () => true,
-    () => true,
+    effects.boss.hit.craterShown(l),
+    effects.boss.hit.crackShown(),
     skin.hull,
     { x: 0, y: 0 },
     f,
   );
+  effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
   // The two hands on the ship, after the hull: the arena's bottom row stands
   // on the hull's own surface, so a ring off the stern of a ship flown down
   // there would be painted over by the plating it is hanging in front of

@@ -30991,3 +30991,15 @@ Bottleneck: finding a pairing the page has not spent — `RepeatedTap` was the o
 Bottleneck: choosing the gesture — A DRAWN GLYPH was the one card with a stated reason and no concept, and putting the sign on the other seat's screen (`PerSeatTruth`) is what made it a boss rather than a drawing test.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — A whole-picture round's timeout hit is drawn
+
+- reading: 5 min. The takeover's early return, `ingestBreach`, `RockImpactFx`
+  and how the field holds a crack back for its rock.
+- writing: 10 min. `round-hit.ts`, the five rounds' hull calls, the test.
+- looking: 0 min. Proved in the frame log, no picture sent.
+- friction: 5 min. A context cut mid-lane, and a closure field that broke
+  `restart.test.ts`'s `toEqual`.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: finding that the rock arrives in its draw and not its update, which is what the first unit test missed.

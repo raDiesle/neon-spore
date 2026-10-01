@@ -4,7 +4,7 @@ import type { Effects } from "./effects.js";
 import { drawBackground } from "./field.js";
 import { drawHud } from "./hud.js";
 import { drawHull } from "./hull.js";
-import { frame } from "./hull-frame.js";
+import { frame, skinSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
@@ -107,12 +107,13 @@ export function drawSnakeRound(
     view.time,
     mood,
     at,
-    () => true,
-    () => true,
+    effects.boss.hit.craterShown(l),
+    effects.boss.hit.crackShown(),
     skin.hull,
     { x: 0, y: 0 },
     f,
   );
+  effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
   ctx.save();
   clipAboveHull(ctx, l, f, mood.intake);
   const emerging = drawBody(ctx, l, arena, view, boss);

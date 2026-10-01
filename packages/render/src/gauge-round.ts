@@ -13,7 +13,14 @@ import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeAsked, drawGaugeVerdicts } from "./gauge-marks.js";
 import { drawGaugeLead, drawGaugeLevel, drawGaugeVerdict } from "./gauge-words.js";
 import { drawHull } from "./hull.js";
-import { frame, type HullFrame, type HullMood, type LobePositions, surface } from "./hull-frame.js";
+import {
+  frame,
+  type HullFrame,
+  type HullMood,
+  type LobePositions,
+  skinSampler,
+  surface,
+} from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
@@ -124,13 +131,14 @@ export function drawGaugeRound(
     view.time,
     REST_MOOD,
     restAt(l),
-    undefined,
-    undefined,
+    effects.boss.hit.craterShown(l),
+    effects.boss.hit.crackShown(),
     skin,
     undefined,
     f,
     true,
   );
+  effects.boss.hit.draw(ctx, l, view.time, skinSampler(f));
 
   ctx.textAlign = "center";
   // The level's clock over the alien's head, and the siren over everything.

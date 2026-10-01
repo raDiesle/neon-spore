@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { GaugeMarks } from "./gauge-marks.js";
 import { PinballMarks } from "./pinball-marks.js";
 import { PulseMarks } from "./pulse-marks.js";
+import { RoundHit } from "./round-hit.js";
 import { ScoutMarks } from "./scout-marks.js";
 import { SnakeMarks } from "./snake-marks.js";
 
@@ -32,6 +33,9 @@ export class RoundMarks {
   readonly pulse = new PulseMarks();
   /** THE SCOUT's line's and prime's (`scout-marks.ts`). */
   readonly scout = new ScoutMarks();
+  /** The rock a round brings down when its window runs out (`round-hit.ts`),
+   * fed from the takeover alone: `ingestRounds` is the rehearsal's too. */
+  readonly hit = new RoundHit();
 
   ingestRounds(events: readonly SimEvent[]): void {
     this.gauge.ingest(events);
@@ -55,5 +59,6 @@ export class RoundMarks {
     this.pinball.clear();
     this.pulse.clear();
     this.scout.clear();
+    this.hit.clear();
   }
 }
