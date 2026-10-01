@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · c40a7fb59 — THE SEAM: a bolt stops on the ridge, bursting at the lit point and scuffing anywhere else
+
+A bolt fired at THE SEAM used to fly through the shell like air and was only judged where it left the top of the field. It is now drawn no further than where it meets the picture. At the part the step asks for, in its colour, it bursts in that colour and a ring opens round it. On the shell, a wrong colour, or the decoy's held column it leaves a small grey scuff, with no effect on the boss. The simulation's verdict is one function, `seamVerdict`, asked by both the rules and the picture, so the two cannot disagree.
+
 ## 2026-10-01 · 0434c509e — PINBALL: five boards of one to five targets, a clear band above the hull, a slower bar and a deader bounce
 
 The round now runs five boards, and each one has one more target than the one before it, from a single target to five. No piece may hang within five tiles of the hull (`pinballClearMilli`), so the air above the ship stays empty. The round's budget is 200 beats. The power bar fills half as fast. A bounce off a peg or block keeps 60% of the ball's speed instead of 88%, and the side walls are unchanged. The weakest launch is 60% of full strength, so the slower ball still reaches the boards. This is a look the owner asked for by name.
