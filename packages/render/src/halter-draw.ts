@@ -1,6 +1,7 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { type HalterState, halterLitStep, type World } from "@neon-spore/sim";
 import { coreHurt } from "./core-hurt.js";
+import type { GripVerdicts } from "./grip-verdict.js";
 import { drawHalterCore, drawHalterGrips, drawHalterSeamGlow } from "./halter-marks.js";
 import {
   type HalterSegment,
@@ -24,6 +25,7 @@ import {
   halterSpan,
   halterUpperPath,
 } from "./halter-shape.js";
+import { drawHalterMarkFeedback } from "./halter-verdicts.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
@@ -61,6 +63,7 @@ export function drawHalter(
   beat: number,
   beatPhase: number,
   time: number,
+  v: GripVerdicts,
 ): void {
   const cfg = world.cfg;
   const arrived = halterArrived(s, cfg, beat, beatPhase);
@@ -101,6 +104,7 @@ export function drawHalter(
     if (gap < halterGap(l, 0.9)) drawHalterSeamGlow(ctx, halterSeamPath(l, litK), beatPhase);
     drawHalterGrips(ctx, l, litK, s.grips[0] | s.grips[1], beatPhase);
   }
+  drawHalterMarkFeedback(ctx, l, s, time, v);
   ctx.restore();
 }
 

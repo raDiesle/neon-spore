@@ -2165,6 +2165,7 @@ by hand never moves.
 | `packages/render/src/halter-pose.ts` | **The clock THE HALTER is posed off** (§36, *Animation*) |
 | `packages/render/src/halter-shape.ts` | **THE HALTER's geometry**: where the seam is, and the plates it is made of |
 | `packages/render/src/halter-grip.ts` | **The grips on THE HALTER**: either seat's thumb on the lit segment's two grips, a finger of a chord each |
+| `packages/render/src/halter-verdicts.ts` | **THE HALTER's marks answering a touch the way every mark does** (`mark-feedback.ts`) |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |

@@ -129,7 +129,7 @@ export const INGEST_SILENT_BOSS_D = [
   "davitMiss",
   "davitSpent",
   "davitOut",
-  // THE HALTER's fourteen, the same (`packages/audio/src/bind-halter.ts`).
+  // THE HALTER's fourteen, the same: `halter-verdicts.ts`' (`packages/audio/src/bind-halter.ts`).
   "halterEnter",
   "halterLight",
   "halterSettle",

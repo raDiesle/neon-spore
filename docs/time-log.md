@@ -30886,3 +30886,16 @@ Bottleneck: the restart and the cut; the flanks are each tapped by one seat and 
 Bottleneck: the reland, where either seat may steer, so who the boom and the hook ask turns on whose thumb already holds it.
 
 *Measured: 94 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE HALTER's marks answer a touch
+
+- reading: 5 min. The seam's steps, hand and events, and THE DAVIT's
+  verdicts to copy.
+- writing: 15 min. Two asking predicates in the simulation, the verdict
+  file, its wiring into the seam's frame and its test, the spec and the
+  director's lines.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the rest — on a step only one seat grips, so the clock belongs on the resting screen alone, and the first test wrongly wanted it on both.

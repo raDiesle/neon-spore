@@ -10809,6 +10809,20 @@ whole splits the seam and ends the fight; and two devices part over a
 single stray command. Whether any of it *reads* — whether keeping still for
 a partner feels like helping them — is the owner's eye, on two real phones.
 
+**Its marks answer a touch the way every mark does**
+(`render/halter-verdicts.ts`, `test/halter-verdict.test.ts`). Three marks:
+the lit segment's two grips, each a little under the chord's reach, and the
+core, as wide as it is drawn. The grips are the chord, so they ask the seat
+the lit step wants gripping — the halo on the gripper's screen, the
+partner's ring and clock on the resting seat's, the one screen that must
+touch nothing and so waits. On a guard either seat may chord, so the grips
+ask both until one has a grip down, and then only that one. On a fire step
+with the centre bared the core asks for the shot, which is either seat's,
+so it haloes on both screens with nobody's clock. A crack or a guard made
+greens both grips and a hit greens the core; a slip, a startle, a segment
+run out or a guard sealed reddens both grips, and a shot run out the core.
+A wrong seat's touch and a wrong colour stay silent, as the simulation is.
+
 ## 11.54 THE CAPSTAN — the boss one hand rocks for the other to wear
 
 > A squat rusted drum on a cradle over the hull's middle, a grated band on

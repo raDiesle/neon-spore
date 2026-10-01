@@ -18,7 +18,10 @@ const GRIP_DOES =
   "beats and the two have held together for two more. Any command from the " +
   "resting seat is a stir that starts its count again, and a grip lifted " +
   "while the pair holds is a slip. Only while a rest-and-chord step is lit " +
-  "(sim/halter-hand.ts).";
+  "(sim/halter-hand.ts). While it asks, the grips wear the halo on the " +
+  "gripper's screen and the partner's ring and clock on the resting seat's; " +
+  "a crack or a guard greens them, and a slip, a startle or a step run out " +
+  "reddens them (render/halter-verdicts.ts).";
 
 const WHERE =
   "on the lit segment's seam, near each end of it, on both screens, while a rest-and-chord step is lit";

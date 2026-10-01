@@ -1,8 +1,9 @@
 /**
- * **The clock bosses' half of the surface, the fourth page** — THE WELL's face
- * and the thumb on its seam, THE GRINDSTONE's wheel, THE CYST's sac,
- * THE DAVIT's boom, THE HALTER's seam, THE CAPSTAN's drum, THE GALL's seam, THE VISE's
- * seed-case and THE TRIVET's stand.
+ * **The clock bosses' half of the surface, the fourth page** — THE GRINDSTONE's
+ * wheel, THE CYST's sac, THE DAVIT's boom, THE HALTER's seam, THE CAPSTAN's
+ * drum, THE GALL's seam, THE VISE's seed-case and THE TRIVET's stand. THE
+ * WELL's face went to the fifth page, its last row, when THE HALTER's asking
+ * predicates took this one to 252 lines.
  *
  * Cut when THE VALVE's window lengths took `boss-surface-clocks-c.ts` to 253
  * lines against a 250-line limit, along the seam the third page was cut on:
@@ -164,7 +165,9 @@ export {
   type HalterState,
   type HalterStep,
   halterBoss,
+  halterCoreAsks,
   halterDone,
+  halterGripAsks,
   halterGripped,
   halterGuarding,
   halterLitStep,
@@ -233,18 +236,3 @@ export {
 // And the lit step's window, so the ring the picture closes and the creep of
 // the lobes read the same number the simulation judges by (`vise-step.ts`).
 export { viseWindowBeats } from "./vise-step.js";
-// THE WELL's face, and the thumb on its seam: how far it has turned and which
-// way it is read, for the projection that draws it (`render/well-roll.ts`),
-// the hit test that answers it (`render/touch-well.ts`) and the director's
-// hand. On a clocks page at all because `boss-surface.ts` is at its limit
-// (`well.ts`).
-export {
-  NO_WELL_GRIP,
-  WELL_PHASES,
-  type WellPhase,
-  type WellState,
-  wellBoss,
-  wellHeldNow,
-  wellHoldLeft,
-  wellMaxOffsetMilli,
-} from "./well.js";

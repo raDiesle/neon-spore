@@ -7,6 +7,7 @@ import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
 import { GovernorFx } from "./governor-fx.js";
 import { GrindstoneFx } from "./grindstone-fx.js";
+import { HalterVerdicts } from "./halter-verdicts.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
@@ -30,6 +31,9 @@ export class LateRoster extends RoundMarks {
   /** THE DAVIT's marks' verdicts on a touch — it throws nothing else that
    * outlives a frame yet, so it has no fx of its own (`davit-verdicts.ts`). */
   readonly davit = new DavitVerdicts();
+  /** THE HALTER's marks' verdicts on a touch — nothing else of it outlives a
+   * frame, so it has no fx of its own (`halter-verdicts.ts`). */
+  readonly halter = new HalterVerdicts();
   /** THE TRIVET's thud, the clamps' flare, the hub's flash and the collapse's,
    * the hull shock, and its receipts' bursts — thrown the same on both
    * screens, and told the hub's colour by the drawer (`trivet-fx.ts`,

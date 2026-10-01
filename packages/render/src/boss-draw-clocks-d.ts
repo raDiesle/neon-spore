@@ -134,7 +134,7 @@ export function drawLatePairBoss(
   // grips, the bared centre shot; its tell is the tremor stopping
   // (`halter-draw.ts`). Nothing of it outlives a frame.
   if (boss.kind === "halter") {
-    drawHalter(ctx, l, world, boss, beat, beatPhase, time);
+    drawHalter(ctx, l, world, boss, beat, beatPhase, time, effects.boss.halter.verdicts);
     return;
   }
 

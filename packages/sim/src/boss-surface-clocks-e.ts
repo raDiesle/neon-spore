@@ -1,6 +1,8 @@
 /**
  * **The clock bosses' half of the surface, the fifth page** — THE BURGEE's
- * flag, and whatever comes after it.
+ * flag, whatever comes after it, and THE WELL's face, the fourth page's last
+ * row, moved across on 1 October 2026 when THE HALTER's asking predicates
+ * took that page past the limit.
  *
  * Cut on 27 September 2026, when THE BURGEE's block would have taken
  * `boss-surface-clocks-d.ts` to the 250-line limit. Unlike the cuts before
@@ -105,3 +107,18 @@ export {
 // roll-out's asks (`render/test/mark-feedback-roll-out.test.ts`) belong here
 // too, for the same reason.
 export { undertowFreeAsks, undertowPinAsks } from "./undertow-hand.js";
+// THE WELL's face, and the thumb on its seam: how far it has turned and which
+// way it is read, for the projection that draws it (`render/well-roll.ts`),
+// the hit test that answers it (`render/touch-well.ts`) and the director's
+// hand. On a clocks page at all because `boss-surface.ts` is at its limit
+// (`well.ts`).
+export {
+  NO_WELL_GRIP,
+  WELL_PHASES,
+  type WellPhase,
+  type WellState,
+  wellBoss,
+  wellHeldNow,
+  wellHoldLeft,
+  wellMaxOffsetMilli,
+} from "./well.js";

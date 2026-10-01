@@ -147,6 +147,27 @@ export function halterPairing(world: World, s: HalterState): 1 | 2 | null {
   return null;
 }
 
+/**
+ * Whether the lit step's grips are asking this seat for its chord this
+ * instant: the pilot on the left segment, the navigator on the right, either
+ * on a guard until one seat has a grip down — then only that one, so the seat
+ * resting sees its partner's chord waited on. What the grips' halo reads
+ * (`render/halter-verdicts.ts`).
+ */
+export function halterGripAsks(s: HalterState, side: 0 | 1): boolean {
+  const ask = halterLitStep(s)?.ask;
+  if (ask === "left") return side === 0;
+  if (ask === "right") return side === 1;
+  if (ask !== "guard") return false;
+  const other = side === 0 ? 1 : 0;
+  return s.grips[side] !== 0 || s.grips[other] === 0;
+}
+
+/** Whether the centre is asking for a shot this instant: a fire step lit, with the centre bare. */
+export function halterCoreAsks(s: HalterState): boolean {
+  return s.bared && halterLitStep(s)?.ask === "fire";
+}
+
 /** The seam spent: the fight is over and it is only hanging open. */
 export function halterDone(s: HalterState): boolean {
   return s.phase === "spent";
