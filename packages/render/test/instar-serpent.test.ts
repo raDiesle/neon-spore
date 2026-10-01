@@ -56,7 +56,7 @@ describe("THE INSTAR's serpentine flight", () => {
     let was = 0;
     for (let k = 1; k < END * TPB; k++) {
       const sw = serpentAt(k / TPB, END);
-      const tail = sw ? sw.across(1) * sw.env : 0;
+      const tail = sw ? (sw.across(1) + sw.shiver(1)) * sw.env : 0;
       expect(Math.abs(tail - was), `tick ${k}`).toBeLessThan(0.1);
       was = tail;
     }

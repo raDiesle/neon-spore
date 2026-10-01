@@ -12,9 +12,10 @@ import { chainAt } from "./solid-motion.js";
  * not be carried stiff. A wave runs down the spine from the neck to the
  * engines while the body flies (`instar-flight.ts`), one and a half crests
  * along it at once, small at the neck and growing to the rear, so the head
- * leads and the tail whips; a crest toward the players swells the body as it
- * passes; and the wings beat once a crest, slowly, on the wave at the
- * shoulders rather than on their own clock.
+ * leads and the tail whips; a quicker, smaller shiver runs down on top of it,
+ * so the body shakes as it swims; a crest toward the players swells the body
+ * as it passes; and the wings beat once a crest on the wave at the shoulders
+ * rather than on their own clock.
  *
  * **It grows out of the body at rest and dies back into it**: the envelope is
  * nought at the flight's first beat and at its last, so the body that lands is
@@ -32,6 +33,8 @@ export interface InstarSerpent {
   env: number;
   /** How far the spine at `u` (0 the neck, 1 the rear) is carried down, in head radii. */
   across: (u: number) => number;
+  /** The shiver on top of the swim at `u`, in head radii: quick and small, toward the rear. */
+  shiver: (u: number) => number;
   /** How much the body at `u` swells toward the players, as a share of its girth. */
   deep: (u: number) => number;
   /** The wing's beat, -1..1, read off the wave at the shoulders. */
@@ -39,13 +42,18 @@ export interface InstarSerpent {
 }
 
 /** Beats a crest takes to come round, and how many crests the body holds at once. */
-const PERIOD = 3;
+const PERIOD = 2;
 const CRESTS = 1.5;
-/** The wave at the neck and at the rear, in head radii. */
-const AT_NECK = 1 / 3;
-const AT_REAR = 1;
+/** The wave at the neck and at the rear, in head radii — half as big again as
+ * first offered, on the owner's *more movement shake of body*, 1 October 2026. */
+const AT_NECK = 1 / 2;
+const AT_REAR = 3 / 2;
 /** How far a crest toward the players swells the girth. */
-const SWELL = 0.18;
+const SWELL = 0.28;
+/** The shiver: beats one takes, how many the body holds, and its size at the rear in head radii. */
+const SHIVER_PERIOD = 1 / 2;
+const SHIVERS = 3;
+const SHIVER = 0.14;
 /** Where the wings' shoulders are along the body (`instar-profile.ts` `back(0.42)`). */
 const SHOULDERS = 0.42;
 /** Beats the wave takes to grow at the start and to die at the end. */
@@ -56,6 +64,7 @@ const LINKS = 32;
 const TAU = Math.PI * 2;
 const LAG = (CRESTS * PERIOD) / LINKS;
 const FALLOFF = (AT_REAR / AT_NECK) ** (1 / LINKS);
+const SHIVER_LAG = (SHIVERS * SHIVER_PERIOD) / LINKS;
 
 /** The wave `b` beats into a flight `end` beats long; `undefined` outside it. */
 export function serpentAt(b: number, end: number): InstarSerpent | undefined {
@@ -69,6 +78,7 @@ export function serpentAt(b: number, end: number): InstarSerpent | undefined {
   return {
     env,
     across,
+    shiver: (u) => SHIVER * u * Math.sin(((b - SHIVER_LAG * u * LINKS) / SHIVER_PERIOD) * TAU),
     deep: (u) => SWELL * quarter(u),
     flap: across(SHOULDERS) / (AT_NECK * FALLOFF ** (SHOULDERS * LINKS)),
   };
@@ -89,7 +99,7 @@ export function instarSerpent(
 /** How far the spine `u` along is carried down this frame, in pixels; nought with no wave. */
 export function swimAt(look: Pick<Look, "r" | "serpent">, u: number): number {
   const sw = look.serpent;
-  return sw ? look.r * sw.across(u) * sw.env : 0;
+  return sw ? look.r * (sw.across(u) + sw.shiver(u)) * sw.env : 0;
 }
 
 /** What the girth `u` along is multiplied by this frame; one with no wave. */

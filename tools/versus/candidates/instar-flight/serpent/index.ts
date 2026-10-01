@@ -10,12 +10,16 @@ import { patch, type Variant } from "../../../variant.js";
  * swells the body as it goes by; and the wings beat once a crest on the wave
  * at the shoulders. It grows out of the body at rest and dies back into it
  * before the landing, so nothing snaps.
+ *
+ * Retuned the same day on the owner's *can also be more movement shake of
+ * body*: the wave is half as big again and a crest comes every two beats,
+ * and a quick small shiver runs down on top of it.
  */
 export const INSTAR_FLIGHT_SERPENT: Variant = {
   slot: "instar:flight",
   name: "serpent",
   sentence:
-    "serpent — on its flights THE INSTAR swims: a wave runs down its body from the neck to the tail, growing toward the rear, and the wings beat with it",
+    "serpent — on its flights THE INSTAR swims: a wave runs down its body from the neck to the tail, growing toward the rear with a shiver on top, and the wings beat with it",
   dir: "tools/versus/candidates/instar-flight/serpent",
   patches: [
     patch({

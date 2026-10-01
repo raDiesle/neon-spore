@@ -31407,3 +31407,15 @@ Bottleneck: the twelve registrations a new boss needs outside the simulation, fo
 Bottleneck: an owner's hold said in chat was not on the entry, so `next` handed it out.
 
 *Measured: 2 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE INSTAR's serpent swims harder
+
+- reading: 15 min. The three candidates the owner judged, the serpent's
+  chain, the drift's shared ceilings and the tests that hold them.
+- writing: 5 min. The wave half as big again and quicker, a shiver on top,
+  the test's tail reading the shiver too.
+- looking: 5 min. The flight strip before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading all three candidates' code up front, before the first one could change.

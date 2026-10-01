@@ -113,6 +113,13 @@ has none. The face-on half of a flight is unchanged. Test:
 `packages/render/test/instar-serpent.test.ts`; the strip:
 `bun run solid --instar-flight`.
 
+**Retuned (1 October 2026, the owner: *looks better, can also be more
+movement shake of body*).** The wave is half as big again — half a head radius
+at the neck to one and a half at the rear — and a crest comes every two beats
+rather than three. The girth swells by up to 28%. A shiver now runs down
+on top of the swim, three to the body, one every half beat, growing to a
+seventh of a head radius at the rear, so the body shakes as it swims.
+
 ### How far it reaches, by kind of body
 
 - **A body on the rig** (`packages/render/src/solid-rig.ts`) takes all four
