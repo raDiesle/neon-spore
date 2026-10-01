@@ -3,6 +3,7 @@ import {
   TRIVET_PADS,
   type TrivetState,
   type TrivetStep,
+  trivetAsksFoot,
   trivetLitStep,
   type World,
 } from "@neon-spore/sim";
@@ -18,7 +19,6 @@ import type { TrivetFx } from "./trivet-fx.js";
 import { drawTrivetFace, drawTrivetFlash, drawTrivetSockets } from "./trivet-marks.js";
 import {
   trivetArrived,
-  trivetAsksFoot,
   trivetBuckle,
   trivetClamp,
   trivetFootLift,
@@ -45,6 +45,7 @@ import {
   trivetNeedleSink,
   trivetStoryDx,
 } from "./trivet-story.js";
+import { drawTrivetMarkFeedback } from "./trivet-verdicts.js";
 
 /** How far the hub sinks as the stand collapses, in tiles. */
 const SINK = 1.4;
@@ -118,6 +119,7 @@ export function drawTrivet(
 
   // The middle leg first, behind the two a seat answers for; it never lifts.
   drawLeg(ctx, l, root(2), lowered(trivetFoot(l, 2, 0, buckle), fall));
+  const feet: Point[] = [];
   for (const side of [0, 1] as const) {
     const up =
       trivetFootLift(world, s, side, beat, beatPhase) + trivetLurchLift(s, side, beat, beatPhase);
@@ -133,6 +135,7 @@ export function drawTrivet(
     drawLeg(ctx, l, from, foot);
     drawPlate(ctx, l, s, step, side, foot, beatPhase, fx.snap(side));
     ctx.globalAlpha = alpha;
+    feet.push(foot);
   }
 
   // The needle behind the hub it leaves, falling toward the hull under its column.
@@ -141,6 +144,7 @@ export function drawTrivet(
   const dx = trivetStoryDx(l, world, s);
   drawTrivetNeedle(ctx, l, hub, out, trivetNeedleSink(s, beat, beatPhase), dx, toHull, beatPhase);
 
+  ctx.save();
   ctx.translate(hub.x, hub.y);
   ctx.rotate(hub.tilt);
   drawHub(ctx, l, time, fx.hurt.value);
@@ -150,6 +154,9 @@ export function drawTrivet(
   const hurt = coreHurt(s.hits);
   drawTrivetFace(ctx, l, hurt.size * (1 - 0.5 * buckle), hurt.bright, s.hubLit, lit, beatPhase);
   drawTrivetFlash(ctx, l, fx.flash, fx.collapse);
+  ctx.restore();
+  const at = { hub, feet: [feet[0], feet[1]] as [Point, Point], needle: { x: dx, y: toHull } };
+  drawTrivetMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
   ctx.restore();
 }
 

@@ -8,6 +8,7 @@ import { PAINTED_STRIPS } from "./painted-strips.js";
 import { PALETTE } from "./palette.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { trivetCentre, trivetFoot, trivetHubR } from "./trivet-shape.js";
+import { TrivetVerdicts } from "./trivet-verdicts.js";
 
 /**
  * What THE TRIVET leaves behind a frame (§30, *Presentation*): the **thud** of
@@ -71,6 +72,8 @@ export class TrivetFx {
   readonly hurt = new BossHurt();
   /** The painted slam a plant throws under the foot: an offered look, off until installed. */
   readonly plant = new SpriteBursts(PAINTED_STRIPS["trivet-plant"]);
+  /** Was the last touch on each mark right (`trivet-verdicts.ts`). */
+  readonly marks = new TrivetVerdicts();
 
   /** How far the whole stand is pressed down right now, in tiles. */
   get thud(): number {
@@ -104,6 +107,7 @@ export class TrivetFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("trivet")) continue;
       const mid = trivetCentre(l, cfg);
@@ -173,6 +177,7 @@ export class TrivetFx {
     this.shock.update(dt);
     this.hurt.update(dt);
     this.plant.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -186,6 +191,7 @@ export class TrivetFx {
     this.hubHex = PALETTE.hullRim;
     this.hurt.clear();
     this.plant.clear();
+    this.marks.clear();
   }
 }
 

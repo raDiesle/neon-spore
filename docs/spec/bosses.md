@@ -9787,6 +9787,21 @@ script answered whole collapses the stand and ends the fight. Whether any
 of it *reads* — whether three thumbs on one phone is a stance or a
 cramp — is the owner's eye, after lane two.
 
+**Its marks answer a touch the way every mark does** (`render/trivet-verdicts.ts`,
+`test/trivet-verdict.test.ts`). Four marks: each outer foot, the hub and the
+hull under the needle. While the lit step wants a foot's chord — its own, a
+brace of both, or the lurch leaning on it — and the chord is not held down,
+the foot wears the halo on its own seat's screen and the partner's ring and
+clock on the other's, so a seat already holding in a brace sees the foot still
+up. The hub asks for its shot while it is lit on a fire step, or on a lurch
+once its foot is held, and the hull under the needle for the shield under its
+column; either seat answers those two, so they halo on both screens with
+nobody's clock. A plant greens its foot and a brace greens both; a lit pad
+lifted reddens its own foot; a hub hit and a needle turned green their marks.
+A step let run out — a foot springing, the stand rocking, a shot, a lurch or a
+needle missed — reddens only what it asked. A pad pressed by the wrong seat,
+and a shot of the wrong colour, stay silent, as the simulation is.
+
 ## 11.48 THE PLUMB — the boss two pulls hold level, then shoot into
 
 > A bob hung skewed over the middle of the field, both weights swinging

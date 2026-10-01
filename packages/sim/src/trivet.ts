@@ -142,6 +142,33 @@ export function trivetClosed(s: TrivetState): boolean {
   return false;
 }
 
+/** Whether the lit step wants foot `side`'s own sockets: its own chord, both, or the lurch leaning on it. */
+export function trivetAsksFoot(s: TrivetState, side: 0 | 1): boolean {
+  const step = trivetLitStep(s);
+  const ask = step?.ask;
+  if (step !== null && ask === "tip") return trivetTipSide(step) === side;
+  return ask === "both" || ask === (side === 0 ? "front" : "rear");
+}
+
+/** Whether foot `side`'s seat is still owed its chord: wanted by the lit step, and not held down. */
+export function trivetFootAsks(s: TrivetState, side: 0 | 1): boolean {
+  const step = trivetLitStep(s);
+  return step !== null && trivetAsksFoot(s, side) && !trivetChordHeld(s, side, step.pads);
+}
+
+/** Whether the hub asks for a shot: a fire step, or a lurch with its chord held, the hub lit for both. */
+export function trivetHubAsks(s: TrivetState): boolean {
+  const step = trivetLitStep(s);
+  if (step === null || !s.hubLit) return false;
+  if (step.ask === "fire") return true;
+  return step.ask === "tip" && trivetChordHeld(s, trivetTipSide(step), step.pads);
+}
+
+/** Whether a needle hangs over its column, asking the shield under it. */
+export function trivetNeedleAsks(s: TrivetState): boolean {
+  return trivetLitStep(s)?.ask === "needle";
+}
+
 /** The stand collapsing: the fight is over and it is only falling. */
 export function trivetDone(s: TrivetState): boolean {
   return s.phase === "collapse";

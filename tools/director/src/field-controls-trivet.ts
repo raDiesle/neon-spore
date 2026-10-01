@@ -20,7 +20,10 @@ const FOOT_DOES =
   "pad stays down together and plants the foot when they run out; **a lit " +
   "pad lifting slips the chord** and the count starts again. A finger past the " +
   "last pad is nobody's. The stand takes a chord whenever it stands, until it " +
-  "collapses (sim/trivet-hand.ts).";
+  "collapses (sim/trivet-hand.ts). While the lit step wants a foot's chord " +
+  "and it is not held, the foot wears the halo on its seat's screen and the " +
+  "partner's ring and clock on the other's; a plant or a brace greens, and a " +
+  "slip or a foot springing reddens (render/trivet-verdicts.ts).";
 
 export const TRIVET_CONTROLS: readonly FieldControlDef[] = [
   {
