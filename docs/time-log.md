@@ -30826,3 +30826,16 @@ Bottleneck: the context cut; the hub's halo had to be drawn after the hub, in th
 Bottleneck: the context cut; every level is both pulls, so which stones a level asks had to be read off the hand, not the step's name.
 
 *Measured: 40 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-01 — THE SLING's marks answer a touch
+
+- reading: 5 min. The fork's step, hand and draw, and THE PLUMB's verdicts
+  to copy.
+- writing: 15 min. The cup's asking predicate in the simulation, the verdict
+  file, its wiring into the fork's frame and its test, the spec and the
+  director's line.
+- looking: 0 min. The frame tests count the halo, the clock and the red.
+- friction: 5 min. A context cut mid-lane.
+- landing: 5 min. `check:fast` and `land`.
+
+Bottleneck: the context cut; a `both` step's loose answers only its own cord, so the other had to stay owed past it.

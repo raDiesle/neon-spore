@@ -209,6 +209,7 @@ export {
   type SlingStep,
   slingAsks,
   slingBoss,
+  slingCupAsks,
   slingDone,
   slingLitStep,
   slingSwipe,

@@ -10126,6 +10126,20 @@ any of it *reads* — whether a swipe at the lift under a voice is a flick or
 a fumble — is the owner's eye, after lane two and the touch sender, on two
 real phones.
 
+**Its marks answer a touch the way every mark does** (`render/sling-verdicts.ts`,
+`test/sling-verdict.test.ts`). Three marks: each cord and the cup. While a
+draw step is lit on a cord, or a `both` step its seat has not yet loosed, the
+cord wears the halo on its own seat's screen and the partner's ring and clock
+on the other's, so a seat already loosed sees the cord still waited on. The
+cup asks for its shot while a fire step stands with the yoke lit; either seat
+answers it, so it haloes on both screens with nobody's clock. A true loose
+greens its own cord, a steady greens both and a cup hit greens the cup; a
+lift let go short of true, and a draw through the cool, redden their own
+cord. A step let run out — an arm sprung back, the yoke dimmed, a shot
+missed — reddens only what it asked and was not yet loosed. A cord drawn by
+the wrong seat, and a shot of the wrong colour, stay silent, as the
+simulation is.
+
 ## 11.50 THE GRINDSTONE — the boss two thumbs grind true, then shoot into
 
 > A stone wheel on an axle over the middle of the field, both flats

@@ -108,6 +108,11 @@ export function slingAsks(s: SlingState, side: 0 | 1): boolean {
   return ask === (side === 0 ? "left" : "right");
 }
 
+/** Whether the cup asks for a shot: a fire step lit with the yoke lit, the only shot that lands (`sling-shot.ts`). */
+export function slingCupAsks(s: SlingState): boolean {
+  return slingLitStep(s)?.ask === "fire" && s.yokeLit;
+}
+
 /** The side a swipe went, from its signed `fromMilli`, or null for a lift with no swipe. */
 export function slingSwipe(fromMilli: number): SlingAim | null {
   if (fromMilli < 0) return "left";

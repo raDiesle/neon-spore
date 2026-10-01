@@ -2,8 +2,9 @@ import { LIGHT_HALF } from "@neon-spore/content";
 import { type SlingState, slingAsks, slingLitStep, type World } from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
-import type { Layout } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import type { SlingFx } from "./sling-fx.js";
 import { drawSlingCord, drawSlingCup, drawSlingHeat } from "./sling-marks.js";
 import {
   slingArrived,
@@ -14,7 +15,8 @@ import {
   slingTension,
   slingWindowLeft,
 } from "./sling-pose.js";
-import { slingHome, slingTinePath } from "./sling-shape.js";
+import { slingCupRadius, slingHandle, slingHome, slingTinePath, slingTip } from "./sling-shape.js";
+import { drawSlingMarkFeedback } from "./sling-verdicts.js";
 
 /**
  * **THE SLING** (§32): a forked bracket over the middle column, folded until
@@ -34,6 +36,7 @@ export function drawSling(
   beat: number,
   beatPhase: number,
   time: number,
+  fx: SlingFx,
 ): void {
   const cfg = world.cfg;
   const arrived = slingArrived(s, cfg, beat, beatPhase);
@@ -46,18 +49,23 @@ export function drawSling(
 
   const step = slingLitStep(s);
   const cooled = slingCooled(s, cfg, beat, beatPhase);
+  const cords: Circle[] = [];
   for (const side of [0, 1] as const) {
     drawTine(ctx, l, side, arrived, time);
     const tension =
       cooled === null
         ? slingTension(world, s, side, beat, beatPhase)
         : slingCoolTension(s, side, cooled, beatPhase);
-    const asking = step !== null && step.ask !== "fire" && slingAsks(s, side);
-    drawSlingCord(ctx, l, side, tension, asking, beatPhase);
+    drawSlingCord(ctx, l, side, tension, slingAsks(s, side), beatPhase);
+    cords.push(cordMark(l, side, tension));
   }
+  const r = slingCupRadius(l);
+  const at = { cup: { x: 0, y: -r * 0.2, r }, cords: [cords[0], cords[1]] as [Circle, Circle] };
 
   if (cooled !== null) {
     drawSlingHeat(ctx, l, cooled, beatPhase);
+    // Nothing asks through the cool, but a draw in it is a red still to see.
+    drawSlingMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
     ctx.restore();
     return;
   }
@@ -70,8 +78,16 @@ export function drawSling(
     ? { color: step.color, left: slingWindowLeft(world, s, beat, beatPhase) }
     : null;
   drawSlingCup(ctx, l, slingCupGlow(world, s, beat, beatPhase), lit, beatPhase);
+  drawSlingMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
 
   ctx.restore();
+}
+
+/** A cord's mark: round its middle at this frame's draw, half a tile out. */
+function cordMark(l: Layout, side: 0 | 1, tension: number): Circle {
+  const tip = slingTip(l, side, 1);
+  const handle = slingHandle(l, side, tension);
+  return { x: (tip.x + handle.x) / 2, y: (tip.y + handle.y) / 2, r: l.tile * 0.5 };
 }
 
 /** One tine, splayed to `arrived`: scoured steel, the key light on it, its dark outline. */

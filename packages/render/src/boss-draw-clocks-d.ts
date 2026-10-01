@@ -74,7 +74,7 @@ export function drawLatePairBoss(
   // loosed true (`sling-fx.ts`): its hands and effects are the second half of
   // its look.
   if (boss.kind === "sling") {
-    drawSling(ctx, l, world, boss, beat, beatPhase, time);
+    drawSling(ctx, l, world, boss, beat, beatPhase, time, effects.boss.sling);
     effects.boss.sling.draw.draw(ctx);
     return;
   }

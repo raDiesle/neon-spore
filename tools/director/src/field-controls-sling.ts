@@ -14,7 +14,11 @@ const DOES =
   "swipes toward the lit side is a true loose; one too soon, the wrong way or " +
   "with no swipe springs the arm slack, the step still lit. Asked only while " +
   "the lit step wants this seat's draw, so a fire step's cannon answers " +
-  "underneath it (sim/sling-hand.ts).";
+  "underneath it (sim/sling-hand.ts). While the step is lit on this cord and " +
+  "it is not yet loosed, the cord wears the halo on its seat's screen and the " +
+  "partner's ring and clock on the other's; a true loose or a steady greens, " +
+  "and a lift too soon, a draw through the cool or an arm sprung back reddens " +
+  "(render/sling-verdicts.ts).";
 
 const SOURCE =
   "handles.ts — slingDrawUnder() under handleUnder(); the swipe's side carried on the lift by touch.ts' swiped set";

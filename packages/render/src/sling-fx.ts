@@ -2,10 +2,12 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PAINTED_STRIPS } from "./painted-strips.js";
 import { slingCentre, slingHandle, slingTip } from "./sling-shape.js";
+import { SlingVerdicts } from "./sling-verdicts.js";
 import { SpriteBursts } from "./sprite-burst.js";
 
 /**
- * What THE SLING leaves behind a frame: so far only, behind `?raster=1`, the
+ * What THE SLING leaves behind a frame: its marks' verdicts (`marks`,
+ * `sling-verdicts.ts`) and, behind `?raster=1`, the
  * painted draw — a cord hauled down off its tine and locked, a smear, a
  * strain running its length and the catch snapping shut (`draw`,
  * `docs/raster.md`), which draws nothing until a host installs its atlas. The
@@ -23,8 +25,11 @@ const DRAW_TILES = 3;
 export class SlingFx {
   /** The painted draw `slingLoose` throws over the cord: an offered look, off until installed. */
   readonly draw = new SpriteBursts(PAINTED_STRIPS["sling-draw"]);
+  /** Each mark's last answer, for the ring over it. */
+  readonly marks = new SlingVerdicts();
 
   ingest(events: readonly SimEvent[], l: Layout, cfg: SimConfig): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (e.type !== "slingLoose") continue;
       const home = slingCentre(l, cfg);
@@ -41,9 +46,11 @@ export class SlingFx {
 
   update(dt: number): void {
     this.draw.update(dt);
+    this.marks.update(dt);
   }
 
   reset(): void {
     this.draw.clear();
+    this.marks.clear();
   }
 }
