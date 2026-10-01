@@ -437,6 +437,7 @@ flat. `bun run check` proves the tests.
 ## Living bosses — the surface marks by longitude, once an outline body turns
 
 - **Found:** 2026-09-27, claude/queue-reprise-parts
+- **Taken:** 2026-10-01, claude/queue-the-instars-turned-body-draws-13-more-fills-than (claim: claude/queue-living-bosses-the-surface-marks-by-longitude-onc)
 - **Files:** `packages/content/src/surface.ts`, `packages/render/src/outline-drift.ts`, `packages/render/src/reprise-body.ts`, `packages/render/src/queen-figure.ts`, `docs/spec/living-bosses.md`
 - **Asks:** which outline body turns, and how far — THE REPRISE's sac, the queen's shell, or none, which closes this entry?
 - **Answered:** 2026-10-01 — both, over either alone and over closing it: THE REPRISE's sac first, in its own lane, since no hit test reads a mark on it; then the queen's shell, whose marks her drops and hit test follow. How far is the looks rule's: far enough to be seen (`docs/looks.md`), offered in VERSUS beside the still body.
