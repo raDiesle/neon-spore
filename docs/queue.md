@@ -395,6 +395,7 @@ leave behind, same as the four already listed, and it is a look:
 ## THE INSTAR's parts drift on their own
 
 - **Found:** 2026-10-01, claude/queue-living-bosses-the-instar-turns-on-the-idle-drift
+- **Taken:** 2026-10-01, claude/queue-living-bosses-the-instars-serpentine-flight-as-a (claim: claude/queue-the-instars-parts-drift-on-their-own)
 - **Where:** local
 - **Needs:** Living bosses — THE INSTAR turns on the idle drift, as a VERSUS candidate
 - **Files:** `packages/render/src/instar-profile.ts`, `packages/render/src/instar-drift.ts`, `packages/render/src/instar-rig-head-draw.ts`, `packages/render/src/instar-wings.ts`, `packages/render/src/instar-tail.ts`, `packages/render/src/idle-drift.ts`, `packages/render/test/instar-drift.test.ts`
