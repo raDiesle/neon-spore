@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-01 · 89e600d1f — THE GRINDSTONE's marks answer a touch the way every mark does
+
+Each flat wears the halo on its own seat's screen and the partner's ring and clock on the other's while its pass is lit, and each jaw while a clamp is lit and it is not yet held; the axle haloes on both screens with the caliper locked on a fire step. A clean pass, a held clamp and an axle hit green their marks; a slip, a grind or pad through the fade, and a step run out redden only what was asked (render/grindstone-verdicts.ts).
+
 ## 2026-10-01 · 2c10a557e — THE SLING's marks answer a touch the way every mark does
 
 Each cord haloes on its own seat's screen and shows the partner's ring and clock on the other's while a draw is lit on it and not yet loosed; the cup haloes on both screens while a fire step stands with the yoke lit. A true loose, a steady and a cup hit green their marks; a lift short of true, a draw through the cool, and a step let run out redden only what was asked.

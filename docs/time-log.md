@@ -30854,3 +30854,5 @@ Bottleneck: the context cut; a `both` step's loose answers only its own cord, so
 - landing: 5 min. `check:fast` and `land`.
 
 Bottleneck: the context cut; placing the jaw marks meant reading the caliper's turn about its bolt so the ring sits where the touch is taken.
+
+*Measured: 58 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
